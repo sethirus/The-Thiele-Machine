@@ -6791,7 +6791,7 @@ def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[F
         r"mu_is_initial|mu_is_minimal|landauer_valid|"
         # Layer 5+: Derivations
         r"information_causality|born_rule|no_cloning|tsirelson|"
-        r"subsumption|main_subsumption|"
+        r"subsumption|sighted_program_not_turing_witness|"
         # ThieleMachine concrete types (wrap kernel types)
         r"ConcreteState|ThieleInstr|CHSH_TRIAL|Trial|chsh_of_trials|"
         r"concrete_receipts|prog_of_strategy|local_fragment|"
@@ -6920,6 +6920,16 @@ def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[F
             # File imports chain modules — the connectivity rule handles this.
             # Only flag if it looks like a phantom import (imports exist but
             # no definitions, records, or operations reference the imports).
+            continue
+
+        # No chain usage AND no chain imports — this is a real gap, unless the
+        # file carries an explicit proof-connectivity waiver. Honouring the same
+        # marker as PROOF_CONNECTIVITY_GAP / PROOF_BODY_FOUNDATION_DISCONNECT:
+        # a file that documents *why* it is standalone should say so once, not
+        # be driven to fake a link (an unused identity on vm_mu satisfied this
+        # rule for twelve files and told the reader nothing). Waivers are
+        # counted in the WAIVERS census in the report.
+        if _PROOF_CONNECTIVITY_NOTE_RE.search(text):
             continue
 
         # No chain usage AND no chain imports — this is a real gap
@@ -7338,6 +7348,43 @@ def _compile_individual_file(coq_file: Path, repo_root: Path) -> Finding | None:
     return None
 
 
+def count_suppression_markers(repo_root: Path) -> dict:
+    """Count in-source Inquisitor suppression markers across the Coq corpus.
+
+    Rules in this file honour two markers -- `(* SAFE: <reason> *)` and
+    `(* INQUISITOR NOTE: <reason> *)` -- by skipping the check at that site.
+    They are legitimate (many mark genuinely safe constructs) but they are also
+    the reason a zero finding count is not the same as a clean scan. This
+    census is reported alongside the severity counts so the badge cannot be
+    read as stronger than it is.
+
+    Counts marker occurrences, not silenced findings: a marker may guard a site
+    no rule would have flagged anyway. It is an upper bound on waived checks.
+    """
+    note_re = re.compile(r"INQUISITOR NOTE")
+    safe_re = re.compile(r"\(\*\s*SAFE:")
+    note_total = 0
+    safe_total = 0
+    files_with_markers = 0
+    for path in sorted((repo_root / "coq").rglob("*.v")):
+        try:
+            text = path.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        n = len(note_re.findall(text))
+        s = len(safe_re.findall(text))
+        if n or s:
+            files_with_markers += 1
+        note_total += n
+        safe_total += s
+    return {
+        "inquisitor_note": note_total,
+        "safe": safe_total,
+        "total": note_total + safe_total,
+        "files": files_with_markers,
+    }
+
+
 def write_report(
     report_path: Path,
     repo_root: Path,
@@ -7366,6 +7413,25 @@ def write_report(
     lines.append(f"- HIGH: {len(by_sev.get('HIGH', []))}\n")
     lines.append(f"- MEDIUM: {len(by_sev.get('MEDIUM', []))}\n")
     lines.append(f"- LOW: {len(by_sev.get('LOW', []))}\n")
+
+    # Waiver census. A finding count of zero means "zero UNSUPPRESSED findings":
+    # rules honour in-source `(* SAFE: ... *)` and `(* INQUISITOR NOTE: ... *)`
+    # markers, which silence a check at that site. Reporting only the finding
+    # counts lets a reader take "0 HIGH" as "nothing was ever flagged", which is
+    # not what it means. The census below is the denominator that makes the
+    # numerator honest, so it is printed next to it rather than buried.
+    waivers = count_suppression_markers(repo_root)
+    lines.append(
+        f"- WAIVERS: {waivers['total']} in-source suppression markers "
+        f"across {waivers['files']} files "
+        f"({waivers['inquisitor_note']} `INQUISITOR NOTE`, "
+        f"{waivers['safe']} `(* SAFE: *)`)\n"
+    )
+    lines.append(
+        "  - Read the severity counts as *unsuppressed* findings. Each waiver "
+        "silences one check at one site; the justification is the comment "
+        "text itself. Grep for the markers to audit them.\n"
+    )
     lines.append("\n")
 
     lines.append("## Rules\n")

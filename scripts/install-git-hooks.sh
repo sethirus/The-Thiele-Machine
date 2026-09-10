@@ -20,8 +20,8 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-if [ ! -d ".git" ]; then
-    echo "ERROR: .git/ directory not found. This is not a git checkout." >&2
+if ! git rev-parse --git-dir >/dev/null 2>&1; then
+    echo "ERROR: This is not a git checkout or linked worktree." >&2
     exit 1
 fi
 
@@ -31,6 +31,9 @@ if [ ! -f ".githooks/pre-commit" ]; then
 fi
 
 current="$(git config --local --get core.hooksPath || true)"
+
+# Repair executable permissions even when the config was already installed.
+chmod +x .githooks/pre-commit
 
 if [ "$current" = ".githooks" ]; then
     # Already configured; nothing to do. Stay quiet so this is cheap to
@@ -44,7 +47,6 @@ if [ -n "$current" ] && [ "$current" != ".githooks" ]; then
 fi
 
 git config --local core.hooksPath .githooks
-chmod +x .githooks/pre-commit
 
 echo "✓ core.hooksPath -> .githooks"
 echo ""
@@ -55,4 +57,7 @@ echo "  - artifacts/proof_dependency_{dag,connectivity}.json"
 echo "  - artifacts/proof_dependency_file_graph.mmd"
 echo "  - artifacts/PROOF_FOUNDATION_AUDIT.md"
 echo "  - artifacts/final_claim_audit/*.json"
+echo "  - generated extraction, VM, and affected assumption/vacuity evidence"
 echo "Coq proof-scope drift is also gated when .v / _CoqProject changes are staged."
+echo "The hook requires staged inputs, the CI toolchains, and a passing strict test suite."
+echo "See .github/CONTRIBUTING.md for setup and GitHub Actions permissions."

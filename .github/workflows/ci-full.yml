@@ -185,6 +185,15 @@ jobs:
   fpga-bitstream:
     name: FPGA bitstream generation (Kintex-7 K325T / ffg900 / openXC7)
     runs-on: ubuntu-latest
+    env:
+      # Revisions corresponding to the successful 2026-07-14 run
+      # https://github.com/sethirus/The-Thiele-Machine/actions/runs/29304801708
+      # The RTL is unchanged since that run. Building moving upstream heads
+      # later introduced post-placement relocation and routing timeouts.
+      # Keep the router, chip database and frame packager reproducible together.
+      NEXTPNR_REV: 683858daf7b85e5984ecccb27884c88df3ec01f6
+      PRJXRAY_REV: c9f02d8576042325425824647ab5555b1bc77833
+      PRJXRAY_DB_REV: 381966a746cb4cf4a7f854f0e53caa3bf74fbe62
     # No `needs:` — this job only reads .v files from the repo at checkout
     # and produces its own bitstream end-to-end. Previously gated as
     # `needs: hardware-synthesis` for ordering, which serialized 15m + 21m
@@ -226,8 +235,12 @@ jobs:
 
       - name: Build nextpnr-xilinx (openXC7)
         run: |
-          git clone --depth 1 https://github.com/openXC7/nextpnr-xilinx.git /opt/nextpnr-xilinx
+          git init /opt/nextpnr-xilinx
           cd /opt/nextpnr-xilinx
+          git remote add origin https://github.com/openXC7/nextpnr-xilinx.git
+          git fetch --depth 1 origin "$NEXTPNR_REV"
+          git checkout --detach FETCH_HEAD
+          test "$(git rev-parse HEAD)" = "$NEXTPNR_REV"
           git submodule update --init --recursive --depth 1
           # Trim non-Kintex-7 device databases to keep the chipdb step slim.
           # Keep all xc7k325t* (parent dir + ffg676 + ffg900 package subdirs)
@@ -246,8 +259,12 @@ jobs:
 
       - name: Build prjxray xc7frames2bit
         run: |
-          git clone --depth 1 https://github.com/SymbiFlow/prjxray.git /opt/prjxray
+          git init /opt/prjxray
           cd /opt/prjxray
+          git remote add origin https://github.com/SymbiFlow/prjxray.git
+          git fetch --depth 1 origin "$PRJXRAY_REV"
+          git checkout --detach FETCH_HEAD
+          test "$(git rev-parse HEAD)" = "$PRJXRAY_REV"
           git submodule update --init --recursive
           rm -rf third_party/yosys
           cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF .
@@ -263,7 +280,11 @@ jobs:
         # reuse that copy). Clone openxc7/prjxray-db directly here and trim
         # only non-kintex7 families.
         run: |
-          git clone --depth 1 https://github.com/openxc7/prjxray-db.git /opt/prjxray-db
+          git init /opt/prjxray-db
+          git -C /opt/prjxray-db remote add origin https://github.com/openxc7/prjxray-db.git
+          git -C /opt/prjxray-db fetch --depth 1 origin "$PRJXRAY_DB_REV"
+          git -C /opt/prjxray-db checkout --detach FETCH_HEAD
+          test "$(git -C /opt/prjxray-db rev-parse HEAD)" = "$PRJXRAY_DB_REV"
           rm -rf /opt/prjxray-db/artix7 /opt/prjxray-db/spartan7 /opt/prjxray-db/zynq7
           test -f /opt/prjxray-db/kintex7/mapping/devices.yaml
           test -f /opt/prjxray-db/kintex7/xc7k325tffg900-2/part.yaml

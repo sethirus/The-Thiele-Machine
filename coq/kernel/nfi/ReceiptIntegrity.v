@@ -430,16 +430,25 @@ Proof.
     exact IHrest.
 Qed.
 
-(** Non-Forgeability Theorem
-    
-    If receipt_chain_valid holds, then the claimed μ
-    was EARNED through the specified computation.
-    
-    FALSIFIER: Produce a valid receipt chain where:
-    - chain_final_mu ≠ sum of actual instruction costs
-    
-    This is impossible by construction: receipt_mu_consistent
-    enforces the equality at each step.
+(** Receipt Validation Soundness
+
+    If receipt_chain_valid holds, then the claimed μ equals the sum of the
+    instruction costs in the chain.
+
+    SCOPE. This is soundness of the validation predicate, not unforgeability.
+    Any chain that *passes* receipt_chain_valid has final μ equal to the summed
+    costs, because receipt_mu_consistent enforces the equality stepwise. That
+    is what makes the checker meaningful.
+
+    It is not a security property. There is no adversary model here, no
+    computational hardness assumption, and no claim that a colliding chain is
+    infeasible to produce; an adversary free to choose the chain can simply
+    emit a consistent one. Unforgeability would additionally require the hash
+    chain to be collision-resistant, which is a cryptographic assumption this
+    development neither makes nor needs.
+
+    FALSIFIER: Produce a chain satisfying receipt_chain_valid whose
+    chain_final_mu differs from the sum of its instruction costs.
     *)
 
 Theorem valid_chain_mu_equals_computation :

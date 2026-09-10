@@ -1,909 +1,906 @@
-DIGEST 181a23cf1213d2809ab821283d339f75
+DIGEST 199fb1d087074c68ec06ee83edca4108
 FKernel.Unitarity
-R753:759 Kernel.VMState <> <> lib
-R761:766 Kernel.VMStep <> <> lib
-R796:806 Kernel.MuCostModel <> <> lib
-R825:839 Coq.Reals.Reals <> <> lib
-R857:873 Coq.micromega.Lra <> <> lib
-R891:909 Coq.micromega.Psatz <> <> lib
-def 1191:1207 <> pauli_tr_identity
-R1211:1211 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 1307:1322 <> pauli_tr_sigma_x
-R1326:1326 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 1402:1417 <> pauli_tr_sigma_y
-R1421:1421 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 1498:1513 <> pauli_tr_sigma_z
-R1517:1517 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 2224:2232 <> trace_rho
-R2243:2243 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 2235:2235 <> x:1
-binder 2237:2237 <> y:2
-binder 2239:2239 <> z:3
-R2248:2248 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R2334:2338 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R2305:2309 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R2276:2280 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R2272:2274 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R2255:2271 Kernel.Unitarity <> pauli_tr_identity def
-R2301:2303 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R2282:2284 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2281:2281 Kernel.Unitarity <> x:1 var
-R2285:2300 Kernel.Unitarity <> pauli_tr_sigma_x def
-R2330:2332 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R2311:2313 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2310:2310 Kernel.Unitarity <> y:2 var
-R2314:2329 Kernel.Unitarity <> pauli_tr_sigma_y def
-R2359:2361 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R2340:2342 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2339:2339 Kernel.Unitarity <> z:3 var
-R2343:2358 Kernel.Unitarity <> pauli_tr_sigma_z def
-def 3474:3490 <> trace_rho_squared
-R3501:3501 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 3493:3493 <> x:4
-binder 3495:3495 <> y:5
-binder 3497:3497 <> z:6
-R3506:3506 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3513:3513 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R3533:3536 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R3527:3529 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R3521:3523 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R3515:3517 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R3519:3519 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3518:3518 Kernel.Unitarity <> x:4 var
-R3520:3520 Kernel.Unitarity <> x:4 var
-R3525:3525 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3524:3524 Kernel.Unitarity <> y:5 var
-R3526:3526 Kernel.Unitarity <> y:5 var
-R3531:3531 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3530:3530 Kernel.Unitarity <> z:6 var
-R3532:3532 Kernel.Unitarity <> z:6 var
-def 4173:4183 <> lambda_plus
-R4194:4194 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 4186:4186 <> x:7
-binder 4188:4188 <> y:8
-binder 4190:4190 <> z:9
-R4199:4199 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4206:4206 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4233:4236 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4208:4210 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4211:4214 Coq.Reals.R_sqrt <> sqrt def
-R4226:4228 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4220:4222 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4218:4218 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4217:4217 Kernel.Unitarity <> x:7 var
-R4219:4219 Kernel.Unitarity <> x:7 var
-R4224:4224 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4223:4223 Kernel.Unitarity <> y:8 var
-R4225:4225 Kernel.Unitarity <> y:8 var
-R4230:4230 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4229:4229 Kernel.Unitarity <> z:9 var
-R4231:4231 Kernel.Unitarity <> z:9 var
-def 4252:4263 <> lambda_minus
-R4274:4274 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 4266:4266 <> x:10
-binder 4268:4268 <> y:11
-binder 4270:4270 <> z:12
-R4279:4279 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4286:4286 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4313:4316 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4288:4290 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4291:4294 Coq.Reals.R_sqrt <> sqrt def
-R4306:4308 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4300:4302 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4298:4298 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4297:4297 Kernel.Unitarity <> x:10 var
-R4299:4299 Kernel.Unitarity <> x:10 var
-R4304:4304 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4303:4303 Kernel.Unitarity <> y:11 var
-R4305:4305 Kernel.Unitarity <> y:11 var
-R4310:4310 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4309:4309 Kernel.Unitarity <> z:12 var
-R4311:4311 Kernel.Unitarity <> z:12 var
-rec 4836:4844 <> Evolution
-proj 4902:4906 <> evo_x
-proj 4930:4934 <> evo_y
-proj 4958:4962 <> evo_z
-proj 5019:5024 <> evo_mu
-R4911:4914 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4910:4910 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4916:4919 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4915:4915 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4921:4924 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4920:4920 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4925:4925 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4939:4942 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4938:4938 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4944:4947 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4943:4943 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4949:4952 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4948:4948 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4953:4953 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4967:4970 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4966:4966 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4972:4975 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4971:4971 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4977:4980 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4976:4976 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4981:4981 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5028:5028 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 5419:5434 <> trace_preserving
-R5441:5449 Kernel.Unitarity <> Evolution rec
-binder 5437:5437 <> E:18
-binder 5471:5471 <> x:19
-binder 5473:5473 <> y:20
-binder 5475:5475 <> z:21
-R5541:5559 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5478:5486 Kernel.Unitarity <> trace_rho def
-R5492:5496 Kernel.Unitarity <> evo_x proj
-R5489:5489 Kernel.Unitarity <> E:18 var
-R5499:5499 Kernel.Unitarity <> x:19 var
-R5501:5501 Kernel.Unitarity <> y:20 var
-R5503:5503 Kernel.Unitarity <> z:21 var
-R5510:5514 Kernel.Unitarity <> evo_y proj
-R5507:5507 Kernel.Unitarity <> E:18 var
-R5517:5517 Kernel.Unitarity <> x:19 var
-R5519:5519 Kernel.Unitarity <> y:20 var
-R5521:5521 Kernel.Unitarity <> z:21 var
-R5528:5532 Kernel.Unitarity <> evo_z proj
-R5525:5525 Kernel.Unitarity <> E:18 var
-R5535:5535 Kernel.Unitarity <> x:19 var
-R5537:5537 Kernel.Unitarity <> y:20 var
-R5539:5539 Kernel.Unitarity <> z:21 var
-R5560:5568 Kernel.Unitarity <> trace_rho def
-R5570:5570 Kernel.Unitarity <> x:19 var
-R5572:5572 Kernel.Unitarity <> y:20 var
-R5574:5574 Kernel.Unitarity <> z:21 var
-def 6213:6232 <> purity_nonincreasing
-R6239:6247 Kernel.Unitarity <> Evolution rec
-binder 6235:6235 <> E:22
-binder 6269:6269 <> x:23
-binder 6271:6271 <> y:24
-binder 6273:6273 <> z:25
-R6300:6307 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6295:6298 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R6289:6291 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6283:6285 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6281:6281 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6280:6280 Kernel.Unitarity <> x:23 var
-R6282:6282 Kernel.Unitarity <> x:23 var
-R6287:6287 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6286:6286 Kernel.Unitarity <> y:24 var
-R6288:6288 Kernel.Unitarity <> y:24 var
-R6293:6293 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6292:6292 Kernel.Unitarity <> z:25 var
-R6294:6294 Kernel.Unitarity <> z:25 var
-R6427:6430 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R6385:6391 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6343:6349 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6308:6308 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6324:6326 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6342:6342 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6312:6316 Kernel.Unitarity <> evo_x proj
-R6309:6309 Kernel.Unitarity <> E:22 var
-R6319:6319 Kernel.Unitarity <> x:23 var
-R6321:6321 Kernel.Unitarity <> y:24 var
-R6323:6323 Kernel.Unitarity <> z:25 var
-R6330:6334 Kernel.Unitarity <> evo_x proj
-R6327:6327 Kernel.Unitarity <> E:22 var
-R6337:6337 Kernel.Unitarity <> x:23 var
-R6339:6339 Kernel.Unitarity <> y:24 var
-R6341:6341 Kernel.Unitarity <> z:25 var
-R6350:6350 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6366:6368 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6384:6384 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6354:6358 Kernel.Unitarity <> evo_y proj
-R6351:6351 Kernel.Unitarity <> E:22 var
-R6361:6361 Kernel.Unitarity <> x:23 var
-R6363:6363 Kernel.Unitarity <> y:24 var
-R6365:6365 Kernel.Unitarity <> z:25 var
-R6372:6376 Kernel.Unitarity <> evo_y proj
-R6369:6369 Kernel.Unitarity <> E:22 var
-R6379:6379 Kernel.Unitarity <> x:23 var
-R6381:6381 Kernel.Unitarity <> y:24 var
-R6383:6383 Kernel.Unitarity <> z:25 var
-R6392:6392 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6408:6410 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6426:6426 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6396:6400 Kernel.Unitarity <> evo_z proj
-R6393:6393 Kernel.Unitarity <> E:22 var
-R6403:6403 Kernel.Unitarity <> x:23 var
-R6405:6405 Kernel.Unitarity <> y:24 var
-R6407:6407 Kernel.Unitarity <> z:25 var
-R6414:6418 Kernel.Unitarity <> evo_z proj
-R6411:6411 Kernel.Unitarity <> E:22 var
-R6421:6421 Kernel.Unitarity <> x:23 var
-R6423:6423 Kernel.Unitarity <> y:24 var
-R6425:6425 Kernel.Unitarity <> z:25 var
-R6446:6448 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6440:6442 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6434:6436 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6432:6432 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6431:6431 Kernel.Unitarity <> x:23 var
-R6433:6433 Kernel.Unitarity <> x:23 var
-R6438:6438 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6437:6437 Kernel.Unitarity <> y:24 var
-R6439:6439 Kernel.Unitarity <> y:24 var
-R6444:6444 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6443:6443 Kernel.Unitarity <> z:25 var
-R6445:6445 Kernel.Unitarity <> z:25 var
-R6452:6457 Kernel.Unitarity <> evo_mu proj
-R6449:6449 Kernel.Unitarity <> E:22 var
-def 6898:6918 <> positivity_preserving
-R6925:6933 Kernel.Unitarity <> Evolution rec
-binder 6921:6921 <> E:26
-binder 6955:6955 <> x:27
-binder 6957:6957 <> y:28
-binder 6959:6959 <> z:29
-R6986:6993 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6981:6984 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R6975:6977 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6969:6971 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6967:6967 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6966:6966 Kernel.Unitarity <> x:27 var
-R6968:6968 Kernel.Unitarity <> x:27 var
-R6973:6973 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6972:6972 Kernel.Unitarity <> y:28 var
-R6974:6974 Kernel.Unitarity <> y:28 var
-R6979:6979 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6978:6978 Kernel.Unitarity <> z:29 var
-R6980:6980 Kernel.Unitarity <> z:29 var
-R7113:7116 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R7071:7077 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7029:7035 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6994:6994 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7010:7012 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7028:7028 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6998:7002 Kernel.Unitarity <> evo_x proj
-R6995:6995 Kernel.Unitarity <> E:26 var
-R7005:7005 Kernel.Unitarity <> x:27 var
-R7007:7007 Kernel.Unitarity <> y:28 var
-R7009:7009 Kernel.Unitarity <> z:29 var
-R7016:7020 Kernel.Unitarity <> evo_x proj
-R7013:7013 Kernel.Unitarity <> E:26 var
-R7023:7023 Kernel.Unitarity <> x:27 var
-R7025:7025 Kernel.Unitarity <> y:28 var
-R7027:7027 Kernel.Unitarity <> z:29 var
-R7036:7036 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7052:7054 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7070:7070 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7040:7044 Kernel.Unitarity <> evo_y proj
-R7037:7037 Kernel.Unitarity <> E:26 var
-R7047:7047 Kernel.Unitarity <> x:27 var
-R7049:7049 Kernel.Unitarity <> y:28 var
-R7051:7051 Kernel.Unitarity <> z:29 var
-R7058:7062 Kernel.Unitarity <> evo_y proj
-R7055:7055 Kernel.Unitarity <> E:26 var
-R7065:7065 Kernel.Unitarity <> x:27 var
-R7067:7067 Kernel.Unitarity <> y:28 var
-R7069:7069 Kernel.Unitarity <> z:29 var
-R7078:7078 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7094:7096 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7112:7112 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7082:7086 Kernel.Unitarity <> evo_z proj
-R7079:7079 Kernel.Unitarity <> E:26 var
-R7089:7089 Kernel.Unitarity <> x:27 var
-R7091:7091 Kernel.Unitarity <> y:28 var
-R7093:7093 Kernel.Unitarity <> z:29 var
-R7100:7104 Kernel.Unitarity <> evo_z proj
-R7097:7097 Kernel.Unitarity <> E:26 var
-R7107:7107 Kernel.Unitarity <> x:27 var
-R7109:7109 Kernel.Unitarity <> y:28 var
-R7111:7111 Kernel.Unitarity <> z:29 var
-def 7633:7642 <> is_unitary
-R7649:7657 Kernel.Unitarity <> Evolution rec
-binder 7645:7645 <> E:30
-binder 7679:7679 <> x:31
-binder 7681:7681 <> y:32
-binder 7683:7683 <> z:33
-R7710:7717 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7705:7708 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R7699:7701 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7693:7695 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7691:7691 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7690:7690 Kernel.Unitarity <> x:31 var
-R7692:7692 Kernel.Unitarity <> x:31 var
-R7697:7697 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7696:7696 Kernel.Unitarity <> y:32 var
-R7698:7698 Kernel.Unitarity <> y:32 var
-R7703:7703 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7702:7702 Kernel.Unitarity <> z:33 var
-R7704:7704 Kernel.Unitarity <> z:33 var
-R7837:7839 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7795:7801 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7753:7759 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7718:7718 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7734:7736 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7752:7752 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7722:7726 Kernel.Unitarity <> evo_x proj
-R7719:7719 Kernel.Unitarity <> E:30 var
-R7729:7729 Kernel.Unitarity <> x:31 var
-R7731:7731 Kernel.Unitarity <> y:32 var
-R7733:7733 Kernel.Unitarity <> z:33 var
-R7740:7744 Kernel.Unitarity <> evo_x proj
-R7737:7737 Kernel.Unitarity <> E:30 var
-R7747:7747 Kernel.Unitarity <> x:31 var
-R7749:7749 Kernel.Unitarity <> y:32 var
-R7751:7751 Kernel.Unitarity <> z:33 var
-R7760:7760 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7776:7778 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7794:7794 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7764:7768 Kernel.Unitarity <> evo_y proj
-R7761:7761 Kernel.Unitarity <> E:30 var
-R7771:7771 Kernel.Unitarity <> x:31 var
-R7773:7773 Kernel.Unitarity <> y:32 var
-R7775:7775 Kernel.Unitarity <> z:33 var
-R7782:7786 Kernel.Unitarity <> evo_y proj
-R7779:7779 Kernel.Unitarity <> E:30 var
-R7789:7789 Kernel.Unitarity <> x:31 var
-R7791:7791 Kernel.Unitarity <> y:32 var
-R7793:7793 Kernel.Unitarity <> z:33 var
-R7802:7802 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7818:7820 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7836:7836 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7806:7810 Kernel.Unitarity <> evo_z proj
-R7803:7803 Kernel.Unitarity <> E:30 var
-R7813:7813 Kernel.Unitarity <> x:31 var
-R7815:7815 Kernel.Unitarity <> y:32 var
-R7817:7817 Kernel.Unitarity <> z:33 var
-R7824:7828 Kernel.Unitarity <> evo_z proj
-R7821:7821 Kernel.Unitarity <> E:30 var
-R7831:7831 Kernel.Unitarity <> x:31 var
-R7833:7833 Kernel.Unitarity <> y:32 var
-R7835:7835 Kernel.Unitarity <> z:33 var
-R7849:7851 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7843:7845 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7841:7841 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7840:7840 Kernel.Unitarity <> x:31 var
-R7842:7842 Kernel.Unitarity <> x:31 var
-R7847:7847 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7846:7846 Kernel.Unitarity <> y:32 var
-R7848:7848 Kernel.Unitarity <> y:32 var
-R7853:7853 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7852:7852 Kernel.Unitarity <> z:33 var
-R7854:7854 Kernel.Unitarity <> z:33 var
-def 8252:8268 <> unitary_zero_cost
-R8275:8283 Kernel.Unitarity <> Evolution rec
-binder 8271:8271 <> E:34
-R8310:8313 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8298:8307 Kernel.Unitarity <> is_unitary def
-R8309:8309 Kernel.Unitarity <> E:34 var
-R8324:8326 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8317:8322 Kernel.Unitarity <> evo_mu proj
-R8314:8314 Kernel.Unitarity <> E:34 var
-prf 9087:9109 <> unitary_preserves_trace
-R9126:9134 Kernel.Unitarity <> Evolution rec
-binder 9122:9122 <> E:35
-R9153:9160 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9141:9150 Kernel.Unitarity <> is_unitary def
-R9152:9152 Kernel.Unitarity <> E:35 var
-R9161:9176 Kernel.Unitarity <> trace_preserving def
-R9178:9178 Kernel.Unitarity <> E:35 var
-R9217:9225 Kernel.Unitarity <> trace_rho def
-R9228:9244 Kernel.Unitarity <> pauli_tr_identity def
-R9247:9262 Kernel.Unitarity <> pauli_tr_sigma_x def
-R9274:9289 Kernel.Unitarity <> pauli_tr_sigma_y def
-R9292:9307 Kernel.Unitarity <> pauli_tr_sigma_z def
-prf 9825:9852 <> unitary_preserves_positivity
-R9869:9877 Kernel.Unitarity <> Evolution rec
-binder 9865:9865 <> E:36
-R9896:9903 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9884:9893 Kernel.Unitarity <> is_unitary def
-R9895:9895 Kernel.Unitarity <> E:36 var
-R9904:9924 Kernel.Unitarity <> positivity_preserving def
-R9926:9926 Kernel.Unitarity <> E:36 var
-R9962:9971 Kernel.Unitarity <> is_unitary def
-R9974:9994 Kernel.Unitarity <> positivity_preserving def
-def 10506:10514 <> info_loss
-R10521:10529 Kernel.Unitarity <> Evolution rec
-binder 10517:10517 <> E:37
-R10541:10541 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 10533:10533 <> x:38
-binder 10535:10535 <> y:39
-binder 10537:10537 <> z:40
-R10546:10546 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R10553:10553 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R10569:10575 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R10693:10693 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R10563:10565 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R10557:10559 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R10555:10555 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10554:10554 Kernel.Unitarity <> x:38 var
-R10556:10556 Kernel.Unitarity <> x:38 var
-R10561:10561 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10560:10560 Kernel.Unitarity <> y:39 var
-R10562:10562 Kernel.Unitarity <> y:39 var
-R10567:10567 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10566:10566 Kernel.Unitarity <> z:40 var
-R10568:10568 Kernel.Unitarity <> z:40 var
-R10652:10657 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R10611:10616 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R10576:10576 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10592:10594 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10610:10610 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10580:10584 Kernel.Unitarity <> evo_x proj
-R10577:10577 Kernel.Unitarity <> E:37 var
-R10587:10587 Kernel.Unitarity <> x:38 var
-R10589:10589 Kernel.Unitarity <> y:39 var
-R10591:10591 Kernel.Unitarity <> z:40 var
-R10598:10602 Kernel.Unitarity <> evo_x proj
-R10595:10595 Kernel.Unitarity <> E:37 var
-R10605:10605 Kernel.Unitarity <> x:38 var
-R10607:10607 Kernel.Unitarity <> y:39 var
-R10609:10609 Kernel.Unitarity <> z:40 var
-R10617:10617 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10633:10635 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10651:10651 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10621:10625 Kernel.Unitarity <> evo_y proj
-R10618:10618 Kernel.Unitarity <> E:37 var
-R10628:10628 Kernel.Unitarity <> x:38 var
-R10630:10630 Kernel.Unitarity <> y:39 var
-R10632:10632 Kernel.Unitarity <> z:40 var
-R10639:10643 Kernel.Unitarity <> evo_y proj
-R10636:10636 Kernel.Unitarity <> E:37 var
-R10646:10646 Kernel.Unitarity <> x:38 var
-R10648:10648 Kernel.Unitarity <> y:39 var
-R10650:10650 Kernel.Unitarity <> z:40 var
-R10658:10658 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10674:10676 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10692:10692 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10662:10666 Kernel.Unitarity <> evo_z proj
-R10659:10659 Kernel.Unitarity <> E:37 var
-R10669:10669 Kernel.Unitarity <> x:38 var
-R10671:10671 Kernel.Unitarity <> y:39 var
-R10673:10673 Kernel.Unitarity <> z:40 var
-R10680:10684 Kernel.Unitarity <> evo_z proj
-R10677:10677 Kernel.Unitarity <> E:37 var
-R10687:10687 Kernel.Unitarity <> x:38 var
-R10689:10689 Kernel.Unitarity <> y:39 var
-R10691:10691 Kernel.Unitarity <> z:40 var
-def 11134:11159 <> respects_info_conservation
-R11166:11174 Kernel.Unitarity <> Evolution rec
-binder 11162:11162 <> E:41
-binder 11196:11196 <> x:42
-binder 11198:11198 <> y:43
-binder 11200:11200 <> z:44
-R11227:11234 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11222:11225 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R11216:11218 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R11210:11212 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R11208:11208 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R11207:11207 Kernel.Unitarity <> x:42 var
-R11209:11209 Kernel.Unitarity <> x:42 var
-R11214:11214 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R11213:11213 Kernel.Unitarity <> y:43 var
-R11215:11215 Kernel.Unitarity <> y:43 var
-R11220:11220 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R11219:11219 Kernel.Unitarity <> z:44 var
-R11221:11221 Kernel.Unitarity <> z:44 var
-R11252:11255 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R11235:11243 Kernel.Unitarity <> info_loss def
-R11245:11245 Kernel.Unitarity <> E:41 var
-R11247:11247 Kernel.Unitarity <> x:42 var
-R11249:11249 Kernel.Unitarity <> y:43 var
-R11251:11251 Kernel.Unitarity <> z:44 var
-R11259:11264 Kernel.Unitarity <> evo_mu proj
-R11256:11256 Kernel.Unitarity <> E:41 var
-prf 11888:11909 <> nonunitary_requires_mu
-R11926:11934 Kernel.Unitarity <> Evolution rec
-binder 11922:11922 <> E:45
-R11969:11976 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11941:11966 Kernel.Unitarity <> respects_info_conservation def
-R11968:11968 Kernel.Unitarity <> E:45 var
-R11977:11977 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12049:12057 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11978:11984 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R11990:11997 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 11985:11985 <> x:46
-binder 11987:11987 <> y:47
-binder 11989:11989 <> z:48
-R12018:12027 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R12013:12016 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R12007:12009 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R12001:12003 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R11999:11999 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R11998:11998 Kernel.Unitarity <> x:46 var
-R12000:12000 Kernel.Unitarity <> x:46 var
-R12005:12005 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R12004:12004 Kernel.Unitarity <> y:47 var
-R12006:12006 Kernel.Unitarity <> y:47 var
-R12011:12011 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R12010:12010 Kernel.Unitarity <> z:48 var
-R12012:12012 Kernel.Unitarity <> z:48 var
-R12045:12047 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R12028:12036 Kernel.Unitarity <> info_loss def
-R12038:12038 Kernel.Unitarity <> E:45 var
-R12040:12040 Kernel.Unitarity <> x:46 var
-R12042:12042 Kernel.Unitarity <> y:47 var
-R12044:12044 Kernel.Unitarity <> z:48 var
-R12068:12070 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R12061:12066 Kernel.Unitarity <> evo_mu proj
-R12058:12058 Kernel.Unitarity <> E:45 var
-def 13013:13017 <> is_CP
-R13024:13032 Kernel.Unitarity <> Evolution rec
-binder 13020:13020 <> E:49
-R13070:13128 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R13047:13067 Kernel.Unitarity <> positivity_preserving def
-R13069:13069 Kernel.Unitarity <> E:49 var
-binder 13136:13136 <> x:50
-binder 13138:13138 <> y:51
-binder 13140:13140 <> z:52
-R13167:13174 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13162:13165 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R13156:13158 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R13150:13152 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R13148:13148 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R13147:13147 Kernel.Unitarity <> x:50 var
-R13149:13149 Kernel.Unitarity <> x:50 var
-R13154:13154 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R13153:13153 Kernel.Unitarity <> y:51 var
-R13155:13155 Kernel.Unitarity <> y:51 var
-R13160:13160 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R13159:13159 Kernel.Unitarity <> z:52 var
-R13161:13161 Kernel.Unitarity <> z:52 var
-R13294:13297 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R13252:13258 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R13210:13216 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R13175:13175 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R13191:13193 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R13209:13209 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R13179:13183 Kernel.Unitarity <> evo_x proj
-R13176:13176 Kernel.Unitarity <> E:49 var
-R13186:13186 Kernel.Unitarity <> x:50 var
-R13188:13188 Kernel.Unitarity <> y:51 var
-R13190:13190 Kernel.Unitarity <> z:52 var
-R13197:13201 Kernel.Unitarity <> evo_x proj
-R13194:13194 Kernel.Unitarity <> E:49 var
-R13204:13204 Kernel.Unitarity <> x:50 var
-R13206:13206 Kernel.Unitarity <> y:51 var
-R13208:13208 Kernel.Unitarity <> z:52 var
-R13217:13217 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R13233:13235 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R13251:13251 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R13221:13225 Kernel.Unitarity <> evo_y proj
-R13218:13218 Kernel.Unitarity <> E:49 var
-R13228:13228 Kernel.Unitarity <> x:50 var
-R13230:13230 Kernel.Unitarity <> y:51 var
-R13232:13232 Kernel.Unitarity <> z:52 var
-R13239:13243 Kernel.Unitarity <> evo_y proj
-R13236:13236 Kernel.Unitarity <> E:49 var
-R13246:13246 Kernel.Unitarity <> x:50 var
-R13248:13248 Kernel.Unitarity <> y:51 var
-R13250:13250 Kernel.Unitarity <> z:52 var
-R13259:13259 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R13275:13277 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R13293:13293 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R13263:13267 Kernel.Unitarity <> evo_z proj
-R13260:13260 Kernel.Unitarity <> E:49 var
-R13270:13270 Kernel.Unitarity <> x:50 var
-R13272:13272 Kernel.Unitarity <> y:51 var
-R13274:13274 Kernel.Unitarity <> z:52 var
-R13281:13285 Kernel.Unitarity <> evo_z proj
-R13278:13278 Kernel.Unitarity <> E:49 var
-R13288:13288 Kernel.Unitarity <> x:50 var
-R13290:13290 Kernel.Unitarity <> y:51 var
-R13292:13292 Kernel.Unitarity <> z:52 var
-def 13996:14002 <> is_CPTP
-R14009:14017 Kernel.Unitarity <> Evolution rec
-binder 14005:14005 <> E:53
-R14039:14042 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R14032:14036 Kernel.Unitarity <> is_CP def
-R14038:14038 Kernel.Unitarity <> E:53 var
-R14043:14058 Kernel.Unitarity <> trace_preserving def
-R14060:14060 Kernel.Unitarity <> E:53 var
-prf 14540:14565 <> physical_evolution_is_CPTP
-R14582:14590 Kernel.Unitarity <> Evolution rec
-binder 14578:14578 <> E:54
-R14620:14627 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14597:14617 Kernel.Unitarity <> positivity_preserving def
-R14619:14619 Kernel.Unitarity <> E:54 var
-R14646:14653 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14628:14643 Kernel.Unitarity <> trace_preserving def
-R14645:14645 Kernel.Unitarity <> E:54 var
-R14654:14660 Kernel.Unitarity <> is_CPTP def
-R14662:14662 Kernel.Unitarity <> E:54 var
-R14702:14708 Kernel.Unitarity <> is_CPTP def
-R14711:14715 Kernel.Unitarity <> is_CP def
-def 15390:15405 <> dissipation_rate
-R15412:15420 Kernel.Unitarity <> Evolution rec
-binder 15408:15408 <> E:55
-R15432:15432 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 15424:15424 <> x:56
-binder 15426:15426 <> y:57
-binder 15428:15428 <> z:58
-R15437:15437 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R15444:15452 Kernel.Unitarity <> info_loss def
-R15454:15454 Kernel.Unitarity <> E:55 var
-R15456:15456 Kernel.Unitarity <> x:56 var
-R15458:15458 Kernel.Unitarity <> y:57 var
-R15460:15460 Kernel.Unitarity <> z:58 var
-def 16142:16165 <> satisfies_lindblad_bound
-R16172:16180 Kernel.Unitarity <> Evolution rec
-binder 16168:16168 <> E:59
-R16192:16192 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 16184:16188 <> gamma:60
-R16217:16222 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R16212:16215 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R16207:16211 Kernel.Unitarity <> gamma:60 var
-binder 16230:16230 <> x:61
-binder 16232:16232 <> y:62
-binder 16234:16234 <> z:63
-R16261:16268 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16256:16259 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R16250:16252 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R16244:16246 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R16242:16242 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16241:16241 Kernel.Unitarity <> x:61 var
-R16243:16243 Kernel.Unitarity <> x:61 var
-R16248:16248 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16247:16247 Kernel.Unitarity <> y:62 var
-R16249:16249 Kernel.Unitarity <> y:62 var
-R16254:16254 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16253:16253 Kernel.Unitarity <> z:63 var
-R16255:16255 Kernel.Unitarity <> z:63 var
-R16293:16296 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R16269:16284 Kernel.Unitarity <> dissipation_rate def
-R16286:16286 Kernel.Unitarity <> E:59 var
-R16288:16288 Kernel.Unitarity <> x:61 var
-R16290:16290 Kernel.Unitarity <> y:62 var
-R16292:16292 Kernel.Unitarity <> z:63 var
-R16302:16305 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16321:16321 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16297:16301 Kernel.Unitarity <> gamma:60 var
-R16315:16317 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R16309:16311 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R16307:16307 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16306:16306 Kernel.Unitarity <> x:61 var
-R16308:16308 Kernel.Unitarity <> x:61 var
-R16313:16313 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16312:16312 Kernel.Unitarity <> y:62 var
-R16314:16314 Kernel.Unitarity <> y:62 var
-R16319:16319 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16318:16318 Kernel.Unitarity <> z:63 var
-R16320:16320 Kernel.Unitarity <> z:63 var
-prf 17026:17045 <> lindblad_requires_mu
-binder 17058:17058 <> E:64
-binder 17060:17064 <> gamma:65
-R17080:17087 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17076:17078 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R17071:17075 Kernel.Unitarity <> gamma:65 var
-R17120:17127 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17088:17111 Kernel.Unitarity <> satisfies_lindblad_bound def
-R17113:17113 Kernel.Unitarity <> E:64 var
-R17115:17119 Kernel.Unitarity <> gamma:65 var
-R17156:17228 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17128:17153 Kernel.Unitarity <> respects_info_conservation def
-R17155:17155 Kernel.Unitarity <> E:64 var
-R17229:17229 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17255:17263 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17247:17249 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17230:17238 Kernel.Unitarity <> info_loss def
-R17240:17240 Kernel.Unitarity <> E:64 var
-R17250:17254 Kernel.Unitarity <> gamma:65 var
-R17274:17277 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R17267:17272 Kernel.Unitarity <> evo_mu proj
-R17264:17264 Kernel.Unitarity <> E:64 var
-R17278:17282 Kernel.Unitarity <> gamma:65 var
-R17447:17450 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R17441:17443 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R17435:17437 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R17433:17433 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17439:17439 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17445:17445 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17447:17450 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R17441:17443 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R17435:17437 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R17433:17433 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17439:17439 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17445:17445 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-def 18213:18225 <> is_reversible
-R18232:18240 Kernel.Unitarity <> Evolution rec
-binder 18228:18228 <> E:66
-R18255:18261 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R18279:18284 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R18270:18278 Kernel.Unitarity <> Evolution rec
-binder 18262:18266 <> E_inv:67
-binder 18292:18292 <> x:68
-binder 18294:18294 <> y:69
-binder 18296:18296 <> z:70
-R18325:18334 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18320:18323 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R18314:18316 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R18308:18310 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R18306:18306 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18305:18305 Kernel.Unitarity <> x:68 var
-R18307:18307 Kernel.Unitarity <> x:68 var
-R18312:18312 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18311:18311 Kernel.Unitarity <> y:69 var
-R18313:18313 Kernel.Unitarity <> y:69 var
-R18318:18318 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18317:18317 Kernel.Unitarity <> z:70 var
-R18319:18319 Kernel.Unitarity <> z:70 var
-R18406:18415 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R18402:18404 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18342:18346 Kernel.Unitarity <> evo_x proj
-R18335:18339 Kernel.Unitarity <> E_inv:67 var
-R18353:18357 Kernel.Unitarity <> evo_x proj
-R18350:18350 Kernel.Unitarity <> E:66 var
-R18360:18360 Kernel.Unitarity <> x:68 var
-R18362:18362 Kernel.Unitarity <> y:69 var
-R18364:18364 Kernel.Unitarity <> z:70 var
-R18371:18375 Kernel.Unitarity <> evo_y proj
-R18368:18368 Kernel.Unitarity <> E:66 var
-R18378:18378 Kernel.Unitarity <> x:68 var
-R18380:18380 Kernel.Unitarity <> y:69 var
-R18382:18382 Kernel.Unitarity <> z:70 var
-R18389:18393 Kernel.Unitarity <> evo_z proj
-R18386:18386 Kernel.Unitarity <> E:66 var
-R18396:18396 Kernel.Unitarity <> x:68 var
-R18398:18398 Kernel.Unitarity <> y:69 var
-R18400:18400 Kernel.Unitarity <> z:70 var
-R18405:18405 Kernel.Unitarity <> x:68 var
-R18487:18496 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R18483:18485 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18423:18427 Kernel.Unitarity <> evo_y proj
-R18416:18420 Kernel.Unitarity <> E_inv:67 var
-R18434:18438 Kernel.Unitarity <> evo_x proj
-R18431:18431 Kernel.Unitarity <> E:66 var
-R18441:18441 Kernel.Unitarity <> x:68 var
-R18443:18443 Kernel.Unitarity <> y:69 var
-R18445:18445 Kernel.Unitarity <> z:70 var
-R18452:18456 Kernel.Unitarity <> evo_y proj
-R18449:18449 Kernel.Unitarity <> E:66 var
-R18459:18459 Kernel.Unitarity <> x:68 var
-R18461:18461 Kernel.Unitarity <> y:69 var
-R18463:18463 Kernel.Unitarity <> z:70 var
-R18470:18474 Kernel.Unitarity <> evo_z proj
-R18467:18467 Kernel.Unitarity <> E:66 var
-R18477:18477 Kernel.Unitarity <> x:68 var
-R18479:18479 Kernel.Unitarity <> y:69 var
-R18481:18481 Kernel.Unitarity <> z:70 var
-R18486:18486 Kernel.Unitarity <> y:69 var
-R18564:18566 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18504:18508 Kernel.Unitarity <> evo_z proj
-R18497:18501 Kernel.Unitarity <> E_inv:67 var
-R18515:18519 Kernel.Unitarity <> evo_x proj
-R18512:18512 Kernel.Unitarity <> E:66 var
-R18522:18522 Kernel.Unitarity <> x:68 var
-R18524:18524 Kernel.Unitarity <> y:69 var
-R18526:18526 Kernel.Unitarity <> z:70 var
-R18533:18537 Kernel.Unitarity <> evo_y proj
-R18530:18530 Kernel.Unitarity <> E:66 var
-R18540:18540 Kernel.Unitarity <> x:68 var
-R18542:18542 Kernel.Unitarity <> y:69 var
-R18544:18544 Kernel.Unitarity <> z:70 var
-R18551:18555 Kernel.Unitarity <> evo_z proj
-R18548:18548 Kernel.Unitarity <> E:66 var
-R18558:18558 Kernel.Unitarity <> x:68 var
-R18560:18560 Kernel.Unitarity <> y:69 var
-R18562:18562 Kernel.Unitarity <> z:70 var
-R18567:18567 Kernel.Unitarity <> z:70 var
-prf 19497:19522 <> zero_cost_preserves_purity
-R19539:19547 Kernel.Unitarity <> Evolution rec
-binder 19535:19535 <> E:71
-R19582:19589 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19554:19579 Kernel.Unitarity <> respects_info_conservation def
-R19581:19581 Kernel.Unitarity <> E:71 var
-R19604:19611 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19600:19602 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19593:19598 Kernel.Unitarity <> evo_mu proj
-R19590:19590 Kernel.Unitarity <> E:71 var
-binder 19619:19619 <> x:72
-binder 19621:19621 <> y:73
-binder 19623:19623 <> z:74
-R19652:19661 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19647:19650 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R19641:19643 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R19635:19637 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R19633:19633 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19632:19632 Kernel.Unitarity <> x:72 var
-R19634:19634 Kernel.Unitarity <> x:72 var
-R19639:19639 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19638:19638 Kernel.Unitarity <> y:73 var
-R19640:19640 Kernel.Unitarity <> y:73 var
-R19645:19645 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19644:19644 Kernel.Unitarity <> z:74 var
-R19646:19646 Kernel.Unitarity <> z:74 var
-R19785:19788 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R19741:19749 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R19697:19705 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R19662:19662 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19678:19680 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19696:19696 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19666:19670 Kernel.Unitarity <> evo_x proj
-R19663:19663 Kernel.Unitarity <> E:71 var
-R19673:19673 Kernel.Unitarity <> x:72 var
-R19675:19675 Kernel.Unitarity <> y:73 var
-R19677:19677 Kernel.Unitarity <> z:74 var
-R19684:19688 Kernel.Unitarity <> evo_x proj
-R19681:19681 Kernel.Unitarity <> E:71 var
-R19691:19691 Kernel.Unitarity <> x:72 var
-R19693:19693 Kernel.Unitarity <> y:73 var
-R19695:19695 Kernel.Unitarity <> z:74 var
-R19706:19706 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19722:19724 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19740:19740 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19710:19714 Kernel.Unitarity <> evo_y proj
-R19707:19707 Kernel.Unitarity <> E:71 var
-R19717:19717 Kernel.Unitarity <> x:72 var
-R19719:19719 Kernel.Unitarity <> y:73 var
-R19721:19721 Kernel.Unitarity <> z:74 var
-R19728:19732 Kernel.Unitarity <> evo_y proj
-R19725:19725 Kernel.Unitarity <> E:71 var
-R19735:19735 Kernel.Unitarity <> x:72 var
-R19737:19737 Kernel.Unitarity <> y:73 var
-R19739:19739 Kernel.Unitarity <> z:74 var
-R19750:19750 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19766:19768 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19784:19784 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19754:19758 Kernel.Unitarity <> evo_z proj
-R19751:19751 Kernel.Unitarity <> E:71 var
-R19761:19761 Kernel.Unitarity <> x:72 var
-R19763:19763 Kernel.Unitarity <> y:73 var
-R19765:19765 Kernel.Unitarity <> z:74 var
-R19772:19776 Kernel.Unitarity <> evo_z proj
-R19769:19769 Kernel.Unitarity <> E:71 var
-R19779:19779 Kernel.Unitarity <> x:72 var
-R19781:19781 Kernel.Unitarity <> y:73 var
-R19783:19783 Kernel.Unitarity <> z:74 var
-R19798:19800 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R19792:19794 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R19790:19790 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19789:19789 Kernel.Unitarity <> x:72 var
-R19791:19791 Kernel.Unitarity <> x:72 var
-R19796:19796 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19795:19795 Kernel.Unitarity <> y:73 var
-R19797:19797 Kernel.Unitarity <> y:73 var
-R19802:19802 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19801:19801 Kernel.Unitarity <> z:74 var
-R19803:19803 Kernel.Unitarity <> z:74 var
-R19897:19905 Kernel.Unitarity <> info_loss def
-prf 21307:21331 <> zero_cost_implies_unitary
-R21348:21356 Kernel.Unitarity <> Evolution rec
-binder 21344:21344 <> E:75
-R21391:21398 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21363:21388 Kernel.Unitarity <> respects_info_conservation def
-R21390:21390 Kernel.Unitarity <> E:75 var
-R21421:21428 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21399:21418 Kernel.Unitarity <> purity_nonincreasing def
-R21420:21420 Kernel.Unitarity <> E:75 var
-R21443:21450 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21439:21441 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21432:21437 Kernel.Unitarity <> evo_mu proj
-R21429:21429 Kernel.Unitarity <> E:75 var
-R21451:21460 Kernel.Unitarity <> is_unitary def
-R21462:21462 Kernel.Unitarity <> E:75 var
-R21509:21518 Kernel.Unitarity <> is_unitary def
-R21630:21655 Kernel.Unitarity <> zero_cost_preserves_purity thm
-R21630:21655 Kernel.Unitarity <> zero_cost_preserves_purity thm
-R21772:21791 Kernel.Unitarity <> purity_nonincreasing def
-prf 22209:22239 <> reversible_zero_cost_is_unitary
-R22256:22264 Kernel.Unitarity <> Evolution rec
-binder 22252:22252 <> E:76
-R22286:22293 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R22271:22283 Kernel.Unitarity <> is_reversible def
-R22285:22285 Kernel.Unitarity <> E:76 var
-R22317:22324 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R22294:22314 Kernel.Unitarity <> positivity_preserving def
-R22316:22316 Kernel.Unitarity <> E:76 var
-R22353:22360 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R22325:22350 Kernel.Unitarity <> respects_info_conservation def
-R22352:22352 Kernel.Unitarity <> E:76 var
-R22383:22390 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R22361:22380 Kernel.Unitarity <> purity_nonincreasing def
-R22382:22382 Kernel.Unitarity <> E:76 var
-R22405:22412 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R22401:22403 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22394:22399 Kernel.Unitarity <> evo_mu proj
-R22391:22391 Kernel.Unitarity <> E:76 var
-R22413:22422 Kernel.Unitarity <> is_unitary def
-R22424:22424 Kernel.Unitarity <> E:76 var
-R22475:22499 Kernel.Unitarity <> zero_cost_implies_unitary thm
-R22475:22499 Kernel.Unitarity <> zero_cost_implies_unitary thm
-def 22618:22642 <> unitarity_coverage_anchor
-R22647:22647 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R22665:22666 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R22678:22679 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R22692:22692 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R22648:22664 Kernel.Unitarity <> trace_rho_squared def
-R22667:22677 Kernel.Unitarity <> lambda_plus def
-R22680:22691 Kernel.Unitarity <> lambda_minus def
+R1253:1267 Coq.Reals.Reals <> <> lib
+R1285:1301 Coq.micromega.Lra <> <> lib
+R1319:1337 Coq.micromega.Psatz <> <> lib
+def 1619:1635 <> pauli_tr_identity
+R1639:1639 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 1735:1750 <> pauli_tr_sigma_x
+R1754:1754 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 1830:1845 <> pauli_tr_sigma_y
+R1849:1849 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 1926:1941 <> pauli_tr_sigma_z
+R1945:1945 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 2652:2660 <> trace_rho
+R2671:2671 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2663:2663 <> x:1
+binder 2665:2665 <> y:2
+binder 2667:2667 <> z:3
+R2676:2676 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2762:2766 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2733:2737 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2704:2708 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2700:2702 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2683:2699 Kernel.Unitarity <> pauli_tr_identity def
+R2729:2731 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2710:2712 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2709:2709 Kernel.Unitarity <> x:1 var
+R2713:2728 Kernel.Unitarity <> pauli_tr_sigma_x def
+R2758:2760 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2739:2741 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2738:2738 Kernel.Unitarity <> y:2 var
+R2742:2757 Kernel.Unitarity <> pauli_tr_sigma_y def
+R2787:2789 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2768:2770 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2767:2767 Kernel.Unitarity <> z:3 var
+R2771:2786 Kernel.Unitarity <> pauli_tr_sigma_z def
+def 3902:3918 <> trace_rho_squared
+R3929:3929 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3921:3921 <> x:4
+binder 3923:3923 <> y:5
+binder 3925:3925 <> z:6
+R3934:3934 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3941:3941 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R3961:3964 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R3955:3957 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3949:3951 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3943:3945 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3947:3947 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3946:3946 Kernel.Unitarity <> x:4 var
+R3948:3948 Kernel.Unitarity <> x:4 var
+R3953:3953 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3952:3952 Kernel.Unitarity <> y:5 var
+R3954:3954 Kernel.Unitarity <> y:5 var
+R3959:3959 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3958:3958 Kernel.Unitarity <> z:6 var
+R3960:3960 Kernel.Unitarity <> z:6 var
+def 4601:4611 <> lambda_plus
+R4622:4622 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4614:4614 <> x:7
+binder 4616:4616 <> y:8
+binder 4618:4618 <> z:9
+R4627:4627 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4634:4634 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4661:4664 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4636:4638 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4639:4642 Coq.Reals.R_sqrt <> sqrt def
+R4654:4656 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4648:4650 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4646:4646 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4645:4645 Kernel.Unitarity <> x:7 var
+R4647:4647 Kernel.Unitarity <> x:7 var
+R4652:4652 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4651:4651 Kernel.Unitarity <> y:8 var
+R4653:4653 Kernel.Unitarity <> y:8 var
+R4658:4658 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4657:4657 Kernel.Unitarity <> z:9 var
+R4659:4659 Kernel.Unitarity <> z:9 var
+def 4680:4691 <> lambda_minus
+R4702:4702 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4694:4694 <> x:10
+binder 4696:4696 <> y:11
+binder 4698:4698 <> z:12
+R4707:4707 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4714:4714 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4741:4744 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4716:4718 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4719:4722 Coq.Reals.R_sqrt <> sqrt def
+R4734:4736 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4728:4730 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4726:4726 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4725:4725 Kernel.Unitarity <> x:10 var
+R4727:4727 Kernel.Unitarity <> x:10 var
+R4732:4732 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4731:4731 Kernel.Unitarity <> y:11 var
+R4733:4733 Kernel.Unitarity <> y:11 var
+R4738:4738 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4737:4737 Kernel.Unitarity <> z:12 var
+R4739:4739 Kernel.Unitarity <> z:12 var
+rec 5264:5272 <> Evolution
+proj 5330:5334 <> evo_x
+proj 5358:5362 <> evo_y
+proj 5386:5390 <> evo_z
+proj 5447:5452 <> evo_mu
+R5339:5342 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5338:5338 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5344:5347 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5343:5343 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5349:5352 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5348:5348 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5353:5353 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5367:5370 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5366:5366 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5372:5375 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5371:5371 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5377:5380 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5376:5376 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5381:5381 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5395:5398 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5394:5394 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5400:5403 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5399:5399 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5405:5408 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5404:5404 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5409:5409 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5456:5456 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 5847:5862 <> trace_preserving
+R5869:5877 Kernel.Unitarity <> Evolution rec
+binder 5865:5865 <> E:18
+binder 5899:5899 <> x:19
+binder 5901:5901 <> y:20
+binder 5903:5903 <> z:21
+R5969:5987 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5906:5914 Kernel.Unitarity <> trace_rho def
+R5920:5924 Kernel.Unitarity <> evo_x proj
+R5917:5917 Kernel.Unitarity <> E:18 var
+R5927:5927 Kernel.Unitarity <> x:19 var
+R5929:5929 Kernel.Unitarity <> y:20 var
+R5931:5931 Kernel.Unitarity <> z:21 var
+R5938:5942 Kernel.Unitarity <> evo_y proj
+R5935:5935 Kernel.Unitarity <> E:18 var
+R5945:5945 Kernel.Unitarity <> x:19 var
+R5947:5947 Kernel.Unitarity <> y:20 var
+R5949:5949 Kernel.Unitarity <> z:21 var
+R5956:5960 Kernel.Unitarity <> evo_z proj
+R5953:5953 Kernel.Unitarity <> E:18 var
+R5963:5963 Kernel.Unitarity <> x:19 var
+R5965:5965 Kernel.Unitarity <> y:20 var
+R5967:5967 Kernel.Unitarity <> z:21 var
+R5988:5996 Kernel.Unitarity <> trace_rho def
+R5998:5998 Kernel.Unitarity <> x:19 var
+R6000:6000 Kernel.Unitarity <> y:20 var
+R6002:6002 Kernel.Unitarity <> z:21 var
+def 6641:6660 <> purity_nonincreasing
+R6667:6675 Kernel.Unitarity <> Evolution rec
+binder 6663:6663 <> E:22
+binder 6697:6697 <> x:23
+binder 6699:6699 <> y:24
+binder 6701:6701 <> z:25
+R6728:6735 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6723:6726 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R6717:6719 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6711:6713 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6709:6709 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6708:6708 Kernel.Unitarity <> x:23 var
+R6710:6710 Kernel.Unitarity <> x:23 var
+R6715:6715 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6714:6714 Kernel.Unitarity <> y:24 var
+R6716:6716 Kernel.Unitarity <> y:24 var
+R6721:6721 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6720:6720 Kernel.Unitarity <> z:25 var
+R6722:6722 Kernel.Unitarity <> z:25 var
+R6855:6858 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R6813:6819 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6771:6777 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6736:6736 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6752:6754 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6770:6770 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6740:6744 Kernel.Unitarity <> evo_x proj
+R6737:6737 Kernel.Unitarity <> E:22 var
+R6747:6747 Kernel.Unitarity <> x:23 var
+R6749:6749 Kernel.Unitarity <> y:24 var
+R6751:6751 Kernel.Unitarity <> z:25 var
+R6758:6762 Kernel.Unitarity <> evo_x proj
+R6755:6755 Kernel.Unitarity <> E:22 var
+R6765:6765 Kernel.Unitarity <> x:23 var
+R6767:6767 Kernel.Unitarity <> y:24 var
+R6769:6769 Kernel.Unitarity <> z:25 var
+R6778:6778 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6794:6796 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6812:6812 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6782:6786 Kernel.Unitarity <> evo_y proj
+R6779:6779 Kernel.Unitarity <> E:22 var
+R6789:6789 Kernel.Unitarity <> x:23 var
+R6791:6791 Kernel.Unitarity <> y:24 var
+R6793:6793 Kernel.Unitarity <> z:25 var
+R6800:6804 Kernel.Unitarity <> evo_y proj
+R6797:6797 Kernel.Unitarity <> E:22 var
+R6807:6807 Kernel.Unitarity <> x:23 var
+R6809:6809 Kernel.Unitarity <> y:24 var
+R6811:6811 Kernel.Unitarity <> z:25 var
+R6820:6820 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6836:6838 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6854:6854 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6824:6828 Kernel.Unitarity <> evo_z proj
+R6821:6821 Kernel.Unitarity <> E:22 var
+R6831:6831 Kernel.Unitarity <> x:23 var
+R6833:6833 Kernel.Unitarity <> y:24 var
+R6835:6835 Kernel.Unitarity <> z:25 var
+R6842:6846 Kernel.Unitarity <> evo_z proj
+R6839:6839 Kernel.Unitarity <> E:22 var
+R6849:6849 Kernel.Unitarity <> x:23 var
+R6851:6851 Kernel.Unitarity <> y:24 var
+R6853:6853 Kernel.Unitarity <> z:25 var
+R6874:6876 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6868:6870 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6862:6864 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6860:6860 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6859:6859 Kernel.Unitarity <> x:23 var
+R6861:6861 Kernel.Unitarity <> x:23 var
+R6866:6866 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6865:6865 Kernel.Unitarity <> y:24 var
+R6867:6867 Kernel.Unitarity <> y:24 var
+R6872:6872 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6871:6871 Kernel.Unitarity <> z:25 var
+R6873:6873 Kernel.Unitarity <> z:25 var
+R6880:6885 Kernel.Unitarity <> evo_mu proj
+R6877:6877 Kernel.Unitarity <> E:22 var
+def 7326:7346 <> positivity_preserving
+R7353:7361 Kernel.Unitarity <> Evolution rec
+binder 7349:7349 <> E:26
+binder 7383:7383 <> x:27
+binder 7385:7385 <> y:28
+binder 7387:7387 <> z:29
+R7414:7421 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7409:7412 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R7403:7405 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7397:7399 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7395:7395 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7394:7394 Kernel.Unitarity <> x:27 var
+R7396:7396 Kernel.Unitarity <> x:27 var
+R7401:7401 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7400:7400 Kernel.Unitarity <> y:28 var
+R7402:7402 Kernel.Unitarity <> y:28 var
+R7407:7407 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7406:7406 Kernel.Unitarity <> z:29 var
+R7408:7408 Kernel.Unitarity <> z:29 var
+R7541:7544 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R7499:7505 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7457:7463 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7422:7422 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7438:7440 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7456:7456 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7426:7430 Kernel.Unitarity <> evo_x proj
+R7423:7423 Kernel.Unitarity <> E:26 var
+R7433:7433 Kernel.Unitarity <> x:27 var
+R7435:7435 Kernel.Unitarity <> y:28 var
+R7437:7437 Kernel.Unitarity <> z:29 var
+R7444:7448 Kernel.Unitarity <> evo_x proj
+R7441:7441 Kernel.Unitarity <> E:26 var
+R7451:7451 Kernel.Unitarity <> x:27 var
+R7453:7453 Kernel.Unitarity <> y:28 var
+R7455:7455 Kernel.Unitarity <> z:29 var
+R7464:7464 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7480:7482 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7498:7498 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7468:7472 Kernel.Unitarity <> evo_y proj
+R7465:7465 Kernel.Unitarity <> E:26 var
+R7475:7475 Kernel.Unitarity <> x:27 var
+R7477:7477 Kernel.Unitarity <> y:28 var
+R7479:7479 Kernel.Unitarity <> z:29 var
+R7486:7490 Kernel.Unitarity <> evo_y proj
+R7483:7483 Kernel.Unitarity <> E:26 var
+R7493:7493 Kernel.Unitarity <> x:27 var
+R7495:7495 Kernel.Unitarity <> y:28 var
+R7497:7497 Kernel.Unitarity <> z:29 var
+R7506:7506 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7522:7524 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7540:7540 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7510:7514 Kernel.Unitarity <> evo_z proj
+R7507:7507 Kernel.Unitarity <> E:26 var
+R7517:7517 Kernel.Unitarity <> x:27 var
+R7519:7519 Kernel.Unitarity <> y:28 var
+R7521:7521 Kernel.Unitarity <> z:29 var
+R7528:7532 Kernel.Unitarity <> evo_z proj
+R7525:7525 Kernel.Unitarity <> E:26 var
+R7535:7535 Kernel.Unitarity <> x:27 var
+R7537:7537 Kernel.Unitarity <> y:28 var
+R7539:7539 Kernel.Unitarity <> z:29 var
+def 8061:8070 <> is_unitary
+R8077:8085 Kernel.Unitarity <> Evolution rec
+binder 8073:8073 <> E:30
+binder 8107:8107 <> x:31
+binder 8109:8109 <> y:32
+binder 8111:8111 <> z:33
+R8138:8145 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8133:8136 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R8127:8129 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8121:8123 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8119:8119 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8118:8118 Kernel.Unitarity <> x:31 var
+R8120:8120 Kernel.Unitarity <> x:31 var
+R8125:8125 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8124:8124 Kernel.Unitarity <> y:32 var
+R8126:8126 Kernel.Unitarity <> y:32 var
+R8131:8131 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8130:8130 Kernel.Unitarity <> z:33 var
+R8132:8132 Kernel.Unitarity <> z:33 var
+R8265:8267 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8223:8229 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8181:8187 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8146:8146 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8162:8164 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8180:8180 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8150:8154 Kernel.Unitarity <> evo_x proj
+R8147:8147 Kernel.Unitarity <> E:30 var
+R8157:8157 Kernel.Unitarity <> x:31 var
+R8159:8159 Kernel.Unitarity <> y:32 var
+R8161:8161 Kernel.Unitarity <> z:33 var
+R8168:8172 Kernel.Unitarity <> evo_x proj
+R8165:8165 Kernel.Unitarity <> E:30 var
+R8175:8175 Kernel.Unitarity <> x:31 var
+R8177:8177 Kernel.Unitarity <> y:32 var
+R8179:8179 Kernel.Unitarity <> z:33 var
+R8188:8188 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8204:8206 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8222:8222 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8192:8196 Kernel.Unitarity <> evo_y proj
+R8189:8189 Kernel.Unitarity <> E:30 var
+R8199:8199 Kernel.Unitarity <> x:31 var
+R8201:8201 Kernel.Unitarity <> y:32 var
+R8203:8203 Kernel.Unitarity <> z:33 var
+R8210:8214 Kernel.Unitarity <> evo_y proj
+R8207:8207 Kernel.Unitarity <> E:30 var
+R8217:8217 Kernel.Unitarity <> x:31 var
+R8219:8219 Kernel.Unitarity <> y:32 var
+R8221:8221 Kernel.Unitarity <> z:33 var
+R8230:8230 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8246:8248 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8264:8264 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8234:8238 Kernel.Unitarity <> evo_z proj
+R8231:8231 Kernel.Unitarity <> E:30 var
+R8241:8241 Kernel.Unitarity <> x:31 var
+R8243:8243 Kernel.Unitarity <> y:32 var
+R8245:8245 Kernel.Unitarity <> z:33 var
+R8252:8256 Kernel.Unitarity <> evo_z proj
+R8249:8249 Kernel.Unitarity <> E:30 var
+R8259:8259 Kernel.Unitarity <> x:31 var
+R8261:8261 Kernel.Unitarity <> y:32 var
+R8263:8263 Kernel.Unitarity <> z:33 var
+R8277:8279 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8271:8273 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8269:8269 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8268:8268 Kernel.Unitarity <> x:31 var
+R8270:8270 Kernel.Unitarity <> x:31 var
+R8275:8275 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8274:8274 Kernel.Unitarity <> y:32 var
+R8276:8276 Kernel.Unitarity <> y:32 var
+R8281:8281 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8280:8280 Kernel.Unitarity <> z:33 var
+R8282:8282 Kernel.Unitarity <> z:33 var
+def 8680:8696 <> unitary_zero_cost
+R8703:8711 Kernel.Unitarity <> Evolution rec
+binder 8699:8699 <> E:34
+R8738:8741 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8726:8735 Kernel.Unitarity <> is_unitary def
+R8737:8737 Kernel.Unitarity <> E:34 var
+R8752:8754 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8745:8750 Kernel.Unitarity <> evo_mu proj
+R8742:8742 Kernel.Unitarity <> E:34 var
+prf 9515:9537 <> unitary_preserves_trace
+R9554:9562 Kernel.Unitarity <> Evolution rec
+binder 9550:9550 <> E:35
+R9581:9588 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9569:9578 Kernel.Unitarity <> is_unitary def
+R9580:9580 Kernel.Unitarity <> E:35 var
+R9589:9604 Kernel.Unitarity <> trace_preserving def
+R9606:9606 Kernel.Unitarity <> E:35 var
+R9645:9653 Kernel.Unitarity <> trace_rho def
+R9656:9672 Kernel.Unitarity <> pauli_tr_identity def
+R9675:9690 Kernel.Unitarity <> pauli_tr_sigma_x def
+R9702:9717 Kernel.Unitarity <> pauli_tr_sigma_y def
+R9720:9735 Kernel.Unitarity <> pauli_tr_sigma_z def
+prf 10253:10280 <> unitary_preserves_positivity
+R10297:10305 Kernel.Unitarity <> Evolution rec
+binder 10293:10293 <> E:36
+R10324:10331 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10312:10321 Kernel.Unitarity <> is_unitary def
+R10323:10323 Kernel.Unitarity <> E:36 var
+R10332:10352 Kernel.Unitarity <> positivity_preserving def
+R10354:10354 Kernel.Unitarity <> E:36 var
+R10390:10399 Kernel.Unitarity <> is_unitary def
+R10402:10422 Kernel.Unitarity <> positivity_preserving def
+def 10934:10942 <> info_loss
+R10949:10957 Kernel.Unitarity <> Evolution rec
+binder 10945:10945 <> E:37
+R10969:10969 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 10961:10961 <> x:38
+binder 10963:10963 <> y:39
+binder 10965:10965 <> z:40
+R10974:10974 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R10981:10981 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R10997:11003 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R11121:11121 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R10991:10993 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R10985:10987 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R10983:10983 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10982:10982 Kernel.Unitarity <> x:38 var
+R10984:10984 Kernel.Unitarity <> x:38 var
+R10989:10989 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10988:10988 Kernel.Unitarity <> y:39 var
+R10990:10990 Kernel.Unitarity <> y:39 var
+R10995:10995 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10994:10994 Kernel.Unitarity <> z:40 var
+R10996:10996 Kernel.Unitarity <> z:40 var
+R11080:11085 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R11039:11044 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R11004:11004 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11020:11022 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11038:11038 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11008:11012 Kernel.Unitarity <> evo_x proj
+R11005:11005 Kernel.Unitarity <> E:37 var
+R11015:11015 Kernel.Unitarity <> x:38 var
+R11017:11017 Kernel.Unitarity <> y:39 var
+R11019:11019 Kernel.Unitarity <> z:40 var
+R11026:11030 Kernel.Unitarity <> evo_x proj
+R11023:11023 Kernel.Unitarity <> E:37 var
+R11033:11033 Kernel.Unitarity <> x:38 var
+R11035:11035 Kernel.Unitarity <> y:39 var
+R11037:11037 Kernel.Unitarity <> z:40 var
+R11045:11045 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11061:11063 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11079:11079 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11049:11053 Kernel.Unitarity <> evo_y proj
+R11046:11046 Kernel.Unitarity <> E:37 var
+R11056:11056 Kernel.Unitarity <> x:38 var
+R11058:11058 Kernel.Unitarity <> y:39 var
+R11060:11060 Kernel.Unitarity <> z:40 var
+R11067:11071 Kernel.Unitarity <> evo_y proj
+R11064:11064 Kernel.Unitarity <> E:37 var
+R11074:11074 Kernel.Unitarity <> x:38 var
+R11076:11076 Kernel.Unitarity <> y:39 var
+R11078:11078 Kernel.Unitarity <> z:40 var
+R11086:11086 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11102:11104 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11120:11120 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11090:11094 Kernel.Unitarity <> evo_z proj
+R11087:11087 Kernel.Unitarity <> E:37 var
+R11097:11097 Kernel.Unitarity <> x:38 var
+R11099:11099 Kernel.Unitarity <> y:39 var
+R11101:11101 Kernel.Unitarity <> z:40 var
+R11108:11112 Kernel.Unitarity <> evo_z proj
+R11105:11105 Kernel.Unitarity <> E:37 var
+R11115:11115 Kernel.Unitarity <> x:38 var
+R11117:11117 Kernel.Unitarity <> y:39 var
+R11119:11119 Kernel.Unitarity <> z:40 var
+def 11562:11587 <> respects_info_conservation
+R11594:11602 Kernel.Unitarity <> Evolution rec
+binder 11590:11590 <> E:41
+binder 11624:11624 <> x:42
+binder 11626:11626 <> y:43
+binder 11628:11628 <> z:44
+R11655:11662 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11650:11653 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R11644:11646 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R11638:11640 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R11636:11636 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11635:11635 Kernel.Unitarity <> x:42 var
+R11637:11637 Kernel.Unitarity <> x:42 var
+R11642:11642 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11641:11641 Kernel.Unitarity <> y:43 var
+R11643:11643 Kernel.Unitarity <> y:43 var
+R11648:11648 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11647:11647 Kernel.Unitarity <> z:44 var
+R11649:11649 Kernel.Unitarity <> z:44 var
+R11680:11683 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R11663:11671 Kernel.Unitarity <> info_loss def
+R11673:11673 Kernel.Unitarity <> E:41 var
+R11675:11675 Kernel.Unitarity <> x:42 var
+R11677:11677 Kernel.Unitarity <> y:43 var
+R11679:11679 Kernel.Unitarity <> z:44 var
+R11687:11692 Kernel.Unitarity <> evo_mu proj
+R11684:11684 Kernel.Unitarity <> E:41 var
+prf 12316:12337 <> nonunitary_requires_mu
+R12354:12362 Kernel.Unitarity <> Evolution rec
+binder 12350:12350 <> E:45
+R12397:12404 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12369:12394 Kernel.Unitarity <> respects_info_conservation def
+R12396:12396 Kernel.Unitarity <> E:45 var
+R12405:12405 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12477:12485 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12406:12412 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12418:12425 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 12413:12413 <> x:46
+binder 12415:12415 <> y:47
+binder 12417:12417 <> z:48
+R12446:12455 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12441:12444 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R12435:12437 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R12429:12431 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R12427:12427 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R12426:12426 Kernel.Unitarity <> x:46 var
+R12428:12428 Kernel.Unitarity <> x:46 var
+R12433:12433 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R12432:12432 Kernel.Unitarity <> y:47 var
+R12434:12434 Kernel.Unitarity <> y:47 var
+R12439:12439 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R12438:12438 Kernel.Unitarity <> z:48 var
+R12440:12440 Kernel.Unitarity <> z:48 var
+R12473:12475 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R12456:12464 Kernel.Unitarity <> info_loss def
+R12466:12466 Kernel.Unitarity <> E:45 var
+R12468:12468 Kernel.Unitarity <> x:46 var
+R12470:12470 Kernel.Unitarity <> y:47 var
+R12472:12472 Kernel.Unitarity <> z:48 var
+R12496:12498 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R12489:12494 Kernel.Unitarity <> evo_mu proj
+R12486:12486 Kernel.Unitarity <> E:45 var
+def 13441:13445 <> is_CP
+R13452:13460 Kernel.Unitarity <> Evolution rec
+binder 13448:13448 <> E:49
+R13498:13556 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13475:13495 Kernel.Unitarity <> positivity_preserving def
+R13497:13497 Kernel.Unitarity <> E:49 var
+binder 13564:13564 <> x:50
+binder 13566:13566 <> y:51
+binder 13568:13568 <> z:52
+R13595:13602 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13590:13593 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R13584:13586 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R13578:13580 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R13576:13576 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13575:13575 Kernel.Unitarity <> x:50 var
+R13577:13577 Kernel.Unitarity <> x:50 var
+R13582:13582 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13581:13581 Kernel.Unitarity <> y:51 var
+R13583:13583 Kernel.Unitarity <> y:51 var
+R13588:13588 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13587:13587 Kernel.Unitarity <> z:52 var
+R13589:13589 Kernel.Unitarity <> z:52 var
+R13722:13725 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R13680:13686 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R13638:13644 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R13603:13603 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13619:13621 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13637:13637 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13607:13611 Kernel.Unitarity <> evo_x proj
+R13604:13604 Kernel.Unitarity <> E:49 var
+R13614:13614 Kernel.Unitarity <> x:50 var
+R13616:13616 Kernel.Unitarity <> y:51 var
+R13618:13618 Kernel.Unitarity <> z:52 var
+R13625:13629 Kernel.Unitarity <> evo_x proj
+R13622:13622 Kernel.Unitarity <> E:49 var
+R13632:13632 Kernel.Unitarity <> x:50 var
+R13634:13634 Kernel.Unitarity <> y:51 var
+R13636:13636 Kernel.Unitarity <> z:52 var
+R13645:13645 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13661:13663 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13679:13679 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13649:13653 Kernel.Unitarity <> evo_y proj
+R13646:13646 Kernel.Unitarity <> E:49 var
+R13656:13656 Kernel.Unitarity <> x:50 var
+R13658:13658 Kernel.Unitarity <> y:51 var
+R13660:13660 Kernel.Unitarity <> z:52 var
+R13667:13671 Kernel.Unitarity <> evo_y proj
+R13664:13664 Kernel.Unitarity <> E:49 var
+R13674:13674 Kernel.Unitarity <> x:50 var
+R13676:13676 Kernel.Unitarity <> y:51 var
+R13678:13678 Kernel.Unitarity <> z:52 var
+R13687:13687 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13703:13705 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13721:13721 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13691:13695 Kernel.Unitarity <> evo_z proj
+R13688:13688 Kernel.Unitarity <> E:49 var
+R13698:13698 Kernel.Unitarity <> x:50 var
+R13700:13700 Kernel.Unitarity <> y:51 var
+R13702:13702 Kernel.Unitarity <> z:52 var
+R13709:13713 Kernel.Unitarity <> evo_z proj
+R13706:13706 Kernel.Unitarity <> E:49 var
+R13716:13716 Kernel.Unitarity <> x:50 var
+R13718:13718 Kernel.Unitarity <> y:51 var
+R13720:13720 Kernel.Unitarity <> z:52 var
+def 14424:14430 <> is_CPTP
+R14437:14445 Kernel.Unitarity <> Evolution rec
+binder 14433:14433 <> E:53
+R14467:14470 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14460:14464 Kernel.Unitarity <> is_CP def
+R14466:14466 Kernel.Unitarity <> E:53 var
+R14471:14486 Kernel.Unitarity <> trace_preserving def
+R14488:14488 Kernel.Unitarity <> E:53 var
+prf 14968:14993 <> physical_evolution_is_CPTP
+R15010:15018 Kernel.Unitarity <> Evolution rec
+binder 15006:15006 <> E:54
+R15048:15055 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15025:15045 Kernel.Unitarity <> positivity_preserving def
+R15047:15047 Kernel.Unitarity <> E:54 var
+R15074:15081 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15056:15071 Kernel.Unitarity <> trace_preserving def
+R15073:15073 Kernel.Unitarity <> E:54 var
+R15082:15088 Kernel.Unitarity <> is_CPTP def
+R15090:15090 Kernel.Unitarity <> E:54 var
+R15130:15136 Kernel.Unitarity <> is_CPTP def
+R15139:15143 Kernel.Unitarity <> is_CP def
+def 15818:15833 <> dissipation_rate
+R15840:15848 Kernel.Unitarity <> Evolution rec
+binder 15836:15836 <> E:55
+R15860:15860 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 15852:15852 <> x:56
+binder 15854:15854 <> y:57
+binder 15856:15856 <> z:58
+R15865:15865 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R15872:15880 Kernel.Unitarity <> info_loss def
+R15882:15882 Kernel.Unitarity <> E:55 var
+R15884:15884 Kernel.Unitarity <> x:56 var
+R15886:15886 Kernel.Unitarity <> y:57 var
+R15888:15888 Kernel.Unitarity <> z:58 var
+def 16570:16593 <> satisfies_lindblad_bound
+R16600:16608 Kernel.Unitarity <> Evolution rec
+binder 16596:16596 <> E:59
+R16620:16620 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 16612:16616 <> gamma:60
+R16645:16650 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16640:16643 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R16635:16639 Kernel.Unitarity <> gamma:60 var
+binder 16658:16658 <> x:61
+binder 16660:16660 <> y:62
+binder 16662:16662 <> z:63
+R16689:16696 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16684:16687 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R16678:16680 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R16672:16674 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R16670:16670 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16669:16669 Kernel.Unitarity <> x:61 var
+R16671:16671 Kernel.Unitarity <> x:61 var
+R16676:16676 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16675:16675 Kernel.Unitarity <> y:62 var
+R16677:16677 Kernel.Unitarity <> y:62 var
+R16682:16682 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16681:16681 Kernel.Unitarity <> z:63 var
+R16683:16683 Kernel.Unitarity <> z:63 var
+R16721:16724 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R16697:16712 Kernel.Unitarity <> dissipation_rate def
+R16714:16714 Kernel.Unitarity <> E:59 var
+R16716:16716 Kernel.Unitarity <> x:61 var
+R16718:16718 Kernel.Unitarity <> y:62 var
+R16720:16720 Kernel.Unitarity <> z:63 var
+R16730:16733 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16749:16749 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16725:16729 Kernel.Unitarity <> gamma:60 var
+R16743:16745 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R16737:16739 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R16735:16735 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16734:16734 Kernel.Unitarity <> x:61 var
+R16736:16736 Kernel.Unitarity <> x:61 var
+R16741:16741 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16740:16740 Kernel.Unitarity <> y:62 var
+R16742:16742 Kernel.Unitarity <> y:62 var
+R16747:16747 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16746:16746 Kernel.Unitarity <> z:63 var
+R16748:16748 Kernel.Unitarity <> z:63 var
+prf 17454:17473 <> lindblad_requires_mu
+binder 17486:17486 <> E:64
+binder 17488:17492 <> gamma:65
+R17508:17515 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17504:17506 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R17499:17503 Kernel.Unitarity <> gamma:65 var
+R17548:17555 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17516:17539 Kernel.Unitarity <> satisfies_lindblad_bound def
+R17541:17541 Kernel.Unitarity <> E:64 var
+R17543:17547 Kernel.Unitarity <> gamma:65 var
+R17584:17656 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17556:17581 Kernel.Unitarity <> respects_info_conservation def
+R17583:17583 Kernel.Unitarity <> E:64 var
+R17657:17657 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17683:17691 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17675:17677 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17658:17666 Kernel.Unitarity <> info_loss def
+R17668:17668 Kernel.Unitarity <> E:64 var
+R17678:17682 Kernel.Unitarity <> gamma:65 var
+R17702:17705 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R17695:17700 Kernel.Unitarity <> evo_mu proj
+R17692:17692 Kernel.Unitarity <> E:64 var
+R17706:17710 Kernel.Unitarity <> gamma:65 var
+R17875:17878 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R17869:17871 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R17863:17865 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R17861:17861 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17867:17867 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17873:17873 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17875:17878 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R17869:17871 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R17863:17865 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R17861:17861 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17867:17867 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17873:17873 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+def 18641:18653 <> is_reversible
+R18660:18668 Kernel.Unitarity <> Evolution rec
+binder 18656:18656 <> E:66
+R18683:18689 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18707:18712 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18698:18706 Kernel.Unitarity <> Evolution rec
+binder 18690:18694 <> E_inv:67
+binder 18720:18720 <> x:68
+binder 18722:18722 <> y:69
+binder 18724:18724 <> z:70
+R18753:18762 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18748:18751 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R18742:18744 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R18736:18738 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R18734:18734 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18733:18733 Kernel.Unitarity <> x:68 var
+R18735:18735 Kernel.Unitarity <> x:68 var
+R18740:18740 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18739:18739 Kernel.Unitarity <> y:69 var
+R18741:18741 Kernel.Unitarity <> y:69 var
+R18746:18746 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18745:18745 Kernel.Unitarity <> z:70 var
+R18747:18747 Kernel.Unitarity <> z:70 var
+R18834:18843 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18830:18832 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18770:18774 Kernel.Unitarity <> evo_x proj
+R18763:18767 Kernel.Unitarity <> E_inv:67 var
+R18781:18785 Kernel.Unitarity <> evo_x proj
+R18778:18778 Kernel.Unitarity <> E:66 var
+R18788:18788 Kernel.Unitarity <> x:68 var
+R18790:18790 Kernel.Unitarity <> y:69 var
+R18792:18792 Kernel.Unitarity <> z:70 var
+R18799:18803 Kernel.Unitarity <> evo_y proj
+R18796:18796 Kernel.Unitarity <> E:66 var
+R18806:18806 Kernel.Unitarity <> x:68 var
+R18808:18808 Kernel.Unitarity <> y:69 var
+R18810:18810 Kernel.Unitarity <> z:70 var
+R18817:18821 Kernel.Unitarity <> evo_z proj
+R18814:18814 Kernel.Unitarity <> E:66 var
+R18824:18824 Kernel.Unitarity <> x:68 var
+R18826:18826 Kernel.Unitarity <> y:69 var
+R18828:18828 Kernel.Unitarity <> z:70 var
+R18833:18833 Kernel.Unitarity <> x:68 var
+R18915:18924 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18911:18913 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18851:18855 Kernel.Unitarity <> evo_y proj
+R18844:18848 Kernel.Unitarity <> E_inv:67 var
+R18862:18866 Kernel.Unitarity <> evo_x proj
+R18859:18859 Kernel.Unitarity <> E:66 var
+R18869:18869 Kernel.Unitarity <> x:68 var
+R18871:18871 Kernel.Unitarity <> y:69 var
+R18873:18873 Kernel.Unitarity <> z:70 var
+R18880:18884 Kernel.Unitarity <> evo_y proj
+R18877:18877 Kernel.Unitarity <> E:66 var
+R18887:18887 Kernel.Unitarity <> x:68 var
+R18889:18889 Kernel.Unitarity <> y:69 var
+R18891:18891 Kernel.Unitarity <> z:70 var
+R18898:18902 Kernel.Unitarity <> evo_z proj
+R18895:18895 Kernel.Unitarity <> E:66 var
+R18905:18905 Kernel.Unitarity <> x:68 var
+R18907:18907 Kernel.Unitarity <> y:69 var
+R18909:18909 Kernel.Unitarity <> z:70 var
+R18914:18914 Kernel.Unitarity <> y:69 var
+R18992:18994 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18932:18936 Kernel.Unitarity <> evo_z proj
+R18925:18929 Kernel.Unitarity <> E_inv:67 var
+R18943:18947 Kernel.Unitarity <> evo_x proj
+R18940:18940 Kernel.Unitarity <> E:66 var
+R18950:18950 Kernel.Unitarity <> x:68 var
+R18952:18952 Kernel.Unitarity <> y:69 var
+R18954:18954 Kernel.Unitarity <> z:70 var
+R18961:18965 Kernel.Unitarity <> evo_y proj
+R18958:18958 Kernel.Unitarity <> E:66 var
+R18968:18968 Kernel.Unitarity <> x:68 var
+R18970:18970 Kernel.Unitarity <> y:69 var
+R18972:18972 Kernel.Unitarity <> z:70 var
+R18979:18983 Kernel.Unitarity <> evo_z proj
+R18976:18976 Kernel.Unitarity <> E:66 var
+R18986:18986 Kernel.Unitarity <> x:68 var
+R18988:18988 Kernel.Unitarity <> y:69 var
+R18990:18990 Kernel.Unitarity <> z:70 var
+R18995:18995 Kernel.Unitarity <> z:70 var
+prf 19925:19950 <> zero_cost_preserves_purity
+R19967:19975 Kernel.Unitarity <> Evolution rec
+binder 19963:19963 <> E:71
+R20010:20017 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19982:20007 Kernel.Unitarity <> respects_info_conservation def
+R20009:20009 Kernel.Unitarity <> E:71 var
+R20032:20039 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20028:20030 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20021:20026 Kernel.Unitarity <> evo_mu proj
+R20018:20018 Kernel.Unitarity <> E:71 var
+binder 20047:20047 <> x:72
+binder 20049:20049 <> y:73
+binder 20051:20051 <> z:74
+R20080:20089 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20075:20078 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R20069:20071 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R20063:20065 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R20061:20061 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20060:20060 Kernel.Unitarity <> x:72 var
+R20062:20062 Kernel.Unitarity <> x:72 var
+R20067:20067 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20066:20066 Kernel.Unitarity <> y:73 var
+R20068:20068 Kernel.Unitarity <> y:73 var
+R20073:20073 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20072:20072 Kernel.Unitarity <> z:74 var
+R20074:20074 Kernel.Unitarity <> z:74 var
+R20213:20216 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R20169:20177 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R20125:20133 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R20090:20090 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20106:20108 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20124:20124 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20094:20098 Kernel.Unitarity <> evo_x proj
+R20091:20091 Kernel.Unitarity <> E:71 var
+R20101:20101 Kernel.Unitarity <> x:72 var
+R20103:20103 Kernel.Unitarity <> y:73 var
+R20105:20105 Kernel.Unitarity <> z:74 var
+R20112:20116 Kernel.Unitarity <> evo_x proj
+R20109:20109 Kernel.Unitarity <> E:71 var
+R20119:20119 Kernel.Unitarity <> x:72 var
+R20121:20121 Kernel.Unitarity <> y:73 var
+R20123:20123 Kernel.Unitarity <> z:74 var
+R20134:20134 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20150:20152 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20168:20168 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20138:20142 Kernel.Unitarity <> evo_y proj
+R20135:20135 Kernel.Unitarity <> E:71 var
+R20145:20145 Kernel.Unitarity <> x:72 var
+R20147:20147 Kernel.Unitarity <> y:73 var
+R20149:20149 Kernel.Unitarity <> z:74 var
+R20156:20160 Kernel.Unitarity <> evo_y proj
+R20153:20153 Kernel.Unitarity <> E:71 var
+R20163:20163 Kernel.Unitarity <> x:72 var
+R20165:20165 Kernel.Unitarity <> y:73 var
+R20167:20167 Kernel.Unitarity <> z:74 var
+R20178:20178 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20194:20196 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20212:20212 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20182:20186 Kernel.Unitarity <> evo_z proj
+R20179:20179 Kernel.Unitarity <> E:71 var
+R20189:20189 Kernel.Unitarity <> x:72 var
+R20191:20191 Kernel.Unitarity <> y:73 var
+R20193:20193 Kernel.Unitarity <> z:74 var
+R20200:20204 Kernel.Unitarity <> evo_z proj
+R20197:20197 Kernel.Unitarity <> E:71 var
+R20207:20207 Kernel.Unitarity <> x:72 var
+R20209:20209 Kernel.Unitarity <> y:73 var
+R20211:20211 Kernel.Unitarity <> z:74 var
+R20226:20228 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R20220:20222 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R20218:20218 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20217:20217 Kernel.Unitarity <> x:72 var
+R20219:20219 Kernel.Unitarity <> x:72 var
+R20224:20224 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20223:20223 Kernel.Unitarity <> y:73 var
+R20225:20225 Kernel.Unitarity <> y:73 var
+R20230:20230 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20229:20229 Kernel.Unitarity <> z:74 var
+R20231:20231 Kernel.Unitarity <> z:74 var
+R20325:20333 Kernel.Unitarity <> info_loss def
+prf 21735:21759 <> zero_cost_implies_unitary
+R21776:21784 Kernel.Unitarity <> Evolution rec
+binder 21772:21772 <> E:75
+R21819:21826 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21791:21816 Kernel.Unitarity <> respects_info_conservation def
+R21818:21818 Kernel.Unitarity <> E:75 var
+R21849:21856 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21827:21846 Kernel.Unitarity <> purity_nonincreasing def
+R21848:21848 Kernel.Unitarity <> E:75 var
+R21871:21878 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21867:21869 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21860:21865 Kernel.Unitarity <> evo_mu proj
+R21857:21857 Kernel.Unitarity <> E:75 var
+R21879:21888 Kernel.Unitarity <> is_unitary def
+R21890:21890 Kernel.Unitarity <> E:75 var
+R21937:21946 Kernel.Unitarity <> is_unitary def
+R22058:22083 Kernel.Unitarity <> zero_cost_preserves_purity thm
+R22058:22083 Kernel.Unitarity <> zero_cost_preserves_purity thm
+R22200:22219 Kernel.Unitarity <> purity_nonincreasing def
+prf 22637:22667 <> reversible_zero_cost_is_unitary
+R22684:22692 Kernel.Unitarity <> Evolution rec
+binder 22680:22680 <> E:76
+R22714:22721 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22699:22711 Kernel.Unitarity <> is_reversible def
+R22713:22713 Kernel.Unitarity <> E:76 var
+R22745:22752 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22722:22742 Kernel.Unitarity <> positivity_preserving def
+R22744:22744 Kernel.Unitarity <> E:76 var
+R22781:22788 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22753:22778 Kernel.Unitarity <> respects_info_conservation def
+R22780:22780 Kernel.Unitarity <> E:76 var
+R22811:22818 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22789:22808 Kernel.Unitarity <> purity_nonincreasing def
+R22810:22810 Kernel.Unitarity <> E:76 var
+R22833:22840 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22829:22831 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22822:22827 Kernel.Unitarity <> evo_mu proj
+R22819:22819 Kernel.Unitarity <> E:76 var
+R22841:22850 Kernel.Unitarity <> is_unitary def
+R22852:22852 Kernel.Unitarity <> E:76 var
+R22903:22927 Kernel.Unitarity <> zero_cost_implies_unitary thm
+R22903:22927 Kernel.Unitarity <> zero_cost_implies_unitary thm
+def 23046:23070 <> unitarity_coverage_anchor
+R23075:23075 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R23093:23094 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R23106:23107 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R23120:23120 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R23076:23092 Kernel.Unitarity <> trace_rho_squared def
+R23095:23105 Kernel.Unitarity <> lambda_plus def
+R23108:23119 Kernel.Unitarity <> lambda_minus def

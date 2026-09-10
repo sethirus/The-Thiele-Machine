@@ -20,7 +20,11 @@ import json
 import sys
 from pathlib import Path
 
-ROOT = Path("/workspaces/The-Thiele-Machine")
+# Repo root derived from this file's location (build/probe/ -> repo root), so
+# the probe generator runs on any checkout. It was previously hardcoded to one
+# developer machine's absolute path, which made the assumption receipt
+# impossible to re-derive anywhere else -- including in CI.
+ROOT = Path(__file__).resolve().parents[2]
 BUILD = ROOT / "build" / "probe"
 BUILD.mkdir(parents=True, exist_ok=True)
 

@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 281,
-  "total_addressable": 3979,
+  "files_probed": 286,
+  "total_addressable": 4025,
   "total_unaddressable": 4,
   "extras_addressable_via_instantiation": [
     {
@@ -112,9 +112,9 @@
           "full_name": "IntrinsicLevelHierarchy.level_intrinsic_forces_mu"
         },
         {
-          "local_name": "level_strict_separation",
+          "local_name": "level_k_plus_1_forces_more_than_k_cert_events",
           "kind": "Theorem",
-          "full_name": "IntrinsicLevelHierarchy.level_strict_separation"
+          "full_name": "IntrinsicLevelHierarchy.level_k_plus_1_forces_more_than_k_cert_events"
         }
       ],
       "unaddressable": []
@@ -1096,9 +1096,9 @@
           "full_name": "ThieleMachineComplete.mu_ledger_minimality"
         },
         {
-          "local_name": "P_full_is_minimal_complete_extension",
+          "local_name": "P_full_complete_neither_mu_nor_cert_droppable",
           "kind": "Corollary",
-          "full_name": "ThieleMachineComplete.P_full_is_minimal_complete_extension"
+          "full_name": "ThieleMachineComplete.P_full_complete_neither_mu_nor_cert_droppable"
         },
         {
           "local_name": "non_cert_setter_preserves_cert",
@@ -5137,19 +5137,19 @@
       "unaddressable_count": 0,
       "addressable": [
         {
-          "local_name": "master_summary_project_local_axioms_count_zero",
+          "local_name": "master_summary_declares_project_local_axioms_count_zero",
           "kind": "Lemma",
-          "full_name": "Kernel.MasterSummary.master_summary_project_local_axioms_count_zero"
+          "full_name": "Kernel.MasterSummary.master_summary_declares_project_local_axioms_count_zero"
         },
         {
-          "local_name": "master_summary_project_local_admits_count_zero",
+          "local_name": "master_summary_declares_project_local_admits_count_zero",
           "kind": "Lemma",
-          "full_name": "Kernel.MasterSummary.master_summary_project_local_admits_count_zero"
+          "full_name": "Kernel.MasterSummary.master_summary_declares_project_local_admits_count_zero"
         },
         {
-          "local_name": "master_summary_no_hidden_project_assumptions_verified",
+          "local_name": "master_summary_declares_no_hidden_project_assumptions",
           "kind": "Theorem",
-          "full_name": "Kernel.MasterSummary.master_summary_no_hidden_project_assumptions_verified"
+          "full_name": "Kernel.MasterSummary.master_summary_declares_no_hidden_project_assumptions"
         },
         {
           "local_name": "exact_mechanism_file_map_explicit",
@@ -5407,9 +5407,9 @@
           "full_name": "Kernel.MasterSummary.thiele_machine_core_summary_verified"
         },
         {
-          "local_name": "thiele_machine_is_complete",
+          "local_name": "thiele_machine_core_summary_verified_export",
           "kind": "Theorem",
-          "full_name": "Kernel.MasterSummary.thiele_machine_is_complete"
+          "full_name": "Kernel.MasterSummary.thiele_machine_core_summary_verified_export"
         }
       ],
       "unaddressable": []
@@ -10174,9 +10174,9 @@
           "full_name": "Kernel.Subsumption.witness_not_turing"
         },
         {
-          "local_name": "main_subsumption",
+          "local_name": "sighted_program_not_turing_witness",
           "kind": "Theorem",
-          "full_name": "Kernel.Subsumption.main_subsumption"
+          "full_name": "Kernel.Subsumption.sighted_program_not_turing_witness"
         }
       ],
       "unaddressable": []
@@ -11293,7 +11293,7 @@
     {
       "file": "coq/kernel/frontier/F1_StrongForm.v",
       "qualified_module": "Kernel.F1_StrongForm",
-      "addressable_count": 2,
+      "addressable_count": 4,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -11305,6 +11305,16 @@
           "local_name": "A2_via_physical_landauer",
           "kind": "Corollary",
           "full_name": "Kernel.F1_StrongForm.A2_via_physical_landauer"
+        },
+        {
+          "local_name": "f1_zero_cost_jump_collapses",
+          "kind": "Lemma",
+          "full_name": "Kernel.F1_StrongForm.f1_zero_cost_jump_collapses"
+        },
+        {
+          "local_name": "F1_physical_premises_incompatible",
+          "kind": "Theorem",
+          "full_name": "Kernel.F1_StrongForm.F1_physical_premises_incompatible"
         }
       ],
       "unaddressable": []
@@ -11806,6 +11816,80 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/frontier/ObservationPolicy.v",
+      "qualified_module": "Kernel.ObservationPolicy",
+      "addressable_count": 13,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "decoding_requires_fiber_constancy",
+          "kind": "Theorem",
+          "full_name": "Kernel.ObservationPolicy.decoding_requires_fiber_constancy"
+        },
+        {
+          "local_name": "selected_representatives_give_decoder",
+          "kind": "Theorem",
+          "full_name": "Kernel.ObservationPolicy.selected_representatives_give_decoder"
+        },
+        {
+          "local_name": "joint_floor_is_least",
+          "kind": "Theorem",
+          "full_name": "Kernel.ObservationPolicy.joint_floor_is_least"
+        },
+        {
+          "local_name": "least_joint_floor_respects_all_events",
+          "kind": "Corollary",
+          "full_name": "Kernel.ObservationPolicy.least_joint_floor_respects_all_events"
+        },
+        {
+          "local_name": "independent_coordinates_joint_change_costs_one",
+          "kind": "Theorem",
+          "full_name": "Kernel.ObservationPolicy.independent_coordinates_joint_change_costs_one"
+        },
+        {
+          "local_name": "calibrated_model_exists_iff_positive_cost",
+          "kind": "Theorem",
+          "full_name": "Kernel.ObservationPolicy.calibrated_model_exists_iff_positive_cost"
+        },
+        {
+          "local_name": "bit_erasure_classification",
+          "kind": "Theorem",
+          "full_name": "Kernel.ObservationPolicy.bit_erasure_classification"
+        },
+        {
+          "local_name": "bit_model_has_satisfiable_calibration",
+          "kind": "Theorem",
+          "full_name": "Kernel.ObservationPolicy.bit_model_has_satisfiable_calibration"
+        },
+        {
+          "local_name": "retained_history_recovers_previous_state",
+          "kind": "Theorem",
+          "full_name": "Kernel.ObservationPolicy.retained_history_recovers_previous_state"
+        },
+        {
+          "local_name": "retained_history_step_injective",
+          "kind": "Theorem",
+          "full_name": "Kernel.ObservationPolicy.retained_history_step_injective"
+        },
+        {
+          "local_name": "history_simulates_observed_step",
+          "kind": "Theorem",
+          "full_name": "Kernel.ObservationPolicy.history_simulates_observed_step"
+        },
+        {
+          "local_name": "visible_reset_does_not_force_global_erasure",
+          "kind": "Theorem",
+          "full_name": "Kernel.ObservationPolicy.visible_reset_does_not_force_global_erasure"
+        },
+        {
+          "local_name": "zero_cost_vm_jump_has_injective_history_lift",
+          "kind": "Theorem",
+          "full_name": "Kernel.ObservationPolicy.zero_cost_vm_jump_has_injective_history_lift"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/frontier/PointerObservable.v",
       "qualified_module": "Kernel.PointerObservable",
       "addressable_count": 2,
@@ -11820,6 +11904,60 @@
           "local_name": "ReplicatedLedgerToy.toy_cert_unique_pointer",
           "kind": "Theorem",
           "full_name": "Kernel.PointerObservable.ReplicatedLedgerToy.toy_cert_unique_pointer"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/frontier/PointerObservableCounterexamples.v",
+      "qualified_module": "Kernel.PointerObservableCounterexamples",
+      "addressable_count": 9,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "blind_observer_blocks_proliferation",
+          "kind": "Lemma",
+          "full_name": "Kernel.PointerObservableCounterexamples.blind_observer_blocks_proliferation"
+        },
+        {
+          "local_name": "DeniableAuthentication.deniable_verifier_records",
+          "kind": "Lemma",
+          "full_name": "Kernel.PointerObservableCounterexamples.DeniableAuthentication.deniable_verifier_records"
+        },
+        {
+          "local_name": "DeniableAuthentication.deniable_authentication_refutes_strong_criterion",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservableCounterexamples.DeniableAuthentication.deniable_authentication_refutes_strong_criterion"
+        },
+        {
+          "local_name": "SymmetricMAC.mac_refutes_strong_criterion",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservableCounterexamples.SymmetricMAC.mac_refutes_strong_criterion"
+        },
+        {
+          "local_name": "ObjectCapability.capability_refutes_strong_criterion",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservableCounterexamples.ObjectCapability.capability_refutes_strong_criterion"
+        },
+        {
+          "local_name": "PublicLog.public_log_confirms",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservableCounterexamples.PublicLog.public_log_confirms"
+        },
+        {
+          "local_name": "PublicLog.public_log_effort_not_proliferating",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservableCounterexamples.PublicLog.public_log_effort_not_proliferating"
+        },
+        {
+          "local_name": "DigitalSignature.signature_confirms_proliferation",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservableCounterexamples.DigitalSignature.signature_confirms_proliferation"
+        },
+        {
+          "local_name": "adversarial_search_verdicts",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservableCounterexamples.adversarial_search_verdicts"
         }
       ],
       "unaddressable": []
@@ -11869,6 +12007,65 @@
           "local_name": "five_disciplines_are_pointers",
           "kind": "Theorem",
           "full_name": "Kernel.PointerObservableReductions.five_disciplines_are_pointers"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/frontier/TraceStateDescent.v",
+      "qualified_module": "Kernel.TraceStateDescent",
+      "addressable_count": 10,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "trace_descent_unique_value_iff",
+          "kind": "Theorem",
+          "full_name": "Kernel.TraceStateDescent.trace_descent_unique_value_iff"
+        },
+        {
+          "local_name": "vm_trace_eval_extend",
+          "kind": "Lemma",
+          "full_name": "Kernel.TraceStateDescent.vm_trace_eval_extend"
+        },
+        {
+          "local_name": "target_trace_eval_extend",
+          "kind": "Lemma",
+          "full_name": "Kernel.TraceStateDescent.target_trace_eval_extend"
+        },
+        {
+          "local_name": "reachable_simulation_evaluates_trace",
+          "kind": "Theorem",
+          "full_name": "Kernel.TraceStateDescent.reachable_simulation_evaluates_trace"
+        },
+        {
+          "local_name": "reachable_simulation_requires_compatibility",
+          "kind": "Theorem",
+          "full_name": "Kernel.TraceStateDescent.reachable_simulation_requires_compatibility"
+        },
+        {
+          "local_name": "reachable_simulation_exists_iff",
+          "kind": "Theorem",
+          "full_name": "Kernel.TraceStateDescent.reachable_simulation_exists_iff"
+        },
+        {
+          "local_name": "reachable_simulation_unique",
+          "kind": "Theorem",
+          "full_name": "Kernel.TraceStateDescent.reachable_simulation_unique"
+        },
+        {
+          "local_name": "certification_quotient_satisfies_descent",
+          "kind": "Theorem",
+          "full_name": "Kernel.TraceStateDescent.certification_quotient_satisfies_descent"
+        },
+        {
+          "local_name": "history_target_evaluates_to_input",
+          "kind": "Lemma",
+          "full_name": "Kernel.TraceStateDescent.history_target_evaluates_to_input"
+        },
+        {
+          "local_name": "certification_agreement_does_not_imply_descent",
+          "kind": "Theorem",
+          "full_name": "Kernel.TraceStateDescent.certification_agreement_does_not_imply_descent"
         }
       ],
       "unaddressable": []
@@ -14891,9 +15088,9 @@
           "full_name": "Kernel.NecessityAbstract.mu_ledger_minimality"
         },
         {
-          "local_name": "P_full_is_minimal_complete_extension",
+          "local_name": "P_full_complete_neither_mu_nor_cert_droppable",
           "kind": "Corollary",
-          "full_name": "Kernel.NecessityAbstract.P_full_is_minimal_complete_extension"
+          "full_name": "Kernel.NecessityAbstract.P_full_complete_neither_mu_nor_cert_droppable"
         },
         {
           "local_name": "graph_not_recoverable_from_P_full",
@@ -16113,9 +16310,9 @@
           "full_name": "Kernel.ThieleInitiality.thiele_canonical_fold_unique"
         },
         {
-          "local_name": "thiele_is_initial_a2_substrate",
+          "local_name": "thiele_trace_fold_initial",
           "kind": "Theorem",
-          "full_name": "Kernel.ThieleInitiality.thiele_is_initial_a2_substrate"
+          "full_name": "Kernel.ThieleInitiality.thiele_trace_fold_initial"
         },
         {
           "local_name": "thiele_morphism_unique_on_reachable",
@@ -21646,6 +21843,40 @@
       "unaddressable": []
     },
     {
+      "file": "coq/tests/ClaimBoundaryRegression.v",
+      "qualified_module": "Tests.ClaimBoundaryRegression",
+      "addressable_count": 5,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "receipt_encoding_roundtrip",
+          "kind": "Theorem",
+          "full_name": "Tests.ClaimBoundaryRegression.receipt_encoding_roundtrip"
+        },
+        {
+          "local_name": "no_vm_state_morphism_to_never_certifies",
+          "kind": "Theorem",
+          "full_name": "Tests.ClaimBoundaryRegression.no_vm_state_morphism_to_never_certifies"
+        },
+        {
+          "local_name": "zero_cost_jump_collapses_pc_class",
+          "kind": "Lemma",
+          "full_name": "Tests.ClaimBoundaryRegression.zero_cost_jump_collapses_pc_class"
+        },
+        {
+          "local_name": "full_vm_f1_premises_incompatible",
+          "kind": "Theorem",
+          "full_name": "Tests.ClaimBoundaryRegression.full_vm_f1_premises_incompatible"
+        },
+        {
+          "local_name": "zero_cost_partition_changes_structure",
+          "kind": "Theorem",
+          "full_name": "Tests.ClaimBoundaryRegression.zero_cost_partition_changes_structure"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/tests/CloseoutVerification.v",
       "qualified_module": "Tests.CloseoutVerification",
       "addressable_count": 3,
@@ -21724,6 +21955,50 @@
           "local_name": "test_summary",
           "kind": "Theorem",
           "full_name": "Tests.TestNecessity.test_summary"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/tests/WFDrivenRunRegression.v",
+      "qualified_module": "Tests.WFDrivenRunRegression",
+      "addressable_count": 7,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "old_universal_precondition_impossible",
+          "kind": "Theorem",
+          "full_name": "Tests.WFDrivenRunRegression.old_universal_precondition_impossible"
+        },
+        {
+          "local_name": "valid_program_meets_run_contract",
+          "kind": "Theorem",
+          "full_name": "Tests.WFDrivenRunRegression.valid_program_meets_run_contract"
+        },
+        {
+          "local_name": "valid_program_full_state_commutes",
+          "kind": "Theorem",
+          "full_name": "Tests.WFDrivenRunRegression.valid_program_full_state_commutes"
+        },
+        {
+          "local_name": "valid_program_actually_certifies",
+          "kind": "Theorem",
+          "full_name": "Tests.WFDrivenRunRegression.valid_program_actually_certifies"
+        },
+        {
+          "local_name": "visited_invalid_pnew_rejected",
+          "kind": "Theorem",
+          "full_name": "Tests.WFDrivenRunRegression.visited_invalid_pnew_rejected"
+        },
+        {
+          "local_name": "unvisited_invalid_pnew_allowed",
+          "kind": "Theorem",
+          "full_name": "Tests.WFDrivenRunRegression.unvisited_invalid_pnew_allowed"
+        },
+        {
+          "local_name": "invalid_pnew_beyond_fuel_allowed",
+          "kind": "Theorem",
+          "full_name": "Tests.WFDrivenRunRegression.invalid_pnew_beyond_fuel_allowed"
         }
       ],
       "unaddressable": []
@@ -22310,9 +22585,9 @@
           "full_name": "ThieleMachine.ThieleMachine.mu_pays_bits_exec"
         },
         {
-          "local_name": "ThieleMachine_universal",
+          "local_name": "abstract_exec_receipts_replay_and_are_paid",
           "kind": "Theorem",
-          "full_name": "ThieleMachine.ThieleMachine.ThieleMachine_universal"
+          "full_name": "ThieleMachine.ThieleMachine.abstract_exec_receipts_replay_and_are_paid"
         },
         {
           "local_name": "replay_sound",

@@ -1,440 +1,153 @@
 #!/bin/sh
 # Thiele Machine pre-commit hook (marker: thiele-machine-pre-commit)
-# ==================================================================
-# This hook is the canonical commit-time refresh gate. It is wired in via
-# `core.hooksPath = .githooks` (set by scripts/install-git-hooks.sh, run
-# as a Makefile prerequisite of `test` and every gate so any developer
-# action installs it automatically). Edits here take effect on the next
-# commit — no `cp` step.
-#
-# Responsibilities:
-#
-# 1. Coq proof-scope drift gate (scripts/coq_proof_scope.py).
-#    Runs validate_alignment() whenever a .v file or _CoqProject is
-#    touched. Same invariant tests/test_coq_proof_scope.py enforces in
-#    CI; running pre-commit means a commit that would fail CI's
-#    proof-scope drift gate cannot be created in the first place.
-#    Cost: tens of milliseconds, no Coq build.
-#
-# 2. Source-triggered manifest auto-refresh (refresh_manifest helper).
-#    For each (manifest, generator, extractor) tuple: if any of the
-#    manifest's tracked source files is staged, regenerate the manifest
-#    and stage it. Two manifests today:
-#       artifacts/rtl_pipeline_manifest.json
-#       artifacts/rtl_text_transform_audit.json
-#
-# 3. Unconditional Coq-derived audit artifact refresh.
-#    Generators are <1s each, so we always regenerate on every commit and
-#    stage anything whose content changed. Outputs:
-#       artifacts/proof_dependency_dag.json
-#       artifacts/proof_dependency_connectivity.json
-#       artifacts/proof_dependency_file_graph.mmd
-#       artifacts/PROOF_FOUNDATION_AUDIT.md
-#       artifacts/final_claim_audit/*.json
-#       artifacts/vacuity_audit.json   (kernel-conversion vacuity gate)
-#    These mirror what tests/conftest.py refreshes at pytest start, so
-#    a pytest run and a commit produce the same artifact state.
-#
-# To bypass for one commit (use sparingly):
-#   git commit --no-verify
-
-set -e
+# Installed with make install-hooks. Validates the proposed commit, regenerates
+# derived artifacts, and runs the same strict pytest policy as CI. Full hardware
+# synthesis/FPGA and cross-file vacuity verification still belong to CI (Full).
+set -eu
 
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT"
 
-# ---------------------------------------------------------------------------
-# (1) Coq proof-scope drift gate.
-#
-# Always runs — the gate is fast (<100 ms) and the cost of skipping it is
-# a commit that passes locally but fails CI on a clean checkout. Zero
-# external dependencies (stdlib only).
-# ---------------------------------------------------------------------------
+# Generators/tests read the working tree, while Git commits the index. Reject
+# partial staging before any generator can overwrite or stage unrelated work.
+python3 scripts/check_hook_worktree.py
 
-if [ -f scripts/coq_proof_scope.py ]; then
-    if ! python3 -c "
+for tool in coqc coqtop coq_makefile ocamlfind ocamlc iverilog vvp verilator yosys node; do
+    if ! command -v "$tool" >/dev/null 2>&1; then
+        echo "[pre-commit] FAIL: required tool missing: $tool" >&2
+        exit 1
+    fi
+done
+
+# Freshness tests must check our generated artifacts, not auto-repair them.
+export CI=true
+
+# Log failures without swallowing their diagnostics or continuing to stage
+# partially generated output. Commands are argument lists, never eval strings.
+run() {
+    echo "[pre-commit] $*"
+    if "$@"; then
+        return 0
+    else
+        echo "[pre-commit] FAIL: $*" >&2
+        exit 1
+    fi
+}
+
+stage() {
+    # Missing expected outputs are also generator failures.
+    for file do
+        if [ ! -f "$file" ]; then
+            echo "[pre-commit] FAIL: missing generated file: $file" >&2
+            exit 1
+        fi
+    done
+    git add -- "$@"
+}
+
+run python3 -c '
 import sys
-sys.path.insert(0, 'scripts')
+sys.path.insert(0, "scripts")
 from coq_proof_scope import validate_alignment
 problems = validate_alignment()
 if problems:
-    sys.stderr.write('[pre-commit] Coq proof-scope drift detected:\n\n')
-    for p in problems:
-        sys.stderr.write(p + '\n\n')
-    sys.stderr.write(
-        'This is the same gate CI runs (tests/test_coq_proof_scope.py).\n'
-        'Fix the listed items and re-stage, or bypass with --no-verify\n'
-        'if you understand the consequences.\n'
-    )
-    sys.exit(1)
-" ; then
-        exit 1
-    fi
+    sys.exit("[pre-commit] Coq proof-scope drift:\n" + "\n".join(problems))
+'
+
+# Incremental vendor builds must run even when Kami.vo already exists: it may
+# be stale after a vendor change. Every build error blocks the commit.
+run make -C vendor/bbv -j4
+run bash scripts/fix_kami_coq18.sh
+run make -C vendor/kami -j4
+run sh -c 'cd coq && coq_makefile -f _CoqProject -o Makefile && make -j4'
+# Extraction is a compiler side effect. A cached .vo alone cannot guarantee
+# that its generated .ml still exists or matches; explicitly rerun entrypoints.
+# Some entrypoints share Target output paths; serialize their side effects.
+run make -C coq -j1 -W kami_hw/KamiExtraction.v -W Extraction.v -W ThieleMachineComplete.v \
+    kami_hw/KamiExtraction.vo Extraction.vo ThieleMachineComplete.vo
+stage build/kami_hw/Target.ml build/kami_hw/Target.mli \
+    build/kami_hw/Target_complete.ml build/kami_hw/Target_complete.mli \
+    build/thiele_core.ml build/thiele_core.mli \
+    build/thiele_core_complete.ml build/thiele_core_complete.mli
+
+# Refresh the assumption evidence when its inputs change. CI independently
+# re-derives and compares it; it cannot be replaced by a manifest hash refresh.
+if ! git diff --cached --quiet -- coq vendor scripts/coq_proof_scope.py \
+        scripts/generate_assumption_receipt.sh scripts/run_assumption_batches.py \
+        scripts/check_assumption_receipt.py build/probe/build_full_probe.py \
+        build/probe/aggregate_full_probe.py artifacts/print_assumptions_all_proofs.json \
+        artifacts/print_assumptions_all_proofs.txt artifacts/print_assumptions_all_proofs.csv; then
+    run bash scripts/generate_assumption_receipt.sh
+    stage coq/AssumptionsProbeAll.v artifacts/print_assumptions_all_proofs.json \
+        artifacts/print_assumptions_all_proofs.txt build/probe/probe_inventory.json \
+        build/probe/probe_all_output.txt build/probe/probe_all_err.txt build/probe/probe_batches.json
 fi
 
-# ---------------------------------------------------------------------------
-# Shared helper: regenerate a manifest if any of its tracked source files
-# is staged for this commit.
-#
-# Args:
-#   $1 — manifest JSON path
-#   $2 — generator command (whitespace-split; should write to $1)
-#   $3 — python expression that, given a dict `data` already loaded from
-#        the manifest JSON, prints one tracked path per line to stdout
-#
-# POSIX sh: no `local` (dash compatibility). Variables prefixed `_rm_`
-# to avoid clobbering caller state.
-# ---------------------------------------------------------------------------
-
-refresh_manifest() {
-    _rm_manifest="$1"
-    _rm_generator="$2"
-    _rm_extractor="$3"
-
-    [ -f "$_rm_manifest" ] || return 0
-
-    _rm_tracked=$(python3 -c "
-import json, sys
-try:
-    data = json.load(open('$_rm_manifest'))
-except Exception:
-    sys.exit(0)
-$_rm_extractor
-" 2>/dev/null) || return 0
-
-    [ -z "$_rm_tracked" ] && return 0
-
-    _rm_staged=$(git diff --cached --name-only --diff-filter=ACMR || true)
-    [ -z "$_rm_staged" ] && return 0
-
-    _rm_needs=0
-    for f in $_rm_staged; do
-        for t in $_rm_tracked; do
-            if [ "$f" = "$t" ]; then
-                _rm_needs=1
-                break 2
-            fi
-        done
-    done
-
-    if [ "$_rm_needs" = "1" ]; then
-        echo "[pre-commit] Source changed for $_rm_manifest — regenerating..."
-        eval "$_rm_generator"
-        git add "$_rm_manifest"
-        echo "[pre-commit] $_rm_manifest refreshed and staged."
-    fi
-}
-
-# ---------------------------------------------------------------------------
-# (2a) RTL pipeline manifest (artifacts/rtl_pipeline_manifest.json).
-# `files` is a list of {path, sha256, size_bytes}.
-# ---------------------------------------------------------------------------
-
-refresh_manifest \
-    "artifacts/rtl_pipeline_manifest.json" \
-    "python3 scripts/generate_rtl_pipeline_manifest.py --out artifacts/rtl_pipeline_manifest.json" \
-    "for f in data.get('files', []):
-    print(f['path'])"
-
-# ---------------------------------------------------------------------------
-# (2b) RTL transform audit manifest (artifacts/rtl_text_transform_audit.json).
-# `files` is a dict { name: {path, sha256, bytes, lines} }.
-# ---------------------------------------------------------------------------
-
-refresh_manifest \
-    "artifacts/rtl_text_transform_audit.json" \
-    "python3 scripts/audit_rtl_text_transforms.py --out artifacts/rtl_text_transform_audit.json" \
-    "for v in data.get('files', {}).values():
-    if isinstance(v, dict) and 'path' in v:
-        print(v['path'])"
-
-# ---------------------------------------------------------------------------
-# (3) Unconditional Coq-derived audit artifact refresh.
-#
-# Both generators are <1s each and idempotent (byte-identical output for
-# identical inputs). We run them on every commit and stage anything whose
-# content actually changed. `git add` on an unchanged file is a no-op.
-#
-# Generators:
-#   scripts/generate_proof_dependency_dag.py
-#       writes artifacts/proof_dependency_dag.json,
-#       artifacts/proof_dependency_connectivity.json,
-#       artifacts/proof_dependency_file_graph.mmd,
-#       artifacts/PROOF_FOUNDATION_AUDIT.md.
-#   scripts/generate_master_summary_artifacts.py
-#       writes artifacts/final_claim_audit/*.json.
-#
-# These are auto-regenerated by tests/conftest.py at pytest start, so
-# this hook keeps commit state in sync with what tests/CI expect.
-# ---------------------------------------------------------------------------
-
-_pc_regen_staged=0
-_pc_stage_if_changed() {
-    # $1 = path to potentially-changed file
-    if [ -f "$1" ]; then
-        # `git status --porcelain $1` is empty iff the file matches the index
-        # and the working tree. If non-empty, content differs from index —
-        # stage it.
-        if [ -n "$(git status --porcelain -- "$1")" ]; then
-            git add "$1"
-            _pc_regen_staged=1
-        fi
-    fi
-}
-
-if [ -f scripts/generate_proof_dependency_dag.py ]; then
-    python3 scripts/generate_proof_dependency_dag.py >/dev/null 2>&1 || {
-        echo "[pre-commit] WARNING: generate_proof_dependency_dag.py failed; leaving artifacts as-is." >&2
-    }
-    _pc_stage_if_changed artifacts/proof_dependency_dag.json
-    _pc_stage_if_changed artifacts/proof_dependency_connectivity.json
-    _pc_stage_if_changed artifacts/proof_dependency_file_graph.mmd
-    _pc_stage_if_changed artifacts/PROOF_FOUNDATION_AUDIT.md
-fi
-
-if [ -f scripts/generate_master_summary_artifacts.py ]; then
-    python3 scripts/generate_master_summary_artifacts.py \
-        --out-dir artifacts/final_claim_audit >/dev/null 2>&1 || {
-        echo "[pre-commit] WARNING: generate_master_summary_artifacts.py failed; leaving artifacts as-is." >&2
-    }
-    # Stage every json in final_claim_audit/ that changed — the set is small
-    # and stable, and the script is the only thing that writes there.
-    for f in artifacts/final_claim_audit/*.json; do
-        [ -f "$f" ] && _pc_stage_if_changed "$f"
-    done
-fi
-
-if [ "$_pc_regen_staged" = "1" ]; then
-    echo "[pre-commit] Coq-derived audit artifacts refreshed and staged."
-fi
-
-# Also keep the rtl text-transform audit manifest in lock-step. Cheap to
-# regenerate (sub-second) and the dependency graph is broad enough — any
-# touched RTL source bleeds into its hashes — that gating on staged sources
-# misses real refreshes. Tests/test_rtl_text_transform_audit.py auto-refreshes
-# this too, but doing it here keeps a pure-Python commit (no pytest invocation)
-# in sync.
-if [ -f scripts/audit_rtl_text_transforms.py ]; then
-    python3 scripts/audit_rtl_text_transforms.py \
-        --out artifacts/rtl_text_transform_audit.json >/dev/null 2>&1 || {
-        echo "[pre-commit] WARNING: audit_rtl_text_transforms.py failed; leaving manifest as-is." >&2
-    }
-    _pc_stage_if_changed artifacts/rtl_text_transform_audit.json
-fi
-
-# ---------------------------------------------------------------------------
-# (3b) Unconditional Coq extraction artefact refresh.
-#
-# build/kami_hw/Target.{ml,mli}, build/kami_hw/Target_complete.{ml,mli}, and
-# build/thiele_core{,_complete}.{ml,mli} are written as side effects of
-# compiling coq/kami_hw/KamiExtraction.v, coq/Extraction.v, and
-# coq/ThieleMachineComplete.v. They're tracked in git and pinned by the RTL
-# pipeline manifest — but they only get regenerated when someone explicitly
-# runs `make -C coq`. Doing it here means a stale committed Target.ml can
-# never slip through to CI (which is what happened: locally everyone had
-# the same stale bytes that matched the manifest, CI built fresh and the
-# manifest gate caught the divergence).
-#
-# `make` is no-op-cheap when everything is up-to-date. The first commit
-# after a vendor/kami source change pays a real Coq rebuild; subsequent
-# commits hit the .vo cache and finish in seconds.
-#
-# vendor/kami must be built for KamiExtraction to compile. If
-# vendor/kami/Kami/Kami.vo is missing, build it first — same one-time
-# cost CI's vendor-cache step pays.
-if command -v coqc >/dev/null 2>&1; then
-    if [ ! -f vendor/kami/Kami/Kami.vo ] && [ -d vendor/kami ]; then
-        echo "[pre-commit] Building vendor/kami (one-time, ~5m)..."
-        ( cd vendor/bbv && make -j4 >/dev/null 2>&1 ) || true
-        bash scripts/fix_kami_coq18.sh >/dev/null 2>&1 || true
-        ( cd vendor/kami && make -j4 >/dev/null 2>&1 ) || {
-            echo "[pre-commit] WARNING: vendor/kami build failed; Coq extraction refresh will be skipped." >&2
-        }
-    fi
-    if [ -f vendor/kami/Kami/Kami.vo ] && [ -f coq/_CoqProject ]; then
-        echo "[pre-commit] Refreshing Coq extraction artefacts..."
-        ( cd coq && \
-          coq_makefile -f _CoqProject -o Makefile >/dev/null 2>&1 && \
-          make -j4 kami_hw/KamiExtraction.vo Extraction.vo ThieleMachineComplete.vo >/dev/null 2>&1 ) || {
-            echo "[pre-commit] WARNING: Coq extraction refresh failed; leaving artefacts as-is." >&2
-            echo "             Reproduce with: cd coq && make -j4 kami_hw/KamiExtraction.vo Extraction.vo ThieleMachineComplete.vo" >&2
-        }
-        _pc_stage_if_changed build/kami_hw/Target.ml
-        _pc_stage_if_changed build/kami_hw/Target.mli
-        _pc_stage_if_changed build/kami_hw/Target_complete.ml
-        _pc_stage_if_changed build/kami_hw/Target_complete.mli
-        _pc_stage_if_changed build/thiele_core.ml
-        _pc_stage_if_changed build/thiele_core.mli
-        _pc_stage_if_changed build/thiele_core_complete.ml
-        _pc_stage_if_changed build/thiele_core_complete.mli
-    fi
-fi
-
-# ---------------------------------------------------------------------------
-# (3b') Unconditional regeneration of thielecpu/vm.py from the OCaml IR.
-#
-# thielecpu/vm.py is fully generated by scripts/forge_vm.py from
-# build/thiele_core.ml — its header says DO NOT EDIT. Unlike the extraction
-# artefacts above, it was wired into neither the Makefile nor this hook, so a
-# hand-edit (or a stale byte after the thiele_core.ml refresh above) could
-# silently diverge from the generator and only surface as a red freshness
-# test (TestForgeFreshness). Worse, the next regeneration would wipe the
-# hand-edit. Regenerate it here from whatever build/thiele_core.ml is current
-# and stage it, so the generated artefact can never drift from its generator.
-if [ -f scripts/forge_vm.py ] && [ -s build/thiele_core.ml ]; then
-    python3 scripts/forge_vm.py \
-        --input build/thiele_core.ml \
-        --output thielecpu/vm.py >/dev/null 2>&1 || {
-        echo "[pre-commit] WARNING: forge_vm.py failed; leaving thielecpu/vm.py as-is." >&2
-    }
-    _pc_stage_if_changed thielecpu/vm.py
-fi
-
-# Re-refresh the RTL pipeline manifest in case (3b) just changed any of the
-# Coq-extracted files it tracks (Target.{ml,mli}, etc.). The earlier
-# conditional refresh in (2a) only fires when a staged source matches the
-# manifest's tracked-paths list; this unconditional fallback catches the
-# case where (3b) re-extracted a tracked artefact that wasn't staged yet.
-if [ -f scripts/generate_rtl_pipeline_manifest.py ]; then
-    python3 scripts/generate_rtl_pipeline_manifest.py \
-        --out artifacts/rtl_pipeline_manifest.json >/dev/null 2>&1 || {
-        echo "[pre-commit] WARNING: generate_rtl_pipeline_manifest.py failed; leaving manifest as-is." >&2
-    }
-    _pc_stage_if_changed artifacts/rtl_pipeline_manifest.json
-fi
-
-# ---------------------------------------------------------------------------
-# (3c) Incremental kernel-conversion vacuity gate refresh.
-#
-# scripts/vacuity_gate.py probes every Theorem/Lemma/Corollary in a target
-# Coq file: it asks Coq's kernel whether the conclusion is convertible —
-# after δ/ι/ζ/β reduction — to either `True` or one of the theorem's
-# hypotheses. A positive probe is conclusive evidence the theorem is vacuous.
-# Output JSON path: artifacts/vacuity_audit.json. The Inquisitor (stage 5)
-# consumes the audit and emits HIGH findings for any vacuous-true/vacuous-hyp
-# verdict, which fails the commit.
-#
-# INCREMENTAL: the manifest covers ~50 files / ~540 theorems and a full
-# sweep takes ~30 minutes — far too slow for a commit hook. A theorem's
-# probes only change when its own file changes, so the hook re-probes just
-# the STAGED .v files that appear in the manifest, merging the fresh
-# verdicts into the committed audit (--merge keeps every other file's
-# entries). Staging the manifest or the gate script itself triggers a full
-# sweep, since either can invalidate every entry. The full sweep also runs
-# on demand (`make vacuity-audit`) and nightly in CI (ci-full.yml), which
-# is what catches the cross-file case — a theorem going vacuous because a
-# DEFINITION it uses changed in some other file.
-# ---------------------------------------------------------------------------
-
-if command -v coqc >/dev/null 2>&1; then
-    if [ -f scripts/vacuity_gate.py ] && [ -f scripts/vacuity_targets.json ]; then
-        if git diff --cached --name-only --diff-filter=ACMR \
-                | grep -qx -e 'scripts/vacuity_targets.json' -e 'scripts/vacuity_gate.py'; then
-            echo "[pre-commit] Vacuity manifest/gate staged — running FULL vacuity sweep (this takes a while)..."
-            if ! python3 scripts/vacuity_gate.py \
-                    --manifest scripts/vacuity_targets.json \
-                    --output artifacts/vacuity_audit.json >/dev/null 2>&1; then
-                echo "[pre-commit] WARNING: vacuity_gate.py failed; leaving audit as-is." >&2
-                echo "             Reproduce with:" >&2
-                echo "               python3 scripts/vacuity_gate.py --manifest scripts/vacuity_targets.json" >&2
-            fi
-            _pc_stage_if_changed artifacts/vacuity_audit.json
-        else
-            _pc_vacuity_args=$(git diff --cached --name-only --diff-filter=ACMR -- '*.v' \
-                | python3 -c '
-import json, sys
-staged = {line.strip() for line in sys.stdin if line.strip()}
-manifest = json.load(open("scripts/vacuity_targets.json"))
+# Re-probe staged target files; changing the target list or gate invalidates
+# every verdict. CI (Full) also checks cross-file changes with a full sweep.
+run python3 -c '
+import json, subprocess
+from pathlib import Path
+staged = set(subprocess.check_output([
+    "git", "diff", "--cached", "--name-only", "-z"
+]).decode().split("\0"))
+manifest = json.loads(Path("scripts/vacuity_targets.json").read_text())
 args = []
-for t in manifest.get("targets", []):
-    if t["path"] in staged:
-        args += ["--target", t["path"], "--logical", t["logical"]]
-print(" ".join(args))
-')
-            if [ -n "$_pc_vacuity_args" ]; then
-                echo "[pre-commit] Running kernel-conversion vacuity gate on staged manifest files..."
-                # shellcheck disable=SC2086 — the args are a flat flag list by construction
-                if ! python3 scripts/vacuity_gate.py $_pc_vacuity_args \
-                        --merge \
-                        --output artifacts/vacuity_audit.json >/dev/null 2>&1; then
-                    echo "[pre-commit] WARNING: vacuity_gate.py failed; leaving audit as-is." >&2
-                    echo "             Reproduce with:" >&2
-                    echo "               python3 scripts/vacuity_gate.py --manifest scripts/vacuity_targets.json" >&2
-                fi
-                _pc_stage_if_changed artifacts/vacuity_audit.json
-            fi
-        fi
-    fi
-fi
+if staged & {"scripts/vacuity_targets.json", "scripts/vacuity_gate.py"}:
+    args = ["--manifest", "scripts/vacuity_targets.json"]
+else:
+    for target in manifest["targets"]:
+        if target["path"] in staged:
+            args += ["--target", target["path"], "--logical", target["logical"]]
+    if args:
+        args.append("--merge")
+if args:
+    subprocess.run(["python3", "scripts/vacuity_gate.py", *args,
+                    "--output", "artifacts/vacuity_audit.json"], check=True)
+summary = json.loads(Path("artifacts/vacuity_audit.json").read_text())["summary"]
+if any(summary[key] for key in ("vacuous_true", "vacuous_hyp", "error")):
+    raise SystemExit("[pre-commit] FAIL: vacuity audit: " + str(summary))
+'
+stage artifacts/vacuity_audit.json
 
-# ---------------------------------------------------------------------------
-# (4) Hard test-suite gate — FULL SUITE, NO MARKER FILTER.
-#
-# Run every test pytest collects. Markers like coq/strict_rtl/trs are NOT
-# used to deselect — if a tool genuinely isn't installed, the test's own
-# skipif() will skip, but no whole-marker exclusion is applied. Any failure
-# blocks the commit. ~50s locally on a machine with full toolchain.
-#
-# Cost note: pytest's session-autouse refresh_proof_dependency_artifacts
-# fixture regenerates the same audit artifacts that step (3) just produced.
-# Because both code paths are deterministic in their Coq inputs, the result
-# is byte-identical and no re-staging is needed.
-# ---------------------------------------------------------------------------
+run python3 scripts/forge_vm.py --input build/thiele_core.ml --output thielecpu/vm.py
+stage thielecpu/vm.py
+# Match CI: link the runner from the refreshed extraction before testing it.
+run ocamlfind ocamlc -I build -package str -linkpkg -o build/extracted_vm_runner \
+    build/thiele_core.mli build/thiele_core.ml build/extracted_vm_runner.ml
+stage build/extracted_vm_runner build/extracted_vm_runner.cmi build/extracted_vm_runner.cmo \
+    build/thiele_core.cmi build/thiele_core.cmo
 
-# Parallelise across cores when pytest-xdist is installed. This is a pure
-# speedup: NO marker filter, NO deselection — every test pytest collects
-# still runs and must still pass. Measured locally (970 tests, 4 cores):
-# 107s serial → 62s with `-n auto`. Falls back to serial when xdist is
-# absent, so the gate never hard-depends on an optional plugin.
-#
-# Why pass `-n auto` here instead of leaning on tests/conftest.py: conftest
-# tries to inject it from pytest_configure, but that hook fires after xdist
-# has already read numprocesses, so the injection is silently a no-op (the
-# run stays serial). Passing it on the command line is the reliable path.
-_pc_pytest_jobs=""
-if python3 -c "import xdist" >/dev/null 2>&1; then
-    _pc_pytest_jobs="-n auto"
-fi
+run python3 scripts/generate_proof_dependency_dag.py
+stage artifacts/proof_dependency_dag.json artifacts/proof_dependency_connectivity.json \
+    artifacts/proof_dependency_file_graph.mmd artifacts/PROOF_FOUNDATION_AUDIT.md
+run python3 scripts/generate_master_summary_artifacts.py --out-dir artifacts/final_claim_audit
+stage artifacts/final_claim_audit/*.json
 
-echo "[pre-commit] Running FULL test suite (no marker filter)${_pc_pytest_jobs:+, ${_pc_pytest_jobs}}..."
-# shellcheck disable=SC2086 — _pc_pytest_jobs is a deliberate flat flag list
-if ! python3 -m pytest tests/ -q --tb=short $_pc_pytest_jobs >/dev/null 2>&1; then
-    echo "" >&2
-    echo "[pre-commit] FAIL: test suite did not pass." >&2
-    echo "             Reproduce with:" >&2
-    echo "               python3 -m pytest tests/ -q --tb=short" >&2
-    echo "             Fix failures and re-stage before committing." >&2
-    exit 1
-fi
-echo "[pre-commit] Test suite: PASS"
+# Run unconditionally, after extraction. This also repairs missing/corrupt
+# manifests and handles generator edits, new inputs, renames and deletions.
+# Generator/invariant failures block the commit, with their diagnostics visible.
+run python3 scripts/audit_rtl_text_transforms.py --out artifacts/rtl_text_transform_audit.json
+stage artifacts/rtl_text_transform_audit.json
+run python3 scripts/generate_rtl_pipeline_manifest.py --out artifacts/rtl_pipeline_manifest.json
+stage artifacts/rtl_pipeline_manifest.json
 
-# ---------------------------------------------------------------------------
-# (5) Hard inquisitor proof-hygiene gate.
-#
-# Zero-tolerance Coq audit: no Admitted, no admit, no Hypothesis, no Axiom,
-# no Parameter, no Abort, no tautological proofs. ~90s locally (runs coqtop
-# batches). Skips gracefully if coqtop is not installed; otherwise any
-# finding blocks the commit.
-# ---------------------------------------------------------------------------
-
-if command -v coqtop >/dev/null 2>&1; then
-    echo "[pre-commit] Running inquisitor (~90s)..."
-    if ! python3 scripts/inquisitor.py --report INQUISITOR_REPORT.md >/dev/null 2>&1; then
-        echo "" >&2
-        echo "[pre-commit] FAIL: inquisitor found proof-hygiene issues." >&2
-        echo "             Reproduce with:" >&2
-        echo "               python3 scripts/inquisitor.py --report INQUISITOR_REPORT.md" >&2
-        echo "             Read INQUISITOR_REPORT.md, fix findings, re-stage." >&2
-        exit 1
-    fi
-    # Inquisitor rewrites INQUISITOR_REPORT.md every run (timestamp +
-    # scanned-file count change). Stage the refreshed report so the committed
-    # snapshot matches what just passed the gate.
-    _pc_stage_if_changed INQUISITOR_REPORT.md
-    echo "[pre-commit] Inquisitor: PASS"
+# Every collected test runs, with missing backends treated as failures.
+# CPU-heavy freeze simulations have a 30-second wall-clock deadline; running
+# them alongside other simulator workers can exceed it on a Codespace. Match
+# CI's sequential execution explicitly, without reducing coverage/timeouts.
+if python3 -c 'import xdist' >/dev/null 2>&1; then
+    run python3 -m pytest tests/ -q --tb=short --strict-backends -n 0
 else
-    echo "[pre-commit] WARNING: coqtop not installed — skipping inquisitor." >&2
-    echo "             CI will still run it; local skip is a coverage gap." >&2
+    run python3 -m pytest tests/ -q --tb=short --strict-backends
 fi
+run python3 scripts/inquisitor.py --report INQUISITOR_REPORT.md
+stage INQUISITOR_REPORT.md
 
-exit 0
+# Tests can rebuild extraction or modify artifacts. Do not regenerate over a
+# failed freshness check or silently commit a different version than was tested.
+run python3 scripts/generate_rtl_pipeline_manifest.py --check
+run python3 scripts/audit_rtl_text_transforms.py --check
+run python3 scripts/check_hook_worktree.py
+
+echo "[pre-commit] PASS: commit artifacts and local verification agree."

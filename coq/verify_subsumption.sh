@@ -20,7 +20,7 @@ echo "Building current subsumption/separation files in active tree"
 
 (
   cd "$script_dir"
-  make kernel/Subsumption.vo kernel/TuringStrictness.vo
+  make kernel/foundation/Subsumption.vo kernel/foundation/TuringStrictness.vo
 )
 
 echo "✅ Subsumption and strictness lemmas rebuilt successfully."

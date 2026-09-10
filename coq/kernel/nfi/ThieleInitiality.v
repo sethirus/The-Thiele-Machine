@@ -1,54 +1,20 @@
-(** ThieleInitiality: the universal property of Thiele as an A2-respecting
-    substrate.
+(** ThieleInitiality: trace-fold initiality and conditional state-map uniqueness.
 
-    AIM
-    ---
-    This file packages the existing results in [UniversalCertificationCost.v]
-    and [MuInitiality.v] into a single named theorem stating that Thiele is
-    the initial object in the category of A2-respecting substrates over
-    [vm_instruction], with morphisms restricted to reachable states.
+    The source of the universal evaluation map is [list vm_instruction].
+    Given a target step function and a basepoint, its fold is the unique
+    basepoint-preserving map commuting with instruction extension. The
+    theorem is stated for [CertCostMachine] targets; its proof does not use
+    their certification or cost fields and does not select a pricing law.
 
-    This is the strongest categorical "foundationality" claim the Coq corpus
-    can carry: initiality in a precisely-defined category, in the same sense
-    that ℤ is the initial ring or the free group is initial in the category
-    of groups with a fixed generating set.
+    This is a free-trace universal property, not existence of a
+    [CertCostMorphism] from [VMState] into every A2 system. The state-level
+    corollary proves uniqueness of maps already supplied. Existence requires
+    compatibility with VM trace identifications and certification. The active
+    ClaimBoundaryRegression test exhibits an A2 target with no such map.
 
-    What is the universal property?
-    -------------------------------
-    For any CertCostMachine [M] (an A2-respecting substrate over the Thiele
-    instruction set) and any basepoint [s0_M : M.(ccm_state)]:
-
-    * (Existence)   The trace-fold [fun trace => fold_left M.(ccm_step) trace s0_M]
-                    is a valid simulation: it preserves the empty trace at [s0_M]
-                    and commutes with step-extension.
-
-    * (Uniqueness)  Any function [g : list vm_instruction -> M.(ccm_state)]
-                    that also preserves the empty trace at [s0_M] and commutes
-                    with step-extension agrees with the canonical trace-fold on
-                    every trace.
-
-    Together: the canonical trace-fold simulation is the unique morphism from
-    Thiele's trace category to M's state space, given a choice of basepoint.
-    This is initiality in the free-monoid-action category.
-
-    State-level consequence: any CertCostMorphism phi : Thiele -> M is uniquely
-    determined on the reachable subset of VMState by its value at [init_state]
-    and the step-commutation field. States unreachable from [init_state] are
-    not constrained by the universal property (they live outside the categorical
-    reach of Thiele).
-
-    WHAT THIS THEOREM DOES NOT CLAIM
-    ---------------------------------
-    Categorical initiality is always relative to a chosen category. This file
-    proves that Thiele is initial in the category of CertCostMachines over
-    [vm_instruction], not that the CertCostMachine category is itself
-    foundationally privileged over alternative cost-tracking categories. The
-    latter is a meta-mathematical judgment about which signatures matter, of
-    the same shape as "why study groups instead of semigroups", and is not
-    settled by any theorem inside any category.
-
-    NO COQ AXIOMS. NO ADMITS. The proofs below are list-induction packagings
-    of the existing [UniversalCertificationCost.v] machinery.
+    Ledger uniqueness for a fixed schedule is proved separately in
+    [MuInitiality]; exact event pricing is treated in
+    [CommitmentPredicateAdequacy]. None selects a physical interpretation.
 *)
 
 From Coq Require Import List.
@@ -58,13 +24,7 @@ From Kernel Require Import VMState VMStep SimulationProof.
 From Kernel Require Import MuInitiality.
 From Kernel Require Import UniversalCertificationCost.
 
-(** ** Trace-level initiality
-
-    The category whose objects are A2-respecting substrates over
-    [vm_instruction] and whose morphisms are trace-fold simulations.
-    Thiele's trace-fold is the universal morphism into every object of
-    this category, given a choice of basepoint.
-*)
+(** ** Unique evaluation of free instruction traces. *)
 
 (** Existence: the canonical trace-fold preserves the empty trace
     at the basepoint and commutes with step-extension. *)
@@ -100,14 +60,8 @@ Proof.
   - rewrite Hstep. rewrite fold_left_app. simpl. rewrite IHtrace. reflexivity.
 Qed.
 
-(** ** The packaged initiality theorem.
-
-    Thiele is the initial object in the category of A2-respecting substrates
-    over [vm_instruction], with morphisms restricted to trace-folds from a
-    chosen basepoint. The theorem combines existence and uniqueness into a
-    single statement the monograph can cite as the formal universal property. *)
-
-Theorem thiele_is_initial_a2_substrate :
+(** The trace-fold universal property, with an explicit target basepoint. *)
+Theorem thiele_trace_fold_initial :
   forall (M : CertCostMachine) (s0_M : M.(ccm_state)),
     (* (Existence) The canonical trace-fold is a valid simulation:
        it preserves the empty trace at the basepoint and commutes with
@@ -128,6 +82,10 @@ Proof.
   - exact (thiele_canonical_fold_step M s0_M).
   - exact (thiele_canonical_fold_unique M s0_M).
 Qed.
+
+(** Compatibility name retained for existing clients. The name does not
+    assert initiality of VMState under certification-preserving morphisms. *)
+Definition thiele_is_initial_a2_substrate := thiele_trace_fold_initial.
 
 (** ** State-level corollary: CertCostMorphism uniqueness on reachable states.
 
@@ -152,36 +110,11 @@ Proof.
   exact (thiele_morphism_unique_on_traces M phi1 phi2 init_state trace Hinit).
 Qed.
 
-(** ** Scope of the initiality claim.
+(** Scope: a fold exists on traces without needing to descend to VMState.
+    To descend, equal VM executions must have equal target evaluations and
+    the target certification must agree with the VM certification. A target
+    satisfying A2 alone need not satisfy either condition. A constant-false
+    certification target is a counterexample even though its A2 law holds.
 
-    The theorem [thiele_is_initial_a2_substrate] establishes that Thiele's
-    trace-fold is the universal morphism into every CertCostMachine over
-    [vm_instruction], given a basepoint. The state-level corollary packages
-    this as uniqueness of CertCostMorphisms on reachable states.
-
-    The categorical content: in the category of A2-respecting substrates
-    over [vm_instruction] with trace-fold morphisms restricted to states
-    reachable from a chosen basepoint, Thiele is initial.
-
-    What this does not claim:
-
-    1. That the CertCostMachine category is foundationally privileged over
-       alternative cost-tracking categories. (Meta-mathematical judgment;
-       not settled by any theorem inside the category.)
-
-    2. That [vm_instruction] is foundationally privileged over alternative
-       instruction signatures. (Same shape: any choice of instruction set
-       defines a different CertCostMachine category, each with its own
-       initial object.)
-
-    3. That the asymmetry-of-projection theorems in
-       [ProjectionNonExistence.v] imply foundational primacy beyond the
-       categorical universal property proved here. The asymmetry is a
-       structural fact about the relationship between two signatures;
-       whether the richer signature is the foundationally privileged one
-       is a separate judgment about which signatures matter.
-
-    The claim is exactly the universal property, in exactly the precise
-    sense that ℤ is the initial ring or the free group is initial in the
-    category of groups with a fixed generating set. No more, no less.
-*)
+    No topology, metric, physical interpretation, or privileged instruction
+    signature is supplied by this universal property. *)

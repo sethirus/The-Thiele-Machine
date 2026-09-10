@@ -179,7 +179,7 @@ Qed.
     proofs with their exact side conditions named in [WFDrivenPrecondition]. *)
 Theorem rtl_shadow_trace_compat_wf :
   forall fuel trace ks,
-    (forall ks' i, WFDrivenPrecondition ks' i) ->
+    WFDrivenRun fuel trace ks ->
     rtl_classical_obs (kami_run_driven fuel trace ks) =
     shadow_proj (run_vm fuel trace (abs_full_snapshot (full_snapshot_of_snapshot ks))).
 Proof.

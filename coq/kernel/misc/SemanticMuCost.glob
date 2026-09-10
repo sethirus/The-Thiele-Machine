@@ -1,403 +1,402 @@
-DIGEST 2833e5c850bab942ccfa8121e26256cd
+DIGEST caa4df66cc70d43ad5adce34ccae8e8d
 FKernel.SemanticMuCost
-R1184:1194 Kernel.MuCostModel <> <> lib
-R1222:1225 Coq.Lists.List <> <> lib
-R1227:1229 Coq.micromega.Lia <> <> lib
-R1231:1244 Coq.Arith.PeanoNat <> <> lib
-R1246:1249 Coq.Bool.Bool <> <> lib
-R1251:1256 Coq.Strings.String <> <> lib
-R1283:1285 Coq.Init.Nat <> <> lib
-R1295:1307 Coq.Lists.List ListNotations <> mod
-R1338:1344 Kernel.VMState <> <> lib
-R1346:1351 Kernel.VMStep <> <> lib
-ind 1419:1431 <> ConstraintVar
-constr 1445:1448 <> CVar
-R1455:1458 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1452:1454 Coq.Init.Datatypes <> nat ind
-R1459:1471 Kernel.SemanticMuCost <> ConstraintVar:1 ind
-scheme 1419:1431 <> ConstraintVar_rect
-scheme 1419:1431 <> ConstraintVar_ind
-scheme 1419:1431 <> ConstraintVar_rec
-scheme 1419:1431 <> ConstraintVar_sind
-ind 1561:1569 <> ArithExpr
-constr 1583:1586 <> AVar
-constr 1619:1624 <> AConst
-constr 1647:1650 <> AAdd
-constr 1692:1695 <> ASub
-constr 1737:1740 <> AMul
-R1603:1606 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1590:1602 Kernel.SemanticMuCost <> ConstraintVar ind
-R1607:1615 Kernel.SemanticMuCost <> ArithExpr:3 ind
-R1631:1634 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1628:1630 Coq.Init.Datatypes <> nat ind
-R1635:1643 Kernel.SemanticMuCost <> ArithExpr:3 ind
-R1663:1666 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1654:1662 Kernel.SemanticMuCost <> ArithExpr:3 ind
-R1676:1679 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1667:1675 Kernel.SemanticMuCost <> ArithExpr:3 ind
-R1680:1688 Kernel.SemanticMuCost <> ArithExpr:3 ind
-R1708:1711 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1699:1707 Kernel.SemanticMuCost <> ArithExpr:3 ind
-R1721:1724 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1712:1720 Kernel.SemanticMuCost <> ArithExpr:3 ind
-R1725:1733 Kernel.SemanticMuCost <> ArithExpr:3 ind
-R1753:1756 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1744:1752 Kernel.SemanticMuCost <> ArithExpr:3 ind
-R1766:1769 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1757:1765 Kernel.SemanticMuCost <> ArithExpr:3 ind
-R1770:1778 Kernel.SemanticMuCost <> ArithExpr:3 ind
-scheme 1561:1569 <> ArithExpr_rect
-scheme 1561:1569 <> ArithExpr_ind
-scheme 1561:1569 <> ArithExpr_rec
-scheme 1561:1569 <> ArithExpr_sind
-ind 1820:1825 <> CompOp
-constr 1839:1840 <> Eq
-constr 1855:1856 <> Lt
-constr 1871:1872 <> Le
-constr 1889:1890 <> Gt
-constr 1905:1906 <> Ge
-scheme 1820:1825 <> CompOp_rect
-scheme 1820:1825 <> CompOp_ind
-scheme 1820:1825 <> CompOp_rec
-scheme 1820:1825 <> CompOp_sind
-ind 1972:1987 <> AtomicConstraint
-constr 2001:2008 <> CCompare
-R2018:2021 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2012:2017 Kernel.SemanticMuCost <> CompOp ind
-R2031:2034 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2022:2030 Kernel.SemanticMuCost <> ArithExpr ind
-R2044:2047 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2035:2043 Kernel.SemanticMuCost <> ArithExpr ind
-R2048:2063 Kernel.SemanticMuCost <> AtomicConstraint:7 ind
-scheme 1972:1987 <> AtomicConstraint_rect
-scheme 1972:1987 <> AtomicConstraint_ind
-scheme 1972:1987 <> AtomicConstraint_rec
-scheme 1972:1987 <> AtomicConstraint_sind
-ind 2115:2124 <> Constraint
-constr 2138:2142 <> CAtom
-constr 2179:2182 <> CAnd
-constr 2227:2229 <> COr
-constr 2274:2277 <> CNot
-constr 2308:2312 <> CTrue
-constr 2329:2334 <> CFalse
-R2162:2165 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2146:2161 Kernel.SemanticMuCost <> AtomicConstraint ind
-R2166:2175 Kernel.SemanticMuCost <> Constraint:9 ind
-R2196:2199 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2186:2195 Kernel.SemanticMuCost <> Constraint:9 ind
-R2210:2213 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2200:2209 Kernel.SemanticMuCost <> Constraint:9 ind
-R2214:2223 Kernel.SemanticMuCost <> Constraint:9 ind
-R2243:2246 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2233:2242 Kernel.SemanticMuCost <> Constraint:9 ind
-R2257:2260 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2247:2256 Kernel.SemanticMuCost <> Constraint:9 ind
-R2261:2270 Kernel.SemanticMuCost <> Constraint:9 ind
-R2291:2294 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2281:2290 Kernel.SemanticMuCost <> Constraint:9 ind
-R2295:2304 Kernel.SemanticMuCost <> Constraint:9 ind
-R2316:2325 Kernel.SemanticMuCost <> Constraint:9 ind
-R2338:2347 Kernel.SemanticMuCost <> Constraint:9 ind
-scheme 2115:2124 <> Constraint_rect
-scheme 2115:2124 <> Constraint_ind
-scheme 2115:2124 <> Constraint_rec
-scheme 2115:2124 <> Constraint_sind
-def 2436:2452 <> normalize_comp_op
-R2460:2465 Kernel.SemanticMuCost <> CompOp ind
-binder 2455:2456 <> op:11
-R2470:2475 Kernel.SemanticMuCost <> CompOp ind
-R2488:2489 Kernel.SemanticMuCost <> op:11 var
-R2500:2501 Kernel.SemanticMuCost <> Gt constr
-R2506:2507 Kernel.SemanticMuCost <> Lt constr
-R2540:2541 Kernel.SemanticMuCost <> Ge constr
-R2546:2547 Kernel.SemanticMuCost <> Le constr
-R2589:2590 Kernel.SemanticMuCost <> op:11 var
-def 2653:2674 <> should_flip_comparison
-R2682:2687 Kernel.SemanticMuCost <> CompOp ind
-binder 2677:2678 <> op:13
-R2692:2695 Coq.Init.Datatypes <> bool ind
-R2708:2709 Kernel.SemanticMuCost <> op:13 var
-R2720:2721 Kernel.SemanticMuCost <> Gt constr
-R2726:2729 Coq.Init.Datatypes <> true constr
-R2735:2736 Kernel.SemanticMuCost <> Ge constr
-R2741:2744 Coq.Init.Datatypes <> true constr
-R2755:2759 Coq.Init.Datatypes <> false constr
-def 2818:2833 <> normalize_atomic
-R2841:2856 Kernel.SemanticMuCost <> AtomicConstraint ind
-binder 2836:2837 <> ac:15
-R2861:2876 Kernel.SemanticMuCost <> AtomicConstraint ind
-R2889:2890 Kernel.SemanticMuCost <> ac:15 var
-R2901:2908 Kernel.SemanticMuCost <> CCompare constr
-R2931:2952 Kernel.SemanticMuCost <> should_flip_comparison def
-R3017:3024 Kernel.SemanticMuCost <> CCompare constr
-R2968:2975 Kernel.SemanticMuCost <> CCompare constr
-R2978:2994 Kernel.SemanticMuCost <> normalize_comp_op def
-def 3092:3102 <> flatten_and
-R3109:3118 Kernel.SemanticMuCost <> Constraint ind
-binder 3105:3105 <> c:17
-R3123:3126 Coq.Init.Datatypes <> list ind
-R3128:3137 Kernel.SemanticMuCost <> Constraint ind
-R3150:3150 Kernel.SemanticMuCost <> c:17 var
-R3161:3164 Kernel.SemanticMuCost <> CAnd constr
-R3189:3192 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R3175:3185 Kernel.SemanticMuCost <> flatten_and:18 def
-R3193:3203 Kernel.SemanticMuCost <> flatten_and:18 def
-R3217:3217 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3219:3219 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3218:3218 Kernel.SemanticMuCost <> c:17 var
-def 3238:3247 <> flatten_or
-R3254:3263 Kernel.SemanticMuCost <> Constraint ind
-binder 3250:3250 <> c:20
-R3268:3271 Coq.Init.Datatypes <> list ind
-R3273:3282 Kernel.SemanticMuCost <> Constraint ind
-R3295:3295 Kernel.SemanticMuCost <> c:20 var
-R3306:3308 Kernel.SemanticMuCost <> COr constr
-R3332:3335 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R3319:3328 Kernel.SemanticMuCost <> flatten_or:21 def
-R3336:3345 Kernel.SemanticMuCost <> flatten_or:21 def
-R3359:3359 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3361:3361 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3360:3360 Kernel.SemanticMuCost <> c:20 var
-def 3428:3438 <> rebuild_and
-R3446:3449 Coq.Init.Datatypes <> list ind
-R3451:3460 Kernel.SemanticMuCost <> Constraint ind
-binder 3441:3442 <> cs:23
-R3465:3474 Kernel.SemanticMuCost <> Constraint ind
-R3487:3488 Kernel.SemanticMuCost <> cs:23 var
-R3499:3500 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3505:3509 Kernel.SemanticMuCost <> CTrue constr
-R3516:3519 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3527:3535 Coq.Lists.List <> fold_left def
-R3537:3540 Kernel.SemanticMuCost <> CAnd constr
-def 3567:3576 <> rebuild_or
-R3584:3587 Coq.Init.Datatypes <> list ind
-R3589:3598 Kernel.SemanticMuCost <> Constraint ind
-binder 3579:3580 <> cs:25
-R3603:3612 Kernel.SemanticMuCost <> Constraint ind
-R3625:3626 Kernel.SemanticMuCost <> cs:25 var
-R3637:3638 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3643:3648 Kernel.SemanticMuCost <> CFalse constr
-R3655:3658 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3666:3674 Coq.Lists.List <> fold_left def
-R3676:3678 Kernel.SemanticMuCost <> COr constr
-def 3755:3770 <> count_vars_arith
-R3777:3785 Kernel.SemanticMuCost <> ArithExpr ind
-binder 3773:3773 <> e:27
-R3790:3792 Coq.Init.Datatypes <> nat ind
-R3805:3805 Kernel.SemanticMuCost <> e:27 var
-R3816:3819 Kernel.SemanticMuCost <> AVar constr
-R3832:3837 Kernel.SemanticMuCost <> AConst constr
-R3850:3853 Kernel.SemanticMuCost <> AAdd constr
-R3883:3885 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R3864:3879 Kernel.SemanticMuCost <> count_vars_arith:28 def
-R3886:3901 Kernel.SemanticMuCost <> count_vars_arith:28 def
-R3910:3913 Kernel.SemanticMuCost <> ASub constr
-R3943:3945 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R3924:3939 Kernel.SemanticMuCost <> count_vars_arith:28 def
-R3946:3961 Kernel.SemanticMuCost <> count_vars_arith:28 def
-R3970:3973 Kernel.SemanticMuCost <> AMul constr
-R4003:4005 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R3984:3999 Kernel.SemanticMuCost <> count_vars_arith:28 def
-R4006:4021 Kernel.SemanticMuCost <> count_vars_arith:28 def
-def 4082:4091 <> count_vars
-R4098:4107 Kernel.SemanticMuCost <> Constraint ind
-binder 4094:4094 <> c:30
-R4112:4114 Coq.Init.Datatypes <> nat ind
-R4127:4127 Kernel.SemanticMuCost <> c:30 var
-R4138:4142 Kernel.SemanticMuCost <> CAtom constr
-R4145:4152 Kernel.SemanticMuCost <> CCompare constr
-R4185:4187 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R4166:4181 Kernel.SemanticMuCost <> count_vars_arith def
-R4188:4203 Kernel.SemanticMuCost <> count_vars_arith def
-R4212:4215 Kernel.SemanticMuCost <> CAnd constr
+R1278:1284 Kernel.VMState <> <> lib
+R1286:1291 Kernel.VMStep <> <> lib
+R1319:1322 Coq.Lists.List <> <> lib
+R1324:1326 Coq.micromega.Lia <> <> lib
+R1328:1341 Coq.Arith.PeanoNat <> <> lib
+R1343:1346 Coq.Bool.Bool <> <> lib
+R1348:1353 Coq.Strings.String <> <> lib
+R1380:1382 Coq.Init.Nat <> <> lib
+R1392:1404 Coq.Lists.List ListNotations <> mod
+ind 1473:1485 <> ConstraintVar
+constr 1499:1502 <> CVar
+R1509:1512 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1506:1508 Coq.Init.Datatypes <> nat ind
+R1513:1525 Kernel.SemanticMuCost <> ConstraintVar:1 ind
+scheme 1473:1485 <> ConstraintVar_rect
+scheme 1473:1485 <> ConstraintVar_ind
+scheme 1473:1485 <> ConstraintVar_rec
+scheme 1473:1485 <> ConstraintVar_sind
+ind 1615:1623 <> ArithExpr
+constr 1637:1640 <> AVar
+constr 1673:1678 <> AConst
+constr 1701:1704 <> AAdd
+constr 1746:1749 <> ASub
+constr 1791:1794 <> AMul
+R1657:1660 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1644:1656 Kernel.SemanticMuCost <> ConstraintVar ind
+R1661:1669 Kernel.SemanticMuCost <> ArithExpr:3 ind
+R1685:1688 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1682:1684 Coq.Init.Datatypes <> nat ind
+R1689:1697 Kernel.SemanticMuCost <> ArithExpr:3 ind
+R1717:1720 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1708:1716 Kernel.SemanticMuCost <> ArithExpr:3 ind
+R1730:1733 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1721:1729 Kernel.SemanticMuCost <> ArithExpr:3 ind
+R1734:1742 Kernel.SemanticMuCost <> ArithExpr:3 ind
+R1762:1765 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1753:1761 Kernel.SemanticMuCost <> ArithExpr:3 ind
+R1775:1778 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1766:1774 Kernel.SemanticMuCost <> ArithExpr:3 ind
+R1779:1787 Kernel.SemanticMuCost <> ArithExpr:3 ind
+R1807:1810 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1798:1806 Kernel.SemanticMuCost <> ArithExpr:3 ind
+R1820:1823 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1811:1819 Kernel.SemanticMuCost <> ArithExpr:3 ind
+R1824:1832 Kernel.SemanticMuCost <> ArithExpr:3 ind
+scheme 1615:1623 <> ArithExpr_rect
+scheme 1615:1623 <> ArithExpr_ind
+scheme 1615:1623 <> ArithExpr_rec
+scheme 1615:1623 <> ArithExpr_sind
+ind 1874:1879 <> CompOp
+constr 1893:1894 <> Eq
+constr 1909:1910 <> Lt
+constr 1925:1926 <> Le
+constr 1943:1944 <> Gt
+constr 1959:1960 <> Ge
+scheme 1874:1879 <> CompOp_rect
+scheme 1874:1879 <> CompOp_ind
+scheme 1874:1879 <> CompOp_rec
+scheme 1874:1879 <> CompOp_sind
+ind 2026:2041 <> AtomicConstraint
+constr 2055:2062 <> CCompare
+R2072:2075 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2066:2071 Kernel.SemanticMuCost <> CompOp ind
+R2085:2088 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2076:2084 Kernel.SemanticMuCost <> ArithExpr ind
+R2098:2101 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2089:2097 Kernel.SemanticMuCost <> ArithExpr ind
+R2102:2117 Kernel.SemanticMuCost <> AtomicConstraint:7 ind
+scheme 2026:2041 <> AtomicConstraint_rect
+scheme 2026:2041 <> AtomicConstraint_ind
+scheme 2026:2041 <> AtomicConstraint_rec
+scheme 2026:2041 <> AtomicConstraint_sind
+ind 2169:2178 <> Constraint
+constr 2192:2196 <> CAtom
+constr 2233:2236 <> CAnd
+constr 2281:2283 <> COr
+constr 2328:2331 <> CNot
+constr 2362:2366 <> CTrue
+constr 2383:2388 <> CFalse
+R2216:2219 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2200:2215 Kernel.SemanticMuCost <> AtomicConstraint ind
+R2220:2229 Kernel.SemanticMuCost <> Constraint:9 ind
+R2250:2253 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2240:2249 Kernel.SemanticMuCost <> Constraint:9 ind
+R2264:2267 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2254:2263 Kernel.SemanticMuCost <> Constraint:9 ind
+R2268:2277 Kernel.SemanticMuCost <> Constraint:9 ind
+R2297:2300 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2287:2296 Kernel.SemanticMuCost <> Constraint:9 ind
+R2311:2314 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2301:2310 Kernel.SemanticMuCost <> Constraint:9 ind
+R2315:2324 Kernel.SemanticMuCost <> Constraint:9 ind
+R2345:2348 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2335:2344 Kernel.SemanticMuCost <> Constraint:9 ind
+R2349:2358 Kernel.SemanticMuCost <> Constraint:9 ind
+R2370:2379 Kernel.SemanticMuCost <> Constraint:9 ind
+R2392:2401 Kernel.SemanticMuCost <> Constraint:9 ind
+scheme 2169:2178 <> Constraint_rect
+scheme 2169:2178 <> Constraint_ind
+scheme 2169:2178 <> Constraint_rec
+scheme 2169:2178 <> Constraint_sind
+def 2490:2506 <> normalize_comp_op
+R2514:2519 Kernel.SemanticMuCost <> CompOp ind
+binder 2509:2510 <> op:11
+R2524:2529 Kernel.SemanticMuCost <> CompOp ind
+R2542:2543 Kernel.SemanticMuCost <> op:11 var
+R2554:2555 Kernel.SemanticMuCost <> Gt constr
+R2560:2561 Kernel.SemanticMuCost <> Lt constr
+R2594:2595 Kernel.SemanticMuCost <> Ge constr
+R2600:2601 Kernel.SemanticMuCost <> Le constr
+R2643:2644 Kernel.SemanticMuCost <> op:11 var
+def 2707:2728 <> should_flip_comparison
+R2736:2741 Kernel.SemanticMuCost <> CompOp ind
+binder 2731:2732 <> op:13
+R2746:2749 Coq.Init.Datatypes <> bool ind
+R2762:2763 Kernel.SemanticMuCost <> op:13 var
+R2774:2775 Kernel.SemanticMuCost <> Gt constr
+R2780:2783 Coq.Init.Datatypes <> true constr
+R2789:2790 Kernel.SemanticMuCost <> Ge constr
+R2795:2798 Coq.Init.Datatypes <> true constr
+R2809:2813 Coq.Init.Datatypes <> false constr
+def 2872:2887 <> normalize_atomic
+R2895:2910 Kernel.SemanticMuCost <> AtomicConstraint ind
+binder 2890:2891 <> ac:15
+R2915:2930 Kernel.SemanticMuCost <> AtomicConstraint ind
+R2943:2944 Kernel.SemanticMuCost <> ac:15 var
+R2955:2962 Kernel.SemanticMuCost <> CCompare constr
+R2985:3006 Kernel.SemanticMuCost <> should_flip_comparison def
+R3071:3078 Kernel.SemanticMuCost <> CCompare constr
+R3022:3029 Kernel.SemanticMuCost <> CCompare constr
+R3032:3048 Kernel.SemanticMuCost <> normalize_comp_op def
+def 3146:3156 <> flatten_and
+R3163:3172 Kernel.SemanticMuCost <> Constraint ind
+binder 3159:3159 <> c:17
+R3177:3180 Coq.Init.Datatypes <> list ind
+R3182:3191 Kernel.SemanticMuCost <> Constraint ind
+R3204:3204 Kernel.SemanticMuCost <> c:17 var
+R3215:3218 Kernel.SemanticMuCost <> CAnd constr
+R3243:3246 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3229:3239 Kernel.SemanticMuCost <> flatten_and:18 def
+R3247:3257 Kernel.SemanticMuCost <> flatten_and:18 def
+R3271:3271 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3273:3273 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3272:3272 Kernel.SemanticMuCost <> c:17 var
+def 3292:3301 <> flatten_or
+R3308:3317 Kernel.SemanticMuCost <> Constraint ind
+binder 3304:3304 <> c:20
+R3322:3325 Coq.Init.Datatypes <> list ind
+R3327:3336 Kernel.SemanticMuCost <> Constraint ind
+R3349:3349 Kernel.SemanticMuCost <> c:20 var
+R3360:3362 Kernel.SemanticMuCost <> COr constr
+R3386:3389 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3373:3382 Kernel.SemanticMuCost <> flatten_or:21 def
+R3390:3399 Kernel.SemanticMuCost <> flatten_or:21 def
+R3413:3413 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3415:3415 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3414:3414 Kernel.SemanticMuCost <> c:20 var
+def 3482:3492 <> rebuild_and
+R3500:3503 Coq.Init.Datatypes <> list ind
+R3505:3514 Kernel.SemanticMuCost <> Constraint ind
+binder 3495:3496 <> cs:23
+R3519:3528 Kernel.SemanticMuCost <> Constraint ind
+R3541:3542 Kernel.SemanticMuCost <> cs:23 var
+R3553:3554 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3559:3563 Kernel.SemanticMuCost <> CTrue constr
+R3570:3573 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3581:3589 Coq.Lists.List <> fold_left def
+R3591:3594 Kernel.SemanticMuCost <> CAnd constr
+def 3621:3630 <> rebuild_or
+R3638:3641 Coq.Init.Datatypes <> list ind
+R3643:3652 Kernel.SemanticMuCost <> Constraint ind
+binder 3633:3634 <> cs:25
+R3657:3666 Kernel.SemanticMuCost <> Constraint ind
+R3679:3680 Kernel.SemanticMuCost <> cs:25 var
+R3691:3692 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3697:3702 Kernel.SemanticMuCost <> CFalse constr
+R3709:3712 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3720:3728 Coq.Lists.List <> fold_left def
+R3730:3732 Kernel.SemanticMuCost <> COr constr
+def 3809:3824 <> count_vars_arith
+R3831:3839 Kernel.SemanticMuCost <> ArithExpr ind
+binder 3827:3827 <> e:27
+R3844:3846 Coq.Init.Datatypes <> nat ind
+R3859:3859 Kernel.SemanticMuCost <> e:27 var
+R3870:3873 Kernel.SemanticMuCost <> AVar constr
+R3886:3891 Kernel.SemanticMuCost <> AConst constr
+R3904:3907 Kernel.SemanticMuCost <> AAdd constr
+R3937:3939 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3918:3933 Kernel.SemanticMuCost <> count_vars_arith:28 def
+R3940:3955 Kernel.SemanticMuCost <> count_vars_arith:28 def
+R3964:3967 Kernel.SemanticMuCost <> ASub constr
+R3997:3999 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3978:3993 Kernel.SemanticMuCost <> count_vars_arith:28 def
+R4000:4015 Kernel.SemanticMuCost <> count_vars_arith:28 def
+R4024:4027 Kernel.SemanticMuCost <> AMul constr
+R4057:4059 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R4038:4053 Kernel.SemanticMuCost <> count_vars_arith:28 def
+R4060:4075 Kernel.SemanticMuCost <> count_vars_arith:28 def
+def 4136:4145 <> count_vars
+R4152:4161 Kernel.SemanticMuCost <> Constraint ind
+binder 4148:4148 <> c:30
+R4166:4168 Coq.Init.Datatypes <> nat ind
+R4181:4181 Kernel.SemanticMuCost <> c:30 var
+R4192:4196 Kernel.SemanticMuCost <> CAtom constr
+R4199:4206 Kernel.SemanticMuCost <> CCompare constr
 R4239:4241 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R4226:4235 Kernel.SemanticMuCost <> count_vars:31 def
-R4242:4251 Kernel.SemanticMuCost <> count_vars:31 def
-R4260:4262 Kernel.SemanticMuCost <> COr constr
-R4286:4288 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R4273:4282 Kernel.SemanticMuCost <> count_vars:31 def
-R4289:4298 Kernel.SemanticMuCost <> count_vars:31 def
-R4307:4310 Kernel.SemanticMuCost <> CNot constr
-R4318:4327 Kernel.SemanticMuCost <> count_vars:31 def
-R4336:4340 Kernel.SemanticMuCost <> CTrue constr
-R4351:4356 Kernel.SemanticMuCost <> CFalse constr
-def 4426:4436 <> count_atoms
-R4443:4452 Kernel.SemanticMuCost <> Constraint ind
-binder 4439:4439 <> c:33
-R4457:4459 Coq.Init.Datatypes <> nat ind
-R4472:4472 Kernel.SemanticMuCost <> c:33 var
-R4483:4487 Kernel.SemanticMuCost <> CAtom constr
-R4500:4503 Kernel.SemanticMuCost <> CAnd constr
-R4528:4530 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R4514:4524 Kernel.SemanticMuCost <> count_atoms:34 def
-R4531:4541 Kernel.SemanticMuCost <> count_atoms:34 def
-R4550:4552 Kernel.SemanticMuCost <> COr constr
-R4577:4579 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R4563:4573 Kernel.SemanticMuCost <> count_atoms:34 def
-R4580:4590 Kernel.SemanticMuCost <> count_atoms:34 def
-R4599:4602 Kernel.SemanticMuCost <> CNot constr
-R4610:4620 Kernel.SemanticMuCost <> count_atoms:34 def
-R4629:4633 Kernel.SemanticMuCost <> CTrue constr
-R4644:4649 Kernel.SemanticMuCost <> CFalse constr
-def 4704:4718 <> count_operators
-R4725:4734 Kernel.SemanticMuCost <> Constraint ind
-binder 4721:4721 <> c:36
-R4739:4741 Coq.Init.Datatypes <> nat ind
-R4754:4754 Kernel.SemanticMuCost <> c:36 var
-R4765:4769 Kernel.SemanticMuCost <> CAtom constr
-R4815:4818 Kernel.SemanticMuCost <> CAnd constr
-R4851:4853 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R4830:4832 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R4833:4847 Kernel.SemanticMuCost <> count_operators:37 def
-R4854:4868 Kernel.SemanticMuCost <> count_operators:37 def
-R4877:4879 Kernel.SemanticMuCost <> COr constr
-R4912:4914 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R4891:4893 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R4894:4908 Kernel.SemanticMuCost <> count_operators:37 def
-R4915:4929 Kernel.SemanticMuCost <> count_operators:37 def
-R4938:4941 Kernel.SemanticMuCost <> CNot constr
-R4950:4952 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R4953:4967 Kernel.SemanticMuCost <> count_operators:37 def
-R4976:4980 Kernel.SemanticMuCost <> CTrue constr
-R4991:4996 Kernel.SemanticMuCost <> CFalse constr
-def 5088:5095 <> log2_nat
-R5102:5104 Coq.Init.Datatypes <> nat ind
-binder 5098:5098 <> n:39
-R5109:5111 Coq.Init.Datatypes <> nat ind
-R5124:5124 Kernel.SemanticMuCost <> n:39 var
-R5146:5146 Coq.Init.Datatypes <> S constr
-R5163:5166 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R5211:5211 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R5153:5160 Coq.Arith.PeanoNat Nat log2 def
-R5162:5162 Kernel.SemanticMuCost <> n:39 var
-R5192:5195 Coq.Init.Nat <> ::nat_scope:x_'=?'_x not
-R5170:5176 Coq.Arith.PeanoNat Nat pow def
-R5181:5188 Coq.Arith.PeanoNat Nat log2 def
-R5190:5190 Kernel.SemanticMuCost <> n:39 var
-R5196:5196 Kernel.SemanticMuCost <> n:39 var
-def 5841:5864 <> semantic_complexity_bits
-R5871:5880 Kernel.SemanticMuCost <> Constraint ind
-binder 5867:5867 <> c:41
-R5885:5887 Coq.Init.Datatypes <> nat ind
-R5907:5917 Kernel.SemanticMuCost <> count_atoms def
-R5919:5919 Kernel.SemanticMuCost <> c:41 var
-binder 5898:5902 <> atoms:42
-R5938:5947 Kernel.SemanticMuCost <> count_vars def
-R5949:5949 Kernel.SemanticMuCost <> c:41 var
-binder 5930:5933 <> vars:43
-R5967:5981 Kernel.SemanticMuCost <> count_operators def
-R5983:5983 Kernel.SemanticMuCost <> c:41 var
-binder 5960:5962 <> ops:44
-R6050:6057 Kernel.SemanticMuCost <> log2_nat def
-R6060:6060 Coq.Init.Datatypes <> S constr
-R6062:6066 Kernel.SemanticMuCost <> atoms:42 var
-binder 6037:6045 <> atom_bits:45
-R6090:6097 Kernel.SemanticMuCost <> log2_nat def
-R6100:6100 Coq.Init.Datatypes <> S constr
-R6102:6105 Kernel.SemanticMuCost <> vars:43 var
-binder 6078:6085 <> var_bits:46
-R6128:6135 Kernel.SemanticMuCost <> log2_nat def
-R6138:6138 Coq.Init.Datatypes <> S constr
-R6140:6142 Kernel.SemanticMuCost <> ops:44 var
-binder 6117:6123 <> op_bits:47
-R6218:6221 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R6252:6252 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R6242:6244 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R6231:6233 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R6222:6230 Kernel.SemanticMuCost <> atom_bits:45 var
-R6234:6241 Kernel.SemanticMuCost <> var_bits:46 var
-R6245:6251 Kernel.SemanticMuCost <> op_bits:47 var
-prf 6671:6691 <> log2_nat_ge_1_of_ge_2
-binder 6702:6702 <> n:48
-R6711:6714 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6706:6709 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6705:6705 Kernel.SemanticMuCost <> n:48 var
-R6725:6728 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6715:6722 Kernel.SemanticMuCost <> log2_nat def
-R6724:6724 Kernel.SemanticMuCost <> n:48 var
-R6763:6770 Kernel.SemanticMuCost <> log2_nat def
-R6881:6884 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6866:6873 Coq.Arith.PeanoNat Nat log2 def
-R6876:6876 Coq.Init.Datatypes <> S constr
-R6881:6884 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6866:6873 Coq.Arith.PeanoNat Nat log2 def
-R6876:6876 Coq.Init.Datatypes <> S constr
-R6903:6910 Coq.Arith.PeanoNat Nat log2 def
-R6913:6913 Coq.Init.Datatypes <> S constr
-R6903:6910 Coq.Arith.PeanoNat Nat log2 def
-R6913:6913 Coq.Init.Datatypes <> S constr
-R7035:7038 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7039:7039 Coq.Init.Datatypes <> S constr
-R7035:7038 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7039:7039 Coq.Init.Datatypes <> S constr
-R7065:7077 Coq.Arith.PeanoNat Nat log2_spec thm
-R7065:7077 Coq.Arith.PeanoNat Nat log2_spec thm
-prf 8027:8053 <> semantic_complexity_nonzero
-binder 8066:8066 <> c:49
-R8083:8090 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8074:8077 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R8073:8073 Kernel.SemanticMuCost <> c:49 var
-R8078:8082 Kernel.SemanticMuCost <> CTrue constr
-R8102:8109 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8092:8095 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R8091:8091 Kernel.SemanticMuCost <> c:49 var
-R8096:8101 Kernel.SemanticMuCost <> CFalse constr
-R8136:8138 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R8110:8133 Kernel.SemanticMuCost <> semantic_complexity_bits def
-R8135:8135 Kernel.SemanticMuCost <> c:49 var
-R8178:8201 Kernel.SemanticMuCost <> semantic_complexity_bits def
-R8296:8299 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8279:8293 Kernel.SemanticMuCost <> count_operators def
-R8296:8299 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8279:8293 Kernel.SemanticMuCost <> count_operators def
-R8543:8546 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8511:8518 Kernel.SemanticMuCost <> log2_nat def
-R8521:8521 Coq.Init.Datatypes <> S constr
-R8524:8538 Kernel.SemanticMuCost <> count_operators def
-R8543:8546 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8511:8518 Kernel.SemanticMuCost <> log2_nat def
-R8521:8521 Coq.Init.Datatypes <> S constr
-R8524:8538 Kernel.SemanticMuCost <> count_operators def
-R8561:8581 Kernel.SemanticMuCost <> log2_nat_ge_1_of_ge_2 thm
-R8561:8581 Kernel.SemanticMuCost <> log2_nat_ge_1_of_ge_2 thm
-R8654:8661 Kernel.SemanticMuCost <> log2_nat def
-R8664:8664 Coq.Init.Datatypes <> S constr
-R8667:8677 Kernel.SemanticMuCost <> count_atoms def
-R8654:8661 Kernel.SemanticMuCost <> log2_nat def
-R8664:8664 Coq.Init.Datatypes <> S constr
-R8667:8677 Kernel.SemanticMuCost <> count_atoms def
-R8703:8710 Kernel.SemanticMuCost <> log2_nat def
-R8713:8713 Coq.Init.Datatypes <> S constr
-R8716:8725 Kernel.SemanticMuCost <> count_vars def
-R8703:8710 Kernel.SemanticMuCost <> log2_nat def
-R8713:8713 Coq.Init.Datatypes <> S constr
-R8716:8725 Kernel.SemanticMuCost <> count_vars def
-R8751:8758 Kernel.SemanticMuCost <> log2_nat def
-R8761:8761 Coq.Init.Datatypes <> S constr
-R8764:8778 Kernel.SemanticMuCost <> count_operators def
-R8751:8758 Kernel.SemanticMuCost <> log2_nat def
-R8761:8761 Coq.Init.Datatypes <> S constr
-R8764:8778 Kernel.SemanticMuCost <> count_operators def
-def 9523:9541 <> axiom_semantic_cost
-R9549:9555 Kernel.VMState <> VMAxiom def
-binder 9544:9545 <> ax:50
-R9565:9574 Kernel.SemanticMuCost <> Constraint ind
-binder 9559:9561 <> ast:51
-R9579:9581 Coq.Init.Datatypes <> nat ind
-R9588:9611 Kernel.SemanticMuCost <> semantic_complexity_bits def
-R9613:9615 Kernel.SemanticMuCost <> ast:51 var
-def 9916:9939 <> axiom_cost_with_fallback
-R9947:9953 Kernel.VMState <> VMAxiom def
-binder 9942:9943 <> ax:52
-R9967:9972 Coq.Init.Datatypes <> option ind
-R9974:9983 Kernel.SemanticMuCost <> Constraint ind
-binder 9957:9963 <> ast_opt:53
-R9988:9990 Coq.Init.Datatypes <> nat ind
-R10003:10009 Kernel.SemanticMuCost <> ast_opt:53 var
-R10020:10023 Coq.Init.Datatypes <> Some constr
-R10032:10055 Kernel.SemanticMuCost <> semantic_complexity_bits def
-R10065:10068 Coq.Init.Datatypes <> None constr
-R10073:10090 Kernel.VMStep VMStep payload_bit_length def
-R10092:10093 Kernel.SemanticMuCost <> ax:52 var
-def 11007:11026 <> ConstraintVar_anchor
-R11038:11050 Kernel.SemanticMuCost <> ConstraintVar ind
+R4220:4235 Kernel.SemanticMuCost <> count_vars_arith def
+R4242:4257 Kernel.SemanticMuCost <> count_vars_arith def
+R4266:4269 Kernel.SemanticMuCost <> CAnd constr
+R4293:4295 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R4280:4289 Kernel.SemanticMuCost <> count_vars:31 def
+R4296:4305 Kernel.SemanticMuCost <> count_vars:31 def
+R4314:4316 Kernel.SemanticMuCost <> COr constr
+R4340:4342 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R4327:4336 Kernel.SemanticMuCost <> count_vars:31 def
+R4343:4352 Kernel.SemanticMuCost <> count_vars:31 def
+R4361:4364 Kernel.SemanticMuCost <> CNot constr
+R4372:4381 Kernel.SemanticMuCost <> count_vars:31 def
+R4390:4394 Kernel.SemanticMuCost <> CTrue constr
+R4405:4410 Kernel.SemanticMuCost <> CFalse constr
+def 4480:4490 <> count_atoms
+R4497:4506 Kernel.SemanticMuCost <> Constraint ind
+binder 4493:4493 <> c:33
+R4511:4513 Coq.Init.Datatypes <> nat ind
+R4526:4526 Kernel.SemanticMuCost <> c:33 var
+R4537:4541 Kernel.SemanticMuCost <> CAtom constr
+R4554:4557 Kernel.SemanticMuCost <> CAnd constr
+R4582:4584 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R4568:4578 Kernel.SemanticMuCost <> count_atoms:34 def
+R4585:4595 Kernel.SemanticMuCost <> count_atoms:34 def
+R4604:4606 Kernel.SemanticMuCost <> COr constr
+R4631:4633 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R4617:4627 Kernel.SemanticMuCost <> count_atoms:34 def
+R4634:4644 Kernel.SemanticMuCost <> count_atoms:34 def
+R4653:4656 Kernel.SemanticMuCost <> CNot constr
+R4664:4674 Kernel.SemanticMuCost <> count_atoms:34 def
+R4683:4687 Kernel.SemanticMuCost <> CTrue constr
+R4698:4703 Kernel.SemanticMuCost <> CFalse constr
+def 4758:4772 <> count_operators
+R4779:4788 Kernel.SemanticMuCost <> Constraint ind
+binder 4775:4775 <> c:36
+R4793:4795 Coq.Init.Datatypes <> nat ind
+R4808:4808 Kernel.SemanticMuCost <> c:36 var
+R4819:4823 Kernel.SemanticMuCost <> CAtom constr
+R4869:4872 Kernel.SemanticMuCost <> CAnd constr
+R4905:4907 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R4884:4886 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R4887:4901 Kernel.SemanticMuCost <> count_operators:37 def
+R4908:4922 Kernel.SemanticMuCost <> count_operators:37 def
+R4931:4933 Kernel.SemanticMuCost <> COr constr
+R4966:4968 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R4945:4947 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R4948:4962 Kernel.SemanticMuCost <> count_operators:37 def
+R4969:4983 Kernel.SemanticMuCost <> count_operators:37 def
+R4992:4995 Kernel.SemanticMuCost <> CNot constr
+R5004:5006 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5007:5021 Kernel.SemanticMuCost <> count_operators:37 def
+R5030:5034 Kernel.SemanticMuCost <> CTrue constr
+R5045:5050 Kernel.SemanticMuCost <> CFalse constr
+def 5142:5149 <> log2_nat
+R5156:5158 Coq.Init.Datatypes <> nat ind
+binder 5152:5152 <> n:39
+R5163:5165 Coq.Init.Datatypes <> nat ind
+R5178:5178 Kernel.SemanticMuCost <> n:39 var
+R5200:5200 Coq.Init.Datatypes <> S constr
+R5217:5220 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5265:5265 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5207:5214 Coq.Arith.PeanoNat Nat log2 def
+R5216:5216 Kernel.SemanticMuCost <> n:39 var
+R5246:5249 Coq.Init.Nat <> ::nat_scope:x_'=?'_x not
+R5224:5230 Coq.Arith.PeanoNat Nat pow def
+R5235:5242 Coq.Arith.PeanoNat Nat log2 def
+R5244:5244 Kernel.SemanticMuCost <> n:39 var
+R5250:5250 Kernel.SemanticMuCost <> n:39 var
+def 5895:5918 <> semantic_complexity_bits
+R5925:5934 Kernel.SemanticMuCost <> Constraint ind
+binder 5921:5921 <> c:41
+R5939:5941 Coq.Init.Datatypes <> nat ind
+R5961:5971 Kernel.SemanticMuCost <> count_atoms def
+R5973:5973 Kernel.SemanticMuCost <> c:41 var
+binder 5952:5956 <> atoms:42
+R5992:6001 Kernel.SemanticMuCost <> count_vars def
+R6003:6003 Kernel.SemanticMuCost <> c:41 var
+binder 5984:5987 <> vars:43
+R6021:6035 Kernel.SemanticMuCost <> count_operators def
+R6037:6037 Kernel.SemanticMuCost <> c:41 var
+binder 6014:6016 <> ops:44
+R6104:6111 Kernel.SemanticMuCost <> log2_nat def
+R6114:6114 Coq.Init.Datatypes <> S constr
+R6116:6120 Kernel.SemanticMuCost <> atoms:42 var
+binder 6091:6099 <> atom_bits:45
+R6144:6151 Kernel.SemanticMuCost <> log2_nat def
+R6154:6154 Coq.Init.Datatypes <> S constr
+R6156:6159 Kernel.SemanticMuCost <> vars:43 var
+binder 6132:6139 <> var_bits:46
+R6182:6189 Kernel.SemanticMuCost <> log2_nat def
+R6192:6192 Coq.Init.Datatypes <> S constr
+R6194:6196 Kernel.SemanticMuCost <> ops:44 var
+binder 6171:6177 <> op_bits:47
+R6272:6275 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R6306:6306 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R6296:6298 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R6285:6287 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R6276:6284 Kernel.SemanticMuCost <> atom_bits:45 var
+R6288:6295 Kernel.SemanticMuCost <> var_bits:46 var
+R6299:6305 Kernel.SemanticMuCost <> op_bits:47 var
+prf 6725:6745 <> log2_nat_ge_1_of_ge_2
+binder 6756:6756 <> n:48
+R6765:6768 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6760:6763 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6759:6759 Kernel.SemanticMuCost <> n:48 var
+R6779:6782 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6769:6776 Kernel.SemanticMuCost <> log2_nat def
+R6778:6778 Kernel.SemanticMuCost <> n:48 var
+R6817:6824 Kernel.SemanticMuCost <> log2_nat def
+R6935:6938 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6920:6927 Coq.Arith.PeanoNat Nat log2 def
+R6930:6930 Coq.Init.Datatypes <> S constr
+R6935:6938 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6920:6927 Coq.Arith.PeanoNat Nat log2 def
+R6930:6930 Coq.Init.Datatypes <> S constr
+R6957:6964 Coq.Arith.PeanoNat Nat log2 def
+R6967:6967 Coq.Init.Datatypes <> S constr
+R6957:6964 Coq.Arith.PeanoNat Nat log2 def
+R6967:6967 Coq.Init.Datatypes <> S constr
+R7089:7092 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7093:7093 Coq.Init.Datatypes <> S constr
+R7089:7092 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7093:7093 Coq.Init.Datatypes <> S constr
+R7119:7131 Coq.Arith.PeanoNat Nat log2_spec thm
+R7119:7131 Coq.Arith.PeanoNat Nat log2_spec thm
+prf 8081:8107 <> semantic_complexity_nonzero
+binder 8120:8120 <> c:49
+R8137:8144 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8128:8131 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R8127:8127 Kernel.SemanticMuCost <> c:49 var
+R8132:8136 Kernel.SemanticMuCost <> CTrue constr
+R8156:8163 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8146:8149 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R8145:8145 Kernel.SemanticMuCost <> c:49 var
+R8150:8155 Kernel.SemanticMuCost <> CFalse constr
+R8190:8192 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R8164:8187 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R8189:8189 Kernel.SemanticMuCost <> c:49 var
+R8232:8255 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R8350:8353 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8333:8347 Kernel.SemanticMuCost <> count_operators def
+R8350:8353 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8333:8347 Kernel.SemanticMuCost <> count_operators def
+R8597:8600 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8565:8572 Kernel.SemanticMuCost <> log2_nat def
+R8575:8575 Coq.Init.Datatypes <> S constr
+R8578:8592 Kernel.SemanticMuCost <> count_operators def
+R8597:8600 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8565:8572 Kernel.SemanticMuCost <> log2_nat def
+R8575:8575 Coq.Init.Datatypes <> S constr
+R8578:8592 Kernel.SemanticMuCost <> count_operators def
+R8615:8635 Kernel.SemanticMuCost <> log2_nat_ge_1_of_ge_2 thm
+R8615:8635 Kernel.SemanticMuCost <> log2_nat_ge_1_of_ge_2 thm
+R8708:8715 Kernel.SemanticMuCost <> log2_nat def
+R8718:8718 Coq.Init.Datatypes <> S constr
+R8721:8731 Kernel.SemanticMuCost <> count_atoms def
+R8708:8715 Kernel.SemanticMuCost <> log2_nat def
+R8718:8718 Coq.Init.Datatypes <> S constr
+R8721:8731 Kernel.SemanticMuCost <> count_atoms def
+R8757:8764 Kernel.SemanticMuCost <> log2_nat def
+R8767:8767 Coq.Init.Datatypes <> S constr
+R8770:8779 Kernel.SemanticMuCost <> count_vars def
+R8757:8764 Kernel.SemanticMuCost <> log2_nat def
+R8767:8767 Coq.Init.Datatypes <> S constr
+R8770:8779 Kernel.SemanticMuCost <> count_vars def
+R8805:8812 Kernel.SemanticMuCost <> log2_nat def
+R8815:8815 Coq.Init.Datatypes <> S constr
+R8818:8832 Kernel.SemanticMuCost <> count_operators def
+R8805:8812 Kernel.SemanticMuCost <> log2_nat def
+R8815:8815 Coq.Init.Datatypes <> S constr
+R8818:8832 Kernel.SemanticMuCost <> count_operators def
+def 9577:9595 <> axiom_semantic_cost
+R9603:9609 Kernel.VMState <> VMAxiom def
+binder 9598:9599 <> ax:50
+R9619:9628 Kernel.SemanticMuCost <> Constraint ind
+binder 9613:9615 <> ast:51
+R9633:9635 Coq.Init.Datatypes <> nat ind
+R9642:9665 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R9667:9669 Kernel.SemanticMuCost <> ast:51 var
+def 9970:9993 <> axiom_cost_with_fallback
+R10001:10007 Kernel.VMState <> VMAxiom def
+binder 9996:9997 <> ax:52
+R10021:10026 Coq.Init.Datatypes <> option ind
+R10028:10037 Kernel.SemanticMuCost <> Constraint ind
+binder 10011:10017 <> ast_opt:53
+R10042:10044 Coq.Init.Datatypes <> nat ind
+R10057:10063 Kernel.SemanticMuCost <> ast_opt:53 var
+R10074:10077 Coq.Init.Datatypes <> Some constr
+R10086:10109 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R10119:10122 Coq.Init.Datatypes <> None constr
+R10127:10144 Kernel.VMStep VMStep payload_bit_length def
+R10146:10147 Kernel.SemanticMuCost <> ax:52 var
+def 11061:11080 <> ConstraintVar_anchor
+R11092:11104 Kernel.SemanticMuCost <> ConstraintVar ind

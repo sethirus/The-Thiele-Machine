@@ -201,7 +201,7 @@ Qed.
     [WFDrivenPrecondition]. *)
 Theorem thiele_trace_compat_wf_driven :
   forall fuel trace ks,
-    (forall ks' i, WFDrivenPrecondition ks' i) ->
+    WFDrivenRun fuel trace ks ->
     rtl_classical_obs (kami_run_driven fuel trace ks) =
     shadow_proj (run_vm fuel trace (abs_full_snapshot (full_snapshot_of_snapshot ks))).
 Proof.

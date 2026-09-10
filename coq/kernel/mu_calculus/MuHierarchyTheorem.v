@@ -13,7 +13,7 @@
     [level_intrinsic_at_least k s] ("every trace reaching s with vm_certified
     requires >= k cert-setter events"). The two predicates address complementary
     questions: this file's lower-bound is the witness-trace cost floor; the
-    state-level theorem [level_strict_separation] gives the strict separation as
+    state-level theorem [level_k_plus_1_forces_more_than_k_cert_events] gives the strict separation as
     a property of the final state independent of which trace reaches it. Both
     close under the global context.
 

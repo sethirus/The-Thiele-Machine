@@ -29,7 +29,7 @@ From Kernel Require Import MasterSummary.
 (** Master-summary audit hooks. *)
 
 (* Theorem: master summary asserts no project-local axioms or admits. *)
-Print Assumptions master_summary_no_hidden_project_assumptions_verified.
+Print Assumptions master_summary_declares_no_hidden_project_assumptions.
 
 (* Theorem: verification transfer surface is narrowed to explicit observables. *)
 Print Assumptions master_verification_preserved_observables.

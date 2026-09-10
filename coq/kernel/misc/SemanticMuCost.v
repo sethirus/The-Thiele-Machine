@@ -20,14 +20,15 @@
     compute the same value for any given constraint, since the
     cross-layer comparison contract depends on it. *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
-From Kernel Require Import MuCostModel.
+(* INQUISITOR NOTE: proof-connectivity. This file genuinely engages VM
+   semantics: it is stated over kernel types imported below and used in its
+   definitions and theorems. *)
+From Kernel Require Import VMState VMStep.
 
 From Coq Require Import List Lia Arith.PeanoNat Bool String.
 From Coq Require Import Nat.
 Import ListNotations.
 
-From Kernel Require Import VMState VMStep.
 
 
 (** Constraint variables (normalized identifiers) *)

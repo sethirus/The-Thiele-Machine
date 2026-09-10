@@ -10,13 +10,22 @@
   from stronger semantics somewhere else. The theorem names in this file now
   say exactly what the proofs establish. *)
 
-(* INQUISITOR NOTE: proof-connectivity - bridged to Thiele machine foundations. *)
-From Kernel Require Import MuCostModel.
+(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+   mathematics and does not engage VM semantics. No definition or theorem here
+   mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost. Any
+   Kernel module it imports is a peer result in the same mathematical
+   development, not the VM step relation.
+
+   The audit is waived rather than satisfied: satisfying it from inside would
+   mean importing the kernel without using it, which asserts a bridge that is
+   not here. Where these results feed the mu-ledger, they do so through the
+   theorems downstream that consume them. Counted in the WAIVERS census in
+   INQUISITOR_REPORT.md. *)
 
 From Coq Require Import List Bool Arith.PeanoNat micromega.Lia.
 Import ListNotations.
 
-From Kernel Require Import VMState VMStep KernelPhysics RevelationRequirement QuantumEquivalence.
+From Kernel Require Import KernelPhysics RevelationRequirement QuantumEquivalence.
 
 (** Abstract Information Causality-shaped record.
 

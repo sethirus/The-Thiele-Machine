@@ -1,0 +1,481 @@
+Require Extraction.
+Require IntrinsicLevelHierarchy.
+Require MuCodingTheorem.
+Require MuDirectSum.
+Require NecessityOfMuLedger.
+Require PhysicsConditionalClosure.
+Require ReceiptTheorem.
+Require ThieleMachineComplete.
+Require VerifierEscape_Hardness.
+Require VerifierEscape_Interaction.
+Require VerifierEscape_Substrate.
+Require VerifierExhaustiveness.
+Require VerifierImpossibility.
+Require VerifierModel.
+Require KamiHW.Abstraction.
+Require KamiHW.CanonicalCPUProof.
+Require KamiHW.Compatibility.
+Require KamiHW.EmbedStep.
+Require KamiHW.EmbedStep_WF.
+Require KamiHW.F4_BModulesTranslation.
+Require KamiHW.F4_VerilogEvaluator.
+Require KamiHW.FullAbstraction.
+Require KamiHW.FullEmbedStep.
+Require KamiHW.FullStep.
+Require KamiHW.GraphReconstructionBridge.
+Require KamiHW.HardwareShadowBridge.
+Require KamiHW.KamiExtraction.
+Require KamiHW.LogicEngineEquivalence.
+Require KamiHW.RTLCorrectnessInstantiation.
+Require KamiHW.RTLGapRegistry.
+Require KamiHW.RichStateCommutation.
+Require KamiHW.ShadowDevice.
+Require KamiHW.ShadowDeviceTrace.
+Require KamiHW.ShadowEmbedStep.
+Require KamiHW.ThieleCPUBusTop.
+Require KamiHW.ThieleCPUCore.
+Require KamiHW.ThieleCanonicality.
+Require KamiHW.ThieleTypes.
+Require KamiHW.VerilogRefinement.
+Require KamiHW.VerilogSemantics.
+Require Kernel.Closure.
+Require Kernel.FalsifiablePrediction.
+Require Kernel.MasterSummary.
+Require Kernel.NonCircularityAudit.
+Require Kernel.PDISCOVERIntegration.
+Require Kernel.TOE.
+Require Kernel.ThieleGenesis.
+Require Kernel.UnificationProbeBridges.
+Require Kernel.UnificationProbePattern.
+Require Kernel.AlgebraicCoherence.
+Require Kernel.CategoryBridge.
+Require Kernel.CategoryLaws.
+Require Kernel.CategoryMonoidal.
+Require Kernel.ConstantUnification.
+Require Kernel.AffineEFEClosure.
+Require Kernel.CurvedTensorPipeline.
+Require Kernel.DiscreteGaussBonnet.
+Require Kernel.DiscreteRaychaudhuri.
+Require Kernel.DiscreteSimplicialGeometry.
+Require Kernel.DiscreteTopology.
+Require Kernel.EinsteinEmergence.
+Require Kernel.EinsteinEquations4D.
+Require Kernel.EinsteinEquationsFull.
+Require Kernel.FourDSimplicialComplex.
+Require Kernel.JacobsonBridgeComponents.
+Require Kernel.KernelNoether.
+Require Kernel.KernelPhysics.
+Require Kernel.LocalMorphismSemantics.
+Require Kernel.LorentzNotForced.
+Require Kernel.LorentzianTensorPipeline.
+Require Kernel.MatrixAlgebra4.
+Require Kernel.MetricForcing.
+Require Kernel.MetricFromMuCosts.
+Require Kernel.MuGravity.
+Require Kernel.NoFIToEinstein.
+Require Kernel.PNEWTopologyChange.
+Require Kernel.PhysicalSubstrate.
+Require Kernel.PhysicsClosure.
+Require Kernel.RaychaudhuriFluxBridge.
+Require Kernel.RiemannTensor4D.
+Require Kernel.SpacetimeEmergence.
+Require Kernel.StressEnergyDynamics.
+Require Kernel.SymmetricDerivative4D.
+Require Kernel.TopologyCurvatureBridge.
+Require Kernel.ClassicalBound.
+Require Kernel.ClassicalConservativity.
+Require Kernel.DagRestriction.
+Require Kernel.Definitions.
+Require Kernel.Kernel.
+Require Kernel.KernelTM.
+Require Kernel.KernelThiele.
+Require Kernel.Locality.
+Require Kernel.MuCostModel.
+Require Kernel.MuLedgerConservation.
+Require Kernel.NatSubstrateInstance.
+Require Kernel.PartitionSeparation.
+Require Kernel.Persistence.
+Require Kernel.ProperSubsumption.
+Require Kernel.SimulationProof.
+Require Kernel.StateSpaceCounting.
+Require Kernel.Substrate.
+Require Kernel.Subsumption.
+Require Kernel.TuringClassicalEmbedding.
+Require Kernel.TuringCompletenessISA.
+Require Kernel.TuringStrictness.
+Require Kernel.VMEncoding.
+Require Kernel.VMInstructionEncoding.
+Require Kernel.VMState.
+Require Kernel.VMStep.
+Require Kernel.VMSubstrateInstance.
+Require Kernel.VMUnboundedExec.
+Require Kernel.F1_AbstractedBridge.
+Require Kernel.F1_LogicalErasure.
+Require Kernel.F1_StrongForm.
+Require Kernel.F1_TraceLevelA2.
+Require Kernel.F2_MinorFromWitnessLocality.
+Require Kernel.F2_MinorIndependence.
+Require Kernel.F2_PerMinorFromCostCoherent.
+Require Kernel.F3_CrossLink.
+Require Kernel.F3_MuLaplacianSum.
+Require Kernel.F3_PartitionTopologyCrossLink.
+Require Kernel.F3_PlusOneStructural.
+Require Kernel.F3_TripleCrossLink.
+Require Kernel.PointerObservable.
+Require Kernel.PointerObservableCounterexamples.
+Require Kernel.PointerObservableReductions.
+Require Kernel.HardwareBisimulation.
+Require Kernel.OCamlExtractionBridge.
+Require Kernel.PythonBisimulation.
+Require Kernel.ThreeLayerIsomorphism.
+Require Kernel.VerilogRTLCorrespondence.
+Require Kernel.ConeAlgebra.
+Require Kernel.ConeDerivation.
+Require Kernel.SemanticMuCost.
+Require Kernel.KernelBenchmarks.
+Require Kernel.MuChaitin.
+Require Kernel.MuComplexity.
+Require Kernel.MuCostDerivation.
+Require Kernel.MuGeometry.
+Require Kernel.MuHierarchyTheorem.
+Require Kernel.MuInformation.
+Require Kernel.MuInitiality.
+Require Kernel.MuNoFreeInsightQuantitative.
+Require Kernel.MuShannonBridge.
+Require Kernel.MuShannonQuantitative.
+Require Kernel.QuantitativeNoFI.
+Require Kernel.A2LoadBearing.
+Require Kernel.A2Payoff.
+Require Kernel.AbstractNoFI.
+Require Kernel.CertCheck.
+Require Kernel.Certification.
+Require Kernel.CommitmentCostDecomposition.
+Require Kernel.CommitmentPredicateAdequacy.
+Require Kernel.CommitmentVsErasure.
+Require Kernel.HonestCostTracking.
+Require Kernel.HonestMeasurement.
+Require Kernel.HonestNoFI.
+Require Kernel.HonestNoFI_TheoremsWithoutAssumptions.
+Require Kernel.InformationGainToStrengthening.
+Require Kernel.InsightTaxonomy.
+Require Kernel.LandauerDerivation.
+Require Kernel.MeasurementExtraction.
+Require Kernel.MuLedgerQuantumBridge.
+Require Kernel.MuRunIncompleteness.
+Require Kernel.NecessityAbstract.
+Require Kernel.NoFreeInsight.
+Require Kernel.NonAdaptiveLowerBound.
+Require Kernel.PartitionRefinementNoFI.
+Require Kernel.PrimeAxiom.
+Require Kernel.ReceiptCore.
+Require Kernel.ReceiptIntegrity.
+Require Kernel.RevelationRequirement.
+Require Kernel.SimpleMorphShortcut.
+Require Kernel.StructuralAdvantage.
+Require Kernel.StructuralAdvantageCertifiedShortcut.
+Require Kernel.StructuralAdvantageObservedShortcut.
+Require Kernel.StructuralAdvantageObservedShortcutResult.
+Require Kernel.StructuralAxisOrthogonality.
+Require Kernel.StructuralAxisRelativization.
+Require Kernel.StructuralUndecidability.
+Require Kernel.ThermodynamicStructuralAdvantage.
+Require Kernel.ThieleInitiality.
+Require Kernel.UniversalCertificationCost.
+Require Kernel.UniversalShortcutLifting.
+Require Kernel.VMSubstrateEncoded.
+Require Kernel.VerificationCostSeparation.
+Require Kernel.BornRule.
+Require Kernel.BornRuleLinearity.
+Require Kernel.BoxCHSH.
+Require Kernel.CHSH.
+Require Kernel.CHSHCouplingBridge.
+Require Kernel.CHSHExtraction.
+Require Kernel.CHSHStatisticalBridge.
+Require Kernel.ConstructivePSD.
+Require Kernel.ElliptopeCompletion.
+Require Kernel.ElliptopeGate.
+Require Kernel.EntanglementEntropy.
+Require Kernel.GenRealizability.
+Require Kernel.HolevoDimensional.
+Require Kernel.HolevoGeneralD.
+Require Kernel.HolevoTwoQubit.
+Require Kernel.HonestMeasurementImpliesNPA.
+Require Kernel.InformationCausality.
+Require Kernel.MinorConstraints.
+Require Kernel.NPAMomentMatrix.
+Require Kernel.NoCloning.
+Require Kernel.OperatorAlgebra.
+Require Kernel.PRBoxIsDishonest.
+Require Kernel.ProbabilityImpossibility.
+Require Kernel.Purification.
+Require Kernel.QuantumBound.
+Require Kernel.QuantumEquivalence.
+Require Kernel.QuantumPartitionPSD.
+Require Kernel.QuantumPartitionPSD_1AB.
+Require Kernel.SemidefiniteProgramming.
+Require Kernel.TsirelsonFromAlgebra.
+Require Kernel.TsirelsonFromIC.
+Require Kernel.TsirelsonFromMu.
+Require Kernel.TsirelsonGeneral.
+Require Kernel.TsirelsonQuantumModel.
+Require Kernel.TsirelsonUniqueness.
+Require Kernel.TsirelsonUpperBound.
+Require Kernel.Unitarity.
+Require Kernel.ValidCorrelation.
+Require Kernel.GasMetering.
+Require Kernel.PoSFinality.
+Require Kernel.ProofCarryingVerifier.
+Require Kernel.TEEAttestation.
+Require Kernel.TransparencyLog.
+Require Kernel.AdditionalProbes.
+Require Kernel.BekensteinBound.
+Require Kernel.BekensteinCalibration.
+Require Kernel.ClausiusFromEntropyArea.
+Require Kernel.DimensionalGapTheorem.
+Require Kernel.EntropyImpossibility.
+Require Kernel.FiniteInformation.
+Require Kernel.LocalInfoLoss.
+Require Kernel.SecondLawBoltzmannWall.
+Require Kernel.ThermoEinsteinBridge.
+Require Kernel.BlindnessRepresentation.
+Require Kernel.DerivedTime.
+Require Kernel.InformationTopology.
+Require Kernel.ObserverDerivation.
+Require Kernel.ProjectionNonExistence.
+Require Kernel.ShadowProjection.
+Require Kernel.ThieleTraceProjection.
+Require Kernel.WitnessInsightGeneral.
+Require Kernel.WitnessPreservationImpossibility.
+Require NoFI.Instance_Kernel.
+Require NoFI.MuChaitinTheory_Interface.
+Require NoFI.MuChaitinTheory_Theorem.
+Require NoFI.NoFreeInsight_Interface.
+Require NoFI.NoFreeInsight_Theorem.
+Require Physics.DiscreteModel.
+Require Physics.DissipativeModel.
+Require Physics.PreregSplit.
+Require Physics.TriangularLattice.
+Require Physics.WaveModel.
+Require SelfReference.AdversarialChallenge.
+Require SelfReference.InductiveTrust.
+Require SelfReference.MuThresholdDisobedience.
+Require SelfReference.NeuralSymbolicBridge.
+Require SelfReference.NonInterference.
+Require SelfReference.RefinementInvariant.
+Require SelfReference.SelfCertifyingDecider.
+Require SelfReference.SelfReference.
+Require SelfReference.TilingChain.
+Require Spacetime.Spacetime.
+Require TestFixtures.VacuitySmoke.
+Require Tests.ClaimBoundaryRegression.
+Require Tests.CloseoutVerification.
+Require Tests.TestNecessity.
+Require Tests.WFDrivenRunRegression.
+Require Tests.verify_nofi_load_bearing.
+Require Tests.verify_zero_admits.
+Require Thermodynamic.LandauerDerived.
+Require Thermodynamic.LandauerJoules.
+Require Thermodynamic.ThermodynamicBridge.
+Require ThieleManifold.PhysicalConstants.
+Require ThieleManifold.PhysicsIsomorphism.
+Require ThieleManifold.ThieleManifold.
+Require ThieleManifold.ThieleManifoldBridge.
+Require ThieleMachine.ThieleMachine.
+Require ThieleMachine.ThieleProc.
+Print Assumptions SelfReference.RefinementInvariant.mu_refinement_exists.
+Print Assumptions SelfReference.RefinementInvariant.lob_bypass_concrete.
+Print Assumptions SelfReference.RefinementInvariant.chain_link_mu_exact.
+Print Assumptions SelfReference.SelfCertifyingDecider.decider_halted_frozen.
+Print Assumptions SelfReference.SelfCertifyingDecider.decider_step_mu_monotone.
+Print Assumptions SelfReference.SelfCertifyingDecider.decider_run_mu_monotone.
+Print Assumptions SelfReference.SelfCertifyingDecider.decider_step_preserves_safety.
+Print Assumptions SelfReference.SelfCertifyingDecider.decider_safety_all_steps.
+Print Assumptions SelfReference.SelfCertifyingDecider.decider_never_enters_unsafe.
+Print Assumptions SelfReference.SelfCertifyingDecider.decider_halts_on_unsafe.
+Print Assumptions SelfReference.SelfCertifyingDecider.decider_utility_frozen_after_halt.
+Print Assumptions SelfReference.SelfCertifyingDecider.bool_decider_safe.
+Print Assumptions SelfReference.SelfCertifyingDecider.trust_oracle_sound.
+Print Assumptions SelfReference.SelfCertifyingDecider.decider_correctness.
+Print Assumptions SelfReference.SelfCertifyingDecider.decider_bridges_spaceland.
+Print Assumptions SelfReference.SelfReference.meta_system_dim.
+Print Assumptions SelfReference.SelfReference.meta_system_richer.
+Print Assumptions SelfReference.SelfReference.meta_system_can_reason_about.
+Print Assumptions SelfReference.SelfReference.meta_system_self_referential.
+Print Assumptions SelfReference.SelfReference.self_reference_requires_metalevel.
+Print Assumptions SelfReference.TilingChain.compose_embed_lt.
+Print Assumptions SelfReference.TilingChain.compose_embed_inj.
+Print Assumptions SelfReference.TilingChain.compose_size_strict.
+Print Assumptions SelfReference.TilingChain.compose_insight_eq.
+Print Assumptions SelfReference.TilingChain.chain_insight_additive.
+Print Assumptions SelfReference.TilingChain.chain_safety_sound.
+Print Assumptions SelfReference.TilingChain.chain_strictly_grows.
+Print Assumptions SelfReference.TilingChain.scale_invariance.
+Print Assumptions SelfReference.TilingChain.chain_trust_certificate.
+Print Assumptions SelfReference.TilingChain.chain_no_free_trust.
+Print Assumptions SelfReference.TilingChain.chain_insight_positive.
+Print Assumptions Spacetime.Spacetime.spacetime_is_self_referential.
+Print Assumptions Spacetime.Spacetime.spacetime_requires_metalevel.
+Print Assumptions Spacetime.Spacetime.meta_level_not_in_spacetime.
+Print Assumptions Spacetime.Spacetime.spacetime_meta_properties.
+Print Assumptions Spacetime.Spacetime.spacetime_meta_dimensional_gap.
+Print Assumptions Spacetime.Spacetime.global_truth_escapes.
+Print Assumptions TestFixtures.VacuitySmoke.smoke_literal_true.
+Print Assumptions TestFixtures.VacuitySmoke.smoke_unfolds_to_true.
+Print Assumptions TestFixtures.VacuitySmoke.smoke_quantified_true.
+Print Assumptions TestFixtures.VacuitySmoke.smoke_identity.
+Print Assumptions TestFixtures.VacuitySmoke.smoke_two_hyps_pick_first.
+Print Assumptions TestFixtures.VacuitySmoke.smoke_addnSm.
+Print Assumptions TestFixtures.VacuitySmoke.smoke_succ_nonzero.
+Print Assumptions TestFixtures.VacuitySmoke.smoke_genuine_equality.
+Print Assumptions TestFixtures.VacuitySmoke.smoke_modus_ponens.
+Print Assumptions Tests.ClaimBoundaryRegression.receipt_encoding_roundtrip.
+Print Assumptions Tests.ClaimBoundaryRegression.no_vm_state_morphism_to_never_certifies.
+Print Assumptions Tests.ClaimBoundaryRegression.zero_cost_jump_collapses_pc_class.
+Print Assumptions Tests.ClaimBoundaryRegression.full_vm_f1_premises_incompatible.
+Print Assumptions Tests.ClaimBoundaryRegression.zero_cost_partition_changes_structure.
+Print Assumptions Tests.CloseoutVerification.closeout_zero_gaps.
+Print Assumptions Tests.CloseoutVerification.closeout_47_opcodes.
+Print Assumptions Tests.CloseoutVerification.closeout_extraction_identity.
+Print Assumptions Tests.TestNecessity.w_decreasing_empty_FAILS.
+Print Assumptions Tests.TestNecessity.w_privileged_empty.
+Print Assumptions Tests.TestNecessity.w_privileged_sequential_REALLY_FAILS.
+Print Assumptions Tests.TestNecessity.w_free_read_empty.
+Print Assumptions Tests.TestNecessity.count_xfer_app.
+Print Assumptions Tests.TestNecessity.w_free_read_sequential.
+Print Assumptions Tests.TestNecessity.w_free_read_disjoint_commutes.
+Print Assumptions Tests.TestNecessity.w_free_read_laws.
+Print Assumptions Tests.TestNecessity.w_free_read_NOT_uniform.
+Print Assumptions Tests.TestNecessity.test_summary.
+Print Assumptions Tests.WFDrivenRunRegression.old_universal_precondition_impossible.
+Print Assumptions Tests.WFDrivenRunRegression.valid_program_meets_run_contract.
+Print Assumptions Tests.WFDrivenRunRegression.valid_program_full_state_commutes.
+Print Assumptions Tests.WFDrivenRunRegression.valid_program_actually_certifies.
+Print Assumptions Tests.WFDrivenRunRegression.visited_invalid_pnew_rejected.
+Print Assumptions Tests.WFDrivenRunRegression.unvisited_invalid_pnew_allowed.
+Print Assumptions Tests.WFDrivenRunRegression.invalid_pnew_beyond_fuel_allowed.
+Print Assumptions Tests.verify_nofi_load_bearing.nofi_strengthening_bridge_guard.
+Print Assumptions Tests.verify_zero_admits.zero_admit_connectivity_check.
+Print Assumptions Thermodynamic.LandauerDerived.num_states_pos.
+Print Assumptions Thermodynamic.LandauerDerived.fan_in_pos.
+Print Assumptions Thermodynamic.LandauerDerived.pow2_ge_1.
+Print Assumptions Thermodynamic.LandauerDerived.pow2_S_ge_2.
+Print Assumptions Thermodynamic.LandauerDerived.erasure_irreversible.
+Print Assumptions Thermodynamic.LandauerDerived.erasure_decreases_entropy.
+Print Assumptions Thermodynamic.LandauerDerived.landauer_information_bound.
+Print Assumptions Thermodynamic.LandauerDerived.thermodynamic_bridge.
+Print Assumptions Thermodynamic.LandauerDerived.one_bit_erased.
+Print Assumptions Thermodynamic.LandauerDerived.one_bit_irreversible.
+Print Assumptions Thermodynamic.LandauerDerived.one_ge_one.
+Print Assumptions Thermodynamic.LandauerDerived.one_bit_landauer.
+Print Assumptions Thermodynamic.LandauerDerived.n_bits_erased.
+Print Assumptions Thermodynamic.LandauerDerived.n_ge_n.
+Print Assumptions Thermodynamic.LandauerDerived.n_bit_second_law.
+Print Assumptions Thermodynamic.LandauerDerived.n_bit_landauer.
+Print Assumptions Thermodynamic.LandauerDerived.erasure_additive.
+Print Assumptions Thermodynamic.LandauerJoules.ln_pow_nat.
+Print Assumptions Thermodynamic.LandauerJoules.shannon_entropy_binary_uniform_nats.
+Print Assumptions Thermodynamic.LandauerJoules.ln_2_pos.
+Print Assumptions Thermodynamic.LandauerJoules.info_entropy_decrease_value.
+Print Assumptions Thermodynamic.LandauerJoules.landauer_joules.
+Print Assumptions Thermodynamic.LandauerJoules.landauer_joules_one_bit.
+Print Assumptions Thermodynamic.LandauerJoules.information_bound_in_joule_units.
+Print Assumptions Thermodynamic.ThermodynamicBridge.mu_nonnegative.
+Print Assumptions Thermodynamic.ThermodynamicBridge.mu_additive.
+Print Assumptions Thermodynamic.ThermodynamicBridge.mu_total_cost.
+Print Assumptions Thermodynamic.ThermodynamicBridge.flip_reversible.
+Print Assumptions Thermodynamic.ThermodynamicBridge.erase_not_reversible.
+Print Assumptions Thermodynamic.ThermodynamicBridge.reversible_zero_mu.
+Print Assumptions Thermodynamic.ThermodynamicBridge.erase_info_loss.
+Print Assumptions Thermodynamic.ThermodynamicBridge.flip_preserves_length.
+Print Assumptions Thermodynamic.ThermodynamicBridge.erase_preserves_length.
+Print Assumptions Thermodynamic.ThermodynamicBridge.erase_mu_cost.
+Print Assumptions Thermodynamic.ThermodynamicBridge.reversible_mu_zero.
+Print Assumptions Thermodynamic.ThermodynamicBridge.landauer_bound.
+Print Assumptions Thermodynamic.ThermodynamicBridge.reversible_achieves_zero_energy.
+Print Assumptions Thermodynamic.ThermodynamicBridge.impl_satisfies_landauer.
+Print Assumptions ThieleManifold.PhysicsIsomorphism.reversible_trace_irreversibility_count_zero.
+Print Assumptions ThieleManifold.PhysicsIsomorphism.reversible_trace_ledger_sum_zero.
+Print Assumptions ThieleManifold.PhysicsIsomorphism.reversible_embedding_zero_irreversibility.
+Print Assumptions ThieleManifold.PhysicsIsomorphism.irreversible_count_positive_from_cost.
+Print Assumptions ThieleManifold.PhysicsIsomorphism.dissipative_embedding_mu_gap.
+Print Assumptions ThieleManifold.PhysicsIsomorphism.reversible_embedding_zero_irreversibility_hw.
+Print Assumptions ThieleManifold.PhysicsIsomorphism.dissipative_embedding_mu_gap_hw.
+Print Assumptions ThieleManifold.PhysicsIsomorphism.lattice_gas_local.
+Print Assumptions ThieleManifold.PhysicsIsomorphism.lattice_gas_finite.
+Print Assumptions ThieleManifold.PhysicsIsomorphism.lattice_gas_reversible.
+Print Assumptions ThieleManifold.PhysicsIsomorphism.dissipative_local.
+Print Assumptions ThieleManifold.PhysicsIsomorphism.dissipative_finite.
+Print Assumptions ThieleManifold.PhysicsIsomorphism.wave_local.
+Print Assumptions ThieleManifold.PhysicsIsomorphism.wave_finite.
+Print Assumptions ThieleManifold.PhysicsIsomorphism.wave_reversible.
+Print Assumptions ThieleManifold.ThieleManifold.canonical_level_strict.
+Print Assumptions ThieleManifold.ThieleManifold.canonical_level_reasoning.
+Print Assumptions ThieleManifold.ThieleManifold.canonical_base_dim.
+Print Assumptions ThieleManifold.ThieleManifold.level_dimension_le.
+Print Assumptions ThieleManifold.ThieleManifold.level_dimension_gt_four.
+Print Assumptions ThieleManifold.ThieleManifold.tower_self_reference_escalates.
+Print Assumptions ThieleManifold.ThieleManifold.tower_closed_under_self_reference.
+Print Assumptions ThieleManifold.ThieleManifold.pi4_lossy_for_higher_levels.
+Print Assumptions ThieleManifold.ThieleManifold.mu_cost_positive_for_projection.
+Print Assumptions ThieleManifold.ThieleManifold.tower_projects_to_spacetime.
+Print Assumptions ThieleManifold.ThieleManifold.projection_discards_dimensions.
+Print Assumptions ThieleManifold.ThieleManifold.projection_mu_cost.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.obs_equiv_refl.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.thiele_self_reference_true.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.thiele_sentence_of_true.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.thiele_system_self_referential.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.thiele_system_reasons_about_spacetime.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.thiele_level_richer.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.thiele_level_can_reason.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.thiele_base_at_least_four.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.thiele_manifold_projection_matches_base.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.thiele_level_dimension.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.thiele_level_mu_cost.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.thiele_level_mu_gap.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.thiele_manifold_requires_meta.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.thiele_projection_has_positive_mu_cost.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.thiele_manifold_supports_spacetime_shadow.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.thiele_run_mu_bounds_irreversibility.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.thiele_manifold_irreversibility_gap.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.faithful_irreversibility_lower_bound.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.faithful_impl_irreversibility_lower_bound.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.faithful_impl_mu_conservation.
+Print Assumptions ThieleManifold.ThieleManifoldBridge.faithful_impl_cost_delta.
+Print Assumptions ThieleMachine.ThieleMachine.option_event_eqb_refl.
+Print Assumptions ThieleMachine.ThieleMachine.cert_eqb_refl.
+Print Assumptions ThieleMachine.ThieleMachine.option_event_eqb_eq.
+Print Assumptions ThieleMachine.ThieleMachine.cert_eqb_eq.
+Print Assumptions ThieleMachine.ThieleMachine.state_eq_of_pc.
+Print Assumptions ThieleMachine.ThieleMachine.check_step_sound.
+Print Assumptions ThieleMachine.ThieleMachine.mu_lower_bound.
+Print Assumptions ThieleMachine.ThieleMachine.check_step_complete.
+Print Assumptions ThieleMachine.ThieleMachine.state_eqb_refl.
+Print Assumptions ThieleMachine.ThieleMachine.replay_of_exec.
+Print Assumptions ThieleMachine.ThieleMachine.mu_pays_bits_exec.
+Print Assumptions ThieleMachine.ThieleMachine.abstract_exec_receipts_replay_and_are_paid.
+Print Assumptions ThieleMachine.ThieleMachine.replay_sound.
+Print Assumptions ThieleMachine.ThieleMachine.mu_pays_for_certs.
+Print Assumptions ThieleMachine.ThieleProc.seq_prog_nil_l.
+Print Assumptions ThieleMachine.ThieleProc.seq_prog_nil_r.
+Print Assumptions ThieleMachine.ThieleProc.seq_prog_assoc.
+Print Assumptions ThieleMachine.ThieleProc.run_closed_empty.
+Print Assumptions ThieleMachine.ThieleProc.skipn_cons_inv.
+Print Assumptions ThieleMachine.ThieleProc.skipn_nth_error.
+Print Assumptions ThieleMachine.ThieleProc.skipn_succ_suffix.
+Print Assumptions ThieleMachine.ThieleProc.closed_trace_exec_aux.
+Print Assumptions ThieleMachine.ThieleProc.closed_trace_exec.
+Print Assumptions ThieleMachine.ThieleProc.obs_equiv_sym.
+Print Assumptions ThieleMachine.ThieleProc.obs_equiv_trans.
+Print Assumptions ThieleMachine.ThieleProc.run_closed_obs_seq.
+Print Assumptions ThieleMachine.ThieleProc.obs_equiv_compose.
+Print Assumptions ThieleMachine.ThieleProc.obs_equiv_id_l.
+Print Assumptions ThieleMachine.ThieleProc.obs_equiv_id_r.
+Print Assumptions ThieleMachine.ThieleProc.iface_tensor_partitions.
+Print Assumptions ThieleMachine.ThieleProc.run_closed_tensor_pc.
+Print Assumptions ThieleMachine.ThieleProc.split_comp_assoc.
+Print Assumptions ThieleMachine.ThieleProc.split_comp_id_left.
+Print Assumptions ThieleMachine.ThieleProc.split_comp_id_right.
+Print Assumptions ThieleMachine.ThieleProc.tensor_morphism_bifunctor.
+Print Assumptions ThieleMachine.ThieleProc.tensor_morphism_id.
+Print Assumptions NoFI.Instance_Kernel.KernelNoFI_Theorem.no_free_insight.
+Quit.

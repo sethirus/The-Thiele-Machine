@@ -1,0 +1,697 @@
+DIGEST 4711361aa8b2975741a696a2f9a28fc2
+FKernel.ObservationPolicy
+R147:150 Coq.Lists.List <> <> lib
+R152:155 Coq.Bool.Bool <> <> lib
+R157:170 Coq.Arith.PeanoNat <> <> lib
+R172:174 Coq.micromega.Lia <> <> lib
+R204:210 Kernel.VMState <> <> lib
+R212:217 Kernel.VMStep <> <> lib
+R219:233 Kernel.SimulationProof <> <> lib
+R235:246 Kernel.MuInitiality <> <> lib
+R256:268 Coq.Lists.List ListNotations <> mod
+def 310:329 <> query_fiber_constant
+binder 332:336 <> State:1
+binder 338:341 <> View:2
+binder 343:348 <> Answer:3
+R380:383 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R375:379 Kernel.ObservationPolicy <> State:1 var
+R384:387 Kernel.ObservationPolicy <> View:2 var
+binder 365:371 <> observe:4
+R404:407 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R399:403 Kernel.ObservationPolicy <> State:1 var
+R408:413 Kernel.ObservationPolicy <> Answer:3 var
+binder 391:395 <> query:5
+binder 437:437 <> s:6
+binder 439:439 <> t:7
+R463:466 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R451:453 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R442:448 Kernel.ObservationPolicy <> observe:4 var
+R450:450 Kernel.ObservationPolicy <> s:6 var
+R454:460 Kernel.ObservationPolicy <> observe:4 var
+R462:462 Kernel.ObservationPolicy <> t:7 var
+R474:476 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R467:471 Kernel.ObservationPolicy <> query:5 var
+R473:473 Kernel.ObservationPolicy <> s:6 var
+R477:481 Kernel.ObservationPolicy <> query:5 var
+R483:483 Kernel.ObservationPolicy <> t:7 var
+prf 497:529 <> decoding_requires_fiber_constancy
+binder 532:536 <> State:8
+binder 538:541 <> View:9
+binder 543:548 <> Answer:10
+R580:583 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R575:579 Kernel.ObservationPolicy <> State:8 var
+R584:587 Kernel.ObservationPolicy <> View:9 var
+binder 565:571 <> observe:11
+R604:607 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R599:603 Kernel.ObservationPolicy <> State:8 var
+R608:613 Kernel.ObservationPolicy <> Answer:10 var
+binder 591:595 <> query:12
+R622:622 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R693:701 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R623:629 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R653:654 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R643:646 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R639:642 Kernel.ObservationPolicy <> View:9 var
+R647:652 Kernel.ObservationPolicy <> Answer:10 var
+binder 630:635 <> decode:13
+binder 662:662 <> s:14
+R683:685 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R665:670 Kernel.ObservationPolicy <> decode:13 var
+R673:679 Kernel.ObservationPolicy <> observe:11 var
+R681:681 Kernel.ObservationPolicy <> s:14 var
+R686:690 Kernel.ObservationPolicy <> query:12 var
+R692:692 Kernel.ObservationPolicy <> s:14 var
+R702:721 Kernel.ObservationPolicy <> query_fiber_constant def
+R731:735 Kernel.ObservationPolicy <> query:12 var
+R723:729 Kernel.ObservationPolicy <> observe:11 var
+prf 979:1015 <> selected_representatives_give_decoder
+binder 1018:1022 <> State:15
+binder 1024:1027 <> View:16
+binder 1029:1034 <> Answer:17
+R1066:1069 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1061:1065 Kernel.ObservationPolicy <> State:15 var
+R1070:1073 Kernel.ObservationPolicy <> View:16 var
+binder 1051:1057 <> observe:18
+R1090:1093 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1085:1089 Kernel.ObservationPolicy <> State:15 var
+R1094:1099 Kernel.ObservationPolicy <> Answer:17 var
+binder 1077:1081 <> query:19
+R1130:1133 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1126:1129 Kernel.ObservationPolicy <> View:16 var
+R1134:1138 Kernel.ObservationPolicy <> State:15 var
+binder 1109:1122 <> representative:20
+binder 1169:1169 <> v:21
+R1198:1200 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1172:1178 Kernel.ObservationPolicy <> observe:18 var
+R1181:1194 Kernel.ObservationPolicy <> representative:20 var
+R1196:1196 Kernel.ObservationPolicy <> v:21 var
+R1201:1201 Kernel.ObservationPolicy <> v:21 var
+binder 1148:1158 <> section_law:22
+R1244:1252 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1210:1229 Kernel.ObservationPolicy <> query_fiber_constant def
+R1239:1243 Kernel.ObservationPolicy <> query:19 var
+R1231:1237 Kernel.ObservationPolicy <> observe:18 var
+R1253:1259 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1283:1284 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1273:1276 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1269:1272 Kernel.ObservationPolicy <> View:16 var
+R1277:1282 Kernel.ObservationPolicy <> Answer:17 var
+binder 1260:1265 <> decode:23
+binder 1292:1292 <> s:24
+R1313:1315 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1295:1300 Kernel.ObservationPolicy <> decode:23 var
+R1303:1309 Kernel.ObservationPolicy <> observe:18 var
+R1311:1311 Kernel.ObservationPolicy <> s:24 var
+R1316:1320 Kernel.ObservationPolicy <> query:19 var
+R1322:1322 Kernel.ObservationPolicy <> s:24 var
+binder 1372:1372 <> v:25
+R1399:1399 Kernel.ObservationPolicy <> v:25 var
+binder 1372:1372 <> v:26
+R1399:1399 Kernel.ObservationPolicy <> v:26 var
+R1459:1491 Kernel.ObservationPolicy <> decoding_requires_fiber_constancy thm
+R1459:1491 Kernel.ObservationPolicy <> decoding_requires_fiber_constancy thm
+def 1515:1523 <> any_event
+binder 1526:1536 <> Instruction:27
+R1556:1559 Coq.Init.Datatypes <> list ind
+R1573:1576 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1562:1572 Kernel.ObservationPolicy <> Instruction:27 var
+R1577:1580 Coq.Init.Datatypes <> bool ind
+binder 1547:1552 <> events:28
+R1589:1599 Kernel.ObservationPolicy <> Instruction:27 var
+binder 1585:1585 <> i:29
+R1604:1607 Coq.Init.Datatypes <> bool ind
+R1616:1622 Coq.Lists.List <> existsb def
+R1647:1652 Kernel.ObservationPolicy <> events:28 var
+binder 1629:1633 <> event:30
+R1638:1642 Kernel.ObservationPolicy <> event:30 var
+R1644:1644 Kernel.ObservationPolicy <> i:29 var
+def 1668:1678 <> joint_floor
+binder 1681:1691 <> Instruction:31
+R1711:1714 Coq.Init.Datatypes <> list ind
+R1728:1731 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1717:1727 Kernel.ObservationPolicy <> Instruction:31 var
+R1732:1735 Coq.Init.Datatypes <> bool ind
+binder 1702:1707 <> events:32
+R1744:1754 Kernel.ObservationPolicy <> Instruction:31 var
+binder 1740:1740 <> i:33
+R1759:1761 Coq.Init.Datatypes <> nat ind
+R1773:1781 Kernel.ObservationPolicy <> any_event def
+R1790:1790 Kernel.ObservationPolicy <> i:33 var
+R1783:1788 Kernel.ObservationPolicy <> events:32 var
+def 1820:1838 <> respects_each_event
+binder 1841:1851 <> Instruction:34
+R1871:1874 Coq.Init.Datatypes <> list ind
+R1888:1891 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1877:1887 Kernel.ObservationPolicy <> Instruction:34 var
+R1892:1895 Coq.Init.Datatypes <> bool ind
+binder 1862:1867 <> events:35
+R1918:1921 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1907:1917 Kernel.ObservationPolicy <> Instruction:34 var
+R1922:1924 Coq.Init.Datatypes <> nat ind
+binder 1900:1903 <> cost:36
+binder 1948:1952 <> event:37
+R1970:1973 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1955:1956 Coq.Lists.List <> In def
+R1964:1969 Kernel.ObservationPolicy <> events:35 var
+R1958:1962 Kernel.ObservationPolicy <> event:37 var
+binder 1981:1981 <> i:38
+R1998:2001 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1991:1993 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1984:1988 Kernel.ObservationPolicy <> event:37 var
+R1990:1990 Kernel.ObservationPolicy <> i:38 var
+R1994:1997 Coq.Init.Datatypes <> true constr
+R2003:2006 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2007:2010 Kernel.ObservationPolicy <> cost:36 var
+R2012:2012 Kernel.ObservationPolicy <> i:38 var
+prf 2026:2045 <> joint_floor_is_least
+binder 2048:2058 <> Instruction:39
+R2078:2081 Coq.Init.Datatypes <> list ind
+R2095:2098 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2084:2094 Kernel.ObservationPolicy <> Instruction:39 var
+R2099:2102 Coq.Init.Datatypes <> bool ind
+binder 2069:2074 <> events:40
+binder 2119:2122 <> cost:41
+R2156:2160 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2125:2143 Kernel.ObservationPolicy <> respects_each_event def
+R2152:2155 Kernel.ObservationPolicy <> cost:41 var
+R2145:2150 Kernel.ObservationPolicy <> events:40 var
+binder 2168:2168 <> i:42
+R2191:2194 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2171:2181 Kernel.ObservationPolicy <> joint_floor def
+R2190:2190 Kernel.ObservationPolicy <> i:42 var
+R2183:2188 Kernel.ObservationPolicy <> events:40 var
+R2195:2198 Kernel.ObservationPolicy <> cost:41 var
+R2200:2200 Kernel.ObservationPolicy <> i:42 var
+R2260:2270 Kernel.ObservationPolicy <> joint_floor def
+R2273:2281 Kernel.ObservationPolicy <> any_event def
+R2300:2306 Coq.Lists.List <> existsb def
+binder 2313:2317 <> event:43
+R2322:2326 Kernel.ObservationPolicy <> event:43 var
+R2300:2306 Coq.Lists.List <> existsb def
+binder 2313:2317 <> event:44
+R2322:2326 Kernel.ObservationPolicy <> event:44 var
+R2366:2379 Coq.Lists.List <> existsb_exists thm
+R2366:2379 Coq.Lists.List <> existsb_exists thm
+R2513:2523 Kernel.ObservationPolicy <> joint_floor def
+R2526:2534 Kernel.ObservationPolicy <> any_event def
+R2597:2599 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2560:2566 Coq.Lists.List <> existsb def
+binder 2573:2577 <> event:45
+R2582:2586 Kernel.ObservationPolicy <> event:45 var
+R2600:2603 Coq.Init.Datatypes <> true constr
+R2597:2599 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2560:2566 Coq.Lists.List <> existsb def
+binder 2573:2577 <> event:46
+R2582:2586 Kernel.ObservationPolicy <> event:46 var
+R2600:2603 Coq.Init.Datatypes <> true constr
+R2621:2634 Coq.Lists.List <> existsb_exists thm
+R2621:2634 Coq.Lists.List <> existsb_exists thm
+prf 2710:2746 <> least_joint_floor_respects_all_events
+binder 2749:2759 <> Instruction:47
+R2779:2782 Coq.Init.Datatypes <> list ind
+R2796:2799 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2785:2795 Kernel.ObservationPolicy <> Instruction:47 var
+R2800:2803 Coq.Init.Datatypes <> bool ind
+binder 2770:2775 <> events:48
+R2813:2831 Kernel.ObservationPolicy <> respects_each_event def
+R2841:2851 Kernel.ObservationPolicy <> joint_floor def
+R2853:2858 Kernel.ObservationPolicy <> events:48 var
+R2833:2838 Kernel.ObservationPolicy <> events:48 var
+R2877:2896 Kernel.ObservationPolicy <> joint_floor_is_least thm
+R2877:2896 Kernel.ObservationPolicy <> joint_floor_is_least thm
+def 3088:3098 <> first_rises
+R3105:3105 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3117:3121 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3133:3133 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3110:3112 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3106:3109 Coq.Init.Datatypes <> bool ind
+R3113:3116 Coq.Init.Datatypes <> bool ind
+R3126:3128 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3122:3125 Coq.Init.Datatypes <> bool ind
+R3129:3132 Coq.Init.Datatypes <> bool ind
+binder 3101:3101 <> p:49
+R3138:3141 Coq.Init.Datatypes <> bool ind
+R3166:3169 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3148:3151 Coq.Init.Datatypes <> negb def
+R3154:3156 Coq.Init.Datatypes <> fst def
+R3159:3161 Coq.Init.Datatypes <> fst def
+R3163:3163 Kernel.ObservationPolicy <> p:49 var
+R3170:3172 Coq.Init.Datatypes <> fst def
+R3175:3177 Coq.Init.Datatypes <> snd def
+R3179:3179 Kernel.ObservationPolicy <> p:49 var
+def 3194:3205 <> second_rises
+R3212:3212 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3224:3228 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3240:3240 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3217:3219 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3213:3216 Coq.Init.Datatypes <> bool ind
+R3220:3223 Coq.Init.Datatypes <> bool ind
+R3233:3235 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3229:3232 Coq.Init.Datatypes <> bool ind
+R3236:3239 Coq.Init.Datatypes <> bool ind
+binder 3208:3208 <> p:50
+R3245:3248 Coq.Init.Datatypes <> bool ind
+R3273:3276 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3255:3258 Coq.Init.Datatypes <> negb def
+R3261:3263 Coq.Init.Datatypes <> snd def
+R3266:3268 Coq.Init.Datatypes <> fst def
+R3270:3270 Kernel.ObservationPolicy <> p:50 var
+R3277:3279 Coq.Init.Datatypes <> snd def
+R3282:3284 Coq.Init.Datatypes <> snd def
+R3286:3286 Kernel.ObservationPolicy <> p:50 var
+prf 3299:3344 <> independent_coordinates_joint_change_costs_one
+R3386:3391 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3367:3369 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3350:3352 Coq.Init.Datatypes <> fst def
+R3354:3354 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3360:3360 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3366:3366 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3355:3359 Coq.Init.Datatypes <> false constr
+R3361:3365 Coq.Init.Datatypes <> false constr
+R3370:3372 Coq.Init.Datatypes <> fst def
+R3374:3374 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3380:3380 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3385:3385 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3375:3379 Coq.Init.Datatypes <> false constr
+R3381:3384 Coq.Init.Datatypes <> true constr
+R3429:3434 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3409:3412 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3392:3394 Coq.Init.Datatypes <> snd def
+R3396:3396 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3402:3402 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3408:3408 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3397:3401 Coq.Init.Datatypes <> false constr
+R3403:3407 Coq.Init.Datatypes <> false constr
+R3413:3415 Coq.Init.Datatypes <> snd def
+R3417:3417 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3423:3423 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3428:3428 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3418:3422 Coq.Init.Datatypes <> false constr
+R3424:3427 Coq.Init.Datatypes <> true constr
+R3471:3476 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3452:3454 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3435:3437 Coq.Init.Datatypes <> snd def
+R3439:3439 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3445:3445 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3451:3451 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3440:3444 Coq.Init.Datatypes <> false constr
+R3446:3450 Coq.Init.Datatypes <> false constr
+R3455:3457 Coq.Init.Datatypes <> snd def
+R3459:3459 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3464:3464 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3470:3470 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3460:3463 Coq.Init.Datatypes <> true constr
+R3465:3469 Coq.Init.Datatypes <> false constr
+R3514:3519 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3494:3497 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3477:3479 Coq.Init.Datatypes <> fst def
+R3481:3481 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3487:3487 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3493:3493 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3482:3486 Coq.Init.Datatypes <> false constr
+R3488:3492 Coq.Init.Datatypes <> false constr
+R3498:3500 Coq.Init.Datatypes <> fst def
+R3502:3502 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3507:3507 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3513:3513 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3503:3506 Coq.Init.Datatypes <> true constr
+R3508:3512 Coq.Init.Datatypes <> false constr
+R3566:3571 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3559:3561 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3520:3530 Kernel.ObservationPolicy <> first_rises def
+R3532:3532 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3546:3546 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3558:3558 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3533:3533 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3539:3539 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3545:3545 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3534:3538 Coq.Init.Datatypes <> false constr
+R3540:3544 Coq.Init.Datatypes <> false constr
+R3547:3547 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3552:3552 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3557:3557 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3548:3551 Coq.Init.Datatypes <> true constr
+R3553:3556 Coq.Init.Datatypes <> true constr
+R3562:3565 Coq.Init.Datatypes <> true constr
+R3619:3624 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3612:3614 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3572:3583 Kernel.ObservationPolicy <> second_rises def
+R3585:3585 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3599:3599 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3611:3611 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3586:3586 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3592:3592 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3598:3598 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3587:3591 Coq.Init.Datatypes <> false constr
+R3593:3597 Coq.Init.Datatypes <> false constr
+R3600:3600 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3605:3605 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3610:3610 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3601:3604 Coq.Init.Datatypes <> true constr
+R3606:3609 Coq.Init.Datatypes <> true constr
+R3615:3618 Coq.Init.Datatypes <> true constr
+R3696:3701 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3692:3694 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3625:3635 Kernel.ObservationPolicy <> joint_floor def
+R3665:3665 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3679:3679 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3691:3691 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3666:3666 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3672:3672 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3678:3678 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3667:3671 Coq.Init.Datatypes <> false constr
+R3673:3677 Coq.Init.Datatypes <> false constr
+R3680:3680 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3685:3685 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3690:3690 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3681:3684 Coq.Init.Datatypes <> true constr
+R3686:3689 Coq.Init.Datatypes <> true constr
+R3637:3637 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3649:3650 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3663:3663 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3638:3648 Kernel.ObservationPolicy <> first_rises def
+R3651:3662 Kernel.ObservationPolicy <> second_rises def
+R3702:3720 Kernel.ObservationPolicy <> respects_each_event def
+R3722:3722 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3734:3735 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3748:3748 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3723:3733 Kernel.ObservationPolicy <> first_rises def
+R3736:3747 Kernel.ObservationPolicy <> second_rises def
+def 3871:3895 <> calibrated_positive_model
+binder 3898:3906 <> Operation:51
+R3937:3940 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3928:3936 Kernel.ObservationPolicy <> Operation:51 var
+binder 3917:3924 <> eligible:52
+R3964:3967 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3955:3963 Kernel.ObservationPolicy <> Operation:51 var
+R3968:3970 Coq.Init.Datatypes <> nat ind
+binder 3948:3951 <> cost:53
+R3987:3993 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4024:4031 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4017:4020 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4008:4016 Kernel.ObservationPolicy <> Operation:51 var
+R4021:4023 Coq.Init.Datatypes <> nat ind
+binder 3994:4004 <> dissipation:54
+R4032:4032 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4075:4086 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4120:4120 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 4040:4040 <> i:55
+R4053:4056 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4043:4050 Kernel.ObservationPolicy <> eligible:52 var
+R4052:4052 Kernel.ObservationPolicy <> i:55 var
+R4058:4061 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4062:4072 Kernel.ObservationPolicy <> dissipation:54 var
+R4074:4074 Kernel.ObservationPolicy <> i:55 var
+binder 4094:4094 <> i:56
+R4110:4113 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4097:4107 Kernel.ObservationPolicy <> dissipation:54 var
+R4109:4109 Kernel.ObservationPolicy <> i:56 var
+R4114:4117 Kernel.ObservationPolicy <> cost:53 var
+R4119:4119 Kernel.ObservationPolicy <> i:56 var
+prf 4294:4334 <> calibrated_model_exists_iff_positive_cost
+binder 4337:4345 <> Operation:57
+R4376:4379 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4367:4375 Kernel.ObservationPolicy <> Operation:57 var
+binder 4356:4363 <> eligible:58
+R4403:4406 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4394:4402 Kernel.ObservationPolicy <> Operation:57 var
+R4407:4409 Coq.Init.Datatypes <> nat ind
+binder 4387:4390 <> cost:59
+R4457:4461 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4418:4442 Kernel.ObservationPolicy <> calibrated_positive_model def
+R4453:4456 Kernel.ObservationPolicy <> cost:59 var
+R4444:4451 Kernel.ObservationPolicy <> eligible:58 var
+binder 4469:4469 <> i:60
+R4482:4485 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4472:4479 Kernel.ObservationPolicy <> eligible:58 var
+R4481:4481 Kernel.ObservationPolicy <> i:60 var
+R4487:4490 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4491:4494 Kernel.ObservationPolicy <> cost:59 var
+R4496:4496 Kernel.ObservationPolicy <> i:60 var
+ind 4709:4721 <> bit_operation
+constr 4726:4733 <> bit_idle
+constr 4737:4745 <> bit_reset
+scheme 4709:4721 <> bit_operation_rect
+scheme 4709:4721 <> bit_operation_ind
+scheme 4709:4721 <> bit_operation_rec
+scheme 4709:4721 <> bit_operation_sind
+def 4759:4766 <> bit_step
+R4773:4776 Coq.Init.Datatypes <> bool ind
+binder 4769:4769 <> s:63
+R4784:4796 Kernel.ObservationPolicy <> bit_operation ind
+binder 4780:4780 <> i:64
+R4801:4804 Coq.Init.Datatypes <> bool ind
+R4817:4817 Kernel.ObservationPolicy <> i:64 var
+R4824:4831 Kernel.ObservationPolicy <> bit_idle constr
+R4836:4836 Kernel.ObservationPolicy <> s:63 var
+R4840:4848 Kernel.ObservationPolicy <> bit_reset constr
+R4853:4857 Coq.Init.Datatypes <> false constr
+def 4875:4882 <> bit_cost
+R4889:4901 Kernel.ObservationPolicy <> bit_operation ind
+binder 4885:4885 <> i:66
+R4906:4908 Coq.Init.Datatypes <> nat ind
+R4921:4921 Kernel.ObservationPolicy <> i:66 var
+R4928:4935 Kernel.ObservationPolicy <> bit_idle constr
+R4944:4952 Kernel.ObservationPolicy <> bit_reset constr
+def 4975:4995 <> bit_loses_distinction
+R5002:5014 Kernel.ObservationPolicy <> bit_operation ind
+binder 4998:4998 <> i:68
+R5029:5035 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5039:5040 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5036:5036 <> s:69
+binder 5038:5038 <> t:70
+R5047:5050 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5042:5045 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5041:5041 Kernel.ObservationPolicy <> s:69 var
+R5046:5046 Kernel.ObservationPolicy <> t:70 var
+R5063:5065 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5051:5058 Kernel.ObservationPolicy <> bit_step def
+R5062:5062 Kernel.ObservationPolicy <> i:68 var
+R5060:5060 Kernel.ObservationPolicy <> s:69 var
+R5066:5073 Kernel.ObservationPolicy <> bit_step def
+R5077:5077 Kernel.ObservationPolicy <> i:68 var
+R5075:5075 Kernel.ObservationPolicy <> t:70 var
+prf 5089:5114 <> bit_erasure_classification
+binder 5127:5127 <> i:71
+R5153:5157 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5130:5150 Kernel.ObservationPolicy <> bit_loses_distinction def
+R5152:5152 Kernel.ObservationPolicy <> i:71 var
+R5159:5161 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5158:5158 Kernel.ObservationPolicy <> i:71 var
+R5162:5170 Kernel.ObservationPolicy <> bit_reset constr
+R5200:5220 Kernel.ObservationPolicy <> bit_loses_distinction def
+R5329:5333 Coq.Init.Datatypes <> false constr
+R5336:5339 Coq.Init.Datatypes <> true constr
+R5329:5333 Coq.Init.Datatypes <> false constr
+R5336:5339 Coq.Init.Datatypes <> true constr
+prf 5393:5429 <> bit_model_has_satisfiable_calibration
+R5435:5459 Kernel.ObservationPolicy <> calibrated_positive_model def
+R5483:5490 Kernel.ObservationPolicy <> bit_cost def
+R5461:5481 Kernel.ObservationPolicy <> bit_loses_distinction def
+R5508:5548 Kernel.ObservationPolicy <> calibrated_model_exists_iff_positive_cost thm
+R5508:5548 Kernel.ObservationPolicy <> calibrated_model_exists_iff_positive_cost thm
+R5571:5596 Kernel.ObservationPolicy <> bit_erasure_classification thm
+R5571:5596 Kernel.ObservationPolicy <> bit_erasure_classification thm
+def 5642:5653 <> history_step
+binder 5656:5660 <> State:72
+binder 5662:5672 <> Instruction:73
+R5695:5698 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5690:5694 Kernel.ObservationPolicy <> State:72 var
+R5710:5713 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5699:5709 Kernel.ObservationPolicy <> Instruction:73 var
+R5714:5718 Kernel.ObservationPolicy <> State:72 var
+binder 5683:5686 <> step:74
+R5732:5734 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5727:5731 Kernel.ObservationPolicy <> State:72 var
+R5735:5738 Coq.Init.Datatypes <> list ind
+R5740:5744 Kernel.ObservationPolicy <> State:72 var
+binder 5722:5723 <> sh:75
+R5752:5762 Kernel.ObservationPolicy <> Instruction:73 var
+binder 5748:5748 <> i:76
+R5772:5772 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5788:5789 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5806:5806 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5773:5776 Kernel.ObservationPolicy <> step:74 var
+R5787:5787 Kernel.ObservationPolicy <> i:76 var
+R5779:5781 Coq.Init.Datatypes <> fst def
+R5783:5784 Kernel.ObservationPolicy <> sh:75 var
+R5796:5799 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5790:5792 Coq.Init.Datatypes <> fst def
+R5794:5795 Kernel.ObservationPolicy <> sh:75 var
+R5800:5802 Coq.Init.Datatypes <> snd def
+R5804:5805 Kernel.ObservationPolicy <> sh:75 var
+def 5822:5833 <> history_undo
+binder 5836:5840 <> State:77
+R5861:5863 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5856:5860 Kernel.ObservationPolicy <> State:77 var
+R5864:5867 Coq.Init.Datatypes <> list ind
+R5869:5873 Kernel.ObservationPolicy <> State:77 var
+binder 5851:5852 <> sh:78
+R5878:5883 Coq.Init.Datatypes <> option ind
+R5891:5893 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5886:5890 Kernel.ObservationPolicy <> State:77 var
+R5894:5897 Coq.Init.Datatypes <> list ind
+R5899:5903 Kernel.ObservationPolicy <> State:77 var
+R5919:5921 Coq.Init.Datatypes <> snd def
+R5923:5924 Kernel.ObservationPolicy <> sh:78 var
+R5931:5932 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5937:5940 Coq.Init.Datatypes <> None constr
+R5947:5950 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5962:5965 Coq.Init.Datatypes <> Some constr
+R5967:5967 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5971:5972 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5980:5980 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+prf 5998:6037 <> retained_history_recovers_previous_state
+binder 6040:6044 <> State:79
+binder 6046:6056 <> Instruction:80
+R6079:6082 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6074:6078 Kernel.ObservationPolicy <> State:79 var
+R6094:6097 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6083:6093 Kernel.ObservationPolicy <> Instruction:80 var
+R6098:6102 Kernel.ObservationPolicy <> State:79 var
+binder 6067:6070 <> step:81
+binder 6118:6119 <> sh:82
+binder 6121:6121 <> i:83
+R6161:6163 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6124:6135 Kernel.ObservationPolicy <> history_undo def
+R6138:6149 Kernel.ObservationPolicy <> history_step def
+R6159:6159 Kernel.ObservationPolicy <> i:83 var
+R6156:6157 Kernel.ObservationPolicy <> sh:82 var
+R6151:6154 Kernel.ObservationPolicy <> step:81 var
+R6164:6167 Coq.Init.Datatypes <> Some constr
+R6169:6170 Kernel.ObservationPolicy <> sh:82 var
+prf 6227:6257 <> retained_history_step_injective
+binder 6260:6264 <> State:84
+binder 6266:6276 <> Instruction:85
+R6299:6302 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6294:6298 Kernel.ObservationPolicy <> State:84 var
+R6314:6317 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6303:6313 Kernel.ObservationPolicy <> Instruction:85 var
+R6318:6322 Kernel.ObservationPolicy <> State:84 var
+binder 6287:6290 <> step:86
+binder 6338:6338 <> i:87
+binder 6340:6341 <> sh:88
+binder 6343:6344 <> th:89
+R6394:6397 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6369:6371 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6347:6358 Kernel.ObservationPolicy <> history_step def
+R6368:6368 Kernel.ObservationPolicy <> i:87 var
+R6365:6366 Kernel.ObservationPolicy <> sh:88 var
+R6360:6363 Kernel.ObservationPolicy <> step:86 var
+R6372:6383 Kernel.ObservationPolicy <> history_step def
+R6393:6393 Kernel.ObservationPolicy <> i:87 var
+R6390:6391 Kernel.ObservationPolicy <> th:89 var
+R6385:6388 Kernel.ObservationPolicy <> step:86 var
+R6400:6402 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6398:6399 Kernel.ObservationPolicy <> sh:88 var
+R6403:6404 Kernel.ObservationPolicy <> th:89 var
+R6445:6451 Coq.Init.Logic <> f_equal thm
+R6453:6464 Kernel.ObservationPolicy <> history_undo def
+R6445:6451 Coq.Init.Logic <> f_equal thm
+R6453:6464 Kernel.ObservationPolicy <> history_undo def
+R6486:6525 Kernel.ObservationPolicy <> retained_history_recovers_previous_state thm
+R6486:6525 Kernel.ObservationPolicy <> retained_history_recovers_previous_state thm
+R6486:6525 Kernel.ObservationPolicy <> retained_history_recovers_previous_state thm
+R6486:6525 Kernel.ObservationPolicy <> retained_history_recovers_previous_state thm
+R6486:6525 Kernel.ObservationPolicy <> retained_history_recovers_previous_state thm
+prf 6577:6607 <> history_simulates_observed_step
+binder 6610:6614 <> State:90
+binder 6616:6626 <> Instruction:91
+R6649:6652 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6644:6648 Kernel.ObservationPolicy <> State:90 var
+R6664:6667 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6653:6663 Kernel.ObservationPolicy <> Instruction:91 var
+R6668:6672 Kernel.ObservationPolicy <> State:90 var
+binder 6637:6640 <> step:92
+binder 6688:6689 <> sh:93
+binder 6691:6691 <> i:94
+R6722:6724 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6694:6696 Coq.Init.Datatypes <> fst def
+R6699:6710 Kernel.ObservationPolicy <> history_step def
+R6720:6720 Kernel.ObservationPolicy <> i:94 var
+R6717:6718 Kernel.ObservationPolicy <> sh:93 var
+R6712:6715 Kernel.ObservationPolicy <> step:92 var
+R6725:6728 Kernel.ObservationPolicy <> step:92 var
+R6739:6739 Kernel.ObservationPolicy <> i:94 var
+R6731:6733 Coq.Init.Datatypes <> fst def
+R6735:6736 Kernel.ObservationPolicy <> sh:93 var
+prf 6786:6828 <> visible_reset_does_not_force_global_erasure
+R6884:6889 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6858:6860 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6834:6841 Kernel.ObservationPolicy <> bit_step def
+R6849:6857 Kernel.ObservationPolicy <> bit_reset constr
+R6843:6847 Coq.Init.Datatypes <> false constr
+R6861:6868 Kernel.ObservationPolicy <> bit_step def
+R6875:6883 Kernel.ObservationPolicy <> bit_reset constr
+R6870:6873 Coq.Init.Datatypes <> true constr
+R6983:6989 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7090:7090 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6933:6940 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R6890:6901 Kernel.ObservationPolicy <> history_step def
+R6924:6932 Kernel.ObservationPolicy <> bit_reset constr
+R6912:6912 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6918:6919 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6922:6922 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6913:6917 Coq.Init.Datatypes <> false constr
+R6920:6921 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6903:6910 Kernel.ObservationPolicy <> bit_step def
+R6941:6952 Kernel.ObservationPolicy <> history_step def
+R6974:6982 Kernel.ObservationPolicy <> bit_reset constr
+R6963:6963 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6968:6969 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6972:6972 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6964:6967 Coq.Init.Datatypes <> true constr
+R6970:6971 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6954:6961 Kernel.ObservationPolicy <> bit_step def
+binder 6997:6998 <> sh:95
+binder 7000:7001 <> th:96
+R7079:7082 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7042:7044 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7008:7019 Kernel.ObservationPolicy <> history_step def
+R7033:7041 Kernel.ObservationPolicy <> bit_reset constr
+R7030:7031 Kernel.ObservationPolicy <> sh:95 var
+R7021:7028 Kernel.ObservationPolicy <> bit_step def
+R7045:7056 Kernel.ObservationPolicy <> history_step def
+R7070:7078 Kernel.ObservationPolicy <> bit_reset constr
+R7067:7068 Kernel.ObservationPolicy <> th:96 var
+R7058:7065 Kernel.ObservationPolicy <> bit_step def
+R7085:7087 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7083:7084 Kernel.ObservationPolicy <> sh:95 var
+R7088:7089 Kernel.ObservationPolicy <> th:96 var
+R7158:7188 Kernel.ObservationPolicy <> retained_history_step_injective thm
+R7158:7188 Kernel.ObservationPolicy <> retained_history_step_injective thm
+prf 7352:7395 <> zero_cost_vm_jump_has_injective_history_lift
+R7438:7443 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7434:7436 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7401:7416 Kernel.VMStep VMStep instruction_cost def
+R7419:7428 Kernel.VMStep VMStep instr_jump constr
+R7517:7523 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7642:7642 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7513:7515 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7444:7448 Kernel.VMState <> vm_pc proj
+R7451:7453 Coq.Init.Datatypes <> fst def
+R7456:7467 Kernel.ObservationPolicy <> history_step def
+R7496:7505 Kernel.VMStep VMStep instr_jump constr
+R7478:7478 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7489:7490 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7493:7493 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7479:7488 Kernel.MuInitiality <> init_state def
+R7491:7492 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7469:7476 Kernel.SimulationProof <> vm_apply def
+binder 7531:7532 <> sh:97
+binder 7534:7535 <> th:98
+R7631:7634 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7583:7589 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7542:7553 Kernel.ObservationPolicy <> history_step def
+R7568:7577 Kernel.VMStep VMStep instr_jump constr
+R7564:7565 Kernel.ObservationPolicy <> sh:97 var
+R7555:7562 Kernel.SimulationProof <> vm_apply def
+R7590:7601 Kernel.ObservationPolicy <> history_step def
+R7616:7625 Kernel.VMStep VMStep instr_jump constr
+R7612:7613 Kernel.ObservationPolicy <> th:98 var
+R7603:7610 Kernel.SimulationProof <> vm_apply def
+R7637:7639 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7635:7636 Kernel.ObservationPolicy <> sh:97 var
+R7640:7641 Kernel.ObservationPolicy <> th:98 var
+R7700:7730 Kernel.ObservationPolicy <> retained_history_step_injective thm
+R7700:7730 Kernel.ObservationPolicy <> retained_history_step_injective thm

@@ -55,7 +55,7 @@ Search octahedron with asymmetric masses.
 from fractions import Fraction
 from itertools import product
 import sys
-sys.path.insert(0, "/workspaces/The-Thiele-Machine/tools")
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 from calibrated_witness_search import (
     make_graph_complete, make_graph_cycle, make_graph_star, make_graph_wheel,
     make_graph_octahedron, make_graph_prism, make_graph_K33,

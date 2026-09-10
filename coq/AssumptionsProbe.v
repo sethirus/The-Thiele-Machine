@@ -10,9 +10,9 @@ From Kernel Require Import MasterSummary.
 (* ============================================================
    Assumption-surface meta-claims
    ============================================================ *)
-Print Assumptions master_summary_project_local_axioms_count_zero.
-Print Assumptions master_summary_project_local_admits_count_zero.
-Print Assumptions master_summary_no_hidden_project_assumptions_verified.
+Print Assumptions master_summary_declares_project_local_axioms_count_zero.
+Print Assumptions master_summary_declares_project_local_admits_count_zero.
+Print Assumptions master_summary_declares_no_hidden_project_assumptions.
 Print Assumptions master_assumption_artifact_path_pinned.
 Print Assumptions master_assumption_artifact_sha256_pinned.
 Print Assumptions master_assumption_artifact_is_pinned.
@@ -82,4 +82,4 @@ Print Assumptions exposed_honest_nofi_structure_content.
    Top-level "machine is complete" bundle
    ============================================================ *)
 Print Assumptions thiele_machine_core_summary_verified.
-Print Assumptions thiele_machine_is_complete.
+Print Assumptions thiele_machine_core_summary_verified_export.

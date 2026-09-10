@@ -46,9 +46,18 @@
   event can. The toy instance refutes both degeneracies at once.
 *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
-From Kernel Require Import VMState VMStep.
-From Kernel Require Import MuCostModel.
+(* INQUISITOR NOTE: proof-connectivity waiver. This file is about
+   ecosystems and record proliferation, not VM semantics. No definition or
+   theorem here mentions VMState, vm_step, vm_mu, MuCostModel or
+   instruction_cost; the criterion it formalizes is deliberately stated over
+   an abstract state type so that deployed disciplines owing nothing to this
+   development can instantiate it.
+
+   The audit is waived rather than satisfied: importing the kernel without
+   using it would assert a bridge that isn't here. The connection to the
+   mu-ledger is made by the conjecture the criterion is about, argued in
+   prose in the monograph, not by an import line. Counted in the WAIVERS
+   census in INQUISITOR_REPORT.md. *)
 
 From Coq Require Import List Lia.
 Import ListNotations.
@@ -159,6 +168,3 @@ Qed.
 
 End ReplicatedLedgerToy.
 
-(** * Anchor for proof-connectivity audits *)
-
-Definition pointer_observable_anchor := @vm_certified.

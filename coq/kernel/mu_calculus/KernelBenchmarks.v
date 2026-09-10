@@ -19,8 +19,9 @@
 
   *)
 
-(* INQUISITOR NOTE: proof-connectivity - bridged to Thiele machine foundations. *)
-From Kernel Require Import MuCostModel.
+(* INQUISITOR NOTE: proof-connectivity. This file genuinely engages VM
+   semantics: it is stated over kernel types imported below and used in its
+   definitions and theorems. *)
 
 From Kernel Require Import VMState VMStep KernelPhysics FalsifiablePrediction.
 Require Import Coq.Lists.List.

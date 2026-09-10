@@ -173,7 +173,7 @@ Qed.
    theorem is [driven_trace_commutes]; this exports it under the Item 3 name. *)
 Theorem coq_kami_model_trace_correct_wf :
   forall fuel trace ks,
-    (forall ks' i, WFDrivenPrecondition ks' i) ->
+    WFDrivenRun fuel trace ks ->
     abs_full_snapshot (full_snapshot_of_snapshot
       (kami_run_driven fuel trace ks)) =
     run_vm fuel trace

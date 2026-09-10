@@ -113,9 +113,19 @@ Definition full_honest_implies_npa_status : Prop :=
 
     The honest-measurement to NPA bridge in this file is part of the
     quantum-substrate chain whose mu-cost interpretation feeds into
-    the Thiele Machine's mu-ledger. The anchor below makes the
-    connection point explicit. *)
+    the Thiele Machine's mu-ledger. See the waiver note below. *)
 
-From Kernel Require Import VMState MuCostModel.
+(* INQUISITOR NOTE: proof-connectivity waiver (foundation connectivity).
 
-Definition honest_measurement_implies_npa_vm_anchor (s : VMState) : nat := vm_mu s.
+    This file is standalone algebra. It does not engage VM semantics, no
+    theorem here mentions [VMState] or [vm_mu], and it imports no kernel
+    module. That is deliberate: the results stand on their own, and the
+    connection to the mu-ledger is made by the theorems downstream that
+    consume them (see UnificationProbeBridges), not by anything in this file.
+
+    The audit is waived here rather than satisfied, because the only way to
+    satisfy it from inside would be to add a definition that references
+    [vm_mu] without using it; an identity function referenced by nothing
+    carries no proof obligation. A link that can be manufactured that way is
+    not evidence of one. This waiver is counted in the WAIVERS census in
+    INQUISITOR_REPORT.md. *)

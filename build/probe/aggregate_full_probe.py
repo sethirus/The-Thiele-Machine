@@ -7,7 +7,10 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
-ROOT = Path("/workspaces/The-Thiele-Machine")
+# Repo root derived from this file's location (build/probe/ -> repo root); see
+# the same note in build_full_probe.py. Hardcoding an absolute path made the
+# receipt non-reproducible off the authoring machine.
+ROOT = Path(__file__).resolve().parents[2]
 BUILD = ROOT / "build" / "probe"
 RAW = BUILD / "probe_all_output.txt"
 ERR = BUILD / "probe_all_err.txt"
@@ -40,7 +43,34 @@ for ex in inv.get("extras_addressable_via_instantiation", []):
 
 text = RAW.read_text(errors="replace")
 err_text = ERR.read_text(errors="replace")
-lines = text.splitlines()
+
+# Strip coqtop progress chatter before block parsing.
+#
+# coqtop interleaves informational lines like
+#     Fetching opaque proofs from disk for Kernel.VMState
+# into STDOUT, unindented. The block parser below treats any unindented line
+# inside an `Axioms:` block as an axiom NAME, so these progress messages were
+# being recorded as axioms -- and, because they match none of the stdlib
+# prefixes, counted as `user_or_third_party_axiom_findings`. A run in a cold
+# .vo cache produced 366 such lines and 52 phantom "user axiom" findings,
+# i.e. the receipt reported the project as having non-stdlib axioms when the
+# corpus has none. Whether they appear at all depends on which proofs are
+# already loaded, so the receipt was not reproducible across machines either.
+#
+# These lines carry no proof-theoretic content; drop them.
+_COQTOP_NOISE_PREFIXES = (
+    "Fetching opaque proofs from disk for ",
+)
+lines = [
+    ln for ln in text.splitlines()
+    if not ln.startswith(_COQTOP_NOISE_PREFIXES)
+]
+_dropped_noise = len(text.splitlines()) - len(lines)
+if _dropped_noise:
+    print(
+        f"# filtered {_dropped_noise} coqtop progress lines out of probe stdout",
+        file=sys.stderr,
+    )
 
 blocks = []
 unexpected = []
@@ -112,6 +142,34 @@ def classify(name):
         return "stdlib"
     return "user_or_third_party"
 
+
+# HARD-FAIL on block/query misalignment.
+#
+# `zip` truncates to the shorter sequence, so a short probe run used to produce
+# a receipt that looked complete. Worse, the pairing is POSITIONAL: if coqtop
+# drops one block partway through, every subsequent query is paired with some
+# other theorem's axiom set, silently attributing axioms to the wrong theorems
+# while the summary still reports the full query count.
+#
+# This is exactly the failure a receipt must not have, so refuse to emit one.
+# A real instance: omitting `-R . Top` from the load path made coqtop fail on
+# the ~15 root-level coq/*.v modules and drop 556 of 3980 blocks, with no
+# individual query visibly failing.
+if len(blocks) != len(queries):
+    print(
+        f"FATAL: probe misalignment -- {len(queries)} queries but "
+        f"{len(blocks)} Print Assumptions blocks.\n"
+        f"Refusing to write a receipt: positional pairing would attribute "
+        f"axioms to the wrong theorems.\n"
+        f"Check build/probe/probe_all_err.txt; the usual cause is a load-path "
+        f"gap ('Cannot find a physical path bound to logical path ...').",
+        file=sys.stderr,
+    )
+    if err_text.strip():
+        print("--- stderr (first 40 lines) ---", file=sys.stderr)
+        for ln in err_text.splitlines()[:40]:
+            print("  " + ln, file=sys.stderr)
+    sys.exit(1)
 
 pairs = list(zip(queries, blocks))
 

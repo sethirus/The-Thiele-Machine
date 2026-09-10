@@ -238,10 +238,19 @@ Print Assumptions bekenstein_bound.
 
     The Bekenstein bound proved here applies to the Thiele Machine's
     mu-ledger via the BekensteinVMBridge section in
-    UnificationProbeBridges. The anchor below makes the connection
-    point explicit so the foundation-connectivity audit sees the
-    link to VMState and vm_mu. *)
+    UnificationProbeBridges. See the waiver note below. *)
 
-From Kernel Require Import VMState MuCostModel.
+(* INQUISITOR NOTE: proof-connectivity waiver (foundation connectivity).
 
-Definition bekenstein_bound_vm_anchor (s : VMState) : nat := vm_mu s.
+    This file is standalone algebra. It does not engage VM semantics, no
+    theorem here mentions [VMState] or [vm_mu], and it imports no kernel
+    module. That is deliberate: the results stand on their own, and the
+    connection to the mu-ledger is made by the theorems downstream that
+    consume them (see UnificationProbeBridges), not by anything in this file.
+
+    The audit is waived here rather than satisfied, because the only way to
+    satisfy it from inside would be to add a definition that references
+    [vm_mu] without using it; an identity function referenced by nothing
+    carries no proof obligation. A link that can be manufactured that way is
+    not evidence of one. This waiver is counted in the WAIVERS census in
+    INQUISITOR_REPORT.md. *)

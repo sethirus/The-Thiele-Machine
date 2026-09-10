@@ -233,8 +233,19 @@ Print Assumptions vec_norm_sq_nonneg.
 
     The matrix-algebra primitives proved here support the quantum
     Holevo bound, which in turn governs the Thiele Machine's
-    mu-ledger. The anchor below makes the connection point explicit. *)
+    mu-ledger. The connection is made by downstream consumers, not by this file. *)
 
-From Kernel Require Import VMState MuCostModel.
+(* INQUISITOR NOTE: proof-connectivity waiver (foundation connectivity).
 
-Definition operator_algebra_vm_anchor (s : VMState) : nat := vm_mu s.
+    This file is standalone algebra. It does not engage VM semantics, no
+    theorem here mentions [VMState] or [vm_mu], and it imports no kernel
+    module. That is deliberate: the results stand on their own, and the
+    connection to the mu-ledger is made by the theorems downstream that
+    consume them (see UnificationProbeBridges), not by anything in this file.
+
+    The audit is waived here rather than satisfied, because the only way to
+    satisfy it from inside would be to add a definition that references
+    [vm_mu] without using it; an identity function referenced by nothing
+    carries no proof obligation. A link that can be manufactured that way is
+    not evidence of one. This waiver is counted in the WAIVERS census in
+    INQUISITOR_REPORT.md. *)

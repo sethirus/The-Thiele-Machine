@@ -215,7 +215,7 @@ def main() -> int:
             "full_state_identity_status": "runtime-extended-formally-bridged",
             "justification": [
                 "Runtime bitlock covers emitted software/RTL state lanes including registers, hardware memory extent, CSRs, tensor, witness, logic_acc, mstatus, and certification lanes.",
-                "Bounded module and morphism graph surfaces are emitted by RTL cosim; high-level graph/string/detail equality is carried by the formal FullAbstraction/FullEmbedStep bridge.",
+                "Bounded module and morphism graph surfaces are emitted by RTL cosim; full-state trace commutation in GraphReconstructionBridge requires WFDrivenRun over the actual fetches and fuel.",
             ],
             "observable_fields": [
                 "vm_pc",
@@ -231,6 +231,7 @@ def main() -> int:
                 "vm_witness",
                 "vm_certified",
             ],
+            "trust_boundary": "The formal trace theorem relates Coq models; emitted RTL retains extraction/compiler and finite-representation assumptions.",
             "obligation": "Repository decision on full cross-layer state identity",
             "source_file": "coq/kernel/aggregators/MasterSummary.v",
             "source_sha256": master_summary_hash,

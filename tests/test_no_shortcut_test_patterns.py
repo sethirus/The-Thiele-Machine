@@ -14,6 +14,16 @@ FORBIDDEN_PATTERNS = [
     ("simulator skip-on-none", 'pytest.skip("sim unavailable")'),
     ("simulator skip-on-none", 'pytest.skip("Verilog simulation returned None")'),
     ("simulator skip-on-none", 'pytest.skip("run_verilog returned None'),
+    # The copy-over-and-warn idiom: a freshness test that, on mismatch,
+    # overwrites the committed artifact with the freshly generated one and
+    # emits a warning instead of asserting. Such a test cannot fail, so it
+    # cannot distinguish "the committed artifact is correct" from "the
+    # committed artifact is corrupt" -- it silently repairs the very drift it
+    # exists to detect. Two tests did this (test_rtl_text_transform_audit.py
+    # and test_master_summary_artifacts.py) and both now assert instead.
+    # Banned here so the idiom cannot come back.
+    ("self-repairing freshness gate", "shutil.copy2("),
+    ("warn-instead-of-assert gate", "warnings.warn("),
 ]
 
 
