@@ -2,7 +2,7 @@
 
 **Author:** Devon Thiele  
 **First public disclosure:** August 15, 2025 (repository creation; development began January 2025)  
-**Current date:** July 2026  
+**Current date:** September 2026 (v3.2.1 documentation correction)\
 **Repository:** https://github.com/sethirus/The-Thiele-Machine  
 **License:** Apache 2.0 (software), CC-BY-SA-4.0 (monograph/documentation)  
 **Purpose of this document:** Defensive publication. Every concept described here is publicly disclosed prior art under 35 U.S.C. § 102 (US) and Article 54 EPC (Europe) as of the dates above. This document is submitted for indexing to IP.com and similar prior art databases.
@@ -168,9 +168,9 @@ These nonrecoverability statements concern the named projections. The symbol ⊥
 
 ## Concept 12: The Inquisitor Proof Hygiene System
 
-**What it is.** An automated CI tool (`scripts/inquisitor.py`) that scans every Coq file in the active proof tree for: Admitted lemmas, `admit` tactics, vacuous theorems (conclusion is `True` or `0=0`), undocumented global axioms, physics stubs (quantity defined as placeholder constant), circular import chains, and TODO/FIXME markers in proof comments. The tool enforces zero-tolerance on all categories and fails CI on any finding.
+**What it is.** An automated CI tool (`scripts/inquisitor.py`) that scans every Coq file in the active proof tree for: Admitted lemmas, `admit` tactics, vacuous theorems (conclusion is `True` or `0=0`), undocumented global axioms, physics stubs (quantity defined as placeholder constant), circular import chains, and TODO/FIXME markers in proof comments. The scan uses syntactic and heuristic checks; it is not a complete detector of false interpretations or inconsistent theorem premises. Its exit policy fails on HIGH or MEDIUM findings. LOW findings are reported but do not independently make the command fail.
 
-**Current status.** 0 HIGH, 0 MEDIUM, 0 LOW findings across the 284 Coq files the scan covers.
+**Current status.** The current `INQUISITOR_REPORT.md` records 0 HIGH, 0 MEDIUM, and 0 LOW unsuppressed findings across 295 Coq files. In-source suppression markers and their justifications are listed separately in the report; zero unsuppressed findings is not a claim that no checks were suppressed.
 
 **Variants disclosed.** Any automated proof hygiene system that enforces zero-admit discipline and detects vacuous, tautological, or circular proofs via static analysis of proof assistant source files is a variant of this concept.
 
