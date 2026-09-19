@@ -414,7 +414,7 @@ jobs:
           rm -f Makefile Makefile.conf .Makefile.d
           find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
           coq_makefile -f _CoqProject -o Makefile
-          make V=1 -j1
+          make V=1 -j4
 
       - name: Run full vacuity sweep
         run: make vacuity-audit

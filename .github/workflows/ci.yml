@@ -119,7 +119,10 @@ jobs:
           rm -f Makefile Makefile.conf .Makefile.d
           find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
           coq_makefile -f _CoqProject -o Makefile
-          make V=1 -j1
+          # The clean serial path has been validated by the reproducibility
+          # gate; use parallelism here so the shared cache primer completes
+          # within the job budget.
+          make V=1 -j4
 
   # Phase 1a: proof verification on top of the shared Coq build.
   # No Coq rebuild here — restores the cache populated by build-coq.
@@ -487,7 +490,7 @@ jobs:
           rm -f Makefile Makefile.conf .Makefile.d
           find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
           coq_makefile -f _CoqProject -o Makefile
-          make V=1 -j1
+          make V=1 -j4
 
       - name: Verify extraction against committed artifacts
         run: python3 scripts/check_extraction.py --reference HEAD
