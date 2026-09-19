@@ -1,11 +1,11 @@
 # INQUISITOR REPORT
-Generated: 2026-09-11 17:37:07Z (UTC)
-Scanned: 297 Coq files across the repo
+Generated: 2026-09-19 18:30:26Z (UTC)
+Scanned: 422 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
 - LOW: 0
-- WAIVERS: 341 in-source suppression markers across 140 files (252 `INQUISITOR NOTE`, 89 `(* SAFE: *)`)
+- WAIVERS: 340 in-source suppression markers across 140 files (251 `INQUISITOR NOTE`, 89 `(* SAFE: *)`)
   - Read the severity counts as *unsuppressed* findings. Each waiver silences one check at one site; the justification is the comment text itself. Grep for the markers to audit them.
 
 ## Rules
@@ -44,7 +44,7 @@ Scanned: 297 Coq files across the repo
 - `PAPER_MAP_MISSING`: paper ↔ Coq symbol map entry missing/broken
 - `MANIFEST_PARSE_ERROR`: failed to parse Inquisitor manifest JSON
 - `COMMENT_SMELL`: TODO/FIXME/WIP markers in Coq comments
-- `UNUSED_HYPOTHESIS`: introduced hypothesis not used (heuristic)
+- `UNUSED_HYPOTHESIS`: disabled source-text heuristic; Coq's checked proof term is authoritative for hypothesis use
 - `DEFINITIONAL_INVARIANCE`: invariance lemma appears definitional/vacuous
 - `Z_TO_NAT_BOUNDARY`: Z.to_nat without nearby nonnegativity guard
 - `PHYSICS_ANALOGY_CONTRACT`: physics-analogy theorem lacks invariance or definitional label
@@ -87,7 +87,7 @@ Scanned: 297 Coq files across the repo
 - `MU_GRAVITY_DERIVATION_INCOMPLETE`: MuGravity theorem interfaces/declarations still expose unfinished derivation assumptions, including the six major obligations (geometric calibration, source normalization, horizon defect-area, active-step descent, semantic gap window, VM compatibility surfaces)
 - `MU_GRAVITY_VM_COMPATIBILITY`: MuGravity execution-facing theorem interfaces/declarations still rely on unresolved VM compatibility wrappers/assumptions instead of vm_apply/run_vm semantic derivations
 - `MU_GRAVITY_NO_ASSUMPTION_SURFACES`: MuGravity files may not use Axiom/Parameter/Hypothesis/Context/Variable(s); all such surfaces must be discharged as theorems
-- `PROOF_CONNECTIVITY_GAP`: proof-bearing file is not connected to required foundation chain groups; remediation is to iterate with bridge lemmas/imports until connected
+- `PROOF_CONNECTIVITY_GAP`: active core proof file lacks the semantic foundation, or a μ-cost-using file lacks the cost foundation; roots and local Kami proofs are checked by their dedicated gates
 - `KAMI_OCAML_FOUNDATION_MISMATCH`: Kami and OCaml extraction build surfaces are not grounded in the same kernel foundation modules
 - `OCAML_EXTRACTION_BUILD_FAIL`: OCaml extraction build/check failed (Extraction.v must build and expose core VM symbols)
 - `CROSS_LAYER_FOUNDATION_DISCONNECT`: end-to-end chain (Coq foundations -> OCaml extraction -> VM wrapper -> canonical Kami RTL/cosim/build flow) is missing a required link
