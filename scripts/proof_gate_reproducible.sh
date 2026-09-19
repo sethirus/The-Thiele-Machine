@@ -15,8 +15,14 @@ mkdir -p "$ART_DIR"
 cd "$ROOT"
 
 echo "[proof] clean rebuild"
-make -C "$COQ_DIR" clean > "$ART_DIR/make_clean.log" 2>&1
-make -C "$COQ_DIR" -j"$(nproc)" > "$ART_DIR/make_build.log" 2>&1
+make coq-clean > "$ART_DIR/make_clean.log" 2>&1
+rm -f "$COQ_DIR/Makefile" "$COQ_DIR/Makefile.conf" "$COQ_DIR/.Makefile.d"
+find "$COQ_DIR" -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+(
+  cd "$COQ_DIR"
+  coq_makefile -f _CoqProject -o Makefile
+  make V=1 -j1
+) > "$ART_DIR/make_build.log" 2>&1
 
 echo "[proof] zero Admitted gate"
 # Use ^\s*Admitted\. to match only actual proof-hole tactics, not comments that
