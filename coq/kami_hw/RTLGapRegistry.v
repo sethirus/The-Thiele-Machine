@@ -1,4 +1,4 @@
-(** * RTLGapRegistry: historical registry for the intermediate Gallina bridge
+(** * RTLGapRegistry: coverage registry for the intermediate Gallina bridge
 
     This registry concerns [Abstraction.kami_step] and its snapshot abstraction,
     not the synthesizable [ThieleCPUCore.thieleCore] rule executions or emitted
@@ -15,26 +15,20 @@
     or finite-resource requirements without the corresponding run contract.
 
     The arithmetic and empty-list theorems below are bookkeeping identities.
-    Actual normalization-rule execution proofs are in the Normalization modules;
-    their stated scope and the remaining physical contract are tracked in
-    artifacts/review_revision/STATUS.md. *)
+    Actual normalization-rule execution proofs are in the Normalization modules.
+    The boundary between those proofs and physical RTL is stated in
+    [docs/ASSURANCE.md]. *)
 
 From Coq Require Import List String.
 Import ListNotations.
 Open Scope string_scope.
 
-(** ** Historical gap taxonomy
+(** ** Gap taxonomy
 
-    The original entries describe historical intermediate-model gaps. The
-    registry below is empty; physical obligations are tracked separately.
+    The registry below is empty. The intermediate bridge is proved only under
+    its explicit premises; physical obligations are tracked separately. *)
 
-    - TENSOR_GET: was listed as [Irreducible_DriverManaged] requiring
-      [tensor_indices_ok] plus module existence. Now unconditional via
-      [driven_step_tensor_get_full], which handles both the success
-      and failure paths. *)
-
-(** Categorisation tags retained for the historical taxonomy and for
-    re-use if a future regression introduces a new gap. *)
+(** Categorisation tags for explicit conditional bridge obligations. *)
 Inductive RTLGapCategory : Type :=
   | Irreducible_DriverManaged
   | Conditional_WFSnapshot.

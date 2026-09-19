@@ -37,6 +37,10 @@ make -C coq Extraction.vo
 phase CLASSIFY "patching extracted Nat module for native int performance"
 python3 scripts/patch_extracted_nat.py "$ROOT/build/thiele_core.ml"
 
+if grep -q 'Nat\.min' "$ROOT/build/thiele_core.ml"; then
+  die "unresolved Nat.min in generated OCaml extraction"
+fi
+
 phase CLASSIFY "running Inquisitor (Coq proof-smell audit)"
 INQUISITOR_REPORT_PATH="$ROOT/artifacts/INQUISITOR_REPORT.md"
 INQUISITOR_STRICT="${INQUISITOR_STRICT:-0}"

@@ -69,15 +69,7 @@ module Nat =
 
   (** val min : int -> int -> int **)
 
-  let rec min n0 m =
-    (fun zero succ n -> if n=0 then zero () else succ (n-1))
-      (fun _ -> 0)
-      (fun n' ->
-      (fun zero succ n -> if n=0 then zero () else succ (n-1))
-        (fun _ -> 0)
-        (fun m' -> (fun x -> x + 1) (min n' m'))
-        m)
-      n0
+  let rec min = Stdlib.min
 
   (** val divmod : int -> int -> int -> int -> int*int **)
 

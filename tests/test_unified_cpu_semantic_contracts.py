@@ -91,12 +91,8 @@ def test_halt_is_terminal_and_blocks_following_ops() -> None:
 def test_chsh_trial_charges_declared_cost() -> None:
     """CHSH_TRIAL charges its declared cost whatever the setting bits are.
 
-    The x=1 surcharge, the zero-tensor gate and the C43471A1 policy gate were
-    removed from the CPU so it matches `kami_step` (Devon, 2026-09-14;
-    artifacts/review_revision/C2_DIVERGENCE_LEDGER.md, "CHSH_TRIAL x=1 →
-    Surcharge and gate removed" and "Logic-gate lock → Removed from the CPU").
-    There is therefore no invalid-setting path left to assert: an x=1 trial is
-    accepted and charges exactly its declared cost.
+    The current CPU contract matches `kami_step`: an x=1 trial is accepted
+    and charges exactly its declared cost.
     """
     from thielecpu.hardware.cosim import run_verilog
 

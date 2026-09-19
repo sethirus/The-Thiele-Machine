@@ -1,0 +1,15 @@
+From KamiHW Require Import ImplementationContract HWBoundaryCompleteness.
+Check supported_opcode_count.
+Check hwb_snapshot_module_tensors.
+Check hwb_snapshot_csrs.
+Check hwb_of_regs_complete.
+Check cpu_register_map_has_boundary.
+Check cpu_reset_run_has_boundary.
+Print Assumptions supported_opcode_count.
+Print Assumptions hwb_snapshot_module_tensors.
+Print Assumptions hwb_snapshot_csrs.
+Print Assumptions hwb_of_regs_complete.
+Print Assumptions cpu_register_map_has_boundary.
+Print Assumptions cpu_reset_run_has_boundary.
+Check hwb_pc_mu_word_bounds.
+Print Assumptions hwb_pc_mu_word_bounds.

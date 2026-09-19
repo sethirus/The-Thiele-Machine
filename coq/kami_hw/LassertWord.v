@@ -137,7 +137,7 @@ Proof.
   unfold read_mem. cbn [evalExpr].
   rewrite weq_bool_nat, ?read_mem_trunc, ?read_mem_trunc7, ?wordToNat_zero32.
   unfold gc. rewrite <- (mem_at_mod c (wordToNat (wplus (wplus (hw_lassert_cbase c) (hw_lassert_nvars c)) (lscan_lit_abs c)))), wordToNat_wplus_mod_128.
-  rewrite Nat.add_mod, wordToNat_wplus_mod_128, <- Nat.add_mod, mem_at_mod, lscan_abs by (exact Hz || discriminate).
+  rewrite Nat.Div0.add_mod, wordToNat_wplus_mod_128, <- Nat.Div0.add_mod, mem_at_mod, lscan_abs by (exact Hz || discriminate).
   reflexivity.
 Qed.
 

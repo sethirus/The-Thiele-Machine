@@ -1,11 +1,11 @@
 # INQUISITOR REPORT
-Generated: 2026-09-19 22:58:02Z (UTC)
-Scanned: 422 Coq files across the repo
+Generated: 2026-09-19 23:50:53Z (UTC)
+Scanned: 435 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
 - LOW: 0
-- WAIVERS: 340 in-source suppression markers across 140 files (251 `INQUISITOR NOTE`, 89 `(* SAFE: *)`)
+- WAIVERS: 342 in-source suppression markers across 140 files (251 `INQUISITOR NOTE`, 91 `(* SAFE: *)`)
   - Read the severity counts as *unsuppressed* findings. Each waiver silences one check at one site; the justification is the comment text itself. Grep for the markers to audit them.
 
 ## Rules

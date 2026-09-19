@@ -1114,7 +1114,7 @@ Each claim is a witness pair: two reachable Thiele substrate states agree on the
 
 \emph{(4) $\mu \perp (\texttt{mem}, \texttt{regs}, \texttt{pc}, \texttt{certified}, \texttt{vm\_graph})$.} Same visible tuple, same certification flag, same graph, different ledger: $\texttt{CERTIFY}\,0$ against $\texttt{CERTIFY}\,1$. \texttt{CERTIFY} never touches \texttt{vm\_graph}, so this pair holds the graph fixed without needing to change instruction; only the declared costs differ, so $\mu$ comes out $1$ versus $2$. The Coq witnesses are \code{abs\_A\_cert} and \code{abs\_B\_cert}, over \code{FullCertShadow}.
 
-The parametric rider belongs to the $\mu$ results, and there it is not decoration: from any reachable state the certify-versus-jump split is still available, so no prefix, however long, prevents the $\mu$ witness pair. The certified results run from any uncertified state, and that is as far as they can go, for the honest reason that certification is permanent: once a prefix has certified, nothing clears the flag, so both branches of any extension agree on it. The theorem's content never needed more; one witness pair is exactly what ``not a function of'' takes, and swapping \texttt{PNEW} for a graph-inert instruction of matching cost is what lets the same style of witness carry the graph-fixed hypothesis too, closing the gap an earlier pass of this document left open. \qed
+The parametric rider belongs to the $\mu$ results, and there it is not decoration: from any reachable state the certify-versus-jump split is still available, so no prefix, however long, prevents the $\mu$ witness pair. The certified results run from any uncertified state, and that is as far as they can go, for the honest reason that certification is permanent: once a prefix has certified, nothing clears the flag, so both branches of any extension agree on it. One witness pair is exactly what ``not a function of'' requires. A graph-inert instruction with matching cost supplies the corresponding graph-fixed witness. \qed
 \end{proof}
 
 \begin{plainreading}
@@ -2313,7 +2313,11 @@ The hardware has:
 
 The Verilog is the hardware artifact. The FPGA is whatever I could put it on for free. The current target is the Xilinx Kintex-7 \texttt{xc7k325tffg900-2} on the Digilent Genesys~2: the smallest fully-open-toolchain part the design still fits comfortably after the multi-cycle \texttt{CHSH\_LASSERT} witness checker landed. Section~\ref{sec:vocab} explains the synthesis pipeline I use: yosys does the gate-level synthesis, nextpnr-xilinx does the place-and-route, and prjxray's \texttt{xc7frames2bit} produces the bitstream the chip reads to configure itself.
 
-The CI (Full) workflow defines synthesis, simulation, and FPGA-generation jobs. Historical resource, timing, and bitstream reports describe their recorded RTL and tool versions. They do not measure a changed Kami source merely because its Coq proofs compile. For this revision, regenerated RTL, synthesis resources, timing, and bitstream claims require fresh pipeline artifacts linked to the source identity in Section~\ref{sec:reproduction}.
+The CI (Full) workflow defines synthesis, simulation, and FPGA-generation jobs.
+Resource, timing, and bitstream reports are valid only for the RTL and tool
+versions recorded with them. Coq proof compilation does not measure changed
+RTL. Current physical claims require regenerated pipeline artifacts linked to
+the source identity in Section~\ref{sec:reproduction}.
 
 The kernel proofs are parametric in \texttt{REG\_COUNT} and \texttt{MEM\_SIZE}, so the same proofs apply at any size constants the design picks. This part was a proof of existence on hardware, not a design constraint. The size constants (16 registers, 128 data words, 128 instruction words) were chosen small enough to fit on a free-toolchain FPGA. The design scales to whatever size you actually want.
 
@@ -3354,21 +3358,26 @@ So I didn't use Coq to make anything true. I used it because I don't trust my ow
 \subsection{Reproducing the source and proof contracts}
 \label{sec:reproduction}
 
-Repository: \url{https://github.com/sethirus/The-Thiele-Machine}. The review workspace starts from commit \code{69b968906eeb88622f6480cd65a011a7d021b890}. The changes described here are supplied by the companion \texttt{artifacts/review\_revision/source.patch}; \texttt{source\_manifest.json} identifies its bytes and the reviewed source files. The base commit alone does not contain these changes. Publication of a final release commit remains separate from this local review artifact.
+Repository: \url{https://github.com/sethirus/The-Thiele-Machine}. The
+repository carries the formal sources, pinned dependency trees, executable
+contract probes, and the native reproduction runner. The authoritative
+reproduction procedure is documented in \texttt{docs/REPRODUCTION.md}; it
+builds a fresh source snapshot and never relies on a review-session patch or
+precompiled proof objects.
 
-The verified local toolchain is Coq 8.18.0, OCaml 4.14.1, and Python 3.12.1, with the vendored Kami and bbv dependencies built. From a checkout of that base commit, apply the companion patch with \texttt{git apply source.patch}. Then run the following commands from the repository root in the prepared toolchain:
+Use the native toolchain required by the repository, then run the following
+commands from the repository root:
 \begin{verbatim}
-export COQPATH="$PWD/vendor/bbv/src:$PWD/vendor/kami"
-cd coq
-coq_makefile -f _CoqProject -o Makefile
-make -j2
-cd ..
-python3 scripts/check_review_contracts.py \
-  > artifacts/review_revision/contract_report.txt
+python3 scripts/reproduce_coq.py --jobs 1
+python3 scripts/check_review_contracts.py
 bash monograph/build_monograph.sh
 \end{verbatim}
 
-The Coq build and contract probe must exit zero. Inspect the report's theorem types as well as its global dependencies; a closed report does not discharge explicit premises. The monograph build prints \texttt{Build Successful} and regenerates \texttt{monograph.pdf} and \texttt{monograph.txt}. The full-corpus reports remain in \texttt{artifacts/print\_assumptions\_all\_proofs.*}; their stored counts belong to the source version recorded by that audit, not automatically to every later edit.
+The source-only reproduction must exit zero. Inspect theorem types and global
+dependencies as well as the exit status; a closed report does not discharge
+explicit premises. The monograph build regenerates the publication outputs
+from the TeX sources. The generated reproduction records are execution
+evidence for that run, not additional source files.
 
 RTL generation is a separate command, \texttt{bash scripts/kami\_extract.sh}, requiring the Bluespec compiler and its standard library in addition to the Coq/OCaml toolchain. Its logs, generated Verilog, synthesis report, and any bitstream must carry the source identity they actually used. A successful Coq build supplies no fresh synthesis or timing measurement. The saved Inquisitor report likewise retains its generation date and waiver census.
 
@@ -3384,7 +3393,11 @@ Beyond Coq's type checker, the project has a custom proof auditor called the Inq
 \item \textbf{Comment hygiene.} No TODO/FIXME/WIP markers in active proof comments.
 \end{itemize}
 
-The saved \texttt{INQUISITOR\_REPORT.md}, generated 11 September 2026, records 297 scanned Coq files, zero HIGH, MEDIUM, and LOW unsuppressed findings, and 341 suppression markers across 140 files. This is a historical report for its recorded source state. Regenerate it for a changed tree. The rule checks and waiver census are heuristic evidence; they do not prove semantic applicability or absence of every vacuous premise.
+The committed \texttt{INQUISITOR\_REPORT.md} records the result for the
+source state from which it was generated: zero unsuppressed HIGH, MEDIUM, and
+LOW findings. Regenerate it whenever the source tree changes. The rule checks
+and waiver census are heuristic evidence; they do not prove semantic
+applicability or absence of every vacuous premise.
 
 %===========================================================================
 \section{Zero Admitted: what it actually means}
@@ -3598,7 +3611,7 @@ Bridge-tier claims (checked in Coq, but resting on named hypotheses or documente
 \subsection{Main-result contract crosswalk}
 \label{sec:contract-crosswalk}
 
-Each row identifies the result's domain, conclusion, load-bearing premises, and instance status. A symbol prefixed by \texttt{Kernel} is in its namesake file under \texttt{coq/kernel/}; \texttt{KamiHW} names files under \texttt{coq/kami\_hw/}. The companion \code{artifacts/review\_revision/contract\_sources.json} maps every row to its source file and line. The \texttt{contract\_probe.v} file in that directory loads the exact modules. Its report combines \texttt{Check}, expanded records and definitions via \texttt{Print}, and \texttt{Print Assumptions}. The source declaration and its imported definitions remain the complete mathematical contract.
+Each row identifies the result's domain, conclusion, load-bearing premises, and instance status. A symbol prefixed by \texttt{Kernel} is in its namesake file under \texttt{coq/kernel/}; \texttt{KamiHW} names files under \texttt{coq/kami\_hw/}. The stable contract probes under \texttt{tests/coq\_probes/} load the exact modules. Their reports combine \texttt{Check}, expanded records and definitions via \texttt{Print}, and \texttt{Print Assumptions}. The source declaration and its imported definitions remain the complete mathematical contract.
 
 {\small
 \begin{longtable}{p{0.33\linewidth}p{0.60\linewidth}}

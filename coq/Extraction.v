@@ -304,6 +304,8 @@ Extract Constant Nat.add => "(+)".
 Extract Constant Nat.mul => "( * )".
 (* SAFE: Standard Coq library nat subtraction — clamped to 0 matches Nat.sub semantics *)
 Extract Constant Nat.sub => "fun n m -> max 0 (n-m)".
+(* SAFE: Standard Coq library minimum — OCaml's min is equivalent on int naturals *)
+Extract Constant Nat.min => "Stdlib.min".
 (* SAFE: Standard Coq library nat equality — OCaml structural (=) matches Nat.eqb on int *)
 Extract Constant Nat.eqb => "(=)".
 (* SAFE: Nat.div — guard against y=0 to match Coq semantics (returns 0) *)

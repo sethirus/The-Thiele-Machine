@@ -1,0 +1,18 @@
+From KamiHW Require Import ReadFreeObservation DecodedReadFree DispatchFetch.
+Check observe_read_free_action. Print Assumptions observe_read_free_action.
+Check eval_read_free_action. Print Assumptions eval_read_free_action.
+Check dispatch_decoded_read_free. Print Assumptions dispatch_decoded_read_free.
+Check dispatch_reads_fetch_frame. Print Assumptions dispatch_reads_fetch_frame.
+Check dispatch_fetch_frame. Print Assumptions dispatch_fetch_frame.
+Check dispatch_constant_imem_observation. Print Assumptions dispatch_constant_imem_observation.
+Check dispatch_fetch_eval_frame. Print Assumptions dispatch_fetch_eval_frame.
+Check dispatch_fetch_actual_action_frame. Print Assumptions dispatch_fetch_actual_action_frame.
+
+From KamiHW Require Import HWBoundaryReads BoundaryDecoded TensorDispatch.
+Check dispatch_boundary_decoded_observer. Print Assumptions dispatch_boundary_decoded_observer.
+Check tensor_set_decoded. Print Assumptions tensor_set_decoded.
+Check tensor_get_decoded. Print Assumptions tensor_get_decoded.
+Check tensor_set_actual_write. Print Assumptions tensor_set_actual_write.
+Check tensor_get_actual_write. Print Assumptions tensor_get_actual_write.
+Check dispatch_csr_status_preserved. Print Assumptions dispatch_csr_status_preserved.
+Check dispatch_csr_heap_base_preserved. Print Assumptions dispatch_csr_heap_base_preserved.

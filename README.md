@@ -336,7 +336,7 @@ checks the selected compiled libraries with `coqchk`. It records input hashes,
 native tool versions, commands, individual exit codes and raw logs. It does not
 install libraries globally or download anything. The native prerequisites above
 must already be available; this is a source-contained project, not a bundled OS
-or compiler distribution. See [native reproduction](artifacts/review_revision/NATIVE_REPRODUCTION.md).
+or compiler distribution. See [native reproduction](docs/REPRODUCTION.md).
 
 For incremental development in the checkout:
 
@@ -350,11 +350,11 @@ make coq-gate
 `COQPATH` selects the repository libraries, so no global `make install` is
 needed. `make verify` and `pytest` alone do not compile the full Coq corpus.
 
-The actual CPU proof surface includes executable semantics for all 12 Kami rules, finite selected execution traces, reset facts and preservation of register names and kinds (`CoreRules`, `CoreExecution`, `CoreTyping`, `DispatchReset`). Full value/resource invariants, abstract retirement correspondence and compiler semantic preservation remain separate obligations. [Realization assurance](artifacts/review_revision/REALIZATION_ASSURANCE.md) identifies each boundary; [review status](artifacts/review_revision/STATUS.md) records completion.
+The actual CPU proof surface includes executable semantics for all 12 Kami rules, finite selected execution traces, reset facts and preservation of register names and kinds (`CoreRules`, `CoreExecution`, `CoreTyping`, `DispatchReset`). Full value/resource invariants, abstract retirement correspondence and compiler semantic preservation remain separate obligations. [Assurance and scope](docs/ASSURANCE.md) identifies each boundary.
 
-The unbounded VM has a checked 122-instruction self-interpreter for twelve arithmetic and control instructions over four guest registers. Program and input vary as executable data. Its contracts cover positive host simulation, both directions of result correctness, malformed code and divergence; guest structural fields remain unchanged. [B3 review](artifacts/review_revision/SELF_INTERPRETER_REVIEW.md) records the exact fragment and observations.
+The unbounded VM has a checked 122-instruction self-interpreter for twelve arithmetic and control instructions over four guest registers. Program and input vary as executable data. Its contracts cover positive host simulation, both directions of result correctness, malformed code and divergence; guest structural fields remain unchanged. [VM contracts](docs/VM_CONTRACTS.md) records the exact fragment and observations.
 
-For that model, the checked Rice reduction proves undecidability for extensional predicates separating the divergent program from a well-formed program, including halting on zero and returning zero. Guest-program deciders are covered. This closes B4 under its alternative-construction clause; it supplies no internal recursion theorem and does not discharge the conditional bounded VM diagonal. [B4 review](artifacts/review_revision/RICE_REVIEW.md) records the assumptions and checked results.
+For that model, the checked Rice reduction proves undecidability for extensional predicates separating the divergent program from a well-formed program, including halting on zero and returning zero. Guest-program deciders are covered. It supplies no internal recursion theorem and does not discharge the conditional bounded VM diagonal. [VM contracts](docs/VM_CONTRACTS.md) records the assumptions and checked results.
 
 ## Run A Program
 

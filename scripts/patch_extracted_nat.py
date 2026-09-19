@@ -29,6 +29,10 @@ EFFICIENT_NAT = r'''module Nat =
 
   let rec sub n m = Stdlib.max 0 (n - m)
 
+  (** val min : int -> int -> int **)
+
+  let min = Stdlib.min
+
   (** val eqb : int -> int -> bool **)
 
   let eqb (n:int) (m:int) = n = m
@@ -82,6 +86,12 @@ def patch(path: Path) -> bool:
     if count == 0:
         print(f"warning: Nat module not found in {path}", file=sys.stderr)
         return False
+    # Coq qualifies constants extracted from the custom nat representation as
+    # Nat.min even when the directive maps Nat.min to OCaml's polymorphic min.
+    # The replacement module above supplies the efficient Nat helpers; use the
+    # standard min value at call sites so the generated file has no dependency
+    # on a nonexistent OCaml Stdlib.Nat.min.
+    new_text = re.sub(r"\bNat\.min\b", "min", new_text)
     path.write_text(new_text, encoding="utf-8")
     print(f"patched Nat module in {path} ({count} replacement(s))")
     return True
