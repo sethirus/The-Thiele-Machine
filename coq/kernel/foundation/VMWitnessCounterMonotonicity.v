@@ -12,13 +12,11 @@
     finite continuation can ever lower a field again. This is a fact about
     the witness-counter buckets specifically; it says nothing about the
     VM's ordinary registers or memory, which are unrestricted read/write
-    storage and are not the subject of this file. See
-    artifacts/review_revision/TWO_COUNTER_FINDINGS.md and
-    ALTERNATIVE_COUNTER_PROTOCOL.md for the Gate B2c context this
-    formalizes: no macro built only from record_trial calls and guard
-    reads can restore a drained bucket pair to encode an independent
-    second value, because restoration would require a field decrease that
-    no actual step can produce. *)
+    storage and are not the subject of this file. This is the
+    witness-counter fact used by the current VM contracts: no macro built
+    only from record_trial calls and guard reads can restore a drained bucket
+    pair to encode an independent second value, because restoration would
+    require a field decrease that no actual step can produce. *)
 From Coq Require Import Arith Lia List.
 From Kernel Require Import VMState VMStep.
 Import ListNotations.

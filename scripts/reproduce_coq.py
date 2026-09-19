@@ -30,28 +30,18 @@ CONFIGS = ('coq/_CoqProject', 'coq/Makefile.local',
            'vendor/coq-undecidability/LICENSE',
            'vendor/coq-undecidability/UPSTREAM.md',
            'scripts/reproduce_coq.py', 'scripts/check_review_contracts.py')
-DEFAULT_PROBES = ('artifacts/review_revision/cm2_delivery_probe.v',
-                  'artifacts/review_revision/dispatch_delivery_probe.v',
-                  'artifacts/review_revision/core_execution_probe.v',
-                  'artifacts/review_revision/dispatch_observation/Contracts.v',
-                  'artifacts/review_revision/dispatch_observation/FamilyContracts.v',
-                  'artifacts/review_revision/dispatch_observation/CastProbe.v',
-                  'artifacts/review_revision/specialization_repair/Contracts.v',
-                  'artifacts/review_revision/self_interpreter/Contracts.v',
-                  'artifacts/review_revision/rice/Contracts.v',
-                  'artifacts/review_revision/c1_c2/Contracts.v',
-                  'artifacts/review_revision/c2_dispatch/Contracts.v',
-                  'artifacts/review_revision/c2_invariants/Contracts.v')
-# c2_dispatch/FetchFactoring.v is deliberately not a probe: its own header
-# calls it "exact AST preservation of the fetch factoring, before later CPU
-# changes," and it is -- a literal transcript of the "step" rule's AST from
-# the 2026-09-14 fetch-factoring session, checked by `reflexivity` against
-# nth_error (getRules thieleCore) 0. The CPU rule has since changed by design
-# (the high_value_locked fault removed from the mc_phase guard, the COMPOSE
-# label table write added, and more), each change its own audited session in
-# STATUS.md. Re-running this file asserts the rule never changed since that
-# one session, which is false on purpose. Kept in the tree as the historical
-# record it already was; not re-verified as live evidence.
+DEFAULT_PROBES = ('tests/coq_probes/cm2_delivery.v',
+                  'tests/coq_probes/dispatch_delivery.v',
+                  'tests/coq_probes/core_execution.v',
+                  'tests/coq_probes/dispatch_observation/Contracts.v',
+                  'tests/coq_probes/dispatch_observation/FamilyContracts.v',
+                  'tests/coq_probes/dispatch_observation/CastProbe.v',
+                  'tests/coq_probes/specialization/Contracts.v',
+                  'tests/coq_probes/self_interpreter/Contracts.v',
+                  'tests/coq_probes/rice/Contracts.v',
+                  'tests/coq_probes/c1_c2/Contracts.v',
+                  'tests/coq_probes/c2_dispatch/Contracts.v',
+                  'tests/coq_probes/c2_invariants/Contracts.v')
 _ROOT_RE = re.compile(r'^-(R|Q)\s+(\S+)\s+(\S+)$')
 
 

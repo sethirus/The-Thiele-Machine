@@ -4,12 +4,9 @@ These checks pin down the quantum-verification path in RTL:
 - CHSH_TRIAL charges its declared cost and does NOT require a logic key.
 - The x=1 surcharge and the zero-tensor gate were removed.
 
-The logic-gate lock (logic_acc == 0xCAFEEACE), the x=1 +256 surcharge and the
-zero-tensor fault were deliberately removed from the CPU so it matches
-`kami_step` (Devon, 2026-09-14; see artifacts/review_revision/
-C2_DIVERGENCE_LEDGER.md "Logic-gate lock -> Removed from the CPU" and
-"CHSH_TRIAL x=1 -> Surcharge and gate removed"). The old expectations asserted
-the removed behaviour; these tests now assert the aligned contract.
+The logic-gate lock, the x=1 +256 surcharge, and the zero-tensor fault are not
+part of the current CPU contract. The implementation matches `kami_step`, so
+these tests assert acceptance and declared-cost accounting directly.
 """
 
 from __future__ import annotations

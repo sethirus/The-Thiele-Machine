@@ -121,9 +121,7 @@ def test_evidence_valid_quantum_physics_trace() -> None:
         pytest.skip("verilator unavailable")
 
     # mu = INIT_MU 100 + REVEAL 0 1 0 (1 bit + S(0) = 2, VMStep.v:290) +
-    # CHSH_TRIAL declared 7. The old bound of 260 asserted the removed x=1
-    # surcharge (+256); the CPU now charges the declared cost only
-    # (artifacts/review_revision/C2_DIVERGENCE_LEDGER.md).
+    # CHSH_TRIAL declared 7. The CPU charges the declared cost only.
     assert result.get("status", 0) == 2
     assert result.get("mu", 0) == 109
     assert result.get("error_code", 0) == 0
