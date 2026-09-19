@@ -97,7 +97,7 @@ jobs:
             coq/**/*.glob
             coq/Makefile
             coq/Makefile.conf
-          key: coq-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject') }}
+          key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
 
       - name: Install Python dependencies
         run: |
@@ -394,7 +394,7 @@ jobs:
             coq/**/*.glob
             coq/Makefile
             coq/Makefile.conf
-          key: coq-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject') }}
+          key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
 
       - name: Refresh Coq artefact mtimes
         run: |
@@ -405,10 +405,14 @@ jobs:
 
       - name: Build Coq proof tree
         if: steps.cache-coq.outputs.cache-hit != 'true'
+        shell: bash
         run: |
+          set -Eeuo pipefail
           cd coq
-          coq_makefile -f _CoqProject -o Makefile 2>&1 | { grep -v "Warning:" || true; }
-          make -j4
+          rm -f Makefile Makefile.conf .Makefile.d
+          find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          coq_makefile -f _CoqProject -o Makefile
+          make V=1 -j1
 
       - name: Run full vacuity sweep
         run: make vacuity-audit
