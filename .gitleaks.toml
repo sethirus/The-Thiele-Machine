@@ -8,6 +8,7 @@ title = "Thiele Machine Gitleaks Config"
 description = "Allowlist of paths and patterns to exclude from scanning"
 # Test files that contain well-known test keys (not real secrets)
 paths = [
+    '''artifacts/keys/bitlock_ed25519_private\.pem''',
     '''tests/test_properties\.py''',
     '''tests/trs_conformance/test_trs10\.py''',
     '''archive/tests_disabled/disabled/test_cross_impl\.py''',

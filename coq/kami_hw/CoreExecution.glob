@@ -1,0 +1,404 @@
+DIGEST dc40a7abddeb61a1b0108b2d1852a32f
+FKamiHW.CoreExecution
+R88:96 Kami.Kami <> <> lib
+R98:111 Kami.Semantics <> <> lib
+R141:151 KamiHW.ThieleTypes <> <> lib
+R153:165 KamiHW.ThieleCPUCore <> <> lib
+R167:181 KamiHW.ActionEvaluator <> <> lib
+R185:206 KamiHW.NormalizationExecution <> <> lib
+R208:230 KamiHW.NormalizationRetirement <> <> lib
+R232:240 KamiHW.CoreRules <> <> lib
+R242:258 KamiHW.DispatchExecution <> <> lib
+R285:288 Coq.Lists.List <> <> lib
+R290:295 Coq.Strings.String <> <> lib
+R297:299 Coq.micromega.Lia <> <> lib
+R309:321 Coq.Lists.List ListNotations <> mod
+def 359:371 <> eval_cpu_rule
+R380:384 Kami.Semantics <> RegsT def
+binder 374:376 <> old:1
+R392:399 KamiHW.CoreRules <> cpu_rule def
+binder 388:388 <> r:2
+R404:409 Coq.Init.Datatypes <> option ind
+R411:418 Kami.Semantics <> UpdatesT def
+R431:448 KamiHW.ActionEvaluator <> eval_linear_action def
+R455:462 Kami.Lib.Struct <> attrType proj
+R466:469 Kami.Syntax <> type def
+R464:464 KamiHW.CoreExecution <> r:2 var
+R450:452 KamiHW.CoreExecution <> old:1 var
+R481:484 Coq.Init.Datatypes <> Some constr
+R486:486 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R488:489 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R491:491 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R496:499 Coq.Init.Datatypes <> Some constr
+R507:510 Coq.Init.Datatypes <> None constr
+R515:518 Coq.Init.Datatypes <> None constr
+def 537:551 <> select_cpu_rule
+R560:564 Kami.Semantics <> RegsT def
+binder 554:556 <> old:3
+R576:579 Coq.Init.Datatypes <> list ind
+R581:588 KamiHW.CoreRules <> cpu_rule def
+binder 568:572 <> rules:4
+R595:600 Coq.Init.Datatypes <> option ind
+R609:611 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R603:608 Coq.Strings.String <> string ind
+R612:619 Kami.Semantics <> UpdatesT def
+R633:637 KamiHW.CoreExecution <> rules:4 var
+R648:650 Coq.Init.Datatypes <> nil constr
+R655:658 Coq.Init.Datatypes <> None constr
+R664:667 Coq.Init.Datatypes <> cons constr
+R691:703 KamiHW.CoreExecution <> eval_cpu_rule def
+R705:707 KamiHW.CoreExecution <> old:3 var
+R724:727 Coq.Init.Datatypes <> Some constr
+R734:737 Coq.Init.Datatypes <> Some constr
+R739:739 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R750:751 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R753:753 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R740:747 Kami.Lib.Struct <> attrName proj
+R763:766 Coq.Init.Datatypes <> None constr
+R771:785 KamiHW.CoreExecution <> select_cpu_rule:5 def
+R787:789 KamiHW.CoreExecution <> old:3 var
+prf 820:836 <> selected_cpu_rule
+binder 847:851 <> rules:7
+binder 853:855 <> old:8
+binder 857:860 <> name:9
+binder 862:862 <> u:10
+R909:914 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R892:894 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R867:881 KamiHW.CoreExecution <> select_cpu_rule def
+R883:885 KamiHW.CoreExecution <> old:8 var
+R887:891 KamiHW.CoreExecution <> rules:7 var
+R895:898 Coq.Init.Datatypes <> Some constr
+R900:900 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R905:906 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R908:908 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R901:904 KamiHW.CoreExecution <> name:9 var
+R907:907 KamiHW.CoreExecution <> u:10 var
+R915:921 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R923:924 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 922:922 <> r:11
+R935:938 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R925:926 Coq.Lists.List <> In def
+R930:934 KamiHW.CoreExecution <> rules:7 var
+R928:928 KamiHW.CoreExecution <> r:11 var
+R956:959 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R949:951 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R939:946 Kami.Lib.Struct <> attrName proj
+R948:948 KamiHW.CoreExecution <> r:11 var
+R952:955 KamiHW.CoreExecution <> name:9 var
+R979:981 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R960:972 KamiHW.CoreExecution <> eval_cpu_rule def
+R974:976 KamiHW.CoreExecution <> old:8 var
+R978:978 KamiHW.CoreExecution <> r:11 var
+R982:985 Coq.Init.Datatypes <> Some constr
+R987:987 KamiHW.CoreExecution <> u:10 var
+R1077:1091 KamiHW.CoreExecution <> select_cpu_rule def
+R1112:1124 KamiHW.CoreExecution <> eval_cpu_rule def
+R1112:1124 KamiHW.CoreExecution <> eval_cpu_rule def
+prf 1389:1408 <> no_cpu_rule_selected
+binder 1419:1423 <> rules:12
+binder 1425:1427 <> old:13
+R1464:1470 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1457:1459 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1432:1446 KamiHW.CoreExecution <> select_cpu_rule def
+R1448:1450 KamiHW.CoreExecution <> old:13 var
+R1452:1456 KamiHW.CoreExecution <> rules:12 var
+R1460:1463 Coq.Init.Datatypes <> None constr
+binder 1478:1478 <> r:14
+R1491:1494 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1481:1482 Coq.Lists.List <> In def
+R1486:1490 KamiHW.CoreExecution <> rules:12 var
+R1484:1484 KamiHW.CoreExecution <> r:14 var
+R1514:1516 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1495:1507 KamiHW.CoreExecution <> eval_cpu_rule def
+R1509:1511 KamiHW.CoreExecution <> old:13 var
+R1513:1513 KamiHW.CoreExecution <> r:14 var
+R1517:1520 Coq.Init.Datatypes <> None constr
+R1581:1595 KamiHW.CoreExecution <> select_cpu_rule def
+R1665:1677 KamiHW.CoreExecution <> eval_cpu_rule def
+R1665:1677 KamiHW.CoreExecution <> eval_cpu_rule def
+R1755:1763 Coq.Init.Logic <> or_introl constr
+R1765:1771 Coq.Init.Logic <> eq_refl constr
+R1755:1763 Coq.Init.Logic <> or_introl constr
+R1765:1771 Coq.Init.Logic <> eq_refl constr
+prf 1956:1979 <> selected_cpu_rule_actual
+binder 1990:1992 <> old:15
+binder 1994:1997 <> name:16
+binder 1999:1999 <> u:17
+R2062:2067 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2045:2047 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2004:2018 KamiHW.CoreExecution <> select_cpu_rule def
+R2020:2022 KamiHW.CoreExecution <> old:15 var
+R2025:2032 Kami.Syntax <> getRules def
+R2034:2043 KamiHW.ThieleCPUCore <> thieleCore def
+R2048:2051 Coq.Init.Datatypes <> Some constr
+R2053:2053 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2058:2059 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2061:2061 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2054:2057 KamiHW.CoreExecution <> name:16 var
+R2060:2060 KamiHW.CoreExecution <> u:17 var
+R2068:2074 Kami.Semantics <> Substep ind
+R2112:2118 Kami.Lib.FMap M empty def
+R2094:2096 Kami.Semantics <> Rle constr
+R2099:2102 Coq.Init.Datatypes <> Some constr
+R2104:2107 KamiHW.CoreExecution <> name:16 var
+R2091:2091 KamiHW.CoreExecution <> u:17 var
+R2087:2089 KamiHW.CoreExecution <> old:15 var
+R2076:2085 KamiHW.ThieleCPUCore <> thieleCore def
+R2166:2182 KamiHW.CoreExecution <> selected_cpu_rule thm
+R2166:2182 KamiHW.CoreExecution <> selected_cpu_rule thm
+R2263:2270 Kami.Lib.Struct <> attrType proj
+R2241:2250 Kami.Semantics <> SingleRule constr
+R2263:2270 Kami.Lib.Struct <> attrType proj
+R2241:2250 Kami.Semantics <> SingleRule constr
+R2316:2328 KamiHW.CoreExecution <> eval_cpu_rule def
+R2349:2366 KamiHW.ActionEvaluator <> eval_linear_action def
+R2373:2380 Kami.Lib.Struct <> attrType proj
+R2384:2387 Kami.Syntax <> type def
+R2349:2366 KamiHW.ActionEvaluator <> eval_linear_action def
+R2373:2380 Kami.Lib.Struct <> attrType proj
+R2384:2387 Kami.Syntax <> type def
+R2484:2486 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2487:2488 Kami.Lib.Word <> WO constr
+R2500:2504 Kami.Lib.Word <> word0 thm
+R2484:2486 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2487:2488 Kami.Lib.Word <> WO constr
+R2500:2504 Kami.Lib.Word <> word0 thm
+R2526:2549 KamiHW.ActionEvaluator <> eval_linear_action_sound thm
+R2526:2549 KamiHW.ActionEvaluator <> eval_linear_action_sound thm
+prf 2576:2597 <> cpu_selection_none_iff
+binder 2608:2610 <> old:18
+R2663:2669 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2656:2658 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2615:2629 KamiHW.CoreExecution <> select_cpu_rule def
+R2631:2633 KamiHW.CoreExecution <> old:18 var
+R2636:2643 Kami.Syntax <> getRules def
+R2645:2654 KamiHW.ThieleCPUCore <> thieleCore def
+R2659:2662 Coq.Init.Datatypes <> None constr
+binder 2677:2677 <> r:19
+binder 2679:2679 <> u:20
+binder 2681:2685 <> calls:21
+binder 2687:2689 <> ret:22
+R2718:2725 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2692:2693 Coq.Lists.List <> In def
+R2698:2705 Kami.Syntax <> getRules def
+R2707:2716 KamiHW.ThieleCPUCore <> thieleCore def
+R2695:2695 KamiHW.CoreExecution <> r:19 var
+R2726:2727 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2728:2736 Kami.Semantics <> SemAction ind
+R2768:2770 KamiHW.CoreExecution <> ret:22 var
+R2762:2766 KamiHW.CoreExecution <> calls:21 var
+R2760:2760 KamiHW.CoreExecution <> u:20 var
+R2743:2750 Kami.Lib.Struct <> attrType proj
+R2754:2757 Kami.Syntax <> type def
+R2752:2752 KamiHW.CoreExecution <> r:19 var
+R2738:2740 KamiHW.CoreExecution <> old:18 var
+R2801:2820 KamiHW.CoreExecution <> no_cpu_rule_selected thm
+R2801:2820 KamiHW.CoreExecution <> no_cpu_rule_selected thm
+R2801:2820 KamiHW.CoreExecution <> no_cpu_rule_selected thm
+R2883:2887 Coq.Init.Logic <> proj1 thm
+R2909:2924 KamiHW.CoreRules <> cpu_rules_linear thm
+R2890:2902 Coq.Lists.List <> Forall_forall thm
+R2883:2887 Coq.Init.Logic <> proj1 thm
+R2909:2924 KamiHW.CoreRules <> cpu_rules_linear thm
+R2890:2902 Coq.Lists.List <> Forall_forall thm
+R2954:2980 KamiHW.ActionEvaluator <> eval_linear_action_complete thm
+R2954:2980 KamiHW.ActionEvaluator <> eval_linear_action_complete thm
+R3047:3059 KamiHW.CoreExecution <> eval_cpu_rule def
+R3125:3137 KamiHW.CoreExecution <> eval_cpu_rule def
+R3154:3171 KamiHW.ActionEvaluator <> eval_linear_action def
+R3178:3185 Kami.Lib.Struct <> attrType proj
+R3189:3192 Kami.Syntax <> type def
+R3154:3171 KamiHW.ActionEvaluator <> eval_linear_action def
+R3178:3185 Kami.Lib.Struct <> attrType proj
+R3189:3192 Kami.Syntax <> type def
+R3268:3274 Kami.Lib.FMap M empty def
+R3268:3274 Kami.Lib.FMap M empty def
+R3299:3322 KamiHW.ActionEvaluator <> eval_linear_action_sound thm
+R3299:3322 KamiHW.ActionEvaluator <> eval_linear_action_sound thm
+def 3350:3362 <> run_cpu_rules
+R3372:3374 Coq.Init.Datatypes <> nat ind
+binder 3365:3368 <> fuel:23
+R3384:3388 Kami.Semantics <> RegsT def
+binder 3378:3380 <> old:24
+R3398:3400 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3393:3397 Kami.Semantics <> RegsT def
+R3401:3404 Coq.Init.Datatypes <> list ind
+R3406:3411 Kami.Semantics <> LabelT rec
+R3424:3427 KamiHW.CoreExecution <> fuel:23 var
+R3443:3443 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3447:3448 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3452:3452 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3444:3446 KamiHW.CoreExecution <> old:24 var
+R3449:3451 Coq.Init.Datatypes <> nil constr
+R3458:3458 Coq.Init.Datatypes <> S constr
+R3477:3491 KamiHW.CoreExecution <> select_cpu_rule def
+R3493:3495 KamiHW.CoreExecution <> old:24 var
+R3498:3505 Kami.Syntax <> getRules def
+R3507:3516 KamiHW.ThieleCPUCore <> thieleCore def
+R3532:3535 Coq.Init.Datatypes <> None constr
+R3540:3540 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3544:3545 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3549:3549 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3541:3543 KamiHW.CoreExecution <> old:24 var
+R3546:3548 Coq.Init.Datatypes <> nil constr
+R3559:3562 Coq.Init.Datatypes <> Some constr
+R3564:3564 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3569:3570 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3572:3572 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3611:3623 KamiHW.CoreExecution <> run_cpu_rules:25 def
+R3628:3634 Kami.Lib.FMap M union def
+R3638:3640 KamiHW.CoreExecution <> old:24 var
+R3592:3592 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3598:3599 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3606:3606 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3656:3656 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3662:3663 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3717:3717 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3664:3671 Coq.Lists.List <> app abbrev
+R3681:3684 Coq.Init.Datatypes <> cons constr
+R3713:3715 Coq.Init.Datatypes <> nil constr
+R3687:3705 KamiHW.NormalizationExecution <> normalization_label def
+prf 3745:3764 <> run_cpu_rules_actual
+binder 3775:3778 <> fuel:27
+binder 3780:3782 <> old:28
+R3787:3795 Kami.Semantics <> Multistep ind
+R3848:3850 Coq.Init.Datatypes <> snd def
+R3853:3865 KamiHW.CoreExecution <> run_cpu_rules def
+R3867:3870 KamiHW.CoreExecution <> fuel:27 var
+R3872:3874 KamiHW.CoreExecution <> old:28 var
+R3813:3815 Coq.Init.Datatypes <> fst def
+R3818:3830 KamiHW.CoreExecution <> run_cpu_rules def
+R3832:3835 KamiHW.CoreExecution <> fuel:27 var
+R3837:3839 KamiHW.CoreExecution <> old:28 var
+R3808:3810 KamiHW.CoreExecution <> old:28 var
+R3797:3806 KamiHW.ThieleCPUCore <> thieleCore def
+R3934:3946 KamiHW.CoreExecution <> run_cpu_rules def
+R3994:4008 KamiHW.CoreExecution <> select_cpu_rule def
+R4015:4022 Kami.Syntax <> getRules def
+R4024:4033 KamiHW.ThieleCPUCore <> thieleCore def
+R3994:4008 KamiHW.CoreExecution <> select_cpu_rule def
+R4015:4022 Kami.Syntax <> getRules def
+R4024:4033 KamiHW.ThieleCPUCore <> thieleCore def
+R4082:4088 Kami.Lib.FMap M union def
+R4082:4088 Kami.Lib.FMap M union def
+R4115:4127 KamiHW.CoreExecution <> run_cpu_rules def
+R4135:4141 Kami.Lib.FMap M union def
+R4115:4127 KamiHW.CoreExecution <> run_cpu_rules def
+R4135:4141 Kami.Lib.FMap M union def
+R4181:4183 Coq.Init.Datatypes <> fst def
+R4185:4187 Coq.Init.Datatypes <> snd def
+R4209:4237 KamiHW.NormalizationRetirement <> normalization_multistep_trans thm
+R4209:4237 KamiHW.NormalizationRetirement <> normalization_multistep_trans thm
+R4254:4284 KamiHW.NormalizationExecution <> normalization_substep_execution thm
+R4254:4284 KamiHW.NormalizationExecution <> normalization_substep_execution thm
+R4293:4316 KamiHW.CoreExecution <> selected_cpu_rule_actual thm
+R4293:4316 KamiHW.CoreExecution <> selected_cpu_rule_actual thm
+prf 4393:4418 <> run_cpu_rules_firing_bound
+binder 4429:4432 <> fuel:29
+binder 4434:4436 <> old:30
+R4484:4487 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4442:4452 Coq.Lists.List <> length abbrev
+R4455:4457 Coq.Init.Datatypes <> snd def
+R4460:4472 KamiHW.CoreExecution <> run_cpu_rules def
+R4474:4477 KamiHW.CoreExecution <> fuel:29 var
+R4479:4481 KamiHW.CoreExecution <> old:30 var
+R4488:4491 KamiHW.CoreExecution <> fuel:29 var
+R4554:4566 KamiHW.CoreExecution <> run_cpu_rules def
+R4598:4612 KamiHW.CoreExecution <> select_cpu_rule def
+R4619:4626 Kami.Syntax <> getRules def
+R4628:4637 KamiHW.ThieleCPUCore <> thieleCore def
+R4598:4612 KamiHW.CoreExecution <> select_cpu_rule def
+R4619:4626 Kami.Syntax <> getRules def
+R4628:4637 KamiHW.ThieleCPUCore <> thieleCore def
+R4686:4692 Kami.Lib.FMap M union def
+R4686:4692 Kami.Lib.FMap M union def
+R4719:4731 KamiHW.CoreExecution <> run_cpu_rules def
+R4739:4745 Kami.Lib.FMap M union def
+R4719:4731 KamiHW.CoreExecution <> run_cpu_rules def
+R4739:4745 Kami.Lib.FMap M union def
+R4785:4787 Coq.Init.Datatypes <> snd def
+R4804:4813 Coq.Lists.List <> app_length thm
+R4804:4813 Coq.Lists.List <> app_length thm
+R4804:4813 Coq.Lists.List <> app_length thm
+prf 4856:4889 <> run_cpu_rules_short_trace_disabled
+binder 4900:4903 <> fuel:31
+binder 4905:4907 <> old:32
+R4967:4972 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4955:4957 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4913:4923 Coq.Lists.List <> length abbrev
+R4926:4928 Coq.Init.Datatypes <> snd def
+R4931:4943 KamiHW.CoreExecution <> run_cpu_rules def
+R4945:4948 KamiHW.CoreExecution <> fuel:31 var
+R4950:4952 KamiHW.CoreExecution <> old:32 var
+R4958:4961 KamiHW.CoreExecution <> fuel:31 var
+R5041:5043 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4973:4987 KamiHW.CoreExecution <> select_cpu_rule def
+R4990:4992 Coq.Init.Datatypes <> fst def
+R4995:5007 KamiHW.CoreExecution <> run_cpu_rules def
+R5009:5012 KamiHW.CoreExecution <> fuel:31 var
+R5014:5016 KamiHW.CoreExecution <> old:32 var
+R5021:5028 Kami.Syntax <> getRules def
+R5030:5039 KamiHW.ThieleCPUCore <> thieleCore def
+R5044:5047 Coq.Init.Datatypes <> None constr
+R5128:5140 KamiHW.CoreExecution <> run_cpu_rules def
+R5161:5175 KamiHW.CoreExecution <> select_cpu_rule def
+R5182:5189 Kami.Syntax <> getRules def
+R5191:5200 KamiHW.ThieleCPUCore <> thieleCore def
+R5161:5175 KamiHW.CoreExecution <> select_cpu_rule def
+R5182:5189 Kami.Syntax <> getRules def
+R5191:5200 KamiHW.ThieleCPUCore <> thieleCore def
+R5247:5253 Kami.Lib.FMap M union def
+R5247:5253 Kami.Lib.FMap M union def
+R5278:5290 KamiHW.CoreExecution <> run_cpu_rules def
+R5298:5304 Kami.Lib.FMap M union def
+R5278:5290 KamiHW.CoreExecution <> run_cpu_rules def
+R5298:5304 Kami.Lib.FMap M union def
+R5342:5344 Coq.Init.Datatypes <> fst def
+R5346:5348 Coq.Init.Datatypes <> snd def
+R5375:5384 Coq.Lists.List <> app_length thm
+R5375:5384 Coq.Lists.List <> app_length thm
+R5375:5384 Coq.Lists.List <> app_length thm
+prf 5435:5461 <> cpu_reset_has_selected_rule
+R5465:5471 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5478:5481 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5472:5475 <> name:33
+binder 5477:5477 <> u:34
+R5540:5542 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5482:5496 KamiHW.CoreExecution <> select_cpu_rule def
+R5498:5517 KamiHW.DispatchExecution <> dispatch_reset_state def
+R5520:5527 Kami.Syntax <> getRules def
+R5529:5538 KamiHW.ThieleCPUCore <> thieleCore def
+R5543:5546 Coq.Init.Datatypes <> Some constr
+R5548:5548 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5553:5554 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5556:5556 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5549:5552 KamiHW.CoreExecution <> name:33 var
+R5555:5555 KamiHW.CoreExecution <> u:34 var
+R5578:5592 KamiHW.CoreExecution <> select_cpu_rule def
+R5594:5613 KamiHW.DispatchExecution <> dispatch_reset_state def
+R5616:5623 Kami.Syntax <> getRules def
+R5625:5634 KamiHW.ThieleCPUCore <> thieleCore def
+R5578:5592 KamiHW.CoreExecution <> select_cpu_rule def
+R5594:5613 KamiHW.DispatchExecution <> dispatch_reset_state def
+R5616:5623 Kami.Syntax <> getRules def
+R5625:5634 KamiHW.ThieleCPUCore <> thieleCore def
+R5714:5718 Coq.Init.Logic <> proj1 thm
+R5721:5742 KamiHW.CoreExecution <> cpu_selection_none_iff thm
+R5714:5718 Coq.Init.Logic <> proj1 thm
+R5721:5742 KamiHW.CoreExecution <> cpu_selection_none_iff thm
+R5776:5797 KamiHW.DispatchExecution <> dispatch_reset_enabled ex
+R5776:5797 KamiHW.DispatchExecution <> dispatch_reset_enabled ex
+R5826:5838 KamiHW.DispatchExecution <> eval_dispatch def
+R5840:5859 KamiHW.DispatchExecution <> dispatch_reset_state def
+R5826:5838 KamiHW.DispatchExecution <> eval_dispatch def
+R5840:5859 KamiHW.DispatchExecution <> dispatch_reset_state def
+R5928:5940 KamiHW.DispatchExecution <> dispatch_rule def
+R5945:5951 Kami.Lib.FMap M empty def
+R5956:5957 Kami.Lib.Word <> WO constr
+R5959:5974 KamiHW.DispatchExecution <> dispatch_rule_in thm
+R5928:5940 KamiHW.DispatchExecution <> dispatch_rule def
+R5945:5951 Kami.Lib.FMap M empty def
+R5956:5957 Kami.Lib.Word <> WO constr
+R5959:5974 KamiHW.DispatchExecution <> dispatch_rule_in thm
+R5988:6013 KamiHW.DispatchExecution <> dispatch_actual_action_iff thm
+R5988:6013 KamiHW.DispatchExecution <> dispatch_actual_action_iff thm

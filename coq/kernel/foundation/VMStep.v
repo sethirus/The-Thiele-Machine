@@ -1723,7 +1723,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     let new_err  := if check_ok then s.(vm_err) else true in
     vm_step s (instr_lassert freg creg kind flen cost)
       {| vm_graph := s.(vm_graph);
-         vm_csrs := s.(vm_csrs);
+         vm_csrs := if check_ok then s.(vm_csrs) else csr_set_err s.(vm_csrs) 1;
          vm_regs := s.(vm_regs);
          vm_mem := s.(vm_mem);
          vm_pc := new_pc;
@@ -2076,7 +2076,9 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
 | step_morph_ok : forall s dst src_mod dst_mod coupling_idx cost src_ms dst_ms graph' morph_id,
     graph_lookup s.(vm_graph) src_mod = Some src_ms ->
     graph_lookup s.(vm_graph) dst_mod = Some dst_ms ->
-    (graph', morph_id) = graph_add_morphism s.(vm_graph) src_mod dst_mod empty_coupling_data false ->
+    (graph', morph_id) = graph_add_morphism s.(vm_graph) src_mod dst_mod
+      (load_coupling_from_mem s src_ms.(module_region) dst_ms.(module_region) coupling_idx)
+      false ->
     vm_step s (instr_morph dst src_mod dst_mod coupling_idx cost)
       (advance_state_rm s (instr_morph dst src_mod dst_mod coupling_idx cost)
         graph' s.(vm_csrs) (write_reg s dst morph_id) s.(vm_mem) s.(vm_err))

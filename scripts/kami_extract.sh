@@ -112,12 +112,7 @@ fi
 
 echo "=== Phase 3: Compiling OCaml -> Bluespec pretty-printer ==="
 cd "$BUILD_DIR"
-# Regenerate Target.mli from current Target.ml to handle name differences
-# between monolithic and modular extraction (e.g. kami_read_mem vs read_mem)
-ocamlfind ocamlopt -package str -linkpkg -i Target.ml > Target.mli 2>/dev/null || true
-if [ -f Target_complete.ml ]; then
-    ocamlfind ocamlopt -package str -linkpkg -i Target_complete.ml > Target_complete.mli 2>/dev/null || true
-fi
+# Compile against the interface emitted alongside Target.ml by Coq extraction.
 cp "$VENDOR_KAMI/Kami/Ext/Ocaml/PP.ml" .
 cp "$VENDOR_KAMI/Kami/Ext/Ocaml/Main.ml" .
 cp "$VENDOR_KAMI/Kami/Ext/Ocaml/Header.bsv" .
@@ -185,7 +180,9 @@ BSV_VENDOR_DIR="$VENDOR_KAMI/Kami/Ext/BluespecFrontEnd/verilog"
 if [ "$BSC_AVAILABLE" != "0" ]; then
     for pkg in RegFileZero MulDiv; do
         BSV_SRC="$BSV_VENDOR_DIR/${pkg}.bsv"
-        if [ -f "$BSV_SRC" ] && [ ! -f "${pkg}.bo" ]; then
+        # .bo files are compiler-specific. Rebuild these small packages even
+        # when an older pipeline run left cached objects in the build directory.
+        if [ -f "$BSV_SRC" ]; then
             echo "  Compiling ${pkg}.bsv..."
             "$BSC" -verilog -bdir . -p "$BLUESPECDIR/Libraries:." "$BSV_SRC" 2>&1
         fi

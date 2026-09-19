@@ -1,0 +1,2401 @@
+DIGEST f7562495488574eeca13804f6660a28b
+FKernel.VMUnboundedCM2Correctness
+R375:379 Coq.Arith.Arith <> <> lib
+R381:383 Coq.micromega.Lia <> <> lib
+R385:388 Coq.Lists.List <> <> lib
+R398:410 Coq.Lists.List ListNotations <> mod
+R440:446 Kernel.VMState <> <> lib
+R448:453 Kernel.VMStep <> <> lib
+R455:469 Kernel.VMUnboundedStep <> <> lib
+R471:499 Kernel.VMUnboundedInterpreterCompose <> <> lib
+R529:553 Kernel.VMUnboundedCM2Interpreter <> <> lib
+R583:612 Kernel.VMUnboundedCM2InterpreterProof <> <> lib
+R642:663 Kernel.VMUnboundedCM2Encoding <> <> lib
+prf 673:693 <> cm2_rep_config_unique
+binder 704:707 <> code:1
+binder 709:713 <> width:2
+binder 715:715 <> c:3
+binder 717:718 <> c':4
+binder 720:720 <> s:5
+R747:750 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R725:731 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R733:736 Kernel.VMUnboundedCM2Correctness <> code:1 var
+R738:742 Kernel.VMUnboundedCM2Correctness <> width:2 var
+R744:744 Kernel.VMUnboundedCM2Correctness <> c:3 var
+R746:746 Kernel.VMUnboundedCM2Correctness <> s:5 var
+R774:777 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R751:757 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R759:762 Kernel.VMUnboundedCM2Correctness <> code:1 var
+R764:768 Kernel.VMUnboundedCM2Correctness <> width:2 var
+R770:771 Kernel.VMUnboundedCM2Correctness <> c':4 var
+R773:773 Kernel.VMUnboundedCM2Correctness <> s:5 var
+R779:781 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R778:778 Kernel.VMUnboundedCM2Correctness <> c:3 var
+R782:783 Kernel.VMUnboundedCM2Correctness <> c':4 var
+R886:892 Coq.Init.Logic <> f_equal thm
+R894:900 Kernel.VMState <> vm_regs proj
+R886:892 Coq.Init.Logic <> f_equal thm
+R894:900 Kernel.VMState <> vm_regs proj
+R917:930 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_s def
+prf 983:1020 <> cm2_uniform_interpreter_run_simulation
+binder 1031:1031 <> p:6
+binder 1033:1037 <> width:7
+binder 1039:1039 <> c:8
+binder 1041:1042 <> c':9
+binder 1044:1044 <> s:10
+R1073:1078 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1049:1064 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits def
+R1066:1070 Kernel.VMUnboundedCM2Correctness <> width:7 var
+R1072:1072 Kernel.VMUnboundedCM2Correctness <> p:6 var
+R1093:1098 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1079:1085 Kernel.VMUnboundedCM2Interpreter <> cm2_run ind
+R1087:1087 Kernel.VMUnboundedCM2Correctness <> p:6 var
+R1089:1089 Kernel.VMUnboundedCM2Correctness <> c:8 var
+R1091:1092 Kernel.VMUnboundedCM2Correctness <> c':9 var
+R1145:1150 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1099:1105 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R1108:1125 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R1127:1131 Kernel.VMUnboundedCM2Correctness <> width:7 var
+R1133:1133 Kernel.VMUnboundedCM2Correctness <> p:6 var
+R1136:1140 Kernel.VMUnboundedCM2Correctness <> width:7 var
+R1142:1142 Kernel.VMUnboundedCM2Correctness <> c:8 var
+R1144:1144 Kernel.VMUnboundedCM2Correctness <> s:10 var
+R1151:1157 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1165:1170 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1158:1161 <> fuel:11
+binder 1163:1164 <> s':12
+R1215:1222 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1210:1212 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1171:1178 Kernel.VMUnboundedStep <> run_vm_u def
+R1180:1183 Kernel.VMUnboundedCM2Correctness <> fuel:11 var
+R1185:1207 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R1209:1209 Kernel.VMUnboundedCM2Correctness <> s:10 var
+R1213:1214 Kernel.VMUnboundedCM2Correctness <> s':12 var
+R1223:1229 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R1232:1249 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R1251:1255 Kernel.VMUnboundedCM2Correctness <> width:7 var
+R1257:1257 Kernel.VMUnboundedCM2Correctness <> p:6 var
+R1260:1264 Kernel.VMUnboundedCM2Correctness <> width:7 var
+R1266:1267 Kernel.VMUnboundedCM2Correctness <> c':9 var
+R1269:1270 Kernel.VMUnboundedCM2Correctness <> s':12 var
+R1472:1474 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1466:1470 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1475:1480 Coq.Init.Datatypes <> length def
+R1472:1474 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1466:1470 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1475:1480 Coq.Init.Datatypes <> length def
+R1498:1511 Coq.Lists.List <> nth_error_Some thm
+R1498:1511 Coq.Lists.List <> nth_error_Some thm
+R1617:1639 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1564:1571 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R1574:1591 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R1611:1615 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1640:1655 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R1617:1639 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1564:1571 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R1574:1591 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R1611:1615 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1640:1655 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R1675:1698 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R1675:1698 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R1675:1698 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R1752:1759 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R1727:1739 Coq.Lists.List <> nth_error_nth thm
+R1752:1759 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R1727:1739 Coq.Lists.List <> nth_error_nth thm
+R1814:1847 Kernel.VMUnboundedCM2InterpreterProof <> cm2_uniform_interpreter_simulation thm
+R1856:1873 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R1814:1847 Kernel.VMUnboundedCM2InterpreterProof <> cm2_uniform_interpreter_simulation thm
+R1856:1873 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R2043:2045 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2025:2038 Kernel.VMUnboundedCM2Interpreter <> cm2_host_steps def
+R2043:2045 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2025:2038 Kernel.VMUnboundedCM2Interpreter <> cm2_host_steps def
+R2079:2092 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R2079:2092 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R2079:2092 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+ind 2148:2156 <> cm2_halts
+constr 2230:2247 <> cm2_halts_explicit
+constr 2373:2389 <> cm2_halts_falloff
+R2163:2166 Coq.Init.Datatypes <> list ind
+R2168:2176 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 2159:2159 <> p:13
+R2188:2197 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 2180:2184 <> start:14
+R2216:2219 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2206:2215 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 2258:2262 <> final:17
+R2290:2297 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2269:2275 Kernel.VMUnboundedCM2Interpreter <> cm2_run ind
+R2277:2277 Kernel.VMUnboundedCM2Correctness <> p:13 var
+R2279:2283 Kernel.VMUnboundedCM2Correctness <> start:14 var
+R2285:2289 Kernel.VMUnboundedCM2Correctness <> final:17 var
+R2339:2346 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2323:2325 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2298:2306 Coq.Lists.List <> nth_error def
+R2317:2321 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R2310:2314 Kernel.VMUnboundedCM2Correctness <> final:17 var
+R2308:2308 Kernel.VMUnboundedCM2Correctness <> p:13 var
+R2326:2329 Coq.Init.Datatypes <> Some constr
+R2331:2338 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R2347:2355 Kernel.VMUnboundedCM2Correctness <> cm2_halts:15 ind
+R2365:2369 Kernel.VMUnboundedCM2Correctness <> final:17 var
+R2359:2363 Kernel.VMUnboundedCM2Correctness <> start:14 var
+R2357:2357 Kernel.VMUnboundedCM2Correctness <> p:13 var
+binder 2400:2404 <> final:18
+R2432:2439 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2411:2417 Kernel.VMUnboundedCM2Interpreter <> cm2_run ind
+R2419:2419 Kernel.VMUnboundedCM2Correctness <> p:13 var
+R2421:2425 Kernel.VMUnboundedCM2Correctness <> start:14 var
+R2427:2431 Kernel.VMUnboundedCM2Correctness <> final:18 var
+R2472:2479 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2465:2467 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2440:2448 Coq.Lists.List <> nth_error def
+R2459:2463 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R2452:2456 Kernel.VMUnboundedCM2Correctness <> final:18 var
+R2450:2450 Kernel.VMUnboundedCM2Correctness <> p:13 var
+R2468:2471 Coq.Init.Datatypes <> None constr
+R2480:2488 Kernel.VMUnboundedCM2Correctness <> cm2_halts:15 ind
+R2498:2502 Kernel.VMUnboundedCM2Correctness <> final:18 var
+R2492:2496 Kernel.VMUnboundedCM2Correctness <> start:14 var
+R2490:2490 Kernel.VMUnboundedCM2Correctness <> p:13 var
+scheme 2148:2156 <> cm2_halts_ind
+scheme 2148:2156 <> cm2_halts_sind
+ind 2739:2762 <> interpreter_boundary_run
+constr 2865:2889 <> interpreter_boundary_refl
+constr 3006:3030 <> interpreter_boundary_step
+R2769:2772 Coq.Init.Datatypes <> list ind
+R2774:2782 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 2765:2765 <> p:19
+R2794:2796 Coq.Init.Datatypes <> nat ind
+binder 2786:2790 <> width:20
+R2815:2818 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2805:2814 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+R2826:2829 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2819:2825 Kernel.VMState <> VMState rec
+R2840:2843 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2830:2839 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+R2851:2854 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2844:2850 Kernel.VMState <> VMState rec
+binder 2900:2900 <> c:23
+binder 2902:2902 <> s:24
+R2955:2962 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2909:2915 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R2918:2935 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R2937:2941 Kernel.VMUnboundedCM2Correctness <> width:20 var
+R2943:2943 Kernel.VMUnboundedCM2Correctness <> p:19 var
+R2946:2950 Kernel.VMUnboundedCM2Correctness <> width:20 var
+R2952:2952 Kernel.VMUnboundedCM2Correctness <> c:23 var
+R2954:2954 Kernel.VMUnboundedCM2Correctness <> s:24 var
+R2963:2986 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run:21 ind
+R3002:3002 Kernel.VMUnboundedCM2Correctness <> s:24 var
+R3000:3000 Kernel.VMUnboundedCM2Correctness <> c:23 var
+R2998:2998 Kernel.VMUnboundedCM2Correctness <> s:24 var
+R2996:2996 Kernel.VMUnboundedCM2Correctness <> c:23 var
+R2990:2994 Kernel.VMUnboundedCM2Correctness <> width:20 var
+R2988:2988 Kernel.VMUnboundedCM2Correctness <> p:19 var
+binder 3041:3041 <> c:25
+binder 3043:3043 <> s:26
+binder 3045:3046 <> c1:27
+binder 3048:3049 <> s1:28
+binder 3051:3052 <> c2:29
+binder 3054:3055 <> s2:30
+binder 3057:3057 <> i:31
+R3110:3117 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3064:3070 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R3073:3090 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R3092:3096 Kernel.VMUnboundedCM2Correctness <> width:20 var
+R3098:3098 Kernel.VMUnboundedCM2Correctness <> p:19 var
+R3101:3105 Kernel.VMUnboundedCM2Correctness <> width:20 var
+R3107:3107 Kernel.VMUnboundedCM2Correctness <> c:25 var
+R3109:3109 Kernel.VMUnboundedCM2Correctness <> s:26 var
+R3148:3155 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3139:3141 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3118:3126 Coq.Lists.List <> nth_error def
+R3133:3137 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R3130:3130 Kernel.VMUnboundedCM2Correctness <> c:25 var
+R3128:3128 Kernel.VMUnboundedCM2Correctness <> p:19 var
+R3142:3145 Coq.Init.Datatypes <> Some constr
+R3147:3147 Kernel.VMUnboundedCM2Correctness <> i:31 var
+R3169:3176 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3157:3160 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3156:3156 Kernel.VMUnboundedCM2Correctness <> i:31 var
+R3161:3168 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R3237:3244 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3232:3234 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3177:3184 Kernel.VMUnboundedStep <> run_vm_u def
+R3187:3200 Kernel.VMUnboundedCM2Interpreter <> cm2_host_steps def
+R3202:3202 Kernel.VMUnboundedCM2Correctness <> i:31 var
+R3204:3204 Kernel.VMUnboundedCM2Correctness <> c:25 var
+R3207:3229 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R3231:3231 Kernel.VMUnboundedCM2Correctness <> s:26 var
+R3235:3236 Kernel.VMUnboundedCM2Correctness <> s1:28 var
+R3293:3300 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3245:3251 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R3254:3271 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R3273:3277 Kernel.VMUnboundedCM2Correctness <> width:20 var
+R3279:3279 Kernel.VMUnboundedCM2Correctness <> p:19 var
+R3282:3286 Kernel.VMUnboundedCM2Correctness <> width:20 var
+R3288:3289 Kernel.VMUnboundedCM2Correctness <> c1:27 var
+R3291:3292 Kernel.VMUnboundedCM2Correctness <> s1:28 var
+R3345:3352 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3301:3324 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run:21 ind
+R3343:3344 Kernel.VMUnboundedCM2Correctness <> s2:30 var
+R3340:3341 Kernel.VMUnboundedCM2Correctness <> c2:29 var
+R3337:3338 Kernel.VMUnboundedCM2Correctness <> s1:28 var
+R3334:3335 Kernel.VMUnboundedCM2Correctness <> c1:27 var
+R3328:3332 Kernel.VMUnboundedCM2Correctness <> width:20 var
+R3326:3326 Kernel.VMUnboundedCM2Correctness <> p:19 var
+R3353:3376 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run:21 ind
+R3393:3394 Kernel.VMUnboundedCM2Correctness <> s2:30 var
+R3390:3391 Kernel.VMUnboundedCM2Correctness <> c2:29 var
+R3388:3388 Kernel.VMUnboundedCM2Correctness <> s:26 var
+R3386:3386 Kernel.VMUnboundedCM2Correctness <> c:25 var
+R3380:3384 Kernel.VMUnboundedCM2Correctness <> width:20 var
+R3378:3378 Kernel.VMUnboundedCM2Correctness <> p:19 var
+scheme 2739:2762 <> interpreter_boundary_run_ind
+scheme 2739:2762 <> interpreter_boundary_run_sind
+prf 3406:3435 <> interpreter_boundary_run_sound
+binder 3446:3446 <> p:32
+binder 3448:3452 <> width:33
+binder 3454:3454 <> c:34
+binder 3456:3456 <> s:35
+binder 3458:3459 <> c':36
+binder 3461:3462 <> s':37
+R3491:3496 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3467:3482 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits def
+R3484:3488 Kernel.VMUnboundedCM2Correctness <> width:33 var
+R3490:3490 Kernel.VMUnboundedCM2Correctness <> p:32 var
+R3539:3544 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3497:3520 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run ind
+R3522:3522 Kernel.VMUnboundedCM2Correctness <> p:32 var
+R3524:3528 Kernel.VMUnboundedCM2Correctness <> width:33 var
+R3530:3530 Kernel.VMUnboundedCM2Correctness <> c:34 var
+R3532:3532 Kernel.VMUnboundedCM2Correctness <> s:35 var
+R3534:3535 Kernel.VMUnboundedCM2Correctness <> c':36 var
+R3537:3538 Kernel.VMUnboundedCM2Correctness <> s':37 var
+R3545:3551 Kernel.VMUnboundedCM2Interpreter <> cm2_run ind
+R3553:3553 Kernel.VMUnboundedCM2Correctness <> p:32 var
+R3555:3555 Kernel.VMUnboundedCM2Correctness <> c:34 var
+R3557:3558 Kernel.VMUnboundedCM2Correctness <> c':36 var
+R3742:3744 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3736:3740 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R3745:3750 Coq.Init.Datatypes <> length def
+R3742:3744 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3736:3740 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R3745:3750 Coq.Init.Datatypes <> length def
+R3768:3781 Coq.Lists.List <> nth_error_Some thm
+R3768:3781 Coq.Lists.List <> nth_error_Some thm
+R3887:3909 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3834:3841 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R3844:3861 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R3881:3885 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R3910:3925 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R3887:3909 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3834:3841 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R3844:3861 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R3881:3885 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R3910:3925 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R3945:3968 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R3945:3968 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R3945:3968 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R4022:4029 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R3997:4009 Coq.Lists.List <> nth_error_nth thm
+R4022:4029 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R3997:4009 Coq.Lists.List <> nth_error_nth thm
+R4088:4094 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4103:4104 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4095:4102 <> expected:38
+R4123:4125 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4105:4118 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R4126:4129 Coq.Init.Datatypes <> Some constr
+R4131:4138 Kernel.VMUnboundedCM2Correctness <> expected:38 var
+R4088:4094 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4103:4104 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4095:4102 <> expected:39
+R4123:4125 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4105:4118 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R4126:4129 Coq.Init.Datatypes <> Some constr
+R4131:4138 Kernel.VMUnboundedCM2Correctness <> expected:39 var
+R4223:4236 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R4285:4291 Coq.Arith.PeanoNat Nat eqb def
+R4285:4291 Coq.Arith.PeanoNat Nat eqb def
+R4285:4291 Coq.Arith.PeanoNat Nat eqb def
+R4370:4403 Kernel.VMUnboundedCM2InterpreterProof <> cm2_uniform_interpreter_simulation thm
+R4412:4429 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R4370:4403 Kernel.VMUnboundedCM2InterpreterProof <> cm2_uniform_interpreter_simulation thm
+R4412:4429 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R4584:4586 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4614:4634 Kernel.VMUnboundedCM2Correctness <> cm2_rep_config_unique thm
+R4584:4586 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4614:4634 Kernel.VMUnboundedCM2Correctness <> cm2_rep_config_unique thm
+prf 4720:4752 <> interpreter_boundary_run_complete
+binder 4763:4763 <> p:40
+binder 4765:4769 <> width:41
+binder 4771:4771 <> c:42
+binder 4773:4774 <> c':43
+binder 4776:4776 <> s:44
+R4805:4810 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4781:4796 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits def
+R4798:4802 Kernel.VMUnboundedCM2Correctness <> width:41 var
+R4804:4804 Kernel.VMUnboundedCM2Correctness <> p:40 var
+R4825:4830 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4811:4817 Kernel.VMUnboundedCM2Interpreter <> cm2_run ind
+R4819:4819 Kernel.VMUnboundedCM2Correctness <> p:40 var
+R4821:4821 Kernel.VMUnboundedCM2Correctness <> c:42 var
+R4823:4824 Kernel.VMUnboundedCM2Correctness <> c':43 var
+R4877:4882 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4831:4837 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R4840:4857 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R4859:4863 Kernel.VMUnboundedCM2Correctness <> width:41 var
+R4865:4865 Kernel.VMUnboundedCM2Correctness <> p:40 var
+R4868:4872 Kernel.VMUnboundedCM2Correctness <> width:41 var
+R4874:4874 Kernel.VMUnboundedCM2Correctness <> c:42 var
+R4876:4876 Kernel.VMUnboundedCM2Correctness <> s:44 var
+R4883:4889 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4892:4893 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4890:4891 <> s':45
+R4894:4917 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run ind
+R4919:4919 Kernel.VMUnboundedCM2Correctness <> p:40 var
+R4921:4925 Kernel.VMUnboundedCM2Correctness <> width:41 var
+R4927:4927 Kernel.VMUnboundedCM2Correctness <> c:42 var
+R4929:4929 Kernel.VMUnboundedCM2Correctness <> s:44 var
+R4931:4932 Kernel.VMUnboundedCM2Correctness <> c':43 var
+R4934:4935 Kernel.VMUnboundedCM2Correctness <> s':45 var
+R5126:5128 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5120:5124 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R5129:5134 Coq.Init.Datatypes <> length def
+R5126:5128 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5120:5124 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R5129:5134 Coq.Init.Datatypes <> length def
+R5152:5165 Coq.Lists.List <> nth_error_Some thm
+R5152:5165 Coq.Lists.List <> nth_error_Some thm
+R5271:5293 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5218:5225 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R5228:5245 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R5265:5269 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R5294:5309 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R5271:5293 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5218:5225 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R5228:5245 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R5265:5269 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R5294:5309 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R5329:5352 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R5329:5352 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R5329:5352 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R5406:5413 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R5381:5393 Coq.Lists.List <> nth_error_nth thm
+R5406:5413 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R5381:5393 Coq.Lists.List <> nth_error_nth thm
+R5468:5501 Kernel.VMUnboundedCM2InterpreterProof <> cm2_uniform_interpreter_simulation thm
+R5510:5527 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R5468:5501 Kernel.VMUnboundedCM2InterpreterProof <> cm2_uniform_interpreter_simulation thm
+R5510:5527 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R5711:5724 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+prf 5763:5792 <> interpreter_one_boundary_sound
+binder 5803:5803 <> p:46
+binder 5805:5809 <> width:47
+binder 5811:5811 <> c:48
+binder 5813:5813 <> s:49
+binder 5815:5816 <> c1:50
+binder 5818:5819 <> s1:51
+binder 5821:5821 <> i:52
+R5850:5855 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5826:5841 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits def
+R5843:5847 Kernel.VMUnboundedCM2Correctness <> width:47 var
+R5849:5849 Kernel.VMUnboundedCM2Correctness <> p:46 var
+R5902:5907 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5856:5862 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R5865:5882 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R5884:5888 Kernel.VMUnboundedCM2Correctness <> width:47 var
+R5890:5890 Kernel.VMUnboundedCM2Correctness <> p:46 var
+R5893:5897 Kernel.VMUnboundedCM2Correctness <> width:47 var
+R5899:5899 Kernel.VMUnboundedCM2Correctness <> c:48 var
+R5901:5901 Kernel.VMUnboundedCM2Correctness <> s:49 var
+R5938:5941 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5929:5931 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5908:5916 Coq.Lists.List <> nth_error def
+R5923:5927 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R5920:5920 Kernel.VMUnboundedCM2Correctness <> c:48 var
+R5918:5918 Kernel.VMUnboundedCM2Correctness <> p:46 var
+R5932:5935 Coq.Init.Datatypes <> Some constr
+R5937:5937 Kernel.VMUnboundedCM2Correctness <> i:52 var
+R5955:5960 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5943:5946 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5942:5942 Kernel.VMUnboundedCM2Correctness <> i:52 var
+R5947:5954 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R6021:6026 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6016:6018 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5961:5968 Kernel.VMUnboundedStep <> run_vm_u def
+R5971:5984 Kernel.VMUnboundedCM2Interpreter <> cm2_host_steps def
+R5986:5986 Kernel.VMUnboundedCM2Correctness <> i:52 var
+R5988:5988 Kernel.VMUnboundedCM2Correctness <> c:48 var
+R5991:6013 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R6015:6015 Kernel.VMUnboundedCM2Correctness <> s:49 var
+R6019:6020 Kernel.VMUnboundedCM2Correctness <> s1:51 var
+R6075:6080 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6027:6033 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R6036:6053 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R6055:6059 Kernel.VMUnboundedCM2Correctness <> width:47 var
+R6061:6061 Kernel.VMUnboundedCM2Correctness <> p:46 var
+R6064:6068 Kernel.VMUnboundedCM2Correctness <> width:47 var
+R6070:6071 Kernel.VMUnboundedCM2Correctness <> c1:50 var
+R6073:6074 Kernel.VMUnboundedCM2Correctness <> s1:51 var
+R6099:6101 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6081:6094 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R6096:6096 Kernel.VMUnboundedCM2Correctness <> i:52 var
+R6098:6098 Kernel.VMUnboundedCM2Correctness <> c:48 var
+R6102:6105 Coq.Init.Datatypes <> Some constr
+R6107:6108 Kernel.VMUnboundedCM2Correctness <> c1:50 var
+R6209:6211 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6203:6207 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R6212:6217 Coq.Init.Datatypes <> length def
+R6209:6211 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6203:6207 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R6212:6217 Coq.Init.Datatypes <> length def
+R6233:6246 Coq.Lists.List <> nth_error_Some thm
+R6233:6246 Coq.Lists.List <> nth_error_Some thm
+R6350:6370 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6297:6304 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R6307:6324 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R6344:6348 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R6371:6386 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R6350:6370 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6297:6304 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R6307:6324 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R6344:6348 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R6371:6386 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R6404:6427 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R6404:6427 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R6404:6427 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R6479:6486 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R6454:6466 Coq.Lists.List <> nth_error_nth thm
+R6479:6486 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R6454:6466 Coq.Lists.List <> nth_error_nth thm
+R6543:6549 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6558:6559 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6550:6557 <> expected:53
+R6578:6580 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6560:6573 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R6581:6584 Coq.Init.Datatypes <> Some constr
+R6586:6593 Kernel.VMUnboundedCM2Correctness <> expected:53 var
+R6543:6549 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6558:6559 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6550:6557 <> expected:54
+R6578:6580 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6560:6573 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R6581:6584 Coq.Init.Datatypes <> Some constr
+R6586:6593 Kernel.VMUnboundedCM2Correctness <> expected:54 var
+R6674:6687 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R6734:6740 Coq.Arith.PeanoNat Nat eqb def
+R6734:6740 Coq.Arith.PeanoNat Nat eqb def
+R6734:6740 Coq.Arith.PeanoNat Nat eqb def
+R6815:6848 Kernel.VMUnboundedCM2InterpreterProof <> cm2_uniform_interpreter_simulation thm
+R6855:6872 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R6815:6848 Kernel.VMUnboundedCM2InterpreterProof <> cm2_uniform_interpreter_simulation thm
+R6855:6872 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R7016:7018 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7040:7060 Kernel.VMUnboundedCM2Correctness <> cm2_rep_config_unique thm
+R7016:7018 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7040:7060 Kernel.VMUnboundedCM2Correctness <> cm2_rep_config_unique thm
+ind 7118:7143 <> interpreter_boundary_run_n
+constr 7253:7279 <> interpreter_boundary_n_zero
+constr 7400:7426 <> interpreter_boundary_n_succ
+R7150:7153 Coq.Init.Datatypes <> list ind
+R7155:7163 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 7146:7146 <> p:55
+R7175:7177 Coq.Init.Datatypes <> nat ind
+binder 7167:7171 <> width:56
+R7189:7192 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7186:7188 Coq.Init.Datatypes <> nat ind
+R7203:7206 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7193:7202 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+R7214:7217 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7207:7213 Kernel.VMState <> VMState rec
+R7228:7231 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7218:7227 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+R7239:7242 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7232:7238 Kernel.VMState <> VMState rec
+binder 7290:7290 <> c:59
+binder 7292:7292 <> s:60
+R7345:7352 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7299:7305 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R7308:7325 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R7327:7331 Kernel.VMUnboundedCM2Correctness <> width:56 var
+R7333:7333 Kernel.VMUnboundedCM2Correctness <> p:55 var
+R7336:7340 Kernel.VMUnboundedCM2Correctness <> width:56 var
+R7342:7342 Kernel.VMUnboundedCM2Correctness <> c:59 var
+R7344:7344 Kernel.VMUnboundedCM2Correctness <> s:60 var
+R7353:7378 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run_n:57 ind
+R7396:7396 Kernel.VMUnboundedCM2Correctness <> s:60 var
+R7394:7394 Kernel.VMUnboundedCM2Correctness <> c:59 var
+R7392:7392 Kernel.VMUnboundedCM2Correctness <> s:60 var
+R7390:7390 Kernel.VMUnboundedCM2Correctness <> c:59 var
+R7382:7386 Kernel.VMUnboundedCM2Correctness <> width:56 var
+R7380:7380 Kernel.VMUnboundedCM2Correctness <> p:55 var
+binder 7437:7437 <> n:61
+binder 7439:7439 <> c:62
+binder 7441:7441 <> s:63
+binder 7443:7444 <> c1:64
+binder 7446:7447 <> s1:65
+binder 7449:7450 <> c2:66
+binder 7452:7453 <> s2:67
+binder 7455:7455 <> i:68
+R7508:7515 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7462:7468 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R7471:7488 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R7490:7494 Kernel.VMUnboundedCM2Correctness <> width:56 var
+R7496:7496 Kernel.VMUnboundedCM2Correctness <> p:55 var
+R7499:7503 Kernel.VMUnboundedCM2Correctness <> width:56 var
+R7505:7505 Kernel.VMUnboundedCM2Correctness <> c:62 var
+R7507:7507 Kernel.VMUnboundedCM2Correctness <> s:63 var
+R7546:7549 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7537:7539 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7516:7524 Coq.Lists.List <> nth_error def
+R7531:7535 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R7528:7528 Kernel.VMUnboundedCM2Correctness <> c:62 var
+R7526:7526 Kernel.VMUnboundedCM2Correctness <> p:55 var
+R7540:7543 Coq.Init.Datatypes <> Some constr
+R7545:7545 Kernel.VMUnboundedCM2Correctness <> i:68 var
+R7563:7570 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7551:7554 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7550:7550 Kernel.VMUnboundedCM2Correctness <> i:68 var
+R7555:7562 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R7631:7638 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7626:7628 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7571:7578 Kernel.VMUnboundedStep <> run_vm_u def
+R7581:7594 Kernel.VMUnboundedCM2Interpreter <> cm2_host_steps def
+R7596:7596 Kernel.VMUnboundedCM2Correctness <> i:68 var
+R7598:7598 Kernel.VMUnboundedCM2Correctness <> c:62 var
+R7601:7623 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R7625:7625 Kernel.VMUnboundedCM2Correctness <> s:63 var
+R7629:7630 Kernel.VMUnboundedCM2Correctness <> s1:65 var
+R7687:7694 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7639:7645 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R7648:7665 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R7667:7671 Kernel.VMUnboundedCM2Correctness <> width:56 var
+R7673:7673 Kernel.VMUnboundedCM2Correctness <> p:55 var
+R7676:7680 Kernel.VMUnboundedCM2Correctness <> width:56 var
+R7682:7683 Kernel.VMUnboundedCM2Correctness <> c1:64 var
+R7685:7686 Kernel.VMUnboundedCM2Correctness <> s1:65 var
+R7743:7750 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7695:7720 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run_n:57 ind
+R7741:7742 Kernel.VMUnboundedCM2Correctness <> s2:67 var
+R7738:7739 Kernel.VMUnboundedCM2Correctness <> c2:66 var
+R7735:7736 Kernel.VMUnboundedCM2Correctness <> s1:65 var
+R7732:7733 Kernel.VMUnboundedCM2Correctness <> c1:64 var
+R7730:7730 Kernel.VMUnboundedCM2Correctness <> n:61 var
+R7724:7728 Kernel.VMUnboundedCM2Correctness <> width:56 var
+R7722:7722 Kernel.VMUnboundedCM2Correctness <> p:55 var
+R7751:7776 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run_n:57 ind
+R7799:7800 Kernel.VMUnboundedCM2Correctness <> s2:67 var
+R7796:7797 Kernel.VMUnboundedCM2Correctness <> c2:66 var
+R7794:7794 Kernel.VMUnboundedCM2Correctness <> s:63 var
+R7792:7792 Kernel.VMUnboundedCM2Correctness <> c:62 var
+R7787:7787 Coq.Init.Datatypes <> S constr
+R7789:7789 Kernel.VMUnboundedCM2Correctness <> n:61 var
+R7780:7784 Kernel.VMUnboundedCM2Correctness <> width:56 var
+R7778:7778 Kernel.VMUnboundedCM2Correctness <> p:55 var
+scheme 7118:7143 <> interpreter_boundary_run_n_ind
+scheme 7118:7143 <> interpreter_boundary_run_n_sind
+prf 7812:7843 <> interpreter_boundary_run_n_sound
+binder 7854:7854 <> p:69
+binder 7856:7860 <> width:70
+binder 7862:7862 <> n:71
+binder 7864:7864 <> c:72
+binder 7866:7866 <> s:73
+binder 7868:7869 <> c':74
+binder 7871:7872 <> s':75
+R7901:7906 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7877:7892 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits def
+R7894:7898 Kernel.VMUnboundedCM2Correctness <> width:70 var
+R7900:7900 Kernel.VMUnboundedCM2Correctness <> p:69 var
+R7953:7958 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7907:7932 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run_n ind
+R7934:7934 Kernel.VMUnboundedCM2Correctness <> p:69 var
+R7936:7940 Kernel.VMUnboundedCM2Correctness <> width:70 var
+R7942:7942 Kernel.VMUnboundedCM2Correctness <> n:71 var
+R7944:7944 Kernel.VMUnboundedCM2Correctness <> c:72 var
+R7946:7946 Kernel.VMUnboundedCM2Correctness <> s:73 var
+R7948:7949 Kernel.VMUnboundedCM2Correctness <> c':74 var
+R7951:7952 Kernel.VMUnboundedCM2Correctness <> s':75 var
+R7959:7967 Kernel.VMUnboundedCM2Interpreter <> cm2_run_n ind
+R7969:7969 Kernel.VMUnboundedCM2Correctness <> p:69 var
+R7971:7971 Kernel.VMUnboundedCM2Correctness <> n:71 var
+R7973:7973 Kernel.VMUnboundedCM2Correctness <> c:72 var
+R7975:7976 Kernel.VMUnboundedCM2Correctness <> c':74 var
+R8115:8144 Kernel.VMUnboundedCM2Correctness <> interpreter_one_boundary_sound thm
+R8115:8144 Kernel.VMUnboundedCM2Correctness <> interpreter_one_boundary_sound thm
+prf 8168:8202 <> interpreter_boundary_run_n_complete
+binder 8213:8213 <> p:76
+binder 8215:8219 <> width:77
+binder 8221:8221 <> n:78
+binder 8223:8223 <> c:79
+binder 8225:8226 <> c':80
+binder 8228:8228 <> s:81
+R8257:8260 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8233:8248 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits def
+R8250:8254 Kernel.VMUnboundedCM2Correctness <> width:77 var
+R8256:8256 Kernel.VMUnboundedCM2Correctness <> p:76 var
+R8279:8284 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8261:8269 Kernel.VMUnboundedCM2Interpreter <> cm2_run_n ind
+R8271:8271 Kernel.VMUnboundedCM2Correctness <> p:76 var
+R8273:8273 Kernel.VMUnboundedCM2Correctness <> n:78 var
+R8275:8275 Kernel.VMUnboundedCM2Correctness <> c:79 var
+R8277:8278 Kernel.VMUnboundedCM2Correctness <> c':80 var
+R8331:8336 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8285:8291 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R8294:8311 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R8313:8317 Kernel.VMUnboundedCM2Correctness <> width:77 var
+R8319:8319 Kernel.VMUnboundedCM2Correctness <> p:76 var
+R8322:8326 Kernel.VMUnboundedCM2Correctness <> width:77 var
+R8328:8328 Kernel.VMUnboundedCM2Correctness <> c:79 var
+R8330:8330 Kernel.VMUnboundedCM2Correctness <> s:81 var
+R8337:8343 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8346:8347 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8344:8345 <> s':82
+R8348:8373 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run_n ind
+R8375:8375 Kernel.VMUnboundedCM2Correctness <> p:76 var
+R8377:8381 Kernel.VMUnboundedCM2Correctness <> width:77 var
+R8383:8383 Kernel.VMUnboundedCM2Correctness <> n:78 var
+R8385:8385 Kernel.VMUnboundedCM2Correctness <> c:79 var
+R8387:8387 Kernel.VMUnboundedCM2Correctness <> s:81 var
+R8389:8390 Kernel.VMUnboundedCM2Correctness <> c':80 var
+R8392:8393 Kernel.VMUnboundedCM2Correctness <> s':82 var
+R8588:8590 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R8582:8586 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R8591:8596 Coq.Init.Datatypes <> length def
+R8588:8590 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R8582:8586 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R8591:8596 Coq.Init.Datatypes <> length def
+R8614:8627 Coq.Lists.List <> nth_error_Some thm
+R8614:8627 Coq.Lists.List <> nth_error_Some thm
+R8733:8755 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8680:8687 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R8690:8707 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R8727:8731 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R8756:8771 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R8733:8755 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8680:8687 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R8690:8707 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R8727:8731 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R8756:8771 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R8791:8814 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R8791:8814 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R8791:8814 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R8868:8875 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R8843:8855 Coq.Lists.List <> nth_error_nth thm
+R8868:8875 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R8843:8855 Coq.Lists.List <> nth_error_nth thm
+R8930:8963 Kernel.VMUnboundedCM2InterpreterProof <> cm2_uniform_interpreter_simulation thm
+R8972:8989 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R8930:8963 Kernel.VMUnboundedCM2InterpreterProof <> cm2_uniform_interpreter_simulation thm
+R8972:8989 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R9173:9186 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+def 9230:9249 <> interpreter_diverges
+R9262:9268 Kernel.VMState <> VMState rec
+binder 9252:9258 <> ambient:83
+R9276:9279 Coq.Init.Datatypes <> list ind
+R9281:9289 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 9272:9272 <> p:84
+R9305:9307 Coq.Init.Datatypes <> nat ind
+binder 9297:9301 <> width:85
+R9319:9328 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 9311:9315 <> start:86
+binder 9350:9350 <> n:87
+R9353:9359 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9363:9368 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9360:9360 <> c:88
+binder 9362:9362 <> s:89
+R9369:9394 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run_n ind
+R9396:9396 Kernel.VMUnboundedCM2Correctness <> p:84 var
+R9398:9402 Kernel.VMUnboundedCM2Correctness <> width:85 var
+R9404:9404 Kernel.VMUnboundedCM2Correctness <> n:87 var
+R9406:9410 Kernel.VMUnboundedCM2Correctness <> start:86 var
+R9419:9437 Kernel.VMUnboundedCM2Encoding <> cm2_config_encoding def
+R9439:9445 Kernel.VMUnboundedCM2Correctness <> ambient:83 var
+R9447:9447 Kernel.VMUnboundedCM2Correctness <> p:84 var
+R9449:9453 Kernel.VMUnboundedCM2Correctness <> width:85 var
+R9455:9459 Kernel.VMUnboundedCM2Correctness <> start:86 var
+R9462:9462 Kernel.VMUnboundedCM2Correctness <> c:88 var
+R9464:9464 Kernel.VMUnboundedCM2Correctness <> s:89 var
+prf 9476:9509 <> cm2_uniform_interpreter_divergence
+binder 9520:9526 <> ambient:90
+binder 9528:9528 <> p:91
+binder 9530:9534 <> width:92
+binder 9536:9540 <> start:93
+R9569:9575 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9643:9643 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9545:9560 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits def
+R9562:9566 Kernel.VMUnboundedCM2Correctness <> width:92 var
+R9568:9568 Kernel.VMUnboundedCM2Correctness <> p:91 var
+R9596:9600 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R9576:9587 Kernel.VMUnboundedCM2Interpreter <> cm2_diverges def
+R9589:9589 Kernel.VMUnboundedCM2Correctness <> p:91 var
+R9591:9595 Kernel.VMUnboundedCM2Correctness <> start:93 var
+R9601:9620 Kernel.VMUnboundedCM2Correctness <> interpreter_diverges def
+R9622:9628 Kernel.VMUnboundedCM2Correctness <> ambient:90 var
+R9630:9630 Kernel.VMUnboundedCM2Correctness <> p:91 var
+R9632:9636 Kernel.VMUnboundedCM2Correctness <> width:92 var
+R9638:9642 Kernel.VMUnboundedCM2Correctness <> start:93 var
+R9761:9795 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run_n_complete thm
+R9822:9840 Kernel.VMUnboundedCM2Encoding <> cm2_config_encoding def
+R9761:9795 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run_n_complete thm
+R9822:9840 Kernel.VMUnboundedCM2Encoding <> cm2_config_encoding def
+R9903:9921 Kernel.VMUnboundedCM2Encoding <> cm2_config_encoding def
+R9930:9948 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_is_rep thm
+R9930:9948 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_is_rep thm
+R10061:10092 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run_n_sound thm
+R10061:10092 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run_n_sound thm
+def 10119:10138 <> interpreter_produces
+R10151:10157 Kernel.VMState <> VMState rec
+binder 10141:10147 <> ambient:94
+R10165:10168 Coq.Init.Datatypes <> list ind
+R10170:10178 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 10161:10161 <> p:95
+R10194:10196 Coq.Init.Datatypes <> nat ind
+binder 10186:10190 <> width:96
+R10214:10223 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 10200:10204 <> start:97
+binder 10206:10210 <> final:98
+R10238:10244 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10262:10267 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10245:10252 <> boundary:99
+binder 10254:10261 <> terminal:100
+R10371:10378 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10268:10291 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run ind
+R10293:10293 Kernel.VMUnboundedCM2Correctness <> p:95 var
+R10295:10299 Kernel.VMUnboundedCM2Correctness <> width:96 var
+R10301:10305 Kernel.VMUnboundedCM2Correctness <> start:97 var
+R10314:10332 Kernel.VMUnboundedCM2Encoding <> cm2_config_encoding def
+R10334:10340 Kernel.VMUnboundedCM2Correctness <> ambient:94 var
+R10342:10342 Kernel.VMUnboundedCM2Correctness <> p:95 var
+R10344:10348 Kernel.VMUnboundedCM2Correctness <> width:96 var
+R10350:10354 Kernel.VMUnboundedCM2Correctness <> start:97 var
+R10357:10361 Kernel.VMUnboundedCM2Correctness <> final:98 var
+R10363:10370 Kernel.VMUnboundedCM2Correctness <> boundary:99 var
+R10379:10379 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10457:10465 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10421:10424 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R10405:10407 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10380:10388 Coq.Lists.List <> nth_error def
+R10399:10403 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R10392:10396 Kernel.VMUnboundedCM2Correctness <> final:98 var
+R10390:10390 Kernel.VMUnboundedCM2Correctness <> p:95 var
+R10408:10411 Coq.Init.Datatypes <> Some constr
+R10413:10420 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R10450:10452 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10425:10433 Coq.Lists.List <> nth_error def
+R10444:10448 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R10437:10441 Kernel.VMUnboundedCM2Correctness <> final:98 var
+R10435:10435 Kernel.VMUnboundedCM2Correctness <> p:95 var
+R10453:10456 Coq.Init.Datatypes <> None constr
+R10521:10528 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10510:10512 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10466:10473 Kernel.VMUnboundedStep <> run_vm_u def
+R10478:10500 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R10502:10509 Kernel.VMUnboundedCM2Correctness <> boundary:99 var
+R10513:10520 Kernel.VMUnboundedCM2Correctness <> terminal:100 var
+R10529:10540 Kernel.VMUnboundedCM2Interpreter <> cm2_halt_rep def
+R10543:10560 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R10562:10566 Kernel.VMUnboundedCM2Correctness <> width:96 var
+R10568:10568 Kernel.VMUnboundedCM2Correctness <> p:95 var
+R10571:10575 Kernel.VMUnboundedCM2Correctness <> width:96 var
+R10577:10581 Kernel.VMUnboundedCM2Correctness <> final:98 var
+R10583:10590 Kernel.VMUnboundedCM2Correctness <> terminal:100 var
+prf 10602:10638 <> cm2_uniform_interpreter_correct_sound
+binder 10649:10655 <> ambient:101
+binder 10657:10657 <> p:102
+binder 10659:10663 <> width:103
+binder 10665:10669 <> start:104
+binder 10671:10675 <> final:105
+R10704:10709 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10680:10695 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits def
+R10697:10701 Kernel.VMUnboundedCM2Correctness <> width:103 var
+R10703:10703 Kernel.VMUnboundedCM2Correctness <> p:102 var
+R10758:10763 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10710:10729 Kernel.VMUnboundedCM2Correctness <> interpreter_produces def
+R10731:10737 Kernel.VMUnboundedCM2Correctness <> ambient:101 var
+R10739:10739 Kernel.VMUnboundedCM2Correctness <> p:102 var
+R10741:10745 Kernel.VMUnboundedCM2Correctness <> width:103 var
+R10747:10751 Kernel.VMUnboundedCM2Correctness <> start:104 var
+R10753:10757 Kernel.VMUnboundedCM2Correctness <> final:105 var
+R10764:10772 Kernel.VMUnboundedCM2Correctness <> cm2_halts ind
+R10774:10774 Kernel.VMUnboundedCM2Correctness <> p:102 var
+R10776:10780 Kernel.VMUnboundedCM2Correctness <> start:104 var
+R10782:10786 Kernel.VMUnboundedCM2Correctness <> final:105 var
+R10920:10937 Kernel.VMUnboundedCM2Correctness <> cm2_halts_explicit constr
+R10948:10977 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run_sound thm
+R10920:10937 Kernel.VMUnboundedCM2Correctness <> cm2_halts_explicit constr
+R10948:10977 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run_sound thm
+R11010:11026 Kernel.VMUnboundedCM2Correctness <> cm2_halts_falloff constr
+R11037:11066 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run_sound thm
+R11010:11026 Kernel.VMUnboundedCM2Correctness <> cm2_halts_falloff constr
+R11037:11066 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run_sound thm
+prf 11103:11133 <> cm2_uniform_interpreter_correct
+binder 11144:11150 <> ambient:106
+binder 11152:11152 <> p:107
+binder 11154:11158 <> width:108
+binder 11160:11164 <> start:109
+binder 11166:11170 <> final:110
+R11199:11205 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11285:11285 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11175:11190 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits def
+R11192:11196 Kernel.VMUnboundedCM2Correctness <> width:108 var
+R11198:11198 Kernel.VMUnboundedCM2Correctness <> p:107 var
+R11229:11236 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R11206:11214 Kernel.VMUnboundedCM2Correctness <> cm2_halts ind
+R11216:11216 Kernel.VMUnboundedCM2Correctness <> p:107 var
+R11218:11222 Kernel.VMUnboundedCM2Correctness <> start:109 var
+R11224:11228 Kernel.VMUnboundedCM2Correctness <> final:110 var
+R11237:11256 Kernel.VMUnboundedCM2Correctness <> interpreter_produces def
+R11258:11264 Kernel.VMUnboundedCM2Correctness <> ambient:106 var
+R11266:11266 Kernel.VMUnboundedCM2Correctness <> p:107 var
+R11268:11272 Kernel.VMUnboundedCM2Correctness <> width:108 var
+R11274:11278 Kernel.VMUnboundedCM2Correctness <> start:109 var
+R11280:11284 Kernel.VMUnboundedCM2Correctness <> final:110 var
+R11381:11387 Kernel.VMUnboundedCM2Interpreter <> cm2_run ind
+R11381:11387 Kernel.VMUnboundedCM2Interpreter <> cm2_run ind
+R11456:11488 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run_complete thm
+R11517:11535 Kernel.VMUnboundedCM2Encoding <> cm2_config_encoding def
+R11456:11488 Kernel.VMUnboundedCM2Correctness <> interpreter_boundary_run_complete thm
+R11517:11535 Kernel.VMUnboundedCM2Encoding <> cm2_config_encoding def
+R11609:11627 Kernel.VMUnboundedCM2Encoding <> cm2_config_encoding def
+R11636:11654 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_is_rep thm
+R11636:11654 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_is_rep thm
+R11678:11684 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R11687:11704 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R11678:11684 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R11687:11704 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R11851:11864 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_s def
+R11876:11893 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R11927:11934 Kernel.VMUnboundedStep <> run_vm_u def
+R11939:11961 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R11972:11985 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_s def
+R11997:12014 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R11851:11864 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_s def
+R11876:11893 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R11927:11934 Kernel.VMUnboundedStep <> run_vm_u def
+R11939:11961 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R11972:11985 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_s def
+R11997:12014 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R12164:12175 Kernel.VMUnboundedCM2InterpreterProof <> cm2_rep_halt thm
+R12164:12175 Kernel.VMUnboundedCM2InterpreterProof <> cm2_rep_halt thm
+R12271:12273 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12265:12269 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R12274:12279 Coq.Init.Datatypes <> length def
+R12271:12273 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12265:12269 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R12274:12279 Coq.Init.Datatypes <> length def
+R12301:12314 Coq.Lists.List <> nth_error_Some thm
+R12301:12314 Coq.Lists.List <> nth_error_Some thm
+R12363:12386 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R12363:12386 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R12363:12386 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R12442:12449 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R12417:12429 Coq.Lists.List <> nth_error_nth thm
+R12442:12449 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R12417:12429 Coq.Lists.List <> nth_error_nth thm
+R12502:12533 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch_outside thm
+R12502:12533 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch_outside thm
+R12565:12578 Coq.Lists.List <> nth_error_None thm
+R12565:12578 Coq.Lists.List <> nth_error_None thm
+R12604:12640 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_correct_sound thm
+R12604:12640 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_correct_sound thm
+prf 12669:12708 <> cm2_uniform_interpreter_correct_complete
+binder 12719:12725 <> ambient:111
+binder 12727:12727 <> p:112
+binder 12729:12733 <> width:113
+binder 12735:12739 <> start:114
+binder 12741:12745 <> final:115
+R12774:12779 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12750:12765 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits def
+R12767:12771 Kernel.VMUnboundedCM2Correctness <> width:113 var
+R12773:12773 Kernel.VMUnboundedCM2Correctness <> p:112 var
+R12803:12808 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12780:12788 Kernel.VMUnboundedCM2Correctness <> cm2_halts ind
+R12790:12790 Kernel.VMUnboundedCM2Correctness <> p:112 var
+R12792:12796 Kernel.VMUnboundedCM2Correctness <> start:114 var
+R12798:12802 Kernel.VMUnboundedCM2Correctness <> final:115 var
+R12809:12815 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12839:12844 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 12816:12819 <> fuel:116
+binder 12821:12830 <> s_boundary:117
+binder 12832:12838 <> s_final:118
+R12965:12972 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12952:12954 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12845:12852 Kernel.VMUnboundedStep <> run_vm_u def
+R12854:12857 Kernel.VMUnboundedCM2Correctness <> fuel:116 var
+R12859:12881 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R12890:12901 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary def
+R12903:12909 Kernel.VMUnboundedCM2Correctness <> ambient:111 var
+R12912:12929 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R12931:12935 Kernel.VMUnboundedCM2Correctness <> width:113 var
+R12937:12937 Kernel.VMUnboundedCM2Correctness <> p:112 var
+R12940:12944 Kernel.VMUnboundedCM2Correctness <> width:113 var
+R12946:12950 Kernel.VMUnboundedCM2Correctness <> start:114 var
+R12955:12964 Kernel.VMUnboundedCM2Correctness <> s_boundary:117 var
+R13032:13039 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12973:12979 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R12982:12999 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R13001:13005 Kernel.VMUnboundedCM2Correctness <> width:113 var
+R13007:13007 Kernel.VMUnboundedCM2Correctness <> p:112 var
+R13010:13014 Kernel.VMUnboundedCM2Correctness <> width:113 var
+R13016:13020 Kernel.VMUnboundedCM2Correctness <> final:115 var
+R13022:13031 Kernel.VMUnboundedCM2Correctness <> s_boundary:117 var
+R13096:13103 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13086:13088 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13040:13047 Kernel.VMUnboundedStep <> run_vm_u def
+R13052:13074 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R13076:13085 Kernel.VMUnboundedCM2Correctness <> s_boundary:117 var
+R13089:13095 Kernel.VMUnboundedCM2Correctness <> s_final:118 var
+R13104:13115 Kernel.VMUnboundedCM2Interpreter <> cm2_halt_rep def
+R13118:13135 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R13137:13141 Kernel.VMUnboundedCM2Correctness <> width:113 var
+R13143:13143 Kernel.VMUnboundedCM2Correctness <> p:112 var
+R13146:13150 Kernel.VMUnboundedCM2Correctness <> width:113 var
+R13152:13156 Kernel.VMUnboundedCM2Correctness <> final:115 var
+R13158:13164 Kernel.VMUnboundedCM2Correctness <> s_final:118 var
+R13295:13332 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_run_simulation thm
+R13361:13372 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary def
+R13383:13400 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R13441:13459 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_is_rep thm
+R13295:13332 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_run_simulation thm
+R13361:13372 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary def
+R13383:13400 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R13441:13459 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_is_rep thm
+R13578:13580 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R13572:13576 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R13581:13586 Coq.Init.Datatypes <> length def
+R13578:13580 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R13572:13576 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R13581:13586 Coq.Init.Datatypes <> length def
+R13604:13617 Coq.Lists.List <> nth_error_Some thm
+R13604:13617 Coq.Lists.List <> nth_error_Some thm
+R13727:13729 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13670:13677 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R13680:13697 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R13721:13725 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R13727:13729 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13670:13677 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R13680:13697 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R13721:13725 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R13748:13771 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R13748:13771 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R13748:13771 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R13825:13832 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R13800:13812 Coq.Lists.List <> nth_error_nth thm
+R13825:13832 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R13800:13812 Coq.Lists.List <> nth_error_nth thm
+R13897:13910 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_s def
+R13922:13939 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R13973:13980 Kernel.VMUnboundedStep <> run_vm_u def
+R13985:14007 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R14018:14031 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_s def
+R14043:14060 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R13897:13910 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_s def
+R13922:13939 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R13973:13980 Kernel.VMUnboundedStep <> run_vm_u def
+R13985:14007 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R14018:14031 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_s def
+R14043:14060 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R14199:14210 Kernel.VMUnboundedCM2InterpreterProof <> cm2_rep_halt thm
+R14199:14210 Kernel.VMUnboundedCM2InterpreterProof <> cm2_rep_halt thm
+R14240:14277 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_run_simulation thm
+R14306:14317 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary def
+R14328:14345 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R14386:14404 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_is_rep thm
+R14240:14277 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_run_simulation thm
+R14306:14317 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary def
+R14328:14345 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R14386:14404 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_is_rep thm
+R14518:14521 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R14510:14515 Coq.Init.Datatypes <> length def
+R14529:14533 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R14547:14560 Coq.Lists.List <> nth_error_None thm
+R14518:14521 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R14510:14515 Coq.Init.Datatypes <> length def
+R14529:14533 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R14547:14560 Coq.Lists.List <> nth_error_None thm
+R14654:14656 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14597:14604 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R14607:14624 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R14648:14652 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R14676:14707 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch_outside thm
+R14654:14656 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14597:14604 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R14607:14624 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R14648:14652 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R14676:14707 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch_outside thm
+R14747:14760 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_s def
+R14772:14789 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R14823:14830 Kernel.VMUnboundedStep <> run_vm_u def
+R14835:14857 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R14868:14881 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_s def
+R14893:14910 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R14747:14760 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_s def
+R14772:14789 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R14823:14830 Kernel.VMUnboundedStep <> run_vm_u def
+R14835:14857 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R14868:14881 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_s def
+R14893:14910 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R15049:15060 Kernel.VMUnboundedCM2InterpreterProof <> cm2_rep_halt thm
+R15049:15060 Kernel.VMUnboundedCM2InterpreterProof <> cm2_rep_halt thm
+prf 15224:15263 <> cm2_uniform_interpreter_simulation_total
+binder 15274:15280 <> ambient:119
+binder 15282:15282 <> p:120
+binder 15284:15284 <> c:121
+binder 15286:15286 <> i:122
+binder 15288:15289 <> c':123
+R15324:15329 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15315:15317 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15294:15302 Coq.Lists.List <> nth_error def
+R15309:15313 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R15306:15306 Kernel.VMUnboundedCM2Correctness <> c:121 var
+R15304:15304 Kernel.VMUnboundedCM2Correctness <> p:120 var
+R15318:15321 Coq.Init.Datatypes <> Some constr
+R15323:15323 Kernel.VMUnboundedCM2Correctness <> i:122 var
+R15358:15363 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15348:15350 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15330:15343 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R15345:15345 Kernel.VMUnboundedCM2Correctness <> i:122 var
+R15347:15347 Kernel.VMUnboundedCM2Correctness <> c:121 var
+R15351:15354 Coq.Init.Datatypes <> Some constr
+R15356:15357 Kernel.VMUnboundedCM2Correctness <> c':123 var
+R15364:15370 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R15373:15378 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 15371:15372 <> s':124
+R15401:15408 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15380:15382 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15383:15396 Kernel.VMUnboundedCM2Interpreter <> cm2_host_steps def
+R15398:15398 Kernel.VMUnboundedCM2Correctness <> i:122 var
+R15400:15400 Kernel.VMUnboundedCM2Correctness <> c:121 var
+R15513:15520 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15508:15510 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15409:15416 Kernel.VMUnboundedStep <> run_vm_u def
+R15419:15432 Kernel.VMUnboundedCM2Interpreter <> cm2_host_steps def
+R15434:15434 Kernel.VMUnboundedCM2Correctness <> i:122 var
+R15436:15436 Kernel.VMUnboundedCM2Correctness <> c:121 var
+R15439:15461 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R15470:15494 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R15496:15502 Kernel.VMUnboundedCM2Correctness <> ambient:119 var
+R15504:15504 Kernel.VMUnboundedCM2Correctness <> p:120 var
+R15506:15506 Kernel.VMUnboundedCM2Correctness <> c:121 var
+R15511:15512 Kernel.VMUnboundedCM2Correctness <> s':124 var
+R15521:15527 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R15536:15553 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R15556:15573 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R15575:15575 Kernel.VMUnboundedCM2Correctness <> p:120 var
+R15578:15578 Kernel.VMUnboundedCM2Correctness <> p:120 var
+R15588:15605 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R15607:15607 Kernel.VMUnboundedCM2Correctness <> p:120 var
+R15610:15611 Kernel.VMUnboundedCM2Correctness <> c':123 var
+R15613:15614 Kernel.VMUnboundedCM2Correctness <> s':124 var
+R15687:15689 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15681:15685 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R15690:15695 Coq.Init.Datatypes <> length def
+R15687:15689 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15681:15685 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R15690:15695 Coq.Init.Datatypes <> length def
+R15711:15724 Coq.Lists.List <> nth_error_Some thm
+R15711:15724 Coq.Lists.List <> nth_error_Some thm
+R15872:15874 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15779:15786 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R15789:15806 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R15809:15826 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R15841:15858 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R15866:15870 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R15875:15890 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R15872:15874 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15779:15786 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R15789:15806 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R15809:15826 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R15841:15858 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R15866:15870 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R15875:15890 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R15908:15931 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R15908:15931 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R15908:15931 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R15908:15931 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R15908:15931 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R15971:15978 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R15946:15958 Coq.Lists.List <> nth_error_nth thm
+R15971:15978 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R15946:15958 Coq.Lists.List <> nth_error_nth thm
+R16029:16059 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits_encoding_width thm
+R16029:16059 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits_encoding_width thm
+R16090:16114 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R16117:16135 Kernel.VMUnboundedCM2Encoding <> cm2_config_encoding def
+R16147:16180 Kernel.VMUnboundedCM2InterpreterProof <> cm2_uniform_interpreter_simulation thm
+R16147:16180 Kernel.VMUnboundedCM2InterpreterProof <> cm2_uniform_interpreter_simulation thm
+R16193:16211 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_is_rep thm
+R16193:16211 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_is_rep thm
+prf 16262:16301 <> cm2_uniform_interpreter_divergence_total
+binder 16312:16318 <> ambient:125
+binder 16320:16320 <> p:126
+binder 16322:16326 <> start:127
+R16351:16357 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R16331:16342 Kernel.VMUnboundedCM2Interpreter <> cm2_diverges def
+R16344:16344 Kernel.VMUnboundedCM2Correctness <> p:126 var
+R16346:16350 Kernel.VMUnboundedCM2Correctness <> start:127 var
+R16358:16377 Kernel.VMUnboundedCM2Correctness <> interpreter_diverges def
+R16379:16385 Kernel.VMUnboundedCM2Correctness <> ambient:125 var
+R16387:16387 Kernel.VMUnboundedCM2Correctness <> p:126 var
+R16390:16407 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R16409:16409 Kernel.VMUnboundedCM2Correctness <> p:126 var
+R16412:16416 Kernel.VMUnboundedCM2Correctness <> start:127 var
+R16442:16475 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_divergence thm
+R16442:16475 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_divergence thm
+R16486:16516 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits_encoding_width thm
+R16486:16516 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits_encoding_width thm
+prf 16533:16569 <> cm2_uniform_interpreter_correct_total
+binder 16580:16586 <> ambient:128
+binder 16588:16588 <> p:129
+binder 16590:16594 <> start:130
+binder 16596:16600 <> final:131
+R16628:16634 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R16605:16613 Kernel.VMUnboundedCM2Correctness <> cm2_halts ind
+R16615:16615 Kernel.VMUnboundedCM2Correctness <> p:129 var
+R16617:16621 Kernel.VMUnboundedCM2Correctness <> start:130 var
+R16623:16627 Kernel.VMUnboundedCM2Correctness <> final:131 var
+R16635:16654 Kernel.VMUnboundedCM2Correctness <> interpreter_produces def
+R16656:16662 Kernel.VMUnboundedCM2Correctness <> ambient:128 var
+R16664:16664 Kernel.VMUnboundedCM2Correctness <> p:129 var
+R16667:16684 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R16686:16686 Kernel.VMUnboundedCM2Correctness <> p:129 var
+R16689:16693 Kernel.VMUnboundedCM2Correctness <> start:130 var
+R16695:16699 Kernel.VMUnboundedCM2Correctness <> final:131 var
+R16725:16755 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_correct thm
+R16725:16755 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_correct thm
+R16766:16796 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits_encoding_width thm
+R16766:16796 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits_encoding_width thm
+prf 16813:16858 <> cm2_uniform_interpreter_correct_complete_total
+binder 16869:16875 <> ambient:132
+binder 16877:16877 <> p:133
+binder 16879:16883 <> start:134
+binder 16885:16889 <> final:135
+R16917:16922 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16894:16902 Kernel.VMUnboundedCM2Correctness <> cm2_halts ind
+R16904:16904 Kernel.VMUnboundedCM2Correctness <> p:133 var
+R16906:16910 Kernel.VMUnboundedCM2Correctness <> start:134 var
+R16912:16916 Kernel.VMUnboundedCM2Correctness <> final:135 var
+R16923:16929 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16953:16958 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16930:16933 <> fuel:136
+binder 16935:16944 <> s_boundary:137
+binder 16946:16952 <> s_final:138
+R17059:17066 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17046:17048 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16959:16966 Kernel.VMUnboundedStep <> run_vm_u def
+R16968:16971 Kernel.VMUnboundedCM2Correctness <> fuel:136 var
+R16973:16995 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R17004:17028 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R17030:17036 Kernel.VMUnboundedCM2Correctness <> ambient:132 var
+R17038:17038 Kernel.VMUnboundedCM2Correctness <> p:133 var
+R17040:17044 Kernel.VMUnboundedCM2Correctness <> start:134 var
+R17049:17058 Kernel.VMUnboundedCM2Correctness <> s_boundary:137 var
+R17172:17179 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17067:17073 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R17082:17099 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R17102:17119 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R17121:17121 Kernel.VMUnboundedCM2Correctness <> p:133 var
+R17124:17124 Kernel.VMUnboundedCM2Correctness <> p:133 var
+R17134:17151 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R17153:17153 Kernel.VMUnboundedCM2Correctness <> p:133 var
+R17156:17160 Kernel.VMUnboundedCM2Correctness <> final:135 var
+R17162:17171 Kernel.VMUnboundedCM2Correctness <> s_boundary:137 var
+R17236:17243 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17226:17228 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17180:17187 Kernel.VMUnboundedStep <> run_vm_u def
+R17192:17214 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R17216:17225 Kernel.VMUnboundedCM2Correctness <> s_boundary:137 var
+R17229:17235 Kernel.VMUnboundedCM2Correctness <> s_final:138 var
+R17244:17255 Kernel.VMUnboundedCM2Interpreter <> cm2_halt_rep def
+R17264:17281 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R17284:17301 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R17303:17303 Kernel.VMUnboundedCM2Correctness <> p:133 var
+R17306:17306 Kernel.VMUnboundedCM2Correctness <> p:133 var
+R17316:17333 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R17335:17335 Kernel.VMUnboundedCM2Correctness <> p:133 var
+R17338:17342 Kernel.VMUnboundedCM2Correctness <> final:135 var
+R17344:17350 Kernel.VMUnboundedCM2Correctness <> s_final:138 var
+R17407:17431 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R17434:17452 Kernel.VMUnboundedCM2Encoding <> cm2_config_encoding def
+R17464:17503 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_correct_complete thm
+R17464:17503 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_correct_complete thm
+R17516:17546 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits_encoding_width thm
+R17516:17546 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits_encoding_width thm
+prf 17580:17616 <> total_encoding_never_malformed_opcode
+binder 17627:17627 <> p:139
+binder 17629:17630 <> pc:140
+R17648:17653 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17637:17639 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17635:17636 Kernel.VMUnboundedCM2Correctness <> pc:140 var
+R17640:17645 Coq.Init.Datatypes <> length def
+R17647:17647 Kernel.VMUnboundedCM2Correctness <> p:139 var
+R17760:17763 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R17654:17658 Kernel.VMUnboundedStep <> u_and def
+R17665:17672 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R17681:17698 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R17701:17718 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R17720:17720 Kernel.VMUnboundedCM2Correctness <> p:139 var
+R17723:17723 Kernel.VMUnboundedCM2Correctness <> p:139 var
+R17733:17750 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R17752:17752 Kernel.VMUnboundedCM2Correctness <> p:139 var
+R17755:17756 Kernel.VMUnboundedCM2Correctness <> pc:140 var
+R17801:17824 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R17801:17824 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R17801:17824 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R17801:17824 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R17801:17824 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R17837:17859 Kernel.VMUnboundedCM2InterpreterProof <> encode_cm2_opcode_valid thm
+R17837:17859 Kernel.VMUnboundedCM2InterpreterProof <> encode_cm2_opcode_valid thm
+R17872:17902 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits_encoding_width thm
+R17872:17902 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits_encoding_width thm
+def 18010:18019 <> cm2_result
+R18026:18032 Kernel.VMState <> VMState rec
+binder 18022:18022 <> s:141
+R18037:18046 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+R18056:18060 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R18056:18060 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R18056:18060 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R18080:18084 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R18080:18084 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R18104:18108 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R18104:18108 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R18065:18072 Kernel.VMState <> read_reg def
+R18074:18074 Kernel.VMUnboundedCM2Correctness <> s:141 var
+R18089:18096 Kernel.VMState <> read_reg def
+R18098:18098 Kernel.VMUnboundedCM2Correctness <> s:141 var
+R18113:18120 Kernel.VMState <> read_reg def
+R18122:18122 Kernel.VMUnboundedCM2Correctness <> s:141 var
+prf 18138:18156 <> cm2_halt_rep_result
+binder 18167:18170 <> code:142
+binder 18172:18176 <> width:143
+binder 18178:18178 <> c:144
+binder 18180:18180 <> s:145
+R18212:18215 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18185:18196 Kernel.VMUnboundedCM2Interpreter <> cm2_halt_rep def
+R18198:18201 Kernel.VMUnboundedCM2Correctness <> code:142 var
+R18203:18207 Kernel.VMUnboundedCM2Correctness <> width:143 var
+R18209:18209 Kernel.VMUnboundedCM2Correctness <> c:144 var
+R18211:18211 Kernel.VMUnboundedCM2Correctness <> s:145 var
+R18228:18230 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18216:18225 Kernel.VMUnboundedCM2Correctness <> cm2_result def
+R18227:18227 Kernel.VMUnboundedCM2Correctness <> s:145 var
+R18231:18231 Kernel.VMUnboundedCM2Correctness <> c:144 var
+R18297:18306 Kernel.VMUnboundedCM2Correctness <> cm2_result def
+R18309:18316 Kernel.VMState <> read_reg def
+R18319:18327 Kernel.VMState <> reg_index def
+R18330:18338 Kernel.VMState <> REG_COUNT def
+prf 18366:18384 <> cm2_terminal_stable
+binder 18395:18395 <> s:146
+binder 18397:18400 <> fuel:147
+R18419:18422 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18414:18416 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18408:18412 Kernel.VMState <> vm_pc proj
+R18405:18405 Kernel.VMUnboundedCM2Correctness <> s:146 var
+R18462:18464 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18423:18430 Kernel.VMUnboundedStep <> run_vm_u def
+R18432:18435 Kernel.VMUnboundedCM2Correctness <> fuel:147 var
+R18437:18459 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R18461:18461 Kernel.VMUnboundedCM2Correctness <> s:146 var
+R18465:18465 Kernel.VMUnboundedCM2Correctness <> s:146 var
+R18520:18527 Kernel.VMUnboundedStep <> run_vm_u def
+prf 18571:18590 <> cm2_rep_not_terminal
+binder 18601:18604 <> code:148
+binder 18606:18610 <> width:149
+binder 18612:18612 <> c:150
+binder 18614:18614 <> s:151
+R18641:18644 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18619:18625 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R18627:18630 Kernel.VMUnboundedCM2Correctness <> code:148 var
+R18632:18636 Kernel.VMUnboundedCM2Correctness <> width:149 var
+R18638:18638 Kernel.VMUnboundedCM2Correctness <> c:150 var
+R18640:18640 Kernel.VMUnboundedCM2Correctness <> s:151 var
+R18654:18657 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R18648:18652 Kernel.VMState <> vm_pc proj
+R18645:18645 Kernel.VMUnboundedCM2Correctness <> s:151 var
+prf 18731:18756 <> cm2_terminal_compare_fuels
+binder 18767:18767 <> s:152
+binder 18769:18769 <> n:153
+binder 18771:18771 <> k:154
+R18827:18832 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18822:18824 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18816:18820 Kernel.VMState <> vm_pc proj
+R18777:18784 Kernel.VMUnboundedStep <> run_vm_u def
+R18786:18786 Kernel.VMUnboundedCM2Correctness <> n:153 var
+R18788:18810 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R18812:18812 Kernel.VMUnboundedCM2Correctness <> s:152 var
+R18884:18889 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18879:18881 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18873:18877 Kernel.VMState <> vm_pc proj
+R18834:18841 Kernel.VMUnboundedStep <> run_vm_u def
+R18843:18843 Kernel.VMUnboundedCM2Correctness <> k:154 var
+R18845:18867 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R18869:18869 Kernel.VMUnboundedCM2Correctness <> s:152 var
+R18926:18930 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18890:18897 Kernel.VMUnboundedStep <> run_vm_u def
+R18899:18899 Kernel.VMUnboundedCM2Correctness <> n:153 var
+R18901:18923 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R18925:18925 Kernel.VMUnboundedCM2Correctness <> s:152 var
+R18931:18938 Kernel.VMUnboundedStep <> run_vm_u def
+R18940:18940 Kernel.VMUnboundedCM2Correctness <> k:154 var
+R18942:18964 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R18966:18966 Kernel.VMUnboundedCM2Correctness <> s:152 var
+R19008:19013 Coq.Arith.Compare_dec <> le_dec thm
+R19008:19013 Coq.Arith.Compare_dec <> le_dec thm
+R19042:19045 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19049:19049 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19047:19047 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R19042:19045 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19049:19049 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19047:19047 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R19068:19081 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R19068:19081 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R19068:19081 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R19104:19122 Kernel.VMUnboundedCM2Correctness <> cm2_terminal_stable thm
+R19104:19122 Kernel.VMUnboundedCM2Correctness <> cm2_terminal_stable thm
+R19156:19159 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19163:19163 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19161:19161 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R19156:19159 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19163:19163 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19161:19161 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R19182:19195 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R19182:19195 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R19182:19195 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R19208:19226 Kernel.VMUnboundedCM2Correctness <> cm2_terminal_stable thm
+R19208:19226 Kernel.VMUnboundedCM2Correctness <> cm2_terminal_stable thm
+prf 19253:19285 <> cm2_uniform_interpreter_raw_sound
+binder 19296:19299 <> fuel:155
+binder 19301:19301 <> p:156
+binder 19303:19307 <> width:157
+binder 19309:19313 <> start:158
+binder 19315:19315 <> s:159
+R19344:19349 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19320:19335 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits def
+R19337:19341 Kernel.VMUnboundedCM2Correctness <> width:157 var
+R19343:19343 Kernel.VMUnboundedCM2Correctness <> p:156 var
+R19400:19405 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19350:19356 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R19359:19376 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R19378:19382 Kernel.VMUnboundedCM2Correctness <> width:157 var
+R19384:19384 Kernel.VMUnboundedCM2Correctness <> p:156 var
+R19387:19391 Kernel.VMUnboundedCM2Correctness <> width:157 var
+R19393:19397 Kernel.VMUnboundedCM2Correctness <> start:158 var
+R19399:19399 Kernel.VMUnboundedCM2Correctness <> s:159 var
+R19460:19465 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19455:19457 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19449:19453 Kernel.VMState <> vm_pc proj
+R19407:19414 Kernel.VMUnboundedStep <> run_vm_u def
+R19416:19419 Kernel.VMUnboundedCM2Correctness <> fuel:155 var
+R19421:19443 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R19445:19445 Kernel.VMUnboundedCM2Correctness <> s:159 var
+R19538:19543 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19466:19474 Kernel.VMUnboundedCM2Correctness <> cm2_halts ind
+R19476:19476 Kernel.VMUnboundedCM2Correctness <> p:156 var
+R19478:19482 Kernel.VMUnboundedCM2Correctness <> start:158 var
+R19485:19494 Kernel.VMUnboundedCM2Correctness <> cm2_result def
+R19497:19504 Kernel.VMUnboundedStep <> run_vm_u def
+R19506:19509 Kernel.VMUnboundedCM2Correctness <> fuel:155 var
+R19511:19533 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R19535:19535 Kernel.VMUnboundedCM2Correctness <> s:159 var
+R19544:19553 Kernel.VMUnboundedCM2Interpreter <> cm2_halted def
+R19556:19563 Kernel.VMUnboundedStep <> run_vm_u def
+R19565:19568 Kernel.VMUnboundedCM2Correctness <> fuel:155 var
+R19570:19592 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R19594:19594 Kernel.VMUnboundedCM2Correctness <> s:159 var
+R19640:19648 Coq.Arith.Wf_nat <> lt_wf_ind thm
+R19640:19648 Coq.Arith.Wf_nat <> lt_wf_ind thm
+R19709:19717 Coq.Lists.List <> nth_error def
+R19728:19732 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R19709:19717 Coq.Lists.List <> nth_error def
+R19728:19732 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R19785:19787 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R19779:19783 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R19788:19793 Coq.Init.Datatypes <> length def
+R19785:19787 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R19779:19783 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R19788:19793 Coq.Init.Datatypes <> length def
+R19811:19824 Coq.Lists.List <> nth_error_Some thm
+R19811:19824 Coq.Lists.List <> nth_error_Some thm
+R19934:19956 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19877:19884 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R19887:19904 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R19928:19932 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R19957:19972 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R19934:19956 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19877:19884 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R19887:19904 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R19928:19932 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R19957:19972 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R19992:20015 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R19992:20015 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R19992:20015 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch thm
+R20069:20076 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R20044:20056 Coq.Lists.List <> nth_error_nth thm
+R20069:20076 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R20044:20056 Coq.Lists.List <> nth_error_nth thm
+R20212:20223 Kernel.VMUnboundedCM2InterpreterProof <> cm2_rep_halt thm
+R20212:20223 Kernel.VMUnboundedCM2InterpreterProof <> cm2_rep_halt thm
+R20271:20291 Kernel.VMUnboundedCM2InterpreterProof <> cm2_halt_rep_observed thm
+R20271:20291 Kernel.VMUnboundedCM2InterpreterProof <> cm2_halt_rep_observed thm
+R20359:20388 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R20359:20388 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R20359:20388 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R20419:20444 Kernel.VMUnboundedCM2Correctness <> cm2_terminal_compare_fuels thm
+R20419:20444 Kernel.VMUnboundedCM2Correctness <> cm2_terminal_compare_fuels thm
+R20521:20539 Kernel.VMUnboundedCM2Correctness <> cm2_halt_rep_result thm
+R20521:20539 Kernel.VMUnboundedCM2Correctness <> cm2_halt_rep_result thm
+R20521:20539 Kernel.VMUnboundedCM2Correctness <> cm2_halt_rep_result thm
+R20568:20585 Kernel.VMUnboundedCM2Correctness <> cm2_halts_explicit constr
+R20568:20585 Kernel.VMUnboundedCM2Correctness <> cm2_halts_explicit constr
+R20628:20648 Kernel.VMUnboundedCM2InterpreterProof <> cm2_halt_rep_observed thm
+R20628:20648 Kernel.VMUnboundedCM2InterpreterProof <> cm2_halt_rep_observed thm
+R20692:20698 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20703:20704 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20699:20702 <> next:160
+R20808:20810 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20705:20718 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R20758:20760 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20761:20776 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R20758:20760 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20761:20776 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R20811:20814 Coq.Init.Datatypes <> Some constr
+R20816:20819 Kernel.VMUnboundedCM2Correctness <> next:160 var
+R20837:20850 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R20898:20904 Coq.Arith.PeanoNat Nat eqb def
+R20692:20698 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20703:20704 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20699:20702 <> next:161
+R20808:20810 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20705:20718 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R20758:20760 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20761:20776 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R20758:20760 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20761:20776 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R20811:20814 Coq.Init.Datatypes <> Some constr
+R20816:20819 Kernel.VMUnboundedCM2Correctness <> next:161 var
+R20692:20698 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20703:20704 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20699:20702 <> next:162
+R20808:20810 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20705:20718 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R20758:20760 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20761:20776 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R20758:20760 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20761:20776 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R20811:20814 Coq.Init.Datatypes <> Some constr
+R20816:20819 Kernel.VMUnboundedCM2Correctness <> next:162 var
+R20692:20698 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20703:20704 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20699:20702 <> next:163
+R20808:20810 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20705:20718 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R20758:20760 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20761:20776 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R20758:20760 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20761:20776 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R20811:20814 Coq.Init.Datatypes <> Some constr
+R20816:20819 Kernel.VMUnboundedCM2Correctness <> next:163 var
+R20898:20904 Coq.Arith.PeanoNat Nat eqb def
+R20692:20698 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20703:20704 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20699:20702 <> next:164
+R20808:20810 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20705:20718 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R20758:20760 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20761:20776 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R20758:20760 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20761:20776 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R20811:20814 Coq.Init.Datatypes <> Some constr
+R20816:20819 Kernel.VMUnboundedCM2Correctness <> next:164 var
+R20898:20904 Coq.Arith.PeanoNat Nat eqb def
+R20988:21021 Kernel.VMUnboundedCM2InterpreterProof <> cm2_uniform_interpreter_simulation thm
+R20988:21021 Kernel.VMUnboundedCM2InterpreterProof <> cm2_uniform_interpreter_simulation thm
+R20988:21021 Kernel.VMUnboundedCM2InterpreterProof <> cm2_uniform_interpreter_simulation thm
+R20988:21021 Kernel.VMUnboundedCM2InterpreterProof <> cm2_uniform_interpreter_simulation thm
+R20988:21021 Kernel.VMUnboundedCM2InterpreterProof <> cm2_uniform_interpreter_simulation thm
+R21123:21125 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R21123:21125 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R21186:21189 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R21186:21189 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R21186:21189 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R21186:21189 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R21186:21189 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R21221:21226 Coq.Arith.Compare_dec <> le_dec thm
+R21327:21357 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21285:21292 Kernel.VMUnboundedStep <> run_vm_u def
+R21302:21324 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21358:21365 Kernel.VMUnboundedStep <> run_vm_u def
+R21372:21394 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21447:21450 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21463:21463 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21456:21458 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21491:21504 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21513:21531 Kernel.VMUnboundedCM2Correctness <> cm2_terminal_stable thm
+R21585:21604 Kernel.VMUnboundedCM2Correctness <> cm2_rep_not_terminal thm
+R21221:21226 Coq.Arith.Compare_dec <> le_dec thm
+R21327:21357 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21285:21292 Kernel.VMUnboundedStep <> run_vm_u def
+R21302:21324 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21358:21365 Kernel.VMUnboundedStep <> run_vm_u def
+R21372:21394 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21447:21450 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21463:21463 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21456:21458 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21491:21504 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21491:21504 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21513:21531 Kernel.VMUnboundedCM2Correctness <> cm2_terminal_stable thm
+R21585:21604 Kernel.VMUnboundedCM2Correctness <> cm2_rep_not_terminal thm
+R21221:21226 Coq.Arith.Compare_dec <> le_dec thm
+R21221:21226 Coq.Arith.Compare_dec <> le_dec thm
+R21327:21357 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21285:21292 Kernel.VMUnboundedStep <> run_vm_u def
+R21302:21324 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21358:21365 Kernel.VMUnboundedStep <> run_vm_u def
+R21372:21394 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21447:21450 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21463:21463 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21456:21458 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21491:21504 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21491:21504 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21513:21531 Kernel.VMUnboundedCM2Correctness <> cm2_terminal_stable thm
+R21585:21604 Kernel.VMUnboundedCM2Correctness <> cm2_rep_not_terminal thm
+R21221:21226 Coq.Arith.Compare_dec <> le_dec thm
+R21221:21226 Coq.Arith.Compare_dec <> le_dec thm
+R21327:21357 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21285:21292 Kernel.VMUnboundedStep <> run_vm_u def
+R21302:21324 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21358:21365 Kernel.VMUnboundedStep <> run_vm_u def
+R21372:21394 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21447:21450 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21463:21463 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21456:21458 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21491:21504 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21491:21504 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21513:21531 Kernel.VMUnboundedCM2Correctness <> cm2_terminal_stable thm
+R21585:21604 Kernel.VMUnboundedCM2Correctness <> cm2_rep_not_terminal thm
+R21221:21226 Coq.Arith.Compare_dec <> le_dec thm
+R21221:21226 Coq.Arith.Compare_dec <> le_dec thm
+R21327:21357 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21285:21292 Kernel.VMUnboundedStep <> run_vm_u def
+R21302:21324 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21358:21365 Kernel.VMUnboundedStep <> run_vm_u def
+R21372:21394 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21447:21450 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21463:21463 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21456:21458 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21491:21504 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21491:21504 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21513:21531 Kernel.VMUnboundedCM2Correctness <> cm2_terminal_stable thm
+R21585:21604 Kernel.VMUnboundedCM2Correctness <> cm2_rep_not_terminal thm
+R21221:21226 Coq.Arith.Compare_dec <> le_dec thm
+R21718:21726 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21679:21686 Kernel.VMUnboundedStep <> run_vm_u def
+R21693:21715 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21727:21734 Kernel.VMUnboundedStep <> run_vm_u def
+R21741:21743 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21759:21781 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21821:21824 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21837:21837 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21829:21831 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21869:21882 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21718:21726 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21679:21686 Kernel.VMUnboundedStep <> run_vm_u def
+R21693:21715 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21727:21734 Kernel.VMUnboundedStep <> run_vm_u def
+R21741:21743 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21759:21781 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21821:21824 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21837:21837 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21829:21831 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21869:21882 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21869:21882 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21718:21726 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21679:21686 Kernel.VMUnboundedStep <> run_vm_u def
+R21693:21715 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21727:21734 Kernel.VMUnboundedStep <> run_vm_u def
+R21741:21743 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21759:21781 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21821:21824 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21837:21837 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21829:21831 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21869:21882 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21869:21882 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21718:21726 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21679:21686 Kernel.VMUnboundedStep <> run_vm_u def
+R21693:21715 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21727:21734 Kernel.VMUnboundedStep <> run_vm_u def
+R21741:21743 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21759:21781 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21821:21824 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21837:21837 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21829:21831 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21869:21882 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21869:21882 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21718:21726 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21679:21686 Kernel.VMUnboundedStep <> run_vm_u def
+R21693:21715 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21727:21734 Kernel.VMUnboundedStep <> run_vm_u def
+R21741:21743 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21759:21781 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R21821:21824 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21837:21837 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21829:21831 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21869:21882 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21869:21882 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R21973:21975 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21973:21975 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21973:21975 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21973:21975 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21973:21975 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R22101:22118 Kernel.VMUnboundedCM2Correctness <> cm2_halts_explicit constr
+R22126:22142 Kernel.VMUnboundedCM2Correctness <> cm2_halts_falloff constr
+R22101:22118 Kernel.VMUnboundedCM2Correctness <> cm2_halts_explicit constr
+R22126:22142 Kernel.VMUnboundedCM2Correctness <> cm2_halts_falloff constr
+R22101:22118 Kernel.VMUnboundedCM2Correctness <> cm2_halts_explicit constr
+R22126:22142 Kernel.VMUnboundedCM2Correctness <> cm2_halts_falloff constr
+R22101:22118 Kernel.VMUnboundedCM2Correctness <> cm2_halts_explicit constr
+R22126:22142 Kernel.VMUnboundedCM2Correctness <> cm2_halts_falloff constr
+R22101:22118 Kernel.VMUnboundedCM2Correctness <> cm2_halts_explicit constr
+R22126:22142 Kernel.VMUnboundedCM2Correctness <> cm2_halts_falloff constr
+R22280:22282 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22223:22230 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R22233:22250 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R22274:22278 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R22280:22282 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22223:22230 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R22233:22250 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R22274:22278 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R22299:22330 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch_outside thm
+R22299:22330 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch_outside thm
+R22360:22373 Coq.Lists.List <> nth_error_None thm
+R22360:22373 Coq.Lists.List <> nth_error_None thm
+R22441:22452 Kernel.VMUnboundedCM2InterpreterProof <> cm2_rep_halt thm
+R22441:22452 Kernel.VMUnboundedCM2InterpreterProof <> cm2_rep_halt thm
+R22498:22518 Kernel.VMUnboundedCM2InterpreterProof <> cm2_halt_rep_observed thm
+R22498:22518 Kernel.VMUnboundedCM2InterpreterProof <> cm2_halt_rep_observed thm
+R22584:22613 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R22584:22613 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R22584:22613 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R22642:22667 Kernel.VMUnboundedCM2Correctness <> cm2_terminal_compare_fuels thm
+R22642:22667 Kernel.VMUnboundedCM2Correctness <> cm2_terminal_compare_fuels thm
+R22740:22758 Kernel.VMUnboundedCM2Correctness <> cm2_halt_rep_result thm
+R22740:22758 Kernel.VMUnboundedCM2Correctness <> cm2_halt_rep_result thm
+R22740:22758 Kernel.VMUnboundedCM2Correctness <> cm2_halt_rep_result thm
+R22785:22801 Kernel.VMUnboundedCM2Correctness <> cm2_halts_falloff constr
+R22785:22801 Kernel.VMUnboundedCM2Correctness <> cm2_halts_falloff constr
+R22842:22862 Kernel.VMUnboundedCM2InterpreterProof <> cm2_halt_rep_observed thm
+R22842:22862 Kernel.VMUnboundedCM2InterpreterProof <> cm2_halt_rep_observed thm
+def 22898:22921 <> interpreter_raw_produces
+R22934:22940 Kernel.VMState <> VMState rec
+binder 22924:22930 <> ambient:165
+R22948:22951 Coq.Init.Datatypes <> list ind
+R22953:22961 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 22944:22944 <> p:166
+R22983:22992 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 22969:22973 <> start:167
+binder 22975:22979 <> final:168
+R23007:23013 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R23018:23023 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 23014:23017 <> fuel:169
+R23124:23131 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R23024:23033 Kernel.VMUnboundedCM2Interpreter <> cm2_halted def
+R23036:23043 Kernel.VMUnboundedStep <> run_vm_u def
+R23045:23048 Kernel.VMUnboundedCM2Correctness <> fuel:169 var
+R23050:23072 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R23081:23105 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R23107:23113 Kernel.VMUnboundedCM2Correctness <> ambient:165 var
+R23115:23115 Kernel.VMUnboundedCM2Correctness <> p:166 var
+R23117:23121 Kernel.VMUnboundedCM2Correctness <> start:167 var
+R23232:23234 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23132:23141 Kernel.VMUnboundedCM2Correctness <> cm2_result def
+R23144:23151 Kernel.VMUnboundedStep <> run_vm_u def
+R23153:23156 Kernel.VMUnboundedCM2Correctness <> fuel:169 var
+R23158:23180 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R23189:23213 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R23215:23221 Kernel.VMUnboundedCM2Correctness <> ambient:165 var
+R23223:23223 Kernel.VMUnboundedCM2Correctness <> p:166 var
+R23225:23229 Kernel.VMUnboundedCM2Correctness <> start:167 var
+R23235:23239 Kernel.VMUnboundedCM2Correctness <> final:168 var
+prf 23251:23291 <> cm2_uniform_interpreter_raw_correct_total
+binder 23302:23308 <> ambient:170
+binder 23310:23310 <> p:171
+binder 23312:23316 <> start:172
+binder 23318:23322 <> final:173
+R23350:23354 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R23327:23335 Kernel.VMUnboundedCM2Correctness <> cm2_halts ind
+R23337:23337 Kernel.VMUnboundedCM2Correctness <> p:171 var
+R23339:23343 Kernel.VMUnboundedCM2Correctness <> start:172 var
+R23345:23349 Kernel.VMUnboundedCM2Correctness <> final:173 var
+R23355:23378 Kernel.VMUnboundedCM2Correctness <> interpreter_raw_produces def
+R23380:23386 Kernel.VMUnboundedCM2Correctness <> ambient:170 var
+R23388:23388 Kernel.VMUnboundedCM2Correctness <> p:171 var
+R23390:23394 Kernel.VMUnboundedCM2Correctness <> start:172 var
+R23396:23400 Kernel.VMUnboundedCM2Correctness <> final:173 var
+R23480:23525 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_correct_complete_total thm
+R23480:23525 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_correct_complete_total thm
+R23630:23632 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23630:23632 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23646:23659 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R23646:23659 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R23646:23659 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_split thm
+R23695:23715 Kernel.VMUnboundedCM2InterpreterProof <> cm2_halt_rep_observed thm
+R23695:23715 Kernel.VMUnboundedCM2InterpreterProof <> cm2_halt_rep_observed thm
+R23738:23756 Kernel.VMUnboundedCM2Correctness <> cm2_halt_rep_result thm
+R23738:23756 Kernel.VMUnboundedCM2Correctness <> cm2_halt_rep_result thm
+R23817:23849 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_raw_sound thm
+R23859:23876 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R23894:23918 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R23817:23849 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_raw_sound thm
+R23859:23876 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R23894:23918 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R23969:23999 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits_encoding_width thm
+R23969:23999 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits_encoding_width thm
+R24015:24039 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R24042:24060 Kernel.VMUnboundedCM2Encoding <> cm2_config_encoding def
+R24075:24093 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_is_rep thm
+R24075:24093 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_is_rep thm
+R24137:24166 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R24137:24166 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R24137:24166 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+prf 24254:24296 <> cm2_uniform_interpreter_raw_never_malformed
+binder 24307:24313 <> ambient:174
+binder 24315:24315 <> p:175
+binder 24317:24321 <> start:176
+binder 24323:24326 <> fuel:177
+R24331:24332 Coq.Init.Logic <> ::type_scope:'~'_x not
+R24333:24345 Kernel.VMUnboundedCM2Interpreter <> cm2_malformed def
+R24348:24355 Kernel.VMUnboundedStep <> run_vm_u def
+R24357:24360 Kernel.VMUnboundedCM2Correctness <> fuel:177 var
+R24362:24384 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R24393:24417 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R24419:24425 Kernel.VMUnboundedCM2Correctness <> ambient:174 var
+R24427:24427 Kernel.VMUnboundedCM2Correctness <> p:175 var
+R24429:24433 Kernel.VMUnboundedCM2Correctness <> start:176 var
+R24493:24525 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_raw_sound thm
+R24535:24552 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R24568:24592 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R24493:24525 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_raw_sound thm
+R24535:24552 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R24568:24592 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R24641:24671 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits_encoding_width thm
+R24641:24671 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits_encoding_width thm
+R24685:24709 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R24712:24730 Kernel.VMUnboundedCM2Encoding <> cm2_config_encoding def
+R24743:24761 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_is_rep thm
+R24743:24761 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_is_rep thm
+R24802:24831 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R24802:24831 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R24802:24831 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R24867:24893 Kernel.VMUnboundedCM2InterpreterProof <> cm2_halt_malformed_disjoint thm
+R24867:24893 Kernel.VMUnboundedCM2InterpreterProof <> cm2_halt_malformed_disjoint thm
+prf 24915:24930 <> cm2_run_n_prefix
+binder 24941:24941 <> p:178
+binder 24943:24943 <> n:179
+binder 24945:24945 <> c:180
+binder 24947:24951 <> final:181
+R24977:24980 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24956:24964 Kernel.VMUnboundedCM2Interpreter <> cm2_run_n ind
+R24966:24966 Kernel.VMUnboundedCM2Correctness <> p:178 var
+R24968:24968 Kernel.VMUnboundedCM2Correctness <> n:179 var
+R24970:24970 Kernel.VMUnboundedCM2Correctness <> c:180 var
+R24972:24976 Kernel.VMUnboundedCM2Correctness <> final:181 var
+binder 24988:24988 <> k:182
+R24997:25002 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24992:24995 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R24991:24991 Kernel.VMUnboundedCM2Correctness <> k:182 var
+R24996:24996 Kernel.VMUnboundedCM2Correctness <> n:179 var
+R25003:25009 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R25013:25014 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 25010:25012 <> mid:183
+R25015:25023 Kernel.VMUnboundedCM2Interpreter <> cm2_run_n ind
+R25025:25025 Kernel.VMUnboundedCM2Correctness <> p:178 var
+R25027:25027 Kernel.VMUnboundedCM2Correctness <> k:182 var
+R25029:25029 Kernel.VMUnboundedCM2Correctness <> c:180 var
+R25031:25033 Kernel.VMUnboundedCM2Correctness <> mid:183 var
+R25108:25110 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25108:25110 Coq.Init.Logic <> ::type_scope:x_'='_x not
+prf 25297:25318 <> cm2_halts_finite_bound
+binder 25329:25329 <> p:184
+binder 25331:25331 <> c:185
+binder 25333:25337 <> final:186
+R25361:25366 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25342:25350 Kernel.VMUnboundedCM2Correctness <> cm2_halts ind
+R25352:25352 Kernel.VMUnboundedCM2Correctness <> p:184 var
+R25354:25354 Kernel.VMUnboundedCM2Correctness <> c:185 var
+R25356:25360 Kernel.VMUnboundedCM2Correctness <> final:186 var
+R25367:25373 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R25375:25376 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 25374:25374 <> n:187
+binder 25384:25385 <> c':188
+R25388:25389 Coq.Init.Logic <> ::type_scope:'~'_x not
+R25390:25398 Kernel.VMUnboundedCM2Interpreter <> cm2_run_n ind
+R25400:25400 Kernel.VMUnboundedCM2Correctness <> p:184 var
+R25402:25402 Kernel.VMUnboundedCM2Correctness <> n:187 var
+R25404:25404 Kernel.VMUnboundedCM2Correctness <> c:185 var
+R25406:25407 Kernel.VMUnboundedCM2Correctness <> c':188 var
+R25458:25464 Kernel.VMUnboundedCM2Interpreter <> cm2_run ind
+R25458:25464 Kernel.VMUnboundedCM2Interpreter <> cm2_run ind
+R25569:25589 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R25553:25555 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25528:25536 Coq.Lists.List <> nth_error def
+R25547:25551 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R25556:25559 Coq.Init.Datatypes <> Some constr
+R25561:25568 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R25615:25617 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25590:25598 Coq.Lists.List <> nth_error def
+R25609:25613 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R25618:25621 Coq.Init.Datatypes <> None constr
+R25569:25589 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R25553:25555 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25528:25536 Coq.Lists.List <> nth_error def
+R25547:25551 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R25556:25559 Coq.Init.Datatypes <> Some constr
+R25561:25568 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R25615:25617 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25590:25598 Coq.Lists.List <> nth_error def
+R25609:25613 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R25618:25621 Coq.Init.Datatypes <> None constr
+R25923:25923 Coq.Init.Datatypes <> S constr
+R25923:25923 Coq.Init.Datatypes <> S constr
+R26024:26026 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26003:26011 Coq.Lists.List <> nth_error def
+R26016:26020 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R26027:26030 Coq.Init.Datatypes <> Some constr
+R26024:26026 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26003:26011 Coq.Lists.List <> nth_error def
+R26016:26020 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R26027:26030 Coq.Init.Datatypes <> Some constr
+R26066:26068 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26047:26060 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R26069:26072 Coq.Init.Datatypes <> Some constr
+R26066:26068 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26047:26060 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R26069:26072 Coq.Init.Datatypes <> Some constr
+prf 26236:26257 <> cm2_halts_not_diverges
+binder 26268:26268 <> p:189
+binder 26270:26270 <> c:190
+binder 26272:26276 <> final:191
+R26300:26303 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26281:26289 Kernel.VMUnboundedCM2Correctness <> cm2_halts ind
+R26291:26291 Kernel.VMUnboundedCM2Correctness <> p:189 var
+R26293:26293 Kernel.VMUnboundedCM2Correctness <> c:190 var
+R26295:26299 Kernel.VMUnboundedCM2Correctness <> final:191 var
+R26304:26305 Coq.Init.Logic <> ::type_scope:'~'_x not
+R26306:26317 Kernel.VMUnboundedCM2Interpreter <> cm2_diverges def
+R26319:26319 Kernel.VMUnboundedCM2Correctness <> p:189 var
+R26321:26321 Kernel.VMUnboundedCM2Correctness <> c:190 var
+R26374:26395 Kernel.VMUnboundedCM2Correctness <> cm2_halts_finite_bound thm
+R26374:26395 Kernel.VMUnboundedCM2Correctness <> cm2_halts_finite_bound thm
+prf 26483:26502 <> cm2_no_halt_prefixes
+binder 26513:26513 <> p:192
+binder 26515:26519 <> start:193
+R26524:26524 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26564:26568 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 26532:26536 <> final:194
+R26539:26540 Coq.Init.Logic <> ::type_scope:'~'_x not
+R26541:26549 Kernel.VMUnboundedCM2Correctness <> cm2_halts ind
+R26551:26551 Kernel.VMUnboundedCM2Correctness <> p:192 var
+R26553:26557 Kernel.VMUnboundedCM2Correctness <> start:193 var
+R26559:26563 Kernel.VMUnboundedCM2Correctness <> final:194 var
+R26569:26580 Kernel.VMUnboundedCM2Interpreter <> cm2_diverges def
+R26582:26582 Kernel.VMUnboundedCM2Correctness <> p:192 var
+R26584:26588 Kernel.VMUnboundedCM2Correctness <> start:193 var
+R26735:26743 Coq.Lists.List <> nth_error def
+R26754:26758 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R26735:26743 Coq.Lists.List <> nth_error def
+R26754:26758 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R26825:26841 Kernel.VMUnboundedCM2Correctness <> cm2_halts_falloff constr
+R26825:26841 Kernel.VMUnboundedCM2Correctness <> cm2_halts_falloff constr
+R26890:26896 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R26901:26902 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 26897:26900 <> next:195
+R26925:26927 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26903:26916 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R26928:26931 Coq.Init.Datatypes <> Some constr
+R26933:26936 Kernel.VMUnboundedCM2Correctness <> next:195 var
+R26890:26896 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R26901:26902 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 26897:26900 <> next:196
+R26925:26927 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26903:26916 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R26928:26931 Coq.Init.Datatypes <> Some constr
+R26933:26936 Kernel.VMUnboundedCM2Correctness <> next:196 var
+R26963:26976 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R27030:27036 Coq.Arith.PeanoNat Nat eqb def
+R27030:27036 Coq.Arith.PeanoNat Nat eqb def
+R27030:27036 Coq.Arith.PeanoNat Nat eqb def
+R27030:27036 Coq.Arith.PeanoNat Nat eqb def
+R27104:27121 Kernel.VMUnboundedCM2Correctness <> cm2_halts_explicit constr
+R27104:27121 Kernel.VMUnboundedCM2Correctness <> cm2_halts_explicit constr
+R27312:27329 Kernel.VMUnboundedCM2Correctness <> cm2_halts_explicit constr
+R27337:27353 Kernel.VMUnboundedCM2Correctness <> cm2_halts_falloff constr
+R27312:27329 Kernel.VMUnboundedCM2Correctness <> cm2_halts_explicit constr
+R27337:27353 Kernel.VMUnboundedCM2Correctness <> cm2_halts_falloff constr
+def 27757:27780 <> interpreter_raw_diverges
+R27793:27799 Kernel.VMState <> VMState rec
+binder 27783:27789 <> ambient:197
+R27807:27810 Coq.Init.Datatypes <> list ind
+R27812:27820 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 27803:27803 <> p:198
+R27836:27845 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 27828:27832 <> start:199
+binder 27867:27870 <> fuel:200
+R27968:27971 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R27962:27966 Kernel.VMState <> vm_pc proj
+R27874:27881 Kernel.VMUnboundedStep <> run_vm_u def
+R27883:27886 Kernel.VMUnboundedCM2Correctness <> fuel:200 var
+R27888:27910 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R27917:27941 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R27943:27949 Kernel.VMUnboundedCM2Correctness <> ambient:197 var
+R27951:27951 Kernel.VMUnboundedCM2Correctness <> p:198 var
+R27953:27957 Kernel.VMUnboundedCM2Correctness <> start:199 var
+prf 27985:28028 <> cm2_uniform_interpreter_raw_divergence_total
+binder 28039:28045 <> ambient:201
+binder 28047:28047 <> p:202
+binder 28049:28053 <> start:203
+R28078:28082 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R28058:28069 Kernel.VMUnboundedCM2Interpreter <> cm2_diverges def
+R28071:28071 Kernel.VMUnboundedCM2Correctness <> p:202 var
+R28073:28077 Kernel.VMUnboundedCM2Correctness <> start:203 var
+R28083:28106 Kernel.VMUnboundedCM2Correctness <> interpreter_raw_diverges def
+R28108:28114 Kernel.VMUnboundedCM2Correctness <> ambient:201 var
+R28116:28116 Kernel.VMUnboundedCM2Correctness <> p:202 var
+R28118:28122 Kernel.VMUnboundedCM2Correctness <> start:203 var
+R28211:28243 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_raw_sound thm
+R28253:28270 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R28288:28312 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R28211:28243 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_raw_sound thm
+R28253:28270 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R28288:28312 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R28361:28391 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits_encoding_width thm
+R28361:28391 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits_encoding_width thm
+R28407:28431 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R28434:28452 Kernel.VMUnboundedCM2Encoding <> cm2_config_encoding def
+R28467:28485 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_is_rep thm
+R28467:28485 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_is_rep thm
+R28524:28545 Kernel.VMUnboundedCM2Correctness <> cm2_halts_not_diverges thm
+R28524:28545 Kernel.VMUnboundedCM2Correctness <> cm2_halts_not_diverges thm
+R28577:28596 Kernel.VMUnboundedCM2Correctness <> cm2_no_halt_prefixes thm
+R28577:28596 Kernel.VMUnboundedCM2Correctness <> cm2_no_halt_prefixes thm
+R28630:28634 Coq.Init.Logic <> proj1 thm
+R28637:28677 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_raw_correct_total thm
+R28630:28634 Coq.Init.Logic <> proj1 thm
+R28637:28677 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_raw_correct_total thm
+R28781:28810 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R28781:28810 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R28781:28810 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+def 29009:29019 <> cm2_ambient
+R29026:29032 Kernel.VMState <> VMState rec
+binder 29022:29022 <> s:204
+R29037:29043 Kernel.VMState <> VMState rec
+R29053:29060 Kernel.VMState <> vm_graph proj
+R29053:29060 Kernel.VMState <> vm_graph proj
+R29053:29060 Kernel.VMState <> vm_graph proj
+R29079:29085 Kernel.VMState <> vm_csrs proj
+R29079:29085 Kernel.VMState <> vm_csrs proj
+R29108:29114 Kernel.VMState <> vm_regs proj
+R29108:29114 Kernel.VMState <> vm_regs proj
+R29123:29128 Kernel.VMState <> vm_mem proj
+R29123:29128 Kernel.VMState <> vm_mem proj
+R29145:29149 Kernel.VMState <> vm_pc proj
+R29145:29149 Kernel.VMState <> vm_pc proj
+R29162:29166 Kernel.VMState <> vm_mu proj
+R29162:29166 Kernel.VMState <> vm_mu proj
+R29182:29193 Kernel.VMState <> vm_mu_tensor proj
+R29182:29193 Kernel.VMState <> vm_mu_tensor proj
+R29221:29226 Kernel.VMState <> vm_err proj
+R29221:29226 Kernel.VMState <> vm_err proj
+R29243:29254 Kernel.VMState <> vm_logic_acc proj
+R29243:29254 Kernel.VMState <> vm_logic_acc proj
+R29282:29291 Kernel.VMState <> vm_mstatus proj
+R29282:29291 Kernel.VMState <> vm_mstatus proj
+R29312:29321 Kernel.VMState <> vm_witness proj
+R29312:29321 Kernel.VMState <> vm_witness proj
+R29347:29358 Kernel.VMState <> vm_certified proj
+R29347:29358 Kernel.VMState <> vm_certified proj
+R29068:29075 Kernel.VMState <> vm_graph proj
+R29065:29065 Kernel.VMUnboundedCM2Correctness <> s:204 var
+R29093:29099 Kernel.VMState <> vm_csrs proj
+R29090:29090 Kernel.VMUnboundedCM2Correctness <> s:204 var
+R29119:29120 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R29136:29141 Kernel.VMState <> vm_mem proj
+R29133:29133 Kernel.VMUnboundedCM2Correctness <> s:204 var
+R29174:29178 Kernel.VMState <> vm_mu proj
+R29171:29171 Kernel.VMUnboundedCM2Correctness <> s:204 var
+R29201:29212 Kernel.VMState <> vm_mu_tensor proj
+R29198:29198 Kernel.VMUnboundedCM2Correctness <> s:204 var
+R29234:29239 Kernel.VMState <> vm_err proj
+R29231:29231 Kernel.VMUnboundedCM2Correctness <> s:204 var
+R29262:29273 Kernel.VMState <> vm_logic_acc proj
+R29259:29259 Kernel.VMUnboundedCM2Correctness <> s:204 var
+R29299:29308 Kernel.VMState <> vm_mstatus proj
+R29296:29296 Kernel.VMUnboundedCM2Correctness <> s:204 var
+R29329:29338 Kernel.VMState <> vm_witness proj
+R29326:29326 Kernel.VMUnboundedCM2Correctness <> s:204 var
+R29366:29377 Kernel.VMState <> vm_certified proj
+R29363:29363 Kernel.VMUnboundedCM2Correctness <> s:204 var
+prf 29391:29418 <> cm2_instruction_frame_and_pc
+R29424:29429 Coq.Lists.List <> Forall ind
+R29557:29579 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+binder 29436:29436 <> i:205
+binder 29448:29448 <> s:206
+R29465:29472 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29460:29462 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R29454:29458 Kernel.VMState <> vm_pc proj
+R29451:29451 Kernel.VMUnboundedCM2Correctness <> s:206 var
+R29517:29524 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R29501:29503 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29473:29483 Kernel.VMUnboundedCM2Correctness <> cm2_ambient def
+R29486:29495 Kernel.VMUnboundedStep <> vm_apply_u def
+R29497:29497 Kernel.VMUnboundedCM2Correctness <> s:206 var
+R29499:29499 Kernel.VMUnboundedCM2Correctness <> i:205 var
+R29504:29514 Kernel.VMUnboundedCM2Correctness <> cm2_ambient def
+R29516:29516 Kernel.VMUnboundedCM2Correctness <> s:206 var
+R29549:29552 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R29543:29547 Kernel.VMState <> vm_pc proj
+R29526:29535 Kernel.VMUnboundedStep <> vm_apply_u def
+R29537:29537 Kernel.VMUnboundedCM2Correctness <> s:206 var
+R29539:29539 Kernel.VMUnboundedCM2Correctness <> i:205 var
+R29597:29609 Coq.Lists.List <> Forall_forall thm
+R29597:29609 Coq.Lists.List <> Forall_forall thm
+R29632:29654 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R29656:29657 Coq.Lists.List <> In def
+R29742:29751 Kernel.VMUnboundedStep <> vm_apply_u def
+R29861:29871 Kernel.VMUnboundedCM2Correctness <> cm2_ambient def
+R29874:29896 Kernel.VMStep VMStep advance_state_rm def
+R29899:29918 Kernel.VMStep VMStep advance_state def
+R29927:29943 Kernel.VMStep VMStep jump_state def
+R29946:29962 Kernel.VMStep VMStep apply_cost def
+R29965:29987 Kernel.VMStep VMStep instruction_cost def
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+R30008:30018 Coq.Arith.PeanoNat Nat add_0_r thm
+prf 30064:30096 <> cm2_uniform_interpreter_raw_frame
+binder 30107:30110 <> fuel:207
+binder 30112:30112 <> s:208
+R30170:30172 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30117:30127 Kernel.VMUnboundedCM2Correctness <> cm2_ambient def
+R30130:30137 Kernel.VMUnboundedStep <> run_vm_u def
+R30139:30142 Kernel.VMUnboundedCM2Correctness <> fuel:207 var
+R30144:30166 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R30168:30168 Kernel.VMUnboundedCM2Correctness <> s:208 var
+R30173:30183 Kernel.VMUnboundedCM2Correctness <> cm2_ambient def
+R30185:30185 Kernel.VMUnboundedCM2Correctness <> s:208 var
+R30257:30264 Kernel.VMUnboundedStep <> run_vm_u def
+R30280:30288 Coq.Lists.List <> nth_error def
+R30317:30321 Kernel.VMState <> vm_pc proj
+R30290:30312 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R30280:30288 Coq.Lists.List <> nth_error def
+R30317:30321 Kernel.VMState <> vm_pc proj
+R30290:30312 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R30398:30400 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R30392:30396 Kernel.VMState <> vm_pc proj
+R30398:30400 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R30392:30396 Kernel.VMState <> vm_pc proj
+R30421:30450 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R30421:30450 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R30421:30450 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R30459:30472 Coq.Lists.List <> nth_error_Some thm
+R30459:30472 Coq.Lists.List <> nth_error_Some thm
+R30520:30547 Kernel.VMUnboundedCM2Correctness <> cm2_instruction_frame_and_pc thm
+R30520:30547 Kernel.VMUnboundedCM2Correctness <> cm2_instruction_frame_and_pc thm
+R30565:30577 Coq.Lists.List <> Forall_forall thm
+R30565:30577 Coq.Lists.List <> Forall_forall thm
+R30565:30577 Coq.Lists.List <> Forall_forall thm
+R30594:30598 Coq.Init.Logic <> proj1 thm
+R30606:30617 Coq.Lists.List <> nth_error_In thm
+R30594:30598 Coq.Init.Logic <> proj1 thm
+R30606:30617 Coq.Lists.List <> nth_error_In thm
+prf 30650:30685 <> cm2_uniform_interpreter_raw_pc_bound
+binder 30696:30699 <> fuel:209
+binder 30701:30701 <> s:210
+R30721:30724 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30715:30718 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R30709:30713 Kernel.VMState <> vm_pc proj
+R30706:30706 Kernel.VMUnboundedCM2Correctness <> s:210 var
+R30774:30777 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R30768:30772 Kernel.VMState <> vm_pc proj
+R30726:30733 Kernel.VMUnboundedStep <> run_vm_u def
+R30735:30738 Kernel.VMUnboundedCM2Correctness <> fuel:209 var
+R30740:30762 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R30764:30764 Kernel.VMUnboundedCM2Correctness <> s:210 var
+R30854:30861 Kernel.VMUnboundedStep <> run_vm_u def
+R30877:30885 Coq.Lists.List <> nth_error def
+R30914:30918 Kernel.VMState <> vm_pc proj
+R30887:30909 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R30877:30885 Coq.Lists.List <> nth_error def
+R30914:30918 Kernel.VMState <> vm_pc proj
+R30887:30909 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R30993:30995 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R30987:30991 Kernel.VMState <> vm_pc proj
+R30993:30995 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R30987:30991 Kernel.VMState <> vm_pc proj
+R31016:31045 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R31016:31045 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R31016:31045 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R31054:31067 Coq.Lists.List <> nth_error_Some thm
+R31054:31067 Coq.Lists.List <> nth_error_Some thm
+R31115:31142 Kernel.VMUnboundedCM2Correctness <> cm2_instruction_frame_and_pc thm
+R31115:31142 Kernel.VMUnboundedCM2Correctness <> cm2_instruction_frame_and_pc thm
+R31160:31172 Coq.Lists.List <> Forall_forall thm
+R31160:31172 Coq.Lists.List <> Forall_forall thm
+R31160:31172 Coq.Lists.List <> Forall_forall thm
+R31189:31193 Coq.Init.Logic <> proj2 thm
+R31201:31212 Coq.Lists.List <> nth_error_In thm
+R31189:31193 Coq.Init.Logic <> proj2 thm
+R31201:31212 Coq.Lists.List <> nth_error_In thm
+prf 31247:31294 <> cm2_uniform_interpreter_divergence_live_prefixes
+binder 31305:31311 <> ambient:211
+binder 31313:31313 <> p:212
+binder 31315:31319 <> start:213
+R31344:31350 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R31324:31335 Kernel.VMUnboundedCM2Interpreter <> cm2_diverges def
+R31337:31337 Kernel.VMUnboundedCM2Correctness <> p:212 var
+R31339:31343 Kernel.VMUnboundedCM2Correctness <> start:213 var
+binder 31358:31361 <> fuel:214
+R31364:31370 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R31372:31377 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 31371:31371 <> i:215
+R31517:31519 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R31378:31386 Coq.Lists.List <> nth_error def
+R31511:31515 Kernel.VMState <> vm_pc proj
+R31419:31426 Kernel.VMUnboundedStep <> run_vm_u def
+R31428:31431 Kernel.VMUnboundedCM2Correctness <> fuel:214 var
+R31433:31455 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R31466:31490 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R31492:31498 Kernel.VMUnboundedCM2Correctness <> ambient:211 var
+R31500:31500 Kernel.VMUnboundedCM2Correctness <> p:212 var
+R31502:31506 Kernel.VMUnboundedCM2Correctness <> start:213 var
+R31388:31410 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R31520:31523 Coq.Init.Datatypes <> Some constr
+R31525:31525 Kernel.VMUnboundedCM2Correctness <> i:215 var
+R31570:31613 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_raw_divergence_total thm
+R31570:31613 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_raw_divergence_total thm
+R31570:31613 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_raw_divergence_total thm
+R31674:31682 Coq.Lists.List <> nth_error def
+R31807:31811 Kernel.VMState <> vm_pc proj
+R31715:31722 Kernel.VMUnboundedStep <> run_vm_u def
+R31729:31751 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R31762:31786 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R31684:31706 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R31674:31682 Coq.Lists.List <> nth_error def
+R31807:31811 Kernel.VMState <> vm_pc proj
+R31715:31722 Kernel.VMUnboundedStep <> run_vm_u def
+R31729:31751 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R31762:31786 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R31684:31706 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R31856:31869 Coq.Lists.List <> nth_error_None thm
+R31856:31869 Coq.Lists.List <> nth_error_None thm
+R31886:31915 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R31886:31915 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R31886:31915 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program_length thm
+R31942:31977 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_raw_pc_bound thm
+R31993:32017 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R32051:32054 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R31942:31977 Kernel.VMUnboundedCM2Correctness <> cm2_uniform_interpreter_raw_pc_bound thm
+R31993:32017 Kernel.VMUnboundedCM2Encoding <> cm2_total_config_encoding def
+R32051:32054 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R32051:32054 Coq.Init.Peano <> ::nat_scope:x_'<='_x not

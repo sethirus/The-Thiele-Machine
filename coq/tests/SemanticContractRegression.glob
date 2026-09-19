@@ -1,0 +1,117 @@
+DIGEST e037ac4fbc78c9d1f0c2d8a1f7c4e853
+FTests.SemanticContractRegression
+R92:95 Coq.Lists.List <> <> lib
+R97:101 Coq.Reals.Reals <> <> lib
+R103:105 Coq.micromega.Lra <> <> lib
+R107:111 Coq.micromega.Psatz <> <> lib
+R141:147 Kernel.VMState <> <> lib
+R149:154 Kernel.VMStep <> <> lib
+R156:170 Kernel.SimulationProof <> <> lib
+R172:183 Kernel.MuInitiality <> <> lib
+R187:207 Kernel.ThreeLayerIsomorphism <> <> lib
+R209:232 Kernel.VerilogRTLCorrespondence <> <> lib
+R234:248 Kernel.TsirelsonFromMu <> <> lib
+R252:266 Kernel.TsirelsonFromIC <> <> lib
+R268:282 Kernel.NPAMomentMatrix <> <> lib
+R284:298 Kernel.ConstructivePSD <> <> lib
+R300:320 Kernel.MuLedgerQuantumBridge <> <> lib
+R324:342 Kernel.QuantumPartitionPSD <> <> lib
+R344:362 Kernel.ElliptopeCompletion <> <> lib
+R372:384 Coq.Lists.List ListNotations <> mod
+def 399:418 <> vm_contract_instance
+R422:433 Kernel.ThreeLayerIsomorphism <> FullWireSpec rec
+R441:462 Kernel.VerilogRTLCorrespondence <> verilog_full_wire_spec def
+R464:470 Kernel.VMState <> VMState rec
+R472:479 Kernel.SimulationProof <> vm_apply def
+R485:492 Kernel.VMState <> vm_graph proj
+R494:500 Kernel.VMState <> vm_csrs proj
+R502:508 Kernel.VMState <> vm_regs proj
+R510:515 Kernel.VMState <> vm_mem proj
+R517:521 Kernel.VMState <> vm_pc proj
+R523:527 Kernel.VMState <> vm_mu proj
+R529:540 Kernel.VMState <> vm_mu_tensor proj
+R542:547 Kernel.VMState <> vm_err proj
+R553:564 Kernel.VMState <> vm_logic_acc proj
+R566:575 Kernel.VMState <> vm_mstatus proj
+R577:586 Kernel.VMState <> vm_witness proj
+R588:599 Kernel.VMState <> vm_certified proj
+R606:621 Kernel.ThreeLayerIsomorphism <> fws_step_correct proj
+R623:640 Kernel.ThreeLayerIsomorphism <> coq_full_wire_spec def
+def 653:692 <> contract_certification_and_witness_trace
+R707:713 Kernel.ThreeLayerIsomorphism <> run_fws def
+R715:734 Tests.SemanticContractRegression <> vm_contract_instance def
+R740:740 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R767:768 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R784:784 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R741:756 Kernel.VMStep VMStep instr_chsh_trial constr
+R769:781 Kernel.VMStep VMStep instr_certify constr
+R786:795 Kernel.MuInitiality <> init_state def
+binder 702:702 <> s:1
+R845:850 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R838:840 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R802:814 Kernel.ThreeLayerIsomorphism <> fws_certified proj
+R816:835 Tests.SemanticContractRegression <> vm_contract_instance def
+R837:837 Tests.SemanticContractRegression <> s:1 var
+R841:844 Coq.Init.Datatypes <> true constr
+R906:911 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R898:900 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R851:860 Kernel.VMState <> wc_same_00 proj
+R863:873 Kernel.ThreeLayerIsomorphism <> fws_witness proj
+R875:894 Tests.SemanticContractRegression <> vm_contract_instance def
+R896:896 Tests.SemanticContractRegression <> s:1 var
+R941:943 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R912:917 Kernel.ThreeLayerIsomorphism <> fws_mu proj
+R919:938 Tests.SemanticContractRegression <> vm_contract_instance def
+R940:940 Tests.SemanticContractRegression <> s:1 var
+def 1026:1066 <> rotated_tests_allow_unit_vector_expansion
+R1084:1089 Kernel.TsirelsonFromMu <> cb_E00 proj
+R1084:1089 Kernel.TsirelsonFromMu <> cb_E00 proj
+R1084:1089 Kernel.TsirelsonFromMu <> cb_E00 proj
+R1097:1102 Kernel.TsirelsonFromMu <> cb_E01 proj
+R1097:1102 Kernel.TsirelsonFromMu <> cb_E01 proj
+R1110:1115 Kernel.TsirelsonFromMu <> cb_E10 proj
+R1110:1115 Kernel.TsirelsonFromMu <> cb_E10 proj
+R1123:1128 Kernel.TsirelsonFromMu <> cb_E11 proj
+R1123:1128 Kernel.TsirelsonFromMu <> cb_E11 proj
+binder 1076:1076 <> b:2
+R1170:1173 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1143:1167 Kernel.TsirelsonFromMu <> rotated_correlator_bounds def
+R1169:1169 Tests.SemanticContractRegression <> b:2 var
+R1201:1203 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R1186:1188 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R1182:1184 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R1174:1179 Kernel.TsirelsonFromMu <> cb_E00 proj
+R1181:1181 Tests.SemanticContractRegression <> b:2 var
+R1197:1199 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R1189:1194 Kernel.TsirelsonFromMu <> cb_E10 proj
+R1196:1196 Tests.SemanticContractRegression <> b:2 var
+R1221:1245 Kernel.TsirelsonFromMu <> rotated_correlator_bounds def
+def 1288:1318 <> classical_all_ones_satisfies_ic
+R1324:1341 Kernel.TsirelsonFromIC <> ic_quadratic_bound def
+R1350:1355 Kernel.TsirelsonFromMu <> cb_E00 proj
+R1350:1355 Kernel.TsirelsonFromMu <> cb_E00 proj
+R1350:1355 Kernel.TsirelsonFromMu <> cb_E00 proj
+R1363:1368 Kernel.TsirelsonFromMu <> cb_E01 proj
+R1363:1368 Kernel.TsirelsonFromMu <> cb_E01 proj
+R1376:1381 Kernel.TsirelsonFromMu <> cb_E10 proj
+R1376:1381 Kernel.TsirelsonFromMu <> cb_E10 proj
+R1389:1394 Kernel.TsirelsonFromMu <> cb_E11 proj
+R1389:1394 Kernel.TsirelsonFromMu <> cb_E11 proj
+R1419:1436 Kernel.TsirelsonFromIC <> ic_quadratic_bound def
+def 1465:1492 <> all_ones_outside_fixed_slice
+R1498:1499 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1500:1517 Kernel.NPAMomentMatrix <> quantum_realizable def
+R1520:1536 Kernel.NPAMomentMatrix <> zero_marginal_npa def
+R1588:1621 Kernel.QuantumPartitionPSD <> npa_psd_implies_column_contractive thm
+R1588:1621 Kernel.QuantumPartitionPSD <> npa_psd_implies_column_contractive thm
+R1652:1683 Kernel.MuLedgerQuantumBridge <> zero_marginal_column_contractive def
+prf 1731:1757 <> all_ones_in_full_completion
+R1761:1780 Kernel.ElliptopeCompletion <> elliptope_realizable def
+R1812:1843 Kernel.ElliptopeCompletion <> deterministic_strategy_elliptope thm
+R1812:1843 Kernel.ElliptopeCompletion <> deterministic_strategy_elliptope thm
+R1882:1884 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1878:1880 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1882:1884 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1878:1880 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1987:2026 Tests.SemanticContractRegression <> contract_certification_and_witness_trace ex
+R2047:2073 Tests.SemanticContractRegression <> all_ones_in_full_completion thm

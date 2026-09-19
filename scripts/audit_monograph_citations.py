@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit every \texttt{...} citation in the LaTeX monograph against the live Coq tree.
+r"""Audit every \texttt{...} citation in the LaTeX monograph against the live Coq tree.
 
 For each \texttt{...}:
   - if it looks like a path ending in .v: the file must exist on disk

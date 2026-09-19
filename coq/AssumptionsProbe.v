@@ -27,7 +27,7 @@ Print Assumptions master_classical_bound.
 Print Assumptions master_quantum_violation_proves_nonclassicality.
 Print Assumptions master_algebraic_tsirelson.
 Print Assumptions master_algebraic_tsirelson_tight.
-Print Assumptions master_quantum_foundations.
+Print Assumptions master_rational_chsh_predicates.
 Print Assumptions master_tsirelson_conditional.
 
 (* ============================================================

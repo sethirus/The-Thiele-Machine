@@ -18,12 +18,10 @@
                         encoding for vm_instruction lists; its full
                         formal construction is not discharged in this
                         file)
-      recursion_theorem = section parameter (the Kleene second
-                          recursion theorem applied to the 51-opcode
-                          VM; discharging it means building a universal
-                          interpreter as a [list vm_instruction] and
-                          proving its s-m-n parametrization, which this
-                          file does not do)
+      recursion_theorem = section parameter for the chosen bounded run
+                          and representability class. An unbounded
+                          interpreter does not establish this bounded
+                          premise without a correspondence theorem.
 
     The Section discipline used here is identical to the discipline
     used in BekensteinBound.v for physical-constant positivity and
@@ -96,10 +94,9 @@ Qed.
 (* INQUISITOR NOTE: SECTION PARAMETER — the Variable and Hypothesis
    declarations in this Section are section parameters that become
    EXPLICIT FORALL premises on every consumer when the Section closes.
-   They are the well-known Kleene recursion theorem (Kleene 1938)
-   and the standard Goedel encoding for [list vm_instruction]; both
-   are classical results whose formal discharge for this specific
-   VM is left open here. They are not global axioms; the
+   The recurrence field concerns the chosen bounded [vm_run], and the
+   encoding field concerns [list vm_instruction]. Classical unbounded
+   recursion does not discharge the bounded recurrence field directly. They are not global axioms; the
    Section discharge gives every theorem that uses [vm_substrate] its
    full set of preconditions explicitly. *)
 Section VMSubstrateConstruction.

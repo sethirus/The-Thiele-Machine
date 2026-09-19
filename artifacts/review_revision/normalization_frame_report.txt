@@ -1,0 +1,1648 @@
+table_prefix_agrees =
+fun (b : nat) (src dst rawsrc rawdst : NormalizationSteps.PairTable) =>
+forall k : nat,
+k < b ->
+NormalizationLoop.table_pair src dst k =
+NormalizationLoop.table_pair rawsrc rawdst k
+     : nat ->
+       NormalizationSteps.PairTable ->
+       NormalizationSteps.PairTable ->
+       NormalizationSteps.PairTable -> NormalizationSteps.PairTable -> Prop
+
+Arguments table_prefix_agrees b%nat_scope src dst rawsrc rawdst
+descriptor_pair_readout =
+fun (src dst : NormalizationSteps.PairTable)
+  (bases : Word.word 4 -> Word.word 4) (counts : Word.word 4 -> Word.word 5)
+  (slot : Word.word 4) =>
+NormalizationLoop.table_slice src dst (Word.wordToNat (bases slot))
+  (Word.wordToNat (counts slot))
+     : NormalizationSteps.PairTable ->
+       NormalizationSteps.PairTable ->
+       (Word.word 4 -> Word.word 4) ->
+       (Word.word 4 -> Word.word 5) ->
+       Word.word 4 -> list NormalizationLoop.coupling_pair
+
+Arguments descriptor_pair_readout src dst (bases counts)%function_scope
+  slot%word_scope
+table_prefix_agrees_refl
+     : forall (b : nat) (src dst : NormalizationSteps.PairTable),
+       table_prefix_agrees b src dst src dst
+Closed under the global context
+normalization_emit_preserves_low_prefix
+     : forall (rawsrc rawdst src dst : NormalizationSteps.PairTable)
+         (b i out e : nat) (dup : bool),
+       NormalizationPrefix.normalization_prefix_invariant rawsrc rawdst src
+         dst b i out e ->
+       i < e ->
+       table_prefix_agrees b src dst rawsrc rawdst ->
+       table_prefix_agrees b (NormalizationLoop.emitted_table src i out dup)
+         (NormalizationLoop.emitted_table dst i out dup) rawsrc rawdst
+Axioms:
+Eqdep.Eq_rect_eq.eq_rect_eq
+  : forall (U : Type) (p : U) (Q : U -> Type) (x : Q p) (h : p = p),
+    x = eq_rect p Q x p h
+normalization_outer_execution_with_prefix
+     : forall (remaining : nat) (old : Semantics.RegsT)
+         (rawsrc rawdst src dst : NormalizationSteps.PairTable)
+         (b i out e : nat),
+       e - i = remaining ->
+       i < e ->
+       NormalizationPrefix.normalization_prefix_invariant rawsrc rawdst src
+         dst b i out e ->
+       table_prefix_agrees b src dst rawsrc rawdst ->
+       NormalizationScanExecution.scan_registers old i (S i) e false src dst ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true false true true false true true false)
+            (String.String
+               (Ascii.Ascii true true false false false true true false)
+               (String.String
+                  (Ascii.Ascii true true true true true false true false)
+                  (String.String
+                     (Ascii.Ascii false true true true false true true false)
+                     (String.String
+                        (Ascii.Ascii true true true true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii false true false false true true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii true false true true false true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true true true true true false
+                                    true false)
+                                 (String.String
+                                    (Ascii.Ascii false false false false true
+                                       true true false)
+                                    (String.String
+                                       (Ascii.Ascii false false true false
+                                          true true true false)
+                                       (String.String
+                                          (Ascii.Ascii false true false false
+                                             true true true false)
+                                          String.EmptyString))))))))))) old =
+       Some (NormalizationStart.reg5 (Word.natToWord 5 out)) ->
+       exists
+         (final : Semantics.RegsT) (labels : list Semantics.LabelT) 
+       (src' dst' : NormalizationSteps.PairTable) 
+       (out' : nat),
+         Semantics.Multistep ThieleCPUCore.thieleCore old final labels /\
+         NormalizationPrefix.normalization_prefix_invariant rawsrc rawdst
+           src' dst' b e out' e /\
+         FMap.M.find
+           (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+           (String.String
+              (Ascii.Ascii true false true true false true true false)
+              (String.String
+                 (Ascii.Ascii true true false false false true true false)
+                 (String.String
+                    (Ascii.Ascii true true true true true false true false)
+                    (String.String
+                       (Ascii.Ascii false false false false true true true
+                          false)
+                       (String.String
+                          (Ascii.Ascii false false false true false true true
+                             false)
+                          (String.String
+                             (Ascii.Ascii true false false false false true
+                                true false)
+                             (String.String
+                                (Ascii.Ascii true true false false true true
+                                   true false)
+                                (String.String
+                                   (Ascii.Ascii true false true false false
+                                      true true false) String.EmptyString))))))))
+           final = Some (NormalizationStart.reg4 (Word.natToWord 4 11)) /\
+         FMap.M.find
+           (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+           (String.String
+              (Ascii.Ascii true false true true false true true false)
+              (String.String
+                 (Ascii.Ascii true true false false false true true false)
+                 (String.String
+                    (Ascii.Ascii true true true true true false true false)
+                    (String.String
+                       (Ascii.Ascii true true true false true true true false)
+                       (String.String
+                          (Ascii.Ascii false true false false true true true
+                             false)
+                          (String.String
+                             (Ascii.Ascii true false false true false true
+                                true false)
+                             (String.String
+                                (Ascii.Ascii false false true false true true
+                                   true false)
+                                (String.String
+                                   (Ascii.Ascii true false true false false
+                                      true true false)
+                                   (String.String
+                                      (Ascii.Ascii true true true true true
+                                         false true false)
+                                      (String.String
+                                         (Ascii.Ascii false false false false
+                                            true true true false)
+                                         (String.String
+                                            (Ascii.Ascii false false true
+                                               false true true true false)
+                                            (String.String
+                                               (Ascii.Ascii false true false
+                                                 false true true true false)
+                                               String.EmptyString))))))))))))
+           final = Some (NormalizationStart.reg5 (Word.natToWord 5 out')) /\
+         FMap.M.find
+           (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+           (String.String
+              (Ascii.Ascii true true false false false true true false)
+              (String.String
+                 (Ascii.Ascii true true true true false true true false)
+                 (String.String
+                    (Ascii.Ascii true false true false true true true false)
+                    (String.String
+                       (Ascii.Ascii false false false false true true true
+                          false)
+                       (String.String
+                          (Ascii.Ascii false false true true false true true
+                             false)
+                          (String.String
+                             (Ascii.Ascii true false false true false true
+                                true false)
+                             (String.String
+                                (Ascii.Ascii false true true true false true
+                                   true false)
+                                (String.String
+                                   (Ascii.Ascii true true true false false
+                                      true true false)
+                                   (String.String
+                                      (Ascii.Ascii true true true true true
+                                         false true false)
+                                      (String.String
+                                         (Ascii.Ascii false false false false
+                                            true true true false)
+                                         (String.String
+                                            (Ascii.Ascii true false false
+                                               false false true true false)
+                                            (String.String
+                                               (Ascii.Ascii true false false
+                                                 true false true true false)
+                                               (String.String
+                                                 (Ascii.Ascii false true
+                                                 false false true true true
+                                                 false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true false
+                                                 false true true true false)
+                                                 (String.String ... ...))))))))))))))))
+           final = Some (NormalizationSteps.regpairs src') /\
+         FMap.M.find
+           (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+           (String.String
+              (Ascii.Ascii true true false false false true true false)
+              (String.String
+                 (Ascii.Ascii true true true true false true true false)
+                 (String.String
+                    (Ascii.Ascii true false true false true true true false)
+                    (String.String
+                       (Ascii.Ascii false false false false true true true
+                          false)
+                       (String.String
+                          (Ascii.Ascii false false true true false true true
+                             false)
+                          (String.String
+                             (Ascii.Ascii true false false true false true
+                                true false)
+                             (String.String
+                                (Ascii.Ascii false true true true false true
+                                   true false)
+                                (String.String
+                                   (Ascii.Ascii true true true false false
+                                      true true false)
+                                   (String.String
+                                      (Ascii.Ascii true true true true true
+                                         false true false)
+                                      (String.String
+                                         (Ascii.Ascii false false false false
+                                            true true true false)
+                                         (String.String
+                                            (Ascii.Ascii true false false
+                                               false false true true false)
+                                            (String.String
+                                               (Ascii.Ascii true false false
+                                                 true false true true false)
+                                               (String.String
+                                                 (Ascii.Ascii false true
+                                                 false false true true true
+                                                 false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String (...) (...))))))))))))))))
+           final = Some (NormalizationSteps.regpairs dst') /\
+         NormalizationRetirement.outer_frame old final /\
+         length labels = NormalizationRetirement.outer_firings remaining /\
+         table_prefix_agrees b src' dst' rawsrc rawdst
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
+Eqdep.Eq_rect_eq.eq_rect_eq
+  : forall (U : Type) (p : U) (Q : U -> Type) (x : Q p) (h : p = p),
+    x = eq_rect p Q x p h
+normalization_nonempty_retirement_with_prefix
+     : forall
+         (old : FMap.M.t
+                  {x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (src dst : NormalizationSteps.PairTable) 
+         (b e : nat) (d : Word.word 5) (bases : Word.word 4 -> Word.word 4)
+         (counts : Word.word 4 -> Word.word 5) (valid : Word.word 4 -> bool),
+       b < e ->
+       e <= 16 ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true false true true false true true false)
+            (String.String
+               (Ascii.Ascii true true false false false true true false)
+               (String.String
+                  (Ascii.Ascii true true true true true false true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false false true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false false false true
+                              true false)
+                           (String.String
+                              (Ascii.Ascii true true false false true true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true false true false false
+                                    true true false) String.EmptyString))))))))
+         old = Some (NormalizationStart.reg4 (Word.natToWord 4 5)) ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true false true true false true true false)
+            (String.String
+               (Ascii.Ascii true true false false false true true false)
+               (String.String
+                  (Ascii.Ascii true true true true true false true false)
+                  (String.String
+                     (Ascii.Ascii true true true false true true true false)
+                     (String.String
+                        (Ascii.Ascii false true false false true true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false false true false true true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true false true false false
+                                    true true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false true false false
+                                          false true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false false false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true true false
+                                                false true true true false)
+                                             (String.String
+                                                (Ascii.Ascii true false true
+                                                 false false true true false)
+                                                String.EmptyString)))))))))))))
+         old = Some (NormalizationStart.reg5 (Word.natToWord 5 b)) ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true false true true false true true false)
+            (String.String
+               (Ascii.Ascii true true false false false true true false)
+               (String.String
+                  (Ascii.Ascii true true true true true false true false)
+                  (String.String
+                     (Ascii.Ascii true true true false true true true false)
+                     (String.String
+                        (Ascii.Ascii false true false false true true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false false true false true true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true false true false false
+                                    true true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false false false
+                                          true true true false)
+                                       (String.String
+                                          (Ascii.Ascii false false true false
+                                             true true true false)
+                                          (String.String
+                                             (Ascii.Ascii false true false
+                                                false true true true false)
+                                             String.EmptyString))))))))))))
+         old = Some (NormalizationStart.reg5 (Word.natToWord 5 e)) ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true true false false false true true false)
+            (String.String
+               (Ascii.Ascii true true true true false true true false)
+               (String.String
+                  (Ascii.Ascii true false true false true true true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false true true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false true true true false true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true true true false false true
+                                    true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false false false
+                                          true true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false false false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true false false
+                                                true false true true false)
+                                             (String.String
+                                                (Ascii.Ascii false true false
+                                                 false true true true false)
+                                                (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true false
+                                                 false true true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false true
+                                                 false false true true true
+                                                 false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true false
+                                                 false false true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String ... ...)))))))))))))))))))
+         old = Some (NormalizationSteps.regpairs src) ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true true false false false true true false)
+            (String.String
+               (Ascii.Ascii true true true true false true true false)
+               (String.String
+                  (Ascii.Ascii true false true false true true true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false true true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false true true true false true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true true true false false true
+                                    true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false false false
+                                          true true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false false false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true false false
+                                                true false true true false)
+                                             (String.String
+                                                (Ascii.Ascii false true false
+                                                 false true true true false)
+                                                (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false false
+                                                 true false false true true
+                                                 false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true false
+                                                 false true true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false false
+                                                 true false true true true
+                                                 false)
+                                                 (String.String (...) (...)))))))))))))))))))
+         old = Some (NormalizationSteps.regpairs dst) ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true true false false false true true false)
+            (String.String
+               (Ascii.Ascii true true true true false true true false)
+               (String.String
+                  (Ascii.Ascii true false true false true true true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false true true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false true true true false true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true true true false false true
+                                    true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false true false
+                                          false true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false true false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true true false
+                                                false true true true false)
+                                             (String.String
+                                                (Ascii.Ascii true true false
+                                                 false false true true false)
+                                                (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false true true
+                                                 true false true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii true false true
+                                                 false false true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false false
+                                                 false true true true true
+                                                 false)
+                                                 (String.String ... ...))))))))))))))))))
+         old = Some (NormalizationStart.reg5 d) ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true true false false false true true false)
+            (String.String
+               (Ascii.Ascii true true true true false true true false)
+               (String.String
+                  (Ascii.Ascii true false true false true true true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false true true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false true true true false true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true true true false false true
+                                    true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false true false
+                                          false true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false true false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true true false
+                                                false true true true false)
+                                             (String.String
+                                                (Ascii.Ascii true true false
+                                                 false false true true false)
+                                                (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false true
+                                                 false false false true true
+                                                 false)
+                                                 (String.String
+                                                 (Ascii.Ascii true false
+                                                 false false false true true
+                                                 false)
+                                                 (String.String (...) (...))))))))))))))))))
+         old = Some (NormalizationSteps.regbases bases) ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true true false false false true true false)
+            (String.String
+               (Ascii.Ascii true true true true false true true false)
+               (String.String
+                  (Ascii.Ascii true false true false true true true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false true true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false true true true false true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true true true false false true
+                                    true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false true false
+                                          false true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false true false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true true false
+                                                false true true true false)
+                                             (String.String
+                                                (Ascii.Ascii true true false
+                                                 false false true true false)
+                                                (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true false
+                                                 false false true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true false true true false)
+                                                 (String.String ... ...)))))))))))))))))
+         old = Some (NormalizationSteps.regcounts counts) ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true true false false false true true false)
+            (String.String
+               (Ascii.Ascii true true true true false true true false)
+               (String.String
+                  (Ascii.Ascii true false true false true true true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false true true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false true true true false true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true true true false false true
+                                    true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false true false
+                                          false true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false true false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true true false
+                                                false true true true false)
+                                             (String.String
+                                                (Ascii.Ascii true true false
+                                                 false false true true false)
+                                                (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false true true
+                                                 false true true true false)
+                                                 (String.String (...) (...)))))))))))))))))
+         old = Some (NormalizationSteps.regvalid valid) ->
+       exists
+         (precommit : FMap.M.Map.t
+                        {x : Syntax.FullKind & Syntax.fullType Syntax.type x}) 
+       (labels : list Semantics.LabelT) (src'
+                                         dst' : NormalizationSteps.PairTable) 
+       (out : nat),
+         b <= out <= e /\
+         Semantics.Multistep ThieleCPUCore.thieleCore old
+           (FMap.M.union
+              (NormalizationSteps.normalization_commit_updates
+                 (Word.natToWord 5 b) (Word.natToWord 5 out) d bases counts
+                 valid) precommit) labels /\
+         FMap.M.find
+           (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+           (String.String
+              (Ascii.Ascii true false true true false true true false)
+              (String.String
+                 (Ascii.Ascii true true false false false true true false)
+                 (String.String
+                    (Ascii.Ascii true true true true true false true false)
+                    (String.String
+                       (Ascii.Ascii false false false false true true true
+                          false)
+                       (String.String
+                          (Ascii.Ascii false false false true false true true
+                             false)
+                          (String.String
+                             (Ascii.Ascii true false false false false true
+                                true false)
+                             (String.String
+                                (Ascii.Ascii true true false false true true
+                                   true false)
+                                (String.String
+                                   (Ascii.Ascii true false true false false
+                                      true true false) String.EmptyString))))))))
+           (FMap.M.union
+              (NormalizationSteps.normalization_commit_updates
+                 (Word.natToWord 5 b) (Word.natToWord 5 out) d bases counts
+                 valid) precommit) =
+         Some (NormalizationStart.reg4 (Word.natToWord 4 0)) /\
+         FMap.M.find
+           (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+           (String.String
+              (Ascii.Ascii true true false false false true true false)
+              (String.String
+                 (Ascii.Ascii true true true true false true true false)
+                 (String.String
+                    (Ascii.Ascii true false true false true true true false)
+                    (String.String
+                       (Ascii.Ascii false false false false true true true
+                          false)
+                       (String.String
+                          (Ascii.Ascii false false true true false true true
+                             false)
+                          (String.String
+                             (Ascii.Ascii true false false true false true
+                                true false)
+                             (String.String
+                                (Ascii.Ascii false true true true false true
+                                   true false)
+                                (String.String
+                                   (Ascii.Ascii true true true false false
+                                      true true false)
+                                   (String.String
+                                      (Ascii.Ascii true true true true true
+                                         false true false)
+                                      (String.String
+                                         (Ascii.Ascii false false false false
+                                            true true true false)
+                                         (String.String
+                                            (Ascii.Ascii true false false
+                                               false false true true false)
+                                            (String.String
+                                               (Ascii.Ascii true false false
+                                                 true false true true false)
+                                               (String.String
+                                                 (Ascii.Ascii false true
+                                                 false false true true true
+                                                 false)
+                                                 (String.String ... ...))))))))))))))
+           precommit = Some (NormalizationSteps.regpairs src') /\
+         FMap.M.find
+           (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+           (String.String
+              (Ascii.Ascii true true false false false true true false)
+              (String.String
+                 (Ascii.Ascii true true true true false true true false)
+                 (String.String
+                    (Ascii.Ascii true false true false true true true false)
+                    (String.String
+                       (Ascii.Ascii false false false false true true true
+                          false)
+                       (String.String
+                          (Ascii.Ascii false false true true false true true
+                             false)
+                          (String.String
+                             (Ascii.Ascii true false false true false true
+                                true false)
+                             (String.String
+                                (Ascii.Ascii false true true true false true
+                                   true false)
+                                (String.String
+                                   (Ascii.Ascii true true true false false
+                                      true true false)
+                                   (String.String
+                                      (Ascii.Ascii true true true true true
+                                         false true false)
+                                      (String.String
+                                         (Ascii.Ascii false false false false
+                                            true true true false)
+                                         (String.String
+                                            (Ascii.Ascii true false false
+                                               false false true true false)
+                                            (String.String
+                                               (Ascii.Ascii true false false
+                                                 true false true true false)
+                                               (String.String (...) (...))))))))))))))
+           precommit = Some (NormalizationSteps.regpairs dst') /\
+         NormalizationLoop.table_slice src' dst' b (out - b) =
+         List.nodup NormalizationLoop.coupling_pair_eq_dec
+           (NormalizationLoop.table_slice src dst b (e - b)) /\
+         NormalizationRetirement.outer_frame old precommit /\
+         length labels = 2 + NormalizationRetirement.outer_firings (e - b) /\
+         table_prefix_agrees b src' dst' src dst
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
+Eqdep.Eq_rect_eq.eq_rect_eq
+  : forall (U : Type) (p : U) (Q : U -> Type) (x : Q p) (h : p = p),
+    x = eq_rect p Q x p h
+normalization_retirement_with_prefix
+     : forall
+         (old : FMap.M.t
+                  {x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (src dst : NormalizationSteps.PairTable) 
+         (b e : nat) (d : Word.word 5) (bases : Word.word 4 -> Word.word 4)
+         (counts : Word.word 4 -> Word.word 5) (valid : Word.word 4 -> bool),
+       b <= e ->
+       e <= 16 ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true false true true false true true false)
+            (String.String
+               (Ascii.Ascii true true false false false true true false)
+               (String.String
+                  (Ascii.Ascii true true true true true false true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false false true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false false false true
+                              true false)
+                           (String.String
+                              (Ascii.Ascii true true false false true true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true false true false false
+                                    true true false) String.EmptyString))))))))
+         old = Some (NormalizationStart.reg4 (Word.natToWord 4 5)) ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true false true true false true true false)
+            (String.String
+               (Ascii.Ascii true true false false false true true false)
+               (String.String
+                  (Ascii.Ascii true true true true true false true false)
+                  (String.String
+                     (Ascii.Ascii true true true false true true true false)
+                     (String.String
+                        (Ascii.Ascii false true false false true true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false false true false true true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true false true false false
+                                    true true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false true false false
+                                          false true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false false false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true true false
+                                                false true true true false)
+                                             (String.String
+                                                (Ascii.Ascii true false true
+                                                 false false true true false)
+                                                String.EmptyString)))))))))))))
+         old = Some (NormalizationStart.reg5 (Word.natToWord 5 b)) ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true false true true false true true false)
+            (String.String
+               (Ascii.Ascii true true false false false true true false)
+               (String.String
+                  (Ascii.Ascii true true true true true false true false)
+                  (String.String
+                     (Ascii.Ascii true true true false true true true false)
+                     (String.String
+                        (Ascii.Ascii false true false false true true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false false true false true true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true false true false false
+                                    true true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false false false
+                                          true true true false)
+                                       (String.String
+                                          (Ascii.Ascii false false true false
+                                             true true true false)
+                                          (String.String
+                                             (Ascii.Ascii false true false
+                                                false true true true false)
+                                             String.EmptyString))))))))))))
+         old = Some (NormalizationStart.reg5 (Word.natToWord 5 e)) ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true true false false false true true false)
+            (String.String
+               (Ascii.Ascii true true true true false true true false)
+               (String.String
+                  (Ascii.Ascii true false true false true true true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false true true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false true true true false true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true true true false false true
+                                    true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false false false
+                                          true true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false false false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true false false
+                                                true false true true false)
+                                             (String.String
+                                                (Ascii.Ascii false true false
+                                                 false true true true false)
+                                                (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true false
+                                                 false true true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false true
+                                                 false false true true true
+                                                 false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true false
+                                                 false false true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String ... ...)))))))))))))))))))
+         old = Some (NormalizationSteps.regpairs src) ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true true false false false true true false)
+            (String.String
+               (Ascii.Ascii true true true true false true true false)
+               (String.String
+                  (Ascii.Ascii true false true false true true true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false true true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false true true true false true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true true true false false true
+                                    true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false false false
+                                          true true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false false false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true false false
+                                                true false true true false)
+                                             (String.String
+                                                (Ascii.Ascii false true false
+                                                 false true true true false)
+                                                (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false false
+                                                 true false false true true
+                                                 false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true false
+                                                 false true true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false false
+                                                 true false true true true
+                                                 false)
+                                                 (String.String (...) (...)))))))))))))))))))
+         old = Some (NormalizationSteps.regpairs dst) ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true true false false false true true false)
+            (String.String
+               (Ascii.Ascii true true true true false true true false)
+               (String.String
+                  (Ascii.Ascii true false true false true true true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false true true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false true true true false true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true true true false false true
+                                    true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false true false
+                                          false true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false true false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true true false
+                                                false true true true false)
+                                             (String.String
+                                                (Ascii.Ascii true true false
+                                                 false false true true false)
+                                                (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false true true
+                                                 true false true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii true false true
+                                                 false false true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false false
+                                                 false true true true true
+                                                 false)
+                                                 (String.String ... ...))))))))))))))))))
+         old = Some (NormalizationStart.reg5 d) ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true true false false false true true false)
+            (String.String
+               (Ascii.Ascii true true true true false true true false)
+               (String.String
+                  (Ascii.Ascii true false true false true true true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false true true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false true true true false true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true true true false false true
+                                    true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false true false
+                                          false true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false true false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true true false
+                                                false true true true false)
+                                             (String.String
+                                                (Ascii.Ascii true true false
+                                                 false false true true false)
+                                                (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false true
+                                                 false false false true true
+                                                 false)
+                                                 (String.String
+                                                 (Ascii.Ascii true false
+                                                 false false false true true
+                                                 false)
+                                                 (String.String (...) (...))))))))))))))))))
+         old = Some (NormalizationSteps.regbases bases) ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true true false false false true true false)
+            (String.String
+               (Ascii.Ascii true true true true false true true false)
+               (String.String
+                  (Ascii.Ascii true false true false true true true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false true true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false true true true false true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true true true false false true
+                                    true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false true false
+                                          false true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false true false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true true false
+                                                false true true true false)
+                                             (String.String
+                                                (Ascii.Ascii true true false
+                                                 false false true true false)
+                                                (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true false
+                                                 false false true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true false true true false)
+                                                 (String.String ... ...)))))))))))))))))
+         old = Some (NormalizationSteps.regcounts counts) ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true true false false false true true false)
+            (String.String
+               (Ascii.Ascii true true true true false true true false)
+               (String.String
+                  (Ascii.Ascii true false true false true true true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false true true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false true true true false true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true true true false false true
+                                    true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false true false
+                                          false true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false true false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true true false
+                                                false true true true false)
+                                             (String.String
+                                                (Ascii.Ascii true true false
+                                                 false false true true false)
+                                                (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false true true
+                                                 false true true true false)
+                                                 (String.String (...) (...)))))))))))))))))
+         old = Some (NormalizationSteps.regvalid valid) ->
+       exists
+         (precommit : FMap.M.Map.t
+                        {x : Syntax.FullKind & Syntax.fullType Syntax.type x}) 
+       (labels : list Semantics.LabelT) (src'
+                                         dst' : NormalizationSteps.PairTable) 
+       (out : nat),
+         b <= out <= e /\
+         Semantics.Multistep ThieleCPUCore.thieleCore old
+           (FMap.M.union
+              (NormalizationSteps.normalization_commit_updates
+                 (Word.natToWord 5 b) (Word.natToWord 5 out) d bases counts
+                 valid) precommit) labels /\
+         FMap.M.find
+           (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+           (String.String
+              (Ascii.Ascii true false true true false true true false)
+              (String.String
+                 (Ascii.Ascii true true false false false true true false)
+                 (String.String
+                    (Ascii.Ascii true true true true true false true false)
+                    (String.String
+                       (Ascii.Ascii false false false false true true true
+                          false)
+                       (String.String
+                          (Ascii.Ascii false false false true false true true
+                             false)
+                          (String.String
+                             (Ascii.Ascii true false false false false true
+                                true false)
+                             (String.String
+                                (Ascii.Ascii true true false false true true
+                                   true false)
+                                (String.String
+                                   (Ascii.Ascii true false true false false
+                                      true true false) String.EmptyString))))))))
+           (FMap.M.union
+              (NormalizationSteps.normalization_commit_updates
+                 (Word.natToWord 5 b) (Word.natToWord 5 out) d bases counts
+                 valid) precommit) =
+         Some (NormalizationStart.reg4 (Word.natToWord 4 0)) /\
+         FMap.M.find
+           (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+           (String.String
+              (Ascii.Ascii true true false false false true true false)
+              (String.String
+                 (Ascii.Ascii true true true true false true true false)
+                 (String.String
+                    (Ascii.Ascii true false true false true true true false)
+                    (String.String
+                       (Ascii.Ascii false false false false true true true
+                          false)
+                       (String.String
+                          (Ascii.Ascii false false true true false true true
+                             false)
+                          (String.String
+                             (Ascii.Ascii true false false true false true
+                                true false)
+                             (String.String
+                                (Ascii.Ascii false true true true false true
+                                   true false)
+                                (String.String
+                                   (Ascii.Ascii true true true false false
+                                      true true false)
+                                   (String.String
+                                      (Ascii.Ascii true true true true true
+                                         false true false)
+                                      (String.String
+                                         (Ascii.Ascii false false false false
+                                            true true true false)
+                                         (String.String
+                                            (Ascii.Ascii true false false
+                                               false false true true false)
+                                            (String.String
+                                               (Ascii.Ascii true false false
+                                                 true false true true false)
+                                               (String.String
+                                                 (Ascii.Ascii false true
+                                                 false false true true true
+                                                 false)
+                                                 (String.String ... ...))))))))))))))
+           precommit = Some (NormalizationSteps.regpairs src') /\
+         FMap.M.find
+           (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+           (String.String
+              (Ascii.Ascii true true false false false true true false)
+              (String.String
+                 (Ascii.Ascii true true true true false true true false)
+                 (String.String
+                    (Ascii.Ascii true false true false true true true false)
+                    (String.String
+                       (Ascii.Ascii false false false false true true true
+                          false)
+                       (String.String
+                          (Ascii.Ascii false false true true false true true
+                             false)
+                          (String.String
+                             (Ascii.Ascii true false false true false true
+                                true false)
+                             (String.String
+                                (Ascii.Ascii false true true true false true
+                                   true false)
+                                (String.String
+                                   (Ascii.Ascii true true true false false
+                                      true true false)
+                                   (String.String
+                                      (Ascii.Ascii true true true true true
+                                         false true false)
+                                      (String.String
+                                         (Ascii.Ascii false false false false
+                                            true true true false)
+                                         (String.String
+                                            (Ascii.Ascii true false false
+                                               false false true true false)
+                                            (String.String
+                                               (Ascii.Ascii true false false
+                                                 true false true true false)
+                                               (String.String (...) (...))))))))))))))
+           precommit = Some (NormalizationSteps.regpairs dst') /\
+         NormalizationLoop.table_slice src' dst' b (out - b) =
+         List.nodup NormalizationLoop.coupling_pair_eq_dec
+           (NormalizationLoop.table_slice src dst b (e - b)) /\
+         NormalizationRetirement.outer_frame old precommit /\
+         length labels = 2 + NormalizationRetirement.outer_firings (e - b) /\
+         table_prefix_agrees b src' dst' src dst
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
+Eqdep.Eq_rect_eq.eq_rect_eq
+  : forall (U : Type) (p : U) (Q : U -> Type) (x : Q p) (h : p = p),
+    x = eq_rect p Q x p h
+normalization_prefix_preserves_range_readout
+     : forall (b : nat)
+         (src dst rawsrc rawdst : NormalizationSteps.PairTable)
+         (a count : nat),
+       table_prefix_agrees b src dst rawsrc rawdst ->
+       a + count <= b ->
+       NormalizationLoop.table_slice src dst a count =
+       NormalizationLoop.table_slice rawsrc rawdst a count
+Closed under the global context
+normalization_commit_preserves_prefix_reads
+     : forall
+         (pre : FMap.M.t
+                  {x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (b out d : Word.word 5) (bases : Word.word 4 -> Word.word 4)
+         (counts : Word.word 4 -> Word.word 5) (valid : Word.word 4 -> bool)
+         (src dst rawsrc rawdst : NormalizationSteps.PairTable) 
+         (bound : nat),
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true true false false false true true false)
+            (String.String
+               (Ascii.Ascii true true true true false true true false)
+               (String.String
+                  (Ascii.Ascii true false true false true true true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false true true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false true true true false true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true true true false false true
+                                    true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false false false
+                                          true true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false false false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true false false
+                                                true false true true false)
+                                             (String.String
+                                                (Ascii.Ascii false true false
+                                                 false true true true false)
+                                                (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true false
+                                                 false true true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false true
+                                                 false false true true true
+                                                 false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true false
+                                                 false false true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false false
+                                                 true false true true true
+                                                 false)
+                                                 (String.String
+                                                 (Ascii.Ascii true false
+                                                 false false false true true
+                                                 false)
+                                                 (String.String (...) (...))))))))))))))))))))))
+         pre = Some (NormalizationSteps.regpairs src) ->
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true true false false false true true false)
+            (String.String
+               (Ascii.Ascii true true true true false true true false)
+               (String.String
+                  (Ascii.Ascii true false true false true true true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false true true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false true true true false true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true true true false false true
+                                    true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false false false
+                                          true true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false false false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true false false
+                                                true false true true false)
+                                             (String.String
+                                                (Ascii.Ascii false true false
+                                                 false true true true false)
+                                                (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false false
+                                                 true false false true true
+                                                 false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true false
+                                                 false true true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false false
+                                                 true false true true true
+                                                 false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false false
+                                                 true false true true true
+                                                 false)
+                                                 (String.String
+                                                 (Ascii.Ascii true false
+                                                 false false false true true
+                                                 false)
+                                                 (String.String ... ...)))))))))))))))))))))
+         pre = Some (NormalizationSteps.regpairs dst) ->
+       table_prefix_agrees bound src dst rawsrc rawdst ->
+       let final :=
+         FMap.M.union
+           (NormalizationSteps.normalization_commit_updates b out d bases
+              counts valid) pre in
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true true false false false true true false)
+            (String.String
+               (Ascii.Ascii true true true true false true true false)
+               (String.String
+                  (Ascii.Ascii true false true false true true true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false true true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false true true true false true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true true true false false true
+                                    true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false false false
+                                          true true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false false false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true false false
+                                                true false true true false)
+                                             (String.String
+                                                (Ascii.Ascii false true false
+                                                 false true true true false)
+                                                (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true false
+                                                 false true true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false true
+                                                 false false true true true
+                                                 false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true false
+                                                 false false true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String (...) (...))))))))))))))))))))
+         final = Some (NormalizationSteps.regpairs src) /\
+       FMap.M.find
+         (elt:={x : Syntax.FullKind & Syntax.fullType Syntax.type x})
+         (String.String
+            (Ascii.Ascii true true false false false true true false)
+            (String.String
+               (Ascii.Ascii true true true true false true true false)
+               (String.String
+                  (Ascii.Ascii true false true false true true true false)
+                  (String.String
+                     (Ascii.Ascii false false false false true true true
+                        false)
+                     (String.String
+                        (Ascii.Ascii false false true true false true true
+                           false)
+                        (String.String
+                           (Ascii.Ascii true false false true false true true
+                              false)
+                           (String.String
+                              (Ascii.Ascii false true true true false true
+                                 true false)
+                              (String.String
+                                 (Ascii.Ascii true true true false false true
+                                    true false)
+                                 (String.String
+                                    (Ascii.Ascii true true true true true
+                                       false true false)
+                                    (String.String
+                                       (Ascii.Ascii false false false false
+                                          true true true false)
+                                       (String.String
+                                          (Ascii.Ascii true false false false
+                                             false true true false)
+                                          (String.String
+                                             (Ascii.Ascii true false false
+                                                true false true true false)
+                                             (String.String
+                                                (Ascii.Ascii false true false
+                                                 false true true true false)
+                                                (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false false
+                                                 true false false true true
+                                                 false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true false
+                                                 false true true true false)
+                                                 (String.String
+                                                 (Ascii.Ascii false false
+                                                 true false true true true
+                                                 false)
+                                                 (String.String
+                                                 (Ascii.Ascii true true true
+                                                 true true false true false)
+                                                 (String.String ... ...)))))))))))))))))))
+         final = Some (NormalizationSteps.regpairs dst) /\
+       (forall a count : nat,
+        a + count <= bound ->
+        NormalizationLoop.table_slice src dst a count =
+        NormalizationLoop.table_slice rawsrc rawdst a count)
+Closed under the global context
+normalization_commit_other_descriptor
+     : forall (bases : Word.word 4 -> Word.word 4)
+         (counts : Word.word 4 -> Word.word 5) (valid : Word.word 4 -> bool)
+         (d b out : Word.word 5) (slot : Word.word 4),
+       slot <> NormalizationSteps.pair_index d ->
+       NormalizationSteps.put_vector bases (NormalizationSteps.pair_index d)
+         (NormalizationSteps.pair_index b) slot = 
+       bases slot /\
+       NormalizationSteps.put_vector counts (NormalizationSteps.pair_index d)
+         (Word.wminus out b) slot = counts slot /\
+       NormalizationSteps.put_vector valid (NormalizationSteps.pair_index d)
+         true slot = valid slot
+Closed under the global context
+normalization_commit_old_descriptor_readout
+     : forall (src dst rawsrc rawdst : NormalizationSteps.PairTable)
+         (bases : Word.word 4 -> Word.word 4)
+         (counts : Word.word 4 -> Word.word 5) (d b out : Word.word 5)
+         (bound : nat) (slot : Word.word 4),
+       slot <> NormalizationSteps.pair_index d ->
+       table_prefix_agrees bound src dst rawsrc rawdst ->
+       Word.wordToNat (bases slot) + Word.wordToNat (counts slot) <= bound ->
+       descriptor_pair_readout src dst
+         (NormalizationSteps.put_vector bases
+            (NormalizationSteps.pair_index d)
+            (NormalizationSteps.pair_index b))
+         (NormalizationSteps.put_vector counts
+            (NormalizationSteps.pair_index d) (Word.wminus out b)) slot =
+       descriptor_pair_readout rawsrc rawdst bases counts slot
+Closed under the global context

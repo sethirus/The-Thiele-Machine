@@ -1,0 +1,170 @@
+DIGEST 80578eb933b49223c3b12da857bd93fc
+FUndecidability.FRACTRAN.Util.FRACTRAN_sss
+R15:18 Coq.Lists.List <> <> lib
+R20:24 Coq.Arith.Arith <> <> lib
+R82:84 Undecidability.Shared.Libs.DLW.Utils.gcd <> <> lib
+R86:93 Undecidability.Shared.Libs.DLW.Utils.rel_iter <> <> lib
+R95:97 Undecidability.Shared.Libs.DLW.Vec.pos <> <> lib
+R99:101 Undecidability.Shared.Libs.DLW.Vec.vec <> <> lib
+R156:164 Undecidability.FRACTRAN.Util.prime_seq <> <> lib
+R183:214 Undecidability.FRACTRAN.FRACTRAN <> <> lib
+def 229:241 <> fractran_stop
+binder 243:243 <> l:1
+binder 245:245 <> x:2
+binder 257:257 <> z:3
+R260:261 Coq.Init.Logic <> ::type_scope:'~'_x not
+R263:267 Undecidability.FRACTRAN.FRACTRAN <> :::x_'/F/'_x_'≻'_x not
+R269:273 Undecidability.FRACTRAN.FRACTRAN <> :::x_'/F/'_x_'≻'_x not
+R262:262 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> l:1 var
+R268:268 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> x:2 var
+R274:274 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> z:3 var
+def 289:302 <> fractran_steps
+binder 304:304 <> l:4
+R309:316 Undecidability.Shared.Libs.DLW.Utils.rel_iter <> rel_iter def
+R319:331 Undecidability.FRACTRAN.FRACTRAN <> fractran_step ind
+R333:333 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> l:4 var
+def 348:363 <> fractran_compute
+binder 365:365 <> l:5
+binder 367:367 <> x:6
+binder 369:369 <> y:7
+R374:380 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R382:383 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 381:381 <> n:8
+R384:397 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> fractran_steps def
+R399:399 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> l:5 var
+R401:401 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> n:8 var
+R403:403 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> x:6 var
+R405:405 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> y:7 var
+def 419:437 <> fractran_terminates
+binder 439:439 <> l:9
+binder 441:441 <> x:10
+R446:452 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R454:455 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 453:453 <> y:11
+R478:481 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R456:471 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> fractran_compute def
+R473:473 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> l:9 var
+R475:475 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> x:10 var
+R477:477 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> y:11 var
+R482:494 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> fractran_stop def
+R496:496 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> l:9 var
+R498:498 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> y:11 var
+R532:550 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> fractran_terminates def
+not 511:511 <> :::x_'/F/'_x_'↓'
+def 762:777 <> FRACTRAN_PROBLEM
+R797:799 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R783:786 Coq.Init.Datatypes <> list ind
+R792:792 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R789:791 Coq.Init.Datatypes <> nat ind
+R793:795 Coq.Init.Datatypes <> nat ind
+R800:802 Coq.Init.Datatypes <> nat ind
+def 822:837 <> FRACTRAN_HALTING
+R844:859 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> FRACTRAN_PROBLEM def
+binder 840:840 <> P:12
+R878:878 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> P:12 var
+binder 870:870 <> l:13
+binder 872:872 <> x:14
+R884:888 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> :::x_'/F/'_x_'↓' not
+R890:893 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> :::x_'/F/'_x_'↓' not
+R883:883 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> l:13 var
+R889:889 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> x:14 var
+def 909:928 <> FRACTRAN_REG_PROBLEM
+R936:937 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R939:941 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R956:958 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R991:992 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R942:945 Coq.Init.Datatypes <> list ind
+R951:951 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R948:950 Coq.Init.Datatypes <> nat ind
+R952:954 Coq.Init.Datatypes <> nat ind
+binder 938:938 <> l:15
+R959:960 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R962:964 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R968:970 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R989:990 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R965:967 Coq.Init.Datatypes <> nat ind
+R971:986 Undecidability.FRACTRAN.FRACTRAN <> fractran_regular def
+R988:988 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> l:15 var
+def 1006:1025 <> FRACTRAN_REG_HALTING
+R1032:1051 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> FRACTRAN_REG_PROBLEM def
+binder 1028:1028 <> P:16
+R1108:1112 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> :::x_'/F/'_x_'↓' not
+R1114:1117 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> :::x_'/F/'_x_'↓' not
+R1108:1112 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> :::x_'/F/'_x_'↓' not
+R1114:1117 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> :::x_'/F/'_x_'↓' not
+def 1277:1296 <> FRACTRAN_ALT_PROBLEM
+R1316:1318 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1302:1305 Coq.Init.Datatypes <> list ind
+R1311:1311 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1308:1310 Coq.Init.Datatypes <> nat ind
+R1312:1314 Coq.Init.Datatypes <> nat ind
+R1319:1320 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R1322:1324 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R1328:1330 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R1340:1341 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R1325:1327 Coq.Init.Datatypes <> nat ind
+binder 1321:1321 <> n:17
+R1331:1333 Undecidability.Shared.Libs.DLW.Vec.vec <> vec abbrev
+R1335:1337 Coq.Init.Datatypes <> nat ind
+R1339:1339 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> n:17 var
+def 1362:1381 <> FRACTRAN_ALT_HALTING
+R1405:1408 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1385:1404 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> FRACTRAN_ALT_PROBLEM def
+R1454:1458 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> :::x_'/F/'_x_'↓' not
+R1473:1476 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> :::x_'/F/'_x_'↓' not
+R1463:1465 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1459:1460 Undecidability.FRACTRAN.Util.prime_seq <> ps def
+R1466:1468 Undecidability.FRACTRAN.Util.prime_seq <> exp def
+R1454:1458 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> :::x_'/F/'_x_'↓' not
+R1473:1476 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> :::x_'/F/'_x_'↓' not
+R1463:1465 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1459:1460 Undecidability.FRACTRAN.Util.prime_seq <> ps def
+R1466:1468 Undecidability.FRACTRAN.Util.prime_seq <> exp def
+prf 1496:1503 <> eval_iff
+binder 1505:1505 <> P:18
+binder 1507:1507 <> n:19
+binder 1509:1509 <> m:20
+R1534:1538 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1515:1527 Undecidability.FRACTRAN.FRACTRAN <> fractran_eval ind
+R1529:1529 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> P:18 var
+R1531:1531 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> n:19 var
+R1533:1533 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> m:20 var
+R1561:1564 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1539:1554 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> fractran_compute def
+R1556:1556 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> P:18 var
+R1558:1558 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> n:19 var
+R1560:1560 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> m:20 var
+R1565:1577 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> fractran_stop def
+R1579:1579 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> P:18 var
+R1581:1581 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> m:20 var
+R1782:1784 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1782:1784 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+prf 2023:2039 <> Halt_FRACTRAN_iff
+binder 2041:2041 <> P:21
+R2062:2066 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2047:2059 Undecidability.FRACTRAN.FRACTRAN <> Halt_FRACTRAN def
+R2061:2061 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> P:21 var
+R2067:2082 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> FRACTRAN_HALTING def
+R2084:2084 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> P:21 var
+R2127:2139 Undecidability.FRACTRAN.FRACTRAN <> Halt_FRACTRAN def
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm
+R2161:2168 Undecidability.FRACTRAN.Util.FRACTRAN_sss <> eval_iff thm

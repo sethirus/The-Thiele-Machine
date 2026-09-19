@@ -1,0 +1,10 @@
+From KamiHW Require Import TableInvariants TableInvariantsPreserved TableInvariantsReachable OutsideDomain.
+Check hwb_table_invariants_reset. Print Assumptions hwb_table_invariants_reset.
+Check hwb_table_invariants_preserved. Print Assumptions hwb_table_invariants_preserved.
+Check hwb_table_invariants_run. Print Assumptions hwb_table_invariants_run.
+Check hwb_table_invariants_reachable. Print Assumptions hwb_table_invariants_reachable.
+Check admitted_run_multistep. Print Assumptions admitted_run_multistep.
+Check admitted_run_snapshot. Print Assumptions admitted_run_snapshot.
+Check fsm_retirement_refinement. Print Assumptions fsm_retirement_refinement.
+Check not_guard_of_opcode. Print Assumptions not_guard_of_opcode.
+Check guard_opcodes_exact. Print Assumptions guard_opcodes_exact.

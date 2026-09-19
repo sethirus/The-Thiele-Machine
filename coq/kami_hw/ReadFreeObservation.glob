@@ -1,0 +1,74 @@
+DIGEST fa5d85945bbc4ea9bfd6a9cfbaf4837b
+FKamiHW.ReadFreeObservation
+R92:100 Kami.Kami <> <> lib
+R102:115 Kami.Semantics <> <> lib
+R145:159 KamiHW.ActionEvaluator <> <> lib
+R161:177 KamiHW.ActionObservation <> <> lib
+R204:209 Coq.Strings.String <> <> lib
+def 222:237 <> read_free_action
+binder 240:240 <> k:1
+R248:254 Kami.Syntax <> ActionT ind
+R261:261 KamiHW.ReadFreeObservation <> k:1 var
+R256:259 Kami.Syntax <> type def
+binder 244:244 <> a:2
+R282:282 KamiHW.ReadFreeObservation <> a:2 var
+R293:296 Kami.Syntax <> Let_ constr
+binder 315:315 <> v:5
+R318:333 KamiHW.ReadFreeObservation <> read_free_action:3 def
+R341:341 KamiHW.ReadFreeObservation <> v:5 var
+R348:355 Kami.Syntax <> WriteReg constr
+R369:384 KamiHW.ReadFreeObservation <> read_free_action:3 def
+R395:401 Kami.Syntax <> Assert_ constr
+R413:428 KamiHW.ReadFreeObservation <> read_free_action:3 def
+R439:443 Kami.Syntax <> Displ constr
+R455:470 KamiHW.ReadFreeObservation <> read_free_action:3 def
+R481:486 Kami.Syntax <> Return constr
+R493:496 Coq.Init.Logic <> True ind
+R507:511 Coq.Init.Logic <> False ind
+prf 529:552 <> observe_read_free_action
+binder 563:563 <> k:6
+R570:576 Kami.Syntax <> ActionT ind
+R583:583 KamiHW.ReadFreeObservation <> k:6 var
+R578:581 Kami.Syntax <> type def
+binder 566:566 <> a:7
+R607:610 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R589:604 KamiHW.ReadFreeObservation <> read_free_action def
+R606:606 KamiHW.ReadFreeObservation <> a:7 var
+binder 618:620 <> old:8
+binder 622:625 <> old':9
+binder 627:629 <> key:10
+R664:666 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R634:653 KamiHW.ActionObservation <> observe_action_write def
+R663:663 KamiHW.ReadFreeObservation <> a:7 var
+R659:661 KamiHW.ReadFreeObservation <> key:10 var
+R655:657 KamiHW.ReadFreeObservation <> old:8 var
+R667:686 KamiHW.ActionObservation <> observe_action_write def
+R697:697 KamiHW.ReadFreeObservation <> a:7 var
+R693:695 KamiHW.ReadFreeObservation <> key:10 var
+R688:691 KamiHW.ReadFreeObservation <> old':9 var
+R739:754 KamiHW.ReadFreeObservation <> read_free_action def
+R813:832 KamiHW.ActionObservation <> observe_action_write def
+R893:902 Coq.Strings.String <> string_dec def
+R893:902 Coq.Strings.String <> string_dec def
+prf 1022:1042 <> eval_read_free_action
+binder 1053:1053 <> k:11
+R1060:1066 Kami.Syntax <> ActionT ind
+R1073:1073 KamiHW.ReadFreeObservation <> k:11 var
+R1068:1071 Kami.Syntax <> type def
+binder 1056:1056 <> a:12
+R1097:1100 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1079:1094 KamiHW.ReadFreeObservation <> read_free_action def
+R1096:1096 KamiHW.ReadFreeObservation <> a:12 var
+binder 1108:1110 <> old:13
+binder 1112:1115 <> old':14
+R1144:1146 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1120:1137 KamiHW.ActionEvaluator <> eval_linear_action def
+R1143:1143 KamiHW.ReadFreeObservation <> a:12 var
+R1139:1141 KamiHW.ReadFreeObservation <> old:13 var
+R1147:1164 KamiHW.ActionEvaluator <> eval_linear_action def
+R1171:1171 KamiHW.ReadFreeObservation <> a:12 var
+R1166:1169 KamiHW.ReadFreeObservation <> old':14 var
+R1213:1228 KamiHW.ReadFreeObservation <> read_free_action def
+R1283:1300 KamiHW.ActionEvaluator <> eval_linear_action def
+R1408:1415 Kami.Semantics <> evalExpr def
+R1408:1415 Kami.Semantics <> evalExpr def

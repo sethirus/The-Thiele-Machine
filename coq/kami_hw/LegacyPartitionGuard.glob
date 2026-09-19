@@ -1,0 +1,166 @@
+DIGEST cfd3f2c60e20bfff9cfae7aa13dcae5b
+FKamiHW.LegacyPartitionGuard
+R687:695 Kami.Kami <> <> lib
+R697:710 Kami.Semantics <> <> lib
+R737:742 Coq.Strings.String <> <> lib
+R744:747 Coq.Lists.List <> <> lib
+R749:752 Coq.Bool.Bool <> <> lib
+R754:758 Coq.Arith.Arith <> <> lib
+R760:762 Coq.micromega.Lia <> <> lib
+R792:802 KamiHW.ThieleTypes <> <> lib
+R804:816 KamiHW.ThieleCPUCore <> <> lib
+R818:827 KamiHW.HWBoundary <> <> lib
+R829:836 KamiHW.RuleNext <> <> lib
+R838:845 KamiHW.RuleStep <> <> lib
+R847:861 KamiHW.BoundaryDecoded <> <> lib
+R865:872 KamiHW.StepEval <> <> lib
+R874:886 KamiHW.StepWordFacts <> <> lib
+R888:899 KamiHW.DispatchLets <> <> lib
+R901:911 KamiHW.Abstraction <> <> lib
+R913:934 KamiHW.ImplementationContract <> <> lib
+R938:947 KamiHW.StepFields <> <> lib
+R949:963 KamiHW.StepFieldsMorph <> <> lib
+R965:974 KamiHW.StepFaults <> <> lib
+R976:991 KamiHW.StepRefineCommon <> <> lib
+R993:1008 KamiHW.LegacyWordDecode <> <> lib
+R1060:1067 Kami.Semantics <> evalExpr def
+R1069:1079 Kami.Semantics <> evalBinBool def
+R1081:1091 Kami.Semantics <> evalUniBool def
+R1093:1102 Kami.Semantics <> evalConstT def
+R1104:1107 Kami.Semantics <> isEq def
+R1109:1122 Kami.Semantics <> evalBinBitBool def
+R1124:1133 Kami.Semantics <> evalUniBit def
+R1135:1153 Kami.Semantics <> evalZeroExtendTrunc def
+R1155:1164 Kami.Semantics <> evalBinBit def
+R1206:1208 Coq.Init.Datatypes <> orb def
+R1210:1213 Coq.Init.Datatypes <> andb def
+R1215:1218 Coq.Init.Datatypes <> negb def
+prf 1229:1250 <> dd_pnew_overflow_false
+binder 1261:1262 <> bd:1
+R1273:1276 Kami.Lib.Word <> word ind
+binder 1265:1265 <> a:2
+binder 1267:1267 <> b:3
+binder 1269:1269 <> c:4
+R1317:1322 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1312:1314 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1284:1292 Kami.Lib.Word <> wordToNat def
+R1295:1307 KamiHW.HWBoundary <> hw_pt_next_id proj
+R1309:1310 KamiHW.LegacyPartitionGuard <> bd:1 var
+R1370:1372 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1323:1338 KamiHW.DispatchLets <> dd_pnew_overflow def
+R1340:1341 KamiHW.LegacyPartitionGuard <> bd:1 var
+R1344:1354 KamiHW.StepEval <> legacy_word def
+R1356:1362 KamiHW.ThieleTypes <> OP_PNEW def
+R1364:1364 KamiHW.LegacyPartitionGuard <> a:2 var
+R1366:1366 KamiHW.LegacyPartitionGuard <> b:3 var
+R1368:1368 KamiHW.LegacyPartitionGuard <> c:4 var
+R1373:1377 Coq.Init.Datatypes <> false constr
+R1421:1436 KamiHW.DispatchLets <> dd_pnew_overflow def
+R1439:1456 KamiHW.DispatchLets <> dd_ptable_room_one def
+R1459:1472 KamiHW.DispatchLets <> dd_ptable_full def
+R1505:1517 KamiHW.LegacyWordDecode <> dd_op_correct thm
+R1505:1517 KamiHW.LegacyWordDecode <> dd_op_correct thm
+R1505:1517 KamiHW.LegacyWordDecode <> dd_op_correct thm
+R1532:1534 Kami.Lib.Word <> weq def
+R1544:1550 KamiHW.ThieleTypes <> OP_PNEW def
+R1536:1542 KamiHW.ThieleTypes <> OP_PNEW def
+R1532:1534 Kami.Lib.Word <> weq def
+R1544:1550 KamiHW.ThieleTypes <> OP_PNEW def
+R1536:1542 KamiHW.ThieleTypes <> OP_PNEW def
+R1613:1619 Kami.Lib.Word <> wlt_dec def
+R1613:1619 Kami.Lib.Word <> wlt_dec def
+R1684:1689 Kami.Lib.Word <> lt_wlt thm
+R1684:1689 Kami.Lib.Word <> lt_wlt thm
+R1702:1710 Kami.Lib.Word <> wordToNat def
+R1713:1721 Kami.Lib.Word <> natToWord def
+R1723:1736 KamiHW.ThieleTypes <> PTableNextIdSz def
+R1702:1710 Kami.Lib.Word <> wordToNat def
+R1713:1721 Kami.Lib.Word <> natToWord def
+R1723:1736 KamiHW.ThieleTypes <> PTableNextIdSz def
+prf 1777:1800 <> dd_psplit_overflow_false
+binder 1811:1812 <> bd:5
+R1823:1826 Kami.Lib.Word <> word ind
+binder 1815:1815 <> a:6
+binder 1817:1817 <> b:7
+binder 1819:1819 <> c:8
+R1872:1877 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1866:1869 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1862:1864 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1834:1842 Kami.Lib.Word <> wordToNat def
+R1845:1857 KamiHW.HWBoundary <> hw_pt_next_id proj
+R1859:1860 KamiHW.LegacyPartitionGuard <> bd:5 var
+R1929:1931 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1878:1895 KamiHW.DispatchLets <> dd_psplit_overflow def
+R1897:1898 KamiHW.LegacyPartitionGuard <> bd:5 var
+R1901:1911 KamiHW.StepEval <> legacy_word def
+R1913:1921 KamiHW.ThieleTypes <> OP_PSPLIT def
+R1923:1923 KamiHW.LegacyPartitionGuard <> a:6 var
+R1925:1925 KamiHW.LegacyPartitionGuard <> b:7 var
+R1927:1927 KamiHW.LegacyPartitionGuard <> c:8 var
+R1932:1936 Coq.Init.Datatypes <> false constr
+R1980:1997 KamiHW.DispatchLets <> dd_psplit_overflow def
+R2000:2017 KamiHW.DispatchLets <> dd_ptable_room_two def
+R2050:2062 KamiHW.LegacyWordDecode <> dd_op_correct thm
+R2050:2062 KamiHW.LegacyWordDecode <> dd_op_correct thm
+R2050:2062 KamiHW.LegacyWordDecode <> dd_op_correct thm
+R2077:2079 Kami.Lib.Word <> weq def
+R2091:2099 KamiHW.ThieleTypes <> OP_PSPLIT def
+R2081:2089 KamiHW.ThieleTypes <> OP_PSPLIT def
+R2077:2079 Kami.Lib.Word <> weq def
+R2091:2099 KamiHW.ThieleTypes <> OP_PSPLIT def
+R2081:2089 KamiHW.ThieleTypes <> OP_PSPLIT def
+R2162:2168 Kami.Lib.Word <> wlt_dec def
+R2162:2168 Kami.Lib.Word <> wlt_dec def
+R2218:2223 Kami.Lib.Word <> wlt_lt thm
+R2218:2223 Kami.Lib.Word <> wlt_lt thm
+R2241:2257 KamiHW.StepRefineCommon <> wordToNat_wplus_7 thm
+R2241:2257 KamiHW.StepRefineCommon <> wordToNat_wplus_7 thm
+R2241:2257 KamiHW.StepRefineCommon <> wordToNat_wplus_7 thm
+R2282:2290 Kami.Lib.Word <> wordToNat def
+R2293:2301 Kami.Lib.Word <> natToWord def
+R2303:2316 KamiHW.ThieleTypes <> PTableNextIdSz def
+R2282:2290 Kami.Lib.Word <> wordToNat def
+R2293:2301 Kami.Lib.Word <> natToWord def
+R2303:2316 KamiHW.ThieleTypes <> PTableNextIdSz def
+prf 2354:2377 <> dd_pmerge_overflow_false
+binder 2388:2389 <> bd:9
+R2400:2403 Kami.Lib.Word <> word ind
+binder 2392:2392 <> a:10
+binder 2394:2394 <> b:11
+binder 2396:2396 <> c:12
+R2444:2449 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2439:2441 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2411:2419 Kami.Lib.Word <> wordToNat def
+R2422:2434 KamiHW.HWBoundary <> hw_pt_next_id proj
+R2436:2437 KamiHW.LegacyPartitionGuard <> bd:9 var
+R2501:2503 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2450:2467 KamiHW.DispatchLets <> dd_pmerge_overflow def
+R2469:2470 KamiHW.LegacyPartitionGuard <> bd:9 var
+R2473:2483 KamiHW.StepEval <> legacy_word def
+R2485:2493 KamiHW.ThieleTypes <> OP_PMERGE def
+R2495:2495 KamiHW.LegacyPartitionGuard <> a:10 var
+R2497:2497 KamiHW.LegacyPartitionGuard <> b:11 var
+R2499:2499 KamiHW.LegacyPartitionGuard <> c:12 var
+R2504:2508 Coq.Init.Datatypes <> false constr
+R2552:2569 KamiHW.DispatchLets <> dd_pmerge_overflow def
+R2572:2589 KamiHW.DispatchLets <> dd_ptable_room_one def
+R2592:2605 KamiHW.DispatchLets <> dd_ptable_full def
+R2638:2650 KamiHW.LegacyWordDecode <> dd_op_correct thm
+R2638:2650 KamiHW.LegacyWordDecode <> dd_op_correct thm
+R2638:2650 KamiHW.LegacyWordDecode <> dd_op_correct thm
+R2665:2667 Kami.Lib.Word <> weq def
+R2679:2687 KamiHW.ThieleTypes <> OP_PMERGE def
+R2669:2677 KamiHW.ThieleTypes <> OP_PMERGE def
+R2665:2667 Kami.Lib.Word <> weq def
+R2679:2687 KamiHW.ThieleTypes <> OP_PMERGE def
+R2669:2677 KamiHW.ThieleTypes <> OP_PMERGE def
+R2750:2756 Kami.Lib.Word <> wlt_dec def
+R2750:2756 Kami.Lib.Word <> wlt_dec def
+R2821:2826 Kami.Lib.Word <> lt_wlt thm
+R2821:2826 Kami.Lib.Word <> lt_wlt thm
+R2839:2847 Kami.Lib.Word <> wordToNat def
+R2850:2858 Kami.Lib.Word <> natToWord def
+R2860:2873 KamiHW.ThieleTypes <> PTableNextIdSz def
+R2839:2847 Kami.Lib.Word <> wordToNat def
+R2850:2858 Kami.Lib.Word <> natToWord def
+R2860:2873 KamiHW.ThieleTypes <> PTableNextIdSz def

@@ -246,6 +246,8 @@ val costSz : int
 
 val muTensorIdxSz : int
 
+val modTensorIdxSz : int
+
 val fMT_LEGACY : word
 
 val fMT_BRANCH_EXT : word
@@ -318,15 +320,9 @@ val eRR_TABLE_OVERFLOW : word
 
 val eRR_CERT_DESC_INVALID : word
 
-val lOGIC_GATE_KEY : word
-
 val tRAP_VEC_INIT : word
 
-val mSTATUS_TURING : word
-
 val mSTATUS_THIELE : word
-
-val cHSH_X1_SURCHARGE : word
 
 val oP_PNEW : word
 
@@ -507,6 +503,8 @@ val loadInstrPort : kind attribute t0
 
 val aPBBusWritePort : kind attribute t0
 
+val cOUPLING_DESC_NEXT_ID_INIT : word
+
 val sP_IDX : word
 
 val check_bounds : 'a1 expr -> 'a1 expr -> 'a1 expr
@@ -514,6 +512,20 @@ val check_bounds : 'a1 expr -> 'a1 expr -> 'a1 expr
 val read_mem : 'a1 expr -> 'a1 expr -> 'a1 expr
 
 val write_mem : 'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr
+
+val dispatch_decoded :
+  'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1
+  -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 ->
+  'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1
+  -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 ->
+  'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1
+  -> 'a1 actionT
+
+val chsh_fsm_decoded :
+  'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1
+  -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 ->
+  'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1
+  -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 actionT
 
 val thieleCore : modules
 

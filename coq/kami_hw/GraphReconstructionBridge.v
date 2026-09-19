@@ -1135,14 +1135,16 @@ Proof.
   - unfold kami_step, kami_advance_err.
     destruct (tensor_indices_ok i j); simpl snap_rich_state; exact Hwf.
   (* instr_morph (dst src_mod dst_mod coupling_idx mu_delta):
-     success path uses rich_state_add_morph *)
+     success path uses rich_state_add_morph_with_coupling (M5: real coupling
+     decoded from memory, registered through the same allocation path
+     COMPOSE/MORPH_TENSOR already use, rather than a fixed empty morphism). *)
   - unfold kami_step.
     destruct (negb (Nat.eqb (snap_pt_sizes ks src_mod) 0) &&
               negb (Nat.eqb (snap_pt_sizes ks dst_mod) 0)) eqn:Hc.
-    + destruct (rich_state_add_morph (snap_rich_state ks) src_mod dst_mod 0 false)
+    + destruct (rich_state_add_morph_with_coupling (snap_rich_state ks) src_mod dst_mod _ _ false)
                as [rs' nid] eqn:Eram.
       unfold kami_advance_rich_morph. simpl snap_rich_state.
-      exact (morph_table_wf_preserved_add _ _ _ _ _ _ _ Eram Hwf).
+      exact (morph_table_wf_preserved_add_with_coupling _ _ _ _ _ _ _ _ Eram Hwf).
     + unfold kami_advance_err. simpl snap_rich_state. exact Hwf.
   (* instr_compose (dst m1_id m2_id mu_delta):
      success path uses rich_state_add_morph_with_coupling *)
@@ -1365,16 +1367,17 @@ Proof.
   - unfold kami_step, kami_advance_err.
     destruct (tensor_indices_ok i j);
       simpl snap_rich_state; simpl rich_next_coupling_desc_id; exact Hsafe.
-  (* instr_morph: success uses rich_state_add_morph — preserves counter *)
+  (* instr_morph: success now uses rich_state_add_morph_with_coupling (M5) —
+     the counter increases by one rather than staying fixed, same as
+     COMPOSE/MORPH_TENSOR below; add_with_coupling_next_desc_id_pos gives
+     positivity directly from the Eram equation alone. *)
   - unfold kami_step.
     destruct (negb (Nat.eqb (snap_pt_sizes ks src_mod) 0) &&
               negb (Nat.eqb (snap_pt_sizes ks dst_mod) 0)) eqn:Hc.
-    + destruct (rich_state_add_morph (snap_rich_state ks) src_mod dst_mod 0 false)
+    + destruct (rich_state_add_morph_with_coupling (snap_rich_state ks) src_mod dst_mod _ _ false)
                as [rs' nid] eqn:Eram.
       unfold kami_advance_rich_morph. simpl snap_rich_state.
-      pose proof (add_morph_preserves_next_coupling_desc_id
-                    (snap_rich_state ks) src_mod dst_mod 0 false) as Hpres.
-      rewrite Eram in Hpres. simpl fst in Hpres. lia.
+      exact (add_with_coupling_next_desc_id_pos _ _ _ _ _ _ _ _ Eram).
     + unfold kami_advance_err. simpl snap_rich_state.
       simpl rich_next_coupling_desc_id. exact Hsafe.
   (* instr_compose: success uses add_morph_with_coupling — counter +1, always > 0 *)
@@ -1465,19 +1468,16 @@ Proof.
   (* instr_tensor_get *)
   - unfold kami_step, kami_advance_err.
     destruct (tensor_indices_ok i j); simpl snap_rich_state; exact Hcze.
-  (* instr_morph: rich_state_add_morph doesn't touch coupling_desc_table *)
+  (* instr_morph: now uses rich_state_add_morph_with_coupling (M5); the
+     descriptor table does change, but add_with_coupling_preserves_coupling_zero_empty
+     covers exactly this, from Hsafe and Hcze on the pre-state. *)
   - unfold kami_step.
     destruct (negb (Nat.eqb (snap_pt_sizes ks src_mod) 0) &&
               negb (Nat.eqb (snap_pt_sizes ks dst_mod) 0)) eqn:Hc.
-    + destruct (rich_state_add_morph (snap_rich_state ks) src_mod dst_mod 0 false)
+    + destruct (rich_state_add_morph_with_coupling (snap_rich_state ks) src_mod dst_mod _ _ false)
                as [rs' nid] eqn:Eram.
       unfold kami_advance_rich_morph. simpl snap_rich_state.
-      assert (Htbl : rs'.(rich_coupling_desc_table) =
-                     (snap_rich_state ks).(rich_coupling_desc_table)).
-      { pose proof (add_morph_preserves_coupling_desc_table
-                      (snap_rich_state ks) src_mod dst_mod 0 false) as H.
-        rewrite Eram in H. exact H. }
-      unfold coupling_zero_empty. rewrite Htbl. exact Hcze.
+      exact (add_with_coupling_preserves_coupling_zero_empty _ _ _ _ _ _ _ _ Eram Hsafe Hcze).
     + unfold kami_advance_err. simpl snap_rich_state. exact Hcze.
   (* instr_compose: add_coupling writes at desc_id = old_next > 0 (by Hsafe),
      so slot 0 is untouched; coupling_zero_empty is preserved *)
@@ -1703,14 +1703,18 @@ Proof.
   (* instr_tensor_get *)
   - unfold kami_step, kami_advance_err.
     destruct (tensor_indices_ok i j); simpl snap_rich_state; exact Hwcf.
-  (* instr_morph: success adds morph with desc=0; 0 < next_desc_id by Hsafe *)
+  (* instr_morph: now uses rich_state_add_morph_with_coupling (M5), same
+     shape as COMPOSE/MORPH_TENSOR below. *)
   - unfold kami_step.
     destruct (negb (Nat.eqb (snap_pt_sizes ks src_mod) 0) &&
               negb (Nat.eqb (snap_pt_sizes ks dst_mod) 0)) eqn:Hc.
-    + destruct (rich_state_add_morph (snap_rich_state ks) src_mod dst_mod 0 false)
-               as [rs' nid] eqn:Eram.
+    + match goal with
+      | |- context[rich_state_add_morph_with_coupling ?a ?b ?c ?d ?e ?f] =>
+          destruct (rich_state_add_morph_with_coupling a b c d e f)
+                   as [rs' nid] eqn:Eram
+      end.
       unfold kami_advance_rich_morph. simpl snap_rich_state.
-      apply (coupling_wf_preserved_add _ _ _ 0 _ _ _ Eram Hwcf Hsafe).
+      exact (coupling_wf_preserved_add_with_coupling _ _ _ _ _ _ _ _ Eram Hwcf Hsafe).
     + unfold kami_advance_err. simpl snap_rich_state. exact Hwcf.
   (* instr_compose: success adds morph with actual composed pairs *)
   - unfold kami_step.
@@ -1823,6 +1827,14 @@ Lemma snap_full_graph_advance_err :
     snap_full_graph (kami_advance_err ks cost) = snap_full_graph ks.
 Proof.
   intros. unfold snap_full_graph, kami_advance_err.
+  cbn [snap_pt_next_id snap_pt_sizes snap_rich_state]. reflexivity.
+Qed.
+
+Lemma snap_full_graph_advance_err_code :
+  forall ks cost code,
+    snap_full_graph (kami_advance_err_code ks cost code) = snap_full_graph ks.
+Proof.
+  intros. unfold snap_full_graph, kami_advance_err_code.
   cbn [snap_pt_next_id snap_pt_sizes snap_rich_state]. reflexivity.
 Qed.
 
@@ -2259,7 +2271,7 @@ Proof.
     rewrite !abs_full_snapshot_of_snapshot.
     unfold kami_step. fold rs. rewrite Erm.
     unfold vm_apply. cbn [vm_graph]. rewrite Hgl.
-    rewrite snap_full_graph_advance_err.
+    rewrite ?snap_full_graph_advance_err, ?snap_full_graph_advance_err_code.
     unfold advance_state, apply_cost, instruction_cost, latch_err.
     reflexivity.
 Qed.
@@ -2365,7 +2377,7 @@ Proof.
     rewrite !abs_full_snapshot_of_snapshot.
     unfold kami_step. fold rs. rewrite Erm.
     unfold vm_apply. cbn [vm_graph]. rewrite Hgl.
-    rewrite snap_full_graph_advance_err.
+    rewrite ?snap_full_graph_advance_err, ?snap_full_graph_advance_err_code.
     unfold advance_state, apply_cost, instruction_cost, latch_err.
     reflexivity.
 Qed.
@@ -2456,7 +2468,7 @@ Proof.
     unfold kami_step. fold rs. rewrite Erm.
     unfold vm_apply. cbn [vm_graph].
     rewrite (graph_delete_none_of_lookup_none _ _ Hgl).
-    rewrite snap_full_graph_advance_err.
+    rewrite ?snap_full_graph_advance_err, ?snap_full_graph_advance_err_code.
     unfold advance_state, apply_cost, instruction_cost, latch_err.
     reflexivity.
 Qed.
@@ -2478,46 +2490,95 @@ Theorem driven_step_morph :
       (instr_morph dst src_mod dst_mod coupling_idx cost).
 Proof.
   intros ks dst src_mod dst_mod coupling_idx cost
-    [Hpt [Hwf [Hcze [_ _]]]] Hslt Hdlt Hsrc Hdst.
+    [Hpt [Hwf [Hcze [Hwcf Hsafe]]]] Hslt Hdlt Hsrc Hdst.
   set (rs := snap_rich_state ks) in *.
+  unfold coupling_desc_safe in Hsafe. fold rs in Hsafe.
   (* Module existence in graph *)
   destruct (snap_pt_sizes_nonzero_graph_lookup ks src_mod Hslt Hsrc) as [ms_src Esrc].
   destruct (snap_pt_sizes_nonzero_graph_lookup ks dst_mod Hdlt Hdst) as [ms_dst Edst].
   rewrite !abs_full_snapshot_of_snapshot.
   unfold kami_step. fold rs.
   rewrite Hsrc, Hdst. simpl andb.
-  destruct (rich_state_add_morph rs src_mod dst_mod 0 false) as [rs' new_id] eqn:Eram.
-  unfold vm_apply. cbn [vm_graph].
+  unfold vm_apply. cbn [vm_graph vm_mem].
   rewrite Esrc, Edst.
-  destruct (graph_add_morphism (snap_full_graph ks) src_mod dst_mod empty_coupling_data false)
+  (* Both sides decode the identical serialized block (M5): same mem
+     (snapshot_mem_to_list (snap_mem ks) on the hardware side, the
+     definitionally-equal reconstructed vm_mem on the software side), same
+     regions (from Esrc/Edst), same coupling_idx. *)
+  set (mem := snapshot_mem_to_list (snap_mem ks)).
+  set (pair_count := serialized_coupling_pair_count mem coupling_idx).
+  set (label_base := S coupling_idx + 2 * pair_count).
+  set (coupling :=
+    normalize_coupling
+      (restrict_coupling_to_regions ms_src.(module_region) ms_dst.(module_region)
+        {| coupling_pairs := load_coupling_pairs_from_mem mem (S coupling_idx) pair_count;
+           coupling_label := mem_to_string mem (mem_index label_base) |})).
+  remember (rich_state_add_morph_with_coupling rs src_mod dst_mod
+              coupling.(coupling_pairs) coupling.(coupling_label) false) as addm eqn:Eaddm.
+  destruct addm as [rs' new_id].
+  assert (Hnormalize : forall c,
+    graph_add_morphism (snap_full_graph ks) src_mod dst_mod
+      (normalize_coupling c) false =
+    graph_add_morphism (snap_full_graph ks) src_mod dst_mod c false).
+  { intros [pairs label]. unfold graph_add_morphism, normalize_coupling. simpl.
+    rewrite (nodup_fixed_point _ (NoDup_nodup _ pairs)). reflexivity. }
+  rewrite <- Hnormalize.
+  unfold load_coupling_from_mem. cbn [vm_mem].
+  fold mem pair_count label_base coupling.
+  destruct (graph_add_morphism (snap_full_graph ks) src_mod dst_mod coupling false)
     as [graph' morph_id] eqn:Egam.
-  (* new_id = morph_id *)
   assert (Hid : new_id = morph_id).
-  { unfold rich_state_add_morph in Eram. inversion Eram.
-    unfold graph_add_morphism in Egam. inversion Egam.
-    unfold snap_full_graph. simpl pg_next_morph_id. reflexivity. }
-  (* Graph equality *)
+  { unfold rich_state_add_morph_with_coupling in Eaddm.
+    destruct (rich_state_add_coupling_data rs coupling.(coupling_pairs) coupling.(coupling_label))
+      as [rs1 desc_id] eqn:Eadd in Eaddm.
+    assert (Hrs1_mid : rich_next_morph_id rs1 = rich_next_morph_id rs).
+    { unfold rich_state_add_coupling_data in Eadd. inversion Eadd. reflexivity. }
+    unfold rich_state_add_morph in Eaddm.
+    inversion Eaddm; subst rs' new_id; clear Eaddm.
+    unfold graph_add_morphism in Egam. inversion Egam; subst graph' morph_id.
+    unfold snap_full_graph. simpl pg_next_morph_id.
+    rewrite Hrs1_mid. reflexivity. }
   assert (Hgeq : snap_full_graph (kami_advance_rich_morph ks dst new_id cost rs') = graph').
-  { unfold graph_add_morphism in Egam. inversion Egam; subst graph'. clear Egam.
-    unfold snap_full_graph, kami_advance_rich_morph.
-    cbn [snap_pt_next_id snap_pt_sizes snap_rich_state snap_module_tensors
-         pg_next_id pg_modules pg_next_morph_id pg_morphisms].
-    pose proof (morph_add_commutation rs src_mod dst_mod 0 false) as Hmc.
-    rewrite Eram in Hmc. rewrite Hmc. clear Hmc.
-    (* coupling under coupling_zero_empty *)
-    assert (Hcp : snapshot_coupling_pairs_from_desc rs 0 = []).
-    { unfold snapshot_coupling_pairs_from_desc. rewrite Hcze. reflexivity. }
-    rewrite Hcp.
-    (* coupling label under coupling_zero_empty *)
-    rewrite Hcze.
-    unfold rich_state_add_morph in Eram. inversion Eram; subst rs' new_id.
-    simpl rich_next_morph_id.
-    replace (rich_next_morph_id rs + 1) with (S (rich_next_morph_id rs)) by lia.
-    unfold normalize_coupling. simpl.
-    reflexivity. }
-  (* All fields match *)
+  { pose proof (morph_add_with_coupling_commutation_gen rs src_mod dst_mod
+                  coupling.(coupling_pairs) coupling.(coupling_label) false Hwcf Hcze Hsafe) as Hmc.
+    rewrite <- Eaddm in Hmc. simpl in Hmc.
+    assert (Hnext : rich_next_morph_id rs' = S (rich_next_morph_id rs)).
+    { unfold rich_state_add_morph_with_coupling in Eaddm.
+      destruct (rich_state_add_coupling_data rs coupling.(coupling_pairs) coupling.(coupling_label))
+        as [rs1 desc_id] eqn:Eadd in Eaddm.
+      assert (Hrs1_mid : rich_next_morph_id rs1 = rich_next_morph_id rs).
+      { unfold rich_state_add_coupling_data in Eadd. inversion Eadd. reflexivity. }
+      unfold rich_state_add_morph in Eaddm.
+      inversion Eaddm; subst rs' new_id; clear Eaddm.
+      simpl. rewrite Hrs1_mid. lia. }
+    unfold graph_add_morphism in Egam. inversion Egam; subst graph' morph_id. clear Egam.
+    apply partition_graph_eq; simpl.
+    - reflexivity.
+    - reflexivity.
+    - rewrite Hnext. reflexivity.
+    - unfold snap_full_graph. simpl.
+      rewrite Hmc. rewrite H1. fold rs.
+      (* normalize_coupling applied to coupling, already normalized once
+         above, is idempotent: nodup composed with itself is nodup. *)
+      unfold coupling, normalize_coupling. simpl.
+      match goal with
+      | |- context[nodup ?dec (nodup ?dec (?f))] =>
+          assert (Hnd : nodup dec (nodup dec f) = nodup dec f)
+            by (apply nodup_fixed_point, NoDup_nodup);
+          rewrite Hnd
+      end.
+      reflexivity. }
+  assert (Hnewid : new_id = rich_next_morph_id (snap_rich_state ks)).
+  { unfold rich_state_add_morph_with_coupling in Eaddm.
+    destruct (rich_state_add_coupling_data rs coupling.(coupling_pairs) coupling.(coupling_label))
+      as [rs1 desc_id] eqn:Eadd in Eaddm.
+    assert (Hrs1_mid : rich_next_morph_id rs1 = rich_next_morph_id rs).
+    { unfold rich_state_add_coupling_data in Eadd. inversion Eadd. reflexivity. }
+    unfold rich_state_add_morph in Eaddm.
+    inversion Eaddm; subst rs' new_id; clear Eaddm.
+    rewrite Hrs1_mid. reflexivity. }
   unfold advance_state_rm, apply_cost, instruction_cost.
-  subst morph_id.
+  rewrite <- Hid in *.
   rewrite Hgeq.
   unfold kami_advance_rich_morph.
   cbn [snap_regs snap_pc snap_mu snap_err snap_mem snap_mu_tensor
@@ -2534,16 +2595,20 @@ Proof.
   fold (kami_write_reg ks dst new_id).
   rewrite full_state_kami_reg_write.
   rewrite abs_full_snapshot_of_snapshot.
-  reflexivity.
+  rewrite Hnewid. fold rs.
+  unfold mem in *.
+
+reflexivity.
 Qed.
 
-(** driven_step_morph_full: reduced precondition — replaces extended_hw_invariant
-    with just coupling_zero_empty.  The proof of driven_step_morph only uses
-    Hcze from the full invariant; Hwf, Hcdaz, Hpt, and coupling_desc_safe are
-    passed in extended_hw_invariant but never referenced in the proof body. *)
+(** driven_step_morph_full: kept as a named corollary for existing callers
+    (e.g. the assumptions probe); now requires the same extended_hw_invariant
+    driven_step_morph does, since M5's real coupling decode genuinely needs
+    coupling_wf and coupling_desc_safe, not just coupling_zero_empty as the
+    empty-coupling-only version once did. *)
 Theorem driven_step_morph_full :
   forall ks dst src_mod dst_mod coupling_idx cost,
-    coupling_zero_empty (snap_rich_state ks) ->
+    extended_hw_invariant ks ->
     src_mod < snap_pt_next_id ks ->
     dst_mod < snap_pt_next_id ks ->
     negb (Nat.eqb (snap_pt_sizes ks src_mod) 0) = true ->
@@ -2553,57 +2618,7 @@ Theorem driven_step_morph_full :
     vm_apply (abs_full_snapshot (full_snapshot_of_snapshot ks))
       (instr_morph dst src_mod dst_mod coupling_idx cost).
 Proof.
-  intros ks dst src_mod dst_mod coupling_idx cost Hcze Hslt Hdlt Hsrc Hdst.
-  set (rs := snap_rich_state ks) in *.
-  destruct (snap_pt_sizes_nonzero_graph_lookup ks src_mod Hslt Hsrc) as [ms_src Esrc].
-  destruct (snap_pt_sizes_nonzero_graph_lookup ks dst_mod Hdlt Hdst) as [ms_dst Edst].
-  rewrite !abs_full_snapshot_of_snapshot.
-  unfold kami_step. fold rs.
-  rewrite Hsrc, Hdst. simpl andb.
-  destruct (rich_state_add_morph rs src_mod dst_mod 0 false) as [rs' new_id] eqn:Eram.
-  unfold vm_apply. cbn [vm_graph].
-  rewrite Esrc, Edst.
-  destruct (graph_add_morphism (snap_full_graph ks) src_mod dst_mod empty_coupling_data false)
-    as [graph' morph_id] eqn:Egam.
-  assert (Hid : new_id = morph_id).
-  { unfold rich_state_add_morph in Eram. inversion Eram.
-    unfold graph_add_morphism in Egam. inversion Egam.
-    unfold snap_full_graph. simpl pg_next_morph_id. reflexivity. }
-  assert (Hgeq : snap_full_graph (kami_advance_rich_morph ks dst new_id cost rs') = graph').
-  { unfold graph_add_morphism in Egam. inversion Egam; subst graph'. clear Egam.
-    unfold snap_full_graph, kami_advance_rich_morph.
-    cbn [snap_pt_next_id snap_pt_sizes snap_rich_state snap_module_tensors
-         pg_next_id pg_modules pg_next_morph_id pg_morphisms].
-    pose proof (morph_add_commutation rs src_mod dst_mod 0 false) as Hmc.
-    rewrite Eram in Hmc. rewrite Hmc. clear Hmc.
-    assert (Hcp : snapshot_coupling_pairs_from_desc rs 0 = []).
-    { unfold snapshot_coupling_pairs_from_desc. rewrite Hcze. reflexivity. }
-    rewrite Hcp.
-    rewrite Hcze.
-    unfold rich_state_add_morph in Eram. inversion Eram; subst rs' new_id.
-    simpl rich_next_morph_id.
-    replace (rich_next_morph_id rs + 1) with (S (rich_next_morph_id rs)) by lia.
-    unfold normalize_coupling. simpl.
-    reflexivity. }
-  unfold advance_state_rm, apply_cost, instruction_cost.
-  subst morph_id.
-  rewrite Hgeq.
-  unfold kami_advance_rich_morph.
-  cbn [snap_regs snap_pc snap_mu snap_err snap_mem snap_mu_tensor
-       snap_halted snap_certified snap_rich_state snap_pt_sizes snap_pt_next_id
-       snap_csr_cert_addr snap_csr_status snap_csr_err snap_csr_heap_base
-       snap_logic_acc snap_mstatus
-       snap_wc_same_00 snap_wc_diff_00 snap_wc_same_01 snap_wc_diff_01
-       snap_wc_same_10 snap_wc_diff_10 snap_wc_same_11 snap_wc_diff_11
-       vm_graph vm_csrs vm_regs vm_mem vm_pc vm_mu vm_mu_tensor vm_err
-       vm_logic_acc vm_mstatus vm_witness vm_certified
-       csr_cert_addr csr_status csr_err csr_heap_base
-       wc_same_00 wc_diff_00 wc_same_01 wc_diff_01
-       wc_same_10 wc_diff_10 wc_same_11 wc_diff_11].
-  fold (kami_write_reg ks dst new_id).
-  rewrite full_state_kami_reg_write.
-  rewrite abs_full_snapshot_of_snapshot.
-  reflexivity.
+  intros. apply driven_step_morph; assumption.
 Qed.
 
 (* ======================================================================
@@ -3507,7 +3522,7 @@ Proof.
         rewrite abs_full_snapshot_of_snapshot.
         rewrite Hnewid. fold rs.
         reflexivity.
-      * rewrite snap_full_graph_advance_err.
+      * rewrite ?snap_full_graph_advance_err, ?snap_full_graph_advance_err_code.
         unfold advance_state, apply_cost, instruction_cost, latch_err.
         reflexivity.
     + assert (Hgcm : graph_compose_morphisms (snap_full_graph ks) m1_id m2_id = None).
@@ -3518,7 +3533,7 @@ Proof.
       rewrite !abs_full_snapshot_of_snapshot.
       unfold kami_step. fold rs. rewrite Em1, Em2.
       unfold vm_apply. cbn [vm_graph]. rewrite Hgcm.
-      rewrite snap_full_graph_advance_err.
+      rewrite ?snap_full_graph_advance_err, ?snap_full_graph_advance_err_code.
       unfold advance_state, apply_cost, instruction_cost, latch_err.
       reflexivity.
   - assert (Hgcm : graph_compose_morphisms (snap_full_graph ks) m1_id m2_id = None).
@@ -3528,7 +3543,7 @@ Proof.
     rewrite !abs_full_snapshot_of_snapshot.
     unfold kami_step. fold rs. rewrite Em1.
     unfold vm_apply. cbn [vm_graph]. rewrite Hgcm.
-    rewrite snap_full_graph_advance_err.
+    rewrite ?snap_full_graph_advance_err, ?snap_full_graph_advance_err_code.
     unfold advance_state, apply_cost, instruction_cost, latch_err.
     reflexivity.
 Qed.
@@ -3781,7 +3796,7 @@ Proof.
       unfold graph_lookup_morphism, graph_lookup_morphism_list in Hnew. simpl in Hnew.
       rewrite Nat.eqb_refl in Hnew. discriminate.
   - unfold vm_apply. cbn [vm_graph]. rewrite Htensor.
-    rewrite snap_full_graph_advance_err.
+    rewrite ?snap_full_graph_advance_err, ?snap_full_graph_advance_err_code.
     unfold advance_state, apply_cost, instruction_cost, latch_err.
     reflexivity.
 Qed.
@@ -3797,7 +3812,8 @@ Qed.
     - CALL, RET, CHSH_TRIAL, LASSERT: conditional (runtime/structural conditions)
     - MORPH_ASSERT, MORPH_DELETE: morph_table_wf (structural invariant — necessary)
     - MORPH_GET, COMPOSE, MORPH_TENSOR: extended_hw_invariant (necessary)
-    - MORPH, MORPH_ID: coupling_zero_empty + module bounds (reduced from extended_hw_invariant)
+    - MORPH: extended_hw_invariant + module bounds
+    - MORPH_ID: coupling_zero_empty + module bounds
     - PNEW: sz>0 + tensors=0 (vestigial pt_well_formed + fresh-slot dropped by _full)
     - PSPLIT: pt_well_formed + arithmetic (vestigial morph_table_wf dropped by _full)
     - PMERGE: pt_well_formed + arithmetic (vestigial morph_table_wf dropped by _full)
@@ -3839,7 +3855,7 @@ Definition WFDrivenPrecondition (ks : KamiSnapshot) (i : vm_instruction) : Prop 
       S (snap_pt_next_id ks) <= PTableSz /\
       (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0)
   | instr_morph _ src_mod dst_mod _ _ =>
-      coupling_zero_empty (snap_rich_state ks) /\
+      extended_hw_invariant ks /\
       src_mod < snap_pt_next_id ks /\
       dst_mod < snap_pt_next_id ks /\
       negb (Nat.eqb (snap_pt_sizes ks src_mod) 0) = true /\
@@ -3902,8 +3918,8 @@ Proof.
   - destruct Hpre as [Hok Hex].
     exact (driven_step_tensor_get_full ks _ _ _ _ _ Hok Hex).
   (* instr_morph *)
-  - destruct Hpre as [Hcze [Hslt [Hdlt [Hsrc Hdst]]]].
-    exact (driven_step_morph_full ks _ _ _ _ _ Hcze Hslt Hdlt Hsrc Hdst).
+  - destruct Hpre as [Hinv [Hslt [Hdlt [Hsrc Hdst]]]].
+    exact (driven_step_morph_full ks _ _ _ _ _ Hinv Hslt Hdlt Hsrc Hdst).
   (* instr_compose *)
   - exact (driven_step_compose ks _ _ _ _ Hpre).
   (* instr_morph_id *)
@@ -3988,9 +4004,9 @@ Qed.
       - MORPH_ASSERT: [driven_step_morph_assert] — requires morph_table_wf.  Qed.
       - MORPH_GET: [driven_step_morph_get] — requires extended_hw_invariant.  Qed.
       - MORPH_DELETE: [driven_step_morph_delete] — requires morph_table_wf.  Qed.
-      - MORPH: [driven_step_morph_full] — requires coupling_zero_empty + modules exist.  Qed.
+      - MORPH: [driven_step_morph_full] requires extended_hw_invariant + modules exist.  Qed.
       - MORPH_ID: [driven_step_morph_id_full] — requires coupling_zero_empty + module exists.  Qed.
-        (Both hw and kernel use empty_coupling_data; gap fully closed; extended_hw_invariant reduced.)
+        (MORPH_ID uses empty coupling; MORPH decodes coupling from memory.)
       - PSPLIT: [driven_step_psplit] — requires pt_well_formed + space.  Qed.
       - PMERGE: [driven_step_pmerge] — requires pt_well_formed + modules exist.  Qed.
 

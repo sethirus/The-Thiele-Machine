@@ -194,6 +194,8 @@ Proof.
        try rewrite csr_set_status_cert_addr;
        try rewrite csr_set_err_cert_addr;
        reflexivity);
+  (* lassert, current ISA: a failing check sets only the CSR error flag *)
+  try (left; cbv zeta; destruct (lassert_exec_ok _ _ _ _ _); reflexivity);
   (* ljoin: cert_addr NOT set in new ISA *)
   try (left; cbv zeta; destruct (String.eqb _ _);
        rewrite advance_state_cert_addr; rewrite csr_set_err_cert_addr; reflexivity);

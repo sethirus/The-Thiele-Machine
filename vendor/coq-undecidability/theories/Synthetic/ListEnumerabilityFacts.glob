@@ -1,0 +1,744 @@
+DIGEST 7105587b2848ab1a458be96537fa7cd2
+FUndecidability.Synthetic.ListEnumerabilityFacts
+R45:61 Undecidability.Synthetic.DecidabilityFacts <> <> lib
+R63:83 Undecidability.Synthetic.SemiDecidabilityFacts <> <> lib
+R85:102 Undecidability.Synthetic.EnumerabilityFacts <> <> lib
+R120:144 Undecidability.Shared.Dec <> <> lib
+R155:160 Coq.Arith.Cantor <> <> lib
+R178:181 Coq.Lists.List <> <> lib
+R191:203 Coq.Lists.List ListNotations <> mod
+inst 226:236 <> list_in_dec
+binder 238:238 <> X:1
+R245:245 Undecidability.Synthetic.ListEnumerabilityFacts <> X:1 var
+binder 241:241 <> x:2
+R253:256 Coq.Init.Datatypes <> list ind
+R258:258 Undecidability.Synthetic.ListEnumerabilityFacts <> X:1 var
+binder 249:249 <> A:3
+R273:276 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R265:271 Undecidability.Shared.Dec <> :::'eq_dec'_x not
+R272:272 Undecidability.Synthetic.ListEnumerabilityFacts <> X:1 var
+R272:272 Undecidability.Synthetic.ListEnumerabilityFacts <> X:1 var
+R277:279 Undecidability.Shared.Dec <> dec class
+R282:283 Coq.Lists.List <> In def
+R287:287 Undecidability.Synthetic.ListEnumerabilityFacts <> A:3 var
+R285:285 Undecidability.Synthetic.ListEnumerabilityFacts <> x:2 var
+R316:321 Coq.Lists.List <> in_dec thm
+R316:321 Coq.Lists.List <> in_dec thm
+def 350:359 <> cumulative
+binder 362:362 <> X:4
+R372:375 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R369:371 Coq.Init.Datatypes <> nat ind
+R376:379 Coq.Init.Datatypes <> list ind
+R381:381 Undecidability.Synthetic.ListEnumerabilityFacts <> X:4 var
+binder 366:366 <> L:5
+binder 396:396 <> n:6
+R399:405 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R407:408 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 406:406 <> A:7
+R416:418 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R409:409 Undecidability.Synthetic.ListEnumerabilityFacts <> L:5 var
+R412:412 Coq.Init.Datatypes <> S constr
+R414:414 Undecidability.Synthetic.ListEnumerabilityFacts <> n:6 var
+R422:425 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R419:419 Undecidability.Synthetic.ListEnumerabilityFacts <> L:5 var
+R421:421 Undecidability.Synthetic.ListEnumerabilityFacts <> n:6 var
+R426:426 Undecidability.Synthetic.ListEnumerabilityFacts <> A:7 var
+R454:463 Undecidability.Synthetic.ListEnumerabilityFacts <> cumulative def
+prf 507:512 <> cum_ge
+binder 515:515 <> X:8
+R525:528 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R522:524 Coq.Init.Datatypes <> nat ind
+R529:532 Coq.Init.Datatypes <> list ind
+R534:534 Undecidability.Synthetic.ListEnumerabilityFacts <> X:8 var
+binder 519:519 <> L:9
+binder 538:538 <> n:10
+binder 540:540 <> m:11
+R559:562 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R547:556 Undecidability.Synthetic.ListEnumerabilityFacts <> cumulative def
+R558:558 Undecidability.Synthetic.ListEnumerabilityFacts <> L:9 var
+R569:572 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R564:567 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R563:563 Undecidability.Synthetic.ListEnumerabilityFacts <> m:11 var
+R568:568 Undecidability.Synthetic.ListEnumerabilityFacts <> n:10 var
+R573:579 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R581:582 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 580:580 <> A:12
+R586:588 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R583:583 Undecidability.Synthetic.ListEnumerabilityFacts <> L:9 var
+R585:585 Undecidability.Synthetic.ListEnumerabilityFacts <> m:11 var
+R592:595 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R589:589 Undecidability.Synthetic.ListEnumerabilityFacts <> L:9 var
+R591:591 Undecidability.Synthetic.ListEnumerabilityFacts <> n:10 var
+R596:596 Undecidability.Synthetic.ListEnumerabilityFacts <> A:12 var
+R645:647 Coq.Init.Datatypes <> nil constr
+R645:647 Coq.Init.Datatypes <> nil constr
+R662:670 Coq.Lists.List <> app_nil_r thm
+R662:670 Coq.Lists.List <> app_nil_r thm
+R662:670 Coq.Lists.List <> app_nil_r thm
+R730:733 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R730:733 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R750:758 Coq.Lists.List <> app_assoc thm
+R750:758 Coq.Lists.List <> app_assoc thm
+R750:758 Coq.Lists.List <> app_assoc thm
+prf 773:779 <> cum_ge'
+binder 782:782 <> X:13
+R792:795 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R789:791 Coq.Init.Datatypes <> nat ind
+R796:799 Coq.Init.Datatypes <> list ind
+R801:801 Undecidability.Synthetic.ListEnumerabilityFacts <> X:13 var
+binder 786:786 <> L:14
+binder 805:805 <> x:15
+binder 807:807 <> n:16
+binder 809:809 <> m:17
+R828:831 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R816:825 Undecidability.Synthetic.ListEnumerabilityFacts <> cumulative def
+R827:827 Undecidability.Synthetic.ListEnumerabilityFacts <> L:14 var
+R842:845 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R832:833 Coq.Lists.List <> In def
+R838:838 Undecidability.Synthetic.ListEnumerabilityFacts <> L:14 var
+R840:840 Undecidability.Synthetic.ListEnumerabilityFacts <> n:16 var
+R835:835 Undecidability.Synthetic.ListEnumerabilityFacts <> x:15 var
+R852:855 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R847:850 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R846:846 Undecidability.Synthetic.ListEnumerabilityFacts <> m:17 var
+R851:851 Undecidability.Synthetic.ListEnumerabilityFacts <> n:16 var
+R856:857 Coq.Lists.List <> In def
+R862:862 Undecidability.Synthetic.ListEnumerabilityFacts <> L:14 var
+R864:864 Undecidability.Synthetic.ListEnumerabilityFacts <> m:17 var
+R859:859 Undecidability.Synthetic.ListEnumerabilityFacts <> x:15 var
+R898:903 Undecidability.Synthetic.ListEnumerabilityFacts <> cum_ge thm
+R898:903 Undecidability.Synthetic.ListEnumerabilityFacts <> cum_ge thm
+R922:931 Coq.Lists.List <> in_app_iff thm
+R922:931 Coq.Lists.List <> in_app_iff thm
+def 965:979 <> list_enumerator
+binder 982:982 <> X:18
+R992:995 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R989:991 Coq.Init.Datatypes <> nat ind
+R996:999 Coq.Init.Datatypes <> list ind
+R1001:1001 Undecidability.Synthetic.ListEnumerabilityFacts <> X:18 var
+binder 986:986 <> L:19
+R1010:1013 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1009:1009 Undecidability.Synthetic.ListEnumerabilityFacts <> X:18 var
+binder 1005:1005 <> p:20
+binder 1032:1032 <> x:21
+R1038:1042 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1035:1035 Undecidability.Synthetic.ListEnumerabilityFacts <> p:20 var
+R1037:1037 Undecidability.Synthetic.ListEnumerabilityFacts <> x:21 var
+R1043:1049 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1051:1052 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1050:1050 <> m:22
+R1053:1054 Coq.Lists.List <> In def
+R1059:1059 Undecidability.Synthetic.ListEnumerabilityFacts <> L:19 var
+R1061:1061 Undecidability.Synthetic.ListEnumerabilityFacts <> m:22 var
+R1056:1056 Undecidability.Synthetic.ListEnumerabilityFacts <> x:21 var
+def 1076:1090 <> list_enumerable
+binder 1093:1093 <> X:23
+R1102:1105 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1101:1101 Undecidability.Synthetic.ListEnumerabilityFacts <> X:23 var
+binder 1097:1097 <> p:24
+R1117:1123 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1125:1126 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1124:1124 <> L:25
+R1127:1141 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator def
+R1145:1145 Undecidability.Synthetic.ListEnumerabilityFacts <> p:24 var
+R1143:1143 Undecidability.Synthetic.ListEnumerabilityFacts <> L:25 var
+def 1160:1178 <> list_enumerator__T'
+binder 1180:1180 <> X:26
+binder 1182:1182 <> f:27
+R1198:1198 Undecidability.Synthetic.ListEnumerabilityFacts <> X:26 var
+binder 1194:1194 <> x:28
+R1201:1207 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1215:1216 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1212:1214 Coq.Init.Datatypes <> nat ind
+binder 1208:1208 <> n:29
+R1217:1218 Coq.Lists.List <> In def
+R1223:1223 Undecidability.Synthetic.ListEnumerabilityFacts <> f:27 var
+R1225:1225 Undecidability.Synthetic.ListEnumerabilityFacts <> n:29 var
+R1220:1220 Undecidability.Synthetic.ListEnumerabilityFacts <> x:28 var
+abbrev 1238:1255 <> list_enumerator__T
+R1265:1283 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator__T' def
+def 1302:1319 <> list_enumerable__T
+binder 1321:1321 <> X:30
+R1326:1332 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1350:1351 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1340:1343 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1337:1339 Coq.Init.Datatypes <> nat ind
+R1344:1347 Coq.Init.Datatypes <> list ind
+R1349:1349 Undecidability.Synthetic.ListEnumerabilityFacts <> X:30 var
+binder 1333:1333 <> f:31
+R1352:1369 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator__T abbrev
+R1373:1373 Undecidability.Synthetic.ListEnumerabilityFacts <> X:30 var
+R1371:1371 Undecidability.Synthetic.ListEnumerabilityFacts <> f:31 var
+def 1387:1408 <> inf_list_enumerable__T
+binder 1410:1410 <> X:32
+R1415:1416 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R1418:1420 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R1434:1436 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R1459:1460 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R1424:1427 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1421:1423 Coq.Init.Datatypes <> nat ind
+R1428:1431 Coq.Init.Datatypes <> list ind
+R1433:1433 Undecidability.Synthetic.ListEnumerabilityFacts <> X:32 var
+binder 1417:1417 <> f:33
+R1437:1454 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator__T abbrev
+R1458:1458 Undecidability.Synthetic.ListEnumerabilityFacts <> X:32 var
+R1456:1456 Undecidability.Synthetic.ListEnumerabilityFacts <> f:33 var
+sec 1472:1497 <> enumerator_list_enumerator
+var 1512:1512 enumerator_list_enumerator X
+var 1533:1533 enumerator_list_enumerator p
+R1538:1541 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1537:1537 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_list_enumerator.X var
+var 1561:1561 enumerator_list_enumerator e
+R1568:1571 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1565:1567 Coq.Init.Datatypes <> nat ind
+R1572:1577 Coq.Init.Datatypes <> option ind
+R1579:1579 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_list_enumerator.X var
+var 1590:1590 enumerator_list_enumerator T
+R1597:1599 Coq.Init.Datatypes <> nat ind
+binder 1593:1593 <> n:37
+R1604:1607 Coq.Init.Datatypes <> list ind
+R1609:1609 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_list_enumerator.X var
+R1621:1621 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_list_enumerator.e var
+R1623:1623 Undecidability.Synthetic.ListEnumerabilityFacts <> n:37 var
+R1630:1633 Coq.Init.Datatypes <> Some constr
+R1640:1640 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1642:1642 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1646:1649 Coq.Init.Datatypes <> None constr
+R1654:1655 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 1671:1699 <> enumerator_to_list_enumerator
+binder 1710:1710 <> x:38
+R1713:1713 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1736:1742 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1763:1763 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1714:1720 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1722:1723 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1721:1721 <> n:39
+R1727:1729 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1724:1724 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_list_enumerator.e var
+R1726:1726 Undecidability.Synthetic.ListEnumerabilityFacts <> n:39 var
+R1730:1733 Coq.Init.Datatypes <> Some constr
+R1735:1735 Undecidability.Synthetic.ListEnumerabilityFacts <> x:38 var
+R1743:1749 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1751:1752 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1750:1750 <> n:40
+R1753:1754 Coq.Lists.List <> In def
+R1759:1759 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_list_enumerator.T var
+R1761:1761 Undecidability.Synthetic.ListEnumerabilityFacts <> n:40 var
+R1756:1756 Undecidability.Synthetic.ListEnumerabilityFacts <> x:38 var
+R1823:1823 Undecidability.Synthetic.ListEnumerabilityFacts <> T vardef
+R1862:1862 Undecidability.Synthetic.ListEnumerabilityFacts <> T vardef
+R1880:1880 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_list_enumerator.e var
+R1880:1880 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_list_enumerator.e var
+R1958:1983 Undecidability.Synthetic.ListEnumerabilityFacts enumerator_list_enumerator <> sec
+prf 1993:2018 <> enumerable_list_enumerable
+binder 2021:2021 <> X:41
+R2030:2033 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2029:2029 Undecidability.Synthetic.ListEnumerabilityFacts <> X:41 var
+binder 2025:2025 <> p:42
+R2056:2059 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2044:2053 Undecidability.Synthetic.Definitions <> enumerable def
+R2055:2055 Undecidability.Synthetic.ListEnumerabilityFacts <> p:42 var
+R2060:2074 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerable def
+R2076:2076 Undecidability.Synthetic.ListEnumerabilityFacts <> p:42 var
+R2121:2135 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator def
+R2161:2189 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_to_list_enumerator thm
+R2161:2189 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_to_list_enumerator thm
+R2161:2189 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_to_list_enumerator thm
+prf 2217:2245 <> enumerable__T_list_enumerable
+binder 2248:2248 <> X:43
+R2270:2273 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2255:2267 Undecidability.Synthetic.EnumerabilityFacts <> enumerable__T def
+R2269:2269 Undecidability.Synthetic.ListEnumerabilityFacts <> X:43 var
+R2274:2291 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerable__T def
+R2293:2293 Undecidability.Synthetic.ListEnumerabilityFacts <> X:43 var
+R2338:2352 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator def
+R2378:2406 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_to_list_enumerator thm
+R2378:2406 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_to_list_enumerator thm
+R2378:2406 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_to_list_enumerator thm
+sec 2436:2461 <> enumerator_list_enumerator
+var 2476:2476 enumerator_list_enumerator X
+var 2499:2499 enumerator_list_enumerator T
+R2506:2509 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2503:2505 Coq.Init.Datatypes <> nat ind
+R2510:2513 Coq.Init.Datatypes <> list ind
+R2515:2515 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_list_enumerator.X var
+var 2526:2526 enumerator_list_enumerator e
+R2533:2535 Coq.Init.Datatypes <> nat ind
+binder 2529:2529 <> n:46
+R2540:2545 Coq.Init.Datatypes <> option ind
+R2547:2547 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_list_enumerator.X var
+R2570:2582 Coq.Arith.Cantor <> of_nat def
+R2584:2584 Undecidability.Synthetic.ListEnumerabilityFacts <> n:46 var
+binder 2561:2561 <> n:47
+binder 2564:2564 <> m:48
+R2593:2601 Coq.Lists.List <> nth_error def
+R2609:2609 Undecidability.Synthetic.ListEnumerabilityFacts <> m:48 var
+R2604:2604 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_list_enumerator.T var
+R2606:2606 Undecidability.Synthetic.ListEnumerabilityFacts <> n:47 var
+prf 2621:2649 <> list_enumerator_to_enumerator
+binder 2660:2660 <> x:49
+R2663:2663 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2686:2692 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2713:2713 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2664:2670 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2672:2673 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2671:2671 <> n:50
+R2677:2679 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2674:2674 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_list_enumerator.e var
+R2676:2676 Undecidability.Synthetic.ListEnumerabilityFacts <> n:50 var
+R2680:2683 Coq.Init.Datatypes <> Some constr
+R2685:2685 Undecidability.Synthetic.ListEnumerabilityFacts <> x:49 var
+R2693:2699 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2701:2702 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2700:2700 <> n:51
+R2703:2704 Coq.Lists.List <> In def
+R2709:2709 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_list_enumerator.T var
+R2711:2711 Undecidability.Synthetic.ListEnumerabilityFacts <> n:51 var
+R2706:2706 Undecidability.Synthetic.ListEnumerabilityFacts <> x:49 var
+R2763:2763 Undecidability.Synthetic.ListEnumerabilityFacts <> e vardef
+R2787:2799 Coq.Arith.Cantor <> of_nat def
+R2787:2799 Coq.Arith.Cantor <> of_nat def
+R2839:2850 Coq.Lists.List <> nth_error_In thm
+R2839:2850 Coq.Lists.List <> nth_error_In thm
+R2873:2873 Undecidability.Synthetic.ListEnumerabilityFacts <> e vardef
+R2894:2905 Coq.Lists.List <> In_nth_error thm
+R2894:2905 Coq.Lists.List <> In_nth_error thm
+R2934:2946 Coq.Arith.Cantor <> to_nat def
+R2948:2948 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2950:2951 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2953:2953 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2934:2946 Coq.Arith.Cantor <> to_nat def
+R2948:2948 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2950:2951 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2953:2953 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2969:2987 Coq.Arith.Cantor <> cancel_of_to thm
+R2969:2987 Coq.Arith.Cantor <> cancel_of_to thm
+R2969:2987 Coq.Arith.Cantor <> cancel_of_to thm
+R3005:3030 Undecidability.Synthetic.ListEnumerabilityFacts enumerator_list_enumerator <> sec
+prf 3040:3065 <> list_enumerator_enumerator
+binder 3068:3068 <> X:52
+R3077:3080 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3076:3076 Undecidability.Synthetic.ListEnumerabilityFacts <> X:52 var
+binder 3072:3072 <> p:53
+binder 3088:3088 <> T:54
+R3114:3117 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3095:3109 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator def
+R3113:3113 Undecidability.Synthetic.ListEnumerabilityFacts <> p:53 var
+R3111:3111 Undecidability.Synthetic.ListEnumerabilityFacts <> T:54 var
+R3118:3127 Undecidability.Synthetic.Definitions <> enumerator def
+R3195:3195 Undecidability.Synthetic.ListEnumerabilityFacts <> p:53 var
+binder 3134:3134 <> n:55
+R3153:3165 Coq.Arith.Cantor <> of_nat def
+R3167:3167 Undecidability.Synthetic.ListEnumerabilityFacts <> n:55 var
+binder 3144:3144 <> n:56
+binder 3147:3147 <> m:57
+R3176:3184 Coq.Lists.List <> nth_error def
+R3192:3192 Undecidability.Synthetic.ListEnumerabilityFacts <> m:57 var
+R3187:3187 Undecidability.Synthetic.ListEnumerabilityFacts <> T:54 var
+R3189:3189 Undecidability.Synthetic.ListEnumerabilityFacts <> n:56 var
+R3214:3228 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator def
+R3253:3281 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator_to_enumerator thm
+R3253:3281 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator_to_enumerator thm
+R3253:3281 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator_to_enumerator thm
+prf 3303:3328 <> list_enumerable_enumerable
+binder 3331:3331 <> X:58
+R3340:3343 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3339:3339 Undecidability.Synthetic.ListEnumerabilityFacts <> X:58 var
+binder 3335:3335 <> p:59
+R3371:3374 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3354:3368 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerable def
+R3370:3370 Undecidability.Synthetic.ListEnumerabilityFacts <> p:59 var
+R3375:3384 Undecidability.Synthetic.Definitions <> enumerable def
+R3386:3386 Undecidability.Synthetic.ListEnumerabilityFacts <> p:59 var
+R3431:3445 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator def
+R3468:3496 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator_to_enumerator thm
+R3468:3496 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator_to_enumerator thm
+R3468:3496 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator_to_enumerator thm
+prf 3524:3552 <> list_enumerable__T_enumerable
+binder 3555:3555 <> X:60
+R3582:3585 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3562:3579 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerable__T def
+R3581:3581 Undecidability.Synthetic.ListEnumerabilityFacts <> X:60 var
+R3586:3598 Undecidability.Synthetic.EnumerabilityFacts <> enumerable__T def
+R3600:3600 Undecidability.Synthetic.ListEnumerabilityFacts <> X:60 var
+R3645:3659 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator def
+R3682:3710 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator_to_enumerator thm
+R3682:3710 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator_to_enumerator thm
+R3682:3710 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator_to_enumerator thm
+prf 3738:3747 <> enum_enumT
+binder 3750:3750 <> X:61
+R3772:3776 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3757:3769 Undecidability.Synthetic.EnumerabilityFacts <> enumerable__T def
+R3771:3771 Undecidability.Synthetic.ListEnumerabilityFacts <> X:61 var
+R3777:3794 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerable__T def
+R3796:3796 Undecidability.Synthetic.ListEnumerabilityFacts <> X:61 var
+R3824:3852 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerable__T_list_enumerable thm
+R3824:3852 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerable__T_list_enumerable thm
+R3864:3892 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerable__T_enumerable thm
+R3864:3892 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerable__T_enumerable thm
+def 3912:3919 <> to_cumul
+binder 3922:3922 <> X:62
+R3933:3936 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3930:3932 Coq.Init.Datatypes <> nat ind
+R3937:3940 Coq.Init.Datatypes <> list ind
+R3942:3942 Undecidability.Synthetic.ListEnumerabilityFacts <> X:62 var
+binder 3926:3926 <> L:63
+binder 3954:3954 <> n:64
+R3967:3967 Undecidability.Synthetic.ListEnumerabilityFacts <> n:64 var
+R3979:3980 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3984:3984 Coq.Init.Datatypes <> S constr
+R3994:3997 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3991:3991 Undecidability.Synthetic.ListEnumerabilityFacts <> f:65 var
+R3993:3993 Undecidability.Synthetic.ListEnumerabilityFacts <> n:64 var
+R3998:3998 Undecidability.Synthetic.ListEnumerabilityFacts <> L:63 var
+R4000:4000 Undecidability.Synthetic.ListEnumerabilityFacts <> n:64 var
+prf 4014:4032 <> to_cumul_cumulative
+binder 4035:4035 <> X:67
+R4046:4049 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4043:4045 Coq.Init.Datatypes <> nat ind
+R4050:4053 Coq.Init.Datatypes <> list ind
+R4055:4055 Undecidability.Synthetic.ListEnumerabilityFacts <> X:67 var
+binder 4039:4039 <> L:68
+R4062:4071 Undecidability.Synthetic.ListEnumerabilityFacts <> cumulative def
+R4074:4081 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul def
+R4083:4083 Undecidability.Synthetic.ListEnumerabilityFacts <> L:68 var
+prf 4115:4127 <> to_cumul_spec
+binder 4130:4130 <> X:69
+R4141:4144 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4138:4140 Coq.Init.Datatypes <> nat ind
+R4145:4148 Coq.Init.Datatypes <> list ind
+R4150:4150 Undecidability.Synthetic.ListEnumerabilityFacts <> X:69 var
+binder 4134:4134 <> L:70
+binder 4153:4153 <> x:71
+R4159:4159 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4180:4185 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4160:4166 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4168:4169 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4167:4167 <> n:72
+R4170:4171 Coq.Lists.List <> In def
+R4176:4176 Undecidability.Synthetic.ListEnumerabilityFacts <> L:70 var
+R4178:4178 Undecidability.Synthetic.ListEnumerabilityFacts <> n:72 var
+R4173:4173 Undecidability.Synthetic.ListEnumerabilityFacts <> x:71 var
+R4186:4192 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4194:4195 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4193:4193 <> n:73
+R4196:4197 Coq.Lists.List <> In def
+R4202:4209 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul def
+R4213:4213 Undecidability.Synthetic.ListEnumerabilityFacts <> n:73 var
+R4211:4211 Undecidability.Synthetic.ListEnumerabilityFacts <> L:70 var
+R4199:4199 Undecidability.Synthetic.ListEnumerabilityFacts <> x:71 var
+R4263:4263 Coq.Init.Datatypes <> S constr
+R4263:4263 Coq.Init.Datatypes <> S constr
+R4281:4290 Coq.Lists.List <> in_app_iff thm
+R4281:4290 Coq.Lists.List <> in_app_iff thm
+R4377:4386 Coq.Lists.List <> in_app_iff thm
+R4377:4386 Coq.Lists.List <> in_app_iff thm
+prf 4424:4431 <> cumul_In
+binder 4434:4434 <> X:74
+R4445:4448 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4442:4444 Coq.Init.Datatypes <> nat ind
+R4449:4452 Coq.Init.Datatypes <> list ind
+R4454:4454 Undecidability.Synthetic.ListEnumerabilityFacts <> X:74 var
+binder 4438:4438 <> L:75
+binder 4457:4457 <> x:76
+binder 4459:4459 <> n:77
+R4475:4478 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4465:4466 Coq.Lists.List <> In def
+R4471:4471 Undecidability.Synthetic.ListEnumerabilityFacts <> L:75 var
+R4473:4473 Undecidability.Synthetic.ListEnumerabilityFacts <> n:77 var
+R4468:4468 Undecidability.Synthetic.ListEnumerabilityFacts <> x:76 var
+R4479:4480 Coq.Lists.List <> In def
+R4485:4492 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul def
+R4497:4497 Coq.Init.Datatypes <> S constr
+R4499:4499 Undecidability.Synthetic.ListEnumerabilityFacts <> n:77 var
+R4494:4494 Undecidability.Synthetic.ListEnumerabilityFacts <> L:75 var
+R4482:4482 Undecidability.Synthetic.ListEnumerabilityFacts <> x:76 var
+R4535:4544 Coq.Lists.List <> in_app_iff thm
+R4535:4544 Coq.Lists.List <> in_app_iff thm
+prf 4566:4573 <> In_cumul
+binder 4576:4576 <> X:78
+R4587:4590 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4584:4586 Coq.Init.Datatypes <> nat ind
+R4591:4594 Coq.Init.Datatypes <> list ind
+R4596:4596 Undecidability.Synthetic.ListEnumerabilityFacts <> X:78 var
+binder 4580:4580 <> L:79
+binder 4599:4599 <> x:80
+binder 4601:4601 <> n:81
+R4626:4629 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4607:4608 Coq.Lists.List <> In def
+R4613:4620 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul def
+R4624:4624 Undecidability.Synthetic.ListEnumerabilityFacts <> n:81 var
+R4622:4622 Undecidability.Synthetic.ListEnumerabilityFacts <> L:79 var
+R4610:4610 Undecidability.Synthetic.ListEnumerabilityFacts <> x:80 var
+R4630:4636 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4638:4639 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4637:4637 <> n:82
+R4640:4641 Coq.Lists.List <> In def
+R4646:4646 Undecidability.Synthetic.ListEnumerabilityFacts <> L:79 var
+R4648:4648 Undecidability.Synthetic.ListEnumerabilityFacts <> n:82 var
+R4643:4643 Undecidability.Synthetic.ListEnumerabilityFacts <> x:80 var
+R4678:4690 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul_spec thm
+R4678:4690 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul_spec thm
+prf 4762:4785 <> list_enumerator_to_cumul
+binder 4788:4788 <> X:83
+R4797:4800 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4796:4796 Undecidability.Synthetic.ListEnumerabilityFacts <> X:83 var
+binder 4792:4792 <> p:84
+binder 4808:4808 <> L:85
+R4834:4837 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4815:4829 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator def
+R4833:4833 Undecidability.Synthetic.ListEnumerabilityFacts <> p:84 var
+R4831:4831 Undecidability.Synthetic.ListEnumerabilityFacts <> L:85 var
+R4838:4852 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator def
+R4867:4867 Undecidability.Synthetic.ListEnumerabilityFacts <> p:84 var
+R4855:4862 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul def
+R4864:4864 Undecidability.Synthetic.ListEnumerabilityFacts <> L:85 var
+R4887:4901 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator def
+R4934:4946 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul_spec thm
+R4934:4946 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul_spec thm
+prf 4961:4973 <> cumul_spec__T
+binder 4976:4976 <> X:86
+binder 4980:4980 <> L:87
+R5009:5012 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4987:5004 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator__T abbrev
+R5008:5008 Undecidability.Synthetic.ListEnumerabilityFacts <> X:86 var
+R5006:5006 Undecidability.Synthetic.ListEnumerabilityFacts <> L:87 var
+R5013:5030 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator__T abbrev
+R5045:5045 Undecidability.Synthetic.ListEnumerabilityFacts <> X:86 var
+R5033:5040 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul def
+R5042:5042 Undecidability.Synthetic.ListEnumerabilityFacts <> L:87 var
+R5064:5081 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator__T' def
+R5109:5121 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul_spec thm
+R5109:5121 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul_spec thm
+R5109:5121 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul_spec thm
+prf 5136:5145 <> cumul_spec
+binder 5148:5148 <> X:88
+binder 5152:5152 <> L:89
+R5161:5164 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5160:5160 Undecidability.Synthetic.ListEnumerabilityFacts <> X:88 var
+binder 5156:5156 <> p:90
+R5194:5197 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5175:5189 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator def
+R5193:5193 Undecidability.Synthetic.ListEnumerabilityFacts <> p:90 var
+R5191:5191 Undecidability.Synthetic.ListEnumerabilityFacts <> L:89 var
+R5198:5212 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator def
+R5227:5227 Undecidability.Synthetic.ListEnumerabilityFacts <> p:90 var
+R5215:5222 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul def
+R5224:5224 Undecidability.Synthetic.ListEnumerabilityFacts <> L:89 var
+R5246:5260 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator def
+R5288:5300 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul_spec thm
+R5288:5300 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul_spec thm
+R5288:5300 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul_spec thm
+abbrev 5318:5322 <> cumul
+R5328:5335 Undecidability.Synthetic.ListEnumerabilityFacts <> to_cumul def
+sec 5348:5357 <> L_list_def
+binder 5371:5371 <> X:91
+var 5394:5394 L_list_def L
+R5401:5404 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5398:5400 Coq.Init.Datatypes <> nat ind
+R5405:5408 Coq.Init.Datatypes <> list ind
+R5410:5410 Undecidability.Synthetic.ListEnumerabilityFacts <> L_list_def.X var
+def 5424:5429 <> L_list
+R5436:5438 Coq.Init.Datatypes <> nat ind
+binder 5432:5432 <> n:93
+R5443:5446 Coq.Init.Datatypes <> list ind
+R5449:5452 Coq.Init.Datatypes <> list ind
+R5454:5454 Undecidability.Synthetic.ListEnumerabilityFacts <> L_list_def.X var
+R5468:5468 Undecidability.Synthetic.ListEnumerabilityFacts <> n:93 var
+R5486:5487 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5490:5491 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5488:5489 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5497:5497 Coq.Init.Datatypes <> S constr
+R5512:5515 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5504:5509 Undecidability.Synthetic.ListEnumerabilityFacts <> L_list:94 def
+R5511:5511 Undecidability.Synthetic.ListEnumerabilityFacts <> n:93 var
+R5516:5518 Coq.Lists.List <> map def
+R5545:5553 Coq.Lists.List <> list_prod def
+R5568:5573 Undecidability.Synthetic.ListEnumerabilityFacts <> L_list:94 def
+R5575:5575 Undecidability.Synthetic.ListEnumerabilityFacts <> n:93 var
+R5556:5560 Undecidability.Synthetic.ListEnumerabilityFacts <> cumul abbrev
+R5564:5564 Undecidability.Synthetic.ListEnumerabilityFacts <> n:93 var
+R5562:5562 Undecidability.Synthetic.ListEnumerabilityFacts <> L_list_def.L var
+R5526:5526 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5528:5529 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5531:5531 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 5530:5530 <> L:96
+binder 5527:5527 <> x:97
+binder 5526:5531 <> pat:98
+R5537:5540 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5536:5536 Undecidability.Synthetic.ListEnumerabilityFacts <> x:97 var
+R5541:5541 Undecidability.Synthetic.ListEnumerabilityFacts <> L:96 var
+R5590:5599 Undecidability.Synthetic.ListEnumerabilityFacts L_list_def <> sec
+prf 5609:5625 <> L_list_cumulative
+binder 5628:5628 <> X:99
+binder 5631:5631 <> L:100
+R5635:5644 Undecidability.Synthetic.ListEnumerabilityFacts <> cumulative def
+R5648:5653 Undecidability.Synthetic.ListEnumerabilityFacts <> L_list def
+R5655:5655 Undecidability.Synthetic.ListEnumerabilityFacts <> X:99 var
+R5657:5657 Undecidability.Synthetic.ListEnumerabilityFacts <> L:100 var
+prf 5705:5722 <> enumerator__T_list
+binder 5725:5725 <> X:101
+binder 5728:5728 <> L:102
+R5756:5759 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5734:5751 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator__T abbrev
+R5755:5755 Undecidability.Synthetic.ListEnumerabilityFacts <> X:101 var
+R5753:5753 Undecidability.Synthetic.ListEnumerabilityFacts <> L:102 var
+R5760:5777 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator__T abbrev
+R5791:5794 Coq.Init.Datatypes <> list ind
+R5796:5796 Undecidability.Synthetic.ListEnumerabilityFacts <> X:101 var
+R5780:5785 Undecidability.Synthetic.ListEnumerabilityFacts <> L_list def
+R5787:5787 Undecidability.Synthetic.ListEnumerabilityFacts <> L:102 var
+R5904:5916 Undecidability.Synthetic.ListEnumerabilityFacts <> cumul_spec__T thm
+R5904:5916 Undecidability.Synthetic.ListEnumerabilityFacts <> cumul_spec__T thm
+R5950:5952 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5946:5948 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5950:5952 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5946:5948 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5976:5985 Coq.Lists.List <> in_app_iff thm
+R5976:5985 Coq.Lists.List <> in_app_iff thm
+R6006:6011 Coq.Lists.List <> in_map thm
+R6039:6039 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6041:6042 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6044:6044 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6019:6019 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6021:6022 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6024:6024 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 6023:6023 <> L:103
+binder 6020:6020 <> x:104
+binder 6019:6024 <> pat:105
+R6030:6033 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6029:6029 Undecidability.Synthetic.ListEnumerabilityFacts <> x:104 var
+R6034:6034 Undecidability.Synthetic.ListEnumerabilityFacts <> L:103 var
+R6006:6011 Coq.Lists.List <> in_map thm
+R6039:6039 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6041:6042 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6044:6044 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6019:6019 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6021:6022 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6024:6024 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 6023:6023 <> L:106
+binder 6020:6020 <> x:107
+binder 6019:6024 <> pat:108
+R6030:6033 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6029:6029 Undecidability.Synthetic.ListEnumerabilityFacts <> x:107 var
+R6034:6034 Undecidability.Synthetic.ListEnumerabilityFacts <> L:106 var
+R6058:6064 Coq.Lists.List <> in_prod thm
+R6058:6064 Coq.Lists.List <> in_prod thm
+R6083:6089 Undecidability.Synthetic.ListEnumerabilityFacts <> cum_ge' thm
+R6104:6120 Undecidability.Synthetic.ListEnumerabilityFacts <> L_list_cumulative thm
+R6083:6089 Undecidability.Synthetic.ListEnumerabilityFacts <> cum_ge' thm
+R6083:6089 Undecidability.Synthetic.ListEnumerabilityFacts <> cum_ge' thm
+R6104:6120 Undecidability.Synthetic.ListEnumerabilityFacts <> L_list_cumulative thm
+R6104:6120 Undecidability.Synthetic.ListEnumerabilityFacts <> L_list_cumulative thm
+R6104:6120 Undecidability.Synthetic.ListEnumerabilityFacts <> L_list_cumulative thm
+R6104:6120 Undecidability.Synthetic.ListEnumerabilityFacts <> L_list_cumulative thm
+R6104:6120 Undecidability.Synthetic.ListEnumerabilityFacts <> L_list_cumulative thm
+R6104:6120 Undecidability.Synthetic.ListEnumerabilityFacts <> L_list_cumulative thm
+prf 6141:6155 <> enumerable_list
+binder 6158:6158 <> X:109
+R6183:6186 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6163:6180 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerable__T def
+R6182:6182 Undecidability.Synthetic.ListEnumerabilityFacts <> X:109 var
+R6187:6204 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerable__T def
+R6207:6210 Coq.Init.Datatypes <> list ind
+R6212:6212 Undecidability.Synthetic.ListEnumerabilityFacts <> X:109 var
+R6261:6278 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator__T_list thm
+R6261:6278 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator__T_list thm
+R6335:6349 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator def
+R6335:6349 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator def
+R6406:6430 Undecidability.Shared.Dec <> <> lib
+def 6465:6467 <> L_T
+binder 6470:6470 <> X:110
+R6488:6491 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6485:6487 Coq.Init.Datatypes <> nat ind
+R6492:6495 Coq.Init.Datatypes <> list ind
+R6497:6497 Undecidability.Synthetic.ListEnumerabilityFacts <> X:110 var
+binder 6481:6481 <> f:111
+R6505:6522 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator__T abbrev
+R6526:6526 Undecidability.Synthetic.ListEnumerabilityFacts <> X:110 var
+R6524:6524 Undecidability.Synthetic.ListEnumerabilityFacts <> f:111 var
+binder 6501:6501 <> H:112
+R6534:6537 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6531:6533 Coq.Init.Datatypes <> nat ind
+R6538:6541 Coq.Init.Datatypes <> list ind
+R6543:6543 Undecidability.Synthetic.ListEnumerabilityFacts <> X:110 var
+R6562:6566 Undecidability.Synthetic.ListEnumerabilityFacts <> cumul abbrev
+R6562:6566 Undecidability.Synthetic.ListEnumerabilityFacts <> cumul abbrev
+R6591:6593 Undecidability.Synthetic.ListEnumerabilityFacts <> L_T def
+R6591:6593 Undecidability.Synthetic.ListEnumerabilityFacts <> L_T def
+R6638:6640 Undecidability.Synthetic.ListEnumerabilityFacts <> L_T def
+R6706:6724 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator__T' def
+def 6739:6742 <> el_T
+binder 6745:6745 <> X:113
+binder 6749:6749 <> f:114
+R6754:6771 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator__T abbrev
+R6775:6775 Undecidability.Synthetic.ListEnumerabilityFacts <> X:113 var
+R6773:6773 Undecidability.Synthetic.ListEnumerabilityFacts <> f:114 var
+binder 6754:6775 <> list_enumerator__T0:115
+R6780:6797 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator__T abbrev
+R6803:6803 Undecidability.Synthetic.ListEnumerabilityFacts <> X:113 var
+R6799:6801 Undecidability.Synthetic.ListEnumerabilityFacts <> L_T def
+R6826:6838 Undecidability.Synthetic.ListEnumerabilityFacts <> cumul_spec__T thm
+R6826:6838 Undecidability.Synthetic.ListEnumerabilityFacts <> cumul_spec__T thm
+R6879:6896 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator__T_list thm
+inst 6919:6939 <> enumerator__T_to_list
+binder 6942:6942 <> X:116
+binder 6946:6946 <> f:117
+R6975:6978 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6953:6970 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator__T abbrev
+R6974:6974 Undecidability.Synthetic.ListEnumerabilityFacts <> X:116 var
+R6972:6972 Undecidability.Synthetic.ListEnumerabilityFacts <> f:117 var
+R6979:6991 Undecidability.Synthetic.EnumerabilityFacts <> enumerator__T abbrev
+R7055:7055 Undecidability.Synthetic.ListEnumerabilityFacts <> X:116 var
+binder 6998:6998 <> n:118
+R7017:7029 Coq.Arith.Cantor <> of_nat def
+R7031:7031 Undecidability.Synthetic.ListEnumerabilityFacts <> n:118 var
+binder 7008:7008 <> n:119
+binder 7011:7011 <> m:120
+R7036:7044 Coq.Lists.List <> nth_error def
+R7052:7052 Undecidability.Synthetic.ListEnumerabilityFacts <> m:120 var
+R7047:7047 Undecidability.Synthetic.ListEnumerabilityFacts <> f:117 var
+R7049:7049 Undecidability.Synthetic.ListEnumerabilityFacts <> n:119 var
+R7092:7120 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator_to_enumerator thm
+R7092:7120 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator_to_enumerator thm
+inst 7162:7182 <> enumerator__T_of_list
+binder 7185:7185 <> X:121
+binder 7189:7189 <> f:122
+R7213:7216 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7196:7208 Undecidability.Synthetic.EnumerabilityFacts <> enumerator__T abbrev
+R7212:7212 Undecidability.Synthetic.ListEnumerabilityFacts <> X:121 var
+R7210:7210 Undecidability.Synthetic.ListEnumerabilityFacts <> f:122 var
+R7217:7234 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator__T abbrev
+R7293:7293 Undecidability.Synthetic.ListEnumerabilityFacts <> X:121 var
+binder 7241:7241 <> n:123
+R7252:7252 Undecidability.Synthetic.ListEnumerabilityFacts <> f:122 var
+R7254:7254 Undecidability.Synthetic.ListEnumerabilityFacts <> n:123 var
+R7261:7264 Coq.Init.Datatypes <> Some constr
+R7271:7271 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7273:7273 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7277:7280 Coq.Init.Datatypes <> None constr
+R7285:7286 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7330:7358 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_to_list_enumerator thm
+R7330:7358 Undecidability.Synthetic.ListEnumerabilityFacts <> enumerator_to_list_enumerator thm
+R7389:7410 Undecidability.Synthetic.ListEnumerabilityFacts <> inf_list_enumerable__T def
+inst 7432:7448 <> inf_to_enumerator
+binder 7451:7451 <> X:124
+R7469:7490 Undecidability.Synthetic.ListEnumerabilityFacts <> inf_list_enumerable__T class
+R7492:7492 Undecidability.Synthetic.ListEnumerabilityFacts <> X:124 var
+binder 7465:7465 <> H:125
+R7495:7512 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerator__T abbrev
+R7528:7528 Undecidability.Synthetic.ListEnumerabilityFacts <> X:124 var
+R7515:7523 Coq.Init.Specif <> proj1_sig def
+R7525:7525 Undecidability.Synthetic.ListEnumerabilityFacts <> H:125 var
+R7624:7633 Undecidability.Synthetic.Definitions <> enumerable def
+R7635:7649 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerable def
+prf 7757:7771 <> enumerable_enum
+binder 7774:7774 <> X:126
+R7783:7786 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7782:7782 Undecidability.Synthetic.ListEnumerabilityFacts <> X:126 var
+binder 7778:7778 <> p:127
+R7809:7813 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R7797:7806 Undecidability.Synthetic.Definitions <> enumerable def
+R7808:7808 Undecidability.Synthetic.ListEnumerabilityFacts <> p:127 var
+R7814:7828 Undecidability.Synthetic.ListEnumerabilityFacts <> list_enumerable def
+R7830:7830 Undecidability.Synthetic.ListEnumerabilityFacts <> p:127 var

@@ -1,0 +1,744 @@
+DIGEST cb701e97f5905eea80eb4f8594365ba4
+FKernel.VMUnboundedInterpreterCompose
+R1009:1013 Coq.Arith.Arith <> <> lib
+R1015:1017 Coq.micromega.Lia <> <> lib
+R1019:1022 Coq.Lists.List <> <> lib
+R1032:1044 Coq.Lists.List ListNotations <> mod
+R1074:1080 Kernel.VMState <> <> lib
+R1082:1087 Kernel.VMStep <> <> lib
+R1089:1103 Kernel.VMUnboundedStep <> <> lib
+R1105:1130 Kernel.VMUnboundedInterpreterCode <> <> lib
+ind 1224:1241 <> straightline_arith
+constr 1273:1279 <> sl_xfer
+constr 1337:1347 <> sl_load_imm
+constr 1413:1418 <> sl_mul
+constr 1483:1488 <> sl_add
+constr 1553:1558 <> sl_sub
+constr 1623:1628 <> sl_shr
+constr 1693:1698 <> sl_shl
+constr 1763:1768 <> sl_and
+constr 1833:1837 <> sl_or
+R1259:1262 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1245:1258 Kernel.VMStep VMStep vm_instruction ind
+binder 1290:1290 <> d:3
+binder 1292:1292 <> s:4
+binder 1294:1294 <> c:5
+R1297:1314 Kernel.VMUnboundedInterpreterCompose <> straightline_arith:1 ind
+R1317:1326 Kernel.VMStep VMStep instr_xfer constr
+R1328:1328 Kernel.VMUnboundedInterpreterCompose <> d:3 var
+R1330:1330 Kernel.VMUnboundedInterpreterCompose <> s:4 var
+R1332:1332 Kernel.VMUnboundedInterpreterCompose <> c:5 var
+binder 1358:1358 <> d:6
+binder 1360:1362 <> imm:7
+binder 1364:1364 <> c:8
+R1367:1384 Kernel.VMUnboundedInterpreterCompose <> straightline_arith:1 ind
+R1387:1400 Kernel.VMStep VMStep instr_load_imm constr
+R1402:1402 Kernel.VMUnboundedInterpreterCompose <> d:6 var
+R1404:1406 Kernel.VMUnboundedInterpreterCompose <> imm:7 var
+R1408:1408 Kernel.VMUnboundedInterpreterCompose <> c:8 var
+binder 1429:1429 <> d:9
+binder 1431:1432 <> r1:10
+binder 1434:1435 <> r2:11
+binder 1437:1437 <> c:12
+R1440:1457 Kernel.VMUnboundedInterpreterCompose <> straightline_arith:1 ind
+R1460:1468 Kernel.VMStep VMStep instr_mul constr
+R1470:1470 Kernel.VMUnboundedInterpreterCompose <> d:9 var
+R1472:1473 Kernel.VMUnboundedInterpreterCompose <> r1:10 var
+R1475:1476 Kernel.VMUnboundedInterpreterCompose <> r2:11 var
+R1478:1478 Kernel.VMUnboundedInterpreterCompose <> c:12 var
+binder 1499:1499 <> d:13
+binder 1501:1502 <> r1:14
+binder 1504:1505 <> r2:15
+binder 1507:1507 <> c:16
+R1510:1527 Kernel.VMUnboundedInterpreterCompose <> straightline_arith:1 ind
+R1530:1538 Kernel.VMStep VMStep instr_add constr
+R1540:1540 Kernel.VMUnboundedInterpreterCompose <> d:13 var
+R1542:1543 Kernel.VMUnboundedInterpreterCompose <> r1:14 var
+R1545:1546 Kernel.VMUnboundedInterpreterCompose <> r2:15 var
+R1548:1548 Kernel.VMUnboundedInterpreterCompose <> c:16 var
+binder 1569:1569 <> d:17
+binder 1571:1572 <> r1:18
+binder 1574:1575 <> r2:19
+binder 1577:1577 <> c:20
+R1580:1597 Kernel.VMUnboundedInterpreterCompose <> straightline_arith:1 ind
+R1600:1608 Kernel.VMStep VMStep instr_sub constr
+R1610:1610 Kernel.VMUnboundedInterpreterCompose <> d:17 var
+R1612:1613 Kernel.VMUnboundedInterpreterCompose <> r1:18 var
+R1615:1616 Kernel.VMUnboundedInterpreterCompose <> r2:19 var
+R1618:1618 Kernel.VMUnboundedInterpreterCompose <> c:20 var
+binder 1639:1639 <> d:21
+binder 1641:1642 <> r1:22
+binder 1644:1645 <> r2:23
+binder 1647:1647 <> c:24
+R1650:1667 Kernel.VMUnboundedInterpreterCompose <> straightline_arith:1 ind
+R1670:1678 Kernel.VMStep VMStep instr_shr constr
+R1680:1680 Kernel.VMUnboundedInterpreterCompose <> d:21 var
+R1682:1683 Kernel.VMUnboundedInterpreterCompose <> r1:22 var
+R1685:1686 Kernel.VMUnboundedInterpreterCompose <> r2:23 var
+R1688:1688 Kernel.VMUnboundedInterpreterCompose <> c:24 var
+binder 1709:1709 <> d:25
+binder 1711:1712 <> r1:26
+binder 1714:1715 <> r2:27
+binder 1717:1717 <> c:28
+R1720:1737 Kernel.VMUnboundedInterpreterCompose <> straightline_arith:1 ind
+R1740:1748 Kernel.VMStep VMStep instr_shl constr
+R1750:1750 Kernel.VMUnboundedInterpreterCompose <> d:25 var
+R1752:1753 Kernel.VMUnboundedInterpreterCompose <> r1:26 var
+R1755:1756 Kernel.VMUnboundedInterpreterCompose <> r2:27 var
+R1758:1758 Kernel.VMUnboundedInterpreterCompose <> c:28 var
+binder 1779:1779 <> d:29
+binder 1781:1782 <> r1:30
+binder 1784:1785 <> r2:31
+binder 1787:1787 <> c:32
+R1790:1807 Kernel.VMUnboundedInterpreterCompose <> straightline_arith:1 ind
+R1810:1818 Kernel.VMStep VMStep instr_and constr
+R1820:1820 Kernel.VMUnboundedInterpreterCompose <> d:29 var
+R1822:1823 Kernel.VMUnboundedInterpreterCompose <> r1:30 var
+R1825:1826 Kernel.VMUnboundedInterpreterCompose <> r2:31 var
+R1828:1828 Kernel.VMUnboundedInterpreterCompose <> c:32 var
+binder 1849:1849 <> d:33
+binder 1851:1852 <> r1:34
+binder 1854:1855 <> r2:35
+binder 1857:1857 <> c:36
+R1860:1877 Kernel.VMUnboundedInterpreterCompose <> straightline_arith:1 ind
+R1880:1887 Kernel.VMStep VMStep instr_or constr
+R1890:1890 Kernel.VMUnboundedInterpreterCompose <> d:33 var
+R1892:1893 Kernel.VMUnboundedInterpreterCompose <> r1:34 var
+R1895:1896 Kernel.VMUnboundedInterpreterCompose <> r2:35 var
+R1898:1898 Kernel.VMUnboundedInterpreterCompose <> c:36 var
+scheme 1224:1241 <> straightline_arith_ind
+scheme 1224:1241 <> straightline_arith_sind
+def 2025:2037 <> pc_shifted_by
+R2047:2049 Coq.Init.Datatypes <> nat ind
+binder 2040:2043 <> base:37
+R2061:2067 Kernel.VMState <> VMState rec
+binder 2053:2054 <> s1:38
+binder 2056:2057 <> s2:39
+R2112:2117 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2092:2094 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2086:2090 Kernel.VMState <> vm_pc proj
+R2082:2083 Kernel.VMUnboundedInterpreterCompose <> s2:39 var
+R2099:2101 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2095:2098 Kernel.VMUnboundedInterpreterCompose <> base:37 var
+R2106:2110 Kernel.VMState <> vm_pc proj
+R2102:2103 Kernel.VMUnboundedInterpreterCompose <> s1:38 var
+R2147:2152 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2131:2133 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2122:2129 Kernel.VMState <> vm_graph proj
+R2118:2119 Kernel.VMUnboundedInterpreterCompose <> s2:39 var
+R2138:2145 Kernel.VMState <> vm_graph proj
+R2134:2135 Kernel.VMUnboundedInterpreterCompose <> s1:38 var
+R2180:2185 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2165:2167 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2157:2163 Kernel.VMState <> vm_csrs proj
+R2153:2154 Kernel.VMUnboundedInterpreterCompose <> s2:39 var
+R2172:2178 Kernel.VMState <> vm_csrs proj
+R2168:2169 Kernel.VMUnboundedInterpreterCompose <> s1:38 var
+R2213:2218 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2198:2200 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2190:2196 Kernel.VMState <> vm_regs proj
+R2186:2187 Kernel.VMUnboundedInterpreterCompose <> s2:39 var
+R2205:2211 Kernel.VMState <> vm_regs proj
+R2201:2202 Kernel.VMUnboundedInterpreterCompose <> s1:38 var
+R2244:2249 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2230:2232 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2223:2228 Kernel.VMState <> vm_mem proj
+R2219:2220 Kernel.VMUnboundedInterpreterCompose <> s2:39 var
+R2237:2242 Kernel.VMState <> vm_mem proj
+R2233:2234 Kernel.VMUnboundedInterpreterCompose <> s1:38 var
+R2273:2278 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2260:2262 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2254:2258 Kernel.VMState <> vm_mu proj
+R2250:2251 Kernel.VMUnboundedInterpreterCompose <> s2:39 var
+R2267:2271 Kernel.VMState <> vm_mu proj
+R2263:2264 Kernel.VMUnboundedInterpreterCompose <> s1:38 var
+R2316:2321 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2296:2298 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2283:2294 Kernel.VMState <> vm_mu_tensor proj
+R2279:2280 Kernel.VMUnboundedInterpreterCompose <> s2:39 var
+R2303:2314 Kernel.VMState <> vm_mu_tensor proj
+R2299:2300 Kernel.VMUnboundedInterpreterCompose <> s1:38 var
+R2347:2352 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2333:2335 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2326:2331 Kernel.VMState <> vm_err proj
+R2322:2323 Kernel.VMUnboundedInterpreterCompose <> s2:39 var
+R2340:2345 Kernel.VMState <> vm_err proj
+R2336:2337 Kernel.VMUnboundedInterpreterCompose <> s1:38 var
+R2390:2395 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2370:2372 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2357:2368 Kernel.VMState <> vm_logic_acc proj
+R2353:2354 Kernel.VMUnboundedInterpreterCompose <> s2:39 var
+R2377:2388 Kernel.VMState <> vm_logic_acc proj
+R2373:2374 Kernel.VMUnboundedInterpreterCompose <> s1:38 var
+R2429:2434 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2411:2413 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2400:2409 Kernel.VMState <> vm_mstatus proj
+R2396:2397 Kernel.VMUnboundedInterpreterCompose <> s2:39 var
+R2418:2427 Kernel.VMState <> vm_mstatus proj
+R2414:2415 Kernel.VMUnboundedInterpreterCompose <> s1:38 var
+R2468:2473 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2450:2452 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2439:2448 Kernel.VMState <> vm_witness proj
+R2435:2436 Kernel.VMUnboundedInterpreterCompose <> s2:39 var
+R2457:2466 Kernel.VMState <> vm_witness proj
+R2453:2454 Kernel.VMUnboundedInterpreterCompose <> s1:38 var
+R2491:2493 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2478:2489 Kernel.VMState <> vm_certified proj
+R2474:2475 Kernel.VMUnboundedInterpreterCompose <> s2:39 var
+R2498:2509 Kernel.VMState <> vm_certified proj
+R2494:2495 Kernel.VMUnboundedInterpreterCompose <> s1:38 var
+prf 2520:2538 <> pc_shifted_by_refl0
+binder 2549:2549 <> s:40
+R2552:2564 Kernel.VMUnboundedInterpreterCompose <> pc_shifted_by def
+R2568:2568 Kernel.VMUnboundedInterpreterCompose <> s:40 var
+R2570:2570 Kernel.VMUnboundedInterpreterCompose <> s:40 var
+R2596:2608 Kernel.VMUnboundedInterpreterCompose <> pc_shifted_by def
+prf 2797:2811 <> write_reg_u_ext
+binder 2822:2823 <> s1:41
+binder 2825:2826 <> s2:42
+binder 2828:2828 <> r:43
+binder 2830:2830 <> v:44
+R2862:2865 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2847:2849 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2839:2845 Kernel.VMState <> vm_regs proj
+R2835:2836 Kernel.VMUnboundedInterpreterCompose <> s1:41 var
+R2854:2860 Kernel.VMState <> vm_regs proj
+R2850:2851 Kernel.VMUnboundedInterpreterCompose <> s2:42 var
+R2884:2886 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2866:2876 Kernel.VMUnboundedStep <> write_reg_u def
+R2878:2879 Kernel.VMUnboundedInterpreterCompose <> s1:41 var
+R2881:2881 Kernel.VMUnboundedInterpreterCompose <> r:43 var
+R2883:2883 Kernel.VMUnboundedInterpreterCompose <> v:44 var
+R2887:2897 Kernel.VMUnboundedStep <> write_reg_u def
+R2899:2900 Kernel.VMUnboundedInterpreterCompose <> s2:42 var
+R2902:2902 Kernel.VMUnboundedInterpreterCompose <> r:43 var
+R2904:2904 Kernel.VMUnboundedInterpreterCompose <> v:44 var
+R2941:2951 Kernel.VMUnboundedStep <> write_reg_u def
+prf 2990:3008 <> vm_apply_u_pc_shift
+binder 3019:3022 <> base:45
+binder 3024:3025 <> s1:46
+binder 3027:3028 <> s2:47
+binder 3030:3034 <> instr:48
+R3063:3068 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3039:3056 Kernel.VMUnboundedInterpreterCompose <> straightline_arith ind
+R3058:3062 Kernel.VMUnboundedInterpreterCompose <> instr:48 var
+R3093:3098 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3069:3081 Kernel.VMUnboundedInterpreterCompose <> pc_shifted_by def
+R3083:3086 Kernel.VMUnboundedInterpreterCompose <> base:45 var
+R3088:3089 Kernel.VMUnboundedInterpreterCompose <> s1:46 var
+R3091:3092 Kernel.VMUnboundedInterpreterCompose <> s2:47 var
+R3099:3111 Kernel.VMUnboundedInterpreterCompose <> pc_shifted_by def
+R3113:3116 Kernel.VMUnboundedInterpreterCompose <> base:45 var
+R3119:3128 Kernel.VMUnboundedStep <> vm_apply_u def
+R3130:3131 Kernel.VMUnboundedInterpreterCompose <> s1:46 var
+R3133:3137 Kernel.VMUnboundedInterpreterCompose <> instr:48 var
+R3141:3150 Kernel.VMUnboundedStep <> vm_apply_u def
+R3152:3153 Kernel.VMUnboundedInterpreterCompose <> s2:47 var
+R3155:3159 Kernel.VMUnboundedInterpreterCompose <> instr:48 var
+R3217:3229 Kernel.VMUnboundedInterpreterCompose <> pc_shifted_by def
+R3354:3363 Kernel.VMUnboundedStep <> vm_apply_u def
+R3378:3393 Kernel.VMStep VMStep advance_state_rm def
+R3396:3403 Kernel.VMState <> read_reg def
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3500:3512 Kernel.VMUnboundedInterpreterCompose <> pc_shifted_by def
+R3520:3524 Kernel.VMState <> vm_pc proj
+R3526:3533 Kernel.VMState <> vm_graph proj
+R3535:3541 Kernel.VMState <> vm_csrs proj
+R3543:3549 Kernel.VMState <> vm_regs proj
+R3551:3556 Kernel.VMState <> vm_mem proj
+R3558:3562 Kernel.VMState <> vm_mu proj
+R3564:3575 Kernel.VMState <> vm_mu_tensor proj
+R3609:3614 Kernel.VMState <> vm_err proj
+R3616:3627 Kernel.VMState <> vm_logic_acc proj
+R3629:3638 Kernel.VMState <> vm_mstatus proj
+R3640:3649 Kernel.VMState <> vm_witness proj
+R3651:3662 Kernel.VMState <> vm_certified proj
+R3677:3686 Kernel.VMStep VMStep apply_cost def
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+R3458:3472 Kernel.VMUnboundedInterpreterCompose <> write_reg_u_ext thm
+prf 3905:3922 <> vm_apply_u_pc_succ
+binder 3933:3933 <> s:49
+binder 3935:3939 <> instr:50
+R3968:3971 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3944:3961 Kernel.VMUnboundedInterpreterCompose <> straightline_arith ind
+R3963:3967 Kernel.VMUnboundedInterpreterCompose <> instr:50 var
+R4000:4002 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3994:3998 Kernel.VMState <> vm_pc proj
+R3973:3982 Kernel.VMUnboundedStep <> vm_apply_u def
+R3984:3984 Kernel.VMUnboundedInterpreterCompose <> s:49 var
+R3986:3990 Kernel.VMUnboundedInterpreterCompose <> instr:50 var
+R4003:4003 Coq.Init.Datatypes <> S constr
+R4008:4012 Kernel.VMState <> vm_pc proj
+R4005:4005 Kernel.VMUnboundedInterpreterCompose <> s:49 var
+R4066:4075 Kernel.VMUnboundedStep <> vm_apply_u def
+R4086:4101 Kernel.VMStep VMStep advance_state_rm def
+R4109:4113 Kernel.VMState <> vm_pc proj
+prf 4277:4304 <> run_vm_u_straightline_pc_gen
+binder 4315:4315 <> P:51
+R4347:4352 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4320:4325 Coq.Lists.List <> Forall ind
+R4346:4346 Kernel.VMUnboundedInterpreterCompose <> P:51 var
+R4327:4344 Kernel.VMUnboundedInterpreterCompose <> straightline_arith ind
+binder 4360:4360 <> n:52
+binder 4362:4362 <> k:53
+binder 4364:4364 <> s:54
+R4384:4387 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4372:4375 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4368:4370 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4367:4367 Kernel.VMUnboundedInterpreterCompose <> k:53 var
+R4371:4371 Kernel.VMUnboundedInterpreterCompose <> n:52 var
+R4376:4381 Coq.Init.Datatypes <> length def
+R4383:4383 Kernel.VMUnboundedInterpreterCompose <> P:51 var
+R4401:4406 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4397:4399 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4391:4395 Kernel.VMState <> vm_pc proj
+R4388:4388 Kernel.VMUnboundedInterpreterCompose <> s:54 var
+R4400:4400 Kernel.VMUnboundedInterpreterCompose <> k:53 var
+R4431:4433 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4425:4429 Kernel.VMState <> vm_pc proj
+R4408:4415 Kernel.VMUnboundedStep <> run_vm_u def
+R4417:4417 Kernel.VMUnboundedInterpreterCompose <> n:52 var
+R4419:4419 Kernel.VMUnboundedInterpreterCompose <> P:51 var
+R4421:4421 Kernel.VMUnboundedInterpreterCompose <> s:54 var
+R4435:4437 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4434:4434 Kernel.VMUnboundedInterpreterCompose <> k:53 var
+R4438:4438 Kernel.VMUnboundedInterpreterCompose <> n:52 var
+R4523:4530 Kernel.VMUnboundedStep <> run_vm_u def
+R4548:4555 Kernel.VMUnboundedStep <> run_vm_u def
+R4590:4592 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4593:4598 Coq.Init.Datatypes <> length def
+R4590:4592 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4593:4598 Coq.Init.Datatypes <> length def
+R4625:4633 Coq.Lists.List <> nth_error def
+R4625:4633 Coq.Lists.List <> nth_error def
+R4675:4688 Coq.Lists.List <> nth_error_None thm
+R4675:4688 Coq.Lists.List <> nth_error_None thm
+R4721:4738 Kernel.VMUnboundedInterpreterCompose <> straightline_arith ind
+R4764:4776 Coq.Lists.List <> Forall_forall thm
+R4801:4812 Coq.Lists.List <> nth_error_In thm
+R4721:4738 Kernel.VMUnboundedInterpreterCompose <> straightline_arith ind
+R4764:4776 Coq.Lists.List <> Forall_forall thm
+R4801:4812 Coq.Lists.List <> nth_error_In thm
+R4873:4875 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4867:4871 Kernel.VMState <> vm_pc proj
+R4846:4855 Kernel.VMUnboundedStep <> vm_apply_u def
+R4876:4876 Coq.Init.Datatypes <> S constr
+R4900:4917 Kernel.VMUnboundedInterpreterCompose <> vm_apply_u_pc_succ thm
+R4873:4875 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4867:4871 Kernel.VMState <> vm_pc proj
+R4846:4855 Kernel.VMUnboundedStep <> vm_apply_u def
+R4876:4876 Coq.Init.Datatypes <> S constr
+R4900:4917 Kernel.VMUnboundedInterpreterCompose <> vm_apply_u_pc_succ thm
+R4900:4917 Kernel.VMUnboundedInterpreterCompose <> vm_apply_u_pc_succ thm
+R4966:4968 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4969:4969 Coq.Init.Datatypes <> S constr
+R4983:4985 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4980:4980 Coq.Init.Datatypes <> S constr
+R4966:4968 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4969:4969 Coq.Init.Datatypes <> S constr
+R4983:4985 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4980:4980 Coq.Init.Datatypes <> S constr
+R5012:5012 Coq.Init.Datatypes <> S constr
+R5012:5012 Coq.Init.Datatypes <> S constr
+prf 5055:5078 <> run_vm_u_straightline_pc
+binder 5089:5089 <> P:55
+R5121:5126 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5094:5099 Coq.Lists.List <> Forall ind
+R5120:5120 Kernel.VMUnboundedInterpreterCompose <> P:55 var
+R5101:5118 Kernel.VMUnboundedInterpreterCompose <> straightline_arith ind
+binder 5134:5134 <> n:56
+binder 5136:5136 <> s:57
+R5152:5155 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5140:5143 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5139:5139 Kernel.VMUnboundedInterpreterCompose <> n:56 var
+R5144:5149 Coq.Init.Datatypes <> length def
+R5151:5151 Kernel.VMUnboundedInterpreterCompose <> P:55 var
+R5169:5174 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5165:5167 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5159:5163 Kernel.VMState <> vm_pc proj
+R5156:5156 Kernel.VMUnboundedInterpreterCompose <> s:57 var
+R5199:5201 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5193:5197 Kernel.VMState <> vm_pc proj
+R5176:5183 Kernel.VMUnboundedStep <> run_vm_u def
+R5185:5185 Kernel.VMUnboundedInterpreterCompose <> n:56 var
+R5187:5187 Kernel.VMUnboundedInterpreterCompose <> P:55 var
+R5189:5189 Kernel.VMUnboundedInterpreterCompose <> s:57 var
+R5202:5202 Kernel.VMUnboundedInterpreterCompose <> n:56 var
+R5252:5279 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_straightline_pc_gen thm
+R5252:5279 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_straightline_pc_gen thm
+prf 5697:5714 <> run_vm_u_embed_gen
+binder 5725:5725 <> P:58
+binder 5727:5732 <> prefix:59
+binder 5734:5739 <> suffix:60
+R5771:5776 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5744:5749 Coq.Lists.List <> Forall ind
+R5770:5770 Kernel.VMUnboundedInterpreterCompose <> P:58 var
+R5751:5768 Kernel.VMUnboundedInterpreterCompose <> straightline_arith ind
+binder 5784:5784 <> n:61
+binder 5786:5786 <> k:62
+binder 5788:5789 <> s1:63
+binder 5791:5792 <> s2:64
+R5812:5817 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5800:5803 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5796:5798 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5795:5795 Kernel.VMUnboundedInterpreterCompose <> k:62 var
+R5799:5799 Kernel.VMUnboundedInterpreterCompose <> n:61 var
+R5804:5809 Coq.Init.Datatypes <> length def
+R5811:5811 Kernel.VMUnboundedInterpreterCompose <> P:58 var
+R5832:5837 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5828:5830 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5822:5826 Kernel.VMState <> vm_pc proj
+R5818:5819 Kernel.VMUnboundedInterpreterCompose <> s1:63 var
+R5831:5831 Kernel.VMUnboundedInterpreterCompose <> k:62 var
+R5873:5878 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5838:5850 Kernel.VMUnboundedInterpreterCompose <> pc_shifted_by def
+R5853:5858 Coq.Init.Datatypes <> length def
+R5860:5865 Kernel.VMUnboundedInterpreterCompose <> prefix:59 var
+R5868:5869 Kernel.VMUnboundedInterpreterCompose <> s1:63 var
+R5871:5872 Kernel.VMUnboundedInterpreterCompose <> s2:64 var
+R5879:5891 Kernel.VMUnboundedInterpreterCompose <> pc_shifted_by def
+R5894:5899 Coq.Init.Datatypes <> length def
+R5901:5906 Kernel.VMUnboundedInterpreterCompose <> prefix:59 var
+R5910:5917 Kernel.VMUnboundedStep <> run_vm_u def
+R5919:5919 Kernel.VMUnboundedInterpreterCompose <> n:61 var
+R5921:5921 Kernel.VMUnboundedInterpreterCompose <> P:58 var
+R5923:5924 Kernel.VMUnboundedInterpreterCompose <> s1:63 var
+R5928:5935 Kernel.VMUnboundedStep <> run_vm_u def
+R5937:5937 Kernel.VMUnboundedInterpreterCompose <> n:61 var
+R5946:5949 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5940:5945 Kernel.VMUnboundedInterpreterCompose <> prefix:59 var
+R5951:5954 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5950:5950 Kernel.VMUnboundedInterpreterCompose <> P:58 var
+R5955:5960 Kernel.VMUnboundedInterpreterCompose <> suffix:60 var
+R5963:5964 Kernel.VMUnboundedInterpreterCompose <> s2:64 var
+R6075:6082 Kernel.VMUnboundedStep <> run_vm_u def
+R6109:6116 Kernel.VMUnboundedStep <> run_vm_u def
+R6149:6151 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6143:6147 Kernel.VMState <> vm_pc proj
+R6165:6167 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6152:6157 Coq.Init.Datatypes <> length def
+R6149:6151 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6143:6147 Kernel.VMState <> vm_pc proj
+R6165:6167 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6152:6157 Coq.Init.Datatypes <> length def
+R6280:6282 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6283:6288 Coq.Init.Datatypes <> length def
+R6280:6282 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6283:6288 Coq.Init.Datatypes <> length def
+R6315:6323 Coq.Lists.List <> nth_error def
+R6315:6323 Coq.Lists.List <> nth_error def
+R6365:6378 Coq.Lists.List <> nth_error_None thm
+R6365:6378 Coq.Lists.List <> nth_error_None thm
+R6411:6428 Kernel.VMUnboundedInterpreterCompose <> straightline_arith ind
+R6454:6466 Coq.Lists.List <> Forall_forall thm
+R6491:6502 Coq.Lists.List <> nth_error_In thm
+R6411:6428 Kernel.VMUnboundedInterpreterCompose <> straightline_arith ind
+R6454:6466 Coq.Lists.List <> Forall_forall thm
+R6491:6502 Coq.Lists.List <> nth_error_In thm
+R6586:6588 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6533:6541 Coq.Lists.List <> nth_error def
+R6581:6583 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6568:6573 Coq.Init.Datatypes <> length def
+R6550:6553 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6555:6558 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6589:6592 Coq.Init.Datatypes <> Some constr
+R6586:6588 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6533:6541 Coq.Lists.List <> nth_error def
+R6581:6583 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6568:6573 Coq.Init.Datatypes <> length def
+R6550:6553 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6555:6558 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6589:6592 Coq.Init.Datatypes <> Some constr
+R6616:6629 Coq.Lists.List <> nth_error_app2 thm
+R6616:6629 Coq.Lists.List <> nth_error_app2 thm
+R6616:6629 Coq.Lists.List <> nth_error_app2 thm
+R6671:6673 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6667:6669 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6654:6659 Coq.Init.Datatypes <> length def
+R6674:6679 Coq.Init.Datatypes <> length def
+R6671:6673 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6667:6669 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6654:6659 Coq.Init.Datatypes <> length def
+R6674:6679 Coq.Init.Datatypes <> length def
+R6718:6731 Coq.Lists.List <> nth_error_app1 thm
+R6718:6731 Coq.Lists.List <> nth_error_app1 thm
+R6718:6731 Coq.Lists.List <> nth_error_app1 thm
+R6790:6802 Kernel.VMUnboundedInterpreterCompose <> pc_shifted_by def
+R6805:6810 Coq.Init.Datatypes <> length def
+R6821:6830 Kernel.VMUnboundedStep <> vm_apply_u def
+R6843:6852 Kernel.VMUnboundedStep <> vm_apply_u def
+R6881:6899 Kernel.VMUnboundedInterpreterCompose <> vm_apply_u_pc_shift thm
+R6790:6802 Kernel.VMUnboundedInterpreterCompose <> pc_shifted_by def
+R6805:6810 Coq.Init.Datatypes <> length def
+R6821:6830 Kernel.VMUnboundedStep <> vm_apply_u def
+R6843:6852 Kernel.VMUnboundedStep <> vm_apply_u def
+R6881:6899 Kernel.VMUnboundedInterpreterCompose <> vm_apply_u_pc_shift thm
+R6964:6966 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6958:6962 Kernel.VMState <> vm_pc proj
+R6936:6945 Kernel.VMUnboundedStep <> vm_apply_u def
+R6967:6967 Coq.Init.Datatypes <> S constr
+R6991:7008 Kernel.VMUnboundedInterpreterCompose <> vm_apply_u_pc_succ thm
+R6964:6966 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6958:6962 Kernel.VMState <> vm_pc proj
+R6936:6945 Kernel.VMUnboundedStep <> vm_apply_u def
+R6967:6967 Coq.Init.Datatypes <> S constr
+R6991:7008 Kernel.VMUnboundedInterpreterCompose <> vm_apply_u_pc_succ thm
+R6991:7008 Kernel.VMUnboundedInterpreterCompose <> vm_apply_u_pc_succ thm
+R7059:7059 Coq.Init.Datatypes <> S constr
+R7059:7059 Coq.Init.Datatypes <> S constr
+prf 7119:7132 <> run_vm_u_embed
+binder 7143:7143 <> P:65
+binder 7145:7150 <> prefix:66
+binder 7152:7157 <> suffix:67
+binder 7159:7160 <> s1:68
+binder 7162:7163 <> s2:69
+R7195:7200 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7168:7173 Coq.Lists.List <> Forall ind
+R7194:7194 Kernel.VMUnboundedInterpreterCompose <> P:65 var
+R7175:7192 Kernel.VMUnboundedInterpreterCompose <> straightline_arith ind
+R7215:7220 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7211:7213 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7205:7209 Kernel.VMState <> vm_pc proj
+R7201:7202 Kernel.VMUnboundedInterpreterCompose <> s1:68 var
+R7256:7261 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7221:7233 Kernel.VMUnboundedInterpreterCompose <> pc_shifted_by def
+R7236:7241 Coq.Init.Datatypes <> length def
+R7243:7248 Kernel.VMUnboundedInterpreterCompose <> prefix:66 var
+R7251:7252 Kernel.VMUnboundedInterpreterCompose <> s1:68 var
+R7254:7255 Kernel.VMUnboundedInterpreterCompose <> s2:69 var
+R7262:7274 Kernel.VMUnboundedInterpreterCompose <> pc_shifted_by def
+R7277:7282 Coq.Init.Datatypes <> length def
+R7284:7289 Kernel.VMUnboundedInterpreterCompose <> prefix:66 var
+R7297:7304 Kernel.VMUnboundedStep <> run_vm_u def
+R7307:7312 Coq.Init.Datatypes <> length def
+R7314:7314 Kernel.VMUnboundedInterpreterCompose <> P:65 var
+R7317:7317 Kernel.VMUnboundedInterpreterCompose <> P:65 var
+R7319:7320 Kernel.VMUnboundedInterpreterCompose <> s1:68 var
+R7324:7331 Kernel.VMUnboundedStep <> run_vm_u def
+R7334:7339 Coq.Init.Datatypes <> length def
+R7341:7341 Kernel.VMUnboundedInterpreterCompose <> P:65 var
+R7351:7354 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7345:7350 Kernel.VMUnboundedInterpreterCompose <> prefix:66 var
+R7356:7359 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7355:7355 Kernel.VMUnboundedInterpreterCompose <> P:65 var
+R7360:7365 Kernel.VMUnboundedInterpreterCompose <> suffix:67 var
+R7368:7369 Kernel.VMUnboundedInterpreterCompose <> s2:69 var
+R7435:7452 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_embed_gen thm
+R7474:7479 Coq.Init.Datatypes <> length def
+R7435:7452 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_embed_gen thm
+R7474:7479 Coq.Init.Datatypes <> length def
+prf 7651:7679 <> get_slot_program_straightline
+R7685:7690 Coq.Lists.List <> Forall ind
+R7711:7726 Kernel.VMUnboundedInterpreterCode <> get_slot_program def
+R7692:7709 Kernel.VMUnboundedInterpreterCompose <> straightline_arith ind
+R7745:7760 Kernel.VMUnboundedInterpreterCode <> get_slot_program def
+prf 7797:7825 <> set_slot_program_straightline
+R7831:7836 Coq.Lists.List <> Forall ind
+R7857:7872 Kernel.VMUnboundedInterpreterCode <> set_slot_program def
+R7838:7855 Kernel.VMUnboundedInterpreterCompose <> straightline_arith ind
+R7891:7906 Kernel.VMUnboundedInterpreterCode <> set_slot_program def
+prf 8294:8315 <> run_vm_u_halted_stable
+binder 8326:8326 <> n:70
+binder 8328:8332 <> trace:71
+binder 8334:8334 <> s:72
+R8371:8374 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8364:8366 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8339:8347 Coq.Lists.List <> nth_error def
+R8358:8362 Kernel.VMState <> vm_pc proj
+R8355:8355 Kernel.VMUnboundedInterpreterCompose <> s:72 var
+R8349:8353 Kernel.VMUnboundedInterpreterCompose <> trace:71 var
+R8367:8370 Coq.Init.Datatypes <> None constr
+R8393:8395 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8375:8382 Kernel.VMUnboundedStep <> run_vm_u def
+R8384:8384 Kernel.VMUnboundedInterpreterCompose <> n:70 var
+R8386:8390 Kernel.VMUnboundedInterpreterCompose <> trace:71 var
+R8392:8392 Kernel.VMUnboundedInterpreterCompose <> s:72 var
+R8396:8396 Kernel.VMUnboundedInterpreterCompose <> s:72 var
+R8460:8467 Kernel.VMUnboundedStep <> run_vm_u def
+prf 8532:8545 <> run_vm_u_split
+binder 8556:8557 <> n1:73
+binder 8559:8560 <> n2:74
+binder 8562:8566 <> trace:75
+binder 8568:8568 <> s:76
+R8599:8601 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8573:8580 Kernel.VMUnboundedStep <> run_vm_u def
+R8585:8587 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8583:8584 Kernel.VMUnboundedInterpreterCompose <> n1:73 var
+R8588:8589 Kernel.VMUnboundedInterpreterCompose <> n2:74 var
+R8592:8596 Kernel.VMUnboundedInterpreterCompose <> trace:75 var
+R8598:8598 Kernel.VMUnboundedInterpreterCompose <> s:76 var
+R8602:8609 Kernel.VMUnboundedStep <> run_vm_u def
+R8611:8612 Kernel.VMUnboundedInterpreterCompose <> n2:74 var
+R8614:8618 Kernel.VMUnboundedInterpreterCompose <> trace:75 var
+R8621:8628 Kernel.VMUnboundedStep <> run_vm_u def
+R8630:8631 Kernel.VMUnboundedInterpreterCompose <> n1:73 var
+R8633:8637 Kernel.VMUnboundedInterpreterCompose <> trace:75 var
+R8639:8639 Kernel.VMUnboundedInterpreterCompose <> s:76 var
+R8725:8731 Coq.Arith.PeanoNat Nat add def
+R8733:8740 Kernel.VMUnboundedStep <> run_vm_u def
+R8758:8766 Coq.Lists.List <> nth_error def
+R8777:8781 Kernel.VMState <> vm_pc proj
+R8758:8766 Coq.Lists.List <> nth_error def
+R8777:8781 Kernel.VMState <> vm_pc proj
+R8843:8864 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_halted_stable thm
+R8843:8864 Kernel.VMUnboundedInterpreterCompose <> run_vm_u_halted_stable thm
+def 9253:9260 <> reset_pc
+R9267:9273 Kernel.VMState <> VMState rec
+binder 9263:9263 <> s:77
+R9278:9284 Kernel.VMState <> VMState rec
+R9294:9301 Kernel.VMState <> vm_graph proj
+R9294:9301 Kernel.VMState <> vm_graph proj
+R9294:9301 Kernel.VMState <> vm_graph proj
+R9320:9326 Kernel.VMState <> vm_csrs proj
+R9320:9326 Kernel.VMState <> vm_csrs proj
+R9344:9350 Kernel.VMState <> vm_regs proj
+R9344:9350 Kernel.VMState <> vm_regs proj
+R9373:9378 Kernel.VMState <> vm_mem proj
+R9373:9378 Kernel.VMState <> vm_mem proj
+R9395:9399 Kernel.VMState <> vm_pc proj
+R9395:9399 Kernel.VMState <> vm_pc proj
+R9407:9411 Kernel.VMState <> vm_mu proj
+R9407:9411 Kernel.VMState <> vm_mu proj
+R9432:9443 Kernel.VMState <> vm_mu_tensor proj
+R9432:9443 Kernel.VMState <> vm_mu_tensor proj
+R9466:9471 Kernel.VMState <> vm_err proj
+R9466:9471 Kernel.VMState <> vm_err proj
+R9493:9504 Kernel.VMState <> vm_logic_acc proj
+R9493:9504 Kernel.VMState <> vm_logic_acc proj
+R9527:9536 Kernel.VMState <> vm_mstatus proj
+R9527:9536 Kernel.VMState <> vm_mstatus proj
+R9562:9571 Kernel.VMState <> vm_witness proj
+R9562:9571 Kernel.VMState <> vm_witness proj
+R9592:9603 Kernel.VMState <> vm_certified proj
+R9592:9603 Kernel.VMState <> vm_certified proj
+R9309:9316 Kernel.VMState <> vm_graph proj
+R9306:9306 Kernel.VMUnboundedInterpreterCompose <> s:77 var
+R9334:9340 Kernel.VMState <> vm_csrs proj
+R9331:9331 Kernel.VMUnboundedInterpreterCompose <> s:77 var
+R9358:9364 Kernel.VMState <> vm_regs proj
+R9355:9355 Kernel.VMUnboundedInterpreterCompose <> s:77 var
+R9386:9391 Kernel.VMState <> vm_mem proj
+R9383:9383 Kernel.VMUnboundedInterpreterCompose <> s:77 var
+R9419:9423 Kernel.VMState <> vm_mu proj
+R9416:9416 Kernel.VMUnboundedInterpreterCompose <> s:77 var
+R9451:9462 Kernel.VMState <> vm_mu_tensor proj
+R9448:9448 Kernel.VMUnboundedInterpreterCompose <> s:77 var
+R9479:9484 Kernel.VMState <> vm_err proj
+R9476:9476 Kernel.VMUnboundedInterpreterCompose <> s:77 var
+R9512:9523 Kernel.VMState <> vm_logic_acc proj
+R9509:9509 Kernel.VMUnboundedInterpreterCompose <> s:77 var
+R9544:9553 Kernel.VMState <> vm_mstatus proj
+R9541:9541 Kernel.VMUnboundedInterpreterCompose <> s:77 var
+R9579:9588 Kernel.VMState <> vm_witness proj
+R9576:9576 Kernel.VMUnboundedInterpreterCompose <> s:77 var
+R9611:9622 Kernel.VMState <> vm_certified proj
+R9608:9608 Kernel.VMUnboundedInterpreterCompose <> s:77 var
+prf 9636:9647 <> reset_pc_pc0
+binder 9658:9658 <> s:78
+R9681:9683 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9675:9679 Kernel.VMState <> vm_pc proj
+R9662:9669 Kernel.VMUnboundedInterpreterCompose <> reset_pc def
+R9671:9671 Kernel.VMUnboundedInterpreterCompose <> s:78 var
+prf 9719:9740 <> pc_shifted_by_reset_pc
+binder 9751:9751 <> s:79
+R9754:9766 Kernel.VMUnboundedInterpreterCompose <> pc_shifted_by def
+R9771:9775 Kernel.VMState <> vm_pc proj
+R9768:9768 Kernel.VMUnboundedInterpreterCompose <> s:79 var
+R9779:9786 Kernel.VMUnboundedInterpreterCompose <> reset_pc def
+R9788:9788 Kernel.VMUnboundedInterpreterCompose <> s:79 var
+R9791:9791 Kernel.VMUnboundedInterpreterCompose <> s:79 var
+R9819:9831 Kernel.VMUnboundedInterpreterCompose <> pc_shifted_by def
+R9834:9841 Kernel.VMUnboundedInterpreterCompose <> reset_pc def
+R9851:9855 Kernel.VMState <> vm_pc proj
+R9857:9864 Kernel.VMState <> vm_graph proj
+R9866:9872 Kernel.VMState <> vm_csrs proj
+R9874:9880 Kernel.VMState <> vm_regs proj
+R9882:9887 Kernel.VMState <> vm_mem proj
+R9889:9893 Kernel.VMState <> vm_mu proj
+R9895:9906 Kernel.VMState <> vm_mu_tensor proj
+R9908:9913 Kernel.VMState <> vm_err proj
+R9922:9933 Kernel.VMState <> vm_logic_acc proj
+R9935:9944 Kernel.VMState <> vm_mstatus proj
+R9946:9955 Kernel.VMState <> vm_witness proj
+R9957:9968 Kernel.VMState <> vm_certified proj
+prf 10230:10256 <> vm_apply_u_preserves_reglen
+binder 10267:10267 <> s:80
+binder 10269:10273 <> instr:81
+R10302:10307 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10278:10295 Kernel.VMUnboundedInterpreterCompose <> straightline_arith ind
+R10297:10301 Kernel.VMUnboundedInterpreterCompose <> instr:81 var
+R10338:10341 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10326:10328 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10308:10313 Coq.Init.Datatypes <> length def
+R10318:10324 Kernel.VMState <> vm_regs proj
+R10315:10315 Kernel.VMUnboundedInterpreterCompose <> s:80 var
+R10329:10337 Kernel.VMState <> REG_COUNT def
+R10379:10381 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10342:10347 Coq.Init.Datatypes <> length def
+R10371:10377 Kernel.VMState <> vm_regs proj
+R10350:10359 Kernel.VMUnboundedStep <> vm_apply_u def
+R10361:10361 Kernel.VMUnboundedInterpreterCompose <> s:80 var
+R10363:10367 Kernel.VMUnboundedInterpreterCompose <> instr:81 var
+R10382:10390 Kernel.VMState <> REG_COUNT def
+R10448:10457 Kernel.VMUnboundedStep <> vm_apply_u def
+R10468:10483 Kernel.VMStep VMStep advance_state_rm def
+R10491:10497 Kernel.VMState <> vm_regs proj
+R10511:10528 Kernel.VMUnboundedInterpreterCode <> write_reg_u_length thm
+R10511:10528 Kernel.VMUnboundedInterpreterCode <> write_reg_u_length thm
+R10511:10528 Kernel.VMUnboundedInterpreterCode <> write_reg_u_length thm
+R10511:10528 Kernel.VMUnboundedInterpreterCode <> write_reg_u_length thm
+R10511:10528 Kernel.VMUnboundedInterpreterCode <> write_reg_u_length thm
+R10511:10528 Kernel.VMUnboundedInterpreterCode <> write_reg_u_length thm
+R10511:10528 Kernel.VMUnboundedInterpreterCode <> write_reg_u_length thm
+R10511:10528 Kernel.VMUnboundedInterpreterCode <> write_reg_u_length thm
+R10511:10528 Kernel.VMUnboundedInterpreterCode <> write_reg_u_length thm
+R10511:10528 Kernel.VMUnboundedInterpreterCode <> write_reg_u_length thm
+prf 10555:10579 <> run_vm_u_preserves_reglen
+binder 10590:10590 <> n:82
+binder 10592:10592 <> P:83
+binder 10594:10594 <> s:84
+R10626:10629 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10599:10604 Coq.Lists.List <> Forall ind
+R10625:10625 Kernel.VMUnboundedInterpreterCompose <> P:83 var
+R10606:10623 Kernel.VMUnboundedInterpreterCompose <> straightline_arith ind
+R10660:10665 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10648:10650 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10630:10635 Coq.Init.Datatypes <> length def
+R10640:10646 Kernel.VMState <> vm_regs proj
+R10637:10637 Kernel.VMUnboundedInterpreterCompose <> s:84 var
+R10651:10659 Kernel.VMState <> REG_COUNT def
+R10699:10701 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10666:10671 Coq.Init.Datatypes <> length def
+R10691:10697 Kernel.VMState <> vm_regs proj
+R10674:10681 Kernel.VMUnboundedStep <> run_vm_u def
+R10683:10683 Kernel.VMUnboundedInterpreterCompose <> n:82 var
+R10685:10685 Kernel.VMUnboundedInterpreterCompose <> P:83 var
+R10687:10687 Kernel.VMUnboundedInterpreterCompose <> s:84 var
+R10702:10710 Kernel.VMState <> REG_COUNT def
+R10772:10779 Kernel.VMUnboundedStep <> run_vm_u def
+R10813:10821 Coq.Lists.List <> nth_error def
+R10828:10832 Kernel.VMState <> vm_pc proj
+R10813:10821 Coq.Lists.List <> nth_error def
+R10828:10832 Kernel.VMState <> vm_pc proj
+R10898:10924 Kernel.VMUnboundedInterpreterCompose <> vm_apply_u_preserves_reglen thm
+R10898:10924 Kernel.VMUnboundedInterpreterCompose <> vm_apply_u_preserves_reglen thm
+R10956:10968 Coq.Lists.List <> Forall_forall thm
+R10990:11001 Coq.Lists.List <> nth_error_In thm
+R10956:10968 Coq.Lists.List <> Forall_forall thm
+R10990:11001 Coq.Lists.List <> nth_error_In thm

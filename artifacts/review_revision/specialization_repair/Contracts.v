@@ -1,0 +1,13 @@
+From Kernel Require Import VMUnboundedCM2Specialization.
+Print specialized_program.
+Print specialized_program_correct.
+Check specialized_program_halts_iff.
+Check specialized_program_host_iff.
+Check specialized_program_host_complete.
+Print Assumptions specialized_program_halts_iff.
+Print Assumptions specialized_program_host_iff.
+Print Assumptions specialized_program_host_complete.
+Check specialization_executes_guest_increment.
+Check specialization_preserves_jump_to_zero.
+Check specialization_preserves_out_of_range_jump.
+Check specialization_zero_falls_through.

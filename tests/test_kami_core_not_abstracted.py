@@ -15,8 +15,14 @@ def test_core_has_in_core_logic_engine_state_and_paths() -> None:
     assert 'Register "lassert_fbuf"' in txt
     assert 'Register "lassert_cbuf"' in txt
     assert 'OP_LASSERT' in txt and 'OP_LJOIN' in txt
-    assert 'LET new_logic_acc : Bit WordSz <-' in txt
-    assert 'Write "logic_acc"      <- #new_logic_acc;' in txt
+    # The logic-gate lock was deliberately removed (Devon, 2026-09-14; see
+    # C2_DIVERGENCE_LEDGER.md "Logic-gate lock -> Removed from the CPU").
+    # `logic_acc` is retained as VM-visible state that never changes: the CPU
+    # must agree with `kami_step`, which never writes it. There is therefore no
+    # `new_logic_acc` let-binding and no write to the register.
+    assert 'Register "logic_acc"' in txt
+    assert 'LET new_logic_acc : Bit WordSz <-' not in txt
+    assert 'Write "logic_acc"' not in txt
 
 
 def test_logic_error_code_constant_is_declared() -> None:
@@ -27,13 +33,18 @@ def test_logic_error_code_constant_is_declared() -> None:
     assert '0xBADF001D' in txt
 
 
-def test_logic_gate_not_stubbed_and_high_value_ops_are_gated() -> None:
+def test_logic_gate_removed_and_high_value_ops_ungated() -> None:
     txt = CORE.read_text(encoding="utf-8")
-    assert 'LET high_value_locked <- $$false;' not in txt
-    assert 'LET is_high_value_op <-' in txt
+    # The high-value lock and the logic-key gate were removed so the CPU matches
+    # `kami_step` (Devon, 2026-09-14; C2_DIVERGENCE_LEDGER.md). REVEAL and
+    # PDISCOVER are no longer gated on a logic key; they carry their own guards.
+    assert 'LET is_high_value_op <-' not in txt
+    assert 'high_value_locked' not in txt
+    assert 'logic_key_ok' not in txt
+    assert 'LOGIC_GATE_KEY' not in txt
+    # The opcodes themselves are still present and guarded by their own faults.
     assert '(#opcode == $$(OP_REVEAL))' in txt
     assert '(#opcode == $$(OP_PDISCOVER))' in txt
-    assert 'LET high_value_locked <- #is_high_value_op && !#logic_key_ok;' in txt
 
 
 def test_stack_operations_are_partition_bounded() -> None:

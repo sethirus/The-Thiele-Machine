@@ -91,6 +91,9 @@ module thiele_cpu_kami_tb;
   integer init_pt_en, init_pt_idx, init_pt_value;
   integer init_tensor_en, init_tensor_idx, init_tensor_value;
   integer init_logic_acc_en, init_logic_acc_value;
+  integer init_csr_heap_base_en, init_csr_heap_base_value;
+  integer init_csr_status_en, init_csr_status_value;
+  integer tensor_module, tensor_cell;
 
   reg [63:0] shadow_masks [0:NUM_SHADOW_MODS-1];
   reg [7:0] shadow_next_mid;
@@ -104,6 +107,7 @@ module thiele_cpu_kami_tb;
   reg [63:0] shadow_new_mask;
   integer mod_j, bit_b, first_mod, first_bit;
   integer morph_j, first_morph;
+  integer coupling_desc_j, coupling_base_j, coupling_count_j, coupling_j, pair_j;
 
 
   reg [1023:0] program_hex_path;
@@ -112,6 +116,8 @@ module thiele_cpu_kami_tb;
   integer vcd_en;
 
   reg [31:0] prev_mu;
+  reg [31:0] prev_pc;
+  reg halted_seen;
   reg prev_mu_valid;
 
   // Current instruction: updated procedurally from exec_word in the main loop.
@@ -132,11 +138,14 @@ module thiele_cpu_kami_tb;
     exec_word = 128'd0;
     shadow_found_dup = 0;
     prev_mu = 32'd0;
+    prev_pc = 32'd0;
+    halted_seen = 1'b0;
     prev_mu_valid = 1'b0;
     vcd_en = 0;
 
     init_mu_en = 0; init_active_module_en = 0; init_pt_en = 0; init_tensor_en = 0;
     init_logic_acc_en = 0;
+    init_csr_heap_base_en = 0; init_csr_status_en = 0;
     if ($value$plusargs("INIT_MU=%d", init_mu_value)) init_mu_en = 1;
     if ($value$plusargs("INIT_ACTIVE_MODULE=%d", init_active_module_value)) init_active_module_en = 1;
     if ($value$plusargs("INIT_PT_IDX=%d", init_pt_idx)) init_pt_en = 1;
@@ -144,6 +153,8 @@ module thiele_cpu_kami_tb;
     if ($value$plusargs("INIT_TENSOR_IDX=%d", init_tensor_idx)) init_tensor_en = 1;
     if ($value$plusargs("INIT_TENSOR_VAL=%d", init_tensor_value)) init_tensor_en = init_tensor_en & 1;
     if ($value$plusargs("INIT_LOGIC_ACC=%d", init_logic_acc_value)) init_logic_acc_en = 1;
+    if ($value$plusargs("INIT_CSR_HEAP_BASE=%d", init_csr_heap_base_value)) init_csr_heap_base_en = 1;
+    if ($value$plusargs("INIT_CSR_STATUS=%d", init_csr_status_value)) init_csr_status_en = 1;
 
     if ($value$plusargs("PROGRAM=%s", program_hex_path)) begin
       $readmemh(program_hex_path, instr_memory);
@@ -240,14 +251,34 @@ module thiele_cpu_kami_tb;
     if (init_pt_en != 0) force_pt_word(init_pt_idx, init_pt_value[31:0]);
     if (init_tensor_en != 0) force_tensor_word(init_tensor_idx, init_tensor_value[31:0]);
     if (init_logic_acc_en != 0) force dut.logic_acc = init_logic_acc_value[31:0];
-    if (init_mu_en != 0 || init_active_module_en != 0 || init_pt_en != 0 || init_tensor_en != 0 || init_logic_acc_en != 0) begin
-      @(posedge clk); @(negedge clk);
-    end
+    // The init deposits above are direct register writes (RegFile arr and
+    // forced regs), not clocked bus methods, so they need no clock edge to take
+    // effect. Extra edges here only give the un-inhibited step rule more
+    // chances to retire pc=0 before shadow_executing is set, which desyncs the
+    // shadow loop's pc from the RTL's pc and drops the first instruction.
     if (init_mu_en != 0) release dut.mu;
     if (init_active_module_en != 0) release dut.active_module;
     if (init_pt_en != 0) release_pt_word(init_pt_idx);
     if (init_tensor_en != 0) release_tensor_word(init_tensor_idx);
     if (init_logic_acc_en != 0) release dut.logic_acc;
+
+    // Arbitrary-boundary test initialization; these are not CPU bus methods.
+    // Deposit at this negedge without introducing another dispatch clock.
+    if (init_csr_heap_base_en != 0) dut.csr_heap_base = init_csr_heap_base_value[31:0];
+    if (init_csr_status_en != 0) dut.csr_status = init_csr_status_value[31:0];
+
+    // Init is complete. The step rule was NOT inhibited across the init clock
+    // edges above, so RL_step dispatched the instruction at pc=0 once, before
+    // shadow_executing was set. pc/mu/err/error_code writes are masked by
+    // their own forces, but mu_tensor is NOT forced: a REVEAL at pc=0 committed
+    // its tensor write, leaving an entry above mu. The first real REVEAL then
+    // saw tensor_total > mu and trapped on the Bianchi guard instead of
+    // charging (coq/kernel/foundation/VMStep.v:290 requires bits + cost + 1).
+    // Discard that uncharged write: zero the tensor and re-apply exactly the
+    // preload the test requested. This is the same init-dispatch hazard the
+    // chsh_phase force above guards against, for the register it missed.
+    for (i = 0; i < 16; i = i + 1) dut.mt_arr[i] = 32'd0;
+    if (init_tensor_en != 0) dut.mt_arr[init_tensor_idx] = init_tensor_value[31:0];
 
     shadow_executing = 1'b1;
     cycle_count = 0;
@@ -316,7 +347,15 @@ module thiele_cpu_kami_tb;
     #1;
     $display("{");
     $display("  \"status\": %0d,", halted_out ? 32'd2 : (err_out ? 32'd3 : 32'd0));
-    $display("  \"error_code\": %0d,", error_code_out);
+    // error_code is sticky: the un-inhibited init dispatch latched
+    // ERR_BIANCHI_VAL into it (that edge wrote mu_tensor while mu was still
+    // forced to 0), and err was masked by its own init force, so the stale code
+    // outlived the fault. A trap code is only meaningful while a fault is live:
+    // report it when err is set, or while the Bianchi guard is still asserting
+    // (tensor_total > mu genuinely holds, as it does after INIT_TENSOR 0 1 with
+    // INIT_MU 0). Anything else is a stale latch from initialisation.
+    $display("  \"error_code\": %0d,",
+             (err_out || bianchi_alarm_out) ? error_code_out : 32'd0);
     $display("  \"partition_ops\": %0d,", partition_ops_out);
     $display("  \"mdl_ops\": %0d,", mdl_ops_out);
     $display("  \"info_gain\": %0d,", info_gain_out);
@@ -324,7 +363,19 @@ module thiele_cpu_kami_tb;
     $display("  \"logic_acc\": %0d,", logic_acc_out);
     $display("  \"mstatus\": %0d,", mstatus_out);
     $display("  \"cert_addr\": %0d,", cert_addr_out);
-    $display("  \"csr_heap_base\": 0,");
+    $display("  \"csr_heap_base\": %0d,", dut.csr_heap_base);
+    $display("  \"csr_status\": %0d,", dut.csr_status);
+    $display("  \"module_tensors\": [");
+    for (tensor_module = 0; tensor_module < 16; tensor_module = tensor_module + 1) begin
+      $write("    [");
+      for (tensor_cell = 0; tensor_cell < 16; tensor_cell = tensor_cell + 1) begin
+        $write("%0d", dut.module_tensors[(tensor_module * 16 + tensor_cell) * 32 +: 32]);
+        if (tensor_cell < 15) $write(",");
+      end
+      if (tensor_module < 15) $display("],");
+      else $display("]");
+    end
+    $display("  ],");
     $display("  \"mu_tensor_0\": %0d,", mu_tensor_0);
     $display("  \"mu_tensor_1\": %0d,", mu_tensor_1);
     $display("  \"mu_tensor_2\": %0d,", mu_tensor_2);
@@ -398,13 +449,27 @@ module thiele_cpu_kami_tb;
     for (morph_j = 0; morph_j < 16; morph_j = morph_j + 1) begin
       if (dut.morph_valid_table[morph_j]) begin
         if (!first_morph) $write(", ");
+        coupling_desc_j = dut.morph_coupling_desc_table[morph_j*4 +: 4];
+        coupling_base_j = dut.coupling_desc_base_table[coupling_desc_j*4 +: 4];
+        coupling_count_j = dut.coupling_desc_count_table[coupling_desc_j*5 +: 5];
         $write(
-          "{\"id\": %0d, \"source\": %0d, \"target\": %0d, \"is_identity\": %0d, \"coupling\": {\"label\": \"empty\", \"pairs\": []}}",
+          "{\"id\": %0d, \"source\": %0d, \"target\": %0d, \"is_identity\": %0d, \"coupling\": {\"label\": \"empty\", \"pairs\": [",
           morph_j,
           dut.morph_src_table[morph_j*6 +: 6],
           dut.morph_dst_table[morph_j*6 +: 6],
           dut.morph_identity_table[morph_j]
         );
+        if (dut.coupling_desc_valid_table[coupling_desc_j]) begin
+          for (coupling_j = 0; coupling_j < coupling_count_j; coupling_j = coupling_j + 1) begin
+            pair_j = coupling_base_j + coupling_j;
+            if (coupling_j != 0) $write(", ");
+            if (pair_j >= 16 || !dut.coupling_pair_valid_table[pair_j])
+              $fatal(1, "Invalid coupling descriptor range");
+            $write("[%0d, %0d]", dut.coupling_pair_src_table_arr[pair_j],
+                   dut.coupling_pair_dst_table_arr[pair_j]);
+          end
+        end
+        $write("]}}");
         first_morph = 0;
       end
     end
@@ -446,18 +511,25 @@ module thiele_cpu_kami_tb;
   task release_tensor_word(input integer idx); begin end endtask
 
   always @(posedge clk) begin
-    if (!rst_n) begin prev_mu_valid <= 1'b0; prev_mu <= 32'd0; end
+    if (!rst_n) begin prev_mu_valid <= 1'b0; prev_mu <= 32'd0; prev_pc <= 32'd0; halted_seen <= 1'b0; end
     else if (shadow_executing) begin
       if (prev_mu_valid) begin
         assert (mu_out >= prev_mu)
           else $fatal(1, "PHYS_ASSERT_FAIL: mu decreased (%0d -> %0d)", prev_mu, mu_out);
       end
-      if (halted_out) begin
-        // Read opcode directly from imem RegFile — avoids race with initial block
-        assert (bianchi_alarm_out || (dut.imem.arr[pc_out[6:0]][31:24] == 8'hFF))
-          else $fatal(1, "PHYS_ASSERT_FAIL: halted without HALT opcode or bianchi alarm");
+      // Check the retirement transition only. halted_out stays high once set,
+      // and pc advances after HALT (C2_DIVERGENCE_LEDGER.md: "HALT pc: pc held
+      // -> pc advances -> CPU advances pc"), so re-checking on later cycles
+      // would read padding past the HALT. On the first cycle halted is
+      // observed, prev_pc still names the instruction that just retired, read
+      // directly from the imem RegFile to avoid a race with the initial block.
+      if (halted_out && !halted_seen) begin
+        assert (err_out || bianchi_alarm_out || (dut.imem.arr[prev_pc[6:0]][31:24] == 8'hFF))
+          else $fatal(1, "PHYS_ASSERT_FAIL: halted without HALT opcode, error or bianchi alarm");
       end
+      if (halted_out) halted_seen <= 1'b1;
       prev_mu <= mu_out;
+      prev_pc <= pc_out;
       prev_mu_valid <= 1'b1;
     end
   end

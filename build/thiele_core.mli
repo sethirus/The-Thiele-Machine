@@ -1,6 +1,10 @@
 
 val negb : bool -> bool
 
+val fst : ('a1*'a2) -> 'a1
+
+val snd : ('a1*'a2) -> 'a2
+
 val length : 'a1 list -> int
 
 val app : 'a1 list -> 'a1 list -> 'a1 list
@@ -21,6 +25,8 @@ module Nat :
   val eqb : int -> int -> bool
 
   val ltb : int -> int -> bool
+
+  val min : int -> int -> int
 
   val divmod : int -> int -> int -> int -> int*int
 
@@ -351,6 +357,20 @@ val list_read_at : int list -> int -> int
 val write_string_to_mem : int list -> int -> char list -> int list
 
 val mem_to_string : int list -> int -> char list
+
+val memory_word_at : int list -> int -> int
+
+val serialized_coupling_pair_count : int list -> int -> int
+
+val load_coupling_pairs_from_mem : int list -> int -> int -> (int*int) list
+
+val pair_respects_regions : int list -> int list -> (int*int) -> bool
+
+val restrict_coupling_to_regions :
+  int list -> int list -> couplingData -> couplingData
+
+val load_coupling_from_mem :
+  vMState -> int list -> int list -> int -> couplingData
 
 module CertCheck :
  sig

@@ -1,0 +1,561 @@
+Record CertificationSystem : Type := mk_cert_system
+  { cs_state : Type;
+    cs_instr : Type;
+    cs_step : cs_state -> cs_instr -> cs_state;
+    cs_cost : cs_instr -> nat;
+    cs_cert : cs_state -> bool;
+    cs_cert_costs : forall (s : cs_state) (i : cs_instr),
+                    cs_cert s = false ->
+                    cs_cert (cs_step s i) = true -> cs_cost i >= 1 }.
+
+Arguments mk_cert_system (cs_state cs_instr)%type_scope
+  (cs_step cs_cost cs_cert cs_cert_costs)%function_scope
+Record CertCostMachine : Type := Build_CertCostMachine
+  { ccm_state : Type;
+    ccm_step : ccm_state -> VMStep.VMStep.vm_instruction -> ccm_state;
+    ccm_cost : VMStep.VMStep.vm_instruction -> nat;
+    ccm_cert : ccm_state -> bool;
+    ccm_cert_costs : forall (s : ccm_state)
+                       (i : VMStep.VMStep.vm_instruction),
+                     ccm_cert s = false ->
+                     ccm_cert (ccm_step s i) = true -> ccm_cost i >= 1 }.
+
+Arguments Build_CertCostMachine ccm_state%type_scope
+  (ccm_step ccm_cost ccm_cert ccm_cert_costs)%function_scope
+Record LocalPredicatePricedSystem : Type := mk_local_predicate_priced_system
+  { lps_state : Type;
+    lps_instr : Type;
+    lps_step : lps_state -> lps_instr -> lps_state;
+    lps_cost : lps_state -> lps_instr -> nat;
+    lps_cert : lps_state -> bool;
+    lps_charge : lps_state -> lps_instr -> bool;
+    lps_charged_costs : forall (s : lps_state) (i : lps_instr),
+                        lps_charge s i = true -> lps_cost s i >= 1;
+    lps_uncharged_free : forall (s : lps_state) (i : lps_instr),
+                         lps_charge s i = false -> lps_cost s i = 0 }.
+
+Arguments mk_local_predicate_priced_system (lps_state lps_instr)%type_scope
+  (lps_step lps_cost lps_cert lps_charge lps_charged_costs
+   lps_uncharged_free)%function_scope
+Record CostFunctional : Set := Build_CostFunctional
+  { cf_measure : VMState.VMState -> nat;
+    cf_instruction_consistent : instruction_consistent cf_measure
+                                  canonical_cost;
+    cf_init_zero : cf_measure init_state = 0 }.
+
+Arguments Build_CostFunctional cf_measure%function_scope
+  cf_instruction_consistent cf_init_zero
+Record
+SoundStructuralShortcut (fuel : nat)
+(trace : list VMStep.VMStep.vm_instruction) (s_init : VMState.VMState)
+  : Type := Build_SoundStructuralShortcut
+  { shortcut_decoder : NoFreeInsight.NoFreeInsight.receipt_decoder
+                         VMStep.VMStep.vm_instruction;
+    shortcut_obs_fn : VMState.VMState -> list VMStep.VMStep.vm_instruction;
+    shortcut_repr_obs_fn : VMState.VMState ->
+                           list VMStep.VMStep.vm_instruction;
+    shortcut_obs_eqb : list VMStep.VMStep.vm_instruction ->
+                       list VMStep.VMStep.vm_instruction -> bool;
+    shortcut_omega_prior : list VMState.VMState;
+    shortcut_omega_posterior : list VMState.VMState;
+    shortcut_tree : MuShannonBridge.DecisionTree;
+    shortcut_obs_eqb_spec : forall o1 o2 : list VMStep.VMStep.vm_instruction,
+                            shortcut_obs_eqb o1 o2 = true <-> o1 = o2;
+    shortcut_strict_narrowing : InformationGainToStrengthening.is_strict_subset
+                                  shortcut_omega_posterior
+                                  shortcut_omega_prior;
+    shortcut_distinguishing_witness : exists s_witness : VMState.VMState,
+                                        List.In s_witness
+                                          shortcut_omega_prior /\
+                                        ~
+                                        List.In s_witness
+                                          shortcut_omega_posterior /\
+                                        InformationGainToStrengthening.observation_distinguishes
+                                          shortcut_obs_fn s_witness
+                                          shortcut_omega_posterior;
+    shortcut_initial_uncertified : VMState.csr_cert_addr
+                                     (VMState.vm_csrs s_init) = 0;
+    shortcut_certified_posterior : NoFreeInsight.NoFreeInsight.Certified
+                                     (SimulationProof.run_vm fuel trace
+                                        s_init) shortcut_decoder
+                                     (InformationGainToStrengthening.omega_predicate
+                                        shortcut_obs_eqb
+                                        shortcut_omega_posterior
+                                        shortcut_obs_fn) trace;
+    shortcut_tree_realized : MuShannonBridge.decision_tree_realized_by_trace
+                               fuel trace s_init shortcut_tree;
+    shortcut_posterior_nonempty : MuShannonBridge.feasible_size
+                                    shortcut_omega_posterior > 0;
+    shortcut_representatives : MuShannonBridge.PosteriorRepresentativeReduction
+                                 shortcut_repr_obs_fn shortcut_tree
+                                 shortcut_omega_prior
+                                 shortcut_omega_posterior }.
+
+Arguments SoundStructuralShortcut fuel%nat_scope trace%list_scope s_init
+Arguments Build_SoundStructuralShortcut fuel%nat_scope 
+  trace%list_scope s_init shortcut_decoder
+  (shortcut_obs_fn shortcut_repr_obs_fn shortcut_obs_eqb)%function_scope
+  (shortcut_omega_prior shortcut_omega_posterior)%list_scope 
+  shortcut_tree shortcut_obs_eqb_spec%function_scope
+  shortcut_strict_narrowing shortcut_distinguishing_witness
+  shortcut_initial_uncertified shortcut_certified_posterior
+  shortcut_tree_realized shortcut_posterior_nonempty 
+  shortcut_representatives
+VMSubstrateInstance.vm_run =
+fun (p : list VMStep.VMStep.vm_instruction) (s : VMState.VMState) =>
+Some (SimulationProof.run_vm VMSubstrateInstance.vm_run_fuel p s)
+     : list VMStep.VMStep.vm_instruction ->
+       VMState.VMState -> option VMState.VMState
+
+Arguments VMSubstrateInstance.vm_run p%list_scope s
+vm_admits_shortcut_extensional =
+fun p : list VMStep.VMStep.vm_instruction =>
+VMSubstrateInstance.vm_run p init_state =
+VMSubstrateInstance.vm_run SimpleMorphShortcut.simple_morph_trace init_state
+     : list VMStep.VMStep.vm_instruction -> Prop
+
+Arguments vm_admits_shortcut_extensional p%list_scope
+vm_halts_at =
+fun (p : list VMStep.VMStep.vm_instruction) (s r : VMState.VMState) =>
+exists n : nat, SimulationProof.run_vm n p s = r /\ halted p r
+     : list VMStep.VMStep.vm_instruction ->
+       VMState.VMState -> VMState.VMState -> Prop
+
+Arguments vm_halts_at p%list_scope s r
+extended_hw_invariant =
+fun ks : Abstraction.KamiSnapshot =>
+pt_well_formed ks /\
+morph_table_wf (Abstraction.snap_rich_state ks) /\
+coupling_zero_empty (Abstraction.snap_rich_state ks) /\
+coupling_wf (Abstraction.snap_rich_state ks) /\ coupling_desc_safe ks
+     : Abstraction.KamiSnapshot -> Prop
+
+Arguments extended_hw_invariant ks
+WFDrivenPrecondition =
+fun (ks : Abstraction.KamiSnapshot) (i : VMStep.VMStep.vm_instruction) =>
+match i with
+| VMStep.VMStep.instr_pnew region _ =>
+    length (VMState.normalize_region region) > 0 /\
+    (forall n : nat,
+     Abstraction.snap_module_tensors ks (Abstraction.snap_pt_next_id ks) n =
+     0)
+| VMStep.VMStep.instr_psplit module _ _ _ =>
+    pt_well_formed ks /\
+    PeanoNat.Nat.modulo module ThieleTypes.PTableSz <
+    Abstraction.snap_pt_next_id ks /\
+    Abstraction.snap_pt_sizes ks
+      (PeanoNat.Nat.modulo module ThieleTypes.PTableSz) >= 2 /\
+    Abstraction.snap_pt_sizes ks (Abstraction.snap_pt_next_id ks) = 0 /\
+    Abstraction.snap_pt_sizes ks (S (Abstraction.snap_pt_next_id ks)) = 0 /\
+    S (S (Abstraction.snap_pt_next_id ks)) <= ThieleTypes.PTableSz /\
+    (forall n : nat,
+     Abstraction.snap_module_tensors ks (Abstraction.snap_pt_next_id ks) n =
+     0) /\
+    (forall n : nat,
+     Abstraction.snap_module_tensors ks (S (Abstraction.snap_pt_next_id ks))
+       n = 0)
+| VMStep.VMStep.instr_pmerge m1 m2 _ =>
+    pt_well_formed ks /\
+    PeanoNat.Nat.modulo m1 ThieleTypes.PTableSz <
+    Abstraction.snap_pt_next_id ks /\
+    PeanoNat.Nat.modulo m2 ThieleTypes.PTableSz <
+    Abstraction.snap_pt_next_id ks /\
+    PeanoNat.Nat.modulo m1 ThieleTypes.PTableSz <>
+    PeanoNat.Nat.modulo m2 ThieleTypes.PTableSz /\
+    Abstraction.snap_pt_sizes ks
+      (PeanoNat.Nat.modulo m1 ThieleTypes.PTableSz) > 0 /\
+    Abstraction.snap_pt_sizes ks
+      (PeanoNat.Nat.modulo m2 ThieleTypes.PTableSz) > 0 /\
+    Abstraction.snap_pt_sizes ks (Abstraction.snap_pt_next_id ks) = 0 /\
+    S (Abstraction.snap_pt_next_id ks) <= ThieleTypes.PTableSz /\
+    (forall n : nat,
+     Abstraction.snap_module_tensors ks (Abstraction.snap_pt_next_id ks) n =
+     0)
+| VMStep.VMStep.instr_lassert freg _ _ flen _ =>
+    flen = VMStep.VMStep.lassert_hw_flen (Abstraction.abs_phase1 ks) freg
+| VMStep.VMStep.instr_call _ _ =>
+    EmbedStep_WF.WellFormedSnapshot ks /\
+    Abstraction.snap_pc ks < VMState.MEM_SIZE
+| VMStep.VMStep.instr_ret _ => EmbedStep_WF.WellFormedSnapshot ks
+| VMStep.VMStep.instr_chsh_trial x y a b _ =>
+    VMStep.VMStep.chsh_bits_ok x y a b = true
+| VMStep.VMStep.instr_tensor_set _ i0 j _ _ =>
+    VMStep.VMStep.tensor_indices_ok i0 j = true
+| VMStep.VMStep.instr_tensor_get _ mid i0 j _ =>
+    VMStep.VMStep.tensor_indices_ok i0 j = true /\
+    VMState.graph_lookup (Abstraction.snap_full_graph ks) mid <> None
+| VMStep.VMStep.instr_morph _ src_mod dst_mod _ _ =>
+    extended_hw_invariant ks /\
+    src_mod < Abstraction.snap_pt_next_id ks /\
+    dst_mod < Abstraction.snap_pt_next_id ks /\
+    negb (PeanoNat.Nat.eqb (Abstraction.snap_pt_sizes ks src_mod) 0) = true /\
+    negb (PeanoNat.Nat.eqb (Abstraction.snap_pt_sizes ks dst_mod) 0) = true
+| VMStep.VMStep.instr_morph_id _ module _ =>
+    coupling_zero_empty (Abstraction.snap_rich_state ks) /\
+    module < Abstraction.snap_pt_next_id ks /\
+    negb (PeanoNat.Nat.eqb (Abstraction.snap_pt_sizes ks module) 0) = true
+| VMStep.VMStep.instr_morph_delete _ _ |
+  VMStep.VMStep.instr_morph_assert _ _ _ _ =>
+    morph_table_wf (Abstraction.snap_rich_state ks)
+| VMStep.VMStep.instr_compose _ _ _ _ |
+  VMStep.VMStep.instr_morph_tensor _ _ _ _ |
+  VMStep.VMStep.instr_morph_get _ _ _ _ => extended_hw_invariant ks
+| _ => True
+end
+     : Abstraction.KamiSnapshot -> VMStep.VMStep.vm_instruction -> Prop
+
+Arguments WFDrivenPrecondition ks i
+WFDrivenRun =
+fix WFDrivenRun
+  (fuel : nat) (trace : list VMStep.VMStep.vm_instruction)
+  (ks : Abstraction.KamiSnapshot) {struct fuel} : Prop :=
+  match fuel with
+  | 0 => True
+  | S fuel' =>
+      match List.nth_error trace (Abstraction.snap_pc ks) with
+      | Some instr =>
+          WFDrivenPrecondition ks instr /\
+          WFDrivenRun fuel' trace (Abstraction.kami_step ks instr)
+      | None => True
+      end
+  end
+     : nat ->
+       list VMStep.VMStep.vm_instruction -> Abstraction.KamiSnapshot -> Prop
+
+Arguments WFDrivenRun fuel%nat_scope trace%list_scope ks
+universal_nfi_any_substrate
+     : forall (CS : CertificationSystem) (trace : list (cs_instr CS))
+         (s0 : cs_state CS),
+       cs_cert CS s0 = false ->
+       cs_cert CS (cs_run CS trace s0) = true -> cs_total_cost CS trace >= 1
+Closed under the global context
+exact_commitment_pricing_characterization
+     : forall LPS : LocalPredicatePricedSystem,
+       quantitative_certification_floor LPS /\
+       no_overcharge_for_commitments LPS <->
+       local_predicate_same LPS (cert_flip_local LPS) (lps_charge LPS) /\
+       exact_unit_pricing LPS
+Closed under the global context
+mu_is_initial_monotone
+     : forall M : VMState.VMState -> nat,
+       instruction_consistent M canonical_cost ->
+       M init_state = 0 ->
+       forall s : VMState.VMState, reachable s -> M s = VMState.vm_mu s
+Closed under the global context
+mu_ledger_mutual_independence
+     : ~
+       (exists Omega : StrictShadow -> nat,
+          forall s : VMState.VMState, Omega (P_strict s) = VMState.vm_mu s) /\
+       ~
+       (exists Omega : StrictShadow -> bool,
+          forall s : VMState.VMState,
+          Omega (P_strict s) = VMState.vm_certified s) /\
+       ~
+       (exists Omega : CostShadow -> bool,
+          forall s : VMState.VMState,
+          Omega (P_cost s) = VMState.vm_certified s) /\
+       ~
+       (exists Omega : CertAnnotatedShadow -> nat,
+          forall s : VMState.VMState, Omega (P_cert s) = VMState.vm_mu s)
+Closed under the global context
+V_does_not_factor_through_classical
+     : forall (T : Type) (proj : T -> VerifierModel.BareTranscript)
+         (explains_T : VMState.VMState -> T -> Prop) 
+         (t_A t_B : T) (V : T -> bool),
+       proj t_A = proj t_B ->
+       explains_T NecessityOfMuLedger.po1_state_A t_A ->
+       explains_T NecessityOfMuLedger.po1_state_B t_B ->
+       (forall t : T,
+        V t = true ->
+        forall s : VMState.VMState, explains_T s t -> VMState.vm_mu s = 1) ->
+       (forall (s : VMState.VMState) (t : T),
+        VMState.vm_mu s = 1 -> explains_T s t -> V t = true) ->
+       ~ factors_classical proj V
+Closed under the global context
+structural_entitlement_representation
+     : forall (fuel : nat) (trace : list VMStep.VMStep.vm_instruction)
+         (s_init : VMState.VMState)
+         (decoder : NoFreeInsight.NoFreeInsight.receipt_decoder
+                      VMStep.VMStep.vm_instruction)
+         (obs_fn
+          repr_obs_fn : VMState.VMState -> list VMStep.VMStep.vm_instruction)
+         (obs_eqb : list VMStep.VMStep.vm_instruction ->
+                    list VMStep.VMStep.vm_instruction -> bool)
+         (omega_prior omega_posterior : list VMState.VMState)
+         (tree : MuShannonBridge.DecisionTree),
+       (forall o1 o2 : list VMStep.VMStep.vm_instruction,
+        obs_eqb o1 o2 = true <-> o1 = o2) ->
+       InformationGainToStrengthening.is_strict_subset omega_posterior
+         omega_prior ->
+       (exists s_witness : VMState.VMState,
+          List.In s_witness omega_prior /\
+          ~ List.In s_witness omega_posterior /\
+          InformationGainToStrengthening.observation_distinguishes obs_fn
+            s_witness omega_posterior) ->
+       VMState.csr_cert_addr (VMState.vm_csrs s_init) = 0 ->
+       NoFreeInsight.NoFreeInsight.Certified
+         (SimulationProof.run_vm fuel trace s_init) decoder
+         (InformationGainToStrengthening.omega_predicate obs_eqb
+            omega_posterior obs_fn) trace ->
+       MuShannonBridge.decision_tree_realized_by_trace fuel trace s_init tree ->
+       MuShannonBridge.feasible_size omega_posterior > 0 ->
+       MuShannonBridge.PosteriorRepresentativeReduction repr_obs_fn tree
+         omega_prior omega_posterior ->
+       let P_prior :=
+         InformationGainToStrengthening.omega_predicate obs_eqb omega_prior
+           obs_fn in
+       let P_posterior :=
+         InformationGainToStrengthening.omega_predicate obs_eqb
+           omega_posterior obs_fn in
+       NoFreeInsight.NoFreeInsight.strictly_stronger P_posterior P_prior /\
+       NoFreeInsight.NoFreeInsight.has_structure_addition fuel trace s_init /\
+       PeanoNat.Nat.log2_up (MuShannonBridge.feasible_size omega_prior) -
+       PeanoNat.Nat.log2_up (MuShannonBridge.feasible_size omega_posterior) <=
+       VMState.vm_mu (SimulationProof.run_vm fuel trace s_init) -
+       VMState.vm_mu s_init
+Closed under the global context
+structural_shortcut_undecidable
+     : ~
+       (exists decide : Substrate.Program -> bool,
+          Substrate.Representable
+            (fun p : Substrate.Program =>
+             if decide p then no_program else yes_program) /\
+          (forall p : Substrate.Program, decide p = true <-> AdmitsShortcut p))
+where
+?Sub : [ |- Substrate.Substrate]
+?Wsp : [ |- WithShortcutPredicate]
+Closed under the global context
+nat_self_undecidable
+     : forall d : nat -> bool,
+       ~ (forall p : nat, d p = true <-> AdmitsShortcut p)
+Closed under the global context
+vm_structural_shortcut_undecidable_encoded
+     : forall
+         rep : (list VMStep.VMStep.vm_instruction ->
+                list VMStep.VMStep.vm_instruction) -> Prop,
+       (forall
+          f : list VMStep.VMStep.vm_instruction ->
+              list VMStep.VMStep.vm_instruction,
+        rep f ->
+        exists q : list VMStep.VMStep.vm_instruction,
+          forall s : VMState.VMState,
+          VMSubstrateInstance.vm_run q s = VMSubstrateInstance.vm_run (f q) s) ->
+       ~
+       (exists decide : list VMStep.VMStep.vm_instruction -> bool,
+          rep
+            (fun p : list VMStep.VMStep.vm_instruction =>
+             if decide p then nil else SimpleMorphShortcut.simple_morph_trace) /\
+          (forall p : list VMStep.VMStep.vm_instruction,
+           decide p = true <-> vm_admits_shortcut_extensional p))
+Closed under the global context
+vm_bounded_shortcut_decide_correct
+     : forall p : list VMStep.VMStep.vm_instruction,
+       vm_bounded_shortcut_decide p = true <->
+       vm_admits_shortcut_extensional p
+Closed under the global context
+vm_bounded_decider_flip_not_representable
+     : forall
+         rep : (list VMStep.VMStep.vm_instruction ->
+                list VMStep.VMStep.vm_instruction) -> Prop,
+       (forall
+          f : list VMStep.VMStep.vm_instruction ->
+              list VMStep.VMStep.vm_instruction,
+        rep f ->
+        exists q : list VMStep.VMStep.vm_instruction,
+          forall s : VMState.VMState,
+          VMSubstrateInstance.vm_run q s = VMSubstrateInstance.vm_run (f q) s) ->
+       ~
+       rep
+         (fun p : list VMStep.VMStep.vm_instruction =>
+          if vm_bounded_shortcut_decide p
+          then nil
+          else SimpleMorphShortcut.simple_morph_trace)
+Closed under the global context
+vm_halts_at_deterministic
+     : forall (p : list VMStep.VMStep.vm_instruction)
+         (s r1 r2 : VMState.VMState),
+       vm_halts_at p s r1 -> vm_halts_at p s r2 -> r1 = r2
+Closed under the global context
+structural_shortcut_not_function_of_classical
+     : ~
+       (exists decode : BlindnessRepresentation.TMSnapshot -> bool,
+          forall s : VMState.VMState,
+          decode (BlindnessRepresentation.forget s) =
+          admits_structural_shortcut_bool s)
+Closed under the global context
+D2_classical_shadow_preserved
+     : forall (prog : list VMStep.VMStep.vm_instruction)
+         (s1 s2 : VMState.VMState),
+       is_classical_program prog ->
+       vm_classical_compat s1 s2 ->
+       ShadowProjection.shadow_proj
+         (AbstractNoFI.acm_run AbstractNoFI.thiele_cert_machine prog s1) =
+       ShadowProjection.shadow_proj
+         (AbstractNoFI.acm_run AbstractNoFI.thiele_cert_machine prog s2)
+Closed under the global context
+elliptope_check_full_sound
+     : forall (wc : VMState.WitnessCounts) (xs xd ys yd : nat)
+         (lden dden : BinNums.Z) (lq dq : nat -> BinNums.Z),
+       elliptope_check_full wc xs xd ys yd lden dden lq dq = true ->
+       ElliptopeCompletion.elliptope_realizable
+         (MuLedgerQuantumBridge.state_bucket_correlation
+            (VMState.wc_same_00 wc) (VMState.wc_diff_00 wc))
+         (MuLedgerQuantumBridge.state_bucket_correlation
+            (VMState.wc_same_01 wc) (VMState.wc_diff_01 wc))
+         (MuLedgerQuantumBridge.state_bucket_correlation
+            (VMState.wc_same_10 wc) (VMState.wc_diff_10 wc))
+         (MuLedgerQuantumBridge.state_bucket_correlation
+            (VMState.wc_same_11 wc) (VMState.wc_diff_11 wc))
+Axioms:
+ClassicalDedekindReals.sig_forall_dec
+  : forall P : nat -> Prop,
+    (forall n : nat, {P n} + {~ P n}) ->
+    {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
+level_k_certification_cost_floor
+     : forall (k fuel : nat) (trace : list VMStep.VMStep.vm_instruction),
+       level_k_certified k fuel trace ->
+       MuComplexity.trace_mu_cost fuel trace init_state >= k
+Closed under the global context
+driven_step_wf
+     : forall (ks : Abstraction.KamiSnapshot)
+         (i : VMStep.VMStep.vm_instruction),
+       WFDrivenPrecondition ks i ->
+       FullAbstraction.abs_full_snapshot
+         (FullAbstraction.full_snapshot_of_snapshot
+            (Abstraction.kami_step ks i)) =
+       SimulationProof.vm_apply
+         (FullAbstraction.abs_full_snapshot
+            (FullAbstraction.full_snapshot_of_snapshot ks)) i
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
+driven_trace_commutes
+     : forall (fuel : nat) (trace : list VMStep.VMStep.vm_instruction)
+         (ks : Abstraction.KamiSnapshot),
+       WFDrivenRun fuel trace ks ->
+       FullAbstraction.abs_full_snapshot
+         (FullAbstraction.full_snapshot_of_snapshot
+            (kami_run_driven fuel trace ks)) =
+       SimulationProof.run_vm fuel trace
+         (FullAbstraction.abs_full_snapshot
+            (FullAbstraction.full_snapshot_of_snapshot ks))
+Axioms:
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
+KernelCHSH.local_strategy_chsh_between_neg2_2
+     : forall s : KernelCHSH.LocalStrategy,
+       KernelCHSH.local_bits_ok s ->
+       BinInt.Z.le (BinNums.Zneg (BinNums.xO BinNums.xH))
+         (KernelCHSH.chsh_local_z s) /\
+       BinInt.Z.le (KernelCHSH.chsh_local_z s)
+         (BinNums.Zpos (BinNums.xO BinNums.xH))
+Closed under the global context
+column_contractive_iff_quantum_realizable
+     : forall e00 e01 e10 e11 : Rdefinitions.RbaseSymbolsImpl.R,
+       MuLedgerQuantumBridge.zero_marginal_column_contractive e00 e01 e10 e11 <->
+       NPAMomentMatrix.quantum_realizable
+         (NPAMomentMatrix.zero_marginal_npa e00 e01 e10 e11)
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec
+  : forall P : nat -> Prop,
+    (forall n : nat, {P n} + {~ P n}) ->
+    {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
+chsh_lassert_no_trap_implies_quantum_realizable
+     : forall (s : VMState.VMState) (mu_delta : nat),
+       let s' :=
+         SimulationProof.vm_apply s
+           (VMStep.VMStep.instr_chsh_lassert mu_delta) in
+       VMState.vm_pc s' = S (VMState.vm_pc s) ->
+       VMState.vm_err s' = VMState.vm_err s ->
+       VMState.vm_err s = false ->
+       NPAMomentMatrix.quantum_realizable
+         (MuLedgerQuantumBridge.state_zero_marginal_npa s)
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec
+  : forall P : nat -> Prop,
+    (forall n : nat, {P n} + {~ P n}) ->
+    {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
+relational_compose_assoc
+     : forall r1 r2 r3 : Coupling,
+       relational_compose (relational_compose r1 r2) r3
+       ≡ relational_compose r1 (relational_compose r2 r3)
+Closed under the global context
+mu_hierarchy_theorem
+     : forall k : nat,
+       k >= 1 ->
+       (exists (fuel : nat) (trace : MuComplexity.Trace),
+          MuComplexity.trace_mu_cost fuel trace init_state = k /\
+          level_k_certified k fuel trace) /\
+       (forall (fuel : nat) (trace : list VMStep.VMStep.vm_instruction),
+        level_k_certified k fuel trace ->
+        MuComplexity.trace_mu_cost fuel trace init_state >= k)
+Closed under the global context
+discrete_gauss_bonnet
+     : forall g : VMState.PartitionGraph,
+       DiscreteTopology.well_formed_triangulated g ->
+       total_angle_defect g =
+       Rdefinitions.RbaseSymbolsImpl.Rmult
+         (Rdefinitions.RbaseSymbolsImpl.Rmult
+            (Rdefinitions.IZR
+               (BinNums.Zpos (BinNums.xI (BinNums.xO BinNums.xH))))
+            Rtrigo1.PI)
+         (Rdefinitions.IZR (DiscreteTopology.euler_characteristic g))
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec
+  : forall P : nat -> Prop,
+    (forall n : nat, {P n} + {~ P n}) ->
+    {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
+DiscreteTopology.well_formed_triangulated =
+fun g : VMState.PartitionGraph =>
+VMState.well_formed_graph g /\
+DiscreteTopology.all_modules_are_triangles_list g /\
+DiscreteTopology.all_regions_normalized_list g /\
+DiscreteTopology.is_2_manifold g /\
+1 <= DiscreteTopology.V g /\
+1 <= DiscreteTopology.E g /\
+1 <= DiscreteTopology.F g /\
+DiscreteTopology.satisfies_edge_face_incidence g /\
+DiscreteTopology.satisfies_degree_face_relation g /\
+DiscreteTopology.satisfies_boundary_euler_relation g
+     : VMState.PartitionGraph -> Prop
+
+Arguments DiscreteTopology.well_formed_triangulated g
+vm_apply_logic_acc_commutes
+     : forall (s : VMState.VMState) (i : VMStep.VMStep.vm_instruction)
+         (n : nat),
+       SimulationProof.vm_apply (with_logic_acc s n) i =
+       with_logic_acc (SimulationProof.vm_apply s i) n
+Closed under the global context
+run_vm_logic_acc_commutes
+     : forall (fuel : nat) (p : list VMStep.VMStep.vm_instruction)
+         (s : VMState.VMState) (n : nat),
+       SimulationProof.run_vm fuel p (with_logic_acc s n) =
+       with_logic_acc (SimulationProof.run_vm fuel p s) n
+Closed under the global context
+no_logic_acc_encoded_interpreter
+     : forall (interpreter : list VMStep.VMStep.vm_instruction)
+         (observe : VMState.VMState -> bool),
+       (forall (t : VMState.VMState) (v : nat),
+        observe (with_logic_acc t v) = observe t) ->
+       ~
+       (forall (p : list VMStep.VMStep.vm_instruction) (b : bool),
+        halts_observes interpreter (vm_encode_concrete p) observe b <->
+        halts_observes p init_state VMState.vm_certified b)
+Closed under the global context

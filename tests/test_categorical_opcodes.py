@@ -47,7 +47,12 @@ class TestMorphCreate:
         assert morph.morph_source == 1
         assert morph.morph_target == 2
         assert not morph.morph_is_identity
-        assert morph.morph_coupling.coupling_label == "empty"
+        # A plain MORPH commits one "" atom (its in-memory label), so the
+        # joined label is "". The kernel's "empty" label belongs to a morphism
+        # with no valid descriptor (MORPH_ID, identity morphisms, legacy
+        # self-MORPH). See C2_DIVERGENCE_LEDGER.md, "CPU changes for COMPOSE
+        # labels and MORPH_TENSOR".
+        assert morph.morph_coupling.coupling_label == ""
         assert morph.morph_coupling.coupling_pairs == []
 
     @pytest.mark.skipif(not vm._runner_available(), reason="OCaml runner unavailable")

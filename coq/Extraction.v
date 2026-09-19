@@ -32,7 +32,8 @@ Extraction Language OCaml.
 (** Hardware extraction first: this intentionally mirrors
     ThieleMachineComplete.v so both roots have the same extraction-engine state
     before emitting the core VM OCaml.  KamiExtraction.v extracts the same
-    symbols independently; the build gate checks all three outputs agree. *)
+    symbols independently. The freshness gate reproduces each tracked artifact
+    from its declared extraction root. *)
 Set Extraction Optimize.
 Set Extraction KeepSingleton.
 Unset Extraction AutoInline.
@@ -326,8 +327,9 @@ Extract Constant VMState.bytes_to_word_4 =>
    This gives us 63-bit operational fidelity (values 0..2^62-1 and the
    two's-complement signed range are exact). Values in unsigned [2^62, 2^64)
    with bit 63 ≠ bit 62 cannot be distinguished. The Coq proofs have full
-   64-bit fidelity; the Verilog RTL has 32-bit. For all practical VM programs
-   the 63-bit range is sufficient — no test or program uses values ≥ 2^62.
+   64-bit fidelity; the Verilog RTL has 32-bit. The nonnegative native-int
+   range bounds exact natural-number arithmetic. Programs
+   must keep intermediate values in the domain required by each replacement.
    See VMState.v lines 962-965 for documentation of this boundary. *)
 
 (* SAFE: 64-bit addition via Int64 — wraps at 2^64 boundary, 63-bit fidelity *)

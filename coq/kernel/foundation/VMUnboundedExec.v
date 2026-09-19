@@ -2,13 +2,11 @@
 
     Why this file exists. The VM [Substrate] instance (VMSubstrateInstance.v)
     uses BOUNDED execution: [vm_run p s = Some (run_vm vm_run_fuel p s)] with a
-    fixed fuel. A fixed fuel budget structurally blocks any self-interpreting
-    fixed point: a universal interpreter consumes unboundedly more steps than the
-    program it simulates, so no bounded-fuel program can act as its own diagonal
-    for a non-trivial decider. The honest discharge of the VM's Kleene recursion
-    theorem (the one premise left open in
-    VMSubstrateEncoded.vm_structural_shortcut_undecidable_encoded) therefore
-    needs an UNBOUNDED execution model.
+    fixed fuel. Unbounded halting is a different predicate: supplying an
+    interpreter for it does not discharge the bounded recurrence premise of
+    VMSubstrateEncoded. A new interpreter contract must specify the executable
+    input encoding, output observation, and simulation relation before an
+    applicable unbounded recurrence theorem can be claimed.
 
     This file is the foundation of that model. It defines unbounded halting
     relationally on top of [run_vm], and proves the load-bearing facts the later

@@ -5,6 +5,16 @@ let negb = function
 | true -> false
 | false -> true
 
+(** val fst : ('a1*'a2) -> 'a1 **)
+
+let fst = function
+| x,_ -> x
+
+(** val snd : ('a1*'a2) -> 'a2 **)
+
+let snd = function
+| _,y -> y
+
 (** val length : 'a1 list -> int **)
 
 let rec length = function
@@ -56,6 +66,18 @@ module Nat =
   (** val ltb : int -> int -> bool **)
 
   let ltb = (<)
+
+  (** val min : int -> int -> int **)
+
+  let rec min n0 m =
+    (fun zero succ n -> if n=0 then zero () else succ (n-1))
+      (fun _ -> 0)
+      (fun n' ->
+      (fun zero succ n -> if n=0 then zero () else succ (n-1))
+        (fun _ -> 0)
+        (fun m' -> (fun x -> x + 1) (min n' m'))
+        m)
+      n0
 
   (** val divmod : int -> int -> int -> int -> int*int **)
 
@@ -1277,6 +1299,57 @@ let mem_to_string mem base =
       (seq 0 n_words)
   in
   string_of_list_ascii (words_to_bytes words len)
+
+(** val memory_word_at : int list -> int -> int **)
+
+let memory_word_at mem addr =
+  list_read_at mem (mem_index addr)
+
+(** val serialized_coupling_pair_count : int list -> int -> int **)
+
+let serialized_coupling_pair_count mem base =
+  Nat.min (memory_word_at mem base)
+    (Nat.div mEM_SIZE ((fun x -> x + 1) ((fun x -> x + 1) 0)))
+
+(** val load_coupling_pairs_from_mem :
+    int list -> int -> int -> (int*int) list **)
+
+let rec load_coupling_pairs_from_mem mem addr remaining =
+  (fun zero succ n -> if n=0 then zero () else succ (n-1))
+    (fun _ -> [])
+    (fun remaining' ->
+    ((memory_word_at mem addr),(memory_word_at mem ((fun x -> x + 1) addr)))::
+    (load_coupling_pairs_from_mem mem
+      ((+) addr ((fun x -> x + 1) ((fun x -> x + 1) 0))) remaining'))
+    remaining
+
+(** val pair_respects_regions : int list -> int list -> (int*int) -> bool **)
+
+let pair_respects_regions src_region dst_region p =
+  (&&) (nat_list_mem (fst p) src_region) (nat_list_mem (snd p) dst_region)
+
+(** val restrict_coupling_to_regions :
+    int list -> int list -> couplingData -> couplingData **)
+
+let restrict_coupling_to_regions src_region dst_region c =
+  { coupling_pairs =
+    (filter (pair_respects_regions src_region dst_region) c.coupling_pairs);
+    coupling_label = c.coupling_label }
+
+(** val load_coupling_from_mem :
+    vMState -> int list -> int list -> int -> couplingData **)
+
+let load_coupling_from_mem s src_region dst_region base =
+  let pair_count = serialized_coupling_pair_count s.vm_mem base in
+  let label_base =
+    (+) ((fun x -> x + 1) base)
+      (( * ) ((fun x -> x + 1) ((fun x -> x + 1) 0)) pair_count)
+  in
+  let raw = { coupling_pairs =
+    (load_coupling_pairs_from_mem s.vm_mem ((fun x -> x + 1) base) pair_count);
+    coupling_label = (mem_to_string s.vm_mem (mem_index label_base)) }
+  in
+  restrict_coupling_to_regions src_region dst_region raw
 
 module CertCheck =
  struct
@@ -5442,8 +5515,9 @@ let vm_apply s = function
     if check_ok then (fun x -> x + 1) s.vm_pc else VMStep.coq_LASSERT_TRAP_PC
   in
   let new_err = if check_ok then s.vm_err else true in
-  { vm_graph = s.vm_graph; vm_csrs = s.vm_csrs; vm_regs = s.vm_regs; vm_mem =
-  s.vm_mem; vm_pc = new_pc; vm_mu =
+  { vm_graph = s.vm_graph; vm_csrs =
+  (if check_ok then s.vm_csrs else csr_set_err s.vm_csrs ((fun x -> x + 1) 0));
+  vm_regs = s.vm_regs; vm_mem = s.vm_mem; vm_pc = new_pc; vm_mu =
   (VMStep.apply_cost s (VMStep.Coq_instr_lassert (freg, creg, kind, flen,
     cost))); vm_mu_tensor = s.vm_mu_tensor; vm_err = new_err; vm_logic_acc =
   s.vm_logic_acc; vm_mstatus = s.vm_mstatus; vm_witness = s.vm_witness;
@@ -5647,12 +5721,15 @@ let vm_apply s = function
          (VMStep.latch_err s true)
 | VMStep.Coq_instr_morph (dst, src_mod, dst_mod, coupling_idx, cost) ->
   (match graph_lookup s.vm_graph src_mod with
-   | Some _ ->
+   | Some ms_src ->
      (match graph_lookup s.vm_graph dst_mod with
-      | Some _ ->
+      | Some ms_dst ->
+        let coupling =
+          load_coupling_from_mem s ms_src.module_region ms_dst.module_region
+            coupling_idx
+        in
         let graph',morph_id =
-          graph_add_morphism s.vm_graph src_mod dst_mod empty_coupling_data
-            false
+          graph_add_morphism s.vm_graph src_mod dst_mod coupling false
         in
         VMStep.advance_state_rm s (VMStep.Coq_instr_morph (dst, src_mod,
           dst_mod, coupling_idx, cost)) graph' s.vm_csrs

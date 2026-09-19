@@ -1,0 +1,299 @@
+DIGEST 642e15019aaa3cdddd051f66211cdda0
+FKernel.VMEncodedInputAccess
+R812:815 Coq.Lists.List <> <> lib
+R845:851 Kernel.VMState <> <> lib
+R853:858 Kernel.VMStep <> <> lib
+R860:874 Kernel.SimulationProof <> <> lib
+def 888:901 <> with_logic_acc
+R908:914 Kernel.VMState <> VMState rec
+binder 904:904 <> s:1
+R922:924 Coq.Init.Datatypes <> nat ind
+binder 918:918 <> n:2
+R929:935 Kernel.VMState <> VMState rec
+R944:951 Kernel.VMState <> vm_graph proj
+R944:951 Kernel.VMState <> vm_graph proj
+R944:951 Kernel.VMState <> vm_graph proj
+R970:976 Kernel.VMState <> vm_csrs proj
+R970:976 Kernel.VMState <> vm_csrs proj
+R995:1001 Kernel.VMState <> vm_regs proj
+R995:1001 Kernel.VMState <> vm_regs proj
+R1019:1024 Kernel.VMState <> vm_mem proj
+R1019:1024 Kernel.VMState <> vm_mem proj
+R1041:1045 Kernel.VMState <> vm_pc proj
+R1041:1045 Kernel.VMState <> vm_pc proj
+R1062:1066 Kernel.VMState <> vm_mu proj
+R1062:1066 Kernel.VMState <> vm_mu proj
+R1082:1093 Kernel.VMState <> vm_mu_tensor proj
+R1082:1093 Kernel.VMState <> vm_mu_tensor proj
+R1116:1121 Kernel.VMState <> vm_err proj
+R1116:1121 Kernel.VMState <> vm_err proj
+R1139:1150 Kernel.VMState <> vm_logic_acc proj
+R1139:1150 Kernel.VMState <> vm_logic_acc proj
+R1158:1167 Kernel.VMState <> vm_mstatus proj
+R1158:1167 Kernel.VMState <> vm_mstatus proj
+R1188:1197 Kernel.VMState <> vm_witness proj
+R1188:1197 Kernel.VMState <> vm_witness proj
+R1219:1230 Kernel.VMState <> vm_certified proj
+R1219:1230 Kernel.VMState <> vm_certified proj
+R959:966 Kernel.VMState <> vm_graph proj
+R956:956 Kernel.VMEncodedInputAccess <> s:1 var
+R984:990 Kernel.VMState <> vm_csrs proj
+R981:981 Kernel.VMEncodedInputAccess <> s:1 var
+R1009:1015 Kernel.VMState <> vm_regs proj
+R1006:1006 Kernel.VMEncodedInputAccess <> s:1 var
+R1032:1037 Kernel.VMState <> vm_mem proj
+R1029:1029 Kernel.VMEncodedInputAccess <> s:1 var
+R1053:1057 Kernel.VMState <> vm_pc proj
+R1050:1050 Kernel.VMEncodedInputAccess <> s:1 var
+R1074:1078 Kernel.VMState <> vm_mu proj
+R1071:1071 Kernel.VMEncodedInputAccess <> s:1 var
+R1101:1112 Kernel.VMState <> vm_mu_tensor proj
+R1098:1098 Kernel.VMEncodedInputAccess <> s:1 var
+R1129:1134 Kernel.VMState <> vm_err proj
+R1126:1126 Kernel.VMEncodedInputAccess <> s:1 var
+R1155:1155 Kernel.VMEncodedInputAccess <> n:2 var
+R1175:1184 Kernel.VMState <> vm_mstatus proj
+R1172:1172 Kernel.VMEncodedInputAccess <> s:1 var
+R1205:1214 Kernel.VMState <> vm_witness proj
+R1202:1202 Kernel.VMEncodedInputAccess <> s:1 var
+R1238:1249 Kernel.VMState <> vm_certified proj
+R1235:1235 Kernel.VMEncodedInputAccess <> s:1 var
+prf 1262:1288 <> vm_apply_logic_acc_commutes
+binder 1299:1299 <> s:3
+binder 1301:1301 <> i:4
+binder 1303:1303 <> n:5
+R1338:1340 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1307:1314 Kernel.SimulationProof <> vm_apply def
+R1317:1330 Kernel.VMEncodedInputAccess <> with_logic_acc def
+R1332:1332 Kernel.VMEncodedInputAccess <> s:3 var
+R1334:1334 Kernel.VMEncodedInputAccess <> n:5 var
+R1337:1337 Kernel.VMEncodedInputAccess <> i:4 var
+R1341:1354 Kernel.VMEncodedInputAccess <> with_logic_acc def
+R1357:1364 Kernel.SimulationProof <> vm_apply def
+R1366:1366 Kernel.VMEncodedInputAccess <> s:3 var
+R1368:1368 Kernel.VMEncodedInputAccess <> i:4 var
+R1371:1371 Kernel.VMEncodedInputAccess <> n:5 var
+R1413:1420 Kernel.SimulationProof <> vm_apply def
+R1422:1435 Kernel.VMEncodedInputAccess <> with_logic_acc def
+R1467:1474 Kernel.VMState <> read_reg def
+R1476:1483 Kernel.VMState <> read_mem def
+R1485:1498 Kernel.VMEncodedInputAccess <> with_logic_acc def
+R1500:1507 Kernel.VMState <> vm_graph proj
+R1509:1515 Kernel.VMState <> vm_csrs proj
+R1517:1523 Kernel.VMState <> vm_regs proj
+R1525:1530 Kernel.VMState <> vm_mem proj
+R1532:1536 Kernel.VMState <> vm_pc proj
+R1538:1542 Kernel.VMState <> vm_mu proj
+R1544:1555 Kernel.VMState <> vm_mu_tensor proj
+R1557:1562 Kernel.VMState <> vm_err proj
+R1564:1575 Kernel.VMState <> vm_logic_acc proj
+R1577:1586 Kernel.VMState <> vm_mstatus proj
+R1588:1597 Kernel.VMState <> vm_witness proj
+R1599:1610 Kernel.VMState <> vm_certified proj
+R1740:1747 Kernel.VMState <> read_reg def
+R1750:1763 Kernel.VMEncodedInputAccess <> with_logic_acc def
+prf 1805:1829 <> run_vm_logic_acc_commutes
+binder 1840:1843 <> fuel:6
+binder 1845:1845 <> p:7
+binder 1847:1847 <> s:8
+binder 1849:1849 <> n:9
+R1887:1889 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1853:1858 Kernel.SimulationProof <> run_vm def
+R1860:1863 Kernel.VMEncodedInputAccess <> fuel:6 var
+R1865:1865 Kernel.VMEncodedInputAccess <> p:7 var
+R1868:1881 Kernel.VMEncodedInputAccess <> with_logic_acc def
+R1883:1883 Kernel.VMEncodedInputAccess <> s:8 var
+R1885:1885 Kernel.VMEncodedInputAccess <> n:9 var
+R1890:1903 Kernel.VMEncodedInputAccess <> with_logic_acc def
+R1906:1911 Kernel.SimulationProof <> run_vm def
+R1913:1916 Kernel.VMEncodedInputAccess <> fuel:6 var
+R1918:1918 Kernel.VMEncodedInputAccess <> p:7 var
+R1920:1920 Kernel.VMEncodedInputAccess <> s:8 var
+R1923:1923 Kernel.VMEncodedInputAccess <> n:9 var
+R2000:2005 Kernel.SimulationProof <> run_vm def
+R2007:2020 Kernel.VMEncodedInputAccess <> with_logic_acc def
+R2022:2026 Kernel.VMState <> vm_pc proj
+R2041:2049 Coq.Lists.List <> nth_error def
+R2054:2058 Kernel.VMState <> vm_pc proj
+R2041:2049 Coq.Lists.List <> nth_error def
+R2054:2058 Kernel.VMState <> vm_pc proj
+R2104:2130 Kernel.VMEncodedInputAccess <> vm_apply_logic_acc_commutes thm
+R2104:2130 Kernel.VMEncodedInputAccess <> vm_apply_logic_acc_commutes thm
+R2104:2130 Kernel.VMEncodedInputAccess <> vm_apply_logic_acc_commutes thm
+R2175:2192 Kernel.VMSubstrateEncoded <> <> lib
+R2194:2208 Kernel.VMUnboundedExec <> <> lib
+R2210:2221 Kernel.MuInitiality <> <> lib
+R2231:2243 Coq.Lists.List ListNotations <> mod
+def 2257:2270 <> halts_observes
+R2277:2280 Coq.Init.Datatypes <> list ind
+R2282:2295 Kernel.VMStep VMStep vm_instruction ind
+binder 2273:2273 <> p:10
+R2303:2309 Kernel.VMState <> VMState rec
+binder 2299:2299 <> s:11
+R2334:2337 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2327:2333 Kernel.VMState <> VMState rec
+R2338:2341 Coq.Init.Datatypes <> bool ind
+binder 2317:2323 <> observe:12
+R2349:2352 Coq.Init.Datatypes <> bool ind
+binder 2345:2345 <> b:13
+R2366:2372 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2377:2378 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2373:2376 <> fuel:14
+R2405:2408 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2379:2384 Kernel.VMUnboundedExec <> halted def
+R2386:2386 Kernel.VMEncodedInputAccess <> p:10 var
+R2389:2394 Kernel.SimulationProof <> run_vm def
+R2396:2399 Kernel.VMEncodedInputAccess <> fuel:14 var
+R2401:2401 Kernel.VMEncodedInputAccess <> p:10 var
+R2403:2403 Kernel.VMEncodedInputAccess <> s:11 var
+R2434:2436 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2409:2415 Kernel.VMEncodedInputAccess <> observe:12 var
+R2418:2423 Kernel.SimulationProof <> run_vm def
+R2425:2428 Kernel.VMEncodedInputAccess <> fuel:14 var
+R2430:2430 Kernel.VMEncodedInputAccess <> p:10 var
+R2432:2432 Kernel.VMEncodedInputAccess <> s:11 var
+R2437:2437 Kernel.VMEncodedInputAccess <> b:13 var
+prf 2446:2465 <> halts_observes_logic
+binder 2476:2476 <> p:15
+binder 2478:2478 <> s:16
+binder 2480:2486 <> observe:17
+binder 2488:2488 <> b:18
+binder 2490:2490 <> n:19
+R2494:2494 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2547:2553 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2634:2634 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 2502:2502 <> t:20
+binder 2504:2504 <> v:21
+R2535:2537 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2507:2513 Kernel.VMEncodedInputAccess <> observe:17 var
+R2516:2529 Kernel.VMEncodedInputAccess <> with_logic_acc def
+R2531:2531 Kernel.VMEncodedInputAccess <> t:20 var
+R2533:2533 Kernel.VMEncodedInputAccess <> v:21 var
+R2538:2544 Kernel.VMEncodedInputAccess <> observe:17 var
+R2546:2546 Kernel.VMEncodedInputAccess <> t:20 var
+R2601:2605 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2554:2567 Kernel.VMEncodedInputAccess <> halts_observes def
+R2569:2569 Kernel.VMEncodedInputAccess <> p:15 var
+R2572:2585 Kernel.VMEncodedInputAccess <> with_logic_acc def
+R2587:2587 Kernel.VMEncodedInputAccess <> s:16 var
+R2589:2589 Kernel.VMEncodedInputAccess <> n:19 var
+R2592:2598 Kernel.VMEncodedInputAccess <> observe:17 var
+R2600:2600 Kernel.VMEncodedInputAccess <> b:18 var
+R2606:2619 Kernel.VMEncodedInputAccess <> halts_observes def
+R2621:2621 Kernel.VMEncodedInputAccess <> p:15 var
+R2623:2623 Kernel.VMEncodedInputAccess <> s:16 var
+R2625:2631 Kernel.VMEncodedInputAccess <> observe:17 var
+R2633:2633 Kernel.VMEncodedInputAccess <> b:18 var
+R2678:2691 Kernel.VMEncodedInputAccess <> halts_observes def
+R2752:2776 Kernel.VMEncodedInputAccess <> run_vm_logic_acc_commutes thm
+R2791:2796 Kernel.VMUnboundedExec <> halted def
+R2810:2823 Kernel.VMEncodedInputAccess <> with_logic_acc def
+R2825:2829 Kernel.VMState <> vm_pc proj
+R2752:2776 Kernel.VMEncodedInputAccess <> run_vm_logic_acc_commutes thm
+R2752:2776 Kernel.VMEncodedInputAccess <> run_vm_logic_acc_commutes thm
+R2752:2776 Kernel.VMEncodedInputAccess <> run_vm_logic_acc_commutes thm
+R2752:2776 Kernel.VMEncodedInputAccess <> run_vm_logic_acc_commutes thm
+prf 2873:2904 <> no_logic_acc_encoded_interpreter
+binder 2915:2925 <> interpreter:22
+binder 2927:2933 <> observe:23
+R2937:2937 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2990:2995 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 2945:2945 <> t:24
+binder 2947:2947 <> v:25
+R2978:2980 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2950:2956 Kernel.VMEncodedInputAccess <> observe:23 var
+R2959:2972 Kernel.VMEncodedInputAccess <> with_logic_acc def
+R2974:2974 Kernel.VMEncodedInputAccess <> t:24 var
+R2976:2976 Kernel.VMEncodedInputAccess <> v:25 var
+R2981:2987 Kernel.VMEncodedInputAccess <> observe:23 var
+R2989:2989 Kernel.VMEncodedInputAccess <> t:24 var
+R2996:2998 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3125:3125 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 3006:3006 <> p:26
+binder 3008:3008 <> b:27
+R3074:3082 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3015:3028 Kernel.VMEncodedInputAccess <> halts_observes def
+R3030:3040 Kernel.VMEncodedInputAccess <> interpreter:22 var
+R3043:3060 Kernel.VMSubstrateEncoded <> vm_encode_concrete def
+R3062:3062 Kernel.VMEncodedInputAccess <> p:26 var
+R3065:3071 Kernel.VMEncodedInputAccess <> observe:23 var
+R3073:3073 Kernel.VMEncodedInputAccess <> b:27 var
+R3083:3096 Kernel.VMEncodedInputAccess <> halts_observes def
+R3098:3098 Kernel.VMEncodedInputAccess <> p:26 var
+R3100:3109 Kernel.MuInitiality <> init_state def
+R3111:3122 Kernel.VMState <> vm_certified proj
+R3124:3124 Kernel.VMEncodedInputAccess <> b:27 var
+R3191:3204 Kernel.VMEncodedInputAccess <> halts_observes def
+R3206:3206 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3222:3222 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3207:3219 Kernel.VMStep VMStep instr_certify constr
+R3224:3233 Kernel.MuInitiality <> init_state def
+R3235:3246 Kernel.VMState <> vm_certified proj
+R3248:3251 Coq.Init.Datatypes <> true constr
+R3191:3204 Kernel.VMEncodedInputAccess <> halts_observes def
+R3206:3206 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3222:3222 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3207:3219 Kernel.VMStep VMStep instr_certify constr
+R3224:3233 Kernel.MuInitiality <> init_state def
+R3235:3246 Kernel.VMState <> vm_certified proj
+R3248:3251 Coq.Init.Datatypes <> true constr
+R3303:3307 Coq.Init.Logic <> proj2 thm
+R3316:3316 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3332:3332 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3317:3329 Kernel.VMStep VMStep instr_certify constr
+R3334:3337 Coq.Init.Datatypes <> true constr
+R3303:3307 Coq.Init.Logic <> proj2 thm
+R3316:3316 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3332:3332 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3317:3329 Kernel.VMStep VMStep instr_certify constr
+R3334:3337 Coq.Init.Datatypes <> true constr
+R3359:3372 Kernel.VMEncodedInputAccess <> halts_observes def
+R3390:3403 Kernel.VMEncodedInputAccess <> with_logic_acc def
+R3405:3414 Kernel.MuInitiality <> init_state def
+R3417:3452 Kernel.VMInstructionEncoding <> program_to_nat def
+R3454:3454 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3470:3470 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3455:3467 Kernel.VMStep VMStep instr_certify constr
+R3482:3485 Coq.Init.Datatypes <> true constr
+R3359:3372 Kernel.VMEncodedInputAccess <> halts_observes def
+R3390:3403 Kernel.VMEncodedInputAccess <> with_logic_acc def
+R3405:3414 Kernel.MuInitiality <> init_state def
+R3417:3452 Kernel.VMInstructionEncoding <> program_to_nat def
+R3454:3454 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3470:3470 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3455:3467 Kernel.VMStep VMStep instr_certify constr
+R3482:3485 Coq.Init.Datatypes <> true constr
+R3505:3509 Coq.Init.Logic <> proj1 thm
+R3512:3531 Kernel.VMEncodedInputAccess <> halts_observes_logic thm
+R3505:3509 Coq.Init.Logic <> proj1 thm
+R3512:3531 Kernel.VMEncodedInputAccess <> halts_observes_logic thm
+R3575:3588 Kernel.VMEncodedInputAccess <> halts_observes def
+R3603:3620 Kernel.VMSubstrateEncoded <> vm_encode_concrete def
+R3622:3623 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3634:3637 Coq.Init.Datatypes <> true constr
+R3575:3588 Kernel.VMEncodedInputAccess <> halts_observes def
+R3603:3620 Kernel.VMSubstrateEncoded <> vm_encode_concrete def
+R3622:3623 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3634:3637 Coq.Init.Datatypes <> true constr
+R3652:3665 Kernel.VMEncodedInputAccess <> halts_observes def
+R3686:3699 Kernel.VMEncodedInputAccess <> with_logic_acc def
+R3701:3710 Kernel.MuInitiality <> init_state def
+R3713:3748 Kernel.VMInstructionEncoding <> program_to_nat def
+R3750:3751 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3763:3766 Coq.Init.Datatypes <> true constr
+R3652:3665 Kernel.VMEncodedInputAccess <> halts_observes def
+R3686:3699 Kernel.VMEncodedInputAccess <> with_logic_acc def
+R3701:3710 Kernel.MuInitiality <> init_state def
+R3713:3748 Kernel.VMInstructionEncoding <> program_to_nat def
+R3750:3751 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3763:3766 Coq.Init.Datatypes <> true constr
+R3780:3784 Coq.Init.Logic <> proj2 thm
+R3787:3806 Kernel.VMEncodedInputAccess <> halts_observes_logic thm
+R3780:3784 Coq.Init.Logic <> proj2 thm
+R3787:3806 Kernel.VMEncodedInputAccess <> halts_observes_logic thm
+R3848:3852 Coq.Init.Logic <> proj1 thm
+R3861:3862 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3864:3867 Coq.Init.Datatypes <> true constr
+R3848:3852 Coq.Init.Logic <> proj1 thm
+R3861:3862 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3864:3867 Coq.Init.Datatypes <> true constr

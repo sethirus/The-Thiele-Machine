@@ -1,0 +1,147 @@
+# Final Claim Audit Trail
+
+- generated_at_utc: 2026-09-11T18:03:44Z
+- branch: main
+- head: 69b968906eeb88622f6480cd65a011a7d021b890
+- workspace: /workspaces/The-Thiele-Machine
+
+## Verification Artifacts
+- artifacts/proof_gate/metadata.txt
+- artifacts/proof_gate/admitted_count.txt
+- artifacts/proof_gate/checksums.sha256
+- artifacts/synthesis_gate/stats_run1.txt
+- artifacts/synthesis_gate/stats_run2.txt
+- artifacts/synthesis_gate/simulation_payload.json
+- artifacts/synthesis_gate/checksums.sha256
+
+## Git Status Snapshot
+
+```text
+ M .github/workflows/ci.yml
+ M .gitleaks.toml
+ M INQUISITOR_REPORT.md
+ M Makefile
+ M README.md
+ M artifacts/PROOF_FOUNDATION_AUDIT.md
+ M artifacts/final_claim_audit/cross_layer_equivalence_scope.json
+ M artifacts/final_claim_audit/dependency_manifest_certificate.json
+ M artifacts/final_claim_audit/git_status_porcelain.txt
+ M artifacts/final_claim_audit/master_summary_open_obligations.json
+ M artifacts/final_claim_audit/physics_research_boundaries.json
+ M artifacts/final_claim_audit/proof_spine_reduction_status.json
+ M artifacts/final_claim_audit/raychaudhuri_einstein_closure.json
+ M artifacts/final_claim_audit/repository_non_circularity_scope.json
+ M artifacts/final_claim_audit/semantic_partition_inventory.json
+ M artifacts/print_assumptions_all_proofs.json
+ M artifacts/print_assumptions_all_proofs.txt
+ M artifacts/proof_dependency_connectivity.json
+ M artifacts/proof_dependency_dag.json
+ M artifacts/proof_dependency_file_graph.mmd
+ M artifacts/rtl_pipeline_manifest.json
+ M artifacts/vacuity_audit.json
+ M build/probe/probe_all_err.txt
+ M build/probe/probe_all_output.txt
+ M build/probe/probe_batches.json
+ M build/probe/probe_inventory.json
+ M build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_achieving_coherent__a.glob
+ M coq/AssumptionsProbe.v
+ M coq/AssumptionsProbeAll.v
+ M coq/Extraction.glob
+ M coq/Extraction.v
+ M coq/Extraction.vo
+ M coq/IntrinsicLevelHierarchy.vo
+ M coq/MuCodingTheorem.vo
+ M coq/MuDirectSum.vo
+ M coq/NecessityOfMuLedger.vo
+ M coq/PhysicsConditionalClosure.glob
+ M coq/PhysicsConditionalClosure.v
+ M coq/PhysicsConditionalClosure.vo
+ M coq/ReceiptTheorem.vo
+ M coq/ThieleMachineComplete.glob
+ M coq/ThieleMachineComplete.v
+ M coq/ThieleMachineComplete.vo
+ M coq/VerifierEscape_Hardness.vo
+ M coq/VerifierEscape_Interaction.vo
+ M coq/VerifierEscape_Substrate.vo
+ M coq/VerifierExhaustiveness.vo
+ M coq/VerifierImpossibility.vo
+ M coq/VerifierModel.vo
+ M coq/_CoqProject
+ M coq/kami_hw/CanonicalCPUProof.vo
+ M coq/kami_hw/KamiExtraction.vo
+ M coq/kami_hw/RTLCorrectnessInstantiation.vo
+ M coq/kernel/aggregators/MasterSummary.glob
+ M coq/kernel/aggregators/MasterSummary.v
+ M coq/kernel/aggregators/MasterSummary.vo
+ M coq/kernel/aggregators/ThieleGenesis.vo
+ M coq/kernel/aggregators/UnificationProbePattern.glob
+ M coq/kernel/aggregators/UnificationProbePattern.v
+ M coq/kernel/aggregators/UnificationProbePattern.vo
+ M coq/kernel/foundation/DagRestriction.vo
+ M coq/kernel/foundation/NatSubstrateInstance.vo
+ M coq/kernel/foundation/VMUnboundedExec.vo
+ M coq/kernel/frontier/F1_StrongForm.vo
+ M coq/kernel/frontier/ObservationPolicy.vo
+ M coq/kernel/frontier/TraceStateDescent.vo
+ M coq/kernel/hardware_bridge/VerilogRTLCorrespondence.glob
+ M coq/kernel/hardware_bridge/VerilogRTLCorrespondence.v
+ M coq/kernel/hardware_bridge/VerilogRTLCorrespondence.vo
+ M coq/kernel/mu_calculus/MuHierarchyTheorem.glob
+ M coq/kernel/mu_calculus/MuHierarchyTheorem.v
+ M coq/kernel/mu_calculus/MuHierarchyTheorem.vo
+ M coq/kernel/mu_calculus/MuInitiality.glob
+ M coq/kernel/mu_calculus/MuInitiality.v
+ M coq/kernel/mu_calculus/MuInitiality.vo
+ M coq/kernel/nfi/A2LoadBearing.vo
+ M coq/kernel/nfi/MuRunIncompleteness.vo
+ M coq/kernel/nfi/SimpleMorphShortcut.vo
+ M coq/kernel/nfi/StructuralAdvantage.vo
+ M coq/kernel/nfi/StructuralAdvantageCertifiedShortcut.vo
+ M coq/kernel/nfi/StructuralAdvantageObservedShortcut.vo
+ M coq/kernel/nfi/StructuralAdvantageObservedShortcutResult.vo
+ M coq/kernel/nfi/StructuralAxisOrthogonality.vo
+ M coq/kernel/nfi/StructuralAxisRelativization.vo
+ M coq/kernel/nfi/StructuralUndecidability.vo
+ M coq/kernel/nfi/ThieleInitiality.vo
+ M coq/kernel/nfi/UniversalShortcutLifting.vo
+ M coq/kernel/nfi/VMSubstrateEncoded.vo
+ M coq/kernel/quantum/ElliptopeCompletion.glob
+ M coq/kernel/quantum/ElliptopeCompletion.v
+ M coq/kernel/quantum/ElliptopeGate.vo
+ M coq/kernel/quantum/GenRealizability.vo
+ M coq/kernel/quantum/InformationCausality.vo
+ M coq/kernel/quantum/QuantumEquivalence.glob
+ M coq/kernel/quantum/QuantumEquivalence.v
+ M coq/kernel/quantum/QuantumEquivalence.vo
+ M coq/kernel/quantum/QuantumPartitionPSD_1AB.glob
+ M coq/kernel/quantum/QuantumPartitionPSD_1AB.v
+ M coq/kernel/quantum/QuantumPartitionPSD_1AB.vo
+ M coq/kernel/quantum/TsirelsonFromIC.glob
+ M coq/kernel/quantum/TsirelsonFromIC.v
+ M coq/kernel/quantum/TsirelsonFromIC.vo
+ M coq/kernel/quantum/TsirelsonFromMu.glob
+ M coq/kernel/quantum/TsirelsonFromMu.v
+ M coq/kernel/quantum/TsirelsonFromMu.vo
+ M coq/kernel/reductions/ProofCarryingVerifier.vo
+ M coq/kernel/reductions/TEEAttestation.vo
+ M coq/kernel/reductions/TransparencyLog.vo
+ M coq/kernel/witness/InformationTopology.vo
+ M coq/physics/PreregSplit.vo
+ M coq/tests/ClaimBoundaryRegression.vo
+ M coq/tests/verify_zero_admits.glob
+ M coq/tests/verify_zero_admits.v
+ M coq/tests/verify_zero_admits.vo
+ M minimal/MuCore.v
+ M monograph/monograph.tex
+ M monograph/thiele_machine_math_spec.tex
+ M pyproject.toml
+ M scripts/audit_monograph_citations.py
+ M scripts/generate_assumption_receipt.sh
+ M scripts/kami_extract.sh
+ M tests/test_extraction_freshness.py
+ M tests/test_rtl_pipeline_manifest.py
+?? coq/tests/SemanticContractRegression.glob
+?? coq/tests/SemanticContractRegression.v
+?? coq/tests/SemanticContractRegression.vo
+?? scripts/check_extraction.py
+```

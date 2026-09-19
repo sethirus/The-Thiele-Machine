@@ -82,7 +82,9 @@ tests.append(("LASSERT", "LASSERT 0 0 0 0 3\nHALT", {
 # 5. LJOIN
 tests.append(("LJOIN", "LJOIN 0 0 4\nHALT", {
     "charges_mu": lambda r: r["mu"] == 5,  # S(4)=5: cert-setters charge cost+1
-    "advances_pc": lambda r: r["pc"] == 1,
+    # pc is 2: LJOIN retires at pc=0 and HALT advances pc again
+    # (C2_DIVERGENCE_LEDGER.md: "HALT pc: pc held -> pc advances").
+    "advances_pc": lambda r: r["pc"] == 2,
     "halts": lambda r: r["status"] == 2,
 }))
 
@@ -212,12 +214,16 @@ tests.append(("RET", LOCALITY_PREAMBLE + "CALL 3 1\nLOAD_IMM 2 55 1\nHALT\nLOAD_
 # 26. HALT
 tests.append(("HALT", "HALT", {
     "sets_halted_flag": lambda r: r["status"] == 2,
-    "stops_at_halt": lambda r: r["pc"] == 0,
+    # HALT advances pc (C2_DIVERGENCE_LEDGER.md: "HALT pc: pc held -> pc
+    # advances -> CPU advances pc"), so the pc that retires HALT was 0 and the
+    # reported pc is 1.
+    "stops_at_halt": lambda r: r["pc"] == 1,
 }))
 
-# 27. CHECKPOINT — NOP in hardware (advances PC only)
+# 27. CHECKPOINT — NOP in hardware (advances PC only, charges no mu)
 tests.append(("CHECKPOINT", "CHECKPOINT 0 5\nHALT", {
-    "advances_pc": lambda r: r["pc"] == 1,
+    # CHECKPOINT retires at pc=0 and HALT advances pc again.
+    "advances_pc": lambda r: r["pc"] == 2,
     "halts": lambda r: r["status"] == 2,
 }))
 
@@ -289,23 +295,25 @@ tests.append(("LUI", "LUI 1 1 1\nHALT", {
     "charges_mu": lambda r: r["mu"] == 1,
 }))
 
-# 39. TENSOR_SET — writes regs[src] to mu_tensor[tensor_idx]
-# tensor_idx = op_a[3:0], src_val = regs[op_b[4:0]]
-# Use LOAD_IMM to put a value in regs[1], then TENSOR_SET to write it to tensor slot 0
-tests.append(("TENSOR_SET", "LOAD_IMM 1 42 1\nTENSOR_SET 0 1 1\nHALT", {
-    "writes_tensor": lambda r: r["mu_tensor_0"] == 42,
-    "charges_mu": lambda r: r["mu"] == 2,
+# 39. TENSOR_SET — per-module tensor write
+# Canonical syntax (scripts/thiele_asm.py): TENSOR_SET mid i j value cost
+# It writes module_tensors[mid][i*4+j], not the REVEAL mu_tensor.
+tests.append(("TENSOR_SET", "TENSOR_SET 0 0 0 42 1\nHALT", {
+    "writes_tensor": lambda r: r["module_tensors"][0][0] == 42,
+    # TENSOR_SET charges only its declared cost: it is not bit-priced
+    # (coq/kernel/foundation/VMStep.v prices only EMIT/REVEAL/READ_PORT).
+    "charges_mu": lambda r: r["mu"] == 1,
     "halts": lambda r: r["status"] == 2,
 }))
 
-# 40. TENSOR_GET — reads mu_tensor[tensor_idx] into regs[dst]
-# Both tensor_idx (op_a[3:0]) and dst_idx (op_a[4:0]) come from op_a,
-# so tensor slot N maps to reg N.
-# Strategy: accumulate mu via LOAD_IMM instructions, then TENSOR_SET to store a value,
-# then TENSOR_GET to read it back.  Avoids INIT_MU force/release timing issue.
-tests.append(("TENSOR_GET", "LOAD_IMM 2 42 50\nTENSOR_SET 3 2 50\nTENSOR_GET 3 0 1\nHALT", {
+# 40. TENSOR_GET — per-module tensor read into a register
+# Canonical syntax (scripts/thiele_asm.py): TENSOR_GET rd mid i j cost
+# Reads module_tensors[mid][i*4+j] into regs[rd].
+tests.append(("TENSOR_GET", "TENSOR_SET 0 0 0 42 1\nTENSOR_GET 3 0 0 0 0\nHALT", {
     "reads_tensor": lambda r: r["regs"][3] == 42,
-    "charges_mu": lambda r: r["mu"] == 101,  # 50 + 50 + 1
+    # Only TENSOR_SET's declared cost is charged; TENSOR_GET's declared cost
+    # is 0 and it is not bit-priced (coq/kernel/foundation/VMStep.v).
+    "charges_mu": lambda r: r["mu"] == 1,
     "halts": lambda r: r["status"] == 2,
 }))
 

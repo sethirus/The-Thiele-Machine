@@ -21,7 +21,7 @@
       - one or two named *substrate hypotheses* that supply the
         physical constants connecting the structural quantity to the
         observable (Boltzmann bridge, second law for a bath, Unruh
-        temperature, operator-norm condition A3')
+        temperature, rotated-vector inequalities)
 
       - a Qed-closed theorem stating that the bound holds.
 
@@ -203,23 +203,23 @@ Proof. simpl. exact bekenstein_bound. Qed.
 
     Physical observable: CHSH S-value.
     Structural quantity: algebraic value `2 √2`.
-    Substrate hypotheses: A3' operator-norm condition.
+    Substrate hypotheses: two rotated-vector inequalities.
     Bound: [|S| ≤ 2√2]. *)
 
 Definition tsirelson_probe : UnificationProbe := {|
   probe_name := "Tsirelson (conditional)";
   probe_description :=
-    "|CHSH S| ≤ 2 √2 given the operator-norm hypothesis A3'";
+    "|CHSH S| ≤ 2 √2 given two rotated-vector inequalities";
   probe_substrate_hypotheses :=
-    ["A3': correlator operator-norm ≤ 1"%string];
+    ["Squared images of (1,1) and (1,-1) each at most 2"%string];
   probe_bound_holds :=
     forall b : CorrelatorBox,
-      A3_operator_norm b ->
+      rotated_correlator_bounds b ->
       Rabs (chsh_S b) <= 2 * sqrt 2;
 |}.
 
 Theorem tsirelson_probe_holds : probe_bound_holds tsirelson_probe.
-Proof. simpl. exact tsirelson_bound_from_A3. Qed.
+Proof. simpl. exact tsirelson_bound_from_rotated_bounds. Qed.
 
 (** ** Section 7 — the list of probes.
 

@@ -1,0 +1,685 @@
+DIGEST 41d5e019839d501e302484c184364bf5
+FKernel.VMTwoCounterAccess
+R303:308 Coq.ZArith.ZArith <> <> lib
+R310:312 Coq.micromega.Lia <> <> lib
+R314:317 Coq.Bool.Bool <> <> lib
+R347:353 Kernel.VMState <> <> lib
+R355:360 Kernel.VMStep <> <> lib
+def 374:392 <> two_counter_witness
+R405:407 Coq.Init.Datatypes <> nat ind
+binder 395:395 <> u:1
+binder 397:397 <> v:2
+binder 399:399 <> a:3
+binder 401:401 <> b:4
+R412:424 Kernel.VMState <> WitnessCounts rec
+R433:442 Kernel.VMState <> wc_same_00 proj
+R433:442 Kernel.VMState <> wc_same_00 proj
+R433:442 Kernel.VMState <> wc_same_00 proj
+R452:461 Kernel.VMState <> wc_diff_00 proj
+R452:461 Kernel.VMState <> wc_diff_00 proj
+R475:484 Kernel.VMState <> wc_same_01 proj
+R475:484 Kernel.VMState <> wc_same_01 proj
+R494:503 Kernel.VMState <> wc_diff_01 proj
+R494:503 Kernel.VMState <> wc_diff_01 proj
+R517:526 Kernel.VMState <> wc_same_10 proj
+R517:526 Kernel.VMState <> wc_same_10 proj
+R534:543 Kernel.VMState <> wc_diff_10 proj
+R534:543 Kernel.VMState <> wc_diff_10 proj
+R555:564 Kernel.VMState <> wc_same_11 proj
+R555:564 Kernel.VMState <> wc_same_11 proj
+R572:581 Kernel.VMState <> wc_diff_11 proj
+R572:581 Kernel.VMState <> wc_diff_11 proj
+R447:447 Coq.Init.Datatypes <> S constr
+R449:449 Kernel.VMTwoCounterAccess <> u:1 var
+R466:466 Coq.Init.Datatypes <> S constr
+R468:468 Kernel.VMTwoCounterAccess <> v:2 var
+R489:489 Coq.Init.Datatypes <> S constr
+R491:491 Kernel.VMTwoCounterAccess <> a:3 var
+R508:508 Coq.Init.Datatypes <> S constr
+R510:510 Kernel.VMTwoCounterAccess <> b:4 var
+prf 600:609 <> first_test
+binder 620:620 <> u:5
+binder 622:622 <> v:6
+binder 624:624 <> a:7
+binder 626:626 <> b:8
+R699:703 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R692:694 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R630:661 Kernel.VMStep VMStep column_contractive_check_witness def
+R664:682 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R684:684 Kernel.VMTwoCounterAccess <> u:5 var
+R686:686 Kernel.VMTwoCounterAccess <> v:6 var
+R688:688 Kernel.VMTwoCounterAccess <> a:7 var
+R690:690 Kernel.VMTwoCounterAccess <> b:8 var
+R695:698 Coq.Init.Datatypes <> true constr
+R705:707 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R704:704 Kernel.VMTwoCounterAccess <> u:5 var
+R708:708 Kernel.VMTwoCounterAccess <> v:6 var
+R743:774 Kernel.VMStep VMStep column_contractive_check_witness def
+R777:784 Kernel.VMStep VMStep chsh_n_z def
+R787:794 Kernel.VMStep VMStep chsh_d_z def
+R803:821 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R823:832 Kernel.VMState <> wc_same_00 proj
+R834:843 Kernel.VMState <> wc_diff_00 proj
+R845:854 Kernel.VMState <> wc_same_01 proj
+R856:865 Kernel.VMState <> wc_diff_01 proj
+R867:876 Kernel.VMState <> wc_same_10 proj
+R878:887 Kernel.VMState <> wc_diff_10 proj
+R889:898 Kernel.VMState <> wc_same_11 proj
+R900:909 Kernel.VMState <> wc_diff_11 proj
+R929:946 Coq.Bool.Bool <> andb_true_iff thm
+R929:946 Coq.Bool.Bool <> andb_true_iff thm
+R929:946 Coq.Bool.Bool <> andb_true_iff thm
+R929:946 Coq.Bool.Bool <> andb_true_iff thm
+R929:946 Coq.Bool.Bool <> andb_true_iff thm
+R929:946 Coq.Bool.Bool <> andb_true_iff thm
+R929:946 Coq.Bool.Bool <> andb_true_iff thm
+R929:946 Coq.Bool.Bool <> andb_true_iff thm
+R929:946 Coq.Bool.Bool <> andb_true_iff thm
+R929:946 Coq.Bool.Bool <> andb_true_iff thm
+R929:946 Coq.Bool.Bool <> andb_true_iff thm
+R929:946 Coq.Bool.Bool <> andb_true_iff thm
+R929:946 Coq.Bool.Bool <> andb_true_iff thm
+R929:946 Coq.Bool.Bool <> andb_true_iff thm
+R965:972 Coq.ZArith.BinInt Z ltb_lt thm
+R965:972 Coq.ZArith.BinInt Z ltb_lt thm
+R965:972 Coq.ZArith.BinInt Z ltb_lt thm
+R965:972 Coq.ZArith.BinInt Z ltb_lt thm
+R965:972 Coq.ZArith.BinInt Z ltb_lt thm
+R965:972 Coq.ZArith.BinInt Z ltb_lt thm
+R965:972 Coq.ZArith.BinInt Z ltb_lt thm
+R965:972 Coq.ZArith.BinInt Z ltb_lt thm
+R965:972 Coq.ZArith.BinInt Z ltb_lt thm
+R965:972 Coq.ZArith.BinInt Z ltb_lt thm
+R990:997 Coq.ZArith.BinInt Z leb_le thm
+R990:997 Coq.ZArith.BinInt Z leb_le thm
+R990:997 Coq.ZArith.BinInt Z leb_le thm
+R990:997 Coq.ZArith.BinInt Z leb_le thm
+R990:997 Coq.ZArith.BinInt Z leb_le thm
+R990:997 Coq.ZArith.BinInt Z leb_le thm
+R990:997 Coq.ZArith.BinInt Z leb_le thm
+R990:997 Coq.ZArith.BinInt Z leb_le thm
+R1010:1023 Coq.ZArith.Znat Nat2Z inj_succ thm
+R1010:1023 Coq.ZArith.Znat Nat2Z inj_succ thm
+R1010:1023 Coq.ZArith.Znat Nat2Z inj_succ thm
+R1010:1023 Coq.ZArith.Znat Nat2Z inj_succ thm
+R1010:1023 Coq.ZArith.Znat Nat2Z inj_succ thm
+R1010:1023 Coq.ZArith.Znat Nat2Z inj_succ thm
+R1010:1023 Coq.ZArith.Znat Nat2Z inj_succ thm
+R1010:1023 Coq.ZArith.Znat Nat2Z inj_succ thm
+prf 1089:1115 <> second_test_when_first_zero
+binder 1126:1126 <> u:9
+binder 1128:1128 <> a:10
+binder 1130:1130 <> b:11
+R1193:1197 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1186:1188 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1134:1155 Kernel.VMStep VMStep sum_E_sq_check_witness def
+R1158:1176 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R1178:1178 Kernel.VMTwoCounterAccess <> u:9 var
+R1180:1180 Kernel.VMTwoCounterAccess <> u:9 var
+R1182:1182 Kernel.VMTwoCounterAccess <> a:10 var
+R1184:1184 Kernel.VMTwoCounterAccess <> b:11 var
+R1189:1192 Coq.Init.Datatypes <> true constr
+R1199:1201 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1198:1198 Kernel.VMTwoCounterAccess <> a:10 var
+R1202:1202 Kernel.VMTwoCounterAccess <> b:11 var
+R1235:1256 Kernel.VMStep VMStep sum_E_sq_check_witness def
+R1259:1266 Kernel.VMStep VMStep chsh_n_z def
+R1269:1276 Kernel.VMStep VMStep chsh_d_z def
+R1285:1303 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R1305:1314 Kernel.VMState <> wc_same_00 proj
+R1316:1325 Kernel.VMState <> wc_diff_00 proj
+R1327:1336 Kernel.VMState <> wc_same_01 proj
+R1338:1347 Kernel.VMState <> wc_diff_01 proj
+R1349:1358 Kernel.VMState <> wc_same_10 proj
+R1360:1369 Kernel.VMState <> wc_diff_10 proj
+R1371:1380 Kernel.VMState <> wc_same_11 proj
+R1382:1391 Kernel.VMState <> wc_diff_11 proj
+R1404:1411 Coq.ZArith.BinInt Z leb_le thm
+R1404:1411 Coq.ZArith.BinInt Z leb_le thm
+R1404:1411 Coq.ZArith.BinInt Z leb_le thm
+R1423:1436 Coq.ZArith.Znat Nat2Z inj_succ thm
+R1423:1436 Coq.ZArith.Znat Nat2Z inj_succ thm
+R1423:1436 Coq.ZArith.Znat Nat2Z inj_succ thm
+R1423:1436 Coq.ZArith.Znat Nat2Z inj_succ thm
+R1423:1436 Coq.ZArith.Znat Nat2Z inj_succ thm
+R1423:1436 Coq.ZArith.Znat Nat2Z inj_succ thm
+R1423:1436 Coq.ZArith.Znat Nat2Z inj_succ thm
+R1475:1477 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
+R1478:1478 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1493:1497 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1512:1512 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1489:1491 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R1479:1486 Coq.ZArith.BinInt Z of_nat def
+R1508:1510 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R1498:1505 Coq.ZArith.BinInt Z of_nat def
+R1475:1477 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
+R1478:1478 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1493:1497 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1512:1512 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1489:1491 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R1479:1486 Coq.ZArith.BinInt Z of_nat def
+R1508:1510 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R1498:1505 Coq.ZArith.BinInt Z of_nat def
+R1541:1555 Coq.ZArith.BinInt Z square_nonneg thm
+R1568:1570 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R1558:1565 Coq.ZArith.BinInt Z of_nat def
+R1571:1578 Coq.ZArith.BinInt Z of_nat def
+R1541:1555 Coq.ZArith.BinInt Z square_nonneg thm
+R1568:1570 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R1558:1565 Coq.ZArith.BinInt Z of_nat def
+R1571:1578 Coq.ZArith.BinInt Z of_nat def
+R1721:1724 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R1609:1609 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1645:1666 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1720:1720 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1610:1610 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1625:1629 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1644:1644 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1621:1623 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R1611:1618 Coq.ZArith.BinInt Z of_nat def
+R1640:1642 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R1630:1637 Coq.ZArith.BinInt Z of_nat def
+R1667:1667 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1691:1695 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1719:1719 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1678:1680 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R1668:1675 Coq.ZArith.BinInt Z of_nat def
+R1681:1688 Coq.ZArith.BinInt Z of_nat def
+R1706:1708 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R1696:1703 Coq.ZArith.BinInt Z of_nat def
+R1709:1716 Coq.ZArith.BinInt Z of_nat def
+R1721:1724 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R1609:1609 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1645:1666 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1720:1720 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1610:1610 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1625:1629 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1644:1644 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1621:1623 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R1611:1618 Coq.ZArith.BinInt Z of_nat def
+R1640:1642 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R1630:1637 Coq.ZArith.BinInt Z of_nat def
+R1667:1667 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1691:1695 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1719:1719 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1678:1680 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R1668:1675 Coq.ZArith.BinInt Z of_nat def
+R1681:1688 Coq.ZArith.BinInt Z of_nat def
+R1706:1708 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R1696:1703 Coq.ZArith.BinInt Z of_nat def
+R1709:1716 Coq.ZArith.BinInt Z of_nat def
+R1809:1811 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1756:1756 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1780:1784 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1808:1808 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1767:1769 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R1757:1764 Coq.ZArith.BinInt Z of_nat def
+R1770:1777 Coq.ZArith.BinInt Z of_nat def
+R1795:1797 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R1785:1792 Coq.ZArith.BinInt Z of_nat def
+R1798:1805 Coq.ZArith.BinInt Z of_nat def
+R1809:1811 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1756:1756 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1780:1784 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1808:1808 Coq.ZArith.BinInt <> ::Z_scope:x_'*'_x not
+R1767:1769 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R1757:1764 Coq.ZArith.BinInt Z of_nat def
+R1770:1777 Coq.ZArith.BinInt Z of_nat def
+R1795:1797 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R1785:1792 Coq.ZArith.BinInt Z of_nat def
+R1798:1805 Coq.ZArith.BinInt Z of_nat def
+prf 1862:1874 <> combined_test
+binder 1885:1885 <> u:12
+binder 1887:1887 <> v:13
+binder 1889:1889 <> a:14
+binder 1891:1891 <> b:15
+R1968:1972 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1961:1963 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1895:1930 Kernel.VMStep VMStep column_contractive_check_q1ab_kernel def
+R1933:1951 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R1953:1953 Kernel.VMTwoCounterAccess <> u:12 var
+R1955:1955 Kernel.VMTwoCounterAccess <> v:13 var
+R1957:1957 Kernel.VMTwoCounterAccess <> a:14 var
+R1959:1959 Kernel.VMTwoCounterAccess <> b:15 var
+R1964:1967 Coq.Init.Datatypes <> true constr
+R1978:1981 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1974:1976 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1973:1973 Kernel.VMTwoCounterAccess <> u:12 var
+R1977:1977 Kernel.VMTwoCounterAccess <> v:13 var
+R1983:1985 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1982:1982 Kernel.VMTwoCounterAccess <> a:14 var
+R1986:1986 Kernel.VMTwoCounterAccess <> b:15 var
+R2020:2055 Kernel.VMStep VMStep column_contractive_check_q1ab_kernel def
+R2067:2079 Coq.Bool.Bool <> andb_true_iff thm
+R2082:2091 Kernel.VMTwoCounterAccess <> first_test thm
+R2067:2079 Coq.Bool.Bool <> andb_true_iff thm
+R2067:2079 Coq.Bool.Bool <> andb_true_iff thm
+R2082:2091 Kernel.VMTwoCounterAccess <> first_test thm
+R2082:2091 Kernel.VMTwoCounterAccess <> first_test thm
+R2132:2158 Kernel.VMTwoCounterAccess <> second_test_when_first_zero thm
+R2132:2158 Kernel.VMTwoCounterAccess <> second_test_when_first_zero thm
+R2225:2251 Kernel.VMTwoCounterAccess <> second_test_when_first_zero thm
+R2225:2251 Kernel.VMTwoCounterAccess <> second_test_when_first_zero thm
+prf 2278:2292 <> increment_first
+binder 2303:2303 <> u:16
+binder 2305:2305 <> v:17
+binder 2307:2307 <> a:18
+binder 2309:2309 <> b:19
+R2363:2365 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2313:2324 Kernel.VMStep VMStep record_trial def
+R2327:2345 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R2347:2347 Kernel.VMTwoCounterAccess <> u:16 var
+R2349:2349 Kernel.VMTwoCounterAccess <> v:17 var
+R2351:2351 Kernel.VMTwoCounterAccess <> a:18 var
+R2353:2353 Kernel.VMTwoCounterAccess <> b:19 var
+R2366:2384 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R2387:2387 Coq.Init.Datatypes <> S constr
+R2389:2389 Kernel.VMTwoCounterAccess <> u:16 var
+R2392:2392 Kernel.VMTwoCounterAccess <> v:17 var
+R2394:2394 Kernel.VMTwoCounterAccess <> a:18 var
+R2396:2396 Kernel.VMTwoCounterAccess <> b:19 var
+prf 2430:2444 <> decrement_first
+binder 2455:2455 <> u:20
+binder 2457:2457 <> v:21
+binder 2459:2459 <> a:22
+binder 2461:2461 <> b:23
+R2515:2517 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2465:2476 Kernel.VMStep VMStep record_trial def
+R2479:2497 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R2499:2499 Kernel.VMTwoCounterAccess <> u:20 var
+R2501:2501 Kernel.VMTwoCounterAccess <> v:21 var
+R2503:2503 Kernel.VMTwoCounterAccess <> a:22 var
+R2505:2505 Kernel.VMTwoCounterAccess <> b:23 var
+R2518:2536 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R2538:2538 Kernel.VMTwoCounterAccess <> u:20 var
+R2541:2541 Coq.Init.Datatypes <> S constr
+R2543:2543 Kernel.VMTwoCounterAccess <> v:21 var
+R2546:2546 Kernel.VMTwoCounterAccess <> a:22 var
+R2548:2548 Kernel.VMTwoCounterAccess <> b:23 var
+prf 2582:2597 <> increment_second
+binder 2608:2608 <> u:24
+binder 2610:2610 <> v:25
+binder 2612:2612 <> a:26
+binder 2614:2614 <> b:27
+R2668:2670 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2618:2629 Kernel.VMStep VMStep record_trial def
+R2632:2650 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R2652:2652 Kernel.VMTwoCounterAccess <> u:24 var
+R2654:2654 Kernel.VMTwoCounterAccess <> v:25 var
+R2656:2656 Kernel.VMTwoCounterAccess <> a:26 var
+R2658:2658 Kernel.VMTwoCounterAccess <> b:27 var
+R2671:2689 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R2691:2691 Kernel.VMTwoCounterAccess <> u:24 var
+R2693:2693 Kernel.VMTwoCounterAccess <> v:25 var
+R2696:2696 Coq.Init.Datatypes <> S constr
+R2698:2698 Kernel.VMTwoCounterAccess <> a:26 var
+R2701:2701 Kernel.VMTwoCounterAccess <> b:27 var
+prf 2735:2750 <> decrement_second
+binder 2761:2761 <> u:28
+binder 2763:2763 <> v:29
+binder 2765:2765 <> a:30
+binder 2767:2767 <> b:31
+R2821:2823 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2771:2782 Kernel.VMStep VMStep record_trial def
+R2785:2803 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R2805:2805 Kernel.VMTwoCounterAccess <> u:28 var
+R2807:2807 Kernel.VMTwoCounterAccess <> v:29 var
+R2809:2809 Kernel.VMTwoCounterAccess <> a:30 var
+R2811:2811 Kernel.VMTwoCounterAccess <> b:31 var
+R2824:2842 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R2844:2844 Kernel.VMTwoCounterAccess <> u:28 var
+R2846:2846 Kernel.VMTwoCounterAccess <> v:29 var
+R2848:2848 Kernel.VMTwoCounterAccess <> a:30 var
+R2851:2851 Coq.Init.Datatypes <> S constr
+R2853:2853 Kernel.VMTwoCounterAccess <> b:31 var
+prf 2889:2909 <> first_nonzero_rejects
+binder 2920:2920 <> u:32
+binder 2922:2922 <> v:33
+binder 2924:2924 <> a:34
+binder 2926:2926 <> b:35
+R2936:2939 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2931:2934 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2930:2930 Kernel.VMTwoCounterAccess <> u:32 var
+R2935:2935 Kernel.VMTwoCounterAccess <> v:33 var
+R3002:3004 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2940:2971 Kernel.VMStep VMStep column_contractive_check_witness def
+R2974:2992 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R2994:2994 Kernel.VMTwoCounterAccess <> u:32 var
+R2996:2996 Kernel.VMTwoCounterAccess <> v:33 var
+R2998:2998 Kernel.VMTwoCounterAccess <> a:34 var
+R3000:3000 Kernel.VMTwoCounterAccess <> b:35 var
+R3005:3009 Coq.Init.Datatypes <> false constr
+R3051:3082 Kernel.VMStep VMStep column_contractive_check_witness def
+R3085:3103 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R3051:3082 Kernel.VMStep VMStep column_contractive_check_witness def
+R3085:3103 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R3145:3154 Kernel.VMTwoCounterAccess <> first_test thm
+R3145:3154 Kernel.VMTwoCounterAccess <> first_test thm
+prf 3190:3215 <> all_extended_guards_reject
+binder 3226:3226 <> u:36
+binder 3228:3228 <> v:37
+binder 3230:3230 <> a:38
+binder 3232:3232 <> b:39
+binder 3234:3235 <> g1:40
+binder 3237:3238 <> h1:41
+binder 3240:3241 <> g2:42
+binder 3243:3244 <> h2:43
+binder 3246:3247 <> g3:44
+binder 3249:3250 <> h3:45
+binder 3252:3253 <> g4:46
+binder 3255:3256 <> h4:47
+binder 3258:3259 <> g5:48
+binder 3261:3262 <> h5:49
+R3272:3276 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3267:3270 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3266:3266 Kernel.VMTwoCounterAccess <> u:36 var
+R3271:3271 Kernel.VMTwoCounterAccess <> v:37 var
+R3351:3355 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3343:3345 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3277:3312 Kernel.VMStep VMStep column_contractive_check_q1ab_kernel def
+R3315:3333 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R3335:3335 Kernel.VMTwoCounterAccess <> u:36 var
+R3337:3337 Kernel.VMTwoCounterAccess <> v:37 var
+R3339:3339 Kernel.VMTwoCounterAccess <> a:38 var
+R3341:3341 Kernel.VMTwoCounterAccess <> b:39 var
+R3346:3350 Coq.Init.Datatypes <> false constr
+R3433:3437 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3425:3427 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3356:3388 Kernel.VMStep VMStep q1ab_g5_full_integer_check_kernel def
+R3391:3409 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R3411:3411 Kernel.VMTwoCounterAccess <> u:36 var
+R3413:3413 Kernel.VMTwoCounterAccess <> v:37 var
+R3415:3415 Kernel.VMTwoCounterAccess <> a:38 var
+R3417:3417 Kernel.VMTwoCounterAccess <> b:39 var
+R3420:3421 Kernel.VMTwoCounterAccess <> g5:48 var
+R3423:3424 Kernel.VMTwoCounterAccess <> h5:49 var
+R3428:3432 Coq.Init.Datatypes <> false constr
+R3529:3533 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3521:3523 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3438:3472 Kernel.VMStep VMStep q1ab_g345_full_integer_check_kernel def
+R3475:3493 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R3495:3495 Kernel.VMTwoCounterAccess <> u:36 var
+R3497:3497 Kernel.VMTwoCounterAccess <> v:37 var
+R3499:3499 Kernel.VMTwoCounterAccess <> a:38 var
+R3501:3501 Kernel.VMTwoCounterAccess <> b:39 var
+R3504:3505 Kernel.VMTwoCounterAccess <> g3:44 var
+R3507:3508 Kernel.VMTwoCounterAccess <> h3:45 var
+R3510:3511 Kernel.VMTwoCounterAccess <> g4:46 var
+R3513:3514 Kernel.VMTwoCounterAccess <> h4:47 var
+R3516:3517 Kernel.VMTwoCounterAccess <> g5:48 var
+R3519:3520 Kernel.VMTwoCounterAccess <> h5:49 var
+R3524:3528 Coq.Init.Datatypes <> false constr
+R3631:3633 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3534:3570 Kernel.VMStep VMStep q1ab_g12345_full_integer_check_kernel def
+R3573:3591 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R3593:3593 Kernel.VMTwoCounterAccess <> u:36 var
+R3595:3595 Kernel.VMTwoCounterAccess <> v:37 var
+R3597:3597 Kernel.VMTwoCounterAccess <> a:38 var
+R3599:3599 Kernel.VMTwoCounterAccess <> b:39 var
+R3602:3603 Kernel.VMTwoCounterAccess <> g1:40 var
+R3605:3606 Kernel.VMTwoCounterAccess <> h1:41 var
+R3608:3609 Kernel.VMTwoCounterAccess <> g2:42 var
+R3611:3612 Kernel.VMTwoCounterAccess <> h2:43 var
+R3614:3615 Kernel.VMTwoCounterAccess <> g3:44 var
+R3617:3618 Kernel.VMTwoCounterAccess <> h3:45 var
+R3620:3621 Kernel.VMTwoCounterAccess <> g4:46 var
+R3623:3624 Kernel.VMTwoCounterAccess <> h4:47 var
+R3626:3627 Kernel.VMTwoCounterAccess <> g5:48 var
+R3629:3630 Kernel.VMTwoCounterAccess <> h5:49 var
+R3634:3638 Coq.Init.Datatypes <> false constr
+R3707:3742 Kernel.VMStep VMStep column_contractive_check_q1ab_kernel def
+R3745:3777 Kernel.VMStep VMStep q1ab_g5_full_integer_check_kernel def
+R3781:3815 Kernel.VMStep VMStep q1ab_g345_full_integer_check_kernel def
+R3818:3854 Kernel.VMStep VMStep q1ab_g12345_full_integer_check_kernel def
+R3867:3887 Kernel.VMTwoCounterAccess <> first_nonzero_rejects thm
+R3867:3887 Kernel.VMTwoCounterAccess <> first_nonzero_rejects thm
+R3867:3887 Kernel.VMTwoCounterAccess <> first_nonzero_rejects thm
+R3960:3963 Coq.Lists.List <> <> lib
+R3993:4007 Kernel.SimulationProof <> <> lib
+R4009:4023 Kernel.VMCounterBranch <> <> lib
+prf 4034:4062 <> second_branch_when_first_zero
+binder 4073:4073 <> p:50
+binder 4075:4075 <> s:51
+binder 4077:4077 <> u:52
+binder 4079:4079 <> a:53
+binder 4081:4081 <> b:54
+binder 4083:4085 <> yes:55
+binder 4087:4088 <> no:56
+R4134:4138 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4104:4106 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4092:4101 Kernel.VMState <> vm_witness proj
+R4103:4103 Kernel.VMTwoCounterAccess <> s:51 var
+R4107:4125 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R4127:4127 Kernel.VMTwoCounterAccess <> u:52 var
+R4129:4129 Kernel.VMTwoCounterAccess <> u:52 var
+R4131:4131 Kernel.VMTwoCounterAccess <> a:53 var
+R4133:4133 Kernel.VMTwoCounterAccess <> b:54 var
+R4194:4198 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4160:4162 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4139:4147 Coq.Lists.List <> nth_error def
+R4152:4156 Kernel.VMState <> vm_pc proj
+R4158:4158 Kernel.VMTwoCounterAccess <> s:51 var
+R4149:4149 Kernel.VMTwoCounterAccess <> p:50 var
+R4163:4166 Coq.Init.Datatypes <> Some constr
+R4169:4190 Kernel.VMStep VMStep instr_chsh_lassert_1ab constr
+R4250:4254 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4224:4226 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4199:4207 Coq.Lists.List <> nth_error def
+R4212:4212 Coq.Init.Datatypes <> S constr
+R4215:4219 Kernel.VMState <> vm_pc proj
+R4221:4221 Kernel.VMTwoCounterAccess <> s:51 var
+R4209:4209 Kernel.VMTwoCounterAccess <> p:50 var
+R4227:4230 Coq.Init.Datatypes <> Some constr
+R4233:4242 Kernel.VMStep VMStep instr_jump constr
+R4244:4246 Kernel.VMTwoCounterAccess <> yes:55 var
+R4307:4311 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4282:4284 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4255:4263 Coq.Lists.List <> nth_error def
+R4267:4281 Kernel.VMStep VMStep LASSERT_TRAP_PC def
+R4265:4265 Kernel.VMTwoCounterAccess <> p:50 var
+R4285:4288 Coq.Init.Datatypes <> Some constr
+R4291:4300 Kernel.VMStep VMStep instr_jump constr
+R4302:4303 Kernel.VMTwoCounterAccess <> no:56 var
+R4324:4326 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4312:4317 Kernel.SimulationProof <> run_vm def
+R4321:4321 Kernel.VMTwoCounterAccess <> p:50 var
+R4323:4323 Kernel.VMTwoCounterAccess <> s:51 var
+R4327:4347 Kernel.VMCounterBranch <> counter_branch_result def
+R4349:4349 Kernel.VMTwoCounterAccess <> s:51 var
+R4355:4361 Coq.Arith.PeanoNat Nat eqb def
+R4363:4363 Kernel.VMTwoCounterAccess <> a:53 var
+R4365:4365 Kernel.VMTwoCounterAccess <> b:54 var
+R4381:4382 Kernel.VMTwoCounterAccess <> no:56 var
+R4372:4374 Kernel.VMTwoCounterAccess <> yes:55 var
+R4386:4392 Coq.Arith.PeanoNat Nat eqb def
+R4394:4394 Kernel.VMTwoCounterAccess <> a:53 var
+R4396:4396 Kernel.VMTwoCounterAccess <> b:54 var
+R4458:4463 Kernel.SimulationProof <> run_vm def
+R4488:4495 Kernel.SimulationProof <> vm_apply def
+R4522:4557 Kernel.VMStep VMStep column_contractive_check_q1ab_kernel def
+R4560:4578 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R4522:4557 Kernel.VMStep VMStep column_contractive_check_q1ab_kernel def
+R4560:4578 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R4611:4623 Kernel.VMTwoCounterAccess <> combined_test thm
+R4611:4623 Kernel.VMTwoCounterAccess <> combined_test thm
+R4679:4690 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4679:4690 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4679:4690 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4701:4705 Kernel.VMState <> vm_pc proj
+R4728:4735 Kernel.SimulationProof <> vm_apply def
+R4737:4742 Kernel.SimulationProof <> run_vm def
+R4756:4776 Kernel.VMCounterBranch <> counter_branch_result def
+R4779:4788 Kernel.VMStep VMStep jump_state def
+R4791:4800 Kernel.VMStep VMStep apply_cost def
+R4819:4829 Coq.Arith.PeanoNat Nat add_0_r thm
+R4819:4829 Coq.Arith.PeanoNat Nat add_0_r thm
+R4819:4829 Coq.Arith.PeanoNat Nat add_0_r thm
+R4867:4870 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4867:4870 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4975:4977 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4909:4944 Kernel.VMStep VMStep column_contractive_check_q1ab_kernel def
+R4947:4965 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R4978:4981 Coq.Init.Datatypes <> true constr
+R4975:4977 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4909:4944 Kernel.VMStep VMStep column_contractive_check_q1ab_kernel def
+R4947:4965 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R4978:4981 Coq.Init.Datatypes <> true constr
+R4998:5010 Kernel.VMTwoCounterAccess <> combined_test thm
+R4998:5010 Kernel.VMTwoCounterAccess <> combined_test thm
+R5044:5054 Coq.Arith.PeanoNat Nat eqb_neq thm
+R5044:5054 Coq.Arith.PeanoNat Nat eqb_neq thm
+R5085:5089 Kernel.VMState <> vm_pc proj
+R5111:5118 Kernel.SimulationProof <> vm_apply def
+R5120:5125 Kernel.SimulationProof <> run_vm def
+R5139:5159 Kernel.VMCounterBranch <> counter_branch_result def
+R5162:5171 Kernel.VMStep VMStep jump_state def
+R5174:5183 Kernel.VMStep VMStep apply_cost def
+R5202:5212 Coq.Arith.PeanoNat Nat add_0_r thm
+R5202:5212 Coq.Arith.PeanoNat Nat add_0_r thm
+R5202:5212 Coq.Arith.PeanoNat Nat add_0_r thm
+def 5406:5430 <> two_counter_update_result
+R5437:5443 Kernel.VMState <> VMState rec
+binder 5433:5433 <> s:57
+R5452:5464 Kernel.VMState <> WitnessCounts rec
+binder 5447:5448 <> wc:58
+R5469:5475 Kernel.VMState <> VMState rec
+R5484:5491 Kernel.VMState <> vm_graph proj
+R5484:5491 Kernel.VMState <> vm_graph proj
+R5484:5491 Kernel.VMState <> vm_graph proj
+R5510:5516 Kernel.VMState <> vm_csrs proj
+R5510:5516 Kernel.VMState <> vm_csrs proj
+R5538:5544 Kernel.VMState <> vm_regs proj
+R5538:5544 Kernel.VMState <> vm_regs proj
+R5562:5567 Kernel.VMState <> vm_mem proj
+R5562:5567 Kernel.VMState <> vm_mem proj
+R5584:5588 Kernel.VMState <> vm_pc proj
+R5584:5588 Kernel.VMState <> vm_pc proj
+R5610:5614 Kernel.VMState <> vm_mu proj
+R5610:5614 Kernel.VMState <> vm_mu proj
+R5630:5641 Kernel.VMState <> vm_mu_tensor proj
+R5630:5641 Kernel.VMState <> vm_mu_tensor proj
+R5664:5669 Kernel.VMState <> vm_err proj
+R5664:5669 Kernel.VMState <> vm_err proj
+R5690:5701 Kernel.VMState <> vm_logic_acc proj
+R5690:5701 Kernel.VMState <> vm_logic_acc proj
+R5724:5733 Kernel.VMState <> vm_mstatus proj
+R5724:5733 Kernel.VMState <> vm_mstatus proj
+R5758:5767 Kernel.VMState <> vm_witness proj
+R5758:5767 Kernel.VMState <> vm_witness proj
+R5776:5787 Kernel.VMState <> vm_certified proj
+R5776:5787 Kernel.VMState <> vm_certified proj
+R5499:5506 Kernel.VMState <> vm_graph proj
+R5496:5496 Kernel.VMTwoCounterAccess <> s:57 var
+R5524:5530 Kernel.VMState <> vm_csrs proj
+R5521:5521 Kernel.VMTwoCounterAccess <> s:57 var
+R5552:5558 Kernel.VMState <> vm_regs proj
+R5549:5549 Kernel.VMTwoCounterAccess <> s:57 var
+R5575:5580 Kernel.VMState <> vm_mem proj
+R5572:5572 Kernel.VMTwoCounterAccess <> s:57 var
+R5593:5593 Coq.Init.Datatypes <> S constr
+R5598:5602 Kernel.VMState <> vm_pc proj
+R5595:5595 Kernel.VMTwoCounterAccess <> s:57 var
+R5622:5626 Kernel.VMState <> vm_mu proj
+R5619:5619 Kernel.VMTwoCounterAccess <> s:57 var
+R5649:5660 Kernel.VMState <> vm_mu_tensor proj
+R5646:5646 Kernel.VMTwoCounterAccess <> s:57 var
+R5677:5682 Kernel.VMState <> vm_err proj
+R5674:5674 Kernel.VMTwoCounterAccess <> s:57 var
+R5709:5720 Kernel.VMState <> vm_logic_acc proj
+R5706:5706 Kernel.VMTwoCounterAccess <> s:57 var
+R5741:5750 Kernel.VMState <> vm_mstatus proj
+R5738:5738 Kernel.VMTwoCounterAccess <> s:57 var
+R5772:5773 Kernel.VMTwoCounterAccess <> wc:58 var
+R5795:5806 Kernel.VMState <> vm_certified proj
+R5792:5792 Kernel.VMTwoCounterAccess <> s:57 var
+def 5824:5839 <> two_counter_next
+binder 5841:5841 <> u:59
+binder 5843:5843 <> v:60
+binder 5845:5845 <> a:61
+binder 5847:5847 <> b:62
+R5869:5872 Coq.Init.Datatypes <> bool ind
+binder 5850:5855 <> second:63
+binder 5857:5865 <> different:64
+R5882:5887 Kernel.VMTwoCounterAccess <> second:63 var
+R5996:6004 Kernel.VMTwoCounterAccess <> different:64 var
+R6048:6066 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R6069:6069 Coq.Init.Datatypes <> S constr
+R6071:6071 Kernel.VMTwoCounterAccess <> u:59 var
+R6074:6074 Kernel.VMTwoCounterAccess <> v:60 var
+R6076:6076 Kernel.VMTwoCounterAccess <> a:61 var
+R6078:6078 Kernel.VMTwoCounterAccess <> b:62 var
+R6011:6029 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R6031:6031 Kernel.VMTwoCounterAccess <> u:59 var
+R6034:6034 Coq.Init.Datatypes <> S constr
+R6036:6036 Kernel.VMTwoCounterAccess <> v:60 var
+R6039:6039 Kernel.VMTwoCounterAccess <> a:61 var
+R6041:6041 Kernel.VMTwoCounterAccess <> b:62 var
+R5900:5908 Kernel.VMTwoCounterAccess <> different:64 var
+R5952:5970 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R5972:5972 Kernel.VMTwoCounterAccess <> u:59 var
+R5974:5974 Kernel.VMTwoCounterAccess <> v:60 var
+R5977:5977 Coq.Init.Datatypes <> S constr
+R5979:5979 Kernel.VMTwoCounterAccess <> a:61 var
+R5982:5982 Kernel.VMTwoCounterAccess <> b:62 var
+R5915:5933 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R5935:5935 Kernel.VMTwoCounterAccess <> u:59 var
+R5937:5937 Kernel.VMTwoCounterAccess <> v:60 var
+R5939:5939 Kernel.VMTwoCounterAccess <> a:61 var
+R5942:5942 Coq.Init.Datatypes <> S constr
+R5944:5944 Kernel.VMTwoCounterAccess <> b:62 var
+prf 6089:6114 <> two_counter_update_correct
+binder 6125:6125 <> p:65
+binder 6127:6127 <> s:66
+binder 6129:6129 <> u:67
+binder 6131:6131 <> v:68
+binder 6133:6133 <> a:69
+binder 6135:6135 <> b:70
+R6157:6160 Coq.Init.Datatypes <> bool ind
+binder 6138:6143 <> second:71
+binder 6145:6153 <> different:72
+R6207:6211 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6177:6179 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6165:6174 Kernel.VMState <> vm_witness proj
+R6176:6176 Kernel.VMTwoCounterAccess <> s:66 var
+R6180:6198 Kernel.VMTwoCounterAccess <> two_counter_witness def
+R6200:6200 Kernel.VMTwoCounterAccess <> u:67 var
+R6202:6202 Kernel.VMTwoCounterAccess <> v:68 var
+R6204:6204 Kernel.VMTwoCounterAccess <> a:69 var
+R6206:6206 Kernel.VMTwoCounterAccess <> b:70 var
+R6369:6373 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6233:6235 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6212:6220 Coq.Lists.List <> nth_error def
+R6225:6229 Kernel.VMState <> vm_pc proj
+R6231:6231 Kernel.VMTwoCounterAccess <> s:66 var
+R6222:6222 Kernel.VMTwoCounterAccess <> p:65 var
+R6236:6239 Coq.Init.Datatypes <> Some constr
+R6242:6257 Kernel.VMStep VMStep instr_chsh_trial constr
+R6265:6270 Kernel.VMTwoCounterAccess <> second:71 var
+R6342:6350 Kernel.VMTwoCounterAccess <> different:72 var
+R6386:6388 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6374:6379 Kernel.SimulationProof <> run_vm def
+R6383:6383 Kernel.VMTwoCounterAccess <> p:65 var
+R6385:6385 Kernel.VMTwoCounterAccess <> s:66 var
+R6389:6413 Kernel.VMTwoCounterAccess <> two_counter_update_result def
+R6415:6415 Kernel.VMTwoCounterAccess <> s:66 var
+R6418:6433 Kernel.VMTwoCounterAccess <> two_counter_next def
+R6435:6435 Kernel.VMTwoCounterAccess <> u:67 var
+R6437:6437 Kernel.VMTwoCounterAccess <> v:68 var
+R6439:6439 Kernel.VMTwoCounterAccess <> a:69 var
+R6441:6441 Kernel.VMTwoCounterAccess <> b:70 var
+R6443:6448 Kernel.VMTwoCounterAccess <> second:71 var
+R6450:6458 Kernel.VMTwoCounterAccess <> different:72 var
+R6551:6556 Kernel.SimulationProof <> run_vm def
+R6584:6591 Kernel.SimulationProof <> vm_apply def
+R6607:6631 Kernel.VMTwoCounterAccess <> two_counter_update_result def
+R6634:6643 Kernel.VMStep VMStep apply_cost def
+R6646:6661 Kernel.VMTwoCounterAccess <> two_counter_next def
+R6682:6692 Coq.Arith.PeanoNat Nat add_0_r thm
+R6682:6692 Coq.Arith.PeanoNat Nat add_0_r thm
+R6682:6692 Coq.Arith.PeanoNat Nat add_0_r thm
+R6682:6692 Coq.Arith.PeanoNat Nat add_0_r thm
+R6682:6692 Coq.Arith.PeanoNat Nat add_0_r thm
+R6682:6692 Coq.Arith.PeanoNat Nat add_0_r thm
+R6682:6692 Coq.Arith.PeanoNat Nat add_0_r thm
+R6682:6692 Coq.Arith.PeanoNat Nat add_0_r thm
+R6682:6692 Coq.Arith.PeanoNat Nat add_0_r thm

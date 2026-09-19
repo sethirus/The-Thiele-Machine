@@ -1,0 +1,426 @@
+DIGEST 451848831e1d9c25d8d7076b0da13327
+FKernel.VMWitnessCounterMonotonicity
+R1392:1396 Coq.Arith.Arith <> <> lib
+R1398:1400 Coq.micromega.Lia <> <> lib
+R1402:1405 Coq.Lists.List <> <> lib
+R1435:1441 Kernel.VMState <> <> lib
+R1443:1448 Kernel.VMStep <> <> lib
+R1458:1470 Coq.Lists.List ListNotations <> mod
+def 1485:1489 <> wc_le
+R1502:1514 Kernel.VMState <> WitnessCounts rec
+binder 1492:1494 <> wc1:1
+binder 1496:1498 <> wc2:2
+R1561:1564 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1543:1546 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1529:1538 Kernel.VMState <> wc_same_00 proj
+R1540:1542 Kernel.VMWitnessCounterMonotonicity <> wc1:1 var
+R1547:1556 Kernel.VMState <> wc_same_00 proj
+R1558:1560 Kernel.VMWitnessCounterMonotonicity <> wc2:2 var
+R1597:1602 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1579:1582 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1565:1574 Kernel.VMState <> wc_diff_00 proj
+R1576:1578 Kernel.VMWitnessCounterMonotonicity <> wc1:1 var
+R1583:1592 Kernel.VMState <> wc_diff_00 proj
+R1594:1596 Kernel.VMWitnessCounterMonotonicity <> wc2:2 var
+R1635:1638 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1617:1620 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1603:1612 Kernel.VMState <> wc_same_01 proj
+R1614:1616 Kernel.VMWitnessCounterMonotonicity <> wc1:1 var
+R1621:1630 Kernel.VMState <> wc_same_01 proj
+R1632:1634 Kernel.VMWitnessCounterMonotonicity <> wc2:2 var
+R1671:1676 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1653:1656 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1639:1648 Kernel.VMState <> wc_diff_01 proj
+R1650:1652 Kernel.VMWitnessCounterMonotonicity <> wc1:1 var
+R1657:1666 Kernel.VMState <> wc_diff_01 proj
+R1668:1670 Kernel.VMWitnessCounterMonotonicity <> wc2:2 var
+R1709:1712 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1691:1694 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1677:1686 Kernel.VMState <> wc_same_10 proj
+R1688:1690 Kernel.VMWitnessCounterMonotonicity <> wc1:1 var
+R1695:1704 Kernel.VMState <> wc_same_10 proj
+R1706:1708 Kernel.VMWitnessCounterMonotonicity <> wc2:2 var
+R1745:1750 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1727:1730 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1713:1722 Kernel.VMState <> wc_diff_10 proj
+R1724:1726 Kernel.VMWitnessCounterMonotonicity <> wc1:1 var
+R1731:1740 Kernel.VMState <> wc_diff_10 proj
+R1742:1744 Kernel.VMWitnessCounterMonotonicity <> wc2:2 var
+R1783:1786 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1765:1768 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1751:1760 Kernel.VMState <> wc_same_11 proj
+R1762:1764 Kernel.VMWitnessCounterMonotonicity <> wc1:1 var
+R1769:1778 Kernel.VMState <> wc_same_11 proj
+R1780:1782 Kernel.VMWitnessCounterMonotonicity <> wc2:2 var
+R1801:1804 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1787:1796 Kernel.VMState <> wc_diff_11 proj
+R1798:1800 Kernel.VMWitnessCounterMonotonicity <> wc1:1 var
+R1805:1814 Kernel.VMState <> wc_diff_11 proj
+R1816:1818 Kernel.VMWitnessCounterMonotonicity <> wc2:2 var
+prf 1828:1837 <> wc_le_refl
+binder 1848:1849 <> wc:3
+R1852:1856 Kernel.VMWitnessCounterMonotonicity <> wc_le def
+R1858:1859 Kernel.VMWitnessCounterMonotonicity <> wc:3 var
+R1861:1862 Kernel.VMWitnessCounterMonotonicity <> wc:3 var
+R1890:1894 Kernel.VMWitnessCounterMonotonicity <> wc_le def
+prf 1914:1924 <> wc_le_trans
+binder 1935:1937 <> wc1:4
+binder 1939:1941 <> wc2:5
+binder 1943:1945 <> wc3:6
+R1963:1966 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1950:1954 Kernel.VMWitnessCounterMonotonicity <> wc_le def
+R1956:1958 Kernel.VMWitnessCounterMonotonicity <> wc1:4 var
+R1960:1962 Kernel.VMWitnessCounterMonotonicity <> wc2:5 var
+R1980:1983 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1967:1971 Kernel.VMWitnessCounterMonotonicity <> wc_le def
+R1973:1975 Kernel.VMWitnessCounterMonotonicity <> wc2:5 var
+R1977:1979 Kernel.VMWitnessCounterMonotonicity <> wc3:6 var
+R1984:1988 Kernel.VMWitnessCounterMonotonicity <> wc_le def
+R1990:1992 Kernel.VMWitnessCounterMonotonicity <> wc1:4 var
+R1994:1996 Kernel.VMWitnessCounterMonotonicity <> wc3:6 var
+R2013:2017 Kernel.VMWitnessCounterMonotonicity <> wc_le def
+prf 2181:2201 <> record_trial_monotone
+binder 2212:2213 <> wc:7
+binder 2215:2215 <> x:8
+binder 2217:2217 <> y:9
+binder 2219:2219 <> a:10
+binder 2221:2221 <> b:11
+R2226:2230 Kernel.VMWitnessCounterMonotonicity <> wc_le def
+R2232:2233 Kernel.VMWitnessCounterMonotonicity <> wc:7 var
+R2236:2247 Kernel.VMStep VMStep record_trial def
+R2249:2250 Kernel.VMWitnessCounterMonotonicity <> wc:7 var
+R2252:2252 Kernel.VMWitnessCounterMonotonicity <> x:8 var
+R2254:2254 Kernel.VMWitnessCounterMonotonicity <> y:9 var
+R2256:2256 Kernel.VMWitnessCounterMonotonicity <> a:10 var
+R2258:2258 Kernel.VMWitnessCounterMonotonicity <> b:11 var
+R2299:2310 Kernel.VMStep VMStep record_trial def
+R2313:2317 Kernel.VMWitnessCounterMonotonicity <> wc_le def
+R2374:2380 Coq.Arith.PeanoNat Nat eqb def
+R2374:2380 Coq.Arith.PeanoNat Nat eqb def
+R2374:2380 Coq.Arith.PeanoNat Nat eqb def
+R2374:2380 Coq.Arith.PeanoNat Nat eqb def
+R2374:2380 Coq.Arith.PeanoNat Nat eqb def
+prf 2579:2599 <> advance_state_witness
+binder 2610:2610 <> s:12
+binder 2612:2616 <> instr:13
+binder 2618:2622 <> graph:14
+binder 2624:2627 <> csrs:15
+binder 2629:2636 <> err_flag:16
+R2697:2699 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2686:2695 Kernel.VMState <> vm_witness proj
+R2642:2654 Kernel.VMStep VMStep advance_state def
+R2656:2656 Kernel.VMWitnessCounterMonotonicity <> s:12 var
+R2658:2662 Kernel.VMWitnessCounterMonotonicity <> instr:13 var
+R2664:2668 Kernel.VMWitnessCounterMonotonicity <> graph:14 var
+R2670:2673 Kernel.VMWitnessCounterMonotonicity <> csrs:15 var
+R2675:2682 Kernel.VMWitnessCounterMonotonicity <> err_flag:16 var
+R2703:2712 Kernel.VMState <> vm_witness proj
+R2700:2700 Kernel.VMWitnessCounterMonotonicity <> s:12 var
+prf 2748:2775 <> advance_state_reveal_witness
+binder 2786:2786 <> s:17
+binder 2788:2792 <> instr:18
+binder 2794:2801 <> flat_idx:19
+binder 2803:2807 <> delta:20
+binder 2809:2813 <> graph:21
+binder 2815:2818 <> csrs:22
+binder 2820:2827 <> err_flag:23
+R2910:2912 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2899:2908 Kernel.VMState <> vm_witness proj
+R2833:2852 Kernel.VMStep VMStep advance_state_reveal def
+R2854:2854 Kernel.VMWitnessCounterMonotonicity <> s:17 var
+R2856:2860 Kernel.VMWitnessCounterMonotonicity <> instr:18 var
+R2862:2869 Kernel.VMWitnessCounterMonotonicity <> flat_idx:19 var
+R2871:2875 Kernel.VMWitnessCounterMonotonicity <> delta:20 var
+R2877:2881 Kernel.VMWitnessCounterMonotonicity <> graph:21 var
+R2883:2886 Kernel.VMWitnessCounterMonotonicity <> csrs:22 var
+R2888:2895 Kernel.VMWitnessCounterMonotonicity <> err_flag:23 var
+R2916:2925 Kernel.VMState <> vm_witness proj
+R2913:2913 Kernel.VMWitnessCounterMonotonicity <> s:17 var
+prf 2961:2984 <> advance_state_rm_witness
+binder 2995:2995 <> s:24
+binder 2997:3001 <> instr:25
+binder 3003:3007 <> graph:26
+binder 3009:3012 <> csrs:27
+binder 3014:3017 <> regs:28
+binder 3019:3021 <> mem:29
+binder 3023:3030 <> err_flag:30
+R3103:3105 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3092:3101 Kernel.VMState <> vm_witness proj
+R3036:3051 Kernel.VMStep VMStep advance_state_rm def
+R3053:3053 Kernel.VMWitnessCounterMonotonicity <> s:24 var
+R3055:3059 Kernel.VMWitnessCounterMonotonicity <> instr:25 var
+R3061:3065 Kernel.VMWitnessCounterMonotonicity <> graph:26 var
+R3067:3070 Kernel.VMWitnessCounterMonotonicity <> csrs:27 var
+R3072:3075 Kernel.VMWitnessCounterMonotonicity <> regs:28 var
+R3077:3079 Kernel.VMWitnessCounterMonotonicity <> mem:29 var
+R3081:3088 Kernel.VMWitnessCounterMonotonicity <> err_flag:30 var
+R3109:3118 Kernel.VMState <> vm_witness proj
+R3106:3106 Kernel.VMWitnessCounterMonotonicity <> s:24 var
+prf 3576:3599 <> vm_step_witness_monotone
+binder 3610:3610 <> s:31
+binder 3612:3612 <> i:32
+binder 3614:3615 <> s':33
+R3634:3637 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3620:3626 Kernel.VMStep VMStep vm_step ind
+R3628:3628 Kernel.VMWitnessCounterMonotonicity <> s:31 var
+R3630:3630 Kernel.VMWitnessCounterMonotonicity <> i:32 var
+R3632:3633 Kernel.VMWitnessCounterMonotonicity <> s':33 var
+R3638:3642 Kernel.VMWitnessCounterMonotonicity <> wc_le def
+R3647:3656 Kernel.VMState <> vm_witness proj
+R3644:3644 Kernel.VMWitnessCounterMonotonicity <> s:31 var
+R3663:3672 Kernel.VMState <> vm_witness proj
+R3659:3660 Kernel.VMWitnessCounterMonotonicity <> s':33 var
+R3776:3788 Kernel.VMStep VMStep advance_state def
+R3776:3788 Kernel.VMStep VMStep advance_state def
+R3842:3861 Kernel.VMStep VMStep advance_state_reveal def
+R3842:3861 Kernel.VMStep VMStep advance_state_reveal def
+R3922:3937 Kernel.VMStep VMStep advance_state_rm def
+R3922:3937 Kernel.VMStep VMStep advance_state_rm def
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3875:3902 Kernel.VMWitnessCounterMonotonicity <> advance_state_reveal_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3994:4003 Kernel.VMState <> vm_witness proj
+R4036:4040 Kernel.VMWitnessCounterMonotonicity <> wc_le def
+R4045:4056 Kernel.VMStep VMStep record_trial def
+R4036:4040 Kernel.VMWitnessCounterMonotonicity <> wc_le def
+R4045:4056 Kernel.VMStep VMStep record_trial def
+R4109:4113 Kernel.VMWitnessCounterMonotonicity <> wc_le def
+R4109:4113 Kernel.VMWitnessCounterMonotonicity <> wc_le def
+R4158:4167 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4078:4098 Kernel.VMWitnessCounterMonotonicity <> record_trial_monotone thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3875:3902 Kernel.VMWitnessCounterMonotonicity <> advance_state_reveal_witness thm
+R3875:3902 Kernel.VMWitnessCounterMonotonicity <> advance_state_reveal_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3951:3974 Kernel.VMWitnessCounterMonotonicity <> advance_state_rm_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R3802:3822 Kernel.VMWitnessCounterMonotonicity <> advance_state_witness thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4078:4098 Kernel.VMWitnessCounterMonotonicity <> record_trial_monotone thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4158:4167 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4158:4167 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4158:4167 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4158:4167 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4130:4139 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+def 4449:4460 <> vm_step_star
+R4467:4473 Kernel.VMState <> VMState rec
+binder 4463:4463 <> s:34
+R4483:4486 Coq.Init.Datatypes <> list ind
+R4488:4501 Kernel.VMStep VMStep vm_instruction ind
+binder 4477:4479 <> is_:35
+R4510:4516 Kernel.VMState <> VMState rec
+binder 4505:4506 <> s':36
+R4537:4539 Kernel.VMWitnessCounterMonotonicity <> is_:35 var
+R4550:4551 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4557:4559 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4556:4556 Kernel.VMWitnessCounterMonotonicity <> s:34 var
+R4560:4561 Kernel.VMWitnessCounterMonotonicity <> s':36 var
+R4568:4571 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4580:4586 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4592:4593 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4587:4591 <> s_mid:39
+R4611:4614 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4594:4600 Kernel.VMStep VMStep vm_step ind
+R4602:4602 Kernel.VMWitnessCounterMonotonicity <> s:34 var
+R4606:4610 Kernel.VMWitnessCounterMonotonicity <> s_mid:39 var
+R4615:4626 Kernel.VMWitnessCounterMonotonicity <> vm_step_star:37 def
+R4639:4640 Kernel.VMWitnessCounterMonotonicity <> s':36 var
+R4628:4632 Kernel.VMWitnessCounterMonotonicity <> s_mid:39 var
+prf 4658:4680 <> vm_run_witness_monotone
+binder 4691:4693 <> is_:40
+binder 4695:4695 <> s:41
+binder 4697:4698 <> s':42
+R4724:4727 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4703:4714 Kernel.VMWitnessCounterMonotonicity <> vm_step_star def
+R4716:4716 Kernel.VMWitnessCounterMonotonicity <> s:41 var
+R4718:4720 Kernel.VMWitnessCounterMonotonicity <> is_:40 var
+R4722:4723 Kernel.VMWitnessCounterMonotonicity <> s':42 var
+R4728:4732 Kernel.VMWitnessCounterMonotonicity <> wc_le def
+R4737:4746 Kernel.VMState <> vm_witness proj
+R4734:4734 Kernel.VMWitnessCounterMonotonicity <> s:41 var
+R4753:4762 Kernel.VMState <> vm_witness proj
+R4749:4750 Kernel.VMWitnessCounterMonotonicity <> s':42 var
+R4855:4864 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4855:4864 Kernel.VMWitnessCounterMonotonicity <> wc_le_refl thm
+R4935:4945 Kernel.VMWitnessCounterMonotonicity <> wc_le_trans thm
+R4956:4965 Kernel.VMState <> vm_witness proj
+R4935:4945 Kernel.VMWitnessCounterMonotonicity <> wc_le_trans thm
+R4956:4965 Kernel.VMState <> vm_witness proj
+R4985:5008 Kernel.VMWitnessCounterMonotonicity <> vm_step_witness_monotone thm
+R4985:5008 Kernel.VMWitnessCounterMonotonicity <> vm_step_witness_monotone thm
+prf 5793:5822 <> wc_field_never_shrinks_same_00
+binder 5833:5835 <> is_:43
+binder 5837:5837 <> s:44
+binder 5839:5840 <> s':45
+R5866:5869 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5845:5856 Kernel.VMWitnessCounterMonotonicity <> vm_step_star def
+R5858:5858 Kernel.VMWitnessCounterMonotonicity <> s:44 var
+R5860:5862 Kernel.VMWitnessCounterMonotonicity <> is_:43 var
+R5864:5865 Kernel.VMWitnessCounterMonotonicity <> s':45 var
+R5895:5898 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5870:5879 Kernel.VMState <> wc_same_00 proj
+R5884:5893 Kernel.VMState <> vm_witness proj
+R5881:5881 Kernel.VMWitnessCounterMonotonicity <> s:44 var
+R5899:5908 Kernel.VMState <> wc_same_00 proj
+R5914:5923 Kernel.VMState <> vm_witness proj
+R5910:5911 Kernel.VMWitnessCounterMonotonicity <> s':45 var
+R5959:5981 Kernel.VMWitnessCounterMonotonicity <> vm_run_witness_monotone thm
+R5959:5981 Kernel.VMWitnessCounterMonotonicity <> vm_run_witness_monotone thm
+R5996:6000 Kernel.VMWitnessCounterMonotonicity <> wc_le def

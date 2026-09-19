@@ -1,10 +1,10 @@
 (** VerilogRefinement.v
 
-    Constructive simulation relation connecting the Kami hardware snapshot
-    abstraction to Kernel VM stepping, intended to replace assumption-only
-    correspondence with proved refinement lemmas rooted in kami_hw.
-
-    Per-instruction vm_step witnesses for all 46 opcodes.
+    Simulation lemmas for the intermediate Gallina KamiSnapshot/kami_step
+    model and Kernel VM stepping. The historical filename and hardware
+    terminology below do not make this a semantics of the synthesizable
+    thieleCore rules or emitted Verilog. Actual FSM retirement, finite-word
+    representation and downstream toolchain contracts are separate.
 *)
 
 From Coq Require Import Arith.PeanoNat Lia Strings.String List.
@@ -664,20 +664,9 @@ Theorem kami_vm_mu_conservative :
     vm_step (abs_phase1 hs) i vs' ->
     (abs_phase1 (kami_step hs i)).(vm_mu) >= vs'.(vm_mu).
 Proof.
-  intros hs i vs' Hbound Hstep.
-  assert (Hge : kami_instruction_cost i >= instruction_cost i).
-  { apply kami_cost_ge_instruction_cost. exact Hbound. }
-  inversion Hstep; subst;
-  unfold abs_phase1, kami_step, kami_advance_default,
-         advance_state, advance_state_rm, advance_state_reveal,
-         jump_state, jump_state_rm,
-         apply_cost, kami_instruction_cost, instruction_cost,
-         ORACLE_HALTS_HW_COST in *;
-  simpl in *;
-  try lia; try contradiction;
-  repeat match goal with
-    | |- context [match ?x with _ => _ end] => destruct x; simpl; try lia
-  end.
+  intros hs i vs' _ Hstep.
+  rewrite (kami_vm_mu_diamond hs i vs' Hstep).
+  apply Nat.le_refl.
 Qed.
 
 (** Since hardware now charges flen * 8 + S cost for LASSERT (matching
@@ -882,7 +871,9 @@ Proof.
   intros hs dst src_mod dst_mod coupling_idx cost.
   destruct (graph_lookup (abs_phase1 hs).(vm_graph) src_mod) as [src_ms|] eqn:Hsrc.
   - destruct (graph_lookup (abs_phase1 hs).(vm_graph) dst_mod) as [dst_ms|] eqn:Hdst.
-    + destruct (graph_add_morphism (abs_phase1 hs).(vm_graph) src_mod dst_mod empty_coupling_data false)
+    + destruct (graph_add_morphism (abs_phase1 hs).(vm_graph) src_mod dst_mod
+          (load_coupling_from_mem (abs_phase1 hs) src_ms.(module_region)
+             dst_ms.(module_region) coupling_idx) false)
         as [graph' morph_id] eqn:Hadd.
       eexists. eapply step_morph_ok.
       * exact Hsrc.

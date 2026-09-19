@@ -1,0 +1,330 @@
+DIGEST 10e5474d5ee2e4de2a51eaf59c716240
+FKamiHW.ActionEvaluator
+R383:391 Kami.Kami <> <> lib
+R393:406 Kami.Semantics <> <> lib
+R433:436 Coq.Lists.List <> <> lib
+R438:443 Coq.Strings.String <> <> lib
+R453:465 Coq.Lists.List ListNotations <> mod
+def 505:522 <> action_read_syntax
+R531:535 Kami.Semantics <> RegsT def
+binder 525:527 <> old:1
+R543:548 Coq.Strings.String <> string ind
+binder 539:539 <> r:2
+R556:559 Kami.Syntax <> Kind ind
+binder 552:552 <> k:3
+R568:573 Coq.Init.Datatypes <> option ind
+R576:579 Kami.Syntax <> type def
+R581:581 KamiHW.ActionEvaluator <> k:3 var
+R595:600 Kami.Lib.FMap M find def
+R604:606 KamiHW.ActionEvaluator <> old:1 var
+R602:602 KamiHW.ActionEvaluator <> r:2 var
+R617:620 Coq.Init.Datatypes <> Some constr
+R623:628 Coq.Init.Specif <> existT constr
+R633:642 Kami.Syntax <> SyntaxKind constr
+R674:680 Kami.Syntax <> decKind def
+R689:689 KamiHW.ActionEvaluator <> k:3 var
+R704:707 Coq.Init.Specif <> left constr
+R715:718 Coq.Init.Datatypes <> Some constr
+R721:727 Coq.Init.Logic <> eq_rect scheme
+R747:747 KamiHW.ActionEvaluator <> k:3 var
+R736:739 Kami.Syntax <> type def
+R761:765 Coq.Init.Specif <> right constr
+R772:775 Coq.Init.Datatypes <> None constr
+R796:799 Coq.Init.Datatypes <> None constr
+def 820:830 <> action_read
+R839:843 Kami.Semantics <> RegsT def
+binder 833:835 <> old:4
+R851:856 Coq.Strings.String <> string ind
+binder 847:847 <> r:5
+R864:871 Kami.Syntax <> FullKind ind
+binder 860:860 <> k:6
+R880:885 Coq.Init.Datatypes <> option ind
+R888:895 Kami.Syntax <> fullType def
+R902:902 KamiHW.ActionEvaluator <> k:6 var
+R897:900 Kami.Syntax <> type def
+R916:916 KamiHW.ActionEvaluator <> k:6 var
+R927:936 Kami.Syntax <> SyntaxKind constr
+R943:960 KamiHW.ActionEvaluator <> action_read_syntax def
+R962:964 KamiHW.ActionEvaluator <> old:4 var
+R966:966 KamiHW.ActionEvaluator <> r:5 var
+R968:968 KamiHW.ActionEvaluator <> k:6 var
+R974:983 Kami.Syntax <> NativeKind constr
+R990:993 Coq.Init.Datatypes <> None constr
+prf 1009:1025 <> action_read_sound
+binder 1036:1038 <> old:8
+binder 1040:1040 <> r:9
+binder 1042:1042 <> k:10
+binder 1044:1044 <> v:11
+R1077:1082 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1068:1070 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1049:1059 KamiHW.ActionEvaluator <> action_read def
+R1061:1063 KamiHW.ActionEvaluator <> old:8 var
+R1065:1065 KamiHW.ActionEvaluator <> r:9 var
+R1067:1067 KamiHW.ActionEvaluator <> k:10 var
+R1071:1074 Coq.Init.Datatypes <> Some constr
+R1076:1076 KamiHW.ActionEvaluator <> v:11 var
+R1095:1097 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1083:1088 Kami.Lib.FMap M find def
+R1092:1094 KamiHW.ActionEvaluator <> old:8 var
+R1090:1090 KamiHW.ActionEvaluator <> r:9 var
+R1098:1101 Coq.Init.Datatypes <> Some constr
+R1104:1109 Coq.Init.Specif <> existT constr
+R1129:1129 KamiHW.ActionEvaluator <> v:11 var
+R1127:1127 KamiHW.ActionEvaluator <> k:10 var
+R1112:1119 Kami.Syntax <> fullType def
+R1121:1124 Kami.Syntax <> type def
+R1197:1207 KamiHW.ActionEvaluator <> action_read def
+R1210:1227 KamiHW.ActionEvaluator <> action_read_syntax def
+R1247:1252 Kami.Lib.FMap M find def
+R1247:1252 Kami.Lib.FMap M find def
+R1376:1382 Kami.Syntax <> decKind def
+R1376:1382 Kami.Syntax <> decKind def
+prf 1491:1510 <> action_read_complete
+binder 1521:1523 <> old:12
+binder 1525:1525 <> r:13
+binder 1527:1527 <> k:14
+binder 1529:1529 <> v:15
+R1595:1600 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1546:1548 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1534:1539 Kami.Lib.FMap M find def
+R1543:1545 KamiHW.ActionEvaluator <> old:12 var
+R1541:1541 KamiHW.ActionEvaluator <> r:13 var
+R1549:1552 Coq.Init.Datatypes <> Some constr
+R1555:1560 Coq.Init.Specif <> existT constr
+R1593:1593 KamiHW.ActionEvaluator <> v:15 var
+R1579:1588 Kami.Syntax <> SyntaxKind constr
+R1590:1590 KamiHW.ActionEvaluator <> k:14 var
+R1563:1570 Kami.Syntax <> fullType def
+R1572:1575 Kami.Syntax <> type def
+R1633:1635 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1601:1611 KamiHW.ActionEvaluator <> action_read def
+R1613:1615 KamiHW.ActionEvaluator <> old:12 var
+R1617:1617 KamiHW.ActionEvaluator <> r:13 var
+R1620:1629 Kami.Syntax <> SyntaxKind constr
+R1631:1631 KamiHW.ActionEvaluator <> k:14 var
+R1636:1639 Coq.Init.Datatypes <> Some constr
+R1641:1641 KamiHW.ActionEvaluator <> v:15 var
+R1680:1690 KamiHW.ActionEvaluator <> action_read def
+R1693:1710 KamiHW.ActionEvaluator <> action_read_syntax def
+R1726:1732 Kami.Syntax <> kind_eq thm
+R1726:1732 Kami.Syntax <> kind_eq thm
+R1726:1732 Kami.Syntax <> kind_eq thm
+def 1763:1780 <> eval_linear_action
+binder 1783:1783 <> k:16
+R1793:1797 Kami.Semantics <> RegsT def
+binder 1787:1789 <> old:17
+R1805:1811 Kami.Syntax <> ActionT ind
+R1818:1818 KamiHW.ActionEvaluator <> k:16 var
+R1813:1816 Kami.Syntax <> type def
+binder 1801:1801 <> a:18
+R1827:1832 Coq.Init.Datatypes <> option ind
+R1843:1845 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1835:1842 Kami.Semantics <> UpdatesT def
+R1846:1849 Kami.Syntax <> type def
+R1851:1851 KamiHW.ActionEvaluator <> k:16 var
+R1865:1865 KamiHW.ActionEvaluator <> a:18 var
+R1876:1879 Kami.Syntax <> Let_ constr
+R1891:1908 KamiHW.ActionEvaluator <> eval_linear_action:19 def
+R1921:1928 Kami.Semantics <> evalExpr def
+R1910:1912 KamiHW.ActionEvaluator <> old:17 var
+R1938:1944 Kami.Syntax <> ReadReg constr
+R1973:1983 KamiHW.ActionEvaluator <> action_read def
+R1985:1987 KamiHW.ActionEvaluator <> old:17 var
+R2009:2012 Coq.Init.Datatypes <> Some constr
+R2019:2036 KamiHW.ActionEvaluator <> eval_linear_action:19 def
+R2038:2040 KamiHW.ActionEvaluator <> old:17 var
+R2059:2062 Coq.Init.Datatypes <> None constr
+R2067:2070 Coq.Init.Datatypes <> None constr
+R2086:2093 Kami.Syntax <> WriteReg constr
+R2119:2136 KamiHW.ActionEvaluator <> eval_linear_action:19 def
+R2138:2140 KamiHW.ActionEvaluator <> old:17 var
+R2160:2163 Coq.Init.Datatypes <> Some constr
+R2165:2165 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2173:2174 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2178:2178 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2199:2204 Kami.Lib.FMap M find def
+R2233:2236 Coq.Init.Datatypes <> None constr
+R2241:2244 Coq.Init.Datatypes <> Some constr
+R2246:2246 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2288:2289 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2293:2293 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2247:2251 Kami.Lib.FMap M add def
+R2256:2261 Coq.Init.Specif <> existT constr
+R2268:2275 Kami.Semantics <> evalExpr def
+R2307:2310 Coq.Init.Datatypes <> Some constr
+R2317:2320 Coq.Init.Datatypes <> None constr
+R2344:2347 Coq.Init.Datatypes <> None constr
+R2352:2355 Coq.Init.Datatypes <> None constr
+R2371:2377 Kami.Syntax <> Assert_ constr
+R2398:2405 Kami.Semantics <> evalExpr def
+R2447:2450 Coq.Init.Datatypes <> None constr
+R2414:2431 KamiHW.ActionEvaluator <> eval_linear_action:19 def
+R2433:2435 KamiHW.ActionEvaluator <> old:17 var
+R2456:2460 Kami.Syntax <> Displ constr
+R2472:2489 KamiHW.ActionEvaluator <> eval_linear_action:19 def
+R2491:2493 KamiHW.ActionEvaluator <> old:17 var
+R2504:2509 Kami.Syntax <> Return constr
+R2516:2519 Coq.Init.Datatypes <> Some constr
+R2521:2521 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2531:2532 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2543:2543 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2522:2528 Kami.Lib.FMap M empty def
+R2533:2540 Kami.Semantics <> evalExpr def
+R2554:2557 Coq.Init.Datatypes <> None constr
+prf 2575:2598 <> eval_linear_action_sound
+binder 2609:2609 <> k:21
+binder 2611:2613 <> old:22
+R2620:2626 Kami.Syntax <> ActionT ind
+R2633:2633 KamiHW.ActionEvaluator <> k:21 var
+R2628:2631 Kami.Syntax <> type def
+binder 2616:2616 <> a:23
+binder 2636:2636 <> u:24
+binder 2638:2640 <> ret:25
+R2685:2690 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2669:2671 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2645:2662 KamiHW.ActionEvaluator <> eval_linear_action def
+R2668:2668 KamiHW.ActionEvaluator <> a:23 var
+R2664:2666 KamiHW.ActionEvaluator <> old:22 var
+R2672:2675 Coq.Init.Datatypes <> Some constr
+R2677:2677 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2679:2680 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2684:2684 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2678:2678 KamiHW.ActionEvaluator <> u:24 var
+R2681:2683 KamiHW.ActionEvaluator <> ret:25 var
+R2691:2699 Kami.Semantics <> SemAction ind
+R2721:2723 KamiHW.ActionEvaluator <> ret:25 var
+R2710:2716 Kami.Lib.FMap M empty def
+R2707:2707 KamiHW.ActionEvaluator <> u:24 var
+R2705:2705 KamiHW.ActionEvaluator <> a:23 var
+R2701:2703 KamiHW.ActionEvaluator <> old:22 var
+R2824:2829 Kami.Semantics <> SemLet constr
+R2824:2829 Kami.Semantics <> SemLet constr
+R2863:2873 KamiHW.ActionEvaluator <> action_read def
+R2863:2873 KamiHW.ActionEvaluator <> action_read def
+R2929:2938 Kami.Semantics <> SemReadReg constr
+R2949:2965 KamiHW.ActionEvaluator <> action_read_sound thm
+R2929:2938 Kami.Semantics <> SemReadReg constr
+R2949:2965 KamiHW.ActionEvaluator <> action_read_sound thm
+R3011:3028 KamiHW.ActionEvaluator <> eval_linear_action def
+R3011:3028 KamiHW.ActionEvaluator <> eval_linear_action def
+R3099:3104 Kami.Lib.FMap M find def
+R3099:3104 Kami.Lib.FMap M find def
+R3177:3187 Kami.Semantics <> SemWriteReg constr
+R3177:3187 Kami.Semantics <> SemWriteReg constr
+R3252:3259 Kami.Semantics <> evalExpr def
+R3252:3259 Kami.Semantics <> evalExpr def
+R3300:3312 Kami.Semantics <> SemAssertTrue constr
+R3300:3312 Kami.Semantics <> SemAssertTrue constr
+R3357:3364 Kami.Semantics <> SemDispl constr
+R3357:3364 Kami.Semantics <> SemDispl constr
+R3419:3427 Kami.Semantics <> SemReturn constr
+R3419:3427 Kami.Semantics <> SemReturn constr
+def 3458:3470 <> linear_action
+binder 3473:3473 <> k:26
+R3481:3487 Kami.Syntax <> ActionT ind
+R3494:3494 KamiHW.ActionEvaluator <> k:26 var
+R3489:3492 Kami.Syntax <> type def
+binder 3477:3477 <> a:27
+R3515:3515 KamiHW.ActionEvaluator <> a:27 var
+R3526:3529 Kami.Syntax <> Let_ constr
+binder 3548:3548 <> v:30
+R3551:3563 KamiHW.ActionEvaluator <> linear_action:28 def
+R3571:3571 KamiHW.ActionEvaluator <> v:30 var
+R3578:3584 Kami.Syntax <> ReadReg constr
+R3589:3598 Kami.Syntax <> SyntaxKind constr
+binder 3618:3618 <> v:31
+R3621:3633 KamiHW.ActionEvaluator <> linear_action:28 def
+R3641:3641 KamiHW.ActionEvaluator <> v:31 var
+R3648:3655 Kami.Syntax <> WriteReg constr
+R3669:3681 KamiHW.ActionEvaluator <> linear_action:28 def
+R3692:3698 Kami.Syntax <> Assert_ constr
+R3710:3722 KamiHW.ActionEvaluator <> linear_action:28 def
+R3733:3737 Kami.Syntax <> Displ constr
+R3749:3761 KamiHW.ActionEvaluator <> linear_action:28 def
+R3772:3777 Kami.Syntax <> Return constr
+R3784:3787 Coq.Init.Logic <> True ind
+R3798:3802 Coq.Init.Logic <> False ind
+prf 3820:3846 <> eval_linear_action_complete
+binder 3857:3859 <> old:32
+binder 3861:3861 <> k:33
+R3868:3874 Kami.Syntax <> ActionT ind
+R3881:3881 KamiHW.ActionEvaluator <> k:33 var
+R3876:3879 Kami.Syntax <> type def
+binder 3864:3864 <> a:34
+binder 3884:3884 <> u:35
+binder 3886:3890 <> calls:36
+binder 3892:3894 <> ret:37
+R3914:3917 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3899:3911 KamiHW.ActionEvaluator <> linear_action def
+R3913:3913 KamiHW.ActionEvaluator <> a:34 var
+R3945:3950 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3918:3926 Kami.Semantics <> SemAction ind
+R3942:3944 KamiHW.ActionEvaluator <> ret:37 var
+R3936:3940 KamiHW.ActionEvaluator <> calls:36 var
+R3934:3934 KamiHW.ActionEvaluator <> u:35 var
+R3932:3932 KamiHW.ActionEvaluator <> a:34 var
+R3928:3930 KamiHW.ActionEvaluator <> old:32 var
+R3991:3994 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3975:3977 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3951:3968 KamiHW.ActionEvaluator <> eval_linear_action def
+R3974:3974 KamiHW.ActionEvaluator <> a:34 var
+R3970:3972 KamiHW.ActionEvaluator <> old:32 var
+R3978:3981 Coq.Init.Datatypes <> Some constr
+R3983:3983 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3985:3986 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3990:3990 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3984:3984 KamiHW.ActionEvaluator <> u:35 var
+R3987:3989 KamiHW.ActionEvaluator <> ret:37 var
+R4000:4002 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3995:3999 KamiHW.ActionEvaluator <> calls:36 var
+R4003:4009 Kami.Lib.FMap M empty def
+R4089:4101 KamiHW.ActionEvaluator <> linear_action def
+R4144:4161 KamiHW.ActionEvaluator <> eval_linear_action def
+R4265:4284 KamiHW.ActionEvaluator <> action_read_complete thm
+R4265:4284 KamiHW.ActionEvaluator <> action_read_complete thm
+R4265:4284 KamiHW.ActionEvaluator <> action_read_complete thm
+prf 4563:4589 <> linear_action_deterministic
+binder 4600:4602 <> old:38
+binder 4604:4604 <> k:39
+R4611:4617 Kami.Syntax <> ActionT ind
+R4624:4624 KamiHW.ActionEvaluator <> k:39 var
+R4619:4622 Kami.Syntax <> type def
+binder 4607:4607 <> a:40
+binder 4631:4632 <> u1:41
+binder 4634:4635 <> c1:42
+binder 4637:4638 <> r1:43
+binder 4640:4641 <> u2:44
+binder 4643:4644 <> c2:45
+binder 4646:4647 <> r2:46
+R4667:4672 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4652:4664 KamiHW.ActionEvaluator <> linear_action def
+R4666:4666 KamiHW.ActionEvaluator <> a:40 var
+R4697:4700 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4673:4681 Kami.Semantics <> SemAction ind
+R4695:4696 KamiHW.ActionEvaluator <> r1:43 var
+R4692:4693 KamiHW.ActionEvaluator <> c1:42 var
+R4689:4690 KamiHW.ActionEvaluator <> u1:41 var
+R4687:4687 KamiHW.ActionEvaluator <> a:40 var
+R4683:4685 KamiHW.ActionEvaluator <> old:38 var
+R4725:4730 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4701:4709 Kami.Semantics <> SemAction ind
+R4723:4724 KamiHW.ActionEvaluator <> r2:46 var
+R4720:4721 KamiHW.ActionEvaluator <> c2:45 var
+R4717:4718 KamiHW.ActionEvaluator <> u2:44 var
+R4715:4715 KamiHW.ActionEvaluator <> a:40 var
+R4711:4713 KamiHW.ActionEvaluator <> old:38 var
+R4738:4741 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4733:4735 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4731:4732 KamiHW.ActionEvaluator <> u1:41 var
+R4736:4737 KamiHW.ActionEvaluator <> u2:44 var
+R4749:4752 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4744:4746 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4742:4743 KamiHW.ActionEvaluator <> c1:42 var
+R4747:4748 KamiHW.ActionEvaluator <> c2:45 var
+R4755:4757 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4753:4754 KamiHW.ActionEvaluator <> r1:43 var
+R4758:4759 KamiHW.ActionEvaluator <> r2:46 var
+R4826:4852 KamiHW.ActionEvaluator <> eval_linear_action_complete thm
+R4826:4852 KamiHW.ActionEvaluator <> eval_linear_action_complete thm
+R4897:4923 KamiHW.ActionEvaluator <> eval_linear_action_complete thm
+R4897:4923 KamiHW.ActionEvaluator <> eval_linear_action_complete thm

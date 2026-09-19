@@ -1,0 +1,130 @@
+two_counter_witness =
+fun u v a b : nat =>
+{|
+  VMState.wc_same_00 := S u;
+  VMState.wc_diff_00 := S v;
+  VMState.wc_same_01 := S a;
+  VMState.wc_diff_01 := S b;
+  VMState.wc_same_10 := 1;
+  VMState.wc_diff_10 := 0;
+  VMState.wc_same_11 := 1;
+  VMState.wc_diff_11 := 1
+|}
+     : nat -> nat -> nat -> nat -> VMState.WitnessCounts
+
+Arguments two_counter_witness (u v a b)%nat_scope
+two_counter_update_result =
+fun (s : VMState.VMState) (wc : VMState.WitnessCounts) =>
+{|
+  VMState.vm_graph := VMState.vm_graph s;
+  VMState.vm_csrs := VMState.vm_csrs s;
+  VMState.vm_regs := VMState.vm_regs s;
+  VMState.vm_mem := VMState.vm_mem s;
+  VMState.vm_pc := S (VMState.vm_pc s);
+  VMState.vm_mu := VMState.vm_mu s;
+  VMState.vm_mu_tensor := VMState.vm_mu_tensor s;
+  VMState.vm_err := VMState.vm_err s;
+  VMState.vm_logic_acc := VMState.vm_logic_acc s;
+  VMState.vm_mstatus := VMState.vm_mstatus s;
+  VMState.vm_witness := wc;
+  VMState.vm_certified := VMState.vm_certified s
+|}
+     : VMState.VMState -> VMState.WitnessCounts -> VMState.VMState
+
+Arguments two_counter_update_result s wc
+two_counter_next =
+fun (u v a b : nat) (second different : bool) =>
+if second
+then
+ if different
+ then two_counter_witness u v a (S b)
+ else two_counter_witness u v (S a) b
+else
+ if different
+ then two_counter_witness u (S v) a b
+ else two_counter_witness (S u) v a b
+     : nat -> nat -> nat -> nat -> bool -> bool -> VMState.WitnessCounts
+
+Arguments two_counter_next (u v a b)%nat_scope (second different)%bool_scope
+first_test
+     : forall u v a b : nat,
+       VMStep.VMStep.column_contractive_check_witness
+         (two_counter_witness u v a b) = true <-> 
+       u = v
+Closed under the global context
+second_test_when_first_zero
+     : forall u a b : nat,
+       VMStep.VMStep.sum_E_sq_check_witness (two_counter_witness u u a b) =
+       true <-> a = b
+Closed under the global context
+combined_test
+     : forall u v a b : nat,
+       VMStep.VMStep.column_contractive_check_q1ab_kernel
+         (two_counter_witness u v a b) = true <-> 
+       u = v /\ a = b
+Closed under the global context
+increment_first
+     : forall u v a b : nat,
+       VMStep.VMStep.record_trial (two_counter_witness u v a b) 0 0 0 0 =
+       two_counter_witness (S u) v a b
+Closed under the global context
+decrement_first
+     : forall u v a b : nat,
+       VMStep.VMStep.record_trial (two_counter_witness u v a b) 0 0 0 1 =
+       two_counter_witness u (S v) a b
+Closed under the global context
+increment_second
+     : forall u v a b : nat,
+       VMStep.VMStep.record_trial (two_counter_witness u v a b) 0 1 0 0 =
+       two_counter_witness u v (S a) b
+Closed under the global context
+decrement_second
+     : forall u v a b : nat,
+       VMStep.VMStep.record_trial (two_counter_witness u v a b) 0 1 0 1 =
+       two_counter_witness u v a (S b)
+Closed under the global context
+first_nonzero_rejects
+     : forall u v a b : nat,
+       u <> v ->
+       VMStep.VMStep.column_contractive_check_witness
+         (two_counter_witness u v a b) = false
+Closed under the global context
+all_extended_guards_reject
+     : forall u v a b g1 h1 g2 h2 g3 h3 g4 h4 g5 h5 : nat,
+       u <> v ->
+       VMStep.VMStep.column_contractive_check_q1ab_kernel
+         (two_counter_witness u v a b) = false /\
+       VMStep.VMStep.q1ab_g5_full_integer_check_kernel
+         (two_counter_witness u v a b) g5 h5 = false /\
+       VMStep.VMStep.q1ab_g345_full_integer_check_kernel
+         (two_counter_witness u v a b) g3 h3 g4 h4 g5 h5 = false /\
+       VMStep.VMStep.q1ab_g12345_full_integer_check_kernel
+         (two_counter_witness u v a b) g1 h1 g2 h2 g3 h3 g4 h4 g5 h5 = false
+Closed under the global context
+second_branch_when_first_zero
+     : forall (p : list VMStep.VMStep.vm_instruction) 
+         (s : VMState.VMState) (u a b yes no : nat),
+       VMState.vm_witness s = two_counter_witness u u a b ->
+       List.nth_error p (VMState.vm_pc s) =
+       Some (VMStep.VMStep.instr_chsh_lassert_1ab 0) ->
+       List.nth_error p (S (VMState.vm_pc s)) =
+       Some (VMStep.VMStep.instr_jump yes 0) ->
+       List.nth_error p VMStep.VMStep.LASSERT_TRAP_PC =
+       Some (VMStep.VMStep.instr_jump no 0) ->
+       SimulationProof.run_vm 2 p s =
+       VMCounterBranch.counter_branch_result s
+         (if PeanoNat.Nat.eqb a b then yes else no) 
+         (PeanoNat.Nat.eqb a b)
+Closed under the global context
+two_counter_update_correct
+     : forall (p : list VMStep.VMStep.vm_instruction) 
+         (s : VMState.VMState) (u v a b : nat) (second different : bool),
+       VMState.vm_witness s = two_counter_witness u v a b ->
+       List.nth_error p (VMState.vm_pc s) =
+       Some
+         (VMStep.VMStep.instr_chsh_trial 0 (if second then 1 else 0) 0
+            (if different then 1 else 0) 0) ->
+       SimulationProof.run_vm 1 p s =
+       two_counter_update_result s
+         (two_counter_next u v a b second different)
+Closed under the global context

@@ -1,55 +1,32 @@
 (** VerilogSemantics.v
 
-    Provides a concrete Coq instantiation of the VerilogRTLCorrespondence
-    Section Variables by using [KamiSnapshot] as the Verilog state type.
+    Instantiates the abstract VerilogRTLCorrespondence interface with
+    KamiSnapshot and Abstraction.kami_step. The historical file/interface
+    names do not make this a semantics of the generated Verilog.
 
-    PURPOSE: Item 3 of CLOSURE_ROADMAP.md (RTL step correctness).
+    The results below concern the intermediate Gallina model and its VM
+    observations. The applicable WF-driven variants carry their explicit
+    representation and opcode premises. They do not prove that each physical
+    clock or instruction retirement implements this model.
 
-    The [VerilogRTLCorrespondence] section in kernel/VerilogRTLCorrespondence.v
-    uses Section Variables for the Verilog state type and step function.
-    This file CLOSES those variables by instantiating:
-      VerilogState   := KamiSnapshot
-      verilog_step   := kami_step
-      verilog_regs   := abs_phase1 >> vm_regs
-      ... (other observations via abs_phase1)
+    The synthesizable source is ThieleCPUCore.thieleCore, a Kami module with
+    actual rules. NormalizationRetirement and MorphRetirement separately
+    establish selected executions of portions of that module. Their bounded
+    register premises, scheduling scope, and raw-pair observation must be
+    connected to an instruction-boundary invariant before claiming a full
+    FSM refinement.
 
-    The key theorem is [coq_kami_model_satisfies_rtl_step_correct], which
-    proves [rtl_step_correct] holds for the Kami Coq model using the
-    already-proved [full_embed_step] / [kami_refines_vm_step] chain.
+    CanonicalCPUProof constructs the backend AST from the actual module.
+    Definitional equality of that construction is not semantic preservation
+    of extraction, OCaml printing, BSV transformations, Bluespec compilation,
+    Verilog transformations, synthesis, or place-and-route. The pipeline
+    manifest and text-transform audit record provenance and replayed byte
+    transformations; they do not prove those downstream semantic edges.
 
-    THE REMAINING TRUST BOUNDARY:
-    This file closes rtl_step_correct for the COQKAMI model.  The physical
-    Verilog (thiele_cpu_kami.v) is only connected via the BSC compiler:
-
-        KamiSnapshot (Coq) ─── kami_step ────────────────────────┐
-              |                                                    |
-              | (Coq extraction: formally verified)               | vm_apply via
-              ▼                                                    | full_embed_step (Qed)
-        KamiHW/Target.ml                                          |
-              |                                                    |
-              | PP.ml BSC: NAMED TRUST BOUNDARY (b)               |
-              ▼                                                    |
-        thiele_cpu_kami.v ─── Verilog step ───────────────────────┘
-
-    Trust boundary (b) is named [bsc_kami_compilation_trusted] (still True).
-    The repo already has a verified Coq path from Kami modules to the
-    Bluespec-subset AST ([getModuleS] -> [ModulesSToBModules] ->
-    [canonical_cpu_module] in [kami_hw/CanonicalCPUProof.v]; the
-    equality [canonical_cpu_module = ModulesSToBModules thieleBusTopS]
-    holds by [unfold] alone — see the comment above that definition).
-    It also now has a checked RTL pipeline
-    provenance manifest ([artifacts/rtl_pipeline_manifest.json]) that pins the
-    canonical extraction/printer/BSV/Verilog artifacts and enforces byte
-    identity between the generated synthesis RTL and the tracked RTL. It also
-    has a text-transform audit ([artifacts/rtl_text_transform_audit.json]) that
-    replays the project BSV preprocessing/RegFile transform and Verilog storage
-    transform byte-for-byte.
-    What remains is the text/backend semantic preservation side after the AST
-    boundary. It cannot be removed without either:
-    (a) A verified printer/backend from the Coq BModules AST to Verilog, OR
-    (b) A Coq semantics for the specific subset of Verilog BSC generates
-        + a computational proof that the specific thiele_cpu_kami.v matches
-        kami_step.  This is the "shorter but narrower" path from CLOSURE_ROADMAP.
+    A physical correspondence result still requires the actual FSM proof and
+    an explicit classification of every downstream edge as proved, validated,
+    tested, or trusted. No such edge is discharged merely by assigning the
+    Gallina kami_step function to an interface field named verilog_step.
 *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia.

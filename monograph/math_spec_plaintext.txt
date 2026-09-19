@@ -301,15 +301,13 @@ irreversible_bits. The count of bits whose prior value cannot be recovered from 
      state of a step. It is the quantity Landauer’s principle prices. Used in the thermodynamic
      corollaries.
 
-HasStructureAddition. In this document, read it as the Coq definition rather than the looser
-     prose gloss “a cert-setting or equivalent operation”: the certification CSR transitions from
-     zero to non-zero along the trace. “Or equivalent operation” is not defined and should not
-     be relied on.
+has_structure_addition. At least one executed step within the supplied fuel changes the
+     certification CSR from zero to non-zero, as defined in coq/kernel/nfi/NoFreeInsight.v.
 
 
 
 
-                                               7
+                                              7
 Chapter 3
 
 The State Space
@@ -949,8 +947,8 @@ not merely for some.
 Theorem 8.7 (Bare-setting impossibility (coq/VerifierImpossibility.v::bare_setting_no_sound_
 complete_verifier)). There is no bare verifier simultaneously bare_sound and bare_complete
 on the verification problem mu_eq_one_problem whose claim is vm_mu(s) = 1 and whose bare_
-explains relation holds for the two NecessityOfMuLedger witness states against the shared
-strict-shadow trace.
+explains relation holds for the two witness states from coq/NecessityOfMuLedger.v against
+the shared strict-shadow trace.
 Proof. po1_state_A (the cost-1 CERTIFY 0 result, µ = 1) and po1_state_B (the cost-0 PNEW
 [] 0 result, µ = 0) project to identical strict-shadow traces. Completeness applied to A’s honest
 run forces V to accept the shared transcript. Strong soundness applied to the same accepted
@@ -2312,11 +2310,12 @@ bsc_kami_compilation_trusted (Layer 2, Verilog semantics gap). The Bluespec Sys-
 A_QM (physical quantum axiom). Whether a physical Thiele Machine can produce CHSH-
      violating statistics by exploiting quantum entanglement in hardware is an open empiri-
      cal question. The column_contractive_iff_quantum_realizable biconditional (Theo-
-     rem 18.1) requires no physical axiom, it is pure algebra. The physical quantum axiom
-     A_QM (declared as a Context parameter in coq/PhysicsConditionalClosure.v) is the
-     separate named hypothesis that quantum CHSH experiments produce PSD NPA matrices.
-     It does not appear in the kernel-tier proof of the biconditional; it is the bridge used in
-     conditional theorems such as master_tsirelson_conditional.
+     rem 18.1) requires no physical axiom, it is pure algebra. The physical quantum axiom A_QM
+     (declared as a Context parameter in coq/PhysicsConditionalClosure.v) is the separate
+     named hypothesis that the chosen quantum CHSH experimental predicate admits a PSD
+     completion with free within-party cross moments. It does not appear in the kernel-tier
+     proof of the biconditional; it is the bridge used in conditional theorems such as master_
+     tsirelson_conditional.
 
 
 

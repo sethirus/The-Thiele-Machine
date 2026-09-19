@@ -1,0 +1,101 @@
+DIGEST 59241b5d58b2effaae016b36b2e1f953
+FUndecidability.Shared.Libs.DLW.Utils.utils_string
+R536:539 Coq.Lists.List <> <> lib
+R541:545 Coq.Arith.Arith <> <> lib
+R547:552 Coq.NArith.NArith <> <> lib
+R554:559 Coq.Numbers.Natural.Peano.NPeano <> <> lib
+R561:565 Coq.Strings.Ascii <> <> lib
+R567:572 Coq.Strings.String <> <> lib
+def 650:659 <> natToDigit
+R666:668 Coq.Init.Datatypes <> nat ind
+binder 662:662 <> n:1
+R673:678 Coq.Strings.String <> string ind
+R691:691 Undecidability.Shared.Libs.DLW.Utils.utils_string <> n:1 var
+def 873:880 <> NToDigit
+R887:887 Coq.Numbers.BinNums <> N ind
+binder 883:883 <> n:3
+R893:902 Undecidability.Shared.Libs.DLW.Utils.utils_string <> natToDigit def
+R905:912 Coq.NArith.BinNat N to_nat def
+R914:914 Undecidability.Shared.Libs.DLW.Utils.utils_string <> n:3 var
+def 934:944 <> writeNatAux
+R956:958 Coq.Init.Datatypes <> nat ind
+binder 947:950 <> time:4
+binder 952:952 <> n:5
+R968:973 Coq.Strings.String <> string ind
+binder 962:964 <> acc:6
+R978:983 Coq.Strings.String <> string ind
+R1023:1026 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R1002:1011 Undecidability.Shared.Libs.DLW.Utils.utils_string <> natToDigit def
+R1015:1019 Coq.Numbers.Natural.Peano.NPeano <> ::nat_scope:x_'mod'_x not
+R1014:1014 Undecidability.Shared.Libs.DLW.Utils.utils_string <> n:5 var
+R1027:1029 Undecidability.Shared.Libs.DLW.Utils.utils_string <> acc:6 var
+binder 994:997 <> acc':8
+R1042:1045 Undecidability.Shared.Libs.DLW.Utils.utils_string <> time:4 var
+R1063:1066 Undecidability.Shared.Libs.DLW.Utils.utils_string <> acc':8 var
+R1074:1074 Coq.Init.Datatypes <> S constr
+R1098:1100 Coq.Numbers.Natural.Peano.NPeano <> ::nat_scope:x_'/'_x not
+R1097:1097 Undecidability.Shared.Libs.DLW.Utils.utils_string <> n:5 var
+R1124:1127 Undecidability.Shared.Libs.DLW.Utils.utils_string <> acc':8 var
+R1145:1155 Undecidability.Shared.Libs.DLW.Utils.utils_string <> writeNatAux:7 def
+R1166:1169 Undecidability.Shared.Libs.DLW.Utils.utils_string <> acc':8 var
+def 1204:1212 <> writeNAux
+R1222:1224 Coq.Init.Datatypes <> nat ind
+binder 1215:1218 <> time:10
+R1232:1232 Coq.Numbers.BinNums <> N ind
+binder 1228:1228 <> n:11
+R1242:1247 Coq.Strings.String <> string ind
+binder 1236:1238 <> acc:12
+R1252:1257 Coq.Strings.String <> string ind
+R1297:1300 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R1276:1283 Undecidability.Shared.Libs.DLW.Utils.utils_string <> NToDigit def
+R1287:1291 Coq.NArith.BinNat <> ::N_scope:x_'mod'_x not
+R1286:1286 Undecidability.Shared.Libs.DLW.Utils.utils_string <> n:11 var
+R1301:1303 Undecidability.Shared.Libs.DLW.Utils.utils_string <> acc:12 var
+binder 1268:1271 <> acc':14
+R1316:1319 Undecidability.Shared.Libs.DLW.Utils.utils_string <> time:10 var
+R1337:1340 Undecidability.Shared.Libs.DLW.Utils.utils_string <> acc':14 var
+R1348:1348 Coq.Init.Datatypes <> S constr
+R1373:1375 Coq.NArith.BinNat <> ::N_scope:x_'/'_x not
+R1372:1372 Undecidability.Shared.Libs.DLW.Utils.utils_string <> n:11 var
+R1397:1398 Coq.Numbers.BinNums <> N0 constr
+R1403:1406 Undecidability.Shared.Libs.DLW.Utils.utils_string <> acc':14 var
+R1424:1432 Undecidability.Shared.Libs.DLW.Utils.utils_string <> writeNAux:13 def
+R1443:1446 Undecidability.Shared.Libs.DLW.Utils.utils_string <> acc':14 var
+sec 1474:1484 <> N_to_string
+var 1496:1499 N_to_string loop
+binder 1513:1513 <> l:16
+binder 1515:1515 <> n:17
+binder 1517:1517 <> s:18
+R1539:1548 Coq.NArith.BinNat N div_eucl def
+R1550:1550 Undecidability.Shared.Libs.DLW.Utils.utils_string <> n:17 var
+binder 1531:1531 <> d:20
+binder 1533:1533 <> r:21
+R1575:1580 Coq.Strings.String <> String constr
+R1583:1592 Coq.Strings.Ascii <> ascii_of_N def
+R1597:1597 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R1598:1598 Undecidability.Shared.Libs.DLW.Utils.utils_string <> r:21 var
+R1602:1602 Undecidability.Shared.Libs.DLW.Utils.utils_string <> s:18 var
+binder 1566:1567 <> s':22
+R1620:1620 Undecidability.Shared.Libs.DLW.Utils.utils_string <> l:16 var
+R1617:1617 Undecidability.Shared.Libs.DLW.Utils.utils_string <> d:20 var
+R1638:1639 Coq.Numbers.BinNums <> N0 constr
+R1649:1650 Undecidability.Shared.Libs.DLW.Utils.utils_string <> s':22 var
+R1674:1675 Undecidability.Shared.Libs.DLW.Utils.utils_string <> s':22 var
+R1692:1692 Coq.Init.Datatypes <> S constr
+R1699:1702 Undecidability.Shared.Libs.DLW.Utils.utils_string <> loop:19 var
+R1708:1709 Undecidability.Shared.Libs.DLW.Utils.utils_string <> s':22 var
+R1706:1706 Undecidability.Shared.Libs.DLW.Utils.utils_string <> d:20 var
+R1704:1704 Undecidability.Shared.Libs.DLW.Utils.utils_string <> l:16 var
+def 1781:1791 <> string_of_N
+binder 1793:1793 <> n:25
+R1809:1809 Undecidability.Shared.Libs.DLW.Utils.utils_string <> n:25 var
+R1825:1826 Coq.Numbers.BinNums <> N0 constr
+R1849:1852 Undecidability.Shared.Libs.DLW.Utils.utils_string <> N_to_string.loop var
+R1859:1869 Coq.Strings.String <> EmptyString constr
+R1857:1857 Undecidability.Shared.Libs.DLW.Utils.utils_string <> n:25 var
+R1887:1897 Undecidability.Shared.Libs.DLW.Utils.utils_string N_to_string <> sec
+def 1912:1924 <> string_of_nat
+binder 1926:1926 <> n:27
+R1931:1941 Undecidability.Shared.Libs.DLW.Utils.utils_string <> writeNatAux def
+R1945:1945 Undecidability.Shared.Libs.DLW.Utils.utils_string <> n:27 var
+R1943:1943 Undecidability.Shared.Libs.DLW.Utils.utils_string <> n:27 var

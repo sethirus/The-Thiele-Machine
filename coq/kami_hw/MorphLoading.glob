@@ -1,0 +1,2164 @@
+DIGEST cbff73d5d03dae2dba85f44ea9d9771d
+FKamiHW.MorphLoading
+R247:255 Kami.Kami <> <> lib
+R257:270 Kami.Semantics <> <> lib
+R272:286 Kami.Lib.NatLib <> <> lib
+R316:326 KamiHW.ThieleTypes <> <> lib
+R328:340 KamiHW.ThieleCPUCore <> <> lib
+R342:359 KamiHW.NormalizationStart <> <> lib
+R362:379 KamiHW.NormalizationSteps <> <> lib
+R381:397 KamiHW.NormalizationLoop <> <> lib
+R399:420 KamiHW.NormalizationExecution <> <> lib
+R422:444 KamiHW.NormalizationRetirement <> <> lib
+R446:463 KamiHW.NormalizationFrame <> <> lib
+R490:493 Coq.Lists.List <> <> lib
+R495:500 Coq.Strings.String <> <> lib
+R502:505 Coq.Bool.Bool <> <> lib
+R507:511 Coq.Arith.Arith <> <> lib
+R513:515 Coq.micromega.Lia <> <> lib
+R525:537 Coq.Lists.List ListNotations <> mod
+def 576:586 <> MemoryTable
+R597:600 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R591:594 Kami.Lib.Word <> word ind
+R601:604 Kami.Lib.Word <> word ind
+def 621:626 <> regmem
+R633:643 KamiHW.MorphLoading <> MemoryTable def
+binder 629:629 <> v:1
+R650:655 Coq.Init.Specif <> existT constr
+R706:706 KamiHW.MorphLoading <> v:1 var
+R674:683 Kami.Syntax <> SyntaxKind constr
+R686:691 Kami.Syntax <> Vector constr
+R694:696 Kami.Syntax <> Bit constr
+R658:665 Kami.Syntax <> fullType def
+R667:670 Kami.Syntax <> type def
+def 720:724 <> reg32
+R731:734 Kami.Lib.Word <> word ind
+binder 727:727 <> v:2
+R743:748 Coq.Init.Specif <> existT constr
+R788:788 KamiHW.MorphLoading <> v:2 var
+R767:776 Kami.Syntax <> SyntaxKind constr
+R779:781 Kami.Syntax <> Bit constr
+R751:758 Kami.Syntax <> fullType def
+R760:763 Kami.Syntax <> type def
+def 802:810 <> mem_index
+R817:820 Kami.Lib.Word <> word ind
+binder 813:813 <> w:3
+R829:834 Kami.Lib.Word <> split1 def
+R841:841 KamiHW.MorphLoading <> w:3 var
+def 855:871 <> morph_header_rule
+R876:893 KamiHW.NormalizationSteps <> normalization_rule def
+def 909:923 <> morph_load_rule
+R928:945 KamiHW.NormalizationSteps <> normalization_rule def
+def 961:970 <> morph_fits
+R979:989 KamiHW.MorphLoading <> MemoryTable def
+binder 973:975 <> mem:4
+R1000:1003 Kami.Lib.Word <> word ind
+binder 993:996 <> base:5
+R1017:1020 Kami.Lib.Word <> word ind
+binder 1010:1013 <> next:6
+R1029:1032 Coq.Init.Datatypes <> andb def
+R1134:1137 Coq.Init.Datatypes <> negb def
+R1140:1147 KamiHW.NormalizationSteps <> word_ltb def
+R1196:1198 KamiHW.MorphLoading <> mem:4 var
+R1201:1209 KamiHW.MorphLoading <> mem_index def
+R1211:1214 KamiHW.MorphLoading <> base:5 var
+R1150:1156 Kami.Lib.Word <> wrshift def
+R1159:1164 Kami.Lib.Word <> wminus def
+R1185:1188 KamiHW.MorphLoading <> base:5 var
+R1167:1175 Kami.Lib.Word <> natToWord def
+R1035:1038 Coq.Init.Datatypes <> negb def
+R1041:1048 KamiHW.NormalizationSteps <> word_ltb def
+R1108:1110 KamiHW.MorphLoading <> mem:4 var
+R1113:1121 KamiHW.MorphLoading <> mem_index def
+R1123:1126 KamiHW.MorphLoading <> base:5 var
+R1051:1069 Kami.Semantics <> evalZeroExtendTrunc def
+R1075:1080 Kami.Lib.Word <> wminus def
+R1099:1102 KamiHW.MorphLoading <> next:6 var
+R1083:1091 Kami.Lib.Word <> natToWord def
+def 1232:1251 <> morph_header_updates
+binder 1253:1255 <> mem:7
+binder 1257:1260 <> base:8
+binder 1262:1265 <> next:9
+binder 1267:1269 <> err:10
+binder 1271:1274 <> code:11
+R1278:1285 Kami.Semantics <> UpdatesT def
+R1304:1306 KamiHW.MorphLoading <> mem:7 var
+R1309:1317 KamiHW.MorphLoading <> mem_index def
+R1319:1322 KamiHW.MorphLoading <> base:8 var
+binder 1295:1299 <> count:12
+R1341:1350 KamiHW.MorphLoading <> morph_fits def
+R1352:1354 KamiHW.MorphLoading <> mem:7 var
+R1356:1359 KamiHW.MorphLoading <> base:8 var
+R1361:1364 KamiHW.MorphLoading <> next:9 var
+binder 1333:1336 <> fits:13
+R1370:1374 Kami.Lib.FMap M add def
+R1416:1420 Kami.Lib.FMap M add def
+R1491:1495 Kami.Lib.FMap M add def
+R1542:1546 Kami.Lib.FMap M add def
+R1602:1606 Kami.Lib.FMap M add def
+R1640:1644 Kami.Lib.FMap M add def
+R1779:1785 Kami.Lib.FMap M empty def
+R1658:1661 KamiHW.NormalizationStart <> reg4 def
+R1667:1670 Coq.Init.Datatypes <> negb def
+R1672:1675 KamiHW.MorphLoading <> fits:13 var
+R1705:1712 KamiHW.NormalizationSteps <> word_eqb def
+R1721:1729 Kami.Lib.Word <> natToWord def
+R1714:1718 KamiHW.MorphLoading <> count:12 var
+R1761:1769 Kami.Lib.Word <> natToWord def
+R1742:1750 Kami.Lib.Word <> natToWord def
+R1682:1690 Kami.Lib.Word <> natToWord def
+R1616:1619 KamiHW.NormalizationStart <> reg5 def
+R1622:1630 Kami.Lib.Word <> natToWord def
+R1563:1567 KamiHW.MorphLoading <> reg32 def
+R1570:1574 Kami.Lib.Word <> wplus def
+R1582:1590 Kami.Lib.Word <> natToWord def
+R1576:1579 KamiHW.MorphLoading <> base:8 var
+R1514:1517 KamiHW.NormalizationStart <> reg5 def
+R1520:1525 Kami.Lib.Word <> split1 def
+R1532:1536 KamiHW.MorphLoading <> count:12 var
+R1436:1440 KamiHW.MorphLoading <> reg32 def
+R1446:1449 KamiHW.MorphLoading <> fits:13 var
+R1466:1485 KamiHW.ThieleTypes <> ERR_COUPLING_INVALID def
+R1456:1459 KamiHW.MorphLoading <> code:11 var
+R1383:1389 KamiHW.NormalizationStart <> regbool def
+R1392:1394 Coq.Init.Datatypes <> orb def
+R1401:1404 Coq.Init.Datatypes <> negb def
+R1406:1409 KamiHW.MorphLoading <> fits:13 var
+R1396:1398 KamiHW.MorphLoading <> err:10 var
+def 1807:1824 <> morph_load_updates
+R1833:1843 KamiHW.MorphLoading <> MemoryTable def
+binder 1827:1829 <> mem:14
+R1857:1860 Kami.Lib.Word <> word ind
+binder 1847:1853 <> readptr:15
+R1882:1885 Kami.Lib.Word <> word ind
+binder 1868:1870 <> out:16
+binder 1872:1872 <> i:17
+binder 1874:1878 <> count:18
+R1901:1909 KamiHW.NormalizationSteps <> PairTable def
+binder 1891:1893 <> src:19
+binder 1895:1897 <> dst:20
+R1927:1930 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1921:1924 Kami.Lib.Word <> word ind
+R1931:1934 Coq.Init.Datatypes <> bool ind
+binder 1913:1917 <> valid:21
+R1939:1946 Kami.Semantics <> UpdatesT def
+R1952:1956 Kami.Lib.FMap M add def
+R2057:2061 Kami.Lib.FMap M add def
+R2188:2192 Kami.Lib.FMap M add def
+R2276:2280 Kami.Lib.FMap M add def
+R2339:2343 Kami.Lib.FMap M add def
+R2397:2401 Kami.Lib.FMap M add def
+R2445:2449 Kami.Lib.FMap M add def
+R2555:2561 Kami.Lib.FMap M empty def
+R2463:2466 KamiHW.NormalizationStart <> reg4 def
+R2472:2479 KamiHW.NormalizationSteps <> word_eqb def
+R2507:2511 KamiHW.MorphLoading <> count:18 var
+R2482:2486 Kami.Lib.Word <> wplus def
+R2491:2499 Kami.Lib.Word <> natToWord def
+R2488:2488 KamiHW.MorphLoading <> i:17 var
+R2538:2546 Kami.Lib.Word <> natToWord def
+R2519:2527 Kami.Lib.Word <> natToWord def
+R2411:2414 KamiHW.NormalizationStart <> reg5 def
+R2417:2421 Kami.Lib.Word <> wplus def
+R2426:2434 Kami.Lib.Word <> natToWord def
+R2423:2423 KamiHW.MorphLoading <> i:17 var
+R2361:2364 KamiHW.NormalizationStart <> reg5 def
+R2367:2371 Kami.Lib.Word <> wplus def
+R2378:2386 Kami.Lib.Word <> natToWord def
+R2373:2375 KamiHW.MorphLoading <> out:16 var
+R2297:2301 KamiHW.MorphLoading <> reg32 def
+R2304:2308 Kami.Lib.Word <> wplus def
+R2319:2327 Kami.Lib.Word <> natToWord def
+R2310:2316 KamiHW.MorphLoading <> readptr:15 var
+R2223:2230 KamiHW.NormalizationSteps <> regvalid def
+R2233:2242 KamiHW.NormalizationSteps <> put_vector def
+R2267:2270 Coq.Init.Datatypes <> true constr
+R2251:2260 KamiHW.NormalizationSteps <> pair_index def
+R2262:2264 KamiHW.MorphLoading <> out:16 var
+R2244:2248 KamiHW.MorphLoading <> valid:21 var
+R2090:2097 KamiHW.NormalizationSteps <> regpairs def
+R2100:2109 KamiHW.NormalizationSteps <> put_vector def
+R2134:2136 KamiHW.MorphLoading <> mem:14 var
+R2139:2147 KamiHW.MorphLoading <> mem_index def
+R2150:2154 Kami.Lib.Word <> wplus def
+R2165:2173 Kami.Lib.Word <> natToWord def
+R2156:2162 KamiHW.MorphLoading <> readptr:15 var
+R2116:2125 KamiHW.NormalizationSteps <> pair_index def
+R2127:2129 KamiHW.MorphLoading <> out:16 var
+R2111:2113 KamiHW.MorphLoading <> dst:20 var
+R1985:1992 KamiHW.NormalizationSteps <> regpairs def
+R1995:2004 KamiHW.NormalizationSteps <> put_vector def
+R2028:2030 KamiHW.MorphLoading <> mem:14 var
+R2033:2041 KamiHW.MorphLoading <> mem_index def
+R2043:2049 KamiHW.MorphLoading <> readptr:15 var
+R2011:2020 KamiHW.NormalizationSteps <> pair_index def
+R2022:2024 KamiHW.MorphLoading <> out:16 var
+R2006:2008 KamiHW.MorphLoading <> src:19 var
+prf 2579:2600 <> morph_header_rule_name
+R2630:2632 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2604:2611 Kami.Lib.Struct <> attrName proj
+R2613:2629 KamiHW.MorphLoading <> morph_header_rule def
+prf 2683:2702 <> morph_load_rule_name
+R2730:2732 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2706:2713 Kami.Lib.Struct <> attrName proj
+R2715:2729 KamiHW.MorphLoading <> morph_load_rule def
+prf 2781:2800 <> morph_header_rule_in
+R2804:2805 Coq.Lists.List <> In def
+R2826:2833 Kami.Syntax <> getRules def
+R2835:2844 KamiHW.ThieleCPUCore <> thieleCore def
+R2807:2823 KamiHW.MorphLoading <> morph_header_rule def
+R2862:2878 KamiHW.MorphLoading <> morph_header_rule def
+R2881:2898 KamiHW.NormalizationSteps <> normalization_rule def
+R2907:2912 Coq.Lists.List <> nth_In thm
+R2924:2924 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2907:2912 Coq.Lists.List <> nth_In thm
+R2924:2924 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+prf 2950:2967 <> morph_load_rule_in
+R2971:2972 Coq.Lists.List <> In def
+R2991:2998 Kami.Syntax <> getRules def
+R3000:3009 KamiHW.ThieleCPUCore <> thieleCore def
+R2974:2988 KamiHW.MorphLoading <> morph_load_rule def
+R3027:3041 KamiHW.MorphLoading <> morph_load_rule def
+R3044:3061 KamiHW.NormalizationSteps <> normalization_rule def
+R3070:3075 Coq.Lists.List <> nth_In thm
+R3087:3087 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3070:3075 Coq.Lists.List <> nth_In thm
+R3087:3087 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+prf 3115:3140 <> morph_header_actual_action
+binder 3151:3153 <> old:22
+binder 3155:3157 <> mem:23
+binder 3159:3162 <> base:24
+binder 3164:3167 <> next:25
+binder 3169:3171 <> err:26
+binder 3173:3176 <> code:27
+R3231:3235 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3201:3203 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3180:3185 Kami.Lib.FMap M find def
+R3198:3200 KamiHW.MorphLoading <> old:22 var
+R3204:3207 Coq.Init.Datatypes <> Some constr
+R3210:3213 KamiHW.NormalizationStart <> reg4 def
+R3216:3224 Kami.Lib.Word <> natToWord def
+R3272:3276 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3252:3254 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3236:3241 Kami.Lib.FMap M find def
+R3249:3251 KamiHW.MorphLoading <> old:22 var
+R3255:3258 Coq.Init.Datatypes <> Some constr
+R3261:3266 KamiHW.MorphLoading <> regmem def
+R3268:3270 KamiHW.MorphLoading <> mem:23 var
+R3321:3325 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3301:3303 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3277:3282 Kami.Lib.FMap M find def
+R3298:3300 KamiHW.MorphLoading <> old:22 var
+R3304:3307 Coq.Init.Datatypes <> Some constr
+R3310:3314 KamiHW.MorphLoading <> reg32 def
+R3316:3319 KamiHW.MorphLoading <> base:24 var
+R3379:3383 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3360:3362 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3326:3331 Kami.Lib.FMap M find def
+R3357:3359 KamiHW.MorphLoading <> old:22 var
+R3363:3366 Coq.Init.Datatypes <> Some constr
+R3369:3372 KamiHW.NormalizationStart <> reg5 def
+R3374:3377 KamiHW.MorphLoading <> next:25 var
+R3421:3425 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3400:3402 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3384:3389 Kami.Lib.FMap M find def
+R3397:3399 KamiHW.MorphLoading <> old:22 var
+R3403:3406 Coq.Init.Datatypes <> Some constr
+R3409:3415 KamiHW.NormalizationStart <> regbool def
+R3417:3419 KamiHW.MorphLoading <> err:26 var
+R3469:3473 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3449:3451 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3426:3431 Kami.Lib.FMap M find def
+R3446:3448 KamiHW.MorphLoading <> old:22 var
+R3452:3455 Coq.Init.Datatypes <> Some constr
+R3458:3462 KamiHW.MorphLoading <> reg32 def
+R3464:3467 KamiHW.MorphLoading <> code:27 var
+R3474:3482 Kami.Semantics <> SemAction ind
+R3581:3582 Kami.Lib.Word <> WO constr
+R3570:3576 Kami.Lib.FMap M empty def
+R3524:3543 KamiHW.MorphLoading <> morph_header_updates def
+R3545:3547 KamiHW.MorphLoading <> mem:23 var
+R3549:3552 KamiHW.MorphLoading <> base:24 var
+R3554:3557 KamiHW.MorphLoading <> next:25 var
+R3559:3561 KamiHW.MorphLoading <> err:26 var
+R3563:3566 KamiHW.MorphLoading <> code:27 var
+R3489:3496 Kami.Lib.Struct <> attrType proj
+R3516:3519 Kami.Syntax <> type def
+R3498:3514 KamiHW.MorphLoading <> morph_header_rule def
+R3484:3486 KamiHW.MorphLoading <> old:22 var
+R3654:3670 KamiHW.MorphLoading <> morph_header_rule def
+R3673:3690 KamiHW.NormalizationSteps <> normalization_rule def
+R3698:3700 Coq.Lists.List <> nth def
+R3702:3709 Kami.Syntax <> getRules def
+R3711:3718 Kami.Lib.Struct <> attrType proj
+R3730:3739 Kami.Semantics <> SemReadReg constr
+R3730:3739 Kami.Semantics <> SemReadReg constr
+R3761:3773 Kami.Semantics <> SemAssertTrue constr
+R3761:3773 Kami.Semantics <> SemAssertTrue constr
+R3800:3809 Kami.Semantics <> SemReadReg constr
+R3800:3809 Kami.Semantics <> SemReadReg constr
+R3832:3841 Kami.Semantics <> SemReadReg constr
+R3832:3841 Kami.Semantics <> SemReadReg constr
+R3865:3874 Kami.Semantics <> SemReadReg constr
+R3865:3874 Kami.Semantics <> SemReadReg constr
+R3903:3908 Kami.Semantics <> SemLet constr
+R3903:3908 Kami.Semantics <> SemLet constr
+R3903:3908 Kami.Semantics <> SemLet constr
+R3903:3908 Kami.Semantics <> SemLet constr
+R3903:3908 Kami.Semantics <> SemLet constr
+R3919:3928 Kami.Semantics <> SemReadReg constr
+R3919:3928 Kami.Semantics <> SemReadReg constr
+R3951:3960 Kami.Semantics <> SemReadReg constr
+R3951:3960 Kami.Semantics <> SemReadReg constr
+R3990:3995 Kami.Semantics <> SemLet constr
+R3990:3995 Kami.Semantics <> SemLet constr
+R3990:3995 Kami.Semantics <> SemLet constr
+R3990:3995 Kami.Semantics <> SemLet constr
+R4006:4025 KamiHW.MorphLoading <> morph_header_updates def
+R4028:4037 KamiHW.MorphLoading <> morph_fits def
+R4040:4048 KamiHW.MorphLoading <> mem_index def
+R4051:4058 KamiHW.NormalizationSteps <> word_ltb def
+R4061:4068 KamiHW.NormalizationSteps <> word_eqb def
+R4085:4095 Kami.Semantics <> SemWriteReg constr
+R4085:4095 Kami.Semantics <> SemWriteReg constr
+R4085:4095 Kami.Semantics <> SemWriteReg constr
+R4085:4095 Kami.Semantics <> SemWriteReg constr
+R4085:4095 Kami.Semantics <> SemWriteReg constr
+R4085:4095 Kami.Semantics <> SemWriteReg constr
+R4085:4095 Kami.Semantics <> SemWriteReg constr
+R4128:4136 Kami.Semantics <> SemReturn constr
+R4128:4136 Kami.Semantics <> SemReturn constr
+prf 4194:4217 <> morph_load_actual_action
+binder 4228:4230 <> old:28
+binder 4232:4234 <> mem:29
+binder 4236:4242 <> readptr:30
+binder 4244:4246 <> out:31
+binder 4248:4248 <> i:32
+binder 4250:4254 <> count:33
+binder 4256:4258 <> src:34
+binder 4260:4262 <> dst:35
+binder 4264:4268 <> valid:36
+R4323:4327 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4293:4295 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4272:4277 Kami.Lib.FMap M find def
+R4290:4292 KamiHW.MorphLoading <> old:28 var
+R4296:4299 Coq.Init.Datatypes <> Some constr
+R4302:4305 KamiHW.NormalizationStart <> reg4 def
+R4308:4316 Kami.Lib.Word <> natToWord def
+R4364:4368 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4344:4346 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4328:4333 Kami.Lib.FMap M find def
+R4341:4343 KamiHW.MorphLoading <> old:28 var
+R4347:4350 Coq.Init.Datatypes <> Some constr
+R4353:4358 KamiHW.MorphLoading <> regmem def
+R4360:4362 KamiHW.MorphLoading <> mem:29 var
+R4416:4420 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4393:4395 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4369:4374 Kami.Lib.FMap M find def
+R4390:4392 KamiHW.MorphLoading <> old:28 var
+R4396:4399 Coq.Init.Datatypes <> Some constr
+R4402:4406 KamiHW.MorphLoading <> reg32 def
+R4408:4414 KamiHW.MorphLoading <> readptr:30 var
+R4464:4468 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4446:4448 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4421:4426 Kami.Lib.FMap M find def
+R4443:4445 KamiHW.MorphLoading <> old:28 var
+R4449:4452 Coq.Init.Datatypes <> Some constr
+R4455:4458 KamiHW.NormalizationStart <> reg5 def
+R4460:4462 KamiHW.MorphLoading <> out:31 var
+R4502:4506 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4486:4488 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4469:4474 Kami.Lib.FMap M find def
+R4483:4485 KamiHW.MorphLoading <> old:28 var
+R4489:4492 Coq.Init.Datatypes <> Some constr
+R4495:4498 KamiHW.NormalizationStart <> reg5 def
+R4500:4500 KamiHW.MorphLoading <> i:32 var
+R4553:4557 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4533:4535 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4507:4512 Kami.Lib.FMap M find def
+R4530:4532 KamiHW.MorphLoading <> old:28 var
+R4536:4539 Coq.Init.Datatypes <> Some constr
+R4542:4545 KamiHW.NormalizationStart <> reg5 def
+R4547:4551 KamiHW.MorphLoading <> count:33 var
+R4616:4620 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4594:4596 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4558:4563 Kami.Lib.FMap M find def
+R4591:4593 KamiHW.MorphLoading <> old:28 var
+R4597:4600 Coq.Init.Datatypes <> Some constr
+R4603:4610 KamiHW.NormalizationSteps <> regpairs def
+R4612:4614 KamiHW.MorphLoading <> src:34 var
+R4679:4683 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4657:4659 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4621:4626 Kami.Lib.FMap M find def
+R4654:4656 KamiHW.MorphLoading <> old:28 var
+R4660:4663 Coq.Init.Datatypes <> Some constr
+R4666:4673 KamiHW.NormalizationSteps <> regpairs def
+R4675:4677 KamiHW.MorphLoading <> dst:35 var
+R4746:4750 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4722:4724 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4684:4689 Kami.Lib.FMap M find def
+R4719:4721 KamiHW.MorphLoading <> old:28 var
+R4725:4728 Coq.Init.Datatypes <> Some constr
+R4731:4738 KamiHW.NormalizationSteps <> regvalid def
+R4740:4744 KamiHW.MorphLoading <> valid:36 var
+R4751:4759 Kami.Semantics <> SemAction ind
+R4869:4870 Kami.Lib.Word <> WO constr
+R4858:4864 Kami.Lib.FMap M empty def
+R4799:4816 KamiHW.MorphLoading <> morph_load_updates def
+R4818:4820 KamiHW.MorphLoading <> mem:29 var
+R4822:4828 KamiHW.MorphLoading <> readptr:30 var
+R4830:4832 KamiHW.MorphLoading <> out:31 var
+R4834:4834 KamiHW.MorphLoading <> i:32 var
+R4836:4840 KamiHW.MorphLoading <> count:33 var
+R4842:4844 KamiHW.MorphLoading <> src:34 var
+R4846:4848 KamiHW.MorphLoading <> dst:35 var
+R4850:4854 KamiHW.MorphLoading <> valid:36 var
+R4766:4773 Kami.Lib.Struct <> attrType proj
+R4791:4794 Kami.Syntax <> type def
+R4775:4789 KamiHW.MorphLoading <> morph_load_rule def
+R4761:4763 KamiHW.MorphLoading <> old:28 var
+R4966:4980 KamiHW.MorphLoading <> morph_load_rule def
+R4983:5000 KamiHW.NormalizationSteps <> normalization_rule def
+R5008:5010 Coq.Lists.List <> nth def
+R5012:5019 Kami.Syntax <> getRules def
+R5021:5028 Kami.Lib.Struct <> attrType proj
+R5040:5049 Kami.Semantics <> SemReadReg constr
+R5040:5049 Kami.Semantics <> SemReadReg constr
+R5071:5083 Kami.Semantics <> SemAssertTrue constr
+R5071:5083 Kami.Semantics <> SemAssertTrue constr
+R5110:5119 Kami.Semantics <> SemReadReg constr
+R5110:5119 Kami.Semantics <> SemReadReg constr
+R5142:5151 Kami.Semantics <> SemReadReg constr
+R5142:5151 Kami.Semantics <> SemReadReg constr
+R5175:5184 Kami.Semantics <> SemReadReg constr
+R5175:5184 Kami.Semantics <> SemReadReg constr
+R5207:5216 Kami.Semantics <> SemReadReg constr
+R5207:5216 Kami.Semantics <> SemReadReg constr
+R5240:5249 Kami.Semantics <> SemReadReg constr
+R5240:5249 Kami.Semantics <> SemReadReg constr
+R5272:5281 Kami.Semantics <> SemReadReg constr
+R5272:5281 Kami.Semantics <> SemReadReg constr
+R5305:5314 Kami.Semantics <> SemReadReg constr
+R5305:5314 Kami.Semantics <> SemReadReg constr
+R5337:5346 Kami.Semantics <> SemReadReg constr
+R5337:5346 Kami.Semantics <> SemReadReg constr
+R5376:5381 Kami.Semantics <> SemLet constr
+R5376:5381 Kami.Semantics <> SemLet constr
+R5376:5381 Kami.Semantics <> SemLet constr
+R5376:5381 Kami.Semantics <> SemLet constr
+R5376:5381 Kami.Semantics <> SemLet constr
+R5376:5381 Kami.Semantics <> SemLet constr
+R5376:5381 Kami.Semantics <> SemLet constr
+R5376:5381 Kami.Semantics <> SemLet constr
+R5392:5409 KamiHW.MorphLoading <> morph_load_updates def
+R5412:5420 KamiHW.MorphLoading <> mem_index def
+R5423:5432 KamiHW.NormalizationSteps <> pair_index def
+R5435:5444 KamiHW.NormalizationSteps <> put_vector def
+R5447:5454 KamiHW.NormalizationSteps <> word_eqb def
+R5471:5481 Kami.Semantics <> SemWriteReg constr
+R5471:5481 Kami.Semantics <> SemWriteReg constr
+R5471:5481 Kami.Semantics <> SemWriteReg constr
+R5471:5481 Kami.Semantics <> SemWriteReg constr
+R5471:5481 Kami.Semantics <> SemWriteReg constr
+R5471:5481 Kami.Semantics <> SemWriteReg constr
+R5471:5481 Kami.Semantics <> SemWriteReg constr
+R5471:5481 Kami.Semantics <> SemWriteReg constr
+R5514:5522 Kami.Semantics <> SemReturn constr
+R5514:5522 Kami.Semantics <> SemReturn constr
+prf 5581:5607 <> morph_header_actual_substep
+binder 5618:5620 <> old:37
+binder 5622:5624 <> mem:38
+binder 5626:5629 <> base:39
+binder 5631:5634 <> next:40
+binder 5636:5638 <> err:41
+binder 5640:5643 <> code:42
+R5698:5702 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5668:5670 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5647:5652 Kami.Lib.FMap M find def
+R5665:5667 KamiHW.MorphLoading <> old:37 var
+R5671:5674 Coq.Init.Datatypes <> Some constr
+R5677:5680 KamiHW.NormalizationStart <> reg4 def
+R5683:5691 Kami.Lib.Word <> natToWord def
+R5739:5743 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5719:5721 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5703:5708 Kami.Lib.FMap M find def
+R5716:5718 KamiHW.MorphLoading <> old:37 var
+R5722:5725 Coq.Init.Datatypes <> Some constr
+R5728:5733 KamiHW.MorphLoading <> regmem def
+R5735:5737 KamiHW.MorphLoading <> mem:38 var
+R5788:5792 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5768:5770 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5744:5749 Kami.Lib.FMap M find def
+R5765:5767 KamiHW.MorphLoading <> old:37 var
+R5771:5774 Coq.Init.Datatypes <> Some constr
+R5777:5781 KamiHW.MorphLoading <> reg32 def
+R5783:5786 KamiHW.MorphLoading <> base:39 var
+R5846:5850 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5827:5829 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5793:5798 Kami.Lib.FMap M find def
+R5824:5826 KamiHW.MorphLoading <> old:37 var
+R5830:5833 Coq.Init.Datatypes <> Some constr
+R5836:5839 KamiHW.NormalizationStart <> reg5 def
+R5841:5844 KamiHW.MorphLoading <> next:40 var
+R5888:5892 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5867:5869 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5851:5856 Kami.Lib.FMap M find def
+R5864:5866 KamiHW.MorphLoading <> old:37 var
+R5870:5873 Coq.Init.Datatypes <> Some constr
+R5876:5882 KamiHW.NormalizationStart <> regbool def
+R5884:5886 KamiHW.MorphLoading <> err:41 var
+R5936:5940 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5916:5918 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5893:5898 Kami.Lib.FMap M find def
+R5913:5915 KamiHW.MorphLoading <> old:37 var
+R5919:5922 Coq.Init.Datatypes <> Some constr
+R5925:5929 KamiHW.MorphLoading <> reg32 def
+R5931:5934 KamiHW.MorphLoading <> code:42 var
+R5941:5947 Kami.Semantics <> Substep ind
+R6043:6049 Kami.Lib.FMap M empty def
+R6012:6014 Kami.Semantics <> Rle constr
+R6017:6020 Coq.Init.Datatypes <> Some constr
+R5965:5984 KamiHW.MorphLoading <> morph_header_updates def
+R5986:5988 KamiHW.MorphLoading <> mem:38 var
+R5990:5993 KamiHW.MorphLoading <> base:39 var
+R5995:5998 KamiHW.MorphLoading <> next:40 var
+R6000:6002 KamiHW.MorphLoading <> err:41 var
+R6004:6007 KamiHW.MorphLoading <> code:42 var
+R5960:5962 KamiHW.MorphLoading <> old:37 var
+R5949:5958 KamiHW.ThieleCPUCore <> thieleCore def
+R6100:6107 Kami.Lib.Struct <> attrType proj
+R6109:6125 KamiHW.MorphLoading <> morph_header_rule def
+R6078:6087 Kami.Semantics <> SingleRule constr
+R6100:6107 Kami.Lib.Struct <> attrType proj
+R6109:6125 KamiHW.MorphLoading <> morph_header_rule def
+R6078:6087 Kami.Semantics <> SingleRule constr
+R6138:6157 KamiHW.MorphLoading <> morph_header_rule_in thm
+R6138:6157 KamiHW.MorphLoading <> morph_header_rule_in thm
+R6169:6194 KamiHW.MorphLoading <> morph_header_actual_action thm
+R6169:6194 KamiHW.MorphLoading <> morph_header_actual_action thm
+rec 6221:6240 <> morph_load_registers
+proj 6297:6306 <> load_phase
+proj 6364:6371 <> load_mem
+proj 6414:6422 <> load_read
+proj 6476:6483 <> load_out
+proj 6547:6552 <> load_i
+proj 6606:6615 <> load_count
+proj 6682:6689 <> load_src
+proj 6754:6761 <> load_dst
+proj 6826:6835 <> load_valid
+binder 6242:6244 <> old:43
+binder 6246:6248 <> mem:44
+binder 6250:6256 <> readptr:45
+binder 6258:6260 <> out:46
+binder 6262:6262 <> i:47
+binder 6264:6268 <> count:48
+binder 6270:6272 <> src:49
+binder 6274:6276 <> dst:50
+binder 6278:6282 <> valid:51
+R6331:6333 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6310:6315 Kami.Lib.FMap M find def
+R6328:6330 KamiHW.MorphLoading <> old:43 var
+R6334:6337 Coq.Init.Datatypes <> Some constr
+R6340:6343 KamiHW.NormalizationStart <> reg4 def
+R6346:6354 Kami.Lib.Word <> natToWord def
+R6391:6393 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6375:6380 Kami.Lib.FMap M find def
+R6388:6390 KamiHW.MorphLoading <> old:43 var
+R6394:6397 Coq.Init.Datatypes <> Some constr
+R6400:6405 KamiHW.MorphLoading <> regmem def
+R6407:6409 KamiHW.MorphLoading <> mem:44 var
+R6450:6452 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6426:6431 Kami.Lib.FMap M find def
+R6447:6449 KamiHW.MorphLoading <> old:43 var
+R6453:6456 Coq.Init.Datatypes <> Some constr
+R6459:6463 KamiHW.MorphLoading <> reg32 def
+R6465:6471 KamiHW.MorphLoading <> readptr:45 var
+R6512:6514 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6487:6492 Kami.Lib.FMap M find def
+R6509:6511 KamiHW.MorphLoading <> old:43 var
+R6515:6518 Coq.Init.Datatypes <> Some constr
+R6521:6524 KamiHW.NormalizationStart <> reg5 def
+R6527:6535 Kami.Lib.Word <> natToWord def
+R6539:6541 KamiHW.MorphLoading <> out:46 var
+R6573:6575 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6556:6561 Kami.Lib.FMap M find def
+R6570:6572 KamiHW.MorphLoading <> old:43 var
+R6576:6579 Coq.Init.Datatypes <> Some constr
+R6582:6585 KamiHW.NormalizationStart <> reg5 def
+R6588:6596 Kami.Lib.Word <> natToWord def
+R6600:6600 KamiHW.MorphLoading <> i:47 var
+R6645:6647 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6619:6624 Kami.Lib.FMap M find def
+R6642:6644 KamiHW.MorphLoading <> old:43 var
+R6648:6651 Coq.Init.Datatypes <> Some constr
+R6654:6657 KamiHW.NormalizationStart <> reg5 def
+R6660:6668 Kami.Lib.Word <> natToWord def
+R6672:6676 KamiHW.MorphLoading <> count:48 var
+R6729:6731 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6693:6698 Kami.Lib.FMap M find def
+R6726:6728 KamiHW.MorphLoading <> old:43 var
+R6732:6735 Coq.Init.Datatypes <> Some constr
+R6738:6745 KamiHW.NormalizationSteps <> regpairs def
+R6747:6749 KamiHW.MorphLoading <> src:49 var
+R6801:6803 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6765:6770 Kami.Lib.FMap M find def
+R6798:6800 KamiHW.MorphLoading <> old:43 var
+R6804:6807 Coq.Init.Datatypes <> Some constr
+R6810:6817 KamiHW.NormalizationSteps <> regpairs def
+R6819:6821 KamiHW.MorphLoading <> dst:50 var
+R6877:6879 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6839:6844 Kami.Lib.FMap M find def
+R6874:6876 KamiHW.MorphLoading <> old:43 var
+R6880:6883 Coq.Init.Datatypes <> Some constr
+R6886:6893 KamiHW.NormalizationSteps <> regvalid def
+R6895:6899 KamiHW.MorphLoading <> valid:51 var
+def 6916:6933 <> morph_loaded_state
+binder 6935:6937 <> old:62
+binder 6939:6941 <> mem:63
+binder 6943:6949 <> readptr:64
+binder 6951:6953 <> out:65
+binder 6955:6955 <> i:66
+binder 6957:6961 <> count:67
+binder 6963:6965 <> src:68
+binder 6967:6969 <> dst:69
+binder 6971:6975 <> valid:70
+R6981:6987 Kami.Lib.FMap M union def
+R7091:7093 KamiHW.MorphLoading <> old:62 var
+R6990:7007 KamiHW.MorphLoading <> morph_load_updates def
+R7009:7011 KamiHW.MorphLoading <> mem:63 var
+R7013:7019 KamiHW.MorphLoading <> readptr:64 var
+R7022:7030 Kami.Lib.Word <> natToWord def
+R7034:7036 KamiHW.MorphLoading <> out:65 var
+R7040:7048 Kami.Lib.Word <> natToWord def
+R7052:7052 KamiHW.MorphLoading <> i:66 var
+R7057:7065 Kami.Lib.Word <> natToWord def
+R7069:7073 KamiHW.MorphLoading <> count:67 var
+R7076:7078 KamiHW.MorphLoading <> src:68 var
+R7080:7082 KamiHW.MorphLoading <> dst:69 var
+R7084:7088 KamiHW.MorphLoading <> valid:70 var
+def 7107:7119 <> load_src_next
+R7128:7138 KamiHW.MorphLoading <> MemoryTable def
+binder 7122:7124 <> mem:71
+binder 7141:7147 <> readptr:72
+binder 7149:7151 <> out:73
+binder 7153:7155 <> src:74
+R7161:7170 KamiHW.NormalizationSteps <> put_vector def
+R7208:7210 KamiHW.MorphLoading <> mem:71 var
+R7213:7221 KamiHW.MorphLoading <> mem_index def
+R7223:7229 KamiHW.MorphLoading <> readptr:72 var
+R7177:7186 KamiHW.NormalizationSteps <> pair_index def
+R7189:7197 Kami.Lib.Word <> natToWord def
+R7201:7203 KamiHW.MorphLoading <> out:73 var
+R7172:7174 KamiHW.MorphLoading <> src:74 var
+def 7245:7257 <> load_dst_next
+R7266:7276 KamiHW.MorphLoading <> MemoryTable def
+binder 7260:7262 <> mem:75
+binder 7279:7285 <> readptr:76
+binder 7287:7289 <> out:77
+binder 7291:7293 <> dst:78
+R7299:7308 KamiHW.NormalizationSteps <> put_vector def
+R7347:7349 KamiHW.MorphLoading <> mem:75 var
+R7352:7360 KamiHW.MorphLoading <> mem_index def
+R7363:7367 Kami.Lib.Word <> wplus def
+R7378:7386 Kami.Lib.Word <> natToWord def
+R7369:7375 KamiHW.MorphLoading <> readptr:76 var
+R7315:7324 KamiHW.NormalizationSteps <> pair_index def
+R7327:7335 Kami.Lib.Word <> natToWord def
+R7339:7341 KamiHW.MorphLoading <> out:77 var
+R7310:7312 KamiHW.MorphLoading <> dst:78 var
+def 7409:7423 <> load_valid_next
+binder 7425:7427 <> out:79
+binder 7429:7433 <> valid:80
+R7438:7447 KamiHW.NormalizationSteps <> put_vector def
+R7486:7489 Coq.Init.Datatypes <> true constr
+R7456:7465 KamiHW.NormalizationSteps <> pair_index def
+R7468:7476 Kami.Lib.Word <> natToWord def
+R7480:7482 KamiHW.MorphLoading <> out:79 var
+R7449:7453 KamiHW.MorphLoading <> valid:80 var
+def 7503:7516 <> load_footprint
+R7521:7521 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7547:7548 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7574:7576 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7604:7605 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7619:7620 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7635:7636 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7643:7644 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7655:7655 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+def 7669:7678 <> load_frame
+R7693:7697 Kami.Semantics <> RegsT def
+binder 7681:7683 <> old:81
+binder 7685:7689 <> final:82
+binder 7710:7712 <> key:83
+R7738:7742 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7715:7716 Coq.Init.Logic <> ::type_scope:'~'_x not
+R7717:7718 Coq.Lists.List <> In def
+R7724:7737 KamiHW.MorphLoading <> load_footprint def
+R7720:7722 KamiHW.MorphLoading <> key:83 var
+R7759:7761 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7743:7748 Kami.Lib.FMap M find def
+R7754:7758 KamiHW.MorphLoading <> final:82 var
+R7750:7752 KamiHW.MorphLoading <> key:83 var
+R7762:7767 Kami.Lib.FMap M find def
+R7773:7775 KamiHW.MorphLoading <> old:81 var
+R7769:7771 KamiHW.MorphLoading <> key:83 var
+prf 7784:7799 <> morph_load_frame
+binder 7810:7812 <> old:84
+binder 7814:7816 <> mem:85
+binder 7818:7824 <> readptr:86
+binder 7826:7828 <> out:87
+binder 7830:7830 <> i:88
+binder 7832:7836 <> count:89
+binder 7838:7840 <> src:90
+binder 7842:7844 <> dst:91
+binder 7846:7850 <> valid:92
+R7854:7863 KamiHW.MorphLoading <> load_frame def
+R7865:7867 KamiHW.MorphLoading <> old:84 var
+R7870:7887 KamiHW.MorphLoading <> morph_loaded_state def
+R7889:7891 KamiHW.MorphLoading <> old:84 var
+R7893:7895 KamiHW.MorphLoading <> mem:85 var
+R7897:7903 KamiHW.MorphLoading <> readptr:86 var
+R7905:7907 KamiHW.MorphLoading <> out:87 var
+R7909:7909 KamiHW.MorphLoading <> i:88 var
+R7911:7915 KamiHW.MorphLoading <> count:89 var
+R7917:7919 KamiHW.MorphLoading <> src:90 var
+R7921:7923 KamiHW.MorphLoading <> dst:91 var
+R7925:7929 KamiHW.MorphLoading <> valid:92 var
+R8005:8022 KamiHW.MorphLoading <> morph_loaded_state def
+R8033:8044 Kami.Lib.FMap M find_union thm
+R8033:8044 Kami.Lib.FMap M find_union thm
+R8033:8044 Kami.Lib.FMap M find_union thm
+R8054:8071 KamiHW.MorphLoading <> morph_load_updates def
+R8082:8095 KamiHW.MorphLoading <> load_footprint def
+R8119:8130 Kami.Lib.FMap M find_add_2 thm
+R8119:8130 Kami.Lib.FMap M find_add_2 thm
+R8119:8130 Kami.Lib.FMap M find_add_2 thm
+R8119:8130 Kami.Lib.FMap M find_add_2 thm
+R8119:8130 Kami.Lib.FMap M find_add_2 thm
+R8119:8130 Kami.Lib.FMap M find_add_2 thm
+R8119:8130 Kami.Lib.FMap M find_add_2 thm
+R8119:8130 Kami.Lib.FMap M find_add_2 thm
+R8119:8130 Kami.Lib.FMap M find_add_2 thm
+R8119:8130 Kami.Lib.FMap M find_add_2 thm
+R8119:8130 Kami.Lib.FMap M find_add_2 thm
+R8119:8130 Kami.Lib.FMap M find_add_2 thm
+R8119:8130 Kami.Lib.FMap M find_add_2 thm
+R8119:8130 Kami.Lib.FMap M find_add_2 thm
+R8119:8130 Kami.Lib.FMap M find_add_2 thm
+R8119:8130 Kami.Lib.FMap M find_add_2 thm
+R8169:8180 Kami.Lib.FMap M find_empty thm
+R8169:8180 Kami.Lib.FMap M find_empty thm
+R8169:8180 Kami.Lib.FMap M find_empty thm
+prf 8207:8226 <> morph_load_execution
+binder 8237:8239 <> old:93
+binder 8241:8243 <> mem:94
+binder 8245:8251 <> readptr:95
+binder 8253:8255 <> out:96
+binder 8257:8257 <> i:97
+binder 8259:8263 <> count:98
+binder 8265:8267 <> src:99
+binder 8269:8271 <> dst:100
+binder 8273:8277 <> valid:101
+R8343:8347 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8281:8300 KamiHW.MorphLoading <> morph_load_registers rec
+R8302:8304 KamiHW.MorphLoading <> old:93 var
+R8306:8308 KamiHW.MorphLoading <> mem:94 var
+R8310:8316 KamiHW.MorphLoading <> readptr:95 var
+R8318:8320 KamiHW.MorphLoading <> out:96 var
+R8322:8322 KamiHW.MorphLoading <> i:97 var
+R8324:8328 KamiHW.MorphLoading <> count:98 var
+R8330:8332 KamiHW.MorphLoading <> src:99 var
+R8334:8336 KamiHW.MorphLoading <> dst:100 var
+R8338:8342 KamiHW.MorphLoading <> valid:101 var
+R8348:8356 Kami.Semantics <> Multistep ind
+R8437:8437 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8473:8473 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8438:8456 KamiHW.NormalizationExecution <> normalization_label def
+R8374:8391 KamiHW.MorphLoading <> morph_loaded_state def
+R8393:8395 KamiHW.MorphLoading <> old:93 var
+R8397:8399 KamiHW.MorphLoading <> mem:94 var
+R8401:8407 KamiHW.MorphLoading <> readptr:95 var
+R8409:8411 KamiHW.MorphLoading <> out:96 var
+R8413:8413 KamiHW.MorphLoading <> i:97 var
+R8415:8419 KamiHW.MorphLoading <> count:98 var
+R8421:8423 KamiHW.MorphLoading <> src:99 var
+R8425:8427 KamiHW.MorphLoading <> dst:100 var
+R8429:8433 KamiHW.MorphLoading <> valid:101 var
+R8369:8371 KamiHW.MorphLoading <> old:93 var
+R8358:8367 KamiHW.ThieleCPUCore <> thieleCore def
+R8498:8528 KamiHW.NormalizationExecution <> normalization_substep_execution thm
+R8498:8528 KamiHW.NormalizationExecution <> normalization_substep_execution thm
+R8561:8568 Kami.Lib.Struct <> attrType proj
+R8570:8584 KamiHW.MorphLoading <> morph_load_rule def
+R8539:8548 Kami.Semantics <> SingleRule constr
+R8561:8568 Kami.Lib.Struct <> attrType proj
+R8570:8584 KamiHW.MorphLoading <> morph_load_rule def
+R8539:8548 Kami.Semantics <> SingleRule constr
+R8597:8614 KamiHW.MorphLoading <> morph_load_rule_in thm
+R8597:8614 KamiHW.MorphLoading <> morph_load_rule_in thm
+R8626:8649 KamiHW.MorphLoading <> morph_load_actual_action thm
+R8626:8649 KamiHW.MorphLoading <> morph_load_actual_action thm
+R8710:8727 KamiHW.MorphLoading <> morph_loaded_state def
+R8738:8749 Kami.Lib.FMap M find_union thm
+R8760:8777 KamiHW.MorphLoading <> morph_load_updates def
+R8795:8806 Kami.Lib.FMap M find_add_2 thm
+R8834:8845 Kami.Lib.FMap M find_add_1 thm
+prf 8869:8886 <> morph_loaded_phase
+binder 8897:8899 <> old:102
+binder 8901:8903 <> mem:103
+binder 8905:8905 <> r:104
+binder 8907:8909 <> out:105
+binder 8911:8911 <> i:106
+binder 8913:8917 <> count:107
+binder 8919:8921 <> src:108
+binder 8923:8925 <> dst:109
+binder 8927:8931 <> valid:110
+R8952:8956 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8937:8937 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R8943:8944 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R8936:8936 KamiHW.MorphLoading <> i:106 var
+R8938:8942 KamiHW.MorphLoading <> count:107 var
+R8938:8942 KamiHW.MorphLoading <> count:107 var
+R9031:9034 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8957:8962 Kami.Lib.FMap M find def
+R8976:8993 KamiHW.MorphLoading <> morph_loaded_state def
+R8995:8997 KamiHW.MorphLoading <> old:102 var
+R8999:9001 KamiHW.MorphLoading <> mem:103 var
+R9003:9003 KamiHW.MorphLoading <> r:104 var
+R9005:9007 KamiHW.MorphLoading <> out:105 var
+R9009:9009 KamiHW.MorphLoading <> i:106 var
+R9011:9015 KamiHW.MorphLoading <> count:107 var
+R9017:9019 KamiHW.MorphLoading <> src:108 var
+R9021:9023 KamiHW.MorphLoading <> dst:109 var
+R9025:9029 KamiHW.MorphLoading <> valid:110 var
+R9035:9038 Coq.Init.Datatypes <> Some constr
+R9041:9044 KamiHW.NormalizationStart <> reg4 def
+R9047:9055 Kami.Lib.Word <> natToWord def
+R9063:9069 Coq.Arith.PeanoNat Nat eqb def
+R9072:9072 Coq.Init.Datatypes <> S constr
+R9074:9074 KamiHW.MorphLoading <> i:106 var
+R9077:9081 KamiHW.MorphLoading <> count:107 var
+R9143:9156 Kami.Lib.Word <> natToWord_plus thm
+R9143:9156 Kami.Lib.Word <> natToWord_plus thm
+R9143:9156 Kami.Lib.Word <> natToWord_plus thm
+R9170:9170 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9184:9184 Coq.Init.Datatypes <> S constr
+R9170:9170 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9184:9184 Coq.Init.Datatypes <> S constr
+R9205:9220 KamiHW.NormalizationRetirement <> bounded_word_eqb thm
+R9205:9220 KamiHW.NormalizationRetirement <> bounded_word_eqb thm
+R9205:9220 KamiHW.NormalizationRetirement <> bounded_word_eqb thm
+R9241:9247 Coq.Arith.PeanoNat Nat eqb def
+R9250:9250 Coq.Init.Datatypes <> S constr
+R9241:9247 Coq.Arith.PeanoNat Nat eqb def
+R9250:9250 Coq.Init.Datatypes <> S constr
+prf 9287:9308 <> morph_loaded_continues
+binder 9319:9321 <> old:111
+binder 9323:9325 <> mem:112
+binder 9327:9327 <> r:113
+binder 9329:9331 <> out:114
+binder 9333:9333 <> i:115
+binder 9335:9339 <> count:116
+binder 9341:9343 <> src:117
+binder 9345:9347 <> dst:118
+binder 9349:9353 <> valid:119
+R9376:9380 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9361:9361 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R9367:9368 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R9358:9358 Coq.Init.Datatypes <> S constr
+R9360:9360 KamiHW.MorphLoading <> i:115 var
+R9362:9366 KamiHW.MorphLoading <> count:116 var
+R9362:9366 KamiHW.MorphLoading <> count:116 var
+R9437:9441 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9381:9400 KamiHW.MorphLoading <> morph_load_registers rec
+R9402:9404 KamiHW.MorphLoading <> old:111 var
+R9406:9408 KamiHW.MorphLoading <> mem:112 var
+R9410:9410 KamiHW.MorphLoading <> r:113 var
+R9412:9414 KamiHW.MorphLoading <> out:114 var
+R9416:9416 KamiHW.MorphLoading <> i:115 var
+R9418:9422 KamiHW.MorphLoading <> count:116 var
+R9424:9426 KamiHW.MorphLoading <> src:117 var
+R9428:9430 KamiHW.MorphLoading <> dst:118 var
+R9432:9436 KamiHW.MorphLoading <> valid:119 var
+R9442:9461 KamiHW.MorphLoading <> morph_load_registers rec
+R9464:9481 KamiHW.MorphLoading <> morph_loaded_state def
+R9483:9485 KamiHW.MorphLoading <> old:111 var
+R9487:9489 KamiHW.MorphLoading <> mem:112 var
+R9491:9491 KamiHW.MorphLoading <> r:113 var
+R9493:9495 KamiHW.MorphLoading <> out:114 var
+R9497:9497 KamiHW.MorphLoading <> i:115 var
+R9499:9503 KamiHW.MorphLoading <> count:116 var
+R9505:9507 KamiHW.MorphLoading <> src:117 var
+R9509:9511 KamiHW.MorphLoading <> dst:118 var
+R9513:9517 KamiHW.MorphLoading <> valid:119 var
+R9521:9523 KamiHW.MorphLoading <> mem:112 var
+R9526:9530 Kami.Lib.Word <> wplus def
+R9535:9543 Kami.Lib.Word <> natToWord def
+R9532:9532 KamiHW.MorphLoading <> r:113 var
+R9553:9553 Coq.Init.Datatypes <> S constr
+R9555:9557 KamiHW.MorphLoading <> out:114 var
+R9561:9561 Coq.Init.Datatypes <> S constr
+R9563:9563 KamiHW.MorphLoading <> i:115 var
+R9566:9570 KamiHW.MorphLoading <> count:116 var
+R9574:9586 KamiHW.MorphLoading <> load_src_next def
+R9588:9590 KamiHW.MorphLoading <> mem:112 var
+R9592:9592 KamiHW.MorphLoading <> r:113 var
+R9594:9596 KamiHW.MorphLoading <> out:114 var
+R9598:9600 KamiHW.MorphLoading <> src:117 var
+R9604:9616 KamiHW.MorphLoading <> load_dst_next def
+R9618:9620 KamiHW.MorphLoading <> mem:112 var
+R9622:9622 KamiHW.MorphLoading <> r:113 var
+R9624:9626 KamiHW.MorphLoading <> out:114 var
+R9628:9630 KamiHW.MorphLoading <> dst:118 var
+R9634:9648 KamiHW.MorphLoading <> load_valid_next def
+R9650:9652 KamiHW.MorphLoading <> out:114 var
+R9654:9658 KamiHW.MorphLoading <> valid:119 var
+R9744:9761 KamiHW.MorphLoading <> morph_loaded_phase thm
+R9744:9761 KamiHW.MorphLoading <> morph_loaded_phase thm
+R9744:9761 KamiHW.MorphLoading <> morph_loaded_phase thm
+R9783:9787 Coq.Init.Logic <> proj2 thm
+R9790:9800 Coq.Arith.PeanoNat Nat eqb_neq thm
+R9803:9803 Coq.Init.Datatypes <> S constr
+R9783:9787 Coq.Init.Logic <> proj2 thm
+R9790:9800 Coq.Arith.PeanoNat Nat eqb_neq thm
+R9803:9803 Coq.Init.Datatypes <> S constr
+R9783:9787 Coq.Init.Logic <> proj2 thm
+R9790:9800 Coq.Arith.PeanoNat Nat eqb_neq thm
+R9803:9803 Coq.Init.Datatypes <> S constr
+R9880:9893 KamiHW.MorphLoading <> load_footprint def
+R9852:9867 KamiHW.MorphLoading <> morph_load_frame thm
+R9852:9867 KamiHW.MorphLoading <> morph_load_frame thm
+R9852:9867 KamiHW.MorphLoading <> morph_load_frame thm
+R10016:10029 Kami.Lib.Word <> natToWord_plus thm
+R10016:10029 Kami.Lib.Word <> natToWord_plus thm
+R10016:10029 Kami.Lib.Word <> natToWord_plus thm
+R10047:10047 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10061:10061 Coq.Init.Datatypes <> S constr
+R10047:10047 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10061:10061 Coq.Init.Datatypes <> S constr
+R10118:10131 Kami.Lib.Word <> natToWord_plus thm
+R10118:10131 Kami.Lib.Word <> natToWord_plus thm
+R10118:10131 Kami.Lib.Word <> natToWord_plus thm
+R10147:10147 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10161:10161 Coq.Init.Datatypes <> S constr
+R10147:10147 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10161:10161 Coq.Init.Datatypes <> S constr
+R10226:10239 KamiHW.MorphLoading <> load_footprint def
+R10198:10213 KamiHW.MorphLoading <> morph_load_frame thm
+R10198:10213 KamiHW.MorphLoading <> morph_load_frame thm
+R10198:10213 KamiHW.MorphLoading <> morph_load_frame thm
+def 10410:10421 <> loaded_table
+R10430:10440 KamiHW.MorphLoading <> MemoryTable def
+binder 10424:10426 <> mem:120
+R10448:10451 Kami.Lib.Word <> word ind
+binder 10444:10444 <> r:121
+R10466:10468 Coq.Init.Datatypes <> nat ind
+binder 10458:10460 <> out:122
+binder 10462:10462 <> n:123
+R10481:10489 KamiHW.NormalizationSteps <> PairTable def
+binder 10473:10477 <> table:124
+R10502:10504 Coq.Init.Datatypes <> nat ind
+binder 10493:10498 <> offset:125
+R10509:10517 KamiHW.NormalizationSteps <> PairTable def
+R10529:10529 KamiHW.MorphLoading <> n:123 var
+R10539:10539 Coq.Init.Datatypes <> O constr
+R10544:10548 KamiHW.MorphLoading <> table:124 var
+R10553:10553 Coq.Init.Datatypes <> S constr
+R10560:10571 KamiHW.MorphLoading <> loaded_table:126 def
+R10720:10725 KamiHW.MorphLoading <> offset:125 var
+R10617:10626 KamiHW.NormalizationSteps <> put_vector def
+R10670:10672 KamiHW.MorphLoading <> mem:120 var
+R10675:10683 KamiHW.MorphLoading <> mem_index def
+R10686:10690 Kami.Lib.Word <> wplus def
+R10695:10703 Kami.Lib.Word <> natToWord def
+R10708:10713 KamiHW.MorphLoading <> offset:125 var
+R10692:10692 KamiHW.MorphLoading <> r:121 var
+R10635:10644 KamiHW.NormalizationSteps <> pair_index def
+R10647:10655 Kami.Lib.Word <> natToWord def
+R10659:10661 KamiHW.MorphLoading <> out:122 var
+R10628:10632 KamiHW.MorphLoading <> table:124 var
+R10605:10605 Coq.Init.Datatypes <> S constr
+R10607:10609 KamiHW.MorphLoading <> out:122 var
+R10578:10582 Kami.Lib.Word <> wplus def
+R10587:10595 Kami.Lib.Word <> natToWord def
+R10584:10584 KamiHW.MorphLoading <> r:121 var
+R10573:10575 KamiHW.MorphLoading <> mem:120 var
+def 10742:10753 <> loaded_valid
+binder 10755:10757 <> out:128
+binder 10759:10759 <> n:129
+R10776:10779 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10770:10773 Kami.Lib.Word <> word ind
+R10780:10783 Coq.Init.Datatypes <> bool ind
+binder 10762:10766 <> valid:130
+R10796:10796 KamiHW.MorphLoading <> n:129 var
+R10803:10803 Coq.Init.Datatypes <> O constr
+R10808:10812 KamiHW.MorphLoading <> valid:130 var
+R10816:10816 Coq.Init.Datatypes <> S constr
+R10823:10834 KamiHW.MorphLoading <> loaded_valid:131 def
+R10847:10861 KamiHW.MorphLoading <> load_valid_next def
+R10863:10865 KamiHW.MorphLoading <> out:128 var
+R10867:10871 KamiHW.MorphLoading <> valid:130 var
+R10837:10837 Coq.Init.Datatypes <> S constr
+R10839:10841 KamiHW.MorphLoading <> out:128 var
+prf 10885:10902 <> load_src_next_zero
+binder 10913:10915 <> mem:133
+binder 10917:10917 <> r:134
+binder 10919:10921 <> out:135
+binder 10923:10925 <> src:136
+R11020:11022 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10929:10938 KamiHW.NormalizationSteps <> put_vector def
+R10977:10979 KamiHW.MorphLoading <> mem:133 var
+R10982:10990 KamiHW.MorphLoading <> mem_index def
+R10993:10997 Kami.Lib.Word <> wplus def
+R11002:11010 Kami.Lib.Word <> natToWord def
+R10999:10999 KamiHW.MorphLoading <> r:134 var
+R10945:10954 KamiHW.NormalizationSteps <> pair_index def
+R10957:10965 Kami.Lib.Word <> natToWord def
+R10969:10971 KamiHW.MorphLoading <> out:135 var
+R10940:10942 KamiHW.MorphLoading <> src:136 var
+R11023:11035 KamiHW.MorphLoading <> load_src_next def
+R11037:11039 KamiHW.MorphLoading <> mem:133 var
+R11041:11041 KamiHW.MorphLoading <> r:134 var
+R11043:11045 KamiHW.MorphLoading <> out:135 var
+R11047:11049 KamiHW.MorphLoading <> src:136 var
+R11075:11084 Kami.Lib.Word <> wplus_comm thm
+R11087:11096 Kami.Lib.Word <> wplus_unit thm
+R11075:11084 Kami.Lib.Word <> wplus_comm thm
+R11075:11084 Kami.Lib.Word <> wplus_comm thm
+R11087:11096 Kami.Lib.Word <> wplus_unit thm
+R11087:11096 Kami.Lib.Word <> wplus_unit thm
+prf 11126:11150 <> morph_load_loop_execution
+binder 11161:11161 <> n:137
+binder 11163:11165 <> old:138
+binder 11167:11169 <> mem:139
+binder 11171:11171 <> r:140
+binder 11173:11175 <> out:141
+binder 11177:11177 <> i:142
+binder 11179:11183 <> count:143
+binder 11185:11187 <> src:144
+binder 11189:11191 <> dst:145
+binder 11193:11197 <> valid:146
+R11218:11221 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11209:11211 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11207:11207 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R11202:11206 KamiHW.MorphLoading <> count:143 var
+R11208:11208 KamiHW.MorphLoading <> i:142 var
+R11212:11212 KamiHW.MorphLoading <> n:137 var
+R11239:11243 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11224:11224 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R11230:11231 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R11223:11223 KamiHW.MorphLoading <> i:142 var
+R11225:11229 KamiHW.MorphLoading <> count:143 var
+R11225:11229 KamiHW.MorphLoading <> count:143 var
+R11300:11304 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11244:11263 KamiHW.MorphLoading <> morph_load_registers rec
+R11265:11267 KamiHW.MorphLoading <> old:138 var
+R11269:11271 KamiHW.MorphLoading <> mem:139 var
+R11273:11273 KamiHW.MorphLoading <> r:140 var
+R11275:11277 KamiHW.MorphLoading <> out:141 var
+R11279:11279 KamiHW.MorphLoading <> i:142 var
+R11281:11285 KamiHW.MorphLoading <> count:143 var
+R11287:11289 KamiHW.MorphLoading <> src:144 var
+R11291:11293 KamiHW.MorphLoading <> dst:145 var
+R11295:11299 KamiHW.MorphLoading <> valid:146 var
+R11305:11311 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11317:11319 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 11312:11316 <> final:147
+R11399:11403 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11320:11328 Kami.Semantics <> Multistep ind
+R11352:11357 Coq.Lists.List <> repeat def
+R11397:11397 KamiHW.MorphLoading <> n:137 var
+R11360:11378 KamiHW.NormalizationExecution <> normalization_label def
+R11345:11349 KamiHW.MorphLoading <> final:147 var
+R11341:11343 KamiHW.MorphLoading <> old:138 var
+R11330:11339 KamiHW.ThieleCPUCore <> thieleCore def
+R11457:11461 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11427:11429 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11404:11409 Kami.Lib.FMap M find def
+R11422:11426 KamiHW.MorphLoading <> final:147 var
+R11430:11433 Coq.Init.Datatypes <> Some constr
+R11436:11439 KamiHW.NormalizationStart <> reg4 def
+R11442:11450 Kami.Lib.Word <> natToWord def
+R11525:11529 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11489:11491 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11462:11467 Kami.Lib.FMap M find def
+R11484:11488 KamiHW.MorphLoading <> final:147 var
+R11492:11495 Coq.Init.Datatypes <> Some constr
+R11498:11501 KamiHW.NormalizationStart <> reg5 def
+R11504:11512 Kami.Lib.Word <> natToWord def
+R11520:11520 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11517:11519 KamiHW.MorphLoading <> out:141 var
+R11521:11521 KamiHW.MorphLoading <> n:137 var
+R11619:11623 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11568:11570 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11530:11535 Kami.Lib.FMap M find def
+R11563:11567 KamiHW.MorphLoading <> final:147 var
+R11571:11574 Coq.Init.Datatypes <> Some constr
+R11577:11584 KamiHW.NormalizationSteps <> regpairs def
+R11587:11598 KamiHW.MorphLoading <> loaded_table def
+R11600:11602 KamiHW.MorphLoading <> mem:139 var
+R11604:11604 KamiHW.MorphLoading <> r:140 var
+R11606:11608 KamiHW.MorphLoading <> out:141 var
+R11610:11610 KamiHW.MorphLoading <> n:137 var
+R11612:11614 KamiHW.MorphLoading <> src:144 var
+R11713:11717 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11662:11664 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11624:11629 Kami.Lib.FMap M find def
+R11657:11661 KamiHW.MorphLoading <> final:147 var
+R11665:11668 Coq.Init.Datatypes <> Some constr
+R11671:11678 KamiHW.NormalizationSteps <> regpairs def
+R11681:11692 KamiHW.MorphLoading <> loaded_table def
+R11694:11696 KamiHW.MorphLoading <> mem:139 var
+R11698:11698 KamiHW.MorphLoading <> r:140 var
+R11700:11702 KamiHW.MorphLoading <> out:141 var
+R11704:11704 KamiHW.MorphLoading <> n:137 var
+R11706:11708 KamiHW.MorphLoading <> dst:145 var
+R11803:11807 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11758:11760 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11718:11723 Kami.Lib.FMap M find def
+R11753:11757 KamiHW.MorphLoading <> final:147 var
+R11761:11764 Coq.Init.Datatypes <> Some constr
+R11767:11774 KamiHW.NormalizationSteps <> regvalid def
+R11777:11788 KamiHW.MorphLoading <> loaded_valid def
+R11790:11792 KamiHW.MorphLoading <> out:141 var
+R11794:11794 KamiHW.MorphLoading <> n:137 var
+R11796:11800 KamiHW.MorphLoading <> valid:146 var
+R11808:11817 KamiHW.MorphLoading <> load_frame def
+R11819:11821 KamiHW.MorphLoading <> old:138 var
+R11823:11827 KamiHW.MorphLoading <> final:147 var
+R11940:11957 KamiHW.MorphLoading <> morph_loaded_state def
+R11940:11957 KamiHW.MorphLoading <> morph_loaded_state def
+R12012:12031 KamiHW.MorphLoading <> morph_load_execution thm
+R12012:12031 KamiHW.MorphLoading <> morph_load_execution thm
+R12094:12103 Coq.Arith.PeanoNat Nat eq_dec thm
+R12106:12106 Coq.Init.Datatypes <> S constr
+R12094:12103 Coq.Arith.PeanoNat Nat eq_dec thm
+R12106:12106 Coq.Init.Datatypes <> S constr
+R12142:12142 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12142:12142 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12241:12258 KamiHW.MorphLoading <> morph_loaded_phase thm
+R12279:12290 Coq.Arith.PeanoNat Nat eqb_refl thm
+R12241:12258 KamiHW.MorphLoading <> morph_loaded_phase thm
+R12241:12258 KamiHW.MorphLoading <> morph_loaded_phase thm
+R12279:12290 Coq.Arith.PeanoNat Nat eqb_refl thm
+R12279:12290 Coq.Arith.PeanoNat Nat eqb_refl thm
+R12360:12373 Kami.Lib.Word <> natToWord_plus thm
+R12360:12373 Kami.Lib.Word <> natToWord_plus thm
+R12360:12373 Kami.Lib.Word <> natToWord_plus thm
+R12439:12450 KamiHW.MorphLoading <> loaded_table def
+R12462:12479 KamiHW.MorphLoading <> load_src_next_zero thm
+R12462:12479 KamiHW.MorphLoading <> load_src_next_zero thm
+R12462:12479 KamiHW.MorphLoading <> load_src_next_zero thm
+R12616:12631 KamiHW.MorphLoading <> morph_load_frame thm
+R12616:12631 KamiHW.MorphLoading <> morph_load_frame thm
+R12663:12667 Kami.Lib.Word <> wplus def
+R12672:12680 Kami.Lib.Word <> natToWord def
+R12690:12690 Coq.Init.Datatypes <> S constr
+R12698:12698 Coq.Init.Datatypes <> S constr
+R12716:12728 KamiHW.MorphLoading <> load_src_next def
+R12746:12758 KamiHW.MorphLoading <> load_dst_next def
+R12776:12790 KamiHW.MorphLoading <> load_valid_next def
+R12832:12853 KamiHW.MorphLoading <> morph_loaded_continues thm
+R12663:12667 Kami.Lib.Word <> wplus def
+R12672:12680 Kami.Lib.Word <> natToWord def
+R12690:12690 Coq.Init.Datatypes <> S constr
+R12698:12698 Coq.Init.Datatypes <> S constr
+R12716:12728 KamiHW.MorphLoading <> load_src_next def
+R12746:12758 KamiHW.MorphLoading <> load_dst_next def
+R12776:12790 KamiHW.MorphLoading <> load_valid_next def
+R12832:12853 KamiHW.MorphLoading <> morph_loaded_continues thm
+R13002:13002 Coq.Init.Datatypes <> S constr
+R13014:13014 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13002:13002 Coq.Init.Datatypes <> S constr
+R13014:13014 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13038:13047 Coq.Lists.List <> repeat_app thm
+R13038:13047 Coq.Lists.List <> repeat_app thm
+R13038:13047 Coq.Lists.List <> repeat_app thm
+R13071:13099 KamiHW.NormalizationRetirement <> normalization_multistep_trans thm
+R13071:13099 KamiHW.NormalizationRetirement <> normalization_multistep_trans thm
+R13162:13162 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13163:13163 Coq.Init.Datatypes <> S constr
+R13183:13183 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13178:13178 Coq.Init.Datatypes <> S constr
+R13162:13162 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13163:13163 Coq.Init.Datatypes <> S constr
+R13183:13183 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13178:13178 Coq.Init.Datatypes <> S constr
+R13231:13242 KamiHW.MorphLoading <> loaded_table def
+R13254:13271 KamiHW.MorphLoading <> load_src_next_zero thm
+R13254:13271 KamiHW.MorphLoading <> load_src_next_zero thm
+R13254:13271 KamiHW.MorphLoading <> load_src_next_zero thm
+R13389:13404 KamiHW.MorphLoading <> morph_load_frame thm
+R13389:13404 KamiHW.MorphLoading <> morph_load_frame thm
+prf 13431:13450 <> loaded_table_outside
+binder 13461:13461 <> n:148
+binder 13463:13465 <> mem:149
+binder 13467:13467 <> r:150
+binder 13469:13471 <> out:151
+binder 13473:13477 <> table:152
+binder 13479:13484 <> offset:153
+binder 13486:13486 <> k:154
+R13505:13508 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13496:13497 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13494:13494 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13491:13493 KamiHW.MorphLoading <> out:151 var
+R13495:13495 KamiHW.MorphLoading <> n:148 var
+R13519:13522 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13511:13511 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R13510:13510 KamiHW.MorphLoading <> k:154 var
+R13550:13554 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13524:13524 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R13530:13535 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R13544:13544 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R13526:13526 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R13525:13525 KamiHW.MorphLoading <> k:154 var
+R13527:13529 KamiHW.MorphLoading <> out:151 var
+R13541:13542 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13539:13539 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13536:13538 KamiHW.MorphLoading <> out:151 var
+R13540:13540 KamiHW.MorphLoading <> n:148 var
+R13543:13543 KamiHW.MorphLoading <> k:154 var
+R13621:13624 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13555:13566 KamiHW.MorphLoading <> loaded_table def
+R13568:13570 KamiHW.MorphLoading <> mem:149 var
+R13572:13572 KamiHW.MorphLoading <> r:150 var
+R13574:13576 KamiHW.MorphLoading <> out:151 var
+R13578:13578 KamiHW.MorphLoading <> n:148 var
+R13580:13584 KamiHW.MorphLoading <> table:152 var
+R13586:13591 KamiHW.MorphLoading <> offset:153 var
+R13594:13603 KamiHW.NormalizationSteps <> pair_index def
+R13606:13614 Kami.Lib.Word <> natToWord def
+R13618:13618 KamiHW.MorphLoading <> k:154 var
+R13625:13629 KamiHW.MorphLoading <> table:152 var
+R13632:13641 KamiHW.NormalizationSteps <> pair_index def
+R13644:13652 Kami.Lib.Word <> natToWord def
+R13656:13656 KamiHW.MorphLoading <> k:154 var
+R13731:13742 KamiHW.MorphLoading <> loaded_table def
+R13792:13801 KamiHW.NormalizationSteps <> put_vector def
+R13817:13819 Kami.Lib.Word <> weq def
+R13851:13860 KamiHW.NormalizationSteps <> pair_index def
+R13863:13871 Kami.Lib.Word <> natToWord def
+R13822:13831 KamiHW.NormalizationSteps <> pair_index def
+R13834:13842 Kami.Lib.Word <> natToWord def
+R13817:13819 Kami.Lib.Word <> weq def
+R13851:13860 KamiHW.NormalizationSteps <> pair_index def
+R13863:13871 Kami.Lib.Word <> natToWord def
+R13822:13831 KamiHW.NormalizationSteps <> pair_index def
+R13834:13842 Kami.Lib.Word <> natToWord def
+R13913:13947 KamiHW.NormalizationSteps <> normalization_distinct_pair_indices thm
+R13913:13947 KamiHW.NormalizationSteps <> normalization_distinct_pair_indices thm
+prf 14028:14046 <> loaded_table_inside
+binder 14057:14057 <> n:155
+binder 14059:14061 <> mem:156
+binder 14063:14063 <> r:157
+binder 14065:14067 <> out:158
+binder 14069:14073 <> table:159
+binder 14075:14080 <> offset:160
+binder 14082:14082 <> k:161
+R14101:14104 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14092:14093 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R14090:14090 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14087:14089 KamiHW.MorphLoading <> out:158 var
+R14091:14091 KamiHW.MorphLoading <> n:155 var
+R14114:14118 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14107:14107 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14106:14106 KamiHW.MorphLoading <> k:161 var
+R14108:14108 KamiHW.MorphLoading <> n:155 var
+R14191:14194 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14119:14130 KamiHW.MorphLoading <> loaded_table def
+R14132:14134 KamiHW.MorphLoading <> mem:156 var
+R14136:14136 KamiHW.MorphLoading <> r:157 var
+R14138:14140 KamiHW.MorphLoading <> out:158 var
+R14142:14142 KamiHW.MorphLoading <> n:155 var
+R14144:14148 KamiHW.MorphLoading <> table:159 var
+R14150:14155 KamiHW.MorphLoading <> offset:160 var
+R14158:14167 KamiHW.NormalizationSteps <> pair_index def
+R14170:14178 Kami.Lib.Word <> natToWord def
+R14186:14186 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14183:14185 KamiHW.MorphLoading <> out:158 var
+R14187:14187 KamiHW.MorphLoading <> k:161 var
+R14195:14197 KamiHW.MorphLoading <> mem:156 var
+R14200:14208 KamiHW.MorphLoading <> mem_index def
+R14211:14215 Kami.Lib.Word <> wplus def
+R14220:14228 Kami.Lib.Word <> natToWord def
+R14237:14237 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14235:14235 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R14236:14236 KamiHW.MorphLoading <> k:161 var
+R14238:14243 KamiHW.MorphLoading <> offset:160 var
+R14217:14217 KamiHW.MorphLoading <> r:157 var
+R14347:14358 KamiHW.MorphLoading <> loaded_table def
+R14370:14389 KamiHW.MorphLoading <> loaded_table_outside thm
+R14370:14389 KamiHW.MorphLoading <> loaded_table_outside thm
+R14370:14389 KamiHW.MorphLoading <> loaded_table_outside thm
+R14410:14420 Coq.Arith.PeanoNat Nat add_0_r thm
+R14410:14420 Coq.Arith.PeanoNat Nat add_0_r thm
+R14410:14420 Coq.Arith.PeanoNat Nat add_0_r thm
+R14430:14439 KamiHW.NormalizationSteps <> put_vector def
+R14455:14457 Kami.Lib.Word <> weq def
+R14491:14500 KamiHW.NormalizationSteps <> pair_index def
+R14503:14511 Kami.Lib.Word <> natToWord def
+R14460:14469 KamiHW.NormalizationSteps <> pair_index def
+R14472:14480 Kami.Lib.Word <> natToWord def
+R14539:14539 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14537:14537 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R14455:14457 Kami.Lib.Word <> weq def
+R14491:14500 KamiHW.NormalizationSteps <> pair_index def
+R14503:14511 Kami.Lib.Word <> natToWord def
+R14460:14469 KamiHW.NormalizationSteps <> pair_index def
+R14472:14480 Kami.Lib.Word <> natToWord def
+R14539:14539 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14537:14537 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R14608:14619 KamiHW.MorphLoading <> loaded_table def
+R14635:14635 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14636:14636 Coq.Init.Datatypes <> S constr
+R14656:14656 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14651:14651 Coq.Init.Datatypes <> S constr
+R14635:14635 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14636:14636 Coq.Init.Datatypes <> S constr
+R14656:14656 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14651:14651 Coq.Init.Datatypes <> S constr
+R14706:14716 Kami.Lib.Word <> wplus_assoc thm
+R14722:14735 Kami.Lib.Word <> natToWord_plus thm
+R14706:14716 Kami.Lib.Word <> wplus_assoc thm
+R14706:14716 Kami.Lib.Word <> wplus_assoc thm
+R14722:14735 Kami.Lib.Word <> natToWord_plus thm
+R14722:14735 Kami.Lib.Word <> natToWord_plus thm
+R14751:14752 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14763:14763 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14756:14756 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14754:14754 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R14781:14781 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14777:14777 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R14778:14778 Coq.Init.Datatypes <> S constr
+R14751:14752 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14763:14763 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14756:14756 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14754:14754 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R14781:14781 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14777:14777 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R14778:14778 Coq.Init.Datatypes <> S constr
+prf 14827:14836 <> seq_offset
+binder 14847:14851 <> count:162
+binder 14853:14853 <> b:163
+R14868:14870 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14857:14859 Coq.Lists.List <> seq def
+R14863:14867 KamiHW.MorphLoading <> count:162 var
+R14861:14861 KamiHW.MorphLoading <> b:163 var
+R14871:14873 Coq.Lists.List <> map def
+R14897:14899 Coq.Lists.List <> seq def
+R14903:14907 KamiHW.MorphLoading <> count:162 var
+binder 14880:14880 <> k:164
+R14887:14887 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14886:14886 KamiHW.MorphLoading <> b:163 var
+R14888:14888 KamiHW.MorphLoading <> k:164 var
+R14972:14976 Coq.Lists.List <> seq_S thm
+R14979:14985 Coq.Lists.List <> map_app thm
+R14972:14976 Coq.Lists.List <> seq_S thm
+R14972:14976 Coq.Lists.List <> seq_S thm
+R14972:14976 Coq.Lists.List <> seq_S thm
+R14972:14976 Coq.Lists.List <> seq_S thm
+R14979:14985 Coq.Lists.List <> map_app thm
+R14979:14985 Coq.Lists.List <> map_app thm
+R15018:15019 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15027:15027 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15021:15021 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15041:15041 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15018:15019 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15027:15027 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15021:15021 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15041:15041 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+prf 15088:15109 <> morph_loaded_raw_pairs
+binder 15120:15122 <> mem:165
+binder 15124:15124 <> r:166
+binder 15126:15126 <> b:167
+binder 15128:15132 <> count:168
+binder 15134:15136 <> src:169
+binder 15138:15140 <> dst:170
+R15161:15165 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15152:15153 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R15146:15146 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15145:15145 KamiHW.MorphLoading <> b:167 var
+R15147:15151 KamiHW.MorphLoading <> count:168 var
+R15256:15259 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15166:15176 KamiHW.NormalizationLoop <> table_slice def
+R15179:15190 KamiHW.MorphLoading <> loaded_table def
+R15192:15194 KamiHW.MorphLoading <> mem:165 var
+R15196:15196 KamiHW.MorphLoading <> r:166 var
+R15198:15198 KamiHW.MorphLoading <> b:167 var
+R15200:15204 KamiHW.MorphLoading <> count:168 var
+R15206:15208 KamiHW.MorphLoading <> src:169 var
+R15215:15226 KamiHW.MorphLoading <> loaded_table def
+R15228:15230 KamiHW.MorphLoading <> mem:165 var
+R15232:15232 KamiHW.MorphLoading <> r:166 var
+R15234:15234 KamiHW.MorphLoading <> b:167 var
+R15236:15240 KamiHW.MorphLoading <> count:168 var
+R15242:15244 KamiHW.MorphLoading <> dst:170 var
+R15249:15249 KamiHW.MorphLoading <> b:167 var
+R15251:15255 KamiHW.MorphLoading <> count:168 var
+R15260:15262 Coq.Lists.List <> map def
+R15390:15392 Coq.Lists.List <> seq def
+R15396:15400 KamiHW.MorphLoading <> count:168 var
+binder 15269:15269 <> k:171
+R15274:15274 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15321:15337 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15386:15386 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15275:15277 KamiHW.MorphLoading <> mem:165 var
+R15280:15288 KamiHW.MorphLoading <> mem_index def
+R15291:15295 Kami.Lib.Word <> wplus def
+R15300:15308 Kami.Lib.Word <> natToWord def
+R15315:15315 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R15316:15316 KamiHW.MorphLoading <> k:171 var
+R15297:15297 KamiHW.MorphLoading <> r:166 var
+R15338:15340 KamiHW.MorphLoading <> mem:165 var
+R15343:15351 KamiHW.MorphLoading <> mem_index def
+R15354:15358 Kami.Lib.Word <> wplus def
+R15363:15371 Kami.Lib.Word <> natToWord def
+R15380:15380 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15378:15378 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R15379:15379 KamiHW.MorphLoading <> k:171 var
+R15360:15360 KamiHW.MorphLoading <> r:166 var
+R15427:15437 KamiHW.NormalizationLoop <> table_slice def
+R15449:15458 KamiHW.MorphLoading <> seq_offset thm
+R15449:15458 KamiHW.MorphLoading <> seq_offset thm
+R15449:15458 KamiHW.MorphLoading <> seq_offset thm
+R15479:15485 Coq.Lists.List <> map_map thm
+R15479:15485 Coq.Lists.List <> map_map thm
+R15479:15485 Coq.Lists.List <> map_map thm
+R15494:15503 Coq.Lists.List <> map_ext_in thm
+R15494:15503 Coq.Lists.List <> map_ext_in thm
+R15525:15530 Coq.Lists.List <> in_seq thm
+R15525:15530 Coq.Lists.List <> in_seq thm
+R15547:15556 KamiHW.NormalizationLoop <> table_pair def
+R15568:15586 KamiHW.MorphLoading <> loaded_table_inside thm
+R15568:15586 KamiHW.MorphLoading <> loaded_table_inside thm
+R15568:15586 KamiHW.MorphLoading <> loaded_table_inside thm
+R15568:15586 KamiHW.MorphLoading <> loaded_table_inside thm
+R15568:15586 KamiHW.MorphLoading <> loaded_table_inside thm
+R15605:15615 Coq.Arith.PeanoNat Nat add_0_r thm
+R15605:15615 Coq.Arith.PeanoNat Nat add_0_r thm
+R15605:15615 Coq.Arith.PeanoNat Nat add_0_r thm
+def 15648:15663 <> header_footprint
+R15668:15668 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15674:15675 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15688:15689 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15705:15707 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15721:15722 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15729:15730 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15741:15741 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+prf 15750:15767 <> morph_header_frame
+binder 15778:15780 <> old:172
+binder 15782:15784 <> mem:173
+binder 15786:15789 <> base:174
+binder 15791:15794 <> next:175
+binder 15796:15798 <> err:176
+binder 15800:15803 <> code:177
+binder 15805:15807 <> key:178
+R15836:15840 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15811:15812 Coq.Init.Logic <> ::type_scope:'~'_x not
+R15813:15814 Coq.Lists.List <> In def
+R15820:15835 KamiHW.MorphLoading <> header_footprint def
+R15816:15818 KamiHW.MorphLoading <> key:178 var
+R15911:15913 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15841:15846 Kami.Lib.FMap M find def
+R15853:15859 Kami.Lib.FMap M union def
+R15907:15909 KamiHW.MorphLoading <> old:172 var
+R15862:15881 KamiHW.MorphLoading <> morph_header_updates def
+R15883:15885 KamiHW.MorphLoading <> mem:173 var
+R15887:15890 KamiHW.MorphLoading <> base:174 var
+R15892:15895 KamiHW.MorphLoading <> next:175 var
+R15897:15899 KamiHW.MorphLoading <> err:176 var
+R15901:15904 KamiHW.MorphLoading <> code:177 var
+R15848:15850 KamiHW.MorphLoading <> key:178 var
+R15914:15919 Kami.Lib.FMap M find def
+R15925:15927 KamiHW.MorphLoading <> old:172 var
+R15921:15923 KamiHW.MorphLoading <> key:178 var
+R15954:15965 Kami.Lib.FMap M find_union thm
+R15954:15965 Kami.Lib.FMap M find_union thm
+R15954:15965 Kami.Lib.FMap M find_union thm
+R15975:15994 KamiHW.MorphLoading <> morph_header_updates def
+R15997:16012 KamiHW.MorphLoading <> header_footprint def
+R16036:16047 Kami.Lib.FMap M find_add_2 thm
+R16036:16047 Kami.Lib.FMap M find_add_2 thm
+R16036:16047 Kami.Lib.FMap M find_add_2 thm
+R16036:16047 Kami.Lib.FMap M find_add_2 thm
+R16036:16047 Kami.Lib.FMap M find_add_2 thm
+R16036:16047 Kami.Lib.FMap M find_add_2 thm
+R16036:16047 Kami.Lib.FMap M find_add_2 thm
+R16036:16047 Kami.Lib.FMap M find_add_2 thm
+R16036:16047 Kami.Lib.FMap M find_add_2 thm
+R16036:16047 Kami.Lib.FMap M find_add_2 thm
+R16036:16047 Kami.Lib.FMap M find_add_2 thm
+R16036:16047 Kami.Lib.FMap M find_add_2 thm
+R16036:16047 Kami.Lib.FMap M find_add_2 thm
+R16036:16047 Kami.Lib.FMap M find_add_2 thm
+R16086:16097 Kami.Lib.FMap M find_empty thm
+R16086:16097 Kami.Lib.FMap M find_empty thm
+R16086:16097 Kami.Lib.FMap M find_empty thm
+prf 16126:16145 <> morph_header_failure
+binder 16156:16158 <> old:179
+binder 16160:16162 <> mem:180
+binder 16164:16167 <> base:181
+binder 16169:16172 <> next:182
+binder 16174:16176 <> err:183
+binder 16178:16181 <> code:184
+R16217:16221 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16209:16211 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16185:16194 KamiHW.MorphLoading <> morph_fits def
+R16196:16198 KamiHW.MorphLoading <> mem:180 var
+R16200:16203 KamiHW.MorphLoading <> base:181 var
+R16205:16208 KamiHW.MorphLoading <> next:182 var
+R16212:16216 Coq.Init.Datatypes <> false constr
+R16235:16241 Kami.Lib.FMap M union def
+R16289:16291 KamiHW.MorphLoading <> old:179 var
+R16244:16263 KamiHW.MorphLoading <> morph_header_updates def
+R16265:16267 KamiHW.MorphLoading <> mem:180 var
+R16269:16272 KamiHW.MorphLoading <> base:181 var
+R16274:16277 KamiHW.MorphLoading <> next:182 var
+R16279:16281 KamiHW.MorphLoading <> err:183 var
+R16283:16286 KamiHW.MorphLoading <> code:184 var
+binder 16226:16230 <> final:185
+R16337:16341 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16315:16317 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16297:16302 Kami.Lib.FMap M find def
+R16310:16314 KamiHW.MorphLoading <> final:185 var
+R16318:16321 Coq.Init.Datatypes <> Some constr
+R16324:16330 KamiHW.NormalizationStart <> regbool def
+R16332:16335 Coq.Init.Datatypes <> true constr
+R16403:16407 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16367:16369 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16342:16347 Kami.Lib.FMap M find def
+R16362:16366 KamiHW.MorphLoading <> final:185 var
+R16370:16373 Coq.Init.Datatypes <> Some constr
+R16376:16380 KamiHW.MorphLoading <> reg32 def
+R16382:16401 KamiHW.ThieleTypes <> ERR_COUPLING_INVALID def
+R16431:16433 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16408:16413 Kami.Lib.FMap M find def
+R16426:16430 KamiHW.MorphLoading <> final:185 var
+R16434:16437 Coq.Init.Datatypes <> Some constr
+R16440:16443 KamiHW.NormalizationStart <> reg4 def
+R16446:16454 Kami.Lib.Word <> natToWord def
+R16541:16552 Kami.Lib.FMap M find_union thm
+R16562:16581 KamiHW.MorphLoading <> morph_header_updates def
+R16600:16611 Kami.Lib.FMap M find_add_2 thm
+R16639:16650 Kami.Lib.FMap M find_add_1 thm
+R16698:16707 Coq.Bool.Bool <> orb_true_r thm
+R16541:16552 Kami.Lib.FMap M find_union thm
+R16541:16552 Kami.Lib.FMap M find_union thm
+R16541:16552 Kami.Lib.FMap M find_union thm
+R16541:16552 Kami.Lib.FMap M find_union thm
+R16541:16552 Kami.Lib.FMap M find_union thm
+R16541:16552 Kami.Lib.FMap M find_union thm
+R16600:16611 Kami.Lib.FMap M find_add_2 thm
+R16600:16611 Kami.Lib.FMap M find_add_2 thm
+R16600:16611 Kami.Lib.FMap M find_add_2 thm
+R16600:16611 Kami.Lib.FMap M find_add_2 thm
+R16600:16611 Kami.Lib.FMap M find_add_2 thm
+R16600:16611 Kami.Lib.FMap M find_add_2 thm
+R16600:16611 Kami.Lib.FMap M find_add_2 thm
+R16600:16611 Kami.Lib.FMap M find_add_2 thm
+R16600:16611 Kami.Lib.FMap M find_add_2 thm
+R16600:16611 Kami.Lib.FMap M find_add_2 thm
+R16600:16611 Kami.Lib.FMap M find_add_2 thm
+R16600:16611 Kami.Lib.FMap M find_add_2 thm
+R16600:16611 Kami.Lib.FMap M find_add_2 thm
+R16600:16611 Kami.Lib.FMap M find_add_2 thm
+R16600:16611 Kami.Lib.FMap M find_add_2 thm
+R16639:16650 Kami.Lib.FMap M find_add_1 thm
+R16639:16650 Kami.Lib.FMap M find_add_1 thm
+R16639:16650 Kami.Lib.FMap M find_add_1 thm
+R16639:16650 Kami.Lib.FMap M find_add_1 thm
+R16639:16650 Kami.Lib.FMap M find_add_1 thm
+R16639:16650 Kami.Lib.FMap M find_add_1 thm
+R16698:16707 Coq.Bool.Bool <> orb_true_r thm
+R16698:16707 Coq.Bool.Bool <> orb_true_r thm
+R16698:16707 Coq.Bool.Bool <> orb_true_r thm
+R16698:16707 Coq.Bool.Bool <> orb_true_r thm
+prf 16734:16760 <> morph_header_admitted_reads
+binder 16771:16773 <> old:186
+binder 16775:16777 <> mem:187
+binder 16779:16782 <> base:188
+binder 16784:16787 <> next:189
+binder 16789:16791 <> err:190
+binder 16793:16796 <> code:191
+binder 16798:16802 <> count:192
+binder 16804:16806 <> out:193
+binder 16808:16810 <> src:194
+binder 16812:16814 <> dst:195
+binder 16816:16820 <> valid:196
+R16841:16844 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16826:16826 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R16832:16833 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R16827:16831 KamiHW.MorphLoading <> count:192 var
+R16827:16831 KamiHW.MorphLoading <> count:192 var
+R16886:16890 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16865:16867 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16845:16847 KamiHW.MorphLoading <> mem:187 var
+R16850:16858 KamiHW.MorphLoading <> mem_index def
+R16860:16863 KamiHW.MorphLoading <> base:188 var
+R16868:16876 Kami.Lib.Word <> natToWord def
+R16881:16885 KamiHW.MorphLoading <> count:192 var
+R16922:16926 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16915:16917 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16891:16900 KamiHW.MorphLoading <> morph_fits def
+R16902:16904 KamiHW.MorphLoading <> mem:187 var
+R16906:16909 KamiHW.MorphLoading <> base:188 var
+R16911:16914 KamiHW.MorphLoading <> next:189 var
+R16918:16921 Coq.Init.Datatypes <> true constr
+R16963:16967 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16943:16945 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16927:16932 Kami.Lib.FMap M find def
+R16940:16942 KamiHW.MorphLoading <> old:186 var
+R16946:16949 Coq.Init.Datatypes <> Some constr
+R16952:16957 KamiHW.MorphLoading <> regmem def
+R16959:16961 KamiHW.MorphLoading <> mem:187 var
+R17025:17029 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16993:16995 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16968:16973 Kami.Lib.FMap M find def
+R16990:16992 KamiHW.MorphLoading <> old:186 var
+R16996:16999 Coq.Init.Datatypes <> Some constr
+R17002:17005 KamiHW.NormalizationStart <> reg5 def
+R17008:17016 Kami.Lib.Word <> natToWord def
+R17020:17022 KamiHW.MorphLoading <> out:193 var
+R17088:17092 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17066:17068 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17030:17035 Kami.Lib.FMap M find def
+R17063:17065 KamiHW.MorphLoading <> old:186 var
+R17069:17072 Coq.Init.Datatypes <> Some constr
+R17075:17082 KamiHW.NormalizationSteps <> regpairs def
+R17084:17086 KamiHW.MorphLoading <> src:194 var
+R17151:17155 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17129:17131 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17093:17098 Kami.Lib.FMap M find def
+R17126:17128 KamiHW.MorphLoading <> old:186 var
+R17132:17135 Coq.Init.Datatypes <> Some constr
+R17138:17145 KamiHW.NormalizationSteps <> regpairs def
+R17147:17149 KamiHW.MorphLoading <> dst:195 var
+R17218:17222 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17194:17196 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17156:17161 Kami.Lib.FMap M find def
+R17191:17193 KamiHW.MorphLoading <> old:186 var
+R17197:17200 Coq.Init.Datatypes <> Some constr
+R17203:17210 KamiHW.NormalizationSteps <> regvalid def
+R17212:17216 KamiHW.MorphLoading <> valid:196 var
+R17223:17242 KamiHW.MorphLoading <> morph_load_registers rec
+R17245:17251 Kami.Lib.FMap M union def
+R17299:17301 KamiHW.MorphLoading <> old:186 var
+R17254:17273 KamiHW.MorphLoading <> morph_header_updates def
+R17275:17277 KamiHW.MorphLoading <> mem:187 var
+R17279:17282 KamiHW.MorphLoading <> base:188 var
+R17284:17287 KamiHW.MorphLoading <> next:189 var
+R17289:17291 KamiHW.MorphLoading <> err:190 var
+R17293:17296 KamiHW.MorphLoading <> code:191 var
+R17305:17307 KamiHW.MorphLoading <> mem:187 var
+R17310:17314 Kami.Lib.Word <> wplus def
+R17322:17330 Kami.Lib.Word <> natToWord def
+R17316:17319 KamiHW.MorphLoading <> base:188 var
+R17339:17341 KamiHW.MorphLoading <> out:193 var
+R17345:17349 KamiHW.MorphLoading <> count:192 var
+R17351:17353 KamiHW.MorphLoading <> src:194 var
+R17355:17357 KamiHW.MorphLoading <> dst:195 var
+R17359:17363 KamiHW.MorphLoading <> valid:196 var
+R17528:17530 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17482:17489 KamiHW.NormalizationSteps <> word_eqb def
+R17513:17521 Kami.Lib.Word <> natToWord def
+R17492:17500 Kami.Lib.Word <> natToWord def
+R17531:17535 Coq.Init.Datatypes <> false constr
+R17528:17530 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17482:17489 KamiHW.NormalizationSteps <> word_eqb def
+R17513:17521 Kami.Lib.Word <> natToWord def
+R17492:17500 Kami.Lib.Word <> natToWord def
+R17531:17535 Coq.Init.Datatypes <> false constr
+R17549:17556 KamiHW.NormalizationSteps <> word_eqb def
+R17569:17571 Kami.Lib.Word <> weq def
+R17569:17571 Kami.Lib.Word <> weq def
+R17614:17620 Coq.Init.Logic <> f_equal thm
+R17624:17632 Kami.Lib.Word <> wordToNat def
+R17614:17620 Coq.Init.Logic <> f_equal thm
+R17624:17632 Kami.Lib.Word <> wordToNat def
+R17694:17708 Kami.Lib.NatLib <> pow2_bound_mono thm
+R17737:17737 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17656:17676 Kami.Lib.Word <> wordToNat_natToWord_2 thm
+R17656:17676 Kami.Lib.Word <> wordToNat_natToWord_2 thm
+R17694:17708 Kami.Lib.NatLib <> pow2_bound_mono thm
+R17737:17737 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17656:17676 Kami.Lib.Word <> wordToNat_natToWord_2 thm
+R17827:17829 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17795:17800 Kami.Lib.Word <> split1 def
+R17808:17816 Kami.Lib.Word <> natToWord def
+R17830:17838 Kami.Lib.Word <> natToWord def
+R17827:17829 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17795:17800 Kami.Lib.Word <> split1 def
+R17808:17816 Kami.Lib.Word <> natToWord def
+R17830:17838 Kami.Lib.Word <> natToWord def
+R17859:17871 Kami.Lib.Word <> wordToNat_inj thm
+R17882:17897 Kami.Lib.Word <> wordToNat_split1 thm
+R17859:17871 Kami.Lib.Word <> wordToNat_inj thm
+R17882:17897 Kami.Lib.Word <> wordToNat_split1 thm
+R17882:17897 Kami.Lib.Word <> wordToNat_split1 thm
+R17946:17960 Kami.Lib.NatLib <> pow2_bound_mono thm
+R17989:17989 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17912:17932 Kami.Lib.Word <> wordToNat_natToWord_2 thm
+R17912:17932 Kami.Lib.Word <> wordToNat_natToWord_2 thm
+R17946:17960 Kami.Lib.NatLib <> pow2_bound_mono thm
+R17989:17989 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17912:17932 Kami.Lib.Word <> wordToNat_natToWord_2 thm
+R17946:17960 Kami.Lib.NatLib <> pow2_bound_mono thm
+R17989:17989 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17912:17932 Kami.Lib.Word <> wordToNat_natToWord_2 thm
+R17912:17932 Kami.Lib.Word <> wordToNat_natToWord_2 thm
+R18019:18031 Coq.Arith.PeanoNat Nat mod_small def
+R18019:18031 Coq.Arith.PeanoNat Nat mod_small def
+R18073:18084 Kami.Lib.FMap M find_union thm
+R18073:18084 Kami.Lib.FMap M find_union thm
+R18073:18084 Kami.Lib.FMap M find_union thm
+R18094:18113 KamiHW.MorphLoading <> morph_header_updates def
+R18134:18145 Kami.Lib.FMap M find_add_2 thm
+R18134:18145 Kami.Lib.FMap M find_add_2 thm
+R18134:18145 Kami.Lib.FMap M find_add_2 thm
+R18134:18145 Kami.Lib.FMap M find_add_2 thm
+R18134:18145 Kami.Lib.FMap M find_add_2 thm
+R18134:18145 Kami.Lib.FMap M find_add_2 thm
+R18134:18145 Kami.Lib.FMap M find_add_2 thm
+R18134:18145 Kami.Lib.FMap M find_add_2 thm
+R18134:18145 Kami.Lib.FMap M find_add_2 thm
+R18134:18145 Kami.Lib.FMap M find_add_2 thm
+R18134:18145 Kami.Lib.FMap M find_add_2 thm
+R18134:18145 Kami.Lib.FMap M find_add_2 thm
+R18172:18183 Kami.Lib.FMap M find_add_1 thm
+R18172:18183 Kami.Lib.FMap M find_add_1 thm
+R18172:18183 Kami.Lib.FMap M find_add_1 thm
+R18285:18300 KamiHW.MorphLoading <> header_footprint def
+R18255:18272 KamiHW.MorphLoading <> morph_header_frame thm
+R18255:18272 KamiHW.MorphLoading <> morph_header_frame thm
+R18255:18272 KamiHW.MorphLoading <> morph_header_frame thm
+R18358:18369 Kami.Lib.FMap M find_union thm
+R18358:18369 Kami.Lib.FMap M find_union thm
+R18358:18369 Kami.Lib.FMap M find_union thm
+R18379:18398 KamiHW.MorphLoading <> morph_header_updates def
+R18419:18430 Kami.Lib.FMap M find_add_2 thm
+R18419:18430 Kami.Lib.FMap M find_add_2 thm
+R18419:18430 Kami.Lib.FMap M find_add_2 thm
+R18419:18430 Kami.Lib.FMap M find_add_2 thm
+R18419:18430 Kami.Lib.FMap M find_add_2 thm
+R18419:18430 Kami.Lib.FMap M find_add_2 thm
+R18419:18430 Kami.Lib.FMap M find_add_2 thm
+R18419:18430 Kami.Lib.FMap M find_add_2 thm
+R18457:18468 Kami.Lib.FMap M find_add_1 thm
+R18457:18468 Kami.Lib.FMap M find_add_1 thm
+R18457:18468 Kami.Lib.FMap M find_add_1 thm
+R18540:18555 KamiHW.MorphLoading <> header_footprint def
+R18510:18527 KamiHW.MorphLoading <> morph_header_frame thm
+R18510:18527 KamiHW.MorphLoading <> morph_header_frame thm
+R18510:18527 KamiHW.MorphLoading <> morph_header_frame thm
+R18613:18624 Kami.Lib.FMap M find_union thm
+R18613:18624 Kami.Lib.FMap M find_union thm
+R18613:18624 Kami.Lib.FMap M find_union thm
+R18634:18653 KamiHW.MorphLoading <> morph_header_updates def
+R18674:18685 Kami.Lib.FMap M find_add_2 thm
+R18674:18685 Kami.Lib.FMap M find_add_2 thm
+R18674:18685 Kami.Lib.FMap M find_add_2 thm
+R18674:18685 Kami.Lib.FMap M find_add_2 thm
+R18674:18685 Kami.Lib.FMap M find_add_2 thm
+R18674:18685 Kami.Lib.FMap M find_add_2 thm
+R18674:18685 Kami.Lib.FMap M find_add_2 thm
+R18674:18685 Kami.Lib.FMap M find_add_2 thm
+R18674:18685 Kami.Lib.FMap M find_add_2 thm
+R18674:18685 Kami.Lib.FMap M find_add_2 thm
+R18712:18723 Kami.Lib.FMap M find_add_1 thm
+R18712:18723 Kami.Lib.FMap M find_add_1 thm
+R18712:18723 Kami.Lib.FMap M find_add_1 thm
+R18765:18776 Kami.Lib.FMap M find_union thm
+R18765:18776 Kami.Lib.FMap M find_union thm
+R18765:18776 Kami.Lib.FMap M find_union thm
+R18786:18805 KamiHW.MorphLoading <> morph_header_updates def
+R18826:18837 Kami.Lib.FMap M find_add_2 thm
+R18826:18837 Kami.Lib.FMap M find_add_2 thm
+R18826:18837 Kami.Lib.FMap M find_add_2 thm
+R18826:18837 Kami.Lib.FMap M find_add_2 thm
+R18826:18837 Kami.Lib.FMap M find_add_2 thm
+R18826:18837 Kami.Lib.FMap M find_add_2 thm
+R18864:18875 Kami.Lib.FMap M find_add_1 thm
+R18864:18875 Kami.Lib.FMap M find_add_1 thm
+R18864:18875 Kami.Lib.FMap M find_add_1 thm
+R18972:18987 KamiHW.MorphLoading <> header_footprint def
+R18942:18959 KamiHW.MorphLoading <> morph_header_frame thm
+R18942:18959 KamiHW.MorphLoading <> morph_header_frame thm
+R18942:18959 KamiHW.MorphLoading <> morph_header_frame thm
+R19075:19090 KamiHW.MorphLoading <> header_footprint def
+R19045:19062 KamiHW.MorphLoading <> morph_header_frame thm
+R19045:19062 KamiHW.MorphLoading <> morph_header_frame thm
+R19045:19062 KamiHW.MorphLoading <> morph_header_frame thm
+R19178:19193 KamiHW.MorphLoading <> header_footprint def
+R19148:19165 KamiHW.MorphLoading <> morph_header_frame thm
+R19148:19165 KamiHW.MorphLoading <> morph_header_frame thm
+R19148:19165 KamiHW.MorphLoading <> morph_header_frame thm
+prf 19254:19275 <> morph_admitted_loading
+binder 19286:19288 <> old:197
+binder 19290:19292 <> mem:198
+binder 19294:19297 <> base:199
+binder 19299:19302 <> next:200
+binder 19304:19306 <> err:201
+binder 19308:19311 <> code:202
+binder 19313:19317 <> count:203
+binder 19319:19321 <> out:204
+binder 19323:19325 <> src:205
+binder 19327:19329 <> dst:206
+binder 19331:19335 <> valid:207
+R19356:19359 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19341:19341 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R19347:19348 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R19342:19346 KamiHW.MorphLoading <> count:203 var
+R19342:19346 KamiHW.MorphLoading <> count:203 var
+R19379:19383 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19370:19371 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R19364:19364 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19361:19363 KamiHW.MorphLoading <> out:204 var
+R19365:19369 KamiHW.MorphLoading <> count:203 var
+R19425:19428 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19404:19406 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19384:19386 KamiHW.MorphLoading <> mem:198 var
+R19389:19397 KamiHW.MorphLoading <> mem_index def
+R19399:19402 KamiHW.MorphLoading <> base:199 var
+R19407:19415 Kami.Lib.Word <> natToWord def
+R19420:19424 KamiHW.MorphLoading <> count:203 var
+R19460:19464 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19453:19455 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19429:19438 KamiHW.MorphLoading <> morph_fits def
+R19440:19442 KamiHW.MorphLoading <> mem:198 var
+R19444:19447 KamiHW.MorphLoading <> base:199 var
+R19449:19452 KamiHW.MorphLoading <> next:200 var
+R19456:19459 Coq.Init.Datatypes <> true constr
+R19516:19520 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19486:19488 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19465:19470 Kami.Lib.FMap M find def
+R19483:19485 KamiHW.MorphLoading <> old:197 var
+R19489:19492 Coq.Init.Datatypes <> Some constr
+R19495:19498 KamiHW.NormalizationStart <> reg4 def
+R19501:19509 Kami.Lib.Word <> natToWord def
+R19557:19561 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19537:19539 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19521:19526 Kami.Lib.FMap M find def
+R19534:19536 KamiHW.MorphLoading <> old:197 var
+R19540:19543 Coq.Init.Datatypes <> Some constr
+R19546:19551 KamiHW.MorphLoading <> regmem def
+R19553:19555 KamiHW.MorphLoading <> mem:198 var
+R19606:19610 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19586:19588 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19562:19567 Kami.Lib.FMap M find def
+R19583:19585 KamiHW.MorphLoading <> old:197 var
+R19589:19592 Coq.Init.Datatypes <> Some constr
+R19595:19599 KamiHW.MorphLoading <> reg32 def
+R19601:19604 KamiHW.MorphLoading <> base:199 var
+R19664:19668 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19645:19647 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19611:19616 Kami.Lib.FMap M find def
+R19642:19644 KamiHW.MorphLoading <> old:197 var
+R19648:19651 Coq.Init.Datatypes <> Some constr
+R19654:19657 KamiHW.NormalizationStart <> reg5 def
+R19659:19662 KamiHW.MorphLoading <> next:200 var
+R19706:19710 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19685:19687 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19669:19674 Kami.Lib.FMap M find def
+R19682:19684 KamiHW.MorphLoading <> old:197 var
+R19688:19691 Coq.Init.Datatypes <> Some constr
+R19694:19700 KamiHW.NormalizationStart <> regbool def
+R19702:19704 KamiHW.MorphLoading <> err:201 var
+R19754:19758 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19734:19736 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19711:19716 Kami.Lib.FMap M find def
+R19731:19733 KamiHW.MorphLoading <> old:197 var
+R19737:19740 Coq.Init.Datatypes <> Some constr
+R19743:19747 KamiHW.MorphLoading <> reg32 def
+R19749:19752 KamiHW.MorphLoading <> code:202 var
+R19816:19820 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19784:19786 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19759:19764 Kami.Lib.FMap M find def
+R19781:19783 KamiHW.MorphLoading <> old:197 var
+R19787:19790 Coq.Init.Datatypes <> Some constr
+R19793:19796 KamiHW.NormalizationStart <> reg5 def
+R19799:19807 Kami.Lib.Word <> natToWord def
+R19811:19813 KamiHW.MorphLoading <> out:204 var
+R19879:19883 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19857:19859 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19821:19826 Kami.Lib.FMap M find def
+R19854:19856 KamiHW.MorphLoading <> old:197 var
+R19860:19863 Coq.Init.Datatypes <> Some constr
+R19866:19873 KamiHW.NormalizationSteps <> regpairs def
+R19875:19877 KamiHW.MorphLoading <> src:205 var
+R19942:19946 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19920:19922 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19884:19889 Kami.Lib.FMap M find def
+R19917:19919 KamiHW.MorphLoading <> old:197 var
+R19923:19926 Coq.Init.Datatypes <> Some constr
+R19929:19936 KamiHW.NormalizationSteps <> regpairs def
+R19938:19940 KamiHW.MorphLoading <> dst:206 var
+R20009:20013 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19985:19987 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19947:19952 Kami.Lib.FMap M find def
+R19982:19984 KamiHW.MorphLoading <> old:197 var
+R19988:19991 Coq.Init.Datatypes <> Some constr
+R19994:20001 KamiHW.NormalizationSteps <> regvalid def
+R20003:20007 KamiHW.MorphLoading <> valid:207 var
+R20014:20020 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20036:20038 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20021:20025 <> final:208
+binder 20027:20030 <> src':209
+binder 20032:20035 <> dst':210
+R20175:20179 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20039:20047 Kami.Semantics <> Multistep ind
+R20072:20079 Coq.Lists.List <> app abbrev
+R20135:20135 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R20173:20173 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R20136:20154 KamiHW.NormalizationExecution <> normalization_label def
+R20082:20087 Coq.Lists.List <> repeat def
+R20127:20131 KamiHW.MorphLoading <> count:203 var
+R20090:20108 KamiHW.NormalizationExecution <> normalization_label def
+R20064:20068 KamiHW.MorphLoading <> final:208 var
+R20060:20062 KamiHW.MorphLoading <> old:197 var
+R20049:20058 KamiHW.ThieleCPUCore <> thieleCore def
+R20233:20237 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20203:20205 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20180:20185 Kami.Lib.FMap M find def
+R20198:20202 KamiHW.MorphLoading <> final:208 var
+R20206:20209 Coq.Init.Datatypes <> Some constr
+R20212:20215 KamiHW.NormalizationStart <> reg4 def
+R20218:20226 Kami.Lib.Word <> natToWord def
+R20305:20309 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20265:20267 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20238:20243 Kami.Lib.FMap M find def
+R20260:20264 KamiHW.MorphLoading <> final:208 var
+R20268:20271 Coq.Init.Datatypes <> Some constr
+R20274:20277 KamiHW.NormalizationStart <> reg5 def
+R20280:20288 Kami.Lib.Word <> natToWord def
+R20296:20296 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R20293:20295 KamiHW.MorphLoading <> out:204 var
+R20297:20301 KamiHW.MorphLoading <> count:203 var
+R20371:20375 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20348:20350 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20310:20315 Kami.Lib.FMap M find def
+R20343:20347 KamiHW.MorphLoading <> final:208 var
+R20351:20354 Coq.Init.Datatypes <> Some constr
+R20357:20364 KamiHW.NormalizationSteps <> regpairs def
+R20366:20369 KamiHW.MorphLoading <> src':209 var
+R20437:20441 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20414:20416 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20376:20381 Kami.Lib.FMap M find def
+R20409:20413 KamiHW.MorphLoading <> final:208 var
+R20417:20420 Coq.Init.Datatypes <> Some constr
+R20423:20430 KamiHW.NormalizationSteps <> regpairs def
+R20432:20435 KamiHW.MorphLoading <> dst':210 var
+R20676:20680 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20473:20476 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20442:20452 KamiHW.NormalizationLoop <> table_slice def
+R20454:20457 KamiHW.MorphLoading <> src':209 var
+R20459:20462 KamiHW.MorphLoading <> dst':210 var
+R20464:20466 KamiHW.MorphLoading <> out:204 var
+R20468:20472 KamiHW.MorphLoading <> count:203 var
+R20477:20479 Coq.Lists.List <> map def
+R20664:20666 Coq.Lists.List <> seq def
+R20670:20674 KamiHW.MorphLoading <> count:203 var
+binder 20486:20486 <> k:211
+R20491:20491 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20566:20582 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20659:20659 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20492:20494 KamiHW.MorphLoading <> mem:198 var
+R20497:20505 KamiHW.MorphLoading <> mem_index def
+R20508:20512 Kami.Lib.Word <> wplus def
+R20545:20553 Kami.Lib.Word <> natToWord def
+R20560:20560 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R20561:20561 KamiHW.MorphLoading <> k:211 var
+R20515:20519 Kami.Lib.Word <> wplus def
+R20527:20535 Kami.Lib.Word <> natToWord def
+R20521:20524 KamiHW.MorphLoading <> base:199 var
+R20583:20585 KamiHW.MorphLoading <> mem:198 var
+R20588:20596 KamiHW.MorphLoading <> mem_index def
+R20599:20603 Kami.Lib.Word <> wplus def
+R20636:20644 Kami.Lib.Word <> natToWord def
+R20653:20653 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R20651:20651 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R20652:20652 KamiHW.MorphLoading <> k:211 var
+R20606:20610 Kami.Lib.Word <> wplus def
+R20618:20626 Kami.Lib.Word <> natToWord def
+R20612:20615 KamiHW.MorphLoading <> base:199 var
+R20681:20681 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20783:20788 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 20689:20691 <> key:212
+R20745:20749 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20694:20695 Coq.Init.Logic <> ::type_scope:'~'_x not
+R20696:20697 Coq.Lists.List <> In def
+R20704:20711 Coq.Lists.List <> app abbrev
+R20730:20743 KamiHW.MorphLoading <> load_footprint def
+R20713:20728 KamiHW.MorphLoading <> header_footprint def
+R20699:20701 KamiHW.MorphLoading <> key:212 var
+R20766:20768 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20750:20755 Kami.Lib.FMap M find def
+R20761:20765 KamiHW.MorphLoading <> final:208 var
+R20757:20759 KamiHW.MorphLoading <> key:212 var
+R20769:20774 Kami.Lib.FMap M find def
+R20780:20782 KamiHW.MorphLoading <> old:197 var
+R20776:20778 KamiHW.MorphLoading <> key:212 var
+R20789:20807 KamiHW.NormalizationFrame <> table_prefix_agrees def
+R20809:20811 KamiHW.MorphLoading <> out:204 var
+R20813:20816 KamiHW.MorphLoading <> src':209 var
+R20818:20821 KamiHW.MorphLoading <> dst':210 var
+R20823:20825 KamiHW.MorphLoading <> src:205 var
+R20827:20829 KamiHW.MorphLoading <> dst:206 var
+R20971:20977 Kami.Lib.FMap M union def
+R20980:20999 KamiHW.MorphLoading <> morph_header_updates def
+R20971:20977 Kami.Lib.FMap M union def
+R20980:20999 KamiHW.MorphLoading <> morph_header_updates def
+R21044:21070 KamiHW.MorphLoading <> morph_header_admitted_reads thm
+R21044:21070 KamiHW.MorphLoading <> morph_header_admitted_reads thm
+R21175:21199 KamiHW.MorphLoading <> morph_load_loop_execution thm
+R21219:21223 Kami.Lib.Word <> wplus def
+R21231:21239 Kami.Lib.Word <> natToWord def
+R21175:21199 KamiHW.MorphLoading <> morph_load_loop_execution thm
+R21219:21223 Kami.Lib.Word <> wplus def
+R21231:21239 Kami.Lib.Word <> natToWord def
+R21379:21390 KamiHW.MorphLoading <> loaded_table def
+R21397:21401 Kami.Lib.Word <> wplus def
+R21409:21417 Kami.Lib.Word <> natToWord def
+R21446:21457 KamiHW.MorphLoading <> loaded_table def
+R21464:21468 Kami.Lib.Word <> wplus def
+R21476:21484 Kami.Lib.Word <> natToWord def
+R21379:21390 KamiHW.MorphLoading <> loaded_table def
+R21397:21401 Kami.Lib.Word <> wplus def
+R21409:21417 Kami.Lib.Word <> natToWord def
+R21446:21457 KamiHW.MorphLoading <> loaded_table def
+R21464:21468 Kami.Lib.Word <> wplus def
+R21476:21484 Kami.Lib.Word <> natToWord def
+R21529:21557 KamiHW.NormalizationRetirement <> normalization_multistep_trans thm
+R21529:21557 KamiHW.NormalizationRetirement <> normalization_multistep_trans thm
+R21584:21614 KamiHW.NormalizationExecution <> normalization_substep_execution thm
+R21584:21614 KamiHW.NormalizationExecution <> normalization_substep_execution thm
+R21623:21649 KamiHW.MorphLoading <> morph_header_actual_substep thm
+R21623:21649 KamiHW.MorphLoading <> morph_header_actual_substep thm
+R21777:21798 KamiHW.MorphLoading <> morph_loaded_raw_pairs thm
+R21777:21798 KamiHW.MorphLoading <> morph_loaded_raw_pairs thm
+R21878:21895 KamiHW.MorphLoading <> morph_header_frame thm
+R21878:21895 KamiHW.MorphLoading <> morph_header_frame thm
+R21927:21935 Coq.Lists.List <> in_or_app thm
+R21927:21935 Coq.Lists.List <> in_or_app thm
+R21980:21988 Coq.Lists.List <> in_or_app thm
+R21980:21988 Coq.Lists.List <> in_or_app thm
+R22022:22031 KamiHW.NormalizationLoop <> table_pair def
+R22048:22067 KamiHW.MorphLoading <> loaded_table_outside thm
+R22048:22067 KamiHW.MorphLoading <> loaded_table_outside thm
+R22048:22067 KamiHW.MorphLoading <> loaded_table_outside thm
+R22048:22067 KamiHW.MorphLoading <> loaded_table_outside thm
+R22048:22067 KamiHW.MorphLoading <> loaded_table_outside thm
+prf 22104:22121 <> morph_header_empty
+binder 22132:22134 <> old:213
+binder 22136:22138 <> mem:214
+binder 22140:22143 <> base:215
+binder 22145:22148 <> next:216
+binder 22150:22152 <> err:217
+binder 22154:22157 <> code:218
+R22198:22201 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22181:22183 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22161:22163 KamiHW.MorphLoading <> mem:214 var
+R22166:22174 KamiHW.MorphLoading <> mem_index def
+R22176:22179 KamiHW.MorphLoading <> base:215 var
+R22184:22192 Kami.Lib.Word <> natToWord def
+R22233:22237 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22226:22228 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22202:22211 KamiHW.MorphLoading <> morph_fits def
+R22213:22215 KamiHW.MorphLoading <> mem:214 var
+R22217:22220 KamiHW.MorphLoading <> base:215 var
+R22222:22225 KamiHW.MorphLoading <> next:216 var
+R22229:22232 Coq.Init.Datatypes <> true constr
+R22315:22318 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22238:22243 Kami.Lib.FMap M find def
+R22257:22263 Kami.Lib.FMap M union def
+R22311:22313 KamiHW.MorphLoading <> old:213 var
+R22266:22285 KamiHW.MorphLoading <> morph_header_updates def
+R22287:22289 KamiHW.MorphLoading <> mem:214 var
+R22291:22294 KamiHW.MorphLoading <> base:215 var
+R22296:22299 KamiHW.MorphLoading <> next:216 var
+R22301:22303 KamiHW.MorphLoading <> err:217 var
+R22305:22308 KamiHW.MorphLoading <> code:218 var
+R22319:22322 Coq.Init.Datatypes <> Some constr
+R22325:22328 KamiHW.NormalizationStart <> reg4 def
+R22331:22339 Kami.Lib.Word <> natToWord def
+R22372:22383 Kami.Lib.FMap M find_union thm
+R22372:22383 Kami.Lib.FMap M find_union thm
+R22372:22383 Kami.Lib.FMap M find_union thm
+R22393:22412 KamiHW.MorphLoading <> morph_header_updates def
+R22431:22442 Kami.Lib.FMap M find_add_2 thm
+R22469:22480 Kami.Lib.FMap M find_add_1 thm
+R22431:22442 Kami.Lib.FMap M find_add_2 thm
+R22431:22442 Kami.Lib.FMap M find_add_2 thm
+R22431:22442 Kami.Lib.FMap M find_add_2 thm
+R22431:22442 Kami.Lib.FMap M find_add_2 thm
+R22431:22442 Kami.Lib.FMap M find_add_2 thm
+R22431:22442 Kami.Lib.FMap M find_add_2 thm
+R22431:22442 Kami.Lib.FMap M find_add_2 thm
+R22431:22442 Kami.Lib.FMap M find_add_2 thm
+R22431:22442 Kami.Lib.FMap M find_add_2 thm
+R22431:22442 Kami.Lib.FMap M find_add_2 thm
+R22431:22442 Kami.Lib.FMap M find_add_2 thm
+R22469:22480 Kami.Lib.FMap M find_add_1 thm
+R22469:22480 Kami.Lib.FMap M find_add_1 thm
+R22521:22528 KamiHW.NormalizationSteps <> word_eqb def
+R22541:22543 Kami.Lib.Word <> weq def
+R22541:22543 Kami.Lib.Word <> weq def
+prf 22594:22637 <> morph_header_preserves_latched_success_error
+binder 22648:22650 <> old:219
+binder 22652:22654 <> mem:220
+binder 22656:22659 <> base:221
+binder 22661:22664 <> next:222
+binder 22666:22668 <> err:223
+binder 22670:22673 <> code:224
+R22708:22712 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22701:22703 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22677:22686 KamiHW.MorphLoading <> morph_fits def
+R22688:22690 KamiHW.MorphLoading <> mem:220 var
+R22692:22695 KamiHW.MorphLoading <> base:221 var
+R22697:22700 KamiHW.MorphLoading <> next:222 var
+R22704:22707 Coq.Init.Datatypes <> true constr
+R22806:22810 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22785:22787 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22713:22718 Kami.Lib.FMap M find def
+R22727:22733 Kami.Lib.FMap M union def
+R22781:22783 KamiHW.MorphLoading <> old:219 var
+R22736:22755 KamiHW.MorphLoading <> morph_header_updates def
+R22757:22759 KamiHW.MorphLoading <> mem:220 var
+R22761:22764 KamiHW.MorphLoading <> base:221 var
+R22766:22769 KamiHW.MorphLoading <> next:222 var
+R22771:22773 KamiHW.MorphLoading <> err:223 var
+R22775:22778 KamiHW.MorphLoading <> code:224 var
+R22788:22791 Coq.Init.Datatypes <> Some constr
+R22794:22800 KamiHW.NormalizationStart <> regbool def
+R22802:22804 KamiHW.MorphLoading <> err:223 var
+R22890:22892 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22811:22816 Kami.Lib.FMap M find def
+R22832:22838 Kami.Lib.FMap M union def
+R22886:22888 KamiHW.MorphLoading <> old:219 var
+R22841:22860 KamiHW.MorphLoading <> morph_header_updates def
+R22862:22864 KamiHW.MorphLoading <> mem:220 var
+R22866:22869 KamiHW.MorphLoading <> base:221 var
+R22871:22874 KamiHW.MorphLoading <> next:222 var
+R22876:22878 KamiHW.MorphLoading <> err:223 var
+R22880:22883 KamiHW.MorphLoading <> code:224 var
+R22893:22896 Coq.Init.Datatypes <> Some constr
+R22899:22903 KamiHW.MorphLoading <> reg32 def
+R22905:22908 KamiHW.MorphLoading <> code:224 var
+R22943:22954 Kami.Lib.FMap M find_union thm
+R22964:22983 KamiHW.MorphLoading <> morph_header_updates def
+R23002:23013 Kami.Lib.FMap M find_add_2 thm
+R23041:23052 Kami.Lib.FMap M find_add_1 thm
+R23100:23110 Coq.Bool.Bool <> orb_false_r thm
+R22943:22954 Kami.Lib.FMap M find_union thm
+R22943:22954 Kami.Lib.FMap M find_union thm
+R22943:22954 Kami.Lib.FMap M find_union thm
+R22943:22954 Kami.Lib.FMap M find_union thm
+R23002:23013 Kami.Lib.FMap M find_add_2 thm
+R23002:23013 Kami.Lib.FMap M find_add_2 thm
+R23002:23013 Kami.Lib.FMap M find_add_2 thm
+R23002:23013 Kami.Lib.FMap M find_add_2 thm
+R23041:23052 Kami.Lib.FMap M find_add_1 thm
+R23041:23052 Kami.Lib.FMap M find_add_1 thm
+R23041:23052 Kami.Lib.FMap M find_add_1 thm
+R23041:23052 Kami.Lib.FMap M find_add_1 thm
+R23100:23110 Coq.Bool.Bool <> orb_false_r thm
+R23100:23110 Coq.Bool.Bool <> orb_false_r thm
+R23100:23110 Coq.Bool.Bool <> orb_false_r thm

@@ -1,0 +1,11 @@
+Require Import KamiHW.NormalizationStart.
+Print normalization_start_updates.
+Print normalization_start_rule.
+Check normalization_start_rule_name.
+Print Assumptions normalization_start_rule_name.
+Check normalization_start_rule_in.
+Print Assumptions normalization_start_rule_in.
+Check normalization_start_actual_action.
+Print Assumptions normalization_start_actual_action.
+Check normalization_start_actual_substep.
+Print Assumptions normalization_start_actual_substep.

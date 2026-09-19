@@ -1,0 +1,187 @@
+{
+  "scope": "Actual selected normalization and MORPH header/loading/commit executions; phase exclusivity; alternative counter guard characterization. Full physical refinement and interpreter remain open.",
+  "checks": [
+    {
+      "command": "COQPATH=$PWD/vendor/bbv/src:$PWD/vendor/kami make -C coq -j2",
+      "exit_code": 0,
+      "log": "morph-retirement-build.log"
+    },
+    {
+      "command": "bash monograph/build_monograph.sh",
+      "exit_code": 0,
+      "log": "monograph-build.log",
+      "pages": 163
+    },
+    {
+      "command": "python3 scripts/check_review_contracts.py --probe artifacts/review_revision/normalization_retirement_probe.v",
+      "exit_code": 0,
+      "results": 19,
+      "log": "normalization_retirement_report.txt"
+    },
+    {
+      "command": "python3 scripts/check_review_contracts.py --probe artifacts/review_revision/normalization_exclusivity_probe.v",
+      "exit_code": 0,
+      "results": 7,
+      "log": "normalization_exclusivity_report.txt"
+    },
+    {
+      "command": "python3 scripts/check_review_contracts.py --probe artifacts/review_revision/morph_loading_probe.v",
+      "exit_code": 0,
+      "results": 23,
+      "log": "morph_loading_report.txt"
+    },
+    {
+      "command": "python3 scripts/check_review_contracts.py --probe artifacts/review_revision/morph_retirement_probe.v",
+      "exit_code": 0,
+      "results": 4,
+      "log": "morph_retirement_report.txt"
+    },
+    {
+      "command": "python3 scripts/check_review_contracts.py --probe artifacts/review_revision/alternative_counter_probe.v",
+      "exit_code": 0,
+      "results": 10,
+      "log": "alternative_counter_report.txt"
+    },
+    {
+      "command_record": "normalization_retirement_coqchk_command.json",
+      "exit_code": 0,
+      "bypass_flags": false,
+      "log": "normalization_retirement_coqchk.log",
+      "libraries": [
+        "KamiHW.NormalizationRetirement",
+        "Kernel.VMAlternativeCounterAccess"
+      ]
+    }
+  ],
+  "assumptions": {
+    "total_results": 63,
+    "closed_results": 39,
+    "remaining": "Inherited functional_extensionality_dep and/or eq_rect_eq as reported individually.",
+    "new_local_axioms_or_admissions": false,
+    "broader_library_context": "coqchk also lists vendor CommonTactics.cheat; absent from these individual theorem reports."
+  },
+  "review_reports": [
+    "NORMALIZATION_RETIREMENT_REVIEW.md",
+    "MORPH_RETIREMENT_REVIEW.md"
+  ],
+  "container_reproduction": {
+    "first_attempt": "/workspaces/revision-snapshots/20260912-container-retirement",
+    "first_exit_code": 2,
+    "first_failure": "Missing vendor extraction output directory Kami/Ext/Ocaml; preserved raw failure.",
+    "retry": "/workspaces/revision-snapshots/20260912-container-retirement-retry",
+    "retry_status": "failed: project required absent CSDP; see CONTAINER_REPRODUCTION.md for subsequent attempts"
+  },
+  "carried_forward_not_rerun": {
+    "rtl_tests": 127,
+    "freshness_tests": 13,
+    "reason": "Seven relevant hardware, extraction and regression source/artifact hashes matched the preceding validated checkpoint."
+  },
+  "whitespace": {
+    "current_edited_sources": "passed; current-source-whitespace.log",
+    "broader_tree": "Not clean: authentic generated reports/source patch, preserved CRLF user requests, and inherited blank EOF lines in QuantumEquivalence.v/TsirelsonFromMu.v. No blanket whitespace pass claimed."
+  },
+  "files": [
+    {
+      "path": "coq/kami_hw/NormalizationRetirement.v",
+      "sha256": "39b06262889980cf1530de562dcc71821fb0d98445c0b23d339f6bb58f3a0e1d"
+    },
+    {
+      "path": "coq/kami_hw/NormalizationRetirement.vo",
+      "sha256": "c1d1377b2f8947c717e6e38eaeddf9dd497a5cddb0482f26f9521395dc026063"
+    },
+    {
+      "path": "artifacts/review_revision/normalization_retirement_probe.v",
+      "sha256": "bd8b0ad1941d5a20a76eeba85a286a9702c34901837095039a85f43b83493b45"
+    },
+    {
+      "path": "artifacts/review_revision/normalization_retirement_report.txt",
+      "sha256": "544726c5681599813e2922648e11f5cb277e906843b8c80cbc7faf0e84ebb152"
+    },
+    {
+      "path": "coq/kami_hw/NormalizationExclusivity.v",
+      "sha256": "ac74df8d1014960206c05bb26093b99efaf9f172d6dbf9e05c895f181b15cfe4"
+    },
+    {
+      "path": "coq/kami_hw/NormalizationExclusivity.vo",
+      "sha256": "f1181b10bfe90104095653e5aa6a295655b2723983ebb3709fe29e69802f902b"
+    },
+    {
+      "path": "artifacts/review_revision/normalization_exclusivity_probe.v",
+      "sha256": "5532c5b57fc2c78a3035b7110dbfffe5731e8342cd7a04319bfd35c8c082290e"
+    },
+    {
+      "path": "artifacts/review_revision/normalization_exclusivity_report.txt",
+      "sha256": "d58618dd55ef593b247cf4649be048b9382079f2ad60ae747df871c5958cce5f"
+    },
+    {
+      "path": "coq/kami_hw/MorphLoading.v",
+      "sha256": "7820dc6bb2f85b02bd4c8e0c20f51ea12e02586efdae20410a88838c3f94cafd"
+    },
+    {
+      "path": "coq/kami_hw/MorphLoading.vo",
+      "sha256": "f458c8fcc6f2aad9e91e29b29945d77d228d9bd80388a395eac7ebb98cf497c6"
+    },
+    {
+      "path": "artifacts/review_revision/morph_loading_probe.v",
+      "sha256": "383fa8984a2208d8af89da4aa636b4712b12f94af959e38498f42f583cbfa0e2"
+    },
+    {
+      "path": "artifacts/review_revision/morph_loading_report.txt",
+      "sha256": "0e79b945bda1eb9c0e8ad77daae576a82df57573c0e3d84b4e6fee906cac100c"
+    },
+    {
+      "path": "coq/kami_hw/MorphRetirement.v",
+      "sha256": "9ab80e27582d8bb80e6d4a90fbeace075ee4daf2e3c28667f58be5a7b69003b8"
+    },
+    {
+      "path": "coq/kami_hw/MorphRetirement.vo",
+      "sha256": "eeb5d5dd1b55285b58031093278155b3f4cfb58fc0d5b46a5bcd1712a005d99b"
+    },
+    {
+      "path": "artifacts/review_revision/morph_retirement_probe.v",
+      "sha256": "e15bab3b3198302058e77a0c9ad3e568b4078ffa4b1c44354c08dbfc8a373c68"
+    },
+    {
+      "path": "artifacts/review_revision/morph_retirement_report.txt",
+      "sha256": "fddb07a8765c1adc52176b134e153935473d82a5b732b2189fe2bc30465a453b"
+    },
+    {
+      "path": "coq/kernel/foundation/VMAlternativeCounterAccess.v",
+      "sha256": "e7620f994efa29519f3f0ae416b3c4ac40b2ed35d929a41e6991e974c255fca6"
+    },
+    {
+      "path": "coq/kernel/foundation/VMAlternativeCounterAccess.vo",
+      "sha256": "84b228a189193885b5b72a95712f5f32cdeb3e3b8609532231e8e2ed76386769"
+    },
+    {
+      "path": "artifacts/review_revision/alternative_counter_probe.v",
+      "sha256": "107d40c910f4e5314e26d0b5d2c20b1a9fbe9d9997d0a5bdc25ab2ad10f35fe0"
+    },
+    {
+      "path": "artifacts/review_revision/alternative_counter_report.txt",
+      "sha256": "d1e4dfa65bf43d8dd929fd7b02e053a11af1f4efcd68b12b7c6fa83325f5b513"
+    },
+    {
+      "path": "coq/_CoqProject",
+      "sha256": "7c1e0faab3ad03d4a5e20695e17c61f0014c18e4a19be6380e69d1d18e555355"
+    },
+    {
+      "path": "coq/kami_hw/RTLGapRegistry.v",
+      "sha256": "902165809bf2c128a91804d0cd94a3a34d404168b7d6775b422c45217caa791e"
+    },
+    {
+      "path": "coq/kami_hw/VerilogSemantics.v",
+      "sha256": "c3b12fecf663a6cb296d6cea3790a7e97ab69ed30cdb95896238bbe543ea3e2d"
+    },
+    {
+      "path": "monograph/monograph.tex",
+      "sha256": "8a8fb4ac8b318ae0e4e1ab099f14a2e43f6bcadf2993a213e74b0d2c813c7eb3"
+    },
+    {
+      "path": "monograph/monograph.pdf",
+      "sha256": "f8034b94aae71934e8eceda282efb78cde4c84f63e6320a73a872450f26f73af"
+    }
+  ],
+  "historical_checkpoint": true,
+  "superseded_by": "coupling_retirement_validation.json"
+}

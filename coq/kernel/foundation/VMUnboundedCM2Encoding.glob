@@ -1,0 +1,543 @@
+DIGEST 27ff0ff8c9474ab06dcedf8a9b3cdb2e
+FKernel.VMUnboundedCM2Encoding
+R370:374 Coq.Arith.Arith <> <> lib
+R376:378 Coq.micromega.Lia <> <> lib
+R380:383 Coq.Lists.List <> <> lib
+R410:422 Coq.NArith.NArith <> <> lib
+R432:444 Coq.Lists.List ListNotations <> mod
+R474:480 Kernel.VMState <> <> lib
+R482:496 Kernel.VMUnboundedStep <> <> lib
+R498:524 Kernel.VMUnboundedInterpreterSlots <> <> lib
+R554:578 Kernel.VMUnboundedCM2Interpreter <> <> lib
+def 591:610 <> encode_cm2_program_N
+R621:623 Coq.Init.Datatypes <> nat ind
+binder 613:617 <> width:1
+R631:634 Coq.Init.Datatypes <> list ind
+R636:644 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 627:627 <> p:2
+R649:649 Coq.Numbers.BinNums <> N ind
+R662:662 Kernel.VMUnboundedCM2Encoding <> p:2 var
+R673:674 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R688:691 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R736:745 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R707:714 Coq.NArith.BinNat N of_nat def
+R717:732 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R764:766 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R747:749 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R750:757 Coq.NArith.BinNat N of_nat def
+R759:763 Kernel.VMUnboundedCM2Encoding <> width:1 var
+R767:786 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N:3 def
+R788:792 Kernel.VMUnboundedCM2Encoding <> width:1 var
+def 821:838 <> encode_cm2_program
+R849:851 Coq.Init.Datatypes <> nat ind
+binder 841:845 <> width:5
+R859:862 Coq.Init.Datatypes <> list ind
+R864:872 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 855:855 <> p:6
+R877:879 Coq.Init.Datatypes <> nat ind
+R886:893 Coq.NArith.BinNat N to_nat def
+R896:915 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R917:921 Kernel.VMUnboundedCM2Encoding <> width:5 var
+R923:923 Kernel.VMUnboundedCM2Encoding <> p:6 var
+def 939:954 <> cm2_program_fits
+R965:967 Coq.Init.Datatypes <> nat ind
+binder 957:961 <> width:7
+R975:978 Coq.Init.Datatypes <> list ind
+R980:988 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 971:971 <> p:8
+R1003:1008 Coq.Lists.List <> Forall ind
+R1076:1076 Kernel.VMUnboundedCM2Encoding <> p:8 var
+binder 1015:1015 <> i:9
+R1050:1052 Coq.NArith.BinNat <> ::N_scope:x_'<'_x not
+R1021:1028 Coq.NArith.BinNat N of_nat def
+R1031:1046 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R1048:1048 Kernel.VMUnboundedCM2Encoding <> i:9 var
+R1054:1056 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R1057:1064 Coq.NArith.BinNat N of_nat def
+R1066:1070 Kernel.VMUnboundedCM2Encoding <> width:7 var
+def 1318:1329 <> cm2_max_word
+R1336:1339 Coq.Init.Datatypes <> list ind
+R1341:1349 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 1332:1332 <> p:10
+R1354:1356 Coq.Init.Datatypes <> nat ind
+R1369:1369 Kernel.VMUnboundedCM2Encoding <> p:10 var
+R1380:1381 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1393:1396 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1405:1411 Coq.Arith.PeanoNat Nat max def
+R1414:1429 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R1435:1446 Kernel.VMUnboundedCM2Encoding <> cm2_max_word:11 def
+def 1473:1490 <> cm2_encoding_width
+R1497:1500 Coq.Init.Datatypes <> list ind
+R1502:1510 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 1493:1493 <> p:13
+R1515:1517 Coq.Init.Datatypes <> nat ind
+R1524:1535 Kernel.VMUnboundedCM2Encoding <> cm2_max_word def
+R1537:1537 Kernel.VMUnboundedCM2Encoding <> p:13 var
+prf 1547:1561 <> cm2_word_le_max
+binder 1572:1572 <> p:14
+binder 1574:1574 <> i:15
+R1585:1588 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1579:1580 Coq.Lists.List <> In def
+R1584:1584 Kernel.VMUnboundedCM2Encoding <> p:14 var
+R1582:1582 Kernel.VMUnboundedCM2Encoding <> i:15 var
+R1607:1610 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1589:1604 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R1606:1606 Kernel.VMUnboundedCM2Encoding <> i:15 var
+R1611:1622 Kernel.VMUnboundedCM2Encoding <> cm2_max_word def
+R1624:1624 Kernel.VMUnboundedCM2Encoding <> p:14 var
+R1753:1764 Coq.Arith.PeanoNat Nat le_max_l thm
+R1753:1764 Coq.Arith.PeanoNat Nat le_max_l thm
+R1780:1791 Coq.Arith.PeanoNat Nat le_trans thm
+R1821:1832 Coq.Arith.PeanoNat Nat le_max_r thm
+R1780:1791 Coq.Arith.PeanoNat Nat le_trans thm
+R1821:1832 Coq.Arith.PeanoNat Nat le_max_r thm
+prf 1848:1858 <> nat_to_N_le
+binder 1869:1869 <> a:16
+binder 1871:1871 <> b:17
+R1882:1885 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1877:1880 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1876:1876 Kernel.VMUnboundedCM2Encoding <> a:16 var
+R1881:1881 Kernel.VMUnboundedCM2Encoding <> b:17 var
+R1897:1900 Coq.NArith.BinNat <> ::N_scope:x_'<='_x not
+R1887:1894 Coq.NArith.BinNat N of_nat def
+R1896:1896 Kernel.VMUnboundedCM2Encoding <> a:16 var
+R1901:1908 Coq.NArith.BinNat N of_nat def
+R1910:1910 Kernel.VMUnboundedCM2Encoding <> b:17 var
+R1948:1952 Coq.Init.Logic <> proj1 thm
+R1955:1970 Coq.NArith.BinNat N compare_le_iff thm
+R1948:1952 Coq.Init.Logic <> proj1 thm
+R1955:1970 Coq.NArith.BinNat N compare_le_iff thm
+R1992:2008 Coq.NArith.Nnat Nat2N inj_compare thm
+R1992:2008 Coq.NArith.Nnat Nat2N inj_compare thm
+R1992:2008 Coq.NArith.Nnat Nat2N inj_compare thm
+R2020:2024 Coq.Init.Logic <> proj2 thm
+R2027:2044 Coq.Arith.PeanoNat Nat compare_le_iff thm
+R2020:2024 Coq.Init.Logic <> proj2 thm
+R2027:2044 Coq.Arith.PeanoNat Nat compare_le_iff thm
+prf 2078:2108 <> cm2_program_fits_encoding_width
+binder 2119:2119 <> p:18
+R2124:2139 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits def
+R2142:2159 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R2161:2161 Kernel.VMUnboundedCM2Encoding <> p:18 var
+R2164:2164 Kernel.VMUnboundedCM2Encoding <> p:18 var
+R2191:2203 Coq.Lists.List <> Forall_forall thm
+R2191:2203 Coq.Lists.List <> Forall_forall thm
+R2229:2241 Coq.NArith.BinNat N le_lt_trans thm
+R2229:2241 Coq.NArith.BinNat N le_lt_trans thm
+R2254:2264 Kernel.VMUnboundedCM2Encoding <> nat_to_N_le thm
+R2254:2264 Kernel.VMUnboundedCM2Encoding <> nat_to_N_le thm
+R2273:2287 Kernel.VMUnboundedCM2Encoding <> cm2_word_le_max thm
+R2273:2287 Kernel.VMUnboundedCM2Encoding <> cm2_word_le_max thm
+R2312:2329 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R2338:2351 Coq.NArith.BinNat N pow_gt_lin_r thm
+R2338:2351 Coq.NArith.BinNat N pow_gt_lin_r thm
+def 2376:2386 <> cm2_fetch_N
+R2396:2396 Coq.Numbers.BinNums <> N ind
+binder 2389:2392 <> code:19
+R2411:2413 Coq.Init.Datatypes <> nat ind
+binder 2400:2404 <> width:20
+binder 2406:2407 <> pc:21
+R2418:2418 Coq.Numbers.BinNums <> N ind
+R2425:2430 Coq.NArith.BinNat N land def
+R2433:2440 Coq.NArith.BinNat N shiftr def
+R2442:2445 Kernel.VMUnboundedCM2Encoding <> code:19 var
+R2459:2461 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R2448:2455 Coq.NArith.BinNat N of_nat def
+R2457:2458 Kernel.VMUnboundedCM2Encoding <> pc:21 var
+R2462:2469 Coq.NArith.BinNat N of_nat def
+R2471:2475 Kernel.VMUnboundedCM2Encoding <> width:20 var
+R2480:2485 Coq.NArith.BinNat N ones def
+R2488:2495 Coq.NArith.BinNat N of_nat def
+R2497:2501 Kernel.VMUnboundedCM2Encoding <> width:20 var
+prf 2513:2532 <> encode_cm2_drop_head
+binder 2543:2547 <> width:22
+binder 2549:2549 <> i:23
+binder 2551:2554 <> rest:24
+R2613:2618 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2589:2591 Coq.NArith.BinNat <> ::N_scope:x_'<'_x not
+R2560:2567 Coq.NArith.BinNat N of_nat def
+R2570:2585 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R2587:2587 Kernel.VMUnboundedCM2Encoding <> i:23 var
+R2593:2595 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R2596:2603 Coq.NArith.BinNat N of_nat def
+R2605:2609 Kernel.VMUnboundedCM2Encoding <> width:22 var
+R2685:2689 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2619:2626 Coq.NArith.BinNat N shiftr def
+R2629:2648 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R2650:2654 Kernel.VMUnboundedCM2Encoding <> width:22 var
+R2658:2661 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2657:2657 Kernel.VMUnboundedCM2Encoding <> i:23 var
+R2662:2665 Kernel.VMUnboundedCM2Encoding <> rest:24 var
+R2670:2677 Coq.NArith.BinNat N of_nat def
+R2679:2683 Kernel.VMUnboundedCM2Encoding <> width:22 var
+R2690:2709 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R2711:2715 Kernel.VMUnboundedCM2Encoding <> width:22 var
+R2717:2720 Kernel.VMUnboundedCM2Encoding <> rest:24 var
+R2763:2782 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R2796:2812 Coq.NArith.BinNat N shiftr_div_pow2 thm
+R2796:2812 Coq.NArith.BinNat N shiftr_div_pow2 thm
+R2796:2812 Coq.NArith.BinNat N shiftr_div_pow2 thm
+R2844:2846 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R2827:2829 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R2830:2837 Coq.NArith.BinNat N of_nat def
+R2847:2866 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R2929:2931 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R2898:2917 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R2933:2935 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R2936:2943 Coq.NArith.BinNat N of_nat def
+R2844:2846 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R2827:2829 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R2830:2837 Coq.NArith.BinNat N of_nat def
+R2847:2866 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R2929:2931 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R2898:2917 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R2933:2935 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R2936:2943 Coq.NArith.BinNat N of_nat def
+R2998:3010 Coq.NArith.BinNat N pow_nonzero thm
+R3015:3022 Coq.NArith.BinNat N of_nat def
+R2972:2980 Coq.NArith.BinNat N div_add def
+R2972:2980 Coq.NArith.BinNat N div_add def
+R2998:3010 Coq.NArith.BinNat N pow_nonzero thm
+R3015:3022 Coq.NArith.BinNat N of_nat def
+R2972:2980 Coq.NArith.BinNat N div_add def
+R3060:3070 Coq.NArith.BinNat N div_small def
+R3060:3070 Coq.NArith.BinNat N div_small def
+R3060:3070 Coq.NArith.BinNat N div_small def
+prf 3106:3131 <> encode_cm2_program_fetch_N
+binder 3142:3142 <> p:25
+binder 3144:3148 <> width:26
+binder 3150:3151 <> pc:27
+R3180:3183 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3156:3171 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits def
+R3173:3177 Kernel.VMUnboundedCM2Encoding <> width:26 var
+R3179:3179 Kernel.VMUnboundedCM2Encoding <> p:25 var
+R3197:3202 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3186:3188 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3184:3185 Kernel.VMUnboundedCM2Encoding <> pc:27 var
+R3189:3194 Coq.Init.Datatypes <> length def
+R3196:3196 Kernel.VMUnboundedCM2Encoding <> p:25 var
+R3254:3258 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3203:3213 Kernel.VMUnboundedCM2Encoding <> cm2_fetch_N def
+R3216:3235 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R3237:3241 Kernel.VMUnboundedCM2Encoding <> width:26 var
+R3243:3243 Kernel.VMUnboundedCM2Encoding <> p:25 var
+R3246:3250 Kernel.VMUnboundedCM2Encoding <> width:26 var
+R3252:3253 Kernel.VMUnboundedCM2Encoding <> pc:27 var
+R3259:3266 Coq.NArith.BinNat N of_nat def
+R3269:3284 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R3287:3289 Coq.Lists.List <> nth def
+R3296:3303 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R3294:3294 Kernel.VMUnboundedCM2Encoding <> p:25 var
+R3291:3292 Kernel.VMUnboundedCM2Encoding <> pc:27 var
+R3380:3385 Coq.Init.Datatypes <> length def
+R3460:3479 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R3481:3483 Coq.Lists.List <> nth def
+R3494:3504 Kernel.VMUnboundedCM2Encoding <> cm2_fetch_N def
+R3530:3532 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R3520:3527 Coq.NArith.BinNat N of_nat def
+R3533:3540 Coq.NArith.BinNat N of_nat def
+R3530:3532 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R3520:3527 Coq.NArith.BinNat N of_nat def
+R3533:3540 Coq.NArith.BinNat N of_nat def
+R3588:3599 Coq.NArith.BinNat N shiftr_0_r thm
+R3588:3599 Coq.NArith.BinNat N shiftr_0_r thm
+R3588:3599 Coq.NArith.BinNat N shiftr_0_r thm
+R3614:3624 Coq.NArith.BinNat N land_ones thm
+R3614:3624 Coq.NArith.BinNat N land_ones thm
+R3614:3624 Coq.NArith.BinNat N land_ones thm
+R3648:3659 Coq.NArith.BinNat N mod_unique def
+R3665:3667 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R3668:3675 Coq.NArith.BinNat N of_nat def
+R3691:3710 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R3725:3732 Coq.NArith.BinNat N of_nat def
+R3735:3750 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R3648:3659 Coq.NArith.BinNat N mod_unique def
+R3665:3667 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R3668:3675 Coq.NArith.BinNat N of_nat def
+R3691:3710 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R3725:3732 Coq.NArith.BinNat N of_nat def
+R3735:3750 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R3843:3853 Kernel.VMUnboundedCM2Encoding <> cm2_fetch_N def
+R3884:3886 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R3869:3876 Coq.NArith.BinNat N of_nat def
+R3879:3879 Coq.Init.Datatypes <> S constr
+R3887:3894 Coq.NArith.BinNat N of_nat def
+R3937:3939 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R3923:3930 Coq.NArith.BinNat N of_nat def
+R3951:3953 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R3940:3947 Coq.NArith.BinNat N of_nat def
+R3954:3961 Coq.NArith.BinNat N of_nat def
+R3990:4003 Coq.NArith.Nnat Nat2N inj_succ thm
+R3884:3886 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R3869:3876 Coq.NArith.BinNat N of_nat def
+R3879:3879 Coq.Init.Datatypes <> S constr
+R3887:3894 Coq.NArith.BinNat N of_nat def
+R3937:3939 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R3923:3930 Coq.NArith.BinNat N of_nat def
+R3951:3953 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R3940:3947 Coq.NArith.BinNat N of_nat def
+R3954:3961 Coq.NArith.BinNat N of_nat def
+R3990:4003 Coq.NArith.Nnat Nat2N inj_succ thm
+R3990:4003 Coq.NArith.Nnat Nat2N inj_succ thm
+R4027:4041 Coq.NArith.BinNat N shiftr_shiftr thm
+R4044:4063 Kernel.VMUnboundedCM2Encoding <> encode_cm2_drop_head thm
+R4027:4041 Coq.NArith.BinNat N shiftr_shiftr thm
+R4027:4041 Coq.NArith.BinNat N shiftr_shiftr thm
+R4044:4063 Kernel.VMUnboundedCM2Encoding <> encode_cm2_drop_head thm
+R4044:4063 Kernel.VMUnboundedCM2Encoding <> encode_cm2_drop_head thm
+R4144:4152 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4090:4100 Kernel.VMUnboundedCM2Encoding <> cm2_fetch_N def
+R4103:4122 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R4153:4160 Coq.NArith.BinNat N of_nat def
+R4163:4178 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R4181:4183 Coq.Lists.List <> nth def
+R4193:4200 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R4144:4152 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4090:4100 Kernel.VMUnboundedCM2Encoding <> cm2_fetch_N def
+R4103:4122 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R4153:4160 Coq.NArith.BinNat N of_nat def
+R4163:4178 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R4181:4183 Coq.Lists.List <> nth def
+R4193:4200 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+prf 4253:4286 <> encode_cm2_program_fetch_N_outside
+binder 4297:4297 <> p:28
+binder 4299:4303 <> width:29
+binder 4305:4306 <> pc:30
+R4335:4338 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4311:4326 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits def
+R4328:4332 Kernel.VMUnboundedCM2Encoding <> width:29 var
+R4334:4334 Kernel.VMUnboundedCM2Encoding <> p:28 var
+R4353:4358 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4347:4350 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4339:4344 Coq.Init.Datatypes <> length def
+R4346:4346 Kernel.VMUnboundedCM2Encoding <> p:28 var
+R4351:4352 Kernel.VMUnboundedCM2Encoding <> pc:30 var
+R4410:4412 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4359:4369 Kernel.VMUnboundedCM2Encoding <> cm2_fetch_N def
+R4372:4391 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R4393:4397 Kernel.VMUnboundedCM2Encoding <> width:29 var
+R4399:4399 Kernel.VMUnboundedCM2Encoding <> p:28 var
+R4402:4406 Kernel.VMUnboundedCM2Encoding <> width:29 var
+R4408:4409 Kernel.VMUnboundedCM2Encoding <> pc:30 var
+R4496:4506 Kernel.VMUnboundedCM2Encoding <> cm2_fetch_N def
+R4514:4533 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R4545:4556 Coq.NArith.BinNat N shiftr_0_l thm
+R4545:4556 Coq.NArith.BinNat N shiftr_0_l thm
+R4545:4556 Coq.NArith.BinNat N shiftr_0_l thm
+R4587:4597 Kernel.VMUnboundedCM2Encoding <> cm2_fetch_N def
+R4605:4624 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R4636:4647 Coq.NArith.BinNat N shiftr_0_l thm
+R4636:4647 Coq.NArith.BinNat N shiftr_0_l thm
+R4636:4647 Coq.NArith.BinNat N shiftr_0_l thm
+R4676:4681 Coq.Init.Datatypes <> length def
+R4750:4760 Kernel.VMUnboundedCM2Encoding <> cm2_fetch_N def
+R4791:4793 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R4776:4783 Coq.NArith.BinNat N of_nat def
+R4786:4786 Coq.Init.Datatypes <> S constr
+R4794:4801 Coq.NArith.BinNat N of_nat def
+R4844:4846 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R4830:4837 Coq.NArith.BinNat N of_nat def
+R4858:4860 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R4847:4854 Coq.NArith.BinNat N of_nat def
+R4861:4868 Coq.NArith.BinNat N of_nat def
+R4897:4910 Coq.NArith.Nnat Nat2N inj_succ thm
+R4791:4793 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R4776:4783 Coq.NArith.BinNat N of_nat def
+R4786:4786 Coq.Init.Datatypes <> S constr
+R4794:4801 Coq.NArith.BinNat N of_nat def
+R4844:4846 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R4830:4837 Coq.NArith.BinNat N of_nat def
+R4858:4860 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R4847:4854 Coq.NArith.BinNat N of_nat def
+R4861:4868 Coq.NArith.BinNat N of_nat def
+R4897:4910 Coq.NArith.Nnat Nat2N inj_succ thm
+R4897:4910 Coq.NArith.Nnat Nat2N inj_succ thm
+R4934:4948 Coq.NArith.BinNat N shiftr_shiftr thm
+R4951:4970 Kernel.VMUnboundedCM2Encoding <> encode_cm2_drop_head thm
+R4934:4948 Coq.NArith.BinNat N shiftr_shiftr thm
+R4934:4948 Coq.NArith.BinNat N shiftr_shiftr thm
+R4951:4970 Kernel.VMUnboundedCM2Encoding <> encode_cm2_drop_head thm
+R4951:4970 Kernel.VMUnboundedCM2Encoding <> encode_cm2_drop_head thm
+R5051:5053 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4997:5007 Kernel.VMUnboundedCM2Encoding <> cm2_fetch_N def
+R5010:5029 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R5051:5053 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4997:5007 Kernel.VMUnboundedCM2Encoding <> cm2_fetch_N def
+R5010:5029 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_N def
+R5092:5097 Coq.Init.Datatypes <> length def
+prf 5126:5135 <> cm2_word_N
+binder 5146:5149 <> code:31
+binder 5151:5155 <> width:32
+binder 5157:5158 <> pc:33
+R5196:5200 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5163:5170 Coq.NArith.BinNat N of_nat def
+R5173:5180 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R5182:5185 Kernel.VMUnboundedCM2Encoding <> code:31 var
+R5187:5191 Kernel.VMUnboundedCM2Encoding <> width:32 var
+R5193:5194 Kernel.VMUnboundedCM2Encoding <> pc:33 var
+R5201:5211 Kernel.VMUnboundedCM2Encoding <> cm2_fetch_N def
+R5214:5221 Coq.NArith.BinNat N of_nat def
+R5223:5226 Kernel.VMUnboundedCM2Encoding <> code:31 var
+R5229:5233 Kernel.VMUnboundedCM2Encoding <> width:32 var
+R5235:5236 Kernel.VMUnboundedCM2Encoding <> pc:33 var
+R5277:5284 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R5287:5297 Kernel.VMUnboundedCM2Encoding <> cm2_fetch_N def
+R5310:5323 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_and thm
+R5326:5339 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_shr thm
+R5342:5352 Kernel.VMUnboundedInterpreterSlots <> nat_ones_eq thm
+R5355:5362 Coq.NArith.Nnat N2Nat id thm
+R5310:5323 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_and thm
+R5310:5323 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_and thm
+R5326:5339 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_shr thm
+R5326:5339 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_shr thm
+R5342:5352 Kernel.VMUnboundedInterpreterSlots <> nat_ones_eq thm
+R5342:5352 Kernel.VMUnboundedInterpreterSlots <> nat_ones_eq thm
+R5355:5362 Coq.NArith.Nnat N2Nat id thm
+R5355:5362 Coq.NArith.Nnat N2Nat id thm
+R5375:5387 Coq.NArith.Nnat Nat2N inj_mul thm
+R5375:5387 Coq.NArith.Nnat Nat2N inj_mul thm
+R5375:5387 Coq.NArith.Nnat Nat2N inj_mul thm
+prf 5417:5440 <> encode_cm2_program_fetch
+binder 5451:5451 <> p:34
+binder 5453:5457 <> width:35
+binder 5459:5460 <> pc:36
+R5489:5492 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5465:5480 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits def
+R5482:5486 Kernel.VMUnboundedCM2Encoding <> width:35 var
+R5488:5488 Kernel.VMUnboundedCM2Encoding <> p:34 var
+R5506:5511 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5495:5497 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5493:5494 Kernel.VMUnboundedCM2Encoding <> pc:36 var
+R5498:5503 Coq.Init.Datatypes <> length def
+R5505:5505 Kernel.VMUnboundedCM2Encoding <> p:34 var
+R5558:5562 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5512:5519 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R5522:5539 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R5541:5545 Kernel.VMUnboundedCM2Encoding <> width:35 var
+R5547:5547 Kernel.VMUnboundedCM2Encoding <> p:34 var
+R5550:5554 Kernel.VMUnboundedCM2Encoding <> width:35 var
+R5556:5557 Kernel.VMUnboundedCM2Encoding <> pc:36 var
+R5563:5578 Kernel.VMUnboundedCM2Interpreter <> encode_cm2_instr def
+R5581:5583 Coq.Lists.List <> nth def
+R5590:5597 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R5588:5588 Kernel.VMUnboundedCM2Encoding <> p:34 var
+R5585:5586 Kernel.VMUnboundedCM2Encoding <> pc:36 var
+R5644:5652 Coq.NArith.Nnat Nat2N inj thm
+R5644:5652 Coq.NArith.Nnat Nat2N inj thm
+R5665:5674 Kernel.VMUnboundedCM2Encoding <> cm2_word_N thm
+R5665:5674 Kernel.VMUnboundedCM2Encoding <> cm2_word_N thm
+R5665:5674 Kernel.VMUnboundedCM2Encoding <> cm2_word_N thm
+R5684:5701 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R5712:5719 Coq.NArith.Nnat N2Nat id thm
+R5712:5719 Coq.NArith.Nnat N2Nat id thm
+R5712:5719 Coq.NArith.Nnat N2Nat id thm
+R5730:5755 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch_N thm
+R5730:5755 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch_N thm
+prf 5784:5815 <> encode_cm2_program_fetch_outside
+binder 5826:5826 <> p:37
+binder 5828:5832 <> width:38
+binder 5834:5835 <> pc:39
+R5864:5867 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5840:5855 Kernel.VMUnboundedCM2Encoding <> cm2_program_fits def
+R5857:5861 Kernel.VMUnboundedCM2Encoding <> width:38 var
+R5863:5863 Kernel.VMUnboundedCM2Encoding <> p:37 var
+R5882:5887 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5876:5879 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5868:5873 Coq.Init.Datatypes <> length def
+R5875:5875 Kernel.VMUnboundedCM2Encoding <> p:37 var
+R5880:5881 Kernel.VMUnboundedCM2Encoding <> pc:39 var
+R5934:5936 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5888:5895 Kernel.VMUnboundedCM2Interpreter <> cm2_word def
+R5898:5915 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R5917:5921 Kernel.VMUnboundedCM2Encoding <> width:38 var
+R5923:5923 Kernel.VMUnboundedCM2Encoding <> p:37 var
+R5926:5930 Kernel.VMUnboundedCM2Encoding <> width:38 var
+R5932:5933 Kernel.VMUnboundedCM2Encoding <> pc:39 var
+R5983:5991 Coq.NArith.Nnat Nat2N inj thm
+R5983:5991 Coq.NArith.Nnat Nat2N inj thm
+R6002:6011 Kernel.VMUnboundedCM2Encoding <> cm2_word_N thm
+R6002:6011 Kernel.VMUnboundedCM2Encoding <> cm2_word_N thm
+R6002:6011 Kernel.VMUnboundedCM2Encoding <> cm2_word_N thm
+R6023:6040 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R6051:6058 Coq.NArith.Nnat N2Nat id thm
+R6051:6058 Coq.NArith.Nnat N2Nat id thm
+R6051:6058 Coq.NArith.Nnat N2Nat id thm
+R6071:6104 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch_N_outside thm
+R6071:6104 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch_N_outside thm
+R6071:6104 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program_fetch_N_outside thm
+def 6288:6305 <> cm2_input_encoding
+R6318:6324 Kernel.VMState <> VMState rec
+binder 6308:6314 <> ambient:40
+R6332:6335 Coq.Init.Datatypes <> list ind
+R6337:6345 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 6328:6328 <> p:41
+R6367:6369 Coq.Init.Datatypes <> nat ind
+binder 6353:6357 <> width:42
+binder 6359:6360 <> x0:43
+binder 6362:6363 <> x1:44
+R6374:6380 Kernel.VMState <> VMState rec
+R6387:6398 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary def
+R6400:6406 Kernel.VMUnboundedCM2Encoding <> ambient:40 var
+R6409:6426 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R6428:6432 Kernel.VMUnboundedCM2Encoding <> width:42 var
+R6434:6434 Kernel.VMUnboundedCM2Encoding <> p:41 var
+R6437:6441 Kernel.VMUnboundedCM2Encoding <> width:42 var
+R6450:6454 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R6450:6454 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R6450:6454 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R6462:6466 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R6462:6466 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R6475:6479 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R6475:6479 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R6471:6472 Kernel.VMUnboundedCM2Encoding <> x0:43 var
+R6484:6485 Kernel.VMUnboundedCM2Encoding <> x1:44 var
+def 6503:6521 <> cm2_config_encoding
+R6534:6540 Kernel.VMState <> VMState rec
+binder 6524:6530 <> ambient:45
+R6548:6551 Coq.Init.Datatypes <> list ind
+R6553:6561 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 6544:6544 <> p:46
+R6577:6579 Coq.Init.Datatypes <> nat ind
+binder 6569:6573 <> width:47
+R6587:6596 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 6583:6583 <> c:48
+R6601:6607 Kernel.VMState <> VMState rec
+R6614:6625 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary def
+R6627:6633 Kernel.VMUnboundedCM2Encoding <> ambient:45 var
+R6636:6653 Kernel.VMUnboundedCM2Encoding <> encode_cm2_program def
+R6655:6659 Kernel.VMUnboundedCM2Encoding <> width:47 var
+R6661:6661 Kernel.VMUnboundedCM2Encoding <> p:46 var
+R6664:6668 Kernel.VMUnboundedCM2Encoding <> width:47 var
+R6670:6670 Kernel.VMUnboundedCM2Encoding <> c:48 var
+def 6762:6785 <> cm2_total_input_encoding
+R6798:6804 Kernel.VMState <> VMState rec
+binder 6788:6794 <> ambient:49
+R6816:6819 Coq.Init.Datatypes <> list ind
+R6821:6829 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 6812:6812 <> p:50
+R6841:6843 Coq.Init.Datatypes <> nat ind
+binder 6833:6834 <> x0:51
+binder 6836:6837 <> x1:52
+R6848:6854 Kernel.VMState <> VMState rec
+R6861:6878 Kernel.VMUnboundedCM2Encoding <> cm2_input_encoding def
+R6880:6886 Kernel.VMUnboundedCM2Encoding <> ambient:49 var
+R6888:6888 Kernel.VMUnboundedCM2Encoding <> p:50 var
+R6891:6908 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R6910:6910 Kernel.VMUnboundedCM2Encoding <> p:50 var
+R6913:6914 Kernel.VMUnboundedCM2Encoding <> x0:51 var
+R6916:6917 Kernel.VMUnboundedCM2Encoding <> x1:52 var
+def 6932:6956 <> cm2_total_config_encoding
+R6969:6975 Kernel.VMState <> VMState rec
+binder 6959:6965 <> ambient:53
+R6987:6990 Coq.Init.Datatypes <> list ind
+R6992:7000 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 6983:6983 <> p:54
+R7008:7017 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 7004:7004 <> c:55
+R7022:7028 Kernel.VMState <> VMState rec
+R7035:7053 Kernel.VMUnboundedCM2Encoding <> cm2_config_encoding def
+R7055:7061 Kernel.VMUnboundedCM2Encoding <> ambient:53 var
+R7063:7063 Kernel.VMUnboundedCM2Encoding <> p:54 var
+R7066:7083 Kernel.VMUnboundedCM2Encoding <> cm2_encoding_width def
+R7085:7085 Kernel.VMUnboundedCM2Encoding <> p:54 var
+R7088:7088 Kernel.VMUnboundedCM2Encoding <> c:55 var

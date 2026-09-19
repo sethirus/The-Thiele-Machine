@@ -1,0 +1,214 @@
+DIGEST d1db0ed03de4a7c5fb810f11a269ffef
+FUndecidability.TM.Combinators.SequentialComposition
+R38:50 Undecidability.TM.Util.TM_facts <> <> lib
+R52:57 Undecidability.TM.Combinators.Switch <> <> lib
+sec 101:111 <> Composition
+var 128:128 Composition n
+R132:134 Coq.Init.Datatypes <> nat ind
+var 148:150 Composition sig
+R154:160 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+var 178:179 Composition F1
+R183:189 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+var 203:205 Composition pM1
+R209:211 Undecidability.TM.Util.TM_facts <> pTM def
+R220:220 Undecidability.TM.Combinators.SequentialComposition <> Composition.n var
+R217:218 Undecidability.TM.Combinators.SequentialComposition <> Composition.F1 var
+R213:215 Undecidability.TM.Combinators.SequentialComposition <> Composition.sig var
+var 235:236 Composition F2
+R240:246 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+var 260:262 Composition pM2
+R266:268 Undecidability.TM.Util.TM_facts <> pTM def
+R277:277 Undecidability.TM.Combinators.SequentialComposition <> Composition.n var
+R274:275 Undecidability.TM.Combinators.SequentialComposition <> Composition.F2 var
+R270:272 Undecidability.TM.Combinators.SequentialComposition <> Composition.sig var
+def 296:298 <> Seq
+R303:308 Undecidability.TM.Combinators.Switch <> Switch def
+R324:326 Undecidability.TM.Combinators.SequentialComposition <> Composition.pM2 var
+R310:312 Undecidability.TM.Combinators.SequentialComposition <> Composition.pM1 var
+prf 339:349 <> Seq_Realise
+binder 351:352 <> R1:7
+binder 354:355 <> R2:8
+R373:380 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R366:370 Undecidability.TM.Util.TM_facts <> :::x_'⊨'_x not
+R363:365 Undecidability.TM.Combinators.SequentialComposition <> Composition.pM1 var
+R371:372 Undecidability.TM.Combinators.SequentialComposition <> R1:7 var
+R391:398 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R384:388 Undecidability.TM.Util.TM_facts <> :::x_'⊨'_x not
+R381:383 Undecidability.TM.Combinators.SequentialComposition <> Composition.pM2 var
+R389:390 Undecidability.TM.Combinators.SequentialComposition <> R2:8 var
+R402:406 Undecidability.TM.Util.TM_facts <> :::x_'⊨'_x not
+R399:401 Undecidability.TM.Combinators.SequentialComposition <> Seq def
+R407:410 Undecidability.TM.Util.Relations <> :::'⋃_'_x_x not
+R412:413 Undecidability.TM.Util.Relations <> :::'⋃_'_x_x not
+R430:430 Undecidability.TM.Util.Relations <> :::'⋃_'_x_x not
+binder 411:411 <> y:9
+R414:414 Undecidability.TM.Util.Relations <> :::x_'∘'_x not
+R422:427 Undecidability.TM.Util.Relations <> :::x_'∘'_x not
+R417:420 Undecidability.TM.Util.Relations <> :::x_'|_'_x not
+R415:416 Undecidability.TM.Combinators.SequentialComposition <> R1:7 var
+R421:421 Undecidability.TM.Combinators.SequentialComposition <> y:9 var
+R428:429 Undecidability.TM.Combinators.SequentialComposition <> R2:8 var
+R465:480 Undecidability.TM.Util.TM_facts <> Realise_monotone thm
+R465:480 Undecidability.TM.Util.TM_facts <> Realise_monotone thm
+R497:510 Undecidability.TM.Combinators.Switch <> Switch_Realise thm
+R497:510 Undecidability.TM.Combinators.Switch <> Switch_Realise thm
+prf 582:597 <> Seq_TerminatesIn
+binder 599:600 <> R1:10
+binder 602:603 <> T1:11
+binder 605:606 <> T2:12
+R624:631 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R617:621 Undecidability.TM.Util.TM_facts <> :::x_'⊨'_x not
+R614:616 Undecidability.TM.Combinators.SequentialComposition <> Composition.pM1 var
+R622:623 Undecidability.TM.Combinators.SequentialComposition <> R1:10 var
+R649:656 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R642:646 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R632:637 Coq.Init.Specif <> projT1 def
+R639:641 Undecidability.TM.Combinators.SequentialComposition <> Composition.pM1 var
+R647:648 Undecidability.TM.Combinators.SequentialComposition <> T1:11 var
+R674:681 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R667:671 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R657:662 Coq.Init.Specif <> projT1 def
+R664:666 Undecidability.TM.Combinators.SequentialComposition <> Composition.pM2 var
+R672:673 Undecidability.TM.Combinators.SequentialComposition <> T2:12 var
+R692:708 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R851:851 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R682:687 Coq.Init.Specif <> projT1 def
+R689:691 Undecidability.TM.Combinators.SequentialComposition <> Seq def
+binder 713:715 <> tin:13
+binder 717:717 <> i:14
+R722:728 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R734:735 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 729:730 <> i1:15
+binder 732:733 <> i2:16
+R745:748 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R736:737 Undecidability.TM.Combinators.SequentialComposition <> T1:11 var
+R739:741 Undecidability.TM.Combinators.SequentialComposition <> tin:13 var
+R743:744 Undecidability.TM.Combinators.SequentialComposition <> i1:15 var
+R765:799 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R760:763 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R755:757 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R750:752 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R753:754 Undecidability.TM.Combinators.SequentialComposition <> i1:15 var
+R758:759 Undecidability.TM.Combinators.SequentialComposition <> i2:16 var
+R764:764 Undecidability.TM.Combinators.SequentialComposition <> i:14 var
+binder 807:810 <> tout:17
+binder 812:815 <> yout:18
+R837:840 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R818:819 Undecidability.TM.Combinators.SequentialComposition <> R1:10 var
+R821:823 Undecidability.TM.Combinators.SequentialComposition <> tin:13 var
+R825:825 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R830:831 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R836:836 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R826:829 Undecidability.TM.Combinators.SequentialComposition <> yout:18 var
+R832:835 Undecidability.TM.Combinators.SequentialComposition <> tout:17 var
+R841:842 Undecidability.TM.Combinators.SequentialComposition <> T2:12 var
+R844:847 Undecidability.TM.Combinators.SequentialComposition <> tout:17 var
+R849:850 Undecidability.TM.Combinators.SequentialComposition <> i2:16 var
+R909:929 Undecidability.TM.Util.TM_facts <> TerminatesIn_monotone thm
+R909:929 Undecidability.TM.Util.TM_facts <> TerminatesIn_monotone thm
+R945:963 Undecidability.TM.Combinators.Switch <> Switch_TerminatesIn thm
+R945:963 Undecidability.TM.Combinators.Switch <> Switch_TerminatesIn thm
+prf 1124:1140 <> Seq_TerminatesIn'
+binder 1142:1143 <> R1:19
+binder 1145:1146 <> T1:20
+binder 1148:1149 <> T2:21
+R1167:1174 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1160:1164 Undecidability.TM.Util.TM_facts <> :::x_'⊨'_x not
+R1157:1159 Undecidability.TM.Combinators.SequentialComposition <> Composition.pM1 var
+R1165:1166 Undecidability.TM.Combinators.SequentialComposition <> R1:19 var
+R1192:1199 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1185:1189 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R1175:1180 Coq.Init.Specif <> projT1 def
+R1182:1184 Undecidability.TM.Combinators.SequentialComposition <> Composition.pM1 var
+R1190:1191 Undecidability.TM.Combinators.SequentialComposition <> T1:20 var
+R1217:1224 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1210:1214 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R1200:1205 Coq.Init.Specif <> projT1 def
+R1207:1209 Undecidability.TM.Combinators.SequentialComposition <> Composition.pM2 var
+R1215:1216 Undecidability.TM.Combinators.SequentialComposition <> T2:21 var
+R1235:1240 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R1360:1360 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R1225:1230 Coq.Init.Specif <> projT1 def
+R1232:1234 Undecidability.TM.Combinators.SequentialComposition <> Seq def
+binder 1245:1247 <> tin:22
+binder 1249:1249 <> i:23
+R1254:1260 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1263:1264 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1261:1262 <> i1:24
+R1274:1277 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1265:1266 Undecidability.TM.Combinators.SequentialComposition <> T1:20 var
+R1268:1270 Undecidability.TM.Combinators.SequentialComposition <> tin:22 var
+R1272:1273 Undecidability.TM.Combinators.SequentialComposition <> i1:24 var
+binder 1285:1288 <> tout:25
+binder 1290:1293 <> yout:26
+R1315:1318 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1296:1297 Undecidability.TM.Combinators.SequentialComposition <> R1:19 var
+R1299:1301 Undecidability.TM.Combinators.SequentialComposition <> tin:22 var
+R1303:1303 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1308:1309 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1314:1314 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1304:1307 Undecidability.TM.Combinators.SequentialComposition <> yout:26 var
+R1310:1313 Undecidability.TM.Combinators.SequentialComposition <> tout:25 var
+R1319:1325 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1328:1329 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1326:1327 <> i2:27
+R1346:1349 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1341:1344 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1336:1338 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1331:1333 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1334:1335 Undecidability.TM.Combinators.SequentialComposition <> i1:24 var
+R1339:1340 Undecidability.TM.Combinators.SequentialComposition <> i2:27 var
+R1345:1345 Undecidability.TM.Combinators.SequentialComposition <> i:23 var
+R1350:1351 Undecidability.TM.Combinators.SequentialComposition <> T2:21 var
+R1353:1356 Undecidability.TM.Combinators.SequentialComposition <> tout:25 var
+R1358:1359 Undecidability.TM.Combinators.SequentialComposition <> i2:27 var
+R1418:1438 Undecidability.TM.Util.TM_facts <> TerminatesIn_monotone thm
+R1418:1438 Undecidability.TM.Util.TM_facts <> TerminatesIn_monotone thm
+R1454:1473 Undecidability.TM.Combinators.Switch <> Switch_TerminatesIn' thm
+R1454:1473 Undecidability.TM.Combinators.Switch <> Switch_TerminatesIn' thm
+prf 1601:1613 <> Seq_RealiseIn
+R1621:1623 Undecidability.TM.Util.Relations <> Rel def
+binder 1616:1617 <> R1:28
+R1636:1638 Undecidability.TM.Util.Relations <> Rel def
+R1645:1647 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1643:1644 Undecidability.TM.Combinators.SequentialComposition <> Composition.F2 var
+binder 1631:1632 <> R2:29
+binder 1652:1653 <> k1:30
+binder 1655:1656 <> k2:31
+R1678:1685 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1666:1671 Undecidability.TM.Util.TM_facts <> :::x_'⊨c('_x_')'_x not
+R1674:1675 Undecidability.TM.Util.TM_facts <> :::x_'⊨c('_x_')'_x not
+R1663:1665 Undecidability.TM.Combinators.SequentialComposition <> Composition.pM1 var
+R1676:1677 Undecidability.TM.Combinators.SequentialComposition <> R1:28 var
+R1672:1673 Undecidability.TM.Combinators.SequentialComposition <> k1:30 var
+R1701:1708 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1689:1694 Undecidability.TM.Util.TM_facts <> :::x_'⊨c('_x_')'_x not
+R1697:1698 Undecidability.TM.Util.TM_facts <> :::x_'⊨c('_x_')'_x not
+R1686:1688 Undecidability.TM.Combinators.SequentialComposition <> Composition.pM2 var
+R1699:1700 Undecidability.TM.Combinators.SequentialComposition <> R2:29 var
+R1695:1696 Undecidability.TM.Combinators.SequentialComposition <> k2:31 var
+R1712:1717 Undecidability.TM.Util.TM_facts <> :::x_'⊨c('_x_')'_x not
+R1729:1730 Undecidability.TM.Util.TM_facts <> :::x_'⊨c('_x_')'_x not
+R1709:1711 Undecidability.TM.Combinators.SequentialComposition <> Seq def
+R1731:1734 Undecidability.TM.Util.Relations <> :::'⋃_'_x_x not
+R1736:1737 Undecidability.TM.Util.Relations <> :::'⋃_'_x_x not
+R1753:1753 Undecidability.TM.Util.Relations <> :::'⋃_'_x_x not
+binder 1735:1735 <> y:32
+R1738:1738 Undecidability.TM.Util.Relations <> :::x_'∘'_x not
+R1745:1750 Undecidability.TM.Util.Relations <> :::x_'∘'_x not
+R1741:1743 Undecidability.TM.Util.Relations <> :::x_'|_'_x not
+R1739:1740 Undecidability.TM.Combinators.SequentialComposition <> R1:28 var
+R1744:1744 Undecidability.TM.Combinators.SequentialComposition <> y:32 var
+R1751:1752 Undecidability.TM.Combinators.SequentialComposition <> R2:29 var
+R1724:1726 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1719:1721 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1722:1723 Undecidability.TM.Combinators.SequentialComposition <> k1:30 var
+R1727:1728 Undecidability.TM.Combinators.SequentialComposition <> k2:31 var
+R1794:1811 Undecidability.TM.Util.TM_facts <> RealiseIn_monotone thm
+R1794:1811 Undecidability.TM.Util.TM_facts <> RealiseIn_monotone thm
+R1828:1843 Undecidability.TM.Combinators.Switch <> Switch_RealiseIn thm
+R1828:1843 Undecidability.TM.Combinators.Switch <> Switch_RealiseIn thm
+R1930:1940 Undecidability.TM.Combinators.SequentialComposition Composition <> sec
+R1966:1968 Undecidability.TM.Combinators.SequentialComposition <> Seq def
+not 1953:1953 <> :::x_';;'_x
+R2022:2024 Undecidability.TM.Combinators.SequentialComposition <> Seq def

@@ -1,0 +1,227 @@
+DIGEST cd73e09fc3d94d7d58e3a3ff9b3e1176
+FKamiHW.RuleStep
+R441:449 Kami.Kami <> <> lib
+R451:464 Kami.Semantics <> <> lib
+R491:496 Coq.Strings.String <> <> lib
+R498:501 Coq.Lists.List <> <> lib
+R531:541 KamiHW.ThieleTypes <> <> lib
+R543:555 KamiHW.ThieleCPUCore <> <> lib
+R557:566 KamiHW.HWBoundary <> <> lib
+R568:582 KamiHW.ActionEvaluator <> <> lib
+R586:602 KamiHW.ActionObservation <> <> lib
+R604:612 KamiHW.CoreRules <> <> lib
+R614:623 KamiHW.CoreTyping <> <> lib
+R625:637 KamiHW.CoreExecution <> <> lib
+R639:646 KamiHW.RuleNext <> <> lib
+R648:664 KamiHW.DispatchExecution <> <> lib
+R668:686 KamiHW.DispatchObservation <> <> lib
+R688:700 KamiHW.DispatchFetch <> <> lib
+R702:716 KamiHW.BoundaryDecoded <> <> lib
+R726:738 Coq.Lists.List ListNotations <> mod
+def 778:786 <> rule_next
+R793:800 KamiHW.CoreRules <> cpu_rule def
+binder 789:789 <> r:1
+R808:810 KamiHW.HWBoundary <> HWB rec
+binder 804:804 <> b:2
+R815:817 KamiHW.HWBoundary <> HWB rec
+R824:832 KamiHW.RuleNext <> hwb_after def
+R834:834 KamiHW.RuleStep <> b:2 var
+binder 841:843 <> key:3
+R848:867 KamiHW.ActionObservation <> observe_action_write def
+R887:894 Kami.Lib.Struct <> attrType proj
+R898:901 Kami.Syntax <> type def
+R896:896 KamiHW.RuleStep <> r:1 var
+R882:884 KamiHW.RuleStep <> key:3 var
+R870:877 KamiHW.HWBoundary <> hwb_regs def
+R879:879 KamiHW.RuleStep <> b:2 var
+prf 915:931 <> rule_next_correct
+binder 942:942 <> r:4
+binder 944:944 <> b:5
+binder 946:946 <> u:6
+R977:982 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R951:952 Coq.Lists.List <> In def
+R957:964 Kami.Syntax <> getRules def
+R966:975 KamiHW.ThieleCPUCore <> thieleCore def
+R954:954 KamiHW.RuleStep <> r:4 var
+R1020:1025 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1011:1013 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R983:995 KamiHW.CoreExecution <> eval_cpu_rule def
+R998:1005 KamiHW.HWBoundary <> hwb_regs def
+R1007:1007 KamiHW.RuleStep <> b:5 var
+R1010:1010 KamiHW.RuleStep <> r:4 var
+R1014:1017 Coq.Init.Datatypes <> Some constr
+R1019:1019 KamiHW.RuleStep <> u:6 var
+R1048:1050 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1026:1032 Kami.Lib.FMap M union def
+R1037:1044 KamiHW.HWBoundary <> hwb_regs def
+R1046:1046 KamiHW.RuleStep <> b:5 var
+R1034:1034 KamiHW.RuleStep <> u:6 var
+R1051:1058 KamiHW.HWBoundary <> hwb_regs def
+R1061:1069 KamiHW.RuleStep <> rule_next def
+R1071:1071 KamiHW.RuleStep <> r:4 var
+R1073:1073 KamiHW.RuleStep <> b:5 var
+R1114:1126 KamiHW.CoreExecution <> eval_cpu_rule def
+R1147:1164 KamiHW.ActionEvaluator <> eval_linear_action def
+R1180:1187 Kami.Lib.Struct <> attrType proj
+R1191:1194 Kami.Syntax <> type def
+R1167:1174 KamiHW.HWBoundary <> hwb_regs def
+R1147:1164 KamiHW.ActionEvaluator <> eval_linear_action def
+R1180:1187 Kami.Lib.Struct <> attrType proj
+R1191:1194 Kami.Syntax <> type def
+R1167:1174 KamiHW.HWBoundary <> hwb_regs def
+R1282:1286 Coq.Init.Logic <> proj1 thm
+R1308:1326 KamiHW.CoreTyping <> cpu_writes_declared thm
+R1289:1301 Coq.Lists.List <> Forall_forall thm
+R1282:1286 Coq.Init.Logic <> proj1 thm
+R1308:1326 KamiHW.CoreTyping <> cpu_writes_declared thm
+R1289:1301 Coq.Lists.List <> Forall_forall thm
+R1356:1360 Coq.Init.Logic <> proj1 thm
+R1382:1397 KamiHW.CoreRules <> cpu_rules_linear thm
+R1363:1375 Coq.Lists.List <> Forall_forall thm
+R1356:1360 Coq.Init.Logic <> proj1 thm
+R1382:1397 KamiHW.CoreRules <> cpu_rules_linear thm
+R1363:1375 Coq.Lists.List <> Forall_forall thm
+R1424:1438 KamiHW.RuleNext <> hwb_after_union thm
+R1445:1467 KamiHW.CoreTyping <> evaluated_updates_match thm
+R1424:1438 KamiHW.RuleNext <> hwb_after_union thm
+R1445:1467 KamiHW.CoreTyping <> evaluated_updates_match thm
+R1424:1438 KamiHW.RuleNext <> hwb_after_union thm
+R1445:1467 KamiHW.CoreTyping <> evaluated_updates_match thm
+R1499:1507 KamiHW.RuleStep <> rule_next def
+R1525:1537 KamiHW.RuleNext <> hwb_after_ext thm
+R1525:1537 KamiHW.RuleNext <> hwb_after_ext thm
+R1570:1597 KamiHW.ActionObservation <> observe_action_write_correct thm
+R1570:1597 KamiHW.ActionObservation <> observe_action_write_correct thm
+R1621:1644 KamiHW.ActionEvaluator <> eval_linear_action_sound thm
+R1621:1644 KamiHW.ActionEvaluator <> eval_linear_action_sound thm
+prf 1669:1690 <> dispatch_with_own_imem
+binder 1701:1701 <> b:7
+R1738:1740 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1706:1723 KamiHW.DispatchFetch <> dispatch_with_imem def
+R1725:1725 KamiHW.RuleStep <> b:7 var
+R1728:1734 KamiHW.HWBoundary <> hw_imem proj
+R1736:1736 KamiHW.RuleStep <> b:7 var
+R1741:1748 KamiHW.HWBoundary <> hwb_regs def
+R1750:1750 KamiHW.RuleStep <> b:7 var
+R1790:1807 KamiHW.DispatchFetch <> dispatch_with_imem def
+R1822:1831 Coq.Strings.String <> string_dec def
+R1822:1831 Coq.Strings.String <> string_dec def
+R1880:1891 Kami.Lib.FMap M find_add_1 thm
+R1880:1891 Kami.Lib.FMap M find_add_1 thm
+R1880:1891 Kami.Lib.FMap M find_add_1 thm
+R1919:1930 Kami.Lib.FMap M find_add_2 thm
+R1919:1930 Kami.Lib.FMap M find_add_2 thm
+R1919:1930 Kami.Lib.FMap M find_add_2 thm
+def 2097:2108 <> step_fetched
+R2115:2117 KamiHW.HWBoundary <> HWB rec
+binder 2111:2111 <> b:8
+R2122:2125 Kami.Lib.Word <> word ind
+R2127:2133 KamiHW.ThieleTypes <> InstrSz def
+R2140:2146 KamiHW.HWBoundary <> hw_imem proj
+R2148:2148 KamiHW.RuleStep <> b:8 var
+R2151:2172 KamiHW.DispatchFetch <> dispatch_fetch_address def
+R2174:2174 KamiHW.RuleStep <> b:8 var
+def 2190:2198 <> step_next
+R2205:2207 KamiHW.HWBoundary <> HWB rec
+binder 2201:2201 <> b:9
+R2212:2214 KamiHW.HWBoundary <> HWB rec
+R2221:2229 KamiHW.RuleNext <> hwb_after def
+R2231:2231 KamiHW.RuleStep <> b:9 var
+binder 2238:2240 <> key:10
+R2249:2268 KamiHW.ActionObservation <> observe_action_write def
+R2287:2297 KamiHW.BoundaryDecoded <> hwb_decoded def
+R2299:2299 KamiHW.RuleStep <> b:9 var
+R2302:2313 KamiHW.RuleStep <> step_fetched def
+R2315:2315 KamiHW.RuleStep <> b:9 var
+R2282:2284 KamiHW.RuleStep <> key:10 var
+R2271:2277 Kami.Lib.FMap M empty def
+prf 2328:2341 <> step_rule_next
+binder 2352:2352 <> b:11
+R2380:2382 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2355:2363 KamiHW.RuleStep <> rule_next def
+R2365:2377 KamiHW.DispatchExecution <> dispatch_rule def
+R2379:2379 KamiHW.RuleStep <> b:11 var
+R2383:2391 KamiHW.RuleStep <> step_next def
+R2393:2393 KamiHW.RuleStep <> b:11 var
+R2421:2429 KamiHW.RuleStep <> rule_next def
+R2432:2440 KamiHW.RuleStep <> step_next def
+R2449:2461 KamiHW.RuleNext <> hwb_after_ext thm
+R2449:2461 KamiHW.RuleNext <> hwb_after_ext thm
+R2524:2530 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2485:2506 KamiHW.DispatchObservation <> observe_dispatch_write def
+R2509:2516 KamiHW.HWBoundary <> hwb_regs def
+R2531:2550 KamiHW.ActionObservation <> observe_action_write def
+R2569:2579 KamiHW.BoundaryDecoded <> hwb_decoded def
+R2584:2595 KamiHW.RuleStep <> step_fetched def
+R2553:2559 Kami.Lib.FMap M empty def
+R2524:2530 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2485:2506 KamiHW.DispatchObservation <> observe_dispatch_write def
+R2509:2516 KamiHW.HWBoundary <> hwb_regs def
+R2531:2550 KamiHW.ActionObservation <> observe_action_write def
+R2569:2579 KamiHW.BoundaryDecoded <> hwb_decoded def
+R2584:2595 KamiHW.RuleStep <> step_fetched def
+R2553:2559 Kami.Lib.FMap M empty def
+R2616:2637 KamiHW.RuleStep <> dispatch_with_own_imem thm
+R2616:2637 KamiHW.RuleStep <> dispatch_with_own_imem thm
+R2616:2637 KamiHW.RuleStep <> dispatch_with_own_imem thm
+R2653:2686 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
+R2653:2686 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
+prf 2701:2722 <> eval_cpu_rule_dispatch
+binder 2733:2735 <> old:12
+R2771:2773 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2740:2752 KamiHW.CoreExecution <> eval_cpu_rule def
+R2754:2756 KamiHW.RuleStep <> old:12 var
+R2758:2770 KamiHW.DispatchExecution <> dispatch_rule def
+R2774:2786 KamiHW.DispatchExecution <> eval_dispatch def
+R2788:2790 KamiHW.RuleStep <> old:12 var
+R2818:2830 KamiHW.CoreExecution <> eval_cpu_rule def
+R2833:2845 KamiHW.DispatchExecution <> eval_dispatch def
+prf 2875:2891 <> step_next_correct
+binder 2902:2902 <> b:13
+binder 2904:2904 <> u:14
+R2944:2949 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2935:2937 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2909:2921 KamiHW.DispatchExecution <> eval_dispatch def
+R2924:2931 KamiHW.HWBoundary <> hwb_regs def
+R2933:2933 KamiHW.RuleStep <> b:13 var
+R2938:2941 Coq.Init.Datatypes <> Some constr
+R2943:2943 KamiHW.RuleStep <> u:14 var
+R2972:2974 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2950:2956 Kami.Lib.FMap M union def
+R2961:2968 KamiHW.HWBoundary <> hwb_regs def
+R2970:2970 KamiHW.RuleStep <> b:13 var
+R2958:2958 KamiHW.RuleStep <> u:14 var
+R2975:2982 KamiHW.HWBoundary <> hwb_regs def
+R2985:2993 KamiHW.RuleStep <> step_next def
+R2995:2995 KamiHW.RuleStep <> b:13 var
+R3034:3047 KamiHW.RuleStep <> step_rule_next thm
+R3034:3047 KamiHW.RuleStep <> step_rule_next thm
+R3034:3047 KamiHW.RuleStep <> step_rule_next thm
+R3058:3074 KamiHW.RuleStep <> rule_next_correct thm
+R3084:3099 KamiHW.DispatchExecution <> dispatch_rule_in thm
+R3058:3074 KamiHW.RuleStep <> rule_next_correct thm
+R3084:3099 KamiHW.DispatchExecution <> dispatch_rule_in thm
+R3114:3135 KamiHW.RuleStep <> eval_cpu_rule_dispatch thm
+R3114:3135 KamiHW.RuleStep <> eval_cpu_rule_dispatch thm
+R3114:3135 KamiHW.RuleStep <> eval_cpu_rule_dispatch thm
+prf 3263:3279 <> step_next_fetched
+binder 3290:3290 <> b:15
+binder 3292:3292 <> w:16
+R3315:3320 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3311:3313 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3297:3308 KamiHW.RuleStep <> step_fetched def
+R3310:3310 KamiHW.RuleStep <> b:15 var
+R3314:3314 KamiHW.RuleStep <> w:16 var
+R3332:3334 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3321:3329 KamiHW.RuleStep <> step_next def
+R3331:3331 KamiHW.RuleStep <> b:15 var
+R3335:3343 KamiHW.RuleNext <> hwb_after def
+R3345:3345 KamiHW.RuleStep <> b:15 var
+binder 3352:3354 <> key:17
+R3363:3382 KamiHW.ActionObservation <> observe_action_write def
+R3401:3411 KamiHW.BoundaryDecoded <> hwb_decoded def
+R3413:3413 KamiHW.RuleStep <> b:15 var
+R3415:3415 KamiHW.RuleStep <> w:16 var
+R3396:3398 KamiHW.RuleStep <> key:17 var
+R3385:3391 Kami.Lib.FMap M empty def
+R3448:3456 KamiHW.RuleStep <> step_next def

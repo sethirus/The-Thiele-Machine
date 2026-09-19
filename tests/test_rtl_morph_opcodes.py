@@ -4,14 +4,14 @@ These tests validate that the 7 MORPH categorical opcodes execute correctly
 through the Kami-generated Verilog RTL (thiele_cpu_kami.v), exercising:
   - μ-cost charging (plain cost for most, cost+1 for MORPH_ASSERT cert-setter)
   - Register write semantics (new morphism ID written to dst for creating ops)
-  - Error-free execution
+  - Successful execution and specified MORPH_TENSOR failure
   - Accumulated μ over multi-opcode sequences
 
 The RTL validates preconditions: modules must exist in the partition table
 before MORPH/MORPH_ID, and morphisms must be valid in morph_valid_table
-before COMPOSE/DELETE/ASSERT/TENSOR/GET.  COMPOSE and MORPH_TENSOR require
-the _EXT (FMT_MORPH_INLINE) encoding; the legacy format unconditionally
-errors for these two opcodes.
+before COMPOSE/DELETE/ASSERT/GET. COMPOSE requires the _EXT
+(FMT_MORPH_INLINE) encoding. MORPH_TENSOR always faults because represented
+module regions overlap, so the kernel tensor product cannot exist.
 """
 
 from __future__ import annotations
@@ -104,9 +104,10 @@ class TestMorphRTLSmoke:
         assert state["mu"] == 5  # cost=4 → charges 4+1=5
 
     def test_morph_tensor_charges_mu(self):
-        """MORPH_TENSOR computes the tensor product of two morphisms; charges cost μ."""
+        """The unavailable tensor product faults and still charges its cost."""
         state = _run_cosim(_MORPH_PREAMBLE + "MORPH_TENSOR_EXT 0 1 2 3\nHALT")
-        assert not state.get("err"), "MORPH_TENSOR set error flag"
+        assert state["err"]
+        assert state["error_code"] == 0xBADC0003
         assert state["mu"] == 3
 
     def test_morph_get_charges_mu(self):
@@ -148,9 +149,13 @@ class TestMorphRTLRegisterWrite:
         """MORPH_ID writes new morphism ID to destination register."""
         self._verify_writes_to_dst("MORPH_ID 0 1 1", 0)
 
-    def test_morph_tensor_writes_to_dst(self):
-        """MORPH_TENSOR writes new morphism ID to destination register."""
-        self._verify_writes_to_dst("MORPH_TENSOR_EXT 0 1 2 1", 0)
+    def test_morph_tensor_preserves_dst_on_fault(self):
+        state = _run_cosim(_MORPH_PREAMBLE +
+                           f"LOAD_IMM 0 {self._SENTINEL} 0\nMORPH_TENSOR_EXT 0 1 2 1\nHALT")
+        assert state["err"]
+        assert state["error_code"] == 0xBADC0003
+        assert state["regs"][0] == self._SENTINEL
+        assert len(state["graph"]["morphisms"]) == 2
 
     def test_morph_get_writes_to_dst(self):
         """MORPH_GET writes field value to destination register."""
@@ -211,11 +216,12 @@ class TestMorphRTLMuAccumulation:
             "MORPH_ID 0 1 1\n"           # +1, creates morph5
             "MORPH_DELETE 3 0 1\n"        # +1, deletes morph3
             "MORPH_ASSERT 1 0 1\n"        # +2 (cert-setter)
-            "MORPH_TENSOR_EXT 0 1 2 1\n"  # +1, creates morph6
             "MORPH_GET 0 1 1\n"           # +1
+            "MORPH_TENSOR_EXT 0 1 2 1\n"  # +1, specified fault
             "HALT"
         )
-        assert not state.get("err")
+        assert state["err"]
+        assert state["error_code"] == 0xBADC0003
         assert state["mu"] == 8  # 1+1+1+1+2+1+1
 
     def test_morph_interleaved_with_pnew(self):
@@ -250,3 +256,134 @@ class TestMorphRTLMuAccumulation:
         """MORPH_ASSERT with cost=0 still charges μ=1 (cert-setter minimum)."""
         state = _run_cosim(_MORPH_PREAMBLE + "MORPH_ASSERT 1 0 0\nHALT")
         assert state["mu"] == 1  # S(0) = 1
+
+
+def _coupling_memory(base, pairs):
+    words = [len(pairs)] + [cell for pair in pairs for cell in pair]
+    return "".join(f"INIT_MEM {base + offset} {word}\n" for offset, word in enumerate(words))
+
+
+def _pairs(state, morph_id):
+    return next(m["coupling"]["pairs"] for m in state["graph"]["morphisms"] if m["id"] == morph_id)
+
+
+class TestMorphRTLCouplingData:
+    def test_morph_reads_upper_half_memory(self):
+        program = _coupling_memory(80, [(1, 2)])
+        state = _run_cosim(program + "PNEW {1} 0\nPNEW {2} 0\nMORPH_EXT 0 1 2 80 0\nHALT")
+        assert not state["err"]
+        assert _pairs(state, 1) == [[1, 2]]
+
+    def test_empty_morph_preserves_existing_pairs(self):
+        program = _coupling_memory(80, [(1, 2)])
+        state = _run_cosim(program + "PNEW {1} 0\nPNEW {2} 0\nMORPH_EXT 0 1 2 80 0\nMORPH_EXT 0 1 2 0 0\nHALT")
+        assert not state["err"]
+        assert _pairs(state, 1) == [[1, 2]]
+        assert _pairs(state, 2) == []
+
+    def test_compose_joins_nonempty_pairs(self):
+        program = _coupling_memory(80, [(1, 2)]) + _coupling_memory(90, [(2, 3)])
+        state = _run_cosim(program + "PNEW {1} 0\nPNEW {2} 0\nPNEW {3} 0\nMORPH_EXT 0 1 2 80 0\nMORPH_EXT 0 2 3 90 0\nCOMPOSE_EXT 0 1 2 0\nHALT")
+        assert not state["err"]
+        assert _pairs(state, 3) == [[1, 3]]
+
+    @pytest.mark.parametrize("empty_first", [True, False])
+    def test_compose_empty_relation(self, empty_first):
+        memory = _coupling_memory(80, [(1, 2)]) + _coupling_memory(90, [(2, 3)])
+        first, second = (0, 90) if empty_first else (80, 0)
+        state = _run_cosim(memory + f"PNEW {{1}} 0\nPNEW {{2}} 0\nPNEW {{3}} 0\nMORPH_EXT 0 1 2 {first} 0\nMORPH_EXT 0 2 3 {second} 0\nCOMPOSE_EXT 0 1 2 0\nHALT")
+        assert not state["err"]
+        assert _pairs(state, 3) == []
+
+    def test_compose_identity_copies_pairs(self):
+        program = _coupling_memory(80, [(1, 2)])
+        state = _run_cosim(program + "PNEW {1} 0\nPNEW {2} 0\nMORPH_ID 0 1 0\nMORPH_EXT 0 1 2 80 0\nCOMPOSE_EXT 0 1 2 0\nHALT")
+        assert not state["err"]
+        assert _pairs(state, 3) == [[1, 2]]
+
+    def test_tensor_fault_preserves_both_pair_ranges(self):
+        program = _coupling_memory(80, [(1, 2)]) + _coupling_memory(90, [(3, 4)])
+        state = _run_cosim(program + "PNEW {1} 0\nPNEW {2} 0\nPNEW {3} 0\nPNEW {4} 0\nMORPH_EXT 0 1 2 80 0\nMORPH_EXT 0 3 4 90 0\nMORPH_TENSOR_EXT 0 1 2 0\nHALT")
+        assert state["err"]
+        assert state["error_code"] == 0xBADC0003
+        assert len(state["graph"]["morphisms"]) == 2
+        assert _pairs(state, 1) == [[1, 2]]
+        assert _pairs(state, 2) == [[3, 4]]
+
+    def test_last_pair_slot_and_empty_allocation(self):
+        pairs = [(1, i) for i in range(16)]
+        program = _coupling_memory(64, pairs)
+        state = _run_cosim(program + "PNEW {1} 0\nPNEW {2} 0\nMORPH_EXT 0 1 2 64 0\nMORPH_EXT 0 1 2 0 0\nHALT")
+        assert not state["err"]
+        assert _pairs(state, 1) == [list(pair) for pair in pairs]
+        assert _pairs(state, 2) == []
+
+    def test_oversized_coupling_traps(self):
+        program = _coupling_memory(64, [(1, i) for i in range(17)])
+        state = _run_cosim(program + "PNEW {1} 0\nPNEW {2} 0\nMORPH_EXT 0 1 2 64 0\nHALT")
+        assert state["err"]
+
+    def test_copy_overflow_preserves_source_pairs(self):
+        pairs = [(1, i) for i in range(9)]
+        program = _coupling_memory(64, pairs)
+        state = _run_cosim(program + "PNEW {1} 0\nPNEW {2} 0\nMORPH_ID 0 1 0\nMORPH_EXT 0 1 2 64 0\nCOMPOSE_EXT 0 1 2 0\nHALT")
+        assert state["err"]
+        assert _pairs(state, 2) == [list(pair) for pair in pairs]
+
+    def test_first_descriptor_count_and_identity_remain_distinct(self):
+        program = _coupling_memory(80, [(1, 2)])
+        state = _run_cosim(program + "PNEW {1} 0\nPNEW {2} 0\nMORPH_EXT 0 1 2 80 0\nMORPH_ID 0 1 0\nMORPH_GET_EXT 4 1 2 0\nMORPH_GET_EXT 5 2 2 0\nHALT")
+        assert not state["err"]
+        assert state["regs"][4] == 1
+        assert state["regs"][5] == 0
+        assert _pairs(state, 2) == []
+
+    def test_join_uses_last_pair_slot(self):
+        first = [(i, i + 20) for i in range(14)]
+        program = _coupling_memory(64, first) + _coupling_memory(100, [(20, 40)])
+        state = _run_cosim(program + "PNEW {50} 0\nPNEW {50} 0\nPNEW {50} 0\nMORPH_EXT 0 1 2 64 0\nMORPH_EXT 0 2 3 100 0\nCOMPOSE_EXT 0 1 2 0\nHALT")
+        assert not state["err"]
+        assert _pairs(state, 3) == [[0, 40]]
+        assert _pairs(state, 1) == [list(pair) for pair in first]
+
+
+class TestPnewRTLRegionLength:
+    @pytest.mark.parametrize("start", [0, 20])
+    @pytest.mark.parametrize("address, expected_error", [(2, False), (3, True)])
+    def test_partition_wall_uses_encoded_length(self, start, address, expected_error):
+        """The hardware stores a local range of length three, regardless of start."""
+        region = ",".join(str(start + i) for i in range(3))
+        state = _run_cosim(
+            f"INIT_ACTIVE_MODULE 1\nINIT_MEM 2 42\n"
+            f"PNEW {{{region}}} 0\nLOAD_IMM 1 {address} 0\nLOAD 2 1 0\nHALT"
+        )
+        assert bool(state["err"]) == expected_error
+        if not expected_error:
+            assert state["regs"][2] == 42
+
+
+class TestRTLCouplingNormalization:
+    def test_morph_keeps_last_occurrence_and_reclaims_slots(self):
+        pairs = [(1, 2), (3, 4), (1, 2)]
+        program = _coupling_memory(64, pairs) + _coupling_memory(80, [(5, i) for i in range(14)])
+        state = _run_cosim(program + "PNEW {1} 0\nPNEW {2} 0\nMORPH_EXT 0 1 2 64 0\nMORPH_EXT 0 1 2 80 0\nMORPH_GET_EXT 4 1 2 0\nHALT")
+        assert not state["err"]
+        assert _pairs(state, 1) == [[3, 4], [1, 2]]
+        assert state["regs"][4] == 2
+        assert len(_pairs(state, 2)) == 14
+
+    def test_compose_normalizes_duplicate_join_results(self):
+        program = _coupling_memory(64, [(1, 2), (1, 3)]) + _coupling_memory(80, [(2, 4), (3, 4)])
+        state = _run_cosim(program + "PNEW {1} 0\nPNEW {2} 0\nPNEW {3} 0\nMORPH_EXT 0 1 2 64 0\nMORPH_EXT 0 2 3 80 0\nCOMPOSE_EXT 0 1 2 0\nHALT")
+        assert not state["err"]
+        assert _pairs(state, 3) == [[1, 4]]
+        assert _pairs(state, 1) == [[1, 2], [1, 3]]
+
+    def test_tensor_fault_preserves_overlapping_pair_ranges(self):
+        program = _coupling_memory(64, [(1, 2), (3, 4)]) + _coupling_memory(80, [(1, 2), (5, 6)])
+        state = _run_cosim(program + "PNEW {1} 0\nPNEW {2} 0\nPNEW {3} 0\nPNEW {4} 0\nMORPH_EXT 0 1 2 64 0\nMORPH_EXT 0 3 4 80 0\nMORPH_TENSOR_EXT 0 1 2 0\nHALT")
+        assert state["err"]
+        assert state["error_code"] == 0xBADC0003
+        assert len(state["graph"]["morphisms"]) == 2
+        assert _pairs(state, 1) == [[1, 2], [3, 4]]
+        assert _pairs(state, 2) == [[1, 2], [5, 6]]

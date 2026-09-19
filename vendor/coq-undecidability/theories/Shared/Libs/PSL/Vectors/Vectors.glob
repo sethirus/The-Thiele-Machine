@@ -1,0 +1,87 @@
+DIGEST 8d35a8671278dcfc1b64260b2223ad92
+FUndecidability.Shared.Libs.PSL.Vectors.Vectors
+R84:119 Undecidability.Shared.Libs.PSL.EqDec <> <> lib
+R154:156 Coq.Vectors.Fin <> <> lib
+R158:163 Coq.Vectors.Vector <> <> lib
+mod 240:255 <> VectorNotations2
+R282:284 Coq.Vectors.Vector <> nil constr
+not 268:268 VectorNotations2 ::vector_scope:'['_'|'_'|'_']'
+R349:352 Coq.Vectors.Vector <> cons constr
+not 333:333 VectorNotations2 ::vector_scope:x_':::'_x
+R441:445 Undecidability.Shared.Libs.PSL.Vectors.Vectors VectorNotations2 ::vector_scope:x_':::'_x not
+R446:450 Undecidability.Shared.Libs.PSL.Vectors.Vectors VectorNotations2 ::vector_scope:'['_'|'_'|'_']' not
+not 424:424 VectorNotations2 ::vector_scope:'['_'|'_x_'|'_']'
+R508:511 Coq.Vectors.Vector <> cons constr
+R520:523 Coq.Vectors.Vector <> cons constr
+R535:538 Coq.Vectors.Vector <> cons constr
+R547:549 Coq.Vectors.Vector <> nil constr
+not 478:478 VectorNotations2 ::vector_scope:'['_'|'_x_';'_x_';'_'..'_';'_x_'|'_']'
+R641:643 Coq.Vectors.Vector <> nth def
+not 626:626 VectorNotations2 ::vector_scope:x_'[@'_x_']'
+R703:718 Undecidability.Shared.Libs.PSL.Vectors.Vectors VectorNotations2 <> mod
+R729:744 Undecidability.Shared.Libs.PSL.Vectors.Vectors VectorNotations2 <> mod
+prf 754:775 <> destruct_vector_single
+binder 778:778 <> X:1
+R793:800 Coq.Vectors.Vector <> t ind
+R802:802 Undecidability.Shared.Libs.PSL.Vectors.Vectors <> X:1 var
+binder 789:789 <> v:2
+R812:814 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R811:811 Undecidability.Shared.Libs.PSL.Vectors.Vectors <> v:2 var
+R815:817 Undecidability.Shared.Libs.PSL.Vectors.Vectors VectorNotations2 ::vector_scope:'['_'|'_x_'|'_']' not
+R829:831 Undecidability.Shared.Libs.PSL.Vectors.Vectors VectorNotations2 ::vector_scope:'['_'|'_x_'|'_']' not
+R818:826 Coq.Vectors.Vector <> hd def
+R828:828 Undecidability.Shared.Libs.PSL.Vectors.Vectors <> v:2 var
+R850:859 Coq.Vectors.Vector <> eta thm
+R850:859 Coq.Vectors.Vector <> eta thm
+R850:859 Coq.Vectors.Vector <> eta thm
+R877:885 Coq.Vectors.Vector <> tl def
+R877:885 Coq.Vectors.Vector <> tl def
+R901:912 Coq.Vectors.Vector <> case0 def
+R901:912 Coq.Vectors.Vector <> case0 def
+inst 940:952 <> Vector_eq_dec
+binder 954:954 <> n:3
+binder 956:956 <> A:4
+R967:970 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R959:965 Undecidability.Shared.Libs.PSL.EqDecDef <> :::'eq_dec'_x not
+R966:966 Undecidability.Shared.Libs.PSL.Vectors.Vectors <> A:4 var
+R966:966 Undecidability.Shared.Libs.PSL.Vectors.Vectors <> A:4 var
+R971:978 Undecidability.Shared.Libs.PSL.EqDecDef <> :::'eq_dec'_x not
+R991:991 Undecidability.Shared.Libs.PSL.EqDecDef <> :::'eq_dec'_x not
+R979:986 Coq.Vectors.Vector <> t ind
+R988:988 Undecidability.Shared.Libs.PSL.Vectors.Vectors <> A:4 var
+R990:990 Undecidability.Shared.Libs.PSL.Vectors.Vectors <> n:3 var
+R979:986 Coq.Vectors.Vector <> t ind
+R988:988 Undecidability.Shared.Libs.PSL.Vectors.Vectors <> A:4 var
+R990:990 Undecidability.Shared.Libs.PSL.Vectors.Vectors <> n:3 var
+binder 1059:1059 <> x:5
+binder 1061:1061 <> y:6
+R1066:1074 Coq.Init.Specif <> proj1_sig def
+R1077:1099 Coq.Bool.Sumbool <> bool_of_sumbool def
+R1104:1104 Undecidability.Shared.Libs.PSL.Vectors.Vectors <> x:5 var
+R1106:1106 Undecidability.Shared.Libs.PSL.Vectors.Vectors <> y:6 var
+R1024:1038 Coq.Vectors.VectorEq <> eq_dec def
+binder 1059:1059 <> x:7
+binder 1061:1061 <> y:8
+R1066:1074 Coq.Init.Specif <> proj1_sig def
+R1077:1099 Coq.Bool.Sumbool <> bool_of_sumbool def
+R1104:1104 Undecidability.Shared.Libs.PSL.Vectors.Vectors <> x:7 var
+R1106:1106 Undecidability.Shared.Libs.PSL.Vectors.Vectors <> y:8 var
+R1024:1038 Coq.Vectors.VectorEq <> eq_dec def
+R1136:1158 Coq.Bool.Sumbool <> bool_of_sumbool def
+R1136:1158 Coq.Bool.Sumbool <> bool_of_sumbool def
+inst 1227:1236 <> Fin_eq_dec
+binder 1238:1238 <> n:9
+R1242:1249 Undecidability.Shared.Libs.PSL.EqDecDef <> :::'eq_dec'_x not
+R1257:1257 Undecidability.Shared.Libs.PSL.EqDecDef <> :::'eq_dec'_x not
+R1250:1254 Coq.Vectors.Fin <> t ind
+R1256:1256 Undecidability.Shared.Libs.PSL.Vectors.Vectors <> n:9 var
+R1250:1254 Coq.Vectors.Fin <> t ind
+R1256:1256 Undecidability.Shared.Libs.PSL.Vectors.Vectors <> n:9 var
+R1294:1300 Coq.Vectors.Fin <> eqb def
+R1294:1300 Coq.Vectors.Fin <> eqb def
+R1335:1344 Coq.Vectors.Fin <> eqb_eq thm
+R1335:1344 Coq.Vectors.Fin <> eqb_eq thm
+R1375:1384 Coq.Vectors.Fin <> eqb_eq thm
+R1375:1384 Coq.Vectors.Fin <> eqb_eq thm
+R1424:1433 Coq.Vectors.Vector <> eqb def
+R1424:1433 Coq.Vectors.Vector <> eqb def

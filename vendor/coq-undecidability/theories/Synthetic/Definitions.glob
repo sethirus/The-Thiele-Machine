@@ -1,0 +1,167 @@
+DIGEST 2ec63518864391e4e13d2c8c2ab70898
+FUndecidability.Synthetic.Definitions
+def 157:166 <> complement
+binder 169:169 <> X:1
+R178:181 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R177:177 Undecidability.Synthetic.Definitions <> X:1 var
+binder 173:173 <> P:2
+R199:199 Undecidability.Synthetic.Definitions <> X:1 var
+binder 195:195 <> x:3
+R204:205 Coq.Init.Logic <> ::type_scope:'~'_x not
+R206:206 Undecidability.Synthetic.Definitions <> P:2 var
+R208:208 Undecidability.Synthetic.Definitions <> x:3 var
+def 319:326 <> reflects
+R333:336 Coq.Init.Datatypes <> bool ind
+binder 329:329 <> b:4
+binder 340:340 <> p:5
+R354:358 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R353:353 Undecidability.Synthetic.Definitions <> p:5 var
+R360:362 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R359:359 Undecidability.Synthetic.Definitions <> b:4 var
+R363:366 Coq.Init.Datatypes <> true constr
+def 500:506 <> decider
+binder 509:509 <> X:6
+R518:521 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R517:517 Undecidability.Synthetic.Definitions <> X:6 var
+R522:525 Coq.Init.Datatypes <> bool ind
+binder 513:513 <> f:7
+R534:537 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R533:533 Undecidability.Synthetic.Definitions <> X:6 var
+binder 529:529 <> P:8
+binder 563:563 <> x:9
+R566:573 Undecidability.Synthetic.Definitions <> reflects def
+R576:576 Undecidability.Synthetic.Definitions <> f:7 var
+R578:578 Undecidability.Synthetic.Definitions <> x:9 var
+R582:582 Undecidability.Synthetic.Definitions <> P:8 var
+R584:584 Undecidability.Synthetic.Definitions <> x:9 var
+def 692:700 <> decidable
+binder 703:703 <> X:10
+R712:715 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R711:711 Undecidability.Synthetic.Definitions <> X:10 var
+binder 707:707 <> P:11
+R734:740 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R754:755 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R746:749 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R745:745 Undecidability.Synthetic.Definitions <> X:10 var
+R750:753 Coq.Init.Datatypes <> bool ind
+binder 741:741 <> f:12
+R756:762 Undecidability.Synthetic.Definitions <> decider def
+R766:766 Undecidability.Synthetic.Definitions <> P:11 var
+R764:764 Undecidability.Synthetic.Definitions <> f:12 var
+def 905:914 <> enumerator
+binder 917:917 <> X:13
+R928:931 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R925:927 Coq.Init.Datatypes <> nat ind
+R932:937 Coq.Init.Datatypes <> option ind
+R939:939 Undecidability.Synthetic.Definitions <> X:13 var
+binder 921:921 <> f:14
+R948:951 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R947:947 Undecidability.Synthetic.Definitions <> X:13 var
+binder 943:943 <> P:15
+binder 977:977 <> x:16
+R983:987 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R980:980 Undecidability.Synthetic.Definitions <> P:15 var
+R982:982 Undecidability.Synthetic.Definitions <> x:16 var
+R988:994 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R996:997 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 995:995 <> n:17
+R1001:1003 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R998:998 Undecidability.Synthetic.Definitions <> f:14 var
+R1000:1000 Undecidability.Synthetic.Definitions <> n:17 var
+R1004:1007 Coq.Init.Datatypes <> Some constr
+R1009:1009 Undecidability.Synthetic.Definitions <> x:16 var
+def 1127:1136 <> enumerable
+binder 1139:1139 <> X:18
+R1148:1151 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1147:1147 Undecidability.Synthetic.Definitions <> X:18 var
+binder 1143:1143 <> P:19
+R1170:1176 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1196:1197 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1184:1187 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1181:1183 Coq.Init.Datatypes <> nat ind
+R1188:1193 Coq.Init.Datatypes <> option ind
+R1195:1195 Undecidability.Synthetic.Definitions <> X:18 var
+binder 1177:1177 <> f:20
+R1198:1207 Undecidability.Synthetic.Definitions <> enumerator def
+R1211:1211 Undecidability.Synthetic.Definitions <> P:19 var
+R1209:1209 Undecidability.Synthetic.Definitions <> f:20 var
+def 1411:1422 <> semi_decider
+binder 1425:1425 <> X:21
+R1434:1437 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1433:1433 Undecidability.Synthetic.Definitions <> X:21 var
+R1441:1444 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1438:1440 Coq.Init.Datatypes <> nat ind
+R1445:1448 Coq.Init.Datatypes <> bool ind
+binder 1429:1429 <> f:22
+R1457:1460 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1456:1456 Undecidability.Synthetic.Definitions <> X:21 var
+binder 1452:1452 <> P:23
+binder 1486:1486 <> x:24
+R1492:1496 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1489:1489 Undecidability.Synthetic.Definitions <> P:23 var
+R1491:1491 Undecidability.Synthetic.Definitions <> x:24 var
+R1497:1503 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1505:1506 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1504:1504 <> n:25
+R1512:1514 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1507:1507 Undecidability.Synthetic.Definitions <> f:22 var
+R1511:1511 Undecidability.Synthetic.Definitions <> n:25 var
+R1509:1509 Undecidability.Synthetic.Definitions <> x:24 var
+R1515:1518 Coq.Init.Datatypes <> true constr
+def 1642:1655 <> semi_decidable
+binder 1658:1658 <> X:26
+R1667:1670 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1666:1666 Undecidability.Synthetic.Definitions <> X:26 var
+binder 1662:1662 <> P:27
+R1689:1695 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1716:1717 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1701:1704 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1700:1700 Undecidability.Synthetic.Definitions <> X:26 var
+R1708:1711 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1705:1707 Coq.Init.Datatypes <> nat ind
+R1712:1715 Coq.Init.Datatypes <> bool ind
+binder 1696:1696 <> f:28
+R1718:1729 Undecidability.Synthetic.Definitions <> semi_decider def
+R1733:1733 Undecidability.Synthetic.Definitions <> P:27 var
+R1731:1731 Undecidability.Synthetic.Definitions <> f:28 var
+def 1922:1930 <> reduction
+binder 1933:1933 <> X:29
+binder 1935:1935 <> Y:30
+R1944:1947 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1943:1943 Undecidability.Synthetic.Definitions <> X:29 var
+R1948:1948 Undecidability.Synthetic.Definitions <> Y:30 var
+binder 1939:1939 <> f:31
+R1957:1960 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1956:1956 Undecidability.Synthetic.Definitions <> X:29 var
+binder 1952:1952 <> P:32
+R1973:1976 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1972:1972 Undecidability.Synthetic.Definitions <> Y:30 var
+binder 1968:1968 <> Q:33
+binder 1995:1995 <> x:34
+R2001:2005 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1998:1998 Undecidability.Synthetic.Definitions <> P:32 var
+R2000:2000 Undecidability.Synthetic.Definitions <> x:34 var
+R2006:2006 Undecidability.Synthetic.Definitions <> Q:33 var
+R2009:2009 Undecidability.Synthetic.Definitions <> f:31 var
+R2011:2011 Undecidability.Synthetic.Definitions <> x:34 var
+def 2129:2135 <> reduces
+binder 2138:2138 <> X:35
+binder 2140:2140 <> Y:36
+R2149:2152 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2148:2148 Undecidability.Synthetic.Definitions <> X:35 var
+binder 2144:2144 <> P:37
+R2165:2168 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2164:2164 Undecidability.Synthetic.Definitions <> Y:36 var
+binder 2160:2160 <> Q:38
+R2180:2186 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2197:2198 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2192:2195 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2191:2191 Undecidability.Synthetic.Definitions <> X:35 var
+R2196:2196 Undecidability.Synthetic.Definitions <> Y:36 var
+binder 2187:2187 <> f:39
+R2199:2207 Undecidability.Synthetic.Definitions <> reduction def
+R2213:2213 Undecidability.Synthetic.Definitions <> Q:38 var
+R2211:2211 Undecidability.Synthetic.Definitions <> P:37 var
+R2209:2209 Undecidability.Synthetic.Definitions <> f:39 var
+R2239:2245 Undecidability.Synthetic.Definitions <> reduces def
+not 2225:2225 <> :::x_'⪯'_x

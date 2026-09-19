@@ -201,9 +201,13 @@ def check_invariants(result: Dict[str, Any], program: str) -> List[str]:
     if len(result.get("regs", [])) != 16:
         violations.append(f"Wrong register count: {len(result.get('regs', []))}")
 
-    # PC within bounds: 0-127 for instruction memory, or 0xF00 (trap vector)
+    # PC within bounds: 0-127 for instruction memory, or at/above the trap
+    # vector 0xF00. A Bianchi/locality/partition fault keeps its specified CPU
+    # outcome and redirects pc to the trap vector, after which pc advances
+    # normally (C2_DIVERGENCE_LEDGER.md, "Outside-domain outcomes kept" and
+    # "Morph runtime fault"), so pc can legitimately exceed 0xF00.
     pc = result.get("pc", -1)
-    if pc < 0 or (pc > 127 and pc != 0xF00):
+    if pc < 0 or (127 < pc < 0xF00):
         violations.append(f"PC out of bounds: {pc}")
 
     # Error code should be 0 for clean execution, or a known error code
@@ -366,15 +370,25 @@ class TestEdgeCases:
         assert result["mu"] >= 10
         assert result.get("err", 0) == 0, "Valid CHSH should not error"
 
-    def test_chsh_trial_invalid(self):
-        """CHSH_TRIAL with packed operand > 1 should set error."""
+    def test_chsh_trial_charges_declared_cost(self):
+        """CHSH_TRIAL charges only its declared cost; operands are not validated.
+
+        The CPU used to reject a packed operand > 1 (op_a > 1, the
+        supra-quantum x=1 setting) and charge a +256 surcharge when the
+        mu_tensor total was zero. `kami_step` does neither, so Devon's
+        2026-09-14 decision removed both (C2_DIVERGENCE_LEDGER.md,
+        "CHSH_TRIAL x=1"). A packed operand of 2 must therefore execute
+        cleanly and charge the declared 5.
+        """
         instrs = [
-            "CHSH_TRIAL 2 0 5",  # op_a=2 > 1, invalid
+            "CHSH_TRIAL 2 0 5",  # op_a=2; no longer invalid
             "HALT"
         ]
-        result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "invalid-chsh-trial case")
-        assert result.get("err", 0) != 0 or result.get("error_code", 0) != 0, \
-            "Invalid CHSH bits should trigger error"
+        result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "chsh-trial-cost case")
+        assert result.get("err", 0) == 0 and result.get("error_code", 0) == 0, \
+            f"CHSH_TRIAL must not error on op_a=2: {result}"
+        assert result.get("mu", 0) == 5, \
+            f"CHSH_TRIAL must charge its declared 5, got {result.get('mu')}"
 
     def test_partition_ops_counting(self):
         """PNEW/PSPLIT/PMERGE increment partition_ops counter."""
@@ -388,10 +402,14 @@ class TestEdgeCases:
         assert result["partition_ops"] >= 3
 
     def test_empty_program_halts(self):
-        """Just HALT should work cleanly."""
+        """Just HALT should work cleanly.
+
+        HALT advances pc, matching `kami_step` (C2_DIVERGENCE_LEDGER.md,
+        "HALT pc": the CPU used to hold pc, now it advances).
+        """
         result = _require_simulation_result(run_verilog("HALT", timeout=30), "empty-program case")
         assert result["mu"] == 0
-        assert result["pc"] == 0
+        assert result["pc"] == 1
 
 
 class TestMuMonotonicity:

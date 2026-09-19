@@ -1,0 +1,1442 @@
+DIGEST 02e99a4086cafe4255aba0b7e50e794a
+FKamiHW.HWBoundary
+R299:307 Kami.Kami <> <> lib
+R309:322 Kami.Semantics <> <> lib
+R352:362 KamiHW.ThieleTypes <> <> lib
+R364:376 KamiHW.ThieleCPUCore <> <> lib
+R403:408 Coq.Strings.String <> <> lib
+R410:413 Coq.Lists.List <> <> lib
+R423:435 Coq.Lists.List ListNotations <> mod
+rec 471:473 <> HWB
+proj 482:486 <> hw_pc
+proj 511:515 <> hw_mu
+proj 540:545 <> hw_err
+proj 564:572 <> hw_halted
+proj 591:597 <> hw_regs
+proj 640:645 <> hw_mem
+proj 689:695 <> hw_imem
+proj 740:755 <> hw_partition_ops
+proj 780:789 <> hw_mdl_ops
+proj 814:825 <> hw_info_gain
+proj 850:862 <> hw_error_code
+proj 887:898 <> hw_logic_acc
+proj 923:934 <> hw_cert_addr
+proj 959:974 <> hw_active_module
+proj 1004:1013 <> hw_mstatus
+proj 1038:1049 <> hw_mcycle_lo
+proj 1074:1085 <> hw_mcycle_hi
+proj 1110:1123 <> hw_minstret_lo
+proj 1148:1161 <> hw_minstret_hi
+proj 1186:1199 <> hw_trap_vector
+proj 1224:1235 <> hw_certified
+proj 1254:1269 <> hw_lassert_phase
+proj 1289:1303 <> hw_lassert_kind
+proj 1322:1337 <> hw_lassert_fbase
+proj 1362:1377 <> hw_lassert_cbase
+proj 1402:1416 <> hw_lassert_flen
+proj 1441:1455 <> hw_lassert_clen
+proj 1480:1495 <> hw_lassert_nvars
+proj 1520:1534 <> hw_lassert_fptr
+proj 1559:1573 <> hw_lassert_cptr
+proj 1598:1612 <> hw_lassert_fbuf
+proj 1648:1662 <> hw_lassert_cbuf
+proj 1698:1718 <> hw_lassert_clause_sat
+proj 1737:1765 <> hw_lassert_counter_clause_sat
+proj 1784:1811 <> hw_lassert_counter_seen_fail
+proj 1830:1842 <> hw_chsh_phase
+proj 1862:1872 <> hw_chsh_n00
+proj 1893:1903 <> hw_chsh_n01
+proj 1924:1934 <> hw_chsh_n10
+proj 1955:1965 <> hw_chsh_n11
+proj 1986:1996 <> hw_chsh_d00
+proj 2017:2027 <> hw_chsh_d01
+proj 2048:2058 <> hw_chsh_d10
+proj 2079:2089 <> hw_chsh_d11
+proj 2110:2123 <> hw_chsh_sign00
+proj 2142:2155 <> hw_chsh_sign01
+proj 2174:2187 <> hw_chsh_sign10
+proj 2206:2219 <> hw_chsh_sign11
+proj 2238:2250 <> hw_chsh_n00sq
+proj 2272:2284 <> hw_chsh_n01sq
+proj 2306:2318 <> hw_chsh_n10sq
+proj 2340:2352 <> hw_chsh_n11sq
+proj 2374:2386 <> hw_chsh_d00sq
+proj 2408:2420 <> hw_chsh_d01sq
+proj 2442:2454 <> hw_chsh_d10sq
+proj 2476:2488 <> hw_chsh_d11sq
+proj 2510:2522 <> hw_chsh_A_pos
+proj 2544:2558 <> hw_chsh_A_neg_a
+proj 2580:2594 <> hw_chsh_A_neg_b
+proj 2616:2628 <> hw_chsh_B_pos
+proj 2650:2664 <> hw_chsh_B_neg_a
+proj 2686:2700 <> hw_chsh_B_neg_b
+proj 2722:2735 <> hw_chsh_d00d01
+proj 2757:2770 <> hw_chsh_n10n11
+proj 2792:2805 <> hw_chsh_d10d11
+proj 2827:2840 <> hw_chsh_n00n01
+proj 2862:2875 <> hw_chsh_abs_C1
+proj 2897:2910 <> hw_chsh_abs_C2
+proj 2932:2943 <> hw_chsh_C_sq
+proj 2965:2981 <> hw_chsh_A_times_B
+proj 3003:3022 <> hw_chsh_check_result
+proj 3041:3062 <> hw_bus_load_instr_addr
+proj 3090:3111 <> hw_bus_load_instr_data
+proj 3137:3158 <> hw_bus_load_instr_kick
+proj 3177:3188 <> hw_mu_tensor
+proj 3236:3252 <> hw_module_tensors
+proj 3324:3336 <> hw_csr_status
+proj 3361:3376 <> hw_csr_heap_base
+proj 3401:3410 <> hw_ptTable
+proj 3456:3468 <> hw_pt_next_id
+proj 3501:3518 <> hw_morph_src_table
+proj 3573:3590 <> hw_morph_dst_table
+proj 3645:3672 <> hw_morph_coupling_desc_table
+proj 3725:3744 <> hw_morph_valid_table
+proj 3786:3808 <> hw_morph_identity_table
+proj 3850:3865 <> hw_morph_next_id
+proj 3902:3928 <> hw_coupling_desc_base_table
+proj 3991:4018 <> hw_coupling_desc_count_table
+proj 4083:4110 <> hw_coupling_desc_valid_table
+proj 4154:4181 <> hw_coupling_desc_label_table
+proj 4233:4264 <> hw_coupling_desc_label_len_table
+proj 4311:4334 <> hw_coupling_desc_next_id
+proj 4370:4395 <> hw_coupling_pair_src_table
+proj 4447:4472 <> hw_coupling_pair_dst_table
+proj 4524:4551 <> hw_coupling_pair_valid_table
+proj 4595:4618 <> hw_coupling_pair_next_id
+proj 4654:4664 <> hw_mc_phase
+proj 4684:4691 <> hw_mc_op
+proj 4711:4724 <> hw_mc_mem_base
+proj 4749:4764 <> hw_mc_pair_count
+proj 4802:4815 <> hw_mc_read_ptr
+proj 4840:4854 <> hw_mc_src1_base
+proj 4890:4905 <> hw_mc_src1_count
+proj 4943:4957 <> hw_mc_src2_base
+proj 4993:5008 <> hw_mc_src2_count
+proj 5046:5052 <> hw_mc_i
+proj 5090:5096 <> hw_mc_j
+proj 5134:5145 <> hw_mc_is_id1
+proj 5164:5175 <> hw_mc_is_id2
+proj 5194:5209 <> hw_mc_write_base
+proj 5245:5259 <> hw_mc_write_ptr
+proj 5295:5308 <> hw_mc_norm_ptr
+proj 5344:5358 <> hw_mc_duplicate
+proj 5377:5389 <> hw_mc_dst_reg
+proj 5416:5431 <> hw_mc_morph_slot
+proj 5465:5481 <> hw_mc_new_src_mod
+proj 5511:5527 <> hw_mc_new_dst_mod
+proj 5557:5566 <> hw_mc_cost
+proj 5591:5616 <> hw_formula_desc_base_table
+proj 5667:5693 <> hw_formula_desc_count_table
+proj 5744:5770 <> hw_formula_desc_valid_table
+proj 5813:5835 <> hw_formula_desc_next_id
+proj 5871:5893 <> hw_cert_desc_base_table
+proj 5941:5964 <> hw_cert_desc_count_table
+proj 6012:6035 <> hw_cert_desc_valid_table
+proj 6075:6094 <> hw_cert_desc_next_id
+proj 6130:6155 <> hw_desc_meta_subtype_table
+proj 6212:6234 <> hw_desc_meta_kind_table
+proj 6291:6319 <> hw_desc_meta_inline_len_table
+proj 6372:6393 <> hw_desc_meta_aux_table
+proj 6441:6464 <> hw_desc_meta_valid_table
+proj 6504:6523 <> hw_desc_meta_next_id
+proj 6559:6571 <> hw_wc_same_00
+proj 6596:6608 <> hw_wc_diff_00
+proj 6633:6645 <> hw_wc_same_01
+proj 6670:6682 <> hw_wc_diff_01
+proj 6707:6719 <> hw_wc_same_10
+proj 6744:6756 <> hw_wc_diff_10
+proj 6781:6793 <> hw_wc_same_11
+proj 6818:6830 <> hw_wc_diff_11
+R490:493 Kami.Syntax <> type def
+R496:498 Kami.Syntax <> Bit constr
+R500:505 KamiHW.ThieleTypes <> WordSz def
+R519:522 Kami.Syntax <> type def
+R525:527 Kami.Syntax <> Bit constr
+R529:534 KamiHW.ThieleTypes <> WordSz def
+R549:552 Kami.Syntax <> type def
+R555:558 Kami.Syntax <> Bool constr
+R576:579 Kami.Syntax <> type def
+R582:585 Kami.Syntax <> Bool constr
+R601:604 Kami.Syntax <> type def
+R607:612 Kami.Syntax <> Vector constr
+R627:634 KamiHW.ThieleTypes <> RegIdxSz def
+R615:617 Kami.Syntax <> Bit constr
+R619:624 KamiHW.ThieleTypes <> WordSz def
+R649:652 Kami.Syntax <> type def
+R655:660 Kami.Syntax <> Vector constr
+R675:683 KamiHW.ThieleTypes <> MemAddrSz def
+R663:665 Kami.Syntax <> Bit constr
+R667:672 KamiHW.ThieleTypes <> WordSz def
+R699:702 Kami.Syntax <> type def
+R705:710 Kami.Syntax <> Vector constr
+R726:734 KamiHW.ThieleTypes <> MemAddrSz def
+R713:715 Kami.Syntax <> Bit constr
+R717:723 KamiHW.ThieleTypes <> InstrSz def
+R759:762 Kami.Syntax <> type def
+R765:767 Kami.Syntax <> Bit constr
+R769:774 KamiHW.ThieleTypes <> WordSz def
+R793:796 Kami.Syntax <> type def
+R799:801 Kami.Syntax <> Bit constr
+R803:808 KamiHW.ThieleTypes <> WordSz def
+R829:832 Kami.Syntax <> type def
+R835:837 Kami.Syntax <> Bit constr
+R839:844 KamiHW.ThieleTypes <> WordSz def
+R866:869 Kami.Syntax <> type def
+R872:874 Kami.Syntax <> Bit constr
+R876:881 KamiHW.ThieleTypes <> WordSz def
+R902:905 Kami.Syntax <> type def
+R908:910 Kami.Syntax <> Bit constr
+R912:917 KamiHW.ThieleTypes <> WordSz def
+R938:941 Kami.Syntax <> type def
+R944:946 Kami.Syntax <> Bit constr
+R948:953 KamiHW.ThieleTypes <> WordSz def
+R978:981 Kami.Syntax <> type def
+R984:986 Kami.Syntax <> Bit constr
+R988:998 KamiHW.ThieleTypes <> PTableIdxSz def
+R1017:1020 Kami.Syntax <> type def
+R1023:1025 Kami.Syntax <> Bit constr
+R1027:1032 KamiHW.ThieleTypes <> WordSz def
+R1053:1056 Kami.Syntax <> type def
+R1059:1061 Kami.Syntax <> Bit constr
+R1063:1068 KamiHW.ThieleTypes <> WordSz def
+R1089:1092 Kami.Syntax <> type def
+R1095:1097 Kami.Syntax <> Bit constr
+R1099:1104 KamiHW.ThieleTypes <> WordSz def
+R1127:1130 Kami.Syntax <> type def
+R1133:1135 Kami.Syntax <> Bit constr
+R1137:1142 KamiHW.ThieleTypes <> WordSz def
+R1165:1168 Kami.Syntax <> type def
+R1171:1173 Kami.Syntax <> Bit constr
+R1175:1180 KamiHW.ThieleTypes <> WordSz def
+R1203:1206 Kami.Syntax <> type def
+R1209:1211 Kami.Syntax <> Bit constr
+R1213:1218 KamiHW.ThieleTypes <> WordSz def
+R1239:1242 Kami.Syntax <> type def
+R1245:1248 Kami.Syntax <> Bool constr
+R1273:1276 Kami.Syntax <> type def
+R1279:1281 Kami.Syntax <> Bit constr
+R1307:1310 Kami.Syntax <> type def
+R1313:1316 Kami.Syntax <> Bool constr
+R1341:1344 Kami.Syntax <> type def
+R1347:1349 Kami.Syntax <> Bit constr
+R1351:1356 KamiHW.ThieleTypes <> WordSz def
+R1381:1384 Kami.Syntax <> type def
+R1387:1389 Kami.Syntax <> Bit constr
+R1391:1396 KamiHW.ThieleTypes <> WordSz def
+R1420:1423 Kami.Syntax <> type def
+R1426:1428 Kami.Syntax <> Bit constr
+R1430:1435 KamiHW.ThieleTypes <> WordSz def
+R1459:1462 Kami.Syntax <> type def
+R1465:1467 Kami.Syntax <> Bit constr
+R1469:1474 KamiHW.ThieleTypes <> WordSz def
+R1499:1502 Kami.Syntax <> type def
+R1505:1507 Kami.Syntax <> Bit constr
+R1509:1514 KamiHW.ThieleTypes <> WordSz def
+R1538:1541 Kami.Syntax <> type def
+R1544:1546 Kami.Syntax <> Bit constr
+R1548:1553 KamiHW.ThieleTypes <> WordSz def
+R1577:1580 Kami.Syntax <> type def
+R1583:1585 Kami.Syntax <> Bit constr
+R1587:1592 KamiHW.ThieleTypes <> WordSz def
+R1616:1619 Kami.Syntax <> type def
+R1622:1627 Kami.Syntax <> Vector constr
+R1630:1632 Kami.Syntax <> Bit constr
+R1634:1639 KamiHW.ThieleTypes <> WordSz def
+R1666:1669 Kami.Syntax <> type def
+R1672:1677 Kami.Syntax <> Vector constr
+R1680:1682 Kami.Syntax <> Bit constr
+R1684:1689 KamiHW.ThieleTypes <> WordSz def
+R1722:1725 Kami.Syntax <> type def
+R1728:1731 Kami.Syntax <> Bool constr
+R1769:1772 Kami.Syntax <> type def
+R1775:1778 Kami.Syntax <> Bool constr
+R1815:1818 Kami.Syntax <> type def
+R1821:1824 Kami.Syntax <> Bool constr
+R1846:1849 Kami.Syntax <> type def
+R1852:1854 Kami.Syntax <> Bit constr
+R1876:1879 Kami.Syntax <> type def
+R1882:1884 Kami.Syntax <> Bit constr
+R1907:1910 Kami.Syntax <> type def
+R1913:1915 Kami.Syntax <> Bit constr
+R1938:1941 Kami.Syntax <> type def
+R1944:1946 Kami.Syntax <> Bit constr
+R1969:1972 Kami.Syntax <> type def
+R1975:1977 Kami.Syntax <> Bit constr
+R2000:2003 Kami.Syntax <> type def
+R2006:2008 Kami.Syntax <> Bit constr
+R2031:2034 Kami.Syntax <> type def
+R2037:2039 Kami.Syntax <> Bit constr
+R2062:2065 Kami.Syntax <> type def
+R2068:2070 Kami.Syntax <> Bit constr
+R2093:2096 Kami.Syntax <> type def
+R2099:2101 Kami.Syntax <> Bit constr
+R2127:2130 Kami.Syntax <> type def
+R2133:2136 Kami.Syntax <> Bool constr
+R2159:2162 Kami.Syntax <> type def
+R2165:2168 Kami.Syntax <> Bool constr
+R2191:2194 Kami.Syntax <> type def
+R2197:2200 Kami.Syntax <> Bool constr
+R2223:2226 Kami.Syntax <> type def
+R2229:2232 Kami.Syntax <> Bool constr
+R2254:2257 Kami.Syntax <> type def
+R2260:2262 Kami.Syntax <> Bit constr
+R2288:2291 Kami.Syntax <> type def
+R2294:2296 Kami.Syntax <> Bit constr
+R2322:2325 Kami.Syntax <> type def
+R2328:2330 Kami.Syntax <> Bit constr
+R2356:2359 Kami.Syntax <> type def
+R2362:2364 Kami.Syntax <> Bit constr
+R2390:2393 Kami.Syntax <> type def
+R2396:2398 Kami.Syntax <> Bit constr
+R2424:2427 Kami.Syntax <> type def
+R2430:2432 Kami.Syntax <> Bit constr
+R2458:2461 Kami.Syntax <> type def
+R2464:2466 Kami.Syntax <> Bit constr
+R2492:2495 Kami.Syntax <> type def
+R2498:2500 Kami.Syntax <> Bit constr
+R2526:2529 Kami.Syntax <> type def
+R2532:2534 Kami.Syntax <> Bit constr
+R2562:2565 Kami.Syntax <> type def
+R2568:2570 Kami.Syntax <> Bit constr
+R2598:2601 Kami.Syntax <> type def
+R2604:2606 Kami.Syntax <> Bit constr
+R2632:2635 Kami.Syntax <> type def
+R2638:2640 Kami.Syntax <> Bit constr
+R2668:2671 Kami.Syntax <> type def
+R2674:2676 Kami.Syntax <> Bit constr
+R2704:2707 Kami.Syntax <> type def
+R2710:2712 Kami.Syntax <> Bit constr
+R2739:2742 Kami.Syntax <> type def
+R2745:2747 Kami.Syntax <> Bit constr
+R2774:2777 Kami.Syntax <> type def
+R2780:2782 Kami.Syntax <> Bit constr
+R2809:2812 Kami.Syntax <> type def
+R2815:2817 Kami.Syntax <> Bit constr
+R2844:2847 Kami.Syntax <> type def
+R2850:2852 Kami.Syntax <> Bit constr
+R2879:2882 Kami.Syntax <> type def
+R2885:2887 Kami.Syntax <> Bit constr
+R2914:2917 Kami.Syntax <> type def
+R2920:2922 Kami.Syntax <> Bit constr
+R2947:2950 Kami.Syntax <> type def
+R2953:2955 Kami.Syntax <> Bit constr
+R2985:2988 Kami.Syntax <> type def
+R2991:2993 Kami.Syntax <> Bit constr
+R3026:3029 Kami.Syntax <> type def
+R3032:3035 Kami.Syntax <> Bool constr
+R3066:3069 Kami.Syntax <> type def
+R3072:3074 Kami.Syntax <> Bit constr
+R3076:3084 KamiHW.ThieleTypes <> MemAddrSz def
+R3115:3118 Kami.Syntax <> type def
+R3121:3123 Kami.Syntax <> Bit constr
+R3125:3131 KamiHW.ThieleTypes <> InstrSz def
+R3162:3165 Kami.Syntax <> type def
+R3168:3171 Kami.Syntax <> Bool constr
+R3192:3195 Kami.Syntax <> type def
+R3198:3203 Kami.Syntax <> Vector constr
+R3218:3230 KamiHW.ThieleTypes <> MuTensorIdxSz def
+R3206:3208 Kami.Syntax <> Bit constr
+R3210:3215 KamiHW.ThieleTypes <> WordSz def
+R3256:3259 Kami.Syntax <> type def
+R3262:3267 Kami.Syntax <> Vector constr
+R3305:3318 KamiHW.ThieleTypes <> ModTensorIdxSz def
+R3270:3275 Kami.Syntax <> Vector constr
+R3290:3302 KamiHW.ThieleTypes <> MuTensorIdxSz def
+R3278:3280 Kami.Syntax <> Bit constr
+R3282:3287 KamiHW.ThieleTypes <> WordSz def
+R3340:3343 Kami.Syntax <> type def
+R3346:3348 Kami.Syntax <> Bit constr
+R3350:3355 KamiHW.ThieleTypes <> WordSz def
+R3380:3383 Kami.Syntax <> type def
+R3386:3388 Kami.Syntax <> Bit constr
+R3390:3395 KamiHW.ThieleTypes <> WordSz def
+R3414:3417 Kami.Syntax <> type def
+R3420:3425 Kami.Syntax <> Vector constr
+R3440:3450 KamiHW.ThieleTypes <> PTableIdxSz def
+R3428:3430 Kami.Syntax <> Bit constr
+R3432:3437 KamiHW.ThieleTypes <> WordSz def
+R3472:3475 Kami.Syntax <> type def
+R3478:3480 Kami.Syntax <> Bit constr
+R3482:3495 KamiHW.ThieleTypes <> PTableNextIdSz def
+R3522:3525 Kami.Syntax <> type def
+R3528:3533 Kami.Syntax <> Vector constr
+R3553:3567 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R3536:3538 Kami.Syntax <> Bit constr
+R3540:3550 KamiHW.ThieleTypes <> PTableIdxSz def
+R3594:3597 Kami.Syntax <> type def
+R3600:3605 Kami.Syntax <> Vector constr
+R3625:3639 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R3608:3610 Kami.Syntax <> Bit constr
+R3612:3622 KamiHW.ThieleTypes <> PTableIdxSz def
+R3676:3679 Kami.Syntax <> type def
+R3682:3687 Kami.Syntax <> Vector constr
+R3705:3719 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R3690:3692 Kami.Syntax <> Bit constr
+R3694:3702 KamiHW.ThieleTypes <> DescIdxSz def
+R3748:3751 Kami.Syntax <> type def
+R3754:3759 Kami.Syntax <> Vector constr
+R3766:3780 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R3761:3764 Kami.Syntax <> Bool constr
+R3812:3815 Kami.Syntax <> type def
+R3818:3823 Kami.Syntax <> Vector constr
+R3830:3844 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R3825:3828 Kami.Syntax <> Bool constr
+R3869:3872 Kami.Syntax <> type def
+R3875:3877 Kami.Syntax <> Bit constr
+R3879:3896 KamiHW.ThieleTypes <> MorphTableNextIdSz def
+R3932:3935 Kami.Syntax <> type def
+R3938:3943 Kami.Syntax <> Vector constr
+R3969:3985 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R3946:3948 Kami.Syntax <> Bit constr
+R3950:3966 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R4022:4025 Kami.Syntax <> type def
+R4028:4033 Kami.Syntax <> Vector constr
+R4061:4077 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R4036:4038 Kami.Syntax <> Bit constr
+R4040:4058 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R4114:4117 Kami.Syntax <> type def
+R4120:4125 Kami.Syntax <> Vector constr
+R4132:4148 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R4127:4130 Kami.Syntax <> Bool constr
+R4185:4188 Kami.Syntax <> type def
+R4191:4196 Kami.Syntax <> Vector constr
+R4211:4227 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R4199:4201 Kami.Syntax <> Bit constr
+R4203:4208 KamiHW.ThieleTypes <> WordSz def
+R4268:4271 Kami.Syntax <> type def
+R4274:4279 Kami.Syntax <> Vector constr
+R4289:4305 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R4282:4284 Kami.Syntax <> Bit constr
+R4338:4341 Kami.Syntax <> type def
+R4344:4346 Kami.Syntax <> Bit constr
+R4348:4364 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R4399:4402 Kami.Syntax <> type def
+R4405:4410 Kami.Syntax <> Vector constr
+R4425:4441 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R4413:4415 Kami.Syntax <> Bit constr
+R4417:4422 KamiHW.ThieleTypes <> WordSz def
+R4476:4479 Kami.Syntax <> type def
+R4482:4487 Kami.Syntax <> Vector constr
+R4502:4518 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R4490:4492 Kami.Syntax <> Bit constr
+R4494:4499 KamiHW.ThieleTypes <> WordSz def
+R4555:4558 Kami.Syntax <> type def
+R4561:4566 Kami.Syntax <> Vector constr
+R4573:4589 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R4568:4571 Kami.Syntax <> Bool constr
+R4622:4625 Kami.Syntax <> type def
+R4628:4630 Kami.Syntax <> Bit constr
+R4632:4648 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R4668:4671 Kami.Syntax <> type def
+R4674:4676 Kami.Syntax <> Bit constr
+R4695:4698 Kami.Syntax <> type def
+R4701:4703 Kami.Syntax <> Bit constr
+R4728:4731 Kami.Syntax <> type def
+R4734:4736 Kami.Syntax <> Bit constr
+R4738:4743 KamiHW.ThieleTypes <> WordSz def
+R4768:4771 Kami.Syntax <> type def
+R4774:4776 Kami.Syntax <> Bit constr
+R4778:4796 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R4819:4822 Kami.Syntax <> type def
+R4825:4827 Kami.Syntax <> Bit constr
+R4829:4834 KamiHW.ThieleTypes <> WordSz def
+R4858:4861 Kami.Syntax <> type def
+R4864:4866 Kami.Syntax <> Bit constr
+R4868:4884 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R4909:4912 Kami.Syntax <> type def
+R4915:4917 Kami.Syntax <> Bit constr
+R4919:4937 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R4961:4964 Kami.Syntax <> type def
+R4967:4969 Kami.Syntax <> Bit constr
+R4971:4987 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R5012:5015 Kami.Syntax <> type def
+R5018:5020 Kami.Syntax <> Bit constr
+R5022:5040 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R5056:5059 Kami.Syntax <> type def
+R5062:5064 Kami.Syntax <> Bit constr
+R5066:5084 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R5100:5103 Kami.Syntax <> type def
+R5106:5108 Kami.Syntax <> Bit constr
+R5110:5128 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R5149:5152 Kami.Syntax <> type def
+R5155:5158 Kami.Syntax <> Bool constr
+R5179:5182 Kami.Syntax <> type def
+R5185:5188 Kami.Syntax <> Bool constr
+R5213:5216 Kami.Syntax <> type def
+R5219:5221 Kami.Syntax <> Bit constr
+R5223:5239 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R5263:5266 Kami.Syntax <> type def
+R5269:5271 Kami.Syntax <> Bit constr
+R5273:5289 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R5312:5315 Kami.Syntax <> type def
+R5318:5320 Kami.Syntax <> Bit constr
+R5322:5338 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R5362:5365 Kami.Syntax <> type def
+R5368:5371 Kami.Syntax <> Bool constr
+R5393:5396 Kami.Syntax <> type def
+R5399:5401 Kami.Syntax <> Bit constr
+R5403:5410 KamiHW.ThieleTypes <> RegIdxSz def
+R5435:5438 Kami.Syntax <> type def
+R5441:5443 Kami.Syntax <> Bit constr
+R5445:5459 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R5485:5488 Kami.Syntax <> type def
+R5491:5493 Kami.Syntax <> Bit constr
+R5495:5505 KamiHW.ThieleTypes <> PTableIdxSz def
+R5531:5534 Kami.Syntax <> type def
+R5537:5539 Kami.Syntax <> Bit constr
+R5541:5551 KamiHW.ThieleTypes <> PTableIdxSz def
+R5570:5573 Kami.Syntax <> type def
+R5576:5578 Kami.Syntax <> Bit constr
+R5580:5585 KamiHW.ThieleTypes <> WordSz def
+R5620:5623 Kami.Syntax <> type def
+R5626:5631 Kami.Syntax <> Vector constr
+R5646:5661 KamiHW.ThieleTypes <> FormulaDescIdxSz def
+R5634:5636 Kami.Syntax <> Bit constr
+R5638:5643 KamiHW.ThieleTypes <> WordSz def
+R5697:5700 Kami.Syntax <> type def
+R5703:5708 Kami.Syntax <> Vector constr
+R5723:5738 KamiHW.ThieleTypes <> FormulaDescIdxSz def
+R5711:5713 Kami.Syntax <> Bit constr
+R5715:5720 KamiHW.ThieleTypes <> WordSz def
+R5774:5777 Kami.Syntax <> type def
+R5780:5785 Kami.Syntax <> Vector constr
+R5792:5807 KamiHW.ThieleTypes <> FormulaDescIdxSz def
+R5787:5790 Kami.Syntax <> Bool constr
+R5839:5842 Kami.Syntax <> type def
+R5845:5847 Kami.Syntax <> Bit constr
+R5849:5865 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R5897:5900 Kami.Syntax <> type def
+R5903:5908 Kami.Syntax <> Vector constr
+R5923:5935 KamiHW.ThieleTypes <> CertDescIdxSz def
+R5911:5913 Kami.Syntax <> Bit constr
+R5915:5920 KamiHW.ThieleTypes <> WordSz def
+R5968:5971 Kami.Syntax <> type def
+R5974:5979 Kami.Syntax <> Vector constr
+R5994:6006 KamiHW.ThieleTypes <> CertDescIdxSz def
+R5982:5984 Kami.Syntax <> Bit constr
+R5986:5991 KamiHW.ThieleTypes <> WordSz def
+R6039:6042 Kami.Syntax <> type def
+R6045:6050 Kami.Syntax <> Vector constr
+R6057:6069 KamiHW.ThieleTypes <> CertDescIdxSz def
+R6052:6055 Kami.Syntax <> Bool constr
+R6098:6101 Kami.Syntax <> type def
+R6104:6106 Kami.Syntax <> Bit constr
+R6108:6124 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R6159:6162 Kami.Syntax <> type def
+R6165:6170 Kami.Syntax <> Vector constr
+R6194:6206 KamiHW.ThieleTypes <> DescMetaIdxSz def
+R6173:6175 Kami.Syntax <> Bit constr
+R6177:6191 KamiHW.ThieleTypes <> FormatSubtypeSz def
+R6238:6241 Kami.Syntax <> type def
+R6244:6249 Kami.Syntax <> Vector constr
+R6273:6285 KamiHW.ThieleTypes <> DescMetaIdxSz def
+R6252:6254 Kami.Syntax <> Bit constr
+R6256:6270 KamiHW.ThieleTypes <> DescKindFieldSz def
+R6323:6326 Kami.Syntax <> type def
+R6329:6334 Kami.Syntax <> Vector constr
+R6354:6366 KamiHW.ThieleTypes <> DescMetaIdxSz def
+R6337:6339 Kami.Syntax <> Bit constr
+R6341:6351 KamiHW.ThieleTypes <> InlineLenSz def
+R6397:6400 Kami.Syntax <> type def
+R6403:6408 Kami.Syntax <> Vector constr
+R6423:6435 KamiHW.ThieleTypes <> DescMetaIdxSz def
+R6411:6413 Kami.Syntax <> Bit constr
+R6415:6420 KamiHW.ThieleTypes <> WordSz def
+R6468:6471 Kami.Syntax <> type def
+R6474:6479 Kami.Syntax <> Vector constr
+R6486:6498 KamiHW.ThieleTypes <> DescMetaIdxSz def
+R6481:6484 Kami.Syntax <> Bool constr
+R6527:6530 Kami.Syntax <> type def
+R6533:6535 Kami.Syntax <> Bit constr
+R6537:6553 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R6575:6578 Kami.Syntax <> type def
+R6581:6583 Kami.Syntax <> Bit constr
+R6585:6590 KamiHW.ThieleTypes <> WordSz def
+R6612:6615 Kami.Syntax <> type def
+R6618:6620 Kami.Syntax <> Bit constr
+R6622:6627 KamiHW.ThieleTypes <> WordSz def
+R6649:6652 Kami.Syntax <> type def
+R6655:6657 Kami.Syntax <> Bit constr
+R6659:6664 KamiHW.ThieleTypes <> WordSz def
+R6686:6689 Kami.Syntax <> type def
+R6692:6694 Kami.Syntax <> Bit constr
+R6696:6701 KamiHW.ThieleTypes <> WordSz def
+R6723:6726 Kami.Syntax <> type def
+R6729:6731 Kami.Syntax <> Bit constr
+R6733:6738 KamiHW.ThieleTypes <> WordSz def
+R6760:6763 Kami.Syntax <> type def
+R6766:6768 Kami.Syntax <> Bit constr
+R6770:6775 KamiHW.ThieleTypes <> WordSz def
+R6797:6800 Kami.Syntax <> type def
+R6803:6805 Kami.Syntax <> Bit constr
+R6807:6812 KamiHW.ThieleTypes <> WordSz def
+R6834:6837 Kami.Syntax <> type def
+R6840:6842 Kami.Syntax <> Bit constr
+R6844:6849 KamiHW.ThieleTypes <> WordSz def
+def 6867:6873 <> hwb_reg
+R6880:6883 Kami.Syntax <> Kind ind
+binder 6876:6876 <> k:142
+R6891:6894 Kami.Syntax <> type def
+R6896:6896 KamiHW.HWBoundary <> k:142 var
+binder 6887:6887 <> v:143
+R6901:6904 Coq.Init.Specif <> sigT ind
+R6907:6914 Kami.Syntax <> fullType def
+R6916:6919 Kami.Syntax <> type def
+R6927:6932 Coq.Init.Specif <> existT constr
+R6965:6965 KamiHW.HWBoundary <> v:143 var
+R6951:6960 Kami.Syntax <> SyntaxKind constr
+R6962:6962 KamiHW.HWBoundary <> k:142 var
+R6935:6942 Kami.Syntax <> fullType def
+R6944:6947 Kami.Syntax <> type def
+def 6980:6987 <> hwb_regs
+R6994:6996 KamiHW.HWBoundary <> HWB rec
+binder 6990:6990 <> b:144
+R7001:7005 Kami.Semantics <> RegsT def
+R7012:7016 Kami.Lib.FMap M add def
+R7059:7063 Kami.Lib.FMap M add def
+R7106:7110 Kami.Lib.FMap M add def
+R7149:7153 Kami.Lib.FMap M add def
+R7198:7202 Kami.Lib.FMap M add def
+R7267:7271 Kami.Lib.FMap M add def
+R7335:7339 Kami.Lib.FMap M add def
+R7406:7410 Kami.Lib.FMap M add def
+R7475:7479 Kami.Lib.FMap M add def
+R7532:7536 Kami.Lib.FMap M add def
+R7593:7597 Kami.Lib.FMap M add def
+R7656:7660 Kami.Lib.FMap M add def
+R7717:7721 Kami.Lib.FMap M add def
+R7778:7782 Kami.Lib.FMap M add def
+R7852:7856 Kami.Lib.FMap M add def
+R7909:7913 Kami.Lib.FMap M add def
+R7970:7974 Kami.Lib.FMap M add def
+R8031:8035 Kami.Lib.FMap M add def
+R8096:8100 Kami.Lib.FMap M add def
+R8161:8165 Kami.Lib.FMap M add def
+R8226:8230 Kami.Lib.FMap M add def
+R8281:8285 Kami.Lib.FMap M add def
+R8345:8349 Kami.Lib.FMap M add def
+R8406:8410 Kami.Lib.FMap M add def
+R8475:8479 Kami.Lib.FMap M add def
+R8544:8548 Kami.Lib.FMap M add def
+R8611:8615 Kami.Lib.FMap M add def
+R8678:8682 Kami.Lib.FMap M add def
+R8747:8751 Kami.Lib.FMap M add def
+R8814:8818 Kami.Lib.FMap M add def
+R8881:8885 Kami.Lib.FMap M add def
+R8959:8963 Kami.Lib.FMap M add def
+R9037:9041 Kami.Lib.FMap M add def
+R9110:9114 Kami.Lib.FMap M add def
+R9199:9203 Kami.Lib.FMap M add def
+R9286:9290 Kami.Lib.FMap M add def
+R9344:9348 Kami.Lib.FMap M add def
+R9399:9403 Kami.Lib.FMap M add def
+R9454:9458 Kami.Lib.FMap M add def
+R9509:9513 Kami.Lib.FMap M add def
+R9564:9568 Kami.Lib.FMap M add def
+R9619:9623 Kami.Lib.FMap M add def
+R9674:9678 Kami.Lib.FMap M add def
+R9729:9733 Kami.Lib.FMap M add def
+R9784:9788 Kami.Lib.FMap M add def
+R9843:9847 Kami.Lib.FMap M add def
+R9902:9906 Kami.Lib.FMap M add def
+R9961:9965 Kami.Lib.FMap M add def
+R10020:10024 Kami.Lib.FMap M add def
+R10080:10084 Kami.Lib.FMap M add def
+R10140:10144 Kami.Lib.FMap M add def
+R10200:10204 Kami.Lib.FMap M add def
+R10260:10264 Kami.Lib.FMap M add def
+R10320:10324 Kami.Lib.FMap M add def
+R10380:10384 Kami.Lib.FMap M add def
+R10440:10444 Kami.Lib.FMap M add def
+R10500:10504 Kami.Lib.FMap M add def
+R10560:10564 Kami.Lib.FMap M add def
+R10624:10628 Kami.Lib.FMap M add def
+R10688:10692 Kami.Lib.FMap M add def
+R10748:10752 Kami.Lib.FMap M add def
+R10812:10816 Kami.Lib.FMap M add def
+R10876:10880 Kami.Lib.FMap M add def
+R10938:10942 Kami.Lib.FMap M add def
+R11000:11004 Kami.Lib.FMap M add def
+R11062:11066 Kami.Lib.FMap M add def
+R11124:11128 Kami.Lib.FMap M add def
+R11186:11190 Kami.Lib.FMap M add def
+R11248:11252 Kami.Lib.FMap M add def
+R11306:11310 Kami.Lib.FMap M add def
+R11374:11378 Kami.Lib.FMap M add def
+R11445:11449 Kami.Lib.FMap M add def
+R11529:11533 Kami.Lib.FMap M add def
+R11611:11615 Kami.Lib.FMap M add def
+R11686:11690 Kami.Lib.FMap M add def
+R11770:11774 Kami.Lib.FMap M add def
+R11888:11892 Kami.Lib.FMap M add def
+R11951:11955 Kami.Lib.FMap M add def
+R12020:12024 Kami.Lib.FMap M add def
+R12098:12102 Kami.Lib.FMap M add def
+R12169:12173 Kami.Lib.FMap M add def
+R12272:12276 Kami.Lib.FMap M add def
+R12375:12379 Kami.Lib.FMap M add def
+R12496:12500 Kami.Lib.FMap M add def
+R12590:12594 Kami.Lib.FMap M add def
+R12690:12694 Kami.Lib.FMap M add def
+R12771:12775 Kami.Lib.FMap M add def
+R12900:12904 Kami.Lib.FMap M add def
+R13033:13037 Kami.Lib.FMap M add def
+R13145:13149 Kami.Lib.FMap M add def
+R13265:13269 Kami.Lib.FMap M add def
+R13388:13392 Kami.Lib.FMap M add def
+R13484:13488 Kami.Lib.FMap M add def
+R13600:13604 Kami.Lib.FMap M add def
+R13716:13720 Kami.Lib.FMap M add def
+R13828:13832 Kami.Lib.FMap M add def
+R13924:13928 Kami.Lib.FMap M add def
+R13978:13982 Kami.Lib.FMap M add def
+R14026:14030 Kami.Lib.FMap M add def
+R14091:14095 Kami.Lib.FMap M add def
+R14173:14177 Kami.Lib.FMap M add def
+R14238:14242 Kami.Lib.FMap M add def
+R14316:14320 Kami.Lib.FMap M add def
+R14398:14402 Kami.Lib.FMap M add def
+R14476:14480 Kami.Lib.FMap M add def
+R14558:14562 Kami.Lib.FMap M add def
+R14622:14626 Kami.Lib.FMap M add def
+R14686:14690 Kami.Lib.FMap M add def
+R14741:14745 Kami.Lib.FMap M add def
+R14796:14800 Kami.Lib.FMap M add def
+R14876:14880 Kami.Lib.FMap M add def
+R14954:14958 Kami.Lib.FMap M add def
+R15030:15034 Kami.Lib.FMap M add def
+R15091:15095 Kami.Lib.FMap M add def
+R15156:15160 Kami.Lib.FMap M add def
+R15234:15238 Kami.Lib.FMap M add def
+R15310:15314 Kami.Lib.FMap M add def
+R15386:15390 Kami.Lib.FMap M add def
+R15443:15447 Kami.Lib.FMap M add def
+R15558:15562 Kami.Lib.FMap M add def
+R15675:15679 Kami.Lib.FMap M add def
+R15784:15788 Kami.Lib.FMap M add def
+R15878:15882 Kami.Lib.FMap M add def
+R15984:15988 Kami.Lib.FMap M add def
+R16092:16096 Kami.Lib.FMap M add def
+R16192:16196 Kami.Lib.FMap M add def
+R16280:16284 Kami.Lib.FMap M add def
+R16401:16405 Kami.Lib.FMap M add def
+R16516:16520 Kami.Lib.FMap M add def
+R16639:16643 Kami.Lib.FMap M add def
+R16743:16747 Kami.Lib.FMap M add def
+R16843:16847 Kami.Lib.FMap M add def
+R16931:16935 Kami.Lib.FMap M add def
+R16994:16998 Kami.Lib.FMap M add def
+R17057:17061 Kami.Lib.FMap M add def
+R17120:17124 Kami.Lib.FMap M add def
+R17183:17187 Kami.Lib.FMap M add def
+R17246:17250 Kami.Lib.FMap M add def
+R17309:17313 Kami.Lib.FMap M add def
+R17372:17376 Kami.Lib.FMap M add def
+R17435:17441 Kami.Lib.FMap M empty def
+R17392:17398 KamiHW.HWBoundary <> hwb_reg def
+R17401:17403 Kami.Syntax <> Bit constr
+R17405:17410 KamiHW.ThieleTypes <> WordSz def
+R17416:17428 KamiHW.HWBoundary <> hw_wc_diff_11 proj
+R17413:17413 KamiHW.HWBoundary <> b:144 var
+R17329:17335 KamiHW.HWBoundary <> hwb_reg def
+R17338:17340 Kami.Syntax <> Bit constr
+R17342:17347 KamiHW.ThieleTypes <> WordSz def
+R17353:17365 KamiHW.HWBoundary <> hw_wc_same_11 proj
+R17350:17350 KamiHW.HWBoundary <> b:144 var
+R17266:17272 KamiHW.HWBoundary <> hwb_reg def
+R17275:17277 Kami.Syntax <> Bit constr
+R17279:17284 KamiHW.ThieleTypes <> WordSz def
+R17290:17302 KamiHW.HWBoundary <> hw_wc_diff_10 proj
+R17287:17287 KamiHW.HWBoundary <> b:144 var
+R17203:17209 KamiHW.HWBoundary <> hwb_reg def
+R17212:17214 Kami.Syntax <> Bit constr
+R17216:17221 KamiHW.ThieleTypes <> WordSz def
+R17227:17239 KamiHW.HWBoundary <> hw_wc_same_10 proj
+R17224:17224 KamiHW.HWBoundary <> b:144 var
+R17140:17146 KamiHW.HWBoundary <> hwb_reg def
+R17149:17151 Kami.Syntax <> Bit constr
+R17153:17158 KamiHW.ThieleTypes <> WordSz def
+R17164:17176 KamiHW.HWBoundary <> hw_wc_diff_01 proj
+R17161:17161 KamiHW.HWBoundary <> b:144 var
+R17077:17083 KamiHW.HWBoundary <> hwb_reg def
+R17086:17088 Kami.Syntax <> Bit constr
+R17090:17095 KamiHW.ThieleTypes <> WordSz def
+R17101:17113 KamiHW.HWBoundary <> hw_wc_same_01 proj
+R17098:17098 KamiHW.HWBoundary <> b:144 var
+R17014:17020 KamiHW.HWBoundary <> hwb_reg def
+R17023:17025 Kami.Syntax <> Bit constr
+R17027:17032 KamiHW.ThieleTypes <> WordSz def
+R17038:17050 KamiHW.HWBoundary <> hw_wc_diff_00 proj
+R17035:17035 KamiHW.HWBoundary <> b:144 var
+R16951:16957 KamiHW.HWBoundary <> hwb_reg def
+R16960:16962 Kami.Syntax <> Bit constr
+R16964:16969 KamiHW.ThieleTypes <> WordSz def
+R16975:16987 KamiHW.HWBoundary <> hw_wc_same_00 proj
+R16972:16972 KamiHW.HWBoundary <> b:144 var
+R16870:16876 KamiHW.HWBoundary <> hwb_reg def
+R16879:16881 Kami.Syntax <> Bit constr
+R16883:16899 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R16905:16924 KamiHW.HWBoundary <> hw_desc_meta_next_id proj
+R16902:16902 KamiHW.HWBoundary <> b:144 var
+R16774:16780 KamiHW.HWBoundary <> hwb_reg def
+R16783:16788 Kami.Syntax <> Vector constr
+R16795:16807 KamiHW.ThieleTypes <> DescMetaIdxSz def
+R16790:16793 Kami.Syntax <> Bool constr
+R16813:16836 KamiHW.HWBoundary <> hw_desc_meta_valid_table proj
+R16810:16810 KamiHW.HWBoundary <> b:144 var
+R16668:16674 KamiHW.HWBoundary <> hwb_reg def
+R16677:16682 Kami.Syntax <> Vector constr
+R16697:16709 KamiHW.ThieleTypes <> DescMetaIdxSz def
+R16685:16687 Kami.Syntax <> Bit constr
+R16689:16694 KamiHW.ThieleTypes <> WordSz def
+R16715:16736 KamiHW.HWBoundary <> hw_desc_meta_aux_table proj
+R16712:16712 KamiHW.HWBoundary <> b:144 var
+R16552:16558 KamiHW.HWBoundary <> hwb_reg def
+R16561:16566 Kami.Syntax <> Vector constr
+R16586:16598 KamiHW.ThieleTypes <> DescMetaIdxSz def
+R16569:16571 Kami.Syntax <> Bit constr
+R16573:16583 KamiHW.ThieleTypes <> InlineLenSz def
+R16604:16632 KamiHW.HWBoundary <> hw_desc_meta_inline_len_table proj
+R16601:16601 KamiHW.HWBoundary <> b:144 var
+R16431:16437 KamiHW.HWBoundary <> hwb_reg def
+R16440:16445 Kami.Syntax <> Vector constr
+R16469:16481 KamiHW.ThieleTypes <> DescMetaIdxSz def
+R16448:16450 Kami.Syntax <> Bit constr
+R16452:16466 KamiHW.ThieleTypes <> DescKindFieldSz def
+R16487:16509 KamiHW.HWBoundary <> hw_desc_meta_kind_table proj
+R16484:16484 KamiHW.HWBoundary <> b:144 var
+R16313:16319 KamiHW.HWBoundary <> hwb_reg def
+R16322:16327 Kami.Syntax <> Vector constr
+R16351:16363 KamiHW.ThieleTypes <> DescMetaIdxSz def
+R16330:16332 Kami.Syntax <> Bit constr
+R16334:16348 KamiHW.ThieleTypes <> FormatSubtypeSz def
+R16369:16394 KamiHW.HWBoundary <> hw_desc_meta_subtype_table proj
+R16366:16366 KamiHW.HWBoundary <> b:144 var
+R16219:16225 KamiHW.HWBoundary <> hwb_reg def
+R16228:16230 Kami.Syntax <> Bit constr
+R16232:16248 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R16254:16273 KamiHW.HWBoundary <> hw_cert_desc_next_id proj
+R16251:16251 KamiHW.HWBoundary <> b:144 var
+R16123:16129 KamiHW.HWBoundary <> hwb_reg def
+R16132:16137 Kami.Syntax <> Vector constr
+R16144:16156 KamiHW.ThieleTypes <> CertDescIdxSz def
+R16139:16142 Kami.Syntax <> Bool constr
+R16162:16185 KamiHW.HWBoundary <> hw_cert_desc_valid_table proj
+R16159:16159 KamiHW.HWBoundary <> b:144 var
+R16015:16021 KamiHW.HWBoundary <> hwb_reg def
+R16024:16029 Kami.Syntax <> Vector constr
+R16044:16056 KamiHW.ThieleTypes <> CertDescIdxSz def
+R16032:16034 Kami.Syntax <> Bit constr
+R16036:16041 KamiHW.ThieleTypes <> WordSz def
+R16062:16085 KamiHW.HWBoundary <> hw_cert_desc_count_table proj
+R16059:16059 KamiHW.HWBoundary <> b:144 var
+R15908:15914 KamiHW.HWBoundary <> hwb_reg def
+R15917:15922 Kami.Syntax <> Vector constr
+R15937:15949 KamiHW.ThieleTypes <> CertDescIdxSz def
+R15925:15927 Kami.Syntax <> Bit constr
+R15929:15934 KamiHW.ThieleTypes <> WordSz def
+R15955:15977 KamiHW.HWBoundary <> hw_cert_desc_base_table proj
+R15952:15952 KamiHW.HWBoundary <> b:144 var
+R15814:15820 KamiHW.HWBoundary <> hwb_reg def
+R15823:15825 Kami.Syntax <> Bit constr
+R15827:15843 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R15849:15871 KamiHW.HWBoundary <> hw_formula_desc_next_id proj
+R15846:15846 KamiHW.HWBoundary <> b:144 var
+R15709:15715 KamiHW.HWBoundary <> hwb_reg def
+R15718:15723 Kami.Syntax <> Vector constr
+R15730:15745 KamiHW.ThieleTypes <> FormulaDescIdxSz def
+R15725:15728 Kami.Syntax <> Bool constr
+R15751:15777 KamiHW.HWBoundary <> hw_formula_desc_valid_table proj
+R15748:15748 KamiHW.HWBoundary <> b:144 var
+R15592:15598 KamiHW.HWBoundary <> hwb_reg def
+R15601:15606 Kami.Syntax <> Vector constr
+R15621:15636 KamiHW.ThieleTypes <> FormulaDescIdxSz def
+R15609:15611 Kami.Syntax <> Bit constr
+R15613:15618 KamiHW.ThieleTypes <> WordSz def
+R15642:15668 KamiHW.HWBoundary <> hw_formula_desc_count_table proj
+R15639:15639 KamiHW.HWBoundary <> b:144 var
+R15476:15482 KamiHW.HWBoundary <> hwb_reg def
+R15485:15490 Kami.Syntax <> Vector constr
+R15505:15520 KamiHW.ThieleTypes <> FormulaDescIdxSz def
+R15493:15495 Kami.Syntax <> Bit constr
+R15497:15502 KamiHW.ThieleTypes <> WordSz def
+R15526:15551 KamiHW.HWBoundary <> hw_formula_desc_base_table proj
+R15523:15523 KamiHW.HWBoundary <> b:144 var
+R15403:15409 KamiHW.HWBoundary <> hwb_reg def
+R15412:15414 Kami.Syntax <> Bit constr
+R15416:15421 KamiHW.ThieleTypes <> WordSz def
+R15427:15436 KamiHW.HWBoundary <> hw_mc_cost proj
+R15424:15424 KamiHW.HWBoundary <> b:144 var
+R15334:15340 KamiHW.HWBoundary <> hwb_reg def
+R15343:15345 Kami.Syntax <> Bit constr
+R15347:15357 KamiHW.ThieleTypes <> PTableIdxSz def
+R15363:15379 KamiHW.HWBoundary <> hw_mc_new_dst_mod proj
+R15360:15360 KamiHW.HWBoundary <> b:144 var
+R15258:15264 KamiHW.HWBoundary <> hwb_reg def
+R15267:15269 Kami.Syntax <> Bit constr
+R15271:15281 KamiHW.ThieleTypes <> PTableIdxSz def
+R15287:15303 KamiHW.HWBoundary <> hw_mc_new_src_mod proj
+R15284:15284 KamiHW.HWBoundary <> b:144 var
+R15179:15185 KamiHW.HWBoundary <> hwb_reg def
+R15188:15190 Kami.Syntax <> Bit constr
+R15192:15206 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R15212:15227 KamiHW.HWBoundary <> hw_mc_morph_slot proj
+R15209:15209 KamiHW.HWBoundary <> b:144 var
+R15111:15117 KamiHW.HWBoundary <> hwb_reg def
+R15120:15122 Kami.Syntax <> Bit constr
+R15124:15131 KamiHW.ThieleTypes <> RegIdxSz def
+R15137:15149 KamiHW.HWBoundary <> hw_mc_dst_reg proj
+R15134:15134 KamiHW.HWBoundary <> b:144 var
+R15052:15058 KamiHW.HWBoundary <> hwb_reg def
+R15061:15064 Kami.Syntax <> Bool constr
+R15070:15084 KamiHW.HWBoundary <> hw_mc_duplicate proj
+R15067:15067 KamiHW.HWBoundary <> b:144 var
+R14975:14981 KamiHW.HWBoundary <> hwb_reg def
+R14984:14986 Kami.Syntax <> Bit constr
+R14988:15004 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R15010:15023 KamiHW.HWBoundary <> hw_mc_norm_ptr proj
+R15007:15007 KamiHW.HWBoundary <> b:144 var
+R14898:14904 KamiHW.HWBoundary <> hwb_reg def
+R14907:14909 Kami.Syntax <> Bit constr
+R14911:14927 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R14933:14947 KamiHW.HWBoundary <> hw_mc_write_ptr proj
+R14930:14930 KamiHW.HWBoundary <> b:144 var
+R14819:14825 KamiHW.HWBoundary <> hwb_reg def
+R14828:14830 Kami.Syntax <> Bit constr
+R14832:14848 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R14854:14869 KamiHW.HWBoundary <> hw_mc_write_base proj
+R14851:14851 KamiHW.HWBoundary <> b:144 var
+R14760:14766 KamiHW.HWBoundary <> hwb_reg def
+R14769:14772 Kami.Syntax <> Bool constr
+R14778:14789 KamiHW.HWBoundary <> hw_mc_is_id2 proj
+R14775:14775 KamiHW.HWBoundary <> b:144 var
+R14705:14711 KamiHW.HWBoundary <> hwb_reg def
+R14714:14717 Kami.Syntax <> Bool constr
+R14723:14734 KamiHW.HWBoundary <> hw_mc_is_id1 proj
+R14720:14720 KamiHW.HWBoundary <> b:144 var
+R14636:14642 KamiHW.HWBoundary <> hwb_reg def
+R14645:14647 Kami.Syntax <> Bit constr
+R14649:14667 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R14673:14679 KamiHW.HWBoundary <> hw_mc_j proj
+R14670:14670 KamiHW.HWBoundary <> b:144 var
+R14572:14578 KamiHW.HWBoundary <> hwb_reg def
+R14581:14583 Kami.Syntax <> Bit constr
+R14585:14603 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R14609:14615 KamiHW.HWBoundary <> hw_mc_i proj
+R14606:14606 KamiHW.HWBoundary <> b:144 var
+R14499:14505 KamiHW.HWBoundary <> hwb_reg def
+R14508:14510 Kami.Syntax <> Bit constr
+R14512:14530 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R14536:14551 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R14533:14533 KamiHW.HWBoundary <> b:144 var
+R14420:14426 KamiHW.HWBoundary <> hwb_reg def
+R14429:14431 Kami.Syntax <> Bit constr
+R14433:14449 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R14455:14469 KamiHW.HWBoundary <> hw_mc_src2_base proj
+R14452:14452 KamiHW.HWBoundary <> b:144 var
+R14339:14345 KamiHW.HWBoundary <> hwb_reg def
+R14348:14350 Kami.Syntax <> Bit constr
+R14352:14370 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R14376:14391 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R14373:14373 KamiHW.HWBoundary <> b:144 var
+R14260:14266 KamiHW.HWBoundary <> hwb_reg def
+R14269:14271 Kami.Syntax <> Bit constr
+R14273:14289 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R14295:14309 KamiHW.HWBoundary <> hw_mc_src1_base proj
+R14292:14292 KamiHW.HWBoundary <> b:144 var
+R14194:14200 KamiHW.HWBoundary <> hwb_reg def
+R14203:14205 Kami.Syntax <> Bit constr
+R14207:14212 KamiHW.ThieleTypes <> WordSz def
+R14218:14231 KamiHW.HWBoundary <> hw_mc_read_ptr proj
+R14215:14215 KamiHW.HWBoundary <> b:144 var
+R14114:14120 KamiHW.HWBoundary <> hwb_reg def
+R14123:14125 Kami.Syntax <> Bit constr
+R14127:14145 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R14151:14166 KamiHW.HWBoundary <> hw_mc_pair_count proj
+R14148:14148 KamiHW.HWBoundary <> b:144 var
+R14047:14053 KamiHW.HWBoundary <> hwb_reg def
+R14056:14058 Kami.Syntax <> Bit constr
+R14060:14065 KamiHW.ThieleTypes <> WordSz def
+R14071:14084 KamiHW.HWBoundary <> hw_mc_mem_base proj
+R14068:14068 KamiHW.HWBoundary <> b:144 var
+R13993:13999 KamiHW.HWBoundary <> hwb_reg def
+R14002:14004 Kami.Syntax <> Bit constr
+R14012:14019 KamiHW.HWBoundary <> hw_mc_op proj
+R14009:14009 KamiHW.HWBoundary <> b:144 var
+R13942:13948 KamiHW.HWBoundary <> hwb_reg def
+R13951:13953 Kami.Syntax <> Bit constr
+R13961:13971 KamiHW.HWBoundary <> hw_mc_phase proj
+R13958:13958 KamiHW.HWBoundary <> b:144 var
+R13859:13865 KamiHW.HWBoundary <> hwb_reg def
+R13868:13870 Kami.Syntax <> Bit constr
+R13872:13888 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R13894:13917 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R13891:13891 KamiHW.HWBoundary <> b:144 var
+R13751:13757 KamiHW.HWBoundary <> hwb_reg def
+R13760:13765 Kami.Syntax <> Vector constr
+R13772:13788 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R13767:13770 Kami.Syntax <> Bool constr
+R13794:13821 KamiHW.HWBoundary <> hw_coupling_pair_valid_table proj
+R13791:13791 KamiHW.HWBoundary <> b:144 var
+R13633:13639 KamiHW.HWBoundary <> hwb_reg def
+R13642:13647 Kami.Syntax <> Vector constr
+R13662:13678 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R13650:13652 Kami.Syntax <> Bit constr
+R13654:13659 KamiHW.ThieleTypes <> WordSz def
+R13684:13709 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R13681:13681 KamiHW.HWBoundary <> b:144 var
+R13517:13523 KamiHW.HWBoundary <> hwb_reg def
+R13526:13531 Kami.Syntax <> Vector constr
+R13546:13562 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R13534:13536 Kami.Syntax <> Bit constr
+R13538:13543 KamiHW.ThieleTypes <> WordSz def
+R13568:13593 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R13565:13565 KamiHW.HWBoundary <> b:144 var
+R13419:13425 KamiHW.HWBoundary <> hwb_reg def
+R13428:13430 Kami.Syntax <> Bit constr
+R13432:13448 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R13454:13477 KamiHW.HWBoundary <> hw_coupling_desc_next_id proj
+R13451:13451 KamiHW.HWBoundary <> b:144 var
+R13304:13310 KamiHW.HWBoundary <> hwb_reg def
+R13313:13318 Kami.Syntax <> Vector constr
+R13328:13344 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R13321:13323 Kami.Syntax <> Bit constr
+R13350:13381 KamiHW.HWBoundary <> hw_coupling_desc_label_len_table proj
+R13347:13347 KamiHW.HWBoundary <> b:144 var
+R13180:13186 KamiHW.HWBoundary <> hwb_reg def
+R13189:13194 Kami.Syntax <> Vector constr
+R13209:13225 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R13197:13199 Kami.Syntax <> Bit constr
+R13201:13206 KamiHW.ThieleTypes <> WordSz def
+R13231:13258 KamiHW.HWBoundary <> hw_coupling_desc_label_table proj
+R13228:13228 KamiHW.HWBoundary <> b:144 var
+R13068:13074 KamiHW.HWBoundary <> hwb_reg def
+R13077:13082 Kami.Syntax <> Vector constr
+R13089:13105 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R13084:13087 Kami.Syntax <> Bool constr
+R13111:13138 KamiHW.HWBoundary <> hw_coupling_desc_valid_table proj
+R13108:13108 KamiHW.HWBoundary <> b:144 var
+R12935:12941 KamiHW.HWBoundary <> hwb_reg def
+R12944:12949 Kami.Syntax <> Vector constr
+R12977:12993 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R12952:12954 Kami.Syntax <> Bit constr
+R12956:12974 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R12999:13026 KamiHW.HWBoundary <> hw_coupling_desc_count_table proj
+R12996:12996 KamiHW.HWBoundary <> b:144 var
+R12805:12811 KamiHW.HWBoundary <> hwb_reg def
+R12814:12819 Kami.Syntax <> Vector constr
+R12845:12861 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R12822:12824 Kami.Syntax <> Bit constr
+R12826:12842 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R12867:12893 KamiHW.HWBoundary <> hw_coupling_desc_base_table proj
+R12864:12864 KamiHW.HWBoundary <> b:144 var
+R12713:12719 KamiHW.HWBoundary <> hwb_reg def
+R12722:12724 Kami.Syntax <> Bit constr
+R12726:12743 KamiHW.ThieleTypes <> MorphTableNextIdSz def
+R12749:12764 KamiHW.HWBoundary <> hw_morph_next_id proj
+R12746:12746 KamiHW.HWBoundary <> b:144 var
+R12620:12626 KamiHW.HWBoundary <> hwb_reg def
+R12629:12634 Kami.Syntax <> Vector constr
+R12641:12655 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R12636:12639 Kami.Syntax <> Bool constr
+R12661:12683 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R12658:12658 KamiHW.HWBoundary <> b:144 var
+R12523:12529 KamiHW.HWBoundary <> hwb_reg def
+R12532:12537 Kami.Syntax <> Vector constr
+R12544:12558 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R12539:12542 Kami.Syntax <> Bool constr
+R12564:12583 KamiHW.HWBoundary <> hw_morph_valid_table proj
+R12561:12561 KamiHW.HWBoundary <> b:144 var
+R12410:12416 KamiHW.HWBoundary <> hwb_reg def
+R12419:12424 Kami.Syntax <> Vector constr
+R12442:12456 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R12427:12429 Kami.Syntax <> Bit constr
+R12431:12439 KamiHW.ThieleTypes <> DescIdxSz def
+R12462:12489 KamiHW.HWBoundary <> hw_morph_coupling_desc_table proj
+R12459:12459 KamiHW.HWBoundary <> b:144 var
+R12297:12303 KamiHW.HWBoundary <> hwb_reg def
+R12306:12311 Kami.Syntax <> Vector constr
+R12331:12345 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R12314:12316 Kami.Syntax <> Bit constr
+R12318:12328 KamiHW.ThieleTypes <> PTableIdxSz def
+R12351:12368 KamiHW.HWBoundary <> hw_morph_dst_table proj
+R12348:12348 KamiHW.HWBoundary <> b:144 var
+R12194:12200 KamiHW.HWBoundary <> hwb_reg def
+R12203:12208 Kami.Syntax <> Vector constr
+R12228:12242 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R12211:12213 Kami.Syntax <> Bit constr
+R12215:12225 KamiHW.ThieleTypes <> PTableIdxSz def
+R12248:12265 KamiHW.HWBoundary <> hw_morph_src_table proj
+R12245:12245 KamiHW.HWBoundary <> b:144 var
+R12118:12124 KamiHW.HWBoundary <> hwb_reg def
+R12127:12129 Kami.Syntax <> Bit constr
+R12131:12144 KamiHW.ThieleTypes <> PTableNextIdSz def
+R12150:12162 KamiHW.HWBoundary <> hw_pt_next_id proj
+R12147:12147 KamiHW.HWBoundary <> b:144 var
+R12037:12043 KamiHW.HWBoundary <> hwb_reg def
+R12046:12051 Kami.Syntax <> Vector constr
+R12066:12076 KamiHW.ThieleTypes <> PTableIdxSz def
+R12054:12056 Kami.Syntax <> Bit constr
+R12058:12063 KamiHW.ThieleTypes <> WordSz def
+R12082:12091 KamiHW.HWBoundary <> hw_ptTable proj
+R12079:12079 KamiHW.HWBoundary <> b:144 var
+R11974:11980 KamiHW.HWBoundary <> hwb_reg def
+R11983:11985 Kami.Syntax <> Bit constr
+R11987:11992 KamiHW.ThieleTypes <> WordSz def
+R11998:12013 KamiHW.HWBoundary <> hw_csr_heap_base proj
+R11995:11995 KamiHW.HWBoundary <> b:144 var
+R11908:11914 KamiHW.HWBoundary <> hwb_reg def
+R11917:11919 Kami.Syntax <> Bit constr
+R11921:11926 KamiHW.ThieleTypes <> WordSz def
+R11932:11944 KamiHW.HWBoundary <> hw_csr_status proj
+R11929:11929 KamiHW.HWBoundary <> b:144 var
+R11794:11800 KamiHW.HWBoundary <> hwb_reg def
+R11803:11808 Kami.Syntax <> Vector constr
+R11846:11859 KamiHW.ThieleTypes <> ModTensorIdxSz def
+R11811:11816 Kami.Syntax <> Vector constr
+R11831:11843 KamiHW.ThieleTypes <> MuTensorIdxSz def
+R11819:11821 Kami.Syntax <> Bit constr
+R11823:11828 KamiHW.ThieleTypes <> WordSz def
+R11865:11881 KamiHW.HWBoundary <> hw_module_tensors proj
+R11862:11862 KamiHW.HWBoundary <> b:144 var
+R11705:11711 KamiHW.HWBoundary <> hwb_reg def
+R11714:11719 Kami.Syntax <> Vector constr
+R11734:11746 KamiHW.ThieleTypes <> MuTensorIdxSz def
+R11722:11724 Kami.Syntax <> Bit constr
+R11726:11731 KamiHW.ThieleTypes <> WordSz def
+R11752:11763 KamiHW.HWBoundary <> hw_mu_tensor proj
+R11749:11749 KamiHW.HWBoundary <> b:144 var
+R11640:11646 KamiHW.HWBoundary <> hwb_reg def
+R11649:11652 Kami.Syntax <> Bool constr
+R11658:11679 KamiHW.HWBoundary <> hw_bus_load_instr_kick proj
+R11655:11655 KamiHW.HWBoundary <> b:144 var
+R11558:11564 KamiHW.HWBoundary <> hwb_reg def
+R11567:11569 Kami.Syntax <> Bit constr
+R11571:11577 KamiHW.ThieleTypes <> InstrSz def
+R11583:11604 KamiHW.HWBoundary <> hw_bus_load_instr_data proj
+R11580:11580 KamiHW.HWBoundary <> b:144 var
+R11474:11480 KamiHW.HWBoundary <> hwb_reg def
+R11483:11485 Kami.Syntax <> Bit constr
+R11487:11495 KamiHW.ThieleTypes <> MemAddrSz def
+R11501:11522 KamiHW.HWBoundary <> hw_bus_load_instr_addr proj
+R11498:11498 KamiHW.HWBoundary <> b:144 var
+R11401:11407 KamiHW.HWBoundary <> hwb_reg def
+R11410:11413 Kami.Syntax <> Bool constr
+R11419:11438 KamiHW.HWBoundary <> hw_chsh_check_result proj
+R11416:11416 KamiHW.HWBoundary <> b:144 var
+R11330:11336 KamiHW.HWBoundary <> hwb_reg def
+R11339:11341 Kami.Syntax <> Bit constr
+R11351:11367 KamiHW.HWBoundary <> hw_chsh_A_times_B proj
+R11348:11348 KamiHW.HWBoundary <> b:144 var
+R11267:11273 KamiHW.HWBoundary <> hwb_reg def
+R11276:11278 Kami.Syntax <> Bit constr
+R11288:11299 KamiHW.HWBoundary <> hw_chsh_C_sq proj
+R11285:11285 KamiHW.HWBoundary <> b:144 var
+R11207:11213 KamiHW.HWBoundary <> hwb_reg def
+R11216:11218 Kami.Syntax <> Bit constr
+R11228:11241 KamiHW.HWBoundary <> hw_chsh_abs_C2 proj
+R11225:11225 KamiHW.HWBoundary <> b:144 var
+R11145:11151 KamiHW.HWBoundary <> hwb_reg def
+R11154:11156 Kami.Syntax <> Bit constr
+R11166:11179 KamiHW.HWBoundary <> hw_chsh_abs_C1 proj
+R11163:11163 KamiHW.HWBoundary <> b:144 var
+R11083:11089 KamiHW.HWBoundary <> hwb_reg def
+R11092:11094 Kami.Syntax <> Bit constr
+R11104:11117 KamiHW.HWBoundary <> hw_chsh_n00n01 proj
+R11101:11101 KamiHW.HWBoundary <> b:144 var
+R11021:11027 KamiHW.HWBoundary <> hwb_reg def
+R11030:11032 Kami.Syntax <> Bit constr
+R11042:11055 KamiHW.HWBoundary <> hw_chsh_d10d11 proj
+R11039:11039 KamiHW.HWBoundary <> b:144 var
+R10959:10965 KamiHW.HWBoundary <> hwb_reg def
+R10968:10970 Kami.Syntax <> Bit constr
+R10980:10993 KamiHW.HWBoundary <> hw_chsh_n10n11 proj
+R10977:10977 KamiHW.HWBoundary <> b:144 var
+R10897:10903 KamiHW.HWBoundary <> hwb_reg def
+R10906:10908 Kami.Syntax <> Bit constr
+R10918:10931 KamiHW.HWBoundary <> hw_chsh_d00d01 proj
+R10915:10915 KamiHW.HWBoundary <> b:144 var
+R10834:10840 KamiHW.HWBoundary <> hwb_reg def
+R10843:10845 Kami.Syntax <> Bit constr
+R10855:10869 KamiHW.HWBoundary <> hw_chsh_B_neg_b proj
+R10852:10852 KamiHW.HWBoundary <> b:144 var
+R10770:10776 KamiHW.HWBoundary <> hwb_reg def
+R10779:10781 Kami.Syntax <> Bit constr
+R10791:10805 KamiHW.HWBoundary <> hw_chsh_B_neg_a proj
+R10788:10788 KamiHW.HWBoundary <> b:144 var
+R10708:10714 KamiHW.HWBoundary <> hwb_reg def
+R10717:10719 Kami.Syntax <> Bit constr
+R10729:10741 KamiHW.HWBoundary <> hw_chsh_B_pos proj
+R10726:10726 KamiHW.HWBoundary <> b:144 var
+R10646:10652 KamiHW.HWBoundary <> hwb_reg def
+R10655:10657 Kami.Syntax <> Bit constr
+R10667:10681 KamiHW.HWBoundary <> hw_chsh_A_neg_b proj
+R10664:10664 KamiHW.HWBoundary <> b:144 var
+R10582:10588 KamiHW.HWBoundary <> hwb_reg def
+R10591:10593 Kami.Syntax <> Bit constr
+R10603:10617 KamiHW.HWBoundary <> hw_chsh_A_neg_a proj
+R10600:10600 KamiHW.HWBoundary <> b:144 var
+R10520:10526 KamiHW.HWBoundary <> hwb_reg def
+R10529:10531 Kami.Syntax <> Bit constr
+R10541:10553 KamiHW.HWBoundary <> hw_chsh_A_pos proj
+R10538:10538 KamiHW.HWBoundary <> b:144 var
+R10460:10466 KamiHW.HWBoundary <> hwb_reg def
+R10469:10471 Kami.Syntax <> Bit constr
+R10481:10493 KamiHW.HWBoundary <> hw_chsh_d11sq proj
+R10478:10478 KamiHW.HWBoundary <> b:144 var
+R10400:10406 KamiHW.HWBoundary <> hwb_reg def
+R10409:10411 Kami.Syntax <> Bit constr
+R10421:10433 KamiHW.HWBoundary <> hw_chsh_d10sq proj
+R10418:10418 KamiHW.HWBoundary <> b:144 var
+R10340:10346 KamiHW.HWBoundary <> hwb_reg def
+R10349:10351 Kami.Syntax <> Bit constr
+R10361:10373 KamiHW.HWBoundary <> hw_chsh_d01sq proj
+R10358:10358 KamiHW.HWBoundary <> b:144 var
+R10280:10286 KamiHW.HWBoundary <> hwb_reg def
+R10289:10291 Kami.Syntax <> Bit constr
+R10301:10313 KamiHW.HWBoundary <> hw_chsh_d00sq proj
+R10298:10298 KamiHW.HWBoundary <> b:144 var
+R10220:10226 KamiHW.HWBoundary <> hwb_reg def
+R10229:10231 Kami.Syntax <> Bit constr
+R10241:10253 KamiHW.HWBoundary <> hw_chsh_n11sq proj
+R10238:10238 KamiHW.HWBoundary <> b:144 var
+R10160:10166 KamiHW.HWBoundary <> hwb_reg def
+R10169:10171 Kami.Syntax <> Bit constr
+R10181:10193 KamiHW.HWBoundary <> hw_chsh_n10sq proj
+R10178:10178 KamiHW.HWBoundary <> b:144 var
+R10100:10106 KamiHW.HWBoundary <> hwb_reg def
+R10109:10111 Kami.Syntax <> Bit constr
+R10121:10133 KamiHW.HWBoundary <> hw_chsh_n01sq proj
+R10118:10118 KamiHW.HWBoundary <> b:144 var
+R10040:10046 KamiHW.HWBoundary <> hwb_reg def
+R10049:10051 Kami.Syntax <> Bit constr
+R10061:10073 KamiHW.HWBoundary <> hw_chsh_n00sq proj
+R10058:10058 KamiHW.HWBoundary <> b:144 var
+R9982:9988 KamiHW.HWBoundary <> hwb_reg def
+R9991:9994 Kami.Syntax <> Bool constr
+R10000:10013 KamiHW.HWBoundary <> hw_chsh_sign11 proj
+R9997:9997 KamiHW.HWBoundary <> b:144 var
+R9923:9929 KamiHW.HWBoundary <> hwb_reg def
+R9932:9935 Kami.Syntax <> Bool constr
+R9941:9954 KamiHW.HWBoundary <> hw_chsh_sign10 proj
+R9938:9938 KamiHW.HWBoundary <> b:144 var
+R9864:9870 KamiHW.HWBoundary <> hwb_reg def
+R9873:9876 Kami.Syntax <> Bool constr
+R9882:9895 KamiHW.HWBoundary <> hw_chsh_sign01 proj
+R9879:9879 KamiHW.HWBoundary <> b:144 var
+R9805:9811 KamiHW.HWBoundary <> hwb_reg def
+R9814:9817 Kami.Syntax <> Bool constr
+R9823:9836 KamiHW.HWBoundary <> hw_chsh_sign00 proj
+R9820:9820 KamiHW.HWBoundary <> b:144 var
+R9747:9753 KamiHW.HWBoundary <> hwb_reg def
+R9756:9758 Kami.Syntax <> Bit constr
+R9767:9777 KamiHW.HWBoundary <> hw_chsh_d11 proj
+R9764:9764 KamiHW.HWBoundary <> b:144 var
+R9692:9698 KamiHW.HWBoundary <> hwb_reg def
+R9701:9703 Kami.Syntax <> Bit constr
+R9712:9722 KamiHW.HWBoundary <> hw_chsh_d10 proj
+R9709:9709 KamiHW.HWBoundary <> b:144 var
+R9637:9643 KamiHW.HWBoundary <> hwb_reg def
+R9646:9648 Kami.Syntax <> Bit constr
+R9657:9667 KamiHW.HWBoundary <> hw_chsh_d01 proj
+R9654:9654 KamiHW.HWBoundary <> b:144 var
+R9582:9588 KamiHW.HWBoundary <> hwb_reg def
+R9591:9593 Kami.Syntax <> Bit constr
+R9602:9612 KamiHW.HWBoundary <> hw_chsh_d00 proj
+R9599:9599 KamiHW.HWBoundary <> b:144 var
+R9527:9533 KamiHW.HWBoundary <> hwb_reg def
+R9536:9538 Kami.Syntax <> Bit constr
+R9547:9557 KamiHW.HWBoundary <> hw_chsh_n11 proj
+R9544:9544 KamiHW.HWBoundary <> b:144 var
+R9472:9478 KamiHW.HWBoundary <> hwb_reg def
+R9481:9483 Kami.Syntax <> Bit constr
+R9492:9502 KamiHW.HWBoundary <> hw_chsh_n10 proj
+R9489:9489 KamiHW.HWBoundary <> b:144 var
+R9417:9423 KamiHW.HWBoundary <> hwb_reg def
+R9426:9428 Kami.Syntax <> Bit constr
+R9437:9447 KamiHW.HWBoundary <> hw_chsh_n01 proj
+R9434:9434 KamiHW.HWBoundary <> b:144 var
+R9362:9368 KamiHW.HWBoundary <> hwb_reg def
+R9371:9373 Kami.Syntax <> Bit constr
+R9382:9392 KamiHW.HWBoundary <> hw_chsh_n00 proj
+R9379:9379 KamiHW.HWBoundary <> b:144 var
+R9306:9312 KamiHW.HWBoundary <> hwb_reg def
+R9315:9317 Kami.Syntax <> Bit constr
+R9325:9337 KamiHW.HWBoundary <> hw_chsh_phase proj
+R9322:9322 KamiHW.HWBoundary <> b:144 var
+R9234:9240 KamiHW.HWBoundary <> hwb_reg def
+R9243:9246 Kami.Syntax <> Bool constr
+R9252:9279 KamiHW.HWBoundary <> hw_lassert_counter_seen_fail proj
+R9249:9249 KamiHW.HWBoundary <> b:144 var
+R9146:9152 KamiHW.HWBoundary <> hwb_reg def
+R9155:9158 Kami.Syntax <> Bool constr
+R9164:9192 KamiHW.HWBoundary <> hw_lassert_counter_clause_sat proj
+R9161:9161 KamiHW.HWBoundary <> b:144 var
+R9065:9071 KamiHW.HWBoundary <> hwb_reg def
+R9074:9077 Kami.Syntax <> Bool constr
+R9083:9103 KamiHW.HWBoundary <> hw_lassert_clause_sat proj
+R9080:9080 KamiHW.HWBoundary <> b:144 var
+R8981:8987 KamiHW.HWBoundary <> hwb_reg def
+R8990:8995 Kami.Syntax <> Vector constr
+R8998:9000 Kami.Syntax <> Bit constr
+R9002:9007 KamiHW.ThieleTypes <> WordSz def
+R9016:9030 KamiHW.HWBoundary <> hw_lassert_cbuf proj
+R9013:9013 KamiHW.HWBoundary <> b:144 var
+R8903:8909 KamiHW.HWBoundary <> hwb_reg def
+R8912:8917 Kami.Syntax <> Vector constr
+R8920:8922 Kami.Syntax <> Bit constr
+R8924:8929 KamiHW.ThieleTypes <> WordSz def
+R8938:8952 KamiHW.HWBoundary <> hw_lassert_fbuf proj
+R8935:8935 KamiHW.HWBoundary <> b:144 var
+R8836:8842 KamiHW.HWBoundary <> hwb_reg def
+R8845:8847 Kami.Syntax <> Bit constr
+R8849:8854 KamiHW.ThieleTypes <> WordSz def
+R8860:8874 KamiHW.HWBoundary <> hw_lassert_cptr proj
+R8857:8857 KamiHW.HWBoundary <> b:144 var
+R8769:8775 KamiHW.HWBoundary <> hwb_reg def
+R8778:8780 Kami.Syntax <> Bit constr
+R8782:8787 KamiHW.ThieleTypes <> WordSz def
+R8793:8807 KamiHW.HWBoundary <> hw_lassert_fptr proj
+R8790:8790 KamiHW.HWBoundary <> b:144 var
+R8701:8707 KamiHW.HWBoundary <> hwb_reg def
+R8710:8712 Kami.Syntax <> Bit constr
+R8714:8719 KamiHW.ThieleTypes <> WordSz def
+R8725:8740 KamiHW.HWBoundary <> hw_lassert_nvars proj
+R8722:8722 KamiHW.HWBoundary <> b:144 var
+R8633:8639 KamiHW.HWBoundary <> hwb_reg def
+R8642:8644 Kami.Syntax <> Bit constr
+R8646:8651 KamiHW.ThieleTypes <> WordSz def
+R8657:8671 KamiHW.HWBoundary <> hw_lassert_clen proj
+R8654:8654 KamiHW.HWBoundary <> b:144 var
+R8566:8572 KamiHW.HWBoundary <> hwb_reg def
+R8575:8577 Kami.Syntax <> Bit constr
+R8579:8584 KamiHW.ThieleTypes <> WordSz def
+R8590:8604 KamiHW.HWBoundary <> hw_lassert_flen proj
+R8587:8587 KamiHW.HWBoundary <> b:144 var
+R8498:8504 KamiHW.HWBoundary <> hwb_reg def
+R8507:8509 Kami.Syntax <> Bit constr
+R8511:8516 KamiHW.ThieleTypes <> WordSz def
+R8522:8537 KamiHW.HWBoundary <> hw_lassert_cbase proj
+R8519:8519 KamiHW.HWBoundary <> b:144 var
+R8429:8435 KamiHW.HWBoundary <> hwb_reg def
+R8438:8440 Kami.Syntax <> Bit constr
+R8442:8447 KamiHW.ThieleTypes <> WordSz def
+R8453:8468 KamiHW.HWBoundary <> hw_lassert_fbase proj
+R8450:8450 KamiHW.HWBoundary <> b:144 var
+R8367:8373 KamiHW.HWBoundary <> hwb_reg def
+R8376:8379 Kami.Syntax <> Bool constr
+R8385:8399 KamiHW.HWBoundary <> hw_lassert_kind proj
+R8382:8382 KamiHW.HWBoundary <> b:144 var
+R8304:8310 KamiHW.HWBoundary <> hwb_reg def
+R8313:8315 Kami.Syntax <> Bit constr
+R8323:8338 KamiHW.HWBoundary <> hw_lassert_phase proj
+R8320:8320 KamiHW.HWBoundary <> b:144 var
+R8245:8251 KamiHW.HWBoundary <> hwb_reg def
+R8254:8257 Kami.Syntax <> Bool constr
+R8263:8274 KamiHW.HWBoundary <> hw_certified proj
+R8260:8260 KamiHW.HWBoundary <> b:144 var
+R8182:8188 KamiHW.HWBoundary <> hwb_reg def
+R8191:8193 Kami.Syntax <> Bit constr
+R8195:8200 KamiHW.ThieleTypes <> WordSz def
+R8206:8219 KamiHW.HWBoundary <> hw_trap_vector proj
+R8203:8203 KamiHW.HWBoundary <> b:144 var
+R8117:8123 KamiHW.HWBoundary <> hwb_reg def
+R8126:8128 Kami.Syntax <> Bit constr
+R8130:8135 KamiHW.ThieleTypes <> WordSz def
+R8141:8154 KamiHW.HWBoundary <> hw_minstret_hi proj
+R8138:8138 KamiHW.HWBoundary <> b:144 var
+R8052:8058 KamiHW.HWBoundary <> hwb_reg def
+R8061:8063 Kami.Syntax <> Bit constr
+R8065:8070 KamiHW.ThieleTypes <> WordSz def
+R8076:8089 KamiHW.HWBoundary <> hw_minstret_lo proj
+R8073:8073 KamiHW.HWBoundary <> b:144 var
+R7989:7995 KamiHW.HWBoundary <> hwb_reg def
+R7998:8000 Kami.Syntax <> Bit constr
+R8002:8007 KamiHW.ThieleTypes <> WordSz def
+R8013:8024 KamiHW.HWBoundary <> hw_mcycle_hi proj
+R8010:8010 KamiHW.HWBoundary <> b:144 var
+R7928:7934 KamiHW.HWBoundary <> hwb_reg def
+R7937:7939 Kami.Syntax <> Bit constr
+R7941:7946 KamiHW.ThieleTypes <> WordSz def
+R7952:7963 KamiHW.HWBoundary <> hw_mcycle_lo proj
+R7949:7949 KamiHW.HWBoundary <> b:144 var
+R7869:7875 KamiHW.HWBoundary <> hwb_reg def
+R7878:7880 Kami.Syntax <> Bit constr
+R7882:7887 KamiHW.ThieleTypes <> WordSz def
+R7893:7902 KamiHW.HWBoundary <> hw_mstatus proj
+R7890:7890 KamiHW.HWBoundary <> b:144 var
+R7801:7807 KamiHW.HWBoundary <> hwb_reg def
+R7810:7812 Kami.Syntax <> Bit constr
+R7814:7824 KamiHW.ThieleTypes <> PTableIdxSz def
+R7830:7845 KamiHW.HWBoundary <> hw_active_module proj
+R7827:7827 KamiHW.HWBoundary <> b:144 var
+R7736:7742 KamiHW.HWBoundary <> hwb_reg def
+R7745:7747 Kami.Syntax <> Bit constr
+R7749:7754 KamiHW.ThieleTypes <> WordSz def
+R7760:7771 KamiHW.HWBoundary <> hw_cert_addr proj
+R7757:7757 KamiHW.HWBoundary <> b:144 var
+R7675:7681 KamiHW.HWBoundary <> hwb_reg def
+R7684:7686 Kami.Syntax <> Bit constr
+R7688:7693 KamiHW.ThieleTypes <> WordSz def
+R7699:7710 KamiHW.HWBoundary <> hw_logic_acc proj
+R7696:7696 KamiHW.HWBoundary <> b:144 var
+R7613:7619 KamiHW.HWBoundary <> hwb_reg def
+R7622:7624 Kami.Syntax <> Bit constr
+R7626:7631 KamiHW.ThieleTypes <> WordSz def
+R7637:7649 KamiHW.HWBoundary <> hw_error_code proj
+R7634:7634 KamiHW.HWBoundary <> b:144 var
+R7551:7557 KamiHW.HWBoundary <> hwb_reg def
+R7560:7562 Kami.Syntax <> Bit constr
+R7564:7569 KamiHW.ThieleTypes <> WordSz def
+R7575:7586 KamiHW.HWBoundary <> hw_info_gain proj
+R7572:7572 KamiHW.HWBoundary <> b:144 var
+R7492:7498 KamiHW.HWBoundary <> hwb_reg def
+R7501:7503 Kami.Syntax <> Bit constr
+R7505:7510 KamiHW.ThieleTypes <> WordSz def
+R7516:7525 KamiHW.HWBoundary <> hw_mdl_ops proj
+R7513:7513 KamiHW.HWBoundary <> b:144 var
+R7429:7435 KamiHW.HWBoundary <> hwb_reg def
+R7438:7440 Kami.Syntax <> Bit constr
+R7442:7447 KamiHW.ThieleTypes <> WordSz def
+R7453:7468 KamiHW.HWBoundary <> hw_partition_ops proj
+R7450:7450 KamiHW.HWBoundary <> b:144 var
+R7349:7355 KamiHW.HWBoundary <> hwb_reg def
+R7358:7363 Kami.Syntax <> Vector constr
+R7379:7387 KamiHW.ThieleTypes <> MemAddrSz def
+R7366:7368 Kami.Syntax <> Bit constr
+R7370:7376 KamiHW.ThieleTypes <> InstrSz def
+R7393:7399 KamiHW.HWBoundary <> hw_imem proj
+R7390:7390 KamiHW.HWBoundary <> b:144 var
+R7280:7286 KamiHW.HWBoundary <> hwb_reg def
+R7289:7294 Kami.Syntax <> Vector constr
+R7309:7317 KamiHW.ThieleTypes <> MemAddrSz def
+R7297:7299 Kami.Syntax <> Bit constr
+R7301:7306 KamiHW.ThieleTypes <> WordSz def
+R7323:7328 KamiHW.HWBoundary <> hw_mem proj
+R7320:7320 KamiHW.HWBoundary <> b:144 var
+R7212:7218 KamiHW.HWBoundary <> hwb_reg def
+R7221:7226 Kami.Syntax <> Vector constr
+R7241:7248 KamiHW.ThieleTypes <> RegIdxSz def
+R7229:7231 Kami.Syntax <> Bit constr
+R7233:7238 KamiHW.ThieleTypes <> WordSz def
+R7254:7260 KamiHW.HWBoundary <> hw_regs proj
+R7251:7251 KamiHW.HWBoundary <> b:144 var
+R7165:7171 KamiHW.HWBoundary <> hwb_reg def
+R7174:7177 Kami.Syntax <> Bool constr
+R7183:7191 KamiHW.HWBoundary <> hw_halted proj
+R7180:7180 KamiHW.HWBoundary <> b:144 var
+R7119:7125 KamiHW.HWBoundary <> hwb_reg def
+R7128:7131 Kami.Syntax <> Bool constr
+R7137:7142 KamiHW.HWBoundary <> hw_err proj
+R7134:7134 KamiHW.HWBoundary <> b:144 var
+R7071:7077 KamiHW.HWBoundary <> hwb_reg def
+R7080:7082 Kami.Syntax <> Bit constr
+R7084:7089 KamiHW.ThieleTypes <> WordSz def
+R7095:7099 KamiHW.HWBoundary <> hw_mu proj
+R7092:7092 KamiHW.HWBoundary <> b:144 var
+R7024:7030 KamiHW.HWBoundary <> hwb_reg def
+R7033:7035 Kami.Syntax <> Bit constr
+R7037:7042 KamiHW.ThieleTypes <> WordSz def
+R7048:7052 KamiHW.HWBoundary <> hw_pc proj
+R7045:7045 KamiHW.HWBoundary <> b:144 var

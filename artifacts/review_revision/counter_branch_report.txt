@@ -1,0 +1,227 @@
+VMUnboundedCounterAccess.counter_witness =
+fun u v : nat =>
+{|
+  VMState.wc_same_00 := S u;
+  VMState.wc_diff_00 := S v;
+  VMState.wc_same_01 := 1;
+  VMState.wc_diff_01 := 1;
+  VMState.wc_same_10 := 1;
+  VMState.wc_diff_10 := 0;
+  VMState.wc_same_11 := 1;
+  VMState.wc_diff_11 := 1
+|}
+     : nat -> nat -> VMState.WitnessCounts
+
+Arguments VMUnboundedCounterAccess.counter_witness (u v)%nat_scope
+counter_branch_result =
+fun (s : VMState.VMState) (target : nat) (equal : bool) =>
+{|
+  VMState.vm_graph := VMState.vm_graph s;
+  VMState.vm_csrs :=
+    if equal
+    then VMState.vm_csrs s
+    else VMState.csr_set_err (VMState.vm_csrs s) 1;
+  VMState.vm_regs := VMState.vm_regs s;
+  VMState.vm_mem := VMState.vm_mem s;
+  VMState.vm_pc := target;
+  VMState.vm_mu := VMState.vm_mu s + 1;
+  VMState.vm_mu_tensor := VMState.vm_mu_tensor s;
+  VMState.vm_err := if equal then VMState.vm_err s else true;
+  VMState.vm_logic_acc := VMState.vm_logic_acc s;
+  VMState.vm_mstatus := VMState.vm_mstatus s;
+  VMState.vm_witness := VMState.vm_witness s;
+  VMState.vm_certified := VMState.vm_certified s
+|}
+     : VMState.VMState -> nat -> bool -> VMState.VMState
+
+Arguments counter_branch_result s target%nat_scope equal%bool_scope
+counter_iteration_result =
+fun (s : VMState.VMState) (u v : nat) =>
+{|
+  VMState.vm_graph := VMState.vm_graph s;
+  VMState.vm_csrs := VMState.csr_set_err (VMState.vm_csrs s) 1;
+  VMState.vm_regs := VMState.vm_regs s;
+  VMState.vm_mem := VMState.vm_mem s;
+  VMState.vm_pc := 0;
+  VMState.vm_mu := VMState.vm_mu s + 1;
+  VMState.vm_mu_tensor := VMState.vm_mu_tensor s;
+  VMState.vm_err := true;
+  VMState.vm_logic_acc := VMState.vm_logic_acc s;
+  VMState.vm_mstatus := VMState.vm_mstatus s;
+  VMState.vm_witness := VMUnboundedCounterAccess.counter_witness u (S v);
+  VMState.vm_certified := VMState.vm_certified s
+|}
+     : VMState.VMState -> nat -> nat -> VMState.VMState
+
+Arguments counter_iteration_result s (u v)%nat_scope
+counter_rounds =
+fix counter_rounds (s : VMState.VMState) (u v n : nat) {struct n} :
+    VMState.VMState :=
+  match n with
+  | 0 => s
+  | S k => counter_rounds (counter_iteration_result s u v) u (S v) k
+  end
+     : VMState.VMState -> nat -> nat -> nat -> VMState.VMState
+
+Arguments counter_rounds s (u v n)%nat_scope
+counter_drain_program =
+((VMStep.VMStep.instr_chsh_lassert 0
+  :: VMStep.VMStep.instr_jump 3841 0
+     :: VMStep.VMStep.instr_chsh_trial 0 0 0 1 0
+        :: VMStep.VMStep.instr_jump 0 0 :: nil) ++
+ List.repeat (VMStep.VMStep.instr_checkpoint String.EmptyString 0)
+   (VMStep.VMStep.LASSERT_TRAP_PC - 4) ++ VMStep.VMStep.instr_jump 2 0 :: nil)%list
+     : list VMStep.VMStep.vm_instruction
+SimulationProof.run_vm =
+fix run_vm
+  (fuel : nat) (trace : list VMStep.VMStep.vm_instruction)
+  (s : VMState.VMState) {struct fuel} : VMState.VMState :=
+  match fuel with
+  | 0 => s
+  | S fuel' =>
+      match List.nth_error trace (VMState.vm_pc s) with
+      | Some instr => run_vm fuel' trace (SimulationProof.vm_apply s instr)
+      | None => s
+      end
+  end
+     : nat ->
+       list VMStep.VMStep.vm_instruction ->
+       VMState.VMState -> VMState.VMState
+
+Arguments SimulationProof.run_vm fuel%nat_scope trace%list_scope s
+VMUnboundedExec.vm_halts_at =
+fun (p : list VMStep.VMStep.vm_instruction) (s r : VMState.VMState) =>
+exists n : nat,
+  SimulationProof.run_vm n p s = r /\ VMUnboundedExec.halted p r
+     : list VMStep.VMStep.vm_instruction ->
+       VMState.VMState -> VMState.VMState -> Prop
+
+Arguments VMUnboundedExec.vm_halts_at p%list_scope s r
+counter_branch_correct
+     : forall (p : list VMStep.VMStep.vm_instruction) 
+         (s : VMState.VMState) (u v yes no : nat),
+       VMState.vm_witness s = VMUnboundedCounterAccess.counter_witness u v ->
+       List.nth_error p (VMState.vm_pc s) =
+       Some (VMStep.VMStep.instr_chsh_lassert 0) ->
+       List.nth_error p (S (VMState.vm_pc s)) =
+       Some (VMStep.VMStep.instr_jump yes 0) ->
+       List.nth_error p VMStep.VMStep.LASSERT_TRAP_PC =
+       Some (VMStep.VMStep.instr_jump no 0) ->
+       SimulationProof.run_vm 2 p s =
+       counter_branch_result s (if PeanoNat.Nat.eqb u v then yes else no)
+         (PeanoNat.Nat.eqb u v)
+Closed under the global context
+counter_drain_iteration
+     : forall (s : VMState.VMState) (u v : nat),
+       VMState.vm_pc s = 0 ->
+       VMState.vm_witness s = VMUnboundedCounterAccess.counter_witness u v ->
+       u <> v ->
+       SimulationProof.run_vm 4 counter_drain_program s =
+       counter_iteration_result s u v
+Closed under the global context
+counter_drain_exit
+     : forall (s : VMState.VMState) (u : nat),
+       VMState.vm_pc s = 0 ->
+       VMState.vm_witness s = VMUnboundedCounterAccess.counter_witness u u ->
+       SimulationProof.run_vm 2 counter_drain_program s =
+       counter_branch_result s 3841 true
+Closed under the global context
+counter_drain_correct
+     : forall (s : VMState.VMState) (u v : nat),
+       VMState.vm_pc s = 0 ->
+       VMState.vm_witness s = VMUnboundedCounterAccess.counter_witness u v ->
+       v <= u ->
+       SimulationProof.run_vm (4 * (u - v) + 2) counter_drain_program s =
+       counter_branch_result (counter_rounds s u v (u - v)) 3841 true
+Closed under the global context
+counter_rounds_fields
+     : forall (n : nat) (s : VMState.VMState) (u v : nat),
+       VMState.vm_witness s = VMUnboundedCounterAccess.counter_witness u v ->
+       VMState.vm_witness (counter_rounds s u v n) =
+       VMUnboundedCounterAccess.counter_witness u (v + n) /\
+       VMState.vm_mu (counter_rounds s u v n) = VMState.vm_mu s + n /\
+       VMState.vm_err (counter_rounds s u v n) =
+       (if PeanoNat.Nat.eqb n 0 then VMState.vm_err s else true) /\
+       VMState.vm_csrs (counter_rounds s u v n) =
+       (if PeanoNat.Nat.eqb n 0
+        then VMState.vm_csrs s
+        else VMState.csr_set_err (VMState.vm_csrs s) 1)
+Closed under the global context
+counter_rounds_frame
+     : forall (n : nat) (s : VMState.VMState) (u v : nat),
+       let r := counter_rounds s u v n in
+       (VMState.vm_graph r, VMState.vm_regs r, VMState.vm_mem r,
+        VMState.vm_mu_tensor r, VMState.vm_logic_acc r, 
+        VMState.vm_mstatus r, VMState.vm_certified r) =
+       (VMState.vm_graph s, VMState.vm_regs s, VMState.vm_mem s,
+        VMState.vm_mu_tensor s, VMState.vm_logic_acc s, 
+        VMState.vm_mstatus s, VMState.vm_certified s)
+Closed under the global context
+counter_drain_halts
+     : forall (s : VMState.VMState) (u v : nat),
+       VMState.vm_pc s = 0 ->
+       VMState.vm_witness s = VMUnboundedCounterAccess.counter_witness u v ->
+       v <= u ->
+       VMUnboundedExec.vm_halts_at counter_drain_program s
+         (counter_branch_result (counter_rounds s u v (u - v)) 3841 true)
+Closed under the global context
+counter_branch_repeats_after_error
+     : let s := counter_example_state 2 0 false in
+       List.map
+         (fun fuel : nat =>
+          let r := SimulationProof.run_vm fuel counter_drain_program s in
+          (VMState.vm_pc r, VMState.vm_mu r, VMState.vm_err r))
+         (2 :: 4 :: 6 :: 8 :: 10 :: nil) =
+       ((2, 8, true)
+        :: (0, 8, true)
+           :: (2, 9, true) :: (0, 9, true) :: (3841, 10, true) :: nil)%list
+Closed under the global context
+counter_equal_preserves_existing_error_and_data
+     : let r :=
+         SimulationProof.run_vm 2 counter_drain_program
+           (counter_example_state 3 3 true) in
+       (VMState.vm_pc r, VMState.vm_mu r, VMState.vm_err r,
+        VMState.vm_regs r, VMState.vm_mem r, VMState.vm_certified r) =
+       (3841, 8, true, (42 :: nil)%list, (13 :: nil)%list, true)
+Closed under the global context
+counter_unequal_reaches_equal_witness
+     : VMState.vm_witness
+         (SimulationProof.run_vm 10 counter_drain_program
+            (counter_example_state 2 0 false)) =
+       VMUnboundedCounterAccess.counter_witness 2 2
+Closed under the global context
+counter_update_result =
+fun (s : VMState.VMState) (u v : nat) =>
+{|
+  VMState.vm_graph := VMState.vm_graph s;
+  VMState.vm_csrs := VMState.vm_csrs s;
+  VMState.vm_regs := VMState.vm_regs s;
+  VMState.vm_mem := VMState.vm_mem s;
+  VMState.vm_pc := S (VMState.vm_pc s);
+  VMState.vm_mu := VMState.vm_mu s;
+  VMState.vm_mu_tensor := VMState.vm_mu_tensor s;
+  VMState.vm_err := VMState.vm_err s;
+  VMState.vm_logic_acc := VMState.vm_logic_acc s;
+  VMState.vm_mstatus := VMState.vm_mstatus s;
+  VMState.vm_witness := VMUnboundedCounterAccess.counter_witness u v;
+  VMState.vm_certified := VMState.vm_certified s
+|}
+     : VMState.VMState -> nat -> nat -> VMState.VMState
+
+Arguments counter_update_result s (u v)%nat_scope
+counter_increment_correct
+     : forall (p : list VMStep.VMStep.vm_instruction) 
+         (s : VMState.VMState) (u v : nat),
+       VMState.vm_witness s = VMUnboundedCounterAccess.counter_witness u v ->
+       List.nth_error p (VMState.vm_pc s) =
+       Some (VMStep.VMStep.instr_chsh_trial 0 0 0 0 0) ->
+       SimulationProof.run_vm 1 p s = counter_update_result s (S u) v
+Closed under the global context
+counter_decrement_correct
+     : forall (p : list VMStep.VMStep.vm_instruction) 
+         (s : VMState.VMState) (u v : nat),
+       VMState.vm_witness s = VMUnboundedCounterAccess.counter_witness u v ->
+       List.nth_error p (VMState.vm_pc s) =
+       Some (VMStep.VMStep.instr_chsh_trial 0 0 0 1 0) ->
+       SimulationProof.run_vm 1 p s = counter_update_result s u (S v)
+Closed under the global context

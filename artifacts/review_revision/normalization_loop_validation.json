@@ -1,0 +1,89 @@
+{
+  "checkpoint": "/workspaces/revision-snapshots/20260912T210451Z-normalization-loop-novelty",
+  "scope": "Scan/data-selection support lemmas and initial novelty comparison; full loop refinement and novelty assessment remain open.",
+  "checks": [
+    {
+      "command": "COQPATH=$PWD/vendor/bbv/src:$PWD/vendor/kami make -C coq -j2",
+      "exit_code": 0,
+      "log": "normalization-loop-build.log"
+    },
+    {
+      "command": "python3 scripts/check_review_contracts.py --probe artifacts/review_revision/normalization_loop_probe.v",
+      "exit_code": 0,
+      "results": 21,
+      "log": "normalization_loop_report.txt"
+    },
+    {
+      "command_record": "normalization_loop_coqchk_command.json",
+      "exit_code": 0,
+      "bypass_flags": false,
+      "log": "normalization-loop-coqchk.log"
+    }
+  ],
+  "assumptions": {
+    "closed_results": 19,
+    "inherited_eq_rect_eq_results": [
+      "table_pair_after_emit_unread",
+      "normalization_emit_preserves_future_scan"
+    ],
+    "new_axioms": false,
+    "library_context": "Broader library dependencies are enumerated separately in the coqchk log."
+  },
+  "carried_forward_not_rerun": {
+    "rtl_tests": 127,
+    "freshness_tests": 13,
+    "monograph_pages": 164,
+    "reason": "Associated implementation source unchanged; five key surfaces compared with preceding manifest."
+  },
+  "research_scope": "Exact local premises inspected, generic fold/ledger derivations recorded, selected provenance statements compared. No completed novelty verdict or external review.",
+  "files": [
+    {
+      "path": "coq/_CoqProject",
+      "sha256": "ac0c8eb1ca0da056aa63b4f6749edb49c4cf936347f60561d4eb38693be24818"
+    },
+    {
+      "path": "coq/kami_hw/NormalizationLoop.v",
+      "sha256": "311ead56a629bdd6428881291eb701743b569e529a6b6c6b7c1e5f72dc4152d6"
+    },
+    {
+      "path": "coq/kami_hw/NormalizationLoop.vo",
+      "sha256": "17c5a67723815b2ff143445721054ae0a11f3f6e5360c5f295ee5e927d4b7314"
+    },
+    {
+      "path": "artifacts/review_revision/normalization_loop_probe.v",
+      "sha256": "adb76e1fcfdeb451902d4780477a118d324439bcb6a1239b54bfc39a91c06058"
+    },
+    {
+      "path": "artifacts/review_revision/normalization_loop_report.txt",
+      "sha256": "a1ae0e7058bcfb3ae4864f242a53e72322bfd8be214469591e7c8b37388d2f2f"
+    },
+    {
+      "path": "artifacts/review_revision/normalization-loop-build.log",
+      "sha256": "63501b2e36c84d49bc71de4aada84e07d9cf294e4aed57d894615b08c883a1c4"
+    },
+    {
+      "path": "artifacts/review_revision/normalization-loop-coqchk.log",
+      "sha256": "3e12e49805baa4d466553d610d6620c8ffae6a329db1cd5cede2a9792e8a97ef"
+    },
+    {
+      "path": "artifacts/review_revision/normalization_loop_coqchk_command.json",
+      "sha256": "f0c8a55bcb07cbb7560f5b1063c76d33a581f54ff77cbd3b4c89dd1b2e4e33ed"
+    },
+    {
+      "path": "artifacts/review_revision/NORMALIZATION_LOOP_REVIEW.md",
+      "sha256": "ddb304ddb3fbf1cddb7b9beec6cc0573aa38662883547eb6ae1080fb285687d4"
+    },
+    {
+      "path": "artifacts/review_revision/NOVELTY_RESEARCH_REQUEST.md",
+      "sha256": "f716ffc42daa414b032c1ff4261265a2a012b91510730cca8dd1f986bff39ffc"
+    },
+    {
+      "path": "artifacts/review_revision/NOVELTY_ASSESSMENT.md",
+      "sha256": "29bff53bcbd1b4694360f13a3aba5d1c5983290a57a6707e7aa80b65e0c7a9b6"
+    },
+    {
+      "path": "artifacts/review_revision/novelty_source_record.json",
+      "sha256": "346e0758c5f504d787af2fd4fa7ea329b7dae81e341ef643ff7a80d2b06e2b92"
+    }
+  ]
+}

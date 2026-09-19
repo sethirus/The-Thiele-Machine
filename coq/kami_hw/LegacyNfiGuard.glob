@@ -1,0 +1,86 @@
+DIGEST b25aa6e5fd73c83baeaa60ee13763758
+FKamiHW.LegacyNfiGuard
+R500:508 Kami.Kami <> <> lib
+R510:523 Kami.Semantics <> <> lib
+R550:555 Coq.Strings.String <> <> lib
+R557:560 Coq.Lists.List <> <> lib
+R562:565 Coq.Bool.Bool <> <> lib
+R567:571 Coq.Arith.Arith <> <> lib
+R573:575 Coq.micromega.Lia <> <> lib
+R605:615 KamiHW.ThieleTypes <> <> lib
+R617:629 KamiHW.ThieleCPUCore <> <> lib
+R631:640 KamiHW.HWBoundary <> <> lib
+R642:649 KamiHW.RuleNext <> <> lib
+R651:658 KamiHW.RuleStep <> <> lib
+R660:674 KamiHW.BoundaryDecoded <> <> lib
+R678:685 KamiHW.StepEval <> <> lib
+R687:699 KamiHW.StepWordFacts <> <> lib
+R701:712 KamiHW.DispatchLets <> <> lib
+R714:724 KamiHW.Abstraction <> <> lib
+R726:747 KamiHW.ImplementationContract <> <> lib
+R751:760 KamiHW.StepFields <> <> lib
+R762:776 KamiHW.StepFieldsMorph <> <> lib
+R778:787 KamiHW.StepFaults <> <> lib
+R789:804 KamiHW.StepRefineCommon <> <> lib
+R806:821 KamiHW.LegacyWordDecode <> <> lib
+R873:880 Kami.Semantics <> evalExpr def
+R882:892 Kami.Semantics <> evalBinBool def
+R894:904 Kami.Semantics <> evalUniBool def
+R906:915 Kami.Semantics <> evalConstT def
+R917:920 Kami.Semantics <> isEq def
+R922:935 Kami.Semantics <> evalBinBitBool def
+R937:946 Kami.Semantics <> evalUniBit def
+R948:966 Kami.Semantics <> evalZeroExtendTrunc def
+R1008:1010 Coq.Init.Datatypes <> orb def
+R1012:1015 Coq.Init.Datatypes <> andb def
+R1017:1020 Coq.Init.Datatypes <> negb def
+prf 1031:1052 <> dd_nfi_violation_false
+binder 1063:1064 <> bd:1
+R1075:1078 Kami.Lib.Word <> word ind
+binder 1067:1067 <> a:2
+binder 1069:1069 <> b:3
+binder 1071:1071 <> c:4
+R1112:1117 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1097:1100 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1086:1094 Kami.Lib.Word <> wordToNat def
+R1096:1096 KamiHW.LegacyNfiGuard <> b:3 var
+R1101:1109 Kami.Lib.Word <> wordToNat def
+R1111:1111 KamiHW.LegacyNfiGuard <> c:4 var
+R1170:1172 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1118:1133 KamiHW.DispatchLets <> dd_nfi_violation def
+R1135:1136 KamiHW.LegacyNfiGuard <> bd:1 var
+R1139:1149 KamiHW.StepEval <> legacy_word def
+R1151:1162 KamiHW.ThieleTypes <> OP_PDISCOVER def
+R1164:1164 KamiHW.LegacyNfiGuard <> a:2 var
+R1166:1166 KamiHW.LegacyNfiGuard <> b:3 var
+R1168:1168 KamiHW.LegacyNfiGuard <> c:4 var
+R1173:1177 Coq.Init.Datatypes <> false constr
+R1222:1237 KamiHW.DispatchLets <> dd_nfi_violation def
+R1240:1262 KamiHW.DispatchLets <> dd_is_declared_bound_op def
+R1265:1273 KamiHW.DispatchLets <> dd_cost32 def
+R1276:1285 KamiHW.DispatchLets <> dd_op_b_32 def
+R1318:1330 KamiHW.LegacyWordDecode <> dd_op_correct thm
+R1318:1330 KamiHW.LegacyWordDecode <> dd_op_correct thm
+R1318:1330 KamiHW.LegacyWordDecode <> dd_op_correct thm
+R1345:1347 Kami.Lib.Word <> weq def
+R1362:1373 KamiHW.ThieleTypes <> OP_PDISCOVER def
+R1349:1360 KamiHW.ThieleTypes <> OP_PDISCOVER def
+R1345:1347 Kami.Lib.Word <> weq def
+R1362:1373 KamiHW.ThieleTypes <> OP_PDISCOVER def
+R1349:1360 KamiHW.ThieleTypes <> OP_PDISCOVER def
+R1434:1445 KamiHW.LegacyWordDecode <> dd_b_correct thm
+R1448:1459 KamiHW.LegacyWordDecode <> dd_c_correct thm
+R1434:1445 KamiHW.LegacyWordDecode <> dd_b_correct thm
+R1434:1445 KamiHW.LegacyWordDecode <> dd_b_correct thm
+R1448:1459 KamiHW.LegacyWordDecode <> dd_c_correct thm
+R1448:1459 KamiHW.LegacyWordDecode <> dd_c_correct thm
+R1474:1480 Kami.Lib.Word <> wlt_dec def
+R1474:1480 Kami.Lib.Word <> wlt_dec def
+R1534:1539 Kami.Lib.Word <> wlt_lt thm
+R1534:1539 Kami.Lib.Word <> wlt_lt thm
+R1559:1577 KamiHW.StepRefineCommon <> wordToNat_zext8_ext thm
+R1580:1598 KamiHW.StepRefineCommon <> wordToNat_zext8_ext thm
+R1559:1577 KamiHW.StepRefineCommon <> wordToNat_zext8_ext thm
+R1559:1577 KamiHW.StepRefineCommon <> wordToNat_zext8_ext thm
+R1580:1598 KamiHW.StepRefineCommon <> wordToNat_zext8_ext thm
+R1580:1598 KamiHW.StepRefineCommon <> wordToNat_zext8_ext thm

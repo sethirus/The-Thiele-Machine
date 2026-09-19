@@ -1,0 +1,671 @@
+DIGEST 0c344bd1071a9bdae347277d1bc55653
+FKernel.VMSelfRiceUndec
+R271:275 Coq.Arith.Arith <> <> lib
+R277:279 Coq.micromega.Lia <> <> lib
+R281:284 Coq.Lists.List <> <> lib
+R286:289 Coq.Bool.Bool <> <> lib
+R316:340 Coq.Logic.ConstructiveEpsilon <> <> lib
+R350:362 Coq.Lists.List ListNotations <> mod
+R392:402 Kernel.VMSelfGuest <> <> lib
+R404:412 Kernel.VMSelfRun <> <> lib
+R414:423 Kernel.VMSelfRice <> <> lib
+R453:470 Kernel.MM2ComplementUndec <> <> lib
+R518:531 Undecidability.Synthetic.Undecidability <> <> lib
+R565:568 Undecidability.TM.SBTM <> <> lib
+def 670:682 <> g_extensional
+R701:704 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R690:693 Coq.Init.Datatypes <> list ind
+R695:700 Kernel.VMSelfGuest <> GInstr ind
+binder 685:686 <> Pr:1
+binder 730:730 <> p:2
+binder 732:732 <> q:3
+R749:752 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R735:746 Kernel.VMSelfGuest <> g_wf_program def
+R748:748 Kernel.VMSelfRiceUndec <> p:2 var
+R767:770 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R753:764 Kernel.VMSelfGuest <> g_wf_program def
+R766:766 Kernel.VMSelfRiceUndec <> q:3 var
+R782:785 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R771:777 Kernel.VMSelfRice <> g_equiv def
+R779:779 Kernel.VMSelfRiceUndec <> p:2 var
+R781:781 Kernel.VMSelfRiceUndec <> q:3 var
+R790:793 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R786:787 Kernel.VMSelfRiceUndec <> Pr:1 var
+R789:789 Kernel.VMSelfRiceUndec <> p:2 var
+R794:795 Kernel.VMSelfRiceUndec <> Pr:1 var
+R797:797 Kernel.VMSelfRiceUndec <> q:3 var
+prf 807:817 <> g_equiv_sym
+binder 828:828 <> p:4
+binder 830:830 <> q:5
+R844:847 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R833:839 Kernel.VMSelfRice <> g_equiv def
+R841:841 Kernel.VMSelfRiceUndec <> p:4 var
+R843:843 Kernel.VMSelfRiceUndec <> q:5 var
+R848:854 Kernel.VMSelfRice <> g_equiv def
+R856:856 Kernel.VMSelfRiceUndec <> q:5 var
+R858:858 Kernel.VMSelfRiceUndec <> p:4 var
+prf 1126:1134 <> self_rice
+R1162:1165 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1151:1154 Coq.Init.Datatypes <> list ind
+R1156:1161 Kernel.VMSelfGuest <> GInstr ind
+binder 1146:1147 <> Pr:6
+R1177:1180 Coq.Init.Datatypes <> list ind
+R1182:1187 Kernel.VMSelfGuest <> GInstr ind
+binder 1173:1173 <> w:7
+R1209:1212 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1193:1205 Kernel.VMSelfRiceUndec <> g_extensional def
+R1207:1208 Kernel.VMSelfRiceUndec <> Pr:6 var
+R1227:1230 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1213:1224 Kernel.VMSelfGuest <> g_wf_program def
+R1226:1226 Kernel.VMSelfRiceUndec <> w:7 var
+R1235:1238 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1231:1232 Kernel.VMSelfRiceUndec <> Pr:6 var
+R1234:1234 Kernel.VMSelfRiceUndec <> w:7 var
+R1252:1257 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1239:1240 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1241:1242 Kernel.VMSelfRiceUndec <> Pr:6 var
+R1244:1251 Kernel.VMSelfRice <> g_bottom def
+R1258:1268 Undecidability.Synthetic.Undecidability <> undecidable def
+binder 1275:1275 <> p:8
+R1294:1297 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1280:1291 Kernel.VMSelfGuest <> g_wf_program def
+R1293:1293 Kernel.VMSelfRiceUndec <> p:8 var
+R1298:1299 Kernel.VMSelfRiceUndec <> Pr:6 var
+R1301:1301 Kernel.VMSelfRiceUndec <> p:8 var
+R1352:1381 Undecidability.Synthetic.Undecidability <> undecidability_from_complement thm
+R1352:1381 Undecidability.Synthetic.Undecidability <> undecidability_from_complement thm
+R1393:1424 Undecidability.Synthetic.Undecidability <> undecidability_from_reducibility thm
+R1426:1448 Kernel.MM2ComplementUndec <> MM2_HALTING_compl_undec thm
+R1393:1424 Undecidability.Synthetic.Undecidability <> undecidability_from_reducibility thm
+R1426:1448 Kernel.MM2ComplementUndec <> MM2_HALTING_compl_undec thm
+binder 1466:1467 <> pm:9
+R1472:1480 Kernel.VMSelfRice <> rice_prog def
+R1482:1483 Kernel.VMSelfRiceUndec <> pm:9 var
+binder 1466:1467 <> pm:10
+R1472:1480 Kernel.VMSelfRice <> rice_prog def
+R1482:1483 Kernel.VMSelfRiceUndec <> pm:10 var
+R1563:1571 Kernel.VMSelfRice <> rice_prog def
+R1579:1586 Kernel.VMSelfRice <> g_bottom def
+R1592:1602 Kernel.VMSelfRice <> g_bottom_wf thm
+R1563:1571 Kernel.VMSelfRice <> rice_prog def
+R1579:1586 Kernel.VMSelfRice <> g_bottom def
+R1592:1602 Kernel.VMSelfRice <> g_bottom_wf thm
+R1683:1702 Kernel.VMSelfRice <> rice_prog_nonhalting thm
+R1683:1702 Kernel.VMSelfRice <> rice_prog_nonhalting thm
+R1754:1765 Kernel.VMSelfRice <> g_bottom_beh thm
+R1754:1765 Kernel.VMSelfRice <> g_bottom_beh thm
+R1821:1832 Kernel.VMSelfRice <> rice_prog_wf thm
+R1821:1832 Kernel.VMSelfRice <> rice_prog_wf thm
+R1860:1868 Kernel.VMSelfRice <> rice_prog def
+R1880:1891 Kernel.VMSelfRice <> rice_prog_wf thm
+R1860:1868 Kernel.VMSelfRice <> rice_prog def
+R1880:1891 Kernel.VMSelfRice <> rice_prog_wf thm
+R1928:1938 Kernel.VMSelfRiceUndec <> g_equiv_sym thm
+R1941:1957 Kernel.VMSelfRice <> rice_prog_halting thm
+R1928:1938 Kernel.VMSelfRiceUndec <> g_equiv_sym thm
+R1941:1957 Kernel.VMSelfRice <> rice_prog_halting thm
+prf 1984:1991 <> g_wf_dec
+binder 2002:2002 <> i:11
+R2005:2005 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R2012:2016 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R2025:2025 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R2006:2009 Kernel.VMSelfGuest <> g_wf def
+R2011:2011 Kernel.VMSelfRiceUndec <> i:11 var
+R2017:2018 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2019:2022 Kernel.VMSelfGuest <> g_wf def
+R2024:2024 Kernel.VMSelfRiceUndec <> i:11 var
+R2053:2056 Kernel.VMSelfGuest <> g_wf def
+R2071:2076 Coq.Arith.Compare_dec <> lt_dec thm
+R2079:2083 Kernel.VMSelfGuest <> g_dst def
+R2093:2098 Coq.Arith.Compare_dec <> lt_dec thm
+R2101:2105 Kernel.VMSelfGuest <> g_rs1 def
+R2115:2120 Coq.Arith.Compare_dec <> lt_dec thm
+R2123:2127 Kernel.VMSelfGuest <> g_rs2 def
+R2137:2142 Coq.Arith.Compare_dec <> lt_dec thm
+R2145:2150 Kernel.VMSelfGuest <> g_cost def
+R2071:2076 Coq.Arith.Compare_dec <> lt_dec thm
+R2079:2083 Kernel.VMSelfGuest <> g_dst def
+R2093:2098 Coq.Arith.Compare_dec <> lt_dec thm
+R2101:2105 Kernel.VMSelfGuest <> g_rs1 def
+R2093:2098 Coq.Arith.Compare_dec <> lt_dec thm
+R2101:2105 Kernel.VMSelfGuest <> g_rs1 def
+R2115:2120 Coq.Arith.Compare_dec <> lt_dec thm
+R2123:2127 Kernel.VMSelfGuest <> g_rs2 def
+R2115:2120 Coq.Arith.Compare_dec <> lt_dec thm
+R2123:2127 Kernel.VMSelfGuest <> g_rs2 def
+R2115:2120 Coq.Arith.Compare_dec <> lt_dec thm
+R2123:2127 Kernel.VMSelfGuest <> g_rs2 def
+R2115:2120 Coq.Arith.Compare_dec <> lt_dec thm
+R2123:2127 Kernel.VMSelfGuest <> g_rs2 def
+R2137:2142 Coq.Arith.Compare_dec <> lt_dec thm
+R2145:2150 Kernel.VMSelfGuest <> g_cost def
+R2137:2142 Coq.Arith.Compare_dec <> lt_dec thm
+R2145:2150 Kernel.VMSelfGuest <> g_cost def
+R2137:2142 Coq.Arith.Compare_dec <> lt_dec thm
+R2145:2150 Kernel.VMSelfGuest <> g_cost def
+R2137:2142 Coq.Arith.Compare_dec <> lt_dec thm
+R2145:2150 Kernel.VMSelfGuest <> g_cost def
+R2137:2142 Coq.Arith.Compare_dec <> lt_dec thm
+R2145:2150 Kernel.VMSelfGuest <> g_cost def
+R2137:2142 Coq.Arith.Compare_dec <> lt_dec thm
+R2145:2150 Kernel.VMSelfGuest <> g_cost def
+R2137:2142 Coq.Arith.Compare_dec <> lt_dec thm
+R2145:2150 Kernel.VMSelfGuest <> g_cost def
+R2137:2142 Coq.Arith.Compare_dec <> lt_dec thm
+R2145:2150 Kernel.VMSelfGuest <> g_cost def
+prf 2210:2225 <> g_wf_program_dec
+binder 2236:2236 <> p:12
+R2239:2239 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R2254:2258 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R2275:2275 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R2240:2251 Kernel.VMSelfGuest <> g_wf_program def
+R2253:2253 Kernel.VMSelfRiceUndec <> p:12 var
+R2259:2260 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2261:2272 Kernel.VMSelfGuest <> g_wf_program def
+R2274:2274 Kernel.VMSelfRiceUndec <> p:12 var
+R2347:2354 Kernel.VMSelfRiceUndec <> g_wf_dec thm
+R2347:2354 Kernel.VMSelfRiceUndec <> g_wf_dec thm
+prf 2654:2667 <> self_rice_dual
+R2695:2698 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2684:2687 Coq.Init.Datatypes <> list ind
+R2689:2694 Kernel.VMSelfGuest <> GInstr ind
+binder 2679:2680 <> Pr:13
+R2710:2713 Coq.Init.Datatypes <> list ind
+R2715:2720 Kernel.VMSelfGuest <> GInstr ind
+binder 2706:2706 <> w:14
+R2742:2745 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2726:2738 Kernel.VMSelfRiceUndec <> g_extensional def
+R2740:2741 Kernel.VMSelfRiceUndec <> Pr:13 var
+R2760:2763 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2746:2757 Kernel.VMSelfGuest <> g_wf_program def
+R2759:2759 Kernel.VMSelfRiceUndec <> w:14 var
+R2770:2773 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2764:2765 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2766:2767 Kernel.VMSelfRiceUndec <> Pr:13 var
+R2769:2769 Kernel.VMSelfRiceUndec <> w:14 var
+R2785:2790 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2774:2775 Kernel.VMSelfRiceUndec <> Pr:13 var
+R2777:2784 Kernel.VMSelfRice <> g_bottom def
+R2791:2801 Undecidability.Synthetic.Undecidability <> undecidable def
+binder 2808:2808 <> p:15
+R2827:2830 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2813:2824 Kernel.VMSelfGuest <> g_wf_program def
+R2826:2826 Kernel.VMSelfRiceUndec <> p:15 var
+R2831:2832 Kernel.VMSelfRiceUndec <> Pr:13 var
+R2834:2834 Kernel.VMSelfRiceUndec <> p:15 var
+R2892:2900 Kernel.VMSelfRiceUndec <> self_rice thm
+binder 2907:2907 <> p:16
+R2912:2913 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2917:2917 Kernel.VMSelfRiceUndec <> p:16 var
+R2892:2900 Kernel.VMSelfRiceUndec <> self_rice thm
+binder 2907:2907 <> p:17
+R2912:2913 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2917:2917 Kernel.VMSelfRiceUndec <> p:17 var
+R2992:3002 Kernel.VMSelfRiceUndec <> g_equiv_sym thm
+R2992:3002 Kernel.VMSelfRiceUndec <> g_equiv_sym thm
+binder 3122:3122 <> p:18
+R3130:3145 Kernel.VMSelfRiceUndec <> g_wf_program_dec thm
+R3147:3147 Kernel.VMSelfRiceUndec <> p:18 var
+R3170:3174 Coq.Init.Datatypes <> false constr
+R3154:3157 Coq.Init.Datatypes <> negb def
+R3162:3162 Kernel.VMSelfRiceUndec <> p:18 var
+binder 3122:3122 <> p:19
+R3130:3145 Kernel.VMSelfRiceUndec <> g_wf_program_dec thm
+R3147:3147 Kernel.VMSelfRiceUndec <> p:19 var
+R3170:3174 Coq.Init.Datatypes <> false constr
+R3154:3157 Coq.Init.Datatypes <> negb def
+R3162:3162 Kernel.VMSelfRiceUndec <> p:19 var
+R3217:3224 Undecidability.Synthetic.Definitions <> reflects def
+R3246:3261 Kernel.VMSelfRiceUndec <> g_wf_program_dec thm
+R3246:3261 Kernel.VMSelfRiceUndec <> g_wf_program_dec thm
+R3314:3317 Coq.Init.Datatypes <> negb def
+R3373:3377 Coq.Init.Logic <> proj2 thm
+R3380:3384 Coq.Init.Logic <> proj2 thm
+R3389:3395 Coq.Init.Logic <> eq_refl constr
+R3373:3377 Coq.Init.Logic <> proj2 thm
+R3380:3384 Coq.Init.Logic <> proj2 thm
+R3389:3395 Coq.Init.Logic <> eq_refl constr
+R3523:3527 Coq.Init.Logic <> proj1 thm
+R3533:3536 Coq.Init.Logic <> conj constr
+R3523:3527 Coq.Init.Logic <> proj1 thm
+R3533:3536 Coq.Init.Logic <> conj constr
+def 3973:3981 <> g_decides
+R3988:3991 Coq.Init.Datatypes <> list ind
+R3993:3998 Kernel.VMSelfGuest <> GInstr ind
+binder 3984:3984 <> D:20
+R4019:4022 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4008:4011 Coq.Init.Datatypes <> list ind
+R4013:4018 Kernel.VMSelfGuest <> GInstr ind
+R4023:4025 Coq.Init.Datatypes <> nat ind
+binder 4002:4004 <> enc:21
+R4045:4048 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4034:4037 Coq.Init.Datatypes <> list ind
+R4039:4044 Kernel.VMSelfGuest <> GInstr ind
+binder 4029:4030 <> Pr:22
+R4081:4086 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4067:4078 Kernel.VMSelfGuest <> g_wf_program def
+R4080:4080 Kernel.VMSelfRiceUndec <> D:20 var
+binder 4094:4094 <> p:23
+R4111:4118 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4097:4108 Kernel.VMSelfGuest <> g_wf_program def
+R4110:4110 Kernel.VMSelfRiceUndec <> p:23 var
+R4119:4125 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4130:4131 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4126:4126 <> g:24
+binder 4128:4129 <> mu:25
+R4152:4156 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4175:4175 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4132:4136 Kernel.VMSelfRice <> g_beh def
+R4138:4138 Kernel.VMSelfRiceUndec <> D:20 var
+R4141:4143 Kernel.VMSelfRiceUndec <> enc:21 var
+R4145:4145 Kernel.VMSelfRiceUndec <> p:23 var
+R4148:4148 Kernel.VMSelfRiceUndec <> g:24 var
+R4150:4151 Kernel.VMSelfRiceUndec <> mu:25 var
+R4166:4170 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4162:4164 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4157:4159 Kernel.VMSelfGuest <> gr0 proj
+R4161:4161 Kernel.VMSelfRiceUndec <> g:24 var
+R4171:4172 Kernel.VMSelfRiceUndec <> Pr:22 var
+R4174:4174 Kernel.VMSelfRiceUndec <> p:23 var
+prf 4185:4196 <> g_beh_unique
+binder 4207:4207 <> p:26
+binder 4209:4209 <> x:27
+binder 4211:4212 <> g1:28
+binder 4214:4216 <> mu1:29
+binder 4218:4219 <> g2:30
+binder 4221:4223 <> mu2:31
+R4244:4247 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4228:4232 Kernel.VMSelfRice <> g_beh def
+R4234:4234 Kernel.VMSelfRiceUndec <> p:26 var
+R4236:4236 Kernel.VMSelfRiceUndec <> x:27 var
+R4238:4239 Kernel.VMSelfRiceUndec <> g1:28 var
+R4241:4243 Kernel.VMSelfRiceUndec <> mu1:29 var
+R4264:4267 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4248:4252 Kernel.VMSelfRice <> g_beh def
+R4254:4254 Kernel.VMSelfRiceUndec <> p:26 var
+R4256:4256 Kernel.VMSelfRiceUndec <> x:27 var
+R4258:4259 Kernel.VMSelfRiceUndec <> g2:30 var
+R4261:4263 Kernel.VMSelfRiceUndec <> mu2:31 var
+R4275:4278 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4270:4272 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4268:4269 Kernel.VMSelfRiceUndec <> g1:28 var
+R4273:4274 Kernel.VMSelfRiceUndec <> g2:30 var
+R4282:4284 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4279:4281 Kernel.VMSelfRiceUndec <> mu1:29 var
+R4285:4287 Kernel.VMSelfRiceUndec <> mu2:31 var
+R4401:4403 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4379:4383 Kernel.VMSelfRun <> g_run def
+R4391:4397 Kernel.VMSelfRice <> g_input def
+R4404:4408 Kernel.VMSelfRun <> g_run def
+R4416:4422 Kernel.VMSelfRice <> g_input def
+R4401:4403 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4379:4383 Kernel.VMSelfRun <> g_run def
+R4391:4397 Kernel.VMSelfRice <> g_input def
+R4404:4408 Kernel.VMSelfRun <> g_run def
+R4416:4422 Kernel.VMSelfRice <> g_input def
+R4443:4451 Coq.Arith.Compare_dec <> le_lt_dec def
+R4443:4451 Coq.Arith.Compare_dec <> le_lt_dec def
+R4483:4502 Kernel.VMSelfRice <> g_run_terminal_after thm
+R4483:4502 Kernel.VMSelfRice <> g_run_terminal_after thm
+R4529:4548 Kernel.VMSelfRice <> g_run_terminal_after thm
+R4529:4548 Kernel.VMSelfRice <> g_run_terminal_after thm
+prf 4609:4627 <> g_decides_decidable
+binder 4638:4638 <> D:32
+binder 4640:4642 <> enc:33
+binder 4644:4645 <> Pr:34
+R4668:4671 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4650:4658 Kernel.VMSelfRiceUndec <> g_decides def
+R4660:4660 Kernel.VMSelfRiceUndec <> D:32 var
+R4662:4664 Kernel.VMSelfRiceUndec <> enc:33 var
+R4666:4667 Kernel.VMSelfRiceUndec <> Pr:34 var
+R4672:4680 Undecidability.Synthetic.Definitions <> decidable def
+binder 4687:4687 <> p:35
+R4706:4709 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4692:4703 Kernel.VMSelfGuest <> g_wf_program def
+R4705:4705 Kernel.VMSelfRiceUndec <> p:35 var
+R4710:4711 Kernel.VMSelfRiceUndec <> Pr:34 var
+R4713:4713 Kernel.VMSelfRiceUndec <> p:35 var
+binder 4771:4771 <> p:36
+binder 4773:4773 <> n:37
+R4778:4787 Kernel.VMSelfRun <> g_terminal def
+R4792:4796 Kernel.VMSelfRun <> g_run def
+R4798:4798 Kernel.VMSelfRiceUndec <> n:37 var
+R4803:4809 Kernel.VMSelfRice <> g_input def
+R4816:4816 Kernel.VMSelfRiceUndec <> p:36 var
+binder 4771:4771 <> p:38
+binder 4773:4773 <> n:39
+R4778:4787 Kernel.VMSelfRun <> g_terminal def
+R4792:4796 Kernel.VMSelfRun <> g_run def
+R4798:4798 Kernel.VMSelfRiceUndec <> n:39 var
+R4803:4809 Kernel.VMSelfRice <> g_input def
+R4816:4816 Kernel.VMSelfRiceUndec <> p:38 var
+binder 4847:4847 <> p:40
+binder 4849:4849 <> n:41
+R4852:4852 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R4858:4862 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R4870:4870 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R4855:4855 Kernel.VMSelfRiceUndec <> p:40 var
+R4857:4857 Kernel.VMSelfRiceUndec <> n:41 var
+R4863:4864 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4867:4867 Kernel.VMSelfRiceUndec <> p:40 var
+R4869:4869 Kernel.VMSelfRiceUndec <> n:41 var
+R4891:4904 Kernel.VMSelfRice <> g_terminal_dec thm
+binder 4847:4847 <> p:42
+binder 4849:4849 <> n:43
+R4852:4852 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R4858:4862 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R4870:4870 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R4855:4855 Kernel.VMSelfRiceUndec <> p:42 var
+R4857:4857 Kernel.VMSelfRiceUndec <> n:43 var
+R4863:4864 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4867:4867 Kernel.VMSelfRiceUndec <> p:42 var
+R4869:4869 Kernel.VMSelfRiceUndec <> n:43 var
+R4891:4904 Kernel.VMSelfRice <> g_terminal_dec thm
+binder 4931:4931 <> p:44
+R4948:4951 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4934:4945 Kernel.VMSelfGuest <> g_wf_program def
+R4947:4947 Kernel.VMSelfRiceUndec <> p:44 var
+R4952:4958 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4960:4961 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4959:4959 <> n:45
+R4964:4964 Kernel.VMSelfRiceUndec <> p:44 var
+R4966:4966 Kernel.VMSelfRiceUndec <> n:45 var
+binder 4931:4931 <> p:46
+R4948:4951 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4934:4945 Kernel.VMSelfGuest <> g_wf_program def
+R4947:4947 Kernel.VMSelfRiceUndec <> p:46 var
+R4952:4958 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4960:4961 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4959:4959 <> n:47
+R4964:4964 Kernel.VMSelfRiceUndec <> p:46 var
+R4966:4966 Kernel.VMSelfRiceUndec <> n:47 var
+binder 5076:5076 <> p:48
+R5087:5102 Kernel.VMSelfRiceUndec <> g_wf_program_dec thm
+R5104:5104 Kernel.VMSelfRiceUndec <> p:48 var
+R5132:5135 Coq.Init.Specif <> left constr
+R5175:5183 Coq.Init.Specif <> proj1_sig def
+R5186:5231 Coq.Logic.ConstructiveEpsilon <> constructive_indefinite_ground_description_nat def
+R5298:5298 Kernel.VMSelfRiceUndec <> p:48 var
+R5290:5290 Kernel.VMSelfRiceUndec <> p:48 var
+R5281:5281 Kernel.VMSelfRiceUndec <> p:48 var
+binder 5170:5170 <> n:49
+R5331:5337 Coq.Arith.PeanoNat Nat eqb def
+R5340:5342 Kernel.VMSelfGuest <> gr0 proj
+R5345:5348 Kernel.VMSelfRun <> gc_g proj
+R5351:5355 Kernel.VMSelfRun <> g_run def
+R5357:5357 Kernel.VMSelfRiceUndec <> n:49 var
+R5362:5368 Kernel.VMSelfRice <> g_input def
+R5375:5375 Kernel.VMSelfRiceUndec <> p:48 var
+R5405:5409 Coq.Init.Specif <> right constr
+R5416:5420 Coq.Init.Datatypes <> false constr
+binder 5076:5076 <> p:50
+R5087:5102 Kernel.VMSelfRiceUndec <> g_wf_program_dec thm
+R5104:5104 Kernel.VMSelfRiceUndec <> p:50 var
+R5132:5135 Coq.Init.Specif <> left constr
+R5175:5183 Coq.Init.Specif <> proj1_sig def
+R5186:5231 Coq.Logic.ConstructiveEpsilon <> constructive_indefinite_ground_description_nat def
+R5298:5298 Kernel.VMSelfRiceUndec <> p:50 var
+R5290:5290 Kernel.VMSelfRiceUndec <> p:50 var
+R5281:5281 Kernel.VMSelfRiceUndec <> p:50 var
+binder 5170:5170 <> n:51
+R5331:5337 Coq.Arith.PeanoNat Nat eqb def
+R5340:5342 Kernel.VMSelfGuest <> gr0 proj
+R5345:5348 Kernel.VMSelfRun <> gc_g proj
+R5351:5355 Kernel.VMSelfRun <> g_run def
+R5357:5357 Kernel.VMSelfRiceUndec <> n:51 var
+R5362:5368 Kernel.VMSelfRice <> g_input def
+R5375:5375 Kernel.VMSelfRiceUndec <> p:50 var
+R5405:5409 Coq.Init.Specif <> right constr
+R5416:5420 Coq.Init.Datatypes <> false constr
+R5465:5472 Undecidability.Synthetic.Definitions <> reflects def
+R5485:5500 Kernel.VMSelfRiceUndec <> g_wf_program_dec thm
+R5485:5500 Kernel.VMSelfRiceUndec <> g_wf_program_dec thm
+R5531:5576 Coq.Logic.ConstructiveEpsilon <> constructive_indefinite_ground_description_nat def
+R5531:5576 Coq.Logic.ConstructiveEpsilon <> constructive_indefinite_ground_description_nat def
+R5625:5633 Coq.Init.Specif <> proj1_sig def
+R5705:5709 Kernel.VMSelfRice <> g_beh def
+R5722:5725 Kernel.VMSelfRun <> gc_g proj
+R5728:5732 Kernel.VMSelfRun <> g_run def
+R5739:5745 Kernel.VMSelfRice <> g_input def
+R5789:5793 Kernel.VMSelfRun <> gc_mu proj
+R5796:5800 Kernel.VMSelfRun <> g_run def
+R5807:5813 Kernel.VMSelfRice <> g_input def
+R5705:5709 Kernel.VMSelfRice <> g_beh def
+R5722:5725 Kernel.VMSelfRun <> gc_g proj
+R5728:5732 Kernel.VMSelfRun <> g_run def
+R5739:5745 Kernel.VMSelfRice <> g_input def
+R5789:5793 Kernel.VMSelfRun <> gc_mu proj
+R5796:5800 Kernel.VMSelfRun <> g_run def
+R5807:5813 Kernel.VMSelfRice <> g_input def
+R5868:5879 Kernel.VMSelfRiceUndec <> g_beh_unique thm
+R5868:5879 Kernel.VMSelfRiceUndec <> g_beh_unique thm
+R5926:5935 Coq.Arith.PeanoNat Nat eqb_eq thm
+R5926:5935 Coq.Arith.PeanoNat Nat eqb_eq thm
+R5926:5935 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 6092:6114 <> self_rice_representable
+R6142:6145 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6131:6134 Coq.Init.Datatypes <> list ind
+R6136:6141 Kernel.VMSelfGuest <> GInstr ind
+binder 6126:6127 <> Pr:52
+binder 6152:6152 <> w:53
+binder 6154:6154 <> D:54
+binder 6156:6158 <> enc:55
+R6179:6182 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6163:6175 Kernel.VMSelfRiceUndec <> g_extensional def
+R6177:6178 Kernel.VMSelfRiceUndec <> Pr:52 var
+R6197:6200 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6183:6194 Kernel.VMSelfGuest <> g_wf_program def
+R6196:6196 Kernel.VMSelfRiceUndec <> w:53 var
+R6205:6208 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6201:6202 Kernel.VMSelfRiceUndec <> Pr:52 var
+R6204:6204 Kernel.VMSelfRiceUndec <> w:53 var
+R6222:6227 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6209:6210 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6211:6212 Kernel.VMSelfRiceUndec <> Pr:52 var
+R6214:6221 Kernel.VMSelfRice <> g_bottom def
+R6246:6249 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6228:6236 Kernel.VMSelfRiceUndec <> g_decides def
+R6238:6238 Kernel.VMSelfRiceUndec <> D:54 var
+R6240:6242 Kernel.VMSelfRiceUndec <> enc:55 var
+R6244:6245 Kernel.VMSelfRiceUndec <> Pr:52 var
+R6250:6259 Undecidability.Synthetic.Definitions <> enumerable def
+R6262:6271 Undecidability.Synthetic.Definitions <> complement def
+R6273:6286 Undecidability.TM.SBTM <> SBTM_HALT def
+R6348:6356 Kernel.VMSelfRiceUndec <> self_rice thm
+R6382:6400 Kernel.VMSelfRiceUndec <> g_decides_decidable thm
+R6348:6356 Kernel.VMSelfRiceUndec <> self_rice thm
+R6382:6400 Kernel.VMSelfRiceUndec <> g_decides_decidable thm
+def 6506:6520 <> g_halts_on_zero
+R6527:6530 Coq.Init.Datatypes <> list ind
+R6532:6537 Kernel.VMSelfGuest <> GInstr ind
+binder 6523:6523 <> p:56
+R6550:6556 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6561:6562 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6557:6557 <> g:57
+binder 6559:6560 <> mu:58
+R6563:6567 Kernel.VMSelfRice <> g_beh def
+R6569:6569 Kernel.VMSelfRiceUndec <> p:56 var
+R6573:6573 Kernel.VMSelfRiceUndec <> g:57 var
+R6575:6576 Kernel.VMSelfRiceUndec <> mu:58 var
+prf 6588:6614 <> g_halts_on_zero_undecidable
+R6620:6630 Undecidability.Synthetic.Undecidability <> undecidable def
+binder 6637:6637 <> p:59
+R6656:6659 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6642:6653 Kernel.VMSelfGuest <> g_wf_program def
+R6655:6655 Kernel.VMSelfRiceUndec <> p:59 var
+R6660:6674 Kernel.VMSelfRiceUndec <> g_halts_on_zero def
+R6676:6676 Kernel.VMSelfRiceUndec <> p:59 var
+R6697:6705 Kernel.VMSelfRiceUndec <> self_rice thm
+R6707:6721 Kernel.VMSelfRiceUndec <> g_halts_on_zero def
+R6723:6724 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6697:6705 Kernel.VMSelfRiceUndec <> self_rice thm
+R6707:6721 Kernel.VMSelfRiceUndec <> g_halts_on_zero def
+R6723:6724 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6826:6828 Kernel.VMSelfGuest <> gr0 proj
+R6826:6828 Kernel.VMSelfGuest <> gr0 proj
+R6826:6828 Kernel.VMSelfGuest <> gr0 proj
+R6836:6838 Kernel.VMSelfGuest <> gr1 proj
+R6836:6838 Kernel.VMSelfGuest <> gr1 proj
+R6846:6848 Kernel.VMSelfGuest <> gr2 proj
+R6846:6848 Kernel.VMSelfGuest <> gr2 proj
+R6856:6858 Kernel.VMSelfGuest <> gr3 proj
+R6856:6858 Kernel.VMSelfGuest <> gr3 proj
+R6826:6828 Kernel.VMSelfGuest <> gr0 proj
+R6826:6828 Kernel.VMSelfGuest <> gr0 proj
+R6826:6828 Kernel.VMSelfGuest <> gr0 proj
+R6836:6838 Kernel.VMSelfGuest <> gr1 proj
+R6836:6838 Kernel.VMSelfGuest <> gr1 proj
+R6846:6848 Kernel.VMSelfGuest <> gr2 proj
+R6846:6848 Kernel.VMSelfGuest <> gr2 proj
+R6856:6858 Kernel.VMSelfGuest <> gr3 proj
+R6856:6858 Kernel.VMSelfGuest <> gr3 proj
+R6889:6898 Kernel.VMSelfRun <> g_terminal def
+R6944:6955 Kernel.VMSelfRice <> g_bottom_beh thm
+R6944:6955 Kernel.VMSelfRice <> g_bottom_beh thm
+def 7108:7121 <> g_returns_zero
+R7128:7131 Coq.Init.Datatypes <> list ind
+R7133:7138 Kernel.VMSelfGuest <> GInstr ind
+binder 7124:7124 <> p:60
+R7170:7173 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7153:7167 Kernel.VMSelfRiceUndec <> g_halts_on_zero def
+R7169:7169 Kernel.VMSelfRiceUndec <> p:60 var
+binder 7181:7181 <> x:61
+binder 7183:7183 <> g:62
+binder 7185:7186 <> mu:63
+R7203:7206 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7189:7193 Kernel.VMSelfRice <> g_beh def
+R7195:7195 Kernel.VMSelfRiceUndec <> p:60 var
+R7197:7197 Kernel.VMSelfRiceUndec <> x:61 var
+R7199:7199 Kernel.VMSelfRiceUndec <> g:62 var
+R7201:7202 Kernel.VMSelfRiceUndec <> mu:63 var
+R7212:7214 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7207:7209 Kernel.VMSelfGuest <> gr0 proj
+R7211:7211 Kernel.VMSelfRiceUndec <> g:62 var
+prf 7227:7252 <> g_returns_zero_undecidable
+R7258:7268 Undecidability.Synthetic.Undecidability <> undecidable def
+binder 7275:7275 <> p:64
+R7294:7297 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7280:7291 Kernel.VMSelfGuest <> g_wf_program def
+R7293:7293 Kernel.VMSelfRiceUndec <> p:64 var
+R7298:7311 Kernel.VMSelfRiceUndec <> g_returns_zero def
+R7313:7313 Kernel.VMSelfRiceUndec <> p:64 var
+R7334:7342 Kernel.VMSelfRiceUndec <> self_rice thm
+R7344:7357 Kernel.VMSelfRiceUndec <> g_returns_zero def
+R7359:7359 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7374:7374 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7360:7367 Kernel.VMSelfGuest <> GLoadImm constr
+R7334:7342 Kernel.VMSelfRiceUndec <> self_rice thm
+R7344:7357 Kernel.VMSelfRiceUndec <> g_returns_zero def
+R7359:7359 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7374:7374 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7360:7367 Kernel.VMSelfGuest <> GLoadImm constr
+R7535:7545 Coq.Lists.List <> Forall_cons constr
+R7556:7559 Kernel.VMSelfGuest <> g_wf def
+R7577:7586 Coq.Lists.List <> Forall_nil constr
+R7535:7545 Coq.Lists.List <> Forall_cons constr
+R7577:7586 Coq.Lists.List <> Forall_nil constr
+R7617:7619 Kernel.VMSelfGuest <> gr0 proj
+R7617:7619 Kernel.VMSelfGuest <> gr0 proj
+R7617:7619 Kernel.VMSelfGuest <> gr0 proj
+R7627:7629 Kernel.VMSelfGuest <> gr1 proj
+R7627:7629 Kernel.VMSelfGuest <> gr1 proj
+R7637:7639 Kernel.VMSelfGuest <> gr2 proj
+R7637:7639 Kernel.VMSelfGuest <> gr2 proj
+R7647:7649 Kernel.VMSelfGuest <> gr3 proj
+R7647:7649 Kernel.VMSelfGuest <> gr3 proj
+R7617:7619 Kernel.VMSelfGuest <> gr0 proj
+R7617:7619 Kernel.VMSelfGuest <> gr0 proj
+R7617:7619 Kernel.VMSelfGuest <> gr0 proj
+R7627:7629 Kernel.VMSelfGuest <> gr1 proj
+R7627:7629 Kernel.VMSelfGuest <> gr1 proj
+R7637:7639 Kernel.VMSelfGuest <> gr2 proj
+R7637:7639 Kernel.VMSelfGuest <> gr2 proj
+R7647:7649 Kernel.VMSelfGuest <> gr3 proj
+R7647:7649 Kernel.VMSelfGuest <> gr3 proj
+R7680:7689 Kernel.VMSelfRun <> g_terminal def
+R7776:7785 Kernel.VMSelfRun <> g_terminal def
+R7878:7887 Kernel.VMSelfRun <> g_terminal def
+R7827:7846 Kernel.VMSelfRice <> g_run_terminal_after thm
+R7855:7855 Coq.Init.Datatypes <> S constr
+R7827:7846 Kernel.VMSelfRice <> g_run_terminal_after thm
+R7855:7855 Coq.Init.Datatypes <> S constr
+R7827:7846 Kernel.VMSelfRice <> g_run_terminal_after thm
+R7855:7855 Coq.Init.Datatypes <> S constr
+R7974:7985 Kernel.VMSelfRice <> g_bottom_beh thm
+R7974:7985 Kernel.VMSelfRice <> g_bottom_beh thm
+prf 8426:8446 <> total_run_obstruction
+R8476:8479 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8465:8468 Coq.Init.Datatypes <> list ind
+R8470:8475 Kernel.VMSelfGuest <> GInstr ind
+R8483:8486 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8480:8482 Coq.Init.Datatypes <> nat ind
+R8487:8492 Coq.Init.Datatypes <> option ind
+R8500:8502 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R8495:8499 Kernel.VMSelfGuest <> GRegs rec
+R8503:8505 Coq.Init.Datatypes <> nat ind
+binder 8459:8461 <> run:65
+R8513:8513 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8594:8602 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8521:8521 <> p:66
+binder 8523:8523 <> x:67
+binder 8525:8525 <> o:68
+R8542:8546 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8593:8593 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8528:8539 Kernel.VMSelfGuest <> g_wf_program def
+R8541:8541 Kernel.VMSelfRiceUndec <> p:66 var
+R8563:8567 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R8554:8556 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8547:8549 Kernel.VMSelfRiceUndec <> run:65 var
+R8553:8553 Kernel.VMSelfRiceUndec <> x:67 var
+R8551:8551 Kernel.VMSelfRiceUndec <> p:66 var
+R8557:8560 Coq.Init.Datatypes <> Some constr
+R8562:8562 Kernel.VMSelfRiceUndec <> o:68 var
+R8568:8572 Kernel.VMSelfRice <> g_beh def
+R8574:8574 Kernel.VMSelfRiceUndec <> p:66 var
+R8576:8576 Kernel.VMSelfRiceUndec <> x:67 var
+R8579:8581 Coq.Init.Datatypes <> fst def
+R8583:8583 Kernel.VMSelfRiceUndec <> o:68 var
+R8587:8589 Coq.Init.Datatypes <> snd def
+R8591:8591 Kernel.VMSelfRiceUndec <> o:68 var
+R8603:8612 Undecidability.Synthetic.Definitions <> enumerable def
+R8615:8624 Undecidability.Synthetic.Definitions <> complement def
+R8626:8639 Undecidability.TM.SBTM <> SBTM_HALT def
+R8675:8701 Kernel.VMSelfRiceUndec <> g_halts_on_zero_undecidable thm
+R8675:8701 Kernel.VMSelfRiceUndec <> g_halts_on_zero_undecidable thm
+binder 8718:8718 <> p:69
+R8726:8741 Kernel.VMSelfRiceUndec <> g_wf_program_dec thm
+R8743:8743 Kernel.VMSelfRiceUndec <> p:69 var
+R8849:8853 Coq.Init.Datatypes <> false constr
+R8781:8781 Kernel.VMSelfRiceUndec <> p:69 var
+R8790:8793 Coq.Init.Datatypes <> Some constr
+R8800:8803 Coq.Init.Datatypes <> true constr
+R8807:8810 Coq.Init.Datatypes <> None constr
+R8815:8819 Coq.Init.Datatypes <> false constr
+binder 8718:8718 <> p:70
+R8726:8741 Kernel.VMSelfRiceUndec <> g_wf_program_dec thm
+R8743:8743 Kernel.VMSelfRiceUndec <> p:70 var
+R8849:8853 Coq.Init.Datatypes <> false constr
+R8781:8781 Kernel.VMSelfRiceUndec <> p:70 var
+R8790:8793 Coq.Init.Datatypes <> Some constr
+R8800:8803 Coq.Init.Datatypes <> true constr
+R8807:8810 Coq.Init.Datatypes <> None constr
+R8815:8819 Coq.Init.Datatypes <> false constr
+R8875:8882 Undecidability.Synthetic.Definitions <> reflects def
+R8895:8910 Kernel.VMSelfRiceUndec <> g_wf_program_dec thm
+R8895:8910 Kernel.VMSelfRiceUndec <> g_wf_program_dec thm
+R9063:9067 Coq.Init.Logic <> proj1 thm
+R9079:9079 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9081:9082 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9085:9085 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9063:9067 Coq.Init.Logic <> proj1 thm
+R9079:9079 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9081:9082 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9085:9085 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9138:9142 Coq.Init.Logic <> proj2 thm
+R9154:9154 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9156:9157 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9160:9160 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9138:9142 Coq.Init.Logic <> proj2 thm
+R9154:9154 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9156:9157 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9160:9160 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not

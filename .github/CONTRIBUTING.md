@@ -39,11 +39,11 @@ token cannot perform this operation. Starting a workflow requires repository
 affects that workflow's job token and cannot grant access to a Codespace.
 See [GitHub's dispatch permission documentation](https://docs.github.com/en/rest/actions/workflows#create-a-workflow-dispatch-event).
 
-`.devcontainer/devcontainer.json` requests `contents: write` and `actions: write`
-for this repository. Review and authorize these permissions when creating a
-new Codespace. GitHub applies these requests only to new Codespaces after the
-configuration is committed; rebuilding an existing one does not update its
-token. See [GitHub's Codespaces permissions documentation](https://docs.github.com/en/codespaces/managing-your-codespaces/managing-repository-access-for-your-codespaces).
+Build and reproduce with native tools and repository-managed dependencies.
+Docker and devcontainer configuration are not supported. Run
+`python3 scripts/reproduce_coq.py` for a fresh source-only proof rebuild; see
+[native reproduction](../artifacts/review_revision/NATIVE_REPRODUCTION.md).
+Repository configuration does not grant GitHub account permissions.
 
 For an existing Codespace, authenticate GitHub CLI with your account:
 

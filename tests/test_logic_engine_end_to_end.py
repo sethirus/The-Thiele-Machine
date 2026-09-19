@@ -182,19 +182,30 @@ class TestLogicGateUnlockFullPipeline:
         state = run_verilog(program_with_key)
         assert state["status"] == 2  # halted
 
-    def test_rtl_reveal_without_key_triggers_error(self):
-        """RTL: REVEAL without logic gate key triggers ERR_LOGIC."""
+    def test_rtl_reveal_without_key_charges_declared_cost(self):
+        """RTL: REVEAL needs no logic-gate key; it charges bits + cost + 1.
+
+        The CPU used to latch err and halt while logic_acc differed from
+        0xCAFEEACE. `kami_step` has no lock, so Devon's 2026-09-14 decision
+        removed it (C2_DIVERGENCE_LEDGER.md, "Logic-gate lock").
+        coq/kernel/foundation/VMStep.v:290 fixes the REVEAL charge at
+        bits + S(cost), so REVEAL 0 1 0 costs 1 bit + S(0) = 2.
+        """
         from thielecpu.hardware.cosim import run_verilog
 
-        # Without logic gate key: should trigger logic error -> trap
         program_no_key = [
             "PNEW {0,256} 1",
             "REVEAL 0 1 0",    # index=0, bits=1, cost=0
             "HALT 0",
         ]
         state = run_verilog(program_no_key)
-        # Should trap to error vector or set error code
-        assert state.get("error_code") == 0xC43471A1 or state.get("err") or state["pc"] != 3
+        assert not state.get("err"), f"REVEAL must not trap without a key: {state}"
+        assert state.get("error_code", 0) == 0, (
+            f"Expected no error code, got {state.get('error_code', 0):08X}"
+        )
+        assert state["pc"] == 3, f"REVEAL then HALT should end at pc=3, got {state['pc']}"
+        # PNEW (1) + REVEAL bits+S(0) (2) = 3.
+        assert state["mu"] == 3, f"REVEAL charge mismatch, got mu={state['mu']}"
 
     def test_rtl_lassert_then_reveal_pipeline(self):
         """RTL: LASSERT SAT → REVEAL — full pipeline.

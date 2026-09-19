@@ -32,7 +32,7 @@ REGFILE_THRESHOLD = 64
 # Names explicitly excluded from the transform even if they meet the threshold,
 # because their write patterns include nested update() expressions that the
 # transform's regex-based rewriter cannot handle correctly.
-REGFILE_EXCLUDE = {"ptTable"}
+REGFILE_EXCLUDE = {"ptTable", "module_tensors"}
 
 
 def transform_bsv(bsv: str) -> str:

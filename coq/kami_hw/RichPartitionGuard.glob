@@ -1,0 +1,218 @@
+DIGEST d4ae7f9522970054085d8074426e1bc1
+FKamiHW.RichPartitionGuard
+R537:545 Kami.Kami <> <> lib
+R547:560 Kami.Semantics <> <> lib
+R587:592 Coq.Strings.String <> <> lib
+R594:597 Coq.Lists.List <> <> lib
+R599:602 Coq.Bool.Bool <> <> lib
+R604:608 Coq.Arith.Arith <> <> lib
+R610:612 Coq.micromega.Lia <> <> lib
+R642:652 KamiHW.ThieleTypes <> <> lib
+R654:666 KamiHW.ThieleCPUCore <> <> lib
+R668:677 KamiHW.HWBoundary <> <> lib
+R679:686 KamiHW.RuleNext <> <> lib
+R688:695 KamiHW.RuleStep <> <> lib
+R697:711 KamiHW.BoundaryDecoded <> <> lib
+R715:722 KamiHW.StepEval <> <> lib
+R724:736 KamiHW.StepWordFacts <> <> lib
+R738:749 KamiHW.DispatchLets <> <> lib
+R751:761 KamiHW.Abstraction <> <> lib
+R763:784 KamiHW.ImplementationContract <> <> lib
+R788:797 KamiHW.StepFields <> <> lib
+R799:813 KamiHW.StepFieldsMorph <> <> lib
+R815:824 KamiHW.StepFaults <> <> lib
+R826:841 KamiHW.StepRefineCommon <> <> lib
+R843:858 KamiHW.LegacyWordDecode <> <> lib
+R860:873 KamiHW.RichWordDecode <> <> lib
+R925:932 Kami.Semantics <> evalExpr def
+R934:944 Kami.Semantics <> evalBinBool def
+R946:956 Kami.Semantics <> evalUniBool def
+R958:967 Kami.Semantics <> evalConstT def
+R969:972 Kami.Semantics <> isEq def
+R974:987 Kami.Semantics <> evalBinBitBool def
+R989:998 Kami.Semantics <> evalUniBit def
+R1000:1018 Kami.Semantics <> evalZeroExtendTrunc def
+R1020:1029 Kami.Semantics <> evalBinBit def
+R1071:1073 Coq.Init.Datatypes <> orb def
+R1075:1078 Coq.Init.Datatypes <> andb def
+R1080:1083 Coq.Init.Datatypes <> negb def
+prf 1094:1120 <> dd_pnew_overflow_false_rich
+binder 1131:1132 <> bd:1
+R1141:1144 Kami.Lib.Word <> word ind
+binder 1135:1137 <> isa:2
+R1156:1159 Kami.Lib.Word <> word ind
+R1161:1170 KamiHW.ThieleTypes <> FormatIdSz def
+binder 1150:1152 <> fid:3
+R1186:1189 Kami.Lib.Word <> word ind
+binder 1178:1182 <> flags:4
+R1207:1210 Kami.Lib.Word <> word ind
+binder 1196:1203 <> reserved:5
+R1224:1227 Kami.Lib.Word <> word ind
+R1229:1234 KamiHW.ThieleTypes <> WordSz def
+binder 1217:1220 <> ext0:6
+R1246:1249 Kami.Lib.Word <> word ind
+binder 1238:1238 <> a:7
+binder 1240:1240 <> b:8
+binder 1242:1242 <> c:9
+R1290:1295 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1285:1287 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1257:1265 Kami.Lib.Word <> wordToNat def
+R1268:1280 KamiHW.HWBoundary <> hw_pt_next_id proj
+R1282:1283 KamiHW.RichPartitionGuard <> bd:1 var
+R1369:1371 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1296:1311 KamiHW.DispatchLets <> dd_pnew_overflow def
+R1313:1314 KamiHW.RichPartitionGuard <> bd:1 var
+R1317:1325 KamiHW.RichWordDecode <> rich_word def
+R1327:1329 KamiHW.RichPartitionGuard <> isa:2 var
+R1331:1333 KamiHW.RichPartitionGuard <> fid:3 var
+R1335:1339 KamiHW.RichPartitionGuard <> flags:4 var
+R1341:1348 KamiHW.RichPartitionGuard <> reserved:5 var
+R1350:1353 KamiHW.RichPartitionGuard <> ext0:6 var
+R1355:1361 KamiHW.ThieleTypes <> OP_PNEW def
+R1363:1363 KamiHW.RichPartitionGuard <> a:7 var
+R1365:1365 KamiHW.RichPartitionGuard <> b:8 var
+R1367:1367 KamiHW.RichPartitionGuard <> c:9 var
+R1372:1376 Coq.Init.Datatypes <> false constr
+R1448:1463 KamiHW.DispatchLets <> dd_pnew_overflow def
+R1466:1483 KamiHW.DispatchLets <> dd_ptable_room_one def
+R1486:1499 KamiHW.DispatchLets <> dd_ptable_full def
+R1532:1544 KamiHW.RichWordDecode <> rw_op_correct thm
+R1532:1544 KamiHW.RichWordDecode <> rw_op_correct thm
+R1532:1544 KamiHW.RichWordDecode <> rw_op_correct thm
+R1559:1561 Kami.Lib.Word <> weq def
+R1571:1577 KamiHW.ThieleTypes <> OP_PNEW def
+R1563:1569 KamiHW.ThieleTypes <> OP_PNEW def
+R1559:1561 Kami.Lib.Word <> weq def
+R1571:1577 KamiHW.ThieleTypes <> OP_PNEW def
+R1563:1569 KamiHW.ThieleTypes <> OP_PNEW def
+R1640:1646 Kami.Lib.Word <> wlt_dec def
+R1640:1646 Kami.Lib.Word <> wlt_dec def
+R1711:1716 Kami.Lib.Word <> lt_wlt thm
+R1711:1716 Kami.Lib.Word <> lt_wlt thm
+R1729:1737 Kami.Lib.Word <> wordToNat def
+R1740:1748 Kami.Lib.Word <> natToWord def
+R1750:1763 KamiHW.ThieleTypes <> PTableNextIdSz def
+R1729:1737 Kami.Lib.Word <> wordToNat def
+R1740:1748 Kami.Lib.Word <> natToWord def
+R1750:1763 KamiHW.ThieleTypes <> PTableNextIdSz def
+prf 1804:1832 <> dd_psplit_overflow_false_rich
+binder 1843:1844 <> bd:10
+R1853:1856 Kami.Lib.Word <> word ind
+binder 1847:1849 <> isa:11
+R1868:1871 Kami.Lib.Word <> word ind
+R1873:1882 KamiHW.ThieleTypes <> FormatIdSz def
+binder 1862:1864 <> fid:12
+R1898:1901 Kami.Lib.Word <> word ind
+binder 1890:1894 <> flags:13
+R1919:1922 Kami.Lib.Word <> word ind
+binder 1908:1915 <> reserved:14
+R1936:1939 Kami.Lib.Word <> word ind
+R1941:1946 KamiHW.ThieleTypes <> WordSz def
+binder 1929:1932 <> ext0:15
+R1958:1961 Kami.Lib.Word <> word ind
+binder 1950:1950 <> a:16
+binder 1952:1952 <> b:17
+binder 1954:1954 <> c:18
+R2007:2012 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2001:2004 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1997:1999 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1969:1977 Kami.Lib.Word <> wordToNat def
+R1980:1992 KamiHW.HWBoundary <> hw_pt_next_id proj
+R1994:1995 KamiHW.RichPartitionGuard <> bd:10 var
+R2090:2092 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2013:2030 KamiHW.DispatchLets <> dd_psplit_overflow def
+R2032:2033 KamiHW.RichPartitionGuard <> bd:10 var
+R2036:2044 KamiHW.RichWordDecode <> rich_word def
+R2046:2048 KamiHW.RichPartitionGuard <> isa:11 var
+R2050:2052 KamiHW.RichPartitionGuard <> fid:12 var
+R2054:2058 KamiHW.RichPartitionGuard <> flags:13 var
+R2060:2067 KamiHW.RichPartitionGuard <> reserved:14 var
+R2069:2072 KamiHW.RichPartitionGuard <> ext0:15 var
+R2074:2082 KamiHW.ThieleTypes <> OP_PSPLIT def
+R2084:2084 KamiHW.RichPartitionGuard <> a:16 var
+R2086:2086 KamiHW.RichPartitionGuard <> b:17 var
+R2088:2088 KamiHW.RichPartitionGuard <> c:18 var
+R2093:2097 Coq.Init.Datatypes <> false constr
+R2169:2186 KamiHW.DispatchLets <> dd_psplit_overflow def
+R2189:2206 KamiHW.DispatchLets <> dd_ptable_room_two def
+R2239:2251 KamiHW.RichWordDecode <> rw_op_correct thm
+R2239:2251 KamiHW.RichWordDecode <> rw_op_correct thm
+R2239:2251 KamiHW.RichWordDecode <> rw_op_correct thm
+R2266:2268 Kami.Lib.Word <> weq def
+R2280:2288 KamiHW.ThieleTypes <> OP_PSPLIT def
+R2270:2278 KamiHW.ThieleTypes <> OP_PSPLIT def
+R2266:2268 Kami.Lib.Word <> weq def
+R2280:2288 KamiHW.ThieleTypes <> OP_PSPLIT def
+R2270:2278 KamiHW.ThieleTypes <> OP_PSPLIT def
+R2351:2357 Kami.Lib.Word <> wlt_dec def
+R2351:2357 Kami.Lib.Word <> wlt_dec def
+R2407:2412 Kami.Lib.Word <> wlt_lt thm
+R2407:2412 Kami.Lib.Word <> wlt_lt thm
+R2430:2446 KamiHW.StepRefineCommon <> wordToNat_wplus_7 thm
+R2430:2446 KamiHW.StepRefineCommon <> wordToNat_wplus_7 thm
+R2430:2446 KamiHW.StepRefineCommon <> wordToNat_wplus_7 thm
+R2471:2479 Kami.Lib.Word <> wordToNat def
+R2482:2490 Kami.Lib.Word <> natToWord def
+R2492:2505 KamiHW.ThieleTypes <> PTableNextIdSz def
+R2471:2479 Kami.Lib.Word <> wordToNat def
+R2482:2490 Kami.Lib.Word <> natToWord def
+R2492:2505 KamiHW.ThieleTypes <> PTableNextIdSz def
+prf 2543:2571 <> dd_pmerge_overflow_false_rich
+binder 2582:2583 <> bd:19
+R2592:2595 Kami.Lib.Word <> word ind
+binder 2586:2588 <> isa:20
+R2607:2610 Kami.Lib.Word <> word ind
+R2612:2621 KamiHW.ThieleTypes <> FormatIdSz def
+binder 2601:2603 <> fid:21
+R2637:2640 Kami.Lib.Word <> word ind
+binder 2629:2633 <> flags:22
+R2658:2661 Kami.Lib.Word <> word ind
+binder 2647:2654 <> reserved:23
+R2675:2678 Kami.Lib.Word <> word ind
+R2680:2685 KamiHW.ThieleTypes <> WordSz def
+binder 2668:2671 <> ext0:24
+R2697:2700 Kami.Lib.Word <> word ind
+binder 2689:2689 <> a:25
+binder 2691:2691 <> b:26
+binder 2693:2693 <> c:27
+R2741:2746 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2736:2738 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2708:2716 Kami.Lib.Word <> wordToNat def
+R2719:2731 KamiHW.HWBoundary <> hw_pt_next_id proj
+R2733:2734 KamiHW.RichPartitionGuard <> bd:19 var
+R2824:2826 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2747:2764 KamiHW.DispatchLets <> dd_pmerge_overflow def
+R2766:2767 KamiHW.RichPartitionGuard <> bd:19 var
+R2770:2778 KamiHW.RichWordDecode <> rich_word def
+R2780:2782 KamiHW.RichPartitionGuard <> isa:20 var
+R2784:2786 KamiHW.RichPartitionGuard <> fid:21 var
+R2788:2792 KamiHW.RichPartitionGuard <> flags:22 var
+R2794:2801 KamiHW.RichPartitionGuard <> reserved:23 var
+R2803:2806 KamiHW.RichPartitionGuard <> ext0:24 var
+R2808:2816 KamiHW.ThieleTypes <> OP_PMERGE def
+R2818:2818 KamiHW.RichPartitionGuard <> a:25 var
+R2820:2820 KamiHW.RichPartitionGuard <> b:26 var
+R2822:2822 KamiHW.RichPartitionGuard <> c:27 var
+R2827:2831 Coq.Init.Datatypes <> false constr
+R2903:2920 KamiHW.DispatchLets <> dd_pmerge_overflow def
+R2923:2940 KamiHW.DispatchLets <> dd_ptable_room_one def
+R2943:2956 KamiHW.DispatchLets <> dd_ptable_full def
+R2989:3001 KamiHW.RichWordDecode <> rw_op_correct thm
+R2989:3001 KamiHW.RichWordDecode <> rw_op_correct thm
+R2989:3001 KamiHW.RichWordDecode <> rw_op_correct thm
+R3016:3018 Kami.Lib.Word <> weq def
+R3030:3038 KamiHW.ThieleTypes <> OP_PMERGE def
+R3020:3028 KamiHW.ThieleTypes <> OP_PMERGE def
+R3016:3018 Kami.Lib.Word <> weq def
+R3030:3038 KamiHW.ThieleTypes <> OP_PMERGE def
+R3020:3028 KamiHW.ThieleTypes <> OP_PMERGE def
+R3101:3107 Kami.Lib.Word <> wlt_dec def
+R3101:3107 Kami.Lib.Word <> wlt_dec def
+R3172:3177 Kami.Lib.Word <> lt_wlt thm
+R3172:3177 Kami.Lib.Word <> lt_wlt thm
+R3190:3198 Kami.Lib.Word <> wordToNat def
+R3201:3209 Kami.Lib.Word <> natToWord def
+R3211:3224 KamiHW.ThieleTypes <> PTableNextIdSz def
+R3190:3198 Kami.Lib.Word <> wordToNat def
+R3201:3209 Kami.Lib.Word <> natToWord def
+R3211:3224 KamiHW.ThieleTypes <> PTableNextIdSz def

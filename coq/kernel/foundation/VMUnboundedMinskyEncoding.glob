@@ -1,0 +1,543 @@
+DIGEST 81e4e20b3ca480242835e0cf8ca8f44f
+FKernel.VMUnboundedMinskyEncoding
+R100:104 Coq.Arith.Arith <> <> lib
+R106:108 Coq.micromega.Lia <> <> lib
+R110:113 Coq.Lists.List <> <> lib
+R140:152 Coq.NArith.NArith <> <> lib
+R162:174 Coq.Lists.List ListNotations <> mod
+R204:210 Kernel.VMState <> <> lib
+R212:226 Kernel.VMUnboundedStep <> <> lib
+R228:254 Kernel.VMUnboundedInterpreterSlots <> <> lib
+R284:311 Kernel.VMUnboundedMinskyInterpreter <> <> lib
+def 324:346 <> encode_minsky_program_N
+R357:359 Coq.Init.Datatypes <> nat ind
+binder 349:353 <> width:1
+R367:370 Coq.Init.Datatypes <> list ind
+R372:383 Kernel.VMUnboundedMinskyInterpreter <> MinskyInstrU ind
+binder 363:363 <> p:2
+R388:388 Coq.Numbers.BinNums <> N ind
+R401:401 Kernel.VMUnboundedMinskyEncoding <> p:2 var
+R412:413 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R427:430 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R478:487 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R446:453 Coq.NArith.BinNat N of_nat def
+R456:474 Kernel.VMUnboundedMinskyInterpreter <> encode_minsky_instr def
+R506:508 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R489:491 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R492:499 Coq.NArith.BinNat N of_nat def
+R501:505 Kernel.VMUnboundedMinskyEncoding <> width:1 var
+R509:531 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N:3 def
+R533:537 Kernel.VMUnboundedMinskyEncoding <> width:1 var
+def 566:586 <> encode_minsky_program
+R597:599 Coq.Init.Datatypes <> nat ind
+binder 589:593 <> width:5
+R607:610 Coq.Init.Datatypes <> list ind
+R612:623 Kernel.VMUnboundedMinskyInterpreter <> MinskyInstrU ind
+binder 603:603 <> p:6
+R628:630 Coq.Init.Datatypes <> nat ind
+R637:644 Coq.NArith.BinNat N to_nat def
+R647:669 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R671:675 Kernel.VMUnboundedMinskyEncoding <> width:5 var
+R677:677 Kernel.VMUnboundedMinskyEncoding <> p:6 var
+def 693:711 <> minsky_program_fits
+R722:724 Coq.Init.Datatypes <> nat ind
+binder 714:718 <> width:7
+R732:735 Coq.Init.Datatypes <> list ind
+R737:748 Kernel.VMUnboundedMinskyInterpreter <> MinskyInstrU ind
+binder 728:728 <> p:8
+R763:768 Coq.Lists.List <> Forall ind
+R839:839 Kernel.VMUnboundedMinskyEncoding <> p:8 var
+binder 775:775 <> i:9
+R813:815 Coq.NArith.BinNat <> ::N_scope:x_'<'_x not
+R781:788 Coq.NArith.BinNat N of_nat def
+R791:809 Kernel.VMUnboundedMinskyInterpreter <> encode_minsky_instr def
+R811:811 Kernel.VMUnboundedMinskyEncoding <> i:9 var
+R817:819 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R820:827 Coq.NArith.BinNat N of_nat def
+R829:833 Kernel.VMUnboundedMinskyEncoding <> width:7 var
+def 1081:1095 <> minsky_max_word
+R1102:1105 Coq.Init.Datatypes <> list ind
+R1107:1118 Kernel.VMUnboundedMinskyInterpreter <> MinskyInstrU ind
+binder 1098:1098 <> p:10
+R1123:1125 Coq.Init.Datatypes <> nat ind
+R1138:1138 Kernel.VMUnboundedMinskyEncoding <> p:10 var
+R1149:1150 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1162:1165 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1174:1180 Coq.Arith.PeanoNat Nat max def
+R1183:1201 Kernel.VMUnboundedMinskyInterpreter <> encode_minsky_instr def
+R1207:1221 Kernel.VMUnboundedMinskyEncoding <> minsky_max_word:11 def
+def 1248:1268 <> minsky_encoding_width
+R1275:1278 Coq.Init.Datatypes <> list ind
+R1280:1291 Kernel.VMUnboundedMinskyInterpreter <> MinskyInstrU ind
+binder 1271:1271 <> p:13
+R1296:1298 Coq.Init.Datatypes <> nat ind
+R1305:1319 Kernel.VMUnboundedMinskyEncoding <> minsky_max_word def
+R1321:1321 Kernel.VMUnboundedMinskyEncoding <> p:13 var
+prf 1331:1348 <> minsky_word_le_max
+binder 1359:1359 <> p:14
+binder 1361:1361 <> i:15
+R1372:1375 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1366:1367 Coq.Lists.List <> In def
+R1371:1371 Kernel.VMUnboundedMinskyEncoding <> p:14 var
+R1369:1369 Kernel.VMUnboundedMinskyEncoding <> i:15 var
+R1397:1400 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1376:1394 Kernel.VMUnboundedMinskyInterpreter <> encode_minsky_instr def
+R1396:1396 Kernel.VMUnboundedMinskyEncoding <> i:15 var
+R1401:1415 Kernel.VMUnboundedMinskyEncoding <> minsky_max_word def
+R1417:1417 Kernel.VMUnboundedMinskyEncoding <> p:14 var
+R1546:1557 Coq.Arith.PeanoNat Nat le_max_l thm
+R1546:1557 Coq.Arith.PeanoNat Nat le_max_l thm
+R1573:1584 Coq.Arith.PeanoNat Nat le_trans thm
+R1614:1625 Coq.Arith.PeanoNat Nat le_max_r thm
+R1573:1584 Coq.Arith.PeanoNat Nat le_trans thm
+R1614:1625 Coq.Arith.PeanoNat Nat le_max_r thm
+prf 1641:1651 <> nat_to_N_le
+binder 1662:1662 <> a:16
+binder 1664:1664 <> b:17
+R1675:1678 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1670:1673 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1669:1669 Kernel.VMUnboundedMinskyEncoding <> a:16 var
+R1674:1674 Kernel.VMUnboundedMinskyEncoding <> b:17 var
+R1690:1693 Coq.NArith.BinNat <> ::N_scope:x_'<='_x not
+R1680:1687 Coq.NArith.BinNat N of_nat def
+R1689:1689 Kernel.VMUnboundedMinskyEncoding <> a:16 var
+R1694:1701 Coq.NArith.BinNat N of_nat def
+R1703:1703 Kernel.VMUnboundedMinskyEncoding <> b:17 var
+R1741:1745 Coq.Init.Logic <> proj1 thm
+R1748:1763 Coq.NArith.BinNat N compare_le_iff thm
+R1741:1745 Coq.Init.Logic <> proj1 thm
+R1748:1763 Coq.NArith.BinNat N compare_le_iff thm
+R1785:1801 Coq.NArith.Nnat Nat2N inj_compare thm
+R1785:1801 Coq.NArith.Nnat Nat2N inj_compare thm
+R1785:1801 Coq.NArith.Nnat Nat2N inj_compare thm
+R1813:1817 Coq.Init.Logic <> proj2 thm
+R1820:1837 Coq.Arith.PeanoNat Nat compare_le_iff thm
+R1813:1817 Coq.Init.Logic <> proj2 thm
+R1820:1837 Coq.Arith.PeanoNat Nat compare_le_iff thm
+prf 1871:1904 <> minsky_program_fits_encoding_width
+binder 1915:1915 <> p:18
+R1920:1938 Kernel.VMUnboundedMinskyEncoding <> minsky_program_fits def
+R1941:1961 Kernel.VMUnboundedMinskyEncoding <> minsky_encoding_width def
+R1963:1963 Kernel.VMUnboundedMinskyEncoding <> p:18 var
+R1966:1966 Kernel.VMUnboundedMinskyEncoding <> p:18 var
+R1993:2005 Coq.Lists.List <> Forall_forall thm
+R1993:2005 Coq.Lists.List <> Forall_forall thm
+R2031:2043 Coq.NArith.BinNat N le_lt_trans thm
+R2031:2043 Coq.NArith.BinNat N le_lt_trans thm
+R2056:2066 Kernel.VMUnboundedMinskyEncoding <> nat_to_N_le thm
+R2056:2066 Kernel.VMUnboundedMinskyEncoding <> nat_to_N_le thm
+R2075:2092 Kernel.VMUnboundedMinskyEncoding <> minsky_word_le_max thm
+R2075:2092 Kernel.VMUnboundedMinskyEncoding <> minsky_word_le_max thm
+R2117:2137 Kernel.VMUnboundedMinskyEncoding <> minsky_encoding_width def
+R2146:2159 Coq.NArith.BinNat N pow_gt_lin_r thm
+R2146:2159 Coq.NArith.BinNat N pow_gt_lin_r thm
+def 2184:2197 <> minsky_fetch_N
+R2207:2207 Coq.Numbers.BinNums <> N ind
+binder 2200:2203 <> code:19
+R2222:2224 Coq.Init.Datatypes <> nat ind
+binder 2211:2215 <> width:20
+binder 2217:2218 <> pc:21
+R2229:2229 Coq.Numbers.BinNums <> N ind
+R2236:2241 Coq.NArith.BinNat N land def
+R2244:2251 Coq.NArith.BinNat N shiftr def
+R2253:2256 Kernel.VMUnboundedMinskyEncoding <> code:19 var
+R2270:2272 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R2259:2266 Coq.NArith.BinNat N of_nat def
+R2268:2269 Kernel.VMUnboundedMinskyEncoding <> pc:21 var
+R2273:2280 Coq.NArith.BinNat N of_nat def
+R2282:2286 Kernel.VMUnboundedMinskyEncoding <> width:20 var
+R2291:2296 Coq.NArith.BinNat N ones def
+R2299:2306 Coq.NArith.BinNat N of_nat def
+R2308:2312 Kernel.VMUnboundedMinskyEncoding <> width:20 var
+prf 2324:2346 <> encode_minsky_drop_head
+binder 2357:2361 <> width:22
+binder 2363:2363 <> i:23
+binder 2365:2368 <> rest:24
+R2430:2435 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2406:2408 Coq.NArith.BinNat <> ::N_scope:x_'<'_x not
+R2374:2381 Coq.NArith.BinNat N of_nat def
+R2384:2402 Kernel.VMUnboundedMinskyInterpreter <> encode_minsky_instr def
+R2404:2404 Kernel.VMUnboundedMinskyEncoding <> i:23 var
+R2410:2412 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R2413:2420 Coq.NArith.BinNat N of_nat def
+R2422:2426 Kernel.VMUnboundedMinskyEncoding <> width:22 var
+R2505:2509 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2436:2443 Coq.NArith.BinNat N shiftr def
+R2446:2468 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R2470:2474 Kernel.VMUnboundedMinskyEncoding <> width:22 var
+R2478:2481 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2477:2477 Kernel.VMUnboundedMinskyEncoding <> i:23 var
+R2482:2485 Kernel.VMUnboundedMinskyEncoding <> rest:24 var
+R2490:2497 Coq.NArith.BinNat N of_nat def
+R2499:2503 Kernel.VMUnboundedMinskyEncoding <> width:22 var
+R2510:2532 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R2534:2538 Kernel.VMUnboundedMinskyEncoding <> width:22 var
+R2540:2543 Kernel.VMUnboundedMinskyEncoding <> rest:24 var
+R2586:2608 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R2622:2638 Coq.NArith.BinNat N shiftr_div_pow2 thm
+R2622:2638 Coq.NArith.BinNat N shiftr_div_pow2 thm
+R2622:2638 Coq.NArith.BinNat N shiftr_div_pow2 thm
+R2670:2672 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R2653:2655 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R2656:2663 Coq.NArith.BinNat N of_nat def
+R2673:2695 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R2761:2763 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R2727:2749 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R2765:2767 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R2768:2775 Coq.NArith.BinNat N of_nat def
+R2670:2672 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R2653:2655 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R2656:2663 Coq.NArith.BinNat N of_nat def
+R2673:2695 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R2761:2763 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R2727:2749 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R2765:2767 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R2768:2775 Coq.NArith.BinNat N of_nat def
+R2830:2842 Coq.NArith.BinNat N pow_nonzero thm
+R2847:2854 Coq.NArith.BinNat N of_nat def
+R2804:2812 Coq.NArith.BinNat N div_add def
+R2804:2812 Coq.NArith.BinNat N div_add def
+R2830:2842 Coq.NArith.BinNat N pow_nonzero thm
+R2847:2854 Coq.NArith.BinNat N of_nat def
+R2804:2812 Coq.NArith.BinNat N div_add def
+R2892:2902 Coq.NArith.BinNat N div_small def
+R2892:2902 Coq.NArith.BinNat N div_small def
+R2892:2902 Coq.NArith.BinNat N div_small def
+prf 2938:2966 <> encode_minsky_program_fetch_N
+binder 2977:2977 <> p:25
+binder 2979:2983 <> width:26
+binder 2985:2986 <> pc:27
+R3018:3021 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2991:3009 Kernel.VMUnboundedMinskyEncoding <> minsky_program_fits def
+R3011:3015 Kernel.VMUnboundedMinskyEncoding <> width:26 var
+R3017:3017 Kernel.VMUnboundedMinskyEncoding <> p:25 var
+R3035:3040 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3024:3026 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3022:3023 Kernel.VMUnboundedMinskyEncoding <> pc:27 var
+R3027:3032 Coq.Init.Datatypes <> length def
+R3034:3034 Kernel.VMUnboundedMinskyEncoding <> p:25 var
+R3098:3102 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3041:3054 Kernel.VMUnboundedMinskyEncoding <> minsky_fetch_N def
+R3057:3079 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R3081:3085 Kernel.VMUnboundedMinskyEncoding <> width:26 var
+R3087:3087 Kernel.VMUnboundedMinskyEncoding <> p:25 var
+R3090:3094 Kernel.VMUnboundedMinskyEncoding <> width:26 var
+R3096:3097 Kernel.VMUnboundedMinskyEncoding <> pc:27 var
+R3103:3110 Coq.NArith.BinNat N of_nat def
+R3113:3131 Kernel.VMUnboundedMinskyInterpreter <> encode_minsky_instr def
+R3134:3136 Coq.Lists.List <> nth def
+R3143:3149 Kernel.VMUnboundedMinskyInterpreter <> MU_Halt constr
+R3141:3141 Kernel.VMUnboundedMinskyEncoding <> p:25 var
+R3138:3139 Kernel.VMUnboundedMinskyEncoding <> pc:27 var
+R3226:3231 Coq.Init.Datatypes <> length def
+R3306:3328 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R3330:3332 Coq.Lists.List <> nth def
+R3343:3356 Kernel.VMUnboundedMinskyEncoding <> minsky_fetch_N def
+R3382:3384 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R3372:3379 Coq.NArith.BinNat N of_nat def
+R3385:3392 Coq.NArith.BinNat N of_nat def
+R3382:3384 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R3372:3379 Coq.NArith.BinNat N of_nat def
+R3385:3392 Coq.NArith.BinNat N of_nat def
+R3440:3451 Coq.NArith.BinNat N shiftr_0_r thm
+R3440:3451 Coq.NArith.BinNat N shiftr_0_r thm
+R3440:3451 Coq.NArith.BinNat N shiftr_0_r thm
+R3466:3476 Coq.NArith.BinNat N land_ones thm
+R3466:3476 Coq.NArith.BinNat N land_ones thm
+R3466:3476 Coq.NArith.BinNat N land_ones thm
+R3500:3511 Coq.NArith.BinNat N mod_unique def
+R3517:3519 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R3520:3527 Coq.NArith.BinNat N of_nat def
+R3543:3565 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R3580:3587 Coq.NArith.BinNat N of_nat def
+R3590:3608 Kernel.VMUnboundedMinskyInterpreter <> encode_minsky_instr def
+R3500:3511 Coq.NArith.BinNat N mod_unique def
+R3517:3519 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R3520:3527 Coq.NArith.BinNat N of_nat def
+R3543:3565 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R3580:3587 Coq.NArith.BinNat N of_nat def
+R3590:3608 Kernel.VMUnboundedMinskyInterpreter <> encode_minsky_instr def
+R3701:3714 Kernel.VMUnboundedMinskyEncoding <> minsky_fetch_N def
+R3745:3747 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R3730:3737 Coq.NArith.BinNat N of_nat def
+R3740:3740 Coq.Init.Datatypes <> S constr
+R3748:3755 Coq.NArith.BinNat N of_nat def
+R3798:3800 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R3784:3791 Coq.NArith.BinNat N of_nat def
+R3812:3814 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R3801:3808 Coq.NArith.BinNat N of_nat def
+R3815:3822 Coq.NArith.BinNat N of_nat def
+R3851:3864 Coq.NArith.Nnat Nat2N inj_succ thm
+R3745:3747 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R3730:3737 Coq.NArith.BinNat N of_nat def
+R3740:3740 Coq.Init.Datatypes <> S constr
+R3748:3755 Coq.NArith.BinNat N of_nat def
+R3798:3800 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R3784:3791 Coq.NArith.BinNat N of_nat def
+R3812:3814 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R3801:3808 Coq.NArith.BinNat N of_nat def
+R3815:3822 Coq.NArith.BinNat N of_nat def
+R3851:3864 Coq.NArith.Nnat Nat2N inj_succ thm
+R3851:3864 Coq.NArith.Nnat Nat2N inj_succ thm
+R3888:3902 Coq.NArith.BinNat N shiftr_shiftr thm
+R3905:3927 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_drop_head thm
+R3888:3902 Coq.NArith.BinNat N shiftr_shiftr thm
+R3888:3902 Coq.NArith.BinNat N shiftr_shiftr thm
+R3905:3927 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_drop_head thm
+R3905:3927 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_drop_head thm
+R4014:4022 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3954:3967 Kernel.VMUnboundedMinskyEncoding <> minsky_fetch_N def
+R3970:3992 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R4023:4030 Coq.NArith.BinNat N of_nat def
+R4033:4051 Kernel.VMUnboundedMinskyInterpreter <> encode_minsky_instr def
+R4054:4056 Coq.Lists.List <> nth def
+R4066:4072 Kernel.VMUnboundedMinskyInterpreter <> MU_Halt constr
+R4014:4022 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3954:3967 Kernel.VMUnboundedMinskyEncoding <> minsky_fetch_N def
+R3970:3992 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R4023:4030 Coq.NArith.BinNat N of_nat def
+R4033:4051 Kernel.VMUnboundedMinskyInterpreter <> encode_minsky_instr def
+R4054:4056 Coq.Lists.List <> nth def
+R4066:4072 Kernel.VMUnboundedMinskyInterpreter <> MU_Halt constr
+prf 4125:4161 <> encode_minsky_program_fetch_N_outside
+binder 4172:4172 <> p:28
+binder 4174:4178 <> width:29
+binder 4180:4181 <> pc:30
+R4213:4216 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4186:4204 Kernel.VMUnboundedMinskyEncoding <> minsky_program_fits def
+R4206:4210 Kernel.VMUnboundedMinskyEncoding <> width:29 var
+R4212:4212 Kernel.VMUnboundedMinskyEncoding <> p:28 var
+R4231:4236 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4225:4228 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4217:4222 Coq.Init.Datatypes <> length def
+R4224:4224 Kernel.VMUnboundedMinskyEncoding <> p:28 var
+R4229:4230 Kernel.VMUnboundedMinskyEncoding <> pc:30 var
+R4294:4296 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4237:4250 Kernel.VMUnboundedMinskyEncoding <> minsky_fetch_N def
+R4253:4275 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R4277:4281 Kernel.VMUnboundedMinskyEncoding <> width:29 var
+R4283:4283 Kernel.VMUnboundedMinskyEncoding <> p:28 var
+R4286:4290 Kernel.VMUnboundedMinskyEncoding <> width:29 var
+R4292:4293 Kernel.VMUnboundedMinskyEncoding <> pc:30 var
+R4380:4393 Kernel.VMUnboundedMinskyEncoding <> minsky_fetch_N def
+R4401:4423 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R4435:4446 Coq.NArith.BinNat N shiftr_0_l thm
+R4435:4446 Coq.NArith.BinNat N shiftr_0_l thm
+R4435:4446 Coq.NArith.BinNat N shiftr_0_l thm
+R4477:4490 Kernel.VMUnboundedMinskyEncoding <> minsky_fetch_N def
+R4498:4520 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R4532:4543 Coq.NArith.BinNat N shiftr_0_l thm
+R4532:4543 Coq.NArith.BinNat N shiftr_0_l thm
+R4532:4543 Coq.NArith.BinNat N shiftr_0_l thm
+R4572:4577 Coq.Init.Datatypes <> length def
+R4646:4659 Kernel.VMUnboundedMinskyEncoding <> minsky_fetch_N def
+R4690:4692 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R4675:4682 Coq.NArith.BinNat N of_nat def
+R4685:4685 Coq.Init.Datatypes <> S constr
+R4693:4700 Coq.NArith.BinNat N of_nat def
+R4743:4745 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R4729:4736 Coq.NArith.BinNat N of_nat def
+R4757:4759 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R4746:4753 Coq.NArith.BinNat N of_nat def
+R4760:4767 Coq.NArith.BinNat N of_nat def
+R4796:4809 Coq.NArith.Nnat Nat2N inj_succ thm
+R4690:4692 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R4675:4682 Coq.NArith.BinNat N of_nat def
+R4685:4685 Coq.Init.Datatypes <> S constr
+R4693:4700 Coq.NArith.BinNat N of_nat def
+R4743:4745 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R4729:4736 Coq.NArith.BinNat N of_nat def
+R4757:4759 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R4746:4753 Coq.NArith.BinNat N of_nat def
+R4760:4767 Coq.NArith.BinNat N of_nat def
+R4796:4809 Coq.NArith.Nnat Nat2N inj_succ thm
+R4796:4809 Coq.NArith.Nnat Nat2N inj_succ thm
+R4833:4847 Coq.NArith.BinNat N shiftr_shiftr thm
+R4850:4872 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_drop_head thm
+R4833:4847 Coq.NArith.BinNat N shiftr_shiftr thm
+R4833:4847 Coq.NArith.BinNat N shiftr_shiftr thm
+R4850:4872 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_drop_head thm
+R4850:4872 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_drop_head thm
+R4959:4961 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4899:4912 Kernel.VMUnboundedMinskyEncoding <> minsky_fetch_N def
+R4915:4937 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R4959:4961 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4899:4912 Kernel.VMUnboundedMinskyEncoding <> minsky_fetch_N def
+R4915:4937 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_N def
+R5000:5005 Coq.Init.Datatypes <> length def
+prf 5034:5046 <> minsky_word_N
+binder 5057:5060 <> code:31
+binder 5062:5066 <> width:32
+binder 5068:5069 <> pc:33
+R5110:5114 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5074:5081 Coq.NArith.BinNat N of_nat def
+R5084:5094 Kernel.VMUnboundedMinskyInterpreter <> minsky_word def
+R5096:5099 Kernel.VMUnboundedMinskyEncoding <> code:31 var
+R5101:5105 Kernel.VMUnboundedMinskyEncoding <> width:32 var
+R5107:5108 Kernel.VMUnboundedMinskyEncoding <> pc:33 var
+R5115:5128 Kernel.VMUnboundedMinskyEncoding <> minsky_fetch_N def
+R5131:5138 Coq.NArith.BinNat N of_nat def
+R5140:5143 Kernel.VMUnboundedMinskyEncoding <> code:31 var
+R5146:5150 Kernel.VMUnboundedMinskyEncoding <> width:32 var
+R5152:5153 Kernel.VMUnboundedMinskyEncoding <> pc:33 var
+R5194:5204 Kernel.VMUnboundedMinskyInterpreter <> minsky_word def
+R5207:5220 Kernel.VMUnboundedMinskyEncoding <> minsky_fetch_N def
+R5233:5246 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_and thm
+R5249:5262 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_shr thm
+R5265:5275 Kernel.VMUnboundedInterpreterSlots <> nat_ones_eq thm
+R5278:5285 Coq.NArith.Nnat N2Nat id thm
+R5233:5246 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_and thm
+R5233:5246 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_and thm
+R5249:5262 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_shr thm
+R5249:5262 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_shr thm
+R5265:5275 Kernel.VMUnboundedInterpreterSlots <> nat_ones_eq thm
+R5265:5275 Kernel.VMUnboundedInterpreterSlots <> nat_ones_eq thm
+R5278:5285 Coq.NArith.Nnat N2Nat id thm
+R5278:5285 Coq.NArith.Nnat N2Nat id thm
+R5298:5310 Coq.NArith.Nnat Nat2N inj_mul thm
+R5298:5310 Coq.NArith.Nnat Nat2N inj_mul thm
+R5298:5310 Coq.NArith.Nnat Nat2N inj_mul thm
+prf 5340:5366 <> encode_minsky_program_fetch
+binder 5377:5377 <> p:34
+binder 5379:5383 <> width:35
+binder 5385:5386 <> pc:36
+R5418:5421 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5391:5409 Kernel.VMUnboundedMinskyEncoding <> minsky_program_fits def
+R5411:5415 Kernel.VMUnboundedMinskyEncoding <> width:35 var
+R5417:5417 Kernel.VMUnboundedMinskyEncoding <> p:34 var
+R5435:5440 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5424:5426 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5422:5423 Kernel.VMUnboundedMinskyEncoding <> pc:36 var
+R5427:5432 Coq.Init.Datatypes <> length def
+R5434:5434 Kernel.VMUnboundedMinskyEncoding <> p:34 var
+R5493:5497 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5441:5451 Kernel.VMUnboundedMinskyInterpreter <> minsky_word def
+R5454:5474 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program def
+R5476:5480 Kernel.VMUnboundedMinskyEncoding <> width:35 var
+R5482:5482 Kernel.VMUnboundedMinskyEncoding <> p:34 var
+R5485:5489 Kernel.VMUnboundedMinskyEncoding <> width:35 var
+R5491:5492 Kernel.VMUnboundedMinskyEncoding <> pc:36 var
+R5498:5516 Kernel.VMUnboundedMinskyInterpreter <> encode_minsky_instr def
+R5519:5521 Coq.Lists.List <> nth def
+R5528:5534 Kernel.VMUnboundedMinskyInterpreter <> MU_Halt constr
+R5526:5526 Kernel.VMUnboundedMinskyEncoding <> p:34 var
+R5523:5524 Kernel.VMUnboundedMinskyEncoding <> pc:36 var
+R5581:5589 Coq.NArith.Nnat Nat2N inj thm
+R5581:5589 Coq.NArith.Nnat Nat2N inj thm
+R5602:5614 Kernel.VMUnboundedMinskyEncoding <> minsky_word_N thm
+R5602:5614 Kernel.VMUnboundedMinskyEncoding <> minsky_word_N thm
+R5602:5614 Kernel.VMUnboundedMinskyEncoding <> minsky_word_N thm
+R5624:5644 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program def
+R5655:5662 Coq.NArith.Nnat N2Nat id thm
+R5655:5662 Coq.NArith.Nnat N2Nat id thm
+R5655:5662 Coq.NArith.Nnat N2Nat id thm
+R5673:5701 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_fetch_N thm
+R5673:5701 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_fetch_N thm
+prf 5730:5764 <> encode_minsky_program_fetch_outside
+binder 5775:5775 <> p:37
+binder 5777:5781 <> width:38
+binder 5783:5784 <> pc:39
+R5816:5819 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5789:5807 Kernel.VMUnboundedMinskyEncoding <> minsky_program_fits def
+R5809:5813 Kernel.VMUnboundedMinskyEncoding <> width:38 var
+R5815:5815 Kernel.VMUnboundedMinskyEncoding <> p:37 var
+R5834:5839 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5828:5831 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5820:5825 Coq.Init.Datatypes <> length def
+R5827:5827 Kernel.VMUnboundedMinskyEncoding <> p:37 var
+R5832:5833 Kernel.VMUnboundedMinskyEncoding <> pc:39 var
+R5892:5894 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5840:5850 Kernel.VMUnboundedMinskyInterpreter <> minsky_word def
+R5853:5873 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program def
+R5875:5879 Kernel.VMUnboundedMinskyEncoding <> width:38 var
+R5881:5881 Kernel.VMUnboundedMinskyEncoding <> p:37 var
+R5884:5888 Kernel.VMUnboundedMinskyEncoding <> width:38 var
+R5890:5891 Kernel.VMUnboundedMinskyEncoding <> pc:39 var
+R5941:5949 Coq.NArith.Nnat Nat2N inj thm
+R5941:5949 Coq.NArith.Nnat Nat2N inj thm
+R5960:5972 Kernel.VMUnboundedMinskyEncoding <> minsky_word_N thm
+R5960:5972 Kernel.VMUnboundedMinskyEncoding <> minsky_word_N thm
+R5960:5972 Kernel.VMUnboundedMinskyEncoding <> minsky_word_N thm
+R5984:6004 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program def
+R6015:6022 Coq.NArith.Nnat N2Nat id thm
+R6015:6022 Coq.NArith.Nnat N2Nat id thm
+R6015:6022 Coq.NArith.Nnat N2Nat id thm
+R6035:6071 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_fetch_N_outside thm
+R6035:6071 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_fetch_N_outside thm
+R6035:6071 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program_fetch_N_outside thm
+def 6255:6275 <> minsky_input_encoding
+R6288:6294 Kernel.VMState <> VMState rec
+binder 6278:6284 <> ambient:40
+R6302:6305 Coq.Init.Datatypes <> list ind
+R6307:6318 Kernel.VMUnboundedMinskyInterpreter <> MinskyInstrU ind
+binder 6298:6298 <> p:41
+R6340:6342 Coq.Init.Datatypes <> nat ind
+binder 6326:6330 <> width:42
+binder 6332:6333 <> x0:43
+binder 6335:6336 <> x1:44
+R6347:6353 Kernel.VMState <> VMState rec
+R6360:6374 Kernel.VMUnboundedMinskyInterpreter <> minsky_boundary def
+R6376:6382 Kernel.VMUnboundedMinskyEncoding <> ambient:40 var
+R6385:6405 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program def
+R6407:6411 Kernel.VMUnboundedMinskyEncoding <> width:42 var
+R6413:6413 Kernel.VMUnboundedMinskyEncoding <> p:41 var
+R6416:6420 Kernel.VMUnboundedMinskyEncoding <> width:42 var
+R6429:6433 Kernel.VMUnboundedMinskyInterpreter <> mc_pc proj
+R6429:6433 Kernel.VMUnboundedMinskyInterpreter <> mc_pc proj
+R6429:6433 Kernel.VMUnboundedMinskyInterpreter <> mc_pc proj
+R6441:6445 Kernel.VMUnboundedMinskyInterpreter <> mc_c0 proj
+R6441:6445 Kernel.VMUnboundedMinskyInterpreter <> mc_c0 proj
+R6454:6458 Kernel.VMUnboundedMinskyInterpreter <> mc_c1 proj
+R6454:6458 Kernel.VMUnboundedMinskyInterpreter <> mc_c1 proj
+R6450:6451 Kernel.VMUnboundedMinskyEncoding <> x0:43 var
+R6463:6464 Kernel.VMUnboundedMinskyEncoding <> x1:44 var
+def 6482:6503 <> minsky_config_encoding
+R6516:6522 Kernel.VMState <> VMState rec
+binder 6506:6512 <> ambient:45
+R6530:6533 Coq.Init.Datatypes <> list ind
+R6535:6546 Kernel.VMUnboundedMinskyInterpreter <> MinskyInstrU ind
+binder 6526:6526 <> p:46
+R6562:6564 Coq.Init.Datatypes <> nat ind
+binder 6554:6558 <> width:47
+R6572:6584 Kernel.VMUnboundedMinskyInterpreter <> MinskyConfigU rec
+binder 6568:6568 <> c:48
+R6589:6595 Kernel.VMState <> VMState rec
+R6602:6616 Kernel.VMUnboundedMinskyInterpreter <> minsky_boundary def
+R6618:6624 Kernel.VMUnboundedMinskyEncoding <> ambient:45 var
+R6627:6647 Kernel.VMUnboundedMinskyEncoding <> encode_minsky_program def
+R6649:6653 Kernel.VMUnboundedMinskyEncoding <> width:47 var
+R6655:6655 Kernel.VMUnboundedMinskyEncoding <> p:46 var
+R6658:6662 Kernel.VMUnboundedMinskyEncoding <> width:47 var
+R6664:6664 Kernel.VMUnboundedMinskyEncoding <> c:48 var
+def 6756:6782 <> minsky_total_input_encoding
+R6795:6801 Kernel.VMState <> VMState rec
+binder 6785:6791 <> ambient:49
+R6813:6816 Coq.Init.Datatypes <> list ind
+R6818:6829 Kernel.VMUnboundedMinskyInterpreter <> MinskyInstrU ind
+binder 6809:6809 <> p:50
+R6841:6843 Coq.Init.Datatypes <> nat ind
+binder 6833:6834 <> x0:51
+binder 6836:6837 <> x1:52
+R6848:6854 Kernel.VMState <> VMState rec
+R6861:6881 Kernel.VMUnboundedMinskyEncoding <> minsky_input_encoding def
+R6883:6889 Kernel.VMUnboundedMinskyEncoding <> ambient:49 var
+R6891:6891 Kernel.VMUnboundedMinskyEncoding <> p:50 var
+R6894:6914 Kernel.VMUnboundedMinskyEncoding <> minsky_encoding_width def
+R6916:6916 Kernel.VMUnboundedMinskyEncoding <> p:50 var
+R6919:6920 Kernel.VMUnboundedMinskyEncoding <> x0:51 var
+R6922:6923 Kernel.VMUnboundedMinskyEncoding <> x1:52 var
+def 6938:6965 <> minsky_total_config_encoding
+R6978:6984 Kernel.VMState <> VMState rec
+binder 6968:6974 <> ambient:53
+R6996:6999 Coq.Init.Datatypes <> list ind
+R7001:7012 Kernel.VMUnboundedMinskyInterpreter <> MinskyInstrU ind
+binder 6992:6992 <> p:54
+R7020:7032 Kernel.VMUnboundedMinskyInterpreter <> MinskyConfigU rec
+binder 7016:7016 <> c:55
+R7037:7043 Kernel.VMState <> VMState rec
+R7050:7071 Kernel.VMUnboundedMinskyEncoding <> minsky_config_encoding def
+R7073:7079 Kernel.VMUnboundedMinskyEncoding <> ambient:53 var
+R7081:7081 Kernel.VMUnboundedMinskyEncoding <> p:54 var
+R7084:7104 Kernel.VMUnboundedMinskyEncoding <> minsky_encoding_width def
+R7106:7106 Kernel.VMUnboundedMinskyEncoding <> p:54 var
+R7109:7109 Kernel.VMUnboundedMinskyEncoding <> c:55 var

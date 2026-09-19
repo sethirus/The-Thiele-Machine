@@ -176,6 +176,9 @@ def program_to_hex(program, **_kwargs) -> Tuple[List[str], List[str], Dict[str, 
         if op == "INIT_MU":
             init_state["INIT_MU"] = int(arg.split()[0], 0) & 0xFFFFFFFF
             continue
+        if op in {"INIT_CSR_HEAP_BASE", "INIT_CSR_STATUS"}:
+            init_state[op] = int(arg.split()[0], 0) & 0xFFFFFFFF
+            continue
         if op == "INIT_ACTIVE_MODULE":
             init_state["INIT_ACTIVE_MODULE"] = int(arg.split()[0], 0) & 0x3F
             continue
@@ -228,9 +231,9 @@ def program_to_hex(program, **_kwargs) -> Tuple[List[str], List[str], Dict[str, 
             dst = int(morph_parts[0], 0) if len(morph_parts) > 0 else 0
             src_mod = int(morph_parts[1], 0) if len(morph_parts) > 1 else 0
             dst_mod = int(morph_parts[2], 0) if len(morph_parts) > 2 else 0
-            coupling_desc = int(morph_parts[3], 0) if len(morph_parts) > 3 else 0
+            coupling_base = int(morph_parts[3], 0) if len(morph_parts) > 3 else 0
             cost = int(morph_parts[4], 0) if len(morph_parts) > 4 else 0
-            ext0 = (dst_mod & 0x3F) | ((coupling_desc & 0x3F) << 6)
+            ext0 = (dst_mod & 0x3F) | ((coupling_base & 0x7F) << 6)
             instructions.append(
                 _encode_instruction(
                     "MORPH",
@@ -504,9 +507,9 @@ def program_to_hex(program, **_kwargs) -> Tuple[List[str], List[str], Dict[str, 
             instructions.append(_encode_instruction(op, dst, imm, cost))
             continue
 
-        if op == "HALT":
+        if op in {"HALT", "CHSH_LASSERT"}:
             halt_parts = arg.split()
-            instructions.append(_encode_instruction("HALT", 0, 0, int(halt_parts[0], 0) if halt_parts else 0))
+            instructions.append(_encode_instruction(op, 0, 0, int(halt_parts[0], 0) if halt_parts else 0))
             continue
 
         if op == "MORPH":
@@ -561,6 +564,14 @@ def program_to_hex(program, **_kwargs) -> Tuple[List[str], List[str], Dict[str, 
             morph_id = int(morph_get_parts[1], 0) if len(morph_get_parts) > 1 else 0
             cost = int(morph_get_parts[-1], 0) if len(morph_get_parts) > 1 else 0
             instructions.append(_encode_instruction("MORPH_GET", dst, morph_id, cost))
+            continue
+
+        if op in {"TENSOR_SET", "TENSOR_GET"}:
+            # Use the canonical assembler's module/row/column packing. These
+            # operands are not the generic two-byte harness syntax.
+            from scripts.thiele_asm import assemble
+            words, _, _ = assemble(line)
+            instructions.extend(words)
             continue
 
         generic = arg.split()
@@ -778,6 +789,8 @@ def parse_verilog_output(stdout: str) -> Dict[str, Any]:
             csrs["err"] = int(result["error_code"])
         if "csr_heap_base" in result:
             csrs["heap_base"] = int(result["csr_heap_base"])
+        if "csr_status" in result:
+            csrs["status"] = int(result["csr_status"])
         if csrs:
             result["csrs"] = csrs
 

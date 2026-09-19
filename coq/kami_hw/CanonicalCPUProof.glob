@@ -1,4 +1,4 @@
-DIGEST 5f138743cb12f54bb1aa9e60f29d2d4c
+DIGEST 66b78be859f670a63fa700427e5d96cc
 FKamiHW.CanonicalCPUProof
 R386:398 KamiHW.ThieleCPUCore <> <> lib
 R428:438 KamiHW.ThieleTypes <> <> lib
@@ -37,1109 +37,1109 @@ R1441:1455 KamiHW.FullAbstraction <> <> lib
 R1466:1478 Kernel.VMStep VMStep <> mod
 def 1794:1813 <> canonical_cpu_module
 R1818:1830 KamiHW.ThieleCPUBusTop <> thieleBusTopB def
-prf 2917:2948 <> canonical_cpu_module_from_source
-R2974:2976 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2954:2973 KamiHW.CanonicalCPUProof <> canonical_cpu_module def
-R2977:2994 Kami.Ext.BSyntax <> ModulesSToBModules def
-R2996:3008 KamiHW.ThieleCPUBusTop <> thieleBusTopS def
-R3027:3046 KamiHW.CanonicalCPUProof <> canonical_cpu_module def
-R3049:3061 KamiHW.ThieleCPUBusTop <> thieleBusTopB def
-R3064:3074 KamiHW.ThieleCPUCore <> thieleCoreB def
-R3077:3089 KamiHW.ThieleCPUBusTop <> thieleBusTopS def
-R3100:3106 Coq.Init.Logic <> eq_refl constr
-R3100:3106 Coq.Init.Logic <> eq_refl constr
-def 3199:3205 <> targetB
-R3212:3214 Coq.Init.Datatypes <> nat ind
-R3220:3239 KamiHW.CanonicalCPUProof <> canonical_cpu_module def
-def 3301:3324 <> canonical_snapshot_to_vm
-R3329:3338 KamiHW.Abstraction <> abs_phase1 def
-def 3352:3380 <> canonical_refinement_relation
-R3385:3399 KamiHW.VerilogRefinement <> verilog_sim_rel def
-rec 3542:3564 <> CanonicalCPUProofBundle
-proj 3580:3611 <> canonical_register_write_refines
-proj 3827:3859 <> canonical_load_imm_step_simulates
-proj 4302:4332 <> canonical_mu_monotone_on_charge
-proj 4449:4477 <> canonical_oracle_charge_sound
-proj 4594:4632 <> canonical_bus_step_preserves_abs_phase1
-proj 4845:4873 <> canonical_nofi_supra_boundary
-proj 5224:5256 <> canonical_nofi_paid_certification
-proj 5622:5652 <> canonical_nofi_trace_separation
-proj 6009:6049 <> canonical_nofi_general_feasible_reduction
-proj 6527:6567 <> canonical_nofi_fibered_feasible_reduction
-proj 7039:7087 <> canonical_nofi_posterior_representative_reduction
-proj 7632:7675 <> canonical_nofi_normalized_expected_reduction
-proj 8331:8364 <> canonical_nofi_conditional_shannon
-proj 8633:8671 <> canonical_nofi_quantitative_state_space
-proj 8938:8965 <> canonical_monoidal_coherence
-proj 9314:9336 <> canonical_compose_assoc
-proj 9690:9721 <> canonical_compose_step_simulates
-proj 10104:10140 <> canonical_morph_tensor_step_simulates
-R3632:3643 KamiHW.Abstraction <> KamiSnapshot rec
-binder 3627:3628 <> hs:2
-R3655:3657 Coq.Init.Datatypes <> nat ind
-binder 3647:3649 <> dst:3
-binder 3651:3651 <> v:4
-R3681:3690 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3670:3672 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R3667:3669 KamiHW.CanonicalCPUProof <> dst:3 var
-R3673:3680 KamiHW.ThieleTypes <> RegCount def
-R3782:3790 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3691:3711 KamiHW.Abstraction <> snapshot_regs_to_list def
-binder 3726:3726 <> j:5
-R3734:3740 Coq.Arith.PeanoNat Nat eqb def
-R3742:3742 KamiHW.CanonicalCPUProof <> j:5 var
-R3744:3746 KamiHW.CanonicalCPUProof <> dst:3 var
-R3767:3775 KamiHW.Abstraction <> snap_regs proj
-R3777:3778 KamiHW.CanonicalCPUProof <> hs:2 var
-R3780:3780 KamiHW.CanonicalCPUProof <> j:5 var
-R3753:3758 Kernel.VMState <> word64 def
-R3760:3760 KamiHW.CanonicalCPUProof <> v:4 var
-R3791:3799 Kernel.VMState <> write_reg def
-R3802:3811 KamiHW.Abstraction <> abs_phase1 def
-R3813:3814 KamiHW.CanonicalCPUProof <> hs:2 var
-R3817:3819 KamiHW.CanonicalCPUProof <> dst:3 var
-R3821:3821 KamiHW.CanonicalCPUProof <> v:4 var
-R3880:3891 KamiHW.Abstraction <> KamiSnapshot rec
-binder 3875:3876 <> hs:7
-R3910:3912 Coq.Init.Datatypes <> nat ind
-binder 3895:3897 <> dst:8
-binder 3899:3901 <> imm:9
-binder 3903:3906 <> cost:10
-R3922:3928 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3932:3941 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3929:3931 <> vs':11
-R3999:4010 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3942:3948 Kernel.VMStep VMStep vm_step ind
-R3951:3960 KamiHW.Abstraction <> abs_phase1 def
-R3962:3963 KamiHW.CanonicalCPUProof <> hs:7 var
-R3967:3980 Kernel.VMStep VMStep instr_load_imm constr
-R3982:3984 KamiHW.CanonicalCPUProof <> dst:8 var
-R3986:3988 KamiHW.CanonicalCPUProof <> imm:9 var
-R3990:3993 KamiHW.CanonicalCPUProof <> cost:10 var
-R3996:3998 KamiHW.CanonicalCPUProof <> vs':11 var
-R4014:4026 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4011:4013 KamiHW.CanonicalCPUProof <> vs':11 var
-R4027:4042 Kernel.VMStep VMStep advance_state_rm def
-R4045:4054 KamiHW.Abstraction <> abs_phase1 def
-R4056:4057 KamiHW.CanonicalCPUProof <> hs:7 var
-R4061:4074 Kernel.VMStep VMStep instr_load_imm constr
-R4076:4078 KamiHW.CanonicalCPUProof <> dst:8 var
-R4080:4082 KamiHW.CanonicalCPUProof <> imm:9 var
-R4084:4087 KamiHW.CanonicalCPUProof <> cost:10 var
-R4119:4126 Kernel.VMState <> vm_graph proj
-R4103:4112 KamiHW.Abstraction <> abs_phase1 def
-R4114:4115 KamiHW.CanonicalCPUProof <> hs:7 var
-R4158:4164 Kernel.VMState <> vm_csrs proj
-R4142:4151 KamiHW.Abstraction <> abs_phase1 def
-R4153:4154 KamiHW.CanonicalCPUProof <> hs:7 var
-R4180:4188 Kernel.VMState <> write_reg def
-R4191:4200 KamiHW.Abstraction <> abs_phase1 def
-R4202:4203 KamiHW.CanonicalCPUProof <> hs:7 var
-R4206:4208 KamiHW.CanonicalCPUProof <> dst:8 var
-R4211:4216 Kernel.VMState <> word64 def
-R4218:4220 KamiHW.CanonicalCPUProof <> imm:9 var
-R4253:4258 Kernel.VMState <> vm_mem proj
+prf 3051:3082 <> canonical_cpu_module_from_source
+R3108:3110 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3088:3107 KamiHW.CanonicalCPUProof <> canonical_cpu_module def
+R3111:3128 Kami.Ext.BSyntax <> ModulesSToBModules def
+R3130:3142 KamiHW.ThieleCPUBusTop <> thieleBusTopS def
+R3161:3180 KamiHW.CanonicalCPUProof <> canonical_cpu_module def
+R3183:3195 KamiHW.ThieleCPUBusTop <> thieleBusTopB def
+R3198:3208 KamiHW.ThieleCPUCore <> thieleCoreB def
+R3211:3223 KamiHW.ThieleCPUBusTop <> thieleBusTopS def
+R3234:3240 Coq.Init.Logic <> eq_refl constr
+R3234:3240 Coq.Init.Logic <> eq_refl constr
+def 3333:3339 <> targetB
+R3346:3348 Coq.Init.Datatypes <> nat ind
+R3354:3373 KamiHW.CanonicalCPUProof <> canonical_cpu_module def
+def 3435:3458 <> canonical_snapshot_to_vm
+R3463:3472 KamiHW.Abstraction <> abs_phase1 def
+def 3486:3514 <> canonical_refinement_relation
+R3519:3533 KamiHW.VerilogRefinement <> verilog_sim_rel def
+rec 3676:3698 <> CanonicalCPUProofBundle
+proj 3714:3745 <> canonical_register_write_refines
+proj 3961:3993 <> canonical_load_imm_step_simulates
+proj 4436:4466 <> canonical_mu_monotone_on_charge
+proj 4583:4611 <> canonical_oracle_charge_sound
+proj 4728:4766 <> canonical_bus_step_preserves_abs_phase1
+proj 4979:5007 <> canonical_nofi_supra_boundary
+proj 5358:5390 <> canonical_nofi_paid_certification
+proj 5756:5786 <> canonical_nofi_trace_separation
+proj 6143:6183 <> canonical_nofi_general_feasible_reduction
+proj 6661:6701 <> canonical_nofi_fibered_feasible_reduction
+proj 7173:7221 <> canonical_nofi_posterior_representative_reduction
+proj 7766:7809 <> canonical_nofi_normalized_expected_reduction
+proj 8465:8498 <> canonical_nofi_conditional_shannon
+proj 8767:8805 <> canonical_nofi_quantitative_state_space
+proj 9072:9099 <> canonical_monoidal_coherence
+proj 9448:9470 <> canonical_compose_assoc
+proj 9824:9855 <> canonical_compose_step_simulates
+proj 10238:10274 <> canonical_morph_tensor_step_simulates
+R3766:3777 KamiHW.Abstraction <> KamiSnapshot rec
+binder 3761:3762 <> hs:2
+R3789:3791 Coq.Init.Datatypes <> nat ind
+binder 3781:3783 <> dst:3
+binder 3785:3785 <> v:4
+R3815:3824 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3804:3806 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3801:3803 KamiHW.CanonicalCPUProof <> dst:3 var
+R3807:3814 KamiHW.ThieleTypes <> RegCount def
+R3916:3924 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3825:3845 KamiHW.Abstraction <> snapshot_regs_to_list def
+binder 3860:3860 <> j:5
+R3868:3874 Coq.Arith.PeanoNat Nat eqb def
+R3876:3876 KamiHW.CanonicalCPUProof <> j:5 var
+R3878:3880 KamiHW.CanonicalCPUProof <> dst:3 var
+R3901:3909 KamiHW.Abstraction <> snap_regs proj
+R3911:3912 KamiHW.CanonicalCPUProof <> hs:2 var
+R3914:3914 KamiHW.CanonicalCPUProof <> j:5 var
+R3887:3892 Kernel.VMState <> word64 def
+R3894:3894 KamiHW.CanonicalCPUProof <> v:4 var
+R3925:3933 Kernel.VMState <> write_reg def
+R3936:3945 KamiHW.Abstraction <> abs_phase1 def
+R3947:3948 KamiHW.CanonicalCPUProof <> hs:2 var
+R3951:3953 KamiHW.CanonicalCPUProof <> dst:3 var
+R3955:3955 KamiHW.CanonicalCPUProof <> v:4 var
+R4014:4025 KamiHW.Abstraction <> KamiSnapshot rec
+binder 4009:4010 <> hs:7
+R4044:4046 Coq.Init.Datatypes <> nat ind
+binder 4029:4031 <> dst:8
+binder 4033:4035 <> imm:9
+binder 4037:4040 <> cost:10
+R4056:4062 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4066:4075 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4063:4065 <> vs':11
+R4133:4144 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4076:4082 Kernel.VMStep VMStep vm_step ind
+R4085:4094 KamiHW.Abstraction <> abs_phase1 def
+R4096:4097 KamiHW.CanonicalCPUProof <> hs:7 var
+R4101:4114 Kernel.VMStep VMStep instr_load_imm constr
+R4116:4118 KamiHW.CanonicalCPUProof <> dst:8 var
+R4120:4122 KamiHW.CanonicalCPUProof <> imm:9 var
+R4124:4127 KamiHW.CanonicalCPUProof <> cost:10 var
+R4130:4132 KamiHW.CanonicalCPUProof <> vs':11 var
+R4148:4160 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4145:4147 KamiHW.CanonicalCPUProof <> vs':11 var
+R4161:4176 Kernel.VMStep VMStep advance_state_rm def
+R4179:4188 KamiHW.Abstraction <> abs_phase1 def
+R4190:4191 KamiHW.CanonicalCPUProof <> hs:7 var
+R4195:4208 Kernel.VMStep VMStep instr_load_imm constr
+R4210:4212 KamiHW.CanonicalCPUProof <> dst:8 var
+R4214:4216 KamiHW.CanonicalCPUProof <> imm:9 var
+R4218:4221 KamiHW.CanonicalCPUProof <> cost:10 var
+R4253:4260 Kernel.VMState <> vm_graph proj
 R4237:4246 KamiHW.Abstraction <> abs_phase1 def
 R4248:4249 KamiHW.CanonicalCPUProof <> hs:7 var
-R4290:4295 Kernel.VMState <> vm_err proj
-R4274:4283 KamiHW.Abstraction <> abs_phase1 def
-R4285:4286 KamiHW.CanonicalCPUProof <> hs:7 var
-R4353:4364 KamiHW.Abstraction <> KamiSnapshot rec
-binder 4348:4349 <> hs:13
-R4375:4377 Coq.Init.Datatypes <> nat ind
-binder 4368:4371 <> cost:14
-R4417:4420 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4410:4412 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4404:4408 Kernel.VMState <> vm_mu proj
-R4388:4397 KamiHW.Abstraction <> abs_phase1 def
-R4399:4400 KamiHW.CanonicalCPUProof <> hs:13 var
-R4413:4416 KamiHW.CanonicalCPUProof <> cost:14 var
-R4438:4442 Kernel.VMState <> vm_mu proj
-R4422:4431 KamiHW.Abstraction <> abs_phase1 def
-R4433:4434 KamiHW.CanonicalCPUProof <> hs:13 var
-R4498:4509 KamiHW.Abstraction <> KamiSnapshot rec
-binder 4493:4494 <> hs:16
-R4520:4522 Coq.Init.Datatypes <> nat ind
-binder 4513:4516 <> cost:17
-R4562:4565 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4555:4557 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4549:4553 Kernel.VMState <> vm_mu proj
-R4533:4542 KamiHW.Abstraction <> abs_phase1 def
-R4544:4545 KamiHW.CanonicalCPUProof <> hs:16 var
-R4558:4561 KamiHW.CanonicalCPUProof <> cost:17 var
-R4583:4587 Kernel.VMState <> vm_mu proj
-R4567:4576 KamiHW.Abstraction <> abs_phase1 def
-R4578:4579 KamiHW.CanonicalCPUProof <> hs:16 var
-R4653:4667 KamiHW.ThieleCPUBusTop <> BusWrapperState rec
-binder 4648:4649 <> st:19
-R4676:4680 KamiHW.ThieleCPUBusTop <> BusOp ind
-binder 4671:4672 <> op:20
-R4727:4729 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4690:4699 KamiHW.Abstraction <> abs_phase1 def
-R4702:4708 KamiHW.ThieleCPUBusTop <> bw_core proj
-R4711:4718 KamiHW.ThieleCPUBusTop <> bus_step def
-R4720:4721 KamiHW.CanonicalCPUProof <> st:19 var
-R4723:4724 KamiHW.CanonicalCPUProof <> op:20 var
-R4730:4739 KamiHW.Abstraction <> abs_phase1 def
-R4742:4748 KamiHW.ThieleCPUBusTop <> bw_core proj
-R4750:4751 KamiHW.CanonicalCPUProof <> st:19 var
-R4897:4900 Coq.Init.Datatypes <> list ind
-R4902:4915 Kernel.VMStep VMStep vm_instruction ind
-binder 4889:4893 <> trace:22
-R4936:4942 Kernel.VMState <> VMState rec
-binder 4919:4924 <> s_init:23
-binder 4926:4932 <> s_final:24
-R4953:4955 Coq.Init.Datatypes <> nat ind
-binder 4946:4949 <> fuel:25
-R5023:5032 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5008:5010 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4965:4989 Kernel.RevelationRequirement RevelationProof trace_run def
-R4991:4994 KamiHW.CanonicalCPUProof <> fuel:25 var
-R4996:5000 KamiHW.CanonicalCPUProof <> trace:22 var
-R5002:5007 KamiHW.CanonicalCPUProof <> s_init:23 var
-R5011:5014 Coq.Init.Datatypes <> Some constr
-R5016:5022 KamiHW.CanonicalCPUProof <> s_final:24 var
-R5073:5082 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5065:5067 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5051:5063 Kernel.VMState <> csr_cert_addr proj
-R5041:5047 Kernel.VMState <> vm_csrs proj
-R5033:5038 KamiHW.CanonicalCPUProof <> s_init:23 var
-R5120:5129 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5083:5113 Kernel.QuantumBound <> quantum_admissible def
-R5115:5119 KamiHW.CanonicalCPUProof <> trace:22 var
-R5130:5131 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5132:5160 Kernel.Certification CertificationTheory Certified def
-R5162:5168 KamiHW.CanonicalCPUProof <> s_final:24 var
-R5170:5212 Kernel.Certification CertificationTheory supra_quantum_certified def
-R5214:5218 KamiHW.CanonicalCPUProof <> trace:22 var
-R5280:5283 Coq.Init.Datatypes <> list ind
-R5285:5298 Kernel.VMStep VMStep vm_instruction ind
-binder 5272:5276 <> trace:27
-R5319:5325 Kernel.VMState <> VMState rec
-binder 5302:5307 <> s_init:28
-binder 5309:5315 <> s_final:29
-R5336:5338 Coq.Init.Datatypes <> nat ind
-binder 5329:5332 <> fuel:30
-R5406:5415 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5391:5393 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5348:5372 Kernel.RevelationRequirement RevelationProof trace_run def
-R5374:5377 KamiHW.CanonicalCPUProof <> fuel:30 var
-R5379:5383 KamiHW.CanonicalCPUProof <> trace:27 var
-R5385:5390 KamiHW.CanonicalCPUProof <> s_init:28 var
-R5394:5397 Coq.Init.Datatypes <> Some constr
-R5399:5405 KamiHW.CanonicalCPUProof <> s_final:29 var
-R5456:5465 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5448:5450 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5434:5446 Kernel.VMState <> csr_cert_addr proj
-R5424:5430 Kernel.VMState <> vm_csrs proj
-R5416:5421 KamiHW.CanonicalCPUProof <> s_init:28 var
-R5553:5562 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5466:5494 Kernel.Certification CertificationTheory Certified def
-R5496:5502 KamiHW.CanonicalCPUProof <> s_final:29 var
-R5504:5546 Kernel.Certification CertificationTheory supra_quantum_certified def
-R5548:5552 KamiHW.CanonicalCPUProof <> trace:27 var
-R5563:5598 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
-R5600:5603 KamiHW.CanonicalCPUProof <> fuel:30 var
-R5605:5609 KamiHW.CanonicalCPUProof <> trace:27 var
-R5611:5616 KamiHW.CanonicalCPUProof <> s_init:28 var
-binder 5667:5670 <> fuel:32
-binder 5672:5676 <> trace:33
-binder 5678:5682 <> omega:34
-R5691:5691 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5747:5757 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 5699:5699 <> s:35
-R5712:5715 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5702:5703 Coq.Lists.List <> In def
-R5707:5711 KamiHW.CanonicalCPUProof <> omega:34 var
-R5705:5705 KamiHW.CanonicalCPUProof <> s:35 var
-R5743:5745 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5729:5741 Kernel.VMState <> csr_cert_addr proj
-R5719:5725 Kernel.VMState <> vm_csrs proj
-R5716:5716 KamiHW.CanonicalCPUProof <> s:35 var
-R5758:5758 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5835:5845 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 5766:5766 <> s:36
-R5779:5782 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5769:5770 Coq.Lists.List <> In def
-R5774:5778 KamiHW.CanonicalCPUProof <> omega:34 var
-R5772:5772 KamiHW.CanonicalCPUProof <> s:36 var
-R5830:5833 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5816:5828 Kernel.VMState <> csr_cert_addr proj
-R5806:5812 Kernel.VMState <> vm_csrs proj
-R5784:5789 Kernel.SimulationProof <> run_vm def
-R5791:5794 KamiHW.CanonicalCPUProof <> fuel:32 var
-R5796:5800 KamiHW.CanonicalCPUProof <> trace:33 var
-R5802:5802 KamiHW.CanonicalCPUProof <> s:36 var
-R5922:5931 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5846:5850 Coq.Lists.List <> NoDup ind
-R5853:5855 Coq.Lists.List <> map def
-R5916:5920 KamiHW.CanonicalCPUProof <> omega:34 var
-binder 5862:5862 <> s:37
-R5900:5912 Kernel.VMState <> csr_cert_addr proj
-R5890:5896 Kernel.VMState <> vm_csrs proj
-R5868:5873 Kernel.SimulationProof <> run_vm def
-R5875:5878 KamiHW.CanonicalCPUProof <> fuel:32 var
-R5880:5884 KamiHW.CanonicalCPUProof <> trace:33 var
-R5886:5886 KamiHW.CanonicalCPUProof <> s:37 var
-R5949:5952 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5932:5942 Coq.Lists.List <> length abbrev
-R5944:5948 KamiHW.CanonicalCPUProof <> omega:34 var
-R5953:5997 Kernel.MuShannonQuantitative <> count_cert_addr_setters def
-R5999:6003 KamiHW.CanonicalCPUProof <> trace:33 var
-binder 6064:6067 <> fuel:39
-binder 6069:6073 <> trace:40
-binder 6075:6075 <> s:41
-binder 6077:6087 <> omega_prior:42
-binder 6089:6103 <> omega_posterior:43
-binder 6105:6108 <> tree:44
-R6182:6191 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6117:6163 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R6165:6168 KamiHW.CanonicalCPUProof <> fuel:39 var
-R6170:6174 KamiHW.CanonicalCPUProof <> trace:40 var
-R6176:6176 KamiHW.CanonicalCPUProof <> s:41 var
-R6178:6181 KamiHW.CanonicalCPUProof <> tree:44 var
-R6247:6256 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6238:6240 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R6193:6221 Kernel.MuShannonBridge <> feasible_size def
-R6223:6237 KamiHW.CanonicalCPUProof <> omega_posterior:43 var
-R6336:6345 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6257:6302 Kernel.MuShannonBridge <> tree_covers_feasible_reduction def
-R6304:6307 KamiHW.CanonicalCPUProof <> tree:44 var
-R6309:6319 KamiHW.CanonicalCPUProof <> omega_prior:42 var
-R6321:6335 KamiHW.CanonicalCPUProof <> omega_posterior:43 var
-R6471:6480 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6401:6411 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R6346:6356 Coq.Arith.PeanoNat Nat log2_up def
-R6359:6387 Kernel.MuShannonBridge <> feasible_size def
-R6389:6399 KamiHW.CanonicalCPUProof <> omega_prior:42 var
-R6412:6422 Coq.Arith.PeanoNat Nat log2_up def
-R6425:6453 Kernel.MuShannonBridge <> feasible_size def
+R4292:4298 Kernel.VMState <> vm_csrs proj
+R4276:4285 KamiHW.Abstraction <> abs_phase1 def
+R4287:4288 KamiHW.CanonicalCPUProof <> hs:7 var
+R4314:4322 Kernel.VMState <> write_reg def
+R4325:4334 KamiHW.Abstraction <> abs_phase1 def
+R4336:4337 KamiHW.CanonicalCPUProof <> hs:7 var
+R4340:4342 KamiHW.CanonicalCPUProof <> dst:8 var
+R4345:4350 Kernel.VMState <> word64 def
+R4352:4354 KamiHW.CanonicalCPUProof <> imm:9 var
+R4387:4392 Kernel.VMState <> vm_mem proj
+R4371:4380 KamiHW.Abstraction <> abs_phase1 def
+R4382:4383 KamiHW.CanonicalCPUProof <> hs:7 var
+R4424:4429 Kernel.VMState <> vm_err proj
+R4408:4417 KamiHW.Abstraction <> abs_phase1 def
+R4419:4420 KamiHW.CanonicalCPUProof <> hs:7 var
+R4487:4498 KamiHW.Abstraction <> KamiSnapshot rec
+binder 4482:4483 <> hs:13
+R4509:4511 Coq.Init.Datatypes <> nat ind
+binder 4502:4505 <> cost:14
+R4551:4554 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4544:4546 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4538:4542 Kernel.VMState <> vm_mu proj
+R4522:4531 KamiHW.Abstraction <> abs_phase1 def
+R4533:4534 KamiHW.CanonicalCPUProof <> hs:13 var
+R4547:4550 KamiHW.CanonicalCPUProof <> cost:14 var
+R4572:4576 Kernel.VMState <> vm_mu proj
+R4556:4565 KamiHW.Abstraction <> abs_phase1 def
+R4567:4568 KamiHW.CanonicalCPUProof <> hs:13 var
+R4632:4643 KamiHW.Abstraction <> KamiSnapshot rec
+binder 4627:4628 <> hs:16
+R4654:4656 Coq.Init.Datatypes <> nat ind
+binder 4647:4650 <> cost:17
+R4696:4699 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4689:4691 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4683:4687 Kernel.VMState <> vm_mu proj
+R4667:4676 KamiHW.Abstraction <> abs_phase1 def
+R4678:4679 KamiHW.CanonicalCPUProof <> hs:16 var
+R4692:4695 KamiHW.CanonicalCPUProof <> cost:17 var
+R4717:4721 Kernel.VMState <> vm_mu proj
+R4701:4710 KamiHW.Abstraction <> abs_phase1 def
+R4712:4713 KamiHW.CanonicalCPUProof <> hs:16 var
+R4787:4801 KamiHW.ThieleCPUBusTop <> BusWrapperState rec
+binder 4782:4783 <> st:19
+R4810:4814 KamiHW.ThieleCPUBusTop <> BusOp ind
+binder 4805:4806 <> op:20
+R4861:4863 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4824:4833 KamiHW.Abstraction <> abs_phase1 def
+R4836:4842 KamiHW.ThieleCPUBusTop <> bw_core proj
+R4845:4852 KamiHW.ThieleCPUBusTop <> bus_step def
+R4854:4855 KamiHW.CanonicalCPUProof <> st:19 var
+R4857:4858 KamiHW.CanonicalCPUProof <> op:20 var
+R4864:4873 KamiHW.Abstraction <> abs_phase1 def
+R4876:4882 KamiHW.ThieleCPUBusTop <> bw_core proj
+R4884:4885 KamiHW.CanonicalCPUProof <> st:19 var
+R5031:5034 Coq.Init.Datatypes <> list ind
+R5036:5049 Kernel.VMStep VMStep vm_instruction ind
+binder 5023:5027 <> trace:22
+R5070:5076 Kernel.VMState <> VMState rec
+binder 5053:5058 <> s_init:23
+binder 5060:5066 <> s_final:24
+R5087:5089 Coq.Init.Datatypes <> nat ind
+binder 5080:5083 <> fuel:25
+R5157:5166 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5142:5144 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5099:5123 Kernel.RevelationRequirement RevelationProof trace_run def
+R5125:5128 KamiHW.CanonicalCPUProof <> fuel:25 var
+R5130:5134 KamiHW.CanonicalCPUProof <> trace:22 var
+R5136:5141 KamiHW.CanonicalCPUProof <> s_init:23 var
+R5145:5148 Coq.Init.Datatypes <> Some constr
+R5150:5156 KamiHW.CanonicalCPUProof <> s_final:24 var
+R5207:5216 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5199:5201 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5185:5197 Kernel.VMState <> csr_cert_addr proj
+R5175:5181 Kernel.VMState <> vm_csrs proj
+R5167:5172 KamiHW.CanonicalCPUProof <> s_init:23 var
+R5254:5263 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5217:5247 Kernel.QuantumBound <> quantum_admissible def
+R5249:5253 KamiHW.CanonicalCPUProof <> trace:22 var
+R5264:5265 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5266:5294 Kernel.Certification CertificationTheory Certified def
+R5296:5302 KamiHW.CanonicalCPUProof <> s_final:24 var
+R5304:5346 Kernel.Certification CertificationTheory supra_quantum_certified def
+R5348:5352 KamiHW.CanonicalCPUProof <> trace:22 var
+R5414:5417 Coq.Init.Datatypes <> list ind
+R5419:5432 Kernel.VMStep VMStep vm_instruction ind
+binder 5406:5410 <> trace:27
+R5453:5459 Kernel.VMState <> VMState rec
+binder 5436:5441 <> s_init:28
+binder 5443:5449 <> s_final:29
+R5470:5472 Coq.Init.Datatypes <> nat ind
+binder 5463:5466 <> fuel:30
+R5540:5549 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5525:5527 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5482:5506 Kernel.RevelationRequirement RevelationProof trace_run def
+R5508:5511 KamiHW.CanonicalCPUProof <> fuel:30 var
+R5513:5517 KamiHW.CanonicalCPUProof <> trace:27 var
+R5519:5524 KamiHW.CanonicalCPUProof <> s_init:28 var
+R5528:5531 Coq.Init.Datatypes <> Some constr
+R5533:5539 KamiHW.CanonicalCPUProof <> s_final:29 var
+R5590:5599 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5582:5584 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5568:5580 Kernel.VMState <> csr_cert_addr proj
+R5558:5564 Kernel.VMState <> vm_csrs proj
+R5550:5555 KamiHW.CanonicalCPUProof <> s_init:28 var
+R5687:5696 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5600:5628 Kernel.Certification CertificationTheory Certified def
+R5630:5636 KamiHW.CanonicalCPUProof <> s_final:29 var
+R5638:5680 Kernel.Certification CertificationTheory supra_quantum_certified def
+R5682:5686 KamiHW.CanonicalCPUProof <> trace:27 var
+R5697:5732 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
+R5734:5737 KamiHW.CanonicalCPUProof <> fuel:30 var
+R5739:5743 KamiHW.CanonicalCPUProof <> trace:27 var
+R5745:5750 KamiHW.CanonicalCPUProof <> s_init:28 var
+binder 5801:5804 <> fuel:32
+binder 5806:5810 <> trace:33
+binder 5812:5816 <> omega:34
+R5825:5825 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5881:5891 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5833:5833 <> s:35
+R5846:5849 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5836:5837 Coq.Lists.List <> In def
+R5841:5845 KamiHW.CanonicalCPUProof <> omega:34 var
+R5839:5839 KamiHW.CanonicalCPUProof <> s:35 var
+R5877:5879 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5863:5875 Kernel.VMState <> csr_cert_addr proj
+R5853:5859 Kernel.VMState <> vm_csrs proj
+R5850:5850 KamiHW.CanonicalCPUProof <> s:35 var
+R5892:5892 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5969:5979 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5900:5900 <> s:36
+R5913:5916 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5903:5904 Coq.Lists.List <> In def
+R5908:5912 KamiHW.CanonicalCPUProof <> omega:34 var
+R5906:5906 KamiHW.CanonicalCPUProof <> s:36 var
+R5964:5967 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5950:5962 Kernel.VMState <> csr_cert_addr proj
+R5940:5946 Kernel.VMState <> vm_csrs proj
+R5918:5923 Kernel.SimulationProof <> run_vm def
+R5925:5928 KamiHW.CanonicalCPUProof <> fuel:32 var
+R5930:5934 KamiHW.CanonicalCPUProof <> trace:33 var
+R5936:5936 KamiHW.CanonicalCPUProof <> s:36 var
+R6056:6065 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5980:5984 Coq.Lists.List <> NoDup ind
+R5987:5989 Coq.Lists.List <> map def
+R6050:6054 KamiHW.CanonicalCPUProof <> omega:34 var
+binder 5996:5996 <> s:37
+R6034:6046 Kernel.VMState <> csr_cert_addr proj
+R6024:6030 Kernel.VMState <> vm_csrs proj
+R6002:6007 Kernel.SimulationProof <> run_vm def
+R6009:6012 KamiHW.CanonicalCPUProof <> fuel:32 var
+R6014:6018 KamiHW.CanonicalCPUProof <> trace:33 var
+R6020:6020 KamiHW.CanonicalCPUProof <> s:37 var
+R6083:6086 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6066:6076 Coq.Lists.List <> length abbrev
+R6078:6082 KamiHW.CanonicalCPUProof <> omega:34 var
+R6087:6131 Kernel.MuShannonQuantitative <> count_cert_addr_setters def
+R6133:6137 KamiHW.CanonicalCPUProof <> trace:33 var
+binder 6198:6201 <> fuel:39
+binder 6203:6207 <> trace:40
+binder 6209:6209 <> s:41
+binder 6211:6221 <> omega_prior:42
+binder 6223:6237 <> omega_posterior:43
+binder 6239:6242 <> tree:44
+R6316:6325 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6251:6297 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R6299:6302 KamiHW.CanonicalCPUProof <> fuel:39 var
+R6304:6308 KamiHW.CanonicalCPUProof <> trace:40 var
+R6310:6310 KamiHW.CanonicalCPUProof <> s:41 var
+R6312:6315 KamiHW.CanonicalCPUProof <> tree:44 var
+R6381:6390 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6372:6374 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R6327:6355 Kernel.MuShannonBridge <> feasible_size def
+R6357:6371 KamiHW.CanonicalCPUProof <> omega_posterior:43 var
+R6470:6479 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6391:6436 Kernel.MuShannonBridge <> tree_covers_feasible_reduction def
+R6438:6441 KamiHW.CanonicalCPUProof <> tree:44 var
+R6443:6453 KamiHW.CanonicalCPUProof <> omega_prior:42 var
 R6455:6469 KamiHW.CanonicalCPUProof <> omega_posterior:43 var
-R6510:6512 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R6504:6508 Kernel.VMState <> vm_mu proj
-R6482:6487 Kernel.SimulationProof <> run_vm def
-R6489:6492 KamiHW.CanonicalCPUProof <> fuel:39 var
-R6494:6498 KamiHW.CanonicalCPUProof <> trace:40 var
-R6500:6500 KamiHW.CanonicalCPUProof <> s:41 var
-R6516:6520 Kernel.VMState <> vm_mu proj
-R6513:6513 KamiHW.CanonicalCPUProof <> s:41 var
-binder 6582:6585 <> fuel:46
-binder 6587:6591 <> trace:47
-binder 6593:6593 <> s:48
-binder 6595:6605 <> omega_prior:49
-binder 6607:6621 <> omega_posterior:50
-binder 6623:6626 <> tree:51
-R6700:6709 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6635:6681 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R6683:6686 KamiHW.CanonicalCPUProof <> fuel:46 var
-R6688:6692 KamiHW.CanonicalCPUProof <> trace:47 var
-R6694:6694 KamiHW.CanonicalCPUProof <> s:48 var
-R6696:6699 KamiHW.CanonicalCPUProof <> tree:51 var
-R6765:6774 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6756:6758 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R6711:6739 Kernel.MuShannonBridge <> feasible_size def
-R6741:6755 KamiHW.CanonicalCPUProof <> omega_posterior:50 var
-R6848:6857 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6775:6814 Kernel.MuShannonBridge <> FiberedFeasibleReduction def
-R6816:6819 KamiHW.CanonicalCPUProof <> tree:51 var
-R6821:6831 KamiHW.CanonicalCPUProof <> omega_prior:49 var
-R6833:6847 KamiHW.CanonicalCPUProof <> omega_posterior:50 var
-R6983:6992 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6913:6923 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R6858:6868 Coq.Arith.PeanoNat Nat log2_up def
-R6871:6899 Kernel.MuShannonBridge <> feasible_size def
-R6901:6911 KamiHW.CanonicalCPUProof <> omega_prior:49 var
-R6924:6934 Coq.Arith.PeanoNat Nat log2_up def
-R6937:6965 Kernel.MuShannonBridge <> feasible_size def
+R6605:6614 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6535:6545 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6480:6490 Coq.Arith.PeanoNat Nat log2_up def
+R6493:6521 Kernel.MuShannonBridge <> feasible_size def
+R6523:6533 KamiHW.CanonicalCPUProof <> omega_prior:42 var
+R6546:6556 Coq.Arith.PeanoNat Nat log2_up def
+R6559:6587 Kernel.MuShannonBridge <> feasible_size def
+R6589:6603 KamiHW.CanonicalCPUProof <> omega_posterior:43 var
+R6644:6646 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6638:6642 Kernel.VMState <> vm_mu proj
+R6616:6621 Kernel.SimulationProof <> run_vm def
+R6623:6626 KamiHW.CanonicalCPUProof <> fuel:39 var
+R6628:6632 KamiHW.CanonicalCPUProof <> trace:40 var
+R6634:6634 KamiHW.CanonicalCPUProof <> s:41 var
+R6650:6654 Kernel.VMState <> vm_mu proj
+R6647:6647 KamiHW.CanonicalCPUProof <> s:41 var
+binder 6716:6719 <> fuel:46
+binder 6721:6725 <> trace:47
+binder 6727:6727 <> s:48
+binder 6729:6739 <> omega_prior:49
+binder 6741:6755 <> omega_posterior:50
+binder 6757:6760 <> tree:51
+R6834:6843 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6769:6815 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R6817:6820 KamiHW.CanonicalCPUProof <> fuel:46 var
+R6822:6826 KamiHW.CanonicalCPUProof <> trace:47 var
+R6828:6828 KamiHW.CanonicalCPUProof <> s:48 var
+R6830:6833 KamiHW.CanonicalCPUProof <> tree:51 var
+R6899:6908 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6890:6892 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R6845:6873 Kernel.MuShannonBridge <> feasible_size def
+R6875:6889 KamiHW.CanonicalCPUProof <> omega_posterior:50 var
+R6982:6991 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6909:6948 Kernel.MuShannonBridge <> FiberedFeasibleReduction def
+R6950:6953 KamiHW.CanonicalCPUProof <> tree:51 var
+R6955:6965 KamiHW.CanonicalCPUProof <> omega_prior:49 var
 R6967:6981 KamiHW.CanonicalCPUProof <> omega_posterior:50 var
-R7022:7024 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R7016:7020 Kernel.VMState <> vm_mu proj
-R6994:6999 Kernel.SimulationProof <> run_vm def
-R7001:7004 KamiHW.CanonicalCPUProof <> fuel:46 var
-R7006:7010 KamiHW.CanonicalCPUProof <> trace:47 var
-R7012:7012 KamiHW.CanonicalCPUProof <> s:48 var
-R7028:7032 Kernel.VMState <> vm_mu proj
-R7025:7025 KamiHW.CanonicalCPUProof <> s:48 var
-binder 7102:7105 <> fuel:53
-binder 7107:7111 <> trace:54
-binder 7113:7113 <> s:55
-binder 7115:7125 <> omega_prior:56
-binder 7127:7141 <> omega_posterior:57
-binder 7143:7146 <> tree:58
-R7169:7203 Kernel.MuShannonBridge <> ObservationFunction def
-binder 7160:7165 <> obs_fn:59
-R7278:7287 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7213:7259 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R7261:7264 KamiHW.CanonicalCPUProof <> fuel:53 var
-R7266:7270 KamiHW.CanonicalCPUProof <> trace:54 var
-R7272:7272 KamiHW.CanonicalCPUProof <> s:55 var
-R7274:7277 KamiHW.CanonicalCPUProof <> tree:58 var
-R7343:7352 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7334:7336 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R7289:7317 Kernel.MuShannonBridge <> feasible_size def
-R7319:7333 KamiHW.CanonicalCPUProof <> omega_posterior:57 var
-R7441:7450 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7353:7400 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
-R7402:7407 KamiHW.CanonicalCPUProof <> obs_fn:59 var
-R7409:7412 KamiHW.CanonicalCPUProof <> tree:58 var
-R7414:7424 KamiHW.CanonicalCPUProof <> omega_prior:56 var
-R7426:7440 KamiHW.CanonicalCPUProof <> omega_posterior:57 var
-R7576:7585 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7506:7516 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R7451:7461 Coq.Arith.PeanoNat Nat log2_up def
-R7464:7492 Kernel.MuShannonBridge <> feasible_size def
-R7494:7504 KamiHW.CanonicalCPUProof <> omega_prior:56 var
-R7517:7527 Coq.Arith.PeanoNat Nat log2_up def
-R7530:7558 Kernel.MuShannonBridge <> feasible_size def
+R7117:7126 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7047:7057 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6992:7002 Coq.Arith.PeanoNat Nat log2_up def
+R7005:7033 Kernel.MuShannonBridge <> feasible_size def
+R7035:7045 KamiHW.CanonicalCPUProof <> omega_prior:49 var
+R7058:7068 Coq.Arith.PeanoNat Nat log2_up def
+R7071:7099 Kernel.MuShannonBridge <> feasible_size def
+R7101:7115 KamiHW.CanonicalCPUProof <> omega_posterior:50 var
+R7156:7158 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7150:7154 Kernel.VMState <> vm_mu proj
+R7128:7133 Kernel.SimulationProof <> run_vm def
+R7135:7138 KamiHW.CanonicalCPUProof <> fuel:46 var
+R7140:7144 KamiHW.CanonicalCPUProof <> trace:47 var
+R7146:7146 KamiHW.CanonicalCPUProof <> s:48 var
+R7162:7166 Kernel.VMState <> vm_mu proj
+R7159:7159 KamiHW.CanonicalCPUProof <> s:48 var
+binder 7236:7239 <> fuel:53
+binder 7241:7245 <> trace:54
+binder 7247:7247 <> s:55
+binder 7249:7259 <> omega_prior:56
+binder 7261:7275 <> omega_posterior:57
+binder 7277:7280 <> tree:58
+R7303:7337 Kernel.MuShannonBridge <> ObservationFunction def
+binder 7294:7299 <> obs_fn:59
+R7412:7421 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7347:7393 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R7395:7398 KamiHW.CanonicalCPUProof <> fuel:53 var
+R7400:7404 KamiHW.CanonicalCPUProof <> trace:54 var
+R7406:7406 KamiHW.CanonicalCPUProof <> s:55 var
+R7408:7411 KamiHW.CanonicalCPUProof <> tree:58 var
+R7477:7486 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7468:7470 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7423:7451 Kernel.MuShannonBridge <> feasible_size def
+R7453:7467 KamiHW.CanonicalCPUProof <> omega_posterior:57 var
+R7575:7584 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7487:7534 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
+R7536:7541 KamiHW.CanonicalCPUProof <> obs_fn:59 var
+R7543:7546 KamiHW.CanonicalCPUProof <> tree:58 var
+R7548:7558 KamiHW.CanonicalCPUProof <> omega_prior:56 var
 R7560:7574 KamiHW.CanonicalCPUProof <> omega_posterior:57 var
-R7615:7617 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R7609:7613 Kernel.VMState <> vm_mu proj
-R7587:7592 Kernel.SimulationProof <> run_vm def
-R7594:7597 KamiHW.CanonicalCPUProof <> fuel:53 var
-R7599:7603 KamiHW.CanonicalCPUProof <> trace:54 var
-R7605:7605 KamiHW.CanonicalCPUProof <> s:55 var
-R7621:7625 Kernel.VMState <> vm_mu proj
-R7618:7618 KamiHW.CanonicalCPUProof <> s:55 var
-binder 7690:7693 <> fuel:61
-binder 7695:7699 <> trace:62
-binder 7701:7711 <> omega_prior:63
-binder 7713:7727 <> omega_posterior:64
-binder 7729:7732 <> tree:65
-R7801:7810 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7741:7788 Kernel.MuShannonBridge <> normalized_weighted_distribution def
-R7790:7800 KamiHW.CanonicalCPUProof <> omega_prior:63 var
-R7875:7884 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7811:7858 Kernel.MuShannonBridge <> normalized_weighted_distribution def
-R7860:7874 KamiHW.CanonicalCPUProof <> omega_posterior:64 var
-R7885:7885 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8006:8016 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 7893:7893 <> s:66
-binder 7895:7900 <> weight:67
-R7929:7940 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7903:7904 Coq.Lists.List <> In def
-R7918:7928 KamiHW.CanonicalCPUProof <> omega_prior:63 var
-R7906:7906 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7908:7909 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7916:7916 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7907:7907 KamiHW.CanonicalCPUProof <> s:66 var
-R7910:7915 KamiHW.CanonicalCPUProof <> weight:67 var
-R7941:7987 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R7989:7992 KamiHW.CanonicalCPUProof <> fuel:61 var
-R7994:7998 KamiHW.CanonicalCPUProof <> trace:62 var
-R8000:8000 KamiHW.CanonicalCPUProof <> s:66 var
-R8002:8005 KamiHW.CanonicalCPUProof <> tree:65 var
-R8096:8105 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8017:8062 Kernel.MuShannonBridge <> tree_covers_weighted_reduction def
-R8064:8067 KamiHW.CanonicalCPUProof <> tree:65 var
-R8069:8079 KamiHW.CanonicalCPUProof <> omega_prior:63 var
-R8081:8095 KamiHW.CanonicalCPUProof <> omega_posterior:64 var
-R8250:8259 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R8187:8197 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R8106:8158 Kernel.MuShannonBridge <> normalized_weighted_entropy_reduction def
-R8160:8170 KamiHW.CanonicalCPUProof <> omega_prior:63 var
-R8172:8186 KamiHW.CanonicalCPUProof <> omega_posterior:64 var
-R8198:8237 Kernel.MuShannonBridge <> normalized_weighted_mass def
-R8239:8249 KamiHW.CanonicalCPUProof <> omega_prior:63 var
-R8260:8302 Kernel.MuShannonBridge <> weighted_delta_mu_numerator def
-R8304:8307 KamiHW.CanonicalCPUProof <> fuel:61 var
-R8309:8313 KamiHW.CanonicalCPUProof <> trace:62 var
-R8315:8325 KamiHW.CanonicalCPUProof <> omega_prior:63 var
-binder 8379:8382 <> fuel:69
-binder 8384:8388 <> trace:70
-binder 8390:8390 <> s:71
-binder 8392:8392 <> n:72
-R8476:8485 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8401:8406 Coq.Lists.List <> Forall ind
-R8471:8475 KamiHW.CanonicalCPUProof <> trace:70 var
-binder 8413:8413 <> i:73
-R8442:8445 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8435:8437 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8418:8432 Kernel.VMStep VMStep is_cert_setterb def
-R8434:8434 KamiHW.CanonicalCPUProof <> i:73 var
-R8438:8441 Coq.Init.Datatypes <> true constr
-R8464:8467 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8446:8461 Kernel.VMStep VMStep instruction_cost def
-R8463:8463 KamiHW.CanonicalCPUProof <> i:73 var
-R8563:8572 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8549:8552 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8486:8535 Kernel.MuShannonQuantitative <> cert_setter_executions_local def
-R8537:8540 KamiHW.CanonicalCPUProof <> fuel:69 var
-R8542:8546 KamiHW.CanonicalCPUProof <> trace:70 var
-R8548:8548 KamiHW.CanonicalCPUProof <> s:71 var
-R8553:8560 Coq.Arith.PeanoNat Nat log2 def
-R8562:8562 KamiHW.CanonicalCPUProof <> n:72 var
-R8614:8617 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8602:8604 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R8596:8600 Kernel.VMState <> vm_mu proj
-R8574:8579 Kernel.SimulationProof <> run_vm def
-R8581:8584 KamiHW.CanonicalCPUProof <> fuel:69 var
-R8586:8590 KamiHW.CanonicalCPUProof <> trace:70 var
-R8592:8592 KamiHW.CanonicalCPUProof <> s:71 var
-R8608:8612 Kernel.VMState <> vm_mu proj
-R8605:8605 KamiHW.CanonicalCPUProof <> s:71 var
-R8618:8625 Coq.Arith.PeanoNat Nat log2 def
-R8627:8627 KamiHW.CanonicalCPUProof <> n:72 var
-R8694:8700 Kernel.VMState <> VMState rec
-binder 8687:8687 <> s:75
-binder 8689:8690 <> s':76
-R8716:8718 Coq.Init.Datatypes <> nat ind
-binder 8704:8707 <> freg:77
-binder 8709:8712 <> creg:78
-R8729:8732 Coq.Init.Datatypes <> bool ind
-binder 8722:8725 <> kind:79
-R8748:8750 Coq.Init.Datatypes <> nat ind
-binder 8736:8739 <> flen:80
-binder 8741:8744 <> cost:81
-R8813:8822 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8760:8766 Kernel.VMStep VMStep vm_step ind
-R8768:8768 KamiHW.CanonicalCPUProof <> s:75 var
-R8771:8783 Kernel.VMStep VMStep instr_lassert constr
-R8785:8788 KamiHW.CanonicalCPUProof <> freg:77 var
-R8790:8793 KamiHW.CanonicalCPUProof <> creg:78 var
-R8795:8798 KamiHW.CanonicalCPUProof <> kind:79 var
-R8800:8803 KamiHW.CanonicalCPUProof <> flen:80 var
-R8805:8808 KamiHW.CanonicalCPUProof <> cost:81 var
-R8811:8812 KamiHW.CanonicalCPUProof <> s':76 var
-R8836:8838 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R8832:8835 KamiHW.CanonicalCPUProof <> flen:80 var
-binder 8827:8827 <> k:82
-R8877:8886 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8872:8875 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8860:8862 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R8854:8858 Kernel.VMState <> vm_mu proj
-R8850:8851 KamiHW.CanonicalCPUProof <> s':76 var
-R8866:8870 Kernel.VMState <> vm_mu proj
-R8863:8863 KamiHW.CanonicalCPUProof <> s:75 var
-R8876:8876 KamiHW.CanonicalCPUProof <> k:82 var
-R8888:8891 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8887:8887 KamiHW.CanonicalCPUProof <> k:82 var
-R8892:8918 Kernel.StateSpaceCounting StateSpaceCounting log2_nat def
-R8921:8927 Coq.Arith.PeanoNat Nat pow def
-R8931:8931 KamiHW.CanonicalCPUProof <> k:82 var
-R8991:8994 Coq.Init.Datatypes <> list ind
-R9000:9002 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R8997:8999 Coq.Init.Datatypes <> nat ind
-R9003:9005 Coq.Init.Datatypes <> nat ind
-binder 8980:8981 <> r1:84
-binder 8983:8984 <> r2:85
-binder 8986:8987 <> r3:86
-R9015:9015 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9196:9206 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9101:9110 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9016:9047 Kernel.CategoryMonoidal <> coupling_tensor def
-R9059:9090 Kernel.CategoryMonoidal <> coupling_tensor def
-R9092:9093 KamiHW.CanonicalCPUProof <> r1:84 var
-R9095:9096 KamiHW.CanonicalCPUProof <> r2:85 var
-R9099:9100 KamiHW.CanonicalCPUProof <> r3:86 var
-R9111:9142 Kernel.CategoryMonoidal <> coupling_tensor def
-R9144:9145 KamiHW.CanonicalCPUProof <> r1:84 var
-R9157:9188 Kernel.CategoryMonoidal <> coupling_tensor def
-R9190:9191 KamiHW.CanonicalCPUProof <> r2:85 var
-R9193:9194 KamiHW.CanonicalCPUProof <> r3:86 var
-R9207:9207 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9252:9263 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9308:9308 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9247:9249 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9208:9239 Kernel.CategoryMonoidal <> coupling_tensor def
-R9241:9243 Coq.Init.Datatypes <> nil constr
-R9245:9246 KamiHW.CanonicalCPUProof <> r1:84 var
-R9250:9251 KamiHW.CanonicalCPUProof <> r1:84 var
-R9303:9305 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9264:9295 Kernel.CategoryMonoidal <> coupling_tensor def
-R9297:9298 KamiHW.CanonicalCPUProof <> r1:84 var
-R9300:9302 Coq.Init.Datatypes <> nil constr
-R9306:9307 KamiHW.CanonicalCPUProof <> r1:84 var
-R9362:9382 Kernel.CategoryLaws <> Coupling def
-binder 9351:9352 <> r1:88
-binder 9354:9355 <> r2:89
-binder 9357:9358 <> r3:90
-R9391:9417 Kernel.CategoryLaws <> coupling_equiv def
-R9428:9458 Kernel.CategoryLaws <> relational_compose def
-R9472:9502 Kernel.CategoryLaws <> relational_compose def
-R9504:9505 KamiHW.CanonicalCPUProof <> r1:88 var
-R9507:9508 KamiHW.CanonicalCPUProof <> r2:89 var
-R9511:9512 KamiHW.CanonicalCPUProof <> r3:90 var
-R9524:9554 Kernel.CategoryLaws <> relational_compose def
-R9556:9557 KamiHW.CanonicalCPUProof <> r1:88 var
-R9571:9601 Kernel.CategoryLaws <> relational_compose def
-R9603:9604 KamiHW.CanonicalCPUProof <> r2:89 var
-R9606:9607 KamiHW.CanonicalCPUProof <> r3:90 var
-binder 9736:9737 <> ks:92
-binder 9739:9741 <> dst:93
-binder 9743:9747 <> m1_id:94
-binder 9749:9753 <> m2_id:95
-binder 9755:9758 <> cost:96
-R9791:9800 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9767:9787 KamiHW.GraphReconstructionBridge <> extended_hw_invariant def
-R9789:9790 KamiHW.CanonicalCPUProof <> ks:92 var
-R9906:9914 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9801:9817 KamiHW.FullAbstraction <> abs_full_snapshot def
-R9820:9844 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
-R9855:9863 KamiHW.Abstraction <> kami_step def
-R9865:9866 KamiHW.CanonicalCPUProof <> ks:92 var
-R9869:9881 Kernel.VMStep VMStep instr_compose constr
-R9883:9885 KamiHW.CanonicalCPUProof <> dst:93 var
-R9887:9891 KamiHW.CanonicalCPUProof <> m1_id:94 var
-R9893:9897 KamiHW.CanonicalCPUProof <> m2_id:95 var
-R9899:9902 KamiHW.CanonicalCPUProof <> cost:96 var
-R9915:9922 Kernel.SimulationProof <> vm_apply def
-R9925:9941 KamiHW.FullAbstraction <> abs_full_snapshot def
-R9944:9968 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
-R9970:9971 KamiHW.CanonicalCPUProof <> ks:92 var
-R9984:9996 Kernel.VMStep VMStep instr_compose constr
-R9998:10000 KamiHW.CanonicalCPUProof <> dst:93 var
-R10002:10006 KamiHW.CanonicalCPUProof <> m1_id:94 var
-R10008:10012 KamiHW.CanonicalCPUProof <> m2_id:95 var
-R10014:10017 KamiHW.CanonicalCPUProof <> cost:96 var
-binder 10155:10156 <> ks:98
-binder 10158:10160 <> dst:99
-binder 10162:10165 <> f_id:100
-binder 10167:10170 <> g_id:101
-binder 10172:10175 <> cost:102
-R10208:10217 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10184:10204 KamiHW.GraphReconstructionBridge <> extended_hw_invariant def
-R10206:10207 KamiHW.CanonicalCPUProof <> ks:98 var
-R10326:10334 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10218:10234 KamiHW.FullAbstraction <> abs_full_snapshot def
-R10237:10261 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
-R10272:10280 KamiHW.Abstraction <> kami_step def
-R10282:10283 KamiHW.CanonicalCPUProof <> ks:98 var
-R10286:10303 Kernel.VMStep VMStep instr_morph_tensor constr
-R10305:10307 KamiHW.CanonicalCPUProof <> dst:99 var
-R10309:10312 KamiHW.CanonicalCPUProof <> f_id:100 var
-R10314:10317 KamiHW.CanonicalCPUProof <> g_id:101 var
-R10319:10322 KamiHW.CanonicalCPUProof <> cost:102 var
-R10335:10342 Kernel.SimulationProof <> vm_apply def
-R10345:10361 KamiHW.FullAbstraction <> abs_full_snapshot def
-R10364:10388 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
-R10390:10391 KamiHW.CanonicalCPUProof <> ks:98 var
-R10404:10421 Kernel.VMStep VMStep instr_morph_tensor constr
-R10423:10425 KamiHW.CanonicalCPUProof <> dst:99 var
-R10427:10430 KamiHW.CanonicalCPUProof <> f_id:100 var
-R10432:10435 KamiHW.CanonicalCPUProof <> g_id:101 var
-R10437:10440 KamiHW.CanonicalCPUProof <> cost:102 var
-prf 10455:10473 <> canonical_cpu_proof
-R10477:10499 KamiHW.CanonicalCPUProof <> CanonicalCPUProofBundle rec
-R10525:10556 KamiHW.CanonicalCPUProof <> canonical_register_write_refines proj
-R10525:10556 KamiHW.CanonicalCPUProof <> canonical_register_write_refines proj
-R10525:10556 KamiHW.CanonicalCPUProof <> canonical_register_write_refines proj
-R10600:10632 KamiHW.CanonicalCPUProof <> canonical_load_imm_step_simulates proj
-R10600:10632 KamiHW.CanonicalCPUProof <> canonical_load_imm_step_simulates proj
-R10680:10710 KamiHW.CanonicalCPUProof <> canonical_mu_monotone_on_charge proj
-R10680:10710 KamiHW.CanonicalCPUProof <> canonical_mu_monotone_on_charge proj
-R10759:10787 KamiHW.CanonicalCPUProof <> canonical_oracle_charge_sound proj
-R10759:10787 KamiHW.CanonicalCPUProof <> canonical_oracle_charge_sound proj
-R10836:10874 KamiHW.CanonicalCPUProof <> canonical_bus_step_preserves_abs_phase1 proj
-R10836:10874 KamiHW.CanonicalCPUProof <> canonical_bus_step_preserves_abs_phase1 proj
-R10917:10945 KamiHW.CanonicalCPUProof <> canonical_nofi_supra_boundary proj
-R10917:10945 KamiHW.CanonicalCPUProof <> canonical_nofi_supra_boundary proj
-R11023:11055 KamiHW.CanonicalCPUProof <> canonical_nofi_paid_certification proj
-R11023:11055 KamiHW.CanonicalCPUProof <> canonical_nofi_paid_certification proj
-R11287:11317 KamiHW.CanonicalCPUProof <> canonical_nofi_trace_separation proj
-R11287:11317 KamiHW.CanonicalCPUProof <> canonical_nofi_trace_separation proj
-R11366:11406 KamiHW.CanonicalCPUProof <> canonical_nofi_general_feasible_reduction proj
-R11366:11406 KamiHW.CanonicalCPUProof <> canonical_nofi_general_feasible_reduction proj
-R11465:11505 KamiHW.CanonicalCPUProof <> canonical_nofi_fibered_feasible_reduction proj
-R11465:11505 KamiHW.CanonicalCPUProof <> canonical_nofi_fibered_feasible_reduction proj
-R11563:11611 KamiHW.CanonicalCPUProof <> canonical_nofi_posterior_representative_reduction proj
-R11563:11611 KamiHW.CanonicalCPUProof <> canonical_nofi_posterior_representative_reduction proj
-R11678:11721 KamiHW.CanonicalCPUProof <> canonical_nofi_normalized_expected_reduction proj
-R11678:11721 KamiHW.CanonicalCPUProof <> canonical_nofi_normalized_expected_reduction proj
-R11806:11839 KamiHW.CanonicalCPUProof <> canonical_nofi_conditional_shannon proj
-R11806:11839 KamiHW.CanonicalCPUProof <> canonical_nofi_conditional_shannon proj
-R11891:11929 KamiHW.CanonicalCPUProof <> canonical_nofi_quantitative_state_space proj
-R11891:11929 KamiHW.CanonicalCPUProof <> canonical_nofi_quantitative_state_space proj
-R11986:12013 KamiHW.CanonicalCPUProof <> canonical_monoidal_coherence proj
-R11986:12013 KamiHW.CanonicalCPUProof <> canonical_monoidal_coherence proj
-R12062:12084 KamiHW.CanonicalCPUProof <> canonical_compose_assoc proj
-R12062:12084 KamiHW.CanonicalCPUProof <> canonical_compose_assoc proj
-R12135:12166 KamiHW.CanonicalCPUProof <> canonical_compose_step_simulates proj
-R12135:12166 KamiHW.CanonicalCPUProof <> canonical_compose_step_simulates proj
-R12199:12235 KamiHW.CanonicalCPUProof <> canonical_morph_tensor_step_simulates proj
-R12199:12235 KamiHW.CanonicalCPUProof <> canonical_morph_tensor_step_simulates proj
-R10561:10590 KamiHW.VerilogRefinement <> verilog_refines_register_write thm
-R10637:10670 KamiHW.VerilogRefinement <> verilog_simulates_vm_step_load_imm thm
-R10715:10749 KamiHW.VerilogRefinement <> verilog_mu_non_decreasing_on_charge thm
-R10792:10826 KamiHW.VerilogRefinement <> verilog_mu_non_decreasing_on_charge thm
-R10879:10907 KamiHW.ThieleCPUBusTop <> bus_step_preserves_abs_phase1 thm
-R10950:11013 Kernel.Certification CertificationTheory quantum_admissible_cannot_certify_supra_chsh thm
-binder 11074:11078 <> trace:104
-binder 11080:11085 <> s_init:105
-binder 11087:11093 <> s_final:106
-binder 11095:11098 <> fuel:107
-binder 11100:11103 <> Hrun:108
-binder 11105:11109 <> Hinit:109
-binder 11111:11115 <> Hcert:110
-R11132:11136 Coq.Init.Logic <> proj1 thm
-R11153:11215 Kernel.Certification CertificationTheory certified_supra_chsh_implies_mu_lower_bound thm
-R11234:11238 KamiHW.CanonicalCPUProof <> trace:104 var
-R11240:11245 KamiHW.CanonicalCPUProof <> s_init:105 var
-R11247:11253 KamiHW.CanonicalCPUProof <> s_final:106 var
-R11255:11258 KamiHW.CanonicalCPUProof <> fuel:107 var
-R11260:11263 KamiHW.CanonicalCPUProof <> Hrun:108 var
-R11265:11269 KamiHW.CanonicalCPUProof <> Hinit:109 var
-R11271:11275 KamiHW.CanonicalCPUProof <> Hcert:110 var
-R11322:11356 Kernel.HonestNoFI <> honest_nfi_trace_separation_partial thm
-R11411:11455 Kernel.HonestNoFI <> honest_nfi_general_feasible_reduction_partial thm
-R11510:11554 Kernel.HonestNoFI <> honest_nfi_fibered_feasible_reduction_partial thm
-R11616:11668 Kernel.HonestNoFI <> honest_nfi_posterior_representative_reduction_partial thm
-R11726:11796 Kernel.MuShannonBridge <> info_priced_normalized_expected_entropy_reduction_bound thm
-R11844:11881 Kernel.HonestNoFI <> honest_nfi_conditional_shannon_partial thm
-R11934:11976 Kernel.HonestNoFI <> honest_nfi_quantitative_state_space_partial thm
-R12018:12052 Kernel.CategoryMonoidal <> monoidal_coherence thm
-R12089:12125 Kernel.CategoryLaws <> relational_compose_assoc thm
-R12171:12189 KamiHW.GraphReconstructionBridge <> driven_step_compose thm
-R12240:12263 KamiHW.GraphReconstructionBridge <> driven_step_morph_tensor thm
-R10525:10556 KamiHW.CanonicalCPUProof <> canonical_register_write_refines proj
-R10525:10556 KamiHW.CanonicalCPUProof <> canonical_register_write_refines proj
-R10525:10556 KamiHW.CanonicalCPUProof <> canonical_register_write_refines proj
-R10600:10632 KamiHW.CanonicalCPUProof <> canonical_load_imm_step_simulates proj
-R10600:10632 KamiHW.CanonicalCPUProof <> canonical_load_imm_step_simulates proj
-R10680:10710 KamiHW.CanonicalCPUProof <> canonical_mu_monotone_on_charge proj
-R10680:10710 KamiHW.CanonicalCPUProof <> canonical_mu_monotone_on_charge proj
-R10759:10787 KamiHW.CanonicalCPUProof <> canonical_oracle_charge_sound proj
-R10759:10787 KamiHW.CanonicalCPUProof <> canonical_oracle_charge_sound proj
-R10836:10874 KamiHW.CanonicalCPUProof <> canonical_bus_step_preserves_abs_phase1 proj
-R10836:10874 KamiHW.CanonicalCPUProof <> canonical_bus_step_preserves_abs_phase1 proj
-R10917:10945 KamiHW.CanonicalCPUProof <> canonical_nofi_supra_boundary proj
-R10917:10945 KamiHW.CanonicalCPUProof <> canonical_nofi_supra_boundary proj
-R11023:11055 KamiHW.CanonicalCPUProof <> canonical_nofi_paid_certification proj
-R11023:11055 KamiHW.CanonicalCPUProof <> canonical_nofi_paid_certification proj
-R11287:11317 KamiHW.CanonicalCPUProof <> canonical_nofi_trace_separation proj
-R11287:11317 KamiHW.CanonicalCPUProof <> canonical_nofi_trace_separation proj
-R11366:11406 KamiHW.CanonicalCPUProof <> canonical_nofi_general_feasible_reduction proj
-R11366:11406 KamiHW.CanonicalCPUProof <> canonical_nofi_general_feasible_reduction proj
-R11465:11505 KamiHW.CanonicalCPUProof <> canonical_nofi_fibered_feasible_reduction proj
-R11465:11505 KamiHW.CanonicalCPUProof <> canonical_nofi_fibered_feasible_reduction proj
-R11563:11611 KamiHW.CanonicalCPUProof <> canonical_nofi_posterior_representative_reduction proj
-R11563:11611 KamiHW.CanonicalCPUProof <> canonical_nofi_posterior_representative_reduction proj
-R11678:11721 KamiHW.CanonicalCPUProof <> canonical_nofi_normalized_expected_reduction proj
-R11678:11721 KamiHW.CanonicalCPUProof <> canonical_nofi_normalized_expected_reduction proj
-R11806:11839 KamiHW.CanonicalCPUProof <> canonical_nofi_conditional_shannon proj
-R11806:11839 KamiHW.CanonicalCPUProof <> canonical_nofi_conditional_shannon proj
-R11891:11929 KamiHW.CanonicalCPUProof <> canonical_nofi_quantitative_state_space proj
-R11891:11929 KamiHW.CanonicalCPUProof <> canonical_nofi_quantitative_state_space proj
-R11986:12013 KamiHW.CanonicalCPUProof <> canonical_monoidal_coherence proj
-R11986:12013 KamiHW.CanonicalCPUProof <> canonical_monoidal_coherence proj
-R12062:12084 KamiHW.CanonicalCPUProof <> canonical_compose_assoc proj
-R12062:12084 KamiHW.CanonicalCPUProof <> canonical_compose_assoc proj
-R12135:12166 KamiHW.CanonicalCPUProof <> canonical_compose_step_simulates proj
-R12135:12166 KamiHW.CanonicalCPUProof <> canonical_compose_step_simulates proj
-R12199:12235 KamiHW.CanonicalCPUProof <> canonical_morph_tensor_step_simulates proj
-R12199:12235 KamiHW.CanonicalCPUProof <> canonical_morph_tensor_step_simulates proj
-R10561:10590 KamiHW.VerilogRefinement <> verilog_refines_register_write thm
-R10637:10670 KamiHW.VerilogRefinement <> verilog_simulates_vm_step_load_imm thm
-R10715:10749 KamiHW.VerilogRefinement <> verilog_mu_non_decreasing_on_charge thm
-R10792:10826 KamiHW.VerilogRefinement <> verilog_mu_non_decreasing_on_charge thm
-R10879:10907 KamiHW.ThieleCPUBusTop <> bus_step_preserves_abs_phase1 thm
-R10950:11013 Kernel.Certification CertificationTheory quantum_admissible_cannot_certify_supra_chsh thm
-binder 11074:11078 <> trace:111
-binder 11080:11085 <> s_init:112
-binder 11087:11093 <> s_final:113
-binder 11095:11098 <> fuel:114
-binder 11100:11103 <> Hrun:115
-binder 11105:11109 <> Hinit:116
-binder 11111:11115 <> Hcert:117
-R11132:11136 Coq.Init.Logic <> proj1 thm
-R11153:11215 Kernel.Certification CertificationTheory certified_supra_chsh_implies_mu_lower_bound thm
-R11234:11238 KamiHW.CanonicalCPUProof <> trace:111 var
-R11240:11245 KamiHW.CanonicalCPUProof <> s_init:112 var
-R11247:11253 KamiHW.CanonicalCPUProof <> s_final:113 var
-R11255:11258 KamiHW.CanonicalCPUProof <> fuel:114 var
-R11260:11263 KamiHW.CanonicalCPUProof <> Hrun:115 var
-R11265:11269 KamiHW.CanonicalCPUProof <> Hinit:116 var
-R11271:11275 KamiHW.CanonicalCPUProof <> Hcert:117 var
-R11322:11356 Kernel.HonestNoFI <> honest_nfi_trace_separation_partial thm
-R11411:11455 Kernel.HonestNoFI <> honest_nfi_general_feasible_reduction_partial thm
-R11510:11554 Kernel.HonestNoFI <> honest_nfi_fibered_feasible_reduction_partial thm
-R11616:11668 Kernel.HonestNoFI <> honest_nfi_posterior_representative_reduction_partial thm
-R11726:11796 Kernel.MuShannonBridge <> info_priced_normalized_expected_entropy_reduction_bound thm
-R11844:11881 Kernel.HonestNoFI <> honest_nfi_conditional_shannon_partial thm
-R11934:11976 Kernel.HonestNoFI <> honest_nfi_quantitative_state_space_partial thm
-R12018:12052 Kernel.CategoryMonoidal <> monoidal_coherence thm
-R12089:12125 Kernel.CategoryLaws <> relational_compose_assoc thm
-R12171:12189 KamiHW.GraphReconstructionBridge <> driven_step_compose thm
-R12240:12263 KamiHW.GraphReconstructionBridge <> driven_step_morph_tensor thm
-prf 12807:12837 <> vm_step_canonical_bus_invariant
-R12856:12870 KamiHW.ThieleCPUBusTop <> BusWrapperState rec
-binder 12851:12852 <> st:118
-R12879:12883 KamiHW.ThieleCPUBusTop <> BusOp ind
-binder 12874:12875 <> op:119
-R12928:12930 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12891:12900 KamiHW.Abstraction <> abs_phase1 def
-R12903:12909 KamiHW.ThieleCPUBusTop <> bw_core proj
-R12912:12919 KamiHW.ThieleCPUBusTop <> bus_step def
-R12921:12922 KamiHW.CanonicalCPUProof <> st:118 var
-R12924:12925 KamiHW.CanonicalCPUProof <> op:119 var
-R12931:12940 KamiHW.Abstraction <> abs_phase1 def
-R12943:12949 KamiHW.ThieleCPUBusTop <> bw_core proj
-R12951:12952 KamiHW.CanonicalCPUProof <> st:118 var
-R12988:13026 KamiHW.CanonicalCPUProof <> canonical_bus_step_preserves_abs_phase1 proj
-R13028:13046 KamiHW.CanonicalCPUProof <> canonical_cpu_proof thm
-R12988:13026 KamiHW.CanonicalCPUProof <> canonical_bus_step_preserves_abs_phase1 proj
-R13028:13046 KamiHW.CanonicalCPUProof <> canonical_cpu_proof thm
-prf 13155:13183 <> canonical_c3_born_rule_anchor
-R13201:13215 Kernel.BornRuleLinearity <> ProbabilityRule def
-binder 13197:13197 <> P:120
-R13240:13247 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13223:13237 Kernel.BornRuleLinearity <> valid_born_rule def
-R13239:13239 KamiHW.CanonicalCPUProof <> P:120 var
-R13260:13260 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 13256:13256 <> z:121
-R13280:13283 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13267:13270 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R13272:13275 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R13271:13271 KamiHW.CanonicalCPUProof <> z:121 var
-R13271:13271 KamiHW.CanonicalCPUProof <> z:121 var
-R13287:13289 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13284:13284 KamiHW.CanonicalCPUProof <> P:120 var
-R13286:13286 KamiHW.CanonicalCPUProof <> z:121 var
-R13290:13305 Kernel.BornRuleLinearity <> born_probability def
-R13307:13307 KamiHW.CanonicalCPUProof <> z:121 var
-R13345:13360 Kernel.BornRuleLinearity <> born_rule_unique thm
-R13345:13360 Kernel.BornRuleLinearity <> born_rule_unique thm
-prf 13570:13604 <> canonical_c4_tsirelson_model_anchor
-binder 13617:13620 <> fuel:122
-binder 13622:13626 <> trace:123
-binder 13628:13633 <> s_init:124
-R13687:13694 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13640:13668 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
-R13670:13673 KamiHW.CanonicalCPUProof <> fuel:122 var
-R13675:13679 KamiHW.CanonicalCPUProof <> trace:123 var
-R13681:13686 KamiHW.CanonicalCPUProof <> s_init:124 var
-R13732:13739 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R13695:13713 Kernel.TsirelsonQuantumModel <> trace_quantum_model def
-R13715:13718 KamiHW.CanonicalCPUProof <> fuel:122 var
-R13720:13724 KamiHW.CanonicalCPUProof <> trace:123 var
-R13726:13731 KamiHW.CanonicalCPUProof <> s_init:124 var
-R13896:13899 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R13741:13744 Coq.Reals.Rbasic_fun <> Rabs def
-R13747:13750 Kernel.TsirelsonGeneral <> CHSH def
-R13759:13767 Kernel.MuLedgerQuantumBridge <> trace_e00 def
-R13769:13772 KamiHW.CanonicalCPUProof <> fuel:122 var
-R13774:13778 KamiHW.CanonicalCPUProof <> trace:123 var
-R13780:13785 KamiHW.CanonicalCPUProof <> s_init:124 var
-R13795:13803 Kernel.MuLedgerQuantumBridge <> trace_e01 def
-R13805:13808 KamiHW.CanonicalCPUProof <> fuel:122 var
-R13810:13814 KamiHW.CanonicalCPUProof <> trace:123 var
-R13816:13821 KamiHW.CanonicalCPUProof <> s_init:124 var
-R13831:13839 Kernel.MuLedgerQuantumBridge <> trace_e10 def
-R13841:13844 KamiHW.CanonicalCPUProof <> fuel:122 var
-R13846:13850 KamiHW.CanonicalCPUProof <> trace:123 var
-R13852:13857 KamiHW.CanonicalCPUProof <> s_init:124 var
-R13867:13875 Kernel.MuLedgerQuantumBridge <> trace_e11 def
-R13877:13880 KamiHW.CanonicalCPUProof <> fuel:122 var
-R13882:13886 KamiHW.CanonicalCPUProof <> trace:123 var
-R13888:13893 KamiHW.CanonicalCPUProof <> s_init:124 var
-R13900:13904 Kernel.TsirelsonGeneral <> sqrt8 def
-R13963:13999 Kernel.TsirelsonQuantumModel <> trace_quantum_model_connection_closed thm
-R13963:13999 Kernel.TsirelsonQuantumModel <> trace_quantum_model_connection_closed thm
-prf 14209:14236 <> canonical_honest_nofi_anchor
-R14257:14259 Coq.Init.Datatypes <> nat ind
-binder 14250:14253 <> fuel:125
-R14271:14274 Coq.Init.Datatypes <> list ind
-R14276:14289 Kernel.VMStep VMStep vm_instruction ind
-binder 14263:14267 <> trace:126
-R14319:14325 Kernel.VMState <> VMState rec
-binder 14302:14307 <> s_init:127
-binder 14309:14315 <> s_final:128
-R14348:14376 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
-R14379:14382 Coq.Init.Datatypes <> list ind
-R14384:14397 Kernel.VMStep VMStep vm_instruction ind
-binder 14338:14344 <> decoder:129
-R14433:14462 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
-R14465:14468 Coq.Init.Datatypes <> list ind
-R14470:14483 Kernel.VMStep VMStep vm_instruction ind
-binder 14411:14417 <> P_prior:130
-binder 14419:14429 <> P_posterior:131
-R14527:14568 Kernel.InformationGainToStrengthening <> FeasibleSet def
-binder 14497:14507 <> omega_prior:132
-binder 14509:14523 <> omega_posterior:133
-R14626:14633 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14583:14585 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14576:14582 KamiHW.CanonicalCPUProof <> s_final:128 var
-R14586:14607 Kernel.SimulationProof <> run_vm def
-R14609:14612 KamiHW.CanonicalCPUProof <> fuel:125 var
-R14614:14618 KamiHW.CanonicalCPUProof <> trace:126 var
-R14620:14625 KamiHW.CanonicalCPUProof <> s_init:127 var
-R14655:14662 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14634:14635 Coq.Lists.List <> In def
-R14644:14654 KamiHW.CanonicalCPUProof <> omega_prior:132 var
-R14637:14642 KamiHW.CanonicalCPUProof <> s_init:127 var
-R14741:14748 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14663:14712 Kernel.InformationGainToStrengthening <> is_strict_reduction def
-R14714:14724 KamiHW.CanonicalCPUProof <> omega_prior:132 var
-R14726:14740 KamiHW.CanonicalCPUProof <> omega_posterior:133 var
-R14819:14826 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14810:14812 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R14750:14793 Kernel.InformationGainToStrengthening <> feasible_size def
-R14795:14809 KamiHW.CanonicalCPUProof <> omega_posterior:133 var
-R14867:14874 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14859:14861 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14845:14857 Kernel.VMState <> csr_cert_addr proj
-R14835:14841 Kernel.VMState <> vm_csrs proj
-R14827:14832 KamiHW.CanonicalCPUProof <> s_init:127 var
-R14926:14933 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14875:14905 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
-R14919:14925 KamiHW.CanonicalCPUProof <> P_prior:130 var
-R14907:14917 KamiHW.CanonicalCPUProof <> P_posterior:131 var
-R14991:14998 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14934:14956 Kernel.NoFreeInsight NoFreeInsight Certified def
-R14986:14990 KamiHW.CanonicalCPUProof <> trace:126 var
-R14974:14984 KamiHW.CanonicalCPUProof <> P_posterior:131 var
-R14966:14972 KamiHW.CanonicalCPUProof <> decoder:129 var
-R14958:14964 KamiHW.CanonicalCPUProof <> s_final:128 var
-R14999:15034 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
-R15036:15039 KamiHW.CanonicalCPUProof <> fuel:125 var
-R15041:15045 KamiHW.CanonicalCPUProof <> trace:126 var
-R15047:15052 KamiHW.CanonicalCPUProof <> s_init:127 var
-R15218:15273 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> honest_information_reduction_requires_structure_addition thm
-R15218:15273 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> honest_information_reduction_requires_structure_addition thm
-prf 15588:15632 <> canonical_honest_nofi_trace_separation_anchor
-binder 15645:15648 <> fuel:134
-binder 15650:15654 <> trace:135
-binder 15656:15660 <> omega:136
-R15667:15667 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15723:15731 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 15675:15675 <> s:137
-R15688:15691 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15678:15679 Coq.Lists.List <> In def
-R15683:15687 KamiHW.CanonicalCPUProof <> omega:136 var
-R15681:15681 KamiHW.CanonicalCPUProof <> s:137 var
-R15719:15721 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15705:15717 Kernel.VMState <> csr_cert_addr proj
-R15695:15701 Kernel.VMState <> vm_csrs proj
-R15692:15692 KamiHW.CanonicalCPUProof <> s:137 var
-R15732:15732 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15809:15817 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 15740:15740 <> s:138
-R15753:15756 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15743:15744 Coq.Lists.List <> In def
-R15748:15752 KamiHW.CanonicalCPUProof <> omega:136 var
-R15746:15746 KamiHW.CanonicalCPUProof <> s:138 var
-R15804:15807 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R15790:15802 Kernel.VMState <> csr_cert_addr proj
-R15780:15786 Kernel.VMState <> vm_csrs proj
-R15758:15763 Kernel.SimulationProof <> run_vm def
-R15765:15768 KamiHW.CanonicalCPUProof <> fuel:134 var
-R15770:15774 KamiHW.CanonicalCPUProof <> trace:135 var
-R15776:15776 KamiHW.CanonicalCPUProof <> s:138 var
-R15894:15901 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15818:15822 Coq.Lists.List <> NoDup ind
-R15825:15827 Coq.Lists.List <> map def
-R15888:15892 KamiHW.CanonicalCPUProof <> omega:136 var
-binder 15834:15834 <> s:139
-R15872:15884 Kernel.VMState <> csr_cert_addr proj
-R15862:15868 Kernel.VMState <> vm_csrs proj
-R15840:15845 Kernel.SimulationProof <> run_vm def
-R15847:15850 KamiHW.CanonicalCPUProof <> fuel:134 var
-R15852:15856 KamiHW.CanonicalCPUProof <> trace:135 var
-R15858:15858 KamiHW.CanonicalCPUProof <> s:139 var
-R15919:15922 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R15902:15912 Coq.Lists.List <> length abbrev
-R15914:15918 KamiHW.CanonicalCPUProof <> omega:136 var
-R15923:15967 Kernel.MuShannonQuantitative <> count_cert_addr_setters def
-R15969:15973 KamiHW.CanonicalCPUProof <> trace:135 var
-R16041:16075 Kernel.HonestNoFI <> honest_nfi_trace_separation_partial thm
-R16041:16075 Kernel.HonestNoFI <> honest_nfi_trace_separation_partial thm
-prf 16303:16357 <> canonical_honest_nofi_general_feasible_reduction_anchor
-binder 16370:16373 <> fuel:140
-binder 16375:16379 <> trace:141
-binder 16381:16381 <> s:142
-binder 16383:16393 <> omega_prior:143
-binder 16395:16409 <> omega_posterior:144
-binder 16411:16414 <> tree:145
-R16486:16493 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16421:16467 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R16469:16472 KamiHW.CanonicalCPUProof <> fuel:140 var
-R16474:16478 KamiHW.CanonicalCPUProof <> trace:141 var
-R16480:16480 KamiHW.CanonicalCPUProof <> s:142 var
-R16482:16485 KamiHW.CanonicalCPUProof <> tree:145 var
-R16549:16556 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16540:16542 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R16495:16523 Kernel.MuShannonBridge <> feasible_size def
-R16525:16539 KamiHW.CanonicalCPUProof <> omega_posterior:144 var
-R16636:16643 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16557:16602 Kernel.MuShannonBridge <> tree_covers_feasible_reduction def
-R16604:16607 KamiHW.CanonicalCPUProof <> tree:145 var
-R16609:16619 KamiHW.CanonicalCPUProof <> omega_prior:143 var
-R16621:16635 KamiHW.CanonicalCPUProof <> omega_posterior:144 var
-R16767:16774 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R16699:16707 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R16644:16654 Coq.Arith.PeanoNat Nat log2_up def
-R16657:16685 Kernel.MuShannonBridge <> feasible_size def
-R16687:16697 KamiHW.CanonicalCPUProof <> omega_prior:143 var
-R16708:16718 Coq.Arith.PeanoNat Nat log2_up def
-R16721:16749 Kernel.MuShannonBridge <> feasible_size def
-R16751:16765 KamiHW.CanonicalCPUProof <> omega_posterior:144 var
-R16804:16806 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R16798:16802 Kernel.VMState <> vm_mu proj
-R16776:16781 Kernel.SimulationProof <> run_vm def
-R16783:16786 KamiHW.CanonicalCPUProof <> fuel:140 var
-R16788:16792 KamiHW.CanonicalCPUProof <> trace:141 var
-R16794:16794 KamiHW.CanonicalCPUProof <> s:142 var
-R16810:16814 Kernel.VMState <> vm_mu proj
-R16807:16807 KamiHW.CanonicalCPUProof <> s:142 var
-R16909:16953 Kernel.HonestNoFI <> honest_nfi_general_feasible_reduction_partial thm
-R16909:16953 Kernel.HonestNoFI <> honest_nfi_general_feasible_reduction_partial thm
-prf 17221:17275 <> canonical_honest_nofi_fibered_feasible_reduction_anchor
-binder 17288:17291 <> fuel:146
-binder 17293:17297 <> trace:147
-binder 17299:17299 <> s:148
-binder 17301:17311 <> omega_prior:149
-binder 17313:17327 <> omega_posterior:150
-binder 17329:17332 <> tree:151
-R17404:17411 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17339:17385 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R17387:17390 KamiHW.CanonicalCPUProof <> fuel:146 var
-R17392:17396 KamiHW.CanonicalCPUProof <> trace:147 var
-R17398:17398 KamiHW.CanonicalCPUProof <> s:148 var
-R17400:17403 KamiHW.CanonicalCPUProof <> tree:151 var
-R17467:17474 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17458:17460 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R17413:17441 Kernel.MuShannonBridge <> feasible_size def
-R17443:17457 KamiHW.CanonicalCPUProof <> omega_posterior:150 var
-R17548:17555 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17475:17514 Kernel.MuShannonBridge <> FiberedFeasibleReduction def
-R17516:17519 KamiHW.CanonicalCPUProof <> tree:151 var
-R17521:17531 KamiHW.CanonicalCPUProof <> omega_prior:149 var
-R17533:17547 KamiHW.CanonicalCPUProof <> omega_posterior:150 var
-R17679:17686 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R17611:17619 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R17556:17566 Coq.Arith.PeanoNat Nat log2_up def
-R17569:17597 Kernel.MuShannonBridge <> feasible_size def
-R17599:17609 KamiHW.CanonicalCPUProof <> omega_prior:149 var
-R17620:17630 Coq.Arith.PeanoNat Nat log2_up def
-R17633:17661 Kernel.MuShannonBridge <> feasible_size def
-R17663:17677 KamiHW.CanonicalCPUProof <> omega_posterior:150 var
-R17716:17718 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R17710:17714 Kernel.VMState <> vm_mu proj
-R17688:17693 Kernel.SimulationProof <> run_vm def
-R17695:17698 KamiHW.CanonicalCPUProof <> fuel:146 var
-R17700:17704 KamiHW.CanonicalCPUProof <> trace:147 var
-R17706:17706 KamiHW.CanonicalCPUProof <> s:148 var
-R17722:17726 Kernel.VMState <> vm_mu proj
-R17719:17719 KamiHW.CanonicalCPUProof <> s:148 var
-R17819:17863 Kernel.HonestNoFI <> honest_nfi_fibered_feasible_reduction_partial thm
-R17819:17863 Kernel.HonestNoFI <> honest_nfi_fibered_feasible_reduction_partial thm
-prf 18131:18193 <> canonical_honest_nofi_posterior_representative_reduction_anchor
-binder 18206:18209 <> fuel:152
-binder 18211:18215 <> trace:153
-binder 18217:18217 <> s:154
-binder 18219:18229 <> omega_prior:155
-binder 18231:18245 <> omega_posterior:156
-binder 18247:18250 <> tree:157
-R18271:18305 Kernel.MuShannonBridge <> ObservationFunction def
-binder 18262:18267 <> obs_fn:158
-R18378:18385 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18313:18359 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R18361:18364 KamiHW.CanonicalCPUProof <> fuel:152 var
-R18366:18370 KamiHW.CanonicalCPUProof <> trace:153 var
-R18372:18372 KamiHW.CanonicalCPUProof <> s:154 var
-R18374:18377 KamiHW.CanonicalCPUProof <> tree:157 var
-R18441:18448 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18432:18434 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R18387:18415 Kernel.MuShannonBridge <> feasible_size def
-R18417:18431 KamiHW.CanonicalCPUProof <> omega_posterior:156 var
-R18537:18544 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18449:18496 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
-R18498:18503 KamiHW.CanonicalCPUProof <> obs_fn:158 var
-R18505:18508 KamiHW.CanonicalCPUProof <> tree:157 var
-R18510:18520 KamiHW.CanonicalCPUProof <> omega_prior:155 var
-R18522:18536 KamiHW.CanonicalCPUProof <> omega_posterior:156 var
-R18668:18675 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R18600:18608 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R18545:18555 Coq.Arith.PeanoNat Nat log2_up def
-R18558:18586 Kernel.MuShannonBridge <> feasible_size def
-R18588:18598 KamiHW.CanonicalCPUProof <> omega_prior:155 var
-R18609:18619 Coq.Arith.PeanoNat Nat log2_up def
-R18622:18650 Kernel.MuShannonBridge <> feasible_size def
-R18652:18666 KamiHW.CanonicalCPUProof <> omega_posterior:156 var
-R18705:18707 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R18699:18703 Kernel.VMState <> vm_mu proj
-R18677:18682 Kernel.SimulationProof <> run_vm def
-R18684:18687 KamiHW.CanonicalCPUProof <> fuel:152 var
-R18689:18693 KamiHW.CanonicalCPUProof <> trace:153 var
-R18695:18695 KamiHW.CanonicalCPUProof <> s:154 var
-R18711:18715 Kernel.VMState <> vm_mu proj
-R18708:18708 KamiHW.CanonicalCPUProof <> s:154 var
-R18816:18868 Kernel.HonestNoFI <> honest_nfi_posterior_representative_reduction_partial thm
-R18816:18868 Kernel.HonestNoFI <> honest_nfi_posterior_representative_reduction_partial thm
-prf 19143:19190 <> canonical_honest_nofi_conditional_shannon_anchor
-binder 19203:19206 <> fuel:159
-binder 19208:19212 <> trace:160
-binder 19214:19214 <> s:161
-binder 19216:19216 <> n:162
-R19298:19305 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19223:19228 Coq.Lists.List <> Forall ind
-R19293:19297 KamiHW.CanonicalCPUProof <> trace:160 var
-binder 19235:19235 <> i:163
-R19264:19267 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19257:19259 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19240:19254 Kernel.VMStep VMStep is_cert_setterb def
-R19256:19256 KamiHW.CanonicalCPUProof <> i:163 var
-R19260:19263 Coq.Init.Datatypes <> true constr
-R19286:19289 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R19268:19283 Kernel.VMStep VMStep instruction_cost def
-R19285:19285 KamiHW.CanonicalCPUProof <> i:163 var
-R19383:19390 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19369:19372 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R19306:19355 Kernel.MuShannonQuantitative <> cert_setter_executions_local def
-R19357:19360 KamiHW.CanonicalCPUProof <> fuel:159 var
-R19362:19366 KamiHW.CanonicalCPUProof <> trace:160 var
-R19368:19368 KamiHW.CanonicalCPUProof <> s:161 var
-R19373:19380 Coq.Arith.PeanoNat Nat log2 def
-R19382:19382 KamiHW.CanonicalCPUProof <> n:162 var
-R19432:19435 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R19420:19422 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R19414:19418 Kernel.VMState <> vm_mu proj
-R19392:19397 Kernel.SimulationProof <> run_vm def
-R19399:19402 KamiHW.CanonicalCPUProof <> fuel:159 var
-R19404:19408 KamiHW.CanonicalCPUProof <> trace:160 var
-R19410:19410 KamiHW.CanonicalCPUProof <> s:161 var
-R19426:19430 Kernel.VMState <> vm_mu proj
-R19423:19423 KamiHW.CanonicalCPUProof <> s:161 var
-R19436:19443 Coq.Arith.PeanoNat Nat log2 def
-R19445:19445 KamiHW.CanonicalCPUProof <> n:162 var
-R19503:19540 Kernel.HonestNoFI <> honest_nfi_conditional_shannon_partial thm
-R19503:19540 Kernel.HonestNoFI <> honest_nfi_conditional_shannon_partial thm
-prf 19766:19818 <> canonical_honest_nofi_quantitative_state_space_anchor
-R19839:19845 Kernel.VMState <> VMState rec
-binder 19832:19832 <> s:164
-binder 19834:19835 <> s':165
-R19861:19863 Coq.Init.Datatypes <> nat ind
-binder 19849:19852 <> freg:166
-binder 19854:19857 <> creg:167
-R19874:19877 Coq.Init.Datatypes <> bool ind
-binder 19867:19870 <> kind:168
-R19893:19895 Coq.Init.Datatypes <> nat ind
-binder 19881:19884 <> flen:169
-binder 19886:19889 <> cost:170
-R19956:19963 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19903:19909 Kernel.VMStep VMStep vm_step ind
-R19911:19911 KamiHW.CanonicalCPUProof <> s:164 var
-R19914:19926 Kernel.VMStep VMStep instr_lassert constr
-R19928:19931 KamiHW.CanonicalCPUProof <> freg:166 var
-R19933:19936 KamiHW.CanonicalCPUProof <> creg:167 var
-R19938:19941 KamiHW.CanonicalCPUProof <> kind:168 var
-R19943:19946 KamiHW.CanonicalCPUProof <> flen:169 var
-R19948:19951 KamiHW.CanonicalCPUProof <> cost:170 var
-R19954:19955 KamiHW.CanonicalCPUProof <> s':165 var
-R19977:19979 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R19973:19976 KamiHW.CanonicalCPUProof <> flen:169 var
-binder 19968:19968 <> k:171
-R20016:20023 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R20011:20014 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R19999:20001 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R19993:19997 Kernel.VMState <> vm_mu proj
-R19989:19990 KamiHW.CanonicalCPUProof <> s':165 var
-R20005:20009 Kernel.VMState <> vm_mu proj
-R20002:20002 KamiHW.CanonicalCPUProof <> s:164 var
-R20015:20015 KamiHW.CanonicalCPUProof <> k:171 var
-R20025:20028 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R20024:20024 KamiHW.CanonicalCPUProof <> k:171 var
-R20029:20055 Kernel.StateSpaceCounting StateSpaceCounting log2_nat def
-R20058:20064 Coq.Arith.PeanoNat Nat pow def
-R20068:20068 KamiHW.CanonicalCPUProof <> k:171 var
-R20134:20176 Kernel.HonestNoFI <> honest_nfi_quantitative_state_space_partial thm
-R20134:20176 Kernel.HonestNoFI <> honest_nfi_quantitative_state_space_partial thm
+R7710:7719 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7640:7650 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7585:7595 Coq.Arith.PeanoNat Nat log2_up def
+R7598:7626 Kernel.MuShannonBridge <> feasible_size def
+R7628:7638 KamiHW.CanonicalCPUProof <> omega_prior:56 var
+R7651:7661 Coq.Arith.PeanoNat Nat log2_up def
+R7664:7692 Kernel.MuShannonBridge <> feasible_size def
+R7694:7708 KamiHW.CanonicalCPUProof <> omega_posterior:57 var
+R7749:7751 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7743:7747 Kernel.VMState <> vm_mu proj
+R7721:7726 Kernel.SimulationProof <> run_vm def
+R7728:7731 KamiHW.CanonicalCPUProof <> fuel:53 var
+R7733:7737 KamiHW.CanonicalCPUProof <> trace:54 var
+R7739:7739 KamiHW.CanonicalCPUProof <> s:55 var
+R7755:7759 Kernel.VMState <> vm_mu proj
+R7752:7752 KamiHW.CanonicalCPUProof <> s:55 var
+binder 7824:7827 <> fuel:61
+binder 7829:7833 <> trace:62
+binder 7835:7845 <> omega_prior:63
+binder 7847:7861 <> omega_posterior:64
+binder 7863:7866 <> tree:65
+R7935:7944 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7875:7922 Kernel.MuShannonBridge <> normalized_weighted_distribution def
+R7924:7934 KamiHW.CanonicalCPUProof <> omega_prior:63 var
+R8009:8018 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7945:7992 Kernel.MuShannonBridge <> normalized_weighted_distribution def
+R7994:8008 KamiHW.CanonicalCPUProof <> omega_posterior:64 var
+R8019:8019 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8140:8150 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8027:8027 <> s:66
+binder 8029:8034 <> weight:67
+R8063:8074 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8037:8038 Coq.Lists.List <> In def
+R8052:8062 KamiHW.CanonicalCPUProof <> omega_prior:63 var
+R8040:8040 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8042:8043 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8050:8050 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8041:8041 KamiHW.CanonicalCPUProof <> s:66 var
+R8044:8049 KamiHW.CanonicalCPUProof <> weight:67 var
+R8075:8121 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R8123:8126 KamiHW.CanonicalCPUProof <> fuel:61 var
+R8128:8132 KamiHW.CanonicalCPUProof <> trace:62 var
+R8134:8134 KamiHW.CanonicalCPUProof <> s:66 var
+R8136:8139 KamiHW.CanonicalCPUProof <> tree:65 var
+R8230:8239 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8151:8196 Kernel.MuShannonBridge <> tree_covers_weighted_reduction def
+R8198:8201 KamiHW.CanonicalCPUProof <> tree:65 var
+R8203:8213 KamiHW.CanonicalCPUProof <> omega_prior:63 var
+R8215:8229 KamiHW.CanonicalCPUProof <> omega_posterior:64 var
+R8384:8393 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8321:8331 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8240:8292 Kernel.MuShannonBridge <> normalized_weighted_entropy_reduction def
+R8294:8304 KamiHW.CanonicalCPUProof <> omega_prior:63 var
+R8306:8320 KamiHW.CanonicalCPUProof <> omega_posterior:64 var
+R8332:8371 Kernel.MuShannonBridge <> normalized_weighted_mass def
+R8373:8383 KamiHW.CanonicalCPUProof <> omega_prior:63 var
+R8394:8436 Kernel.MuShannonBridge <> weighted_delta_mu_numerator def
+R8438:8441 KamiHW.CanonicalCPUProof <> fuel:61 var
+R8443:8447 KamiHW.CanonicalCPUProof <> trace:62 var
+R8449:8459 KamiHW.CanonicalCPUProof <> omega_prior:63 var
+binder 8513:8516 <> fuel:69
+binder 8518:8522 <> trace:70
+binder 8524:8524 <> s:71
+binder 8526:8526 <> n:72
+R8610:8619 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8535:8540 Coq.Lists.List <> Forall ind
+R8605:8609 KamiHW.CanonicalCPUProof <> trace:70 var
+binder 8547:8547 <> i:73
+R8576:8579 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8569:8571 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8552:8566 Kernel.VMStep VMStep is_cert_setterb def
+R8568:8568 KamiHW.CanonicalCPUProof <> i:73 var
+R8572:8575 Coq.Init.Datatypes <> true constr
+R8598:8601 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8580:8595 Kernel.VMStep VMStep instruction_cost def
+R8597:8597 KamiHW.CanonicalCPUProof <> i:73 var
+R8697:8706 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8683:8686 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8620:8669 Kernel.MuShannonQuantitative <> cert_setter_executions_local def
+R8671:8674 KamiHW.CanonicalCPUProof <> fuel:69 var
+R8676:8680 KamiHW.CanonicalCPUProof <> trace:70 var
+R8682:8682 KamiHW.CanonicalCPUProof <> s:71 var
+R8687:8694 Coq.Arith.PeanoNat Nat log2 def
+R8696:8696 KamiHW.CanonicalCPUProof <> n:72 var
+R8748:8751 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8736:8738 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R8730:8734 Kernel.VMState <> vm_mu proj
+R8708:8713 Kernel.SimulationProof <> run_vm def
+R8715:8718 KamiHW.CanonicalCPUProof <> fuel:69 var
+R8720:8724 KamiHW.CanonicalCPUProof <> trace:70 var
+R8726:8726 KamiHW.CanonicalCPUProof <> s:71 var
+R8742:8746 Kernel.VMState <> vm_mu proj
+R8739:8739 KamiHW.CanonicalCPUProof <> s:71 var
+R8752:8759 Coq.Arith.PeanoNat Nat log2 def
+R8761:8761 KamiHW.CanonicalCPUProof <> n:72 var
+R8828:8834 Kernel.VMState <> VMState rec
+binder 8821:8821 <> s:75
+binder 8823:8824 <> s':76
+R8850:8852 Coq.Init.Datatypes <> nat ind
+binder 8838:8841 <> freg:77
+binder 8843:8846 <> creg:78
+R8863:8866 Coq.Init.Datatypes <> bool ind
+binder 8856:8859 <> kind:79
+R8882:8884 Coq.Init.Datatypes <> nat ind
+binder 8870:8873 <> flen:80
+binder 8875:8878 <> cost:81
+R8947:8956 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8894:8900 Kernel.VMStep VMStep vm_step ind
+R8902:8902 KamiHW.CanonicalCPUProof <> s:75 var
+R8905:8917 Kernel.VMStep VMStep instr_lassert constr
+R8919:8922 KamiHW.CanonicalCPUProof <> freg:77 var
+R8924:8927 KamiHW.CanonicalCPUProof <> creg:78 var
+R8929:8932 KamiHW.CanonicalCPUProof <> kind:79 var
+R8934:8937 KamiHW.CanonicalCPUProof <> flen:80 var
+R8939:8942 KamiHW.CanonicalCPUProof <> cost:81 var
+R8945:8946 KamiHW.CanonicalCPUProof <> s':76 var
+R8970:8972 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8966:8969 KamiHW.CanonicalCPUProof <> flen:80 var
+binder 8961:8961 <> k:82
+R9011:9020 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9006:9009 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8994:8996 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R8988:8992 Kernel.VMState <> vm_mu proj
+R8984:8985 KamiHW.CanonicalCPUProof <> s':76 var
+R9000:9004 Kernel.VMState <> vm_mu proj
+R8997:8997 KamiHW.CanonicalCPUProof <> s:75 var
+R9010:9010 KamiHW.CanonicalCPUProof <> k:82 var
+R9022:9025 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9021:9021 KamiHW.CanonicalCPUProof <> k:82 var
+R9026:9052 Kernel.StateSpaceCounting StateSpaceCounting log2_nat def
+R9055:9061 Coq.Arith.PeanoNat Nat pow def
+R9065:9065 KamiHW.CanonicalCPUProof <> k:82 var
+R9125:9128 Coq.Init.Datatypes <> list ind
+R9134:9136 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R9131:9133 Coq.Init.Datatypes <> nat ind
+R9137:9139 Coq.Init.Datatypes <> nat ind
+binder 9114:9115 <> r1:84
+binder 9117:9118 <> r2:85
+binder 9120:9121 <> r3:86
+R9149:9149 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9330:9340 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9235:9244 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9150:9181 Kernel.CategoryMonoidal <> coupling_tensor def
+R9193:9224 Kernel.CategoryMonoidal <> coupling_tensor def
+R9226:9227 KamiHW.CanonicalCPUProof <> r1:84 var
+R9229:9230 KamiHW.CanonicalCPUProof <> r2:85 var
+R9233:9234 KamiHW.CanonicalCPUProof <> r3:86 var
+R9245:9276 Kernel.CategoryMonoidal <> coupling_tensor def
+R9278:9279 KamiHW.CanonicalCPUProof <> r1:84 var
+R9291:9322 Kernel.CategoryMonoidal <> coupling_tensor def
+R9324:9325 KamiHW.CanonicalCPUProof <> r2:85 var
+R9327:9328 KamiHW.CanonicalCPUProof <> r3:86 var
+R9341:9341 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9386:9397 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9442:9442 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9381:9383 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9342:9373 Kernel.CategoryMonoidal <> coupling_tensor def
+R9375:9377 Coq.Init.Datatypes <> nil constr
+R9379:9380 KamiHW.CanonicalCPUProof <> r1:84 var
+R9384:9385 KamiHW.CanonicalCPUProof <> r1:84 var
+R9437:9439 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9398:9429 Kernel.CategoryMonoidal <> coupling_tensor def
+R9431:9432 KamiHW.CanonicalCPUProof <> r1:84 var
+R9434:9436 Coq.Init.Datatypes <> nil constr
+R9440:9441 KamiHW.CanonicalCPUProof <> r1:84 var
+R9496:9516 Kernel.CategoryLaws <> Coupling def
+binder 9485:9486 <> r1:88
+binder 9488:9489 <> r2:89
+binder 9491:9492 <> r3:90
+R9525:9551 Kernel.CategoryLaws <> coupling_equiv def
+R9562:9592 Kernel.CategoryLaws <> relational_compose def
+R9606:9636 Kernel.CategoryLaws <> relational_compose def
+R9638:9639 KamiHW.CanonicalCPUProof <> r1:88 var
+R9641:9642 KamiHW.CanonicalCPUProof <> r2:89 var
+R9645:9646 KamiHW.CanonicalCPUProof <> r3:90 var
+R9658:9688 Kernel.CategoryLaws <> relational_compose def
+R9690:9691 KamiHW.CanonicalCPUProof <> r1:88 var
+R9705:9735 Kernel.CategoryLaws <> relational_compose def
+R9737:9738 KamiHW.CanonicalCPUProof <> r2:89 var
+R9740:9741 KamiHW.CanonicalCPUProof <> r3:90 var
+binder 9870:9871 <> ks:92
+binder 9873:9875 <> dst:93
+binder 9877:9881 <> m1_id:94
+binder 9883:9887 <> m2_id:95
+binder 9889:9892 <> cost:96
+R9925:9934 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9901:9921 KamiHW.GraphReconstructionBridge <> extended_hw_invariant def
+R9923:9924 KamiHW.CanonicalCPUProof <> ks:92 var
+R10040:10048 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9935:9951 KamiHW.FullAbstraction <> abs_full_snapshot def
+R9954:9978 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R9989:9997 KamiHW.Abstraction <> kami_step def
+R9999:10000 KamiHW.CanonicalCPUProof <> ks:92 var
+R10003:10015 Kernel.VMStep VMStep instr_compose constr
+R10017:10019 KamiHW.CanonicalCPUProof <> dst:93 var
+R10021:10025 KamiHW.CanonicalCPUProof <> m1_id:94 var
+R10027:10031 KamiHW.CanonicalCPUProof <> m2_id:95 var
+R10033:10036 KamiHW.CanonicalCPUProof <> cost:96 var
+R10049:10056 Kernel.SimulationProof <> vm_apply def
+R10059:10075 KamiHW.FullAbstraction <> abs_full_snapshot def
+R10078:10102 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R10104:10105 KamiHW.CanonicalCPUProof <> ks:92 var
+R10118:10130 Kernel.VMStep VMStep instr_compose constr
+R10132:10134 KamiHW.CanonicalCPUProof <> dst:93 var
+R10136:10140 KamiHW.CanonicalCPUProof <> m1_id:94 var
+R10142:10146 KamiHW.CanonicalCPUProof <> m2_id:95 var
+R10148:10151 KamiHW.CanonicalCPUProof <> cost:96 var
+binder 10289:10290 <> ks:98
+binder 10292:10294 <> dst:99
+binder 10296:10299 <> f_id:100
+binder 10301:10304 <> g_id:101
+binder 10306:10309 <> cost:102
+R10342:10351 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10318:10338 KamiHW.GraphReconstructionBridge <> extended_hw_invariant def
+R10340:10341 KamiHW.CanonicalCPUProof <> ks:98 var
+R10460:10468 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10352:10368 KamiHW.FullAbstraction <> abs_full_snapshot def
+R10371:10395 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R10406:10414 KamiHW.Abstraction <> kami_step def
+R10416:10417 KamiHW.CanonicalCPUProof <> ks:98 var
+R10420:10437 Kernel.VMStep VMStep instr_morph_tensor constr
+R10439:10441 KamiHW.CanonicalCPUProof <> dst:99 var
+R10443:10446 KamiHW.CanonicalCPUProof <> f_id:100 var
+R10448:10451 KamiHW.CanonicalCPUProof <> g_id:101 var
+R10453:10456 KamiHW.CanonicalCPUProof <> cost:102 var
+R10469:10476 Kernel.SimulationProof <> vm_apply def
+R10479:10495 KamiHW.FullAbstraction <> abs_full_snapshot def
+R10498:10522 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R10524:10525 KamiHW.CanonicalCPUProof <> ks:98 var
+R10538:10555 Kernel.VMStep VMStep instr_morph_tensor constr
+R10557:10559 KamiHW.CanonicalCPUProof <> dst:99 var
+R10561:10564 KamiHW.CanonicalCPUProof <> f_id:100 var
+R10566:10569 KamiHW.CanonicalCPUProof <> g_id:101 var
+R10571:10574 KamiHW.CanonicalCPUProof <> cost:102 var
+prf 10589:10607 <> canonical_cpu_proof
+R10611:10633 KamiHW.CanonicalCPUProof <> CanonicalCPUProofBundle rec
+R10659:10690 KamiHW.CanonicalCPUProof <> canonical_register_write_refines proj
+R10659:10690 KamiHW.CanonicalCPUProof <> canonical_register_write_refines proj
+R10659:10690 KamiHW.CanonicalCPUProof <> canonical_register_write_refines proj
+R10734:10766 KamiHW.CanonicalCPUProof <> canonical_load_imm_step_simulates proj
+R10734:10766 KamiHW.CanonicalCPUProof <> canonical_load_imm_step_simulates proj
+R10814:10844 KamiHW.CanonicalCPUProof <> canonical_mu_monotone_on_charge proj
+R10814:10844 KamiHW.CanonicalCPUProof <> canonical_mu_monotone_on_charge proj
+R10893:10921 KamiHW.CanonicalCPUProof <> canonical_oracle_charge_sound proj
+R10893:10921 KamiHW.CanonicalCPUProof <> canonical_oracle_charge_sound proj
+R10970:11008 KamiHW.CanonicalCPUProof <> canonical_bus_step_preserves_abs_phase1 proj
+R10970:11008 KamiHW.CanonicalCPUProof <> canonical_bus_step_preserves_abs_phase1 proj
+R11051:11079 KamiHW.CanonicalCPUProof <> canonical_nofi_supra_boundary proj
+R11051:11079 KamiHW.CanonicalCPUProof <> canonical_nofi_supra_boundary proj
+R11157:11189 KamiHW.CanonicalCPUProof <> canonical_nofi_paid_certification proj
+R11157:11189 KamiHW.CanonicalCPUProof <> canonical_nofi_paid_certification proj
+R11421:11451 KamiHW.CanonicalCPUProof <> canonical_nofi_trace_separation proj
+R11421:11451 KamiHW.CanonicalCPUProof <> canonical_nofi_trace_separation proj
+R11500:11540 KamiHW.CanonicalCPUProof <> canonical_nofi_general_feasible_reduction proj
+R11500:11540 KamiHW.CanonicalCPUProof <> canonical_nofi_general_feasible_reduction proj
+R11599:11639 KamiHW.CanonicalCPUProof <> canonical_nofi_fibered_feasible_reduction proj
+R11599:11639 KamiHW.CanonicalCPUProof <> canonical_nofi_fibered_feasible_reduction proj
+R11697:11745 KamiHW.CanonicalCPUProof <> canonical_nofi_posterior_representative_reduction proj
+R11697:11745 KamiHW.CanonicalCPUProof <> canonical_nofi_posterior_representative_reduction proj
+R11812:11855 KamiHW.CanonicalCPUProof <> canonical_nofi_normalized_expected_reduction proj
+R11812:11855 KamiHW.CanonicalCPUProof <> canonical_nofi_normalized_expected_reduction proj
+R11940:11973 KamiHW.CanonicalCPUProof <> canonical_nofi_conditional_shannon proj
+R11940:11973 KamiHW.CanonicalCPUProof <> canonical_nofi_conditional_shannon proj
+R12025:12063 KamiHW.CanonicalCPUProof <> canonical_nofi_quantitative_state_space proj
+R12025:12063 KamiHW.CanonicalCPUProof <> canonical_nofi_quantitative_state_space proj
+R12120:12147 KamiHW.CanonicalCPUProof <> canonical_monoidal_coherence proj
+R12120:12147 KamiHW.CanonicalCPUProof <> canonical_monoidal_coherence proj
+R12196:12218 KamiHW.CanonicalCPUProof <> canonical_compose_assoc proj
+R12196:12218 KamiHW.CanonicalCPUProof <> canonical_compose_assoc proj
+R12269:12300 KamiHW.CanonicalCPUProof <> canonical_compose_step_simulates proj
+R12269:12300 KamiHW.CanonicalCPUProof <> canonical_compose_step_simulates proj
+R12333:12369 KamiHW.CanonicalCPUProof <> canonical_morph_tensor_step_simulates proj
+R12333:12369 KamiHW.CanonicalCPUProof <> canonical_morph_tensor_step_simulates proj
+R10695:10724 KamiHW.VerilogRefinement <> verilog_refines_register_write thm
+R10771:10804 KamiHW.VerilogRefinement <> verilog_simulates_vm_step_load_imm thm
+R10849:10883 KamiHW.VerilogRefinement <> verilog_mu_non_decreasing_on_charge thm
+R10926:10960 KamiHW.VerilogRefinement <> verilog_mu_non_decreasing_on_charge thm
+R11013:11041 KamiHW.ThieleCPUBusTop <> bus_step_preserves_abs_phase1 thm
+R11084:11147 Kernel.Certification CertificationTheory quantum_admissible_cannot_certify_supra_chsh thm
+binder 11208:11212 <> trace:104
+binder 11214:11219 <> s_init:105
+binder 11221:11227 <> s_final:106
+binder 11229:11232 <> fuel:107
+binder 11234:11237 <> Hrun:108
+binder 11239:11243 <> Hinit:109
+binder 11245:11249 <> Hcert:110
+R11266:11270 Coq.Init.Logic <> proj1 thm
+R11287:11349 Kernel.Certification CertificationTheory certified_supra_chsh_implies_mu_lower_bound thm
+R11368:11372 KamiHW.CanonicalCPUProof <> trace:104 var
+R11374:11379 KamiHW.CanonicalCPUProof <> s_init:105 var
+R11381:11387 KamiHW.CanonicalCPUProof <> s_final:106 var
+R11389:11392 KamiHW.CanonicalCPUProof <> fuel:107 var
+R11394:11397 KamiHW.CanonicalCPUProof <> Hrun:108 var
+R11399:11403 KamiHW.CanonicalCPUProof <> Hinit:109 var
+R11405:11409 KamiHW.CanonicalCPUProof <> Hcert:110 var
+R11456:11490 Kernel.HonestNoFI <> honest_nfi_trace_separation_partial thm
+R11545:11589 Kernel.HonestNoFI <> honest_nfi_general_feasible_reduction_partial thm
+R11644:11688 Kernel.HonestNoFI <> honest_nfi_fibered_feasible_reduction_partial thm
+R11750:11802 Kernel.HonestNoFI <> honest_nfi_posterior_representative_reduction_partial thm
+R11860:11930 Kernel.MuShannonBridge <> info_priced_normalized_expected_entropy_reduction_bound thm
+R11978:12015 Kernel.HonestNoFI <> honest_nfi_conditional_shannon_partial thm
+R12068:12110 Kernel.HonestNoFI <> honest_nfi_quantitative_state_space_partial thm
+R12152:12186 Kernel.CategoryMonoidal <> monoidal_coherence thm
+R12223:12259 Kernel.CategoryLaws <> relational_compose_assoc thm
+R12305:12323 KamiHW.GraphReconstructionBridge <> driven_step_compose thm
+R12374:12397 KamiHW.GraphReconstructionBridge <> driven_step_morph_tensor thm
+R10659:10690 KamiHW.CanonicalCPUProof <> canonical_register_write_refines proj
+R10659:10690 KamiHW.CanonicalCPUProof <> canonical_register_write_refines proj
+R10659:10690 KamiHW.CanonicalCPUProof <> canonical_register_write_refines proj
+R10734:10766 KamiHW.CanonicalCPUProof <> canonical_load_imm_step_simulates proj
+R10734:10766 KamiHW.CanonicalCPUProof <> canonical_load_imm_step_simulates proj
+R10814:10844 KamiHW.CanonicalCPUProof <> canonical_mu_monotone_on_charge proj
+R10814:10844 KamiHW.CanonicalCPUProof <> canonical_mu_monotone_on_charge proj
+R10893:10921 KamiHW.CanonicalCPUProof <> canonical_oracle_charge_sound proj
+R10893:10921 KamiHW.CanonicalCPUProof <> canonical_oracle_charge_sound proj
+R10970:11008 KamiHW.CanonicalCPUProof <> canonical_bus_step_preserves_abs_phase1 proj
+R10970:11008 KamiHW.CanonicalCPUProof <> canonical_bus_step_preserves_abs_phase1 proj
+R11051:11079 KamiHW.CanonicalCPUProof <> canonical_nofi_supra_boundary proj
+R11051:11079 KamiHW.CanonicalCPUProof <> canonical_nofi_supra_boundary proj
+R11157:11189 KamiHW.CanonicalCPUProof <> canonical_nofi_paid_certification proj
+R11157:11189 KamiHW.CanonicalCPUProof <> canonical_nofi_paid_certification proj
+R11421:11451 KamiHW.CanonicalCPUProof <> canonical_nofi_trace_separation proj
+R11421:11451 KamiHW.CanonicalCPUProof <> canonical_nofi_trace_separation proj
+R11500:11540 KamiHW.CanonicalCPUProof <> canonical_nofi_general_feasible_reduction proj
+R11500:11540 KamiHW.CanonicalCPUProof <> canonical_nofi_general_feasible_reduction proj
+R11599:11639 KamiHW.CanonicalCPUProof <> canonical_nofi_fibered_feasible_reduction proj
+R11599:11639 KamiHW.CanonicalCPUProof <> canonical_nofi_fibered_feasible_reduction proj
+R11697:11745 KamiHW.CanonicalCPUProof <> canonical_nofi_posterior_representative_reduction proj
+R11697:11745 KamiHW.CanonicalCPUProof <> canonical_nofi_posterior_representative_reduction proj
+R11812:11855 KamiHW.CanonicalCPUProof <> canonical_nofi_normalized_expected_reduction proj
+R11812:11855 KamiHW.CanonicalCPUProof <> canonical_nofi_normalized_expected_reduction proj
+R11940:11973 KamiHW.CanonicalCPUProof <> canonical_nofi_conditional_shannon proj
+R11940:11973 KamiHW.CanonicalCPUProof <> canonical_nofi_conditional_shannon proj
+R12025:12063 KamiHW.CanonicalCPUProof <> canonical_nofi_quantitative_state_space proj
+R12025:12063 KamiHW.CanonicalCPUProof <> canonical_nofi_quantitative_state_space proj
+R12120:12147 KamiHW.CanonicalCPUProof <> canonical_monoidal_coherence proj
+R12120:12147 KamiHW.CanonicalCPUProof <> canonical_monoidal_coherence proj
+R12196:12218 KamiHW.CanonicalCPUProof <> canonical_compose_assoc proj
+R12196:12218 KamiHW.CanonicalCPUProof <> canonical_compose_assoc proj
+R12269:12300 KamiHW.CanonicalCPUProof <> canonical_compose_step_simulates proj
+R12269:12300 KamiHW.CanonicalCPUProof <> canonical_compose_step_simulates proj
+R12333:12369 KamiHW.CanonicalCPUProof <> canonical_morph_tensor_step_simulates proj
+R12333:12369 KamiHW.CanonicalCPUProof <> canonical_morph_tensor_step_simulates proj
+R10695:10724 KamiHW.VerilogRefinement <> verilog_refines_register_write thm
+R10771:10804 KamiHW.VerilogRefinement <> verilog_simulates_vm_step_load_imm thm
+R10849:10883 KamiHW.VerilogRefinement <> verilog_mu_non_decreasing_on_charge thm
+R10926:10960 KamiHW.VerilogRefinement <> verilog_mu_non_decreasing_on_charge thm
+R11013:11041 KamiHW.ThieleCPUBusTop <> bus_step_preserves_abs_phase1 thm
+R11084:11147 Kernel.Certification CertificationTheory quantum_admissible_cannot_certify_supra_chsh thm
+binder 11208:11212 <> trace:111
+binder 11214:11219 <> s_init:112
+binder 11221:11227 <> s_final:113
+binder 11229:11232 <> fuel:114
+binder 11234:11237 <> Hrun:115
+binder 11239:11243 <> Hinit:116
+binder 11245:11249 <> Hcert:117
+R11266:11270 Coq.Init.Logic <> proj1 thm
+R11287:11349 Kernel.Certification CertificationTheory certified_supra_chsh_implies_mu_lower_bound thm
+R11368:11372 KamiHW.CanonicalCPUProof <> trace:111 var
+R11374:11379 KamiHW.CanonicalCPUProof <> s_init:112 var
+R11381:11387 KamiHW.CanonicalCPUProof <> s_final:113 var
+R11389:11392 KamiHW.CanonicalCPUProof <> fuel:114 var
+R11394:11397 KamiHW.CanonicalCPUProof <> Hrun:115 var
+R11399:11403 KamiHW.CanonicalCPUProof <> Hinit:116 var
+R11405:11409 KamiHW.CanonicalCPUProof <> Hcert:117 var
+R11456:11490 Kernel.HonestNoFI <> honest_nfi_trace_separation_partial thm
+R11545:11589 Kernel.HonestNoFI <> honest_nfi_general_feasible_reduction_partial thm
+R11644:11688 Kernel.HonestNoFI <> honest_nfi_fibered_feasible_reduction_partial thm
+R11750:11802 Kernel.HonestNoFI <> honest_nfi_posterior_representative_reduction_partial thm
+R11860:11930 Kernel.MuShannonBridge <> info_priced_normalized_expected_entropy_reduction_bound thm
+R11978:12015 Kernel.HonestNoFI <> honest_nfi_conditional_shannon_partial thm
+R12068:12110 Kernel.HonestNoFI <> honest_nfi_quantitative_state_space_partial thm
+R12152:12186 Kernel.CategoryMonoidal <> monoidal_coherence thm
+R12223:12259 Kernel.CategoryLaws <> relational_compose_assoc thm
+R12305:12323 KamiHW.GraphReconstructionBridge <> driven_step_compose thm
+R12374:12397 KamiHW.GraphReconstructionBridge <> driven_step_morph_tensor thm
+prf 12941:12971 <> vm_step_canonical_bus_invariant
+R12990:13004 KamiHW.ThieleCPUBusTop <> BusWrapperState rec
+binder 12985:12986 <> st:118
+R13013:13017 KamiHW.ThieleCPUBusTop <> BusOp ind
+binder 13008:13009 <> op:119
+R13062:13064 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13025:13034 KamiHW.Abstraction <> abs_phase1 def
+R13037:13043 KamiHW.ThieleCPUBusTop <> bw_core proj
+R13046:13053 KamiHW.ThieleCPUBusTop <> bus_step def
+R13055:13056 KamiHW.CanonicalCPUProof <> st:118 var
+R13058:13059 KamiHW.CanonicalCPUProof <> op:119 var
+R13065:13074 KamiHW.Abstraction <> abs_phase1 def
+R13077:13083 KamiHW.ThieleCPUBusTop <> bw_core proj
+R13085:13086 KamiHW.CanonicalCPUProof <> st:118 var
+R13122:13160 KamiHW.CanonicalCPUProof <> canonical_bus_step_preserves_abs_phase1 proj
+R13162:13180 KamiHW.CanonicalCPUProof <> canonical_cpu_proof thm
+R13122:13160 KamiHW.CanonicalCPUProof <> canonical_bus_step_preserves_abs_phase1 proj
+R13162:13180 KamiHW.CanonicalCPUProof <> canonical_cpu_proof thm
+prf 13289:13317 <> canonical_c3_born_rule_anchor
+R13335:13349 Kernel.BornRuleLinearity <> ProbabilityRule def
+binder 13331:13331 <> P:120
+R13374:13381 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13357:13371 Kernel.BornRuleLinearity <> valid_born_rule def
+R13373:13373 KamiHW.CanonicalCPUProof <> P:120 var
+R13394:13394 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 13390:13390 <> z:121
+R13414:13417 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13401:13404 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R13406:13409 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R13405:13405 KamiHW.CanonicalCPUProof <> z:121 var
+R13405:13405 KamiHW.CanonicalCPUProof <> z:121 var
+R13421:13423 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13418:13418 KamiHW.CanonicalCPUProof <> P:120 var
+R13420:13420 KamiHW.CanonicalCPUProof <> z:121 var
+R13424:13439 Kernel.BornRuleLinearity <> born_probability def
+R13441:13441 KamiHW.CanonicalCPUProof <> z:121 var
+R13479:13494 Kernel.BornRuleLinearity <> born_rule_unique thm
+R13479:13494 Kernel.BornRuleLinearity <> born_rule_unique thm
+prf 13704:13738 <> canonical_c4_tsirelson_model_anchor
+binder 13751:13754 <> fuel:122
+binder 13756:13760 <> trace:123
+binder 13762:13767 <> s_init:124
+R13821:13828 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13774:13802 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
+R13804:13807 KamiHW.CanonicalCPUProof <> fuel:122 var
+R13809:13813 KamiHW.CanonicalCPUProof <> trace:123 var
+R13815:13820 KamiHW.CanonicalCPUProof <> s_init:124 var
+R13866:13873 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13829:13847 Kernel.TsirelsonQuantumModel <> trace_quantum_model def
+R13849:13852 KamiHW.CanonicalCPUProof <> fuel:122 var
+R13854:13858 KamiHW.CanonicalCPUProof <> trace:123 var
+R13860:13865 KamiHW.CanonicalCPUProof <> s_init:124 var
+R14030:14033 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R13875:13878 Coq.Reals.Rbasic_fun <> Rabs def
+R13881:13884 Kernel.TsirelsonGeneral <> CHSH def
+R13893:13901 Kernel.MuLedgerQuantumBridge <> trace_e00 def
+R13903:13906 KamiHW.CanonicalCPUProof <> fuel:122 var
+R13908:13912 KamiHW.CanonicalCPUProof <> trace:123 var
+R13914:13919 KamiHW.CanonicalCPUProof <> s_init:124 var
+R13929:13937 Kernel.MuLedgerQuantumBridge <> trace_e01 def
+R13939:13942 KamiHW.CanonicalCPUProof <> fuel:122 var
+R13944:13948 KamiHW.CanonicalCPUProof <> trace:123 var
+R13950:13955 KamiHW.CanonicalCPUProof <> s_init:124 var
+R13965:13973 Kernel.MuLedgerQuantumBridge <> trace_e10 def
+R13975:13978 KamiHW.CanonicalCPUProof <> fuel:122 var
+R13980:13984 KamiHW.CanonicalCPUProof <> trace:123 var
+R13986:13991 KamiHW.CanonicalCPUProof <> s_init:124 var
+R14001:14009 Kernel.MuLedgerQuantumBridge <> trace_e11 def
+R14011:14014 KamiHW.CanonicalCPUProof <> fuel:122 var
+R14016:14020 KamiHW.CanonicalCPUProof <> trace:123 var
+R14022:14027 KamiHW.CanonicalCPUProof <> s_init:124 var
+R14034:14038 Kernel.TsirelsonGeneral <> sqrt8 def
+R14097:14133 Kernel.TsirelsonQuantumModel <> trace_quantum_model_connection_closed thm
+R14097:14133 Kernel.TsirelsonQuantumModel <> trace_quantum_model_connection_closed thm
+prf 14343:14370 <> canonical_honest_nofi_anchor
+R14391:14393 Coq.Init.Datatypes <> nat ind
+binder 14384:14387 <> fuel:125
+R14405:14408 Coq.Init.Datatypes <> list ind
+R14410:14423 Kernel.VMStep VMStep vm_instruction ind
+binder 14397:14401 <> trace:126
+R14453:14459 Kernel.VMState <> VMState rec
+binder 14436:14441 <> s_init:127
+binder 14443:14449 <> s_final:128
+R14482:14510 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R14513:14516 Coq.Init.Datatypes <> list ind
+R14518:14531 Kernel.VMStep VMStep vm_instruction ind
+binder 14472:14478 <> decoder:129
+R14567:14596 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R14599:14602 Coq.Init.Datatypes <> list ind
+R14604:14617 Kernel.VMStep VMStep vm_instruction ind
+binder 14545:14551 <> P_prior:130
+binder 14553:14563 <> P_posterior:131
+R14661:14702 Kernel.InformationGainToStrengthening <> FeasibleSet def
+binder 14631:14641 <> omega_prior:132
+binder 14643:14657 <> omega_posterior:133
+R14760:14767 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14717:14719 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14710:14716 KamiHW.CanonicalCPUProof <> s_final:128 var
+R14720:14741 Kernel.SimulationProof <> run_vm def
+R14743:14746 KamiHW.CanonicalCPUProof <> fuel:125 var
+R14748:14752 KamiHW.CanonicalCPUProof <> trace:126 var
+R14754:14759 KamiHW.CanonicalCPUProof <> s_init:127 var
+R14789:14796 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14768:14769 Coq.Lists.List <> In def
+R14778:14788 KamiHW.CanonicalCPUProof <> omega_prior:132 var
+R14771:14776 KamiHW.CanonicalCPUProof <> s_init:127 var
+R14875:14882 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14797:14846 Kernel.InformationGainToStrengthening <> is_strict_reduction def
+R14848:14858 KamiHW.CanonicalCPUProof <> omega_prior:132 var
+R14860:14874 KamiHW.CanonicalCPUProof <> omega_posterior:133 var
+R14953:14960 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14944:14946 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R14884:14927 Kernel.InformationGainToStrengthening <> feasible_size def
+R14929:14943 KamiHW.CanonicalCPUProof <> omega_posterior:133 var
+R15001:15008 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14993:14995 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14979:14991 Kernel.VMState <> csr_cert_addr proj
+R14969:14975 Kernel.VMState <> vm_csrs proj
+R14961:14966 KamiHW.CanonicalCPUProof <> s_init:127 var
+R15060:15067 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15009:15039 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R15053:15059 KamiHW.CanonicalCPUProof <> P_prior:130 var
+R15041:15051 KamiHW.CanonicalCPUProof <> P_posterior:131 var
+R15125:15132 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15068:15090 Kernel.NoFreeInsight NoFreeInsight Certified def
+R15120:15124 KamiHW.CanonicalCPUProof <> trace:126 var
+R15108:15118 KamiHW.CanonicalCPUProof <> P_posterior:131 var
+R15100:15106 KamiHW.CanonicalCPUProof <> decoder:129 var
+R15092:15098 KamiHW.CanonicalCPUProof <> s_final:128 var
+R15133:15168 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
+R15170:15173 KamiHW.CanonicalCPUProof <> fuel:125 var
+R15175:15179 KamiHW.CanonicalCPUProof <> trace:126 var
+R15181:15186 KamiHW.CanonicalCPUProof <> s_init:127 var
+R15352:15407 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> honest_information_reduction_requires_structure_addition thm
+R15352:15407 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> honest_information_reduction_requires_structure_addition thm
+prf 15722:15766 <> canonical_honest_nofi_trace_separation_anchor
+binder 15779:15782 <> fuel:134
+binder 15784:15788 <> trace:135
+binder 15790:15794 <> omega:136
+R15801:15801 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15857:15865 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 15809:15809 <> s:137
+R15822:15825 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15812:15813 Coq.Lists.List <> In def
+R15817:15821 KamiHW.CanonicalCPUProof <> omega:136 var
+R15815:15815 KamiHW.CanonicalCPUProof <> s:137 var
+R15853:15855 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15839:15851 Kernel.VMState <> csr_cert_addr proj
+R15829:15835 Kernel.VMState <> vm_csrs proj
+R15826:15826 KamiHW.CanonicalCPUProof <> s:137 var
+R15866:15866 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15943:15951 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 15874:15874 <> s:138
+R15887:15890 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15877:15878 Coq.Lists.List <> In def
+R15882:15886 KamiHW.CanonicalCPUProof <> omega:136 var
+R15880:15880 KamiHW.CanonicalCPUProof <> s:138 var
+R15938:15941 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R15924:15936 Kernel.VMState <> csr_cert_addr proj
+R15914:15920 Kernel.VMState <> vm_csrs proj
+R15892:15897 Kernel.SimulationProof <> run_vm def
+R15899:15902 KamiHW.CanonicalCPUProof <> fuel:134 var
+R15904:15908 KamiHW.CanonicalCPUProof <> trace:135 var
+R15910:15910 KamiHW.CanonicalCPUProof <> s:138 var
+R16028:16035 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15952:15956 Coq.Lists.List <> NoDup ind
+R15959:15961 Coq.Lists.List <> map def
+R16022:16026 KamiHW.CanonicalCPUProof <> omega:136 var
+binder 15968:15968 <> s:139
+R16006:16018 Kernel.VMState <> csr_cert_addr proj
+R15996:16002 Kernel.VMState <> vm_csrs proj
+R15974:15979 Kernel.SimulationProof <> run_vm def
+R15981:15984 KamiHW.CanonicalCPUProof <> fuel:134 var
+R15986:15990 KamiHW.CanonicalCPUProof <> trace:135 var
+R15992:15992 KamiHW.CanonicalCPUProof <> s:139 var
+R16053:16056 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R16036:16046 Coq.Lists.List <> length abbrev
+R16048:16052 KamiHW.CanonicalCPUProof <> omega:136 var
+R16057:16101 Kernel.MuShannonQuantitative <> count_cert_addr_setters def
+R16103:16107 KamiHW.CanonicalCPUProof <> trace:135 var
+R16175:16209 Kernel.HonestNoFI <> honest_nfi_trace_separation_partial thm
+R16175:16209 Kernel.HonestNoFI <> honest_nfi_trace_separation_partial thm
+prf 16437:16491 <> canonical_honest_nofi_general_feasible_reduction_anchor
+binder 16504:16507 <> fuel:140
+binder 16509:16513 <> trace:141
+binder 16515:16515 <> s:142
+binder 16517:16527 <> omega_prior:143
+binder 16529:16543 <> omega_posterior:144
+binder 16545:16548 <> tree:145
+R16620:16627 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16555:16601 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R16603:16606 KamiHW.CanonicalCPUProof <> fuel:140 var
+R16608:16612 KamiHW.CanonicalCPUProof <> trace:141 var
+R16614:16614 KamiHW.CanonicalCPUProof <> s:142 var
+R16616:16619 KamiHW.CanonicalCPUProof <> tree:145 var
+R16683:16690 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16674:16676 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R16629:16657 Kernel.MuShannonBridge <> feasible_size def
+R16659:16673 KamiHW.CanonicalCPUProof <> omega_posterior:144 var
+R16770:16777 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16691:16736 Kernel.MuShannonBridge <> tree_covers_feasible_reduction def
+R16738:16741 KamiHW.CanonicalCPUProof <> tree:145 var
+R16743:16753 KamiHW.CanonicalCPUProof <> omega_prior:143 var
+R16755:16769 KamiHW.CanonicalCPUProof <> omega_posterior:144 var
+R16901:16908 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R16833:16841 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R16778:16788 Coq.Arith.PeanoNat Nat log2_up def
+R16791:16819 Kernel.MuShannonBridge <> feasible_size def
+R16821:16831 KamiHW.CanonicalCPUProof <> omega_prior:143 var
+R16842:16852 Coq.Arith.PeanoNat Nat log2_up def
+R16855:16883 Kernel.MuShannonBridge <> feasible_size def
+R16885:16899 KamiHW.CanonicalCPUProof <> omega_posterior:144 var
+R16938:16940 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R16932:16936 Kernel.VMState <> vm_mu proj
+R16910:16915 Kernel.SimulationProof <> run_vm def
+R16917:16920 KamiHW.CanonicalCPUProof <> fuel:140 var
+R16922:16926 KamiHW.CanonicalCPUProof <> trace:141 var
+R16928:16928 KamiHW.CanonicalCPUProof <> s:142 var
+R16944:16948 Kernel.VMState <> vm_mu proj
+R16941:16941 KamiHW.CanonicalCPUProof <> s:142 var
+R17043:17087 Kernel.HonestNoFI <> honest_nfi_general_feasible_reduction_partial thm
+R17043:17087 Kernel.HonestNoFI <> honest_nfi_general_feasible_reduction_partial thm
+prf 17355:17409 <> canonical_honest_nofi_fibered_feasible_reduction_anchor
+binder 17422:17425 <> fuel:146
+binder 17427:17431 <> trace:147
+binder 17433:17433 <> s:148
+binder 17435:17445 <> omega_prior:149
+binder 17447:17461 <> omega_posterior:150
+binder 17463:17466 <> tree:151
+R17538:17545 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17473:17519 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R17521:17524 KamiHW.CanonicalCPUProof <> fuel:146 var
+R17526:17530 KamiHW.CanonicalCPUProof <> trace:147 var
+R17532:17532 KamiHW.CanonicalCPUProof <> s:148 var
+R17534:17537 KamiHW.CanonicalCPUProof <> tree:151 var
+R17601:17608 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17592:17594 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R17547:17575 Kernel.MuShannonBridge <> feasible_size def
+R17577:17591 KamiHW.CanonicalCPUProof <> omega_posterior:150 var
+R17682:17689 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17609:17648 Kernel.MuShannonBridge <> FiberedFeasibleReduction def
+R17650:17653 KamiHW.CanonicalCPUProof <> tree:151 var
+R17655:17665 KamiHW.CanonicalCPUProof <> omega_prior:149 var
+R17667:17681 KamiHW.CanonicalCPUProof <> omega_posterior:150 var
+R17813:17820 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R17745:17753 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R17690:17700 Coq.Arith.PeanoNat Nat log2_up def
+R17703:17731 Kernel.MuShannonBridge <> feasible_size def
+R17733:17743 KamiHW.CanonicalCPUProof <> omega_prior:149 var
+R17754:17764 Coq.Arith.PeanoNat Nat log2_up def
+R17767:17795 Kernel.MuShannonBridge <> feasible_size def
+R17797:17811 KamiHW.CanonicalCPUProof <> omega_posterior:150 var
+R17850:17852 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R17844:17848 Kernel.VMState <> vm_mu proj
+R17822:17827 Kernel.SimulationProof <> run_vm def
+R17829:17832 KamiHW.CanonicalCPUProof <> fuel:146 var
+R17834:17838 KamiHW.CanonicalCPUProof <> trace:147 var
+R17840:17840 KamiHW.CanonicalCPUProof <> s:148 var
+R17856:17860 Kernel.VMState <> vm_mu proj
+R17853:17853 KamiHW.CanonicalCPUProof <> s:148 var
+R17953:17997 Kernel.HonestNoFI <> honest_nfi_fibered_feasible_reduction_partial thm
+R17953:17997 Kernel.HonestNoFI <> honest_nfi_fibered_feasible_reduction_partial thm
+prf 18265:18327 <> canonical_honest_nofi_posterior_representative_reduction_anchor
+binder 18340:18343 <> fuel:152
+binder 18345:18349 <> trace:153
+binder 18351:18351 <> s:154
+binder 18353:18363 <> omega_prior:155
+binder 18365:18379 <> omega_posterior:156
+binder 18381:18384 <> tree:157
+R18405:18439 Kernel.MuShannonBridge <> ObservationFunction def
+binder 18396:18401 <> obs_fn:158
+R18512:18519 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18447:18493 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R18495:18498 KamiHW.CanonicalCPUProof <> fuel:152 var
+R18500:18504 KamiHW.CanonicalCPUProof <> trace:153 var
+R18506:18506 KamiHW.CanonicalCPUProof <> s:154 var
+R18508:18511 KamiHW.CanonicalCPUProof <> tree:157 var
+R18575:18582 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18566:18568 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R18521:18549 Kernel.MuShannonBridge <> feasible_size def
+R18551:18565 KamiHW.CanonicalCPUProof <> omega_posterior:156 var
+R18671:18678 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18583:18630 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
+R18632:18637 KamiHW.CanonicalCPUProof <> obs_fn:158 var
+R18639:18642 KamiHW.CanonicalCPUProof <> tree:157 var
+R18644:18654 KamiHW.CanonicalCPUProof <> omega_prior:155 var
+R18656:18670 KamiHW.CanonicalCPUProof <> omega_posterior:156 var
+R18802:18809 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R18734:18742 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R18679:18689 Coq.Arith.PeanoNat Nat log2_up def
+R18692:18720 Kernel.MuShannonBridge <> feasible_size def
+R18722:18732 KamiHW.CanonicalCPUProof <> omega_prior:155 var
+R18743:18753 Coq.Arith.PeanoNat Nat log2_up def
+R18756:18784 Kernel.MuShannonBridge <> feasible_size def
+R18786:18800 KamiHW.CanonicalCPUProof <> omega_posterior:156 var
+R18839:18841 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R18833:18837 Kernel.VMState <> vm_mu proj
+R18811:18816 Kernel.SimulationProof <> run_vm def
+R18818:18821 KamiHW.CanonicalCPUProof <> fuel:152 var
+R18823:18827 KamiHW.CanonicalCPUProof <> trace:153 var
+R18829:18829 KamiHW.CanonicalCPUProof <> s:154 var
+R18845:18849 Kernel.VMState <> vm_mu proj
+R18842:18842 KamiHW.CanonicalCPUProof <> s:154 var
+R18950:19002 Kernel.HonestNoFI <> honest_nfi_posterior_representative_reduction_partial thm
+R18950:19002 Kernel.HonestNoFI <> honest_nfi_posterior_representative_reduction_partial thm
+prf 19277:19324 <> canonical_honest_nofi_conditional_shannon_anchor
+binder 19337:19340 <> fuel:159
+binder 19342:19346 <> trace:160
+binder 19348:19348 <> s:161
+binder 19350:19350 <> n:162
+R19432:19439 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19357:19362 Coq.Lists.List <> Forall ind
+R19427:19431 KamiHW.CanonicalCPUProof <> trace:160 var
+binder 19369:19369 <> i:163
+R19398:19401 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19391:19393 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19374:19388 Kernel.VMStep VMStep is_cert_setterb def
+R19390:19390 KamiHW.CanonicalCPUProof <> i:163 var
+R19394:19397 Coq.Init.Datatypes <> true constr
+R19420:19423 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R19402:19417 Kernel.VMStep VMStep instruction_cost def
+R19419:19419 KamiHW.CanonicalCPUProof <> i:163 var
+R19517:19524 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19503:19506 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R19440:19489 Kernel.MuShannonQuantitative <> cert_setter_executions_local def
+R19491:19494 KamiHW.CanonicalCPUProof <> fuel:159 var
+R19496:19500 KamiHW.CanonicalCPUProof <> trace:160 var
+R19502:19502 KamiHW.CanonicalCPUProof <> s:161 var
+R19507:19514 Coq.Arith.PeanoNat Nat log2 def
+R19516:19516 KamiHW.CanonicalCPUProof <> n:162 var
+R19566:19569 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R19554:19556 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R19548:19552 Kernel.VMState <> vm_mu proj
+R19526:19531 Kernel.SimulationProof <> run_vm def
+R19533:19536 KamiHW.CanonicalCPUProof <> fuel:159 var
+R19538:19542 KamiHW.CanonicalCPUProof <> trace:160 var
+R19544:19544 KamiHW.CanonicalCPUProof <> s:161 var
+R19560:19564 Kernel.VMState <> vm_mu proj
+R19557:19557 KamiHW.CanonicalCPUProof <> s:161 var
+R19570:19577 Coq.Arith.PeanoNat Nat log2 def
+R19579:19579 KamiHW.CanonicalCPUProof <> n:162 var
+R19637:19674 Kernel.HonestNoFI <> honest_nfi_conditional_shannon_partial thm
+R19637:19674 Kernel.HonestNoFI <> honest_nfi_conditional_shannon_partial thm
+prf 19900:19952 <> canonical_honest_nofi_quantitative_state_space_anchor
+R19973:19979 Kernel.VMState <> VMState rec
+binder 19966:19966 <> s:164
+binder 19968:19969 <> s':165
+R19995:19997 Coq.Init.Datatypes <> nat ind
+binder 19983:19986 <> freg:166
+binder 19988:19991 <> creg:167
+R20008:20011 Coq.Init.Datatypes <> bool ind
+binder 20001:20004 <> kind:168
+R20027:20029 Coq.Init.Datatypes <> nat ind
+binder 20015:20018 <> flen:169
+binder 20020:20023 <> cost:170
+R20090:20097 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20037:20043 Kernel.VMStep VMStep vm_step ind
+R20045:20045 KamiHW.CanonicalCPUProof <> s:164 var
+R20048:20060 Kernel.VMStep VMStep instr_lassert constr
+R20062:20065 KamiHW.CanonicalCPUProof <> freg:166 var
+R20067:20070 KamiHW.CanonicalCPUProof <> creg:167 var
+R20072:20075 KamiHW.CanonicalCPUProof <> kind:168 var
+R20077:20080 KamiHW.CanonicalCPUProof <> flen:169 var
+R20082:20085 KamiHW.CanonicalCPUProof <> cost:170 var
+R20088:20089 KamiHW.CanonicalCPUProof <> s':165 var
+R20111:20113 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R20107:20110 KamiHW.CanonicalCPUProof <> flen:169 var
+binder 20102:20102 <> k:171
+R20150:20157 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20145:20148 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20133:20135 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R20127:20131 Kernel.VMState <> vm_mu proj
+R20123:20124 KamiHW.CanonicalCPUProof <> s':165 var
+R20139:20143 Kernel.VMState <> vm_mu proj
+R20136:20136 KamiHW.CanonicalCPUProof <> s:164 var
+R20149:20149 KamiHW.CanonicalCPUProof <> k:171 var
+R20159:20162 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20158:20158 KamiHW.CanonicalCPUProof <> k:171 var
+R20163:20189 Kernel.StateSpaceCounting StateSpaceCounting log2_nat def
+R20192:20198 Coq.Arith.PeanoNat Nat pow def
+R20202:20202 KamiHW.CanonicalCPUProof <> k:171 var
+R20268:20310 Kernel.HonestNoFI <> honest_nfi_quantitative_state_space_partial thm
+R20268:20310 Kernel.HonestNoFI <> honest_nfi_quantitative_state_space_partial thm

@@ -1,0 +1,71 @@
+{
+  "recorded_utc": "2026-09-12T19:50:50.749779+00:00",
+  "coq_build": "passed",
+  "contract_probe": {
+    "status": "passed",
+    "main_results": 27
+  },
+  "rtl_isa_tests": {
+    "passed": 127,
+    "failed": 0,
+    "suites": [
+      "test_rtl_morph_opcodes",
+      "test_isa_v2_migration_gate",
+      "test_rtl_structural_coverage"
+    ]
+  },
+  "provenance_extraction_tests": {
+    "passed": 13,
+    "failed": 0
+  },
+  "monograph": {
+    "status": "passed",
+    "pages": 164
+  },
+  "source_diff_check": "passed for edited Coq, Python, testbench, and monograph sources",
+  "synthesis_place_and_route": "not run",
+  "commit_push": "not performed",
+  "artifacts": {
+    "coq/kami_hw/ThieleCPUCore.v": "185c23f622fbeda4cb0a582079fe34f44ddfbca93f5f489bf280a587b588a6b3",
+    "coq/kami_hw/GraphReconstructionBridge.v": "0a97c8d3123ed82d20f1d46eb0e5219064812790202569da8fe34a408ff213d8",
+    "coq/kernel/foundation/VMBoundedDecidability.v": "2dd963a8e8aff07cc64944f05c6e4d0b065e7f12662ba51955e46a9206977c99",
+    "thielecpu/hardware/rtl/thiele_cpu_kami.v": "3dce8a80735f3f5d57222af4321e0d51978a00226e38912c516ab64678e9948d",
+    "monograph/monograph.tex": "b00cf38e5fb8f309ea3157fb25528c84e960aa1114795a2fcd928dc268f324ff",
+    "monograph/monograph.pdf": "8cb2de8f966aa6b10a88356dc589e63eb0e11aea06c5fc97d8707daf366c956a",
+    "tests/test_rtl_morph_opcodes.py": "d54bb6d95c2f0f4c445f9d7e42914ad0e44bff62b5b17733fef610b900e1ebaa",
+    "build/kami_hw/Target.ml": "917d135a8c062dfbb8f9cf1b5db6780501dbb56d3e9a78f3873ca47f254f1def",
+    "build/kami_hw/Target.mli": "fbf81b0196caa5bacb877f125869489802712a22e0d12a54be89f936010f4026",
+    "build/kami_hw/thiele_hw.bsv": "3b2baabd300055c4173475557a466a0220e79195819d2563881a651da1edc018",
+    "coq/kernel/foundation/VMEncodedInputAccess.v": "b89129a922896d5cee9a7f55e5a5e15470eb97611a06b4d393a7e51f08263d11",
+    "coq/kernel/foundation/VMUnboundedCounterAccess.v": "b3af43d3844d5ad08563207d86e4edeb6e5267b1b81f4c7a2294005d8d25753b",
+    "coq/kernel/foundation/VMUnboundedExec.v": "7f7d65c8531bdb77d9569f31f19db07e1cff70dbef2e1c446ba5836b22232cbc"
+  },
+  "pnew_regression": {
+    "before_fix": {
+      "failed": 2,
+      "passed": 2
+    },
+    "after_fix": {
+      "failed": 0,
+      "passed": 4
+    }
+  },
+  "canonical_extraction_bsv_identity": "passed: canonical Target prints byte-identical thiele_hw.bsv",
+  "counter_contract_probe": {
+    "status": "passed",
+    "lemmas": 3,
+    "global_assumptions": "closed"
+  },
+  "normalization_regression": {
+    "before_fix": {
+      "failed": 3,
+      "passed": 0
+    },
+    "after_fix": {
+      "failed": 0,
+      "passed": 3
+    }
+  },
+  "unbounded_interpreter": "not implemented; current encoding obstruction and counter-access lemmas proved",
+  "physical_retirement_refinement": "open"
+}
