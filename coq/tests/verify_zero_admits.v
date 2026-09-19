@@ -143,15 +143,12 @@ Print Assumptions master_psd_iff_column_contractive.
 (* Summary export: coherent trace bridge forces PSD of the extracted NPA matrix *)
 Print Assumptions master_trace_quantum_bridge_forces_psd.
 
-(** Q_{1+AB} extension audit (Section 9 of QuantumPartitionPSD_1AB.v).
-
-    These check that the new 9×9 NPA Q_{1+AB} bridge theorems —
-    extending the Q_1 (5×5) characterization to the next NPA level
-    via the bipartite operator set {I, A_i, B_j, A_i B_j} — close
-    under the same standard-library assumption surface as the rest
-    of the kernel. The final composed theorem is conditional on
-    Ishizaka 2025 (arXiv:2502.10746); the conditional surfaces as
-    a Coq hypothesis, not as an axiom. *)
+(** Q_{1+AB} matrix certificates for specified correlators and higher
+    moments. The integer checks imply PSD of the constructed 9x9 matrix.
+    Their soundness does not assert completeness for quantum behaviors or
+    construct a Hilbert-space realization. The zero-higher-moment check
+    restricts the correlators to a unit ball and rejects the all-ones
+    deterministic strategy as well as the PR box. *)
 
 (* Theorem: 9×9 NPA Q_{1+AB} moment matrix is symmetric by construction. *)
 Print Assumptions q1ab_moment_matrix_symmetric.

@@ -316,8 +316,8 @@ Proof.
     unfold advance_state. simpl. reflexivity.
   - (* pmerge *)
     unfold advance_state. simpl. reflexivity.
-  - (* lassert *)
-    simpl. reflexivity.
+  - (* lassert: a failing check sets only the CSR error flag *)
+    simpl. destruct (lassert_exec_ok _ _ _ _ _); reflexivity.
   - (* ljoin *)
     unfold advance_state. simpl. reflexivity.
   - (* mdlacc *)

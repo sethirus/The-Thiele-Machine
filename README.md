@@ -40,10 +40,10 @@ python3 minimal/nofi_demo.py   # exhaustive sweeps + measured algorithms against
 python3 -c "import json; d=json.load(open('artifacts/print_assumptions_all_proofs.json')); print(d['summary'])"
 ```
 
-The second command prints the committed assumption receipt: 4,026 theorems
+The second command prints the committed assumption receipt: 4,028 theorems
 probed, zero *project-local* axiom findings. The badge says project-local, and
 that is the precise claim: it is not "zero axioms". 2,979 of those theorems are
-closed under the global context outright; the remaining **1,047 lean on four Coq
+closed under the global context outright; the remaining **1,049 lean on four Coq
 standard-library axioms**: `ClassicalDedekindReals.sig_not_dec`,
 `ClassicalDedekindReals.sig_forall_dec`, dependent functional extensionality,
 and `Classical_Prop.classic`.
@@ -71,7 +71,7 @@ efficiency, linear scan pays fifty times over for the same answer, and nothing
 beats it. The number comes out identical whoever runs it. That's the point of
 handing you a thing that runs instead of a thing to believe.
 
-The full kernel is the same results with the training wheels off. MuCore's
+The full kernel includes these arguments, additional structural results, and the execution model. MuCore's
 header maps each minimal theorem to its full-kernel counterpart, and the
 [Formal Spine](#formal-spine) table maps every load-bearing claim to its file.
 
@@ -175,7 +175,7 @@ Closed under the global context
 
 The broader audit receipt
 [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json)
-records 4,026 addressable theorems probed and no user/project-local axiom
+records 4,028 addressable theorems probed and no user/project-local axiom
 findings in the committed assumption scan.
 
 ## Beyond the minimal witness
@@ -205,7 +205,7 @@ required.
 | Structural advantage | The factored-SAT lower bound is proved for the non-adaptive model; the thermodynamic parsing gap is proved separately. | [NonAdaptiveLowerBound.v](coq/kernel/nfi/NonAdaptiveLowerBound.v), [ThermodynamicStructuralAdvantage.v](coq/kernel/nfi/ThermodynamicStructuralAdvantage.v) | A non-adaptive solver deciding the factored instance while probing fewer than `2^n` assignments; `non_adaptive_sat_lower_bound` falls. |
 | Algebraic Tsirelson | The CHSH bound follows from rational polynomial constraints by Coq arithmetic. | [AlgebraicCoherence.v](coq/kernel/category/AlgebraicCoherence.v), [QuantumPartitionPSD.v](coq/kernel/quantum/QuantumPartitionPSD.v) | An `algebraically_coherent` correlator with `S² > 8`; `algebraically_coherent_tsirelson_general` falls. |
 | Physics closure | Locality, `mu` monotonicity (mu never decreases under any step), causality, and discrete curvature identities are formalized as VM-level consequences or named bridges. The flat/vacuum EFE closure (`full_efe_uniform_two_vertex`) is a discrete-geometry identity (both sides vanish), not a derivation of general relativity. | [PhysicsClosure.v](coq/kernel/curvature/PhysicsClosure.v), [EinsteinEmergence.v](coq/kernel/curvature/EinsteinEmergence.v), [PhysicsConditionalClosure.v](coq/PhysicsConditionalClosure.v) | A state `s` and instruction `i` with `(vm_apply s i)` paying less than `instruction_cost i` in `mu`, or a step writing outside its target module; `vm_apply_mu` (or the locality lemma) falls. |
-| Hardware bisimulation | The load-bearing theorem is [`driven_step_wf`](coq/kami_hw/GraphReconstructionBridge.v#L3872): for every instruction, the abstracted Kami hardware step equals `vm_apply` under `WFDrivenPrecondition`: `abs_full_snapshot (kami_step ks i) = vm_apply (abs_full_snapshot ks) i`, discharged by per-opcode lemmas. CHSH_LASSERT's Kami snapshot semantics inspect the same witness buckets through the same check function, matching VM-step exactly via `abs_phase1`. (The bookkeeping identity `37 + 10 + 0 = 47` is recorded separately as `rtl_coverage_partition`; it is Peano arithmetic and proves nothing about opcodes, so cite `driven_step_wf`, not the partition.) | [GraphReconstructionBridge.v](coq/kami_hw/GraphReconstructionBridge.v#L3872), [coq/kami_hw](coq/kami_hw) | A cosim input on which synthesised RTL diverges from the Kami step for any synth-realised opcode (run `tests/test_verilog_cosim.py`); `rtl_step_correct` is violated empirically. |
+| Intermediate hardware-model correspondence | The load-bearing theorem is [`driven_step_wf`](coq/kami_hw/GraphReconstructionBridge.v#L3872): for every instruction, the abstracted Kami hardware step equals `vm_apply` under `WFDrivenPrecondition`: `abs_full_snapshot (kami_step ks i) = vm_apply (abs_full_snapshot ks) i`, discharged by per-opcode lemmas. CHSH_LASSERT's Kami snapshot semantics inspect the same witness buckets through the same check function, matching VM-step exactly via `abs_phase1`. (The bookkeeping identity `37 + 10 + 0 = 47` is recorded separately as `rtl_coverage_partition`; it is Peano arithmetic and proves nothing about opcodes, so cite `driven_step_wf`, not the partition.) | [GraphReconstructionBridge.v](coq/kami_hw/GraphReconstructionBridge.v#L3872), [coq/kami_hw](coq/kami_hw) | A cosim input on which synthesised RTL diverges from the Kami step for any synth-realised opcode (run `tests/test_verilog_cosim.py`); `rtl_step_correct` is violated empirically. |
 | CHSH ↔ NPA-PSD bridge | A successful `CHSH_LASSERT` step entails the witness-derived NPA moment matrix is PSD. | [chsh_lassert_no_trap_implies_quantum_realizable](coq/kernel/quantum/QuantumPartitionPSD.v), [column_contractive_check_witness_sound](coq/kernel/nfi/MuLedgerQuantumBridge.v) | A successful `CHSH_LASSERT` step whose witness-derived moment matrix is not PSD; `chsh_lassert_no_trap_implies_quantum_realizable` falls. |
 | Elliptope completion | The completion-based PSD correlator model (physical quantum identification uses external mathematics): every LHV correlator inside (deterministic + n-ary mixtures), Tsirelson `S² ≤ 8` for the whole set, PR box excluded, classical ⊂ elliptope strict. | [ElliptopeCompletion.v](coq/kernel/quantum/ElliptopeCompletion.v) | An elliptope-realizable tuple with `S² > 8` (`elliptope_tsirelson` falls), a sign pattern whose completed Gram form goes negative (`deterministic_strategy_elliptope` falls), or a PSD completion of the PR box (`pr_box_not_elliptope` falls). |
 | Elliptope gate | Decidable Z-arithmetic membership check, two branches (fraction-free Sylvester for strict interior, rational LDL^T certificate reaching singular and boundary completions); passing provably entails elliptope membership; the µ=0 tightness witness, (1,0,1,0), and the on-Tsirelson-curve Pythagorean point (3/5,4/5,4/5,−3/5) accepted by computation; the PR box never accepted. | [ElliptopeGate.v](coq/kernel/quantum/ElliptopeGate.v) | Inputs making `elliptope_check_full` return true with correlators outside the set; `elliptope_check_full_sound` falls. |
@@ -320,33 +320,41 @@ certificate.
 
 ### Full proof build (the `coq-gate`)
 
-`make verify` and `pytest` do not touch the Kami hardware-bridge proofs. The
-full Coq corpus (`make coq-gate`) compiles `coq/kami_hw/*`, which depends on the
-vendored **Kami** and **bbv** Coq libraries. A clean checkout does not build
-those automatically, do it once, in order, or the build hits a Kami/`bbv` wall:
+The project uses native tools and repository sources. Docker, container images,
+and a container daemon are not part of the build or review workflow.
+
+For a complete source-only rebuild with dependency checking:
 
 ```bash
-# 1. fetch the vendored Coq libraries
-git submodule update --init vendor/bbv vendor/kami
+python3 scripts/reproduce_coq.py --jobs 1
+```
 
-# 2. build AND install bbv. Kami finds bbv through Coq's user-contrib, not a
-#    local -Q path, so the install step is required, not optional.
+This copies only source/configuration into a fresh directory under
+`artifacts/reproduction/`, builds the vendored bbv and Kami libraries plus the
+project (including the pinned MM2 dependency), runs the review probes, and
+checks the selected compiled libraries with `coqchk`. It records input hashes,
+native tool versions, commands, individual exit codes and raw logs. It does not
+install libraries globally or download anything. The native prerequisites above
+must already be available; this is a source-contained project, not a bundled OS
+or compiler distribution. See [native reproduction](artifacts/review_revision/NATIVE_REPRODUCTION.md).
+
+For incremental development in the checkout:
+
+```bash
+export COQPATH="$PWD/vendor/bbv/src:$PWD/vendor/kami"
 make -C vendor/bbv
-make -C vendor/bbv install
-
-# 3. patch Kami for Coq 8.18 (left-recursive notation levels in Multiplier32/64)
-bash scripts/fix_kami_coq18.sh
-
-# 4. build Kami
 make -C vendor/kami
-
-# 5. compile the full proof tree (zero Admitted, all proofs Qed)
 make coq-gate
 ```
 
-CI runs exactly this sequence in
-[.github/workflows/ci-full.yml](.github/workflows/ci-full.yml); the `coq/Makefile`
-the gate invokes is committed, so steps 1–4 are the only one-time setup.
+`COQPATH` selects the repository libraries, so no global `make install` is
+needed. `make verify` and `pytest` alone do not compile the full Coq corpus.
+
+The actual CPU proof surface includes executable semantics for all 12 Kami rules, finite selected execution traces, reset facts and preservation of register names and kinds (`CoreRules`, `CoreExecution`, `CoreTyping`, `DispatchReset`). Full value/resource invariants, abstract retirement correspondence and compiler semantic preservation remain separate obligations. [Realization assurance](artifacts/review_revision/REALIZATION_ASSURANCE.md) identifies each boundary; [review status](artifacts/review_revision/STATUS.md) records completion.
+
+The unbounded VM has a checked 122-instruction self-interpreter for twelve arithmetic and control instructions over four guest registers. Program and input vary as executable data. Its contracts cover positive host simulation, both directions of result correctness, malformed code and divergence; guest structural fields remain unchanged. [B3 review](artifacts/review_revision/SELF_INTERPRETER_REVIEW.md) records the exact fragment and observations.
+
+For that model, the checked Rice reduction proves undecidability for extensional predicates separating the divergent program from a well-formed program, including halting on zero and returning zero. Guest-program deciders are covered. This closes B4 under its alternative-construction clause; it supplies no internal recursion theorem and does not discharge the conditional bounded VM diagonal. [B4 review](artifacts/review_revision/RICE_REVIEW.md) records the assumptions and checked results.
 
 ## Run A Program
 
@@ -398,11 +406,11 @@ Two independent receipts track proof assumptions.
 
 The master theorem ledger is
 [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v). The current committed
-assumption receipt reports 4,026 addressable theorems probed and no
-user/project-local axiom findings. The split: 2,979 close under the global
-context outright, and the remaining 1,047 lean only on Coq-stdlib axiom
-families: `functional_extensionality_dep` (969), the classical-reals pair
-`sig_forall_dec` (1,008) and `sig_not_dec` (276), and `classic` (67). Those
+assumption receipt reports 12,336 addressable theorems probed and no
+user/project-local axiom findings. The split: 5,520 close under the global
+context outright, and the remaining 6,816 lean only on Coq-stdlib axiom
+families: `functional_extensionality_dep` (6,526), the classical-reals pair
+`sig_forall_dec` (1,010) and `sig_not_dec` (277), and `classic` (67). Those
 families enter through the real-number and physics layers; the minimal core
 uses none of them. "Zero axioms" here means zero project-local axioms, the
 same convention the monograph uses, and the receipt is what enforces it.
@@ -423,7 +431,7 @@ make proof-undeniable
 
 ## ISA Summary
 
-The VM exposes 51 opcodes total: 47 are synth-realized (bisimulation-proven against the Kami model and carried through to the FPGA bitstream) and 4 are Q_{1+AB} cert-opcodes that live in the Kami HW abstraction with kernel-equivalence proven but are excluded from the synthesized Verilog by silicon budget. They contribute the OCaml/RTL parity tests' tolerated slack of 4 (theorem `rtl_coverage_partition`: 37 + 10 + 0 = 47). The 47 synth-realized opcodes fall into six families.
+The VM exposes 51 opcodes total: 47 are synth-realized (implemented in the generated RTL; full physical retirement refinement remains open) and 4 are Q_{1+AB} cert-opcodes that live in the Kami HW abstraction with kernel-equivalence proven but are excluded from the synthesized Verilog by silicon budget. They contribute the OCaml/RTL parity tests' tolerated slack of 4 (theorem `rtl_coverage_partition`: 37 + 10 + 0 = 47). The 47 synth-realized opcodes fall into six families.
 
 | Family | Examples | Cost behavior |
 |---|---|---|
@@ -447,7 +455,7 @@ Single-step semantics live in
 | [monograph/thiele_machine_math_spec.tex](monograph/thiele_machine_math_spec.tex) | Mathematical specification. |
 | [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v) | Audited theorem ledger. |
 | [coq/README.md](coq/README.md) | Map of the active Coq proof tree. |
-| [coq/PhysicsConditionalClosure.v](coq/PhysicsConditionalClosure.v) | Clean statement of unconditional physics results, named bridges, and open scope. |
+| [coq/PhysicsConditionalClosure.v](coq/PhysicsConditionalClosure.v) | VM accounting results and a conditional Tsirelson theorem from a full PSD completion. |
 | [TECHNICAL_DISCLOSURE.md](TECHNICAL_DISCLOSURE.md) | Prior-art disclosure for the public technical concepts. |
 | [PATENT_PLEDGE.md](PATENT_PLEDGE.md) | Non-assertion pledge for repository concepts. |
 

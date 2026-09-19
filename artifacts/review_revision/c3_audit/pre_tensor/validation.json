@@ -1,0 +1,160 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "name": "pipeline",
+      "command": [
+        "python3",
+        "scripts/generate_rtl_pipeline_manifest.py",
+        "--check"
+      ],
+      "cwd": "/workspaces/The-Thiele-Machine",
+      "exit_code": 0,
+      "seconds": 0.0860704170002009
+    },
+    {
+      "name": "transforms",
+      "command": [
+        "python3",
+        "scripts/audit_rtl_text_transforms.py",
+        "--check"
+      ],
+      "cwd": "/workspaces/The-Thiele-Machine",
+      "exit_code": 0,
+      "seconds": 0.4675102490000427
+    },
+    {
+      "name": "tests",
+      "command": [
+        "python3",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_rtl_pipeline_manifest.py",
+        "tests/test_rtl_text_transform_audit.py",
+        "tests/test_canonical_source_pipeline.py"
+      ],
+      "cwd": "/workspaces/The-Thiele-Machine",
+      "exit_code": 0,
+      "seconds": 7.68362026900013
+    }
+  ],
+  "classification_scope": "current pinned hardware artifacts; no synthesis or physical performance claim",
+  "artifacts": [
+    {
+      "path": "coq/kami_hw/CanonicalCPUProof.v",
+      "sha256": "e4064de9abb971989f2656f033da97a4f10a44f2f212483a95ad07f212b8ff87",
+      "size_bytes": 20355
+    },
+    {
+      "path": "coq/kami_hw/VerilogSemantics.v",
+      "sha256": "c3b12fecf663a6cb296d6cea3790a7e97ab69ed30cdb95896238bbe543ea3e2d",
+      "size_bytes": 9243
+    },
+    {
+      "path": "coq/kami_hw/KamiExtraction.v",
+      "sha256": "0afd5d0825f4b643310e0adced5a7d628fa5064a46ac992dd23c7f9473b7ee87",
+      "size_bytes": 722
+    },
+    {
+      "path": "coq/kami_hw/ThieleCPUCore.v",
+      "sha256": "399f3f5221fd518cad1e771ed65a58ba3cc149ad251ed99e2cef0d8c3f7db66c",
+      "size_bytes": 156602
+    },
+    {
+      "path": "coq/kami_hw/ThieleCPUBusTop.v",
+      "sha256": "cf31e3e2c0fa43abb2a6654fb747da3cc2acbfa4aac132c9b7b847e5cc8aa6e8",
+      "size_bytes": 15010
+    },
+    {
+      "path": "coq/kami_hw/ThieleTypes.v",
+      "sha256": "6b1a52f0fcab79b143d24140447f96f01fa37a3bd9cf75a12ce0e4f876298808",
+      "size_bytes": 12751
+    },
+    {
+      "path": "coq/kernel/hardware_bridge/VerilogRTLCorrespondence.v",
+      "sha256": "bf6f80cafa73908a9225cc1b2ca6b8611513b979b8b2977ab44c79f4e6cae2de",
+      "size_bytes": 12538
+    },
+    {
+      "path": "scripts/kami_extract.sh",
+      "sha256": "146236acc041f3344dd9bb93a533802d7d90e104eb60199ec9461bc7155c3fb0",
+      "size_bytes": 10253
+    },
+    {
+      "path": "scripts/bsv_regfile_transform.py",
+      "sha256": "30c36d829f2d1b2aba48fed024b07f76a4f3ff78e237d5c5299352f0681a8a8b",
+      "size_bytes": 13951
+    },
+    {
+      "path": "scripts/verilog_synth_transform.py",
+      "sha256": "16b70345864f44fe7aa866cb1c03fc2ed813b8dfa3cdc0acf99968e25dfa195a",
+      "size_bytes": 34722
+    },
+    {
+      "path": "vendor/kami/Kami/Ext/Ocaml/PP.ml",
+      "sha256": "2d54be8227456c530f2f7e23e832f83afd043edd8cf326c3cc5948a98fb37051",
+      "size_bytes": 41231
+    },
+    {
+      "path": "vendor/kami/Kami/Ext/Ocaml/Main.ml",
+      "sha256": "398f16ac2cde6195bf1cce09b3b0967b8bbeba1e78ba9b01a0d3367ce78407de",
+      "size_bytes": 1529
+    },
+    {
+      "path": "build/kami_hw/Target.ml",
+      "sha256": "73306bbaf835efee4bedc30e84a445c89996a3e3231aff9851aca792f35462aa",
+      "size_bytes": 3790038
+    },
+    {
+      "path": "build/kami_hw/Target.mli",
+      "sha256": "fbf81b0196caa5bacb877f125869489802712a22e0d12a54be89f936010f4026",
+      "size_bytes": 10504
+    },
+    {
+      "path": "build/kami_hw/PP.ml",
+      "sha256": "2d54be8227456c530f2f7e23e832f83afd043edd8cf326c3cc5948a98fb37051",
+      "size_bytes": 41231
+    },
+    {
+      "path": "build/kami_hw/Main.ml",
+      "sha256": "398f16ac2cde6195bf1cce09b3b0967b8bbeba1e78ba9b01a0d3367ce78407de",
+      "size_bytes": 1529
+    },
+    {
+      "path": "build/kami_hw/thiele_hw.bsv",
+      "sha256": "4bec129d4ad9b9b335c8c8b12af0910b9567a0dd8a827737aff488c4ca33c052",
+      "size_bytes": 88564
+    },
+    {
+      "path": "build/kami_hw/thiele_hw_clean.bsv",
+      "sha256": "a93303bd8b09136c36b9f99451052a6fbc91fdc57eb2a35f2315bada0626c37b",
+      "size_bytes": 88248
+    },
+    {
+      "path": "build/kami_hw/mkModule1.v",
+      "sha256": "da5133cfcf8bbfae423e93017bf1ca1072d180fe16bcdb99f5e58f6f72aba177",
+      "size_bytes": 568048
+    },
+    {
+      "path": "build/kami_hw/mkModule1_synth.v",
+      "sha256": "7dc0d223016696d5052c5ff8192f4d1e716e0ea3cc34dc380b39498ddd36a443",
+      "size_bytes": 579093
+    },
+    {
+      "path": "thielecpu/hardware/rtl/RegFile.v",
+      "sha256": "7de616d2aff8b2411994abadf3876aba8bd64e753741c73d2c0ea19fff0a7db8",
+      "size_bytes": 3103
+    },
+    {
+      "path": "thielecpu/hardware/rtl/thiele_cpu_kami.v",
+      "sha256": "7dc0d223016696d5052c5ff8192f4d1e716e0ea3cc34dc380b39498ddd36a443",
+      "size_bytes": 579093
+    }
+  ],
+  "evidence_sha256": {
+    "artifacts/rtl_pipeline_manifest.json": "cf3332eb3626a2f5f61e16fa8cc3b94e644dfc104cdcdd5fbaf41862896fc95a",
+    "artifacts/rtl_text_transform_audit.json": "5d96af60b7250e36b776f66490a027b47471b959782286e5dfd3c1c7ce263195",
+    "artifacts/review_revision/REALIZATION_ASSURANCE.md": "3da60c6b8d922389f1db0d62a78f006a370f5cc5d85844f0c7860b9cbeda9827"
+  }
+}

@@ -29,7 +29,8 @@ Definition DescKindFieldSz := 4.
 Definition InlineLenSz := 8.
 Definition OpcodeSz := 8.
 Definition CostSz := 8.
-Definition MuTensorIdxSz := 4.  (* log2(16) — 4×4 flattened μ-tensor *)
+Definition MuTensorIdxSz := 4.
+Definition ModTensorIdxSz := 4. (* log2(16) module slots addressable by a 4-bit tensor module field *)  (* log2(16) — 4×4 flattened μ-tensor *)
 
 (** ISA-v2 format identifiers. *)
 Definition FMT_LEGACY : word FormatIdSz :=

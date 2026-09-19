@@ -3,7 +3,7 @@
     I don't trust an informal argument, my own least of all, so here is the
     core of the project with nothing to take on faith. A machine state is the
     classical part you already know (memory, registers, a program counter)
-    plus two fields classical machines never carry: a cost ledger [mu] and a
+    plus two fields omitted by the selected shadow: a cost ledger [mu] and a
     bit that says [cert]ified. One law, A2: a single step that flips [cert]
     from false to true costs at least 1, and it pays in the same step, not in
     a checker you could skip. Everything below falls out of that, and every

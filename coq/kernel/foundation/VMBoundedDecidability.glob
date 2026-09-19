@@ -1,0 +1,129 @@
+DIGEST 2f9e78b609065687a06e13c8fff84e24
+FKernel.VMBoundedDecidability
+R440:443 Coq.Lists.List <> <> lib
+R445:448 Coq.Bool.Bool <> <> lib
+R478:484 Kernel.VMState <> <> lib
+R486:497 Kernel.MuInitiality <> <> lib
+R499:504 Kernel.VMStep <> <> lib
+R506:520 Kernel.SimulationProof <> <> lib
+R550:568 Kernel.VMSubstrateInstance <> <> lib
+R570:593 Kernel.StructuralUndecidability <> <> lib
+R595:612 Kernel.VMSubstrateEncoded <> <> lib
+def 627:641 <> vm_state_eq_dec
+R650:656 Kernel.VMState <> VMState rec
+binder 644:644 <> s:1
+binder 646:646 <> t:2
+R661:661 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R667:671 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R678:678 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R663:665 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R662:662 Kernel.VMBoundedDecidability <> s:1 var
+R666:666 Kernel.VMBoundedDecidability <> t:2 var
+R673:676 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R672:672 Kernel.VMBoundedDecidability <> s:1 var
+R677:677 Kernel.VMBoundedDecidability <> t:2 var
+def 733:749 <> vm_outcome_eq_dec
+R758:763 Coq.Init.Datatypes <> option ind
+R765:771 Kernel.VMState <> VMState rec
+binder 752:752 <> s:3
+binder 754:754 <> t:4
+R776:776 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R782:786 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R793:793 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R778:780 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R777:777 Kernel.VMBoundedDecidability <> s:3 var
+R781:781 Kernel.VMBoundedDecidability <> t:4 var
+R788:791 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R787:787 Kernel.VMBoundedDecidability <> s:3 var
+R792:792 Kernel.VMBoundedDecidability <> t:4 var
+R826:840 Kernel.VMBoundedDecidability <> vm_state_eq_dec def
+R826:840 Kernel.VMBoundedDecidability <> vm_state_eq_dec def
+def 864:877 <> vm_outcome_eqb
+R886:891 Coq.Init.Datatypes <> option ind
+R893:899 Kernel.VMState <> VMState rec
+binder 880:880 <> s:5
+binder 882:882 <> t:6
+R904:907 Coq.Init.Datatypes <> bool ind
+R917:933 Kernel.VMBoundedDecidability <> vm_outcome_eq_dec def
+R935:935 Kernel.VMBoundedDecidability <> s:5 var
+R937:937 Kernel.VMBoundedDecidability <> t:6 var
+R954:958 Coq.Init.Datatypes <> false constr
+R944:947 Coq.Init.Datatypes <> true constr
+prf 968:986 <> vm_outcome_eqb_spec
+binder 997:997 <> s:7
+binder 999:999 <> t:8
+R1027:1031 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1020:1022 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1002:1015 Kernel.VMBoundedDecidability <> vm_outcome_eqb def
+R1017:1017 Kernel.VMBoundedDecidability <> s:7 var
+R1019:1019 Kernel.VMBoundedDecidability <> t:8 var
+R1023:1026 Coq.Init.Datatypes <> true constr
+R1033:1035 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1032:1032 Kernel.VMBoundedDecidability <> s:7 var
+R1036:1036 Kernel.VMBoundedDecidability <> t:8 var
+R1067:1080 Kernel.VMBoundedDecidability <> vm_outcome_eqb def
+R1095:1111 Kernel.VMBoundedDecidability <> vm_outcome_eq_dec def
+R1095:1111 Kernel.VMBoundedDecidability <> vm_outcome_eq_dec def
+def 1164:1189 <> vm_bounded_shortcut_decide
+R1196:1199 Coq.Init.Datatypes <> list ind
+R1201:1214 Kernel.VMStep VMStep vm_instruction ind
+binder 1192:1192 <> p:9
+R1219:1222 Coq.Init.Datatypes <> bool ind
+R1229:1242 Kernel.VMBoundedDecidability <> vm_outcome_eqb def
+R1245:1250 Kernel.VMSubstrateInstance <> vm_run def
+R1252:1252 Kernel.VMBoundedDecidability <> p:9 var
+R1254:1263 Kernel.MuInitiality <> init_state def
+R1271:1276 Kernel.VMSubstrateInstance <> vm_run def
+R1278:1315 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R1317:1326 Kernel.MuInitiality <> init_state def
+prf 1339:1372 <> vm_bounded_shortcut_decide_correct
+binder 1383:1383 <> p:10
+R1423:1427 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1416:1418 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1388:1413 Kernel.VMBoundedDecidability <> vm_bounded_shortcut_decide def
+R1415:1415 Kernel.VMBoundedDecidability <> p:10 var
+R1419:1422 Coq.Init.Datatypes <> true constr
+R1428:1457 Kernel.StructuralUndecidability <> vm_admits_shortcut_extensional def
+R1459:1459 Kernel.VMBoundedDecidability <> p:10 var
+R1484:1502 Kernel.VMBoundedDecidability <> vm_outcome_eqb_spec thm
+R1484:1502 Kernel.VMBoundedDecidability <> vm_outcome_eqb_spec thm
+prf 1669:1709 <> vm_bounded_decider_flip_not_representable
+R1729:1729 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1772:1776 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1749:1752 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1730:1733 Coq.Init.Datatypes <> list ind
+R1735:1748 Kernel.VMStep VMStep vm_instruction ind
+R1753:1756 Coq.Init.Datatypes <> list ind
+R1758:1771 Kernel.VMStep VMStep vm_instruction ind
+binder 1723:1725 <> rep:11
+R1788:1788 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1855:1863 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 1796:1796 <> f:12
+R1804:1807 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1799:1801 Kernel.VMBoundedDecidability <> rep:11 var
+R1803:1803 Kernel.VMBoundedDecidability <> f:12 var
+R1808:1814 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1816:1817 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1815:1815 <> q:13
+binder 1825:1825 <> s:14
+R1838:1840 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1828:1833 Kernel.VMSubstrateInstance <> vm_run def
+R1835:1835 Kernel.VMBoundedDecidability <> q:13 var
+R1837:1837 Kernel.VMBoundedDecidability <> s:14 var
+R1841:1846 Kernel.VMSubstrateInstance <> vm_run def
+R1849:1849 Kernel.VMBoundedDecidability <> f:12 var
+R1851:1851 Kernel.VMBoundedDecidability <> q:13 var
+R1854:1854 Kernel.VMBoundedDecidability <> s:14 var
+R1864:1865 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1866:1868 Kernel.VMBoundedDecidability <> rep:11 var
+binder 1875:1875 <> p:15
+R1883:1908 Kernel.VMBoundedDecidability <> vm_bounded_shortcut_decide def
+R1910:1910 Kernel.VMBoundedDecidability <> p:15 var
+R1945:1982 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R1936:1938 Coq.Init.Datatypes <> nil constr
+R2027:2068 Kernel.VMSubstrateEncoded <> vm_structural_shortcut_undecidable_encoded thm
+R2027:2068 Kernel.VMSubstrateEncoded <> vm_structural_shortcut_undecidable_encoded thm
+R2090:2115 Kernel.VMBoundedDecidability <> vm_bounded_shortcut_decide def
+R2090:2115 Kernel.VMBoundedDecidability <> vm_bounded_shortcut_decide def
+R2152:2185 Kernel.VMBoundedDecidability <> vm_bounded_shortcut_decide_correct thm
+R2152:2185 Kernel.VMBoundedDecidability <> vm_bounded_shortcut_decide_correct thm

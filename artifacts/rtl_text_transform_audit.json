@@ -42,45 +42,45 @@
         "name": "mem"
       }
     ],
-    "sub_reads": 12,
+    "sub_reads": 17,
     "upd_writes": 5
   },
   "files": {
     "bsv_transform_script": {
-      "bytes": 13951,
+      "bytes": 13969,
       "lines": 436,
       "path": "scripts/bsv_regfile_transform.py",
-      "sha256": "30c36d829f2d1b2aba48fed024b07f76a4f3ff78e237d5c5299352f0681a8a8b"
+      "sha256": "2fed6ff15b957415ac52c4a3e496494f2ec7a5da47aa4c53a4f06e75b4e64897"
     },
     "clean_bsv": {
-      "bytes": 76536,
-      "lines": 1697,
+      "bytes": 88042,
+      "lines": 1998,
       "path": "build/kami_hw/thiele_hw_clean.bsv",
-      "sha256": "4c8f3172483d5d9a2b3034451796a753ecbad7231e11e9f85977b4af66f26af0"
+      "sha256": "b87f86001f551d9a5a3ebba1bcaf922795c389afacc80b226ff7301369739b4c"
     },
     "raw_bsv": {
-      "bytes": 76808,
-      "lines": 1708,
+      "bytes": 88380,
+      "lines": 2009,
       "path": "build/kami_hw/thiele_hw.bsv",
-      "sha256": "c0e6e093f88a3a9744b32067b6972bf7f43e25194456640fe2d14ab9fd7df92d"
+      "sha256": "292a492b42534e017b5c744aa12b0d85a0cf6ee036b0277212e75525d4cd9199"
     },
     "raw_verilog": {
-      "bytes": 475748,
-      "lines": 11590,
+      "bytes": 663696,
+      "lines": 16305,
       "path": "build/kami_hw/mkModule1.v",
-      "sha256": "40cdf4efdb01222c9cb7346f67ae9c16f8b8c69037646c2b8a15d9bb6519d676"
+      "sha256": "442755d9f08d7311004cde45e3e3d88501e37a532f0c22b55787a72147e4b4c3"
     },
     "synth_verilog": {
-      "bytes": 487483,
-      "lines": 11714,
+      "bytes": 674871,
+      "lines": 16429,
       "path": "build/kami_hw/mkModule1_synth.v",
-      "sha256": "2108e5032fa3a6d67f774ae37e31dd3eb836aa3d09cdd567cfe11c3b2e8dd9bf"
+      "sha256": "e7ef681322193f4a337dfdae8c5d86babf29d54c7b6573c3e05bdf0f7c912652"
     },
     "tracked_rtl": {
-      "bytes": 487483,
-      "lines": 11714,
+      "bytes": 674871,
+      "lines": 16429,
       "path": "thielecpu/hardware/rtl/thiele_cpu_kami.v",
-      "sha256": "2108e5032fa3a6d67f774ae37e31dd3eb836aa3d09cdd567cfe11c3b2e8dd9bf"
+      "sha256": "e7ef681322193f4a337dfdae8c5d86babf29d54c7b6573c3e05bdf0f7c912652"
     },
     "verilog_transform_script": {
       "bytes": 34722,
@@ -91,13 +91,16 @@
   },
   "invariants": {
     "bsv_expected_regfiles_present": true,
+    "bsv_module_tensors_remain_nested_register": true,
     "bsv_no_large_vector_mkreg_remains": true,
     "bsv_no_vec_constructor_remains": true,
     "bsv_preprocessed_then_regfile_transform_reproduces_clean_bsv": true,
     "bsv_wrapper_removed": true,
     "tracked_rtl_matches_synth_verilog": true,
     "verilog_bsc_regfile_submodules_preserved": true,
+    "verilog_csr_storage_present": true,
     "verilog_flat_storage_removed": true,
+    "verilog_module_tensors_remain_flat_register": true,
     "verilog_mu_tensor_array_present": true,
     "verilog_synth_transform_reproduces_synth_verilog": true,
     "verilog_top_module_preserved": true
@@ -117,7 +120,7 @@
     "storage_rewrites": {
       "dm_refs": 0,
       "imem_arr_refs": 0,
-      "mt_arr_refs": 114,
+      "mt_arr_refs": 98,
       "pt_tbl_refs": 0,
       "rf_refs": 0
     },

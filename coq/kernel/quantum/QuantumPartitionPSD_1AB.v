@@ -1,51 +1,13 @@
-(** QuantumPartitionPSD_1AB: extend the column-contractivity ↔ PSD bridge
-    from Q_1 (5×5) to Q_{1+AB} (9×9) for the bipartite CHSH scenario.
+(** Q_{1+AB} matrix certificates for specified correlators and higher
+    moments. The integer checks imply PSD of the constructed 9x9 matrix.
+    Their soundness does not assert completeness for quantum behaviors or
+    construct a Hilbert-space realization. The zero-higher-moment check
+    restricts the correlators to a unit ball and rejects the all-ones
+    deterministic strategy as well as the PR box. *)
 
-  STATE OF THIS FILE (honest accounting, no deferred axioms):
-    1. The 9×9 NPA Q_{1+AB} moment matrix is built parametrically over
-       the four CHSH correlators E_{ij} = ⟨A_i B_j⟩ AND the five higher
-       moments γ_1..γ_5 = ⟨A_1A_2B_1⟩, ⟨A_1A_2B_2⟩, ⟨A_1B_1B_2⟩,
-       ⟨A_2B_1B_2⟩, ⟨A_1A_2B_1B_2⟩.
-    2. The biconditional [column_contractive_q1ab ↔ PSD9] is proved
-       (Sections 4–5). This is the main mathematical content.
-    3. An integer-arithmetic check at γ = 0 is proved sound (Section 7):
-       passing the check ⟹ real-valued column_contractive_q1ab at γ = 0
-       ⟹ PSD9 of the 9×9 matrix with γ = 0.
-    4. Section 9 *diagnoses* what the γ = 0 check actually admits:
-       it forces ||E||² ≤ 1 (unit ball), hence |S| ≤ 2 by Cauchy-Schwarz.
-       This is *strictly stronger* than the classical bound — it excludes
-       even classical-vertex correlators like (1,1,1,−1). The check at
-       γ = 0 therefore certifies only a sub-cone of the classical set.
-    5. Section 10 isolates the load-bearing real-valued bridge
-       [column_contractive_q1ab → PSD9] under a name that makes its
-       scope explicit. The caller can use this with any externally-
-       supplied γ values whose column-contractivity is established by
-       other means.
-
-  WHAT IS NOT IN THIS FILE (explicitly open):
-    - A γ-parameterized integer check that admits the full Q_{1+AB}
-      cone. The naive translation of "∀ 6 reals, residual ≥ 0" to a
-      finite Z-arithmetic test requires either Sylvester's PSD criterion
-      on a 6×6 matrix (≈63 principal-minor conditions) or a custom
-      quantifier elimination. Tractable but not in this iteration.
-    - The Ishizaka 2025 step Q_{1+AB} = Q in the simplest Bell scenario
-      (arXiv:2502.10746). Formalizing the rank-loop argument requires
-      matrix-rank machinery, GNS-construction-from-moment-matrix, and
-      the level-1+AB rank closure — multi-week research-grade work.
-      No Coq hypothesis or axiom is introduced for this; the file
-      simply does not claim Q-realizability.
-    - The new opcode [instr_chsh_lassert_1ab] in the ISA. Adding it
-      ripples through ~13 kernel files (pattern matches), OCaml
-      extraction, and Kami RTL. The kernel bridge in Section 8 uses
-      the EXISTING [instr_chsh_lassert] opcode with an extra integer-
-      check hypothesis [sum_E_sq_check_witness = true] as an explicit
-      premise, which the caller must supply.
-*)
-
-(* INQUISITOR NOTE: proof-connectivity — extends PSD ↔ column_contractive
-   from Q_1 (5×5) to Q_{1+AB} (9×9), completing the bipartite CHSH
-   characterization at the next NPA level (Navascués-Pironio-Acín 2008;
-   Ishizaka 2025 for Q_{1+AB} = Q in CHSH). *)
+(* INQUISITOR NOTE: proof-connectivity waiver, extends the PSD-iff-contractive
+   bridge from the 5x5 Q_1 matrix to the 9x9 Q_{1+AB} matrix in the bipartite
+   CHSH scenario (Navascues-Pironio-Acin 2008). *)
 
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import SimulationProof.
@@ -1030,66 +992,11 @@ Proof.
   - lra.
 Qed.
 
-(** Conclusion of Section 9. The γ = 0 check captures correlators
-    strictly inside the classical-bound region (|S| ≤ 2), so it CANNOT
-    certify quantum-but-not-classical correlations. The PR-box
-    (E=(1,1,1,−1), |S|=4) is rejected, but so are honest classical
-    deterministic strategies achieving |S|=2 at vertices like (1,1,1,−1)
-    that lie outside the unit ball. The check at γ = 0 is therefore
-    sufficient only for the unit-ball sub-cone of L.
-
-    To certify the full Q_{1+AB} (and thence Q, via Ishizaka 2025), the
-    opcode must accept γ values from the caller. Section 10 below sketches
-    the structure of that extension; the *kernel-internal* parts (opcode
-    addition, integer check expansion, integer-to-real bridge) close
-    Qed-clean, but the final composition with Ishizaka 2025 (Q_{1+AB} = Q
-    in the simplest Bell scenario) is left explicitly open — formalizing
-    the rank-loop argument of arXiv:2502.10746 is multi-week research-
-    grade work, deferred per the constraints of this iteration.
-
-    The honest state of the file is:
-      Sections 1–8: closed (Q_{1+AB} ↔ PSD9 biconditional + γ = 0 bridge).
-      Section 9:    diagnostic on the γ = 0 limitation (this section).
-      Section 10:   structural extension hook for γ-parameterized checks
-                    (informative comment only; no new theorems beyond a
-                    re-statement of the PSD9 reverse direction).
-    ======================================================================== *)
-
-(** ========================================================================
-    Section 10. Structural hook for the γ-parameterized integer check.
-
-    A fully-quantum-set-certifying CHSH_LASSERT requires the caller to
-    supply integer-scaled γ values along with the witness counters, and
-    the check to verify PSD9 of the q1ab_moment_matrix at those (E, γ).
-    The mathematical machinery for the bridge "real-valued
-    column_contractive_q1ab → PSD9" is already in Section 5 of this file
-    ([column_contractive_q1ab_implies_psd9]). What is missing is:
-
-      (i) A Z-arithmetic check that, given the witness E values AND
-          integer-scaled γ values, verifies the universally-quantified
-          residual nonnegativity column_contractive_q1ab. The naive
-          translation is exponential in the number of test vectors
-          required; a finite, polynomially-checkable set of integer
-          conditions equivalent to the universal real condition would
-          be a quantifier-elimination on a six-variable PSD quadratic
-          form. The leading-principal-minors test of Sylvester gives only
-          positive-definiteness, not PSD; the PSD test requires all 2^6−1
-          principal minors. Encoding and proving this in Z arithmetic is
-          tractable but substantial.
-
-      (ii) A new opcode [instr_chsh_lassert_1ab] taking mu_delta + the
-           five γ integers + a common denominator; cost discipline
-           identical to [instr_chsh_lassert]. Adding this constructor
-           ripples through every pattern match on [vm_instruction]
-           (~13 files in the kernel + extraction + Kami RTL).
-
-      (iii) Composition with Ishizaka 2025 to go from PSD9 to Q.
-
-    Re-export. For clarity, we re-export the load-bearing bridge under
-    a name that makes its scope explicit: it goes from γ-parameterized
-    column-contractivity (the real-valued predicate proved by Section 5)
-    to PSD9 of the moment matrix. The caller bridges from any integer
-    check to this real-valued predicate. *)
+(** The gamma = 0 check above certifies only the unit-ball sub-cone: it
+    forces sum E_ij^2 <= 1, which rejects some classical vertices such as
+    (1,1,1,-1) along with the PR box. Certifying wider slices of Q_{1+AB}
+    needs caller-supplied gamma values with their own column-contractivity
+    argument, which the theorem below accepts as a hypothesis. *)
 (* INQUISITOR NOTE: alias for caller-facing API surface (renaming of
    column_contractive_q1ab_implies_psd9 to record intended use). *)
 Theorem q1ab_caller_supplied_gamma_real_check_implies_psd9 :
@@ -5155,26 +5062,10 @@ Proof.
            HN00 HN01 HN10 HN11 HDg1 HDg2 HDg3 HDg4 HDg5 Hchk).
 Qed.
 
-(** ============================================================================
-    Section 17.  Headline no-trap wrappers for the γ_5, γ_345, γ_12345 opcodes.
-
-    Each Q_{1+AB} cert-opcode in the γ_*-extended family gets a wrapper that
-    packages "no-trap step ⇒ quantum_realizable_q1ab at the bucket-derived
-    rationals" — paralleling the existing slice-A wrapper
-    [chsh_lassert_1ab_no_trap_implies_quantum_realizable_q1ab] (above).
-
-    In this codebase, [quantum_realizable_q1ab] is defined operationally as
-    [symmetric9 ∧ PSD9] of the 9×9 NPA Q_{1+AB} moment matrix.  The standard
-    NPA-hierarchy convergence result for CHSH (Ishizaka 2025) — that
-    Q_{1+AB} = Q in the CHSH scenario — is the published math fact that
-    justifies the operational naming; that equivalence is cited externally
-    rather than formalised in Coq, exactly as NPA's own convergence theorems
-    are cited in every NPA-hierarchy paper.
-
-    The four wrappers together close the substrate-level claim: for every
-    slice (γ = 0, γ_5, γ_345, γ_12345), a non-trapping execution of the
-    matching cert-opcode implies Q_{1+AB}-realisability at the witness-
-    derived rational correlators and γ values. ============================ *)
+(** Headline wrappers, one per slice (gamma = 0 above; gamma_5, gamma_345,
+    gamma_12345 below): a non-trapping step of the matching cert-opcode
+    implies [quantum_realizable_q1ab], defined as symmetric9 /\ PSD9 of the
+    9x9 moment matrix, at the witness- and bucket-derived rationals. *)
 
 (** Slice B (γ_5).  Direct application of [q1ab_g5_full_integer_check_sound],
     which already concludes PSD9 at [state_bucket_correlation]-based

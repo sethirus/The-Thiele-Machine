@@ -17,6 +17,7 @@
 -R nofi NoFI
 -R kami_hw KamiHW
 -R ../vendor/kami/Kami Kami
+-Q ../vendor/coq-undecidability/theories Undecidability
 -R spacetime Spacetime
 -R thielemachine ThieleMachine
 -R physics Physics
@@ -228,6 +229,19 @@ kami_hw/F4_VerilogEvaluator.v
 kami_hw/Compatibility.v
 kami_hw/ThieleTypes.v
 kami_hw/ThieleCPUCore.v
+kami_hw/NormalizationStart.v
+kami_hw/NormalizationSteps.v
+kami_hw/NormalizationExecution.v
+kami_hw/NormalizationLoop.v
+kami_hw/NormalizationPrefix.v
+kami_hw/NormalizationScanExecution.v
+kami_hw/NormalizationRetirement.v
+kami_hw/NormalizationFrame.v
+kami_hw/NormalizationExclusivity.v
+kami_hw/MorphLoading.v
+kami_hw/MorphRetirement.v
+kami_hw/MorphCopy.v
+kami_hw/MorphJoin.v
 kami_hw/ThieleCPUBusTop.v
 kami_hw/Abstraction.v
 kami_hw/VerilogRefinement.v
@@ -310,6 +324,33 @@ kernel/aggregators/ThieleGenesis.v
 kernel/witness/WitnessInsightGeneral.v
 kernel/foundation/DagRestriction.v
 kernel/foundation/VMUnboundedExec.v
+kernel/foundation/VMBoundedDecidability.v
+kernel/foundation/VMEncodedInputAccess.v
+kernel/foundation/VMUnboundedCounterAccess.v
+kernel/foundation/VMCounterBranch.v
+kernel/foundation/VMTwoCounterAccess.v
+kernel/foundation/VMAlternativeCounterAccess.v
+kernel/foundation/VMWitnessCounterMonotonicity.v
+kernel/foundation/VMWord64BoundednessObstruction.v
+kernel/foundation/VMUnboundedStep.v
+kernel/foundation/VMUnboundedInterpreterSlots.v
+kernel/foundation/VMUnboundedInterpreterCode.v
+kernel/foundation/VMUnboundedInterpreterCompose.v
+kernel/foundation/VMUnboundedGuestEncoding.v
+kernel/foundation/VMUnboundedOpcodeAdd.v
+kernel/foundation/VMSelfGuest.v
+kernel/foundation/VMSelfProgram.v
+kernel/foundation/VMSelfCorrect.v
+kernel/foundation/VMSelfRun.v
+kernel/foundation/VMSelfUniversal.v
+kernel/foundation/VMSelfLimitative.v
+kernel/foundation/MM2ComplementUndec.v
+kernel/foundation/VMSelfRice.v
+kernel/foundation/VMSelfRiceUndec.v
+kernel/foundation/VMUnboundedMinskyInterpreter.v
+kernel/foundation/VMUnboundedMinskyInterpreterProof.v
+kernel/foundation/VMUnboundedMinskyEncoding.v
+kernel/foundation/VMUnboundedMinskyCorrectness.v
 kernel/witness/InformationTopology.v
 kami_hw/RTLGapRegistry.v
 
@@ -325,7 +366,106 @@ tests/CloseoutVerification.v
 # Review regressions: representation, physical premises, and usable hardware traces
 tests/ClaimBoundaryRegression.v
 tests/WFDrivenRunRegression.v
+tests/SemanticContractRegression.v
 
 # Research obligations: observation policies and descent from traces
 kernel/frontier/ObservationPolicy.v
 kernel/frontier/TraceStateDescent.v
+
+# Executable semantics of the actual CPU dispatch action
+kami_hw/ActionEvaluator.v
+kami_hw/ActionObservation.v
+kami_hw/ReadFreeObservation.v
+kami_hw/DecodedReadFree.v
+kami_hw/DispatchObservation.v
+kami_hw/DispatchAbstractionBridge.v
+kami_hw/DispatchAddFamily.v
+kami_hw/DispatchExecution.v
+kami_hw/DispatchContracts.v
+kami_hw/DispatchReset.v
+kami_hw/CoreRules.v
+kami_hw/CoreExecution.v
+kami_hw/CoreTyping.v
+kami_hw/HWBoundary.v
+kami_hw/ImplementationContract.v
+kami_hw/HWBoundaryCompleteness.v
+kami_hw/RuleNext.v
+kami_hw/DispatchFetch.v
+kami_hw/HWBoundaryReads.v
+kami_hw/BoundaryDecoded.v
+kami_hw/TensorDispatch.v
+kami_hw/RuleStep.v
+kami_hw/StepEval.v
+kami_hw/LegacyWordDecode.v
+kami_hw/RichWordDecode.v
+kami_hw/StepWordFacts.v
+kami_hw/StepFields.v
+kami_hw/StepRefineCommon.v
+kami_hw/PopcountSWAR.v
+kami_hw/StepRefine.v
+kami_hw/StepFieldsMorph.v
+kami_hw/MorphTensorGap.v
+kami_hw/StepRefineMorph.v
+kami_hw/RuleEnabled.v
+kami_hw/ChshArith.v
+kami_hw/ChshDecoded.v
+kami_hw/ChshStepFields.v
+kami_hw/ChshFsm.v
+kami_hw/ChshPhases.v
+kami_hw/ChshRun.v
+kami_hw/ChshRetire.v
+kami_hw/FsmDecoded.v
+kami_hw/LassertSpec.v
+kami_hw/LassertStepFields.v
+kami_hw/LassertWord.v
+kami_hw/LassertRetire.v
+kami_hw/CouplingFsmEnds.v
+kami_hw/CouplingFsmLoad.v
+kami_hw/CouplingFsmNorm.v
+kami_hw/CouplingFsmRun.v
+kami_hw/CouplingFsmCopy.v
+kami_hw/CouplingFsmJoin.v
+kami_hw/CouplingMorphRich.v
+kami_hw/CouplingMorphKami.v
+kami_hw/CouplingMorphRetire.v
+kami_hw/BoundaryRun.v
+kami_hw/CouplingSchedule.v
+kami_hw/DispatchLets.v
+kami_hw/StepFaults.v
+kami_hw/CouplingComposeRun.v
+kami_hw/CouplingComposeKami.v
+kami_hw/CouplingComposeRetire.v
+kami_hw/TableInvariants.v
+kami_hw/CouplingFaults.v
+kami_hw/RetireRuns.v
+kami_hw/RetireRunsFsm.v
+kami_hw/RetireRunsOps.v
+kami_hw/RetireMaster.v
+kami_hw/TableInvariantsPreserved.v
+kami_hw/TableInvariantsReachable.v
+kami_hw/OutsideDomain.v
+kami_hw/LegacyLoadGuard.v
+kami_hw/LegacyLocalityGuard.v
+kami_hw/LegacyPartitionGuard.v
+kami_hw/LegacyNfiGuard.v
+kami_hw/RichLoadGuard.v
+kami_hw/RichLocalityGuard.v
+kami_hw/RichPartitionGuard.v
+kami_hw/RichNfiGuard.v
+kami_hw/OutsideDomainMaster.v
+kami_hw/RetireProgress.v
+kami_hw/RichFaultWords.v
+kami_hw/RichFaultMaster.v
+kami_hw/RichFaultRetireMaster.v
+
+# CM2 universal control convention (the zero-branch guest remains separate)
+kernel/foundation/VMUnboundedCM2Interpreter.v
+kernel/foundation/VMUnboundedCM2InterpreterProof.v
+kernel/foundation/VMUnboundedCM2Encoding.v
+kernel/foundation/VMUnboundedCM2Correctness.v
+kernel/foundation/VMUnboundedCM2Bridge.v
+kernel/foundation/VMUnboundedCM2Limitative.v
+kernel/foundation/VMUnboundedCM2Applicability.v
+kernel/foundation/VMUnboundedCM2IndependentStorage.v
+kernel/foundation/VMUnboundedCM2Specialization.v
+kernel/foundation/VMUnboundedCM2OutputPredicate.v

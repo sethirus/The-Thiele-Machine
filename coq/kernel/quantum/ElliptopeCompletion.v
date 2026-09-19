@@ -56,15 +56,11 @@
     together with [lhv] containment this places the elliptope strictly
     between the classical polytope and the no-signaling cube.
 
-  Scope, stated the way the monograph fences everything: this is the
-  correlator-level characterization. Marginals stay zero in the completed
-  matrix; by Tsirelson's construction that loses nothing at the correlator
-  level, and the correlator level is the honest scope (Ishizaka 2025 gives
-  Q_{1+AB} = Q for correlators; Chaturvedi 2026 shows no finite NPA level is
-  exact for the full behavior set). Nothing here derives physics; PSD of a
-  completed matrix is polynomial arithmetic, and the identification of that
-  condition with quantum realizability lives in the externally cited
-  Tsirelson/NPA literature, exactly as for the zero-marginal slice.
+  Scope: this is the correlator completion model, with zero marginals and
+  free within-party cross moments. Its identification with quantum correlators
+  uses the external Tsirelson representation theorem. The proofs here concern
+  the completed matrix and its quadratic form. Complete behaviors, including
+  specified marginals, are a different object.
 *)
 
 (* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own

@@ -1,0 +1,158 @@
+{
+  "scope": "Paused delivery: CM2, actual CPU execution and register-schema proof scope; full delivery remains incomplete.",
+  "checks": {
+    "delivery-integration-build.log": {
+      "exit_code": 0,
+      "sha256": "a9faca85ee2dc1633ed6448a4c257ea173c0d01d01ca7ebb3af5a2e85de1eff5"
+    },
+    "assert-dispatch-before-all-tests.log": {
+      "exit_code": 1,
+      "sha256": "951245a627d562b1e8a19d428274af36425f41002ead194baf0ef8cf278d4a56"
+    },
+    "assert-dispatch-after-tests.log": {
+      "exit_code": 0,
+      "sha256": "af6352db0141d20531e2887522bdf80a3a1b998bf6443b1ad9f00816657bd56c"
+    },
+    "assert-dispatch-validation-tests.log": {
+      "exit_code": 0,
+      "sha256": "6b33593753f361ae7a0564310992ff4da386428c0e4f83bd9c99c46ea935d4ed"
+    },
+    "assert-dispatch-extraction.log": {
+      "exit_code": 0,
+      "sha256": "a0232438be25d53772477494e65896fa16305e007347934a2a05716e92c30ff7"
+    },
+    "assert-dispatch-rtl-build.log": {
+      "exit_code": 1,
+      "sha256": "c79c0d6d05f8c4345db720d8e27554e74b87790f3469d6f9792f9e05444845df"
+    },
+    "assert-dispatch-rtl-build-retry.log": {
+      "exit_code": 0,
+      "sha256": "eb441c06bee682b0bae7c4b92da4a0a5eaad5bf7f930cebc84c3e0b061dac6e5"
+    },
+    "cm2-monograph-build.log": {
+      "exit_code": 0,
+      "sha256": "5f427fdaf3641ab2c9f7104aaf096d5b23d41a2c3b32ad9bcaf9f7ace8091e52"
+    },
+    "native-runner-tests.log": {
+      "exit_code": 0,
+      "sha256": "cd7412b485b7b099d3419003a1f7dceb8691050cd8db86d7e205aac28d9cc705"
+    },
+    "cm2_delivery_report.txt": {
+      "exit_code": 0,
+      "sha256": "defb0f1d631a2c779d3c35a657878ab2741e83618d5f672d0f59b49d6e15b5af"
+    },
+    "dispatch_delivery_report.txt": {
+      "exit_code": 0,
+      "sha256": "b5ae2ae4c413231ef0ed5e56ef932b8010a50ee7efe4d5f8647185eddbe59192"
+    },
+    "delivery-coqchk.log": {
+      "exit_code": 0,
+      "sha256": "3e12e49805baa4d466553d610d6620c8ffae6a329db1cd5cede2a9792e8a97ef"
+    },
+    "core-rules-build.log": {
+      "exit_code": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "core-execution-reset-witness.log": {
+      "exit_code": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "core_execution_final_report.txt": {
+      "exit_code": 0,
+      "sha256": "56529ce8afd91b50e31cba8ce8558ce7814a83b040b30c532e8670b5483d58f4"
+    },
+    "core-typing-build-explicit-action.log": {
+      "exit_code": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "core_typing_report.txt": {
+      "exit_code": 0,
+      "sha256": "eb9772479f1fddb044b56e77992608c4ec287cd0d001ae68f63e1fa3782a7810"
+    },
+    "core-execution-integration-build.log": {
+      "exit_code": 0,
+      "sha256": "f9148546da8f19ca36209061b8390d9274c2bcbad3d160a823168d89fb9277ad"
+    },
+    "core-typing-integration-build.log": {
+      "exit_code": 0,
+      "sha256": "f9148546da8f19ca36209061b8390d9274c2bcbad3d160a823168d89fb9277ad"
+    },
+    "final-doc-build.log": {
+      "exit_code": 0,
+      "sha256": "302ad4db459ee927f2d87909237036dc0e502f03712cc6eaa304c3d95d9c30f5"
+    },
+    "core-typing-coqchk.log": {
+      "exit_code": -15,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "source_sha256": {
+    "coq/kernel/foundation/VMUnboundedCM2Correctness.v": "896c243571c7e3bf8d41e89a7cffd3b318b2ce277c7d8640fbf58ab5056138c8",
+    "coq/kernel/foundation/VMUnboundedCM2Encoding.v": "9c83a790d8bc60c64b452338785fcdd43ac3306287e5a4c5c352ac6e86b63837",
+    "coq/kernel/foundation/VMUnboundedCM2Limitative.v": "cd0eb0c902385411c5cc35ee122e12ec6b98e435c584c89d46281e9807f19f79",
+    "coq/kernel/foundation/VMUnboundedCM2Interpreter.v": "dc4e15e8d2e6d9d04e5bfd02f1a5bc1ba714435f516e6962194aebc2a9e2cf50",
+    "coq/kernel/foundation/VMUnboundedCM2Applicability.v": "a45ca5808f0646f6c4188ba01682d697956d2d23d7b6b0e6c4e1ec54deafdbaa",
+    "coq/kernel/foundation/VMUnboundedCM2Bridge.v": "a8828f1ceddfd6294b08f9769fe1b4ba5aa1ec6f21f2079b8380cf95f5fc6465",
+    "coq/kernel/foundation/VMUnboundedCM2InterpreterProof.v": "280d9d8e068f224005965b42d0db9ef584b9ee7244bf7d0c52f64d1ceda84426",
+    "coq/kami_hw/ActionEvaluator.v": "4711463dd6bbfc084a8de98442efd184ea211514d4f8bacd18a5655fb7975dcc",
+    "coq/kami_hw/DispatchExecution.v": "5748909e750702eecac568acfb71d7b5a206b7906f29e86df49bff3418e5e429",
+    "coq/kami_hw/DispatchContracts.v": "bc8c4c2c630fbcc3e8eab3f1b734a005065a91974ac256b4f5c5432247c9d9f3",
+    "coq/kami_hw/DispatchReset.v": "6e66ea60110949afea6e0636bdc8e220a572c23c7b756eab05201ec899513ba8",
+    "coq/kami_hw/ThieleCPUCore.v": "399f3f5221fd518cad1e771ed65a58ba3cc149ad251ed99e2cef0d8c3f7db66c",
+    "scripts/kami_extract.sh": "146236acc041f3344dd9bb93a533802d7d90e104eb60199ec9461bc7155c3fb0",
+    "scripts/reproduce_coq.py": "49fd5308b30985389fccba6ff35ee3df0925a1ff16ded003de50c9d9f1457104",
+    "scripts/package_review_revision.py": "f250c52da60bf27a3f3b354ee93c6beacdd8695836971b0ad034245cd7c0e66c",
+    "tests/test_rtl_assert_dispatch_faults.py": "7f9b2a04b045227bf7affb2ae5330bc9165a7ba3e41ceb5cf1b20e1a1c4c5226",
+    "tests/test_native_reproduction.py": "92b8db91b50efad5d7c93916396def84fa50f9fe1a85b2d9152ef3e8362e9ca2",
+    "coq/_CoqProject": "bec299f47edabe88d8705e7f441aebe83bfe8d3acc09a901651738c91b054cc0",
+    "coq/Makefile.local": "8bd379b1a10995a2aba323901cab3bd07c593dce58f0e24c16cbd6057a1c31d3",
+    "vendor/coq-undecidability/UPSTREAM.md": "54a8fd50fe219442524e708cf6f75af5f208fcb0feaded2f96bbd5e237150e49",
+    "vendor/coq-undecidability/LICENSE": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04",
+    "monograph/monograph.tex": "e326fa1f75065387b5f4090d9afe286dd48c3149f2712dbfca7e8635235674ff",
+    "coq/kami_hw/CoreRules.v": "796ac8be6bc1b22aaf7eef927e17513e9488c4e27804510d4dd6ba8bfaa370cf",
+    "coq/kami_hw/CoreExecution.v": "b0dd202e299c12b6a14e68a69b4d2fa9520d1e22a47430a6d864a2026a59d6f5",
+    "coq/kami_hw/CoreTyping.v": "8590aeaf1c5ee85b8f1e4365836c4db7f7855383b2bc0b192fc4715ddb8d722a"
+  },
+  "tests": {
+    "assertion_before": {
+      "failed": 5,
+      "passed": 5
+    },
+    "assertion_after": {
+      "passed": 10
+    },
+    "hardware_isa_provenance": {
+      "passed": 163
+    },
+    "native_runner": {
+      "passed": 5
+    }
+  },
+  "coqchk_bypass_flags": false,
+  "research": "deferred",
+  "docker": "prohibited; executable workflow removed",
+  "full_delivery_complete": false,
+  "native_reproduction": {
+    "first_attempt": "artifacts/reproduction/delivery-native-20260913/reproduction.json",
+    "first_exit_code": 2,
+    "failure": "Missing make target for direct Synthetic.Undecidability import; dependency group corrected.",
+    "fixed_attempt": "artifacts/reproduction/delivery-native-fixed-20260913/reproduction.json",
+    "fixed_status": "interrupted",
+    "fixed_scope": "Snapshot includes CoreRules/CoreExecution; CoreTyping is checked separately.",
+    "fixed_exit_code": 130
+  },
+  "core_typing_coqchk": {
+    "status": "interrupted",
+    "exit_code": -15,
+    "record": "core_typing_coqchk_command.json"
+  },
+  "documentation_sha256": {
+    "README.md": "37acfe2bdab3d401bc9dd92ccf3a69faa21afd8a3860df2cce49009c73d01877",
+    "artifacts/review_revision/STATUS.md": "ec7d2b3b40eb371e50e4b8cdaafe45ff4b04122cc1bc1907a09e421217d8c73a",
+    "artifacts/review_revision/NATIVE_REPRODUCTION.md": "c853eaa794dece4c140a6939aa22c1db60ba27bb25ea72583c39bff7e424fe2f",
+    "artifacts/review_revision/REALIZATION_ASSURANCE.md": "582c9b56b95fe2e122a4e8d5ed6188d6705eb700aa0507e21e204e8565b96246",
+    "monograph/monograph.tex": "e326fa1f75065387b5f4090d9afe286dd48c3149f2712dbfca7e8635235674ff",
+    "monograph/monograph.pdf": "48072effd3714ee5e7e61b33d143942641e0577aede6a41e88dc1de1681a9c43",
+    "monograph/monograph.txt": "0969683b59f7ccfa95046eef22d5072f485ac3cb502e080f5aa5d4cee4f42f7d"
+  }
+}

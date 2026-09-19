@@ -1,0 +1,1264 @@
+DIGEST 069adfc01000d5f77c0d5bbd6daef8bd
+FKamiHW.NormalizationSteps
+R361:369 Kami.Kami <> <> lib
+R371:384 Kami.Semantics <> <> lib
+R414:424 KamiHW.ThieleTypes <> <> lib
+R426:438 KamiHW.ThieleCPUCore <> <> lib
+R440:457 KamiHW.NormalizationStart <> <> lib
+R484:487 Coq.Lists.List <> <> lib
+R489:494 Coq.Strings.String <> <> lib
+R496:499 Coq.Bool.Bool <> <> lib
+R509:521 Coq.Lists.List ListNotations <> mod
+def 560:577 <> normalization_rule
+R584:586 Coq.Init.Datatypes <> nat ind
+binder 580:580 <> n:1
+R592:594 Coq.Lists.List <> nth def
+R624:631 Kami.Lib.Struct <> attrName proj
+R624:631 Kami.Lib.Struct <> attrName proj
+R624:631 Kami.Lib.Struct <> attrName proj
+R646:653 Kami.Lib.Struct <> attrType proj
+R646:653 Kami.Lib.Struct <> attrType proj
+binder 662:663 <> ty:2
+R668:673 Kami.Syntax <> Return constr
+R676:680 Kami.Syntax <> Const constr
+R686:694 Kami.Lib.Word <> natToWord def
+R682:683 KamiHW.NormalizationSteps <> ty:2 var
+R599:606 Kami.Syntax <> getRules def
+R608:617 KamiHW.ThieleCPUCore <> thieleCore def
+R596:596 KamiHW.NormalizationSteps <> n:1 var
+def 717:739 <> normalization_scan_rule
+R744:761 KamiHW.NormalizationSteps <> normalization_rule def
+def 777:799 <> normalization_emit_rule
+R804:821 KamiHW.NormalizationSteps <> normalization_rule def
+def 837:861 <> normalization_commit_rule
+R866:883 KamiHW.NormalizationSteps <> normalization_rule def
+def 900:909 <> pair_index
+R916:919 Kami.Lib.Word <> word ind
+binder 912:912 <> w:3
+R926:929 Kami.Lib.Word <> word ind
+R936:941 Kami.Lib.Word <> split1 def
+R947:947 KamiHW.NormalizationSteps <> w:3 var
+def 961:968 <> word_eqb
+binder 971:971 <> n:4
+R981:984 Kami.Lib.Word <> word ind
+R986:986 KamiHW.NormalizationSteps <> n:4 var
+binder 975:975 <> a:5
+binder 977:977 <> b:6
+R995:997 Kami.Lib.Word <> weq def
+R1001:1001 KamiHW.NormalizationSteps <> b:6 var
+R999:999 KamiHW.NormalizationSteps <> a:5 var
+R1018:1022 Coq.Init.Datatypes <> false constr
+R1008:1011 Coq.Init.Datatypes <> true constr
+def 1036:1043 <> word_ltb
+binder 1046:1046 <> n:7
+R1056:1059 Kami.Lib.Word <> word ind
+R1061:1061 KamiHW.NormalizationSteps <> n:7 var
+binder 1050:1050 <> a:8
+binder 1052:1052 <> b:9
+R1070:1076 Kami.Lib.Word <> wlt_dec def
+R1080:1080 KamiHW.NormalizationSteps <> b:9 var
+R1078:1078 KamiHW.NormalizationSteps <> a:8 var
+R1097:1101 Coq.Init.Datatypes <> false constr
+R1087:1090 Coq.Init.Datatypes <> true constr
+def 1115:1123 <> PairTable
+R1134:1137 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1128:1131 Kami.Lib.Word <> word ind
+R1138:1141 Kami.Lib.Word <> word ind
+def 1158:1165 <> regpairs
+R1172:1180 KamiHW.NormalizationSteps <> PairTable def
+binder 1168:1168 <> v:10
+R1187:1192 Coq.Init.Specif <> existT constr
+R1243:1243 KamiHW.NormalizationSteps <> v:10 var
+R1211:1220 Kami.Syntax <> SyntaxKind constr
+R1223:1228 Kami.Syntax <> Vector constr
+R1231:1233 Kami.Syntax <> Bit constr
+R1195:1202 Kami.Syntax <> fullType def
+R1204:1207 Kami.Syntax <> type def
+def 1257:1266 <> scan_match
+R1275:1278 Kami.Lib.Word <> word ind
+binder 1269:1269 <> i:11
+binder 1271:1271 <> j:12
+R1294:1302 KamiHW.NormalizationSteps <> PairTable def
+binder 1284:1286 <> src:13
+binder 1288:1290 <> dst:14
+R1309:1312 Coq.Init.Datatypes <> andb def
+R1374:1381 KamiHW.NormalizationSteps <> word_eqb def
+R1405:1407 KamiHW.NormalizationSteps <> dst:14 var
+R1410:1419 KamiHW.NormalizationSteps <> pair_index def
+R1421:1421 KamiHW.NormalizationSteps <> j:12 var
+R1384:1386 KamiHW.NormalizationSteps <> dst:14 var
+R1389:1398 KamiHW.NormalizationSteps <> pair_index def
+R1400:1400 KamiHW.NormalizationSteps <> i:11 var
+R1315:1322 KamiHW.NormalizationSteps <> word_eqb def
+R1346:1348 KamiHW.NormalizationSteps <> src:13 var
+R1351:1360 KamiHW.NormalizationSteps <> pair_index def
+R1362:1362 KamiHW.NormalizationSteps <> j:12 var
+R1325:1327 KamiHW.NormalizationSteps <> src:13 var
+R1330:1339 KamiHW.NormalizationSteps <> pair_index def
+R1341:1341 KamiHW.NormalizationSteps <> i:11 var
+def 1438:1463 <> normalization_scan_updates
+R1474:1477 Kami.Lib.Word <> word ind
+binder 1466:1466 <> i:15
+binder 1468:1468 <> j:16
+binder 1470:1470 <> e:17
+R1489:1492 Coq.Init.Datatypes <> bool ind
+binder 1483:1485 <> dup:18
+R1506:1514 KamiHW.NormalizationSteps <> PairTable def
+binder 1496:1498 <> src:19
+binder 1500:1502 <> dst:20
+R1519:1526 Kami.Semantics <> UpdatesT def
+R1532:1536 Kami.Lib.FMap M add def
+R1622:1626 Kami.Lib.FMap M add def
+R1670:1674 Kami.Lib.FMap M add def
+R1751:1757 Kami.Lib.FMap M empty def
+R1688:1691 KamiHW.NormalizationStart <> reg4 def
+R1697:1704 KamiHW.NormalizationSteps <> word_ltb def
+R1708:1708 KamiHW.NormalizationSteps <> e:17 var
+R1706:1706 KamiHW.NormalizationSteps <> j:16 var
+R1734:1742 Kami.Lib.Word <> natToWord def
+R1715:1723 Kami.Lib.Word <> natToWord def
+R1636:1639 KamiHW.NormalizationStart <> reg5 def
+R1642:1646 Kami.Lib.Word <> wplus def
+R1651:1659 Kami.Lib.Word <> natToWord def
+R1648:1648 KamiHW.NormalizationSteps <> j:16 var
+R1554:1560 KamiHW.NormalizationStart <> regbool def
+R1563:1565 Coq.Init.Datatypes <> orb def
+R1572:1575 Coq.Init.Datatypes <> andb def
+R1593:1602 KamiHW.NormalizationSteps <> scan_match def
+R1604:1604 KamiHW.NormalizationSteps <> i:15 var
+R1606:1606 KamiHW.NormalizationSteps <> j:16 var
+R1608:1610 KamiHW.NormalizationSteps <> src:19 var
+R1612:1614 KamiHW.NormalizationSteps <> dst:20 var
+R1578:1585 KamiHW.NormalizationSteps <> word_ltb def
+R1589:1589 KamiHW.NormalizationSteps <> e:17 var
+R1587:1587 KamiHW.NormalizationSteps <> j:16 var
+R1567:1569 KamiHW.NormalizationSteps <> dup:18 var
+prf 1771:1798 <> normalization_scan_rule_name
+R1834:1836 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1802:1809 Kami.Lib.Struct <> attrName proj
+R1811:1833 KamiHW.NormalizationSteps <> normalization_scan_rule def
+prf 1889:1914 <> normalization_scan_rule_in
+R1918:1919 Coq.Lists.List <> In def
+R1946:1953 Kami.Syntax <> getRules def
+R1955:1964 KamiHW.ThieleCPUCore <> thieleCore def
+R1921:1943 KamiHW.NormalizationSteps <> normalization_scan_rule def
+R1982:2004 KamiHW.NormalizationSteps <> normalization_scan_rule def
+R2007:2024 KamiHW.NormalizationSteps <> normalization_rule def
+R2033:2038 Coq.Lists.List <> nth_In thm
+R2050:2050 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2033:2038 Coq.Lists.List <> nth_In thm
+R2050:2050 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+prf 2093:2124 <> normalization_scan_actual_action
+binder 2135:2137 <> old:21
+binder 2139:2139 <> i:22
+binder 2141:2141 <> j:23
+binder 2143:2143 <> e:24
+binder 2145:2147 <> dup:25
+binder 2149:2151 <> src:26
+binder 2153:2155 <> dst:27
+R2210:2214 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2180:2182 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2159:2164 Kami.Lib.FMap M find def
+R2177:2179 KamiHW.NormalizationSteps <> old:21 var
+R2183:2186 Coq.Init.Datatypes <> Some constr
+R2189:2192 KamiHW.NormalizationStart <> reg4 def
+R2195:2203 Kami.Lib.Word <> natToWord def
+R2248:2252 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2232:2234 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2215:2220 Kami.Lib.FMap M find def
+R2229:2231 KamiHW.NormalizationSteps <> old:21 var
+R2235:2238 Coq.Init.Datatypes <> Some constr
+R2241:2244 KamiHW.NormalizationStart <> reg5 def
+R2246:2246 KamiHW.NormalizationSteps <> i:22 var
+R2286:2290 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2270:2272 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2253:2258 Kami.Lib.FMap M find def
+R2267:2269 KamiHW.NormalizationSteps <> old:21 var
+R2273:2276 Coq.Init.Datatypes <> Some constr
+R2279:2282 KamiHW.NormalizationStart <> reg5 def
+R2284:2284 KamiHW.NormalizationSteps <> j:23 var
+R2332:2336 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2316:2318 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2291:2296 Kami.Lib.FMap M find def
+R2313:2315 KamiHW.NormalizationSteps <> old:21 var
+R2319:2322 Coq.Init.Datatypes <> Some constr
+R2325:2328 KamiHW.NormalizationStart <> reg5 def
+R2330:2330 KamiHW.NormalizationSteps <> e:24 var
+R2383:2387 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2362:2364 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2337:2342 Kami.Lib.FMap M find def
+R2359:2361 KamiHW.NormalizationSteps <> old:21 var
+R2365:2368 Coq.Init.Datatypes <> Some constr
+R2371:2377 KamiHW.NormalizationStart <> regbool def
+R2379:2381 KamiHW.NormalizationSteps <> dup:25 var
+R2446:2450 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2424:2426 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2388:2393 Kami.Lib.FMap M find def
+R2421:2423 KamiHW.NormalizationSteps <> old:21 var
+R2427:2430 Coq.Init.Datatypes <> Some constr
+R2433:2440 KamiHW.NormalizationSteps <> regpairs def
+R2442:2444 KamiHW.NormalizationSteps <> src:26 var
+R2509:2513 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2487:2489 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2451:2456 Kami.Lib.FMap M find def
+R2484:2486 KamiHW.NormalizationSteps <> old:21 var
+R2490:2493 Coq.Init.Datatypes <> Some constr
+R2496:2503 KamiHW.NormalizationSteps <> regpairs def
+R2505:2507 KamiHW.NormalizationSteps <> dst:27 var
+R2514:2522 Kami.Semantics <> SemAction ind
+R2630:2631 Kami.Lib.Word <> WO constr
+R2619:2625 Kami.Lib.FMap M empty def
+R2572:2597 KamiHW.NormalizationSteps <> normalization_scan_updates def
+R2599:2599 KamiHW.NormalizationSteps <> i:22 var
+R2601:2601 KamiHW.NormalizationSteps <> j:23 var
+R2603:2603 KamiHW.NormalizationSteps <> e:24 var
+R2605:2607 KamiHW.NormalizationSteps <> dup:25 var
+R2609:2611 KamiHW.NormalizationSteps <> src:26 var
+R2613:2615 KamiHW.NormalizationSteps <> dst:27 var
+R2529:2536 Kami.Lib.Struct <> attrType proj
+R2562:2565 Kami.Syntax <> type def
+R2538:2560 KamiHW.NormalizationSteps <> normalization_scan_rule def
+R2524:2526 KamiHW.NormalizationSteps <> old:21 var
+R2701:2723 KamiHW.NormalizationSteps <> normalization_scan_rule def
+R2726:2743 KamiHW.NormalizationSteps <> normalization_rule def
+R2751:2753 Coq.Lists.List <> nth def
+R2755:2762 Kami.Syntax <> getRules def
+R2764:2771 Kami.Lib.Struct <> attrType proj
+R2783:2792 Kami.Semantics <> SemReadReg constr
+R2783:2792 Kami.Semantics <> SemReadReg constr
+R2814:2826 Kami.Semantics <> SemAssertTrue constr
+R2814:2826 Kami.Semantics <> SemAssertTrue constr
+R2853:2862 Kami.Semantics <> SemReadReg constr
+R2853:2862 Kami.Semantics <> SemReadReg constr
+R2885:2894 Kami.Semantics <> SemReadReg constr
+R2885:2894 Kami.Semantics <> SemReadReg constr
+R2918:2927 Kami.Semantics <> SemReadReg constr
+R2918:2927 Kami.Semantics <> SemReadReg constr
+R2950:2959 Kami.Semantics <> SemReadReg constr
+R2950:2959 Kami.Semantics <> SemReadReg constr
+R2983:2992 Kami.Semantics <> SemReadReg constr
+R2983:2992 Kami.Semantics <> SemReadReg constr
+R3015:3024 Kami.Semantics <> SemReadReg constr
+R3015:3024 Kami.Semantics <> SemReadReg constr
+R3054:3059 Kami.Semantics <> SemLet constr
+R3054:3059 Kami.Semantics <> SemLet constr
+R3054:3059 Kami.Semantics <> SemLet constr
+R3054:3059 Kami.Semantics <> SemLet constr
+R3054:3059 Kami.Semantics <> SemLet constr
+R3054:3059 Kami.Semantics <> SemLet constr
+R3070:3095 KamiHW.NormalizationSteps <> normalization_scan_updates def
+R3098:3107 KamiHW.NormalizationSteps <> scan_match def
+R3110:3117 KamiHW.NormalizationSteps <> word_eqb def
+R3120:3127 KamiHW.NormalizationSteps <> word_ltb def
+R3130:3139 KamiHW.NormalizationSteps <> pair_index def
+R3156:3166 Kami.Semantics <> SemWriteReg constr
+R3156:3166 Kami.Semantics <> SemWriteReg constr
+R3156:3166 Kami.Semantics <> SemWriteReg constr
+R3156:3166 Kami.Semantics <> SemWriteReg constr
+R3200:3208 Kami.Semantics <> SemReturn constr
+R3200:3208 Kami.Semantics <> SemReturn constr
+prf 3266:3298 <> normalization_scan_actual_substep
+binder 3309:3311 <> old:28
+binder 3313:3313 <> i:29
+binder 3315:3315 <> j:30
+binder 3317:3317 <> e:31
+binder 3319:3321 <> dup:32
+binder 3323:3325 <> src:33
+binder 3327:3329 <> dst:34
+R3384:3388 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3354:3356 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3333:3338 Kami.Lib.FMap M find def
+R3351:3353 KamiHW.NormalizationSteps <> old:28 var
+R3357:3360 Coq.Init.Datatypes <> Some constr
+R3363:3366 KamiHW.NormalizationStart <> reg4 def
+R3369:3377 Kami.Lib.Word <> natToWord def
+R3422:3426 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3406:3408 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3389:3394 Kami.Lib.FMap M find def
+R3403:3405 KamiHW.NormalizationSteps <> old:28 var
+R3409:3412 Coq.Init.Datatypes <> Some constr
+R3415:3418 KamiHW.NormalizationStart <> reg5 def
+R3420:3420 KamiHW.NormalizationSteps <> i:29 var
+R3460:3464 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3444:3446 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3427:3432 Kami.Lib.FMap M find def
+R3441:3443 KamiHW.NormalizationSteps <> old:28 var
+R3447:3450 Coq.Init.Datatypes <> Some constr
+R3453:3456 KamiHW.NormalizationStart <> reg5 def
+R3458:3458 KamiHW.NormalizationSteps <> j:30 var
+R3506:3510 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3490:3492 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3465:3470 Kami.Lib.FMap M find def
+R3487:3489 KamiHW.NormalizationSteps <> old:28 var
+R3493:3496 Coq.Init.Datatypes <> Some constr
+R3499:3502 KamiHW.NormalizationStart <> reg5 def
+R3504:3504 KamiHW.NormalizationSteps <> e:31 var
+R3557:3561 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3536:3538 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3511:3516 Kami.Lib.FMap M find def
+R3533:3535 KamiHW.NormalizationSteps <> old:28 var
+R3539:3542 Coq.Init.Datatypes <> Some constr
+R3545:3551 KamiHW.NormalizationStart <> regbool def
+R3553:3555 KamiHW.NormalizationSteps <> dup:32 var
+R3620:3624 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3598:3600 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3562:3567 Kami.Lib.FMap M find def
+R3595:3597 KamiHW.NormalizationSteps <> old:28 var
+R3601:3604 Coq.Init.Datatypes <> Some constr
+R3607:3614 KamiHW.NormalizationSteps <> regpairs def
+R3616:3618 KamiHW.NormalizationSteps <> src:33 var
+R3683:3687 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3661:3663 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3625:3630 Kami.Lib.FMap M find def
+R3658:3660 KamiHW.NormalizationSteps <> old:28 var
+R3664:3667 Coq.Init.Datatypes <> Some constr
+R3670:3677 KamiHW.NormalizationSteps <> regpairs def
+R3679:3681 KamiHW.NormalizationSteps <> dst:34 var
+R3688:3694 Kami.Semantics <> Substep ind
+R3795:3801 Kami.Lib.FMap M empty def
+R3762:3764 Kami.Semantics <> Rle constr
+R3767:3770 Coq.Init.Datatypes <> Some constr
+R3712:3737 KamiHW.NormalizationSteps <> normalization_scan_updates def
+R3739:3739 KamiHW.NormalizationSteps <> i:29 var
+R3741:3741 KamiHW.NormalizationSteps <> j:30 var
+R3743:3743 KamiHW.NormalizationSteps <> e:31 var
+R3745:3747 KamiHW.NormalizationSteps <> dup:32 var
+R3749:3751 KamiHW.NormalizationSteps <> src:33 var
+R3753:3755 KamiHW.NormalizationSteps <> dst:34 var
+R3707:3709 KamiHW.NormalizationSteps <> old:28 var
+R3696:3705 KamiHW.ThieleCPUCore <> thieleCore def
+R3852:3859 Kami.Lib.Struct <> attrType proj
+R3861:3883 KamiHW.NormalizationSteps <> normalization_scan_rule def
+R3830:3839 Kami.Semantics <> SingleRule constr
+R3852:3859 Kami.Lib.Struct <> attrType proj
+R3861:3883 KamiHW.NormalizationSteps <> normalization_scan_rule def
+R3830:3839 Kami.Semantics <> SingleRule constr
+R3896:3921 KamiHW.NormalizationSteps <> normalization_scan_rule_in thm
+R3896:3921 KamiHW.NormalizationSteps <> normalization_scan_rule_in thm
+R3934:3965 KamiHW.NormalizationSteps <> normalization_scan_actual_action thm
+R3934:3965 KamiHW.NormalizationSteps <> normalization_scan_actual_action thm
+def 3998:4007 <> put_vector
+binder 4010:4010 <> A:35
+R4028:4031 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4022:4025 Kami.Lib.Word <> word ind
+R4032:4032 KamiHW.NormalizationSteps <> A:35 var
+binder 4014:4018 <> table:36
+R4042:4045 Kami.Lib.Word <> word ind
+binder 4036:4038 <> idx:37
+R4059:4059 KamiHW.NormalizationSteps <> A:35 var
+binder 4051:4055 <> value:38
+binder 4070:4070 <> w:39
+R4078:4080 Kami.Lib.Word <> weq def
+R4084:4086 KamiHW.NormalizationSteps <> idx:37 var
+R4082:4082 KamiHW.NormalizationSteps <> w:39 var
+R4104:4108 KamiHW.NormalizationSteps <> table:36 var
+R4110:4110 KamiHW.NormalizationSteps <> w:39 var
+R4093:4097 KamiHW.NormalizationSteps <> value:38 var
+def 4124:4132 <> emit_next
+R4141:4144 Kami.Lib.Word <> word ind
+binder 4135:4137 <> out:40
+R4156:4159 Coq.Init.Datatypes <> bool ind
+binder 4150:4152 <> dup:41
+R4169:4171 KamiHW.NormalizationSteps <> dup:41 var
+R4187:4191 Kami.Lib.Word <> wplus def
+R4198:4206 Kami.Lib.Word <> natToWord def
+R4193:4195 KamiHW.NormalizationSteps <> out:40 var
+R4178:4180 KamiHW.NormalizationSteps <> out:40 var
+def 4225:4250 <> normalization_emit_updates
+R4263:4266 Kami.Lib.Word <> word ind
+binder 4253:4253 <> i:42
+binder 4255:4255 <> e:43
+binder 4257:4259 <> out:44
+R4278:4281 Coq.Init.Datatypes <> bool ind
+binder 4272:4274 <> dup:45
+R4295:4303 KamiHW.NormalizationSteps <> PairTable def
+binder 4285:4287 <> src:46
+binder 4289:4291 <> dst:47
+R4308:4315 Kami.Semantics <> UpdatesT def
+R4333:4337 Kami.Lib.Word <> wplus def
+R4342:4350 Kami.Lib.Word <> natToWord def
+R4339:4339 KamiHW.NormalizationSteps <> i:42 var
+binder 4325:4328 <> next:48
+R4377:4385 KamiHW.NormalizationSteps <> emit_next def
+R4387:4389 KamiHW.NormalizationSteps <> out:44 var
+R4391:4393 KamiHW.NormalizationSteps <> dup:45 var
+binder 4365:4372 <> out_next:49
+R4411:4418 KamiHW.NormalizationSteps <> word_eqb def
+R4425:4425 KamiHW.NormalizationSteps <> e:43 var
+R4420:4423 KamiHW.NormalizationSteps <> next:48 var
+binder 4403:4406 <> done:50
+R4431:4435 Kami.Lib.FMap M add def
+R4552:4556 Kami.Lib.FMap M add def
+R4673:4677 Kami.Lib.FMap M add def
+R4711:4715 Kami.Lib.FMap M add def
+R4772:4776 Kami.Lib.FMap M add def
+R4799:4803 Kami.Lib.FMap M add def
+R4850:4854 Kami.Lib.FMap M add def
+R4889:4893 Kami.Lib.FMap M add def
+R4963:4969 Kami.Lib.FMap M empty def
+R4907:4910 KamiHW.NormalizationStart <> reg4 def
+R4916:4919 KamiHW.NormalizationSteps <> done:50 var
+R4946:4954 Kami.Lib.Word <> natToWord def
+R4926:4934 Kami.Lib.Word <> natToWord def
+R4872:4878 KamiHW.NormalizationStart <> regbool def
+R4880:4884 Coq.Init.Datatypes <> false constr
+R4813:4816 KamiHW.NormalizationStart <> reg5 def
+R4819:4823 Kami.Lib.Word <> wplus def
+R4831:4839 Kami.Lib.Word <> natToWord def
+R4825:4828 KamiHW.NormalizationSteps <> next:48 var
+R4786:4789 KamiHW.NormalizationStart <> reg5 def
+R4791:4794 KamiHW.NormalizationSteps <> next:48 var
+R4733:4736 KamiHW.NormalizationStart <> reg5 def
+R4742:4745 KamiHW.NormalizationSteps <> done:50 var
+R4766:4766 KamiHW.NormalizationSteps <> e:43 var
+R4752:4759 KamiHW.NormalizationSteps <> out_next:49 var
+R4694:4697 KamiHW.NormalizationStart <> reg5 def
+R4699:4706 KamiHW.NormalizationSteps <> out_next:49 var
+R4585:4592 KamiHW.NormalizationSteps <> regpairs def
+R4598:4600 KamiHW.NormalizationSteps <> dup:45 var
+R4616:4625 KamiHW.NormalizationSteps <> put_vector def
+R4649:4651 KamiHW.NormalizationSteps <> dst:47 var
+R4654:4663 KamiHW.NormalizationSteps <> pair_index def
+R4665:4665 KamiHW.NormalizationSteps <> i:42 var
+R4632:4641 KamiHW.NormalizationSteps <> pair_index def
+R4643:4645 KamiHW.NormalizationSteps <> out:44 var
+R4627:4629 KamiHW.NormalizationSteps <> dst:47 var
+R4607:4609 KamiHW.NormalizationSteps <> dst:47 var
+R4464:4471 KamiHW.NormalizationSteps <> regpairs def
+R4477:4479 KamiHW.NormalizationSteps <> dup:45 var
+R4495:4504 KamiHW.NormalizationSteps <> put_vector def
+R4528:4530 KamiHW.NormalizationSteps <> src:46 var
+R4533:4542 KamiHW.NormalizationSteps <> pair_index def
+R4544:4544 KamiHW.NormalizationSteps <> i:42 var
+R4511:4520 KamiHW.NormalizationSteps <> pair_index def
+R4522:4524 KamiHW.NormalizationSteps <> out:44 var
+R4506:4508 KamiHW.NormalizationSteps <> src:46 var
+R4486:4488 KamiHW.NormalizationSteps <> src:46 var
+prf 4988:5015 <> normalization_emit_rule_name
+R5051:5053 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5019:5026 Kami.Lib.Struct <> attrName proj
+R5028:5050 KamiHW.NormalizationSteps <> normalization_emit_rule def
+prf 5106:5131 <> normalization_emit_rule_in
+R5135:5136 Coq.Lists.List <> In def
+R5163:5170 Kami.Syntax <> getRules def
+R5172:5181 KamiHW.ThieleCPUCore <> thieleCore def
+R5138:5160 KamiHW.NormalizationSteps <> normalization_emit_rule def
+R5199:5221 KamiHW.NormalizationSteps <> normalization_emit_rule def
+R5224:5241 KamiHW.NormalizationSteps <> normalization_rule def
+R5250:5255 Coq.Lists.List <> nth_In thm
+R5267:5267 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5250:5255 Coq.Lists.List <> nth_In thm
+R5267:5267 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+prf 5310:5341 <> normalization_emit_actual_action
+binder 5352:5354 <> old:51
+binder 5356:5356 <> i:52
+binder 5358:5358 <> e:53
+binder 5360:5362 <> out:54
+binder 5364:5366 <> dup:55
+binder 5368:5370 <> src:56
+binder 5372:5374 <> dst:57
+R5429:5433 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5399:5401 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5378:5383 Kami.Lib.FMap M find def
+R5396:5398 KamiHW.NormalizationSteps <> old:51 var
+R5402:5405 Coq.Init.Datatypes <> Some constr
+R5408:5411 KamiHW.NormalizationStart <> reg4 def
+R5414:5422 Kami.Lib.Word <> natToWord def
+R5467:5471 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5451:5453 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5434:5439 Kami.Lib.FMap M find def
+R5448:5450 KamiHW.NormalizationSteps <> old:51 var
+R5454:5457 Coq.Init.Datatypes <> Some constr
+R5460:5463 KamiHW.NormalizationStart <> reg5 def
+R5465:5465 KamiHW.NormalizationSteps <> i:52 var
+R5513:5517 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5497:5499 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5472:5477 Kami.Lib.FMap M find def
+R5494:5496 KamiHW.NormalizationSteps <> old:51 var
+R5500:5503 Coq.Init.Datatypes <> Some constr
+R5506:5509 KamiHW.NormalizationStart <> reg5 def
+R5511:5511 KamiHW.NormalizationSteps <> e:53 var
+R5560:5564 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5542:5544 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5518:5523 Kami.Lib.FMap M find def
+R5539:5541 KamiHW.NormalizationSteps <> old:51 var
+R5545:5548 Coq.Init.Datatypes <> Some constr
+R5551:5554 KamiHW.NormalizationStart <> reg5 def
+R5556:5558 KamiHW.NormalizationSteps <> out:54 var
+R5611:5615 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5590:5592 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5565:5570 Kami.Lib.FMap M find def
+R5587:5589 KamiHW.NormalizationSteps <> old:51 var
+R5593:5596 Coq.Init.Datatypes <> Some constr
+R5599:5605 KamiHW.NormalizationStart <> regbool def
+R5607:5609 KamiHW.NormalizationSteps <> dup:55 var
+R5674:5678 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5652:5654 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5616:5621 Kami.Lib.FMap M find def
+R5649:5651 KamiHW.NormalizationSteps <> old:51 var
+R5655:5658 Coq.Init.Datatypes <> Some constr
+R5661:5668 KamiHW.NormalizationSteps <> regpairs def
+R5670:5672 KamiHW.NormalizationSteps <> src:56 var
+R5737:5741 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5715:5717 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5679:5684 Kami.Lib.FMap M find def
+R5712:5714 KamiHW.NormalizationSteps <> old:51 var
+R5718:5721 Coq.Init.Datatypes <> Some constr
+R5724:5731 KamiHW.NormalizationSteps <> regpairs def
+R5733:5735 KamiHW.NormalizationSteps <> dst:57 var
+R5742:5750 Kami.Semantics <> SemAction ind
+R5860:5861 Kami.Lib.Word <> WO constr
+R5849:5855 Kami.Lib.FMap M empty def
+R5800:5825 KamiHW.NormalizationSteps <> normalization_emit_updates def
+R5827:5827 KamiHW.NormalizationSteps <> i:52 var
+R5829:5829 KamiHW.NormalizationSteps <> e:53 var
+R5831:5833 KamiHW.NormalizationSteps <> out:54 var
+R5835:5837 KamiHW.NormalizationSteps <> dup:55 var
+R5839:5841 KamiHW.NormalizationSteps <> src:56 var
+R5843:5845 KamiHW.NormalizationSteps <> dst:57 var
+R5757:5764 Kami.Lib.Struct <> attrType proj
+R5790:5793 Kami.Syntax <> type def
+R5766:5788 KamiHW.NormalizationSteps <> normalization_emit_rule def
+R5752:5754 KamiHW.NormalizationSteps <> old:51 var
+R5933:5955 KamiHW.NormalizationSteps <> normalization_emit_rule def
+R5958:5975 KamiHW.NormalizationSteps <> normalization_rule def
+R5983:5985 Coq.Lists.List <> nth def
+R5987:5994 Kami.Syntax <> getRules def
+R5996:6003 Kami.Lib.Struct <> attrType proj
+R6015:6024 Kami.Semantics <> SemReadReg constr
+R6015:6024 Kami.Semantics <> SemReadReg constr
+R6046:6058 Kami.Semantics <> SemAssertTrue constr
+R6046:6058 Kami.Semantics <> SemAssertTrue constr
+R6085:6094 Kami.Semantics <> SemReadReg constr
+R6085:6094 Kami.Semantics <> SemReadReg constr
+R6117:6126 Kami.Semantics <> SemReadReg constr
+R6117:6126 Kami.Semantics <> SemReadReg constr
+R6150:6159 Kami.Semantics <> SemReadReg constr
+R6150:6159 Kami.Semantics <> SemReadReg constr
+R6182:6191 Kami.Semantics <> SemReadReg constr
+R6182:6191 Kami.Semantics <> SemReadReg constr
+R6215:6224 Kami.Semantics <> SemReadReg constr
+R6215:6224 Kami.Semantics <> SemReadReg constr
+R6247:6256 Kami.Semantics <> SemReadReg constr
+R6247:6256 Kami.Semantics <> SemReadReg constr
+R6286:6291 Kami.Semantics <> SemLet constr
+R6286:6291 Kami.Semantics <> SemLet constr
+R6286:6291 Kami.Semantics <> SemLet constr
+R6286:6291 Kami.Semantics <> SemLet constr
+R6286:6291 Kami.Semantics <> SemLet constr
+R6286:6291 Kami.Semantics <> SemLet constr
+R6286:6291 Kami.Semantics <> SemLet constr
+R6302:6327 KamiHW.NormalizationSteps <> normalization_emit_updates def
+R6330:6338 KamiHW.NormalizationSteps <> emit_next def
+R6341:6350 KamiHW.NormalizationSteps <> put_vector def
+R6353:6360 KamiHW.NormalizationSteps <> word_eqb def
+R6363:6372 KamiHW.NormalizationSteps <> pair_index def
+R6389:6399 Kami.Semantics <> SemWriteReg constr
+R6389:6399 Kami.Semantics <> SemWriteReg constr
+R6389:6399 Kami.Semantics <> SemWriteReg constr
+R6389:6399 Kami.Semantics <> SemWriteReg constr
+R6389:6399 Kami.Semantics <> SemWriteReg constr
+R6389:6399 Kami.Semantics <> SemWriteReg constr
+R6389:6399 Kami.Semantics <> SemWriteReg constr
+R6389:6399 Kami.Semantics <> SemWriteReg constr
+R6389:6399 Kami.Semantics <> SemWriteReg constr
+R6433:6441 Kami.Semantics <> SemReturn constr
+R6433:6441 Kami.Semantics <> SemReturn constr
+prf 6499:6531 <> normalization_emit_actual_substep
+binder 6542:6544 <> old:58
+binder 6546:6546 <> i:59
+binder 6548:6548 <> e:60
+binder 6550:6552 <> out:61
+binder 6554:6556 <> dup:62
+binder 6558:6560 <> src:63
+binder 6562:6564 <> dst:64
+R6619:6623 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6589:6591 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6568:6573 Kami.Lib.FMap M find def
+R6586:6588 KamiHW.NormalizationSteps <> old:58 var
+R6592:6595 Coq.Init.Datatypes <> Some constr
+R6598:6601 KamiHW.NormalizationStart <> reg4 def
+R6604:6612 Kami.Lib.Word <> natToWord def
+R6657:6661 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6641:6643 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6624:6629 Kami.Lib.FMap M find def
+R6638:6640 KamiHW.NormalizationSteps <> old:58 var
+R6644:6647 Coq.Init.Datatypes <> Some constr
+R6650:6653 KamiHW.NormalizationStart <> reg5 def
+R6655:6655 KamiHW.NormalizationSteps <> i:59 var
+R6703:6707 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6687:6689 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6662:6667 Kami.Lib.FMap M find def
+R6684:6686 KamiHW.NormalizationSteps <> old:58 var
+R6690:6693 Coq.Init.Datatypes <> Some constr
+R6696:6699 KamiHW.NormalizationStart <> reg5 def
+R6701:6701 KamiHW.NormalizationSteps <> e:60 var
+R6750:6754 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6732:6734 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6708:6713 Kami.Lib.FMap M find def
+R6729:6731 KamiHW.NormalizationSteps <> old:58 var
+R6735:6738 Coq.Init.Datatypes <> Some constr
+R6741:6744 KamiHW.NormalizationStart <> reg5 def
+R6746:6748 KamiHW.NormalizationSteps <> out:61 var
+R6801:6805 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6780:6782 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6755:6760 Kami.Lib.FMap M find def
+R6777:6779 KamiHW.NormalizationSteps <> old:58 var
+R6783:6786 Coq.Init.Datatypes <> Some constr
+R6789:6795 KamiHW.NormalizationStart <> regbool def
+R6797:6799 KamiHW.NormalizationSteps <> dup:62 var
+R6864:6868 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6842:6844 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6806:6811 Kami.Lib.FMap M find def
+R6839:6841 KamiHW.NormalizationSteps <> old:58 var
+R6845:6848 Coq.Init.Datatypes <> Some constr
+R6851:6858 KamiHW.NormalizationSteps <> regpairs def
+R6860:6862 KamiHW.NormalizationSteps <> src:63 var
+R6927:6931 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6905:6907 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6869:6874 Kami.Lib.FMap M find def
+R6902:6904 KamiHW.NormalizationSteps <> old:58 var
+R6908:6911 Coq.Init.Datatypes <> Some constr
+R6914:6921 KamiHW.NormalizationSteps <> regpairs def
+R6923:6925 KamiHW.NormalizationSteps <> dst:64 var
+R6932:6938 Kami.Semantics <> Substep ind
+R7041:7047 Kami.Lib.FMap M empty def
+R7008:7010 Kami.Semantics <> Rle constr
+R7013:7016 Coq.Init.Datatypes <> Some constr
+R6956:6981 KamiHW.NormalizationSteps <> normalization_emit_updates def
+R6983:6983 KamiHW.NormalizationSteps <> i:59 var
+R6985:6985 KamiHW.NormalizationSteps <> e:60 var
+R6987:6989 KamiHW.NormalizationSteps <> out:61 var
+R6991:6993 KamiHW.NormalizationSteps <> dup:62 var
+R6995:6997 KamiHW.NormalizationSteps <> src:63 var
+R6999:7001 KamiHW.NormalizationSteps <> dst:64 var
+R6951:6953 KamiHW.NormalizationSteps <> old:58 var
+R6940:6949 KamiHW.ThieleCPUCore <> thieleCore def
+R7098:7105 Kami.Lib.Struct <> attrType proj
+R7107:7129 KamiHW.NormalizationSteps <> normalization_emit_rule def
+R7076:7085 Kami.Semantics <> SingleRule constr
+R7098:7105 Kami.Lib.Struct <> attrType proj
+R7107:7129 KamiHW.NormalizationSteps <> normalization_emit_rule def
+R7076:7085 Kami.Semantics <> SingleRule constr
+R7142:7167 KamiHW.NormalizationSteps <> normalization_emit_rule_in thm
+R7142:7167 KamiHW.NormalizationSteps <> normalization_emit_rule_in thm
+R7180:7211 KamiHW.NormalizationSteps <> normalization_emit_actual_action thm
+R7180:7211 KamiHW.NormalizationSteps <> normalization_emit_actual_action thm
+def 7244:7251 <> regbases
+R7264:7267 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7258:7261 Kami.Lib.Word <> word ind
+R7268:7271 Kami.Lib.Word <> word ind
+binder 7254:7254 <> v:65
+R7280:7285 Coq.Init.Specif <> existT constr
+R7335:7335 KamiHW.NormalizationSteps <> v:65 var
+R7304:7313 Kami.Syntax <> SyntaxKind constr
+R7316:7321 Kami.Syntax <> Vector constr
+R7324:7326 Kami.Syntax <> Bit constr
+R7288:7295 Kami.Syntax <> fullType def
+R7297:7300 Kami.Syntax <> type def
+def 7349:7357 <> regcounts
+R7370:7373 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7364:7367 Kami.Lib.Word <> word ind
+R7374:7377 Kami.Lib.Word <> word ind
+binder 7360:7360 <> v:66
+R7386:7391 Coq.Init.Specif <> existT constr
+R7441:7441 KamiHW.NormalizationSteps <> v:66 var
+R7410:7419 Kami.Syntax <> SyntaxKind constr
+R7422:7427 Kami.Syntax <> Vector constr
+R7430:7432 Kami.Syntax <> Bit constr
+R7394:7401 Kami.Syntax <> fullType def
+R7403:7406 Kami.Syntax <> type def
+def 7455:7462 <> regvalid
+R7475:7478 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7469:7472 Kami.Lib.Word <> word ind
+R7479:7482 Coq.Init.Datatypes <> bool ind
+binder 7465:7465 <> v:67
+R7489:7494 Coq.Init.Specif <> existT constr
+R7541:7541 KamiHW.NormalizationSteps <> v:67 var
+R7513:7522 Kami.Syntax <> SyntaxKind constr
+R7525:7530 Kami.Syntax <> Vector constr
+R7532:7535 Kami.Syntax <> Bool constr
+R7497:7504 Kami.Syntax <> fullType def
+R7506:7509 Kami.Syntax <> type def
+def 7555:7582 <> normalization_commit_updates
+R7593:7596 Kami.Lib.Word <> word ind
+binder 7585:7585 <> b:68
+binder 7587:7587 <> e:69
+binder 7589:7589 <> d:70
+R7617:7620 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7611:7614 Kami.Lib.Word <> word ind
+R7621:7624 Kami.Lib.Word <> word ind
+binder 7603:7607 <> bases:71
+R7645:7648 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7639:7642 Kami.Lib.Word <> word ind
+R7649:7652 Kami.Lib.Word <> word ind
+binder 7630:7635 <> counts:72
+R7672:7675 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7666:7669 Kami.Lib.Word <> word ind
+R7676:7679 Coq.Init.Datatypes <> bool ind
+binder 7658:7662 <> valid:73
+R7684:7691 Kami.Semantics <> UpdatesT def
+R7697:7701 Kami.Lib.FMap M add def
+R7792:7796 Kami.Lib.FMap M add def
+R7888:7892 Kami.Lib.FMap M add def
+R7974:7978 Kami.Lib.FMap M add def
+R8039:8043 Kami.Lib.FMap M add def
+R8080:8084 Kami.Lib.FMap M add def
+R8121:8127 Kami.Lib.FMap M empty def
+R8098:8101 KamiHW.NormalizationStart <> reg4 def
+R8104:8112 Kami.Lib.Word <> natToWord def
+R8070:8073 KamiHW.NormalizationStart <> reg5 def
+R8075:8075 KamiHW.NormalizationSteps <> e:69 var
+R8005:8008 KamiHW.NormalizationStart <> reg5 def
+R8011:8015 Kami.Lib.Word <> wplus def
+R8020:8028 Kami.Lib.Word <> natToWord def
+R8017:8017 KamiHW.NormalizationSteps <> d:70 var
+R7923:7930 KamiHW.NormalizationSteps <> regvalid def
+R7933:7942 KamiHW.NormalizationSteps <> put_vector def
+R7965:7968 Coq.Init.Datatypes <> true constr
+R7951:7960 KamiHW.NormalizationSteps <> pair_index def
+R7962:7962 KamiHW.NormalizationSteps <> d:70 var
+R7944:7948 KamiHW.NormalizationSteps <> valid:73 var
+R7827:7835 KamiHW.NormalizationSteps <> regcounts def
+R7838:7847 KamiHW.NormalizationSteps <> put_vector def
+R7872:7877 Kami.Lib.Word <> wminus def
+R7881:7881 KamiHW.NormalizationSteps <> b:68 var
+R7879:7879 KamiHW.NormalizationSteps <> e:69 var
+R7857:7866 KamiHW.NormalizationSteps <> pair_index def
+R7868:7868 KamiHW.NormalizationSteps <> d:70 var
+R7849:7854 KamiHW.NormalizationSteps <> counts:72 var
+R7731:7738 KamiHW.NormalizationSteps <> regbases def
+R7741:7750 KamiHW.NormalizationSteps <> put_vector def
+R7774:7783 KamiHW.NormalizationSteps <> pair_index def
+R7785:7785 KamiHW.NormalizationSteps <> b:68 var
+R7759:7768 KamiHW.NormalizationSteps <> pair_index def
+R7770:7770 KamiHW.NormalizationSteps <> d:70 var
+R7752:7756 KamiHW.NormalizationSteps <> bases:71 var
+prf 8144:8173 <> normalization_commit_rule_name
+R8211:8213 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8177:8184 Kami.Lib.Struct <> attrName proj
+R8186:8210 KamiHW.NormalizationSteps <> normalization_commit_rule def
+prf 8258:8285 <> normalization_commit_rule_in
+R8289:8290 Coq.Lists.List <> In def
+R8319:8326 Kami.Syntax <> getRules def
+R8328:8337 KamiHW.ThieleCPUCore <> thieleCore def
+R8292:8316 KamiHW.NormalizationSteps <> normalization_commit_rule def
+R8355:8379 KamiHW.NormalizationSteps <> normalization_commit_rule def
+R8382:8399 KamiHW.NormalizationSteps <> normalization_rule def
+R8408:8413 Coq.Lists.List <> nth_In thm
+R8426:8426 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R8408:8413 Coq.Lists.List <> nth_In thm
+R8426:8426 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+prf 8469:8502 <> normalization_commit_actual_action
+binder 8513:8515 <> old:74
+binder 8517:8517 <> b:75
+binder 8519:8519 <> e:76
+binder 8521:8521 <> d:77
+binder 8523:8527 <> bases:78
+binder 8529:8534 <> counts:79
+binder 8536:8540 <> valid:80
+R8596:8600 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8565:8567 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8544:8549 Kami.Lib.FMap M find def
+R8562:8564 KamiHW.NormalizationSteps <> old:74 var
+R8568:8571 Coq.Init.Datatypes <> Some constr
+R8574:8577 KamiHW.NormalizationStart <> reg4 def
+R8580:8588 Kami.Lib.Word <> natToWord def
+R8643:8647 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8627:8629 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8601:8606 Kami.Lib.FMap M find def
+R8624:8626 KamiHW.NormalizationSteps <> old:74 var
+R8630:8633 Coq.Init.Datatypes <> Some constr
+R8636:8639 KamiHW.NormalizationStart <> reg5 def
+R8641:8641 KamiHW.NormalizationSteps <> b:75 var
+R8689:8693 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8673:8675 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8648:8653 Kami.Lib.FMap M find def
+R8670:8672 KamiHW.NormalizationSteps <> old:74 var
+R8676:8679 Coq.Init.Datatypes <> Some constr
+R8682:8685 KamiHW.NormalizationStart <> reg5 def
+R8687:8687 KamiHW.NormalizationSteps <> e:76 var
+R8744:8748 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8728:8730 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8694:8699 Kami.Lib.FMap M find def
+R8725:8727 KamiHW.NormalizationSteps <> old:74 var
+R8731:8734 Coq.Init.Datatypes <> Some constr
+R8737:8740 KamiHW.NormalizationStart <> reg5 def
+R8742:8742 KamiHW.NormalizationSteps <> d:77 var
+R8810:8814 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8786:8788 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8749:8754 Kami.Lib.FMap M find def
+R8783:8785 KamiHW.NormalizationSteps <> old:74 var
+R8789:8792 Coq.Init.Datatypes <> Some constr
+R8795:8802 KamiHW.NormalizationSteps <> regbases def
+R8804:8808 KamiHW.NormalizationSteps <> bases:78 var
+R8879:8883 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8853:8855 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8815:8820 Kami.Lib.FMap M find def
+R8850:8852 KamiHW.NormalizationSteps <> old:74 var
+R8856:8859 Coq.Init.Datatypes <> Some constr
+R8862:8870 KamiHW.NormalizationSteps <> regcounts def
+R8872:8877 KamiHW.NormalizationSteps <> counts:79 var
+R8946:8950 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8922:8924 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8884:8889 Kami.Lib.FMap M find def
+R8919:8921 KamiHW.NormalizationSteps <> old:74 var
+R8925:8928 Coq.Init.Datatypes <> Some constr
+R8931:8938 KamiHW.NormalizationSteps <> regvalid def
+R8940:8944 KamiHW.NormalizationSteps <> valid:80 var
+R8951:8959 Kami.Semantics <> SemAction ind
+R9078:9079 Kami.Lib.Word <> WO constr
+R9067:9073 Kami.Lib.FMap M empty def
+R9011:9038 KamiHW.NormalizationSteps <> normalization_commit_updates def
+R9040:9040 KamiHW.NormalizationSteps <> b:75 var
+R9042:9042 KamiHW.NormalizationSteps <> e:76 var
+R9044:9044 KamiHW.NormalizationSteps <> d:77 var
+R9046:9050 KamiHW.NormalizationSteps <> bases:78 var
+R9052:9057 KamiHW.NormalizationSteps <> counts:79 var
+R9059:9063 KamiHW.NormalizationSteps <> valid:80 var
+R8966:8973 Kami.Lib.Struct <> attrType proj
+R9001:9004 Kami.Syntax <> type def
+R8975:8999 KamiHW.NormalizationSteps <> normalization_commit_rule def
+R8961:8963 KamiHW.NormalizationSteps <> old:74 var
+R9159:9183 KamiHW.NormalizationSteps <> normalization_commit_rule def
+R9186:9203 KamiHW.NormalizationSteps <> normalization_rule def
+R9211:9213 Coq.Lists.List <> nth def
+R9215:9222 Kami.Syntax <> getRules def
+R9224:9231 Kami.Lib.Struct <> attrType proj
+R9243:9252 Kami.Semantics <> SemReadReg constr
+R9243:9252 Kami.Semantics <> SemReadReg constr
+R9274:9286 Kami.Semantics <> SemAssertTrue constr
+R9274:9286 Kami.Semantics <> SemAssertTrue constr
+R9313:9322 Kami.Semantics <> SemReadReg constr
+R9313:9322 Kami.Semantics <> SemReadReg constr
+R9345:9354 Kami.Semantics <> SemReadReg constr
+R9345:9354 Kami.Semantics <> SemReadReg constr
+R9378:9387 Kami.Semantics <> SemReadReg constr
+R9378:9387 Kami.Semantics <> SemReadReg constr
+R9410:9419 Kami.Semantics <> SemReadReg constr
+R9410:9419 Kami.Semantics <> SemReadReg constr
+R9444:9453 Kami.Semantics <> SemReadReg constr
+R9444:9453 Kami.Semantics <> SemReadReg constr
+R9477:9486 Kami.Semantics <> SemReadReg constr
+R9477:9486 Kami.Semantics <> SemReadReg constr
+R9517:9522 Kami.Semantics <> SemLet constr
+R9517:9522 Kami.Semantics <> SemLet constr
+R9517:9522 Kami.Semantics <> SemLet constr
+R9517:9522 Kami.Semantics <> SemLet constr
+R9533:9560 KamiHW.NormalizationSteps <> normalization_commit_updates def
+R9563:9572 KamiHW.NormalizationSteps <> put_vector def
+R9575:9584 KamiHW.NormalizationSteps <> pair_index def
+R9601:9611 Kami.Semantics <> SemWriteReg constr
+R9601:9611 Kami.Semantics <> SemWriteReg constr
+R9601:9611 Kami.Semantics <> SemWriteReg constr
+R9601:9611 Kami.Semantics <> SemWriteReg constr
+R9601:9611 Kami.Semantics <> SemWriteReg constr
+R9601:9611 Kami.Semantics <> SemWriteReg constr
+R9601:9611 Kami.Semantics <> SemWriteReg constr
+R9645:9653 Kami.Semantics <> SemReturn constr
+R9645:9653 Kami.Semantics <> SemReturn constr
+prf 9711:9745 <> normalization_commit_actual_substep
+binder 9756:9758 <> old:81
+binder 9760:9760 <> b:82
+binder 9762:9762 <> e:83
+binder 9764:9764 <> d:84
+binder 9766:9770 <> bases:85
+binder 9772:9777 <> counts:86
+binder 9779:9783 <> valid:87
+R9839:9843 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9808:9810 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9787:9792 Kami.Lib.FMap M find def
+R9805:9807 KamiHW.NormalizationSteps <> old:81 var
+R9811:9814 Coq.Init.Datatypes <> Some constr
+R9817:9820 KamiHW.NormalizationStart <> reg4 def
+R9823:9831 Kami.Lib.Word <> natToWord def
+R9886:9890 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9870:9872 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9844:9849 Kami.Lib.FMap M find def
+R9867:9869 KamiHW.NormalizationSteps <> old:81 var
+R9873:9876 Coq.Init.Datatypes <> Some constr
+R9879:9882 KamiHW.NormalizationStart <> reg5 def
+R9884:9884 KamiHW.NormalizationSteps <> b:82 var
+R9932:9936 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9916:9918 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9891:9896 Kami.Lib.FMap M find def
+R9913:9915 KamiHW.NormalizationSteps <> old:81 var
+R9919:9922 Coq.Init.Datatypes <> Some constr
+R9925:9928 KamiHW.NormalizationStart <> reg5 def
+R9930:9930 KamiHW.NormalizationSteps <> e:83 var
+R9987:9991 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9971:9973 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9937:9942 Kami.Lib.FMap M find def
+R9968:9970 KamiHW.NormalizationSteps <> old:81 var
+R9974:9977 Coq.Init.Datatypes <> Some constr
+R9980:9983 KamiHW.NormalizationStart <> reg5 def
+R9985:9985 KamiHW.NormalizationSteps <> d:84 var
+R10053:10057 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10029:10031 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9992:9997 Kami.Lib.FMap M find def
+R10026:10028 KamiHW.NormalizationSteps <> old:81 var
+R10032:10035 Coq.Init.Datatypes <> Some constr
+R10038:10045 KamiHW.NormalizationSteps <> regbases def
+R10047:10051 KamiHW.NormalizationSteps <> bases:85 var
+R10122:10126 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10096:10098 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10058:10063 Kami.Lib.FMap M find def
+R10093:10095 KamiHW.NormalizationSteps <> old:81 var
+R10099:10102 Coq.Init.Datatypes <> Some constr
+R10105:10113 KamiHW.NormalizationSteps <> regcounts def
+R10115:10120 KamiHW.NormalizationSteps <> counts:86 var
+R10189:10193 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10165:10167 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10127:10132 Kami.Lib.FMap M find def
+R10162:10164 KamiHW.NormalizationSteps <> old:81 var
+R10168:10171 Coq.Init.Datatypes <> Some constr
+R10174:10181 KamiHW.NormalizationSteps <> regvalid def
+R10183:10187 KamiHW.NormalizationSteps <> valid:87 var
+R10194:10200 Kami.Semantics <> Substep ind
+R10302:10308 Kami.Lib.FMap M empty def
+R10277:10279 Kami.Semantics <> Rle constr
+R10282:10285 Coq.Init.Datatypes <> Some constr
+R10218:10245 KamiHW.NormalizationSteps <> normalization_commit_updates def
+R10247:10247 KamiHW.NormalizationSteps <> b:82 var
+R10249:10249 KamiHW.NormalizationSteps <> e:83 var
+R10251:10251 KamiHW.NormalizationSteps <> d:84 var
+R10253:10257 KamiHW.NormalizationSteps <> bases:85 var
+R10259:10264 KamiHW.NormalizationSteps <> counts:86 var
+R10266:10270 KamiHW.NormalizationSteps <> valid:87 var
+R10213:10215 KamiHW.NormalizationSteps <> old:81 var
+R10202:10211 KamiHW.ThieleCPUCore <> thieleCore def
+R10359:10366 Kami.Lib.Struct <> attrType proj
+R10368:10392 KamiHW.NormalizationSteps <> normalization_commit_rule def
+R10337:10346 Kami.Semantics <> SingleRule constr
+R10359:10366 Kami.Lib.Struct <> attrType proj
+R10368:10392 KamiHW.NormalizationSteps <> normalization_commit_rule def
+R10337:10346 Kami.Semantics <> SingleRule constr
+R10405:10432 KamiHW.NormalizationSteps <> normalization_commit_rule_in thm
+R10405:10432 KamiHW.NormalizationSteps <> normalization_commit_rule_in thm
+R10445:10478 KamiHW.NormalizationSteps <> normalization_commit_actual_action thm
+R10445:10478 KamiHW.NormalizationSteps <> normalization_commit_actual_action thm
+prf 10738:10761 <> normalization_scan_frame
+binder 10772:10774 <> old:88
+binder 10776:10776 <> i:89
+binder 10778:10778 <> j:90
+binder 10780:10780 <> e:91
+binder 10782:10784 <> dup:92
+binder 10786:10788 <> src:93
+binder 10790:10792 <> dst:94
+binder 10794:10796 <> key:95
+R10845:10849 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10800:10801 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10802:10803 Coq.Lists.List <> In def
+R10809:10809 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10824:10825 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10832:10833 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10844:10844 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10805:10807 KamiHW.NormalizationSteps <> key:95 var
+R10921:10923 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10850:10855 Kami.Lib.FMap M find def
+R10862:10868 Kami.Lib.FMap M union def
+R10917:10919 KamiHW.NormalizationSteps <> old:88 var
+R10871:10896 KamiHW.NormalizationSteps <> normalization_scan_updates def
+R10898:10898 KamiHW.NormalizationSteps <> i:89 var
+R10900:10900 KamiHW.NormalizationSteps <> j:90 var
+R10902:10902 KamiHW.NormalizationSteps <> e:91 var
+R10904:10906 KamiHW.NormalizationSteps <> dup:92 var
+R10908:10910 KamiHW.NormalizationSteps <> src:93 var
+R10912:10914 KamiHW.NormalizationSteps <> dst:94 var
+R10857:10859 KamiHW.NormalizationSteps <> key:95 var
+R10924:10929 Kami.Lib.FMap M find def
+R10935:10937 KamiHW.NormalizationSteps <> old:88 var
+R10931:10933 KamiHW.NormalizationSteps <> key:95 var
+R10993:11004 Kami.Lib.FMap M find_union thm
+R10993:11004 Kami.Lib.FMap M find_union thm
+R10993:11004 Kami.Lib.FMap M find_union thm
+R11014:11039 KamiHW.NormalizationSteps <> normalization_scan_updates def
+R11058:11069 Kami.Lib.FMap M find_add_2 thm
+R11058:11069 Kami.Lib.FMap M find_add_2 thm
+R11058:11069 Kami.Lib.FMap M find_add_2 thm
+R11058:11069 Kami.Lib.FMap M find_add_2 thm
+R11058:11069 Kami.Lib.FMap M find_add_2 thm
+R11058:11069 Kami.Lib.FMap M find_add_2 thm
+R11058:11069 Kami.Lib.FMap M find_add_2 thm
+R11058:11069 Kami.Lib.FMap M find_add_2 thm
+prf 11139:11162 <> normalization_emit_frame
+binder 11173:11175 <> old:96
+binder 11177:11177 <> i:97
+binder 11179:11179 <> e:98
+binder 11181:11183 <> out:99
+binder 11185:11187 <> dup:100
+binder 11189:11191 <> src:101
+binder 11193:11195 <> dst:102
+binder 11197:11199 <> key:103
+R11352:11356 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11203:11204 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11205:11206 Coq.Lists.List <> In def
+R11212:11212 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11238:11239 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11265:11266 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11280:11292 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11307:11308 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11315:11316 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11323:11324 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11339:11340 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11351:11351 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11208:11210 KamiHW.NormalizationSteps <> key:103 var
+R11430:11432 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11357:11362 Kami.Lib.FMap M find def
+R11369:11375 Kami.Lib.FMap M union def
+R11426:11428 KamiHW.NormalizationSteps <> old:96 var
+R11378:11403 KamiHW.NormalizationSteps <> normalization_emit_updates def
+R11405:11405 KamiHW.NormalizationSteps <> i:97 var
+R11407:11407 KamiHW.NormalizationSteps <> e:98 var
+R11409:11411 KamiHW.NormalizationSteps <> out:99 var
+R11413:11415 KamiHW.NormalizationSteps <> dup:100 var
+R11417:11419 KamiHW.NormalizationSteps <> src:101 var
+R11421:11423 KamiHW.NormalizationSteps <> dst:102 var
+R11364:11366 KamiHW.NormalizationSteps <> key:103 var
+R11433:11438 Kami.Lib.FMap M find def
+R11444:11446 KamiHW.NormalizationSteps <> old:96 var
+R11440:11442 KamiHW.NormalizationSteps <> key:103 var
+R11504:11515 Kami.Lib.FMap M find_union thm
+R11504:11515 Kami.Lib.FMap M find_union thm
+R11504:11515 Kami.Lib.FMap M find_union thm
+R11525:11550 KamiHW.NormalizationSteps <> normalization_emit_updates def
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+R11569:11580 Kami.Lib.FMap M find_add_2 thm
+prf 11653:11678 <> normalization_commit_frame
+binder 11689:11691 <> old:104
+binder 11693:11693 <> b:105
+binder 11695:11695 <> e:106
+binder 11697:11697 <> d:107
+binder 11699:11703 <> bases:108
+binder 11705:11710 <> counts:109
+binder 11712:11716 <> valid:110
+binder 11718:11720 <> key:111
+R11903:11907 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11724:11725 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11726:11727 Coq.Lists.List <> In def
+R11733:11733 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11760:11761 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11789:11801 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11829:11830 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11854:11866 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11890:11891 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11902:11902 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11729:11731 KamiHW.NormalizationSteps <> key:111 var
+R11988:11990 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11908:11913 Kami.Lib.FMap M find def
+R11920:11926 Kami.Lib.FMap M union def
+R11984:11986 KamiHW.NormalizationSteps <> old:104 var
+R11929:11956 KamiHW.NormalizationSteps <> normalization_commit_updates def
+R11958:11958 KamiHW.NormalizationSteps <> b:105 var
+R11960:11960 KamiHW.NormalizationSteps <> e:106 var
+R11962:11962 KamiHW.NormalizationSteps <> d:107 var
+R11964:11968 KamiHW.NormalizationSteps <> bases:108 var
+R11970:11975 KamiHW.NormalizationSteps <> counts:109 var
+R11977:11981 KamiHW.NormalizationSteps <> valid:110 var
+R11915:11917 KamiHW.NormalizationSteps <> key:111 var
+R11991:11996 Kami.Lib.FMap M find def
+R12002:12004 KamiHW.NormalizationSteps <> old:104 var
+R11998:12000 KamiHW.NormalizationSteps <> key:111 var
+R12067:12078 Kami.Lib.FMap M find_union thm
+R12067:12078 Kami.Lib.FMap M find_union thm
+R12067:12078 Kami.Lib.FMap M find_union thm
+R12088:12115 KamiHW.NormalizationSteps <> normalization_commit_updates def
+R12134:12145 Kami.Lib.FMap M find_add_2 thm
+R12134:12145 Kami.Lib.FMap M find_add_2 thm
+R12134:12145 Kami.Lib.FMap M find_add_2 thm
+R12134:12145 Kami.Lib.FMap M find_add_2 thm
+R12134:12145 Kami.Lib.FMap M find_add_2 thm
+R12134:12145 Kami.Lib.FMap M find_add_2 thm
+R12134:12145 Kami.Lib.FMap M find_add_2 thm
+R12134:12145 Kami.Lib.FMap M find_add_2 thm
+R12134:12145 Kami.Lib.FMap M find_add_2 thm
+R12134:12145 Kami.Lib.FMap M find_add_2 thm
+R12134:12145 Kami.Lib.FMap M find_add_2 thm
+R12134:12145 Kami.Lib.FMap M find_add_2 thm
+R12134:12145 Kami.Lib.FMap M find_add_2 thm
+R12134:12145 Kami.Lib.FMap M find_add_2 thm
+R12237:12241 Coq.Arith.Arith <> <> lib
+R12243:12245 Coq.micromega.Lia <> <> lib
+prf 12254:12292 <> normalization_pointer_increment_no_wrap
+binder 12303:12303 <> n:112
+R12320:12324 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12309:12312 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12308:12308 KamiHW.NormalizationSteps <> n:112 var
+R12374:12376 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12325:12333 Kami.Lib.Word <> wordToNat def
+R12336:12340 Kami.Lib.Word <> wplus def
+R12359:12367 Kami.Lib.Word <> natToWord def
+R12343:12351 Kami.Lib.Word <> natToWord def
+R12355:12355 KamiHW.NormalizationSteps <> n:112 var
+R12379:12379 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12378:12378 KamiHW.NormalizationSteps <> n:112 var
+R12420:12433 Kami.Lib.Word <> natToWord_plus thm
+R12420:12433 Kami.Lib.Word <> natToWord_plus thm
+R12420:12433 Kami.Lib.Word <> natToWord_plus thm
+R12443:12463 Kami.Lib.Word <> wordToNat_natToWord_2 thm
+R12443:12463 Kami.Lib.Word <> wordToNat_natToWord_2 thm
+R12477:12477 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12475:12475 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12477:12477 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12475:12475 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+prf 12503:12532 <> normalization_pair_index_exact
+binder 12543:12543 <> n:113
+R12559:12562 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12549:12551 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12548:12548 KamiHW.NormalizationSteps <> n:113 var
+R12601:12603 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12563:12571 Kami.Lib.Word <> wordToNat def
+R12574:12583 KamiHW.NormalizationSteps <> pair_index def
+R12586:12594 Kami.Lib.Word <> natToWord def
+R12598:12598 KamiHW.NormalizationSteps <> n:113 var
+R12604:12604 KamiHW.NormalizationSteps <> n:113 var
+R12635:12644 KamiHW.NormalizationSteps <> pair_index def
+R12655:12670 Kami.Lib.Word <> wordToNat_split1 thm
+R12655:12670 Kami.Lib.Word <> wordToNat_split1 thm
+R12655:12670 Kami.Lib.Word <> wordToNat_split1 thm
+R12717:12717 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12682:12702 Kami.Lib.Word <> wordToNat_natToWord_2 thm
+R12682:12702 Kami.Lib.Word <> wordToNat_natToWord_2 thm
+R12717:12717 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12682:12702 Kami.Lib.Word <> wordToNat_natToWord_2 thm
+R12750:12752 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12743:12747 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R12750:12752 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12743:12747 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R12767:12779 Coq.Arith.PeanoNat Nat mod_small def
+R12767:12779 Coq.Arith.PeanoNat Nat mod_small def
+prf 12803:12837 <> normalization_distinct_pair_indices
+binder 12848:12848 <> k:114
+binder 12850:12852 <> out:115
+R12866:12869 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12858:12858 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12857:12857 KamiHW.NormalizationSteps <> k:114 var
+R12882:12885 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12874:12874 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12871:12873 KamiHW.NormalizationSteps <> out:115 var
+R12892:12896 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12887:12888 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R12886:12886 KamiHW.NormalizationSteps <> k:114 var
+R12889:12891 KamiHW.NormalizationSteps <> out:115 var
+R12923:12926 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R12897:12906 KamiHW.NormalizationSteps <> pair_index def
+R12909:12917 Kami.Lib.Word <> natToWord def
+R12921:12921 KamiHW.NormalizationSteps <> k:114 var
+R12927:12936 KamiHW.NormalizationSteps <> pair_index def
+R12939:12947 Kami.Lib.Word <> natToWord def
+R12951:12953 KamiHW.NormalizationSteps <> out:115 var
+R13012:13018 Coq.Init.Logic <> f_equal thm
+R13022:13030 Kami.Lib.Word <> wordToNat def
+R13012:13018 Coq.Init.Logic <> f_equal thm
+R13022:13030 Kami.Lib.Word <> wordToNat def
+R13054:13083 KamiHW.NormalizationSteps <> normalization_pair_index_exact thm
+R13054:13083 KamiHW.NormalizationSteps <> normalization_pair_index_exact thm
+R13054:13083 KamiHW.NormalizationSteps <> normalization_pair_index_exact thm
+R13054:13083 KamiHW.NormalizationSteps <> normalization_pair_index_exact thm
+R13054:13083 KamiHW.NormalizationSteps <> normalization_pair_index_exact thm
+prf 13129:13167 <> normalization_emit_preserves_other_pair
+R13187:13195 KamiHW.NormalizationSteps <> PairTable def
+binder 13179:13183 <> table:116
+binder 13198:13198 <> i:117
+binder 13200:13202 <> out:118
+binder 13204:13204 <> k:119
+R13213:13216 Coq.Init.Datatypes <> bool ind
+binder 13207:13209 <> dup:120
+R13233:13236 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13225:13225 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R13222:13224 KamiHW.NormalizationSteps <> out:118 var
+R13247:13250 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13239:13239 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R13238:13238 KamiHW.NormalizationSteps <> k:119 var
+R13257:13261 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13252:13253 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R13251:13251 KamiHW.NormalizationSteps <> k:119 var
+R13254:13256 KamiHW.NormalizationSteps <> out:118 var
+R13407:13410 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13266:13268 KamiHW.NormalizationSteps <> dup:120 var
+R13286:13295 KamiHW.NormalizationSteps <> put_vector def
+R13342:13346 KamiHW.NormalizationSteps <> table:116 var
+R13349:13358 KamiHW.NormalizationSteps <> pair_index def
+R13361:13369 Kami.Lib.Word <> natToWord def
+R13373:13373 KamiHW.NormalizationSteps <> i:117 var
+R13304:13313 KamiHW.NormalizationSteps <> pair_index def
+R13316:13324 Kami.Lib.Word <> natToWord def
+R13328:13330 KamiHW.NormalizationSteps <> out:118 var
+R13297:13301 KamiHW.NormalizationSteps <> table:116 var
+R13275:13279 KamiHW.NormalizationSteps <> table:116 var
+R13380:13389 KamiHW.NormalizationSteps <> pair_index def
+R13392:13400 Kami.Lib.Word <> natToWord def
+R13404:13404 KamiHW.NormalizationSteps <> k:119 var
+R13411:13415 KamiHW.NormalizationSteps <> table:116 var
+R13418:13427 KamiHW.NormalizationSteps <> pair_index def
+R13430:13438 Kami.Lib.Word <> natToWord def
+R13442:13442 KamiHW.NormalizationSteps <> k:119 var
+R13529:13538 KamiHW.NormalizationSteps <> put_vector def
+R13551:13553 Kami.Lib.Word <> weq def
+R13585:13594 KamiHW.NormalizationSteps <> pair_index def
+R13597:13605 Kami.Lib.Word <> natToWord def
+R13556:13565 KamiHW.NormalizationSteps <> pair_index def
+R13568:13576 Kami.Lib.Word <> natToWord def
+R13551:13553 Kami.Lib.Word <> weq def
+R13585:13594 KamiHW.NormalizationSteps <> pair_index def
+R13597:13605 Kami.Lib.Word <> natToWord def
+R13556:13565 KamiHW.NormalizationSteps <> pair_index def
+R13568:13576 Kami.Lib.Word <> natToWord def
+R13650:13684 KamiHW.NormalizationSteps <> normalization_distinct_pair_indices thm
+R13650:13684 KamiHW.NormalizationSteps <> normalization_distinct_pair_indices thm
+prf 13735:13776 <> normalization_emit_preserves_unread_suffix
+R13796:13804 KamiHW.NormalizationSteps <> PairTable def
+binder 13788:13792 <> table:121
+binder 13807:13807 <> i:122
+binder 13809:13811 <> out:123
+binder 13813:13813 <> k:124
+R13822:13825 Coq.Init.Datatypes <> bool ind
+binder 13816:13818 <> dup:125
+R13842:13845 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13834:13835 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13831:13833 KamiHW.NormalizationSteps <> out:123 var
+R13836:13836 KamiHW.NormalizationSteps <> i:122 var
+R13855:13858 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13848:13848 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R13847:13847 KamiHW.NormalizationSteps <> i:122 var
+R13849:13849 KamiHW.NormalizationSteps <> k:124 var
+R13869:13873 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13861:13861 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R13860:13860 KamiHW.NormalizationSteps <> k:124 var
+R14019:14022 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13878:13880 KamiHW.NormalizationSteps <> dup:125 var
+R13898:13907 KamiHW.NormalizationSteps <> put_vector def
+R13954:13958 KamiHW.NormalizationSteps <> table:121 var
+R13961:13970 KamiHW.NormalizationSteps <> pair_index def
+R13973:13981 Kami.Lib.Word <> natToWord def
+R13985:13985 KamiHW.NormalizationSteps <> i:122 var
+R13916:13925 KamiHW.NormalizationSteps <> pair_index def
+R13928:13936 Kami.Lib.Word <> natToWord def
+R13940:13942 KamiHW.NormalizationSteps <> out:123 var
+R13909:13913 KamiHW.NormalizationSteps <> table:121 var
+R13887:13891 KamiHW.NormalizationSteps <> table:121 var
+R13992:14001 KamiHW.NormalizationSteps <> pair_index def
+R14004:14012 Kami.Lib.Word <> natToWord def
+R14016:14016 KamiHW.NormalizationSteps <> k:124 var
+R14023:14027 KamiHW.NormalizationSteps <> table:121 var
+R14030:14039 KamiHW.NormalizationSteps <> pair_index def
+R14042:14050 Kami.Lib.Word <> natToWord def
+R14054:14054 KamiHW.NormalizationSteps <> k:124 var
+R14081:14119 KamiHW.NormalizationSteps <> normalization_emit_preserves_other_pair thm
+R14081:14119 KamiHW.NormalizationSteps <> normalization_emit_preserves_other_pair thm

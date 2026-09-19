@@ -145,14 +145,14 @@ class TestUpperLaneFields:
         )
 
     def test_morph_ext_ext0_carries_dst_mod_and_coupling(self):
-        """MORPH_EXT: ext0 packs dst_mod[5:0] | coupling_desc[11:6]."""
-        instr, _, _ = _encode("MORPH_EXT 7 1 2 5 3")
+        """MORPH_EXT: ext0 packs dst_mod[5:0] | coupling_base[12:6]."""
+        instr, _, _ = _encode("MORPH_EXT 7 1 2 80 3")
         word = int(instr[0], 16)
         ext0 = (word >> 32) & 0xFFFFFFFF
         dst_mod = ext0 & 0x3F
-        coupling = (ext0 >> 6) & 0x3F
+        coupling = (ext0 >> 6) & 0x7F
         assert dst_mod == 2, f"ext0 dst_mod={dst_mod}, expected 2"
-        assert coupling == 5, f"ext0 coupling_desc={coupling}, expected 5"
+        assert coupling == 80, f"ext0 coupling_desc={coupling}, expected 80"
 
     def test_morph_assert_ext_ext0_carries_checksum(self):
         """MORPH_ASSERT_EXT: ext0[31:0] carries inline property checksum."""
@@ -326,8 +326,18 @@ HALT
 """)
         assert state["err"], "MORPH_ASSERT_EXT on missing morph should trap"
 
-    def test_morph_tensor_ext_produces_result(self):
-        """MORPH_TENSOR_EXT on two identity morphisms produces result."""
+    def test_morph_tensor_ext_faults_with_morph_not_found(self):
+        """MORPH_TENSOR_EXT must latch ERR_MORPH_NOT_FOUND and advance pc.
+
+        Reconstructed module regions are `seq 0 size` with nonzero size, so
+        any two regions share address 0. The kernel's `graph_tensor_morphisms`
+        requires disjoint source and target regions and so never succeeds on a
+        reconstructed graph; `kami_step` always records ERR_MORPH_NOT_FOUND.
+        Devon chose on 2026-09-15 to make the CPU fault the same way
+        (C2_DIVERGENCE_LEDGER.md, "MORPH_TENSOR"): MORPH_TENSOR now always
+        latches err with ERR_MORPH_NOT_FOUND, charges its cost and advances pc.
+        It no longer allocates or writes a destination register.
+        """
         state = _run_cosim("""\
 PNEW {1} 1
 MORPH_ID_EXT 10 1 1
@@ -335,8 +345,13 @@ MORPH_ID_EXT 11 1 1
 MORPH_TENSOR_EXT 12 1 2 1
 HALT
 """)
-        assert not state["err"], f"error: {state.get('error_code')}"
-        assert state["regs"][12] != 0, "MORPH_TENSOR_EXT should produce non-zero morph_id"
+        assert state["err"], "MORPH_TENSOR_EXT must latch err on a reconstructed graph"
+        assert state.get("error_code") == 0x0BADC0003, (
+            f"Expected ERR_MORPH_NOT_FOUND, got {state.get('error_code', 0):08X}"
+        )
+        assert state["regs"][12] == 0, (
+            "MORPH_TENSOR_EXT must not write a destination register"
+        )
 
 
 # ═══════════════════════════════════════════════════════════════════════

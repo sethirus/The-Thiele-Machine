@@ -88,26 +88,30 @@ def test_halt_is_terminal_and_blocks_following_ops() -> None:
     assert r["mu"] == 0, f"HALT should block later ops, got mu={r['mu']}"
 
 
-def test_chsh_supra_quantum_sets_error() -> None:
-    """CHSH_TRIAL with invalid bit operands (op_a > 1 or op_b > 1) must set error.
+def test_chsh_trial_charges_declared_cost() -> None:
+    """CHSH_TRIAL charges its declared cost whatever the setting bits are.
 
-    The Kami CPU validates op_a \u22641 (Alice setting) and op_b \u22641 (Bob setting).
-    cosim.py encodes CHSH_TRIAL x y a b as op_a = (x<<1)|y, so x=1 → op_a \u2265 2 > 1.
-    This is what the Kami err bit and BADC45C error_code gate on.
+    The x=1 surcharge, the zero-tensor gate and the C43471A1 policy gate were
+    removed from the CPU so it matches `kami_step` (Devon, 2026-09-14;
+    artifacts/review_revision/C2_DIVERGENCE_LEDGER.md, "CHSH_TRIAL x=1 →
+    Surcharge and gate removed" and "Logic-gate lock → Removed from the CPU").
+    There is therefore no invalid-setting path left to assert: an x=1 trial is
+    accepted and charges exactly its declared cost.
     """
     from thielecpu.hardware.cosim import run_verilog
-    # CHSH validation is reachable only when logic_acc is primed to CAFEEACE.
-    # Otherwise a higher-priority policy gate emits C43471A1.
-    # x=1 -> op_a = (1<<1)|0 = 2 > 1 -> err=1, error_code=0x0BADC45C
+
     result = run_verilog(
         "INIT_LOGIC_ACC 0xCAFEEACE\n"
-        "CHSH_TRIAL 1 0 0 0 0\n"
+        "CHSH_TRIAL 1 0 0 0 7\n"
         "HALT 0\n"
     )
     if result is None:
         pytest.skip("iverilog not available")
-    assert result.get("error_code", 0) == 0x0BADC45C, (
-        f"Expected BADC45C error for op_a>1 CHSH, got {result.get('error_code', 0):08X}"
+    assert result.get("error_code", 0) == 0, (
+        f"x=1 CHSH_TRIAL must be accepted, got {result.get('error_code', 0):08X}"
+    )
+    assert result.get("mu") == 7, (
+        f"x=1 CHSH_TRIAL must charge its declared 7, got {result.get('mu')}"
     )
 
 
@@ -134,15 +138,24 @@ def test_chsh_classical_pattern_no_error() -> None:
     )
 
 
-def test_chsh_requires_logic_acc_priming_policy_gate() -> None:
-    """Without logic_acc priming, CHSH path must trip policy gate C43471A1."""
+def test_chsh_does_not_require_logic_acc_priming() -> None:
+    """CHSH_TRIAL needs no logic_acc priming; the policy gate was removed.
+
+    The CPU used to require logic_acc == 0xCAFEEACE and otherwise trip
+    policy gate C43471A1. `kami_step` has no such lock, so Devon's
+    2026-09-14 decision removed it (C2_DIVERGENCE_LEDGER.md, "Logic-gate
+    lock"): logic_acc and mstatus never change and no lock remains.
+    """
     from thielecpu.hardware.cosim import run_verilog
 
-    result = run_verilog("CHSH_TRIAL 0 0 0 0 0\nHALT 0\n")
+    result = run_verilog("CHSH_TRIAL 0 0 0 0 7\nHALT 0\n")
     if result is None:
         pytest.skip("iverilog not available")
-    assert result.get("error_code", 0) == 0xC43471A1, (
-        f"Expected C43471A1 policy gate without priming, got {result.get('error_code', 0):08X}"
+    assert result.get("error_code", 0) == 0, (
+        f"Unprimed CHSH_TRIAL must not trip a policy gate, got {result.get('error_code', 0):08X}"
+    )
+    assert result.get("mu") == 7, (
+        f"Unprimed CHSH_TRIAL must charge its declared 7, got {result.get('mu')}"
     )
 
 

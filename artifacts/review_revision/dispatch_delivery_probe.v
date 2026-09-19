@@ -1,0 +1,41 @@
+From KamiHW Require Import ActionEvaluator DispatchExecution DispatchContracts DispatchReset.
+Print eval_linear_action.
+Print Assumptions eval_linear_action.
+Print linear_action.
+Print Assumptions linear_action.
+Print eval_linear_action_sound.
+Print Assumptions eval_linear_action_sound.
+Print eval_linear_action_complete.
+Print Assumptions eval_linear_action_complete.
+Print linear_action_deterministic.
+Print Assumptions linear_action_deterministic.
+Print dispatch_rule_linear.
+Print Assumptions dispatch_rule_linear.
+Print dispatch_actual_action_iff.
+Print Assumptions dispatch_actual_action_iff.
+Print dispatch_actual_execution.
+Print Assumptions dispatch_actual_execution.
+Print dispatch_actual_action_unique.
+Print Assumptions dispatch_actual_action_unique.
+Print dispatch_disabled_iff.
+Print Assumptions dispatch_disabled_iff.
+Print dispatch_reset_has_execution.
+Print Assumptions dispatch_reset_has_execution.
+Print actual_reset_contract.
+Print Assumptions actual_reset_contract.
+Print actual_cpu_reset_contract.
+Print Assumptions actual_cpu_reset_contract.
+Print dispatch_observation_actual.
+Print Assumptions dispatch_observation_actual.
+Print dispatch_invalid_chsh_stays_idle.
+Print Assumptions dispatch_invalid_chsh_stays_idle.
+Print dispatch_valid_chsh_starts.
+Print Assumptions dispatch_valid_chsh_starts.
+Print dispatch_invalid_sat_stays_idle.
+Print Assumptions dispatch_invalid_sat_stays_idle.
+Print dispatch_valid_sat_starts.
+Print Assumptions dispatch_valid_sat_starts.
+Print dispatch_bianchi_chsh_stays_idle.
+Print Assumptions dispatch_bianchi_chsh_stays_idle.
+Print dispatch_bianchi_sat_stays_idle.
+Print Assumptions dispatch_bianchi_sat_stays_idle.

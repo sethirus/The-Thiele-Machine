@@ -70,18 +70,32 @@ stage build/kami_hw/Target.ml build/kami_hw/Target.mli \
     build/thiele_core.ml build/thiele_core.mli \
     build/thiele_core_complete.ml build/thiele_core_complete.mli
 
-# Refresh the assumption evidence when its inputs change. CI independently
-# re-derives and compares it; it cannot be replaced by a manifest hash refresh.
+# Regenerate the probe itself when the corpus or its generator changes. This is
+# cheap (a source scan, no Coq) and keeps the committed probe in step with the
+# committed corpus.
+#
+# The receipt is deliberately NOT re-derived here. Doing so means executing
+# every Print Assumptions query in the corpus -- ~12k queries over 421 modules
+# as of 2026-09-18 -- which is CPU-bound and takes hours on a 2-core sandbox,
+# and this environment SIGTERMs long-running processes, so the hook could never
+# finish it. CI owns that step instead: `make assumption-receipt-check` in the
+# proof-check job re-derives the receipt and diffs it against the committed one,
+# with a 6-hour budget and no reaper. That check is the authority behind the
+# "0 project-local axioms" badge; it is strictly stronger than a local rerun.
+#
+# Locally we do the part that fits in a pre-commit hook: verify that the
+# committed receipt is a coherent snapshot of the committed probe (names, raw
+# output hash, internal counts, alignment, probe/receipt coverage). A stale or
+# partial receipt cannot be committed silently, and any genuine proof drift is
+# caught in CI.
 if ! git diff --cached --quiet -- coq vendor scripts/coq_proof_scope.py \
-        scripts/generate_assumption_receipt.sh scripts/run_assumption_batches.py \
-        scripts/check_assumption_receipt.py build/probe/build_full_probe.py \
-        build/probe/aggregate_full_probe.py artifacts/print_assumptions_all_proofs.json \
-        artifacts/print_assumptions_all_proofs.txt artifacts/print_assumptions_all_proofs.csv; then
-    run bash scripts/generate_assumption_receipt.sh
-    stage coq/AssumptionsProbeAll.v artifacts/print_assumptions_all_proofs.json \
-        artifacts/print_assumptions_all_proofs.txt build/probe/probe_inventory.json \
-        build/probe/probe_all_output.txt build/probe/probe_all_err.txt build/probe/probe_batches.json
+        build/probe/build_full_probe.py; then
+    run python3 build/probe/build_full_probe.py
+    stage coq/AssumptionsProbeAll.v build/probe/probe_inventory.json
 fi
+
+# Always check receipt/probe coherence; it is fast and needs no Coq.
+run python3 scripts/check_assumption_consistency.py
 
 # Re-probe staged target files; changing the target list or gate invalidates
 # every verdict. CI (Full) also checks cross-file changes with a full sweep.

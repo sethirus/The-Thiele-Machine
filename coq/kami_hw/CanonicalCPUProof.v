@@ -52,9 +52,10 @@ Definition canonical_cpu_module := thieleBusTopB.
     where each equality holds by [unfold] alone (cf. [thieleBusTopB :=
     thieleCoreB] and [thieleBusTopS := thieleCoreS] in
     [kami_hw/ThieleCPUBusTop.v], and [thieleCoreB := ModulesSToBModules
-    thieleCoreS] in [kami_hw/ThieleCPUCore.v]).  The remaining trust
-    boundary is therefore PP.ml/BSC after this point, not the AST
-    generator.
+    thieleCoreS] in [kami_hw/ThieleCPUCore.v]). This establishes the
+    generated AST's source, not semantic preservation of the lowering,
+    extraction, printer, text transforms, compiler, or generated RTL.
+    Each semantic edge requires its own applicable contract and evidence.
 
     This theorem is consumed by [scripts/generate_rtl_pipeline_manifest.py]
     as the [canonical_cpu_module_generated_in_coq] invariant: the manifest

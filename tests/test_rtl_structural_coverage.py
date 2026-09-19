@@ -164,14 +164,18 @@ class TestOpcodeAlignment:
         assert result is not None
         assert len(result["modules"]) >= 1
 
-    def test_cert_opcodes_require_logic_key(self):
-        """REVEAL, CHSH_TRIAL, PDISCOVER fail without logic key (err flag set)."""
+    def test_reveal_without_logic_key_advances_pc(self):
+        """REVEAL and HALT advance PC without a logic key."""
         from thielecpu.hardware.cosim import run_verilog
-        # Without INIT_LOGIC_ACC 0xCAFEEACE — should trigger ERR_LOGIC
+        # No logic accumulator initialization is required.
         result = run_verilog(["PNEW {0,256} 1", "REVEAL 0 1 0", "HALT 0"])
         assert result is not None
-        # err flag or non-zero err CSR expected
-        assert result.get("err") or result.get("pc") != 3
+        assert not result["err"]
+        assert result["pc"] == 3
+        # PNEW charges its declared cost (1); REVEAL charges bits + cost + 1
+        # (coq/kernel/foundation/VMStep.v:290: instr_reveal _ bits _ cost =>
+        # bits + S cost), so 1 + (1 + 0 + 1) = 3.
+        assert result["mu"] == 3
 
     def test_jump_transfers_control(self):
         """JUMP transfers PC to target, skipping intervening instructions."""
@@ -338,8 +342,8 @@ class TestMuTensorBianchi:
         # We can't check a specific field, but the run should complete without fatal
         assert result is not None
 
-    def test_reveal_without_logic_key_sets_err(self):
-        """REVEAL without logic gate key sets the error flag."""
+    def test_reveal_without_logic_key_charges_bits(self):
+        """REVEAL charges disclosed bits without requiring a logic key."""
         from thielecpu.hardware.cosim import run_verilog
         result = run_verilog([
             "PNEW {0,256} 5",
@@ -347,8 +351,11 @@ class TestMuTensorBianchi:
             "HALT 0",
         ])
         assert result is not None
-        # Should have ERR_LOGIC error
-        assert result.get("err") or result.get("pc") != 3
+        assert not result["err"]
+        assert result["pc"] == 3
+        # PNEW charges its declared cost (5); REVEAL charges bits + cost + 1
+        # (coq/kernel/foundation/VMStep.v:290), so 5 + (2 + 0 + 1) = 8.
+        assert result["mu"] == 8
 
 
 # ===========================================================================

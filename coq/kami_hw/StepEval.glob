@@ -1,0 +1,913 @@
+DIGEST 93effd3742faeee1b8c22ddfc4634050
+FKamiHW.StepEval
+R286:294 Kami.Kami <> <> lib
+R296:309 Kami.Semantics <> <> lib
+R336:341 Coq.Strings.String <> <> lib
+R343:348 Coq.NArith.NArith <> <> lib
+R350:358 Coq.Logic.Eqdep_dec <> <> lib
+R360:373 Coq.Arith.PeanoNat <> <> lib
+R403:413 KamiHW.ThieleTypes <> <> lib
+R415:427 KamiHW.ThieleCPUCore <> <> lib
+R429:438 KamiHW.HWBoundary <> <> lib
+R440:447 KamiHW.RuleNext <> <> lib
+R449:456 KamiHW.RuleStep <> <> lib
+R460:474 KamiHW.BoundaryDecoded <> <> lib
+R476:492 KamiHW.ActionObservation <> <> lib
+R494:512 KamiHW.DispatchObservation <> <> lib
+def 552:556 <> bits4
+R573:576 Coq.Init.Datatypes <> bool ind
+binder 559:560 <> x0:1
+binder 562:563 <> x1:2
+binder 565:566 <> x2:3
+binder 568:569 <> x3:4
+R581:584 Kami.Lib.Word <> word ind
+R593:594 Kami.Lib.Word <> WS constr
+R600:601 Kami.Lib.Word <> WS constr
+R607:608 Kami.Lib.Word <> WS constr
+R614:615 Kami.Lib.Word <> WS constr
+R620:621 Kami.Lib.Word <> WO constr
+R617:618 KamiHW.StepEval <> x3:4 var
+R610:611 KamiHW.StepEval <> x2:3 var
+R603:604 KamiHW.StepEval <> x1:2 var
+R596:597 KamiHW.StepEval <> x0:1 var
+def 638:642 <> bits8
+R671:674 Coq.Init.Datatypes <> bool ind
+binder 645:646 <> x0:5
+binder 648:649 <> x1:6
+binder 651:652 <> x2:7
+binder 654:655 <> x3:8
+binder 657:658 <> x4:9
+binder 660:661 <> x5:10
+binder 663:664 <> x6:11
+binder 666:667 <> x7:12
+R679:682 Kami.Lib.Word <> word ind
+R691:692 Kami.Lib.Word <> WS constr
+R698:699 Kami.Lib.Word <> WS constr
+R705:706 Kami.Lib.Word <> WS constr
+R712:713 Kami.Lib.Word <> WS constr
+R719:720 Kami.Lib.Word <> WS constr
+R726:727 Kami.Lib.Word <> WS constr
+R733:734 Kami.Lib.Word <> WS constr
+R740:741 Kami.Lib.Word <> WS constr
+R746:747 Kami.Lib.Word <> WO constr
+R743:744 KamiHW.StepEval <> x7:12 var
+R736:737 KamiHW.StepEval <> x6:11 var
+R729:730 KamiHW.StepEval <> x5:10 var
+R722:723 KamiHW.StepEval <> x4:9 var
+R715:716 KamiHW.StepEval <> x3:8 var
+R708:709 KamiHW.StepEval <> x2:7 var
+R701:702 KamiHW.StepEval <> x1:6 var
+R694:695 KamiHW.StepEval <> x0:5 var
+def 891:901 <> legacy_word
+R915:918 Kami.Lib.Word <> word ind
+binder 904:905 <> op:13
+binder 907:907 <> a:14
+binder 909:909 <> b:15
+binder 911:911 <> c:16
+R925:928 Kami.Lib.Word <> word ind
+R930:936 KamiHW.ThieleTypes <> InstrSz def
+R943:949 Kami.Lib.Word <> combine def
+R954:960 Kami.Lib.Word <> combine def
+R965:971 Kami.Lib.Word <> combine def
+R976:982 Kami.Lib.Word <> combine def
+R988:994 Kami.Lib.Word <> NToWord def
+R1000:1007 Coq.NArith.BinNat N shiftl def
+R984:985 KamiHW.StepEval <> op:13 var
+R973:973 KamiHW.StepEval <> a:14 var
+R962:962 KamiHW.StepEval <> b:15 var
+R951:951 KamiHW.StepEval <> c:16 var
+R1044:1048 Kami.Lib.Word <> wplus def
+R1050:1055 Kami.Lib.Word <> wminus def
+R1057:1061 Kami.Lib.Word <> wmult def
+R1063:1066 Kami.Lib.Word <> wand def
+R1068:1070 Kami.Lib.Word <> wor def
+R1072:1075 Kami.Lib.Word <> wxor def
+R1077:1080 Kami.Lib.Word <> wnot def
+R1082:1088 Kami.Lib.Word <> wlshift def
+R1090:1096 Kami.Lib.Word <> wrshift def
+R1098:1106 Kami.Lib.Word <> wordToNat def
+R1108:1114 Kami.Lib.Word <> wordToN def
+R1116:1122 Kami.Lib.Word <> wlt_dec def
+R1124:1134 KamiHW.BoundaryDecoded <> hwb_bianchi def
+R1136:1151 KamiHW.BoundaryDecoded <> hwb_tensor_total def
+R1153:1157 KamiHW.HWBoundary <> hw_pc proj
+R1159:1163 KamiHW.HWBoundary <> hw_mu proj
+R1165:1170 KamiHW.HWBoundary <> hw_err proj
+R1172:1180 KamiHW.HWBoundary <> hw_halted proj
+R1182:1188 KamiHW.HWBoundary <> hw_regs proj
+R1190:1195 KamiHW.HWBoundary <> hw_mem proj
+R1197:1203 KamiHW.HWBoundary <> hw_imem proj
+R1205:1220 KamiHW.HWBoundary <> hw_partition_ops proj
+R1222:1231 KamiHW.HWBoundary <> hw_mdl_ops proj
+R1233:1244 KamiHW.HWBoundary <> hw_info_gain proj
+R1246:1258 KamiHW.HWBoundary <> hw_error_code proj
+R1260:1271 KamiHW.HWBoundary <> hw_logic_acc proj
+R1273:1284 KamiHW.HWBoundary <> hw_cert_addr proj
+R1286:1301 KamiHW.HWBoundary <> hw_active_module proj
+R1303:1312 KamiHW.HWBoundary <> hw_mstatus proj
+R1314:1325 KamiHW.HWBoundary <> hw_mcycle_lo proj
+R1327:1338 KamiHW.HWBoundary <> hw_mcycle_hi proj
+R1340:1353 KamiHW.HWBoundary <> hw_minstret_lo proj
+R1355:1368 KamiHW.HWBoundary <> hw_minstret_hi proj
+R1370:1383 KamiHW.HWBoundary <> hw_trap_vector proj
+R1385:1396 KamiHW.HWBoundary <> hw_certified proj
+R1398:1413 KamiHW.HWBoundary <> hw_lassert_phase proj
+R1415:1429 KamiHW.HWBoundary <> hw_lassert_kind proj
+R1431:1446 KamiHW.HWBoundary <> hw_lassert_fbase proj
+R1448:1463 KamiHW.HWBoundary <> hw_lassert_cbase proj
+R1465:1479 KamiHW.HWBoundary <> hw_lassert_flen proj
+R1481:1495 KamiHW.HWBoundary <> hw_lassert_clen proj
+R1497:1512 KamiHW.HWBoundary <> hw_lassert_nvars proj
+R1514:1528 KamiHW.HWBoundary <> hw_lassert_fptr proj
+R1530:1544 KamiHW.HWBoundary <> hw_lassert_cptr proj
+R1546:1560 KamiHW.HWBoundary <> hw_lassert_fbuf proj
+R1562:1576 KamiHW.HWBoundary <> hw_lassert_cbuf proj
+R1578:1598 KamiHW.HWBoundary <> hw_lassert_clause_sat proj
+R1600:1628 KamiHW.HWBoundary <> hw_lassert_counter_clause_sat proj
+R1630:1657 KamiHW.HWBoundary <> hw_lassert_counter_seen_fail proj
+R1659:1671 KamiHW.HWBoundary <> hw_chsh_phase proj
+R1673:1683 KamiHW.HWBoundary <> hw_chsh_n00 proj
+R1685:1695 KamiHW.HWBoundary <> hw_chsh_n01 proj
+R1697:1707 KamiHW.HWBoundary <> hw_chsh_n10 proj
+R1709:1719 KamiHW.HWBoundary <> hw_chsh_n11 proj
+R1721:1731 KamiHW.HWBoundary <> hw_chsh_d00 proj
+R1733:1743 KamiHW.HWBoundary <> hw_chsh_d01 proj
+R1745:1755 KamiHW.HWBoundary <> hw_chsh_d10 proj
+R1757:1767 KamiHW.HWBoundary <> hw_chsh_d11 proj
+R1769:1782 KamiHW.HWBoundary <> hw_chsh_sign00 proj
+R1784:1797 KamiHW.HWBoundary <> hw_chsh_sign01 proj
+R1799:1812 KamiHW.HWBoundary <> hw_chsh_sign10 proj
+R1814:1827 KamiHW.HWBoundary <> hw_chsh_sign11 proj
+R1829:1841 KamiHW.HWBoundary <> hw_chsh_n00sq proj
+R1843:1855 KamiHW.HWBoundary <> hw_chsh_n01sq proj
+R1857:1869 KamiHW.HWBoundary <> hw_chsh_n10sq proj
+R1871:1883 KamiHW.HWBoundary <> hw_chsh_n11sq proj
+R1885:1897 KamiHW.HWBoundary <> hw_chsh_d00sq proj
+R1899:1911 KamiHW.HWBoundary <> hw_chsh_d01sq proj
+R1913:1925 KamiHW.HWBoundary <> hw_chsh_d10sq proj
+R1927:1939 KamiHW.HWBoundary <> hw_chsh_d11sq proj
+R1941:1953 KamiHW.HWBoundary <> hw_chsh_A_pos proj
+R1955:1969 KamiHW.HWBoundary <> hw_chsh_A_neg_a proj
+R1971:1985 KamiHW.HWBoundary <> hw_chsh_A_neg_b proj
+R1987:1999 KamiHW.HWBoundary <> hw_chsh_B_pos proj
+R2001:2015 KamiHW.HWBoundary <> hw_chsh_B_neg_a proj
+R2017:2031 KamiHW.HWBoundary <> hw_chsh_B_neg_b proj
+R2033:2046 KamiHW.HWBoundary <> hw_chsh_d00d01 proj
+R2048:2061 KamiHW.HWBoundary <> hw_chsh_n10n11 proj
+R2063:2076 KamiHW.HWBoundary <> hw_chsh_d10d11 proj
+R2078:2091 KamiHW.HWBoundary <> hw_chsh_n00n01 proj
+R2093:2106 KamiHW.HWBoundary <> hw_chsh_abs_C1 proj
+R2108:2121 KamiHW.HWBoundary <> hw_chsh_abs_C2 proj
+R2123:2134 KamiHW.HWBoundary <> hw_chsh_C_sq proj
+R2136:2152 KamiHW.HWBoundary <> hw_chsh_A_times_B proj
+R2154:2173 KamiHW.HWBoundary <> hw_chsh_check_result proj
+R2175:2196 KamiHW.HWBoundary <> hw_bus_load_instr_addr proj
+R2198:2219 KamiHW.HWBoundary <> hw_bus_load_instr_data proj
+R2221:2242 KamiHW.HWBoundary <> hw_bus_load_instr_kick proj
+R2244:2255 KamiHW.HWBoundary <> hw_mu_tensor proj
+R2257:2273 KamiHW.HWBoundary <> hw_module_tensors proj
+R2275:2287 KamiHW.HWBoundary <> hw_csr_status proj
+R2289:2304 KamiHW.HWBoundary <> hw_csr_heap_base proj
+R2306:2315 KamiHW.HWBoundary <> hw_ptTable proj
+R2317:2329 KamiHW.HWBoundary <> hw_pt_next_id proj
+R2331:2348 KamiHW.HWBoundary <> hw_morph_src_table proj
+R2350:2367 KamiHW.HWBoundary <> hw_morph_dst_table proj
+R2369:2396 KamiHW.HWBoundary <> hw_morph_coupling_desc_table proj
+R2398:2417 KamiHW.HWBoundary <> hw_morph_valid_table proj
+R2419:2441 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R2443:2458 KamiHW.HWBoundary <> hw_morph_next_id proj
+R2460:2486 KamiHW.HWBoundary <> hw_coupling_desc_base_table proj
+R2488:2515 KamiHW.HWBoundary <> hw_coupling_desc_count_table proj
+R2517:2544 KamiHW.HWBoundary <> hw_coupling_desc_valid_table proj
+R2546:2573 KamiHW.HWBoundary <> hw_coupling_desc_label_table proj
+R2575:2606 KamiHW.HWBoundary <> hw_coupling_desc_label_len_table proj
+R2608:2631 KamiHW.HWBoundary <> hw_coupling_desc_next_id proj
+R2633:2658 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R2660:2685 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R2687:2714 KamiHW.HWBoundary <> hw_coupling_pair_valid_table proj
+R2716:2739 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R2741:2751 KamiHW.HWBoundary <> hw_mc_phase proj
+R2753:2760 KamiHW.HWBoundary <> hw_mc_op proj
+R2762:2775 KamiHW.HWBoundary <> hw_mc_mem_base proj
+R2777:2792 KamiHW.HWBoundary <> hw_mc_pair_count proj
+R2794:2807 KamiHW.HWBoundary <> hw_mc_read_ptr proj
+R2809:2823 KamiHW.HWBoundary <> hw_mc_src1_base proj
+R2825:2840 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R2842:2856 KamiHW.HWBoundary <> hw_mc_src2_base proj
+R2858:2873 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R2875:2881 KamiHW.HWBoundary <> hw_mc_i proj
+R2883:2889 KamiHW.HWBoundary <> hw_mc_j proj
+R2891:2902 KamiHW.HWBoundary <> hw_mc_is_id1 proj
+R2904:2915 KamiHW.HWBoundary <> hw_mc_is_id2 proj
+R2917:2932 KamiHW.HWBoundary <> hw_mc_write_base proj
+R2934:2948 KamiHW.HWBoundary <> hw_mc_write_ptr proj
+R2950:2963 KamiHW.HWBoundary <> hw_mc_norm_ptr proj
+R2965:2979 KamiHW.HWBoundary <> hw_mc_duplicate proj
+R2981:2993 KamiHW.HWBoundary <> hw_mc_dst_reg proj
+R2995:3010 KamiHW.HWBoundary <> hw_mc_morph_slot proj
+R3012:3028 KamiHW.HWBoundary <> hw_mc_new_src_mod proj
+R3030:3046 KamiHW.HWBoundary <> hw_mc_new_dst_mod proj
+R3048:3057 KamiHW.HWBoundary <> hw_mc_cost proj
+R3059:3084 KamiHW.HWBoundary <> hw_formula_desc_base_table proj
+R3086:3112 KamiHW.HWBoundary <> hw_formula_desc_count_table proj
+R3114:3140 KamiHW.HWBoundary <> hw_formula_desc_valid_table proj
+R3142:3164 KamiHW.HWBoundary <> hw_formula_desc_next_id proj
+R3166:3188 KamiHW.HWBoundary <> hw_cert_desc_base_table proj
+R3190:3213 KamiHW.HWBoundary <> hw_cert_desc_count_table proj
+R3215:3238 KamiHW.HWBoundary <> hw_cert_desc_valid_table proj
+R3240:3259 KamiHW.HWBoundary <> hw_cert_desc_next_id proj
+R3261:3286 KamiHW.HWBoundary <> hw_desc_meta_subtype_table proj
+R3288:3310 KamiHW.HWBoundary <> hw_desc_meta_kind_table proj
+R3312:3340 KamiHW.HWBoundary <> hw_desc_meta_inline_len_table proj
+R3342:3363 KamiHW.HWBoundary <> hw_desc_meta_aux_table proj
+R3365:3388 KamiHW.HWBoundary <> hw_desc_meta_valid_table proj
+R3390:3409 KamiHW.HWBoundary <> hw_desc_meta_next_id proj
+R3411:3423 KamiHW.HWBoundary <> hw_wc_same_00 proj
+R3425:3437 KamiHW.HWBoundary <> hw_wc_diff_00 proj
+R3439:3451 KamiHW.HWBoundary <> hw_wc_same_01 proj
+R3453:3465 KamiHW.HWBoundary <> hw_wc_diff_01 proj
+R3467:3479 KamiHW.HWBoundary <> hw_wc_same_10 proj
+R3481:3493 KamiHW.HWBoundary <> hw_wc_diff_10 proj
+R3495:3507 KamiHW.HWBoundary <> hw_wc_same_11 proj
+R3509:3521 KamiHW.HWBoundary <> hw_wc_diff_11 proj
+R4086:4088 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4086:4088 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4582:4584 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4568:4579 KamiHW.RuleStep <> step_fetched def
+R4582:4584 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4568:4579 KamiHW.RuleStep <> step_fetched def
+R4604:4620 KamiHW.RuleStep <> step_next_fetched thm
+R4641:4649 KamiHW.RuleNext <> hwb_after def
+R4651:4655 KamiHW.HWBoundary <> hw_pc proj
+R4657:4661 KamiHW.HWBoundary <> hw_mu proj
+R4663:4668 KamiHW.HWBoundary <> hw_err proj
+R4670:4678 KamiHW.HWBoundary <> hw_halted proj
+R4680:4686 KamiHW.HWBoundary <> hw_regs proj
+R4688:4693 KamiHW.HWBoundary <> hw_mem proj
+R4695:4701 KamiHW.HWBoundary <> hw_imem proj
+R4703:4718 KamiHW.HWBoundary <> hw_partition_ops proj
+R4720:4729 KamiHW.HWBoundary <> hw_mdl_ops proj
+R4731:4742 KamiHW.HWBoundary <> hw_info_gain proj
+R4744:4756 KamiHW.HWBoundary <> hw_error_code proj
+R4758:4769 KamiHW.HWBoundary <> hw_logic_acc proj
+R4771:4782 KamiHW.HWBoundary <> hw_cert_addr proj
+R4784:4799 KamiHW.HWBoundary <> hw_active_module proj
+R4801:4810 KamiHW.HWBoundary <> hw_mstatus proj
+R4812:4823 KamiHW.HWBoundary <> hw_mcycle_lo proj
+R4825:4836 KamiHW.HWBoundary <> hw_mcycle_hi proj
+R4838:4851 KamiHW.HWBoundary <> hw_minstret_lo proj
+R4853:4866 KamiHW.HWBoundary <> hw_minstret_hi proj
+R4868:4881 KamiHW.HWBoundary <> hw_trap_vector proj
+R4883:4894 KamiHW.HWBoundary <> hw_certified proj
+R4896:4911 KamiHW.HWBoundary <> hw_lassert_phase proj
+R4913:4927 KamiHW.HWBoundary <> hw_lassert_kind proj
+R4929:4944 KamiHW.HWBoundary <> hw_lassert_fbase proj
+R4946:4961 KamiHW.HWBoundary <> hw_lassert_cbase proj
+R4963:4977 KamiHW.HWBoundary <> hw_lassert_flen proj
+R4979:4993 KamiHW.HWBoundary <> hw_lassert_clen proj
+R4995:5010 KamiHW.HWBoundary <> hw_lassert_nvars proj
+R5012:5026 KamiHW.HWBoundary <> hw_lassert_fptr proj
+R5028:5042 KamiHW.HWBoundary <> hw_lassert_cptr proj
+R5044:5058 KamiHW.HWBoundary <> hw_lassert_fbuf proj
+R5060:5074 KamiHW.HWBoundary <> hw_lassert_cbuf proj
+R5076:5096 KamiHW.HWBoundary <> hw_lassert_clause_sat proj
+R5098:5126 KamiHW.HWBoundary <> hw_lassert_counter_clause_sat proj
+R5128:5155 KamiHW.HWBoundary <> hw_lassert_counter_seen_fail proj
+R5157:5169 KamiHW.HWBoundary <> hw_chsh_phase proj
+R5171:5181 KamiHW.HWBoundary <> hw_chsh_n00 proj
+R5183:5193 KamiHW.HWBoundary <> hw_chsh_n01 proj
+R5195:5205 KamiHW.HWBoundary <> hw_chsh_n10 proj
+R5207:5217 KamiHW.HWBoundary <> hw_chsh_n11 proj
+R5219:5229 KamiHW.HWBoundary <> hw_chsh_d00 proj
+R5231:5241 KamiHW.HWBoundary <> hw_chsh_d01 proj
+R5243:5253 KamiHW.HWBoundary <> hw_chsh_d10 proj
+R5255:5265 KamiHW.HWBoundary <> hw_chsh_d11 proj
+R5267:5280 KamiHW.HWBoundary <> hw_chsh_sign00 proj
+R5282:5295 KamiHW.HWBoundary <> hw_chsh_sign01 proj
+R5297:5310 KamiHW.HWBoundary <> hw_chsh_sign10 proj
+R5312:5325 KamiHW.HWBoundary <> hw_chsh_sign11 proj
+R5327:5339 KamiHW.HWBoundary <> hw_chsh_n00sq proj
+R5341:5353 KamiHW.HWBoundary <> hw_chsh_n01sq proj
+R5355:5367 KamiHW.HWBoundary <> hw_chsh_n10sq proj
+R5369:5381 KamiHW.HWBoundary <> hw_chsh_n11sq proj
+R5383:5395 KamiHW.HWBoundary <> hw_chsh_d00sq proj
+R5397:5409 KamiHW.HWBoundary <> hw_chsh_d01sq proj
+R5411:5423 KamiHW.HWBoundary <> hw_chsh_d10sq proj
+R5425:5437 KamiHW.HWBoundary <> hw_chsh_d11sq proj
+R5439:5451 KamiHW.HWBoundary <> hw_chsh_A_pos proj
+R5453:5467 KamiHW.HWBoundary <> hw_chsh_A_neg_a proj
+R5469:5483 KamiHW.HWBoundary <> hw_chsh_A_neg_b proj
+R5485:5497 KamiHW.HWBoundary <> hw_chsh_B_pos proj
+R5499:5513 KamiHW.HWBoundary <> hw_chsh_B_neg_a proj
+R5515:5529 KamiHW.HWBoundary <> hw_chsh_B_neg_b proj
+R5531:5544 KamiHW.HWBoundary <> hw_chsh_d00d01 proj
+R5546:5559 KamiHW.HWBoundary <> hw_chsh_n10n11 proj
+R5561:5574 KamiHW.HWBoundary <> hw_chsh_d10d11 proj
+R5576:5589 KamiHW.HWBoundary <> hw_chsh_n00n01 proj
+R5591:5604 KamiHW.HWBoundary <> hw_chsh_abs_C1 proj
+R5606:5619 KamiHW.HWBoundary <> hw_chsh_abs_C2 proj
+R5621:5632 KamiHW.HWBoundary <> hw_chsh_C_sq proj
+R5634:5650 KamiHW.HWBoundary <> hw_chsh_A_times_B proj
+R5652:5671 KamiHW.HWBoundary <> hw_chsh_check_result proj
+R5673:5694 KamiHW.HWBoundary <> hw_bus_load_instr_addr proj
+R5696:5717 KamiHW.HWBoundary <> hw_bus_load_instr_data proj
+R5719:5740 KamiHW.HWBoundary <> hw_bus_load_instr_kick proj
+R5742:5753 KamiHW.HWBoundary <> hw_mu_tensor proj
+R5755:5771 KamiHW.HWBoundary <> hw_module_tensors proj
+R5773:5785 KamiHW.HWBoundary <> hw_csr_status proj
+R5787:5802 KamiHW.HWBoundary <> hw_csr_heap_base proj
+R5804:5813 KamiHW.HWBoundary <> hw_ptTable proj
+R5815:5827 KamiHW.HWBoundary <> hw_pt_next_id proj
+R5829:5846 KamiHW.HWBoundary <> hw_morph_src_table proj
+R5848:5865 KamiHW.HWBoundary <> hw_morph_dst_table proj
+R5867:5894 KamiHW.HWBoundary <> hw_morph_coupling_desc_table proj
+R5896:5915 KamiHW.HWBoundary <> hw_morph_valid_table proj
+R5917:5939 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R5941:5956 KamiHW.HWBoundary <> hw_morph_next_id proj
+R5958:5984 KamiHW.HWBoundary <> hw_coupling_desc_base_table proj
+R5986:6013 KamiHW.HWBoundary <> hw_coupling_desc_count_table proj
+R6015:6042 KamiHW.HWBoundary <> hw_coupling_desc_valid_table proj
+R6044:6071 KamiHW.HWBoundary <> hw_coupling_desc_label_table proj
+R6073:6104 KamiHW.HWBoundary <> hw_coupling_desc_label_len_table proj
+R6106:6129 KamiHW.HWBoundary <> hw_coupling_desc_next_id proj
+R6131:6156 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R6158:6183 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R6185:6212 KamiHW.HWBoundary <> hw_coupling_pair_valid_table proj
+R6214:6237 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R6239:6249 KamiHW.HWBoundary <> hw_mc_phase proj
+R6251:6258 KamiHW.HWBoundary <> hw_mc_op proj
+R6260:6273 KamiHW.HWBoundary <> hw_mc_mem_base proj
+R6275:6290 KamiHW.HWBoundary <> hw_mc_pair_count proj
+R6292:6305 KamiHW.HWBoundary <> hw_mc_read_ptr proj
+R6307:6321 KamiHW.HWBoundary <> hw_mc_src1_base proj
+R6323:6338 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R6340:6354 KamiHW.HWBoundary <> hw_mc_src2_base proj
+R6356:6371 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R6373:6379 KamiHW.HWBoundary <> hw_mc_i proj
+R6381:6387 KamiHW.HWBoundary <> hw_mc_j proj
+R6389:6400 KamiHW.HWBoundary <> hw_mc_is_id1 proj
+R6402:6413 KamiHW.HWBoundary <> hw_mc_is_id2 proj
+R6415:6430 KamiHW.HWBoundary <> hw_mc_write_base proj
+R6432:6446 KamiHW.HWBoundary <> hw_mc_write_ptr proj
+R6448:6461 KamiHW.HWBoundary <> hw_mc_norm_ptr proj
+R6463:6477 KamiHW.HWBoundary <> hw_mc_duplicate proj
+R6479:6491 KamiHW.HWBoundary <> hw_mc_dst_reg proj
+R6493:6508 KamiHW.HWBoundary <> hw_mc_morph_slot proj
+R6510:6526 KamiHW.HWBoundary <> hw_mc_new_src_mod proj
+R6528:6544 KamiHW.HWBoundary <> hw_mc_new_dst_mod proj
+R6546:6555 KamiHW.HWBoundary <> hw_mc_cost proj
+R6557:6582 KamiHW.HWBoundary <> hw_formula_desc_base_table proj
+R6584:6610 KamiHW.HWBoundary <> hw_formula_desc_count_table proj
+R6612:6638 KamiHW.HWBoundary <> hw_formula_desc_valid_table proj
+R6640:6662 KamiHW.HWBoundary <> hw_formula_desc_next_id proj
+R6664:6686 KamiHW.HWBoundary <> hw_cert_desc_base_table proj
+R6688:6711 KamiHW.HWBoundary <> hw_cert_desc_count_table proj
+R6713:6736 KamiHW.HWBoundary <> hw_cert_desc_valid_table proj
+R6738:6757 KamiHW.HWBoundary <> hw_cert_desc_next_id proj
+R6759:6784 KamiHW.HWBoundary <> hw_desc_meta_subtype_table proj
+R6786:6808 KamiHW.HWBoundary <> hw_desc_meta_kind_table proj
+R6810:6838 KamiHW.HWBoundary <> hw_desc_meta_inline_len_table proj
+R6840:6861 KamiHW.HWBoundary <> hw_desc_meta_aux_table proj
+R6863:6886 KamiHW.HWBoundary <> hw_desc_meta_valid_table proj
+R6888:6907 KamiHW.HWBoundary <> hw_desc_meta_next_id proj
+R6909:6921 KamiHW.HWBoundary <> hw_wc_same_00 proj
+R6923:6935 KamiHW.HWBoundary <> hw_wc_diff_00 proj
+R6937:6949 KamiHW.HWBoundary <> hw_wc_same_01 proj
+R6951:6963 KamiHW.HWBoundary <> hw_wc_diff_01 proj
+R6965:6977 KamiHW.HWBoundary <> hw_wc_same_10 proj
+R6979:6991 KamiHW.HWBoundary <> hw_wc_diff_10 proj
+R6993:7005 KamiHW.HWBoundary <> hw_wc_same_11 proj
+R7007:7019 KamiHW.HWBoundary <> hw_wc_diff_11 proj
+R7032:7042 KamiHW.BoundaryDecoded <> hwb_decoded def
+R7087:7089 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7074:7084 KamiHW.BoundaryDecoded <> hwb_bianchi def
+R7087:7089 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7074:7084 KamiHW.BoundaryDecoded <> hwb_bianchi def
+prf 7185:7199 <> step_keeps_imem
+binder 7210:7210 <> b:17
+R7234:7236 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7213:7219 KamiHW.HWBoundary <> hw_imem proj
+R7222:7230 KamiHW.RuleStep <> step_next def
+R7232:7232 KamiHW.StepEval <> b:17 var
+R7237:7243 KamiHW.HWBoundary <> hw_imem proj
+R7245:7245 KamiHW.StepEval <> b:17 var
+R7271:7279 KamiHW.RuleStep <> step_next def
+R7287:7295 KamiHW.RuleNext <> hwb_after def
+R7297:7303 KamiHW.HWBoundary <> hw_imem proj
+R7314:7324 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 7360:7379 <> step_keeps_logic_acc
+binder 7390:7390 <> b:18
+R7419:7421 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7393:7404 KamiHW.HWBoundary <> hw_logic_acc proj
+R7407:7415 KamiHW.RuleStep <> step_next def
+R7417:7417 KamiHW.StepEval <> b:18 var
+R7422:7433 KamiHW.HWBoundary <> hw_logic_acc proj
+R7435:7435 KamiHW.StepEval <> b:18 var
+R7461:7469 KamiHW.RuleStep <> step_next def
+R7477:7485 KamiHW.RuleNext <> hwb_after def
+R7487:7498 KamiHW.HWBoundary <> hw_logic_acc proj
+R7509:7519 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 7555:7578 <> step_keeps_active_module
+binder 7589:7589 <> b:19
+R7622:7624 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7592:7607 KamiHW.HWBoundary <> hw_active_module proj
+R7610:7618 KamiHW.RuleStep <> step_next def
+R7620:7620 KamiHW.StepEval <> b:19 var
+R7625:7640 KamiHW.HWBoundary <> hw_active_module proj
+R7642:7642 KamiHW.StepEval <> b:19 var
+R7668:7676 KamiHW.RuleStep <> step_next def
+R7684:7692 KamiHW.RuleNext <> hwb_after def
+R7694:7709 KamiHW.HWBoundary <> hw_active_module proj
+R7720:7730 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 7766:7783 <> step_keeps_mstatus
+binder 7794:7794 <> b:20
+R7821:7823 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7797:7806 KamiHW.HWBoundary <> hw_mstatus proj
+R7809:7817 KamiHW.RuleStep <> step_next def
+R7819:7819 KamiHW.StepEval <> b:20 var
+R7824:7833 KamiHW.HWBoundary <> hw_mstatus proj
+R7835:7835 KamiHW.StepEval <> b:20 var
+R7861:7869 KamiHW.RuleStep <> step_next def
+R7877:7885 KamiHW.RuleNext <> hwb_after def
+R7887:7896 KamiHW.HWBoundary <> hw_mstatus proj
+R7907:7917 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 7953:7974 <> step_keeps_trap_vector
+binder 7985:7985 <> b:21
+R8016:8018 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7988:8001 KamiHW.HWBoundary <> hw_trap_vector proj
+R8004:8012 KamiHW.RuleStep <> step_next def
+R8014:8014 KamiHW.StepEval <> b:21 var
+R8019:8032 KamiHW.HWBoundary <> hw_trap_vector proj
+R8034:8034 KamiHW.StepEval <> b:21 var
+R8060:8068 KamiHW.RuleStep <> step_next def
+R8076:8084 KamiHW.RuleNext <> hwb_after def
+R8086:8099 KamiHW.HWBoundary <> hw_trap_vector proj
+R8110:8120 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 8156:8178 <> step_keeps_lassert_fbuf
+binder 8189:8189 <> b:22
+R8221:8223 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8192:8206 KamiHW.HWBoundary <> hw_lassert_fbuf proj
+R8209:8217 KamiHW.RuleStep <> step_next def
+R8219:8219 KamiHW.StepEval <> b:22 var
+R8224:8238 KamiHW.HWBoundary <> hw_lassert_fbuf proj
+R8240:8240 KamiHW.StepEval <> b:22 var
+R8266:8274 KamiHW.RuleStep <> step_next def
+R8282:8290 KamiHW.RuleNext <> hwb_after def
+R8292:8306 KamiHW.HWBoundary <> hw_lassert_fbuf proj
+R8317:8327 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 8363:8385 <> step_keeps_lassert_cbuf
+binder 8396:8396 <> b:23
+R8428:8430 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8399:8413 KamiHW.HWBoundary <> hw_lassert_cbuf proj
+R8416:8424 KamiHW.RuleStep <> step_next def
+R8426:8426 KamiHW.StepEval <> b:23 var
+R8431:8445 KamiHW.HWBoundary <> hw_lassert_cbuf proj
+R8447:8447 KamiHW.StepEval <> b:23 var
+R8473:8481 KamiHW.RuleStep <> step_next def
+R8489:8497 KamiHW.RuleNext <> hwb_after def
+R8499:8513 KamiHW.HWBoundary <> hw_lassert_cbuf proj
+R8524:8534 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 8570:8599 <> step_keeps_bus_load_instr_addr
+binder 8610:8610 <> b:24
+R8649:8651 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8613:8634 KamiHW.HWBoundary <> hw_bus_load_instr_addr proj
+R8637:8645 KamiHW.RuleStep <> step_next def
+R8647:8647 KamiHW.StepEval <> b:24 var
+R8652:8673 KamiHW.HWBoundary <> hw_bus_load_instr_addr proj
+R8675:8675 KamiHW.StepEval <> b:24 var
+R8701:8709 KamiHW.RuleStep <> step_next def
+R8717:8725 KamiHW.RuleNext <> hwb_after def
+R8727:8748 KamiHW.HWBoundary <> hw_bus_load_instr_addr proj
+R8759:8769 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 8805:8834 <> step_keeps_bus_load_instr_data
+binder 8845:8845 <> b:25
+R8884:8886 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8848:8869 KamiHW.HWBoundary <> hw_bus_load_instr_data proj
+R8872:8880 KamiHW.RuleStep <> step_next def
+R8882:8882 KamiHW.StepEval <> b:25 var
+R8887:8908 KamiHW.HWBoundary <> hw_bus_load_instr_data proj
+R8910:8910 KamiHW.StepEval <> b:25 var
+R8936:8944 KamiHW.RuleStep <> step_next def
+R8952:8960 KamiHW.RuleNext <> hwb_after def
+R8962:8983 KamiHW.HWBoundary <> hw_bus_load_instr_data proj
+R8994:9004 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 9040:9069 <> step_keeps_bus_load_instr_kick
+binder 9080:9080 <> b:26
+R9119:9121 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9083:9104 KamiHW.HWBoundary <> hw_bus_load_instr_kick proj
+R9107:9115 KamiHW.RuleStep <> step_next def
+R9117:9117 KamiHW.StepEval <> b:26 var
+R9122:9143 KamiHW.HWBoundary <> hw_bus_load_instr_kick proj
+R9145:9145 KamiHW.StepEval <> b:26 var
+R9171:9179 KamiHW.RuleStep <> step_next def
+R9187:9195 KamiHW.RuleNext <> hwb_after def
+R9197:9218 KamiHW.HWBoundary <> hw_bus_load_instr_kick proj
+R9229:9239 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 9275:9295 <> step_keeps_csr_status
+binder 9306:9306 <> b:27
+R9336:9338 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9309:9321 KamiHW.HWBoundary <> hw_csr_status proj
+R9324:9332 KamiHW.RuleStep <> step_next def
+R9334:9334 KamiHW.StepEval <> b:27 var
+R9339:9351 KamiHW.HWBoundary <> hw_csr_status proj
+R9353:9353 KamiHW.StepEval <> b:27 var
+R9379:9387 KamiHW.RuleStep <> step_next def
+R9395:9403 KamiHW.RuleNext <> hwb_after def
+R9405:9417 KamiHW.HWBoundary <> hw_csr_status proj
+R9428:9438 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 9474:9497 <> step_keeps_csr_heap_base
+binder 9508:9508 <> b:28
+R9541:9543 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9511:9526 KamiHW.HWBoundary <> hw_csr_heap_base proj
+R9529:9537 KamiHW.RuleStep <> step_next def
+R9539:9539 KamiHW.StepEval <> b:28 var
+R9544:9559 KamiHW.HWBoundary <> hw_csr_heap_base proj
+R9561:9561 KamiHW.StepEval <> b:28 var
+R9587:9595 KamiHW.RuleStep <> step_next def
+R9603:9611 KamiHW.RuleNext <> hwb_after def
+R9613:9628 KamiHW.HWBoundary <> hw_csr_heap_base proj
+R9639:9649 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 9685:9719 <> step_keeps_coupling_desc_base_table
+binder 9730:9730 <> b:29
+R9774:9776 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9733:9759 KamiHW.HWBoundary <> hw_coupling_desc_base_table proj
+R9762:9770 KamiHW.RuleStep <> step_next def
+R9772:9772 KamiHW.StepEval <> b:29 var
+R9777:9803 KamiHW.HWBoundary <> hw_coupling_desc_base_table proj
+R9805:9805 KamiHW.StepEval <> b:29 var
+R9831:9839 KamiHW.RuleStep <> step_next def
+R9847:9855 KamiHW.RuleNext <> hwb_after def
+R9857:9883 KamiHW.HWBoundary <> hw_coupling_desc_base_table proj
+R9894:9904 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 9940:9975 <> step_keeps_coupling_desc_count_table
+binder 9986:9986 <> b:30
+R10031:10033 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9989:10016 KamiHW.HWBoundary <> hw_coupling_desc_count_table proj
+R10019:10027 KamiHW.RuleStep <> step_next def
+R10029:10029 KamiHW.StepEval <> b:30 var
+R10034:10061 KamiHW.HWBoundary <> hw_coupling_desc_count_table proj
+R10063:10063 KamiHW.StepEval <> b:30 var
+R10089:10097 KamiHW.RuleStep <> step_next def
+R10105:10113 KamiHW.RuleNext <> hwb_after def
+R10115:10142 KamiHW.HWBoundary <> hw_coupling_desc_count_table proj
+R10153:10163 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 10199:10234 <> step_keeps_coupling_desc_valid_table
+binder 10245:10245 <> b:31
+R10290:10292 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10248:10275 KamiHW.HWBoundary <> hw_coupling_desc_valid_table proj
+R10278:10286 KamiHW.RuleStep <> step_next def
+R10288:10288 KamiHW.StepEval <> b:31 var
+R10293:10320 KamiHW.HWBoundary <> hw_coupling_desc_valid_table proj
+R10322:10322 KamiHW.StepEval <> b:31 var
+R10348:10356 KamiHW.RuleStep <> step_next def
+R10364:10372 KamiHW.RuleNext <> hwb_after def
+R10374:10401 KamiHW.HWBoundary <> hw_coupling_desc_valid_table proj
+R10412:10422 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 10458:10489 <> step_keeps_coupling_desc_next_id
+binder 10500:10500 <> b:32
+R10541:10543 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10503:10526 KamiHW.HWBoundary <> hw_coupling_desc_next_id proj
+R10529:10537 KamiHW.RuleStep <> step_next def
+R10539:10539 KamiHW.StepEval <> b:32 var
+R10544:10567 KamiHW.HWBoundary <> hw_coupling_desc_next_id proj
+R10569:10569 KamiHW.StepEval <> b:32 var
+R10595:10603 KamiHW.RuleStep <> step_next def
+R10611:10619 KamiHW.RuleNext <> hwb_after def
+R10621:10644 KamiHW.HWBoundary <> hw_coupling_desc_next_id proj
+R10655:10665 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 10701:10734 <> step_keeps_coupling_pair_src_table
+binder 10745:10745 <> b:33
+R10788:10790 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10748:10773 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R10776:10784 KamiHW.RuleStep <> step_next def
+R10786:10786 KamiHW.StepEval <> b:33 var
+R10791:10816 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R10818:10818 KamiHW.StepEval <> b:33 var
+R10844:10852 KamiHW.RuleStep <> step_next def
+R10860:10868 KamiHW.RuleNext <> hwb_after def
+R10870:10895 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R10906:10916 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 10952:10985 <> step_keeps_coupling_pair_dst_table
+binder 10996:10996 <> b:34
+R11039:11041 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10999:11024 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R11027:11035 KamiHW.RuleStep <> step_next def
+R11037:11037 KamiHW.StepEval <> b:34 var
+R11042:11067 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R11069:11069 KamiHW.StepEval <> b:34 var
+R11095:11103 KamiHW.RuleStep <> step_next def
+R11111:11119 KamiHW.RuleNext <> hwb_after def
+R11121:11146 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R11157:11167 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 11203:11238 <> step_keeps_coupling_pair_valid_table
+binder 11249:11249 <> b:35
+R11294:11296 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11252:11279 KamiHW.HWBoundary <> hw_coupling_pair_valid_table proj
+R11282:11290 KamiHW.RuleStep <> step_next def
+R11292:11292 KamiHW.StepEval <> b:35 var
+R11297:11324 KamiHW.HWBoundary <> hw_coupling_pair_valid_table proj
+R11326:11326 KamiHW.StepEval <> b:35 var
+R11352:11360 KamiHW.RuleStep <> step_next def
+R11368:11376 KamiHW.RuleNext <> hwb_after def
+R11378:11405 KamiHW.HWBoundary <> hw_coupling_pair_valid_table proj
+R11416:11426 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 11462:11493 <> step_keeps_coupling_pair_next_id
+binder 11504:11504 <> b:36
+R11545:11547 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11507:11530 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R11533:11541 KamiHW.RuleStep <> step_next def
+R11543:11543 KamiHW.StepEval <> b:36 var
+R11548:11571 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R11573:11573 KamiHW.StepEval <> b:36 var
+R11599:11607 KamiHW.RuleStep <> step_next def
+R11615:11623 KamiHW.RuleNext <> hwb_after def
+R11625:11648 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R11659:11669 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 11705:11720 <> step_keeps_mc_op
+binder 11731:11731 <> b:37
+R11756:11758 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11734:11741 KamiHW.HWBoundary <> hw_mc_op proj
+R11744:11752 KamiHW.RuleStep <> step_next def
+R11754:11754 KamiHW.StepEval <> b:37 var
+R11759:11766 KamiHW.HWBoundary <> hw_mc_op proj
+R11768:11768 KamiHW.StepEval <> b:37 var
+R11794:11802 KamiHW.RuleStep <> step_next def
+R11810:11818 KamiHW.RuleNext <> hwb_after def
+R11820:11827 KamiHW.HWBoundary <> hw_mc_op proj
+R11838:11848 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 11884:11903 <> step_keeps_mc_is_id1
+binder 11914:11914 <> b:38
+R11943:11945 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11917:11928 KamiHW.HWBoundary <> hw_mc_is_id1 proj
+R11931:11939 KamiHW.RuleStep <> step_next def
+R11941:11941 KamiHW.StepEval <> b:38 var
+R11946:11957 KamiHW.HWBoundary <> hw_mc_is_id1 proj
+R11959:11959 KamiHW.StepEval <> b:38 var
+R11985:11993 KamiHW.RuleStep <> step_next def
+R12001:12009 KamiHW.RuleNext <> hwb_after def
+R12011:12022 KamiHW.HWBoundary <> hw_mc_is_id1 proj
+R12033:12043 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 12079:12098 <> step_keeps_mc_is_id2
+binder 12109:12109 <> b:39
+R12138:12140 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12112:12123 KamiHW.HWBoundary <> hw_mc_is_id2 proj
+R12126:12134 KamiHW.RuleStep <> step_next def
+R12136:12136 KamiHW.StepEval <> b:39 var
+R12141:12152 KamiHW.HWBoundary <> hw_mc_is_id2 proj
+R12154:12154 KamiHW.StepEval <> b:39 var
+R12180:12188 KamiHW.RuleStep <> step_next def
+R12196:12204 KamiHW.RuleNext <> hwb_after def
+R12206:12217 KamiHW.HWBoundary <> hw_mc_is_id2 proj
+R12228:12238 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 12274:12295 <> step_keeps_mc_norm_ptr
+binder 12306:12306 <> b:40
+R12337:12339 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12309:12322 KamiHW.HWBoundary <> hw_mc_norm_ptr proj
+R12325:12333 KamiHW.RuleStep <> step_next def
+R12335:12335 KamiHW.StepEval <> b:40 var
+R12340:12353 KamiHW.HWBoundary <> hw_mc_norm_ptr proj
+R12355:12355 KamiHW.StepEval <> b:40 var
+R12381:12389 KamiHW.RuleStep <> step_next def
+R12397:12405 KamiHW.RuleNext <> hwb_after def
+R12407:12420 KamiHW.HWBoundary <> hw_mc_norm_ptr proj
+R12431:12441 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 12477:12499 <> step_keeps_mc_duplicate
+binder 12510:12510 <> b:41
+R12542:12544 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12513:12527 KamiHW.HWBoundary <> hw_mc_duplicate proj
+R12530:12538 KamiHW.RuleStep <> step_next def
+R12540:12540 KamiHW.StepEval <> b:41 var
+R12545:12559 KamiHW.HWBoundary <> hw_mc_duplicate proj
+R12561:12561 KamiHW.StepEval <> b:41 var
+R12587:12595 KamiHW.RuleStep <> step_next def
+R12603:12611 KamiHW.RuleNext <> hwb_after def
+R12613:12627 KamiHW.HWBoundary <> hw_mc_duplicate proj
+R12638:12648 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 12684:12704 <> step_keeps_mc_dst_reg
+binder 12715:12715 <> b:42
+R12745:12747 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12718:12730 KamiHW.HWBoundary <> hw_mc_dst_reg proj
+R12733:12741 KamiHW.RuleStep <> step_next def
+R12743:12743 KamiHW.StepEval <> b:42 var
+R12748:12760 KamiHW.HWBoundary <> hw_mc_dst_reg proj
+R12762:12762 KamiHW.StepEval <> b:42 var
+R12788:12796 KamiHW.RuleStep <> step_next def
+R12804:12812 KamiHW.RuleNext <> hwb_after def
+R12814:12826 KamiHW.HWBoundary <> hw_mc_dst_reg proj
+R12837:12847 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 12883:12906 <> step_keeps_mc_morph_slot
+binder 12917:12917 <> b:43
+R12950:12952 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12920:12935 KamiHW.HWBoundary <> hw_mc_morph_slot proj
+R12938:12946 KamiHW.RuleStep <> step_next def
+R12948:12948 KamiHW.StepEval <> b:43 var
+R12953:12968 KamiHW.HWBoundary <> hw_mc_morph_slot proj
+R12970:12970 KamiHW.StepEval <> b:43 var
+R12996:13004 KamiHW.RuleStep <> step_next def
+R13012:13020 KamiHW.RuleNext <> hwb_after def
+R13022:13037 KamiHW.HWBoundary <> hw_mc_morph_slot proj
+R13048:13058 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 13094:13118 <> step_keeps_mc_new_src_mod
+binder 13129:13129 <> b:44
+R13163:13165 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13132:13148 KamiHW.HWBoundary <> hw_mc_new_src_mod proj
+R13151:13159 KamiHW.RuleStep <> step_next def
+R13161:13161 KamiHW.StepEval <> b:44 var
+R13166:13182 KamiHW.HWBoundary <> hw_mc_new_src_mod proj
+R13184:13184 KamiHW.StepEval <> b:44 var
+R13210:13218 KamiHW.RuleStep <> step_next def
+R13226:13234 KamiHW.RuleNext <> hwb_after def
+R13236:13252 KamiHW.HWBoundary <> hw_mc_new_src_mod proj
+R13263:13273 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 13309:13333 <> step_keeps_mc_new_dst_mod
+binder 13344:13344 <> b:45
+R13378:13380 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13347:13363 KamiHW.HWBoundary <> hw_mc_new_dst_mod proj
+R13366:13374 KamiHW.RuleStep <> step_next def
+R13376:13376 KamiHW.StepEval <> b:45 var
+R13381:13397 KamiHW.HWBoundary <> hw_mc_new_dst_mod proj
+R13399:13399 KamiHW.StepEval <> b:45 var
+R13425:13433 KamiHW.RuleStep <> step_next def
+R13441:13449 KamiHW.RuleNext <> hwb_after def
+R13451:13467 KamiHW.HWBoundary <> hw_mc_new_dst_mod proj
+R13478:13488 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 13524:13541 <> step_keeps_mc_cost
+binder 13552:13552 <> b:46
+R13579:13581 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13555:13564 KamiHW.HWBoundary <> hw_mc_cost proj
+R13567:13575 KamiHW.RuleStep <> step_next def
+R13577:13577 KamiHW.StepEval <> b:46 var
+R13582:13591 KamiHW.HWBoundary <> hw_mc_cost proj
+R13593:13593 KamiHW.StepEval <> b:46 var
+R13619:13627 KamiHW.RuleStep <> step_next def
+R13635:13643 KamiHW.RuleNext <> hwb_after def
+R13645:13654 KamiHW.HWBoundary <> hw_mc_cost proj
+R13665:13675 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 13711:13744 <> step_keeps_formula_desc_base_table
+binder 13755:13755 <> b:47
+R13798:13800 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13758:13783 KamiHW.HWBoundary <> hw_formula_desc_base_table proj
+R13786:13794 KamiHW.RuleStep <> step_next def
+R13796:13796 KamiHW.StepEval <> b:47 var
+R13801:13826 KamiHW.HWBoundary <> hw_formula_desc_base_table proj
+R13828:13828 KamiHW.StepEval <> b:47 var
+R13854:13862 KamiHW.RuleStep <> step_next def
+R13870:13878 KamiHW.RuleNext <> hwb_after def
+R13880:13905 KamiHW.HWBoundary <> hw_formula_desc_base_table proj
+R13916:13926 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 13962:13996 <> step_keeps_formula_desc_count_table
+binder 14007:14007 <> b:48
+R14051:14053 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14010:14036 KamiHW.HWBoundary <> hw_formula_desc_count_table proj
+R14039:14047 KamiHW.RuleStep <> step_next def
+R14049:14049 KamiHW.StepEval <> b:48 var
+R14054:14080 KamiHW.HWBoundary <> hw_formula_desc_count_table proj
+R14082:14082 KamiHW.StepEval <> b:48 var
+R14108:14116 KamiHW.RuleStep <> step_next def
+R14124:14132 KamiHW.RuleNext <> hwb_after def
+R14134:14160 KamiHW.HWBoundary <> hw_formula_desc_count_table proj
+R14171:14181 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 14217:14251 <> step_keeps_formula_desc_valid_table
+binder 14262:14262 <> b:49
+R14306:14308 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14265:14291 KamiHW.HWBoundary <> hw_formula_desc_valid_table proj
+R14294:14302 KamiHW.RuleStep <> step_next def
+R14304:14304 KamiHW.StepEval <> b:49 var
+R14309:14335 KamiHW.HWBoundary <> hw_formula_desc_valid_table proj
+R14337:14337 KamiHW.StepEval <> b:49 var
+R14363:14371 KamiHW.RuleStep <> step_next def
+R14379:14387 KamiHW.RuleNext <> hwb_after def
+R14389:14415 KamiHW.HWBoundary <> hw_formula_desc_valid_table proj
+R14426:14436 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 14472:14502 <> step_keeps_formula_desc_next_id
+binder 14513:14513 <> b:50
+R14553:14555 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14516:14538 KamiHW.HWBoundary <> hw_formula_desc_next_id proj
+R14541:14549 KamiHW.RuleStep <> step_next def
+R14551:14551 KamiHW.StepEval <> b:50 var
+R14556:14578 KamiHW.HWBoundary <> hw_formula_desc_next_id proj
+R14580:14580 KamiHW.StepEval <> b:50 var
+R14606:14614 KamiHW.RuleStep <> step_next def
+R14622:14630 KamiHW.RuleNext <> hwb_after def
+R14632:14654 KamiHW.HWBoundary <> hw_formula_desc_next_id proj
+R14665:14675 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 14711:14741 <> step_keeps_cert_desc_base_table
+binder 14752:14752 <> b:51
+R14792:14794 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14755:14777 KamiHW.HWBoundary <> hw_cert_desc_base_table proj
+R14780:14788 KamiHW.RuleStep <> step_next def
+R14790:14790 KamiHW.StepEval <> b:51 var
+R14795:14817 KamiHW.HWBoundary <> hw_cert_desc_base_table proj
+R14819:14819 KamiHW.StepEval <> b:51 var
+R14845:14853 KamiHW.RuleStep <> step_next def
+R14861:14869 KamiHW.RuleNext <> hwb_after def
+R14871:14893 KamiHW.HWBoundary <> hw_cert_desc_base_table proj
+R14904:14914 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 14950:14981 <> step_keeps_cert_desc_count_table
+binder 14992:14992 <> b:52
+R15033:15035 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14995:15018 KamiHW.HWBoundary <> hw_cert_desc_count_table proj
+R15021:15029 KamiHW.RuleStep <> step_next def
+R15031:15031 KamiHW.StepEval <> b:52 var
+R15036:15059 KamiHW.HWBoundary <> hw_cert_desc_count_table proj
+R15061:15061 KamiHW.StepEval <> b:52 var
+R15087:15095 KamiHW.RuleStep <> step_next def
+R15103:15111 KamiHW.RuleNext <> hwb_after def
+R15113:15136 KamiHW.HWBoundary <> hw_cert_desc_count_table proj
+R15147:15157 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 15193:15224 <> step_keeps_cert_desc_valid_table
+binder 15235:15235 <> b:53
+R15276:15278 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15238:15261 KamiHW.HWBoundary <> hw_cert_desc_valid_table proj
+R15264:15272 KamiHW.RuleStep <> step_next def
+R15274:15274 KamiHW.StepEval <> b:53 var
+R15279:15302 KamiHW.HWBoundary <> hw_cert_desc_valid_table proj
+R15304:15304 KamiHW.StepEval <> b:53 var
+R15330:15338 KamiHW.RuleStep <> step_next def
+R15346:15354 KamiHW.RuleNext <> hwb_after def
+R15356:15379 KamiHW.HWBoundary <> hw_cert_desc_valid_table proj
+R15390:15400 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 15436:15463 <> step_keeps_cert_desc_next_id
+binder 15474:15474 <> b:54
+R15511:15513 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15477:15496 KamiHW.HWBoundary <> hw_cert_desc_next_id proj
+R15499:15507 KamiHW.RuleStep <> step_next def
+R15509:15509 KamiHW.StepEval <> b:54 var
+R15514:15533 KamiHW.HWBoundary <> hw_cert_desc_next_id proj
+R15535:15535 KamiHW.StepEval <> b:54 var
+R15561:15569 KamiHW.RuleStep <> step_next def
+R15577:15585 KamiHW.RuleNext <> hwb_after def
+R15587:15606 KamiHW.HWBoundary <> hw_cert_desc_next_id proj
+R15617:15627 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 15663:15696 <> step_keeps_desc_meta_subtype_table
+binder 15707:15707 <> b:55
+R15750:15752 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15710:15735 KamiHW.HWBoundary <> hw_desc_meta_subtype_table proj
+R15738:15746 KamiHW.RuleStep <> step_next def
+R15748:15748 KamiHW.StepEval <> b:55 var
+R15753:15778 KamiHW.HWBoundary <> hw_desc_meta_subtype_table proj
+R15780:15780 KamiHW.StepEval <> b:55 var
+R15806:15814 KamiHW.RuleStep <> step_next def
+R15822:15830 KamiHW.RuleNext <> hwb_after def
+R15832:15857 KamiHW.HWBoundary <> hw_desc_meta_subtype_table proj
+R15868:15878 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 15914:15944 <> step_keeps_desc_meta_kind_table
+binder 15955:15955 <> b:56
+R15995:15997 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15958:15980 KamiHW.HWBoundary <> hw_desc_meta_kind_table proj
+R15983:15991 KamiHW.RuleStep <> step_next def
+R15993:15993 KamiHW.StepEval <> b:56 var
+R15998:16020 KamiHW.HWBoundary <> hw_desc_meta_kind_table proj
+R16022:16022 KamiHW.StepEval <> b:56 var
+R16048:16056 KamiHW.RuleStep <> step_next def
+R16064:16072 KamiHW.RuleNext <> hwb_after def
+R16074:16096 KamiHW.HWBoundary <> hw_desc_meta_kind_table proj
+R16107:16117 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 16153:16189 <> step_keeps_desc_meta_inline_len_table
+binder 16200:16200 <> b:57
+R16246:16248 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16203:16231 KamiHW.HWBoundary <> hw_desc_meta_inline_len_table proj
+R16234:16242 KamiHW.RuleStep <> step_next def
+R16244:16244 KamiHW.StepEval <> b:57 var
+R16249:16277 KamiHW.HWBoundary <> hw_desc_meta_inline_len_table proj
+R16279:16279 KamiHW.StepEval <> b:57 var
+R16305:16313 KamiHW.RuleStep <> step_next def
+R16321:16329 KamiHW.RuleNext <> hwb_after def
+R16331:16359 KamiHW.HWBoundary <> hw_desc_meta_inline_len_table proj
+R16370:16380 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 16416:16445 <> step_keeps_desc_meta_aux_table
+binder 16456:16456 <> b:58
+R16495:16497 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16459:16480 KamiHW.HWBoundary <> hw_desc_meta_aux_table proj
+R16483:16491 KamiHW.RuleStep <> step_next def
+R16493:16493 KamiHW.StepEval <> b:58 var
+R16498:16519 KamiHW.HWBoundary <> hw_desc_meta_aux_table proj
+R16521:16521 KamiHW.StepEval <> b:58 var
+R16547:16555 KamiHW.RuleStep <> step_next def
+R16563:16571 KamiHW.RuleNext <> hwb_after def
+R16573:16594 KamiHW.HWBoundary <> hw_desc_meta_aux_table proj
+R16605:16615 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 16651:16682 <> step_keeps_desc_meta_valid_table
+binder 16693:16693 <> b:59
+R16734:16736 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16696:16719 KamiHW.HWBoundary <> hw_desc_meta_valid_table proj
+R16722:16730 KamiHW.RuleStep <> step_next def
+R16732:16732 KamiHW.StepEval <> b:59 var
+R16737:16760 KamiHW.HWBoundary <> hw_desc_meta_valid_table proj
+R16762:16762 KamiHW.StepEval <> b:59 var
+R16788:16796 KamiHW.RuleStep <> step_next def
+R16804:16812 KamiHW.RuleNext <> hwb_after def
+R16814:16837 KamiHW.HWBoundary <> hw_desc_meta_valid_table proj
+R16848:16858 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 16894:16921 <> step_keeps_desc_meta_next_id
+binder 16932:16932 <> b:60
+R16969:16971 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16935:16954 KamiHW.HWBoundary <> hw_desc_meta_next_id proj
+R16957:16965 KamiHW.RuleStep <> step_next def
+R16967:16967 KamiHW.StepEval <> b:60 var
+R16972:16991 KamiHW.HWBoundary <> hw_desc_meta_next_id proj
+R16993:16993 KamiHW.StepEval <> b:60 var
+R17019:17027 KamiHW.RuleStep <> step_next def
+R17035:17043 KamiHW.RuleNext <> hwb_after def
+R17045:17064 KamiHW.HWBoundary <> hw_desc_meta_next_id proj
+R17075:17085 KamiHW.BoundaryDecoded <> hwb_decoded def

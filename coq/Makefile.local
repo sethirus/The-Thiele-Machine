@@ -6,7 +6,16 @@
 # after Makefile.conf sets COQLIBS.
 COQLIBS := $(subst -R . Top,,$(COQLIBS))
 
-build:
-	mkdir -p build
+.PHONY: extraction-output-dirs
+extraction-output-dirs:
+	mkdir -p ../build/kami_hw
 
-Extraction.vo: | build
+# Both roots write Target.ml/Target.mli, but their extraction contexts differ.
+# Canonical full extraction must run last, including in incremental -j builds.
+Extraction.vo: kami_hw/KamiExtraction.vo
+Extraction.vo ThieleMachineComplete.vo kami_hw/KamiExtraction.vo: | extraction-output-dirs
+
+# Build the pinned CM2 library dependency closure with its own project flags.
+# Grouping prevents parallel bridge imports from rebuilding the same objects.
+../vendor/coq-undecidability/theories/MinskyMachines/MM2.vo ../vendor/coq-undecidability/theories/MinskyMachines/MM2_undec.vo ../vendor/coq-undecidability/theories/Synthetic/Undecidability.vo ../vendor/coq-undecidability/theories/Synthetic/ReducibilityFacts.vo ../vendor/coq-undecidability/theories/PCP/PCP.vo ../vendor/coq-undecidability/theories/PCP/PCP_undec.vo ../vendor/coq-undecidability/theories/PCP/Reductions/PCPb_iff_iPCPb.vo ../vendor/coq-undecidability/theories/StackMachines/BSM.vo ../vendor/coq-undecidability/theories/StackMachines/Reductions/iPCPb_to_BSM_HALTING.vo ../vendor/coq-undecidability/theories/MinskyMachines/MM.vo ../vendor/coq-undecidability/theories/MinskyMachines/MMA.vo ../vendor/coq-undecidability/theories/MinskyMachines/Reductions/BSM_MM.vo ../vendor/coq-undecidability/theories/MinskyMachines/Reductions/MMA2_to_MM2.vo ../vendor/coq-undecidability/theories/FRACTRAN/FRACTRAN.vo ../vendor/coq-undecidability/theories/FRACTRAN/Reductions/MM_FRACTRAN.vo ../vendor/coq-undecidability/theories/MinskyMachines/Reductions/FRACTRAN_to_MMA2.vo &: $(shell find ../vendor/coq-undecidability/theories -name '*.v') ../vendor/coq-undecidability/theories/_CoqProject
+	$(MAKE) -C ../vendor/coq-undecidability/theories MinskyMachines/MM2_undec.vo

@@ -7,11 +7,15 @@
     "coq/kernel/mu_calculus/MuInitiality.v",
     "coq/kernel/nfi/NoFreeInsight.v"
   ],
-  "file_node_count": 275,
-  "file_edge_count": 2753,
-  "disconnected_file_count": 3,
+  "file_node_count": 409,
+  "file_edge_count": 4271,
+  "disconnected_file_count": 7,
   "disconnected_files": [
+    "coq/kami_hw/ActionEvaluator.v",
+    "coq/kami_hw/ActionObservation.v",
     "coq/kami_hw/RTLGapRegistry.v",
+    "coq/kami_hw/ReadFreeObservation.v",
+    "coq/kernel/foundation/MM2ComplementUndec.v",
     "coq/kernel/nfi/CommitmentPredicateAdequacy.v",
     "coq/tests/CloseoutVerification.v"
   ],
@@ -94,7 +98,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 12
+      "out_edges": 13
     },
     {
       "file": "coq/ReceiptTheorem.v",
@@ -120,7 +124,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 85
+      "out_edges": 89
     },
     {
       "file": "coq/VerifierEscape_Hardness.v",
@@ -237,7 +241,45 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 16
+      "out_edges": 19
+    },
+    {
+      "file": "coq/kami_hw/ActionEvaluator.v",
+      "connected_to_foundation": false,
+      "reached_foundation_files": [],
+      "out_edges": 0
+    },
+    {
+      "file": "coq/kami_hw/ActionObservation.v",
+      "connected_to_foundation": false,
+      "reached_foundation_files": [],
+      "out_edges": 1
+    },
+    {
+      "file": "coq/kami_hw/BoundaryDecoded.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 11
+    },
+    {
+      "file": "coq/kami_hw/BoundaryRun.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 10
     },
     {
       "file": "coq/kami_hw/CanonicalCPUProof.v",
@@ -253,7 +295,215 @@
       "out_edges": 32
     },
     {
-      "file": "coq/kami_hw/EmbedStep.v",
+      "file": "coq/kami_hw/ChshArith.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 6
+    },
+    {
+      "file": "coq/kami_hw/ChshDecoded.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 17
+    },
+    {
+      "file": "coq/kami_hw/ChshFsm.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 4
+    },
+    {
+      "file": "coq/kami_hw/ChshPhases.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 5
+    },
+    {
+      "file": "coq/kami_hw/ChshRetire.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 27
+    },
+    {
+      "file": "coq/kami_hw/ChshRun.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 10
+    },
+    {
+      "file": "coq/kami_hw/ChshStepFields.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 6
+    },
+    {
+      "file": "coq/kami_hw/CoreExecution.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 9
+    },
+    {
+      "file": "coq/kami_hw/CoreRules.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 5
+    },
+    {
+      "file": "coq/kami_hw/CoreTyping.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 8
+    },
+    {
+      "file": "coq/kami_hw/CouplingComposeKami.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 19
+    },
+    {
+      "file": "coq/kami_hw/CouplingComposeRetire.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 26
+    },
+    {
+      "file": "coq/kami_hw/CouplingComposeRun.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 20
+    },
+    {
+      "file": "coq/kami_hw/CouplingFaults.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 16
+    },
+    {
+      "file": "coq/kami_hw/CouplingFsmCopy.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 19
+    },
+    {
+      "file": "coq/kami_hw/CouplingFsmEnds.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 5
+    },
+    {
+      "file": "coq/kami_hw/CouplingFsmJoin.v",
       "connected_to_foundation": true,
       "reached_foundation_files": [
         "coq/kernel/foundation/MuCostModel.v",
@@ -266,7 +516,7 @@
       "out_edges": 18
     },
     {
-      "file": "coq/kami_hw/EmbedStep_WF.v",
+      "file": "coq/kami_hw/CouplingFsmLoad.v",
       "connected_to_foundation": true,
       "reached_foundation_files": [
         "coq/kernel/foundation/MuCostModel.v",
@@ -277,6 +527,227 @@
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
       "out_edges": 16
+    },
+    {
+      "file": "coq/kami_hw/CouplingFsmNorm.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 17
+    },
+    {
+      "file": "coq/kami_hw/CouplingFsmRun.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 21
+    },
+    {
+      "file": "coq/kami_hw/CouplingMorphKami.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 11
+    },
+    {
+      "file": "coq/kami_hw/CouplingMorphRetire.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 26
+    },
+    {
+      "file": "coq/kami_hw/CouplingMorphRich.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 17
+    },
+    {
+      "file": "coq/kami_hw/CouplingSchedule.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 10
+    },
+    {
+      "file": "coq/kami_hw/DecodedReadFree.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 7
+    },
+    {
+      "file": "coq/kami_hw/DispatchAbstractionBridge.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 13
+    },
+    {
+      "file": "coq/kami_hw/DispatchAddFamily.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 10
+    },
+    {
+      "file": "coq/kami_hw/DispatchContracts.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 5
+    },
+    {
+      "file": "coq/kami_hw/DispatchExecution.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 8
+    },
+    {
+      "file": "coq/kami_hw/DispatchFetch.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 14
+    },
+    {
+      "file": "coq/kami_hw/DispatchLets.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 8
+    },
+    {
+      "file": "coq/kami_hw/DispatchObservation.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 11
+    },
+    {
+      "file": "coq/kami_hw/DispatchReset.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 4
+    },
+    {
+      "file": "coq/kami_hw/EmbedStep.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 20
+    },
+    {
+      "file": "coq/kami_hw/EmbedStep_WF.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 18
     },
     {
       "file": "coq/kami_hw/F4_BModulesTranslation.v",
@@ -303,6 +774,19 @@
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
       "out_edges": 4
+    },
+    {
+      "file": "coq/kami_hw/FsmDecoded.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 21
     },
     {
       "file": "coq/kami_hw/FullAbstraction.v",
@@ -354,7 +838,33 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 22
+      "out_edges": 27
+    },
+    {
+      "file": "coq/kami_hw/HWBoundaryCompleteness.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 15
+    },
+    {
+      "file": "coq/kami_hw/HWBoundaryReads.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 9
     },
     {
       "file": "coq/kami_hw/HardwareShadowBridge.v",
@@ -370,7 +880,358 @@
       "out_edges": 5
     },
     {
+      "file": "coq/kami_hw/ImplementationContract.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 10
+    },
+    {
+      "file": "coq/kami_hw/LassertRetire.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 32
+    },
+    {
+      "file": "coq/kami_hw/LassertSpec.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 6
+    },
+    {
+      "file": "coq/kami_hw/LassertStepFields.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 5
+    },
+    {
+      "file": "coq/kami_hw/LassertWord.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 13
+    },
+    {
+      "file": "coq/kami_hw/LegacyLoadGuard.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 5
+    },
+    {
+      "file": "coq/kami_hw/LegacyLocalityGuard.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 5
+    },
+    {
+      "file": "coq/kami_hw/LegacyNfiGuard.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 6
+    },
+    {
+      "file": "coq/kami_hw/LegacyPartitionGuard.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 6
+    },
+    {
+      "file": "coq/kami_hw/LegacyWordDecode.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 5
+    },
+    {
       "file": "coq/kami_hw/LogicEngineEquivalence.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 9
+    },
+    {
+      "file": "coq/kami_hw/MorphCopy.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 15
+    },
+    {
+      "file": "coq/kami_hw/MorphJoin.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 18
+    },
+    {
+      "file": "coq/kami_hw/MorphLoading.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 16
+    },
+    {
+      "file": "coq/kami_hw/MorphRetirement.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 11
+    },
+    {
+      "file": "coq/kami_hw/MorphTensorGap.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 6
+    },
+    {
+      "file": "coq/kami_hw/NormalizationExclusivity.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 2
+    },
+    {
+      "file": "coq/kami_hw/NormalizationExecution.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 6
+    },
+    {
+      "file": "coq/kami_hw/NormalizationFrame.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 12
+    },
+    {
+      "file": "coq/kami_hw/NormalizationLoop.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 4
+    },
+    {
+      "file": "coq/kami_hw/NormalizationPrefix.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 5
+    },
+    {
+      "file": "coq/kami_hw/NormalizationRetirement.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 11
+    },
+    {
+      "file": "coq/kami_hw/NormalizationScanExecution.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 8
+    },
+    {
+      "file": "coq/kami_hw/NormalizationStart.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 3
+    },
+    {
+      "file": "coq/kami_hw/NormalizationSteps.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 6
+    },
+    {
+      "file": "coq/kami_hw/OutsideDomain.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 5
+    },
+    {
+      "file": "coq/kami_hw/OutsideDomainMaster.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 11
+    },
+    {
+      "file": "coq/kami_hw/PopcountSWAR.v",
       "connected_to_foundation": true,
       "reached_foundation_files": [
         "coq/kernel/foundation/MuCostModel.v",
@@ -402,7 +1263,91 @@
       "out_edges": 0
     },
     {
-      "file": "coq/kami_hw/RichStateCommutation.v",
+      "file": "coq/kami_hw/ReadFreeObservation.v",
+      "connected_to_foundation": false,
+      "reached_foundation_files": [],
+      "out_edges": 2
+    },
+    {
+      "file": "coq/kami_hw/RetireMaster.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 37
+    },
+    {
+      "file": "coq/kami_hw/RetireProgress.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 14
+    },
+    {
+      "file": "coq/kami_hw/RetireRuns.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 16
+    },
+    {
+      "file": "coq/kami_hw/RetireRunsFsm.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 23
+    },
+    {
+      "file": "coq/kami_hw/RetireRunsOps.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 27
+    },
+    {
+      "file": "coq/kami_hw/RichFaultMaster.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 10
+    },
+    {
+      "file": "coq/kami_hw/RichFaultRetireMaster.v",
       "connected_to_foundation": true,
       "reached_foundation_files": [
         "coq/kernel/foundation/MuCostModel.v",
@@ -413,6 +1358,136 @@
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
       "out_edges": 7
+    },
+    {
+      "file": "coq/kami_hw/RichFaultWords.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 4
+    },
+    {
+      "file": "coq/kami_hw/RichLoadGuard.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 6
+    },
+    {
+      "file": "coq/kami_hw/RichLocalityGuard.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 6
+    },
+    {
+      "file": "coq/kami_hw/RichNfiGuard.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 6
+    },
+    {
+      "file": "coq/kami_hw/RichPartitionGuard.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 6
+    },
+    {
+      "file": "coq/kami_hw/RichStateCommutation.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 8
+    },
+    {
+      "file": "coq/kami_hw/RichWordDecode.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 5
+    },
+    {
+      "file": "coq/kami_hw/RuleEnabled.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 18
+    },
+    {
+      "file": "coq/kami_hw/RuleNext.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 14
+    },
+    {
+      "file": "coq/kami_hw/RuleStep.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 16
     },
     {
       "file": "coq/kami_hw/ShadowDevice.v",
@@ -451,7 +1526,163 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 16
+      "out_edges": 17
+    },
+    {
+      "file": "coq/kami_hw/StepEval.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 5
+    },
+    {
+      "file": "coq/kami_hw/StepFaults.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 15
+    },
+    {
+      "file": "coq/kami_hw/StepFields.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 7
+    },
+    {
+      "file": "coq/kami_hw/StepFieldsMorph.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 9
+    },
+    {
+      "file": "coq/kami_hw/StepRefine.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 19
+    },
+    {
+      "file": "coq/kami_hw/StepRefineCommon.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 20
+    },
+    {
+      "file": "coq/kami_hw/StepRefineMorph.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 18
+    },
+    {
+      "file": "coq/kami_hw/StepWordFacts.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 9
+    },
+    {
+      "file": "coq/kami_hw/TableInvariants.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 11
+    },
+    {
+      "file": "coq/kami_hw/TableInvariantsPreserved.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 39
+    },
+    {
+      "file": "coq/kami_hw/TableInvariantsReachable.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 12
+    },
+    {
+      "file": "coq/kami_hw/TensorDispatch.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 10
     },
     {
       "file": "coq/kami_hw/ThieleCPUBusTop.v",
@@ -490,7 +1721,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 10
+      "out_edges": 11
     },
     {
       "file": "coq/kami_hw/VerilogSemantics.v",
@@ -555,7 +1786,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 13
+      "out_edges": 14
     },
     {
       "file": "coq/kernel/aggregators/PDISCOVERIntegration.v",
@@ -633,7 +1864,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 8
+      "out_edges": 10
     },
     {
       "file": "coq/kernel/category/CategoryLaws.v",
@@ -646,7 +1877,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 4
+      "out_edges": 5
     },
     {
       "file": "coq/kernel/category/CategoryMonoidal.v",
@@ -776,7 +2007,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 21
+      "out_edges": 22
     },
     {
       "file": "coq/kernel/curvature/EinsteinEquationsFull.v",
@@ -802,7 +2033,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 5
+      "out_edges": 6
     },
     {
       "file": "coq/kernel/curvature/JacobsonBridgeComponents.v",
@@ -841,7 +2072,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 15
+      "out_edges": 16
     },
     {
       "file": "coq/kernel/curvature/LocalMorphismSemantics.v",
@@ -919,7 +2150,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 11
+      "out_edges": 13
     },
     {
       "file": "coq/kernel/curvature/MuGravity.v",
@@ -932,7 +2163,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 17
+      "out_edges": 19
     },
     {
       "file": "coq/kernel/curvature/NoFIToEinstein.v",
@@ -1023,7 +2254,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 16
+      "out_edges": 17
     },
     {
       "file": "coq/kernel/curvature/StressEnergyDynamics.v",
@@ -1101,7 +2332,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 14
+      "out_edges": 15
     },
     {
       "file": "coq/kernel/foundation/KernelTM.v",
@@ -1127,7 +2358,13 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 10
+      "out_edges": 11
+    },
+    {
+      "file": "coq/kernel/foundation/MM2ComplementUndec.v",
+      "connected_to_foundation": false,
+      "reached_foundation_files": [],
+      "out_edges": 0
     },
     {
       "file": "coq/kernel/foundation/MuCostModel.v",
@@ -1218,7 +2455,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 18
+      "out_edges": 19
     },
     {
       "file": "coq/kernel/foundation/StateSpaceCounting.v",
@@ -1257,7 +2494,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 1
+      "out_edges": 2
     },
     {
       "file": "coq/kernel/foundation/TuringClassicalEmbedding.v",
@@ -1270,7 +2507,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 15
+      "out_edges": 16
     },
     {
       "file": "coq/kernel/foundation/TuringCompletenessISA.v",
@@ -1299,20 +2536,7 @@
       "out_edges": 11
     },
     {
-      "file": "coq/kernel/foundation/VMEncoding.v",
-      "connected_to_foundation": true,
-      "reached_foundation_files": [
-        "coq/kernel/foundation/MuCostModel.v",
-        "coq/kernel/foundation/MuLedgerConservation.v",
-        "coq/kernel/foundation/VMState.v",
-        "coq/kernel/foundation/VMStep.v",
-        "coq/kernel/mu_calculus/MuInitiality.v",
-        "coq/kernel/nfi/NoFreeInsight.v"
-      ],
-      "out_edges": 13
-    },
-    {
-      "file": "coq/kernel/foundation/VMInstructionEncoding.v",
+      "file": "coq/kernel/foundation/VMAlternativeCounterAccess.v",
       "connected_to_foundation": true,
       "reached_foundation_files": [
         "coq/kernel/foundation/MuCostModel.v",
@@ -1325,6 +2549,175 @@
       "out_edges": 5
     },
     {
+      "file": "coq/kernel/foundation/VMBoundedDecidability.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 8
+    },
+    {
+      "file": "coq/kernel/foundation/VMCounterBranch.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 11
+    },
+    {
+      "file": "coq/kernel/foundation/VMEncodedInputAccess.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 12
+    },
+    {
+      "file": "coq/kernel/foundation/VMEncoding.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 14
+    },
+    {
+      "file": "coq/kernel/foundation/VMInstructionEncoding.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 7
+    },
+    {
+      "file": "coq/kernel/foundation/VMSelfCorrect.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 10
+    },
+    {
+      "file": "coq/kernel/foundation/VMSelfGuest.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 9
+    },
+    {
+      "file": "coq/kernel/foundation/VMSelfLimitative.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 10
+    },
+    {
+      "file": "coq/kernel/foundation/VMSelfProgram.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 8
+    },
+    {
+      "file": "coq/kernel/foundation/VMSelfRice.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 13
+    },
+    {
+      "file": "coq/kernel/foundation/VMSelfRiceUndec.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 10
+    },
+    {
+      "file": "coq/kernel/foundation/VMSelfRun.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 14
+    },
+    {
+      "file": "coq/kernel/foundation/VMSelfUniversal.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 11
+    },
+    {
       "file": "coq/kernel/foundation/VMState.v",
       "connected_to_foundation": true,
       "reached_foundation_files": [
@@ -1335,7 +2728,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 17
+      "out_edges": 19
     },
     {
       "file": "coq/kernel/foundation/VMStep.v",
@@ -1348,7 +2741,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 13
+      "out_edges": 15
     },
     {
       "file": "coq/kernel/foundation/VMSubstrateInstance.v",
@@ -1364,7 +2757,150 @@
       "out_edges": 12
     },
     {
-      "file": "coq/kernel/foundation/VMUnboundedExec.v",
+      "file": "coq/kernel/foundation/VMTwoCounterAccess.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 9
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedCM2Applicability.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 7
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedCM2Bridge.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 6
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedCM2Correctness.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 14
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedCM2Encoding.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 8
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedCM2IndependentStorage.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 8
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedCM2Interpreter.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 10
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedCM2InterpreterProof.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 10
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedCM2Limitative.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 3
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedCM2OutputPredicate.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 8
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedCM2Specialization.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 10
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedCounterAccess.v",
       "connected_to_foundation": true,
       "reached_foundation_files": [
         "coq/kernel/foundation/MuCostModel.v",
@@ -1375,6 +2911,175 @@
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
       "out_edges": 5
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedExec.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 6
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedGuestEncoding.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 8
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedInterpreterCode.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 9
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedInterpreterCompose.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 8
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedInterpreterSlots.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 4
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedMinskyCorrectness.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 14
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedMinskyEncoding.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 8
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedMinskyInterpreter.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 10
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedMinskyInterpreterProof.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 10
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedOpcodeAdd.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 9
+    },
+    {
+      "file": "coq/kernel/foundation/VMUnboundedStep.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 10
+    },
+    {
+      "file": "coq/kernel/foundation/VMWitnessCounterMonotonicity.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 6
+    },
+    {
+      "file": "coq/kernel/foundation/VMWord64BoundednessObstruction.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 11
     },
     {
       "file": "coq/kernel/frontier/F1_AbstractedBridge.v",
@@ -1660,7 +3365,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 6
+      "out_edges": 5
     },
     {
       "file": "coq/kernel/misc/ConeAlgebra.v",
@@ -1803,7 +3508,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 9
+      "out_edges": 8
     },
     {
       "file": "coq/kernel/mu_calculus/MuNoFreeInsightQuantitative.v",
@@ -1842,7 +3547,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 14
+      "out_edges": 15
     },
     {
       "file": "coq/kernel/mu_calculus/QuantitativeNoFI.v",
@@ -2017,7 +3722,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 10
+      "out_edges": 11
     },
     {
       "file": "coq/kernel/nfi/LandauerDerivation.v",
@@ -2121,7 +3826,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 9
+      "out_edges": 10
     },
     {
       "file": "coq/kernel/nfi/PrimeAxiom.v",
@@ -2186,7 +3891,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 12
+      "out_edges": 13
     },
     {
       "file": "coq/kernel/nfi/StructuralAdvantageCertifiedShortcut.v",
@@ -2303,7 +4008,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 12
+      "out_edges": 13
     },
     {
       "file": "coq/kernel/nfi/UniversalShortcutLifting.v",
@@ -2316,7 +4021,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 15
+      "out_edges": 16
     },
     {
       "file": "coq/kernel/nfi/VMSubstrateEncoded.v",
@@ -2407,7 +4112,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 6
+      "out_edges": 7
     },
     {
       "file": "coq/kernel/quantum/CHSHExtraction.v",
@@ -2420,7 +4125,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 11
+      "out_edges": 12
     },
     {
       "file": "coq/kernel/quantum/CHSHStatisticalBridge.v",
@@ -2446,7 +4151,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 6
+      "out_edges": 8
     },
     {
       "file": "coq/kernel/quantum/ElliptopeCompletion.v",
@@ -2472,7 +4177,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 9
+      "out_edges": 12
     },
     {
       "file": "coq/kernel/quantum/EntanglementEntropy.v",
@@ -2498,7 +4203,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 15
+      "out_edges": 16
     },
     {
       "file": "coq/kernel/quantum/HolevoDimensional.v",
@@ -2680,7 +4385,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 7
+      "out_edges": 5
     },
     {
       "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
@@ -2706,7 +4411,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 16
+      "out_edges": 17
     },
     {
       "file": "coq/kernel/quantum/SemidefiniteProgramming.v",
@@ -2758,7 +4463,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 3
+      "out_edges": 1
     },
     {
       "file": "coq/kernel/quantum/TsirelsonGeneral.v",
@@ -3005,7 +4710,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 13
+      "out_edges": 14
     },
     {
       "file": "coq/kernel/thermodynamic/SecondLawBoltzmannWall.v",
@@ -3044,7 +4749,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 8
+      "out_edges": 9
     },
     {
       "file": "coq/kernel/witness/DerivedTime.v",
@@ -3417,6 +5122,19 @@
       "out_edges": 1
     },
     {
+      "file": "coq/tests/SemanticContractRegression.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 6
+    },
+    {
       "file": "coq/tests/TestNecessity.v",
       "connected_to_foundation": true,
       "reached_foundation_files": [
@@ -3557,7 +5275,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 11
+      "out_edges": 12
     },
     {
       "file": "coq/thielemachine/ThieleProc.v",
@@ -3570,7 +5288,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 8
+      "out_edges": 9
     }
   ]
 }

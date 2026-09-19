@@ -1,0 +1,385 @@
+DIGEST 50d5d58616a6f13f4d261bc8cc5a70fb
+FUndecidability.Synthetic.DecidabilityFacts
+R15:50 Undecidability.Synthetic.Definitions <> <> lib
+R52:54 Coq.micromega.Lia <> <> lib
+R72:96 Undecidability.Shared.Dec <> <> lib
+R114:119 Coq.Setoids.Setoid <> <> lib
+R121:129 Coq.Classes.Morphisms <> <> lib
+def 144:151 <> discrete
+binder 153:153 <> X:1
+R158:166 Undecidability.Synthetic.Definitions <> decidable def
+R174:174 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R176:176 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R178:178 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 177:177 <> y:2
+binder 175:175 <> x:3
+binder 174:178 <> pat:4
+R184:186 Coq.Init.Logic <> ::type_scope:x_'='_x_':>'_x not
+R188:191 Coq.Init.Logic <> ::type_scope:x_'='_x_':>'_x not
+R192:192 Undecidability.Synthetic.DecidabilityFacts <> X:1 var
+R183:183 Undecidability.Synthetic.DecidabilityFacts <> x:3 var
+R187:187 Undecidability.Synthetic.DecidabilityFacts <> y:2 var
+prf 228:239 <> reflects_not
+binder 241:241 <> b:5
+binder 243:243 <> P:6
+R261:264 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R249:256 Undecidability.Synthetic.Definitions <> reflects def
+R258:258 Undecidability.Synthetic.DecidabilityFacts <> b:5 var
+R260:260 Undecidability.Synthetic.DecidabilityFacts <> P:6 var
+R265:272 Undecidability.Synthetic.Definitions <> reflects def
+R275:278 Coq.Init.Datatypes <> negb def
+R280:280 Undecidability.Synthetic.DecidabilityFacts <> b:5 var
+R284:284 Coq.Init.Logic <> ::type_scope:'~'_x not
+R285:285 Undecidability.Synthetic.DecidabilityFacts <> P:6 var
+R305:312 Undecidability.Synthetic.Definitions <> reflects def
+prf 368:380 <> reflects_conj
+binder 383:384 <> b1:7
+binder 386:387 <> b2:8
+binder 389:390 <> P1:9
+binder 392:393 <> P2:10
+R414:418 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R400:407 Undecidability.Synthetic.Definitions <> reflects def
+R409:410 Undecidability.Synthetic.DecidabilityFacts <> b1:7 var
+R412:413 Undecidability.Synthetic.DecidabilityFacts <> P1:9 var
+R433:436 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R419:426 Undecidability.Synthetic.Definitions <> reflects def
+R428:429 Undecidability.Synthetic.DecidabilityFacts <> b2:8 var
+R431:432 Undecidability.Synthetic.DecidabilityFacts <> P2:10 var
+R437:444 Undecidability.Synthetic.Definitions <> reflects def
+R449:452 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R447:448 Undecidability.Synthetic.DecidabilityFacts <> b1:7 var
+R453:454 Undecidability.Synthetic.DecidabilityFacts <> b2:8 var
+R460:463 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R458:459 Undecidability.Synthetic.DecidabilityFacts <> P1:9 var
+R464:465 Undecidability.Synthetic.DecidabilityFacts <> P2:10 var
+R485:492 Undecidability.Synthetic.Definitions <> reflects def
+prf 554:566 <> reflects_disj
+binder 569:570 <> b1:11
+binder 572:573 <> b2:12
+binder 575:576 <> P1:13
+binder 578:579 <> P2:14
+R600:604 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R586:593 Undecidability.Synthetic.Definitions <> reflects def
+R595:596 Undecidability.Synthetic.DecidabilityFacts <> b1:11 var
+R598:599 Undecidability.Synthetic.DecidabilityFacts <> P1:13 var
+R619:622 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R605:612 Undecidability.Synthetic.Definitions <> reflects def
+R614:615 Undecidability.Synthetic.DecidabilityFacts <> b2:12 var
+R617:618 Undecidability.Synthetic.DecidabilityFacts <> P2:14 var
+R623:630 Undecidability.Synthetic.Definitions <> reflects def
+R635:638 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R633:634 Undecidability.Synthetic.DecidabilityFacts <> b1:11 var
+R639:640 Undecidability.Synthetic.DecidabilityFacts <> b2:12 var
+R646:649 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R644:645 Undecidability.Synthetic.DecidabilityFacts <> P1:13 var
+R650:651 Undecidability.Synthetic.DecidabilityFacts <> P2:14 var
+R671:678 Undecidability.Synthetic.Definitions <> reflects def
+prf 740:751 <> reflects_prv
+binder 753:753 <> b:15
+binder 756:756 <> P:16
+R768:768 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R782:786 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R777:780 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R770:772 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R769:769 Undecidability.Synthetic.DecidabilityFacts <> b:15 var
+R773:776 Coq.Init.Datatypes <> true constr
+R781:781 Undecidability.Synthetic.DecidabilityFacts <> P:16 var
+R787:787 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R804:808 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R797:800 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R789:791 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R788:788 Undecidability.Synthetic.DecidabilityFacts <> b:15 var
+R792:796 Coq.Init.Datatypes <> false constr
+R801:802 Coq.Init.Logic <> ::type_scope:'~'_x not
+R803:803 Undecidability.Synthetic.DecidabilityFacts <> P:16 var
+R809:816 Undecidability.Synthetic.Definitions <> reflects def
+R818:818 Undecidability.Synthetic.DecidabilityFacts <> b:15 var
+R820:820 Undecidability.Synthetic.DecidabilityFacts <> P:16 var
+prf 929:942 <> dec_decidable'
+binder 944:944 <> X:17
+binder 946:946 <> p:18
+R952:952 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R976:980 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R964:964 Undecidability.Synthetic.DecidabilityFacts <> X:17 var
+binder 960:960 <> x:19
+R967:969 Undecidability.Shared.Dec <> dec class
+R972:972 Undecidability.Synthetic.DecidabilityFacts <> p:18 var
+R974:974 Undecidability.Synthetic.DecidabilityFacts <> x:19 var
+R981:982 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R984:986 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R988:990 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R1019:1019 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+binder 983:983 <> f:20
+binder 998:998 <> x:21
+R1004:1008 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1001:1001 Undecidability.Synthetic.DecidabilityFacts <> p:18 var
+R1003:1003 Undecidability.Synthetic.DecidabilityFacts <> x:21 var
+R1012:1014 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1009:1009 Undecidability.Synthetic.DecidabilityFacts <> f:20 var
+R1011:1011 Undecidability.Synthetic.DecidabilityFacts <> x:21 var
+R1015:1018 Coq.Init.Datatypes <> true constr
+binder 1053:1053 <> x:22
+R1063:1063 Undecidability.Synthetic.DecidabilityFacts <> x:22 var
+R1080:1084 Coq.Init.Datatypes <> false constr
+R1070:1073 Coq.Init.Datatypes <> true constr
+binder 1053:1053 <> x:23
+R1063:1063 Undecidability.Synthetic.DecidabilityFacts <> x:23 var
+R1080:1084 Coq.Init.Datatypes <> false constr
+R1070:1073 Coq.Init.Datatypes <> true constr
+prf 1149:1161 <> decidable_iff
+binder 1163:1163 <> X:24
+binder 1165:1165 <> p:25
+R1182:1186 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1171:1179 Undecidability.Synthetic.Definitions <> decidable def
+R1181:1181 Undecidability.Synthetic.DecidabilityFacts <> p:25 var
+R1187:1195 Coq.Init.Logic <> inhabited ind
+R1209:1209 Undecidability.Synthetic.DecidabilityFacts <> X:24 var
+binder 1205:1205 <> x:26
+R1212:1214 Undecidability.Shared.Dec <> dec class
+R1217:1217 Undecidability.Synthetic.DecidabilityFacts <> p:25 var
+R1219:1219 Undecidability.Synthetic.DecidabilityFacts <> x:26 var
+R1362:1375 Undecidability.Synthetic.DecidabilityFacts <> dec_decidable' thm
+R1362:1375 Undecidability.Synthetic.DecidabilityFacts <> dec_decidable' thm
+prf 1416:1429 <> decidable_iff'
+binder 1431:1431 <> X:27
+binder 1433:1433 <> p:28
+R1456:1460 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1484:1484 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1439:1439 Coq.Init.Specif <> ::type_scope:'{'_x_'|'_x_'}' not
+R1441:1443 Coq.Init.Specif <> ::type_scope:'{'_x_'|'_x_'}' not
+R1455:1455 Coq.Init.Specif <> ::type_scope:'{'_x_'|'_x_'}' not
+binder 1440:1440 <> f:29
+R1444:1450 Undecidability.Synthetic.Definitions <> decider def
+R1454:1454 Undecidability.Synthetic.DecidabilityFacts <> p:28 var
+R1452:1452 Undecidability.Synthetic.DecidabilityFacts <> f:29 var
+R1472:1472 Undecidability.Synthetic.DecidabilityFacts <> X:27 var
+binder 1468:1468 <> x:30
+R1475:1477 Undecidability.Shared.Dec <> dec class
+R1480:1480 Undecidability.Synthetic.DecidabilityFacts <> p:28 var
+R1482:1482 Undecidability.Synthetic.DecidabilityFacts <> x:30 var
+prf 1631:1642 <> discrete_iff
+binder 1644:1644 <> X:31
+R1660:1664 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1650:1657 Undecidability.Synthetic.DecidabilityFacts <> discrete def
+R1659:1659 Undecidability.Synthetic.DecidabilityFacts <> X:31 var
+R1665:1673 Coq.Init.Logic <> inhabited ind
+R1676:1682 Undecidability.Shared.Dec <> :::'eq_dec'_x not
+R1683:1683 Undecidability.Synthetic.DecidabilityFacts <> X:31 var
+R1683:1683 Undecidability.Synthetic.DecidabilityFacts <> X:31 var
+R1720:1732 Undecidability.Synthetic.DecidabilityFacts <> decidable_iff thm
+R1720:1732 Undecidability.Synthetic.DecidabilityFacts <> decidable_iff thm
+R1773:1773 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1775:1775 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1777:1777 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1773:1773 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1775:1775 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1777:1777 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1816:1828 Undecidability.Synthetic.DecidabilityFacts <> decidable_iff thm
+R1816:1828 Undecidability.Synthetic.DecidabilityFacts <> decidable_iff thm
+prf 1881:1889 <> dec_compl
+binder 1891:1891 <> X:32
+binder 1893:1893 <> p:33
+R1910:1913 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1899:1907 Undecidability.Synthetic.Definitions <> decidable def
+R1909:1909 Undecidability.Synthetic.DecidabilityFacts <> p:33 var
+R1914:1922 Undecidability.Synthetic.Definitions <> decidable def
+R1933:1933 Undecidability.Synthetic.DecidabilityFacts <> X:32 var
+binder 1929:1929 <> x:34
+R1938:1939 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1940:1940 Undecidability.Synthetic.DecidabilityFacts <> p:33 var
+R1942:1942 Undecidability.Synthetic.DecidabilityFacts <> x:34 var
+binder 1981:1981 <> x:35
+R1986:1989 Coq.Init.Datatypes <> negb def
+R1994:1994 Undecidability.Synthetic.DecidabilityFacts <> x:35 var
+binder 1981:1981 <> x:36
+R1986:1989 Coq.Init.Datatypes <> negb def
+R1994:1994 Undecidability.Synthetic.DecidabilityFacts <> x:36 var
+R2018:2029 Undecidability.Synthetic.DecidabilityFacts <> reflects_not thm
+R2018:2029 Undecidability.Synthetic.DecidabilityFacts <> reflects_not thm
+prf 2047:2056 <> dec_compl'
+binder 2058:2058 <> X:37
+binder 2060:2060 <> p:38
+R2098:2101 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2066:2074 Undecidability.Synthetic.Definitions <> decidable def
+R2085:2085 Undecidability.Synthetic.DecidabilityFacts <> X:37 var
+binder 2081:2081 <> x:39
+R2090:2091 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2092:2093 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2094:2094 Undecidability.Synthetic.DecidabilityFacts <> p:38 var
+R2096:2096 Undecidability.Synthetic.DecidabilityFacts <> x:39 var
+R2102:2110 Undecidability.Synthetic.Definitions <> decidable def
+R2121:2121 Undecidability.Synthetic.DecidabilityFacts <> X:37 var
+binder 2117:2117 <> x:40
+R2126:2127 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2128:2128 Undecidability.Synthetic.DecidabilityFacts <> p:38 var
+R2130:2130 Undecidability.Synthetic.DecidabilityFacts <> x:40 var
+binder 2169:2169 <> x:41
+R2174:2177 Coq.Init.Datatypes <> negb def
+R2182:2182 Undecidability.Synthetic.DecidabilityFacts <> x:41 var
+binder 2169:2169 <> x:42
+R2174:2177 Coq.Init.Datatypes <> negb def
+R2182:2182 Undecidability.Synthetic.DecidabilityFacts <> x:42 var
+R2223:2234 Undecidability.Synthetic.DecidabilityFacts <> reflects_not thm
+R2223:2234 Undecidability.Synthetic.DecidabilityFacts <> reflects_not thm
+R2251:2258 Undecidability.Synthetic.Definitions <> reflects def
+prf 2285:2292 <> dec_conj
+binder 2294:2294 <> X:43
+binder 2296:2296 <> p:44
+binder 2298:2298 <> q:45
+R2315:2318 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2304:2312 Undecidability.Synthetic.Definitions <> decidable def
+R2314:2314 Undecidability.Synthetic.DecidabilityFacts <> p:44 var
+R2330:2333 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2319:2327 Undecidability.Synthetic.Definitions <> decidable def
+R2329:2329 Undecidability.Synthetic.DecidabilityFacts <> q:45 var
+R2334:2342 Undecidability.Synthetic.Definitions <> decidable def
+R2353:2353 Undecidability.Synthetic.DecidabilityFacts <> X:43 var
+binder 2349:2349 <> x:46
+R2361:2364 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2358:2358 Undecidability.Synthetic.DecidabilityFacts <> p:44 var
+R2360:2360 Undecidability.Synthetic.DecidabilityFacts <> x:46 var
+R2365:2365 Undecidability.Synthetic.DecidabilityFacts <> q:45 var
+R2367:2367 Undecidability.Synthetic.DecidabilityFacts <> x:46 var
+binder 2408:2408 <> x:47
+R2413:2416 Coq.Init.Datatypes <> andb def
+R2427:2427 Undecidability.Synthetic.DecidabilityFacts <> x:47 var
+R2421:2421 Undecidability.Synthetic.DecidabilityFacts <> x:47 var
+binder 2408:2408 <> x:48
+R2413:2416 Coq.Init.Datatypes <> andb def
+R2427:2427 Undecidability.Synthetic.DecidabilityFacts <> x:48 var
+R2421:2421 Undecidability.Synthetic.DecidabilityFacts <> x:48 var
+R2451:2463 Undecidability.Synthetic.DecidabilityFacts <> reflects_conj thm
+R2451:2463 Undecidability.Synthetic.DecidabilityFacts <> reflects_conj thm
+prf 2485:2492 <> dec_disj
+binder 2494:2494 <> X:49
+binder 2496:2496 <> p:50
+binder 2498:2498 <> q:51
+R2515:2518 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2504:2512 Undecidability.Synthetic.Definitions <> decidable def
+R2514:2514 Undecidability.Synthetic.DecidabilityFacts <> p:50 var
+R2530:2533 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2519:2527 Undecidability.Synthetic.Definitions <> decidable def
+R2529:2529 Undecidability.Synthetic.DecidabilityFacts <> q:51 var
+R2534:2542 Undecidability.Synthetic.Definitions <> decidable def
+R2553:2553 Undecidability.Synthetic.DecidabilityFacts <> X:49 var
+binder 2549:2549 <> x:52
+R2561:2564 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R2558:2558 Undecidability.Synthetic.DecidabilityFacts <> p:50 var
+R2560:2560 Undecidability.Synthetic.DecidabilityFacts <> x:52 var
+R2565:2565 Undecidability.Synthetic.DecidabilityFacts <> q:51 var
+R2567:2567 Undecidability.Synthetic.DecidabilityFacts <> x:52 var
+binder 2608:2608 <> x:53
+R2613:2615 Coq.Init.Datatypes <> orb def
+R2626:2626 Undecidability.Synthetic.DecidabilityFacts <> x:53 var
+R2620:2620 Undecidability.Synthetic.DecidabilityFacts <> x:53 var
+binder 2608:2608 <> x:54
+R2613:2615 Coq.Init.Datatypes <> orb def
+R2626:2626 Undecidability.Synthetic.DecidabilityFacts <> x:54 var
+R2620:2620 Undecidability.Synthetic.DecidabilityFacts <> x:54 var
+R2650:2662 Undecidability.Synthetic.DecidabilityFacts <> reflects_disj thm
+R2650:2662 Undecidability.Synthetic.DecidabilityFacts <> reflects_disj thm
+inst 2718:2731 <> Proper_decides
+binder 2734:2734 <> X:55
+R2741:2746 Coq.Classes.Morphisms <> Proper class
+R2822:2828 Undecidability.Synthetic.Definitions <> decider def
+R2830:2830 Undecidability.Synthetic.DecidabilityFacts <> X:55 var
+R2780:2784 Coq.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R2749:2766 Coq.Classes.Morphisms <> pointwise_relation def
+R2772:2773 Coq.Init.Logic <> eq ind
+R2775:2778 Coq.Init.Datatypes <> bool ind
+R2768:2768 Undecidability.Synthetic.DecidabilityFacts <> X:55 var
+R2809:2813 Coq.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R2785:2802 Coq.Classes.Morphisms <> pointwise_relation def
+R2806:2808 Coq.Init.Logic <> iff def
+R2804:2804 Undecidability.Synthetic.DecidabilityFacts <> X:55 var
+R2814:2816 Coq.Init.Logic <> iff def
+R2889:2895 Undecidability.Synthetic.Definitions <> decider def
+R2898:2905 Undecidability.Synthetic.Definitions <> reflects def
+inst 3012:3027 <> Proper_decidable
+binder 3030:3030 <> X:56
+R3037:3042 Coq.Classes.Morphisms <> Proper class
+R3081:3089 Undecidability.Synthetic.Definitions <> decidable def
+R3091:3091 Undecidability.Synthetic.DecidabilityFacts <> X:56 var
+R3069:3073 Coq.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R3045:3062 Coq.Classes.Morphisms <> pointwise_relation def
+R3066:3068 Coq.Init.Logic <> iff def
+R3064:3064 Undecidability.Synthetic.DecidabilityFacts <> X:56 var
+R3074:3076 Coq.Init.Logic <> iff def
+prf 3249:3261 <> discrete_bool
+R3265:3272 Undecidability.Synthetic.DecidabilityFacts <> discrete def
+R3274:3277 Coq.Init.Datatypes <> bool ind
+R3296:3307 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R3296:3307 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R3331:3333 Undecidability.Shared.Dec <> dec class
+prf 3365:3376 <> discrete_nat
+R3380:3387 Undecidability.Synthetic.DecidabilityFacts <> discrete def
+R3389:3391 Coq.Init.Datatypes <> nat ind
+R3410:3421 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R3410:3421 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R3445:3447 Undecidability.Shared.Dec <> dec class
+prf 3479:3491 <> discrete_prod
+binder 3493:3493 <> X:57
+binder 3495:3495 <> Y:58
+R3509:3512 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3499:3506 Undecidability.Synthetic.DecidabilityFacts <> discrete def
+R3508:3508 Undecidability.Synthetic.DecidabilityFacts <> X:57 var
+R3523:3526 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3513:3520 Undecidability.Synthetic.DecidabilityFacts <> discrete def
+R3522:3522 Undecidability.Synthetic.DecidabilityFacts <> Y:58 var
+R3527:3534 Undecidability.Synthetic.DecidabilityFacts <> discrete def
+R3538:3540 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3537:3537 Undecidability.Synthetic.DecidabilityFacts <> X:57 var
+R3541:3541 Undecidability.Synthetic.DecidabilityFacts <> Y:58 var
+R3568:3579 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R3588:3599 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R3568:3579 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R3588:3599 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R3611:3622 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R3611:3622 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R3646:3648 Undecidability.Shared.Dec <> dec class
+prf 3714:3725 <> discrete_sum
+binder 3727:3727 <> X:59
+binder 3729:3729 <> Y:60
+R3743:3746 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3733:3740 Undecidability.Synthetic.DecidabilityFacts <> discrete def
+R3742:3742 Undecidability.Synthetic.DecidabilityFacts <> X:59 var
+R3757:3760 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3747:3754 Undecidability.Synthetic.DecidabilityFacts <> discrete def
+R3756:3756 Undecidability.Synthetic.DecidabilityFacts <> Y:60 var
+R3761:3768 Undecidability.Synthetic.DecidabilityFacts <> discrete def
+R3772:3774 Coq.Init.Datatypes <> ::type_scope:x_'+'_x not
+R3771:3771 Undecidability.Synthetic.DecidabilityFacts <> X:59 var
+R3775:3775 Undecidability.Synthetic.DecidabilityFacts <> Y:60 var
+R3802:3813 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R3822:3833 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R3802:3813 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R3822:3833 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R3845:3856 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R3845:3856 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R3880:3882 Undecidability.Shared.Dec <> dec class
+prf 3948:3962 <> discrete_option
+binder 3964:3964 <> X:61
+R3978:3981 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3968:3975 Undecidability.Synthetic.DecidabilityFacts <> discrete def
+R3977:3977 Undecidability.Synthetic.DecidabilityFacts <> X:61 var
+R3982:3989 Undecidability.Synthetic.DecidabilityFacts <> discrete def
+R3992:3997 Coq.Init.Datatypes <> option ind
+R3999:3999 Undecidability.Synthetic.DecidabilityFacts <> X:61 var
+R4026:4037 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R4026:4037 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R4047:4058 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R4047:4058 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R4084:4086 Undecidability.Shared.Dec <> dec class
+prf 4130:4142 <> discrete_list
+binder 4144:4144 <> X:62
+R4158:4161 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4148:4155 Undecidability.Synthetic.DecidabilityFacts <> discrete def
+R4157:4157 Undecidability.Synthetic.DecidabilityFacts <> X:62 var
+R4162:4169 Undecidability.Synthetic.DecidabilityFacts <> discrete def
+R4172:4175 Coq.Init.Datatypes <> list ind
+R4177:4177 Undecidability.Synthetic.DecidabilityFacts <> X:62 var
+R4204:4215 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R4204:4215 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R4225:4236 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R4225:4236 Undecidability.Synthetic.DecidabilityFacts <> discrete_iff thm
+R4262:4264 Undecidability.Shared.Dec <> dec class

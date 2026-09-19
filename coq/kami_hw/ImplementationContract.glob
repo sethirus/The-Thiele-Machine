@@ -1,0 +1,1180 @@
+DIGEST 14f2f982b05513470a510372025d356e
+FKamiHW.ImplementationContract
+R161:169 Kami.Kami <> <> lib
+R171:184 Kami.Semantics <> <> lib
+R211:214 Coq.Lists.List <> <> lib
+R216:221 Coq.Strings.String <> <> lib
+R223:228 Coq.NArith.NArith <> <> lib
+R230:234 Coq.Arith.Arith <> <> lib
+R236:238 Coq.micromega.Lia <> <> lib
+R268:278 KamiHW.ThieleTypes <> <> lib
+R280:292 KamiHW.ThieleCPUCore <> <> lib
+R294:308 KamiHW.ThieleCPUBusTop <> <> lib
+R312:321 KamiHW.HWBoundary <> <> lib
+R323:333 KamiHW.Abstraction <> <> lib
+R343:355 Coq.Lists.List ListNotations <> mod
+def 417:435 <> implementation_core
+R440:449 KamiHW.ThieleCPUCore <> thieleCore def
+def 463:484 <> implementation_bus_top
+R489:501 KamiHW.ThieleCPUBusTop <> thieleBusTopB def
+def 515:534 <> implementation_reset
+R539:546 Kami.Semantics <> initRegs def
+R549:559 Kami.Syntax <> getRegInits def
+R561:579 KamiHW.ImplementationContract <> implementation_core def
+def 594:610 <> supported_opcodes
+R614:617 Coq.Init.Datatypes <> list ind
+R620:623 Kami.Lib.Word <> word ind
+R625:632 KamiHW.ThieleTypes <> OpcodeSz def
+R640:640 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R648:649 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R659:660 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R670:671 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R682:683 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R692:693 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R703:704 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R717:718 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R726:727 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R739:740 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R754:755 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R767:768 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R779:780 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R792:793 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R805:806 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R814:815 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R825:826 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R834:835 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R844:845 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R852:853 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R860:861 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R869:870 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R878:879 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R887:888 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R895:896 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R910:911 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R924:925 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R939:940 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R953:954 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R968:969 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R980:981 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R988:989 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R995:996 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1003:1004 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1011:1012 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1019:1020 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1027:1028 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1042:1043 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1057:1058 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1067:1068 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1079:1080 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1092:1093 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1109:1110 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1126:1127 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1143:1144 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1157:1158 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1174:1175 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1183:1183 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R641:647 KamiHW.ThieleTypes <> OP_PNEW def
+R650:658 KamiHW.ThieleTypes <> OP_PSPLIT def
+R661:669 KamiHW.ThieleTypes <> OP_PMERGE def
+R672:681 KamiHW.ThieleTypes <> OP_LASSERT def
+R684:691 KamiHW.ThieleTypes <> OP_LJOIN def
+R694:702 KamiHW.ThieleTypes <> OP_MDLACC def
+R705:716 KamiHW.ThieleTypes <> OP_PDISCOVER def
+R719:725 KamiHW.ThieleTypes <> OP_XFER def
+R728:738 KamiHW.ThieleTypes <> OP_LOAD_IMM def
+R741:753 KamiHW.ThieleTypes <> OP_CHSH_TRIAL def
+R756:766 KamiHW.ThieleTypes <> OP_XOR_LOAD def
+R769:778 KamiHW.ThieleTypes <> OP_XOR_ADD def
+R781:791 KamiHW.ThieleTypes <> OP_XOR_SWAP def
+R794:804 KamiHW.ThieleTypes <> OP_XOR_RANK def
+R807:813 KamiHW.ThieleTypes <> OP_EMIT def
+R816:824 KamiHW.ThieleTypes <> OP_REVEAL def
+R827:833 KamiHW.ThieleTypes <> OP_LOAD def
+R836:843 KamiHW.ThieleTypes <> OP_STORE def
+R846:851 KamiHW.ThieleTypes <> OP_ADD def
+R854:859 KamiHW.ThieleTypes <> OP_SUB def
+R862:868 KamiHW.ThieleTypes <> OP_JUMP def
+R871:877 KamiHW.ThieleTypes <> OP_JNEZ def
+R880:886 KamiHW.ThieleTypes <> OP_CALL def
+R889:894 KamiHW.ThieleTypes <> OP_RET def
+R897:909 KamiHW.ThieleTypes <> OP_CHECKPOINT def
+R912:923 KamiHW.ThieleTypes <> OP_READ_PORT def
+R926:938 KamiHW.ThieleTypes <> OP_WRITE_PORT def
+R941:952 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
+R955:967 KamiHW.ThieleTypes <> OP_HEAP_STORE def
+R970:979 KamiHW.ThieleTypes <> OP_CERTIFY def
+R982:987 KamiHW.ThieleTypes <> OP_AND def
+R990:994 KamiHW.ThieleTypes <> OP_OR def
+R997:1002 KamiHW.ThieleTypes <> OP_SHL def
+R1005:1010 KamiHW.ThieleTypes <> OP_SHR def
+R1013:1018 KamiHW.ThieleTypes <> OP_MUL def
+R1021:1026 KamiHW.ThieleTypes <> OP_LUI def
+R1029:1041 KamiHW.ThieleTypes <> OP_TENSOR_SET def
+R1044:1056 KamiHW.ThieleTypes <> OP_TENSOR_GET def
+R1059:1066 KamiHW.ThieleTypes <> OP_MORPH def
+R1069:1078 KamiHW.ThieleTypes <> OP_COMPOSE def
+R1081:1091 KamiHW.ThieleTypes <> OP_MORPH_ID def
+R1094:1108 KamiHW.ThieleTypes <> OP_MORPH_DELETE def
+R1111:1125 KamiHW.ThieleTypes <> OP_MORPH_ASSERT def
+R1128:1142 KamiHW.ThieleTypes <> OP_MORPH_TENSOR def
+R1145:1156 KamiHW.ThieleTypes <> OP_MORPH_GET def
+R1159:1173 KamiHW.ThieleTypes <> OP_CHSH_LASSERT def
+R1176:1182 KamiHW.ThieleTypes <> OP_HALT def
+def 1197:1212 <> supported_opcode
+R1220:1223 Kami.Lib.Word <> word ind
+R1225:1232 KamiHW.ThieleTypes <> OpcodeSz def
+binder 1215:1216 <> op:1
+R1238:1239 Coq.Lists.List <> In def
+R1244:1260 KamiHW.ImplementationContract <> supported_opcodes def
+R1241:1242 KamiHW.ImplementationContract <> op:1 var
+prf 1269:1290 <> supported_opcode_count
+R1323:1325 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1294:1304 Coq.Lists.List <> length abbrev
+R1306:1322 KamiHW.ImplementationContract <> supported_opcodes def
+def 1437:1449 <> isa_v2_encode
+R1497:1497 Coq.Numbers.BinNums <> N ind
+binder 1452:1453 <> op:2
+binder 1455:1455 <> a:3
+binder 1457:1457 <> b:4
+binder 1459:1462 <> cost:5
+binder 1464:1470 <> version:6
+binder 1472:1477 <> format:7
+binder 1479:1483 <> flags:8
+binder 1485:1488 <> ext0:9
+binder 1490:1493 <> ext1:10
+R1502:1502 Coq.Numbers.BinNums <> N ind
+R1509:1513 Coq.NArith.BinNat N lor def
+R1516:1523 Coq.NArith.BinNat N shiftl def
+R1526:1531 Coq.NArith.BinNat N land def
+R1533:1539 KamiHW.ImplementationContract <> version:6 var
+R1554:1558 Coq.NArith.BinNat N lor def
+R1561:1568 Coq.NArith.BinNat N shiftl def
+R1571:1576 Coq.NArith.BinNat N land def
+R1578:1583 KamiHW.ImplementationContract <> format:7 var
+R1598:1602 Coq.NArith.BinNat N lor def
+R1605:1612 Coq.NArith.BinNat N shiftl def
+R1615:1620 Coq.NArith.BinNat N land def
+R1622:1626 KamiHW.ImplementationContract <> flags:8 var
+R1642:1646 Coq.NArith.BinNat N lor def
+R1649:1656 Coq.NArith.BinNat N shiftl def
+R1659:1664 Coq.NArith.BinNat N land def
+R1666:1669 KamiHW.ImplementationContract <> ext1:10 var
+R1690:1694 Coq.NArith.BinNat N lor def
+R1697:1704 Coq.NArith.BinNat N shiftl def
+R1707:1712 Coq.NArith.BinNat N land def
+R1714:1717 KamiHW.ImplementationContract <> ext0:9 var
+R1738:1742 Coq.NArith.BinNat N lor def
+R1745:1752 Coq.NArith.BinNat N shiftl def
+R1755:1760 Coq.NArith.BinNat N land def
+R1762:1763 KamiHW.ImplementationContract <> op:2 var
+R1777:1781 Coq.NArith.BinNat N lor def
+R1784:1791 Coq.NArith.BinNat N shiftl def
+R1794:1799 Coq.NArith.BinNat N land def
+R1801:1801 KamiHW.ImplementationContract <> a:3 var
+R1815:1819 Coq.NArith.BinNat N lor def
+R1822:1829 Coq.NArith.BinNat N shiftl def
+R1832:1837 Coq.NArith.BinNat N land def
+R1839:1839 KamiHW.ImplementationContract <> b:4 var
+R1850:1855 Coq.NArith.BinNat N land def
+R1857:1860 KamiHW.ImplementationContract <> cost:5 var
+def 1886:1894 <> isa_field
+R1912:1912 Coq.Numbers.BinNums <> N ind
+binder 1897:1897 <> w:11
+binder 1899:1903 <> shift:12
+binder 1905:1908 <> mask:13
+R1918:1923 Coq.NArith.BinNat N land def
+R1926:1933 Coq.NArith.BinNat N shiftr def
+R1935:1935 KamiHW.ImplementationContract <> w:11 var
+R1937:1941 KamiHW.ImplementationContract <> shift:12 var
+R1944:1947 KamiHW.ImplementationContract <> mask:13 var
+def 1961:1972 <> tensor_set_a
+R1985:1985 Coq.Numbers.BinNums <> N ind
+binder 1975:1977 <> mid:14
+binder 1979:1979 <> i:15
+binder 1981:1981 <> j:16
+R1993:1997 Coq.NArith.BinNat N lor def
+R2000:2007 Coq.NArith.BinNat N shiftl def
+R2010:2015 Coq.NArith.BinNat N land def
+R2017:2019 KamiHW.ImplementationContract <> mid:14 var
+R2033:2037 Coq.NArith.BinNat N lor def
+R2040:2047 Coq.NArith.BinNat N shiftl def
+R2050:2055 Coq.NArith.BinNat N land def
+R2057:2057 KamiHW.ImplementationContract <> i:15 var
+R2066:2071 Coq.NArith.BinNat N land def
+R2073:2073 KamiHW.ImplementationContract <> j:16 var
+def 2091:2115 <> canonical_tensor_operands
+R2134:2136 Coq.Init.Datatypes <> nat ind
+binder 2118:2120 <> mid:17
+binder 2122:2122 <> i:18
+binder 2124:2124 <> j:19
+binder 2126:2130 <> value:20
+R2159:2162 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2154:2156 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2151:2153 KamiHW.ImplementationContract <> mid:17 var
+R2168:2171 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2164:2166 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2163:2163 KamiHW.ImplementationContract <> i:18 var
+R2177:2180 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2173:2175 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2172:2172 KamiHW.ImplementationContract <> j:19 var
+R2186:2188 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2181:2185 KamiHW.ImplementationContract <> value:20 var
+def 2281:2294 <> hwb_vector_nat
+binder 2297:2297 <> n:21
+binder 2299:2299 <> w:22
+R2307:2310 Kami.Syntax <> type def
+R2313:2318 Kami.Syntax <> Vector constr
+R2328:2328 KamiHW.ImplementationContract <> n:21 var
+R2321:2323 Kami.Syntax <> Bit constr
+R2325:2325 KamiHW.ImplementationContract <> w:22 var
+binder 2303:2303 <> v:23
+R2337:2339 Coq.Init.Datatypes <> nat ind
+binder 2333:2333 <> i:24
+R2344:2346 Coq.Init.Datatypes <> nat ind
+R2356:2362 Coq.Arith.PeanoNat Nat ltb def
+R2364:2364 KamiHW.ImplementationContract <> i:24 var
+R2368:2370 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R2371:2371 KamiHW.ImplementationContract <> n:21 var
+R2379:2387 Kami.Lib.Word <> wordToNat def
+R2390:2390 KamiHW.ImplementationContract <> v:23 var
+R2393:2401 Kami.Lib.Word <> natToWord def
+R2405:2405 KamiHW.ImplementationContract <> i:24 var
+R2403:2403 KamiHW.ImplementationContract <> n:21 var
+def 2428:2436 <> hwb_valid
+binder 2439:2439 <> n:25
+R2447:2450 Kami.Syntax <> type def
+R2453:2458 Kami.Syntax <> Vector constr
+R2465:2465 KamiHW.ImplementationContract <> n:25 var
+R2460:2463 Kami.Syntax <> Bool constr
+binder 2443:2443 <> v:26
+R2474:2476 Coq.Init.Datatypes <> nat ind
+binder 2470:2470 <> i:27
+R2481:2484 Coq.Init.Datatypes <> bool ind
+R2494:2500 Coq.Arith.PeanoNat Nat ltb def
+R2502:2502 KamiHW.ImplementationContract <> i:27 var
+R2506:2508 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R2509:2509 KamiHW.ImplementationContract <> n:25 var
+R2540:2544 Coq.Init.Datatypes <> false constr
+R2517:2517 KamiHW.ImplementationContract <> v:26 var
+R2520:2528 Kami.Lib.Word <> natToWord def
+R2532:2532 KamiHW.ImplementationContract <> i:27 var
+R2530:2530 KamiHW.ImplementationContract <> n:25 var
+def 2872:2881 <> label_atom
+R2891:2893 Coq.Init.Datatypes <> nat ind
+binder 2884:2887 <> mask:28
+R2898:2903 Coq.Strings.String <> string ind
+R2913:2919 Coq.Arith.PeanoNat Nat odd def
+R2921:2924 KamiHW.ImplementationContract <> mask:28 var
+def 2972:2981 <> atom_label
+R2993:2995 Coq.Init.Datatypes <> nat ind
+binder 2984:2984 <> n:29
+binder 2986:2989 <> mask:30
+R3000:3005 Coq.Strings.String <> string ind
+R3018:3018 KamiHW.ImplementationContract <> n:29 var
+R3029:3029 Coq.Init.Datatypes <> O constr
+R3048:3048 Coq.Init.Datatypes <> S constr
+R3050:3050 Coq.Init.Datatypes <> O constr
+R3055:3064 KamiHW.ImplementationContract <> label_atom def
+R3066:3069 KamiHW.ImplementationContract <> mask:30 var
+R3075:3075 Coq.Init.Datatypes <> S constr
+R3098:3101 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R3083:3092 KamiHW.ImplementationContract <> label_atom def
+R3094:3097 KamiHW.ImplementationContract <> mask:30 var
+R3102:3107 Coq.Strings.String <> String constr
+R3110:3127 Coq.Strings.Ascii <> ascii_of_nat def
+R3134:3143 KamiHW.ImplementationContract <> atom_label:31 def
+R3148:3155 Coq.Arith.PeanoNat Nat div2 def
+R3157:3160 KamiHW.ImplementationContract <> mask:30 var
+prf 3186:3199 <> append_assoc_s
+R3218:3223 Coq.Strings.String <> string ind
+binder 3210:3210 <> a:33
+binder 3212:3212 <> b:34
+binder 3214:3214 <> c:35
+R3248:3250 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3227:3227 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R3234:3238 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R3229:3232 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R3228:3228 KamiHW.ImplementationContract <> a:33 var
+R3233:3233 KamiHW.ImplementationContract <> b:34 var
+R3239:3239 KamiHW.ImplementationContract <> c:35 var
+R3253:3257 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R3264:3264 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R3252:3252 KamiHW.ImplementationContract <> a:33 var
+R3259:3262 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R3258:3258 KamiHW.ImplementationContract <> b:34 var
+R3263:3263 KamiHW.ImplementationContract <> c:35 var
+prf 3372:3385 <> odd_add_double
+binder 3396:3396 <> a:36
+binder 3398:3398 <> b:37
+R3420:3422 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3401:3407 Coq.Arith.PeanoNat Nat odd def
+R3411:3413 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3410:3410 KamiHW.ImplementationContract <> a:36 var
+R3415:3417 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3418:3418 KamiHW.ImplementationContract <> b:37 var
+R3423:3429 Coq.Arith.PeanoNat Nat odd def
+R3431:3431 KamiHW.ImplementationContract <> a:36 var
+R3461:3471 Coq.Arith.PeanoNat Nat odd_add thm
+R3474:3484 Coq.Arith.PeanoNat Nat odd_mul thm
+R3461:3471 Coq.Arith.PeanoNat Nat odd_add thm
+R3461:3471 Coq.Arith.PeanoNat Nat odd_add thm
+R3474:3484 Coq.Arith.PeanoNat Nat odd_mul thm
+R3474:3484 Coq.Arith.PeanoNat Nat odd_mul thm
+R3492:3498 Coq.Arith.PeanoNat Nat odd def
+R3500:3507 Coq.Arith.PeanoNat Nat even def
+R3509:3512 Coq.Init.Datatypes <> negb def
+R3514:3517 Coq.Init.Datatypes <> andb def
+R3531:3537 Coq.Arith.PeanoNat Nat odd def
+R3531:3537 Coq.Arith.PeanoNat Nat odd def
+prf 3568:3582 <> div2_add_double
+binder 3593:3593 <> a:38
+binder 3595:3595 <> b:39
+R3618:3620 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3598:3605 Coq.Arith.PeanoNat Nat div2 def
+R3609:3611 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3608:3608 KamiHW.ImplementationContract <> a:38 var
+R3613:3615 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3616:3616 KamiHW.ImplementationContract <> b:39 var
+R3631:3633 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3621:3628 Coq.Arith.PeanoNat Nat div2 def
+R3630:3630 KamiHW.ImplementationContract <> a:38 var
+R3634:3634 KamiHW.ImplementationContract <> b:39 var
+R3667:3678 Coq.Arith.PeanoNat Nat div2_div thm
+R3667:3678 Coq.Arith.PeanoNat Nat div2_div thm
+R3667:3678 Coq.Arith.PeanoNat Nat div2_div thm
+R3667:3678 Coq.Arith.PeanoNat Nat div2_div thm
+R3667:3678 Coq.Arith.PeanoNat Nat div2_div thm
+R3693:3695 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3697:3699 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3714:3716 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3710:3712 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3693:3695 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3697:3699 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3714:3716 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3710:3712 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3736:3748 Coq.Arith.PeanoNat Nat div_add_l def
+R3736:3748 Coq.Arith.PeanoNat Nat div_add_l def
+R3736:3748 Coq.Arith.PeanoNat Nat div_add_l def
+prf 3775:3789 <> atom_label_cons
+binder 3800:3800 <> n:40
+binder 3802:3802 <> m:41
+R3811:3816 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3806:3809 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3810:3810 KamiHW.ImplementationContract <> n:40 var
+R3835:3837 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3817:3826 KamiHW.ImplementationContract <> atom_label def
+R3829:3829 Coq.Init.Datatypes <> S constr
+R3831:3831 KamiHW.ImplementationContract <> n:40 var
+R3834:3834 KamiHW.ImplementationContract <> m:41 var
+R3851:3854 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R3839:3848 KamiHW.ImplementationContract <> label_atom def
+R3850:3850 KamiHW.ImplementationContract <> m:41 var
+R3858:3861 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R3862:3871 KamiHW.ImplementationContract <> atom_label def
+R3873:3873 KamiHW.ImplementationContract <> n:40 var
+R3876:3883 Coq.Arith.PeanoNat Nat div2 def
+R3885:3885 KamiHW.ImplementationContract <> m:41 var
+prf 4054:4071 <> atom_label_compose
+binder 4082:4083 <> n1:42
+binder 4085:4086 <> n2:43
+binder 4088:4089 <> m1:44
+binder 4091:4092 <> m2:45
+R4104:4107 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4098:4101 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4102:4103 KamiHW.ImplementationContract <> n1:42 var
+R4115:4118 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4109:4112 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4113:4114 KamiHW.ImplementationContract <> n2:43 var
+R4130:4135 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4121:4123 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4119:4120 KamiHW.ImplementationContract <> m1:44 var
+R4125:4127 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R4128:4129 KamiHW.ImplementationContract <> n1:42 var
+R4188:4190 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4153:4156 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R4137:4146 KamiHW.ImplementationContract <> atom_label def
+R4148:4149 KamiHW.ImplementationContract <> n1:42 var
+R4151:4152 KamiHW.ImplementationContract <> m1:44 var
+R4160:4163 Coq.Strings.String <> ::string_scope:x_'++'_x not
+R4164:4173 KamiHW.ImplementationContract <> atom_label def
+R4175:4176 KamiHW.ImplementationContract <> n2:43 var
+R4178:4179 KamiHW.ImplementationContract <> m2:45 var
+R4191:4200 KamiHW.ImplementationContract <> atom_label def
+R4205:4207 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4203:4204 KamiHW.ImplementationContract <> n1:42 var
+R4208:4209 KamiHW.ImplementationContract <> n2:43 var
+R4215:4217 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4213:4214 KamiHW.ImplementationContract <> m1:44 var
+R4220:4222 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4218:4219 KamiHW.ImplementationContract <> m2:45 var
+R4224:4226 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R4227:4228 KamiHW.ImplementationContract <> n1:42 var
+R4311:4325 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R4311:4325 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R4311:4325 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R4339:4341 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4344:4347 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4358:4358 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4349:4351 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4353:4355 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R4369:4371 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4373:4376 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4388:4388 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4379:4381 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4383:4385 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R4339:4341 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4344:4347 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4358:4358 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4349:4351 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4353:4355 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R4369:4371 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4373:4376 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4388:4388 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4379:4381 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R4383:4385 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R4432:4438 Coq.Arith.PeanoNat Nat add def
+R4451:4465 KamiHW.ImplementationContract <> atom_label_cons thm
+R4451:4465 KamiHW.ImplementationContract <> atom_label_cons thm
+R4451:4465 KamiHW.ImplementationContract <> atom_label_cons thm
+R4493:4499 Coq.Arith.PeanoNat Nat pow def
+R4522:4532 Coq.Arith.PeanoNat Nat mul_1_r thm
+R4522:4532 Coq.Arith.PeanoNat Nat mul_1_r thm
+R4522:4532 Coq.Arith.PeanoNat Nat mul_1_r thm
+R4546:4555 KamiHW.ImplementationContract <> label_atom def
+R4566:4579 KamiHW.ImplementationContract <> odd_add_double thm
+R4582:4596 KamiHW.ImplementationContract <> div2_add_double thm
+R4566:4579 KamiHW.ImplementationContract <> odd_add_double thm
+R4566:4579 KamiHW.ImplementationContract <> odd_add_double thm
+R4582:4596 KamiHW.ImplementationContract <> div2_add_double thm
+R4582:4596 KamiHW.ImplementationContract <> div2_add_double thm
+R4622:4624 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4611:4618 Coq.Arith.PeanoNat Nat div2 def
+R4640:4651 Coq.Arith.PeanoNat Nat div2_div thm
+R4660:4672 Coq.Arith.PeanoNat Nat div_small def
+R4622:4624 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4611:4618 Coq.Arith.PeanoNat Nat div2 def
+R4640:4651 Coq.Arith.PeanoNat Nat div2_div thm
+R4640:4651 Coq.Arith.PeanoNat Nat div2_div thm
+R4660:4672 Coq.Arith.PeanoNat Nat div_small def
+R4721:4735 KamiHW.ImplementationContract <> atom_label_cons thm
+R4721:4735 KamiHW.ImplementationContract <> atom_label_cons thm
+R4721:4735 KamiHW.ImplementationContract <> atom_label_cons thm
+R4766:4768 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4758:4758 Coq.Init.Datatypes <> S constr
+R4761:4761 Coq.Init.Datatypes <> S constr
+R4779:4779 Coq.Init.Datatypes <> S constr
+R4786:4788 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4782:4782 Coq.Init.Datatypes <> S constr
+R4766:4768 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4758:4758 Coq.Init.Datatypes <> S constr
+R4761:4761 Coq.Init.Datatypes <> S constr
+R4779:4779 Coq.Init.Datatypes <> S constr
+R4786:4788 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4782:4782 Coq.Init.Datatypes <> S constr
+R4815:4829 KamiHW.ImplementationContract <> atom_label_cons thm
+R4836:4838 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4832:4832 Coq.Init.Datatypes <> S constr
+R4815:4829 KamiHW.ImplementationContract <> atom_label_cons thm
+R4836:4838 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4832:4832 Coq.Init.Datatypes <> S constr
+R4815:4829 KamiHW.ImplementationContract <> atom_label_cons thm
+R4836:4838 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4832:4832 Coq.Init.Datatypes <> S constr
+R4865:4878 KamiHW.ImplementationContract <> append_assoc_s thm
+R4865:4878 KamiHW.ImplementationContract <> append_assoc_s thm
+R4865:4878 KamiHW.ImplementationContract <> append_assoc_s thm
+R4865:4878 KamiHW.ImplementationContract <> append_assoc_s thm
+R4865:4878 KamiHW.ImplementationContract <> append_assoc_s thm
+R4903:4912 KamiHW.ImplementationContract <> label_atom def
+R4923:4936 KamiHW.ImplementationContract <> odd_add_double thm
+R4923:4936 KamiHW.ImplementationContract <> odd_add_double thm
+R4923:4936 KamiHW.ImplementationContract <> odd_add_double thm
+R4963:4968 Coq.Strings.String <> append def
+R4989:5003 KamiHW.ImplementationContract <> div2_add_double thm
+R4989:5003 KamiHW.ImplementationContract <> div2_add_double thm
+R4989:5003 KamiHW.ImplementationContract <> div2_add_double thm
+R5042:5053 Coq.Arith.PeanoNat Nat div2_div thm
+R5042:5053 Coq.Arith.PeanoNat Nat div2_div thm
+R5042:5053 Coq.Arith.PeanoNat Nat div2_div thm
+R5062:5083 Coq.Arith.PeanoNat Nat div_lt_upper_bound abbrev
+R5062:5083 Coq.Arith.PeanoNat Nat div_lt_upper_bound abbrev
+R5102:5116 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R5102:5116 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R5102:5116 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+def 5629:5636 <> hwb_rich
+R5643:5645 KamiHW.HWBoundary <> HWB rec
+binder 5639:5639 <> b:46
+R5650:5666 KamiHW.Abstraction <> RichSnapshotState rec
+R5676:5691 KamiHW.Abstraction <> rich_morph_table proj
+R5676:5691 KamiHW.Abstraction <> rich_morph_table proj
+R5676:5691 KamiHW.Abstraction <> rich_morph_table proj
+R6050:6067 KamiHW.Abstraction <> rich_next_morph_id proj
+R6050:6067 KamiHW.Abstraction <> rich_next_morph_id proj
+R6109:6132 KamiHW.Abstraction <> rich_coupling_desc_table proj
+R6109:6132 KamiHW.Abstraction <> rich_coupling_desc_table proj
+R6514:6539 KamiHW.Abstraction <> rich_next_coupling_desc_id proj
+R6514:6539 KamiHW.Abstraction <> rich_next_coupling_desc_id proj
+R6589:6612 KamiHW.Abstraction <> rich_coupling_pair_table proj
+R6589:6612 KamiHW.Abstraction <> rich_coupling_pair_table proj
+R6922:6947 KamiHW.Abstraction <> rich_next_coupling_pair_id proj
+R6922:6947 KamiHW.Abstraction <> rich_next_coupling_pair_id proj
+R6997:7019 KamiHW.Abstraction <> rich_formula_desc_table proj
+R6997:7019 KamiHW.Abstraction <> rich_formula_desc_table proj
+R7253:7277 KamiHW.Abstraction <> rich_next_formula_desc_id proj
+R7253:7277 KamiHW.Abstraction <> rich_next_formula_desc_id proj
+R7326:7345 KamiHW.Abstraction <> rich_cert_desc_table proj
+R7326:7345 KamiHW.Abstraction <> rich_cert_desc_table proj
+R7564:7585 KamiHW.Abstraction <> rich_next_cert_desc_id proj
+R7564:7585 KamiHW.Abstraction <> rich_next_cert_desc_id proj
+R7631:7650 KamiHW.Abstraction <> rich_desc_meta_table proj
+R7631:7650 KamiHW.Abstraction <> rich_desc_meta_table proj
+R8011:8032 KamiHW.Abstraction <> rich_next_desc_meta_id proj
+R8011:8032 KamiHW.Abstraction <> rich_next_desc_meta_id proj
+R8078:8095 KamiHW.Abstraction <> rich_lassert_state proj
+R8078:8095 KamiHW.Abstraction <> rich_lassert_state proj
+binder 5700:5700 <> i:47
+R5708:5716 KamiHW.ImplementationContract <> hwb_valid def
+R5743:5743 KamiHW.ImplementationContract <> i:47 var
+R5719:5738 KamiHW.HWBoundary <> hw_morph_valid_table proj
+R5740:5740 KamiHW.ImplementationContract <> b:46 var
+R6039:6042 Coq.Init.Datatypes <> None constr
+R5750:5753 Coq.Init.Datatypes <> Some constr
+R5758:5775 KamiHW.Abstraction <> morph_entry_source proj
+R5758:5775 KamiHW.Abstraction <> morph_entry_source proj
+R5758:5775 KamiHW.Abstraction <> morph_entry_source proj
+R5821:5838 KamiHW.Abstraction <> morph_entry_target proj
+R5821:5838 KamiHW.Abstraction <> morph_entry_target proj
+R5884:5908 KamiHW.Abstraction <> morph_entry_coupling_desc proj
+R5884:5908 KamiHW.Abstraction <> morph_entry_coupling_desc proj
+R5964:5986 KamiHW.Abstraction <> morph_entry_is_identity proj
+R5964:5986 KamiHW.Abstraction <> morph_entry_is_identity proj
+R5780:5793 KamiHW.ImplementationContract <> hwb_vector_nat def
+R5818:5818 KamiHW.ImplementationContract <> i:47 var
+R5796:5813 KamiHW.HWBoundary <> hw_morph_src_table proj
+R5815:5815 KamiHW.ImplementationContract <> b:46 var
+R5843:5856 KamiHW.ImplementationContract <> hwb_vector_nat def
+R5881:5881 KamiHW.ImplementationContract <> i:47 var
+R5859:5876 KamiHW.HWBoundary <> hw_morph_dst_table proj
+R5878:5878 KamiHW.ImplementationContract <> b:46 var
+R5913:5926 KamiHW.ImplementationContract <> hwb_vector_nat def
+R5961:5961 KamiHW.ImplementationContract <> i:47 var
+R5929:5956 KamiHW.HWBoundary <> hw_morph_coupling_desc_table proj
+R5958:5958 KamiHW.ImplementationContract <> b:46 var
+R5991:5999 KamiHW.ImplementationContract <> hwb_valid def
+R6029:6029 KamiHW.ImplementationContract <> i:47 var
+R6002:6024 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R6026:6026 KamiHW.ImplementationContract <> b:46 var
+R6072:6080 Kami.Lib.Word <> wordToNat def
+R6083:6098 KamiHW.HWBoundary <> hw_morph_next_id proj
+R6100:6100 KamiHW.ImplementationContract <> b:46 var
+binder 6141:6141 <> i:48
+R6149:6157 KamiHW.ImplementationContract <> hwb_valid def
+R6192:6192 KamiHW.ImplementationContract <> i:48 var
+R6160:6187 KamiHW.HWBoundary <> hw_coupling_desc_valid_table proj
+R6189:6189 KamiHW.ImplementationContract <> b:46 var
+R6503:6506 Coq.Init.Datatypes <> None constr
+R6199:6202 Coq.Init.Datatypes <> Some constr
+R6207:6224 KamiHW.Abstraction <> coupling_desc_base proj
+R6207:6224 KamiHW.Abstraction <> coupling_desc_base proj
+R6207:6224 KamiHW.Abstraction <> coupling_desc_base proj
+R6279:6297 KamiHW.Abstraction <> coupling_desc_count proj
+R6279:6297 KamiHW.Abstraction <> coupling_desc_count proj
+R6353:6371 KamiHW.Abstraction <> coupling_desc_label proj
+R6353:6371 KamiHW.Abstraction <> coupling_desc_label proj
+R6229:6242 KamiHW.ImplementationContract <> hwb_vector_nat def
+R6276:6276 KamiHW.ImplementationContract <> i:48 var
+R6245:6271 KamiHW.HWBoundary <> hw_coupling_desc_base_table proj
+R6273:6273 KamiHW.ImplementationContract <> b:46 var
+R6302:6315 KamiHW.ImplementationContract <> hwb_vector_nat def
+R6350:6350 KamiHW.ImplementationContract <> i:48 var
+R6318:6345 KamiHW.HWBoundary <> hw_coupling_desc_count_table proj
+R6347:6347 KamiHW.ImplementationContract <> b:46 var
+R6376:6385 KamiHW.ImplementationContract <> atom_label def
+R6388:6401 KamiHW.ImplementationContract <> hwb_vector_nat def
+R6440:6440 KamiHW.ImplementationContract <> i:48 var
+R6404:6435 KamiHW.HWBoundary <> hw_coupling_desc_label_len_table proj
+R6437:6437 KamiHW.ImplementationContract <> b:46 var
+R6444:6457 KamiHW.ImplementationContract <> hwb_vector_nat def
+R6492:6492 KamiHW.ImplementationContract <> i:48 var
+R6460:6487 KamiHW.HWBoundary <> hw_coupling_desc_label_table proj
+R6489:6489 KamiHW.ImplementationContract <> b:46 var
+R6544:6552 Kami.Lib.Word <> wordToNat def
+R6555:6578 KamiHW.HWBoundary <> hw_coupling_desc_next_id proj
+R6580:6580 KamiHW.ImplementationContract <> b:46 var
+binder 6621:6621 <> i:49
+R6629:6635 Coq.Arith.PeanoNat Nat ltb def
+R6637:6637 KamiHW.ImplementationContract <> i:49 var
+R6640:6648 Kami.Lib.Word <> wordToNat def
+R6651:6674 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R6676:6676 KamiHW.ImplementationContract <> b:46 var
+R6911:6914 Coq.Init.Datatypes <> None constr
+R6689:6697 KamiHW.ImplementationContract <> hwb_valid def
+R6732:6732 KamiHW.ImplementationContract <> i:49 var
+R6700:6727 KamiHW.HWBoundary <> hw_coupling_pair_valid_table proj
+R6729:6729 KamiHW.ImplementationContract <> b:46 var
+R6900:6903 Coq.Init.Datatypes <> None constr
+R6739:6742 Coq.Init.Datatypes <> Some constr
+R6747:6766 KamiHW.Abstraction <> coupling_pair_source proj
+R6747:6766 KamiHW.Abstraction <> coupling_pair_source proj
+R6747:6766 KamiHW.Abstraction <> coupling_pair_source proj
+R6820:6839 KamiHW.Abstraction <> coupling_pair_target proj
+R6820:6839 KamiHW.Abstraction <> coupling_pair_target proj
+R6771:6784 KamiHW.ImplementationContract <> hwb_vector_nat def
+R6817:6817 KamiHW.ImplementationContract <> i:49 var
+R6787:6812 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R6814:6814 KamiHW.ImplementationContract <> b:46 var
+R6844:6857 KamiHW.ImplementationContract <> hwb_vector_nat def
+R6890:6890 KamiHW.ImplementationContract <> i:49 var
+R6860:6885 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R6887:6887 KamiHW.ImplementationContract <> b:46 var
+R6952:6960 Kami.Lib.Word <> wordToNat def
+R6963:6986 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R6988:6988 KamiHW.ImplementationContract <> b:46 var
+binder 7028:7028 <> i:50
+R7036:7044 KamiHW.ImplementationContract <> hwb_valid def
+R7078:7078 KamiHW.ImplementationContract <> i:50 var
+R7047:7073 KamiHW.HWBoundary <> hw_formula_desc_valid_table proj
+R7075:7075 KamiHW.ImplementationContract <> b:46 var
+R7242:7245 Coq.Init.Datatypes <> None constr
+R7085:7088 Coq.Init.Datatypes <> Some constr
+R7093:7109 KamiHW.Abstraction <> formula_desc_base proj
+R7093:7109 KamiHW.Abstraction <> formula_desc_base proj
+R7093:7109 KamiHW.Abstraction <> formula_desc_base proj
+R7163:7180 KamiHW.Abstraction <> formula_desc_count proj
+R7163:7180 KamiHW.Abstraction <> formula_desc_count proj
+R7114:7127 KamiHW.ImplementationContract <> hwb_vector_nat def
+R7160:7160 KamiHW.ImplementationContract <> i:50 var
+R7130:7155 KamiHW.HWBoundary <> hw_formula_desc_base_table proj
+R7157:7157 KamiHW.ImplementationContract <> b:46 var
+R7185:7198 KamiHW.ImplementationContract <> hwb_vector_nat def
+R7232:7232 KamiHW.ImplementationContract <> i:50 var
+R7201:7227 KamiHW.HWBoundary <> hw_formula_desc_count_table proj
+R7229:7229 KamiHW.ImplementationContract <> b:46 var
+R7282:7290 Kami.Lib.Word <> wordToNat def
+R7293:7315 KamiHW.HWBoundary <> hw_formula_desc_next_id proj
+R7317:7317 KamiHW.ImplementationContract <> b:46 var
+binder 7354:7354 <> i:51
+R7362:7370 KamiHW.ImplementationContract <> hwb_valid def
+R7401:7401 KamiHW.ImplementationContract <> i:51 var
+R7373:7396 KamiHW.HWBoundary <> hw_cert_desc_valid_table proj
+R7398:7398 KamiHW.ImplementationContract <> b:46 var
+R7553:7556 Coq.Init.Datatypes <> None constr
+R7408:7411 Coq.Init.Datatypes <> Some constr
+R7416:7429 KamiHW.Abstraction <> cert_desc_base proj
+R7416:7429 KamiHW.Abstraction <> cert_desc_base proj
+R7416:7429 KamiHW.Abstraction <> cert_desc_base proj
+R7480:7494 KamiHW.Abstraction <> cert_desc_count proj
+R7480:7494 KamiHW.Abstraction <> cert_desc_count proj
+R7434:7447 KamiHW.ImplementationContract <> hwb_vector_nat def
+R7477:7477 KamiHW.ImplementationContract <> i:51 var
+R7450:7472 KamiHW.HWBoundary <> hw_cert_desc_base_table proj
+R7474:7474 KamiHW.ImplementationContract <> b:46 var
+R7499:7512 KamiHW.ImplementationContract <> hwb_vector_nat def
+R7543:7543 KamiHW.ImplementationContract <> i:51 var
+R7515:7538 KamiHW.HWBoundary <> hw_cert_desc_count_table proj
+R7540:7540 KamiHW.ImplementationContract <> b:46 var
+R7590:7598 Kami.Lib.Word <> wordToNat def
+R7601:7620 KamiHW.HWBoundary <> hw_cert_desc_next_id proj
+R7622:7622 KamiHW.ImplementationContract <> b:46 var
+binder 7659:7659 <> i:52
+R7667:7675 KamiHW.ImplementationContract <> hwb_valid def
+R7706:7706 KamiHW.ImplementationContract <> i:52 var
+R7678:7701 KamiHW.HWBoundary <> hw_desc_meta_valid_table proj
+R7703:7703 KamiHW.ImplementationContract <> b:46 var
+R8000:8003 Coq.Init.Datatypes <> None constr
+R7713:7716 Coq.Init.Datatypes <> Some constr
+R7721:7737 KamiHW.Abstraction <> desc_meta_subtype proj
+R7721:7737 KamiHW.Abstraction <> desc_meta_subtype proj
+R7721:7737 KamiHW.Abstraction <> desc_meta_subtype proj
+R7791:7804 KamiHW.Abstraction <> desc_meta_kind proj
+R7791:7804 KamiHW.Abstraction <> desc_meta_kind proj
+R7855:7874 KamiHW.Abstraction <> desc_meta_inline_len proj
+R7855:7874 KamiHW.Abstraction <> desc_meta_inline_len proj
+R7931:7943 KamiHW.Abstraction <> desc_meta_aux proj
+R7931:7943 KamiHW.Abstraction <> desc_meta_aux proj
+R7742:7755 KamiHW.ImplementationContract <> hwb_vector_nat def
+R7788:7788 KamiHW.ImplementationContract <> i:52 var
+R7758:7783 KamiHW.HWBoundary <> hw_desc_meta_subtype_table proj
+R7785:7785 KamiHW.ImplementationContract <> b:46 var
+R7809:7822 KamiHW.ImplementationContract <> hwb_vector_nat def
+R7852:7852 KamiHW.ImplementationContract <> i:52 var
+R7825:7847 KamiHW.HWBoundary <> hw_desc_meta_kind_table proj
+R7849:7849 KamiHW.ImplementationContract <> b:46 var
+R7879:7892 KamiHW.ImplementationContract <> hwb_vector_nat def
+R7928:7928 KamiHW.ImplementationContract <> i:52 var
+R7895:7923 KamiHW.HWBoundary <> hw_desc_meta_inline_len_table proj
+R7925:7925 KamiHW.ImplementationContract <> b:46 var
+R7948:7961 KamiHW.ImplementationContract <> hwb_vector_nat def
+R7990:7990 KamiHW.ImplementationContract <> i:52 var
+R7964:7985 KamiHW.HWBoundary <> hw_desc_meta_aux_table proj
+R7987:7987 KamiHW.ImplementationContract <> b:46 var
+R8037:8045 Kami.Lib.Word <> wordToNat def
+R8048:8067 KamiHW.HWBoundary <> hw_desc_meta_next_id proj
+R8069:8069 KamiHW.ImplementationContract <> b:46 var
+R8100:8125 KamiHW.Abstraction <> empty_lassert_shadow_state def
+def 8143:8154 <> hwb_snapshot
+R8161:8163 KamiHW.HWBoundary <> HWB rec
+binder 8157:8157 <> b:53
+R8168:8179 KamiHW.Abstraction <> KamiSnapshot rec
+R8189:8195 KamiHW.Abstraction <> snap_pc proj
+R8189:8195 KamiHW.Abstraction <> snap_pc proj
+R8189:8195 KamiHW.Abstraction <> snap_pc proj
+R8226:8232 KamiHW.Abstraction <> snap_mu proj
+R8226:8232 KamiHW.Abstraction <> snap_mu proj
+R8263:8270 KamiHW.Abstraction <> snap_err proj
+R8263:8270 KamiHW.Abstraction <> snap_err proj
+R8290:8300 KamiHW.Abstraction <> snap_halted proj
+R8290:8300 KamiHW.Abstraction <> snap_halted proj
+R8323:8331 KamiHW.Abstraction <> snap_regs proj
+R8323:8331 KamiHW.Abstraction <> snap_regs proj
+R8369:8376 KamiHW.Abstraction <> snap_mem proj
+R8369:8376 KamiHW.Abstraction <> snap_mem proj
+R8413:8430 KamiHW.Abstraction <> snap_partition_ops proj
+R8413:8430 KamiHW.Abstraction <> snap_partition_ops proj
+R8472:8483 KamiHW.Abstraction <> snap_mdl_ops proj
+R8472:8483 KamiHW.Abstraction <> snap_mdl_ops proj
+R8519:8532 KamiHW.Abstraction <> snap_info_gain proj
+R8519:8532 KamiHW.Abstraction <> snap_info_gain proj
+R8570:8584 KamiHW.Abstraction <> snap_error_code proj
+R8570:8584 KamiHW.Abstraction <> snap_error_code proj
+R8623:8636 KamiHW.Abstraction <> snap_mu_tensor proj
+R8623:8636 KamiHW.Abstraction <> snap_mu_tensor proj
+R8679:8691 KamiHW.Abstraction <> snap_pt_sizes proj
+R8679:8691 KamiHW.Abstraction <> snap_pt_sizes proj
+R8732:8746 KamiHW.Abstraction <> snap_pt_next_id proj
+R8732:8746 KamiHW.Abstraction <> snap_pt_next_id proj
+R8785:8798 KamiHW.Abstraction <> snap_certified proj
+R8785:8798 KamiHW.Abstraction <> snap_certified proj
+R8824:8838 KamiHW.Abstraction <> snap_wc_same_00 proj
+R8824:8838 KamiHW.Abstraction <> snap_wc_same_00 proj
+R8877:8891 KamiHW.Abstraction <> snap_wc_diff_00 proj
+R8877:8891 KamiHW.Abstraction <> snap_wc_diff_00 proj
+R8930:8944 KamiHW.Abstraction <> snap_wc_same_01 proj
+R8930:8944 KamiHW.Abstraction <> snap_wc_same_01 proj
+R8983:8997 KamiHW.Abstraction <> snap_wc_diff_01 proj
+R8983:8997 KamiHW.Abstraction <> snap_wc_diff_01 proj
+R9036:9050 KamiHW.Abstraction <> snap_wc_same_10 proj
+R9036:9050 KamiHW.Abstraction <> snap_wc_same_10 proj
+R9089:9103 KamiHW.Abstraction <> snap_wc_diff_10 proj
+R9089:9103 KamiHW.Abstraction <> snap_wc_diff_10 proj
+R9142:9156 KamiHW.Abstraction <> snap_wc_same_11 proj
+R9142:9156 KamiHW.Abstraction <> snap_wc_same_11 proj
+R9195:9209 KamiHW.Abstraction <> snap_wc_diff_11 proj
+R9195:9209 KamiHW.Abstraction <> snap_wc_diff_11 proj
+R9248:9266 KamiHW.Abstraction <> snap_module_tensors proj
+R9248:9266 KamiHW.Abstraction <> snap_module_tensors proj
+R9390:9404 KamiHW.Abstraction <> snap_rich_state proj
+R9390:9404 KamiHW.Abstraction <> snap_rich_state proj
+R9426:9443 KamiHW.Abstraction <> snap_csr_cert_addr proj
+R9426:9443 KamiHW.Abstraction <> snap_csr_cert_addr proj
+R9481:9495 KamiHW.Abstraction <> snap_csr_status proj
+R9481:9495 KamiHW.Abstraction <> snap_csr_status proj
+R9534:9545 KamiHW.Abstraction <> snap_csr_err proj
+R9534:9545 KamiHW.Abstraction <> snap_csr_err proj
+R9582:9599 KamiHW.Abstraction <> snap_csr_heap_base proj
+R9582:9599 KamiHW.Abstraction <> snap_csr_heap_base proj
+R9641:9654 KamiHW.Abstraction <> snap_logic_acc proj
+R9641:9654 KamiHW.Abstraction <> snap_logic_acc proj
+R9692:9703 KamiHW.Abstraction <> snap_mstatus proj
+R9692:9703 KamiHW.Abstraction <> snap_mstatus proj
+R8200:8208 Kami.Lib.Word <> wordToNat def
+R8211:8215 KamiHW.HWBoundary <> hw_pc proj
+R8217:8217 KamiHW.ImplementationContract <> b:53 var
+R8237:8245 Kami.Lib.Word <> wordToNat def
+R8248:8252 KamiHW.HWBoundary <> hw_mu proj
+R8254:8254 KamiHW.ImplementationContract <> b:53 var
+R8275:8280 KamiHW.HWBoundary <> hw_err proj
+R8282:8282 KamiHW.ImplementationContract <> b:53 var
+R8305:8313 KamiHW.HWBoundary <> hw_halted proj
+R8315:8315 KamiHW.ImplementationContract <> b:53 var
+R8336:8349 KamiHW.ImplementationContract <> hwb_vector_nat def
+R8352:8358 KamiHW.HWBoundary <> hw_regs proj
+R8360:8360 KamiHW.ImplementationContract <> b:53 var
+R8381:8394 KamiHW.ImplementationContract <> hwb_vector_nat def
+R8397:8402 KamiHW.HWBoundary <> hw_mem proj
+R8404:8404 KamiHW.ImplementationContract <> b:53 var
+R8435:8443 Kami.Lib.Word <> wordToNat def
+R8446:8461 KamiHW.HWBoundary <> hw_partition_ops proj
+R8463:8463 KamiHW.ImplementationContract <> b:53 var
+R8488:8496 Kami.Lib.Word <> wordToNat def
+R8499:8508 KamiHW.HWBoundary <> hw_mdl_ops proj
+R8510:8510 KamiHW.ImplementationContract <> b:53 var
+R8537:8545 Kami.Lib.Word <> wordToNat def
+R8548:8559 KamiHW.HWBoundary <> hw_info_gain proj
+R8561:8561 KamiHW.ImplementationContract <> b:53 var
+R8589:8597 Kami.Lib.Word <> wordToNat def
+R8600:8612 KamiHW.HWBoundary <> hw_error_code proj
+R8614:8614 KamiHW.ImplementationContract <> b:53 var
+R8641:8654 KamiHW.ImplementationContract <> hwb_vector_nat def
+R8657:8668 KamiHW.HWBoundary <> hw_mu_tensor proj
+R8670:8670 KamiHW.ImplementationContract <> b:53 var
+R8696:8709 KamiHW.ImplementationContract <> hwb_vector_nat def
+R8712:8721 KamiHW.HWBoundary <> hw_ptTable proj
+R8723:8723 KamiHW.ImplementationContract <> b:53 var
+R8751:8759 Kami.Lib.Word <> wordToNat def
+R8762:8774 KamiHW.HWBoundary <> hw_pt_next_id proj
+R8776:8776 KamiHW.ImplementationContract <> b:53 var
+R8803:8814 KamiHW.HWBoundary <> hw_certified proj
+R8816:8816 KamiHW.ImplementationContract <> b:53 var
+R8843:8851 Kami.Lib.Word <> wordToNat def
+R8854:8866 KamiHW.HWBoundary <> hw_wc_same_00 proj
+R8868:8868 KamiHW.ImplementationContract <> b:53 var
+R8896:8904 Kami.Lib.Word <> wordToNat def
+R8907:8919 KamiHW.HWBoundary <> hw_wc_diff_00 proj
+R8921:8921 KamiHW.ImplementationContract <> b:53 var
+R8949:8957 Kami.Lib.Word <> wordToNat def
+R8960:8972 KamiHW.HWBoundary <> hw_wc_same_01 proj
+R8974:8974 KamiHW.ImplementationContract <> b:53 var
+R9002:9010 Kami.Lib.Word <> wordToNat def
+R9013:9025 KamiHW.HWBoundary <> hw_wc_diff_01 proj
+R9027:9027 KamiHW.ImplementationContract <> b:53 var
+R9055:9063 Kami.Lib.Word <> wordToNat def
+R9066:9078 KamiHW.HWBoundary <> hw_wc_same_10 proj
+R9080:9080 KamiHW.ImplementationContract <> b:53 var
+R9108:9116 Kami.Lib.Word <> wordToNat def
+R9119:9131 KamiHW.HWBoundary <> hw_wc_diff_10 proj
+R9133:9133 KamiHW.ImplementationContract <> b:53 var
+R9161:9169 Kami.Lib.Word <> wordToNat def
+R9172:9184 KamiHW.HWBoundary <> hw_wc_same_11 proj
+R9186:9186 KamiHW.ImplementationContract <> b:53 var
+R9214:9222 Kami.Lib.Word <> wordToNat def
+R9225:9237 KamiHW.HWBoundary <> hw_wc_diff_11 proj
+R9239:9239 KamiHW.ImplementationContract <> b:53 var
+binder 9275:9277 <> mid:54
+binder 9279:9279 <> i:55
+R9287:9293 Coq.Arith.PeanoNat Nat ltb def
+R9295:9297 KamiHW.ImplementationContract <> mid:54 var
+R9307:9320 KamiHW.ImplementationContract <> hwb_vector_nat def
+R9375:9375 KamiHW.ImplementationContract <> i:55 var
+R9323:9339 KamiHW.HWBoundary <> hw_module_tensors proj
+R9341:9341 KamiHW.ImplementationContract <> b:53 var
+R9344:9352 Kami.Lib.Word <> natToWord def
+R9369:9371 KamiHW.ImplementationContract <> mid:54 var
+R9354:9367 KamiHW.ThieleTypes <> ModTensorIdxSz def
+R9409:9416 KamiHW.ImplementationContract <> hwb_rich def
+R9418:9418 KamiHW.ImplementationContract <> b:53 var
+R9448:9456 Kami.Lib.Word <> wordToNat def
+R9459:9470 KamiHW.HWBoundary <> hw_cert_addr proj
+R9472:9472 KamiHW.ImplementationContract <> b:53 var
+R9500:9508 Kami.Lib.Word <> wordToNat def
+R9511:9523 KamiHW.HWBoundary <> hw_csr_status proj
+R9525:9525 KamiHW.ImplementationContract <> b:53 var
+R9553:9558 KamiHW.HWBoundary <> hw_err proj
+R9560:9560 KamiHW.ImplementationContract <> b:53 var
+R9604:9612 Kami.Lib.Word <> wordToNat def
+R9615:9630 KamiHW.HWBoundary <> hw_csr_heap_base proj
+R9632:9632 KamiHW.ImplementationContract <> b:53 var
+R9659:9667 Kami.Lib.Word <> wordToNat def
+R9670:9681 KamiHW.HWBoundary <> hw_logic_acc proj
+R9683:9683 KamiHW.ImplementationContract <> b:53 var
+R9708:9716 Kami.Lib.Word <> wordToNat def
+R9719:9728 KamiHW.HWBoundary <> hw_mstatus proj
+R9730:9730 KamiHW.ImplementationContract <> b:53 var
+def 9749:9760 <> hwb_observes
+R9767:9769 KamiHW.HWBoundary <> HWB rec
+binder 9763:9763 <> b:56
+R9777:9788 KamiHW.Abstraction <> KamiSnapshot rec
+binder 9773:9773 <> s:57
+R9795:9797 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9794:9794 KamiHW.ImplementationContract <> s:57 var
+R9798:9809 KamiHW.ImplementationContract <> hwb_snapshot def
+R9811:9811 KamiHW.ImplementationContract <> b:56 var
+def 9825:9845 <> implementation_target
+R9850:9858 KamiHW.Abstraction <> kami_step def
+def 9872:9890 <> retirement_boundary
+R9897:9899 KamiHW.HWBoundary <> HWB rec
+binder 9893:9893 <> b:58
+R9948:9953 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9944:9946 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9914:9922 Kami.Lib.Word <> wordToNat def
+R9925:9940 KamiHW.HWBoundary <> hw_lassert_phase proj
+R9942:9942 KamiHW.ImplementationContract <> b:58 var
+R9985:9988 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9981:9983 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9954:9962 Kami.Lib.Word <> wordToNat def
+R9965:9977 KamiHW.HWBoundary <> hw_chsh_phase proj
+R9979:9979 KamiHW.ImplementationContract <> b:58 var
+R10014:10016 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9989:9997 Kami.Lib.Word <> wordToNat def
+R10000:10010 KamiHW.HWBoundary <> hw_mc_phase proj
+R10012:10012 KamiHW.ImplementationContract <> b:58 var
+def 10031:10043 <> live_boundary
+R10050:10052 KamiHW.HWBoundary <> HWB rec
+binder 10046:10046 <> b:59
+R10088:10091 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10067:10085 KamiHW.ImplementationContract <> retirement_boundary def
+R10087:10087 KamiHW.ImplementationContract <> b:59 var
+R10111:10114 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10103:10105 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10092:10100 KamiHW.HWBoundary <> hw_halted proj
+R10102:10102 KamiHW.ImplementationContract <> b:59 var
+R10106:10110 Coq.Init.Datatypes <> false constr
+R10123:10125 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10115:10120 KamiHW.HWBoundary <> hw_err proj
+R10122:10122 KamiHW.ImplementationContract <> b:59 var
+R10126:10130 Coq.Init.Datatypes <> false constr
+def 10144:10160 <> in_region_address
+R10167:10169 KamiHW.HWBoundary <> HWB rec
+binder 10163:10163 <> b:60
+R10183:10185 Coq.Init.Datatypes <> nat ind
+binder 10173:10179 <> address:61
+R10217:10222 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10207:10209 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10200:10206 KamiHW.ImplementationContract <> address:61 var
+R10210:10216 KamiHW.ThieleTypes <> MemSize def
+R10230:10232 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10223:10229 KamiHW.ImplementationContract <> address:61 var
+R10233:10246 KamiHW.ImplementationContract <> hwb_vector_nat def
+R10264:10272 Kami.Lib.Word <> wordToNat def
+R10275:10290 KamiHW.HWBoundary <> hw_active_module proj
+R10292:10292 KamiHW.ImplementationContract <> b:60 var
+R10249:10258 KamiHW.HWBoundary <> hw_ptTable proj
+R10260:10260 KamiHW.ImplementationContract <> b:60 var
+def 10308:10319 <> finite_pc_mu
+R10326:10328 KamiHW.HWBoundary <> HWB rec
+binder 10322:10322 <> b:62
+R10350:10352 Coq.Init.Datatypes <> nat ind
+binder 10332:10338 <> next_pc:63
+binder 10340:10346 <> next_mu:64
+R10396:10399 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10386:10388 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10367:10375 Kami.Lib.Word <> wordToNat def
+R10378:10382 KamiHW.HWBoundary <> hw_pc proj
+R10384:10384 KamiHW.ImplementationContract <> b:62 var
+R10389:10395 KamiHW.ThieleTypes <> MemSize def
+R10417:10420 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10407:10409 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10400:10406 KamiHW.ImplementationContract <> next_pc:63 var
+R10410:10416 KamiHW.ThieleTypes <> MemSize def
+R10428:10430 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10421:10427 KamiHW.ImplementationContract <> next_mu:64 var
+R10432:10434 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R10435:10440 KamiHW.ThieleTypes <> WordSz def
+def 10454:10470 <> raw_pair_capacity
+R10477:10479 KamiHW.HWBoundary <> HWB rec
+binder 10473:10473 <> b:65
+R10502:10504 Coq.Init.Datatypes <> nat ind
+binder 10483:10498 <> raw_intermediate:66
+R10576:10579 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10557:10559 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10519:10527 Kami.Lib.Word <> wordToNat def
+R10530:10553 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R10555:10555 KamiHW.ImplementationContract <> b:65 var
+R10560:10575 KamiHW.ImplementationContract <> raw_intermediate:66 var
+R10580:10593 KamiHW.ThieleTypes <> CouplingPairSz def
+def 10607:10623 <> represented_label
+R10634:10639 Coq.Strings.String <> string ind
+binder 10626:10630 <> label:67
+R10645:10651 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10658:10659 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10652:10652 <> n:68
+binder 10654:10657 <> mask:69
+R10666:10669 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10661:10664 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10665:10665 KamiHW.ImplementationContract <> n:68 var
+R10675:10677 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10670:10674 KamiHW.ImplementationContract <> label:67 var
+R10678:10687 KamiHW.ImplementationContract <> atom_label def
+R10689:10689 KamiHW.ImplementationContract <> n:68 var
+R10691:10694 KamiHW.ImplementationContract <> mask:69 var
+def 10708:10725 <> represented_region
+R10737:10740 Coq.Init.Datatypes <> list ind
+R10742:10744 Coq.Init.Datatypes <> nat ind
+binder 10728:10733 <> region:70
+R10752:10758 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10763:10764 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10759:10762 <> size:71
+R10773:10776 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10766:10768 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10769:10772 KamiHW.ImplementationContract <> size:71 var
+R10792:10795 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10781:10784 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10777:10780 KamiHW.ImplementationContract <> size:71 var
+R10785:10791 KamiHW.ThieleTypes <> MemSize def
+R10802:10804 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10796:10801 KamiHW.ImplementationContract <> region:70 var
+R10805:10812 Coq.Lists.List <> seq def
+R10816:10819 KamiHW.ImplementationContract <> size:71 var
+def 10833:10852 <> represented_endpoint
+R10866:10868 Coq.Init.Datatypes <> nat ind
+binder 10855:10862 <> endpoint:72
+R10882:10884 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10874:10881 KamiHW.ImplementationContract <> endpoint:72 var
+R10885:10891 KamiHW.ThieleTypes <> MemSize def
+def 11062:11079 <> execution_schedule
+R11090:11093 Coq.Init.Datatypes <> list ind
+R11095:11100 Coq.Strings.String <> string ind
+binder 11082:11086 <> names:73
+R11115:11120 Coq.Lists.List <> Forall ind
+R11191:11195 KamiHW.ImplementationContract <> names:73 var
+binder 11127:11130 <> name:74
+R11135:11136 Coq.Lists.List <> In def
+R11144:11151 Coq.Lists.List <> map def
+R11168:11175 Kami.Syntax <> getRules def
+R11177:11186 KamiHW.ThieleCPUCore <> thieleCore def
+R11155:11162 Kami.Lib.Struct <> attrName proj
+R11138:11141 KamiHW.ImplementationContract <> name:74 var
+prf 11205:11231 <> hwb_snapshot_module_tensors
+binder 11242:11242 <> b:75
+binder 11244:11246 <> mid:76
+binder 11248:11248 <> i:77
+R11261:11264 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11256:11258 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R11253:11255 KamiHW.ImplementationContract <> mid:76 var
+R11271:11276 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11266:11268 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R11265:11265 KamiHW.ImplementationContract <> i:77 var
+R11319:11323 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11277:11295 KamiHW.Abstraction <> snap_module_tensors proj
+R11298:11309 KamiHW.ImplementationContract <> hwb_snapshot def
+R11311:11311 KamiHW.ImplementationContract <> b:75 var
+R11314:11316 KamiHW.ImplementationContract <> mid:76 var
+R11318:11318 KamiHW.ImplementationContract <> i:77 var
+R11324:11332 Kami.Lib.Word <> wordToNat def
+R11335:11351 KamiHW.HWBoundary <> hw_module_tensors proj
+R11353:11353 KamiHW.ImplementationContract <> b:75 var
+R11356:11364 Kami.Lib.Word <> natToWord def
+R11381:11383 KamiHW.ImplementationContract <> mid:76 var
+R11366:11379 KamiHW.ThieleTypes <> ModTensorIdxSz def
+R11391:11399 Kami.Lib.Word <> natToWord def
+R11415:11415 KamiHW.ImplementationContract <> i:77 var
+R11401:11413 KamiHW.ThieleTypes <> MuTensorIdxSz def
+R11461:11461 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11569:11572 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11465:11471 Coq.Arith.PeanoNat Nat ltb def
+R11489:11502 KamiHW.ImplementationContract <> hwb_vector_nat def
+R11505:11521 KamiHW.HWBoundary <> hw_module_tensors proj
+R11526:11534 Kami.Lib.Word <> natToWord def
+R11536:11549 KamiHW.ThieleTypes <> ModTensorIdxSz def
+R11573:11581 Kami.Lib.Word <> wordToNat def
+R11584:11600 KamiHW.HWBoundary <> hw_module_tensors proj
+R11605:11613 Kami.Lib.Word <> natToWord def
+R11615:11628 KamiHW.ThieleTypes <> ModTensorIdxSz def
+R11642:11650 Kami.Lib.Word <> natToWord def
+R11652:11664 KamiHW.ThieleTypes <> MuTensorIdxSz def
+R11461:11461 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11569:11572 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11465:11471 Coq.Arith.PeanoNat Nat ltb def
+R11489:11502 KamiHW.ImplementationContract <> hwb_vector_nat def
+R11505:11521 KamiHW.HWBoundary <> hw_module_tensors proj
+R11526:11534 Kami.Lib.Word <> natToWord def
+R11536:11549 KamiHW.ThieleTypes <> ModTensorIdxSz def
+R11573:11581 Kami.Lib.Word <> wordToNat def
+R11584:11600 KamiHW.HWBoundary <> hw_module_tensors proj
+R11605:11613 Kami.Lib.Word <> natToWord def
+R11615:11628 KamiHW.ThieleTypes <> ModTensorIdxSz def
+R11642:11650 Kami.Lib.Word <> natToWord def
+R11652:11664 KamiHW.ThieleTypes <> MuTensorIdxSz def
+R11702:11704 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11688:11694 Coq.Arith.PeanoNat Nat ltb def
+R11705:11708 Coq.Init.Datatypes <> true constr
+R11721:11730 Coq.Arith.PeanoNat Nat ltb_lt thm
+R11702:11704 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11688:11694 Coq.Arith.PeanoNat Nat ltb def
+R11705:11708 Coq.Init.Datatypes <> true constr
+R11721:11730 Coq.Arith.PeanoNat Nat ltb_lt thm
+R11789:11791 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11760:11766 Coq.Arith.PeanoNat Nat ltb def
+R11772:11774 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R11775:11787 KamiHW.ThieleTypes <> MuTensorIdxSz def
+R11792:11795 Coq.Init.Datatypes <> true constr
+R11812:11821 Coq.Arith.PeanoNat Nat ltb_lt thm
+R11789:11791 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11760:11766 Coq.Arith.PeanoNat Nat ltb def
+R11772:11774 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R11775:11787 KamiHW.ThieleTypes <> MuTensorIdxSz def
+R11792:11795 Coq.Init.Datatypes <> true constr
+R11812:11821 Coq.Arith.PeanoNat Nat ltb_lt thm
+R11857:11870 KamiHW.ImplementationContract <> hwb_vector_nat def
+prf 11910:11926 <> hwb_snapshot_csrs
+binder 11937:11937 <> b:78
+R12004:12009 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11974:11976 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11942:11956 KamiHW.Abstraction <> snap_csr_status proj
+R11959:11970 KamiHW.ImplementationContract <> hwb_snapshot def
+R11972:11972 KamiHW.ImplementationContract <> b:78 var
+R11977:11985 Kami.Lib.Word <> wordToNat def
+R11988:12000 KamiHW.HWBoundary <> hw_csr_status proj
+R12002:12002 KamiHW.ImplementationContract <> b:78 var
+R12045:12047 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12010:12027 KamiHW.Abstraction <> snap_csr_heap_base proj
+R12030:12041 KamiHW.ImplementationContract <> hwb_snapshot def
+R12043:12043 KamiHW.ImplementationContract <> b:78 var
+R12048:12056 Kami.Lib.Word <> wordToNat def
+R12059:12074 KamiHW.HWBoundary <> hw_csr_heap_base proj
+R12076:12076 KamiHW.ImplementationContract <> b:78 var
+prf 12128:12148 <> hwb_pc_mu_word_bounds
+binder 12159:12159 <> b:79
+R12196:12201 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12183:12185 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12164:12172 Kami.Lib.Word <> wordToNat def
+R12175:12179 KamiHW.HWBoundary <> hw_pc proj
+R12181:12181 KamiHW.ImplementationContract <> b:79 var
+R12187:12189 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R12190:12195 KamiHW.ThieleTypes <> WordSz def
+R12221:12223 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12202:12210 Kami.Lib.Word <> wordToNat def
+R12213:12217 KamiHW.HWBoundary <> hw_mu proj
+R12219:12219 KamiHW.ImplementationContract <> b:79 var
+R12225:12227 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R12228:12233 KamiHW.ThieleTypes <> WordSz def
+R12265:12279 Kami.Lib.Word <> wordToNat_bound thm
+R12265:12279 Kami.Lib.Word <> wordToNat_bound thm
+R12265:12279 Kami.Lib.Word <> wordToNat_bound thm
+rec 12447:12459 <> ISAWordFields
+proj 12468:12477 <> isa_opcode
+proj 12498:12502 <> isa_a
+proj 12516:12520 <> isa_b
+proj 12534:12541 <> isa_cost
+proj 12560:12569 <> isa_format
+proj 12592:12600 <> isa_flags
+proj 12615:12622 <> isa_ext0
+proj 12641:12648 <> isa_ext1
+R12481:12484 Kami.Lib.Word <> word ind
+R12486:12493 KamiHW.ThieleTypes <> OpcodeSz def
+R12506:12509 Kami.Lib.Word <> word ind
+R12524:12527 Kami.Lib.Word <> word ind
+R12545:12548 Kami.Lib.Word <> word ind
+R12550:12555 KamiHW.ThieleTypes <> CostSz def
+R12573:12576 Kami.Lib.Word <> word ind
+R12578:12587 KamiHW.ThieleTypes <> FormatIdSz def
+R12604:12607 Kami.Lib.Word <> word ind
+R12626:12629 Kami.Lib.Word <> word ind
+R12631:12636 KamiHW.ThieleTypes <> WordSz def
+R12652:12655 Kami.Lib.Word <> word ind
+R12657:12662 KamiHW.ThieleTypes <> WordSz def
+def 12678:12685 <> isa_word
+R12692:12704 KamiHW.ImplementationContract <> ISAWordFields rec
+binder 12688:12688 <> f:89
+R12709:12709 Coq.Numbers.BinNums <> N ind
+R12716:12728 KamiHW.ImplementationContract <> isa_v2_encode def
+R12731:12737 Kami.Lib.Word <> wordToN def
+R12740:12749 KamiHW.ImplementationContract <> isa_opcode proj
+R12751:12751 KamiHW.ImplementationContract <> f:89 var
+R12756:12762 Kami.Lib.Word <> wordToN def
+R12765:12769 KamiHW.ImplementationContract <> isa_a proj
+R12771:12771 KamiHW.ImplementationContract <> f:89 var
+R12780:12786 Kami.Lib.Word <> wordToN def
+R12789:12793 KamiHW.ImplementationContract <> isa_b proj
+R12795:12795 KamiHW.ImplementationContract <> f:89 var
+R12800:12806 Kami.Lib.Word <> wordToN def
+R12809:12816 KamiHW.ImplementationContract <> isa_cost proj
+R12818:12818 KamiHW.ImplementationContract <> f:89 var
+R12829:12835 Kami.Lib.Word <> wordToN def
+R12838:12847 KamiHW.ImplementationContract <> isa_format proj
+R12849:12849 KamiHW.ImplementationContract <> f:89 var
+R12854:12860 Kami.Lib.Word <> wordToN def
+R12863:12871 KamiHW.ImplementationContract <> isa_flags proj
+R12873:12873 KamiHW.ImplementationContract <> f:89 var
+R12882:12888 Kami.Lib.Word <> wordToN def
+R12891:12898 KamiHW.ImplementationContract <> isa_ext0 proj
+R12900:12900 KamiHW.ImplementationContract <> f:89 var
+R12905:12911 Kami.Lib.Word <> wordToN def
+R12914:12921 KamiHW.ImplementationContract <> isa_ext1 proj
+R12923:12923 KamiHW.ImplementationContract <> f:89 var
+def 12939:12956 <> isa_supported_word
+R12963:12975 KamiHW.ImplementationContract <> ISAWordFields rec
+binder 12959:12959 <> f:90
+R12990:13005 KamiHW.ImplementationContract <> supported_opcode def
+R13008:13017 KamiHW.ImplementationContract <> isa_opcode proj
+R13019:13019 KamiHW.ImplementationContract <> f:90 var

@@ -1,0 +1,101 @@
+DIGEST 1521fb1931725a90114de8b535ed34f3
+FUndecidability.Shared.Libs.PSL.FiniteTypes.VectorFin
+R51:66 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicDefinitions <> <> lib
+R120:139 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> <> lib
+R193:207 Undecidability.Shared.Libs.PSL.Vectors.Vectors <> <> lib
+R217:232 Undecidability.Shared.Libs.PSL.Vectors.Vectors VectorNotations2 <> mod
+def 271:278 <> all_fins
+R285:287 Coq.Init.Datatypes <> nat ind
+binder 281:281 <> n:1
+R292:295 Coq.Init.Datatypes <> list ind
+R298:302 Coq.Vectors.Fin <> t ind
+R304:304 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> n:1 var
+R318:318 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> n:1 var
+R334:336 Coq.Init.Datatypes <> nil constr
+R342:342 Coq.Init.Datatypes <> S constr
+R355:358 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R349:354 Coq.Vectors.Fin <> F1 constr
+R359:361 Coq.Lists.List <> map def
+R371:378 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> all_fins:2 def
+R380:380 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> n:1 var
+R363:368 Coq.Vectors.Fin <> FS constr
+inst 410:421 <> Fin_finTypeC
+binder 423:423 <> n:4
+R427:434 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finTypeC class
+R437:442 Undecidability.Shared.Libs.PSL.EqDecDef <> EqType constr
+R445:449 Coq.Vectors.Fin <> t ind
+R451:451 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> n:4 var
+R493:500 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> all_fins def
+R493:500 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> all_fins def
+R530:541 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicDefinitions <> dupfreeCount thm
+R530:541 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicDefinitions <> dupfreeCount thm
+R628:637 Coq.Lists.List <> in_map_iff thm
+R628:637 Coq.Lists.List <> in_map_iff thm
+R653:678 Coq.Logic.FinFun <> Injective_map_NoDup thm
+R682:691 Coq.Vectors.Fin <> FS_inj def
+R653:678 Coq.Logic.FinFun <> Injective_map_NoDup thm
+R682:691 Coq.Vectors.Fin <> FS_inj def
+R741:746 Coq.Lists.List <> in_map thm
+R741:746 Coq.Lists.List <> in_map thm
+def 839:848 <> Vector_pow
+binder 851:851 <> X:5
+R864:867 Coq.Init.Datatypes <> list ind
+R869:869 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> X:5 var
+binder 861:861 <> A:6
+binder 872:872 <> n:7
+R887:890 Coq.Init.Datatypes <> list ind
+R893:900 Coq.Vectors.Vector <> t ind
+R902:902 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> X:5 var
+R904:904 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> n:7 var
+R918:918 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> n:7 var
+R934:934 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R947:947 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R935:944 Coq.Vectors.Vector <> nil constr
+R953:953 Coq.Init.Datatypes <> S constr
+R960:965 Coq.Lists.List <> concat def
+R968:970 Coq.Lists.List <> map def
+R1022:1022 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> A:6 var
+binder 977:977 <> a:10
+R982:984 Coq.Lists.List <> map def
+R1004:1013 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> Vector_pow:8 def
+R1017:1017 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> n:7 var
+R1015:1015 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> A:6 var
+binder 991:991 <> v:11
+R997:999 Undecidability.Shared.Libs.PSL.Vectors.Vectors VectorNotations2 ::vector_scope:x_':::'_x not
+R996:996 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> a:10 var
+R1000:1000 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> v:11 var
+inst 1052:1066 <> Vector_finTypeC
+R1071:1077 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+binder 1069:1069 <> A:12
+binder 1080:1080 <> n:13
+R1083:1090 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finTypeC class
+R1093:1098 Undecidability.Shared.Libs.PSL.EqDecDef <> EqType constr
+R1101:1108 Coq.Vectors.Vector <> t ind
+R1110:1110 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> A:12 var
+R1112:1112 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> n:13 var
+R1134:1138 Coq.Lists.List <> nodup def
+R1158:1167 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> Vector_pow def
+R1170:1173 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> elem def
+R1142:1151 Undecidability.Shared.Libs.PSL.EqDecDef <> eqType_dec proj
+R1134:1138 Coq.Lists.List <> nodup def
+R1158:1167 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> Vector_pow def
+R1170:1173 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> elem def
+R1142:1151 Undecidability.Shared.Libs.PSL.EqDecDef <> eqType_dec proj
+R1213:1224 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicDefinitions <> dupfreeCount thm
+R1213:1224 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicDefinitions <> dupfreeCount thm
+R1238:1248 Coq.Lists.List <> NoDup_nodup thm
+R1238:1248 Coq.Lists.List <> NoDup_nodup thm
+R1261:1268 Coq.Lists.List <> nodup_In thm
+R1261:1268 Coq.Lists.List <> nodup_In thm
+R1315:1323 Coq.Lists.List <> in_concat thm
+R1315:1323 Coq.Lists.List <> in_concat thm
+R1355:1364 Coq.Lists.List <> in_map_iff thm
+R1355:1364 Coq.Lists.List <> in_map_iff thm
+R1417:1426 Coq.Lists.List <> in_map_iff thm
+R1417:1426 Coq.Lists.List <> in_map_iff thm
+R1451:1459 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> elem_spec thm
+R1451:1459 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> elem_spec thm
+R1503:1510 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finTypeC class
+R1513:1518 Undecidability.Shared.Libs.PSL.EqDecDef <> EqType constr
+R1521:1528 Coq.Vectors.Vector <> t ind
+R1547:1561 Undecidability.Shared.Libs.PSL.FiniteTypes.VectorFin <> Vector_finTypeC inst

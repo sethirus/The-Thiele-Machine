@@ -1,0 +1,73 @@
+DIGEST 519c89ded79793fd9ef251c013b296dc
+FUndecidability.Shared.Libs.PSL.FiniteTypes.BasicFinTypes
+R51:58 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypes <> <> lib
+prf 122:133 <> bool_enum_ok
+binder 135:135 <> x:1
+R162:164 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R140:144 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> count def
+R161:161 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicFinTypes <> x:1 var
+R147:147 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R152:153 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R159:159 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R148:151 Coq.Init.Datatypes <> true constr
+R154:158 Coq.Init.Datatypes <> false constr
+prf 225:236 <> unit_enum_ok
+binder 238:238 <> x:2
+R255:257 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R243:247 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> count def
+R254:254 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicFinTypes <> x:2 var
+R249:249 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R252:252 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R250:251 Coq.Init.Datatypes <> tt constr
+prf 318:334 <> Empty_set_enum_ok
+R340:348 Coq.Init.Datatypes <> Empty_set ind
+binder 337:337 <> x:3
+R365:367 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R354:358 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> count def
+R364:364 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicFinTypes <> x:3 var
+R360:362 Coq.Init.Datatypes <> nil constr
+prf 399:410 <> True_enum_ok
+binder 412:412 <> x:4
+R428:430 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R417:421 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> count def
+R427:427 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicFinTypes <> x:4 var
+R423:423 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R425:425 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R424:424 Coq.Init.Logic <> I constr
+prf 492:504 <> False_enum_ok
+R510:514 Coq.Init.Logic <> False ind
+binder 507:507 <> x:5
+R531:533 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R520:524 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> count def
+R530:530 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicFinTypes <> x:5 var
+R526:528 Coq.Init.Datatypes <> nil constr
+inst 659:676 <> finTypeC_Empty_set
+R679:686 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finTypeC class
+R689:694 Undecidability.Shared.Libs.PSL.EqDecDef <> EqType constr
+R696:704 Coq.Init.Datatypes <> Empty_set ind
+R738:754 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicFinTypes <> Empty_set_enum_ok thm
+R738:754 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicFinTypes <> Empty_set_enum_ok thm
+inst 786:798 <> finTypeC_bool
+R801:808 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finTypeC class
+R811:816 Undecidability.Shared.Libs.PSL.EqDecDef <> EqType constr
+R818:821 Coq.Init.Datatypes <> bool ind
+R854:865 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicFinTypes <> bool_enum_ok thm
+R854:865 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicFinTypes <> bool_enum_ok thm
+inst 897:909 <> finTypeC_unit
+R912:919 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finTypeC class
+R922:927 Undecidability.Shared.Libs.PSL.EqDecDef <> EqType constr
+R929:932 Coq.Init.Datatypes <> unit ind
+R963:974 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicFinTypes <> unit_enum_ok thm
+R963:974 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicFinTypes <> unit_enum_ok thm
+inst 1006:1018 <> finTypeC_True
+R1022:1029 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finTypeC class
+R1032:1037 Undecidability.Shared.Libs.PSL.EqDecDef <> EqType constr
+R1039:1042 Coq.Init.Logic <> True ind
+R1075:1086 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicFinTypes <> True_enum_ok thm
+R1075:1086 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicFinTypes <> True_enum_ok thm
+inst 1119:1132 <> finTypeC_False
+R1136:1143 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finTypeC class
+R1146:1151 Undecidability.Shared.Libs.PSL.EqDecDef <> EqType constr
+R1153:1157 Coq.Init.Logic <> False ind
+R1190:1202 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicFinTypes <> False_enum_ok thm
+R1190:1202 Undecidability.Shared.Libs.PSL.FiniteTypes.BasicFinTypes <> False_enum_ok thm

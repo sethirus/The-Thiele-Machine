@@ -1,0 +1,1694 @@
+DIGEST dabe2762d58af091d742e5ab383bfa9d
+FKamiHW.HWBoundaryReads
+R68:76 Kami.Kami <> <> lib
+R78:91 Kami.Semantics <> <> lib
+R121:131 KamiHW.ThieleTypes <> <> lib
+R133:142 KamiHW.HWBoundary <> <> lib
+R144:158 KamiHW.ActionEvaluator <> <> lib
+R185:190 Coq.Strings.String <> <> lib
+prf 225:235 <> hwb_read_pc
+binder 246:246 <> b:1
+R306:308 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R251:261 KamiHW.ActionEvaluator <> action_read def
+R264:271 KamiHW.HWBoundary <> hwb_regs def
+R273:273 KamiHW.HWBoundaryReads <> b:1 var
+R282:291 Kami.Syntax <> SyntaxKind constr
+R294:296 Kami.Syntax <> Bit constr
+R298:303 KamiHW.ThieleTypes <> WordSz def
+R309:312 Coq.Init.Datatypes <> Some constr
+R315:319 KamiHW.HWBoundary <> hw_pc proj
+R321:321 KamiHW.HWBoundaryReads <> b:1 var
+prf 379:389 <> hwb_read_mu
+binder 400:400 <> b:2
+R460:462 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R405:415 KamiHW.ActionEvaluator <> action_read def
+R418:425 KamiHW.HWBoundary <> hwb_regs def
+R427:427 KamiHW.HWBoundaryReads <> b:2 var
+R436:445 Kami.Syntax <> SyntaxKind constr
+R448:450 Kami.Syntax <> Bit constr
+R452:457 KamiHW.ThieleTypes <> WordSz def
+R463:466 Coq.Init.Datatypes <> Some constr
+R469:473 KamiHW.HWBoundary <> hw_mu proj
+R475:475 KamiHW.HWBoundaryReads <> b:2 var
+prf 533:544 <> hwb_read_err
+binder 555:555 <> b:3
+R610:612 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R560:570 KamiHW.ActionEvaluator <> action_read def
+R573:580 KamiHW.HWBoundary <> hwb_regs def
+R582:582 KamiHW.HWBoundaryReads <> b:3 var
+R592:601 Kami.Syntax <> SyntaxKind constr
+R604:607 Kami.Syntax <> Bool constr
+R613:616 Coq.Init.Datatypes <> Some constr
+R619:624 KamiHW.HWBoundary <> hw_err proj
+R626:626 KamiHW.HWBoundaryReads <> b:3 var
+prf 684:698 <> hwb_read_halted
+binder 709:709 <> b:4
+R767:769 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R714:724 KamiHW.ActionEvaluator <> action_read def
+R727:734 KamiHW.HWBoundary <> hwb_regs def
+R736:736 KamiHW.HWBoundaryReads <> b:4 var
+R749:758 Kami.Syntax <> SyntaxKind constr
+R761:764 Kami.Syntax <> Bool constr
+R770:773 Coq.Init.Datatypes <> Some constr
+R776:784 KamiHW.HWBoundary <> hw_halted proj
+R786:786 KamiHW.HWBoundaryReads <> b:4 var
+prf 844:856 <> hwb_read_regs
+binder 867:867 <> b:5
+R947:949 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R872:882 KamiHW.ActionEvaluator <> action_read def
+R885:892 KamiHW.HWBoundary <> hwb_regs def
+R894:894 KamiHW.HWBoundaryReads <> b:5 var
+R905:914 Kami.Syntax <> SyntaxKind constr
+R917:922 Kami.Syntax <> Vector constr
+R937:944 KamiHW.ThieleTypes <> RegIdxSz def
+R925:927 Kami.Syntax <> Bit constr
+R929:934 KamiHW.ThieleTypes <> WordSz def
+R950:953 Coq.Init.Datatypes <> Some constr
+R956:962 KamiHW.HWBoundary <> hw_regs proj
+R964:964 KamiHW.HWBoundaryReads <> b:5 var
+prf 1022:1033 <> hwb_read_mem
+binder 1044:1044 <> b:6
+R1124:1126 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1049:1059 KamiHW.ActionEvaluator <> action_read def
+R1062:1069 KamiHW.HWBoundary <> hwb_regs def
+R1071:1071 KamiHW.HWBoundaryReads <> b:6 var
+R1081:1090 Kami.Syntax <> SyntaxKind constr
+R1093:1098 Kami.Syntax <> Vector constr
+R1113:1121 KamiHW.ThieleTypes <> MemAddrSz def
+R1101:1103 Kami.Syntax <> Bit constr
+R1105:1110 KamiHW.ThieleTypes <> WordSz def
+R1127:1130 Coq.Init.Datatypes <> Some constr
+R1133:1138 KamiHW.HWBoundary <> hw_mem proj
+R1140:1140 KamiHW.HWBoundaryReads <> b:6 var
+prf 1198:1210 <> hwb_read_imem
+binder 1221:1221 <> b:7
+R1303:1305 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1226:1236 KamiHW.ActionEvaluator <> action_read def
+R1239:1246 KamiHW.HWBoundary <> hwb_regs def
+R1248:1248 KamiHW.HWBoundaryReads <> b:7 var
+R1259:1268 Kami.Syntax <> SyntaxKind constr
+R1271:1276 Kami.Syntax <> Vector constr
+R1292:1300 KamiHW.ThieleTypes <> MemAddrSz def
+R1279:1281 Kami.Syntax <> Bit constr
+R1283:1289 KamiHW.ThieleTypes <> InstrSz def
+R1306:1309 Coq.Init.Datatypes <> Some constr
+R1312:1318 KamiHW.HWBoundary <> hw_imem proj
+R1320:1320 KamiHW.HWBoundaryReads <> b:7 var
+prf 1378:1399 <> hwb_read_partition_ops
+binder 1410:1410 <> b:8
+R1481:1483 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1415:1425 KamiHW.ActionEvaluator <> action_read def
+R1428:1435 KamiHW.HWBoundary <> hwb_regs def
+R1437:1437 KamiHW.HWBoundaryReads <> b:8 var
+R1457:1466 Kami.Syntax <> SyntaxKind constr
+R1469:1471 Kami.Syntax <> Bit constr
+R1473:1478 KamiHW.ThieleTypes <> WordSz def
+R1484:1487 Coq.Init.Datatypes <> Some constr
+R1490:1505 KamiHW.HWBoundary <> hw_partition_ops proj
+R1507:1507 KamiHW.HWBoundaryReads <> b:8 var
+prf 1565:1580 <> hwb_read_mdl_ops
+binder 1591:1591 <> b:9
+R1656:1658 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1596:1606 KamiHW.ActionEvaluator <> action_read def
+R1609:1616 KamiHW.HWBoundary <> hwb_regs def
+R1618:1618 KamiHW.HWBoundaryReads <> b:9 var
+R1632:1641 Kami.Syntax <> SyntaxKind constr
+R1644:1646 Kami.Syntax <> Bit constr
+R1648:1653 KamiHW.ThieleTypes <> WordSz def
+R1659:1662 Coq.Init.Datatypes <> Some constr
+R1665:1674 KamiHW.HWBoundary <> hw_mdl_ops proj
+R1676:1676 KamiHW.HWBoundaryReads <> b:9 var
+prf 1734:1751 <> hwb_read_info_gain
+binder 1762:1762 <> b:10
+R1829:1831 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1767:1777 KamiHW.ActionEvaluator <> action_read def
+R1780:1787 KamiHW.HWBoundary <> hwb_regs def
+R1789:1789 KamiHW.HWBoundaryReads <> b:10 var
+R1805:1814 Kami.Syntax <> SyntaxKind constr
+R1817:1819 Kami.Syntax <> Bit constr
+R1821:1826 KamiHW.ThieleTypes <> WordSz def
+R1832:1835 Coq.Init.Datatypes <> Some constr
+R1838:1849 KamiHW.HWBoundary <> hw_info_gain proj
+R1851:1851 KamiHW.HWBoundaryReads <> b:10 var
+prf 1909:1927 <> hwb_read_error_code
+binder 1938:1938 <> b:11
+R2006:2008 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1943:1953 KamiHW.ActionEvaluator <> action_read def
+R1956:1963 KamiHW.HWBoundary <> hwb_regs def
+R1965:1965 KamiHW.HWBoundaryReads <> b:11 var
+R1982:1991 Kami.Syntax <> SyntaxKind constr
+R1994:1996 Kami.Syntax <> Bit constr
+R1998:2003 KamiHW.ThieleTypes <> WordSz def
+R2009:2012 Coq.Init.Datatypes <> Some constr
+R2015:2027 KamiHW.HWBoundary <> hw_error_code proj
+R2029:2029 KamiHW.HWBoundaryReads <> b:11 var
+prf 2087:2104 <> hwb_read_logic_acc
+binder 2115:2115 <> b:12
+R2182:2184 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2120:2130 KamiHW.ActionEvaluator <> action_read def
+R2133:2140 KamiHW.HWBoundary <> hwb_regs def
+R2142:2142 KamiHW.HWBoundaryReads <> b:12 var
+R2158:2167 Kami.Syntax <> SyntaxKind constr
+R2170:2172 Kami.Syntax <> Bit constr
+R2174:2179 KamiHW.ThieleTypes <> WordSz def
+R2185:2188 Coq.Init.Datatypes <> Some constr
+R2191:2202 KamiHW.HWBoundary <> hw_logic_acc proj
+R2204:2204 KamiHW.HWBoundaryReads <> b:12 var
+prf 2262:2279 <> hwb_read_cert_addr
+binder 2290:2290 <> b:13
+R2357:2359 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2295:2305 KamiHW.ActionEvaluator <> action_read def
+R2308:2315 KamiHW.HWBoundary <> hwb_regs def
+R2317:2317 KamiHW.HWBoundaryReads <> b:13 var
+R2333:2342 Kami.Syntax <> SyntaxKind constr
+R2345:2347 Kami.Syntax <> Bit constr
+R2349:2354 KamiHW.ThieleTypes <> WordSz def
+R2360:2363 Coq.Init.Datatypes <> Some constr
+R2366:2377 KamiHW.HWBoundary <> hw_cert_addr proj
+R2379:2379 KamiHW.HWBoundaryReads <> b:13 var
+prf 2437:2458 <> hwb_read_active_module
+binder 2469:2469 <> b:14
+R2545:2547 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2474:2484 KamiHW.ActionEvaluator <> action_read def
+R2487:2494 KamiHW.HWBoundary <> hwb_regs def
+R2496:2496 KamiHW.HWBoundaryReads <> b:14 var
+R2516:2525 Kami.Syntax <> SyntaxKind constr
+R2528:2530 Kami.Syntax <> Bit constr
+R2532:2542 KamiHW.ThieleTypes <> PTableIdxSz def
+R2548:2551 Coq.Init.Datatypes <> Some constr
+R2554:2569 KamiHW.HWBoundary <> hw_active_module proj
+R2571:2571 KamiHW.HWBoundaryReads <> b:14 var
+prf 2629:2644 <> hwb_read_mstatus
+binder 2655:2655 <> b:15
+R2720:2722 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2660:2670 KamiHW.ActionEvaluator <> action_read def
+R2673:2680 KamiHW.HWBoundary <> hwb_regs def
+R2682:2682 KamiHW.HWBoundaryReads <> b:15 var
+R2696:2705 Kami.Syntax <> SyntaxKind constr
+R2708:2710 Kami.Syntax <> Bit constr
+R2712:2717 KamiHW.ThieleTypes <> WordSz def
+R2723:2726 Coq.Init.Datatypes <> Some constr
+R2729:2738 KamiHW.HWBoundary <> hw_mstatus proj
+R2740:2740 KamiHW.HWBoundaryReads <> b:15 var
+prf 2798:2815 <> hwb_read_mcycle_lo
+binder 2826:2826 <> b:16
+R2893:2895 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2831:2841 KamiHW.ActionEvaluator <> action_read def
+R2844:2851 KamiHW.HWBoundary <> hwb_regs def
+R2853:2853 KamiHW.HWBoundaryReads <> b:16 var
+R2869:2878 Kami.Syntax <> SyntaxKind constr
+R2881:2883 Kami.Syntax <> Bit constr
+R2885:2890 KamiHW.ThieleTypes <> WordSz def
+R2896:2899 Coq.Init.Datatypes <> Some constr
+R2902:2913 KamiHW.HWBoundary <> hw_mcycle_lo proj
+R2915:2915 KamiHW.HWBoundaryReads <> b:16 var
+prf 2973:2990 <> hwb_read_mcycle_hi
+binder 3001:3001 <> b:17
+R3068:3070 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3006:3016 KamiHW.ActionEvaluator <> action_read def
+R3019:3026 KamiHW.HWBoundary <> hwb_regs def
+R3028:3028 KamiHW.HWBoundaryReads <> b:17 var
+R3044:3053 Kami.Syntax <> SyntaxKind constr
+R3056:3058 Kami.Syntax <> Bit constr
+R3060:3065 KamiHW.ThieleTypes <> WordSz def
+R3071:3074 Coq.Init.Datatypes <> Some constr
+R3077:3088 KamiHW.HWBoundary <> hw_mcycle_hi proj
+R3090:3090 KamiHW.HWBoundaryReads <> b:17 var
+prf 3148:3167 <> hwb_read_minstret_lo
+binder 3178:3178 <> b:18
+R3247:3249 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3183:3193 KamiHW.ActionEvaluator <> action_read def
+R3196:3203 KamiHW.HWBoundary <> hwb_regs def
+R3205:3205 KamiHW.HWBoundaryReads <> b:18 var
+R3223:3232 Kami.Syntax <> SyntaxKind constr
+R3235:3237 Kami.Syntax <> Bit constr
+R3239:3244 KamiHW.ThieleTypes <> WordSz def
+R3250:3253 Coq.Init.Datatypes <> Some constr
+R3256:3269 KamiHW.HWBoundary <> hw_minstret_lo proj
+R3271:3271 KamiHW.HWBoundaryReads <> b:18 var
+prf 3329:3348 <> hwb_read_minstret_hi
+binder 3359:3359 <> b:19
+R3428:3430 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3364:3374 KamiHW.ActionEvaluator <> action_read def
+R3377:3384 KamiHW.HWBoundary <> hwb_regs def
+R3386:3386 KamiHW.HWBoundaryReads <> b:19 var
+R3404:3413 Kami.Syntax <> SyntaxKind constr
+R3416:3418 Kami.Syntax <> Bit constr
+R3420:3425 KamiHW.ThieleTypes <> WordSz def
+R3431:3434 Coq.Init.Datatypes <> Some constr
+R3437:3450 KamiHW.HWBoundary <> hw_minstret_hi proj
+R3452:3452 KamiHW.HWBoundaryReads <> b:19 var
+prf 3510:3529 <> hwb_read_trap_vector
+binder 3540:3540 <> b:20
+R3609:3611 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3545:3555 KamiHW.ActionEvaluator <> action_read def
+R3558:3565 KamiHW.HWBoundary <> hwb_regs def
+R3567:3567 KamiHW.HWBoundaryReads <> b:20 var
+R3585:3594 Kami.Syntax <> SyntaxKind constr
+R3597:3599 Kami.Syntax <> Bit constr
+R3601:3606 KamiHW.ThieleTypes <> WordSz def
+R3612:3615 Coq.Init.Datatypes <> Some constr
+R3618:3631 KamiHW.HWBoundary <> hw_trap_vector proj
+R3633:3633 KamiHW.HWBoundaryReads <> b:20 var
+prf 3691:3708 <> hwb_read_certified
+binder 3719:3719 <> b:21
+R3780:3782 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3724:3734 KamiHW.ActionEvaluator <> action_read def
+R3737:3744 KamiHW.HWBoundary <> hwb_regs def
+R3746:3746 KamiHW.HWBoundaryReads <> b:21 var
+R3762:3771 Kami.Syntax <> SyntaxKind constr
+R3774:3777 Kami.Syntax <> Bool constr
+R3783:3786 Coq.Init.Datatypes <> Some constr
+R3789:3800 KamiHW.HWBoundary <> hw_certified proj
+R3802:3802 KamiHW.HWBoundaryReads <> b:21 var
+prf 3860:3881 <> hwb_read_lassert_phase
+binder 3892:3892 <> b:22
+R3958:3960 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3897:3907 KamiHW.ActionEvaluator <> action_read def
+R3910:3917 KamiHW.HWBoundary <> hwb_regs def
+R3919:3919 KamiHW.HWBoundaryReads <> b:22 var
+R3939:3948 Kami.Syntax <> SyntaxKind constr
+R3951:3953 Kami.Syntax <> Bit constr
+R3961:3964 Coq.Init.Datatypes <> Some constr
+R3967:3982 KamiHW.HWBoundary <> hw_lassert_phase proj
+R3984:3984 KamiHW.HWBoundaryReads <> b:22 var
+prf 4042:4062 <> hwb_read_lassert_kind
+binder 4073:4073 <> b:23
+R4137:4139 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4078:4088 KamiHW.ActionEvaluator <> action_read def
+R4091:4098 KamiHW.HWBoundary <> hwb_regs def
+R4100:4100 KamiHW.HWBoundaryReads <> b:23 var
+R4119:4128 Kami.Syntax <> SyntaxKind constr
+R4131:4134 Kami.Syntax <> Bool constr
+R4140:4143 Coq.Init.Datatypes <> Some constr
+R4146:4160 KamiHW.HWBoundary <> hw_lassert_kind proj
+R4162:4162 KamiHW.HWBoundaryReads <> b:23 var
+prf 4220:4241 <> hwb_read_lassert_fbase
+binder 4252:4252 <> b:24
+R4323:4325 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4257:4267 KamiHW.ActionEvaluator <> action_read def
+R4270:4277 KamiHW.HWBoundary <> hwb_regs def
+R4279:4279 KamiHW.HWBoundaryReads <> b:24 var
+R4299:4308 Kami.Syntax <> SyntaxKind constr
+R4311:4313 Kami.Syntax <> Bit constr
+R4315:4320 KamiHW.ThieleTypes <> WordSz def
+R4326:4329 Coq.Init.Datatypes <> Some constr
+R4332:4347 KamiHW.HWBoundary <> hw_lassert_fbase proj
+R4349:4349 KamiHW.HWBoundaryReads <> b:24 var
+prf 4407:4428 <> hwb_read_lassert_cbase
+binder 4439:4439 <> b:25
+R4510:4512 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4444:4454 KamiHW.ActionEvaluator <> action_read def
+R4457:4464 KamiHW.HWBoundary <> hwb_regs def
+R4466:4466 KamiHW.HWBoundaryReads <> b:25 var
+R4486:4495 Kami.Syntax <> SyntaxKind constr
+R4498:4500 Kami.Syntax <> Bit constr
+R4502:4507 KamiHW.ThieleTypes <> WordSz def
+R4513:4516 Coq.Init.Datatypes <> Some constr
+R4519:4534 KamiHW.HWBoundary <> hw_lassert_cbase proj
+R4536:4536 KamiHW.HWBoundaryReads <> b:25 var
+prf 4594:4614 <> hwb_read_lassert_flen
+binder 4625:4625 <> b:26
+R4695:4697 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4630:4640 KamiHW.ActionEvaluator <> action_read def
+R4643:4650 KamiHW.HWBoundary <> hwb_regs def
+R4652:4652 KamiHW.HWBoundaryReads <> b:26 var
+R4671:4680 Kami.Syntax <> SyntaxKind constr
+R4683:4685 Kami.Syntax <> Bit constr
+R4687:4692 KamiHW.ThieleTypes <> WordSz def
+R4698:4701 Coq.Init.Datatypes <> Some constr
+R4704:4718 KamiHW.HWBoundary <> hw_lassert_flen proj
+R4720:4720 KamiHW.HWBoundaryReads <> b:26 var
+prf 4778:4798 <> hwb_read_lassert_clen
+binder 4809:4809 <> b:27
+R4879:4881 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4814:4824 KamiHW.ActionEvaluator <> action_read def
+R4827:4834 KamiHW.HWBoundary <> hwb_regs def
+R4836:4836 KamiHW.HWBoundaryReads <> b:27 var
+R4855:4864 Kami.Syntax <> SyntaxKind constr
+R4867:4869 Kami.Syntax <> Bit constr
+R4871:4876 KamiHW.ThieleTypes <> WordSz def
+R4882:4885 Coq.Init.Datatypes <> Some constr
+R4888:4902 KamiHW.HWBoundary <> hw_lassert_clen proj
+R4904:4904 KamiHW.HWBoundaryReads <> b:27 var
+prf 4962:4983 <> hwb_read_lassert_nvars
+binder 4994:4994 <> b:28
+R5065:5067 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4999:5009 KamiHW.ActionEvaluator <> action_read def
+R5012:5019 KamiHW.HWBoundary <> hwb_regs def
+R5021:5021 KamiHW.HWBoundaryReads <> b:28 var
+R5041:5050 Kami.Syntax <> SyntaxKind constr
+R5053:5055 Kami.Syntax <> Bit constr
+R5057:5062 KamiHW.ThieleTypes <> WordSz def
+R5068:5071 Coq.Init.Datatypes <> Some constr
+R5074:5089 KamiHW.HWBoundary <> hw_lassert_nvars proj
+R5091:5091 KamiHW.HWBoundaryReads <> b:28 var
+prf 5149:5169 <> hwb_read_lassert_fptr
+binder 5180:5180 <> b:29
+R5250:5252 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5185:5195 KamiHW.ActionEvaluator <> action_read def
+R5198:5205 KamiHW.HWBoundary <> hwb_regs def
+R5207:5207 KamiHW.HWBoundaryReads <> b:29 var
+R5226:5235 Kami.Syntax <> SyntaxKind constr
+R5238:5240 Kami.Syntax <> Bit constr
+R5242:5247 KamiHW.ThieleTypes <> WordSz def
+R5253:5256 Coq.Init.Datatypes <> Some constr
+R5259:5273 KamiHW.HWBoundary <> hw_lassert_fptr proj
+R5275:5275 KamiHW.HWBoundaryReads <> b:29 var
+prf 5333:5353 <> hwb_read_lassert_cptr
+binder 5364:5364 <> b:30
+R5434:5436 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5369:5379 KamiHW.ActionEvaluator <> action_read def
+R5382:5389 KamiHW.HWBoundary <> hwb_regs def
+R5391:5391 KamiHW.HWBoundaryReads <> b:30 var
+R5410:5419 Kami.Syntax <> SyntaxKind constr
+R5422:5424 Kami.Syntax <> Bit constr
+R5426:5431 KamiHW.ThieleTypes <> WordSz def
+R5437:5440 Coq.Init.Datatypes <> Some constr
+R5443:5457 KamiHW.HWBoundary <> hw_lassert_cptr proj
+R5459:5459 KamiHW.HWBoundaryReads <> b:30 var
+prf 5517:5537 <> hwb_read_lassert_fbuf
+binder 5548:5548 <> b:31
+R5629:5631 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5553:5563 KamiHW.ActionEvaluator <> action_read def
+R5566:5573 KamiHW.HWBoundary <> hwb_regs def
+R5575:5575 KamiHW.HWBoundaryReads <> b:31 var
+R5594:5603 Kami.Syntax <> SyntaxKind constr
+R5606:5611 Kami.Syntax <> Vector constr
+R5614:5616 Kami.Syntax <> Bit constr
+R5618:5623 KamiHW.ThieleTypes <> WordSz def
+R5632:5635 Coq.Init.Datatypes <> Some constr
+R5638:5652 KamiHW.HWBoundary <> hw_lassert_fbuf proj
+R5654:5654 KamiHW.HWBoundaryReads <> b:31 var
+prf 5712:5732 <> hwb_read_lassert_cbuf
+binder 5743:5743 <> b:32
+R5824:5826 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5748:5758 KamiHW.ActionEvaluator <> action_read def
+R5761:5768 KamiHW.HWBoundary <> hwb_regs def
+R5770:5770 KamiHW.HWBoundaryReads <> b:32 var
+R5789:5798 Kami.Syntax <> SyntaxKind constr
+R5801:5806 Kami.Syntax <> Vector constr
+R5809:5811 Kami.Syntax <> Bit constr
+R5813:5818 KamiHW.ThieleTypes <> WordSz def
+R5827:5830 Coq.Init.Datatypes <> Some constr
+R5833:5847 KamiHW.HWBoundary <> hw_lassert_cbuf proj
+R5849:5849 KamiHW.HWBoundaryReads <> b:32 var
+prf 5907:5933 <> hwb_read_lassert_clause_sat
+binder 5944:5944 <> b:33
+R6014:6016 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5949:5959 KamiHW.ActionEvaluator <> action_read def
+R5962:5969 KamiHW.HWBoundary <> hwb_regs def
+R5971:5971 KamiHW.HWBoundaryReads <> b:33 var
+R5996:6005 Kami.Syntax <> SyntaxKind constr
+R6008:6011 Kami.Syntax <> Bool constr
+R6017:6020 Coq.Init.Datatypes <> Some constr
+R6023:6043 KamiHW.HWBoundary <> hw_lassert_clause_sat proj
+R6045:6045 KamiHW.HWBoundaryReads <> b:33 var
+prf 6103:6137 <> hwb_read_lassert_counter_clause_sat
+binder 6148:6148 <> b:34
+R6226:6228 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6153:6163 KamiHW.ActionEvaluator <> action_read def
+R6166:6173 KamiHW.HWBoundary <> hwb_regs def
+R6175:6175 KamiHW.HWBoundaryReads <> b:34 var
+R6208:6217 Kami.Syntax <> SyntaxKind constr
+R6220:6223 Kami.Syntax <> Bool constr
+R6229:6232 Coq.Init.Datatypes <> Some constr
+R6235:6263 KamiHW.HWBoundary <> hw_lassert_counter_clause_sat proj
+R6265:6265 KamiHW.HWBoundaryReads <> b:34 var
+prf 6323:6356 <> hwb_read_lassert_counter_seen_fail
+binder 6367:6367 <> b:35
+R6444:6446 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6372:6382 KamiHW.ActionEvaluator <> action_read def
+R6385:6392 KamiHW.HWBoundary <> hwb_regs def
+R6394:6394 KamiHW.HWBoundaryReads <> b:35 var
+R6426:6435 Kami.Syntax <> SyntaxKind constr
+R6438:6441 Kami.Syntax <> Bool constr
+R6447:6450 Coq.Init.Datatypes <> Some constr
+R6453:6480 KamiHW.HWBoundary <> hw_lassert_counter_seen_fail proj
+R6482:6482 KamiHW.HWBoundaryReads <> b:35 var
+prf 6540:6558 <> hwb_read_chsh_phase
+binder 6569:6569 <> b:36
+R6632:6634 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6574:6584 KamiHW.ActionEvaluator <> action_read def
+R6587:6594 KamiHW.HWBoundary <> hwb_regs def
+R6596:6596 KamiHW.HWBoundaryReads <> b:36 var
+R6613:6622 Kami.Syntax <> SyntaxKind constr
+R6625:6627 Kami.Syntax <> Bit constr
+R6635:6638 Coq.Init.Datatypes <> Some constr
+R6641:6653 KamiHW.HWBoundary <> hw_chsh_phase proj
+R6655:6655 KamiHW.HWBoundaryReads <> b:36 var
+prf 6713:6729 <> hwb_read_chsh_n00
+binder 6740:6740 <> b:37
+R6802:6804 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6745:6755 KamiHW.ActionEvaluator <> action_read def
+R6758:6765 KamiHW.HWBoundary <> hwb_regs def
+R6767:6767 KamiHW.HWBoundaryReads <> b:37 var
+R6782:6791 Kami.Syntax <> SyntaxKind constr
+R6794:6796 Kami.Syntax <> Bit constr
+R6805:6808 Coq.Init.Datatypes <> Some constr
+R6811:6821 KamiHW.HWBoundary <> hw_chsh_n00 proj
+R6823:6823 KamiHW.HWBoundaryReads <> b:37 var
+prf 6881:6897 <> hwb_read_chsh_n01
+binder 6908:6908 <> b:38
+R6970:6972 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6913:6923 KamiHW.ActionEvaluator <> action_read def
+R6926:6933 KamiHW.HWBoundary <> hwb_regs def
+R6935:6935 KamiHW.HWBoundaryReads <> b:38 var
+R6950:6959 Kami.Syntax <> SyntaxKind constr
+R6962:6964 Kami.Syntax <> Bit constr
+R6973:6976 Coq.Init.Datatypes <> Some constr
+R6979:6989 KamiHW.HWBoundary <> hw_chsh_n01 proj
+R6991:6991 KamiHW.HWBoundaryReads <> b:38 var
+prf 7049:7065 <> hwb_read_chsh_n10
+binder 7076:7076 <> b:39
+R7138:7140 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7081:7091 KamiHW.ActionEvaluator <> action_read def
+R7094:7101 KamiHW.HWBoundary <> hwb_regs def
+R7103:7103 KamiHW.HWBoundaryReads <> b:39 var
+R7118:7127 Kami.Syntax <> SyntaxKind constr
+R7130:7132 Kami.Syntax <> Bit constr
+R7141:7144 Coq.Init.Datatypes <> Some constr
+R7147:7157 KamiHW.HWBoundary <> hw_chsh_n10 proj
+R7159:7159 KamiHW.HWBoundaryReads <> b:39 var
+prf 7217:7233 <> hwb_read_chsh_n11
+binder 7244:7244 <> b:40
+R7306:7308 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7249:7259 KamiHW.ActionEvaluator <> action_read def
+R7262:7269 KamiHW.HWBoundary <> hwb_regs def
+R7271:7271 KamiHW.HWBoundaryReads <> b:40 var
+R7286:7295 Kami.Syntax <> SyntaxKind constr
+R7298:7300 Kami.Syntax <> Bit constr
+R7309:7312 Coq.Init.Datatypes <> Some constr
+R7315:7325 KamiHW.HWBoundary <> hw_chsh_n11 proj
+R7327:7327 KamiHW.HWBoundaryReads <> b:40 var
+prf 7385:7401 <> hwb_read_chsh_d00
+binder 7412:7412 <> b:41
+R7474:7476 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7417:7427 KamiHW.ActionEvaluator <> action_read def
+R7430:7437 KamiHW.HWBoundary <> hwb_regs def
+R7439:7439 KamiHW.HWBoundaryReads <> b:41 var
+R7454:7463 Kami.Syntax <> SyntaxKind constr
+R7466:7468 Kami.Syntax <> Bit constr
+R7477:7480 Coq.Init.Datatypes <> Some constr
+R7483:7493 KamiHW.HWBoundary <> hw_chsh_d00 proj
+R7495:7495 KamiHW.HWBoundaryReads <> b:41 var
+prf 7553:7569 <> hwb_read_chsh_d01
+binder 7580:7580 <> b:42
+R7642:7644 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7585:7595 KamiHW.ActionEvaluator <> action_read def
+R7598:7605 KamiHW.HWBoundary <> hwb_regs def
+R7607:7607 KamiHW.HWBoundaryReads <> b:42 var
+R7622:7631 Kami.Syntax <> SyntaxKind constr
+R7634:7636 Kami.Syntax <> Bit constr
+R7645:7648 Coq.Init.Datatypes <> Some constr
+R7651:7661 KamiHW.HWBoundary <> hw_chsh_d01 proj
+R7663:7663 KamiHW.HWBoundaryReads <> b:42 var
+prf 7721:7737 <> hwb_read_chsh_d10
+binder 7748:7748 <> b:43
+R7810:7812 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7753:7763 KamiHW.ActionEvaluator <> action_read def
+R7766:7773 KamiHW.HWBoundary <> hwb_regs def
+R7775:7775 KamiHW.HWBoundaryReads <> b:43 var
+R7790:7799 Kami.Syntax <> SyntaxKind constr
+R7802:7804 Kami.Syntax <> Bit constr
+R7813:7816 Coq.Init.Datatypes <> Some constr
+R7819:7829 KamiHW.HWBoundary <> hw_chsh_d10 proj
+R7831:7831 KamiHW.HWBoundaryReads <> b:43 var
+prf 7889:7905 <> hwb_read_chsh_d11
+binder 7916:7916 <> b:44
+R7978:7980 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7921:7931 KamiHW.ActionEvaluator <> action_read def
+R7934:7941 KamiHW.HWBoundary <> hwb_regs def
+R7943:7943 KamiHW.HWBoundaryReads <> b:44 var
+R7958:7967 Kami.Syntax <> SyntaxKind constr
+R7970:7972 Kami.Syntax <> Bit constr
+R7981:7984 Coq.Init.Datatypes <> Some constr
+R7987:7997 KamiHW.HWBoundary <> hw_chsh_d11 proj
+R7999:7999 KamiHW.HWBoundaryReads <> b:44 var
+prf 8057:8076 <> hwb_read_chsh_sign00
+binder 8087:8087 <> b:45
+R8150:8152 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8092:8102 KamiHW.ActionEvaluator <> action_read def
+R8105:8112 KamiHW.HWBoundary <> hwb_regs def
+R8114:8114 KamiHW.HWBoundaryReads <> b:45 var
+R8132:8141 Kami.Syntax <> SyntaxKind constr
+R8144:8147 Kami.Syntax <> Bool constr
+R8153:8156 Coq.Init.Datatypes <> Some constr
+R8159:8172 KamiHW.HWBoundary <> hw_chsh_sign00 proj
+R8174:8174 KamiHW.HWBoundaryReads <> b:45 var
+prf 8232:8251 <> hwb_read_chsh_sign01
+binder 8262:8262 <> b:46
+R8325:8327 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8267:8277 KamiHW.ActionEvaluator <> action_read def
+R8280:8287 KamiHW.HWBoundary <> hwb_regs def
+R8289:8289 KamiHW.HWBoundaryReads <> b:46 var
+R8307:8316 Kami.Syntax <> SyntaxKind constr
+R8319:8322 Kami.Syntax <> Bool constr
+R8328:8331 Coq.Init.Datatypes <> Some constr
+R8334:8347 KamiHW.HWBoundary <> hw_chsh_sign01 proj
+R8349:8349 KamiHW.HWBoundaryReads <> b:46 var
+prf 8407:8426 <> hwb_read_chsh_sign10
+binder 8437:8437 <> b:47
+R8500:8502 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8442:8452 KamiHW.ActionEvaluator <> action_read def
+R8455:8462 KamiHW.HWBoundary <> hwb_regs def
+R8464:8464 KamiHW.HWBoundaryReads <> b:47 var
+R8482:8491 Kami.Syntax <> SyntaxKind constr
+R8494:8497 Kami.Syntax <> Bool constr
+R8503:8506 Coq.Init.Datatypes <> Some constr
+R8509:8522 KamiHW.HWBoundary <> hw_chsh_sign10 proj
+R8524:8524 KamiHW.HWBoundaryReads <> b:47 var
+prf 8582:8601 <> hwb_read_chsh_sign11
+binder 8612:8612 <> b:48
+R8675:8677 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8617:8627 KamiHW.ActionEvaluator <> action_read def
+R8630:8637 KamiHW.HWBoundary <> hwb_regs def
+R8639:8639 KamiHW.HWBoundaryReads <> b:48 var
+R8657:8666 Kami.Syntax <> SyntaxKind constr
+R8669:8672 Kami.Syntax <> Bool constr
+R8678:8681 Coq.Init.Datatypes <> Some constr
+R8684:8697 KamiHW.HWBoundary <> hw_chsh_sign11 proj
+R8699:8699 KamiHW.HWBoundaryReads <> b:48 var
+prf 8757:8775 <> hwb_read_chsh_n00sq
+binder 8786:8786 <> b:49
+R8851:8853 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8791:8801 KamiHW.ActionEvaluator <> action_read def
+R8804:8811 KamiHW.HWBoundary <> hwb_regs def
+R8813:8813 KamiHW.HWBoundaryReads <> b:49 var
+R8830:8839 Kami.Syntax <> SyntaxKind constr
+R8842:8844 Kami.Syntax <> Bit constr
+R8854:8857 Coq.Init.Datatypes <> Some constr
+R8860:8872 KamiHW.HWBoundary <> hw_chsh_n00sq proj
+R8874:8874 KamiHW.HWBoundaryReads <> b:49 var
+prf 8932:8950 <> hwb_read_chsh_n01sq
+binder 8961:8961 <> b:50
+R9026:9028 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8966:8976 KamiHW.ActionEvaluator <> action_read def
+R8979:8986 KamiHW.HWBoundary <> hwb_regs def
+R8988:8988 KamiHW.HWBoundaryReads <> b:50 var
+R9005:9014 Kami.Syntax <> SyntaxKind constr
+R9017:9019 Kami.Syntax <> Bit constr
+R9029:9032 Coq.Init.Datatypes <> Some constr
+R9035:9047 KamiHW.HWBoundary <> hw_chsh_n01sq proj
+R9049:9049 KamiHW.HWBoundaryReads <> b:50 var
+prf 9107:9125 <> hwb_read_chsh_n10sq
+binder 9136:9136 <> b:51
+R9201:9203 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9141:9151 KamiHW.ActionEvaluator <> action_read def
+R9154:9161 KamiHW.HWBoundary <> hwb_regs def
+R9163:9163 KamiHW.HWBoundaryReads <> b:51 var
+R9180:9189 Kami.Syntax <> SyntaxKind constr
+R9192:9194 Kami.Syntax <> Bit constr
+R9204:9207 Coq.Init.Datatypes <> Some constr
+R9210:9222 KamiHW.HWBoundary <> hw_chsh_n10sq proj
+R9224:9224 KamiHW.HWBoundaryReads <> b:51 var
+prf 9282:9300 <> hwb_read_chsh_n11sq
+binder 9311:9311 <> b:52
+R9376:9378 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9316:9326 KamiHW.ActionEvaluator <> action_read def
+R9329:9336 KamiHW.HWBoundary <> hwb_regs def
+R9338:9338 KamiHW.HWBoundaryReads <> b:52 var
+R9355:9364 Kami.Syntax <> SyntaxKind constr
+R9367:9369 Kami.Syntax <> Bit constr
+R9379:9382 Coq.Init.Datatypes <> Some constr
+R9385:9397 KamiHW.HWBoundary <> hw_chsh_n11sq proj
+R9399:9399 KamiHW.HWBoundaryReads <> b:52 var
+prf 9457:9475 <> hwb_read_chsh_d00sq
+binder 9486:9486 <> b:53
+R9551:9553 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9491:9501 KamiHW.ActionEvaluator <> action_read def
+R9504:9511 KamiHW.HWBoundary <> hwb_regs def
+R9513:9513 KamiHW.HWBoundaryReads <> b:53 var
+R9530:9539 Kami.Syntax <> SyntaxKind constr
+R9542:9544 Kami.Syntax <> Bit constr
+R9554:9557 Coq.Init.Datatypes <> Some constr
+R9560:9572 KamiHW.HWBoundary <> hw_chsh_d00sq proj
+R9574:9574 KamiHW.HWBoundaryReads <> b:53 var
+prf 9632:9650 <> hwb_read_chsh_d01sq
+binder 9661:9661 <> b:54
+R9726:9728 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9666:9676 KamiHW.ActionEvaluator <> action_read def
+R9679:9686 KamiHW.HWBoundary <> hwb_regs def
+R9688:9688 KamiHW.HWBoundaryReads <> b:54 var
+R9705:9714 Kami.Syntax <> SyntaxKind constr
+R9717:9719 Kami.Syntax <> Bit constr
+R9729:9732 Coq.Init.Datatypes <> Some constr
+R9735:9747 KamiHW.HWBoundary <> hw_chsh_d01sq proj
+R9749:9749 KamiHW.HWBoundaryReads <> b:54 var
+prf 9807:9825 <> hwb_read_chsh_d10sq
+binder 9836:9836 <> b:55
+R9901:9903 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9841:9851 KamiHW.ActionEvaluator <> action_read def
+R9854:9861 KamiHW.HWBoundary <> hwb_regs def
+R9863:9863 KamiHW.HWBoundaryReads <> b:55 var
+R9880:9889 Kami.Syntax <> SyntaxKind constr
+R9892:9894 Kami.Syntax <> Bit constr
+R9904:9907 Coq.Init.Datatypes <> Some constr
+R9910:9922 KamiHW.HWBoundary <> hw_chsh_d10sq proj
+R9924:9924 KamiHW.HWBoundaryReads <> b:55 var
+prf 9982:10000 <> hwb_read_chsh_d11sq
+binder 10011:10011 <> b:56
+R10076:10078 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10016:10026 KamiHW.ActionEvaluator <> action_read def
+R10029:10036 KamiHW.HWBoundary <> hwb_regs def
+R10038:10038 KamiHW.HWBoundaryReads <> b:56 var
+R10055:10064 Kami.Syntax <> SyntaxKind constr
+R10067:10069 Kami.Syntax <> Bit constr
+R10079:10082 Coq.Init.Datatypes <> Some constr
+R10085:10097 KamiHW.HWBoundary <> hw_chsh_d11sq proj
+R10099:10099 KamiHW.HWBoundaryReads <> b:56 var
+prf 10157:10175 <> hwb_read_chsh_A_pos
+binder 10186:10186 <> b:57
+R10251:10253 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10191:10201 KamiHW.ActionEvaluator <> action_read def
+R10204:10211 KamiHW.HWBoundary <> hwb_regs def
+R10213:10213 KamiHW.HWBoundaryReads <> b:57 var
+R10230:10239 Kami.Syntax <> SyntaxKind constr
+R10242:10244 Kami.Syntax <> Bit constr
+R10254:10257 Coq.Init.Datatypes <> Some constr
+R10260:10272 KamiHW.HWBoundary <> hw_chsh_A_pos proj
+R10274:10274 KamiHW.HWBoundaryReads <> b:57 var
+prf 10332:10352 <> hwb_read_chsh_A_neg_a
+binder 10363:10363 <> b:58
+R10430:10432 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10368:10378 KamiHW.ActionEvaluator <> action_read def
+R10381:10388 KamiHW.HWBoundary <> hwb_regs def
+R10390:10390 KamiHW.HWBoundaryReads <> b:58 var
+R10409:10418 Kami.Syntax <> SyntaxKind constr
+R10421:10423 Kami.Syntax <> Bit constr
+R10433:10436 Coq.Init.Datatypes <> Some constr
+R10439:10453 KamiHW.HWBoundary <> hw_chsh_A_neg_a proj
+R10455:10455 KamiHW.HWBoundaryReads <> b:58 var
+prf 10513:10533 <> hwb_read_chsh_A_neg_b
+binder 10544:10544 <> b:59
+R10611:10613 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10549:10559 KamiHW.ActionEvaluator <> action_read def
+R10562:10569 KamiHW.HWBoundary <> hwb_regs def
+R10571:10571 KamiHW.HWBoundaryReads <> b:59 var
+R10590:10599 Kami.Syntax <> SyntaxKind constr
+R10602:10604 Kami.Syntax <> Bit constr
+R10614:10617 Coq.Init.Datatypes <> Some constr
+R10620:10634 KamiHW.HWBoundary <> hw_chsh_A_neg_b proj
+R10636:10636 KamiHW.HWBoundaryReads <> b:59 var
+prf 10694:10712 <> hwb_read_chsh_B_pos
+binder 10723:10723 <> b:60
+R10788:10790 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10728:10738 KamiHW.ActionEvaluator <> action_read def
+R10741:10748 KamiHW.HWBoundary <> hwb_regs def
+R10750:10750 KamiHW.HWBoundaryReads <> b:60 var
+R10767:10776 Kami.Syntax <> SyntaxKind constr
+R10779:10781 Kami.Syntax <> Bit constr
+R10791:10794 Coq.Init.Datatypes <> Some constr
+R10797:10809 KamiHW.HWBoundary <> hw_chsh_B_pos proj
+R10811:10811 KamiHW.HWBoundaryReads <> b:60 var
+prf 10869:10889 <> hwb_read_chsh_B_neg_a
+binder 10900:10900 <> b:61
+R10967:10969 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10905:10915 KamiHW.ActionEvaluator <> action_read def
+R10918:10925 KamiHW.HWBoundary <> hwb_regs def
+R10927:10927 KamiHW.HWBoundaryReads <> b:61 var
+R10946:10955 Kami.Syntax <> SyntaxKind constr
+R10958:10960 Kami.Syntax <> Bit constr
+R10970:10973 Coq.Init.Datatypes <> Some constr
+R10976:10990 KamiHW.HWBoundary <> hw_chsh_B_neg_a proj
+R10992:10992 KamiHW.HWBoundaryReads <> b:61 var
+prf 11050:11070 <> hwb_read_chsh_B_neg_b
+binder 11081:11081 <> b:62
+R11148:11150 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11086:11096 KamiHW.ActionEvaluator <> action_read def
+R11099:11106 KamiHW.HWBoundary <> hwb_regs def
+R11108:11108 KamiHW.HWBoundaryReads <> b:62 var
+R11127:11136 Kami.Syntax <> SyntaxKind constr
+R11139:11141 Kami.Syntax <> Bit constr
+R11151:11154 Coq.Init.Datatypes <> Some constr
+R11157:11171 KamiHW.HWBoundary <> hw_chsh_B_neg_b proj
+R11173:11173 KamiHW.HWBoundaryReads <> b:62 var
+prf 11231:11250 <> hwb_read_chsh_d00d01
+binder 11261:11261 <> b:63
+R11327:11329 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11266:11276 KamiHW.ActionEvaluator <> action_read def
+R11279:11286 KamiHW.HWBoundary <> hwb_regs def
+R11288:11288 KamiHW.HWBoundaryReads <> b:63 var
+R11306:11315 Kami.Syntax <> SyntaxKind constr
+R11318:11320 Kami.Syntax <> Bit constr
+R11330:11333 Coq.Init.Datatypes <> Some constr
+R11336:11349 KamiHW.HWBoundary <> hw_chsh_d00d01 proj
+R11351:11351 KamiHW.HWBoundaryReads <> b:63 var
+prf 11409:11428 <> hwb_read_chsh_n10n11
+binder 11439:11439 <> b:64
+R11505:11507 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11444:11454 KamiHW.ActionEvaluator <> action_read def
+R11457:11464 KamiHW.HWBoundary <> hwb_regs def
+R11466:11466 KamiHW.HWBoundaryReads <> b:64 var
+R11484:11493 Kami.Syntax <> SyntaxKind constr
+R11496:11498 Kami.Syntax <> Bit constr
+R11508:11511 Coq.Init.Datatypes <> Some constr
+R11514:11527 KamiHW.HWBoundary <> hw_chsh_n10n11 proj
+R11529:11529 KamiHW.HWBoundaryReads <> b:64 var
+prf 11587:11606 <> hwb_read_chsh_d10d11
+binder 11617:11617 <> b:65
+R11683:11685 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11622:11632 KamiHW.ActionEvaluator <> action_read def
+R11635:11642 KamiHW.HWBoundary <> hwb_regs def
+R11644:11644 KamiHW.HWBoundaryReads <> b:65 var
+R11662:11671 Kami.Syntax <> SyntaxKind constr
+R11674:11676 Kami.Syntax <> Bit constr
+R11686:11689 Coq.Init.Datatypes <> Some constr
+R11692:11705 KamiHW.HWBoundary <> hw_chsh_d10d11 proj
+R11707:11707 KamiHW.HWBoundaryReads <> b:65 var
+prf 11765:11784 <> hwb_read_chsh_n00n01
+binder 11795:11795 <> b:66
+R11861:11863 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11800:11810 KamiHW.ActionEvaluator <> action_read def
+R11813:11820 KamiHW.HWBoundary <> hwb_regs def
+R11822:11822 KamiHW.HWBoundaryReads <> b:66 var
+R11840:11849 Kami.Syntax <> SyntaxKind constr
+R11852:11854 Kami.Syntax <> Bit constr
+R11864:11867 Coq.Init.Datatypes <> Some constr
+R11870:11883 KamiHW.HWBoundary <> hw_chsh_n00n01 proj
+R11885:11885 KamiHW.HWBoundaryReads <> b:66 var
+prf 11943:11962 <> hwb_read_chsh_abs_C1
+binder 11973:11973 <> b:67
+R12039:12041 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11978:11988 KamiHW.ActionEvaluator <> action_read def
+R11991:11998 KamiHW.HWBoundary <> hwb_regs def
+R12000:12000 KamiHW.HWBoundaryReads <> b:67 var
+R12018:12027 Kami.Syntax <> SyntaxKind constr
+R12030:12032 Kami.Syntax <> Bit constr
+R12042:12045 Coq.Init.Datatypes <> Some constr
+R12048:12061 KamiHW.HWBoundary <> hw_chsh_abs_C1 proj
+R12063:12063 KamiHW.HWBoundaryReads <> b:67 var
+prf 12121:12140 <> hwb_read_chsh_abs_C2
+binder 12151:12151 <> b:68
+R12217:12219 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12156:12166 KamiHW.ActionEvaluator <> action_read def
+R12169:12176 KamiHW.HWBoundary <> hwb_regs def
+R12178:12178 KamiHW.HWBoundaryReads <> b:68 var
+R12196:12205 Kami.Syntax <> SyntaxKind constr
+R12208:12210 Kami.Syntax <> Bit constr
+R12220:12223 Coq.Init.Datatypes <> Some constr
+R12226:12239 KamiHW.HWBoundary <> hw_chsh_abs_C2 proj
+R12241:12241 KamiHW.HWBoundaryReads <> b:68 var
+prf 12299:12316 <> hwb_read_chsh_C_sq
+binder 12327:12327 <> b:69
+R12391:12393 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12332:12342 KamiHW.ActionEvaluator <> action_read def
+R12345:12352 KamiHW.HWBoundary <> hwb_regs def
+R12354:12354 KamiHW.HWBoundaryReads <> b:69 var
+R12370:12379 Kami.Syntax <> SyntaxKind constr
+R12382:12384 Kami.Syntax <> Bit constr
+R12394:12397 Coq.Init.Datatypes <> Some constr
+R12400:12411 KamiHW.HWBoundary <> hw_chsh_C_sq proj
+R12413:12413 KamiHW.HWBoundaryReads <> b:69 var
+prf 12471:12493 <> hwb_read_chsh_A_times_B
+binder 12504:12504 <> b:70
+R12573:12575 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12509:12519 KamiHW.ActionEvaluator <> action_read def
+R12522:12529 KamiHW.HWBoundary <> hwb_regs def
+R12531:12531 KamiHW.HWBoundaryReads <> b:70 var
+R12552:12561 Kami.Syntax <> SyntaxKind constr
+R12564:12566 Kami.Syntax <> Bit constr
+R12576:12579 Coq.Init.Datatypes <> Some constr
+R12582:12598 KamiHW.HWBoundary <> hw_chsh_A_times_B proj
+R12600:12600 KamiHW.HWBoundaryReads <> b:70 var
+prf 12658:12683 <> hwb_read_chsh_check_result
+binder 12694:12694 <> b:71
+R12763:12765 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12699:12709 KamiHW.ActionEvaluator <> action_read def
+R12712:12719 KamiHW.HWBoundary <> hwb_regs def
+R12721:12721 KamiHW.HWBoundaryReads <> b:71 var
+R12745:12754 Kami.Syntax <> SyntaxKind constr
+R12757:12760 Kami.Syntax <> Bool constr
+R12766:12769 Coq.Init.Datatypes <> Some constr
+R12772:12791 KamiHW.HWBoundary <> hw_chsh_check_result proj
+R12793:12793 KamiHW.HWBoundaryReads <> b:71 var
+prf 12851:12878 <> hwb_read_bus_load_instr_addr
+binder 12889:12889 <> b:72
+R12969:12971 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12894:12904 KamiHW.ActionEvaluator <> action_read def
+R12907:12914 KamiHW.HWBoundary <> hwb_regs def
+R12916:12916 KamiHW.HWBoundaryReads <> b:72 var
+R12942:12951 Kami.Syntax <> SyntaxKind constr
+R12954:12956 Kami.Syntax <> Bit constr
+R12958:12966 KamiHW.ThieleTypes <> MemAddrSz def
+R12972:12975 Coq.Init.Datatypes <> Some constr
+R12978:12999 KamiHW.HWBoundary <> hw_bus_load_instr_addr proj
+R13001:13001 KamiHW.HWBoundaryReads <> b:72 var
+prf 13059:13086 <> hwb_read_bus_load_instr_data
+binder 13097:13097 <> b:73
+R13175:13177 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13102:13112 KamiHW.ActionEvaluator <> action_read def
+R13115:13122 KamiHW.HWBoundary <> hwb_regs def
+R13124:13124 KamiHW.HWBoundaryReads <> b:73 var
+R13150:13159 Kami.Syntax <> SyntaxKind constr
+R13162:13164 Kami.Syntax <> Bit constr
+R13166:13172 KamiHW.ThieleTypes <> InstrSz def
+R13178:13181 Coq.Init.Datatypes <> Some constr
+R13184:13205 KamiHW.HWBoundary <> hw_bus_load_instr_data proj
+R13207:13207 KamiHW.HWBoundaryReads <> b:73 var
+prf 13265:13292 <> hwb_read_bus_load_instr_kick
+binder 13303:13303 <> b:74
+R13374:13376 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13308:13318 KamiHW.ActionEvaluator <> action_read def
+R13321:13328 KamiHW.HWBoundary <> hwb_regs def
+R13330:13330 KamiHW.HWBoundaryReads <> b:74 var
+R13356:13365 Kami.Syntax <> SyntaxKind constr
+R13368:13371 Kami.Syntax <> Bool constr
+R13377:13380 Coq.Init.Datatypes <> Some constr
+R13383:13404 KamiHW.HWBoundary <> hw_bus_load_instr_kick proj
+R13406:13406 KamiHW.HWBoundaryReads <> b:74 var
+prf 13464:13481 <> hwb_read_mu_tensor
+binder 13492:13492 <> b:75
+R13582:13584 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13497:13507 KamiHW.ActionEvaluator <> action_read def
+R13510:13517 KamiHW.HWBoundary <> hwb_regs def
+R13519:13519 KamiHW.HWBoundaryReads <> b:75 var
+R13535:13544 Kami.Syntax <> SyntaxKind constr
+R13547:13552 Kami.Syntax <> Vector constr
+R13567:13579 KamiHW.ThieleTypes <> MuTensorIdxSz def
+R13555:13557 Kami.Syntax <> Bit constr
+R13559:13564 KamiHW.ThieleTypes <> WordSz def
+R13585:13588 Coq.Init.Datatypes <> Some constr
+R13591:13602 KamiHW.HWBoundary <> hw_mu_tensor proj
+R13604:13604 KamiHW.HWBoundaryReads <> b:75 var
+prf 13662:13684 <> hwb_read_module_tensors
+binder 13695:13695 <> b:76
+R13814:13816 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13700:13710 KamiHW.ActionEvaluator <> action_read def
+R13713:13720 KamiHW.HWBoundary <> hwb_regs def
+R13722:13722 KamiHW.HWBoundaryReads <> b:76 var
+R13743:13752 Kami.Syntax <> SyntaxKind constr
+R13755:13760 Kami.Syntax <> Vector constr
+R13798:13811 KamiHW.ThieleTypes <> ModTensorIdxSz def
+R13763:13768 Kami.Syntax <> Vector constr
+R13783:13795 KamiHW.ThieleTypes <> MuTensorIdxSz def
+R13771:13773 Kami.Syntax <> Bit constr
+R13775:13780 KamiHW.ThieleTypes <> WordSz def
+R13817:13820 Coq.Init.Datatypes <> Some constr
+R13823:13839 KamiHW.HWBoundary <> hw_module_tensors proj
+R13841:13841 KamiHW.HWBoundaryReads <> b:76 var
+prf 13899:13917 <> hwb_read_csr_status
+binder 13928:13928 <> b:77
+R13996:13998 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13933:13943 KamiHW.ActionEvaluator <> action_read def
+R13946:13953 KamiHW.HWBoundary <> hwb_regs def
+R13955:13955 KamiHW.HWBoundaryReads <> b:77 var
+R13972:13981 Kami.Syntax <> SyntaxKind constr
+R13984:13986 Kami.Syntax <> Bit constr
+R13988:13993 KamiHW.ThieleTypes <> WordSz def
+R13999:14002 Coq.Init.Datatypes <> Some constr
+R14005:14017 KamiHW.HWBoundary <> hw_csr_status proj
+R14019:14019 KamiHW.HWBoundaryReads <> b:77 var
+prf 14077:14098 <> hwb_read_csr_heap_base
+binder 14109:14109 <> b:78
+R14180:14182 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14114:14124 KamiHW.ActionEvaluator <> action_read def
+R14127:14134 KamiHW.HWBoundary <> hwb_regs def
+R14136:14136 KamiHW.HWBoundaryReads <> b:78 var
+R14156:14165 Kami.Syntax <> SyntaxKind constr
+R14168:14170 Kami.Syntax <> Bit constr
+R14172:14177 KamiHW.ThieleTypes <> WordSz def
+R14183:14186 Coq.Init.Datatypes <> Some constr
+R14189:14204 KamiHW.HWBoundary <> hw_csr_heap_base proj
+R14206:14206 KamiHW.HWBoundaryReads <> b:78 var
+prf 14264:14279 <> hwb_read_ptTable
+binder 14290:14290 <> b:79
+R14376:14378 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14295:14305 KamiHW.ActionEvaluator <> action_read def
+R14308:14315 KamiHW.HWBoundary <> hwb_regs def
+R14317:14317 KamiHW.HWBoundaryReads <> b:79 var
+R14331:14340 Kami.Syntax <> SyntaxKind constr
+R14343:14348 Kami.Syntax <> Vector constr
+R14363:14373 KamiHW.ThieleTypes <> PTableIdxSz def
+R14351:14353 Kami.Syntax <> Bit constr
+R14355:14360 KamiHW.ThieleTypes <> WordSz def
+R14379:14382 Coq.Init.Datatypes <> Some constr
+R14385:14394 KamiHW.HWBoundary <> hw_ptTable proj
+R14396:14396 KamiHW.HWBoundaryReads <> b:79 var
+prf 14454:14472 <> hwb_read_pt_next_id
+binder 14483:14483 <> b:80
+R14559:14561 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14488:14498 KamiHW.ActionEvaluator <> action_read def
+R14501:14508 KamiHW.HWBoundary <> hwb_regs def
+R14510:14510 KamiHW.HWBoundaryReads <> b:80 var
+R14527:14536 Kami.Syntax <> SyntaxKind constr
+R14539:14541 Kami.Syntax <> Bit constr
+R14543:14556 KamiHW.ThieleTypes <> PTableNextIdSz def
+R14562:14565 Coq.Init.Datatypes <> Some constr
+R14568:14580 KamiHW.HWBoundary <> hw_pt_next_id proj
+R14582:14582 KamiHW.HWBoundaryReads <> b:80 var
+prf 14640:14663 <> hwb_read_morph_src_table
+binder 14674:14674 <> b:81
+R14777:14779 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14679:14689 KamiHW.ActionEvaluator <> action_read def
+R14692:14699 KamiHW.HWBoundary <> hwb_regs def
+R14701:14701 KamiHW.HWBoundaryReads <> b:81 var
+R14723:14732 Kami.Syntax <> SyntaxKind constr
+R14735:14740 Kami.Syntax <> Vector constr
+R14760:14774 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R14743:14745 Kami.Syntax <> Bit constr
+R14747:14757 KamiHW.ThieleTypes <> PTableIdxSz def
+R14780:14783 Coq.Init.Datatypes <> Some constr
+R14786:14803 KamiHW.HWBoundary <> hw_morph_src_table proj
+R14805:14805 KamiHW.HWBoundaryReads <> b:81 var
+prf 14863:14886 <> hwb_read_morph_dst_table
+binder 14897:14897 <> b:82
+R15000:15002 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14902:14912 KamiHW.ActionEvaluator <> action_read def
+R14915:14922 KamiHW.HWBoundary <> hwb_regs def
+R14924:14924 KamiHW.HWBoundaryReads <> b:82 var
+R14946:14955 Kami.Syntax <> SyntaxKind constr
+R14958:14963 Kami.Syntax <> Vector constr
+R14983:14997 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R14966:14968 Kami.Syntax <> Bit constr
+R14970:14980 KamiHW.ThieleTypes <> PTableIdxSz def
+R15003:15006 Coq.Init.Datatypes <> Some constr
+R15009:15026 KamiHW.HWBoundary <> hw_morph_dst_table proj
+R15028:15028 KamiHW.HWBoundaryReads <> b:82 var
+prf 15086:15119 <> hwb_read_morph_coupling_desc_table
+binder 15130:15130 <> b:83
+R15241:15243 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15135:15145 KamiHW.ActionEvaluator <> action_read def
+R15148:15155 KamiHW.HWBoundary <> hwb_regs def
+R15157:15157 KamiHW.HWBoundaryReads <> b:83 var
+R15189:15198 Kami.Syntax <> SyntaxKind constr
+R15201:15206 Kami.Syntax <> Vector constr
+R15224:15238 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R15209:15211 Kami.Syntax <> Bit constr
+R15213:15221 KamiHW.ThieleTypes <> DescIdxSz def
+R15244:15247 Coq.Init.Datatypes <> Some constr
+R15250:15277 KamiHW.HWBoundary <> hw_morph_coupling_desc_table proj
+R15279:15279 KamiHW.HWBoundaryReads <> b:83 var
+prf 15337:15362 <> hwb_read_morph_valid_table
+binder 15373:15373 <> b:84
+R15465:15467 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15378:15388 KamiHW.ActionEvaluator <> action_read def
+R15391:15398 KamiHW.HWBoundary <> hwb_regs def
+R15400:15400 KamiHW.HWBoundaryReads <> b:84 var
+R15424:15433 Kami.Syntax <> SyntaxKind constr
+R15436:15441 Kami.Syntax <> Vector constr
+R15448:15462 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R15443:15446 Kami.Syntax <> Bool constr
+R15468:15471 Coq.Init.Datatypes <> Some constr
+R15474:15493 KamiHW.HWBoundary <> hw_morph_valid_table proj
+R15495:15495 KamiHW.HWBoundaryReads <> b:84 var
+prf 15553:15581 <> hwb_read_morph_identity_table
+binder 15592:15592 <> b:85
+R15687:15689 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15597:15607 KamiHW.ActionEvaluator <> action_read def
+R15610:15617 KamiHW.HWBoundary <> hwb_regs def
+R15619:15619 KamiHW.HWBoundaryReads <> b:85 var
+R15646:15655 Kami.Syntax <> SyntaxKind constr
+R15658:15663 Kami.Syntax <> Vector constr
+R15670:15684 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R15665:15668 Kami.Syntax <> Bool constr
+R15690:15693 Coq.Init.Datatypes <> Some constr
+R15696:15718 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R15720:15720 KamiHW.HWBoundaryReads <> b:85 var
+prf 15778:15799 <> hwb_read_morph_next_id
+binder 15810:15810 <> b:86
+R15893:15895 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15815:15825 KamiHW.ActionEvaluator <> action_read def
+R15828:15835 KamiHW.HWBoundary <> hwb_regs def
+R15837:15837 KamiHW.HWBoundaryReads <> b:86 var
+R15857:15866 Kami.Syntax <> SyntaxKind constr
+R15869:15871 Kami.Syntax <> Bit constr
+R15873:15890 KamiHW.ThieleTypes <> MorphTableNextIdSz def
+R15896:15899 Coq.Init.Datatypes <> Some constr
+R15902:15917 KamiHW.HWBoundary <> hw_morph_next_id proj
+R15919:15919 KamiHW.HWBoundaryReads <> b:86 var
+prf 15977:16009 <> hwb_read_coupling_desc_base_table
+binder 16020:16020 <> b:87
+R16140:16142 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16025:16035 KamiHW.ActionEvaluator <> action_read def
+R16038:16045 KamiHW.HWBoundary <> hwb_regs def
+R16047:16047 KamiHW.HWBoundaryReads <> b:87 var
+R16078:16087 Kami.Syntax <> SyntaxKind constr
+R16090:16095 Kami.Syntax <> Vector constr
+R16121:16137 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R16098:16100 Kami.Syntax <> Bit constr
+R16102:16118 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R16143:16146 Coq.Init.Datatypes <> Some constr
+R16149:16175 KamiHW.HWBoundary <> hw_coupling_desc_base_table proj
+R16177:16177 KamiHW.HWBoundaryReads <> b:87 var
+prf 16235:16268 <> hwb_read_coupling_desc_count_table
+binder 16279:16279 <> b:88
+R16402:16404 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16284:16294 KamiHW.ActionEvaluator <> action_read def
+R16297:16304 KamiHW.HWBoundary <> hwb_regs def
+R16306:16306 KamiHW.HWBoundaryReads <> b:88 var
+R16338:16347 Kami.Syntax <> SyntaxKind constr
+R16350:16355 Kami.Syntax <> Vector constr
+R16383:16399 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R16358:16360 Kami.Syntax <> Bit constr
+R16362:16380 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R16405:16408 Coq.Init.Datatypes <> Some constr
+R16411:16438 KamiHW.HWBoundary <> hw_coupling_desc_count_table proj
+R16440:16440 KamiHW.HWBoundaryReads <> b:88 var
+prf 16498:16531 <> hwb_read_coupling_desc_valid_table
+binder 16542:16542 <> b:89
+R16644:16646 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16547:16557 KamiHW.ActionEvaluator <> action_read def
+R16560:16567 KamiHW.HWBoundary <> hwb_regs def
+R16569:16569 KamiHW.HWBoundaryReads <> b:89 var
+R16601:16610 Kami.Syntax <> SyntaxKind constr
+R16613:16618 Kami.Syntax <> Vector constr
+R16625:16641 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R16620:16623 Kami.Syntax <> Bool constr
+R16647:16650 Coq.Init.Datatypes <> Some constr
+R16653:16680 KamiHW.HWBoundary <> hw_coupling_desc_valid_table proj
+R16682:16682 KamiHW.HWBoundaryReads <> b:89 var
+prf 16740:16773 <> hwb_read_coupling_desc_label_table
+binder 16784:16784 <> b:90
+R16894:16896 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16789:16799 KamiHW.ActionEvaluator <> action_read def
+R16802:16809 KamiHW.HWBoundary <> hwb_regs def
+R16811:16811 KamiHW.HWBoundaryReads <> b:90 var
+R16843:16852 Kami.Syntax <> SyntaxKind constr
+R16855:16860 Kami.Syntax <> Vector constr
+R16875:16891 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R16863:16865 Kami.Syntax <> Bit constr
+R16867:16872 KamiHW.ThieleTypes <> WordSz def
+R16897:16900 Coq.Init.Datatypes <> Some constr
+R16903:16930 KamiHW.HWBoundary <> hw_coupling_desc_label_table proj
+R16932:16932 KamiHW.HWBoundaryReads <> b:90 var
+prf 16990:17027 <> hwb_read_coupling_desc_label_len_table
+binder 17038:17038 <> b:91
+R17147:17149 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17043:17053 KamiHW.ActionEvaluator <> action_read def
+R17056:17063 KamiHW.HWBoundary <> hwb_regs def
+R17065:17065 KamiHW.HWBoundaryReads <> b:91 var
+R17101:17110 Kami.Syntax <> SyntaxKind constr
+R17113:17118 Kami.Syntax <> Vector constr
+R17128:17144 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R17121:17123 Kami.Syntax <> Bit constr
+R17150:17153 Coq.Init.Datatypes <> Some constr
+R17156:17187 KamiHW.HWBoundary <> hw_coupling_desc_label_len_table proj
+R17189:17189 KamiHW.HWBoundaryReads <> b:91 var
+prf 17247:17276 <> hwb_read_coupling_desc_next_id
+binder 17287:17287 <> b:92
+R17377:17379 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17292:17302 KamiHW.ActionEvaluator <> action_read def
+R17305:17312 KamiHW.HWBoundary <> hwb_regs def
+R17314:17314 KamiHW.HWBoundaryReads <> b:92 var
+R17342:17351 Kami.Syntax <> SyntaxKind constr
+R17354:17356 Kami.Syntax <> Bit constr
+R17358:17374 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R17380:17383 Coq.Init.Datatypes <> Some constr
+R17386:17409 KamiHW.HWBoundary <> hw_coupling_desc_next_id proj
+R17411:17411 KamiHW.HWBoundaryReads <> b:92 var
+prf 17469:17500 <> hwb_read_coupling_pair_src_table
+binder 17511:17511 <> b:93
+R17619:17621 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17516:17526 KamiHW.ActionEvaluator <> action_read def
+R17529:17536 KamiHW.HWBoundary <> hwb_regs def
+R17538:17538 KamiHW.HWBoundaryReads <> b:93 var
+R17568:17577 Kami.Syntax <> SyntaxKind constr
+R17580:17585 Kami.Syntax <> Vector constr
+R17600:17616 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R17588:17590 Kami.Syntax <> Bit constr
+R17592:17597 KamiHW.ThieleTypes <> WordSz def
+R17622:17625 Coq.Init.Datatypes <> Some constr
+R17628:17653 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R17655:17655 KamiHW.HWBoundaryReads <> b:93 var
+prf 17713:17744 <> hwb_read_coupling_pair_dst_table
+binder 17755:17755 <> b:94
+R17863:17865 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17760:17770 KamiHW.ActionEvaluator <> action_read def
+R17773:17780 KamiHW.HWBoundary <> hwb_regs def
+R17782:17782 KamiHW.HWBoundaryReads <> b:94 var
+R17812:17821 Kami.Syntax <> SyntaxKind constr
+R17824:17829 Kami.Syntax <> Vector constr
+R17844:17860 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R17832:17834 Kami.Syntax <> Bit constr
+R17836:17841 KamiHW.ThieleTypes <> WordSz def
+R17866:17869 Coq.Init.Datatypes <> Some constr
+R17872:17897 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R17899:17899 KamiHW.HWBoundaryReads <> b:94 var
+prf 17957:17990 <> hwb_read_coupling_pair_valid_table
+binder 18001:18001 <> b:95
+R18103:18105 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18006:18016 KamiHW.ActionEvaluator <> action_read def
+R18019:18026 KamiHW.HWBoundary <> hwb_regs def
+R18028:18028 KamiHW.HWBoundaryReads <> b:95 var
+R18060:18069 Kami.Syntax <> SyntaxKind constr
+R18072:18077 Kami.Syntax <> Vector constr
+R18084:18100 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R18079:18082 Kami.Syntax <> Bool constr
+R18106:18109 Coq.Init.Datatypes <> Some constr
+R18112:18139 KamiHW.HWBoundary <> hw_coupling_pair_valid_table proj
+R18141:18141 KamiHW.HWBoundaryReads <> b:95 var
+prf 18199:18228 <> hwb_read_coupling_pair_next_id
+binder 18239:18239 <> b:96
+R18329:18331 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18244:18254 KamiHW.ActionEvaluator <> action_read def
+R18257:18264 KamiHW.HWBoundary <> hwb_regs def
+R18266:18266 KamiHW.HWBoundaryReads <> b:96 var
+R18294:18303 Kami.Syntax <> SyntaxKind constr
+R18306:18308 Kami.Syntax <> Bit constr
+R18310:18326 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R18332:18335 Coq.Init.Datatypes <> Some constr
+R18338:18361 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R18363:18363 KamiHW.HWBoundaryReads <> b:96 var
+prf 18421:18437 <> hwb_read_mc_phase
+binder 18448:18448 <> b:97
+R18509:18511 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18453:18463 KamiHW.ActionEvaluator <> action_read def
+R18466:18473 KamiHW.HWBoundary <> hwb_regs def
+R18475:18475 KamiHW.HWBoundaryReads <> b:97 var
+R18490:18499 Kami.Syntax <> SyntaxKind constr
+R18502:18504 Kami.Syntax <> Bit constr
+R18512:18515 Coq.Init.Datatypes <> Some constr
+R18518:18528 KamiHW.HWBoundary <> hw_mc_phase proj
+R18530:18530 KamiHW.HWBoundaryReads <> b:97 var
+prf 18588:18601 <> hwb_read_mc_op
+binder 18612:18612 <> b:98
+R18670:18672 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18617:18627 KamiHW.ActionEvaluator <> action_read def
+R18630:18637 KamiHW.HWBoundary <> hwb_regs def
+R18639:18639 KamiHW.HWBoundaryReads <> b:98 var
+R18651:18660 Kami.Syntax <> SyntaxKind constr
+R18663:18665 Kami.Syntax <> Bit constr
+R18673:18676 Coq.Init.Datatypes <> Some constr
+R18679:18686 KamiHW.HWBoundary <> hw_mc_op proj
+R18688:18688 KamiHW.HWBoundaryReads <> b:98 var
+prf 18746:18765 <> hwb_read_mc_mem_base
+binder 18776:18776 <> b:99
+R18845:18847 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18781:18791 KamiHW.ActionEvaluator <> action_read def
+R18794:18801 KamiHW.HWBoundary <> hwb_regs def
+R18803:18803 KamiHW.HWBoundaryReads <> b:99 var
+R18821:18830 Kami.Syntax <> SyntaxKind constr
+R18833:18835 Kami.Syntax <> Bit constr
+R18837:18842 KamiHW.ThieleTypes <> WordSz def
+R18848:18851 Coq.Init.Datatypes <> Some constr
+R18854:18867 KamiHW.HWBoundary <> hw_mc_mem_base proj
+R18869:18869 KamiHW.HWBoundaryReads <> b:99 var
+prf 18927:18948 <> hwb_read_mc_pair_count
+binder 18959:18959 <> b:100
+R19043:19045 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18964:18974 KamiHW.ActionEvaluator <> action_read def
+R18977:18984 KamiHW.HWBoundary <> hwb_regs def
+R18986:18986 KamiHW.HWBoundaryReads <> b:100 var
+R19006:19015 Kami.Syntax <> SyntaxKind constr
+R19018:19020 Kami.Syntax <> Bit constr
+R19022:19040 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R19046:19049 Coq.Init.Datatypes <> Some constr
+R19052:19067 KamiHW.HWBoundary <> hw_mc_pair_count proj
+R19069:19069 KamiHW.HWBoundaryReads <> b:100 var
+prf 19127:19146 <> hwb_read_mc_read_ptr
+binder 19157:19157 <> b:101
+R19226:19228 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19162:19172 KamiHW.ActionEvaluator <> action_read def
+R19175:19182 KamiHW.HWBoundary <> hwb_regs def
+R19184:19184 KamiHW.HWBoundaryReads <> b:101 var
+R19202:19211 Kami.Syntax <> SyntaxKind constr
+R19214:19216 Kami.Syntax <> Bit constr
+R19218:19223 KamiHW.ThieleTypes <> WordSz def
+R19229:19232 Coq.Init.Datatypes <> Some constr
+R19235:19248 KamiHW.HWBoundary <> hw_mc_read_ptr proj
+R19250:19250 KamiHW.HWBoundaryReads <> b:101 var
+prf 19308:19328 <> hwb_read_mc_src1_base
+binder 19339:19339 <> b:102
+R19420:19422 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19344:19354 KamiHW.ActionEvaluator <> action_read def
+R19357:19364 KamiHW.HWBoundary <> hwb_regs def
+R19366:19366 KamiHW.HWBoundaryReads <> b:102 var
+R19385:19394 Kami.Syntax <> SyntaxKind constr
+R19397:19399 Kami.Syntax <> Bit constr
+R19401:19417 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R19423:19426 Coq.Init.Datatypes <> Some constr
+R19429:19443 KamiHW.HWBoundary <> hw_mc_src1_base proj
+R19445:19445 KamiHW.HWBoundaryReads <> b:102 var
+prf 19503:19524 <> hwb_read_mc_src1_count
+binder 19535:19535 <> b:103
+R19619:19621 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19540:19550 KamiHW.ActionEvaluator <> action_read def
+R19553:19560 KamiHW.HWBoundary <> hwb_regs def
+R19562:19562 KamiHW.HWBoundaryReads <> b:103 var
+R19582:19591 Kami.Syntax <> SyntaxKind constr
+R19594:19596 Kami.Syntax <> Bit constr
+R19598:19616 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R19622:19625 Coq.Init.Datatypes <> Some constr
+R19628:19643 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R19645:19645 KamiHW.HWBoundaryReads <> b:103 var
+prf 19703:19723 <> hwb_read_mc_src2_base
+binder 19734:19734 <> b:104
+R19815:19817 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19739:19749 KamiHW.ActionEvaluator <> action_read def
+R19752:19759 KamiHW.HWBoundary <> hwb_regs def
+R19761:19761 KamiHW.HWBoundaryReads <> b:104 var
+R19780:19789 Kami.Syntax <> SyntaxKind constr
+R19792:19794 Kami.Syntax <> Bit constr
+R19796:19812 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+R19818:19821 Coq.Init.Datatypes <> Some constr
+R19824:19838 KamiHW.HWBoundary <> hw_mc_src2_base proj
+R19840:19840 KamiHW.HWBoundaryReads <> b:104 var
+prf 19898:19919 <> hwb_read_mc_src2_count
+binder 19930:19930 <> b:105
+R20014:20016 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19935:19945 KamiHW.ActionEvaluator <> action_read def
+R19948:19955 KamiHW.HWBoundary <> hwb_regs def
+R19957:19957 KamiHW.HWBoundaryReads <> b:105 var
+R19977:19986 Kami.Syntax <> SyntaxKind constr
+R19989:19991 Kami.Syntax <> Bit constr
+R19993:20011 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R20017:20020 Coq.Init.Datatypes <> Some constr
+R20023:20038 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R20040:20040 KamiHW.HWBoundaryReads <> b:105 var
+prf 20098:20110 <> hwb_read_mc_i
+binder 20121:20121 <> b:106
+R20196:20198 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20126:20136 KamiHW.ActionEvaluator <> action_read def
+R20139:20146 KamiHW.HWBoundary <> hwb_regs def
+R20148:20148 KamiHW.HWBoundaryReads <> b:106 var
+R20159:20168 Kami.Syntax <> SyntaxKind constr
+R20171:20173 Kami.Syntax <> Bit constr
+R20175:20193 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R20199:20202 Coq.Init.Datatypes <> Some constr
+R20205:20211 KamiHW.HWBoundary <> hw_mc_i proj
+R20213:20213 KamiHW.HWBoundaryReads <> b:106 var
+prf 20271:20283 <> hwb_read_mc_j
+binder 20294:20294 <> b:107
+R20369:20371 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20299:20309 KamiHW.ActionEvaluator <> action_read def
+R20312:20319 KamiHW.HWBoundary <> hwb_regs def
+R20321:20321 KamiHW.HWBoundaryReads <> b:107 var
+R20332:20341 Kami.Syntax <> SyntaxKind constr
+R20344:20346 Kami.Syntax <> Bit constr
+R20348:20366 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R20372:20375 Coq.Init.Datatypes <> Some constr
+R20378:20384 KamiHW.HWBoundary <> hw_mc_j proj
+R20386:20386 KamiHW.HWBoundaryReads <> b:107 var
+prf 20444:20461 <> hwb_read_mc_is_id1
+binder 20472:20472 <> b:108
+R20533:20535 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20477:20487 KamiHW.ActionEvaluator <> action_read def
+R20490:20497 KamiHW.HWBoundary <> hwb_regs def
+R20499:20499 KamiHW.HWBoundaryReads <> b:108 var
+R20515:20524 Kami.Syntax <> SyntaxKind constr
+R20527:20530 Kami.Syntax <> Bool constr
+R20536:20539 Coq.Init.Datatypes <> Some constr
+R20542:20553 KamiHW.HWBoundary <> hw_mc_is_id1 proj
+R20555:20555 KamiHW.HWBoundaryReads <> b:108 var
+prf 20613:20630 <> hwb_read_mc_is_id2
+binder 20641:20641 <> b:109
+R20702:20704 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20646:20656 KamiHW.ActionEvaluator <> action_read def
+R20659:20666 KamiHW.HWBoundary <> hwb_regs def
+R20668:20668 KamiHW.HWBoundaryReads <> b:109 var
+R20684:20693 Kami.Syntax <> SyntaxKind constr
+R20696:20699 Kami.Syntax <> Bool constr
+R20705:20708 Coq.Init.Datatypes <> Some constr
+R20711:20722 KamiHW.HWBoundary <> hw_mc_is_id2 proj
+R20724:20724 KamiHW.HWBoundaryReads <> b:109 var
+prf 20782:20803 <> hwb_read_mc_write_base
+binder 20814:20814 <> b:110
+R20896:20898 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20819:20829 KamiHW.ActionEvaluator <> action_read def
+R20832:20839 KamiHW.HWBoundary <> hwb_regs def
+R20841:20841 KamiHW.HWBoundaryReads <> b:110 var
+R20861:20870 Kami.Syntax <> SyntaxKind constr
+R20873:20875 Kami.Syntax <> Bit constr
+R20877:20893 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R20899:20902 Coq.Init.Datatypes <> Some constr
+R20905:20920 KamiHW.HWBoundary <> hw_mc_write_base proj
+R20922:20922 KamiHW.HWBoundaryReads <> b:110 var
+prf 20980:21000 <> hwb_read_mc_write_ptr
+binder 21011:21011 <> b:111
+R21092:21094 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21016:21026 KamiHW.ActionEvaluator <> action_read def
+R21029:21036 KamiHW.HWBoundary <> hwb_regs def
+R21038:21038 KamiHW.HWBoundaryReads <> b:111 var
+R21057:21066 Kami.Syntax <> SyntaxKind constr
+R21069:21071 Kami.Syntax <> Bit constr
+R21073:21089 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R21095:21098 Coq.Init.Datatypes <> Some constr
+R21101:21115 KamiHW.HWBoundary <> hw_mc_write_ptr proj
+R21117:21117 KamiHW.HWBoundaryReads <> b:111 var
+prf 21175:21194 <> hwb_read_mc_norm_ptr
+binder 21205:21205 <> b:112
+R21285:21287 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21210:21220 KamiHW.ActionEvaluator <> action_read def
+R21223:21230 KamiHW.HWBoundary <> hwb_regs def
+R21232:21232 KamiHW.HWBoundaryReads <> b:112 var
+R21250:21259 Kami.Syntax <> SyntaxKind constr
+R21262:21264 Kami.Syntax <> Bit constr
+R21266:21282 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R21288:21291 Coq.Init.Datatypes <> Some constr
+R21294:21307 KamiHW.HWBoundary <> hw_mc_norm_ptr proj
+R21309:21309 KamiHW.HWBoundaryReads <> b:112 var
+prf 21367:21387 <> hwb_read_mc_duplicate
+binder 21398:21398 <> b:113
+R21462:21464 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21403:21413 KamiHW.ActionEvaluator <> action_read def
+R21416:21423 KamiHW.HWBoundary <> hwb_regs def
+R21425:21425 KamiHW.HWBoundaryReads <> b:113 var
+R21444:21453 Kami.Syntax <> SyntaxKind constr
+R21456:21459 Kami.Syntax <> Bool constr
+R21465:21468 Coq.Init.Datatypes <> Some constr
+R21471:21485 KamiHW.HWBoundary <> hw_mc_duplicate proj
+R21487:21487 KamiHW.HWBoundaryReads <> b:113 var
+prf 21545:21563 <> hwb_read_mc_dst_reg
+binder 21574:21574 <> b:114
+R21644:21646 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21579:21589 KamiHW.ActionEvaluator <> action_read def
+R21592:21599 KamiHW.HWBoundary <> hwb_regs def
+R21601:21601 KamiHW.HWBoundaryReads <> b:114 var
+R21618:21627 Kami.Syntax <> SyntaxKind constr
+R21630:21632 Kami.Syntax <> Bit constr
+R21634:21641 KamiHW.ThieleTypes <> RegIdxSz def
+R21647:21650 Coq.Init.Datatypes <> Some constr
+R21653:21665 KamiHW.HWBoundary <> hw_mc_dst_reg proj
+R21667:21667 KamiHW.HWBoundaryReads <> b:114 var
+prf 21725:21746 <> hwb_read_mc_morph_slot
+binder 21757:21757 <> b:115
+R21837:21839 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21762:21772 KamiHW.ActionEvaluator <> action_read def
+R21775:21782 KamiHW.HWBoundary <> hwb_regs def
+R21784:21784 KamiHW.HWBoundaryReads <> b:115 var
+R21804:21813 Kami.Syntax <> SyntaxKind constr
+R21816:21818 Kami.Syntax <> Bit constr
+R21820:21834 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R21840:21843 Coq.Init.Datatypes <> Some constr
+R21846:21861 KamiHW.HWBoundary <> hw_mc_morph_slot proj
+R21863:21863 KamiHW.HWBoundaryReads <> b:115 var
+prf 21921:21943 <> hwb_read_mc_new_src_mod
+binder 21954:21954 <> b:116
+R22031:22033 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21959:21969 KamiHW.ActionEvaluator <> action_read def
+R21972:21979 KamiHW.HWBoundary <> hwb_regs def
+R21981:21981 KamiHW.HWBoundaryReads <> b:116 var
+R22002:22011 Kami.Syntax <> SyntaxKind constr
+R22014:22016 Kami.Syntax <> Bit constr
+R22018:22028 KamiHW.ThieleTypes <> PTableIdxSz def
+R22034:22037 Coq.Init.Datatypes <> Some constr
+R22040:22056 KamiHW.HWBoundary <> hw_mc_new_src_mod proj
+R22058:22058 KamiHW.HWBoundaryReads <> b:116 var
+prf 22116:22138 <> hwb_read_mc_new_dst_mod
+binder 22149:22149 <> b:117
+R22226:22228 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22154:22164 KamiHW.ActionEvaluator <> action_read def
+R22167:22174 KamiHW.HWBoundary <> hwb_regs def
+R22176:22176 KamiHW.HWBoundaryReads <> b:117 var
+R22197:22206 Kami.Syntax <> SyntaxKind constr
+R22209:22211 Kami.Syntax <> Bit constr
+R22213:22223 KamiHW.ThieleTypes <> PTableIdxSz def
+R22229:22232 Coq.Init.Datatypes <> Some constr
+R22235:22251 KamiHW.HWBoundary <> hw_mc_new_dst_mod proj
+R22253:22253 KamiHW.HWBoundaryReads <> b:117 var
+prf 22311:22326 <> hwb_read_mc_cost
+binder 22337:22337 <> b:118
+R22402:22404 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22342:22352 KamiHW.ActionEvaluator <> action_read def
+R22355:22362 KamiHW.HWBoundary <> hwb_regs def
+R22364:22364 KamiHW.HWBoundaryReads <> b:118 var
+R22378:22387 Kami.Syntax <> SyntaxKind constr
+R22390:22392 Kami.Syntax <> Bit constr
+R22394:22399 KamiHW.ThieleTypes <> WordSz def
+R22405:22408 Coq.Init.Datatypes <> Some constr
+R22411:22420 KamiHW.HWBoundary <> hw_mc_cost proj
+R22422:22422 KamiHW.HWBoundaryReads <> b:118 var
+prf 22480:22511 <> hwb_read_formula_desc_base_table
+binder 22522:22522 <> b:119
+R22629:22631 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22527:22537 KamiHW.ActionEvaluator <> action_read def
+R22540:22547 KamiHW.HWBoundary <> hwb_regs def
+R22549:22549 KamiHW.HWBoundaryReads <> b:119 var
+R22579:22588 Kami.Syntax <> SyntaxKind constr
+R22591:22596 Kami.Syntax <> Vector constr
+R22611:22626 KamiHW.ThieleTypes <> FormulaDescIdxSz def
+R22599:22601 Kami.Syntax <> Bit constr
+R22603:22608 KamiHW.ThieleTypes <> WordSz def
+R22632:22635 Coq.Init.Datatypes <> Some constr
+R22638:22663 KamiHW.HWBoundary <> hw_formula_desc_base_table proj
+R22665:22665 KamiHW.HWBoundaryReads <> b:119 var
+prf 22723:22755 <> hwb_read_formula_desc_count_table
+binder 22766:22766 <> b:120
+R22874:22876 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22771:22781 KamiHW.ActionEvaluator <> action_read def
+R22784:22791 KamiHW.HWBoundary <> hwb_regs def
+R22793:22793 KamiHW.HWBoundaryReads <> b:120 var
+R22824:22833 Kami.Syntax <> SyntaxKind constr
+R22836:22841 Kami.Syntax <> Vector constr
+R22856:22871 KamiHW.ThieleTypes <> FormulaDescIdxSz def
+R22844:22846 Kami.Syntax <> Bit constr
+R22848:22853 KamiHW.ThieleTypes <> WordSz def
+R22877:22880 Coq.Init.Datatypes <> Some constr
+R22883:22909 KamiHW.HWBoundary <> hw_formula_desc_count_table proj
+R22911:22911 KamiHW.HWBoundaryReads <> b:120 var
+prf 22969:23001 <> hwb_read_formula_desc_valid_table
+binder 23012:23012 <> b:121
+R23112:23114 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23017:23027 KamiHW.ActionEvaluator <> action_read def
+R23030:23037 KamiHW.HWBoundary <> hwb_regs def
+R23039:23039 KamiHW.HWBoundaryReads <> b:121 var
+R23070:23079 Kami.Syntax <> SyntaxKind constr
+R23082:23087 Kami.Syntax <> Vector constr
+R23094:23109 KamiHW.ThieleTypes <> FormulaDescIdxSz def
+R23089:23092 Kami.Syntax <> Bool constr
+R23115:23118 Coq.Init.Datatypes <> Some constr
+R23121:23147 KamiHW.HWBoundary <> hw_formula_desc_valid_table proj
+R23149:23149 KamiHW.HWBoundaryReads <> b:121 var
+prf 23207:23235 <> hwb_read_formula_desc_next_id
+binder 23246:23246 <> b:122
+R23335:23337 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23251:23261 KamiHW.ActionEvaluator <> action_read def
+R23264:23271 KamiHW.HWBoundary <> hwb_regs def
+R23273:23273 KamiHW.HWBoundaryReads <> b:122 var
+R23300:23309 Kami.Syntax <> SyntaxKind constr
+R23312:23314 Kami.Syntax <> Bit constr
+R23316:23332 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R23338:23341 Coq.Init.Datatypes <> Some constr
+R23344:23366 KamiHW.HWBoundary <> hw_formula_desc_next_id proj
+R23368:23368 KamiHW.HWBoundaryReads <> b:122 var
+prf 23426:23454 <> hwb_read_cert_desc_base_table
+binder 23465:23465 <> b:123
+R23566:23568 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23470:23480 KamiHW.ActionEvaluator <> action_read def
+R23483:23490 KamiHW.HWBoundary <> hwb_regs def
+R23492:23492 KamiHW.HWBoundaryReads <> b:123 var
+R23519:23528 Kami.Syntax <> SyntaxKind constr
+R23531:23536 Kami.Syntax <> Vector constr
+R23551:23563 KamiHW.ThieleTypes <> CertDescIdxSz def
+R23539:23541 Kami.Syntax <> Bit constr
+R23543:23548 KamiHW.ThieleTypes <> WordSz def
+R23569:23572 Coq.Init.Datatypes <> Some constr
+R23575:23597 KamiHW.HWBoundary <> hw_cert_desc_base_table proj
+R23599:23599 KamiHW.HWBoundaryReads <> b:123 var
+prf 23657:23686 <> hwb_read_cert_desc_count_table
+binder 23697:23697 <> b:124
+R23799:23801 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23702:23712 KamiHW.ActionEvaluator <> action_read def
+R23715:23722 KamiHW.HWBoundary <> hwb_regs def
+R23724:23724 KamiHW.HWBoundaryReads <> b:124 var
+R23752:23761 Kami.Syntax <> SyntaxKind constr
+R23764:23769 Kami.Syntax <> Vector constr
+R23784:23796 KamiHW.ThieleTypes <> CertDescIdxSz def
+R23772:23774 Kami.Syntax <> Bit constr
+R23776:23781 KamiHW.ThieleTypes <> WordSz def
+R23802:23805 Coq.Init.Datatypes <> Some constr
+R23808:23831 KamiHW.HWBoundary <> hw_cert_desc_count_table proj
+R23833:23833 KamiHW.HWBoundaryReads <> b:124 var
+prf 23891:23920 <> hwb_read_cert_desc_valid_table
+binder 23931:23931 <> b:125
+R24025:24027 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23936:23946 KamiHW.ActionEvaluator <> action_read def
+R23949:23956 KamiHW.HWBoundary <> hwb_regs def
+R23958:23958 KamiHW.HWBoundaryReads <> b:125 var
+R23986:23995 Kami.Syntax <> SyntaxKind constr
+R23998:24003 Kami.Syntax <> Vector constr
+R24010:24022 KamiHW.ThieleTypes <> CertDescIdxSz def
+R24005:24008 Kami.Syntax <> Bool constr
+R24028:24031 Coq.Init.Datatypes <> Some constr
+R24034:24057 KamiHW.HWBoundary <> hw_cert_desc_valid_table proj
+R24059:24059 KamiHW.HWBoundaryReads <> b:125 var
+prf 24117:24142 <> hwb_read_cert_desc_next_id
+binder 24153:24153 <> b:126
+R24239:24241 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24158:24168 KamiHW.ActionEvaluator <> action_read def
+R24171:24178 KamiHW.HWBoundary <> hwb_regs def
+R24180:24180 KamiHW.HWBoundaryReads <> b:126 var
+R24204:24213 Kami.Syntax <> SyntaxKind constr
+R24216:24218 Kami.Syntax <> Bit constr
+R24220:24236 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R24242:24245 Coq.Init.Datatypes <> Some constr
+R24248:24267 KamiHW.HWBoundary <> hw_cert_desc_next_id proj
+R24269:24269 KamiHW.HWBoundaryReads <> b:126 var
+prf 24327:24358 <> hwb_read_desc_meta_subtype_table
+binder 24369:24369 <> b:127
+R24482:24484 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24374:24384 KamiHW.ActionEvaluator <> action_read def
+R24387:24394 KamiHW.HWBoundary <> hwb_regs def
+R24396:24396 KamiHW.HWBoundaryReads <> b:127 var
+R24426:24435 Kami.Syntax <> SyntaxKind constr
+R24438:24443 Kami.Syntax <> Vector constr
+R24467:24479 KamiHW.ThieleTypes <> DescMetaIdxSz def
+R24446:24448 Kami.Syntax <> Bit constr
+R24450:24464 KamiHW.ThieleTypes <> FormatSubtypeSz def
+R24485:24488 Coq.Init.Datatypes <> Some constr
+R24491:24516 KamiHW.HWBoundary <> hw_desc_meta_subtype_table proj
+R24518:24518 KamiHW.HWBoundaryReads <> b:127 var
+prf 24576:24604 <> hwb_read_desc_meta_kind_table
+binder 24615:24615 <> b:128
+R24725:24727 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24620:24630 KamiHW.ActionEvaluator <> action_read def
+R24633:24640 KamiHW.HWBoundary <> hwb_regs def
+R24642:24642 KamiHW.HWBoundaryReads <> b:128 var
+R24669:24678 Kami.Syntax <> SyntaxKind constr
+R24681:24686 Kami.Syntax <> Vector constr
+R24710:24722 KamiHW.ThieleTypes <> DescMetaIdxSz def
+R24689:24691 Kami.Syntax <> Bit constr
+R24693:24707 KamiHW.ThieleTypes <> DescKindFieldSz def
+R24728:24731 Coq.Init.Datatypes <> Some constr
+R24734:24756 KamiHW.HWBoundary <> hw_desc_meta_kind_table proj
+R24758:24758 KamiHW.HWBoundaryReads <> b:128 var
+prf 24816:24850 <> hwb_read_desc_meta_inline_len_table
+binder 24861:24861 <> b:129
+R24973:24975 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24866:24876 KamiHW.ActionEvaluator <> action_read def
+R24879:24886 KamiHW.HWBoundary <> hwb_regs def
+R24888:24888 KamiHW.HWBoundaryReads <> b:129 var
+R24921:24930 Kami.Syntax <> SyntaxKind constr
+R24933:24938 Kami.Syntax <> Vector constr
+R24958:24970 KamiHW.ThieleTypes <> DescMetaIdxSz def
+R24941:24943 Kami.Syntax <> Bit constr
+R24945:24955 KamiHW.ThieleTypes <> InlineLenSz def
+R24976:24979 Coq.Init.Datatypes <> Some constr
+R24982:25010 KamiHW.HWBoundary <> hw_desc_meta_inline_len_table proj
+R25012:25012 KamiHW.HWBoundaryReads <> b:129 var
+prf 25070:25097 <> hwb_read_desc_meta_aux_table
+binder 25108:25108 <> b:130
+R25208:25210 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25113:25123 KamiHW.ActionEvaluator <> action_read def
+R25126:25133 KamiHW.HWBoundary <> hwb_regs def
+R25135:25135 KamiHW.HWBoundaryReads <> b:130 var
+R25161:25170 Kami.Syntax <> SyntaxKind constr
+R25173:25178 Kami.Syntax <> Vector constr
+R25193:25205 KamiHW.ThieleTypes <> DescMetaIdxSz def
+R25181:25183 Kami.Syntax <> Bit constr
+R25185:25190 KamiHW.ThieleTypes <> WordSz def
+R25211:25214 Coq.Init.Datatypes <> Some constr
+R25217:25238 KamiHW.HWBoundary <> hw_desc_meta_aux_table proj
+R25240:25240 KamiHW.HWBoundaryReads <> b:130 var
+prf 25298:25327 <> hwb_read_desc_meta_valid_table
+binder 25338:25338 <> b:131
+R25432:25434 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25343:25353 KamiHW.ActionEvaluator <> action_read def
+R25356:25363 KamiHW.HWBoundary <> hwb_regs def
+R25365:25365 KamiHW.HWBoundaryReads <> b:131 var
+R25393:25402 Kami.Syntax <> SyntaxKind constr
+R25405:25410 Kami.Syntax <> Vector constr
+R25417:25429 KamiHW.ThieleTypes <> DescMetaIdxSz def
+R25412:25415 Kami.Syntax <> Bool constr
+R25435:25438 Coq.Init.Datatypes <> Some constr
+R25441:25464 KamiHW.HWBoundary <> hw_desc_meta_valid_table proj
+R25466:25466 KamiHW.HWBoundaryReads <> b:131 var
+prf 25524:25549 <> hwb_read_desc_meta_next_id
+binder 25560:25560 <> b:132
+R25646:25648 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25565:25575 KamiHW.ActionEvaluator <> action_read def
+R25578:25585 KamiHW.HWBoundary <> hwb_regs def
+R25587:25587 KamiHW.HWBoundaryReads <> b:132 var
+R25611:25620 Kami.Syntax <> SyntaxKind constr
+R25623:25625 Kami.Syntax <> Bit constr
+R25627:25643 KamiHW.ThieleTypes <> DescTableNextIdSz def
+R25649:25652 Coq.Init.Datatypes <> Some constr
+R25655:25674 KamiHW.HWBoundary <> hw_desc_meta_next_id proj
+R25676:25676 KamiHW.HWBoundaryReads <> b:132 var
+prf 25734:25752 <> hwb_read_wc_same_00
+binder 25763:25763 <> b:133
+R25831:25833 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25768:25778 KamiHW.ActionEvaluator <> action_read def
+R25781:25788 KamiHW.HWBoundary <> hwb_regs def
+R25790:25790 KamiHW.HWBoundaryReads <> b:133 var
+R25807:25816 Kami.Syntax <> SyntaxKind constr
+R25819:25821 Kami.Syntax <> Bit constr
+R25823:25828 KamiHW.ThieleTypes <> WordSz def
+R25834:25837 Coq.Init.Datatypes <> Some constr
+R25840:25852 KamiHW.HWBoundary <> hw_wc_same_00 proj
+R25854:25854 KamiHW.HWBoundaryReads <> b:133 var
+prf 25912:25930 <> hwb_read_wc_diff_00
+binder 25941:25941 <> b:134
+R26009:26011 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25946:25956 KamiHW.ActionEvaluator <> action_read def
+R25959:25966 KamiHW.HWBoundary <> hwb_regs def
+R25968:25968 KamiHW.HWBoundaryReads <> b:134 var
+R25985:25994 Kami.Syntax <> SyntaxKind constr
+R25997:25999 Kami.Syntax <> Bit constr
+R26001:26006 KamiHW.ThieleTypes <> WordSz def
+R26012:26015 Coq.Init.Datatypes <> Some constr
+R26018:26030 KamiHW.HWBoundary <> hw_wc_diff_00 proj
+R26032:26032 KamiHW.HWBoundaryReads <> b:134 var
+prf 26090:26108 <> hwb_read_wc_same_01
+binder 26119:26119 <> b:135
+R26187:26189 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26124:26134 KamiHW.ActionEvaluator <> action_read def
+R26137:26144 KamiHW.HWBoundary <> hwb_regs def
+R26146:26146 KamiHW.HWBoundaryReads <> b:135 var
+R26163:26172 Kami.Syntax <> SyntaxKind constr
+R26175:26177 Kami.Syntax <> Bit constr
+R26179:26184 KamiHW.ThieleTypes <> WordSz def
+R26190:26193 Coq.Init.Datatypes <> Some constr
+R26196:26208 KamiHW.HWBoundary <> hw_wc_same_01 proj
+R26210:26210 KamiHW.HWBoundaryReads <> b:135 var
+prf 26268:26286 <> hwb_read_wc_diff_01
+binder 26297:26297 <> b:136
+R26365:26367 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26302:26312 KamiHW.ActionEvaluator <> action_read def
+R26315:26322 KamiHW.HWBoundary <> hwb_regs def
+R26324:26324 KamiHW.HWBoundaryReads <> b:136 var
+R26341:26350 Kami.Syntax <> SyntaxKind constr
+R26353:26355 Kami.Syntax <> Bit constr
+R26357:26362 KamiHW.ThieleTypes <> WordSz def
+R26368:26371 Coq.Init.Datatypes <> Some constr
+R26374:26386 KamiHW.HWBoundary <> hw_wc_diff_01 proj
+R26388:26388 KamiHW.HWBoundaryReads <> b:136 var
+prf 26446:26464 <> hwb_read_wc_same_10
+binder 26475:26475 <> b:137
+R26543:26545 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26480:26490 KamiHW.ActionEvaluator <> action_read def
+R26493:26500 KamiHW.HWBoundary <> hwb_regs def
+R26502:26502 KamiHW.HWBoundaryReads <> b:137 var
+R26519:26528 Kami.Syntax <> SyntaxKind constr
+R26531:26533 Kami.Syntax <> Bit constr
+R26535:26540 KamiHW.ThieleTypes <> WordSz def
+R26546:26549 Coq.Init.Datatypes <> Some constr
+R26552:26564 KamiHW.HWBoundary <> hw_wc_same_10 proj
+R26566:26566 KamiHW.HWBoundaryReads <> b:137 var
+prf 26624:26642 <> hwb_read_wc_diff_10
+binder 26653:26653 <> b:138
+R26721:26723 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26658:26668 KamiHW.ActionEvaluator <> action_read def
+R26671:26678 KamiHW.HWBoundary <> hwb_regs def
+R26680:26680 KamiHW.HWBoundaryReads <> b:138 var
+R26697:26706 Kami.Syntax <> SyntaxKind constr
+R26709:26711 Kami.Syntax <> Bit constr
+R26713:26718 KamiHW.ThieleTypes <> WordSz def
+R26724:26727 Coq.Init.Datatypes <> Some constr
+R26730:26742 KamiHW.HWBoundary <> hw_wc_diff_10 proj
+R26744:26744 KamiHW.HWBoundaryReads <> b:138 var
+prf 26802:26820 <> hwb_read_wc_same_11
+binder 26831:26831 <> b:139
+R26899:26901 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26836:26846 KamiHW.ActionEvaluator <> action_read def
+R26849:26856 KamiHW.HWBoundary <> hwb_regs def
+R26858:26858 KamiHW.HWBoundaryReads <> b:139 var
+R26875:26884 Kami.Syntax <> SyntaxKind constr
+R26887:26889 Kami.Syntax <> Bit constr
+R26891:26896 KamiHW.ThieleTypes <> WordSz def
+R26902:26905 Coq.Init.Datatypes <> Some constr
+R26908:26920 KamiHW.HWBoundary <> hw_wc_same_11 proj
+R26922:26922 KamiHW.HWBoundaryReads <> b:139 var
+prf 26980:26998 <> hwb_read_wc_diff_11
+binder 27009:27009 <> b:140
+R27077:27079 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27014:27024 KamiHW.ActionEvaluator <> action_read def
+R27027:27034 KamiHW.HWBoundary <> hwb_regs def
+R27036:27036 KamiHW.HWBoundaryReads <> b:140 var
+R27053:27062 Kami.Syntax <> SyntaxKind constr
+R27065:27067 Kami.Syntax <> Bit constr
+R27069:27074 KamiHW.ThieleTypes <> WordSz def
+R27080:27083 Coq.Init.Datatypes <> Some constr
+R27086:27098 KamiHW.HWBoundary <> hw_wc_diff_11 proj
+R27100:27100 KamiHW.HWBoundaryReads <> b:140 var

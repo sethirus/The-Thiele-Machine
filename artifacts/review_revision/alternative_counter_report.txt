@@ -1,0 +1,80 @@
+diagonal_counter_witness =
+fun u v a b : nat =>
+{|
+  VMState.wc_same_00 := S u;
+  VMState.wc_diff_00 := S v;
+  VMState.wc_same_01 := 1;
+  VMState.wc_diff_01 := 1;
+  VMState.wc_same_10 := 1;
+  VMState.wc_diff_10 := 1;
+  VMState.wc_same_11 := S a;
+  VMState.wc_diff_11 := S b
+|}
+     : nat -> nat -> nat -> nat -> VMState.WitnessCounts
+
+Arguments diagonal_counter_witness (u v a b)%nat_scope
+diagonal_sos_condition =
+fun u v a b : nat =>
+let x := VMStep.VMStep.chsh_d_z (S u) (S v) in
+let nx := VMStep.VMStep.chsh_n_z (S u) (S v) in
+let y := VMStep.VMStep.chsh_d_z (S a) (S b) in
+let ny := VMStep.VMStep.chsh_n_z (S a) (S b) in
+BinInt.Z.le
+  (BinInt.Z.add (BinInt.Z.mul (BinInt.Z.mul (BinInt.Z.mul x x) ny) ny)
+     (BinInt.Z.mul (BinInt.Z.mul (BinInt.Z.mul y y) nx) nx))
+  (BinInt.Z.mul (BinInt.Z.mul (BinInt.Z.mul nx nx) ny) ny)
+     : nat -> nat -> nat -> nat -> Prop
+
+Arguments diagonal_sos_condition (u v a b)%nat_scope
+diagonal_base_guard
+     : forall u v a b : nat,
+       VMStep.VMStep.column_contractive_check_witness
+         (diagonal_counter_witness u v a b) = true
+Closed under the global context
+diagonal_increment_first
+     : forall u v a b : nat,
+       VMStep.VMStep.record_trial (diagonal_counter_witness u v a b) 0 0 0 0 =
+       diagonal_counter_witness (S u) v a b
+Closed under the global context
+diagonal_decrement_first
+     : forall u v a b : nat,
+       VMStep.VMStep.record_trial (diagonal_counter_witness u v a b) 0 0 0 1 =
+       diagonal_counter_witness u (S v) a b
+Closed under the global context
+diagonal_increment_second
+     : forall u v a b : nat,
+       VMStep.VMStep.record_trial (diagonal_counter_witness u v a b) 1 1 0 0 =
+       diagonal_counter_witness u v (S a) b
+Closed under the global context
+diagonal_decrement_second
+     : forall u v a b : nat,
+       VMStep.VMStep.record_trial (diagonal_counter_witness u v a b) 1 1 0 1 =
+       diagonal_counter_witness u v a (S b)
+Closed under the global context
+diagonal_combined_guard
+     : forall u v a b : nat,
+       VMStep.VMStep.column_contractive_check_q1ab_kernel
+         (diagonal_counter_witness u v a b) = true <->
+       diagonal_sos_condition u v a b
+Closed under the global context
+diagonal_combined_symmetric
+     : forall u v a b : nat,
+       VMStep.VMStep.column_contractive_check_q1ab_kernel
+         (diagonal_counter_witness u v a b) =
+       VMStep.VMStep.column_contractive_check_q1ab_kernel
+         (diagonal_counter_witness a b u v)
+Closed under the global context
+diagonal_nonzero_counters_can_pass
+     : VMStep.VMStep.column_contractive_check_q1ab_kernel
+         (diagonal_counter_witness 1 0 1 0) = true
+Closed under the global context
+diagonal_nonzero_counters_can_fail
+     : VMStep.VMStep.column_contractive_check_q1ab_kernel
+         (diagonal_counter_witness 9 0 9 0) = false
+Closed under the global context
+diagonal_swapped_zero_tests_collide
+     : VMStep.VMStep.column_contractive_check_q1ab_kernel
+         (diagonal_counter_witness 0 0 1 0) = true /\
+       VMStep.VMStep.column_contractive_check_q1ab_kernel
+         (diagonal_counter_witness 1 0 0 0) = true
+Closed under the global context

@@ -564,14 +564,16 @@ class TestCrossLayerBisimulationAllOpcodes:
             "TENSOR_GET 3 1 1 1 1",
             "HALT 0",
         ])
-        # RTL program (3-token hardware format):
-        #   TENSOR_SET tensor_idx=5 src_reg=2 cost=1
-        #   TENSOR_GET op_a=5  → dst=reg 5, tensor_idx=5
+        # RTL program (5-token canonical assembler format):
+        #   TENSOR_SET mid i j value cost   → tensor_idx = i*4+j = 1*4+1 = 5
+        #   TENSOR_GET rd mid i j cost      → dst=reg 5, reads tensor[5]
+        # thiele_asm.py requires all five tokens; a short form silently
+        # defaults cost to 0, so mu would not include the declared charges.
         rtl = run_verilog([
             "PNEW {0,256} 1",
             "LOAD_IMM 2 1 0",
-            "TENSOR_SET 5 2 1",
-            "TENSOR_GET 5 0 1",
+            "TENSOR_SET 1 1 1 1 1",
+            "TENSOR_GET 5 1 1 1 1",
             "HALT 0",
         ])
         assert rtl is not None
@@ -595,17 +597,21 @@ class TestCrossLayerBisimulationAllOpcodes:
             "TENSOR_GET 1 0 0 0 1",
             "HALT 0",
         ])
-        # RTL: TENSOR_GET op_a=1 op_b=0 cost=1 → dst=reg 1, tensor_idx=1
-        # For tensor_idx=0 we need op_a=0, but then dst=reg 0; use tensor_idx=1
-        # instead and match VM: TENSOR_GET dst=1 mid=0 i=0 j=1 cost=1 → tensor[1]=0
+        # Match the RTL read: tensor[1] rather than tensor[0], because the
+        # RTL encodes rd in op_a[3:0], so rd=0 and tensor_idx=0 cannot both
+        # be expressed. Both entries are default-initialized to 0.
         vm2 = run_vm([
             "PNEW {0,256} 1",
             "TENSOR_GET 1 0 0 1 1",
             "HALT 0",
         ])
+        # RTL (5-token canonical assembler format):
+        #   TENSOR_GET rd=1 mid=0 i=0 j=1 cost=1 → dst=reg 1, reads tensor[1]
+        # thiele_asm.py requires all five tokens; the short form silently
+        # defaults cost to 0. tensor[1] is default-initialized to 0.
         rtl = run_verilog([
             "PNEW {0,256} 1",
-            "TENSOR_GET 1 0 1",
+            "TENSOR_GET 1 0 0 1 1",
             "HALT 0",
         ])
         assert rtl is not None

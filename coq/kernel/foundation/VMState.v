@@ -2505,6 +2505,62 @@ Definition mem_to_string (mem : list nat) (base : nat) : string :=
   let words   := List.map (fun i => list_read_at mem (S base + i)) (List.seq 0 n_words) in
   string_of_list_ascii (words_to_bytes words len).
 
+(** Read one word from VM memory, wrapping the address into range. Mirrors
+    [ThieleMachineComplete.memory_word_at]. *)
+Definition memory_word_at (mem : list nat) (addr : nat) : nat :=
+  list_read_at mem (mem_index addr).
+
+(** How many (source, target) coupling pairs a serialized coupling block at
+    [base] declares, capped so a hostile or garbage count can't run the
+    reader past the fixed memory size. Mirrors
+    [ThieleMachineComplete.serialized_coupling_pair_count]. *)
+Definition serialized_coupling_pair_count (mem : list nat) (base : nat) : nat :=
+  Nat.min (memory_word_at mem base) (MEM_SIZE / 2).
+
+(** Read [remaining] (source, target) pairs, two words each, starting at
+    [addr]. Mirrors [ThieleMachineComplete.load_coupling_pairs_from_mem]. *)
+Fixpoint load_coupling_pairs_from_mem (mem : list nat) (addr remaining : nat)
+  : list (nat * nat) :=
+  match remaining with
+  | 0 => []
+  | S remaining' =>
+      (memory_word_at mem addr, memory_word_at mem (S addr)) ::
+      load_coupling_pairs_from_mem mem (addr + 2) remaining'
+  end.
+
+(** A coupling pair is in range for a MORPH between [src_region] and
+    [dst_region] iff its source cell is in the source module's region and
+    its target cell is in the target module's region. Mirrors
+    [ThieleMachineComplete.pair_respects_regions]. *)
+Definition pair_respects_regions (src_region dst_region : list nat)
+  (p : nat * nat) : bool :=
+  andb (nat_list_mem (fst p) src_region) (nat_list_mem (snd p) dst_region).
+
+(** Drop any pair a serialized block declares that does not respect the two
+    modules' regions, so a MORPH cannot smuggle in a coupling pair outside
+    the cells it is actually allowed to relate. Mirrors
+    [ThieleMachineComplete.restrict_coupling_to_regions]. *)
+Definition restrict_coupling_to_regions
+  (src_region dst_region : list nat) (c : CouplingData) : CouplingData :=
+  {| coupling_pairs := filter (pair_respects_regions src_region dst_region)
+                              c.(coupling_pairs);
+     coupling_label := c.(coupling_label) |}.
+
+(** Deserialize a [CouplingData] from a MORPH's [coupling_idx] memory block:
+    mem[base] = pair count (capped), mem[base+1 .. base+2*count] = packed
+    (source, target) pairs, followed by a length-prefixed label string, then
+    restrict to the two modules' regions. Mirrors
+    [ThieleMachineComplete.load_coupling_from_mem]. *)
+Definition load_coupling_from_mem (s : VMState)
+  (src_region dst_region : list nat) (base : nat) : CouplingData :=
+  let pair_count := serialized_coupling_pair_count s.(vm_mem) base in
+  let label_base := S base + 2 * pair_count in
+  let raw := {|
+    coupling_pairs := load_coupling_pairs_from_mem s.(vm_mem) (S base) pair_count;
+    coupling_label := mem_to_string s.(vm_mem) (mem_index label_base)
+  |} in
+  restrict_coupling_to_regions src_region dst_region raw.
+
 (** list_update_at is used for register writes, memory writes, and tensor updates.
     The two key properties: it preserves length (no reallocation), and writes
     only affect the target index — all other reads are unchanged. *)

@@ -2,8 +2,8 @@
   "schema": "vacuity_audit.v1",
   "summary": {
     "error": 0,
-    "ok": 603,
-    "total": 603,
+    "ok": 604,
+    "total": 604,
     "vacuous_hyp": 0,
     "vacuous_true": 0
   },
@@ -631,18 +631,18 @@
     {
       "file": "coq/IntrinsicLevelHierarchy.v",
       "kind": "Theorem",
-      "line": 98,
+      "line": 104,
       "name": "level_k_plus_1_forces_more_than_k_cert_events",
       "probe_a": {
-        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/IntrinsicLevelHierarchy__level_strict_separation__a.v\", line 3, characters 122-134:\nError: The reference vm_certified was not found in the current environment.",
+        "coq_stderr_tail": "es/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/IntrinsicLevelHierarchy__level_k_plus_1_forces_more_than_k_cert_events__a.v\", line 3, characters 144-156:\nError: The reference vm_certified was not found in the current environment.",
         "probe_name": "a",
-        "probe_path": "build/vacuity_probes/IntrinsicLevelHierarchy__level_strict_separation__a.v",
+        "probe_path": "build/vacuity_probes/IntrinsicLevelHierarchy__level_k_plus_1_forces_more_than_k_cert_events__a.v",
         "succeeded": false
       },
       "probe_b": {
-        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/IntrinsicLevelHierarchy__level_strict_separation__b.v\", line 3, characters 122-134:\nError: The reference vm_certified was not found in the current environment.",
+        "coq_stderr_tail": "es/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/IntrinsicLevelHierarchy__level_k_plus_1_forces_more_than_k_cert_events__b.v\", line 3, characters 144-156:\nError: The reference vm_certified was not found in the current environment.",
         "probe_name": "b",
-        "probe_path": "build/vacuity_probes/IntrinsicLevelHierarchy__level_strict_separation__b.v",
+        "probe_path": "build/vacuity_probes/IntrinsicLevelHierarchy__level_k_plus_1_forces_more_than_k_cert_events__b.v",
         "succeeded": false
       },
       "statement": "forall k s_final, level_intrinsic_at_least (k + 1) s_final -> s_final.(vm_certified) = true -> forall fuel trace, run_vm fuel trace init_state = s_final -> cert_events_in fuel trace init_state > k",
@@ -1809,66 +1809,6 @@
       "status": "ok"
     },
     {
-      "file": "coq/PhysicsConditionalClosure.v",
-      "kind": "Lemma",
-      "line": 98,
-      "name": "semantics_run_vm_cost_invariant",
-      "probe_a": {
-        "coq_stderr_tail": "g: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/PhysicsConditionalClosure__semantics_run_vm_cost_invariant__a.v\", line 3, characters 80-94:\nError: The reference vm_instruction was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/PhysicsConditionalClosure__semantics_run_vm_cost_invariant__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "g: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/PhysicsConditionalClosure__semantics_run_vm_cost_invariant__b.v\", line 3, characters 80-94:\nError: The reference vm_instruction was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/PhysicsConditionalClosure__semantics_run_vm_cost_invariant__b.v",
-        "succeeded": false
-      },
-      "statement": "forall (trace : list vm_instruction) (s : VMState), (exec_trace_from s trace).(vm_mu) = (s.(vm_mu) + trace_total_cost trace)%nat",
-      "status": "ok"
-    },
-    {
-      "file": "coq/PhysicsConditionalClosure.v",
-      "kind": "Theorem",
-      "line": 160,
-      "name": "master_tsirelson_conditional",
-      "probe_a": {
-        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/PhysicsConditionalClosure__master_tsirelson_conditional__a.v\", line 3, characters 81-91:\nError: The reference RealNumber was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/PhysicsConditionalClosure__master_tsirelson_conditional__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/PhysicsConditionalClosure__master_tsirelson_conditional__b.v\", line 3, characters 81-91:\nError: The reference RealNumber was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/PhysicsConditionalClosure__master_tsirelson_conditional__b.v",
-        "succeeded": false
-      },
-      "statement": "forall E00 E01 E10 E11 : RealNumber, honest_quantum_chsh_correlations E00 E01 E10 E11 -> Rabs (CHSH E00 E01 E10 E11) <= sqrt8",
-      "status": "ok"
-    },
-    {
-      "file": "coq/PhysicsConditionalClosure.v",
-      "kind": "Corollary",
-      "line": 172,
-      "name": "master_supra_quantum_impossible",
-      "probe_a": {
-        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/PhysicsConditionalClosure__master_supra_quantum_impossible__a.v\", line 3, characters 84-94:\nError: The reference RealNumber was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/PhysicsConditionalClosure__master_supra_quantum_impossible__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/PhysicsConditionalClosure__master_supra_quantum_impossible__b.v\", line 3, characters 84-94:\nError: The reference RealNumber was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/PhysicsConditionalClosure__master_supra_quantum_impossible__b.v",
-        "succeeded": false
-      },
-      "statement": "forall E00 E01 E10 E11 : RealNumber, honest_quantum_chsh_correlations E00 E01 E10 E11 -> ~ (Rabs (CHSH E00 E01 E10 E11) > sqrt8)",
-      "status": "ok"
-    },
-    {
       "file": "coq/kernel/nfi/AbstractNoFI.v",
       "kind": "Theorem",
       "line": 113,
@@ -2579,366 +2519,6 @@
       "status": "ok"
     },
     {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Lemma",
-      "line": 136,
-      "name": "init_state_mu_zero",
-      "probe_a": {
-        "coq_stderr_tail": ",filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__init_state_mu_zero__a.v\", line 3, characters 58-63:\nError: The reference vm_mu was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__init_state_mu_zero__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": ",filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__init_state_mu_zero__b.v\", line 3, characters 58-63:\nError: The reference vm_mu was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__init_state_mu_zero__b.v",
-        "succeeded": false
-      },
-      "statement": "init_state.(vm_mu) = 0",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Lemma",
-      "line": 289,
-      "name": "exec_trace_correct",
-      "probe_a": {
-        "coq_stderr_tail": "<timeout after 30s>",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__exec_trace_correct__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "<timeout after 30s>",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__exec_trace_correct__b.v",
-        "succeeded": false
-      },
-      "statement": "forall s trace, trace_reaches s trace (exec_trace_from s trace)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Lemma",
-      "line": 299,
-      "name": "trace_reaches_exec",
-      "probe_a": {
-        "coq_stderr_tail": "<timeout after 30s>",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__trace_reaches_exec__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "<timeout after 30s>",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__trace_reaches_exec__b.v",
-        "succeeded": false
-      },
-      "statement": "forall s trace s', trace_reaches s trace s' -> s' = exec_trace_from s trace",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Lemma",
-      "line": 310,
-      "name": "reachable_from_trace_gen",
-      "probe_a": {
-        "coq_stderr_tail": "<timeout after 30s>",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__reachable_from_trace_gen__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "<timeout after 30s>",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__reachable_from_trace_gen__b.v",
-        "succeeded": false
-      },
-      "statement": "forall trace s, reachable s -> reachable (exec_trace_from s trace)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Lemma",
-      "line": 321,
-      "name": "reachable_from_trace",
-      "probe_a": {
-        "coq_stderr_tail": "<timeout after 30s>",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__reachable_from_trace__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "<timeout after 30s>",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__reachable_from_trace__b.v",
-        "succeeded": false
-      },
-      "statement": "forall trace, reachable (exec_trace_from init_state trace)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Lemma",
-      "line": 330,
-      "name": "reachable_iff_trace",
-      "probe_a": {
-        "coq_stderr_tail": "<timeout after 30s>",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__reachable_iff_trace__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "<timeout after 30s>",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__reachable_iff_trace__b.v",
-        "succeeded": false
-      },
-      "statement": "forall s, reachable s <-> exists trace, s = exec_trace_from init_state trace",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Lemma",
-      "line": 363,
-      "name": "mu_accumulates_trace_cost",
-      "probe_a": {
-        "coq_stderr_tail": "tem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_accumulates_trace_cost__a.v\", line 3, characters 96-101:\nError: The reference vm_mu was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_accumulates_trace_cost__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "tem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_accumulates_trace_cost__b.v\", line 3, characters 96-101:\nError: The reference vm_mu was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_accumulates_trace_cost__b.v",
-        "succeeded": false
-      },
-      "statement": "forall s trace, (exec_trace_from s trace).(vm_mu) = s.(vm_mu) + trace_total_cost trace",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Corollary",
-      "line": 376,
-      "name": "mu_equals_trace_cost",
-      "probe_a": {
-        "coq_stderr_tail": "lesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_equals_trace_cost__a.v\", line 3, characters 98-103:\nError: The reference vm_mu was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_equals_trace_cost__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "lesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_equals_trace_cost__b.v\", line 3, characters 98-103:\nError: The reference vm_mu was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_equals_trace_cost__b.v",
-        "succeeded": false
-      },
-      "statement": "forall trace, (exec_trace_from init_state trace).(vm_mu) = trace_total_cost trace",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Lemma",
-      "line": 431,
-      "name": "instruction_consistent_monotone",
-      "probe_a": {
-        "coq_stderr_tail": "<timeout after 30s>",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__instruction_consistent_monotone__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "<timeout after 30s>",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__instruction_consistent_monotone__b.v",
-        "succeeded": false
-      },
-      "statement": "forall M c, instruction_consistent M c -> (forall instr, c instr >= 0) -> is_monotone M",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Lemma",
-      "line": 490,
-      "name": "consistent_accumulates_trace_cost",
-      "probe_a": {
-        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__consistent_accumulates_trace_cost__a.v\", line 3, characters 221-222:\nError: Syntax error: 'end' expected after [branches] (in [term_match]).",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__consistent_accumulates_trace_cost__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__consistent_accumulates_trace_cost__b.v\", line 3, characters 221-222:\nError: Syntax error: 'end' expected after [branches] (in [term_match]).",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__consistent_accumulates_trace_cost__b.v",
-        "succeeded": false
-      },
-      "statement": "forall M c, instruction_consistent M c -> forall s trace, M (exec_trace_from s trace) = M s + (fix trace_cost (t : list vm_instruction) : nat := match t with | [] => 0 | i :: rest => c i + trace_cost rest end) trace",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Theorem",
-      "line": 592,
-      "name": "mu_is_initial_monotone",
-      "probe_a": {
-        "coq_stderr_tail": "ystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_is_initial_monotone__a.v\", line 3, characters 61-68:\nError: The reference VMState was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_is_initial_monotone__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "ystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_is_initial_monotone__b.v\", line 3, characters 61-68:\nError: The reference VMState was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_is_initial_monotone__b.v",
-        "succeeded": false
-      },
-      "statement": "forall M : VMState -> nat, instruction_consistent M canonical_cost -> M init_state = 0 -> forall s, reachable s -> M s = s.(vm_mu)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Corollary",
-      "line": 613,
-      "name": "mu_trace_determined",
-      "probe_a": {
-        "coq_stderr_tail": "lesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_trace_determined__a.v\", line 3, characters 58-65:\nError: The reference VMState was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_trace_determined__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "lesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_trace_determined__b.v\", line 3, characters 58-65:\nError: The reference VMState was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_trace_determined__b.v",
-        "succeeded": false
-      },
-      "statement": "forall M : VMState -> nat, instruction_consistent M canonical_cost -> M init_state = 0 -> forall trace, M (exec_trace_from init_state trace) = trace_total_cost trace",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Corollary",
-      "line": 627,
-      "name": "consistent_monotones_agree",
-      "probe_a": {
-        "coq_stderr_tail": "m,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__consistent_monotones_agree__a.v\", line 3, characters 69-76:\nError: The reference VMState was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__consistent_monotones_agree__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "m,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__consistent_monotones_agree__b.v\", line 3, characters 69-76:\nError: The reference VMState was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__consistent_monotones_agree__b.v",
-        "succeeded": false
-      },
-      "statement": "forall M1 M2 : VMState -> nat, instruction_consistent M1 canonical_cost -> instruction_consistent M2 canonical_cost -> M1 init_state = 0 -> M2 init_state = 0 -> forall s, reachable s -> M1 s = M2 s",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Theorem",
-      "line": 643,
-      "name": "monotone_factors_through_mu",
-      "probe_a": {
-        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__monotone_factors_through_mu__a.v\", line 3, characters 66-73:\nError: The reference VMState was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__monotone_factors_through_mu__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__monotone_factors_through_mu__b.v\", line 3, characters 66-73:\nError: The reference VMState was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__monotone_factors_through_mu__b.v",
-        "succeeded": false
-      },
-      "statement": "forall M : VMState -> nat, instruction_consistent M canonical_cost -> exists f : nat -> nat, (forall n m, n <= m -> f n <= f m) /\\ (forall s, reachable s -> M s = f (s.(vm_mu)))",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Corollary",
-      "line": 670,
-      "name": "mu_is_identity_factorization",
-      "probe_a": {
-        "coq_stderr_tail": "default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_is_identity_factorization__a.v\", line 3, characters 67-74:\nError: The reference VMState was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_is_identity_factorization__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_is_identity_factorization__b.v\", line 3, characters 67-74:\nError: The reference VMState was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_is_identity_factorization__b.v",
-        "succeeded": false
-      },
-      "statement": "forall M : VMState -> nat, instruction_consistent M canonical_cost -> M init_state = 0 -> forall s, reachable s -> M s = (fun n => n) (s.(vm_mu))",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Theorem",
-      "line": 702,
-      "name": "mu_is_universal",
-      "probe_a": {
-        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_is_universal__a.v\", line 3, characters 114-119:\nError: The reference vm_mu was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_is_universal__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_is_universal__b.v\", line 3, characters 114-119:\nError: The reference vm_mu was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_is_universal__b.v",
-        "succeeded": false
-      },
-      "statement": "forall cf : CostFunctional, forall s, reachable s -> cf_measure cf s = vm_mu s",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Theorem",
-      "line": 715,
-      "name": "mu_initiality",
-      "probe_a": {
-        "coq_stderr_tail": ",filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_initiality__a.v\", line 4, characters 27-28:\nError:\nIn environment\ncf1, cf2 : CostFunctional\ns : VMState.VMState\nH : reachable s\nThe term \"I\" has type \"True\" while it is expected to have type\n \"(let (cf_measure, _, _) := cf1 in cf_measure) s =\n  (let (cf_measure, _, _) := cf2 in cf_measure) s\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_initiality__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "remapped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_initiality__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_initiality__b.v",
-        "succeeded": false
-      },
-      "statement": "forall cf1 cf2 : CostFunctional, forall s, reachable s -> cf_measure cf1 s = cf_measure cf2 s",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuInitiality.v",
-      "kind": "Theorem",
-      "line": 731,
-      "name": "physical_cost_equals_mu",
-      "probe_a": {
-        "coq_stderr_tail": "stem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__physical_cost_equals_mu__a.v\", line 3, characters 69-76:\nError: The reference VMState was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__physical_cost_equals_mu__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "stem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__physical_cost_equals_mu__b.v\", line 3, characters 69-76:\nError: The reference VMState was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__physical_cost_equals_mu__b.v",
-        "succeeded": false
-      },
-      "statement": "forall PhysCost : VMState -> nat, instruction_consistent PhysCost canonical_cost -> PhysCost init_state = 0 -> forall s, reachable s -> PhysCost s = s.(vm_mu)",
-      "status": "ok"
-    },
-    {
       "file": "coq/kernel/nfi/HonestCostTracking.v",
       "kind": "Lemma",
       "line": 104,
@@ -3326,326 +2906,6 @@
         "succeeded": false
       },
       "statement": "forall (V : PositionalVerifier) (n : nat), verifier_correct V n -> operates_on_inspected_only V n -> length (V.(pv_positions) n) >= n /\\ (forall (s : VMState) (instrs : list vm_instruction), trace_honest (encode_thiele_trace s instrs))",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "kind": "Lemma",
-      "line": 62,
-      "name": "vm_apply_certify_sets_certified",
-      "probe_a": {
-        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__vm_apply_certify_sets_certified__a.v\", line 3, characters 71-78:\nError: The reference VMState was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__vm_apply_certify_sets_certified__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__vm_apply_certify_sets_certified__b.v\", line 3, characters 71-78:\nError: The reference VMState was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__vm_apply_certify_sets_certified__b.v",
-        "succeeded": false
-      },
-      "statement": "forall (s : VMState) (delta : nat), (vm_apply s (instr_certify delta)).(vm_certified) = true",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "kind": "Lemma",
-      "line": 73,
-      "name": "certify_instruction_cost",
-      "probe_a": {
-        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_instruction_cost__a.v\", line 3, characters 66-82:\nError: The reference instruction_cost was not found in the current\nenvironment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_instruction_cost__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_instruction_cost__b.v\", line 3, characters 66-82:\nError: The reference instruction_cost was not found in the current\nenvironment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_instruction_cost__b.v",
-        "succeeded": false
-      },
-      "statement": "forall delta, instruction_cost (instr_certify delta) = S delta",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "kind": "Lemma",
-      "line": 80,
-      "name": "vm_apply_certify_init_mu",
-      "probe_a": {
-        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__vm_apply_certify_init_mu__a.v\", line 3, characters 111-116:\nError: The reference vm_mu was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__vm_apply_certify_init_mu__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__vm_apply_certify_init_mu__b.v\", line 3, characters 111-116:\nError: The reference vm_mu was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__vm_apply_certify_init_mu__b.v",
-        "succeeded": false
-      },
-      "statement": "forall delta, (vm_apply init_state (instr_certify delta)).(vm_mu) = S delta",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "kind": "Lemma",
-      "line": 95,
-      "name": "run_vm_single_from_init",
-      "probe_a": {
-        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__run_vm_single_from_init__a.v\", line 3, characters 93-99:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__run_vm_single_from_init__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__run_vm_single_from_init__b.v\", line 3, characters 93-99:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__run_vm_single_from_init__b.v",
-        "succeeded": false
-      },
-      "statement": "forall (instr : vm_instruction), run_vm 1 [instr] init_state = vm_apply init_state instr",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "kind": "Lemma",
-      "line": 115,
-      "name": "certify_to_level_mu",
-      "probe_a": {
-        "coq_stderr_tail": "em,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_mu__a.v\", line 3, characters 111-116:\nError: The reference vm_mu was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_mu__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "em,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_mu__b.v\", line 3, characters 111-116:\nError: The reference vm_mu was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_mu__b.v",
-        "succeeded": false
-      },
-      "statement": "forall k, k >= 1 -> (run_vm 1 (certify_to_level k) init_state).(vm_mu) = k",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "kind": "Lemma",
-      "line": 127,
-      "name": "certify_to_level_certified",
-      "probe_a": {
-        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_certified__a.v\", line 3, characters 118-130:\nError: The reference vm_certified was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_certified__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_certified__b.v\", line 3, characters 118-130:\nError: The reference vm_certified was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_certified__b.v",
-        "succeeded": false
-      },
-      "statement": "forall k, k >= 1 -> (run_vm 1 (certify_to_level k) init_state).(vm_certified) = true",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "kind": "Lemma",
-      "line": 138,
-      "name": "certify_to_level_cost",
-      "probe_a": {
-        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_cost__a.v\", line 3, characters 69-82:\nError: The reference trace_mu_cost was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_cost__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_cost__b.v\", line 3, characters 69-82:\nError: The reference trace_mu_cost was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_cost__b.v",
-        "succeeded": false
-      },
-      "statement": "forall k, k >= 1 -> trace_mu_cost 1 (certify_to_level k) init_state = k",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "kind": "Lemma",
-      "line": 181,
-      "name": "certifies_at_level_cost",
-      "probe_a": {
-        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certifies_at_level_cost__a.v\", line 3, characters 97-113:\nError: The reference instruction_cost was not found in the current\nenvironment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certifies_at_level_cost__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certifies_at_level_cost__b.v\", line 3, characters 97-113:\nError: The reference instruction_cost was not found in the current\nenvironment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certifies_at_level_cost__b.v",
-        "succeeded": false
-      },
-      "statement": "forall k instr, certifies_at_level k instr -> instruction_cost instr >= k",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "kind": "Lemma",
-      "line": 190,
-      "name": "executed_instruction_cost_recorded",
-      "probe_a": {
-        "coq_stderr_tail": "]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__executed_instruction_cost_recorded__a.v\", line 3, characters 89-91:\nError: The reference In was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__executed_instruction_cost_recorded__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__executed_instruction_cost_recorded__b.v\", line 3, characters 89-91:\nError: The reference In was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__executed_instruction_cost_recorded__b.v",
-        "succeeded": false
-      },
-      "statement": "forall fuel trace s instr, In instr (executed_instructions fuel trace s) -> In (instruction_cost instr) (ledger_entries fuel trace s)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "kind": "Lemma",
-      "line": 205,
-      "name": "ledger_sum_contains_lower_bound",
-      "probe_a": {
-        "coq_stderr_tail": "ult]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__ledger_sum_contains_lower_bound__a.v\", line 3, characters 80-82:\nError: The reference In was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__ledger_sum_contains_lower_bound__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "ult]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__ledger_sum_contains_lower_bound__b.v\", line 3, characters 80-82:\nError: The reference In was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__ledger_sum_contains_lower_bound__b.v",
-        "succeeded": false
-      },
-      "statement": "forall entries cost, In cost entries -> ledger_sum entries >= cost",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "kind": "Theorem",
-      "line": 224,
-      "name": "level_k_certification_cost_floor",
-      "probe_a": {
-        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__level_k_certification_cost_floor__a.v\", line 3, characters 115-128:\nError: The reference trace_mu_cost was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__level_k_certification_cost_floor__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__level_k_certification_cost_floor__b.v\", line 3, characters 115-128:\nError: The reference trace_mu_cost was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__level_k_certification_cost_floor__b.v",
-        "succeeded": false
-      },
-      "statement": "forall k fuel trace, level_k_certified k fuel trace -> trace_mu_cost fuel trace init_state >= k",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "kind": "Lemma",
-      "line": 245,
-      "name": "certify_to_level_has_level",
-      "probe_a": {
-        "coq_stderr_tail": "ep.VMStep.instr_certify\n        ((fix sub (n m : nat) {struct n} : nat :=\n            match n with\n            | 0 => n\n            | S k => match m with\n                     | 0 => n\n                     | S l => sub k l\n                     end\n            end) k 1) = instr \\/ False) /\\\n     match instr with\n     | VMStep.VMStep.instr_certify delta => k <= S delta\n     | _ => False\n     end)\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_has_level__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_has_level__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_has_level__b.v",
-        "succeeded": false
-      },
-      "statement": "forall k, k >= 1 -> level_k_certified k 1 (certify_to_level k)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "kind": "Theorem",
-      "line": 270,
-      "name": "mu_hierarchy_theorem",
-      "probe_a": {
-        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_theorem__a.v\", line 3, characters 88-101:\nError: The reference trace_mu_cost was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_theorem__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_theorem__b.v\", line 3, characters 88-101:\nError: The reference trace_mu_cost was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_theorem__b.v",
-        "succeeded": false
-      },
-      "statement": "forall k, k >= 1 -> (exists fuel trace, trace_mu_cost fuel trace init_state = k /\\ level_k_certified k fuel trace) /\\ (forall fuel trace, level_k_certified k fuel trace -> trace_mu_cost fuel trace init_state >= k)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "kind": "Corollary",
-      "line": 295,
-      "name": "mu_hierarchy_strict",
-      "probe_a": {
-        "coq_stderr_tail": "ault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_strict__a.v\", line 3, characters 78-91:\nError: The reference trace_mu_cost was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_strict__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "ault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_strict__b.v\", line 3, characters 78-91:\nError: The reference trace_mu_cost was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_strict__b.v",
-        "succeeded": false
-      },
-      "statement": "forall k fuel trace, k >= 1 -> trace_mu_cost fuel trace init_state < k -> ~ level_k_certified k fuel trace",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "kind": "Corollary",
-      "line": 308,
-      "name": "mu_hierarchy_no_upper_bound",
-      "probe_a": {
-        "coq_stderr_tail": "ing: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_no_upper_bound__a.v\", line 3, characters 112-125:\nError: The reference trace_mu_cost was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_no_upper_bound__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "ing: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_no_upper_bound__b.v\", line 3, characters 112-125:\nError: The reference trace_mu_cost was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_no_upper_bound__b.v",
-        "succeeded": false
-      },
-      "statement": "forall budget, exists k, k >= 1 /\\ ~ (exists fuel trace, trace_mu_cost fuel trace init_state <= budget /\\ level_k_certified k fuel trace)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "kind": "Corollary",
-      "line": 325,
-      "name": "mu_dimension_unbounded",
-      "probe_a": {
-        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_dimension_unbounded__a.v\", line 3, characters 101-114:\nError: The reference trace_mu_cost was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_dimension_unbounded__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_dimension_unbounded__b.v\", line 3, characters 101-114:\nError: The reference trace_mu_cost was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_dimension_unbounded__b.v",
-        "succeeded": false
-      },
-      "statement": "forall k0, exists k, k > k0 /\\ (exists fuel trace, trace_mu_cost fuel trace init_state = k /\\ level_k_certified k fuel trace)",
       "status": "ok"
     },
     {
@@ -4051,7 +3311,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Lemma",
-      "line": 142,
+      "line": 149,
       "name": "Qabs_bound",
       "probe_a": {
         "coq_stderr_tail": "adpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__Qabs_bound__a.v\", line 3, characters 51-52:\nError: The reference Q was not found in the current environment.",
@@ -4071,7 +3331,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Theorem",
-      "line": 165,
+      "line": 172,
       "name": "chsh_bound_4",
       "probe_a": {
         "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_bound_4__a.v\", line 3, characters 64-68:\nError: The reference Qabs was not found in the current environment.",
@@ -4091,7 +3351,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Theorem",
-      "line": 228,
+      "line": 235,
       "name": "symmetric_tsirelson_bound",
       "probe_a": {
         "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_tsirelson_bound__a.v\", line 3, characters 158-159:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
@@ -4111,7 +3371,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Theorem",
-      "line": 263,
+      "line": 270,
       "name": "tsirelson_from_algebraic_coherence",
       "probe_a": {
         "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_from_algebraic_coherence__a.v\", line 3, characters 114-118:\nError: The reference Qabs was not found in the current environment.",
@@ -4131,7 +3391,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Theorem",
-      "line": 297,
+      "line": 304,
       "name": "algebraic_max_not_coherent",
       "probe_a": {
         "coq_stderr_tail": "end\n                         end\n                       for\n                       add) y (BinNums.xO (mul p y))\n                  | BinNums.xO p => BinNums.xO (mul p y)\n                  | BinNums.xH => y\n                  end) x' BinNums.xH)\n        end\n      with\n      | BinNums.Z0 => Eq\n      | BinNums.Zpos _ => Lt\n      | BinNums.Zneg _ => Gt\n      end = Gt -> False)) -> False\".",
@@ -4151,7 +3411,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Lemma",
-      "line": 347,
+      "line": 354,
       "name": "sum_6_squares_nonneg",
       "probe_a": {
         "coq_stderr_tail": "esystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__sum_6_squares_nonneg__a.v\", line 3, characters 69-70:\nError: The reference Q was not found in the current environment.",
@@ -4171,7 +3431,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Lemma",
-      "line": 376,
+      "line": 383,
       "name": "cauchy_schwarz_chsh",
       "probe_a": {
         "coq_stderr_tail": "lesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__cauchy_schwarz_chsh__a.v\", line 3, characters 64-65:\nError: The reference Q was not found in the current environment.",
@@ -4191,7 +3451,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Lemma",
-      "line": 413,
+      "line": 420,
       "name": "correlation_squares_bound",
       "probe_a": {
         "coq_stderr_tail": "em,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__correlation_squares_bound__a.v\", line 3, characters 78-79:\nError: The reference Q was not found in the current environment.",
@@ -4211,7 +3471,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Lemma",
-      "line": 442,
+      "line": 449,
       "name": "chsh_weak_bound",
       "probe_a": {
         "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_weak_bound__a.v\", line 3, characters 68-69:\nError: The reference Q was not found in the current environment.",
@@ -4231,7 +3491,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Lemma",
-      "line": 472,
+      "line": 479,
       "name": "chsh_squared_bound_from_correlations",
       "probe_a": {
         "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_squared_bound_from_correlations__a.v\", line 3, characters 89-90:\nError: The reference Q was not found in the current environment.",
@@ -4251,7 +3511,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Lemma",
-      "line": 509,
+      "line": 516,
       "name": "symmetric_minor_implies_sum_bound",
       "probe_a": {
         "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_minor_implies_sum_bound__a.v\", line 3, characters 72-73:\nError: The reference Q was not found in the current environment.",
@@ -4271,7 +3531,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Theorem",
-      "line": 540,
+      "line": 547,
       "name": "symmetric_case_implies_tsirelson",
       "probe_a": {
         "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_case_implies_tsirelson__a.v\", line 3, characters 161-162:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
@@ -4291,7 +3551,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Theorem",
-      "line": 566,
+      "line": 573,
       "name": "chsh_general_bound",
       "probe_a": {
         "coq_stderr_tail": "system,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_general_bound__a.v\", line 3, characters 70-74:\nError: The reference Qabs was not found in the current environment.",
@@ -4311,7 +3571,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Lemma",
-      "line": 611,
+      "line": 618,
       "name": "tsirelson_config_S",
       "probe_a": {
         "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_config_S__a.v\", line 3, characters 101-102:\nError: Syntax error: [term] expected after '=' (in [term]).",
@@ -4331,7 +3591,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Lemma",
-      "line": 668,
+      "line": 675,
       "name": "tsirelson_achieving_coherent",
       "probe_a": {
         "coq_stderr_tail": "<timeout after 30s>",
@@ -4351,7 +3611,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Lemma",
-      "line": 697,
+      "line": 704,
       "name": "tsirelson_achieving_value",
       "probe_a": {
         "coq_stderr_tail": "esystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_achieving_value__a.v\", line 3, characters 93-94:\nError: Syntax error: [term] expected after '=' (in [term]).",
@@ -4371,7 +3631,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Theorem",
-      "line": 728,
+      "line": 735,
       "name": "tsirelson_bound_tight",
       "probe_a": {
         "coq_stderr_tail": "]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_bound_tight__a.v\", line 3, characters 131-132:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
@@ -4391,7 +3651,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Theorem",
-      "line": 753,
+      "line": 760,
       "name": "algebraically_coherent_tsirelson_general",
       "probe_a": {
         "coq_stderr_tail": "nd to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_general__a.v\", line 3, characters 121-141:\nError:\nIn environment\nc : Correlators\nThe term \"S_from_correlators c\" has type \"QArith_base.Q\"\nwhile it is expected to have type \"nat\".",
@@ -4411,7 +3671,7 @@
     {
       "file": "coq/kernel/category/AlgebraicCoherence.v",
       "kind": "Corollary",
-      "line": 771,
+      "line": 778,
       "name": "algebraically_coherent_tsirelson_abs",
       "probe_a": {
         "coq_stderr_tail": "kspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_abs__a.v\", line 3, characters 152-153:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
@@ -4686,6 +3946,26 @@
         "succeeded": false
       },
       "statement": "forall s mu_delta, let s' := vm_apply s (instr_chsh_lassert mu_delta) in s'.(vm_pc) = S s.(vm_pc) -> s'.(vm_err) = s.(vm_err) -> s.(vm_err) = false -> quantum_realizable (state_zero_marginal_npa s)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/curvature/PhysicsClosure.v",
+      "kind": "Theorem",
+      "line": 113,
+      "name": "Physics_Closure",
+      "probe_a": {
+        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PhysicsClosure__Physics_Closure__a.v\", line 3, characters 67-84:\nError: The reference well_formed_graph was not found in the current\nenvironment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__PhysicsClosure__Physics_Closure__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PhysicsClosure__Physics_Closure__b.v\", line 3, characters 67-84:\nError: The reference well_formed_graph was not found in the current\nenvironment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__PhysicsClosure__Physics_Closure__b.v",
+        "succeeded": false
+      },
+      "statement": "(forall s s' instr mid, well_formed_graph s.(vm_graph) -> mid < pg_next_id s.(vm_graph) -> vm_step s instr s' -> ~ In mid (instr_targets instr) -> ObservableRegion s mid = ObservableRegion s' mid) /\\ (forall s s' instr, vm_step s instr s' -> s'.(vm_mu) >= s.(vm_mu)) /\\ (forall s trace s' mid, exec_trace s trace s' -> well_formed_graph s.(vm_graph) -> mid < pg_next_id s.(vm_graph) -> ~ In mid (causal_cone trace) -> ObservableRegion s mid = ObservableRegion s' mid)",
       "status": "ok"
     },
     {
@@ -4986,26 +4266,6 @@
         "succeeded": false
       },
       "statement": "forall s v w mu nu, (v <> w)%nat -> (forall i j, full_metric_at_vertex s v i j = full_metric_at_vertex s w i j) -> (forall i j, i <> j -> full_metric_at_vertex s v i j = 0) -> (mu < 4)%nat -> (nu < 4)%nat -> curved_einstein s (two_vertex_sc v w) mu nu v = (0 * mass_stress_energy s mu nu v)%R",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kami_hw/RTLGapRegistry.v",
-      "kind": "Theorem",
-      "line": 91,
-      "name": "rtl_gap_count",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "List.length rtl_gap_registry = 0",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kami_hw/RTLGapRegistry.v",
-      "kind": "Theorem",
-      "line": 102,
-      "name": "rtl_coverage_partition",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "37 + 10 + 0 = 47",
       "status": "ok"
     },
     {
@@ -6891,18 +6151,18 @@
     {
       "file": "coq/kernel/nfi/NecessityAbstract.v",
       "kind": "Corollary",
-      "line": 748,
+      "line": 767,
       "name": "P_full_complete_neither_mu_nor_cert_droppable",
       "probe_a": {
-        "coq_stderr_tail": "g: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NecessityAbstract__P_full_is_minimal_complete_extension__a.v\", line 3, characters 134-141:\nError: The reference VMState was not found in the current environment.",
+        "coq_stderr_tail": "paces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NecessityAbstract__P_full_complete_neither_mu_nor_cert_droppable__a.v\", line 3, characters 143-150:\nError: The reference VMState was not found in the current environment.",
         "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__NecessityAbstract__P_full_is_minimal_complete_extension__a.v",
+        "probe_path": "build/vacuity_probes/Kernel__NecessityAbstract__P_full_complete_neither_mu_nor_cert_droppable__a.v",
         "succeeded": false
       },
       "probe_b": {
-        "coq_stderr_tail": "g: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NecessityAbstract__P_full_is_minimal_complete_extension__b.v\", line 3, characters 134-141:\nError: The reference VMState was not found in the current environment.",
+        "coq_stderr_tail": "paces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NecessityAbstract__P_full_complete_neither_mu_nor_cert_droppable__b.v\", line 3, characters 143-150:\nError: The reference VMState was not found in the current environment.",
         "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__NecessityAbstract__P_full_is_minimal_complete_extension__b.v",
+        "probe_path": "build/vacuity_probes/Kernel__NecessityAbstract__P_full_complete_neither_mu_nor_cert_droppable__b.v",
         "succeeded": false
       },
       "statement": "mu_complete P_full /\\ cert_complete P_full /\\ (forall {C : Type} (P : VMState -> C), proj_forgets_mu P -> ~ mu_complete P) /\\ (forall {C : Type} (P : VMState -> C), proj_forgets_cert P -> ~ cert_complete P)",
@@ -6911,7 +6171,7 @@
     {
       "file": "coq/kernel/nfi/NecessityAbstract.v",
       "kind": "Theorem",
-      "line": 794,
+      "line": 813,
       "name": "graph_not_recoverable_from_P_full",
       "probe_a": {
         "coq_stderr_tail": "workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NecessityAbstract__graph_not_recoverable_from_P_full__a.v\", line 3, characters 101-115:\nError: The reference PartitionGraph was not found in the current environment.",
@@ -6931,7 +6191,7 @@
     {
       "file": "coq/kernel/nfi/NecessityAbstract.v",
       "kind": "Corollary",
-      "line": 816,
+      "line": 835,
       "name": "graph_oracle_fails",
       "probe_a": {
         "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NecessityAbstract__graph_oracle_fails__a.v\", line 3, characters 84-98:\nError: The reference PartitionGraph was not found in the current environment.",
@@ -6951,7 +6211,7 @@
     {
       "file": "coq/kernel/nfi/NecessityAbstract.v",
       "kind": "Theorem",
-      "line": 829,
+      "line": 848,
       "name": "thiele_state_three_component_independence",
       "probe_a": {
         "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NecessityAbstract__thiele_state_three_component_independence__a.v\", line 3, characters 144-149:\nError: The reference vm_mu was not found in the current environment.",
@@ -8209,36 +7469,6 @@
       "status": "ok"
     },
     {
-      "file": "coq/kernel/nfi/VMSubstrateEncoded.v",
-      "kind": "Lemma",
-      "line": 60,
-      "name": "vm_encode_decode_concrete",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall p, vm_decode_concrete (vm_encode_concrete p) = p",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/nfi/VMSubstrateEncoded.v",
-      "kind": "Theorem",
-      "line": 71,
-      "name": "vm_structural_shortcut_undecidable_encoded",
-      "probe_a": {
-        "coq_stderr_tail": "s/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_structural_shortcut_undecidable_encoded__a.v\", line 3, characters 90-104:\nError: The reference vm_instruction was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_structural_shortcut_undecidable_encoded__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "s/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_structural_shortcut_undecidable_encoded__b.v\", line 3, characters 90-104:\nError: The reference vm_instruction was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_structural_shortcut_undecidable_encoded__b.v",
-        "succeeded": false
-      },
-      "statement": "forall (rep : (list vm_instruction -> list vm_instruction) -> Prop) (Hrec : forall f, rep f -> exists q, forall s, vm_run q s = vm_run (f q) s), ~ exists (decide : list vm_instruction -> bool), rep (fun p => if decide p then (@nil vm_instruction) else simple_morph_trace) /\\ forall p, decide p = true <-> vm_admits_shortcut_extensional p",
-      "status": "ok"
-    },
-    {
       "file": "coq/kernel/nfi/CommitmentPredicateAdequacy.v",
       "kind": "Theorem",
       "line": 182,
@@ -9461,7 +8691,7 @@
     {
       "file": "coq/kernel/quantum/MinorConstraints.v",
       "kind": "Lemma",
-      "line": 205,
+      "line": 212,
       "name": "sum_n_le",
       "probe_a": {
         "coq_stderr_tail": "g-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MinorConstraints__sum_n_le__a.v\", line 3, characters 104-105:\nError:\nIn environment\nn : nat\nf : nat -> nat\ng : nat -> nat\nThe term \"f\" has type \"nat -> nat\" while it is expected to have type\n \"nat -> Rdefinitions.RbaseSymbolsImpl.R\" (cannot unify \n\"nat\" and \"Rdefinitions.RbaseSymbolsImpl.R\").",
@@ -9481,7 +8711,7 @@
     {
       "file": "coq/kernel/quantum/MinorConstraints.v",
       "kind": "Lemma",
-      "line": 227,
+      "line": 234,
       "name": "sum_n_scale",
       "probe_a": {
         "coq_stderr_tail": "oadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MinorConstraints__sum_n_scale__a.v\", line 3, characters 53-54:\nError: The reference R was not found in the current environment.",
@@ -9501,7 +8731,7 @@
     {
       "file": "coq/kernel/quantum/MinorConstraints.v",
       "kind": "Lemma",
-      "line": 246,
+      "line": 253,
       "name": "sum_n_plus",
       "probe_a": {
         "coq_stderr_tail": "o test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MinorConstraints__sum_n_plus__a.v\", line 3, characters 71-82:\nError:\nIn environment\nn : nat\nf : nat -> nat\ng : nat -> nat\n\u03bb : nat\nThe term \"f \u03bb + g \u03bb\" has type \"nat\" while it is expected to have type\n \"Rdefinitions.RbaseSymbolsImpl.R\".",
@@ -9521,7 +8751,7 @@
     {
       "file": "coq/kernel/quantum/MinorConstraints.v",
       "kind": "Lemma",
-      "line": 264,
+      "line": 271,
       "name": "sum_n_minus",
       "probe_a": {
         "coq_stderr_tail": "test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MinorConstraints__sum_n_minus__a.v\", line 3, characters 72-83:\nError:\nIn environment\nn : nat\nf : nat -> nat\ng : nat -> nat\n\u03bb : nat\nThe term \"f \u03bb - g \u03bb\" has type \"nat\" while it is expected to have type\n \"Rdefinitions.RbaseSymbolsImpl.R\".",
@@ -9541,7 +8771,7 @@
     {
       "file": "coq/kernel/quantum/MinorConstraints.v",
       "kind": "Lemma",
-      "line": 276,
+      "line": 283,
       "name": "sum_n_nonneg",
       "probe_a": {
         "coq_stderr_tail": "[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MinorConstraints__sum_n_nonneg__a.v\", line 3, characters 108-109:\nError:\nIn environment\nn : nat\nf : nat -> nat\nThe term \"f\" has type \"nat -> nat\" while it is expected to have type\n \"nat -> Rdefinitions.RbaseSymbolsImpl.R\" (cannot unify \n\"nat\" and \"Rdefinitions.RbaseSymbolsImpl.R\").",
@@ -9561,7 +8791,7 @@
     {
       "file": "coq/kernel/quantum/MinorConstraints.v",
       "kind": "Lemma",
-      "line": 289,
+      "line": 296,
       "name": "sum_n_cauchy_schwarz",
       "probe_a": {
         "coq_stderr_tail": "-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MinorConstraints__sum_n_cauchy_schwarz__a.v\", line 3, characters 107-149:\nError: Unknown interpretation for notation \"_ ^ _\".",
@@ -9581,7 +8811,7 @@
     {
       "file": "coq/kernel/quantum/MinorConstraints.v",
       "kind": "Lemma",
-      "line": 351,
+      "line": 358,
       "name": "factorizable_cauchy_schwarz",
       "probe_a": {
         "coq_stderr_tail": "em,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MinorConstraints__factorizable_cauchy_schwarz__a.v\", line 3, characters 94-95:\nError: The reference R was not found in the current environment.",
@@ -9601,7 +8831,7 @@
     {
       "file": "coq/kernel/quantum/MinorConstraints.v",
       "kind": "Theorem",
-      "line": 386,
+      "line": 393,
       "name": "factorizable_satisfies_minors",
       "probe_a": {
         "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MinorConstraints__factorizable_satisfies_minors__a.v\", line 3, characters 96-97:\nError: The reference R was not found in the current environment.",
@@ -9621,7 +8851,7 @@
     {
       "file": "coq/kernel/quantum/MinorConstraints.v",
       "kind": "Lemma",
-      "line": 600,
+      "line": 607,
       "name": "deterministic_strategy_chsh_bounded",
       "probe_a": {
         "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MinorConstraints__deterministic_strategy_chsh_bounded__a.v\", line 3, characters 82-83:\nError: The reference R was not found in the current environment.",
@@ -9641,7 +8871,7 @@
     {
       "file": "coq/kernel/quantum/MinorConstraints.v",
       "kind": "Theorem",
-      "line": 662,
+      "line": 669,
       "name": "fine_theorem",
       "probe_a": {
         "coq_stderr_tail": "adpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MinorConstraints__fine_theorem__a.v\", line 3, characters 79-80:\nError: The reference R was not found in the current environment.",
@@ -9661,7 +8891,7 @@
     {
       "file": "coq/kernel/quantum/MinorConstraints.v",
       "kind": "Corollary",
-      "line": 789,
+      "line": 796,
       "name": "factorizable_CHSH_classical_bound",
       "probe_a": {
         "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MinorConstraints__factorizable_CHSH_classical_bound__a.v\", line 3, characters 100-101:\nError: The reference R was not found in the current environment.",
@@ -9681,7 +8911,7 @@
     {
       "file": "coq/kernel/quantum/MinorConstraints.v",
       "kind": "Theorem",
-      "line": 822,
+      "line": 829,
       "name": "local_box_CHSH_bound",
       "probe_a": {
         "coq_stderr_tail": "esystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MinorConstraints__local_box_CHSH_bound__a.v\", line 3, characters 59-62:\nError: The reference Box was not found in the current environment.",
@@ -9701,7 +8931,7 @@
     {
       "file": "coq/kernel/quantum/MinorConstraints.v",
       "kind": "Theorem",
-      "line": 899,
+      "line": 906,
       "name": "fine_theorem_holds",
       "probe_a": {
         "coq_stderr_tail": "aseSymbolsImpl.R1\n        Rdefinitions.RbaseSymbolsImpl.R1) \\/\n   Rdefinitions.RbaseSymbolsImpl.Rplus\n     (Rdefinitions.RbaseSymbolsImpl.Rplus\n        (Rdefinitions.RbaseSymbolsImpl.Rplus (E 0 0 0 0) (E 0 0 0 1))\n        (E 0 0 1 0)) (Rdefinitions.RbaseSymbolsImpl.Ropp (E 0 0 1 1)) =\n   Rdefinitions.RbaseSymbolsImpl.Rplus Rdefinitions.RbaseSymbolsImpl.R1\n     Rdefinitions.RbaseSymbolsImpl.R1)\".",
@@ -9721,7 +8951,7 @@
     {
       "file": "coq/kernel/quantum/NPAMomentMatrix.v",
       "kind": "Lemma",
-      "line": 367,
+      "line": 374,
       "name": "npa_diagonal_one",
       "probe_a": {
         "coq_stderr_tail": ",filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NPAMomentMatrix__npa_diagonal_one__a.v\", line 3, characters 80-84:\nError: The reference Fin5 was not found in the current environment.",
@@ -9741,7 +8971,7 @@
     {
       "file": "coq/kernel/quantum/NPAMomentMatrix.v",
       "kind": "Lemma",
-      "line": 384,
+      "line": 391,
       "name": "npa_E00_position",
       "probe_a": {
         "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NPAMomentMatrix__npa_E00_position__a.v\", line 3, characters 76-94:\nError: The reference nat_matrix_to_fin5 was not found in the current\nenvironment.",
@@ -9761,7 +8991,7 @@
     {
       "file": "coq/kernel/quantum/NPAMomentMatrix.v",
       "kind": "Lemma",
-      "line": 392,
+      "line": 399,
       "name": "npa_E01_position",
       "probe_a": {
         "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NPAMomentMatrix__npa_E01_position__a.v\", line 3, characters 76-94:\nError: The reference nat_matrix_to_fin5 was not found in the current\nenvironment.",
@@ -9781,7 +9011,7 @@
     {
       "file": "coq/kernel/quantum/NPAMomentMatrix.v",
       "kind": "Lemma",
-      "line": 400,
+      "line": 407,
       "name": "npa_E10_position",
       "probe_a": {
         "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NPAMomentMatrix__npa_E10_position__a.v\", line 3, characters 76-94:\nError: The reference nat_matrix_to_fin5 was not found in the current\nenvironment.",
@@ -9801,7 +9031,7 @@
     {
       "file": "coq/kernel/quantum/NPAMomentMatrix.v",
       "kind": "Lemma",
-      "line": 408,
+      "line": 415,
       "name": "npa_E11_position",
       "probe_a": {
         "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NPAMomentMatrix__npa_E11_position__a.v\", line 3, characters 76-94:\nError: The reference nat_matrix_to_fin5 was not found in the current\nenvironment.",
@@ -9821,7 +9051,7 @@
     {
       "file": "coq/kernel/quantum/NPAMomentMatrix.v",
       "kind": "Lemma",
-      "line": 416,
+      "line": 423,
       "name": "npa_rho_BB_position",
       "probe_a": {
         "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NPAMomentMatrix__npa_rho_BB_position__a.v\", line 3, characters 79-97:\nError: The reference nat_matrix_to_fin5 was not found in the current\nenvironment.",
@@ -9841,7 +9071,7 @@
     {
       "file": "coq/kernel/quantum/NPAMomentMatrix.v",
       "kind": "Lemma",
-      "line": 424,
+      "line": 431,
       "name": "npa_rho_AA_position",
       "probe_a": {
         "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NPAMomentMatrix__npa_rho_AA_position__a.v\", line 3, characters 79-97:\nError: The reference nat_matrix_to_fin5 was not found in the current\nenvironment.",
@@ -9861,7 +9091,7 @@
     {
       "file": "coq/kernel/quantum/NPAMomentMatrix.v",
       "kind": "Lemma",
-      "line": 431,
+      "line": 438,
       "name": "quantum_realizable_implies_normalized",
       "probe_a": {
         "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NPAMomentMatrix__quantum_realizable_implies_normalized__a.v\", line 3, characters 123-127:\nError: The reference Rabs was not found in the current environment.",
@@ -9881,7 +9111,7 @@
     {
       "file": "coq/kernel/quantum/NPAMomentMatrix.v",
       "kind": "Lemma",
-      "line": 464,
+      "line": 471,
       "name": "npa_to_matrix_symmetric",
       "probe_a": {
         "coq_stderr_tail": "efault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NPAMomentMatrix__npa_to_matrix_symmetric__a.v\", line 3, characters 83-93:\nError: The reference symmetric5 was not found in the current environment.",
@@ -10269,146 +9499,6 @@
       "status": "ok"
     },
     {
-      "file": "coq/kernel/quantum/QuantumEquivalence.v",
-      "kind": "Lemma",
-      "line": 78,
-      "name": "classical_is_quantum",
-      "probe_a": {
-        "coq_stderr_tail": "was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__classical_is_quantum__a.v\", line 3, characters 90-105:\nError:\nIn environment\nac : AbstractCorrelation\nThe term \"chsh_value ac\" has type \"QArith_base.Q\"\nwhile it is expected to have type \"nat\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__classical_is_quantum__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__classical_is_quantum__b.v\", line 3, characters 90-105:\nError:\nIn environment\nac : AbstractCorrelation\nThe term \"chsh_value ac\" has type \"QArith_base.Q\"\nwhile it is expected to have type \"nat\".",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__classical_is_quantum__b.v",
-        "succeeded": false
-      },
-      "statement": "forall ac, ac.(satisfies_no_signaling) -> ac.(chsh_value) <= classical_bound -> is_quantum_correlation ac",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumEquivalence.v",
-      "kind": "Theorem",
-      "line": 123,
-      "name": "hierarchy_is_derived",
-      "probe_a": {
-        "coq_stderr_tail": "(BinNums.xO\n                                                 (let \n                                                 (_, Qden) :=\n                                                 let (_, chsh_value) := ac in\n                                                 chsh_value in\n                                                 Qden))))))))))))))))))\n  | _ => Lt\n  end = Gt -> False\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__hierarchy_is_derived__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__hierarchy_is_derived__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__hierarchy_is_derived__b.v",
-        "succeeded": false
-      },
-      "statement": "correlation_hierarchy_derived",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumEquivalence.v",
-      "kind": "Theorem",
-      "line": 150,
-      "name": "qm_equals_cost_free",
-      "probe_a": {
-        "coq_stderr_tail": "(BinNums.xO\n                                                 (let \n                                                 (_, Qden) :=\n                                                 let (_, chsh_value) := ac in\n                                                 chsh_value in\n                                                 Qden))))))))))))))))))\n    | _ => Lt\n    end = Gt -> False))\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__qm_equals_cost_free__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__qm_equals_cost_free__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__qm_equals_cost_free__b.v",
-        "succeeded": false
-      },
-      "statement": "qm_is_cost_free_computation",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumEquivalence.v",
-      "kind": "Theorem",
-      "line": 166,
-      "name": "quantum_foundations_resolved",
-      "probe_a": {
-        "coq_stderr_tail": "(BinNums.xO\n                                                 (let \n                                                 (_, Qden) :=\n                                                 let (_, chsh_value) := ac in\n                                                 chsh_value in\n                                                 Qden))))))))))))))))))\n     | _ => Lt\n     end = Gt -> False)))\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__quantum_foundations_resolved__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "verriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__quantum_foundations_resolved__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__quantum_foundations_resolved__b.v",
-        "succeeded": false
-      },
-      "statement": "why_quantum_answer",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumEquivalence.v",
-      "kind": "Theorem",
-      "line": 187,
-      "name": "quantum_foundations_complete",
-      "probe_a": {
-        "coq_stderr_tail": "(BinNums.xO\n                                                 (let \n                                                 (_, Qden) :=\n                                                 let (_, chsh_value) := ac in\n                                                 chsh_value in\n                                                 Qden))))))))))))))))))\n     | _ => Lt\n     end = Gt -> False)))\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__quantum_foundations_complete__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "verriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__quantum_foundations_complete__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__quantum_foundations_complete__b.v",
-        "succeeded": false
-      },
-      "statement": "correlation_hierarchy_derived /\\ qm_is_cost_free_computation",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumEquivalence.v",
-      "kind": "Theorem",
-      "line": 202,
-      "name": "cost_causes_quantum_bound",
-      "probe_a": {
-        "coq_stderr_tail": "previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__cost_causes_quantum_bound__a.v\", line 3, characters 95-110:\nError:\nIn environment\nac : AbstractCorrelation\nThe term \"chsh_value ac\" has type \"QArith_base.Q\"\nwhile it is expected to have type \"nat\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__cost_causes_quantum_bound__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__cost_causes_quantum_bound__b.v\", line 3, characters 95-110:\nError:\nIn environment\nac : AbstractCorrelation\nThe term \"chsh_value ac\" has type \"QArith_base.Q\"\nwhile it is expected to have type \"nat\".",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__cost_causes_quantum_bound__b.v",
-        "succeeded": false
-      },
-      "statement": "forall ac, ac.(satisfies_no_signaling) -> ac.(chsh_value) <= tsirelson_bound -> is_quantum_correlation ac",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumEquivalence.v",
-      "kind": "Theorem",
-      "line": 214,
-      "name": "exceeding_bound_implies_cost",
-      "probe_a": {
-        "coq_stderr_tail": "eviously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__exceeding_bound_implies_cost__a.v\", line 3, characters 67-82:\nError:\nIn environment\nac : AbstractCorrelation\nThe term \"chsh_value ac\" has type \"QArith_base.Q\"\nwhile it is expected to have type \"nat\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__exceeding_bound_implies_cost__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "eviously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__exceeding_bound_implies_cost__b.v\", line 3, characters 67-82:\nError:\nIn environment\nac : AbstractCorrelation\nThe term \"chsh_value ac\" has type \"QArith_base.Q\"\nwhile it is expected to have type \"nat\".",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__exceeding_bound_implies_cost__b.v",
-        "succeeded": false
-      },
-      "statement": "forall ac, ac.(chsh_value) > tsirelson_bound -> ~(is_quantum_correlation ac)",
-      "status": "ok"
-    },
-    {
       "file": "coq/kernel/quantum/TsirelsonQuantumModel.v",
       "kind": "Lemma",
       "line": 45,
@@ -10500,7 +9590,7 @@
         "succeeded": false
       },
       "probe_b": {
-        "coq_stderr_tail": "<timeout after 30s>",
+        "coq_stderr_tail": "ed to Thermodynamic\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/tests was previously bound to\ntests; it is remapped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]",
         "probe_name": "b",
         "probe_path": "build/vacuity_probes/Kernel__TsirelsonQuantumModel__trace_quantum_bridge_coherent_implies_quantum_model__b.v",
         "succeeded": false
@@ -11659,23 +10749,953 @@
       "status": "ok"
     },
     {
-      "file": "coq/kernel/curvature/PhysicsClosure.v",
-      "kind": "Theorem",
-      "line": 113,
-      "name": "Physics_Closure",
+      "file": "coq/PhysicsConditionalClosure.v",
+      "kind": "Lemma",
+      "line": 21,
+      "name": "semantics_run_vm_cost_invariant",
       "probe_a": {
-        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PhysicsClosure__Physics_Closure__a.v\", line 3, characters 67-84:\nError: The reference well_formed_graph was not found in the current\nenvironment.",
+        "coq_stderr_tail": "g: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/PhysicsConditionalClosure__semantics_run_vm_cost_invariant__a.v\", line 3, characters 80-94:\nError: The reference vm_instruction was not found in the current environment.",
         "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__PhysicsClosure__Physics_Closure__a.v",
+        "probe_path": "build/vacuity_probes/PhysicsConditionalClosure__semantics_run_vm_cost_invariant__a.v",
         "succeeded": false
       },
       "probe_b": {
-        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PhysicsClosure__Physics_Closure__b.v\", line 3, characters 67-84:\nError: The reference well_formed_graph was not found in the current\nenvironment.",
+        "coq_stderr_tail": "g: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/PhysicsConditionalClosure__semantics_run_vm_cost_invariant__b.v\", line 3, characters 80-94:\nError: The reference vm_instruction was not found in the current environment.",
         "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__PhysicsClosure__Physics_Closure__b.v",
+        "probe_path": "build/vacuity_probes/PhysicsConditionalClosure__semantics_run_vm_cost_invariant__b.v",
         "succeeded": false
       },
-      "statement": "(forall s s' instr mid, well_formed_graph s.(vm_graph) -> mid < pg_next_id s.(vm_graph) -> vm_step s instr s' -> ~ In mid (instr_targets instr) -> ObservableRegion s mid = ObservableRegion s' mid) /\\ (forall s s' instr, vm_step s instr s' -> s'.(vm_mu) >= s.(vm_mu)) /\\ (forall s trace s' mid, exec_trace s trace s' -> well_formed_graph s.(vm_graph) -> mid < pg_next_id s.(vm_graph) -> ~ In mid (causal_cone trace) -> ObservableRegion s mid = ObservableRegion s' mid)",
+      "statement": "forall (trace : list vm_instruction) (s : VMState), (exec_trace_from s trace).(vm_mu) = (s.(vm_mu) + trace_total_cost trace)%nat",
+      "status": "ok"
+    },
+    {
+      "file": "coq/PhysicsConditionalClosure.v",
+      "kind": "Theorem",
+      "line": 28,
+      "name": "elliptope_tsirelson_bound_abs",
+      "probe_a": {
+        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/PhysicsConditionalClosure__elliptope_tsirelson_bound_abs__a.v\", line 3, characters 82-92:\nError: The reference RealNumber was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/PhysicsConditionalClosure__elliptope_tsirelson_bound_abs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/PhysicsConditionalClosure__elliptope_tsirelson_bound_abs__b.v\", line 3, characters 82-92:\nError: The reference RealNumber was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/PhysicsConditionalClosure__elliptope_tsirelson_bound_abs__b.v",
+        "succeeded": false
+      },
+      "statement": "forall E00 E01 E10 E11 : RealNumber, elliptope_realizable E00 E01 E10 E11 -> Rabs (CHSH E00 E01 E10 E11) <= sqrt8",
+      "status": "ok"
+    },
+    {
+      "file": "coq/PhysicsConditionalClosure.v",
+      "kind": "Theorem",
+      "line": 53,
+      "name": "master_tsirelson_conditional",
+      "probe_a": {
+        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/PhysicsConditionalClosure__master_tsirelson_conditional__a.v\", line 3, characters 81-91:\nError: The reference RealNumber was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/PhysicsConditionalClosure__master_tsirelson_conditional__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/PhysicsConditionalClosure__master_tsirelson_conditional__b.v\", line 3, characters 81-91:\nError: The reference RealNumber was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/PhysicsConditionalClosure__master_tsirelson_conditional__b.v",
+        "succeeded": false
+      },
+      "statement": "forall E00 E01 E10 E11 : RealNumber, honest_quantum_chsh_correlations E00 E01 E10 E11 -> Rabs (CHSH E00 E01 E10 E11) <= sqrt8",
+      "status": "ok"
+    },
+    {
+      "file": "coq/PhysicsConditionalClosure.v",
+      "kind": "Corollary",
+      "line": 63,
+      "name": "master_supra_quantum_impossible",
+      "probe_a": {
+        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/PhysicsConditionalClosure__master_supra_quantum_impossible__a.v\", line 3, characters 84-94:\nError: The reference RealNumber was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/PhysicsConditionalClosure__master_supra_quantum_impossible__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/PhysicsConditionalClosure__master_supra_quantum_impossible__b.v\", line 3, characters 84-94:\nError: The reference RealNumber was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/PhysicsConditionalClosure__master_supra_quantum_impossible__b.v",
+        "succeeded": false
+      },
+      "statement": "forall E00 E01 E10 E11 : RealNumber, honest_quantum_chsh_correlations E00 E01 E10 E11 -> ~ (Rabs (CHSH E00 E01 E10 E11) > sqrt8)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Lemma",
+      "line": 49,
+      "name": "init_state_mu_zero",
+      "probe_a": {
+        "coq_stderr_tail": ",filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__init_state_mu_zero__a.v\", line 3, characters 58-63:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__init_state_mu_zero__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__init_state_mu_zero__b.v\", line 3, characters 58-63:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__init_state_mu_zero__b.v",
+        "succeeded": false
+      },
+      "statement": "init_state.(vm_mu) = 0",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Lemma",
+      "line": 69,
+      "name": "exec_trace_correct",
+      "probe_a": {
+        "coq_stderr_tail": "remapped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__exec_trace_correct__a.v\", line 4, characters 7-29:\nError: Stack overflow.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__exec_trace_correct__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "remapped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__exec_trace_correct__b.v\", line 4, characters 7-37:\nError: Stack overflow.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__exec_trace_correct__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s trace, trace_reaches s trace (exec_trace_from s trace)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Lemma",
+      "line": 79,
+      "name": "trace_reaches_exec",
+      "probe_a": {
+        "coq_stderr_tail": "remapped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__trace_reaches_exec__a.v\", line 4, characters 7-29:\nError: Stack overflow.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__trace_reaches_exec__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "remapped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__trace_reaches_exec__b.v\", line 4, characters 7-37:\nError: Stack overflow.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__trace_reaches_exec__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s trace s', trace_reaches s trace s' -> s' = exec_trace_from s trace",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Lemma",
+      "line": 89,
+      "name": "reachable_from_trace_gen",
+      "probe_a": {
+        "coq_stderr_tail": "ped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__reachable_from_trace_gen__a.v\", line 4, characters 7-29:\nError: Stack overflow.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__reachable_from_trace_gen__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__reachable_from_trace_gen__b.v\", line 4, characters 7-37:\nError: Stack overflow.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__reachable_from_trace_gen__b.v",
+        "succeeded": false
+      },
+      "statement": "forall trace s, reachable s -> reachable (exec_trace_from s trace)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Lemma",
+      "line": 99,
+      "name": "reachable_from_trace",
+      "probe_a": {
+        "coq_stderr_tail": "emapped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__reachable_from_trace__a.v\", line 4, characters 7-29:\nError: Stack overflow.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__reachable_from_trace__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "emapped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__reachable_from_trace__b.v\", line 4, characters 7-37:\nError: Stack overflow.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__reachable_from_trace__b.v",
+        "succeeded": false
+      },
+      "statement": "forall trace, reachable (exec_trace_from init_state trace)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Lemma",
+      "line": 107,
+      "name": "reachable_iff_trace",
+      "probe_a": {
+        "coq_stderr_tail": "remapped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__reachable_iff_trace__a.v\", line 4, characters 7-29:\nError: Stack overflow.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__reachable_iff_trace__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "remapped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__reachable_iff_trace__b.v\", line 4, characters 7-37:\nError: Stack overflow.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__reachable_iff_trace__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s, reachable s <-> exists trace, s = exec_trace_from init_state trace",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Lemma",
+      "line": 137,
+      "name": "mu_accumulates_trace_cost",
+      "probe_a": {
+        "coq_stderr_tail": "tem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_accumulates_trace_cost__a.v\", line 3, characters 96-101:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_accumulates_trace_cost__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "tem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_accumulates_trace_cost__b.v\", line 3, characters 96-101:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_accumulates_trace_cost__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s trace, (exec_trace_from s trace).(vm_mu) = s.(vm_mu) + trace_total_cost trace",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Corollary",
+      "line": 149,
+      "name": "mu_equals_trace_cost",
+      "probe_a": {
+        "coq_stderr_tail": "lesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_equals_trace_cost__a.v\", line 3, characters 98-103:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_equals_trace_cost__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_equals_trace_cost__b.v\", line 3, characters 98-103:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_equals_trace_cost__b.v",
+        "succeeded": false
+      },
+      "statement": "forall trace, (exec_trace_from init_state trace).(vm_mu) = trace_total_cost trace",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Lemma",
+      "line": 169,
+      "name": "instruction_consistent_monotone",
+      "probe_a": {
+        "coq_stderr_tail": "Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__instruction_consistent_monotone__a.v\", line 4, characters 7-29:\nError: Stack overflow.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__instruction_consistent_monotone__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__instruction_consistent_monotone__b.v\", line 4, characters 7-37:\nError: Stack overflow.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__instruction_consistent_monotone__b.v",
+        "succeeded": false
+      },
+      "statement": "forall M c, instruction_consistent M c -> (forall instr, c instr >= 0) -> is_monotone M",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Lemma",
+      "line": 181,
+      "name": "consistent_accumulates_trace_cost",
+      "probe_a": {
+        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__consistent_accumulates_trace_cost__a.v\", line 3, characters 221-222:\nError: Syntax error: 'end' expected after [branches] (in [term_match]).",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__consistent_accumulates_trace_cost__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__consistent_accumulates_trace_cost__b.v\", line 3, characters 221-222:\nError: Syntax error: 'end' expected after [branches] (in [term_match]).",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__consistent_accumulates_trace_cost__b.v",
+        "succeeded": false
+      },
+      "statement": "forall M c, instruction_consistent M c -> forall s trace, M (exec_trace_from s trace) = M s + (fix trace_cost (t : list vm_instruction) : nat := match t with | [] => 0 | i :: rest => c i + trace_cost rest end) trace",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Theorem",
+      "line": 201,
+      "name": "mu_is_initial_monotone",
+      "probe_a": {
+        "coq_stderr_tail": "ystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_is_initial_monotone__a.v\", line 3, characters 61-68:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_is_initial_monotone__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_is_initial_monotone__b.v\", line 3, characters 61-68:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_is_initial_monotone__b.v",
+        "succeeded": false
+      },
+      "statement": "forall M : VMState -> nat, instruction_consistent M canonical_cost -> M init_state = 0 -> forall s, reachable s -> M s = s.(vm_mu)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Corollary",
+      "line": 221,
+      "name": "mu_trace_determined",
+      "probe_a": {
+        "coq_stderr_tail": "lesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_trace_determined__a.v\", line 3, characters 58-65:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_trace_determined__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_trace_determined__b.v\", line 3, characters 58-65:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_trace_determined__b.v",
+        "succeeded": false
+      },
+      "statement": "forall M : VMState -> nat, instruction_consistent M canonical_cost -> M init_state = 0 -> forall trace, M (exec_trace_from init_state trace) = trace_total_cost trace",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Corollary",
+      "line": 234,
+      "name": "consistent_monotones_agree",
+      "probe_a": {
+        "coq_stderr_tail": "m,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__consistent_monotones_agree__a.v\", line 3, characters 69-76:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__consistent_monotones_agree__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "m,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__consistent_monotones_agree__b.v\", line 3, characters 69-76:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__consistent_monotones_agree__b.v",
+        "succeeded": false
+      },
+      "statement": "forall M1 M2 : VMState -> nat, instruction_consistent M1 canonical_cost -> instruction_consistent M2 canonical_cost -> M1 init_state = 0 -> M2 init_state = 0 -> forall s, reachable s -> M1 s = M2 s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Theorem",
+      "line": 248,
+      "name": "monotone_factors_through_mu",
+      "probe_a": {
+        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__monotone_factors_through_mu__a.v\", line 3, characters 66-73:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__monotone_factors_through_mu__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__monotone_factors_through_mu__b.v\", line 3, characters 66-73:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__monotone_factors_through_mu__b.v",
+        "succeeded": false
+      },
+      "statement": "forall M : VMState -> nat, instruction_consistent M canonical_cost -> exists f : nat -> nat, (forall n m, n <= m -> f n <= f m) /\\ (forall s, reachable s -> M s = f (s.(vm_mu)))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Corollary",
+      "line": 274,
+      "name": "mu_is_identity_factorization",
+      "probe_a": {
+        "coq_stderr_tail": "default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_is_identity_factorization__a.v\", line 3, characters 67-74:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_is_identity_factorization__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_is_identity_factorization__b.v\", line 3, characters 67-74:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_is_identity_factorization__b.v",
+        "succeeded": false
+      },
+      "statement": "forall M : VMState -> nat, instruction_consistent M canonical_cost -> M init_state = 0 -> forall s, reachable s -> M s = (fun n => n) (s.(vm_mu))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Theorem",
+      "line": 302,
+      "name": "mu_is_universal",
+      "probe_a": {
+        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_is_universal__a.v\", line 3, characters 114-119:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_is_universal__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_is_universal__b.v\", line 3, characters 114-119:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_is_universal__b.v",
+        "succeeded": false
+      },
+      "statement": "forall cf : CostFunctional, forall s, reachable s -> cf_measure cf s = vm_mu s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Theorem",
+      "line": 313,
+      "name": "mu_initiality",
+      "probe_a": {
+        "coq_stderr_tail": ",filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_initiality__a.v\", line 4, characters 27-28:\nError:\nIn environment\ncf1, cf2 : CostFunctional\ns : VMState.VMState\nH : reachable s\nThe term \"I\" has type \"True\" while it is expected to have type\n \"(let (cf_measure, _, _) := cf1 in cf_measure) s =\n  (let (cf_measure, _, _) := cf2 in cf_measure) s\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_initiality__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "remapped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__mu_initiality__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__mu_initiality__b.v",
+        "succeeded": false
+      },
+      "statement": "forall cf1 cf2 : CostFunctional, forall s, reachable s -> cf_measure cf1 s = cf_measure cf2 s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuInitiality.v",
+      "kind": "Theorem",
+      "line": 323,
+      "name": "instruction_consistent_measure_equals_mu",
+      "probe_a": {
+        "coq_stderr_tail": "ning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__instruction_consistent_measure_equals_mu__a.v\", line 3, characters 85-92:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__instruction_consistent_measure_equals_mu__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuInitiality__instruction_consistent_measure_equals_mu__b.v\", line 3, characters 85-92:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuInitiality__instruction_consistent_measure_equals_mu__b.v",
+        "succeeded": false
+      },
+      "statement": "forall measure : VMState -> nat, instruction_consistent measure canonical_cost -> measure init_state = 0 -> forall s, reachable s -> measure s = s.(vm_mu)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
+      "kind": "Lemma",
+      "line": 23,
+      "name": "vm_apply_certify_sets_certified",
+      "probe_a": {
+        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__vm_apply_certify_sets_certified__a.v\", line 3, characters 71-78:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__vm_apply_certify_sets_certified__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__vm_apply_certify_sets_certified__b.v\", line 3, characters 71-78:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__vm_apply_certify_sets_certified__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (s : VMState) (delta : nat), (vm_apply s (instr_certify delta)).(vm_certified) = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
+      "kind": "Lemma",
+      "line": 34,
+      "name": "certify_instruction_cost",
+      "probe_a": {
+        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_instruction_cost__a.v\", line 3, characters 66-82:\nError: The reference instruction_cost was not found in the current\nenvironment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_instruction_cost__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_instruction_cost__b.v\", line 3, characters 66-82:\nError: The reference instruction_cost was not found in the current\nenvironment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_instruction_cost__b.v",
+        "succeeded": false
+      },
+      "statement": "forall delta, instruction_cost (instr_certify delta) = S delta",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
+      "kind": "Lemma",
+      "line": 41,
+      "name": "vm_apply_certify_init_mu",
+      "probe_a": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__vm_apply_certify_init_mu__a.v\", line 3, characters 111-116:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__vm_apply_certify_init_mu__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__vm_apply_certify_init_mu__b.v\", line 3, characters 111-116:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__vm_apply_certify_init_mu__b.v",
+        "succeeded": false
+      },
+      "statement": "forall delta, (vm_apply init_state (instr_certify delta)).(vm_mu) = S delta",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
+      "kind": "Lemma",
+      "line": 56,
+      "name": "run_vm_single_from_init",
+      "probe_a": {
+        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__run_vm_single_from_init__a.v\", line 3, characters 93-99:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__run_vm_single_from_init__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__run_vm_single_from_init__b.v\", line 3, characters 93-99:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__run_vm_single_from_init__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (instr : vm_instruction), run_vm 1 [instr] init_state = vm_apply init_state instr",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
+      "kind": "Lemma",
+      "line": 76,
+      "name": "certify_to_level_mu",
+      "probe_a": {
+        "coq_stderr_tail": "em,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_mu__a.v\", line 3, characters 111-116:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_mu__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "em,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_mu__b.v\", line 3, characters 111-116:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_mu__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k, k >= 1 -> (run_vm 1 (certify_to_level k) init_state).(vm_mu) = k",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
+      "kind": "Lemma",
+      "line": 88,
+      "name": "certify_to_level_certified",
+      "probe_a": {
+        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_certified__a.v\", line 3, characters 118-130:\nError: The reference vm_certified was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_certified__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_certified__b.v\", line 3, characters 118-130:\nError: The reference vm_certified was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_certified__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k, k >= 1 -> (run_vm 1 (certify_to_level k) init_state).(vm_certified) = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
+      "kind": "Lemma",
+      "line": 99,
+      "name": "certify_to_level_cost",
+      "probe_a": {
+        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_cost__a.v\", line 3, characters 69-82:\nError: The reference trace_mu_cost was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_cost__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_cost__b.v\", line 3, characters 69-82:\nError: The reference trace_mu_cost was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_cost__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k, k >= 1 -> trace_mu_cost 1 (certify_to_level k) init_state = k",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
+      "kind": "Lemma",
+      "line": 142,
+      "name": "certifies_at_level_cost",
+      "probe_a": {
+        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certifies_at_level_cost__a.v\", line 3, characters 97-113:\nError: The reference instruction_cost was not found in the current\nenvironment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certifies_at_level_cost__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certifies_at_level_cost__b.v\", line 3, characters 97-113:\nError: The reference instruction_cost was not found in the current\nenvironment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certifies_at_level_cost__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k instr, certifies_at_level k instr -> instruction_cost instr >= k",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
+      "kind": "Lemma",
+      "line": 151,
+      "name": "executed_instruction_cost_recorded",
+      "probe_a": {
+        "coq_stderr_tail": "]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__executed_instruction_cost_recorded__a.v\", line 3, characters 89-91:\nError: The reference In was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__executed_instruction_cost_recorded__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__executed_instruction_cost_recorded__b.v\", line 3, characters 89-91:\nError: The reference In was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__executed_instruction_cost_recorded__b.v",
+        "succeeded": false
+      },
+      "statement": "forall fuel trace s instr, In instr (executed_instructions fuel trace s) -> In (instruction_cost instr) (ledger_entries fuel trace s)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
+      "kind": "Lemma",
+      "line": 166,
+      "name": "ledger_sum_contains_lower_bound",
+      "probe_a": {
+        "coq_stderr_tail": "ult]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__ledger_sum_contains_lower_bound__a.v\", line 3, characters 80-82:\nError: The reference In was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__ledger_sum_contains_lower_bound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ult]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__ledger_sum_contains_lower_bound__b.v\", line 3, characters 80-82:\nError: The reference In was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__ledger_sum_contains_lower_bound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall entries cost, In cost entries -> ledger_sum entries >= cost",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
+      "kind": "Theorem",
+      "line": 185,
+      "name": "level_k_certification_cost_floor",
+      "probe_a": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__level_k_certification_cost_floor__a.v\", line 3, characters 115-128:\nError: The reference trace_mu_cost was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__level_k_certification_cost_floor__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__level_k_certification_cost_floor__b.v\", line 3, characters 115-128:\nError: The reference trace_mu_cost was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__level_k_certification_cost_floor__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k fuel trace, level_k_certified k fuel trace -> trace_mu_cost fuel trace init_state >= k",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
+      "kind": "Lemma",
+      "line": 206,
+      "name": "certify_to_level_has_level",
+      "probe_a": {
+        "coq_stderr_tail": "ep.VMStep.instr_certify\n        ((fix sub (n m : nat) {struct n} : nat :=\n            match n with\n            | 0 => n\n            | S k => match m with\n                     | 0 => n\n                     | S l => sub k l\n                     end\n            end) k 1) = instr \\/ False) /\\\n     match instr with\n     | VMStep.VMStep.instr_certify delta => k <= S delta\n     | _ => False\n     end)\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_has_level__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_has_level__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__certify_to_level_has_level__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k, k >= 1 -> level_k_certified k 1 (certify_to_level k)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
+      "kind": "Theorem",
+      "line": 229,
+      "name": "mu_hierarchy_theorem",
+      "probe_a": {
+        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_theorem__a.v\", line 3, characters 88-101:\nError: The reference trace_mu_cost was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_theorem__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_theorem__b.v\", line 3, characters 88-101:\nError: The reference trace_mu_cost was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_theorem__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k, k >= 1 -> (exists fuel trace, trace_mu_cost fuel trace init_state = k /\\ level_k_certified k fuel trace) /\\ (forall fuel trace, level_k_certified k fuel trace -> trace_mu_cost fuel trace init_state >= k)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
+      "kind": "Corollary",
+      "line": 254,
+      "name": "mu_hierarchy_strict",
+      "probe_a": {
+        "coq_stderr_tail": "ault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_strict__a.v\", line 3, characters 78-91:\nError: The reference trace_mu_cost was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_strict__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_strict__b.v\", line 3, characters 78-91:\nError: The reference trace_mu_cost was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_strict__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k fuel trace, k >= 1 -> trace_mu_cost fuel trace init_state < k -> ~ level_k_certified k fuel trace",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
+      "kind": "Corollary",
+      "line": 267,
+      "name": "mu_hierarchy_no_upper_bound",
+      "probe_a": {
+        "coq_stderr_tail": "ing: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_no_upper_bound__a.v\", line 3, characters 112-125:\nError: The reference trace_mu_cost was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_no_upper_bound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ing: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_no_upper_bound__b.v\", line 3, characters 112-125:\nError: The reference trace_mu_cost was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_hierarchy_no_upper_bound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall budget, exists k, k >= 1 /\\ ~ (exists fuel trace, trace_mu_cost fuel trace init_state <= budget /\\ level_k_certified k fuel trace)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
+      "kind": "Corollary",
+      "line": 284,
+      "name": "mu_dimension_unbounded",
+      "probe_a": {
+        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_dimension_unbounded__a.v\", line 3, characters 101-114:\nError: The reference trace_mu_cost was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_dimension_unbounded__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_dimension_unbounded__b.v\", line 3, characters 101-114:\nError: The reference trace_mu_cost was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuHierarchyTheorem__mu_dimension_unbounded__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k0, exists k, k > k0 /\\ (exists fuel trace, trace_mu_cost fuel trace init_state = k /\\ level_k_certified k fuel trace)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/RTLGapRegistry.v",
+      "kind": "Theorem",
+      "line": 56,
+      "name": "rtl_gap_count",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "List.length rtl_gap_registry = 0",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/RTLGapRegistry.v",
+      "kind": "Theorem",
+      "line": 80,
+      "name": "rtl_coverage_partition",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "37 + 10 + 0 = 47",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/VMSubstrateEncoded.v",
+      "kind": "Lemma",
+      "line": 61,
+      "name": "vm_encode_decode_concrete",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall p, vm_decode_concrete (vm_encode_concrete p) = p",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/VMSubstrateEncoded.v",
+      "kind": "Theorem",
+      "line": 72,
+      "name": "vm_structural_shortcut_undecidable_encoded",
+      "probe_a": {
+        "coq_stderr_tail": "s/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_structural_shortcut_undecidable_encoded__a.v\", line 3, characters 90-104:\nError: The reference vm_instruction was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_structural_shortcut_undecidable_encoded__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "s/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_structural_shortcut_undecidable_encoded__b.v\", line 3, characters 90-104:\nError: The reference vm_instruction was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_structural_shortcut_undecidable_encoded__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (rep : (list vm_instruction -> list vm_instruction) -> Prop) (Hrec : forall f, rep f -> exists q, forall s, vm_run q s = vm_run (f q) s), ~ exists (decide : list vm_instruction -> bool), rep (fun p => if decide p then (@nil vm_instruction) else simple_morph_trace) /\\ forall p, decide p = true <-> vm_admits_shortcut_extensional p",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumEquivalence.v",
+      "kind": "Lemma",
+      "line": 53,
+      "name": "classical_bound_implies_rational_ceiling",
+      "probe_a": {
+        "coq_stderr_tail": "to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__classical_bound_implies_rational_ceiling__a.v\", line 3, characters 110-125:\nError:\nIn environment\nac : AbstractCorrelation\nThe term \"chsh_value ac\" has type \"QArith_base.Q\"\nwhile it is expected to have type \"nat\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__classical_bound_implies_rational_ceiling__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__classical_bound_implies_rational_ceiling__b.v\", line 3, characters 110-125:\nError:\nIn environment\nac : AbstractCorrelation\nThe term \"chsh_value ac\" has type \"QArith_base.Q\"\nwhile it is expected to have type \"nat\".",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__classical_bound_implies_rational_ceiling__b.v",
+        "succeeded": false
+      },
+      "statement": "forall ac, ac.(satisfies_no_signaling) -> ac.(chsh_value) <= classical_bound -> satisfies_rational_chsh_ceiling ac",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumEquivalence.v",
+      "kind": "Theorem",
+      "line": 74,
+      "name": "classical_bound_below_rational_ceiling",
+      "probe_a": {
+        "coq_stderr_tail": "(BinNums.xO\n                                                 (let \n                                                 (_, Qden) :=\n                                                 let (_, chsh_value) := ac in\n                                                 chsh_value in\n                                                 Qden))))))))))))))))))\n  | _ => Lt\n  end = Gt -> False\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__classical_bound_below_rational_ceiling__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__classical_bound_below_rational_ceiling__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__classical_bound_below_rational_ceiling__b.v",
+        "succeeded": false
+      },
+      "statement": "rational_bound_ordering",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumEquivalence.v",
+      "kind": "Theorem",
+      "line": 89,
+      "name": "rational_chsh_ceiling_unfolds",
+      "probe_a": {
+        "coq_stderr_tail": "(BinNums.xO\n                                                 (let \n                                                 (_, Qden) :=\n                                                 let (_, chsh_value) := ac in\n                                                 chsh_value in\n                                                 Qden))))))))))))))))))\n    | _ => Lt\n    end = Gt -> False))\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__rational_chsh_ceiling_unfolds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "erriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__rational_chsh_ceiling_unfolds__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__rational_chsh_ceiling_unfolds__b.v",
+        "succeeded": false
+      },
+      "statement": "rational_chsh_ceiling_spec",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumEquivalence.v",
+      "kind": "Theorem",
+      "line": 100,
+      "name": "rational_bound_summary_holds",
+      "probe_a": {
+        "coq_stderr_tail": "(BinNums.xO\n                                                 (let \n                                                 (_, Qden) :=\n                                                 let (_, chsh_value) := ac in\n                                                 chsh_value in\n                                                 Qden))))))))))))))))))\n     | _ => Lt\n     end = Gt -> False)))\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__rational_bound_summary_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "verriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__rational_bound_summary_holds__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__rational_bound_summary_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "rational_bound_summary",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumEquivalence.v",
+      "kind": "Theorem",
+      "line": 108,
+      "name": "rational_bound_ordering_and_spec",
+      "probe_a": {
+        "coq_stderr_tail": "(BinNums.xO\n                                                 (let \n                                                 (_, Qden) :=\n                                                 let (_, chsh_value) := ac in\n                                                 chsh_value in\n                                                 Qden))))))))))))))))))\n     | _ => Lt\n     end = Gt -> False)))\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__rational_bound_ordering_and_spec__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "iding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__rational_bound_ordering_and_spec__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__rational_bound_ordering_and_spec__b.v",
+        "succeeded": false
+      },
+      "statement": "rational_bound_ordering /\\ rational_chsh_ceiling_spec",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumEquivalence.v",
+      "kind": "Theorem",
+      "line": 117,
+      "name": "rational_chsh_ceiling_intro",
+      "probe_a": {
+        "coq_stderr_tail": "eviously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__rational_chsh_ceiling_intro__a.v\", line 3, characters 97-112:\nError:\nIn environment\nac : AbstractCorrelation\nThe term \"chsh_value ac\" has type \"QArith_base.Q\"\nwhile it is expected to have type \"nat\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__rational_chsh_ceiling_intro__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "eviously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__rational_chsh_ceiling_intro__b.v\", line 3, characters 97-112:\nError:\nIn environment\nac : AbstractCorrelation\nThe term \"chsh_value ac\" has type \"QArith_base.Q\"\nwhile it is expected to have type \"nat\".",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__rational_chsh_ceiling_intro__b.v",
+        "succeeded": false
+      },
+      "statement": "forall ac, ac.(satisfies_no_signaling) -> ac.(chsh_value) <= tsirelson_bound -> satisfies_rational_chsh_ceiling ac",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumEquivalence.v",
+      "kind": "Theorem",
+      "line": 128,
+      "name": "above_ceiling_fails_rational_bound",
+      "probe_a": {
+        "coq_stderr_tail": "ly\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__above_ceiling_fails_rational_bound__a.v\", line 3, characters 73-88:\nError:\nIn environment\nac : AbstractCorrelation\nThe term \"chsh_value ac\" has type \"QArith_base.Q\"\nwhile it is expected to have type \"nat\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__above_ceiling_fails_rational_bound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ly\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumEquivalence__above_ceiling_fails_rational_bound__b.v\", line 3, characters 73-88:\nError:\nIn environment\nac : AbstractCorrelation\nThe term \"chsh_value ac\" has type \"QArith_base.Q\"\nwhile it is expected to have type \"nat\".",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumEquivalence__above_ceiling_fails_rational_bound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall ac, ac.(chsh_value) > tsirelson_bound -> ~(satisfies_rational_chsh_ceiling ac)",
       "status": "ok"
     }
   ]

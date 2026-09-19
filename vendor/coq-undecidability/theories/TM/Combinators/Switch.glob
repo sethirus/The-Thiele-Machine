@@ -1,0 +1,908 @@
+DIGEST 255c39ea7ea3b0533a87e94c4c907a02
+FUndecidability.TM.Combinators.Switch
+R35:50 Undecidability.TM.Util.TM_facts <> <> lib
+R68:118 Undecidability.Shared.Libs.PSL.FiniteTypes.DepPairs <> <> lib
+R120:129 Coq.Logic.EqdepFacts <> <> lib
+sec 200:205 <> Switch
+var 220:220 Switch n
+R224:226 Coq.Init.Datatypes <> nat ind
+var 240:242 Switch sig
+R246:252 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+var 267:267 Switch F
+R271:277 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+var 292:294 Switch pM1
+R298:300 Undecidability.TM.Util.TM_facts <> pTM def
+R308:308 Undecidability.TM.Combinators.Switch <> Switch.n var
+R306:306 Undecidability.TM.Combinators.Switch <> Switch.F var
+R302:304 Undecidability.TM.Combinators.Switch <> Switch.sig var
+var 322:323 Switch F'
+R327:333 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+var 347:349 Switch pMf
+R354:357 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R353:353 Undecidability.TM.Combinators.Switch <> Switch.F var
+R358:360 Undecidability.TM.Util.TM_facts <> pTM def
+R369:369 Undecidability.TM.Combinators.Switch <> Switch.n var
+R366:367 Undecidability.TM.Combinators.Switch <> Switch.F' var
+R362:364 Undecidability.TM.Combinators.Switch <> Switch.sig var
+abbrev 421:422 <> M1
+R428:433 Coq.Init.Specif <> projT1 def
+R435:437 Undecidability.TM.Combinators.Switch <> Switch.pM1 var
+abbrev 502:503 <> p1
+R509:514 Coq.Init.Specif <> projT2 def
+R516:518 Undecidability.TM.Combinators.Switch <> Switch.pM1 var
+R592:597 Coq.Init.Specif <> projT1 def
+R600:602 Undecidability.TM.Combinators.Switch <> Switch.pMf var
+not 579:579 Switch :::'Mf'_x
+R705:710 Coq.Init.Specif <> projT2 def
+R713:715 Undecidability.TM.Combinators.Switch <> Switch.pMf var
+not 692:692 Switch :::'p2'_x
+def 750:761 <> Switch_trans
+R838:845 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R769:769 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R811:814 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R781:783 Coq.Init.Datatypes <> ::type_scope:x_'+'_x not
+R770:777 Undecidability.TM.TM <> state proj
+R779:780 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R784:785 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R787:789 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R791:793 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R809:810 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R790:790 Undecidability.TM.Combinators.Switch <> Switch.F var
+binder 786:786 <> f:7
+R794:801 Undecidability.TM.TM <> state proj
+R804:806 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R807:807 Undecidability.TM.Combinators.Switch <> f:7 var
+R815:822 Coq.Vectors.Vector <> t ind
+R825:830 Coq.Init.Datatypes <> option ind
+R832:834 Undecidability.TM.Combinators.Switch <> Switch.sig var
+R837:837 Undecidability.TM.Combinators.Switch <> Switch.n var
+R846:846 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R888:891 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R858:860 Coq.Init.Datatypes <> ::type_scope:x_'+'_x not
+R847:854 Undecidability.TM.TM <> state proj
+R856:857 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R861:862 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R864:866 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R868:870 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R886:887 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R867:867 Undecidability.TM.Combinators.Switch <> Switch.F var
+binder 863:863 <> f:8
+R871:878 Undecidability.TM.TM <> state proj
+R881:883 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R884:884 Undecidability.TM.Combinators.Switch <> f:8 var
+R892:899 Coq.Vectors.Vector <> t ind
+R912:914 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R902:907 Coq.Init.Datatypes <> option ind
+R909:911 Undecidability.TM.Combinators.Switch <> Switch.sig var
+R915:918 Undecidability.TM.TM <> move ind
+R921:921 Undecidability.TM.Combinators.Switch <> Switch.n var
+R935:935 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R937:938 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R940:940 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 939:939 <> s:9
+binder 936:936 <> q:10
+binder 935:940 <> pat:11
+R959:959 Undecidability.TM.Combinators.Switch <> q:10 var
+R976:978 Coq.Init.Datatypes <> inl constr
+R998:1001 Undecidability.TM.TM <> halt proj
+R1003:1003 Undecidability.TM.Combinators.Switch <> q:10 var
+R1106:1110 Undecidability.TM.TM <> trans proj
+R1112:1112 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1114:1115 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1117:1117 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1113:1113 Undecidability.TM.Combinators.Switch <> q:10 var
+R1116:1116 Undecidability.TM.Combinators.Switch <> s:9 var
+binder 1096:1097 <> q':13
+binder 1100:1100 <> a:14
+R1122:1122 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1129:1130 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1132:1132 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1123:1125 Coq.Init.Datatypes <> inl constr
+R1127:1128 Undecidability.TM.Combinators.Switch <> q':13 var
+R1131:1131 Undecidability.TM.Combinators.Switch <> a:14 var
+R1020:1020 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1062:1063 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1074:1074 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1021:1023 Coq.Init.Datatypes <> inr constr
+R1026:1031 Coq.Init.Specif <> existT constr
+R1043:1047 Undecidability.TM.TM <> start proj
+R1050:1053 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R1058:1058 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R1054:1055 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R1057:1057 Undecidability.TM.Combinators.Switch <> q:10 var
+R1036:1037 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R1039:1039 Undecidability.TM.Combinators.Switch <> q:10 var
+R1064:1073 Undecidability.TM.Util.TM_facts <> nop_action def
+R1144:1146 Coq.Init.Datatypes <> inr constr
+R1178:1182 Undecidability.TM.TM <> trans proj
+R1184:1184 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1193:1194 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1196:1196 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1185:1190 Coq.Init.Specif <> projT2 def
+R1192:1192 Undecidability.TM.Combinators.Switch <> q:10 var
+R1195:1195 Undecidability.TM.Combinators.Switch <> s:9 var
+binder 1168:1169 <> q':15
+binder 1172:1172 <> a:16
+R1211:1211 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1240:1241 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1243:1243 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1212:1214 Coq.Init.Datatypes <> inr constr
+R1217:1222 Coq.Init.Specif <> existT constr
+R1237:1238 Undecidability.TM.Combinators.Switch <> q':15 var
+R1227:1232 Coq.Init.Specif <> projT1 def
+R1234:1234 Undecidability.TM.Combinators.Switch <> q:10 var
+R1242:1242 Undecidability.TM.Combinators.Switch <> a:16 var
+def 1272:1282 <> Switch_halt
+R1286:1286 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1328:1332 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1298:1300 Coq.Init.Datatypes <> ::type_scope:x_'+'_x not
+R1287:1294 Undecidability.TM.TM <> state proj
+R1296:1297 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R1301:1302 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R1304:1306 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R1308:1310 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R1326:1327 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R1307:1307 Undecidability.TM.Combinators.Switch <> Switch.F var
+binder 1303:1303 <> f:17
+R1311:1318 Undecidability.TM.TM <> state proj
+R1321:1323 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R1324:1324 Undecidability.TM.Combinators.Switch <> f:17 var
+R1333:1336 Coq.Init.Datatypes <> bool ind
+binder 1349:1349 <> q:18
+R1367:1367 Undecidability.TM.Combinators.Switch <> q:18 var
+R1382:1384 Coq.Init.Datatypes <> inl constr
+R1391:1395 Coq.Init.Datatypes <> false constr
+R1405:1407 Coq.Init.Datatypes <> inr constr
+R1414:1417 Undecidability.TM.TM <> halt proj
+R1420:1425 Coq.Init.Specif <> projT2 def
+R1427:1427 Undecidability.TM.Combinators.Switch <> q:18 var
+def 1457:1464 <> SwitchTM
+R1468:1469 Undecidability.TM.TM <> TM rec
+R1475:1475 Undecidability.TM.Combinators.Switch <> Switch.n var
+R1471:1473 Undecidability.TM.Combinators.Switch <> Switch.sig var
+R1493:1497 Undecidability.TM.TM <> trans proj
+R1493:1497 Undecidability.TM.TM <> trans proj
+R1493:1497 Undecidability.TM.TM <> trans proj
+R1522:1525 Undecidability.TM.TM <> halt proj
+R1522:1525 Undecidability.TM.TM <> halt proj
+R1550:1554 Undecidability.TM.TM <> start proj
+R1550:1554 Undecidability.TM.TM <> start proj
+R1502:1513 Undecidability.TM.Combinators.Switch <> Switch_trans def
+R1559:1561 Coq.Init.Datatypes <> inl constr
+R1564:1568 Undecidability.TM.TM <> start proj
+R1570:1571 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R1531:1541 Undecidability.TM.Combinators.Switch <> Switch_halt def
+def 1597:1604 <> Switch_p
+R1608:1608 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1623:1627 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1609:1613 Undecidability.TM.TM <> state proj
+R1615:1622 Undecidability.TM.Combinators.Switch <> SwitchTM def
+R1628:1629 Undecidability.TM.Combinators.Switch <> Switch.F' var
+binder 1642:1642 <> q:20
+R1653:1653 Undecidability.TM.Combinators.Switch <> q:20 var
+R1672:1674 Coq.Init.Datatypes <> inl constr
+R1681:1684 Undecidability.TM.Combinators.Switch Switch :::'p2'_x not
+R1689:1709 Undecidability.TM.Combinators.Switch Switch :::'p2'_x not
+R1685:1686 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R1688:1688 Undecidability.TM.Combinators.Switch <> q:20 var
+R1692:1696 Undecidability.TM.TM <> start proj
+R1699:1702 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R1707:1707 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R1703:1704 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R1706:1706 Undecidability.TM.Combinators.Switch <> q:20 var
+R1745:1747 Coq.Init.Datatypes <> inr constr
+R1754:1757 Undecidability.TM.Combinators.Switch Switch :::'p2'_x not
+R1766:1777 Undecidability.TM.Combinators.Switch Switch :::'p2'_x not
+R1758:1763 Coq.Init.Specif <> projT1 def
+R1765:1765 Undecidability.TM.Combinators.Switch <> q:20 var
+R1769:1774 Coq.Init.Specif <> projT2 def
+R1776:1776 Undecidability.TM.Combinators.Switch <> q:20 var
+def 1810:1815 <> Switch
+R1819:1821 Undecidability.TM.Util.TM_facts <> pTM def
+R1830:1830 Undecidability.TM.Combinators.Switch <> Switch.n var
+R1827:1828 Undecidability.TM.Combinators.Switch <> Switch.F' var
+R1823:1825 Undecidability.TM.Combinators.Switch <> Switch.sig var
+R1835:1835 Undecidability.TM.Util.TM_facts <> :::'('_x_';'_x_')' not
+R1844:1845 Undecidability.TM.Util.TM_facts <> :::'('_x_';'_x_')' not
+R1854:1854 Undecidability.TM.Util.TM_facts <> :::'('_x_';'_x_')' not
+R1836:1843 Undecidability.TM.Combinators.Switch <> SwitchTM def
+R1846:1853 Undecidability.TM.Combinators.Switch <> Switch_p def
+def 1941:1950 <> lift_confL
+R1957:1963 Undecidability.TM.Util.TM_facts <> mconfig rec
+R1980:1980 Undecidability.TM.Combinators.Switch <> Switch.n var
+R1970:1974 Undecidability.TM.TM <> state proj
+R1976:1977 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R1965:1967 Undecidability.TM.Combinators.Switch <> Switch.sig var
+binder 1953:1953 <> c:22
+R1985:1991 Undecidability.TM.Util.TM_facts <> mconfig rec
+R2014:2014 Undecidability.TM.Combinators.Switch <> Switch.n var
+R1998:2002 Undecidability.TM.TM <> state proj
+R2004:2011 Undecidability.TM.Combinators.Switch <> SwitchTM def
+R1993:1995 Undecidability.TM.Combinators.Switch <> Switch.sig var
+R2023:2032 Undecidability.TM.Util.TM_facts <> mk_mconfig constr
+R2052:2057 Undecidability.TM.Util.TM_facts <> ctapes proj
+R2059:2059 Undecidability.TM.Combinators.Switch <> c:22 var
+R2035:2037 Coq.Init.Datatypes <> inl constr
+R2040:2045 Undecidability.TM.Util.TM_facts <> cstate proj
+R2047:2047 Undecidability.TM.Combinators.Switch <> c:22 var
+def 2143:2152 <> lift_confR
+R2159:2159 Undecidability.TM.Combinators.Switch <> Switch.F var
+binder 2155:2155 <> f:23
+R2167:2173 Undecidability.TM.Util.TM_facts <> mconfig rec
+R2195:2195 Undecidability.TM.Combinators.Switch <> Switch.n var
+R2180:2184 Undecidability.TM.TM <> state proj
+R2187:2189 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R2190:2190 Undecidability.TM.Combinators.Switch <> f:23 var
+R2175:2177 Undecidability.TM.Combinators.Switch <> Switch.sig var
+binder 2163:2163 <> c:24
+R2200:2206 Undecidability.TM.Util.TM_facts <> mconfig rec
+R2229:2229 Undecidability.TM.Combinators.Switch <> Switch.n var
+R2213:2217 Undecidability.TM.TM <> state proj
+R2219:2226 Undecidability.TM.Combinators.Switch <> SwitchTM def
+R2208:2210 Undecidability.TM.Combinators.Switch <> Switch.sig var
+R2238:2247 Undecidability.TM.Util.TM_facts <> mk_mconfig constr
+R2308:2313 Undecidability.TM.Util.TM_facts <> ctapes proj
+R2315:2315 Undecidability.TM.Combinators.Switch <> c:24 var
+R2250:2252 Coq.Init.Datatypes <> inr constr
+R2255:2260 Coq.Init.Specif <> existT constr
+R2295:2300 Undecidability.TM.Util.TM_facts <> cstate proj
+R2302:2302 Undecidability.TM.Combinators.Switch <> c:24 var
+R2292:2292 Undecidability.TM.Combinators.Switch <> f:23 var
+R2272:2272 Undecidability.TM.Combinators.Switch <> Switch.F var
+binder 2267:2268 <> f0:25
+R2277:2281 Undecidability.TM.TM <> state proj
+R2284:2286 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R2287:2288 Undecidability.TM.Combinators.Switch <> f0:25 var
+prf 2414:2428 <> step_comp_liftL
+R2435:2441 Undecidability.TM.Util.TM_facts <> mconfig rec
+R2458:2458 Undecidability.TM.Combinators.Switch <> Switch.n var
+R2448:2452 Undecidability.TM.TM <> state proj
+R2454:2455 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R2443:2445 Undecidability.TM.Combinators.Switch <> Switch.sig var
+binder 2431:2431 <> c:26
+R2485:2488 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2477:2479 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2467:2474 Undecidability.TM.Util.TM_facts <> haltConf def
+R2476:2476 Undecidability.TM.Combinators.Switch <> c:26 var
+R2480:2484 Coq.Init.Datatypes <> false constr
+R2508:2510 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2489:2492 Undecidability.TM.Util.TM_facts <> step def
+R2495:2504 Undecidability.TM.Combinators.Switch <> lift_confL def
+R2506:2506 Undecidability.TM.Combinators.Switch <> c:26 var
+R2511:2520 Undecidability.TM.Combinators.Switch <> lift_confL def
+R2523:2526 Undecidability.TM.Util.TM_facts <> step def
+R2528:2528 Undecidability.TM.Combinators.Switch <> c:26 var
+R2552:2561 Undecidability.TM.Combinators.Switch <> lift_confL def
+R2564:2567 Undecidability.TM.Util.TM_facts <> step def
+R2570:2577 Undecidability.TM.Util.TM_facts <> haltConf def
+R2651:2655 Undecidability.TM.TM <> trans proj
+R2651:2655 Undecidability.TM.TM <> trans proj
+prf 2782:2796 <> step_comp_liftR
+binder 2798:2798 <> f:27
+R2805:2811 Undecidability.TM.Util.TM_facts <> mconfig rec
+R2832:2832 Undecidability.TM.Combinators.Switch <> Switch.n var
+R2818:2822 Undecidability.TM.TM <> state proj
+R2825:2827 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R2828:2828 Undecidability.TM.Combinators.Switch <> f:27 var
+R2813:2815 Undecidability.TM.Combinators.Switch <> Switch.sig var
+binder 2801:2801 <> c:28
+R2860:2862 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2841:2844 Undecidability.TM.Util.TM_facts <> step def
+R2847:2856 Undecidability.TM.Combinators.Switch <> lift_confR def
+R2858:2858 Undecidability.TM.Combinators.Switch <> c:28 var
+R2863:2872 Undecidability.TM.Combinators.Switch <> lift_confR def
+R2875:2878 Undecidability.TM.Util.TM_facts <> step def
+R2880:2880 Undecidability.TM.Combinators.Switch <> c:28 var
+R2916:2925 Undecidability.TM.Combinators.Switch <> lift_confR def
+R2928:2931 Undecidability.TM.Util.TM_facts <> step def
+R2953:2957 Undecidability.TM.TM <> trans proj
+R2953:2957 Undecidability.TM.TM <> trans proj
+def 3045:3054 <> halt_liftL
+R3061:3067 Undecidability.TM.Util.TM_facts <> mconfig rec
+R3092:3092 Undecidability.TM.Combinators.Switch <> Switch.n var
+R3074:3078 Undecidability.TM.TM <> state proj
+R3081:3088 Undecidability.TM.Combinators.Switch <> SwitchTM def
+R3069:3071 Undecidability.TM.Combinators.Switch <> Switch.sig var
+binder 3057:3057 <> c:29
+R3108:3113 Undecidability.TM.Util.TM_facts <> cstate proj
+R3115:3115 Undecidability.TM.Combinators.Switch <> c:29 var
+R3128:3130 Coq.Init.Datatypes <> inl constr
+R3137:3140 Undecidability.TM.TM <> halt proj
+R3148:3149 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R3160:3162 Coq.Init.Datatypes <> inr constr
+R3169:3172 Coq.Init.Datatypes <> true constr
+prf 3261:3275 <> halt_conf_liftL
+R3282:3288 Undecidability.TM.Util.TM_facts <> mconfig rec
+R3311:3311 Undecidability.TM.Combinators.Switch <> Switch.n var
+R3295:3299 Undecidability.TM.TM <> state proj
+R3301:3308 Undecidability.TM.Combinators.Switch <> SwitchTM def
+R3290:3292 Undecidability.TM.Combinators.Switch <> Switch.sig var
+binder 3278:3278 <> c:30
+R3340:3343 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3332:3334 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3320:3329 Undecidability.TM.Combinators.Switch <> halt_liftL def
+R3331:3331 Undecidability.TM.Combinators.Switch <> c:30 var
+R3335:3339 Coq.Init.Datatypes <> false constr
+R3359:3361 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3344:3347 Undecidability.TM.TM <> halt proj
+R3350:3355 Undecidability.TM.Util.TM_facts <> cstate proj
+R3357:3357 Undecidability.TM.Combinators.Switch <> c:30 var
+R3362:3366 Coq.Init.Datatypes <> false constr
+R3404:3414 Undecidability.TM.Combinators.Switch <> Switch_halt def
+prf 3610:3628 <> step_nop_transition
+R3635:3641 Undecidability.TM.Util.TM_facts <> mconfig rec
+R3658:3658 Undecidability.TM.Combinators.Switch <> Switch.n var
+R3648:3652 Undecidability.TM.TM <> state proj
+R3654:3655 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R3643:3645 Undecidability.TM.Combinators.Switch <> Switch.sig var
+binder 3631:3631 <> c:31
+R3684:3692 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3677:3679 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3667:3674 Undecidability.TM.Util.TM_facts <> haltConf def
+R3676:3676 Undecidability.TM.Combinators.Switch <> c:31 var
+R3680:3683 Coq.Init.Datatypes <> true constr
+R3712:3714 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3693:3696 Undecidability.TM.Util.TM_facts <> step def
+R3699:3708 Undecidability.TM.Combinators.Switch <> lift_confL def
+R3710:3710 Undecidability.TM.Combinators.Switch <> c:31 var
+R3715:3724 Undecidability.TM.Combinators.Switch <> lift_confR def
+R3727:3731 Undecidability.TM.Util.TM_facts <> initc def
+R3755:3760 Undecidability.TM.Util.TM_facts <> ctapes proj
+R3762:3762 Undecidability.TM.Combinators.Switch <> c:31 var
+R3734:3737 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R3751:3751 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R3738:3739 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R3742:3747 Undecidability.TM.Util.TM_facts <> cstate proj
+R3749:3749 Undecidability.TM.Combinators.Switch <> c:31 var
+R3804:3813 Undecidability.TM.Combinators.Switch <> lift_confL def
+R3816:3825 Undecidability.TM.Combinators.Switch <> lift_confR def
+R3840:3847 Undecidability.TM.Util.TM_facts <> haltConf def
+R3869:3872 Undecidability.TM.Util.TM_facts <> step def
+R3922:3930 Undecidability.TM.Util.TM_facts <> doAct_nop thm
+R3922:3930 Undecidability.TM.Util.TM_facts <> doAct_nop thm
+prf 4047:4056 <> lift_initc
+binder 4058:4058 <> t:32
+R4082:4084 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4066:4070 Undecidability.TM.Util.TM_facts <> initc def
+R4081:4081 Undecidability.TM.Combinators.Switch <> t:32 var
+R4072:4079 Undecidability.TM.Combinators.Switch <> SwitchTM def
+R4085:4094 Undecidability.TM.Combinators.Switch <> lift_confL def
+R4097:4101 Undecidability.TM.Util.TM_facts <> initc def
+R4106:4106 Undecidability.TM.Combinators.Switch <> t:32 var
+R4103:4104 Undecidability.TM.Combinators.Switch <> M1 abbrev
+prf 4442:4453 <> Switch_merge
+binder 4455:4455 <> t:33
+R4466:4468 Coq.Init.Datatypes <> nat ind
+binder 4458:4459 <> k1:34
+binder 4461:4462 <> k2:35
+R4485:4491 Undecidability.TM.Util.TM_facts <> mconfig rec
+R4508:4508 Undecidability.TM.Combinators.Switch <> Switch.n var
+R4498:4502 Undecidability.TM.TM <> state proj
+R4504:4505 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R4493:4495 Undecidability.TM.Combinators.Switch <> Switch.sig var
+binder 4480:4481 <> c1:36
+R4525:4531 Undecidability.TM.Util.TM_facts <> mconfig rec
+R4567:4567 Undecidability.TM.Combinators.Switch <> Switch.n var
+R4538:4542 Undecidability.TM.TM <> state proj
+R4545:4548 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R4563:4563 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R4549:4550 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R4553:4558 Undecidability.TM.Util.TM_facts <> cstate proj
+R4560:4561 Undecidability.TM.Combinators.Switch <> c1:36 var
+R4533:4535 Undecidability.TM.Combinators.Switch <> Switch.sig var
+binder 4520:4521 <> c2:37
+R4607:4614 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4597:4599 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4576:4580 Undecidability.TM.Util.TM_facts <> loopM def
+R4595:4596 Undecidability.TM.Combinators.Switch <> k1:34 var
+R4583:4587 Undecidability.TM.Util.TM_facts <> initc def
+R4592:4592 Undecidability.TM.Combinators.Switch <> t:33 var
+R4589:4590 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R4600:4603 Coq.Init.Datatypes <> Some constr
+R4605:4606 Undecidability.TM.Combinators.Switch <> c1:36 var
+R4675:4682 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4665:4667 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4615:4619 Undecidability.TM.Util.TM_facts <> loopM def
+R4663:4664 Undecidability.TM.Combinators.Switch <> k2:35 var
+R4622:4626 Undecidability.TM.Util.TM_facts <> initc def
+R4651:4656 Undecidability.TM.Util.TM_facts <> ctapes proj
+R4658:4659 Undecidability.TM.Combinators.Switch <> c1:36 var
+R4629:4632 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R4647:4647 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R4633:4634 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R4637:4642 Undecidability.TM.Util.TM_facts <> cstate proj
+R4644:4645 Undecidability.TM.Combinators.Switch <> c1:36 var
+R4668:4671 Coq.Init.Datatypes <> Some constr
+R4673:4674 Undecidability.TM.Combinators.Switch <> c2:37 var
+R4723:4725 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4683:4687 Undecidability.TM.Util.TM_facts <> loopM def
+R4711:4714 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4721:4721 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4709:4710 Undecidability.TM.Combinators.Switch <> k1:34 var
+R4716:4718 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4719:4720 Undecidability.TM.Combinators.Switch <> k2:35 var
+R4690:4694 Undecidability.TM.Util.TM_facts <> initc def
+R4705:4705 Undecidability.TM.Combinators.Switch <> t:33 var
+R4696:4703 Undecidability.TM.Combinators.Switch <> SwitchTM def
+R4726:4729 Coq.Init.Datatypes <> Some constr
+R4732:4741 Undecidability.TM.Combinators.Switch <> lift_confR def
+R4743:4744 Undecidability.TM.Combinators.Switch <> c2:37 var
+R4790:4794 Undecidability.TM.Util.TM_facts <> loopM def
+R4834:4843 Undecidability.TM.Combinators.Switch <> halt_liftL def
+R4853:4862 Undecidability.TM.Combinators.Switch <> lift_confL def
+R4812:4821 Undecidability.TM.Util.Prelim <> loop_merge thm
+R4834:4843 Undecidability.TM.Combinators.Switch <> halt_liftL def
+R4853:4862 Undecidability.TM.Combinators.Switch <> lift_confL def
+R4812:4821 Undecidability.TM.Util.Prelim <> loop_merge thm
+R4881:4895 Undecidability.TM.Combinators.Switch <> halt_conf_liftL thm
+R4881:4895 Undecidability.TM.Combinators.Switch <> halt_conf_liftL thm
+R4912:4921 Undecidability.TM.Combinators.Switch <> lift_initc thm
+R4912:4921 Undecidability.TM.Combinators.Switch <> lift_initc thm
+R4912:4921 Undecidability.TM.Combinators.Switch <> lift_initc thm
+R4957:4964 Undecidability.TM.Util.TM_facts <> haltConf def
+R4972:4973 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R4983:4986 Undecidability.TM.Util.TM_facts <> step def
+R4994:4995 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R4936:4944 Undecidability.TM.Util.Prelim <> loop_lift thm
+R4957:4964 Undecidability.TM.Util.TM_facts <> haltConf def
+R4972:4973 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R4983:4986 Undecidability.TM.Util.TM_facts <> step def
+R4994:4995 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R4936:4944 Undecidability.TM.Util.Prelim <> loop_lift thm
+R5015:5022 Undecidability.TM.Util.TM_facts <> haltConf def
+R5065:5079 Undecidability.TM.Combinators.Switch <> step_comp_liftL thm
+R5065:5079 Undecidability.TM.Combinators.Switch <> step_comp_liftL thm
+R5147:5155 Undecidability.TM.Util.Prelim <> loop_step thm
+R5147:5155 Undecidability.TM.Util.Prelim <> loop_step thm
+R5147:5155 Undecidability.TM.Util.Prelim <> loop_step thm
+R5210:5222 Undecidability.TM.Util.Prelim <> loop_fulfills thm
+R5180:5198 Undecidability.TM.Combinators.Switch <> step_nop_transition thm
+R5180:5198 Undecidability.TM.Combinators.Switch <> step_nop_transition thm
+R5210:5222 Undecidability.TM.Util.Prelim <> loop_fulfills thm
+R5180:5198 Undecidability.TM.Combinators.Switch <> step_nop_transition thm
+R5270:5279 Undecidability.TM.Combinators.Switch <> lift_confR def
+R5287:5288 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R5291:5296 Undecidability.TM.Util.TM_facts <> cstate proj
+R5311:5314 Undecidability.TM.Util.TM_facts <> step def
+R5322:5329 Undecidability.TM.Combinators.Switch <> SwitchTM def
+R5340:5347 Undecidability.TM.Util.TM_facts <> haltConf def
+R5355:5362 Undecidability.TM.Combinators.Switch <> SwitchTM def
+R5246:5254 Undecidability.TM.Util.Prelim <> loop_lift thm
+R5270:5279 Undecidability.TM.Combinators.Switch <> lift_confR def
+R5287:5288 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R5291:5296 Undecidability.TM.Util.TM_facts <> cstate proj
+R5311:5314 Undecidability.TM.Util.TM_facts <> step def
+R5322:5329 Undecidability.TM.Combinators.Switch <> SwitchTM def
+R5340:5347 Undecidability.TM.Util.TM_facts <> haltConf def
+R5355:5362 Undecidability.TM.Combinators.Switch <> SwitchTM def
+R5246:5254 Undecidability.TM.Util.Prelim <> loop_lift thm
+R5458:5472 Undecidability.TM.Combinators.Switch <> step_comp_liftR thm
+R5458:5472 Undecidability.TM.Combinators.Switch <> step_comp_liftR thm
+prf 5583:5596 <> step_nop_split
+R5604:5606 Coq.Init.Datatypes <> nat ind
+binder 5599:5600 <> k2:38
+R5615:5621 Undecidability.TM.Util.TM_facts <> mconfig rec
+R5638:5638 Undecidability.TM.Combinators.Switch <> Switch.n var
+R5628:5632 Undecidability.TM.TM <> state proj
+R5634:5635 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R5623:5625 Undecidability.TM.Combinators.Switch <> Switch.sig var
+binder 5610:5611 <> c2:39
+R5649:5655 Undecidability.TM.Util.TM_facts <> mconfig rec
+R5678:5678 Undecidability.TM.Combinators.Switch <> Switch.n var
+R5662:5666 Undecidability.TM.TM <> state proj
+R5668:5675 Undecidability.TM.Combinators.Switch <> SwitchTM def
+R5657:5659 Undecidability.TM.Combinators.Switch <> Switch.sig var
+binder 5642:5645 <> outc:40
+R5705:5712 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5698:5700 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5687:5694 Undecidability.TM.Util.TM_facts <> haltConf def
+R5696:5697 Undecidability.TM.Combinators.Switch <> c2:39 var
+R5701:5704 Coq.Init.Datatypes <> true constr
+R5765:5772 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5753:5755 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5713:5717 Undecidability.TM.Util.TM_facts <> loopM def
+R5751:5752 Undecidability.TM.Combinators.Switch <> k2:38 var
+R5736:5745 Undecidability.TM.Combinators.Switch <> lift_confL def
+R5747:5748 Undecidability.TM.Combinators.Switch <> c2:39 var
+R5725:5732 Undecidability.TM.Combinators.Switch <> SwitchTM def
+R5756:5759 Coq.Init.Datatypes <> Some constr
+R5761:5764 Undecidability.TM.Combinators.Switch <> outc:40 var
+R5773:5779 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5787:5794 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5780:5782 <> k2':41
+binder 5784:5786 <> c2':42
+R5805:5814 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5797:5799 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5795:5796 Undecidability.TM.Combinators.Switch <> k2:38 var
+R5800:5800 Coq.Init.Datatypes <> S constr
+R5802:5804 Undecidability.TM.Combinators.Switch <> k2':41 var
+R5884:5893 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5873:5875 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5815:5819 Undecidability.TM.Util.TM_facts <> loopM def
+R5870:5872 Undecidability.TM.Combinators.Switch <> k2':41 var
+R5849:5853 Undecidability.TM.Util.TM_facts <> initc def
+R5858:5863 Undecidability.TM.Util.TM_facts <> ctapes proj
+R5865:5866 Undecidability.TM.Combinators.Switch <> c2:39 var
+R5827:5830 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R5845:5845 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R5831:5832 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R5835:5840 Undecidability.TM.Util.TM_facts <> cstate proj
+R5842:5843 Undecidability.TM.Combinators.Switch <> c2:39 var
+R5876:5879 Coq.Init.Datatypes <> Some constr
+R5881:5883 Undecidability.TM.Combinators.Switch <> c2':42 var
+R5898:5900 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5894:5897 Undecidability.TM.Combinators.Switch <> outc:40 var
+R5901:5910 Undecidability.TM.Combinators.Switch <> lift_confR def
+R5912:5914 Undecidability.TM.Combinators.Switch <> c2':42 var
+R5937:5941 Undecidability.TM.Util.TM_facts <> loopM def
+R5972:5979 Undecidability.TM.Util.TM_facts <> haltConf def
+R6085:6103 Undecidability.TM.Combinators.Switch <> step_nop_transition thm
+R6085:6103 Undecidability.TM.Combinators.Switch <> step_nop_transition thm
+R6085:6103 Undecidability.TM.Combinators.Switch <> step_nop_transition thm
+R6175:6178 Undecidability.TM.Util.TM_facts <> step def
+R6186:6189 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R6204:6204 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R6190:6191 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R6194:6199 Undecidability.TM.Util.TM_facts <> cstate proj
+R6224:6231 Undecidability.TM.Util.TM_facts <> haltConf def
+R6239:6242 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R6257:6257 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R6243:6244 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R6247:6252 Undecidability.TM.Util.TM_facts <> cstate proj
+R6142:6152 Undecidability.TM.Util.Prelim <> loop_unlift thm
+R6175:6178 Undecidability.TM.Util.TM_facts <> step def
+R6186:6189 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R6204:6204 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R6190:6191 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R6194:6199 Undecidability.TM.Util.TM_facts <> cstate proj
+R6224:6231 Undecidability.TM.Util.TM_facts <> haltConf def
+R6239:6242 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R6257:6257 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R6243:6244 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R6247:6252 Undecidability.TM.Util.TM_facts <> cstate proj
+R6142:6152 Undecidability.TM.Util.Prelim <> loop_unlift thm
+R6400:6414 Undecidability.TM.Combinators.Switch <> step_comp_liftR thm
+R6400:6414 Undecidability.TM.Combinators.Switch <> step_comp_liftR thm
+prf 6434:6445 <> Switch_split
+binder 6447:6447 <> k:43
+binder 6449:6449 <> t:44
+R6459:6465 Undecidability.TM.Util.TM_facts <> mconfig rec
+R6488:6488 Undecidability.TM.Combinators.Switch <> Switch.n var
+R6472:6476 Undecidability.TM.TM <> state proj
+R6478:6485 Undecidability.TM.Combinators.Switch <> SwitchTM def
+R6467:6469 Undecidability.TM.Combinators.Switch <> Switch.sig var
+binder 6452:6455 <> outc:45
+R6535:6542 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6523:6525 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6497:6501 Undecidability.TM.Util.TM_facts <> loopM def
+R6522:6522 Undecidability.TM.Combinators.Switch <> k:43 var
+R6504:6508 Undecidability.TM.Util.TM_facts <> initc def
+R6519:6519 Undecidability.TM.Combinators.Switch <> t:44 var
+R6510:6517 Undecidability.TM.Combinators.Switch <> SwitchTM def
+R6526:6529 Coq.Init.Datatypes <> Some constr
+R6531:6534 Undecidability.TM.Combinators.Switch <> outc:45 var
+R6543:6549 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6637:6645 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6550:6551 <> k1:46
+R6559:6565 Undecidability.TM.Util.TM_facts <> mconfig rec
+R6582:6582 Undecidability.TM.Combinators.Switch <> Switch.n var
+R6572:6576 Undecidability.TM.TM <> state proj
+R6578:6579 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R6567:6569 Undecidability.TM.Combinators.Switch <> Switch.sig var
+binder 6554:6555 <> c1:47
+binder 6585:6586 <> k2:48
+R6594:6600 Undecidability.TM.Util.TM_facts <> mconfig rec
+R6636:6636 Undecidability.TM.Combinators.Switch <> Switch.n var
+R6607:6611 Undecidability.TM.TM <> state proj
+R6614:6617 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R6632:6632 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R6618:6619 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R6622:6627 Undecidability.TM.Util.TM_facts <> cstate proj
+R6629:6630 Undecidability.TM.Combinators.Switch <> c1:47 var
+R6602:6604 Undecidability.TM.Combinators.Switch <> Switch.sig var
+binder 6589:6590 <> c2:49
+R6677:6686 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6667:6669 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6646:6650 Undecidability.TM.Util.TM_facts <> loopM def
+R6665:6666 Undecidability.TM.Combinators.Switch <> k1:46 var
+R6653:6657 Undecidability.TM.Util.TM_facts <> initc def
+R6662:6662 Undecidability.TM.Combinators.Switch <> t:44 var
+R6659:6660 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R6670:6673 Coq.Init.Datatypes <> Some constr
+R6675:6676 Undecidability.TM.Combinators.Switch <> c1:47 var
+R6747:6756 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6737:6739 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6687:6691 Undecidability.TM.Util.TM_facts <> loopM def
+R6735:6736 Undecidability.TM.Combinators.Switch <> k2:48 var
+R6694:6698 Undecidability.TM.Util.TM_facts <> initc def
+R6723:6728 Undecidability.TM.Util.TM_facts <> ctapes proj
+R6730:6731 Undecidability.TM.Combinators.Switch <> c1:47 var
+R6701:6704 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R6719:6719 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R6705:6706 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R6709:6714 Undecidability.TM.Util.TM_facts <> cstate proj
+R6716:6717 Undecidability.TM.Combinators.Switch <> c1:47 var
+R6740:6743 Coq.Init.Datatypes <> Some constr
+R6745:6746 Undecidability.TM.Combinators.Switch <> c2:49 var
+R6761:6763 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6757:6760 Undecidability.TM.Combinators.Switch <> outc:45 var
+R6764:6773 Undecidability.TM.Combinators.Switch <> lift_confR def
+R6775:6776 Undecidability.TM.Combinators.Switch <> c2:49 var
+R6799:6803 Undecidability.TM.Util.TM_facts <> loopM def
+R6848:6857 Undecidability.TM.Combinators.Switch <> halt_liftL def
+R6826:6835 Undecidability.TM.Util.Prelim <> loop_split thm
+R6848:6857 Undecidability.TM.Combinators.Switch <> halt_liftL def
+R6826:6835 Undecidability.TM.Util.Prelim <> loop_split thm
+R6910:6919 Undecidability.TM.Combinators.Switch <> lift_initc thm
+R6910:6919 Undecidability.TM.Combinators.Switch <> lift_initc thm
+R6910:6919 Undecidability.TM.Combinators.Switch <> lift_initc thm
+R6970:6979 Undecidability.TM.Combinators.Switch <> lift_confL def
+R6988:6991 Undecidability.TM.Util.TM_facts <> step def
+R6999:7000 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R7010:7017 Undecidability.TM.Util.TM_facts <> haltConf def
+R7025:7026 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R6944:6954 Undecidability.TM.Util.Prelim <> loop_unlift thm
+R6970:6979 Undecidability.TM.Combinators.Switch <> lift_confL def
+R6988:6991 Undecidability.TM.Util.TM_facts <> step def
+R6999:7000 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R7010:7017 Undecidability.TM.Util.TM_facts <> haltConf def
+R7025:7026 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R6944:6954 Undecidability.TM.Util.Prelim <> loop_unlift thm
+R7074:7087 Undecidability.TM.Combinators.Switch <> step_nop_split thm
+R7074:7087 Undecidability.TM.Combinators.Switch <> step_nop_split thm
+R7139:7151 Undecidability.TM.Util.Prelim <> loop_fulfills thm
+R7139:7151 Undecidability.TM.Util.Prelim <> loop_fulfills thm
+R7262:7276 Undecidability.TM.Combinators.Switch <> step_comp_liftL thm
+R7262:7276 Undecidability.TM.Combinators.Switch <> step_comp_liftL thm
+R7291:7305 Undecidability.TM.Combinators.Switch <> halt_conf_liftL thm
+R7291:7305 Undecidability.TM.Combinators.Switch <> halt_conf_liftL thm
+prf 7348:7361 <> Switch_Realise
+R7369:7371 Undecidability.TM.Util.Relations <> Rel def
+R7377:7379 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7376:7376 Undecidability.TM.Combinators.Switch <> Switch.F var
+binder 7364:7365 <> R1:50
+R7391:7394 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7390:7390 Undecidability.TM.Combinators.Switch <> Switch.F var
+R7395:7397 Undecidability.TM.Util.Relations <> Rel def
+R7404:7406 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7402:7403 Undecidability.TM.Combinators.Switch <> Switch.F' var
+binder 7385:7386 <> R2:51
+R7427:7434 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7420:7424 Undecidability.TM.Util.TM_facts <> :::x_'⊨'_x not
+R7417:7419 Undecidability.TM.Combinators.Switch <> Switch.pM1 var
+R7425:7426 Undecidability.TM.Combinators.Switch <> R1:50 var
+R7435:7435 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7464:7468 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7447:7447 Undecidability.TM.Combinators.Switch <> Switch.F var
+binder 7443:7443 <> f:52
+R7455:7459 Undecidability.TM.Util.TM_facts <> :::x_'⊨'_x not
+R7450:7452 Undecidability.TM.Combinators.Switch <> Switch.pMf var
+R7454:7454 Undecidability.TM.Combinators.Switch <> f:52 var
+R7460:7461 Undecidability.TM.Combinators.Switch <> R2:51 var
+R7463:7463 Undecidability.TM.Combinators.Switch <> f:52 var
+R7475:7480 Undecidability.TM.Util.TM_facts <> :::x_'⊨'_x not
+R7505:7505 Undecidability.TM.Util.TM_facts <> :::x_'⊨'_x not
+R7469:7474 Undecidability.TM.Combinators.Switch <> Switch def
+R7481:7484 Undecidability.TM.Util.Relations <> :::'⋃_'_x_x not
+R7486:7486 Undecidability.TM.Util.Relations <> :::'⋃_'_x_x not
+binder 7485:7485 <> f:53
+R7487:7487 Undecidability.TM.Util.Relations <> :::x_'∘'_x not
+R7495:7500 Undecidability.TM.Util.Relations <> :::x_'∘'_x not
+R7490:7493 Undecidability.TM.Util.Relations <> :::x_'|_'_x not
+R7488:7489 Undecidability.TM.Combinators.Switch <> R1:50 var
+R7494:7494 Undecidability.TM.Combinators.Switch <> f:53 var
+R7501:7502 Undecidability.TM.Combinators.Switch <> R2:51 var
+R7504:7504 Undecidability.TM.Combinators.Switch <> f:53 var
+R7597:7608 Undecidability.TM.Combinators.Switch <> Switch_split thm
+R7597:7608 Undecidability.TM.Combinators.Switch <> Switch_split thm
+R7671:7672 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R7675:7680 Undecidability.TM.Util.TM_facts <> cstate proj
+R7689:7694 Undecidability.TM.Util.TM_facts <> ctapes proj
+R7671:7672 Undecidability.TM.Combinators.Switch <> p1 abbrev
+R7675:7680 Undecidability.TM.Util.TM_facts <> cstate proj
+R7689:7694 Undecidability.TM.Util.TM_facts <> ctapes proj
+prf 7811:7829 <> Switch_TerminatesIn
+R7837:7839 Undecidability.TM.Util.Relations <> Rel def
+R7845:7847 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7844:7844 Undecidability.TM.Combinators.Switch <> Switch.F var
+binder 7832:7833 <> R1:54
+binder 7852:7853 <> T1:55
+binder 7855:7856 <> T2:56
+R7874:7877 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7867:7871 Undecidability.TM.Util.TM_facts <> :::x_'⊨'_x not
+R7864:7866 Undecidability.TM.Combinators.Switch <> Switch.pM1 var
+R7872:7873 Undecidability.TM.Combinators.Switch <> R1:54 var
+R7887:7890 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7880:7884 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R7878:7879 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R7885:7886 Undecidability.TM.Combinators.Switch <> T1:55 var
+R7891:7891 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7920:7928 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7903:7903 Undecidability.TM.Combinators.Switch <> Switch.F var
+binder 7899:7899 <> f:57
+R7910:7914 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R7919:7919 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R7906:7908 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R7909:7909 Undecidability.TM.Combinators.Switch <> f:57 var
+R7915:7916 Undecidability.TM.Combinators.Switch <> T2:56 var
+R7918:7918 Undecidability.TM.Combinators.Switch <> f:57 var
+R7942:7947 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R8064:8064 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R7929:7934 Coq.Init.Specif <> projT1 def
+R7936:7941 Undecidability.TM.Combinators.Switch <> Switch def
+binder 7952:7954 <> tin:58
+binder 7956:7956 <> i:59
+R7961:7967 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7973:7974 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7968:7969 <> i1:60
+binder 7971:7972 <> i2:61
+R7984:7987 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7975:7976 Undecidability.TM.Combinators.Switch <> T1:55 var
+R7978:7980 Undecidability.TM.Combinators.Switch <> tin:58 var
+R7982:7983 Undecidability.TM.Combinators.Switch <> i1:60 var
+R8004:8007 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7999:8002 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7994:7996 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7989:7991 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7992:7993 Undecidability.TM.Combinators.Switch <> i1:60 var
+R7997:7998 Undecidability.TM.Combinators.Switch <> i2:61 var
+R8003:8003 Undecidability.TM.Combinators.Switch <> i:59 var
+binder 8015:8018 <> tout:62
+binder 8020:8023 <> yout:63
+R8045:8048 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8026:8027 Undecidability.TM.Combinators.Switch <> R1:54 var
+R8029:8031 Undecidability.TM.Combinators.Switch <> tin:58 var
+R8033:8033 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8038:8039 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8044:8044 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8034:8037 Undecidability.TM.Combinators.Switch <> yout:63 var
+R8040:8043 Undecidability.TM.Combinators.Switch <> tout:62 var
+R8049:8050 Undecidability.TM.Combinators.Switch <> T2:56 var
+R8052:8055 Undecidability.TM.Combinators.Switch <> yout:63 var
+R8057:8060 Undecidability.TM.Combinators.Switch <> tout:62 var
+R8062:8063 Undecidability.TM.Combinators.Switch <> i2:61 var
+R8087:8092 Undecidability.TM.Combinators.Switch <> Switch def
+R8377:8388 Undecidability.TM.Combinators.Switch <> Switch_merge thm
+R8377:8388 Undecidability.TM.Combinators.Switch <> Switch_merge thm
+R8426:8435 Undecidability.TM.Combinators.Switch <> lift_confR def
+R8426:8435 Undecidability.TM.Combinators.Switch <> lift_confR def
+R8449:8461 Undecidability.TM.Util.Prelim <> loop_monotone thm
+R8449:8461 Undecidability.TM.Util.Prelim <> loop_monotone thm
+prf 8640:8659 <> Switch_TerminatesIn'
+R8667:8669 Undecidability.TM.Util.Relations <> Rel def
+R8675:8677 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R8674:8674 Undecidability.TM.Combinators.Switch <> Switch.F var
+binder 8662:8663 <> R1:64
+binder 8682:8683 <> T1:65
+binder 8685:8686 <> T2:66
+R8704:8707 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8697:8701 Undecidability.TM.Util.TM_facts <> :::x_'⊨'_x not
+R8694:8696 Undecidability.TM.Combinators.Switch <> Switch.pM1 var
+R8702:8703 Undecidability.TM.Combinators.Switch <> R1:64 var
+R8717:8720 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8710:8714 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R8708:8709 Undecidability.TM.Combinators.Switch <> M1 abbrev
+R8715:8716 Undecidability.TM.Combinators.Switch <> T1:65 var
+R8721:8721 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8750:8758 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8733:8733 Undecidability.TM.Combinators.Switch <> Switch.F var
+binder 8729:8729 <> f:67
+R8740:8744 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R8749:8749 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R8736:8738 Undecidability.TM.Combinators.Switch Switch :::'Mf'_x not
+R8739:8739 Undecidability.TM.Combinators.Switch <> f:67 var
+R8745:8746 Undecidability.TM.Combinators.Switch <> T2:66 var
+R8748:8748 Undecidability.TM.Combinators.Switch <> f:67 var
+R8772:8777 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R8902:8902 Undecidability.TM.Util.TM_facts <> :::x_'↓'_x not
+R8759:8764 Coq.Init.Specif <> projT1 def
+R8766:8771 Undecidability.TM.Combinators.Switch <> Switch def
+binder 8782:8784 <> tin:68
+binder 8786:8786 <> i:69
+R8791:8797 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8800:8801 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8798:8799 <> i1:70
+R8811:8814 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8802:8803 Undecidability.TM.Combinators.Switch <> T1:65 var
+R8805:8807 Undecidability.TM.Combinators.Switch <> tin:68 var
+R8809:8810 Undecidability.TM.Combinators.Switch <> i1:70 var
+binder 8822:8825 <> tout:71
+binder 8827:8830 <> yout:72
+R8852:8855 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8833:8834 Undecidability.TM.Combinators.Switch <> R1:64 var
+R8836:8838 Undecidability.TM.Combinators.Switch <> tin:68 var
+R8840:8840 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8845:8846 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8851:8851 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8841:8844 Undecidability.TM.Combinators.Switch <> yout:72 var
+R8847:8850 Undecidability.TM.Combinators.Switch <> tout:71 var
+R8856:8862 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8865:8866 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8863:8864 <> i2:73
+R8883:8886 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8878:8881 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8873:8875 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8868:8870 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8871:8872 Undecidability.TM.Combinators.Switch <> i1:70 var
+R8876:8877 Undecidability.TM.Combinators.Switch <> i2:73 var
+R8882:8882 Undecidability.TM.Combinators.Switch <> i:69 var
+R8887:8888 Undecidability.TM.Combinators.Switch <> T2:66 var
+R8890:8893 Undecidability.TM.Combinators.Switch <> yout:72 var
+R8895:8898 Undecidability.TM.Combinators.Switch <> tout:71 var
+R8900:8901 Undecidability.TM.Combinators.Switch <> i2:73 var
+R8925:8930 Undecidability.TM.Combinators.Switch <> Switch def
+R9172:9183 Undecidability.TM.Util.TM_facts <> TerminatesIn def
+R9261:9272 Undecidability.TM.Combinators.Switch <> Switch_merge thm
+R9261:9272 Undecidability.TM.Combinators.Switch <> Switch_merge thm
+R9310:9319 Undecidability.TM.Combinators.Switch <> lift_confR def
+R9310:9319 Undecidability.TM.Combinators.Switch <> lift_confR def
+R9333:9345 Undecidability.TM.Util.Prelim <> loop_monotone thm
+R9333:9345 Undecidability.TM.Util.Prelim <> loop_monotone thm
+prf 9417:9432 <> Switch_RealiseIn
+R9440:9442 Undecidability.TM.Util.Relations <> Rel def
+R9448:9450 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R9447:9447 Undecidability.TM.Combinators.Switch <> Switch.F var
+binder 9435:9436 <> R1:74
+R9462:9465 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9461:9461 Undecidability.TM.Combinators.Switch <> Switch.F var
+R9466:9468 Undecidability.TM.Util.Relations <> Rel def
+R9475:9477 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R9473:9474 Undecidability.TM.Combinators.Switch <> Switch.F' var
+binder 9456:9457 <> R2:75
+binder 9482:9483 <> k1:76
+binder 9485:9486 <> k2:77
+R9508:9515 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9496:9501 Undecidability.TM.Util.TM_facts <> :::x_'⊨c('_x_')'_x not
+R9504:9505 Undecidability.TM.Util.TM_facts <> :::x_'⊨c('_x_')'_x not
+R9493:9495 Undecidability.TM.Combinators.Switch <> Switch.pM1 var
+R9506:9507 Undecidability.TM.Combinators.Switch <> R1:74 var
+R9502:9503 Undecidability.TM.Combinators.Switch <> k1:76 var
+R9516:9516 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9550:9558 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9528:9528 Undecidability.TM.Combinators.Switch <> Switch.F var
+binder 9524:9524 <> f:78
+R9536:9541 Undecidability.TM.Util.TM_facts <> :::x_'⊨c('_x_')'_x not
+R9544:9545 Undecidability.TM.Util.TM_facts <> :::x_'⊨c('_x_')'_x not
+R9531:9533 Undecidability.TM.Combinators.Switch <> Switch.pMf var
+R9535:9535 Undecidability.TM.Combinators.Switch <> f:78 var
+R9546:9547 Undecidability.TM.Combinators.Switch <> R2:75 var
+R9549:9549 Undecidability.TM.Combinators.Switch <> f:78 var
+R9542:9543 Undecidability.TM.Combinators.Switch <> k2:77 var
+R9565:9570 Undecidability.TM.Util.TM_facts <> :::x_'⊨c('_x_')'_x not
+R9582:9584 Undecidability.TM.Util.TM_facts <> :::x_'⊨c('_x_')'_x not
+R9609:9609 Undecidability.TM.Util.TM_facts <> :::x_'⊨c('_x_')'_x not
+R9559:9564 Undecidability.TM.Combinators.Switch <> Switch def
+R9585:9588 Undecidability.TM.Util.Relations <> :::'⋃_'_x_x not
+R9590:9590 Undecidability.TM.Util.Relations <> :::'⋃_'_x_x not
+binder 9589:9589 <> f:79
+R9591:9591 Undecidability.TM.Util.Relations <> :::x_'∘'_x not
+R9599:9604 Undecidability.TM.Util.Relations <> :::x_'∘'_x not
+R9594:9597 Undecidability.TM.Util.Relations <> :::x_'|_'_x not
+R9592:9593 Undecidability.TM.Combinators.Switch <> R1:74 var
+R9598:9598 Undecidability.TM.Combinators.Switch <> f:79 var
+R9605:9606 Undecidability.TM.Combinators.Switch <> R2:75 var
+R9608:9608 Undecidability.TM.Combinators.Switch <> f:79 var
+R9577:9579 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9572:9574 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9575:9576 Undecidability.TM.Combinators.Switch <> k1:76 var
+R9580:9581 Undecidability.TM.Combinators.Switch <> k2:77 var
+R9642:9654 Undecidability.TM.Util.TM_facts <> Realise_total thm
+R9642:9654 Undecidability.TM.Util.TM_facts <> Realise_total thm
+R9666:9678 Undecidability.TM.Util.TM_facts <> Realise_total thm
+R9666:9678 Undecidability.TM.Util.TM_facts <> Realise_total thm
+R9701:9714 Undecidability.TM.Combinators.Switch <> Switch_Realise thm
+R9701:9714 Undecidability.TM.Combinators.Switch <> Switch_Realise thm
+R9741:9753 Undecidability.TM.Util.TM_facts <> Realise_total thm
+R9741:9753 Undecidability.TM.Util.TM_facts <> Realise_total thm
+R9776:9796 Undecidability.TM.Util.TM_facts <> TerminatesIn_monotone thm
+R9776:9796 Undecidability.TM.Util.TM_facts <> TerminatesIn_monotone thm
+R9813:9831 Undecidability.TM.Combinators.Switch <> Switch_TerminatesIn thm
+R9813:9831 Undecidability.TM.Combinators.Switch <> Switch_TerminatesIn thm
+R9858:9870 Undecidability.TM.Util.TM_facts <> Realise_total thm
+R9858:9870 Undecidability.TM.Util.TM_facts <> Realise_total thm
+R9912:9917 Undecidability.TM.Combinators.Switch Switch <> sec
+R9931:9936 Undecidability.TM.Combinators.Switch <> Switch def
+abbrev 9986:9990 <> MATCH
+R9995:10000 Undecidability.TM.Combinators.Switch <> Switch def
+abbrev 10027:10031 <> Match
+R10036:10041 Undecidability.TM.Combinators.Switch <> Switch def

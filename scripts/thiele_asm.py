@@ -25,9 +25,9 @@ Syntax:
     .DATA 10 42                 # data memory initialization: mem[10] = 42
     FUEL 1000                   # max execution steps (trace format only)
 
-ISA Reference (46 assembler-targetable opcodes: 39 original encodings + 7 categorical
-morph opcodes). The full Thiele ISA is 51 opcodes; the 5 CHSH check opcodes not listed
-here (CHSH_LASSERT and the four Q_{1+AB} variants) are exercised through the witness /
+ISA Reference (47 hardware opcodes, including CHSH_LASSERT and 7 categorical
+morph opcodes). The full Thiele ISA is 51 opcodes; the four Q_{1+AB} variants
+are exercised through the witness /
 cosim path, not via assembler mnemonics:
     Opcode   | Encoding  | Syntax
     ---------+-----------+-------
@@ -113,6 +113,7 @@ OPCODES: dict[str, int] = {
     "MORPH": 0x27, "COMPOSE": 0x28, "MORPH_ID": 0x29,
     "MORPH_DELETE": 0x2A, "MORPH_ASSERT": 0x2B,
     "MORPH_TENSOR": 0x2C, "MORPH_GET": 0x2D,
+    "CHSH_LASSERT": 0x2E,
     "HALT": 0xFF,
 }
 
@@ -283,9 +284,9 @@ def assemble(source: str) -> tuple[list[int], dict[int, int], dict[str, Any]]:
             dst = _parse_int(morph[0], labels) if morph else 0
             src_mod = _parse_int(morph[1], labels) if len(morph) > 1 else 0
             dst_mod = _parse_int(morph[2], labels) if len(morph) > 2 else 0
-            coupling_desc = _parse_int(morph[3], labels) if len(morph) > 3 else 0
+            coupling_base = _parse_int(morph[3], labels) if len(morph) > 3 else 0
             cost = _parse_int(morph[4], labels) if len(morph) > 4 else 0
-            ext0 = (dst_mod & 0x3F) | ((coupling_desc & 0x3F) << 6)
+            ext0 = (dst_mod & 0x3F) | ((coupling_base & 0x7F) << 6)
             instructions.append(
                 _encode(
                     OPCODES["MORPH"],
@@ -415,7 +416,7 @@ def assemble(source: str) -> tuple[list[int], dict[int, int], dict[str, Any]]:
         opcode = OPCODES[op]
 
         try:
-            if op == "HALT":
+            if op in ("HALT", "CHSH_LASSERT"):
                 h_parts = arg.split()
                 cost = _parse_int(h_parts[0], labels) if h_parts else 0
                 instructions.append(_encode(opcode, 0, 0, cost))
@@ -626,8 +627,8 @@ def to_trace(instructions: list[int], data_memory: dict[int, int],
             rs1 = (op_b >> 4) & 0xF
             rs2 = op_b & 0xF
             lines.append(f"{name} {op_a} {rs1} {rs2} {cost}")
-        elif name == "HALT":
-            lines.append(f"HALT {cost}")
+        elif name in ("HALT", "CHSH_LASSERT"):
+            lines.append(f"{name} {cost}")
         elif name == "RET":
             lines.append(f"RET {cost}")
         elif name == "TENSOR_SET":
@@ -643,8 +644,8 @@ def to_trace(instructions: list[int], data_memory: dict[int, int],
             lines.append(f"TENSOR_GET {rd} {mid} {ti} {tj} {cost}")
         elif name == "MORPH" and format_id == FMT_MORPH_INLINE:
             dst_mod = ext0 & 0x3F
-            coupling_desc = (ext0 >> 6) & 0x3F
-            lines.append(f"MORPH_EXT {op_a} {op_b} {dst_mod} {coupling_desc} {cost}")
+            coupling_base = (ext0 >> 6) & 0x7F
+            lines.append(f"MORPH_EXT {op_a} {op_b} {dst_mod} {coupling_base} {cost}")
         elif name == "MORPH":
             lines.append(f"MORPH {op_a} {op_b} 0 0 {cost}")
         elif name == "COMPOSE" and format_id == FMT_MORPH_INLINE:

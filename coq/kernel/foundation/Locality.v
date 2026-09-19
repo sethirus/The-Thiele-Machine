@@ -595,7 +595,7 @@ Proof.
       change graph' with (fst (graph', morph_id)).
       match goal with
       | Hmorph : (graph', morph_id) =
-                 graph_add_morphism (vm_graph s) src_mod dst_mod empty_coupling_data false |- _ =>
+                 graph_add_morphism (vm_graph s) src_mod dst_mod ?c false |- _ =>
           rewrite Hmorph
       end.
       apply graph_add_morphism_preserves_lookup.

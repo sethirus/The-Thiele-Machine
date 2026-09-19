@@ -1,30 +1,31 @@
 {
   "schema": "thiele-print-assumptions-full-probe-v2",
-  "generated": "2026-09-10T22:28:51.890087+00:00",
+  "generated": "2026-09-18T19:29:45.050869+00:00",
   "coq_version": "8.18.0",
   "probe_file": "coq/AssumptionsProbeAll.v",
   "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
-  "raw_output_sha256": "cd9c7e1495c3d1c39c52defd53b39c1e882c48e24f56afb23fd446400fe99299",
-  "files_probed": 286,
-  "addressable_theorems_probed": 4026,
-  "blocks_parsed": 4026,
+  "raw_output_sha256": "eab0ab4e28b81ea1ab030bbaa8777d152dbf807883f081497dd8fc538eea4919",
+  "files_probed": 421,
+  "addressable_theorems_probed": 12336,
+  "blocks_parsed": 12336,
   "alignment_ok": true,
   "stderr_nonempty": true,
   "stderr_excerpt": "\nCoq < Coq < Coq < Coq < Coq < Coq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq",
   "unexpected_lines_in_output": 0,
   "first_unexpected_lines": [],
   "summary": {
-    "theorems_probed": 4026,
-    "closed_under_global_context": 2979,
-    "depend_on_axioms": 1047,
+    "theorems_probed": 12336,
+    "closed_under_global_context": 5520,
+    "depend_on_axioms": 6816,
     "user_or_third_party_axiom_findings": 0,
     "excluded_middle_users": 67,
-    "functional_extensionality_users": 969,
-    "real_completeness_axiom_users": 1008,
+    "functional_extensionality_users": 6526,
+    "real_completeness_axiom_users": 1010,
     "unique_axioms_used": {
-      "ClassicalDedekindReals.sig_forall_dec": 1008,
-      "FunctionalExtensionality.functional_extensionality_dep": 969,
-      "ClassicalDedekindReals.sig_not_dec": 276,
+      "FunctionalExtensionality.functional_extensionality_dep": 6526,
+      "Eqdep.Eq_rect_eq.eq_rect_eq": 3685,
+      "ClassicalDedekindReals.sig_forall_dec": 1010,
+      "ClassicalDedekindReals.sig_not_dec": 277,
       "Classical_Prop.classic": 67
     }
   },
@@ -142,18 +143,19 @@
       "axiom_set": []
     },
     "KamiHW": {
-      "theorems": 431,
-      "closed": 392,
-      "with_axioms": 39,
+      "theorems": 8236,
+      "closed": 2430,
+      "with_axioms": 5806,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
     "Kernel": {
-      "theorems": 2738,
-      "closed": 1820,
+      "theorems": 3230,
+      "closed": 2312,
       "with_axioms": 918,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
@@ -193,9 +195,9 @@
       "axiom_set": []
     },
     "PhysicsConditionalClosure": {
-      "theorems": 3,
+      "theorems": 4,
       "closed": 1,
-      "with_axioms": 2,
+      "with_axioms": 3,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
@@ -227,10 +229,11 @@
       "axiom_set": []
     },
     "Tests": {
-      "theorems": 27,
+      "theorems": 28,
       "closed": 26,
-      "with_axioms": 1,
+      "with_axioms": 2,
       "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
@@ -252,8 +255,8 @@
       "axiom_set": []
     },
     "ThieleMachineComplete": {
-      "theorems": 405,
-      "closed": 327,
+      "theorems": 416,
+      "closed": 338,
       "with_axioms": 78,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
@@ -340,9 +343,9 @@
       "axiom_set": []
     },
     "coq/PhysicsConditionalClosure.v": {
-      "theorems": 3,
+      "theorems": 4,
       "closed": 1,
-      "with_axioms": 2,
+      "with_axioms": 3,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
@@ -356,8 +359,8 @@
       "axiom_set": []
     },
     "coq/ThieleMachineComplete.v": {
-      "theorems": 405,
-      "closed": 327,
+      "theorems": 416,
+      "closed": 338,
       "with_axioms": 78,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
@@ -402,10 +405,46 @@
       "axiom_set": []
     },
     "coq/kami_hw/Abstraction.v": {
-      "theorems": 34,
-      "closed": 34,
+      "theorems": 38,
+      "closed": 38,
       "with_axioms": 0,
       "axiom_set": []
+    },
+    "coq/kami_hw/ActionEvaluator.v": {
+      "theorems": 5,
+      "closed": 0,
+      "with_axioms": 5,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/ActionObservation.v": {
+      "theorems": 1,
+      "closed": 0,
+      "with_axioms": 1,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/BoundaryDecoded.v": {
+      "theorems": 1,
+      "closed": 0,
+      "with_axioms": 1,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/BoundaryRun.v": {
+      "theorems": 6,
+      "closed": 0,
+      "with_axioms": 6,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
     },
     "coq/kami_hw/CanonicalCPUProof.v": {
       "theorems": 12,
@@ -414,6 +453,292 @@
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/ChshArith.v": {
+      "theorems": 34,
+      "closed": 28,
+      "with_axioms": 6,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq"
+      ]
+    },
+    "coq/kami_hw/ChshDecoded.v": {
+      "theorems": 7,
+      "closed": 4,
+      "with_axioms": 3,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/ChshFsm.v": {
+      "theorems": 140,
+      "closed": 0,
+      "with_axioms": 140,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/ChshPhases.v": {
+      "theorems": 1150,
+      "closed": 0,
+      "with_axioms": 1150,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/ChshRetire.v": {
+      "theorems": 9,
+      "closed": 3,
+      "with_axioms": 6,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/ChshRun.v": {
+      "theorems": 118,
+      "closed": 0,
+      "with_axioms": 118,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/ChshStepFields.v": {
+      "theorems": 47,
+      "closed": 0,
+      "with_axioms": 47,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/CoreExecution.v": {
+      "theorems": 8,
+      "closed": 0,
+      "with_axioms": 8,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/CoreRules.v": {
+      "theorems": 1,
+      "closed": 1,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kami_hw/CoreTyping.v": {
+      "theorems": 8,
+      "closed": 4,
+      "with_axioms": 4,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/CouplingComposeKami.v": {
+      "theorems": 12,
+      "closed": 11,
+      "with_axioms": 1,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq"
+      ]
+    },
+    "coq/kami_hw/CouplingComposeRetire.v": {
+      "theorems": 131,
+      "closed": 3,
+      "with_axioms": 128,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/CouplingComposeRun.v": {
+      "theorems": 252,
+      "closed": 0,
+      "with_axioms": 252,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/CouplingFaults.v": {
+      "theorems": 6,
+      "closed": 2,
+      "with_axioms": 4,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/CouplingFsmCopy.v": {
+      "theorems": 273,
+      "closed": 140,
+      "with_axioms": 133,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/CouplingFsmEnds.v": {
+      "theorems": 427,
+      "closed": 421,
+      "with_axioms": 6,
+      "axiom_set": [
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/CouplingFsmJoin.v": {
+      "theorems": 274,
+      "closed": 140,
+      "with_axioms": 134,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/CouplingFsmLoad.v": {
+      "theorems": 277,
+      "closed": 141,
+      "with_axioms": 136,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/CouplingFsmNorm.v": {
+      "theorems": 689,
+      "closed": 284,
+      "with_axioms": 405,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/CouplingFsmRun.v": {
+      "theorems": 128,
+      "closed": 2,
+      "with_axioms": 126,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/CouplingMorphKami.v": {
+      "theorems": 11,
+      "closed": 8,
+      "with_axioms": 3,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq"
+      ]
+    },
+    "coq/kami_hw/CouplingMorphRetire.v": {
+      "theorems": 5,
+      "closed": 2,
+      "with_axioms": 3,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/CouplingMorphRich.v": {
+      "theorems": 4,
+      "closed": 3,
+      "with_axioms": 1,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/CouplingSchedule.v": {
+      "theorems": 25,
+      "closed": 0,
+      "with_axioms": 25,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/DecodedReadFree.v": {
+      "theorems": 1,
+      "closed": 1,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kami_hw/DispatchAbstractionBridge.v": {
+      "theorems": 5,
+      "closed": 1,
+      "with_axioms": 4,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/DispatchAddFamily.v": {
+      "theorems": 7,
+      "closed": 0,
+      "with_axioms": 7,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/DispatchContracts.v": {
+      "theorems": 1,
+      "closed": 0,
+      "with_axioms": 1,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/DispatchExecution.v": {
+      "theorems": 9,
+      "closed": 3,
+      "with_axioms": 6,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/DispatchFetch.v": {
+      "theorems": 9,
+      "closed": 0,
+      "with_axioms": 9,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/DispatchLets.v": {
+      "theorems": 73,
+      "closed": 0,
+      "with_axioms": 73,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/DispatchObservation.v": {
+      "theorems": 4,
+      "closed": 0,
+      "with_axioms": 4,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/DispatchReset.v": {
+      "theorems": 1,
+      "closed": 0,
+      "with_axioms": 1,
+      "axiom_set": [
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
@@ -445,6 +770,15 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/kami_hw/FsmDecoded.v": {
+      "theorems": 69,
+      "closed": 29,
+      "with_axioms": 40,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
     "coq/kami_hw/FullAbstraction.v": {
       "theorems": 3,
       "closed": 3,
@@ -466,11 +800,28 @@
       "axiom_set": []
     },
     "coq/kami_hw/GraphReconstructionBridge.v": {
-      "theorems": 108,
-      "closed": 104,
+      "theorems": 109,
+      "closed": 105,
       "with_axioms": 4,
       "axiom_set": [
         "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/HWBoundaryCompleteness.v": {
+      "theorems": 145,
+      "closed": 141,
+      "with_axioms": 4,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/HWBoundaryReads.v": {
+      "theorems": 140,
+      "closed": 0,
+      "with_axioms": 140,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq"
       ]
     },
     "coq/kami_hw/HardwareShadowBridge.v": {
@@ -479,11 +830,239 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/kami_hw/ImplementationContract.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kami_hw/LassertRetire.v": {
+      "theorems": 158,
+      "closed": 144,
+      "with_axioms": 14,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/LassertSpec.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kami_hw/LassertStepFields.v": {
+      "theorems": 92,
+      "closed": 0,
+      "with_axioms": 92,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/LassertWord.v": {
+      "theorems": 159,
+      "closed": 8,
+      "with_axioms": 151,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/LegacyLoadGuard.v": {
+      "theorems": 1,
+      "closed": 0,
+      "with_axioms": 1,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/LegacyLocalityGuard.v": {
+      "theorems": 5,
+      "closed": 0,
+      "with_axioms": 5,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/LegacyNfiGuard.v": {
+      "theorems": 1,
+      "closed": 0,
+      "with_axioms": 1,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/LegacyPartitionGuard.v": {
+      "theorems": 3,
+      "closed": 0,
+      "with_axioms": 3,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/LegacyWordDecode.v": {
+      "theorems": 42,
+      "closed": 30,
+      "with_axioms": 12,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
     "coq/kami_hw/LogicEngineEquivalence.v": {
       "theorems": 14,
       "closed": 14,
       "with_axioms": 0,
       "axiom_set": []
+    },
+    "coq/kami_hw/MorphCopy.v": {
+      "theorems": 31,
+      "closed": 18,
+      "with_axioms": 13,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/MorphJoin.v": {
+      "theorems": 33,
+      "closed": 23,
+      "with_axioms": 10,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/MorphLoading.v": {
+      "theorems": 23,
+      "closed": 13,
+      "with_axioms": 10,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/MorphRetirement.v": {
+      "theorems": 4,
+      "closed": 2,
+      "with_axioms": 2,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/MorphTensorGap.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kami_hw/NormalizationExclusivity.v": {
+      "theorems": 7,
+      "closed": 0,
+      "with_axioms": 7,
+      "axiom_set": [
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/NormalizationExecution.v": {
+      "theorems": 10,
+      "closed": 2,
+      "with_axioms": 8,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/NormalizationFrame.v": {
+      "theorems": 9,
+      "closed": 5,
+      "with_axioms": 4,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/NormalizationLoop.v": {
+      "theorems": 21,
+      "closed": 19,
+      "with_axioms": 2,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq"
+      ]
+    },
+    "coq/kami_hw/NormalizationPrefix.v": {
+      "theorems": 17,
+      "closed": 13,
+      "with_axioms": 4,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq"
+      ]
+    },
+    "coq/kami_hw/NormalizationRetirement.v": {
+      "theorems": 19,
+      "closed": 14,
+      "with_axioms": 5,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/NormalizationScanExecution.v": {
+      "theorems": 10,
+      "closed": 8,
+      "with_axioms": 2,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/NormalizationStart.v": {
+      "theorems": 4,
+      "closed": 2,
+      "with_axioms": 2,
+      "axiom_set": [
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/NormalizationSteps.v": {
+      "theorems": 20,
+      "closed": 10,
+      "with_axioms": 10,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/OutsideDomain.v": {
+      "theorems": 41,
+      "closed": 40,
+      "with_axioms": 1,
+      "axiom_set": [
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/OutsideDomainMaster.v": {
+      "theorems": 20,
+      "closed": 0,
+      "with_axioms": 20,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/PopcountSWAR.v": {
+      "theorems": 30,
+      "closed": 27,
+      "with_axioms": 3,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq"
+      ]
     },
     "coq/kami_hw/RTLCorrectnessInstantiation.v": {
       "theorems": 3,
@@ -497,11 +1076,163 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/kami_hw/ReadFreeObservation.v": {
+      "theorems": 2,
+      "closed": 0,
+      "with_axioms": 2,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/RetireMaster.v": {
+      "theorems": 60,
+      "closed": 0,
+      "with_axioms": 60,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/RetireProgress.v": {
+      "theorems": 6,
+      "closed": 0,
+      "with_axioms": 6,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/RetireRuns.v": {
+      "theorems": 20,
+      "closed": 3,
+      "with_axioms": 17,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/RetireRunsFsm.v": {
+      "theorems": 13,
+      "closed": 0,
+      "with_axioms": 13,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/RetireRunsOps.v": {
+      "theorems": 5,
+      "closed": 0,
+      "with_axioms": 5,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/RichFaultMaster.v": {
+      "theorems": 18,
+      "closed": 2,
+      "with_axioms": 16,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/RichFaultRetireMaster.v": {
+      "theorems": 55,
+      "closed": 0,
+      "with_axioms": 55,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/RichFaultWords.v": {
+      "theorems": 10,
+      "closed": 6,
+      "with_axioms": 4,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/RichLoadGuard.v": {
+      "theorems": 1,
+      "closed": 0,
+      "with_axioms": 1,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/RichLocalityGuard.v": {
+      "theorems": 5,
+      "closed": 0,
+      "with_axioms": 5,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/RichNfiGuard.v": {
+      "theorems": 1,
+      "closed": 0,
+      "with_axioms": 1,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/RichPartitionGuard.v": {
+      "theorems": 3,
+      "closed": 0,
+      "with_axioms": 3,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
     "coq/kami_hw/RichStateCommutation.v": {
       "theorems": 18,
       "closed": 18,
       "with_axioms": 0,
       "axiom_set": []
+    },
+    "coq/kami_hw/RichWordDecode.v": {
+      "theorems": 27,
+      "closed": 18,
+      "with_axioms": 9,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/RuleEnabled.v": {
+      "theorems": 28,
+      "closed": 5,
+      "with_axioms": 23,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/RuleNext.v": {
+      "theorems": 144,
+      "closed": 142,
+      "with_axioms": 2,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq"
+      ]
+    },
+    "coq/kami_hw/RuleStep.v": {
+      "theorems": 6,
+      "closed": 1,
+      "with_axioms": 5,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
     },
     "coq/kami_hw/ShadowDevice.v": {
       "theorems": 6,
@@ -524,6 +1255,113 @@
       "closed": 16,
       "with_axioms": 2,
       "axiom_set": [
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/StepEval.v": {
+      "theorems": 44,
+      "closed": 0,
+      "with_axioms": 44,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/StepFaults.v": {
+      "theorems": 74,
+      "closed": 4,
+      "with_axioms": 70,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/StepFields.v": {
+      "theorems": 1330,
+      "closed": 0,
+      "with_axioms": 1330,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/StepFieldsMorph.v": {
+      "theorems": 431,
+      "closed": 0,
+      "with_axioms": 431,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/StepRefine.v": {
+      "theorems": 38,
+      "closed": 0,
+      "with_axioms": 38,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/StepRefineCommon.v": {
+      "theorems": 59,
+      "closed": 45,
+      "with_axioms": 14,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/StepRefineMorph.v": {
+      "theorems": 32,
+      "closed": 18,
+      "with_axioms": 14,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/StepWordFacts.v": {
+      "theorems": 11,
+      "closed": 10,
+      "with_axioms": 1,
+      "axiom_set": [
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/TableInvariants.v": {
+      "theorems": 2,
+      "closed": 0,
+      "with_axioms": 2,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/TableInvariantsPreserved.v": {
+      "theorems": 67,
+      "closed": 10,
+      "with_axioms": 57,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/TableInvariantsReachable.v": {
+      "theorems": 6,
+      "closed": 0,
+      "with_axioms": 6,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/TensorDispatch.v": {
+      "theorems": 10,
+      "closed": 0,
+      "with_axioms": 10,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
@@ -945,6 +1783,12 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/kernel/foundation/MM2ComplementUndec.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/foundation/MuCostModel.v": {
       "theorems": 6,
       "closed": 6,
@@ -1023,6 +1867,30 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/kernel/foundation/VMAlternativeCounterAccess.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMBoundedDecidability.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMCounterBranch.v": {
+      "theorems": 13,
+      "closed": 13,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMEncodedInputAccess.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/foundation/VMEncoding.v": {
       "theorems": 19,
       "closed": 19,
@@ -1032,6 +1900,54 @@
     "coq/kernel/foundation/VMInstructionEncoding.v": {
       "theorems": 9,
       "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMSelfCorrect.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMSelfGuest.v": {
+      "theorems": 38,
+      "closed": 38,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMSelfLimitative.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMSelfProgram.v": {
+      "theorems": 20,
+      "closed": 20,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMSelfRice.v": {
+      "theorems": 25,
+      "closed": 25,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMSelfRiceUndec.v": {
+      "theorems": 11,
+      "closed": 11,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMSelfRun.v": {
+      "theorems": 21,
+      "closed": 21,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMSelfUniversal.v": {
+      "theorems": 16,
+      "closed": 16,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -1053,9 +1969,153 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/kernel/foundation/VMTwoCounterAccess.v": {
+      "theorems": 11,
+      "closed": 11,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedCM2Applicability.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedCM2Bridge.v": {
+      "theorems": 14,
+      "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedCM2Correctness.v": {
+      "theorems": 32,
+      "closed": 32,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedCM2Encoding.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedCM2IndependentStorage.v": {
+      "theorems": 10,
+      "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedCM2Interpreter.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedCM2InterpreterProof.v": {
+      "theorems": 28,
+      "closed": 28,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedCM2Limitative.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedCM2OutputPredicate.v": {
+      "theorems": 20,
+      "closed": 20,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedCM2Specialization.v": {
+      "theorems": 19,
+      "closed": 19,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedCounterAccess.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/foundation/VMUnboundedExec.v": {
       "theorems": 8,
       "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedGuestEncoding.v": {
+      "theorems": 10,
+      "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedInterpreterCode.v": {
+      "theorems": 10,
+      "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedInterpreterCompose.v": {
+      "theorems": 16,
+      "closed": 16,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedInterpreterSlots.v": {
+      "theorems": 18,
+      "closed": 18,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedMinskyCorrectness.v": {
+      "theorems": 32,
+      "closed": 32,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedMinskyEncoding.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedMinskyInterpreter.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedMinskyInterpreterProof.v": {
+      "theorems": 28,
+      "closed": 28,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedOpcodeAdd.v": {
+      "theorems": 11,
+      "closed": 11,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMUnboundedStep.v": {
+      "theorems": 1,
+      "closed": 1,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMWitnessCounterMonotonicity.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMWord64BoundednessObstruction.v": {
+      "theorems": 22,
+      "closed": 22,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -2140,6 +3200,15 @@
       "closed": 3,
       "with_axioms": 0,
       "axiom_set": []
+    },
+    "coq/tests/SemanticContractRegression.v": {
+      "theorems": 1,
+      "closed": 0,
+      "with_axioms": 1,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
     },
     "coq/tests/TestNecessity.v": {
       "theorems": 10,

@@ -39,6 +39,7 @@ Require Import Coq.Strings.String.
 Require Import Coq.Lists.List.
 Require Import Coq.Arith.PeanoNat.
 Require Import Coq.micromega.Lia.
+Require Import Coq.NArith.NArith.
 Import ListNotations.
 
 Require Import Kernel.VMState.
@@ -651,6 +652,89 @@ Definition kami_advance_err (hs : KamiSnapshot) (cost : nat) : KamiSnapshot :=
      snap_logic_acc     := snap_logic_acc hs;
      snap_mstatus       := snap_mstatus hs |}.
 
+(** Diagnostic codes the CPU writes on VM-level failures, as [wordToNat] of
+    the ERR_* words in ThieleTypes. Each value sits behind a Qed-closed
+    witness, so no reduction tactic expands it into a unary numeral; the
+    [_spec] lemmas give the defining equations. *)
+Lemma kami_err_logic_witness : { n : nat | n = N.to_nat 3291771297%N }.
+Proof. eexists. reflexivity. Qed.
+Lemma kami_err_coupling_invalid_witness : { n : nat | n = N.to_nat 3134980096%N }.
+Proof. eexists. reflexivity. Qed.
+Lemma kami_err_compose_type_witness : { n : nat | n = N.to_nat 3134980097%N }.
+Proof. eexists. reflexivity. Qed.
+Lemma kami_err_morph_not_found_witness : { n : nat | n = N.to_nat 3134980099%N }.
+Proof. eexists. reflexivity. Qed.
+Definition KAMI_ERR_LOGIC : nat := proj1_sig kami_err_logic_witness.
+Definition KAMI_ERR_COUPLING_INVALID : nat := proj1_sig kami_err_coupling_invalid_witness.
+Definition KAMI_ERR_COMPOSE_TYPE : nat := proj1_sig kami_err_compose_type_witness.
+Definition KAMI_ERR_MORPH_NOT_FOUND : nat := proj1_sig kami_err_morph_not_found_witness.
+
+(** [kami_advance_err] that also records the CPU diagnostic code. *)
+Definition kami_advance_err_code (hs : KamiSnapshot) (cost code : nat) : KamiSnapshot :=
+  {| snap_pc           := S (snap_pc hs);
+     snap_mu           := snap_mu hs + cost;
+     snap_err          := true;
+     snap_halted       := snap_halted hs;
+     snap_regs         := snap_regs hs;
+     snap_mem          := snap_mem hs;
+     snap_partition_ops := snap_partition_ops hs;
+     snap_mdl_ops      := snap_mdl_ops hs;
+     snap_info_gain    := snap_info_gain hs;
+     snap_error_code   := code;
+     snap_mu_tensor    := snap_mu_tensor hs;
+     snap_pt_sizes     := snap_pt_sizes hs;
+     snap_pt_next_id   := snap_pt_next_id hs;
+     snap_certified    := snap_certified hs;
+     snap_wc_same_00   := snap_wc_same_00 hs;
+     snap_wc_diff_00   := snap_wc_diff_00 hs;
+     snap_wc_same_01   := snap_wc_same_01 hs;
+     snap_wc_diff_01   := snap_wc_diff_01 hs;
+     snap_wc_same_10   := snap_wc_same_10 hs;
+     snap_wc_diff_10   := snap_wc_diff_10 hs;
+     snap_wc_same_11   := snap_wc_same_11 hs;
+     snap_wc_diff_11   := snap_wc_diff_11 hs;
+     snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
+     snap_csr_cert_addr := snap_csr_cert_addr hs;
+     snap_csr_status    := snap_csr_status hs;
+     snap_csr_err       := 1;
+     snap_csr_heap_base := snap_csr_heap_base hs;
+     snap_logic_acc     := snap_logic_acc hs;
+     snap_mstatus       := snap_mstatus hs |}.
+
+(** Default advance that also counts disclosed information bits. *)
+Definition kami_advance_info (hs : KamiSnapshot) (cost bits : nat) : KamiSnapshot :=
+  {| snap_pc           := S (snap_pc hs);
+     snap_mu           := snap_mu hs + cost;
+     snap_err          := snap_err hs;
+     snap_halted       := snap_halted hs;
+     snap_regs         := snap_regs hs;
+     snap_mem          := snap_mem hs;
+     snap_partition_ops := snap_partition_ops hs;
+     snap_mdl_ops      := snap_mdl_ops hs;
+     snap_info_gain    := snap_info_gain hs + bits;
+     snap_error_code   := snap_error_code hs;
+     snap_mu_tensor    := snap_mu_tensor hs;
+     snap_pt_sizes     := snap_pt_sizes hs;
+     snap_pt_next_id   := snap_pt_next_id hs;
+     snap_certified    := snap_certified hs;
+     snap_wc_same_00   := snap_wc_same_00 hs;
+     snap_wc_diff_00   := snap_wc_diff_00 hs;
+     snap_wc_same_01   := snap_wc_same_01 hs;
+     snap_wc_diff_01   := snap_wc_diff_01 hs;
+     snap_wc_same_10   := snap_wc_same_10 hs;
+     snap_wc_diff_10   := snap_wc_diff_10 hs;
+     snap_wc_same_11   := snap_wc_same_11 hs;
+     snap_wc_diff_11   := snap_wc_diff_11 hs;
+     snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
+     snap_csr_cert_addr := snap_csr_cert_addr hs;
+     snap_csr_status    := snap_csr_status hs;
+     snap_csr_err       := snap_csr_err hs;
+     snap_csr_heap_base := snap_csr_heap_base hs;
+     snap_logic_acc     := snap_logic_acc hs;
+     snap_mstatus       := snap_mstatus hs |}.
+
 (** Advance pc/mu under error-latch with rich-state replacement.
     Error path for MORPH_DELETE when the morphism doesn't exist. *)
 Definition kami_advance_err_rich (hs : KamiSnapshot) (cost : nat)
@@ -856,7 +940,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
         declared flen matches the in-memory formula header, trapping on any
         failure. Cost: flen * 8 + S cost (matches instruction_cost).
          PC: S pc on success, LASSERT_TRAP_PC on failure.
-         Error: set snap_err on failure.  CSRs preserved (matching vm_apply). *)
+         Error: set snap_err and the CSR error flag on failure (matching vm_apply). *)
       let check_ok := lassert_exec_ok (abs_phase1 hs) freg creg kind flen in
       let new_pc   := if check_ok then S (snap_pc hs) else LASSERT_TRAP_PC in
       let new_err  := if check_ok then snap_err hs else true in
@@ -869,7 +953,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
          snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
+         snap_error_code := if check_ok then snap_error_code hs else KAMI_ERR_LOGIC;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
          snap_pt_next_id := snap_pt_next_id hs;
@@ -886,7 +970,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
-         snap_csr_err       := snap_csr_err hs;
+         snap_csr_err       := if check_ok then snap_csr_err hs else 1;
          snap_csr_heap_base := snap_csr_heap_base hs;
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
@@ -1425,7 +1509,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
   | instr_emit _ payload cost =>
-      kami_advance_default hs (payload_bit_length payload + S cost)
+      kami_advance_info hs (payload_bit_length payload + S cost)
+        (payload_bit_length payload)
   | instr_reveal module0 bits _ cost =>
       (* REVEAL: tensor_idx = module0 mod 16, delta = bits — matches advance_state_reveal in vm_apply_unsafe *)
       let k := module0 mod 16 in
@@ -1437,7 +1522,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs + bits;
+         snap_info_gain := snap_info_gain hs;
          snap_error_code := snap_error_code hs;
          snap_mu_tensor :=
            fun j => if Nat.eqb j k then snap_mu_tensor hs j + bits
@@ -1896,16 +1981,51 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
      performs real allocations / lookups / deletions.
      Error paths set snap_csr_err := 1 and snap_err := true,
      matching SimulationProof.vm_apply's csr_set_err + latch_err pattern. *)
-  | instr_morph dst src_mod dst_mod _coupling_idx cost =>
+  | instr_morph dst src_mod dst_mod coupling_idx cost =>
       (* Check that both source and target modules exist in partition table *)
       let src_exists := negb (Nat.eqb (snap_pt_sizes hs src_mod) 0) in
       let dst_exists := negb (Nat.eqb (snap_pt_sizes hs dst_mod) 0) in
       if andb src_exists dst_exists then
         let rs := snap_rich_state hs in
-        let '(rs', new_id) := rich_state_add_morph rs src_mod dst_mod 0 false in
+        (* Real coupling data (M5): decode the same serialized memory block
+           ThieleMachineComplete.vm_apply reads, and register it through the
+           same allocation path COMPOSE/MORPH_TENSOR already use below,
+           rather than hardcoding an empty descriptor. Mirrors
+           ThieleMachineComplete.load_coupling_from_mem exactly, working
+           directly over the memory list (snapshot_mem_to_list (snap_mem hs))
+           since that is all load_coupling_from_mem's helpers ever read. *)
+        let g := snap_full_graph hs in
+        let mem := snapshot_mem_to_list (snap_mem hs) in
+        let src_region :=
+          match graph_lookup g src_mod with
+          | Some ms => ms.(module_region)
+          | None => []
+          end in
+        let dst_region :=
+          match graph_lookup g dst_mod with
+          | Some ms => ms.(module_region)
+          | None => []
+          end in
+        let pair_count := serialized_coupling_pair_count mem coupling_idx in
+        let label_base := S coupling_idx + 2 * pair_count in
+        let raw := {|
+          coupling_pairs := load_coupling_pairs_from_mem mem (S coupling_idx) pair_count;
+          coupling_label := mem_to_string mem (mem_index label_base)
+        |} in
+        (* Pre-normalize once, the same way COMPOSE/MORPH_TENSOR's
+           composed_pairs already do below: rich_state_add_morph_with_coupling
+           stores pairs as given, with no dedup step of its own, while
+           graph_add_morphism (the software side) always dedups internally
+           via normalize_coupling. Applying it here once keeps both sides
+           storing the identical deduped pairs, since normalize_coupling is
+           idempotent. *)
+        let coupling := normalize_coupling (restrict_coupling_to_regions src_region dst_region raw) in
+        let '(rs', new_id) :=
+          rich_state_add_morph_with_coupling rs src_mod dst_mod
+            coupling.(coupling_pairs) coupling.(coupling_label) false in
         kami_advance_rich_morph hs dst new_id cost rs'
       else
-        kami_advance_err hs cost
+        kami_advance_err_code hs cost KAMI_ERR_COUPLING_INVALID
   | instr_compose dst m1_id m2_id cost =>
       (* COMPOSE: hardware computes relational composition of coupling data,
          with the same identity-flag short-circuit as the kernel's
@@ -1937,8 +2057,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
                 (morph_entry_source e1) (morph_entry_target e2)
                 composed_pairs composed_label false in
             kami_advance_rich_morph hs dst new_id cost rs'
-          else kami_advance_err hs cost  (* endpoint mismatch → error *)
-      | _, _ => kami_advance_err hs cost  (* morph not found → error *)
+          else kami_advance_err_code hs cost KAMI_ERR_COMPOSE_TYPE  (* endpoint mismatch → error *)
+      | _, _ => kami_advance_err_code hs cost KAMI_ERR_MORPH_NOT_FOUND  (* morph not found → error *)
       end
   | instr_morph_id dst module cost =>
       (* MORPH_ID: identity morphism with coupling_desc=0 (empty_coupling_data).
@@ -1949,7 +2069,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
         let '(rs', new_id) := rich_state_add_morph rs module module 0 true in
         kami_advance_rich_morph hs dst new_id cost rs'
       else
-        kami_advance_err hs cost
+        kami_advance_err_code hs cost KAMI_ERR_COUPLING_INVALID
   | instr_morph_delete morph_id cost =>
       let rs := snap_rich_state hs in
       match rs.(rich_morph_table) morph_id with
@@ -1957,7 +2077,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
           let rs' := rich_state_delete_morph rs morph_id in
           kami_advance_rich_noret hs cost rs'
       | None =>
-          kami_advance_err hs cost  (* morph not found → error *)
+          kami_advance_err_code hs cost KAMI_ERR_MORPH_NOT_FOUND  (* morph not found → error *)
       end
   | instr_morph_assert morph_id property _cert cost =>
       (* Check morph existence; on success set csr_cert_addr := ascii_checksum property *)
@@ -1966,13 +2086,13 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
       | Some _ =>
           kami_advance_cert_addr hs (ascii_checksum property) (S cost)
       | None =>
-          kami_advance_err hs (S cost)  (* morph not found → error *)
+          kami_advance_err_code hs (S cost) KAMI_ERR_MORPH_NOT_FOUND  (* morph not found → error *)
       end
   | instr_morph_tensor dst f_id g_id cost =>
-      (* MORPH_TENSOR: hardware computes full categorical tensor product.
-         Calls graph_tensor_morphisms on the reconstructed graph to compute
-         correct source (A⊕C), target (B⊕D), and coupling (f_pairs ++ g_pairs).
-         Reflects result into rich state tables. *)
+      (* MORPH_TENSOR: the kernel's graph_tensor_morphisms on the
+         reconstructed graph. Reconstructed module regions are the prefixes
+         seq 0 size, so no two regions are disjoint and this always records
+         a missing morphism; the CPU faults the same way. *)
       let g := snap_full_graph hs in
       match graph_tensor_morphisms g f_id g_id with
       | Some (graph', morph_id) =>
@@ -1984,9 +2104,9 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
                                  new_ms.(morph_coupling).(coupling_pairs)
                                  new_ms.(morph_coupling).(coupling_label) false in
               kami_advance_rich_morph hs dst morph_id cost rs'
-          | None => kami_advance_err hs cost
+          | None => kami_advance_err_code hs cost KAMI_ERR_MORPH_NOT_FOUND
           end
-      | None => kami_advance_err hs cost
+      | None => kami_advance_err_code hs cost KAMI_ERR_MORPH_NOT_FOUND
       end
   | instr_morph_get dst morph_id selector cost =>
       let rs := snap_rich_state hs in
@@ -2004,7 +2124,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
             | _ => 0
             end in
           kami_advance_reg hs dst value cost
-      | None => kami_advance_err hs cost  (* morph not found → error *)
+      | None => kami_advance_err_code hs cost KAMI_ERR_MORPH_NOT_FOUND  (* morph not found → error *)
       end
   | instr_chsh_lassert cost =>
       (* CHSH-aware certification: hardware computes column-contractivity
@@ -2026,7 +2146,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
          snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
+         snap_error_code := if check_ok then snap_error_code hs else KAMI_ERR_LOGIC;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
          snap_pt_next_id := snap_pt_next_id hs;

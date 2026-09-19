@@ -1,0 +1,224 @@
+DIGEST 3cba8849c8719002da690c30aabc8fe4
+FKernel.VMSelfLimitative
+R686:690 Coq.Arith.Arith <> <> lib
+R692:694 Coq.micromega.Lia <> <> lib
+R696:699 Coq.Lists.List <> <> lib
+R709:721 Coq.Lists.List ListNotations <> mod
+R769:782 Undecidability.Synthetic.Undecidability <> <> lib
+R835:837 Undecidability.MinskyMachines.MM2 <> <> lib
+R839:847 Undecidability.MinskyMachines.MM2_undec <> <> lib
+R877:883 Kernel.VMState <> <> lib
+R885:899 Kernel.VMUnboundedStep <> <> lib
+R929:953 Kernel.VMUnboundedCM2Interpreter <> <> lib
+R955:979 Kernel.VMUnboundedCM2Correctness <> <> lib
+R981:1000 Kernel.VMUnboundedCM2Bridge <> <> lib
+R1030:1040 Kernel.VMSelfGuest <> <> lib
+R1042:1054 Kernel.VMSelfProgram <> <> lib
+R1056:1068 Kernel.VMSelfCorrect <> <> lib
+R1070:1078 Kernel.VMSelfRun <> <> lib
+R1080:1094 Kernel.VMSelfUniversal <> <> lib
+def 1109:1115 <> zero_hs
+R1119:1126 Kernel.VMSelfCorrect <> HScratch rec
+R1136:1138 Kernel.VMSelfCorrect <> hs4 proj
+R1136:1138 Kernel.VMSelfCorrect <> hs4 proj
+R1136:1138 Kernel.VMSelfCorrect <> hs4 proj
+R1146:1148 Kernel.VMSelfCorrect <> hs5 proj
+R1146:1148 Kernel.VMSelfCorrect <> hs5 proj
+R1156:1158 Kernel.VMSelfCorrect <> hs6 proj
+R1156:1158 Kernel.VMSelfCorrect <> hs6 proj
+R1166:1168 Kernel.VMSelfCorrect <> hs7 proj
+R1166:1168 Kernel.VMSelfCorrect <> hs7 proj
+R1176:1178 Kernel.VMSelfCorrect <> hs8 proj
+R1176:1178 Kernel.VMSelfCorrect <> hs8 proj
+R1186:1189 Kernel.VMSelfCorrect <> hs10 proj
+R1186:1189 Kernel.VMSelfCorrect <> hs10 proj
+R1197:1200 Kernel.VMSelfCorrect <> hs15 proj
+R1197:1200 Kernel.VMSelfCorrect <> hs15 proj
+def 1293:1302 <> self_input
+R1311:1317 Kernel.VMState <> VMState rec
+binder 1305:1307 <> amb:1
+R1326:1329 Coq.Init.Datatypes <> list ind
+R1331:1336 Kernel.VMSelfGuest <> GInstr ind
+binder 1321:1322 <> gp:2
+R1345:1347 Coq.Init.Datatypes <> nat ind
+binder 1340:1341 <> pc:3
+R1355:1359 Kernel.VMSelfGuest <> GRegs rec
+binder 1351:1351 <> g:4
+R1364:1370 Kernel.VMState <> VMState rec
+R1377:1378 Kernel.VMSelfCorrect <> hb def
+R1380:1382 Kernel.VMSelfLimitative <> amb:1 var
+R1387:1392 Kernel.VMSelfGuest <> g_code def
+R1395:1401 Kernel.VMSelfGuest <> g_width def
+R1403:1404 Kernel.VMSelfLimitative <> gp:2 var
+R1407:1408 Kernel.VMSelfLimitative <> gp:2 var
+R1412:1418 Kernel.VMSelfGuest <> g_width def
+R1420:1421 Kernel.VMSelfLimitative <> gp:2 var
+R1424:1425 Kernel.VMSelfLimitative <> pc:3 var
+R1429:1429 Kernel.VMSelfLimitative <> g:4 var
+R1431:1437 Kernel.VMSelfLimitative <> zero_hs def
+def 1452:1466 <> self_host_halts
+R1473:1479 Kernel.VMState <> VMState rec
+binder 1469:1469 <> s:5
+R1494:1500 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1502:1503 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1501:1501 <> F:6
+R1528:1530 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1522:1526 Kernel.VMState <> vm_pc proj
+R1505:1512 Kernel.VMUnboundedStep <> run_vm_u def
+R1514:1514 Kernel.VMSelfLimitative <> F:6 var
+R1516:1516 Kernel.VMSelfProgram <> U def
+R1518:1518 Kernel.VMSelfLimitative <> s:5 var
+R1531:1535 Kernel.VMSelfProgram <> U_END def
+def 1550:1563 <> self_mm2_input
+R1572:1578 Kernel.VMState <> VMState rec
+binder 1566:1568 <> amb:7
+R1592:1602 Undecidability.MinskyMachines.MM2 <> MM2_PROBLEM def
+binder 1582:1588 <> problem:8
+R1607:1613 Kernel.VMState <> VMState rec
+R1638:1644 Kernel.VMSelfLimitative <> problem:8 var
+R1625:1625 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1627:1628 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1630:1631 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1633:1633 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1651:1660 Kernel.VMSelfLimitative <> self_input def
+R1711:1713 Kernel.VMSelfGuest <> gr0 proj
+R1711:1713 Kernel.VMSelfGuest <> gr0 proj
+R1711:1713 Kernel.VMSelfGuest <> gr0 proj
+R1721:1723 Kernel.VMSelfGuest <> gr1 proj
+R1721:1723 Kernel.VMSelfGuest <> gr1 proj
+R1731:1733 Kernel.VMSelfGuest <> gr2 proj
+R1731:1733 Kernel.VMSelfGuest <> gr2 proj
+R1741:1743 Kernel.VMSelfGuest <> gr3 proj
+R1741:1743 Kernel.VMSelfGuest <> gr3 proj
+R1667:1677 Kernel.VMSelfUniversal <> cm2_compile def
+R1680:1696 Kernel.VMUnboundedCM2Bridge <> mm2_guest_program def
+R1662:1664 Kernel.VMSelfLimitative <> amb:7 var
+prf 1763:1782 <> self_mm2_halting_iff
+binder 1793:1795 <> amb:10
+binder 1797:1803 <> problem:11
+R1827:1831 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1808:1818 Undecidability.MinskyMachines.MM2 <> MM2_HALTING def
+R1820:1826 Kernel.VMSelfLimitative <> problem:11 var
+R1832:1846 Kernel.VMSelfLimitative <> self_host_halts def
+R1849:1862 Kernel.VMSelfLimitative <> self_mm2_input def
+R1868:1874 Kernel.VMSelfLimitative <> problem:11 var
+R1864:1866 Kernel.VMSelfLimitative <> amb:10 var
+R1916:1926 Undecidability.MinskyMachines.MM2 <> MM2_HALTING def
+R1929:1942 Kernel.VMSelfLimitative <> self_mm2_input def
+R1945:1954 Kernel.VMSelfLimitative <> self_input def
+R1957:1971 Kernel.VMSelfLimitative <> self_host_halts def
+R1984:2008 Kernel.VMUnboundedCM2Bridge <> mm2_termination_guest_iff thm
+R1984:2008 Kernel.VMUnboundedCM2Bridge <> mm2_termination_guest_iff thm
+R1984:2008 Kernel.VMUnboundedCM2Bridge <> mm2_termination_guest_iff thm
+R2023:2033 Kernel.VMSelfUniversal <> cm2_compile def
+R2036:2052 Kernel.VMUnboundedCM2Bridge <> mm2_guest_program def
+R2023:2033 Kernel.VMSelfUniversal <> cm2_compile def
+R2036:2052 Kernel.VMUnboundedCM2Bridge <> mm2_guest_program def
+R2075:2077 Kernel.VMSelfGuest <> gr0 proj
+R2075:2077 Kernel.VMSelfGuest <> gr0 proj
+R2075:2077 Kernel.VMSelfGuest <> gr0 proj
+R2085:2087 Kernel.VMSelfGuest <> gr1 proj
+R2085:2087 Kernel.VMSelfGuest <> gr1 proj
+R2095:2097 Kernel.VMSelfGuest <> gr2 proj
+R2095:2097 Kernel.VMSelfGuest <> gr2 proj
+R2105:2107 Kernel.VMSelfGuest <> gr3 proj
+R2105:2107 Kernel.VMSelfGuest <> gr3 proj
+R2075:2077 Kernel.VMSelfGuest <> gr0 proj
+R2075:2077 Kernel.VMSelfGuest <> gr0 proj
+R2075:2077 Kernel.VMSelfGuest <> gr0 proj
+R2085:2087 Kernel.VMSelfGuest <> gr1 proj
+R2085:2087 Kernel.VMSelfGuest <> gr1 proj
+R2095:2097 Kernel.VMSelfGuest <> gr2 proj
+R2095:2097 Kernel.VMSelfGuest <> gr2 proj
+R2105:2107 Kernel.VMSelfGuest <> gr3 proj
+R2105:2107 Kernel.VMSelfGuest <> gr3 proj
+R2135:2139 Kernel.VMSelfRun <> gc_pc proj
+R2135:2139 Kernel.VMSelfRun <> gc_pc proj
+R2135:2139 Kernel.VMSelfRun <> gc_pc proj
+R2147:2151 Kernel.VMSelfRun <> gc_mu proj
+R2147:2151 Kernel.VMSelfRun <> gc_mu proj
+R2159:2162 Kernel.VMSelfRun <> gc_g proj
+R2159:2162 Kernel.VMSelfRun <> gc_g proj
+R2135:2139 Kernel.VMSelfRun <> gc_pc proj
+R2135:2139 Kernel.VMSelfRun <> gc_pc proj
+R2135:2139 Kernel.VMSelfRun <> gc_pc proj
+R2147:2151 Kernel.VMSelfRun <> gc_mu proj
+R2147:2151 Kernel.VMSelfRun <> gc_mu proj
+R2159:2162 Kernel.VMSelfRun <> gc_g proj
+R2159:2162 Kernel.VMSelfRun <> gc_g proj
+R2190:2193 Kernel.VMSelfUniversal <> crel def
+R2196:2211 Kernel.VMUnboundedCM2Bridge <> mm2_guest_config def
+R2213:2213 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2215:2216 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2223:2223 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2217:2217 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2219:2220 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2222:2222 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2241:2244 Kernel.VMSelfUniversal <> crel def
+R2190:2193 Kernel.VMSelfUniversal <> crel def
+R2196:2211 Kernel.VMUnboundedCM2Bridge <> mm2_guest_config def
+R2213:2213 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2215:2216 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2223:2223 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2217:2217 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2219:2220 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2222:2222 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2272:2285 Kernel.VMSelfUniversal <> cm2_compile_wf thm
+R2288:2304 Kernel.VMUnboundedCM2Bridge <> mm2_guest_program def
+R2272:2285 Kernel.VMSelfUniversal <> cm2_compile_wf thm
+R2288:2304 Kernel.VMUnboundedCM2Bridge <> mm2_guest_program def
+R2332:2343 Kernel.VMSelfGuest <> g_width_fits thm
+R2332:2343 Kernel.VMSelfGuest <> g_width_fits thm
+R2367:2368 Kernel.VMSelfCorrect <> hb def
+R2377:2382 Kernel.VMSelfGuest <> g_code def
+R2385:2391 Kernel.VMSelfGuest <> g_width def
+R2400:2406 Kernel.VMSelfGuest <> g_width def
+R2418:2424 Kernel.VMSelfLimitative <> zero_hs def
+R2437:2439 Kernel.VMSelfRun <> hbc def
+R2464:2470 Kernel.VMSelfLimitative <> zero_hs def
+R2448:2454 Kernel.VMSelfGuest <> g_width def
+R2367:2368 Kernel.VMSelfCorrect <> hb def
+R2377:2382 Kernel.VMSelfGuest <> g_code def
+R2385:2391 Kernel.VMSelfGuest <> g_width def
+R2400:2406 Kernel.VMSelfGuest <> g_width def
+R2418:2424 Kernel.VMSelfLimitative <> zero_hs def
+R2437:2439 Kernel.VMSelfRun <> hbc def
+R2464:2470 Kernel.VMSelfLimitative <> zero_hs def
+R2448:2454 Kernel.VMSelfGuest <> g_width def
+R2522:2541 Kernel.VMSelfUniversal <> cm2_compile_complete thm
+R2522:2541 Kernel.VMSelfUniversal <> cm2_compile_complete thm
+R2589:2613 Kernel.VMSelfRun <> self_interpreter_complete thm
+R2649:2655 Kernel.VMSelfLimitative <> zero_hs def
+R2622:2628 Kernel.VMSelfGuest <> g_width def
+R2589:2613 Kernel.VMSelfRun <> self_interpreter_complete thm
+R2649:2655 Kernel.VMSelfLimitative <> zero_hs def
+R2622:2628 Kernel.VMSelfGuest <> g_width def
+R2743:2764 Kernel.VMSelfRun <> self_interpreter_sound thm
+R2800:2806 Kernel.VMSelfLimitative <> zero_hs def
+R2773:2779 Kernel.VMSelfGuest <> g_width def
+R2743:2764 Kernel.VMSelfRun <> self_interpreter_sound thm
+R2800:2806 Kernel.VMSelfLimitative <> zero_hs def
+R2773:2779 Kernel.VMSelfGuest <> g_width def
+R2849:2865 Kernel.VMSelfUniversal <> cm2_compile_sound thm
+R2849:2865 Kernel.VMSelfUniversal <> cm2_compile_sound thm
+prf 2945:2960 <> mm2_to_self_host
+R2977:2983 Kernel.VMState <> VMState rec
+binder 2971:2973 <> amb:12
+R2999:3003 Undecidability.Synthetic.Definitions <> :::x_'⪯'_x not
+R2988:2998 Undecidability.MinskyMachines.MM2 <> MM2_HALTING def
+R3004:3018 Kernel.VMSelfLimitative <> self_host_halts def
+R3049:3062 Kernel.VMSelfLimitative <> self_mm2_input def
+R3049:3062 Kernel.VMSelfLimitative <> self_mm2_input def
+R3091:3110 Kernel.VMSelfLimitative <> self_mm2_halting_iff thm
+R3091:3110 Kernel.VMSelfLimitative <> self_mm2_halting_iff thm
+prf 3127:3160 <> self_host_synthetic_undecidability
+R3177:3183 Kernel.VMState <> VMState rec
+binder 3171:3173 <> amb:13
+R3188:3198 Undecidability.Synthetic.Undecidability <> undecidable def
+R3200:3214 Kernel.VMSelfLimitative <> self_host_halts def
+R3244:3275 Undecidability.Synthetic.Undecidability <> undecidability_from_reducibility thm
+R3277:3293 Undecidability.MinskyMachines.MM2_undec <> MM2_HALTING_undec thm
+R3244:3275 Undecidability.Synthetic.Undecidability <> undecidability_from_reducibility thm
+R3277:3293 Undecidability.MinskyMachines.MM2_undec <> MM2_HALTING_undec thm
+R3305:3320 Kernel.VMSelfLimitative <> mm2_to_self_host thm
+R3305:3320 Kernel.VMSelfLimitative <> mm2_to_self_host thm

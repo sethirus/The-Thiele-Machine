@@ -1,0 +1,17 @@
+From Kernel Require Import VMUnboundedInterpreterSlots VMUnboundedGuestEncoding.
+Print set_slot_set_slot_same.
+Print Assumptions set_slot_set_slot_same.
+Print set_slot_comm.
+Print Assumptions set_slot_comm.
+Print encode_regs_update.
+Print Assumptions encode_regs_update.
+Print list_update_at_splice.
+Print Assumptions list_update_at_splice.
+Print write_reg_u_list_update_at.
+Print Assumptions write_reg_u_list_update_at.
+Print encode_regs_write_reg_u.
+Print Assumptions encode_regs_write_reg_u.
+Print encode_regs_vm_apply_u_add.
+Print Assumptions encode_regs_vm_apply_u_add.
+Print encode_regs_correct.
+Print Assumptions encode_regs_correct.

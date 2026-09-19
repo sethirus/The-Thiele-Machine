@@ -2781,9 +2781,11 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
           s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
   | instr_morph dst src_mod dst_mod coupling_idx cost =>
       match graph_lookup s.(vm_graph) src_mod, graph_lookup s.(vm_graph) dst_mod with
-      | Some _, Some _ =>
+      | Some ms_src, Some ms_dst =>
+          let coupling := load_coupling_from_mem s ms_src.(module_region)
+                            ms_dst.(module_region) coupling_idx in
           let '(graph', morph_id) :=
-            graph_add_morphism s.(vm_graph) src_mod dst_mod empty_coupling_data false in
+            graph_add_morphism s.(vm_graph) src_mod dst_mod coupling false in
           advance_state_rm s (instr_morph dst src_mod dst_mod coupling_idx cost)
             graph' s.(vm_csrs) (write_reg s dst morph_id) s.(vm_mem) s.(vm_err)
       | _, _ =>
@@ -3770,6 +3772,168 @@ Proof.
               cert_model_mu_necessity))).
 Qed.
 
+(* ===========================================================================
+   Extending the classification to vm_graph.
+
+   The four witness pairs above establish independence from the classical
+   projected fields (mem, regs, pc) only. Two of them (abs_A_strict/
+   abs_B_strict via CERTIFY 0 / PNEW [] 0, and abs_A_cost/abs_B_cost via
+   CERTIFY 2 / PNEW [] 3) use PNEW as the second branch, and PNEW itself
+   mutates vm_graph, so those two pairs do not additionally hold vm_graph
+   fixed and cannot be read as showing mu or vm_certified is independent
+   of vm_graph too. instr_jump touches neither vm_graph, vm_csrs, vm_regs,
+   nor vm_mem (jump_state passes all four through from s unchanged); only
+   vm_pc and vm_mu move, and vm_mu moves by exactly the instruction's own
+   cost field, with no S-wrapping. Replacing PNEW with a cost-matched JUMP
+   in the same two pairs gives new witnesses that hold vm_graph fixed as
+   well, closing the classification down to a full pairwise result. *)
+
+Definition abs_B_strict_g : VMState := vm_apply abs_zero (instr_jump 1 0).
+
+Lemma abs_strict_g_mu : abs_B_strict_g.(vm_mu) = 0.
+Proof. unfold abs_B_strict_g, vm_apply. simpl. reflexivity. Qed.
+
+Lemma abs_strict_g_cert : abs_B_strict_g.(vm_certified) = false.
+Proof. unfold abs_B_strict_g, abs_zero, vm_apply. simpl. reflexivity. Qed.
+
+Record FullStrictShadow := mk_full_strict {
+  fs_mem   : list nat;
+  fs_regs  : list nat;
+  fs_pc    : nat;
+  fs_graph : PartitionGraph
+}.
+
+Definition P_full_strict (s : VMState) : FullStrictShadow := {|
+  fs_mem   := s.(vm_mem);
+  fs_regs  := s.(vm_regs);
+  fs_pc    := s.(vm_pc);
+  fs_graph := s.(vm_graph)
+|}.
+
+Lemma abs_full_strict_shadow_equal :
+  P_full_strict abs_A_strict = P_full_strict abs_B_strict_g.
+Proof.
+  unfold P_full_strict, abs_A_strict, abs_B_strict_g, abs_zero, vm_apply.
+  simpl. reflexivity.
+Qed.
+
+Theorem mu_full_strict_necessity :
+  ~ exists (Omega : FullStrictShadow -> nat),
+      forall s, Omega (P_full_strict s) = s.(vm_mu).
+Proof.
+  apply (generic_mu_necessity P_full_strict abs_A_strict abs_B_strict_g).
+  - exact abs_full_strict_shadow_equal.
+  - rewrite abs_strict_mu_A, abs_strict_g_mu. discriminate.
+Qed.
+
+Theorem cert_full_strict_necessity :
+  ~ exists (Omega : FullStrictShadow -> bool),
+      forall s, Omega (P_full_strict s) = s.(vm_certified).
+Proof.
+  apply (generic_cert_necessity P_full_strict abs_A_strict abs_B_strict_g).
+  - exact abs_full_strict_shadow_equal.
+  - rewrite abs_strict_cert_A, abs_strict_g_cert. discriminate.
+Qed.
+
+Definition abs_B_cost_g : VMState := vm_apply abs_zero (instr_jump 1 3).
+
+Lemma abs_cost_g_cert : abs_B_cost_g.(vm_certified) = false.
+Proof. unfold abs_B_cost_g, abs_zero, vm_apply. simpl. reflexivity. Qed.
+
+Record FullCostShadow := mk_full_cost {
+  fc_mem   : list nat;
+  fc_regs  : list nat;
+  fc_pc    : nat;
+  fc_mu    : nat;
+  fc_graph : PartitionGraph
+}.
+
+Definition P_full_cost (s : VMState) : FullCostShadow := {|
+  fc_mem   := s.(vm_mem);
+  fc_regs  := s.(vm_regs);
+  fc_pc    := s.(vm_pc);
+  fc_mu    := s.(vm_mu);
+  fc_graph := s.(vm_graph)
+|}.
+
+Lemma abs_full_cost_shadow_equal :
+  P_full_cost abs_A_cost = P_full_cost abs_B_cost_g.
+Proof.
+  unfold P_full_cost, abs_A_cost, abs_B_cost_g, abs_zero, vm_apply.
+  simpl. reflexivity.
+Qed.
+
+Theorem cert_full_cost_necessity :
+  ~ exists (Omega : FullCostShadow -> bool),
+      forall s, Omega (P_full_cost s) = s.(vm_certified).
+Proof.
+  apply (generic_cert_necessity P_full_cost abs_A_cost abs_B_cost_g).
+  - exact abs_full_cost_shadow_equal.
+  - rewrite abs_cost_cert_A, abs_cost_g_cert. discriminate.
+Qed.
+
+(* The fourth pair, abs_A_cert/abs_B_cert (CERTIFY 0 / CERTIFY 1), never
+   needed replacing: CERTIFY does not touch vm_graph either, so the
+   existing pair already holds it fixed, and the graph-strengthened
+   result comes for free from the same witnesses. *)
+
+Record FullCertShadow := mk_full_cert {
+  fce_mem       : list nat;
+  fce_regs      : list nat;
+  fce_pc        : nat;
+  fce_certified : bool;
+  fce_graph     : PartitionGraph
+}.
+
+Definition P_full_cert (s : VMState) : FullCertShadow := {|
+  fce_mem       := s.(vm_mem);
+  fce_regs      := s.(vm_regs);
+  fce_pc        := s.(vm_pc);
+  fce_certified := s.(vm_certified);
+  fce_graph     := s.(vm_graph)
+|}.
+
+Lemma abs_full_cert_shadow_equal :
+  P_full_cert abs_A_cert = P_full_cert abs_B_cert.
+Proof.
+  unfold P_full_cert, abs_A_cert, abs_B_cert, abs_zero, vm_apply.
+  simpl. reflexivity.
+Qed.
+
+Theorem mu_full_cert_necessity :
+  ~ exists (Omega : FullCertShadow -> nat),
+      forall s, Omega (P_full_cert s) = s.(vm_mu).
+Proof.
+  apply (generic_mu_necessity P_full_cert abs_A_cert abs_B_cert).
+  - exact abs_full_cert_shadow_equal.
+  - rewrite abs_cert_mu_A, abs_cert_mu_B. discriminate.
+Qed.
+
+(* Full pairwise independence: each of mu, vm_certified, vm_graph fails to
+   be determined by the other two together with the classical projected
+   fields. The first three conjuncts extend results (1)-(4) above with
+   vm_graph folded into the held-fixed tuple; the fourth is result (5)
+   from the categorical-separation witness, restated here for the
+   record, vm_graph is not determined by (mem, regs, pc, mu, certified)
+   either, closing the classification in all three directions instead of
+   two out of three. *)
+
+Theorem mu_ledger_full_pairwise_independence :
+  (~ exists (Omega : FullStrictShadow -> nat),
+       forall s, Omega (P_full_strict s) = s.(vm_mu)) /\
+  (~ exists (Omega : FullStrictShadow -> bool),
+       forall s, Omega (P_full_strict s) = s.(vm_certified)) /\
+  (~ exists (Omega : FullCostShadow -> bool),
+       forall s, Omega (P_full_cost s) = s.(vm_certified)) /\
+  (~ exists (Omega : FullCertShadow -> nat),
+       forall s, Omega (P_full_cert s) = s.(vm_mu)).
+Proof.
+  exact (conj mu_full_strict_necessity
+        (conj cert_full_strict_necessity
+        (conj cert_full_cost_necessity
+              mu_full_cert_necessity))).
+Qed.
+
 Definition P_turing_machine : VMState -> StrictShadow := P_strict.
 
 Theorem turing_machine_mu_necessity :
@@ -4336,7 +4500,7 @@ Proof.
 Qed.
 
 (** Any physical cost measure satisfying the laws equals μ. *)
-Theorem physical_cost_equals_mu :
+Theorem instruction_consistent_measure_equals_mu :
   forall PhysCost : VMState -> nat,
     instruction_consistent PhysCost canonical_cost ->
     PhysCost init_state = 0 ->
@@ -10979,52 +11143,12 @@ Proof.
   intros u. apply Hdiag. exact Hij.
 Qed.
 
-(** =========================================================================
-    SECTION 7: EXTRACTION TO OCAML — The Machine Runs
-    =========================================================================
-
-    This is where the proof becomes code.
-
-    Coq's extraction translates Gallina to OCaml. The extracted code
-    preserves vm_apply and run_vm semantics exactly — not approximately,
-    not with caveats, exactly. Every proof about the Coq model transfers
-    directly to the extracted OCaml.
-
-    THREE LAYERS, ONE MACHINE, ONE PROOF:
-    1. Coq (this file): the machine defined, semantics proven
-    2. OCaml (thiele_core.ml / thiele_core_complete.ml): extracted, runs
-    3. Verilog RTL (thiele_cpu_kami.v): synthesized from the Kami spec
-       in Section 6G-KAMI, same machine in hardware
-
-    The three layers are isomorphic. Not "similar." Isomorphic.
-    Section 6H proves the μ-commutation bridge: every instruction's
-    hardware step (kami_step) and software step (vm_apply) agree on
-    μ-cost through the abs_phase1 abstraction map.
-
-    EXTRACT INDUCTIVE MAPS:
-      nat → int        (OCaml native int, 63-bit on 64-bit systems)
-      bool → bool      (direct)
-      list → list      (direct)
-      option → option  (direct)
-      prod → *         (OCaml tuple)
-
-    NOTE ON WORD FIDELITY: OCaml int on 64-bit platforms is 63-bit
-    (1 bit used by GC tag). The 64-bit Coq model retains full fidelity
-    for all values in [0, 2^62). Values in [2^62, 2^64) cannot be
-    distinguished in the extracted code — but no VM program uses them.
-
-    HARDWARE PIPELINE (Kami → Verilog):
-      1. thieleCore (Section 6G-KAMI Kami MODULE) → OCaml extraction
-      2. OCaml → Bluespec SystemVerilog (PP.ml pretty-printer)
-      3. BSV → Verilog RTL (bsc compiler)
-      4. Verilog → FPGA/ASIC (standard synthesis)
-    Run: scripts/kami_extract.sh
-
-    For the core VM, Extraction.v → thiele_core.ml is the canonical path;
-    this file's Extract Constant directives and ExtractionIdentityBundle
-    verify the same symbols. This file directly extracts
-    thiele_core_complete.ml with byte-for-byte identity to thiele_core.ml.
-    ========================================================================= *)
+(** Extraction to OCaml uses the same canonical VM roots and primitive
+    replacements as Extraction.v. Natural numbers use native integers and
+    word operations pass through Int64; exact agreement requires the stated
+    representable domains. The hardware path additionally uses the Kami
+    printer, project text transforms, and the Bluespec compiler. The snapshot
+    correspondence theorems have explicit execution preconditions. *)
 
 Extraction Language OCaml.
 
@@ -11097,15 +11221,15 @@ Print Assumptions strengthening_requires_structure_addition.
 Print Assumptions mu_is_initial_monotone.
 Print Assumptions mu_is_universal.
 Print Assumptions mu_initiality.
-Print Assumptions physical_cost_equals_mu.
+Print Assumptions instruction_consistent_measure_equals_mu.
 
 (** THE CONNECTIVITY SEAL: every key theorem in scope, type-checked, zero Admitted.
     [let _ := ...] bindings force Coq to verify each named theorem is well-typed.
-    The [1 <> 0] goal is the trivial anchor — the real work is the type-check.
+    The [1 <> 0] goal is the trivial anchor, the real work is the type-check.
     If this compiles: vm_apply_mu, run_vm_mu_monotonic, vm_apply_certified,
     kernel_certified_implies_positive_mu, mu_ledger_necessity,
     mu_ledger_minimality, strengthening_requires_structure_addition,
-    mu_is_initial_monotone, mu_initiality, physical_cost_equals_mu — all proven.
+    mu_is_initial_monotone, mu_initiality, instruction_consistent_measure_equals_mu: all proven.
     No admits. No gaps. This lemma is the machine's signature on its own proof. *)
 Lemma core_connectivity_check :
   let _ := vm_apply_mu in
@@ -11117,7 +11241,7 @@ Lemma core_connectivity_check :
   let _ := strengthening_requires_structure_addition in
   let _ := mu_is_initial_monotone in
   let _ := mu_initiality in
-  let _ := physical_cost_equals_mu in
+  let _ := instruction_consistent_measure_equals_mu in
   1 <> 0.
 Proof. discriminate. Qed.
 

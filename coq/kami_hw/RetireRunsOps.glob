@@ -1,0 +1,1367 @@
+DIGEST b3b3eb7da464a58915c77320cc0c4981
+FKamiHW.RetireRunsOps
+R566:574 Kami.Kami <> <> lib
+R576:589 Kami.Semantics <> <> lib
+R591:605 Kami.Lib.NatLib <> <> lib
+R632:637 Coq.Strings.String <> <> lib
+R639:642 Coq.Lists.List <> <> lib
+R644:648 Coq.Arith.Arith <> <> lib
+R650:652 Coq.micromega.Lia <> <> lib
+R654:657 Coq.Bool.Bool <> <> lib
+R659:682 Coq.Logic.FunctionalExtensionality <> <> lib
+R692:704 Coq.Lists.List ListNotations <> mod
+R722:735 Kernel.VMState <> <> lib
+R737:749 Kernel.VMStep <> <> lib
+R759:771 Kernel.VMStep VMStep <> mod
+R801:811 KamiHW.ThieleTypes <> <> lib
+R813:825 KamiHW.ThieleCPUCore <> <> lib
+R827:836 KamiHW.HWBoundary <> <> lib
+R838:845 KamiHW.RuleNext <> <> lib
+R847:854 KamiHW.RuleStep <> <> lib
+R856:870 KamiHW.BoundaryDecoded <> <> lib
+R872:879 KamiHW.StepEval <> <> lib
+R883:895 KamiHW.StepWordFacts <> <> lib
+R897:906 KamiHW.StepFields <> <> lib
+R908:923 KamiHW.StepRefineCommon <> <> lib
+R925:934 KamiHW.StepRefine <> <> lib
+R936:950 KamiHW.StepFieldsMorph <> <> lib
+R952:966 KamiHW.StepRefineMorph <> <> lib
+R970:991 KamiHW.ImplementationContract <> <> lib
+R993:1003 KamiHW.Abstraction <> <> lib
+R1005:1022 KamiHW.NormalizationSteps <> <> lib
+R1024:1040 KamiHW.NormalizationLoop <> <> lib
+R1042:1064 KamiHW.NormalizationRetirement <> <> lib
+R1066:1077 KamiHW.MorphLoading <> <> lib
+R1081:1089 KamiHW.MorphCopy <> <> lib
+R1091:1099 KamiHW.MorphJoin <> <> lib
+R1101:1111 KamiHW.RuleEnabled <> <> lib
+R1113:1122 KamiHW.FsmDecoded <> <> lib
+R1124:1134 KamiHW.ChshDecoded <> <> lib
+R1136:1142 KamiHW.ChshRun <> <> lib
+R1144:1157 KamiHW.ChshStepFields <> <> lib
+R1159:1168 KamiHW.ChshRetire <> <> lib
+R1172:1182 KamiHW.LassertSpec <> <> lib
+R1184:1194 KamiHW.LassertWord <> <> lib
+R1196:1212 KamiHW.LassertStepFields <> <> lib
+R1214:1226 KamiHW.LassertRetire <> <> lib
+R1228:1242 KamiHW.CouplingFsmEnds <> <> lib
+R1244:1258 KamiHW.CouplingFsmLoad <> <> lib
+R1260:1274 KamiHW.CouplingFsmNorm <> <> lib
+R1278:1291 KamiHW.CouplingFsmRun <> <> lib
+R1293:1307 KamiHW.CouplingFsmCopy <> <> lib
+R1309:1323 KamiHW.CouplingFsmJoin <> <> lib
+R1325:1341 KamiHW.CouplingMorphRich <> <> lib
+R1343:1359 KamiHW.CouplingMorphKami <> <> lib
+R1361:1379 KamiHW.CouplingMorphRetire <> <> lib
+R1383:1400 KamiHW.CouplingComposeRun <> <> lib
+R1402:1420 KamiHW.CouplingComposeKami <> <> lib
+R1422:1442 KamiHW.CouplingComposeRetire <> <> lib
+R1444:1454 KamiHW.BoundaryRun <> <> lib
+R1456:1465 KamiHW.RetireRuns <> <> lib
+R1467:1479 KamiHW.RetireRunsFsm <> <> lib
+prf 1546:1559 <> live_step_runs
+binder 1570:1570 <> b:1
+R1582:1585 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1573:1579 KamiHW.RuleEnabled <> hw_live def
+R1581:1581 KamiHW.RetireRunsOps <> b:1 var
+R1586:1589 KamiHW.RetireRuns <> Runs ind
+R1591:1591 KamiHW.RetireRunsOps <> b:1 var
+R1594:1602 KamiHW.RuleStep <> step_next def
+R1604:1604 KamiHW.RetireRunsOps <> b:1 var
+R1636:1643 KamiHW.RetireRuns <> runs_one thm
+R1652:1669 KamiHW.RetireRuns <> live_step_selected thm
+R1636:1643 KamiHW.RetireRuns <> runs_one thm
+R1652:1669 KamiHW.RetireRuns <> live_step_selected thm
+prf 1692:1708 <> chsh_lassert_runs
+binder 1719:1720 <> a0:2
+binder 1722:1723 <> a1:3
+binder 1725:1726 <> a2:4
+binder 1728:1729 <> a3:5
+binder 1731:1732 <> a4:6
+binder 1734:1735 <> a5:7
+binder 1737:1738 <> a6:8
+binder 1740:1741 <> a7:9
+binder 1743:1744 <> b0:10
+binder 1746:1747 <> b1:11
+binder 1749:1750 <> b2:12
+binder 1752:1753 <> b3:13
+binder 1755:1756 <> b4:14
+binder 1758:1759 <> b5:15
+binder 1761:1762 <> b6:16
+binder 1764:1765 <> b7:17
+binder 1767:1768 <> c0:18
+binder 1770:1771 <> c1:19
+binder 1773:1774 <> c2:20
+binder 1776:1777 <> c3:21
+binder 1779:1780 <> c4:22
+binder 1782:1783 <> c5:23
+binder 1785:1786 <> c6:24
+binder 1788:1789 <> c7:25
+R1796:1798 KamiHW.HWBoundary <> HWB rec
+binder 1792:1792 <> b:26
+R1910:1913 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1818:1820 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1804:1815 KamiHW.RuleStep <> step_fetched def
+R1817:1817 KamiHW.RetireRunsOps <> b:26 var
+R1821:1837 KamiHW.ChshStepFields <> chsh_lassert_word def
+R1839:1840 KamiHW.RetireRunsOps <> a0:2 var
+R1842:1843 KamiHW.RetireRunsOps <> a1:3 var
+R1845:1846 KamiHW.RetireRunsOps <> a2:4 var
+R1848:1849 KamiHW.RetireRunsOps <> a3:5 var
+R1851:1852 KamiHW.RetireRunsOps <> a4:6 var
+R1854:1855 KamiHW.RetireRunsOps <> a5:7 var
+R1857:1858 KamiHW.RetireRunsOps <> a6:8 var
+R1860:1861 KamiHW.RetireRunsOps <> a7:9 var
+R1863:1864 KamiHW.RetireRunsOps <> b0:10 var
+R1866:1867 KamiHW.RetireRunsOps <> b1:11 var
+R1869:1870 KamiHW.RetireRunsOps <> b2:12 var
+R1872:1873 KamiHW.RetireRunsOps <> b3:13 var
+R1875:1876 KamiHW.RetireRunsOps <> b4:14 var
+R1878:1879 KamiHW.RetireRunsOps <> b5:15 var
+R1881:1882 KamiHW.RetireRunsOps <> b6:16 var
+R1884:1885 KamiHW.RetireRunsOps <> b7:17 var
+R1887:1888 KamiHW.RetireRunsOps <> c0:18 var
+R1890:1891 KamiHW.RetireRunsOps <> c1:19 var
+R1893:1894 KamiHW.RetireRunsOps <> c2:20 var
+R1896:1897 KamiHW.RetireRunsOps <> c3:21 var
+R1899:1900 KamiHW.RetireRunsOps <> c4:22 var
+R1902:1903 KamiHW.RetireRunsOps <> c5:23 var
+R1905:1906 KamiHW.RetireRunsOps <> c6:24 var
+R1908:1909 KamiHW.RetireRunsOps <> c7:25 var
+R1935:1938 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1927:1929 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1914:1924 KamiHW.BoundaryDecoded <> hwb_bianchi def
+R1926:1926 KamiHW.RetireRunsOps <> b:26 var
+R1930:1934 Coq.Init.Datatypes <> false constr
+R1948:1953 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1939:1945 KamiHW.RuleEnabled <> hw_live def
+R1947:1947 KamiHW.RetireRunsOps <> b:26 var
+R1954:1962 KamiHW.RetireRuns <> Busy_runs ind
+R1965:1973 KamiHW.RuleStep <> step_next def
+R1975:1975 KamiHW.RetireRunsOps <> b:26 var
+R1979:1987 KamiHW.ChshRun <> chsh_iter def
+R1993:2001 KamiHW.RuleStep <> step_next def
+R2003:2003 KamiHW.RetireRunsOps <> b:26 var
+R2126:2140 KamiHW.ChshRun <> chsh_run_result thm
+R2143:2151 KamiHW.RuleStep <> step_next def
+R2157:2184 KamiHW.ChshStepFields <> step_chsh_lassert_chsh_phase thm
+R2126:2140 KamiHW.ChshRun <> chsh_run_result thm
+R2143:2151 KamiHW.RuleStep <> step_next def
+R2157:2184 KamiHW.ChshStepFields <> step_chsh_lassert_chsh_phase thm
+R2289:2297 KamiHW.RetireRunsFsm <> chsh_runs thm
+R2303:2311 KamiHW.RuleStep <> step_next def
+R2317:2347 KamiHW.ChshStepFields <> step_chsh_lassert_lassert_phase thm
+R2435:2460 KamiHW.ChshStepFields <> step_chsh_lassert_mc_phase thm
+binder 2552:2552 <> m:27
+binder 2554:2555 <> Hm:28
+R2560:2567 Coq.Init.Logic <> eq_ind_r def
+R2639:2639 KamiHW.RetireRunsOps <> m:27 var
+R2600:2618 KamiHW.ChshRetire <> natToWord5_succ_ne0 thm
+R2620:2620 KamiHW.RetireRunsOps <> m:27 var
+binder 2574:2574 <> x:29
+R2580:2583 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2579:2579 KamiHW.RetireRunsOps <> x:29 var
+R2584:2592 Kami.Lib.Word <> natToWord def
+R2289:2297 KamiHW.RetireRunsFsm <> chsh_runs thm
+R2303:2311 KamiHW.RuleStep <> step_next def
+R2317:2347 KamiHW.ChshStepFields <> step_chsh_lassert_lassert_phase thm
+R2435:2460 KamiHW.ChshStepFields <> step_chsh_lassert_mc_phase thm
+binder 2552:2552 <> m:30
+binder 2554:2555 <> Hm:31
+R2560:2567 Coq.Init.Logic <> eq_ind_r def
+R2639:2639 KamiHW.RetireRunsOps <> m:30 var
+R2600:2618 KamiHW.ChshRetire <> natToWord5_succ_ne0 thm
+R2620:2620 KamiHW.RetireRunsOps <> m:30 var
+binder 2574:2574 <> x:32
+R2580:2583 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2579:2579 KamiHW.RetireRunsOps <> x:32 var
+R2584:2592 Kami.Lib.Word <> natToWord def
+prf 2670:2685 <> lassert_sat_runs
+binder 2696:2697 <> a0:33
+binder 2699:2700 <> a1:34
+binder 2702:2703 <> a2:35
+binder 2705:2706 <> a3:36
+binder 2708:2709 <> a4:37
+binder 2711:2712 <> a6:38
+binder 2714:2715 <> a7:39
+binder 2717:2718 <> b0:40
+binder 2720:2721 <> b1:41
+binder 2723:2724 <> b2:42
+binder 2726:2727 <> b3:43
+binder 2729:2730 <> b4:44
+binder 2732:2733 <> b5:45
+binder 2735:2736 <> b6:46
+binder 2738:2739 <> b7:47
+binder 2741:2742 <> c0:48
+binder 2744:2745 <> c1:49
+binder 2747:2748 <> c2:50
+binder 2750:2751 <> c3:51
+binder 2753:2754 <> c4:52
+binder 2756:2757 <> c5:53
+binder 2759:2760 <> c6:54
+binder 2762:2763 <> c7:55
+R2770:2772 KamiHW.HWBoundary <> HWB rec
+binder 2766:2766 <> b:56
+binder 2775:2778 <> flen:57
+R2885:2890 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2797:2799 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2783:2794 KamiHW.RuleStep <> step_fetched def
+R2796:2796 KamiHW.RetireRunsOps <> b:56 var
+R2800:2815 KamiHW.LassertStepFields <> lassert_sat_word def
+R2817:2818 KamiHW.RetireRunsOps <> a0:33 var
+R2820:2821 KamiHW.RetireRunsOps <> a1:34 var
+R2823:2824 KamiHW.RetireRunsOps <> a2:35 var
+R2826:2827 KamiHW.RetireRunsOps <> a3:36 var
+R2829:2830 KamiHW.RetireRunsOps <> a4:37 var
+R2832:2833 KamiHW.RetireRunsOps <> a6:38 var
+R2835:2836 KamiHW.RetireRunsOps <> a7:39 var
+R2838:2839 KamiHW.RetireRunsOps <> b0:40 var
+R2841:2842 KamiHW.RetireRunsOps <> b1:41 var
+R2844:2845 KamiHW.RetireRunsOps <> b2:42 var
+R2847:2848 KamiHW.RetireRunsOps <> b3:43 var
+R2850:2851 KamiHW.RetireRunsOps <> b4:44 var
+R2853:2854 KamiHW.RetireRunsOps <> b5:45 var
+R2856:2857 KamiHW.RetireRunsOps <> b6:46 var
+R2859:2860 KamiHW.RetireRunsOps <> b7:47 var
+R2862:2863 KamiHW.RetireRunsOps <> c0:48 var
+R2865:2866 KamiHW.RetireRunsOps <> c1:49 var
+R2868:2869 KamiHW.RetireRunsOps <> c2:50 var
+R2871:2872 KamiHW.RetireRunsOps <> c3:51 var
+R2874:2875 KamiHW.RetireRunsOps <> c4:52 var
+R2877:2878 KamiHW.RetireRunsOps <> c5:53 var
+R2880:2881 KamiHW.RetireRunsOps <> c6:54 var
+R2883:2884 KamiHW.RetireRunsOps <> c7:55 var
+R2912:2915 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2904:2906 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2891:2901 KamiHW.BoundaryDecoded <> hwb_bianchi def
+R2903:2903 KamiHW.RetireRunsOps <> b:56 var
+R2907:2911 Coq.Init.Datatypes <> false constr
+R2925:2930 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2916:2922 KamiHW.RuleEnabled <> hw_live def
+R2924:2924 KamiHW.RetireRunsOps <> b:56 var
+R2968:2973 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2954:2956 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2950:2952 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2931:2939 Kami.Lib.Word <> wordToNat def
+R2942:2946 KamiHW.HWBoundary <> hw_pc proj
+R2948:2948 KamiHW.RetireRunsOps <> b:56 var
+R2957:2960 Kami.Lib.NatLib <> pow2 abbrev
+R2962:2967 KamiHW.ThieleTypes <> WordSz def
+R3020:3025 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3002:3004 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2974:2982 Kami.Lib.Word <> wordToNat def
+R2985:2998 KamiHW.HWBoundary <> hw_trap_vector proj
+R3000:3000 KamiHW.RetireRunsOps <> b:56 var
+R3005:3019 Kernel.VMStep VMStep LASSERT_TRAP_PC def
+R3085:3090 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3078:3080 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3026:3031 KamiHW.LassertWord <> mem_at def
+R3033:3033 KamiHW.RetireRunsOps <> b:56 var
+R3036:3044 Kami.Lib.Word <> wordToNat def
+R3047:3053 KamiHW.HWBoundary <> hw_regs proj
+R3055:3055 KamiHW.RetireRunsOps <> b:56 var
+R3058:3062 KamiHW.StepEval <> bits4 def
+R3064:3065 KamiHW.RetireRunsOps <> a0:33 var
+R3067:3068 KamiHW.RetireRunsOps <> a1:34 var
+R3070:3071 KamiHW.RetireRunsOps <> a2:35 var
+R3073:3074 KamiHW.RetireRunsOps <> a3:36 var
+R3081:3084 KamiHW.RetireRunsOps <> flen:57 var
+R3153:3158 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3143:3145 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3136:3138 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3132:3134 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3091:3099 Kami.Lib.Word <> wordToNat def
+R3102:3108 KamiHW.HWBoundary <> hw_regs proj
+R3110:3110 KamiHW.RetireRunsOps <> b:56 var
+R3113:3117 KamiHW.StepEval <> bits4 def
+R3119:3120 KamiHW.RetireRunsOps <> a0:33 var
+R3122:3123 KamiHW.RetireRunsOps <> a1:34 var
+R3125:3126 KamiHW.RetireRunsOps <> a2:35 var
+R3128:3129 KamiHW.RetireRunsOps <> a3:36 var
+R3139:3142 KamiHW.RetireRunsOps <> flen:57 var
+R3146:3149 Kami.Lib.NatLib <> pow2 abbrev
+R3220:3225 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3160:3163 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3164:3169 KamiHW.LassertWord <> mem_at def
+R3171:3171 KamiHW.RetireRunsOps <> b:56 var
+R3215:3217 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3174:3182 Kami.Lib.Word <> wordToNat def
+R3185:3191 KamiHW.HWBoundary <> hw_regs proj
+R3193:3193 KamiHW.RetireRunsOps <> b:56 var
+R3196:3200 KamiHW.StepEval <> bits4 def
+R3202:3203 KamiHW.RetireRunsOps <> a0:33 var
+R3205:3206 KamiHW.RetireRunsOps <> a1:34 var
+R3208:3209 KamiHW.RetireRunsOps <> a2:35 var
+R3211:3212 KamiHW.RetireRunsOps <> a3:36 var
+R3359:3364 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3282:3285 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3226:3231 KamiHW.LassertWord <> mem_at def
+R3233:3233 KamiHW.RetireRunsOps <> b:56 var
+R3277:3279 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3236:3244 Kami.Lib.Word <> wordToNat def
+R3247:3253 KamiHW.HWBoundary <> hw_regs proj
+R3255:3255 KamiHW.RetireRunsOps <> b:56 var
+R3258:3262 KamiHW.StepEval <> bits4 def
+R3264:3265 KamiHW.RetireRunsOps <> a0:33 var
+R3267:3268 KamiHW.RetireRunsOps <> a1:34 var
+R3270:3271 KamiHW.RetireRunsOps <> a2:35 var
+R3273:3274 KamiHW.RetireRunsOps <> a3:36 var
+R3286:3296 KamiHW.LassertSpec <> count_zeros def
+R3299:3311 KamiHW.LassertRetire <> lassert_words def
+R3313:3313 KamiHW.RetireRunsOps <> b:56 var
+R3316:3324 Kami.Lib.Word <> wordToNat def
+R3327:3333 KamiHW.HWBoundary <> hw_regs proj
+R3335:3335 KamiHW.RetireRunsOps <> b:56 var
+R3338:3342 KamiHW.StepEval <> bits4 def
+R3344:3345 KamiHW.RetireRunsOps <> a0:33 var
+R3347:3348 KamiHW.RetireRunsOps <> a1:34 var
+R3350:3351 KamiHW.RetireRunsOps <> a2:35 var
+R3353:3354 KamiHW.RetireRunsOps <> a3:36 var
+R3453:3458 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3443:3445 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3439:3441 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3395:3397 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3384:3386 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3365:3373 Kami.Lib.Word <> wordToNat def
+R3376:3380 KamiHW.HWBoundary <> hw_mu proj
+R3382:3382 KamiHW.RetireRunsOps <> b:56 var
+R3391:3393 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3387:3390 KamiHW.RetireRunsOps <> flen:57 var
+R3398:3406 Kami.Lib.Word <> wordToNat def
+R3409:3413 KamiHW.StepEval <> bits8 def
+R3415:3416 KamiHW.RetireRunsOps <> c0:48 var
+R3418:3419 KamiHW.RetireRunsOps <> c1:49 var
+R3421:3422 KamiHW.RetireRunsOps <> c2:50 var
+R3424:3425 KamiHW.RetireRunsOps <> c3:51 var
+R3427:3428 KamiHW.RetireRunsOps <> c4:52 var
+R3430:3431 KamiHW.RetireRunsOps <> c5:53 var
+R3433:3434 KamiHW.RetireRunsOps <> c6:54 var
+R3436:3437 KamiHW.RetireRunsOps <> c7:55 var
+R3446:3449 Kami.Lib.NatLib <> pow2 abbrev
+R3459:3465 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3467:3468 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3466:3466 <> n:58
+R3483:3490 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3470:3473 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R3475:3478 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R3474:3474 KamiHW.RetireRunsOps <> n:58 var
+R3474:3474 KamiHW.RetireRunsOps <> n:58 var
+R3479:3482 KamiHW.RetireRunsOps <> flen:57 var
+R3563:3570 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3491:3499 KamiHW.RetireRuns <> Busy_runs ind
+R3502:3510 KamiHW.RuleStep <> step_next def
+R3512:3512 KamiHW.RetireRunsOps <> b:56 var
+R3516:3525 KamiHW.LassertWord <> lscan_iter def
+R3527:3527 KamiHW.RetireRunsOps <> n:58 var
+R3530:3538 KamiHW.FsmDecoded <> lhdr_next def
+R3541:3549 KamiHW.RuleStep <> step_next def
+R3551:3551 KamiHW.RetireRunsOps <> b:56 var
+R3558:3560 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3561:3561 KamiHW.RetireRunsOps <> n:58 var
+R3619:3626 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3571:3577 KamiHW.RetireRuns <> hw_idle def
+R3580:3589 KamiHW.LassertWord <> lscan_iter def
+R3591:3591 KamiHW.RetireRunsOps <> n:58 var
+R3594:3602 KamiHW.FsmDecoded <> lhdr_next def
+R3605:3613 KamiHW.RuleStep <> step_next def
+R3615:3615 KamiHW.RetireRunsOps <> b:56 var
+R3680:3686 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3627:3638 KamiHW.ImplementationContract <> hwb_snapshot def
+R3641:3650 KamiHW.LassertWord <> lscan_iter def
+R3652:3652 KamiHW.RetireRunsOps <> n:58 var
+R3655:3663 KamiHW.FsmDecoded <> lhdr_next def
+R3666:3674 KamiHW.RuleStep <> step_next def
+R3676:3676 KamiHW.RetireRunsOps <> b:56 var
+R3687:3695 KamiHW.Abstraction <> kami_step def
+R3698:3709 KamiHW.ImplementationContract <> hwb_snapshot def
+R3711:3711 KamiHW.RetireRunsOps <> b:56 var
+R3715:3727 Kernel.VMStep VMStep instr_lassert constr
+R3730:3738 Kami.Lib.Word <> wordToNat def
+R3741:3745 KamiHW.StepEval <> bits4 def
+R3747:3748 KamiHW.RetireRunsOps <> a0:33 var
+R3750:3751 KamiHW.RetireRunsOps <> a1:34 var
+R3753:3754 KamiHW.RetireRunsOps <> a2:35 var
+R3756:3757 KamiHW.RetireRunsOps <> a3:36 var
+R3762:3770 Kami.Lib.Word <> wordToNat def
+R3773:3777 KamiHW.StepEval <> bits4 def
+R3779:3780 KamiHW.RetireRunsOps <> b0:40 var
+R3782:3783 KamiHW.RetireRunsOps <> b1:41 var
+R3785:3786 KamiHW.RetireRunsOps <> b2:42 var
+R3788:3789 KamiHW.RetireRunsOps <> b3:43 var
+R3793:3796 Coq.Init.Datatypes <> true constr
+R3798:3801 KamiHW.RetireRunsOps <> flen:57 var
+R3804:3812 Kami.Lib.Word <> wordToNat def
+R3815:3819 KamiHW.StepEval <> bits8 def
+R3821:3822 KamiHW.RetireRunsOps <> c0:48 var
+R3824:3825 KamiHW.RetireRunsOps <> c1:49 var
+R3827:3828 KamiHW.RetireRunsOps <> c2:50 var
+R3830:3831 KamiHW.RetireRunsOps <> c3:51 var
+R3833:3834 KamiHW.RetireRunsOps <> c4:52 var
+R3836:3837 KamiHW.RetireRunsOps <> c5:53 var
+R3839:3840 KamiHW.RetireRunsOps <> c6:54 var
+R3842:3843 KamiHW.RetireRunsOps <> c7:55 var
+R4036:4054 KamiHW.LassertRetire <> lassert_sat_refines thm
+R4036:4054 KamiHW.LassertRetire <> lassert_sat_refines thm
+R4230:4259 KamiHW.LassertStepFields <> step_lassert_sat_lassert_phase thm
+R4230:4259 KamiHW.LassertStepFields <> step_lassert_sat_lassert_phase thm
+R4360:4386 KamiHW.LassertStepFields <> step_lassert_sat_chsh_phase thm
+R4360:4386 KamiHW.LassertStepFields <> step_lassert_sat_chsh_phase thm
+R4487:4511 KamiHW.LassertStepFields <> step_lassert_sat_mc_phase thm
+R4487:4511 KamiHW.LassertStepFields <> step_lassert_sat_mc_phase thm
+R4714:4740 KamiHW.LassertWord <> lscan_iter_keeps_chsh_phase thm
+R4743:4763 KamiHW.LassertRetire <> lhdr_keeps_chsh_phase thm
+R4714:4740 KamiHW.LassertWord <> lscan_iter_keeps_chsh_phase thm
+R4714:4740 KamiHW.LassertWord <> lscan_iter_keeps_chsh_phase thm
+R4743:4763 KamiHW.LassertRetire <> lhdr_keeps_chsh_phase thm
+R4743:4763 KamiHW.LassertRetire <> lhdr_keeps_chsh_phase thm
+R4793:4817 KamiHW.LassertWord <> lscan_iter_keeps_mc_phase thm
+R4820:4838 KamiHW.LassertRetire <> lhdr_keeps_mc_phase thm
+R4793:4817 KamiHW.LassertWord <> lscan_iter_keeps_mc_phase thm
+R4793:4817 KamiHW.LassertWord <> lscan_iter_keeps_mc_phase thm
+R4820:4838 KamiHW.LassertRetire <> lhdr_keeps_mc_phase thm
+R4820:4838 KamiHW.LassertRetire <> lhdr_keeps_mc_phase thm
+R4862:4876 KamiHW.RetireRuns <> busy_runs_trans thm
+R4885:4892 KamiHW.RetireRuns <> busy_one thm
+R4913:4924 KamiHW.RetireRuns <> busy_lassert thm
+R4950:4968 KamiHW.RetireRuns <> lhdr_phase_selected thm
+R4971:4979 KamiHW.RuleStep <> step_next def
+R4862:4876 KamiHW.RetireRuns <> busy_runs_trans thm
+R4885:4892 KamiHW.RetireRuns <> busy_one thm
+R4913:4924 KamiHW.RetireRuns <> busy_lassert thm
+R4950:4968 KamiHW.RetireRuns <> lhdr_phase_selected thm
+R4971:4979 KamiHW.RuleStep <> step_next def
+R4913:4924 KamiHW.RetireRuns <> busy_lassert thm
+R5009:5018 KamiHW.RetireRunsFsm <> lscan_runs thm
+R5030:5050 KamiHW.LassertRetire <> lhdr_keeps_chsh_phase thm
+R5070:5088 KamiHW.LassertRetire <> lhdr_keeps_mc_phase thm
+R5009:5018 KamiHW.RetireRunsFsm <> lscan_runs thm
+R5030:5050 KamiHW.LassertRetire <> lhdr_keeps_chsh_phase thm
+R5030:5050 KamiHW.LassertRetire <> lhdr_keeps_chsh_phase thm
+R5070:5088 KamiHW.LassertRetire <> lhdr_keeps_mc_phase thm
+R5070:5088 KamiHW.LassertRetire <> lhdr_keeps_mc_phase thm
+prf 5126:5141 <> compose_ext_runs
+binder 5152:5153 <> a0:59
+binder 5155:5156 <> a1:60
+binder 5158:5159 <> a2:61
+binder 5161:5162 <> a3:62
+binder 5164:5165 <> a4:63
+binder 5167:5168 <> a5:64
+binder 5170:5171 <> a6:65
+binder 5173:5174 <> a7:66
+binder 5176:5177 <> b0:67
+binder 5179:5180 <> b1:68
+binder 5182:5183 <> b2:69
+binder 5185:5186 <> b3:70
+binder 5188:5189 <> b4:71
+binder 5191:5192 <> b5:72
+binder 5194:5195 <> b6:73
+binder 5197:5198 <> b7:74
+binder 5200:5201 <> c0:75
+binder 5203:5204 <> c1:76
+binder 5206:5207 <> c2:77
+binder 5209:5210 <> c3:78
+binder 5212:5213 <> c4:79
+binder 5215:5216 <> c5:80
+binder 5218:5219 <> c6:81
+binder 5221:5222 <> c7:82
+binder 5224:5225 <> e0:83
+binder 5227:5228 <> e1:84
+binder 5230:5231 <> e2:85
+binder 5233:5234 <> e3:86
+binder 5236:5237 <> e4:87
+binder 5239:5240 <> e5:88
+binder 5242:5243 <> e6:89
+binder 5245:5246 <> e7:90
+binder 5248:5249 <> e8:91
+binder 5251:5252 <> e9:92
+binder 5254:5256 <> e10:93
+binder 5258:5260 <> e11:94
+binder 5262:5264 <> e12:95
+binder 5266:5268 <> e13:96
+binder 5270:5272 <> e14:97
+binder 5274:5276 <> e15:98
+binder 5278:5280 <> e16:99
+binder 5282:5284 <> e17:100
+binder 5286:5288 <> e18:101
+binder 5290:5292 <> e19:102
+binder 5294:5296 <> e20:103
+binder 5298:5300 <> e21:104
+binder 5302:5304 <> e22:105
+binder 5306:5308 <> e23:106
+binder 5310:5312 <> e24:107
+binder 5314:5316 <> e25:108
+binder 5318:5320 <> e26:109
+binder 5322:5324 <> e27:110
+binder 5326:5328 <> e28:111
+binder 5330:5332 <> e29:112
+binder 5334:5336 <> e30:113
+binder 5338:5340 <> e31:114
+R5347:5349 KamiHW.HWBoundary <> HWB rec
+binder 5343:5343 <> b:115
+R5578:5583 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5369:5371 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5355:5366 KamiHW.RuleStep <> step_fetched def
+R5368:5368 KamiHW.RetireRunsOps <> b:115 var
+R5372:5387 KamiHW.StepFieldsMorph <> compose_ext_word def
+R5389:5390 KamiHW.RetireRunsOps <> a0:59 var
+R5392:5393 KamiHW.RetireRunsOps <> a1:60 var
+R5395:5396 KamiHW.RetireRunsOps <> a2:61 var
+R5398:5399 KamiHW.RetireRunsOps <> a3:62 var
+R5401:5402 KamiHW.RetireRunsOps <> a4:63 var
+R5404:5405 KamiHW.RetireRunsOps <> a5:64 var
+R5407:5408 KamiHW.RetireRunsOps <> a6:65 var
+R5410:5411 KamiHW.RetireRunsOps <> a7:66 var
+R5413:5414 KamiHW.RetireRunsOps <> b0:67 var
+R5416:5417 KamiHW.RetireRunsOps <> b1:68 var
+R5419:5420 KamiHW.RetireRunsOps <> b2:69 var
+R5422:5423 KamiHW.RetireRunsOps <> b3:70 var
+R5425:5426 KamiHW.RetireRunsOps <> b4:71 var
+R5428:5429 KamiHW.RetireRunsOps <> b5:72 var
+R5431:5432 KamiHW.RetireRunsOps <> b6:73 var
+R5434:5435 KamiHW.RetireRunsOps <> b7:74 var
+R5437:5438 KamiHW.RetireRunsOps <> c0:75 var
+R5440:5441 KamiHW.RetireRunsOps <> c1:76 var
+R5443:5444 KamiHW.RetireRunsOps <> c2:77 var
+R5446:5447 KamiHW.RetireRunsOps <> c3:78 var
+R5449:5450 KamiHW.RetireRunsOps <> c4:79 var
+R5452:5453 KamiHW.RetireRunsOps <> c5:80 var
+R5455:5456 KamiHW.RetireRunsOps <> c6:81 var
+R5458:5459 KamiHW.RetireRunsOps <> c7:82 var
+R5461:5462 KamiHW.RetireRunsOps <> e0:83 var
+R5464:5465 KamiHW.RetireRunsOps <> e1:84 var
+R5467:5468 KamiHW.RetireRunsOps <> e2:85 var
+R5470:5471 KamiHW.RetireRunsOps <> e3:86 var
+R5473:5474 KamiHW.RetireRunsOps <> e4:87 var
+R5476:5477 KamiHW.RetireRunsOps <> e5:88 var
+R5479:5480 KamiHW.RetireRunsOps <> e6:89 var
+R5482:5483 KamiHW.RetireRunsOps <> e7:90 var
+R5485:5486 KamiHW.RetireRunsOps <> e8:91 var
+R5488:5489 KamiHW.RetireRunsOps <> e9:92 var
+R5491:5493 KamiHW.RetireRunsOps <> e10:93 var
+R5495:5497 KamiHW.RetireRunsOps <> e11:94 var
+R5499:5501 KamiHW.RetireRunsOps <> e12:95 var
+R5503:5505 KamiHW.RetireRunsOps <> e13:96 var
+R5507:5509 KamiHW.RetireRunsOps <> e14:97 var
+R5511:5513 KamiHW.RetireRunsOps <> e15:98 var
+R5515:5517 KamiHW.RetireRunsOps <> e16:99 var
+R5519:5521 KamiHW.RetireRunsOps <> e17:100 var
+R5523:5525 KamiHW.RetireRunsOps <> e18:101 var
+R5527:5529 KamiHW.RetireRunsOps <> e19:102 var
+R5531:5533 KamiHW.RetireRunsOps <> e20:103 var
+R5535:5537 KamiHW.RetireRunsOps <> e21:104 var
+R5539:5541 KamiHW.RetireRunsOps <> e22:105 var
+R5543:5545 KamiHW.RetireRunsOps <> e23:106 var
+R5547:5549 KamiHW.RetireRunsOps <> e24:107 var
+R5551:5553 KamiHW.RetireRunsOps <> e25:108 var
+R5555:5557 KamiHW.RetireRunsOps <> e26:109 var
+R5559:5561 KamiHW.RetireRunsOps <> e27:110 var
+R5563:5565 KamiHW.RetireRunsOps <> e28:111 var
+R5567:5569 KamiHW.RetireRunsOps <> e29:112 var
+R5571:5573 KamiHW.RetireRunsOps <> e30:113 var
+R5575:5577 KamiHW.RetireRunsOps <> e31:114 var
+R5605:5608 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5597:5599 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5584:5594 KamiHW.BoundaryDecoded <> hwb_bianchi def
+R5596:5596 KamiHW.RetireRunsOps <> b:115 var
+R5600:5604 Coq.Init.Datatypes <> false constr
+R5618:5623 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5609:5615 KamiHW.RuleEnabled <> hw_live def
+R5617:5617 KamiHW.RetireRunsOps <> b:115 var
+R5661:5666 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5647:5649 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5643:5645 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5624:5632 Kami.Lib.Word <> wordToNat def
+R5635:5639 KamiHW.HWBoundary <> hw_pc proj
+R5641:5641 KamiHW.RetireRunsOps <> b:115 var
+R5650:5653 Kami.Lib.NatLib <> pow2 abbrev
+R5655:5660 KamiHW.ThieleTypes <> WordSz def
+R5744:5749 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5730:5732 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5686:5688 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5667:5675 Kami.Lib.Word <> wordToNat def
+R5678:5682 KamiHW.HWBoundary <> hw_mu proj
+R5684:5684 KamiHW.RetireRunsOps <> b:115 var
+R5689:5697 Kami.Lib.Word <> wordToNat def
+R5700:5704 KamiHW.StepEval <> bits8 def
+R5706:5707 KamiHW.RetireRunsOps <> c0:75 var
+R5709:5710 KamiHW.RetireRunsOps <> c1:76 var
+R5712:5713 KamiHW.RetireRunsOps <> c2:77 var
+R5715:5716 KamiHW.RetireRunsOps <> c3:78 var
+R5718:5719 KamiHW.RetireRunsOps <> c4:79 var
+R5721:5722 KamiHW.RetireRunsOps <> c5:80 var
+R5724:5725 KamiHW.RetireRunsOps <> c6:81 var
+R5727:5728 KamiHW.RetireRunsOps <> c7:82 var
+R5733:5736 Kami.Lib.NatLib <> pow2 abbrev
+R5738:5743 KamiHW.ThieleTypes <> WordSz def
+R5785:5788 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5780:5782 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5750:5758 Kami.Lib.Word <> wordToNat def
+R5761:5776 KamiHW.HWBoundary <> hw_morph_next_id proj
+R5778:5778 KamiHW.RetireRunsOps <> b:115 var
+R5832:5837 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5827:5829 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5789:5797 Kami.Lib.Word <> wordToNat def
+R5800:5823 KamiHW.HWBoundary <> hw_coupling_desc_next_id proj
+R5825:5825 KamiHW.RetireRunsOps <> b:115 var
+R5881:5886 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5876:5878 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5838:5846 Kami.Lib.Word <> wordToNat def
+R5849:5872 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R5874:5874 KamiHW.RetireRunsOps <> b:115 var
+R5915:5918 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5887:5912 KamiHW.StepRefineMorph <> hwb_morph_valid_below_next def
+R5914:5914 KamiHW.RetireRunsOps <> b:115 var
+R5947:5950 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5919:5944 KamiHW.StepRefineMorph <> hwb_morph_coupling_refs_ok def
+R5946:5946 KamiHW.RetireRunsOps <> b:115 var
+R5983:5988 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5951:5980 KamiHW.StepRefineMorph <> hwb_coupling_desc_zero_invalid def
+R5982:5982 KamiHW.RetireRunsOps <> b:115 var
+R6010:6013 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5989:6007 KamiHW.CouplingComposeKami <> hwb_desc_zero_empty def
+R6009:6009 KamiHW.RetireRunsOps <> b:115 var
+R6041:6044 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6014:6038 KamiHW.CouplingComposeKami <> hwb_desc_pairs_below_next def
+R6040:6040 KamiHW.RetireRunsOps <> b:115 var
+R6073:6078 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6045:6070 KamiHW.CouplingComposeKami <> hwb_pairs_valid_below_next def
+R6072:6072 KamiHW.RetireRunsOps <> b:115 var
+R6103:6106 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6079:6100 KamiHW.CouplingComposeKami <> hwb_identity_desc_zero def
+R6102:6102 KamiHW.RetireRunsOps <> b:115 var
+R6131:6136 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6107:6128 KamiHW.CouplingComposeKami <> hwb_labels_represented def
+R6130:6130 KamiHW.RetireRunsOps <> b:115 var
+R6186:6189 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6179:6181 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6137:6156 KamiHW.HWBoundary <> hw_morph_valid_table proj
+R6158:6158 KamiHW.RetireRunsOps <> b:115 var
+R6161:6165 KamiHW.StepEval <> bits4 def
+R6167:6168 KamiHW.RetireRunsOps <> b0:67 var
+R6170:6171 KamiHW.RetireRunsOps <> b1:68 var
+R6173:6174 KamiHW.RetireRunsOps <> b2:69 var
+R6176:6177 KamiHW.RetireRunsOps <> b3:70 var
+R6182:6185 Coq.Init.Datatypes <> true constr
+R6360:6365 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6353:6355 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6190:6209 KamiHW.HWBoundary <> hw_morph_valid_table proj
+R6211:6211 KamiHW.RetireRunsOps <> b:115 var
+R6214:6219 Kami.Lib.Word <> split1 def
+R6227:6232 KamiHW.StepFieldsMorph <> bits32 def
+R6234:6235 KamiHW.RetireRunsOps <> e0:83 var
+R6237:6238 KamiHW.RetireRunsOps <> e1:84 var
+R6240:6241 KamiHW.RetireRunsOps <> e2:85 var
+R6243:6244 KamiHW.RetireRunsOps <> e3:86 var
+R6246:6247 KamiHW.RetireRunsOps <> e4:87 var
+R6249:6250 KamiHW.RetireRunsOps <> e5:88 var
+R6252:6253 KamiHW.RetireRunsOps <> e6:89 var
+R6255:6256 KamiHW.RetireRunsOps <> e7:90 var
+R6258:6259 KamiHW.RetireRunsOps <> e8:91 var
+R6261:6262 KamiHW.RetireRunsOps <> e9:92 var
+R6264:6266 KamiHW.RetireRunsOps <> e10:93 var
+R6268:6270 KamiHW.RetireRunsOps <> e11:94 var
+R6272:6274 KamiHW.RetireRunsOps <> e12:95 var
+R6276:6278 KamiHW.RetireRunsOps <> e13:96 var
+R6280:6282 KamiHW.RetireRunsOps <> e14:97 var
+R6284:6286 KamiHW.RetireRunsOps <> e15:98 var
+R6288:6290 KamiHW.RetireRunsOps <> e16:99 var
+R6292:6294 KamiHW.RetireRunsOps <> e17:100 var
+R6296:6298 KamiHW.RetireRunsOps <> e18:101 var
+R6300:6302 KamiHW.RetireRunsOps <> e19:102 var
+R6304:6306 KamiHW.RetireRunsOps <> e20:103 var
+R6308:6310 KamiHW.RetireRunsOps <> e21:104 var
+R6312:6314 KamiHW.RetireRunsOps <> e22:105 var
+R6316:6318 KamiHW.RetireRunsOps <> e23:106 var
+R6320:6322 KamiHW.RetireRunsOps <> e24:107 var
+R6324:6326 KamiHW.RetireRunsOps <> e25:108 var
+R6328:6330 KamiHW.RetireRunsOps <> e26:109 var
+R6332:6334 KamiHW.RetireRunsOps <> e27:110 var
+R6336:6338 KamiHW.RetireRunsOps <> e28:111 var
+R6340:6342 KamiHW.RetireRunsOps <> e29:112 var
+R6344:6346 KamiHW.RetireRunsOps <> e30:113 var
+R6348:6350 KamiHW.RetireRunsOps <> e31:114 var
+R6356:6359 Coq.Init.Datatypes <> true constr
+R6570:6575 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6406:6408 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6366:6383 KamiHW.HWBoundary <> hw_morph_dst_table proj
+R6385:6385 KamiHW.RetireRunsOps <> b:115 var
+R6388:6392 KamiHW.StepEval <> bits4 def
+R6394:6395 KamiHW.RetireRunsOps <> b0:67 var
+R6397:6398 KamiHW.RetireRunsOps <> b1:68 var
+R6400:6401 KamiHW.RetireRunsOps <> b2:69 var
+R6403:6404 KamiHW.RetireRunsOps <> b3:70 var
+R6409:6426 KamiHW.HWBoundary <> hw_morph_src_table proj
+R6428:6428 KamiHW.RetireRunsOps <> b:115 var
+R6431:6436 Kami.Lib.Word <> split1 def
+R6444:6449 KamiHW.StepFieldsMorph <> bits32 def
+R6451:6452 KamiHW.RetireRunsOps <> e0:83 var
+R6454:6455 KamiHW.RetireRunsOps <> e1:84 var
+R6457:6458 KamiHW.RetireRunsOps <> e2:85 var
+R6460:6461 KamiHW.RetireRunsOps <> e3:86 var
+R6463:6464 KamiHW.RetireRunsOps <> e4:87 var
+R6466:6467 KamiHW.RetireRunsOps <> e5:88 var
+R6469:6470 KamiHW.RetireRunsOps <> e6:89 var
+R6472:6473 KamiHW.RetireRunsOps <> e7:90 var
+R6475:6476 KamiHW.RetireRunsOps <> e8:91 var
+R6478:6479 KamiHW.RetireRunsOps <> e9:92 var
+R6481:6483 KamiHW.RetireRunsOps <> e10:93 var
+R6485:6487 KamiHW.RetireRunsOps <> e11:94 var
+R6489:6491 KamiHW.RetireRunsOps <> e12:95 var
+R6493:6495 KamiHW.RetireRunsOps <> e13:96 var
+R6497:6499 KamiHW.RetireRunsOps <> e14:97 var
+R6501:6503 KamiHW.RetireRunsOps <> e15:98 var
+R6505:6507 KamiHW.RetireRunsOps <> e16:99 var
+R6509:6511 KamiHW.RetireRunsOps <> e17:100 var
+R6513:6515 KamiHW.RetireRunsOps <> e18:101 var
+R6517:6519 KamiHW.RetireRunsOps <> e19:102 var
+R6521:6523 KamiHW.RetireRunsOps <> e20:103 var
+R6525:6527 KamiHW.RetireRunsOps <> e21:104 var
+R6529:6531 KamiHW.RetireRunsOps <> e22:105 var
+R6533:6535 KamiHW.RetireRunsOps <> e23:106 var
+R6537:6539 KamiHW.RetireRunsOps <> e24:107 var
+R6541:6543 KamiHW.RetireRunsOps <> e25:108 var
+R6545:6547 KamiHW.RetireRunsOps <> e26:109 var
+R6549:6551 KamiHW.RetireRunsOps <> e27:110 var
+R6553:6555 KamiHW.RetireRunsOps <> e28:111 var
+R6557:6559 KamiHW.RetireRunsOps <> e29:112 var
+R6561:6563 KamiHW.RetireRunsOps <> e30:113 var
+R6565:6567 KamiHW.RetireRunsOps <> e31:114 var
+R6864:6869 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6858:6861 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6655:6657 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6576:6584 Kami.Lib.Word <> wordToNat def
+R6587:6598 KamiHW.CouplingComposeKami <> hw_label_len def
+R6600:6600 KamiHW.RetireRunsOps <> b:115 var
+R6603:6630 KamiHW.HWBoundary <> hw_morph_coupling_desc_table proj
+R6632:6632 KamiHW.RetireRunsOps <> b:115 var
+R6635:6639 KamiHW.StepEval <> bits4 def
+R6641:6642 KamiHW.RetireRunsOps <> b0:67 var
+R6644:6645 KamiHW.RetireRunsOps <> b1:68 var
+R6647:6648 KamiHW.RetireRunsOps <> b2:69 var
+R6650:6651 KamiHW.RetireRunsOps <> b3:70 var
+R6658:6666 Kami.Lib.Word <> wordToNat def
+R6669:6680 KamiHW.CouplingComposeKami <> hw_label_len def
+R6682:6682 KamiHW.RetireRunsOps <> b:115 var
+R6685:6712 KamiHW.HWBoundary <> hw_morph_coupling_desc_table proj
+R6714:6714 KamiHW.RetireRunsOps <> b:115 var
+R6717:6722 Kami.Lib.Word <> split1 def
+R6730:6735 KamiHW.StepFieldsMorph <> bits32 def
+R6737:6738 KamiHW.RetireRunsOps <> e0:83 var
+R6740:6741 KamiHW.RetireRunsOps <> e1:84 var
+R6743:6744 KamiHW.RetireRunsOps <> e2:85 var
+R6746:6747 KamiHW.RetireRunsOps <> e3:86 var
+R6749:6750 KamiHW.RetireRunsOps <> e4:87 var
+R6752:6753 KamiHW.RetireRunsOps <> e5:88 var
+R6755:6756 KamiHW.RetireRunsOps <> e6:89 var
+R6758:6759 KamiHW.RetireRunsOps <> e7:90 var
+R6761:6762 KamiHW.RetireRunsOps <> e8:91 var
+R6764:6765 KamiHW.RetireRunsOps <> e9:92 var
+R6767:6769 KamiHW.RetireRunsOps <> e10:93 var
+R6771:6773 KamiHW.RetireRunsOps <> e11:94 var
+R6775:6777 KamiHW.RetireRunsOps <> e12:95 var
+R6779:6781 KamiHW.RetireRunsOps <> e13:96 var
+R6783:6785 KamiHW.RetireRunsOps <> e14:97 var
+R6787:6789 KamiHW.RetireRunsOps <> e15:98 var
+R6791:6793 KamiHW.RetireRunsOps <> e16:99 var
+R6795:6797 KamiHW.RetireRunsOps <> e17:100 var
+R6799:6801 KamiHW.RetireRunsOps <> e18:101 var
+R6803:6805 KamiHW.RetireRunsOps <> e19:102 var
+R6807:6809 KamiHW.RetireRunsOps <> e20:103 var
+R6811:6813 KamiHW.RetireRunsOps <> e21:104 var
+R6815:6817 KamiHW.RetireRunsOps <> e22:105 var
+R6819:6821 KamiHW.RetireRunsOps <> e23:106 var
+R6823:6825 KamiHW.RetireRunsOps <> e24:107 var
+R6827:6829 KamiHW.RetireRunsOps <> e25:108 var
+R6831:6833 KamiHW.RetireRunsOps <> e26:109 var
+R6835:6837 KamiHW.RetireRunsOps <> e27:110 var
+R6839:6841 KamiHW.RetireRunsOps <> e28:111 var
+R6843:6845 KamiHW.RetireRunsOps <> e29:112 var
+R6847:6849 KamiHW.RetireRunsOps <> e30:113 var
+R6851:6853 KamiHW.RetireRunsOps <> e31:114 var
+R7107:7112 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7101:7104 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6908:6910 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6870:6878 Kami.Lib.Word <> wordToNat def
+R6881:6904 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R6906:6906 KamiHW.RetireRunsOps <> b:115 var
+R6911:6921 Coq.Lists.List <> length abbrev
+R6924:6936 KamiHW.CouplingComposeKami <> compose_pairs def
+R6938:6938 KamiHW.RetireRunsOps <> b:115 var
+R6941:6945 KamiHW.StepEval <> bits4 def
+R6947:6948 KamiHW.RetireRunsOps <> b0:67 var
+R6950:6951 KamiHW.RetireRunsOps <> b1:68 var
+R6953:6954 KamiHW.RetireRunsOps <> b2:69 var
+R6956:6957 KamiHW.RetireRunsOps <> b3:70 var
+R6961:6966 Kami.Lib.Word <> split1 def
+R6974:6979 KamiHW.StepFieldsMorph <> bits32 def
+R6981:6982 KamiHW.RetireRunsOps <> e0:83 var
+R6984:6985 KamiHW.RetireRunsOps <> e1:84 var
+R6987:6988 KamiHW.RetireRunsOps <> e2:85 var
+R6990:6991 KamiHW.RetireRunsOps <> e3:86 var
+R6993:6994 KamiHW.RetireRunsOps <> e4:87 var
+R6996:6997 KamiHW.RetireRunsOps <> e5:88 var
+R6999:7000 KamiHW.RetireRunsOps <> e6:89 var
+R7002:7003 KamiHW.RetireRunsOps <> e7:90 var
+R7005:7006 KamiHW.RetireRunsOps <> e8:91 var
+R7008:7009 KamiHW.RetireRunsOps <> e9:92 var
+R7011:7013 KamiHW.RetireRunsOps <> e10:93 var
+R7015:7017 KamiHW.RetireRunsOps <> e11:94 var
+R7019:7021 KamiHW.RetireRunsOps <> e12:95 var
+R7023:7025 KamiHW.RetireRunsOps <> e13:96 var
+R7027:7029 KamiHW.RetireRunsOps <> e14:97 var
+R7031:7033 KamiHW.RetireRunsOps <> e15:98 var
+R7035:7037 KamiHW.RetireRunsOps <> e16:99 var
+R7039:7041 KamiHW.RetireRunsOps <> e17:100 var
+R7043:7045 KamiHW.RetireRunsOps <> e18:101 var
+R7047:7049 KamiHW.RetireRunsOps <> e19:102 var
+R7051:7053 KamiHW.RetireRunsOps <> e20:103 var
+R7055:7057 KamiHW.RetireRunsOps <> e21:104 var
+R7059:7061 KamiHW.RetireRunsOps <> e22:105 var
+R7063:7065 KamiHW.RetireRunsOps <> e23:106 var
+R7067:7069 KamiHW.RetireRunsOps <> e24:107 var
+R7071:7073 KamiHW.RetireRunsOps <> e25:108 var
+R7075:7077 KamiHW.RetireRunsOps <> e26:109 var
+R7079:7081 KamiHW.RetireRunsOps <> e27:110 var
+R7083:7085 KamiHW.RetireRunsOps <> e28:111 var
+R7087:7089 KamiHW.RetireRunsOps <> e29:112 var
+R7091:7093 KamiHW.RetireRunsOps <> e30:113 var
+R7095:7097 KamiHW.RetireRunsOps <> e31:114 var
+R7113:7119 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7121:7122 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7120:7120 <> k:116
+R7123:7131 KamiHW.RetireRuns <> Busy_runs ind
+R7134:7142 KamiHW.RuleStep <> step_next def
+R7144:7144 KamiHW.RetireRunsOps <> b:115 var
+R7148:7164 KamiHW.CouplingComposeRetire <> compose_fsm_final def
+R7167:7175 KamiHW.RuleStep <> step_next def
+R7177:7177 KamiHW.RetireRunsOps <> b:115 var
+R7181:7181 KamiHW.RetireRunsOps <> k:116 var
+R7500:7524 KamiHW.StepFieldsMorph <> step_compose_ext_mc_phase thm
+R7500:7524 KamiHW.StepFieldsMorph <> step_compose_ext_mc_phase thm
+R7754:7774 KamiHW.StepFieldsMorph <> step_compose_ext_mc_i thm
+R7754:7774 KamiHW.StepFieldsMorph <> step_compose_ext_mc_i thm
+R8000:8020 KamiHW.StepFieldsMorph <> step_compose_ext_mc_j thm
+R8000:8020 KamiHW.StepFieldsMorph <> step_compose_ext_mc_j thm
+R8246:8275 KamiHW.StepFieldsMorph <> step_compose_ext_mc_write_base thm
+R8246:8275 KamiHW.StepFieldsMorph <> step_compose_ext_mc_write_base thm
+R8510:8538 KamiHW.StepFieldsMorph <> step_compose_ext_mc_write_ptr thm
+R8510:8538 KamiHW.StepFieldsMorph <> step_compose_ext_mc_write_ptr thm
+R8772:8801 KamiHW.StepFieldsMorph <> step_compose_ext_mc_src1_count thm
+R8772:8801 KamiHW.StepFieldsMorph <> step_compose_ext_mc_src1_count thm
+R9036:9065 KamiHW.StepFieldsMorph <> step_compose_ext_mc_src2_count thm
+R9036:9065 KamiHW.StepFieldsMorph <> step_compose_ext_mc_src2_count thm
+R9300:9328 KamiHW.StepFieldsMorph <> step_compose_ext_mc_src1_base thm
+R9300:9328 KamiHW.StepFieldsMorph <> step_compose_ext_mc_src1_base thm
+R9562:9590 KamiHW.StepFieldsMorph <> step_compose_ext_mc_src2_base thm
+R9562:9590 KamiHW.StepFieldsMorph <> step_compose_ext_mc_src2_base thm
+R9824:9853 KamiHW.StepFieldsMorph <> step_compose_ext_lassert_phase thm
+R9824:9853 KamiHW.StepFieldsMorph <> step_compose_ext_lassert_phase thm
+R10088:10114 KamiHW.StepFieldsMorph <> step_compose_ext_chsh_phase thm
+R10088:10114 KamiHW.StepFieldsMorph <> step_compose_ext_chsh_phase thm
+R10343:10358 KamiHW.StepRefineMorph <> morph_room_of_lt thm
+R10371:10385 KamiHW.CouplingMorphRetire <> desc_room_of_lt thm
+R10398:10413 KamiHW.StepRefineMorph <> morph_live_valid thm
+R10418:10422 KamiHW.StepEval <> bits4 def
+R10448:10463 KamiHW.StepRefineMorph <> morph_live_valid thm
+R10468:10473 Kami.Lib.Word <> split1 def
+R10481:10486 KamiHW.StepFieldsMorph <> bits32 def
+R10343:10358 KamiHW.StepRefineMorph <> morph_room_of_lt thm
+R10343:10358 KamiHW.StepRefineMorph <> morph_room_of_lt thm
+R10371:10385 KamiHW.CouplingMorphRetire <> desc_room_of_lt thm
+R10371:10385 KamiHW.CouplingMorphRetire <> desc_room_of_lt thm
+R10398:10413 KamiHW.StepRefineMorph <> morph_live_valid thm
+R10418:10422 KamiHW.StepEval <> bits4 def
+R10398:10413 KamiHW.StepRefineMorph <> morph_live_valid thm
+R10418:10422 KamiHW.StepEval <> bits4 def
+R10448:10463 KamiHW.StepRefineMorph <> morph_live_valid thm
+R10468:10473 Kami.Lib.Word <> split1 def
+R10481:10486 KamiHW.StepFieldsMorph <> bits32 def
+R10448:10463 KamiHW.StepRefineMorph <> morph_live_valid thm
+R10468:10473 Kami.Lib.Word <> split1 def
+R10481:10486 KamiHW.StepFieldsMorph <> bits32 def
+R10647:10649 Kami.Lib.Word <> weq def
+R10816:10833 KamiHW.HWBoundary <> hw_morph_src_table proj
+R10838:10843 Kami.Lib.Word <> split1 def
+R10851:10856 KamiHW.StepFieldsMorph <> bits32 def
+R10652:10669 KamiHW.HWBoundary <> hw_morph_src_table proj
+R10674:10679 Kami.Lib.Word <> split1 def
+R10687:10692 KamiHW.StepFieldsMorph <> bits32 def
+R10647:10649 Kami.Lib.Word <> weq def
+R10816:10833 KamiHW.HWBoundary <> hw_morph_src_table proj
+R10838:10843 Kami.Lib.Word <> split1 def
+R10851:10856 KamiHW.StepFieldsMorph <> bits32 def
+R10652:10669 KamiHW.HWBoundary <> hw_morph_src_table proj
+R10674:10679 Kami.Lib.Word <> split1 def
+R10687:10692 KamiHW.StepFieldsMorph <> bits32 def
+R11198:11206 Kami.Lib.Word <> wordToNat def
+R11209:11232 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R11198:11206 Kami.Lib.Word <> wordToNat def
+R11209:11232 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R11286:11288 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11260:11283 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R11289:11297 Kami.Lib.Word <> natToWord def
+R11334:11352 Kami.Lib.Word <> natToWord_wordToNat thm
+R11286:11288 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11260:11283 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R11289:11297 Kami.Lib.Word <> natToWord def
+R11334:11352 Kami.Lib.Word <> natToWord_wordToNat thm
+R11370:11378 KamiHW.CouplingComposeRetire <> desc_fits thm
+R11383:11387 KamiHW.StepEval <> bits4 def
+R11370:11378 KamiHW.CouplingComposeRetire <> desc_fits thm
+R11383:11387 KamiHW.StepEval <> bits4 def
+R11440:11448 KamiHW.CouplingComposeRetire <> desc_fits thm
+R11453:11458 Kami.Lib.Word <> split1 def
+R11466:11471 KamiHW.StepFieldsMorph <> bits32 def
+R11440:11448 KamiHW.CouplingComposeRetire <> desc_fits thm
+R11453:11458 Kami.Lib.Word <> split1 def
+R11466:11471 KamiHW.StepFieldsMorph <> bits32 def
+R11684:11686 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11659:11669 KamiHW.CouplingComposeRetire <> compose_raw def
+R11672:11680 KamiHW.RuleStep <> step_next def
+R11687:11699 KamiHW.CouplingComposeKami <> compose_pairs def
+R11704:11708 KamiHW.StepEval <> bits4 def
+R11724:11729 Kami.Lib.Word <> split1 def
+R11737:11742 KamiHW.StepFieldsMorph <> bits32 def
+R11879:11894 KamiHW.CouplingComposeRetire <> compose_raw_step thm
+R11899:11907 KamiHW.RuleStep <> step_next def
+R11913:11917 KamiHW.StepEval <> bits4 def
+R11933:11938 Kami.Lib.Word <> split1 def
+R11946:11951 KamiHW.StepFieldsMorph <> bits32 def
+R12091:12124 KamiHW.StepEval <> step_keeps_coupling_pair_src_table thm
+R12130:12163 KamiHW.StepEval <> step_keeps_coupling_pair_dst_table thm
+R11684:11686 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11659:11669 KamiHW.CouplingComposeRetire <> compose_raw def
+R11672:11680 KamiHW.RuleStep <> step_next def
+R11687:11699 KamiHW.CouplingComposeKami <> compose_pairs def
+R11704:11708 KamiHW.StepEval <> bits4 def
+R11724:11729 Kami.Lib.Word <> split1 def
+R11737:11742 KamiHW.StepFieldsMorph <> bits32 def
+R11879:11894 KamiHW.CouplingComposeRetire <> compose_raw_step thm
+R11899:11907 KamiHW.RuleStep <> step_next def
+R11913:11917 KamiHW.StepEval <> bits4 def
+R11933:11938 Kami.Lib.Word <> split1 def
+R11946:11951 KamiHW.StepFieldsMorph <> bits32 def
+R12091:12124 KamiHW.StepEval <> step_keeps_coupling_pair_src_table thm
+R12130:12163 KamiHW.StepEval <> step_keeps_coupling_pair_dst_table thm
+R12307:12309 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12264:12272 Kami.Lib.Word <> wordToNat def
+R12275:12283 Kami.Lib.Word <> natToWord def
+R12285:12303 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R12307:12309 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12264:12272 Kami.Lib.Word <> wordToNat def
+R12275:12283 Kami.Lib.Word <> natToWord def
+R12285:12303 KamiHW.ThieleTypes <> CouplingPairCountSz def
+R12341:12356 KamiHW.RetireRunsFsm <> compose_fsm_runs thm
+R12359:12367 KamiHW.RuleStep <> step_next def
+R12414:12436 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R12441:12445 KamiHW.StepEval <> bits4 def
+R12463:12485 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R12490:12495 Kami.Lib.Word <> split1 def
+R12503:12508 KamiHW.StepFieldsMorph <> bits32 def
+R12784:12806 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R12811:12815 KamiHW.StepEval <> bits4 def
+R12882:12904 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R12909:12914 Kami.Lib.Word <> split1 def
+R12922:12927 KamiHW.StepFieldsMorph <> bits32 def
+R13117:13139 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R13144:13148 KamiHW.StepEval <> bits4 def
+R13231:13253 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R13258:13263 Kami.Lib.Word <> split1 def
+R13271:13276 KamiHW.StepFieldsMorph <> bits32 def
+R12341:12356 KamiHW.RetireRunsFsm <> compose_fsm_runs thm
+R12359:12367 KamiHW.RuleStep <> step_next def
+R12414:12436 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R12441:12445 KamiHW.StepEval <> bits4 def
+R12463:12485 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R12490:12495 Kami.Lib.Word <> split1 def
+R12503:12508 KamiHW.StepFieldsMorph <> bits32 def
+R12784:12806 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R12811:12815 KamiHW.StepEval <> bits4 def
+R12882:12904 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R12909:12914 Kami.Lib.Word <> split1 def
+R12922:12927 KamiHW.StepFieldsMorph <> bits32 def
+R13117:13139 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R13144:13148 KamiHW.StepEval <> bits4 def
+R13231:13253 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R13258:13263 Kami.Lib.Word <> split1 def
+R13271:13276 KamiHW.StepFieldsMorph <> bits32 def
+R12414:12436 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R12441:12445 KamiHW.StepEval <> bits4 def
+R12463:12485 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R12490:12495 Kami.Lib.Word <> split1 def
+R12503:12508 KamiHW.StepFieldsMorph <> bits32 def
+R12463:12485 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R12490:12495 Kami.Lib.Word <> split1 def
+R12503:12508 KamiHW.StepFieldsMorph <> bits32 def
+R12784:12806 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R12811:12815 KamiHW.StepEval <> bits4 def
+R12882:12904 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R12909:12914 Kami.Lib.Word <> split1 def
+R12922:12927 KamiHW.StepFieldsMorph <> bits32 def
+R13117:13139 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R13144:13148 KamiHW.StepEval <> bits4 def
+R13231:13253 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R13258:13263 Kami.Lib.Word <> split1 def
+R13271:13276 KamiHW.StepFieldsMorph <> bits32 def
+prf 13521:13534 <> morph_ext_runs
+binder 13545:13546 <> a0:117
+binder 13548:13549 <> a1:118
+binder 13551:13552 <> a2:119
+binder 13554:13555 <> a3:120
+binder 13557:13558 <> a4:121
+binder 13560:13561 <> a5:122
+binder 13563:13564 <> a6:123
+binder 13566:13567 <> a7:124
+binder 13569:13570 <> b0:125
+binder 13572:13573 <> b1:126
+binder 13575:13576 <> b2:127
+binder 13578:13579 <> b3:128
+binder 13581:13582 <> b4:129
+binder 13584:13585 <> b5:130
+binder 13587:13588 <> b6:131
+binder 13590:13591 <> b7:132
+binder 13593:13594 <> c0:133
+binder 13596:13597 <> c1:134
+binder 13599:13600 <> c2:135
+binder 13602:13603 <> c3:136
+binder 13605:13606 <> c4:137
+binder 13608:13609 <> c5:138
+binder 13611:13612 <> c6:139
+binder 13614:13615 <> c7:140
+binder 13617:13618 <> e0:141
+binder 13620:13621 <> e1:142
+binder 13623:13624 <> e2:143
+binder 13626:13627 <> e3:144
+binder 13629:13630 <> e4:145
+binder 13632:13633 <> e5:146
+binder 13635:13636 <> e6:147
+binder 13638:13639 <> e7:148
+binder 13641:13642 <> e8:149
+binder 13644:13645 <> e9:150
+binder 13647:13649 <> e10:151
+binder 13651:13653 <> e11:152
+binder 13655:13657 <> e12:153
+binder 13659:13661 <> e13:154
+binder 13663:13665 <> e14:155
+binder 13667:13669 <> e15:156
+binder 13671:13673 <> e16:157
+binder 13675:13677 <> e17:158
+binder 13679:13681 <> e18:159
+binder 13683:13685 <> e19:160
+binder 13687:13689 <> e20:161
+binder 13691:13693 <> e21:162
+binder 13695:13697 <> e22:163
+binder 13699:13701 <> e23:164
+binder 13703:13705 <> e24:165
+binder 13707:13709 <> e25:166
+binder 13711:13713 <> e26:167
+binder 13715:13717 <> e27:168
+binder 13719:13721 <> e28:169
+binder 13723:13725 <> e29:170
+binder 13727:13729 <> e30:171
+binder 13731:13733 <> e31:172
+R13740:13742 KamiHW.HWBoundary <> HWB rec
+binder 13736:13736 <> b:173
+binder 13745:13749 <> count:174
+R13975:13980 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13768:13770 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13754:13765 KamiHW.RuleStep <> step_fetched def
+R13767:13767 KamiHW.RetireRunsOps <> b:173 var
+R13771:13784 KamiHW.StepFieldsMorph <> morph_ext_word def
+R13786:13787 KamiHW.RetireRunsOps <> a0:117 var
+R13789:13790 KamiHW.RetireRunsOps <> a1:118 var
+R13792:13793 KamiHW.RetireRunsOps <> a2:119 var
+R13795:13796 KamiHW.RetireRunsOps <> a3:120 var
+R13798:13799 KamiHW.RetireRunsOps <> a4:121 var
+R13801:13802 KamiHW.RetireRunsOps <> a5:122 var
+R13804:13805 KamiHW.RetireRunsOps <> a6:123 var
+R13807:13808 KamiHW.RetireRunsOps <> a7:124 var
+R13810:13811 KamiHW.RetireRunsOps <> b0:125 var
+R13813:13814 KamiHW.RetireRunsOps <> b1:126 var
+R13816:13817 KamiHW.RetireRunsOps <> b2:127 var
+R13819:13820 KamiHW.RetireRunsOps <> b3:128 var
+R13822:13823 KamiHW.RetireRunsOps <> b4:129 var
+R13825:13826 KamiHW.RetireRunsOps <> b5:130 var
+R13828:13829 KamiHW.RetireRunsOps <> b6:131 var
+R13831:13832 KamiHW.RetireRunsOps <> b7:132 var
+R13834:13835 KamiHW.RetireRunsOps <> c0:133 var
+R13837:13838 KamiHW.RetireRunsOps <> c1:134 var
+R13840:13841 KamiHW.RetireRunsOps <> c2:135 var
+R13843:13844 KamiHW.RetireRunsOps <> c3:136 var
+R13846:13847 KamiHW.RetireRunsOps <> c4:137 var
+R13849:13850 KamiHW.RetireRunsOps <> c5:138 var
+R13852:13853 KamiHW.RetireRunsOps <> c6:139 var
+R13855:13856 KamiHW.RetireRunsOps <> c7:140 var
+R13858:13859 KamiHW.RetireRunsOps <> e0:141 var
+R13861:13862 KamiHW.RetireRunsOps <> e1:142 var
+R13864:13865 KamiHW.RetireRunsOps <> e2:143 var
+R13867:13868 KamiHW.RetireRunsOps <> e3:144 var
+R13870:13871 KamiHW.RetireRunsOps <> e4:145 var
+R13873:13874 KamiHW.RetireRunsOps <> e5:146 var
+R13876:13877 KamiHW.RetireRunsOps <> e6:147 var
+R13879:13880 KamiHW.RetireRunsOps <> e7:148 var
+R13882:13883 KamiHW.RetireRunsOps <> e8:149 var
+R13885:13886 KamiHW.RetireRunsOps <> e9:150 var
+R13888:13890 KamiHW.RetireRunsOps <> e10:151 var
+R13892:13894 KamiHW.RetireRunsOps <> e11:152 var
+R13896:13898 KamiHW.RetireRunsOps <> e12:153 var
+R13900:13902 KamiHW.RetireRunsOps <> e13:154 var
+R13904:13906 KamiHW.RetireRunsOps <> e14:155 var
+R13908:13910 KamiHW.RetireRunsOps <> e15:156 var
+R13912:13914 KamiHW.RetireRunsOps <> e16:157 var
+R13916:13918 KamiHW.RetireRunsOps <> e17:158 var
+R13920:13922 KamiHW.RetireRunsOps <> e18:159 var
+R13924:13926 KamiHW.RetireRunsOps <> e19:160 var
+R13928:13930 KamiHW.RetireRunsOps <> e20:161 var
+R13932:13934 KamiHW.RetireRunsOps <> e21:162 var
+R13936:13938 KamiHW.RetireRunsOps <> e22:163 var
+R13940:13942 KamiHW.RetireRunsOps <> e23:164 var
+R13944:13946 KamiHW.RetireRunsOps <> e24:165 var
+R13948:13950 KamiHW.RetireRunsOps <> e25:166 var
+R13952:13954 KamiHW.RetireRunsOps <> e26:167 var
+R13956:13958 KamiHW.RetireRunsOps <> e27:168 var
+R13960:13962 KamiHW.RetireRunsOps <> e28:169 var
+R13964:13966 KamiHW.RetireRunsOps <> e29:170 var
+R13968:13970 KamiHW.RetireRunsOps <> e30:171 var
+R13972:13974 KamiHW.RetireRunsOps <> e31:172 var
+R14002:14005 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13994:13996 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13981:13991 KamiHW.BoundaryDecoded <> hwb_bianchi def
+R13993:13993 KamiHW.RetireRunsOps <> b:173 var
+R13997:14001 Coq.Init.Datatypes <> false constr
+R14015:14020 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14006:14012 KamiHW.RuleEnabled <> hw_live def
+R14014:14014 KamiHW.RetireRunsOps <> b:173 var
+R14056:14059 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14051:14053 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14021:14029 Kami.Lib.Word <> wordToNat def
+R14032:14047 KamiHW.HWBoundary <> hw_morph_next_id proj
+R14049:14049 KamiHW.RetireRunsOps <> b:173 var
+R14103:14108 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14098:14100 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14060:14068 Kami.Lib.Word <> wordToNat def
+R14071:14094 KamiHW.HWBoundary <> hw_coupling_desc_next_id proj
+R14096:14096 KamiHW.RetireRunsOps <> b:173 var
+R14183:14186 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14178:14181 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R14109:14117 Kami.Lib.Word <> wordToNat def
+R14120:14129 KamiHW.HWBoundary <> hw_ptTable proj
+R14131:14131 KamiHW.RetireRunsOps <> b:173 var
+R14134:14139 Kami.Lib.Word <> split1 def
+R14146:14150 KamiHW.StepEval <> bits8 def
+R14152:14153 KamiHW.RetireRunsOps <> b0:125 var
+R14155:14156 KamiHW.RetireRunsOps <> b1:126 var
+R14158:14159 KamiHW.RetireRunsOps <> b2:127 var
+R14161:14162 KamiHW.RetireRunsOps <> b3:128 var
+R14164:14165 KamiHW.RetireRunsOps <> b4:129 var
+R14167:14168 KamiHW.RetireRunsOps <> b5:130 var
+R14170:14171 KamiHW.RetireRunsOps <> b6:131 var
+R14173:14174 KamiHW.RetireRunsOps <> b7:132 var
+R14357:14362 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14352:14355 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R14187:14195 Kami.Lib.Word <> wordToNat def
+R14198:14207 KamiHW.HWBoundary <> hw_ptTable proj
+R14209:14209 KamiHW.RetireRunsOps <> b:173 var
+R14212:14217 Kami.Lib.Word <> split1 def
+R14225:14230 KamiHW.StepFieldsMorph <> bits32 def
+R14232:14233 KamiHW.RetireRunsOps <> e0:141 var
+R14235:14236 KamiHW.RetireRunsOps <> e1:142 var
+R14238:14239 KamiHW.RetireRunsOps <> e2:143 var
+R14241:14242 KamiHW.RetireRunsOps <> e3:144 var
+R14244:14245 KamiHW.RetireRunsOps <> e4:145 var
+R14247:14248 KamiHW.RetireRunsOps <> e5:146 var
+R14250:14251 KamiHW.RetireRunsOps <> e6:147 var
+R14253:14254 KamiHW.RetireRunsOps <> e7:148 var
+R14256:14257 KamiHW.RetireRunsOps <> e8:149 var
+R14259:14260 KamiHW.RetireRunsOps <> e9:150 var
+R14262:14264 KamiHW.RetireRunsOps <> e10:151 var
+R14266:14268 KamiHW.RetireRunsOps <> e11:152 var
+R14270:14272 KamiHW.RetireRunsOps <> e12:153 var
+R14274:14276 KamiHW.RetireRunsOps <> e13:154 var
+R14278:14280 KamiHW.RetireRunsOps <> e14:155 var
+R14282:14284 KamiHW.RetireRunsOps <> e15:156 var
+R14286:14288 KamiHW.RetireRunsOps <> e16:157 var
+R14290:14292 KamiHW.RetireRunsOps <> e17:158 var
+R14294:14296 KamiHW.RetireRunsOps <> e18:159 var
+R14298:14300 KamiHW.RetireRunsOps <> e19:160 var
+R14302:14304 KamiHW.RetireRunsOps <> e20:161 var
+R14306:14308 KamiHW.RetireRunsOps <> e21:162 var
+R14310:14312 KamiHW.RetireRunsOps <> e22:163 var
+R14314:14316 KamiHW.RetireRunsOps <> e23:164 var
+R14318:14320 KamiHW.RetireRunsOps <> e24:165 var
+R14322:14324 KamiHW.RetireRunsOps <> e25:166 var
+R14326:14328 KamiHW.RetireRunsOps <> e26:167 var
+R14330:14332 KamiHW.RetireRunsOps <> e27:168 var
+R14334:14336 KamiHW.RetireRunsOps <> e28:169 var
+R14338:14340 KamiHW.RetireRunsOps <> e29:170 var
+R14342:14344 KamiHW.RetireRunsOps <> e30:171 var
+R14346:14348 KamiHW.RetireRunsOps <> e31:172 var
+R14547:14552 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14526:14528 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14363:14368 KamiHW.HWBoundary <> hw_mem proj
+R14370:14370 KamiHW.RetireRunsOps <> b:173 var
+R14373:14378 Kami.Lib.Word <> split1 def
+R14386:14391 Kami.Lib.Word <> split2 def
+R14399:14404 KamiHW.StepFieldsMorph <> bits32 def
+R14406:14407 KamiHW.RetireRunsOps <> e0:141 var
+R14409:14410 KamiHW.RetireRunsOps <> e1:142 var
+R14412:14413 KamiHW.RetireRunsOps <> e2:143 var
+R14415:14416 KamiHW.RetireRunsOps <> e3:144 var
+R14418:14419 KamiHW.RetireRunsOps <> e4:145 var
+R14421:14422 KamiHW.RetireRunsOps <> e5:146 var
+R14424:14425 KamiHW.RetireRunsOps <> e6:147 var
+R14427:14428 KamiHW.RetireRunsOps <> e7:148 var
+R14430:14431 KamiHW.RetireRunsOps <> e8:149 var
+R14433:14434 KamiHW.RetireRunsOps <> e9:150 var
+R14436:14438 KamiHW.RetireRunsOps <> e10:151 var
+R14440:14442 KamiHW.RetireRunsOps <> e11:152 var
+R14444:14446 KamiHW.RetireRunsOps <> e12:153 var
+R14448:14450 KamiHW.RetireRunsOps <> e13:154 var
+R14452:14454 KamiHW.RetireRunsOps <> e14:155 var
+R14456:14458 KamiHW.RetireRunsOps <> e15:156 var
+R14460:14462 KamiHW.RetireRunsOps <> e16:157 var
+R14464:14466 KamiHW.RetireRunsOps <> e17:158 var
+R14468:14470 KamiHW.RetireRunsOps <> e18:159 var
+R14472:14474 KamiHW.RetireRunsOps <> e19:160 var
+R14476:14478 KamiHW.RetireRunsOps <> e20:161 var
+R14480:14482 KamiHW.RetireRunsOps <> e21:162 var
+R14484:14486 KamiHW.RetireRunsOps <> e22:163 var
+R14488:14490 KamiHW.RetireRunsOps <> e23:164 var
+R14492:14494 KamiHW.RetireRunsOps <> e24:165 var
+R14496:14498 KamiHW.RetireRunsOps <> e25:166 var
+R14500:14502 KamiHW.RetireRunsOps <> e26:167 var
+R14504:14506 KamiHW.RetireRunsOps <> e27:168 var
+R14508:14510 KamiHW.RetireRunsOps <> e28:169 var
+R14512:14514 KamiHW.RetireRunsOps <> e29:170 var
+R14516:14518 KamiHW.RetireRunsOps <> e30:171 var
+R14520:14522 KamiHW.RetireRunsOps <> e31:172 var
+R14529:14537 Kami.Lib.Word <> natToWord def
+R14542:14546 KamiHW.RetireRunsOps <> count:174 var
+R14605:14608 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14599:14602 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R14558:14560 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14553:14557 KamiHW.RetireRunsOps <> count:174 var
+R14561:14569 Kami.Lib.Word <> wordToNat def
+R14572:14595 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R14597:14597 KamiHW.RetireRunsOps <> b:173 var
+R14792:14797 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14785:14788 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R14618:14620 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14610:14612 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R14613:14617 KamiHW.RetireRunsOps <> count:174 var
+R14621:14629 Kami.Lib.Word <> wordToNat def
+R14632:14637 Kami.Lib.Word <> split1 def
+R14645:14650 Kami.Lib.Word <> split2 def
+R14658:14663 KamiHW.StepFieldsMorph <> bits32 def
+R14665:14666 KamiHW.RetireRunsOps <> e0:141 var
+R14668:14669 KamiHW.RetireRunsOps <> e1:142 var
+R14671:14672 KamiHW.RetireRunsOps <> e2:143 var
+R14674:14675 KamiHW.RetireRunsOps <> e3:144 var
+R14677:14678 KamiHW.RetireRunsOps <> e4:145 var
+R14680:14681 KamiHW.RetireRunsOps <> e5:146 var
+R14683:14684 KamiHW.RetireRunsOps <> e6:147 var
+R14686:14687 KamiHW.RetireRunsOps <> e7:148 var
+R14689:14690 KamiHW.RetireRunsOps <> e8:149 var
+R14692:14693 KamiHW.RetireRunsOps <> e9:150 var
+R14695:14697 KamiHW.RetireRunsOps <> e10:151 var
+R14699:14701 KamiHW.RetireRunsOps <> e11:152 var
+R14703:14705 KamiHW.RetireRunsOps <> e12:153 var
+R14707:14709 KamiHW.RetireRunsOps <> e13:154 var
+R14711:14713 KamiHW.RetireRunsOps <> e14:155 var
+R14715:14717 KamiHW.RetireRunsOps <> e15:156 var
+R14719:14721 KamiHW.RetireRunsOps <> e16:157 var
+R14723:14725 KamiHW.RetireRunsOps <> e17:158 var
+R14727:14729 KamiHW.RetireRunsOps <> e18:159 var
+R14731:14733 KamiHW.RetireRunsOps <> e19:160 var
+R14735:14737 KamiHW.RetireRunsOps <> e20:161 var
+R14739:14741 KamiHW.RetireRunsOps <> e21:162 var
+R14743:14745 KamiHW.RetireRunsOps <> e22:163 var
+R14747:14749 KamiHW.RetireRunsOps <> e23:164 var
+R14751:14753 KamiHW.RetireRunsOps <> e24:165 var
+R14755:14757 KamiHW.RetireRunsOps <> e25:166 var
+R14759:14761 KamiHW.RetireRunsOps <> e26:167 var
+R14763:14765 KamiHW.RetireRunsOps <> e27:168 var
+R14767:14769 KamiHW.RetireRunsOps <> e28:169 var
+R14771:14773 KamiHW.RetireRunsOps <> e29:170 var
+R14775:14777 KamiHW.RetireRunsOps <> e30:171 var
+R14779:14781 KamiHW.RetireRunsOps <> e31:172 var
+R14798:14804 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R14806:14807 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 14805:14805 <> k:175
+R14808:14816 KamiHW.RetireRuns <> Busy_runs ind
+R14819:14827 KamiHW.RuleStep <> step_next def
+R14829:14829 KamiHW.RetireRunsOps <> b:173 var
+R14833:14847 KamiHW.CouplingFsmRun <> morph_fsm_final def
+R14849:14853 KamiHW.RetireRunsOps <> count:174 var
+R14856:14864 KamiHW.RuleStep <> step_next def
+R14866:14866 KamiHW.RetireRunsOps <> b:173 var
+R14870:14870 KamiHW.RetireRunsOps <> k:175 var
+R15154:15176 KamiHW.StepFieldsMorph <> step_morph_ext_mc_phase thm
+R15154:15176 KamiHW.StepFieldsMorph <> step_morph_ext_mc_phase thm
+R15406:15431 KamiHW.StepFieldsMorph <> step_morph_ext_mc_mem_base thm
+R15406:15431 KamiHW.StepFieldsMorph <> step_morph_ext_mc_mem_base thm
+R15664:15691 KamiHW.StepFieldsMorph <> step_morph_ext_mc_write_base thm
+R15664:15691 KamiHW.StepFieldsMorph <> step_morph_ext_mc_write_base thm
+R15926:15952 KamiHW.StepFieldsMorph <> step_morph_ext_mc_write_ptr thm
+R15926:15952 KamiHW.StepFieldsMorph <> step_morph_ext_mc_write_ptr thm
+R16186:16203 KamiHW.StepFieldsMorph <> step_morph_ext_mem thm
+R16186:16203 KamiHW.StepFieldsMorph <> step_morph_ext_mem thm
+R16428:16455 KamiHW.StepFieldsMorph <> step_morph_ext_lassert_phase thm
+R16428:16455 KamiHW.StepFieldsMorph <> step_morph_ext_lassert_phase thm
+R16690:16714 KamiHW.StepFieldsMorph <> step_morph_ext_chsh_phase thm
+R16690:16714 KamiHW.StepFieldsMorph <> step_morph_ext_chsh_phase thm
+R16943:16958 KamiHW.StepRefineMorph <> morph_room_of_lt thm
+R16971:16985 KamiHW.CouplingMorphRetire <> desc_room_of_lt thm
+R16998:17015 KamiHW.StepRefineMorph <> module_present_eqb thm
+R17023:17027 Coq.Init.Logic <> proj2 thm
+R17030:17040 Coq.Arith.PeanoNat Nat eqb_neq thm
+R17055:17059 Coq.Init.Logic <> proj2 thm
+R17062:17072 Coq.Arith.PeanoNat Nat eqb_neq thm
+R16943:16958 KamiHW.StepRefineMorph <> morph_room_of_lt thm
+R16943:16958 KamiHW.StepRefineMorph <> morph_room_of_lt thm
+R16971:16985 KamiHW.CouplingMorphRetire <> desc_room_of_lt thm
+R16971:16985 KamiHW.CouplingMorphRetire <> desc_room_of_lt thm
+R16998:17015 KamiHW.StepRefineMorph <> module_present_eqb thm
+R16998:17015 KamiHW.StepRefineMorph <> module_present_eqb thm
+R16998:17015 KamiHW.StepRefineMorph <> module_present_eqb thm
+R16998:17015 KamiHW.StepRefineMorph <> module_present_eqb thm
+R17023:17027 Coq.Init.Logic <> proj2 thm
+R17030:17040 Coq.Arith.PeanoNat Nat eqb_neq thm
+R17023:17027 Coq.Init.Logic <> proj2 thm
+R17030:17040 Coq.Arith.PeanoNat Nat eqb_neq thm
+R17055:17059 Coq.Init.Logic <> proj2 thm
+R17062:17072 Coq.Arith.PeanoNat Nat eqb_neq thm
+R17055:17059 Coq.Init.Logic <> proj2 thm
+R17062:17072 Coq.Arith.PeanoNat Nat eqb_neq thm
+R17114:17117 Coq.Init.Datatypes <> negb def
+R17233:17241 Kami.Lib.Word <> wordToNat def
+R17244:17267 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R17233:17241 Kami.Lib.Word <> wordToNat def
+R17244:17267 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R17327:17329 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17289:17312 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R17315:17323 KamiHW.RuleStep <> step_next def
+R17330:17338 Kami.Lib.Word <> natToWord def
+R17361:17392 KamiHW.StepEval <> step_keeps_coupling_pair_next_id thm
+R17421:17439 Kami.Lib.Word <> natToWord_wordToNat thm
+R17327:17329 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17289:17312 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R17315:17323 KamiHW.RuleStep <> step_next def
+R17330:17338 Kami.Lib.Word <> natToWord def
+R17361:17392 KamiHW.StepEval <> step_keeps_coupling_pair_next_id thm
+R17361:17392 KamiHW.StepEval <> step_keeps_coupling_pair_next_id thm
+R17421:17439 Kami.Lib.Word <> natToWord_wordToNat thm
+R17455:17468 KamiHW.RetireRunsFsm <> morph_fsm_runs thm
+R17471:17479 KamiHW.RuleStep <> step_next def
+R17485:17490 Kami.Lib.Word <> split1 def
+R17498:17503 Kami.Lib.Word <> split2 def
+R17511:17516 KamiHW.StepFieldsMorph <> bits32 def
+R17817:17828 KamiHW.CouplingMorphRetire <> split1_zext7 thm
+R17455:17468 KamiHW.RetireRunsFsm <> morph_fsm_runs thm
+R17471:17479 KamiHW.RuleStep <> step_next def
+R17485:17490 Kami.Lib.Word <> split1 def
+R17498:17503 Kami.Lib.Word <> split2 def
+R17511:17516 KamiHW.StepFieldsMorph <> bits32 def
+R17817:17828 KamiHW.CouplingMorphRetire <> split1_zext7 thm
+R17817:17828 KamiHW.CouplingMorphRetire <> split1_zext7 thm
+R17817:17828 KamiHW.CouplingMorphRetire <> split1_zext7 thm

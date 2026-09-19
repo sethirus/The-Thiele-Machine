@@ -334,15 +334,15 @@ Definition audit_master_classical_bound : HonestClaim :=
        [ "Does not prove every μ=0 trace is factorizable.";
          "Does not prove anything about physical state preparation." ] |}.
 
-Definition audit_master_quantum_foundations : HonestClaim :=
-  {| claim_name := "master_quantum_foundations";
-     claim_sources := [ "QuantumEquivalence.quantum_foundations_complete"; "QuantumEquivalence.hierarchy_is_derived"; "QuantumEquivalence.qm_equals_cost_free" ];
+Definition audit_master_rational_chsh_predicates : HonestClaim :=
+  {| claim_name := "master_rational_chsh_predicates";
+     claim_sources := [ "QuantumEquivalence.rational_bound_ordering_and_spec"; "QuantumEquivalence.classical_bound_below_rational_ceiling"; "QuantumEquivalence.rational_chsh_ceiling_unfolds" ];
      claim_scope := MixedSummary;
      claim_status := StatusUnconditional;
      claim_role := WrapperOnly;
      claim_premises :=
        [ "classical_bound <= tsirelson_bound as a numerical inequality";
-         "is_quantum_correlation is defined as satisfies_no_signaling /\\ chsh_value <= tsirelson_bound" ];
+         "satisfies_rational_chsh_ceiling is defined as satisfies_no_signaling /\\ chsh_value <= tsirelson_bound" ];
      claim_premise_kinds := [ PremiseAlgebraic; PremiseSyntactic ];
      claim_not_imply :=
        [ "Does not derive quantum mechanics from μ-accounting.";
@@ -740,7 +740,7 @@ Definition audit_master_second_axis_vm_instance : HonestClaim :=
 Definition master_claim_ledger : list HonestClaim :=
   [ audit_master_mu_zero_algebraic_bound;
     audit_master_classical_bound;
-    audit_master_quantum_foundations;
+    audit_master_rational_chsh_predicates;
     audit_master_non_circularity;
     audit_master_tsirelson_conditional;
     audit_master_psd_iff_column_contractive;
@@ -1247,7 +1247,7 @@ Definition master_exported_theorem_names : list string :=
     "master_quantum_violation_proves_nonclassicality";
     "master_algebraic_tsirelson";
     "master_algebraic_tsirelson_tight";
-    "master_quantum_foundations";
+    "master_rational_chsh_predicates";
     "master_non_circularity";
     "master_tsirelson_conditional";
     "master_psd_iff_column_contractive";
@@ -1283,7 +1283,7 @@ Definition master_theorem_metadata_ledger : list TheoremMetadata :=
        metadata_scope := Algebraic; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
     {| metadata_name := "master_algebraic_tsirelson_tight";
        metadata_scope := Algebraic; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
-    {| metadata_name := "master_quantum_foundations";
+    {| metadata_name := "master_rational_chsh_predicates";
        metadata_scope := MixedSummary; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
     {| metadata_name := "master_non_circularity";
        metadata_scope := Structural; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
@@ -1372,7 +1372,7 @@ Definition summary_file_theorem_names : list string :=
     "master_quantum_violation_proves_nonclassicality";
     "master_algebraic_tsirelson";
     "master_algebraic_tsirelson_tight";
-    "master_quantum_foundations";
+    "master_rational_chsh_predicates";
     "master_non_circularity";
     "master_tsirelson_conditional";
     "master_psd_iff_column_contractive";
@@ -1678,7 +1678,7 @@ Definition kernel_story_semantic_sufficiency_statement : Prop :=
      (e00 * e00 + e01 * e01 <= 1)%R /\
      (e10 * e10 + e11 * e11 <= 1)%R /\
      TsirelsonFromAlgebra.CHSH_value e00 e01 e10 e11 = sqrt 8) /\
-  (correlation_hierarchy_derived /\ qm_is_cost_free_computation) /\
+  (rational_bound_ordering /\ rational_chsh_ceiling_spec) /\
   exposed_zero_marginal_psd_contractivity_spine /\
   exposed_trace_bridge_spine /\
   exposed_non_circularity_spine /\
@@ -1716,7 +1716,7 @@ Proof.
         split.
         { exact TsirelsonFromAlgebra.tsirelson_tight. }
         split.
-        { exact quantum_foundations_complete. }
+        { exact rational_bound_ordering_and_spec. }
         split.
         { exact exposed_zero_marginal_psd_contractivity. }
         split.
@@ -1967,21 +1967,21 @@ Local Open Scope Q_scope.
     - an independent derivation of the physical Tsirelson principle
 *)
 (* AUDIT:
-   theorem: master_quantum_foundations
+   theorem: master_rational_chsh_predicates
    status: definitional
    kind: export-only
-   depends_on: QuantumEquivalence.quantum_foundations_complete
+   depends_on: QuantumEquivalence.rational_bound_ordering_and_spec
    premise_kinds: syntactic; algebraic
    new_content_here: none
    semantic_layer: formal theorem layer
    external_interpretation: does not derive quantum mechanics from μ-accounting
 *)
-(* INQUISITOR NOTE: alias for quantum_foundations_complete - summary module export *)
-Theorem master_quantum_foundations :
-  correlation_hierarchy_derived /\
-  qm_is_cost_free_computation.
+(* INQUISITOR NOTE: alias for rational_bound_ordering_and_spec - summary module export *)
+Theorem master_rational_chsh_predicates :
+  rational_bound_ordering /\
+  rational_chsh_ceiling_spec.
 Proof.
-  exact quantum_foundations_complete.
+  exact rational_bound_ordering_and_spec.
 Qed.
 
 (** Theorem 4: Non-circularity certificate.
@@ -2413,8 +2413,8 @@ Definition verification_chain_holds : Prop :=
   forall hw_init py_init,
     hw_bisimulation_invariant hw_init py_init ->
     forall costs : list nat,
-    hw_bisimulation_invariant 
-      (hardware_multi_step hw_init costs) 
+    hw_bisimulation_invariant
+      (hardware_multi_step hw_init costs)
       (python_multi_step py_init costs) /\
     hw_mu_accumulator (hardware_multi_step hw_init costs) =
       py_mu (python_multi_step py_init costs).
@@ -2664,7 +2664,7 @@ Definition thiele_machine_core_summary_holds : Prop :=
   (* μ=0 witness exists *)
   (exists fuel trace, mu_cost_of_trace fuel trace 0 = 0%nat) /\
   (* Numerical hierarchy: classical bound ≤ Tsirelson bound *)
-  correlation_hierarchy_derived /\
+  rational_bound_ordering /\
   (* Non-circularity: μ-cost rules have no quantum references *)
   non_circularity_certificate /\
   (* Verification transfer surface used in this summary *)
@@ -2688,7 +2688,7 @@ Definition thiele_machine_core_summary_holds : Prop :=
   theorem: thiele_machine_core_summary_verified
   status: unconditional
   kind: new-composition
-  depends_on: master_mu_zero_witness_sound; hierarchy_is_derived; non_circularity_verified; master_verification_chain
+  depends_on: master_mu_zero_witness_sound; classical_bound_below_rational_ceiling; non_circularity_verified; master_verification_chain
   premise_kinds: structural; algebraic; verification
   new_content_here: bundling of the core summary components indexed by this file
   semantic_layer: formal theorem layer
@@ -2699,7 +2699,7 @@ Proof.
   unfold thiele_machine_core_summary_holds.
   split; [| split; [| split]].
   - exists 10%nat, classical_achieving_trace. apply classical_program_mu_zero.
-  - exact hierarchy_is_derived.
+  - exact classical_bound_below_rational_ceiling.
   - exact non_circularity_verified.
   - exact master_verification_chain.
 Qed.
@@ -2731,7 +2731,7 @@ Proof.
   split; [| split; [| split]].
   - exists master_mu_zero_witness_fuel, master_mu_zero_witness_trace.
     exact master_mu_zero_witness_sound.
-  - exact hierarchy_is_derived.
+  - exact classical_bound_below_rational_ceiling.
   - exact non_circularity_verified.
   - exact master_verification_chain.
 Qed.
@@ -2743,7 +2743,7 @@ Qed.
     |---------------------------------------------------|----------------------|-------------------------------------------------|----------------|
     | master_mu_zero_algebraic_bound                    | unconditional        | μ=0 witness + algebraic CHSH boundedness        | classical/Tsirelson bounds or physical classification by itself |
     | master_classical_bound                            | unconditional        | factorizability theorem                         | that all μ=0 traces are factorizable or physical |
-    | master_quantum_foundations                        | mixed summary        | numerical hierarchy + definitional unfolding    | derivation of QM from μ-cost |
+    | master_rational_chsh_predicates                   | mixed summary        | numerical hierarchy + definitional unfolding    | derivation of QM from μ-cost |
     | master_non_circularity                            | unconditional        | non-circularity certificate                     | repository-global dependency acyclicity |
     | master_tsirelson_conditional                      | conditional          | coherence / PSD / NPA bridge premise            | derivation of the coherence premise or an unconditional physical Tsirelson theorem |
     | master_psd_iff_column_contractive                 | unconditional        | algebraic PSD lemmas                            | runtime coherence for arbitrary traces |
