@@ -97,6 +97,7 @@ jobs:
             coq/**/*.glob
             coq/Makefile
             coq/Makefile.conf
+            coq/.Makefile.d
           key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
 
       - name: Install Python dependencies
@@ -394,6 +395,7 @@ jobs:
             coq/**/*.glob
             coq/Makefile
             coq/Makefile.conf
+            coq/.Makefile.d
           key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
 
       - name: Refresh Coq artefact mtimes

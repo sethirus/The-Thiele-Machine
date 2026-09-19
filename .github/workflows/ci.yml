@@ -107,6 +107,7 @@ jobs:
             coq/**/*.glob
             coq/Makefile
             coq/Makefile.conf
+            coq/.Makefile.d
           key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
 
       - name: Build Coq proof tree
@@ -167,6 +168,7 @@ jobs:
             coq/**/*.glob
             coq/Makefile
             coq/Makefile.conf
+            coq/.Makefile.d
           key: coq-v2-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
 
       - name: Refresh Coq artefact mtimes
@@ -337,6 +339,7 @@ jobs:
             coq/**/*.glob
             coq/Makefile
             coq/Makefile.conf
+            coq/.Makefile.d
           key: coq-v2-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
 
       - name: Refresh Coq artefact mtimes
@@ -464,6 +467,7 @@ jobs:
             coq/**/*.glob
             coq/Makefile
             coq/Makefile.conf
+            coq/.Makefile.d
           key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
 
       - name: Refresh Coq artefact mtimes
@@ -505,6 +509,46 @@ jobs:
             build/thiele_core.mli \
             build/thiele_core.ml \
             build/extracted_vm_runner.ml
+
+      - name: Generate Kami BSV artifacts for RTL manifest tests
+        # The raw and cleaned BSV files are intentionally ignored build
+        # products, but the manifest and transform-audit tests consume them.
+        # Generate the deterministic Coq-extracted printer output from the
+        # tracked Target/PP/Main sources before running the full test suite.
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          cp scripts/Header.bsv build/kami_hw/Header.bsv
+          (
+            cd build/kami_hw
+            ocamlfind ocamlopt -package str -linkpkg \
+              Target.mli Target.ml PP.ml Main.ml \
+              -o kami_to_bsv
+            ./kami_to_bsv -top ThieleCPU thiele_hw.bsv
+          )
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          source = Path("build/kami_hw/thiele_hw.bsv")
+          target = Path("build/kami_hw/thiele_hw_clean.bsv")
+          lines = source.read_text(encoding="utf-8").splitlines()
+          clean = []
+          skip_wrapper = False
+          for line in lines:
+              if line.startswith(("module mkThieleCPU", "module mkTop")):
+                  skip_wrapper = True
+              if not skip_wrapper:
+                  clean.append(line)
+              if skip_wrapper and line.strip() == "endmodule":
+                  skip_wrapper = False
+          text = "import Vector::*;\n" + "\n".join(clean) + "\n"
+          text = re.sub(r"vec\(([^()]*)\)", r"unpack({\1})", text)
+          target.write_text(text, encoding="utf-8")
+          PY
+          python3 scripts/bsv_regfile_transform.py \
+            build/kami_hw/thiele_hw_clean.bsv \
+            build/kami_hw/thiele_hw_clean.bsv
 
       - name: Run pytest (FULL suite — no marker filter, no skips)
         # --strict-backends turns backend-missing skips into hard failures,
