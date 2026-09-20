@@ -261,7 +261,11 @@ class CommandTimeoutError(RuntimeError):
 
 DEFAULT_COMMAND_TIMEOUTS: dict[str, int] = {
     "coqtop batch": 60,
-    "coq build": 900,
+    # A cache restore can still require a substantial Coq rebuild when the
+    # generated make metadata does not match the checked-out source mtimes.
+    # Keep the audit bounded, but allow the full proof tree to finish on the
+    # hosted CI runners instead of turning a slow valid build into a finding.
+    "coq build": 1800,
     "ocaml extraction build": 600,
     "proof dependency dag": 300,
     "single coq compile": 60,
