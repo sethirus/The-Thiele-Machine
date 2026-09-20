@@ -206,12 +206,16 @@ jobs:
     # fan that single multiplier out to more DSP48E1 slices than K325T's
     # 840 (wider operand widths force chained DSPs each) and slow
     # openXC7's placer to 1-2+ hours (sometimes timing out). synth_xc7.ys
-    # specifies `-nodsp`, so the multiplier maps to LUTs and the design
-    # fits in ~151K LUT6 of K325T's 203K (~74%). Placer finishes in
-    # ~10 min.
+    # specifies `-nodsp`, so the multiplier maps to LUTs. The current tracked
+    # RTL is congestion-sensitive, and the synthesis driver uses nextpnr's
+    # `--no-tmdriv` mode because the 12 MHz timing target is already below the
+    # observed placement frequency; this avoids spending the placement budget
+    # on timing optimisation that routing does not need.
     # A bitstream-generation failure must fail the workflow; the default
     # continue-on-error policy is intentionally strict.
-    timeout-minutes: 120
+    # Keep a hard safety cap while allowing the larger current RTL one bounded
+    # routing window after the congestion-focused placement change.
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
 
@@ -442,18 +446,31 @@ jobs:
 
           | Phase | Status |
           |-------|--------|
-          | Fast verify (proof + extraction + tests) | ${{ needs.fast-verify.result }} |
-          | Hardware Synthesis | ${{ needs.hardware-synthesis.result }} |
-          | FPGA Bitstream (K325T) | ${{ needs.fpga-bitstream.result }} |
-          | Vacuity audit (full sweep) | ${{ needs.vacuity-audit.result }} |
-
-          Critical path: max of the parallel branches rather than their sum.
+          | Fast verify | ${{ needs.fast-verify.result }} |
+          | Hardware synthesis | ${{ needs.hardware-synthesis.result }} |
+          | FPGA bitstream | ${{ needs.fpga-bitstream.result }} |
+          | Vacuity audit | ${{ needs.vacuity-audit.result }} |
           EOF
           cat /tmp/summary.md >> "$GITHUB_STEP_SUMMARY"
+          cat /tmp/summary.md
 
       - name: Fail if any required job failed
-        # Every needed job must come back 'success'. A hand-kept '== failure'
-        # list misses jobs omitted from it and misses the 'skipped' result a
-        # job gets when something upstream of it failed.
         if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped')
-        run: exit 1
+        run: |
+          failed=0
+
+          for result in \
+            "fast-verify=${{ needs.fast-verify.result }}" \
+            "hardware-synthesis=${{ needs.hardware-synthesis.result }}" \
+            "fpga-bitstream=${{ needs.fpga-bitstream.result }}" \
+            "vacuity-audit=${{ needs.vacuity-audit.result }}"
+          do
+            echo "$result"
+            case "$result" in
+              *"=failure"|*"=cancelled"|*"=skipped")
+                failed=1
+                ;;
+            esac
+          done
+
+          exit "$failed"
