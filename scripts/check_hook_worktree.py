@@ -8,11 +8,15 @@ Ignored compiler outputs remain available for incremental builds.
 """
 from __future__ import annotations
 
+import argparse
 import subprocess
 import sys
 from pathlib import Path
 import tempfile
 import os
+
+
+GENERATED_COQ_SUFFIXES = frozenset({".vo", ".glob", ".vos", ".vok", ".aux"})
 
 
 def git_output(*args: str) -> bytes:
@@ -71,18 +75,59 @@ def submodule_problems() -> list[str]:
     return problems
 
 
+def is_generated_coq_artifact(path: str) -> bool:
+    candidate = Path(path)
+    return (candidate.parts[:1] == ("coq",) and
+            candidate.suffix in GENERATED_COQ_SUFFIXES)
+
+
+def stage_generated_coq_artifacts(paths: list[str]) -> list[str]:
+    """Stage only tracked compiler outputs produced by the hook.
+
+    The hook deliberately does not stage arbitrary generated files: source
+    edits and untracked files must remain explicit user actions. Coq compiler
+    outputs are different because the repository tracks them and the hook
+    rebuilds them as part of validating the proposed commit.
+    """
+    tracked = set(git_paths("ls-files", "-z"))
+    generated = sorted(path for path in paths
+                       if path in tracked and is_generated_coq_artifact(path))
+    if generated:
+        subprocess.run(["git", "add", "--", *generated], check=True)
+    return generated
+
+
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--stage-generated",
+        action="store_true",
+        help="stage tracked Coq compiler outputs before the final check",
+    )
+    args = parser.parse_args()
+
     conflicts = git_paths("diff", "--name-only", "--diff-filter=U", "-z")
     # Compare gitlink revisions here; inspect submodule contents separately.
     unstaged = git_paths("diff", "--name-only", "--ignore-submodules=dirty", "-z")
     untracked = git_paths("ls-files", "--others", "--exclude-standard", "-z")
     paths = sorted(set(conflicts + unstaged + untracked + submodule_problems()))
+    if args.stage_generated:
+        staged = stage_generated_coq_artifacts(paths)
+        if staged:
+            print("[pre-commit] staged generated Coq artifacts:", file=sys.stderr)
+            for path in staged:
+                print(f"  {path!r}", file=sys.stderr)
+            conflicts = git_paths("diff", "--name-only", "--diff-filter=U", "-z")
+            unstaged = git_paths("diff", "--name-only", "--ignore-submodules=dirty", "-z")
+            untracked = git_paths("ls-files", "--others", "--exclude-standard", "-z")
+            paths = sorted(set(conflicts + unstaged + untracked + submodule_problems()))
     if paths:
         print("[pre-commit] FAIL: working tree differs from the proposed commit.", file=sys.stderr)
         for path in paths:
             print(f"  {path!r}", file=sys.stderr)
         print("Stage intended changes or stash unrelated work (including untracked files), "
-              "then retry. No source files are auto-staged by this check.", file=sys.stderr)
+              "then retry. Only tracked Coq compiler outputs are auto-staged when "
+              "--stage-generated is supplied.", file=sys.stderr)
         return 1
     return 0
 

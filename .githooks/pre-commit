@@ -154,10 +154,11 @@ fi
 run python3 scripts/inquisitor.py --report INQUISITOR_REPORT.md
 stage INQUISITOR_REPORT.md
 
-# Tests can rebuild extraction or modify artifacts. Do not regenerate over a
-# failed freshness check or silently commit a different version than was tested.
+# Tests can rebuild extraction or modify artifacts. Stage the tracked Coq
+# compiler outputs the hook itself rebuilt, then reject every other worktree
+# difference rather than silently committing a different version than tested.
 run python3 scripts/generate_rtl_pipeline_manifest.py --check
 run python3 scripts/audit_rtl_text_transforms.py --check
-run python3 scripts/check_hook_worktree.py
+run python3 scripts/check_hook_worktree.py --stage-generated
 
 echo "[pre-commit] PASS: commit artifacts and local verification agree."
