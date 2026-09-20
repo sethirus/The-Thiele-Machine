@@ -427,7 +427,7 @@ End DigitalSignature.
     What is left of the metering claim, stated so it can be attacked: when a
     claim is mu-sensitive -- not decidable from the classical projection --
     and the verifier can neither recheck it directly nor substitute a
-    hardness assumption, the substrate route is what remains, and that route
+    hardness assumption, the substrate route is the available construction, and that route
     prices the commitment event. That is [V_does_not_factor_through_classical]
     in different clothes, it is narrower than "forgery resistance," and it is
     the version this development actually supports. *)

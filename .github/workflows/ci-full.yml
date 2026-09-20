@@ -16,16 +16,14 @@ env:
 
 jobs:
   # Import the primary CI checks first.
-  # Hardware verification only runs after the main software/proof surface passes.
+  # The software/proof surface and hardware checks are independent branches.
   fast-verify:
     uses: ./.github/workflows/ci.yml
     secrets: inherit
 
   # Hardware synthesis & simulation. Runs in PARALLEL with fast-verify —
   # only consumes RTL files (.v) already in the repo at checkout, so it does
-  # not depend on any fast-verify output. Previously gated as
-  # `needs: fast-verify` for ordering, which serialized 17m + 15m = 32m of
-  # critical path for no real reason.
+  # not depend on any fast-verify output.
   hardware-synthesis:
     name: Hardware synthesis & simulation
     runs-on: ubuntu-latest
@@ -187,18 +185,15 @@ jobs:
     name: FPGA bitstream generation (Kintex-7 K325T / ffg900 / openXC7)
     runs-on: ubuntu-latest
     env:
-      # Revisions corresponding to the successful 2026-07-14 run
+      # Revisions used for the reproducible FPGA toolchain snapshot
       # https://github.com/sethirus/The-Thiele-Machine/actions/runs/29304801708
-      # The RTL is unchanged since that run. Building moving upstream heads
-      # later introduced post-placement relocation and routing timeouts.
-      # Keep the router, chip database and frame packager reproducible together.
+      # Pinning the router, chip database, and frame packager keeps placement
+      # and bitstream generation reproducible together.
       NEXTPNR_REV: 683858daf7b85e5984ecccb27884c88df3ec01f6
       PRJXRAY_REV: c9f02d8576042325425824647ab5555b1bc77833
       PRJXRAY_DB_REV: 381966a746cb4cf4a7f854f0e53caa3bf74fbe62
     # No `needs:` — this job only reads .v files from the repo at checkout
-    # and produces its own bitstream end-to-end. Previously gated as
-    # `needs: hardware-synthesis` for ordering, which serialized 15m + 21m
-    # of critical path on a dependency that wasn't there.
+    # and produces its own bitstream end-to-end.
     #
     # CHSH_LASSERT's column_contractive_check_witness performs 22 wide
     # integer multiplications (widest two are 128×128 → 256). In Kami it's
@@ -214,10 +209,8 @@ jobs:
     # specifies `-nodsp`, so the multiplier maps to LUTs and the design
     # fits in ~151K LUT6 of K325T's 203K (~74%). Placer finishes in
     # ~10 min.
-    # `continue-on-error: false` (default): if bitstream generation fails,
-    # CI must fail too. The job previously had continue-on-error: true,
-    # which let packaging bugs (fasm2frames path errors, fasm pypi
-    # circular-import regressions, etc.) hide behind a green checkmark.
+    # A bitstream-generation failure must fail the workflow; the default
+    # continue-on-error policy is intentionally strict.
     timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4

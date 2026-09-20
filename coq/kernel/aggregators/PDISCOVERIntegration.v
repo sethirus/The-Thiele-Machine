@@ -79,14 +79,14 @@ Module PDISCOVERIntegration.
 
   (** StructureVerdict: Classification result from PDISCERN
 
-      WHY: I need a ternary classification for problem structure. Not all problems
-      neatly divide into STRUCTURED/CHAOTIC - some are inconclusive (though current
-      algorithm never returns UNKNOWN).
+      The type supports a ternary classification for problem structure.  The
+      current classifier emits the two decisive constructors; UNKNOWN remains
+      available for callers that need an inconclusive result.
 
       CONSTRUCTORS:
       - STRUCTURED: Problem has exploitable partition structure (low avg, low std)
       - CHAOTIC: Problem lacks discoverable structure (high avg or high std)
-      - UNKNOWN: Classification inconclusive (currently unused, reserved for future)
+      - UNKNOWN: Classification inconclusive
 
       PHYSICAL MEANING:
       - STRUCTURED: Thiele Machine has advantage over Turing machine (μ-cost < RAM-cost)

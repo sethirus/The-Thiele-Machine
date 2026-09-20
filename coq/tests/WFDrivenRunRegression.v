@@ -14,7 +14,7 @@ Proof.
            exact (fun _ _ => 0)].
 Defined.
 
-(* The old universal premise was impossible, even on this ordinary snapshot. *)
+(* The universal premise is impossible for this ordinary snapshot. *)
 Theorem old_universal_precondition_impossible :
   ~ (forall ks i, WFDrivenPrecondition ks i).
 Proof.

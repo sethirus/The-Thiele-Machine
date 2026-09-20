@@ -1,21 +1,10 @@
-(** Riemann Curvature Tensor in 4D: From Discrete Metric
-    Define 4D Riemann curvature tensor from discrete metric
+(** Discrete four-dimensional curvature.
 
-    THE GOAL:
-    Define the full Riemann curvature tensor R^ρ_{σμν} from the metric
-    defined by μ-costs.
-
-    THE APPROACH:
-    1. Define discrete Christoffel symbols from metric differences
-    2. Define Riemann tensor from Christoffel differences + quadratic terms
-    3. Contract to get Ricci tensor R_μν
-    4. Contract again to get Ricci scalar R
-    5. Build Einstein tensor G_μν = R_μν - (1/2)g_μν R
-
-    ✓ Definitions complete with proper connection curvature
-    ⚠ Proofs of Bianchi identities not yet completed
-    ⚠ Full tensor algebra infrastructure needed
-    *)
+    This file defines the metric-derived discrete Christoffel, Riemann, Ricci,
+    Ricci-scalar, and Einstein-tensor operators used by the curvature bridge.
+    The operators are the formal model: they do not assert a continuum limit,
+    a Lorentz signature, or Bianchi identities.  Theorems about those stronger
+    properties belong to separate files with their own premises. *)
 
 From Coq Require Import Reals List Arith.PeanoNat Lia Lra Bool.
 Import ListNotations.
@@ -47,9 +36,6 @@ From Kernel Require Import MetricFromMuCosts.
 
     This is identical to full_metric_at_vertex (defined in MetricFromMuCosts)
     and is retained here as a thin alias so the rest of this file is readable.
- The old definition read from vm_mu_tensor (a global state field)
-    making the metric identical at every vertex and all Christoffel symbols
-    trivially zero.  The new definition is genuinely position-dependent.
 *)
 Definition metric_component (s : VMState) (μ ν v : ModuleID) : R :=
   full_metric_at_vertex s v μ ν.
@@ -97,7 +83,7 @@ Definition discrete_derivative (s : VMState) (sc : SimplicialComplex4D)
 *)
 Definition christoffel (s : VMState) (sc : SimplicialComplex4D)
   (ρ μ ν v : ModuleID) : R :=
-  (* Simplified version - proper version requires metric inverse g^{ρσ} *)
+  (* The identity inverse is the declared discrete operator convention. *)
   let deriv_nu_g_mu := discrete_derivative s sc
     (fun w => metric_component s μ ρ w) ν v in
   let deriv_mu_g_nu := discrete_derivative s sc
@@ -181,28 +167,13 @@ Definition einstein_tensor (s : VMState) (sc : SimplicialComplex4D)
   let g_mu_nu := metric_component s μ ν v in   (* metric at vertex v *)
   (R_mu_nu - (1/2) * g_mu_nu * R)%R.
 
-(** ** Properties and Next Steps
+(** ** Scope of the exported operators
 
-    WHAT WE'VE DEFINED:
-    ✓ Discrete metric from μ-costs
-    ✓ Discrete Christoffel symbols (connection)
-    ✓ Riemann curvature tensor with full connection curvature (ΓΓ terms)
-    ✓ Ricci tensor (contracted Riemann)
-    ✓ Ricci scalar (fully contracted)
-    ✓ Einstein tensor G_μν
-
-    WHAT REMAINS FOR RIGOROUS PROOFS:
-    - Riemann tensor symmetries (antisymmetry in last two indices, etc.)
-    - Bianchi identities (∇_[α R_{βγ]δε} = 0 and contracted form)
-    - Complete metric inverse calculation (currently using diagonal approximation)
-    - Explicit computation for specific components (e.g. R_0000 in terms of mass)
-
-    These require substantial tensor calculus infrastructure.
-    1. Add proper metric inverse calculation
-    2. Complete Riemann tensor with Γ·Γ terms
-    3. Prove symmetries (Bianchi identities)
-    4. Define stress-energy tensor (EinsteinEquations4D.v)
-    5. State Einstein field equations (EinsteinEquations4D.v)
+    The Ricci scalar uses the identity matrix as its inverse-metric convention.
+    The affine metric-scaled operator and the explicit Einstein-equation
+    results are defined in the curvature bridge files.  This module exports
+    the operators and does not export Bianchi, continuum-limit, or physical
+    calibration theorems.
 *)
 
 (** ** Step 7: Diagonal Inverse Metric

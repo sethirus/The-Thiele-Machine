@@ -49,7 +49,10 @@ def validate_output(stdout: str, stderr: str, expected: int) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--jobs", type=int, default=2)
-    parser.add_argument("--batch-size", type=int, default=50)
+    # Loading the complete compiled corpus dominates each coqtop invocation.
+    # A 2,000-query batch keeps the process count small while retaining bounded
+    # output and restartable work units.
+    parser.add_argument("--batch-size", type=int, default=2000)
     parser.add_argument("--timeout", type=int, default=900)
     # A batch killed by an external signal (this sandbox SIGTERMs long-running
     # processes) is retried in place. This is deliberately narrow: it must never
@@ -86,7 +89,7 @@ def main() -> None:
         directory = Path(tempfile.mkdtemp(prefix="assumption-batches-", dir=build))
 
     def saved(bounds: tuple[int, int]) -> tuple[int, str, str] | None:
-        """Return a previously completed batch's result, or None.
+        """Return a completed batch's result, or None.
 
         A saved result is only reused when its output still validates for the
         current query list and contains no Coq error, so a truncated write from

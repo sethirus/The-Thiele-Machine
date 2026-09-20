@@ -3396,7 +3396,9 @@ Beyond Coq's type checker, the project has a custom proof auditor called the Inq
 \item \textbf{Physics-definition heuristics.} No physics quantity defined as a constant placeholder. No physics claim without a corresponding invariance condition. No theorem stated about a physics concept if that concept is not genuinely formalized.
 \item \textbf{No trivial true proofs.} If a theorem's entire proof is \texttt{trivial} or \texttt{tauto} and the conclusion reduces to \texttt{True}, the theorem is rejected.
 \item \textbf{Scope enforcement.} The proof tree is split into tiers. Tier 1 is the kernel files: the core proof of the machine. Tier 1 files may not import from exploratory or research-side files. Theorem connectivity: every file in the active proof tree must reach the cost or semantics foundation through its import chain. If a file is disconnected, it does not get to claim the kernel's pedigree.
-\item \textbf{Comment hygiene.} No TODO/FIXME/WIP markers in active proof comments.
+\item \textbf{Comment hygiene.} The maintained source and documentation comments
+contain no unfinished or historical review markers; the repository checks this
+with \texttt{scripts/comment\_hygiene.py} alongside the Coq proof audit.
 \end{itemize}
 
 The committed \texttt{INQUISITOR\_REPORT.md} records the result for the
@@ -3494,7 +3496,7 @@ Run the Inquisitor on the repository and inspect its report. The current report 
 
 \medskip
 \noindent\textbf{Falsify the axiom audit.}\\
-If running \texttt{Print Assumptions} (Section~\ref{sec:vocab}: the Coq command that lists everything a theorem depends on) on any named theorem in the kernel tier shows a project-local \texttt{Axiom} or \texttt{Parameter} in the dependency tree, the audit has degraded. The current full-corpus probe covers 4,028 named theorems: 2,979 close under the global Coq context outright, and 1,049 lean only on Coq standard-library axiom families (functional extensionality and the classical-reals construction). Of those, 67 depend on the excluded middle, which is the classical-logic axiom $P \lor \neg P$ (``either $P$ is true or $P$ is false, with no third option''); those uses come from the Coq standard library's real-analysis lemmas, entering through the physics-bridge families (the Holevo, Bekenstein, Landauer, and gravity bridges), not from project code; the CHSH algebra itself leans only on the classical-reals construction and functional extensionality. Zero project-local axioms appear in any of the 4,028 dependency trees. Any project-local axiom or parameter appearing in any of them is a bug.
+If running \texttt{Print Assumptions} (Section~\ref{sec:vocab}: the Coq command that lists everything a theorem depends on) on any named theorem in the kernel tier shows a project-local \texttt{Axiom} or \texttt{Parameter} in the dependency tree, the audit has degraded. The current full-corpus probe covers 12,336 named theorems: 5,520 close under the global Coq context outright, and 6,816 use only Coq standard-library assumptions. The receipt names five such constants: dependent functional extensionality, \texttt{Eqdep.Eq\_rect\_eq.eq\_rect\_eq}, \texttt{ClassicalDedekindReals.sig\_not\_dec}, \texttt{ClassicalDedekindReals.sig\_forall\_dec}, and \texttt{Classical\_Prop.classic}. Zero project-local axioms appear in any of the 12,336 dependency trees. Any project-local axiom or parameter appearing in any of them is a bug.
 
 \medskip
 \noindent\textbf{Falsify the hardware bisimulation.}\\

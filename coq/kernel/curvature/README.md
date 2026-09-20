@@ -72,7 +72,7 @@ which uses `π` at boundary vertices under the appropriate surface conditions.
 | `SpacetimeEmergence.v` | Causal cone, locality, μ-conservation as emergent kernel facts |
 | `JacobsonBridgeComponents.v` | Named bridge premises for the Jacobson construction |
 | `DiscreteGaussBonnet.v` | Restricted angle-defect identity ΔK = 5π·Δχ under the stated triangulation predicates |
-| `KernelNoether.v` | Z-indexed shifts of the μ-ledger (analogy file; **flagged for removal**) |
+| `KernelNoether.v` | Z-indexed shifts of the μ-ledger (analogy and bookkeeping symmetry) |
 | `PhysicsClosure.v` | **`Physics_Closure`** — locality + μ-conservation + causality from `vm_step` alone |
 
 ## Load-bearing exports cited from the README
@@ -87,7 +87,6 @@ which uses `π` at boundary vertices under the appropriate surface conditions.
 
 `foundation/`, `mu_calculus/`, `nfi/`, `thermodynamic/`.
 
-## Removal candidate
-
-[`KernelNoether.v`](KernelNoether.v) is in the COQ_NECESSITY_AUDIT removal
-list (analogy file, no consumers). Decision pending.
+`KernelNoether.v` records the bookkeeping-symmetry construction alongside the
+load-bearing curvature results. It is explanatory support, not a premise of
+the curvature closure theorems.

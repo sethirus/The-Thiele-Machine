@@ -1,13 +1,11 @@
 # kernel/frontier
 
-F1, F2, F3 frontier closure files. Each addresses a hard requirement from
-[FRONTIER_PLAN.md](../../../FRONTIER_PLAN.md) (post-2026-05-07-retraction).
-The names are intentionally cryptic so the audit trail stays distinct from
-the claim names in the README.
+F1, F2, and F3 frontier closure files. Each addresses a named boundary in the
+current claim surface. The filenames keep the frontier results distinct from
+the public claim names in the root README.
 
-These files exist to either close or formally negate a frontier claim, with
-no rhetoric: every header lists the FRONTIER_PLAN section it discharges and
-the hard requirement it satisfies.
+These files either close or formally bound a frontier claim. Each file header
+states the requirement it addresses and the exact theorem surface it supplies.
 
 ## F1 — physical-reversibility / A2 derivation
 
@@ -45,10 +43,9 @@ Single-conclusion Coq inequalities that compose multiple chain constants.
 Each F-file is the closure of a documented frontier item; they don't get
 re-imported elsewhere because the published statement is the export.
 
-`F3_PlusOneStructural.v` is the only file with a publicly-acknowledged
-inconclusive status (it's the **OP-Plus-One** open problem cited in the
-README; the audit conclusion is that the +1 is a Tikhonov regularizer,
-not an A2 cost floor).
+`F3_PlusOneStructural.v` records the **OP-Plus-One** boundary: the +1 in
+`triangle_angle` is treated as a Tikhonov regularizer, not as an A2 cost floor.
+The file does not promote that interpretation to a physical derivation.
 
 ## Imports
 

@@ -74,14 +74,10 @@ stage build/kami_hw/Target.ml build/kami_hw/Target.mli \
 # cheap (a source scan, no Coq) and keeps the committed probe in step with the
 # committed corpus.
 #
-# The receipt is deliberately NOT re-derived here. Doing so means executing
-# every Print Assumptions query in the corpus -- ~12k queries over 421 modules
-# as of 2026-09-18 -- which is CPU-bound and takes hours on a 2-core sandbox,
-# and this environment SIGTERMs long-running processes, so the hook could never
-# finish it. CI owns that step instead: `make assumption-receipt-check` in the
-# proof-check job re-derives the receipt and diffs it against the committed one,
-# with a 6-hour budget and no reaper. That check is the authority behind the
-# "0 project-local axioms" badge; it is strictly stronger than a local rerun.
+# The receipt is deliberately NOT re-derived here. A semantic fingerprint
+# check is fast and is enough for unchanged proof inputs; a proof-relevant
+# change makes `make assumption-receipt-check` re-derive the full corpus in CI.
+# That CI check is the authority behind the "0 project-local axioms" badge.
 #
 # Locally we do the part that fits in a pre-commit hook: verify that the
 # committed receipt is a coherent snapshot of the committed probe (names, raw

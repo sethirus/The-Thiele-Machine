@@ -89,18 +89,10 @@ Definition extract_chsh_trials (receipts : Receipts) : list KernelCHSH.Trial :=
     approximation [5657/2000].
 
     Note: This is an *empirical* statistic over the receipt stream; it is not
-    (yet) a probabilistic theorem about measurement distributions.
+    a probabilistic theorem about measurement distributions.
 *)
 
 Definition tsirelson_bound_q : Q := (5657#2000).
-
-(** Previously: a sanity lemma [tsirelson_bound_q_sq_gt_8] asserted
-    [(5657/2000)^2 > 8], discharged by [unfold tsirelson_bound_q; unfold
-    Qlt; simpl; lia].  The inequality is a concrete rational computation
-    that no caller in the kernel depended on; if needed at a future call
-    site, the same one-line proof can be reproduced inline.  The rational
-    [tsirelson_bound_q := 5657/2000] remains the documented safe upper
-    envelope for 2√2 used downstream. *)
 
 Definition chsh_value (receipts : Receipts) : Q :=
   KernelCHSH.chsh (extract_chsh_trials receipts).

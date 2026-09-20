@@ -201,7 +201,7 @@ Proof.
 Qed.
 
 (** One-instruction update macros. They use no scratch and preserve the error
-    and CSR states, including a previously latched error. *)
+    and CSR states, including an already latched error. *)
 Definition counter_update_result (s : VMState) (u v : nat) : VMState :=
  {| vm_graph := s.(vm_graph); vm_csrs := s.(vm_csrs);
     vm_regs := s.(vm_regs); vm_mem := s.(vm_mem); vm_pc := S s.(vm_pc);

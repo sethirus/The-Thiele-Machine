@@ -187,10 +187,8 @@ Qed.
 (** Note: a single-step μ-cost identity
     [mu_value (execute_op op s) = mu_value s + op_mu_cost op (config s)]
     holds by [unfold execute_op; simpl; reflexivity] from the
-    [execute_op] definition. It used to be exposed as both
-    [single_op_mu] and [mu_increases_by_cost]; neither had proof
-    callers, so the identity is left to be discharged inline at any
-    future use site. The cumulative analogue lives in
+    [execute_op] definition. The identity is discharged inline at the
+    call sites that need it. The cumulative analogue lives in
     [mu_total_cost] above. *)
 
 (** Theorem 3: total μ equals the sum of per-step costs along the

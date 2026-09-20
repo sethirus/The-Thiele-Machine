@@ -163,13 +163,9 @@ Class Substrate : Type := {
 Section ProgEquivFacts.
   Context `{Sub : Substrate}.
 
-  (* The equivalence-relation laws sym/trans below are immediate from the
-     corresponding equality laws on option state, because [prog_equiv] is
-     pointwise equality of [run].  Previously this section also exported
-     [prog_equiv_refl : forall p, prog_equiv p p], proved by [reflexivity];
-     no caller depended on it, and the reflexivity is available at any
-     site by [intros p s; reflexivity].  sym and trans are kept because
-     they consume hypotheses and so are not definitional. *)
+  (* The equivalence-relation laws below use pointwise equality of [run].
+     Reflexivity is definitional; symmetry and transitivity remain explicit
+     because their proofs consume equality hypotheses. *)
 
   Lemma prog_equiv_sym : forall p1 p2, prog_equiv p1 p2 -> prog_equiv p2 p1.
   Proof. intros p1 p2 H s. symmetry. apply H. Qed.

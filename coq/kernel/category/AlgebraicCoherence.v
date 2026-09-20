@@ -620,11 +620,10 @@ Proof.
   intros e. unfold S_from_correlators, tsirelson_config. simpl. ring.
 Qed.
 
-(** Roadmap, not a theorem:
-    The usual full Tsirelson proof needs an optimizer argument saying the
-    symmetric case controls the general maximum. I am not encoding that here.
-    What remains below is the rational witness side: a concrete coherent point
-    very close to the symmetric 2√2 value. *)
+(** Scope boundary:
+    This file establishes the symmetric rational witness and its exact
+    coherence calculation. A general optimizer proof for the full Tsirelson
+    maximum is outside this file's theorem surface. *)
 
 (** tsirelson_achieving: A concrete rational configuration near 2√2.
 

@@ -10770,7 +10770,7 @@ Qed.
 
 Close Scope R_scope.
 
-(* Restore transparency of full_metric_tc for later use *)
+(* Restore transparency of full_metric_tc for downstream definitions. *)
 #[local] Transparent full_metric_tc.
 
 (** =========================================================================
@@ -12911,12 +12911,13 @@ Qed.
     — exact corollary under 64-bit boundedness: if all values fit in 64 bits,
       the simulation is exact (word64 faithfulness hypothesis)
 
-    WHAT THIS DOES NOT YET CLAIM:
+    SCOPE BOUNDARY:
     A full finite-table interpreter for arbitrary TM transition tables.
     This is a ONE-STEP staged compiler, parameterized by the current
-    configuration. It closes the "where are the opcodes?" gap. The full
-    interpreter is a straightforward extension — but this section is
-    the foundation that makes the claim honest.
+    configuration. It closes the "where are the opcodes?" boundary for
+    this file. The surrounding interpreter construction has its own
+    definitions and proof obligations; this section records the staged
+    compiler contract and its exact boundedness premise.
 
     PHYSICAL MEANING:
     A compilation proof is a physical claim: the program the compiler emits

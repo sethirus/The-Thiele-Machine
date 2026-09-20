@@ -409,11 +409,14 @@ Lemma violation_wc_total :
   witness_total violation_wc = 4%nat.
 Proof. unfold witness_total, violation_wc. simpl. reflexivity. Qed.
 
-(** Reserved: chsh_violation_witness_count would state:
+(** The aggregate-count model does not export a separate
+    chsh_violation_witness_count theorem.  The existing lower-bound result
+    below is the authoritative execution-to-count bridge:
     Starting from zero witness counts and executing 4 CHSH_TRIAL instructions
     covering all setting pairs costs at least 4 μ-units.
     The real content is in chsh_trial_count_lower_bound for n = 4.
-    Reserved for future connection to the actual W2 lower-bound proof. *)
+    it connects the counted instruction model to the aggregate witness model
+    without making a finite-sample probability claim. *)
 
 (** Direct application of W2 (chsh_trial_count_lower_bound with n = 4):
     Any trace from zero trials to witness_total ≥ 4 requires ≥ 4
@@ -449,4 +452,4 @@ Qed.
   The probability side is outside this file's scope and is not
   attempted: lifting the deterministic CHSH chain to a finite-sample
   confidence statement requires a real probability formalisation that
-  the kernel does not currently provide. *)
+    the kernel does not provide as part of this aggregate-count model. *)

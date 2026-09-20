@@ -86,13 +86,9 @@ Definition cm_run (M : ClassicalMachine) (s0 : VMState) : VMState :=
 Definition classical_to_thiele (prog : list vm_instruction) : list vm_instruction :=
   prog.
 
-(** Previously: [D2_embedding_is_identity] asserted that running
-    [classical_to_thiele prog] equals running [prog].  Since
-    [classical_to_thiele] is the identity by definition, both sides are
-    syntactically equal after unfolding.  No file referenced the lemma;
-    the identity is available by [unfold classical_to_thiele; reflexivity]
-    at any use site.  See [D2_faithfulness] below for the substantive
-    content of D2. *)
+(** The embedding function is definitionally the identity on the classical
+    program representation. The substantive D2 result is [D2_faithfulness]
+    below, which proves preservation through execution. *)
 
 (** D2_faithfulness: The embedding is faithful under shadow_proj.
     Running a classical program on the Thiele VM:
@@ -125,14 +121,9 @@ Proof.
     exact (D3_conservativity prog s0 Hclassical).
 Qed.
 
-(** Previously: [D2_classical_machines_are_thiele] asserted that
-    [cm_run M s0 = acm_run thiele_cert_machine (classical_to_thiele
-    (cm_program M)) s0].  Both sides reduce to the same [acm_run] application
-    after unfolding [cm_run] and [classical_to_thiele], so the claim had no
-    proof content.  No file referenced the lemma; the inclusion of
-    [ClassicalMachine] runs into the Thiele VM is witnessed by the
-    definition of [cm_run] itself.  See [D2_faithfulness] for the
-    substantive embedding content. *)
+(** A [ClassicalMachine] run is represented by the same [acm_run] evaluator
+    used by the Thiele machine. The execution-level preservation result is
+    [D2_faithfulness]. *)
 
 (**
 

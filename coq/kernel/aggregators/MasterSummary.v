@@ -196,8 +196,9 @@ Record open_obligation_entry := {
 
         make assumption-receipt
 
-    and CI byte-diffs the regenerated receipt against the committed one. THAT
-    is the check. This record is a human-readable summary of its conclusion,
+    and CI validates the fingerprint, re-deriving the corpus when proof inputs
+    change, and compares the result with the committed receipt. THAT is the
+    check. This record is a human-readable summary of its conclusion,
     kept in sync by `tests/test_proof_hygiene_numbers.py`. Cite the receipt;
     do not cite the reflexivity lemmas as evidence of anything. *)
 Definition master_summary_assumptions : assumption_surface :=
@@ -237,7 +238,7 @@ Qed.
 
 (** Conjunction of the two field read-backs above. Nothing here verifies
     anything about the corpus; the corpus-level check is
-    `make assumption-receipt` plus the CI byte-diff of
+    `make assumption-receipt` plus the CI receipt check
     `artifacts/print_assumptions_all_proofs.json`. *)
 Theorem master_summary_declares_no_hidden_project_assumptions :
   master_summary_no_hidden_project_assumptions.
@@ -466,7 +467,7 @@ Definition audit_master_honest_nofi_conditional_shannon : HonestClaim :=
          "the concrete run executes at least log2(n) cert-setting steps" ];
      claim_premise_kinds := [ PremiseStructural; PremiseSemantic ];
      claim_not_imply :=
-       [ "Does not yet collapse the full feasible-set ratio theorem into one unconditional export." ] |}.
+       [ "Does not collapse the full feasible-set ratio theorem into one unconditional export." ] |}.
 
 Definition audit_master_honest_nofi_quantitative_state_space : HonestClaim :=
   {| claim_name := "master_honest_nofi_quantitative_state_space";
@@ -496,7 +497,7 @@ Definition audit_master_honest_nofi_posterior_representative_reduction : HonestC
      claim_premise_kinds := [ PremiseStructural; PremiseSemantic; PremiseSemantic; PremiseSemantic ];
      claim_not_imply :=
        [ "Does not automatically derive the posterior-representative witness from arbitrary feasible-set collapse.";
-         "Does not yet eliminate the explicit decision-tree premise." ] |}.
+         "Does not eliminate the explicit decision-tree premise." ] |}.
 
 Definition audit_master_a2_equal_trust_substitution_payoff : HonestClaim :=
   {| claim_name := "master_a2_equal_trust_substitution_payoff";
@@ -565,7 +566,7 @@ Definition audit_master_nofi_to_discrete_einstein_from_psplit_bekenstein_calibra
          "well-formed pre/post triangulations" ];
      claim_premise_kinds := [ PremisePhysical; PremiseSemantic; PremiseStructural; PremisePhysical; PremiseSemantic; PremiseStructural ];
      claim_not_imply :=
-       [ "Does not yet generalize the execution-grounded entropy bridge beyond the PSPLIT family.";
+       [ "Does not generalize the execution-grounded entropy bridge beyond the PSPLIT family.";
          "Does not eliminate the constants calibration premise." ] |}.
 
 Definition audit_master_verification_chain : HonestClaim :=
@@ -716,7 +717,7 @@ Definition audit_master_second_axis_of_undecidability : HonestClaim :=
 (* Claim 2: the concrete 51-opcode VM instance. Its Goedel encoding is
    discharged; the one surviving antecedent is the VM's internal Kleene
    recursion theorem, whose unbounded-execution foundation is VMUnboundedExec.v.
-   Marked StatusConditional precisely because that antecedent is not yet
+   Marked StatusConditional precisely because that antecedent is not
    discharged at the 51-opcode level (the axiom-free discharge lives at the
    nat-coded substrate, claim 1 above). *)
 Definition audit_master_second_axis_vm_instance : HonestClaim :=
@@ -1568,15 +1569,6 @@ Lemma master_verification_scope_observables_exact :
 Proof.
   reflexivity.
 Qed.
-
-(** Previously: a separate lemma
-    [master_verification_scope_includes_full_state_equivalence] recorded
-    that [verification_scope_includes_full_state_equivalence
-    master_verification_scope = true].  That equation is the defining
-    field of [master_verification_scope] (a record constant), so the
-    statement reduced to [true = true] by [reflexivity].  The lemma was
-    used exactly once, in [master_verification_scope_is_explicit] below;
-    the proof now finishes that bullet with [reflexivity] directly. *)
 
 Theorem master_verification_scope_is_explicit :
   master_verification_scope_statement.

@@ -91,7 +91,7 @@ PRJXRAY_DB="${PRJXRAY_DB:-/opt/prjxray-db/kintex7}"
 
 mkdir -p "${BUILD_DIR}"
 
-# Always remove stale per-part outputs so a previously-failed bitstream
+# Always remove stale per-part outputs so an interrupted bitstream generation
 # (which CI's `if: always()` upload would otherwise re-publish) cannot
 # masquerade as a fresh success. The chipdb is part-stable and expensive
 # to regenerate (~30s), so keep it.

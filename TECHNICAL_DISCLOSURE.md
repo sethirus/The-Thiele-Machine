@@ -2,7 +2,7 @@
 
 **Author:** Devon Thiele  
 **First public disclosure:** August 15, 2025 (repository creation; development began January 2025)  
-**Current date:** September 2026 (v3.2.1 documentation correction)\
+**Current date:** September 2026 (v3.2.2)\
 **Repository:** https://github.com/sethirus/The-Thiele-Machine  
 **License:** Apache 2.0 (software), CC-BY-SA-4.0 (monograph/documentation)  
 **Purpose of this document:** Defensive publication. Every concept described here is publicly disclosed prior art under 35 U.S.C. § 102 (US) and Article 54 EPC (Europe) as of the dates above. This document is submitted for indexing to IP.com and similar prior art databases.
@@ -168,7 +168,16 @@ These nonrecoverability statements concern the named projections. The symbol ⊥
 
 ## Concept 12: The Inquisitor Proof Hygiene System
 
-**What it is.** An automated CI tool (`scripts/inquisitor.py`) that scans every Coq file in the active proof tree for: Admitted lemmas, `admit` tactics, vacuous theorems (conclusion is `True` or `0=0`), undocumented global axioms, physics stubs (quantity defined as placeholder constant), circular import chains, and TODO/FIXME markers in proof comments. The scan uses syntactic and heuristic checks; it is not a complete detector of false interpretations or inconsistent theorem premises. Its exit policy fails on HIGH or MEDIUM findings. LOW findings are reported but do not independently make the command fail.
+**What it is.** An automated CI proof audit using `scripts/inquisitor.py` plus
+`scripts/comment_hygiene.py`. Inquisitor scans every Coq file in the active
+proof tree for admitted lemmas, vacuous theorems, undocumented global axioms,
+physics stubs, circular import chains, and proof-scope findings. The comment
+gate scans maintained project-owned source and documentation comments across
+the repository for unfinished or historical review markers. Both scans use
+syntactic and heuristic checks; neither is a complete detector of false
+interpretations or inconsistent theorem premises. Inquisitor fails on HIGH or
+MEDIUM findings; LOW findings are reported without independently failing the
+command.
 
 **Current status.** The current `INQUISITOR_REPORT.md` records 0 HIGH, 0 MEDIUM, and 0 LOW unsuppressed findings across 295 Coq files. In-source suppression markers and their justifications are listed separately in the report; zero unsuppressed findings is not a claim that no checks were suppressed.
 

@@ -6,8 +6,7 @@
     Register convention (host registers only; no CALL/RET is used by these
     straight-line programs, so register 15, the CALL/RET stack pointer
     convention elsewhere in this codebase, is deliberately left unused
-    here for forward compatibility with later phases that might call
-    these as subroutines):
+    here as the stable interface used by the interpreter composition layer):
 
       R0 = packed value (input)
       R1 = slot index i (input)

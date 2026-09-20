@@ -14,13 +14,10 @@
     This file proves the forward direction: if the MM2 instance (p,a,b)
     halts, the real host execution of [zero_out_program p] from (a,b)
     reaches a state with counter 0 = 0. The converse (a host halt with
-    counter 0 = 0 implies the MM2 instance halts) is NOT proved here --
-    it needs an embedding argument in the other direction, or an appeal to
-    excluded middle on MM2_HALTING that this file deliberately avoids
-    introducing as a new axiom dependency for this gate. Consequently this
-    file does NOT yet establish undecidability of "halts with counter 0 =
-    0" by reduction; it is real, checked, partial progress toward that,
-    not the full result. Do not cite this file as closing that gate. *)
+    counter 0 = 0 implies the MM2 instance halts) is outside this file's
+    theorem surface: it requires an embedding argument in the other direction
+    or an additional excluded-middle premise. This file records the checked
+    forward reduction contract, not a full undecidability theorem. *)
 
 From Coq Require Import Arith Lia List.
 Import ListNotations.

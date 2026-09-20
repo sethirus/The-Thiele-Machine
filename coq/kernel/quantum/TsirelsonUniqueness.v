@@ -60,7 +60,7 @@ Proof.
   intros. apply mu_zero_chsh_bounded. assumption.
 Qed.
 
-(** ** Framework Revision (January 2026): Classical vs Quantum Distinction *)
+(** ** Classical and Quantum Boundaries *)
 
 (** CORRECTED UNDERSTANDING:
     - μ=0 operations alone do NOT give classical bound!
@@ -89,4 +89,3 @@ Qed.
     about quantum correlations that would require extensive operator algebra
     to prove rigorously. The Tsirelson bound (2sqrt2) is accepted as an
     empirically verified fact. *)
-

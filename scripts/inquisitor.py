@@ -4027,14 +4027,10 @@ def scan_tautological_implication(path: Path) -> list[Finding]:
 
         found_taut = False
         # ---------------------------------------------------------------
-        # 2026-05-07 hardening: TAUTOLOGICAL_IMPLICATION can no longer be
-        # silenced by INQUISITOR NOTE markers. A theorem of the literal
-        # form `P -> P` or one whose conclusion is identical to a
-        # hypothesis has no honest use case. If this rule fires, the
-        # theorem must be reformulated, not annotated. See
-        # FRONTIER_PLAN.md §"2026-05-07 retraction" for the incident
-        # (F1 `A2_from_physical_reversibility` was hidden by such a
-        # marker) and `feedback_no_inquisitor_bypass.md`.
+        # TAUTOLOGICAL_IMPLICATION is not suppressible by note markers. A
+        # theorem of the literal form `P -> P`, or one whose conclusion is
+        # identical to a hypothesis, has no proof-bearing content. If this
+        # rule fires, the theorem must be reformulated rather than annotated.
         # ---------------------------------------------------------------
 
         for hyp in hypotheses:
@@ -4050,7 +4046,7 @@ def scan_tautological_implication(path: Path) -> list[Finding]:
                         snippet=snippet.strip(),
                         message=f"Theorem `{name}` has conclusion `{conclusion_norm}` identical to "
                                 f"hypothesis `{hyp_norm}` — this is a tautology (P -> P), proves nothing. "
-                                f"INQUISITOR NOTE markers no longer silence this rule (2026-05-07 hardening).",
+                                f"Note markers cannot suppress this rule.",
                     )
                 )
                 found_taut = True
@@ -4087,13 +4083,9 @@ def scan_tautological_implication(path: Path) -> list[Finding]:
             hyp_def_name = hyp_head.group(1)
             if hyp_def_name not in def_bodies:
                 continue
-            # 2026-05-07 hardening: the deeper-tautology check (conclusion
-            # appears inside hypothesis's Definition body) is also no
-            # longer silenced by INQUISITOR NOTE. This is exactly the
-            # rule that flagged `A2_from_physical_reversibility` —
-            # `landauer_macro_erasure_floor`'s body contained
-            # `mcs_cost M i >= 1`, the conclusion of A2. Bypassing this
-            # check let a definitional rename pass as a derivation.
+            # The deeper-tautology check also cannot be suppressed by note
+            # markers: a conclusion repeated inside a hypothesis definition
+            # is a restatement rather than an independent derivation.
             dbody = def_bodies[hyp_def_name]
             if conclusion_norm in dbody:
                 snippet = clean_lines[idx - 1] if 0 <= idx - 1 < len(clean_lines) else stmt
@@ -4106,8 +4098,7 @@ def scan_tautological_implication(path: Path) -> list[Finding]:
                         snippet=snippet.strip(),
                         message=f"Theorem `{name}` conclusion `{conclusion_norm}` appears inside "
                                 f"Definition `{hyp_def_name}` — conclusion is restating part of "
-                                f"hypothesis. INQUISITOR NOTE markers no longer silence this rule "
-                                f"(2026-05-07 hardening).",
+                                f"hypothesis. Note markers cannot suppress this rule.",
                     )
                 )
                 break
@@ -7634,9 +7625,8 @@ def write_report(
     lines.append("- `KERNEL_CONVERTIBILITY_VACUITY`: theorem conclusion is kernel-convertible (after δ/ι/ζ/β reduction) to `True` or to a hypothesis — verified by `scripts/vacuity_gate.py` running synthesised Coq proofs (HIGH)\n")
     lines.append("\n")
 
-    # Always show the vacuity ranking — even on a clean PASS.  Previously this
-    # table was hidden behind the early-exit below, so a PASS run would never
-    # show which files had elevated vacuity scores.
+    # Always show the vacuity ranking, including on a clean PASS, so every run
+    # records which files have elevated vacuity scores.
     if vacuity_index:
         lines.append("## Vacuity Ranking (file-level)\n")
         lines.append(
@@ -7917,10 +7907,10 @@ def main(argv: list[str]) -> int:
 
     # ── Vacuity gate ──────────────────────────────────────────────────────────
     # The vacuity SCORE (from inquisitor_rules.summarize_text) measures how
-    # "trivially true / definitional" a file looks.  Previously this was purely
-    # informational — it appeared in a ranking table but never failed the gate.
-    # That meant a file like `Theorem foo : True.` could score 140 on the
-    # vacuity index and STILL produce a clean PASS.  Fixed here:
+    # "trivially true / definitional" a file looks.  The score is enforced by
+    # the same gate that reports it: a high score fails, while a lower score is
+    # retained as a warning.  A file like `Theorem foo : True.` therefore
+    # cannot produce a clean PASS.
     #
     #   score >= 100  → MEDIUM finding  (True conclusions, Prop:=True, placeholders)
     #   score >=  50  → LOW finding     (const-fun, suspicious-but-mild patterns)

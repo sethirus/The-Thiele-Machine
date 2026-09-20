@@ -75,7 +75,8 @@ mkdir -p build/probe
 # Independent batches bound individual process duration and validate query/result
 # alignment before publishing combined output. Every query is executed afresh.
 python3 scripts/run_assumption_batches.py \
-    --jobs "${THIELE_ASSUMPTION_JOBS:-2}" -- "${COQ_ARGS[@]}"
+    --jobs "${THIELE_ASSUMPTION_JOBS:-2}" \
+    --batch-size "${THIELE_ASSUMPTION_BATCH_SIZE:-2000}" -- "${COQ_ARGS[@]}"
 
 echo "[assumption-receipt] 3/3 aggregating into artifacts/..."
 python3 build/probe/aggregate_full_probe.py
