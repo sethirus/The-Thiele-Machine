@@ -95,6 +95,28 @@ def test_guard_accepts_staged_changes_and_ignored_build_cache(repo):
     assert command(repo, sys.executable, "scripts/check_hook_worktree.py").returncode == 0
 
 
+def test_guard_stages_only_tracked_coq_compiler_outputs(repo):
+    generated = repo / "coq/Generated.glob"
+    generated.parent.mkdir()
+    generated.write_text("original\n")
+    git(repo, "add", str(generated))
+    git(repo, "-c", "core.hooksPath=/dev/null", "commit", "-qm", "generated fixture")
+
+    generated.write_text("rebuilt\n")
+    result = command(repo, sys.executable, "scripts/check_hook_worktree.py",
+                     "--stage-generated")
+    assert result.returncode == 0, result.stderr
+    assert git(repo, "show", ":coq/Generated.glob") == "rebuilt\n"
+
+    source = repo / "source with spaces.v"
+    source.write_text("unrelated source edit\n")
+    result = command(repo, sys.executable, "scripts/check_hook_worktree.py",
+                     "--stage-generated")
+    assert result.returncode == 1
+    assert "source with spaces.v" in result.stderr
+    assert git(repo, "show", ":source with spaces.v") == "original\n"
+
+
 @pytest.fixture
 def pipeline(repo, tmp_path):
     outputs = [
@@ -243,10 +265,10 @@ def test_hook_regenerates_probe_but_defers_receipt_to_ci(pipeline):
     """A proof change refreshes the probe locally; the receipt is CI's job.
 
     Re-deriving the receipt means executing every Print Assumptions query in the
-    corpus (~12k over 421 modules), which is CPU-bound and cannot finish inside
-    this sandbox's pre-commit hook. The hook regenerates the probe and checks
-    receipt/probe coherence; CI's `make assumption-receipt-check` re-derives and
-    diffs the receipt with a 6-hour budget and no reaper.
+    corpus (~12k over 421 modules), which is CPU-bound and does not belong in
+    the local pre-commit hook. The hook regenerates the probe and checks
+    receipt/probe coherence; CI's `make assumption-receipt-check` performs the
+    full semantic derivation when proof-relevant inputs changed.
     """
     repo, _ = pipeline
     (repo / "coq/Proof.v").write_text("proof change\n")
