@@ -2061,10 +2061,11 @@ No mutual information, probability distributions, or CHSH values appear anywhere
 formalization.
 
 Remark 20.1. The intended statement, that Bob’s total information about Alice’s data is
-bounded by the channel’s µ-capacity, is a reasonable physical claim but is not formalized in
-the Coq file. The current file is a placeholder that assumes the conclusion as a hypothesis and
-re-derives it. A future version would need to define entropy, mutual information, and prove the
-bound from the VM semantics.
+bounded by the channel’s µ-capacity, is outside the formalized result. The Coq file packages the
+proposed equivalence as an explicit hypothesis and derives the stated consequence from that
+hypothesis. It defines neither entropy nor mutual information and proves no bound from the
+VM semantics; those physical quantities and their connection to µ are outside the present formal
+scope.
 
 
 

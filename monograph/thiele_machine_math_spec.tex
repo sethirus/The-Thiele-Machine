@@ -1612,7 +1612,7 @@ The file defines two record types (\texttt{ICScenario} and \texttt{MuScenario}) 
 \end{theorem}
 
 \begin{remark}
-The intended statement, that Bob's total information about Alice's data is bounded by the channel's $\mu$-capacity, is a reasonable physical claim but is \textbf{not formalized} in the Coq file. The current file is a placeholder that assumes the conclusion as a hypothesis and re-derives it. A future version would need to define entropy, mutual information, and prove the bound from the VM semantics.
+The intended statement, that Bob's total information about Alice's data is bounded by the channel's $\mu$-capacity, is outside the formalized result. The Coq file packages the proposed equivalence as an explicit hypothesis and derives the stated consequence from that hypothesis. It defines neither entropy nor mutual information and proves no bound from the VM semantics; those physical quantities and their connection to $\mu$ are outside the present formal scope.
 \end{remark}
 
 \chapter{Thermodynamic Bridge}

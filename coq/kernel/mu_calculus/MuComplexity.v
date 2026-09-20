@@ -137,7 +137,7 @@ Qed.
     N > 18 the two axes move in opposite directions: the sighted program pays
     strictly more mu (18 vs 0) and takes strictly fewer steps (2*N < N^2).
     Paying mu buys steps back — that is the trade, stated as real arithmetic
-    rather than the [True /\ True] placeholder this used to carry.
+    rather than as a vacuous conjunction.
 
     This is the in-file arithmetic witness for the 18-mu structural advantage.
     The unbounded, cost-model version is

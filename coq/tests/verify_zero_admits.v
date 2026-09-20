@@ -296,9 +296,9 @@ Print Assumptions ProperSubsumption.thiele_strictly_extends_turing.
     A trivial lemma whose [let _ := ...] preamble forces every cited
     theorem to type-check. Its job is to give this audit script at
     least one proof symbol with dependencies on the production kernel,
-    so the dependency graph carries it. The conclusion [1 <> 0] is a
-    placeholder; what matters is that all the names in scope refer to
-    real, [Qed]-closed theorems. *)
+    so the dependency graph carries it. The conclusion [1 <> 0] is an
+    independent anchor; the substantive purpose is that every name in scope
+    refers to a real, [Qed]-closed theorem. *)
 Lemma zero_admit_connectivity_check :
   let _ := mu_conservation_kernel in
   let _ := run_vm_mu_monotonic in

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Fast local consistency check for the Print Assumptions receipt.
 
-The full receipt is re-derived in CI (``make assumption-receipt-check``), which
-has the CPU budget and no process reaper. Re-running all ~12k ``Print
+The exact receipt is re-derived whenever the proof-relevant corpus fingerprint
+changes. Comment-only and documentation changes reuse the receipt after the
+fingerprint and coverage links are checked. Re-running all ~12k ``Print
 Assumptions`` queries inside the pre-commit hook is impractical: the work is
-CPU-bound over 421 modules (2-core sandbox -> hours) and this environment
-SIGTERMs long-running detached processes, so the hook never finished.
+CPU-bound over 421 modules and repeated process startup dominates the cost.
 
 This check keeps the hook honest without re-deriving the receipt. It verifies
 that the committed receipt is *internally consistent* and *covers exactly the
@@ -18,9 +18,10 @@ committed probe*, so a stale or partial receipt cannot be committed silently:
   5. the probe's query count equals the receipt's theorem count, and the
      queries are unique (this is the probe/receipt coverage link).
 
-It does NOT verify theorem/axiom *results* -- that is CI's job. A pass here
-means "this receipt is a coherent snapshot of this probe", not "the proofs
-have not drifted".
+It does NOT verify theorem/axiom *results* -- that is the full receipt path's
+job when the fingerprint changes. A pass here means "this receipt is a
+coherent snapshot of this unchanged proof corpus", not "the proofs have not
+drifted".
 """
 from __future__ import annotations
 
@@ -33,6 +34,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from coq_proof_scope import FULL_ASSUMPTION_PROBE  # noqa: E402
 from run_assumption_batches import split_probe  # noqa: E402
+from assumption_receipt_fingerprint import corpus_digest, probe_digest  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 RECEIPT = "artifacts/print_assumptions_all_proofs.json"
@@ -103,10 +105,15 @@ def main() -> None:
              "regenerate it with `make assumption-receipt` (CI re-derives and "
              "diffs it, so a stale receipt will fail there).")
 
+    if receipt.get("corpus_digest") != corpus_digest(ROOT):
+        fail("receipt corpus fingerprint does not match the current proof/toolchain inputs")
+    if receipt.get("probe_digest") != probe_digest(probe_path):
+        fail("receipt probe fingerprint does not match the current generated probe")
+
     print(f"[assumption-consistency] receipt is a coherent snapshot of "
           f"{len(queries)} queries over {receipt.get('files_probed')} files "
           f"(hash {actual[:12]}...). "
-          "Theorem/axiom results are re-derived in CI.")
+          "A proof-relevant fingerprint change forces full re-derivation.")
 
 
 if __name__ == "__main__":

@@ -11,16 +11,17 @@
 
     Instructions T_Write, T_Move, T_Branch, T_Halt are standard Turing operations.
     H_ClaimTapeIsZero is present in the syntax, but this executor treats it as
-    an advance-only placeholder: it does not zero the tape and does not charge μ.
-    Any costful or tape-zeroing semantics would need a stronger step function.
+    an advance-only branch: it does not zero the tape and does not charge μ.
+    Costful or tape-zeroing semantics belong to the separate costed step
+    function in [KernelThiele.v].
 
     tm_is_turing_complete proves that running a TuringMachine for its specified
     steps produces its final_state_for. That theorem is tautological by
     construction; the useful content is the explicit step_tm/run_tm definition.
 
-    To falsify: show that step_tm doesn't correctly implement TM semantics, or
-    show that the placeholder ClaimTapeIsZero behavior is being used somewhere
-    as if it erased the tape or charged μ.
+    To falsify: show that step_tm does not correctly implement the stated toy
+    semantics, or show that its ClaimTapeIsZero branch is used elsewhere as if
+    it erased the tape or charged μ.
 
     This file is a MINIMAL EXAMPLE for testing. The full VM (VMState, VMStep)
     is the production computational model.

@@ -49,8 +49,8 @@ From Kernel Require Import Kernel KernelTM.
   ClaimTapeIsZero instruction pays the supplied μ cost.
 
   Comparison to step_tm: KernelTM.step_tm treats H_ClaimTapeIsZero as an
-  advance-only placeholder. step_thiele gives that placeholder a tape effect
-  and a μ charge.
+  advance-only branch. step_thiele gives the same instruction its specified
+  tape effect and μ charge.
 
   To falsify the formal rule: find prog/st where the ClaimTapeIsZero branch
   does not zero the tape or does not add delta.

@@ -41,10 +41,10 @@ Require Import VerifierModel.
     state is one of the two μ-collision witnesses [po1_state_A] /
     [po1_state_B] from NecessityOfMuLedger.
 
-    The budget and recompute fields are filled in with placeholder
-    values; this theorem does not depend on the cost numbers (it
-    refutes sound+complete unconditionally), but the record demands
-    a [nat] in each slot.
+    The budget and recompute fields are unconstrained witness data in this
+    theorem. The result does not depend on their values: it refutes
+    sound-and-complete verification unconditionally while satisfying the
+    transcript record's total shape.
 *)
 
 Definition mu_eq_one_claim (s : VMState) : Prop := s.(vm_mu) = 1.

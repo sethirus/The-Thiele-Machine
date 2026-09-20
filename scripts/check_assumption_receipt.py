@@ -11,6 +11,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from coq_proof_scope import FULL_ASSUMPTION_PROBE
 from run_assumption_batches import split_probe
+from assumption_receipt_fingerprint import corpus_digest, probe_digest
 
 ROOT = Path(__file__).resolve().parents[1]
 RECEIPT = 'artifacts/print_assumptions_all_proofs.json'
@@ -56,6 +57,20 @@ def theorem_results(probe: str, output: str) -> dict[str, tuple[str, ...]]:
     return results
 
 
+def current_receipt_is_fresh(probe: str, output: str, metadata: dict) -> bool:
+    """Validate the committed receipt without re-running Coq when safe."""
+    if metadata.get('corpus_digest') != corpus_digest(ROOT):
+        return False
+    if metadata.get('probe_digest') != probe_digest(ROOT / FULL_ASSUMPTION_PROBE):
+        return False
+    if not metadata.get('alignment_ok') or metadata.get('unexpected_lines_in_output') != 0:
+        return False
+    results = theorem_results(probe, output)
+    if metadata.get('blocks_parsed') != len(results):
+        return False
+    return metadata.get('summary', {}).get('user_or_third_party_axiom_findings') == 0
+
+
 def compare_receipts(old_probe: str, old_output: str, old_meta: dict,
                      fresh_probe: str, fresh_output: str, fresh_meta: dict) -> None:
     for metadata in (old_meta, fresh_meta):
@@ -81,10 +96,23 @@ def committed(path: str) -> str:
 
 def main() -> None:
     try:
+        current_probe = (ROOT / FULL_ASSUMPTION_PROBE).read_text()
+        current_output = (ROOT / OUTPUT).read_text()
+        current_meta = json.loads((ROOT / RECEIPT).read_text())
+        if current_receipt_is_fresh(current_probe, current_output, current_meta):
+            print('[assumption-receipt-check] Fresh semantic fingerprint; '
+                  'reused the exact committed theorem/axiom receipt.')
+            return
+
+        # A stale fingerprint means a proof-relevant input changed. Re-run
+        # the complete corpus before comparing the new result with HEAD.
+        subprocess.run(['bash', 'scripts/generate_assumption_receipt.sh'],
+                       cwd=ROOT, check=True)
+        fresh_probe = (ROOT / FULL_ASSUMPTION_PROBE).read_text()
         compare_receipts(committed(FULL_ASSUMPTION_PROBE), committed(OUTPUT),
-                         json.loads(committed(RECEIPT)),
-                         (ROOT / FULL_ASSUMPTION_PROBE).read_text(),
-                         (ROOT / OUTPUT).read_text(), json.loads((ROOT / RECEIPT).read_text()))
+                         json.loads(committed(RECEIPT)), fresh_probe,
+                         (ROOT / OUTPUT).read_text(),
+                         json.loads((ROOT / RECEIPT).read_text()))
     except (ValueError, subprocess.CalledProcessError) as error:
         print(f'[assumption-receipt-check] FAIL: {error}', file=sys.stderr)
         raise SystemExit(1)

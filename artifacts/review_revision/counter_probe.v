@@ -1,8 +1,0 @@
-Require Import Kernel.VMUnboundedCounterAccess.
-Print Kernel.VMUnboundedCounterAccess.counter_witness.
-Check Kernel.VMUnboundedCounterAccess.witness_counter_equality_test.
-Print Assumptions Kernel.VMUnboundedCounterAccess.witness_counter_equality_test.
-Check Kernel.VMUnboundedCounterAccess.counter_witness_increment.
-Print Assumptions Kernel.VMUnboundedCounterAccess.counter_witness_increment.
-Check Kernel.VMUnboundedCounterAccess.counter_witness_decrement.
-Print Assumptions Kernel.VMUnboundedCounterAccess.counter_witness_decrement.

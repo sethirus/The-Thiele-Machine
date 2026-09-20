@@ -57,6 +57,8 @@ def _write_repo(tmp_path: Path, *, theorems: int = 2, raw_text: str = "ok\n",
         "unexpected_lines_in_output": 0,
         "files_probed": 1,
         "summary": {"theorems_probed": theorems},
+        "corpus_digest": MODULE.corpus_digest(tmp_path),
+        "probe_digest": MODULE.probe_digest(tmp_path / PROBE_REL),
     }
     receipt.update(overrides)
     (tmp_path / RECEIPT_REL).write_text(json.dumps(receipt))

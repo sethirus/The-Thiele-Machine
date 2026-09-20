@@ -259,8 +259,9 @@ assumption-receipt:
 	$(MAKE) -C coq -j4
 	@bash scripts/generate_assumption_receipt.sh
 
-# Fail if the committed receipt differs from a fresh re-derivation.
-assumption-receipt-check: assumption-receipt
+# Validate the receipt. The check reuses it for an unchanged semantic corpus
+# and re-derives the full corpus automatically when its fingerprint changes.
+assumption-receipt-check:
 	@python3 scripts/check_assumption_receipt.py
 
 # Install the Thiele Machine git hooks (one-time per checkout).

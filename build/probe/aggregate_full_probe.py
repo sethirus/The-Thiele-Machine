@@ -18,6 +18,9 @@ INV = BUILD / "probe_inventory.json"
 ART = ROOT / "artifacts"
 ART.mkdir(exist_ok=True)
 
+sys.path.insert(0, str(ROOT / "scripts"))
+from assumption_receipt_fingerprint import corpus_digest, probe_digest
+
 inv = json.loads(INV.read_text())
 queries = []
 for f in inv["files"]:
@@ -250,9 +253,11 @@ closed_count = sum(1 for r in per_theorem_results if r["status"] == "closed_unde
 axiom_count = sum(1 for r in per_theorem_results if r["status"] == "depends_on_axioms")
 
 manifest = {
-    "schema": "thiele-print-assumptions-full-probe-v2",
+    "schema": "thiele-print-assumptions-full-probe-v3",
     "generated": datetime.datetime.now(datetime.timezone.utc).isoformat(),
     "coq_version": "8.18.0",
+    "corpus_digest": corpus_digest(),
+    "probe_digest": probe_digest(ROOT / "coq/AssumptionsProbeAll.v"),
     "probe_file": "coq/AssumptionsProbeAll.v",
     "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
     "raw_output_sha256": hashlib.sha256(text.encode()).hexdigest(),

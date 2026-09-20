@@ -1,5 +1,0 @@
-Require Import KamiHW.VerilogRefinement.
-Check KamiHW.VerilogRefinement.kami_vm_mu_diamond.
-Print Assumptions KamiHW.VerilogRefinement.kami_vm_mu_diamond.
-Check KamiHW.VerilogRefinement.kami_vm_mu_conservative.
-Print Assumptions KamiHW.VerilogRefinement.kami_vm_mu_conservative.
