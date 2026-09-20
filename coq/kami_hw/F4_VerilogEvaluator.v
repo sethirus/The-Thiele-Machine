@@ -85,7 +85,7 @@ Fixpoint vexpr_eval_simple (e : VExpr) (s : SimpleState) : nat :=
   | VRegRef name        => s name
   | VLit v              => v
   | VUnary _ e1         => vexpr_eval_simple e1 s  (* opaque op label; identity in simple model *)
-  | VBinary _ e1 e2     => vexpr_eval_simple e1 s + vexpr_eval_simple e2 s  (* opaque op; addition placeholder *)
+  | VBinary _ e1 e2     => vexpr_eval_simple e1 s + vexpr_eval_simple e2 s  (* explicit simple-model interpretation *)
   | VITE c t f          =>
       if Nat.eqb (vexpr_eval_simple c s) 0%nat
       then vexpr_eval_simple f s

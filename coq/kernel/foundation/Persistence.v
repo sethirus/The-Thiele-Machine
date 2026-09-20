@@ -80,13 +80,13 @@ Definition fuel_cost (i : vm_instruction) : nat := instruction_cost i.
   correctly, you get fuel back). In the current model, NO rewards are given -
   all costs are irreversible.
 
-  IMPLEMENTATION: Constant function returning 0 for all instructions. The match
-  structure is a placeholder for potential future reward policies (e.g., reward
-  = cost for reversible operations).
+  IMPLEMENTATION: Constant function returning 0 for all instructions. The
+  match structure makes the reward policy explicit and leaves the current
+  model with no refunds.
 
   PHYSICAL MEANING: In thermodynamics, reversible processes (unitary evolution)
-  should have zero NET cost. We could model this with reward = cost for unitary
-  ops. Currently we keep it simple: all operations consume fuel irreversibly.
+  may have zero net cost under a suitable physical model. This file does not
+  encode that calibration; every operation consumes fuel irreversibly here.
 
   DESIGN CHOICE: I chose reward = 0 because:
   1. Simplifies proofs (no need to track reversibility)

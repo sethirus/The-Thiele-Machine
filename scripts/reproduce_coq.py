@@ -29,7 +29,7 @@ CONFIGS = ('coq/_CoqProject', 'coq/Makefile.local',
            'vendor/coq-undecidability/theories/_CoqProject',
            'vendor/coq-undecidability/LICENSE',
            'vendor/coq-undecidability/UPSTREAM.md',
-           'scripts/reproduce_coq.py', 'scripts/check_review_contracts.py')
+           'scripts/reproduce_coq.py', 'scripts/check_coq_probe.py')
 DEFAULT_PROBES = ('tests/coq_probes/cm2_delivery.v',
                   'tests/coq_probes/dispatch_delivery.v',
                   'tests/coq_probes/core_execution.v',

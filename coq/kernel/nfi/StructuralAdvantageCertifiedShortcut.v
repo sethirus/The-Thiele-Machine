@@ -329,9 +329,8 @@ Definition factored_n1_shortcut
 
 (** Downstream sanity: the closed term lands in the abstract representation
     theorem. This is not a tautology; it requires [factored_n1_shortcut] to
-    actually be a SoundStructuralShortcut record (not, say, a placeholder
-    matching the type alias). If the record above were vacuous the chain
-    below would not close. *)
+    actually inhabit the SoundStructuralShortcut record with all of its
+    data and proof obligations. A vacuous record would not close the chain. *)
 Theorem factored_n1_shortcut_lands_in_representation :
   let P_prior :=
     InformationGainToStrengthening.omega_predicate

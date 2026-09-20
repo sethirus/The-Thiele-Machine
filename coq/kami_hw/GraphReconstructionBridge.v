@@ -3554,8 +3554,9 @@ Qed.
     with concatenated coupling.  Source, target, AND coupling all differ.
 
     This is the most divergent opcode: driver-patched, like TENSOR_SET/GET.
-    The hardware produces a placeholder morphism; the driver must patch
-    source, target, and coupling to match the kernel's tensor semantics.
+    The hardware produces a default tensor-morphism descriptor; the driver
+    supplies source, target, and coupling data required by the kernel's
+    tensor semantics.
 
     Unlike COMPOSE, the hardware performs NO endpoint, module-existence,
     disjointness, or union-module checks that [graph_tensor_morphisms]

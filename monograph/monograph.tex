@@ -223,7 +223,7 @@
 and No Free Insight}\\[3.5em]
 \rule{0.5\linewidth}{0.4pt}\\[1.8em]
 {\large Devon Thiele}\\[0.6em]
-{\normalsize\itshape September 2026 -- v3.2.1}
+{\normalsize\itshape September 2026 -- v3.2.2}
 \end{center}
 \vspace*{\fill}
 \end{titlepage}
@@ -283,7 +283,7 @@ Then within weeks I found out the engine I had built to draw pictures was genera
 
 I kept going, because by then I could not not keep going. I built a small custom language for describing scenes (the name for that is a domain-specific language, a DSL), then a program that read the language and caught my mistakes in it (a linter), then a way to type commands at the whole thing from a terminal (a command-line interface, a CLI). The night the engine first ran a program declaratively, meaning I told it what should happen and let it work out the how instead of my spelling out every step, I told Julie I thought I was onto something. She said okay.
 
-Then I hit a wall, and it is the wall this whole document is about. Z3 could settle the small questions and fell over on the exact ones I needed answered, which left me staring down an infinite hallway of guess-and-test with no proof waiting at the end of it, ever. One night, not even working, I was watching a video about Flatland, the old story about a creature living in two dimensions who cannot so much as picture a third. And it landed on me sideways, all at once, the way the real ones always do. I said it out loud: I get it now. There is another axis. Classical computation only ever sees what it can read and write off its own surface, and there is a whole direction it is blind to, not because it is broken but because it was never built with an eye that points that way. I opened a new repo that same night and called the thing in it the Thiele Machine. It was a placeholder, the name you give a folder so you can save it. It stuck, and it later turned out to carry more than I meant by it, but that is its own story and I get to it further down.
+Then I hit a wall, and it is the wall this whole document is about. Z3 could settle the small questions and fell over on the exact ones I needed answered, which left me staring down an infinite hallway of guess-and-test with no proof waiting at the end of it, ever. One night, not even working, I was watching a video about Flatland, the old story about a creature living in two dimensions who cannot so much as picture a third. And it landed on me sideways, all at once, the way the real ones always do. I said it out loud: I get it now. There is another axis. Classical computation only ever sees what it can read and write off its own surface, and there is a whole direction it is blind to, not because it is broken but because it was never built with an eye that points that way. I opened a new repo that same night and called the thing in it the Thiele Machine. The name began as a working title and became the name of the model. It carries the larger claim plainly: the machine treats structural state as part of computation.
 
 What survived the whole trip from there to here is not the code. Not one line of it. By the time the Coq proofs finally landed, every line of that first renderer had been thrown out and rewritten at least twice, probably more, and good riddance to all of it. What survived was a single architectural commitment I made early and never once let anyone talk me out of: category theory is the state itself, the actual thing the machine runs on, not a metaphor laid over some realer state underneath. The \texttt{Category} structure that came together in that first week and first ran morphisms correctly at two in the morning on January 22 is, in different words and different syntax, the same object \texttt{vm\_graph} is in the 51-opcode realisation. Finding the different words took fifteen months. I did not write that code, not then and not now. I directed the models and refused everything they handed me until the morphisms composed the way the shape said they had to. The morphisms in that early code were objects that remembered where they came from; the morphisms in the realisation are objects that remember where they came from and that you can walk up to and challenge with MORPH\_ASSERT. The receipt grew teeth. But the shape itself never moved. The shape was the substrate the entire time, and everything else, every renderer and language and proof, was me slowly learning to see what I had already built.
 
@@ -521,7 +521,10 @@ An embedding is a functor that throws nothing away. That is the whole point of p
 
 A monoidal product is a way of combining two objects, or two arrows, into one. In the category of sets, the Cartesian product $A \times B$ is a monoidal product on objects. In the category of Thiele modules, the operation behind MORPH\_TENSOR is a monoidal product on morphisms. Take two morphisms with disjoint source and target regions. Pack them into a single morphism whose coupling is the concatenation. The symbol $\otimes$ stands for this in Section~\ref{sec:isa}.
 
-Yoneda's lemma is named once in the Section~1 origin story and never appears again. You can ignore it. I dropped it during the work because I did not need it for any theorem. I left the name in. That is when I first knew the work was assembling.
+Yoneda's lemma is part of the historical motivation for the early categorical
+engine, but it is not used by the formal development and does not occur in any
+theorem dependency. The checked results in this document rely on the explicit
+category, morphism, and composition structures defined in the repository.
 
 \subsection{Bell-test vocabulary you will meet in Section~\ref{sec:chsh}}
 
@@ -1389,7 +1392,7 @@ There's a concrete version of all this you can run, a factored search problem bu
 
 The point of this example is not the $N^2$ versus $2N$ speedup. Divide-and-conquer is not the new claim. Nobody is selling that. The point is the auditable trace. The receipt-visible \texttt{EMIT} events plus the certified suffix make the structural shortcut admissible to the substrate, not just asserted by the programmer who happens to feel good about it. The 18 $\mu$ is the cost of producing the receipt. The receipt is the evidence that the structural shortcut is honest.
 
-There are two nearby claims here and it matters to keep them separate, because conflating them is exactly how a real theorem turns into a stage trick. The \texttt{EMIT}-only $N=1$ witness closes the observation layer. It proves posterior admissibility as \texttt{CertifiedObs} (a Coq type for ``a certified observation has been recorded,'' meaning the VM has observed and recorded a result but has not yet activated a cert channel). It does not close the stronger bridge. The trace does not end in \texttt{has\_supra\_cert}. In the semantic CSR-transition sense, it does not realize structure addition. A minimally extended witness does close the full theorem honestly. Keep the factorized search exactly as it is, then append \texttt{PNEW}, \texttt{MORPH\_ID}, and \texttt{MORPH\_ASSERT}. That suffix fires the concrete certification channel. The extended trace lands in the full structure-addition theorem. The fix is three opcodes long. The fix exists.
+There are two nearby claims here and it matters to keep them separate, because conflating them is exactly how a real theorem turns into a stage trick. The \texttt{EMIT}-only $N=1$ witness closes the observation layer. It proves posterior admissibility as \texttt{CertifiedObs} (a Coq type for ``a certified observation has been recorded,'' meaning the VM has observed and recorded a result but has not yet activated a cert channel). It does not close the stronger bridge. The trace does not end in \texttt{has\_supra\_cert}. In the semantic CSR-transition sense, it does not realize structure addition. Appending \texttt{PNEW}, \texttt{MORPH\_ID}, and \texttt{MORPH\_ASSERT} to the factorized search fires the concrete certification channel and places the resulting trace within the full structure-addition theorem.
 
 That example is not a P vs NP result. Anybody who reads it as one is reading their own ambition into the bytes. It is a small, honest witness for what the substrate is meant to track. Certified structure can change which computation is admissible. The cost of acquiring that admissibility is not the same as the time saved by using it. One is the entry fee. The other is the dividend.
 
@@ -1785,7 +1788,10 @@ Merges modules $m_1$ and $m_2$ and charges $\delta$. The hardware-aligned step c
 
 \medskip
 \noindent\textbf{PDISCOVER($m$, \textit{evidence}, $\delta$)}: query partition structure.\\
-The evidence payload is carried by the instruction, but the hardware-aligned relation does not attach axioms or mutate the graph. It advances the PC and charges $\delta$. This is a placeholder for discovery accounting, not a register query in the current kernel step.
+The evidence payload is carried by the instruction, but the hardware-aligned
+relation does not attach axioms or mutate the graph. It advances the PC and
+charges $\delta$. In the current kernel step this instruction is an explicit
+accounting event; it does not perform a register query or assert semantic truth.
 
 \subsection{Group 2: Logic and certification (3 opcodes)}
 
@@ -2293,7 +2299,7 @@ Zero Admitted means: no step in any theorem proof was asserted without derivatio
 
 Here is the trick that makes the OCaml layer worth having at all. A Coq definition is two things wearing one coat: a recipe for computing an answer, and a proof that the recipe behaves. Extraction takes the coat off. It keeps the recipe, in this case rendered into OCaml, an ordinary programming language you can compile and run like any other, and it drops the proof terms on the floor, because a CPU has no use for them. So \texttt{vm\_apply} (the function that defines what every opcode does) walks out the door as an OCaml function that computes the same answer on the same inputs. The proofs do not come along. The algorithm does. That is the whole point: I get a binary I can actually run, descended from the exact definition the theorems were proved about, and the descent is mechanical rather than me retyping the semantics into a second language and praying. The extracted runner executes all 51 opcodes from the Coq semantics, morphism operations and \texttt{CHSH\_LASSERT} included.
 
-The trust boundary at this layer is named explicitly. The kernel proves formal facts about the Coq-side observable (\texttt{shadow\_to\_eo (vm\_apply s i)} strips a state down to its observable fields after one instruction): exact $\mu$ accounting, $\mu$ never decreases, the function is total. It also names the external runner boundary. The Coq lemma \code{ocaml\_runner\_agrees} is a Coq-side reflexive witness (a proof that one Coq expression equals itself, useful as a placeholder), not an unproved \texttt{Hypothesis} (Section~\ref{sec:vocab}). The cross-language claim, that the built OCaml binary returns the same observable as the Coq semantics on every input, is checked by the parity test suite (Section~\ref{sec:vocab}: run both on the same battery, verify they agree). I do not count that as a kernel theorem. It is an audited boundary, backed by tests, named in the source.
+The trust boundary at this layer is named explicitly. The kernel proves formal facts about the Coq-side observable (\texttt{shadow\_to\_eo (vm\_apply s i)} strips a state down to its observable fields after one instruction): exact $\mu$ accounting, $\mu$ never decreases, and totality. It also names the external runner boundary. The Coq lemma \code{ocaml\_runner\_agrees} is a reflexive Coq-side boundary marker, not an unproved \texttt{Hypothesis} (Section~\ref{sec:vocab}) and not a cross-language equivalence theorem. The cross-language claim, that the built OCaml binary returns the same observable as the Coq semantics on every input, is checked by the parity test suite (Section~\ref{sec:vocab}: run both on the same battery, verify they agree). I do not count that as a kernel theorem. It is an audited boundary, backed by tests, named in the source.
 
 \subsection{Layer 3: The Kami RTL hardware}
 
@@ -3362,14 +3368,14 @@ Repository: \url{https://github.com/sethirus/The-Thiele-Machine}. The
 repository carries the formal sources, pinned dependency trees, executable
 contract probes, and the native reproduction runner. The authoritative
 reproduction procedure is documented in \texttt{docs/REPRODUCTION.md}; it
-builds a fresh source snapshot and never relies on a review-session patch or
-precompiled proof objects.
+builds a fresh source snapshot and does not rely on patches or precompiled
+proof objects.
 
 Use the native toolchain required by the repository, then run the following
 commands from the repository root:
 \begin{verbatim}
 python3 scripts/reproduce_coq.py --jobs 1
-python3 scripts/check_review_contracts.py
+python3 scripts/check_coq_probe.py
 bash monograph/build_monograph.sh
 \end{verbatim}
 

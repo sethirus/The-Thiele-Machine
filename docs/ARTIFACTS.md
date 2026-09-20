@@ -1,0 +1,46 @@
+# Generated artifacts and evidence
+
+The repository distinguishes source, reproducible evidence, and disposable
+build output. A committed artifact is current only when this document names
+its generator and consumer.
+
+## Retained evidence
+
+The following records are generated from the checked source and are retained
+because CI, release review, or reproducibility checks consume them:
+
+| Surface | Generator | Consumer or purpose |
+| --- | --- | --- |
+| `INQUISITOR_REPORT.md` and `artifacts/INQUISITOR_REPORT.md` | `python3 scripts/inquisitor.py --report INQUISITOR_REPORT.md` | Proof-audit result and CI upload |
+| `artifacts/print_assumptions_all_proofs.*` | `scripts/check_assumptions.py` | Assumption receipt and diff gate |
+| `artifacts/proof_dependency_*.json` and `.mmd` | `scripts/generate_proof_dependency_dag.py` | Proof connectivity and audit visualization |
+| `artifacts/proof_gate/` | `scripts/proof_gate_reproducible.sh` | Reproducible proof-gate metadata |
+| `artifacts/final_claim_audit/` | `scripts/final_claim_audit.py` | Claim-to-evidence inventory |
+| `artifacts/rtl_pipeline_manifest.json` | `scripts/generate_rtl_pipeline_manifest.py` | Generated RTL provenance check |
+| `artifacts/rtl_text_transform_audit.json` | `scripts/audit_rtl_text_transforms.py` | RTL transformation integrity check |
+| `artifacts/synthesis_gate/` | synthesis gate scripts | Repeated synthesis comparison |
+| `monograph/*.pdf` and generated plaintext | `monograph/build_monograph.sh` | Publication outputs and text review |
+
+The exact command and current source inputs for each surface belong in the
+generating script or its workflow step. A generated file must not be edited by
+hand; regenerate it and review the resulting diff.
+
+## Disposable output
+
+`build/`, Coq object files (`*.vo`, `*.glob`, `*.vok`, `*.vos`, and `*.aux`),
+temporary probe logs, simulator output, and FPGA intermediate files are build
+products. They may be created locally or in CI and are removed by the clean
+targets or the workflow checkout. They are not a second source tree.
+
+## Historical material
+
+The former `artifacts/review_revision/` directory was a working-session
+snapshot. It mixed review prose, duplicated probes, compiled proof objects,
+source patches, validation logs, and intermediate manifests. None of those
+files was an input to the active workflows after the probes were moved to
+`tests/coq_probes/`; the snapshot has therefore been retired rather than
+presented as current assurance. Current assurance is documented in
+`docs/ASSURANCE.md`, `docs/REPRODUCTION.md`, and `docs/VM_CONTRACTS.md`.
+
+Historical review material is not evidence for a current claim unless the
+claim is reproduced by one of the retained generators above.

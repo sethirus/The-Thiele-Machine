@@ -218,9 +218,10 @@ jobs:
       - name: Run bedrock assumption gate
         run: python scripts/inquisitor_assumption_gate.py
 
-      - name: Re-derive the assumption receipt and diff it against the committed one
-        # This is the check behind the "0 project-local axioms" badge.
-        # Executes Print Assumptions over the corpus and fails on proof drift.
+      - name: Validate the assumption receipt
+        # This is the check behind the "0 project-local axioms" badge. It
+        # reuses the exact committed receipt for an unchanged semantic corpus
+        # and executes every Print Assumptions query when proof inputs drift.
         run: make assumption-receipt-check
 
       - name: Upload regenerated assumption receipt

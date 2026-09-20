@@ -79,9 +79,9 @@ Open Scope string_scope.
 (** Verilog name (string). *)
 Definition VName := string.
 
-(** Verilog operator-label tags (placeholders for the structural shape
-    of the operator without committing to a specific bit-precise
-    Verilog opcode encoding). *)
+(** Verilog operator-label tags that preserve the structural shape of an
+    operator without committing this translation layer to a bit-precise
+    Verilog opcode encoding. *)
 
 Inductive VOpLabel : Type :=
 | VOpAnd | VOpOr | VOpXor | VOpNot

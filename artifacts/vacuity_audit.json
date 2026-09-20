@@ -29,126 +29,6 @@
       "status": "ok"
     },
     {
-      "file": "coq/VerifierImpossibility.v",
-      "kind": "Lemma",
-      "line": 70,
-      "name": "witness_A_satisfies_claim",
-      "probe_a": {
-        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__a.v\", line 3, characters 69-80:\nError: The reference po1_state_A was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__b.v\", line 3, characters 69-80:\nError: The reference po1_state_A was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__b.v",
-        "succeeded": false
-      },
-      "statement": "mu_eq_one_claim po1_state_A",
-      "status": "ok"
-    },
-    {
-      "file": "coq/VerifierImpossibility.v",
-      "kind": "Lemma",
-      "line": 77,
-      "name": "witness_B_violates_claim",
-      "probe_a": {
-        "coq_stderr_tail": "efault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__a.v\", line 3, characters 70-81:\nError: The reference po1_state_B was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "efault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__b.v\", line 3, characters 70-81:\nError: The reference po1_state_B was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__b.v",
-        "succeeded": false
-      },
-      "statement": "~ mu_eq_one_claim po1_state_B",
-      "status": "ok"
-    },
-    {
-      "file": "coq/VerifierImpossibility.v",
-      "kind": "Lemma",
-      "line": 86,
-      "name": "witness_A_explains_shared",
-      "probe_a": {
-        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__a.v\", line 3, characters 75-86:\nError: The reference po1_state_A was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__b.v\", line 3, characters 75-86:\nError: The reference po1_state_A was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__b.v",
-        "succeeded": false
-      },
-      "statement": "mu_collision_explains po1_state_A po1_strict_trace_A",
-      "status": "ok"
-    },
-    {
-      "file": "coq/VerifierImpossibility.v",
-      "kind": "Lemma",
-      "line": 94,
-      "name": "witness_B_explains_shared",
-      "probe_a": {
-        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__a.v\", line 3, characters 75-86:\nError: The reference po1_state_B was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__b.v\", line 3, characters 75-86:\nError: The reference po1_state_B was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__b.v",
-        "succeeded": false
-      },
-      "statement": "mu_collision_explains po1_state_B po1_strict_trace_A",
-      "status": "ok"
-    },
-    {
-      "file": "coq/VerifierImpossibility.v",
-      "kind": "Theorem",
-      "line": 115,
-      "name": "bare_setting_no_sound_complete_verifier",
-      "probe_a": {
-        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__a.v\", line 3, characters 80-92:\nError: The reference BareVerifier was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__b.v\", line 3, characters 80-92:\nError: The reference BareVerifier was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__b.v",
-        "succeeded": false
-      },
-      "statement": "~ exists V : BareVerifier, bare_sound mu_eq_one_problem V /\\ bare_complete mu_eq_one_problem V",
-      "status": "ok"
-    },
-    {
-      "file": "coq/VerifierImpossibility.v",
-      "kind": "Corollary",
-      "line": 147,
-      "name": "bare_sound_blocks_honest_acceptance",
-      "probe_a": {
-        "coq_stderr_tail": "ing: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__a.v\", line 3, characters 74-86:\nError: The reference BareVerifier was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "ing: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__b.v\", line 3, characters 74-86:\nError: The reference BareVerifier was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__b.v",
-        "succeeded": false
-      },
-      "statement": "forall V : BareVerifier, bare_sound mu_eq_one_problem V -> bv_decide V po1_strict_trace_A = false",
-      "status": "ok"
-    },
-    {
       "file": "coq/VerifierEscape_Substrate.v",
       "kind": "Lemma",
       "line": 80,
@@ -11696,6 +11576,126 @@
       "probe_a": null,
       "probe_b": null,
       "statement": "37 + 10 + 0 = 47",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Lemma",
+      "line": 70,
+      "name": "witness_A_satisfies_claim",
+      "probe_a": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__a.v\", line 3, characters 69-80:\nError: The reference po1_state_A was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__b.v\", line 3, characters 69-80:\nError: The reference po1_state_A was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__b.v",
+        "succeeded": false
+      },
+      "statement": "mu_eq_one_claim po1_state_A",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Lemma",
+      "line": 77,
+      "name": "witness_B_violates_claim",
+      "probe_a": {
+        "coq_stderr_tail": "efault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__a.v\", line 3, characters 70-81:\nError: The reference po1_state_B was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "efault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__b.v\", line 3, characters 70-81:\nError: The reference po1_state_B was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__b.v",
+        "succeeded": false
+      },
+      "statement": "~ mu_eq_one_claim po1_state_B",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Lemma",
+      "line": 86,
+      "name": "witness_A_explains_shared",
+      "probe_a": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__a.v\", line 3, characters 75-86:\nError: The reference po1_state_A was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__b.v\", line 3, characters 75-86:\nError: The reference po1_state_A was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__b.v",
+        "succeeded": false
+      },
+      "statement": "mu_collision_explains po1_state_A po1_strict_trace_A",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Lemma",
+      "line": 94,
+      "name": "witness_B_explains_shared",
+      "probe_a": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__a.v\", line 3, characters 75-86:\nError: The reference po1_state_B was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__b.v\", line 3, characters 75-86:\nError: The reference po1_state_B was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__b.v",
+        "succeeded": false
+      },
+      "statement": "mu_collision_explains po1_state_B po1_strict_trace_A",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Theorem",
+      "line": 115,
+      "name": "bare_setting_no_sound_complete_verifier",
+      "probe_a": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__a.v\", line 3, characters 80-92:\nError: The reference BareVerifier was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__b.v\", line 3, characters 80-92:\nError: The reference BareVerifier was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__b.v",
+        "succeeded": false
+      },
+      "statement": "~ exists V : BareVerifier, bare_sound mu_eq_one_problem V /\\ bare_complete mu_eq_one_problem V",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Corollary",
+      "line": 147,
+      "name": "bare_sound_blocks_honest_acceptance",
+      "probe_a": {
+        "coq_stderr_tail": "ing: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__a.v\", line 3, characters 74-86:\nError: The reference BareVerifier was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ing: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__b.v\", line 3, characters 74-86:\nError: The reference BareVerifier was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__b.v",
+        "succeeded": false
+      },
+      "statement": "forall V : BareVerifier, bare_sound mu_eq_one_problem V -> bv_decide V po1_strict_trace_A = false",
       "status": "ok"
     }
   ]

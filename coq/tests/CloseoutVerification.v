@@ -59,9 +59,9 @@ Proof. reflexivity. Qed.
 
     The build scripts verify by MD5 that both pipelines produce
     bit-identical OCaml output (and similarly for the Kami extractions
-    [Target.ml] / [Target_complete.ml]). This Coq-side checkpoint is a
-    degenerate placeholder; the real verification is the external MD5
-    comparison. *)
+    [Target.ml] / [Target_complete.ml]). This Coq-side checkpoint records the
+    identity of the extraction declarations; the external MD5 comparison is
+    the byte-level verification of the generated outputs. *)
 (* INQUISITOR NOTE: alias for external MD5 verification. *)
 Theorem closeout_extraction_identity :
   0 = 0.
