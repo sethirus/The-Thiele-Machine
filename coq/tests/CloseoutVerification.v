@@ -32,8 +32,8 @@ From KamiHW Require Import RTLGapRegistry.
 
     The [rtl_gap_registry] from [KamiHW.RTLGapRegistry] tracks any
     opcode whose RTL/Kami refinement is still incomplete. The registry
-    is currently empty; this lemma certifies that fact and will fail to
-    build if a gap is reintroduced. *)
+    is empty; this lemma certifies that fact and fails to build if a gap is
+    introduced. *)
 Theorem closeout_zero_gaps :
   List.length rtl_gap_registry = 0.
 Proof. reflexivity. Qed.

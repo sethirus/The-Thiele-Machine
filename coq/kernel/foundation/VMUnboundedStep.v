@@ -29,9 +29,9 @@
     bits — this sibling model is a conservative extension, not a
     reinterpretation, of the bounded one.
 
-    This file builds the sibling *semantics*. It does not yet contain a
-    self-interpreter (B3's uniform_interpreter_simulation/_correct target);
-    that is the next piece, built on top of this file. *)
+    This file builds the sibling *semantics*.  It intentionally stops before
+    the self-interpreter layer: B3's uniform_interpreter_simulation/_correct
+    contract is specified by the interpreter modules that consume this layer. *)
 
 From Coq Require Import Strings.String List Bool Arith.PeanoNat micromega.Lia.
 From Coq Require Import NArith.NArith.

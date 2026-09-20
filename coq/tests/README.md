@@ -9,6 +9,8 @@
 - `verify_zero_admits.v` - verify zero admits
 - `CloseoutVerification.v` - End-to-end closeout: every named claim resolves to a closed Coq proof or an explicit non-claim
 - `VacuitySmoke.v` - Smoke fixture for `scripts/vacuity_gate.py`: deliberately vacuous theorems the gate must flag, real ones it must clear
+- `ClaimBoundaryRegression.v` - Claim-boundary regression targets
+- `WFDrivenRunRegression.v` - Well-formed driven-run regression targets
 
 ## Verification Status
 
@@ -20,4 +22,4 @@
 | `CloseoutVerification.v` | 0 | ✅ |
 | `VacuitySmoke.v` | 0 | ✅ (fixture; pytest `tests/test_vacuity_gate.py` enforces) |
 
-**Result:** All 5 files verified with 0 admits.
+**Result:** All 7 active `.v` files are verified with 0 admits.

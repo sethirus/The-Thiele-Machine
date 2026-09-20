@@ -23,6 +23,9 @@ make -j4
 
 ## Directory Structure
 
+The table names the principal proof surfaces; each directory README enumerates
+its maintained files and verification status.
+
 | Directory | Description |
 |-----------|-------------|
 | top-level `NecessityOfMuLedger.v` | Strict classical projection cannot recover μ/certification receipts |

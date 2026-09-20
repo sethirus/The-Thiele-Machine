@@ -45,7 +45,7 @@ jobs:
 
       - name: Capture toolchain version
         # Coq updates from apt can silently produce .vo files incompatible
-        # with previously-cached ones. Including the exact coqc version in
+        # with cached ones. Including the exact coqc version in
         # all cache keys forces a clean rebuild whenever Coq changes.
         id: toolchain
         run: |
@@ -247,8 +247,7 @@ jobs:
   # proof-check. The repro gate (scripts/proof_gate_reproducible.sh) does
   # its own `make clean && make` to verify deterministic compilation, so
   # it intentionally cannot share the cache build-coq produces. Pulling it
-  # out of proof-check turns a previously serial 8-minute step into a
-  # parallel branch.
+  # out of proof-check turns the serial proof surface into a parallel branch.
   proof-repro-gate:
     name: Proof reproducibility gate (clean rebuild + coqchk)
     runs-on: ubuntu-latest
@@ -293,10 +292,8 @@ jobs:
         run: bash scripts/proof_gate_reproducible.sh
 
   # Phase 2: OCaml extraction. Runs on top of the shared Coq cache from
-  # build-coq, in PARALLEL with proof-check (both restore the same cache,
-  # neither rebuilds Coq). Previously `needs: proof-check`, which serialised
-  # 17m + 8m = 25m of critical path for a dependency that only existed to
-  # share the Coq build.
+  # build-coq, in parallel with proof-check. Both jobs restore the same
+  # verified cache and neither job rebuilds Coq.
   extraction:
     name: OCaml extraction & 3-layer bisimulation
     runs-on: ubuntu-latest

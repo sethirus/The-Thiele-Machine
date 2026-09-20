@@ -6,7 +6,7 @@ The initial corpus is now populated with concrete signed receipts and adversaria
 
 - verifier work targets a stable directory layout
 - fixture naming conventions are explicit
-- review-matrix coverage can be checked incrementally
+- verifier coverage is exercised by the maintained fixture and test set
 
 ## Layout
 
@@ -24,5 +24,9 @@ Every fixture set includes or should include:
 - enough on-disk inputs to exercise verification realistically
 - a manifest entry in `manifest.json`
 
-The current corpus covers signature, digest, payload-tamper, schema, kind-confusion, path, metadata, content, size, source-tamper, fuel, replay, `mu`, canonicalization-pair, basename-collision, JSON-edge, and stress checks. It is not yet complete against the full matrix in
-[TRS10_REVIEW_MATRIX.md](../../../docs/TRS10_REVIEW_MATRIX.md).
+The corpus covers signature, digest, payload-tamper, schema, kind-confusion,
+path, metadata, content, size, source-tamper, fuel, replay, `mu`,
+canonicalization-pair, basename-collision, JSON-edge, and stress checks. It is
+the maintained focused fixture set exercised by the TRS tests and
+`manifest.json`; the verifier contract is defined by those fixtures and the
+corresponding test modules.

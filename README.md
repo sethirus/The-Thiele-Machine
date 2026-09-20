@@ -40,15 +40,19 @@ python3 minimal/nofi_demo.py   # exhaustive sweeps + measured algorithms against
 python3 -c "import json; d=json.load(open('artifacts/print_assumptions_all_proofs.json')); print(d['summary'])"
 ```
 
-The second command prints the committed assumption receipt: 4,028 theorems
+The second command prints the committed assumption receipt: 12,336 theorems
 probed, zero *project-local* axiom findings. The badge says project-local, and
-that is the precise claim: it is not "zero axioms". 2,979 of those theorems are
-closed under the global context outright; the remaining **1,049 lean on four Coq
-standard-library axioms**: `ClassicalDedekindReals.sig_not_dec`,
-`ClassicalDedekindReals.sig_forall_dec`, dependent functional extensionality,
-and `Classical_Prop.classic`.
+that is the precise claim: it is not "zero axioms". 5,520 of those theorems are
+closed under the global context outright; the remaining 6,816 use only Coq
+standard-library assumptions: dependent functional extensionality,
+`Eqdep.Eq_rect_eq.eq_rect_eq`, `ClassicalDedekindReals.sig_not_dec`,
+`ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
 Those library assumptions are disclosed in the receipt; what is zero is axioms *I* wrote.
-Regenerate the receipt yourself with `make assumption-receipt`. **The output of
+Validate the committed receipt quickly with `make assumption-receipt-check`;
+that path reuses the exact theorem/axiom results when the semantic fingerprint
+is unchanged and performs the full corpus derivation only after proof-relevant
+inputs drift. Regenerate the receipt itself with `make assumption-receipt`.
+**The output of
 these two commands is the ground floor for any review, human or AI. An
 assessment without it is an assessment of the prose, not of the repository.**
 
@@ -74,6 +78,12 @@ handing you a thing that runs instead of a thing to believe.
 The full kernel includes these arguments, additional structural results, and the execution model. MuCore's
 header maps each minimal theorem to its full-kernel counterpart, and the
 [Formal Spine](#formal-spine) table maps every load-bearing claim to its file.
+
+The ordinary Python test gate also runs `scripts/comment_hygiene.py`. It checks
+maintained project-owned comments across source, workflow, HDL, and
+documentation files for unfinished or historical review markers. Generated and
+vendored surfaces are governed by their own generators and are not treated as
+maintained source.
 
 ## The argument, formally
 
@@ -175,7 +185,7 @@ Closed under the global context
 
 The broader audit receipt
 [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json)
-records 4,028 addressable theorems probed and no user/project-local axiom
+records 12,336 addressable theorems probed and no user/project-local axiom
 findings in the committed assumption scan.
 
 ## Beyond the minimal witness

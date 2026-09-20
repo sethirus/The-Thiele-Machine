@@ -7300,7 +7300,9 @@ codes. The main categories:
      or research-side files. Theorem connectivity: every file in the active proof tree
      must reach the cost or semantics foundation through its import chain. If a file is
      disconnected, it does not get to claim the kernel’s pedigree.
-   • Comment hygiene. No TODO/FIXME/WIP markers in active proof comments.
+   • Comment hygiene. The maintained source and documentation comments con-
+     tain no unfinished or historical review markers; the repository checks this with
+     scripts/comment_hygiene.py alongside the Coq proof audit.
 
 The committed INQUISITOR_REPORT.md records the result for the source state from
 which it was generated: zero unsuppressed HIGH, MEDIUM, and LOW findings.
@@ -7320,14 +7322,14 @@ This is what it does NOT mean:
 
    • It does not mean the theorems prove physical reality. The theorems prove things
      about the Thiele substrate, as formalised in Coq. Whether that formalisation
-     describes the world you live in is a separate question, answered by experiments,
-     not by proof checkers.
 
 
                                          145
 The Thiele Machine                                         Devon Thiele • September 2026
 
 
+      describes the world you live in is a separate question, answered by experiments,
+      not by proof checkers.
    • It does not mean the Coq axioms themselves are consistent. Coq sits on a formal
      foundation called the Calculus of Inductive Constructions. The key idea is the
      Curry-Howard correspondence: proofs and programs are the same thing. A
@@ -7368,14 +7370,14 @@ This is what it does NOT mean:
      parity suite checks the extracted binary empirically. One is a theorem. The other
      is a test.
 
-A kernel-checked theorem proves its complete type, including quantified premises
-and record obligations. A Section hypothesis can become a theorem argument after
 
 
                                          146
 The Thiele Machine                                           Devon Thiele • September 2026
 
 
+A kernel-checked theorem proves its complete type, including quantified premises
+and record obligations. A Section hypothesis can become a theorem argument after
 generalization. Print Assumptions reports global dependencies; Closed under
 the global context does not remove those arguments. Assessing an intended
 instance requires its statement, expanded load-bearing definitions, global assumption
@@ -7416,14 +7418,15 @@ Find a state s and instruction i such that (vm_apply s i ).µ < s.µ. The Coq pr
 vm_apply_mu falls.
 
 Falsify categorical separation.
-Prove that for ALL states s1 , s2 with identical classical shadow, ALL instructions pro-
-duce the same error behavior. That kills categorical_separation.
 
 
 
                                            147
 The Thiele Machine                                           Devon Thiele • September 2026
 
+
+Prove that for ALL states s1 , s2 with identical classical shadow, ALL instructions pro-
+duce the same error behavior. That kills categorical_separation.
 
 Falsify Turing strictness.
 Exhibit a classical program, a Thiele instruction trace restricted to the classical opcode
@@ -7464,14 +7467,14 @@ Three routes (Section 19 expands).
    • For the VM specialization, supply its bounded recurrence premise for the cho-
      sen representability class and a correct decider whose particular diagonal flip
      belongs to that class. A correct external decider alone is not a counterexample:
-     bounded membership is externally decidable, and its flip is excluded by every
-     class satisfying that recurrence premise.
-
-
 
 
                                            148
 The Thiele Machine                                            Devon Thiele • September 2026
+
+
+      bounded membership is externally decidable, and its flip is excluded by every
+      class satisfying that recurrence premise.
 
 
 Falsify the classical CHSH bound.
@@ -7515,15 +7518,15 @@ fact about this particular certificate format, not a theorem that any exact inte
 whatsoever must reject exactly those points and no others; no such general claim is
 made or needed here.
 
-The Inquisitor standard.
-Run the Inquisitor on the repository and inspect its report. The current report has 0
-HIGH, 0 MEDIUM, and 0 LOW unsuppressed findings. The command fails on HIGH
 
 
                                             149
 The Thiele Machine                                           Devon Thiele • September 2026
 
 
+The Inquisitor standard.
+Run the Inquisitor on the repository and inspect its report. The current report has 0
+HIGH, 0 MEDIUM, and 0 LOW unsuppressed findings. The command fails on HIGH
 or MEDIUM findings; LOW findings are reported without independently causing
 failure. In-source suppression markers and their justifications are recorded separately.
 This is a syntactic and heuristic audit, not a complete check of theorem applicabil-
@@ -7534,16 +7537,14 @@ Falsify the axiom audit.
 If running Print Assumptions (Section 2: the Coq command that lists every-
 thing a theorem depends on) on any named theorem in the kernel tier shows a
 project-local Axiom or Parameter in the dependency tree, the audit has degraded.
-The current full-corpus probe covers 4,028 named theorems: 2,979 close under the
-global Coq context outright, and 1,049 lean only on Coq standard-library axiom
-families (functional extensionality and the classical-reals construction). Of those, 67
-depend on the excluded middle, which is the classical-logic axiom P ∨ ¬ P (“either
-P is true or P is false, with no third option”); those uses come from the Coq stan-
-dard library’s real-analysis lemmas, entering through the physics-bridge families (the
-Holevo, Bekenstein, Landauer, and gravity bridges), not from project code; the CHSH
-algebra itself leans only on the classical-reals construction and functional extension-
-ality. Zero project-local axioms appear in any of the 4,028 dependency trees. Any
-project-local axiom or parameter appearing in any of them is a bug.
+The current full-corpus probe covers 12,336 named theorems: 5,520 close under
+the global Coq context outright, and 6,816 use only Coq standard-library assump-
+tions. The receipt names five such constants: dependent functional extensionality,
+Eqdep.Eq_rect_eq.eq_rect_eq, ClassicalDedekindReals.sig_not_dec,
+ClassicalDedekindReals.sig_forall_dec,                                       and
+Classical_Prop.classic. Zero project-local axioms appear in any of the
+12,336 dependency trees. Any project-local axiom or parameter appearing in any of
+them is a bug.
 
 Falsify the hardware bisimulation.
 A counterexample to driven_step_wf must satisfy WFDrivenPrecondition and
@@ -7566,7 +7567,6 @@ tion’s distinguished seat falls back to an aesthetic choice. Whether certifica
 the event a model is forced to price remains the named open problem either way; Sec-
 tion 25 states the conjectured criterion (redundant record proliferation) that a successor
 project would have to prove or refute, with its own attack surface listed there.
-
 
 
                                            150

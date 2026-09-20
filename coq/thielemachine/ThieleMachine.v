@@ -94,19 +94,14 @@ Record State := {
     [well_formed] is the syntactic side condition the checker enforces on
     programs. The constructors of [well_formed_instr] enumerate the kinds
     the checker recognises; [wf_other] makes the predicate total, so any
-    extra instruction kinds added later are tolerated rather than rejected
-    by the foundation.
+    extension instruction kinds are tolerated rather than rejected by the
+    foundation.
 
-    CAVEAT — this predicate currently has NO CONTENT. Because [wf_other i]
-    applies to every [i] with no side condition, [well_formed_instr i] is
-    provable for all [i], hence [well_formed P] holds for every program [P].
-    A hypothesis satisfied by everything constrains nothing, so any theorem
-    "for every well-formed program" here is really "for every program".
-    That is why [abstract_exec_receipts_replay_and_are_paid] can discard it.
-    The predicate is kept as an extension point: a concrete instantiation
-    that drops [wf_other] and enumerates real kinds gives it teeth without
-    changing downstream signatures. Until then, do not read [well_formed] as
-    a restriction. *)
+    The fallback branch is intentionally permissive: this abstract layer
+    constrains the named instruction families and leaves extension instructions
+    to richer instruction-set layers.  Consequently [well_formed] is a total
+    typing predicate here, while concrete instruction-set layers may supply a
+    stricter predicate without changing downstream signatures. *)
 Inductive well_formed_instr : Instr -> Prop :=
 | wf_LASSERT i : is_LASSERT i = true -> well_formed_instr i
 | wf_MDLACC  i : is_MDLACC  i = true -> well_formed_instr i

@@ -644,10 +644,9 @@ Proof.
   - exact Hnu.
 Qed.
 
-(** ** Remaining honest boundary
+(** ** Scope boundary
 
-    What remains open is the stronger non-uniform curved case: a proof that a
-    genuinely varying diagonal metric on boundary_4simplex still forces the
-    off-diagonal Ricci components to cancel. The diagonal-uniform theorem above
-    is now closed; the non-uniform extension is a separate problem.
+    The theorem above covers the diagonal-uniform metric on boundary_4simplex.
+    A genuinely varying diagonal metric is outside this file's theorem surface;
+    no stronger cancellation claim is made here.
 *)

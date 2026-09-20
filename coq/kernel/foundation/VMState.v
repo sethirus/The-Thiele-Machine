@@ -453,7 +453,8 @@ Qed.
     extension. When graph_certify_morphism is applied, morph_cert_cost becomes
     S(cost). Currently MORPH_ASSERT does not call graph_certify_morphism (to
     avoid RTL cascade), so all morphisms have morph_cert_cost = 0 by default.
-    This theorem states the contract for a future extension. *)
+    This theorem states the extension contract for clients that add fields
+    while preserving the VM state's existing observations. *)
 
 (** Removed: morph_assert_cost_correct.
 

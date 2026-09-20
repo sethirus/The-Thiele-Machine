@@ -12,7 +12,7 @@ because CI, release review, or reproducibility checks consume them:
 | Surface | Generator | Consumer or purpose |
 | --- | --- | --- |
 | `INQUISITOR_REPORT.md` and `artifacts/INQUISITOR_REPORT.md` | `python3 scripts/inquisitor.py --report INQUISITOR_REPORT.md` | Proof-audit result and CI upload |
-| `artifacts/print_assumptions_all_proofs.*` | `scripts/check_assumptions.py` | Assumption receipt and diff gate |
+| `artifacts/print_assumptions_all_proofs.*` | `scripts/check_assumption_receipt.py` and `scripts/generate_assumption_receipt.sh` | Assumption receipt and diff gate |
 | `artifacts/proof_dependency_*.json` and `.mmd` | `scripts/generate_proof_dependency_dag.py` | Proof connectivity and audit visualization |
 | `artifacts/proof_gate/` | `scripts/proof_gate_reproducible.sh` | Reproducible proof-gate metadata |
 | `artifacts/final_claim_audit/` | `scripts/final_claim_audit.py` | Claim-to-evidence inventory |
@@ -32,15 +32,11 @@ temporary probe logs, simulator output, and FPGA intermediate files are build
 products. They may be created locally or in CI and are removed by the clean
 targets or the workflow checkout. They are not a second source tree.
 
-## Historical material
+## Scope of retained records
 
-The former `artifacts/review_revision/` directory was a working-session
-snapshot. It mixed review prose, duplicated probes, compiled proof objects,
-source patches, validation logs, and intermediate manifests. None of those
-files was an input to the active workflows after the probes were moved to
-`tests/coq_probes/`; the snapshot has therefore been retired rather than
-presented as current assurance. Current assurance is documented in
-`docs/ASSURANCE.md`, `docs/REPRODUCTION.md`, and `docs/VM_CONTRACTS.md`.
-
-Historical review material is not evidence for a current claim unless the
-claim is reproduced by one of the retained generators above.
+Only generated records named in the table above belong to the maintained
+evidence surface. Working-session snapshots, duplicated probes, source patches,
+compiled objects, and intermediate logs are excluded from the repository's
+assurance record. Current scope is defined by `docs/ASSURANCE.md`,
+`docs/REPRODUCTION.md`, and `docs/VM_CONTRACTS.md`, together with the active
+generators and their workflow consumers.

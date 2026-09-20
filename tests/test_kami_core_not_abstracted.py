@@ -15,8 +15,6 @@ def test_core_has_in_core_logic_engine_state_and_paths() -> None:
     assert 'Register "lassert_fbuf"' in txt
     assert 'Register "lassert_cbuf"' in txt
     assert 'OP_LASSERT' in txt and 'OP_LJOIN' in txt
-    # The logic-gate lock was deliberately removed (Devon, 2026-09-14; see
-    # C2_DIVERGENCE_LEDGER.md "Logic-gate lock -> Removed from the CPU").
     # `logic_acc` is retained as VM-visible state that never changes: the CPU
     # must agree with `kami_step`, which never writes it. There is therefore no
     # `new_logic_acc` let-binding and no write to the register.
@@ -35,9 +33,8 @@ def test_logic_error_code_constant_is_declared() -> None:
 
 def test_logic_gate_removed_and_high_value_ops_ungated() -> None:
     txt = CORE.read_text(encoding="utf-8")
-    # The high-value lock and the logic-key gate were removed so the CPU matches
-    # `kami_step` (Devon, 2026-09-14; C2_DIVERGENCE_LEDGER.md). REVEAL and
-    # PDISCOVER are no longer gated on a logic key; they carry their own guards.
+    # REVEAL and PDISCOVER are not gated by a shared logic key; each opcode
+    # carries its own validity and locality guards, matching `kami_step`.
     assert 'LET is_high_value_op <-' not in txt
     assert 'high_value_locked' not in txt
     assert 'logic_key_ok' not in txt

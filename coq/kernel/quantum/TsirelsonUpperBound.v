@@ -289,7 +289,7 @@ Proof.
   apply chsh_algebraic_bound.
 Qed.
 
-(** ** Classical Bound Summary (CORRECTED January 2026)
+(** ** Classical Bound Summary
 
     The complete characterization of the classical bound for μ=0 programs:
 
@@ -299,13 +299,13 @@ Qed.
 
     2. UPPER BOUND (this file + MinorConstraints.v):
        All μ=0 programs satisfy CHSH ≤ 4 (algebraic bound, this file)
-       The tighter bound of 2 follows from:
-         μ=0 → LOCC → factorizable → minor constraints → CHSH ≤ 2
-       (Proven in MinorConstraints.v line 188, ends in Qed)
+       A bound of 2 is available when the recorded correlations also satisfy
+       the factorizability and minor-constraint premises proved in
+       MinorConstraints.v.
 
     3. QUANTUM BOUND:
-       The Tsirelson bound (CHSH ≤ 2√2) requires μ>0 operations
-       μ>0 → non-factorizable → quantum entanglement → CHSH ≤ 2√2
+       The Tsirelson bound (CHSH ≤ 2√2) is supplied by the named quantum
+       correlation bridge; it is not inferred from μ alone.
 
 *)
 

@@ -634,34 +634,27 @@ Qed.
 
 
 (**
-    WHAT WAS RESOLVED (was open at Part 8):
-    -----------------------------------------
-    OPEN QUESTION 1 (k-factor generalization):
-    RESOLVED. For k independent dimensions each of size N:
+    CLOSED RESULTS AND SCOPE BOUNDARY:
+    For k independent dimensions each of size N:
       blind: N^k steps, sighted: k*N steps, μ=k.
       Ratio = N^(k-1)/k. For k=log₂(N): ratio = N/log₂(N) × N^(log₂(N)-2).
     Measured: k=3 (N=4,8), k=4 (N=4). All exact.
 
-    ADVERSARIAL BOUNDARY: RESOLVED.
+    Adversarial boundary:
     Sighted wins for all left_target ≥ 1. Loses only at L=0 (1/N of positions).
     Anti-diagonal gives constant sighted iters = N+1. Proven above.
 
-    MARGINAL μ VALUE: RESOLVED.
+    Marginal μ value:
     Each μ unit buys N^(k-j) - N step savings, decelerating to 0 for the last unit.
     First EMIT always buys the most. Proven above.
 
-     STATUS SNAPSHOT BEFORE THE LOCAL THEOREMS:
-     -----------------------------------------
-     The next block discharges the three local questions that motivated this
-     section.
-
+     The local theorem surface is:
      1. The k = log₂(N) regime is handled by explicit arithmetic growth lemmas.
        The concrete diagonal ratio witnesses at k = 3 and k = 4 are proved
        below, together with monotonicity in k.
      2. The factored-search witness gives a formal witness-level separation
-       between polynomial k·N cost with μ and N^k cost without μ. What remains
-       open is the stronger class-level statement MuP(O(log n)) ≠ P for a fully
-       formalized Thiele-VM complexity theory.
+       between polynomial k·N cost with μ and N^k cost without μ. A class-level
+       separation MuP(O(log n)) ≠ P is outside this formalized witness model.
      3. LASSERT strength is reduced to a checked-cost question here: the local
        theorems below prove that LASSERT increases verifiability cost, not step
        count. Broader adversarial expressivity questions remain outside this

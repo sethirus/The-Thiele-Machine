@@ -2,7 +2,8 @@
 
 **Mission:** Physics model formalizations including wave/discrete duality and lattice geometry.
 
-The kernel-connected Landauer derivation is in `coq/kernel/LandauerDerivation.v`.
+The kernel-connected Landauer derivation is in
+[`kernel/nfi/LandauerDerivation.v`](../kernel/nfi/LandauerDerivation.v).
 
 ## Structure
 

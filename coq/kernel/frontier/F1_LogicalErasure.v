@@ -1,9 +1,8 @@
 (** * F1_LogicalErasure: deriving A2 from physical reversibility
 
     The F1 frontier theorem deriving A2 (cert-flip cost-floor) from a
-    Landauer-shaped bridge over physical reversibility, formulated to
-    avoid the renaming-as-derivation pitfalls flagged by earlier
-    drafts.
+    Landauer-shaped bridge over physical reversibility, formulated so the
+    physical premise and the certification conclusion remain distinct.
 
     ** Hard requirements addressed:
 

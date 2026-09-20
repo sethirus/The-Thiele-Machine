@@ -580,7 +580,7 @@ Definition einstein_tensor (s : VMState) (m : ModuleID) : R :=
 (** Bridge lemma: once local Ricci-stress proportionality is established,
     the Einstein equation follows algebraically.
 
-    The previously-named helper [einstein_tensor_normal_form]
+    The helper [einstein_tensor_normal_form]
     (which rewrote [einstein_tensor s m] to [1/2 * ricci_curvature s m]
     via [lra] on the [scalar_curvature]/[metric_volume] conventions)
     is inlined into this proof; that was its only caller.

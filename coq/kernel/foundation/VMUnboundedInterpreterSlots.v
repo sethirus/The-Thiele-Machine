@@ -8,9 +8,9 @@
     needs only shift/and/or, all present (instr_shl/instr_shr/instr_and/
     instr_or), so that is the encoding this file specifies: a packed nat
     holds a sequence of K-bit slots (K = 64, matching the physical word
-    size for a first, comparable target — a later phase can widen K or
-    make it variable once the interpreter loop itself is validated; that
-    is a separate, later refinement, not assumed here).
+    size for a fixed, comparable target.  Widening K or changing the encoding
+    requires a corresponding replacement of the slot representation proofs;
+    neither variation is part of this specification.)
 
     This file is pure specification and combinatorics: get_slot/set_slot
     as plain Coq functions, and their correctness (read-after-write, and
@@ -145,9 +145,8 @@ Proof.
     reflexivity.
 Qed.
 
-(** * 4. nat-level wrappers, matching how the actual host instruction
-    sequences (u_shr/u_and/u_shl/u_or/u_sub, all nat-typed) will compute
-    them, so the next file's host-code proofs connect directly to these. *)
+(** * 4. nat-level wrappers, matching how the host instruction sequences
+    (u_shr/u_and/u_shl/u_or/u_sub, all nat-typed) compute them. *)
 
 Definition Kn : nat := 64.
 Definition slot_mask : nat := N.to_nat (N.ones K).

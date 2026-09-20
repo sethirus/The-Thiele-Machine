@@ -118,13 +118,6 @@ Definition to_erasure (change : StateSpaceChange) : Erasure :=
   let n_after := log2_nat (omega_after change) in
   mkErasure n_before n_after (log2_subtraction_valid _ _ (reduction_valid change)).
 
-(** Previously: [state_reduction_is_erasure] asserted
-    [bits_erased (to_erasure change) = information_cost_bits change].
-    Both sides reduce to the same log2 difference by definition, so the
-    statement carries no proof content beyond unfolding.  No caller refers
-    to it; the equality is available by [reflexivity] at any use site. *)
-
-
 (** LASSERT adds a constraint that partitions the state space.
 
     Information-theoretic analysis:
@@ -157,14 +150,6 @@ Definition lassert_total_cost (change : LASSERTChange) : nat :=
   let state_reduction_cost := log2_nat (omega_pre change) - log2_nat (omega_post change) in
   state_reduction_cost + description_bits change.
 
-(** Previously: four lemmas recorded that [lassert_total_cost change] is
-    [>= itself], [= (log2 gap) + description_bits change], and is bounded
-    below by each summand.  All four reduced by unfolding [lassert_total_cost]
-    and finishing with [reflexivity] or [lia]; none were referenced outside
-    this file.  [cost_uniqueness] now inlines the [reflexivity] step
-    directly.  The summand lower bounds remain available at any caller via
-    [unfold lassert_total_cost; lia]. *)
-
 (** NOTE: The uniqueness of this cost formula follows from the fact that:
     1. Any implementation MUST erase >= log₂(Ω/Ω') bits (state space reduction)
     2. Any implementation MUST encode the constraint (description_bits)
@@ -189,14 +174,6 @@ Record ReversibleOp := {
   omega : nat;
   omega_unchanged : omega = omega
 }.
-
-(** Previously: a constant [reversible_info_cost := fun _ => 0] sat here,
-    together with a [partition_ops_zero_cost] lemma reducing it to [0 = 0].
-    Neither had any caller in the development; the nontrivial content of
-    "reversible operations cost zero" is carried by
-    [partition_ops_cannot_cost] below, which uses the operation's state
-    space size [omega op] and the [bits_erased] computation rather than a
-    stand-alone constant zero. *)
 
 (** No positive cost is justified for reversible operations *)
 Theorem partition_ops_cannot_cost : forall (op : ReversibleOp) (cost : nat),

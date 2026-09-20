@@ -77,6 +77,8 @@ def test_proof_scope_no_hardcoded_probe_paths():
         REPO_ROOT / "build" / "probe" / "aggregate_full_probe.py",
         # Probe builder names its output file by literal path.
         REPO_ROOT / "build" / "probe" / "build_full_probe.py",
+        # The comment scanner excludes generated probe source by literal path.
+        REPO_ROOT / "scripts" / "comment_hygiene.py",
         # This test itself encodes the strings to grep for.
         Path(__file__).resolve(),
     }

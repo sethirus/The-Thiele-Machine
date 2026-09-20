@@ -3,8 +3,8 @@
     Does the mu-ledger require Turing completeness? No.
 
     This file proves that the No Free Insight axiom and the mu-cost accounting
-    survive the removal of backward jumps, CALL, and RET. What remains is a
-    Directed Acyclic Graph (DAG) of instructions: control flow moves strictly
+    survive the removal of backward jumps, CALL, and RET. The resulting
+    machine is a Directed Acyclic Graph (DAG) of instructions: control flow moves strictly
     forward through the program. The machine is guaranteed to halt. It cannot
     be given a non-terminating program.
 
@@ -23,10 +23,9 @@
     for all traces unconditionally. The sub-Turing machine cannot certify
     structure it did not pay for.
 
-    The sub-Turing claim: remove instr_jump with backward targets, instr_call,
-    and instr_ret. What remains still certifies structural claims, computes
-    morphisms, and accumulates mu-cost. You do not need Turing completeness
-    to build an Epistemic Root of Trust. *)
+    The sub-Turing claim is that removing backward-target jumps, instr_call,
+    and instr_ret preserves structural certification, morphism computation,
+    and mu accounting. Turing completeness is not a premise of this result. *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool.
 Import ListNotations.

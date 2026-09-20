@@ -1,7 +1,7 @@
 THE THIELE MACHINE
 A distillation: state, accounting, and what the proofs establish
 
-Devon Thiele -- September 2026, v3.2.1
+Devon Thiele -- September 2026, v3.2.2
 
 
 I didn't invent a machine. I found one.
@@ -483,12 +483,13 @@ The principal checks are:
      premise requiring additive charges. Keep that metric separate
      from runtime and physical dissipation.
 
-The v3.2.1 documentation correction changes these descriptions, not
-the kernel theorems. The assumption receipt still covers 4,026
-statements: 2,979 closed under the global context, 1,047 depending on
+The v3.2.2 documentation describes these boundaries without changing
+the kernel theorems. The assumption receipt covers 12,336 statements:
+5,520 closed under the global context, 6,816 depending on
 standard-library axioms, and none on project-local or third-party
-axioms. A theorem's explicit hypotheses still matter even when it is
-closed under the global context.
+axioms. The standard-library dependencies use five named constants. A
+theorem's explicit hypotheses still matter even when it is closed under
+the global context.
 
 Start with README.md and the proof contracts it links. Run make verify,
 make verify-claims, and make verify-research in the documented build

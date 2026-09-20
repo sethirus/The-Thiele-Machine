@@ -13,8 +13,8 @@ slogan.
 | `BlindnessRepresentation.v` | Forgetful map characterized as Turing-style blindness |
 | `WitnessPreservationImpossibility.v` | No classical function can decide certification |
 | `WitnessInsightGeneral.v` | Three-tier witness insight taxonomy; **`witness_insight_nonfree_general`** |
-| `ObserverDerivation.v` | Physics-from-observational-equivalence scaffold (**flagged for removal**) |
-| `DerivedTime.v` | Time as derived equivalence-class quantity (**flagged for removal**) |
+| `ObserverDerivation.v` | Physics-from-observational-equivalence support construction |
+| `DerivedTime.v` | Time as a derived equivalence-class quantity |
 | `InformationTopology.v` | μ-cost as routing metric over computation |
 
 ## Load-bearing exports cited from the README
@@ -26,8 +26,7 @@ slogan.
 
 `foundation/` only. This is a thin layer right above the VM model.
 
-## Removal candidates
-
-[`DerivedTime.v`](DerivedTime.v) and [`ObserverDerivation.v`](ObserverDerivation.v)
-are in the COQ_NECESSITY_AUDIT removal list (analogy files, no consumers).
-Decision pending.
+`DerivedTime.v` and [`ObserverDerivation.v`](ObserverDerivation.v) provide
+explanatory witness constructions alongside the load-bearing projection
+results. They are support files; the theorem statements identify the claims
+that depend on them.

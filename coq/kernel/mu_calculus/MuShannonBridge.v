@@ -175,13 +175,11 @@ Qed.
     It says: you can't execute more cert-setting operations than you pay for.
 
 
-    RELATIONSHIP TO THE HISTORICAL SINGLE-TRACE CLAIM:
-    This bound gives: Δμ ≥ cert_setter_executions.
-    The rejected single-trace claim would need: cert_setter_executions ≥ log₂|Ω|
-    on every realized path, which is not true in general.
-    The later decision-tree and weighted-expectation sections aggregate over
-    finite weighted support. What remains after that is deriving the needed
-    tree/posterior witnesses from arbitrary VM reductions.
+    Scope boundary:
+    This bound gives Δμ ≥ cert_setter_executions. It does not identify a
+    feasible-set entropy reduction with the number of certifying steps on one
+    realized path. The decision-tree formulation below supplies the additional
+    witnesses required for that stronger statement.
     *)
 
 (** Number of cert-setting instruction executions in a bounded run *)
@@ -246,17 +244,11 @@ Proof.
 Qed.
 
 (**
-
-   This section records the rejected single-trace formulation and makes the
-   real remaining gap explicit.
-
-   What is rejected:
-   1. Bounding one realized execution path by the entropy reduction of the
-     whole feasible-set collapse.
-
-   What remains open:
-   1. Deriving the needed whole-decision-tree/posterior witnesses from an
-     arbitrary feasible-set reduction, rather than supplying them explicitly.
+   Scope boundary for the single-trace formulation:
+   1. A realized execution path is not identified with the entropy reduction
+      of the whole feasible-set collapse.
+   2. The stronger bound requires explicit whole-decision-tree and
+      posterior-representative witnesses for the reduction.
 
     *)
 
@@ -381,7 +373,7 @@ Definition MuShannonSingleTraceClaim : Prop :=
     (run_vm fuel trace s_init).(vm_mu) - s_init.(vm_mu) >=
       shannon_entropy_reduction omega_init omega_final.
 
-(** Deprecated alias retained for repository continuity and cross-file comments. *)
+(** Compatibility alias for the named single-trace proposition. *)
 Definition MuShannonConjecture : Prop := MuShannonSingleTraceClaim.
 
 (**
@@ -395,9 +387,9 @@ Definition MuShannonConjecture : Prop := MuShannonSingleTraceClaim.
     - each leaf is one distinguishable outcome class
     - a trace that realizes such a tree must pay for at least its depth
 
-    This does NOT yet prove that every feasible-set reduction in the VM induces
-    such a tree. That remaining step is now isolated as a concrete proof task:
-    compile execution-side separation/certification behavior into this tree model.
+    This framework applies when a feasible-set reduction supplies the required
+    tree and representative witnesses. It does not infer those witnesses from
+    an arbitrary VM reduction.
     *)
 
 Inductive DecisionTree : Type :=

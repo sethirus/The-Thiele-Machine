@@ -80,12 +80,6 @@ Definition decode (ch : ReceiptChannel) (tr : Trace) : list (list nat) :=
 Definition decodes_to (ch : ReceiptChannel) (tr : Trace) (xs : list (list nat)) : Prop :=
   decode ch tr = xs.
 
-(** Previously: [decodes_to_refl] asserted [decodes_to ch tr (decode ch tr)].
-    Since [decodes_to ch tr xs] is defined as [decode ch tr = xs], the
-    claim reduces to [decode ch tr = decode ch tr] and discharges by
-    [reflexivity].  No caller depended on the lemma; the reflexivity
-    fact is available at any site by [unfold decodes_to; reflexivity]. *)
-
 (**
     FRAMEWORK NOTES
 

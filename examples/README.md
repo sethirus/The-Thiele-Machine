@@ -1,6 +1,7 @@
 # Example Programs
 
-This directory contains the legacy example set at the top level and an extended program corpus under `examples/programs/`.
+This directory contains the top-level compatibility examples and the extended
+program corpus under `examples/programs/`.
 
 `examples/run_all.py` discovers and batch-runs both locations through the current extracted VM API.
 
@@ -13,7 +14,7 @@ python examples/run_all.py
 
 ## Programs
 
-Top-level legacy examples:
+Top-level compatibility examples:
 
 | File | Description |
 |------|-------------|
