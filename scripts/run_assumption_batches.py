@@ -46,6 +46,30 @@ def validate_output(stdout: str, stderr: str, expected: int) -> str:
     return stdout[blocks[0].start():]
 
 
+def load_saved_batch(directory: Path, lo: int, hi: int, source: str) -> tuple[int, str, str] | None:
+    """Return a completed batch's result from a work directory, or None.
+
+    A saved result is reused only when the batch ran exactly `source` and its
+    output still validates with no Coq error. A result count alone cannot tell
+    two probes apart, and a truncated write from an external kill can never be
+    mistaken for a completed batch.
+    """
+    stem = directory / f"{lo + 1}-{hi}"
+    out_file, err_file = stem.with_suffix(".output.txt"), stem.with_suffix(".errors.txt")
+    source_file = stem.with_suffix(".v")
+    if not out_file.exists() or not source_file.exists():
+        return None
+    if source_file.read_text() != source:
+        return None
+    stdout = out_file.read_text()
+    stderr = err_file.read_text() if err_file.exists() else ""
+    try:
+        output = validate_output(stdout, stderr, hi - lo)
+    except ValueError:
+        return None
+    return lo, output, stderr
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--jobs", type=int, default=2)
@@ -88,29 +112,16 @@ def main() -> None:
     else:
         directory = Path(tempfile.mkdtemp(prefix="assumption-batches-", dir=build))
 
-    def saved(bounds: tuple[int, int]) -> tuple[int, str, str] | None:
-        """Return a completed batch's result, or None.
+    def batch_source(lo: int, hi: int) -> str:
+        return prefix + "\n".join(queries[lo:hi]) + "\nQuit.\n"
 
-        A saved result is only reused when its output still validates for the
-        current query list and contains no Coq error, so a truncated write from
-        an external kill can never be mistaken for a completed batch.
-        """
+    def saved(bounds: tuple[int, int]) -> tuple[int, str, str] | None:
         lo, hi = bounds
-        stem = directory / f"{lo + 1}-{hi}"
-        out_file, err_file = stem.with_suffix(".output.txt"), stem.with_suffix(".errors.txt")
-        if not out_file.exists():
-            return None
-        stdout = out_file.read_text()
-        stderr = err_file.read_text() if err_file.exists() else ""
-        try:
-            output = validate_output(stdout, stderr, hi - lo)
-        except ValueError:
-            return None
-        return lo, output, stderr
+        return load_saved_batch(directory, lo, hi, batch_source(lo, hi))
 
     def once(bounds: tuple[int, int]) -> tuple[int, str, str]:
         lo, hi = bounds
-        source = prefix + "\n".join(queries[lo:hi]) + "\nQuit.\n"
+        source = batch_source(lo, hi)
         stem = directory / f"{lo + 1}-{hi}"
         stem.with_suffix(".v").write_text(source)
         result = subprocess.run(["coqtop", "-quiet", *coq_args], cwd=root / "coq",

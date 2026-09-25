@@ -16,12 +16,9 @@
     z_action_inverse: shift(n) ∘ shift(-n) = identity.
     z_gauge_invariance: Z-shifts preserve partition structure.
 
-    To challenge this module: find an operation where shifting μ changes
-    partition structure, find a vm_step that decreases μ, or find a positivity-
-    guarded group-action law that fails.
-
-    WHY: the zero boundary matters. The code records where Z-style symmetry
-    works and where clamping breaks it.
+    The zero boundary is part of the definition. The comments and theorem
+    statements below record exactly where the guarded shift laws hold and
+    where clamping prevents an unqualified group-action claim.
   *)
 
 From Coq Require Import List Bool Arith.PeanoNat.
@@ -52,17 +49,14 @@ Open Scope Z_scope.
   POSITIVITY GUARD: Most theorems require 0 ≤ vm_mu + delta. This ensures
   Z.to_nat doesn't clamp, preserving group action structure.
 
-  Physical reading, if used: the absolute μ offset is treated like a reference
-  choice for the ledger. The formal observable below is partition structure,
-  not all possible physics.
+  The shift is a bookkeeping operation on [VMState]. The formal observable
+  used below is the selected partition projection, not every possible view of
+  the state.
 
   EXAMPLE: s = {| vm_mu := 100; vm_graph := g; ... |}.
            z_gauge_shift 50 s = {| vm_mu := 150; vm_graph := g; ... |} (same graph).
            z_gauge_shift (-50) s = {| vm_mu := 50; vm_graph := g; ... |} (same graph).
            z_gauge_shift (-150) s = {| vm_mu := 0; vm_graph := g; ... |} (CLAMPED!).
-
-  To falsify the formal claim: show z_gauge_shift delta s changes vm_graph or
-  another field it is supposed to copy.
 
   DEPENDENCIES: Requires Z.to_nat, Z.of_nat (Coq standard library).
 
@@ -117,9 +111,6 @@ Proof. intros. unfold read_reg, z_gauge_shift. reflexivity. Qed.
                   vm_mu := 100 |}.
            Observable_partition s = [[1,2], [3,4]] (no mention of μ = 100).
 
-  To challenge this formal observable, show that it is too weak for the physics
-  being claimed elsewhere.
-
 *)
 (** Observable: partition structure only (no μ) *)
 Definition Observable_partition (s : VMState) : list (list nat) :=
@@ -145,9 +136,6 @@ Definition Observable_partition (s : VMState) : list (list nat) :=
   4. Destruct s, show all fields equal by reflexivity.
 
   Reading: shifting by nothing changes nothing.
-
-  To falsify: Find state s where z_gauge_shift 0 s ≠ s. This would mean the
-  implementation of z_gauge_shift is broken (adds spurious changes).
 
   DEPENDENCIES: Requires z_gauge_shift, Z.add_0_r (stdlib), Nat2Z.id (stdlib).
 
@@ -189,18 +177,15 @@ Qed.
   - 0 ≤ μ+b+a: Final result must be non-negative (prevents clamping).
   Without these, Z.to_nat clamps negative values to 0, breaking associativity.
 
-  PHYSICAL MEANING: "Shifting twice is same as shifting once by the sum." Gauge
-  transformations compose naturally. Like adding voltages: +50V then +30V equals
-  +80V (composition is addition).
+  SCOPE: Under the two nonnegative-side hypotheses, this is the stated
+  composition law for the clamped integer-to-natural shift. It is not a law
+  about voltages or a physical gauge transformation.
 
   COUNTEREXAMPLE (without positivity): μ=10, b=-5, a=-8. Path A: (10-5)-8 = -3 → 0
   (clamped). Path B: 10 + (-5-8) = -3 → 0. Both clamp, so equal by accident. But
   with μ=10, b=-5, a=+3: Path A: (10-5)+3 = 8. Path B: 10+(-5+3) = 8. Equal.
   But μ=10, b=-12, a=+5: Path A: (10-12)→0, then 0+5=5. Path B: 10+(-12+5)=-7→0.
   Result: 5 ≠ 0. Composition FAILS without positivity guard.
-
-  To falsify: Find a, b, s satisfying positivity guards where composition fails.
-  This would mean Z arithmetic in Coq is broken (impossible - machine-checked).
 
   DEPENDENCIES: Requires Z2Nat.id, Z.add associativity (lia), z_gauge_shift.
 
@@ -247,9 +232,6 @@ Qed.
   COUNTEREXAMPLE (without positivity): μ=10, n=-15. shift(-15, s) → μ=0 (clamped).
   Then shift(+15, {μ=0}) → μ=15 ≠ 10. Lost information due to clamping. Inverse
   doesn't work when intermediate state is negative.
-
-  To falsify: Find n, s with positivity satisfied where shift(-n, shift(n, s)) ≠ s.
-  This would mean Z inverse is broken (impossible).
 
   DEPENDENCIES: Requires Z2Nat.id, Nat2Z.id, Z.add inverse (lia), z_gauge_shift.
 
@@ -298,9 +280,6 @@ Qed.
   The partition structure [[1,2], [3,4]] is IDENTICAL. μ changed 100→150, but
   that's unobservable (like shifting voltage reference ground).
 
-  To falsify the formal statement: find delta and s where Observable_partition
-  changes after μ-shift. That would mean z_gauge_shift no longer copies vm_graph.
-
   DEPENDENCIES: Requires z_gauge_shift (preserves graph), Observable_partition (extracts graph).
 
 *)
@@ -327,9 +306,6 @@ Qed.
 
   EXAMPLE: s = {| vm_mu := 42; ... |}. mu_current s = 42.
 
-  To falsify: Show mu_current extracts wrong field. This would be implementation
-  error (accessing wrong record field).
-
 *)
 (** vm_mu changes predictably under vm_step. *)
 Definition mu_current (s : VMState) : nat := s.(vm_mu).
@@ -355,13 +331,8 @@ Definition mu_current (s : VMState) : nat := s.(vm_mu).
   The proof checks every vm_step constructor and reduces μ growth to adding a
   nonnegative instruction_cost.
 
-  To falsify the theorem: find instruction i and states s, s' where vm_step s i s'
-  but s'.vm_mu < s.vm_mu.
-
   DEPENDENCIES: Requires vm_step (VMStep.v), advance_state (applies cost),
-  instruction_cost ≥ 0 (VMStep.v), lia (arithmetic).
-
-  (packages as fundamental physical law), all μ-cost analysis.
+  instruction_cost ≥ 0 (VMStep.v), and lia (arithmetic).
 *)
 (** Under vm_step, μ increases by a nat instruction cost. *)
 Theorem vm_step_mu_monotonic : forall s i s',
@@ -380,25 +351,20 @@ Qed.
 (**
   in_same_orbit: Orbit equivalence relation for gauge-related states.
 
-  WHY: I need to formalize "two states are gauge-equivalent (differ only in μ)".
-  in_same_orbit captures this: s1 and s2 are in the same orbit if there exists
-  a gauge shift connecting them.
+  The definition records whether a single integer shift connects the two
+  states.
 
   DEFINITION: in_same_orbit s1 s2 := ∃ delta, z_gauge_shift delta s1 = s2.
 
   STRUCTURE: Existential quantification over Z. Two states are orbit-equivalent
   iff you can reach one from the other via μ-shift.
 
-  Physical reading, if used: states in the same orbit differ by μ-bookkeeping
-  while the copied fields are held fixed by z_gauge_shift.
+  Since [z_gauge_shift] copies the non-μ fields, any such witness holds those
+  fields fixed and changes only the clamped ledger value.
 
   EXAMPLE: s1 = {| vm_mu := 10; vm_graph := g; ... |}.
            s2 = {| vm_mu := 15; vm_graph := g; ... |}.
   If ALL other fields match, in_same_orbit s1 s2 (witness: delta = 5).
-
-  To falsify: Find s1, s2 with different partition graphs where in_same_orbit holds.
-  This would violate gauge invariance (z_gauge_shift preserves graph by definition,
-  so orbits can only connect states with same graph).
 
   vm_step_orbit_equiv (prove dynamics preserves orbits).
 *)
@@ -411,20 +377,14 @@ Definition in_same_orbit (s1 s2 : VMState) : Prop :=
 
   Every state is in the same orbit as itself: ∀ s. in_same_orbit s s.
 
-  WHY: To be an equivalence relation, orbit equivalence must be reflexive. This
-  proves the FIRST equivalence relation axiom.
-
   CLAIM: ∀ s. ∃ delta. z_gauge_shift delta s = s.
 
   1. Provide witness: delta = 0.
   2. Apply z_action_identity: z_gauge_shift 0 s = s.
   3. Existential satisfied. QED.
 
-  PHYSICAL MEANING: "A state is gauge-equivalent to itself." The identity gauge
-  transformation (shift by 0) leaves the state unchanged. Trivial reflexivity.
-
-  To falsify: Find state s where in_same_orbit s s fails. This would mean
-  z_action_identity is broken (impossible - proven theorem).
+  SCOPE: This is reflexivity of the relation generated by [z_gauge_shift],
+  witnessed by the zero shift.
 
   DEPENDENCIES: Requires z_action_identity (shift by 0 is identity), in_same_orbit.
 
@@ -441,9 +401,6 @@ Qed.
   If s1 is in the same orbit as s2, then s2 is in the same orbit as s1:
            z_gauge_shift delta s1 = s2 → in_same_orbit s2 s1.
 
-  WHY: To be an equivalence relation, orbit equivalence must be symmetric. This
-  proves the SECOND equivalence relation axiom.
-
   CLAIM: ∀ s1, s2, delta. (0 ≤ μ₁+delta) → shift(delta, s1) = s2 → ∃ delta'. shift(delta', s2) = s1.
 
   1. Provide witness: delta' = -delta (inverse shift).
@@ -454,15 +411,12 @@ Qed.
   POSITIVITY GUARD: Requires 0 ≤ μ₁+delta. This ensures the forward shift is
   valid (no clamping), so the inverse can recover the original state.
 
-  PHYSICAL MEANING: "Gauge transformations are reversible." If you can shift from
-  s1 to s2, you can shift back from s2 to s1 using the inverse transformation.
-  Like voltage transformations: if you can add +5V, you can subtract -5V to return.
+  SCOPE: With the stated positivity guard, the inverse-shift theorem supplies
+  the reverse witness. The guard is essential because [Z.to_nat] clamps below
+  zero and loses information.
 
   COUNTEREXAMPLE (without positivity): μ₁=10, delta=-15. shift(-15, s1) → μ=0 (clamped).
   Now try shift(+15, {μ=0}) → μ=15 ≠ 10. Symmetry breaks due to clamping.
-
-  To falsify: Find s1, s2, delta with positivity satisfied where orbit_equiv_sym
-  fails. This would mean z_action_inverse is broken (impossible - proven theorem).
 
   DEPENDENCIES: Requires z_action_inverse (inverse gauge shifts), in_same_orbit.
 
@@ -484,10 +438,6 @@ Qed.
   If s1 ~ s2 and s2 ~ s3, then s1 ~ s3:
            shift(d1, s1) = s2 ∧ shift(d2, s2) = s3 → in_same_orbit s1 s3.
 
-  WHY: To be an equivalence relation, orbit equivalence must be transitive. This
-  proves the THIRD equivalence relation axiom. Together with reflexivity and
-  symmetry, this completes the equivalence relation proof.
-
   CLAIM: ∀ s1, s2, s3, d1, d2. (0 ≤ μ₁+d1) ∧ (0 ≤ μ₁+d1+d2) →
          shift(d1, s1) = s2 → shift(d2, s2) = s3 → ∃ delta. shift(delta, s1) = s3.
 
@@ -502,9 +452,9 @@ Qed.
   - 0 ≤ μ₁+d1: First shift is valid (no clamping).
   - 0 ≤ μ₁+d1+d2: Composition is valid (no clamping).
 
-  PHYSICAL MEANING: "Gauge transformations compose." If you can shift from s1 to
-  s2 (by d1), then from s2 to s3 (by d2), you can shift directly from s1 to s3
-  (by d1+d2). This is the GROUP ACTION property - shifts form a group.
+  SCOPE: With both intermediate and final nonnegative-side conditions, the
+  witnesses compose. Because negative values are clamped, this is a guarded
+  relation law rather than an unqualified group-action claim.
 
   EXAMPLE: s1 = {μ=10}, s2 = {μ=15} (shift +5), s3 = {μ=22} (shift +7).
   Transitivity: s1 ~ s2 ~ s3 implies s1 ~ s3. Witness: shift(+12, s1) = s3.
@@ -515,9 +465,6 @@ Qed.
   Direct: shift(-7, {μ=5}) = {μ=0} (clamped to 0, should be -2).
   Transitivity holds by accident (both clamped to 0), but not by composition law.
   With positivity guards, composition is EXACT, not accidental.
-
-  To falsify: Find s1, s2, s3, d1, d2 with positivity satisfied where
-  transitivity fails. This would mean z_action_composition is broken (impossible).
 
   DEPENDENCIES: Requires z_action_composition (shifts compose), in_same_orbit.
 
@@ -565,9 +512,8 @@ Qed.
 
   LEMMA: (μ+delta) + cost = (μ+cost) + delta when μ+delta ≥ 0.
 
-  WHY: This is the KEY ARITHMETIC fact for vm_step_orbit_equiv. I need to show
-  that applying cost THEN shifting gives the same result as shifting THEN applying
-  cost. This is the "commutativity diagram" for gauge transformations and dynamics.
+  This is the arithmetic needed by [vm_step_orbit_equiv]: under the guard,
+  adding the cost before or after the shift gives the same natural value.
 
   CLAIM: ∀ μ, cost, delta. (0 ≤ μ+delta) →
          Z.to_nat(μ+delta) + cost = Z.to_nat((μ+cost) + delta).
@@ -582,18 +528,14 @@ Qed.
   POSITIVITY GUARD: Requires 0 ≤ μ+delta. Without this, Z.to_nat(μ+delta) clamps
   to 0, and the equation becomes: 0 + cost ≠ Z.to_nat((μ+cost) + delta).
 
-  PHYSICAL MEANING: "Energy is additive regardless of reference frame." If you
-  shift the energy baseline (gauge shift), then add energy (cost), you get the
-  same result as adding energy THEN shifting the baseline. This is energy
-  conservation in different gauges.
+  SCOPE: This is the integer arithmetic needed to commute a guarded shift with
+  addition of a natural-number instruction cost. It does not identify μ with
+  energy or establish conservation in a physical reference frame.
 
   COUNTEREXAMPLE (without positivity): μ=5, cost=3, delta=-10.
   LHS: Z.to_nat(5-10) + 3 = 0 + 3 = 3.
   RHS: Z.to_nat((5+3) - 10) = Z.to_nat(-2) = 0.
   Result: 3 ≠ 0. Commutativity breaks due to clamping.
-
-  To falsify: Find μ, cost, delta with positivity satisfied where the equation
-  fails. This would mean Z arithmetic is inconsistent (impossible).
 
   DEPENDENCIES: Requires Nat2Z.inj_add, Z2Nat.id, lia (Z arithmetic).
 
@@ -615,9 +557,10 @@ Qed.
   If s1 →[i] s2 via vm_step, then z_gauge_shift(delta, s1) →[i] s2'
            where s2' = z_gauge_shift(delta, s2).
 
-  WHY THIS IS FUNDAMENTAL: This proves vm_step is EQUIVARIANT under Z-action.
-  The gauge symmetry (Z-shifts) COMMUTES with dynamics (vm_step). This is the
-  connection between SYMMETRY (gauge invariance) and DYNAMICS (state evolution).
+  This is the transition correspondence needed to move a [vm_step] witness
+  through a guarded ledger shift. The proof uses that the shift leaves the
+  fields consulted by the instruction unchanged and uses [shift_cost_comm]
+  for the ledger field.
 
   CLAIM: ∀ s1, s2, i, delta. (0 ≤ μ₁+delta) → vm_step s1 i s2 →
          ∃ s2'. vm_step (shift(delta, s1)) i s2' ∧ shift(delta, s2) = s2'.
@@ -649,10 +592,10 @@ Qed.
   - Partition ops: Structural (graph), μ unchanged by shift.
   - Control flow: Structural (PC, conditions), μ unchanged by shift.
 
-  PHYSICAL MEANING: "Physical laws are the same in all gauges." If you shift your
-  energy reference frame, the dynamics don't change - Newton's laws hold in all
-  inertial frames. Here: vm_step behavior is gauge-invariant - shifting μ doesn't
-  affect which instruction executes or how it behaves.
+  SCOPE: Under the positivity guard, the same [vm_step] constructor can be used
+  after shifting because the shift changes only [vm_mu], and the cost arithmetic
+  commutes by [shift_cost_comm]. This is a VM transition theorem, not a claim
+  about physical laws or inertial frames.
 
   CRITICAL LIMITATION: Requires 0 ≤ μ₁+delta (positivity guard). Without this,
   Z.to_nat clamping breaks commutativity. The counterexample in the file header
@@ -662,10 +605,6 @@ Qed.
   Path A: step then shift: (10+5=15) then (15-12=3) → μ'=3.
   Path B: shift then step: (10-12=0 CLAMPED) then (0+5=5) → μ'=5.
   Result: 3 ≠ 5. Equivariance FAILS without positivity.
-
-  To falsify: Find s1, i, delta with positivity where vm_step from shifted
-  state gives different structural result (not just μ). This would mean gauge
-  shifts affect physical behavior (violates gauge invariance).
 
   DEPENDENCIES: Requires shift_cost_comm (arithmetic), z_gauge_shift (definition),
   vm_step (VMStep.v), econstructor (Coq proof automation).
@@ -748,17 +687,13 @@ Qed.
   6. Apply Nat2Z.id: Z.to_nat(Z.of_nat(μ₂)) = μ₂.
   7. Reflexivity. QED.
 
-  Physical reading, if used: states differing only in the ledger offset can be
-  treated as the same structural state with different bookkeeping.
+  This relates states that agree on the listed non-μ fields and differ only in
+  the ledger coordinate selected by the witness shift.
 
   EXAMPLE: s1 = {| vm_mu := 100; vm_graph := g; vm_regs := r; ... |}.
            s2 = {| vm_mu := 150; vm_graph := g; vm_regs := r; ... |}.
   If ALL other fields match, noether_forward proves: z_gauge_shift(50, s1) = s2.
   The μ difference (50) is the gauge shift connecting them.
-
-  To falsify: Find s1, s2 with all structural fields equal but NO gauge shift
-  connecting them. This would require μ₁ + delta ≠ μ₂ for all delta (impossible
-  by construction: delta = μ₂ - μ₁ satisfies the equation).
 
   DEPENDENCIES: Requires z_gauge_shift (gauge transformation), Observable_partition
   (gauge-invariant observable), Nat2Z.id, lia (arithmetic).
@@ -805,39 +740,12 @@ Qed.
     discharge above; any consumer that needs the equation can apply
     that one-line unfold without a named lemma. *)
 
-(** PROVEN (with constraints):
-    - Z-indexed shift laws (identity, composition, inverse); composition and
-      inverse require positivity
-    - Z-gauge invariance of observables (unconditional)
-    - Orbit equivalence relations (with positivity guards)
-    - vm_step equivariance (with positivity guard)
-    - Noether-named structural lemmas, scoped as bookkeeping analogies
-    
-    THE FUNDAMENTAL LIMITATION:
-    vm_mu : nat creates a boundary at zero that breaks unbounded Z-symmetry.
-    
-    Counter-example proving the boundary matters:
-      State: vm_mu = 10, Instruction cost = 5, Gauge shift delta = -12
-      
-      Path A (step then shift):
-        vm_step: 10 + 5 = 15
-        shift:   Z.to_nat(15 - 12) = 3
-      
-      Path B (shift then step):  
-        shift:   Z.to_nat(10 - 12) = Z.to_nat(-2) = 0  (clamped)
-        vm_step: 0 + 5 = 5
-      
-      Result: 3 ≠ 5. The diagram does not commute without positivity guard.
-    
-    The μ-ledger tracks computational entropy. Like bank accounts, it cannot
-    go negative in this model. The positivity constraint 0 <= vm_mu + delta is
-    the formal boundary imposed by using nat for vm_mu.
-    
-    This is analogous to thermodynamics: energy can be negative (potential wells),
-    but entropy cannot. The Thiele Machine's μ is entropy, not energy.
-    
-    ALTERNATIVE (not implemented):
-    Change vm_mu : nat -> vm_mu : Z to allow "entropy debt." This would make
-    the symmetry perfect but changes the physical interpretation. The machine
-    would track "net computational work" which can be negative (borrowed time).
-    *)
+(** Summary of the proved scope.
+
+    The file proves identity, guarded composition and inverse laws for the
+    integer shift, invariance of the selected partition projection, guarded
+    orbit laws, and guarded correspondence with [vm_step]. The boundary is
+    concrete: [vm_mu] is a natural number, so [Z.to_nat] clamps negative
+    shifted values to zero. The explicit counterexample above is why the
+    positivity premises remain in the theorems. None of these results assigns
+    μ a thermodynamic or information-theoretic unit. *)

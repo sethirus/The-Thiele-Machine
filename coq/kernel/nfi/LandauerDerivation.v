@@ -1,42 +1,21 @@
-(**
-    LandauerDerivation: VM μ-cost bounds with a Landauer-shaped reading.
+(** LandauerDerivation proves a VM-level accounting result. In the current
+    instruction semantics, [CERTIFY] is the channel that sets [vm_certified],
+    its scheduled cost has a positive floor, and every [vm_apply] step updates
+    [vm_mu] by its declared instruction cost. The derived indicator therefore
+    bounds the number of positive-cost steps.
 
-    ThieleMachineComplete.v's PhysicalErasure_tc bakes the Landauer entropy
-    bound as a record field; pe_second_law is an assumption there. This file
-    does something narrower: it proves VM-level μ-cost lower bounds for
-    certification and for a conservative positive-cost indicator.
-
-    1. CERTIFY is the only instruction that sets vm_certified := true
-       (proved by case analysis on vm_apply).
-    2. CERTIFY's cost = S(delta_mu) ≥ 1 (from instruction_cost definition).
-    3. Certification requires positive μ-cost, derived from vm_apply semantics.
-    4. μ-accounting (MuLedgerConservation.v): every vm_apply step increases
-       μ by exactly instruction_cost.
-    5. total μ-cost bounds total_irreversible_bits, where irreversible_bits is
-       defined here as 1 for any positive-cost instruction and 0 otherwise.
-
-    To falsify: find an instruction that sets vm_certified := true with zero
-    cost, or a vm_apply case where μ does not increase by instruction_cost.
-    *)
+    The file does not derive a thermodynamic Landauer law or identify [mu] with
+    joules. The physical-erasure record in [ThieleMachineComplete.v] carries
+    its own explicit premise. *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool.
 Import ListNotations.
 
 From Kernel Require Import VMState VMStep SimulationProof MuLedgerConservation.
 
-(**
-
-    We prove that in the current instruction set, only instr_certify changes
-    vm_certified from false to true. All other instructions preserve
-    vm_certified via advance_state / advance_state_rm / jump_state /
-    jump_state_rm / advance_state_reveal, all of which copy
-    s.(vm_certified) unchanged.
-
-    Case analysis on instr. For instructions going through advance_state and
-    friends, vm_certified is preserved by definition. For LASSERT and CHSH_TRIAL
-    (explicit record construction), unfold and check both branches. For CERTIFY,
-    the result is `true`.
-    *)
+(** The preservation lemma below is a case analysis over the current
+    [vm_instruction] constructors. The ordinary state helpers copy the flag;
+    the explicit-record cases are unfolded; [CERTIFY] is the sole setter. *)
 
 (** For non-certify instructions, vm_certified is preserved. *)
 Lemma vm_apply_preserves_certified_non_certify :

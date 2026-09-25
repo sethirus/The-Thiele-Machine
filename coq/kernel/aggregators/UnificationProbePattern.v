@@ -57,7 +57,7 @@ Local Open Scope R_scope.
     but this pattern file is the kernel-side aggregator combining
     them with VM-level mu-ledger semantics. *)
 
-(* INQUISITOR NOTE: cross-tier import (Landauer bridge — see above). *)
+(* SCOPE NOTE: cross-tier import (Landauer bridge — see above). *)
 From Thermodynamic Require Import LandauerDerived LandauerJoules.
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import MuShannonBridge SimulationProof.

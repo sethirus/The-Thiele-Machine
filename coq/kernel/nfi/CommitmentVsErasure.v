@@ -111,7 +111,7 @@ Qed.
     positive cost when it reaches certification. *)
 (* Re-exports the universal certification-cost floor under the name this file's
    erasure-vs-A2 narrative refers to. No new content; deliberate.
-   INQUISITOR NOTE: alias for universal_nfi_any_substrate. *)
+   SCOPE NOTE: alias for universal_nfi_any_substrate. *)
 Theorem trusted_a2_system_certification_cost_floor :
   forall (CS : CertificationSystem)
          (trace : list (cs_instr CS))

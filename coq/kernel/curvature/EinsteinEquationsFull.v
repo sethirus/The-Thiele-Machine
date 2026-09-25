@@ -181,9 +181,9 @@ Qed.
     2. Off-diagonal: R_{mu nu} = 0 for mu <> nu
        (since G_{mu nu} = R_{mu nu} and T_{mu nu} = 0 for mu <> nu)
 
-    This theorem is FALSIFIABLE: the off-diagonal Ricci hypothesis must
-    be discharged for each specific complex. On two_vertex_sc it cannot
-    be discharged (off-diagonal Ricci is generically nonzero there).
+    The off-diagonal Ricci equality is an explicit premise for each supplied
+    complex. The theorem does not derive that premise for [two_vertex_sc],
+    where the corresponding values may be nonzero.
     *)
 
 Theorem full_efe_from_diagonal_and_offdiag_ricci :
@@ -323,4 +323,3 @@ Qed.
     Variables) was removed. Section Variables are axioms, not proofs.
     off_diagonal_ricci_zero is formally refuted in the general case
     (DiscreteSimplicialGeometry.v). No theorem here assumes it. *)
-

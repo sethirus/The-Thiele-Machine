@@ -31,7 +31,7 @@
         [0 >= S² * (flen*8+1)], which fails for any [S² > 0] and
         [flen*8+1 > 0]. See [F3_adversarial_drop_lassert].
 
-    - **B5 (no bypass markers).** No INQUISITOR NOTE / DEFINITIONAL
+    - **B5 (no bypass markers).** No SCOPE NOTE / DEFINITIONAL
       HELPER markers anywhere in this file.
 
     The composite says: any LASSERT certificate of an algebraically-

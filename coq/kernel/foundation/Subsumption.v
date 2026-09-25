@@ -16,7 +16,7 @@ Import ListNotations.
 
 From Kernel Require Import Kernel KernelTM KernelThiele.
 
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost. Any
    Kernel module it imports is a peer result in the same mathematical
@@ -25,8 +25,8 @@ From Kernel Require Import Kernel KernelTM KernelThiele.
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
 
 Module K := Kernel.
 Module KTM := KernelTM.

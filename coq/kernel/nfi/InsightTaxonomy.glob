@@ -1,383 +1,383 @@
-DIGEST 60272b673ffd916a1113523b19485750
+DIGEST 68530e381c90e4cd1171afc53eb4f5fe
 FKernel.InsightTaxonomy
-R1475:1478 Coq.Lists.List <> <> lib
-R1480:1493 Coq.Arith.PeanoNat <> <> lib
-R1495:1498 Coq.Bool.Bool <> <> lib
-R1500:1502 Coq.micromega.Lia <> <> lib
-R1512:1524 Coq.Lists.List ListNotations <> mod
-R1555:1561 Kernel.VMState <> <> lib
-R1563:1568 Kernel.VMStep <> <> lib
-R1570:1584 Kernel.SimulationProof <> <> lib
-R1586:1597 Kernel.AbstractNoFI <> <> lib
-R1626:1645 Kernel.MuLedgerConservation <> <> lib
-prf 2180:2195 <> pnew_can_be_free
-R2201:2207 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2214:2219 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2208:2213 <> region:1
-R2258:2260 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2220:2235 Kernel.VMStep VMStep instruction_cost def
-R2238:2247 Kernel.VMStep VMStep instr_pnew constr
-R2249:2254 Kernel.InsightTaxonomy <> region:1 var
-R2280:2281 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R2280:2281 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-prf 2385:2401 <> morph_can_be_free
-R2407:2413 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2434:2439 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2414:2416 <> dst:2
-binder 2418:2420 <> src:3
-binder 2422:2428 <> dst_mod:4
-binder 2430:2433 <> cidx:5
-R2493:2495 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2440:2455 Kernel.VMStep VMStep instruction_cost def
-R2458:2468 Kernel.VMStep VMStep instr_morph constr
-R2470:2472 Kernel.InsightTaxonomy <> dst:2 var
-R2474:2476 Kernel.InsightTaxonomy <> src:3 var
-R2478:2484 Kernel.InsightTaxonomy <> dst_mod:4 var
-R2486:2489 Kernel.InsightTaxonomy <> cidx:5 var
-prf 2626:2649 <> morph_delete_can_be_free
-R2655:2661 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2665:2670 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2662:2664 <> mid:6
-R2714:2716 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2671:2686 Kernel.VMStep VMStep instruction_cost def
-R2689:2706 Kernel.VMStep VMStep instr_morph_delete constr
-R2708:2710 Kernel.InsightTaxonomy <> mid:6 var
-def 3464:3484 <> is_cert_insight_event
-R3491:3497 Kernel.VMState <> VMState rec
-binder 3487:3487 <> s:7
-R3505:3518 Kernel.VMStep VMStep vm_instruction ind
-binder 3501:3501 <> i:8
-R3533:3533 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R3617:3626 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R3694:3694 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R3565:3571 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3561:3563 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3547:3559 Kernel.VMState <> csr_cert_addr proj
-R3537:3543 Kernel.VMState <> vm_csrs proj
-R3534:3534 Kernel.InsightTaxonomy <> s:7 var
-R3612:3615 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R3598:3610 Kernel.VMState <> csr_cert_addr proj
-R3588:3594 Kernel.VMState <> vm_csrs proj
-R3573:3580 Kernel.SimulationProof <> vm_apply def
-R3582:3582 Kernel.InsightTaxonomy <> s:7 var
-R3584:3584 Kernel.InsightTaxonomy <> i:8 var
-R3651:3657 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3643:3645 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3630:3641 Kernel.VMState <> vm_certified proj
-R3627:3627 Kernel.InsightTaxonomy <> s:7 var
-R3646:3650 Coq.Init.Datatypes <> false constr
-R3687:3689 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3674:3685 Kernel.VMState <> vm_certified proj
-R3659:3666 Kernel.SimulationProof <> vm_apply def
-R3668:3668 Kernel.InsightTaxonomy <> s:7 var
-R3670:3670 Kernel.InsightTaxonomy <> i:8 var
-R3690:3693 Coq.Init.Datatypes <> true constr
-prf 3853:3877 <> certified_insight_nonfree
-R3895:3901 Kernel.VMState <> VMState rec
-binder 3891:3891 <> s:9
-R3909:3922 Kernel.VMStep VMStep vm_instruction ind
-binder 3905:3905 <> i:10
-R3955:3962 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3930:3950 Kernel.InsightTaxonomy <> is_cert_insight_event def
-R3952:3952 Kernel.InsightTaxonomy <> s:9 var
-R3954:3954 Kernel.InsightTaxonomy <> i:10 var
-R3986:3993 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3981:3984 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3963:3978 Kernel.VMStep VMStep instruction_cost def
-R3980:3980 Kernel.InsightTaxonomy <> i:10 var
-R4016:4019 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4010:4014 Kernel.VMState <> vm_mu proj
-R3995:4002 Kernel.SimulationProof <> vm_apply def
-R4004:4004 Kernel.InsightTaxonomy <> s:9 var
-R4006:4006 Kernel.InsightTaxonomy <> i:10 var
-R4029:4031 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4023:4027 Kernel.VMState <> vm_mu proj
-R4020:4020 Kernel.InsightTaxonomy <> s:9 var
-R4072:4092 Kernel.InsightTaxonomy <> is_cert_insight_event def
-R4208:4228 Kernel.AbstractNoFI <> no_free_certification thm
-R4208:4228 Kernel.AbstractNoFI <> no_free_certification thm
-R4257:4287 Kernel.AbstractNoFI <> no_free_certification_certified thm
-R4257:4287 Kernel.AbstractNoFI <> no_free_certification_certified thm
-R4396:4419 Kernel.AbstractNoFI <> no_free_certification_mu thm
-R4396:4419 Kernel.AbstractNoFI <> no_free_certification_mu thm
-R4448:4481 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm
-R4448:4481 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm
-prf 4956:4982 <> morph_assert_is_cert_setter
-binder 4995:4997 <> mid:11
-binder 4999:4999 <> p:12
-binder 5001:5001 <> c:13
-binder 5003:5006 <> cost:14
-R5064:5066 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5013:5029 Kernel.AbstractNoFI <> cert_addr_setterb def
-R5032:5049 Kernel.VMStep VMStep instr_morph_assert constr
-R5051:5053 Kernel.InsightTaxonomy <> mid:11 var
-R5055:5055 Kernel.InsightTaxonomy <> p:12 var
-R5057:5057 Kernel.InsightTaxonomy <> c:13 var
-R5059:5062 Kernel.InsightTaxonomy <> cost:14 var
-R5067:5070 Coq.Init.Datatypes <> true constr
-prf 5262:5282 <> morph_assert_cost_pos
-binder 5295:5297 <> mid:15
-binder 5299:5299 <> p:16
-binder 5301:5301 <> c:17
-binder 5303:5306 <> cost:18
-R5363:5366 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5313:5328 Kernel.VMStep VMStep instruction_cost def
-R5331:5348 Kernel.VMStep VMStep instr_morph_assert constr
-R5350:5352 Kernel.InsightTaxonomy <> mid:15 var
-R5354:5354 Kernel.InsightTaxonomy <> p:16 var
-R5356:5356 Kernel.InsightTaxonomy <> c:17 var
-R5358:5361 Kernel.InsightTaxonomy <> cost:18 var
-prf 5482:5500 <> morph_assert_mu_pos
-R5518:5524 Kernel.VMState <> VMState rec
-binder 5514:5514 <> s:19
-binder 5527:5529 <> mid:20
-binder 5531:5531 <> p:21
-binder 5533:5533 <> c:22
-binder 5535:5538 <> cost:23
-R5599:5602 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5593:5597 Kernel.VMState <> vm_mu proj
-R5546:5553 Kernel.SimulationProof <> vm_apply def
-R5555:5555 Kernel.InsightTaxonomy <> s:19 var
-R5558:5575 Kernel.VMStep VMStep instr_morph_assert constr
-R5577:5579 Kernel.InsightTaxonomy <> mid:20 var
-R5581:5581 Kernel.InsightTaxonomy <> p:21 var
-R5583:5583 Kernel.InsightTaxonomy <> c:22 var
-R5585:5588 Kernel.InsightTaxonomy <> cost:23 var
-R5612:5614 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5606:5610 Kernel.VMState <> vm_mu proj
-R5603:5603 Kernel.InsightTaxonomy <> s:19 var
-R5643:5653 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R5643:5653 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R5643:5653 Kernel.MuLedgerConservation <> vm_apply_mu thm
-prf 6299:6318 <> pnew_not_cert_setter
-binder 6331:6336 <> region:24
-binder 6338:6341 <> cost:25
-R6390:6392 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6348:6364 Kernel.AbstractNoFI <> cert_addr_setterb def
-R6367:6376 Kernel.VMStep VMStep instr_pnew constr
-R6378:6383 Kernel.InsightTaxonomy <> region:24 var
-R6385:6388 Kernel.InsightTaxonomy <> cost:25 var
-R6393:6397 Coq.Init.Datatypes <> false constr
-prf 6513:6533 <> morph_not_cert_setter
-binder 6546:6548 <> dst:26
-binder 6550:6552 <> src:27
-binder 6554:6560 <> dst_mod:28
-binder 6562:6565 <> cidx:29
-binder 6567:6570 <> cost:30
-R6634:6636 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6577:6593 Kernel.AbstractNoFI <> cert_addr_setterb def
-R6596:6606 Kernel.VMStep VMStep instr_morph constr
-R6608:6610 Kernel.InsightTaxonomy <> dst:26 var
-R6612:6614 Kernel.InsightTaxonomy <> src:27 var
-R6616:6622 Kernel.InsightTaxonomy <> dst_mod:28 var
-R6624:6627 Kernel.InsightTaxonomy <> cidx:29 var
-R6629:6632 Kernel.InsightTaxonomy <> cost:30 var
-R6637:6641 Coq.Init.Datatypes <> false constr
-prf 6771:6798 <> morph_delete_not_cert_setter
-binder 6811:6813 <> mid:31
-binder 6815:6818 <> cost:32
-R6872:6874 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6825:6841 Kernel.AbstractNoFI <> cert_addr_setterb def
-R6844:6861 Kernel.VMStep VMStep instr_morph_delete constr
-R6863:6865 Kernel.InsightTaxonomy <> mid:31 var
-R6867:6870 Kernel.InsightTaxonomy <> cost:32 var
-R6875:6879 Coq.Init.Datatypes <> false constr
-prf 7009:7036 <> morph_tensor_not_cert_setter
-binder 7049:7050 <> m1:33
-binder 7052:7053 <> m2:34
-binder 7055:7057 <> dst:35
-binder 7059:7062 <> cost:36
-R7122:7124 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7069:7085 Kernel.AbstractNoFI <> cert_addr_setterb def
-R7088:7105 Kernel.VMStep VMStep instr_morph_tensor constr
-R7107:7108 Kernel.InsightTaxonomy <> m1:33 var
-R7110:7111 Kernel.InsightTaxonomy <> m2:34 var
-R7113:7115 Kernel.InsightTaxonomy <> dst:35 var
-R7117:7120 Kernel.InsightTaxonomy <> cost:36 var
-R7125:7129 Coq.Init.Datatypes <> false constr
-prf 7253:7277 <> morph_get_not_cert_setter
-binder 7290:7292 <> mid:37
-binder 7294:7296 <> dst:38
-binder 7298:7300 <> typ:39
-binder 7302:7305 <> cost:40
-R7364:7366 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7312:7328 Kernel.AbstractNoFI <> cert_addr_setterb def
-R7331:7345 Kernel.VMStep VMStep instr_morph_get constr
-R7347:7349 Kernel.InsightTaxonomy <> mid:37 var
-R7351:7353 Kernel.InsightTaxonomy <> dst:38 var
-R7355:7357 Kernel.InsightTaxonomy <> typ:39 var
-R7359:7362 Kernel.InsightTaxonomy <> cost:40 var
-R7367:7371 Coq.Init.Datatypes <> false constr
-prf 7491:7513 <> compose_not_cert_setter
-binder 7526:7527 <> r1:41
-binder 7529:7530 <> r2:42
-binder 7532:7534 <> dst:43
-binder 7536:7539 <> cost:44
-R7594:7596 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7546:7562 Kernel.AbstractNoFI <> cert_addr_setterb def
-R7565:7577 Kernel.VMStep VMStep instr_compose constr
-R7579:7580 Kernel.InsightTaxonomy <> r1:41 var
-R7582:7583 Kernel.InsightTaxonomy <> r2:42 var
-R7585:7587 Kernel.InsightTaxonomy <> dst:43 var
-R7589:7592 Kernel.InsightTaxonomy <> cost:44 var
-R7597:7601 Coq.Init.Datatypes <> false constr
-prf 7723:7746 <> morph_id_not_cert_setter
-binder 7759:7761 <> mid:45
-binder 7763:7765 <> dst:46
-binder 7767:7770 <> cost:47
-R7824:7826 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7777:7793 Kernel.AbstractNoFI <> cert_addr_setterb def
-R7796:7809 Kernel.VMStep VMStep instr_morph_id constr
-R7811:7813 Kernel.InsightTaxonomy <> mid:45 var
-R7815:7817 Kernel.InsightTaxonomy <> dst:46 var
-R7819:7822 Kernel.InsightTaxonomy <> cost:47 var
-R7827:7831 Coq.Init.Datatypes <> false constr
-prf 8120:8143 <> pnew_preserves_cert_addr
-R8161:8167 Kernel.VMState <> VMState rec
-binder 8157:8157 <> s:48
-binder 8170:8175 <> region:49
-binder 8177:8180 <> cost:50
-R8250:8256 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8236:8248 Kernel.VMState <> csr_cert_addr proj
-R8226:8232 Kernel.VMState <> vm_csrs proj
-R8188:8195 Kernel.SimulationProof <> vm_apply def
-R8197:8197 Kernel.InsightTaxonomy <> s:48 var
-R8200:8209 Kernel.VMStep VMStep instr_pnew constr
-R8211:8216 Kernel.InsightTaxonomy <> region:49 var
-R8218:8221 Kernel.InsightTaxonomy <> cost:50 var
-R8270:8282 Kernel.VMState <> csr_cert_addr proj
-R8260:8266 Kernel.VMState <> vm_csrs proj
-R8257:8257 Kernel.InsightTaxonomy <> s:48 var
-R8309:8345 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
-R8309:8345 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
-prf 8380:8404 <> morph_preserves_cert_addr
-R8422:8428 Kernel.VMState <> VMState rec
-binder 8418:8418 <> s:51
-binder 8431:8433 <> dst:52
-binder 8435:8437 <> src:53
-binder 8439:8445 <> dst_mod:54
-binder 8447:8450 <> cidx:55
-binder 8452:8455 <> cost:56
-R8540:8546 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8526:8538 Kernel.VMState <> csr_cert_addr proj
-R8516:8522 Kernel.VMState <> vm_csrs proj
-R8463:8470 Kernel.SimulationProof <> vm_apply def
-R8472:8472 Kernel.InsightTaxonomy <> s:51 var
-R8475:8485 Kernel.VMStep VMStep instr_morph constr
-R8487:8489 Kernel.InsightTaxonomy <> dst:52 var
-R8491:8493 Kernel.InsightTaxonomy <> src:53 var
-R8495:8501 Kernel.InsightTaxonomy <> dst_mod:54 var
-R8503:8506 Kernel.InsightTaxonomy <> cidx:55 var
-R8508:8511 Kernel.InsightTaxonomy <> cost:56 var
-R8560:8572 Kernel.VMState <> csr_cert_addr proj
-R8550:8556 Kernel.VMState <> vm_csrs proj
-R8547:8547 Kernel.InsightTaxonomy <> s:51 var
-R8599:8635 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
-R8599:8635 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
-prf 9123:9158 <> structural_trace_preserves_cert_addr
-R9180:9183 Coq.Init.Datatypes <> list ind
-R9185:9198 Kernel.VMStep VMStep vm_instruction ind
-binder 9172:9176 <> trace:57
-R9207:9213 Kernel.VMState <> VMState rec
-binder 9202:9203 <> s0:58
-R9272:9279 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9221:9226 Coq.Lists.List <> Forall ind
-R9267:9271 Kernel.InsightTaxonomy <> trace:57 var
-binder 9233:9233 <> i:59
-R9257:9259 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9238:9254 Kernel.AbstractNoFI <> cert_addr_setterb def
-R9256:9256 Kernel.InsightTaxonomy <> i:59 var
-R9260:9264 Coq.Init.Datatypes <> false constr
-R9344:9350 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9330:9342 Kernel.VMState <> csr_cert_addr proj
-R9320:9326 Kernel.VMState <> vm_csrs proj
-R9281:9287 Kernel.AbstractNoFI <> acm_run def
-R9315:9316 Kernel.InsightTaxonomy <> s0:58 var
-R9309:9313 Kernel.InsightTaxonomy <> trace:57 var
-R9289:9307 Kernel.AbstractNoFI <> thiele_cert_machine def
-R9365:9377 Kernel.VMState <> csr_cert_addr proj
-R9355:9361 Kernel.VMState <> vm_csrs proj
-R9351:9352 Kernel.InsightTaxonomy <> s0:58 var
-R9551:9558 Kernel.SimulationProof <> vm_apply def
-R9551:9558 Kernel.SimulationProof <> vm_apply def
-R9551:9558 Kernel.SimulationProof <> vm_apply def
-R9585:9621 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
-R9585:9621 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
-prf 9794:9829 <> structural_only_trace_cannot_certify
-R9851:9854 Coq.Init.Datatypes <> list ind
-R9856:9869 Kernel.VMStep VMStep vm_instruction ind
-binder 9843:9847 <> trace:60
-R9878:9884 Kernel.VMState <> VMState rec
-binder 9873:9874 <> s0:61
-R9924:9931 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9920:9922 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9906:9918 Kernel.VMState <> csr_cert_addr proj
-R9896:9902 Kernel.VMState <> vm_csrs proj
-R9892:9893 Kernel.InsightTaxonomy <> s0:61 var
-R9983:9990 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9932:9937 Coq.Lists.List <> Forall ind
-R9978:9982 Kernel.InsightTaxonomy <> trace:60 var
-binder 9944:9944 <> i:62
-R9968:9970 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9949:9965 Kernel.AbstractNoFI <> cert_addr_setterb def
-R9967:9967 Kernel.InsightTaxonomy <> i:62 var
-R9971:9975 Coq.Init.Datatypes <> false constr
-R10055:10057 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10041:10053 Kernel.VMState <> csr_cert_addr proj
-R10031:10037 Kernel.VMState <> vm_csrs proj
-R9992:9998 Kernel.AbstractNoFI <> acm_run def
-R10026:10027 Kernel.InsightTaxonomy <> s0:61 var
-R10020:10024 Kernel.InsightTaxonomy <> trace:60 var
-R10000:10018 Kernel.AbstractNoFI <> thiele_cert_machine def
-R10112:10147 Kernel.InsightTaxonomy <> structural_trace_preserves_cert_addr thm
-R10112:10147 Kernel.InsightTaxonomy <> structural_trace_preserves_cert_addr thm
-R10112:10147 Kernel.InsightTaxonomy <> structural_trace_preserves_cert_addr thm
-prf 11197:11221 <> no_free_certified_insight
-R11243:11246 Coq.Init.Datatypes <> list ind
-R11248:11261 Kernel.VMStep VMStep vm_instruction ind
-binder 11235:11239 <> trace:63
-R11270:11276 Kernel.VMState <> VMState rec
-binder 11265:11266 <> s0:64
-R11316:11323 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11312:11314 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11298:11310 Kernel.VMState <> csr_cert_addr proj
-R11288:11294 Kernel.VMState <> vm_csrs proj
-R11284:11285 Kernel.InsightTaxonomy <> s0:64 var
-R11393:11477 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11388:11391 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R11374:11386 Kernel.VMState <> csr_cert_addr proj
-R11364:11370 Kernel.VMState <> vm_csrs proj
-R11325:11331 Kernel.AbstractNoFI <> acm_run def
-R11359:11360 Kernel.InsightTaxonomy <> s0:64 var
-R11353:11357 Kernel.InsightTaxonomy <> trace:63 var
-R11333:11351 Kernel.AbstractNoFI <> thiele_cert_machine def
-R11478:11478 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11586:11633 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11479:11485 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R11487:11488 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 11486:11486 <> i:65
-R11499:11517 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11489:11490 Coq.Lists.List <> In def
-R11494:11498 Kernel.InsightTaxonomy <> trace:63 var
-R11492:11492 Kernel.InsightTaxonomy <> i:65 var
-R11544:11562 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11537:11539 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11518:11534 Kernel.AbstractNoFI <> cert_addr_setterb def
-R11536:11536 Kernel.InsightTaxonomy <> i:65 var
-R11540:11543 Coq.Init.Datatypes <> true constr
-R11581:11584 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11563:11578 Kernel.VMStep VMStep instruction_cost def
-R11580:11580 Kernel.InsightTaxonomy <> i:65 var
-R11680:11683 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11674:11678 Kernel.VMState <> vm_mu proj
-R11635:11641 Kernel.AbstractNoFI <> acm_run def
-R11669:11670 Kernel.InsightTaxonomy <> s0:64 var
-R11663:11667 Kernel.InsightTaxonomy <> trace:63 var
-R11643:11661 Kernel.AbstractNoFI <> thiele_cert_machine def
-R11694:11696 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R11688:11692 Kernel.VMState <> vm_mu proj
-R11684:11685 Kernel.InsightTaxonomy <> s0:64 var
-R11761:11784 Kernel.AbstractNoFI <> thiele_abstract_nfi_cost thm
-R11761:11784 Kernel.AbstractNoFI <> thiele_abstract_nfi_cost thm
-R11823:11852 Kernel.AbstractNoFI <> no_free_certification_trace_mu thm
-R11823:11852 Kernel.AbstractNoFI <> no_free_certification_trace_mu thm
+R1327:1330 Coq.Lists.List <> <> lib
+R1332:1345 Coq.Arith.PeanoNat <> <> lib
+R1347:1350 Coq.Bool.Bool <> <> lib
+R1352:1354 Coq.micromega.Lia <> <> lib
+R1364:1376 Coq.Lists.List ListNotations <> mod
+R1407:1413 Kernel.VMState <> <> lib
+R1415:1420 Kernel.VMStep <> <> lib
+R1422:1436 Kernel.SimulationProof <> <> lib
+R1438:1449 Kernel.AbstractNoFI <> <> lib
+R1478:1497 Kernel.MuLedgerConservation <> <> lib
+prf 2023:2038 <> pnew_can_be_free
+R2044:2050 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2057:2062 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2051:2056 <> region:1
+R2101:2103 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2063:2078 Kernel.VMStep VMStep instruction_cost def
+R2081:2090 Kernel.VMStep VMStep instr_pnew constr
+R2092:2097 Kernel.InsightTaxonomy <> region:1 var
+R2123:2124 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2123:2124 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 2228:2244 <> morph_can_be_free
+R2250:2256 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2277:2282 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2257:2259 <> dst:2
+binder 2261:2263 <> src:3
+binder 2265:2271 <> dst_mod:4
+binder 2273:2276 <> cidx:5
+R2336:2338 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2283:2298 Kernel.VMStep VMStep instruction_cost def
+R2301:2311 Kernel.VMStep VMStep instr_morph constr
+R2313:2315 Kernel.InsightTaxonomy <> dst:2 var
+R2317:2319 Kernel.InsightTaxonomy <> src:3 var
+R2321:2327 Kernel.InsightTaxonomy <> dst_mod:4 var
+R2329:2332 Kernel.InsightTaxonomy <> cidx:5 var
+prf 2478:2501 <> morph_delete_can_be_free
+R2507:2513 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2517:2522 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2514:2516 <> mid:6
+R2566:2568 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2523:2538 Kernel.VMStep VMStep instruction_cost def
+R2541:2558 Kernel.VMStep VMStep instr_morph_delete constr
+R2560:2562 Kernel.InsightTaxonomy <> mid:6 var
+def 3316:3336 <> is_cert_insight_event
+R3343:3349 Kernel.VMState <> VMState rec
+binder 3339:3339 <> s:7
+R3357:3370 Kernel.VMStep VMStep vm_instruction ind
+binder 3353:3353 <> i:8
+R3385:3385 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R3469:3478 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R3546:3546 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R3417:3423 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3413:3415 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3399:3411 Kernel.VMState <> csr_cert_addr proj
+R3389:3395 Kernel.VMState <> vm_csrs proj
+R3386:3386 Kernel.InsightTaxonomy <> s:7 var
+R3464:3467 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3450:3462 Kernel.VMState <> csr_cert_addr proj
+R3440:3446 Kernel.VMState <> vm_csrs proj
+R3425:3432 Kernel.SimulationProof <> vm_apply def
+R3434:3434 Kernel.InsightTaxonomy <> s:7 var
+R3436:3436 Kernel.InsightTaxonomy <> i:8 var
+R3503:3509 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3495:3497 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3482:3493 Kernel.VMState <> vm_certified proj
+R3479:3479 Kernel.InsightTaxonomy <> s:7 var
+R3498:3502 Coq.Init.Datatypes <> false constr
+R3539:3541 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3526:3537 Kernel.VMState <> vm_certified proj
+R3511:3518 Kernel.SimulationProof <> vm_apply def
+R3520:3520 Kernel.InsightTaxonomy <> s:7 var
+R3522:3522 Kernel.InsightTaxonomy <> i:8 var
+R3542:3545 Coq.Init.Datatypes <> true constr
+prf 3734:3758 <> certified_insight_nonfree
+R3776:3782 Kernel.VMState <> VMState rec
+binder 3772:3772 <> s:9
+R3790:3803 Kernel.VMStep VMStep vm_instruction ind
+binder 3786:3786 <> i:10
+R3836:3843 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3811:3831 Kernel.InsightTaxonomy <> is_cert_insight_event def
+R3833:3833 Kernel.InsightTaxonomy <> s:9 var
+R3835:3835 Kernel.InsightTaxonomy <> i:10 var
+R3867:3874 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3862:3865 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3844:3859 Kernel.VMStep VMStep instruction_cost def
+R3861:3861 Kernel.InsightTaxonomy <> i:10 var
+R3897:3900 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3891:3895 Kernel.VMState <> vm_mu proj
+R3876:3883 Kernel.SimulationProof <> vm_apply def
+R3885:3885 Kernel.InsightTaxonomy <> s:9 var
+R3887:3887 Kernel.InsightTaxonomy <> i:10 var
+R3910:3912 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3904:3908 Kernel.VMState <> vm_mu proj
+R3901:3901 Kernel.InsightTaxonomy <> s:9 var
+R3953:3973 Kernel.InsightTaxonomy <> is_cert_insight_event def
+R4089:4109 Kernel.AbstractNoFI <> no_free_certification thm
+R4089:4109 Kernel.AbstractNoFI <> no_free_certification thm
+R4138:4168 Kernel.AbstractNoFI <> no_free_certification_certified thm
+R4138:4168 Kernel.AbstractNoFI <> no_free_certification_certified thm
+R4277:4300 Kernel.AbstractNoFI <> no_free_certification_mu thm
+R4277:4300 Kernel.AbstractNoFI <> no_free_certification_mu thm
+R4329:4362 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm
+R4329:4362 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm
+prf 4837:4863 <> morph_assert_is_cert_setter
+binder 4876:4878 <> mid:11
+binder 4880:4880 <> p:12
+binder 4882:4882 <> c:13
+binder 4884:4887 <> cost:14
+R4945:4947 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4894:4910 Kernel.AbstractNoFI <> cert_addr_setterb def
+R4913:4930 Kernel.VMStep VMStep instr_morph_assert constr
+R4932:4934 Kernel.InsightTaxonomy <> mid:11 var
+R4936:4936 Kernel.InsightTaxonomy <> p:12 var
+R4938:4938 Kernel.InsightTaxonomy <> c:13 var
+R4940:4943 Kernel.InsightTaxonomy <> cost:14 var
+R4948:4951 Coq.Init.Datatypes <> true constr
+prf 5143:5163 <> morph_assert_cost_pos
+binder 5176:5178 <> mid:15
+binder 5180:5180 <> p:16
+binder 5182:5182 <> c:17
+binder 5184:5187 <> cost:18
+R5244:5247 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5194:5209 Kernel.VMStep VMStep instruction_cost def
+R5212:5229 Kernel.VMStep VMStep instr_morph_assert constr
+R5231:5233 Kernel.InsightTaxonomy <> mid:15 var
+R5235:5235 Kernel.InsightTaxonomy <> p:16 var
+R5237:5237 Kernel.InsightTaxonomy <> c:17 var
+R5239:5242 Kernel.InsightTaxonomy <> cost:18 var
+prf 5363:5381 <> morph_assert_mu_pos
+R5399:5405 Kernel.VMState <> VMState rec
+binder 5395:5395 <> s:19
+binder 5408:5410 <> mid:20
+binder 5412:5412 <> p:21
+binder 5414:5414 <> c:22
+binder 5416:5419 <> cost:23
+R5480:5483 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5474:5478 Kernel.VMState <> vm_mu proj
+R5427:5434 Kernel.SimulationProof <> vm_apply def
+R5436:5436 Kernel.InsightTaxonomy <> s:19 var
+R5439:5456 Kernel.VMStep VMStep instr_morph_assert constr
+R5458:5460 Kernel.InsightTaxonomy <> mid:20 var
+R5462:5462 Kernel.InsightTaxonomy <> p:21 var
+R5464:5464 Kernel.InsightTaxonomy <> c:22 var
+R5466:5469 Kernel.InsightTaxonomy <> cost:23 var
+R5493:5495 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5487:5491 Kernel.VMState <> vm_mu proj
+R5484:5484 Kernel.InsightTaxonomy <> s:19 var
+R5524:5534 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R5524:5534 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R5524:5534 Kernel.MuLedgerConservation <> vm_apply_mu thm
+prf 6050:6069 <> pnew_not_cert_setter
+binder 6082:6087 <> region:24
+binder 6089:6092 <> cost:25
+R6141:6143 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6099:6115 Kernel.AbstractNoFI <> cert_addr_setterb def
+R6118:6127 Kernel.VMStep VMStep instr_pnew constr
+R6129:6134 Kernel.InsightTaxonomy <> region:24 var
+R6136:6139 Kernel.InsightTaxonomy <> cost:25 var
+R6144:6148 Coq.Init.Datatypes <> false constr
+prf 6264:6284 <> morph_not_cert_setter
+binder 6297:6299 <> dst:26
+binder 6301:6303 <> src:27
+binder 6305:6311 <> dst_mod:28
+binder 6313:6316 <> cidx:29
+binder 6318:6321 <> cost:30
+R6385:6387 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6328:6344 Kernel.AbstractNoFI <> cert_addr_setterb def
+R6347:6357 Kernel.VMStep VMStep instr_morph constr
+R6359:6361 Kernel.InsightTaxonomy <> dst:26 var
+R6363:6365 Kernel.InsightTaxonomy <> src:27 var
+R6367:6373 Kernel.InsightTaxonomy <> dst_mod:28 var
+R6375:6378 Kernel.InsightTaxonomy <> cidx:29 var
+R6380:6383 Kernel.InsightTaxonomy <> cost:30 var
+R6388:6392 Coq.Init.Datatypes <> false constr
+prf 6522:6549 <> morph_delete_not_cert_setter
+binder 6562:6564 <> mid:31
+binder 6566:6569 <> cost:32
+R6623:6625 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6576:6592 Kernel.AbstractNoFI <> cert_addr_setterb def
+R6595:6612 Kernel.VMStep VMStep instr_morph_delete constr
+R6614:6616 Kernel.InsightTaxonomy <> mid:31 var
+R6618:6621 Kernel.InsightTaxonomy <> cost:32 var
+R6626:6630 Coq.Init.Datatypes <> false constr
+prf 6760:6787 <> morph_tensor_not_cert_setter
+binder 6800:6801 <> m1:33
+binder 6803:6804 <> m2:34
+binder 6806:6808 <> dst:35
+binder 6810:6813 <> cost:36
+R6873:6875 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6820:6836 Kernel.AbstractNoFI <> cert_addr_setterb def
+R6839:6856 Kernel.VMStep VMStep instr_morph_tensor constr
+R6858:6859 Kernel.InsightTaxonomy <> m1:33 var
+R6861:6862 Kernel.InsightTaxonomy <> m2:34 var
+R6864:6866 Kernel.InsightTaxonomy <> dst:35 var
+R6868:6871 Kernel.InsightTaxonomy <> cost:36 var
+R6876:6880 Coq.Init.Datatypes <> false constr
+prf 7004:7028 <> morph_get_not_cert_setter
+binder 7041:7043 <> mid:37
+binder 7045:7047 <> dst:38
+binder 7049:7051 <> typ:39
+binder 7053:7056 <> cost:40
+R7115:7117 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7063:7079 Kernel.AbstractNoFI <> cert_addr_setterb def
+R7082:7096 Kernel.VMStep VMStep instr_morph_get constr
+R7098:7100 Kernel.InsightTaxonomy <> mid:37 var
+R7102:7104 Kernel.InsightTaxonomy <> dst:38 var
+R7106:7108 Kernel.InsightTaxonomy <> typ:39 var
+R7110:7113 Kernel.InsightTaxonomy <> cost:40 var
+R7118:7122 Coq.Init.Datatypes <> false constr
+prf 7242:7264 <> compose_not_cert_setter
+binder 7277:7278 <> r1:41
+binder 7280:7281 <> r2:42
+binder 7283:7285 <> dst:43
+binder 7287:7290 <> cost:44
+R7345:7347 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7297:7313 Kernel.AbstractNoFI <> cert_addr_setterb def
+R7316:7328 Kernel.VMStep VMStep instr_compose constr
+R7330:7331 Kernel.InsightTaxonomy <> r1:41 var
+R7333:7334 Kernel.InsightTaxonomy <> r2:42 var
+R7336:7338 Kernel.InsightTaxonomy <> dst:43 var
+R7340:7343 Kernel.InsightTaxonomy <> cost:44 var
+R7348:7352 Coq.Init.Datatypes <> false constr
+prf 7474:7497 <> morph_id_not_cert_setter
+binder 7510:7512 <> mid:45
+binder 7514:7516 <> dst:46
+binder 7518:7521 <> cost:47
+R7575:7577 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7528:7544 Kernel.AbstractNoFI <> cert_addr_setterb def
+R7547:7560 Kernel.VMStep VMStep instr_morph_id constr
+R7562:7564 Kernel.InsightTaxonomy <> mid:45 var
+R7566:7568 Kernel.InsightTaxonomy <> dst:46 var
+R7570:7573 Kernel.InsightTaxonomy <> cost:47 var
+R7578:7582 Coq.Init.Datatypes <> false constr
+prf 7871:7894 <> pnew_preserves_cert_addr
+R7912:7918 Kernel.VMState <> VMState rec
+binder 7908:7908 <> s:48
+binder 7921:7926 <> region:49
+binder 7928:7931 <> cost:50
+R8001:8007 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7987:7999 Kernel.VMState <> csr_cert_addr proj
+R7977:7983 Kernel.VMState <> vm_csrs proj
+R7939:7946 Kernel.SimulationProof <> vm_apply def
+R7948:7948 Kernel.InsightTaxonomy <> s:48 var
+R7951:7960 Kernel.VMStep VMStep instr_pnew constr
+R7962:7967 Kernel.InsightTaxonomy <> region:49 var
+R7969:7972 Kernel.InsightTaxonomy <> cost:50 var
+R8021:8033 Kernel.VMState <> csr_cert_addr proj
+R8011:8017 Kernel.VMState <> vm_csrs proj
+R8008:8008 Kernel.InsightTaxonomy <> s:48 var
+R8060:8096 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
+R8060:8096 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
+prf 8131:8155 <> morph_preserves_cert_addr
+R8173:8179 Kernel.VMState <> VMState rec
+binder 8169:8169 <> s:51
+binder 8182:8184 <> dst:52
+binder 8186:8188 <> src:53
+binder 8190:8196 <> dst_mod:54
+binder 8198:8201 <> cidx:55
+binder 8203:8206 <> cost:56
+R8291:8297 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8277:8289 Kernel.VMState <> csr_cert_addr proj
+R8267:8273 Kernel.VMState <> vm_csrs proj
+R8214:8221 Kernel.SimulationProof <> vm_apply def
+R8223:8223 Kernel.InsightTaxonomy <> s:51 var
+R8226:8236 Kernel.VMStep VMStep instr_morph constr
+R8238:8240 Kernel.InsightTaxonomy <> dst:52 var
+R8242:8244 Kernel.InsightTaxonomy <> src:53 var
+R8246:8252 Kernel.InsightTaxonomy <> dst_mod:54 var
+R8254:8257 Kernel.InsightTaxonomy <> cidx:55 var
+R8259:8262 Kernel.InsightTaxonomy <> cost:56 var
+R8311:8323 Kernel.VMState <> csr_cert_addr proj
+R8301:8307 Kernel.VMState <> vm_csrs proj
+R8298:8298 Kernel.InsightTaxonomy <> s:51 var
+R8350:8386 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
+R8350:8386 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
+prf 8874:8909 <> structural_trace_preserves_cert_addr
+R8931:8934 Coq.Init.Datatypes <> list ind
+R8936:8949 Kernel.VMStep VMStep vm_instruction ind
+binder 8923:8927 <> trace:57
+R8958:8964 Kernel.VMState <> VMState rec
+binder 8953:8954 <> s0:58
+R9023:9030 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8972:8977 Coq.Lists.List <> Forall ind
+R9018:9022 Kernel.InsightTaxonomy <> trace:57 var
+binder 8984:8984 <> i:59
+R9008:9010 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8989:9005 Kernel.AbstractNoFI <> cert_addr_setterb def
+R9007:9007 Kernel.InsightTaxonomy <> i:59 var
+R9011:9015 Coq.Init.Datatypes <> false constr
+R9095:9101 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9081:9093 Kernel.VMState <> csr_cert_addr proj
+R9071:9077 Kernel.VMState <> vm_csrs proj
+R9032:9038 Kernel.AbstractNoFI <> acm_run def
+R9066:9067 Kernel.InsightTaxonomy <> s0:58 var
+R9060:9064 Kernel.InsightTaxonomy <> trace:57 var
+R9040:9058 Kernel.AbstractNoFI <> thiele_cert_machine def
+R9116:9128 Kernel.VMState <> csr_cert_addr proj
+R9106:9112 Kernel.VMState <> vm_csrs proj
+R9102:9103 Kernel.InsightTaxonomy <> s0:58 var
+R9302:9309 Kernel.SimulationProof <> vm_apply def
+R9302:9309 Kernel.SimulationProof <> vm_apply def
+R9302:9309 Kernel.SimulationProof <> vm_apply def
+R9336:9372 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
+R9336:9372 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
+prf 9545:9580 <> structural_only_trace_cannot_certify
+R9602:9605 Coq.Init.Datatypes <> list ind
+R9607:9620 Kernel.VMStep VMStep vm_instruction ind
+binder 9594:9598 <> trace:60
+R9629:9635 Kernel.VMState <> VMState rec
+binder 9624:9625 <> s0:61
+R9675:9682 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9671:9673 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9657:9669 Kernel.VMState <> csr_cert_addr proj
+R9647:9653 Kernel.VMState <> vm_csrs proj
+R9643:9644 Kernel.InsightTaxonomy <> s0:61 var
+R9734:9741 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9683:9688 Coq.Lists.List <> Forall ind
+R9729:9733 Kernel.InsightTaxonomy <> trace:60 var
+binder 9695:9695 <> i:62
+R9719:9721 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9700:9716 Kernel.AbstractNoFI <> cert_addr_setterb def
+R9718:9718 Kernel.InsightTaxonomy <> i:62 var
+R9722:9726 Coq.Init.Datatypes <> false constr
+R9806:9808 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9792:9804 Kernel.VMState <> csr_cert_addr proj
+R9782:9788 Kernel.VMState <> vm_csrs proj
+R9743:9749 Kernel.AbstractNoFI <> acm_run def
+R9777:9778 Kernel.InsightTaxonomy <> s0:61 var
+R9771:9775 Kernel.InsightTaxonomy <> trace:60 var
+R9751:9769 Kernel.AbstractNoFI <> thiele_cert_machine def
+R9863:9898 Kernel.InsightTaxonomy <> structural_trace_preserves_cert_addr thm
+R9863:9898 Kernel.InsightTaxonomy <> structural_trace_preserves_cert_addr thm
+R9863:9898 Kernel.InsightTaxonomy <> structural_trace_preserves_cert_addr thm
+prf 10685:10709 <> no_free_certified_insight
+R10731:10734 Coq.Init.Datatypes <> list ind
+R10736:10749 Kernel.VMStep VMStep vm_instruction ind
+binder 10723:10727 <> trace:63
+R10758:10764 Kernel.VMState <> VMState rec
+binder 10753:10754 <> s0:64
+R10804:10811 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10800:10802 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10786:10798 Kernel.VMState <> csr_cert_addr proj
+R10776:10782 Kernel.VMState <> vm_csrs proj
+R10772:10773 Kernel.InsightTaxonomy <> s0:64 var
+R10881:10965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10876:10879 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10862:10874 Kernel.VMState <> csr_cert_addr proj
+R10852:10858 Kernel.VMState <> vm_csrs proj
+R10813:10819 Kernel.AbstractNoFI <> acm_run def
+R10847:10848 Kernel.InsightTaxonomy <> s0:64 var
+R10841:10845 Kernel.InsightTaxonomy <> trace:63 var
+R10821:10839 Kernel.AbstractNoFI <> thiele_cert_machine def
+R10966:10966 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11074:11121 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10967:10973 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10975:10976 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10974:10974 <> i:65
+R10987:11005 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10977:10978 Coq.Lists.List <> In def
+R10982:10986 Kernel.InsightTaxonomy <> trace:63 var
+R10980:10980 Kernel.InsightTaxonomy <> i:65 var
+R11032:11050 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11025:11027 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11006:11022 Kernel.AbstractNoFI <> cert_addr_setterb def
+R11024:11024 Kernel.InsightTaxonomy <> i:65 var
+R11028:11031 Coq.Init.Datatypes <> true constr
+R11069:11072 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R11051:11066 Kernel.VMStep VMStep instruction_cost def
+R11068:11068 Kernel.InsightTaxonomy <> i:65 var
+R11168:11171 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R11162:11166 Kernel.VMState <> vm_mu proj
+R11123:11129 Kernel.AbstractNoFI <> acm_run def
+R11157:11158 Kernel.InsightTaxonomy <> s0:64 var
+R11151:11155 Kernel.InsightTaxonomy <> trace:63 var
+R11131:11149 Kernel.AbstractNoFI <> thiele_cert_machine def
+R11182:11184 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11176:11180 Kernel.VMState <> vm_mu proj
+R11172:11173 Kernel.InsightTaxonomy <> s0:64 var
+R11249:11272 Kernel.AbstractNoFI <> thiele_abstract_nfi_cost thm
+R11249:11272 Kernel.AbstractNoFI <> thiele_abstract_nfi_cost thm
+R11311:11340 Kernel.AbstractNoFI <> no_free_certification_trace_mu thm
+R11311:11340 Kernel.AbstractNoFI <> no_free_certification_trace_mu thm

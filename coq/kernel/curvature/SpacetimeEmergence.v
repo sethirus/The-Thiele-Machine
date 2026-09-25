@@ -20,7 +20,7 @@ From Kernel Require Import VMState VMStep KernelPhysics.
 
 Import ListNotations.
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 Definition Event : Type := VMState.

@@ -13,7 +13,7 @@
      postulate behind the Margolus-Levitin saturation story.
 *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
    imports no kernel module.
@@ -21,8 +21,8 @@
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
 
 From Coq Require Import Reals Lra.
 Local Open Scope R_scope.
@@ -104,11 +104,9 @@ Proof. unfold k_B. apply Rinv_0_lt_compat. lra. Qed.
     temperature T. ln(2) is there because erasing one bit changes entropy by
     kB·ln(2), and ΔE ≥ T·ΔS gives the bound.
 
-    μ-bits track logical irreversibility. E_bit tracks thermodynamic
-    irreversibility. If the machine saturates the relevant physical bounds, the
-    two are proportional: each μ-bit costs E_bit energy. The temperature picks
-    the numerical scale. To falsify it, build a device that erases bits below
-    kB·T·ln(2). That would be a Landauer violation.
+    μ-bits are the model's logical ledger units. E_bit is the Landauer-shaped
+    physical calibration expression. Their identification is conditional on a
+    saturation/calibration premise; the VM definitions alone do not assert it.
 *)
 Definition E_bit : R := k_B * T * ln 2.
 
@@ -126,9 +124,9 @@ Definition E_bit : R := k_B * T * ln 2.
     this is only "if optimal, then h has this value." It is not a proof that the
     machine actually saturates Margolus-Levitin.
 
-    In quantum mechanics h ties together energy and time scales. Here the same
-    structure appears through E_bit and τμ. To falsify it, measure h, τμ, and
-    E_bit independently and check whether h = 4·E_bit·τμ.
+    The relation can be compared with independently chosen values of h, τμ,
+    and E_bit, but the theorem itself is an algebraic identity for the supplied
+    definitions rather than an experimental prediction.
 *)
 Definition derived_h : R := 4 * E_bit * tau_mu.
 
@@ -146,9 +144,8 @@ Definition derived_h : R := 4 * E_bit * tau_mu.
     real content is that h need not be treated as independent in this framework.
     Whether that is physically right is an empirical question.
 
-    The quantum-mechanical shape is familiar: h as the ratio between an energy
-    scale and a frequency scale. To falsify the interpretation, measure h,
-    τμ, and E_bit independently and find h·ν behavior without h = 4·E_bit·τμ.
+    The physical interpretation remains conditional on the stated optimality
+    and calibration premises. The theorem proves only the displayed relation.
 *)
 Theorem h_relational_identity :
   let nu_max := 1 / tau_mu in

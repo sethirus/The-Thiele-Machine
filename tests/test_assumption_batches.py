@@ -39,3 +39,24 @@ def test_real_coq_output_checks_both_closed_and_axiomatic_results():
     output = MODULE.validate_output(result.stdout, result.stderr, 2)
     assert output.startswith("Closed under the global context\n")
     assert "Axioms:" in output and "classic" in output
+
+
+def _save_batch(directory: Path, source: str, output: str) -> None:
+    (directory / "1-1.v").write_text(source)
+    (directory / "1-1.output.txt").write_text(output)
+    (directory / "1-1.errors.txt").write_text("")
+
+
+def test_saved_batch_is_reused_only_for_the_same_queries(tmp_path):
+    source = "Require Arith.\nPrint Assumptions Nat.add_0_r.\nQuit.\n"
+    _save_batch(tmp_path, source, "Closed under the global context\n")
+    assert MODULE.load_saved_batch(tmp_path, 0, 1, source) == (0, "Closed under the global context\n", "")
+    changed = "Require Arith.\nPrint Assumptions Nat.add_0_l.\nQuit.\n"
+    assert MODULE.load_saved_batch(tmp_path, 0, 1, changed) is None
+
+
+def test_saved_batch_without_its_source_is_not_reused(tmp_path):
+    source = "Require Arith.\nPrint Assumptions Nat.add_0_r.\nQuit.\n"
+    _save_batch(tmp_path, source, "Closed under the global context\n")
+    (tmp_path / "1-1.v").unlink()
+    assert MODULE.load_saved_batch(tmp_path, 0, 1, source) is None

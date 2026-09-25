@@ -1,23 +1,29 @@
 # lassert_ljoin.asm
-# Demonstrates LASSERT and LJOIN (logic assertion and join instructions).
-# LASSERT op_a op_b cost → Assert a logical proposition (no-op in reference VM, charges cost).
-# LJOIN   op_a op_b cost → Join two logical contexts (no-op in reference VM, charges cost).
-#
-# The Coq theorem lassert_ljoin_abstraction_sound proves these are identity
-# transformations at the abstraction boundary—observable only via μ decrease.
+# Demonstrates the current canonical LASSERT form followed by LJOIN.
+# The formula is the one-variable SAT witness used by the VM's on-chip checker.
+# The first witness satisfies x₁, and the second witness falsifies x₁.
 
 LOAD_IMM r1 0 0
 LOAD_IMM r2 1 0
 
-# Assert that condition (0,0) holds.
-LASSERT 0 0 2       # costs 2
-# Assert that condition (0,1) holds.
-LASSERT 0 1 2       # costs 2
+# Formula header and one literal for x₁.
+INIT_MEM 16 2
+INIT_MEM 17 1
+INIT_MEM 18 1
+INIT_MEM 19 1
+INIT_MEM 20 0
 
-# Join contexts.
-LJOIN 0 0 1         # costs 1
-LJOIN 0 1 1         # costs 1
-LJOIN 1 0 1         # costs 1
+# Satisfying witness and countermodel.
+INIT_MEM 81 1
+INIT_MEM 82 0
+LOAD_IMM r13 16 0
+LOAD_IMM r14 80 0
+LASSERT r13 r14 1 2 2
 
-# Total μ consumed: 2+2+1+1+1 = 7
+# Join contexts. LJOIN charges its encoded cost plus one.
+LJOIN 0 0 1         # costs 2
+LJOIN 0 1 1         # costs 2
+LJOIN 1 0 1         # costs 2
+
+# LASSERT charges flen*8 + cost + 1 = 2*8 + 2 + 1 = 19. Total: 19 + 3*2 = 25.
 HALT 0

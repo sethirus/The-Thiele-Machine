@@ -1,15 +1,13 @@
-(** CurvedTensorPipeline: the curved Einstein-side pipeline.
+(** CurvedTensorPipeline: a finite four-index geometry pipeline.
 
-  EinsteinEquations4D.v handles the easy flat or isotropic side. This file is
-  where the geometry becomes nontrivial. It uses the full per-module 4x4
-  metric tensor, carries the actual inverse metric, keeps the quadratic
-  Christoffel terms, and proves the concrete curved identities that survive
-  in the two-vertex setting.
+  EinsteinEquations4D.v handles the simpler flat or isotropic cases. This
+  file defines the finite curved expressions using a per-module 4x4 tensor,
+  its selected inverse construction, quadratic Christoffel terms, and the
+  identities proved for the two-vertex setting.
 
-  The non-circularity point matters here. The geometric stress-energy object
-  is kept separate from the mass-built source term, and the theorems that use
-  module_structural_mass say so explicitly. The whole point is that the
-  source side is not secretly being defined equal to the geometry side. *)
+  The formal source object is kept separate from the mass-built source term,
+  and the theorems that use module_structural_mass say so explicitly. The
+  source side is therefore not definitionally identical to the geometry side. *)
 
 From Coq Require Import Reals List Arith.PeanoNat Lia Lra.
 From Coq Require Import FunctionalExtensionality.
@@ -84,16 +82,19 @@ Definition curved_einstein (s : VMState) (sc : SimplicialComplex4D)
 
 (** ** Stress-energy tensor *)
 
-(** Energy density: T_{00} component at vertex *)
+(** Named 00 component at a vertex. This definition does not by itself give
+    the component a physical energy interpretation. *)
 Definition curved_energy_density (s : VMState) (v : ModuleID) : R :=
   full_metric_at_vertex s v 0%nat 0%nat.
 
-(** Pressure component: T_{ii} for spatial index i *)
+(** Named diagonal component at a vertex. This definition does not by itself
+    give the component a physical pressure interpretation. *)
 Definition curved_pressure (s : VMState) (v : ModuleID) (i : nat) : R :=
   full_metric_at_vertex s v i i.
 
-(** DEPRECATED: Geometric stress-energy (T := g, circular with metric).
-    Kept for backward compatibility. Use mass_stress_energy for physics. *)
+(** Deprecated geometric source alias (T := g), retained for backward
+    compatibility. Use mass_stress_energy when a source built from structural
+    mass is required. *)
 Definition curved_stress_energy_geometric (s : VMState) (sc : SimplicialComplex4D)
     (μ ν : nat) (v : ModuleID) : R :=
   full_metric_at_vertex s v μ ν.
@@ -110,27 +111,29 @@ Definition curved_stress_energy := curved_stress_energy_geometric.
     The metric g comes from module_mu_tensor (via full_metric_at_vertex).
     The stress-energy T comes from module_structural_mass (via this definition).
     These are DIFFERENT fields of ModuleState. *)
-(* INQUISITOR NOTE: Non-circular stress-energy from structural mass *)
+(* SCOPE NOTE: Non-circular stress-energy from structural mass *)
 Definition mass_stress_energy (s : VMState) (μ ν : nat) (v : ModuleID) : R :=
   if (μ mod 4 =? ν mod 4)%nat
   then INR (module_structural_mass s v)
   else 0.
 
-(** Physical metric constraint: metric tensor entries equal structural mass
-    on diagonal, zero off-diagonal. This is the physical content of the
-    Einstein equation — it says WHICH VM states satisfy G = κ·T.
+(** Formal isotropic-mass constraint: tensor entries equal structural mass on
+    the diagonal and zero off-diagonal. It selects the VM states satisfying
+    the stated finite relation.
 
     When this holds: g_{μν}(v) = INR(mass(v)) · δ_{μν}
-    The metric (from module_mu_tensor) and stress-energy (from module_structural_mass)
-    are numerically equal but come from DIFFERENT data fields. *)
-(* INQUISITOR NOTE: Physical metric constraint linking tensor to mass *)
+    The metric (from module_mu_tensor) and mass-built source (from
+    module_structural_mass) are numerically related but come from different
+    data fields. *)
+(* SCOPE NOTE: Physical metric constraint linking tensor to mass *)
 Definition isotropic_mass_metric (s : VMState) (v : ModuleID) : Prop :=
   forall i j, (i < 4)%nat -> (j < 4)%nat ->
     module_tensor_entry s v i j =
     if (i =? j)%nat then module_structural_mass s v else 0%nat.
 
-(** Bridge: under physical metric constraint, the metric equals the stress-energy *)
-(* INQUISITOR NOTE: Bridge lemma connecting metric to mass stress-energy *)
+(** Under the formal isotropic-mass constraint, the metric equals the
+    mass-built source at the queried indices. *)
+(* SCOPE NOTE: Bridge lemma connecting metric to mass stress-energy *)
 Lemma isotropic_mass_metric_bridge : forall s v i j,
   (i < 4)%nat -> (j < 4)%nat ->
   isotropic_mass_metric s v ->
@@ -143,8 +146,9 @@ Proof.
   destruct (i =? j)%nat; reflexivity.
 Qed.
 
-(** Under physical metric, the metric is isotropic diagonal *)
-(* INQUISITOR NOTE: Physical metric implies isotropy *)
+(** Under the formal isotropic-mass constraint, the metric is diagonal with
+    the stated structural-mass entries. *)
+(* SCOPE NOTE: Physical metric implies isotropy *)
 Lemma isotropic_mass_metric_diag : forall s v,
   isotropic_mass_metric s v ->
   (module_structural_mass s v > 0)%nat ->
@@ -893,21 +897,21 @@ Qed.
     curved_bianchi_flat) both give zero in the uniform-metric regime. *)
 Definition curved_compat_witness := curved_christoffel_compat_flat.
 
-(** Non-circular Einstein equation from structural mass.
+(** Non-circular Einstein-shaped identity from structural mass.
 
     The point of the next block is that the Einstein equation is assembled from
     two genuinely different data sources. The left-hand side G comes from the
     geometric pipeline built out of module_mu_tensor through Christoffel,
     Riemann, Ricci, and Einstein. The right-hand side T comes from
     module_structural_mass through mass_stress_energy. Those fields are distinct
-    inside ModuleState. The physical metric constraint
-    isotropic_mass_metric is what connects them.
+    inside ModuleState. The formal constraint isotropic_mass_metric is what
+    connects them.
 *)
 
 (** ** Step 3: Inverse metric for isotropic diagonal case *)
 
 (** Inverse metric for isotropic diagonal: g^{-1} = (1/a)·I *)
-(* INQUISITOR NOTE: Inverse metric computation for isotropic diagonal case *)
+(* SCOPE NOTE: Inverse metric computation for isotropic diagonal case *)
 Lemma inverse_metric_isotropic : forall s v a,
   a > 0 ->
   (forall i j, (i < 4)%nat -> (j < 4)%nat ->
@@ -937,7 +941,7 @@ Qed.
 (** Christoffel symbol at v on isotropic 2-vertex complex:
     Γ^ρ_{μν}(v) = c · (δ_{νρ} + δ_{μρ} - δ_{μν})
     where c = (b - a) / (2a), a = metric at v, b = metric at w. *)
-(* INQUISITOR NOTE: Closed-form Christoffel for isotropic 2-vertex *)
+(* SCOPE NOTE: Closed-form Christoffel for isotropic 2-vertex *)
 Theorem curved_christoffel_isotropic_2v :
   forall s v w a b (ρ μ ν : nat),
   (v <> w)%nat -> a > 0 ->
@@ -1000,7 +1004,7 @@ Definition gamma_iso (c : R) (ρ μ ν : nat) : R :=
 
     Strategy: we show curved_ricci s sc d d v = f(c) for a specific function f
     that does not depend on d, where c = (b-a)/(2a). *)
-(* INQUISITOR NOTE: Ricci isotropy for isotropic 2-vertex — key new result *)
+(* SCOPE NOTE: Ricci isotropy for isotropic 2-vertex — key new result *)
 Theorem ricci_isotropy_isotropic_2v :
   forall s v w (d1 d2 : nat) a b,
   (v <> w)%nat -> a > 0 ->
@@ -1087,20 +1091,19 @@ Qed.
     Γ^ρ_{μν} = c·(δ_{νρ}+δ_{μρ}-δ_{μν}) has nonzero components when all three
     indices differ, unlike the continuous case for diagonal metrics.
 
-    The isotropic 2-vertex complex is too coarse just 2 vertices to enforce
-    off-diagonal vanishing. This is physically expected: a finer simplicial
-    complex would yield better approximation to the continuous limit.
+    The two-vertex complex does not impose off-diagonal vanishing. A different
+    discretization would require a different definition and new proofs; no
+    continuum-approximation claim is made here.
 
-    For the Einstein equation, we restrict to diagonal components
-    (μ = ν), which is where the physical content lies: the coupling
-    between curvature and mass-energy density. *)
+    The subsequent identity therefore restricts to diagonal components
+    (μ = ν), exactly as stated in its theorem type. *)
 
-(** Off-diagonal Einstein is not separately zero, but the diagonal Einstein
-    equation holds uniformly. This is the physically meaningful statement. *)
+(** Off-diagonal components are not separately asserted to vanish; the next
+    theorem states the uniform diagonal identity supplied by this model. *)
 
-(** ** Step 7: THE MAIN THEOREM — Non-Circular Einstein Equation (Diagonal) *)
+(** ** Step 7: the main diagonal Einstein-shaped identity *)
 
-(** Non-circular Einstein field equation from structural mass (diagonal components).
+(** Non-circular diagonal identity from structural mass.
 
     G_{dd}(v) = κ · T_{dd}(v)   for all d < 4
 
@@ -1108,10 +1111,11 @@ Qed.
     - G is the Einstein tensor computed from module_mu_tensor (geometric pipeline)
     - T is mass_stress_energy computed from module_structural_mass
     - These are DIFFERENT fields of ModuleState
-    - The isotropic_mass_metric constraint links them (= physical content)
+    - The isotropic_mass_metric constraint links them
     - κ is UNIFORM across all diagonal indices d (via Ricci isotropy, PROVED)
-    - This is the discrete analogue of the Einstein field equation *)
-(* INQUISITOR NOTE: Non-circular diagonal Einstein equation from structural mass *)
+    - This is a finite-model analogue of the displayed Einstein-shaped relation;
+      it is not a derivation of a physical field equation. *)
+(* SCOPE NOTE: Non-circular diagonal Einstein equation from structural mass *)
 Theorem einstein_equation_from_mass :
   forall s v w,
     (v <> w)%nat ->

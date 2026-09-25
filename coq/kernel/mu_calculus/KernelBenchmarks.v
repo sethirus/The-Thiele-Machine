@@ -19,7 +19,7 @@
 
   *)
 
-(* INQUISITOR NOTE: proof-connectivity. This file genuinely engages VM
+(* SCOPE NOTE: foundation connectivity. This file genuinely engages VM
    semantics: it is stated over kernel types imported below and used in its
    definitions and theorems. *)
 
@@ -149,12 +149,9 @@ Qed.
     statement about the model's cost expressions, not a blanket statement about
     all VM instructions or measured runtime.
 
-    FALSIFICATION PROTOCOL:
-    1. Implement benchmarks against the OCaml extracted runner
-    2. Run on input sizes: n ∈ {10, 100, 1000, 10000, 100000, 1000000}
-    3. Plot log(measured_cost) vs log(n) for each operation
-    4. Fit linear regression: slope > 1.1 challenges the performance model
-    5. Check R² > 0.99 (high linearity) - if not, superlinear growth detected
+    The asymptotic statements are about the displayed cost expressions. Runtime
+    measurements against the extracted runner would test an implementation
+    correspondence, but are not part of these Coq theorems.
 
     COMPLEMENTARY TO FalsifiablePrediction.v:
     - FalsifiablePrediction.v: Concrete predictions with constants (cost ≤ C·n, find C empirically)
@@ -170,7 +167,7 @@ Qed.
     These bounds are TESTABLE via benchmarks against the OCaml extracted runner.
     *)
 
-(* INQUISITOR NOTE: connectivity anchor for isolated benchmark declarations. *)
+(* SCOPE NOTE: connectivity anchor for isolated benchmark declarations. *)
 Definition nlogn_time_op_anchor := nlogn_time_op.
 Definition quadratic_time_op_anchor := quadratic_time_op.
 Definition BenchmarkPNEW_anchor : Type := BenchmarkPNEW.

@@ -18,22 +18,18 @@
        IF cert_setter_executions(fuel, trace, s) >= log2(n) (the decision
        tree hypothesis), THEN delta_mu(s) >= log2(n).
 
-    WHY THE OLD MuShannonConjecture ARGUMENT IS NOT CLOSED:
-
-    cert_addr is SET (not accumulated) to ascii_checksum(payload) where
-    the payload is FIXED in the instruction encoding, independent of the
-    initial state. Branching (JNEZ etc.) determines which cert instruction each
-    state reaches. Under the current bit-priced EMIT rule, the old unit-cost
-    counterexample no longer has the stated numbers: a one-byte EMIT pays 9
-    mu, not 1. This file therefore proves only the trace-level and conditional
-    bounds below; it does not claim an unconditional individual Shannon bound.
+    The earlier unit-cost argument is not used here. [cert_addr] is set to the
+    checksum carried by the selected instruction, while the current [EMIT]
+    schedule charges payload bits plus its floor. This file therefore proves
+    the trace-level and decision-tree-conditional bounds below, not an
+    unconditional individual Shannon bound.
 
     THE CORRECT BOUNDS:
     - Trace level: count_cert_addr_setters(trace) >= n   [proven here]
     - Individual delta_mu: delta_mu(s_init) >= log2(n) holds IF the
       program is structured as a binary decision tree [conditional, proven]
 
-    INQUISITOR NOTE: proof-connectivity -- quantitative Shannon bound
+    SCOPE NOTE: foundation connectivity -- quantitative Shannon bound
     connecting cert_addr range to separation count.
     *)
 

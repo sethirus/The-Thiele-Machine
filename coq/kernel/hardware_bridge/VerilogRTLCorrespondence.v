@@ -18,7 +18,7 @@ From Kernel Require Import VMState VMStep SimulationProof ThreeLayerIsomorphism 
 
 Section RTLCorrespondenceSection.
 
-(* INQUISITOR NOTE: abstract interface section, exported theorems quantify over the implementation and its step contract. *)
+(* SCOPE NOTE: abstract interface section, exported theorems quantify over the implementation and its step contract. *)
 Variable VerilogState : Type.
 
 Variable verilog_step : VerilogState -> vm_instruction -> VerilogState.
@@ -36,7 +36,7 @@ Variable verilog_mstatus   : VerilogState -> nat.
 Variable verilog_witness : VerilogState -> WitnessCounts.
 Variable verilog_certified : VerilogState -> bool.
 
-(* INQUISITOR NOTE: abstract interface section, per-instruction correspondence is an explicit theorem premise. *)
+(* SCOPE NOTE: abstract interface section, per-instruction correspondence is an explicit theorem premise. *)
 Variable rtl_step_correct :
   forall (s : VerilogState) (i : vm_instruction),
   let input := project_vmstate
@@ -60,7 +60,7 @@ Variable rtl_step_correct :
   verilog_witness (verilog_step s i) = vm_witness output /\
   verilog_certified (verilog_step s i) = vm_certified output.
 
-(* INQUISITOR NOTE: abstract interface section, names of external compiler obligations. *)
+(* SCOPE NOTE: abstract interface section, names of external compiler obligations. *)
 Variable kami_pretty_printer_trusted : Prop.
 
 Variable bluespec_compiler_trusted : Prop.

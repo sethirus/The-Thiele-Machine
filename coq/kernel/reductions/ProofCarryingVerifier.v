@@ -18,10 +18,10 @@
     A succinct verifier compresses everything except the number of
     certification commitments it makes.
 
-    FALSIFIER: a level-k certified trace with total mu cost < k — its Coq
-    construction breaks [level_k_certification_cost_floor]; or a sound and
-    complete zero-round bare verifier, which breaks the escape's premise via
-    [bare_setting_no_sound_complete_verifier].
+    The floor is conditional on the certification-event semantics. A level-k
+    trace with total [mu] cost below k would contradict
+    [level_k_certification_cost_floor]; a zero-round verifier would contradict
+    the stated bare-transcript impossibility premise.
 
     This file does not model zero-knowledge (the hiding property), soundness
     amplification, or any specific proof system's encoding. *)
@@ -194,10 +194,9 @@ Qed.
     statement is the proof-carrying reading and its placement against
     Main 2; the mathematics of the escape is the kernel's.
 
-    FALSIFICATION: a proof of the negation — no sound, complete,
-    unit-cost checker over [ProofCarryingTranscript] — would contradict
-    the witness constructed here, hence break
-    [interactive_escape_succeeds] in the kernel. *)
+    Scope: this theorem is an existence witness obtained by applying
+    [interactive_escape_succeeds] to the carried certificate. Its premises
+    and trust contract are exactly the relations shown in the statement. *)
 Theorem proof_rounds_escape :
   exists (check : ProofCarryingTranscript -> bool)
          (check_cost : ProofCarryingTranscript -> nat),
@@ -239,9 +238,10 @@ Qed.
     settings face each other in one vocabulary: same claim, same prover
     states, presence or absence of the carried certificate.
 
-    FALSIFICATION: constructing such a checker pair in Coq would
-    contradict [bare_setting_no_sound_complete_verifier] and with it the
-    projection collision of the μ-ledger kernel. *)
+    Scope: this is the projection-collision impossibility supplied by
+    [bare_setting_no_sound_complete_verifier]. It quantifies over arbitrary
+    checker costs; it does not claim that every possible transcript design is
+    bare or that no richer certificate can work. *)
 Theorem bare_pcc_impossible :
   ~ exists (check : BareTranscript -> bool)
            (check_cost : BareTranscript -> nat),
@@ -293,10 +293,10 @@ Definition certifies_k_claims (k fuel : nat) proof_script : Prop :=
     [level_k_certification_cost_floor] by exact application, since
     [certifies_k_claims] is a definitional alias of [level_k_certified].
 
-    FALSIFICATION: a Coq construction of a level-k certified proof
-    script with total μ-cost below k breaks
-    [level_k_certification_cost_floor] and the μ-hierarchy with it. *)
-(* INQUISITOR NOTE: alias for level_k_certification_cost_floor — deliberate re-export pricing certification events in proof-system vocabulary; the tightness witness and pinning lemmas are this file's own content. *)
+    Scope: this is a direct alias application of
+    [level_k_certification_cost_floor]. Any stronger or different notion of
+    proof cost would require its own theorem and premises. *)
+(* SCOPE NOTE: alias for level_k_certification_cost_floor — deliberate re-export pricing certification events in proof-system vocabulary; the tightness witness and pinning lemmas are this file's own content. *)
 Theorem level_k_verification_floor :
   forall k fuel proof_script,
     certifies_k_claims k fuel proof_script ->

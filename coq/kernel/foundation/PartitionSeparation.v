@@ -35,82 +35,12 @@ Record TMTransition := {
   tm_head' : nat          (* resulting head *)
 }.
 
-(** TMTransitionSystem: Turing machine execution trace (flat, no partitions)
-
-    WHY: I need to represent the complete execution of a TM program as a sequence
-    of transitions. This is the "observable behavior" of a TM - what you can see
-    from outside (tape states + head positions).
-
-    DEFINITION:
-    Type alias: list TMTransition
-
-    Ordered list of transitions: [t0, t1, t2, ...] where each ti is a TMTransition.
-    Represents entire computation history.
-
-    PHYSICAL MEANING:
-    This is the "movie" of TM execution - frame-by-frame tape configurations.
-    But it's a flat movie with NO hierarchical structure. Like watching a CPU
-    execute instructions without seeing function call hierarchy.
-
-    EXAMPLE:
-    TM computing 2+3:
-    [ (tape=[2,3,0,0], head=0) → (tape=[2,3,0,0], head=1),
-      (tape=[2,3,0,0], head=1) → (tape=[2,3,5,0], head=2),
-      ... ]
-    No notion of "addition module" or "accumulator module".
-
-    Show that TMTransitionSystem CAN encode partition structure semantically.
-    But by definition, TM transitions lack partition fields, so this is impossible
-    without extending the TM model.
-    - TMTransition (line 73): individual transition type
-    - tm_encoding_faithful (line 155): defines TM encoding of Thiele execution
-    - preserves_partition_labels (line 161): impossible property for TM
-    - partition_based_separation (line 180): main separation theorem
-*)
+(** [TMTransitionSystem] is a list of flat tape/head transitions. A tape encoding can store partition data, but this transition type does not expose partition labels as fields. *)
 Definition TMTransitionSystem := list TMTransition.
 
 (** 2. Definition of Thiele Transition System *)
 
-(** ThieleTransition: Thiele Machine state transition (WITH partition structure)
-
-    WHY: I need to formalize what Thiele Machine CAN represent that TM cannot.
-    Thiele transitions are SEMANTIC: partition structure is a first-class component
-    of the labeled transition system, not just data encoding.
-
-    - th_graph_before: partition graph before transition (PartitionGraph)
-    - th_graph_after: partition graph after transition (PartitionGraph)
-    - th_mu_before: μ-cost before (nat)
-    - th_mu_after: μ-cost after (nat)
-    - th_module_count_before: number of modules before (nat)
-    - th_module_count_after: number of modules after (nat)
-
-    KEY DIFFERENCE FROM TM:
-    Partition structure (graph, modules) is PART OF THE TRANSITION LABEL, not
-    derived from tape contents. This makes partitions semantic, not syntactic.
-
-    PHYSICAL MEANING:
-    This is the "hierarchical" view of computation. State includes not just data
-    (like TM tape) but also STRUCTURE (partition graph showing which components
-    are entangled, which are independent). Like representing a program with its
-    module dependency graph, not just as flat bytecode.
-
-    EXAMPLE (PNEW instruction):
-    Before: graph = empty_graph, module_count = 0
-    After: graph = graph with module [1,2,3], module_count = 1
-
-    This transition is OBSERVABLE at the transition system level - you can see
-    the partition structure changed. TM cannot represent this semantically.
-
-    Show that ThieleTransition doesn't capture anything beyond TM capabilities.
-    But partition operations (PNEW, PSPLIT) create transitions where module_count
-    changes, which has no TM analogue (TM can encode count as tape data, but not
-    as transition label).
-    - PartitionGraph (from VMState.v): partition graph type
-    - nat (Coq.Arith): μ-cost and module counts
-    - ThieleTransitionSystem (line 130): list of Thiele transitions
-    - preserves_partition_labels (line 161): uses th_graph fields
-    - partition_based_separation (line 180): constructs witness transition
-*)
+(** [ThieleTransition] records the partition graph and module count on both sides of a step, together with the ledger values. The later separation theorem concerns this richer transition label, not greater computable power. *)
 Record ThieleTransition := {
   th_graph_before : PartitionGraph;
   th_graph_after : PartitionGraph;
@@ -120,126 +50,22 @@ Record ThieleTransition := {
   th_module_count_after : nat
 }.
 
-(** ThieleTransitionSystem: Thiele Machine execution trace (hierarchical, with partitions)
-
-    WHY: I need to represent complete Thiele execution as labeled transition system
-    where partition structure is OBSERVABLE at each step.
-
-    DEFINITION:
-    Type alias: list ThieleTransition
-
-    Ordered list: [t0, t1, t2, ...] where each ti includes partition graph state.
-
-    KEY DIFFERENCE FROM TM:
-    Each transition exposes partition structure evolution. You can SEE modules being
-    created (PNEW), split (PSPLIT), merged (PMERGE). This isn't derivable from tape
-    encoding - it's INTRINSIC to the transition system.
-
-    PHYSICAL MEANING:
-    This is the "hierarchical movie" of computation. Not just data values changing,
-    but STRUCTURE changing - like watching a program's call graph evolve, not just
-    watching register values.
-
-    EXAMPLE (separation_program execution):
-    t0: graph = empty, modules = 0 → graph = {module[1,2,3]}, modules = 1 (PNEW)
-    t1: graph = {module[1,2,3]}, modules = 1 → graph = {module[4,5]}, modules = 2 (PNEW)
-    t2: graph has 2 modules → graph has 3 modules (PSPLIT)
-
-    Partition structure evolution is OBSERVABLE, not just encoded.
-
-    Encode this transition system in TMTransitionSystem such that partition structure
-    changes are preserved semantically. partition_based_separation theorem proves
-    this is impossible.
-    - ThieleTransition (line 122): individual transition type
-    - tm_encoding_faithful (line 155): compares lengths with TM encoding
-    - preserves_partition_labels (line 161): property TM cannot satisfy
-    - partition_based_separation (line 180): proves TM ⊊ Thiele
-*)
+(** [ThieleTransitionSystem] is a list of transitions whose labels expose the modeled partition changes. The comparison is intentionally at this labeled-transition level; a conventional machine may still encode the same information as data. *)
 Definition ThieleTransitionSystem := list ThieleTransition.
 
 (** 3. Observable Partition Structure *)
 
-(** module_count: Number of modules in partition graph (OBSERVABLE metric)
-
-    WHY: I need a quantitative measure of partition structure. Module count is
-    the simplest observable: how many independent/entangled components exist?
-
-    DEFINITION:
-    module_count g = length (pg_modules g)
-
-    Counts modules in the graph's module list.
-
-    PHYSICAL MEANING:
-    This is like counting "particles" in a quantum system, or "processes" in an
-    OS. It measures structural complexity - more modules = more compositional structure.
-
-    EXAMPLE:
-    - empty_graph: module_count = 0 (no structure)
-    - After PNEW [1,2,3]: module_count = 1 (one module created)
-    - After PSPLIT: module_count = 2 (module split into two)
-
-    Show that module_count changes without partition operations (PNEW/PSPLIT/PMERGE).
-    This would mean partition structure changes "spontaneously", violating conservation.
-    - PartitionGraph (from VMState.v): input type
-    - pg_modules: field of PartitionGraph
-    - List.length (Coq.Lists.List): count function
-    - partition_structure_changed (line 231): detects structural changes
-    - initial_module_count (line 258): proves initial state has 0 modules
-    - graph_add_module_increases_count (line 264): proves PNEW increases count
-*)
+(** [module_count] is the length of the graph's module list. It is the simple structural observation used by this file; it is not a physical particle or process count. *)
 Definition module_count (g : PartitionGraph) : nat :=
   List.length (pg_modules g).
 
-(** partition_structure_changed: Detects partition evolution (OBSERVABLE predicate)
-
-    WHY: I need to identify transitions where partition structure actually changes
-    (modules created/destroyed/split/merged). This is the "event" that TM cannot
-    represent semantically.
-
-    DEFINITION:
-    partition_structure_changed before after = negb (eqb (module_count before) (module_count after))
-
-    Returns true iff module counts differ.
-
-    ALGORITHM:
-    Compare module_count before vs. after. If equal, no structural change (return false).
-    If different, structural change occurred (return true).
-
-    PHYSICAL MEANING:
-    This detects "phase transitions" in computational structure. Like detecting
-    when a process forks (1 → 2 processes) or threads merge (2 → 1 thread). These
-    are discrete structural events, not continuous data changes.
-
-    EXAMPLE:
-    - PNEW: module_count 0 → 1, partition_structure_changed = true ✓
-    - CNOT: module_count unchanged, partition_structure_changed = false ✓
-
-    Find transition where partition_structure_changed = true but partition graph
-    is actually identical. This would mean the predicate gives false positives.
-    Or vice versa: partition graph differs but predicate returns false.
-    - module_count (line 227): counts modules
-    - Nat.eqb, negb (Coq.Bool): equality test and negation
-    - preserves_partition_labels (line 161): requires TM to encode this (impossible)
-    - partition_based_separation proof (line 354): uses to show structural change
-*)
+(** [partition_structure_changed] compares module counts and returns [true] exactly when the counts differ. It is the named observable used in the separation witness, not a claim that equal counts imply equal graphs. *)
 Definition partition_structure_changed (before after : PartitionGraph) : bool :=
   negb (Nat.eqb (module_count before) (module_count after)).
 
 (** 4. The Separation Witness: A Pure Partition Program *)
 
-(** initial_vm_state: Starting state for separation witness
-
-    WHY: I need a concrete initial state for the separation program. Empty graph
-    (0 modules) → non-trivial graph (multiple modules) demonstrates structural change.
-
-    DEFINITION:
-    VMState with all fields zeroed/empty: empty graph, zero registers, zero memory.
-
-    Show initial state already has non-trivial partition structure. This would
-    contradict initial_module_count lemma (line 258).
-    - initial_module_count (line 258): proves module_count = 0
-    - separation_program (line 320): operates on this initial state
-*)
+(** [initial_vm_state] is the empty VM state used by the separation witness. Its graph is empty and its ordinary fields are initialized to zero or their designated defaults. *)
 Definition initial_vm_state : VMState := {|
   vm_graph := empty_graph;
   vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};
@@ -255,35 +81,7 @@ Definition initial_vm_state : VMState := {|
   vm_certified := false
 |}.
 
-(** separation_program: THE WITNESS for TM ⊊ Thiele
-
-    WHY: I need a CONCRETE Thiele program that creates transitions TM cannot
-    faithfully represent. This is the constructive witness proving strict containment.
-
-    DEFINITION:
-    Four instructions using only partition operations:
-    1. PNEW [1;2;3] → create module with region {1,2,3} (0 → 1 modules)
-    2. PNEW [4;5] → create module with region {4,5} (1 → 2 modules)
-    3. PSPLIT 1 [1;2] [3] → split module 1 into two pieces (2 → 3 modules)
-    4. HALT → terminate
-
-    STRUCTURE EVOLUTION:
-    empty_graph (0 modules) → {[1,2,3]} (1 module) → {[1,2,3], [4,5]} (2 modules)
-    → {[1,2], [3], [4,5]} (3 modules)
-
-    PHYSICAL MEANING:
-    This program creates HIERARCHICAL structure from nothing. It's like writing
-    a program that spawns child processes, then splits one process into threads.
-    TM can SIMULATE this (encode structure as tape data), but cannot REPRESENT it
-    semantically (partition structure as transition labels).
-
-    Show TM can faithfully encode this program's transition system with partition
-    labels preserved. partition_based_separation theorem proves this is impossible.
-    - instr_pnew, instr_psplit, instr_halt (from VMStep.v): instruction constructors
-    - vm_instruction (from VMStep.v): instruction type
-    - partition_based_separation (line 380): uses as separation witness
-    - turing_strictly_contained_partition (line 446): corollary using this witness
-*)
+(** [separation_program] is the concrete instruction list used by the theorem: two [PNEW] operations, one [PSPLIT], and [HALT]. A conventional machine can encode the same sequence as data; the theorem studies whether the chosen TM transition label can preserve the partition-change predicate. *)
 Definition separation_program : list vm_instruction := [
   instr_pnew [1; 2; 3] 0;           (* Create module with region {1,2,3} *)
   instr_pnew [4; 5] 0;              (* Create module with region {4,5} *)
@@ -293,24 +91,7 @@ Definition separation_program : list vm_instruction := [
 
 (** 5. Properties of the Separation Program *)
 
-(** initial_module_count: Initial state has zero modules
-
-    WHY THIS LEMMA: Establishes baseline for separation witness. Starting from
-    0 modules proves that partition structure is CREATED by the program, not
-    pre-existing.
-
-    module_count (vm_graph initial_vm_state) = 0
-
-    Unfold definitions. initial_vm_state uses empty_graph, which has empty module
-    list. Length of empty list = 0. Reflexivity.
-
-    PHYSICAL MEANING:
-    "Creation ex nihilo" of structure. Program starts with NO partition structure
-    and creates it through PNEW operations. Like initializing an empty OS and
-    spawning processes.
-    - initial_vm_state (line 309), module_count (line 227), empty_graph (from VMState.v)
-    - partition_based_separation proof (line 416): establishes initial structural state
-*)
+(** The empty initial graph has module count zero by unfolding its definition. The fact is inlined below because this standalone lemma had no downstream callers. *)
 (* [module_count (vm_graph initial_vm_state) = 0] holds by definition:
    [initial_vm_state] uses [empty_graph], whose module list is [[]], and
    [module_count] is [List.length] of that list. The standalone lemma
@@ -318,32 +99,7 @@ Definition separation_program : list vm_instruction := [
    only; any consumer can [unfold module_count, initial_vm_state,
    empty_graph; simpl; reflexivity] inline. *)
 
-(** graph_add_module_increases_count: PNEW creates structural change
-
-    WHY THIS LEMMA: Proves partition operations have OBSERVABLE effect on structure.
-    Module count increases when adding a module - this is the structural change TM
-    cannot represent semantically.
-
-    forall g region axioms g' mid.
-      graph_add_module g region axioms = (g', mid) →
-      module_count g' = S (module_count g)
-
-    Unfold graph_add_module definition. It constructs g' by consing new module onto
-    pg_modules list. Length of (x :: xs) = S (length xs). Reflexivity after rewriting.
-
-    PHYSICAL MEANING:
-    This is the "conservation law" for partition structure: creating a module
-    increases count by exactly 1, no more, no less. Like particle number conservation
-    in physics - creation operators increase count deterministically.
-
-    Find graph where graph_add_module doesn't increase module_count, or increases
-    by amount ≠ 1. This would violate partition structure semantics.
-    - graph_add_module (from VMState.v): module creation operation
-    - module_count (line 227): counts modules
-    - partition_based_separation (line 417): proves structural change occurs
-(** HELPER: Accessor/projection *)
-*)
-(** HELPER: Accessor/projection *)
+(** Adding a module conses one entry onto the graph's module list, so [module_count] increases by one. *)
 Lemma graph_add_module_increases_count : forall g region axioms g' mid,
   graph_add_module g region axioms = (g', mid) ->
   module_count g' = S (module_count g).
@@ -357,145 +113,27 @@ Qed.
 
 (** 6. The Core Separation Theorem *)
 
-(** tm_encoding_faithful: TM encoding preserves observable behavior length
-
-    WHY: I need to define what "faithful encoding" means. At minimum, TM encoding
-    must have same number of transitions as Thiele execution (preserve execution length).
-
-    DEFINITION:
-    tm_encoding_faithful tm_sys th_sys := length tm_sys = length th_sys
-
-    This is a WEAK condition - just length matching, not full semantic equivalence.
-    Even this weak condition cannot be satisfied WITH partition label preservation
-    (proven by partition_based_separation).
-
-    PHYSICAL MEANING:
-    "Step-for-step correspondence". TM makes same number of transitions as Thiele.
-    But transition LABELS differ - TM lacks partition structure.
-
-    Show TM encoding requires different number of steps than Thiele. This would
-    mean TM needs more (or fewer) operations to simulate Thiele, changing complexity.
-    - TMTransitionSystem (line 84), ThieleTransitionSystem (line 184)
-    - List.length (Coq.Lists.List)
-    - partition_based_separation (line 523): assumes faithful encoding, derives contradiction
-    - turing_strictly_contained_partition (line 576): proves no faithful encoding exists
-*)
+(** [tm_encoding_faithful] is deliberately weak: it requires only equal trace lengths, not equal state semantics. *)
 Definition tm_encoding_faithful (tm_sys : TMTransitionSystem)
                                 (th_sys : ThieleTransitionSystem) : Prop :=
   (* The encoding is faithful if length matches *)
   List.length tm_sys = List.length th_sys.
 
-(** preserves_partition_labels: THE IMPOSSIBLE CONDITION for TM encoding
-
-    WHY: I need to formalize "TM encoding preserves partition structure semantically".
-    This definition makes the impossibility explicit: TM transitions lack partition
-    fields, so preservation requires deriving False (contradiction).
-
-    DEFINITION:
-    forall n th_trans. nth_error th_sys n = Some th_trans ->
-                  partition_structure_changed th_trans.graph_before th_trans.graph_after = true →
-                  ∃ tm_trans. nth_error tm_sys n = Some tm_trans ∧ False
-
-    For every Thiele transition n where partition structure changed:
-    - TM must have transition at same position n
-    - BUT condition is False (contradiction!)
-
-    This makes explicit that TM CANNOT encode partition changes semantically.
-
-    TM transitions have NO partition fields (tm_from, tm_to are just tape configs).
-    There's no way to "encode" partition structure change as a transition LABEL
-    (as opposed to tape DATA). The False makes this explicit: semantic preservation
-    is impossible, not just difficult.
-
-    PHYSICAL MEANING:
-    This is like asking "encode function call hierarchy in x86 machine code".
-    Machine code CAN represent functions (jump instructions, stack frames), but
-    call hierarchy isn't part of the INSTRUCTION LABELS - it's derived from execution.
-    Similarly, TM can encode partitions as tape data, but not as transition labels.
-
-    Extend TM model with partition fields in TMTransition. But then it's not a
-    TM anymore - it's a different model. The point is: STANDARD TM (tape + head)
-    lacks semantic partition structure.
-    - partition_structure_changed (line 264): detects structural changes
-    - TMTransitionSystem (line 84), ThieleTransitionSystem (line 184)
-    - nth_error (Coq.Lists.List): extracts nth transition
-    - partition_based_separation (line 547): proves no TM satisfies this
-    - turing_strictly_contained_partition (line 576): uses to show strict containment
-*)
+(** [preserves_partition_labels] is the deliberately strong condition used for the separation witness. At a position where the Thiele transition changes the named partition predicate, it demands a corresponding TM transition and [False]; this encodes the chosen semantic-label boundary rather than a general impossibility of TM data encodings. *)
 (* SAFE: False is intentional — encodes TM impossibility as a Prop; file is a dead leaf not on any import chain *)
 Definition preserves_partition_labels (tm_sys : TMTransitionSystem)
                                        (th_sys : ThieleTransitionSystem) : Prop :=
-  (* For every Thiele transition that changes partition structure,
-     the corresponding TM transition must somehow encode this change.
-     But TM transitions have NO partition labels - they're just tape operations. *)
+  (* A changed Thiele label triggers the condition below. *)
   forall n th_trans,
     nth_error th_sys n = Some th_trans ->
     partition_structure_changed th_trans.(th_graph_before) th_trans.(th_graph_after) = true ->
-    (* The TM transition at position n must encode partition change,
-       but TM transitions cannot encode partition structure. *)
+    (* The corresponding TM position is required by the chosen interface. *)
     exists tm_trans,
       nth_error tm_sys n = Some tm_trans /\
-      (* Here's the crux: TM transition has no partition field,
-         so this condition is VACUOUSLY satisfied for any encoding
-         that ignores partition structure, but UNSATISFIABLE for
-         any encoding that tries to preserve partition semantics. *)
-      False.  (* No TM encoding can capture partition change semantically *)
+      (* This [False] is the formal boundary being tested. *)
+      False.
 
-(** partition_based_separation: THE MAIN SEPARATION THEOREM (TM ⊊ Thiele)
-
-    WHY THIS Proves Turing machines are STRICTLY CONTAINED in Thiele Machine
-    using partition operations as constructive witness. This is the formal proof of
-    TM ⊊ Thiele when partition structure is considered semantic.
-
-    exists prog th_sys.
-      length prog > 0 ∧
-      length th_sys > 0 ∧
-      ∀ tm_sys. tm_encoding_faithful tm_sys th_sys →
-                ¬ preserves_partition_labels tm_sys th_sys
-
-    Constructive existence proof. Witnesses:
-    - prog = separation_program (PNEW operations creating modules)
-    - th_sys = transition with module_count 0 → 1 (partition structure change)
-
-    1. Provide witnesses (separation_program, transition with PNEW)
-    2. Prove prog non-empty (length > 0) ✓
-    3. Prove th_sys non-empty (length > 0) ✓
-    4. Assume TM encoding is faithful (length-preserving)
-    5. Assume TM preserves partition labels
-    6. Apply preservation condition to transition 0 (PNEW: 0 → 1 modules)
-    7. Partition structure changed (module_count 0 ≠ 1) ✓
-    8. preservation condition gives: ∃ tm_trans. ... ∧ False
-    9. Destruct existential: get False
-    10. Contradiction! QED.
-
-    PHYSICAL MEANING:
-    Thiele Machine has operations (PNEW, PSPLIT) that create SEMANTIC partition
-    structure - observable at transition system level, not just as data encoding.
-    TM lacks these operations. TM can SIMULATE partition operations (encode structure
-    as tape data), but cannot REPRESENT them (structure as transition labels).
-
-    This is like: Turing machines can simulate object-oriented programs (encode
-    objects as data structures), but cannot make objects FIRST-CLASS (no object
-    creation as primitive operation in transition relation).
-
-    Provide TM encoding of separation_program that preserves partition labels
-    semantically. Theorem proves this is impossible - any encoding either loses
-    faithfulness (wrong execution length) or loses partition labels (structure
-    encoded as data, not labels).
-    - separation_program (line 348): witness Thiele program
-    - tm_encoding_faithful (line 479): length-preserving condition
-    - preserves_partition_labels (line 520): impossible condition for TM
-    - partition_structure_changed (line 264): detects structural changes
-    - turing_strictly_contained_partition (line 638): packages as TM ⊊ Thiele corollary
-    - File header (line 140): main theorem establishing strict containment
-*)
-(** Main separation theorem. The existential commits to a concrete instruction
-    list and a concrete one-step transition system; the substantive content
-    is the universal clause: every TM encoding that preserves execution length
-    must FAIL to preserve partition labels. The contradiction is supplied by
-    [partition_structure_changed] detecting the 0-to-1 module jump that the
-    transition exhibits, which [preserves_partition_labels] would otherwise
-    have to forge a TM transition for. *)
+(** [partition_based_separation] supplies a concrete nonempty Thiele trace and a one-step partition change, then shows that the chosen length-preserving TM interface cannot satisfy [preserves_partition_labels]. The result is about the declared transition labels, not computability or a general inability to encode data on a tape. *)
 Theorem partition_based_separation :
   exists (prog : list vm_instruction) (th_sys : ThieleTransitionSystem),
     List.length prog > 0 /\
@@ -542,45 +180,11 @@ Qed.
 
 (** 7. Corollary: TM is Strictly Contained in Thiele *)
 
-(** turing_strictly_contained_partition: TM ⊊ Thiele (partition-based witness)
-
-    WHY THIS COROLLARY: Repackages partition_based_separation as direct TM ⊊ Thiele
-    statement. This is the "headline result" - Thiele strictly extends TM when
-    partition structure is semantic.
-
-    COROLLARY:
-    exists prog th_sys.
-      length prog > 0 ∧
-      ∀ tm_sys. tm_encoding_faithful tm_sys th_sys →
-                ¬ preserves_partition_labels tm_sys th_sys
-
-    Same structure as partition_based_separation, simplified to emphasize the
-    "strictly contained" claim: Thiele can do something TM cannot (represent
-    partition structure semantically).
-
-    Immediate from partition_based_separation. Destruct the witnesses, apply the
-    theorem. QED.
-
-    PHYSICAL MEANING:
-    TM ⊊ Thiele is NOT about computational power (both Turing-complete, same
-    halting problem). It's about SEMANTIC STRUCTURE. Thiele has first-class
-    partition operations; TM doesn't. Like how high-level languages are "strictly
-    richer" than assembly (same computability, different abstractions).
-
-    Show TM IS Thiele (TM ≃ Thiele). Requires showing TM can encode partition
-    operations semantically, contradicting partition_based_separation.
-    - partition_based_separation (line 598): main separation theorem
-    - File header (line 208): corollary establishing strict containment
-    - Replaces artificial H_ClaimTapeIsZero witness from Subsumption.v with
-      concrete partition-based witness
-*)
+(** This corollary packages [partition_based_separation] under a shorter name. Its strictness remains relative to the chosen labeled-transition interface. *)
 Corollary turing_strictly_contained_partition :
-  (* The Thiele model is strictly richer than TM when partition structure
-     is considered semantic (part of the labeled transition system) *)
+  (* Keep the same labeled-transition interpretation. *)
   exists (prog : list vm_instruction) (th_sys : ThieleTransitionSystem),
-    (* Thiele can execute this program producing partition-labeled transitions *)
     List.length prog > 0 /\
-    (* No TM encoding preserves both observable behavior AND partition semantics *)
     forall tm_sys,
       tm_encoding_faithful tm_sys th_sys ->
       ~ preserves_partition_labels tm_sys th_sys.
@@ -592,57 +196,7 @@ Qed.
 
 (** 8. Strengthened Claim: Partition Operations Are Essential *)
 
-(** pnew_not_tm_simulable: PNEW has no TM analogue (vacuously true statement)
-
-    WHY THIS Makes explicit that TM transitions lack partition fields.
-    This is a "vacuous truth" theorem - TM operations can't be compared to PNEW
-    because they operate in different domains.
-
-    forall region. module_count (fst (graph_pnew empty_graph region)) >= 1 ->
-              ∀ tm_op. True
-
-    For any PNEW operation creating ≥1 modules, and any TM operation, conclude True
-    (vacuously). TM operations have no partition structure to compare, so any
-    statement about their "equivalence" to PNEW is vacuous.
-
-    TM transitions are (tape, head) → (tape', head'). PNEW creates modules. These
-    are incommensurable - like comparing apples and SQL queries. No meaningful
-    equivalence relation exists.
-
-    exact I. (I is the proof of True in Coq)
-
-    PHYSICAL MEANING:
-    This emphasizes the TYPE MISMATCH between TM and Thiele operations. PNEW
-    operates on partition graphs (semantic structure). TM operates on tapes
-    (syntactic data). There's no meaningful comparison - they're different
-    computational ontologies.
-
-    Extend TM with partition operations, making them comparable. But then it's
-    not a TM - it's a different model.
-    - graph_pnew (from VMState.v): PNEW operation
-    - module_count (line 227): counts modules
-    - TMTransition (line 73): TM operation type
-    - File header (line 227): emphasizes partition operations are essential
-*)
-(** 9. Summary *)
-
-(** This file proves:
-
-    THEOREM (partition_based_separation):
-    There exists a Thiele program using PNEW that creates a transition
-    system with partition structure changes that no TM encoding can
-    faithfully represent when partition labels are semantic.
-    
-    COROLLARY (turing_strictly_contained_partition):
-    TM ⊊ Thiele when partition structure is considered semantic.
-    
-    The separation is NOT about computational power (same halting problem),
-    but about SEMANTIC STRUCTURE in the labeled transition system.
-    
-    A TM can encode partition data on tape (syntactic encoding), but
-    cannot make partition operations FIRST-CLASS (semantic encoding).
-    This is the precise sense in which Thiele strictly extends TM.
-*)
+(** The preceding results establish only the declared labeled-transition separation. They do not show that a Turing machine cannot encode the same partition data, and they do not establish a computational-power separation. *)
 
 (** 10. Categorical Separation
 
@@ -838,4 +392,3 @@ Proof.
 Qed.
 
 End PartitionSeparation.
-

@@ -225,5 +225,5 @@ Definition OP_HALT          : word OpcodeSz := WO~1~1~1~1~1~1~1~1. (* 0xFF *)
     The low 32 bits preserve the legacy bridge encoding:
     [31:24] opcode | [23:16] op_a | [15:8] op_b | [7:0] cost *)
 
-(* INQUISITOR NOTE: connectivity anchor. *)
+(* SCOPE NOTE: connectivity anchor. *)
 Definition hardware_dimensions := (RegCount, MemSize, CostSz).

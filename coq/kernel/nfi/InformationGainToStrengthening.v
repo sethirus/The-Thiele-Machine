@@ -10,7 +10,7 @@
     functions.
     *)
 
-(* INQUISITOR NOTE: foundational - bridges information
+(* SCOPE NOTE: foundational - bridges information
    theory to NoFreeInsight by removing the VM-specific assumption. *)
 
 From Coq Require Import List Lia Arith.PeanoNat Bool.
@@ -47,7 +47,7 @@ Definition observation_distinguishes
     equality on observations. This avoids needing decidable equality
     on vm_instruction (which has 38 constructors). *)
 
-(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+(* SCOPE NOTE: abstract interface section — parameterized theorem.
    obs_eqb_spec is a decidable equality parameter. All theorems export with
    obs_eqb and obs_eqb_spec as explicit forall premises when section closes. *)
 Section WithDecEq.
@@ -93,7 +93,7 @@ Proof.
 Qed.
 
 
-(** INQUISITOR NOTE: feasible_strict_subset_implies_strict_predicates is the
+(** SCOPE NOTE: feasible_strict_subset_implies_strict_predicates is the
     core B3 result. Predicates are DERIVED from feasible-set membership via
     omega_predicate, not by constant predicates. The witness state in Ω \ Ω'
     provides the separating observation. *)

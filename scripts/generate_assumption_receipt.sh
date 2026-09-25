@@ -74,9 +74,20 @@ echo "[assumption-receipt] 2/3 running Print Assumptions over the corpus..."
 mkdir -p build/probe
 # Independent batches bound individual process duration and validate query/result
 # alignment before publishing combined output. Every query is executed afresh.
-python3 scripts/run_assumption_batches.py \
-    --jobs "${THIELE_ASSUMPTION_JOBS:-2}" \
-    --batch-size "${THIELE_ASSUMPTION_BATCH_SIZE:-2000}" -- "${COQ_ARGS[@]}"
+# On a small machine a 2000-query batch can exceed the 900-second per-batch
+# timeout; lower THIELE_ASSUMPTION_BATCH_SIZE or raise THIELE_ASSUMPTION_TIMEOUT.
+# THIELE_ASSUMPTION_WORK_DIR keeps validated batch results so an interrupted
+# run resumes instead of starting over.
+assumption_jobs="${THIELE_ASSUMPTION_JOBS:-$(nproc 2>/dev/null || echo 2)}"
+if (( assumption_jobs > 4 )); then assumption_jobs=4; fi
+batch_args=(--jobs "$assumption_jobs"
+            --batch-size "${THIELE_ASSUMPTION_BATCH_SIZE:-2000}"
+            --timeout "${THIELE_ASSUMPTION_TIMEOUT:-900}")
+if [[ -n "${THIELE_ASSUMPTION_WORK_DIR:-}" ]]; then
+    mkdir -p "$THIELE_ASSUMPTION_WORK_DIR"
+    batch_args+=(--work-dir "$THIELE_ASSUMPTION_WORK_DIR")
+fi
+python3 scripts/run_assumption_batches.py "${batch_args[@]}" -- "${COQ_ARGS[@]}"
 
 echo "[assumption-receipt] 3/3 aggregating into artifacts/..."
 python3 build/probe/aggregate_full_probe.py

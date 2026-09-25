@@ -45,6 +45,14 @@ DEFAULT_PROBES = ('tests/coq_probes/cm2_delivery.v',
 _ROOT_RE = re.compile(r'^-(R|Q)\s+(\S+)\s+(\S+)$')
 
 
+def default_jobs() -> int:
+    """Choose a bounded parallel width for fresh native rebuilds."""
+    raw = os.environ.get('THIELE_REPRO_JOBS')
+    if raw:
+        return max(1, min(int(raw), 4))
+    return max(1, min(os.cpu_count() or 2, 4))
+
+
 def discover_project_libraries(coqproject: Path) -> list[str]:
     """Every module coq/_CoqProject lists, as its coqchk-qualified name.
 
@@ -101,7 +109,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path,
                         help='Fresh directory; defaults to artifacts/reproduction/<UTC time>')
-    parser.add_argument('--jobs', type=int, default=1)
+    parser.add_argument('--jobs', type=int, default=default_jobs())
     parser.add_argument('--probe', action='append')
     parser.add_argument('--library', action='append')
     parser.add_argument('--prepare-only', action='store_true',

@@ -6,7 +6,7 @@
     by every classical or quantum correlator. The inequalities are supplied
     independently of the VM cost schedule. *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver, standalone correlator algebra with explicit inequalities. *)
+(* SCOPE NOTE: standalone proof scope, standalone correlator algebra with explicit inequalities. *)
 From Coq Require Import Reals Lra.
 
 Local Open Scope R_scope.

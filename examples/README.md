@@ -1,79 +1,87 @@
 # Example Programs
 
-This directory contains the top-level compatibility examples and the extended
-program corpus under `examples/programs/`.
+This directory contains the compatibility examples at its top level and the larger program corpus under `examples/programs/`.
 
-`examples/run_all.py` discovers and batch-runs both locations through the current extracted VM API.
+`examples/run_all.py` finds both locations and runs them through the current extracted VM API.
 
-Run all at once:
+Run the whole example set with:
+
 ```bash
 python examples/run_all.py
 ```
 
----
-
 ## Programs
 
-Top-level compatibility examples:
+These are the top-level compatibility examples.
 
 | File | Description |
 |------|-------------|
-| [benchmark.asm](benchmark.asm) | Instruction throughput benchmark — 100-iteration tight countdown loop |
-| [bianchi_violation.asm](bianchi_violation.asm) | Triggers Bianchi conservation violation by REVEALing more than μ — CPU halts with error |
-| [chsh_full.asm](chsh_full.asm) | All 4 CHSH (x,a) measurement combinations with op_a, op_b ∈ {0,1} |
-| [conditional.asm](conditional.asm) | JNEZ branching demo — counts down from 10, accumulates sum 10+…+1 |
-| [edge_cases.asm](edge_cases.asm) | Tests boundary registers (r0, r15) and maximum cost field (255) |
-| [emit_discover.asm](emit_discover.asm) | EMIT + PDISCOVER — observable events and information-gain accumulation |
-| [fibonacci.asm](fibonacci.asm) | First 8 Fibonacci numbers, stored in mem[0..7] |
-| [hello_world.asm](hello_world.asm) | Hello World via EMIT opcodes, then HALT |
-| [lassert_ljoin.asm](lassert_ljoin.asm) | LASSERT + LJOIN — logic assertion and certificate delegation |
-| [mdl_acc.asm](mdl_acc.asm) | MDLACC — Minimum Description Length accumulation demo |
-| [memory_test.asm](memory_test.asm) | STORE + LOAD round-trip verification across multiple addresses |
-| [mu_demo.asm](mu_demo.asm) | μ monotonically increases — every instruction charges non-negative cost |
-| [oracle_demo.asm](oracle_demo.asm) | ORACLE_HALTS — non-deterministic oracle probe (no-op in reference VM) |
-| [partition_demo.asm](partition_demo.asm) | PNEW + PSPLIT + PMERGE + PDISCOVER — partition graph operations |
-| [popcount.asm](popcount.asm) | Hamming weight (popcount) via XOR_RANK for several bit patterns |
-| [reveal_sweep.asm](reveal_sweep.asm) | REVEAL all 16 μ_tensor entries (indices 0–15), charging cost=1 each |
-| [stack_demo.asm](stack_demo.asm) | Manual LIFO stack emulation via STORE/LOAD at fixed literal addresses |
-| [stress_test.asm](stress_test.asm) | 200 × 10 = 2,000 inner iterations — long-running correctness test |
-| [subroutine.asm](subroutine.asm) | CALL/RET subroutine demo — multiply-by-2 via a called function |
-| [xor_alu.asm](xor_alu.asm) | XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK — all XOR-family instructions |
+| [benchmark.asm](benchmark.asm) | Runs a 100-iteration countdown loop for a small throughput check. |
+| [bianchi_violation.asm](bianchi_violation.asm) | Exercises the error path by revealing more than the selected μ budget permits. |
+| [chsh_full.asm](chsh_full.asm) | Runs all four CHSH setting combinations with binary settings. |
+| [conditional.asm](conditional.asm) | Counts down from 10 and accumulates the sum from 10 through 1. |
+| [edge_cases.asm](edge_cases.asm) | Exercises boundary registers and the maximum encoded cost field. |
+| [emit_discover.asm](emit_discover.asm) | Runs EMIT and PDISCOVER together as an observable-event example. |
+| [fibonacci.asm](fibonacci.asm) | Stores the first eight Fibonacci numbers in memory. |
+| [hello_world.asm](hello_world.asm) | Emits a short greeting and then halts. |
+| [lassert_ljoin.asm](lassert_ljoin.asm) | Exercises a logic assertion followed by certificate delegation. |
+| [mdl_acc.asm](mdl_acc.asm) | Demonstrates minimum-description-length accumulation. |
+| [memory_test.asm](memory_test.asm) | Checks STORE and LOAD round trips at several addresses. |
+| [mu_demo.asm](mu_demo.asm) | Shows that the selected VM ledger does not decrease during this trace. |
+| [checkpoint_demo.asm](checkpoint_demo.asm) | Exercises CHECKPOINT labels and their scheduled costs. |
+| [partition_demo.asm](partition_demo.asm) | Exercises PNEW, PSPLIT, PMERGE, and PDISCOVER. |
+| [popcount.asm](popcount.asm) | Computes Hamming weights with the XOR_RANK family. |
+| [reveal_sweep.asm](reveal_sweep.asm) | Reads the 16 μ-tensor entries and charges the scheduled cost. |
+| [stack_demo.asm](stack_demo.asm) | Emulates a small LIFO stack with STORE and LOAD. |
+| [stress_test.asm](stress_test.asm) | Runs 2,000 inner-loop iterations as a longer correctness check. |
+| [subroutine.asm](subroutine.asm) | Demonstrates a CALL/RET subroutine that multiplies by two. |
+| [xor_alu.asm](xor_alu.asm) | Exercises the XOR_LOAD, XOR_ADD, XOR_SWAP, and XOR_RANK instructions. |
 
-Additional programs under `examples/programs/` include broader ISA coverage and larger proof-style workloads such as `all_opcodes_test.asm`, `goldbach_witness.asm`, `prime_sieve_demo.asm`, and `verified_math.asm`.
+The `examples/programs/` directory contains broader ISA coverage and larger workloads, including `all_opcodes_test.asm`, `goldbach_witness.asm`, `stress_memory.asm`, and the tensor examples.
 
----
+## Running a single program
 
-## Running a Single Program
+The assembler driver for single-program runs is `scripts/thiele_asm.py`.
 
-All single-program invocations go through the assembler driver `scripts/thiele_asm.py`.
+Assemble and run through the extracted OCaml runner with:
 
 ```bash
-# Assemble and run via the OCaml extracted runner (prints the final state)
 python scripts/thiele_asm.py examples/fibonacci.asm --run
+```
 
-# Assemble and run via the Verilator RTL cosimulation
+Assemble and run through Verilator RTL cosimulation with:
+
+```bash
 python scripts/thiele_asm.py examples/fibonacci.asm --sim
+```
 
-# Assemble to a trace/hex/binary file instead of running (format auto-detected
-# from the output extension, or set it with --format)
+Write a trace, hexadecimal file, or binary file instead of running it by choosing an output path.
+
+```bash
 python scripts/thiele_asm.py examples/fibonacci.asm -o build/fibonacci.trace
 ```
 
-To batch-run every example through the same path, use `python examples/run_all.py`.
+The output format is inferred from the extension unless `--format` is supplied.
 
----
+Run every example through the same path with:
 
-## Expected Results Summary
+```bash
+python examples/run_all.py
+```
 
-Representative outcomes only; exact `pc`/`mu` values depend on the current assembler and VM implementation.
+## Expected results
 
-| Program | Cycles | μ-cost | Notes |
-|---------|--------|--------|-------|
-| benchmark | finite loop | positive | Countdown / throughput sanity check |
-| bianchi_violation | early stop | error path | `err=True` is expected |
-| chsh_full | short trace | small positive | CHSH opcode path exercise |
-| conditional | short loop | positive | Branching and arithmetic sanity check |
-| fibonacci | finite loop | positive | Fibonacci sequence in memory |
-| stress_test | long loop | larger positive | Extended execution sanity check |
+These are representative outcomes, not fixed promises about every implementation detail.
 
-Bianchi violation programs are expected to set `err=True` — this is **correct** behaviour.
+Exact `pc` and `mu` values depend on the current assembler and VM implementation.
+
+| Program | Runtime shape | μ-cost | Expected behavior |
+|---------|---------------|--------|-------------------|
+| benchmark | finite loop | positive | Completes the countdown sanity check. |
+| bianchi_violation | early stop | error path | Sets `err=True` by design. |
+| chsh_full | short trace | small positive | Exercises the CHSH instruction path. |
+| conditional | short loop | positive | Checks branching and arithmetic. |
+| fibonacci | finite loop | positive | Leaves the Fibonacci sequence in memory. |
+| stress_test | long loop | larger positive | Runs the extended execution check. |
+
+The Bianchi-violation example is expected to set `err=True`; that is the behavior the example is checking.

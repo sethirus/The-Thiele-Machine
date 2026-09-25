@@ -16,7 +16,7 @@
    carry a NoFI-style cost increase all the way to the discrete
    delta-curvature = kappa * delta-chi statement. *)
 
-(* INQUISITOR NOTE: proof-connectivity — closes raychaudhuri_component gap by
+(* SCOPE NOTE: foundation connectivity — closes raychaudhuri_component gap by
    wiring discrete_einstein_emergence_component into the full Jacobson chain.
    Chain: NoFI → area law (LocalMorphismSemantics) → Clausius → discrete GR. *)
 
@@ -65,7 +65,7 @@ Definition mu_landauer_unruh_calibrated
     the area-law side, the calibration identifies the flux, the thermodynamic
     bridge turns that into the Raychaudhuri component the Einstein-side theorem
     wants, and the Gauss-Bonnet chain finishes the curvature statement. *)
-(* INQUISITOR NOTE: main theorem — discharges raychaudhuri_component gap via
+(* SCOPE NOTE: main theorem — discharges raychaudhuri_component gap via
   discrete_einstein_emergence_component in ThermoEinsteinBridge. *)
 Theorem nfi_to_discrete_einstein :
   forall (hbar c_light k_B entropy_per_bit : R)
@@ -209,7 +209,7 @@ Qed.
     "Certification requires payment." Starting from nothing, nothing
     certifies without cost. The machine's second law.
 *)
-(* INQUISITOR NOTE: re-export — PrimeAxiom.kernel_certified_implies_positive_mu
+(* SCOPE NOTE: re-export — PrimeAxiom.kernel_certified_implies_positive_mu
    directly proves the NoFI cost consequence for the vm_certified execution path. *)
 Theorem certified_implies_positive_mu :
   forall fuel program (s0 : VMState),
@@ -230,7 +230,7 @@ Qed.
 
     Proof: vm_mu_delta > 0 and horizon_area ≥ 1 imply flux > 0.
 *)
-(* INQUISITOR NOTE: NoFI contribution — positive Δμ + calibration = nonzero flux. *)
+(* SCOPE NOTE: NoFI contribution — positive Δμ + calibration = nonzero flux. *)
 Theorem nfi_cost_nonzero_implies_nontrivial_calibration :
   forall (hbar c_light k_B entropy_per_bit : R)
          (s_pre s_post : VMState)
@@ -282,7 +282,7 @@ Qed.
     stronger entry theorem [nfi_to_discrete_einstein_from_bekenstein_calibration]
     removes the raw null-flux equality as a top-level premise.
 *)
-(* INQUISITOR NOTE: raychaudhuri discharge witness — confirms the gap is closed *)
+(* SCOPE NOTE: raychaudhuri discharge witness — confirms the gap is closed *)
 Definition raychaudhuri_component_discharged_witness :=
   @ThermoEinsteinBridge.discrete_einstein_emergence_component.
 

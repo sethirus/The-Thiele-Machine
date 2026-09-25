@@ -11,7 +11,7 @@
 
   *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
    imports no kernel module.
@@ -19,8 +19,8 @@
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
 
 From Coq Require Import Reals Lra Lia List.
 Import ListNotations.
@@ -30,44 +30,17 @@ From Kernel Require Import ConstructivePSD.
 
 (** Operator Indices *)
 
-(** NPAOperator: The algebraic basis for level-1 NPA hierarchy
+(** NPAOperator: the finite operator labels used by this file.
 
-    DEFINITION: Five operators forming the NPA-1 sequence for CHSH:
-    - Op_I: Identity operator (1, always gives expectation 1)
-    - Op_A0: Alice's measurement observable for input x=0
-    - Op_A1: Alice's measurement observable for input x=1
-    - Op_B0: Bob's measurement observable for input y=0
-    - Op_B1: Bob's measurement observable for input y=1
+    The five constructors are the identity label and four setting labels,
+    Op_A0, Op_A1, Op_B0, and Op_B1. They are the rows and columns of the
+    level-1 matrix used below. This inductive type is a label set; it does not
+    by itself provide Hilbert-space operators, measurement rules, a state, or
+    a physical realization of the labels.
 
-    WHY THESE FIVE:
-    NPA hierarchy is organized by "levels" (depths of operator products). Level-1
-    uses operators {1, A₀, A₁, B₀, B₁} - the identity plus single measurement
-    operators. No products like A₀A₁ or A₀B₀ are included at level-1 (they appear
-    at level-2). This makes NPA-1 computationally tractable (5×5 = 25 entries)
-    while still capturing the Tsirelson bound.
-
-    PHYSICAL MEANING:
-    Each operator represents a quantum observable (Hermitian operator on Hilbert
-    space). Measuring Op_Ax for Alice gives outcome a ∈ {-1, +1} with probabilities
-    determined by the quantum state. The operators satisfy:
-    - A₀² = A₁² = B₀² = B₁² = I (measurement observables square to identity)
-    - [Aₓ, Bᵧ] = 0 (Alice and Bob's operators commute - locality/no-signaling)
-
-    WHY LEVEL-1 SUFFICES FOR CHSH:
-    Remarkably, the 5×5 NPA-1 matrix already gives the optimal quantum bound
-    (CHSH ≤ 2√2). Higher levels (6×6, 7×7, ...) don't tighten this bound for CHSH.
-    For other inequalities (like I₃₃₂₂), higher levels are needed. CHSH is special:
-    its optimal quantum value is achievable with the minimal NPA hierarchy.
-
-    RELATION TO BELL OPERATORS:
-    The Bell-CHSH operator is B = A₀⊗B₀ + A₀⊗B₁ + A₁⊗B₀ - A₁⊗B₁. Its expectation
-    ⟨B⟩ = E₀₀ + E₀₁ + E₁₀ - E₁₁ (the S-value). The moment matrix encodes constraints
-    on the E_xy values arising from quantum algebraic rules (commutativity, self-
-    adjointness, projectivity).
-
-    Prove that NPA-1 with these 5 operators is insufficient to characterize CHSH
-    bounds (would need to show level-2 or higher gives different bound). Or find
-    a different minimal operator set that works better.
+    The later matrix definitions use the selected entries and PSD predicates
+    explicitly. Any interpretation of those entries as quantum moments is an
+    additional modeling premise, not a consequence of this constructor list.
 *)
 Inductive NPAOperator : Type :=
 | Op_I    : NPAOperator  (* Identity *)
@@ -76,39 +49,13 @@ Inductive NPAOperator : Type :=
 | Op_B0   : NPAOperator  (* Bob measurement 0 *)
 | Op_B1   : NPAOperator. (* Bob measurement 1 *)
 
-(** op_index: Map operators to matrix indices
+(** op_index: the fixed numeric positions used by the matrix functions.
 
-    DEFINITION: Assigns each of the 5 operators a unique index 0-4:
-    - Op_I  → 0 (row/column 0)
-    - Op_A0 → 1 (row/column 1)
-    - Op_A1 → 2 (row/column 2)
-    - Op_B0 → 3 (row/column 3)
-    - Op_B1 → 4 (row/column 4)
-
-    Coq's matrix operations (ConstructivePSD.v) use natural number indices.
-    This function bridges between semantic operator names (Op_A0) and numerical
-    matrix positions (1). It makes the moment matrix construction concrete:
-    Γ[op_index(Op_A0), op_index(Op_B0)] = E₀₀ = ⟨A₀B₀⟩.
-
-    PHYSICAL MEANING:
-    Each operator gets a "slot" in the moment matrix. Position [i,j] holds
-    the expectation ⟨Opᵢ · Opⱼ⟩. By convention:
-    - Row/col 0: Identity (⟨1·X⟩ = ⟨X⟩, single-qubit expectations)
-    - Rows/cols 1-2: Alice's observables
-    - Rows/cols 3-4: Bob's observables
-
-    This ordering separates Alice's and Bob's operators, making the block
-    structure visible (helpful for no-signaling analysis).
-
-    INJECTIVITY:
-    This mapping is injective (different operators → different indices). This
-    ensures each operator has a unique position. If two operators mapped to the
-    same index, the matrix would conflate distinct quantum observables, losing
-    information.
-
-    Show two operators map to the same index (violates injectivity, impossible
-    by construction). Or show the indexing causes the moment matrix to fail
-    capturing quantum constraints (would mean wrong operator ordering).
+    The mapping is explicit: Op_I maps to 0, Op_A0 and Op_A1 map to 1 and 2,
+    and Op_B0 and Op_B1 map to 3 and 4. The function supplies an index for
+    array-style access; it does not assert that a matrix entry has a physical
+    expectation value. Injectivity is a finite property of this constructor
+    mapping and must be proved separately if a later theorem needs it.
 *)
 Definition op_index (op : NPAOperator) : nat :=
   match op with
@@ -121,55 +68,14 @@ Definition op_index (op : NPAOperator) : nat :=
 
 (** CHSH Correlators *)
 
-(** CHSHCorrelations: The four correlation values defining CHSH
+(** CHSHCorrelations: four real inputs to the selected CHSH expression.
 
-    DEFINITION: A record containing the four expectation values E_xy = ⟨Aₓ ⊗ Bᵧ⟩
-    for x, y ∈ {0, 1}:
-    - E00: ⟨A₀ ⊗ B₀⟩ (Alice measures setting 0, Bob measures setting 0)
-    - E01: ⟨A₀ ⊗ B₁⟩ (Alice 0, Bob 1)
-    - E10: ⟨A₁ ⊗ B₀⟩ (Alice 1, Bob 0)
-    - E11: ⟨A₁ ⊗ B₁⟩ (Alice 1, Bob 1)
-
-    PHYSICAL MEANING:
-    Each E_xy is the correlation (covariance) between Alice's measurement result
-    a ∈ {-1,+1} and Bob's result b ∈ {-1,+1} when Alice uses setting x and Bob
-    uses setting y. Computed as:
-
-    E_xy = Σ_{a,b} a·b · P(a,b|x,y)
-
-    where P(a,b|x,y) is the joint probability of outcomes (a,b) given inputs (x,y).
-
-    BOUNDS:
-    Since a, b ∈ {-1,+1}, we have |a·b| ≤ 1, so |E_xy| ≤ 1 for all x,y. This is
-    proven in MinimalE.v (archived) (minimal_normalized_E_bound). Any correlation exceeding
-    ±1 would violate probability theory (not quantum vs classical, just arithmetic).
-
-    CLASSICAL FACTORIZATION:
-    For LOCAL hidden variable models (Bell's local realism), correlations factorize:
-    E_xy = E_x · E_y where E_x = Σ_a a·P(a|x) (Alice's marginal), E_y = Σ_b b·P(b|y)
-    (Bob's marginal). This factorization forces CHSH ≤ 2 (classical bound).
-
-    QUANTUM VIOLATION:
-    For ENTANGLED quantum states, E_xy does NOT factorize. Example (singlet state):
-    E_xy = -cos(θ_x - φ_y) where θ_x, φ_y are measurement angles. This allows
-    E₀₀ = E₀₁ = E₁₀ = 1/√2, E₁₁ = -1/√2, giving CHSH = 3/√2 + 1/√2 = 2√2 ≈ 2.828,
-    violating the classical bound but respecting the quantum bound.
-
-    WHY FOUR CORRELATIONS:
-    CHSH uses 2 settings for Alice, 2 for Bob → 2×2 = 4 combinations. Other Bell
-    inequalities use more settings (e.g., CGLMP uses 3×2 = 6, I₃₃₂₂ uses 3×3 = 9).
-    CHSH is the MINIMAL Bell scenario (fewest settings showing quantum advantage).
-
-    RELATION TO NPA:
-    These four values appear as off-diagonal entries in the NPA moment matrix Γ.
-    The PSD constraint on Γ forces relationships between E_xy values (e.g., if
-    E₀₀, E₀₁, E₁₀ are large, then E₁₁ must satisfy certain bounds). This is how
-    NPA derives the Tsirelson bound algebraically.
-
-    Find quantum correlations {E₀₀, E₀₁, E₁₀, E₁₁} with |E_xy| > 1 (would violate
-    probability). Or find correlations achieving S-value > 2√2 (would violate
-    Tsirelson bound). Or prove correlations with S ∈ (2, 2√2) are unrealizable
-    (would mean there's a gap between classical and quantum, which there isn't).
+    The record stores E00, E01, E10, and E11. In this development they are
+    real numbers supplied to algebraic predicates. The field names preserve
+    the usual CHSH notation, but the record alone does not provide a joint
+    probability distribution, a local hidden-variable model, a quantum state,
+    or a physical experiment. Bounds or realizability statements require the
+    separate premises and theorems that state them.
 *)
 Record CHSHCorrelations : Type := {
   E00 : R;  (* ⟨A0 ⊗ B0⟩ *)
@@ -178,54 +84,12 @@ Record CHSHCorrelations : Type := {
   E11 : R;  (* ⟨A1 ⊗ B1⟩ *)
 }.
 
-(** S_value: The CHSH linear combination S = E₀₀ + E₀₁ + E₁₀ - E₁₁
-
-    DEFINITION: For given correlations c, compute:
-    S(c) = c.E00 + c.E01 + c.E10 - c.E11
-
-    This is the CHSH-Bell operator expectation ⟨B⟩ where:
-    B = A₀⊗B₀ + A₀⊗B₁ + A₁⊗B₀ - A₁⊗B₁
-
-    The coefficients (+1, +1, +1, -1) are chosen to MAXIMIZE violation of local
-    realism. Other combinations (like all +1) give weaker bounds. CHSH is the
-    optimal 2×2 Bell inequality (Cirel'son 1980).
-
-    BOUNDS (three regimes):
-    1. LOCAL (hidden variables): |S| ≤ 2 (proven in ValidCorrelation.v)
-    2. QUANTUM (Hilbert space + Born rule): |S| ≤ 2√2 ≈ 2.828 (Tsirelson bound)
-    3. NO-SIGNALING (marginals independent): |S| ≤ 4 (Popescu-Rohrlich box)
-
-    Bell's theorem: Since quantum mechanics achieves S = 2√2 > 2, local hidden
-    variables cannot explain quantum correlations. Experiment confirms quantum
-    predictions (1970s-present).
-
-    WHY E₁₁ HAS MINUS SIGN:
-    The sign pattern (+,+,+,-) is chosen so that:
-    - Classical strategies: S maxes out at 2 (e.g., E₀₀=E₀₁=E₁₀=1, E₁₁=-1 gives S=2)
-    - Quantum strategies: S reaches 2√2 (carefully chosen angles on singlet state)
-    - Flipping any sign reduces the maximum (try it - other combos give S ≤ 2 always)
-
-    This is analogous to choosing the right "objective function" in optimization:
-    CHSH is the function that best distinguishes quantum from classical.
-
-    S measures "how much Alice and Bob's results correlate" across the four settings.
-    Positive correlations (E₀₀, E₀₁, E₁₀) and anti-correlation (E₁₁) combine to
-    give a score. Classical: max score = 2. Quantum: max score = 2√2. This 40%
-    increase (√2 ≈ 1.414) is the quantum advantage for this task.
-
-    EXPERIMENTAL TESTS:
-    Hundreds of experiments (1970s-2020s) have measured S-values:
-    - Classical: S ≈ 2 (within error)
-    - Quantum (entangled photons, atoms, etc.): S ≈ 2.7-2.8 (close to 2√2)
-    - No experiment has exceeded 2√2 (confirming Tsirelson bound)
-
-    Loopholes closed: locality loophole (1998), detection loophole (2001), both
-    simultaneously (2015). All confirm S ∈ (2, 2√2] for quantum systems.
-
-    Build a device achieving S > 2√2 without classical communication. This would
-    violate Tsirelson bound, disproving quantum mechanics or NPA hierarchy. Or
-    prove S = 2√2 is achievable with local hidden variables (would refute Bell's
-    theorem, contradicting 50+ years of theory and experiment).
+(** S_value: the selected CHSH linear combination
+    [E00 + E01 + E10 - E11]. The sign pattern is part of this record's
+    notation. It does not by itself provide an operator, a state, a probability
+    distribution, a Bell experiment, or any of the classical, quantum, or
+    no-signaling bounds. Those statements belong to separate modules with
+    separate premises.
 *)
 Definition S_value (c : CHSHCorrelations) : R :=
   c.(E00) + c.(E01) + c.(E10) - c.(E11).
@@ -358,7 +222,7 @@ Definition npa_to_chsh (npa : NPAMomentMatrix) : CHSHCorrelations := {|
 
 (** Key Theorems *)
 
-(** INQUISITOR NOTE: The following lemma relates quantum realizability to
+(** SCOPE NOTE: The following lemma relates quantum realizability to
     correlation bounds. This follows from PSD matrix properties 
     proven in ConstructivePSD.v. *)
 

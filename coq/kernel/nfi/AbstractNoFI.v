@@ -431,40 +431,13 @@ Proof.
   { apply cert_addr_setter_cost_pos. exact Hi_cert. }
 Qed.
 
-(** The Structural Lower Bound
-
-    THE GAP-CLOSING THEOREM.
-
-    The challenge: is the cost lower bound for cert-setters forced by the
-    machine's structure, or is it an arbitrary design choice baked into
-    instruction_cost with S(cost)?
-
-    ANSWER: It is structurally forced. Here is the derivation chain:
-
-      (1) Observe: cert_addr changed (0 → nonzero) in one vm_apply step.
-      (2) By contrapositive of thiele_non_cert_addr_setter_preserves:
-            cert_addr_setterb i = true
-          [STRUCTURAL: which instructions can alter csr_cert_addr, proven
-           by case analysis over the vm_instruction constructors]
-      (3) By cert_addr_setter_cost_pos:
-            instruction_cost i ≥ 1
-          [DEFINITIONAL: the 5 cert-addr-setters all use S(cost)]
-      (4) By vm_apply_mu (MuLedgerConservation):
-            (vm_apply s i).(vm_mu) = s.(vm_mu) + instruction_cost i ≥ s.(vm_mu) + 1
-          [CONSERVATION: μ exactly tracks cumulative instruction_cost]
-
-    WHY THIS IS NON-CIRCULAR:
-    The lower bound is derived from OBSERVATION OF STATE CHANGE, not from
-    reading the cost definition. Step (2) is the structural pivot: we observe
-    cert_addr changed, and from that alone (using the preservation lemma,
-    which is proven by case analysis over the vm_instruction constructors)
-    we conclude the instruction must be a cert-setter.
-
-    The cost bound in step (3) then follows from the structural definition
-    of cert-setters. The chain cert_addr-change → cert_addr_setterb → cost ≥ 1
-    is the non-arbitrary core: any instruction set where cert_addr can be
-    set by a zero-cost instruction would violate this structural guarantee.
-*)
+(** The structural lower bound follows from the named state-change and cost
+    lemmas. A step that changes [csr_cert_addr] from zero to nonzero is a
+    cert-address setter; the setter-cost lemma gives [instruction_cost >= 1];
+    and ledger conservation relates that cost to the resulting [vm_mu]. The
+    proof therefore uses the transition classification and the accounting
+    theorem separately. It does not claim that the schedule is forced for
+    every possible instruction set. *)
 
 (** no_free_certification: the structural lower bound.
     A single vm_apply step that moves cert_addr from 0 to nonzero

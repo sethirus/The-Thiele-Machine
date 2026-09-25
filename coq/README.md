@@ -2,9 +2,7 @@
 
 This directory contains the active Coq proof tree for the Thiele Machine.
 
-Documentation note: this README is an overview of the proof tree, not the authoritative claim-status document. For current claim boundaries and audit results, see `../INQUISITOR_REPORT.md`.
-
-**Status:** ✅ Active proof tree compiles cleanly | ✅ **ZERO admitted proofs** in active code | ✅ **ZERO project-local axioms** in the active audited tree | ✅ [Full Audit Report](../INQUISITOR_REPORT.md)
+**Status:** ✅ Active proof tree compiles cleanly | ✅ **ZERO admitted proofs** in active code | ✅ **ZERO project-local axioms** in the active audited tree | ✅ proof-hygiene checks pass
 
 ## Build
 
@@ -23,8 +21,7 @@ make -j4
 
 ## Directory Structure
 
-The table names the principal proof surfaces; each directory README enumerates
-its maintained files and verification status.
+The table names the principal proof surfaces; each directory README enumerates its maintained files and verification status.
 
 | Directory | Description |
 |-----------|-------------|

@@ -31,7 +31,7 @@ Local Open Scope R_scope.
 
     The theorem does not prove saturation. It says that if saturation is one of
     your inputs, the Landauer energy per bit falls out by algebra. *)
-(* INQUISITOR NOTE: Pure algebra, Bekenstein saturation plus Landauer entropy gives energy per bit. *)
+(* SCOPE NOTE: Pure algebra, Bekenstein saturation plus Landauer entropy gives energy per bit. *)
 Theorem bekenstein_rindler_energy_per_bit :
   forall (k_B T_Unruh n_bits E_total : R),
     0 < n_bits ->
@@ -47,7 +47,7 @@ Qed.
 
 (** [bekenstein_entropy_energy_ratio]: If the saturation equality is assumed,
     then entropy divided by energy is 1/T_Unruh. *)
-(* INQUISITOR NOTE: Bekenstein equality gives S/E = 1/T *)
+(* SCOPE NOTE: Bekenstein equality gives S/E = 1/T *)
 Theorem bekenstein_entropy_energy_ratio :
   forall (T_Unruh S_total E_total : R),
     0 < E_total ->
@@ -75,13 +75,12 @@ Definition landauer_unruh_constant_calibration
     calibrated such that one μ-unit = Landauer erasure energy at the
     local Rindler horizon temperature.
 
-    PHYSICAL MEANING: When the VM charges cost 1 via REVEAL/EMIT/etc,
-    this hypothesis says it represents erasing one bit of information at the
-    Rindler temperature T_Unruh, dissipating energy E = T_Unruh × k_B × ln 2.
-
-    To falsify: Measure the energy consumed per vm_mu increment on
-    physical hardware operating at temperature T. Compare against
-    T × k_B × ln 2 × (number of bits per instruction). *)
+    This is an explicit calibration premise. It relates the named VM
+    transition and the selected split-morphism quantities; it does not follow
+    from the VM cost schedule and it does not identify a μ-unit with joules.
+    A physical calibration would require a separate implementation and
+    measurement contract, including a definition of which transition and
+    retained information are being measured. *)
 Definition mu_energy_unit_is_landauer
     (hbar c_light k_B : R)
     (s_pre s_post : VMState)
@@ -290,7 +289,7 @@ Qed.
     - But null_energy_flux_delta = vm_mu_delta × area × 1 (focusing=1)
     - Therefore: null_energy_flux_delta = T_Unruh × entropy_increment_delta
     = mu_landauer_unruh_calibrated.                                          *)
-(* INQUISITOR NOTE: Two named physical hypotheses give the calibration equation. *)
+(* SCOPE NOTE: Two named physical hypotheses give the calibration equation. *)
 Theorem bekenstein_implies_landauer_calibration :
   forall (hbar c_light k_B entropy_per_bit : R)
          (s_pre s_post : VMState)

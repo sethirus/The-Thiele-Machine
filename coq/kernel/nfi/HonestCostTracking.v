@@ -1,47 +1,21 @@
-(** HonestCostTracking: well-formedness separation between
-    honest cost-tracking systems and unconstrained cost-bearing systems.
+(** HonestCostTracking: separating an unconstrained cost record from A2.
 
-    AIM
-    ---
-    The Receipt Theorem and `universal_nfi_any_substrate` together establish that
-    *any* CertificationSystem (which by construction satisfies A2) cannot certify
-    at total trace cost zero.  A natural rebuttal is: "fine, build a TM that
-    increments MU_ADDR on every cert-flip; it satisfies A2 by construction; the
-    Receipt Theorem then says nothing about computers in general."  That rebuttal
-    is correct as stated — and concedes the entire point.  *Once you accept the
-    A2 constraint, you are inside the honest world the Receipt Theorem describes.*
+    [CostBearingSystem] has state, instructions, a step function, a cost function,
+    and a certification predicate, but it has no A2 field.
 
-    What this file proves
-    ---------------------
-    The A2 constraint is a *non-trivial* well-formedness restriction, not a
-    tautology.  We exhibit a `CostBearingSystem` (a record without A2) where
-    a single non-empty trace certifies at total cost zero.  By
-    `universal_nfi_any_substrate`, no `CertificationSystem` (i.e. no honest
-    cost-tracking system) can match this trace.
+    [CertificationSystem] adds the premise that every false-to-true certification
+    transition costs at least one.
 
-    Therefore the class of (state, trace) pairs reachable in the unconstrained
-    world is *strictly larger* than the class reachable in the honest world.
-    The well-formedness gap is real.  This is the same shape of separation that
-    linear types make over untyped lambda calculus: same compute power, strictly
-    smaller well-formedness class.
+    This file exhibits a one-step [CostBearingSystem] trace that certifies at total
+    cost zero and proves that the corresponding trace shape is excluded by A2.
 
-    What this file does NOT prove
-    -----------------------------
-    - It does not claim Thiele computes more functions than a Turing machine.
-      Church-Turing is preserved.  `thiele_morphism_exists` already shows any
-      honest cost-tracking machine is initial-imaged by Thiele.
-    - It does not prove a separation between *language classes* (sets of
-      accepted inputs).  The separation is between (input, certified-trace)
-      pairs.  A dishonest TM can produce a trace certifying that 2+2=5 at cost
-      0; an honest one cannot.  That is the gap.
+    The separation is between state-and-trace pairs admitted by the two records.
 
-    Falsification
-    -------------
-    To falsify [honest_cost_tracking_strict_restriction], either (a) exhibit a
-    `CertificationSystem` (one that constructs without `cs_cert_costs` in scope)
-    with a non-empty cert-flip trace at total cost 0, or (b) prove that every
-    `CostBearingSystem` either satisfies A2 or has no cert-flip trace.  Both
-    contradict the kernel.
+    It is not a separation of computable functions, accepted-language classes, or
+    physical machines.
+
+    The result does not say that every conventional implementation lacks an A2-like
+    invariant; an implementation can impose such an invariant separately.
 *)
 
 From Kernel Require Import UniversalCertificationCost.

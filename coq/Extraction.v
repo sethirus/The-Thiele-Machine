@@ -68,7 +68,7 @@ Proof.
   exact CertificationTheory.quantum_admissible_cannot_certify_supra_chsh.
 Qed.
 
-(* INQUISITOR NOTE: alias for canonical-source wiring in extraction root. *)
+(* SCOPE NOTE: alias for canonical-source wiring in extraction root. *)
 
 Theorem extraction_canonical_source_anchor :
   canonical_cpu_module = thieleBusTopB.
@@ -95,7 +95,7 @@ Proof.
   - simpl. rewrite Hstuck. reflexivity.
 Qed.
 
-(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
 
 Theorem extraction_c3_born_rule_anchor :
   forall (P : ProbabilityRule),
@@ -107,7 +107,7 @@ Qed.
 
 (* definitional lemma: re-exports the trace_quantum_model + Tsirelson bound
    conclusion under a shorter name; no new mathematical content. *)
-(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
 Theorem extraction_c4_tsirelson_model_anchor :
   forall fuel trace s_init,
     trace_quantum_bridge_coherent fuel trace s_init ->
@@ -121,7 +121,7 @@ Proof.
   exact trace_quantum_model_connection_closed.
 Qed.
 
-(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
 
 Theorem extraction_honest_nofi_anchor :
   forall (fuel : nat) (trace : list vm_instruction)
@@ -141,7 +141,7 @@ Proof.
   exact honest_information_reduction_requires_structure_addition.
 Qed.
 
-(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
 
 Theorem extraction_honest_nofi_trace_separation_anchor :
   forall fuel trace omega,
@@ -153,7 +153,7 @@ Proof.
   exact honest_nfi_trace_separation_partial.
 Qed.
 
-(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
 
 Theorem extraction_honest_nofi_general_feasible_reduction_anchor :
   forall fuel trace s omega_prior omega_posterior tree,
@@ -167,7 +167,7 @@ Proof.
   exact honest_nfi_general_feasible_reduction_partial.
 Qed.
 
-(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
 
 Theorem extraction_honest_nofi_fibered_feasible_reduction_anchor :
   forall fuel trace s omega_prior omega_posterior tree,
@@ -181,7 +181,7 @@ Proof.
   exact honest_nfi_fibered_feasible_reduction_partial.
 Qed.
 
-(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
 
 Theorem extraction_honest_nofi_posterior_representative_reduction_anchor :
   forall fuel trace s omega_prior omega_posterior tree
@@ -196,7 +196,7 @@ Proof.
   exact honest_nfi_posterior_representative_reduction_partial.
 Qed.
 
-(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
 
 Theorem extraction_honest_nofi_conditional_shannon_anchor :
   forall fuel trace s n,
@@ -207,7 +207,7 @@ Proof.
   exact honest_nfi_conditional_shannon_partial.
 Qed.
 
-(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
 
 Theorem extraction_honest_nofi_quantitative_state_space_anchor :
   forall (s s' : VMState) (freg creg : nat) (kind : bool) (flen cost : nat),
@@ -220,7 +220,7 @@ Proof.
   exact (honest_nfi_quantitative_state_space_partial s s' freg creg kind flen cost Hstep).
 Qed.
 
-(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
 (** [extraction_nfi_to_einstein_anchor]: pins the full NoFI → discrete GR chain
     into the extraction root. NoFI → area law → Clausius → Raychaudhuri →
     ΔCurvature = κ·Δ(Euler characteristic). Zero admits, zero axioms.
@@ -228,7 +228,7 @@ Qed.
 Definition extraction_nfi_to_einstein_anchor :=
   NoFIToEinstein.nfi_to_gr_chain_complete.
 
-(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
 (** [extraction_monoidal_coherence_anchor]: pins CategoryMonoidal.monoidal_coherence
     into the extraction root. Tensor (coupling append) is associative with []
     as left and right unit — the categorical foundation for MORPH_TENSOR. *)
@@ -244,7 +244,7 @@ Proof.
   exact CategoryMonoidal.monoidal_coherence.
 Qed.
 
-(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
 (** [extraction_compose_assoc_anchor]: pins CategoryLaws.relational_compose_assoc
     into the extraction root. Relational composition is associative up to
     coupling_equiv — the categorical foundation for COMPOSE. *)
@@ -259,8 +259,8 @@ Proof.
   exact CategoryLaws.relational_compose_assoc.
 Qed.
 
-(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
-(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring — pins driven_step_compose into extraction surface. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring — pins driven_step_compose into extraction surface. *)
 Theorem extraction_compose_anchor :
   forall ks dst m1_id m2_id cost,
     extended_hw_invariant ks ->
@@ -272,8 +272,8 @@ Proof.
   exact driven_step_compose.
 Qed.
 
-(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
-(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring — pins driven_step_morph_tensor into extraction surface. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
+(* SCOPE NOTE: alias for extraction proof-root dependency wiring — pins driven_step_morph_tensor into extraction surface. *)
 Theorem extraction_morph_tensor_anchor :
   forall ks dst f_id g_id cost,
     extended_hw_invariant ks ->

@@ -42,7 +42,7 @@ Qed.
 Definition U5_tsirelson_from_psd_completion := elliptope_tsirelson_bound_abs.
 
 Section PhysicsBridge.
-(* INQUISITOR NOTE: abstract interface section, an experimental interpretation and its PSD-completion premise. *)
+(* SCOPE NOTE: abstract interface section, an experimental interpretation and its PSD-completion premise. *)
 Context (honest_quantum_chsh_correlations :
   RealNumber -> RealNumber -> RealNumber -> RealNumber -> Prop).
 Context (A_QM :

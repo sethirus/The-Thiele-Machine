@@ -1,8 +1,8 @@
 (** NatSubstrateInstance.v — a concrete [Substrate] over [nat]-coded
     programs, with the recursion theorem discharged unconditionally.
 
-    Closeout-plan B.4. The substrate-level [structural_shortcut_undecidable]
-    theorem (StructuralUndecidability.v) is conditional on the substrate's
+    The substrate-level [structural_shortcut_undecidable] theorem
+    (StructuralUndecidability.v) is conditional on the substrate's
     [Substrate] typeclass instance. To fire the theorem unconditionally,
     we need at least one concrete instance with all fields discharged
     (no [Hypothesis], no [Axiom], no [Section] parameter that survives).
@@ -20,8 +20,7 @@
     so the diagonalization fires for every Coq decide-function under
     consideration.
 
-    Why this is the right shape (option 1 of the closeout plan). The
-    substrate's limitative theorem must be about the substrate's own
+    Why this is the right shape. The substrate's limitative theorem must be about its own
     internal expressive power, mirroring Turing's halting result (which
     is about Turing-machine deciders, because that's the substrate
     Turing was studying). Any Coq function whose corresponding diagonal

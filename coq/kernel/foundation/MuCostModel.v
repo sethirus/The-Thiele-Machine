@@ -1,83 +1,37 @@
-(**
-    MuCostModel: operational μ-cost ledger.
+(** This file defines the operational μ-cost functions used by the VM accounting layer.
 
-    I define μ-cost by asking one concrete question: which instructions modify
-    partition structure? This file does NOT assume CHSH bounds, the Tsirelson
-    bound (2√2), or quantum mechanics. The physics bridge has to earn that
-    connection later.
+    The cost table includes payload bits for [EMIT] and explicit bit counts for [REVEAL] and [READ_PORT].
 
-    μ-cost is determined here by the same operational ledger as VMStep:
-    [instruction_cost].  Older versions used a one-unit abstraction for
-    revelation-class operations; that hid the bit accounting.  This file now
-    delegates to the actual cost table, including payload bits for EMIT and
-    explicit bit counts for REVEAL/READ_PORT.
+    The file does not assume a CHSH bound, a Tsirelson bound, quantum mechanics, or a physical energy conversion.
 
-    mu_cost_of_instr: operational cost for each instruction type.
-    partition_ops_mu_free: PNEW/PSPLIT/PMERGE with delta 0 have zero cost.
-    REVEAL always costs at least 1 by the cost table for [mu_cost_of_instr].
-    mu_zero_no_reveal: μ=0 programs cannot use REVEAL within fuel steps.
-
-    This file defines μ-cost independently of CHSH/quantum mechanics.
-    CHSHExtraction.v defines CHSH computation independently of μ-cost. The
-    relationship between μ=0 traces and CHSH-style bounds belongs to the
-    algebraic bridge files, not to this operational cost definition.
-
-    This is just the operational accounting layer. It defines the ledger and
-    leaves the stronger physics interpretation to later bridge files.
-
-    To falsify: show a program with REVEAL has μ-cost = 0 (contradicts the
-    REVEAL line in [mu_cost_of_instr]), or show PNEW/PSPLIT/PMERGE with
-    delta 0 have nonzero cost (contradicts partition_ops_mu_free), or show
-    this operational definition is inconsistent with actual VM execution.
-    *)
+    Any bridge between this ledger and another model must state its own premises.
+*)
 
 From Coq Require Import List Lia Arith PeanoNat.
 Import ListNotations.
 
 From Kernel Require Import VMState VMStep.
 
-(** ** μ-cost assignment rules
+(** ** The instruction costs are delegated to the executable [instruction_cost] table. *)
 
-    Each operation pays according to the executable VM cost table:
-    
-    1. PNEW, PSPLIT, PMERGE: μ += delta; canonical zero-cost uses delta 0.
-    2. EMIT: μ += payload_bit_length payload + S delta.
-    3. REVEAL/READ_PORT: μ += bits + S delta.
-    4. LASSERT: μ += flen * 8 + S delta.
-    5. LJOIN/CERTIFY/MORPH_ASSERT: μ += S delta.
-    6. Other local ops: μ += delta.
-    
-    This is defined operationally. Physical readings must be added elsewhere.
-    *)
-
-(** ** Partition structure complexity
-
-    Count the partition structure an operation adds. Right now the measure is
-    module count, so any stronger interpretation has to be proven elsewhere.
-    *)
+(** ** Partition structure complexity is represented here by module count. *)
 
 (** Count the modules in the partition graph. *)
 Definition module_count (g : PartitionGraph) : nat :=
   length g.(pg_modules).
 
-(** For now, partition complexity is exactly module count. *)
+(** [partition_complexity] is exactly [module_count] in this model. *)
 Definition partition_complexity (g : PartitionGraph) : nat :=
   module_count g.
 
-(** ** μ-cost for individual instructions
-
-    The match below is the accounting rule. If a constructor changes cost, the
-    proofs below are the first things that should break.
-    *)
+(** ** [mu_cost_of_instr] is the state-independent projection of [instruction_cost]. *)
 
 Definition mu_cost_of_instr (instr : vm_instruction) (_s : VMState) : nat :=
   instruction_cost instr.
 
-(** ** Total μ-cost of a trace
+(** ** [mu_cost_of_trace] sums the costs reached by successive program-counter lookups. *)
 
-    Add the costs for the instructions reached by the program counter. This is
-    only the ledger, not the full VM semantics.
-    *)
+(** It models the ledger only and is not a replacement for full VM execution. *)
 
 Fixpoint mu_cost_of_trace 
   (fuel : nat) (trace : list vm_instruction) (pc : nat) : nat :=
@@ -104,21 +58,15 @@ Fixpoint mu_cost_of_trace
       end
   end.
 
-(** ** μ=0 programs
+(** ** A [mu_zero_program] has zero total cost in this trace ledger. *)
 
-    A program is μ=0 if its total μ-cost is zero.
-    
-    This definition does NOT mention CHSH or correlation bounds.
-    *)
+(** The definition does not mention CHSH or correlation bounds. *)
 
 Definition mu_zero_program 
   (fuel : nat) (trace : list vm_instruction) : Prop :=
   mu_cost_of_trace fuel trace 0 = 0.
 
-(** ** μ-preservation
-
-    This is the state-level version: final μ equals initial μ.
-    *)
+(** ** [mu_preserving] states equality of the initial and final VM ledger fields. *)
 
 Definition mu_preserving 
   (fuel : nat) (trace : list vm_instruction) (s_init s_final : VMState) : Prop :=
@@ -145,32 +93,17 @@ Qed.
    that table entry; consumers can [unfold mu_cost_of_instr; simpl; lia]
    directly. *)
 
-(** ** CHSH stays outside this file
+(** ** CHSH is outside this cost definition.
 
-    The separation is the point:
-    - CHSHExtraction.v defines CHSH computation (independent of μ)
-    - This file defines μ-cost (independent of CHSH)
-    
-    These are SEPARATE accounting systems.
-    
-    Any bridge theorem relating μ=0 traces to CHSH-style bounds must cite both
-    systems explicitly. This file does not assume such a theorem.
-    *)
+    A bridge relating μ-cost to a CHSH result must import and state both models.
+*)
 
-(** ** What μ=0 programs can do
+(** ** The zero-cost restrictions are operational consequences of the cost table.
 
-    μ=0 programs can:
-    - Create partitions (PNEW)
-    - Split/merge partitions (PSPLIT/PMERGE)  
-    - Perform local operations
-    - Execute other zero-cost local instructions represented by this ledger
-    
-    μ=0 programs CANNOT:
-    - Use REVEAL (bits + S delta)
-    - Use LASSERT/LJOIN/CERTIFY within the zero-cost prefix (each has an S delta floor)
-    
-    This restriction is OPERATIONAL, not assumed from physics.
-    *)
+    At zero encoded delta, partition operations may remain free while [REVEAL], [LASSERT], [LJOIN], and [CERTIFY] retain their positive floors.
+
+    This file does not interpret that schedule as a physical law.
+*)
 
 (** If the trace is already empty at pc, every later lookup is empty too. *)
 Lemma nth_error_none_propagates :

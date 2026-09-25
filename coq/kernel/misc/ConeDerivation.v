@@ -5,7 +5,7 @@ From Kernel Require Import VMStep KernelPhysics.
 
 Import ListNotations.
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 (** ConeDerivation: The causal cone is uniquely determined by algebraic laws
@@ -48,23 +48,11 @@ Definition cone_like (f : list vm_instruction -> list nat) : Prop :=
   f [] = [] /\
   (forall i rest, f (i :: rest) = instr_targets i ++ f rest).
 
-(** Cone_Structure_Unique: cone_like uniquely determines causal_cone.
-
-  If f satisfies cone_like, then f = causal_cone on every trace. The reason is
-  straightforward: cone_like completely specifies the recursive behavior. The
-  empty trace fixes the base case, and the head-plus-rest equation fixes the
-  recursive step. There is only one function satisfying those equations.
-
-  Proof: induction on the trace. Base case uses Hnil. Inductive case uses the
-  cone_like recursion law and the IH. The result matters because it proves
-  causal_cone is not just one implementation among many. It is the only
-  implementation compatible with the compositional laws.
-
-  This is the derivation-not-definition point in its cleanest form. Instead of
-  choosing causal_cone and then listing properties, I can state the minimal
-  properties first and show they force a unique solution. To falsify it, find
-  two different cone_like functions. The theorem says there are none.
-*)
+(** [Cone_Structure_Unique] says that the empty-trace equation and the
+  head-plus-rest equation determine [causal_cone] on every finite trace. The
+  proof is induction on the trace. The result is uniqueness relative to this
+  recursive interface, not uniqueness among all possible notions of causal
+  influence. *)
 Theorem Cone_Structure_Unique :
   forall f,
     cone_like f ->

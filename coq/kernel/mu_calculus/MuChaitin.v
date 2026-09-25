@@ -24,15 +24,6 @@
     instruction_cost ≥ cert_payload_size for cert-setters. Given that policy,
     the bound follows from μ-monotonicity (MuNoFreeInsightQuantitative.v).
 
-    To falsify: find a trace that achieves supra-certification starting from
-    cert=0 but has μ_final - μ_initial < cert_payload_size of the cert-setter.
-
-    Alternatively, choose a VM pricing rule where cert-setting instructions cost
-    less than cert_payload_size; that rejects the policy premise rather than the
-    proved implication.
-
-    The pricing policy is not hidden here; it is an explicit theorem premise.
-
     *)
 
 From Coq Require Import List Lia Arith.PeanoNat Strings.String.
@@ -47,29 +38,10 @@ Module MuChaitin.
 Import VMStep.VMStep.
 Import RevelationProof.
 
-(** cert_payload_size: Syntactic bit measure of certification payload
-
-    WHAT IT COUNTS: The "size" of information being certified by an instruction,
-    measured in bits.
-
-    SPECIFIC RULES:
-    - REVEAL: explicit bits parameter (how many bits of state revealed)
-    - EMIT: concrete payload bits, eight Boolean bits per Coq ascii byte
-    - READ_PORT: explicit bits parameter (how many bits are read)
-    - LJOIN: 0 here because certificate sizes are not statically available
-    - LASSERT: encoded formula units converted to concrete bits
-    - MORPH_ASSERT: concrete bits in the property and certificate payloads
-    - CERTIFY: explicit delta_mu argument
-    - All other instructions: 0 (no certification)
-
-    WHY SYNTACTIC: This is a local size measure, not a semantic information
-    theorem. The pricing policy below decides whether instruction_cost must
-    cover this syntactic measure.
-
-    To falsify: Show an instruction that certifies N bits of information
-    but has cert_payload_size < N. This would mean our syntactic measure
-    underestimates the intended payload; the theorem remains about this measure.
-*)
+(** [cert_payload_size] is the instruction-local syntactic bit measure used by
+    the pricing policy. It counts the explicit payload fields for receipt and
+    assertion instructions and returns zero for constructors without a payload
+    component in this measure. It is not a semantic information measure. *)
 Definition cert_payload_size (i : vm_instruction) : nat :=
   match i with
   | instr_reveal _ bits _ _ => bits
@@ -89,35 +61,17 @@ Definition cert_payload_size (i : vm_instruction) : nat :=
   | _ => 0
   end.
 
-(** cert_priced: Pricing policy for certification instructions
-
-    POLICY instruction_cost ≥ cert_payload_size for cert-setters.
-
-    WHY A POLICY: This is a VM pricing choice, not a theorem. The VM could price
-    cert-setters differently, but under this policy:
-    1. Certification costs proportional to certified payload
-    2. No "free certification" relative to the cert_payload_size measure
-    3. The later theorem can chain cost paid to payload size
-
-    To reject this premise: choose an instruction pricing table where some
-    cert-setter has instruction_cost < cert_payload_size.
-*)
+(** [cert_priced] is an explicit VM pricing premise: every cert-setter's
+    scheduled cost is at least its [cert_payload_size]. The later payload bound
+    is conditional on this policy; changing the schedule changes the premise,
+    not the arithmetic proof. *)
 Definition cert_priced (i : vm_instruction) : Prop :=
   MuNoFreeInsightQuantitative.is_cert_setter i -> cert_payload_size i <= instruction_cost i.
 
-(** mu_info_nat_ge_from_mu_total: Information from total μ-cost
-
-    CLAIM: If final μ ≥ initial μ + k, then μ-information ≥ k.
-
-    PROOF: Direct from definitions. μ-information = μ_final - μ_initial.
-    If μ_final ≥ μ_initial + k, then μ_final - μ_initial ≥ k. QED.
-
-    WHY THIS MATTERS: Converts total μ-cost bound into information bound.
-    The μ-ledger directly measures accumulated information (structural cost).
-
-    To falsify: Find states where μ_final - μ_initial ≠ accumulated cost
-    (violating μ-ledger conservation).
-*)
+(** [mu_info_nat_ge_from_mu_total] converts the supplied ledger inequality into
+    the natural-number difference used by this module's information notation.
+    The statement is arithmetic over [vm_mu]; it does not calibrate that
+    difference as physical information. *)
 Lemma mu_info_nat_ge_from_mu_total :
   forall (s_init s_final : VMState) (k : nat),
     s_final.(vm_mu) >= s_init.(vm_mu) + k ->
@@ -145,11 +99,9 @@ Qed.
     cert-setting instruction. This file does not formalize Gödel, Chaitin, or
     Kolmogorov complexity.
 
-    To falsify: Find a trace where:
-    - Initial cert CSR = 0
-    - Final cert CSR > 0 (supra-certification achieved)
-    - But μ_final - μ_initial < instruction_cost(any cert-setter in trace)
-    This would mean "free certification" (information created from nothing).
+    The conclusion is conditional on the supplied trace, initial CSR, and
+    final supra-certification hypotheses. It is a VM accounting statement, not
+    a claim that the ledger is a universal information measure.
 *)
 Theorem supra_cert_implies_mu_info_nat_lower_bound :
   forall fuel trace s_init s_final,
@@ -188,8 +140,8 @@ Qed.
     certification cannot outrun the paid mu ledger. This is a policy-conditioned
     accounting theorem, not a physical Landauer derivation.
 
-    To falsify: find a trace satisfying supra-certification with μ-information
-    below payload size while the cert_priced premise still holds.
+    The payload conclusion remains conditional on [cert_priced]. A different
+    pricing schedule is a different instance of the policy.
 *)
 Theorem supra_cert_implies_mu_bounds_cert_payload :
   forall fuel trace s_init s_final,

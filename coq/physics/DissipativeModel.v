@@ -1,6 +1,6 @@
 From Coq Require Import List Lia Arith.PeanoNat.
 Import ListNotations.
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
    imports no kernel module.
@@ -8,8 +8,8 @@ Import ListNotations.
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
 
 
 (** A dissipative lattice model
@@ -64,7 +64,7 @@ Qed.
 
 (** Abstract embedding wrapper so later proofs can transport the monotone
     energy law without committing to a specific machine. *)
-(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+(* SCOPE NOTE: abstract interface section — parameterized theorem.
    Section Variables become explicit forall premises when the section closes. *)
 Section Embedding.
   Variable Encoded : Type.

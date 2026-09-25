@@ -21,7 +21,7 @@ Import ListNotations.
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import KernelPhysics SimulationProof.
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 (** Decidable equality for vm_instruction (needed for discriminate). *)

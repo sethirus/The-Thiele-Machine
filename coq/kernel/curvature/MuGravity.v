@@ -8,13 +8,13 @@
    related algebra, but it does not prove the full Einstein equation directly.
    That stronger emergence story is handled in the later dynamic bridge files.
 
-   INQUISITOR NOTE: MISSING einstein_equation IS INTENTIONAL
-   This file is in the ASPIRATIONAL physics tier. The Einstein equation,
-   source normalization identity, and horizon defect-area law require
-   calibration conditions (angle_defect = π·Laplacian, Laplacian = 16πG·T)
-   that are not derivable from current kernel definitions unconditionally.
-   These are documented physics research boundaries, not proof gaps.
-   See artifacts/physics_research_boundaries.json for the full registry.
+   CALIBRATION SCOPE: conditional.
+
+   The stronger Einstein-balance, source-normalization, and horizon
+   defect-area statements below are conditional. They require explicit
+   calibration premises such as angle_defect = π·Laplacian and
+   Laplacian = 16πG·T; those premises are not derived unconditionally from
+   the definitions in this file.
 *)
 
 From Coq Require Import List Arith.PeanoNat Lia Reals Lra String.
@@ -72,12 +72,12 @@ Definition mu_module_distance (s : VMState) (m1 m2 : ModuleID) : nat :=
   then 0
   else S (module_structural_mass s m1 + module_structural_mass s m2).
 
-(** METRIC AXIOM 1: Non-negativity
+(** Metric property 1: non-negativity
 
   Distances must be non-negative to support any geometric interpretation.
   Module-level metric consistency checks and downstream geometric claims.
 
-  Find s,m1,m2 with mu_module_distance < 0. *)
+  The definition makes a negative value impossible. *)
 Lemma mu_module_distance_nonneg : forall s m1 m2,
   0 <= mu_module_distance s m1 m2.
 Proof.
@@ -86,12 +86,12 @@ Proof.
   destruct (m1 =? m2); lia.
 Qed.
 
-(** METRIC AXIOM 2: Identity
+(** Metric property 2: identity
 
   A point/module must have zero distance to itself.
   Basic metric sanity and horizon/local-neighborhood reasoning.
 
-  Find s,m with mu_module_distance s m m <> 0. *)
+  Equal module IDs have zero distance by definition. *)
 Lemma mu_module_distance_refl : forall s m,
   mu_module_distance s m m = 0.
 Proof.
@@ -100,12 +100,12 @@ Proof.
   rewrite Nat.eqb_refl. reflexivity.
 Qed.
 
-(** METRIC AXIOM 3: Symmetry
+(** Metric property 3: symmetry
 
   Undirected geometric distance requires d(a,b)=d(b,a).
   Distance-based simplifications in local curvature arguments.
 
-  Find s,m1,m2 with asymmetric module distance. *)
+  The two module arguments enter the structural-mass sum symmetrically. *)
 Lemma mu_module_distance_sym : forall s m1 m2,
   mu_module_distance s m1 m2 = mu_module_distance s m2 m1.
 Proof.
@@ -120,12 +120,12 @@ Proof.
     rewrite H21. lia.
 Qed.
 
-(** METRIC AXIOM 4: Triangle inequality
+(** Metric property 4: triangle inequality
 
   Ensures the metric is path-consistent and non-pathological.
   Interpretation of μ-geometry as a valid metric space.
 
-  Find s,a,b,c violating d(a,c) ≤ d(a,b)+d(b,c). *)
+  The successor-and-mass definition gives the stated triangle bound. *)
 Lemma mu_module_distance_triangle : forall s a b c,
   mu_module_distance s a c <= mu_module_distance s a b + mu_module_distance s b c.
 Proof.
@@ -320,8 +320,8 @@ Definition angle_defect_curvature (s : VMState) (m : ModuleID) : R :=
   Establishes totality of the geometric curvature functional.
   Downstream existence packaging and summary theorem.
 
-  Construct state/module where angle_defect_curvature is undefined.
-  (Impossible in total Coq definition, so proof is reflexive.) *)
+  The definition is total, so the value itself supplies the existential
+  witness. *)
 Lemma angle_defect_curvature_defined : forall s m,
   exists K, angle_defect_curvature s m = K.
 Proof.
@@ -393,7 +393,7 @@ Proof.
   apply (mu_laplacian_w_zero_if_uniform_density_list s m (module_neighbors s m) Huniform 0%R).
 Qed.
 
-(* INQUISITOR NOTE: μ-cost density remains primitive and independent from source normalization. *)
+(** μ-cost density remains primitive and independent from source normalization. *)
 
 (** Discrete Ricci representative: geometric angle defect at module scale. *)
 Definition ricci_curvature (s : VMState) (m : ModuleID) : R :=
@@ -406,12 +406,10 @@ Definition scalar_curvature (s : VMState) (m : ModuleID) : R :=
 (** Volume element at a module (unit cell normalization). *)
 Definition metric_volume (s : VMState) (m : ModuleID) : R := 1.
 
-(** Curvature is well-defined for all module queries.
+(** Curvature is defined for all module queries.
 
-  Guarantees curvature can always be referenced in theorem statements.
-  mu_geometry_defined and Einstein-balance packaging.
-
-  Show a state/module where ricci_curvature lacks a value. *)
+  The existential statement below is immediate because ricci_curvature is a
+  total Coq function. *)
 Lemma ricci_curvature_defined : forall s m,
   exists K, ricci_curvature s m = K.
 Proof.
@@ -543,10 +541,10 @@ Qed.
 
 (** Stress-energy is well-defined for all module queries.
 
-  Guarantees stress-energy can always be referenced in theorem statements.
+  Stress-energy is a total function of the supplied VM state and module.
   einstein_equation and summary theorem packaging.
 
-  Construct state/module where stress_energy is undefined.
+  The value itself supplies the existential witness.
   (Impossible in total Coq definition, so proof is reflexive.) *)
 Lemma stress_energy_defined : forall s m,
   exists r, stress_energy s m = r.
@@ -606,10 +604,8 @@ Proof.
 Qed.
 
 (** Core source-balance theorem under explicit local calibration hypotheses.
-
-  FALSIFICATION HANDLE:
-  Any concrete state violating either calibration premise directly falsifies
-  this balance for that state. The theorem remains honest about this surface. *)
+    The calibration premises are the boundary of this result; the theorem does
+    not replace them with a continuum variational derivation. *)
 
 
 (** Documentation note:
@@ -2006,15 +2002,10 @@ Proof.
     lra.
 Qed.
 
-(* INQUISITOR NOTE: Core VM-semantic obligation.
-   This theorem must constructively show that positive gap implies descent.
-   Requires proof linking calibration gap dynamics to VM instruction effects. *)
-
 (** Calibration Residual Descent: Semantic gap window implies strict descent.
    
-   PROOF: By unfolding definitions and applying abs_strict_descent_by_delta_window_pos.
-   The semantic_gap_window_certificate provides exactly the conditions needed:
-   positive gap and bounded delta, which guarantee absolute value decreases. *)
+   The supplied positive-gap and bounded-delta premises are exactly the
+   conditions used by abs_strict_descent_by_delta_window_pos. *)
 Theorem calibration_residual_strict_descent_from_semantic_gap_window : forall s i m,
   (0 < calibration_gap s m)%R /\ (-2 * calibration_gap s m < calibration_gap_delta s i m < 0)%R ->
   strict_descent_at_step s i m.
@@ -2311,9 +2302,9 @@ Qed.
 (** ** Cone Derivation Bridge
 
     ConeDerivation.Cone_Structure_Unique proves that causal_cone is the
-    UNIQUE function satisfying compositional laws (cone_like). This
-    bridges to MuGravity: the gravitational coupling uses causal_cone,
-    and cone uniqueness guarantees no alternative causal structure exists.
+    unique function satisfying the stated cone_like laws. This lemma records
+    that algebraic uniqueness for the imported cone definitions; it is not a
+    physical uniqueness theorem.
 *)
 Lemma gravity_uses_unique_cone :
   forall f, cone_like f -> forall trace, f trace = causal_cone trace.

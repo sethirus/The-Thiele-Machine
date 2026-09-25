@@ -146,7 +146,7 @@ Proof.
   exact (driven_step_wf ks i Hwf).
 Qed.
 
-(* INQUISITOR NOTE: alias for the closure-roadmap trace surface. The proved
+(* SCOPE NOTE: alias for the closure-roadmap trace surface. The proved
    theorem is [driven_trace_commutes]; this exports it under the Item 3 name. *)
 Theorem coq_kami_model_trace_correct_wf :
   forall fuel trace ks,
@@ -197,7 +197,7 @@ Definition rtl_trust_boundary_audit : Prop :=
   (* bsc_kami_compilation_trusted covers this layer *)
   True.
 
-(* INQUISITOR NOTE: alias for full_embed_step_compute — summary re-export for rtl_trust_boundary_audit self-documentation. *)
+(* SCOPE NOTE: alias for full_embed_step_compute — summary re-export for rtl_trust_boundary_audit self-documentation. *)
 Theorem rtl_trust_boundary_audit_layer1 :
   (* Layer 1 is fully proved: *)
   forall ks i, SupportedOpcode i ->

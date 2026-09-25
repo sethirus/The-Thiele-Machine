@@ -17,7 +17,7 @@
     
     *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver — this file is not bridged to
+(* SCOPE NOTE: standalone proof scope — this file is not bridged to
    the VM kernel, and imports none of it.
 
    What it is: a self-contained Turing-machine development (TM_Config,
@@ -29,8 +29,8 @@
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that
    isn't there. See the scope note on [thiele_simulates_turing] below for what
-   this file does and does not show. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   this file does and does not show. The boundary is stated here rather than
+   inferred from an import. *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool Psatz.
 Import ListNotations.

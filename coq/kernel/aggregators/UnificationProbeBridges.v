@@ -48,9 +48,9 @@ From Kernel Require Import MuShannonBridge.
     but this aggregator is the kernel-side bridging file that
     combines them with VM-level mu-ledger results. *)
 
-(* INQUISITOR NOTE: cross-tier import (Landauer bridge — see above). *)
+(* SCOPE NOTE: cross-tier import (Landauer bridge — see above). *)
 From Thermodynamic Require Import LandauerDerived.
-(* INQUISITOR NOTE: cross-tier import (Landauer bridge — see above). *)
+(* SCOPE NOTE: cross-tier import (Landauer bridge — see above). *)
 From Thermodynamic Require Import LandauerJoules.
 
 From Kernel Require Import HolevoDimensional.
@@ -103,7 +103,7 @@ Qed.
     second law for a bath), every cert-flip VM step releases at least
     [k_B · T · ln 2] of heat to the bath. *)
 
-(* INQUISITOR NOTE: SECTION PARAMETER — the Variable and Hypothesis
+(* SCOPE NOTE: SECTION PARAMETER — the Variable and Hypothesis
    declarations in this Section are section parameters that become
    EXPLICIT FORALL premises on every theorem when the Section closes.
    k_B_pos is physical positivity for the Boltzmann constant; the
@@ -197,7 +197,7 @@ Qed.
     µ-cost (in nats) playing the role of [system_entropy_nats], then
     the µ-ledger is bounded by the Bekenstein bound on bits. *)
 
-(* INQUISITOR NOTE: SECTION PARAMETER — Variable/Hypothesis declarations
+(* SCOPE NOTE: SECTION PARAMETER — Variable/Hypothesis declarations
    in this Section are section parameters that become EXPLICIT FORALL
    premises on each theorem when the Section closes. Constants
    (hbar, c_light, k_B, R_radius) carry physical positivity; the

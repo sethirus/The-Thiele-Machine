@@ -1,8 +1,6 @@
-(** KernelTM: bounded execution for the toy machine in Kernel.v.
+(** KernelTM: bounded execution for the toy machine in [Kernel.v].
 
-    This file implements a bounded step/run function for the minimal machine
-    defined in Kernel.v. It is a toy executor, not a proof that Turing machines
-    are a formal subcategory of the full Thiele VM.
+    This file defines bounded fetch, step, and run functions for the minimal machine in [Kernel.v]. It is a toy executor, not a proof that Turing machines form a formal subcategory of the full Thiele VM.
 
     - fetch: Get instruction from program at current state
     - step_tm: Execute one instruction (Write, Move, Branch, Halt, ClaimTapeIsZero)
@@ -15,16 +13,11 @@
     Costful or tape-zeroing semantics belong to the separate costed step
     function in [KernelThiele.v].
 
-    tm_is_turing_complete proves that running a TuringMachine for its specified
-    steps produces its final_state_for. That theorem is tautological by
-    construction; the useful content is the explicit step_tm/run_tm definition.
+    [tm_is_turing_complete] reuses the machine's own program, so the theorem is tautological by construction. The useful content is the explicit [step_tm] and [run_tm] definition.
 
-    To falsify: show that step_tm does not correctly implement the stated toy
-    semantics, or show that its ClaimTapeIsZero branch is used elsewhere as if
-    it erased the tape or charged μ.
+    The review boundary is the stated toy semantics: [H_ClaimTapeIsZero] must not be treated elsewhere as if it erased the tape or charged μ.
 
-    This file is a MINIMAL EXAMPLE for testing. The full VM (VMState, VMStep)
-    is the production computational model.
+    This file is a minimal example for testing. The full VM is defined by [VMState] and [VMStep].
 *)
 
 From Coq Require Import List Bool Arith.PeanoNat.

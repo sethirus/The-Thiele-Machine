@@ -287,8 +287,9 @@ jobs:
 
       - name: Run reproducible proof gate
         # Clean rebuild + zero-Admitted check + coqchk. Internally calls
-        # `make -C coq clean && make -C coq -j$(nproc)` so the Coq cache
-        # is not (and cannot be) used here.
+        # `make -C coq clean` and a bounded parallel Coq rebuild, so the
+        # cache is not (and cannot be) used here without oversubscribing the
+        # runner. THIELE_PROOF_JOBS can tune the width when needed.
         run: bash scripts/proof_gate_reproducible.sh
 
   # Phase 2: OCaml extraction. Runs on top of the shared Coq cache from

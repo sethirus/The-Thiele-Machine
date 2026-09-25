@@ -30,12 +30,11 @@
   (PO-STRONG). A candidate satisfying all three REFUTES it. This file
   reports both outcomes; nothing is filtered on the way to the conclusion.
 
-  WHY THESE CANDIDATES. The search was not for systems resembling the five.
-  It was aimed at the opposite corner: forgery-resistant designs whose
-  engineering deliberately *suppresses* third-party record-keeping, because
-  that is where (PO-STRONG) is most likely to break. Deniable authentication
-  is the sharpest such corner -- non-transferability is not an oversight
-  there, it is the product requirement -- so it is examined first.
+  The candidate selection targets the opposite corner: forgery-resistant
+  designs whose stated purpose suppresses third-party record-keeping. That is
+  the relevant test class for the strong proliferation claim; deniable
+  authentication is examined first because non-transferability is part of its
+  stated design goal.
 
   THE RESULT, STATED UP FRONT. (PO-STRONG) is FALSE. Three candidates below
   refute it, and the refutation is not a modeling artifact: in each case the
@@ -59,13 +58,12 @@
   honest place for it is prose, not Coq.
 *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver -- this file is a companion to
+(* SCOPE NOTE: standalone proof scope -- this file is a companion to
    PointerObservable.v and inherits its subject matter: it is about ecosystems
    and record proliferation, not about VM semantics, and it states no theorem
    mentioning VMState or vm_mu. The connection to the mu-ledger runs through
    PointerObservable.v, which this file imports and whose definitions every
-   theorem here is stated in. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorem here is stated in. *)
 
 From Coq Require Import List Lia Bool.
 Import ListNotations.

@@ -11,7 +11,7 @@
     coupling kappa comes out positive too. So this file is the concrete closure
     of that gap, but only for this specific mass-gradient setup. *)
 
-(* INQUISITOR NOTE: proof-connectivity - closes lorentzian_coupling_positive
+(* SCOPE NOTE: foundation connectivity - closes lorentzian_coupling_positive
    gap from DiscreteRaychaudhuri.v using the mass-gradient sign argument.
    Chain: mass_v > mass_w → c < 0 → R_{00} < 0 → G_{00} > 0 → κ > 0. *)
 
@@ -42,7 +42,7 @@ From Kernel Require Import DiscreteRaychaudhuri.
 
     Proof copies the HRiem construction from ricci_isotropy_isotropic_2v,
     then unfolds the 4-term Ricci sum for d=0 and closes with nlinarith. *)
-(* INQUISITOR NOTE: Key sign lemma - R_{00} < 0 when mass gradient c < 0 *)
+(* SCOPE NOTE: Key sign lemma - R_{00} < 0 when mass gradient c < 0 *)
 Lemma curved_ricci_00_negative_when_mass_decreases :
   forall s v w a b,
     (v <> w)%nat ->
@@ -137,7 +137,7 @@ Qed.
 
     Proof: apply isotropic_einstein_ricci_relation (G_{00} = -R_{00}), then
     use the sign lemma above. *)
-(* INQUISITOR NOTE: G_{00} > 0 from R_{00} < 0 via sign flip relation *)
+(* SCOPE NOTE: G_{00} > 0 from R_{00} < 0 via sign flip relation *)
 Lemma einstein_00_positive_when_mass_decreases :
   forall s v w,
     (v <> w)%nat ->
@@ -189,7 +189,7 @@ Qed.
     2. einstein_00_positive_when_mass_decreases gives G_{00} > 0.
     3. a > 0 from mass hypothesis.
     4. Therefore κ = G_{00}/a > 0. *)
-(* INQUISITOR NOTE: Main theorem closes the lorentzian_coupling_positive gap
+(* SCOPE NOTE: Main theorem closes the lorentzian_coupling_positive gap
   for the isotropic mass-gradient case under the stated hypothesis
   mass_v > mass_w. *)
 Theorem lorentzian_coupling_positive_from_mass_gradient :
@@ -240,7 +240,7 @@ Qed.
 
 (** [positive_mass_implies_focusing_from_gradient]: Convenience re-export.
     Positive mass with gradient along edge → null congruence focuses. *)
-(* INQUISITOR NOTE: Convenience wrapper - gradient -> focusing, using
+(* SCOPE NOTE: Convenience wrapper - gradient -> focusing, using
    lorentzian_coupling_positive_from_mass_gradient as the κ>0 source *)
 Theorem positive_mass_implies_focusing_from_gradient :
   forall s v w,

@@ -33,7 +33,7 @@ Local Open Scope R_scope.
     side primitive is "an orthogonal evolution event" (one bit of
     distinguishable transition). *)
 
-(* INQUISITOR NOTE: SECTION PARAMETER — the Variable and Hypothesis
+(* SCOPE NOTE: SECTION PARAMETER — the Variable and Hypothesis
    declarations in this Section are section parameters that become
    EXPLICIT FORALL premises on every theorem when the Section closes.
    The hbar/E/t positivity are physical positivity preconditions; the
@@ -86,7 +86,7 @@ End MargolusLevitin.
     of distinguishable operations per second is bounded by
     [2 · E / (π · ℏ)]. *)
 
-(* INQUISITOR NOTE: SECTION PARAMETER — same discipline as the
+(* SCOPE NOTE: SECTION PARAMETER — same discipline as the
    MargolusLevitin Section above. Variable/Hypothesis declarations are
    section parameters becoming EXPLICIT FORALL premises on each theorem
    when the Section closes. Constants positivity is physical
@@ -163,7 +163,7 @@ End LloydBound.
     substrate inputs are [G, c, ℏ]. The information-side primitive
     is the horizon area itself. *)
 
-(* INQUISITOR NOTE: SECTION PARAMETER — Variable/Hypothesis declarations
+(* SCOPE NOTE: SECTION PARAMETER — Variable/Hypothesis declarations
    in this Section are section parameters becoming EXPLICIT FORALL
    premises on each theorem when the Section closes. Constants
    positivity (hbar, c_light, G_newton, A_horizon) is physical
@@ -242,9 +242,9 @@ Print Assumptions bekenstein_hawking_area_law.
     The three speed-limit / area-law probes in this file establish
     physical lower bounds whose VM-side interpretation feeds the
     Thiele Machine's mu-ledger via the Bekenstein bridge in
-    UnificationProbeBridges. See the waiver note below. *)
+    UnificationProbeBridges. See the scope note below. *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver (foundation connectivity).
+(* SCOPE NOTE: standalone proof scope (foundation connectivity).
 
     This file is standalone algebra. It does not engage VM semantics, no
     theorem here mentions [VMState] or [vm_mu], and it imports no kernel
@@ -256,5 +256,5 @@ Print Assumptions bekenstein_hawking_area_law.
     satisfy it from inside would be to add a definition that references
     [vm_mu] without using it; an identity function referenced by nothing
     carries no proof obligation. A link that can be manufactured that way is
-    not evidence of one. This waiver is counted in the WAIVERS census in
-    INQUISITOR_REPORT.md. *)
+    not evidence of one. The boundary is stated here rather than inferred
+    from an import. *)

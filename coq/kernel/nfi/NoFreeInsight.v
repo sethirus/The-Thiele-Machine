@@ -133,10 +133,10 @@ Notation A3_observational_no_signaling := KernelPhysics.observational_no_signali
     (same partition structure) but different for x ≠ y, giving infinitely many
     distinct states per observation class.
 
-    PHYSICAL MEANING: Partition-only observation does not determine the full state.
-    Unconstrained entropy = ∞ without a finiteness bound (Bekenstein bound).
-    The Thiele VM's cost accounting provides exactly this bound: μ-cost enforces
-    that going from the coarse observation to fine information requires work.
+    This is an observation-equivalence result for the named partition
+    projection. It says that the projection has infinitely many distinct
+    full-state preimages. It does not define entropy, establish a Bekenstein
+    bound, or show that μ is a physical information cost.
 
     IMPORT: theorem is in scope via From Kernel Require Import EntropyImpossibility.
     *)
@@ -157,34 +157,11 @@ Definition ReceiptPredicate (A : Type) := list A -> bool.
     - chsh_supra(trials) := some S > 2√2 (supra-quantum)
     *)
 
-(** Definition D2: Strength Ordering - measuring discriminative power
-
-    When you go from "this number might be 1-1000" to "this number is 1-10",
-    you've STRENGTHENED your knowledge. You've ruled out possibilities.
-    This definition makes that notion of "strengthening" mathematically precise.
-    P1 ≤ P2 means "P1 is at least as strong as P2"
-    ⟺ Everything P1 accepts, P2 also accepts
-    ⟺ P1's acceptance set ⊆ P2's acceptance set
-    ⟺ P1 is more restrictive than P2
-
-    CONCRETE EXAMPLE (CHSH bounds):
-    - P_local(obs) := "all CHSH values ≤ 2"
-    - P_quantum(obs) := "all CHSH values ≤ 2√2"
-    - P_nonsignaling(obs) := "all CHSH values ≤ 4"
-
-    Then: P_local < P_quantum < P_nonsignaling
-
-    Going from P_nonsignaling to P_quantum means learning "ah, this system
-    is quantum, not just nonsignaling". That's INSIGHT. That costs μ.
-
-    WHY "≤" LOOKS BACKWARDS:
-    In lattice theory, stronger = lower in the lattice. P1 ≤ P2 means
-    "P1 is lower (stronger)" not "P1 is weaker". This confuses people.
-    Think of it as: "P1 fits under P2" (subset inclusion).
-
-    If you can strengthen from P2 to P1 (where P1 < P2) without μ-cost,
-    the No Free Insight theorem is false.
-*)
+(** [stronger] orders predicates by implication: every observation accepted by
+    [P1] is accepted by [P2]. Thus [P1] has the smaller acceptance set. The
+    notation is an order on the supplied Boolean predicates; examples involving
+    local, quantum, or nonsignaling CHSH bounds require the separate model that
+    defines those predicates. *)
 Definition stronger {A : Type} (P1 P2 : ReceiptPredicate A) : Prop :=
   forall obs, P1 obs = true -> P2 obs = true.
 
@@ -304,25 +281,11 @@ Qed.
     and focus this file on the *structural* no-free-insight theorem about
     certification being impossible without a cert-setter instruction. *)
 
-(** Theorem 2: No Free Insight, structural form
-
-    If trace_run starts with csr_cert_addr = 0 and ends in has_supra_cert, then
-    the trace contains REVEAL, EMIT, LJOIN, LASSERT, or MORPH_ASSERT.
-
-  This is the conservative outer envelope. For the exact current structural
-  shortcut bridge, see [morph_assert_bridge_pattern] in
-  RevelationRequirement.v and the class theorem
-  [supra_bridge_free_trace_never_fully_certified] below.
-
-    PROOF:
-    This is exactly RevelationRequirement.nonlocal_correlation_requires_revelation.
-    The point of this theorem is to expose that result under the NoFreeInsight
-    name, not to smuggle in a separate informal argument.
-
-    FALSIFIER:
-    Same as above: find a certified final state from a clean initial cert_addr
-    with no cert-setting instruction in the trace.
-    *)
+(** The structural No Free Insight theorem exposes the existing
+    [RevelationRequirement.nonlocal_correlation_requires_revelation] result
+    under this module's naming. Its scope is the bounded [Trace], initial
+    zero certification address, final [has_supra_cert], and the listed opcode
+    witnesses. The exact shortcut bridge is stated separately below. *)
 
 Theorem no_free_insight_general :
   forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),

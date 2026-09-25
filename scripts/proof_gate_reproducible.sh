@@ -21,7 +21,13 @@ find "$COQ_DIR" -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -na
 (
   cd "$COQ_DIR"
   coq_makefile -f _CoqProject -o Makefile
-  make V=1 -j1
+  # A clean rebuild is still mandatory, but serialising the entire corpus
+  # makes the reproducibility gate needlessly dominated by the large Kami
+  # files.  Keep the default bounded for CI memory while allowing a runner
+  # to choose its own safe width.
+  proof_jobs="${THIELE_PROOF_JOBS:-$(nproc 2>/dev/null || echo 2)}"
+  if (( proof_jobs > 4 )); then proof_jobs=4; fi
+  make V=1 -j"$proof_jobs"
 ) > "$ART_DIR/make_build.log" 2>&1
 
 echo "[proof] zero Admitted gate"

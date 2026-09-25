@@ -33,15 +33,12 @@
 
     What this buys (narrow but real):
 
-    - The mathematical content of A2 is shown to be cost-function-
-      independent: any system whose cost function satisfies the
-      Landauer-bridge shape obtains the same A2 conclusion. Thiele's
-      [instruction_cost] is one realisation among the universe of cost
-      functions that could realise it, not a privileged load-bearer.
-    - Separates "Landauer bridge has cost-floor shape" (universal /
-      abstract) from "Thiele's [instruction_cost] satisfies the bridge"
-      (framework-specific witness). The conceptual factorisation is
-      cleaner.
+    - The mathematical content of A2 is shown to be independent of the particular
+      cost function parameter: any supplied function satisfying the bridge shape
+      obtains the same A2 conclusion. Thiele's [instruction_cost] is one instance
+      obtained by the composition corollary.
+    - Separates the abstract bridge premise from the framework-specific claim that
+      Thiele's [instruction_cost] satisfies that premise.
 
     Bridge is a Prop hypothesis at the theorem level; no project-local
     axiom is added. No bypass markers. Print Assumptions returns

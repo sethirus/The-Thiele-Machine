@@ -650,7 +650,7 @@ Qed.
     bound used in the tightness theorem below; the reflexivity proof
     is the right shape because the count reduces to a definitional
     computation. *)
-(* INQUISITOR NOTE: intentionally arithmetic — see the comment above. *)
+(* SCOPE NOTE: intentionally arithmetic — see the comment above. *)
 Lemma classical_witness_count : rac_success_count classical_witness = 6.
 Proof.
   reflexivity.
@@ -740,7 +740,7 @@ Qed.
     correlation-to-NPA-to-mu chain that governs the Thiele Machine's
     mu-ledger. The connection is made by downstream consumers, not by this file. *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver (foundation connectivity).
+(* SCOPE NOTE: standalone proof scope (foundation connectivity).
 
     This file is standalone algebra. It does not engage VM semantics, no
     theorem here mentions [VMState] or [vm_mu], and it imports no kernel
@@ -752,5 +752,5 @@ Qed.
     satisfy it from inside would be to add a definition that references
     [vm_mu] without using it; an identity function referenced by nothing
     carries no proof obligation. A link that can be manufactured that way is
-    not evidence of one. This waiver is counted in the WAIVERS census in
-    INQUISITOR_REPORT.md. *)
+    not evidence of one. The boundary is stated here rather than inferred
+    from an import. *)

@@ -5,7 +5,7 @@
 **Current date:** September 2026 (v3.2.2)\
 **Repository:** https://github.com/sethirus/The-Thiele-Machine  
 **License:** Apache 2.0 (software), CC-BY-SA-4.0 (monograph/documentation)  
-**Purpose of this document:** Defensive publication. Every concept described here is publicly disclosed prior art under 35 U.S.C. § 102 (US) and Article 54 EPC (Europe) as of the dates above. This document is submitted for indexing to IP.com and similar prior art databases.
+**Purpose of this document:** Defensive publication. This document records the concepts, source dates, and public repository locations intended to establish a dated public record. Whether a particular disclosure qualifies as prior art under 35 U.S.C. § 102 or Article 54 EPC is a legal determination; this document is not a legal opinion. It is submitted for indexing to IP.com and similar prior-art databases.
 
 ---
 
@@ -18,6 +18,8 @@ The established results include a universal accounting theorem for systems satis
 Generic `CERTIFY` pays to set a flag without checking a proposition. Semantic truth requires a sound checker. Trace-fold initiality concerns evaluation of instruction lists; it does not supply a certification-preserving VM-state map into every A2 system. Hardware bridges carry representation preconditions and compiler trust boundaries.
 
 The foundational and physical interpretations remain research questions. The full-ISA F1 physical premise pair is inconsistent with zero-cost jumps; it provides no physical instance.
+
+The entries below mix four kinds of statement: a formal result, a description of the current VM, an engineering disclosure, and a possible variant. The word “variant” records a pattern that could be built under the listed conditions; it does not say that this repository implements every named target, proves a deployed implementation, or establishes patent validity.
 
 ---
 
@@ -39,7 +41,7 @@ The foundational and physical interpretations remain research questions. The ful
 
 **Hardware.** In the synthesized RTL (`thielecpu/hardware/rtl/thiele_cpu_kami.v`), `vm_mu` is a 32-bit register incremented inline within the step rule. The cost field occupies bits [7:0] of the 32-bit instruction word.
 
-**Variants disclosed.** The µ-ledger concept applies to any instruction-set architecture where: (a) every instruction carries an explicit cost field, (b) a dedicated monotone accumulator tracks total cost, and (c) a mandatory-floor class of instructions is precluded from zero cost. This includes implementations on x86, ARM, RISC-V, MIPS, GPU PTX, and FPGA soft-cores, using any monotone cost domain (natural numbers, floating-point entropy, hash-chain tips, p-adic valuations, or any ordered monoid).
+**Variants disclosed.** The µ-ledger pattern can be instantiated on an instruction-set architecture where: (a) every instruction carries an explicit cost field, (b) a dedicated monotone accumulator tracks total cost, and (c) a mandatory-floor class of instructions is precluded from zero cost. x86, ARM, RISC-V, MIPS, GPU PTX, and FPGA soft-cores are possible target families, not implementations or proofs supplied by this repository. The formal result here uses natural-number costs and the schedule stated above; other cost domains require their own definitions and proofs.
 
 ---
 
@@ -57,13 +59,13 @@ Both CERTIFY and MORPH_ASSERT are in the mandatory-floor class (cost ≥ 1). No 
 
 **Abstract version.** The theorem holds for any abstract certification system satisfying: (a) a certification predicate, (b) a step function, (c) a cost function where every single-step uncertified→certified transition costs ≥ 1. The Thiele Machine is an instance. `coq/kernel/nfi/AbstractNoFI.v`, theorem `no_free_certification`. The substrate-agnostic version is `universal_nfi_any_substrate` in `coq/kernel/nfi/UniversalCertificationCost.v`.
 
-**Variants disclosed.** No Free Insight as a cost-floor law applies to any computational system, hardware or software, that (a) distinguishes certified from uncertified structural claims in its state, and (b) charges a positive cost for the certification transition. This includes formal verification co-processors, hardware security modules, trusted execution environments, and any system implementing proof-carrying code or certificate-validated computation.
+**Variants disclosed.** No Free Insight can be instantiated in a computational system, hardware or software, that (a) distinguishes certified from uncertified structural claims in its state, and (b) charges a positive cost for the certification transition. Formal-verification co-processors, hardware security modules, trusted execution environments, and certificate-validated systems are possible application families; this repository does not prove their deployed behavior.
 
 ---
 
 ## Concept 3: µ-Initiality (Uniqueness of the Cost Measure)
 
-**Statement.** Let M be any function on machine states satisfying: (a) M(init_state) = 0, and (b) M(vm_apply s i) = M(s) + instruction_cost(i) for all reachable states. Then M = vm_mu on all reachable states. Try to invent a second, different cost measure that still respects the instructions and you'll keep rediscovering this one. `MuInitiality.v`.
+**Statement.** Let M be any function on machine states satisfying: (a) M(init_state) = 0, and (b) M(vm_apply s i) = M(s) + instruction_cost(i) for all reachable states. Then M = vm_mu on all reachable states. This is uniqueness relative to the stated schedule and initial value, not uniqueness of every possible cost schedule. `MuInitiality.v`.
 
 **What this means.** Given the cost assignment (S(δ) for cert-setters, |payload|+S(δ) for EMIT, etc.), µ is not just one valid accounting. It is the only valid accounting. Any system that assigns costs the same way must produce the same totals.
 
@@ -91,7 +93,7 @@ Both CERTIFY and MORPH_ASSERT are in the mandatory-floor class (cost ≥ 1). No 
 
 **What it is.** LASSERT reads a logical formula from memory (at the address in register `freg`), reads a certificate block from memory (at the address in register `creg`), and validates both using an on-chip Logic Engine FSM. The current VM implements the SAT path with a model and countermodel; the UNSAT path always fails. Parameters: `freg` (formula address register), `creg` (certificate address register), `kind` (boolean: SAT or UNSAT path), `flen` (declared formula-unit count), `cost` (mu_delta).
 
-**Dual-witness requirement.** In the SAT path (`kind = true`): the certificate block must contain both a satisfying assignment and a falsifying assignment. LASSERT succeeds only if the declared `flen` matches the formula's in-memory header count, the first witness satisfies the formula, and the second witness falsifies it. This proves the formula is neither unsatisfiable (it has a witness) nor a tautology (it has a falsifying witness), and therefore genuinely narrows the feasible set.
+**Dual-witness requirement.** In the SAT path (`kind = true`): the certificate block must contain both a satisfying assignment and a falsifying assignment. LASSERT succeeds only if the declared `flen` matches the formula's in-memory header count, the first witness satisfies the formula, and the second witness falsifies it. Under checker soundness this proves that the encoded formula is satisfiable and not a tautology. It does not by itself prove that the falsifying assignment is a state in the current feasible set or that the formula expresses a sound decomposition; those are separate representation premises.
 
 **Anti-gaming.** If the declared `flen` in the instruction encoding does not match the actual formula length read from the formula's in-memory header, the machine traps: PC jumps to `LASSERT_TRAP_PC = 0xF00`, `vm_err` is set, and the check does not succeed. The µ cost is still charged even on trap. This prevents declaring a small `flen` for a large formula. `StateSpaceCounting.v`, theorems `lassert_honest_cost` and `lassert_honest_mu_cost`.
 
@@ -119,9 +121,9 @@ Both CERTIFY and MORPH_ASSERT are in the mandatory-floor class (cost ≥ 1). No 
 
 **In hardware.** All eight counters are implemented as hardware registers in the RTL. The CHSH_TRIAL case in the step rule selects the appropriate counter via a nested match on the (a,b,outcome) tuple.
 
-**Classical bound.** |S| ≤ 2 for any local hidden-variable strategy. Proven in Coq from first principles: `ClassicalBound.v`.
+**Classical bound.** The checked finite theorem applies to a fixed deterministic local response table with all four setting buckets sampled; under those premises, `|S| ≤ 2`. It is not by itself a finite-sample theorem about every randomized experiment or a complete physical Bell-test claim. `CHSH.v`, `CHSHStatisticalBridge.v`.
 
-**Tsirelson bound.** |S| ≤ 2√2 for the zero-marginal NPA polynomial model. Proven algebraically in `AlgebraicCoherence.v`.
+**Tsirelson bound.** The checked algebraic result gives `|S| ≤ 2√2` for the repository’s `algebraically_coherent` rational correlator model, with an explicit near-tight witness. That is a theorem about the stated polynomial model, not by itself a theorem about every physical realization. `AlgebraicCoherence.v`.
 
 **Slice-coherence biconditional** (the gate tests slice membership rather than truthfulness, and the name records that). The machine's internal column-contractivity conditions (the conditions under which the machine certifies its CHSH statistics as coherent with the zero-marginal slice) are exactly equivalent to the zero-marginal NPA polynomial realizability conditions. This is a biconditional with no project-local axioms; it uses standard classical-real and functional-extensionality assumptions: `coq/kernel/quantum/QuantumPartitionPSD.v`, corollary `column_contractive_iff_quantum_realizable`. The forward direction (`zero_marginal_npa_column_contractive_implies_psd`) lives in `coq/kernel/nfi/MuLedgerQuantumBridge.v`; the reverse direction (`npa_psd_implies_column_contractive`) is proved by vector specialization plus `quadratic_nonneg_discriminant` from `coq/kernel/quantum/ConstructivePSD.v`.
 
@@ -149,7 +151,7 @@ Both CERTIFY and MORPH_ASSERT are in the mandatory-floor class (cost ≥ 1). No 
 
 ⌈log₂|Ω|⌉ − ⌈log₂|Ω'|⌉ ≤ Δµ
 
-**Decision tree witness.** The trace must provide an explicit decision tree realized by the trace's actual sequence of observations. The posterior-representative reduction must tie every prior state to a posterior representative. Without both, the narrowing is not admissible as sound structural entitlement. `coq/kernel/nfi/HonestNoFI_TheoremsWithoutAssumptions.v`, record `SoundStructuralShortcut` and theorem `structural_entitlement_representation`.
+**Decision tree witness.** The formal record must provide an explicit decision tree, a numeric payment condition relating its depth to the trace's cert-setter count, and a posterior-representative reduction tying every prior state to a posterior representative. In the current theorem, “realized by the trace” is that numeric depth/payment condition; it is not a claim that the opcode sequence walks the tree node by node. Without the tree/payment and representative premises, the narrowing is not admissible as the stated structural-entitlement witness. `coq/kernel/nfi/HonestNoFI_TheoremsWithoutAssumptions.v`, record `SoundStructuralShortcut` and theorem `structural_entitlement_representation`.
 
 ---
 
@@ -168,18 +170,13 @@ These nonrecoverability statements concern the named projections. The symbol ⊥
 
 ## Concept 12: The Inquisitor Proof Hygiene System
 
-**What it is.** An automated CI proof audit using `scripts/inquisitor.py` plus
-`scripts/comment_hygiene.py`. Inquisitor scans every Coq file in the active
-proof tree for admitted lemmas, vacuous theorems, undocumented global axioms,
-physics stubs, circular import chains, and proof-scope findings. The comment
-gate scans maintained project-owned source and documentation comments across
-the repository for unfinished or historical review markers. Both scans use
-syntactic and heuristic checks; neither is a complete detector of false
-interpretations or inconsistent theorem premises. Inquisitor fails on HIGH or
-MEDIUM findings; LOW findings are reported without independently failing the
-command.
+**What it is.** An automated CI proof audit using `scripts/inquisitor.py` plus `scripts/comment_hygiene.py`.
+Inquisitor scans every Coq file in the active proof tree for admitted lemmas, vacuous theorems, undocumented global axioms, physics stubs, circular import chains, and proof-scope findings.
+The comment gate scans maintained project-owned source and documentation comments across the repository for unfinished or historical review markers.
+Both scans use syntactic and heuristic checks; neither is a complete detector of false interpretations or inconsistent theorem premises.
+Inquisitor fails on HIGH or MEDIUM findings; LOW findings are reported without independently failing the command.
 
-**Current status.** The current `INQUISITOR_REPORT.md` records 0 HIGH, 0 MEDIUM, and 0 LOW unsuppressed findings across 295 Coq files. In-source suppression markers and their justifications are listed separately in the report; zero unsuppressed findings is not a claim that no checks were suppressed.
+**Current status.** A current Inquisitor run records 0 HIGH, 0 MEDIUM, and 0 LOW unsuppressed findings across 295 Coq files. In-source suppression markers and their justifications are reported separately by the audit; zero unsuppressed findings is not a claim that no checks were suppressed.
 
 **Variants disclosed.** Any automated proof hygiene system that enforces zero-admit discipline and detects vacuous, tautological, or circular proofs via static analysis of proof assistant source files is a variant of this concept.
 
@@ -233,7 +230,7 @@ command.
 | Date | Event |
 |------|-------|
 | January 2025 | Development begins. Categorical rendering engine, first categorical CPU concepts. |
-| August 15, 2025 | First public commit to this repository. All concepts above are present in some form. |
+| August 15, 2025 | First public commit to this repository. The repository history records early versions of the concepts above; the exact scope of that first revision is a historical question, not a theorem of the current tree. |
 | August–December 2025 | Coq kernel developed. No Free Insight proven. µ-initiality proven. LASSERT dual-witness requirement formalized. |
 | January–April 2026 | Hardware proofs completed (Abstraction.v). Slice-coherence ↔ NPA biconditional proven. µ-hierarchy proven. |
 | May 2026 | v2.0.0 published to GitHub and Zenodo. Disclosure and monograph published. |
@@ -262,6 +259,6 @@ Coq compilation checks proof terms against their statements and assumptions. It 
 
 ## Note on Scope
 
-This disclosure covers the concepts as implemented. It does not claim to cover all conceivable implementations of structural cost accounting in computation, only the specific inventive concepts described above, as first publicly disclosed in this repository. The goal of this document is defensive: to ensure that the public record contains a clear, searchable, dated description of these concepts so that no third party can obtain a patent on them.
+This disclosure records the concepts, implementations, variants, dates, and source locations described above. It is meant to make the public record clear, searchable, and dated; it does not decide legal prior-art status, patentability, scope of any claim, or what another party may obtain. The technical boundaries in this document are the boundaries I can support from this repository.
 
 *Devon Thiele, July 2026*

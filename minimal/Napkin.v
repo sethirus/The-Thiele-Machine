@@ -1,6 +1,6 @@
 (** Napkin.v — the three-line argument, machine-checked. Stdlib only, 0 axioms. *)
 
-(* INQUISITOR NOTE: proof-connectivity gap suppressed, on purpose.
+(* SCOPE NOTE: foundation connectivity gap suppressed, on purpose.
    Same reason as MuCore.v, only more so. This file is the three lines at the top
    of the README written out as theorems, and its whole value is that it imports
    nothing of mine: delete the repository and these still hold. It re-proves the

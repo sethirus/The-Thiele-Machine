@@ -6,24 +6,40 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Coq](https://img.shields.io/badge/Coq-0%20project--local%20axioms-EF4135?logo=coq&logoColor=white)](coq/)
 [![Inquisitor](https://img.shields.io/badge/Inquisitor-0%20findings-brightgreen)](scripts/inquisitor.py)
-[![RTL bisimulation](https://img.shields.io/badge/RTL%20bisimulation-47%2F47%20Qed-orange)](coq/kami_hw/GraphReconstructionBridge.v)
+[![Kami intermediate bridge](https://img.shields.io/badge/Kami%20intermediate%20bridge-47%2F47%20Qed-orange)](coq/kami_hw/GraphReconstructionBridge.v)
 
 **I didn't invent a machine. I found one.**
 
-That is how I see this work. I think there is structure here that our usual picture of computation leaves out, and I built a machine to put that conviction on the table.
+That is how I see this work.
+I think there is structure here that our usual picture of computation leaves out, and I built a machine to put that conviction on the table.
 
-A computation gives you an answer. What did it establish on the way there? Which distinctions did it keep? What did it cost to establish them? I want those questions inside the mathematics, where somebody can take the argument apart and check it.
+A computation gives you an answer.
+What did it establish on the way there?
+Which distinctions did it keep?
+What did it cost to establish them?
+I want those questions inside the mathematics, where somebody can take the argument apart and check it.
 
-Certification is one point I could pin down. There is more here than one point, and I am not done looking. The Thiele Machine carries structural state, a cost ledger, and rules for particular events. I wrote the definitions, built the executable machine, and proved what happens when you throw some of that information away.
+Certification is one point I could pin down.
+There is more here than one point, and I am not done looking.
+The Thiele Machine carries structural state, a cost ledger, and rules for particular events.
+I wrote the definitions, built the executable machine, and proved what happens when you throw some of that information away.
 
-I call what remains a **shadow**. For the projections in the proofs, the blindness is real: different executions become indistinguishable, and no clever decoder can recover a distinction the observation has erased. Keep the full information in another encoding and you can recover it. That makes the question sharper: what should an account of computation keep?
+I call what remains a **shadow**.
+For the projections in the proofs, the blindness is real: different executions become indistinguishable, and no clever decoder can recover a distinction the observation has erased.
+Keep the full information in another encoding and you can recover it.
+That makes the question sharper: what should an account of computation keep?
 
-I think this reaches further than a useful accounting machine. I think there is something foundational here. That is my conviction, and the larger argument is still mine to earn. The proofs already give you something concrete to challenge: accounting laws, pricing results, structural separation, certificate checks, and implementations you can run.
+I think this reaches further than a useful accounting machine.
+I think there is something foundational here.
+That is my conviction, and the larger argument is still mine to earn.
+The proofs already give you something concrete to challenge: accounting laws, pricing results, structural separation, certificate checks, and implementations you can run.
 
 ## Run it. Don't take my word.
 
-I don't trust my own eye to catch a gap in an argument I want to believe, so I
-made the machine check the whole thing. You shouldn't trust me either. Run it.
+I don't trust my own eye to catch a gap in an argument I want to believe, so I made the machine check the whole thing.
+You shouldn't trust me either.
+Run it.
+
 Coq 8.18+ and Python 3, clean checkout:
 
 ```bash
@@ -31,8 +47,8 @@ make verify        # about ten seconds
 make verify-research  # observation policies, event floors, and descent from traces
 ```
 
-No Coq where you are? Most review environments, laptops and LLM sandboxes
-alike, have none, and the argument doesn't get to hide behind a toolchain.
+No Coq where you are?
+Most review environments, laptops and LLM sandboxes alike have none, and the argument doesn't get to hide behind a toolchain.
 There is a tier for that: Python's standard library and nothing else.
 
 ```bash
@@ -40,67 +56,88 @@ python3 minimal/nofi_demo.py   # exhaustive sweeps + measured algorithms against
 python3 -c "import json; d=json.load(open('artifacts/print_assumptions_all_proofs.json')); print(d['summary'])"
 ```
 
-The second command prints the committed assumption receipt: 12,336 theorems
-probed, zero *project-local* axiom findings. The badge says project-local, and
-that is the precise claim: it is not "zero axioms". 5,520 of those theorems are
-closed under the global context outright; the remaining 6,816 use only Coq
-standard-library assumptions: dependent functional extensionality,
-`Eqdep.Eq_rect_eq.eq_rect_eq`, `ClassicalDedekindReals.sig_not_dec`,
-`ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
+The second command prints the committed assumption receipt: 12,335 theorems probed, zero *project-local* axiom findings.
+The badge says project-local, and that is the precise claim: it is not "zero axioms".
+5,520 of those theorems are closed under the global context outright; the remaining 6,815 use only Coq standard-library assumptions: dependent functional extensionality, `Eqdep.Eq_rect_eq.eq_rect_eq`, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
 Those library assumptions are disclosed in the receipt; what is zero is axioms *I* wrote.
-Validate the committed receipt quickly with `make assumption-receipt-check`;
-that path reuses the exact theorem/axiom results when the semantic fingerprint
-is unchanged and performs the full corpus derivation only after proof-relevant
-inputs drift. Regenerate the receipt itself with `make assumption-receipt`.
-**The output of
-these two commands is the ground floor for any review, human or AI. An
-assessment without it is an assessment of the prose, not of the repository.**
+Validate the committed receipt quickly with `make assumption-receipt-check`.
+That path reuses the exact theorem/axiom results when the semantic fingerprint is unchanged and performs the full corpus derivation only after proof-relevant inputs drift.
+Regenerate the receipt itself with `make assumption-receipt`.
+**The output of these two commands is the ground floor for any review, human or AI.**
+**An assessment without it is an assessment of the prose, not of the repository.**
 
-`make verify` compiles [minimal/MuCore.v](minimal/MuCore.v): a minimal instance of the cost and projection arguments
-in one file, standard library only, nothing of mine to import. A machine state
-is the classical part you already know, memory and registers and a program
-counter, plus two fields this bare configuration omits: a cost ledger μ, and a bit that says
-*certified*. One law, called A2: any single step that flips that bit from false
-to true costs at least 1, charged right there in the step, not in some checker
-you could skip. Ten theorems fall out of that, and every one ends with `Print
-Assumptions` reporting `Closed under the global context`. Zero axioms. Zero
-`Admitted`. If a theorem were leaning on a hidden assumption, that line would
-rat it out and `make verify` would stop. It doesn't.
+`make verify` compiles [minimal/MuCore.v](minimal/MuCore.v): a minimal instance of the cost and projection arguments in one file, standard library only, nothing of mine to import.
+A machine state is the classical part you already know, memory and registers and a program counter, plus two fields this bare configuration omits: a cost ledger μ, and a bit that says *certified*.
+One law, called A2: any single step that flips that bit from false to true costs at least 1, charged right there in the step, not in some checker you could skip.
+Ten theorems fall out of that, and every one ends with `Print Assumptions` reporting `Closed under the global context`.
+Zero axioms.
+Zero `Admitted`.
+If a theorem were leaning on a hidden assumption, that line would rat it out and `make verify` would stop.
+It doesn't.
 
-It compiles [minimal/Napkin.v](minimal/Napkin.v) too: the three-line napkin argument written out as seven theorems, each closing the same way, zero axioms. The napkin doesn't just hold; it compiles.
+It compiles [minimal/Napkin.v](minimal/Napkin.v) too: the three-line napkin argument written out as seven theorems, each closing the same way, zero axioms.
+The napkin doesn't just hold; it compiles.
 
-Then it runs [minimal/nofi_demo.py](minimal/nofi_demo.py), which rebuilds the
-quantitative floor with none of my code anywhere near it. The examples compare finite-map image sizes and query costs under explicit models; they do not measure physical erasure or derive the VM cost law from Landauer. Binary search rides it at 100%
-efficiency, linear scan pays fifty times over for the same answer, and nothing
-beats it. The number comes out identical whoever runs it. That's the point of
-handing you a thing that runs instead of a thing to believe.
+Then it runs [minimal/nofi_demo.py](minimal/nofi_demo.py), which rebuilds the quantitative floor with none of my code anywhere near it.
+The examples compare finite-map image sizes and query costs under explicit models; they do not measure physical erasure or derive the VM cost law from Landauer.
+Binary search rides it at 100% efficiency, linear scan pays fifty times over for the same answer, and nothing beats it.
+The number comes out identical whoever runs it.
+That's the point of handing you a thing that runs instead of a thing to believe.
 
-The full kernel includes these arguments, additional structural results, and the execution model. MuCore's
-header maps each minimal theorem to its full-kernel counterpart, and the
-[Formal Spine](#formal-spine) table maps every load-bearing claim to its file.
+The full kernel includes these arguments, additional structural results, and the execution model.
+MuCore's header maps each minimal theorem to its full-kernel counterpart.
+The [Formal Spine](#formal-spine) table maps every load-bearing claim to its file.
 
-The ordinary Python test gate also runs `scripts/comment_hygiene.py`. It checks
-maintained project-owned comments across source, workflow, HDL, and
-documentation files for unfinished or historical review markers. Generated and
-vendored surfaces are governed by their own generators and are not treated as
-maintained source.
+The ordinary Python test gate also runs `scripts/comment_hygiene.py`.
+It checks maintained project-owned comments across source, workflow, HDL, and documentation files for unfinished or historical review markers.
+Generated and vendored surfaces are governed by their own generators and are not treated as maintained source.
 
 ## The argument, formally
 
-1. **A local law constrains admissible executions.** For any `CertificationSystem`, A2 requires positive instruction cost on a false-to-true transition of its designated predicate. `universal_nfi_any_substrate` proves the corresponding trace-level floor. The state space and predicate are abstract; the VM's `vm_certified` field is one instance.
-2. **Pricing adequacy can be characterized.** `CommitmentPredicateAdequacy.v` proves which local charged-event predicates cover certification flips. Requiring both the floor and no overcharge *relative to flip count* characterizes exact unit event pricing. For a finite family of unit event floors, the least joint charge is one whenever any event fires. Several events can share that unit; independent coordinates alone do not force additive charges. This does not derive the choice of event or the entire VM cost schedule from A2.
-3. **Selected projections lose relevant distinctions.** The receipt and separation theorems exhibit equal observations with different ledgers, certification values, or graph structure. No decoder of those observations can recover the differing property on every state. The general condition is exact: the query must be constant on each observation class. Given a representative of every class, that condition also constructs a decoder. It applies to arbitrary queries, including ones unrelated to certification.
-4. **The construction supports further mathematics and implementations.** Ledger uniqueness follows for a fixed schedule and initial value. `thiele_trace_fold_initial` gives unique instruction-list evaluation from a chosen basepoint; evaluation defines a unique target value per reachable VM state exactly when equal VM outcomes give equal target outcomes. Constructing a reachable simulation also takes representative traces and certification agreement. An A2 target retaining full instruction history can fail this condition even when certification agrees exactly. Quantum certificate algebra, compiler results, and hardware commutation have their own explicit contracts.
+1. **A local law constrains admissible executions.**
+   For any `CertificationSystem`, A2 requires positive instruction cost on a false-to-true transition of its designated predicate.
+   `universal_nfi_any_substrate` proves the corresponding trace-level floor.
+   The state space and predicate are abstract; the VM's `vm_certified` field is one instance.
+2. **Pricing adequacy can be characterized.**
+   `CommitmentPredicateAdequacy.v` proves which local charged-event predicates cover certification flips.
+   Requiring both the floor and no overcharge *relative to flip count* characterizes exact unit event pricing.
+   For a finite family of unit event floors, the least joint charge is one whenever any event fires.
+   Several events can share that unit; independent coordinates alone do not force additive charges.
+   This does not derive the choice of event or the entire VM cost schedule from A2.
+3. **Selected projections lose relevant distinctions.**
+   The receipt and separation theorems exhibit equal observations with different ledgers, certification values, or graph structure.
+   No decoder of those observations can recover the differing property on every state.
+   The general condition is exact: the query must be constant on each observation class.
+   Given a representative of every class, that condition also constructs a decoder.
+   It applies to arbitrary queries, including ones unrelated to certification.
+4. **The construction supports further mathematics and implementations.**
+   Ledger uniqueness follows for a fixed schedule and initial value.
+   `thiele_trace_fold_initial` gives unique instruction-list evaluation from a chosen basepoint; evaluation defines a unique target value per reachable VM state exactly when equal VM outcomes give equal target outcomes.
+   Constructing a reachable simulation also takes representative traces and certification agreement.
+   An A2 target retaining full instruction history can fail this condition even when certification agrees exactly.
+   Quantum certificate algebra, compiler results, and hardware commutation have their own explicit contracts.
 
-The VM realizes these laws. Generic `CERTIFY` sets a flag and charges for doing so; it checks no proposition. `MORPH_ASSERT` checks morphism existence and uses property text as a checksum label; it does not interpret an arbitrary proposition or validate its certificate string. `CHSH_LASSERT` has a separate soundness theorem for its restricted PSD test. Payment and semantic truth must be assessed separately.
+The VM realizes these laws.
+Generic `CERTIFY` sets a flag and charges for doing so; it checks no proposition.
+`MORPH_ASSERT` checks morphism existence and uses property text as a checksum label; it does not interpret an arbitrary proposition or validate its certificate string.
+`CHSH_LASSERT` has a separate soundness theorem for its restricted PSD test.
+Payment and semantic truth must be assessed separately.
 
-The mathematical [elliptope completion and gate](coq/kernel/quantum/ElliptopeGate.v) extend beyond the runtime check's fixed orthogonal slice. Binding that completion gate into the executable ISA remains open engineering. The Coq hardware model has full-state trace commutation under `WFDrivenRun`, the preconditions of the actual executed run; generated RTL retains its named compiler/backend trust boundary.
+The mathematical [elliptope completion and gate](coq/kernel/quantum/ElliptopeGate.v) extend beyond the runtime check's fixed orthogonal slice.
+Binding that completion gate into the executable ISA remains open engineering.
+The Coq hardware model has full-state trace commutation under `WFDrivenRun`, the preconditions of the actual executed run.
+Generated RTL retains its named compiler/backend trust boundary.
 
 ## The verifier corollary
 
 For the selected strict-shadow transcript, the witness collision yields a verification impossibility.
 
-A verifier whose transcript is `list StrictClassicalState`, the strict-shadow trace, cannot soundly decide a claim that depends on μ. The two single-step witnesses from the Core Proof project to the same classical trace; one satisfies the μ=1 claim, one does not. Soundness forces the claim to hold for every state that could explain the transcript, including the one where it fails. Completeness forces acceptance on the honest run. Both bars cannot be cleared. The bare-setting impossibility is `bare_setting_no_sound_complete_verifier`, in [coq/VerifierImpossibility.v](coq/VerifierImpossibility.v).
+A verifier whose transcript is `list StrictClassicalState`, the strict-shadow trace, cannot soundly decide a claim that depends on μ.
+The two single-step witnesses from the Core Proof project to the same classical trace; one satisfies the μ=1 claim, one does not.
+Soundness forces the claim to hold for every state that could explain the transcript, including the one where it fails.
+Completeness forces acceptance on the honest run.
+Both bars cannot be cleared.
+The bare-setting impossibility is `bare_setting_no_sound_complete_verifier`, in [coq/VerifierImpossibility.v](coq/VerifierImpossibility.v).
 
 Three sufficient constructions are formalized under their respective premises; the hardness construction has the weaker soundness guarantee stated in its theorem:
 
@@ -108,19 +145,34 @@ Three sufficient constructions are formalized under their respective premises; t
 - **Hardness**: the transcript carries an unforgeable commitment; the verifier accepts under a hardness hypothesis. `hardness_escape_succeeds`, in [coq/VerifierEscape_Hardness.v](coq/VerifierEscape_Hardness.v).
 - **Interaction**: the verifier challenges the prover for a response that pins the claim. `interactive_escape_succeeds`, in [coq/VerifierEscape_Interaction.v](coq/VerifierEscape_Interaction.v).
 
-The substrate channel is the option the structural axis makes available. The other two are what classical cryptography and complexity already use. The bottom of the trichotomy is `V_does_not_factor_through_classical` in [coq/VerifierExhaustiveness.v](coq/VerifierExhaustiveness.v), and its exact scope matters: **given a transcript type whose classical projection collides two witnesses** (`proj t_A = proj t_B`, supplied as a hypothesis), no sound + complete verifier on the μ-sensitive claim can be a function of that projection. Where the collision exists, verification must access non-classical structure, and the three escapes are three concrete ways to expose it.
+The substrate channel is the option the structural axis makes available.
+The other two are what classical cryptography and complexity already use.
+The bottom of the trichotomy is `V_does_not_factor_through_classical` in [coq/VerifierExhaustiveness.v](coq/VerifierExhaustiveness.v).
+Its exact scope matters: **given a transcript type whose classical projection collides two witnesses** (`proj t_A = proj t_B`, supplied as a hypothesis), no sound + complete verifier on the μ-sensitive claim can be a function of that projection.
+Where the collision exists, verification must access non-classical structure, and the three escapes are three concrete ways to expose it.
 
-The collision is a hypothesis, not a conclusion: on a transcript rich enough to separate the witnesses it is unsatisfiable, and the statement is vacuous there. So the trichotomy is closed at the bottom *where the projection collides*, which is the case the argument is about. "There is no fourth way" is the informal reading of that, not a theorem. Full meta-theoretic exhaustiveness, whether substrate, hardness, and interaction partition the space of non-classical structures, sits outside Coq's object-level type theory. This file reduces that meta-question to the structural-enrichment question; it does not settle it, and the file header says so.
+The collision is a hypothesis, not a conclusion: on a transcript rich enough to separate the witnesses it is unsatisfiable, and the statement is vacuous there.
+So the trichotomy is closed at the bottom *where the projection collides*, which is the case the argument is about.
+"There is no fourth way" is the informal reading of that, not a theorem.
+Full meta-theoretic exhaustiveness, whether substrate, hardness, and interaction partition the space of non-classical structures, sits outside Coq's object-level type theory.
+This file reduces that meta-question to the structural-enrichment question; it does not settle it, and the file header says so.
 
 ## Observation, enforcement, and representation
 
-A transition law can enforce an invariant while exposing a projection that omits its evidence. Conversely, storing a ledger does not establish that all transitions maintain it correctly. The relevant comparison specifies the permitted transitions, the observation interface, and the trusted implementation.
+A transition law can enforce an invariant while exposing a projection that omits its evidence.
+Conversely, storing a ledger does not establish that all transitions maintain it correctly.
+The relevant comparison specifies the permitted transitions, the observation interface, and the trusted implementation.
 
-Even a reset can preserve information in a larger state: recording the previous state in a history list makes each fixed-instruction transition injective. A program counter collapsing to one therefore does not establish global erasure or a physical dissipation bound.
+Even a reset can preserve information in a larger state: recording the previous state in a history list makes each fixed-instruction transition injective.
+A program counter collapsing to one therefore does not establish global erasure or a physical dissipation bound.
 
-Conventional encodings can represent the full state, and particular machines can enforce invariants through their prescribed transitions. Turing equivalence concerns computational power; it neither supplies nor forbids the particular accounting discipline. In this document, a ledgerless shadow means the specified observation or fragment with those distinctions omitted.
+Conventional encodings can represent the full state, and particular machines can enforce invariants through their prescribed transitions.
+Turing equivalence concerns computational power; it neither supplies nor forbids the particular accounting discipline.
+In this document, a ledgerless shadow means the specified observation or fragment with those distinctions omitted.
 
-The concrete kernel permits zero-cost structural operations as well as paid events. It therefore does not prove that every change of observable has positive cost. Its ledger starts at zero and sums the declared schedule; selected certification operations have mandatory positive floors.
+The concrete kernel permits zero-cost structural operations as well as paid events.
+It therefore does not prove that every change of observable has positive cost.
+Its ledger starts at zero and sums the declared schedule; selected certification operations have mandatory positive floors.
 
 ## The Core Proof
 
@@ -131,25 +183,21 @@ Start from an empty VM and run one instruction.
 | A | `CERTIFY 0` | `1` | empty memory, empty registers, `pc = 1` | certified, `mu = 1` |
 | B | `PNEW [] 0` | `0` | empty memory, empty registers, `pc = 1` | uncertified, `mu = 0` |
 
-The strict classical state is identical after both programs. The receipt is not.
-Therefore no function of `(memory, registers, pc)` can recover the receipt for
-all VM states.
+The strict classical state is identical after both programs.
+The receipt is not.
+Therefore no function of `(memory, registers, pc)` can recover the receipt for all VM states.
 
 Machine-checked anchors:
 
 - [coq/ReceiptTheorem.v](coq/ReceiptTheorem.v) states the compact theorem.
-- [coq/NecessityOfMuLedger.v](coq/NecessityOfMuLedger.v) contains the two-state
-  separation and the stronger necessity results.
-- [coq/kernel/foundation/VMStep.v](coq/kernel/foundation/VMStep.v) defines the
-  instruction costs and single-step VM semantics.
+- [coq/NecessityOfMuLedger.v](coq/NecessityOfMuLedger.v) contains the two-state separation and the stronger necessity results.
+- [coq/kernel/foundation/VMStep.v](coq/kernel/foundation/VMStep.v) defines the instruction costs and single-step VM semantics.
 
 ## Proof Receipts At A Glance
 
-The proof is meant to be checkable immediately. These are the
-small, concrete receipts behind the core claim.
+The proof is meant to be checkable immediately. These are the small, concrete receipts behind the core claim.
 
-The relevant cost clauses in
-[VMStep.v](coq/kernel/foundation/VMStep.v) are:
+The relevant cost clauses in [VMStep.v](coq/kernel/foundation/VMStep.v) are:
 
 ```text
 instruction_cost (instr_pnew _ cost)                  = cost
@@ -173,9 +221,9 @@ Theorem ReceiptTheorem :
       forall s : VMState, f (strict_shadow s) = s.(vm_mu).
 ```
 
-The proof instantiates `f` at the two witness states. Since their strict
-classical shadows are equal, `f` would have to return both `1` and `0` on the
-same input. Coq closes the contradiction by `congruence`.
+The proof instantiates `f` at the two witness states.
+Since their strict classical shadows are equal, `f` would have to return both `1` and `0` on the same input.
+Coq closes the contradiction by `congruence`.
 
 `Print Assumptions ReceiptTheorem` reports:
 
@@ -183,24 +231,29 @@ same input. Coq closes the contradiction by `congruence`.
 Closed under the global context
 ```
 
-The broader audit receipt
-[artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json)
-records 12,336 addressable theorems probed and no user/project-local axiom
-findings in the committed assumption scan.
+The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 12,335 addressable theorems probed and no user/project-local axiom findings in the committed assumption scan.
 
 ## Beyond the minimal witness
 
-The minimal witness demonstrates a collision under a projection. The abstract accounting theorem ranges over arbitrary state and instruction types, and pricing adequacy classifies local rules relative to the designated event. The broader development also studies structural entitlement, graph operations, verifier interfaces, quantum certificate algebra, and realizations in software and hardware.
+The minimal witness demonstrates a collision under a projection.
+The abstract accounting theorem ranges over arbitrary state and instruction types, and pricing adequacy classifies local rules relative to the designated event.
+The broader development also studies structural entitlement, graph operations, verifier interfaces, quantum certificate algebra, and realizations in software and hardware.
 
-These results motivate studying the framework; they do not eliminate its modeling choices. The verifier impossibility follows from the observation collision. The Python examples check finite combinatorial and algorithmic instances. The CHSH soundness bridge uses additional algebra. Their combination is not an independent derivation of physical A2.
+These results motivate studying the framework; they do not eliminate its modeling choices.
+The verifier impossibility follows from the observation collision.
+The Python examples check finite combinatorial and algorithmic instances.
+The CHSH soundness bridge uses additional algebra.
+Their combination is not an independent derivation of physical A2.
 
-The pointer-observable models investigate why particular commitment events are recorded by other parties. The models and their counterexamples are part of the research argument. They do not establish that forgery resistance forces metering, nor that all public verifiability implies actual record storage by every observer. Certification remains one worked example, and a universally forced choice of priced events remains open.
+The pointer-observable models investigate why particular commitment events are recorded by other parties.
+The models and their counterexamples are part of the research argument.
+They do not establish that forgery resistance forces metering, nor that all public verifiability implies actual record storage by every observer.
+Certification remains one worked example, and a universally forced choice of priced events remains open.
 
 ## Formal Spine
 
-These are the load-bearing formal claims. The fourth column is the artifact
-that refutes the row, each one constructible in Coq or Python, no philosophy
-required.
+These are the load-bearing formal claims.
+The fourth column is the artifact that refutes the row, each one constructible in Coq or Python, no philosophy required.
 
 | Claim | Meaning | Main proof files | Refute it |
 |---|---|---|---|
@@ -228,8 +281,7 @@ required.
 | Proof-carrying reduction | Rounds restore sound, complete, unit-cost verification of the μ-claim; level-`k` certification costs ≥ `k` μ (events only, not gate counts or circuit size), with tightness witnessed. | [ProofCarryingVerifier.v](coq/kernel/reductions/ProofCarryingVerifier.v) | A level-`k` certified trace with total μ < `k`, or a sound+complete zero-round bare verifier; `level_k_verification_floor` or `bare_pcc_impossible` falls. |
 
 The audited claim ledger is [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v).
-Its generated closure receipt is
-[artifacts/master_summary_open_obligations.json](artifacts/master_summary_open_obligations.json).
+Its generated closure receipt is [artifacts/master_summary_open_obligations.json](artifacts/master_summary_open_obligations.json).
 
 ## What is established and what remains open
 
@@ -244,7 +296,9 @@ Its generated closure receipt is
 | Hardware trace commutation | The Coq hardware model under `WFDrivenRun`; downstream compiler/RTL trust remains explicit. |
 | Physical interpretation | Open. `F1_physical_premises_incompatible` proves the current full-ISA F1 premise pair has no instance. |
 
-The classical embedding results describe the formal fragments and simulation contracts in their cited files. Multiple preimages rule out recovering the original full state from the projection. They do not rule out a section that chooses default metadata, or a different encoding that preserves the metadata.
+The classical embedding results describe the formal fragments and simulation contracts in their cited files.
+Multiple preimages rule out recovering the original full state from the projection.
+They do not rule out a section that chooses default metadata, or a different encoding that preserves the metadata.
 
 ## Architecture
 
@@ -263,9 +317,9 @@ coq/kernel/foundation/VMStep.v
         -> thielecpu/hardware/rtl/thiele_cpu_kami.v
 ```
 
-`thielecpu/vm.py` is a generated protocol layer. The extracted OCaml runner and
-the Coq VM step are the normative software semantics. The RTL path is generated
-from the same Coq/Kami source.
+`thielecpu/vm.py` is a generated protocol layer.
+The extracted OCaml runner and the Coq VM step are the normative software semantics.
+The RTL path is generated from the same Coq/Kami source.
 
 ## Repository Layout
 
@@ -286,9 +340,9 @@ monograph/               narrative monograph and mathematical specification
 
 ## Quick Start
 
-Clone with the vendored Coq libraries. The hardware-bridge proofs depend on
-**Kami** and **bbv**, which are git submodules; without them `make coq-gate`
-fails rather than skipping:
+Clone with the vendored Coq libraries.
+The hardware-bridge proofs depend on **Kami** and **bbv**, which are git submodules.
+Without them `make coq-gate` fails rather than skipping.
 
 ```bash
 git clone --recurse-submodules https://github.com/sethirus/The-Thiele-Machine.git
@@ -313,25 +367,20 @@ make ocaml-runner
 pytest -q
 ```
 
-Full proof and hardware gates additionally need Coq 8.18+, OCaml with
-`ocamlfind`, and the RTL toolchain used by the target you run (`iverilog`,
-`verilator`, and/or `yosys`). The exact versions are the ones CI earns its
-badges with: plain apt on `ubuntu-latest`, currently Ubuntu 24.04, which
-ships Coq 8.18.0.
+Full proof and hardware gates additionally need Coq 8.18+, OCaml with `ocamlfind`, and the RTL toolchain used by the target you run (`iverilog`, `verilator`, and/or `yosys`).
+The exact versions are the ones CI earns its badges with: plain apt on `ubuntu-latest`, currently Ubuntu 24.04, which ships Coq 8.18.0.
 
 ```bash
 sudo apt-get install -y coq coinor-csdp ocaml ocaml-findlib   # proof gates
 sudo apt-get install -y iverilog verilator yosys              # RTL gates only
 ```
 
-`coinor-csdp` is not garnish: the algebraic Tsirelson theorem closes its
-sum-of-squares certificate through `psatz`, and `psatz` asks CSDP for the
-certificate.
+`coinor-csdp` is not garnish: the algebraic Tsirelson theorem closes its sum-of-squares certificate through `psatz`, and `psatz` asks CSDP for the certificate.
 
 ### Full proof build (the `coq-gate`)
 
-The project uses native tools and repository sources. Docker, container images,
-and a container daemon are not part of the build or review workflow.
+The project uses native tools and repository sources.
+Docker, container images, and a container daemon are not part of the build or review workflow.
 
 For a complete source-only rebuild with dependency checking:
 
@@ -339,14 +388,13 @@ For a complete source-only rebuild with dependency checking:
 python3 scripts/reproduce_coq.py --jobs 1
 ```
 
-This copies only source/configuration into a fresh directory under
-`artifacts/reproduction/`, builds the vendored bbv and Kami libraries plus the
-project (including the pinned MM2 dependency), runs the review probes, and
-checks the selected compiled libraries with `coqchk`. It records input hashes,
-native tool versions, commands, individual exit codes and raw logs. It does not
-install libraries globally or download anything. The native prerequisites above
-must already be available; this is a source-contained project, not a bundled OS
-or compiler distribution. See [native reproduction](docs/REPRODUCTION.md).
+This copies only source/configuration into a fresh directory under `artifacts/reproduction/`.
+It builds the vendored bbv and Kami libraries plus the project, including the pinned MM2 dependency.
+It runs the review probes and checks the selected compiled libraries with `coqchk`.
+It records input hashes, native tool versions, commands, individual exit codes, and raw logs.
+It does not install libraries globally or download anything.
+The native prerequisites above must already be available; this is a source-contained project, not a bundled OS or compiler distribution.
+See [native reproduction](docs/REPRODUCTION.md).
 
 For incremental development in the checkout:
 
@@ -357,14 +405,23 @@ make -C vendor/kami
 make coq-gate
 ```
 
-`COQPATH` selects the repository libraries, so no global `make install` is
-needed. `make verify` and `pytest` alone do not compile the full Coq corpus.
+`COQPATH` selects the repository libraries, so no global `make install` is needed.
+`make verify` and `pytest` alone do not compile the full Coq corpus.
 
-The actual CPU proof surface includes executable semantics for all 12 Kami rules, finite selected execution traces, reset facts and preservation of register names and kinds (`CoreRules`, `CoreExecution`, `CoreTyping`, `DispatchReset`). Full value/resource invariants, abstract retirement correspondence and compiler semantic preservation remain separate obligations. [Assurance and scope](docs/ASSURANCE.md) identifies each boundary.
+The actual CPU proof surface includes executable semantics for all 12 Kami rules, finite selected execution traces, reset facts, and preservation of register names and kinds (`CoreRules`, `CoreExecution`, `CoreTyping`, `DispatchReset`).
+Full value/resource invariants, abstract retirement correspondence, and compiler semantic preservation remain separate obligations.
+[Assurance and scope](docs/ASSURANCE.md) identifies each boundary.
 
-The unbounded VM has a checked 122-instruction self-interpreter for twelve arithmetic and control instructions over four guest registers. Program and input vary as executable data. Its contracts cover positive host simulation, both directions of result correctness, malformed code and divergence; guest structural fields remain unchanged. [VM contracts](docs/VM_CONTRACTS.md) records the exact fragment and observations.
+The unbounded VM has a checked 122-instruction self-interpreter for twelve arithmetic and control instructions over four guest registers.
+Program and input vary as executable data.
+Its contracts cover positive host simulation, both directions of result correctness, malformed code, and divergence.
+Guest structural fields remain unchanged.
+[VM contracts](docs/VM_CONTRACTS.md) records the exact fragment and observations.
 
-For that model, the checked Rice reduction proves undecidability for extensional predicates separating the divergent program from a well-formed program, including halting on zero and returning zero. Guest-program deciders are covered. It supplies no internal recursion theorem and does not discharge the conditional bounded VM diagonal. [VM contracts](docs/VM_CONTRACTS.md) records the assumptions and checked results.
+For that model, the checked Rice reduction proves undecidability for extensional predicates separating the divergent program from a well-formed program, including halting on zero and returning zero.
+Guest-program deciders are covered.
+It supplies no internal recursion theorem and does not discharge the conditional bounded VM diagonal.
+[VM contracts](docs/VM_CONTRACTS.md) records the assumptions and checked results.
 
 ## Run A Program
 
@@ -408,24 +465,17 @@ Use `make help` for the complete target list.
 
 Two independent receipts track proof assumptions.
 
-- [scripts/inquisitor.py](scripts/inquisitor.py) scans for proof-hygiene issues
-  such as admitted proofs, undeclared axioms, vacuous theorem shapes, and
-  circular claim patterns.
-- [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json)
-  records Coq `Print Assumptions` over the audited theorem set.
+- [scripts/inquisitor.py](scripts/inquisitor.py) scans for proof-hygiene issues such as admitted proofs, undeclared axioms, vacuous theorem shapes, and circular claim patterns.
+- [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records Coq `Print Assumptions` over the audited theorem set.
 
-The master theorem ledger is
-[coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v). The current committed
-assumption receipt reports 12,336 addressable theorems probed and no
-user/project-local axiom findings. The split: 5,520 close under the global
-context outright, and the remaining 6,816 lean only on Coq-stdlib axiom
-families: `functional_extensionality_dep` (6,526), the classical-reals pair
-`sig_forall_dec` (1,010) and `sig_not_dec` (277), and `classic` (67). Those
-families enter through the real-number and physics layers; the minimal core
-uses none of them. "Zero axioms" here means zero project-local axioms, the
-same convention the monograph uses, and the receipt is what enforces it.
-A test ([tests/test_proof_hygiene_numbers.py](tests/test_proof_hygiene_numbers.py))
-holds this paragraph to the committed artifact, number by number.
+The master theorem ledger is [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v).
+The current committed assumption receipt reports 12,335 addressable theorems probed and no user/project-local axiom findings.
+The split: 5,520 close under the global context outright, and the remaining 6,815 lean only on Coq-stdlib axiom families.
+Those families are `functional_extensionality_dep` (6,526), `eq_rect_eq` (3,685), the classical-reals pair `sig_forall_dec` (1,009) and `sig_not_dec` (277), and `classic` (67).
+Those families enter through the real-number and physics layers; the minimal core uses none of them.
+"Zero axioms" here means zero project-local axioms, the same convention the monograph uses.
+The receipt is what enforces that count.
+A test ([tests/test_proof_hygiene_numbers.py](tests/test_proof_hygiene_numbers.py)) holds this paragraph to the committed artifact, number by number.
 
 Run the hygiene pass directly:
 
@@ -441,7 +491,11 @@ make proof-undeniable
 
 ## ISA Summary
 
-The VM exposes 51 opcodes total: 47 are synth-realized (implemented in the generated RTL; full physical retirement refinement remains open) and 4 are Q_{1+AB} cert-opcodes that live in the Kami HW abstraction with kernel-equivalence proven but are excluded from the synthesized Verilog by silicon budget. They contribute the OCaml/RTL parity tests' tolerated slack of 4 (theorem `rtl_coverage_partition`: 37 + 10 + 0 = 47). The 47 synth-realized opcodes fall into six families.
+The VM exposes 51 opcodes total.
+47 are synth-realized and implemented in the generated RTL; full physical retirement refinement remains open.
+Four are Q_{1+AB} cert-opcodes that live in the Kami HW abstraction with kernel-equivalence proven but are excluded from the synthesized Verilog by silicon budget.
+They contribute the OCaml/RTL parity tests' tolerated slack of 4 (theorem `rtl_coverage_partition`: 37 + 10 + 0 = 47).
+The 47 synth-realized opcodes fall into six families.
 
 | Family | Examples | Cost behavior |
 |---|---|---|
@@ -452,10 +506,14 @@ The VM exposes 51 opcodes total: 47 are synth-realized (implemented in the gener
 | Categorical morphisms | `MORPH`, `COMPOSE`, `MORPH_ID`, `MORPH_ASSERT` | Morphism assertions are certification-bearing. |
 | CHSH-aware certification | `CHSH_LASSERT` | Kernel-level column-contractivity check on `vm_witness` buckets. Decidable integer-arithmetic check; success ⇒ NPA-PSD via the bridge theorem [`chsh_lassert_no_trap_implies_quantum_realizable`](coq/kernel/quantum/QuantumPartitionPSD.v). Cost `S(mu_delta) ≥ 1` regardless of outcome (cert-setter discipline). |
 
-The 4 Q_{1+AB} opcodes (`instr_chsh_lassert_1ab*`) extend `CHSH_LASSERT` with the Q_{1+AB} moment-matrix family. They are defined in the Kami HW abstraction with kernel-equivalence proven (`coq/kami_hw/Abstraction.v`, `EmbedStep.v`) and run on the OCaml/Python VM, but they are excluded from the synthesized Verilog because the base `CHSH_LASSERT` 23-phase FSM already uses ~74% of the K325T's LUTs and the silicon budget cannot absorb four more wide-arithmetic FSMs (silicon, not semantics). The substrate claim doesn't require them.
+The four Q_{1+AB} opcodes (`instr_chsh_lassert_1ab*`) extend `CHSH_LASSERT` with the Q_{1+AB} moment-matrix family.
+They are defined in the Kami HW abstraction with kernel-equivalence proven (`coq/kami_hw/Abstraction.v`, `EmbedStep.v`) and run on the OCaml/Python VM.
+They are excluded from the synthesized Verilog because the synthesized design already fills most of the K325T's logic.
+The silicon budget cannot absorb four more wide-arithmetic FSMs.
+That is a silicon boundary, not a semantic one.
+The substrate claim does not require them.
 
-Single-step semantics live in
-[coq/kernel/foundation/VMStep.v](coq/kernel/foundation/VMStep.v).
+Single-step semantics live in [coq/kernel/foundation/VMStep.v](coq/kernel/foundation/VMStep.v).
 
 ## Reading Path
 
@@ -471,14 +529,9 @@ Single-step semantics live in
 
 ## IP And Prior Art
 
-The software in this repository is Apache 2.0 licensed, including the license's
-patent grant for contributor-owned claims. [PATENT_PLEDGE.md](PATENT_PLEDGE.md)
-adds an explicit non-assertion commitment for the concepts in this repository.
+The software in this repository is Apache 2.0 licensed, including the license's patent grant for contributor-owned claims. [PATENT_PLEDGE.md](PATENT_PLEDGE.md) adds an explicit non-assertion commitment for the concepts in this repository.
 
-[TECHNICAL_DISCLOSURE.md](TECHNICAL_DISCLOSURE.md) records the public prior-art
-surface for the core concepts: the `mu` ledger, No Free Insight, certification
-opcodes, partition state, witness counters, and the cross-layer proof-to-RTL
-pipeline.
+[TECHNICAL_DISCLOSURE.md](TECHNICAL_DISCLOSURE.md) records the public prior-art surface for the core concepts: the `mu` ledger, No Free Insight, certification opcodes, partition state, witness counters, and the cross-layer proof-to-RTL pipeline.
 
 ## Citation
 
@@ -496,21 +549,16 @@ pipeline.
 
 ## Contact
 
-To confirm, refute, build on, or point out what's wrong: thethielemachine@gmail.com,
-or open an issue at [github.com/sethirus/The-Thiele-Machine](https://github.com/sethirus/The-Thiele-Machine).
-A submission that names a theorem gets, within 14 days, one of exactly two
-replies: "correct, fixing it," or the line where the construction fails.
+To confirm, refute, build on, or point out what's wrong: thethielemachine@gmail.com, or open an issue at [github.com/sethirus/The-Thiele-Machine](https://github.com/sethirus/The-Thiele-Machine).
+A submission that names a theorem gets, within 14 days, one of exactly two replies: "correct, fixing it," or the line where the construction fails.
 
-The kernel's machine semantics are feature-frozen at v3.0: no new opcodes, no
-step-relation changes, no cost-law changes. Accepted changes: refutation
-fixes, hygiene, toolchain compatibility, and machine-untouched
-characterization tiers over the frozen semantics (v3.1.0's elliptope gate and
-pointer-observable criterion are this kind: correlator-level and
-frontier-criterion theorems that leave the step relation and cost law
-untouched). New machine features belong in new repositories citing this one.
+The kernel's machine semantics are feature-frozen at v3.0: no new opcodes, no step-relation changes, and no cost-law changes.
+Accepted changes are refutation fixes, hygiene, toolchain compatibility, and machine-untouched characterization tiers over the frozen semantics.
+The v3.1.0 elliptope gate and pointer-observable criterion are this kind: correlator-level and frontier-criterion theorems that leave the step relation and cost law untouched.
+New machine features belong in new repositories citing this one.
 
 ## License
 
-The software is licensed Apache-2.0; see [LICENSE](LICENSE). The monograph and
-distillation are licensed CC-BY-SA-4.0. That split is intentional: the code
-carries a patent grant, the writing carries share-alike.
+The software is licensed Apache-2.0; see [LICENSE](LICENSE).
+The monograph and distillation are licensed CC-BY-SA-4.0.
+That split is intentional: the code carries a patent grant, and the writing carries share-alike.

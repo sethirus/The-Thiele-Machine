@@ -24,7 +24,7 @@
     normalisation is length, and length forces monotonicity and
     conservation. *)
 
-(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity -- bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Lia.

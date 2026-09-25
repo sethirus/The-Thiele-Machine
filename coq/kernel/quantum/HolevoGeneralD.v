@@ -312,7 +312,7 @@ Qed.
 
     is bounded by [ln d]. *)
 
-(* INQUISITOR NOTE: SECTION PARAMETER — the Variable and Hypothesis
+(* SCOPE NOTE: SECTION PARAMETER — the Variable and Hypothesis
    declarations in this Section are section parameters that become
    EXPLICIT FORALL premises on every theorem when the Section closes.
    d_pos is the dimension positivity precondition; Hspec_0/_1/_avg are
@@ -367,7 +367,7 @@ Print Assumptions holevo_chi_bounded_general_d.
     The Holevo bound proved here applies to the Thiele Machine's
     mu-ledger via the bridge in UnificationProbeBridges. The connection is made by downstream consumers, not by this file. *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver (foundation connectivity).
+(* SCOPE NOTE: standalone proof scope (foundation connectivity).
 
     This file is standalone algebra. It does not engage VM semantics, no
     theorem here mentions [VMState] or [vm_mu], and it imports no kernel
@@ -379,5 +379,5 @@ Print Assumptions holevo_chi_bounded_general_d.
     satisfy it from inside would be to add a definition that references
     [vm_mu] without using it; an identity function referenced by nothing
     carries no proof obligation. A link that can be manufactured that way is
-    not evidence of one. This waiver is counted in the WAIVERS census in
-    INQUISITOR_REPORT.md. *)
+    not evidence of one. The boundary is stated here rather than inferred
+    from an import. *)

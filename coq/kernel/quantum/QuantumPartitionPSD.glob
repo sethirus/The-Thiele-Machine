@@ -1,4 +1,4 @@
-DIGEST 93a60f521941e22d54bec1084965bc28
+DIGEST 4f778e33f134d5bf55e63f5ca8a00820
 FKernel.QuantumPartitionPSD
 R706:712 Kernel.VMState <> <> lib
 R714:719 Kernel.VMStep <> <> lib
@@ -617,47 +617,47 @@ R12925:12965 Kernel.QuantumPartitionPSD <> column_contractive_iff_quantum_realiz
 R12925:12965 Kernel.QuantumPartitionPSD <> column_contractive_iff_quantum_realizable thm
 R12976:13019 Kernel.MuLedgerQuantumBridge <> state_column_contractive_check_witness_sound thm
 R12976:13019 Kernel.MuLedgerQuantumBridge <> state_column_contractive_check_witness_sound thm
-prf 13470:13516 <> chsh_lassert_no_trap_implies_quantum_realizable
-binder 13529:13529 <> s:61
-binder 13531:13538 <> mu_delta:62
-R13555:13562 Kernel.SimulationProof <> vm_apply def
-R13564:13564 Kernel.QuantumPartitionPSD <> s:61 var
-R13567:13584 Kernel.VMStep VMStep instr_chsh_lassert constr
-R13586:13593 Kernel.QuantumPartitionPSD <> mu_delta:62 var
-binder 13549:13550 <> s':63
-R13627:13634 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13613:13615 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13607:13611 Kernel.VMState <> vm_pc proj
-R13603:13604 Kernel.QuantumPartitionPSD <> s':63 var
-R13616:13616 Coq.Init.Datatypes <> S constr
-R13621:13625 Kernel.VMState <> vm_pc proj
-R13618:13618 Kernel.QuantumPartitionPSD <> s:61 var
-R13659:13666 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13646:13648 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13639:13644 Kernel.VMState <> vm_err proj
-R13635:13636 Kernel.QuantumPartitionPSD <> s':63 var
-R13652:13657 Kernel.VMState <> vm_err proj
-R13649:13649 Kernel.QuantumPartitionPSD <> s:61 var
-R13685:13692 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13677:13679 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13670:13675 Kernel.VMState <> vm_err proj
-R13667:13667 Kernel.QuantumPartitionPSD <> s:61 var
-R13680:13684 Coq.Init.Datatypes <> false constr
-R13693:13710 Kernel.NPAMomentMatrix <> quantum_realizable def
-R13713:13735 Kernel.MuLedgerQuantumBridge <> state_zero_marginal_npa def
-R13737:13737 Kernel.QuantumPartitionPSD <> s:61 var
-R13851:13853 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13804:13835 Kernel.VMStep VMStep column_contractive_check_witness def
-R13840:13849 Kernel.VMState <> vm_witness proj
-R13854:13857 Coq.Init.Datatypes <> true constr
-R13851:13853 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13804:13835 Kernel.VMStep VMStep column_contractive_check_witness def
-R13840:13849 Kernel.VMState <> vm_witness proj
-R13854:13857 Coq.Init.Datatypes <> true constr
-R13891:13898 Kernel.SimulationProof <> vm_apply def
-R13923:13954 Kernel.VMStep VMStep column_contractive_check_witness def
-R13959:13968 Kernel.VMState <> vm_witness proj
-R13923:13954 Kernel.VMStep VMStep column_contractive_check_witness def
-R13959:13968 Kernel.VMState <> vm_witness proj
-R14069:14113 Kernel.QuantumPartitionPSD <> chsh_lassert_check_implies_quantum_realizable thm
-R14069:14113 Kernel.QuantumPartitionPSD <> chsh_lassert_check_implies_quantum_realizable thm
+prf 13465:13511 <> chsh_lassert_no_trap_implies_quantum_realizable
+binder 13524:13524 <> s:61
+binder 13526:13533 <> mu_delta:62
+R13550:13557 Kernel.SimulationProof <> vm_apply def
+R13559:13559 Kernel.QuantumPartitionPSD <> s:61 var
+R13562:13579 Kernel.VMStep VMStep instr_chsh_lassert constr
+R13581:13588 Kernel.QuantumPartitionPSD <> mu_delta:62 var
+binder 13544:13545 <> s':63
+R13622:13629 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13608:13610 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13602:13606 Kernel.VMState <> vm_pc proj
+R13598:13599 Kernel.QuantumPartitionPSD <> s':63 var
+R13611:13611 Coq.Init.Datatypes <> S constr
+R13616:13620 Kernel.VMState <> vm_pc proj
+R13613:13613 Kernel.QuantumPartitionPSD <> s:61 var
+R13654:13661 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13641:13643 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13634:13639 Kernel.VMState <> vm_err proj
+R13630:13631 Kernel.QuantumPartitionPSD <> s':63 var
+R13647:13652 Kernel.VMState <> vm_err proj
+R13644:13644 Kernel.QuantumPartitionPSD <> s:61 var
+R13680:13687 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13672:13674 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13665:13670 Kernel.VMState <> vm_err proj
+R13662:13662 Kernel.QuantumPartitionPSD <> s:61 var
+R13675:13679 Coq.Init.Datatypes <> false constr
+R13688:13705 Kernel.NPAMomentMatrix <> quantum_realizable def
+R13708:13730 Kernel.MuLedgerQuantumBridge <> state_zero_marginal_npa def
+R13732:13732 Kernel.QuantumPartitionPSD <> s:61 var
+R13846:13848 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13799:13830 Kernel.VMStep VMStep column_contractive_check_witness def
+R13835:13844 Kernel.VMState <> vm_witness proj
+R13849:13852 Coq.Init.Datatypes <> true constr
+R13846:13848 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13799:13830 Kernel.VMStep VMStep column_contractive_check_witness def
+R13835:13844 Kernel.VMState <> vm_witness proj
+R13849:13852 Coq.Init.Datatypes <> true constr
+R13886:13893 Kernel.SimulationProof <> vm_apply def
+R13918:13949 Kernel.VMStep VMStep column_contractive_check_witness def
+R13954:13963 Kernel.VMState <> vm_witness proj
+R13918:13949 Kernel.VMStep VMStep column_contractive_check_witness def
+R13954:13963 Kernel.VMState <> vm_witness proj
+R14064:14108 Kernel.QuantumPartitionPSD <> chsh_lassert_check_implies_quantum_realizable thm
+R14064:14108 Kernel.QuantumPartitionPSD <> chsh_lassert_check_implies_quantum_realizable thm

@@ -2,54 +2,41 @@
 THE THIELE MACHINE: Knowledge Receipt Demo
 ==========================================
 
-Classical computers answer:  "What is the result?"
-The Thiele Machine answers:  "What is the result, and how much did it COST to know that?"
+This demo asks a narrow question: can two VM states share the selected classical-looking fields while differing in the morphism graph?
 
-No computer observing only classical fields (registers, memory, mu, pc, err) can guarantee the second part — provably, from first principles.
+The four acts answer that question with the repository's Python VM.
 
-Here's the four-act argument:
+  ACT 1 — The failed claim
+    MORPH_ASSERT names a morphism that does not exist.
+    The VM charges the assertion attempt and reports the error.
 
-  ACT 1 — The Forged Claim
-    Claim a structural relationship without building it. The machine refuses.
-    NoFI enforcement: there's no path through the machine that asserts uncertified structure.
+  ACT 2 — The built path
+    Build an A→B→C morphism chain, pay the scheduled costs, and read its source and target back through MORPH_GET.
 
-  ACT 2 — The Earned Path
-    Build a genuine A→B→C morphism chain. Pay the cost. Read back the evidence.
-    The mu ledger records what you spent. The morphism chain is navigable.
+  ACT 3 — The recorded claim
+    Run MORPH_ASSERT on the existing chain.
+    The supra-certification address becomes nonzero, and the instruction costs at least one unit even when its encoded delta is zero.
 
-  ACT 3 — The Certified Claim
-    Same chain, but with MORPH_ASSERT. Costs S(cost) ≥ 1, no exceptions.
-    csr_cert_addr is now nonzero — the machine has formally recorded the claim.
+  ACT 4 — The separation witness
+    Build one state with the chain and another state without it.
+    Match their selected registers, ledger value, and error flag.
+    MORPH_DELETE then distinguishes the states because it can see the graph.
 
-  ACT 4 — The Separation Theorem (the profound part)
-    Two programs. Same registers r0 and r1. Same mu. Same memory.
-    Classical machines: INDISTINGUISHABLE.
-    Thiele Machine: PROVABLY DISTINCT — one has a morphism chain, one doesn't.
-    A probe instruction (MORPH_DELETE) tells them apart in one step.
+The example demonstrates these particular VM witnesses.
+It does not establish cryptographic unforgeability, a universal verification cost for external systems, or a claim about every classical encoding.
 
-WHY THIS MATTERS:
-    In supply chains, multi-party computation, causal audits, distributed
-    consensus — parties constantly claim "I verified this." How do you know?
-    The Thiele Machine makes the cost of verification UNFORGEABLE. If your
-    mu < minimum_verification_cost, your claimed knowledge is mathematically
-    hollow. Not probably hollow. Provably hollow, by the NoFI theorem in
-    coq/kernel/nfi/NoFreeInsight.v, zero Admitted, machine-checked.
-
-    The categorical layer (morphisms) is the evidence trail. It cannot be
-    constructed without paying mu. It cannot survive a structure deletion
-    without the deletion being recorded. It is, in the formal sense, a
-    receipt — and receipts here have the force of mathematical proof.
+The ledger is an auditable value in the specified VM semantics.
+Whether another implementation preserves the same behavior is a separate correspondence question covered by the repository's stated assurance bounds.
 """
 
 import sys
 import textwrap
 from pathlib import Path
 
-# Insert the REPO ROOT, not this script's own directory. `build` is a
-# top-level package at the repo root, so inserting examples/ made this import
-# resolve only when the project happened to be pip-installed (editable), and
-# fail with ModuleNotFoundError on a clean checkout -- which is precisely the
-# state a first-time reviewer following the README is in.
+# Insert the repository root rather than this script's own directory.
+# `build` is a top-level package at the repository root.
+# Inserting `examples/` made this import work only when the project happened to be installed in editable mode.
+# A clean checkout following the README must also resolve this import.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from build import thiele_vm as vm
 
@@ -331,29 +318,27 @@ print(textwrap.dedent(f"""
     MORPH_ASSERT sets supra_cert but NOT vm_certified. The NoFI theorems operate on supra_cert.
 
   WHAT ONLY THE THIELE MACHINE CAN DO:
-    1. Refuse to accept structural claims without paying their cost.
+    1. Charge the specified MORPH_ASSERT certification transition.
        Theorem: NoFreeInsight in coq/kernel/nfi/NoFreeInsight.v (zero Admitted).
-       Executable: Act 1 and Act 3 NoFI probe above.
+       Executable: Act 1 and Act 3 NoFI probes above.
 
     2. Charge a provably unavoidable minimum for certifying any claim (S(cost) ≥ 1).
        Theorem: no_free_certification in coq/kernel/nfi/AbstractNoFI.v §8.
-       Proof chain: cert_addr changed (0→nonzero) → cert_addr_setterb = true [structural,
-         proven by case analysis over all 32 opcodes via thiele_non_cert_addr_setter_preserves]
-         → instruction_cost >= 1 [cert_addr_setter_cost_pos] → delta_mu >= 1 [vm_apply_mu].
-       This is non-circular: the cost bound is derived from observing state change,
-       not from reading the cost definition. Corollary: no_free_certification_mu.
+       Proof chain: cert_addr changed (0→nonzero) → cert_addr_setterb = true → instruction_cost >= 1 → delta_mu >= 1.
+       The named lemmas establish those steps by case analysis and the VM ledger equation.
+       This is non-circular: the cost bound is derived from the state transition and its cost rule.
+       Corollary: no_free_certification_mu.
        Universality: abstract_nfi / universal_nfi hold for ANY machine satisfying A3.
 
-    3. Distinguish programs classically identical to ANY classical computer.
+    3. Distinguish two programs with the same selected observation.
        Theorem: categorical_separation in coq/kernel/foundation/PartitionSeparation.v §10.
-       Corollary: classical_observer_cannot_separate in §11 — formally, no function
-       depending only on (regs, mem, mu, pc, err, certified) can separate the programs.
+       Corollary: classical_observer_cannot_separate in §11 — no function of the named observation can separate the witness states.
        Executable: Act 4 — one MORPH_DELETE probe separates them in one step.
 
-    4. Produce a mu receipt that is mathematically unforgeable.
+    4. Produce a ledger receipt whose lower bound is mathematically auditable.
        Theorem: kernel_certified_implies_positive_mu in coq/kernel/nfi/PrimeAxiom.v.
-       If your mu < minimum_verification_cost, you didn't do the work.
-       Proven from first principles. Zero Admitted.
+       A certified final state has positive mu under the theorem's stated transition premises.
+       The proof is checked by Coq; it is not a proof of external authenticity.
 
   PROOF FOUNDATION (coq/kernel/, zero Admitted throughout):
     NoFreeInsight.v          — Core NoFI theorem + A3/A4 formal axioms
@@ -365,12 +350,11 @@ print(textwrap.dedent(f"""
     MuLedgerConservation.v   — vm_apply_mu: (vm_apply s i).mu = s.mu + instruction_cost i
     HonestNoFI.v             — Honest statement of NoFI across 4 rigor levels
 
-  The three-layer isomorphism guarantees this isn't just theory.
-  The same semantics run in:
-    — OCaml (build/extracted_vm_runner, Coq-extracted)
-    — Python (thielecpu/vm.py, Coq-extracted)
-    — Verilog RTL (thielecpu/hardware/rtl/thiele_cpu_kami.v, Kami-synthesized)
+  The repository also contains separate implementation surfaces:
+    — OCaml (`build/extracted_vm_runner`, extracted from Coq)
+    — Python (`thielecpu/vm.py`, a reference/protocol implementation)
+    — Verilog RTL (`thielecpu/hardware/rtl/thiele_cpu_kami.v`, generated through Kami)
 
-  All three produce the same mu, the same err, the same supra_cert, the same separation.
-  The receipt is hardware-backed.
+  Their correspondence is conditional on the contracts and tests recorded for each boundary.
+  This Python example is a VM demonstration, not a hardware authenticity claim.
 """))

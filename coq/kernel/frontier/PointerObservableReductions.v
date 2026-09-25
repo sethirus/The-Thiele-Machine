@@ -50,13 +50,12 @@
   the prose fence, not the Coq.
 *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver, with the same standing as
+(* SCOPE NOTE: standalone proof scope, with the same standing as
    PointerObservable.v, whose definitions every theorem here is stated in.
    The five ecosystems are minimal projections of deployed disciplines; none
    of them mentions VMState, vm_step, vm_mu, MuCostModel or
    instruction_cost, and none should, since their whole evidential value is
-   that they owe this development nothing. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   that they owe this development nothing. *)
 From Kernel Require Import PointerObservable.
 
 From Coq Require Import List Lia.
@@ -258,6 +257,6 @@ Proof.
   - exact PCC_unique_pointer.
 Qed.
 
-(** * Anchor for proof-connectivity audits *)
+(** * Anchor for foundation connectivity audits *)
 
 Definition pointer_reductions_anchor := @five_disciplines_are_pointers.

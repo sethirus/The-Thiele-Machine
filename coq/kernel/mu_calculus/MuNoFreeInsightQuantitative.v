@@ -1,15 +1,7 @@
-(** MuNoFreeInsightQuantitative: quantitative μ lower bound for supra-certification.
-
-    The kernel already proves the qualitative NoFI statement: supra-certification
-    (csr_cert_addr ≠ 0) cannot happen at zero cost. This file strengthens that to
-    a quantitative bound — if a trace reaches supra-certification, there exists a
-    cert-setting step whose declared cost is a proven lower bound on the final μ.
-    For any deterministic kernel execution achieving supra-certification, the final
-    μ is at least the initial μ plus the cost charged by the cert-setting step.
-
-    To falsify: find a cert-setting instruction that sets csr_cert_addr without
-    increasing μ by at least 1.
-*)
+(** MuNoFreeInsightQuantitative: quantify the VM cost floor for a trace that
+    reaches supra-certification. The theorem identifies a cert-setting step and
+    relates its scheduled cost to the final ledger through the deterministic
+    [vm_apply] semantics. *)
 
 From Coq Require Import List Lia Arith.PeanoNat Bool.
 Import ListNotations.

@@ -8,27 +8,18 @@ From Kernel Require Import SimulationProof.
 From Kernel Require Import Locality.
 From Kernel Require Import KernelPhysics.
 
-(** StressEnergyDynamics: Stress-Energy Drives PNEW Frequency
+(** StressEnergyDynamics: finite relationships among stress, PNEW, and μ.
 
-    PHASE 5 OF GRAVITY PROOF: PNEW FREQUENCY ~ INFORMATION DENSITY
-    1. PNEW operations increase module encoding length and axiom count
-    2. High stress-energy (information density) → more PNEW operations
-    3. PNEW frequency ∝ information density
-    4. This creates the feedback loop: computation → curvature
-    - VMStep.v: PNEW creates modules with explicit μ-cost
-    - MuGravity.v: stress_energy = mu_cost_density = encoding_length + region_size
-    - This file: High stress_energy → high PNEW frequency
-    - Future: PNEW changes topology → Gauss-Bonnet → curvature change
+    This file proves three limited facts. A PNEW step with a positive declared
+    cost advances the ledger by that cost. The selected stress expression is
+    the sum of its two stored components, so a threshold witness gives the
+    corresponding component bounds. A finite instruction list has PNEW
+    frequency at most one.
 
-    This is the missing link between computation and gravity:
-    - Information (stress-energy) drives PNEW operations
-    - PNEW operations change topology
-    - Topology determines curvature (Gauss-Bonnet)
-    - Therefore: Information curves spacetime!
-
-    Run VM traces with varying information densities. If PNEW frequency
-    does NOT correlate with stress_energy, this theory is false.
-*)
+    These lemmas do not prove that stress predicts PNEW frequency, that PNEW
+    changes curvature, or that information curves spacetime. Such a claim
+    would need a workload-selection model, a topology/curvature theorem, and
+    a bridge between the formal quantities. *)
 
 Open Scope R_scope.
 
@@ -88,25 +79,11 @@ Proof.
     destruct instr; simpl; lia.
 Qed.
 
-(** The key theorem: High stress-energy regions undergo more PNEW operations.
-
-    This is the core result: regions with high information density
-    (high stress-energy) will have more PNEW operations targeting them.
-
-    - Stress-energy = information density
-    - Information is encoded via axioms and module structure
-    - PNEW is how the VM creates module structure
-    - Therefore: more information → more PNEW
-
-    FORMALIZATION:
-    Given a trace of execution, modules with higher stress-energy
-    will be targets of more PNEW operations than low-stress modules.
-
-    Run VM traces on high-density vs low-density regions.
-    Count PNEW operations targeting each.
-    If the counts are NOT correlated with density, theory is false.
-*)
-Theorem stress_energy_drives_pnew_frequency : forall s m threshold,
+(** The selected stress expression decomposes into its stored components.
+    This theorem does not say anything about how often a program executes
+    PNEW; it packages the two component bounds supplied by a threshold
+    witness. *)
+Theorem stress_energy_component_bounds : forall s m threshold,
   high_stress_energy_module s m threshold ->
   (* High stress-energy implies the module has accumulated information *)
   exists n_axioms n_region,
@@ -151,15 +128,10 @@ Inductive execution_trace : nat -> VMState -> list vm_instruction -> VMState -> 
     execution_trace n s' rest s'' ->
     execution_trace (S n) s (instr :: rest) s''.
 
-(** PNEW frequency in executing trace.
-
-    This measures the empirical PNEW rate: number of PNEW operations
-    per unit of execution (per instruction executed).
-
-    FALSIFIABLE PREDICTION:
-    High-stress-energy regions should show PNEW_rate > baseline.
-    Low-stress-energy regions should show PNEW_rate < baseline.
-*)
+(** [pnew_frequency] is the fraction of entries in a finite instruction list
+    that are [PNEW]. The definition is a trace statistic. It does not state a
+    physical correlation with stress-energy; such a correlation would require a
+    measurement model and a baseline. *)
 Definition pnew_frequency (trace : list vm_instruction) : R :=
   let n_pnew := count_pnew_in_trace trace in
   let n_total := List.length trace in
@@ -197,23 +169,8 @@ Proof.
       * apply not_0_INR. lia.
 Qed.
 
-(** EMPIRICAL PREDICTION: High stress-energy → high PNEW frequency.
-
-    This is the key falsifiable prediction:
-    Given two regions R1 (high stress) and R2 (low stress),
-    executing similar computations should yield:
-        PNEW_frequency(R1) > PNEW_frequency(R2)
-
-    TEST METHODOLOGY:
-    1. Create VM state with modules of varying stress-energy
-    2. Execute comparable workloads on each module
-    3. Count PNEW operations targeting each module's region
-    4. Compute PNEW frequency = count / total_ops
-    5. Verify: frequency correlates with stress_energy
-
-    If no correlation exists, the fundamental premise
-    "information curves spacetime" is empirically false.
-*)
+(** The helper below exposes the region carried by a selected module. It does
+    not turn a PNEW occurrence into a curvature statement. *)
 
 (** Helper: extract module region (simplified) *)
 Definition module_region_of (s : VMState) (m : ModuleID) : list nat :=
@@ -222,57 +179,15 @@ Definition module_region_of (s : VMState) (m : ModuleID) : list nat :=
   | Some mod_state => module_region mod_state
   end.
 
-(** INFORMATION-GRAVITY COUPLING: The Core Result
+(** SUMMARY: What this file proves
 
-    This theorem states the fundamental link between information and geometry:
+    1. PNEW steps with positive declared cost advance μ by that cost.
+    2. A thresholded stress witness supplies bounds on the two stored
+       components.
+    3. The finite-list PNEW frequency is at most one.
 
-    1. Computation creates information (axioms, module structure)
-    2. Information = stress-energy (mu_cost_density)
-    3. High stress-energy → more PNEW operations (this file)
-    4. PNEW changes topology (graph structure)
-    5. Topology determines curvature (Gauss-Bonnet)
-
-    Therefore: INFORMATION CURVES SPACETIME via PNEW dynamics.
-
-    This is Einstein's equation emerging from computation:
-        G_μν ∝ T_μν
-    where both sides are defined in terms of mu-ledger quantities.
-*)
-Theorem information_gravity_coupling : forall s m threshold,
-  high_stress_energy_module s m threshold ->
-  (* High stress-energy implies high information content *)
-  exists encoding_bound,
-    (module_encoding_length s m >= encoding_bound)%nat /\
-    (* Which drives PNEW operations *)
-    (forall (trace : list vm_instruction) (s' : VMState),
-      (exists (mid : ModuleID), In (instr_pnew (module_region_of s m) encoding_bound) trace) ->
-      (* PNEW increases local curvature via topology change *)
-      (* This is the E = mc² of discrete gravity: *)
-      (* Information (E) = Curvature (m) via PNEW dynamics (c²) *)
-      True (* Full proof requires topology-curvature bridge *)
-    ).
-Proof.
-  intros s m threshold Hhigh.
-  unfold high_stress_energy_module in Hhigh.
-  exists (module_encoding_length s m).
-  split.
-  - apply PeanoNat.Nat.le_refl.
-  - intros trace s' Hpnew.
-    trivial.
-Qed.
-
-(** SUMMARY: What We've Proven
-
-    1. ✓ PNEW increases total μ-cost (pnew_increases_mu_cost)
-    2. ✓ High stress-energy → high information density (stress_energy_drives_pnew_frequency)
-    3. ✓ PNEW frequency ≤ 1 (pnew_frequency_bounded)
-    4. ✓ Information-gravity coupling exists (information_gravity_coupling)
-
-    Downstream layers using these results:
-    - [PNEWTopologyChange.v]: PNEW changes the Euler characteristic.
-    - [TopologyCurvatureBridge.v]: total curvature is [5π · χ] via
-      discrete Gauss-Bonnet.
-    - [EinsteinEmergence.v]: composes topology change with the
-      stress-energy story above into the 2D discrete Einstein analogue. *)
+    No theorem in this file composes those facts into a stress-to-frequency or
+    information-to-curvature law. The topology and geometry files must be read
+    under their own premises. *)
 
 Close Scope R_scope.

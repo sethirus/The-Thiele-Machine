@@ -15,8 +15,8 @@ ADD r2 r1 r1 255        # r2 = r1 + r1 with max cost (wraps in 8-bit range)
 STORE 127 r1 255        # mem[127] = 255 with max cost
 LOAD r4 127 255         # r4 = mem[127] = 255 with max cost
 
-# Max-cost PNEW and CHSH_TRIAL
+# Max-cost PNEW and canonical five-field CHSH_TRIAL.
 PNEW 0 0 255
-CHSH_TRIAL 0 0 255
+CHSH_TRIAL 0 0 0 0 255
 
 HALT 0

@@ -1,7 +1,7 @@
 (** VMInstructionEncoding.v — Gödel encoding from [list vm_instruction] to [nat].
 
-    Closeout-plan B.3. The substrate-level structural-undecidability theorem
-    is proved at the [nat]-program substrate (see NatSubstrateInstance.v).
+    The substrate-level structural-undecidability theorem is proved at the
+    [nat]-program substrate (see NatSubstrateInstance.v).
     To carry the impossibility back to the 51-opcode VM as a corollary, we
     need a concrete, total injection [list vm_instruction → nat] with a
     proven left inverse. This file provides exactly that, by composing

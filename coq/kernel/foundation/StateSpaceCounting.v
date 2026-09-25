@@ -69,7 +69,9 @@ Definition graph_axiom_bits (g : PartitionGraph) : nat :=
 
 (** instruction_cost for LASSERT is flen * 8 + S cost.
   flen is the encoded formula-unit count carried by the instruction.
-  Each encoded unit contributes eight concrete bits: μ is denominated in bits. *)
+  Each encoded unit contributes eight ledger units by definition. The theorem
+  does not identify those units with physical bits without a separate
+  representation/calibration premise. *)
 Lemma lassert_cost_includes_formula_length :
   forall fa ca k flen cost,
     instruction_cost (instr_lassert fa ca k flen cost) = flen * 8 + S cost.
@@ -95,14 +97,14 @@ Qed.
 
     The inequality chain:
     - delta_mu = flen * 8 + S cost >= flen * 8
-  - flen is the encoded byte-length carried by the instruction
-    - K(formula) <= flen * 8 (formula bits are a self-description)
-    - information gained <= K(formula) <= 8 * flen = delta_mu
+  - flen is the encoded formula-unit count carried by the instruction
+    - any information-length interpretation requires a representation theorem
+    - the kernel result itself is the ledger inequality, not a physical bit bound
 *)
 
-(** When LASSERT executes, μ increases by at least the encoded formula bit-length.
-  UNCONDITIONAL: no hypothesis on cost.
-  μ is denominated in bits: 8 bits per encoded byte of formula. *)
+(** When LASSERT executes, μ increases by at least eight times the encoded
+  formula-unit count. This is the declared VM schedule; it is not a physical
+  bit-length theorem. *)
 Theorem mu_increase_bounds_axiom_bits :
   forall s s' fa ca ck flen cost,
     vm_step s (instr_lassert fa ca ck flen cost) s' ->

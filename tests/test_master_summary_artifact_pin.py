@@ -1,25 +1,12 @@
-"""The SHA-256 that MasterSummary.v pins must match the file it names.
+"""Check that the SHA-256 recorded by MasterSummary.v matches its artifact.
 
-WHY THIS TEST EXISTS
---------------------
-`coq/kernel/aggregators/MasterSummary.v` contains:
+The Coq lemma records a string equality and does not read the filesystem.
 
-    Lemma master_assumption_artifact_sha256_pinned :
-      artifact_sha256 master_inquisitor_assumption_artifact = "<hex>".
-    Proof. reflexivity. Qed.
+This test reads the artifact named by the Coq source, computes its SHA-256, and
+compares that value with every hash literal recorded in the source.
 
-That lemma proves a string literal equals the same string literal. It hashes
-no file, opens no file, and cannot fail -- Coq has no filesystem access, so a
-"pin" written in a .v file is a written-down claim, not a check.
-
-The consequence is not hypothetical. Renaming a theorem that
-`coq/INQUISITOR_ASSUMPTIONS.json` refers to changes that file's bytes and
-therefore its hash, silently invalidating the pin, while the Coq lemma keeps
-compiling and the badge keeps reading green. That is exactly how the pin went
-stale once already.
-
-This test is the part that can actually fail: it recomputes the hash of the
-named artifact and compares it to the hex string the Coq source pins.
+It therefore catches a stale pin after the named artifact changes, including when
+the Coq lemma itself would still compile by reflexivity.
 """
 
 from __future__ import annotations

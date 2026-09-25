@@ -28,7 +28,7 @@ From Coq Require Import Sorting.Permutation.
 Import ListNotations.
 
 
-(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+(* SCOPE NOTE: abstract interface section — parameterized theorem.
    A_eq_dec is decidable equality parameter (standard Coq parameterization).
    All theorems export as explicit forall premises when section closes. *)
 Section ListUtils.
@@ -118,7 +118,7 @@ End ListUtils.
 
 (** More list utilities: remove preserves the counting facts we need. *)
 
-(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+(* SCOPE NOTE: abstract interface section — parameterized theorem.
    A_eq_dec is decidable equality parameter (standard Coq parameterization).
    All theorems export as explicit forall premises when section closes. *)
 Section MoreListUtils.
@@ -234,7 +234,7 @@ Section FiniteInformation.
 
 (** State type with decidable equality *)
 Variable State : Type.
-(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+(* SCOPE NOTE: abstract interface section — parameterized theorem.
    State, Obs, decidable equality and completeness are abstract parameters.
    All theorems export as explicit forall premises when section closes. *)
 Variable state_eq_dec : forall s1 s2 : State, {s1 = s2} + {s1 <> s2}.
@@ -360,13 +360,9 @@ Qed.
 
 (** We need a counting lemma over NoDup lists with decidable equality. *)
 
-(** Pigeonhole on NoDup lists: if NoDup A is included in NoDup B, then |A| <= |B|.
-
-    WHY: The initial approach (NoDup_sublist_length without eq_dec) was abandoned
-    because it needs decidable equality to remove elements during induction.
-    The version below (NoDup_incl_length) adds eq_dec and proves it cleanly
-    by inducting on A, removing each element from B via remove.
-*)
+(** [NoDup_incl_length] is the finite-list inclusion bound used below. The
+    decidable-equality argument permits induction while removing each selected
+    element from the larger list. *)
 (** Pigeonhole: NoDup list A contained in NoDup list B means |A| <= |B|. *)
 Lemma NoDup_incl_length {T : Type} (T_eq_dec : forall t1 t2 : T, {t1 = t2} + {t1 <> t2}) :
   forall (A B : list T),
@@ -544,26 +540,7 @@ Proof.
   lia.
 Qed.
 
-(**
-
-    - No project-local Axiom/Hypothesis declarations
-    - Uses only explicit Section variables and Coq stdlib imports
-    - No deferred proofs (no Admitted, no admit)
-    - Core theorem (info_nonincreasing) proven from first principles
-    - The proof shows WHY information cannot increase: because step : S → S
-      means image(step) ⊆ S, so observations cannot escape the original set
-
-    APPLICATION TO PHYSICS:
-    This theorem gives a finite-state route toward second-law-style monotonicity:
-    - Entropy S = k_B log(# of microstates consistent with observations)
-    - Deterministic evolution: microstates evolve as s' = step(s)
-    - Observation classes can only decrease (info_nonincreasing)
-    - Therefore S_after ≥ S_before (entropy increases or stays constant)
-
-    This is a finite-state Boltzmann-style theorem, proven rather than postulated.
-
-    To challenge this finite-state route, violate one of its premises while
-    preserving the intended physical interpretation: finite state space, closed
-    dynamics, or state-determined observations.
-
-    *)
+(** The preceding theorem is a finite-state image/information inequality. It
+    uses the supplied state space, step function, and observation map. The file
+    does not add a thermodynamic constant, an entropy unit, or a physical
+    calibration. *)

@@ -165,11 +165,11 @@ Definition trace_witness_B : VMState :=
 Definition read_wc_same_00 (s : VMState) : nat :=
   wc_same_00 (vm_witness s).
 
-(* INQUISITOR NOTE: Base lemma — computational normalization. *)
+(* SCOPE NOTE: Base lemma — computational normalization. *)
 Lemma read_wc_A : read_wc_same_00 trace_witness_A = 3.
 Proof. reflexivity. Qed.
 
-(* INQUISITOR NOTE: Base lemma — computational normalization. *)
+(* SCOPE NOTE: Base lemma — computational normalization. *)
 Lemma read_wc_B : read_wc_same_00 trace_witness_B = 5.
 Proof. reflexivity. Qed.
 

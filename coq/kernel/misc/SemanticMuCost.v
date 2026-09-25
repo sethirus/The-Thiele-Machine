@@ -20,7 +20,7 @@
     compute the same value for any given constraint, since the
     cross-layer comparison contract depends on it. *)
 
-(* INQUISITOR NOTE: proof-connectivity. This file genuinely engages VM
+(* SCOPE NOTE: foundation connectivity. This file genuinely engages VM
    semantics: it is stated over kernel types imported below and used in its
    definitions and theorems. *)
 From Kernel Require Import VMState VMStep.
@@ -198,15 +198,9 @@ Definition semantic_complexity_bits (c : Constraint) : nat :=
   8 * (atom_bits + var_bits + op_bits).
 
 
-(** log2_nat returns >= 1 for inputs >= 2.
-
-    WHY: We need this to show semantic complexity is nonzero for non-trivial
-    constraints. If n >= 2, then Nat.log2 n >= 1 (by definition: log2(2) = 1
-    and log2 is monotone). The conditional adds 0 or 1, so the total >= 1.
-
-    PROOF STRATEGY: If Nat.log2 n = 0 for n >= 2, then by Nat.log2_spec,
-    2^0 = 1 <= n < 2^1 = 2, forcing n = 1. Contradiction.
-*)
+(** [log2_nat_ge_1_of_ge_2] supplies the elementary lower bound needed by the
+    semantic-complexity calculation. It follows from the specification of
+    [Nat.log2] and the assumption [n >= 2]. *)
 Lemma log2_nat_ge_1_of_ge_2 : forall n, n >= 2 -> log2_nat n >= 1.
 Proof.
   intros n Hn.
@@ -224,23 +218,11 @@ Proof.
   lia.
 Qed.
 
-(** Semantic complexity is non-zero for non-trivial constraints.
-
-    WHY THIS MATTERS: If non-trivial constraints could have zero μ-cost,
-    you could assert arbitrary structure for free, violating No Free Insight.
-
-    CLAIM: Any constraint that is not CTrue or CFalse has count_operators >= 1
-    (every constructor except CTrue/CFalse contributes at least 1 operator).
-    Therefore log2_nat(S(operators)) >= 1, so 8 * (... + ... + >=1) >= 8 > 0.
-
-    PROOF STRATEGY: Case analysis on constraint constructor. CTrue and CFalse
-    are eliminated by hypothesis. All other constructors give count_operators >= 1.
-    Then log2_nat_ge_1_of_ge_2 gives us the bound.
-
-    To falsify: Find a non-trivial constraint with zero semantic complexity.
-    The definition makes this impossible: every CAtom, CAnd, COr, CNot contributes
-    at least 1 to count_operators.
-*)
+(** [semantic_complexity_nonzero] is a property of this syntactic measure. For
+    every constructor other than [CTrue] and [CFalse], the operator count is
+    positive, so the logarithmic term gives a positive bit count. It does not
+    identify this measure with physical information or prove a general cost
+    law for other representations. *)
 Theorem semantic_complexity_nonzero :
   forall c,
     c <> CTrue ->

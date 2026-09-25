@@ -1,28 +1,14 @@
 """
 monoidal_category_demo.py
 
-I built a monoidal category in hardware and proved it correct in Coq.
-This script runs directly on the OCaml binary that was extracted from those proofs.
-If the Python fallback fires instead of the extracted binary, the script exits.
-I don't trust informal arguments — including my own.
+I wrote this as a runnable check for the VM's typed graph operations.
+The script forces the extracted OCaml runner and exits if that runner is unavailable.
+The Coq files state the formal contracts; this script exercises selected examples through the extracted binary.
 
-What gets checked:
+The checks cover identity endpoints, two association orders, a five-module chain, scheduled ledger costs, the LASSERT witness check, MORPH_ASSERT, failed composition, CHSH trial inputs, deletion, tensor round trips, and ledger monotonicity.
 
-1. BACKEND — is the extracted OCaml runner actually running?
-2. IDENTITY LAWS — f ∘ id = f and id ∘ f = f, read back via MORPH_GET
-3. ASSOCIATIVITY — (f ∘ g) ∘ h = f ∘ (g ∘ h), same μ either way
-4. FIVE-MODULE CHAIN — binary-tree compose of four hops, MORPH_GET proves M1→M5
-5. μ-ADDITIVITY — ledger cost = sum of step costs, swept over four levels
-6. LASSERT — on-chip SAT check for (x₁), cost = flen×8 + S(cost)
-7. MORPH_ASSERT — attach a certified label to a morphism, pay S(cost) = cost+1
-8. TYPE SAFETY — non-composable morphisms error; μ is charged anyway
-9. NO FREE INSIGHT — CERTIFY costs S(cost) ≥ 1, zero is structurally unreachable
-10. CHSH GATE — all x=0 combinations, error-free, exact μ per trial
-11. MORPH_DELETE — create a morphism, delete it, try to compose with it (should error)
-12. TENSOR ROUNDTRIP — write a value into a tensor slot, read it back
-13. LASSERT COST DECOMPOSITION — flen×8 and S(cost) are independent additive parts
-14. μ-MONOTONICITY — program prefixes of increasing length, μ never goes down
-15. COMPLETE LIFECYCLE — PNEW → MORPH → COMPOSE → ASSERT → GET → DELETE → fail
+These are finite runtime checks of selected programs.
+They are not a proof that every program or every hardware translation has the same behavior.
 """
 
 from __future__ import annotations
@@ -36,7 +22,7 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-# Force OCaml backend — refuse Python fallback.
+# Force the OCaml backend so this example cannot silently switch to Python.
 os.environ["THIELE_STRICT_VM_BACKEND"] = "1"
 
 from thielecpu.vm import _runner_available, _RUNNER_PATH
@@ -46,8 +32,8 @@ from build.thiele_vm import run_vm
 
 CHSH_TRIAL_COST = 3
 
-# Shared 4-module chain setup: M1→M2→M3→M4.
-# Module IDs 1..4, morph IDs 1..3 after this block.
+# This setup creates the shared M1→M2→M3→M4 chain.
+# The module IDs are 1 through 4, and the morphism IDs are 1 through 3.
 _CHAIN_4 = [
     "PNEW {0} 1",           # M1
     "PNEW {1} 1",           # M2
@@ -63,9 +49,8 @@ _CHAIN_4 = [
 
 def run_identity_laws():
     """
-    f ∘ id_B = f  and  id_A ∘ f = f.
     I compose f12 with each identity morphism and read the endpoints back.
-    If either law breaks, MORPH_GET returns the wrong module ID and the check fails.
+    The returned endpoints are compared with the original f12 endpoints.
     """
     prog = [
         "PNEW {0} 1",           # M1
@@ -117,10 +102,8 @@ def run_associativity():
 
 def run_five_module_chain():
     """
-    Four hops: M1→M2→M3→M4→M5. Composed as a balanced binary tree:
-      f12∘f23 → left (M1→M3),  f34∘f45 → right (M3→M5),  left∘right → full (M1→M5).
-    MORPH_GET reads the endpoints back. If the machine got the composition wrong,
-    source ≠ 1 or target ≠ 5 and the check fails.
+    This creates four hops from M1 to M5 and composes them as a balanced binary tree.
+    MORPH_GET reads the resulting endpoints back for comparison with M1 and M5.
     """
     prog = [
         "PNEW {0} 1",           # M1
@@ -175,11 +158,10 @@ def run_cost_additivity():
 
 def run_lassert_sat():
     """
-    On-chip SAT check for the formula (x₁) — simplest non-trivial case.
+    This runs the selected on-chip SAT check for the formula (x₁).
 
     I write the formula directly into VM memory and point LASSERT at it.
-    The machine checks satisfiability, verifies the witness, and checks
-    the countermodel. Cost is NOT just for passing — it's for running the check.
+    The VM checks the supplied satisfying witness and countermodel, and the scheduled cost is charged for the check.
 
     Formula layout at address 16:
       mem[16]=2  flen (must match LASSERT arg)
@@ -224,10 +206,9 @@ def run_lassert_sat():
 
 def run_morph_assert():
     """
-    Build M1→M2→M3, compose it, then attach a certified label to the result.
-    MORPH_ASSERT charges S(cost) = cost+1. You pay for the claim, not just the
-    composition. The edge in the graph now carries a verified property label,
-    and the ledger records that you paid for it.
+    Build M1→M2→M3, compose it, and run MORPH_ASSERT on the result.
+    MORPH_ASSERT charges S(cost) = cost+1 and stores the selected property label.
+    The label is not an independent proof that the surrounding prose is true.
     """
     prog = [
         "PNEW {0} 1",           # M1
@@ -255,9 +236,8 @@ def run_morph_assert():
 
 def run_type_safety():
     """
-    Try to compose morphisms whose types don't match (target of f ≠ source of g).
-    The machine catches it: err=True. But μ is still charged.
-    Cost is for attempting, not succeeding. You can't probe the type system for free.
+    Try to compose morphisms whose endpoints do not match.
+    The VM reports the invalid composition and still applies the scheduled cost.
     """
     compose_cost = 2
     results = []
@@ -322,13 +302,8 @@ def run_chsh():
 
 def run_morph_delete():
     """
-    Create morph 1 (M1→M2), delete it, then try COMPOSE using morph 1.
-    The machine should reject the compose (err=True).
-    I run three separate programs to isolate each step's μ contribution:
-      1. create only            → mu_before
-      2. create + delete        → mu_after_delete  (does MORPH_DELETE charge?)
-      3. create + delete + compose → mu_final      (does COMPOSE on a missing morph charge?)
-    Both answers are empirical — I measure them, not assume them.
+    Create morph 1, delete it, and then try COMPOSE using the deleted morphism.
+    I run three small programs so the measured ledger changes can be compared separately.
     """
     base = [
         "PNEW {0} 1",       # M1 (module 1)
@@ -355,8 +330,7 @@ def run_morph_delete():
 
 def run_tensor_roundtrip():
     """
-    Write value 42 into tensor slot (0,0) of a partition module.
-    Read it back into a register. If they don't match, the tensor register file is broken.
+    Write value 42 into tensor slot (0,0) of a partition module and read it back into a register.
     """
     test_value = 42
     prog = [
@@ -380,10 +354,8 @@ def run_tensor_roundtrip():
 
 def run_lassert_cost_decomposition():
     """
-    I want to know if the two parts of the LASSERT fee are really separate.
-    Hold flen fixed at 2, sweep declared cost 1..5.
-    If μ = flen×8 + S(cost) holds at every point, the two components are
-    additive and independent. If the line is flat, they aren't.
+    Hold flen fixed at 2 and sweep the declared cost.
+    The measured values are compared with μ = flen×8 + S(cost).
     """
     def one_run(cost: int):
         prog = [
@@ -418,9 +390,8 @@ def run_lassert_cost_decomposition():
 
 def run_mu_monotonicity():
     """
-    The theorem says μ never goes down. I want to see that.
-    Run longer and longer program prefixes, watch the ledger.
-    If any μ[n] < μ[n-1], the monotonicity theorem is violated and something is wrong.
+    Run longer and longer prefixes of one program and compare their ledger values.
+    The result is a finite runtime check of the monotonicity contract.
     """
     base_setup = ["PNEW {0} 1", "PNEW {1} 1", "PNEW {2} 1",
                   "PNEW {3} 1", "PNEW {4} 1"]  # 5 modules
@@ -446,10 +417,8 @@ def run_mu_monotonicity():
 
 def run_complete_lifecycle():
     """
-    Every morphism operation in one program:
-      PNEW → MORPH → COMPOSE → MORPH_ASSERT → MORPH_GET → MORPH_DELETE → COMPOSE (fail)
-    MORPH_GET should read back M1 and M3. The final COMPOSE should error — morph 3 is gone.
-    If any step is wrong, μ or the endpoint check will show it.
+    Exercise the selected morphism lifecycle in one program.
+    MORPH_GET reads M1 and M3 before the deleted morphism is used in a failing COMPOSE.
     """
     prog_full = [
         # Graph construction
@@ -507,8 +476,8 @@ def check(cond: bool) -> str:
 
 def main():
     print()
-    print("THE THIELE MACHINE — VERIFIED MONOIDAL CATEGORY")
-    print("I built this. The proofs are in Coq. Let's see if it does what they say.")
+    print("THE THIELE MACHINE — MONOIDAL-CATEGORY VM CHECKS")
+    print("I wrote these checks to see what the extracted runner actually does.")
 
     # ── 1. Backend ────────────────────────────────────────────────────────────
     sep(1, "BACKEND VERIFICATION")
@@ -525,7 +494,7 @@ def main():
     print()
     print("  ✓  OCaml binary is live. Every result below comes from it.")
     print("     ThieleMachineComplete.v → Extraction.v → build/extracted_vm_runner.")
-    print("     Nothing informal. Nothing trusted without a proof.")
+    print("     Coq supplies the formal source; extraction and this runtime are separate boundaries.")
 
     # Launch all experiments in parallel — no inter-dependencies.
     with ThreadPoolExecutor() as pool:
@@ -602,7 +571,7 @@ def main():
     if ok5:
         print("  ✓  Composed path spans exactly M1→M5.")
         print("     The machine tracks typed endpoints through every composition step.")
-        print("     MORPH_GET reads directly from the hardware morphism register file.")
+        print("     MORPH_GET reads the VM's stored morphism endpoints.")
 
     # ── 5. μ-additivity ───────────────────────────────────────────────────────
     sep(5, "μ-LEDGER ADDITIVITY")
@@ -639,7 +608,7 @@ def main():
     print()
     if not massert["err"] and massert["mu"] == massert["mu_expected"]:
         print("  ✓  Certified claim attached. Charged S(cost) = cost+1.")
-        print("     The edge in the graph now has a certified label on it. You paid for it.")
+        print("     The graph now stores the selected label, and the VM ledger records the scheduled charge.")
         print("     Coq: driven_step_morph_assert in GraphReconstructionBridge.v.")
 
     # ── 8. Type safety ────────────────────────────────────────────────────────
@@ -659,8 +628,8 @@ def main():
     if v_ok and i_ok:
         print("  ✓  Valid composition succeeds. Invalid composition fails (err=True).")
         print("     μ is charged in BOTH cases — cost is for attempting, not succeeding.")
-        print("     The graph is NOT updated on failure: no spurious morphism created.")
-        print("     You cannot fake structure. You cannot probe the type system for free.")
+        print("     The graph is not updated on failure in this run.")
+        print("     The failed attempt still has the scheduled cost.")
 
     # ── 9. No Free Insight ────────────────────────────────────────────────────
     sep(9, "NO FREE INSIGHT   CERTIFY charges S(cost) = cost + 1")
@@ -674,8 +643,8 @@ def main():
     all_ok_nofi = all(r["ok"] for r in nofi)
     if all_ok_nofi:
         print("  ✓  S(cost) = cost+1 holds for all values including cost=0.")
-        print("     Zero-cost certification is structurally impossible.")
-        print("     The Peano successor type in VMStep.v is not a policy — it is a proof.")
+        print("     The selected CERTIFY transition cannot be zero-cost under this schedule.")
+        print("     The Coq theorem supplies that conclusion for the stated VM rule.")
 
     # ── 10. CHSH ──────────────────────────────────────────────────────────────
     sep(10, "CHSH GATE   all x=0 combinations")
@@ -687,7 +656,7 @@ def main():
     if all(r["ok"] for r in chsh):
         print(f"  ✓  All 8 x=0 combinations: error-free, μ={CHSH_TRIAL_COST}.")
         print("     Coq: chsh_stat_violation_not_local in CHSHStatisticalBridge.v.")
-        print("     (Witness buckets in hardware registers — use RTL cosim for counts.)")
+        print("     The witness buckets are VM state here; use RTL cosimulation to inspect the hardware path.")
 
     # ── 11. MORPH_DELETE lifecycle ────────────────────────────────────────────
     sep(11, "MORPH_DELETE LIFECYCLE")
@@ -704,7 +673,7 @@ def main():
     if mdelete["compose_rejected"]:
         compose_note = "charged μ for the attempt" if mdelete["compose_charged"] else "did not charge"
         delete_note  = "did not charge μ" if not mdelete["delete_charged"] else "charged μ"
-        print(f"  ✓  MORPH_DELETE {delete_note} — deletion itself is free.")
+        print(f"  ✓  MORPH_DELETE {delete_note} — deletion was uncharged in this run.")
         print(f"     COMPOSE on the deleted morph errored AND {compose_note}.")
         print("     Same rule as type mismatch: you pay for the attempt, not the success.")
         print("     Coq: driven_step_morph_delete in GraphReconstructionBridge.v.")
@@ -755,8 +724,8 @@ def main():
         prev = mu
     print()
     if all_mono:
-        print("  ✓  μ is strictly non-decreasing across all program prefixes.")
-        print("     No instruction can decrease the ledger — ever.")
+        print("  ✓  μ is non-decreasing across all measured program prefixes.")
+        print("     The VM transition contract says that no instruction decreases the ledger.")
         print("     Coq: mu_is_initial_monotone in MuInitiality.v.")
 
     # ── 15. Complete morphism lifecycle ──────────────────────────────────────
@@ -773,27 +742,25 @@ def main():
     print(f"  Final err (compose on deleted) = {lifecycle['err']}   {check(rej_ok)}")
     print()
     if src_ok and tgt_ok and mu_ok and rej_ok:
-        print("  ✓  Everything checked out. Graph built, composed, certified, queried,")
-        print("     deleted, and rejected when you tried to use the deleted morph.")
-        print("     Every μ charge is permanent. Coq: CanonicalCPUProof.v.")
+        print("  ✓  The selected lifecycle checked out: build, compose, label, query, delete, and reject.")
+        print("     The ledger remained monotone throughout this run.")
 
     # ── Summary ───────────────────────────────────────────────────────────────
     sep(0, "WHAT THIS IS")
     print("""
   Objects:      partition modules         (PNEW, TENSOR_SET/GET)
   Morphisms:    typed edges                (MORPH, MORPH_ID, MORPH_DELETE)
-  Composition:  COMPOSE — type-checked in hardware, cost charged regardless
-  Tensor:       MORPH_TENSOR — verified parallel composition
+  Composition:  COMPOSE — endpoint-checked in the selected VM rule
+  Tensor:       MORPH_TENSOR — selected parallel-composition operation
   Identity:     MORPH_ID — unit law, checked by MORPH_GET
-  Certification:MORPH_ASSERT, LASSERT, CERTIFY — all charge S(cost)≥1
-  Cost measure: μ-counter — monotone, additive, unique (MuInitiality.v)
+  Certification:MORPH_ASSERT, LASSERT, CERTIFY — each follows its own cost rule
+  Cost measure: μ-counter — monotone and schedule-relative (MuInitiality.v)
   Lifecycle:    create, compose, certify, query, delete, reject
 
-  I didn't trust the informal argument. So I proved it in Coq.
-  This binary is what came out the other end:
-    coq/ThieleMachineComplete.v   ← 388 Qed proofs, 0 Admitted
+  I wanted the runtime check to be inspectable, so I keep the formal source and extracted binary named here:
+    coq/ThieleMachineComplete.v   ← formal source
          ↓ Extraction.v
-    build/thiele_core.ml          ← extracted OCaml
+         build/thiele_core.ml          ← extracted OCaml
          ↓ extracted_vm_runner.ml
     build/extracted_vm_runner     ← this binary
 """)

@@ -16,7 +16,7 @@
     The naive single-trace entropy slogan was too strong; this file keeps
     that failure visible rather than pretending it is almost proved. *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridges MuLedgerConservation to
+(* SCOPE NOTE: foundation connectivity — bridges MuLedgerConservation to
    Shannon information theory. Foundational for NoFI generalization. *)
 
 From Coq Require Import List Lia Arith.PeanoNat Arith.Compare_dec.

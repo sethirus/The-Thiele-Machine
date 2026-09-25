@@ -14,8 +14,8 @@
   reading in this setup, they need to produce a different interpretation that
   still satisfies the same downstream tensor identities. *)
 
-(* INQUISITOR NOTE: proof-connectivity - closes the isotropic two-vertex gap
-   between module_mu_tensor and the metric-style interpretation. *)
+(* The file connects module_mu_tensor to the metric-style expressions in the
+   isotropic two-vertex setting. *)
 
 From Coq Require Import Reals List Arith.PeanoNat Lia Lra.
 Import ListNotations.
@@ -164,7 +164,7 @@ Definition metric_derivative_halfsum (s : VMState) (sc : SimplicialComplex4D)
     Proof strategy: For g = a·I, the contraction g_{στ} Γ^τ = a · Γ^σ.
     The Christoffel has a factor g^{-1} = (1/a)·I, which cancels the a.
     So g_{στ}Γ^τ_{μν} = a · (1/a) · ½(∂g+∂g-∂g) = ½(∂g+∂g-∂g). *)
-(* INQUISITOR NOTE: Metric compatibility - lowered Christoffel identity *)
+(* Metric compatibility: the lowered Christoffel identity. *)
 Theorem christoffel_lowered_identity : forall s v w σ μ ν a,
   (v <> w)%nat -> a > 0 ->
   (forall i j, (i < 4)%nat -> (j < 4)%nat ->
@@ -301,7 +301,7 @@ Qed.
 
 (** LEVI-CIVITA-STYLE UNIQUENESS: Any connection satisfying torsion-freedom
     and the lowered identity equals the pipeline's Christoffel. *)
-(* INQUISITOR NOTE: Levi-Civita uniqueness - isotropic two-vertex theorem *)
+(* Levi-Civita-style uniqueness in the isotropic two-vertex setting. *)
 Theorem levi_civita_uniqueness : forall s v w a,
   (v <> w)%nat -> a > 0 ->
   (forall i j, (i < 4)%nat -> (j < 4)%nat ->
@@ -409,8 +409,7 @@ Qed.
     For any isotropic 2-vertex complex, the pipeline forces:
     (1) non-degeneracy, (2) torsion-freedom, (3) metric compatibility,
     (4) Levi-Civita uniqueness. *)
-(* INQUISITOR NOTE: Main forcing theorem for the isotropic two-vertex forcing
-  result proved in this file. *)
+(* Main forcing theorem for the isotropic two-vertex result proved here. *)
 Theorem metric_structure_forced : forall s v w a b,
   (v <> w)%nat -> a > 0 ->
   (forall i j, (i < 4)%nat -> (j < 4)%nat ->
@@ -478,7 +477,8 @@ Qed.
     conditions, and einstein_equation_from_mass supplies the diagonal
     G = κ·T statement. This is not a full metric-forcing theorem for arbitrary
     tensors. *)
-(* INQUISITOR NOTE: Connects metric forcing to Einstein equation chain *)
+(* Connects the metric result to the diagonal identity stated in the curved
+   pipeline. *)
 Corollary forcing_implies_einstein : forall s v w,
   (v <> w)%nat ->
   isotropic_mass_metric s v ->

@@ -1,5 +1,5 @@
 (** Thermodynamic-to-Einstein Bridge
-    (* INQUISITOR NOTE: MISSING einstein_equation IS INTENTIONAL *)
+    (* SCOPE NOTE: MISSING einstein_equation IS INTENTIONAL *)
 
     Connect the entropy-locality bridge (nearest-neighbor split morphisms
     imply boundary entropy scaling) to an explicit Jacobson-style bridge
@@ -60,7 +60,7 @@ Proof.
   exact (einstein_emerges s_pre s_post Hwf_pre Hwf_post).
 Qed.
 
-(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+(* SCOPE NOTE: abstract interface section — parameterized theorem.
    EinsteinTarget is an abstract predicate. All theorems export as explicit
    forall premises when section closes. *)
 Section TowardEinstein.
@@ -223,7 +223,7 @@ Qed.
     The remaining named hypothesis is lorentzian_coupling_positive (κ>0),
     which is discharged in LorentzianTensorPipeline.v for the mass-gradient case.
 *)
-(* INQUISITOR NOTE: load-bearing thermodynamic path — mass→focusing→Clausius→Gauss-Bonnet *)
+(* SCOPE NOTE: load-bearing thermodynamic path — mass→focusing→Clausius→Gauss-Bonnet *)
 Theorem discrete_einstein_emergence_from_mass_focusing :
   forall (hbar c_light k_B entropy_per_bit : R)
          (s s' : VMState) (v w : ModuleID)

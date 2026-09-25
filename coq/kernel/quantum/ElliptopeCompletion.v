@@ -63,7 +63,7 @@
   specified marginals, are a different object.
 *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
    imports no kernel module.
@@ -71,8 +71,8 @@
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
 From Kernel Require Import ConstructivePSD NPAMomentMatrix.
 
 From Coq Require Import Reals Lra Psatz Lia.
@@ -680,6 +680,6 @@ Proof.
     apply deterministic_strategy_elliptope; assumption.
 Qed.
 
-(** * Anchor for proof-connectivity audits *)
+(** * Anchor for foundation connectivity audits *)
 
 Definition elliptope_completion_anchor := @completed_matrix.

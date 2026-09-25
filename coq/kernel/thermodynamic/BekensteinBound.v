@@ -60,7 +60,7 @@ From Coq Require Import Reals Lra.
 
 Local Open Scope R_scope.
 
-(* INQUISITOR NOTE: SECTION PARAMETER — the Variable and Hypothesis
+(* SCOPE NOTE: SECTION PARAMETER — the Variable and Hypothesis
    declarations in this Section are section parameters that become
    EXPLICIT FORALL premises on every theorem when the Section closes.
    The constants hbar, c_light, k_B, R_radius, E_total are physical
@@ -110,7 +110,7 @@ Section BekensteinDerivation.
     apply Rinv_0_lt_compat. exact Hden.
   Qed.
 
-  (* INQUISITOR NOTE: SECTION PARAMETER (continued) — the
+  (* SCOPE NOTE: SECTION PARAMETER (continued) — the
      system_entropy_nats Variable below and its nonnegativity Hypothesis,
      together with the second_law Hypothesis, are section parameters
      that become EXPLICIT FORALL premises when the Section closes. They
@@ -238,9 +238,9 @@ Print Assumptions bekenstein_bound.
 
     The Bekenstein bound proved here applies to the Thiele Machine's
     mu-ledger via the BekensteinVMBridge section in
-    UnificationProbeBridges. See the waiver note below. *)
+    UnificationProbeBridges. See the scope note below. *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver (foundation connectivity).
+(* SCOPE NOTE: standalone proof scope (foundation connectivity).
 
     This file is standalone algebra. It does not engage VM semantics, no
     theorem here mentions [VMState] or [vm_mu], and it imports no kernel
@@ -252,5 +252,5 @@ Print Assumptions bekenstein_bound.
     satisfy it from inside would be to add a definition that references
     [vm_mu] without using it; an identity function referenced by nothing
     carries no proof obligation. A link that can be manufactured that way is
-    not evidence of one. This waiver is counted in the WAIVERS census in
-    INQUISITOR_REPORT.md. *)
+    not evidence of one. The boundary is stated here rather than inferred
+    from an import. *)

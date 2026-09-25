@@ -251,9 +251,10 @@ Module CertCheck.
       the certificate is valid. Mechanical substitution — no search,
       no heuristics. O(formula_size), linear in literals.
 
-      This is WHY certificates work: finding a satisfying assignment is hard,
-      but checking one is easy. If check_model(F, A) = true and A doesn't
-      actually satisfy F, something is broken. It's just substitution. *)
+      The checker is a substitution procedure: if it returns true, its
+      soundness theorem connects the assignment to the clauses. The code does
+      not prove that finding an assignment is hard; that complexity claim is
+      outside this checker. *)
 
   Fixpoint lookup_bool (x : nat) (m : list (nat * bool)) : option bool :=
     match m with
@@ -384,10 +385,9 @@ Module CertCheck.
       with DB, then C must follow from DB. Iterating until you derive the
       empty clause (FALSE) proves the formula is unsatisfiable.
 
-      O(proof_size × formula_size) — polynomial to check even though finding
-      the proof is NP-hard. That asymmetry is WHY proof certificates work
-      for UNSAT. If I find a satisfiable formula and an LRAT proof this
-      checker accepts, the RUP checks are broken. *)
+      The checker performs the displayed database and unit-propagation tests.
+      This file does not establish a complexity lower bound for finding such a
+      proof; it establishes only the soundness conditions proved below. *)
 
   Definition assoc_remove (k : nat) (db : list (nat * list Z)) : list (nat * list Z) :=
     filter (fun kv => negb (Nat.eqb (fst kv) k)) db.

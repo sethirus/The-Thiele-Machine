@@ -120,10 +120,10 @@ class TestSourceBlockerClassification:
             for phrase in banned_phrases:
                 assert phrase not in text, f"{path.relative_to(ROOT)} still contains {phrase!r}"
 
-        assert "demoted research extension, not an active closeout claim" in (
+        assert "No theorem in this file depends on that extension" in (
             _kernel_v("ConstructivePSD.v")
         ).read_text(encoding="utf-8")
-        assert "outside the closeout claim" in (
+        assert "Finite-sample confidence remains outside this aggregate-count model" in (
             _kernel_v("CHSHStatisticalBridge.v")
         ).read_text(encoding="utf-8")
 

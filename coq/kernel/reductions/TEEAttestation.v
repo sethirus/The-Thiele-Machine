@@ -18,9 +18,9 @@
     clothes: two runs with identical bare transcripts and different
     measurement state.
 
-    FALSIFIER: a sound and complete attestation scheme for a mu-dependent
-    claim that reads only the bare transcript. Constructing it in Coq
-    contradicts [V_does_not_factor_through_classical] directly.
+    The impossibility is conditional on the named projection collision and
+    explanation relation. A sound and complete verifier factoring through that
+    bare transcript would contradict [V_does_not_factor_through_classical].
 
     This file does not model side channels, key management, or the CPU
     vendor's signing PKI; the trust surface it names is structural. *)
@@ -107,7 +107,7 @@ Definition report_B : TEEReport :=
 
 (** The two reports are classically indistinguishable: their projections
     are the kernel's shadow-trace equality, verbatim. *)
-(* INQUISITOR NOTE: alias for po1_cond2_shadow_traces_equal — deliberate vocabulary lift of the kernel collision onto TEEReport projections for MAIN 1. *)
+(* SCOPE NOTE: alias for po1_cond2_shadow_traces_equal — deliberate vocabulary lift of the kernel collision onto TEEReport projections for MAIN 1. *)
 Lemma reports_project_equal :
   report_projection report_A = report_projection report_B.
 Proof.
@@ -152,8 +152,8 @@ Qed.
     explanation pair by the kernel's po1 witnesses. The attestation
     content is in the instance, not the argument.
 
-    FALSIFIER: a sound and complete [V : TEEReport -> bool] together with
-    a proof of [factors_classical report_projection V]. *)
+    A counterexample would be a sound and complete [V : TEEReport -> bool]
+    together with a proof of [factors_classical report_projection V]. *)
 Theorem attestation_cannot_factor_through_bare_transcript :
   forall V : TEEReport -> bool,
     attestation_sound V ->
@@ -186,9 +186,9 @@ Qed.
     kernel states ([po1_state_A], [po1_state_B]), so the two-preimage
     collision is exhibited, not assumed.
 
-    FALSIFIER: a proof that any two reports with equal projections,
-    explained by the po1 pair, must agree on the register — that would
-    contradict this witness directly. *)
+    The displayed reports are the witness pair for the projection collision;
+    any claim that this particular pair agrees on the register contradicts the
+    constructed values. *)
 Theorem replay_is_a_two_preimage_witness :
   exists r_A r_B : TEEReport,
     report_projection r_A = report_projection r_B
@@ -299,9 +299,8 @@ Qed.
     being purchased is exactly "the register reports mu faithfully",
     which [report_explains] makes explicit.
 
-    FALSIFIER: a proof that every sound and complete verifier on
-    [TEEReport] must pay more than unit cost — the witness below costs 1
-    on every report. *)
+    The witness below supplies a unit-cost verifier once the measurement
+    register is exposed; a stronger lower bound would contradict that witness. *)
 Theorem measurement_enriched_attestation_succeeds :
   exists (decide : TEEReport -> bool) (cost : TEEReport -> nat),
     attestation_sound decide

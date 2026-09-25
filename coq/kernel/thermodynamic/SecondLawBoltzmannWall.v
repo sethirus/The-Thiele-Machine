@@ -171,7 +171,7 @@ Qed.
     Attempt: lift [Δµ ≥ 0] to the second law by assuming functions
     [T_substrate], [Q_bath_substrate], and [S_substrate]. *)
 
-(* INQUISITOR NOTE: SECTION PARAMETER — Variable and Hypothesis
+(* SCOPE NOTE: SECTION PARAMETER — Variable and Hypothesis
    declarations in this Section are section parameters that become
    EXPLICIT FORALL premises on each theorem when the Section closes.
    T_pos is physical positivity for thermodynamic temperature. The
