@@ -39,7 +39,7 @@
     Check:  every Print Assumptions line below must report
             "Closed under the global context".                              *)
 
-(* INQUISITOR NOTE: proof-connectivity gap suppressed, on purpose.
+(* SCOPE NOTE: foundation connectivity gap suppressed, on purpose.
    This file imports nothing but the Coq standard library, and that is the
    whole point: anyone can re-check it from a clean checkout with zero trust
    in me or in the kernel.  It re-proves the kernel results from scratch

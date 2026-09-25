@@ -2,10 +2,10 @@
     TURING COMPLETENESS VIA ISA — 2-COUNTER MINSKY MACHINE SIMULATION
     =========================================================================
 
-    WHY THIS FILE EXISTS:
-    The audit (G2) found that thiele_simulates_tm bypasses vm_apply.
-    This file proves: the 51-opcode ISA, executed THROUGH vm_apply,
-    can simulate a 2-counter Minsky machine.
+    This file closes the ISA-level simulation boundary. The earlier
+    thiele_simulates_tm development uses a file-local transition model; here
+    the compilation is executed through the concrete [vm_apply] semantics.
+    The target is a 2-counter Minsky machine.
 
     Minsky machines with 2 counters are Turing complete (Minsky 1967).
     The simulation uses only 5 of the 51 opcodes:
@@ -18,11 +18,8 @@
     - MI_JzDec(c,t) → [jnez r(2+c) pc+2; jump target; sub r(2+c) r(2+c) r4]  (3 instrs)
     - MI_Halt        → [halt]  (1 instr)
 
-    BOUNDEDNESS:
-    Counter values must stay below 2^64 (word64 faithfulness).
-    This is standard for hardware simulation.
-
-    0 Admitted.
+    The correspondence is bounded by the 64-bit word representation. The
+    proof file contains no [Admitted] declarations.
     ========================================================================= *)
 
 From Coq Require Import List Arith Lia PeanoNat Bool.

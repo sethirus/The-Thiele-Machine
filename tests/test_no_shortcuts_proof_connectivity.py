@@ -53,7 +53,7 @@ CONNECTIVITY_EXEMPT = {
     # imports no VM semantics on purpose: the floor follows from the cost
     # schedule alone. The VM teeth are in CommitmentCostDecomposition.v
     # (imports VMState/VMStep/SimulationProof), and A2Payoff.v is the
-    # aggregator that combines the two. Carries the matching INQUISITOR NOTE.
+    # aggregator that combines the two. Carries the matching SCOPE NOTE.
     "CommitmentPredicateAdequacy",
     # Substrate.v is the abstract A2-respecting substrate typeclass that the
     # 51-opcode VM instantiates via VMSubstrateInstance.v. It is
@@ -180,10 +180,13 @@ def test_extraction_exports_core_vm_semantics() -> None:
 #
 # The alternative is what these files used to do: import VMState/VMStep and
 # never use them, which satisfies a reachability check while telling the
-# reader nothing. A waiver states the truth and gets counted in the WAIVERS
-# census in INQUISITOR_REPORT.md.
+# reader nothing. A scope marker states the truth next to the code it
+# describes.
 _CONNECTIVITY_WAIVER_RE = re.compile(
-    r"INQUISITOR NOTE.*proof[- ]?connect", re.IGNORECASE
+    r"(?:SCOPE NOTE.*proof[- ]?connect|"
+    r"SCOPE NOTE.*(?:foundation connectivity|standalone proof scope)|"
+    r"PROOF SCOPE:\s*standalone algebra)",
+    re.IGNORECASE,
 )
 
 

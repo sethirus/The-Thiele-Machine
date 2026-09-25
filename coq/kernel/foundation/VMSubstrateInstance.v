@@ -91,7 +91,7 @@ Qed.
     that consumes it.
 *)
 
-(* INQUISITOR NOTE: SECTION PARAMETER — the Variable and Hypothesis
+(* SCOPE NOTE: SECTION PARAMETER — the Variable and Hypothesis
    declarations in this Section are section parameters that become
    EXPLICIT FORALL premises on every consumer when the Section closes.
    The recurrence field concerns the chosen bounded [vm_run], and the
@@ -122,7 +122,7 @@ Section VMSubstrateConstruction.
       VM-corollary remains parameterized over it.
       The minimal nat-coded substrate (NatSubstrateInstance.v) discharges
       the analogous predicate unconditionally for its own language. *)
-  (* INQUISITOR NOTE: SECTION PARAMETER — [vm_representable] and the
+  (* SCOPE NOTE: SECTION PARAMETER — [vm_representable] and the
      [vm_recursion_theorem] Hypothesis below are section parameters that
      become EXPLICIT FORALL premises on every consumer when the Section
      closes. The substrate-level limitative theorem is discharged

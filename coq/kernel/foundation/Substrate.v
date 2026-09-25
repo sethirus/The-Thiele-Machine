@@ -154,7 +154,7 @@ Class Substrate : Type := {
 
 (** ** Basic facts about [prog_equiv] *)
 
-(* INQUISITOR NOTE: ABSTRACT INTERFACE — the Sections in this file are
+(* SCOPE NOTE: ABSTRACT INTERFACE — the Sections in this file are
    parameterized over a Substrate typeclass instance. Closing each section
    discharges the Context binding as an EXPLICIT FORALL premise on the
    contained lemmas. The typeclass binding is a section parameter, not a
@@ -182,7 +182,7 @@ End ProgEquivFacts.
     reachable from another by any finite chain of atomic steps, the
     target's mu dominates the source's mu. *)
 
-(* INQUISITOR NOTE: ABSTRACT INTERFACE — section parameterized over a
+(* SCOPE NOTE: ABSTRACT INTERFACE — section parameterized over a
    Substrate typeclass instance. See note above ProgEquivFacts for the
    discipline. Closing the section discharges the binding as an EXPLICIT
    FORALL premise on the contained lemmas. *)

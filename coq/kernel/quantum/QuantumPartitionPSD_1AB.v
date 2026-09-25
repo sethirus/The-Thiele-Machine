@@ -1,11 +1,11 @@
-(** Q_{1+AB} matrix certificates for specified correlators and higher
-    moments. The integer checks imply PSD of the constructed 9x9 matrix.
-    Their soundness does not assert completeness for quantum behaviors or
-    construct a Hilbert-space realization. The zero-higher-moment check
-    restricts the correlators to a unit ball and rejects the all-ones
-    deterministic strategy as well as the PR box. *)
+(** Q_{1+AB} matrix certificates for specified correlator slots and higher
+    moment slots. The integer checks imply PSD of the constructed 9x9 real
+    polynomial matrix. Their soundness does not assert completeness for
+    quantum behaviors or construct a Hilbert-space/operator realization.
+    The zero-higher-moment check restricts the correlators to a unit ball and
+    rejects the all-ones deterministic strategy as well as the PR box. *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver, extends the PSD-iff-contractive
+(* SCOPE NOTE: standalone proof scope, extends the PSD-iff-contractive
    bridge from the 5x5 Q_1 matrix to the 9x9 Q_{1+AB} matrix in the bipartite
    CHSH scenario (Navascues-Pironio-Acin 2008). *)
 
@@ -83,7 +83,10 @@ Definition PSD9 (M : Matrix9) : Prop :=
     Section 2. The 9×9 Q_{1+AB} moment matrix.
     ========================================================================
 
-    Indices (rows and columns) name operators in this order:
+    Indices (rows and columns) name formal basis slots in this order. The
+    labels are chosen to match the usual NPA notation, but this file proves
+    properties of the explicit real matrix below; it does not define
+    operators, adjoints, commutators, or word-reduction semantics:
       0: I
       1: A_1
       2: A_2
@@ -94,12 +97,13 @@ Definition PSD9 (M : Matrix9) : Prop :=
       7: A_2 B_1
       8: A_2 B_2
 
-    Algebraic identities used to fill in the matrix:
+    Algebraic identities used to fill in the matrix by convention:
       A_i^2 = B_j^2 = I,  ⟨A_i⟩ = ⟨B_j⟩ = 0,
       ⟨A_1 A_2⟩ = ⟨B_1 B_2⟩ = 0,  [A_i, B_j] = 0.
 
-    Free parameters: E_{ij} (four CHSH correlators) and γ_1..γ_5 (five
-    higher-order moments). *)
+    Free real parameters: E_{ij} (four correlator slots) and γ_1..γ_5
+    (five higher-order moment slots). Any operator interpretation requires a
+    separate representation theorem and is not used by the PSD proofs. *)
 
 Definition q1ab_moment_matrix
   (e00 e01 e10 e11 : RealNumber)
@@ -997,7 +1001,7 @@ Qed.
     (1,1,1,-1) along with the PR box. Certifying wider slices of Q_{1+AB}
     needs caller-supplied gamma values with their own column-contractivity
     argument, which the theorem below accepts as a hypothesis. *)
-(* INQUISITOR NOTE: alias for caller-facing API surface (renaming of
+(* SCOPE NOTE: alias for caller-facing API surface (renaming of
    column_contractive_q1ab_implies_psd9 to record intended use). *)
 Theorem q1ab_caller_supplied_gamma_real_check_implies_psd9 :
   forall (e00 e01 e10 e11 g1 g2 g3 g4 g5 : RealNumber),
@@ -5209,21 +5213,20 @@ Qed.
 (** ========================================================================
     Section 17. Regression guard: the four-body conjugate-cell sign.
 
-    The two four-body cells of the Q_{1+AB} matrix are
-      (A_1B_1, A_2B_2) = <A_1 A_2 B_1 B_2> = g5
-      (A_1B_2, A_2B_1) = <A_1 A_2 B_2 B_1> = -g5
-    They are NEGATIVES, because under the matrix's own <B_1 B_2> = 0 (B_1 ⊥ B_2,
-    so {B_1,B_2}=0) one has <A_1A_2 B_2B_1> = -<A_1A_2 B_1B_2>. That minus sign
-    is the operator anticommutator that powers a CHSH violation.
+    The two four-body cells of the Q_{1+AB} matrix are assigned the opposite
+    signs
+      (A_1B_1, A_2B_2) = g5
+      (A_1B_2, A_2B_1) = -g5.
+    This is a convention of the explicit real polynomial matrix. It is not
+    derived here from an operator anticommutator, adjoint, or word-reversal
+    semantics. Had both cells carried the same value, the formal matrix and
+    its PSD region would change. The regression examples below guard this
+    formal sign choice; they do not establish a physical interpretation of
+    either matrix. *)
 
-    Had both cells carried the SAME value (forcing B_1 B_2 = B_2 B_1, i.e.
-    commuting measurements), the certifiable region would collapse to the
-    classical polytope |S| <= 2 and the two facts below would be UNPROVABLE:
-    no super-classical correlator is PSD-completable when the cells coincide.
-    A [Print Assumptions] audit cannot see this — a true theorem about a
-    mislabeled matrix still passes. These computational guards can. *)
-
-(** The cells are conjugate (negatives), not equal. Reverting to +g5 breaks this. *)
+(** The two cells use opposite signs by the explicit real-matrix convention,
+    not by a proved operator-adjoint or word-reversal theorem. Reverting to
+    +g5 changes the formal matrix and breaks the checked regression below. *)
 Example q1ab_four_body_cells_are_conjugate :
   forall e00 e01 e10 e11 g1 g2 g3 g4 g5 : RealNumber,
     q1ab_moment_matrix e00 e01 e10 e11 g1 g2 g3 g4 g5 j6 j7

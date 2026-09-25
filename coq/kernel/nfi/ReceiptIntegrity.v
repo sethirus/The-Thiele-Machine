@@ -1,15 +1,16 @@
-(** ReceiptIntegrity: receipts really bind μ to execution
+(** ReceiptIntegrity: predicates for receipt arithmetic and chaining
 
   This file defines the minimum integrity conditions for a receipt: the
   claimed post-state μ must equal pre-state μ plus the instruction cost,
-  and the μ values must stay inside the hardware range. The point is
-  narrow and operational. A valid receipt chain shows that μ was earned by
-  the recorded computation, not fabricated afterward.
+  and the μ values must stay inside the chosen natural-number range. The
+  point is narrow and operational. A valid value of these predicates
+  establishes those stated equalities and bounds; it does not authenticate
+  an externally supplied history.
 
-  Forged μ deltas are rejected by receipt_mu_consistent. Overflow-style
-  receipts are rejected by receipt_mu_in_range. The key equalities are not
-  left informal; they are built directly into the predicates and their
-  boolean checkers.
+  A receipt with an inconsistent μ increment is rejected by
+  receipt_mu_consistent. A receipt outside the selected range is rejected by
+  receipt_mu_in_range. The key equalities are not left informal; they are
+  built directly into the predicates and their boolean checkers.
 
   *)
 
@@ -21,19 +22,19 @@ Require Import Kernel.VMStep.
 
 Module ReceiptIntegrity.
 
-(** Receipt Structure
+(** Receipt structure
     
-    A receipt binds:
-    - The instruction (with its embedded mu_delta claim)
-    - Pre-state hash
-    - Post-state hash
+    A receipt records:
+    - The instruction
+    - The pre-state and post-state μ values
+    - Abstract pre-state and post-state hash fields
     
-    The key integrity property: mu_delta in the instruction MUST equal
-    the cost that instruction_cost would return.
+    The key arithmetic property is that the instruction's scheduled cost
+    agrees with the recorded μ increment.
     *)
 
-(** State hash - represented as a natural number for simplicity.
-    In the Python/Verilog implementation, this is SHA-256. *)
+(** Abstract state-hash field. This development compares the stored natural
+    numbers for equality; it does not define a cryptographic hash function. *)
 Definition state_hash := nat.
 
 (** μ Range Constants (Q16.16 Fixed Point)
@@ -75,25 +76,25 @@ Record Receipt := {
   receipt_post_state_hash : state_hash;
 }.
 
-(** Instruction Cost Consistency
+(** Instruction cost consistency
     
-    CRITICAL INVARIANT: The mu_delta embedded in an instruction must equal
-    the cost computed by instruction_cost.
+    The receipt's instruction cost is the value computed by
+    instruction_cost.
     
-    This is definitionally true by construction (mu_delta IS the cost),
-    but we make it explicit as the verification criterion.
+    We expose that value through instruction_mu_delta and use it as the
+    verification criterion for the receipt arithmetic.
     *)
 
 Definition instruction_mu_delta (instr : vm_instruction) : nat :=
   instruction_cost instr.
 
-(** Receipt Validity Predicate
+(** Receipt validity predicate
     
-    A receipt is VALID iff:
+    The arithmetic predicate requires:
     1. post_mu = pre_mu + instruction_cost(instruction)
-    2. The state transition is deterministic (single step)
     
-    This is the Coq specification that Python must enforce.
+    The separate receipt_valid_for_step predicate below adds an explicit
+    VMState transition witness when those states are available.
     *)
 
 Definition receipt_mu_consistent (r : Receipt) : Prop :=
@@ -112,11 +113,11 @@ Proof.
   reflexivity.
 Qed.
 
-(** μ Range Validity
+(** μ range validity
     
-    CRITICAL: Both pre_mu and post_mu must be in valid Q16.16 range.
-    This prevents overflow attacks where Python accepts values that
-    hardware cannot represent.
+    Both pre_mu and post_mu must be in the selected range. This is a
+    representation predicate for the chosen bound; it is not a proof about
+    a separate implementation's arithmetic or transport layer.
     *)
 
 Definition receipt_mu_in_range (r : Receipt) : Prop :=
@@ -160,13 +161,11 @@ Proof.
   reflexivity.
 Qed.
 
-(** Full Receipt Validity
+(** Receipt validity for a supplied VM step
     
-    A receipt is fully valid iff:
-    1. μ arithmetic is consistent (receipt_mu_consistent)
-    2. The instruction could legally execute from pre_state to post_state
+    This predicate combines μ arithmetic with a supplied VM step witness.
     
-    Condition 2 requires witnessing that vm_step holds.
+    The transition condition requires witnessing that vm_step holds.
     *)
 
 Definition receipt_valid_for_step (r : Receipt) (s_pre s_post : VMState) : Prop :=
@@ -191,9 +190,9 @@ Definition chain_links_mu (rs : list Receipt) : Prop :=
     nth_error rs (S i) = Some r2 ->
     r1.(receipt_post_mu) = r2.(receipt_pre_mu).
 
-(** State hash chain links: post_hash of r1 = pre_hash of r2
-    This prevents state forgery attacks where an attacker creates
-    receipts claiming to continue from a different state. *)
+(** State-hash-field chain links: post field of r1 = pre field of r2.
+    This is an equality condition on the stored fields. It is not a
+    cryptographic authentication or collision-resistance claim. *)
 Definition chain_links_hash (rs : list Receipt) : Prop :=
   forall i r1 r2,
     nth_error rs i = Some r1 ->
@@ -261,12 +260,15 @@ Definition receipt_chain_valid_b (rs : list Receipt) (initial_mu : nat) : bool :
   | r :: _ => Nat.eqb r.(receipt_pre_mu) initial_mu
   end.
 
-(** Main Theorem: Valid Receipt Chain Proves μ
+(** Main theorem: a valid receipt chain fixes the ledger sum
     
     If a receipt chain is valid starting from initial_mu,
     then the final_mu equals the sum of all instruction costs.
     
-    This is the foundational theorem: VALID RECEIPTS PROVE WORK.
+    This is a schedule-relative arithmetic theorem: the final recorded μ
+    equals the initial μ plus the sum of the instruction costs in the chain.
+    It does not establish that an external party generated the chain by
+    executing the instructions.
     *)
 
 Fixpoint chain_total_cost (rs : list Receipt) : nat :=
@@ -447,8 +449,10 @@ Qed.
     chain to be collision-resistant, which is a cryptographic assumption this
     development neither makes nor needs.
 
-    FALSIFIER: Produce a chain satisfying receipt_chain_valid whose
-    chain_final_mu differs from the sum of its instruction costs.
+    The exact boundary is the predicate above: a chain satisfying
+    [receipt_chain_valid] must have the stated final ledger equal to the
+    stepwise cost sum. This theorem does not provide unforgeability or a
+    cryptographic adversary model.
     *)
 
 Theorem valid_chain_mu_equals_computation :
@@ -485,12 +489,12 @@ Proof.
     exact Hfinal.
 Qed.
 
-(** Forgery Detection
+(** Inconsistent-increment detection
     
     Any receipt with mu_delta ≠ instruction_cost is INVALID.
     
-    This directly addresses the Python vulnerability: forged receipts
-    that claim arbitrary mu_delta will fail receipt_mu_consistent_b.
+    A receipt whose supplied increment differs from the instruction's
+    scheduled cost cannot satisfy receipt_mu_consistent.
     *)
 
 Definition is_forged_receipt (r : Receipt) (claimed_mu_delta : nat) : Prop :=
@@ -513,12 +517,10 @@ Proof.
   contradiction.
 Qed.
 
-(** Overflow Attack Detection
+(** Out-of-range receipt detection
     
-    Any receipt with μ values outside Q16.16 range is INVALID.
-    
-    This addresses the Python overflow vulnerability: receipts claiming
-    huge μ values that hardware cannot represent.
+    Any receipt with μ values outside the selected range is invalid under
+    receipt_mu_in_range.
     *)
 
 Definition is_overflow_receipt (r : Receipt) : Prop :=
@@ -548,23 +550,14 @@ Proof.
   exact (overflow_receipt_fails_range_check r Hoverflow Hrange).
 Qed.
 
-(** ATTACK MITIGATION SUMMARY
-    
-    The Python forgery attack worked because verify() only checked signature,
-    not μ arithmetic.
-    
-    FIX:
-    1. receipt_mu_consistent_b(r) must return true
-    2. For chains: receipt_chain_valid_b(rs, 0) must return true
-    
-    IMPLEMENTATION NOTE:
-    instruction_cost is computed by the OCaml extracted runner
-    (build/thiele_core.ml), not reimplemented in any wrapper layer.
+(** Implementation boundary note
 
-    IMPLEMENTATION IN VERILOG:
-    
-    wire mu_valid = (post_mu == pre_mu + instr_cost);
-    assign receipt_valid = signature_valid && mu_valid;
+    An implementation that uses these predicates must require
+    receipt_mu_consistent_b for an individual receipt and
+    receipt_chain_valid_b for a chain. Those checks cover the formal
+    arithmetic and link conditions defined here. Signature validation,
+    authenticated state hashing, and any hardware transport contract are
+    separate interfaces and are not defined in this module.
     *)
 
 End ReceiptIntegrity.

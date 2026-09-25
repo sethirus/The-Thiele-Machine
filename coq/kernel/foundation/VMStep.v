@@ -11,35 +11,14 @@ From Kernel Require Import CertCheck VMState.
    F3_CrossLink.v) keep their own scope discipline. *)
 Local Open Scope nat_scope.
 
-(** VMStep: How the machine actually runs.
+(** VMStep: how the machine runs.
 
-    This file defines the 51-opcode ISA and the vm_step relation that governs
-    every state transition. Every instruction has an explicit μ-cost. Every step
-    either succeeds or latches the error flag. No undefined behavior.
-
-    The Thiele Machine isn't just a model on paper. This IS the model. Every
-    instruction is executable, every cost is explicit, every failure mode is
-    named. If you find a step that violates μ-monotonicity or observable locality,
-    the whole thing breaks. That's not a figure of speech. The proofs in
-    MuLedgerConservation.v and KernelPhysics.v would literally fail to compile.
-
-    Three properties hold for all 51 opcodes:
-    - Deterministic: same (state, instruction) pair → same output state.
-      Proven: SimulationProof.vm_step_deterministic.
-    - μ-Monotonic: vm_mu never decreases.
-      Proven: MuLedgerConservation.vm_mu_monotonic_single_step.
-    - Observationally local: ops don't affect unrelated module observables.
-      Proven: KernelPhysics.observational_no_signaling.
-
-    LASSERT uses a SAT certificate plus a non-triviality witness instead of
-    calling an oracle. The success path requires two checkable facts: one
-    assignment satisfies the formula, and one assignment falsifies it. That
-    blocks tautology inflation at the opcode boundary. UNSAT proof checking
-    (kind=false) is NOT implemented. It always fails. This is documented.
-
-
-    To falsify: If ANY instruction violates μ-monotonicity, NoFreeInsight
-    is false. If ANY step is nondeterministic, bisimulation breaks. Test it. *)
+    This file defines the 51-opcode instruction type and the [vm_step] relation for state transitions.
+    Each instruction has an explicit μ-cost, and failure paths latch the error flag instead of leaving a state undefined.
+    The checked transition properties are determinism, nondecreasing μ, and the locality claims used by the observation proofs.
+    Their proof names are [SimulationProof.vm_step_deterministic], [MuLedgerConservation.vm_mu_monotonic_single_step], and [KernelPhysics.observational_no_signaling].
+    [LASSERT] checks a SAT certificate together with a falsifying assignment; the [kind=false] UNSAT path is not implemented and fails.
+    The comments below describe the executable contract; the theorems and tests are the evidence for it. *)
 
 Module VMStep.
 
@@ -90,9 +69,7 @@ Qed.
     μ-cost (mu_delta). The step relation applies (vm_mu + instruction_cost instr),
     making μ-monotonicity structural. You can't step without paying.
 
-    WHY μ_delta IS EXPLICIT: Kolmogorov complexity is uncomputable. The assembler
-    sets the cost in the instruction encoding; the kernel applies it. This makes
-    execution deterministic and verifiable from Coq to OCaml to Verilog.
+    The encoded cost is part of the instruction so the kernel can apply the same schedule in the executable and hardware-facing models.
 
     The quick reference:
 
@@ -139,8 +116,7 @@ Qed.
     - MORPH/COMPOSE/MORPH_ID/MORPH_DELETE/MORPH_ASSERT/MORPH_TENSOR/MORPH_GET:
       Categorical morphism operations. MORPH_ASSERT is a cert-setter.
 
-    To falsify: instruction_cost returns nat (≥ 0). vm_mu can never decrease.
-    If any instruction could produce vm_mu' < vm_mu, MuLedgerConservation.v fails. *)
+    The natural-number cost schedule makes the ledger nondecreasing; the conservation theorem checks that transition property. *)
 Inductive vm_instruction :=
 | instr_pnew (region : list nat) (mu_delta : nat)
 | instr_psplit (module : ModuleID) (left right : list nat) (mu_delta : nat)
@@ -247,21 +223,11 @@ Inductive vm_instruction :=
 | instr_chsh_lassert_1ab_g12345 (mu_delta same_g1 diff_g1 same_g2 diff_g2 same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 : nat).
 
 
-(** instruction_cost: Extract the μ-cost from an instruction.
-
-    WHY THE SPECIAL CASES:
-    - LASSERT: flen * 8 + S cost. The kernel charges the encoded formula
-      units as concrete bits, then adds S cost.
-    - EMIT: payload_bit_length payload + S cost. The payload is unfolded into
-      actual Boolean bits before charging.
-    - REVEAL, READ_PORT: bits + S cost. The instruction carries the bit count.
-    - LJOIN, CERTIFY, MORPH_ASSERT: S cost (always ≥ 1).
-      These are the cert-setters. The S wrapper guarantees cost ≥ 1 regardless of
-      what the programmer puts in mu_delta. Zero-cost certification is impossible.
-    - Everything else: cost = mu_delta as declared (can be 0).
-
-    This table is the exact specification of the cost model. If you think NoFreeInsight
-    is wrong, start here. *)
+(** [instruction_cost] is the complete scheduled cost function. The assertion
+    and receipt-bearing instructions add their payload size to the successor
+    floor; [LJOIN], [CERTIFY], and [MORPH_ASSERT] have the positive successor
+    floor without a payload term; all remaining constructors use their encoded
+    [mu_delta]. This definition is the schedule consumed by the ledger lemmas. *)
 Definition instruction_cost (instr : vm_instruction) : nat :=
   match instr with
   | instr_pnew _ cost => cost
@@ -377,12 +343,7 @@ Proof.
   destruct instr; simpl in H; try discriminate; simpl; lia.
 Qed.
 
-(** nofi_step_always_ok: Every instruction, unconditionally, satisfies the NoFI
-    cost policy. Non-cert-setters satisfy it because there is no constraint.
-    Cert-setters satisfy it because cert_setter_cost_pos guarantees cost ≥ 1.
-    This means the runtime check nofi_step_cost_okb never actually rejects anything.
-    It's always true by construction. The proof is: cases on is_cert_setterb; true
-    branch uses cert_setter_cost_pos + leb; false branch is reflexivity. *)
+(** [nofi_step_always_ok] proves that the boolean cost-policy check accepts every instruction under this ISA's own cost function. *)
 Lemma nofi_step_always_ok : forall instr, nofi_step_cost_okb instr = true.
 Proof.
   intros instr.
@@ -392,8 +353,7 @@ Proof.
   - reflexivity.
 Qed.
 
-(** nofi_trace_always_ok: Every trace satisfies the NoFI cost policy.
-    Follows immediately from nofi_step_always_ok + forallb_forall. One line. *)
+(** [nofi_trace_always_ok] lifts the per-instruction policy result to a list of instructions. *)
 Lemma nofi_trace_always_ok : forall trace, nofi_trace_cost_okb trace = true.
 Proof.
   intros trace.
@@ -414,18 +374,7 @@ Definition is_bit (n : nat) : bool :=
 Definition chsh_bits_ok (x y a b : nat) : bool :=
   andb (andb (is_bit x) (is_bit y)) (andb (is_bit a) (is_bit b)).
 
-(** apply_cost: Apply μ-cost to current ledger.
-
-    WHY: This is where μ-monotonicity is enforced. Every instruction has
-    cost ≥ 0, so (vm_mu + cost) ≥ vm_mu always holds. The step relation
-    uses this to update vm_mu, making μ-conservation true by construction.
-
-    PROOF: instruction_cost extracts mu_delta from the instruction.
-    Since mu_delta : nat, it's ≥ 0. Addition preserves ordering.
-    Therefore apply_cost s i ≥ s.(vm_mu). QED.
-
-    This is the foundational mechanism that makes No Free Insight enforceable.
-*)
+(** [apply_cost] adds the instruction's declared cost to the current ledger. Since both values are natural numbers, the update is nondecreasing. *)
 Definition apply_cost (s : VMState) (instr : vm_instruction) : nat :=
   s.(vm_mu) + instruction_cost instr.
 
@@ -1645,30 +1594,7 @@ Definition lassert_exec_ok (s : VMState) (freg creg : nat) (kind : bool) (flen :
   andb (Nat.eqb (lassert_hw_flen s freg) flen)
        (lassert_check_ok s freg creg kind).
 
-(** vm_step: The operational semantics of the Thiele Machine.
-
-    This is the step relation: a proposition that says "executing instruction I
-    in state S produces state S'." It's inductive because there are multiple
-    constructors (one per instruction, sometimes two for success/failure paths).
-
-    WHY AN INDUCTIVE RELATION INSTEAD OF A FUNCTION:
-    The function form (vm_apply) exists in SimulationProof.v. The relation form
-    here is useful for proofs: you can pattern-match on how a step was taken,
-    extract the exact constructor with its hypotheses, and reason about it.
-    vm_apply is easier for computation; vm_step is easier for proof.
-
-    ERROR HANDLING:
-    Most instructions have a _bad or _badbits constructor for failure cases.
-    All failure constructors: (a) still advance PC, (b) still charge μ-cost,
-    (c) latch the error flag. There is NO undefined behavior. Every (state,
-    instruction) pair has exactly one applicable constructor.
-
-    DETERMINISM: vm_step is deterministic. For each (s, instr) pair, at most one
-    output state is reachable. Proven by SimulationProof.vm_step_deterministic.
-
-    To falsify: If you find two constructors that both apply to the same
-    (s, instr) with different outputs, determinism is violated and bisimulation
-    breaks. The proofs in SimulationProof.v would fail to compile. *)
+(** [vm_step] is the inductive transition relation. Its constructors cover normal and failure paths, and the accompanying proofs establish the intended total, deterministic behavior and ledger update. *)
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
 (** step_pnew: Create a fresh module. Uses hardware-style sequential numbering
     (seq 0 sz) rather than arbitrary region geometry. Module ID wraps mod 64. *)
@@ -1702,7 +1628,10 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
       - cbase + num_vars + k: falsifying assignment value for variable k
       Variables remain 1-indexed; slot 0 is ignored as before.
     false: UNSAT (always fails here).
-     flen = declared formula length in 32-bit words (drives μ-cost via flen * 8 + S cost).
+     flen = declared formula-unit count (drives μ-cost via flen * 8 + S cost).
+     The current memory encoding uses natural-number words; the factor 8 is a
+     VM pricing convention, not by itself a theorem that each unit is a byte
+     or that the charge is a physical information count.
 
      The instruction is only allowed to succeed when flen matches the in-memory
      formula header [lassert_hw_flen s freg]. A mismatch traps exactly like a

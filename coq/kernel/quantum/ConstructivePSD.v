@@ -1,9 +1,8 @@
 (** Constructive PSD via quadratic forms.
 
-  Fine's theorem says correlations are factorizable exactly when they satisfy
-  the 3x3 minor constraints that sit behind Bell's inequality. This file proves
-  the relevant PSD facts constructively, using only quadratic forms instead of
-  eigenvalues, Schur complements, or imported linear-algebra black boxes.
+  This file proves the selected PSD facts constructively, using quadratic
+  forms rather than eigenvalues, Schur complements, or imported linear-algebra
+  black boxes.
 
   The core definition is direct: M is positive semidefinite when every
   quadratic form v^T M v is nonnegative. From that starting point the file
@@ -11,17 +10,14 @@
   constraints, convexity of the PSD cone, and the fact that perfect
   correlation forces identical rows.
 
-  This matters for the Thiele machine because the classical μ=0 sector is
-  factorizable. Combined with MinorConstraints.v, the chain is:
-  μ=0 implies factorizable, factorizable correlations satisfy the Fine-style
-  3x3 constraints, and those constraints force CHSH <= 2. The constructive
-  advantage is exactly that nothing is smuggled in by axiom: these properties
-  are derived from arithmetic. A falsification would require a symmetric M
-  with v^T M v >= 0 for all v but still violating one of the derived PSD
-  consequences.
+  These are finite real-algebra consequences of the definitions in this file.
+  A later module may connect selected inequalities to a correlation model or a
+  VM cost sector, but those bridges are not supplied here. A falsification of
+  one of the stated consequences would require a symmetric M with
+  v^T M v >= 0 for all v that nevertheless violates that consequence.
 *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
    imports no kernel module.
@@ -29,8 +25,8 @@
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
 
 From Coq Require Import Reals Lra Psatz Lia.
 From Coq Require Import Fin.
@@ -476,16 +472,9 @@ Definition i2 : Fin5 := @Fin.FS 4 (@Fin.FS 3 (@Fin.F1 2)).            (* index 2
 Definition i3 : Fin5 := @Fin.FS 4 (@Fin.FS 3 (@Fin.FS 2 (@Fin.F1 1))). (* index 3 *)
 Definition i4 : Fin5 := @Fin.FS 4 (@Fin.FS 3 (@Fin.FS 2 (@Fin.FS 1 (@Fin.F1 0)))). (* index 4 *)
 
-(** Helper to match Fin5 values - for now we skip these support lemmas *)
-
-(** INQUISITOR NOTE: The quad5_support lemmas require explicit computation
-    with all 25 terms. The Fin.to_nat approach doesn't work because it returns
-    a sigma type. Instead, these should be proved by:
-    1. Unfold quad5 and sum_fin5 fully
-    2. Use the fact that multiplication by 0 kills most terms
-    3. Collect surviving terms and simplify with ring
-    
-    For now, we axiomatize the specific  constraints directly. *)
+(** The file does not state a separate quadratic-form expansion for each
+    support pattern. The 3×3 minor constraints below are proved directly by
+    evaluating quad5 on combinations of basis vectors. *)
 
 (** Constructive 3×3 Minor Constraints *)
 
@@ -760,13 +749,12 @@ Qed.
 
 (** Reduction to Symmetric Case *)
 
-(** INQUISITOR NOTE: demoted research extension, not an active closeout claim.
-    A separate CHSH-symmetry averaging lemma would be useful for a stronger
+(** A separate CHSH-symmetry averaging lemma would be useful for a stronger
     presentation of the PSD story: given M with |S(M)| <= bound, construct
     M_sym by averaging over CHSH symmetries and show S(M_sym) = |S(M)| with
-    S(M_sym) >= 0.  No active theorem in this file depends on that extension;
-    the exported closeout surface is the constructive PSD/quadratic-form
-    lemma set listed in the summary below. *)
+    S(M_sym) >= 0.  No theorem in this file depends on that extension; the
+    exported result is the constructive PSD/quadratic-form lemma set listed
+    in the summary below. *)
 
 (** Summary.
 
@@ -777,24 +765,11 @@ Qed.
    shows that perfect correlation collapses two rows together. PSD5_convex shows
    the PSD cone is convex.
 
-   All of that is proved from first principles with quadratic forms, bilinear
-   expansions, discriminant arguments, and real arithmetic. There are no hidden
-   appeals to spectral theory, Cholesky, or abstract Schur-complement machinery.
-   The 3x3 determinant condition is the algebraic expression of factorizability:
-   classical correlations must satisfy it, while quantum correlations can fail
-   it when entanglement breaks factorization.
-
-   That is why this file matters for the classical bound. Classical
-   correlations are factorizable, factorizability gives the Fine constraints,
-   and MinorConstraints.v turns those constraints into CHSH <= 2. The helper
-   lemmas in the middle of the file are the arithmetic infrastructure that makes
-   the constructive proofs go through. A falsification would require a genuinely
-   PSD symmetric matrix that still violates one of these mechanically checked
-   consequences.
-
-   MinorConstraints.v already consumes this file to obtain CHSH <= 2 for the
-   factorizable case.
+   The proofs use quadratic-form expansion, discriminant arguments, and real
+   arithmetic. They do not by themselves provide spectral theory, Cholesky
+   factorization, a physical correlation model, or a complete NPA
+   characterization. The helper lemmas are the arithmetic infrastructure for
+   the modules that import them under their own premises.
 *)
 
 Definition fin_to_nat_anchor := @fin_to_nat.
-

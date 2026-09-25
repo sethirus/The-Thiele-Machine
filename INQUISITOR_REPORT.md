@@ -1,12 +1,12 @@
 # INQUISITOR REPORT
-Generated: 2026-09-20 21:51:05Z (UTC)
+Generated: 2026-09-25 19:13:13Z (UTC)
 Scanned: 435 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
-- LOW: 0
-- WAIVERS: 341 in-source suppression markers across 139 files (250 `INQUISITOR NOTE`, 91 `(* SAFE: *)`)
-  - Read the severity counts as *unsuppressed* findings. Each waiver silences one check at one site; the justification is the comment text itself. Grep for the markers to audit them.
+- LOW: 2
+- SCOPE NOTES: 328 in-source scope markers across 136 files (238 SCOPE NOTE, 90 SAFE markers)
+  - Read the severity counts as *unsuppressed* findings. Each scope note silences one check at one site; the justification is the comment text itself. Grep for the markers to audit them.
 
 ## Rules
 - `ADMITTED`: `Admitted.` (incomplete proof - FORBIDDEN)
@@ -15,7 +15,7 @@ Scanned: 435 Coq files across the repo
 - `AXIOM_OR_PARAMETER`: `Axiom` / `Parameter` (HIGH - unproven assumptions FORBIDDEN)
 - `HYPOTHESIS_ASSUME`: `Hypothesis` (HIGH - functionally equivalent to Axiom, FORBIDDEN)
 - `CONTEXT_ASSUMPTION`: `Context` with forall/arrow (HIGH - undocumented section-local axiom)
-- `CONTEXT_ASSUMPTION_DOCUMENTED`: `Context` with INQUISITOR NOTE (LOW - documented dependency)
+- `CONTEXT_ASSUMPTION_DOCUMENTED`: `Context` with SCOPE NOTE (LOW - documented dependency)
 - `SECTION_BINDER`: `Context` / `Variable` / `Variables` (MEDIUM - verify instantiation)
 - `MODULE_SIGNATURE_DECL`: `Axiom` / `Parameter` inside `Module Type` (informational)
 - `COST_IS_LENGTH`: `Definition *cost* := ... length ... .`
@@ -101,4 +101,11 @@ Scanned: 435 Coq files across the repo
 (no files scored above zero — no trivially-true or placeholder patterns detected)
 
 ## Findings
-(none)
+### LOW
+
+#### `coq/kernel/category/AlgebraicCoherence.v`
+- L218: **CHSH_BOUND_MISSING** — CHSH bound theorem \`chsh_weak_bound\` may not reference proper Tsirelson bound value.
+  - `Lemma chsh_weak_bound : forall e00 e01 e10 e11 : Q,`
+- L230: **CHSH_BOUND_MISSING** — CHSH bound theorem \`chsh_squared_bound_from_correlations\` may not reference proper Tsirelson bound value.
+  - `Lemma chsh_squared_bound_from_correlations : forall e00 e01 e10 e11 : Q,`
+

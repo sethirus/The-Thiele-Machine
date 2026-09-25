@@ -1,45 +1,19 @@
-(** * F1_LogicalErasure: deriving A2 from physical reversibility
+(** * F1_LogicalErasure: an A2 theorem from an explicit bridge premise.
 
-    The F1 frontier theorem deriving A2 (cert-flip cost-floor) from a
-    Landauer-shaped bridge over physical reversibility, formulated so the
-    physical premise and the certification conclusion remain distinct.
+    The headline theorem takes a cost-floor premise over an arbitrary boolean
+    macro-property and applies it to the certification predicate.
 
-    ** Hard requirements addressed:
+    [cert_flip_collapses_cert_classes] supplies the ISA-specific structural step.
 
-    - **B1 (no renaming-as-derivation).** The Landauer bridge's body is
-      stated in physics vocabulary (bool-valued macro-property,
-      class-collapse, mu-cost-per-bit) and is universally quantified
-      over bool macro-properties. It is NOT specialised to vm_certified.
-      The conclusion `instruction_cost i >= 1` is not a textual
-      substring of the bridge body (which uses `mu_per_landauer_bit`,
-      not `1`).
+    A false-to-true [vm_certified] transition is shown to collapse both boolean
+    classes because [vm_apply_certified] restricts the writer and its result.
 
-    - **The structural lemma does real work.** [cert_flip_collapses_cert_classes]
-      proves that cert-flips genuinely collapse the cert-class space —
-      both pre-classes ({false}, {true}) map to the post-class {true}.
-      The proof uses [vm_apply_certified] from PrimeAxiom.v, which is
-      ISA-specific (only [instr_certify _] writes vm_certified, and it
-      always writes true).
+    The calibration premise supplies [mu_per_landauer_bit >= 1].
 
-    - **B5 (no bypass markers).** No INQUISITOR NOTE / DEFINITIONAL HELPER
-      markers near any theorem in this file. If the inquisitor flags
-      anything, the proof is wrong, not the inquisitor.
+    The conclusion is obtained by composing the named bridge, the structural lemma,
+    and the calibration inequality.
 
-    - **Adversarial test.** Strip the headline theorem's proof and
-      present the bridge body to a physicist-style reviewer:
-      "for any bool-valued state predicate P, if a step maps both
-      P-classes (false, true) onto a single post-class, the step's
-      cost is at least [mu_per_landauer_bit] units." This reads as
-      Landauer's principle in cost units, not as A2 in disguise.
-
-    Derivation chain:
-      Landauer (named bridge)  +  cert-flip-collapses-classes (lemma)
-        + mu-Landauer calibration (existing)
-        ⟹ A2 (cert-flip cost-floor).
-
-    Bridge is a Prop hypothesis at the theorem level — no project-local
-    axiom is added. Print Assumptions on the headline theorem returns
-    "Closed under the global context."
+    The bridge is a theorem-level [Prop] premise, not a project-local axiom.
 *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool.
@@ -115,16 +89,13 @@ Proof.
     rewrite vm_apply_certified. reflexivity.
 Qed.
 
-(** ** Step 4 — Thiele independently verifies the Landauer bridge for
-       the cert-property.
+(** ** Step 4 — the VM discharges the cert-property subcase.
 
-    The existing Thiele cost-law theorem [no_free_certification_certified]
-    discharges the bool-class-collapse cost-floor for P = vm_certified
-    directly. This is independent confirmation that the Thiele VM
-    satisfies the Landauer bridge in the cert case — without invoking
-    the bridge as a hypothesis. The chain is therefore over-determined:
-    A2 follows both from the cost-law (existing) and from the bridge +
-    structural lemma (this file). *)
+    The existing theorem [no_free_certification_certified] discharges the
+    bool-class-collapse cost floor for [P = vm_certified] directly.
+
+    This lemma proves the VM-specific subcase without using the abstract bridge
+    as a premise. It does not discharge the bridge for every macro-property. *)
 
 Lemma thiele_cost_law_satisfies_landauer_for_cert :
   forall i : vm_instruction,
@@ -136,7 +107,7 @@ Proof.
   exact (no_free_certification_certified s i Hf Ht).
 Qed.
 
-(** ** Step 5 — headline theorem: A2 from Landauer's principle.
+(** ** Step 5 — headline theorem: A2 from the named bridge.
 
     Given Landauer's principle (named physical bridge, parameterised
     by [mu_per_landauer_bit], the mu-cost equivalent of one Landauer
@@ -145,17 +116,12 @@ Qed.
     [coq/kernel/NoFIToEinstein.v]), A2 follows by composition with the
     structural lemma above.
 
-    Reading note for the inquisitor and the user:
-    - Bridge body has shape `instruction_cost i >= mu_per_landauer_bit`.
-    - Conclusion has shape `instruction_cost i >= 1`.
-    - These are textually different: the bridge body's right-hand side
-      is a variable, the conclusion's right-hand side is a literal.
-    - The proof uses lia to close the gap (cost ≥ mu, mu ≥ 1, so cost ≥ 1),
-      not just unfolding.
-    - The proof script invokes the structural lemma
-      [cert_flip_collapses_cert_classes] AND the bridge `HLandauer`
-      AND the calibration `Hcal` — three independent ingredients,
-      not just one. *)
+    The bridge supplies [instruction_cost i >= mu_per_landauer_bit] for the
+    collapsed class, and the calibration supplies [mu_per_landauer_bit >= 1].
+
+    The proof applies [cert_flip_collapses_cert_classes] before using the bridge.
+
+    The theorem is conditional on those stated premises. *)
 
 Theorem A2_from_physical_reversibility_real :
   forall (mu_per_landauer_bit : nat),

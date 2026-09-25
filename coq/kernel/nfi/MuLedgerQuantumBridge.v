@@ -1228,7 +1228,7 @@ Qed.
     This uses psd_3x3_determinant_nonneg from ConstructivePSD.v.
     *)
 
-(** INQUISITOR NOTE: quantum_realizable_zero_marginal_implies_row_bounds derives
+(** SCOPE NOTE: quantum_realizable_zero_marginal_implies_row_bounds derives
     the row-sum constraints from PSD. The constraints follow from the 3x3 minor
     determinant argument via psd_3x3_determinant_nonneg. *)
 Theorem quantum_realizable_zero_marginal_implies_row_bounds :
@@ -1338,7 +1338,7 @@ Qed.
 
 (** C4 end-to-end: quantum realizability alone implies Tsirelson bound.
     Chain: quantum_realizable → row bounds (above) → tsirelson_from_minors (existing). *)
-(** INQUISITOR NOTE: quantum_realizable_implies_tsirelson_bound is the C4
+(** SCOPE NOTE: quantum_realizable_implies_tsirelson_bound is the C4
     closure theorem. No assumed row bounds — they are DERIVED from PSD. *)
 Theorem quantum_realizable_implies_tsirelson_bound :
   forall E00 E01 E10 E11 : RealNumber,

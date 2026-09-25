@@ -66,29 +66,11 @@ Proof.
     + exists []. reflexivity.
 Qed.
 
-(** vm_apply_mu: Every instruction changes μ by exactly its declared cost.
-    This is the foundational lemma for μ-conservation. It states that when
-    you apply ANY instruction to ANY state, the resulting μ value is the
-    original μ plus the instruction's cost. No more, no less. If the cost is
-    zero, μ stays put.
-
-    Case analysis on the [vm_instruction] constructors. Each instruction's
-    semantics in [VMStep.v] computes new_mu = old_mu + instruction_cost. This
-    lemma extracts that fact from the executable function.
-
-    WHY THE PROOF IS UGLY:
-    Coq makes us handle every instruction separately. There are conditional
-    branches for graph/morphism/tensor checks and certificate assertions, but
-    in EVERY branch, the μ update is the same: add the cost. The proof cases
-    through those branches and checks the arithmetic. It's mechanical, but
-    this is the bolt that holds the ledger shut.
-    - vm_step_respects_mu_ledger
-    - bounded_model_mu_ledger_conservation
-    - vm_mu_monotonic_single_step
-
-    Find an instruction where vm_apply changes μ by something other than
-    instruction_cost. The proof breaks. The whole conservation law breaks.
-*)
+(** [vm_apply_mu] states the executable ledger rule: every instruction updates
+    [vm_mu] to its previous value plus [instruction_cost]. The proof is a case
+    analysis over the instruction constructors and the branches in [vm_apply].
+    The related trace lemmas below use this single-step equation to obtain
+    conservation and monotonicity. *)
 Lemma vm_apply_mu :
   forall s instr,
     (vm_apply s instr).(vm_mu) = s.(vm_mu) + instruction_cost instr.
@@ -454,7 +436,7 @@ Qed.
     lets later files talk about blind search work versus sighted certificate
     validation without changing the ledger theorem. *)
 
-(* INQUISITOR NOTE: abstract section — parameterized theorem.
+(* SCOPE NOTE: abstract section — parameterized theorem.
    Section Variables here are explicit forall premises when the section closes.
    mu_component_split is not a machine-specific assumption; it holds for any
    cost decomposition. All theorems export as explicit forall statements. *)
@@ -536,7 +518,7 @@ End MuDecomposition.
     reads the tail while [final_digest (rev ledger)] reads the head, so no
     general equality is claimed here. *)
 
-(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+(* SCOPE NOTE: abstract interface section — parameterized theorem.
    Hash, combine, default are type/value parameters for abstract hash algebra.
    All theorems export as explicit forall when section closes. *)
 Section GestaltIsomorphism.

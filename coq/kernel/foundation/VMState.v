@@ -21,24 +21,13 @@ Proof.
   - right. intros H. injection H. intros. contradiction.
 Defined.
 
-(** VMState: The state the machine lives in.
+(** VMState: the state carried by the VM.
 
-    Everything else — NoFI, the shadow theorem, the hardware bridge — builds on
-    the types in this file. Start here if you want to understand the machine.
-
-    The full state is 12 fields: registers, memory, PC, the μ-ledger (the cost
-    counter that never goes down), the partition graph (modules + morphisms),
-    CHSH witness buckets, certification status, and a few housekeeping fields.
-
-    Three things this file guarantees:
-    normalize_region is idempotent — normalize twice, get the same thing.
-    well_formed_graph is preserved by every operation that modifies the graph.
-    The Memory-String bridge lets the VM store and retrieve strings from memory.
-
-    These aren't nice-to-haves. Every observational equality proof depends on them.
-    If normalize_region_idempotent failed, two states with the same partition would
-    look different after one extra normalization pass. The whole comparison machinery
-    falls apart. *)
+    This file defines the registers, memory, program counter, μ-ledger, partition graph, CHSH witness buckets, certification fields, and housekeeping fields used by the VM.
+    The graph operations preserve their stated well-formedness invariant.
+    Region normalization is idempotent, so applying it again does not change a normalized region.
+    The memory/string helpers provide the representation used when the VM stores strings in memory.
+    Later observation and execution proofs depend on these definitions and invariants. *)
 
 
 Definition ModuleID := nat.
@@ -55,36 +44,18 @@ Fixpoint nat_list_mem (x : nat) (xs : list nat) : bool :=
 Definition nat_list_add (xs : list nat) (x : nat) : list nat :=
   if nat_list_mem x xs then xs else xs ++ [x].
 
-(** normalize_region: Make a region canonical — no duplicates.
-    The problem: [1;2] and [2;1;2] represent the same set of cells, but Coq's
-    = treats them as different lists. If I didn't normalize, two states with
-    "the same" partition could look different to the proofs. Whole observational
-    equality story falls apart. nodup from Coq stdlib solves it: one canonical
-    form per set. I just wrap it.
-
-    To falsify: If normalize_region wasn't idempotent, observational_no_signaling
-    would fail to compile (proven in KernelPhysics.v). *)
+(** [normalize_region] removes duplicate cell addresses so regions have a canonical list representation for the graph and observation lemmas. *)
 Definition normalize_region (region : list nat) : list nat :=
   nodup Nat.eq_dec region.
 
-(** normalize_region_nodup: After normalization, the region has no duplicates.
-    That's the whole point — every region that comes out of normalize_region is
-    a clean set, no repeated cells. If two normalized regions are list-equal,
-    they're the same set. One line: NoDup_nodup from Coq stdlib. *)
+(** [normalize_region_nodup] records the duplicate-free result of normalization. *)
 Lemma normalize_region_nodup : forall region, NoDup (normalize_region region).
 Proof.
   intro region. unfold normalize_region.
   apply NoDup_nodup.
 Qed.
 
-(** normalize_region_idempotent: Normalizing twice is the same as normalizing once.
-    Here's why this matters: throughout the codebase, states get normalized
-    whenever modules are created or updated. If normalization weren't idempotent,
-    re-normalizing an already-normalized region would produce a different result,
-    breaking observational equality — two states with "the same" module could
-    look different just because one had been through one extra update cycle.
-    Proof uses nodup_fixed_point from Coq stdlib, which says nodup on a
-    duplicate-free list is a no-op. *)
+(** [normalize_region_idempotent] records that re-normalizing an already canonical region does not change it. *)
 Lemma normalize_region_idempotent : forall region,
   normalize_region (normalize_region region) = normalize_region region.
 Proof.
@@ -1935,31 +1906,9 @@ Definition status (csrs : CSRState) : nat := csrs.(csr_status).
 Definition next_id (g : PartitionGraph) : ModuleID := g.(pg_next_id).
 Definition partitions (g : PartitionGraph) : list (ModuleID * ModuleState) := g.(pg_modules).
 
-(** VMState: Everything the machine needs to take its next step.
+(** [VMState] contains the graph, CSRs, registers, memory, program counter, ledger, tensor state, error and mode flags, witness counters, and certification flag used by the VM transition rules. The field-level conservation and preservation properties are proved elsewhere. *)
 
-    12 fields:
-    vm_graph: the partition structure (modules and morphisms)
-    vm_csrs: control/status registers (cert address, status, error code, heap base)
-    vm_regs: register file (REG_COUNT=16 registers, default 0)
-    vm_mem: data memory (MEM_SIZE=128 words, default 0)
-    vm_pc: program counter
-    vm_mu: THE μ-LEDGER. The cost counter that never goes down. Every instruction
-      adds to it. This is what No Free Insight is about. If μ could decrease, the
-      whole theorem is meaningless. Proven monotonic in MuLedgerConservation.v.
-    vm_mu_tensor: flattened 4×4 global μ-tensor (16 entries, row-major)
-    vm_err: error flag — latches on error, never clears
-    vm_logic_acc: logic engine accumulator (guards high-value opcodes; key = 0xCAFEEACE)
-    vm_mstatus: mode flag (0 = Turing mode, 1 = Thiele mode)
-    vm_witness: 8-bucket CHSH trial counters
-    vm_certified: state-based certification flag
-
-    To falsify: If any valid step decreases vm_mu, MuLedgerConservation.v
-    won't compile. If the state record is incomplete, step is undefined. *)
-
-(** WitnessCounts: 8-bucket CHSH trial recorder.
-    Each (setting, outcome) pair has its own counter:
-    wc_same_AB = # of trials with settings (A,B) that yielded same outcome,
-    wc_diff_AB = # of trials with settings (A,B) that yielded different outcome. *)
+(** [WitnessCounts] stores same/different outcome counts for each of the four setting pairs. *)
 Record WitnessCounts := {
   wc_same_00 : nat; wc_diff_00 : nat;
   wc_same_01 : nat; wc_diff_01 : nat;
@@ -2519,8 +2468,11 @@ Definition memory_word_at (mem : list nat) (addr : nat) : nat :=
 Definition serialized_coupling_pair_count (mem : list nat) (base : nat) : nat :=
   Nat.min (memory_word_at mem base) (MEM_SIZE / 2).
 
-(** Read [remaining] (source, target) pairs, two words each, starting at
-    [addr]. Mirrors [ThieleMachineComplete.load_coupling_pairs_from_mem]. *)
+(** Read [remaining] (source, target) pairs, two natural-number words each,
+    starting at [addr]. The VM's memory model stores natural values subject to
+    the word-width invariant; this helper is the reference decoder, not a
+    physical byte-stream parser. Mirrors
+    [ThieleMachineComplete.load_coupling_pairs_from_mem]. *)
 Fixpoint load_coupling_pairs_from_mem (mem : list nat) (addr remaining : nat)
   : list (nat * nat) :=
   match remaining with

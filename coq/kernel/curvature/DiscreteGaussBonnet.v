@@ -24,7 +24,7 @@
     DiscreteTopology.v and the equilateral-angle model both hold, this file
     says there isn't one. *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Arith.PeanoNat Lia Bool ZArith Reals.

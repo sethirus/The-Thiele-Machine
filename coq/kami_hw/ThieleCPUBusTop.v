@@ -437,7 +437,7 @@ Qed.
     vocabulary as the kernel VMStep semantics. *)
 Definition bus_vm_instruction_type := vm_instruction.
 
-(* INQUISITOR NOTE: connectivity anchor for isolated bus-address constants.
+(* SCOPE NOTE: connectivity anchor for isolated bus-address constants.
    All 22 busAddr constants are verified to decode correctly. *)
 Lemma bus_mmio_full_decode :
   decodeBusReg busAddrErr = Some BusRegErr /\

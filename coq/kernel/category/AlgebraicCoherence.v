@@ -1,32 +1,10 @@
-(** AlgebraicCoherence: what this file proves about CHSH
+(** This file studies a rational correlator record and a predicate made from
+    absolute-value bounds and four selected 3-by-3 polynomial minors. The
+    checked conclusions are the bounds and witnesses stated by the theorem
+    types below. There are no Hilbert-space operators or physical realization
+    premises in these definitions. *)
 
-    This file studies the CHSH parameter under a small algebraic coherence
-    predicate: correlation bounds |E|<=1 plus four 3x3 minor constraints.
-    There are no Hilbert spaces or operators in the definitions here.
-
-    WHAT IS MACHINE-CHECKED HERE:
-    - General case: |S| <= 4 from correlation bounds.
-    - Symmetric case (E00=E01=E10=e, E11=-e): 4e <= 5657/2000 when the
-      two symmetric minor constraints hold and e is non-negative.
-    - The PR-box corner S=4 violates the coherence predicate.
-    - A rational near-Tsirelson witness, e=7071/10000, satisfies the predicate
-      and reaches S=28284/10000.
-
-    WHAT IS MACHINE-CHECKED HERE (COMPLETE):
-    - algebraically_coherent_tsirelson_general: the FULL general theorem
-      S² ≤ 8 for EVERY algebraically coherent correlator.  Proved via
-      Positivstellensatz (psatz Q 4, using CSDP for the SOS certificate).
-      The symmetric case was the prior state; the general case is now closed.
-    - algebraically_coherent_tsirelson_abs: |S| ≤ 5657/2000 (≈ 2√2) for
-      every algebraically coherent correlator.
-
-    Break one of the theorem statements above, not the folklore version in
-    your head. For example, find a coherent PR-box corner, or find a symmetric
-    e satisfying the hypotheses with 4e > 5657/2000. Coq will reject the proof
-    if either claim is false.
-*)
-
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
    imports no kernel module.
@@ -34,8 +12,8 @@
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
 
 Require Import Coq.QArith.QArith.
 Require Import Coq.QArith.Qabs.
@@ -44,90 +22,29 @@ Require Import Psatz.
 
 Local Open Scope Q_scope.
 
-(** Correlators: The 4 expectation values from Bell measurements.
-
-    In Bell experiments, Alice measures x∈{0,1}, gets a∈{0,1}. Bob measures
-    y∈{0,1}, gets b∈{0,1}. The correlation E_xy = E[(2a-1)(2b-1)] measures
-    how outputs align. These 4 numbers (E00, E01, E10, E11) completely
-    characterize the statistical behavior for CHSH tests.
-
-    IMPLEMENTATION:
-    Record = syntactic sugar for 4-tuple. Pure data, no invariants enforced
-    here. Constraints come from algebraically_coherent below.
-    The CHSH calculations in this file and any downstream file that imports
-    this representation.
-*)
+(** [Correlators] is a four-field rational record. The record carries no
+    invariants; the bounds and minor conditions are introduced by
+    [algebraically_coherent]. *)
 Record Correlators := { E00:Q; E01:Q; E10:Q; E11:Q }.
 
-(** S_from_correlators: The CHSH parameter.
-
-    WHY:
-    The Bell-CHSH inequality tests whether correlations violate local realism.
-    The parameter S = E00 + E01 + E10 - E11 is the test statistic.
-    - Classical (local): |S| ≤ 2
-    - Quantum: |S| ≤ 2√2 ≈ 2.828
-    - No-signaling: |S| ≤ 4
-
-    This file only defines and bounds the statistic. Claims about μ-cost live
-    in the No Free Insight and cost-model files, not in this definition.
-
-    Find correlations achieving |S| > 4 with |E_xy| ≤ 1. Can't happen.
-    Triangle inequality forbids it.
-*)
+(** [S_from_correlators] is the displayed rational expression
+    [E00 + E01 + E10 - E11]. This file proves several algebraic bounds for
+    that expression under explicitly supplied hypotheses. *)
 Definition S_from_correlators (c : Correlators) : Q :=
   E00 c + E01 c + E10 c - E11 c.
 
-(** minor_3x3: Determinant of 3×3 correlation submatrix.
-
-    The NPA hierarchy uses moment matrix constraints to approximate quantum
-    correlations. This file uses one small piece of that idea: selected 3x3
-    principal minors must be non-negative.
-
-    FORMULA:
-    For a 3×3 correlation matrix with (1, a, b) in first row and first column,
-    the determinant is: 1 - a² - b² - c² + 2abc.
-
-    In the model used here, this expression must be ≥ 0 for the selected
-    algebraic coherence checks.
-
-    WHY NOT FULL 4×4 MATRIX:
-    The full matrix has more minors than this file needs. These 3x3 minors are
-    enough to prove the symmetric bounds below. They are not a full replacement
-    for a general NPA proof.
-
-    Find one of the later coherent witnesses with a negative selected minor.
-    The exact rational arithmetic checks would fail.
-*)
+(** [minor_3x3] is the rational polynomial
+    [1 - a^2 - b^2 - c^2 + 2abc]. It is used as a selected minor-style
+    constraint; this file does not identify the expression with a complete NPA
+    moment-matrix test. *)
 Definition minor_3x3 (a b c : Q) : Q :=
   1 - a*a - b*b - c*c + 2*a*b*c.
 
-(** algebraically_coherent: Correlations satisfying NPA-1 constraints.
-
-    This is the predicate used by this file. No Hilbert spaces. No operators.
-    Just: correlations bounded by 1, and selected moment-matrix-style minors
-    non-negative.
-
-    THE CONSTRAINTS:
-    1. |E_xy| ≤ 1 for all x,y (correlations bounded by probability)
-    2. There exist parameters (t,s) making all 3×3 minors ≥ 0
-
-    WHAT THIS CAPTURES:
-    This is an NPA-style algebraic filter. It is useful for the proofs below,
-    but this file does not prove that it is exactly the quantum correlation
-    set.
-
-    WHY TWO PARAMETERS (t,s)?
-    Each represents a different "slice" of the moment matrix. Parameter t
-    relates Alice's observables, s relates Bob's. The constraints couple
-    them to the measured correlations E_xy.
-
-    THE POINT:
-    The predicate turns part of the CHSH story into polynomial inequalities
-    over rationals. That is the part Coq can grind through directly.
-
-    Find values satisfying the theorem hypotheses but breaking the theorem
-    conclusions. That is the level of claim this file actually checks.
-*)
+(** [algebraically_coherent] is the exact predicate used by this file: four
+    rational absolute-value bounds and the existence of two rational parameters
+    satisfying four nonnegative [minor_3x3] expressions. It is an algebraic
+    filter. No theorem here identifies it with the full quantum correlation
+    set. *)
 Definition algebraically_coherent (c : Correlators) : Prop :=
   Qabs (E00 c) <= 1 /\ Qabs (E01 c) <= 1 /\ Qabs (E10 c) <= 1 /\ Qabs (E11 c) <= 1 /\
   exists t s : Q,
@@ -136,39 +53,16 @@ Definition algebraically_coherent (c : Correlators) : Prop :=
     0 <= minor_3x3 s (E00 c) (E01 c) /\
     0 <= minor_3x3 s (E10 c) (E11 c).
 
-(** Qabs_bound: Extract double inequality from absolute value bound.
-
-    WHY:
-    Coq's Qabs is opaque to automation. This lemma exposes the structure:
-    |x| ≤ y means -y ≤ x ≤ y. Used throughout to unpack correlation bounds
-    into forms that nra can manipulate.
-
-    PROOF:
-    Direct application of [Qabs_Qle_condition] from the standard library.
-*)
+(** [Qabs_bound] converts a rational absolute-value inequality into its two
+    ordered inequalities. *)
 Lemma Qabs_bound : forall x y : Q, Qabs x <= y -> -y <= x /\ x <= y.
 Proof.
   intros. apply Qabs_Qle_condition. assumption.
 Qed.
 
-(** chsh_bound_4: Baseline bound from triangle inequality.
-
-    This is the baseline. If all you know is |E_xy| ≤ 1, then triangle
-    inequality gives |S| ≤ 4. This is the no-signaling ceiling: even
-    super-quantum correlations can't exceed it.
-    Pure triangle inequality: |a+b+c-d| ≤ |a|+|b|+|c|+|d|.
-    If |a|,|b|,|c|,|d| ≤ 1, then RHS ≤ 4. Done.
-
-    The classical bound is 2 (MinorConstraints.v).
-    The symmetric rational cap near 2√2 is proved later in this file.
-    The no-signaling bound is 4 (this theorem, by triangle inequality).
-
-    This theorem does not talk about μ and does not rule out PR-box style
-    no-signaling correlations. It only says |E_xy| <= 1 caps CHSH at 4.
-
-    Find correlations with |E_xy| ≤ 1 and |S| > 4. Can't happen.
-    Triangle inequality is absolute.
-*)
+(** [chsh_bound_4] is the triangle-inequality consequence of the four
+    absolute-value premises. It is an algebraic bound for this rational record;
+    it does not classify physical correlations or mention the VM ledger. *)
 Theorem chsh_bound_4 : forall c : Correlators,
   Qabs (E00 c) <= 1 /\ Qabs (E01 c) <= 1 /\ Qabs (E10 c) <= 1 /\ Qabs (E11 c) <= 1 ->
   Qabs (S_from_correlators c) <= 4.
@@ -209,29 +103,10 @@ Proof.
     + exact H11.
 Qed.
 
-(** symmetric_tsirelson_bound: The symmetric case stays below 5657/2000.
-
-    Superseded: the general bound is closed by
-    [algebraically_coherent_tsirelson_general] below; this section's weaker
-    symmetric bound is retained as the stdlib-only stepping stone (its proof
-    needs no CSDP). It proves the symmetric pattern:
-    E00 = E01 = E10 = e and E11 = -e, under the two listed minor constraints.
-    The minor constraints with symmetric correlators force:
-    - 0 ≤ 1 - t² - 2e² + 2te²   (from first minor)
-    - 0 ≤ 1 - t² - 2e² - 2te²   (from second minor)
-    Adding these: 0 ≤ 2(1 - t² - 2e²), so 1 - 2e² ≥ 0, giving e² ≤ 1/2.
-    Therefore: (4e)² ≤ 16·(1/2) = 8, so 4e is below the rational cap
-    5657/2000, which is slightly above 2√2.
-
-    The usual story says the symmetric point is the optimizer for the full
-    problem. That convex-optimization step is not encoded here.
-
-    THE RATIONAL APPROXIMATION:
-    5657/2000 = 2.8285 > 2√2 ≈ 2.828427. Close enough for machine checking.
-
-    Find e >= 0 and a parameter t satisfying the two minor constraints while
-    4e > 5657/2000. The minor constraints force e² <= 1/2, so Coq rejects it.
-*)
+(** [symmetric_tsirelson_bound] proves the displayed rational upper bound for
+    the symmetric pattern under its stated minor premises. The rational number
+    [5657/2000] is an upper comparison value, not an exact representation of
+    an irrational optimum. *)
 Theorem symmetric_tsirelson_bound : forall e : Q,
   0 <= e ->
   (exists t : Q,
@@ -253,20 +128,10 @@ Proof.
   nra.
 Qed.
 
-(** tsirelson_from_algebraic_coherence: General bound |S| ≤ 4 from coherence.
-
-    Superseded: the tight general bound S² ≤ 8 is closed by
-    [algebraically_coherent_tsirelson_general] below, via a Positivstellensatz
-    certificate; this section's weaker |S| ≤ 4 cap is retained as the
-    stdlib-only stepping stone. It holds for ANY algebraically coherent
-    correlators, not just symmetric ones: the proof extracts the correlation
-    bounds (|E_xy| ≤ 1) and applies the triangle inequality.
-
-    That algebraic coherence doesn't make things worse - the constraints don't
-    somehow allow |S| > 4. The no-signaling bound still applies.
-    Sanity check theorems and anything that only needs the universal |S| <= 4
-    ceiling.
-*)
+(** [tsirelson_from_algebraic_coherence] projects the four absolute-value
+    premises out of [algebraically_coherent] and applies [chsh_bound_4]. It is
+    the weaker general algebraic bound retained alongside the later squared
+    bound. *)
 Theorem tsirelson_from_algebraic_coherence : forall c : Correlators,
   algebraically_coherent c ->
   Qabs (S_from_correlators c) <= 4.
@@ -278,29 +143,15 @@ Proof.
   auto.
 Qed.
 
-(** max_trace: The configuration that maximizes CHSH to S=4.
-
-    This is E00=E01=E10=1, E11=-1, giving S = 1+1+1-(-1) = 4.
-    This is the absolute maximum allowed by no-signaling constraints.
-*)
+(** [max_trace] is the rational record whose displayed expression evaluates to
+    four under the four unit bounds. The name records that value; it does not
+    assign a physical no-signaling interpretation. *)
 Definition max_trace : Correlators :=
   {| E00 := 1; E01 := 1; E10 := 1; E11 := -1 |}.
 
-(** algebraic_max_not_coherent: The S=4 configuration violates algebraic coherence.
-    This proves one sharp sanity check: the PR-box corner reaches S=4, but it
-    cannot satisfy the selected minor constraints. It does not prove that every
-    point between 2√2 and 4 is excluded.
-    The minor constraints for max_trace force:
-    - One constraint: 0 ≤ -(t-1)² → t=1
-    - Another constraint: 0 ≤ -(t+1)² → t=-1
-    These are contradictory. The parameter t can't simultaneously be 1 and -1.
-    Therefore no such t exists, so max_trace isn't algebraically coherent.
-    The top no-signaling corner is outside this coherence predicate. That is
-    the exact machine-checked claim.
-
-    Find parameters (t,s) satisfying the minor constraints for E00=E01=E10=1, E11=-1.
-    You can't. The proof shows it's impossible.
-*)
+(** [algebraic_max_not_coherent] shows that [max_trace] fails this selected
+    rational coherence predicate. It does not classify every point outside the
+    predicate or establish a physical interpretation of the witness. *)
 Theorem algebraic_max_not_coherent :
   ~ algebraically_coherent max_trace.
 Proof.
@@ -318,39 +169,12 @@ Proof.
   discriminate.
 Qed.
 
-(** What follows is the algebra I can check directly.
+(** The following lemmas isolate the rational inequalities used by the later
+    coherence theorem. The conditional squared bound keeps its extra premise
+    explicit. *)
 
-    Cauchy-Schwarz gives S² <= 4 * sum of squares. With only |E_xy| <= 1,
-    that becomes S² <= 16. If some separate theorem supplies the stronger
-    hypothesis that the four squared correlations sum to at most 2, then the
-    same algebra gives S² <= 8.
-
-    Superseded: [algebraically_coherent_tsirelson_general] below closes
-    S² ≤ 8 directly from coherence, with no sum-of-squares ≤ 2 hypothesis
-    to supply; the conditional algebra here is retained as the stdlib-only
-    stepping stone. *)
-
-(** First: Cauchy-Schwarz gives S² ≤ 4 * sum of squares
-
-    Proof: (a+b+c-d)² = a² + b² + c² + d² + 2ab + 2ac - 2ad + 2bc - 2bd - 2cd
-           
-    4(a²+b²+c²+d²) - (a+b+c-d)² 
-    = 3a² + 3b² + 3c² + 3d² - 2ab - 2ac + 2ad - 2bc + 2bd + 2cd
-    = (a-b)² + (a-c)² + (b-c)² + (a+d)² + (b+d)² + (c+d)²  [SOS decomposition]
-    
-    Each squared term is ≥ 0, so the sum is ≥ 0, hence (a+b+c-d)² ≤ 4(a²+b²+c²+d²). *)
-
-(** sum_6_squares_nonneg: Sum of squares is always non-negative.
-
-    WHY:
-    Needed for the sum-of-squares (SOS) proof technique used in
-    cauchy_schwarz_chsh. Every squared term is ≥ 0, so their sum is ≥ 0.
-    This is how I prove these polynomial inequalities without pulling in real
-    analysis machinery.
-
-    PROOF:
-    Each square is non-negative by arithmetic. Add them. Done.
-*)
+(** [sum_6_squares_nonneg] is the rational nonnegativity fact used by the
+    specialized CHSH polynomial inequality. *)
 Lemma sum_6_squares_nonneg : forall p q r s t u : Q,
   0 <= p*p + q*q + r*r + s*s + t*t + u*u.
 Proof.
@@ -364,59 +188,19 @@ Proof.
   nra.
 Qed.
 
-(** cauchy_schwarz_chsh: Specialized Cauchy-Schwarz for CHSH.
-
-    The Cauchy-Schwarz inequality states (∑aᵢbᵢ)² ≤ (∑aᵢ²)(∑bᵢ²). For the
-    specific case of CHSH = a+b+c-d, we get (a+b+c-d)² ≤ 4(a²+b²+c²+d²).
-
-    THE PROOF TECHNIQUE:
-    Sum-of-squares (SOS) decomposition. We show:
-    4(a²+b²+c²+d²) - (a+b+c-d)² = (a-b)² + (a-c)² + (b-c)² + (a+d)² + (b+d)² + (c+d)²
-
-    Since each term on the right is a perfect square, the sum is ≥ 0. Therefore
-    the left side is ≥ 0, giving us the inequality.
-
-    This avoids needing Coq's real analysis library. Pure polynomial algebra.
-    The nra tactic verifies the algebraic identity automatically.
-    The weak S² <= 16 bound and the conditional S² <= 8 bound.
-*)
+(** [cauchy_schwarz_chsh] proves the specialized rational polynomial inequality
+    used by the weak and conditional squared bounds. *)
 Lemma cauchy_schwarz_chsh : forall a b c d : Q,
   (a + b + c - d) * (a + b + c - d) <= 4 * (a*a + b*b + c*c + d*d).
 Proof.
   intros a b c d.
-  (* We prove: 4(a²+b²+c²+d²) - (a+b+c-d)² ≥ 0
-     This equals: (a-b)² + (a-c)² + (b-c)² + (a+d)² + (b+d)² + (c+d)² *)
+  (* The difference is a sum of six squares. *)
   pose proof (sum_6_squares_nonneg (a-b) (a-c) (b-c) (a+d) (b+d) (c+d)) as Hsos.
-  (* Now show the inequality holds given that the SOS is non-negative.
-     The algebraic identity is verified by expanding both sides. *)
-  (* Expanding the SOS:
-     (a-b)² = a² - 2ab + b²
-     (a-c)² = a² - 2ac + c²
-     (b-c)² = b² - 2bc + c²
-     (a+d)² = a² + 2ad + d²
-     (b+d)² = b² + 2bd + d²
-     (c+d)² = c² + 2cd + d²
-     Sum = 3a² + 3b² + 3c² + 3d² - 2ab - 2ac - 2bc + 2ad + 2bd + 2cd
-
-     4(a²+b²+c²+d²) - (a+b+c-d)²
-     = 4a² + 4b² + 4c² + 4d² - (a² + b² + c² + d² + 2ab + 2ac - 2ad + 2bc - 2bd - 2cd)
-     = 3a² + 3b² + 3c² + 3d² - 2ab - 2ac + 2ad - 2bc + 2bd + 2cd
-
-     These match! So Hsos proves the inequality. *)
   nra.
 Qed.
 
-(** correlation_squares_bound: Sum of squared correlations bounded by 4.
-
-    WHY:
-    If |E_xy| ≤ 1 for each correlation, then E_xy² ≤ 1 for each. Therefore
-    the sum of all four squared correlations is ≤ 4.
-
-    This lemma only uses individual bounds. It does not use the minor
-    constraints, and it does not prove any quantum-specific sum-of-squares
-    fact.
-    Combined with Cauchy-Schwarz to get S² <= 16.
-*)
+(** [correlation_squares_bound] uses only the four absolute-value premises. It
+    does not use the selected minor constraints. *)
 Lemma correlation_squares_bound : forall e00 e01 e10 e11 : Q,
   Qabs e00 <= 1 -> Qabs e01 <= 1 -> Qabs e10 <= 1 -> Qabs e11 <= 1 ->
   e00*e00 + e01*e01 + e10*e10 + e11*e11 <= 4.
@@ -429,23 +213,8 @@ Proof.
   nra.
 Qed.
 
-(** chsh_weak_bound: S² ≤ 16 from correlation bounds alone.
-
-    WHY "WEAK":
-    This gives |S| ≤ 4, not the tight quantum bound 2√2. It's the no-signaling
-    bound, derived purely from |E_xy| ≤ 1 without using minor constraints.
-
-    THE PROOF CHAIN:
-    1. Cauchy-Schwarz: S² ≤ 4(sum of squares)
-    2. Correlation bounds: sum of squares ≤ 4
-    3. Therefore: S² ≤ 4×4 = 16, so |S| ≤ 4
-
-    The tight Tsirelson bound needs more than individual correlation bounds.
-    This lemma does not use the coherence minors.
-    Baseline checks before any stronger hypothesis is added.
-*)
-(* SAFE: weak algebraic bound S²<=16 from unit correlator assumption; Tsirelson tightening is in CHSHExtraction.v *)
-(** Unit correlators give the weak squared bound S² <= 16. *)
+(** [chsh_weak_bound] combines the polynomial inequality with the unit
+    bounds to obtain the conditional squared bound 16. *)
 Lemma chsh_weak_bound : forall e00 e01 e10 e11 : Q,
   Qabs e00 <= 1 -> Qabs e01 <= 1 -> Qabs e10 <= 1 -> Qabs e11 <= 1 ->
   (e00 + e01 + e10 - e11) * (e00 + e01 + e10 - e11) <= 16.
@@ -456,29 +225,11 @@ Proof.
   nra.
 Qed.
 
-(** chsh_squared_bound_from_correlations: Conditional squared bound S² <= 8.
-
-    This lemma says exactly what extra fact is needed. If the four squared
-    correlations sum to at most 2, then Cauchy-Schwarz gives S² <= 8.
-
-    WHERE THAT HYPOTHESIS COMES FROM:
-    In this file, the symmetric minor lemma supplies it for the symmetric
-    pattern. The general implication from [algebraically_coherent] to this
-    sum bound is not proved here.
-    Cauchy-Schwarz gives S² ≤ 4(sum of squares). With sum of squares ≤ 2,
-    we get S² ≤ 8. Done.
-
-    A conditional squared bound. It is not, by itself, the general Tsirelson
-    theorem.
-
-    Find rational inputs satisfying the listed hypotheses with S² > 8.
-    Cauchy-Schwarz and arithmetic rule that out.
-*)
-(* SAFE: conditional S²<=8 with explicit sum-of-squares hypothesis; Tsirelson bound provided by CHSHExtraction.v *)
-(** S² <= 8 follows once the sum-of-squares bound is supplied. *)
+(** [chsh_squared_bound_from_correlations] derives the squared bound from its
+    explicitly supplied sum-of-squares premise. *)
 Lemma chsh_squared_bound_from_correlations : forall e00 e01 e10 e11 : Q,
   Qabs e00 <= 1 -> Qabs e01 <= 1 -> Qabs e10 <= 1 -> Qabs e11 <= 1 ->
-  (* Additional constraint: in any quantum realization, the sum of squares is bounded *)
+  (* The sum-of-squares inequality is an explicit premise of this lemma. *)
   e00*e00 + e01*e01 + e10*e10 + e11*e11 <= 2 ->
   (e00 + e01 + e10 - e11) * (e00 + e01 + e10 - e11) <= 8.
 Proof.
@@ -487,82 +238,34 @@ Proof.
   apply Qabs_Qle_condition in He01. destruct He01.
   apply Qabs_Qle_condition in He10. destruct He10.
   apply Qabs_Qle_condition in He11. destruct He11.
-  (* By Cauchy-Schwarz: (a+b+c-d)² ≤ 4(a²+b²+c²+d²) ≤ 4·2 = 8 *)
   pose proof (cauchy_schwarz_chsh e00 e01 e10 e11).
   nra.
 Qed.
 
-(** symmetric_minor_implies_sum_bound: Minor constraints force e² ≤ 1/2.
-
-    This is WHERE the sum-of-squares bound ≤ 2 comes from. The minor
-    constraint 0 ≤ 1 - 2e² directly gives e² ≤ 1/2. For four equal
-    correlations, 4e² ≤ 2.
-
-    THE CALCULATION:
-    minor_3x3(0, e, e) = 1 - 0² - e² - e² + 2·0·e·e = 1 - 2e²
-    If this is ≥ 0, then 1 ≥ 2e², so e² ≤ 1/2.
-
-    WHY PARAMETER t=0:
-    At the symmetric extreme point maximizing CHSH, the optimal parameter
-    is t=0. The constraint simplifies beautifully to 1 - 2e² ≥ 0.
-
-    THIS IS THE CORE OF TSIRELSON'S BOUND:
-    From e² ≤ 1/2, the symmetric CHSH value S = 4e is bounded by 2√2. This is
-    the local polynomial calculation behind the symmetric theorem.
-
-    Find e with [minor_3x3 0 e e >= 0] and 4e² > 2. The determinant would be
-    1 - 2e², so Coq's rational arithmetic rejects it.
-*)
+(** [symmetric_minor_implies_sum_bound] reduces the supplied minor inequality
+    at parameter zero to [4 * e^2 <= 2]. *)
 Lemma symmetric_minor_implies_sum_bound : forall e : Q,
-  0 <= minor_3x3 0 e e ->    (* Minor constraint for symmetric e00=e10=e *)
-  4 * (e*e) <= 2.             (* Sum of 4 equal squares ≤ 2 *)
+  0 <= minor_3x3 0 e e ->
+  4 * (e*e) <= 2.
 Proof.
   intros e Hminor.
   unfold minor_3x3 in Hminor.
-  (* 1 - 0² - e² - e² + 2·0·e·e ≥ 0 *)
-  (* 1 - 2e² ≥ 0 *)
-  (* e² ≤ 1/2 *)
-  (* 4e² ≤ 2 *)
   nra.
 Qed.
 
-(** symmetric_case_implies_tsirelson: Direct proof for symmetric config.
-
-    WHY ANOTHER SYMMETRIC This version takes t=0 explicitly and derives the 2√2 bound directly.
-    It's more transparent than symmetric_tsirelson_bound (which quantifies
-    over t). Same result, clearer proof path.
-
-    THE ARGUMENT:
-    1. Minor constraint: 0 ≤ 1 - 2e²
-    2. Therefore: e² ≤ 1/2
-    3. So: (4e)² = 16e² ≤ 8
-    4. Thus: |4e| ≤ √8 = 2√2 ≈ 2.8284
-
-    WHY THE RATIONAL BOUND 5657/2000:
-    Coq's rationals can't represent √2 exactly. We use 5657/2000 = 2.8285,
-    which is slightly larger than 2√2 ≈ 2.828427. Close enough for proofs.
-    Demonstrating the symmetric case explicitly. No general optimizer theorem
-    is proved here.
-*)
+(** [symmetric_case_implies_tsirelson] is another symmetric rational bound with
+    the parameter fixed to zero. The conclusion uses the declared comparison
+    value [5657/2000]; no irrational optimizer is represented. *)
 Theorem symmetric_case_implies_tsirelson : forall e : Q,
   Qabs e <= 1 ->
   0 <= minor_3x3 0 e e ->
   0 <= minor_3x3 0 e (-e) ->
-  Qabs (4 * e) <= (5657#2000).  (* 4e ≤ 2√2 ≈ 2.8284 *)
+  Qabs (4 * e) <= (5657#2000).
 Proof.
   intros e He Hm1 Hm2.
   unfold minor_3x3 in *.
   apply Qabs_Qle_condition in He. destruct He as [Hel Heu].
   apply Qabs_Qle_condition.
-  (* From Hm1: 1 - 2e² ≥ 0, so e² ≤ 1/2 *)
-  (* From Hm2: 1 - 2e² ≥ 0 (same constraint) *)
-  (* Therefore: -1/√2 ≤ e ≤ 1/√2 *)
-  (* And: -2√2 ≤ 4e ≤ 2√2 *)
-  (* Since 5657/2000 > 2√2 ≈ 2.8284..., we have |4e| ≤ 5657/2000 *)
-
-  (* 5657/2000 = 2.8285 *)
-  (* We need: (4e)² ≤ (5657/2000)² = 32001649/4000000 *)
-  (* From e² ≤ 1/2: (4e)² = 16e² ≤ 8 = 32000000/4000000 < 32001649/4000000 ✓ *)
   split; nra.
 Qed.
 
@@ -585,36 +288,13 @@ Proof.
   split; nra.
 Qed.
 
-(** tsirelson_config: Parameterized symmetric configuration.
-
-    This is the family of symmetric correlators: E00 = E01 = E10 = e, E11 = -e.
-    This definition lets us state and prove properties about the whole
-    symmetric family using a rational parameter e.
-
-    THE STRUCTURE:
-    Three correlations positive and equal, one negative with same magnitude.
-    This is what "symmetric" means - Alice's and Bob's measurements are
-    treated identically, and the "anti-correlated" term E11 flips sign.
-
-    S = E00 + E01 + E10 - E11 = e + e + e - (-e) = 4e. In the symmetric
-    lemmas, bounding CHSH reduces to bounding e.
-    The rational witness and the symmetric CHSH calculation below.
-*)
+(** [tsirelson_config] is the symmetric rational family
+    [E00 = E01 = E10 = e] and [E11 = -e]. *)
 Definition tsirelson_config (e : Q) : Correlators :=
   {| E00 := e; E01 := e; E10 := e; E11 := -e |}.
 
-(** tsirelson_config_S: CHSH for symmetric config is exactly 4e.
-
-    WHY PROVE THIS:
-    Makes the connection explicit. For symmetric configs, maximizing CHSH
-    reduces to maximizing e. The bound on e (from minor constraints) directly
-    translates to the bound on S.
-
-    THE CALCULATION:
-    S = E00 + E01 + E10 - E11 = e + e + e - (-e) = 4e. Pure algebra.
-    Connecting the symmetric analysis (bounds on e) to the CHSH analysis
-    (bounds on S). This equality bridges the two perspectives.
-*)
+(** [tsirelson_config_S] records the exact value of [S_from_correlators]
+    on the symmetric family. *)
 Lemma tsirelson_config_S : forall e : Q, S_from_correlators (tsirelson_config e) == 4 * e.
 Proof.
   intros e. unfold S_from_correlators, tsirelson_config. simpl. ring.
@@ -625,52 +305,18 @@ Qed.
     coherence calculation. A general optimizer proof for the full Tsirelson
     maximum is outside this file's theorem surface. *)
 
-(** tsirelson_achieving: A concrete rational configuration near 2√2.
-
-    Proof by witness. This explicit configuration proves that the coherence
-    predicate admits CHSH values very close to 2√2 using exact rationals.
-
-    THE VALUES:
-    e = 7071/10000 ≈ 0.7071 ≈ 1/√2. This gives S = 4e ≈ 2.8284 ≈ 2√2.
-
-    WHY RATIONAL APPROXIMATION:
-    Coq can't represent irrational 1/√2 exactly. We use 7071/10000, which
-    differs from 1/√2 ≈ 0.707107 by less than 0.01%. Close enough for a
-    rational witness. The exact irrational value is not represented here.
-
-    - Correlation bounds: |7071/10000| < 1 ✓
-    - Minor constraints: With t=s=0, minors check out ✓
-    - CHSH value: 4 × 7071/10000 = 28284/10000 ≈ 2.8284 ✓
-
-    These specific rational correlations satisfy algebraic coherence and reach
-    S=2.8284. That is a witness theorem, not an exact tightness theorem.
-
-    Check if this configuration satisfies algebraic coherence. It does -
-    tsirelson_achieving_coherent proves it.
-*)
+(** [tsirelson_achieving] is an exact rational witness near the comparison
+    value [2 * sqrt 2]. The theorem statements below establish the rational
+    values and predicate membership; they do not represent an irrational
+    optimizer. *)
 Definition tsirelson_achieving : Correlators :=
-  {| E00 := 7071#10000;   (* 1/√2 ≈ 0.7071 *)
+  {| E00 := 7071#10000;
      E01 := 7071#10000;
      E10 := 7071#10000;
      E11 := -(7071#10000) |}.
 
-(** tsirelson_achieving_coherent: The witness satisfies algebraic coherence.
-
-    This is the verification. The configuration tsirelson_achieving isn't just
-    some random numbers - it provably satisfies all the constraints that define
-    algebraically_coherent.
-    1. Check |E_xy| ≤ 1: |7071/10000| = 0.7071 < 1 for all four correlations.
-    2. Witness parameters: t=0, s=0
-    3. Check minors ≥ 0: all four minor constraints verify by exact rational
-       computation.
-
-    WHAT THE COMPUTATION SHOWS:
-    [minor_3x3 0 (7071/10000) (7071/10000)] is positive but tiny:
-    1918/100000000. The witness sits near the boundary, not exactly on it.
-
-    Run the computation yourself. The lia tactic verifies exact rational
-    arithmetic. No floats, no rounding, no approximation in the verification.
-*)
+(** [tsirelson_achieving_coherent] proves membership of the displayed witness
+    in the exact predicate [algebraically_coherent], using rational arithmetic. *)
 Lemma tsirelson_achieving_coherent : algebraically_coherent tsirelson_achieving.
 Proof.
   unfold algebraically_coherent, tsirelson_achieving. simpl.
@@ -684,53 +330,16 @@ Proof.
     repeat split; unfold Qle; simpl; lia.
 Qed.
 
-(** tsirelson_achieving_value: The witness achieves S ≈ 2.8284.
-
-    WHY COMPUTE THIS:
-    Explicit verification. The CHSH parameter for tsirelson_achieving is
-    S = 4 × 7071/10000 = 28284/10000 = 2.8284. This is within 0.01% of
-    2√2 ≈ 2.828427.
-
-    THE CALCULATION:
-    S = E00 + E01 + E10 - E11
-      = 7071/10000 + 7071/10000 + 7071/10000 - (-7071/10000)
-      = 4 × 7071/10000
-      = 28284/10000
-
-    This pins down the witness value exactly. No floats, no rounding story
-    hiding in the proof.
-*)
+(** [tsirelson_achieving_value] computes the exact rational value of [S] for
+    the displayed witness. *)
 Lemma tsirelson_achieving_value : S_from_correlators tsirelson_achieving == (28284#10000).
 Proof.
   unfold S_from_correlators, tsirelson_achieving. simpl. ring.
 Qed.
 
-(** tsirelson_bound_tight: Historical name for the rational witness theorem.
-    There exists an algebraically coherent configuration with S ≥ 2.8284.
-    That is exactly what the statement proves: a lower-bound witness. The
-    matching upper bound is [algebraically_coherent_tsirelson_general] just
-    below, and the witness does not represent the irrational optimizer
-    exactly.
-
-    THE WITNESS:
-    tsirelson_achieving is that configuration. It satisfies algebraic coherence
-    (tsirelson_achieving_coherent) and achieves S = 28284/10000 ≈ 2.8284
-    (tsirelson_achieving_value).
-    The coherence predicate admits a point close to 2√2. The name is stronger
-    than the statement, so trust the statement.
-
-    THE GAP FROM CLASSICAL:
-    Classical bound: 2 (MinorConstraints.v)
-    This configuration: 2.8284
-    Gap: 0.8284 ≈ 41% advantage
-
-    Superseded as the file's last word on the ceiling: the global S² ≤ 8
-    bound is closed by [algebraically_coherent_tsirelson_general] below.
-    A μ-cost theorem is not in this file either way.
-
-    Refute [tsirelson_achieving_coherent] or the exact value calculation for
-    [tsirelson_achieving]. That is the machine-checked payload.
-*)
+(** [tsirelson_bound_tight] is a lower-bound witness for the selected rational
+    predicate. It gives existence at [28284/10000]; it is not an exact
+    optimizer theorem and carries no VM or ledger claim. *)
 Theorem tsirelson_bound_tight :
   exists c : Correlators,
     algebraically_coherent c /\
@@ -743,19 +352,12 @@ Proof.
 Qed.
 
 
-(** GENERAL TSIRELSON BOUND FROM ALGEBRAIC COHERENCE
+(** The following theorem proves the global squared bound for this selected
+    rational predicate. The proof uses its minor witnesses and an SOS
+    certificate over [Q]. *)
 
-    This closes the gap noted in the file header.  For EVERY algebraically
-    coherent correlator — not just the symmetric case — S² ≤ 8, i.e. |S| ≤ 2√2.
-
-    PROOF STRATEGY:
-    Destructuring algebraically_coherent yields specific witness values t, s and
-    the four minor constraints.  With those witnesses in hand the goal reduces to
-    a degree-4 polynomial inequality over Q.  The Positivstellensatz (psatz) finds
-    the rational SOS certificate automatically. *)
-
-(* INQUISITOR NOTE: proof-connectivity — closes the algebraic Tsirelson gap.
-   psatz Q 4 finds the SOS certificate from the minor-constraint witnesses. *)
+(* SCOPE NOTE: foundation connectivity — the theorem uses the minor witnesses
+   and [psatz Q 4] supplies the required rational SOS certificate. *)
 Theorem algebraically_coherent_tsirelson_general :
   forall c : Correlators,
     algebraically_coherent c ->
@@ -773,7 +375,7 @@ Proof.
   psatz Q 4.
 Qed.
 
-(** Absolute-value form: |S| ≤ 2√2 (rational approximation). *)
+(** Absolute-value form of the preceding rational squared bound. *)
 Corollary algebraically_coherent_tsirelson_abs :
   forall c : Correlators,
     algebraically_coherent c ->

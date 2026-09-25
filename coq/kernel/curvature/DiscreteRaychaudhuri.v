@@ -1,25 +1,23 @@
-(** DiscreteRaychaudhuri: Raychaudhuri accounting on vm_graph.
+(** DiscreteRaychaudhuri: a finite expansion-rate chain on vm_graph.
 
-    This file is the discrete shadow of the Lorentzian Raychaudhuri equation.
-    The continuous picture says expansion goes down when the Ricci null term is
-    positive. Here I want the same sign story on the VM simplicial complex.
+    This file defines a finite-model analogue of the sign pattern used in a
+    Raychaudhuri-style argument. The theorem statements below operate on the
+    selected VM expressions and their explicit premises.
 
-    The annoying part is signature. CurvedTensorPipeline.v is written with a
-    Euclidean (+,+,+,+) metric, so the 00-component comes out with the wrong
-    sign for the Lorentzian focusing story. In the isotropic 4D case,
-    G_00 = - R_00^Euc. After the Lorentzian sign flip that becomes
-    R_kk^Lor = G_00. So if the effective coupling kappa is positive and the
-    mass term is positive, the Lorentzian Ricci null contraction is positive,
-    which is exactly the focusing direction we need.
+    CurvedTensorPipeline.v uses a Euclidean-signature convention, so the
+    selected 00-component has the sign recorded by the algebraic identity
+    below. The named coupling predicate supplies the positive proportionality
+    premise used to obtain the displayed inequality.
 
     That is why this file carries the named hypothesis
-    lorentzian_coupling_positive. The Euclidean pipeline does not give that
-    sign for free. You only get it after choosing the Lorentzian continuation.
+    lorentzian_coupling_positive. The sign is a premise of this finite bridge,
+    not a consequence of the Euclidean definitions alone.
 
-    What gets proved is the full chain: the isotropic algebraic identity,
-    positive coupling times positive mass, positive Lorentzian Ricci null term,
-    negative discrete expansion rate, then a weak Clausius-shaped witness built
-    from the entropy-area side. No new axioms. No admits. *)
+    What gets proved is the stated chain: an isotropic algebraic identity,
+    positive coupling times positive structural mass, the selected positive
+    Ricci expression, a negative discrete expansion rate, and a weak
+    Clausius-shaped witness. No new project-local axioms or admitted proofs
+    are introduced by this file. *)
 
 From Coq Require Import Reals Lra Psatz ZArith List Lia Arith.PeanoNat.
 Import ListNotations.
@@ -109,7 +107,7 @@ Qed.
     For isotropic metric: R_scalar = (1/a) × 4 × R_{00}
     (using g^{μν} = (1/a)·δ^{μν} and Ricci isotropy R_{11}=R_{22}=R_{33}=R_{00})
     So: G_{00} = R_{00} - (1/2)·a·(4R_{00}/a) = R_{00} - 2R_{00} = -R_{00}.  *)
-(* INQUISITOR NOTE: Algebraic identity: G00 = -R00 for isotropic 4D Euclidean metric. *)
+(* SCOPE NOTE: Algebraic identity: G00 = -R00 for isotropic 4D Euclidean metric. *)
 Theorem isotropic_einstein_ricci_relation :
   forall s v w,
     (v <> w)%nat ->
@@ -180,21 +178,12 @@ Proof.
 Qed.
 
 
-(** [lorentzian_coupling_positive]: the effective gravitational coupling kappa
-    has the Lorentzian sign we actually want.
+(** [lorentzian_coupling_positive]: a positive proportionality witness for the
+    selected diagonal expressions.
 
-    In ordinary Lorentzian GR, kappa = 8PI G > 0. In this repository the sign
-    is not automatic because the earlier curved pipeline is Euclidean. So this
-    definition is the interface point where I say: if the Lorentzian reading is
-    the physically right one, then kappa should come out positive.
-
-    To break it, compute kappa = G_00 / T_00 on a positive-mass VM state and
-    get a negative answer. That would mean the signature choice or the mass
-    interpretation is backwards.
-
-    There is already partial discharge for this in LorentzianTensorPipeline.v:
-    once mass decreases along the edge in the right way, the positivity claim
-    can be derived instead of assumed. *)
+    The predicate supplies the positive constant and the proportionality
+    equation as premises. The Euclidean definitions do not derive that
+    positivity on their own. *)
 Definition lorentzian_coupling_positive
     (s : VMState) (v w : ModuleID) (sc : SimplicialComplex4D) : Prop :=
   exists κ : R,
@@ -202,16 +191,13 @@ Definition lorentzian_coupling_positive
     forall d, (d < 4)%nat ->
       curved_einstein s sc d d v = κ * mass_stress_energy s d d v.
 
-(** [positive_mass_implies_lorentzian_ricci_positive]: The Lorentzian Ricci
-    null contraction R_{kk}^Lor = -R_{00}^Euc is positive when mass > 0
-    and the coupling κ > 0.
+(** [positive_mass_implies_lorentzian_ricci_positive]: the selected negated
+    00-component is positive under the stated structural-mass and coupling
+    premises.
 
-    PROOF:
-    1. isotropic_einstein_ricci_relation: G_{00} = -R_{00}^Euc
-    2. lorentzian_coupling_positive: G_{00} = κ × mass > 0 (for d=0)
-    3. Therefore: -R_{00}^Euc = κ × mass > 0
-    4. So R_{kk}^Lor = -R_{00}^Euc > 0  *)
-(* INQUISITOR NOTE: Positive mass + κ>0 → Lorentzian Ricci null contraction positive *)
+    The proof uses the isotropic identity and the positive proportionality
+    witness, then applies real-order arithmetic. *)
+(* SCOPE NOTE: Positive mass + κ>0 → Lorentzian Ricci null contraction positive *)
 Theorem positive_mass_implies_lorentzian_ricci_positive :
   forall s v w,
     (v <> w)%nat ->
@@ -235,14 +221,15 @@ Proof.
   lra.
 Qed.
 
-(** [positive_mass_implies_focusing]: with positive mass and κ > 0,
-    the discrete null expansion rate for the calibrated congruence is negative.
-    This means null geodesics FOCUS. The congruence converges.
+(** [positive_mass_implies_focusing]: with positive structural mass and the
+    coupling witness, the selected discrete null-expansion expression is
+    negative.
 
-    PHYSICAL MEANING: Matter (positive mass) causes null rays to converge.
-    This is the gravitational focusing theorem, proven in the discrete
-    setting up to the Lorentzian coupling sign hypothesis. *)
-(* INQUISITOR NOTE: Main Raychaudhuri theorem: positive mass → focusing. *)
+    SCOPE: Under the stated discrete mass, metric, and positive-coupling
+    hypotheses, the selected null-expansion expression is negative. The
+    theorem is an inequality in this finite model; it is not by itself a
+    derivation of a gravitational focusing law. *)
+(* SCOPE NOTE: Main Raychaudhuri theorem: positive mass → focusing. *)
 Theorem positive_mass_implies_focusing :
   forall s v w,
     (v <> w)%nat ->
@@ -271,7 +258,7 @@ Qed.
 
     This definition does not derive the numerical heat flow. It pins down the
     witness shape that the theorem below can fill. *)
-(* INQUISITOR NOTE: Raychaudhuri focusing gives the trigger for the Clausius witness. *)
+(* SCOPE NOTE: Raychaudhuri focusing gives the trigger for the Clausius witness. *)
 Definition raychaudhuri_heat_dissipation
     (hbar c_light k_B : R)
     (s : VMState) (sc : SimplicialComplex4D) (v : ModuleID)
@@ -282,11 +269,12 @@ Definition raychaudhuri_heat_dissipation
   exists dQ dS T : R,
     0 < T /\ dQ = (T * dS)%R.
 
-(** Given focusing, the Clausius-shaped witnesses exist.
+(** Given the selected negative expansion expression, the Clausius-shaped
+    witnesses exist.
     The temperature comes from unruh_temperature_pos. The entropy term comes
     from entropy_increment. This is a weak existence bridge: the proof does
     not compute heat from the focusing rate. *)
-(* INQUISITOR NOTE: Focusing + area law provide Clausius-shaped witnesses; no heat magnitude is derived here. *)
+(* SCOPE NOTE: Focusing + area law provide Clausius-shaped witnesses; no heat magnitude is derived here. *)
 Theorem focusing_implies_clausius_witnesses :
   forall (hbar c_light k_B entropy_per_bit : R)
          (s : VMState) (sc : SimplicialComplex4D) (v : ModuleID)

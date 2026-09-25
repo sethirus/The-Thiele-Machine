@@ -36,7 +36,7 @@
 
     *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
 From Coq Require Import List.
 From Kernel Require Import MuCostModel.
 
@@ -57,7 +57,7 @@ From Coq Require Import Reals.
     - Instruction locality
     - mu-monotonicity
     - Trace causality *)
-(* INQUISITOR NOTE: alias for KernelMaximalClosure — intentional compat export *)
+(* SCOPE NOTE: alias for KernelMaximalClosure — intentional compat export *)
 Theorem KernelTOE_FinalOutcome :
   KernelMaximalClosureP.
 Proof.

@@ -18,7 +18,7 @@
       [bexpr_to_vexpr] is a real recursive translation pattern-matching
       on the Kami constructors.
 
-    - **B5 (no bypass markers).** No [INQUISITOR NOTE] /
+    - **B5 (no bypass markers).** No [SCOPE NOTE] /
       [DEFINITIONAL HELPER] / [RECORD PROJECTION] markers anywhere in
       this file.
 

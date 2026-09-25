@@ -1968,7 +1968,7 @@ Local Open Scope Q_scope.
    semantic_layer: formal theorem layer
    external_interpretation: does not derive quantum mechanics from μ-accounting
 *)
-(* INQUISITOR NOTE: alias for rational_bound_ordering_and_spec - summary module export *)
+(* SCOPE NOTE: alias for rational_bound_ordering_and_spec - summary module export *)
 Theorem master_rational_chsh_predicates :
   rational_bound_ordering /\
   rational_chsh_ceiling_spec.
@@ -1995,7 +1995,7 @@ Qed.
   semantic_layer: formal theorem layer
   external_interpretation: exports the certificate; decomposition appears later in this file
 *)
-(* INQUISITOR NOTE: alias for non_circularity_verified - summary module export *)
+(* SCOPE NOTE: alias for non_circularity_verified - summary module export *)
 Theorem master_non_circularity : non_circularity_certificate.
 Proof.
   exact non_circularity_verified.
@@ -2332,7 +2332,7 @@ Qed.
 *)
 (* This summary module re-exports kernel theorems under master_* names so the
    monograph can cite one stable surface. Deliberate, no new content.
-   INQUISITOR NOTE: alias for a2_equal_trust_substitution_payoff. *)
+   SCOPE NOTE: alias for a2_equal_trust_substitution_payoff. *)
 Theorem master_a2_equal_trust_substitution_payoff :
   exposed_a2_equal_trust_substitution_spine.
 Proof.
@@ -2551,7 +2551,7 @@ Qed.
   semantic_layer: formal theorem layer
   external_interpretation: operational-class structure certificate only
 *)
-(* INQUISITOR NOTE: alias for mu_zero_is_locc_like - summary module export *)
+(* SCOPE NOTE: alias for mu_zero_is_locc_like - summary module export *)
 Theorem master_non_circular_mu_zero_locc : mu_zero_locc_correspondence.
 Proof.
   exact mu_zero_is_locc_like.
@@ -2580,7 +2580,7 @@ Definition non_circularity_nonclaims : list string :=
     - [archive/coq_unused/thielemachine/verification/FullIsomorphism.v (archived)] records a stronger
       three-layer observable-alignment story for Coq, Python, and Verilog.
     - [artifacts/proof_dependency_connectivity.json] records repository-wide
-      proof-connectivity evidence with zero disconnected files.
+      foundation connectivity evidence with zero disconnected files.
 
     The role of this file is therefore:
     - to present the kernel-story theorem bundle and its explicit boundaries
@@ -2592,7 +2592,7 @@ Definition stronger_repository_results_elsewhere : list string :=
   [ "coq/kami_hw/Abstraction.v: full KamiSnapshot abstraction to VMState, including register, memory, and partition-table projections";
     "coq/kami_hw/VerilogRefinement.v: per-instruction Verilog-to-VM simulation theorems stronger than the abstract PC/mu transfer exported here";
     "archive/coq_unused/thielemachine/verification/FullIsomorphism.v (archived): stronger three-layer observable alignment for Coq, Python, and Verilog";
-    "artifacts/proof_dependency_connectivity.json: repository-wide proof-connectivity artifact with zero disconnected files" ].
+    "artifacts/proof_dependency_connectivity.json: repository-wide foundation connectivity artifact with zero disconnected files" ].
 
 Theorem stronger_repository_results_elsewhere_explicit :
   List.length stronger_repository_results_elsewhere = 4%nat.

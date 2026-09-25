@@ -27,12 +27,9 @@
     measured by log2 differences, plus description_bits. PNEW/PSPLIT/PMERGE
     are modeled here as reversible bookkeeping with zero erasure cost.
 
-    To falsify the local lower-bound interface: provide an implementation model
-    satisfying the stated state-reduction and description-cost premises but
-    paying less than their sum.
-
-    Or choose a different physical calibration. That changes the bridge premise,
-    not the arithmetic lemmas in this file.
+    The lower-bound interface is conditional on the stated state-reduction and
+    description-cost premises. A different physical calibration would be a
+    different bridge premise, not a refutation of these arithmetic lemmas.
 
     log2_subtraction_valid proven by Nat.log2_le_mono + case analysis
 
@@ -43,7 +40,7 @@ From Coq Require Import Nat.
 Import ListNotations.
 
 From Kernel Require Import VMState VMStep StateSpaceCounting SemanticMuCost.
-(* INQUISITOR NOTE: cross-tier import for Erasure type linking mu-cost accounting
+(* SCOPE NOTE: cross-tier import for Erasure type linking mu-cost accounting
    to the normalized thermodynamic-cost interface. *)
 From Thermodynamic Require Import LandauerDerived.
 
@@ -238,10 +235,9 @@ Definition derived_instruction_cost (instr : vm_instruction) : nat :=
     That bridge is documented in NoFIToEinstein.v as
     mu_landauer_unruh_calibrated.
 
-    WHY IT STAYS: This theorem is useful for verifying that the cost accounting is
-    self-consistent. It is correctly cited as "the cost formula is consistent with
-    information theory." It is NOT cited as "the costs are derived from information
-    theory." See claim_ledger.md for the precise BRIDGE-tier status of this claim. *)
+    This theorem checks consistency of the supplied cost formula with the
+    supplied information expression. It does not derive the VM schedule from
+    information theory; the calibration remains a separate bridge premise. *)
 Theorem cost_function_unique : forall (instr : vm_instruction),
   match instr with
   | instr_lassert fa ca k flen delta =>

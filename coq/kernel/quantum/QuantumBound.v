@@ -9,7 +9,7 @@
   every cert-setting opcode and still flips cert_addr anyway. If that exists,
   the boundary theorem is wrong. *)
 
-(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity -- bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 (** The main result is quantum_admissible_implies_no_supra_cert. *)

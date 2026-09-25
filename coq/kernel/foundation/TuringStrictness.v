@@ -140,7 +140,7 @@ Qed.
     (1) Thiele reaches a graph state with higher pg_next_id in one step.
     (2) No classical program of any length can change pg_next_id from s0.
 *)
-(* INQUISITOR NOTE: Constructive existence proof. The witnesses d4_base (empty-morphism
+(* SCOPE NOTE: Constructive existence proof. The witnesses d4_base (empty-morphism
    initial state) and d4_thiele_step (PNEW instruction) are explicit constructions.
    The substantive content delegates to two non-trivial lemmas:
    D4_thiele_changes_graph (Thiele changes graph in one step) and

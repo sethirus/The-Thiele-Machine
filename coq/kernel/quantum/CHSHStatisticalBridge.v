@@ -1,32 +1,6 @@
-(** CHSHStatisticalBridge: count the CHSH evidence, then ask what it rules out
-
-    This file does one job. It starts from aggregate CHSH witness counts and
-    pushes them through two deterministic facts that already live in the repo:
-    the Bell-side contradiction and the W2 counting lower bound from
-    QuantitativeNoFI.v.
-
-   N valid CHSH_TRIAL instructions
-   [chsh_trial_count_lower_bound in QuantitativeNoFI.v]
-     ↓
-   N counted CHSH trials in vm_witness
-     ↓
-   observed CHSH statistic S from WitnessCounts
-   [chsh_stat_from_wc, defined here]
-     ↓
-   if S > 2, no local deterministic strategy fits those counts
-   [proved here through local_bound_for_wc]
-
-        1. how to read S off the witness counters
-    2. the algebraic ceiling |S| <= 4
-    3. a concrete witness-count pattern with S = 4, checked by vm_compute
-    4. the local deterministic Bell bound |S| <= 2 for locally consistent counts
-    5. S > 2 means the counts are not locally consistent
-    6. hitting a trial-count threshold still costs that many CHSH_TRIAL steps
-
-    There is no Hoeffding theorem here, and no confidence theorem.
-    Finite-sample certification needs a real probability library and
-    explicit sampling assumptions; this file does not provide either.
-    The deterministic chain stands on its own. *)
+(** This file connects aggregate [WitnessCounts] to two deterministic results.
+    It computes the CHSH statistic, proves the algebraic ceiling, exhibits one count pattern with value 4, proves that locally consistent deterministic counts stay within 2, and connects counted trial instructions to the W2 cost lower bound.
+    It does not prove a Hoeffding bound, a confidence level, or a physical Bell-test conclusion. *)
 
 From Coq Require Import List Arith.PeanoNat Lia QArith QArith.Qabs ZArith Lra PArith.BinPos PArith.Pnat.
 Import ListNotations.
@@ -37,61 +11,33 @@ From Kernel Require Import VMState VMStep SimulationProof
 
 Open Scope Q_scope.
 
-(** CHSH statistic from witness counts.
+(** [chsh_stat_from_wc] computes the four-setting CHSH expression from the eight same/different witness buckets.
+    The last term swaps its buckets to implement the chosen minus sign. *)
 
-    WitnessCounts stores eight buckets: same and diff for each setting pair.
-    From that I build the usual correlators
-
-      E(X,Y) = (same_XY - diff_XY) / (same_XY + diff_XY)
-
-    and then the CHSH statistic
-
-      S = E(0,0) + E(0,1) + E(1,0) - E(1,1).
-
-    I absorb the minus sign on E(1,1) by swapping same and diff in the last
-    term, so the code can sum four expressions with the same shape.
-
-    If you want the falsification condition for that sign convention, it is
-    local_bound_for_wc below. For every deterministic local strategy with all
-    four settings sampled, this witness-count formula lands at |S| = 2.
-*)
-
-(** Per-setting correlator: (pos - neg) / (pos + neg).
-    Returns 0 when no trials for this setting (convention: undefined → 0). *)
+(** [chsh_correlator_q] returns (pos - neg) / (pos + neg), with rational zero when the denominator is zero by convention. *)
 Definition chsh_correlator_q (pos neg : nat) : Q :=
   let total := (pos + neg)%nat in
   if Nat.eqb total 0 then 0
   else (Z.of_nat pos - Z.of_nat neg # Pos.of_nat total).
 
-(** CHSH statistic from aggregate WitnessCounts.
-    The final term uses reversed arguments: E*(1,1) = (diff_11 - same_11)/N_11. *)
 Definition chsh_stat_from_wc (wc : WitnessCounts) : Q :=
   chsh_correlator_q (wc_same_00 wc) (wc_diff_00 wc) +
   chsh_correlator_q (wc_same_01 wc) (wc_diff_01 wc) +
   chsh_correlator_q (wc_same_10 wc) (wc_diff_10 wc) +
   chsh_correlator_q (wc_diff_11 wc) (wc_same_11 wc).
 
-(** Algebraic bound |S| <= 4.
+(** The next theorem proves the algebraic ceiling using only the four correlator bounds and the triangle inequality. *)
 
-  This is the loose ceiling that comes from the triangle inequality alone.
-  It does not use locality. It does not prove Tsirelson. The stronger local
-  deterministic bound |S| <= 2 shows up later and needs more structure.
-*)
-
-(** Z.of_nat n = Zpos (Pos.of_nat n) for n > 0.
-    Proof: Z.of_nat (S k) = Zpos (Pos.of_succ_nat k) = Zpos (Pos.of_nat (S k))
-    by the Coq standard library definitions of Z.of_nat and Pos.of_nat. *)
+(** Positive naturals are represented by the corresponding positive integers in this arithmetic development. *)
 Lemma Z_of_nat_pos :
   forall n : nat, (0 < n)%nat -> Z.of_nat n = Zpos (Pos.of_nat n).
 Proof.
   intros n Hn. destruct n. lia.
-  (* Z.of_nat (S n) = Zpos (Pos.of_succ_nat n) by definition.
-     Pos.of_nat_succ : Pos.of_succ_nat n = Pos.of_nat (S n). *)
+  (* The successor representation is definitionally the positive-integer representation. *)
   rewrite <- Pos.of_nat_succ. reflexivity.
 Qed.
 
-(** Each correlator is bounded by 1 in absolute value.
-    Key arithmetic: |pos - neg| ≤ pos + neg when pos, neg ≥ 0. *)
+(** Each correlator has absolute value at most one because the absolute difference is at most the sum. *)
 Lemma correlator_abs_le_1 :
   forall p n : nat,
     Qabs (chsh_correlator_q p n) <= 1.
@@ -106,15 +52,14 @@ Proof.
     assert (Hpn : (0 < p + n)%nat) by lia.
     unfold Qabs, Qle. simpl.
     rewrite Z.mul_1_r.
-    (* Goal: Z.abs (Z.of_nat p - Z.of_nat n) <= Zpos (Pos.of_nat (p + n)) *)
+    (* Rewrite the positive denominator as the corresponding integer. *)
     rewrite <- Z_of_nat_pos by exact Hpn.
     rewrite Nat2Z.inj_add.
-    (* Goal: Z.abs (Z.of_nat p - Z.of_nat n) <= Z.of_nat p + Z.of_nat n *)
+    (* Reduce the remaining goal to the integer absolute-value inequality. *)
     apply Z.abs_le. split; lia.
 Qed.
 
-(** CHSH statistic is bounded by the algebraic ceiling of 4.
-    Proof: |a+b+c+d| ≤ |a|+|b|+|c|+|d| ≤ 1+1+1+1 = 4. *)
+(** The four correlator terms give an algebraic absolute-value bound of four. *)
 Theorem chsh_stat_algebraic_bound :
   forall wc : WitnessCounts,
     Qabs (chsh_stat_from_wc wc) <= 4.
@@ -143,18 +88,8 @@ Proof.
     + unfold Qle. simpl. lia.
 Qed.
 
-(** Concrete violation witness.
-
-    I pin down one explicit WitnessCounts value with S = 4 > 2.
-
-    It uses one trial per setting. The first three settings are all-same.
-    The (1,1) setting is all-diff. That makes all four correlator terms equal 1,
-    so the total lands at 4.
-
-    This is only a witness-count pattern. It is not a trace-construction theorem.
-    The W2 connection later says what any real trace has to pay to reach counts
-    like this.
-*)
+(** [violation_wc] is one explicit count pattern with one trial per setting and CHSH value four.
+    It is a data witness, not a theorem that a VM trace constructs this pattern. *)
 
 Definition violation_wc : WitnessCounts :=
   {| wc_same_00 := 1; wc_diff_00 := 0;
@@ -162,7 +97,7 @@ Definition violation_wc : WitnessCounts :=
      wc_same_10 := 1; wc_diff_10 := 0;
      wc_same_11 := 0; wc_diff_11 := 1 |}.
 
-(** The violation witness achieves S = 4 (vm_compute verified). *)
+(** The closed count witness evaluates to CHSH value four. *)
 Lemma violation_wc_stat_eq_4 :
   chsh_stat_from_wc violation_wc == 4.
 Proof.
@@ -170,7 +105,7 @@ Proof.
   simpl. vm_compute. reflexivity.
 Qed.
 
-(** The violation witness exceeds the classical Bell bound of 2. *)
+(** The closed count witness is greater than two. *)
 Lemma violation_wc_exceeds_bell :
   chsh_stat_from_wc violation_wc > 2.
 Proof.
@@ -178,48 +113,35 @@ Proof.
   unfold Qlt. simpl. lia.
 Qed.
 
-(** The violation witness does not exceed the algebraic bound of 4. *)
+(** The closed count witness satisfies the algebraic ceiling. *)
 Lemma violation_wc_within_algebraic :
   Qabs (chsh_stat_from_wc violation_wc) <= 4.
 Proof.
   apply chsh_stat_algebraic_bound.
 Qed.
 
-(** Local consistency and Bell incompatibility.
-
-    Here is the idea. Fix a deterministic local strategy (a0, a1, b0, b1).
-    If a witness count is locally consistent with that strategy, then every
-    bucket is forced: each setting is either all-same or all-diff.
-
-    Once that happens, every correlator is either 1 or -1. The CHSH expression
-    collapses to the usual local deterministic form
-
-      S_WC = A0*B0 + A0*B1 + A1*B0 - A1*B1.
-
-    From there the 16 possible bit assignments are enough. In every case,
-    |S_WC| lands at 2. That is the Bell-side contradiction this file needs.
-*)
+(** [WCLocallyConsistent] records the zero bucket forced by a deterministic response table for each setting pair and requires every pair to have been sampled. *)
 
 (** Predicate: WitnessCounts consistent with local strategy (a0,a1,b0,b1). *)
 Record WCLocallyConsistent (a0 a1 b0 b1 : nat) (wc : WitnessCounts) : Prop :=
   mk_wclc {
-    (** Setting (0,0): all same if a0=b0, all diff if a0≠b0. *)
+    (** The (0,0) bucket follows the equality of [a0] and [b0]. *)
     wclc_00     : if Nat.eqb a0 b0
                   then (wc_diff_00 wc = 0)%nat
                   else (wc_same_00 wc = 0)%nat;
-    (** Setting (0,1): all same if a0=b1, all diff otherwise. *)
+    (** The (0,1) bucket follows the equality of [a0] and [b1]. *)
     wclc_01     : if Nat.eqb a0 b1
                   then (wc_diff_01 wc = 0)%nat
                   else (wc_same_01 wc = 0)%nat;
-    (** Setting (1,0): all same if a1=b0, all diff otherwise. *)
+    (** The (1,0) bucket follows the equality of [a1] and [b0]. *)
     wclc_10     : if Nat.eqb a1 b0
                   then (wc_diff_10 wc = 0)%nat
                   else (wc_same_10 wc = 0)%nat;
-    (** Setting (1,1): all same if a1=b1, all diff otherwise. *)
+    (** The (1,1) bucket follows the equality of [a1] and [b1]. *)
     wclc_11     : if Nat.eqb a1 b1
                   then (wc_diff_11 wc = 0)%nat
                   else (wc_same_11 wc = 0)%nat;
-    (** All four settings have at least one trial (necessary for full CHSH). *)
+    (** Every setting pair has at least one counted trial. *)
     wclc_all_sampled :
       (wc_same_00 wc + wc_diff_00 wc > 0)%nat /\
       (wc_same_01 wc + wc_diff_01 wc > 0)%nat /\
@@ -227,14 +149,9 @@ Record WCLocallyConsistent (a0 a1 b0 b1 : nat) (wc : WitnessCounts) : Prop :=
       (wc_same_11 wc + wc_diff_11 wc > 0)%nat
   }.
 
-(** Bell's inequality for WitnessCounts.
+(** The local-count theorem below reduces the four response bits to the 16 finite cases, as in [CHSH.v]. *)
 
-  I prove this the blunt way: split on the four strategy bits, simplify the
-  forced correlators, and check all 16 cases. Same skeleton as the local CHSH
-  bound in CHSH.v.
-*)
-
-(** Helper: correlator when neg = 0 and pos > 0 yields 1. *)
+(** A nonempty all-positive bucket has correlator one. *)
 Lemma correlator_pos_only : forall p : nat,
     (p > 0)%nat -> chsh_correlator_q p 0 == 1.
 Proof.
@@ -246,7 +163,7 @@ Proof.
     rewrite Z_of_nat_pos by lia. reflexivity.
 Qed.
 
-(** Helper: correlator when pos = 0 and neg > 0 yields -1. *)
+(** A nonempty all-negative bucket has correlator minus one. *)
 Lemma correlator_neg_only : forall n : nat,
     (n > 0)%nat -> chsh_correlator_q 0 n == -(1).
 Proof.
@@ -258,14 +175,14 @@ Proof.
     simpl. reflexivity.
 Qed.
 
-(** Helper: bit values are exactly 0 or 1. *)
+(** A successful [is_bit] check leaves the two natural-number cases. *)
 Lemma bit_cases : forall n, is_bit n = true -> n = 0%nat \/ n = 1%nat.
 Proof.
   intros n H. unfold is_bit in H.
   destruct n as [|[|n]]; auto; simpl in H; discriminate.
 Qed.
 
-(** Bell's inequality for WitnessCounts, proved by 16-case exhaustive check. *)
+(** Locally consistent sampled counts satisfy the deterministic CHSH bound. *)
 Lemma local_bound_for_wc :
   forall (a0 a1 b0 b1 : nat) (wc : WitnessCounts),
     is_bit a0 = true ->
@@ -282,13 +199,11 @@ Proof.
   destruct (bit_cases b0 Hb0) as [-> | ->];
   destruct (bit_cases b1 Hb1) as [-> | ->];
   simpl in H00, H01, H10, H11;
-  (* In each of the 16 cases, the consistency conditions
-     set wc_diff or wc_same to 0 for each setting *)
+  (* In each finite case, consistency sets one bucket to zero for every setting. *)
   unfold chsh_stat_from_wc;
-  (* Each case: correlator with one side zero, then simplify. *)
+  (* Each correlator now has one zero bucket. *)
   rewrite ?H00, ?H01, ?H10, ?H11;
-  (* After rewriting zeros, each correlator_q has form (n,0) or (0,n) *)
-  (* Use the helper lemmas to simplify *)
+  (* Rewrite the remaining correlators with the helper lemmas. *)
   repeat match goal with
   | |- context [chsh_correlator_q ?p 0] =>
       let Heq := fresh "Heq" in
@@ -301,15 +216,13 @@ Proof.
         by (apply correlator_neg_only; lia);
       setoid_rewrite Heq; clear Heq
   end;
-  (* Now goal is Qabs (concrete_Q) <= 2; use Qabs_Qle_condition to split *)
+  (* The final integer inequality follows from the absolute-value characterization. *)
   apply (proj2 (Qabs_Qle_condition _ _)); split; unfold Qle; simpl; lia.
 Qed.
 
 Section BellInequality.
 
-(** If S > 2, no local deterministic strategy (with valid bits) can explain wc.
-    Proof: if wc were locally consistent, local_bound_for_wc would give |S| ≤ 2;
-    but |S| ≥ S > 2 → contradiction. *)
+(** A count pattern with value greater than two cannot satisfy [WCLocallyConsistent] for any valid response table. *)
 Theorem chsh_stat_violation_not_local :
   forall (wc : WitnessCounts),
     chsh_stat_from_wc wc > 2 ->
@@ -329,7 +242,7 @@ Proof.
     (Qlt_le_trans 2 _ 2 Hviolation (Qle_trans _ _ _ Hle_abs Hbound))).
 Qed.
 
-(** Concrete: violation_wc is not locally consistent with any valid strategy. *)
+(** The explicit value-four witness is not locally consistent with any valid response table. *)
 Corollary violation_wc_not_local :
   forall (a0 a1 b0 b1 : nat),
     is_bit a0 = true ->
@@ -347,35 +260,14 @@ Proof.
   - exact Hb1.
 Qed.
 
-(** Hoeffding boundary. Not proved here.
+(** The file stops at the deterministic count result.
+    A finite-sample confidence statement would need a probability model, sampling assumptions, and a separate formal development. *)
 
-    The deterministic result in this file is simple: if the observed witness
-    counts give S > 2, those counts are not locally deterministic.
-
-    The statistical problem is different. With finitely many trials, the sample
-    statistic can drift away from the expectation. Hoeffding is the standard way
-    to control that drift, but this file does not import a probability library,
-    so I am not pretending to have proved that part.
-
-    If someone wants the exact boundary later, the usual route is a Hoeffding
-    bound on the four setting-wise estimators plus a union bound. Until that is
-    formalized in Coq, it stays outside the closeout claim.
-*)
-
-(** Deterministic closeout.
-
-  This is the part I am actually claiming here: if the witness counts push
-  the observed statistic above 2, then no valid-bit deterministic local
-  strategy explains those counts.
-*)
-
-(** The statistical certification predicate:
-    A VMState certifies a CHSH violation if observed S > 2. *)
+(** This predicate records the aggregate-count condition [S > 2] for a VM state. *)
 Definition chsh_violation_certified (s : VMState) : Prop :=
   chsh_stat_from_wc s.(vm_witness) > 2.
 
-(** If a VMState's witness counts have S > 2, no valid deterministic local
-    strategy can explain those witness counts. *)
+(** A VM state satisfying the aggregate-count condition has no locally consistent valid response table. *)
 Theorem chsh_certification_not_local :
   forall (s : VMState),
     chsh_violation_certified s ->
@@ -394,33 +286,20 @@ Qed.
 
 End BellInequality.
 
-(** W2 connection: counted trials still cost counted instructions.
+(** The W2 results connect counted trial instructions to the witness-count threshold.
+    They do not infer a probability statement from the aggregate counts. *)
 
-    This is where the Bell side meets the cost side. If you want N counted
-    CHSH trials in the witness ledger, W2 says you pay with N valid
-    CHSH_TRIAL instructions. There is no shortcut hidden in the counters.
-*)
-
-(** Close Q_scope for the nat-based W7 section. *)
+(** The remaining lemmas use natural-number cost statements rather than rational expressions. *)
 Local Close Scope Q_scope.
 
-(** The violation_wc has total witness count 4 (1 trial per setting). *)
+(** The explicit witness contains four counted trials. *)
 Lemma violation_wc_total :
   witness_total violation_wc = 4%nat.
 Proof. unfold witness_total, violation_wc. simpl. reflexivity. Qed.
 
-(** The aggregate-count model does not export a separate
-    chsh_violation_witness_count theorem.  The existing lower-bound result
-    below is the authoritative execution-to-count bridge:
-    Starting from zero witness counts and executing 4 CHSH_TRIAL instructions
-    covering all setting pairs costs at least 4 μ-units.
-    The real content is in chsh_trial_count_lower_bound for n = 4.
-    it connects the counted instruction model to the aggregate witness model
-    without making a finite-sample probability claim. *)
+(** The execution-to-count bridge is [chsh_trial_count_lower_bound]; this aggregate model does not add a separate probability or sampling theorem. *)
 
-(** Direct application of W2 (chsh_trial_count_lower_bound with n = 4):
-    Any trace from zero trials to witness_total ≥ 4 requires ≥ 4
-    valid CHSH_TRIAL instructions. *)
+(** Four counted trials require at least four valid trial instructions under the W2 premises. *)
 Theorem four_trials_require_four_instructions :
   forall (trace : list vm_instruction) (s0 : VMState),
     witness_total s0.(vm_witness) = 0%nat ->
@@ -431,7 +310,7 @@ Proof.
   exact (chsh_trial_count_lower_bound 4%nat trace s0 Hinit Hcert).
 Qed.
 
-(** General: N certified trials require N counted instructions. *)
+(** In general, the W2 theorem gives one counted instruction per certified trial threshold. *)
 Corollary n_trials_require_n_instructions :
   forall (n : nat) (trace : list vm_instruction) (s0 : VMState),
     witness_total s0.(vm_witness) = 0%nat ->
@@ -442,14 +321,5 @@ Proof.
   exact (chsh_trial_count_lower_bound n trace s0 Hinit Hcert).
 Qed.
 
-(** Summary.
-
-  Here is the full deterministic chain proved in this file:
-
-  CHSH_TRIAL instructions -> witness counter -> observed CHSH statistic ->
-  if S > 2, no deterministic local strategy fits the counts.
-
-  The probability side is outside this file's scope and is not
-  attempted: lifting the deterministic CHSH chain to a finite-sample
-  confidence statement requires a real probability formalisation that
-    the kernel does not provide as part of this aggregate-count model. *)
+(** The proved chain is: trial instructions update witness counts, the counts determine the chosen statistic, and a value above two excludes the stated deterministic local response tables.
+    Finite-sample confidence remains outside this aggregate-count model. *)

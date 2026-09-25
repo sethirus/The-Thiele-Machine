@@ -14,7 +14,7 @@ From ThieleManifold Require Import ThieleManifoldBridge.
 Import ListNotations.
 Local Open Scope R_scope.
 
-(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+(* SCOPE NOTE: abstract interface section — parameterized theorem.
    decodes_to and produces_own_payload are abstract external predicates
    instantiated by the Python harness. All theorems export as explicit
    forall premises when section closes. *)

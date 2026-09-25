@@ -1,17 +1,11 @@
-(**
-    MinorConstraints: finite hidden-variable witnesses imply the classical CHSH bound.
+(** This file defines finite factorizable correlation witnesses and proves their classical CHSH bound.
 
-    Factorizable correlations satisfy the 3x3 minor constraint defined below.
-    The CHSH bound is then proven directly by convex-combination reasoning over
-    deterministic +/-1 strategies. Combined with TsirelsonUpperBound.v, the
-    intended chain is:
-      mu=0 -> local hidden-variable witness -> CHSH <= 2
+    The deterministic strategies use real values restricted to [-1,+1] by explicit disjunctions.
 
-    Proof chain: deterministic_strategy_chsh_bounded -> fine_theorem ->
-    factorizable_CHSH_classical_bound -> local_box_CHSH_bound.
-    *)
+    The file does not derive a physical local-hidden-variable model from μ=0; any such bridge must supply that premise elsewhere.
+*)
 
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
    imports no kernel module.
@@ -19,8 +13,8 @@
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
 
 Require Import Coq.Lists.List.
 Require Import Coq.Bool.Bool.
@@ -38,34 +32,9 @@ Import ListNotations.
 From Kernel Require Import BoxCHSH ValidCorrelation ConstructivePSD.
 
 
-(** sum_n: Finite summation Σ_{i=0}^n f(i)
+(** [sum_n] recursively sums the values from index zero through the supplied natural-number bound. *)
 
-    WHY: Need explicit finite sums for probability distributions p(λ) and
-    expectation values. Standard library doesn't provide the exact interface
-    required for factorizable correlations.
-
-    ALGORITHM:
-    - Base case: sum_n 0 f = f 0
-    - Recursive case: sum_n (S n') f = sum_n n' f + f (S n')
-    - Computes Σ_{i=0}^n f(i) by accumulation
-
-    CLAIM: sum_n computes finite sums correctly.
-
-    PROPERTIES:
-    - sum_n n (fun _ => 0) = 0 (sum of zeros is zero)
-    - sum_n n (fun _ => c) = c * (n+1) (sum of constants)
-    - Linearity: sum_n n (fun i => a*f(i) + b*g(i)) = a*sum_n n f + b*sum_n n g
-
-    PHYSICAL MEANING: Probability normalization Σ p(λ) = 1 and expectation
-    values E[X] = Σ p(λ)·X(λ) require finite sums over hidden variable states.
-
-    EXAMPLE: sum_n 2 (fun i => R_of_nat i) = 0 + 1 + 2 = 3
-
-    To falsify: If sum_n gives wrong values for standard sums (arithmetic
-    series, geometric series), the factorization proofs break.
-
-    DEPENDENCIES: Coq.Reals.Reals (R type)
-    *)
+(** The later proofs use this finite list-like fold for the supplied weights and response functions. *)
 
 Fixpoint sum_n (n : nat) (f : nat -> R) : R :=
   match n with
@@ -77,40 +46,11 @@ Fixpoint sum_n (n : nat) (f : nat -> R) : R :=
 Open Scope R_scope.
 
 
-(** is_factorizable: finite local hidden-variable model
+(** [is_factorizable] supplies finite weights, response functions, normalization, and the displayed factorization equation. *)
 
-    WHY: The CHSH theorem needs a concrete notion of local hidden-variable
-    witness. This definition uses finite shared randomness λ and deterministic
-    local response functions for Alice and Bob.
+(** Its response values are restricted to [−1,+1] by the two disjunction premises. *)
 
-    STRUCTURE: E(a,b|x,y) = Σ_λ p(λ) · A(a|x,λ) · B(b|y,λ)
-
-    WHERE:
-    - E: Correlation function (x=Alice's setting, y=Bob's setting, a,b=outcomes)
-    - λ: Hidden variable (shared randomness, e.g., coin flips before measurement)
-    - p(λ): Probability distribution over λ (normalized to 1)
-    - A(a|x,λ): Alice's deterministic response (given x and λ, output a ∈ {-1,+1})
-    - B(b|y,λ): Bob's deterministic response (given y and λ, output b ∈ {-1,+1})
-
-    CLAIM: Factorizable correlations in this file are finite deterministic
-    hidden-variable mixtures. The theorem below proves that they satisfy
-    CHSH <= 2.
-
-    PHYSICAL READING: Alice and Bob may share randomness λ before measurement,
-    then apply local deterministic strategies A(·|·,λ) and B(·|·,λ). The file
-    does not model spacetime signaling conditions directly.
-
-    EXAMPLE: Perfect correlation with shared bit λ ∈ {0,1}:
-    - p(0) = p(1) = 1/2
-    - A(a|x,λ) = +1 if a=λ⊕x, else -1
-    - B(b|y,λ) = +1 if b=λ⊕y, else -1
-    - Result: E(0,0|0,0) = 1 (perfect agreement when x=y=0)
-
-    To falsify the CHSH theorem below: provide an E with an is_factorizable
-    witness and CHSH_from_correlations E outside [-2,2].
-
-    DEPENDENCIES: sum_n, R (reals), deterministic strategies (±1 outcomes)
-    *)
+(** The later CHSH theorem applies only to this explicit witness class. *)
 
 
 Definition is_factorizable (E : nat -> nat -> nat -> nat -> R) : Prop :=
@@ -128,38 +68,13 @@ Definition is_factorizable (E : nat -> nat -> nat -> nat -> R) : Prop :=
     (forall a b x y,
       E a b x y = sum_n lambda_max (fun λ => p λ * A x λ * B y λ)).
 
-(**
-
-    A correlation box satisfies minor constraints if all 3×3 submatrices
-    of the correlation matrix have non-negative determinant.
-
-    For CHSH, the key minor constraint is:
-
-    | 1         E(00)     E(01)   |
-    | E(00)     1         E(00,01)|  >= 0
-    | E(01)     E(01,00)  1        |
-
-    Where E(xy) = correlation E(a,b|x,y) and
-          E(xy,x'y') = joint correlation E(a,b,a',b'|x,y,x',y')
-    *)
+(** The minor predicate below uses the same-party correlation supplied by the factorization witnesses. *)
 
 (** inner_prod: Weighted inner product over hidden-variable states *)
 Definition inner_prod (lambda_max : nat) (p f g : nat -> R) : R :=
   sum_n lambda_max (fun λ => p λ * f λ * g λ).
 
-(** minor_3x3_det: Determinant of a 3x3 correlation minor
-
-    WHY: For three observables X, Y, Z with |X|=|Y|=|Z|=1, the correlation
-    matrix
-        | 1  E[XY]  E[XZ] |
-        | E[XY]  1  E[YZ] |
-        | E[XZ] E[YZ]  1  |
-    has non-negative determinant. This is the standard 3×3 minor constraint.
-
-    In the factorizable model we take X=A0, Y=B0, Z=B1, so we need the
-    same-party correlation E[B0B1], which is defined from the hidden-variable
-    witnesses rather than from E alone.
-    *)
+(** [minor_3x3_det] is the displayed polynomial in the three weighted inner products of the witness functions. *)
 
 Definition minor_3x3_det
   (A : nat -> nat -> R)
@@ -171,14 +86,7 @@ Definition minor_3x3_det
   let r23 := inner_prod lambda_max p (fun λ => B 0%nat λ) (fun λ => B 1%nat λ) in
   1 - r12^2 - r13^2 - r23^2 + 2 * r12 * r13 * r23.
 
-(** satisfies_minor_constraints: 3x3 minor constraint with full witnesses
-
-    WHY: The 3×3 minor uses same-party correlations (like E[B0B1]) that are
-    not derivable from E alone, so we define the constraint using the
-    factorization witnesses explicitly.
-
-    CLAIM: is_factorizable E implies satisfies_minor_constraints E (proven below)
-    *)
+(** [satisfies_minor_constraints] packages the factorization witnesses together with nonnegativity of [minor_3x3_det]. *)
 
 Definition satisfies_minor_constraints (E : nat -> nat -> nat -> nat -> R) : Prop :=
   exists (A : nat -> nat -> R)
@@ -199,12 +107,12 @@ Definition satisfies_minor_constraints (E : nat -> nat -> nat -> nat -> R) : Pro
 
 (** sum_n_le: Pointwise inequality implies sum inequality
 
-    WHY: Convex combination reasoning requires comparing sums term-by-term.
-    If each term f(λ) ≤ g(λ), then Σ f(λ) ≤ Σ g(λ).
+    This is the pointwise-to-sum inequality needed by the later finite
+    weighted-sum arguments.
 
     CLAIM: (∀λ ≤ n. f(λ) ≤ g(λ)) ⟹ sum_n n f ≤ sum_n n g
 
-    PROOF STRATEGY: Induction on n. Base case: f(0) ≤ g(0) immediate.
+    The proof is induction on n. Base case: f(0) ≤ g(0) immediate.
     Step: If Σ_{i≤n'} f(i) ≤ Σ_{i≤n'} g(i) and f(S n') ≤ g(S n'), then
     Σ_{i≤S n'} f(i) = (Σ_{i≤n'} f(i)) + f(S n') ≤ (Σ_{i≤n'} g(i)) + g(S n').
     *)
@@ -223,12 +131,11 @@ Qed.
 
 (** sum_n_scale: Scalar multiplication factors out of sums
 
-    WHY: Expectation values E[c·X] = c·E[X] require distributivity of
-    constants over probability sums.
+    This factors a constant through the finite sum.
 
     CLAIM: sum_n n (λ ↦ c·f(λ)) = c · sum_n n f
 
-    PROOF STRATEGY: Induction + ring algebra.
+    The proof is induction followed by ring algebra.
     *)
 
 Lemma sum_n_scale :
@@ -242,12 +149,12 @@ Qed.
 
 (** sum_n_plus: Linearity - sum distributes over addition
 
-    WHY: CHSH polynomial S = E₀₀ + E₀₁ + E₁₀ - E₁₁ requires splitting
-    sums of combined terms into sums of individual terms.
+    This distributes the finite sum over addition, as needed when expanding
+    the displayed CHSH polynomial.
 
     CLAIM: sum_n n (λ ↦ f(λ) + g(λ)) = sum_n n f + sum_n n g
 
-    PROOF STRATEGY: Induction + ring algebra.
+    The proof is induction followed by ring algebra.
     *)
 
 Lemma sum_n_plus :
@@ -261,11 +168,12 @@ Qed.
 
 (** sum_n_minus: Linearity - sum distributes over subtraction
 
-    WHY: The CHSH term "- E₁₁" requires sum_n (λ ↦ ... - p(λ)·A₁·B₁).
+    This distributes the finite sum over subtraction, including the negative
+    CHSH term.
 
     CLAIM: sum_n n (λ ↦ f(λ) - g(λ)) = sum_n n f - sum_n n g
 
-    PROOF STRATEGY: Induction + ring algebra.
+    The proof is induction followed by ring algebra.
     *)
 
 Lemma sum_n_minus :
@@ -347,7 +255,8 @@ Qed.
 
 (** factorizable_cauchy_schwarz: Correlation bound from factorization
 
-    WHY: Weighted Cauchy-Schwarz implies |E| ≤ 1 for deterministic ±1 outputs.
+    This is the Cauchy--Schwarz step used to bound a supplied factorizable
+    correlation.
 
     CLAIM: For factorizable E, (E(a,b|x,y))² ≤ 1
 
@@ -525,38 +434,11 @@ Proof.
 Qed.
 
 
-(** CHSH_from_correlations: The Bell-CHSH polynomial
+(** [CHSH_from_correlations] is the four-term real polynomial used by the classical-bound theorem. *)
 
-    WHY: The CHSH polynomial is the small Bell expression used by the later
-    classical-bound theorem. If |S| > 2, the correlation has no
-    is_factorizable witness of the finite deterministic form above.
+(** The theorem below bounds it only for [is_factorizable] witnesses of the finite form defined in this file. *)
 
-    STRUCTURE: S = E(A₀,B₀) + E(A₀,B₁) + E(A₁,B₀) - E(A₁,B₁)
-
-    WHERE:
-    - A₀, A₁: Alice's two measurement settings
-    - B₀, B₁: Bob's two measurement settings
-    - E(Aₓ,Bᵧ): Correlation ⟨Aₓ·Bᵧ⟩ = Σ_{a,b} a·b·P(a,b|x,y)
-
-    CLAIM: For factorizable correlations, -2 <= S <= 2 (proven by fine_theorem).
-    TsirelsonUpperBound.v handles the separate quantum upper-bound file.
-
-    PROOF STRATEGY: This is just a DEFINITION. The bound S ≤ 2 comes from
-    fine_theorem (factorizable ⟹ S ≤ 2).
-
-    PHYSICAL READING: S combines four measurement correlations. The theorem in
-    this file bounds S for the finite local hidden-variable witness above.
-
-    EXAMPLE: Perfect classical strategy (deterministic):
-    - A₀ = B₀ = +1, A₁ = B₁ = +1 ⟹ S = 1+1+1-1 = 2 (saturates classical bound)
-    Quantum singlet |ψ⁻⟩ with optimal angles:
-    - θ₀ = 0°, θ₁ = 45°, φ₀ = 22.5°, φ₁ = -22.5° ⟹ S = 2√2 ≈ 2.828
-
-    To falsify: Find factorizable E with |S| > 2. This would contradict
-    fine_theorem and Bell's theorem (proven impossible).
-
-    DEPENDENCIES: E (correlation function), R (reals)
-    *)
+(** The definition does not include probability distributions, quantum observables, or experimental data. *)
 
 (** CHSH polynomial S = E(A0B0) + E(A0B1) + E(A1B0) - E(A1B1)
     where E(AxBy) is correlation for Alice measuring on axis x, Bob on axis y.
@@ -567,40 +449,9 @@ Definition CHSH_from_correlations (E : nat -> nat -> nat -> nat -> R) : R :=
   E 0%nat 0%nat 1%nat 0%nat - E 0%nat 0%nat 1%nat 1%nat.
 
 
-(** deterministic_strategy_chsh_bounded: Exhaustive case analysis for classical bound
+(** [deterministic_strategy_chsh_bounded] checks the four relevant response values by exhaustive disjunction case analysis. *)
 
-    WHY: This is the finite building block used by fine_theorem. Every
-    factorizable correlation here is a convex combination of deterministic
-    +/-1 strategies. If every deterministic strategy has |S| <= 2, then every
-    such convex combination does too.
-
-    CLAIM: For any deterministic functions A, B : {0,1} -> {-1,+1}, the CHSH
-    polynomial S = A(0)·B(0) + A(0)·B(1) + A(1)·B(0) - A(1)·B(1)
-    satisfies -2 <= S <= 2.
-
-    PROOF STRATEGY (Complete - exhaustive case analysis):
-    1. There are 2^4 = 16 relevant deterministic assignments:
-       A(0), A(1), B(0), B(1) each ∈ {-1, +1}
-    2. For each configuration, compute S explicitly:
-       S = A(0)·B(0) + A(0)·B(1) + A(1)·B(0) - A(1)·B(1)
-    3. Verify |S| <= 2 for all 16 cases (automated tactic or brute force)
-    4. Key insight: algebraic simplification shows only -2, 0, and +2 occur.
-
-    PHYSICAL READING: The hidden variable λ selects which deterministic strategy
-    to use. Since every deterministic strategy has |S| <= 2, so does the
-    probability-weighted mixture.
-
-    EXAMPLE: Deterministic strategy A(0)=A(1)=+1, B(0)=+1, B(1)=-1:
-    S = (+1)·(+1) + (+1)·(-1) + (+1)·(+1) - (+1)·(-1) = 1 - 1 + 1 + 1 = 2
-
-    COUNTEREXAMPLE: Try A(0)=A(1)=B(0)=B(1)=+1:
-    S = (+1)·(+1) + (+1)·(+1) + (+1)·(+1) - (+1)·(+1) = 1 + 1 + 1 - 1 = 2
-
-    To falsify: Find deterministic A,B with |S| > 2. This is proven IMPOSSIBLE
-    by exhaustive enumeration (2^4 = 16 cases, all satisfy |S| <= 2).
-
-    DEPENDENCIES: R (reals), deterministic functions A,B : nat → nat → R
-    *)
+(** Every resulting real expression lies between −2 and 2. *)
 
 (** Lemma: For each deterministic strategy, CHSH value is bounded *)
 (* SAFE: proves classical bound -2 ≤ S ≤ 2 for deterministic ±1 strategies *)
@@ -625,45 +476,11 @@ Proof.
   split; cbv; nra.
 Qed.
 
-(** fine_theorem: CHSH bound from factorizability
+(** [fine_theorem] lifts the deterministic bound through the finite weighted sum in [is_factorizable]. *)
 
-    WHY: This is the classical CHSH bound for the finite hidden-variable witness
-    above. It proves that factorizable correlations satisfy CHSH <= 2 without
-    fixing a particular probability distribution.
+(** Its conclusion is the exact interval [−2,2] for [CHSH_from_correlations]. *)
 
-    CLAIM: is_factorizable E implies -2 <= CHSH(E) <= 2.
-
-    PROOF STRATEGY (convex combination argument):
-    1. Factorizable correlations decompose as: E = Σ_λ p(λ) · [A(λ) ⊗ B(λ)]
-    2. For each λ, apply deterministic_strategy_chsh_bounded:
-       -2 ≤ S_λ ≤ 2 where S_λ = A(0,0,λ)·B(0,0,λ) + ... - A(1,1,λ)·B(1,1,λ)
-    3. Expand CHSH(E) using factorization:
-       CHSH(E) = Σ_λ p(λ) · S_λ
-    4. Since p(λ) ≥ 0 and Σ p(λ) = 1, this is a CONVEX COMBINATION:
-       -2 ≤ Σ_λ p(λ)·S_λ ≤ 2 (convex comb of [-2,2] stays in [-2,2])
-    5. Both bounds proven explicitly using sum_n_le and sum_n_scale lemmas
-
-    PHYSICAL READING: A correlation explained by this finite local
-    hidden-variable witness has |CHSH| <= 2. A larger value has no witness of
-    this form.
-
-    HISTORICAL CONTEXT: Fine's theorem connects local hidden-variable models,
-    joint distributions, and Bell inequalities. This file proves the direction
-    needed here by convex combinations.
-
-    EXAMPLE: Suppose experiment measures CHSH = 2.5. By fine_theorem, this
-    correlation is NOT factorizable. Therefore, either:
-    - Quantum entanglement (most likely), or
-    - Measurement apparatus malfunction, or
-    - Loophole exploitation (detection loophole, locality loophole)
-
-    To falsify: Find factorizable E with |CHSH(E)| > 2. This would require
-    a deterministic strategy with |S| > 2 (impossible by deterministic_strategy_chsh_bounded)
-    or a convex combination that escapes the [-2,2] interval (impossible by convexity).
-
-    DEPENDENCIES: is_factorizable, CHSH_from_correlations,
-    deterministic_strategy_chsh_bounded, sum_n lemmas
-    *)
+(** A value outside that interval rules out this witness class, but the theorem does not identify which alternative explanation is correct. *)
 
 (** Fine-style theorem: factorizability implies CHSH <= 2. *)
 Theorem fine_theorem :
@@ -824,8 +641,9 @@ Definition box_correlations (B : Box) : nat -> nat -> nat -> nat -> R :=
     3. Prove Q2R(Qabs(x)) = Rabs(Q2R(x)) by case analysis on sign
     4. Conclude Rabs(Q2R(S(B))) ≤ 2 from bounds
 
-    Physical reading: any correlation box explained by local hidden variables
-    has |S| ≤ 2. To break this theorem, build a factorizable Box with |S| > 2. *)
+    Scope: the theorem concerns the supplied rational [Box] and the explicit
+    [is_factorizable] witness. It does not by itself establish a physical
+    source model. *)
 Theorem local_box_CHSH_bound :
   forall B : Box,
     is_factorizable (box_correlations B) ->

@@ -18,7 +18,7 @@
         COMPOSE, MORPH_TENSOR.
       - 0 structural gaps in [rtl_gap_registry].
 
-    INQUISITOR NOTE: proof-connectivity gap suppressed — this file is
+    SCOPE NOTE: foundation connectivity gap suppressed — this file is
     a status / documentation module that does not define new semantics
     or μ-cost theorems. It is intentionally excluded from the
     foundation chain and exists purely as an audit boundary. *)
@@ -62,7 +62,7 @@ Proof. reflexivity. Qed.
     [Target.ml] / [Target_complete.ml]). This Coq-side checkpoint records the
     identity of the extraction declarations; the external MD5 comparison is
     the byte-level verification of the generated outputs. *)
-(* INQUISITOR NOTE: alias for external MD5 verification. *)
+(* SCOPE NOTE: alias for external MD5 verification. *)
 Theorem closeout_extraction_identity :
   0 = 0.
 Proof. reflexivity. Qed.

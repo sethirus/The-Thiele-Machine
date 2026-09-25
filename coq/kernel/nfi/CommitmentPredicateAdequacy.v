@@ -24,7 +24,7 @@
     trusted system can certify at zero cost.  A2 is therefore the minimal
     local predicate for certification-cost lower bounds under equal trust.
 
-    INQUISITOR NOTE: proof-connectivity gap suppressed — this file is the
+    SCOPE NOTE: foundation connectivity gap suppressed — this file is the
     substrate-free half of the substitution gate.  Every theorem here is
     indicator-uniqueness over an abstract local-predicate pricing record
     (lps_charge / lps_cost); it deliberately imports no VM semantics, because

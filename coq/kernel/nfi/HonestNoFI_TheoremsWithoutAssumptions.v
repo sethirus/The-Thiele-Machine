@@ -60,7 +60,7 @@ Qed.
     relation and observation distinguishability, not taken as input.
     *)
 
-(** INQUISITOR NOTE: b4_information_reduction_derives_strict_predicates shows
+(** SCOPE NOTE: b4_information_reduction_derives_strict_predicates shows
     that feasible-set reduction with distinguishing observations produces
     the strictly_stronger relationship needed by NoFreeInsight, using the
     non-trivial membership predicates from B3. No trivial true/false. *)
@@ -82,7 +82,7 @@ Proof.
            obs_eqb Heqb_spec omega_prior omega_posterior obs_fn Hsubset Hwit).
 Qed.
 
-(** INQUISITOR NOTE: the same observation function cannot simultaneously play
+(** SCOPE NOTE: the same observation function cannot simultaneously play
     the B3 distinguishing role and the posterior-representative role. If a
     prior witness state is observation-distinguishable from every posterior
     state, then it cannot also be assigned to a posterior representative with
@@ -108,7 +108,7 @@ Proof.
   exact (Hdist s_post Hin_post Hequiv).
 Qed.
 
-(** INQUISITOR NOTE: structural_entitlement_representation is the explicit
+(** SCOPE NOTE: structural_entitlement_representation is the explicit
     end-to-end theorem. It composes three nontrivial proven components:
     feasible-set narrowing -> strict predicates, certified strengthening ->
     structure addition, and posterior-representative reduction -> delta-mu
@@ -181,7 +181,7 @@ Proof.
         eauto.
 Qed.
 
-(** INQUISITOR NOTE: observation-level structural entitlement is the honest
+(** SCOPE NOTE: observation-level structural entitlement is the honest
     core for shortcuts whose receipts certify posterior admissibility without
     yet proving that the cert_addr channel fired. This is the layer that still
     supports strict predicate strengthening and the quantitative delta-mu bound
@@ -345,7 +345,7 @@ Proof.
       (repr_obs_fn := repr_obs_fn); eauto.
 Qed.
 
-(** INQUISITOR NOTE: once the weak predicate already accepts the concrete
+(** SCOPE NOTE: once the weak predicate already accepts the concrete
     decoded trace and the observed posterior predicate is certified on the
     actual final state, the remaining bridge hypothesis is not mysterious.
     It is equivalent to that final state already having [has_supra_cert].
@@ -376,7 +376,7 @@ Proof.
     exact Hsupra.
 Qed.
 
-(** INQUISITOR NOTE: the full observed-shortcut upgrade now has an exact
+(** SCOPE NOTE: the full observed-shortcut upgrade now has an exact
     current-semantics frontier. To move from [CertifiedObs] to the full
     theorem boundary, the run needs two things:
     - the final state still has [has_supra_cert]; and
@@ -430,7 +430,7 @@ Proof.
       exact Hbridge.
 Qed.
 
-(** INQUISITOR NOTE: this theorem isolates the last upgrade step. Once an
+(** SCOPE NOTE: this theorem isolates the last upgrade step. Once an
     observed shortcut has a domain-specific bridge from CertifiedObs into the
     cert_addr channel, the full structure-addition theorem closes. The remaining
     gap is no longer vague: it is exactly the bridge hypothesis below. *)
@@ -545,7 +545,7 @@ Record SoundStructuralShortcut
       shortcut_repr_obs_fn shortcut_tree shortcut_omega_prior shortcut_omega_posterior
 }.
 
-(** INQUISITOR NOTE: every_sound_structural_shortcut_lands_here is not an
+(** SCOPE NOTE: every_sound_structural_shortcut_lands_here is not an
     alias. It packages the semantic witness record above and then invokes the
     end-to-end representation theorem. This names the exact formal class in
     which every sound shortcut "has to" land in the Thiele framework. *)

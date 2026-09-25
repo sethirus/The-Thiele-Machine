@@ -1,294 +1,294 @@
-DIGEST 4d86a462b0f02cd19ac00eca1e6a16d7
+DIGEST 2c21be6190f925c835b3dc098d628108
 FThermodynamic.LandauerJoules
-R4135:4139 Coq.Reals.Reals <> <> lib
-R4141:4143 Coq.micromega.Lra <> <> lib
-R4145:4147 Coq.micromega.Lia <> <> lib
-R4149:4153 Coq.Arith.Arith <> <> lib
-R4190:4204 Thermodynamic.LandauerDerived <> <> lib
-sec 4839:4862 <> LandauerJoulesDerivation
-var 4912:4912 LandauerJoulesDerivation T
-R4916:4916 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-var 4930:4932 LandauerJoulesDerivation k_B
-R4936:4936 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-var 4952:4956 LandauerJoulesDerivation T_pos
-R4961:4963 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R4964:4964 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
-var 4980:4986 LandauerJoulesDerivation k_B_pos
-R4991:4993 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R4994:4996 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
-def 5346:5365 <> shannon_entropy_nats
-R5376:5378 Coq.Init.Datatypes <> nat ind
-binder 5368:5372 <> omega:5
-R5383:5383 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5388:5389 Coq.Reals.Rpower <> ln def
-R5392:5394 Coq.Reals.Raxioms <> INR def
-R5396:5400 Thermodynamic.LandauerJoules <> omega:5 var
-prf 5514:5523 <> ln_pow_nat
-R5539:5539 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 5535:5535 <> x:6
-R5547:5549 Coq.Init.Datatypes <> nat ind
-binder 5543:5543 <> n:7
-R5562:5565 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5558:5560 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R5561:5561 Thermodynamic.LandauerJoules <> x:6 var
-R5576:5578 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5566:5567 Coq.Reals.Rpower <> ln def
-R5571:5573 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
-R5570:5570 Thermodynamic.LandauerJoules <> x:6 var
-R5574:5574 Thermodynamic.LandauerJoules <> n:7 var
-R5584:5586 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5579:5581 Coq.Reals.Raxioms <> INR def
-R5583:5583 Thermodynamic.LandauerJoules <> n:7 var
-R5587:5588 Coq.Reals.Rpower <> ln def
-R5590:5590 Thermodynamic.LandauerJoules <> x:6 var
-R5666:5669 Coq.Reals.Rpower <> ln_1 thm
-R5666:5669 Coq.Reals.Rpower <> ln_1 thm
-R5666:5669 Coq.Reals.Rpower <> ln_1 thm
-R5698:5704 Coq.Reals.Rpower <> ln_mult thm
-R5727:5732 Coq.Reals.Rfunctions <> pow_lt thm
-R5698:5704 Coq.Reals.Rpower <> ln_mult thm
-R5698:5704 Coq.Reals.Rpower <> ln_mult thm
-R5698:5704 Coq.Reals.Rpower <> ln_mult thm
-R5698:5704 Coq.Reals.Rpower <> ln_mult thm
-R5727:5732 Coq.Reals.Rfunctions <> pow_lt thm
-prf 6006:6040 <> shannon_entropy_binary_uniform_nats
-R6059:6061 Coq.Init.Datatypes <> nat ind
-binder 6055:6055 <> n:8
-R6098:6100 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6070:6089 Thermodynamic.LandauerJoules <> shannon_entropy_nats def
-R6093:6095 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R6096:6096 Thermodynamic.LandauerJoules <> n:8 var
-R6106:6108 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6101:6103 Coq.Reals.Raxioms <> INR def
-R6105:6105 Thermodynamic.LandauerJoules <> n:8 var
-R6109:6110 Coq.Reals.Rpower <> ln def
-R6144:6163 Thermodynamic.LandauerJoules <> shannon_entropy_nats def
-R6178:6184 Coq.Reals.RIneq <> pow_INR thm
-R6178:6184 Coq.Reals.RIneq <> pow_INR thm
-R6178:6184 Coq.Reals.RIneq <> pow_INR thm
-R6199:6208 Thermodynamic.LandauerJoules <> ln_pow_nat thm
-R6199:6208 Thermodynamic.LandauerJoules <> ln_pow_nat thm
-R6199:6208 Thermodynamic.LandauerJoules <> ln_pow_nat thm
-R6199:6208 Thermodynamic.LandauerJoules <> ln_pow_nat thm
-R6226:6228 Coq.Reals.Raxioms <> INR def
-R6226:6228 Coq.Reals.Raxioms <> INR def
-R6286:6288 Coq.Reals.Raxioms <> INR def
-R6286:6288 Coq.Reals.Raxioms <> INR def
-prf 6412:6419 <> ln_2_pos
-R6424:6426 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R6427:6428 Coq.Reals.Rpower <> ln def
-R6453:6456 Coq.Reals.Rpower <> ln_1 thm
-R6453:6456 Coq.Reals.Rpower <> ln_1 thm
-R6453:6456 Coq.Reals.Rpower <> ln_1 thm
-R6465:6477 Coq.Reals.Rpower <> ln_increasing thm
-R6465:6477 Coq.Reals.Rpower <> ln_increasing thm
-def 6899:6924 <> info_entropy_decrease_nats
-R6932:6946 Thermodynamic.LandauerDerived <> PhysicalErasure rec
-binder 6927:6928 <> pe:9
-R6951:6951 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R6960:6979 Thermodynamic.LandauerJoules <> shannon_entropy_nats def
-R6983:6985 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R6986:6996 Thermodynamic.LandauerDerived <> bits_erased def
-R6999:7008 Thermodynamic.LandauerDerived <> erasure_op proj
-R7010:7011 Thermodynamic.LandauerJoules <> pe:9 var
-prf 7025:7051 <> info_entropy_decrease_value
-R7071:7085 Thermodynamic.LandauerDerived <> PhysicalErasure rec
-binder 7066:7067 <> pe:10
-R7123:7131 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7094:7119 Thermodynamic.LandauerJoules <> info_entropy_decrease_nats def
-R7121:7122 Thermodynamic.LandauerJoules <> pe:10 var
-R7165:7167 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7132:7134 Coq.Reals.Raxioms <> INR def
-R7137:7147 Thermodynamic.LandauerDerived <> bits_erased def
-R7150:7159 Thermodynamic.LandauerDerived <> erasure_op proj
-R7161:7162 Thermodynamic.LandauerJoules <> pe:10 var
-R7168:7169 Coq.Reals.Rpower <> ln def
-R7204:7229 Thermodynamic.LandauerJoules <> info_entropy_decrease_nats def
-R7242:7276 Thermodynamic.LandauerJoules <> shannon_entropy_binary_uniform_nats thm
-R7242:7276 Thermodynamic.LandauerJoules <> shannon_entropy_binary_uniform_nats thm
-var 8338:8367 LandauerJoulesDerivation system_thermo_entropy_decrease
-R8386:8389 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8371:8385 Thermodynamic.LandauerDerived <> PhysicalErasure rec
-R8390:8390 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-var 8407:8422 LandauerJoulesDerivation boltzmann_bridge
-R8442:8456 Thermodynamic.LandauerDerived <> PhysicalErasure rec
-binder 8437:8438 <> pe:12
-R8498:8506 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8465:8494 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.system_thermo_entropy_decrease var
-R8496:8497 Thermodynamic.LandauerJoules <> pe:12 var
-R8510:8512 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R8507:8509 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
-R8513:8538 Thermodynamic.LandauerJoules <> info_entropy_decrease_nats def
-R8540:8541 Thermodynamic.LandauerJoules <> pe:12 var
-var 9339:9350 LandauerJoulesDerivation heat_to_bath
-R9369:9372 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9354:9368 Thermodynamic.LandauerDerived <> PhysicalErasure rec
-R9373:9373 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-var 9390:9412 LandauerJoulesDerivation second_law_thermal_bath
-R9432:9446 Thermodynamic.LandauerDerived <> PhysicalErasure rec
-binder 9427:9428 <> pe:15
-R9493:9502 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9456:9459 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R9460:9489 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.system_thermo_entropy_decrease var
-R9491:9492 Thermodynamic.LandauerJoules <> pe:15 var
-R9540:9543 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R9504:9506 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R9503:9503 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
-R9507:9536 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.system_thermo_entropy_decrease var
-R9538:9539 Thermodynamic.LandauerJoules <> pe:15 var
-R9544:9555 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.heat_to_bath var
-R9557:9558 Thermodynamic.LandauerJoules <> pe:15 var
-prf 10140:10154 <> landauer_joules
-R10174:10188 Thermodynamic.LandauerDerived <> PhysicalErasure rec
-binder 10169:10170 <> pe:17
-R10247:10250 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R10240:10242 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10204:10206 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10200:10202 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10197:10199 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
-R10203:10203 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
-R10207:10209 Coq.Reals.Raxioms <> INR def
-R10212:10222 Thermodynamic.LandauerDerived <> bits_erased def
-R10225:10234 Thermodynamic.LandauerDerived <> erasure_op proj
-R10236:10237 Thermodynamic.LandauerJoules <> pe:17 var
-R10243:10244 Coq.Reals.Rpower <> ln def
-R10251:10262 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.heat_to_bath var
-R10264:10265 Thermodynamic.LandauerJoules <> pe:17 var
-R10306:10313 Thermodynamic.LandauerJoules <> ln_2_pos thm
-R10306:10313 Thermodynamic.LandauerJoules <> ln_2_pos thm
-R10348:10351 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R10352:10354 Coq.Reals.Raxioms <> INR def
-R10357:10367 Thermodynamic.LandauerDerived <> bits_erased def
-R10370:10379 Thermodynamic.LandauerDerived <> erasure_op proj
-R10396:10402 Coq.Reals.RIneq <> pos_INR thm
-R10348:10351 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R10352:10354 Coq.Reals.Raxioms <> INR def
-R10357:10367 Thermodynamic.LandauerDerived <> bits_erased def
-R10370:10379 Thermodynamic.LandauerDerived <> erasure_op proj
-R10396:10402 Coq.Reals.RIneq <> pos_INR thm
-R10427:10430 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R10431:10460 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.system_thermo_entropy_decrease var
-R10427:10430 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R10431:10460 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.system_thermo_entropy_decrease var
-R10481:10496 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.boltzmann_bridge var
-R10481:10496 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.boltzmann_bridge var
-R10481:10496 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.boltzmann_bridge var
-R10513:10539 Thermodynamic.LandauerJoules <> info_entropy_decrease_value thm
-R10513:10539 Thermodynamic.LandauerJoules <> info_entropy_decrease_value thm
-R10513:10539 Thermodynamic.LandauerJoules <> info_entropy_decrease_value thm
-R10554:10565 Coq.Reals.RIneq <> Rmult_le_pos thm
-R10554:10565 Coq.Reals.RIneq <> Rmult_le_pos thm
-R10595:10606 Coq.Reals.RIneq <> Rmult_le_pos thm
-R10595:10606 Coq.Reals.RIneq <> Rmult_le_pos thm
-R10651:10673 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.second_law_thermal_bath var
-R10651:10673 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.second_law_thermal_bath var
-R10707:10722 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.boltzmann_bridge var
-R10707:10722 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.boltzmann_bridge var
-R10707:10722 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.boltzmann_bridge var
-R10745:10771 Thermodynamic.LandauerJoules <> info_entropy_decrease_value thm
-R10745:10771 Thermodynamic.LandauerJoules <> info_entropy_decrease_value thm
-R10745:10771 Thermodynamic.LandauerJoules <> info_entropy_decrease_value thm
-R10809:10812 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10861:10861 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10808:10808 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
-R10816:10819 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10860:10860 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10813:10815 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
-R10853:10855 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10820:10822 Coq.Reals.Raxioms <> INR def
-R10825:10835 Thermodynamic.LandauerDerived <> bits_erased def
-R10838:10847 Thermodynamic.LandauerDerived <> erasure_op proj
-R10856:10857 Coq.Reals.Rpower <> ln def
-R10792:10800 Coq.Reals.RIneq <> Rle_trans thm
-R10878:10883 Coq.Reals.RIneq <> Req_le thm
-R10809:10812 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10861:10861 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10808:10808 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
-R10816:10819 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10860:10860 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10813:10815 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
-R10853:10855 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10820:10822 Coq.Reals.Raxioms <> INR def
-R10825:10835 Thermodynamic.LandauerDerived <> bits_erased def
-R10838:10847 Thermodynamic.LandauerDerived <> erasure_op proj
-R10856:10857 Coq.Reals.Rpower <> ln def
-R10792:10800 Coq.Reals.RIneq <> Rle_trans thm
-R10878:10883 Coq.Reals.RIneq <> Req_le thm
-prf 11227:11249 <> landauer_joules_one_bit
-R11271:11274 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R11264:11266 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R11260:11262 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R11257:11259 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
-R11263:11263 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
-R11267:11268 Coq.Reals.Rpower <> ln def
-R11275:11286 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.heat_to_bath var
-R11288:11309 Thermodynamic.LandauerDerived <> physical_one_bit_reset def
-R11337:11351 Thermodynamic.LandauerJoules <> landauer_joules thm
-R11353:11374 Thermodynamic.LandauerDerived <> physical_one_bit_reset def
-R11337:11351 Thermodynamic.LandauerJoules <> landauer_joules thm
-R11353:11374 Thermodynamic.LandauerDerived <> physical_one_bit_reset def
-R11453:11455 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11400:11402 Coq.Reals.Raxioms <> INR def
-R11405:11415 Thermodynamic.LandauerDerived <> bits_erased def
-R11418:11427 Thermodynamic.LandauerDerived <> erasure_op proj
-R11429:11450 Thermodynamic.LandauerDerived <> physical_one_bit_reset def
-R11453:11455 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11400:11402 Coq.Reals.Raxioms <> INR def
-R11405:11415 Thermodynamic.LandauerDerived <> bits_erased def
-R11418:11427 Thermodynamic.LandauerDerived <> erasure_op proj
-R11429:11450 Thermodynamic.LandauerDerived <> physical_one_bit_reset def
-R11548:11550 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R11544:11546 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R11540:11542 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R11537:11539 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
-R11543:11543 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
-R11551:11552 Coq.Reals.Rpower <> ln def
-R11521:11529 Coq.Reals.RIneq <> Rle_trans thm
-R11571:11576 Coq.Reals.RIneq <> Req_le thm
-R11548:11550 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R11544:11546 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R11540:11542 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R11537:11539 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
-R11543:11543 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
-R11551:11552 Coq.Reals.Rpower <> ln def
-R11521:11529 Coq.Reals.RIneq <> Rle_trans thm
-R11571:11576 Coq.Reals.RIneq <> Req_le thm
-prf 12160:12191 <> information_bound_in_joule_units
-R12211:12225 Thermodynamic.LandauerDerived <> PhysicalErasure rec
-binder 12206:12207 <> pe:18
-R12284:12293 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R12248:12250 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R12241:12243 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R12237:12239 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R12234:12236 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
-R12240:12240 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
-R12244:12245 Coq.Reals.Rpower <> ln def
-R12251:12253 Coq.Reals.Raxioms <> INR def
-R12256:12266 Thermodynamic.LandauerDerived <> bits_erased def
-R12269:12278 Thermodynamic.LandauerDerived <> erasure_op proj
-R12280:12281 Thermodynamic.LandauerJoules <> pe:18 var
-R12308:12310 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R12301:12303 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R12297:12299 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R12294:12296 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
-R12300:12300 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
-R12304:12305 Coq.Reals.Rpower <> ln def
-R12311:12313 Coq.Reals.Raxioms <> INR def
-R12316:12335 Thermodynamic.LandauerDerived <> env_entropy_increase proj
-R12337:12338 Thermodynamic.LandauerJoules <> pe:18 var
-R12381:12406 Thermodynamic.LandauerDerived <> landauer_information_bound thm
-R12381:12406 Thermodynamic.LandauerDerived <> landauer_information_bound thm
-R12432:12448 Coq.Reals.RIneq <> Rmult_le_compat_l thm
-R12432:12448 Coq.Reals.RIneq <> Rmult_le_compat_l thm
-R12468:12475 Thermodynamic.LandauerJoules <> ln_2_pos thm
-R12468:12475 Thermodynamic.LandauerJoules <> ln_2_pos thm
-R12498:12509 Coq.Reals.RIneq <> Rmult_le_pos thm
-R12519:12530 Coq.Reals.RIneq <> Rmult_le_pos thm
-R12498:12509 Coq.Reals.RIneq <> Rmult_le_pos thm
-R12519:12530 Coq.Reals.RIneq <> Rmult_le_pos thm
-R12557:12562 Coq.Reals.RIneq <> le_INR thm
-R12557:12562 Coq.Reals.RIneq <> le_INR thm
-R12590:12613 Thermodynamic.LandauerJoules LandauerJoulesDerivation <> sec
-R12990:13004 Thermodynamic.LandauerJoules <> landauer_joules thm
-R13025:13047 Thermodynamic.LandauerJoules <> landauer_joules_one_bit thm
-R13068:13102 Thermodynamic.LandauerJoules <> shannon_entropy_binary_uniform_nats thm
+R4069:4073 Coq.Reals.Reals <> <> lib
+R4075:4077 Coq.micromega.Lra <> <> lib
+R4079:4081 Coq.micromega.Lia <> <> lib
+R4083:4087 Coq.Arith.Arith <> <> lib
+R4124:4138 Thermodynamic.LandauerDerived <> <> lib
+sec 4768:4791 <> LandauerJoulesDerivation
+var 4841:4841 LandauerJoulesDerivation T
+R4845:4845 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+var 4859:4861 LandauerJoulesDerivation k_B
+R4865:4865 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+var 4881:4885 LandauerJoulesDerivation T_pos
+R4890:4892 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4893:4893 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
+var 4909:4915 LandauerJoulesDerivation k_B_pos
+R4920:4922 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4923:4925 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
+def 5275:5294 <> shannon_entropy_nats
+R5305:5307 Coq.Init.Datatypes <> nat ind
+binder 5297:5301 <> omega:5
+R5312:5312 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5317:5318 Coq.Reals.Rpower <> ln def
+R5321:5323 Coq.Reals.Raxioms <> INR def
+R5325:5329 Thermodynamic.LandauerJoules <> omega:5 var
+prf 5443:5452 <> ln_pow_nat
+R5468:5468 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5464:5464 <> x:6
+R5476:5478 Coq.Init.Datatypes <> nat ind
+binder 5472:5472 <> n:7
+R5491:5494 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5487:5489 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R5490:5490 Thermodynamic.LandauerJoules <> x:6 var
+R5505:5507 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5495:5496 Coq.Reals.Rpower <> ln def
+R5500:5502 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R5499:5499 Thermodynamic.LandauerJoules <> x:6 var
+R5503:5503 Thermodynamic.LandauerJoules <> n:7 var
+R5513:5515 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5508:5510 Coq.Reals.Raxioms <> INR def
+R5512:5512 Thermodynamic.LandauerJoules <> n:7 var
+R5516:5517 Coq.Reals.Rpower <> ln def
+R5519:5519 Thermodynamic.LandauerJoules <> x:6 var
+R5595:5598 Coq.Reals.Rpower <> ln_1 thm
+R5595:5598 Coq.Reals.Rpower <> ln_1 thm
+R5595:5598 Coq.Reals.Rpower <> ln_1 thm
+R5627:5633 Coq.Reals.Rpower <> ln_mult thm
+R5656:5661 Coq.Reals.Rfunctions <> pow_lt thm
+R5627:5633 Coq.Reals.Rpower <> ln_mult thm
+R5627:5633 Coq.Reals.Rpower <> ln_mult thm
+R5627:5633 Coq.Reals.Rpower <> ln_mult thm
+R5627:5633 Coq.Reals.Rpower <> ln_mult thm
+R5656:5661 Coq.Reals.Rfunctions <> pow_lt thm
+prf 5935:5969 <> shannon_entropy_binary_uniform_nats
+R5988:5990 Coq.Init.Datatypes <> nat ind
+binder 5984:5984 <> n:8
+R6027:6029 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5999:6018 Thermodynamic.LandauerJoules <> shannon_entropy_nats def
+R6022:6024 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R6025:6025 Thermodynamic.LandauerJoules <> n:8 var
+R6035:6037 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6030:6032 Coq.Reals.Raxioms <> INR def
+R6034:6034 Thermodynamic.LandauerJoules <> n:8 var
+R6038:6039 Coq.Reals.Rpower <> ln def
+R6073:6092 Thermodynamic.LandauerJoules <> shannon_entropy_nats def
+R6107:6113 Coq.Reals.RIneq <> pow_INR thm
+R6107:6113 Coq.Reals.RIneq <> pow_INR thm
+R6107:6113 Coq.Reals.RIneq <> pow_INR thm
+R6128:6137 Thermodynamic.LandauerJoules <> ln_pow_nat thm
+R6128:6137 Thermodynamic.LandauerJoules <> ln_pow_nat thm
+R6128:6137 Thermodynamic.LandauerJoules <> ln_pow_nat thm
+R6128:6137 Thermodynamic.LandauerJoules <> ln_pow_nat thm
+R6155:6157 Coq.Reals.Raxioms <> INR def
+R6155:6157 Coq.Reals.Raxioms <> INR def
+R6215:6217 Coq.Reals.Raxioms <> INR def
+R6215:6217 Coq.Reals.Raxioms <> INR def
+prf 6341:6348 <> ln_2_pos
+R6353:6355 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R6356:6357 Coq.Reals.Rpower <> ln def
+R6382:6385 Coq.Reals.Rpower <> ln_1 thm
+R6382:6385 Coq.Reals.Rpower <> ln_1 thm
+R6382:6385 Coq.Reals.Rpower <> ln_1 thm
+R6394:6406 Coq.Reals.Rpower <> ln_increasing thm
+R6394:6406 Coq.Reals.Rpower <> ln_increasing thm
+def 6828:6853 <> info_entropy_decrease_nats
+R6861:6875 Thermodynamic.LandauerDerived <> PhysicalErasure rec
+binder 6856:6857 <> pe:9
+R6880:6880 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6889:6908 Thermodynamic.LandauerJoules <> shannon_entropy_nats def
+R6912:6914 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R6915:6925 Thermodynamic.LandauerDerived <> bits_erased def
+R6928:6937 Thermodynamic.LandauerDerived <> erasure_op proj
+R6939:6940 Thermodynamic.LandauerJoules <> pe:9 var
+prf 6954:6980 <> info_entropy_decrease_value
+R7000:7014 Thermodynamic.LandauerDerived <> PhysicalErasure rec
+binder 6995:6996 <> pe:10
+R7052:7060 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7023:7048 Thermodynamic.LandauerJoules <> info_entropy_decrease_nats def
+R7050:7051 Thermodynamic.LandauerJoules <> pe:10 var
+R7094:7096 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7061:7063 Coq.Reals.Raxioms <> INR def
+R7066:7076 Thermodynamic.LandauerDerived <> bits_erased def
+R7079:7088 Thermodynamic.LandauerDerived <> erasure_op proj
+R7090:7091 Thermodynamic.LandauerJoules <> pe:10 var
+R7097:7098 Coq.Reals.Rpower <> ln def
+R7133:7158 Thermodynamic.LandauerJoules <> info_entropy_decrease_nats def
+R7171:7205 Thermodynamic.LandauerJoules <> shannon_entropy_binary_uniform_nats thm
+R7171:7205 Thermodynamic.LandauerJoules <> shannon_entropy_binary_uniform_nats thm
+var 8262:8291 LandauerJoulesDerivation system_thermo_entropy_decrease
+R8310:8313 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8295:8309 Thermodynamic.LandauerDerived <> PhysicalErasure rec
+R8314:8314 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+var 8331:8346 LandauerJoulesDerivation boltzmann_bridge
+R8366:8380 Thermodynamic.LandauerDerived <> PhysicalErasure rec
+binder 8361:8362 <> pe:12
+R8422:8430 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8389:8418 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.system_thermo_entropy_decrease var
+R8420:8421 Thermodynamic.LandauerJoules <> pe:12 var
+R8434:8436 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8431:8433 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
+R8437:8462 Thermodynamic.LandauerJoules <> info_entropy_decrease_nats def
+R8464:8465 Thermodynamic.LandauerJoules <> pe:12 var
+var 9258:9269 LandauerJoulesDerivation heat_to_bath
+R9288:9291 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9273:9287 Thermodynamic.LandauerDerived <> PhysicalErasure rec
+R9292:9292 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+var 9309:9331 LandauerJoulesDerivation second_law_thermal_bath
+R9351:9365 Thermodynamic.LandauerDerived <> PhysicalErasure rec
+binder 9346:9347 <> pe:15
+R9412:9421 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9375:9378 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R9379:9408 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.system_thermo_entropy_decrease var
+R9410:9411 Thermodynamic.LandauerJoules <> pe:15 var
+R9459:9462 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R9423:9425 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R9422:9422 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
+R9426:9455 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.system_thermo_entropy_decrease var
+R9457:9458 Thermodynamic.LandauerJoules <> pe:15 var
+R9463:9474 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.heat_to_bath var
+R9476:9477 Thermodynamic.LandauerJoules <> pe:15 var
+prf 10059:10073 <> landauer_joules
+R10093:10107 Thermodynamic.LandauerDerived <> PhysicalErasure rec
+binder 10088:10089 <> pe:17
+R10166:10169 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R10159:10161 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10123:10125 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10119:10121 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10116:10118 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
+R10122:10122 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
+R10126:10128 Coq.Reals.Raxioms <> INR def
+R10131:10141 Thermodynamic.LandauerDerived <> bits_erased def
+R10144:10153 Thermodynamic.LandauerDerived <> erasure_op proj
+R10155:10156 Thermodynamic.LandauerJoules <> pe:17 var
+R10162:10163 Coq.Reals.Rpower <> ln def
+R10170:10181 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.heat_to_bath var
+R10183:10184 Thermodynamic.LandauerJoules <> pe:17 var
+R10225:10232 Thermodynamic.LandauerJoules <> ln_2_pos thm
+R10225:10232 Thermodynamic.LandauerJoules <> ln_2_pos thm
+R10267:10270 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R10271:10273 Coq.Reals.Raxioms <> INR def
+R10276:10286 Thermodynamic.LandauerDerived <> bits_erased def
+R10289:10298 Thermodynamic.LandauerDerived <> erasure_op proj
+R10315:10321 Coq.Reals.RIneq <> pos_INR thm
+R10267:10270 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R10271:10273 Coq.Reals.Raxioms <> INR def
+R10276:10286 Thermodynamic.LandauerDerived <> bits_erased def
+R10289:10298 Thermodynamic.LandauerDerived <> erasure_op proj
+R10315:10321 Coq.Reals.RIneq <> pos_INR thm
+R10346:10349 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R10350:10379 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.system_thermo_entropy_decrease var
+R10346:10349 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R10350:10379 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.system_thermo_entropy_decrease var
+R10400:10415 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.boltzmann_bridge var
+R10400:10415 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.boltzmann_bridge var
+R10400:10415 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.boltzmann_bridge var
+R10432:10458 Thermodynamic.LandauerJoules <> info_entropy_decrease_value thm
+R10432:10458 Thermodynamic.LandauerJoules <> info_entropy_decrease_value thm
+R10432:10458 Thermodynamic.LandauerJoules <> info_entropy_decrease_value thm
+R10473:10484 Coq.Reals.RIneq <> Rmult_le_pos thm
+R10473:10484 Coq.Reals.RIneq <> Rmult_le_pos thm
+R10514:10525 Coq.Reals.RIneq <> Rmult_le_pos thm
+R10514:10525 Coq.Reals.RIneq <> Rmult_le_pos thm
+R10570:10592 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.second_law_thermal_bath var
+R10570:10592 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.second_law_thermal_bath var
+R10626:10641 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.boltzmann_bridge var
+R10626:10641 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.boltzmann_bridge var
+R10626:10641 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.boltzmann_bridge var
+R10664:10690 Thermodynamic.LandauerJoules <> info_entropy_decrease_value thm
+R10664:10690 Thermodynamic.LandauerJoules <> info_entropy_decrease_value thm
+R10664:10690 Thermodynamic.LandauerJoules <> info_entropy_decrease_value thm
+R10728:10731 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10780:10780 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10727:10727 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
+R10735:10738 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10779:10779 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10732:10734 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
+R10772:10774 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10739:10741 Coq.Reals.Raxioms <> INR def
+R10744:10754 Thermodynamic.LandauerDerived <> bits_erased def
+R10757:10766 Thermodynamic.LandauerDerived <> erasure_op proj
+R10775:10776 Coq.Reals.Rpower <> ln def
+R10711:10719 Coq.Reals.RIneq <> Rle_trans thm
+R10797:10802 Coq.Reals.RIneq <> Req_le thm
+R10728:10731 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10780:10780 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10727:10727 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
+R10735:10738 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10779:10779 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10732:10734 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
+R10772:10774 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10739:10741 Coq.Reals.Raxioms <> INR def
+R10744:10754 Thermodynamic.LandauerDerived <> bits_erased def
+R10757:10766 Thermodynamic.LandauerDerived <> erasure_op proj
+R10775:10776 Coq.Reals.Rpower <> ln def
+R10711:10719 Coq.Reals.RIneq <> Rle_trans thm
+R10797:10802 Coq.Reals.RIneq <> Req_le thm
+prf 11146:11168 <> landauer_joules_one_bit
+R11190:11193 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R11183:11185 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11179:11181 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11176:11178 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
+R11182:11182 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
+R11186:11187 Coq.Reals.Rpower <> ln def
+R11194:11205 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.heat_to_bath var
+R11207:11228 Thermodynamic.LandauerDerived <> physical_one_bit_reset def
+R11256:11270 Thermodynamic.LandauerJoules <> landauer_joules thm
+R11272:11293 Thermodynamic.LandauerDerived <> physical_one_bit_reset def
+R11256:11270 Thermodynamic.LandauerJoules <> landauer_joules thm
+R11272:11293 Thermodynamic.LandauerDerived <> physical_one_bit_reset def
+R11372:11374 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11319:11321 Coq.Reals.Raxioms <> INR def
+R11324:11334 Thermodynamic.LandauerDerived <> bits_erased def
+R11337:11346 Thermodynamic.LandauerDerived <> erasure_op proj
+R11348:11369 Thermodynamic.LandauerDerived <> physical_one_bit_reset def
+R11372:11374 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11319:11321 Coq.Reals.Raxioms <> INR def
+R11324:11334 Thermodynamic.LandauerDerived <> bits_erased def
+R11337:11346 Thermodynamic.LandauerDerived <> erasure_op proj
+R11348:11369 Thermodynamic.LandauerDerived <> physical_one_bit_reset def
+R11467:11469 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11463:11465 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11459:11461 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11456:11458 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
+R11462:11462 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
+R11470:11471 Coq.Reals.Rpower <> ln def
+R11440:11448 Coq.Reals.RIneq <> Rle_trans thm
+R11490:11495 Coq.Reals.RIneq <> Req_le thm
+R11467:11469 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11463:11465 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11459:11461 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11456:11458 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
+R11462:11462 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
+R11470:11471 Coq.Reals.Rpower <> ln def
+R11440:11448 Coq.Reals.RIneq <> Rle_trans thm
+R11490:11495 Coq.Reals.RIneq <> Req_le thm
+prf 12079:12110 <> information_bound_in_joule_units
+R12130:12144 Thermodynamic.LandauerDerived <> PhysicalErasure rec
+binder 12125:12126 <> pe:18
+R12203:12212 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R12167:12169 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R12160:12162 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R12156:12158 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R12153:12155 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
+R12159:12159 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
+R12163:12164 Coq.Reals.Rpower <> ln def
+R12170:12172 Coq.Reals.Raxioms <> INR def
+R12175:12185 Thermodynamic.LandauerDerived <> bits_erased def
+R12188:12197 Thermodynamic.LandauerDerived <> erasure_op proj
+R12199:12200 Thermodynamic.LandauerJoules <> pe:18 var
+R12227:12229 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R12220:12222 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R12216:12218 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R12213:12215 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.k_B var
+R12219:12219 Thermodynamic.LandauerJoules <> LandauerJoulesDerivation.T var
+R12223:12224 Coq.Reals.Rpower <> ln def
+R12230:12232 Coq.Reals.Raxioms <> INR def
+R12235:12254 Thermodynamic.LandauerDerived <> env_entropy_increase proj
+R12256:12257 Thermodynamic.LandauerJoules <> pe:18 var
+R12300:12325 Thermodynamic.LandauerDerived <> landauer_information_bound thm
+R12300:12325 Thermodynamic.LandauerDerived <> landauer_information_bound thm
+R12351:12367 Coq.Reals.RIneq <> Rmult_le_compat_l thm
+R12351:12367 Coq.Reals.RIneq <> Rmult_le_compat_l thm
+R12387:12394 Thermodynamic.LandauerJoules <> ln_2_pos thm
+R12387:12394 Thermodynamic.LandauerJoules <> ln_2_pos thm
+R12417:12428 Coq.Reals.RIneq <> Rmult_le_pos thm
+R12438:12449 Coq.Reals.RIneq <> Rmult_le_pos thm
+R12417:12428 Coq.Reals.RIneq <> Rmult_le_pos thm
+R12438:12449 Coq.Reals.RIneq <> Rmult_le_pos thm
+R12476:12481 Coq.Reals.RIneq <> le_INR thm
+R12476:12481 Coq.Reals.RIneq <> le_INR thm
+R12509:12532 Thermodynamic.LandauerJoules LandauerJoulesDerivation <> sec
+R12909:12923 Thermodynamic.LandauerJoules <> landauer_joules thm
+R12944:12966 Thermodynamic.LandauerJoules <> landauer_joules_one_bit thm
+R12987:13021 Thermodynamic.LandauerJoules <> shannon_entropy_binary_uniform_nats thm

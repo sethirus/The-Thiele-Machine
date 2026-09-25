@@ -32,7 +32,7 @@
 
     *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
    imports no kernel module.
@@ -40,8 +40,8 @@
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
 
 Require Import Coq.Reals.Reals.
 Require Import Coq.micromega.Lra.
@@ -223,39 +223,13 @@ Proof.
   - rewrite optimal_chsh, four_e_eq_sqrt8. reflexivity.
 Qed.
 
-(**
-
-    The Tsirelson bound connects to the machine via μ-cost accounting:
-
-    At μ = 0 (zero-cost/classical operations):
-      |S| ≤ 2 (Bell/CHSH classical bound, proven in ClassicalBound.v)
-
-    At μ > 0 (structure-adding operations like LASSERT, REVEAL):
-      |S| can reach up to 2√2 (proven here from algebra)
-      The extra correlations require μ-cost to create
-
-    The gap between 2 (classical) and 2√2 (quantum) is precisely the
-    structural information that μ-cost accounting tracks:
-      Δ = 2√2 - 2 ≈ 0.828
-    This gap is the μ-cost of creating quantum correlations.
-
-    WHY THE BOUND EXISTS:
-    The row constraints (e₀₀² + e₀₁² ≤ 1) come from the PSD condition
-    of the NPA moment matrix. This matrix represents consistency of
-    measurement outcomes. Any violation of PSD = inconsistent outcomes.
-
-    In the machine formalism:
-    - Row constraints = consistency of partition observations
-    - CHSH bound = limit on observable correlations from consistent partitions
-    - √8 = algebraic maximum of constrained quadratic form
-
-    EPISTEMOLOGICAL STATUS:
-    - Tsirelson bound was classified (C) with circularity concern
-    - Tsirelson bound is now PROVEN from pure algebra (status: A)
-    - The derivation uses ZERO physics axioms
-    - See TsirelsonGeneral.v for the full mechanized proof
-    - See HardMathFactsProven.v (archived) for the Q-arithmetic version
-    *)
+(** This theorem is an algebraic bound for the displayed correlator variables.
+    The row constraints are supplied by the positive-semidefinite completion
+    interface, and the proof optimizes the resulting quadratic expression.
+    Nothing in this file identifies the variables with a physical experiment
+    or assigns the gap between the classical and Tsirelson values to [mu]. Any
+    such interpretation requires a separate bridge from the correlator model
+    to the VM and to an experimental implementation. *)
 
 (** Summary: Non-circular derivation chain for Tsirelson *)
 (**
@@ -313,6 +287,5 @@ Qed.
     No Hilbert spaces, no tensor products, no wavefunctions needed.
     *)
 
-(* INQUISITOR NOTE: connectivity anchor. *)
+(* SCOPE NOTE: connectivity anchor. *)
 Definition tsirelson_algebra_anchor := (sqrt8_eq_2sqrt2, rational_tsirelson_bound).
-

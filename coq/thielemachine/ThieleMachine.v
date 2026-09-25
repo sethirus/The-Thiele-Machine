@@ -20,7 +20,7 @@
     [Prog], [State], and [step] to richer Thiele CPU semantics; this file
     proves what holds at the abstract small-step level. *)
 
-(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity -- bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import MuCostModel.
 

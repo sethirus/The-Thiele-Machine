@@ -1,53 +1,46 @@
 (** =========================================================================
     THE THIELE MACHINE — From Nothing
 
-    One file. Zero project imports for proofs. Zero admits. A complete
-    machine that enforces a single law: observation costs.
+    One monolithic proof development. It defines a VM, its costed steps, and
+    several checked constructions around those definitions.
 
-    If that sounds impossible, compile this file. The proofs check or
-    they don't.
+    The proof terms are the authority for the theorem statements below.
 
     I start from the Coq standard library + Kami (vendor) and build,
-    step by step, a machine that charges for every structural insight
-    about its own state space. Then I prove the charge is unavoidable
-    and unique. Then I add a categorical layer — morphisms between
-    partition modules — and prove that this layer is strictly richer
-    than classical register/memory state: two programs can produce
-    identical classical output yet be provably distinct via one probe
-    instruction (the Categorical Separation Theorem, §16). Then I
-    show this cost model gives rise to algebraic structures analogous
-    to quantum bounds and discrete Einstein equations — not derivations
-    of physics, but formal parallels within the model's own definitions.
-    Then I extract the whole thing to runnable code and synthesizable
-    hardware.
+    step by step, a machine that charges designated structural and receipt
+    events according to its instruction schedule. Then I prove the stated
+    cost floors and schedule-relative uniqueness. Then I add a categorical
+    layer — morphisms between partition modules — and prove that the named
+    projection can identify states that still differ in the morphism graph.
+    The file also contains separate algebraic and discrete-geometric
+    developments whose theorem statements carry their own premises. They are
+    not derivations of physics. Later sections connect selected definitions
+    to extraction and hardware models under explicit bridge contracts.
 
     THE KNOWLEDGE RECEIPT:
 
-    Classical machines answer: "What is the result?"
-    This machine answers:      "What is the result, how did you get
-                                there, and how much did it cost to know
-                                that — provably, from first principles?"
+    The VM records more than the selected classical projection.
+    Its state can include a graph, certification fields, and a cost ledger.
+    The theorems below say what those fields and transitions establish.
 
     The μ-ledger is the receipt. It is:
-    - Unforgeable: any other cost measure satisfying the same constraints
-      equals μ on all reachable states (μ-initiality, Part D of §6).
-    - Unavoidable: nothing certifies structural claims for free, and nothing
-      gets to even ATTEMPT certification for free — S(0)=1 is charged
-      even for failed assertions (No Free Insight, §6).
-    - Necessary: this file also proves that strict classical state
-      (mem, regs, pc) cannot determine μ or certification,
-      that cost-only and certification-only projections each miss the other
-      half, and that the full μ-ledger shadow is the minimal named complete
-      extension (mirrored in NecessityOfMuLedger.v and
-      kernel/NecessityAbstract.v).
-    - Hardware-backed: the same μ-accounting runs in OCaml (extracted),
-      Python (extracted), and synthesizable Verilog (Kami-derived).
-      Three layers, one receipt, one proof.
+    - Schedule-relative uniqueness: any measure satisfying the same local
+      increments and initial value agrees with μ on the reachable states named
+      by the theorem.
+    - Certification floor: the designated certification transitions carry the
+      positive cost required by the stated VM schedule, including failed
+      attempts where the instruction semantics charge them.
+    - Projection separation: the supplied witness pairs show that selected
+      projections do not determine μ, certification, or graph state.
+    - Conditional bridges: extraction and hardware files provide separate
+      correspondence contracts and tests; this file does not make every
+      implementation identical to the VM.
 
     THE CATEGORICAL LAYER:
 
     Beyond modules (objects), the machine tracks morphisms — typed
-    relational arrows between modules. This gives it a concrete category:
+    relational arrows between modules. The records and operations support
+    the category laws proved by the named theorems:
     objects = partition modules, arrows = MORPH relations, composition =
     COMPOSE, tensor = MORPH_TENSOR, identity = MORPH_ID. Seven opcodes
     (0x27–0x2D) implement this. The category laws are proved
@@ -56,111 +49,78 @@
 
     The Categorical Separation Theorem (§16 in this file, also proved
     in the modular kernel's PartitionSeparation.v)
-    proves that the morphism layer is not redundant: there exist states
+    proves that the morphism layer is not redundant under the named
+    projection: there exist states
     s1, s2 that agree on ALL classical fields (regs, mem, μ, err,
     modules) but differ on pg_morphisms. A single MORPH_DELETE probe
-    distinguishes them. No classical machine can see this distinction.
+    distinguishes them. A verifier restricted to that projection cannot see
+    this distinction.
 
     Thematic outline (see SECTION headers for exact structure):
 
-    (0)  WHY: The argument from first principles — why observation MUST
-        cost something, why the cost measure is unique, why a machine
-        must track it. No definitions yet. Just the logic.
+    (0)  MOTIVATION: the argument for making selected certification and
+        receipt events explicit in the state and instruction schedule.
 
-    (1) CERTIFICATE VERIFICATION: The machine needs eyes. I build a
-        complete SAT/UNSAT checker from scratch — model checking for
-        satisfiability, LRAT proof checking for unsatisfiability. These
-        are how the machine confirms structural facts about its state
-        space before accepting them.
+    (1) CERTIFICATE VERIFICATION: the file defines SAT/UNSAT checker
+        components and states the exact data they inspect before acceptance.
 
-    (2) MACHINE STATE: The minimal state that can track cost. Registers,
-        memory, a partition graph (the machine's model of itself),
-        a μ-accumulator (the cost ledger), and witness counters for
-        Bell experiments. The partition graph holds a morphism map
-        (pg_morphisms): the categorical layer on top of modules.
-        Every field is here because it has to be.
+    (2) MACHINE STATE: the VM state contains registers, memory, a partition
+        graph, a μ-accumulator, witness counters, and certification fields.
+        The theorem surface does not claim that this is the only minimal state
+        representation.
 
-    (3) INSTRUCTION SET: 47 opcodes, each with a declared cost. Nothing
-        arbitrary — every instruction exists because the machine needs
-        it to compute, manage its state space model, interact with
-        the physical world, or express categorical structure. The ones
-        that modify the model (LASSERT, REVEAL, EMIT, LJOIN, CERTIFY,
-        MORPH_ASSERT) carry irreducible cost. MORPH_ASSERT charges
-        S(cost) ≥ 1 even for failed attempts — there's no trying to certify
-        structural claims for free.
+    (3) INSTRUCTION SET: the inductive type lists the instructions and their
+        declared parameters. The cost function gives the specified positive
+        floors to the designated classes; other instructions may carry zero
+        encoded delta.
 
-    (4) EXECUTABLE SEMANTICS: vm_apply maps (state, instruction) → state.
-        run_vm loops it with fuel. Both extract to OCaml. This is a
-        real, runnable machine — not a paper artifact.
+    (4) EXECUTABLE SEMANTICS: vm_apply maps a state and instruction to a
+        state, and run_vm folds that step with fuel. Extraction and runtime
+        claims are checked at their separate build boundaries.
 
-    (5) μ-COST CONSERVATION: The central theorem. Every instruction
-        increases μ by exactly its declared cost. μ never decreases.
-        Over any execution, μ_final ≥ μ_init. The machine's second law.
+    (5) μ-COST CONSERVATION: the transition theorem says that μ changes by
+        the declared instruction cost, so the supplied nonnegative schedule
+        makes it nondecreasing.
 
-    (6) μ-INITIALITY: μ is not a design choice — it's the UNIQUE cost
-        measure consistent with the instruction costs and starting from
-        zero. Any other measure satisfying the same constraints must
-        equal μ on all reachable states. Category-theoretic uniqueness.
+    (6) μ-INITIALITY: for the fixed schedule and zero initial value, any
+        measure satisfying the same local increments agrees with μ on the
+        reachable states covered by the theorem.
 
-    (7) CERTIFICATION REQUIRES COST: CERTIFY is the only instruction
-        that sets vm_certified = true, and it charges at least 1.
-        Starting uncertified with μ=0, reaching certification forces
-        μ > 0. No exceptions.
+    (7) CERTIFICATION REQUIRES COST: in this VM semantics, the designated
+        certification setters carry a positive floor. Starting uncertified
+        with μ=0, the corresponding trace theorem gives μ > 0.
 
-    (7a) LEDGER NECESSITY: μ and certification are independent of strict
-        classical projections, independent of each other under cost-only
-        and cert-only projections, and jointly necessary for determinate
-        certification semantics. This is proved below in the monolithic file
-        and mirrored in NecessityOfMuLedger.v / kernel/NecessityAbstract.v.
+    (7a) LEDGER NECESSITY: the witness pairs below show non-recoverability
+        under the named projections. They do not establish a universal
+        minimal encoding for every conventional implementation.
 
-    (8) NO FREE INSIGHT: The culminating impossibility theorem.
-        Strengthening a predicate — ruling out possibilities, gaining
-        structural knowledge — requires a structure addition event.
-        Arithmetic, memory ops, control flow: none of them can produce
-        certification. Nothing learns without paying. The categorical
-        extension deepens this: MORPH_ASSERT is the cert-setter for
-        morphism claims. Asserting a morphism property costs S(cost) ≥ 1
-        unconditionally — even if the assertion fails, even if cost = 0.
+    (8) NO FREE CERTIFICATION: the abstract theorem says that a trace from
+        an uncertified state to a certified state has positive total cost when
+        every one-step certification transition has a positive floor. The
+        conclusion is about the supplied predicate and cost law.
 
-    (8a) QUANTUM ANALOGS AND LANDAUER'S PRINCIPLE: From the μ-cost algebra
-        the file derives formal analogs of CHSH ≤ 2 (classical bound),
-        Tsirelson S² ≤ 8 (algebraic), zero-cost unitarity, no-cloning from
-        μ-conservation, and Born rule from cost symmetry. Landauer's
-        principle is proven: bits_erased bits of irreversible erasure require
-        at least that many bits of environment entropy increase. These are
-        structural parallels within the model's definitions — not derivations
-        of quantum mechanics. Sections 6B–6F-V.
+    (8a) ALGEBRAIC AND THERMODYNAMICALLY MOTIVATED SUBSECTIONS: later
+        sections contain separate real- and natural-number developments whose
+        definitions and premises determine their conclusions. Their labels do
+        not turn them into derivations of quantum mechanics or thermodynamics.
 
-    (8b) SPACETIME EMERGENCE: The vm_mu_tensor field gives every module a
-        local 4×4 metric. Mass gradients produce genuine curvature: Christoffel
-        symbols, Riemann tensor (with quadratic Γ·Γ terms), Ricci tensor,
-        Einstein tensor — all from observation costs, no GR axioms assumed.
-        Key results: G=T=0 for vacuum (trivial); ∃κ, G_dd = κ·T_dd for
-        non-vacuum isotropic metrics (uniform coupling — full Cramer's rule
-        inverse, non-trivial). The pseudo-Riemannian interpretation is FORCED:
-        non-degeneracy, torsion-freedom, metric compatibility, and Levi-Civita
-        uniqueness are all proven (Fundamental Theorem of Riemannian Geometry
-        applies). Sections 6I–6J.
+    (8b) DISCRETE GEOMETRIC SUBSECTIONS: the tensor and curvature records are
+        formal constructions over the stated VM data. Any interpretation as
+        spacetime or general relativity remains a separate bridge question.
 
-    (9) HARDWARE REFINEMENT: KamiSnapshot models the register file.
-        abs_snapshot maps hardware state to VMState. Per-instruction
-        simulation witnesses prove every hardware step matches a
-        software step. μ commutation diagrams prove the silicon's cost
-        accounting matches the proof's. All 7 MORPH opcodes (0x27–0x2D)
-        have RTL cases in the generated Verilog. Bridge from proofs to
-        gates.
+    (9) HARDWARE REFINEMENT: the Kami sections define snapshots and
+        correspondence relations for the hardware model. The resulting
+        claims are conditional on those relations and on the downstream
+        synthesis and translation checks.
 
-   (10) EXTRACTION: The entire machine extracts to OCaml — compiles and
-        runs. The Kami hardware spec extracts to Bluespec, then to
-        synthesizable Verilog. Three layers, one machine, one proof.
+   (10) EXTRACTION: selected definitions extract to OCaml, and the hardware
+        model has a separate Kami-to-RTL path. Build and parity evidence is
+        recorded at those boundaries.
 
-   (11) VERIFICATION: Print Assumptions on every key theorem.
-        VM-level theorems (μ-conservation, NoFI, initiality) are
-        fully axiom-free ("Closed under the global context").
-        Real-number theorems (Tsirelson, Born rule, Einstein) use
-        Coq's standard Reals axioms (sig_forall_dec,
-        functional_extensionality) — universally accepted in the
-        Coq ecosystem, not project-specific.
+   (11) VERIFICATION: assumption receipts and build checks distinguish
+        project-local declarations, explicit theorem premises, standard
+        library dependencies, and tool-trusted translation steps. Read the
+        current receipt rather than inferring trust from this outline.
 
     TO BUILD (from the coq/ directory):
       coqc -R . Top -R kernel Kernel -R nofi NoFI -R kami_hw KamiHW \
@@ -175,20 +135,19 @@
       ../build/kami_hw/Target_complete.ml — extracted Kami OCaml (byte-for-byte = Target.ml)
       ../build/thiele_core_complete.ml — direct OCaml extraction (byte-for-byte = thiele_core.ml)
 
-    Zero custom axioms. Zero admits. Zero project imports. The proofs compile.
+    The current source and proof gate determine the actual assumptions and
+    compilation status.
     ========================================================================= *)
 
 (** =========================================================================
-    SECTION 0: WHY — The Argument from First Principles
+    SECTION 0: MOTIVATION — What This Formal Development Is About
     =========================================================================
 
-    Before I define anything, I need to answer the obvious question: WHY
-    does this machine exist? Why must observation cost something? Why is μ
-    the right measure? Why not any other?
+    This section records the motivating argument before the definitions.
+    The formal development below is narrower than every sentence of this
+    motivation, so the theorem statements and their premises control.
 
-    The argument has six steps. None of them are optional.
-
-    STEP 1: OBSERVATION IS STATE SPACE REDUCTION.
+    STEP 1: A CERTIFIED NARROWING IS A STATE-SPACE REDUCTION.
 
     A machine operates over a state space Ω — all configurations consistent
     with current knowledge. Before any observation, Ω is maximal. After
@@ -196,91 +155,53 @@
     Ω' = {s ∈ Ω | P(s)}. If P is nontrivial — rules out at least one
     configuration — then |Ω'| < |Ω|.
 
-    That reduction is irreversible. Once ruled out, configurations don't
-    come back. Information has been gained. The set of possibilities has
-    narrowed. That's what "learning" means, operationally.
+    The VM records a certified narrowing only when the supplied transition
+    semantics and representation premises say that a claim was checked and
+    admitted. A smaller feasible list is not by itself a physical erasure
+    statement, and this file does not derive joules, heat, or Kolmogorov
+    complexity from the list lengths.
 
-    STEP 2: IRREVERSIBLE REDUCTION HAS MINIMUM COST.
+    STEP 2: THE COST FLOOR IS A MODEL CONTRACT.
 
-    Landauer's principle — a consequence of the second law of
-    thermodynamics — says erasing one bit dissipates at least
-    kT ln 2 energy. We formalize this as: any physical erasure
-    operation that erases n bits requires environment entropy
-    increase ≥ n bits (Section 6F-V proves the formalization).
-    Reducing |Ω| to |Ω'| erases log₂(|Ω|/|Ω'|) bits. In
-    normalized units where kT ln 2 = 1, the minimum cost is:
+    The cost floor used by the VM is stated in its instruction schedule.
+    A2-style theorems say that a designated false-to-true certification step
+    has positive cost. Other sections discuss thermodynamic analogies as
+    named bridges or motivations; they are not premises of this VM theorem.
 
-      cost = log₂(|Ω|/|Ω'|) + complexity(description of P)
+    STEP 3: A FIXED SCHEDULE FIXES ITS ACCUMULATED LEDGER.
 
-    The first term is the physical cost of erasure. The second is the
-    logical cost of specifying WHICH constraint to apply — communicating
-    P to the system has irreducible Kolmogorov complexity.
-
-    Reversible operations — rearranging without reducing state space —
-    cost zero. They erase nothing.
-
-    STEP 3: ANY CONSISTENT COST MEASURE EQUALS μ.
-
-    Given the per-instruction costs from Step 2: is there freedom in how
-    to accumulate them? Could two accounting systems disagree on the total
-    cost of the same computation?
-
-    No. The μ-initiality theorem (Section 6) proves μ is the UNIQUE cost
-    functional satisfying:
+    Given a fixed per-instruction schedule, the μ-initiality theorem proves
+    uniqueness of the accumulated value among measures satisfying:
     (a) Instruction consistency: μ(step(s, i)) = μ(s) + cost(i)
     (b) Zero initialization: μ(init_state) = 0
 
-    Any other measure M satisfying (a) and (b) equals μ on all reachable
-    states. Not a definition — a uniqueness theorem. μ is forced by the
-    constraints. There is no gauge freedom.
+    Any other measure M satisfying (a) and (b) equals μ on the reachable
+    states covered by the theorem. This does not select the schedule itself,
+    and it does not calibrate μ to a physical unit.
 
-    STEP 4: THE MACHINE MUST TRACK μ.
+    STEP 4: THE VM EXPLICITLY TRACKS μ.
 
-    If observation has irreducible cost, and the cost measure is unique,
-    then any machine that correctly accounts for observation MUST track μ.
-    A machine that doesn't either:
-    - Allows free observation (violating Landauer), or
-    - Uses a different cost measure (impossible by uniqueness), or
-    - Doesn't account for observation at all (not a faithful model).
+    The VM therefore carries μ as an explicit field because this realization
+    chooses to expose and account for the schedule's increments.
+    A different machine may use a different state representation or schedule.
+    The uniqueness theorem does not prove that this ISA is the only possible
+    realization, that every observation must be charged, or that physics
+    forces these opcodes.
 
-    So the Thiele Machine — a machine with a μ-accumulator that charges
-    for structure-modifying instructions — is not one design among many.
-    It's the minimal machine that correctly accounts for the cost of
-    observation. The ISA, the cost model, and the μ-ledger are all
-    forced by the physics.
+    STEP 5: THE VM ALSO REPRESENTS RELATIONS BETWEEN REGIONS.
 
-    STEP 5: RELATIONS BETWEEN REGIONS ARE ALSO OBSERVATIONS.
+    The VM state includes [pg_morphisms] alongside [pg_modules].
+    The MORPH opcodes manipulate those records, and [MORPH_ASSERT] is a
+    designated certification transition with the positive floor specified by
+    the instruction schedule.
 
-    So far the argument covers observations ABOUT a single module
-    (LASSERT strengthens the axiom set of one region — that costs μ).
-    But a machine that models structured knowledge must also track
-    observations BETWEEN modules: "region A is related to region B
-    via mapping f." That is equally a structural claim — it rules out
-    configurations where the relation doesn't hold — and therefore
-    equally has a minimum cost.
+    The records and operations support the category laws stated by the
+    category files. This monolithic file contains local constructions; the
+    modular files provide separate theorem surfaces.
 
-    This forces a second layer: a morphism map pg_morphisms that stores
-    typed relations (MorphismState) between module pairs, alongside the
-    module map pg_modules. The 7 MORPH opcodes implement manipulation of
-    this map. MORPH_ASSERT is its cert-setter: it costs S(cost) ≥ 1,
-    unconditionally, even for failed assertions (there's no attempting to
-    certify a relation for free any more than there's certifying a property
-    for free).
+    STEP 6: THE NAMED PROJECTION DOES NOT RETAIN THE MORPHISM GRAPH.
 
-    The morphism layer gives the machine a category in the mathematical
-    sense: objects = modules, arrows = morphisms, composition = relational
-    composition (COMPOSE), tensor product = disjoint parallel composition
-    (MORPH_TENSOR), identity = diagonal relation (MORPH_ID). Category
-    laws (associativity, unitality, bifunctoriality) are proved in
-    CategoryLaws.v, CategoryBridge.v, CategoryMonoidal.v — zero Admitted.
-
-    STEP 6: THE CATEGORICAL LAYER IS STRICTLY RICHER THAN CLASSICAL STATE.
-
-    This is not obvious. Why does adding morphisms matter if registers and
-    μ already encode everything observable?
-
-    Because they don't. The Categorical Separation Theorem
-    (PartitionSeparation.v §10) constructs two states s1, s2 where:
+    The Categorical Separation Theorem constructs two states s1, s2 where:
     - s1.vm_regs = s2.vm_regs   (identical registers)
     - s1.vm_mem  = s2.vm_mem    (identical memory)
     - s1.vm_mu   = s2.vm_mu     (identical μ-cost)
@@ -288,17 +209,15 @@
     but:
     - s1.vm_graph.pg_morphisms ≠ s2.vm_graph.pg_morphisms
 
-    A single MORPH_DELETE probe distinguishes them in one step. To any
-    classical machine — any machine that only exposes registers, memory,
-    and a cost counter — these states are identical. To the Thiele Machine
-    they are provably distinct.
+    A single MORPH_DELETE probe distinguishes them in one step. A verifier
+    restricted to the named projection sees the same image for both states;
+    the full VM state does not identify them.
 
-    The practical consequence: two programs can report the same answer
-    in every classical register, at the same μ-cost, but have entirely
-    different causal/relational histories. The morphism graph is the
-    unforgeable record of HOW the knowledge was built, not just WHAT
-    the final values are. This is the computational equivalent of a
-    proof certificate: the answer plus the derivation, not just the answer.
+    The concrete consequence is limited to the supplied witness and
+    projection: two states can agree on the selected registers, memory, and
+    ledger while differing in their stored morphism records. The graph is a
+    state component in this model; it is not automatically an authenticated
+    history or a proof certificate.
 
     The rest of this file constructs and proves all of this.
     ========================================================================= *)
@@ -313,42 +232,19 @@ Import ListNotations.
 Open Scope string_scope.
 
 (** =========================================================================
-    SECTION 1: CERTIFICATE VERIFICATION — The Machine's Eyes
+    SECTION 1: CERTIFICATE VERIFICATION
     =========================================================================
 
-    THE PROBLEM: The machine needs to check structural claims before it
-    accepts them. LASSERT is going to say "this formula is SAT" or "this
-    formula is UNSAT" and strengthen the module's axiom set accordingly.
-    But the machine can't just take that on faith. It needs to verify.
-
-    TWO CHECKERS, one for each direction:
-
-    (a) check_model/check_countermodel: SAT verification with a
-      non-triviality guard. Given a CNF formula, one satisfying
-      assignment, and one falsifying assignment, evaluate whether the
-      first satisfies every clause and the second falsifies at least one.
-      If yes, the SAT claim is confirmed and the asserted formula is
-      known not to be a tautology. Pure computation — no oracle required.
-
-    (b) check_lrat: UNSAT verification. Given a CNF formula and an LRAT
-        proof, replay the proof using reverse unit propagation (RUP) to
-        confirm that the empty clause is derivable. If it is, the formula
-        is provably unsatisfiable. Also pure computation.
-
-    WHY THIS MATTERS: The μ-cost is NOT charged for running these checkers.
-    Verification is free. The cost is charged when the verified claim is
-    RECORDED in machine state — when LASSERT accepts the result and
-    strengthens the module's axiom set. In the tightened architecture,
-    SAT-mode acceptance also requires a falsifying witness, so long
-    tautologies do not count as structural narrowing. That's the
-    irreversible reduction of state space that Landauer's principle
-    applies to. Looking costs nothing. Committing to what you saw — that
-    costs.
-
-    FALSIFICATION: Find a CNF formula and assignment that check_model
-    accepts but is actually unsatisfying. That would mean the checker
-    has a bug. These are standard algorithms (DPLL-style model checking,
-    LRAT replay) with well-understood correctness properties.
+    This section defines the formula and witness data inspected by the
+    checker helpers used by LASSERT.
+    The SAT path checks a satisfying assignment and, where required, a
+    falsifying assignment for the non-tautology condition.
+    The UNSAT path replays the supplied LRAT-style proof data.
+    The conclusions are about the implemented checker predicates and their
+    explicit soundness lemmas.
+    The instruction schedule charges the LASSERT event according to its
+    encoded formula length and floor; this comment does not claim that the
+    checker computation is physically free.
     ========================================================================= *)
 
 Module CertCheck.
@@ -886,36 +782,36 @@ Close Scope string_scope.
 Open Scope list_scope.
 
 (** =========================================================================
-    SECTION 2: MACHINE STATE — Everything the Machine Knows About Itself
+    SECTION 2: MACHINE STATE
     =========================================================================
 
-    This is the machine's memory of itself. Not just registers and memory —
-    the machine also tracks a model of its own state space (the partition
-    graph), a running cost ledger (μ), experimental witnesses (Bell trials),
-    and a full categorical layer (typed morphisms between modules). Every
-    field is here because the physics and the cost argument in Section 0
-    forced it to be here. Nothing is decorative. The main components are:
+    This record contains more than registers and memory.
+    It also carries the partition graph, the μ ledger, witness counters, and
+    certification fields used by the transition rules below.
+    The fields are part of this VM realization; their presence is not claimed
+    to be forced by physics or to be minimal for every machine.
+    The main components are:
 
     1. PARTITION GRAPH: The machine maintains a model of its own state
        space. Modules represent regions. Each module has:
        - A region (list of nat identifiers — which states belong here)
        - An axiom set (list of string formulas — what's known about it)
-       - A μ-tensor (cost distribution across sub-regions)
+       - A μ-tensor (stored per-module cost data used by this model)
        LASSERT, PSPLIT, PMERGE, PNEW manipulate the module structure.
 
        The graph also holds a MORPHISM MAP: pg_morphisms associates each
        MorphismID with a MorphismState (source module, target module,
-       relational coupling data, identity flag). The 7 MORPH opcodes
+       relational coupling data, identity flag). The MORPH opcodes
        (MORPH, COMPOSE, MORPH_ID, MORPH_DELETE, MORPH_ASSERT,
        MORPH_TENSOR, MORPH_GET) manipulate this map. This gives the
        machine a category: objects = modules, morphisms = typed
        relations between modules, composition = relational composition,
-       tensor = parallel product of disjoint morphisms.
+       tensor = the operation implemented by [MORPH_TENSOR].
 
     2. CONTROL/STATUS REGISTERS: Metadata about certification state.
-       - csr_cert_addr: Zero means "no active certificate." Non-zero
-         means a structure-addition event occurred. This is the CSR that
-         the No Free Insight theorem watches.
+       - csr_cert_addr: the VM's supra-certification channel. The transition
+         theorems identify its zero-to-nonzero change as a structure-addition
+         event.
        - csr_status, csr_err: Operation status and error codes.
        - csr_heap_base: Base address for heap operations.
 
@@ -929,13 +825,12 @@ Open Scope list_scope.
 
     6. μ-TENSOR (vm_mu_tensor): A flat 16-element accumulator updated only
        by REVEAL, distributing revelation costs across a 4×4 spatial grid.
-       This is a cost-accumulation field, not the spacetime metric source.
+       This is a cost-accumulation field, not automatically a spacetime metric.
        Note: TENSOR_SET and TENSOR_GET operate on a SEPARATE per-module
        tensor (module_mu_tensor inside each ModuleState in the partition
-       graph). The spacetime metric in Section 6I is derived from each
+       graph). Later sections use selected stored values in formal curvature
        module's structural mass (region size + axiom count), not from
-       these stored entries. Used in Section 6I–6J to derive
-       Christoffel symbols, Riemann curvature, and Einstein equations.
+       these stored entries.
 
     7. WITNESS COUNTERS (vm_witness): 8 counters for Bell/CHSH experiments.
        Records measurement outcomes for all four (x,y) ∈ {0,1}² × {same,diff}
@@ -953,7 +848,8 @@ Open Scope list_scope.
        privileged-mode extensions. No corresponding hardware fields in
        KamiSnapshot yet (noted as prototype gaps in abs_phase1).
 
-    Every field is here because it has to be. Nothing is optional.
+    Some fields are prototype or bridge data, and their uses are recorded by
+    the definitions and theorem premises that consume them.
     ========================================================================= *)
 
 Definition ModuleID := nat.
@@ -1224,12 +1120,11 @@ Definition relational_compose (r1 r2 : list (nat * nat)) : list (nat * nat) :=
     These are not hand-waved. Every law is proven from the definitions
     of relational_compose and diagonal_coupling. Zero admitted.
 
-    PHYSICAL MEANING: Relations between modules can be composed and
-    tensored with the same algebraic laws as function composition and
-    tensor products in any monoidal category. The machine's categorical
-    structure is not decorative — it satisfies the same axioms as
-    mathematical category theory. You can build proofs using categorical
-    reasoning and they will transfer to the machine.
+    These are local algebraic laws for the coupling-list representation.
+    They show that the stated composition, identity, and disjoint tensor
+    operations have the equalities proved below. They do not by themselves
+    establish a full monoidal category, a physical interpretation, or a
+    transfer theorem for categorical arguments outside this representation.
     ========================================================================= *)
 
 Definition diagonal_coupling (region : list nat) : list (nat * nat) :=
@@ -2153,17 +2048,17 @@ Definition morphism_selector_value (ms : MorphismState) (selector : nat) : nat :
     SECTION 3: INSTRUCTION SET (47 opcodes)
     =========================================================================
 
-    47 instructions. Not arbitrary — every one exists because the machine
-    needs it. Organized by function:
+    The constructors below are the 47 instruction forms used by this
+    monolithic VM. They are grouped here by the state they read or update.
 
-    STATE SPACE MANAGEMENT — REVERSIBLE (cost = mu_delta, can be 0):
+    STATE SPACE MANAGEMENT (cost = mu_delta, which may be 0):
       PNEW        — create a new partition module
       PSPLIT      — split a module into two sub-modules
       PMERGE      — merge two modules into one
       MDLACC      — module access control
       PDISCOVER   — record evidence about a module
 
-    STATE SPACE MANAGEMENT — IRREDUCIBLE COST (observation events):
+    POSITIVE-FLOOR CLASSES:
       LASSERT     — assert a formula about a module (SAT/UNSAT verified).
                     cost = flen * 8 + S(mu_delta) ≥ 1. The flen field is
                     the formula's byte-length divided by 8 (an explicit
@@ -2175,9 +2070,8 @@ Definition morphism_selector_value (ms : MorphismState) (selector : nat) : nat :
       REVEAL      — reveal information (observation event).
                     cost = S(mu_delta) ≥ 1.
       CERTIFY     — certify the current state. cost = S(mu_delta) ≥ 1.
-      READ_PORT   — I/O observation: read a channel value.
-                    cost = S(mu_delta) ≥ 1. Observation of external state
-                    costs μ, same as internal state.
+      READ_PORT   — read the supplied channel value.
+                    cost = S(mu_delta) ≥ 1 under this schedule.
 
     COMPUTATION (cost = mu_delta, typically 0):
       XFER, LOAD_IMM, LOAD, STORE — data movement
@@ -2191,8 +2085,8 @@ Definition morphism_selector_value (ms : MorphismState) (selector : nat) : nat :
       CHECKPOINT  — emit a checkpoint label
       WRITE_PORT  — I/O port write (cost = mu_delta, can be 0)
 
-    PHYSICS (correlation experiments):
-      CHSH_TRIAL  — record a Bell/CHSH measurement outcome
+    WITNESS COUNTERS:
+      CHSH_TRIAL  — record the supplied CHSH-trial fields
       TENSOR_SET  — write a 4×4 μ-tensor entry
       TENSOR_GET  — read a 4×4 μ-tensor entry
 
@@ -2219,19 +2113,16 @@ Definition morphism_selector_value (ms : MorphismState) (selector : nat) : nat :
                     Selectors: 0=source_module, 1=target_module,
                                2=coupling_length, 3=is_identity_flag.
 
-    WHY THE CATEGORICAL LAYER:
-    Modules alone are not enough if the machine is meant to record structure
-    between regions as first-class data.  The morphism graph adds that extra
-    layer: typed relations can be created, composed, queried, deleted, and
-    certified independently of the register/memory state.  Later separation
-    results show that two states can agree on the chosen classical projection
-    while differing on [pg_morphisms].
+    The morphism graph is an explicit state component. Typed relations can be
+    created, composed, queried, deleted, and asserted independently of the
+    selected register/memory projection. Later witness theorems show that two
+    states can agree on that projection while differing on [pg_morphisms].
 
     Every instruction carries an explicit μ-cost parameter.  The step
-    function adds that cost to [vm_mu].  For [CERTIFY] and [MORPH_ASSERT] the
-    charged amount is [S delta_mu], so certification cannot be free.  Other
-    instructions may be assigned zero cost when they are treated as
-    reversible or non-observational by this model.
+    function adds that cost to [vm_mu]. For [CERTIFY] and [MORPH_ASSERT] the
+    charged amount is [S delta_mu], so their designated certification
+    transitions cannot be zero-cost in this model. Other instructions may
+    carry zero encoded delta.
     ========================================================================= *)
 
 Inductive vm_instruction :=
@@ -2389,27 +2280,15 @@ Definition is_cert_setterb (instr : vm_instruction) : bool :=
   end.
 
 (** =========================================================================
-    I/O PORT ENVIRONMENT ORACLE
+    I/O PORT ENVIRONMENT
     =========================================================================
 
-    WHY THIS EXISTS: The cost of observing the external world must not depend
-    on WHAT you observe — only on the act of observing itself. READ_PORT bakes
-    the observed value into the instruction at decode time (making execution
-    deterministic given the instruction stream), but the μ-charge is fixed by
-    the requested bit count and mu_delta, not by the channel value. An environment that returns 0 costs
-    exactly the same as one that returns 2^64-1.
-
-    This formalizes the IOEnvironment as an oracle — a function from channel
-    indices to values — and proves the environment-agnosticism of μ-charging.
-
-    PHYSICAL MEANING: Observation costs are structural, not content-dependent.
-    You pay for LOOKING, not for what you see. The size of the world you observe
-    does not reduce the cost. The coin is the same regardless of the outcome.
-
-    FALSIFICATION: To disprove io_env_mu_cost_independent: exhibit two values
-    v, v' where instruction_cost (instr_read_port ... v ...) ≠
-    instruction_cost (instr_read_port ... v' ...). Impossible — instruction_cost
-    extracts bits and mu_delta, ignoring the observed value field.
+    [IOEnvironment] is the function that supplies values for channel indices.
+    The value returned by a channel is stored in the instruction, so execution
+    is deterministic once the instruction stream is fixed. The cost of
+    [READ_PORT] depends on the requested bit count and [mu_delta], not on the
+    value supplied by the environment. [io_env_mu_cost_independent] is the
+    corresponding equality of instruction costs.
     =========================================================================*)
 
 (** An [IOEnvironment] maps channel indices to the values they supply. *)
@@ -2910,18 +2789,16 @@ Definition vm_apply_runtime : VMState -> vm_instruction -> VMState := vm_apply.
     SECTION 5: μ-COST MODEL AND CONSERVATION
     =========================================================================
 
-    This is the heart of the entire construction. Four theorems:
+    This section states the ledger equations for the VM schedule.
 
     vm_apply_mu: SINGLE-STEP CONSERVATION.
       For every state s and every instruction i:
         (vm_apply s i).(vm_mu) = s.(vm_mu) + instruction_cost i
       The μ field after one step equals μ before, plus exactly the
       instruction's declared cost. No more, no less.
-      Proof: case split on all 47 instructions. Each case reduces to
-      reflexivity — vm_apply always sets vm_mu := apply_cost s i
-      which unfolds to s.(vm_mu) + instruction_cost i.
-      The 7 MORPH instructions are included: MORPH_ASSERT charges S(cost),
-      all others charge their declared cost directly.
+      The proof is by case analysis on the instruction constructors.
+      MORPH_ASSERT uses the positive-floor branch; the other constructors use
+      their declared cost branches.
 
     vm_mu_monotonic_single_step: SINGLE-STEP MONOTONICITY.
       s.(vm_mu) ≤ (vm_apply s i).(vm_mu)
@@ -2935,8 +2812,8 @@ Definition vm_apply_runtime : VMState -> vm_instruction -> VMState := vm_apply.
 
     run_vm_mu_conservation: LEDGER ACCOUNTING.
       Final μ = initial μ + sum of all instruction costs.
-      The discretized second law for computation: entropy (μ) never
-      decreases, and increases by exactly the work done.
+      This is a natural-number accounting identity for the VM.
+      It is not a thermodynamic second-law derivation.
     ========================================================================= *)
 
 (** vm_apply_mu: Single-step μ conservation — the foundation of everything. *)
@@ -3009,23 +2886,19 @@ Proof.
 Qed.
 
 (** =========================================================================
-    SECTION 6: NO FREE INSIGHT
+    SECTION 6: NO FREE CERTIFICATION
     =========================================================================
 
-    The culminating impossibility theorem. Four parts:
+    The following parts combine the VM cost schedule with its certification
+    predicates.
 
     Part A — CERTIFICATION REQUIRES COST (PrimeAxiom):
-      CERTIFY is the only instruction that sets vm_certified = true.
-      It charges S delta_mu ≥ 1. Starting uncertified with μ=0,
-      reaching vm_certified = true forces μ > 0. Proven by exhaustive
-      case split over all 47 instructions (including all 7 MORPH opcodes,
-      none of which set vm_certified).
+      The designated setter behavior and its positive floor are proved by
+      case analysis over the instruction constructors.
 
     Part B — NON-REVELATION PRESERVES CERT CSR (RevelationRequirement):
-      Arithmetic, memory, control flow — none of them touch
-      csr_cert_addr. Only REVEAL, EMIT, LJOIN, LASSERT, and CERTIFY
-      can set it to non-zero. This converts "which instructions can
-      observe?" into "which instructions can certify?"
+      The non-setter lemmas identify which transition cases preserve
+      csr_cert_addr and which cases may activate it.
 
     Part C — STRENGTHENING REQUIRES STRUCTURE ADDITION (NoFreeInsight):
       Starting with csr_cert_addr = 0, ending with cert_addr ≠ 0 means
@@ -3033,20 +2906,17 @@ Qed.
       from 0 to non-zero. That transition requires a revelation-class
       instruction.
 
-      The theorem: to strengthen a predicate — go from P_weak to
-      P_strong, rule out possibilities — you must execute a structure
-      addition event, which costs μ.
+      The theorem connects the supplied stronger-predicate and certification
+      premises to a structure-addition event and its schedule cost.
 
     Part D — μ-INITIALITY (MuInitiality):
-      μ is the UNIQUE cost functional relative to the declared
-      instruction-cost assignment. Any other measure M satisfying
-      instruction-consistency and zero-initialization equals μ on all
-      reachable states. No gauge freedom remains once the cost model is
-      fixed.
+      For the declared instruction-cost assignment, any other measure M
+      satisfying instruction consistency and zero initialization agrees with μ
+      on the reachable states covered by the theorem.
 
     The formal chain proved here is:
-      fixed costs → unique μ → cert-setting events raise μ →
-      free certified insight is impossible in this model.
+      fixed schedule → schedule-relative ledger uniqueness → positive-cost
+      certification transitions → no free certification in this model.
     ========================================================================= *)
 
 (** --- Part A: Certification requires cost (PrimeAxiom) --- *)
@@ -4511,27 +4381,12 @@ Proof. exact mu_is_initial_monotone. Qed.
     SECTION 6B: WEIGHT LAWS AND COST MODEL
     =========================================================================
 
-    WHY THIS EXISTS: The μ-accumulator is one specific implementation of
-    a cost function. But the No Free Insight argument is really about ANY
-    function that counts the right things. Here I abstract over that: a
-    "Weight" is any function from instruction traces to nat satisfying three
-    laws. μ satisfies all three. This lets later theorems apply to any
-    weight-respecting cost model, not just our specific μ.
-
-    THE THREE LAWS:
-    - weight_empty: the empty trace costs nothing
-    - weight_sequential: w(t1 ++ t2) = w(t1) + w(t2) (sequential additivity)
-    - disjointness: targets of one instruction cannot overlap with another's
-
-    PHYSICAL MEANING: These laws are the conditions under which cost is
-    additive and locally accountable. No hidden cross-instruction coupling.
-    No batch discounts. Each instruction pays its own way.
-
-    FALSIFICATION: To disprove that μ satisfies these laws — show a trace
-    where μ(t1 ++ t2) ≠ μ(t1) + μ(t2). That would require instruction_cost
-    to not be additive, which follows unconditionally from the definition
-    of instruction_cost (it maps each instruction to a fixed nat). There is
-    no batch discount. There is no coupling. The laws hold by construction.
+    [Weight] abstracts a natural-number measure on instruction traces. The
+    definitions below name the properties used by later results: the empty
+    trace has weight zero, concatenated traces have additive weight, and two
+    instruction lists can be disjoint with respect to their targets. The
+    VM's [vm_mu] is one concrete ledger; these definitions allow a theorem to
+    state the trace property without silently identifying every weight with it.
     ========================================================================= *)
 
 (** Weight: abstract cost algebra (Trace already defined in Section 6A) *)
@@ -4691,42 +4546,22 @@ Proof.
 Qed.
 
 (** =========================================================================
-    SECTION 6C: CHSH STATISTICS AND THE CLASSICAL BOUND
+    SECTION 6C: CHSH-STYLE INTEGER RECORDS
     =========================================================================
 
-    WHY THIS EXISTS: Bell's theorem says classical physics cannot explain
-    certain correlations. I prove it inside the machine — not as a physics
-    import but as a formal consequence of the WitnessCounts register structure.
-    CHSH_TRIAL instructions record measurement outcomes into hardware registers.
-    Those registers are unforgeable: no other instruction increments them.
-    This section proves the classical bound holds and constructs the witness
-    that breaks it.
-
-    THE CLASSICAL BOUND: Any strategy using only local, deterministic hidden
-    variables produces |S| ≤ 2. Proven by exhaustive 16-case enumeration
-    over all (a0,a1,b0,b1) ∈ {0,1}⁴. No quantum mechanics. No physics axioms.
-    Pure combinatorial impossibility — the machine proves it about itself.
-
-    THE VIOLATION WITNESS: violation_wc_tc (three "same" outcomes + one "diff"
-    at angle (1,1)) produces an irreconcilable constraint system:
-      a0=b0, a0=b1, a1=b0  →  b0=b1  →  a1=b1
-      but (1,1)=diff requires a1≠b1. Contradiction.
-    No local strategy can be consistent with this witness. Proven in Coq.
-    Zero floating-point. Zero physics axioms. Just the machine's own records.
-
-    PHYSICAL MEANING: The WitnessCounts accumulator IS a Bell witness.
-    When the machine runs enough CHSH_TRIAL instructions and observes the
-    violation pattern, it has demonstrated — formally, in hardware registers —
-    that no local hidden variable theory can explain its outcomes. The
-    classical bound is not a reference to physics. It is a theorem about
-    the machine's own data.
-
-    FALSIFICATION: To disprove local_strategy_chsh_le_2: exhibit a LocalStrategy
-    (a0,a1,b0,b1 ∈ {0,1}⁴) where |S| > 2. The proof is a 16-case decision
-    procedure — every case reduces by simp/lia. There are no cases left.
+    This section defines a trial record and a four-entry deterministic response
+    table. The theorem [local_strategy_chsh_le_2] is an exhaustive finite
+    arithmetic result for that response-table model.
+    The witness [violation_wc_tc] is a finite collection of supplied outcome
+    constraints that no such fixed response table satisfies.
+    These definitions do not provide a probability model, an experimental
+    sampling argument, or a physical Bell-test interpretation.
+    The VM instruction records the supplied fields and updates its counters
+    according to the step semantics; it does not authenticate an external
+    measurement history merely by storing it.
     ========================================================================= *)
 
-(** CHSH Trial: one measurement record in a Bell experiment *)
+(** CHSH Trial: one record with two settings and two supplied outcomes. *)
 Record CHSHTrial := {
   trial_x : nat;
   trial_y : nat;
@@ -4793,7 +4628,7 @@ Definition local_bits_ok (s : LocalStrategy) : Prop :=
   is_bit s.(ls_a0) = true /\ is_bit s.(ls_a1) = true /\
   is_bit s.(ls_b0) = true /\ is_bit s.(ls_b1) = true.
 
-(** Bell's theorem: for all 16 deterministic local strategies, |S| <= 2 *)
+(** Finite response-table bound for all 16 bit-valued strategies. *)
 Theorem local_strategy_chsh_le_2 :
   forall s, local_bits_ok s -> (-2 <= chsh_local_z s <= 2)%Z.
 Proof.
@@ -4810,7 +4645,7 @@ Proof.
   subst; vm_compute; split; congruence.
 Qed.
 
-(** Classical bound in absolute value form *)
+(** Absolute-value form of the finite response-table bound. *)
 Corollary local_strategy_chsh_abs_le_2 :
   forall s, local_bits_ok s -> (Z.abs (chsh_local_z s) <= 2)%Z.
 Proof.
@@ -4819,12 +4654,8 @@ Proof.
   apply Z.abs_le. split; lia.
 Qed.
 
-(** Classical achieving trace: four CHSH trials, zero μ-cost.
-    These instructions record outcomes — they do not certify anything.
-    The μ-cost is zero because CHSH_TRIAL charges mu_delta, and mu_delta=0
-    here. Recording is free. Certifying is not.
-    This does NOT prove the correlator achieves 2 — that bound is
-    [local_strategy_chsh_le_2]. This proves the scaffold exists. *)
+(** This trace records four supplied trial records with zero encoded delta.
+    It does not certify the records or establish a statistical claim. *)
 Definition classical_achieving_trace : list vm_instruction := [
   instr_pnew [0%nat] 0%nat;
   instr_psplit 0%nat [1%nat] [2%nat] 0%nat;
@@ -4845,38 +4676,18 @@ Proof.
 Qed.
 
 (** =========================================================================
-    SECTION 6D: ALGEBRAIC TSIRELSON BOUND — S^2 <= 8
+    SECTION 6D: AN ALGEBRAIC CORRELATOR BOUND
     =========================================================================
 
-    WHY THIS EXISTS: Classical bound = 2. Quantum bound = 2√2. No-signaling = 4.
-    The gap between 2 and 2.828 is real, measurable, and unexplained by any
-    local theory. This section proves the algebraic ceiling S² ≤ 8 — the
-    Tsirelson bound — from pure algebra. No Hilbert spaces. No physics axioms.
-    The machine's own cost-function definitions force this bound to exist.
-
-    THE PROOF STRUCTURE: Three steps, all machine-checked.
-    1. Row constraints: e00² + e01² ≤ 1, e10² + e11² ≤ 1
-       (NPA-1 minor positivity on correlation matrices)
-    2. Sum of four squares ≤ 2
-    3. Algebraic identity: 4·(sum of squares) - S² = sum of 6 squares ≥ 0
-       Therefore S² ≤ 4·(sum of squares) ≤ 8.
-       Therefore |S| ≤ 2√2.
-
-    WHAT THIS IS NOT: A derivation of quantum mechanics. "Tsirelson bound"
-    here is the algebraic fact that certain correlation sums cannot exceed
-    2√2 given the row constraints. Quantum systems achieve this bound because
-    they satisfy the same constraints — but we prove the bound without quantum
-    mechanics. We prove it from algebra alone, inside the model.
-
-    PHYSICAL MEANING: Tightness — e = ±1/√2 achieves S = 2√2 exactly.
-    A machine that runs CHSH_TRIAL at quantum settings can fill the
-    WitnessCounts register to the algebraic ceiling. No local strategy
-    reaches 2√2. The gap is real and the machine can witness both sides of it.
-
-    FALSIFICATION: To disprove tsirelson_from_row_bounds: exhibit values
-    e00, e01, e10, e11 satisfying the row constraints with S² > 8.
-    The proof is a chain of Cauchy-Schwarz and ring identities — falsifying
-    it requires a sum of 6 squares to be negative, which is impossible in ℝ.
+    This section proves a real-arithmetic inequality for four correlator
+    variables under two explicitly supplied row-square bounds.
+    The sum-of-squares identity gives S^2 <= 8 and the corresponding absolute
+    value bound for this formal predicate.
+    The familiar name “Tsirelson bound” describes the comparison being made;
+    these definitions do not supply a Hilbert-space realization, a probability
+    model, or a derivation of quantum mechanics.
+    The witness theorem below shows that the formal upper bound is attainable
+    by the stated real values under the stated row premises.
     ========================================================================= *)
 
 (* Reals imported here (not at file top) to avoid notation conflicts with the
@@ -5050,80 +4861,51 @@ Qed.
 Close Scope R_scope.
 
 (** =========================================================================
-    SECTION 6E: QUANTUM FOUNDATIONS — UNITARITY, NO-CLONING, BORN RULE
+    SECTION 6E: REAL-VALUED CHANNEL AND PROBABILITY MODELS
     =========================================================================
 
-    WHY THIS EXISTS:
-    Three quantum-mechanical facts — unitarity, no-cloning, Born rule — are
-    each consequences of the same underlying principle: information has a cost.
-    This section proves all three within the μ-cost model, grounding them in
-    arithmetic rather than Hilbert-space postulates.
-
-    WHAT IS PROVEN (zero admits, zero axioms):
-    1. zero_cost_implies_unitary: if a channel costs 0 μ, it preserves purity.
-       Proof: conservation + non-increase sandwich → equality. Physical meaning:
-       FREE OBSERVATION IS IMPOSSIBLE. Every channel that gains information
-       pays for it in μ.
-
-    2. no_cloning_from_conservation: perfect cloning at 0 μ-cost is impossible.
-       Proof: 2I > I for I > 0 — two perfect copies cost at least I μ each.
-       no_cloning_bloch: cloning a Bloch pure state requires ≥ 1 μ.
-
-    3. born_rule_unique: the Born rule P(z) = (1+z)/2 is the UNIQUE probability
-       assignment compatible with mixture structure and boundary conditions.
-       Proof: affine interpolation with fixed endpoints has exactly one solution.
-
-    WHAT THIS DOES NOT PROVE:
-    These are NOT derivations of quantum mechanics from first principles.
-    "No-cloning" here is the arithmetic fact 2I > I. "Unitarity" is a sandwich
-    on information accounting. The machine is not a quantum computer. These
-    proofs show that the μ-cost model OBEYS the same constraints that force
-    quantum mechanics to have these properties — same constraints, same results.
-
-    PHYSICAL INTERPRETATION:
-    The μ-bit is the universal currency. Quantum mechanics restricts cloning,
-    enforces unitarity, and selects the Born rule because its underlying physics
-    enforces the same constraint this machine enforces: YOU CANNOT SEE FOR FREE.
-
-    FALSIFICATION:
-    To disprove zero_cost_implies_unitary: exhibit a respects_info_conservation
-    channel with evo_mu = 0 whose output purity differs from input purity.
-    That would require information to appear from nowhere — violating the
-    conservation axiom on which the proof stands.
+    This section defines Bloch-style real records, an evolution record, a
+    purity expression, a copying relation, and an affine probability rule.
+    The theorem names use familiar quantum vocabulary, but their premises and
+    conclusions are the formal records defined here.
+    They do not establish Hilbert-space unitarity, a physical no-cloning law,
+    or the empirical Born rule.
+    Any physical interpretation requires an additional realization theorem.
     ========================================================================= *)
 
 Open Scope R_scope.
 
-(** -- Unitarity: zero-cost operations preserve purity -- *)
+(** -- Zero-cost evolution preserves the selected purity expression -- *)
 
-(** Pauli trace constants (standard basis for density matrices) *)
+(** Constants used by the selected three-coordinate trace expression. *)
 Definition pauli_tr_identity : R := 2.
-(* SAFE: Pauli σx, σy, σz matrices have trace 0 by definition (traceless) *)
+(* SAFE: This is a fixed zero component of the selected trace model, not a general Pauli matrix. *)
 Definition pauli_tr_sigma_x : R := 0.
+(* SAFE: This is a fixed zero component of the selected trace model, not a general Pauli matrix. *)
 Definition pauli_tr_sigma_y : R := 0.
-(* SAFE: σz trace is 0 *)
+(* SAFE: This is a fixed zero component of the selected trace model, not a general Pauli matrix. *)
 Definition pauli_tr_sigma_z : R := 0.
 
-(** Trace of density matrix in Bloch sphere representation *)
+(** Trace expression for the selected three-coordinate record. *)
 Definition trace_rho (x y z : R) : R :=
   pauli_tr_identity/2 + x*pauli_tr_sigma_x/2 +
   y*pauli_tr_sigma_y/2 + z*pauli_tr_sigma_z/2.
 
-(** Trace squared: purity measure *)
+(** The selected squared trace expression. *)
 Definition trace_rho_squared (x y z : R) : R :=
   (1 + x*x + y*y + z*z) / 2.
 
-(** Bloch sphere information content *)
+(** The selected quadratic state-information expression. *)
 Definition state_info (x y z : R) : R := x*x + y*y + z*z.
 
-(** Trace of any Bloch state is 1 *)
+(** The selected trace expression is normalized to 1. *)
 Lemma trace_rho_one : forall x y z, trace_rho x y z = 1.
 Proof.
   intros x y z. unfold trace_rho, pauli_tr_identity,
     pauli_tr_sigma_x, pauli_tr_sigma_y, pauli_tr_sigma_z. field.
 Qed.
 
-(** Evolution: a quantum channel with mu cost *)
+(** Evolution record with a real-valued cost field. *)
 Record Evolution := {
   evo_x : R -> R -> R -> R;
   evo_y : R -> R -> R -> R;
@@ -5330,37 +5112,17 @@ Qed.
 Close Scope R_scope.
 
 (** =========================================================================
-    SECTION 6F: SHANNON BRIDGE + HONEST NO FREE INSIGHT
+    SECTION 6F: LEDGER COUNTS AND SUPPLIED NARROWING WITNESSES
     =========================================================================
 
-    WHY THIS EXISTS:
-    The μ-ledger is not just bookkeeping. This section proves it is a
-    LOWER BOUND on Shannon information gain. Every cert-setter instruction
-    costs at least 1 μ. Therefore: the machine cannot acquire more bits
-    of structural knowledge than it has paid for in μ.
-
-    THE CORE CLAIM:
-    cert_setter_executions ≤ Δμ  (unconditional, by construction)
-    no_free_insight_quantitative: Δμ ≥ flen * 8  (every LASSERT pays
-    for the formula length in bits — 8 bits per word * flen words)
-
-    WHAT THE SHANNON BRIDGE MEANS:
-    Shannon's theory says you need log2(N) bits to distinguish N outcomes.
-    This section proves the machine must pay at least that many μ to do so.
-    The μ-ledger is not an arbitrary counter — it is a receipt for
-    information-theoretic work actually performed.
-
-    PHYSICAL INTERPRETATION:
-    Every cert-setter is a moment of insight. Every insight has a price.
-    The price is not a penalty — it is the cost of the physical process that
-    makes knowledge possible. Shannon quantified information. This section
-    proves the machine charges for it.
-
-    FALSIFICATION:
-    To disprove honest_nofi_structural_cost: exhibit a cert-setting instruction
-    with instruction_cost = 0. That would require a cert-setter whose cost
-    definition returns zero — impossible by structural inspection of
-    instruction_cost over all 47 arms (lia closes every case).
+    This section counts cert-setter instructions and proves their schedule
+    cost is at least one per counted instruction.
+    It also proves the encoded LASSERT-length bound and defines the data types
+    used by the later feasible-list theorem.
+    The later logarithmic inequality is conditional on its explicit tree,
+    fiber, and representation premises.
+    These results are not an unconditional Shannon theorem, a physical cost
+    calibration, or a claim that every narrowing is represented by this tree.
     ========================================================================= *)
 
 (** Count cert-setter instructions in a trace *)
@@ -5415,8 +5177,8 @@ Proof.
     + lia.
 Qed.
 
-(** Honest NoFI (strengthened): information gain requires proportional mu *)
-(** This strengthens the base NoFI theorem with Shannon-theoretic bounds *)
+(** A cert-setter step has positive ledger increment under the supplied
+    schedule. *)
 
 Definition has_structure_addition_honest (fuel : nat)
   (trace : list vm_instruction) (s_init : VMState) : Prop :=
@@ -5440,10 +5202,9 @@ Proof.
   intros. simpl. lia.
 Qed.
 
-(** QUANTITATIVE NO FREE INSIGHT ON THE ENCODED LENGTH:
-  Every LASSERT execution charges at least flen * 8 bits of μ.
-  This is a bound on the instruction payload. Honest pricing of the actual
-  in-memory formula size is enforced separately by lassert_exec_ok. *)
+(** An LASSERT step charges at least the encoded [flen * 8] term.
+    This is a bound on the instruction payload; the in-memory length check is
+    a separate premise. *)
 Theorem no_free_insight_quantitative :
   forall (s : VMState) (freg creg : nat) (kind : bool) (flen cost : nat),
     let s' := vm_apply s (instr_lassert freg creg kind flen cost) in
@@ -5472,50 +5233,16 @@ Proof.
 Qed.
 
 (** =========================================================================
-    SECTION 6F-II: HEAVY SHANNON BRIDGE
+    SECTION 6F-II: CONDITIONAL FEASIBLE-LIST BOUND
     =========================================================================
 
-    WHY THIS EXISTS:
-    Section 6F established the basic bridge. This section builds the full
-    decision-tree framework — the complete proof that μ-cost lower-bounds
-    Shannon information gain across arbitrary feasible-set reductions.
-
-    This is the machinery behind the claim "you cannot learn n bits without
-    paying n μ." It is proven here from first principles, with no cross-file
-    imports, no admits, no axioms.
-
-    WHAT IS PROVEN (nine results, all machine-checked):
-    1. cert_setter_cost_pos_tc: all cert-setters cost ≥ 1 (by construction
-       over all 47 instruction arms — lia closes every case)
-    2. dt_leaves_le_pow2_depth: a binary decision tree with depth d has at
-       most 2^d leaves. Combinatorial upper bound.
-    3. dt_log2_leaf_bound: log2(leaves) ≤ depth. Information-theoretic
-       consequence of the leaf bound.
-    4. cert_executions_le_ledger_tc: cert_setter_executions ≤ Δμ
-       Unconditional. The ledger always dominates the execution count.
-    5. Fibered feasible-set reductions ⇒ tree-cover inequality.
-       If the machine can distinguish elements, the decision tree covers them.
-    6. Posterior-representative reductions ⇒ fibered reductions.
-       Any posterior-based separation is fibered.
-    7. info_priced_arbitrary_feasible_reduction_bound_tc:
-       Δμ ≥ log2_up(|Ω|) - log2_up(|Ω'|) under the tree hypothesis.
-       THIS IS THE REAL THEOREM: feasible-set shrinkage requires proportional μ.
-    8. separation_requires_cert_count_tc: n-way separation requires ≥ n
-       cert-addr-setting instructions (pigeonhole).
-    9. conditional_shannon_bound_tc: Δμ ≥ log2(n) when execution count
-       is at least log2(n). Shannon complexity lower-bounded by cost.
-
-    PHYSICAL MEANING:
-    The decision tree is the machine's epistemic history. Every branch
-    is a question asked. Every leaf is a world distinguished. The depth
-    of the tree is the number of questions. The μ pays for the questions.
-    No tree grows deeper than the μ you can afford to pay for it — the depth is exactly as honest as the wallet.
-
-    FALSIFICATION:
-    To disprove the feasible-set reduction bound: exhibit a run where
-    |Ω'| < |Ω| / 2^k but Δμ < k. That would require the machine to
-    distinguish states without executing cert-setters — impossible by
-    construction of the cert-setter execution counter.
+    This section supplies the binary-tree and fiber infrastructure used by the
+    feasible-list theorem.
+    The logarithmic inequality is conditional on the supplied reduction,
+    representative, tree-cover, and payment premises.
+    It bounds the exact rounded list-size expression named by the theorem;
+    it does not identify that expression with Shannon entropy or with a count
+    of questions asked by an external observer.
     ========================================================================= *)
 
 (* ---- Infrastructure: cert-setter cost positivity ---- *)
@@ -5864,32 +5591,16 @@ Proof.
 Qed.
 
 (** =========================================================================
-    SECTION 6F-III: QUANTITATIVE SEPARATION AND CONDITIONAL SHANNON BOUND
+    SECTION 6F-III: QUANTITATIVE SEPARATION AND CONDITIONAL BOUND
     =========================================================================
 
-    WHY THIS EXISTS:
-    Knowing that certification costs something is not enough. This section
-    quantifies exactly how much. The answer is pigeonhole + Shannon:
-    if you want to distinguish n things, you need at least log2(n) μ.
-
-    THE CORE CLAIMS:
-    — cert_addr range analysis: n distinct cert_addr values after execution
-      require ≥ n cert-addr-setting instructions (pigeonhole, unconditional)
-    — conditional_shannon_bound_tc: Δμ ≥ log2(n) when the decision-tree
-      hypothesis holds and cert_setter_executions ≥ log2(n)
-
-    PHYSICAL MEANING:
-    The cert_addr is the machine's pointer into the knowledge graph. Every
-    distinct address is a distinct fact learned. Pigeonhole says you cannot
-    learn n distinct facts without executing n cert-addr-setting instructions.
-    Shannon says you cannot execute n cert-setters without paying log2(n) μ.
-    Together: n-way separation costs at least log2(n) μ. THIS IS THE BILL.
-
-    FALSIFICATION:
-    To disprove separation_requires_cert_count_tc: exhibit a trace that
-    produces n distinct cert_addr values using fewer than n cert-addr-setting
-    instructions. That requires one instruction to set two distinct addresses —
-    impossible by definition of cert_addr_value_of_tc (one output per call).
+    This section records two separate facts. [cert_addr_range_tc] collects
+    the possible address values contributed by instructions in a trace, so a
+    range-size bound can be proved by counting instruction outputs. The
+    conditional Shannon-style result adds a decision-tree and payment
+    premise; it is not a lower bound on every deterministic trace. The
+    relevant hypotheses connect tree depth, cert-setter count, and the
+    ledger increment. No physical information measure is introduced here.
     ========================================================================= *)
 
 (* ---- cert_addr range ---- *)
@@ -6189,34 +5900,13 @@ Definition shannon_entropy_reduction_tc (omega_init omega_final : FeasibleSet) :
     SECTION 6F-IV: SEMANTIC μ-COST (SYNTAX-INVARIANT COMPLEXITY MEASURE)
     =========================================================================
 
-    WHY THIS EXISTS:
-    Raw textual payload bits are the wrong semantic unit. "x>0" and "x > 0"
-    are the same formula but different byte streams. A semantic cost measure
-    should not depend on whitespace formatting.
-
-    THE FIX:
-    This section replaces raw text payload-bit μ-cost with a SEMANTIC measure:
-    the size of the abstract syntax tree. Same formula = same AST = same cost.
-    The measure is structural, not syntactic. "x > 0" and "x>0" have the same
-    AST and therefore the same μ-cost.
-
-    WHAT IS PROVEN:
-    — constraint_complexity: measures AST size (recursive, structurally grounded)
-    — semantic_cost_pos: a non-trivial constraint always costs ≥ 1 μ
-    — constraint_complexity_add_monotone: complexity is monotone under conjunction
-    — The semantic measure is independent of variable naming conventions
-      (two constraints with the same structure have the same cost)
-
-    PHYSICAL MEANING:
-    The cost of knowing something is the cost of the IDEA, not the cost of
-    the words used to express it. The AST IS the idea. The string is just
-    a representation. This section grounds μ-cost in content, not notation.
-
-    FALSIFICATION:
-    To disprove semantic_cost_pos: exhibit a non-trivial ConstraintAST
-    (one that is not a trivial leaf) with constraint_complexity = 0.
-    That would require an inductive case (CAnd, CAtom, etc.) to return 0
-    despite a non-empty recursive structure — impossible by definition.
+    This section defines a constraint AST and a recursive complexity measure.
+    The measure is attached to the parsed structure rather than to the raw
+    spelling of a formula, so the normalization and complexity lemmas can talk
+    about structural equality directly. The stated results include positivity
+    for non-trivial constraints, monotonicity under conjunction, and the
+    behavior of the normalization functions. These are natural-number facts;
+    they do not assign physical meaning to the AST or its complexity.
     ========================================================================= *)
 
 (* ---- Abstract syntax tree for constraints ---- *)
@@ -6345,43 +6035,15 @@ Definition axiom_cost_with_fallback_tc (ax : VMAxiom) (ast_opt : option Constrai
   end.
 
 (** =========================================================================
-    SECTION 6F-V: LANDAUER'S PRINCIPLE (TC-LOCAL FORMALIZATION)
+    SECTION 6F-V: AN ERASURE INTERFACE
     =========================================================================
 
-    WHY THIS EXISTS:
-    Landauer's principle is the physical law that connects information to
-    thermodynamics: erasing one bit increases environmental entropy by at
-    least kT·ln(2). This section formalizes that principle in the μ-cost
-    framework — without importing thermodynamics, without axioms, without admits.
-
-    THE INTERFACE CONTRACT:
-    The PhysicalErasure_tc record is an interface: callers supply a
-    pe_second_law witness (the thermodynamic constraint) and the exported
-    theorem landauer_information_bound_tc extracts the lower bound:
-      pe_env_entropy_increase ≥ bits_erased_tc
-
-    WHAT IS PROVEN:
-    — num_states_pos_tc: 2^n > 0 (positivity of state count)
-    — landauer_information_bound_tc: if pe_second_law holds, then erasing
-      n bits requires at least n units of environmental entropy increase.
-      This is a checked theorem, not an assumed axiom.
-
-    KNOWN GAP:
-    This section proves the INTERFACE version: if you supply a second-law
-    witness, the bound follows. It does NOT independently derive the second
-    law from vm_apply semantics. Section 6F-V-B provides the genuine
-    derivation from first principles.
-
-    PHYSICAL MEANING:
-    Information is physical. Erasing it is not free. The thermodynamic cost
-    of erasure is the μ-cost of forgetting — paid to the environment in entropy.
-    Landauer's principle is the physical receipt for the act of forgetting.
-
-    FALSIFICATION:
-    To disprove landauer_information_bound_tc: exhibit a PhysicalErasure_tc
-    record with pe_second_law holding but pe_env_entropy_increase < bits_erased_tc.
-    That would violate the second-law hypothesis directly — the theorem merely
-    unpacks what pe_second_law asserts. Falsify the second law, falsify this.
+    This section defines a finite erasure record and a natural-number entropy
+    field. [PhysicalErasure_tc] carries the inequality that relates them.
+    [landauer_information_bound_tc] projects that supplied field directly.
+    The theorem therefore proves the interface contract; it does not derive a
+    thermodynamic law from [vm_apply] or calibrate natural numbers to kT ln 2.
+    The later VM lemmas prove a separate positive-cost certification property.
     ========================================================================= *)
 
 (* ---- Computational states ---- *)
@@ -6460,7 +6122,7 @@ Record PhysicalErasure_tc := mkPhysicalErasure_tc {
   pe_second_law : pe_env_entropy_increase >= bits_erased_tc pe_erasure_op
 }.
 
-(* INQUISITOR NOTE: verified extraction — pe_second_law IS the Landauer bound proof;
+(* SCOPE NOTE: verified extraction — pe_second_law IS the Landauer bound proof;
    the Record bundles the erasure operation with its thermodynamic constraint;
    extracting it as a theorem gives callers a named interface without assuming anything new. *)
 Theorem landauer_information_bound_tc : forall pe : PhysicalErasure_tc,
@@ -6528,49 +6190,20 @@ Proof.
 Qed.
 
 (** =========================================================================
-    SECTION 6F-V-B: LANDAUER FROM FIRST PRINCIPLES
+    SECTION 6F-V-B: POSITIVE-COST CERTIFICATION
     =========================================================================
 
-    WHY THIS EXISTS:
-    Section 6F-V is an interface contract: it assumes a second-law witness and
-    extracts the bound. That is honest — but it is not a derivation.
-
-    THIS SECTION CLOSES THAT GAP.
-
-    The derivation chain:
-      (1) CERTIFY is the ONLY instruction that sets vm_certified := true.
-          Proven by case analysis over all 47 vm_apply arms. Every other
-          instruction preserves vm_certified. This is checked, not claimed.
-      (2) CERTIFY's instruction_cost = S(delta_mu) ≥ 1. Definitional.
-          The S() wrapper makes cost strictly positive by construction.
-      (3) Therefore: certification (a state change from false → true) requires
-          paying ≥ 1 μ-unit. Derived from step (1) + step (2). No assumption
-          about thermodynamics. No second-law axiom. The machine's own step
-          function enforces Landauer's principle.
-
-    THE CRITICAL DIFFERENCE:
-    Section 6F-V assumes the second law and extracts its consequence.
-    Section 6F-V-B PROVES the second law holds within this machine — because
-    vm_apply itself is the physical law. The cost is not imposed from outside.
-    It is baked into the opcode definition.
-
-    ZERO ADMITTED. ZERO PROJECT-LOCAL AXIOMS.
-
-    PHYSICAL MEANING:
-    vm_certified transitioning false → true IS the irreversible act of
-    certification. The machine does not simulate irreversibility — it IS
-    irreversible. The S() cost wrapper is the receipt. The Landauer bound
-    is not a consequence of this machine. It IS this machine.
-
-    FALSIFICATION:
-    To disprove certification_requires_positive_cost_landauer_tc: exhibit
-    an instruction i where vm_apply sets vm_certified := true but
-    instruction_cost i = 0. That requires an instruction whose cost arm
-    returns 0 — but CERTIFY's cost is S(delta_mu), which is always ≥ 1.
+    The preceding erasure record assumes its inequality as a field.
+    This section proves a different VM-local fact: when [vm_certified] changes
+    from false to true under [vm_apply], the triggering instruction has cost at
+    least one.
+    The proof uses the setter behavior and the definition of [instruction_cost].
+    It does not derive the thermodynamic second law, identify certification
+    with physical irreversibility, or assign a physical unit to μ.
     ========================================================================= *)
 
-(** CORE LANDAUER THEOREM: if vm_certified changes false→true, cost >= 1.
-    Delegates to vm_apply_certified (already in file) + instruction_cost definition. *)
+(** The VM-local certification theorem: a false-to-true flag transition has
+    instruction cost at least one under this schedule. *)
 Theorem certification_requires_positive_cost_landauer_tc :
   forall s i,
     s.(vm_certified) = false ->
@@ -6584,8 +6217,7 @@ Proof.
   simpl. lia.
 Qed.
 
-(** μ-cost corollary: if certification fires, μ grew by >= 1.
-    Combines certification_requires_positive_cost_landauer_tc with vm_apply_mu. *)
+(** μ-cost corollary for the same VM-local transition. *)
 Corollary landauer_certification_mu_tc :
   forall s i,
     s.(vm_certified) = false ->
@@ -6599,20 +6231,14 @@ Proof.
 Qed.
 
 (** =========================================================================
-    SECTION 6F-V-C: LANDAUER MULTI-STEP CHAIN
+    SECTION 6F-V-C: POSITIVE-COST STEP COUNT
     =========================================================================
 
-    The two theorems above give the sharpest point result: gaining
-    certification costs >= 1 μ-unit.
-
-    This section derives the general multi-step Landauer principle: over
-    any bounded execution, total μ-cost >= total irreversible bit operations.
-
-    Ported from kernel/LandauerDerivation.v. Zero Admitted.
-
-    DEFINITION: irreversible_bits_tc counts 1 for each instruction that
-    charges positive cost, 0 for free instructions. This is a conservative
-    lower bound on actual information erasure.
+    The preceding theorem handles one certification transition.
+    This section counts the positive-cost entries in a bounded VM ledger and
+    proves that their count is no greater than the accumulated μ cost.
+    The count is a schedule-derived indicator; it is not a physical erasure
+    count unless an additional interpretation is supplied.
     ========================================================================= *)
 
 (** 1 if the instruction charges positive cost (irreversible), 0 otherwise. *)
@@ -6640,13 +6266,8 @@ Proof.
   lia.
 Qed.
 
-(** Multi-step Landauer: total μ increase >= total irreversible bits over any
-    bounded execution. Uses ledger_entries + ledger_sum (already proved above).
-
-    PHYSICAL MEANING: The computational cost of any execution (measured in
-    μ-units) is at least the number of logically irreversible operations it
-    performs. This is Landauer's principle, derived from vm_apply semantics —
-    not assumed as a record field. *)
+(** Multi-step positive-cost count: the bounded ledger increment is at least
+    the number of entries whose declared cost is nonzero. *)
 Fixpoint total_irreversible_bits_from_costs_tc (costs : list nat) : nat :=
   match costs with
   | [] => 0
@@ -6678,44 +6299,14 @@ Qed.
     SECTION 6G: PROJECTED CORRESPONDENCE CHECKS
     =========================================================================
 
-    WHY THIS EXISTS:
-    One machine. Three layers. The claim is that the Coq proof, the Python
-    simulation, and the hardware RTL are the SAME machine — not analogous
-    machines, not "similar in spirit," but isomorphic in behavior on the
-    observables that matter.
-
-    THE THREE OBSERVABLES THAT MATTER:
-    — pc: what instruction is executing
-    — μ: how much discovery cost has been paid
-    — err: whether the machine is in an error state
-
-    These three observables are the machine's public face. If they agree
-    across all three layers, the three-layer isomorphism holds. This section
-    proves agreement on these three observables between Coq, Python, and hardware.
-
-    WHAT THIS PROVES:
-    — μ-monotonicity: vm_mu never decreases (across all layers)
-    — states_correspond → py_step_corresponds: Python and Coq agree step-by-step
-    — hardware_state_corresponds → hw_step_corresponds: hardware agrees on μ and err
-    — The correspondence relations are preserved under vm_apply
-
-    KNOWN GAP (honest statement):
-    These theorems do NOT prove full state bisimulation — registers, memory,
-    graph state, and instruction-by-instruction behavior are NOT fully checked
-    here. The full hardware-side μ commutation with a complete abstraction map
-    is in Section 6H. This section focuses on the shared observables.
-
-    PHYSICAL MEANING:
-    If you can only measure pc, μ, and err — if those are your instruments —
-    then Coq, Python, and hardware are indistinguishable. The three layers
-    share a single epistemic surface. They ARE the same machine at the level
-    of observable outcomes.
-
-    FALSIFICATION:
-    To disprove correspondence: run the same program in Python and in Coq
-    and find a step where py_mu ≠ vm_mu, or py_error ≠ vm_error. The
-    tests/test_ocaml_extraction_parity_47.py test suite (59 tests, all 47
-    opcode arms) provides the empirical check.
+    This section states correspondence relations for selected observables at
+    the software and hardware boundaries represented here.
+    The named observables are [pc], [vm_mu], and [vm_err].
+    Agreement on those projections is weaker than full-state bisimulation.
+    Registers, memory, graph state, and complete instruction behavior require
+    the stronger contracts in the later bridge files.
+    Tests provide evidence for the implemented boundaries; they do not turn a
+    projection theorem into an isomorphism of all three implementations.
     ========================================================================= *)
 
 (** -- Python Projection -- *)
@@ -6743,7 +6334,8 @@ Definition states_correspond (coq_s : VMState) (py_s : PythonState) : Prop :=
     This is an honest conservative stand-in: the three observables (pc, μ, err)
     are correctly projected; full register/memory bisimulation is outside this
     file's scope. The actual Python harness executes via the OCaml extracted
-    runner (scripts/forge_vm.py) — that is the real isomorphism. *)
+    runner (scripts/forge_vm.py) is a separate executable path; this definition does
+    not prove correspondence for the runner. *)
 Definition python_step_projection (py_s : PythonState) (instr : vm_instruction) : PythonState :=
   let coq_s := init_state in
   {| py_pc := (vm_apply coq_s instr).(vm_pc);
@@ -6805,9 +6397,9 @@ Definition hw_bisimulation_mu_commutation := hw_projection_mu_commutation.
     After any vm_apply, the new μ dominates the old μ at all three layers —
     Coq VM, Python harness, hardware snapshot — simultaneously.
     KNOWN GAP: This is μ lower-bound agreement, not full-state isomorphism.
-    Full isomorphism (PC + regs + mem + graph + CSRs) is proved per-opcode
-    in Section 6H via [per_opcode_mu_simulation] and [all_instructions_mu_simulate].
-    This theorem is the three-layer headline. Section 6H is the proof behind it. *)
+    [per_opcode_mu_simulation] and [all_instructions_mu_simulate] prove μ relations
+    for the local Kami model only; they do not prove equality of PC, registers,
+    memory, graph, or CSR state. *)
 Theorem three_layer_mu_projection :
   forall coq_s py_s hw_s instr,
     states_correspond coq_s py_s ->
@@ -6862,41 +6454,16 @@ Open Scope nat_scope.
     SECTION 6G-KAMI: KAMI HARDWARE TYPES AND MODULE
     =========================================================================
 
-    WHY THIS EXISTS:
-    The Thiele Machine is not just proven — it is BUILT. This section contains
-    the Kami hardware specification: the same module that gets extracted to
-    Bluespec, compiled by bsc, and becomes actual Verilog RTL that runs on FPGA.
+    This section defines the Kami hardware model and the extraction path used
+    to produce Bluespec and Verilog artifacts. The standalone definitions here
+    are related to the modular source in [coq/kami_hw/ThieleCPUCore.v]; the
+    generated files and their compiler steps remain separate artifacts.
 
-    The pipeline is not theoretical. Every step is executable:
-
-      coq/kami_hw/ThieleCPUCore.v  (Kami MODULE definition)
-              ↓  KamiExtraction.v
-      build/kami_hw/Target.ml      (OCaml extraction)
-              ↓  PP.ml pretty-printer
-      build/kami_hw/thiele_hw.bsv  (Bluespec SystemVerilog)
-              ↓  bsc compiler
-      build/kami_hw/mkModule1.v    (Verilog RTL)
-
-    The standalone version of this specification lives here in Section 6G-KAMI.
-    The modular version lives in coq/kami_hw/ThieleCPUCore.v. They are the same.
-
-    HARDWARE PARAMETERS (canonical sizes):
-    — 16 registers (RegCount), 64-bit words (WordSz)
-    — 128-word instruction memory (MemSize)
-    — 128-word data memory (MemSize)
-    — 64 partition slots
-    — 8 CHSH witness-count registers (wc_same_00 through wc_diff_11)
-
-    WHAT SECTION 6H PROVES:
-    Section 6H proves the abstraction is SOUND — that the hardware state maps
-    to the software state correctly and that μ-accounting commutes through
-    the abstraction. The Kami module here is the raw hardware spec. Section 6H
-    is the formal proof that it matches the software semantics.
-
-    PHYSICAL MEANING:
-    This is not a model of a computer. This IS the computer. The Kami spec
-    is the design blueprint. The extracted Verilog is the manufactured chip.
-    The Coq proofs certify that the chip does what the math says it does.
+    The declared hardware dimensions are 16 registers, 64-bit words, 128-word
+    instruction and data memories, 64 partition slots, and eight CHSH witness
+    counters. Section 6H supplies the checked abstraction lemmas for the fields
+    and operations that its relation covers. Those lemmas do not by themselves
+    prove that an emitted bitstream is identical to this Coq model.
     ========================================================================= *)
 
 Set Implicit Arguments.
@@ -7793,47 +7360,17 @@ Global Opaque ORACLE_HALTS_HW_COST.
     SECTION 6H: HARDWARE ABSTRACTION + μ-REFINEMENT
     =========================================================================
 
-    WHY THIS EXISTS:
-    The Kami module in Section 6G-KAMI is hardware. The VMState in Section 2
-    is software. These are not the same type. Something must prove they are
-    the same MACHINE. That something is abs_phase1 — the abstraction function
-    that maps KamiSnapshot → VMState — and the refinement theorems that prove
-    it commutes correctly with every operation.
+    [abs_phase1] relates the 22-field [KamiSnapshot] to the selected fields of
+    [VMState]. The snapshot contains pc, μ, error and halt flags, registers,
+    memory, partition counters, tensor state, CHSH witness counters, and the
+    certification flag. The abstraction also records which VM fields have no
+    snapshot source: the graph, logic accumulator, and mstatus are supplied by
+    the fixed values used by this model.
 
-    THE ABSTRACTION (abs_phase1):
-    A KamiSnapshot has 22 fields: pc, μ, err, 16 registers, 128-word memory,
-    partition table, tensor state, 8 CHSH witness counters, certified flag.
-    abs_phase1 maps each field faithfully to its VMState counterpart.
-
-    KNOWN PROTOTYPE GAPS (honest statement, not hidden):
-    Three VMState fields have no KamiSnapshot source — they are zeroed:
-    — vm_graph := empty_graph  (partition/morphism graph — more infra needed)
-    — vm_logic_acc := 0        (logic accumulator — no snap_logic_acc field)
-    — vm_mstatus := 0          (machine status register — no snap_mstatus field)
-    These gaps are tracked in HARDENING_TRACKER.md as G2c (irreducible at
-    current hardware register set). They do not affect μ, pc, err, or any
-    instruction that is part of the proved-supported opcode set.
-
-    WHAT IS PROVEN:
-    — abs_phase1_mu_preserved: abs_phase1 maps snap_mu to vm_mu faithfully
-    — abs_phase1_pc_preserved: abs_phase1 maps snap_pc to vm_pc faithfully
-    — abs_phase1_err_preserved: abs_phase1 maps snap_err to vm_error faithfully
-    — kami_step_mu_commutes: hardware step commutes with μ-accounting through abs_phase1
-    — hw_abstracts_to_vm: the abstraction is a valid homomorphism at the μ level
-    — hardware_shadow_compat (in kami_hw/): RTL obs = shadow_proj ∘ abs_phase1
-
-    PHYSICAL MEANING:
-    The abstraction function is the lens between hardware and software.
-    Through this lens, the FPGA and the Coq proof are the same machine.
-    When the hardware steps, μ increases by exactly the same amount as when
-    the Coq proof steps. The proof is not a simulation of the hardware.
-    They are WITNESSES of the same physical computation.
-
-    FALSIFICATION:
-    To disprove abs_phase1_mu_preserved: find a KamiSnapshot where
-    snap_mu ≠ (abs_phase1 s).(vm_mu). Impossible by definition — abs_phase1
-    sets vm_mu := snap_mu. To disprove kami_step_mu_commutes: find a hardware
-    step where the μ-delta at the hardware level differs from the software level.
+    The checked lemmas preserve the mapped pc, μ, and error fields and establish
+    the selected step/ledger commutation results. They are a relation between
+    the Kami model and the VM. They do not close the generated RTL, synthesis,
+    place-and-route, or bitstream boundaries.
     ========================================================================= *)
 
 (** Full hardware snapshot: 22 fields matching Kami CPU state *)
@@ -8879,7 +8416,7 @@ Proof.
 Qed.
 
 (** For non-CERTIFY instructions, kami cost equals vm cost. *)
-(* INQUISITOR NOTE: definitional helper for relating kami and vm cost models *)
+(* SCOPE NOTE: definitional helper for relating kami and vm cost models *)
 Lemma kami_cost_eq_instruction_cost : forall i,
     is_certify i = false ->
     kami_instruction_cost i = instruction_cost i.
@@ -9006,18 +8543,15 @@ Qed.
 
 
 (** =========================================================================
-    BUS-LAYER ABSTRACTION — MMIO register map for host integration
+    BUS-LAYER ABSTRACTION — MMIO REGISTER MAP
     =========================================================================
 
-    WHY THIS EXISTS: The machine runs on silicon. Silicon speaks MMIO.
-    Here's the complete register map — every observable field gets a
-    memory-mapped I/O address so a host system can read and write state.
-    Every observable field — PC, μ, err, tensors, partition counters — has
-    a named BusReg that maps to a hardware-accessible address.
-
-    This is the interface between the proof and the outside world.
-    The bus layer is part of the extraction surface alongside vm_apply.
-    Both are included in thiele_core_complete.ml by direct extraction.
+    [BusReg] and [decodeBusReg] define the formal memory-mapped register
+    interface used by the host-integration model. The map names the selected
+    pc, μ, error, tensor, partition, instruction-load, and trap-control fields.
+    [busRegReadable] and [busRegWritable] record which entries are read-only
+    or write-only in this interface. The map is part of the extraction surface;
+    it is not by itself a proof about a deployed bus or a physical board.
     ========================================================================= *)
 
 Inductive BusReg : Type :=
@@ -9197,49 +8731,20 @@ Definition bus_step (st : BusWrapperState) (op : BusOp) : BusWrapperState :=
   end.
 
 (** =========================================================================
-    SECTION 6I: SPACETIME STRUCTURE — DISCRETE TENSOR FOUNDATIONS
+    SECTION 6I: DISCRETE TENSOR EXPRESSIONS
     =========================================================================
 
-    WHY THIS EXISTS:
-    The μ-cost ledger is not just a counter. It is a METRIC TENSOR.
-    Every module's accumulated observation cost defines a local geometry.
-    When that geometry is non-uniform — when different modules have paid
-    different costs — the metric is curved. Curved metric = gravity.
-
-    THIS IS NOT A METAPHOR. The chain is proven here:
-
-      μ-costs → metric tensor → discrete derivatives →
-      Christoffel symbols → Riemann tensor → Ricci tensor →
-      Einstein tensor G_μν = 8πG T_μν
-
-    Every arrow in that chain is a machine-checked theorem in this section.
-    No axioms of general relativity are assumed. The Einstein equation
-    is DERIVED from the structure of observation costs.
-
-    THE KEY OBSERVATION:
-    Curvature arises from derivatives of the metric. For a FLAT metric
-    (constant μ-cost across all modules), all derivatives vanish:
-    — Christoffel symbols = 0
-    — Riemann tensor = 0
-    — Ricci tensor = 0
-    — Einstein tensor = 0
-    This is Minkowski spacetime. Uniform knowledge-cost = flat spacetime.
-    Information density GRADIENTS are what produces gravity.
-
-    UNIT CONVENTION:
-    G := 1/(8π) is a unit choice (computational units, 8πG = 1).
-    T_μν is built from the same μ-tensor as the metric — this is
-    geometric stress-energy. Non-circular: G is computed from second
-    derivatives of the metric; T is the metric itself.
-
-    FALSIFICATION:
-    To disprove the Einstein equation chain: exhibit a VMState with
-    non-uniform module masses where the Christoffel symbols are zero.
-    That would require a non-constant function whose discrete derivative
-    vanishes — impossible when neighboring vertices have different values.
+    This section builds a simplicial-complex record and several real-valued
+    expressions named after familiar differential-geometric objects.
+    The expressions are defined from supplied VM-derived functions and finite
+    differences.
+    The empty-complex lemmas and the field-equation predicate prove only the
+    displayed algebraic equalities under their stated definitions.
+    They do not derive general relativity, identify μ with a metric, or prove a
+    physical interpretation of the records.
     ========================================================================= *)
 
-(** -- 4D Simplicial Complex -- *)
+(** -- Finite simplicial-complex record used by the definitions below. *)
 
 Record SimplicialComplex4D := {
   sc_vertices : list nat;
@@ -9251,7 +8756,7 @@ Definition empty_complex : SimplicialComplex4D := {|
   sc_edges := nil
 |}.
 
-(** -- Discrete Calculus on Simplicial Complex -- *)
+(** -- Finite-difference helpers on the supplied complex. *)
 
 (** Check if two vertices are adjacent (share an edge) *)
 Definition are_adjacent (sc : SimplicialComplex4D) (v w : nat) : bool :=
@@ -9397,7 +8902,7 @@ Proof.
   ring.
 Qed.
 
-(** Einstein tensor vanishes on empty complex (flat spacetime) *)
+(** The selected Einstein expression vanishes on the empty complex. *)
 Theorem einstein_empty : forall gfield mu nu v,
   einstein_discrete empty_complex gfield mu nu v = 0%R.
 Proof.
@@ -9408,19 +8913,20 @@ Proof.
   ring.
 Qed.
 
-(** Stress-energy tensor from mu cost distribution *)
+(** A matrix-valued stress-energy-style record. *)
 Definition stress_energy (T : Mat4) (mu nu : nat) : R := T mu nu.
 
-(** Einstein field equation: G_μν = κ T_μν *)
+(** The formal equality used by the selected field-equation predicate. *)
 Definition einstein_field_equation_holds
   (sc : SimplicialComplex4D) (gfield : MetricField) (T : Mat4) (kappa : R) : Prop :=
   forall mu nu v, (mu < 4)%nat -> (nu < 4)%nat ->
     einstein_discrete sc gfield mu nu v = (kappa * T mu nu)%R.
 
-(** The coupling constant *)
+(** The named real coupling constant used by the vacuum witness. *)
 Definition einstein_coupling : R := (8 * PI)%R.
 
-(** Vacuum solution: Empty complex with any metric satisfies G = 8πG * 0 *)
+(** The empty-complex witness satisfies the selected equality with a zero
+    stress-energy matrix. *)
 Theorem vacuum_solution :
   forall gfield,
     einstein_field_equation_holds empty_complex gfield mat4_zero einstein_coupling.
@@ -9432,7 +8938,8 @@ Proof.
   unfold mat4_zero. ring.
 Qed.
 
-(** The mu-cost pipeline theorem: costs → metric → curvature → Einstein *)
+(** This theorem unfolds the selected pipeline expression from a supplied
+    cost function to the formal Einstein-style expression. *)
 Theorem mu_cost_to_einstein_pipeline :
   forall (mu_cost : nat -> nat -> R) sc v,
     let gfield := constant_metric (fun i j => mu_cost i j) in
@@ -9446,59 +8953,22 @@ Proof.
 Qed.
 
 (** =========================================================================
-    SECTION 6I-A: SUBSTANTIVE PHYSICS — CURVATURE FROM MASS GRADIENTS
+    SECTION 6I-A: DISCRETE METRIC AND CURVATURE RECORDS
     =========================================================================
 
-    WHY THIS EXISTS:
-    Section 6I built the tensor scaffolding. This section connects it to
-    something physical: MODULE STRUCTURAL MASS. The mass of a computational
-    module is its information content — region size + axiom count. This mass
-    defines the local metric. When masses differ across modules, the metric
-    is non-uniform. Non-uniform metric = non-zero Christoffel = CURVATURE.
-
-    THE CLAIM: INFORMATION DENSITY GRADIENTS PRODUCE GRAVITY.
-    Proven here from the machine's own step semantics. Not assumed.
-
-    WHAT IS PROVEN (five machine-checked results):
-    1. module_structural_mass: mass = region_size + axiom_count
-       The mass of a computation is its information content.
-       More axioms = more mass. More memory managed = more mass.
-
-    2. metric_at_vertex: g_μν(v) = mass(v) if μ=ν, else 0
-       The local metric at vertex v is isotropic, scaled by structural mass.
-       Uniform mass everywhere → flat spacetime (Minkowski).
-
-    3. non_uniform_mass_produces_curvature: different masses → non-constant
-       metric → non-zero Christoffel symbols → genuine curvature.
-       THIS IS THE GRAVITATIONAL CLAIM. Mass gradients = curved spacetime.
-
-    4. local_einstein_equation_vacuum: G_μν = 8πG T_μν for vacuum
-       In vacuum (all masses zero), both sides are zero. Consistent.
-       This is the flat-spacetime case: G = 0 = T.
-
-    5. mu_conservation_implies_local_einstein_vacuum: vacuum Einstein eq.
-       The vm_apply step premise is structurally present to connect this
-       to VM dynamics. In the vacuum case the proof closes directly —
-       G = 0 = T, no computation required.
-       For non-vacuum: see einstein_equation_uniform_coupling_tc (Section 6I-B).
-
-    ZERO ADMITS. ZERO PROJECT-LOCAL AXIOMS.
-
-    FALSIFICATION:
-    To disprove non_uniform_mass_produces_curvature: exhibit two adjacent
-    vertices with different structural masses where local_christoffel = 0.
-    That would require the discrete derivative of a non-constant function
-    to vanish — impossible by the definition of discrete_derivative_local
-    as the sum of (f(neighbor) - f(v)) over non-empty neighbor sets.
+    This section defines [module_structural_mass] as the length of a module's
+    region plus the length of its axiom list.
+    It uses that natural-number quantity to define [metric_at_vertex], then
+    defines finite-difference Christoffel, Riemann, Ricci, and Einstein-style
+    expressions over a supplied simplicial complex.
+    The theorem [non_uniform_mass_produces_curvature] proves only that unequal
+    masses prevent one specified metric component from being position
+    independent.
+    The formal records do not by themselves establish gravity, spacetime, or a
+    physical Einstein equation.
     ========================================================================= *)
 
-(** ** Module Structural Mass: The Source of Curvature
-
-    Each computational module has a "structural mass" determined by:
-    - region_size: number of memory cells it manages
-    - axiom_count: number of axioms (proof constraints) it carries
-
-    Pure information content — the mass of a computation. *)
+(** Module structural mass is the selected size statistic for a module. *)
 
 Definition module_structural_mass (s : VMState) (m : ModuleID) : nat :=
   match graph_lookup (vm_graph s) m with
@@ -9508,22 +8978,15 @@ Definition module_structural_mass (s : VMState) (m : ModuleID) : nat :=
       List.length (module_axioms mod_state)
   end.
 
-(** ** Local Metric at Vertex
-
-    Unlike the global vm_mu_tensor (which is state-level),
-    the LOCAL metric varies by vertex based on structural mass.
-
-    g_μν^{local}(v) = mass(v)  if μ = ν (diagonal)
-                    = 0        if μ ≠ ν (off-diagonal)
-
-    This is an ISOTROPIC metric scaled by information density. *)
+(** The local metric is diagonal when the two indices agree modulo four and
+    zero otherwise, with the diagonal value given by the selected mass. *)
 
 Definition metric_at_vertex (s : VMState) (v μ ν : ModuleID) : R :=
   if (μ mod 4 =? ν mod 4)%bool
   then INR (module_structural_mass s v)
   else 0%R.
 
-(** Local metric is non-negative *)
+(** The selected metric entries are non-negative. *)
 Lemma metric_at_vertex_nonneg : forall s v μ ν,
   (metric_at_vertex s v μ ν >= 0)%R.
 Proof.
@@ -9552,10 +9015,7 @@ Proof.
   rewrite Nat.eqb_refl. reflexivity.
 Qed.
 
-(** ** Discrete Derivative (with position-independence property)
-
-    When a function is position-independent (same at all vertices),
-    its discrete derivative is zero. *)
+(** The scalar finite difference is zero for a position-independent function. *)
 
 (* Name clarifies scope: this is a scalar finite difference, not a full
   direction-aware tensor derivative operator. *)
@@ -9580,11 +9040,8 @@ Proof.
   - specialize (Hconst w v). rewrite Hconst. ring.
 Qed.
 
-(** ** Local Christoffel Symbols
-
-    Γ^ρ_{μν}(v) = (1/2) * (∂_μ g_{νρ} + ∂_ν g_{μρ} - ∂_ρ g_{μν})
-
-    Uses metric_at_vertex instead of global metric. *)
+(** The local Christoffel-style expression uses finite differences of the
+    selected metric entries. *)
 
 Definition local_christoffel (s : VMState) (sc : SimplicialComplex4D)
   (ρ μ ν v : ModuleID) : R :=
@@ -9593,7 +9050,8 @@ Definition local_christoffel (s : VMState) (sc : SimplicialComplex4D)
   let d3 := discrete_derivative_local s sc (fun w => metric_at_vertex s w μ ν) ρ v in
   ((d1 + d2 - d3) / 2)%R.
 
-(** ** Local Riemann Tensor *)
+(** The local Riemann-style expression is the difference of two finite
+    differences of the selected Christoffel expression. *)
 
 Definition local_riemann_tensor (s : VMState) (sc : SimplicialComplex4D)
   (ρ σ μ ν v : ModuleID) : R :=
@@ -9603,7 +9061,7 @@ Definition local_riemann_tensor (s : VMState) (sc : SimplicialComplex4D)
     (fun w => local_christoffel s sc ρ μ σ w) ν v in
   (dmu_gamma - dnu_gamma)%R.
 
-(** ** Local Ricci Tensor *)
+(** The local Ricci-style expression sums four selected Riemann entries. *)
 
 Definition local_ricci_tensor (s : VMState) (sc : SimplicialComplex4D)
   (μ ν v : ModuleID) : R :=
@@ -9612,7 +9070,7 @@ Definition local_ricci_tensor (s : VMState) (sc : SimplicialComplex4D)
    local_riemann_tensor s sc 2%nat μ 2%nat ν v +
    local_riemann_tensor s sc 3%nat μ 3%nat ν v)%R.
 
-(** ** Local Ricci Scalar *)
+(** The local scalar expression sums four selected Ricci diagonal entries. *)
 
 Definition local_ricci_scalar (s : VMState) (sc : SimplicialComplex4D) (v : ModuleID) : R :=
   (local_ricci_tensor s sc 0%nat 0%nat v +
@@ -9620,7 +9078,8 @@ Definition local_ricci_scalar (s : VMState) (sc : SimplicialComplex4D) (v : Modu
    local_ricci_tensor s sc 2%nat 2%nat v +
    local_ricci_tensor s sc 3%nat 3%nat v)%R.
 
-(** ** Local Einstein Tensor *)
+(** The local Einstein-style expression combines the selected Ricci tensor,
+    scalar, and metric terms. *)
 
 Definition local_einstein_tensor (s : VMState) (sc : SimplicialComplex4D)
   (μ ν v : ModuleID) : R :=
@@ -9629,15 +9088,12 @@ Definition local_einstein_tensor (s : VMState) (sc : SimplicialComplex4D)
   let g_mu_nu := metric_at_vertex s v μ ν in
   (R_mu_nu - (1/2) * g_mu_nu * R)%R.
 
-(** ** Gravitational Constant *)
+(** A named real scaling constant used by the formal coupling definition. *)
 
 Definition gravitational_constant : R := (/ (8 * PI))%R.
 
-(** ** Stress-Energy Tensor (from module mass)
-
-    T_00 = energy density = mass
-    T_0i = T_i0 = momentum density (0 for static case)
-    T_ij = stress (pressure on diagonal) *)
+(** The selected stress-energy-style expression maps diagonal entries to the
+    module mass and off-diagonal entries to zero. *)
 
 Definition energy_density_local (s : VMState) (v : ModuleID) : R :=
   INR (module_structural_mass s v).
@@ -9650,19 +9106,13 @@ Definition local_stress_energy_tensor (s : VMState) (sc : SimplicialComplex4D)
   then energy_density_local s v  (* T_ii = pressure *)
   else 0%R.  (* Off-diagonal: shear = 0 *)
 
-(** ** THE CURVATURE THEOREM
-
-    When vertices have different structural masses, the local metric
-    is NOT position-independent. This is the computational origin
-    of spacetime curvature.
-
-    Information density gradients → non-constant metric →
-    non-zero Christoffel symbols → curvature → gravity *)
+(** Unequal selected masses prevent the corresponding diagonal metric entry
+    from being position-independent. *)
 
 Theorem non_uniform_mass_produces_curvature :
   forall s μ v w,
   module_structural_mass s v <> module_structural_mass s w ->
-  (* The local metric is NOT position-independent *)
+  (* The diagonal metric values expose the unequal masses. *)
   ~ (forall u1 u2, metric_at_vertex s u1 μ μ = metric_at_vertex s u2 μ μ).
 Proof.
   intros s μ v w Hmass_neq Hcontra.
@@ -9959,49 +9409,20 @@ Qed.
 Open Scope R_scope.
 
 (** =========================================================================
-    SECTION 6I-B: CURVED TENSOR PIPELINE — THE GENUINE EINSTEIN EQUATION
+    SECTION 6I-B: CURVED TENSOR PIPELINE — CONDITIONAL UNIFORM COUPLING
     =========================================================================
 
-    WHY THIS EXISTS:
-    Section 6I-A proved the vacuum case: G = 0 = T when all masses are zero.
-    That is the trivial case. This section proves the NON-TRIVIAL case:
-    when spacetime is actually curved — when modules have different masses —
-    the Einstein equation still holds with a UNIFORM COUPLING CONSTANT κ.
+    [einstein_equation_uniform_coupling_tc] is a real-arithmetic theorem about
+    the tensor definitions in this file. Under an isotropic diagonal metric,
+    equal diagonal Ricci components, and a nonzero T(0,0) component, it
+    supplies a coupling κ for the four diagonal components. The theorem does
+    not derive Ricci isotropy, does not establish a general curved-spacetime
+    model, and does not turn the VM tensors into physical stress-energy.
 
-    THE KEY THEOREM (einstein_equation_uniform_coupling_tc):
-    For any VMState, any 4D simplicial complex, any module v with:
-    — isotropic diagonal metric (g_{ij} = a·δ_{ij})
-    — Ricci isotropy (all diagonal Ricci components equal)
-    — non-vacuum (T_{00} ≠ 0)
-    THERE EXISTS κ such that G_{dd} = κ · T_{dd} for ALL d < 4.
-
-    THIS IS THE EINSTEIN FIELD EQUATION IN UNIFORM COUPLING FORM.
-    One coupling constant. Four directions. All equal.
-    The isotropy of the coupling follows from the isotropy of the metric —
-    derived, not assumed.
-
-    WHY THIS IS NON-TRIVIAL (four improvements over 6I-A):
-    1. Full 4×4 metric tensors from vm_mu_tensor — not zero, not identity.
-    2. Metric inverse via Cramer's rule — exact, not approximated.
-    3. Riemann tensor includes quadratic Γ·Γ terms — the genuine curved
-       spacetime formula, not the linearized approximation.
-    4. Non-vacuum: T_{00} ≠ 0. Matter is present. Coupling is non-degenerate.
-
-    NON-CIRCULARITY:
-    G is computed from SECOND DERIVATIVES of the metric (via Christoffel →
-    Riemann → Ricci → Einstein). T is the metric ITSELF (geometric
-    stress-energy). Same input, different operations. Non-circular.
-
-    ZERO ADMITS. ZERO PROJECT-LOCAL AXIOMS.
-
-    FALSIFICATION:
-    To disprove einstein_equation_uniform_coupling_tc: exhibit an isotropic
-    non-vacuum metric where the Ricci diagonal components are NOT all equal.
-    That would be a counterexample to Ricci isotropy — which is a HYPOTHESIS
-    of the theorem, not derived from it. Exhibiting such a complex would
-    not disprove the theorem; it would simply be a case where the hypothesis
-    fails. To disprove the theorem proper: hold all hypotheses fixed and find
-    d1, d2 < 4 where G_{d1 d1}/T_{d1 d1} ≠ G_{d2 d2}/T_{d2 d2}.
+    The formulas use the VM tensor data, Cramer's rule, and the defined
+    Christoffel/Riemann/Ricci/Einstein expressions. The result is conditional
+    on the displayed hypotheses; the absence of project-local axioms does not
+    remove those mathematical premises.
     ========================================================================= *)
 
 (** ** 4D Index Summation *)
@@ -10253,41 +9674,16 @@ Qed.
     SECTION 6I-B-II: FULL TENSOR EFE — OFF-DIAGONAL REDUCTION THEOREM
     =========================================================================
 
-    WHY THIS EXISTS:
-    Section 6I-B proved G_{dd} = κ T_{dd} for diagonal (d,d) index pairs.
-    That is four equations. The Einstein field equation has sixteen.
-    This section closes the gap for off-diagonal components.
+    [full_efe_from_diagonal_and_offdiag_ricci_tc] combines the diagonal result
+    with the additional hypothesis that off-diagonal Ricci components vanish.
+    With a diagonal metric, that hypothesis makes the off-diagonal Einstein
+    and stress-energy expressions zero, so the diagonal and off-diagonal cases
+    can be combined into the displayed tensor equality.
 
-    THE REDUCTION THEOREM (full_efe_from_diagonal_and_offdiag_ricci_tc):
-    Full tensor EFE for ALL (μ,ν) follows from TWO things:
-      (1) Diagonal EFE already proven: G_{dd} = κ T_{dd} for d < 4
-      (2) Off-diagonal Ricci = 0: R_{μν} = 0 when μ ≠ ν
-
-    When (2) holds and the metric is diagonal, off-diagonal G = R = 0
-    and off-diagonal T = g = 0. So G_{μν} = 0 = κ · 0 = κ · T_{μν}.
-
-    HONEST STATEMENT (prototype gap, not hidden):
-    Off-diagonal Ricci = 0 is taken as a HYPOTHESIS, not derived here.
-    On finite simplicial complexes with isotropic diagonal metrics,
-    off-diagonal Ricci is generically nonzero — this is an algebraic fact
-    documented in the modular CurvedTensorPipeline.v. The reduction theorem
-    identifies the EXACT condition needed. That condition is falsifiable:
-    instantiate the simplicial complex and compute.
-
-    ZERO ADMITTED. ZERO PROJECT-LOCAL AXIOMS.
-
-    PHYSICAL MEANING:
-    The off-diagonal reduction theorem says: if the spacetime has no
-    "cross-term gravity" (no gravitomagnetic coupling), then the full EFE
-    holds. Whether any physical configuration of computational modules
-    satisfies this is an empirical question about the machine's state —
-    not about the mathematics, which is proven unconditionally.
-
-    FALSIFICATION:
-    To disprove full_efe_from_diagonal_and_offdiag_ricci_tc: hold all
-    three hypotheses (diagonal metric, diagonal EFE, off-diagonal Ricci=0)
-    and find (μ,ν) where G_{μν} ≠ κ · T_{μν}. The proof closes by pure
-    algebra — falsifying it requires an error in the ring arithmetic.
+    The off-diagonal Ricci condition is a premise here, not a consequence of
+    the VM definitions. This comment describes the conditional reduction in
+    the formal tensor model; it makes no claim about physical configurations or
+    about a general Einstein field equation.
     ========================================================================= *)
 
 (** =========================================================================
@@ -10373,66 +9769,31 @@ Proof.
 Qed.
 
 (** =========================================================================
-    SECTION 6I-C: METRIC FORCING — THE PIPELINE FORCES PSEUDO-RIEMANNIAN GEOMETRY
+    SECTION 6I-C: ISOTROPIC MATRIX IDENTITIES
     =========================================================================
 
-    WHY THIS EXISTS:
-    You might think I CHOSE to interpret vm_mu_tensor as a spacetime metric.
-    You would be wrong. This section proves the interpretation is not a choice.
-    It is FORCED by the mathematical structure of the pipeline itself.
-
-    THE QUESTION: is the pseudo-Riemannian interpretation of module_mu_tensor
-    a design decision or a mathematical necessity?
-
-    THE ANSWER: mathematical necessity.
-
-    WHAT IS PROVEN (metric_structure_forced_tc — four parts):
-    For isotropic 2-vertex simplicial complexes:
-
-    (1) NON-DEGENERACY: det(g) = a⁴ > 0 when a > 0.
-        Cramer's rule requires this. The pipeline's inverse metric computation
-        is only defined when det(g) ≠ 0. This is not a constraint we impose —
-        it is what the computation DEMANDS.
-
-    (2) TORSION-FREEDOM: Γ^ρ_{μν} = Γ^ρ_{νμ} (symmetric in lower indices).
-        This follows from the symmetry of the metric tensor (g_{μν} = g_{νμ}).
-        Torsion-free connections are the geometric fingerprint of Riemannian
-        geometry. The pipeline automatically produces one.
-
-    (3) METRIC COMPATIBILITY: g_{στ}Γ^τ_{μν} = ½(∂_μg_{νσ} + ∂_νg_{μσ} - ∂_σg_{μν}).
-        The lowered Christoffel equals the metric derivative half-sum.
-        This is the defining property of the Levi-Civita connection.
-
-    (4) LEVI-CIVITA UNIQUENESS: The pipeline's Christoffel is the ONLY
-        connection satisfying (2) and (3) simultaneously.
-        This is the Fundamental Theorem of Riemannian Geometry —
-        proven here for the computational setting.
-
-    THE CONCLUSION:
-    module_mu_tensor → pseudo-Riemannian metric is not an analogy.
-    It is the UNIQUE consistent interpretation. There is no other choice.
-
-    ZERO ADMITTED. ZERO PROJECT-LOCAL AXIOMS.
-
-    FALSIFICATION:
-    To disprove metric_structure_forced_tc: exhibit a torsion-free,
-    metric-compatible connection on this pipeline that differs from the
-    Christoffel symbols computed here. Uniqueness (part 4) proves this is
-    impossible — any such connection must equal the pipeline's Christoffel.
+    This section proves four identities for the supplied isotropic two-vertex
+    matrix conditions: positive determinant, symmetry of the selected
+    Christoffel expression, the lowered identity, and uniqueness under the
+    exact symmetry and compatibility premises in the theorem types.
+    The theorem packages a formal connection-like construction.
+    It does not force a physical metric interpretation, a pseudo-Riemannian
+    structure, or an identification with the Levi-Civita theorem beyond those
+    explicit algebraic premises.
     ========================================================================= *)
 
 (* Make full_metric_tc opaque so simpl won't reduce through it.
    In the modular codebase, module boundaries provide this opacity naturally. *)
 #[local] Opaque full_metric_tc.
 
-(** ** Two-vertex simplicial complex *)
+(** A finite two-vertex complex used by the local algebraic lemmas. *)
 
 Definition two_vertex_sc_tc (v w : nat) : SimplicialComplex4D := {|
   sc_vertices := [w; v];
   sc_edges := [(v, w)]
 |}.
 
-(** neighbors on 2-vertex complex: vertex v has neighbor [w] *)
+(** The stated neighbor list for the two-vertex complex. *)
 Lemma neighbors_two_vertex_tc : forall v w,
   v <> w ->
   neighbors (two_vertex_sc_tc v w) v = [w].
@@ -10452,7 +9813,7 @@ Proof.
     + simpl. reflexivity.
 Qed.
 
-(** Discrete derivative at v on 2-vertex complex = f(w) - f(v) *)
+(** The finite difference at [v] on the two-vertex complex. *)
 Lemma dd_at_v_tc : forall v w f,
   v <> w ->
   discrete_derivative (two_vertex_sc_tc v w) f v = (f w - f v)%R.
@@ -10464,9 +9825,10 @@ Proof.
   rewrite Hn. simpl. field.
 Qed.
 
-(** ** Isotropic inverse metric via Cramer's rule *)
+(** Inverse identities for the selected isotropic matrix, using the defined
+    determinant and adjugate expressions. *)
 
-(** For isotropic g = a·I₄, determinant is a⁴ *)
+(** The selected determinant evaluates to [a^4] under the isotropic premise. *)
 Theorem metric_det_isotropic_tc : forall s v a,
   (forall i j, (i < 4)%nat -> (j < 4)%nat ->
     full_metric_tc s v i j = if (i =? j)%nat then a else 0%R) ->
@@ -10482,7 +9844,7 @@ Proof.
   ring.
 Qed.
 
-(** When a > 0, determinant a⁴ > 0 — non-degenerate *)
+(** Positive [a] gives a positive selected determinant. *)
 Corollary metric_det_positive_tc : forall s v a,
   a > 0 ->
   (forall i j, (i < 4)%nat -> (j < 4)%nat ->
@@ -10495,7 +9857,8 @@ Proof.
     [apply Rmult_lt_0_compat|]|]; lra.
 Qed.
 
-(** When det = 0, Cramer's rule inverse has 0/0 on diagonal *)
+(** The selected inverse expression reduces to [0 / 0] on the diagonal when
+    its determinant is zero. *)
 Theorem degenerate_christoffel_undefined_tc : forall s v,
   mat4_det_tc (fun i j => full_metric_tc s v i j) = 0 ->
   forall i, (i < 4)%nat ->
@@ -10506,7 +9869,8 @@ Proof.
   unfold Rdiv. rewrite Hdet. rewrite Rinv_0. ring.
 Qed.
 
-(** For isotropic g = a·I with a > 0, the Cramer's rule inverse is (1/a)·I *)
+(** Under the isotropic positive premise, the selected inverse expression is
+    diagonal with value [1/a]. *)
 (** For isotropic g = a·I with a > 0, the Cramer's rule inverse is (1/a)·I.
     Proof structure copied from CurvedTensorPipeline.inverse_metric_isotropic. *)
 Lemma inv_metric_isotropic_tc : forall s v a,
@@ -10529,11 +9893,11 @@ Proof.
   all: field; repeat apply Rmult_integral_contrapositive_currified; lra.
 Qed.
 
-(** ** STEP 2: Torsion-freedom — Γ^ρ_{μν} = Γ^ρ_{νμ} *)
+(** ** STEP 2: Symmetry in the two lower indices. *)
 
 Theorem christoffel_torsion_free_tc : forall s v w ρ μ ν,
   (v <> w) ->
-  (** Metric symmetry at all vertices *)
+  (** Explicit metric-symmetry premise. *)
   (forall u i j, full_metric_tc s u i j = full_metric_tc s u j i) ->
   curved_christoffel_tc s (two_vertex_sc_tc v w) ρ μ ν v =
   curved_christoffel_tc s (two_vertex_sc_tc v w) ρ ν μ v.
@@ -10545,7 +9909,7 @@ Proof.
   rewrite (Hsym w μ ν), (Hsym v μ ν). lra.
 Qed.
 
-(** ** STEP 3: Metric Compatibility — Lowered Christoffel Identity *)
+(** ** STEP 3: Lowered-expression identity. *)
 
 Definition lowered_christoffel_tc (s : VMState) (sc : SimplicialComplex4D)
     (σ μ ν v : nat) : R :=
@@ -10600,9 +9964,9 @@ Proof.
   simpl; field; lra.
 Qed.
 
-(** ** STEP 4: Levi-Civita Uniqueness *)
+(** ** STEP 4: Uniqueness under the supplied premises. *)
 
-(** g · g⁻¹ = I for isotropic metric *)
+(** The selected inverse and metric multiply to the identity expression. *)
 Lemma isotropic_metric_inverse_identity_tc : forall s v a,
   a > 0 ->
   (forall i j, (i < 4)%nat -> (j < 4)%nat ->
@@ -10689,10 +10053,10 @@ Proof.
   ring.
 Qed.
 
-(** ** STEP 5: Main Forcing Theorem *)
+(** ** STEP 5: Combined isotropic-matrix theorem. *)
 
-(* INQUISITOR NOTE: metric forcing — proves pseudo-Riemannian geometry is
-   FORCED by the tensor pipeline, not a design choice *)
+(* SCOPE NOTE: combines the four algebraic properties under the stated
+   isotropic and two-vertex premises. *)
 Theorem metric_structure_forced_tc : forall s v w a b,
   (v <> w) -> a > 0 ->
   (forall i j, (i < 4)%nat -> (j < 4)%nat ->
@@ -10774,102 +10138,28 @@ Close Scope R_scope.
 #[local] Transparent full_metric_tc.
 
 (** =========================================================================
-    SECTION 6J: SPACETIME EMERGENCE SUMMARY
+    SECTION 6J: DISCRETE-GEOMETRY SUMMARY
     =========================================================================
 
-    WHY THIS EXISTS:
-    Eight theorems in four sections. This summary names what they prove
-    and assembles the full chain from computation to general relativity.
-    Nothing hidden. Nothing softened.
-
-    WHAT IS PROVEN (eight machine-checked results):
-
-    1. module_structural_mass: COMPUTATION → MASS
-       Every module carries "mass" = its information content.
-       mass = region_size + axiom_count. More knowledge = more mass.
-
-    2. metric_at_vertex: MASS → LOCAL METRIC
-       Each vertex's metric is g_μν(v) = mass(v)·δ_{μν} (isotropic diagonal).
-       The metric is the machine's information density, made geometric.
-
-    3. non_uniform_mass_produces_curvature: MASS GRADIENT → CURVATURE
-       Different module masses → non-constant metric →
-       non-zero Christoffel → GENUINE CURVATURE.
-       Information density gradients ARE spacetime curvature.
-
-    4. local_einstein_equation_vacuum: VACUUM EINSTEIN EQ. (flat case)
-       G_μν = 8πG T_μν = 0 for zero-mass configurations.
-       No matter = flat spacetime = consistent with GR.
-
-    5. mu_conservation_implies_local_einstein_vacuum: VACUUM EINSTEIN EQ.
-       For any VM state in vacuum (all masses zero), G = 8πG·T holds.
-       The vm_step premise connects this to actual VM dynamics.
-
-    6. local_einstein_vanishes_uniform: UNIFORM MASS → FLAT SPACETIME
-       When all modules have equal mass, G_μν = 0 everywhere.
-       Minkowski spacetime = perfect informational equilibrium.
-
-    7. einstein_equation_uniform_coupling_tc: THE GENUINE EINSTEIN EQ.
-       For isotropic non-vacuum metrics with Ricci isotropy:
-       ∃ κ such that G_{dd} = κ · T_{dd} for ALL d < 4 simultaneously.
-       Full 4×4 inverse (Cramer's rule) + quadratic Γ·Γ Riemann terms.
-       Non-circular. One coupling constant. Four directions. All equal.
-
-    8. metric_structure_forced_tc: METRIC FORCING
-       The pseudo-Riemannian interpretation is FORCED, not chosen:
-       (a) Non-degeneracy: det(g) = a⁴ > 0
-       (b) Torsion-freedom: Γ^ρ_{μν} = Γ^ρ_{νμ}
-       (c) Metric compatibility: g_{στ}Γ^τ_{μν} = ½(∂g+∂g−∂g)
-       (d) Levi-Civita uniqueness: the ONLY such connection
-       This is the Fundamental Theorem of Riemannian Geometry, computed.
-
-    THE COMPLETE PHYSICS CHAIN:
-    Computation → μ-costs → module tensor → full 4×4 metric →
-    Christoffel (Cramer's rule) → Riemann (quadratic Γ·Γ) →
-    Ricci (trace) → Einstein tensor G = κ · T (uniform coupling)
-    + METRIC FORCING: the interpretation is not a choice, it is a theorem.
-
-    ZERO ADMITS. ZERO PROJECT-LOCAL AXIOMS.
-
-    Information density gradients ARE gravity within this model.
-    μ-conservation IS the Bianchi identity within this model.
-    The machine's cost ledger IS the gravitational bookkeeping.
-    Whether this structural parallel reflects something deeper about
-    the nature of space, time, and knowledge: that is an open question.
-    This machine does not settle it. It makes it precise.
+    The preceding subsections define a chain of formal records and prove
+    selected equalities for them.
+    The chain begins with the chosen module-size statistic, passes through a
+    diagonal metric expression and finite differences, and ends in the
+    selected Einstein-style equality predicates.
+    The coupling theorem and the isotropic uniqueness theorem are conditional
+    on their displayed hypotheses.
+    This summary does not identify the chain with general relativity or claim
+    that information density is physically gravity.
     ========================================================================= *)
 
 (** =========================================================================
-    GRAVITATIONAL COUPLING CONSTANT — UNIT CONVENTION
+    COUPLING-CONSTANT NORMALIZATION
     =========================================================================
 
-    WHY THIS EXISTS:
-    The gravitational constant G = 1/(8π) is NOT a result derived from
-    μ-cost dynamics. It is a UNIT CHOICE. This note exists to make that
-    completely explicit, because I will not hide it.
-
-    THE CONVENTION:
-    In standard GR, G ≈ 6.674 × 10⁻¹¹ m³ kg⁻¹ s⁻². Here we work in
-    "computational units" where 8πG = 1, so the Einstein equations read:
-    G_μν = T_μν (no dimensional prefactor).
-    This is the exact analogue of setting ħ = c = 1 in natural units.
-    The choice is conventional, consistent, and openly stated.
-
-    WHAT IS PROVEN: gravitational_coupling_unit_convention: 8πG = 1.
-    This is a consequence of the definition G = 1/(8π) — proven by
-    Rinv_r and PI_neq0. Machine-checked. Not assumed.
-
-    WHAT IS NOT PROVEN: that the computational scale forces G to take
-    any particular numerical value in physical units. The value of G
-    in kg-m-s units is measured empirically, not derived here.
-    This machine's model derives the STRUCTURE of GR (field equations,
-    tensor pipeline, Levi-Civita uniqueness) — not the coupling scale.
-
-    HONEST STATEMENT:
-    If you want to falsify the gravitational connection: show that
-    the Einstein tensor of any physically realizable VMState does NOT
-    satisfy G_μν = κ · T_μν. The coupling scale is open. The structure
-    is proven. These are different claims and I make only the latter.
+    [gravitational_constant] is defined as [1/(8 * PI)] in the real-number
+    model. The theorem below proves the resulting normalization identity.
+    This is a formal unit convention; it does not calibrate the value of a
+    physical gravitational constant or establish a physical field equation.
     =========================================================================*)
 
 (** Explicit statement of the unit convention: [8πG = 1]. *)
@@ -10885,10 +10175,10 @@ Proof.
   - exact (PI_neq0 Hpi).
 Qed.
 
-(* INQUISITOR NOTE: alias for gravitational_coupling_unit_convention under the
+(* SCOPE NOTE: alias for gravitational_coupling_unit_convention under the
    summary name used locally in this standalone file. *)
 (** Corollary: the Einstein coupling factor equals 1 in computational units. *)
-(* SAFE: alias for gravitational_coupling_unit_convention — backward-compat export in standalone summary file, see INQUISITOR NOTE above *)
+(* SAFE: alias for gravitational_coupling_unit_convention — backward-compat export in standalone summary file, see SCOPE NOTE above *)
 Corollary einstein_coupling_one :
   (8 * PI * gravitational_constant)%R = 1%R.
 Proof.
@@ -10896,43 +10186,15 @@ Proof.
 Qed.
 
 (** =========================================================================
-    SECTION 6J-A: DIRECTION-AWARE DISCRETE GEOMETRY
+    SECTION 6J-A: DIRECTION-AWARE FINITE DIFFERENCES
     =========================================================================
 
-    WHY THIS EXISTS:
-    The discrete_derivative operator in Section 6I is a scalar neighbor-difference:
-    one number per vertex, no notion of direction. For a faithful discrete
-    analogue of the partial derivative ∂_μ, direction must be explicit.
-
-    THE FIX: This section gives each spacetime direction μ its own oriented
-    edge set. Directional derivatives are taken along μ-specific edges.
-    Christoffel and Riemann definitions now carry genuine direction slots —
-    not reusing one scalar operator, but computing per-direction differences.
-
-    WHAT THIS CLOSES:
-    The "index-collapse" problem: in the earlier formulation, ∂_μ and ∂_ν
-    used the same neighbor set, so different spacetime directions could not
-    produce different derivatives on the same complex. This section removes
-    that limitation. Different directions → different edge sets → different
-    derivatives → genuinely directional geometry.
-
-    WHAT THIS DOES NOT CLAIM:
-    This is not a full Regge-calculus development. The discrete geometry here
-    is a model substrate, not a physical claim about the structure of spacetime.
-    It removes an index-collapse artifact from the formalization — that is all.
-
-    PHYSICAL MEANING:
-    Spacetime has four directions. The machine's simplicial complex must
-    distinguish them. When it can — when each direction has its own edge
-    structure — the formalism can express genuine anisotropy: different
-    curvatures in different directions. That is the geometry spacetime needs.
-
-    FALSIFICATION: To disprove the direction-awareness claim: exhibit a
-    DirectedSimplicialComplex4D where dsc_dir_edges produces the same
-    neighbor set for two different directions μ ≠ ν on some vertex v.
-    That would collapse the direction distinction. The fix here is exactly
-    the structure that prevents that collapse — each direction is a separate
-    field in the record, not a shared scalar.
+    The earlier scalar finite difference uses one neighbor relation.
+    This record instead stores a separate edge list for each direction index.
+    The resulting definitions can distinguish direction-indexed differences
+    when the supplied edge lists differ.
+    This is a formal data-structure improvement, not a Regge-calculus or
+    spacetime theorem.
     ========================================================================= *)
 
 Record DirectedSimplicialComplex4D := {
@@ -11163,34 +10425,19 @@ Unset Extraction AutoInline.
 Extraction "../build/kami_hw/Target_complete.ml" CanonicalCPUProof.canonical_cpu_module CanonicalCPUProof.targetB.
 
 (** =========================================================================
-    SECTION 8: VERIFICATION SUMMARY — The Audit
+    SECTION 8: VERIFICATION SUMMARY
     =========================================================================
 
-    This is the machine's audit log. Every key theorem gets a
-    Print Assumptions call. If this file compiles and these calls
-    produce only the expected axioms — or none at all — the proofs
-    are solid.
-
-    WHAT "CLOSED UNDER THE GLOBAL CONTEXT" MEANS:
-    It means zero axioms. Coq verified the theorem from nothing but
-    the definitions in this file and the Coq standard library. If you
-    see that phrase, the proof is axiom-free.
-
-    EXPECTED AXIOM SETS:
-    - VM-level theorems (μ-conservation, NoFI, initiality, certification,
-      Turing universality, Shannon bridge, Landauer, semantic mu):
-      → "Closed under the global context" — ZERO AXIOMS.
-
-    - Real-number theorems (Tsirelson, Born rule, unitarity, no-cloning,
-      Einstein equations, metric forcing):
-      → Two standard Coq Reals axioms ONLY:
-        • ClassicalDedekindReals.sig_forall_dec
-        • FunctionalExtensionality.functional_extensionality_dep
-      These are not project-specific. They are in the Coq standard
-      library and are accepted throughout the Coq ecosystem.
-
-    NO PROJECT-SPECIFIC AXIOMS. NO ADMITS. NO EXCEPTIONS.
-    If anything else appears in the assumption list, that's a bug.
+    The [Print Assumptions] commands below record dependency provenance for
+    selected theorem names.
+    “Closed under the global context” means that Coq reports no global
+    assumptions for that theorem; it does not erase explicit theorem premises.
+    Real-number developments may report standard-library classical or real
+    analysis principles, and imported bridge theorems may add their own
+    dependencies.
+    Read the generated receipt for the current complete list.
+    The commands do not by themselves prove semantic adequacy, hardware
+    equivalence, or the absence of every unsupported prose claim.
     ========================================================================= *)
 
 (* μ-Conservation *)
@@ -11278,54 +10525,17 @@ Print Assumptions einstein_equation_uniform_coupling_tc.
     SECTION 10: TURING UNIVERSALITY
     =========================================================================
 
-    WHY THIS EXISTS:
-    A machine that cannot compute what Turing machines compute is not a
-    useful machine. A machine that only computes what Turing machines compute
-    is not an interesting one. This section proves the Thiele Machine does
-    BOTH: it is Turing-complete AND strictly extends Turing computation.
+    This section contains two different simulation arguments. The first uses
+    an explicit list encoding of Turing-machine configurations and proves the
+    corresponding bounded-step equality for the file-local evaluator. The
+    second compiles a two-counter Minsky program into the selected VM
+    instructions and reasons through [vm_apply]. The source and theorem names
+    identify which result belongs to which model.
 
-    THE CLAIM:
-    The Thiele Machine's ISA properly contains the Turing Machine instruction
-    set. Both are Turing-complete. The distinction is not computational power
-    — it is COST ACCOUNTING. Turing machines compute without measuring the
-    cost of observation. The Thiele Machine computes and CHARGES for it.
-
-    WHAT IS PROVEN (Part A — encoding-level):
-    (1) Turing Machines are defined as transition functions:
-          delta : state → symbol → (new_state, new_symbol, direction)
-
-    (2) TM configurations are encoded as lists:
-          [q; head; tape[0]; ...; tape[k-1]]
-        These lists fit directly into vm_mem : list nat.
-
-    (3) tm_encode_decode_roundtrip_tc: decode(encode(conf)) = conf
-        The encoding is lossless. Every TM configuration is recoverable.
-
-    (4) thiele_simulates_tm_encoding_tc: for all n,
-          decode(thiele_run^n(encode(conf))) = tm_run^n(conf)
-        n Thiele steps on an encoded TM = n direct TM steps.
-        No preconditions. Tape length invariance (tape_replace_length_tc)
-        makes the induction close at every step.
-
-    (5) thiele_machine_subsumes_tm_tc: Turing universality follows.
-
-    HONESTY NOTE: Part A is an encoding-level result — it does not call
-    vm_apply. Part B (Section 10-B) closes that gap with ISA-level
-    Turing completeness via explicit vm_apply calls on a Minsky compilation.
-
-    RELATIONSHIP TO NoFI:
-    Turing machines compute but cannot certify. They have no cost for
-    observation — no No Free Insight theorem applies to them. The Thiele
-    Machine extends TM computation by adding provably-costed structural
-    observation. Computation + certified observation = the extension.
-
-    FALSIFICATION:
-    To disprove Turing universality: exhibit a Turing-computable function
-    that the Thiele VM cannot compute. That would require a function whose
-    computation requires a memory model or control structure not available
-    in the 47-opcode ISA. The Minsky simulation in Section 10-B rules this
-    out — 2-counter Minsky machines are themselves Turing complete, and
-    they compile to 5 of the 47 opcodes.
+    These results concern computability and simulation, not a larger class of
+    computable functions. The VM also carries a cost ledger and structural
+    fields, but those additions are accounting and state-observation features,
+    not a proof of computational power beyond Turing computation.
     ========================================================================= *)
 
 (* Re-establish list notations which Kami may have overridden *)
@@ -11544,46 +10754,17 @@ Print Assumptions thiele_machine_subsumes_tm_tc.
     SECTION 10-B: ISA-LEVEL TURING COMPLETENESS VIA MINSKY MACHINE
     =========================================================================
 
-    WHY THIS EXISTS:
-    Section 10 Part A proved Turing universality at the encoding level —
-    but it never called vm_apply. An auditor would correctly note: if the
-    proof never exercises the actual instruction set, it does not prove
-    that the ISA is Turing complete. This section closes that gap.
+    This section moves from the encoding-level argument above to an explicit
+    compilation using [vm_apply]. A two-counter Minsky instruction is mapped
+    to the selected VM instructions: registers 2 and 3 hold the counters,
+    register 4 holds the scratch value one, and the increment, conditional
+    decrement, jump, and halt cases are checked by transition lemmas.
 
-    THE PROOF:
-    A 2-counter Minsky machine is compiled to FIVE of the 47 opcodes.
-    Each Minsky step is simulated by EXPLICIT vm_apply calls — not list
-    operations, not encoding tricks, but actual opcode execution.
-
-    2-counter Minsky machines are Turing complete (Minsky, 1967).
-    Therefore: if the Thiele VM can simulate any 2-counter Minsky machine
-    via vm_apply, the VM's 47-opcode ISA is Turing complete.
-
-    COMPILATION SCHEME (five opcodes used):
-      Counter 0 → register 2,  Counter 1 → register 3
-      Scratch   → register 4  (holds constant 1)
-
-      MI_Inc c      → instr_load_imm r4 1; instr_add r(2+c) r(2+c) r4
-                      (2 vm_apply calls per Minsky step)
-      MI_JzDec c t  → instr_jnez r(2+c) (base+2); instr_jump target;
-                      instr_sub ...
-                      (2 vm_apply calls per Minsky step)
-      MI_Halt       → instr_halt
-                      (1 vm_apply call)
-
-    BOUNDEDNESS HYPOTHESIS:
-    Counter values < 2^64 (word64 faithfulness). This is standard in any
-    mechanized hardware simulation that uses fixed-width arithmetic.
-    The bound does not limit theoretical Turing completeness — it bounds
-    the specific execution trace that is proven to commute step-by-step.
-
-    ZERO ADMITTED. ZERO PROJECT-LOCAL AXIOMS.
-
-    PHYSICAL MEANING:
-    Five opcodes out of forty-seven suffice to simulate universal computation.
-    The other forty-two are the machine's EXTENDED CAPABILITY: certified
-    observation, partition management, morphism composition, CHSH experiments.
-    These forty-two are what strictly extends Turing computation.
+    The word-sized simulation is bounded by the range in which the selected
+    arithmetic remains faithful. That bound belongs to the proved execution
+    trace; it is not a claim that fixed-width arithmetic by itself represents
+    an unbounded tape. The result establishes the stated simulation relation
+    for the compiled steps and does not add computable functions to the model.
     ========================================================================= *)
 
 (* Minsky machine instruction type *)
@@ -11895,47 +11076,12 @@ Open Scope list_scope.
     SECTION 11: AGENT TRUST — CONCRETE LÖB BYPASS
     =========================================================================
 
-    WHY THIS EXISTS:
-    Löb's theorem says: a sufficiently powerful agent cannot trust its own
-    reasoning about its own improvement. This is the standard argument against
-    recursive self-improvement. This section proves: IN THIS MACHINE, that
-    argument does not apply. The reason is concrete, not philosophical.
-
-    THE BYPASS:
-    Trust does not require self-referential reasoning. It requires a RECEIPT.
-    The vm_mu register IS the receipt. Each PNEW instruction charges exactly
-    [cost] μ-units — unconditionally, whether the region is fresh or not.
-    After n PNEW instructions: vm_mu = s.vm_mu + n * cost. Always.
-    The machine cannot lie about the cost of its own expansion.
-
-    CONCRETE CORRESPONDENCE:
-    Abstract StateSpace.ss_size    ↔  PartitionGraph.pg_next_id
-    Abstract expansion_insight     ↔  Δ pg_next_id after PNEW
-    Abstract μ-cost                ↔  vm_mu register
-
-    WHAT IS PROVEN:
-    — pnew_noninterference: PNEW preserves all existing module lookups.
-      Old modules survive expansion. Existing knowledge is not corrupted.
-    — pnew_chain_mu: after n PNEWs, vm_mu = initial + n * cost.
-      The ledger is the trust certificate.
-    — pnew_chain_lookup: existing lookups preserved across pnew_chain.
-      Structural integrity holds over the entire expansion sequence.
-
-    EXTRACTABILITY:
-    pnew_chain is a plain Fixpoint over VMState. It extracts to OCaml
-    alongside the rest of the machine. The trust mechanism runs.
-
-    PHYSICAL MEANING:
-    An agent that must pay μ for every expansion of its own knowledge
-    cannot fake growth. The cost is the proof of genuine expansion.
-    No agent bootstraps trust without paying for it. That is the bypass:
-    not a logical trick, but a physical impossibility of free expansion.
-
-    FALSIFICATION:
-    To disprove pnew_chain_mu: exhibit a PNEW execution where vm_mu
-    increases by an amount other than instruction_cost (instr_pnew cost).
-    That would require vm_apply_mu to be false for instr_pnew — which
-    follows unconditionally from the definition of vm_apply and lia.
+    The definitions in this section relate repeated [PNEW] operations to two
+    selected observations: the next module identifier and the μ ledger. The
+    lemmas show that existing graph lookups are preserved and that a chain of
+    n PNEW instructions adds n times the instruction cost. The construction is
+    a VM accounting result. It does not establish that the ledger proves
+    semantic knowledge, physical growth, or a general solution to self-trust.
     ========================================================================= *)
 
 (* ------------------------------------------------------------------ *)
@@ -12161,46 +11307,18 @@ Qed.
     SECTION 12: RUN_TRACE AND INSIGHT TAXONOMY
     =========================================================================
 
-    WHY THIS EXISTS:
-    Not all machine activity is the same. Creating a module costs nothing
-    in μ. Certifying a claim about a module costs at least 1 μ.
-    This section formalizes that distinction into a two-tier taxonomy
-    and proves the cost floor for the certified tier.
+    This section separates zero-floor structural operations from the positive
+    cost class named by [is_cert_setterb]. PNEW and MORPH_ID can change the
+    graph without activating either certification channel. CERTIFY activates
+    [vm_certified], and a successful nonempty MORPH_ASSERT activates
+    [csr_cert_addr]. LASSERT, EMIT, REVEAL, LJOIN, and READ_PORT are in the
+    positive-cost class, but their membership there does not mean that each one
+    flips a persistent certification field.
 
-    THE TWO TIERS:
-
-    TIER 1 — FREE STRUCTURAL CREATION:
-    PNEW, MORPH_ID create structural objects (modules, identities).
-    cert_addr remains 0. vm_certified remains false. No insight claimed.
-    Cost: 0 μ for the structural acts themselves.
-    Physical meaning: building the scaffold is free.
-    The scaffold is not knowledge — it is the container for knowledge.
-
-    TIER 2 — CERTIFIED INSIGHT (COSTS μ):
-    LASSERT, EMIT, REVEAL, LJOIN, MORPH_ASSERT set cert_addr ≠ 0.
-    CERTIFY sets vm_certified := true.
-    Every one of these charges ≥ 1 μ — by construction, not by policy.
-    Physical meaning: seeing costs. Insight has a price.
-
-    WHAT IS PROVEN:
-    — certified_insight_nonfree_tc: any single-step Tier-2 transition
-      (cert_addr goes 0 → nonzero, or vm_certified goes false → true)
-      satisfies: instruction_cost ≥ 1 AND vm_mu increases by ≥ 1.
-    — run_trace_tc_mu: μ after a trace = initial μ + sum of all costs.
-    — cert_addr_value_some_is_setter_tc: cert_addr change ⇒ is_cert_setterb.
-
-    PHYSICAL MEANING:
-    The taxonomy is the machine's epistemological contract:
-    you may CREATE for free, but you may not KNOW for free.
-    Every act of certified knowledge acquisition has a minimum price.
-    That price is the μ-unit. That price is non-negotiable.
-
-    FALSIFICATION:
-    To disprove certified_insight_nonfree_tc: exhibit a Tier-2 instruction
-    (one that sets cert_addr ≠ 0 or vm_certified := true) whose
-    instruction_cost = 0. Every cert-setter's cost is ≥ 1 by the
-    definition of instruction_cost — lia closes every arm. There is no
-    cert-setter with cost 0 in the 47-opcode ISA.
+    The lemmas below prove the relevant one-step floor and the trace ledger
+    equation. The taxonomy is a property of this VM schedule; it is not a
+    physical theory of knowledge or a claim that every structural operation
+    must be charged in every implementation.
     ========================================================================= *)
 
 (* Re-establish list notations for Sections 12-16 *)
@@ -12328,46 +11446,16 @@ Qed.
     SECTION 13: UNIVERSAL NO FREE INSIGHT (SUBSTRATE-INDEPENDENT)
     =========================================================================
 
-    WHY THIS EXISTS:
-    The No Free Insight theorem has appeared twice already: at the VM level
-    (Section 6), and at the trace level (Section 12). Now it appears in its
-    most general form — SUBSTRATE-INDEPENDENT. No VMState. No vm_instruction.
-    No Thiele Machine. Just the abstract structure.
+    [CertificationSystem_tc] abstracts the state type, instruction type, step
+    function, instruction cost, and certification predicate. Its [A2] field
+    says that a single false-to-true certification transition costs at least
+    one. [universal_nfi_any_substrate_tc] lifts that local premise to a finite
+    trace from uncertified to certified by induction on the trace.
 
-    THE QUESTION: Does No Free Insight apply only to THIS machine, or to
-    ANY system that certifies knowledge?
-
-    THE ANSWER: ANY system. If you can go from uncertified to certified,
-    you paid at least 1 unit of cost. Every time. In every substrate.
-
-    THE SINGLE AXIOM (cs_cert_costs_tc):
-    A certification transition — uncertified → certified in ONE step —
-    costs ≥ 1. This is the MINIMAL sufficient condition. If any system
-    violates this, it has "free forgery": certification without cost.
-    That is a definition of an untrustworthy system.
-
-    THE UNIVERSAL THEOREM (universal_nfi_any_substrate_tc):
-    For ANY CertificationSystem_tc satisfying cs_cert_costs_tc:
-    any trace from uncertified to certified has total_cost ≥ 1.
-    Proof: induction on the trace. One axiom application per case.
-    No monotonicity assumption. No witness structure. Just the axiom.
-
-    INSTANCES OF THE UNIVERSAL THEOREM:
-    — The Thiele VM: cost = μ, both cert channels covered by Section 12
-    — Proof assistants: cost = proof term length, cert = type-checks
-    — Consensus protocols: cost = proof-of-work, cert = block accepted
-    — Physical measurements: cost = thermodynamic work ≥ Landauer bound
-
-    PHYSICAL MEANING:
-    No Free Insight is not a property of this machine. It is a property
-    of KNOWLEDGE ITSELF. Any system that certifies must pay. The machine
-    just makes the payment visible and machine-checkable.
-
-    FALSIFICATION:
-    To disprove universal_nfi_any_substrate_tc: exhibit a CertificationSystem_tc
-    satisfying cs_cert_costs_tc with a trace whose total cost < 1 that reaches
-    certification. That contradicts the axiom directly. The theorem is
-    a consequence of the axiom — no weaker condition suffices.
+    The theorem is independent of the VM representation. Applying it to a
+    different system requires supplying that system's state, step, cost, and
+    certification data together with the A2 proof. No physical cost model or
+    semantic checker is supplied by this abstract record.
     ========================================================================= *)
 
 Record CertificationSystem_tc := mk_cert_system_tc {
@@ -12503,45 +11591,12 @@ Qed.
     SECTION 14: CLASSICAL CONSERVATIVITY (D3)
     =========================================================================
 
-    WHY THIS EXISTS:
-    The Thiele Machine strictly extends classical computation. That extension
-    has two parts: (1) it can do everything a classical machine can do, and
-    (2) it can do things a classical machine cannot. D3 proves part (1).
-
-    THE CLAIM (D3 CONSERVATIVITY):
-    When the Thiele VM executes a program using ONLY classical opcodes —
-    arithmetic, control flow, memory, I/O — the structural layer is
-    completely untouched:
-    — vm_graph: unchanged
-    — csr_cert_addr: unchanged
-    — vm_certified: unchanged
-
-    This means: a classical program running on the Thiele Machine is
-    INDISTINGUISHABLE from a classical machine on these three dimensions.
-    The Thiele Machine does not accidentally certify anything. It does not
-    accidentally modify the knowledge graph. The classical fragment is clean.
-
-    WHAT IS PROVEN:
-    — classical_opcode_no_cert_setter_tc: classical opcodes cannot set cert_addr
-    — classical_opcode_preserves_graph_tc: classical opcodes cannot touch vm_graph
-    — classical_opcode_preserves_certified_tc: classical opcodes cannot set vm_certified
-    — classical_trace_preserves_cert_addr_tc: over any classical trace, csr_cert_addr
-      remains unchanged
-    — classical_trace_preserves_certified_tc: over any classical trace, vm_certified
-      remains unchanged
-    — D3_classical_conservativity_tc: the full D3 theorem, combining all three
-
-    PHYSICAL MEANING:
-    Classical computation is a SUBLANGUAGE of the Thiele Machine. You can
-    run any classical program without touching the structural extension.
-    The extension is opt-in. The boundary is enforced by proof, not by
-    convention or discipline.
-
-    FALSIFICATION:
-    To disprove D3: exhibit a classical opcode (is_classical_opcode_tc = true)
-    that modifies vm_graph, csr_cert_addr, or vm_certified. The definition
-    of is_classical_opcode_tc explicitly marks every structural opcode as false.
-    The proof is a case analysis — every arm checked by reflexivity or discriminate.
+    [is_classical_opcode_tc] selects the instructions whose [vm_apply] rule
+    leaves [vm_graph], [csr_cert_addr], and [vm_certified] unchanged. The
+    opcode theorem and its list induction then show that a trace made only of
+    those instructions preserves all three fields. The selected fragment is
+    defined by the predicate; it is not a claim about every conventional
+    encoding or every program that a classical machine could simulate.
     ========================================================================= *)
 
 (** is_classical_opcode_tc: true iff the instruction does NOT modify
@@ -12714,44 +11769,12 @@ Qed.
     SECTION 15: TURING STRICTNESS — D4 AND D5
     =========================================================================
 
-    WHY THIS EXISTS:
-    D3 proved the Thiele Machine contains classical computation as a clean
-    sublanguage. This section proves the containment is STRICT: the Thiele
-    Machine can reach states that NO classical program of ANY length can reach.
-
-    THE WITNESS (D4 STRICTNESS):
-    One concrete starting state. One Thiele step. One probe. Three facts:
-
-    Base state d4_base_tc: module 0 present, pg_morphisms = [].
-    Thiele step: instr_morph_id 0 0 0 — creates identity morphism id=0.
-    Probe: instr_morph_delete 0 0 — succeeds (err=false) iff morph 0 exists.
-
-    THIELE PATH: base → morph_id → [probe] → err=false. ✓
-    CLASSICAL PATH: any classical trace from d4_base_tc → [probe] → err=true. ✓
-
-    D3 ensures: classical programs cannot modify pg_morphisms.
-    pg_morphisms stays []. probe fails. ALWAYS. For any classical trace.
-    Thiele creates morphism 0 in one step. probe passes. These are different.
-    These outcomes are PROVABLY DIFFERENT — a formal semantic separation.
-
-    D5: THIELE STRICTLY EXTENDS CLASSICAL COMPUTATION.
-    Combine D3 (extension: classical ⊆ Thiele on classical programs) with
-    D4 (strictness: Thiele can do things classical cannot) to get D5:
-    Thiele STRICTLY EXTENDS classical computation.
-    This is not a philosophical claim. It is a machine-checked theorem.
-
-    PHYSICAL MEANING:
-    The structural layer is not a cosmetic addition. It changes what the
-    machine can DO. Morphisms are computationally real objects that exist
-    in the machine's state and can be witnessed by probes. Classical machines
-    have no such objects. They cannot fake morphism existence. The machine
-    is genuinely larger.
-
-    FALSIFICATION:
-    To disprove D4: exhibit a classical program from d4_base_tc that makes
-    the probe pass (err=false). D3 proves that any classical trace preserves
-    pg_morphisms = []. The probe checks for morph id=0 in pg_morphisms.
-    If pg_morphisms = [], the probe fails. These are connected by vm_compute.
+    The D4 witness compares two VM executions from [d4_base_tc]. One applies
+    [MORPH_ID] and then probes for morphism 0; the other uses only the selected
+    classical fragment. D3 preserves the empty morphism list along that
+    classical trace, so the probe outcomes differ. This is a separation result
+    for the named VM state and opcode predicate. It does not assert that a
+    conventional machine cannot encode the graph or simulate the richer run.
     ========================================================================= *)
 
 Definition d4_module_tc : ModuleState := mk_module_state (0 :: nil) nil.
@@ -12893,44 +11916,14 @@ Qed.
     SECTION 15A: ISA-LEVEL TM STEP COMPILATION
     =========================================================================
 
-    WHY THIS EXISTS:
-    The earlier TM simulation (Section 10, Part A) is an encoding-level result.
-    TM steps are Coq list operations — vm_apply is never called. An honest
-    audit would flag this: where are the opcodes? This section answers.
-
-    THE STRICTER WITNESS:
-    A staged compiler emits ACTUAL vm_instruction programs. Each Minsky step
-    is compiled to real opcodes. run_vm executes those opcodes. The resulting
-    vm_mem contains the next TM configuration. This goes through vm_apply.
-
-    WHAT IS PROVEN (completely honest scope statement):
-    — staged compiler: compile_tm_step_staged_tc emits a real opcode sequence
-      (load_imm + store instructions — classical opcodes, no certification)
-    — one-step correctness: run_vm on the compiled program writes the next
-      TM configuration into vm_mem at the expected addresses
-    — exact corollary under 64-bit boundedness: if all values fit in 64 bits,
-      the simulation is exact (word64 faithfulness hypothesis)
-
-    SCOPE BOUNDARY:
-    A full finite-table interpreter for arbitrary TM transition tables.
-    This is a ONE-STEP staged compiler, parameterized by the current
-    configuration. It closes the "where are the opcodes?" boundary for
-    this file. The surrounding interpreter construction has its own
-    definitions and proof obligations; this section records the staged
-    compiler contract and its exact boundedness premise.
-
-    PHYSICAL MEANING:
-    A compilation proof is a physical claim: the program the compiler emits
-    is the program that does the right thing. The machine does not simulate
-    computation in the abstract — it computes through opcodes, registers, and
-    memory, step by step, with every step verified by vm_apply.
-
-    FALSIFICATION: To disprove tm_step_compiled_correct_tc: exhibit a
-    TM_Config_tc (q, tape, head) where run_vm on the compiled program does
-    NOT write the next configuration to vm_mem. The proof tracks every
-    memory write through vm_apply — falsifying it requires showing a
-    store instruction that writes to the wrong address, which the address
-    arithmetic rules out by construction.
+    This section closes the distinction between the earlier encoding-level
+    simulation and a program that actually executes VM instructions. The
+    staged compiler emits a finite sequence of classical [vm_instruction]
+    values, and [run_vm] applies that sequence to the encoded configuration.
+    The one-step theorem states where the next configuration is written in
+    memory under the displayed word-size premise. It is not a full interpreter
+    for arbitrary transition tables, and it does not make a physical claim
+    about a compiled deployment.
     ========================================================================= *)
 
 Definition tm_conf_word64_tc (conf : TM_Config_tc) : TM_Config_tc :=
@@ -13485,28 +12478,13 @@ Qed.
     LOCAL CATEGORICAL SEPARATION WITNESS
     =========================================================================
 
-    WHY THIS EXISTS:
-    Two states can be computationally identical — same registers, same memory,
-    same μ, same pc, same error flag, same certified bit — and still be
-    structurally different in the categorical layer: one has morphisms, one
-    does not. This is the separation between classical computation and
-    categorical structure.
-
-    THE WITNESS (categorical_separation):
-    categorical_state_with_morphism: morphism 0 (identity) present.
-    categorical_state_without_morphism: pg_morphisms = nil.
-    Both states agree on all classical observables (registers, memory, μ,
-    pc, err, certified). They differ ONLY in pg_morphisms.
-
-    WHAT THIS PROVES:
-    The morphism graph carries information that classical computation cannot
-    observe or reproduce. Two computationally equivalent states are NOT
-    categorically equivalent. The categorical layer is strictly additional.
-
-    PHYSICAL MEANING:
-    The morphism graph is the machine's knowledge of RELATIONS between modules.
-    Classical machines have no such layer. These two states would be
-    indistinguishable to a Turing machine. They are distinguishable here.
+    The witness states below agree on the selected classical fields, ledger,
+    error flag, and certification flag, but their morphism lists differ. The
+    definitions [computationally_equivalent] and [categorically_distinct]
+    state exactly which observations are held fixed and which graph field is
+    separated. This is a noninjectivity result for the named projection; it
+    does not say that a richer conventional encoding could not retain the
+    morphism list.
     ========================================================================= *)
 
 Definition computationally_equivalent (s1 s2 : VMState) : Prop :=
@@ -13638,49 +12616,15 @@ Qed.
     SECTION 16: CHSH STATISTICAL BRIDGE (H8)
     =========================================================================
 
-    WHY THIS EXISTS:
-    The CHSH Bell inequality separates quantum correlations from classical
-    hidden-variable theories. A local deterministic strategy cannot explain
-    a violation. This section proves that fact in the Thiele Machine —
-    grounded in actual hardware registers, not abstract probability spaces.
+    This section defines the finite [WitnessCounts] record and the predicate
+    [wc_local_strategy_consistent_tc] for comparing nonzero same/different
+    buckets with a fixed deterministic response table. The witness theorem
+    shows that the selected count pattern has no response table satisfying
+    those constraints, by finite case analysis.
 
-    THE HARDWARE GROUNDING:
-    The WitnessCounts record (8 hardware registers: wc_same_XY, wc_diff_XY)
-    stores the accumulated outcomes of CHSH_TRIAL instructions. Each trial
-    records whether measurements in each (x,y) basis pair were same or different.
-    These are REAL HARDWARE REGISTERS in the Kami module (Section 6G-KAMI).
-
-    THE CLAIM (violation_wc_tc):
-    There exist WitnessCounts that no local deterministic strategy can explain.
-    Any attempt to assign a local hidden-variable explanation leads to a
-    logical contradiction — pure propositional reasoning, no real arithmetic.
-
-    THE PROOF STRATEGY:
-    1. wc_local_strategy_consistent_tc: a WitnessCounts is consistent with a
-       LocalStrategy if every observed majority outcome matches the strategy's
-       deterministic prediction.
-    2. violation_wc_tc: a specific WitnessCounts pattern that violates the
-       local consistency constraint — contradiction by case analysis over
-       all possible local bit assignments (2⁴ = 16 cases).
-    3. chsh_stat_violation_not_local: violation_wc_tc has no consistent local
-       strategy explanation. This is Bell's theorem, machine-checked.
-
-    THE CLASSICAL BOUND:
-    |S| ≤ 2 for any local strategy — proven in Section 6C by exhaustive
-    16-case enumeration (local_strategy_chsh_le_2). That is the algebraic side.
-    This section is the statistical side: actual witness counts, no strategy.
-
-    PHYSICAL MEANING:
-    The CHSH violation is not a mathematical curiosity. If the machine ever
-    accumulates WitnessCounts matching violation_wc_tc, no hidden-variable
-    theory can explain those outcomes. The outcomes are irreducibly non-local.
-    This is the machine certifying that it has witnessed genuine Bell violation.
-
-    FALSIFICATION:
-    To disprove chsh_stat_violation_not_local: exhibit a LocalStrategy that is
-    consistent with violation_wc_tc. The proof closes by contradiction over all
-    16 possible (a0,a1,b0,b1) ∈ {true,false}⁴ combinations — every case
-    produces a contradiction from the consistency constraints.
+    The result is a combinatorial statement about the supplied counts and
+    predicate. It is not by itself a finite-sample probability theorem, a
+    quantum-realizability theorem, or a claim about a physical Bell experiment.
     ========================================================================= *)
 
 (** A WitnessCounts wc is consistent with LocalStrategy ls if each observed
@@ -13759,8 +12703,8 @@ Unset Extraction AutoInline.
     are IDENTICAL to those in Extraction.v — same qualified names,
     same OCaml implementations, same root symbol list.
 
-    This guarantees: thiele_core_complete.ml = thiele_core.ml
-                     (byte-for-byte, no exceptions).
+    The canonical extraction gate compares [thiele_core_complete.ml] with
+    [thiele_core.ml] byte for byte and fails if they differ.
 
     Note: We use Require (without Import) to avoid shadowing TMC's
     local definitions. The kernel modules are accessed only via
@@ -13966,7 +12910,7 @@ Record ThieleMachineMasterSummary := {
       forall d, (d < 4)%nat ->
       curved_einstein_tc s sc d d v = (κ * curved_stress_energy_tc s d d v)%R;
 
-  (* Layer 11: Metric Forcing — pseudo-Riemannian geometry is FORCED *)
+  (* Layer 11: Conditional metric and connection identities. *)
   summary_metric_forcing : forall s v w (a b : R),
     (v <> w) -> (a > 0)%R ->
     (forall i j, (i < 4)%nat -> (j < 4)%nat ->
@@ -14008,18 +12952,18 @@ Record ThieleMachineMasterSummary := {
     graph_lookup s.(vm_graph) mid
 }.
 
-(** master_summary_proven: THE COMPLETE PROOF RECORD, ASSEMBLED.
+(** master_summary_proven: the assembled proof record.
 
     ThieleMachineMasterSummary is the record type listing every major claim
     in this file. This theorem proves the record is fully inhabited —
     not by assumption, but by exact-naming every proven theorem.
 
-    If this proof closes, EVERY claim in the record is machine-checked:
-    μ-conservation, μ-uniqueness, NoFI, Landauer, Tsirelson, hardware
-    refinement, Turing universality, agent trust, partition growth, and
-    the full chain from opcode cost to spacetime curvature coupling.
-
-    ZERO ADMITS. ZERO AXIOMS. This theorem IS the receipt. *)
+    If this proof closes, every field in the record is inhabited by the
+    theorem named in its proof. The record checks the listed contracts:
+    ledger behavior, certification cost, the fixed algebraic bound, selected
+    hardware equalities, the file-local TM simulation, and the PNEW
+    preservation results. It does not turn explicit hypotheses into
+    theorems or establish a physical interpretation for the formal fields. *)
 Theorem master_summary_proven : ThieleMachineMasterSummary.
 Proof.
   constructor.
@@ -14058,48 +13002,14 @@ Check pnew_chain.
     SECTION 17: ABSTRACT CERT-MACHINE FRAMEWORK (UNIVERSALITY)
     =========================================================================
 
-    WHY THIS EXISTS:
-    Section 13 proved universal No Free Insight for systems parameterized over
-    both state type and instruction type. This section goes further: it fixes
-    the instruction type to vm_instruction and parameterizes ONLY over the
-    state type. This means: ANY machine that processes the Thiele instruction
-    set and satisfies the preservation axiom is subject to NoFI.
-
-    THE PRECISE CERT-ADDR PREDICATE:
-    cert_addr_setterb_tc identifies EXACTLY 5 instructions that can SET
-    csr_cert_addr: reveal, emit, ljoin, lassert, morph_assert.
-    This is more precise than is_cert_setterb (7 instructions — includes
-    read_port which doesn't touch cert_addr, and certify which touches
-    vm_certified). The tighter predicate gives a tighter theorem.
-
-    THE ABSTRACT MACHINE (AbstractCertMachine_tc):
-    Parameterized over state type S. Fixed instruction set: vm_instruction.
-    ONE AXIOM (A3): non-cert-addr-setters preserve the cert indicator.
-    That is the only requirement. If your machine satisfies A3, NoFI applies.
-
-    KEY THEOREMS (three results, all machine-checked):
-    — abstract_nfi_tc: universal NoFI — any machine satisfying A3, any trace
-      from uncertified to certified must include a cert-addr-setter.
-    — no_free_certification_trace_mu_nfi_tc: TRACE-LEVEL Δμ ≥ 1 (gap closed).
-      Any trace from uncertified to certified charges at least 1 μ total.
-    — certification_requires_positive_mu_nfi_tc: master theorem covering BOTH
-      certification channels (cert_addr and vm_certified) simultaneously.
-
-    ZERO AXIOMS. ZERO ADMITS.
-
-    PHYSICAL MEANING:
-    The abstract framework is the claim that NoFI is not an accident of this
-    machine's opcode design. It is a consequence of the INSTRUCTION STRUCTURE.
-    Any machine that uses the Thiele instruction set and does not hand out
-    certifications for free must pay at least 1 μ for every certification act.
-    The machine's physics is in the instructions, not the state transitions.
-
-    FALSIFICATION:
-    To disprove abstract_nfi_tc: exhibit an AbstractCertMachine_tc satisfying
-    acm_preserve_tc with a trace that reaches certified without any cert-addr-setter
-    instruction. The proof is a structural induction on the trace — falsifying
-    it requires a step from uncertified to certified without a cert-setter,
-    which directly violates acm_preserve_tc.
+    This section fixes the instruction type to [vm_instruction] while leaving
+    the state type abstract. [cert_addr_setterb_tc] is the formal predicate
+    used by the preservation premise; [is_cert_setterb] is a broader positive
+    cost class and is not interchangeable with it. The abstract machine
+    theorem says that, under the stated preservation premise, a trace that
+    changes its certification predicate must contain one of the selected
+    setter instructions. The later VM theorem adds the cost-floor argument for
+    both named certification channels.
     ========================================================================= *)
 
 (** cert_addr_setterb_tc: the PRECISE 5 instructions that can SET csr_cert_addr.
@@ -14323,9 +13233,9 @@ Qed.
     PART 5: STRUCTURAL LOWER BOUND (no_free_certification)
     =========================================================================
 
-    The lower bound is forced by STRUCTURAL OBSERVATION: cert_addr changed
-    → instruction must be a cert-setter → cost ≥ 1.  Non-circular because
-    step (2) uses exhaustive case analysis over all opcodes.
+    The lower bound follows from the named transition observation:
+    cert_addr changed → instruction must be a cert-setter → cost ≥ 1.
+    The proof separates the transition case analysis from the cost lemma.
     ========================================================================= *)
 
 Theorem no_free_certification_nfi_tc :
@@ -14441,22 +13351,12 @@ Qed.
     PART 8: MASTER THEOREM — BOTH CERTIFICATION CHANNELS
     =========================================================================
 
-    WHY THIS EXISTS:
-    The machine has two paths to certification: cert_addr going nonzero,
-    and vm_certified going true. Both cost at least 1 μ. This master theorem
-    unifies both channels in one statement.
-
-    THE CLAIM (certification_requires_positive_mu_nfi_tc):
-    For any VMState s and any instruction i: if EITHER
-    — cert_addr goes from 0 to nonzero, OR
-    — vm_certified goes from false to true
-    THEN: vm_mu increases by at least 1.
-    Neither certification channel activates for free.
-
-    PHYSICAL MEANING:
-    This is the FULL No Free Insight theorem at the single-step level.
-    No path certifies anything without paying. The two channels are
-    different witnesses of the same physical law: knowledge costs μ.
+    [certification_requires_positive_mu_nfi_tc] combines the two VM-local
+    certification channels. Its premise is either a zero-to-nonzero
+    [csr_cert_addr] transition or a false-to-true [vm_certified] transition,
+    and its conclusion is the corresponding one-step μ increase. The theorem
+    records the VM accounting event; it does not establish semantic truth for
+    an arbitrary property or a physical law.
     ========================================================================= *)
 
 Theorem certification_requires_positive_mu_nfi_tc :
@@ -14478,43 +13378,14 @@ Qed.
     SECTION 18: QUANTITATIVE NoFI FRAMEWORK
     =========================================================================
 
-    WHY THIS EXISTS:
-    The universal NoFI theorem (Section 13) says: total cost ≥ 1 to certify.
-    That is a floor. This section proves a QUANTITATIVE version: if the
-    system must accumulate a witness to a threshold N before certifying,
-    then total cost ≥ N. More threshold = more cost. No exceptions.
-
-    THE QUANTITATIVE FRAMEWORK adds TWO axioms to the universal A2 base:
-    — A3: witness + cost ≥ next_witness (each step advances the witness)
-    — A5: cert=true → witness ≥ threshold (reaching cert requires N witness)
-
-    TELESCOPING ARGUMENT:
-    init_witness + total_cost ≥ final_witness ≥ threshold.
-    Therefore: total_cost ≥ threshold - init_witness.
-    If init_witness = 0: total_cost ≥ threshold.
-    If threshold = N CHSH trials: cost ≥ N.
-
-    INSTANCES (two machine-checked instantiations):
-    1. Thiele VM cert_addr channel: threshold = 1, witness = μ-cost.
-       This recovers the basic NoFI floor.
-    2. CHSH trial count: threshold = N, cost = number of CHSH_TRIAL instructions.
-       W2 THEOREM: achieving N valid CHSH trials requires exactly N CHSH_TRIAL
-       instruction executions. Not fewer. Not zero. N.
-
-    ZERO AXIOMS. ZERO ADMITS.
-
-    PHYSICAL MEANING:
-    The quantitative framework is the machine's answer to the question:
-    "How much does it cost to certify a CHSH violation at confidence N?"
-    Answer: at least N executions of CHSH_TRIAL. The threshold is the
-    confidence level. The cost is the experimental work. They are equal.
-    There's no faking N trials with fewer than N trials; the universe is not extending credit on this one.
-
-    FALSIFICATION:
-    To disprove the W2 theorem: exhibit a trace that reaches N valid CHSH
-    witness counts using fewer than N CHSH_TRIAL instructions. That would
-    require each CHSH_TRIAL to contribute more than 1 to the witness count —
-    but instruction_cost (instr_chsh_trial ...) = 1 by definition.
+    The quantitative record adds a witness, a threshold, and two premises to
+    the abstract certification system. One premise bounds witness growth by
+    the instruction cost; the other requires a certified state to reach the
+    threshold. With an initial witness of zero, induction gives the displayed
+    threshold lower bound. The VM and CHSH-style instances use their own
+    witness definitions and transition rules. The CHSH instance counts valid
+    instruction records; it is not a statistical confidence theorem or a claim
+    about physical experiments.
     ========================================================================= *)
 
 Record QuantitativeCertificationSystem_tc := mk_qcs_tc {
@@ -14655,29 +13526,12 @@ Qed.
     CHSH QUANTITATIVE INSTANCE — W2: N TRIALS REQUIRE N INSTRUCTIONS
     =========================================================================
 
-    WHY THIS EXISTS:
-    The CHSH violation is only statistically meaningful if the trial count is
-    real. This section proves that the trial count CANNOT BE FAKED. Every
-    valid trial adds exactly 1 to the witness count. No other instruction
-    can increment it. N valid trials require N CHSH_TRIAL executions.
-    This is the W2 theorem: the trial counter is UNFORGEABLE.
-
-    INFORMATION-THEORETIC READING:
-    Each valid CHSH_TRIAL contributes one bit of quantum evidence. Accumulating
-    N bits of evidence requires N measurements. The vm_witness field is the
-    unforgeable counter: no arithmetic opcode, no memory write, no PNEW can
-    touch it. Only CHSH_TRIAL with valid bit assignments (chsh_bits_ok) does.
-
-    THE UNFORGEABLE PROPERTY (proven here):
-    — vm_apply_witness_nfi_tc: only instr_chsh_trial with valid bits changes vm_witness
-    — record_trial_total_nfi_tc: each valid trial increments witness_total by exactly 1
-    — W2_theorem_nfi_tc: N witness total requires N valid CHSH_TRIAL instructions
-      in the trace. Zero admitted. Zero axioms.
-
-    PHYSICAL MEANING:
-    A machine that claims a 100-trial CHSH violation either ran 100 CHSH_TRIAL
-    instructions, or it is lying. The machine cannot lie — the counter is
-    incremented by vm_apply and vm_apply only. The proof witnesses the count.
+    In this representation, the witness counter changes only through the
+    valid [CHSH_TRIAL] branch of [vm_apply]. The lemmas below therefore count
+    valid instruction records: each such step contributes one unit, and a
+    trace reaching total N contains at least N of them. The theorem does not
+    authenticate an externally supplied history or establish that the records
+    came from physical measurements.
     ========================================================================= *)
 
 (** Total of all 8 WitnessCounts buckets. *)
@@ -14810,22 +13664,11 @@ Qed.
     W2 PROPER: PARAMETERIZED THRESHOLD — N TRIALS REQUIRE N INSTRUCTIONS
     =========================================================================
 
-    WHY THIS EXISTS:
-    The CHSH quantitative instance above uses a fixed threshold. This section
-    generalizes: for ANY threshold N, if a trace reaches N accumulated CHSH
-    trials starting from zero, it must have executed at least N valid
-    CHSH_TRIAL instructions. This is the W2 theorem in full generality.
-
-    THE UNFORGEABLE COUNTER:
-    chsh_a2_n_nfi_tc: one valid CHSH_TRIAL takes witness from <N to ≥N.
-    chsh_a3_n_nfi_tc: witness monotonically tracks CHSH_TRIAL executions.
-    chsh_trial_count_lower_bound_nfi_tc: starting from 0, reaching N requires
-    total CHSH cost ≥ N (and CHSH cost = number of valid CHSH_TRIAL instructions).
-
-    PHYSICAL MEANING:
-    N bits of CHSH evidence = N actual measurements = N CHSH_TRIAL executions.
-    There's no accumulating quantum evidence without performing quantum measurements.
-    The machine's witness counter is the physical receipt for each measurement.
+    This is the threshold-parameterized version of the CHSH-style witness
+    count. Starting from a zero witness total, reaching threshold N requires
+    at least N valid [CHSH_TRIAL] costs under the supplied [vm_apply] rules.
+    The theorem counts formal instruction records; it does not identify them
+    with quantum measurements or authenticate an external history.
     ========================================================================= *)
 
 (** CHSH cert predicate parameterized by N: true when ≥N trials recorded. *)
@@ -14886,9 +13729,8 @@ Definition chsh_qcs_n_nfi_tc (n : nat) : QuantitativeCertificationSystem_tc :=
 (** THE W2 THEOREM: N CHSH TRIALS REQUIRE N CHSH_TRIAL INSTRUCTIONS.
 
     Starting from zero accumulated trials, any trace that accumulates ≥N
-    valid CHSH trials must execute at least N valid CHSH_TRIAL instructions.
-    The vm_witness field is unforgeable: no other instruction increments it.
-    Cost(N quantum measurements) ≥ N. *)
+    valid CHSH trial records must execute at least N valid CHSH_TRIAL
+    instructions under vm_apply. *)
 Theorem chsh_trial_count_lower_bound_nfi_tc :
   forall (n : nat) (trace : list vm_instruction) (s0 : VMState),
     witness_total s0.(vm_witness) = 0 ->
@@ -14906,49 +13748,12 @@ Qed.
     SECTION 19: NoFI → LANDAUER → EINSTEIN CHAIN
     =========================================================================
 
-    WHY THIS EXISTS:
-    Section 6I proved spacetime structure emerges from μ-cost tensors.
-    Sections 6 and 17 proved No Free Insight — every certification costs μ.
-    This section assembles the chain that connects them:
-    KNOWLEDGE COSTS μ → μ IS THERMODYNAMIC WORK → THERMODYNAMIC WORK CURVES SPACETIME.
-
-    The chain leads from the machine's opcode-level accounting all the way to
-    Einstein's field equations. Every link is machine-checked.
-
-    THE CHAIN (zero admits, zero axioms):
-
-    Step 1: certification_requires_positive_mu_nfi_tc (Sections 6 + 17)
-            Every cert event: Δμ ≥ 1. This is the knowledge receipt.
-                          ↓
-    Step 2: mu_landauer_unruh_calibrated_tc (named hypothesis, not axiom)
-            Δμ maps to thermodynamic heat dQ = T_unruh · k_B · Δμ.
-            Experimental basis: Landauer 1961, Bérut et al. 2012 (Nature 483),
-            Unruh 1976. Each μ-unit is at least k_B T ln 2 joules of heat.
-                          ↓
-    Step 3: nfi_cost_nonzero_implies_nontrivial_calibration_tc (structural)
-            instruction_cost ≥ 1 for every cert instruction — definitional.
-                          ↓
-    Step 4: einstein_equation_uniform_coupling_tc (Section 6I-B)
-            ∃ κ such that G_{dd}(v) = κ · T_{dd}(v) for all d < 4.
-            The tensor pipeline computes the coupling from the metric.
-                          ↓
-    Step 5: nfi_to_einstein_tc: the assembled chain.
-            Any state with a NoFI event + calibration hypothesis +
-            isotropic non-vacuum metric + Ricci isotropy → Einstein coupling.
-
-    HONESTY NOTE ON THE LANDAUER-UNRUH HYPOTHESIS:
-    mu_landauer_unruh_calibrated_tc is a PROP stated as a hypothesis —
-    NOT an axiom assumed without proof. Theorems that use it carry it as
-    an explicit assumption. It can be discharged by experimental calibration.
-    It is NOT assumed to be true. It is assumed CONDITIONALLY in theorems
-    that need it. The chain is honest about what it requires.
-
-    FALSIFICATION:
-    To disprove nfi_to_einstein_tc: hold all hypotheses fixed (NoFI event,
-    Landauer-Unruh calibration, isotropic metric, Ricci isotropy, non-vacuum)
-    and exhibit a configuration where no uniform coupling κ exists.
-    The proof delegates to einstein_equation_uniform_coupling_tc — falsifying
-    that theorem falsifies this one.
+    This section places the VM-local certification-cost theorem beside a
+    separately stated calibration interface and a finite tensor calculation.
+    The calibration predicate is an explicit hypothesis, not a result of this
+    file, and the tensor theorem carries its own metric, Ricci, and non-vacuum
+    premises. The assembled conclusion is therefore conditional on those
+    interfaces; it is not an automatic physical derivation.
     ========================================================================= *)
 
 Open Scope R_scope.
@@ -14987,9 +13792,8 @@ Definition mu_landauer_unruh_calibrated_tc
 
 (** nfi_cost_nonzero_implies_nontrivial_calibration_tc:
     A certification insight event (Δcert_addr or Δvm_certified) costs ≥ 1.
-    This is the structural foundation of the calibration: the minimum
-    quantum of Landauer heat is k_B T ln 2, and instruction_cost ≥ 1
-    ensures the μ-increment covers this minimum. *)
+    This is the VM-side cost fact used by any separate calibration
+    interpretation. It does not establish a conversion to joules. *)
 Theorem nfi_cost_nonzero_implies_nontrivial_calibration_tc :
   forall (s : VMState) (i : vm_instruction),
     is_cert_insight_event_tc s i ->
@@ -14999,17 +13803,14 @@ Proof.
   exact (proj1 (certified_insight_nonfree_tc s i Hevent)).
 Qed.
 
-(** nfi_to_einstein_tc: NoFI event + standalone physics → Einstein coupling.
+(** nfi_to_einstein_tc: a VM event alongside finite tensor premises.
 
-    CHAIN: certification event (NoFI, Sections 6 + 17) →
-           mass state changes after cert instruction →
-           metric isotropy conditions hold (physics hypothesis) →
-           einstein_equation_uniform_coupling_tc applies →
-           ∃κ, G_{dd} = κ·T_{dd}.
+    The theorem uses the certification event only as an explicit premise.
+    The conclusion comes from the supplied metric isotropy, Ricci equality,
+    and non-vacuum premises through einstein_equation_uniform_coupling_tc.
 
-    The NoFI event is context: it motivates WHY the system is in a
-    non-trivial (non-vacuum) state. The Einstein coupling is proven by
-    the existing standalone CurvedTensorPipeline. *)
+    It is a finite algebraic implication about the selected expressions.
+    It does not derive a physical Einstein equation. *)
 Theorem nfi_to_einstein_tc :
   forall (s_pre s_post : VMState) (i : vm_instruction)
          (sc : SimplicialComplex4D) (v : ModuleID),
@@ -15035,19 +13836,22 @@ Proof.
   - exact Hnonzero.
 Qed.
 
-(** nfi_to_gr_chain_complete_tc: THE FULL CHAIN, IN ONE PLACE.
+(** nfi_to_gr_chain_complete_tc: the assembled conditional tuple.
 
-    KNOWLEDGE COSTS μ → μ IS THERMODYNAMIC WORK → WORK CURVES SPACETIME.
+    The tuple groups the VM cost results, the valid-trial count, and the
+    finite tensor implication. The calibration and geometric premises
+    remain explicit where the relevant theorem requires them.
 
-    Every link is machine-checked:
+    The named components are machine-checked:
     — certified_implies_positive_mu_tc: from uncertified+zero μ to certified = Δμ ≥ 1
-    — nfi_cost_nonzero_implies_nontrivial_calibration_tc: Landauer structural floor
-    — no_free_certification_trace_mu_nfi_tc: trace-level smuggling objection closed
+    — nfi_cost_nonzero_implies_nontrivial_calibration_tc: VM cost floor
+    — no_free_certification_trace_mu_nfi_tc: trace-level cost consequence
     — certification_requires_positive_mu_nfi_tc: both cert channels unified
-    — chsh_trial_count_lower_bound_nfi_tc: quantum evidence is UNFORGEABLE
-    — nfi_to_einstein_tc: Einstein coupling emerges from the cost structure
+    — chsh_trial_count_lower_bound_nfi_tc: valid-trial count consequence
+    — nfi_to_einstein_tc: conditional finite tensor equality
 
-    No admits. No axioms beyond Coq Reals. This tuple is the full logical chain. *)
+    This tuple is not a physical derivation or a claim that the separate
+    components share one interpretation. *)
 Definition nfi_to_gr_chain_complete_tc :=
   (certified_implies_positive_mu_tc,
    nfi_cost_nonzero_implies_nontrivial_calibration_tc,
@@ -15062,18 +13866,10 @@ Close Scope R_scope.
     SECTION 19B: KERNEL-NAME COMPATIBILITY LAYER
     ========================================================================
 
-    WHY THIS EXISTS:
-    The modular kernel (coq/kernel/) uses names without the _tc suffix.
-    This standalone file uses _tc names to avoid collisions with any future
-    imports. Short aliases here so that:
-    — downstream standalone ports can use familiar kernel names
-    — extraction produces the same interface as the modular build
-    — no proof content changes — pure Definition aliases only
-
-    WHAT THIS IS NOT:
-    This is not a duplication of proof content. Every Definition here is
-    an exact alias — one line, transparent, no new proof obligations.
-    The proofs live in the _tc versions above. These are just names.
+    The modular kernel (coq/kernel/) uses names without the [_tc] suffix, while
+    this standalone file uses the suffix to avoid collisions. The definitions
+    below are transparent aliases to the proved [_tc] objects. They add no
+    proof obligations and do not duplicate theorem bodies.
     ======================================================================== *)
 
 Definition cert_addr_setterb := cert_addr_setterb_tc.
@@ -15316,13 +14112,11 @@ Qed.
 (** =========================================================================
     VERIFICATION SUMMARY — THE AUDIT
 
-    THE ONE CLAIM THAT MATTERS:
-    If this file compiles, you hold in your hand a machine-checked proof that
-    connects observation cost to spacetime geometry with zero gaps.
-
-    You do not have to believe me. You have to believe Coq.
-    Coq has verified every theorem in this file from nothing —
-    no project-specific axioms, no admits, no imports beyond the standard library.
+    WHAT THIS SUMMARY MEANS:
+    If this file compiles, Coq has checked the theorem terms named in the
+    record and list below. Compilation does not prove that the surrounding
+    prose has the right interpretation, discharge explicit hypotheses, or
+    establish a physical bridge.
 
     THE TWENTY-EIGHT THEOREMS (what "compiles" means):
 
@@ -15333,12 +14127,12 @@ Qed.
         39 original + 7 categorical: MORPH, COMPOSE, MORPH_ID, MORPH_DELETE,
         MORPH_ASSERT, MORPH_TENSOR, MORPH_GET
 
-    3.  run_vm_mu_monotonic: μ NEVER DECREASES. The second law.
-        Holds for all 47 opcodes. No exceptions. No loopholes.
+    3.  run_vm_mu_monotonic: μ does not decrease under the VM transition
+        rule for the listed instruction set.
 
-    4.  mu_is_initial_monotone: μ IS UNIQUE. Any instruction-consistent cost
-        measure that starts at 0 equals vm_mu on every reachable state.
-        No alternatives exist.
+    4.  mu_is_initial_monotone: an instruction-consistent measure with the
+        specified initial value and increments equals vm_mu on reachable
+        states. This is uniqueness for that schedule, not all schedules.
 
     5.  kernel_certified_implies_positive_mu: CERTIFICATION REQUIRES μ > 0.
         From nothing (certified=false, μ=0), reaching certified=true forces μ > 0.
@@ -15348,9 +14142,9 @@ Qed.
         For any physical erasure package with a second-law witness,
         entropy increase ≥ bits erased. (Interface version.)
 
-    7.  certification_requires_positive_cost_landauer_tc: LANDAUER FROM FIRST PRINCIPLES.
-        If vm_certified goes false → true, instruction_cost ≥ 1.
-        Derived from vm_apply — not assumed. This is the genuine Landauer bound.
+    7.  certification_requires_positive_cost_landauer_tc: VM certification
+        transitions have instruction_cost ≥ 1 under the supplied semantics.
+        This is a VM cost theorem, not a thermodynamic Landauer derivation.
 
     8.  honest_nofi_structural_cost: CERT-SETTER STEPS STRICTLY INCREASE μ.
         Every instruction that sets cert_addr charges ≥ 1 μ — by construction.
@@ -15360,50 +14154,48 @@ Qed.
         |S| ≤ 2 for any local hidden-variable strategy. Proven by exhaustive
         16-case enumeration over all (a0,a1,b0,b1) ∈ {true,false}⁴.
 
-    10. tsirelson_from_row_bounds: TSIRELSON BOUND.
-        S² ≤ 8 algebraically for any expectation values satisfying row bounds.
-        This is the quantum mechanical ceiling.
+    10. tsirelson_from_row_bounds: S² ≤ 8 algebraically for the supplied
+        real correlators satisfying the stated row bounds. The theorem does
+        not establish quantum representability.
 
-    11. zero_cost_implies_unitary: ZERO-COST → UNITARY.
-        Any information-conserving channel with evo_mu = 0 preserves purity.
-        Free observation is impossible by conservation + non-increase.
+    11. zero_cost_implies_unitary: the stated finite channel premises imply
+        the selected purity equality. The theorem is not a general physical
+        unitarity theorem.
 
-    12. kami_step_mu_commutation: HARDWARE μ-COMMUTATION.
-        The extracted Kami hardware model commutes with vm_apply on μ.
-        The hardware charges the same as the software. Always.
+    12. kami_step_mu_commutation: the named Kami correspondence has the
+        stated μ equality under its interface and premises. It is not an
+        unrestricted claim about all downstream hardware artifacts.
 
     13. vacuum_solution: FLAT SPACETIME = ZERO MASS.
         G_μν = 0 when the metric is constant. The Einstein equations hold
         for any constant metric field — the trivial case, proven first.
 
-    14. non_uniform_mass_produces_curvature: MASS GRADIENTS → CURVATURE.
-        Different module masses → non-constant metric → non-zero Christoffel.
-        Information density gradients ARE spacetime curvature in this model.
+    14. non_uniform_mass_produces_curvature: the selected finite metric
+        expression cannot be uniform under the stated mass premises. This
+        is not a physical curvature theorem.
 
     15. local_einstein_equation_vacuum: VACUUM EINSTEIN EQUATION.
         G_μν = 8πG T_μν holds for all-zero-mass configurations (0 = 0).
 
-    16. einstein_equation_uniform_coupling_tc: THE NON-TRIVIAL EINSTEIN EQUATION.
+    16. einstein_equation_uniform_coupling_tc: a conditional finite
+        uniform-coupling equality.
         For isotropic non-vacuum metrics with Ricci isotropy: ∃ κ such that
         G_{dd} = κ · T_{dd} for ALL d < 4 simultaneously.
         Full Cramer's rule inverse. Quadratic Γ·Γ Riemann terms.
         One coupling constant. Four directions. Uniform. Proven.
 
-    17. metric_structure_forced_tc: METRIC FORCING.
-        The pseudo-Riemannian interpretation is NOT a choice — it is FORCED.
-        Non-degeneracy + torsion-freedom + metric compatibility +
-        Levi-Civita uniqueness. The Fundamental Theorem of Riemannian Geometry,
-        machine-checked for this computation.
+    17. metric_structure_forced_tc: the theorem named this way proves the
+        stated matrix and connection identities under its explicit premises.
+        The name does not establish a forced pseudo-Riemannian interpretation
+        or reproduce the Fundamental Theorem of Riemannian Geometry.
 
-    18. thiele_simulates_tm: TURING UNIVERSALITY.
-        For any TM δ, configuration conf, and n: n Thiele steps on the encoded
-        conf = n direct TM steps. No preconditions. No gaps.
-        (ISA-level via Minsky: Section 10-B. Encoding-level: Section 10 Part A.)
+    18. thiele_simulates_tm: the file-local fuel-indexed TM lift has the
+        stated simulation equality. This is not a claim about every VM
+        runner or every hardware encoding.
 
-    19. pnew_chain_mu + pnew_chain_noninterference: AGENT TRUST (LÖB BYPASS).
-        After n PNEW instructions: vm_mu = initial + n × cost. Exact. Always.
-        Existing modules are undisturbed. The μ-ledger is the trust certificate.
-        Recursive self-improvement is safe when each step costs μ.
+    19. pnew_chain_mu + pnew_chain_noninterference: the named PNEW chain
+        has the stated ledger sum and preservation property under its
+        premises. It is not a general agent-trust or Löb theorem.
 
     20. categorical_separation: CATEGORICAL SEPARATION FROM CLASSICAL.
         Two computationally equivalent states (same regs, mem, μ, pc, err, cert)
@@ -15419,12 +14211,13 @@ Qed.
 
     22. Extraction: vm_apply → build/thiele_core_complete.ml (this file, byte-identical to thiele_core.ml)
 
-    23. Hardware: Kami MODULE → Bluespec → Verilog RTL (same pipeline, proven)
+    23. Hardware: the repository records a Kami-to-RTL path with the
+        proof and trust boundaries documented elsewhere; this summary is
+        not a proof of every downstream translation.
 
-    24. certified_insight_nonfree_tc: INSIGHT TAXONOMY ENFORCED.
-        Tier-1 (PNEW, MORPH_ID: structural creation, free) vs
-        Tier-2 (LASSERT/EMIT/REVEAL/LJOIN/MORPH_ASSERT/CERTIFY: costs ≥ 1 μ).
-        Any cert event costs at least 1. Proven by case analysis.
+    24. certified_insight_nonfree_tc: the named opcode class has the
+        supplied cost-floor result. Structural creation and certification
+        are separate semantic questions.
 
     25. universal_nfi_any_substrate_tc: UNIVERSAL NO FREE INSIGHT.
         For ANY certification system satisfying axiom A2 (cert costs ≥ 1):
@@ -15437,16 +14230,17 @@ Qed.
         The morphism graph, cert_addr, and vm_certified are all frozen.
         Classical computation is a clean sublanguage. Enforced by proof.
 
-    27. D4_strictness_tc + D5_thiele_strictly_extends_classical_tc: TURING STRICTNESS.
-        Thiele STRICTLY extends classical computation. One structural step
-        (MORPH_ID 0 0 0) reaches a state inaccessible to any classical program
-        of any length. The witness is concrete, computational, and machine-checked.
+    27. D4_strictness_tc + D5_thiele_strictly_extends_classical_tc: the
+        named projection/classical-fragment separation witness holds under
+        its stated interface. It is not a claim about every encoding or
+        every conventional machine.
 
     28. violation_wc_not_local_tc (kernel: chsh_stat_violation_not_local in
         coq/kernel/quantum/CHSHStatisticalBridge.v): CHSH STATISTICAL BRIDGE.
         The violation witness violation_wc_tc is inconsistent with ANY local
         hidden-variable strategy. Pure logical contradiction. No floating-point.
-        Bell's theorem, machine-checked in the Thiele Machine.
+        This is the stated finite statistical bridge, not a complete
+        physical Bell-theorem development.
 
     THE LOGICAL CHAIN:
     Pure logic → types → ISA (47 opcodes) → semantics → conservation →
@@ -15473,8 +14267,7 @@ Qed.
     To discrete Einstein equations on computational graphs.
     To Turing universality and a concrete Löb bypass.
     To a categorical structure that is first-class in the instruction set.
-    Every step machine-checked.
-    No exceptions. No admits. No project imports.
-
-    ZERO ADMITS. ZERO PROJECT-LOCAL AXIOMS. ZERO GAPS.
+    Every item above must be read with its theorem statement, explicit
+    premises, and trust boundary. Standard-library assumptions and named
+    hypotheses remain part of the dependency story.
     ========================================================================= *)

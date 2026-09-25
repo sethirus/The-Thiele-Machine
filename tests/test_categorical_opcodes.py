@@ -124,6 +124,22 @@ class TestMorphCreate:
         # mu: PNEW×2 (cost 1 each) + MORPH (cost 2) = 4
         assert state.mu == 4, f"mu={state.mu}, expected 4"
 
+    def test_morph_loads_nonempty_coupling_from_memory(self):
+        """The reference VM decodes a serialized, in-range coupling block."""
+        state = vm.run_vm([
+            "INIT_MEM 80 1",  # one serialized pair
+            "INIT_MEM 81 0",  # source cell
+            "INIT_MEM 82 1",  # target cell
+            "PNEW {0,1} 0",
+            "PNEW {0,1} 0",
+            "MORPH 5 1 2 80 0",
+            "HALT 0",
+        ])
+        assert not state.err
+        morph_id, morph = state.graph.pg_morphisms[0]
+        assert morph_id == 1
+        assert morph.morph_coupling.coupling_pairs == [(0, 1)]
+
     def test_morph_failure_on_missing_module(self):
         """MORPH with non-existent module IDs sets err flag."""
         state = vm.run_vm([

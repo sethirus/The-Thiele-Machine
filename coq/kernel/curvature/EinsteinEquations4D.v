@@ -735,7 +735,7 @@ Proof.
   apply (stress_energy_conserved_non_pmerge s sc mu nu v). exact H_vacuum.
 Qed.
 
-(* INQUISITOR NOTE: alias for einstein_equation_isotropic_vacuum:
+(* SCOPE NOTE: alias for einstein_equation_isotropic_vacuum:
    kept for backward-compatibility with callers using the shorter name. *)
 Theorem einstein_equation : forall (s : VMState) (sc : SimplicialComplex4D) (mu nu v : ModuleID),
   (forall w, module_structural_mass s w = 0%nat) ->
@@ -756,7 +756,7 @@ Proof.
   apply (stress_energy_conserved_non_pmerge s sc mu nu v). exact H_vacuum.
 Qed.
 
-(* INQUISITOR NOTE: alias for einstein_equation_isotropic_vacuum: canonical public name for the vacuum EFE result. *)
+(* SCOPE NOTE: alias for einstein_equation_isotropic_vacuum: canonical public name for the vacuum EFE result. *)
 Theorem einstein_field_equations :
   forall (s : VMState) (sc : SimplicialComplex4D) (mu nu v : ModuleID),
     (forall w, module_structural_mass s w = 0%nat) ->
@@ -1849,13 +1849,9 @@ Proof.
   rewrite !metric_at_vertex_diag. lra.
 Qed.
 
-(** Main two-vertex witness: nonzero Christoffel when masses differ.
-
-    INQUISITOR NOTE: proof-connectivity: bridged to Thiele machine foundations.
-
-    To falsify: If this theorem fails, then information density gradients
-    do not produce a nonzero local Christoffel, and this two-vertex curvature
-    witness is wrong. *)
+(** Main two-vertex witness: under the displayed finite definitions, unequal
+    structural masses give a nonzero local Christoffel value. The conclusion is
+    about this two-vertex construction and its integer-to-real embedding. *)
 Theorem local_christoffel_nonzero_from_mass_gradient : forall s v w μ,
   v <> w ->
   module_structural_mass s v <> module_structural_mass s w ->
@@ -2622,7 +2618,7 @@ Qed.
 (** (B) Vacuum/no energy case: when structural mass is zero everywhere,
     both local Einstein tensor and stress-energy tensor vanish.
 
-    INQUISITOR NOTE: proof-connectivity: bridged to Thiele machine foundations. *)
+    SCOPE NOTE: foundation connectivity: bridged to Thiele machine foundations. *)
 Theorem no_curvature_without_energy : forall s sc μ ν v,
   (forall u, module_structural_mass s u = 0%nat) ->
   local_einstein_tensor s sc μ ν v = 0%R /\
@@ -2684,15 +2680,10 @@ Proof.
   unfold module_structural_mass. rewrite Hlookup. reflexivity.
 Qed.
 
-(** Step 3 core: PNEW-shaped data creates a mass gradient.
-    A freshly created module (empty axioms) next to an established module
-    (nonempty axioms, same region size) has different structural mass.
-
-    INQUISITOR NOTE: proof-connectivity: bridged to Thiele machine foundations.
-
-    To falsify: If PNEW could create modules without mass gradients
-    (same structural mass as neighbors despite different axiom sets),
-    then this local Christoffel route would not fire. *)
+(** Step 3 core: in this finite model, an empty-axiom module and a module with
+    nonempty axioms have different structural mass when their regions have the
+    same length. This is the mass-gradient premise used by the local witness;
+    it is not a theorem about every PNEW implementation. *)
 Theorem pnew_creates_mass_gradient : forall s m_new m_old region_new region_old axioms_old tensor_new tensor_old,
   graph_lookup (vm_graph s) m_new =
     Some {| module_region := region_new; module_axioms := []; module_mu_tensor := tensor_new |} ->
@@ -2714,7 +2705,7 @@ Qed.
 (** If the partition graph has two modules with different information content,
     the local metric is position-dependent and spacetime is curved.
 
-    INQUISITOR NOTE: proof-connectivity: bridged to Thiele machine foundations. *)
+    SCOPE NOTE: foundation connectivity: bridged to Thiele machine foundations. *)
 Theorem information_density_creates_curvature :
   forall s v w μ region_v region_w axioms_v axioms_w tensor_v tensor_w,
   v <> w ->
@@ -2735,7 +2726,7 @@ Qed.
 (** End-to-end local witness: PNEW-shaped module data next to a module with
     axioms produces a nonzero local Christoffel component.
 
-    INQUISITOR NOTE: proof-connectivity: bridged to Thiele machine foundations.
+    SCOPE NOTE: foundation connectivity: bridged to Thiele machine foundations.
 
     This proves this chain:
       PNEW instruction
@@ -2859,7 +2850,7 @@ Proof.
   exact gravitational_coupling_unit_convention.
 Qed.
 
-(* INQUISITOR NOTE: alias for gravitational_coupling_unit_convention; re-exports under the summary name used by MasterSummary.v and ThieleMachineComplete.v. *)
+(* SCOPE NOTE: alias for gravitational_coupling_unit_convention; re-exports under the summary name used by MasterSummary.v and ThieleMachineComplete.v. *)
 (** Corollary: the Einstein coupling factor equals 1 in computational units. *)
 Corollary einstein_coupling_one :
   (8 * PI * gravitational_constant)%R = 1%R.

@@ -60,7 +60,7 @@
   here.
 *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import MuCostModel.
 From Kernel Require Import ConstructivePSD NPAMomentMatrix.
@@ -853,6 +853,6 @@ Proof.
   exact (pr_box_not_elliptope Hgate).
 Qed.
 
-(** * Anchor for proof-connectivity audits *)
+(** * Anchor for foundation connectivity audits *)
 
 Definition elliptope_gate_anchor := @elliptope_check_full.

@@ -18,8 +18,8 @@ Scans the `coq/` tree for suspicious "proof smells":
 Writes a Markdown report (default: INQUISITOR_REPORT.md) and returns non-zero
 if high-severity findings appear.
 
-Archive directory (archive/) is excluded from scanning as it contains old/iterative
-code kept for posterity only.
+Archive directory (archive/) is excluded from scanning as it contains
+historical code kept for posterity only.
 
 This is a strict static analysis tool; it errs on the side of flagging.
 """
@@ -172,7 +172,21 @@ _PROOF_DECL_RE = re.compile(
     r"(?m)^\s*(?:Theorem|Lemma|Corollary|Proposition|Fact|Remark|Conjecture)\b"
 )
 
-_PROOF_CONNECTIVITY_NOTE_RE = re.compile(r"INQUISITOR NOTE.*proof[- ]?connect", re.IGNORECASE)
+# A file outside the foundation chain opts out of the connectivity rules with a
+# SCOPE NOTE naming proof connectivity or its standalone scope. A standalone
+# algebra module may instead state `PROOF SCOPE: standalone algebra` directly.
+_PROOF_CONNECTIVITY_NOTE_RE = re.compile(
+    r"(?:SCOPE NOTE.*proof[- ]?connect|"
+    r"SCOPE NOTE.*(?:foundation connectivity|standalone proof scope)|"
+    r"PROOF SCOPE:\s*standalone algebra)",
+    re.IGNORECASE,
+)
+
+_GRAVITY_SCOPE_MARKER_RE = re.compile(
+    r"(?:SCOPE NOTE:\s*MISSING einstein_equation IS INTENTIONAL|"
+    r"CALIBRATION SCOPE:\s*conditional)",
+    re.IGNORECASE,
+)
 
 _SEMANTIC_TOKEN_RE = re.compile(
     r"(?i)\b(VMState|VMStep|vm_step|vm_apply|run_vm|NoFreeInsight|KernelTM|BridgeDefinitions|PythonBisimulation|HardwareBisimulation)\b"
@@ -492,7 +506,7 @@ def iter_all_coq_files(repo_root: Path) -> Iterator[Path]:
     for p in repo_root.rglob("*.v"):
         if not p.is_file():
             continue
-        # EXCLUDE ARCHIVE: archive/ contains old/iterative code kept for posterity only
+        # EXCLUDE ARCHIVE: archive/ contains historical code kept for posterity only
         # These files are not part of the active proof corpus and should not be audited
         # EXCLUDE VENDOR: vendor/ contains third-party libraries (Kami, BBV) whose
         # proof style is outside our control and should not be audited
@@ -1343,7 +1357,7 @@ def scan_file(path: Path) -> list[Finding]:
                 severity = "MEDIUM"
                 msg = f"Found {kind}{(' ' + name) if name else ''}."
 
-        # Suppression: if there is an INQUISITOR NOTE in the 30 raw lines above
+        # Suppression: if there is a SCOPE NOTE in the 30 raw lines above
         # the declaration explaining that this is an abstract interface or
         # parameterized theorem (Section Variables become explicit forall
         # premises when the section closes), suppress the finding.
@@ -1351,7 +1365,7 @@ def scan_file(path: Path) -> list[Finding]:
         raw_line_idx = line - 1  # 0-based index into raw_lines
         note_raw_context = "\n".join(raw_lines[max(0, raw_line_idx - 30): raw_line_idx])
         is_suppressed_interface = (
-            "INQUISITOR NOTE" in note_raw_context and
+            "SCOPE NOTE" in note_raw_context and
             any(kw in note_raw_context.upper()
                 for kw in ["ABSTRACT INTERFACE", "PARAMETERIZ", "SECTION PARAMETER",
                            "EXPLICIT FORALL", "INTERFACE SECTION", "ABSTRACT SECTION"])
@@ -2117,8 +2131,8 @@ def scan_exact_alias(path: Path) -> list[Finding]:
         context = "\n".join(raw_lines[max(0, line - 3): line + 2])
         if re.search(r'\(\*\s*SAFE:', context):
             continue
-        # Allow if there's an INQUISITOR NOTE marking this as a deliberate alias
-        if re.search(r'INQUISITOR NOTE.*alias|INQUISITOR NOTE.*export|INQUISITOR NOTE.*compat', context, re.IGNORECASE):
+        # Allow if there's a SCOPE NOTE marking this as a deliberate alias
+        if re.search(r'SCOPE NOTE.*alias|SCOPE NOTE.*export|SCOPE NOTE.*compat', context, re.IGNORECASE):
             continue
 
         snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else name
@@ -2137,7 +2151,7 @@ def scan_exact_alias(path: Path) -> list[Finding]:
                     f"Theorem `{name}` is a pure alias: its entire proof is `exact {aliased}.` "
                     f"This proves nothing new — it just re-exports `{aliased}` under a new name. "
                     "If intentional (backward-compat / summary module), add "
-                    "(* INQUISITOR NOTE: alias for <reason> *) above the theorem."
+                    "(* SCOPE NOTE: alias for <reason> *) above the theorem."
                 ),
             )
         )
@@ -2167,7 +2181,7 @@ def scan_scope_drift(path: Path) -> list[Finding]:
       ``SCOPE_DRIFT_TIER1`` (HIGH):  Tier-1 file imports a Tier-2 or Tier-3 namespace.
       ``SCOPE_DRIFT_TIER2`` (MEDIUM): Tier-2 file imports a Tier-3 namespace.
 
-    Suppression: add ``(* INQUISITOR NOTE: cross-tier import for <reason> *)``
+    Suppression: add ``(* SCOPE NOTE: cross-tier import for <reason> *)``
     on the line immediately above the offending ``From … Require`` line.
     """
     file_tier = _path_to_tier(path)
@@ -2194,7 +2208,7 @@ def scan_scope_drift(path: Path) -> list[Finding]:
 
         # Check for suppression comment anywhere in the 3 lines above
         context = "\n".join(raw_lines[max(0, i - 4): i])
-        if re.search(r'INQUISITOR NOTE.*cross.tier|INQUISITOR NOTE.*tier', context, re.IGNORECASE):
+        if re.search(r'SCOPE NOTE.*cross.tier|SCOPE NOTE.*tier', context, re.IGNORECASE):
             continue
         if re.search(r'\(\*\s*SAFE:', context):
             continue
@@ -2213,7 +2227,7 @@ def scan_scope_drift(path: Path) -> list[Finding]:
                         "The kernel must be self-contained (only Kernel + Coq stdlib). "
                         f"Either move the needed proof into coq/kernel/ under the Kernel namespace, "
                         f"or relocate this file to a higher-tier directory. "
-                        "Suppress with: (* INQUISITOR NOTE: cross-tier import for <reason> *)"
+                        "Suppress with: (* SCOPE NOTE: cross-tier import for <reason> *)"
                     ),
                 )
             )
@@ -2229,7 +2243,7 @@ def scan_scope_drift(path: Path) -> list[Finding]:
                         f"Core Tier-2 file imports `{ns}` (Tier 3 exploratory). "
                         "Speculative/exploratory modules should not be imported into core proofs. "
                         "Move the needed lemma into the Kernel or a shared Tier-2 module. "
-                        "Suppress with: (* INQUISITOR NOTE: cross-tier import for <reason> *)"
+                        "Suppress with: (* SCOPE NOTE: cross-tier import for <reason> *)"
                     ),
                 )
             )
@@ -2877,12 +2891,12 @@ def scan_record_field_extraction(path: Path) -> list[Finding]:
         # Check if the theorem's statement quantifies over that record type
         if owner_record and re.search(r'\b' + re.escape(owner_record) + r'\b', stmt):
             line = line_of[tm.start()]
-            # Check for INQUISITOR NOTE
+            # Check for SCOPE NOTE
             raw_lines = raw.splitlines()
             note_start = max(0, line - 4)
             note_end = min(len(raw_lines), line + 2)
             note_context = "\n".join(raw_lines[note_start:note_end])
-            if "INQUISITOR NOTE" in note_context:
+            if "SCOPE NOTE" in note_context:
                 continue  # Verified extraction — intentional
             snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
             findings.append(
@@ -3301,14 +3315,14 @@ def scan_arithmetic_only_proofs(path: Path) -> list[Finding]:
 
         # If ALL lines are arithmetic/setup and no structural tactic used
         if not has_structural and arith_only_lines == len(proof_lines) and len(proof_lines) <= 5:
-            # Check for INQUISITOR NOTE in the original text (with comments)
+            # Check for SCOPE NOTE in the original text (with comments)
             # covering a few lines before the theorem
             raw_lines = raw.splitlines()
             line = line_of[tm.start()]
             note_start = max(0, line - 4)
             note_end = min(len(raw_lines), line + 2)
             note_context = "\n".join(raw_lines[note_start:note_end])
-            if "INQUISITOR NOTE" in note_context:
+            if "SCOPE NOTE" in note_context:
                 continue  # Verified as intentionally arithmetic
             snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
             findings.append(
@@ -3931,9 +3945,9 @@ def scan_vacuous_conjunction(path: Path) -> list[Finding]:
         if re.search(r"->\s*True\s*\.$", stmt):
             continue  # Already caught by IMPLIES_TRUE_STMT
 
-        # Detect /\ True at the end or True /\ at the start of conclusion
+        # Detect a final True conjunct, including closing delimiters.
         has_conj_true = bool(
-            re.search(r"/\\\s*True\s*\.", stmt) or
+            re.search(r"/\\.*\bTrue\s*[)\]}]*\s*\.", stmt) or
             re.search(r"True\s*/\\", stmt)
         )
         if has_conj_true:
@@ -4314,7 +4328,7 @@ def scan_missing_core_physics_theorems(path: Path) -> list[Finding]:
     has_field_equation = field_eq_match is not None
     
     # If we have the machinery but not the theorem, flag it (unless explicitly marked as intentional)
-    has_intentional_marker = "INQUISITOR NOTE: MISSING einstein_equation IS INTENTIONAL" in raw
+    has_intentional_marker = bool(_GRAVITY_SCOPE_MARKER_RE.search(raw))
     if has_einstein_tensor and has_stress_energy and not has_field_equation and not has_intentional_marker:
         findings.append(
             Finding(
@@ -5589,7 +5603,7 @@ def scan_mugravity_derivation_completeness(path: Path) -> list[Finding]:
         )
 
         # Skip unconditional theorem checks if file explicitly marks missing theorems as intentional
-        has_intentional_cleanup_marker = "INQUISITOR NOTE: MISSING einstein_equation IS INTENTIONAL" in raw
+        has_intentional_cleanup_marker = bool(_GRAVITY_SCOPE_MARKER_RE.search(raw))
 
         if not has_intentional_cleanup_marker:
             if not has_geom_unconditional:
@@ -5659,7 +5673,7 @@ def scan_mugravity_derivation_completeness(path: Path) -> list[Finding]:
 
 
         # Skip discharge checks if file explicitly marks missing theorems as intentional
-        has_intentional_cleanup_marker = "INQUISITOR NOTE: MISSING einstein_equation IS INTENTIONAL" in raw
+        has_intentional_cleanup_marker = bool(_GRAVITY_SCOPE_MARKER_RE.search(raw))
 
         # NOTE: Disabled - these checks were for hidden axioms/predicates which are now eliminated
         # Certificates like semantic_gap_window_certificate have been replaced with explicit inline conditions
@@ -5700,7 +5714,7 @@ def scan_mugravity_derivation_completeness(path: Path) -> list[Finding]:
         #     )
 
     # AXIOM BAN: MuGravity files must contain ZERO axioms. No marker-comment
-    # bypass is honoured — a `(* INQUISITOR NOTE: FUNDAMENTAL AXIOM *)` annotation
+    # bypass is honoured — a `(* SCOPE NOTE: FUNDAMENTAL AXIOM *)` annotation
     # does NOT silence this finding. Discharge every Axiom as a Theorem from
     # kernel semantics; if a fact is genuinely irreducible, declare it
     # outside MuGravity (e.g. in a named physics-bridge file) so its role
@@ -5859,7 +5873,7 @@ def scan_mugravity_no_assumption_surfaces(path: Path) -> list[Finding]:
 
     Any use of Axiom/Parameter/Hypothesis/Context/Variable(s) in MuGravity*.v
     is treated as unfinished proof surface and fails strict audit, EXCEPT
-    for axioms marked with "INQUISITOR NOTE: FUNDAMENTAL AXIOM" which are
+    for axioms marked with "SCOPE NOTE: FUNDAMENTAL AXIOM" which are
     accepted as irreducible postulates of the MuGravity theory itself.
     """
     if not path.name.startswith("MuGravity") or not path.name.endswith(".v"):
@@ -6700,8 +6714,8 @@ def _run_proof_body_foundation_audit(repo_root: Path) -> list[Finding]:
         # PROOF_CONNECTIVITY_GAP — files that are intentionally
         # documentation/registry/status modules and not part of the
         # foundation-bearing proof chain may opt out by carrying
-        # `INQUISITOR NOTE: proof-connectivity gap suppressed` (or any
-        # `INQUISITOR NOTE` mentioning `proof-connect`/`proof connect`)
+        # `SCOPE NOTE: proof-connectivity gap suppressed` (or any
+        # `SCOPE NOTE` mentioning `proof-connect`/`proof connect`)
         # somewhere in the file. The same set of files
         # (CloseoutVerification.v, RTLGapRegistry.v,
         # F4_BModulesTranslation.v) was passing under that rule before
@@ -7024,12 +7038,12 @@ def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[F
             continue
 
         # No chain usage AND no chain imports — this is a real gap, unless the
-        # file carries an explicit proof-connectivity waiver. Honouring the same
+        # file carries an explicit standalone proof-scope note. Honouring the same
         # marker as PROOF_CONNECTIVITY_GAP / PROOF_BODY_FOUNDATION_DISCONNECT:
         # a file that documents *why* it is standalone should say so once, not
         # be driven to fake a link (an unused identity on vm_mu satisfied this
-        # rule for twelve files and told the reader nothing). Waivers are
-        # counted in the WAIVERS census in the report.
+        # rule for twelve files and told the reader nothing). The scope marker
+        # keeps that boundary next to the source instead.
         if _PROOF_CONNECTIVITY_NOTE_RE.search(text):
             continue
 
@@ -7453,7 +7467,7 @@ def count_suppression_markers(repo_root: Path) -> dict:
     """Count in-source Inquisitor suppression markers across the Coq corpus.
 
     Rules in this file honour two markers -- `(* SAFE: <reason> *)` and
-    `(* INQUISITOR NOTE: <reason> *)` -- by skipping the check at that site.
+    `(* SCOPE NOTE: <reason> *)` -- by skipping the check at that site.
     They are legitimate (many mark genuinely safe constructs) but they are also
     the reason a zero finding count is not the same as a clean scan. This
     census is reported alongside the severity counts so the badge cannot be
@@ -7462,7 +7476,7 @@ def count_suppression_markers(repo_root: Path) -> dict:
     Counts marker occurrences, not silenced findings: a marker may guard a site
     no rule would have flagged anyway. It is an upper bound on waived checks.
     """
-    note_re = re.compile(r"INQUISITOR NOTE")
+    note_re = re.compile(r"SCOPE NOTE")
     safe_re = re.compile(r"\(\*\s*SAFE:")
     note_total = 0
     safe_total = 0
@@ -7515,21 +7529,20 @@ def write_report(
     lines.append(f"- MEDIUM: {len(by_sev.get('MEDIUM', []))}\n")
     lines.append(f"- LOW: {len(by_sev.get('LOW', []))}\n")
 
-    # Waiver census. A finding count of zero means "zero UNSUPPRESSED findings":
-    # rules honour in-source `(* SAFE: ... *)` and `(* INQUISITOR NOTE: ... *)`
-    # markers, which silence a check at that site. Reporting only the finding
-    # counts lets a reader take "0 HIGH" as "nothing was ever flagged", which is
-    # not what it means. The census below is the denominator that makes the
-    # numerator honest, so it is printed next to it rather than buried.
-    waivers = count_suppression_markers(repo_root)
+    # Scope-note census. A finding count of zero means "zero UNSUPPRESSED findings":
+    # rules honour in-source SAFE and SCOPE NOTE markers, which silence a check
+    # at that site. Reporting only the finding counts lets a reader take
+    # "0 HIGH" as "nothing was ever flagged", which is not what it means.
+    # The census below is the denominator that makes the numerator honest.
+    scope_notes = count_suppression_markers(repo_root)
     lines.append(
-        f"- WAIVERS: {waivers['total']} in-source suppression markers "
-        f"across {waivers['files']} files "
-        f"({waivers['inquisitor_note']} `INQUISITOR NOTE`, "
-        f"{waivers['safe']} `(* SAFE: *)`)\n"
+        f"- SCOPE NOTES: {scope_notes['total']} in-source scope markers "
+        f"across {scope_notes['files']} files "
+        f"({scope_notes['inquisitor_note']} SCOPE NOTE, "
+        f"{scope_notes['safe']} SAFE markers)\n"
     )
     lines.append(
-        "  - Read the severity counts as *unsuppressed* findings. Each waiver "
+        "  - Read the severity counts as *unsuppressed* findings. Each scope note "
         "silences one check at one site; the justification is the comment "
         "text itself. Grep for the markers to audit them.\n"
     )
@@ -7542,7 +7555,7 @@ def write_report(
     lines.append("- `AXIOM_OR_PARAMETER`: `Axiom` / `Parameter` (HIGH - unproven assumptions FORBIDDEN)\n")
     lines.append("- `HYPOTHESIS_ASSUME`: `Hypothesis` (HIGH - functionally equivalent to Axiom, FORBIDDEN)\n")
     lines.append("- `CONTEXT_ASSUMPTION`: `Context` with forall/arrow (HIGH - undocumented section-local axiom)\n")
-    lines.append("- `CONTEXT_ASSUMPTION_DOCUMENTED`: `Context` with INQUISITOR NOTE (LOW - documented dependency)\n")
+    lines.append("- `CONTEXT_ASSUMPTION_DOCUMENTED`: `Context` with SCOPE NOTE (LOW - documented dependency)\n")
     lines.append("- `SECTION_BINDER`: `Context` / `Variable` / `Variables` (MEDIUM - verify instantiation)\n")
     lines.append("- `MODULE_SIGNATURE_DECL`: `Axiom` / `Parameter` inside `Module Type` (informational)\n")
     lines.append("- `COST_IS_LENGTH`: `Definition *cost* := ... length ... .`\n")

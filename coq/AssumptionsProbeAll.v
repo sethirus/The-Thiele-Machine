@@ -10041,12 +10041,11 @@ Print Assumptions Kernel.SpacetimeEmergence.vm_step_next_id_monotone.
 Print Assumptions Kernel.SpacetimeEmergence.vm_step_preserves_mid_lt_next_id.
 Print Assumptions Kernel.SpacetimeEmergence.step_no_signaling_light.
 Print Assumptions Kernel.SpacetimeEmergence.exec_trace_no_signaling_outside_cone.
-(* === Kernel.StressEnergyDynamics : 5 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.StressEnergyDynamics : 4 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.StressEnergyDynamics.pnew_increases_mu_cost.
 Print Assumptions Kernel.StressEnergyDynamics.pnew_trace_length_correlates.
-Print Assumptions Kernel.StressEnergyDynamics.stress_energy_drives_pnew_frequency.
+Print Assumptions Kernel.StressEnergyDynamics.stress_energy_component_bounds.
 Print Assumptions Kernel.StressEnergyDynamics.pnew_frequency_bounded.
-Print Assumptions Kernel.StressEnergyDynamics.information_gravity_coupling.
 (* === Kernel.SymmetricDerivative4D : 49 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.SymmetricDerivative4D.matching_neighbors_two_vertex_at_v.
 Print Assumptions Kernel.SymmetricDerivative4D.matching_neighbors_two_vertex_at_w.

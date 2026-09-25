@@ -5,51 +5,23 @@ From Kernel Require Import VMState KernelPhysics.
 
 Import ListNotations.
 
-(** EntropyImpossibility: why naive entropy definitions fail
-
-    I claim you CANNOT define entropy as log(cardinality of microstate ensemble)
-    without imposing additional finiteness structure. The reason: observational
-    equivalence classes are INFINITE, so naive entropy is ∞ everywhere.
-
-    THE PROOF STRATEGY:
-    1. Construct tweak_regs: adds arbitrary data to vm_regs (unobservable register state)
-    2. Show all tweaked states are observationally equivalent (region_equiv)
-    3. Show tweaking is injective (different x → different states)
-    4. Conclude: infinitely many distinct microstates per observable class
-
-    This is like UV divergences in quantum field theory. If you allow arbitrarily
-    fine-grained microstates (infinite cutoff), you get infinite entropy.
-    The solution: impose finite_region_equiv_class (from Definitions.v) as a
-    coarse-graining or measurement-resolution bound.
-
-    This motivates the Bekenstein-bound style move: finite information
-    capacity per region is not optional if entropy is going to stay finite.
-
-    To falsify: Show entropy can be well-defined without finiteness assumptions.
-    Or exhibit a physical system with infinite entropy per finite region (violating
-    Bekenstein bound). Or prove thermodynamics works with continuous (infinite)
-    state spaces without cutoffs.
-*)
+(** EntropyImpossibility studies one selected observation map. Because
+    [ObservableRegion] omits [vm_regs], prepending an arbitrary natural to that
+    field gives infinitely many distinct [VMState] preimages of the same
+    region-level observation. Therefore a cardinality-based entropy over these
+    raw fibers is not finite without an explicit quotient, cutoff, or other
+    finiteness premise. This is an observation-model result, not a theorem
+    about all entropy definitions or physical systems. *)
 
 (** region_equiv: two states are observationally equivalent when every
     ObservableRegion agrees. *)
 Definition region_equiv (s1 s2 : VMState) : Prop :=
   forall mid, ObservableRegion s1 mid = ObservableRegion s2 mid.
 
-(** tweak_regs: unobservable state modification.
-    Prepends x to vm_regs (the register list) while leaving all other fields
-    (graph, CSRs, memory, PC, μ-ledger, error) unchanged.
-
-    CRUCIAL PROPERTY: vm_regs is NOT part of ObservableRegion. You can tweak
-    registers arbitrarily without affecting any measurement. This is like
-    gauge freedom or internal degrees of freedom: invisible to this observation
-    function.
-
-    WHY THIS WORKS: ObservableRegion only depends on vm_mem and vm_graph,
-    not on vm_regs. So tweak_regs creates infinitely many distinct states
-    (different internal register configurations) that are observationally
-    indistinguishable.
-*)
+(** [tweak_regs] prepends a natural to [vm_regs] and leaves the other VM fields
+    unchanged. Since [ObservableRegion] reads [vm_mem] and [vm_graph] rather
+    than [vm_regs], this construction supplies the observation-equivalent
+    family used by the impossibility theorem. *)
 Definition tweak_regs (s : VMState) (x : nat) : VMState :=
   {| vm_graph := s.(vm_graph);
      vm_csrs := s.(vm_csrs);
@@ -73,20 +45,9 @@ Definition tweak_regs (s : VMState) (x : nat) : VMState :=
     is the seed of the infinite-microstates-per-observable problem
     closed by [region_equiv_class_infinite]. *)
 
-(** tweak_regs_injective: different tweaks give different states.
-    If tweak_regs s a = tweak_regs s b, then a = b.
-
-    PROOF: Equal states have equal vm_regs fields (f_equal), so a :: ... = b :: ...,
-    thus a = b by list injectivity.
-
-    WHY THIS MATTERS: Combined with tweak_regs_region_equiv, this proves we have
-    an INJECTIVE function from nat to the region_equiv class. Since nat is
-    infinite, the equiv class is infinite.
-
-    This is the key to the impossibility result: we have infinitely many
-    DISTINCT microstates (injectivity) that are all OBSERVATIONALLY IDENTICAL
-    (region_equiv). Classical Boltzmann entropy S = log(Ω) gives S = log(∞) = ∞.
-*)
+(** [tweak_regs_injective] shows that distinct natural inputs produce distinct
+    full states. Together with region equivalence, it supplies an injective
+    infinite family in one fiber of the selected observation. *)
 Lemma tweak_regs_injective : forall s a b,
   tweak_regs s a = tweak_regs s b -> a = b.
 Proof.
@@ -98,29 +59,10 @@ Proof.
   inversion Hregs; subst; reflexivity.
 Qed.
 
-(** region_equiv_class_infinite: main impossibility result.
-    For any state s, there exists an injective function f : nat -> VMState
-    where every f(n) is region_equiv to s.
-
-    PROOF: Take f(n) = tweak_regs s n. Use the two lemmas above:
-    - tweak_regs_region_equiv ensures ∀n, region_equiv s (f n)
-    - tweak_regs_injective ensures f is injective (distinct inputs → distinct outputs)
-
-    Every observable state has INFINITELY MANY underlying microstates. If you
-    try to compute entropy as S = k log(number of microstates), you get ∞.
-
-    This is analogous to:
-    - UV divergences in QFT (need cutoff at Planck scale)
-    - Bekenstein bound (finite bits per area, not volume)
-    - Holographic principle (information lives on boundary)
-
-    All these are saying: you MUST impose finite information density or physics
-    breaks down.
-
-    To falsify: Prove thermodynamics works without finiteness cutoffs, or
-    show S = log(∞) is physically meaningful, or exhibit a natural coarse-graining
-    that makes equiv classes finite without external assumptions.
-*)
+(** [region_equiv_class_infinite] gives the injective observation-equivalent
+    family for every state. Any entropy definition based on the cardinality of
+    this raw fiber therefore needs an additional finiteness or coarse-graining
+    convention. *)
 Theorem region_equiv_class_infinite : forall s,
   exists f : nat -> VMState,
     (forall n, region_equiv s (f n)) /\
@@ -138,31 +80,10 @@ Proof.
     apply (tweak_regs_injective s n1 n2 Heq).
 Qed.
 
-(** Clean failure localization for the plan's D1 definition:
-   If entropy is defined as log(cardinality of the region_equiv class),
-   then this class being infinite forces entropy to be non-finite unless
-   additional finiteness/coarse-graining structure is assumed.
-
-   Entropy_From_Observation_Fails_Without_Finiteness: Explicit failure theorem
-   This is the same proof as region_equiv_class_infinite, but with a name
-   that explicitly states the implication for entropy.
-
-   There's no defining S = k_B log |{microstates consistent with observations}|
-   without FIRST imposing finite_region_equiv_class (from Definitions.v).
-
-   Without that finiteness assumption, the cardinality is ℵ₀ (countably infinite)
-   for EVERY state, so S = ∞ everywhere. This makes thermodynamics meaningless:
-   no equilibrium, no temperature, no second law.
-
-   SOLUTION: impose finite_region_equiv_class as an explicit assumption. This says the universe
-   has finite information density: there are only finitely many distinguishable
-   microstates per observable region. This is the computational version of the
-   Bekenstein bound.
-
-   To falsify: Define a workable notion of entropy for continuous state spaces
-   without cutoffs. Or show that S = ∞ is physically acceptable (thermal systems
-   can have infinite entropy per finite volume).
-*)
+(** The named entropy corollary repeats the same fiber result with the
+   interpretation made explicit: the raw [region_equiv] class is infinite, so a
+   finite cardinality-based entropy requires an extra finiteness convention. It
+   does not rule out other entropy constructions. *)
 Theorem Entropy_From_Observation_Fails_Without_Finiteness :
   forall s,
     exists f : nat -> VMState,

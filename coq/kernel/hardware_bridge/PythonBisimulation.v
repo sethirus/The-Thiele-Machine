@@ -89,7 +89,7 @@ Definition increments_pc (instr : vm_instruction) : bool :=
   end.
 
 (** Step preserves bisimulation for PC (for non-jump instructions) *)
-(* INQUISITOR NOTE: theorem restricted to non-jump instructions as python_step_abstract models sequential PC increment *)
+(* SCOPE NOTE: theorem restricted to non-jump instructions as python_step_abstract models sequential PC increment *)
 Theorem step_preserves_pc :
   forall coq_s coq_s' py_s instr,
     bisimulation_invariant coq_s py_s ->
@@ -120,7 +120,7 @@ Proof.
 Qed.
 
 (** Step preserves full bisimulation invariant (for non-jump instructions) *)
-(* INQUISITOR NOTE: theorem restricted to non-jump instructions to maintain PC correspondence *)
+(* SCOPE NOTE: theorem restricted to non-jump instructions to maintain PC correspondence *)
 Theorem bisimulation_step :
   forall coq_s coq_s' py_s instr,
     bisimulation_invariant coq_s py_s ->

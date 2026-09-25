@@ -1,6 +1,6 @@
-(** * F3_PartitionTopologyCrossLink: cross-link prediction in [MuGravity]
+(** * F3_PartitionTopologyCrossLink: a cross-link in [MuGravity]
 
-    A cross-link prediction connecting partition-topology data to the
+    A cross-link connecting partition-topology data to the
     MuGravity geometric-defect machinery, written so that no single
     component (combinatorial Gauss-Bonnet, distance-weighted geometric
     defect, μ-Laplacian) carries the load alone.
@@ -71,7 +71,7 @@
     underdetermined. See [F3_drop_calibration_breaks_prediction] and
     [F3_drop_sum_zero_breaks_prediction].
 
-    No project-local axioms. No bypass markers.
+    The theorem uses no project-local axioms.
 *)
 
 From Coq Require Import List Reals Lra ZArith Lia Arith.PeanoNat.
@@ -232,8 +232,7 @@ Qed.
     chain:
     - [VMState], [VMStep], [MuCostModel] — VM semantics and cost ledger.
     - [DiscreteTopology], [DiscreteGaussBonnet] — kept available for
-      cross-reference; not load-bearing in the F3 narrow form (see the
-      audit history above).
+      cross-reference; not load-bearing in the F3 narrow form.
     - [MuGravity] — angle-defect, calibration_residual, mu_laplacian.
     - [F3_MuLaplacianSum] — cumulative μ-Laplacian sum-zero identity.
 
@@ -245,13 +244,13 @@ Qed.
 
 (** ** Non-vacuity: a calibrated VMState witness exists.
 
-    The headline above is true for every state where calibration holds
-    universally; it would be vacuously true if no such state existed.
+    The headline above is conditional on a state where calibration holds
+    at every listed module; it would be vacuous if no such state existed.
     [F3_CalibratedWitness] removes that vacuity by constructing an
     explicit finite VMState (a 17-module star [K_{1,16}]) on which
     [calibration_residual = 0%R] at every module, and on which the
-    centre module has 120 non-trivial triangle-pairs. So [F3] is a
-    non-vacuous prediction at the kernel level.
+    centre module has 120 non-trivial triangle-pairs. The witness shows that
+    the premise is inhabited in this finite VM model.
 
     See [Kernel.F3_CalibratedWitness.F3_calibrated_witness_exists] and
     [Kernel.F3_CalibratedWitness.F3_witness_zero_total_geometric_defect]. *)
@@ -265,10 +264,8 @@ Qed.
     and [MuGravity.calibration_residual_zero_iff]. No project-local
     axioms.
 
-    Falsification: any concrete physical implementation of the Thiele
-    VM where [angle_defect_curvature ≠ π · mu_laplacian] at some module
-    (calibration fails locally) immediately breaks F3. Independently,
-    any kernel patch that loosens the structural symmetry of
-    [modules_adjacent_by_region] (so that [edge_weight] ceases to be
-    symmetric) breaks [total_mu_laplacian_zero] and hence F3.
+    A state that violates the calibration premise is outside the theorem's scope.
+
+    A change that removes the symmetry required by [total_mu_laplacian_zero] would
+    also remove that theorem's premise and require a new cross-link proof.
 *)

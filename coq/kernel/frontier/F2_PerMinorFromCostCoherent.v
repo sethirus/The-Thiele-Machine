@@ -34,7 +34,7 @@
     minors), cost-axioms + per-minor (each minor satisfiable), and
     cost-axioms + witness-locality (algebraic-coherence proper). *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost. Any
    Kernel module it imports is a peer result in the same mathematical
@@ -42,8 +42,7 @@
 
    It reached the foundation chain only transitively, through modules that
    imported the kernel without using it; with those phantom imports gone the
-   honest statement is that this file is standalone. Counted in the WAIVERS
-   census in INQUISITOR_REPORT.md. *)
+   honest statement is that this file is standalone. *)
 From Coq Require Import List Arith.PeanoNat Lia Bool ZArith QArith QArith.Qabs.
 Require Import Psatz.
 Import ListNotations.

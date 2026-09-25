@@ -10,7 +10,7 @@
     Landauer, "Irreversibility and Heat Generation in Computing" (1961).
     *)
 
-(* INQUISITOR NOTE: documentation - formalizes the honest scope of NoFI results. *)
+(* SCOPE NOTE: documentation - formalizes the honest scope of NoFI results. *)
 
 From Coq Require Import List Lia Arith.PeanoNat String.
 Import ListNotations.

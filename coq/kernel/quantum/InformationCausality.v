@@ -10,7 +10,7 @@
   from stronger semantics somewhere else. The theorem names in this file now
   say exactly what the proofs establish. *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost. Any
    Kernel module it imports is a peer result in the same mathematical
@@ -19,8 +19,8 @@
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
 
 From Coq Require Import List Bool Arith.PeanoNat micromega.Lia.
 Import ListNotations.
@@ -259,52 +259,13 @@ Proof.
   exact Heff.
 Qed.
 
-(** Operational interpretation.
+(** The record-level results identify the IC and [mu] bounds when the two
+    records are related by [ic_mu_equivalent]. The proofs are definitional and
+    arithmetic: they do not supply a probability space, an entropy model, a
+    Born rule, or a physical communication semantics. In particular, the
+    stored [Prop] is the meaning of “IC bound” for this module; connecting it
+    to accessible information is a separate formalization task. *)
 
-    WHAT I PROVED:
-    The custom ICScenario record and MuScenario record line up when their
-    fields are tied together by ic_mu_equivalent.
-
-    IC scenario, intended reading: Alice has n bits, sends m bits to Bob, and
-    the stored Prop says the IC bound is satisfied.
-    μ scenario: Partition with n elements, costs m μ-bits to access.
-
-    Main theorem (ic_mu_record_projection): IC bound <-> μ-bound,
-    because that equivalence is a field of ic_mu_equivalent.
-
-    1. ic_zero_communication_implies_zero_mu_cost: Zero communication (IC m=0) means
-       zero μ-cost in this record relation. It does not prove a CHSH bound.
-
-    2. ic_monotonicity: More communication → more μ-cost (monotonicity).
-
-    3. ic_composition: Sequential IC scenarios compose additively,
-       just like μ-costs (weight_sequential from Definitions.v).
-
-    4. ic_cost_optimal: if a MuScenario is already tied to communication m,
-       the same MuScenario cannot also be tied to a smaller m'.
-
-    WHY NO AXIOMS:
-    The lemmas here are definitional and arithmetic. They do not postulate IC
-    or μ-cost as physical laws, and they do not derive those laws either.
-
-    IC is represented here as a Prop field. A real information-flow theorem
-    needs the semantics that make that Prop mean accessible information.
-
-    This equivalence is constructive and follows from definitions alone. No:
-    - Measure theory (no σ-algebras, no probability spaces)
-    - Entropy formalization (no Shannon entropy, no von Neumann entropy)
-    - Concrete probability distributions (no hidden variables)
-    - Physical axioms (no Born rule, no Hilbert space postulates)
-
-    Exhibit a pair of records that satisfies ic_mu_equivalent but breaks one of
-    the projection or preservation lemmas. That would falsify this file's main
-    claim. Physical counterexamples require a richer model than these records.
-
-    The equivalence theorem (ic_mu_record_projection) is proven (Qed),
-    so falsifying it requires finding an inconsistency in the definitions or a
-    logic error in the proof.
-    *)
-
-(* INQUISITOR NOTE: connectivity anchor for isolated IC lemmas. *)
+(* SCOPE NOTE: connectivity anchor for isolated IC lemmas. *)
 Definition ic_coverage_anchor :=
   (ic_zero_communication_bound, ic_communication_bounded, accessible_info_bounded).

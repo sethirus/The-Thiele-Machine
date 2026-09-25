@@ -97,7 +97,7 @@ Class WithShortcutPredicate `{Sub : Substrate} : Type := {
 
 (** ** The substrate-level limitative theorem *)
 
-(* INQUISITOR NOTE: ABSTRACT INTERFACE — this Section is parameterized
+(* SCOPE NOTE: ABSTRACT INTERFACE — this Section is parameterized
    over a Substrate plus WithShortcutPredicate typeclass instance. The
    Context bindings are SECTION PARAMETERS, not section-local axioms;
    closing the section discharges them as EXPLICIT FORALL premises on
@@ -207,21 +207,18 @@ Section StructuralAxisUndecidability.
       admittance exists, so a fortiori no total uniform translation
       procedure exists.
 
-      Falsification. To falsify this theorem, exhibit either: (a) a
-      decision procedure decide : Program -> bool that satisfies the
-      bi-implication for some Substrate + WithShortcutPredicate instance,
-      contradicting the proof above; or (b) an inconsistency in the
-      typeclass axioms — find a Substrate that has both a recursion-
-      theorem witness and a non-trivial extensional predicate but for
-      which the diagonalization argument fails to construct the
-      contradiction. The proof is five lines; finding (b) means finding
-      an error in those five lines. *)
+      The boundary is explicit: the theorem rules out a total Boolean
+      decision procedure satisfying the stated equivalence under these
+      [Substrate] and [WithShortcutPredicate] premises. It does not rule out a
+      partial procedure, a restricted input class, or a procedure allowed to
+      decline. A counterexample would have to provide the excluded total
+      decision procedure or invalidate one of the named premises. *)
 
 End StructuralAxisUndecidability.
 
 (** ** Corollary: the predicate is not Decidable in the Coq sense *)
 
-(* INQUISITOR NOTE: ABSTRACT INTERFACE — same pattern as
+(* SCOPE NOTE: ABSTRACT INTERFACE — same pattern as
    StructuralAxisUndecidability above. SECTION PARAMETER over
    Substrate + WithShortcutPredicate; closing the section discharges
    the Context as an EXPLICIT FORALL premise on the corollary. *)
@@ -254,10 +251,9 @@ End DecidabilityCorollary.
 
 (** ** Concrete witness class vs substrate-level predicate
 
-    Closeout-plan C.1/C.2/C.3. Two different objects appear in this
-    file's neighbourhood and it is worth naming them sharply, because
-    they live at different levels and the substrate-level theorem is
-    about exactly one of them.
+    Two different objects appear in this file's neighbourhood and it is
+    worth naming them sharply, because they live at different levels and
+    the substrate-level theorem is about exactly one of them.
 
     The concrete [SoundStructuralShortcut fuel trace s_init] (defined
     in HonestNoFI_TheoremsWithoutAssumptions.v) is presentational:
@@ -288,8 +284,7 @@ End DecidabilityCorollary.
     concrete class is rich (carries the receipts); the extensional
     class is the substrate-parametric notion the diagonalization
     operates on. They are not in tension; they are the same phenomenon
-    at two scopes. C.3 of the closeout plan documents this; we do
-    NOT collapse one into the other. *)
+    at two scopes. We do NOT collapse one into the other. *)
 
 Definition vm_instantiation_target
            (p : list vm_instruction) : Prop :=
@@ -358,7 +353,7 @@ Proof.
   rewrite (Hext init_state). reflexivity.
 Qed.
 
-(** Closeout-plan C.2 bridge: the existence of a concrete
+(** The concrete bridge: the existence of a
     [SoundStructuralShortcut] for [simple_morph_trace] establishes the
     extensional witness for [simple_morph_trace]. The bridge is
     reflexivity by construction — the extensional predicate is defined
@@ -378,7 +373,7 @@ Qed.
     parameters of [vm_substrate] to be supplied (here we curry under
     them and let consumers discharge them at use-site). *)
 
-(* INQUISITOR NOTE: ABSTRACT INTERFACE — the Section below is the
+(* SCOPE NOTE: ABSTRACT INTERFACE — the Section below is the
    VM-corollary plumbing layer. Its Section parameters are SECTION
    PARAMETERS that become EXPLICIT FORALL premises on the contained
    theorems when the Section closes. The VM-side encoding/representability

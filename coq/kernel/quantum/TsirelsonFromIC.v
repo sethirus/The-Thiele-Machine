@@ -11,7 +11,7 @@ From Coq Require Import Reals Lra Psatz.
 From Kernel Require Import TsirelsonFromMu.
 Local Open Scope R_scope.
 
-(* INQUISITOR NOTE: proof-connectivity waiver, standalone correlator algebra with an explicit quadratic premise. *)
+(* SCOPE NOTE: standalone proof scope, standalone correlator algebra with an explicit quadratic premise. *)
 Definition ic_quadratic_bound (b : CorrelatorBox) : Prop :=
   (cb_E00 b + cb_E10 b)^2 + (cb_E01 b - cb_E11 b)^2 <= 4.
 
