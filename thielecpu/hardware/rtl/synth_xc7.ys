@@ -16,18 +16,26 @@
 # time-shares one 384×384 SignUU multiplier, so only one wide multiply is
 # live per cycle. Every operand is zero-extended from at most 256 bits and
 # only the low 384 product bits are read, so yosys narrows the multiplier
-# before splitting it across DSP48E1 slices. The whole design synthesises to
-# 279 DSP48E1 (of 840) and about 28K LUTs.
+# before splitting it across DSP48E1 slices.
+#
+# `xilinx_dsp.multonly` keeps each of those slices a plain multiplier and
+# leaves the partial-product sums in fabric carry chains. Without it,
+# xilinx_dsp links the slices through PCOUT → PCIN cascades of up to 20
+# cells, and nextpnr-xilinx has to legalise each chain as one rigid vertical
+# macro; its analytical placer then stalls past the CI job's limit. With it
+# the whole design synthesises to 279 standalone DSP48E1 (of 840) and about
+# 33K LUTs.
 #
 # With `-nodsp` the same multiplier is built from LUTs, which takes the design
 # to about 160K LUTs, more than nextpnr-xilinx can route inside the CI job's
-# three-hour limit. DSP vs LUT is a
-# silicon-utilisation choice, not a correctness one. The proof chain
-# (Coq → OCaml → Bluespec → Verilog) is identical either way.
+# three-hour limit. DSP vs LUT is a silicon-utilisation choice, not a
+# correctness one. The proof chain (Coq → OCaml → Bluespec → Verilog) is
+# identical either way.
 #
 # `-abc9` enables abc9 tech-mapping for tighter wide-mux factoring.
 
 read_verilog -sv -DSYNTHESIS RegFile.v thiele_cpu_kami.v thiele_cpu_top_min.v thiele_cpu_top_genesys2.v
 
+scratchpad -set xilinx_dsp.multonly 1
 synth_xilinx -family xc7 -flatten -abc9 -top thiele_cpu_top_genesys2
 write_json ../../../build/thiele_xc7k325t.json
