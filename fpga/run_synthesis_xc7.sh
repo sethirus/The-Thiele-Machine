@@ -30,9 +30,11 @@
 #       multi-cycle execution is a Kami-implementation detail invisible to
 #       the spec, the same pattern as instr_lassert.
 #   (2) synth_xc7.ys leaves DSP inference on, so that multiplier lands in
-#       DSP48E1 slices instead of LUTs. Built from LUTs (`-nodsp`) it pushes
-#       the design to about 160K LUTs, past what nextpnr-xilinx can route
-#       inside the CI time limit.
+#       DSP48E1 slices instead of LUTs. The slices stay standalone
+#       (`xilinx_dsp.multonly`), because cascaded DSP chains stall the
+#       nextpnr-xilinx placer. Built from LUTs (`-nodsp`) the multiplier
+#       pushes the design to about 160K LUTs, past what nextpnr-xilinx can
+#       route inside the CI time limit.
 #   (3) The 16×16 module tensor store is a 256-entry RegFile (LUT RAM), not
 #       flip-flops; see scripts/bsv_regfile_transform.py.
 # DSP vs LUT is a silicon-utilisation choice, not a correctness one; the proof
