@@ -10,24 +10,24 @@
 # Target: xc7k325tffg900-2 (840 DSP48E1 + 203,800 LUT6) — the Digilent Genesys
 # 2 board.
 #
-# `-nodsp` is ENABLED. `instr_chsh_lassert`'s `column_contractive_check_witness`
-# performs 22 wide integer multiplications (widest two are 128×128 → 256).
-# In Kami the check is implemented as a 23-phase FSM (`chsh_lassert_fsm` rule
-# in coq/kami_hw/ThieleCPUCore.v) that time-shares one 384×384 SignUU
-# multiplier across the phases, so only one wide multiply is live per cycle.
-# Even with the FSM, yosys's DSP48E1 inference fans that single multiplier
-# out to more DSP slices than K325T's 840 (wide operand widths force several
-# chained DSPs each) and slows openXC7's nextpnr-xilinx placer to 1-2+ hours
-# (sometimes timing out). Letting yosys map the multiplier to LUTs instead
-# produces ~151K LUT6 against K325T's 203K (~74% utilisation) and lets
-# nextpnr place the design in ~10 min. DSP vs LUT is a silicon-utilisation
-# choice, not a correctness one — the proof chain (Coq → OCaml → Bluespec
-# → Verilog) is identical either way. We accept the LUT cost in exchange
-# for an open-source flow that actually finishes in CI.
+# DSP inference is on. `instr_chsh_lassert`'s `column_contractive_check_witness`
+# performs 22 wide integer multiplications. In Kami the check is a 23-phase
+# FSM (`chsh_lassert_fsm` rule in coq/kami_hw/ThieleCPUCore.v) that
+# time-shares one 384×384 SignUU multiplier, so only one wide multiply is
+# live per cycle. Every operand is zero-extended from at most 256 bits and
+# only the low 384 product bits are read, so yosys narrows the multiplier
+# before splitting it across DSP48E1 slices. The whole design synthesises to
+# 279 DSP48E1 (of 840) and about 28K LUTs.
+#
+# With `-nodsp` the same multiplier is built from LUTs, which takes the design
+# to about 160K LUTs, more than nextpnr-xilinx can route inside the CI job's
+# three-hour limit. DSP vs LUT is a
+# silicon-utilisation choice, not a correctness one. The proof chain
+# (Coq → OCaml → Bluespec → Verilog) is identical either way.
 #
 # `-abc9` enables abc9 tech-mapping for tighter wide-mux factoring.
 
 read_verilog -sv -DSYNTHESIS RegFile.v thiele_cpu_kami.v thiele_cpu_top_min.v thiele_cpu_top_genesys2.v
 
-synth_xilinx -family xc7 -flatten -abc9 -nodsp -top thiele_cpu_top_genesys2
+synth_xilinx -family xc7 -flatten -abc9 -top thiele_cpu_top_genesys2
 write_json ../../../build/thiele_xc7k325t.json

@@ -1168,10 +1168,10 @@ to implement any small boolean function. A flip-flop is a one-bit memory cell th
 holds its value across clock cycles. A carry chain is specialised wiring for fast addition.
 Distributed RAM is RAM built from LUTs. Block RAM is dedicated RAM blocks on the
 chip. DSP slices are specialised hardware for digital-signal-processing arithmetic. The
-synthesised K325T design uses 0 DSP slices because yosys is invoked with -nodsp,
-mapping the wide multiplier in the multi-cycle witness checker (Section 14) to LUTs
-instead. The substrate would also accept a DSP-inferred mapping. The choice is a
-chip-capacity and place-and-route runtime trade-off, not a correctness one.
+synthesised K325T design puts the wide multiplier in the multi-cycle witness checker
+(Section 14) on DSP slices. The substrate would also accept a LUT-only mapping
+(yosys’s -nodsp); it just takes far more of the chip. The choice is a chip-capacity and
+place-and-route runtime trade-off, not a correctness one.
 
 A JSON netlist is the gate-level circuit serialised in a JSON text file (JSON is a standard
 text format for structured data). A VCD waveform is a Value Change Dump, a record
@@ -4953,16 +4953,15 @@ hardware, not a design constraint. The size constants (16 registers, 128 data wo
 design scales to whatever size you actually want.
 
 47 of the 51 opcodes are implemented in the synthesized RTL: the Kami core has
-hardware logic for those 47, and the synthesised Verilog carries them through to
-the FPGA bitstream. The remaining four (the Q1+AB check-opcode family instr_
-chsh_lassert_1ab, instr_chsh_lassert_1ab_g5, instr_chsh_lassert
-_1ab_g345, instr_chsh_lassert_1ab_g12345) are defined in the Kami HW
-abstraction with kernel-equivalence proven, and they execute in the OCaml runner
-and Python harness, but they are not synthesized into the FPGA bitstream because
-the synthesized design already fills most of the chip and each of them would need its
-own wide-arithmetic FSM. The OCaml/RTL opcode-set parity test tolerates exactly
-these four. The question is not which opcodes are in hardware, but which opcodes
-have a completed formal bisimulation proof.
+hardware logic for those 47, and the synthesised Verilog carries them through to the
+FPGA bitstream. The remaining four (the Q1+AB check-opcode family instr_chsh_l
+assert_1ab, instr_chsh_lassert_1ab_g5, instr_chsh_lassert_1ab_g3
+45, instr_chsh_lassert_1ab_g12345) are defined in the Kami HW abstraction
+with kernel-equivalence proven, and they execute in the OCaml runner and Python
+harness, but they are not synthesized into the FPGA bitstream. Each of them would
+need its own wide-arithmetic FSM, and I haven’t built that hardware. The OCaml/RTL
+opcode-set parity test tolerates exactly these four. The question is not which opcodes
+are in hardware, but which opcodes have a completed formal bisimulation proof.
 
 The    theorem     KamiHW.GraphReconstructionBridge.driv
 en_step_wf           compares      the     Gallina     function    kami_step     with
@@ -4976,13 +4975,13 @@ separate from physical clock transitions in ThieleCPUCore.v.
      specific premise to this intermediate model equality.
    • CALL and RET require WellFormedSnapshot, with a PC bound for CALL.
      CHSH_TRIAL requires Boolean operands. LASSERT requires agreement with
+     its memory header. Tensor access requires valid indices, and TENSOR_GET also
 
 
                                          100
 The Thiele Machine                                          Devon Thiele • September 2026
 
 
-      its memory header. Tensor access requires valid indices, and TENSOR_GET also
       requires module existence.
    • MORPH requires extended_hw_invariant and existing source and target
      modules. COMPOSE, MORPH_TENSOR, and MORPH_GET require the ex-
@@ -5025,13 +5024,13 @@ first requires room for the raw intermediate list; a normalized result fitting t
 does not guarantee admission when the raw list exceeds it.
 
 The inventory arithmetic rtl_coverage_partition is not a proof of these repre-
+sentation obligations. The 47 synthesized / four nonsynthesized distinction describes
 
 
                                           101
 The Thiele Machine                                           Devon Thiele • September 2026
 
 
-sentation obligations. The 47 synthesized / four nonsynthesized distinction describes
 the implementation inventory; it does not turn a conditional model theorem into
 unrestricted RTL equality.
 
@@ -5075,13 +5074,13 @@ dence with deployed protocols remains a modeling claim requiring separate eviden
 The formal finality example uses a Boolean finalized flag and a nonnegative stake-
 at-risk charge on a finalizing transition. A zero-charge transition from unfinalized
 to finalized violates its A2 obligation. A schedule charging at least one unit on that
+transition satisfies the obligation. This model records exposure to loss. It does not
 
 
                                            102
 The Thiele Machine                                         Devon Thiele • September 2026
 
 
-transition satisfies the obligation. This model records exposure to loss. It does not
 assert that collateral was actually destroyed, that successive exposures are distinct
 spent units, or that every deployed consensus protocol uses this mechanism.
 
@@ -5126,13 +5125,12 @@ does not force a particular physical register or authenticate an adversarially s
 measurement.
 
 Falsifier: a sound and complete attestation scheme for a µ-dependent claim that reads
+only the bare transcript.
 
 
                                          103
 The Thiele Machine                                           Devon Thiele • September 2026
 
-
-only the bare transcript.
 
 15.4 Certificate transparency
 The transparency example supplies a log-like evidence field within the hardness es-
@@ -5179,12 +5177,13 @@ round bare verifier.
 
 These five constructions establish consequences of their explicit records. Deployment
 interpretations require independent evidence. The examples do not establish that cer-
+tification is the unique event every model must price; that broader selection question
+
 
                                            104
 The Thiele Machine                                          Devon Thiele • September 2026
 
 
-tification is the unique event every model must price; that broader selection question
 remains open.
 
 16 Binary Game Statistics: where the µ-Ledger Meets the NPA Boundary
@@ -5228,13 +5227,12 @@ NPA framework itself (Navascués–Pironio–Acín 2007, 2008). I cite it. I do 
 it. The kernel’s content is the algebraic bridge between an integer-arithmetic check
 inside an opcode and PSD of a specific matrix. The name “quantum-realizable” in the
 source is borrowed from that literature, not earned by a physics derivation inside the
+kernel.
 
 
                                           105
 The Thiele Machine                                           Devon Thiele • September 2026
 
-
-kernel.
 
 Direction of derivation: substrate first, NPA second. Two passes, in this order. First
 pass, substrate-side: the CHSH_TRIAL opcode, its witness-counter cost schedule, the
@@ -5278,6 +5276,8 @@ often. That is where the 75% comes from. Drop it and the exact statement is only
 every deterministic strategy loses at least one of the four pairs.
 
 Fix any deterministic strategy and freeze λ. Then Alice has two predetermined an-
+swers, a0 and a1 , and Bob has two predetermined answers, b0 and b1 . Winning all four
+question combinations would require:
 
 
                                           106
@@ -5316,9 +5316,6 @@ wire, recoded as ±1 for the correlators). The four correlators Exy = ⟨ ab⟩,
 column-contractivity / NPA condition.
 
 
-swers, a0 and a1 , and Bob has two predetermined answers, b0 and b1 . Winning all four
-question combinations would require:
-
 
                 a0 ⊕ b0 = 0,               a0 ⊕ b1 = 0,    a1 ⊕ b0 = 0,         a1 ⊕ b1 = 1.
 
@@ -5340,16 +5337,15 @@ on a page; the reference kernel pins it down both ways and leaves nothing Admitt
 One executable trace, built from nothing but PNEW, PSPLIT, and CHSH_TRIAL and
 never spending a cent of the cost ledger (µ = 0), walks right up to 75% and touches it.
 Then local_box_CHSH_bound closes the lid from the other side: no local strategy,
-
+however randomized, no factorizable box anywhere, gets over the line under the
+stated population/setting-weight assumptions. A trace can of course just write any
+tallies it likes into the counters at µ = 0, the way anyone can write a fake scoreboard;
 
 
                                                         107
 The Thiele Machine                                                  Devon Thiele • September 2026
 
 
-however randomized, no factorizable box anywhere, gets over the line under the
-stated population/setting-weight assumptions. A trace can of course just write any
-tallies it likes into the counters at µ = 0, the way anyone can write a fake scoreboard;
 the theorem is about what local play can earn, and the certification step that would
 stand behind a scoreboard is the priced one. The achievable and the unbeatable land
 on the same number, which is the only kind of ceiling I trust.
@@ -5393,14 +5389,15 @@ None of that lives only in my head. The argument I just walked you through is th
 English proof; the formal check that I did not fool myself anywhere is local_box_CH
 SH_bound, which says the plain thing in symbols: for any factorizable box B, |S( B)| ≤
 2, with nothing left Admitted. And a bound from above is only half an honest claim.
+classical_bound_achieved hands over the other half, a constructive witness,
+an executable trace at µ = 0 that actually reaches |S| = 2 rather than just respecting
+
 
 
                                                108
 The Thiele Machine                                           Devon Thiele • September 2026
 
 
-classical_bound_achieved hands over the other half, a constructive witness,
-an executable trace at µ = 0 that actually reaches |S| = 2 rather than just respecting
 it. Put the two together and the ceiling is not loose: max{|S| : B factorizable} = 2,
 exactly, no slack to argue about, and a µ = 0 trace reaches it.
                                     √
@@ -5449,6 +5446,7 @@ nal threshold 5657/2000 ≈ 2.8285 for exact rational comparisons (you can verif
 valued quantum-model bridge uses 8 directly. Those are two different proof sur-
 faces, and I keep them apart on purpose: the rational one so a machine can check it in
 exact arithmetic, the real one so the quantum bridge has something to bite on.
+
 
 
 

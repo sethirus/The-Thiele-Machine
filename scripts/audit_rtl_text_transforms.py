@@ -162,6 +162,9 @@ def build_audit() -> dict[str, Any]:
         "mem": {"address_bits": 7, "element_type": "Bit#(32)"},
         "lassert_cbuf": {"address_bits": 6, "element_type": "Bit#(32)"},
         "lassert_fbuf": {"address_bits": 6, "element_type": "Bit#(32)"},
+        # 16 modules x 16 cells, addressed by {module, cell}; see the matrix
+        # pass in scripts/bsv_regfile_transform.py.
+        "module_tensors": {"address_bits": 8, "element_type": "Bit#(32)"},
     }
     observed_regfiles = {
         item["name"]: {
@@ -187,13 +190,17 @@ def build_audit() -> dict[str, Any]:
         "bsv_no_vec_constructor_remains": "vec(" not in clean_bsv,
         "verilog_top_module_preserved": _module_names(raw_verilog) == _module_names(synth_verilog) == ["mkModule1"],
         "verilog_mu_tensor_array_present": "reg [31:0] mt_arr [0:15];" in synth_verilog,
-        "bsv_module_tensors_remain_nested_register": (
-            "Reg#(Vector#(16, Vector#(16, Bit#(32)))) module_tensors" in clean_bsv
-            and "module_tensors" not in observed_regfiles
+        "bsv_module_tensors_is_matrix_regfile": (
+            "Reg#(Vector#(16, Vector#(16, Bit#(32)))) module_tensors" not in clean_bsv
+            and "module_tensors.upd({" in clean_bsv
+            and "module_tensors.sub({" in clean_bsv
         ),
-        "verilog_module_tensors_remain_flat_register": all(
-            re.search(r"reg\s+\[8191\s*:\s*0\]\s+module_tensors\s*;", text)
-            is not None for text in (raw_verilog, synth_verilog)
+        "verilog_module_tensors_is_regfile_submodule": (
+            "// ports of submodule module_tensors" in synth_verilog
+            and all(
+                re.search(r"reg\s+\[8191\s*:\s*0\]\s+module_tensors\s*;", text) is None
+                for text in (raw_verilog, synth_verilog)
+            )
         ),
         "verilog_csr_storage_present": all(
             re.search(r"reg\s+\[31\s*:\s*0\]\s+" + name + r"\s*;", synth_verilog)

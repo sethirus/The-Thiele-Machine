@@ -508,8 +508,8 @@ The 47 synth-realized opcodes fall into six families.
 
 The four Q_{1+AB} opcodes (`instr_chsh_lassert_1ab*`) extend `CHSH_LASSERT` with the Q_{1+AB} moment-matrix family.
 They are defined in the Kami HW abstraction with kernel-equivalence proven (`coq/kami_hw/Abstraction.v`, `EmbedStep.v`) and run on the OCaml/Python VM.
-They are excluded from the synthesized Verilog because the synthesized design already fills most of the K325T's logic.
-The silicon budget cannot absorb four more wide-arithmetic FSMs.
+They are not in the synthesized Verilog.
+Each one would need its own wide-arithmetic FSM in silicon, and that hardware has not been built.
 That is a silicon boundary, not a semantic one.
 The substrate claim does not require them.
 
