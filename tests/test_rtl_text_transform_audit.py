@@ -103,6 +103,7 @@ def test_bsv_transform_scope_is_storage_only_regfile_rewrite() -> None:
         "mem": (7, "Bit#(32)"),
         "lassert_cbuf": (6, "Bit#(32)"),
         "lassert_fbuf": (6, "Bit#(32)"),
+        "module_tensors": (8, "Bit#(32)"),
     }
     targets = {
         item["name"]: (item["address_bits"], item["element_type"])

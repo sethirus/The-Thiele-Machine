@@ -31,12 +31,15 @@ REGFILE_THRESHOLD = 64
 
 # Names explicitly excluded from the transform even if they meet the threshold,
 # because their write patterns include nested update() expressions that the
-# transform's regex-based rewriter cannot handle correctly.
+# transform's regex-based rewriter cannot handle correctly. The two-dimensional
+# module_tensors register is handled by transform_matrix_regs below instead.
 REGFILE_EXCLUDE = {"ptTable", "module_tensors"}
 
 
 def transform_bsv(bsv: str) -> str:
     """Main transformation: replace large Reg#(Vector#(...)) with RegFile#."""
+
+    bsv = transform_matrix_regs(bsv)
 
     # Step 1: Find large vector register declarations
     decl_pat = re.compile(
@@ -415,6 +418,95 @@ def _split_at_depth0(s: str, delim: str) -> list:
             current.append(c)
     parts.append(''.join(current))
     return parts
+
+
+# Two-dimensional registers written one element at a time. Kami emits these as
+# Reg#(Vector#(R, Vector#(C, T))) with a nested update() on the write path, which
+# the scoped rewriter above cannot handle. As a flat register, every write routes
+# all R*C elements through a row multiplexer and back, which the FPGA router
+# cannot close. The pass below recognises the exact access shapes and maps the
+# register onto one RegFile addressed by {row, column}:
+#   let X = (NAME);                                   -> removed
+#   Vector#(C, T) Y = ((X)[A]);                        -> removed (row read)
+#   ((Y)[B])                                           -> (NAME.sub({A, B}))
+#   ... Z = ((COND ? (update (X, A, update (Y, I, V))) : (X)));
+#   NAME <= Z;                                         -> if (COND) NAME.upd({A, I}, V);
+# mkRegFileFullZero clears every entry after reset before sub/upd are enabled,
+# which preserves the register's reset-to-zero semantics. Any other use of the
+# register fails the transform instead of being rewritten.
+MATRIX_REGS = {"module_tensors"}
+
+
+def transform_matrix_regs(bsv: str) -> str:
+    for name in sorted(MATRIX_REGS):
+        decl = re.compile(
+            r'Reg#\(Vector#\((\d+),\s*Vector#\((\d+),\s*(Bit#\(\d+\))\)\)\)\s+'
+            + re.escape(name) + r'\s+<-\s+mkReg\(unpack\(0\)\);')
+        m = decl.search(bsv)
+        if m is None:
+            continue
+        rows, cols, elem = int(m.group(1)), int(m.group(2)), m.group(3)
+        addr_bits = (rows - 1).bit_length() + (cols - 1).bit_length()
+        bsv = bsv[:m.start()] + (f"RegFile#(Bit#({addr_bits}), {elem}) {name} "
+                                 f"<- mkRegFileFullZero();") + bsv[m.end():]
+
+        aliases = list(re.finditer(r'let (\w+) = \(' + re.escape(name) + r'\);', bsv))
+        if len(aliases) != 1:
+            raise SystemExit(f"matrix transform: expected one alias of {name}, found {len(aliases)}")
+        # Variable names repeat across rules, so every rewrite and check below
+        # is confined to the rule body that holds the alias.
+        start = bsv.rfind('\n    rule ', 0, aliases[0].start())
+        end = bsv.find('endrule', aliases[0].end())
+        if start < 0 or end < 0:
+            raise SystemExit(f"matrix transform: rule body around {name} not found")
+        head, body, tail = bsv[:start], bsv[start:end], bsv[end:]
+        if re.search(r'\b' + re.escape(name) + r'\b', (head + tail).replace(name + ' <- mkRegFileFullZero', '')):
+            raise SystemExit(f"matrix transform: {name} is used outside its rule")
+        bsv = body
+        x = aliases[0].group(1)
+        bsv = re.sub(r'[ \t]*let ' + re.escape(x) + r' = \(' + re.escape(name) + r'\);\n', '', bsv, count=1)
+
+        rows_read = {}
+        row_pat = re.compile(r'[ \t]*Vector#\(' + str(cols) + r', ' + re.escape(elem)
+                             + r'\) (\w+) = \(\(' + re.escape(x) + r'\)\[(\w+)\]\);\n')
+        for rm in row_pat.finditer(bsv):
+            rows_read[rm.group(1)] = rm.group(2)
+        bsv = row_pat.sub('', bsv)
+
+        write = re.compile(
+            r'Vector#\(' + str(rows) + r', Vector#\(' + str(cols) + r', ' + re.escape(elem)
+            + r'\)\) (\w+) = \(\((.*?) \? \(update \(' + re.escape(x) + r', (\w+), update\s+\((\w+), '
+            r'(\w+), (\w+)\)\)\) : \(' + re.escape(x) + r'\)\)\);', re.S)
+        wm = write.search(bsv)
+        if wm is None:
+            raise SystemExit(f"matrix transform: write shape for {name} not found")
+        z, cond, a, y, i, v = wm.groups()
+        depth = 0
+        for ch in cond:
+            depth += (ch == '(') - (ch == ')')
+            if depth < 0:
+                break
+        if depth != 0:
+            raise SystemExit(f"matrix transform: write condition of {name} is not balanced")
+        if rows_read.get(y) != a:
+            raise SystemExit(f"matrix transform: write of {name} does not update the row it read")
+        bsv = bsv[:wm.start()] + f"Bool {z}_we = {cond};" + bsv[wm.end():]
+        commit = name + ' <= ' + z + ';'
+        if bsv.count(commit) != 1:
+            raise SystemExit(f"matrix transform: expected one commit of {name}")
+        bsv = bsv.replace(commit, f"if ({z}_we) {name}.upd({{{a}, {i}}}, {v});")
+
+        for row_var, row_idx in rows_read.items():
+            bsv = re.sub(r'\(\(' + re.escape(row_var) + r'\)\[(\w+)\]\)',
+                         lambda em: f"({name}.sub({{{row_idx}, {em.group(1)}}}))", bsv)
+            if re.search(r'\b' + re.escape(row_var) + r'\b', bsv):
+                raise SystemExit(f"matrix transform: row {row_var} of {name} is used another way")
+        if re.search(r'\b' + re.escape(x) + r'\b', bsv):
+            raise SystemExit(f"matrix transform: alias {x} of {name} is used another way")
+        bsv = head + bsv + tail
+        print(f"  RegFile transform: {name} Vector#({rows}, Vector#({cols}, {elem})) -> "
+              f"RegFile#(Bit#({addr_bits}), {elem})", file=sys.stderr)
+    return bsv
 
 
 if __name__ == '__main__':

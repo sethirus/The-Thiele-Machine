@@ -190,6 +190,7 @@ module thiele_cpu_kami_tb;
     force dut.mem_init = 1'b1;
     force dut.lassert_cbuf_init = 1'b1;
     force dut.lassert_fbuf_init = 1'b1;
+    force dut.module_tensors_init = 1'b1;
     // Also hold halted=1 during loadInstr to prevent RL_step from
     // executing garbage while instructions are being loaded.
     force dut.halted = 1'b1;
@@ -203,6 +204,10 @@ module thiele_cpu_kami_tb;
     for (i = 0; i < 64; i = i + 1) begin
       dut.lassert_cbuf.arr[i] = 32'd0;
       dut.lassert_fbuf.arr[i] = 32'd0;
+    end
+    // module_tensors is a 256-entry RegFile addressed by {module, cell}.
+    for (i = 0; i < 256; i = i + 1) begin
+      dut.module_tensors.arr[i] = 32'd0;
     end
 
     // loadInstr port is 135-bit: {addr[6:0], data[127:0]} (MemAddrSz=7)
@@ -369,7 +374,7 @@ module thiele_cpu_kami_tb;
     for (tensor_module = 0; tensor_module < 16; tensor_module = tensor_module + 1) begin
       $write("    [");
       for (tensor_cell = 0; tensor_cell < 16; tensor_cell = tensor_cell + 1) begin
-        $write("%0d", dut.module_tensors[(tensor_module * 16 + tensor_cell) * 32 +: 32]);
+        $write("%0d", dut.module_tensors.arr[tensor_module * 16 + tensor_cell]);
         if (tensor_cell < 15) $write(",");
       end
       if (tensor_module < 15) $display("],");

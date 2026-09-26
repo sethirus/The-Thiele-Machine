@@ -20,26 +20,23 @@
 # Chipdb (xc7k325tffg900-2.bin) is generated at run-time via bbaexport +
 # bbasm — too large (~90MB) to commit per part.
 #
-# Why K325T with `-nodsp`: yosys's DSP48E1 inference for
-# column_contractive_check_witness maps onto more DSP slices than K325T's 840
-# (and the wider operand widths force chained DSPs that slow openXC7's
-# nextpnr-xilinx placer to 1-2+ hours, sometimes timing out). Rather than
-# escalating to a bigger part (K420T has no parent-dir tilegrid in openXC7's
-# prjxray-db; K480T is not the Genesys 2 device), we use two complementary
-# changes:
+# How the design fits K325T (K420T has no parent-dir tilegrid in openXC7's
+# prjxray-db; K480T is not the Genesys 2 device):
 #   (1) instr_chsh_lassert's witness check is implemented in Kami as a
 #       23-phase FSM (`chsh_lassert_fsm` rule in
 #       coq/kami_hw/ThieleCPUCore.v) that time-shares one 384×384 SignUU
 #       multiplier across the 22 wide multiplications it needs, so only one
-#       wide multiply is live per cycle (Coq spec is still single-step;
+#       wide multiply is live per cycle. The Coq spec is still single-step;
 #       multi-cycle execution is a Kami-implementation detail invisible to
-#       the spec — same pattern as instr_lassert).
-#   (2) DSP inference is disabled in synth_xc7.ys (`-nodsp`) so yosys maps
-#       the multiplier to LUTs.
+#       the spec, the same pattern as instr_lassert.
+#   (2) synth_xc7.ys leaves DSP inference on, so that multiplier lands in
+#       DSP48E1 slices instead of LUTs. Built from LUTs (`-nodsp`) it pushes
+#       the design to about 160K LUTs, past what nextpnr-xilinx can route
+#       inside the CI time limit.
+#   (3) The 16×16 module tensor store is a 256-entry RegFile (LUT RAM), not
+#       flip-flops; see scripts/bsv_regfile_transform.py.
 # DSP vs LUT is a silicon-utilisation choice, not a correctness one; the proof
-# chain (Coq → OCaml → Bluespec → Verilog) is identical either way. We accept
-# the LUT cost in exchange for an open-source flow that targets the board's
-# actual Kintex-7 part.
+# chain (Coq → OCaml → Bluespec → Verilog) is identical either way.
 #
 # Outputs in build/:
 #   - thiele_xc7k325t.json     (yosys post-synthesis netlist)
