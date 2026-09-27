@@ -14,28 +14,28 @@ Definition hw_ltb {n} (a b : word n) : bool := if wlt_dec a b then true else fal
 Definition hw_absdiffw {n} (x y : word n) : word n :=
   if negb (hw_ltb x y) then wminus x y else wminus y x.
 
-(** Products as the FSM forms them: both operands zero-extended to 128 and
-    then 256 bits, one 256-bit multiplication, truncation to the result width. *)
-Definition m128 (x y : word 64) : word 128 :=
-  split1 128 128 (wmult (evalZeroExtendTrunc 256 (evalZeroExtendTrunc 128 x))
-                        (evalZeroExtendTrunc 256 (evalZeroExtendTrunc 128 y))).
-Definition m256 (x y : word 128) : word 256 :=
-  wmult (evalZeroExtendTrunc 256 x) (evalZeroExtendTrunc 256 y).
+(** Products as the FSM forms them: both operands zero-extended to 67 and
+    then 134 bits, one 134-bit multiplication, truncation to the result width. *)
+Definition m67 (x y : word 64) : word 67 :=
+  split1 67 67 (wmult (evalZeroExtendTrunc 134 (evalZeroExtendTrunc 67 x))
+                      (evalZeroExtendTrunc 134 (evalZeroExtendTrunc 67 y))).
+Definition m134 (x y : word 67) : word 134 :=
+  wmult (evalZeroExtendTrunc 134 x) (evalZeroExtendTrunc 134 y).
 
-(** The product of two 256-bit magnitudes modulo 2^384. *)
-Definition m384 (x y : word 256) : word 384 :=
-  split1 384 384 (wmult (evalZeroExtendTrunc 768 x) (evalZeroExtendTrunc 768 y)).
+(** The product of two 134-bit magnitudes, which always fits in 268 bits. *)
+Definition m268 (x y : word 134) : word 268 :=
+  split1 268 268 (wmult (evalZeroExtendTrunc 536 x) (evalZeroExtendTrunc 536 y)).
 
-(** [m384] as the FSM forms it over four phases: the four 128x128 partial
+(** [m268] as the FSM forms it over four phases: the four 67x67 partial
     products of the operand halves, shifted into place by concatenation with
-    zeros and summed at 384 bits. *)
-Definition m384_parts (x y : word 256) : word 384 :=
-  let xl := split1 128 128 x in let xh := split2 128 128 x in
-  let yl := split1 128 128 y in let yh := split2 128 128 y in
-  wplus (wplus (wplus (evalZeroExtendTrunc 384 (m256 xl yl))
-                      (combine (natToWord 128 0) (m256 xl yh)))
-               (combine (natToWord 128 0) (m256 xh yl)))
-        (combine (natToWord 256 0) (split1 128 128 (m256 xh yh))).
+    zeros and summed at 268 bits. *)
+Definition m268_parts (x y : word 134) : word 268 :=
+  let xl := split1 67 67 x in let xh := split2 67 67 x in
+  let yl := split1 67 67 y in let yh := split2 67 67 y in
+  wplus (wplus (wplus (evalZeroExtendTrunc 268 (m134 xl yl))
+                      (evalZeroExtendTrunc 268 (combine (natToWord 67 0) (m134 xl yh))))
+               (evalZeroExtendTrunc 268 (combine (natToWord 67 0) (m134 xh yl))))
+        (combine (natToWord 134 0) (m134 xh yh)).
 
 Lemma evalZeroExtendTrunc_nat : forall n1 n2 (w : word n1),
   n1 < n2 -> wordToNat (evalZeroExtendTrunc n2 w) = wordToNat w.
@@ -81,25 +81,25 @@ Qed.
 Lemma pow2_mono : forall a b, a <= b -> pow2 a <= pow2 b.
 Proof. intros. apply Nat.pow_le_mono_r; lia. Qed.
 
-Lemma m128_nat : forall x y, wordToNat x * wordToNat y < pow2 128 ->
-  wordToNat (m128 x y) = wordToNat x * wordToNat y.
+Lemma m67_nat : forall x y, wordToNat x * wordToNat y < pow2 67 ->
+  wordToNat (m67 x y) = wordToNat x * wordToNat y.
 Proof.
-  intros x y H. unfold m128. rewrite (wordToNat_split1 128 128), wordToNat_wmult, !evalZeroExtendTrunc_nat by lia.
+  intros x y H. unfold m67. rewrite (wordToNat_split1 67 67), wordToNat_wmult, !evalZeroExtendTrunc_nat by lia.
   rewrite (Nat.mod_small (wordToNat x * wordToNat y)) by (eapply Nat.lt_le_trans; [exact H|apply pow2_mono; lia]).
   apply Nat.mod_small. exact H.
 Qed.
 
-Lemma m256_nat : forall x y, wordToNat x * wordToNat y < pow2 256 ->
-  wordToNat (m256 x y) = wordToNat x * wordToNat y.
+Lemma m134_nat : forall x y, wordToNat x * wordToNat y < pow2 134 ->
+  wordToNat (m134 x y) = wordToNat x * wordToNat y.
 Proof.
-  intros x y H. unfold m256. rewrite wordToNat_wmult, !evalZeroExtendTrunc_nat by lia.
+  intros x y H. unfold m134. rewrite wordToNat_wmult, !evalZeroExtendTrunc_nat by lia.
   apply Nat.mod_small. exact H.
 Qed.
 
-Lemma m384_nat : forall x y, wordToNat x * wordToNat y < pow2 384 ->
-  wordToNat (m384 x y) = wordToNat x * wordToNat y.
+Lemma m268_nat : forall x y, wordToNat x * wordToNat y < pow2 268 ->
+  wordToNat (m268 x y) = wordToNat x * wordToNat y.
 Proof.
-  intros x y H. unfold m384. rewrite (wordToNat_split1 384 384), wordToNat_wmult, !evalZeroExtendTrunc_nat by lia.
+  intros x y H. unfold m268. rewrite (wordToNat_split1 268 268), wordToNat_wmult, !evalZeroExtendTrunc_nat by lia.
   rewrite (Nat.mod_small (wordToNat x * wordToNat y)) by (eapply Nat.lt_le_trans; [exact H|apply pow2_mono; lia]).
   apply Nat.mod_small. exact H.
 Qed.
@@ -110,77 +110,65 @@ Proof. intros. rewrite Nat.pow_add_r. nia. Qed.
 Lemma lt_pow2_mono : forall x a b, x < pow2 a -> a <= b -> x < pow2 b.
 Proof. intros. eapply Nat.lt_le_trans; [eassumption|apply pow2_mono; lia]. Qed.
 
-(** Schoolbook multiplication in base [M], keeping three digits: summing the
-    partial products one at a time modulo [M^3], with the top partial
-    product cut to one digit, gives the full product modulo [M^3]. *)
-Lemma parts_nat : forall M XL XH YL YH, M <> 0 ->
-  (((XL * YL + M * (XL * YH)) mod (M * M * M) + M * (XH * YL)) mod (M * M * M)
-     + M * M * ((XH * YH) mod M)) mod (M * M * M)
-  = ((XL + M * XH) * (YL + M * YH)) mod (M * M * M).
+(** Schoolbook multiplication in base [M]: summing the partial products one
+    at a time modulo [N] gives the full product modulo [N]. *)
+Lemma parts_nat : forall M N XL XH YL YH, N <> 0 ->
+  (((XL * YL + M * (XL * YH)) mod N + M * (XH * YL)) mod N + M * M * (XH * YH)) mod N
+  = ((XL + M * XH) * (YL + M * YH)) mod N.
 Proof.
-  intros M XL XH YL YH HM.
-  assert (HN : M * M * M <> 0) by (apply Nat.neq_mul_0; split; [apply Nat.neq_mul_0|]; tauto).
+  intros M N XL XH YL YH HN.
   rewrite Nat.Div0.add_mod_idemp_l, <- Nat.add_assoc, Nat.Div0.add_mod_idemp_l, Nat.add_assoc.
-  pose proof (Nat.div_mod (XH * YH) M HM) as E.
-  set (q := (XH * YH) / M) in *. set (r := (XH * YH) mod M) in *.
-  assert (Hexp : (XL + M * XH) * (YL + M * YH) =
-                 XL * YL + M * (XL * YH) + M * (XH * YL) + M * M * r + q * (M * M * M)).
-  { transitivity (XL * YL + M * (XL * YH) + M * (XH * YL) + M * M * (XH * YH)); [ring|].
-    rewrite E. ring. }
-  rewrite Hexp, Nat.mod_add by exact HN. reflexivity.
+  f_equal. ring.
 Qed.
 
-Lemma m256_exact : forall x y : word 128, wordToNat (m256 x y) = wordToNat x * wordToNat y.
+Lemma m134_exact : forall x y : word 67, wordToNat (m134 x y) = wordToNat x * wordToNat y.
 Proof.
-  intros x y. apply m256_nat. change (pow2 256) with (pow2 (128 + 128)).
+  intros x y. apply m134_nat. change (pow2 134) with (pow2 (67 + 67)).
   apply mul_pow2_lt; apply wordToNat_bound.
 Qed.
 
-Lemma m384_mod : forall x y : word 256,
-  wordToNat (m384 x y) = (wordToNat x * wordToNat y) mod pow2 384.
+Lemma m268_exact : forall x y : word 134, wordToNat (m268 x y) = wordToNat x * wordToNat y.
 Proof.
-  intros x y. unfold m384. rewrite (wordToNat_split1 384 384), wordToNat_wmult, !evalZeroExtendTrunc_nat by lia.
-  rewrite (Nat.mod_small (wordToNat x * wordToNat y)); [reflexivity|].
-  apply (lt_pow2_mono _ (256 + 256)); [apply mul_pow2_lt; apply wordToNat_bound|lia].
+  intros x y. apply m268_nat. change (pow2 268) with (pow2 (134 + 134)).
+  apply mul_pow2_lt; apply wordToNat_bound.
 Qed.
 
-Lemma wordToNat_lo128 : forall w : word 256, wordToNat (split1 128 128 w) = wordToNat w mod pow2 128.
-Proof. intro w. exact (wordToNat_split1 128 128 w). Qed.
+Lemma wordToNat_lo67 : forall w : word 134, wordToNat (split1 67 67 w) = wordToNat w mod pow2 67.
+Proof. intro w. exact (wordToNat_split1 67 67 w). Qed.
 
-Lemma wordToNat_halves : forall w : word 256,
-  wordToNat w = wordToNat (split1 128 128 w) + pow2 128 * wordToNat (split2 128 128 w).
+Lemma wordToNat_halves : forall w : word 134,
+  wordToNat w = wordToNat (split1 67 67 w) + pow2 67 * wordToNat (split2 67 67 w).
 Proof. intro w. rewrite <- wordToNat_combine, combine_split. reflexivity. Qed.
 
-(** A 384-bit word built from a product and low zeros, stated at the 384-bit
+(** 268-bit words built from a product and low zeros, stated at the 268-bit
     width the FSM's sums use. *)
-Lemma wordToNat_shift128 : forall w : word 256,
-  @wordToNat 384 (combine (natToWord 128 0) w) = pow2 128 * wordToNat w.
+Lemma wordToNat_shift67 : forall w : word 134,
+  @wordToNat 268 (evalZeroExtendTrunc 268 (combine (natToWord 67 0) w)) = pow2 67 * wordToNat w.
 Proof.
-  intro w. change (@wordToNat 384 (combine (natToWord 128 0) w))
-    with (@wordToNat (128 + 256) (combine (natToWord 128 0) w)).
+  intro w. rewrite evalZeroExtendTrunc_nat by lia.
   rewrite wordToNat_combine, roundTrip_0. reflexivity.
 Qed.
 
-Lemma wordToNat_shift256 : forall w : word 128,
-  @wordToNat 384 (combine (natToWord 256 0) w) = pow2 256 * wordToNat w.
+Lemma wordToNat_shift134 : forall w : word 134,
+  @wordToNat 268 (combine (natToWord 134 0) w) = pow2 134 * wordToNat w.
 Proof.
-  intro w. change (@wordToNat 384 (combine (natToWord 256 0) w))
-    with (@wordToNat (256 + 128) (combine (natToWord 256 0) w)).
+  intro w. change (@wordToNat 268 (combine (natToWord 134 0) w))
+    with (@wordToNat (134 + 134) (combine (natToWord 134 0) w)).
   rewrite wordToNat_combine, roundTrip_0. reflexivity.
 Qed.
 
-(** The four-phase sum the FSM accumulates is the 384-bit product. *)
-Lemma m384_parts_eq : forall x y : word 256, m384_parts x y = m384 x y.
+(** The four-phase sum the FSM accumulates is the 268-bit product. *)
+Lemma m268_parts_eq : forall x y : word 134, m268_parts x y = m268 x y.
 Proof.
-  intros x y. apply wordToNat_inj. rewrite m384_mod.
-  unfold m384_parts. cbv zeta.
-  rewrite !wordToNat_wplus, !wordToNat_shift128, wordToNat_shift256.
+  intros x y. apply wordToNat_inj. rewrite m268_exact.
+  rewrite <- (Nat.mod_small (wordToNat x * wordToNat y) (pow2 268))
+    by (change (pow2 268) with (pow2 (134 + 134)); apply mul_pow2_lt; apply wordToNat_bound).
+  unfold m268_parts. cbv zeta.
+  rewrite !wordToNat_wplus, !wordToNat_shift67, wordToNat_shift134.
   rewrite evalZeroExtendTrunc_nat by lia.
-  rewrite wordToNat_lo128, !m256_exact.
+  rewrite !m134_exact.
   rewrite (wordToNat_halves x), (wordToNat_halves y).
-  replace (pow2 256) with (pow2 128 * pow2 128) by (rewrite <- Nat.pow_add_r; reflexivity).
-  replace (pow2 384) with (pow2 128 * pow2 128 * pow2 128)
-    by (rewrite <- !Nat.pow_add_r; reflexivity).
+  replace (pow2 134) with (pow2 67 * pow2 67) by (rewrite <- Nat.pow_add_r; reflexivity).
   apply parts_nat. apply Nat.pow_nonzero. lia.
 Qed.
 
@@ -201,21 +189,21 @@ Definition chsh_latch_abs (s d : word 32) : word 64 :=
 
 (** The FSM's arithmetic over the latched values. *)
 Definition chsh_check_word (n00 n01 n10 n11 a00 a01 a10 a11 : word 64) (g00 g01 g10 g11 : bool) : bool :=
-  let n00sq := m128 n00 n00 in let n01sq := m128 n01 n01 in
-  let n10sq := m128 n10 n10 in let n11sq := m128 n11 n11 in
-  let d00sq := m128 a00 a00 in let d01sq := m128 a01 a01 in
-  let d10sq := m128 a10 a10 in let d11sq := m128 a11 a11 in
-  let A_pos := m256 n00sq n10sq in
-  let A_neg := wplus (m256 d00sq n10sq) (m256 d10sq n00sq) in
-  let B_pos := m256 n01sq n11sq in
-  let B_neg := wplus (m256 d01sq n11sq) (m256 d11sq n01sq) in
-  let C1 := m256 (m128 a00 a01) (m128 n10 n11) in
-  let C2 := m256 (m128 a10 a11) (m128 n00 n01) in
+  let n00sq := m67 n00 n00 in let n01sq := m67 n01 n01 in
+  let n10sq := m67 n10 n10 in let n11sq := m67 n11 n11 in
+  let d00sq := m67 a00 a00 in let d01sq := m67 a01 a01 in
+  let d10sq := m67 a10 a10 in let d11sq := m67 a11 a11 in
+  let A_pos := m134 n00sq n10sq in
+  let A_neg := wplus (m134 d00sq n10sq) (m134 d10sq n00sq) in
+  let B_pos := m134 n01sq n11sq in
+  let B_neg := wplus (m134 d01sq n11sq) (m134 d11sq n01sq) in
+  let C1 := m134 (m67 a00 a01) (m67 n10 n11) in
+  let C2 := m134 (m67 a10 a11) (m67 n00 n01) in
   let absC := if Bool.eqb (xorb g00 g01) (xorb g10 g11) then wplus C1 C2 else hw_absdiffw C1 C2 in
   let A_ge0 := negb (hw_ltb A_pos A_neg) in
   let B_ge0 := negb (hw_ltb B_pos B_neg) in
-  let Csq := m384 absC absC in
-  let AB := m384 (hw_absdiffw A_pos A_neg) (hw_absdiffw B_pos B_neg) in
+  let Csq := m268 absC absC in
+  let AB := m268 (hw_absdiffw A_pos A_neg) (hw_absdiffw B_pos B_neg) in
   andb (andb (andb (andb (negb (hw_eqb n00 (natToWord 64 0))) (negb (hw_eqb n01 (natToWord 64 0))))
                    (andb (negb (hw_eqb n10 (natToWord 64 0))) (negb (hw_eqb n11 (natToWord 64 0)))))
              (andb A_ge0 B_ge0))
@@ -413,30 +401,30 @@ Proof.
   assert (Ea11 : wordToNat aw11 = chsh_absd (wordToNat s11) (wordToNat d11)) by apply latch_abs_nat.
   assert (BN11 : wordToNat s11 + wordToNat d11 < pow2 33) by exact (add_pow2_lt _ _ 32 Bs11 Bd11).
   assert (BA11 : chsh_absd (wordToNat s11) (wordToNat d11) < pow2 33) by exact (lt_pow2_mono _ 32 33 (absd_lt _ _ 32 Bs11 Bd11) ltac:(lia)).
-  assert (Enn00 : wordToNat (m128 nw00 nw00) = (wordToNat s00 + wordToNat d00) * (wordToNat s00 + wordToNat d00)) by (rewrite m128_nat; rewrite ?En00, ?En00; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BN00|exact BN00]|lia]]).
-  assert (Eaa00 : wordToNat (m128 aw00 aw00) = (chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s00) (wordToNat d00))) by (rewrite m128_nat; rewrite ?Ea00, ?Ea00; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BA00|exact BA00]|lia]]).
-  assert (Enn01 : wordToNat (m128 nw01 nw01) = (wordToNat s01 + wordToNat d01) * (wordToNat s01 + wordToNat d01)) by (rewrite m128_nat; rewrite ?En01, ?En01; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BN01|exact BN01]|lia]]).
-  assert (Eaa01 : wordToNat (m128 aw01 aw01) = (chsh_absd (wordToNat s01) (wordToNat d01)) * (chsh_absd (wordToNat s01) (wordToNat d01))) by (rewrite m128_nat; rewrite ?Ea01, ?Ea01; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BA01|exact BA01]|lia]]).
-  assert (Enn10 : wordToNat (m128 nw10 nw10) = (wordToNat s10 + wordToNat d10) * (wordToNat s10 + wordToNat d10)) by (rewrite m128_nat; rewrite ?En10, ?En10; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BN10|exact BN10]|lia]]).
-  assert (Eaa10 : wordToNat (m128 aw10 aw10) = (chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s10) (wordToNat d10))) by (rewrite m128_nat; rewrite ?Ea10, ?Ea10; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BA10|exact BA10]|lia]]).
-  assert (Enn11 : wordToNat (m128 nw11 nw11) = (wordToNat s11 + wordToNat d11) * (wordToNat s11 + wordToNat d11)) by (rewrite m128_nat; rewrite ?En11, ?En11; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BN11|exact BN11]|lia]]).
-  assert (Eaa11 : wordToNat (m128 aw11 aw11) = (chsh_absd (wordToNat s11) (wordToNat d11)) * (chsh_absd (wordToNat s11) (wordToNat d11))) by (rewrite m128_nat; rewrite ?Ea11, ?Ea11; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BA11|exact BA11]|lia]]).
-  assert (Ep1 : wordToNat (m128 aw00 aw01) = (chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s01) (wordToNat d01))) by (rewrite m128_nat; rewrite ?Ea00, ?Ea01; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BA00|exact BA01]|lia]]).
-  assert (Eq1 : wordToNat (m128 nw10 nw11) = (wordToNat s10 + wordToNat d10) * (wordToNat s11 + wordToNat d11)) by (rewrite m128_nat; rewrite ?En10, ?En11; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BN10|exact BN11]|lia]]).
-  assert (Ep2 : wordToNat (m128 aw10 aw11) = (chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s11) (wordToNat d11))) by (rewrite m128_nat; rewrite ?Ea10, ?Ea11; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BA10|exact BA11]|lia]]).
-  assert (Eq2 : wordToNat (m128 nw00 nw01) = (wordToNat s00 + wordToNat d00) * (wordToNat s01 + wordToNat d01)) by (rewrite m128_nat; rewrite ?En00, ?En01; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BN00|exact BN01]|lia]]).
+  assert (Enn00 : wordToNat (m67 nw00 nw00) = (wordToNat s00 + wordToNat d00) * (wordToNat s00 + wordToNat d00)) by (rewrite m67_nat; rewrite ?En00, ?En00; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BN00|exact BN00]|lia]]).
+  assert (Eaa00 : wordToNat (m67 aw00 aw00) = (chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s00) (wordToNat d00))) by (rewrite m67_nat; rewrite ?Ea00, ?Ea00; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BA00|exact BA00]|lia]]).
+  assert (Enn01 : wordToNat (m67 nw01 nw01) = (wordToNat s01 + wordToNat d01) * (wordToNat s01 + wordToNat d01)) by (rewrite m67_nat; rewrite ?En01, ?En01; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BN01|exact BN01]|lia]]).
+  assert (Eaa01 : wordToNat (m67 aw01 aw01) = (chsh_absd (wordToNat s01) (wordToNat d01)) * (chsh_absd (wordToNat s01) (wordToNat d01))) by (rewrite m67_nat; rewrite ?Ea01, ?Ea01; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BA01|exact BA01]|lia]]).
+  assert (Enn10 : wordToNat (m67 nw10 nw10) = (wordToNat s10 + wordToNat d10) * (wordToNat s10 + wordToNat d10)) by (rewrite m67_nat; rewrite ?En10, ?En10; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BN10|exact BN10]|lia]]).
+  assert (Eaa10 : wordToNat (m67 aw10 aw10) = (chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s10) (wordToNat d10))) by (rewrite m67_nat; rewrite ?Ea10, ?Ea10; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BA10|exact BA10]|lia]]).
+  assert (Enn11 : wordToNat (m67 nw11 nw11) = (wordToNat s11 + wordToNat d11) * (wordToNat s11 + wordToNat d11)) by (rewrite m67_nat; rewrite ?En11, ?En11; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BN11|exact BN11]|lia]]).
+  assert (Eaa11 : wordToNat (m67 aw11 aw11) = (chsh_absd (wordToNat s11) (wordToNat d11)) * (chsh_absd (wordToNat s11) (wordToNat d11))) by (rewrite m67_nat; rewrite ?Ea11, ?Ea11; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BA11|exact BA11]|lia]]).
+  assert (Ep1 : wordToNat (m67 aw00 aw01) = (chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s01) (wordToNat d01))) by (rewrite m67_nat; rewrite ?Ea00, ?Ea01; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BA00|exact BA01]|lia]]).
+  assert (Eq1 : wordToNat (m67 nw10 nw11) = (wordToNat s10 + wordToNat d10) * (wordToNat s11 + wordToNat d11)) by (rewrite m67_nat; rewrite ?En10, ?En11; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BN10|exact BN11]|lia]]).
+  assert (Ep2 : wordToNat (m67 aw10 aw11) = (chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s11) (wordToNat d11))) by (rewrite m67_nat; rewrite ?Ea10, ?Ea11; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BA10|exact BA11]|lia]]).
+  assert (Eq2 : wordToNat (m67 nw00 nw01) = (wordToNat s00 + wordToNat d00) * (wordToNat s01 + wordToNat d01)) by (rewrite m67_nat; rewrite ?En00, ?En01; [reflexivity|eapply lt_pow2_mono; [apply (mul_pow2_lt _ _ 33 33); [exact BN00|exact BN01]|lia]]).
   assert (Sq66 : forall x y, x < pow2 33 -> y < pow2 33 -> x * y < pow2 66)
     by (intros x y Hx Hy; exact (mul_pow2_lt _ _ 33 33 Hx Hy)).
   assert (P132 : forall x y, x < pow2 66 -> y < pow2 66 -> x * y < pow2 132)
     by (intros x y Hx Hy; exact (mul_pow2_lt _ _ 66 66 Hx Hy)).
-  assert (EAp : wordToNat (m256 (m128 nw00 nw00) (m128 nw10 nw10)) = ((wordToNat s00 + wordToNat d00) * (wordToNat s00 + wordToNat d00)) * ((wordToNat s10 + wordToNat d10) * (wordToNat s10 + wordToNat d10))) by (rewrite m256_nat; rewrite ?Enn00, ?Enn10; [reflexivity|eapply lt_pow2_mono; [apply P132; [apply Sq66; apply BN00|apply Sq66; apply BN10]|lia]]).
-  assert (EAn1 : wordToNat (m256 (m128 aw00 aw00) (m128 nw10 nw10)) = ((chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s00) (wordToNat d00))) * ((wordToNat s10 + wordToNat d10) * (wordToNat s10 + wordToNat d10))) by (rewrite m256_nat; rewrite ?Eaa00, ?Enn10; [reflexivity|eapply lt_pow2_mono; [apply P132; [apply Sq66; apply BA00|apply Sq66; apply BN10]|lia]]).
-  assert (EAn2 : wordToNat (m256 (m128 aw10 aw10) (m128 nw00 nw00)) = ((chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s10) (wordToNat d10))) * ((wordToNat s00 + wordToNat d00) * (wordToNat s00 + wordToNat d00))) by (rewrite m256_nat; rewrite ?Eaa10, ?Enn00; [reflexivity|eapply lt_pow2_mono; [apply P132; [apply Sq66; apply BA10|apply Sq66; apply BN00]|lia]]).
-  assert (EBp : wordToNat (m256 (m128 nw01 nw01) (m128 nw11 nw11)) = ((wordToNat s01 + wordToNat d01) * (wordToNat s01 + wordToNat d01)) * ((wordToNat s11 + wordToNat d11) * (wordToNat s11 + wordToNat d11))) by (rewrite m256_nat; rewrite ?Enn01, ?Enn11; [reflexivity|eapply lt_pow2_mono; [apply P132; [apply Sq66; apply BN01|apply Sq66; apply BN11]|lia]]).
-  assert (EBn1 : wordToNat (m256 (m128 aw01 aw01) (m128 nw11 nw11)) = ((chsh_absd (wordToNat s01) (wordToNat d01)) * (chsh_absd (wordToNat s01) (wordToNat d01))) * ((wordToNat s11 + wordToNat d11) * (wordToNat s11 + wordToNat d11))) by (rewrite m256_nat; rewrite ?Eaa01, ?Enn11; [reflexivity|eapply lt_pow2_mono; [apply P132; [apply Sq66; apply BA01|apply Sq66; apply BN11]|lia]]).
-  assert (EBn2 : wordToNat (m256 (m128 aw11 aw11) (m128 nw01 nw01)) = ((chsh_absd (wordToNat s11) (wordToNat d11)) * (chsh_absd (wordToNat s11) (wordToNat d11))) * ((wordToNat s01 + wordToNat d01) * (wordToNat s01 + wordToNat d01))) by (rewrite m256_nat; rewrite ?Eaa11, ?Enn01; [reflexivity|eapply lt_pow2_mono; [apply P132; [apply Sq66; apply BA11|apply Sq66; apply BN01]|lia]]).
-  assert (EC1 : wordToNat (m256 (m128 aw00 aw01) (m128 nw10 nw11)) = ((chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s01) (wordToNat d01))) * ((wordToNat s10 + wordToNat d10) * (wordToNat s11 + wordToNat d11))) by (rewrite m256_nat; rewrite ?Ep1, ?Eq1; [reflexivity|eapply lt_pow2_mono; [apply P132; [apply Sq66; [apply BA00|apply BA01]|apply Sq66; [apply BN10|apply BN11]]|lia]]).
-  assert (EC2 : wordToNat (m256 (m128 aw10 aw11) (m128 nw00 nw01)) = ((chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s11) (wordToNat d11))) * ((wordToNat s00 + wordToNat d00) * (wordToNat s01 + wordToNat d01))) by (rewrite m256_nat; rewrite ?Ep2, ?Eq2; [reflexivity|eapply lt_pow2_mono; [apply P132; [apply Sq66; [apply BA10|apply BA11]|apply Sq66; [apply BN00|apply BN01]]|lia]]).
+  assert (EAp : wordToNat (m134 (m67 nw00 nw00) (m67 nw10 nw10)) = ((wordToNat s00 + wordToNat d00) * (wordToNat s00 + wordToNat d00)) * ((wordToNat s10 + wordToNat d10) * (wordToNat s10 + wordToNat d10))) by (rewrite m134_nat; rewrite ?Enn00, ?Enn10; [reflexivity|eapply lt_pow2_mono; [apply P132; [apply Sq66; apply BN00|apply Sq66; apply BN10]|lia]]).
+  assert (EAn1 : wordToNat (m134 (m67 aw00 aw00) (m67 nw10 nw10)) = ((chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s00) (wordToNat d00))) * ((wordToNat s10 + wordToNat d10) * (wordToNat s10 + wordToNat d10))) by (rewrite m134_nat; rewrite ?Eaa00, ?Enn10; [reflexivity|eapply lt_pow2_mono; [apply P132; [apply Sq66; apply BA00|apply Sq66; apply BN10]|lia]]).
+  assert (EAn2 : wordToNat (m134 (m67 aw10 aw10) (m67 nw00 nw00)) = ((chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s10) (wordToNat d10))) * ((wordToNat s00 + wordToNat d00) * (wordToNat s00 + wordToNat d00))) by (rewrite m134_nat; rewrite ?Eaa10, ?Enn00; [reflexivity|eapply lt_pow2_mono; [apply P132; [apply Sq66; apply BA10|apply Sq66; apply BN00]|lia]]).
+  assert (EBp : wordToNat (m134 (m67 nw01 nw01) (m67 nw11 nw11)) = ((wordToNat s01 + wordToNat d01) * (wordToNat s01 + wordToNat d01)) * ((wordToNat s11 + wordToNat d11) * (wordToNat s11 + wordToNat d11))) by (rewrite m134_nat; rewrite ?Enn01, ?Enn11; [reflexivity|eapply lt_pow2_mono; [apply P132; [apply Sq66; apply BN01|apply Sq66; apply BN11]|lia]]).
+  assert (EBn1 : wordToNat (m134 (m67 aw01 aw01) (m67 nw11 nw11)) = ((chsh_absd (wordToNat s01) (wordToNat d01)) * (chsh_absd (wordToNat s01) (wordToNat d01))) * ((wordToNat s11 + wordToNat d11) * (wordToNat s11 + wordToNat d11))) by (rewrite m134_nat; rewrite ?Eaa01, ?Enn11; [reflexivity|eapply lt_pow2_mono; [apply P132; [apply Sq66; apply BA01|apply Sq66; apply BN11]|lia]]).
+  assert (EBn2 : wordToNat (m134 (m67 aw11 aw11) (m67 nw01 nw01)) = ((chsh_absd (wordToNat s11) (wordToNat d11)) * (chsh_absd (wordToNat s11) (wordToNat d11))) * ((wordToNat s01 + wordToNat d01) * (wordToNat s01 + wordToNat d01))) by (rewrite m134_nat; rewrite ?Eaa11, ?Enn01; [reflexivity|eapply lt_pow2_mono; [apply P132; [apply Sq66; apply BA11|apply Sq66; apply BN01]|lia]]).
+  assert (EC1 : wordToNat (m134 (m67 aw00 aw01) (m67 nw10 nw11)) = ((chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s01) (wordToNat d01))) * ((wordToNat s10 + wordToNat d10) * (wordToNat s11 + wordToNat d11))) by (rewrite m134_nat; rewrite ?Ep1, ?Eq1; [reflexivity|eapply lt_pow2_mono; [apply P132; [apply Sq66; [apply BA00|apply BA01]|apply Sq66; [apply BN10|apply BN11]]|lia]]).
+  assert (EC2 : wordToNat (m134 (m67 aw10 aw11) (m67 nw00 nw01)) = ((chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s11) (wordToNat d11))) * ((wordToNat s00 + wordToNat d00) * (wordToNat s01 + wordToNat d01))) by (rewrite m134_nat; rewrite ?Ep2, ?Eq2; [reflexivity|eapply lt_pow2_mono; [apply P132; [apply Sq66; [apply BA10|apply BA11]|apply Sq66; [apply BN00|apply BN01]]|lia]]).
   rewrite !hw_ltb_nat, !hw_eqb_nat.
   assert (BAp : (wordToNat s00 + wordToNat d00) * (wordToNat s00 + wordToNat d00) * ((wordToNat s10 + wordToNat d10) * (wordToNat s10 + wordToNat d10)) < pow2 132) by exact (P132 _ _ (Sq66 _ _ BN00 BN00) (Sq66 _ _ BN10 BN10)).
   assert (BAn : (chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s00) (wordToNat d00)) * ((wordToNat s10 + wordToNat d10) * (wordToNat s10 + wordToNat d10)) + (chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s10) (wordToNat d10)) * ((wordToNat s00 + wordToNat d00) * (wordToNat s00 + wordToNat d00)) < pow2 133) by exact (add_pow2_lt _ _ 132 (P132 _ _ (Sq66 _ _ BA00 BA00) (Sq66 _ _ BN10 BN10)) (P132 _ _ (Sq66 _ _ BA10 BA10) (Sq66 _ _ BN00 BN00))).
@@ -444,33 +432,33 @@ Proof.
   assert (BBn : (chsh_absd (wordToNat s01) (wordToNat d01)) * (chsh_absd (wordToNat s01) (wordToNat d01)) * ((wordToNat s11 + wordToNat d11) * (wordToNat s11 + wordToNat d11)) + (chsh_absd (wordToNat s11) (wordToNat d11)) * (chsh_absd (wordToNat s11) (wordToNat d11)) * ((wordToNat s01 + wordToNat d01) * (wordToNat s01 + wordToNat d01)) < pow2 133) by exact (add_pow2_lt _ _ 132 (P132 _ _ (Sq66 _ _ BA01 BA01) (Sq66 _ _ BN11 BN11)) (P132 _ _ (Sq66 _ _ BA11 BA11) (Sq66 _ _ BN01 BN01))).
   assert (BC1 : (chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s01) (wordToNat d01)) * ((wordToNat s10 + wordToNat d10) * (wordToNat s11 + wordToNat d11)) < pow2 132) by exact (P132 _ _ (Sq66 _ _ BA00 BA01) (Sq66 _ _ BN10 BN11)).
   assert (BC2 : (chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s11) (wordToNat d11)) * ((wordToNat s00 + wordToNat d00) * (wordToNat s01 + wordToNat d01)) < pow2 132) by exact (P132 _ _ (Sq66 _ _ BA10 BA11) (Sq66 _ _ BN00 BN01)).
-  assert (EAnw : wordToNat (wplus (m256 (m128 aw00 aw00) (m128 nw10 nw10)) (m256 (m128 aw10 aw10) (m128 nw00 nw00))) = (chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s00) (wordToNat d00)) * ((wordToNat s10 + wordToNat d10) * (wordToNat s10 + wordToNat d10)) + (chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s10) (wordToNat d10)) * ((wordToNat s00 + wordToNat d00) * (wordToNat s00 + wordToNat d00))).
+  assert (EAnw : wordToNat (wplus (m134 (m67 aw00 aw00) (m67 nw10 nw10)) (m134 (m67 aw10 aw10) (m67 nw00 nw00))) = (chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s00) (wordToNat d00)) * ((wordToNat s10 + wordToNat d10) * (wordToNat s10 + wordToNat d10)) + (chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s10) (wordToNat d10)) * ((wordToNat s00 + wordToNat d00) * (wordToNat s00 + wordToNat d00))).
   { rewrite wordToNat_wplus', EAn1, EAn2; [reflexivity|]. rewrite EAn1, EAn2.
-    exact (lt_pow2_mono _ 133 256 BAn ltac:(lia)). }
-  assert (EBnw : wordToNat (wplus (m256 (m128 aw01 aw01) (m128 nw11 nw11)) (m256 (m128 aw11 aw11) (m128 nw01 nw01))) = (chsh_absd (wordToNat s01) (wordToNat d01)) * (chsh_absd (wordToNat s01) (wordToNat d01)) * ((wordToNat s11 + wordToNat d11) * (wordToNat s11 + wordToNat d11)) + (chsh_absd (wordToNat s11) (wordToNat d11)) * (chsh_absd (wordToNat s11) (wordToNat d11)) * ((wordToNat s01 + wordToNat d01) * (wordToNat s01 + wordToNat d01))).
+    exact (lt_pow2_mono _ 133 134 BAn ltac:(lia)). }
+  assert (EBnw : wordToNat (wplus (m134 (m67 aw01 aw01) (m67 nw11 nw11)) (m134 (m67 aw11 aw11) (m67 nw01 nw01))) = (chsh_absd (wordToNat s01) (wordToNat d01)) * (chsh_absd (wordToNat s01) (wordToNat d01)) * ((wordToNat s11 + wordToNat d11) * (wordToNat s11 + wordToNat d11)) + (chsh_absd (wordToNat s11) (wordToNat d11)) * (chsh_absd (wordToNat s11) (wordToNat d11)) * ((wordToNat s01 + wordToNat d01) * (wordToNat s01 + wordToNat d01))).
   { rewrite wordToNat_wplus', EBn1, EBn2; [reflexivity|]. rewrite EBn1, EBn2.
-    exact (lt_pow2_mono _ 133 256 BBn ltac:(lia)). }
-  assert (EabsA : wordToNat (hw_absdiffw (m256 (m128 nw00 nw00) (m128 nw10 nw10)) (wplus (m256 (m128 aw00 aw00) (m128 nw10 nw10)) (m256 (m128 aw10 aw10) (m128 nw00 nw00)))) = chsh_absdiff ((wordToNat s00 + wordToNat d00) * (wordToNat s00 + wordToNat d00) * ((wordToNat s10 + wordToNat d10) * (wordToNat s10 + wordToNat d10))) ((chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s00) (wordToNat d00)) * ((wordToNat s10 + wordToNat d10) * (wordToNat s10 + wordToNat d10)) + (chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s10) (wordToNat d10)) * ((wordToNat s00 + wordToNat d00) * (wordToNat s00 + wordToNat d00))))
+    exact (lt_pow2_mono _ 133 134 BBn ltac:(lia)). }
+  assert (EabsA : wordToNat (hw_absdiffw (m134 (m67 nw00 nw00) (m67 nw10 nw10)) (wplus (m134 (m67 aw00 aw00) (m67 nw10 nw10)) (m134 (m67 aw10 aw10) (m67 nw00 nw00)))) = chsh_absdiff ((wordToNat s00 + wordToNat d00) * (wordToNat s00 + wordToNat d00) * ((wordToNat s10 + wordToNat d10) * (wordToNat s10 + wordToNat d10))) ((chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s00) (wordToNat d00)) * ((wordToNat s10 + wordToNat d10) * (wordToNat s10 + wordToNat d10)) + (chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s10) (wordToNat d10)) * ((wordToNat s00 + wordToNat d00) * (wordToNat s00 + wordToNat d00))))
     by (rewrite hw_absdiffw_nat, EAp, EAnw; reflexivity).
-  assert (EabsB : wordToNat (hw_absdiffw (m256 (m128 nw01 nw01) (m128 nw11 nw11)) (wplus (m256 (m128 aw01 aw01) (m128 nw11 nw11)) (m256 (m128 aw11 aw11) (m128 nw01 nw01)))) = chsh_absdiff ((wordToNat s01 + wordToNat d01) * (wordToNat s01 + wordToNat d01) * ((wordToNat s11 + wordToNat d11) * (wordToNat s11 + wordToNat d11))) ((chsh_absd (wordToNat s01) (wordToNat d01)) * (chsh_absd (wordToNat s01) (wordToNat d01)) * ((wordToNat s11 + wordToNat d11) * (wordToNat s11 + wordToNat d11)) + (chsh_absd (wordToNat s11) (wordToNat d11)) * (chsh_absd (wordToNat s11) (wordToNat d11)) * ((wordToNat s01 + wordToNat d01) * (wordToNat s01 + wordToNat d01))))
+  assert (EabsB : wordToNat (hw_absdiffw (m134 (m67 nw01 nw01) (m67 nw11 nw11)) (wplus (m134 (m67 aw01 aw01) (m67 nw11 nw11)) (m134 (m67 aw11 aw11) (m67 nw01 nw01)))) = chsh_absdiff ((wordToNat s01 + wordToNat d01) * (wordToNat s01 + wordToNat d01) * ((wordToNat s11 + wordToNat d11) * (wordToNat s11 + wordToNat d11))) ((chsh_absd (wordToNat s01) (wordToNat d01)) * (chsh_absd (wordToNat s01) (wordToNat d01)) * ((wordToNat s11 + wordToNat d11) * (wordToNat s11 + wordToNat d11)) + (chsh_absd (wordToNat s11) (wordToNat d11)) * (chsh_absd (wordToNat s11) (wordToNat d11)) * ((wordToNat s01 + wordToNat d01) * (wordToNat s01 + wordToNat d01))))
     by (rewrite hw_absdiffw_nat, EBp, EBnw; reflexivity).
   assert (BabsA : chsh_absdiff ((wordToNat s00 + wordToNat d00) * (wordToNat s00 + wordToNat d00) * ((wordToNat s10 + wordToNat d10) * (wordToNat s10 + wordToNat d10))) ((chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s00) (wordToNat d00)) * ((wordToNat s10 + wordToNat d10) * (wordToNat s10 + wordToNat d10)) + (chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s10) (wordToNat d10)) * ((wordToNat s00 + wordToNat d00) * (wordToNat s00 + wordToNat d00))) < pow2 133)
     by exact (absdiff_lt _ _ 133 (lt_pow2_mono _ 132 133 BAp ltac:(lia)) BAn).
   assert (BabsB : chsh_absdiff ((wordToNat s01 + wordToNat d01) * (wordToNat s01 + wordToNat d01) * ((wordToNat s11 + wordToNat d11) * (wordToNat s11 + wordToNat d11))) ((chsh_absd (wordToNat s01) (wordToNat d01)) * (chsh_absd (wordToNat s01) (wordToNat d01)) * ((wordToNat s11 + wordToNat d11) * (wordToNat s11 + wordToNat d11)) + (chsh_absd (wordToNat s11) (wordToNat d11)) * (chsh_absd (wordToNat s11) (wordToNat d11)) * ((wordToNat s01 + wordToNat d01) * (wordToNat s01 + wordToNat d01))) < pow2 133)
     by exact (absdiff_lt _ _ 133 (lt_pow2_mono _ 132 133 BBp ltac:(lia)) BBn).
-  assert (EabsC : wordToNat (if Bool.eqb (xorb (chsh_sign (wordToNat s00) (wordToNat d00)) (chsh_sign (wordToNat s01) (wordToNat d01))) (xorb (chsh_sign (wordToNat s10) (wordToNat d10)) (chsh_sign (wordToNat s11) (wordToNat d11))) then wplus (m256 (m128 aw00 aw01) (m128 nw10 nw11)) (m256 (m128 aw10 aw11) (m128 nw00 nw01)) else hw_absdiffw (m256 (m128 aw00 aw01) (m128 nw10 nw11)) (m256 (m128 aw10 aw11) (m128 nw00 nw01))) = chsh_absC (xorb (chsh_sign (wordToNat s00) (wordToNat d00)) (chsh_sign (wordToNat s01) (wordToNat d01))) (xorb (chsh_sign (wordToNat s10) (wordToNat d10)) (chsh_sign (wordToNat s11) (wordToNat d11))) ((chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s01) (wordToNat d01)) * ((wordToNat s10 + wordToNat d10) * (wordToNat s11 + wordToNat d11))) ((chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s11) (wordToNat d11)) * ((wordToNat s00 + wordToNat d00) * (wordToNat s01 + wordToNat d01)))).
+  assert (EabsC : wordToNat (if Bool.eqb (xorb (chsh_sign (wordToNat s00) (wordToNat d00)) (chsh_sign (wordToNat s01) (wordToNat d01))) (xorb (chsh_sign (wordToNat s10) (wordToNat d10)) (chsh_sign (wordToNat s11) (wordToNat d11))) then wplus (m134 (m67 aw00 aw01) (m67 nw10 nw11)) (m134 (m67 aw10 aw11) (m67 nw00 nw01)) else hw_absdiffw (m134 (m67 aw00 aw01) (m67 nw10 nw11)) (m134 (m67 aw10 aw11) (m67 nw00 nw01))) = chsh_absC (xorb (chsh_sign (wordToNat s00) (wordToNat d00)) (chsh_sign (wordToNat s01) (wordToNat d01))) (xorb (chsh_sign (wordToNat s10) (wordToNat d10)) (chsh_sign (wordToNat s11) (wordToNat d11))) ((chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s01) (wordToNat d01)) * ((wordToNat s10 + wordToNat d10) * (wordToNat s11 + wordToNat d11))) ((chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s11) (wordToNat d11)) * ((wordToNat s00 + wordToNat d00) * (wordToNat s01 + wordToNat d01)))).
   { unfold chsh_absC. destruct (Bool.eqb _ _).
     - rewrite wordToNat_wplus', EC1, EC2; [reflexivity|]. rewrite EC1, EC2.
-      exact (lt_pow2_mono _ 133 256 (add_pow2_lt _ _ 132 BC1 BC2) ltac:(lia)).
+      exact (lt_pow2_mono _ 133 134 (add_pow2_lt _ _ 132 BC1 BC2) ltac:(lia)).
     - rewrite hw_absdiffw_nat, EC1, EC2. reflexivity. }
   assert (BabsC : chsh_absC (xorb (chsh_sign (wordToNat s00) (wordToNat d00)) (chsh_sign (wordToNat s01) (wordToNat d01))) (xorb (chsh_sign (wordToNat s10) (wordToNat d10)) (chsh_sign (wordToNat s11) (wordToNat d11))) ((chsh_absd (wordToNat s00) (wordToNat d00)) * (chsh_absd (wordToNat s01) (wordToNat d01)) * ((wordToNat s10 + wordToNat d10) * (wordToNat s11 + wordToNat d11))) ((chsh_absd (wordToNat s10) (wordToNat d10)) * (chsh_absd (wordToNat s11) (wordToNat d11)) * ((wordToNat s00 + wordToNat d00) * (wordToNat s01 + wordToNat d01))) < pow2 133).
   { unfold chsh_absC. destruct (Bool.eqb _ _).
     - exact (add_pow2_lt _ _ 132 BC1 BC2).
     - exact (absdiff_lt _ _ 133 (lt_pow2_mono _ 132 133 BC1 ltac:(lia)) (lt_pow2_mono _ 132 133 BC2 ltac:(lia))). }
-  assert (P266 : forall x y, x < pow2 133 -> y < pow2 133 -> x * y < pow2 384)
-    by (intros x y Hx Hy; exact (lt_pow2_mono _ 266 384 (mul_pow2_lt _ _ 133 133 Hx Hy) ltac:(lia))).
-  rewrite (m384_nat ((if Bool.eqb (xorb (chsh_sign (wordToNat s00) (wordToNat d00)) (chsh_sign (wordToNat s01) (wordToNat d01))) (xorb (chsh_sign (wordToNat s10) (wordToNat d10)) (chsh_sign (wordToNat s11) (wordToNat d11))) then wplus (m256 (m128 aw00 aw01) (m128 nw10 nw11)) (m256 (m128 aw10 aw11) (m128 nw00 nw01)) else hw_absdiffw (m256 (m128 aw00 aw01) (m128 nw10 nw11)) (m256 (m128 aw10 aw11) (m128 nw00 nw01)))) ((if Bool.eqb (xorb (chsh_sign (wordToNat s00) (wordToNat d00)) (chsh_sign (wordToNat s01) (wordToNat d01))) (xorb (chsh_sign (wordToNat s10) (wordToNat d10)) (chsh_sign (wordToNat s11) (wordToNat d11))) then wplus (m256 (m128 aw00 aw01) (m128 nw10 nw11)) (m256 (m128 aw10 aw11) (m128 nw00 nw01)) else hw_absdiffw (m256 (m128 aw00 aw01) (m128 nw10 nw11)) (m256 (m128 aw10 aw11) (m128 nw00 nw01))))) by (rewrite EabsC; exact (P266 _ _ BabsC BabsC)).
-  rewrite (m384_nat (hw_absdiffw (m256 (m128 nw00 nw00) (m128 nw10 nw10)) (wplus (m256 (m128 aw00 aw00) (m128 nw10 nw10)) (m256 (m128 aw10 aw10) (m128 nw00 nw00)))) (hw_absdiffw (m256 (m128 nw01 nw01) (m128 nw11 nw11)) (wplus (m256 (m128 aw01 aw01) (m128 nw11 nw11)) (m256 (m128 aw11 aw11) (m128 nw01 nw01)))))
+  assert (P266 : forall x y, x < pow2 133 -> y < pow2 133 -> x * y < pow2 268)
+    by (intros x y Hx Hy; exact (lt_pow2_mono _ 266 268 (mul_pow2_lt _ _ 133 133 Hx Hy) ltac:(lia))).
+  rewrite (m268_nat ((if Bool.eqb (xorb (chsh_sign (wordToNat s00) (wordToNat d00)) (chsh_sign (wordToNat s01) (wordToNat d01))) (xorb (chsh_sign (wordToNat s10) (wordToNat d10)) (chsh_sign (wordToNat s11) (wordToNat d11))) then wplus (m134 (m67 aw00 aw01) (m67 nw10 nw11)) (m134 (m67 aw10 aw11) (m67 nw00 nw01)) else hw_absdiffw (m134 (m67 aw00 aw01) (m67 nw10 nw11)) (m134 (m67 aw10 aw11) (m67 nw00 nw01)))) ((if Bool.eqb (xorb (chsh_sign (wordToNat s00) (wordToNat d00)) (chsh_sign (wordToNat s01) (wordToNat d01))) (xorb (chsh_sign (wordToNat s10) (wordToNat d10)) (chsh_sign (wordToNat s11) (wordToNat d11))) then wplus (m134 (m67 aw00 aw01) (m67 nw10 nw11)) (m134 (m67 aw10 aw11) (m67 nw00 nw01)) else hw_absdiffw (m134 (m67 aw00 aw01) (m67 nw10 nw11)) (m134 (m67 aw10 aw11) (m67 nw00 nw01))))) by (rewrite EabsC; exact (P266 _ _ BabsC BabsC)).
+  rewrite (m268_nat (hw_absdiffw (m134 (m67 nw00 nw00) (m67 nw10 nw10)) (wplus (m134 (m67 aw00 aw00) (m67 nw10 nw10)) (m134 (m67 aw10 aw10) (m67 nw00 nw00)))) (hw_absdiffw (m134 (m67 nw01 nw01) (m67 nw11 nw11)) (wplus (m134 (m67 aw01 aw01) (m67 nw11 nw11)) (m134 (m67 aw11 aw11) (m67 nw01 nw01)))))
     by (rewrite EabsA, EabsB; exact (P266 _ _ BabsA BabsB)).
   rewrite EabsC, EabsA, EabsB, EAp, EAnw, EBp, EBnw, En00, En01, En10, En11.
   change (wordToNat (natToWord 64 0)) with 0.
@@ -494,22 +482,22 @@ Proof. intros. rewrite chsh_check_word_correct. apply chsh_check_nat_correct. Qe
 Definition hw_bool_neq (x y : bool) : bool := negb (if bool_dec x y then true else false).
 
 Definition chsh_check_word_hw (n00 n01 n10 n11 a00 a01 a10 a11 : word 64) (g00 g01 g10 g11 : bool) : bool :=
-  let n00sq := m128 n00 n00 in let n01sq := m128 n01 n01 in
-  let n10sq := m128 n10 n10 in let n11sq := m128 n11 n11 in
-  let d00sq := m128 a00 a00 in let d01sq := m128 a01 a01 in
-  let d10sq := m128 a10 a10 in let d11sq := m128 a11 a11 in
-  let A_pos := m256 n00sq n10sq in
-  let A_neg := wplus (m256 d00sq n10sq) (m256 d10sq n00sq) in
-  let B_pos := m256 n01sq n11sq in
-  let B_neg := wplus (m256 d01sq n11sq) (m256 d11sq n01sq) in
-  let C1 := m256 (m128 a00 a01) (m128 n10 n11) in
-  let C2 := m256 (m128 a10 a11) (m128 n00 n01) in
+  let n00sq := m67 n00 n00 in let n01sq := m67 n01 n01 in
+  let n10sq := m67 n10 n10 in let n11sq := m67 n11 n11 in
+  let d00sq := m67 a00 a00 in let d01sq := m67 a01 a01 in
+  let d10sq := m67 a10 a10 in let d11sq := m67 a11 a11 in
+  let A_pos := m134 n00sq n10sq in
+  let A_neg := wplus (m134 d00sq n10sq) (m134 d10sq n00sq) in
+  let B_pos := m134 n01sq n11sq in
+  let B_neg := wplus (m134 d01sq n11sq) (m134 d11sq n01sq) in
+  let C1 := m134 (m67 a00 a01) (m67 n10 n11) in
+  let C2 := m134 (m67 a10 a11) (m67 n00 n01) in
   let agree := if bool_dec (hw_bool_neq g00 g01) (hw_bool_neq g10 g11) then true else false in
   let absC := if agree then wplus C1 C2 else hw_absdiffw C1 C2 in
   let A_ge0 := negb (hw_ltb A_pos A_neg) in
   let B_ge0 := negb (hw_ltb B_pos B_neg) in
-  let Csq := m384 absC absC in
-  let AB := m384 (hw_absdiffw A_pos A_neg) (hw_absdiffw B_pos B_neg) in
+  let Csq := m268 absC absC in
+  let AB := m268 (hw_absdiffw A_pos A_neg) (hw_absdiffw B_pos B_neg) in
   andb (andb (andb (andb (andb (andb (negb (hw_eqb n00 (natToWord 64 0))) (negb (hw_eqb n01 (natToWord 64 0))))
                    (negb (hw_eqb n10 (natToWord 64 0)))) (negb (hw_eqb n11 (natToWord 64 0))))
              A_ge0) B_ge0)

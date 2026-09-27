@@ -198,16 +198,16 @@ jobs:
     # CHSH_LASSERT's column_contractive_check_witness performs 22 wide
     # integer multiplications. In Kami it's implemented as a 29-phase FSM
     # (`chsh_lassert_fsm` rule in coq/kami_hw/ThieleCPUCore.v) that
-    # time-shares one 128×128 multiplier across the phases, so only one
-    # multiply is live per cycle; the two 256×256 products are each summed
-    # from four 128×128 partial products. The Coq spec is still
+    # time-shares one 67×67 multiplier across the phases, so only one
+    # multiply is live per cycle; each FSM register is sized to the largest
+    # value 32-bit counters can put there, and the two 134×134 products are
+    # each summed from four 67×67 partial products. The Coq spec is still
     # single-step; multi-cycle execution is a Kami-implementation detail
     # invisible to the spec, same pattern as instr_lassert. synth_xc7.ys
     # builds the multiplier from LUTs (`-nodsp`) and the module tensor store
-    # is a LUT-RAM RegFile, for about 60K LUTs in all. The synthesis driver
+    # is a LUT-RAM RegFile, for about 37K LUTs in all. The synthesis driver
     # uses nextpnr's `--no-tmdriv` mode so placement effort goes to
-    # routability; the uploaded nextpnr log reports the achieved frequency
-    # against the 12 MHz target.
+    # routability; the uploaded nextpnr log reports the achieved frequency.
     # A bitstream-generation failure must fail the workflow; the default
     # continue-on-error policy is intentionally strict.
     # Keep a hard safety cap well above the expected runtime.

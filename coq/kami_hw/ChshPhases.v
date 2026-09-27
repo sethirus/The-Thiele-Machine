@@ -15,8 +15,8 @@ Ltac phase_mux :=
   cbv beta iota.
 
 Ltac phase_unfold :=
-  unfold chsh_commit_trap, chsh_part_0, chsh_part_128, chsh_part_256, chsh_mult_128, chsh_mult_256,
-    chsh_op_a_128, chsh_op_b_128, chsh_phase_eq_1, chsh_phase_eq_2, chsh_phase_eq_3, chsh_phase_eq_4, chsh_phase_eq_5, chsh_phase_eq_6, chsh_phase_eq_7, chsh_phase_eq_8, chsh_phase_eq_9, chsh_phase_eq_10, chsh_phase_eq_11, chsh_phase_eq_12, chsh_phase_eq_13, chsh_phase_eq_14, chsh_phase_eq_15, chsh_phase_eq_16, chsh_phase_eq_17, chsh_phase_eq_18, chsh_phase_eq_19, chsh_phase_eq_20, chsh_phase_eq_21, chsh_phase_eq_22, chsh_phase_eq_23, chsh_phase_eq_24, chsh_phase_eq_25, chsh_phase_eq_26, chsh_phase_eq_27, chsh_phase_eq_28, chsh_phase_eq_29.
+  unfold chsh_commit_trap, chsh_part_0, chsh_part_67, chsh_part_134, chsh_mult_67, chsh_mult_134,
+    chsh_op_a_67, chsh_op_b_67, chsh_phase_eq_1, chsh_phase_eq_2, chsh_phase_eq_3, chsh_phase_eq_4, chsh_phase_eq_5, chsh_phase_eq_6, chsh_phase_eq_7, chsh_phase_eq_8, chsh_phase_eq_9, chsh_phase_eq_10, chsh_phase_eq_11, chsh_phase_eq_12, chsh_phase_eq_13, chsh_phase_eq_14, chsh_phase_eq_15, chsh_phase_eq_16, chsh_phase_eq_17, chsh_phase_eq_18, chsh_phase_eq_19, chsh_phase_eq_20, chsh_phase_eq_21, chsh_phase_eq_22, chsh_phase_eq_23, chsh_phase_eq_24, chsh_phase_eq_25, chsh_phase_eq_26, chsh_phase_eq_27, chsh_phase_eq_28, chsh_phase_eq_29.
 
 Lemma chsh_eq1_at1 : forall b, hw_chsh_phase b = natToWord 5 1 -> chsh_phase_eq_1 b = true.
 Proof. intros b H. unfold chsh_phase_eq_1. cbn [evalExpr evalConstT isEq]. rewrite H. reflexivity. Qed.
@@ -1702,8 +1702,8 @@ Lemma chsh_eq29_at29 : forall b, hw_chsh_phase b = natToWord 5 29 -> chsh_phase_
 Proof. intros b H. unfold chsh_phase_eq_29. cbn [evalExpr evalConstT isEq]. rewrite H. reflexivity. Qed.
 
 Lemma chsh_phase1_chsh_n00sq : forall b, hw_chsh_phase b = natToWord 5 1 ->
-  hw_chsh_n00sq (chsh_next b) = m128 (hw_chsh_n00 b) (hw_chsh_n00 b).
-Proof. intros b H. rewrite chsh_next_chsh_n00sq. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_n00sq (chsh_next b) = m67 (hw_chsh_n00 b) (hw_chsh_n00 b).
+Proof. intros b H. rewrite chsh_next_chsh_n00sq. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase1_chsh_n01sq : forall b, hw_chsh_phase b = natToWord 5 1 ->
   hw_chsh_n01sq (chsh_next b) = hw_chsh_n01sq b.
 Proof. intros b H. rewrite chsh_next_chsh_n01sq. rewrite (chsh_eq2_at1 b H). kernel_refl. Qed.
@@ -1787,8 +1787,8 @@ Lemma chsh_phase2_chsh_n00sq : forall b, hw_chsh_phase b = natToWord 5 2 ->
   hw_chsh_n00sq (chsh_next b) = hw_chsh_n00sq b.
 Proof. intros b H. rewrite chsh_next_chsh_n00sq. rewrite (chsh_eq1_at2 b H). kernel_refl. Qed.
 Lemma chsh_phase2_chsh_n01sq : forall b, hw_chsh_phase b = natToWord 5 2 ->
-  hw_chsh_n01sq (chsh_next b) = m128 (hw_chsh_n01 b) (hw_chsh_n01 b).
-Proof. intros b H. rewrite chsh_next_chsh_n01sq. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_n01sq (chsh_next b) = m67 (hw_chsh_n01 b) (hw_chsh_n01 b).
+Proof. intros b H. rewrite chsh_next_chsh_n01sq. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase2_chsh_n10sq : forall b, hw_chsh_phase b = natToWord 5 2 ->
   hw_chsh_n10sq (chsh_next b) = hw_chsh_n10sq b.
 Proof. intros b H. rewrite chsh_next_chsh_n10sq. rewrite (chsh_eq3_at2 b H). kernel_refl. Qed.
@@ -1872,8 +1872,8 @@ Lemma chsh_phase3_chsh_n01sq : forall b, hw_chsh_phase b = natToWord 5 3 ->
   hw_chsh_n01sq (chsh_next b) = hw_chsh_n01sq b.
 Proof. intros b H. rewrite chsh_next_chsh_n01sq. rewrite (chsh_eq2_at3 b H). kernel_refl. Qed.
 Lemma chsh_phase3_chsh_n10sq : forall b, hw_chsh_phase b = natToWord 5 3 ->
-  hw_chsh_n10sq (chsh_next b) = m128 (hw_chsh_n10 b) (hw_chsh_n10 b).
-Proof. intros b H. rewrite chsh_next_chsh_n10sq. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_n10sq (chsh_next b) = m67 (hw_chsh_n10 b) (hw_chsh_n10 b).
+Proof. intros b H. rewrite chsh_next_chsh_n10sq. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase3_chsh_n11sq : forall b, hw_chsh_phase b = natToWord 5 3 ->
   hw_chsh_n11sq (chsh_next b) = hw_chsh_n11sq b.
 Proof. intros b H. rewrite chsh_next_chsh_n11sq. rewrite (chsh_eq4_at3 b H). kernel_refl. Qed.
@@ -1957,8 +1957,8 @@ Lemma chsh_phase4_chsh_n10sq : forall b, hw_chsh_phase b = natToWord 5 4 ->
   hw_chsh_n10sq (chsh_next b) = hw_chsh_n10sq b.
 Proof. intros b H. rewrite chsh_next_chsh_n10sq. rewrite (chsh_eq3_at4 b H). kernel_refl. Qed.
 Lemma chsh_phase4_chsh_n11sq : forall b, hw_chsh_phase b = natToWord 5 4 ->
-  hw_chsh_n11sq (chsh_next b) = m128 (hw_chsh_n11 b) (hw_chsh_n11 b).
-Proof. intros b H. rewrite chsh_next_chsh_n11sq. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_n11sq (chsh_next b) = m67 (hw_chsh_n11 b) (hw_chsh_n11 b).
+Proof. intros b H. rewrite chsh_next_chsh_n11sq. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase4_chsh_d00sq : forall b, hw_chsh_phase b = natToWord 5 4 ->
   hw_chsh_d00sq (chsh_next b) = hw_chsh_d00sq b.
 Proof. intros b H. rewrite chsh_next_chsh_d00sq. rewrite (chsh_eq5_at4 b H). kernel_refl. Qed.
@@ -2042,8 +2042,8 @@ Lemma chsh_phase5_chsh_n11sq : forall b, hw_chsh_phase b = natToWord 5 5 ->
   hw_chsh_n11sq (chsh_next b) = hw_chsh_n11sq b.
 Proof. intros b H. rewrite chsh_next_chsh_n11sq. rewrite (chsh_eq4_at5 b H). kernel_refl. Qed.
 Lemma chsh_phase5_chsh_d00sq : forall b, hw_chsh_phase b = natToWord 5 5 ->
-  hw_chsh_d00sq (chsh_next b) = m128 (hw_chsh_d00 b) (hw_chsh_d00 b).
-Proof. intros b H. rewrite chsh_next_chsh_d00sq. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_d00sq (chsh_next b) = m67 (hw_chsh_d00 b) (hw_chsh_d00 b).
+Proof. intros b H. rewrite chsh_next_chsh_d00sq. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase5_chsh_d01sq : forall b, hw_chsh_phase b = natToWord 5 5 ->
   hw_chsh_d01sq (chsh_next b) = hw_chsh_d01sq b.
 Proof. intros b H. rewrite chsh_next_chsh_d01sq. rewrite (chsh_eq6_at5 b H). kernel_refl. Qed.
@@ -2127,8 +2127,8 @@ Lemma chsh_phase6_chsh_d00sq : forall b, hw_chsh_phase b = natToWord 5 6 ->
   hw_chsh_d00sq (chsh_next b) = hw_chsh_d00sq b.
 Proof. intros b H. rewrite chsh_next_chsh_d00sq. rewrite (chsh_eq5_at6 b H). kernel_refl. Qed.
 Lemma chsh_phase6_chsh_d01sq : forall b, hw_chsh_phase b = natToWord 5 6 ->
-  hw_chsh_d01sq (chsh_next b) = m128 (hw_chsh_d01 b) (hw_chsh_d01 b).
-Proof. intros b H. rewrite chsh_next_chsh_d01sq. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_d01sq (chsh_next b) = m67 (hw_chsh_d01 b) (hw_chsh_d01 b).
+Proof. intros b H. rewrite chsh_next_chsh_d01sq. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase6_chsh_d10sq : forall b, hw_chsh_phase b = natToWord 5 6 ->
   hw_chsh_d10sq (chsh_next b) = hw_chsh_d10sq b.
 Proof. intros b H. rewrite chsh_next_chsh_d10sq. rewrite (chsh_eq7_at6 b H). kernel_refl. Qed.
@@ -2212,8 +2212,8 @@ Lemma chsh_phase7_chsh_d01sq : forall b, hw_chsh_phase b = natToWord 5 7 ->
   hw_chsh_d01sq (chsh_next b) = hw_chsh_d01sq b.
 Proof. intros b H. rewrite chsh_next_chsh_d01sq. rewrite (chsh_eq6_at7 b H). kernel_refl. Qed.
 Lemma chsh_phase7_chsh_d10sq : forall b, hw_chsh_phase b = natToWord 5 7 ->
-  hw_chsh_d10sq (chsh_next b) = m128 (hw_chsh_d10 b) (hw_chsh_d10 b).
-Proof. intros b H. rewrite chsh_next_chsh_d10sq. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_d10sq (chsh_next b) = m67 (hw_chsh_d10 b) (hw_chsh_d10 b).
+Proof. intros b H. rewrite chsh_next_chsh_d10sq. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase7_chsh_d11sq : forall b, hw_chsh_phase b = natToWord 5 7 ->
   hw_chsh_d11sq (chsh_next b) = hw_chsh_d11sq b.
 Proof. intros b H. rewrite chsh_next_chsh_d11sq. rewrite (chsh_eq8_at7 b H). kernel_refl. Qed.
@@ -2297,8 +2297,8 @@ Lemma chsh_phase8_chsh_d10sq : forall b, hw_chsh_phase b = natToWord 5 8 ->
   hw_chsh_d10sq (chsh_next b) = hw_chsh_d10sq b.
 Proof. intros b H. rewrite chsh_next_chsh_d10sq. rewrite (chsh_eq7_at8 b H). kernel_refl. Qed.
 Lemma chsh_phase8_chsh_d11sq : forall b, hw_chsh_phase b = natToWord 5 8 ->
-  hw_chsh_d11sq (chsh_next b) = m128 (hw_chsh_d11 b) (hw_chsh_d11 b).
-Proof. intros b H. rewrite chsh_next_chsh_d11sq. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_d11sq (chsh_next b) = m67 (hw_chsh_d11 b) (hw_chsh_d11 b).
+Proof. intros b H. rewrite chsh_next_chsh_d11sq. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase8_chsh_A_pos : forall b, hw_chsh_phase b = natToWord 5 8 ->
   hw_chsh_A_pos (chsh_next b) = hw_chsh_A_pos b.
 Proof. intros b H. rewrite chsh_next_chsh_A_pos. rewrite (chsh_eq9_at8 b H). kernel_refl. Qed.
@@ -2382,8 +2382,8 @@ Lemma chsh_phase9_chsh_d11sq : forall b, hw_chsh_phase b = natToWord 5 9 ->
   hw_chsh_d11sq (chsh_next b) = hw_chsh_d11sq b.
 Proof. intros b H. rewrite chsh_next_chsh_d11sq. rewrite (chsh_eq8_at9 b H). kernel_refl. Qed.
 Lemma chsh_phase9_chsh_A_pos : forall b, hw_chsh_phase b = natToWord 5 9 ->
-  hw_chsh_A_pos (chsh_next b) = m256 (hw_chsh_n00sq b) (hw_chsh_n10sq b).
-Proof. intros b H. rewrite chsh_next_chsh_A_pos. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_A_pos (chsh_next b) = m134 (hw_chsh_n00sq b) (hw_chsh_n10sq b).
+Proof. intros b H. rewrite chsh_next_chsh_A_pos. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase9_chsh_A_neg_a : forall b, hw_chsh_phase b = natToWord 5 9 ->
   hw_chsh_A_neg_a (chsh_next b) = hw_chsh_A_neg_a b.
 Proof. intros b H. rewrite chsh_next_chsh_A_neg_a. rewrite (chsh_eq10_at9 b H). kernel_refl. Qed.
@@ -2467,8 +2467,8 @@ Lemma chsh_phase10_chsh_A_pos : forall b, hw_chsh_phase b = natToWord 5 10 ->
   hw_chsh_A_pos (chsh_next b) = hw_chsh_A_pos b.
 Proof. intros b H. rewrite chsh_next_chsh_A_pos. rewrite (chsh_eq9_at10 b H). kernel_refl. Qed.
 Lemma chsh_phase10_chsh_A_neg_a : forall b, hw_chsh_phase b = natToWord 5 10 ->
-  hw_chsh_A_neg_a (chsh_next b) = m256 (hw_chsh_d00sq b) (hw_chsh_n10sq b).
-Proof. intros b H. rewrite chsh_next_chsh_A_neg_a. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_A_neg_a (chsh_next b) = m134 (hw_chsh_d00sq b) (hw_chsh_n10sq b).
+Proof. intros b H. rewrite chsh_next_chsh_A_neg_a. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase10_chsh_A_neg_b : forall b, hw_chsh_phase b = natToWord 5 10 ->
   hw_chsh_A_neg_b (chsh_next b) = hw_chsh_A_neg_b b.
 Proof. intros b H. rewrite chsh_next_chsh_A_neg_b. rewrite (chsh_eq11_at10 b H). kernel_refl. Qed.
@@ -2552,8 +2552,8 @@ Lemma chsh_phase11_chsh_A_neg_a : forall b, hw_chsh_phase b = natToWord 5 11 ->
   hw_chsh_A_neg_a (chsh_next b) = hw_chsh_A_neg_a b.
 Proof. intros b H. rewrite chsh_next_chsh_A_neg_a. rewrite (chsh_eq10_at11 b H). kernel_refl. Qed.
 Lemma chsh_phase11_chsh_A_neg_b : forall b, hw_chsh_phase b = natToWord 5 11 ->
-  hw_chsh_A_neg_b (chsh_next b) = m256 (hw_chsh_d10sq b) (hw_chsh_n00sq b).
-Proof. intros b H. rewrite chsh_next_chsh_A_neg_b. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_A_neg_b (chsh_next b) = m134 (hw_chsh_d10sq b) (hw_chsh_n00sq b).
+Proof. intros b H. rewrite chsh_next_chsh_A_neg_b. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase11_chsh_B_pos : forall b, hw_chsh_phase b = natToWord 5 11 ->
   hw_chsh_B_pos (chsh_next b) = hw_chsh_B_pos b.
 Proof. intros b H. rewrite chsh_next_chsh_B_pos. rewrite (chsh_eq12_at11 b H). kernel_refl. Qed.
@@ -2637,8 +2637,8 @@ Lemma chsh_phase12_chsh_A_neg_b : forall b, hw_chsh_phase b = natToWord 5 12 ->
   hw_chsh_A_neg_b (chsh_next b) = hw_chsh_A_neg_b b.
 Proof. intros b H. rewrite chsh_next_chsh_A_neg_b. rewrite (chsh_eq11_at12 b H). kernel_refl. Qed.
 Lemma chsh_phase12_chsh_B_pos : forall b, hw_chsh_phase b = natToWord 5 12 ->
-  hw_chsh_B_pos (chsh_next b) = m256 (hw_chsh_n01sq b) (hw_chsh_n11sq b).
-Proof. intros b H. rewrite chsh_next_chsh_B_pos. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_B_pos (chsh_next b) = m134 (hw_chsh_n01sq b) (hw_chsh_n11sq b).
+Proof. intros b H. rewrite chsh_next_chsh_B_pos. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase12_chsh_B_neg_a : forall b, hw_chsh_phase b = natToWord 5 12 ->
   hw_chsh_B_neg_a (chsh_next b) = hw_chsh_B_neg_a b.
 Proof. intros b H. rewrite chsh_next_chsh_B_neg_a. rewrite (chsh_eq13_at12 b H). kernel_refl. Qed.
@@ -2722,8 +2722,8 @@ Lemma chsh_phase13_chsh_B_pos : forall b, hw_chsh_phase b = natToWord 5 13 ->
   hw_chsh_B_pos (chsh_next b) = hw_chsh_B_pos b.
 Proof. intros b H. rewrite chsh_next_chsh_B_pos. rewrite (chsh_eq12_at13 b H). kernel_refl. Qed.
 Lemma chsh_phase13_chsh_B_neg_a : forall b, hw_chsh_phase b = natToWord 5 13 ->
-  hw_chsh_B_neg_a (chsh_next b) = m256 (hw_chsh_d01sq b) (hw_chsh_n11sq b).
-Proof. intros b H. rewrite chsh_next_chsh_B_neg_a. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_B_neg_a (chsh_next b) = m134 (hw_chsh_d01sq b) (hw_chsh_n11sq b).
+Proof. intros b H. rewrite chsh_next_chsh_B_neg_a. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase13_chsh_B_neg_b : forall b, hw_chsh_phase b = natToWord 5 13 ->
   hw_chsh_B_neg_b (chsh_next b) = hw_chsh_B_neg_b b.
 Proof. intros b H. rewrite chsh_next_chsh_B_neg_b. rewrite (chsh_eq14_at13 b H). kernel_refl. Qed.
@@ -2807,8 +2807,8 @@ Lemma chsh_phase14_chsh_B_neg_a : forall b, hw_chsh_phase b = natToWord 5 14 ->
   hw_chsh_B_neg_a (chsh_next b) = hw_chsh_B_neg_a b.
 Proof. intros b H. rewrite chsh_next_chsh_B_neg_a. rewrite (chsh_eq13_at14 b H). kernel_refl. Qed.
 Lemma chsh_phase14_chsh_B_neg_b : forall b, hw_chsh_phase b = natToWord 5 14 ->
-  hw_chsh_B_neg_b (chsh_next b) = m256 (hw_chsh_d11sq b) (hw_chsh_n01sq b).
-Proof. intros b H. rewrite chsh_next_chsh_B_neg_b. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_B_neg_b (chsh_next b) = m134 (hw_chsh_d11sq b) (hw_chsh_n01sq b).
+Proof. intros b H. rewrite chsh_next_chsh_B_neg_b. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase14_chsh_d00d01 : forall b, hw_chsh_phase b = natToWord 5 14 ->
   hw_chsh_d00d01 (chsh_next b) = hw_chsh_d00d01 b.
 Proof. intros b H. rewrite chsh_next_chsh_d00d01. rewrite (chsh_eq15_at14 b H). kernel_refl. Qed.
@@ -2892,8 +2892,8 @@ Lemma chsh_phase15_chsh_B_neg_b : forall b, hw_chsh_phase b = natToWord 5 15 ->
   hw_chsh_B_neg_b (chsh_next b) = hw_chsh_B_neg_b b.
 Proof. intros b H. rewrite chsh_next_chsh_B_neg_b. rewrite (chsh_eq14_at15 b H). kernel_refl. Qed.
 Lemma chsh_phase15_chsh_d00d01 : forall b, hw_chsh_phase b = natToWord 5 15 ->
-  hw_chsh_d00d01 (chsh_next b) = m128 (hw_chsh_d00 b) (hw_chsh_d01 b).
-Proof. intros b H. rewrite chsh_next_chsh_d00d01. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_d00d01 (chsh_next b) = m67 (hw_chsh_d00 b) (hw_chsh_d01 b).
+Proof. intros b H. rewrite chsh_next_chsh_d00d01. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase15_chsh_n10n11 : forall b, hw_chsh_phase b = natToWord 5 15 ->
   hw_chsh_n10n11 (chsh_next b) = hw_chsh_n10n11 b.
 Proof. intros b H. rewrite chsh_next_chsh_n10n11. rewrite (chsh_eq16_at15 b H). kernel_refl. Qed.
@@ -2977,8 +2977,8 @@ Lemma chsh_phase16_chsh_d00d01 : forall b, hw_chsh_phase b = natToWord 5 16 ->
   hw_chsh_d00d01 (chsh_next b) = hw_chsh_d00d01 b.
 Proof. intros b H. rewrite chsh_next_chsh_d00d01. rewrite (chsh_eq15_at16 b H). kernel_refl. Qed.
 Lemma chsh_phase16_chsh_n10n11 : forall b, hw_chsh_phase b = natToWord 5 16 ->
-  hw_chsh_n10n11 (chsh_next b) = m128 (hw_chsh_n10 b) (hw_chsh_n11 b).
-Proof. intros b H. rewrite chsh_next_chsh_n10n11. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_n10n11 (chsh_next b) = m67 (hw_chsh_n10 b) (hw_chsh_n11 b).
+Proof. intros b H. rewrite chsh_next_chsh_n10n11. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase16_chsh_d10d11 : forall b, hw_chsh_phase b = natToWord 5 16 ->
   hw_chsh_d10d11 (chsh_next b) = hw_chsh_d10d11 b.
 Proof. intros b H. rewrite chsh_next_chsh_d10d11. rewrite (chsh_eq17_at16 b H). kernel_refl. Qed.
@@ -3062,8 +3062,8 @@ Lemma chsh_phase17_chsh_n10n11 : forall b, hw_chsh_phase b = natToWord 5 17 ->
   hw_chsh_n10n11 (chsh_next b) = hw_chsh_n10n11 b.
 Proof. intros b H. rewrite chsh_next_chsh_n10n11. rewrite (chsh_eq16_at17 b H). kernel_refl. Qed.
 Lemma chsh_phase17_chsh_d10d11 : forall b, hw_chsh_phase b = natToWord 5 17 ->
-  hw_chsh_d10d11 (chsh_next b) = m128 (hw_chsh_d10 b) (hw_chsh_d11 b).
-Proof. intros b H. rewrite chsh_next_chsh_d10d11. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_d10d11 (chsh_next b) = m67 (hw_chsh_d10 b) (hw_chsh_d11 b).
+Proof. intros b H. rewrite chsh_next_chsh_d10d11. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase17_chsh_n00n01 : forall b, hw_chsh_phase b = natToWord 5 17 ->
   hw_chsh_n00n01 (chsh_next b) = hw_chsh_n00n01 b.
 Proof. intros b H. rewrite chsh_next_chsh_n00n01. rewrite (chsh_eq18_at17 b H). kernel_refl. Qed.
@@ -3147,8 +3147,8 @@ Lemma chsh_phase18_chsh_d10d11 : forall b, hw_chsh_phase b = natToWord 5 18 ->
   hw_chsh_d10d11 (chsh_next b) = hw_chsh_d10d11 b.
 Proof. intros b H. rewrite chsh_next_chsh_d10d11. rewrite (chsh_eq17_at18 b H). kernel_refl. Qed.
 Lemma chsh_phase18_chsh_n00n01 : forall b, hw_chsh_phase b = natToWord 5 18 ->
-  hw_chsh_n00n01 (chsh_next b) = m128 (hw_chsh_n00 b) (hw_chsh_n01 b).
-Proof. intros b H. rewrite chsh_next_chsh_n00n01. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_n00n01 (chsh_next b) = m67 (hw_chsh_n00 b) (hw_chsh_n01 b).
+Proof. intros b H. rewrite chsh_next_chsh_n00n01. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase18_chsh_abs_C1 : forall b, hw_chsh_phase b = natToWord 5 18 ->
   hw_chsh_abs_C1 (chsh_next b) = hw_chsh_abs_C1 b.
 Proof. intros b H. rewrite chsh_next_chsh_abs_C1. rewrite (chsh_eq19_at18 b H). kernel_refl. Qed.
@@ -3232,8 +3232,8 @@ Lemma chsh_phase19_chsh_n00n01 : forall b, hw_chsh_phase b = natToWord 5 19 ->
   hw_chsh_n00n01 (chsh_next b) = hw_chsh_n00n01 b.
 Proof. intros b H. rewrite chsh_next_chsh_n00n01. rewrite (chsh_eq18_at19 b H). kernel_refl. Qed.
 Lemma chsh_phase19_chsh_abs_C1 : forall b, hw_chsh_phase b = natToWord 5 19 ->
-  hw_chsh_abs_C1 (chsh_next b) = m256 (hw_chsh_d00d01 b) (hw_chsh_n10n11 b).
-Proof. intros b H. rewrite chsh_next_chsh_abs_C1. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_abs_C1 (chsh_next b) = m134 (hw_chsh_d00d01 b) (hw_chsh_n10n11 b).
+Proof. intros b H. rewrite chsh_next_chsh_abs_C1. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase19_chsh_abs_C2 : forall b, hw_chsh_phase b = natToWord 5 19 ->
   hw_chsh_abs_C2 (chsh_next b) = hw_chsh_abs_C2 b.
 Proof. intros b H. rewrite chsh_next_chsh_abs_C2. rewrite (chsh_eq20_at19 b H). kernel_refl. Qed.
@@ -3317,8 +3317,8 @@ Lemma chsh_phase20_chsh_abs_C1 : forall b, hw_chsh_phase b = natToWord 5 20 ->
   hw_chsh_abs_C1 (chsh_next b) = hw_chsh_abs_C1 b.
 Proof. intros b H. rewrite chsh_next_chsh_abs_C1. rewrite (chsh_eq19_at20 b H). kernel_refl. Qed.
 Lemma chsh_phase20_chsh_abs_C2 : forall b, hw_chsh_phase b = natToWord 5 20 ->
-  hw_chsh_abs_C2 (chsh_next b) = m256 (hw_chsh_d10d11 b) (hw_chsh_n00n01 b).
-Proof. intros b H. rewrite chsh_next_chsh_abs_C2. phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity. Qed.
+  hw_chsh_abs_C2 (chsh_next b) = m134 (hw_chsh_d10d11 b) (hw_chsh_n00n01 b).
+Proof. intros b H. rewrite chsh_next_chsh_abs_C2. phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity. Qed.
 Lemma chsh_phase20_chsh_C_sq : forall b, hw_chsh_phase b = natToWord 5 20 ->
   hw_chsh_C_sq (chsh_next b) = hw_chsh_C_sq b.
 Proof. intros b H. rewrite chsh_next_chsh_C_sq. rewrite (chsh_eq21_at20 b H). rewrite (chsh_eq22_at20 b H). rewrite (chsh_eq23_at20 b H). rewrite (chsh_eq24_at20 b H). kernel_refl. Qed.
@@ -3402,8 +3402,8 @@ Lemma chsh_phase21_chsh_abs_C2 : forall b, hw_chsh_phase b = natToWord 5 21 ->
   hw_chsh_abs_C2 (chsh_next b) = hw_chsh_abs_C2 b.
 Proof. intros b H. rewrite chsh_next_chsh_abs_C2. rewrite (chsh_eq20_at21 b H). kernel_refl. Qed.
 Lemma chsh_phase21_chsh_C_sq : forall b, hw_chsh_phase b = natToWord 5 21 ->
-  hw_chsh_C_sq (chsh_next b) = evalZeroExtendTrunc 384 (m256 (split1 128 128 (chsh_abs_C_256 b)) (split1 128 128 (chsh_abs_C_256 b))).
-Proof. intros b H. rewrite chsh_next_chsh_C_sq. phase_unfold. rewrite H. phase_mux. unfold m256. reflexivity. Qed.
+  hw_chsh_C_sq (chsh_next b) = evalZeroExtendTrunc 268 (m134 (split1 67 67 (chsh_abs_C_134 b)) (split1 67 67 (chsh_abs_C_134 b))).
+Proof. intros b H. rewrite chsh_next_chsh_C_sq. phase_unfold. rewrite H. phase_mux. unfold m134. reflexivity. Qed.
 Lemma chsh_phase21_chsh_A_times_B : forall b, hw_chsh_phase b = natToWord 5 21 ->
   hw_chsh_A_times_B (chsh_next b) = hw_chsh_A_times_B b.
 Proof. intros b H. rewrite chsh_next_chsh_A_times_B. rewrite (chsh_eq25_at21 b H). rewrite (chsh_eq26_at21 b H). rewrite (chsh_eq27_at21 b H). rewrite (chsh_eq28_at21 b H). kernel_refl. Qed.
@@ -3484,8 +3484,8 @@ Lemma chsh_phase22_chsh_abs_C2 : forall b, hw_chsh_phase b = natToWord 5 22 ->
   hw_chsh_abs_C2 (chsh_next b) = hw_chsh_abs_C2 b.
 Proof. intros b H. rewrite chsh_next_chsh_abs_C2. rewrite (chsh_eq20_at22 b H). kernel_refl. Qed.
 Lemma chsh_phase22_chsh_C_sq : forall b, hw_chsh_phase b = natToWord 5 22 ->
-  hw_chsh_C_sq (chsh_next b) = wplus (hw_chsh_C_sq b) (combine (natToWord 128 0) (m256 (split1 128 128 (chsh_abs_C_256 b)) (split2 128 128 (chsh_abs_C_256 b)))).
-Proof. intros b H. rewrite chsh_next_chsh_C_sq. phase_unfold. rewrite H. phase_mux. unfold m256. reflexivity. Qed.
+  hw_chsh_C_sq (chsh_next b) = wplus (hw_chsh_C_sq b) (evalZeroExtendTrunc 268 (combine (natToWord 67 0) (m134 (split1 67 67 (chsh_abs_C_134 b)) (split2 67 67 (chsh_abs_C_134 b))))).
+Proof. intros b H. rewrite chsh_next_chsh_C_sq. phase_unfold. rewrite H. phase_mux. unfold m134. reflexivity. Qed.
 Lemma chsh_phase22_chsh_A_times_B : forall b, hw_chsh_phase b = natToWord 5 22 ->
   hw_chsh_A_times_B (chsh_next b) = hw_chsh_A_times_B b.
 Proof. intros b H. rewrite chsh_next_chsh_A_times_B. rewrite (chsh_eq25_at22 b H). rewrite (chsh_eq26_at22 b H). rewrite (chsh_eq27_at22 b H). rewrite (chsh_eq28_at22 b H). kernel_refl. Qed.
@@ -3566,8 +3566,8 @@ Lemma chsh_phase23_chsh_abs_C2 : forall b, hw_chsh_phase b = natToWord 5 23 ->
   hw_chsh_abs_C2 (chsh_next b) = hw_chsh_abs_C2 b.
 Proof. intros b H. rewrite chsh_next_chsh_abs_C2. rewrite (chsh_eq20_at23 b H). kernel_refl. Qed.
 Lemma chsh_phase23_chsh_C_sq : forall b, hw_chsh_phase b = natToWord 5 23 ->
-  hw_chsh_C_sq (chsh_next b) = wplus (hw_chsh_C_sq b) (combine (natToWord 128 0) (m256 (split2 128 128 (chsh_abs_C_256 b)) (split1 128 128 (chsh_abs_C_256 b)))).
-Proof. intros b H. rewrite chsh_next_chsh_C_sq. phase_unfold. rewrite H. phase_mux. unfold m256. reflexivity. Qed.
+  hw_chsh_C_sq (chsh_next b) = wplus (hw_chsh_C_sq b) (evalZeroExtendTrunc 268 (combine (natToWord 67 0) (m134 (split2 67 67 (chsh_abs_C_134 b)) (split1 67 67 (chsh_abs_C_134 b))))).
+Proof. intros b H. rewrite chsh_next_chsh_C_sq. phase_unfold. rewrite H. phase_mux. unfold m134. reflexivity. Qed.
 Lemma chsh_phase23_chsh_A_times_B : forall b, hw_chsh_phase b = natToWord 5 23 ->
   hw_chsh_A_times_B (chsh_next b) = hw_chsh_A_times_B b.
 Proof. intros b H. rewrite chsh_next_chsh_A_times_B. rewrite (chsh_eq25_at23 b H). rewrite (chsh_eq26_at23 b H). rewrite (chsh_eq27_at23 b H). rewrite (chsh_eq28_at23 b H). kernel_refl. Qed.
@@ -3648,8 +3648,8 @@ Lemma chsh_phase24_chsh_abs_C2 : forall b, hw_chsh_phase b = natToWord 5 24 ->
   hw_chsh_abs_C2 (chsh_next b) = hw_chsh_abs_C2 b.
 Proof. intros b H. rewrite chsh_next_chsh_abs_C2. rewrite (chsh_eq20_at24 b H). kernel_refl. Qed.
 Lemma chsh_phase24_chsh_C_sq : forall b, hw_chsh_phase b = natToWord 5 24 ->
-  hw_chsh_C_sq (chsh_next b) = wplus (hw_chsh_C_sq b) (combine (natToWord 256 0) (split1 128 128 (m256 (split2 128 128 (chsh_abs_C_256 b)) (split2 128 128 (chsh_abs_C_256 b))))).
-Proof. intros b H. rewrite chsh_next_chsh_C_sq. phase_unfold. rewrite H. phase_mux. unfold m256. reflexivity. Qed.
+  hw_chsh_C_sq (chsh_next b) = wplus (hw_chsh_C_sq b) (combine (natToWord 134 0) (m134 (split2 67 67 (chsh_abs_C_134 b)) (split2 67 67 (chsh_abs_C_134 b)))).
+Proof. intros b H. rewrite chsh_next_chsh_C_sq. phase_unfold. rewrite H. phase_mux. unfold m134. reflexivity. Qed.
 Lemma chsh_phase24_chsh_A_times_B : forall b, hw_chsh_phase b = natToWord 5 24 ->
   hw_chsh_A_times_B (chsh_next b) = hw_chsh_A_times_B b.
 Proof. intros b H. rewrite chsh_next_chsh_A_times_B. rewrite (chsh_eq25_at24 b H). rewrite (chsh_eq26_at24 b H). rewrite (chsh_eq27_at24 b H). rewrite (chsh_eq28_at24 b H). kernel_refl. Qed.
@@ -3733,8 +3733,8 @@ Lemma chsh_phase25_chsh_C_sq : forall b, hw_chsh_phase b = natToWord 5 25 ->
   hw_chsh_C_sq (chsh_next b) = hw_chsh_C_sq b.
 Proof. intros b H. rewrite chsh_next_chsh_C_sq. rewrite (chsh_eq21_at25 b H). rewrite (chsh_eq22_at25 b H). rewrite (chsh_eq23_at25 b H). rewrite (chsh_eq24_at25 b H). kernel_refl. Qed.
 Lemma chsh_phase25_chsh_A_times_B : forall b, hw_chsh_phase b = natToWord 5 25 ->
-  hw_chsh_A_times_B (chsh_next b) = evalZeroExtendTrunc 384 (m256 (split1 128 128 (chsh_abs_A_256 b)) (split1 128 128 (chsh_abs_B_256 b))).
-Proof. intros b H. rewrite chsh_next_chsh_A_times_B. phase_unfold. rewrite H. phase_mux. unfold m256. reflexivity. Qed.
+  hw_chsh_A_times_B (chsh_next b) = evalZeroExtendTrunc 268 (m134 (split1 67 67 (chsh_abs_A_134 b)) (split1 67 67 (chsh_abs_B_134 b))).
+Proof. intros b H. rewrite chsh_next_chsh_A_times_B. phase_unfold. rewrite H. phase_mux. unfold m134. reflexivity. Qed.
 Lemma chsh_phase25_chsh_check_result : forall b, hw_chsh_phase b = natToWord 5 25 ->
   hw_chsh_check_result (chsh_next b) = hw_chsh_check_result b.
 Proof. intros b H. rewrite chsh_next_chsh_check_result. rewrite (chsh_eq29_at25 b H). kernel_refl. Qed.
@@ -3815,8 +3815,8 @@ Lemma chsh_phase26_chsh_C_sq : forall b, hw_chsh_phase b = natToWord 5 26 ->
   hw_chsh_C_sq (chsh_next b) = hw_chsh_C_sq b.
 Proof. intros b H. rewrite chsh_next_chsh_C_sq. rewrite (chsh_eq21_at26 b H). rewrite (chsh_eq22_at26 b H). rewrite (chsh_eq23_at26 b H). rewrite (chsh_eq24_at26 b H). kernel_refl. Qed.
 Lemma chsh_phase26_chsh_A_times_B : forall b, hw_chsh_phase b = natToWord 5 26 ->
-  hw_chsh_A_times_B (chsh_next b) = wplus (hw_chsh_A_times_B b) (combine (natToWord 128 0) (m256 (split1 128 128 (chsh_abs_A_256 b)) (split2 128 128 (chsh_abs_B_256 b)))).
-Proof. intros b H. rewrite chsh_next_chsh_A_times_B. phase_unfold. rewrite H. phase_mux. unfold m256. reflexivity. Qed.
+  hw_chsh_A_times_B (chsh_next b) = wplus (hw_chsh_A_times_B b) (evalZeroExtendTrunc 268 (combine (natToWord 67 0) (m134 (split1 67 67 (chsh_abs_A_134 b)) (split2 67 67 (chsh_abs_B_134 b))))).
+Proof. intros b H. rewrite chsh_next_chsh_A_times_B. phase_unfold. rewrite H. phase_mux. unfold m134. reflexivity. Qed.
 Lemma chsh_phase26_chsh_check_result : forall b, hw_chsh_phase b = natToWord 5 26 ->
   hw_chsh_check_result (chsh_next b) = hw_chsh_check_result b.
 Proof. intros b H. rewrite chsh_next_chsh_check_result. rewrite (chsh_eq29_at26 b H). kernel_refl. Qed.
@@ -3897,8 +3897,8 @@ Lemma chsh_phase27_chsh_C_sq : forall b, hw_chsh_phase b = natToWord 5 27 ->
   hw_chsh_C_sq (chsh_next b) = hw_chsh_C_sq b.
 Proof. intros b H. rewrite chsh_next_chsh_C_sq. rewrite (chsh_eq21_at27 b H). rewrite (chsh_eq22_at27 b H). rewrite (chsh_eq23_at27 b H). rewrite (chsh_eq24_at27 b H). kernel_refl. Qed.
 Lemma chsh_phase27_chsh_A_times_B : forall b, hw_chsh_phase b = natToWord 5 27 ->
-  hw_chsh_A_times_B (chsh_next b) = wplus (hw_chsh_A_times_B b) (combine (natToWord 128 0) (m256 (split2 128 128 (chsh_abs_A_256 b)) (split1 128 128 (chsh_abs_B_256 b)))).
-Proof. intros b H. rewrite chsh_next_chsh_A_times_B. phase_unfold. rewrite H. phase_mux. unfold m256. reflexivity. Qed.
+  hw_chsh_A_times_B (chsh_next b) = wplus (hw_chsh_A_times_B b) (evalZeroExtendTrunc 268 (combine (natToWord 67 0) (m134 (split2 67 67 (chsh_abs_A_134 b)) (split1 67 67 (chsh_abs_B_134 b))))).
+Proof. intros b H. rewrite chsh_next_chsh_A_times_B. phase_unfold. rewrite H. phase_mux. unfold m134. reflexivity. Qed.
 Lemma chsh_phase27_chsh_check_result : forall b, hw_chsh_phase b = natToWord 5 27 ->
   hw_chsh_check_result (chsh_next b) = hw_chsh_check_result b.
 Proof. intros b H. rewrite chsh_next_chsh_check_result. rewrite (chsh_eq29_at27 b H). kernel_refl. Qed.
@@ -3979,8 +3979,8 @@ Lemma chsh_phase28_chsh_C_sq : forall b, hw_chsh_phase b = natToWord 5 28 ->
   hw_chsh_C_sq (chsh_next b) = hw_chsh_C_sq b.
 Proof. intros b H. rewrite chsh_next_chsh_C_sq. rewrite (chsh_eq21_at28 b H). rewrite (chsh_eq22_at28 b H). rewrite (chsh_eq23_at28 b H). rewrite (chsh_eq24_at28 b H). kernel_refl. Qed.
 Lemma chsh_phase28_chsh_A_times_B : forall b, hw_chsh_phase b = natToWord 5 28 ->
-  hw_chsh_A_times_B (chsh_next b) = wplus (hw_chsh_A_times_B b) (combine (natToWord 256 0) (split1 128 128 (m256 (split2 128 128 (chsh_abs_A_256 b)) (split2 128 128 (chsh_abs_B_256 b))))).
-Proof. intros b H. rewrite chsh_next_chsh_A_times_B. phase_unfold. rewrite H. phase_mux. unfold m256. reflexivity. Qed.
+  hw_chsh_A_times_B (chsh_next b) = wplus (hw_chsh_A_times_B b) (combine (natToWord 134 0) (m134 (split2 67 67 (chsh_abs_A_134 b)) (split2 67 67 (chsh_abs_B_134 b)))).
+Proof. intros b H. rewrite chsh_next_chsh_A_times_B. phase_unfold. rewrite H. phase_mux. unfold m134. reflexivity. Qed.
 Lemma chsh_phase28_chsh_check_result : forall b, hw_chsh_phase b = natToWord 5 28 ->
   hw_chsh_check_result (chsh_next b) = hw_chsh_check_result b.
 Proof. intros b H. rewrite chsh_next_chsh_check_result. rewrite (chsh_eq29_at28 b H). kernel_refl. Qed.

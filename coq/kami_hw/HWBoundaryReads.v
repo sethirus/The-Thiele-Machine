@@ -293,133 +293,133 @@ Proof.
 Qed.
 
 Lemma hwb_read_chsh_n00sq : forall b,
-  action_read (hwb_regs b) "chsh_n00sq" (SyntaxKind (Bit 128)) = Some (hw_chsh_n00sq b).
+  action_read (hwb_regs b) "chsh_n00sq" (SyntaxKind (Bit 67)) = Some (hw_chsh_n00sq b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_n01sq : forall b,
-  action_read (hwb_regs b) "chsh_n01sq" (SyntaxKind (Bit 128)) = Some (hw_chsh_n01sq b).
+  action_read (hwb_regs b) "chsh_n01sq" (SyntaxKind (Bit 67)) = Some (hw_chsh_n01sq b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_n10sq : forall b,
-  action_read (hwb_regs b) "chsh_n10sq" (SyntaxKind (Bit 128)) = Some (hw_chsh_n10sq b).
+  action_read (hwb_regs b) "chsh_n10sq" (SyntaxKind (Bit 67)) = Some (hw_chsh_n10sq b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_n11sq : forall b,
-  action_read (hwb_regs b) "chsh_n11sq" (SyntaxKind (Bit 128)) = Some (hw_chsh_n11sq b).
+  action_read (hwb_regs b) "chsh_n11sq" (SyntaxKind (Bit 67)) = Some (hw_chsh_n11sq b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_d00sq : forall b,
-  action_read (hwb_regs b) "chsh_d00sq" (SyntaxKind (Bit 128)) = Some (hw_chsh_d00sq b).
+  action_read (hwb_regs b) "chsh_d00sq" (SyntaxKind (Bit 67)) = Some (hw_chsh_d00sq b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_d01sq : forall b,
-  action_read (hwb_regs b) "chsh_d01sq" (SyntaxKind (Bit 128)) = Some (hw_chsh_d01sq b).
+  action_read (hwb_regs b) "chsh_d01sq" (SyntaxKind (Bit 67)) = Some (hw_chsh_d01sq b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_d10sq : forall b,
-  action_read (hwb_regs b) "chsh_d10sq" (SyntaxKind (Bit 128)) = Some (hw_chsh_d10sq b).
+  action_read (hwb_regs b) "chsh_d10sq" (SyntaxKind (Bit 67)) = Some (hw_chsh_d10sq b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_d11sq : forall b,
-  action_read (hwb_regs b) "chsh_d11sq" (SyntaxKind (Bit 128)) = Some (hw_chsh_d11sq b).
+  action_read (hwb_regs b) "chsh_d11sq" (SyntaxKind (Bit 67)) = Some (hw_chsh_d11sq b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_A_pos : forall b,
-  action_read (hwb_regs b) "chsh_A_pos" (SyntaxKind (Bit 256)) = Some (hw_chsh_A_pos b).
+  action_read (hwb_regs b) "chsh_A_pos" (SyntaxKind (Bit 134)) = Some (hw_chsh_A_pos b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_A_neg_a : forall b,
-  action_read (hwb_regs b) "chsh_A_neg_a" (SyntaxKind (Bit 256)) = Some (hw_chsh_A_neg_a b).
+  action_read (hwb_regs b) "chsh_A_neg_a" (SyntaxKind (Bit 134)) = Some (hw_chsh_A_neg_a b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_A_neg_b : forall b,
-  action_read (hwb_regs b) "chsh_A_neg_b" (SyntaxKind (Bit 256)) = Some (hw_chsh_A_neg_b b).
+  action_read (hwb_regs b) "chsh_A_neg_b" (SyntaxKind (Bit 134)) = Some (hw_chsh_A_neg_b b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_B_pos : forall b,
-  action_read (hwb_regs b) "chsh_B_pos" (SyntaxKind (Bit 256)) = Some (hw_chsh_B_pos b).
+  action_read (hwb_regs b) "chsh_B_pos" (SyntaxKind (Bit 134)) = Some (hw_chsh_B_pos b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_B_neg_a : forall b,
-  action_read (hwb_regs b) "chsh_B_neg_a" (SyntaxKind (Bit 256)) = Some (hw_chsh_B_neg_a b).
+  action_read (hwb_regs b) "chsh_B_neg_a" (SyntaxKind (Bit 134)) = Some (hw_chsh_B_neg_a b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_B_neg_b : forall b,
-  action_read (hwb_regs b) "chsh_B_neg_b" (SyntaxKind (Bit 256)) = Some (hw_chsh_B_neg_b b).
+  action_read (hwb_regs b) "chsh_B_neg_b" (SyntaxKind (Bit 134)) = Some (hw_chsh_B_neg_b b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_d00d01 : forall b,
-  action_read (hwb_regs b) "chsh_d00d01" (SyntaxKind (Bit 128)) = Some (hw_chsh_d00d01 b).
+  action_read (hwb_regs b) "chsh_d00d01" (SyntaxKind (Bit 67)) = Some (hw_chsh_d00d01 b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_n10n11 : forall b,
-  action_read (hwb_regs b) "chsh_n10n11" (SyntaxKind (Bit 128)) = Some (hw_chsh_n10n11 b).
+  action_read (hwb_regs b) "chsh_n10n11" (SyntaxKind (Bit 67)) = Some (hw_chsh_n10n11 b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_d10d11 : forall b,
-  action_read (hwb_regs b) "chsh_d10d11" (SyntaxKind (Bit 128)) = Some (hw_chsh_d10d11 b).
+  action_read (hwb_regs b) "chsh_d10d11" (SyntaxKind (Bit 67)) = Some (hw_chsh_d10d11 b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_n00n01 : forall b,
-  action_read (hwb_regs b) "chsh_n00n01" (SyntaxKind (Bit 128)) = Some (hw_chsh_n00n01 b).
+  action_read (hwb_regs b) "chsh_n00n01" (SyntaxKind (Bit 67)) = Some (hw_chsh_n00n01 b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_abs_C1 : forall b,
-  action_read (hwb_regs b) "chsh_abs_C1" (SyntaxKind (Bit 256)) = Some (hw_chsh_abs_C1 b).
+  action_read (hwb_regs b) "chsh_abs_C1" (SyntaxKind (Bit 134)) = Some (hw_chsh_abs_C1 b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_abs_C2 : forall b,
-  action_read (hwb_regs b) "chsh_abs_C2" (SyntaxKind (Bit 256)) = Some (hw_chsh_abs_C2 b).
+  action_read (hwb_regs b) "chsh_abs_C2" (SyntaxKind (Bit 134)) = Some (hw_chsh_abs_C2 b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_C_sq : forall b,
-  action_read (hwb_regs b) "chsh_C_sq" (SyntaxKind (Bit 384)) = Some (hw_chsh_C_sq b).
+  action_read (hwb_regs b) "chsh_C_sq" (SyntaxKind (Bit 268)) = Some (hw_chsh_C_sq b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
 Lemma hwb_read_chsh_A_times_B : forall b,
-  action_read (hwb_regs b) "chsh_A_times_B" (SyntaxKind (Bit 384)) = Some (hw_chsh_A_times_B b).
+  action_read (hwb_regs b) "chsh_A_times_B" (SyntaxKind (Bit 268)) = Some (hw_chsh_A_times_B b).
 Proof.
   intros. vm_compute. reflexivity.
 Qed.

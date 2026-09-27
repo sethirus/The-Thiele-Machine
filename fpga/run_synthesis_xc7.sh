@@ -24,14 +24,16 @@
 # prjxray-db; K480T is not the Genesys 2 device):
 #   (1) instr_chsh_lassert's witness check is implemented in Kami as a
 #       29-phase FSM (`chsh_lassert_fsm` rule in
-#       coq/kami_hw/ThieleCPUCore.v) that time-shares one 128×128
+#       coq/kami_hw/ThieleCPUCore.v) that time-shares one 67×67
 #       multiplier across the 22 wide multiplications it needs, so only one
-#       multiply is live per cycle. The two 256×256 products are each summed
-#       from four 128×128 partial products. The Coq spec is still
-#       single-step; multi-cycle execution is a Kami-implementation detail
-#       invisible to the spec, the same pattern as instr_lassert.
+#       multiply is live per cycle. Each FSM register is sized to the largest
+#       value 32-bit counters can put there (67, 134 and 268 bits), and the
+#       two 134×134 products are each summed from four 67×67 partial
+#       products. The Coq spec is still single-step; multi-cycle execution is
+#       a Kami-implementation detail invisible to the spec, the same pattern
+#       as instr_lassert.
 #   (2) DSP inference is disabled in synth_xc7.ys (`-nodsp`), so the
-#       multiplier maps to LUTs and the design comes to about 60K LUTs.
+#       multiplier maps to LUTs and the design comes to about 37K LUTs.
 #       With DSP48E1 slices the design did not finish inside the CI limit:
 #       cascaded slices stall the nextpnr-xilinx placer, and standalone
 #       slices leave routing badly congested.

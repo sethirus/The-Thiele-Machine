@@ -238,17 +238,17 @@ Proof. induction n as [|n IH]; intro b; [reflexivity|cbn [chsh_iter]; rewrite ch
 Lemma iter_keeps_wc_diff_11 : forall n b, hw_wc_diff_11 (chsh_iter n b) = hw_wc_diff_11 b.
 Proof. induction n as [|n IH]; intro b; [reflexivity|cbn [chsh_iter]; rewrite chsh_keeps_wc_diff_11; apply IH]. Qed.
 
-Lemma chsh_abs_C_form : forall c, chsh_abs_C_256 c =
+Lemma chsh_abs_C_form : forall c, chsh_abs_C_134 c =
   if (if bool_dec (hw_bool_neq (hw_chsh_sign00 c) (hw_chsh_sign01 c))
                   (hw_bool_neq (hw_chsh_sign10 c) (hw_chsh_sign11 c)) then true else false)
   then wplus (hw_chsh_abs_C1 c) (hw_chsh_abs_C2 c) else hw_absdiffw (hw_chsh_abs_C1 c) (hw_chsh_abs_C2 c).
 Proof. intro c. kernel_refl. Qed.
 
-Lemma chsh_abs_A_form : forall c, chsh_abs_A_256 c =
+Lemma chsh_abs_A_form : forall c, chsh_abs_A_134 c =
   hw_absdiffw (hw_chsh_A_pos c) (wplus (hw_chsh_A_neg_a c) (hw_chsh_A_neg_b c)).
 Proof. intro c. kernel_refl. Qed.
 
-Lemma chsh_abs_B_form : forall c, chsh_abs_B_256 c =
+Lemma chsh_abs_B_form : forall c, chsh_abs_B_134 c =
   hw_absdiffw (hw_chsh_B_pos c) (wplus (hw_chsh_B_neg_a c) (hw_chsh_B_neg_b c)).
 Proof. intro c. kernel_refl. Qed.
 
@@ -500,798 +500,798 @@ Proof.
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_error_code (chsh_iter 26 b) Ph26); exact V_error_code_26).
   assert (V_error_code_28 : hw_error_code (chsh_iter 28 b) = hw_error_code b)
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_error_code (chsh_iter 27 b) Ph27); exact V_error_code_27).
-  assert (V_chsh_n00sq_1 : hw_chsh_n00sq (chsh_iter 1 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))).
+  assert (V_chsh_n00sq_1 : hw_chsh_n00sq (chsh_iter 1 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))).
   { change (chsh_iter 1 b) with (chsh_next (chsh_iter 0 b)).
     rewrite (chsh_phase1_chsh_n00sq (chsh_iter 0 b) Ph0). rewrite ?(iter_keeps_chsh_n00 0 b). rewrite ?(iter_keeps_chsh_n00 0 b). reflexivity. }
-  assert (V_chsh_n00sq_2 : hw_chsh_n00sq (chsh_iter 2 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_2 : hw_chsh_n00sq (chsh_iter 2 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 2 b) with (chsh_next (chsh_iter 1 b)); rewrite (chsh_phase2_chsh_n00sq (chsh_iter 1 b) Ph1); exact V_chsh_n00sq_1).
-  assert (V_chsh_n00sq_3 : hw_chsh_n00sq (chsh_iter 3 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_3 : hw_chsh_n00sq (chsh_iter 3 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 3 b) with (chsh_next (chsh_iter 2 b)); rewrite (chsh_phase3_chsh_n00sq (chsh_iter 2 b) Ph2); exact V_chsh_n00sq_2).
-  assert (V_chsh_n00sq_4 : hw_chsh_n00sq (chsh_iter 4 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_4 : hw_chsh_n00sq (chsh_iter 4 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 4 b) with (chsh_next (chsh_iter 3 b)); rewrite (chsh_phase4_chsh_n00sq (chsh_iter 3 b) Ph3); exact V_chsh_n00sq_3).
-  assert (V_chsh_n00sq_5 : hw_chsh_n00sq (chsh_iter 5 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_5 : hw_chsh_n00sq (chsh_iter 5 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 5 b) with (chsh_next (chsh_iter 4 b)); rewrite (chsh_phase5_chsh_n00sq (chsh_iter 4 b) Ph4); exact V_chsh_n00sq_4).
-  assert (V_chsh_n00sq_6 : hw_chsh_n00sq (chsh_iter 6 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_6 : hw_chsh_n00sq (chsh_iter 6 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 6 b) with (chsh_next (chsh_iter 5 b)); rewrite (chsh_phase6_chsh_n00sq (chsh_iter 5 b) Ph5); exact V_chsh_n00sq_5).
-  assert (V_chsh_n00sq_7 : hw_chsh_n00sq (chsh_iter 7 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_7 : hw_chsh_n00sq (chsh_iter 7 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 7 b) with (chsh_next (chsh_iter 6 b)); rewrite (chsh_phase7_chsh_n00sq (chsh_iter 6 b) Ph6); exact V_chsh_n00sq_6).
-  assert (V_chsh_n00sq_8 : hw_chsh_n00sq (chsh_iter 8 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_8 : hw_chsh_n00sq (chsh_iter 8 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 8 b) with (chsh_next (chsh_iter 7 b)); rewrite (chsh_phase8_chsh_n00sq (chsh_iter 7 b) Ph7); exact V_chsh_n00sq_7).
-  assert (V_chsh_n00sq_9 : hw_chsh_n00sq (chsh_iter 9 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_9 : hw_chsh_n00sq (chsh_iter 9 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 9 b) with (chsh_next (chsh_iter 8 b)); rewrite (chsh_phase9_chsh_n00sq (chsh_iter 8 b) Ph8); exact V_chsh_n00sq_8).
-  assert (V_chsh_n00sq_10 : hw_chsh_n00sq (chsh_iter 10 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_10 : hw_chsh_n00sq (chsh_iter 10 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 10 b) with (chsh_next (chsh_iter 9 b)); rewrite (chsh_phase10_chsh_n00sq (chsh_iter 9 b) Ph9); exact V_chsh_n00sq_9).
-  assert (V_chsh_n00sq_11 : hw_chsh_n00sq (chsh_iter 11 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_11 : hw_chsh_n00sq (chsh_iter 11 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 11 b) with (chsh_next (chsh_iter 10 b)); rewrite (chsh_phase11_chsh_n00sq (chsh_iter 10 b) Ph10); exact V_chsh_n00sq_10).
-  assert (V_chsh_n00sq_12 : hw_chsh_n00sq (chsh_iter 12 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_12 : hw_chsh_n00sq (chsh_iter 12 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 12 b) with (chsh_next (chsh_iter 11 b)); rewrite (chsh_phase12_chsh_n00sq (chsh_iter 11 b) Ph11); exact V_chsh_n00sq_11).
-  assert (V_chsh_n00sq_13 : hw_chsh_n00sq (chsh_iter 13 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_13 : hw_chsh_n00sq (chsh_iter 13 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 13 b) with (chsh_next (chsh_iter 12 b)); rewrite (chsh_phase13_chsh_n00sq (chsh_iter 12 b) Ph12); exact V_chsh_n00sq_12).
-  assert (V_chsh_n00sq_14 : hw_chsh_n00sq (chsh_iter 14 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_14 : hw_chsh_n00sq (chsh_iter 14 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 14 b) with (chsh_next (chsh_iter 13 b)); rewrite (chsh_phase14_chsh_n00sq (chsh_iter 13 b) Ph13); exact V_chsh_n00sq_13).
-  assert (V_chsh_n00sq_15 : hw_chsh_n00sq (chsh_iter 15 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_15 : hw_chsh_n00sq (chsh_iter 15 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 15 b) with (chsh_next (chsh_iter 14 b)); rewrite (chsh_phase15_chsh_n00sq (chsh_iter 14 b) Ph14); exact V_chsh_n00sq_14).
-  assert (V_chsh_n00sq_16 : hw_chsh_n00sq (chsh_iter 16 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_16 : hw_chsh_n00sq (chsh_iter 16 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 16 b) with (chsh_next (chsh_iter 15 b)); rewrite (chsh_phase16_chsh_n00sq (chsh_iter 15 b) Ph15); exact V_chsh_n00sq_15).
-  assert (V_chsh_n00sq_17 : hw_chsh_n00sq (chsh_iter 17 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_17 : hw_chsh_n00sq (chsh_iter 17 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 17 b) with (chsh_next (chsh_iter 16 b)); rewrite (chsh_phase17_chsh_n00sq (chsh_iter 16 b) Ph16); exact V_chsh_n00sq_16).
-  assert (V_chsh_n00sq_18 : hw_chsh_n00sq (chsh_iter 18 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_18 : hw_chsh_n00sq (chsh_iter 18 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)); rewrite (chsh_phase18_chsh_n00sq (chsh_iter 17 b) Ph17); exact V_chsh_n00sq_17).
-  assert (V_chsh_n00sq_19 : hw_chsh_n00sq (chsh_iter 19 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_19 : hw_chsh_n00sq (chsh_iter 19 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_n00sq (chsh_iter 18 b) Ph18); exact V_chsh_n00sq_18).
-  assert (V_chsh_n00sq_20 : hw_chsh_n00sq (chsh_iter 20 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_20 : hw_chsh_n00sq (chsh_iter 20 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_n00sq (chsh_iter 19 b) Ph19); exact V_chsh_n00sq_19).
-  assert (V_chsh_n00sq_21 : hw_chsh_n00sq (chsh_iter 21 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_21 : hw_chsh_n00sq (chsh_iter 21 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_n00sq (chsh_iter 20 b) Ph20); exact V_chsh_n00sq_20).
-  assert (V_chsh_n00sq_22 : hw_chsh_n00sq (chsh_iter 22 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_22 : hw_chsh_n00sq (chsh_iter 22 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_n00sq (chsh_iter 21 b) Ph21); exact V_chsh_n00sq_21).
-  assert (V_chsh_n00sq_23 : hw_chsh_n00sq (chsh_iter 23 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_23 : hw_chsh_n00sq (chsh_iter 23 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_n00sq (chsh_iter 22 b) Ph22); exact V_chsh_n00sq_22).
-  assert (V_chsh_n00sq_24 : hw_chsh_n00sq (chsh_iter 24 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_24 : hw_chsh_n00sq (chsh_iter 24 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_n00sq (chsh_iter 23 b) Ph23); exact V_chsh_n00sq_23).
-  assert (V_chsh_n00sq_25 : hw_chsh_n00sq (chsh_iter 25 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_25 : hw_chsh_n00sq (chsh_iter 25 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_n00sq (chsh_iter 24 b) Ph24); exact V_chsh_n00sq_24).
-  assert (V_chsh_n00sq_26 : hw_chsh_n00sq (chsh_iter 26 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_26 : hw_chsh_n00sq (chsh_iter 26 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_n00sq (chsh_iter 25 b) Ph25); exact V_chsh_n00sq_25).
-  assert (V_chsh_n00sq_27 : hw_chsh_n00sq (chsh_iter 27 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_27 : hw_chsh_n00sq (chsh_iter 27 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_n00sq (chsh_iter 26 b) Ph26); exact V_chsh_n00sq_26).
-  assert (V_chsh_n00sq_28 : hw_chsh_n00sq (chsh_iter 28 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))
+  assert (V_chsh_n00sq_28 : hw_chsh_n00sq (chsh_iter 28 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_n00sq (chsh_iter 27 b) Ph27); exact V_chsh_n00sq_27).
-  assert (V_chsh_n01sq_2 : hw_chsh_n01sq (chsh_iter 2 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))).
+  assert (V_chsh_n01sq_2 : hw_chsh_n01sq (chsh_iter 2 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))).
   { change (chsh_iter 2 b) with (chsh_next (chsh_iter 1 b)).
     rewrite (chsh_phase2_chsh_n01sq (chsh_iter 1 b) Ph1). rewrite ?(iter_keeps_chsh_n01 1 b). rewrite ?(iter_keeps_chsh_n01 1 b). reflexivity. }
-  assert (V_chsh_n01sq_3 : hw_chsh_n01sq (chsh_iter 3 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_3 : hw_chsh_n01sq (chsh_iter 3 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 3 b) with (chsh_next (chsh_iter 2 b)); rewrite (chsh_phase3_chsh_n01sq (chsh_iter 2 b) Ph2); exact V_chsh_n01sq_2).
-  assert (V_chsh_n01sq_4 : hw_chsh_n01sq (chsh_iter 4 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_4 : hw_chsh_n01sq (chsh_iter 4 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 4 b) with (chsh_next (chsh_iter 3 b)); rewrite (chsh_phase4_chsh_n01sq (chsh_iter 3 b) Ph3); exact V_chsh_n01sq_3).
-  assert (V_chsh_n01sq_5 : hw_chsh_n01sq (chsh_iter 5 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_5 : hw_chsh_n01sq (chsh_iter 5 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 5 b) with (chsh_next (chsh_iter 4 b)); rewrite (chsh_phase5_chsh_n01sq (chsh_iter 4 b) Ph4); exact V_chsh_n01sq_4).
-  assert (V_chsh_n01sq_6 : hw_chsh_n01sq (chsh_iter 6 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_6 : hw_chsh_n01sq (chsh_iter 6 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 6 b) with (chsh_next (chsh_iter 5 b)); rewrite (chsh_phase6_chsh_n01sq (chsh_iter 5 b) Ph5); exact V_chsh_n01sq_5).
-  assert (V_chsh_n01sq_7 : hw_chsh_n01sq (chsh_iter 7 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_7 : hw_chsh_n01sq (chsh_iter 7 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 7 b) with (chsh_next (chsh_iter 6 b)); rewrite (chsh_phase7_chsh_n01sq (chsh_iter 6 b) Ph6); exact V_chsh_n01sq_6).
-  assert (V_chsh_n01sq_8 : hw_chsh_n01sq (chsh_iter 8 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_8 : hw_chsh_n01sq (chsh_iter 8 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 8 b) with (chsh_next (chsh_iter 7 b)); rewrite (chsh_phase8_chsh_n01sq (chsh_iter 7 b) Ph7); exact V_chsh_n01sq_7).
-  assert (V_chsh_n01sq_9 : hw_chsh_n01sq (chsh_iter 9 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_9 : hw_chsh_n01sq (chsh_iter 9 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 9 b) with (chsh_next (chsh_iter 8 b)); rewrite (chsh_phase9_chsh_n01sq (chsh_iter 8 b) Ph8); exact V_chsh_n01sq_8).
-  assert (V_chsh_n01sq_10 : hw_chsh_n01sq (chsh_iter 10 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_10 : hw_chsh_n01sq (chsh_iter 10 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 10 b) with (chsh_next (chsh_iter 9 b)); rewrite (chsh_phase10_chsh_n01sq (chsh_iter 9 b) Ph9); exact V_chsh_n01sq_9).
-  assert (V_chsh_n01sq_11 : hw_chsh_n01sq (chsh_iter 11 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_11 : hw_chsh_n01sq (chsh_iter 11 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 11 b) with (chsh_next (chsh_iter 10 b)); rewrite (chsh_phase11_chsh_n01sq (chsh_iter 10 b) Ph10); exact V_chsh_n01sq_10).
-  assert (V_chsh_n01sq_12 : hw_chsh_n01sq (chsh_iter 12 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_12 : hw_chsh_n01sq (chsh_iter 12 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 12 b) with (chsh_next (chsh_iter 11 b)); rewrite (chsh_phase12_chsh_n01sq (chsh_iter 11 b) Ph11); exact V_chsh_n01sq_11).
-  assert (V_chsh_n01sq_13 : hw_chsh_n01sq (chsh_iter 13 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_13 : hw_chsh_n01sq (chsh_iter 13 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 13 b) with (chsh_next (chsh_iter 12 b)); rewrite (chsh_phase13_chsh_n01sq (chsh_iter 12 b) Ph12); exact V_chsh_n01sq_12).
-  assert (V_chsh_n01sq_14 : hw_chsh_n01sq (chsh_iter 14 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_14 : hw_chsh_n01sq (chsh_iter 14 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 14 b) with (chsh_next (chsh_iter 13 b)); rewrite (chsh_phase14_chsh_n01sq (chsh_iter 13 b) Ph13); exact V_chsh_n01sq_13).
-  assert (V_chsh_n01sq_15 : hw_chsh_n01sq (chsh_iter 15 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_15 : hw_chsh_n01sq (chsh_iter 15 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 15 b) with (chsh_next (chsh_iter 14 b)); rewrite (chsh_phase15_chsh_n01sq (chsh_iter 14 b) Ph14); exact V_chsh_n01sq_14).
-  assert (V_chsh_n01sq_16 : hw_chsh_n01sq (chsh_iter 16 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_16 : hw_chsh_n01sq (chsh_iter 16 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 16 b) with (chsh_next (chsh_iter 15 b)); rewrite (chsh_phase16_chsh_n01sq (chsh_iter 15 b) Ph15); exact V_chsh_n01sq_15).
-  assert (V_chsh_n01sq_17 : hw_chsh_n01sq (chsh_iter 17 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_17 : hw_chsh_n01sq (chsh_iter 17 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 17 b) with (chsh_next (chsh_iter 16 b)); rewrite (chsh_phase17_chsh_n01sq (chsh_iter 16 b) Ph16); exact V_chsh_n01sq_16).
-  assert (V_chsh_n01sq_18 : hw_chsh_n01sq (chsh_iter 18 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_18 : hw_chsh_n01sq (chsh_iter 18 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)); rewrite (chsh_phase18_chsh_n01sq (chsh_iter 17 b) Ph17); exact V_chsh_n01sq_17).
-  assert (V_chsh_n01sq_19 : hw_chsh_n01sq (chsh_iter 19 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_19 : hw_chsh_n01sq (chsh_iter 19 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_n01sq (chsh_iter 18 b) Ph18); exact V_chsh_n01sq_18).
-  assert (V_chsh_n01sq_20 : hw_chsh_n01sq (chsh_iter 20 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_20 : hw_chsh_n01sq (chsh_iter 20 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_n01sq (chsh_iter 19 b) Ph19); exact V_chsh_n01sq_19).
-  assert (V_chsh_n01sq_21 : hw_chsh_n01sq (chsh_iter 21 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_21 : hw_chsh_n01sq (chsh_iter 21 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_n01sq (chsh_iter 20 b) Ph20); exact V_chsh_n01sq_20).
-  assert (V_chsh_n01sq_22 : hw_chsh_n01sq (chsh_iter 22 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_22 : hw_chsh_n01sq (chsh_iter 22 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_n01sq (chsh_iter 21 b) Ph21); exact V_chsh_n01sq_21).
-  assert (V_chsh_n01sq_23 : hw_chsh_n01sq (chsh_iter 23 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_23 : hw_chsh_n01sq (chsh_iter 23 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_n01sq (chsh_iter 22 b) Ph22); exact V_chsh_n01sq_22).
-  assert (V_chsh_n01sq_24 : hw_chsh_n01sq (chsh_iter 24 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_24 : hw_chsh_n01sq (chsh_iter 24 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_n01sq (chsh_iter 23 b) Ph23); exact V_chsh_n01sq_23).
-  assert (V_chsh_n01sq_25 : hw_chsh_n01sq (chsh_iter 25 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_25 : hw_chsh_n01sq (chsh_iter 25 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_n01sq (chsh_iter 24 b) Ph24); exact V_chsh_n01sq_24).
-  assert (V_chsh_n01sq_26 : hw_chsh_n01sq (chsh_iter 26 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_26 : hw_chsh_n01sq (chsh_iter 26 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_n01sq (chsh_iter 25 b) Ph25); exact V_chsh_n01sq_25).
-  assert (V_chsh_n01sq_27 : hw_chsh_n01sq (chsh_iter 27 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_27 : hw_chsh_n01sq (chsh_iter 27 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_n01sq (chsh_iter 26 b) Ph26); exact V_chsh_n01sq_26).
-  assert (V_chsh_n01sq_28 : hw_chsh_n01sq (chsh_iter 28 b) = (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n01sq_28 : hw_chsh_n01sq (chsh_iter 28 b) = (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_n01sq (chsh_iter 27 b) Ph27); exact V_chsh_n01sq_27).
-  assert (V_chsh_n10sq_3 : hw_chsh_n10sq (chsh_iter 3 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))).
+  assert (V_chsh_n10sq_3 : hw_chsh_n10sq (chsh_iter 3 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))).
   { change (chsh_iter 3 b) with (chsh_next (chsh_iter 2 b)).
     rewrite (chsh_phase3_chsh_n10sq (chsh_iter 2 b) Ph2). rewrite ?(iter_keeps_chsh_n10 2 b). rewrite ?(iter_keeps_chsh_n10 2 b). reflexivity. }
-  assert (V_chsh_n10sq_4 : hw_chsh_n10sq (chsh_iter 4 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_4 : hw_chsh_n10sq (chsh_iter 4 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 4 b) with (chsh_next (chsh_iter 3 b)); rewrite (chsh_phase4_chsh_n10sq (chsh_iter 3 b) Ph3); exact V_chsh_n10sq_3).
-  assert (V_chsh_n10sq_5 : hw_chsh_n10sq (chsh_iter 5 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_5 : hw_chsh_n10sq (chsh_iter 5 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 5 b) with (chsh_next (chsh_iter 4 b)); rewrite (chsh_phase5_chsh_n10sq (chsh_iter 4 b) Ph4); exact V_chsh_n10sq_4).
-  assert (V_chsh_n10sq_6 : hw_chsh_n10sq (chsh_iter 6 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_6 : hw_chsh_n10sq (chsh_iter 6 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 6 b) with (chsh_next (chsh_iter 5 b)); rewrite (chsh_phase6_chsh_n10sq (chsh_iter 5 b) Ph5); exact V_chsh_n10sq_5).
-  assert (V_chsh_n10sq_7 : hw_chsh_n10sq (chsh_iter 7 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_7 : hw_chsh_n10sq (chsh_iter 7 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 7 b) with (chsh_next (chsh_iter 6 b)); rewrite (chsh_phase7_chsh_n10sq (chsh_iter 6 b) Ph6); exact V_chsh_n10sq_6).
-  assert (V_chsh_n10sq_8 : hw_chsh_n10sq (chsh_iter 8 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_8 : hw_chsh_n10sq (chsh_iter 8 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 8 b) with (chsh_next (chsh_iter 7 b)); rewrite (chsh_phase8_chsh_n10sq (chsh_iter 7 b) Ph7); exact V_chsh_n10sq_7).
-  assert (V_chsh_n10sq_9 : hw_chsh_n10sq (chsh_iter 9 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_9 : hw_chsh_n10sq (chsh_iter 9 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 9 b) with (chsh_next (chsh_iter 8 b)); rewrite (chsh_phase9_chsh_n10sq (chsh_iter 8 b) Ph8); exact V_chsh_n10sq_8).
-  assert (V_chsh_n10sq_10 : hw_chsh_n10sq (chsh_iter 10 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_10 : hw_chsh_n10sq (chsh_iter 10 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 10 b) with (chsh_next (chsh_iter 9 b)); rewrite (chsh_phase10_chsh_n10sq (chsh_iter 9 b) Ph9); exact V_chsh_n10sq_9).
-  assert (V_chsh_n10sq_11 : hw_chsh_n10sq (chsh_iter 11 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_11 : hw_chsh_n10sq (chsh_iter 11 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 11 b) with (chsh_next (chsh_iter 10 b)); rewrite (chsh_phase11_chsh_n10sq (chsh_iter 10 b) Ph10); exact V_chsh_n10sq_10).
-  assert (V_chsh_n10sq_12 : hw_chsh_n10sq (chsh_iter 12 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_12 : hw_chsh_n10sq (chsh_iter 12 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 12 b) with (chsh_next (chsh_iter 11 b)); rewrite (chsh_phase12_chsh_n10sq (chsh_iter 11 b) Ph11); exact V_chsh_n10sq_11).
-  assert (V_chsh_n10sq_13 : hw_chsh_n10sq (chsh_iter 13 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_13 : hw_chsh_n10sq (chsh_iter 13 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 13 b) with (chsh_next (chsh_iter 12 b)); rewrite (chsh_phase13_chsh_n10sq (chsh_iter 12 b) Ph12); exact V_chsh_n10sq_12).
-  assert (V_chsh_n10sq_14 : hw_chsh_n10sq (chsh_iter 14 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_14 : hw_chsh_n10sq (chsh_iter 14 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 14 b) with (chsh_next (chsh_iter 13 b)); rewrite (chsh_phase14_chsh_n10sq (chsh_iter 13 b) Ph13); exact V_chsh_n10sq_13).
-  assert (V_chsh_n10sq_15 : hw_chsh_n10sq (chsh_iter 15 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_15 : hw_chsh_n10sq (chsh_iter 15 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 15 b) with (chsh_next (chsh_iter 14 b)); rewrite (chsh_phase15_chsh_n10sq (chsh_iter 14 b) Ph14); exact V_chsh_n10sq_14).
-  assert (V_chsh_n10sq_16 : hw_chsh_n10sq (chsh_iter 16 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_16 : hw_chsh_n10sq (chsh_iter 16 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 16 b) with (chsh_next (chsh_iter 15 b)); rewrite (chsh_phase16_chsh_n10sq (chsh_iter 15 b) Ph15); exact V_chsh_n10sq_15).
-  assert (V_chsh_n10sq_17 : hw_chsh_n10sq (chsh_iter 17 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_17 : hw_chsh_n10sq (chsh_iter 17 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 17 b) with (chsh_next (chsh_iter 16 b)); rewrite (chsh_phase17_chsh_n10sq (chsh_iter 16 b) Ph16); exact V_chsh_n10sq_16).
-  assert (V_chsh_n10sq_18 : hw_chsh_n10sq (chsh_iter 18 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_18 : hw_chsh_n10sq (chsh_iter 18 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)); rewrite (chsh_phase18_chsh_n10sq (chsh_iter 17 b) Ph17); exact V_chsh_n10sq_17).
-  assert (V_chsh_n10sq_19 : hw_chsh_n10sq (chsh_iter 19 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_19 : hw_chsh_n10sq (chsh_iter 19 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_n10sq (chsh_iter 18 b) Ph18); exact V_chsh_n10sq_18).
-  assert (V_chsh_n10sq_20 : hw_chsh_n10sq (chsh_iter 20 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_20 : hw_chsh_n10sq (chsh_iter 20 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_n10sq (chsh_iter 19 b) Ph19); exact V_chsh_n10sq_19).
-  assert (V_chsh_n10sq_21 : hw_chsh_n10sq (chsh_iter 21 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_21 : hw_chsh_n10sq (chsh_iter 21 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_n10sq (chsh_iter 20 b) Ph20); exact V_chsh_n10sq_20).
-  assert (V_chsh_n10sq_22 : hw_chsh_n10sq (chsh_iter 22 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_22 : hw_chsh_n10sq (chsh_iter 22 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_n10sq (chsh_iter 21 b) Ph21); exact V_chsh_n10sq_21).
-  assert (V_chsh_n10sq_23 : hw_chsh_n10sq (chsh_iter 23 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_23 : hw_chsh_n10sq (chsh_iter 23 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_n10sq (chsh_iter 22 b) Ph22); exact V_chsh_n10sq_22).
-  assert (V_chsh_n10sq_24 : hw_chsh_n10sq (chsh_iter 24 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_24 : hw_chsh_n10sq (chsh_iter 24 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_n10sq (chsh_iter 23 b) Ph23); exact V_chsh_n10sq_23).
-  assert (V_chsh_n10sq_25 : hw_chsh_n10sq (chsh_iter 25 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_25 : hw_chsh_n10sq (chsh_iter 25 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_n10sq (chsh_iter 24 b) Ph24); exact V_chsh_n10sq_24).
-  assert (V_chsh_n10sq_26 : hw_chsh_n10sq (chsh_iter 26 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_26 : hw_chsh_n10sq (chsh_iter 26 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_n10sq (chsh_iter 25 b) Ph25); exact V_chsh_n10sq_25).
-  assert (V_chsh_n10sq_27 : hw_chsh_n10sq (chsh_iter 27 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_27 : hw_chsh_n10sq (chsh_iter 27 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_n10sq (chsh_iter 26 b) Ph26); exact V_chsh_n10sq_26).
-  assert (V_chsh_n10sq_28 : hw_chsh_n10sq (chsh_iter 28 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))
+  assert (V_chsh_n10sq_28 : hw_chsh_n10sq (chsh_iter 28 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_n10sq (chsh_iter 27 b) Ph27); exact V_chsh_n10sq_27).
-  assert (V_chsh_n11sq_4 : hw_chsh_n11sq (chsh_iter 4 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))).
+  assert (V_chsh_n11sq_4 : hw_chsh_n11sq (chsh_iter 4 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))).
   { change (chsh_iter 4 b) with (chsh_next (chsh_iter 3 b)).
     rewrite (chsh_phase4_chsh_n11sq (chsh_iter 3 b) Ph3). rewrite ?(iter_keeps_chsh_n11 3 b). rewrite ?(iter_keeps_chsh_n11 3 b). reflexivity. }
-  assert (V_chsh_n11sq_5 : hw_chsh_n11sq (chsh_iter 5 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_5 : hw_chsh_n11sq (chsh_iter 5 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 5 b) with (chsh_next (chsh_iter 4 b)); rewrite (chsh_phase5_chsh_n11sq (chsh_iter 4 b) Ph4); exact V_chsh_n11sq_4).
-  assert (V_chsh_n11sq_6 : hw_chsh_n11sq (chsh_iter 6 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_6 : hw_chsh_n11sq (chsh_iter 6 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 6 b) with (chsh_next (chsh_iter 5 b)); rewrite (chsh_phase6_chsh_n11sq (chsh_iter 5 b) Ph5); exact V_chsh_n11sq_5).
-  assert (V_chsh_n11sq_7 : hw_chsh_n11sq (chsh_iter 7 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_7 : hw_chsh_n11sq (chsh_iter 7 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 7 b) with (chsh_next (chsh_iter 6 b)); rewrite (chsh_phase7_chsh_n11sq (chsh_iter 6 b) Ph6); exact V_chsh_n11sq_6).
-  assert (V_chsh_n11sq_8 : hw_chsh_n11sq (chsh_iter 8 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_8 : hw_chsh_n11sq (chsh_iter 8 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 8 b) with (chsh_next (chsh_iter 7 b)); rewrite (chsh_phase8_chsh_n11sq (chsh_iter 7 b) Ph7); exact V_chsh_n11sq_7).
-  assert (V_chsh_n11sq_9 : hw_chsh_n11sq (chsh_iter 9 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_9 : hw_chsh_n11sq (chsh_iter 9 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 9 b) with (chsh_next (chsh_iter 8 b)); rewrite (chsh_phase9_chsh_n11sq (chsh_iter 8 b) Ph8); exact V_chsh_n11sq_8).
-  assert (V_chsh_n11sq_10 : hw_chsh_n11sq (chsh_iter 10 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_10 : hw_chsh_n11sq (chsh_iter 10 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 10 b) with (chsh_next (chsh_iter 9 b)); rewrite (chsh_phase10_chsh_n11sq (chsh_iter 9 b) Ph9); exact V_chsh_n11sq_9).
-  assert (V_chsh_n11sq_11 : hw_chsh_n11sq (chsh_iter 11 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_11 : hw_chsh_n11sq (chsh_iter 11 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 11 b) with (chsh_next (chsh_iter 10 b)); rewrite (chsh_phase11_chsh_n11sq (chsh_iter 10 b) Ph10); exact V_chsh_n11sq_10).
-  assert (V_chsh_n11sq_12 : hw_chsh_n11sq (chsh_iter 12 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_12 : hw_chsh_n11sq (chsh_iter 12 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 12 b) with (chsh_next (chsh_iter 11 b)); rewrite (chsh_phase12_chsh_n11sq (chsh_iter 11 b) Ph11); exact V_chsh_n11sq_11).
-  assert (V_chsh_n11sq_13 : hw_chsh_n11sq (chsh_iter 13 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_13 : hw_chsh_n11sq (chsh_iter 13 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 13 b) with (chsh_next (chsh_iter 12 b)); rewrite (chsh_phase13_chsh_n11sq (chsh_iter 12 b) Ph12); exact V_chsh_n11sq_12).
-  assert (V_chsh_n11sq_14 : hw_chsh_n11sq (chsh_iter 14 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_14 : hw_chsh_n11sq (chsh_iter 14 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 14 b) with (chsh_next (chsh_iter 13 b)); rewrite (chsh_phase14_chsh_n11sq (chsh_iter 13 b) Ph13); exact V_chsh_n11sq_13).
-  assert (V_chsh_n11sq_15 : hw_chsh_n11sq (chsh_iter 15 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_15 : hw_chsh_n11sq (chsh_iter 15 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 15 b) with (chsh_next (chsh_iter 14 b)); rewrite (chsh_phase15_chsh_n11sq (chsh_iter 14 b) Ph14); exact V_chsh_n11sq_14).
-  assert (V_chsh_n11sq_16 : hw_chsh_n11sq (chsh_iter 16 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_16 : hw_chsh_n11sq (chsh_iter 16 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 16 b) with (chsh_next (chsh_iter 15 b)); rewrite (chsh_phase16_chsh_n11sq (chsh_iter 15 b) Ph15); exact V_chsh_n11sq_15).
-  assert (V_chsh_n11sq_17 : hw_chsh_n11sq (chsh_iter 17 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_17 : hw_chsh_n11sq (chsh_iter 17 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 17 b) with (chsh_next (chsh_iter 16 b)); rewrite (chsh_phase17_chsh_n11sq (chsh_iter 16 b) Ph16); exact V_chsh_n11sq_16).
-  assert (V_chsh_n11sq_18 : hw_chsh_n11sq (chsh_iter 18 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_18 : hw_chsh_n11sq (chsh_iter 18 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)); rewrite (chsh_phase18_chsh_n11sq (chsh_iter 17 b) Ph17); exact V_chsh_n11sq_17).
-  assert (V_chsh_n11sq_19 : hw_chsh_n11sq (chsh_iter 19 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_19 : hw_chsh_n11sq (chsh_iter 19 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_n11sq (chsh_iter 18 b) Ph18); exact V_chsh_n11sq_18).
-  assert (V_chsh_n11sq_20 : hw_chsh_n11sq (chsh_iter 20 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_20 : hw_chsh_n11sq (chsh_iter 20 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_n11sq (chsh_iter 19 b) Ph19); exact V_chsh_n11sq_19).
-  assert (V_chsh_n11sq_21 : hw_chsh_n11sq (chsh_iter 21 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_21 : hw_chsh_n11sq (chsh_iter 21 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_n11sq (chsh_iter 20 b) Ph20); exact V_chsh_n11sq_20).
-  assert (V_chsh_n11sq_22 : hw_chsh_n11sq (chsh_iter 22 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_22 : hw_chsh_n11sq (chsh_iter 22 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_n11sq (chsh_iter 21 b) Ph21); exact V_chsh_n11sq_21).
-  assert (V_chsh_n11sq_23 : hw_chsh_n11sq (chsh_iter 23 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_23 : hw_chsh_n11sq (chsh_iter 23 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_n11sq (chsh_iter 22 b) Ph22); exact V_chsh_n11sq_22).
-  assert (V_chsh_n11sq_24 : hw_chsh_n11sq (chsh_iter 24 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_24 : hw_chsh_n11sq (chsh_iter 24 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_n11sq (chsh_iter 23 b) Ph23); exact V_chsh_n11sq_23).
-  assert (V_chsh_n11sq_25 : hw_chsh_n11sq (chsh_iter 25 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_25 : hw_chsh_n11sq (chsh_iter 25 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_n11sq (chsh_iter 24 b) Ph24); exact V_chsh_n11sq_24).
-  assert (V_chsh_n11sq_26 : hw_chsh_n11sq (chsh_iter 26 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_26 : hw_chsh_n11sq (chsh_iter 26 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_n11sq (chsh_iter 25 b) Ph25); exact V_chsh_n11sq_25).
-  assert (V_chsh_n11sq_27 : hw_chsh_n11sq (chsh_iter 27 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_27 : hw_chsh_n11sq (chsh_iter 27 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_n11sq (chsh_iter 26 b) Ph26); exact V_chsh_n11sq_26).
-  assert (V_chsh_n11sq_28 : hw_chsh_n11sq (chsh_iter 28 b) = (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n11sq_28 : hw_chsh_n11sq (chsh_iter 28 b) = (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_n11sq (chsh_iter 27 b) Ph27); exact V_chsh_n11sq_27).
-  assert (V_chsh_d00sq_5 : hw_chsh_d00sq (chsh_iter 5 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b))).
+  assert (V_chsh_d00sq_5 : hw_chsh_d00sq (chsh_iter 5 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b))).
   { change (chsh_iter 5 b) with (chsh_next (chsh_iter 4 b)).
     rewrite (chsh_phase5_chsh_d00sq (chsh_iter 4 b) Ph4). rewrite ?(iter_keeps_chsh_d00 4 b). rewrite ?(iter_keeps_chsh_d00 4 b). reflexivity. }
-  assert (V_chsh_d00sq_6 : hw_chsh_d00sq (chsh_iter 6 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_6 : hw_chsh_d00sq (chsh_iter 6 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 6 b) with (chsh_next (chsh_iter 5 b)); rewrite (chsh_phase6_chsh_d00sq (chsh_iter 5 b) Ph5); exact V_chsh_d00sq_5).
-  assert (V_chsh_d00sq_7 : hw_chsh_d00sq (chsh_iter 7 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_7 : hw_chsh_d00sq (chsh_iter 7 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 7 b) with (chsh_next (chsh_iter 6 b)); rewrite (chsh_phase7_chsh_d00sq (chsh_iter 6 b) Ph6); exact V_chsh_d00sq_6).
-  assert (V_chsh_d00sq_8 : hw_chsh_d00sq (chsh_iter 8 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_8 : hw_chsh_d00sq (chsh_iter 8 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 8 b) with (chsh_next (chsh_iter 7 b)); rewrite (chsh_phase8_chsh_d00sq (chsh_iter 7 b) Ph7); exact V_chsh_d00sq_7).
-  assert (V_chsh_d00sq_9 : hw_chsh_d00sq (chsh_iter 9 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_9 : hw_chsh_d00sq (chsh_iter 9 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 9 b) with (chsh_next (chsh_iter 8 b)); rewrite (chsh_phase9_chsh_d00sq (chsh_iter 8 b) Ph8); exact V_chsh_d00sq_8).
-  assert (V_chsh_d00sq_10 : hw_chsh_d00sq (chsh_iter 10 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_10 : hw_chsh_d00sq (chsh_iter 10 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 10 b) with (chsh_next (chsh_iter 9 b)); rewrite (chsh_phase10_chsh_d00sq (chsh_iter 9 b) Ph9); exact V_chsh_d00sq_9).
-  assert (V_chsh_d00sq_11 : hw_chsh_d00sq (chsh_iter 11 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_11 : hw_chsh_d00sq (chsh_iter 11 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 11 b) with (chsh_next (chsh_iter 10 b)); rewrite (chsh_phase11_chsh_d00sq (chsh_iter 10 b) Ph10); exact V_chsh_d00sq_10).
-  assert (V_chsh_d00sq_12 : hw_chsh_d00sq (chsh_iter 12 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_12 : hw_chsh_d00sq (chsh_iter 12 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 12 b) with (chsh_next (chsh_iter 11 b)); rewrite (chsh_phase12_chsh_d00sq (chsh_iter 11 b) Ph11); exact V_chsh_d00sq_11).
-  assert (V_chsh_d00sq_13 : hw_chsh_d00sq (chsh_iter 13 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_13 : hw_chsh_d00sq (chsh_iter 13 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 13 b) with (chsh_next (chsh_iter 12 b)); rewrite (chsh_phase13_chsh_d00sq (chsh_iter 12 b) Ph12); exact V_chsh_d00sq_12).
-  assert (V_chsh_d00sq_14 : hw_chsh_d00sq (chsh_iter 14 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_14 : hw_chsh_d00sq (chsh_iter 14 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 14 b) with (chsh_next (chsh_iter 13 b)); rewrite (chsh_phase14_chsh_d00sq (chsh_iter 13 b) Ph13); exact V_chsh_d00sq_13).
-  assert (V_chsh_d00sq_15 : hw_chsh_d00sq (chsh_iter 15 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_15 : hw_chsh_d00sq (chsh_iter 15 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 15 b) with (chsh_next (chsh_iter 14 b)); rewrite (chsh_phase15_chsh_d00sq (chsh_iter 14 b) Ph14); exact V_chsh_d00sq_14).
-  assert (V_chsh_d00sq_16 : hw_chsh_d00sq (chsh_iter 16 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_16 : hw_chsh_d00sq (chsh_iter 16 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 16 b) with (chsh_next (chsh_iter 15 b)); rewrite (chsh_phase16_chsh_d00sq (chsh_iter 15 b) Ph15); exact V_chsh_d00sq_15).
-  assert (V_chsh_d00sq_17 : hw_chsh_d00sq (chsh_iter 17 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_17 : hw_chsh_d00sq (chsh_iter 17 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 17 b) with (chsh_next (chsh_iter 16 b)); rewrite (chsh_phase17_chsh_d00sq (chsh_iter 16 b) Ph16); exact V_chsh_d00sq_16).
-  assert (V_chsh_d00sq_18 : hw_chsh_d00sq (chsh_iter 18 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_18 : hw_chsh_d00sq (chsh_iter 18 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)); rewrite (chsh_phase18_chsh_d00sq (chsh_iter 17 b) Ph17); exact V_chsh_d00sq_17).
-  assert (V_chsh_d00sq_19 : hw_chsh_d00sq (chsh_iter 19 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_19 : hw_chsh_d00sq (chsh_iter 19 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_d00sq (chsh_iter 18 b) Ph18); exact V_chsh_d00sq_18).
-  assert (V_chsh_d00sq_20 : hw_chsh_d00sq (chsh_iter 20 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_20 : hw_chsh_d00sq (chsh_iter 20 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_d00sq (chsh_iter 19 b) Ph19); exact V_chsh_d00sq_19).
-  assert (V_chsh_d00sq_21 : hw_chsh_d00sq (chsh_iter 21 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_21 : hw_chsh_d00sq (chsh_iter 21 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_d00sq (chsh_iter 20 b) Ph20); exact V_chsh_d00sq_20).
-  assert (V_chsh_d00sq_22 : hw_chsh_d00sq (chsh_iter 22 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_22 : hw_chsh_d00sq (chsh_iter 22 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_d00sq (chsh_iter 21 b) Ph21); exact V_chsh_d00sq_21).
-  assert (V_chsh_d00sq_23 : hw_chsh_d00sq (chsh_iter 23 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_23 : hw_chsh_d00sq (chsh_iter 23 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_d00sq (chsh_iter 22 b) Ph22); exact V_chsh_d00sq_22).
-  assert (V_chsh_d00sq_24 : hw_chsh_d00sq (chsh_iter 24 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_24 : hw_chsh_d00sq (chsh_iter 24 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_d00sq (chsh_iter 23 b) Ph23); exact V_chsh_d00sq_23).
-  assert (V_chsh_d00sq_25 : hw_chsh_d00sq (chsh_iter 25 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_25 : hw_chsh_d00sq (chsh_iter 25 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_d00sq (chsh_iter 24 b) Ph24); exact V_chsh_d00sq_24).
-  assert (V_chsh_d00sq_26 : hw_chsh_d00sq (chsh_iter 26 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_26 : hw_chsh_d00sq (chsh_iter 26 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_d00sq (chsh_iter 25 b) Ph25); exact V_chsh_d00sq_25).
-  assert (V_chsh_d00sq_27 : hw_chsh_d00sq (chsh_iter 27 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_27 : hw_chsh_d00sq (chsh_iter 27 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_d00sq (chsh_iter 26 b) Ph26); exact V_chsh_d00sq_26).
-  assert (V_chsh_d00sq_28 : hw_chsh_d00sq (chsh_iter 28 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)))
+  assert (V_chsh_d00sq_28 : hw_chsh_d00sq (chsh_iter 28 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_d00sq (chsh_iter 27 b) Ph27); exact V_chsh_d00sq_27).
-  assert (V_chsh_d01sq_6 : hw_chsh_d01sq (chsh_iter 6 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b))).
+  assert (V_chsh_d01sq_6 : hw_chsh_d01sq (chsh_iter 6 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b))).
   { change (chsh_iter 6 b) with (chsh_next (chsh_iter 5 b)).
     rewrite (chsh_phase6_chsh_d01sq (chsh_iter 5 b) Ph5). rewrite ?(iter_keeps_chsh_d01 5 b). rewrite ?(iter_keeps_chsh_d01 5 b). reflexivity. }
-  assert (V_chsh_d01sq_7 : hw_chsh_d01sq (chsh_iter 7 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_7 : hw_chsh_d01sq (chsh_iter 7 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 7 b) with (chsh_next (chsh_iter 6 b)); rewrite (chsh_phase7_chsh_d01sq (chsh_iter 6 b) Ph6); exact V_chsh_d01sq_6).
-  assert (V_chsh_d01sq_8 : hw_chsh_d01sq (chsh_iter 8 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_8 : hw_chsh_d01sq (chsh_iter 8 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 8 b) with (chsh_next (chsh_iter 7 b)); rewrite (chsh_phase8_chsh_d01sq (chsh_iter 7 b) Ph7); exact V_chsh_d01sq_7).
-  assert (V_chsh_d01sq_9 : hw_chsh_d01sq (chsh_iter 9 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_9 : hw_chsh_d01sq (chsh_iter 9 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 9 b) with (chsh_next (chsh_iter 8 b)); rewrite (chsh_phase9_chsh_d01sq (chsh_iter 8 b) Ph8); exact V_chsh_d01sq_8).
-  assert (V_chsh_d01sq_10 : hw_chsh_d01sq (chsh_iter 10 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_10 : hw_chsh_d01sq (chsh_iter 10 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 10 b) with (chsh_next (chsh_iter 9 b)); rewrite (chsh_phase10_chsh_d01sq (chsh_iter 9 b) Ph9); exact V_chsh_d01sq_9).
-  assert (V_chsh_d01sq_11 : hw_chsh_d01sq (chsh_iter 11 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_11 : hw_chsh_d01sq (chsh_iter 11 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 11 b) with (chsh_next (chsh_iter 10 b)); rewrite (chsh_phase11_chsh_d01sq (chsh_iter 10 b) Ph10); exact V_chsh_d01sq_10).
-  assert (V_chsh_d01sq_12 : hw_chsh_d01sq (chsh_iter 12 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_12 : hw_chsh_d01sq (chsh_iter 12 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 12 b) with (chsh_next (chsh_iter 11 b)); rewrite (chsh_phase12_chsh_d01sq (chsh_iter 11 b) Ph11); exact V_chsh_d01sq_11).
-  assert (V_chsh_d01sq_13 : hw_chsh_d01sq (chsh_iter 13 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_13 : hw_chsh_d01sq (chsh_iter 13 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 13 b) with (chsh_next (chsh_iter 12 b)); rewrite (chsh_phase13_chsh_d01sq (chsh_iter 12 b) Ph12); exact V_chsh_d01sq_12).
-  assert (V_chsh_d01sq_14 : hw_chsh_d01sq (chsh_iter 14 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_14 : hw_chsh_d01sq (chsh_iter 14 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 14 b) with (chsh_next (chsh_iter 13 b)); rewrite (chsh_phase14_chsh_d01sq (chsh_iter 13 b) Ph13); exact V_chsh_d01sq_13).
-  assert (V_chsh_d01sq_15 : hw_chsh_d01sq (chsh_iter 15 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_15 : hw_chsh_d01sq (chsh_iter 15 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 15 b) with (chsh_next (chsh_iter 14 b)); rewrite (chsh_phase15_chsh_d01sq (chsh_iter 14 b) Ph14); exact V_chsh_d01sq_14).
-  assert (V_chsh_d01sq_16 : hw_chsh_d01sq (chsh_iter 16 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_16 : hw_chsh_d01sq (chsh_iter 16 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 16 b) with (chsh_next (chsh_iter 15 b)); rewrite (chsh_phase16_chsh_d01sq (chsh_iter 15 b) Ph15); exact V_chsh_d01sq_15).
-  assert (V_chsh_d01sq_17 : hw_chsh_d01sq (chsh_iter 17 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_17 : hw_chsh_d01sq (chsh_iter 17 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 17 b) with (chsh_next (chsh_iter 16 b)); rewrite (chsh_phase17_chsh_d01sq (chsh_iter 16 b) Ph16); exact V_chsh_d01sq_16).
-  assert (V_chsh_d01sq_18 : hw_chsh_d01sq (chsh_iter 18 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_18 : hw_chsh_d01sq (chsh_iter 18 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)); rewrite (chsh_phase18_chsh_d01sq (chsh_iter 17 b) Ph17); exact V_chsh_d01sq_17).
-  assert (V_chsh_d01sq_19 : hw_chsh_d01sq (chsh_iter 19 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_19 : hw_chsh_d01sq (chsh_iter 19 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_d01sq (chsh_iter 18 b) Ph18); exact V_chsh_d01sq_18).
-  assert (V_chsh_d01sq_20 : hw_chsh_d01sq (chsh_iter 20 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_20 : hw_chsh_d01sq (chsh_iter 20 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_d01sq (chsh_iter 19 b) Ph19); exact V_chsh_d01sq_19).
-  assert (V_chsh_d01sq_21 : hw_chsh_d01sq (chsh_iter 21 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_21 : hw_chsh_d01sq (chsh_iter 21 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_d01sq (chsh_iter 20 b) Ph20); exact V_chsh_d01sq_20).
-  assert (V_chsh_d01sq_22 : hw_chsh_d01sq (chsh_iter 22 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_22 : hw_chsh_d01sq (chsh_iter 22 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_d01sq (chsh_iter 21 b) Ph21); exact V_chsh_d01sq_21).
-  assert (V_chsh_d01sq_23 : hw_chsh_d01sq (chsh_iter 23 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_23 : hw_chsh_d01sq (chsh_iter 23 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_d01sq (chsh_iter 22 b) Ph22); exact V_chsh_d01sq_22).
-  assert (V_chsh_d01sq_24 : hw_chsh_d01sq (chsh_iter 24 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_24 : hw_chsh_d01sq (chsh_iter 24 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_d01sq (chsh_iter 23 b) Ph23); exact V_chsh_d01sq_23).
-  assert (V_chsh_d01sq_25 : hw_chsh_d01sq (chsh_iter 25 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_25 : hw_chsh_d01sq (chsh_iter 25 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_d01sq (chsh_iter 24 b) Ph24); exact V_chsh_d01sq_24).
-  assert (V_chsh_d01sq_26 : hw_chsh_d01sq (chsh_iter 26 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_26 : hw_chsh_d01sq (chsh_iter 26 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_d01sq (chsh_iter 25 b) Ph25); exact V_chsh_d01sq_25).
-  assert (V_chsh_d01sq_27 : hw_chsh_d01sq (chsh_iter 27 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_27 : hw_chsh_d01sq (chsh_iter 27 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_d01sq (chsh_iter 26 b) Ph26); exact V_chsh_d01sq_26).
-  assert (V_chsh_d01sq_28 : hw_chsh_d01sq (chsh_iter 28 b) = (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d01sq_28 : hw_chsh_d01sq (chsh_iter 28 b) = (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_d01sq (chsh_iter 27 b) Ph27); exact V_chsh_d01sq_27).
-  assert (V_chsh_d10sq_7 : hw_chsh_d10sq (chsh_iter 7 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b))).
+  assert (V_chsh_d10sq_7 : hw_chsh_d10sq (chsh_iter 7 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b))).
   { change (chsh_iter 7 b) with (chsh_next (chsh_iter 6 b)).
     rewrite (chsh_phase7_chsh_d10sq (chsh_iter 6 b) Ph6). rewrite ?(iter_keeps_chsh_d10 6 b). rewrite ?(iter_keeps_chsh_d10 6 b). reflexivity. }
-  assert (V_chsh_d10sq_8 : hw_chsh_d10sq (chsh_iter 8 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_8 : hw_chsh_d10sq (chsh_iter 8 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 8 b) with (chsh_next (chsh_iter 7 b)); rewrite (chsh_phase8_chsh_d10sq (chsh_iter 7 b) Ph7); exact V_chsh_d10sq_7).
-  assert (V_chsh_d10sq_9 : hw_chsh_d10sq (chsh_iter 9 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_9 : hw_chsh_d10sq (chsh_iter 9 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 9 b) with (chsh_next (chsh_iter 8 b)); rewrite (chsh_phase9_chsh_d10sq (chsh_iter 8 b) Ph8); exact V_chsh_d10sq_8).
-  assert (V_chsh_d10sq_10 : hw_chsh_d10sq (chsh_iter 10 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_10 : hw_chsh_d10sq (chsh_iter 10 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 10 b) with (chsh_next (chsh_iter 9 b)); rewrite (chsh_phase10_chsh_d10sq (chsh_iter 9 b) Ph9); exact V_chsh_d10sq_9).
-  assert (V_chsh_d10sq_11 : hw_chsh_d10sq (chsh_iter 11 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_11 : hw_chsh_d10sq (chsh_iter 11 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 11 b) with (chsh_next (chsh_iter 10 b)); rewrite (chsh_phase11_chsh_d10sq (chsh_iter 10 b) Ph10); exact V_chsh_d10sq_10).
-  assert (V_chsh_d10sq_12 : hw_chsh_d10sq (chsh_iter 12 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_12 : hw_chsh_d10sq (chsh_iter 12 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 12 b) with (chsh_next (chsh_iter 11 b)); rewrite (chsh_phase12_chsh_d10sq (chsh_iter 11 b) Ph11); exact V_chsh_d10sq_11).
-  assert (V_chsh_d10sq_13 : hw_chsh_d10sq (chsh_iter 13 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_13 : hw_chsh_d10sq (chsh_iter 13 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 13 b) with (chsh_next (chsh_iter 12 b)); rewrite (chsh_phase13_chsh_d10sq (chsh_iter 12 b) Ph12); exact V_chsh_d10sq_12).
-  assert (V_chsh_d10sq_14 : hw_chsh_d10sq (chsh_iter 14 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_14 : hw_chsh_d10sq (chsh_iter 14 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 14 b) with (chsh_next (chsh_iter 13 b)); rewrite (chsh_phase14_chsh_d10sq (chsh_iter 13 b) Ph13); exact V_chsh_d10sq_13).
-  assert (V_chsh_d10sq_15 : hw_chsh_d10sq (chsh_iter 15 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_15 : hw_chsh_d10sq (chsh_iter 15 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 15 b) with (chsh_next (chsh_iter 14 b)); rewrite (chsh_phase15_chsh_d10sq (chsh_iter 14 b) Ph14); exact V_chsh_d10sq_14).
-  assert (V_chsh_d10sq_16 : hw_chsh_d10sq (chsh_iter 16 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_16 : hw_chsh_d10sq (chsh_iter 16 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 16 b) with (chsh_next (chsh_iter 15 b)); rewrite (chsh_phase16_chsh_d10sq (chsh_iter 15 b) Ph15); exact V_chsh_d10sq_15).
-  assert (V_chsh_d10sq_17 : hw_chsh_d10sq (chsh_iter 17 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_17 : hw_chsh_d10sq (chsh_iter 17 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 17 b) with (chsh_next (chsh_iter 16 b)); rewrite (chsh_phase17_chsh_d10sq (chsh_iter 16 b) Ph16); exact V_chsh_d10sq_16).
-  assert (V_chsh_d10sq_18 : hw_chsh_d10sq (chsh_iter 18 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_18 : hw_chsh_d10sq (chsh_iter 18 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)); rewrite (chsh_phase18_chsh_d10sq (chsh_iter 17 b) Ph17); exact V_chsh_d10sq_17).
-  assert (V_chsh_d10sq_19 : hw_chsh_d10sq (chsh_iter 19 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_19 : hw_chsh_d10sq (chsh_iter 19 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_d10sq (chsh_iter 18 b) Ph18); exact V_chsh_d10sq_18).
-  assert (V_chsh_d10sq_20 : hw_chsh_d10sq (chsh_iter 20 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_20 : hw_chsh_d10sq (chsh_iter 20 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_d10sq (chsh_iter 19 b) Ph19); exact V_chsh_d10sq_19).
-  assert (V_chsh_d10sq_21 : hw_chsh_d10sq (chsh_iter 21 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_21 : hw_chsh_d10sq (chsh_iter 21 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_d10sq (chsh_iter 20 b) Ph20); exact V_chsh_d10sq_20).
-  assert (V_chsh_d10sq_22 : hw_chsh_d10sq (chsh_iter 22 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_22 : hw_chsh_d10sq (chsh_iter 22 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_d10sq (chsh_iter 21 b) Ph21); exact V_chsh_d10sq_21).
-  assert (V_chsh_d10sq_23 : hw_chsh_d10sq (chsh_iter 23 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_23 : hw_chsh_d10sq (chsh_iter 23 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_d10sq (chsh_iter 22 b) Ph22); exact V_chsh_d10sq_22).
-  assert (V_chsh_d10sq_24 : hw_chsh_d10sq (chsh_iter 24 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_24 : hw_chsh_d10sq (chsh_iter 24 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_d10sq (chsh_iter 23 b) Ph23); exact V_chsh_d10sq_23).
-  assert (V_chsh_d10sq_25 : hw_chsh_d10sq (chsh_iter 25 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_25 : hw_chsh_d10sq (chsh_iter 25 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_d10sq (chsh_iter 24 b) Ph24); exact V_chsh_d10sq_24).
-  assert (V_chsh_d10sq_26 : hw_chsh_d10sq (chsh_iter 26 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_26 : hw_chsh_d10sq (chsh_iter 26 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_d10sq (chsh_iter 25 b) Ph25); exact V_chsh_d10sq_25).
-  assert (V_chsh_d10sq_27 : hw_chsh_d10sq (chsh_iter 27 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_27 : hw_chsh_d10sq (chsh_iter 27 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_d10sq (chsh_iter 26 b) Ph26); exact V_chsh_d10sq_26).
-  assert (V_chsh_d10sq_28 : hw_chsh_d10sq (chsh_iter 28 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)))
+  assert (V_chsh_d10sq_28 : hw_chsh_d10sq (chsh_iter 28 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_d10sq (chsh_iter 27 b) Ph27); exact V_chsh_d10sq_27).
-  assert (V_chsh_d11sq_8 : hw_chsh_d11sq (chsh_iter 8 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b))).
+  assert (V_chsh_d11sq_8 : hw_chsh_d11sq (chsh_iter 8 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b))).
   { change (chsh_iter 8 b) with (chsh_next (chsh_iter 7 b)).
     rewrite (chsh_phase8_chsh_d11sq (chsh_iter 7 b) Ph7). rewrite ?(iter_keeps_chsh_d11 7 b). rewrite ?(iter_keeps_chsh_d11 7 b). reflexivity. }
-  assert (V_chsh_d11sq_9 : hw_chsh_d11sq (chsh_iter 9 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_9 : hw_chsh_d11sq (chsh_iter 9 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 9 b) with (chsh_next (chsh_iter 8 b)); rewrite (chsh_phase9_chsh_d11sq (chsh_iter 8 b) Ph8); exact V_chsh_d11sq_8).
-  assert (V_chsh_d11sq_10 : hw_chsh_d11sq (chsh_iter 10 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_10 : hw_chsh_d11sq (chsh_iter 10 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 10 b) with (chsh_next (chsh_iter 9 b)); rewrite (chsh_phase10_chsh_d11sq (chsh_iter 9 b) Ph9); exact V_chsh_d11sq_9).
-  assert (V_chsh_d11sq_11 : hw_chsh_d11sq (chsh_iter 11 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_11 : hw_chsh_d11sq (chsh_iter 11 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 11 b) with (chsh_next (chsh_iter 10 b)); rewrite (chsh_phase11_chsh_d11sq (chsh_iter 10 b) Ph10); exact V_chsh_d11sq_10).
-  assert (V_chsh_d11sq_12 : hw_chsh_d11sq (chsh_iter 12 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_12 : hw_chsh_d11sq (chsh_iter 12 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 12 b) with (chsh_next (chsh_iter 11 b)); rewrite (chsh_phase12_chsh_d11sq (chsh_iter 11 b) Ph11); exact V_chsh_d11sq_11).
-  assert (V_chsh_d11sq_13 : hw_chsh_d11sq (chsh_iter 13 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_13 : hw_chsh_d11sq (chsh_iter 13 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 13 b) with (chsh_next (chsh_iter 12 b)); rewrite (chsh_phase13_chsh_d11sq (chsh_iter 12 b) Ph12); exact V_chsh_d11sq_12).
-  assert (V_chsh_d11sq_14 : hw_chsh_d11sq (chsh_iter 14 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_14 : hw_chsh_d11sq (chsh_iter 14 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 14 b) with (chsh_next (chsh_iter 13 b)); rewrite (chsh_phase14_chsh_d11sq (chsh_iter 13 b) Ph13); exact V_chsh_d11sq_13).
-  assert (V_chsh_d11sq_15 : hw_chsh_d11sq (chsh_iter 15 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_15 : hw_chsh_d11sq (chsh_iter 15 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 15 b) with (chsh_next (chsh_iter 14 b)); rewrite (chsh_phase15_chsh_d11sq (chsh_iter 14 b) Ph14); exact V_chsh_d11sq_14).
-  assert (V_chsh_d11sq_16 : hw_chsh_d11sq (chsh_iter 16 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_16 : hw_chsh_d11sq (chsh_iter 16 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 16 b) with (chsh_next (chsh_iter 15 b)); rewrite (chsh_phase16_chsh_d11sq (chsh_iter 15 b) Ph15); exact V_chsh_d11sq_15).
-  assert (V_chsh_d11sq_17 : hw_chsh_d11sq (chsh_iter 17 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_17 : hw_chsh_d11sq (chsh_iter 17 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 17 b) with (chsh_next (chsh_iter 16 b)); rewrite (chsh_phase17_chsh_d11sq (chsh_iter 16 b) Ph16); exact V_chsh_d11sq_16).
-  assert (V_chsh_d11sq_18 : hw_chsh_d11sq (chsh_iter 18 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_18 : hw_chsh_d11sq (chsh_iter 18 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)); rewrite (chsh_phase18_chsh_d11sq (chsh_iter 17 b) Ph17); exact V_chsh_d11sq_17).
-  assert (V_chsh_d11sq_19 : hw_chsh_d11sq (chsh_iter 19 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_19 : hw_chsh_d11sq (chsh_iter 19 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_d11sq (chsh_iter 18 b) Ph18); exact V_chsh_d11sq_18).
-  assert (V_chsh_d11sq_20 : hw_chsh_d11sq (chsh_iter 20 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_20 : hw_chsh_d11sq (chsh_iter 20 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_d11sq (chsh_iter 19 b) Ph19); exact V_chsh_d11sq_19).
-  assert (V_chsh_d11sq_21 : hw_chsh_d11sq (chsh_iter 21 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_21 : hw_chsh_d11sq (chsh_iter 21 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_d11sq (chsh_iter 20 b) Ph20); exact V_chsh_d11sq_20).
-  assert (V_chsh_d11sq_22 : hw_chsh_d11sq (chsh_iter 22 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_22 : hw_chsh_d11sq (chsh_iter 22 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_d11sq (chsh_iter 21 b) Ph21); exact V_chsh_d11sq_21).
-  assert (V_chsh_d11sq_23 : hw_chsh_d11sq (chsh_iter 23 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_23 : hw_chsh_d11sq (chsh_iter 23 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_d11sq (chsh_iter 22 b) Ph22); exact V_chsh_d11sq_22).
-  assert (V_chsh_d11sq_24 : hw_chsh_d11sq (chsh_iter 24 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_24 : hw_chsh_d11sq (chsh_iter 24 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_d11sq (chsh_iter 23 b) Ph23); exact V_chsh_d11sq_23).
-  assert (V_chsh_d11sq_25 : hw_chsh_d11sq (chsh_iter 25 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_25 : hw_chsh_d11sq (chsh_iter 25 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_d11sq (chsh_iter 24 b) Ph24); exact V_chsh_d11sq_24).
-  assert (V_chsh_d11sq_26 : hw_chsh_d11sq (chsh_iter 26 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_26 : hw_chsh_d11sq (chsh_iter 26 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_d11sq (chsh_iter 25 b) Ph25); exact V_chsh_d11sq_25).
-  assert (V_chsh_d11sq_27 : hw_chsh_d11sq (chsh_iter 27 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_27 : hw_chsh_d11sq (chsh_iter 27 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_d11sq (chsh_iter 26 b) Ph26); exact V_chsh_d11sq_26).
-  assert (V_chsh_d11sq_28 : hw_chsh_d11sq (chsh_iter 28 b) = (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d11sq_28 : hw_chsh_d11sq (chsh_iter 28 b) = (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_d11sq (chsh_iter 27 b) Ph27); exact V_chsh_d11sq_27).
-  assert (V_chsh_A_pos_9 : hw_chsh_A_pos (chsh_iter 9 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))).
+  assert (V_chsh_A_pos_9 : hw_chsh_A_pos (chsh_iter 9 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))).
   { change (chsh_iter 9 b) with (chsh_next (chsh_iter 8 b)).
     rewrite (chsh_phase9_chsh_A_pos (chsh_iter 8 b) Ph8). rewrite ?(V_chsh_n00sq_8). rewrite ?(V_chsh_n10sq_8). reflexivity. }
-  assert (V_chsh_A_pos_10 : hw_chsh_A_pos (chsh_iter 10 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_10 : hw_chsh_A_pos (chsh_iter 10 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 10 b) with (chsh_next (chsh_iter 9 b)); rewrite (chsh_phase10_chsh_A_pos (chsh_iter 9 b) Ph9); exact V_chsh_A_pos_9).
-  assert (V_chsh_A_pos_11 : hw_chsh_A_pos (chsh_iter 11 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_11 : hw_chsh_A_pos (chsh_iter 11 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 11 b) with (chsh_next (chsh_iter 10 b)); rewrite (chsh_phase11_chsh_A_pos (chsh_iter 10 b) Ph10); exact V_chsh_A_pos_10).
-  assert (V_chsh_A_pos_12 : hw_chsh_A_pos (chsh_iter 12 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_12 : hw_chsh_A_pos (chsh_iter 12 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 12 b) with (chsh_next (chsh_iter 11 b)); rewrite (chsh_phase12_chsh_A_pos (chsh_iter 11 b) Ph11); exact V_chsh_A_pos_11).
-  assert (V_chsh_A_pos_13 : hw_chsh_A_pos (chsh_iter 13 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_13 : hw_chsh_A_pos (chsh_iter 13 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 13 b) with (chsh_next (chsh_iter 12 b)); rewrite (chsh_phase13_chsh_A_pos (chsh_iter 12 b) Ph12); exact V_chsh_A_pos_12).
-  assert (V_chsh_A_pos_14 : hw_chsh_A_pos (chsh_iter 14 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_14 : hw_chsh_A_pos (chsh_iter 14 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 14 b) with (chsh_next (chsh_iter 13 b)); rewrite (chsh_phase14_chsh_A_pos (chsh_iter 13 b) Ph13); exact V_chsh_A_pos_13).
-  assert (V_chsh_A_pos_15 : hw_chsh_A_pos (chsh_iter 15 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_15 : hw_chsh_A_pos (chsh_iter 15 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 15 b) with (chsh_next (chsh_iter 14 b)); rewrite (chsh_phase15_chsh_A_pos (chsh_iter 14 b) Ph14); exact V_chsh_A_pos_14).
-  assert (V_chsh_A_pos_16 : hw_chsh_A_pos (chsh_iter 16 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_16 : hw_chsh_A_pos (chsh_iter 16 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 16 b) with (chsh_next (chsh_iter 15 b)); rewrite (chsh_phase16_chsh_A_pos (chsh_iter 15 b) Ph15); exact V_chsh_A_pos_15).
-  assert (V_chsh_A_pos_17 : hw_chsh_A_pos (chsh_iter 17 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_17 : hw_chsh_A_pos (chsh_iter 17 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 17 b) with (chsh_next (chsh_iter 16 b)); rewrite (chsh_phase17_chsh_A_pos (chsh_iter 16 b) Ph16); exact V_chsh_A_pos_16).
-  assert (V_chsh_A_pos_18 : hw_chsh_A_pos (chsh_iter 18 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_18 : hw_chsh_A_pos (chsh_iter 18 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)); rewrite (chsh_phase18_chsh_A_pos (chsh_iter 17 b) Ph17); exact V_chsh_A_pos_17).
-  assert (V_chsh_A_pos_19 : hw_chsh_A_pos (chsh_iter 19 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_19 : hw_chsh_A_pos (chsh_iter 19 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_A_pos (chsh_iter 18 b) Ph18); exact V_chsh_A_pos_18).
-  assert (V_chsh_A_pos_20 : hw_chsh_A_pos (chsh_iter 20 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_20 : hw_chsh_A_pos (chsh_iter 20 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_A_pos (chsh_iter 19 b) Ph19); exact V_chsh_A_pos_19).
-  assert (V_chsh_A_pos_21 : hw_chsh_A_pos (chsh_iter 21 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_21 : hw_chsh_A_pos (chsh_iter 21 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_A_pos (chsh_iter 20 b) Ph20); exact V_chsh_A_pos_20).
-  assert (V_chsh_A_pos_22 : hw_chsh_A_pos (chsh_iter 22 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_22 : hw_chsh_A_pos (chsh_iter 22 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_A_pos (chsh_iter 21 b) Ph21); exact V_chsh_A_pos_21).
-  assert (V_chsh_A_pos_23 : hw_chsh_A_pos (chsh_iter 23 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_23 : hw_chsh_A_pos (chsh_iter 23 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_A_pos (chsh_iter 22 b) Ph22); exact V_chsh_A_pos_22).
-  assert (V_chsh_A_pos_24 : hw_chsh_A_pos (chsh_iter 24 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_24 : hw_chsh_A_pos (chsh_iter 24 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_A_pos (chsh_iter 23 b) Ph23); exact V_chsh_A_pos_23).
-  assert (V_chsh_A_pos_25 : hw_chsh_A_pos (chsh_iter 25 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_25 : hw_chsh_A_pos (chsh_iter 25 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_A_pos (chsh_iter 24 b) Ph24); exact V_chsh_A_pos_24).
-  assert (V_chsh_A_pos_26 : hw_chsh_A_pos (chsh_iter 26 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_26 : hw_chsh_A_pos (chsh_iter 26 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_A_pos (chsh_iter 25 b) Ph25); exact V_chsh_A_pos_25).
-  assert (V_chsh_A_pos_27 : hw_chsh_A_pos (chsh_iter 27 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_27 : hw_chsh_A_pos (chsh_iter 27 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_A_pos (chsh_iter 26 b) Ph26); exact V_chsh_A_pos_26).
-  assert (V_chsh_A_pos_28 : hw_chsh_A_pos (chsh_iter 28 b) = (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_pos_28 : hw_chsh_A_pos (chsh_iter 28 b) = (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_A_pos (chsh_iter 27 b) Ph27); exact V_chsh_A_pos_27).
-  assert (V_chsh_A_neg_a_10 : hw_chsh_A_neg_a (chsh_iter 10 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b)))).
+  assert (V_chsh_A_neg_a_10 : hw_chsh_A_neg_a (chsh_iter 10 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b)))).
   { change (chsh_iter 10 b) with (chsh_next (chsh_iter 9 b)).
     rewrite (chsh_phase10_chsh_A_neg_a (chsh_iter 9 b) Ph9). rewrite ?(V_chsh_d00sq_9). rewrite ?(V_chsh_n10sq_9). reflexivity. }
-  assert (V_chsh_A_neg_a_11 : hw_chsh_A_neg_a (chsh_iter 11 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_11 : hw_chsh_A_neg_a (chsh_iter 11 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 11 b) with (chsh_next (chsh_iter 10 b)); rewrite (chsh_phase11_chsh_A_neg_a (chsh_iter 10 b) Ph10); exact V_chsh_A_neg_a_10).
-  assert (V_chsh_A_neg_a_12 : hw_chsh_A_neg_a (chsh_iter 12 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_12 : hw_chsh_A_neg_a (chsh_iter 12 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 12 b) with (chsh_next (chsh_iter 11 b)); rewrite (chsh_phase12_chsh_A_neg_a (chsh_iter 11 b) Ph11); exact V_chsh_A_neg_a_11).
-  assert (V_chsh_A_neg_a_13 : hw_chsh_A_neg_a (chsh_iter 13 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_13 : hw_chsh_A_neg_a (chsh_iter 13 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 13 b) with (chsh_next (chsh_iter 12 b)); rewrite (chsh_phase13_chsh_A_neg_a (chsh_iter 12 b) Ph12); exact V_chsh_A_neg_a_12).
-  assert (V_chsh_A_neg_a_14 : hw_chsh_A_neg_a (chsh_iter 14 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_14 : hw_chsh_A_neg_a (chsh_iter 14 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 14 b) with (chsh_next (chsh_iter 13 b)); rewrite (chsh_phase14_chsh_A_neg_a (chsh_iter 13 b) Ph13); exact V_chsh_A_neg_a_13).
-  assert (V_chsh_A_neg_a_15 : hw_chsh_A_neg_a (chsh_iter 15 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_15 : hw_chsh_A_neg_a (chsh_iter 15 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 15 b) with (chsh_next (chsh_iter 14 b)); rewrite (chsh_phase15_chsh_A_neg_a (chsh_iter 14 b) Ph14); exact V_chsh_A_neg_a_14).
-  assert (V_chsh_A_neg_a_16 : hw_chsh_A_neg_a (chsh_iter 16 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_16 : hw_chsh_A_neg_a (chsh_iter 16 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 16 b) with (chsh_next (chsh_iter 15 b)); rewrite (chsh_phase16_chsh_A_neg_a (chsh_iter 15 b) Ph15); exact V_chsh_A_neg_a_15).
-  assert (V_chsh_A_neg_a_17 : hw_chsh_A_neg_a (chsh_iter 17 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_17 : hw_chsh_A_neg_a (chsh_iter 17 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 17 b) with (chsh_next (chsh_iter 16 b)); rewrite (chsh_phase17_chsh_A_neg_a (chsh_iter 16 b) Ph16); exact V_chsh_A_neg_a_16).
-  assert (V_chsh_A_neg_a_18 : hw_chsh_A_neg_a (chsh_iter 18 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_18 : hw_chsh_A_neg_a (chsh_iter 18 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)); rewrite (chsh_phase18_chsh_A_neg_a (chsh_iter 17 b) Ph17); exact V_chsh_A_neg_a_17).
-  assert (V_chsh_A_neg_a_19 : hw_chsh_A_neg_a (chsh_iter 19 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_19 : hw_chsh_A_neg_a (chsh_iter 19 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_A_neg_a (chsh_iter 18 b) Ph18); exact V_chsh_A_neg_a_18).
-  assert (V_chsh_A_neg_a_20 : hw_chsh_A_neg_a (chsh_iter 20 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_20 : hw_chsh_A_neg_a (chsh_iter 20 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_A_neg_a (chsh_iter 19 b) Ph19); exact V_chsh_A_neg_a_19).
-  assert (V_chsh_A_neg_a_21 : hw_chsh_A_neg_a (chsh_iter 21 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_21 : hw_chsh_A_neg_a (chsh_iter 21 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_A_neg_a (chsh_iter 20 b) Ph20); exact V_chsh_A_neg_a_20).
-  assert (V_chsh_A_neg_a_22 : hw_chsh_A_neg_a (chsh_iter 22 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_22 : hw_chsh_A_neg_a (chsh_iter 22 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_A_neg_a (chsh_iter 21 b) Ph21); exact V_chsh_A_neg_a_21).
-  assert (V_chsh_A_neg_a_23 : hw_chsh_A_neg_a (chsh_iter 23 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_23 : hw_chsh_A_neg_a (chsh_iter 23 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_A_neg_a (chsh_iter 22 b) Ph22); exact V_chsh_A_neg_a_22).
-  assert (V_chsh_A_neg_a_24 : hw_chsh_A_neg_a (chsh_iter 24 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_24 : hw_chsh_A_neg_a (chsh_iter 24 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_A_neg_a (chsh_iter 23 b) Ph23); exact V_chsh_A_neg_a_23).
-  assert (V_chsh_A_neg_a_25 : hw_chsh_A_neg_a (chsh_iter 25 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_25 : hw_chsh_A_neg_a (chsh_iter 25 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_A_neg_a (chsh_iter 24 b) Ph24); exact V_chsh_A_neg_a_24).
-  assert (V_chsh_A_neg_a_26 : hw_chsh_A_neg_a (chsh_iter 26 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_26 : hw_chsh_A_neg_a (chsh_iter 26 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_A_neg_a (chsh_iter 25 b) Ph25); exact V_chsh_A_neg_a_25).
-  assert (V_chsh_A_neg_a_27 : hw_chsh_A_neg_a (chsh_iter 27 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_27 : hw_chsh_A_neg_a (chsh_iter 27 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_A_neg_a (chsh_iter 26 b) Ph26); exact V_chsh_A_neg_a_26).
-  assert (V_chsh_A_neg_a_28 : hw_chsh_A_neg_a (chsh_iter 28 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))))
+  assert (V_chsh_A_neg_a_28 : hw_chsh_A_neg_a (chsh_iter 28 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_A_neg_a (chsh_iter 27 b) Ph27); exact V_chsh_A_neg_a_27).
-  assert (V_chsh_A_neg_b_11 : hw_chsh_A_neg_b (chsh_iter 11 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))).
+  assert (V_chsh_A_neg_b_11 : hw_chsh_A_neg_b (chsh_iter 11 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))).
   { change (chsh_iter 11 b) with (chsh_next (chsh_iter 10 b)).
     rewrite (chsh_phase11_chsh_A_neg_b (chsh_iter 10 b) Ph10). rewrite ?(V_chsh_d10sq_10). rewrite ?(V_chsh_n00sq_10). reflexivity. }
-  assert (V_chsh_A_neg_b_12 : hw_chsh_A_neg_b (chsh_iter 12 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))
+  assert (V_chsh_A_neg_b_12 : hw_chsh_A_neg_b (chsh_iter 12 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))
     by (change (chsh_iter 12 b) with (chsh_next (chsh_iter 11 b)); rewrite (chsh_phase12_chsh_A_neg_b (chsh_iter 11 b) Ph11); exact V_chsh_A_neg_b_11).
-  assert (V_chsh_A_neg_b_13 : hw_chsh_A_neg_b (chsh_iter 13 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))
+  assert (V_chsh_A_neg_b_13 : hw_chsh_A_neg_b (chsh_iter 13 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))
     by (change (chsh_iter 13 b) with (chsh_next (chsh_iter 12 b)); rewrite (chsh_phase13_chsh_A_neg_b (chsh_iter 12 b) Ph12); exact V_chsh_A_neg_b_12).
-  assert (V_chsh_A_neg_b_14 : hw_chsh_A_neg_b (chsh_iter 14 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))
+  assert (V_chsh_A_neg_b_14 : hw_chsh_A_neg_b (chsh_iter 14 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))
     by (change (chsh_iter 14 b) with (chsh_next (chsh_iter 13 b)); rewrite (chsh_phase14_chsh_A_neg_b (chsh_iter 13 b) Ph13); exact V_chsh_A_neg_b_13).
-  assert (V_chsh_A_neg_b_15 : hw_chsh_A_neg_b (chsh_iter 15 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))
+  assert (V_chsh_A_neg_b_15 : hw_chsh_A_neg_b (chsh_iter 15 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))
     by (change (chsh_iter 15 b) with (chsh_next (chsh_iter 14 b)); rewrite (chsh_phase15_chsh_A_neg_b (chsh_iter 14 b) Ph14); exact V_chsh_A_neg_b_14).
-  assert (V_chsh_A_neg_b_16 : hw_chsh_A_neg_b (chsh_iter 16 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))
+  assert (V_chsh_A_neg_b_16 : hw_chsh_A_neg_b (chsh_iter 16 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))
     by (change (chsh_iter 16 b) with (chsh_next (chsh_iter 15 b)); rewrite (chsh_phase16_chsh_A_neg_b (chsh_iter 15 b) Ph15); exact V_chsh_A_neg_b_15).
-  assert (V_chsh_A_neg_b_17 : hw_chsh_A_neg_b (chsh_iter 17 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))
+  assert (V_chsh_A_neg_b_17 : hw_chsh_A_neg_b (chsh_iter 17 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))
     by (change (chsh_iter 17 b) with (chsh_next (chsh_iter 16 b)); rewrite (chsh_phase17_chsh_A_neg_b (chsh_iter 16 b) Ph16); exact V_chsh_A_neg_b_16).
-  assert (V_chsh_A_neg_b_18 : hw_chsh_A_neg_b (chsh_iter 18 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))
+  assert (V_chsh_A_neg_b_18 : hw_chsh_A_neg_b (chsh_iter 18 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))
     by (change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)); rewrite (chsh_phase18_chsh_A_neg_b (chsh_iter 17 b) Ph17); exact V_chsh_A_neg_b_17).
-  assert (V_chsh_A_neg_b_19 : hw_chsh_A_neg_b (chsh_iter 19 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))
+  assert (V_chsh_A_neg_b_19 : hw_chsh_A_neg_b (chsh_iter 19 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_A_neg_b (chsh_iter 18 b) Ph18); exact V_chsh_A_neg_b_18).
-  assert (V_chsh_A_neg_b_20 : hw_chsh_A_neg_b (chsh_iter 20 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))
+  assert (V_chsh_A_neg_b_20 : hw_chsh_A_neg_b (chsh_iter 20 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_A_neg_b (chsh_iter 19 b) Ph19); exact V_chsh_A_neg_b_19).
-  assert (V_chsh_A_neg_b_21 : hw_chsh_A_neg_b (chsh_iter 21 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))
+  assert (V_chsh_A_neg_b_21 : hw_chsh_A_neg_b (chsh_iter 21 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_A_neg_b (chsh_iter 20 b) Ph20); exact V_chsh_A_neg_b_20).
-  assert (V_chsh_A_neg_b_22 : hw_chsh_A_neg_b (chsh_iter 22 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))
+  assert (V_chsh_A_neg_b_22 : hw_chsh_A_neg_b (chsh_iter 22 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_A_neg_b (chsh_iter 21 b) Ph21); exact V_chsh_A_neg_b_21).
-  assert (V_chsh_A_neg_b_23 : hw_chsh_A_neg_b (chsh_iter 23 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))
+  assert (V_chsh_A_neg_b_23 : hw_chsh_A_neg_b (chsh_iter 23 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_A_neg_b (chsh_iter 22 b) Ph22); exact V_chsh_A_neg_b_22).
-  assert (V_chsh_A_neg_b_24 : hw_chsh_A_neg_b (chsh_iter 24 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))
+  assert (V_chsh_A_neg_b_24 : hw_chsh_A_neg_b (chsh_iter 24 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_A_neg_b (chsh_iter 23 b) Ph23); exact V_chsh_A_neg_b_23).
-  assert (V_chsh_A_neg_b_25 : hw_chsh_A_neg_b (chsh_iter 25 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))
+  assert (V_chsh_A_neg_b_25 : hw_chsh_A_neg_b (chsh_iter 25 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_A_neg_b (chsh_iter 24 b) Ph24); exact V_chsh_A_neg_b_24).
-  assert (V_chsh_A_neg_b_26 : hw_chsh_A_neg_b (chsh_iter 26 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))
+  assert (V_chsh_A_neg_b_26 : hw_chsh_A_neg_b (chsh_iter 26 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_A_neg_b (chsh_iter 25 b) Ph25); exact V_chsh_A_neg_b_25).
-  assert (V_chsh_A_neg_b_27 : hw_chsh_A_neg_b (chsh_iter 27 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))
+  assert (V_chsh_A_neg_b_27 : hw_chsh_A_neg_b (chsh_iter 27 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_A_neg_b (chsh_iter 26 b) Ph26); exact V_chsh_A_neg_b_26).
-  assert (V_chsh_A_neg_b_28 : hw_chsh_A_neg_b (chsh_iter 28 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))
+  assert (V_chsh_A_neg_b_28 : hw_chsh_A_neg_b (chsh_iter 28 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_A_neg_b (chsh_iter 27 b) Ph27); exact V_chsh_A_neg_b_27).
-  assert (V_chsh_B_pos_12 : hw_chsh_B_pos (chsh_iter 12 b) = (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))).
+  assert (V_chsh_B_pos_12 : hw_chsh_B_pos (chsh_iter 12 b) = (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))).
   { change (chsh_iter 12 b) with (chsh_next (chsh_iter 11 b)).
     rewrite (chsh_phase12_chsh_B_pos (chsh_iter 11 b) Ph11). rewrite ?(V_chsh_n01sq_11). rewrite ?(V_chsh_n11sq_11). reflexivity. }
-  assert (V_chsh_B_pos_13 : hw_chsh_B_pos (chsh_iter 13 b) = (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_pos_13 : hw_chsh_B_pos (chsh_iter 13 b) = (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 13 b) with (chsh_next (chsh_iter 12 b)); rewrite (chsh_phase13_chsh_B_pos (chsh_iter 12 b) Ph12); exact V_chsh_B_pos_12).
-  assert (V_chsh_B_pos_14 : hw_chsh_B_pos (chsh_iter 14 b) = (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_pos_14 : hw_chsh_B_pos (chsh_iter 14 b) = (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 14 b) with (chsh_next (chsh_iter 13 b)); rewrite (chsh_phase14_chsh_B_pos (chsh_iter 13 b) Ph13); exact V_chsh_B_pos_13).
-  assert (V_chsh_B_pos_15 : hw_chsh_B_pos (chsh_iter 15 b) = (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_pos_15 : hw_chsh_B_pos (chsh_iter 15 b) = (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 15 b) with (chsh_next (chsh_iter 14 b)); rewrite (chsh_phase15_chsh_B_pos (chsh_iter 14 b) Ph14); exact V_chsh_B_pos_14).
-  assert (V_chsh_B_pos_16 : hw_chsh_B_pos (chsh_iter 16 b) = (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_pos_16 : hw_chsh_B_pos (chsh_iter 16 b) = (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 16 b) with (chsh_next (chsh_iter 15 b)); rewrite (chsh_phase16_chsh_B_pos (chsh_iter 15 b) Ph15); exact V_chsh_B_pos_15).
-  assert (V_chsh_B_pos_17 : hw_chsh_B_pos (chsh_iter 17 b) = (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_pos_17 : hw_chsh_B_pos (chsh_iter 17 b) = (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 17 b) with (chsh_next (chsh_iter 16 b)); rewrite (chsh_phase17_chsh_B_pos (chsh_iter 16 b) Ph16); exact V_chsh_B_pos_16).
-  assert (V_chsh_B_pos_18 : hw_chsh_B_pos (chsh_iter 18 b) = (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_pos_18 : hw_chsh_B_pos (chsh_iter 18 b) = (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)); rewrite (chsh_phase18_chsh_B_pos (chsh_iter 17 b) Ph17); exact V_chsh_B_pos_17).
-  assert (V_chsh_B_pos_19 : hw_chsh_B_pos (chsh_iter 19 b) = (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_pos_19 : hw_chsh_B_pos (chsh_iter 19 b) = (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_B_pos (chsh_iter 18 b) Ph18); exact V_chsh_B_pos_18).
-  assert (V_chsh_B_pos_20 : hw_chsh_B_pos (chsh_iter 20 b) = (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_pos_20 : hw_chsh_B_pos (chsh_iter 20 b) = (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_B_pos (chsh_iter 19 b) Ph19); exact V_chsh_B_pos_19).
-  assert (V_chsh_B_pos_21 : hw_chsh_B_pos (chsh_iter 21 b) = (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_pos_21 : hw_chsh_B_pos (chsh_iter 21 b) = (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_B_pos (chsh_iter 20 b) Ph20); exact V_chsh_B_pos_20).
-  assert (V_chsh_B_pos_22 : hw_chsh_B_pos (chsh_iter 22 b) = (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_pos_22 : hw_chsh_B_pos (chsh_iter 22 b) = (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_B_pos (chsh_iter 21 b) Ph21); exact V_chsh_B_pos_21).
-  assert (V_chsh_B_pos_23 : hw_chsh_B_pos (chsh_iter 23 b) = (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_pos_23 : hw_chsh_B_pos (chsh_iter 23 b) = (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_B_pos (chsh_iter 22 b) Ph22); exact V_chsh_B_pos_22).
-  assert (V_chsh_B_pos_24 : hw_chsh_B_pos (chsh_iter 24 b) = (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_pos_24 : hw_chsh_B_pos (chsh_iter 24 b) = (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_B_pos (chsh_iter 23 b) Ph23); exact V_chsh_B_pos_23).
-  assert (V_chsh_B_pos_25 : hw_chsh_B_pos (chsh_iter 25 b) = (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_pos_25 : hw_chsh_B_pos (chsh_iter 25 b) = (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_B_pos (chsh_iter 24 b) Ph24); exact V_chsh_B_pos_24).
-  assert (V_chsh_B_pos_26 : hw_chsh_B_pos (chsh_iter 26 b) = (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_pos_26 : hw_chsh_B_pos (chsh_iter 26 b) = (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_B_pos (chsh_iter 25 b) Ph25); exact V_chsh_B_pos_25).
-  assert (V_chsh_B_pos_27 : hw_chsh_B_pos (chsh_iter 27 b) = (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_pos_27 : hw_chsh_B_pos (chsh_iter 27 b) = (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_B_pos (chsh_iter 26 b) Ph26); exact V_chsh_B_pos_26).
-  assert (V_chsh_B_pos_28 : hw_chsh_B_pos (chsh_iter 28 b) = (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_pos_28 : hw_chsh_B_pos (chsh_iter 28 b) = (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_B_pos (chsh_iter 27 b) Ph27); exact V_chsh_B_pos_27).
-  assert (V_chsh_B_neg_a_13 : hw_chsh_B_neg_a (chsh_iter 13 b) = (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b)))).
+  assert (V_chsh_B_neg_a_13 : hw_chsh_B_neg_a (chsh_iter 13 b) = (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b)))).
   { change (chsh_iter 13 b) with (chsh_next (chsh_iter 12 b)).
     rewrite (chsh_phase13_chsh_B_neg_a (chsh_iter 12 b) Ph12). rewrite ?(V_chsh_d01sq_12). rewrite ?(V_chsh_n11sq_12). reflexivity. }
-  assert (V_chsh_B_neg_a_14 : hw_chsh_B_neg_a (chsh_iter 14 b) = (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_neg_a_14 : hw_chsh_B_neg_a (chsh_iter 14 b) = (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 14 b) with (chsh_next (chsh_iter 13 b)); rewrite (chsh_phase14_chsh_B_neg_a (chsh_iter 13 b) Ph13); exact V_chsh_B_neg_a_13).
-  assert (V_chsh_B_neg_a_15 : hw_chsh_B_neg_a (chsh_iter 15 b) = (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_neg_a_15 : hw_chsh_B_neg_a (chsh_iter 15 b) = (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 15 b) with (chsh_next (chsh_iter 14 b)); rewrite (chsh_phase15_chsh_B_neg_a (chsh_iter 14 b) Ph14); exact V_chsh_B_neg_a_14).
-  assert (V_chsh_B_neg_a_16 : hw_chsh_B_neg_a (chsh_iter 16 b) = (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_neg_a_16 : hw_chsh_B_neg_a (chsh_iter 16 b) = (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 16 b) with (chsh_next (chsh_iter 15 b)); rewrite (chsh_phase16_chsh_B_neg_a (chsh_iter 15 b) Ph15); exact V_chsh_B_neg_a_15).
-  assert (V_chsh_B_neg_a_17 : hw_chsh_B_neg_a (chsh_iter 17 b) = (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_neg_a_17 : hw_chsh_B_neg_a (chsh_iter 17 b) = (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 17 b) with (chsh_next (chsh_iter 16 b)); rewrite (chsh_phase17_chsh_B_neg_a (chsh_iter 16 b) Ph16); exact V_chsh_B_neg_a_16).
-  assert (V_chsh_B_neg_a_18 : hw_chsh_B_neg_a (chsh_iter 18 b) = (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_neg_a_18 : hw_chsh_B_neg_a (chsh_iter 18 b) = (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)); rewrite (chsh_phase18_chsh_B_neg_a (chsh_iter 17 b) Ph17); exact V_chsh_B_neg_a_17).
-  assert (V_chsh_B_neg_a_19 : hw_chsh_B_neg_a (chsh_iter 19 b) = (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_neg_a_19 : hw_chsh_B_neg_a (chsh_iter 19 b) = (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_B_neg_a (chsh_iter 18 b) Ph18); exact V_chsh_B_neg_a_18).
-  assert (V_chsh_B_neg_a_20 : hw_chsh_B_neg_a (chsh_iter 20 b) = (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_neg_a_20 : hw_chsh_B_neg_a (chsh_iter 20 b) = (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_B_neg_a (chsh_iter 19 b) Ph19); exact V_chsh_B_neg_a_19).
-  assert (V_chsh_B_neg_a_21 : hw_chsh_B_neg_a (chsh_iter 21 b) = (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_neg_a_21 : hw_chsh_B_neg_a (chsh_iter 21 b) = (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_B_neg_a (chsh_iter 20 b) Ph20); exact V_chsh_B_neg_a_20).
-  assert (V_chsh_B_neg_a_22 : hw_chsh_B_neg_a (chsh_iter 22 b) = (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_neg_a_22 : hw_chsh_B_neg_a (chsh_iter 22 b) = (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_B_neg_a (chsh_iter 21 b) Ph21); exact V_chsh_B_neg_a_21).
-  assert (V_chsh_B_neg_a_23 : hw_chsh_B_neg_a (chsh_iter 23 b) = (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_neg_a_23 : hw_chsh_B_neg_a (chsh_iter 23 b) = (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_B_neg_a (chsh_iter 22 b) Ph22); exact V_chsh_B_neg_a_22).
-  assert (V_chsh_B_neg_a_24 : hw_chsh_B_neg_a (chsh_iter 24 b) = (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_neg_a_24 : hw_chsh_B_neg_a (chsh_iter 24 b) = (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_B_neg_a (chsh_iter 23 b) Ph23); exact V_chsh_B_neg_a_23).
-  assert (V_chsh_B_neg_a_25 : hw_chsh_B_neg_a (chsh_iter 25 b) = (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_neg_a_25 : hw_chsh_B_neg_a (chsh_iter 25 b) = (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_B_neg_a (chsh_iter 24 b) Ph24); exact V_chsh_B_neg_a_24).
-  assert (V_chsh_B_neg_a_26 : hw_chsh_B_neg_a (chsh_iter 26 b) = (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_neg_a_26 : hw_chsh_B_neg_a (chsh_iter 26 b) = (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_B_neg_a (chsh_iter 25 b) Ph25); exact V_chsh_B_neg_a_25).
-  assert (V_chsh_B_neg_a_27 : hw_chsh_B_neg_a (chsh_iter 27 b) = (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_neg_a_27 : hw_chsh_B_neg_a (chsh_iter 27 b) = (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_B_neg_a (chsh_iter 26 b) Ph26); exact V_chsh_B_neg_a_26).
-  assert (V_chsh_B_neg_a_28 : hw_chsh_B_neg_a (chsh_iter 28 b) = (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))))
+  assert (V_chsh_B_neg_a_28 : hw_chsh_B_neg_a (chsh_iter 28 b) = (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_B_neg_a (chsh_iter 27 b) Ph27); exact V_chsh_B_neg_a_27).
-  assert (V_chsh_B_neg_b_14 : hw_chsh_B_neg_b (chsh_iter 14 b) = (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))).
+  assert (V_chsh_B_neg_b_14 : hw_chsh_B_neg_b (chsh_iter 14 b) = (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))).
   { change (chsh_iter 14 b) with (chsh_next (chsh_iter 13 b)).
     rewrite (chsh_phase14_chsh_B_neg_b (chsh_iter 13 b) Ph13). rewrite ?(V_chsh_d11sq_13). rewrite ?(V_chsh_n01sq_13). reflexivity. }
-  assert (V_chsh_B_neg_b_15 : hw_chsh_B_neg_b (chsh_iter 15 b) = (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))))
+  assert (V_chsh_B_neg_b_15 : hw_chsh_B_neg_b (chsh_iter 15 b) = (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 15 b) with (chsh_next (chsh_iter 14 b)); rewrite (chsh_phase15_chsh_B_neg_b (chsh_iter 14 b) Ph14); exact V_chsh_B_neg_b_14).
-  assert (V_chsh_B_neg_b_16 : hw_chsh_B_neg_b (chsh_iter 16 b) = (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))))
+  assert (V_chsh_B_neg_b_16 : hw_chsh_B_neg_b (chsh_iter 16 b) = (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 16 b) with (chsh_next (chsh_iter 15 b)); rewrite (chsh_phase16_chsh_B_neg_b (chsh_iter 15 b) Ph15); exact V_chsh_B_neg_b_15).
-  assert (V_chsh_B_neg_b_17 : hw_chsh_B_neg_b (chsh_iter 17 b) = (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))))
+  assert (V_chsh_B_neg_b_17 : hw_chsh_B_neg_b (chsh_iter 17 b) = (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 17 b) with (chsh_next (chsh_iter 16 b)); rewrite (chsh_phase17_chsh_B_neg_b (chsh_iter 16 b) Ph16); exact V_chsh_B_neg_b_16).
-  assert (V_chsh_B_neg_b_18 : hw_chsh_B_neg_b (chsh_iter 18 b) = (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))))
+  assert (V_chsh_B_neg_b_18 : hw_chsh_B_neg_b (chsh_iter 18 b) = (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)); rewrite (chsh_phase18_chsh_B_neg_b (chsh_iter 17 b) Ph17); exact V_chsh_B_neg_b_17).
-  assert (V_chsh_B_neg_b_19 : hw_chsh_B_neg_b (chsh_iter 19 b) = (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))))
+  assert (V_chsh_B_neg_b_19 : hw_chsh_B_neg_b (chsh_iter 19 b) = (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_B_neg_b (chsh_iter 18 b) Ph18); exact V_chsh_B_neg_b_18).
-  assert (V_chsh_B_neg_b_20 : hw_chsh_B_neg_b (chsh_iter 20 b) = (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))))
+  assert (V_chsh_B_neg_b_20 : hw_chsh_B_neg_b (chsh_iter 20 b) = (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_B_neg_b (chsh_iter 19 b) Ph19); exact V_chsh_B_neg_b_19).
-  assert (V_chsh_B_neg_b_21 : hw_chsh_B_neg_b (chsh_iter 21 b) = (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))))
+  assert (V_chsh_B_neg_b_21 : hw_chsh_B_neg_b (chsh_iter 21 b) = (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_B_neg_b (chsh_iter 20 b) Ph20); exact V_chsh_B_neg_b_20).
-  assert (V_chsh_B_neg_b_22 : hw_chsh_B_neg_b (chsh_iter 22 b) = (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))))
+  assert (V_chsh_B_neg_b_22 : hw_chsh_B_neg_b (chsh_iter 22 b) = (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_B_neg_b (chsh_iter 21 b) Ph21); exact V_chsh_B_neg_b_21).
-  assert (V_chsh_B_neg_b_23 : hw_chsh_B_neg_b (chsh_iter 23 b) = (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))))
+  assert (V_chsh_B_neg_b_23 : hw_chsh_B_neg_b (chsh_iter 23 b) = (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_B_neg_b (chsh_iter 22 b) Ph22); exact V_chsh_B_neg_b_22).
-  assert (V_chsh_B_neg_b_24 : hw_chsh_B_neg_b (chsh_iter 24 b) = (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))))
+  assert (V_chsh_B_neg_b_24 : hw_chsh_B_neg_b (chsh_iter 24 b) = (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_B_neg_b (chsh_iter 23 b) Ph23); exact V_chsh_B_neg_b_23).
-  assert (V_chsh_B_neg_b_25 : hw_chsh_B_neg_b (chsh_iter 25 b) = (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))))
+  assert (V_chsh_B_neg_b_25 : hw_chsh_B_neg_b (chsh_iter 25 b) = (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_B_neg_b (chsh_iter 24 b) Ph24); exact V_chsh_B_neg_b_24).
-  assert (V_chsh_B_neg_b_26 : hw_chsh_B_neg_b (chsh_iter 26 b) = (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))))
+  assert (V_chsh_B_neg_b_26 : hw_chsh_B_neg_b (chsh_iter 26 b) = (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_B_neg_b (chsh_iter 25 b) Ph25); exact V_chsh_B_neg_b_25).
-  assert (V_chsh_B_neg_b_27 : hw_chsh_B_neg_b (chsh_iter 27 b) = (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))))
+  assert (V_chsh_B_neg_b_27 : hw_chsh_B_neg_b (chsh_iter 27 b) = (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_B_neg_b (chsh_iter 26 b) Ph26); exact V_chsh_B_neg_b_26).
-  assert (V_chsh_B_neg_b_28 : hw_chsh_B_neg_b (chsh_iter 28 b) = (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))))
+  assert (V_chsh_B_neg_b_28 : hw_chsh_B_neg_b (chsh_iter 28 b) = (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_B_neg_b (chsh_iter 27 b) Ph27); exact V_chsh_B_neg_b_27).
-  assert (V_chsh_d00d01_15 : hw_chsh_d00d01 (chsh_iter 15 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d01 b))).
+  assert (V_chsh_d00d01_15 : hw_chsh_d00d01 (chsh_iter 15 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d01 b))).
   { change (chsh_iter 15 b) with (chsh_next (chsh_iter 14 b)).
     rewrite (chsh_phase15_chsh_d00d01 (chsh_iter 14 b) Ph14). rewrite ?(iter_keeps_chsh_d00 14 b). rewrite ?(iter_keeps_chsh_d01 14 b). reflexivity. }
-  assert (V_chsh_d00d01_16 : hw_chsh_d00d01 (chsh_iter 16 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d00d01_16 : hw_chsh_d00d01 (chsh_iter 16 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 16 b) with (chsh_next (chsh_iter 15 b)); rewrite (chsh_phase16_chsh_d00d01 (chsh_iter 15 b) Ph15); exact V_chsh_d00d01_15).
-  assert (V_chsh_d00d01_17 : hw_chsh_d00d01 (chsh_iter 17 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d00d01_17 : hw_chsh_d00d01 (chsh_iter 17 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 17 b) with (chsh_next (chsh_iter 16 b)); rewrite (chsh_phase17_chsh_d00d01 (chsh_iter 16 b) Ph16); exact V_chsh_d00d01_16).
-  assert (V_chsh_d00d01_18 : hw_chsh_d00d01 (chsh_iter 18 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d00d01_18 : hw_chsh_d00d01 (chsh_iter 18 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)); rewrite (chsh_phase18_chsh_d00d01 (chsh_iter 17 b) Ph17); exact V_chsh_d00d01_17).
-  assert (V_chsh_d00d01_19 : hw_chsh_d00d01 (chsh_iter 19 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d00d01_19 : hw_chsh_d00d01 (chsh_iter 19 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_d00d01 (chsh_iter 18 b) Ph18); exact V_chsh_d00d01_18).
-  assert (V_chsh_d00d01_20 : hw_chsh_d00d01 (chsh_iter 20 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d00d01_20 : hw_chsh_d00d01 (chsh_iter 20 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_d00d01 (chsh_iter 19 b) Ph19); exact V_chsh_d00d01_19).
-  assert (V_chsh_d00d01_21 : hw_chsh_d00d01 (chsh_iter 21 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d00d01_21 : hw_chsh_d00d01 (chsh_iter 21 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_d00d01 (chsh_iter 20 b) Ph20); exact V_chsh_d00d01_20).
-  assert (V_chsh_d00d01_22 : hw_chsh_d00d01 (chsh_iter 22 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d00d01_22 : hw_chsh_d00d01 (chsh_iter 22 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_d00d01 (chsh_iter 21 b) Ph21); exact V_chsh_d00d01_21).
-  assert (V_chsh_d00d01_23 : hw_chsh_d00d01 (chsh_iter 23 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d00d01_23 : hw_chsh_d00d01 (chsh_iter 23 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_d00d01 (chsh_iter 22 b) Ph22); exact V_chsh_d00d01_22).
-  assert (V_chsh_d00d01_24 : hw_chsh_d00d01 (chsh_iter 24 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d00d01_24 : hw_chsh_d00d01 (chsh_iter 24 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_d00d01 (chsh_iter 23 b) Ph23); exact V_chsh_d00d01_23).
-  assert (V_chsh_d00d01_25 : hw_chsh_d00d01 (chsh_iter 25 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d00d01_25 : hw_chsh_d00d01 (chsh_iter 25 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_d00d01 (chsh_iter 24 b) Ph24); exact V_chsh_d00d01_24).
-  assert (V_chsh_d00d01_26 : hw_chsh_d00d01 (chsh_iter 26 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d00d01_26 : hw_chsh_d00d01 (chsh_iter 26 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_d00d01 (chsh_iter 25 b) Ph25); exact V_chsh_d00d01_25).
-  assert (V_chsh_d00d01_27 : hw_chsh_d00d01 (chsh_iter 27 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d00d01_27 : hw_chsh_d00d01 (chsh_iter 27 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_d00d01 (chsh_iter 26 b) Ph26); exact V_chsh_d00d01_26).
-  assert (V_chsh_d00d01_28 : hw_chsh_d00d01 (chsh_iter 28 b) = (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)))
+  assert (V_chsh_d00d01_28 : hw_chsh_d00d01 (chsh_iter 28 b) = (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_d00d01 (chsh_iter 27 b) Ph27); exact V_chsh_d00d01_27).
-  assert (V_chsh_n10n11_16 : hw_chsh_n10n11 (chsh_iter 16 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))).
+  assert (V_chsh_n10n11_16 : hw_chsh_n10n11 (chsh_iter 16 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))).
   { change (chsh_iter 16 b) with (chsh_next (chsh_iter 15 b)).
     rewrite (chsh_phase16_chsh_n10n11 (chsh_iter 15 b) Ph15). rewrite ?(iter_keeps_chsh_n10 15 b). rewrite ?(iter_keeps_chsh_n11 15 b). reflexivity. }
-  assert (V_chsh_n10n11_17 : hw_chsh_n10n11 (chsh_iter 17 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n10n11_17 : hw_chsh_n10n11 (chsh_iter 17 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 17 b) with (chsh_next (chsh_iter 16 b)); rewrite (chsh_phase17_chsh_n10n11 (chsh_iter 16 b) Ph16); exact V_chsh_n10n11_16).
-  assert (V_chsh_n10n11_18 : hw_chsh_n10n11 (chsh_iter 18 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n10n11_18 : hw_chsh_n10n11 (chsh_iter 18 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)); rewrite (chsh_phase18_chsh_n10n11 (chsh_iter 17 b) Ph17); exact V_chsh_n10n11_17).
-  assert (V_chsh_n10n11_19 : hw_chsh_n10n11 (chsh_iter 19 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n10n11_19 : hw_chsh_n10n11 (chsh_iter 19 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_n10n11 (chsh_iter 18 b) Ph18); exact V_chsh_n10n11_18).
-  assert (V_chsh_n10n11_20 : hw_chsh_n10n11 (chsh_iter 20 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n10n11_20 : hw_chsh_n10n11 (chsh_iter 20 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_n10n11 (chsh_iter 19 b) Ph19); exact V_chsh_n10n11_19).
-  assert (V_chsh_n10n11_21 : hw_chsh_n10n11 (chsh_iter 21 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n10n11_21 : hw_chsh_n10n11 (chsh_iter 21 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_n10n11 (chsh_iter 20 b) Ph20); exact V_chsh_n10n11_20).
-  assert (V_chsh_n10n11_22 : hw_chsh_n10n11 (chsh_iter 22 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n10n11_22 : hw_chsh_n10n11 (chsh_iter 22 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_n10n11 (chsh_iter 21 b) Ph21); exact V_chsh_n10n11_21).
-  assert (V_chsh_n10n11_23 : hw_chsh_n10n11 (chsh_iter 23 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n10n11_23 : hw_chsh_n10n11 (chsh_iter 23 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_n10n11 (chsh_iter 22 b) Ph22); exact V_chsh_n10n11_22).
-  assert (V_chsh_n10n11_24 : hw_chsh_n10n11 (chsh_iter 24 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n10n11_24 : hw_chsh_n10n11 (chsh_iter 24 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_n10n11 (chsh_iter 23 b) Ph23); exact V_chsh_n10n11_23).
-  assert (V_chsh_n10n11_25 : hw_chsh_n10n11 (chsh_iter 25 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n10n11_25 : hw_chsh_n10n11 (chsh_iter 25 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_n10n11 (chsh_iter 24 b) Ph24); exact V_chsh_n10n11_24).
-  assert (V_chsh_n10n11_26 : hw_chsh_n10n11 (chsh_iter 26 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n10n11_26 : hw_chsh_n10n11 (chsh_iter 26 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_n10n11 (chsh_iter 25 b) Ph25); exact V_chsh_n10n11_25).
-  assert (V_chsh_n10n11_27 : hw_chsh_n10n11 (chsh_iter 27 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n10n11_27 : hw_chsh_n10n11 (chsh_iter 27 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_n10n11 (chsh_iter 26 b) Ph26); exact V_chsh_n10n11_26).
-  assert (V_chsh_n10n11_28 : hw_chsh_n10n11 (chsh_iter 28 b) = (m128 (hw_chsh_n10 b) (hw_chsh_n11 b)))
+  assert (V_chsh_n10n11_28 : hw_chsh_n10n11 (chsh_iter 28 b) = (m67 (hw_chsh_n10 b) (hw_chsh_n11 b)))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_n10n11 (chsh_iter 27 b) Ph27); exact V_chsh_n10n11_27).
-  assert (V_chsh_d10d11_17 : hw_chsh_d10d11 (chsh_iter 17 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d11 b))).
+  assert (V_chsh_d10d11_17 : hw_chsh_d10d11 (chsh_iter 17 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d11 b))).
   { change (chsh_iter 17 b) with (chsh_next (chsh_iter 16 b)).
     rewrite (chsh_phase17_chsh_d10d11 (chsh_iter 16 b) Ph16). rewrite ?(iter_keeps_chsh_d10 16 b). rewrite ?(iter_keeps_chsh_d11 16 b). reflexivity. }
-  assert (V_chsh_d10d11_18 : hw_chsh_d10d11 (chsh_iter 18 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d10d11_18 : hw_chsh_d10d11 (chsh_iter 18 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)); rewrite (chsh_phase18_chsh_d10d11 (chsh_iter 17 b) Ph17); exact V_chsh_d10d11_17).
-  assert (V_chsh_d10d11_19 : hw_chsh_d10d11 (chsh_iter 19 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d10d11_19 : hw_chsh_d10d11 (chsh_iter 19 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_d10d11 (chsh_iter 18 b) Ph18); exact V_chsh_d10d11_18).
-  assert (V_chsh_d10d11_20 : hw_chsh_d10d11 (chsh_iter 20 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d10d11_20 : hw_chsh_d10d11 (chsh_iter 20 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_d10d11 (chsh_iter 19 b) Ph19); exact V_chsh_d10d11_19).
-  assert (V_chsh_d10d11_21 : hw_chsh_d10d11 (chsh_iter 21 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d10d11_21 : hw_chsh_d10d11 (chsh_iter 21 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_d10d11 (chsh_iter 20 b) Ph20); exact V_chsh_d10d11_20).
-  assert (V_chsh_d10d11_22 : hw_chsh_d10d11 (chsh_iter 22 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d10d11_22 : hw_chsh_d10d11 (chsh_iter 22 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_d10d11 (chsh_iter 21 b) Ph21); exact V_chsh_d10d11_21).
-  assert (V_chsh_d10d11_23 : hw_chsh_d10d11 (chsh_iter 23 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d10d11_23 : hw_chsh_d10d11 (chsh_iter 23 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_d10d11 (chsh_iter 22 b) Ph22); exact V_chsh_d10d11_22).
-  assert (V_chsh_d10d11_24 : hw_chsh_d10d11 (chsh_iter 24 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d10d11_24 : hw_chsh_d10d11 (chsh_iter 24 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_d10d11 (chsh_iter 23 b) Ph23); exact V_chsh_d10d11_23).
-  assert (V_chsh_d10d11_25 : hw_chsh_d10d11 (chsh_iter 25 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d10d11_25 : hw_chsh_d10d11 (chsh_iter 25 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_d10d11 (chsh_iter 24 b) Ph24); exact V_chsh_d10d11_24).
-  assert (V_chsh_d10d11_26 : hw_chsh_d10d11 (chsh_iter 26 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d10d11_26 : hw_chsh_d10d11 (chsh_iter 26 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_d10d11 (chsh_iter 25 b) Ph25); exact V_chsh_d10d11_25).
-  assert (V_chsh_d10d11_27 : hw_chsh_d10d11 (chsh_iter 27 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d10d11_27 : hw_chsh_d10d11 (chsh_iter 27 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_d10d11 (chsh_iter 26 b) Ph26); exact V_chsh_d10d11_26).
-  assert (V_chsh_d10d11_28 : hw_chsh_d10d11 (chsh_iter 28 b) = (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)))
+  assert (V_chsh_d10d11_28 : hw_chsh_d10d11 (chsh_iter 28 b) = (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_d10d11 (chsh_iter 27 b) Ph27); exact V_chsh_d10d11_27).
-  assert (V_chsh_n00n01_18 : hw_chsh_n00n01 (chsh_iter 18 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))).
+  assert (V_chsh_n00n01_18 : hw_chsh_n00n01 (chsh_iter 18 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))).
   { change (chsh_iter 18 b) with (chsh_next (chsh_iter 17 b)).
     rewrite (chsh_phase18_chsh_n00n01 (chsh_iter 17 b) Ph17). rewrite ?(iter_keeps_chsh_n00 17 b). rewrite ?(iter_keeps_chsh_n01 17 b). reflexivity. }
-  assert (V_chsh_n00n01_19 : hw_chsh_n00n01 (chsh_iter 19 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n00n01_19 : hw_chsh_n00n01 (chsh_iter 19 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)); rewrite (chsh_phase19_chsh_n00n01 (chsh_iter 18 b) Ph18); exact V_chsh_n00n01_18).
-  assert (V_chsh_n00n01_20 : hw_chsh_n00n01 (chsh_iter 20 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n00n01_20 : hw_chsh_n00n01 (chsh_iter 20 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_n00n01 (chsh_iter 19 b) Ph19); exact V_chsh_n00n01_19).
-  assert (V_chsh_n00n01_21 : hw_chsh_n00n01 (chsh_iter 21 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n00n01_21 : hw_chsh_n00n01 (chsh_iter 21 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_n00n01 (chsh_iter 20 b) Ph20); exact V_chsh_n00n01_20).
-  assert (V_chsh_n00n01_22 : hw_chsh_n00n01 (chsh_iter 22 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n00n01_22 : hw_chsh_n00n01 (chsh_iter 22 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_n00n01 (chsh_iter 21 b) Ph21); exact V_chsh_n00n01_21).
-  assert (V_chsh_n00n01_23 : hw_chsh_n00n01 (chsh_iter 23 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n00n01_23 : hw_chsh_n00n01 (chsh_iter 23 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_n00n01 (chsh_iter 22 b) Ph22); exact V_chsh_n00n01_22).
-  assert (V_chsh_n00n01_24 : hw_chsh_n00n01 (chsh_iter 24 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n00n01_24 : hw_chsh_n00n01 (chsh_iter 24 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_n00n01 (chsh_iter 23 b) Ph23); exact V_chsh_n00n01_23).
-  assert (V_chsh_n00n01_25 : hw_chsh_n00n01 (chsh_iter 25 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n00n01_25 : hw_chsh_n00n01 (chsh_iter 25 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_n00n01 (chsh_iter 24 b) Ph24); exact V_chsh_n00n01_24).
-  assert (V_chsh_n00n01_26 : hw_chsh_n00n01 (chsh_iter 26 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n00n01_26 : hw_chsh_n00n01 (chsh_iter 26 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_n00n01 (chsh_iter 25 b) Ph25); exact V_chsh_n00n01_25).
-  assert (V_chsh_n00n01_27 : hw_chsh_n00n01 (chsh_iter 27 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n00n01_27 : hw_chsh_n00n01 (chsh_iter 27 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_n00n01 (chsh_iter 26 b) Ph26); exact V_chsh_n00n01_26).
-  assert (V_chsh_n00n01_28 : hw_chsh_n00n01 (chsh_iter 28 b) = (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))
+  assert (V_chsh_n00n01_28 : hw_chsh_n00n01 (chsh_iter 28 b) = (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_n00n01 (chsh_iter 27 b) Ph27); exact V_chsh_n00n01_27).
-  assert (V_chsh_abs_C1_19 : hw_chsh_abs_C1 (chsh_iter 19 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b)))).
+  assert (V_chsh_abs_C1_19 : hw_chsh_abs_C1 (chsh_iter 19 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b)))).
   { change (chsh_iter 19 b) with (chsh_next (chsh_iter 18 b)).
     rewrite (chsh_phase19_chsh_abs_C1 (chsh_iter 18 b) Ph18). rewrite ?(V_chsh_d00d01_18). rewrite ?(V_chsh_n10n11_18). reflexivity. }
-  assert (V_chsh_abs_C1_20 : hw_chsh_abs_C1 (chsh_iter 20 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))))
+  assert (V_chsh_abs_C1_20 : hw_chsh_abs_C1 (chsh_iter 20 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)); rewrite (chsh_phase20_chsh_abs_C1 (chsh_iter 19 b) Ph19); exact V_chsh_abs_C1_19).
-  assert (V_chsh_abs_C1_21 : hw_chsh_abs_C1 (chsh_iter 21 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))))
+  assert (V_chsh_abs_C1_21 : hw_chsh_abs_C1 (chsh_iter 21 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_abs_C1 (chsh_iter 20 b) Ph20); exact V_chsh_abs_C1_20).
-  assert (V_chsh_abs_C1_22 : hw_chsh_abs_C1 (chsh_iter 22 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))))
+  assert (V_chsh_abs_C1_22 : hw_chsh_abs_C1 (chsh_iter 22 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_abs_C1 (chsh_iter 21 b) Ph21); exact V_chsh_abs_C1_21).
-  assert (V_chsh_abs_C1_23 : hw_chsh_abs_C1 (chsh_iter 23 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))))
+  assert (V_chsh_abs_C1_23 : hw_chsh_abs_C1 (chsh_iter 23 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_abs_C1 (chsh_iter 22 b) Ph22); exact V_chsh_abs_C1_22).
-  assert (V_chsh_abs_C1_24 : hw_chsh_abs_C1 (chsh_iter 24 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))))
+  assert (V_chsh_abs_C1_24 : hw_chsh_abs_C1 (chsh_iter 24 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_abs_C1 (chsh_iter 23 b) Ph23); exact V_chsh_abs_C1_23).
-  assert (V_chsh_abs_C1_25 : hw_chsh_abs_C1 (chsh_iter 25 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))))
+  assert (V_chsh_abs_C1_25 : hw_chsh_abs_C1 (chsh_iter 25 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_abs_C1 (chsh_iter 24 b) Ph24); exact V_chsh_abs_C1_24).
-  assert (V_chsh_abs_C1_26 : hw_chsh_abs_C1 (chsh_iter 26 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))))
+  assert (V_chsh_abs_C1_26 : hw_chsh_abs_C1 (chsh_iter 26 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_abs_C1 (chsh_iter 25 b) Ph25); exact V_chsh_abs_C1_25).
-  assert (V_chsh_abs_C1_27 : hw_chsh_abs_C1 (chsh_iter 27 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))))
+  assert (V_chsh_abs_C1_27 : hw_chsh_abs_C1 (chsh_iter 27 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_abs_C1 (chsh_iter 26 b) Ph26); exact V_chsh_abs_C1_26).
-  assert (V_chsh_abs_C1_28 : hw_chsh_abs_C1 (chsh_iter 28 b) = (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))))
+  assert (V_chsh_abs_C1_28 : hw_chsh_abs_C1 (chsh_iter 28 b) = (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_abs_C1 (chsh_iter 27 b) Ph27); exact V_chsh_abs_C1_27).
-  assert (V_chsh_abs_C2_20 : hw_chsh_abs_C2 (chsh_iter 20 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))).
+  assert (V_chsh_abs_C2_20 : hw_chsh_abs_C2 (chsh_iter 20 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))).
   { change (chsh_iter 20 b) with (chsh_next (chsh_iter 19 b)).
     rewrite (chsh_phase20_chsh_abs_C2 (chsh_iter 19 b) Ph19). rewrite ?(V_chsh_d10d11_19). rewrite ?(V_chsh_n00n01_19). reflexivity. }
-  assert (V_chsh_abs_C2_21 : hw_chsh_abs_C2 (chsh_iter 21 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))
+  assert (V_chsh_abs_C2_21 : hw_chsh_abs_C2 (chsh_iter 21 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)); rewrite (chsh_phase21_chsh_abs_C2 (chsh_iter 20 b) Ph20); exact V_chsh_abs_C2_20).
-  assert (V_chsh_abs_C2_22 : hw_chsh_abs_C2 (chsh_iter 22 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))
+  assert (V_chsh_abs_C2_22 : hw_chsh_abs_C2 (chsh_iter 22 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)); rewrite (chsh_phase22_chsh_abs_C2 (chsh_iter 21 b) Ph21); exact V_chsh_abs_C2_21).
-  assert (V_chsh_abs_C2_23 : hw_chsh_abs_C2 (chsh_iter 23 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))
+  assert (V_chsh_abs_C2_23 : hw_chsh_abs_C2 (chsh_iter 23 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)); rewrite (chsh_phase23_chsh_abs_C2 (chsh_iter 22 b) Ph22); exact V_chsh_abs_C2_22).
-  assert (V_chsh_abs_C2_24 : hw_chsh_abs_C2 (chsh_iter 24 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))
+  assert (V_chsh_abs_C2_24 : hw_chsh_abs_C2 (chsh_iter 24 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)); rewrite (chsh_phase24_chsh_abs_C2 (chsh_iter 23 b) Ph23); exact V_chsh_abs_C2_23).
-  assert (V_chsh_abs_C2_25 : hw_chsh_abs_C2 (chsh_iter 25 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))
+  assert (V_chsh_abs_C2_25 : hw_chsh_abs_C2 (chsh_iter 25 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_abs_C2 (chsh_iter 24 b) Ph24); exact V_chsh_abs_C2_24).
-  assert (V_chsh_abs_C2_26 : hw_chsh_abs_C2 (chsh_iter 26 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))
+  assert (V_chsh_abs_C2_26 : hw_chsh_abs_C2 (chsh_iter 26 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_abs_C2 (chsh_iter 25 b) Ph25); exact V_chsh_abs_C2_25).
-  assert (V_chsh_abs_C2_27 : hw_chsh_abs_C2 (chsh_iter 27 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))
+  assert (V_chsh_abs_C2_27 : hw_chsh_abs_C2 (chsh_iter 27 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_abs_C2 (chsh_iter 26 b) Ph26); exact V_chsh_abs_C2_26).
-  assert (V_chsh_abs_C2_28 : hw_chsh_abs_C2 (chsh_iter 28 b) = (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))
+  assert (V_chsh_abs_C2_28 : hw_chsh_abs_C2 (chsh_iter 28 b) = (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_abs_C2 (chsh_iter 27 b) Ph27); exact V_chsh_abs_C2_27).
-  assert (V_chsh_C_sq_21 : hw_chsh_C_sq (chsh_iter 21 b) = (evalZeroExtendTrunc 384 (m256 (split1 128 128 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))) (split1 128 128 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))))))).
+  assert (V_chsh_C_sq_21 : hw_chsh_C_sq (chsh_iter 21 b) = (evalZeroExtendTrunc 268 (m134 (split1 67 67 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))) (split1 67 67 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))))))).
   { change (chsh_iter 21 b) with (chsh_next (chsh_iter 20 b)).
     rewrite (chsh_phase21_chsh_C_sq (chsh_iter 20 b) Ph20).  rewrite ?chsh_abs_C_form, ?(V_chsh_abs_C1_20), ?(V_chsh_abs_C2_20), ?(iter_keeps_chsh_sign00 20 b), ?(iter_keeps_chsh_sign01 20 b), ?(iter_keeps_chsh_sign10 20 b), ?(iter_keeps_chsh_sign11 20 b). rewrite ?chsh_abs_C_form, ?(V_chsh_abs_C1_20), ?(V_chsh_abs_C2_20), ?(iter_keeps_chsh_sign00 20 b), ?(iter_keeps_chsh_sign01 20 b), ?(iter_keeps_chsh_sign10 20 b), ?(iter_keeps_chsh_sign11 20 b). reflexivity. }
-  assert (V_chsh_C_sq_22 : hw_chsh_C_sq (chsh_iter 22 b) = (wplus (evalZeroExtendTrunc 384 (m256 (split1 128 128 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))) (split1 128 128 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))))) (combine (natToWord 128 0) (m256 (split1 128 128 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))) (split2 128 128 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))))))).
+  assert (V_chsh_C_sq_22 : hw_chsh_C_sq (chsh_iter 22 b) = (wplus (evalZeroExtendTrunc 268 (m134 (split1 67 67 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))) (split1 67 67 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))))) (evalZeroExtendTrunc 268 (combine (natToWord 67 0) (m134 (split1 67 67 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))) (split2 67 67 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))))))))).
   { change (chsh_iter 22 b) with (chsh_next (chsh_iter 21 b)).
     rewrite (chsh_phase22_chsh_C_sq (chsh_iter 21 b) Ph21). rewrite (V_chsh_C_sq_21). rewrite ?chsh_abs_C_form, ?(V_chsh_abs_C1_21), ?(V_chsh_abs_C2_21), ?(iter_keeps_chsh_sign00 21 b), ?(iter_keeps_chsh_sign01 21 b), ?(iter_keeps_chsh_sign10 21 b), ?(iter_keeps_chsh_sign11 21 b). rewrite ?chsh_abs_C_form, ?(V_chsh_abs_C1_21), ?(V_chsh_abs_C2_21), ?(iter_keeps_chsh_sign00 21 b), ?(iter_keeps_chsh_sign01 21 b), ?(iter_keeps_chsh_sign10 21 b), ?(iter_keeps_chsh_sign11 21 b). reflexivity. }
-  assert (V_chsh_C_sq_23 : hw_chsh_C_sq (chsh_iter 23 b) = (wplus (wplus (evalZeroExtendTrunc 384 (m256 (split1 128 128 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))) (split1 128 128 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))))) (combine (natToWord 128 0) (m256 (split1 128 128 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))) (split2 128 128 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))))))) (combine (natToWord 128 0) (m256 (split2 128 128 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))) (split1 128 128 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))))))).
+  assert (V_chsh_C_sq_23 : hw_chsh_C_sq (chsh_iter 23 b) = (wplus (wplus (evalZeroExtendTrunc 268 (m134 (split1 67 67 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))) (split1 67 67 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))))) (evalZeroExtendTrunc 268 (combine (natToWord 67 0) (m134 (split1 67 67 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))) (split2 67 67 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))))))) (evalZeroExtendTrunc 268 (combine (natToWord 67 0) (m134 (split2 67 67 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))) (split1 67 67 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))))))))).
   { change (chsh_iter 23 b) with (chsh_next (chsh_iter 22 b)).
     rewrite (chsh_phase23_chsh_C_sq (chsh_iter 22 b) Ph22). rewrite (V_chsh_C_sq_22). rewrite ?chsh_abs_C_form, ?(V_chsh_abs_C1_22), ?(V_chsh_abs_C2_22), ?(iter_keeps_chsh_sign00 22 b), ?(iter_keeps_chsh_sign01 22 b), ?(iter_keeps_chsh_sign10 22 b), ?(iter_keeps_chsh_sign11 22 b). rewrite ?chsh_abs_C_form, ?(V_chsh_abs_C1_22), ?(V_chsh_abs_C2_22), ?(iter_keeps_chsh_sign00 22 b), ?(iter_keeps_chsh_sign01 22 b), ?(iter_keeps_chsh_sign10 22 b), ?(iter_keeps_chsh_sign11 22 b). reflexivity. }
-  assert (V_chsh_C_sq_24 : hw_chsh_C_sq (chsh_iter 24 b) = (m384 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))) (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))))).
+  assert (V_chsh_C_sq_24 : hw_chsh_C_sq (chsh_iter 24 b) = (m268 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))) (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))))).
   { change (chsh_iter 24 b) with (chsh_next (chsh_iter 23 b)).
-    rewrite (chsh_phase24_chsh_C_sq (chsh_iter 23 b) Ph23). rewrite (V_chsh_C_sq_23). rewrite ?chsh_abs_C_form, ?(V_chsh_abs_C1_23), ?(V_chsh_abs_C2_23), ?(iter_keeps_chsh_sign00 23 b), ?(iter_keeps_chsh_sign01 23 b), ?(iter_keeps_chsh_sign10 23 b), ?(iter_keeps_chsh_sign11 23 b). rewrite ?chsh_abs_C_form, ?(V_chsh_abs_C1_23), ?(V_chsh_abs_C2_23), ?(iter_keeps_chsh_sign00 23 b), ?(iter_keeps_chsh_sign01 23 b), ?(iter_keeps_chsh_sign10 23 b), ?(iter_keeps_chsh_sign11 23 b). rewrite <- m384_parts_eq. reflexivity. }
-  assert (V_chsh_C_sq_25 : hw_chsh_C_sq (chsh_iter 25 b) = (m384 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))) (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))))
+    rewrite (chsh_phase24_chsh_C_sq (chsh_iter 23 b) Ph23). rewrite (V_chsh_C_sq_23). rewrite ?chsh_abs_C_form, ?(V_chsh_abs_C1_23), ?(V_chsh_abs_C2_23), ?(iter_keeps_chsh_sign00 23 b), ?(iter_keeps_chsh_sign01 23 b), ?(iter_keeps_chsh_sign10 23 b), ?(iter_keeps_chsh_sign11 23 b). rewrite ?chsh_abs_C_form, ?(V_chsh_abs_C1_23), ?(V_chsh_abs_C2_23), ?(iter_keeps_chsh_sign00 23 b), ?(iter_keeps_chsh_sign01 23 b), ?(iter_keeps_chsh_sign10 23 b), ?(iter_keeps_chsh_sign11 23 b). rewrite <- m268_parts_eq. reflexivity. }
+  assert (V_chsh_C_sq_25 : hw_chsh_C_sq (chsh_iter 25 b) = (m268 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))) (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))))
     by (change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)); rewrite (chsh_phase25_chsh_C_sq (chsh_iter 24 b) Ph24); exact V_chsh_C_sq_24).
-  assert (V_chsh_C_sq_26 : hw_chsh_C_sq (chsh_iter 26 b) = (m384 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))) (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))))
+  assert (V_chsh_C_sq_26 : hw_chsh_C_sq (chsh_iter 26 b) = (m268 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))) (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))))
     by (change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)); rewrite (chsh_phase26_chsh_C_sq (chsh_iter 25 b) Ph25); exact V_chsh_C_sq_25).
-  assert (V_chsh_C_sq_27 : hw_chsh_C_sq (chsh_iter 27 b) = (m384 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))) (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))))
+  assert (V_chsh_C_sq_27 : hw_chsh_C_sq (chsh_iter 27 b) = (m268 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))) (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))))
     by (change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)); rewrite (chsh_phase27_chsh_C_sq (chsh_iter 26 b) Ph26); exact V_chsh_C_sq_26).
-  assert (V_chsh_C_sq_28 : hw_chsh_C_sq (chsh_iter 28 b) = (m384 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b)))) (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n01 b))))))
+  assert (V_chsh_C_sq_28 : hw_chsh_C_sq (chsh_iter 28 b) = (m268 (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b)))) (if (if bool_dec (hw_bool_neq (hw_chsh_sign00 b) (hw_chsh_sign01 b)) (hw_bool_neq (hw_chsh_sign10 b) (hw_chsh_sign11 b)) then true else false) then wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))) else hw_absdiffw (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n01 b))))))
     by (change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)); rewrite (chsh_phase28_chsh_C_sq (chsh_iter 27 b) Ph27); exact V_chsh_C_sq_27).
-  assert (V_chsh_A_times_B_25 : hw_chsh_A_times_B (chsh_iter 25 b) = (evalZeroExtendTrunc 384 (m256 (split1 128 128 (hw_absdiffw (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))) (wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))))) (split1 128 128 (hw_absdiffw (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))) (wplus (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))))))))).
+  assert (V_chsh_A_times_B_25 : hw_chsh_A_times_B (chsh_iter 25 b) = (evalZeroExtendTrunc 268 (m134 (split1 67 67 (hw_absdiffw (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))) (wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))))) (split1 67 67 (hw_absdiffw (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))) (wplus (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))))))).
   { change (chsh_iter 25 b) with (chsh_next (chsh_iter 24 b)).
     rewrite (chsh_phase25_chsh_A_times_B (chsh_iter 24 b) Ph24).  rewrite ?chsh_abs_A_form, ?(V_chsh_A_pos_24), ?(V_chsh_A_neg_a_24), ?(V_chsh_A_neg_b_24). rewrite ?chsh_abs_B_form, ?(V_chsh_B_pos_24), ?(V_chsh_B_neg_a_24), ?(V_chsh_B_neg_b_24). reflexivity. }
-  assert (V_chsh_A_times_B_26 : hw_chsh_A_times_B (chsh_iter 26 b) = (wplus (evalZeroExtendTrunc 384 (m256 (split1 128 128 (hw_absdiffw (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))) (wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))))) (split1 128 128 (hw_absdiffw (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))) (wplus (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))))))) (combine (natToWord 128 0) (m256 (split1 128 128 (hw_absdiffw (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))) (wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))))) (split2 128 128 (hw_absdiffw (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))) (wplus (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))))))))).
+  assert (V_chsh_A_times_B_26 : hw_chsh_A_times_B (chsh_iter 26 b) = (wplus (evalZeroExtendTrunc 268 (m134 (split1 67 67 (hw_absdiffw (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))) (wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))))) (split1 67 67 (hw_absdiffw (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))) (wplus (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))))))) (evalZeroExtendTrunc 268 (combine (natToWord 67 0) (m134 (split1 67 67 (hw_absdiffw (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))) (wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))))) (split2 67 67 (hw_absdiffw (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))) (wplus (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))))))))).
   { change (chsh_iter 26 b) with (chsh_next (chsh_iter 25 b)).
     rewrite (chsh_phase26_chsh_A_times_B (chsh_iter 25 b) Ph25). rewrite (V_chsh_A_times_B_25). rewrite ?chsh_abs_A_form, ?(V_chsh_A_pos_25), ?(V_chsh_A_neg_a_25), ?(V_chsh_A_neg_b_25). rewrite ?chsh_abs_B_form, ?(V_chsh_B_pos_25), ?(V_chsh_B_neg_a_25), ?(V_chsh_B_neg_b_25). reflexivity. }
-  assert (V_chsh_A_times_B_27 : hw_chsh_A_times_B (chsh_iter 27 b) = (wplus (wplus (evalZeroExtendTrunc 384 (m256 (split1 128 128 (hw_absdiffw (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))) (wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))))) (split1 128 128 (hw_absdiffw (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))) (wplus (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))))))) (combine (natToWord 128 0) (m256 (split1 128 128 (hw_absdiffw (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))) (wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))))) (split2 128 128 (hw_absdiffw (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))) (wplus (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))))))))) (combine (natToWord 128 0) (m256 (split2 128 128 (hw_absdiffw (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))) (wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)))))) (split1 128 128 (hw_absdiffw (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))) (wplus (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)))))))))).
+  assert (V_chsh_A_times_B_27 : hw_chsh_A_times_B (chsh_iter 27 b) = (wplus (wplus (evalZeroExtendTrunc 268 (m134 (split1 67 67 (hw_absdiffw (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))) (wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))))) (split1 67 67 (hw_absdiffw (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))) (wplus (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))))))) (evalZeroExtendTrunc 268 (combine (natToWord 67 0) (m134 (split1 67 67 (hw_absdiffw (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))) (wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))))) (split2 67 67 (hw_absdiffw (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))) (wplus (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)))))))))) (evalZeroExtendTrunc 268 (combine (natToWord 67 0) (m134 (split2 67 67 (hw_absdiffw (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))) (wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)))))) (split1 67 67 (hw_absdiffw (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))) (wplus (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))))))))).
   { change (chsh_iter 27 b) with (chsh_next (chsh_iter 26 b)).
     rewrite (chsh_phase27_chsh_A_times_B (chsh_iter 26 b) Ph26). rewrite (V_chsh_A_times_B_26). rewrite ?chsh_abs_A_form, ?(V_chsh_A_pos_26), ?(V_chsh_A_neg_a_26), ?(V_chsh_A_neg_b_26). rewrite ?chsh_abs_B_form, ?(V_chsh_B_pos_26), ?(V_chsh_B_neg_a_26), ?(V_chsh_B_neg_b_26). reflexivity. }
-  assert (V_chsh_A_times_B_28 : hw_chsh_A_times_B (chsh_iter 28 b) = (m384 (hw_absdiffw (m256 (m128 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))) (wplus (m256 (m128 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m128 (hw_chsh_n10 b) (hw_chsh_n10 b))) (m256 (m128 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m128 (hw_chsh_n00 b) (hw_chsh_n00 b))))) (hw_absdiffw (m256 (m128 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))) (wplus (m256 (m128 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m128 (hw_chsh_n11 b) (hw_chsh_n11 b))) (m256 (m128 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m128 (hw_chsh_n01 b) (hw_chsh_n01 b))))))).
+  assert (V_chsh_A_times_B_28 : hw_chsh_A_times_B (chsh_iter 28 b) = (m268 (hw_absdiffw (m134 (m67 (hw_chsh_n00 b) (hw_chsh_n00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))) (wplus (m134 (m67 (hw_chsh_d00 b) (hw_chsh_d00 b)) (m67 (hw_chsh_n10 b) (hw_chsh_n10 b))) (m134 (m67 (hw_chsh_d10 b) (hw_chsh_d10 b)) (m67 (hw_chsh_n00 b) (hw_chsh_n00 b))))) (hw_absdiffw (m134 (m67 (hw_chsh_n01 b) (hw_chsh_n01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))) (wplus (m134 (m67 (hw_chsh_d01 b) (hw_chsh_d01 b)) (m67 (hw_chsh_n11 b) (hw_chsh_n11 b))) (m134 (m67 (hw_chsh_d11 b) (hw_chsh_d11 b)) (m67 (hw_chsh_n01 b) (hw_chsh_n01 b))))))).
   { change (chsh_iter 28 b) with (chsh_next (chsh_iter 27 b)).
-    rewrite (chsh_phase28_chsh_A_times_B (chsh_iter 27 b) Ph27). rewrite (V_chsh_A_times_B_27). rewrite ?chsh_abs_A_form, ?(V_chsh_A_pos_27), ?(V_chsh_A_neg_a_27), ?(V_chsh_A_neg_b_27). rewrite ?chsh_abs_B_form, ?(V_chsh_B_pos_27), ?(V_chsh_B_neg_a_27), ?(V_chsh_B_neg_b_27). rewrite <- m384_parts_eq. reflexivity. }
+    rewrite (chsh_phase28_chsh_A_times_B (chsh_iter 27 b) Ph27). rewrite (V_chsh_A_times_B_27). rewrite ?chsh_abs_A_form, ?(V_chsh_A_pos_27), ?(V_chsh_A_neg_a_27), ?(V_chsh_A_neg_b_27). rewrite ?chsh_abs_B_form, ?(V_chsh_B_pos_27), ?(V_chsh_B_neg_a_27), ?(V_chsh_B_neg_b_27). rewrite <- m268_parts_eq. reflexivity. }
   assert (Eok : chsh_final_ok (chsh_iter 28 b) = chsh_check_word_hw (hw_chsh_n00 b) (hw_chsh_n01 b) (hw_chsh_n10 b) (hw_chsh_n11 b) (hw_chsh_d00 b) (hw_chsh_d01 b) (hw_chsh_d10 b) (hw_chsh_d11 b) (hw_chsh_sign00 b) (hw_chsh_sign01 b) (hw_chsh_sign10 b) (hw_chsh_sign11 b)).
   { rewrite chsh_final_form, ?(V_chsh_n00sq_28), ?(V_chsh_n01sq_28), ?(V_chsh_n10sq_28), ?(V_chsh_n11sq_28), ?(V_chsh_d00sq_28), ?(V_chsh_d01sq_28), ?(V_chsh_d10sq_28), ?(V_chsh_d11sq_28), ?(V_chsh_A_pos_28), ?(V_chsh_A_neg_a_28), ?(V_chsh_A_neg_b_28), ?(V_chsh_B_pos_28), ?(V_chsh_B_neg_a_28), ?(V_chsh_B_neg_b_28), ?(V_chsh_d00d01_28), ?(V_chsh_n10n11_28), ?(V_chsh_d10d11_28), ?(V_chsh_n00n01_28), ?(V_chsh_abs_C1_28), ?(V_chsh_abs_C2_28), ?(V_chsh_C_sq_28), ?(V_chsh_A_times_B_28), ?(iter_keeps_chsh_n00 28 b), ?(iter_keeps_chsh_n01 28 b), ?(iter_keeps_chsh_n10 28 b), ?(iter_keeps_chsh_n11 28 b). unfold chsh_check_word_hw. kernel_refl. }
   split.

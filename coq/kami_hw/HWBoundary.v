@@ -58,28 +58,28 @@ Record HWB := {
   hw_chsh_sign01 : type (Bool);
   hw_chsh_sign10 : type (Bool);
   hw_chsh_sign11 : type (Bool);
-  hw_chsh_n00sq : type (Bit 128);
-  hw_chsh_n01sq : type (Bit 128);
-  hw_chsh_n10sq : type (Bit 128);
-  hw_chsh_n11sq : type (Bit 128);
-  hw_chsh_d00sq : type (Bit 128);
-  hw_chsh_d01sq : type (Bit 128);
-  hw_chsh_d10sq : type (Bit 128);
-  hw_chsh_d11sq : type (Bit 128);
-  hw_chsh_A_pos : type (Bit 256);
-  hw_chsh_A_neg_a : type (Bit 256);
-  hw_chsh_A_neg_b : type (Bit 256);
-  hw_chsh_B_pos : type (Bit 256);
-  hw_chsh_B_neg_a : type (Bit 256);
-  hw_chsh_B_neg_b : type (Bit 256);
-  hw_chsh_d00d01 : type (Bit 128);
-  hw_chsh_n10n11 : type (Bit 128);
-  hw_chsh_d10d11 : type (Bit 128);
-  hw_chsh_n00n01 : type (Bit 128);
-  hw_chsh_abs_C1 : type (Bit 256);
-  hw_chsh_abs_C2 : type (Bit 256);
-  hw_chsh_C_sq : type (Bit 384);
-  hw_chsh_A_times_B : type (Bit 384);
+  hw_chsh_n00sq : type (Bit 67);
+  hw_chsh_n01sq : type (Bit 67);
+  hw_chsh_n10sq : type (Bit 67);
+  hw_chsh_n11sq : type (Bit 67);
+  hw_chsh_d00sq : type (Bit 67);
+  hw_chsh_d01sq : type (Bit 67);
+  hw_chsh_d10sq : type (Bit 67);
+  hw_chsh_d11sq : type (Bit 67);
+  hw_chsh_A_pos : type (Bit 134);
+  hw_chsh_A_neg_a : type (Bit 134);
+  hw_chsh_A_neg_b : type (Bit 134);
+  hw_chsh_B_pos : type (Bit 134);
+  hw_chsh_B_neg_a : type (Bit 134);
+  hw_chsh_B_neg_b : type (Bit 134);
+  hw_chsh_d00d01 : type (Bit 67);
+  hw_chsh_n10n11 : type (Bit 67);
+  hw_chsh_d10d11 : type (Bit 67);
+  hw_chsh_n00n01 : type (Bit 67);
+  hw_chsh_abs_C1 : type (Bit 134);
+  hw_chsh_abs_C2 : type (Bit 134);
+  hw_chsh_C_sq : type (Bit 268);
+  hw_chsh_A_times_B : type (Bit 268);
   hw_chsh_check_result : type (Bool);
   hw_bus_load_instr_addr : type (Bit MemAddrSz);
   hw_bus_load_instr_data : type (Bit InstrSz);
@@ -204,28 +204,28 @@ Definition hwb_regs (b : HWB) : RegsT :=
   (M.add "chsh_sign01" (hwb_reg (Bool) b.(hw_chsh_sign01))
   (M.add "chsh_sign10" (hwb_reg (Bool) b.(hw_chsh_sign10))
   (M.add "chsh_sign11" (hwb_reg (Bool) b.(hw_chsh_sign11))
-  (M.add "chsh_n00sq" (hwb_reg (Bit 128) b.(hw_chsh_n00sq))
-  (M.add "chsh_n01sq" (hwb_reg (Bit 128) b.(hw_chsh_n01sq))
-  (M.add "chsh_n10sq" (hwb_reg (Bit 128) b.(hw_chsh_n10sq))
-  (M.add "chsh_n11sq" (hwb_reg (Bit 128) b.(hw_chsh_n11sq))
-  (M.add "chsh_d00sq" (hwb_reg (Bit 128) b.(hw_chsh_d00sq))
-  (M.add "chsh_d01sq" (hwb_reg (Bit 128) b.(hw_chsh_d01sq))
-  (M.add "chsh_d10sq" (hwb_reg (Bit 128) b.(hw_chsh_d10sq))
-  (M.add "chsh_d11sq" (hwb_reg (Bit 128) b.(hw_chsh_d11sq))
-  (M.add "chsh_A_pos" (hwb_reg (Bit 256) b.(hw_chsh_A_pos))
-  (M.add "chsh_A_neg_a" (hwb_reg (Bit 256) b.(hw_chsh_A_neg_a))
-  (M.add "chsh_A_neg_b" (hwb_reg (Bit 256) b.(hw_chsh_A_neg_b))
-  (M.add "chsh_B_pos" (hwb_reg (Bit 256) b.(hw_chsh_B_pos))
-  (M.add "chsh_B_neg_a" (hwb_reg (Bit 256) b.(hw_chsh_B_neg_a))
-  (M.add "chsh_B_neg_b" (hwb_reg (Bit 256) b.(hw_chsh_B_neg_b))
-  (M.add "chsh_d00d01" (hwb_reg (Bit 128) b.(hw_chsh_d00d01))
-  (M.add "chsh_n10n11" (hwb_reg (Bit 128) b.(hw_chsh_n10n11))
-  (M.add "chsh_d10d11" (hwb_reg (Bit 128) b.(hw_chsh_d10d11))
-  (M.add "chsh_n00n01" (hwb_reg (Bit 128) b.(hw_chsh_n00n01))
-  (M.add "chsh_abs_C1" (hwb_reg (Bit 256) b.(hw_chsh_abs_C1))
-  (M.add "chsh_abs_C2" (hwb_reg (Bit 256) b.(hw_chsh_abs_C2))
-  (M.add "chsh_C_sq" (hwb_reg (Bit 384) b.(hw_chsh_C_sq))
-  (M.add "chsh_A_times_B" (hwb_reg (Bit 384) b.(hw_chsh_A_times_B))
+  (M.add "chsh_n00sq" (hwb_reg (Bit 67) b.(hw_chsh_n00sq))
+  (M.add "chsh_n01sq" (hwb_reg (Bit 67) b.(hw_chsh_n01sq))
+  (M.add "chsh_n10sq" (hwb_reg (Bit 67) b.(hw_chsh_n10sq))
+  (M.add "chsh_n11sq" (hwb_reg (Bit 67) b.(hw_chsh_n11sq))
+  (M.add "chsh_d00sq" (hwb_reg (Bit 67) b.(hw_chsh_d00sq))
+  (M.add "chsh_d01sq" (hwb_reg (Bit 67) b.(hw_chsh_d01sq))
+  (M.add "chsh_d10sq" (hwb_reg (Bit 67) b.(hw_chsh_d10sq))
+  (M.add "chsh_d11sq" (hwb_reg (Bit 67) b.(hw_chsh_d11sq))
+  (M.add "chsh_A_pos" (hwb_reg (Bit 134) b.(hw_chsh_A_pos))
+  (M.add "chsh_A_neg_a" (hwb_reg (Bit 134) b.(hw_chsh_A_neg_a))
+  (M.add "chsh_A_neg_b" (hwb_reg (Bit 134) b.(hw_chsh_A_neg_b))
+  (M.add "chsh_B_pos" (hwb_reg (Bit 134) b.(hw_chsh_B_pos))
+  (M.add "chsh_B_neg_a" (hwb_reg (Bit 134) b.(hw_chsh_B_neg_a))
+  (M.add "chsh_B_neg_b" (hwb_reg (Bit 134) b.(hw_chsh_B_neg_b))
+  (M.add "chsh_d00d01" (hwb_reg (Bit 67) b.(hw_chsh_d00d01))
+  (M.add "chsh_n10n11" (hwb_reg (Bit 67) b.(hw_chsh_n10n11))
+  (M.add "chsh_d10d11" (hwb_reg (Bit 67) b.(hw_chsh_d10d11))
+  (M.add "chsh_n00n01" (hwb_reg (Bit 67) b.(hw_chsh_n00n01))
+  (M.add "chsh_abs_C1" (hwb_reg (Bit 134) b.(hw_chsh_abs_C1))
+  (M.add "chsh_abs_C2" (hwb_reg (Bit 134) b.(hw_chsh_abs_C2))
+  (M.add "chsh_C_sq" (hwb_reg (Bit 268) b.(hw_chsh_C_sq))
+  (M.add "chsh_A_times_B" (hwb_reg (Bit 268) b.(hw_chsh_A_times_B))
   (M.add "chsh_check_result" (hwb_reg (Bool) b.(hw_chsh_check_result))
   (M.add "bus_load_instr_addr" (hwb_reg (Bit MemAddrSz) b.(hw_bus_load_instr_addr))
   (M.add "bus_load_instr_data" (hwb_reg (Bit InstrSz) b.(hw_bus_load_instr_data))

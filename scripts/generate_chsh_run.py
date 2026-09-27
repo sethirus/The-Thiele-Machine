@@ -5,7 +5,7 @@ From a boundary at CHSH phase 1, [chsh_iter m b] (m applications of
 [chsh_next]) has phase m+1 for m <= 28 and phase 0 at m = 29. After 29
 firings every scratch register holds the product the FSM schedules for it,
 expressed over the latched sums, magnitudes and signs of [b]; the two
-accumulated 384-bit products are [m384] by [m384_parts_eq]; the check result
+accumulated 268-bit products are [m268] by [m268_parts_eq]; the check result
 is [chsh_check_word_hw] of those latches; pc, err and error_code are the trap
 commit on failure and unchanged on success; every register the rule never
 writes is unchanged. Operands are read from ThieleCPUCore.v.
@@ -54,8 +54,8 @@ def generate():
         for half, cut in (('_lo', 'split1'), ('_hi', 'split2')):
             if v.endswith(half):
                 term, tac = magnitude(v[:-len(half)], m)
-                return f'({cut} 128 128 {term})', tac
-        reg = 'chsh_' + v[:-len('_128')] if v.endswith('_128') else v[:-len('_v')]
+                return f'({cut} 67 67 {term})', tac
+        reg = 'chsh_' + v[:-len('_67')] if v.endswith('_67') else v[:-len('_v')]
         if reg in LATCHES:
             return f'(hw_{reg} b)', f'rewrite ?(iter_keeps_{reg} {m} b).'
         return ideal[reg], f'rewrite ?(V_{reg}_{m}).'
@@ -81,17 +81,17 @@ Fixpoint chsh_iter (n : nat) (b : HWB) : HWB :=
               f'Proof. induction n as [|n IH]; intro b; [reflexivity|cbn [chsh_iter]; '
               f'rewrite chsh_keeps_{f}; apply IH]. Qed.\n')
     t += '''
-Lemma chsh_abs_C_form : forall c, chsh_abs_C_256 c =
+Lemma chsh_abs_C_form : forall c, chsh_abs_C_134 c =
   if (if bool_dec (hw_bool_neq (hw_chsh_sign00 c) (hw_chsh_sign01 c))
                   (hw_bool_neq (hw_chsh_sign10 c) (hw_chsh_sign11 c)) then true else false)
   then wplus (hw_chsh_abs_C1 c) (hw_chsh_abs_C2 c) else hw_absdiffw (hw_chsh_abs_C1 c) (hw_chsh_abs_C2 c).
 Proof. intro c. kernel_refl. Qed.
 
-Lemma chsh_abs_A_form : forall c, chsh_abs_A_256 c =
+Lemma chsh_abs_A_form : forall c, chsh_abs_A_134 c =
   hw_absdiffw (hw_chsh_A_pos c) (wplus (hw_chsh_A_neg_a c) (hw_chsh_A_neg_b c)).
 Proof. intro c. kernel_refl. Qed.
 
-Lemma chsh_abs_B_form : forall c, chsh_abs_B_256 c =
+Lemma chsh_abs_B_form : forall c, chsh_abs_B_134 c =
   hw_absdiffw (hw_chsh_B_pos c) (wplus (hw_chsh_B_neg_a c) (hw_chsh_B_neg_b c)).
 Proof. intro c. kernel_refl. Qed.
 
@@ -154,7 +154,7 @@ Proof. intro c. kernel_refl. Qed.
         ideal[reg] = f'(m{w} {ta} {tb})'
         t += phase_step(reg, k, ideal[reg], f'{taca} {tacb}', 'reflexivity.')
         t += frames(reg, k + 1)
-    # accumulators: four partial products, then the 384-bit product
+    # accumulators: four partial products, then the 268-bit product
     for reg, s in ACCUMULATORS.items():
         for i in range(4):
             k = s + i
@@ -168,9 +168,9 @@ Proof. intro c. kernel_refl. Qed.
             else:
                 x, _ = magnitude(opa[s][:-len('_lo')], k - 1)
                 y, _ = magnitude(opb[s][:-len('_lo')], k - 1)
-                ideal[reg] = f'(m384 {x} {y})'
+                ideal[reg] = f'(m268 {x} {y})'
                 t += phase_step(reg, k, ideal[reg], f'{prev} {taca} {tacb}',
-                                'rewrite <- m384_parts_eq. reflexivity.')
+                                'rewrite <- m268_parts_eq. reflexivity.')
         t += frames(reg, s + 4)
     finals = ', '.join(f'?(V_{reg}_{P})' for reg in list(scratch) + list(ACCUMULATORS)) + ', ' + \
         ', '.join(f'?(iter_keeps_{l} {P} b)' for l in LATCHES if l.startswith('chsh_n'))

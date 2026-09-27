@@ -4,7 +4,7 @@
 For every phase 1..29 and every register the FSM rule writes, the value after
 [chsh_next] is stated with the phase multiplexers resolved. In phases 1..20
 the one scratch register of that phase receives the product of its two
-operands (as [m128] or [m256] from ChshArith.v). In phases 21..24 chsh_C_sq
+operands (as [m67] or [m134] from ChshArith.v). In phases 21..24 chsh_C_sq
 and in 25..28 chsh_A_times_B accumulate the four partial products of their
 operand halves. Every other scratch register keeps its value, the phase
 advances, and at phase 29 the check result and the trap commit are written.
@@ -24,7 +24,7 @@ ACCUMULATORS = {'chsh_C_sq': 21, 'chsh_A_times_B': 25}
 
 
 def mux(text, name):
-    i = text.index(f'LET {name} : Bit 128 <-')
+    i = text.index(f'LET {name} : Bit 67 <-')
     j = text.index('else $0;', i)
     return {int(k): v for k, v in re.findall(r'IF #phase_eq_(\d+)\s+then #(\w+)', text[i:j])}
 
@@ -33,9 +33,9 @@ def operand(v):
     """Gallina term of mux entry v at boundary b."""
     for half, cut in (('_lo', 'split1'), ('_hi', 'split2')):
         if v.endswith(half) and v[:-len(half)] in ('abs_C', 'abs_A', 'abs_B'):
-            return f'({cut} 128 128 (chsh_{v[:-len(half)]}_256 b))'
-    if v.endswith('_128'):
-        return f'(hw_chsh_{v[:-len("_128")]} b)'
+            return f'({cut} 67 67 (chsh_{v[:-len(half)]}_134 b))'
+    if v.endswith('_67'):
+        return f'(hw_chsh_{v[:-len("_67")]} b)'
     assert v.startswith('chsh_') and v.endswith('_v'), v
     return f'(hw_{v[:-len("_v")]} b)'
 
@@ -43,17 +43,17 @@ def operand(v):
 def accumulate(k, prev, a, b):
     """The value an accumulator holds after its (k+1)-th phase."""
     if k == 0:
-        return f'evalZeroExtendTrunc 384 (m256 {a} {b})'
+        return f'evalZeroExtendTrunc 268 (m134 {a} {b})'
     if k in (1, 2):
-        return f'wplus {prev} (combine (natToWord 128 0) (m256 {a} {b}))'
-    return f'wplus {prev} (combine (natToWord 256 0) (split1 128 128 (m256 {a} {b})))'
+        return f'wplus {prev} (evalZeroExtendTrunc 268 (combine (natToWord 67 0) (m134 {a} {b})))'
+    return f'wplus {prev} (combine (natToWord 134 0) (m134 {a} {b}))'
 
 
 def parse():
     text = CPU.read_text()
     d = text.index('Definition chsh_fsm_decoded')
     body = text[d:text.index(')%kami_action.', d)]
-    opa, opb = mux(body, 'op_a_128'), mux(body, 'op_b_128')
+    opa, opb = mux(body, 'op_a_67'), mux(body, 'op_b_67')
     scratch = {}
     for reg, k, width in re.findall(r'Write "(chsh_\w+)"\s*<- IF #phase_eq_(\d+)\s+then #mult_(\d+)', body):
         scratch[reg] = (int(k), width)
@@ -80,8 +80,8 @@ Ltac phase_mux :=
   cbv beta iota.
 
 Ltac phase_unfold :=
-  unfold chsh_commit_trap, chsh_part_0, chsh_part_128, chsh_part_256, chsh_mult_128, chsh_mult_256,
-    chsh_op_a_128, chsh_op_b_128, ''' + ', '.join(f'chsh_phase_eq_{k}' for k in range(1, LAST + 1)) + '''.
+  unfold chsh_commit_trap, chsh_part_0, chsh_part_67, chsh_part_134, chsh_mult_67, chsh_mult_134,
+    chsh_op_a_67, chsh_op_b_67, ''' + ', '.join(f'chsh_phase_eq_{k}' for k in range(1, LAST + 1)) + '''.
 
 '''
     for k in range(1, LAST + 1):
@@ -96,13 +96,13 @@ Ltac phase_unfold :=
         for reg, (k, width) in scratch.items():
             if k == j:
                 rows.append((reg, f'm{width} {operand(opa[k])} {operand(opb[k])}',
-                             'phase_unfold. rewrite H. phase_mux. unfold m128, m256. reflexivity.'))
+                             'phase_unfold. rewrite H. phase_mux. unfold m67, m134. reflexivity.'))
             else:
                 rows.append((reg, f'hw_{reg} b', f'rewrite (chsh_eq{k}_at{j} b H). kernel_refl.'))
         for reg, s in ACCUMULATORS.items():
             if s <= j < s + 4:
                 rhs = accumulate(j - s, f'(hw_{reg} b)', operand(opa[j]), operand(opb[j]))
-                rows.append((reg, rhs, 'phase_unfold. rewrite H. phase_mux. unfold m256. reflexivity.'))
+                rows.append((reg, rhs, 'phase_unfold. rewrite H. phase_mux. unfold m134. reflexivity.'))
             else:
                 eqs = ' '.join(f'rewrite (chsh_eq{k}_at{j} b H).' for k in range(s, s + 4))
                 rows.append((reg, f'hw_{reg} b', f'{eqs} kernel_refl.'))

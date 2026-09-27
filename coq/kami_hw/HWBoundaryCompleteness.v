@@ -119,49 +119,49 @@ Lemma cpu_kind_chsh_sign10 : cpu_register_kind "chsh_sign10" = Some (SyntaxKind 
 Proof. vm_compute. reflexivity. Qed.
 Lemma cpu_kind_chsh_sign11 : cpu_register_kind "chsh_sign11" = Some (SyntaxKind (Bool)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_n00sq : cpu_register_kind "chsh_n00sq" = Some (SyntaxKind (Bit 128)).
+Lemma cpu_kind_chsh_n00sq : cpu_register_kind "chsh_n00sq" = Some (SyntaxKind (Bit 67)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_n01sq : cpu_register_kind "chsh_n01sq" = Some (SyntaxKind (Bit 128)).
+Lemma cpu_kind_chsh_n01sq : cpu_register_kind "chsh_n01sq" = Some (SyntaxKind (Bit 67)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_n10sq : cpu_register_kind "chsh_n10sq" = Some (SyntaxKind (Bit 128)).
+Lemma cpu_kind_chsh_n10sq : cpu_register_kind "chsh_n10sq" = Some (SyntaxKind (Bit 67)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_n11sq : cpu_register_kind "chsh_n11sq" = Some (SyntaxKind (Bit 128)).
+Lemma cpu_kind_chsh_n11sq : cpu_register_kind "chsh_n11sq" = Some (SyntaxKind (Bit 67)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_d00sq : cpu_register_kind "chsh_d00sq" = Some (SyntaxKind (Bit 128)).
+Lemma cpu_kind_chsh_d00sq : cpu_register_kind "chsh_d00sq" = Some (SyntaxKind (Bit 67)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_d01sq : cpu_register_kind "chsh_d01sq" = Some (SyntaxKind (Bit 128)).
+Lemma cpu_kind_chsh_d01sq : cpu_register_kind "chsh_d01sq" = Some (SyntaxKind (Bit 67)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_d10sq : cpu_register_kind "chsh_d10sq" = Some (SyntaxKind (Bit 128)).
+Lemma cpu_kind_chsh_d10sq : cpu_register_kind "chsh_d10sq" = Some (SyntaxKind (Bit 67)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_d11sq : cpu_register_kind "chsh_d11sq" = Some (SyntaxKind (Bit 128)).
+Lemma cpu_kind_chsh_d11sq : cpu_register_kind "chsh_d11sq" = Some (SyntaxKind (Bit 67)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_A_pos : cpu_register_kind "chsh_A_pos" = Some (SyntaxKind (Bit 256)).
+Lemma cpu_kind_chsh_A_pos : cpu_register_kind "chsh_A_pos" = Some (SyntaxKind (Bit 134)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_A_neg_a : cpu_register_kind "chsh_A_neg_a" = Some (SyntaxKind (Bit 256)).
+Lemma cpu_kind_chsh_A_neg_a : cpu_register_kind "chsh_A_neg_a" = Some (SyntaxKind (Bit 134)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_A_neg_b : cpu_register_kind "chsh_A_neg_b" = Some (SyntaxKind (Bit 256)).
+Lemma cpu_kind_chsh_A_neg_b : cpu_register_kind "chsh_A_neg_b" = Some (SyntaxKind (Bit 134)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_B_pos : cpu_register_kind "chsh_B_pos" = Some (SyntaxKind (Bit 256)).
+Lemma cpu_kind_chsh_B_pos : cpu_register_kind "chsh_B_pos" = Some (SyntaxKind (Bit 134)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_B_neg_a : cpu_register_kind "chsh_B_neg_a" = Some (SyntaxKind (Bit 256)).
+Lemma cpu_kind_chsh_B_neg_a : cpu_register_kind "chsh_B_neg_a" = Some (SyntaxKind (Bit 134)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_B_neg_b : cpu_register_kind "chsh_B_neg_b" = Some (SyntaxKind (Bit 256)).
+Lemma cpu_kind_chsh_B_neg_b : cpu_register_kind "chsh_B_neg_b" = Some (SyntaxKind (Bit 134)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_d00d01 : cpu_register_kind "chsh_d00d01" = Some (SyntaxKind (Bit 128)).
+Lemma cpu_kind_chsh_d00d01 : cpu_register_kind "chsh_d00d01" = Some (SyntaxKind (Bit 67)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_n10n11 : cpu_register_kind "chsh_n10n11" = Some (SyntaxKind (Bit 128)).
+Lemma cpu_kind_chsh_n10n11 : cpu_register_kind "chsh_n10n11" = Some (SyntaxKind (Bit 67)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_d10d11 : cpu_register_kind "chsh_d10d11" = Some (SyntaxKind (Bit 128)).
+Lemma cpu_kind_chsh_d10d11 : cpu_register_kind "chsh_d10d11" = Some (SyntaxKind (Bit 67)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_n00n01 : cpu_register_kind "chsh_n00n01" = Some (SyntaxKind (Bit 128)).
+Lemma cpu_kind_chsh_n00n01 : cpu_register_kind "chsh_n00n01" = Some (SyntaxKind (Bit 67)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_abs_C1 : cpu_register_kind "chsh_abs_C1" = Some (SyntaxKind (Bit 256)).
+Lemma cpu_kind_chsh_abs_C1 : cpu_register_kind "chsh_abs_C1" = Some (SyntaxKind (Bit 134)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_abs_C2 : cpu_register_kind "chsh_abs_C2" = Some (SyntaxKind (Bit 256)).
+Lemma cpu_kind_chsh_abs_C2 : cpu_register_kind "chsh_abs_C2" = Some (SyntaxKind (Bit 134)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_C_sq : cpu_register_kind "chsh_C_sq" = Some (SyntaxKind (Bit 384)).
+Lemma cpu_kind_chsh_C_sq : cpu_register_kind "chsh_C_sq" = Some (SyntaxKind (Bit 268)).
 Proof. vm_compute. reflexivity. Qed.
-Lemma cpu_kind_chsh_A_times_B : cpu_register_kind "chsh_A_times_B" = Some (SyntaxKind (Bit 384)).
+Lemma cpu_kind_chsh_A_times_B : cpu_register_kind "chsh_A_times_B" = Some (SyntaxKind (Bit 268)).
 Proof. vm_compute. reflexivity. Qed.
 Lemma cpu_kind_chsh_check_result : cpu_register_kind "chsh_check_result" = Some (SyntaxKind (Bool)).
 Proof. vm_compute. reflexivity. Qed.
@@ -353,28 +353,28 @@ Definition hwb_of_regs (old : RegsT) (H : registers_match cpu_register_kind old)
      hw_chsh_sign01 := typed_register_value old "chsh_sign01" (Bool);
      hw_chsh_sign10 := typed_register_value old "chsh_sign10" (Bool);
      hw_chsh_sign11 := typed_register_value old "chsh_sign11" (Bool);
-     hw_chsh_n00sq := typed_register_value old "chsh_n00sq" (Bit 128);
-     hw_chsh_n01sq := typed_register_value old "chsh_n01sq" (Bit 128);
-     hw_chsh_n10sq := typed_register_value old "chsh_n10sq" (Bit 128);
-     hw_chsh_n11sq := typed_register_value old "chsh_n11sq" (Bit 128);
-     hw_chsh_d00sq := typed_register_value old "chsh_d00sq" (Bit 128);
-     hw_chsh_d01sq := typed_register_value old "chsh_d01sq" (Bit 128);
-     hw_chsh_d10sq := typed_register_value old "chsh_d10sq" (Bit 128);
-     hw_chsh_d11sq := typed_register_value old "chsh_d11sq" (Bit 128);
-     hw_chsh_A_pos := typed_register_value old "chsh_A_pos" (Bit 256);
-     hw_chsh_A_neg_a := typed_register_value old "chsh_A_neg_a" (Bit 256);
-     hw_chsh_A_neg_b := typed_register_value old "chsh_A_neg_b" (Bit 256);
-     hw_chsh_B_pos := typed_register_value old "chsh_B_pos" (Bit 256);
-     hw_chsh_B_neg_a := typed_register_value old "chsh_B_neg_a" (Bit 256);
-     hw_chsh_B_neg_b := typed_register_value old "chsh_B_neg_b" (Bit 256);
-     hw_chsh_d00d01 := typed_register_value old "chsh_d00d01" (Bit 128);
-     hw_chsh_n10n11 := typed_register_value old "chsh_n10n11" (Bit 128);
-     hw_chsh_d10d11 := typed_register_value old "chsh_d10d11" (Bit 128);
-     hw_chsh_n00n01 := typed_register_value old "chsh_n00n01" (Bit 128);
-     hw_chsh_abs_C1 := typed_register_value old "chsh_abs_C1" (Bit 256);
-     hw_chsh_abs_C2 := typed_register_value old "chsh_abs_C2" (Bit 256);
-     hw_chsh_C_sq := typed_register_value old "chsh_C_sq" (Bit 384);
-     hw_chsh_A_times_B := typed_register_value old "chsh_A_times_B" (Bit 384);
+     hw_chsh_n00sq := typed_register_value old "chsh_n00sq" (Bit 67);
+     hw_chsh_n01sq := typed_register_value old "chsh_n01sq" (Bit 67);
+     hw_chsh_n10sq := typed_register_value old "chsh_n10sq" (Bit 67);
+     hw_chsh_n11sq := typed_register_value old "chsh_n11sq" (Bit 67);
+     hw_chsh_d00sq := typed_register_value old "chsh_d00sq" (Bit 67);
+     hw_chsh_d01sq := typed_register_value old "chsh_d01sq" (Bit 67);
+     hw_chsh_d10sq := typed_register_value old "chsh_d10sq" (Bit 67);
+     hw_chsh_d11sq := typed_register_value old "chsh_d11sq" (Bit 67);
+     hw_chsh_A_pos := typed_register_value old "chsh_A_pos" (Bit 134);
+     hw_chsh_A_neg_a := typed_register_value old "chsh_A_neg_a" (Bit 134);
+     hw_chsh_A_neg_b := typed_register_value old "chsh_A_neg_b" (Bit 134);
+     hw_chsh_B_pos := typed_register_value old "chsh_B_pos" (Bit 134);
+     hw_chsh_B_neg_a := typed_register_value old "chsh_B_neg_a" (Bit 134);
+     hw_chsh_B_neg_b := typed_register_value old "chsh_B_neg_b" (Bit 134);
+     hw_chsh_d00d01 := typed_register_value old "chsh_d00d01" (Bit 67);
+     hw_chsh_n10n11 := typed_register_value old "chsh_n10n11" (Bit 67);
+     hw_chsh_d10d11 := typed_register_value old "chsh_d10d11" (Bit 67);
+     hw_chsh_n00n01 := typed_register_value old "chsh_n00n01" (Bit 67);
+     hw_chsh_abs_C1 := typed_register_value old "chsh_abs_C1" (Bit 134);
+     hw_chsh_abs_C2 := typed_register_value old "chsh_abs_C2" (Bit 134);
+     hw_chsh_C_sq := typed_register_value old "chsh_C_sq" (Bit 268);
+     hw_chsh_A_times_B := typed_register_value old "chsh_A_times_B" (Bit 268);
      hw_chsh_check_result := typed_register_value old "chsh_check_result" (Bool);
      hw_bus_load_instr_addr := typed_register_value old "bus_load_instr_addr" (Bit MemAddrSz);
      hw_bus_load_instr_data := typed_register_value old "bus_load_instr_data" (Bit InstrSz);

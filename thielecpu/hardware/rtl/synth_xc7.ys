@@ -13,17 +13,19 @@
 # DSP inference is off (`-nodsp`). `instr_chsh_lassert`'s
 # `column_contractive_check_witness` performs 22 wide integer multiplications.
 # In Kami the check is a 29-phase FSM (`chsh_lassert_fsm` rule in
-# coq/kami_hw/ThieleCPUCore.v) that time-shares one 128×128 multiplier, so
-# only one multiply is live per cycle. The two 256×256 products the check
-# needs are each summed from four 128×128 partial products over four phases.
-# Built from LUTs, the whole design synthesises to about 60K LUTs.
+# coq/kami_hw/ThieleCPUCore.v) that time-shares one 67×67 multiplier, so only
+# one multiply is live per cycle. Every register in the FSM is sized to the
+# largest value 32-bit counters can produce there (67, 134 and 268 bits), and
+# the two 134×134 products are each summed from four 67×67 partial products.
+# Built from LUTs, the whole design synthesises to about 37K LUTs.
 #
-# Mapping the multiplier onto DSP48E1 slices instead did not finish inside
-# the CI job's limit: cascaded slices stalled nextpnr-xilinx's analytical
-# placer, and standalone slices placed quickly but left routing badly
-# congested. DSP vs LUT is a silicon-utilisation choice, not a correctness
-# one. The proof chain (Coq → OCaml → Bluespec → Verilog) is
-# identical either way.
+# The same FSM with every value carried at roughly twice that width (128-,
+# 256- and 384-bit registers) came to about 69K LUTs, and nextpnr-xilinx
+# could not finish routing it inside the CI job's limit. Mapping the
+# multiplier onto DSP48E1 slices did not help: cascaded slices stalled the
+# analytical placer, and standalone slices left routing badly congested.
+# DSP vs LUT is a silicon-utilisation choice, not a correctness one. The
+# proof chain (Coq → OCaml → Bluespec → Verilog) is identical either way.
 #
 # `-abc9` enables abc9 tech-mapping for tighter wide-mux factoring.
 

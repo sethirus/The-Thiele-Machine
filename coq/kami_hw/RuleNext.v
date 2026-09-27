@@ -71,28 +71,28 @@ Definition hwb_after (b : HWB)
      hw_chsh_sign01 := write_value (Bool) (obs "chsh_sign01") (hw_chsh_sign01 b);
      hw_chsh_sign10 := write_value (Bool) (obs "chsh_sign10") (hw_chsh_sign10 b);
      hw_chsh_sign11 := write_value (Bool) (obs "chsh_sign11") (hw_chsh_sign11 b);
-     hw_chsh_n00sq := write_value (Bit 128) (obs "chsh_n00sq") (hw_chsh_n00sq b);
-     hw_chsh_n01sq := write_value (Bit 128) (obs "chsh_n01sq") (hw_chsh_n01sq b);
-     hw_chsh_n10sq := write_value (Bit 128) (obs "chsh_n10sq") (hw_chsh_n10sq b);
-     hw_chsh_n11sq := write_value (Bit 128) (obs "chsh_n11sq") (hw_chsh_n11sq b);
-     hw_chsh_d00sq := write_value (Bit 128) (obs "chsh_d00sq") (hw_chsh_d00sq b);
-     hw_chsh_d01sq := write_value (Bit 128) (obs "chsh_d01sq") (hw_chsh_d01sq b);
-     hw_chsh_d10sq := write_value (Bit 128) (obs "chsh_d10sq") (hw_chsh_d10sq b);
-     hw_chsh_d11sq := write_value (Bit 128) (obs "chsh_d11sq") (hw_chsh_d11sq b);
-     hw_chsh_A_pos := write_value (Bit 256) (obs "chsh_A_pos") (hw_chsh_A_pos b);
-     hw_chsh_A_neg_a := write_value (Bit 256) (obs "chsh_A_neg_a") (hw_chsh_A_neg_a b);
-     hw_chsh_A_neg_b := write_value (Bit 256) (obs "chsh_A_neg_b") (hw_chsh_A_neg_b b);
-     hw_chsh_B_pos := write_value (Bit 256) (obs "chsh_B_pos") (hw_chsh_B_pos b);
-     hw_chsh_B_neg_a := write_value (Bit 256) (obs "chsh_B_neg_a") (hw_chsh_B_neg_a b);
-     hw_chsh_B_neg_b := write_value (Bit 256) (obs "chsh_B_neg_b") (hw_chsh_B_neg_b b);
-     hw_chsh_d00d01 := write_value (Bit 128) (obs "chsh_d00d01") (hw_chsh_d00d01 b);
-     hw_chsh_n10n11 := write_value (Bit 128) (obs "chsh_n10n11") (hw_chsh_n10n11 b);
-     hw_chsh_d10d11 := write_value (Bit 128) (obs "chsh_d10d11") (hw_chsh_d10d11 b);
-     hw_chsh_n00n01 := write_value (Bit 128) (obs "chsh_n00n01") (hw_chsh_n00n01 b);
-     hw_chsh_abs_C1 := write_value (Bit 256) (obs "chsh_abs_C1") (hw_chsh_abs_C1 b);
-     hw_chsh_abs_C2 := write_value (Bit 256) (obs "chsh_abs_C2") (hw_chsh_abs_C2 b);
-     hw_chsh_C_sq := write_value (Bit 384) (obs "chsh_C_sq") (hw_chsh_C_sq b);
-     hw_chsh_A_times_B := write_value (Bit 384) (obs "chsh_A_times_B") (hw_chsh_A_times_B b);
+     hw_chsh_n00sq := write_value (Bit 67) (obs "chsh_n00sq") (hw_chsh_n00sq b);
+     hw_chsh_n01sq := write_value (Bit 67) (obs "chsh_n01sq") (hw_chsh_n01sq b);
+     hw_chsh_n10sq := write_value (Bit 67) (obs "chsh_n10sq") (hw_chsh_n10sq b);
+     hw_chsh_n11sq := write_value (Bit 67) (obs "chsh_n11sq") (hw_chsh_n11sq b);
+     hw_chsh_d00sq := write_value (Bit 67) (obs "chsh_d00sq") (hw_chsh_d00sq b);
+     hw_chsh_d01sq := write_value (Bit 67) (obs "chsh_d01sq") (hw_chsh_d01sq b);
+     hw_chsh_d10sq := write_value (Bit 67) (obs "chsh_d10sq") (hw_chsh_d10sq b);
+     hw_chsh_d11sq := write_value (Bit 67) (obs "chsh_d11sq") (hw_chsh_d11sq b);
+     hw_chsh_A_pos := write_value (Bit 134) (obs "chsh_A_pos") (hw_chsh_A_pos b);
+     hw_chsh_A_neg_a := write_value (Bit 134) (obs "chsh_A_neg_a") (hw_chsh_A_neg_a b);
+     hw_chsh_A_neg_b := write_value (Bit 134) (obs "chsh_A_neg_b") (hw_chsh_A_neg_b b);
+     hw_chsh_B_pos := write_value (Bit 134) (obs "chsh_B_pos") (hw_chsh_B_pos b);
+     hw_chsh_B_neg_a := write_value (Bit 134) (obs "chsh_B_neg_a") (hw_chsh_B_neg_a b);
+     hw_chsh_B_neg_b := write_value (Bit 134) (obs "chsh_B_neg_b") (hw_chsh_B_neg_b b);
+     hw_chsh_d00d01 := write_value (Bit 67) (obs "chsh_d00d01") (hw_chsh_d00d01 b);
+     hw_chsh_n10n11 := write_value (Bit 67) (obs "chsh_n10n11") (hw_chsh_n10n11 b);
+     hw_chsh_d10d11 := write_value (Bit 67) (obs "chsh_d10d11") (hw_chsh_d10d11 b);
+     hw_chsh_n00n01 := write_value (Bit 67) (obs "chsh_n00n01") (hw_chsh_n00n01 b);
+     hw_chsh_abs_C1 := write_value (Bit 134) (obs "chsh_abs_C1") (hw_chsh_abs_C1 b);
+     hw_chsh_abs_C2 := write_value (Bit 134) (obs "chsh_abs_C2") (hw_chsh_abs_C2 b);
+     hw_chsh_C_sq := write_value (Bit 268) (obs "chsh_C_sq") (hw_chsh_C_sq b);
+     hw_chsh_A_times_B := write_value (Bit 268) (obs "chsh_A_times_B") (hw_chsh_A_times_B b);
      hw_chsh_check_result := write_value (Bool) (obs "chsh_check_result") (hw_chsh_check_result b);
      hw_bus_load_instr_addr := write_value (Bit MemAddrSz) (obs "bus_load_instr_addr") (hw_bus_load_instr_addr b);
      hw_bus_load_instr_data := write_value (Bit InstrSz) (obs "bus_load_instr_data") (hw_bus_load_instr_data b);
@@ -612,70 +612,70 @@ Lemma find_hwb_regs_chsh_sign11 : forall b,
   M.find "chsh_sign11" (hwb_regs b) = Some (hwb_reg (Bool) (hw_chsh_sign11 b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_n00sq : forall b,
-  M.find "chsh_n00sq" (hwb_regs b) = Some (hwb_reg (Bit 128) (hw_chsh_n00sq b)).
+  M.find "chsh_n00sq" (hwb_regs b) = Some (hwb_reg (Bit 67) (hw_chsh_n00sq b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_n01sq : forall b,
-  M.find "chsh_n01sq" (hwb_regs b) = Some (hwb_reg (Bit 128) (hw_chsh_n01sq b)).
+  M.find "chsh_n01sq" (hwb_regs b) = Some (hwb_reg (Bit 67) (hw_chsh_n01sq b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_n10sq : forall b,
-  M.find "chsh_n10sq" (hwb_regs b) = Some (hwb_reg (Bit 128) (hw_chsh_n10sq b)).
+  M.find "chsh_n10sq" (hwb_regs b) = Some (hwb_reg (Bit 67) (hw_chsh_n10sq b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_n11sq : forall b,
-  M.find "chsh_n11sq" (hwb_regs b) = Some (hwb_reg (Bit 128) (hw_chsh_n11sq b)).
+  M.find "chsh_n11sq" (hwb_regs b) = Some (hwb_reg (Bit 67) (hw_chsh_n11sq b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_d00sq : forall b,
-  M.find "chsh_d00sq" (hwb_regs b) = Some (hwb_reg (Bit 128) (hw_chsh_d00sq b)).
+  M.find "chsh_d00sq" (hwb_regs b) = Some (hwb_reg (Bit 67) (hw_chsh_d00sq b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_d01sq : forall b,
-  M.find "chsh_d01sq" (hwb_regs b) = Some (hwb_reg (Bit 128) (hw_chsh_d01sq b)).
+  M.find "chsh_d01sq" (hwb_regs b) = Some (hwb_reg (Bit 67) (hw_chsh_d01sq b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_d10sq : forall b,
-  M.find "chsh_d10sq" (hwb_regs b) = Some (hwb_reg (Bit 128) (hw_chsh_d10sq b)).
+  M.find "chsh_d10sq" (hwb_regs b) = Some (hwb_reg (Bit 67) (hw_chsh_d10sq b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_d11sq : forall b,
-  M.find "chsh_d11sq" (hwb_regs b) = Some (hwb_reg (Bit 128) (hw_chsh_d11sq b)).
+  M.find "chsh_d11sq" (hwb_regs b) = Some (hwb_reg (Bit 67) (hw_chsh_d11sq b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_A_pos : forall b,
-  M.find "chsh_A_pos" (hwb_regs b) = Some (hwb_reg (Bit 256) (hw_chsh_A_pos b)).
+  M.find "chsh_A_pos" (hwb_regs b) = Some (hwb_reg (Bit 134) (hw_chsh_A_pos b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_A_neg_a : forall b,
-  M.find "chsh_A_neg_a" (hwb_regs b) = Some (hwb_reg (Bit 256) (hw_chsh_A_neg_a b)).
+  M.find "chsh_A_neg_a" (hwb_regs b) = Some (hwb_reg (Bit 134) (hw_chsh_A_neg_a b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_A_neg_b : forall b,
-  M.find "chsh_A_neg_b" (hwb_regs b) = Some (hwb_reg (Bit 256) (hw_chsh_A_neg_b b)).
+  M.find "chsh_A_neg_b" (hwb_regs b) = Some (hwb_reg (Bit 134) (hw_chsh_A_neg_b b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_B_pos : forall b,
-  M.find "chsh_B_pos" (hwb_regs b) = Some (hwb_reg (Bit 256) (hw_chsh_B_pos b)).
+  M.find "chsh_B_pos" (hwb_regs b) = Some (hwb_reg (Bit 134) (hw_chsh_B_pos b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_B_neg_a : forall b,
-  M.find "chsh_B_neg_a" (hwb_regs b) = Some (hwb_reg (Bit 256) (hw_chsh_B_neg_a b)).
+  M.find "chsh_B_neg_a" (hwb_regs b) = Some (hwb_reg (Bit 134) (hw_chsh_B_neg_a b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_B_neg_b : forall b,
-  M.find "chsh_B_neg_b" (hwb_regs b) = Some (hwb_reg (Bit 256) (hw_chsh_B_neg_b b)).
+  M.find "chsh_B_neg_b" (hwb_regs b) = Some (hwb_reg (Bit 134) (hw_chsh_B_neg_b b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_d00d01 : forall b,
-  M.find "chsh_d00d01" (hwb_regs b) = Some (hwb_reg (Bit 128) (hw_chsh_d00d01 b)).
+  M.find "chsh_d00d01" (hwb_regs b) = Some (hwb_reg (Bit 67) (hw_chsh_d00d01 b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_n10n11 : forall b,
-  M.find "chsh_n10n11" (hwb_regs b) = Some (hwb_reg (Bit 128) (hw_chsh_n10n11 b)).
+  M.find "chsh_n10n11" (hwb_regs b) = Some (hwb_reg (Bit 67) (hw_chsh_n10n11 b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_d10d11 : forall b,
-  M.find "chsh_d10d11" (hwb_regs b) = Some (hwb_reg (Bit 128) (hw_chsh_d10d11 b)).
+  M.find "chsh_d10d11" (hwb_regs b) = Some (hwb_reg (Bit 67) (hw_chsh_d10d11 b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_n00n01 : forall b,
-  M.find "chsh_n00n01" (hwb_regs b) = Some (hwb_reg (Bit 128) (hw_chsh_n00n01 b)).
+  M.find "chsh_n00n01" (hwb_regs b) = Some (hwb_reg (Bit 67) (hw_chsh_n00n01 b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_abs_C1 : forall b,
-  M.find "chsh_abs_C1" (hwb_regs b) = Some (hwb_reg (Bit 256) (hw_chsh_abs_C1 b)).
+  M.find "chsh_abs_C1" (hwb_regs b) = Some (hwb_reg (Bit 134) (hw_chsh_abs_C1 b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_abs_C2 : forall b,
-  M.find "chsh_abs_C2" (hwb_regs b) = Some (hwb_reg (Bit 256) (hw_chsh_abs_C2 b)).
+  M.find "chsh_abs_C2" (hwb_regs b) = Some (hwb_reg (Bit 134) (hw_chsh_abs_C2 b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_C_sq : forall b,
-  M.find "chsh_C_sq" (hwb_regs b) = Some (hwb_reg (Bit 384) (hw_chsh_C_sq b)).
+  M.find "chsh_C_sq" (hwb_regs b) = Some (hwb_reg (Bit 268) (hw_chsh_C_sq b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_A_times_B : forall b,
-  M.find "chsh_A_times_B" (hwb_regs b) = Some (hwb_reg (Bit 384) (hw_chsh_A_times_B b)).
+  M.find "chsh_A_times_B" (hwb_regs b) = Some (hwb_reg (Bit 268) (hw_chsh_A_times_B b)).
 Proof. intro b. vm_compute. reflexivity. Qed.
 Lemma find_hwb_regs_chsh_check_result : forall b,
   M.find "chsh_check_result" (hwb_regs b) = Some (hwb_reg (Bool) (hw_chsh_check_result b)).
