@@ -5,191 +5,211 @@ Devon Thiele -- September 2026, v3.2.2
 
 I didn't invent a machine. I found one.
 
-That is my conviction. The Thiele Machine is how I put it on the table: definitions, executable rules, proofs, and a machine somebody else can run. The conviction is mine; the proof contracts are public.
+That is my conviction. The Thiele Machine is how I put it on the table: definitions, executable rules, proofs, and a machine somebody else can run. The conviction is mine. The proofs are public, and anyone can check them.
 
-A computation gives you an answer. I want to know what it established, which distinctions it preserved, and what it cost to establish them. Certification is one point I could pin down. The argument reaches beyond that point, but the proofs apply to the events, observations, and machines their statements actually describe.
+A computation gives you an answer. I want to know what it had to establish to get there, which distinctions it kept along the way, and what keeping them cost. Certification is the one place I could pin that down hard. The idea reaches further than that one place. The proofs don't. They cover the events, views, and machines their statements name, and nothing past them.
 
-The machine carries structural state and a cost ledger. Its rules charge particular events. Its observation theorems show when a view of that state loses information relevant to a query. If two states look the same through that view but require different answers, no function of the view alone can answer correctly on both.
+Here is the picture. The machine carries two things an ordinary description leaves out: structure, and a ledger of what that structure cost. Now look at the machine through a narrower window, one that only shows memory, registers, and where the program is. Two states can look identical through that window and still be different underneath. Ask a question whose answer depends on the difference, and nothing looking only through the window can answer it right every time. Not with any amount of cleverness. The information isn't in the window.
 
-That is a statement about a specified view. It does not prove that every computer loses this information. Ordinary memory can encode the full state, and a conventional transition rule can maintain the same accounting discipline. The comparison must name the state, permitted transitions, observation, and trusted implementation.
+That's a fact about the window. It isn't a fact about computers. Ordinary memory can hold the whole state, ledger included, and an ordinary machine can follow the same accounting rule step for step. The blindness is in the view. The hardware isn't blind. So every comparison in here names four things: the state, the steps allowed, the window, and what you're trusting the implementation to do.
 
-There is a second distinction throughout this account. Charging for a certification event does not establish that an arbitrary assertion is true. Generic CERTIFY sets a flag and charges; it checks no proposition. Other checks have their own soundness contracts. Calling the flag "certified" does not supply one.
+One more line I keep drawing. Paying for certification doesn't make anything true. The generic CERTIFY instruction flips a flag and charges for it. It checks nothing. Other instructions do check things, and each of those has its own soundness proof. Calling the flag "certified" doesn't give it one.
 
-I built this to be examined. What follows separates the construction, its proved consequences, and the interpretation I am asking people to consider.
+I built this to be examined. Below, what I built and what the proofs show about it stay on one side. What I'm asking you to consider stays on the other.
 
 
 1. SUBSTRATE
 
-A computation is a sequence of steps. Each step takes a state and an instruction and produces the next state. To describe this precisely, name six things:
+A computation is a line of steps. Each step takes the state the machine is in and one instruction, and lands on the next state. To talk about that precisely you need six names:
 
-  S — states: whatever the machine remembers between steps.
-  I — instructions: the actions the machine can perform.
-  step — the step rule: given a state s and an instruction i, it produces the next state, written step(s, i).
-  c — a cost function: every instruction has a non-negative integer cost, written c(i).
-  P — a designated Boolean predicate on states: P(s) is 0 or 1. The VM has a certification field as one instance. In another system P may be computed from other state, such as the parity of a counter. A dedicated storage field is not required.
-  mu — a cost ledger: each state carries a non-negative integer that starts at 0, and every step adds the cost of the instruction it ran, so mu(step(s, i)) = mu(s) + c(i). So mu is the running total of everything c has charged so far. Call this law conservation: cost is never lost and never conjured, and the ledger is exactly the sum of what was charged.
+  S      states: whatever the machine remembers between steps.
+  I      instructions: the moves it can make.
+  step   the step rule: given a state s and an instruction i, it gives the next state, step(s, i).
+  c      a cost for each instruction: a whole number, never negative, written c(i).
+  P      a yes/no reading on states: P(s) is 0 or 1. In the VM it's the certification field. In another system P could be worked out from other state, like whether a counter is even or odd. It doesn't need its own storage slot.
+  mu     the ledger: a whole number every state carries. It starts at 0, and each step adds the cost of the instruction it ran: mu(step(s, i)) = mu(s) + c(i). Nothing else touches it. Call that conservation. The ledger is exactly the sum of what got charged.
 
-A substrate is the tuple (S, I, step, c, P), with every state carrying the ledger mu that the step rule maintains by conservation. Five pieces of structure, and one bookkeeping field that just adds them up.
+A substrate is (S, I, step, c, P), with mu riding along on every state. Five pieces of structure, and one field that just adds them up.
 
-These choices make the accounting explicit. A bare transition-system definition need not designate P, c, or mu. A particular conventional machine can nevertheless encode the state and maintain the chosen invariant. Turing equivalence addresses computable functions; it does not decide which accounting policy a model should specify.
+Picking these out doesn't make the machine special. It makes the accounting visible. A bare transition system doesn't have to name a P, a c, or a mu. An ordinary machine can still carry all three in memory and keep the same rule. Turing equivalence is about which functions you can compute. It doesn't pick an accounting policy for you.
 
-The regression proof `counter_certification_system` uses a natural-number state, its parity as P, and unit step cost. `receipt_encoding_roundtrip` shows that ordinary list memory can retain a ledger and a certification value without loss. Both are in `coq/tests/ClaimBoundaryRegression.v`.
+Two small proofs make that concrete. `counter_certification_system` uses a counter as the state, its parity as P, and a cost of 1 per step. `receipt_encoding_roundtrip` shows ordinary list memory holding a ledger and a certification value with nothing lost. Both live in `coq/tests/ClaimBoundaryRegression.v`.
 
 
 2. THE AXIOM
 
-Call this rule A2:
+One rule. I call it A2:
 
   For every state s and every instruction i, if P(s) = 0 and P(step(s, i)) = 1, then c(i) >= 1.
 
-In one sentence: any single step that flips certification from "no" to "yes" must cost at least 1. Equivalently, since mu just totals c: a step that flips certification on raises the ledger mu by at least 1. A2 constrains c on that one kind of step; conservation then carries the charge into the ledger, the way it carries every step's c.
+Said plainly: any single step that flips P from no to yes costs at least 1. Since mu is just the running total of c, that flip also pushes the ledger up by at least 1. A2 only touches that one kind of step. Conservation carries the charge into the ledger the same way it carries every other step's cost.
 
-A substrate that satisfies A2 meets this certification-cost policy. A substrate where some instruction can flip P from 0 to 1 at cost 0 permits free certification.
+A substrate where A2 holds keeps this pricing rule. A substrate where some instruction flips P from 0 to 1 for free lets certification happen for nothing.
 
 
 3. THEOREM: NO FREE INSIGHT
 
-Claim. In any substrate satisfying A2, any run that starts uncertified (P = 0) and ends certified (P = 1) has total cost at least 1; that is, its ledger mu ends at least 1 above where it started.
+Picture a run that starts with P at 0 and ends with P at 1. P can't cross that gap without some step carrying it over. Find that step. A2 says it paid. Everything else in the run paid zero or more. So the whole run paid at least 1.
 
-Proof. The run's total cost is exactly mu at the end minus mu at the start, because by conservation each step added its own c to the ledger and nothing else touched it. So I only have to show that sum is at least 1. P starts at 0 and ends at 1, and P only ever reads 0 or 1, so it cannot get from 0 to 1 without some single step carrying it across: there is a step where P goes 0 -> 1. By A2 that step cost at least 1. Every other step cost at least 0, because costs are non-negative. A sum of non-negative numbers with one term at least 1 is at least 1.
+That's the theorem. The formal version:
 
-The theorem holds for any substrate satisfying A2. It does not depend on what the states look like, what the instructions are, or what the step rule does. A2, conservation, and non-negative costs are enough.
+Claim. In any substrate satisfying A2, any run that starts uncertified (P = 0) and ends certified (P = 1) has total cost at least 1. Its ledger mu ends at least 1 higher than it started.
+
+Proof. By conservation, the run's total cost is mu at the end minus mu at the start. P only ever reads 0 or 1, so some single step takes it from 0 to 1. By A2 that step cost at least 1. Every other step cost at least 0. A sum of non-negative numbers with one term at least 1 is at least 1.
+
+It holds for any substrate satisfying A2. It doesn't care what the states look like, what the instructions are, or what the step rule does. A2, conservation, and non-negative costs are all it uses.
 
 
 4. REPRESENTATION AND ENFORCEMENT
 
-A2 is a property of a step rule together with a designated predicate and cost function. Changing P or c can change whether A2 holds even when the underlying transitions stay the same. Naming those choices is necessary to state the property precisely.
+A2 isn't a property of a machine on its own. It's a property of a step rule together with the P and the c you point at. Keep the same transitions, point at a different P or charge a different c, and A2 can stop holding. So I name those choices every time.
 
-It does not follow that a conventional machine cannot enforce A2. Encode the state, including P and mu, in ordinary memory, and choose transitions that implement the same certified-state updates and cost schedule. Those transitions can preserve A2. Establishing that a concrete implementation obeys them is an implementation proof or a trust assumption, just as it is for a realization of this VM.
+An ordinary machine can enforce A2. Put P and mu in ordinary memory, and write transitions that update them the way the rule says. Those transitions keep A2. Showing that a particular implementation really follows them takes an implementation proof, or you trust it. That's true of this VM too.
 
-A different transition rule that violates the policy is a different implementation. Its existence does not show that the first rule fails to enforce the policy. Nor does making P and mu separate fields by itself prevent an implementation from updating them incorrectly.
+Somebody can always write a different rule that breaks A2. That's a different implementation. It says nothing against the first one. And giving P and mu their own fields doesn't stop an implementation from updating them wrong.
 
-The observation question is separate. Define a projection that keeps memory, registers, and program counter while dropping the designated certification field and ledger. If two reachable states have the same projection and different certification values, certification cannot be recovered from that projection on every reachable state. That theorem concerns the chosen projection, not every possible memory encoding.
+Seeing is a separate question from enforcing. Take a window that shows memory, registers, and the program counter, and hides the certification field and the ledger. If two reachable states look the same through that window and one is certified while the other isn't, nothing reading only the window can tell you which is which on every reachable state. That's about this window. It isn't about every way of storing the state.
 
-The more general observation theorem says exactly what is needed: a query is recoverable only if it is constant on each class of states with the same observation. With explicit representatives of those classes, the condition also constructs a decoder. A richer observation may satisfy this condition where a poorer one fails.
+The general version says exactly when a window is good enough. Group together the states that look the same through it. A question can be answered from the window only if every state in a group gives the same answer. Hand over one sample state from each group and that same condition builds the answering function. A wider window can pass where a narrower one fails.
 
 
 5. THE BUGGY SIMULATOR
 
-Suppose a purported implementation changes its designated P from 0 to 1 while adding zero to its designated ledger. If it is supposed to obey A2 and ledger conservation, that transition is incorrect.
+Say an implementation flips its P from 0 to 1 and adds nothing to its ledger. If it was supposed to keep A2 and conservation, that step is a bug.
 
-An A2-respecting abstract machine has no such transition among its permitted steps. This is a consequence of its specification. To claim that hardware enforces the same exclusion, one must establish that hardware execution follows the specification under the stated representation and implementation assumptions.
+A machine built to A2 has no such step among the ones it allows. That follows from its specification. Saying hardware has no such step is a bigger claim. It takes showing the hardware actually follows the specification, under whatever representation and implementation assumptions are in play.
 
-A conventional machine can implement those permitted steps too. It can also simulate descriptions of machines that violate A2 without violating its own accounting: the simulated flag is then data, not necessarily the host's designated predicate P. Confusing these two levels creates a false impossibility claim.
+An ordinary machine can allow exactly those steps too. It can also simulate a machine that breaks A2 without breaking A2 itself. The simulated flag is just data to the host. It isn't necessarily the host's own P. Mix those two levels up and you get an impossibility claim that isn't true.
 
-The practical question is which updates an implementation permits, and what evidence connects those updates to the claimed policy. The presence of a field or a type signature alone does not settle it.
+So the real question is always the same. Which updates does the implementation allow, and what evidence ties them to the rule? Having a field for it, or a type that mentions it, doesn't settle that.
 
 
 6. LIFTING, PROJECTION, AND VERIFICATION
 
-A classical transition system can be lifted into an accounting model: retain its state and transitions, let P remain false, and charge zero. A2 then holds vacuously. This embeds the original computation without adding computable functions. The VM supplies more operations as a particular realization of the broader construction.
+Going up is free. Take any ordinary transition system, keep its states and steps exactly as they are, leave P at 0 forever, and charge nothing. A2 holds, because nothing ever flips. The original computation sits inside the accounting model untouched, and no new computable functions appear. The VM adds more instructions on top. It's one way of building the idea out. There are others.
 
-Projection can lose information. The VM's chosen strict projection forgets the ledger, certification, and graph. Its separation proofs supply colliding witnesses with different answers to particular queries. This proves failure of a decoder on the whole stated domain; it does not imply that every observed state has multiple preimages.
+Going down loses things. The VM's strict window forgets the ledger, the certification flag, and the graph. The separation proofs hand over pairs of states that collide in that window and need different answers. That proves no decoder works across the whole domain. It doesn't mean every state you observe has more than one state behind it.
 
-Separate P and mu fields are convenient, but not a universal minimal-representation theorem. A different encoding can pack them into one value; in some systems one may be a function of other state. The query and admissible state space determine what must be retained.
+Giving P and mu separate fields is convenient. It isn't a theorem about the smallest possible representation. Another encoding can pack them into one value, and in some systems one of them is already a function of other state. What has to be kept depends on the question you're asking and which states are allowed.
 
-A2 gives a lower bound, not a unique schedule. Charges greater than one are allowed, and steps without certification flips may also cost something. Exact unit pricing follows only after adding the separate requirement of no overcharge relative to certification-flip count. Several designated unit event floors can share one charge; independent coordinates alone do not require separate charges to add.
+A2 sets a floor. It doesn't set a price list. Charging more than 1 is allowed, and steps that flip nothing can still cost something. Exact unit pricing only comes out once you add a second rule: never charge more than the number of certification flips. And several unit floors can share one charge. Two independent things being true at once doesn't force their costs to add.
 
-The verifier impossibility has a similarly precise scope. Suppose a transcript identifies two executions, one satisfying a mu-sensitive claim and the other not. Completeness requires acceptance on the first; strong soundness forbids acceptance when the second is still possible. No verifier of that transcript alone can meet both requirements.
+The verifier result is just as exact about its reach. Suppose a transcript can't tell apart two runs, one where a mu-dependent claim holds and one where it doesn't. Completeness says accept the first. Strong soundness says don't accept while the second is still possible. Nothing reading that transcript alone can do both.
 
-The repository constructs three ways to provide sufficient additional evidence under their respective premises: access to the full state, a commitment under a hardness hypothesis, and an interactive response contract. The hardness construction has its stated weaker soundness guarantee. The constructions do not establish that these three labels exhaust all protocols, or that ordinary computing cannot retain the needed information. The collision premise must hold for the particular transcript under discussion.
+The repository builds three ways out, each giving the verifier the extra evidence it needs under its own premises: see the full state, check a commitment under a hardness assumption, or ask the prover a question it has to answer. The hardness route comes with the weaker soundness guarantee its theorem states. None of this shows those three are the only ways out, or that ordinary computing can't keep the information around. And the collision has to actually happen for the transcript you're talking about.
 
 
 7. WHAT THIS DOES AND DOES NOT CLAIM
 
-The construction makes a chosen accounting discipline explicit. The No Free Insight theorem lifts its local positive-charge law to a run. The observation results identify exactly when an interface loses the information needed to answer a query. These are mathematical results about the specified models.
+What it does: it makes one accounting discipline explicit and follows it all the way through. No Free Insight takes the local rule, where one step pays, and stretches it over a whole run. The observation results say exactly when a window loses what a question needs. These are mathematical results about the models they name.
 
-They do not establish a new class of computable functions, an inability of conventional machines to enforce invariants, or a universal physical price for every structural change. The concrete ISA permits some structural changes at zero ledger cost.
+What it doesn't: it doesn't add new computable functions. It doesn't say ordinary machines can't enforce invariants. It doesn't put a physical price on every change to structure. The VM itself lets some structural changes happen at zero cost.
 
-The physical interpretation needs its own argument. In particular, `full_vm_f1_premises_incompatible` proves that the full ISA's zero-cost jumps contradict the stated pair of universal collapse-price and cost-calibration premises. A program counter collapsing to one does not by itself establish physical erasure: retaining the old state in a larger history can make each fixed-instruction step injective.
+Anything physical needs its own argument. `full_vm_f1_premises_incompatible` proves that the full instruction set's free jumps can't live alongside the stated pair of universal collapse-price and cost-calibration premises. A program counter collapsing to one place doesn't prove anything was physically erased, either. Keep the old state in a longer history and no two states land on the same next state for a fixed instruction.
 
-The hardware model's trace bridge follows actual fetched instructions, program counter, fuel, and state under `WFDrivenRun`. Generated RTL keeps the compiler/backend trust boundary named in the pipeline manifest. Synthesis, simulation, and FPGA bitstream generation supply additional evidence; they do not turn that boundary into a Coq proof.
+The hardware model follows the instructions actually fetched, the program counter, the fuel, and the state, under `WFDrivenRun`. Generated RTL still sits behind the compiler and backend trust boundary named in the pipeline manifest. Synthesis, simulation, and the FPGA bitstream add evidence. They don't turn that boundary into a Coq proof.
 
-The following sections state further results with their own premises. A2 alone does not supply all of those premises.
+The sections below state more results, each with its own premises. A2 alone doesn't supply them.
 
 
 8. STRUCTURAL UNDECIDABILITY
 
-Some substrates carry a recursion theorem and a non-trivial behavioral predicate on programs. Those admit the result below. The recursion theorem is Kleene's: any way of transforming programs that the substrate can itself carry out has a fixed point: a program whose behavior equals its own image under the transformation. This is an additional hypothesis; A2 alone does not provide a recursion theorem.
+This is the old diagonal trick, pointed at structure. Suppose something could look at any program and tell you yes or no about it. Build a program that asks that decider about itself and then does the opposite. Whatever the decider says about that program is wrong.
 
-Fix such a predicate. The formal interface calls it `AdmitsShortcut`. Its interpretation must be supplied by the instance; the name alone does not identify it with Section 10's quantitative witness package. The argument works for any predicate satisfying the stated behavioral invariance and nontriviality conditions. Concretely it needs two things: the predicate respects extensional equivalence (programs with the same run-behavior get the same value), and the substrate fixes two canonical programs, one the predicate accepts and one it rejects.
+For the trick to work the substrate has to carry some extra machinery, and A2 doesn't give you any of it.
 
-Theorem. No internally representable decider correctly decides this predicate for arbitrary programs. Internally representable means the substrate can run the decider as one of its own programs.
+First, a recursion theorem. That's Kleene's: any way of transforming programs that the substrate can itself run has a fixed point, a program that behaves exactly like its own transformed image.
 
-Proof. Suppose D is such a decider. Build the flip transformer f: on input program p, run D(p); if it answers yes, output the canonical program the predicate rejects; if no, output the one it accepts. For the recursion theorem to apply, f must itself be one of the substrate's own programs. It is, on one mild assumption worth naming: that the substrate's programs are closed under "run a program, then branch to one of two fixed programs." This closure is a separate premise, not a consequence of merely being able to run D. Granting that, f is representable, the recursion theorem's side-condition, and the theorem hands back a fixed-point program q whose run-behavior equals that of f(q). Case-split on D(q). If D says q admits a shortcut, then by construction f(q) is the program that does not, and q behaves like f(q), so by extensionality q does not. D was wrong. If D says q does not, the same step makes q one that does. Either answer is wrong, so no such D exists.
+Second, a predicate on programs. The formal interface calls it `AdmitsShortcut`. What it means has to be supplied by the instance. The name alone doesn't tie it to Section 10's quantitative witnesses. It needs two properties. Programs that behave the same get the same answer. And the substrate fixes two canonical programs, one the predicate accepts and one it rejects.
 
-This is the Kleene/Rice diagonal pattern expressed through an abstract program interface. The theorem is conditional on that interface's recursion, representability, closure, extensionality, and nontriviality premises. The VM instance retains its recursion-theorem premise; the repository also supplies an unconditional diagonal instance on its separate natural-number substrate.
+Theorem. No decider the substrate can run as one of its own programs gets this predicate right on every program.
 
-The proof's not invoking a Turing-machine simulator does not establish non-reducibility to halting or Turing-degree incomparability. Such claims would require their own definitions and proofs. Nor should the undecidable predicate on arbitrary programs be confused with reading a designated boolean from a fully supplied concrete state.
+Proof. Suppose D is such a decider. Build f: given a program p, run D(p). If D says yes, output the canonical program the predicate rejects. If no, output the one it accepts. For the recursion theorem to apply, f has to be one of the substrate's own programs. That takes one more premise, and I name it: the substrate's programs are closed under "run a program, then branch to one of two fixed programs." Being able to run D doesn't give you that for free. Grant it, and the recursion theorem hands back a program q that behaves exactly like f(q). Now look at D(q). If D says q admits a shortcut, then f(q) is the program that doesn't, and q behaves like f(q), so q doesn't. D was wrong. If D says q doesn't, the same step makes q one that does. Either answer is wrong, so D can't exist.
 
-The diagonal can hold on a model with mu always zero and A2 vacuous. Its contradiction uses the recursion theorem and extensionality, not a positive-cost argument. That is the content of this result.
+That's the Kleene/Rice pattern run through an abstract program interface. It holds under that interface's recursion, representability, closure, same-behavior, and nontriviality premises. The VM instance still carries its recursion-theorem premise. The repository also has an unconditional instance on its separate natural-number substrate.
+
+The proof doesn't go through a Turing-machine simulator. That doesn't show the predicate is unrelated to halting, or that it sits at a different Turing degree. Those would need their own definitions and proofs. And deciding a predicate over arbitrary programs is a different job from reading one yes/no field out of a state someone hands you.
+
+The diagonal even works in a model where mu is always zero and A2 never has anything to charge. The contradiction comes from recursion and same-behavior. Cost plays no part. That's the whole point of this result.
 
 
 9. COST LEDGER OBSERVABILITY
 
-The VM supplies two reachable computations with the same specified classical observation and different ledgers. Consequently no function of that observation recovers the ledger on every reachable VM state.
+Two runs look identical through the window and leave different bills.
 
-Start at `init_state` with mu = 0 and certification false. One trace runs CERTIFY with delta = 0: its charge is 1 and it sets the flag. The other runs PNEW on an empty region with delta = 0: its charge is 0 and it changes the graph. Both advance the program counter by one and leave memory and registers unchanged. The projection retaining only those three components therefore agrees, while the ledgers differ.
+Start at `init_state`: mu = 0, certification off. Run one does CERTIFY with delta = 0. It costs 1 and turns the flag on. Run two does PNEW on an empty region with delta = 0. It costs 0 and changes the graph. Both move the program counter forward by one and leave memory and registers alone. A window that only shows those three things sees the same picture both times. The ledgers read 1 and 0.
 
-The argument needs this instruction set, initial state, cost schedule, and observation. A2 supplies a positive floor for the certification flip, but it alone does not supply a free PNEW instruction or matching observations. This is not a separation theorem for every A2 system.
+So no function of that window recovers the ledger on every reachable VM state.
 
-Allowing zero-cost certification in a modified schedule can remove this particular witness's cost gap. Merely dropping A2 as a hypothesis does not change the existing VM schedule or make every ledger separation disappear. A richer observation that retains mu distinguishes the two executions directly.
+It takes this instruction set, this starting state, this cost schedule, and this window. A2 gives the certification flip its floor. It doesn't give you a free PNEW or matching windows. This isn't a separation theorem for every A2 system.
 
-This is an information-loss result: the specified view cannot answer a query on which its colliding states disagree. It does not say that the ledger is unrepresentable in ordinary memory, or that paying the charge proves an arbitrary proposition.
+Change the schedule to allow free certification and this particular pair stops differing in cost. Just dropping A2 as an assumption doesn't change the VM's schedule, though, and it doesn't make every ledger separation go away. A wider window that shows mu tells the two runs apart at a glance.
+
+It's an information-loss result. The window can't answer a question its colliding states disagree on. It doesn't say the ledger can't be stored in ordinary memory, and it doesn't say that paying proves anything.
 
 
 10. QUANTITATIVE COST LOWER BOUND
 
-Now a number to go with it. Section 9 showed the cost ledger separates substrate states a classical eye cannot tell apart. This one puts a floor under that cost, for one well-marked class of shortcut: on a sound structural shortcut the ledger mu rises by at least the drop in ceiling-log of the feasible list's length. It is not a bound on every decision trace.
+Now a number. Picture a pile of candidates, everything still in play. A shortcut narrows the pile. If it narrows it by asking yes/no questions laid out as a tree, and the run pays for every level of that tree, then the ledger pays at least the number of halvings it takes to get from the big pile down to the small one.
 
-Witness class. A "sound structural shortcut" (`SoundStructuralShortcut`) is an explicit package of receipts a shortcut must hand over to count here: a finite prior feasible list Omega (the candidates still in play before the shortcut runs); a strictly narrower posterior list Omega' (the ones still in play after); an observation function that tells at least one eliminated state from every surviving one; a certified posterior predicate; a BINARY (yes/no) decision tree; a posterior-representative reduction with a fiber bound; and a guarantee that the trace realizes the tree. That last receipt is the load-bearing one. It means precisely that the trace runs at least as many cert-setter instructions as the tree is deep. The members of this class are not "any decision procedure"; they are the ones that hand over the binary tree and that depth-many-cert-setters guarantee as explicit witnesses.
+That's the idea. The formal version only covers shortcuts that hand over their receipts.
 
-Theorem. For any sound structural shortcut with prior list Omega and nonempty posterior list Omega', the substrate trace that realizes the shortcut satisfies
+Witness class. A "sound structural shortcut" (`SoundStructuralShortcut`) is a package the shortcut has to hand over:
+  - a finite prior list Omega, the candidates in play before it runs;
+  - a strictly shorter posterior list Omega', the ones left after;
+  - an observation that separates at least one eliminated candidate from every survivor;
+  - a certified posterior predicate;
+  - a binary (yes/no) decision tree;
+  - a map from prior entries to posterior representatives, with a bound on how many land on each;
+  - a guarantee that the run realizes the tree.
+The last one carries the weight. It says the run executes at least as many cert-setter instructions as the tree is deep. This class isn't "any decision procedure". It's the procedures that hand over the tree and that guarantee.
+
+Theorem. For any sound structural shortcut with prior list Omega and nonempty posterior list Omega', the run that realizes it satisfies
   log_2^up |Omega| - log_2^up |Omega'| <= Delta mu,
-where log_2^up n is the ceiling of log_2 n, |Omega| is a list length (duplicates counted), and Delta mu is the change in the ledger across the trace. The intuition for log_2^up n is the number of yes/no questions it takes to single out one of n things. That is only the intuition. It is not a count of questions the VM asked, and it is not Shannon's entropy of a distribution.
+where log_2^up n is log base 2 of n rounded up, |Omega| is a list length with duplicates counted, and Delta mu is how much the ledger rose over the run. The feel of log_2^up n is "how many yes/no questions it takes to pick one thing out of n". That's only the feel. It isn't a count of questions the VM asked, and it isn't Shannon entropy.
 
-Proof sketch. Write L for the number of leaves of the tree T and d for its depth. Three facts compose.
-First, a cover: |Omega| <= L * |Omega'|. Sort the prior entries by which posterior representative they land on. That makes |Omega'| groups, and the supplied fiber bound caps every group at L entries.
-Second, take ceiling-log, using two of its properties. It is monotone, so the cover's <= carries through: log_2^up|Omega| <= log_2^up(L * |Omega'|). And it is sub-additive over a product: log_2^up(L * |Omega'|) <= log_2^up L + log_2^up|Omega'|. Put together, log_2^up|Omega| - log_2^up|Omega'| <= log_2^up L. Because T is binary, it has at most 2^d leaves, so log_2^up L <= d.
-Third, the cost. The realized-by-the-trace receipt is exactly the statement that the trace runs at least d cert-setters. In the VM every cert-setter costs at least 1, and by conservation the ledger is the sum of step costs, so Delta mu >= (cert-setters the trace runs) >= d.
-Chain the three: log_2^up|Omega| - log_2^up|Omega'| <= log_2^up L <= d <= Delta mu.
+Proof sketch. Call the tree T, its leaf count L, and its depth d. Three pieces click together.
+  First, a cover: |Omega| <= L * |Omega'|. Group the prior entries by which posterior representative they map to. That makes |Omega'| groups, and the supplied bound caps each group at L.
+  Second, take log_2^up of both sides. It never goes down as its input grows, so the inequality survives: log_2^up|Omega| <= log_2^up(L * |Omega'|). And the rounded log of a product is at most the sum of the rounded logs: log_2^up(L * |Omega'|) <= log_2^up L + log_2^up|Omega'|. So log_2^up|Omega| - log_2^up|Omega'| <= log_2^up L. A binary tree of depth d has at most 2^d leaves, so log_2^up L <= d.
+  Third, the cost. The realizes-the-tree guarantee says the run executes at least d cert-setters. In the VM every cert-setter costs at least 1, and conservation makes the ledger the sum of step costs. So Delta mu >= d.
+Chained: log_2^up|Omega| - log_2^up|Omega'| <= log_2^up L <= d <= Delta mu.
 
-What this theorem does not claim. It does not claim that an arbitrary single trace is forced to pay log_2(n) for an n-way decision. A trace that does not hand over the realized-tree receipt carries no depth-many-cert-setters guarantee, so the chain has nothing to hang from: it might run a single cert-setter and the bound says nothing. The theorem applies exactly to traces that supply the binary tree, the fiber bound, and the guarantee that they ran at least depth-many cert-setters. An unconditional Shannon-style bound on every deterministic single trace is a different and stronger thing, and it is left open.
+What it doesn't claim. It doesn't say an arbitrary run has to pay log_2(n) for an n-way decision. A run that doesn't hand over the realized-tree receipt has no depth guarantee, so the chain has nothing to hang from. It might run one cert-setter and the bound says nothing about it. An unconditional Shannon-style bound on every deterministic single run would be a different and stronger result. It's open.
 
-What this theorem does claim. When the narrowing is carried by a binary tree the trace realizes, the ledger mu pays at least the drop in ceiling-log of the feasible list, log_2^up|Omega| - log_2^up|Omega'|. The direction is the safe one: mu is lower-bounded, never claimed equal to anything, and never given physical units. The left side can even be 0 when the list got shorter but no ceiling-log dropped (4 down to 3 drops none). So the statement never overclaims the narrowing: it says the trace cannot pay less in mu than this floor, and the tree's depth, which the trace's cert-setters dominate, is what carries the floor up to mu. Compression is bounded below by paid certified observation.
+What it does claim. When a binary tree the run realizes carries the narrowing, mu pays at least the drop in log_2^up of the list length. The direction is the safe one. mu gets a floor. It's never set equal to anything and never given physical units. The floor can even be 0 when the list got shorter but the rounded log didn't move (4 down to 3). So it never overstates the narrowing. The run can't pay less than this, and the tree's depth, which the run's cert-setters cover, is what lifts the floor up to mu. Compression has a floor, and paid, certified observation sets it.
 
-What closes the chain. The last step needs every cert-setter to cost at least 1. That is the VM's cost floor, the concrete form of the charge A2 asks for. Without it, cert-setter steps could cost zero, their count would no longer lower-bound Delta mu, and the chain breaks at the last step. The earlier steps come from the supplied tree and fiber bound, not from any cost rule.
+What holds the chain together. The last link needs every cert-setter to cost at least 1. That's the VM's cost floor, the concrete version of what A2 asks for. Take it away and cert-setters could cost zero, their count would stop bounding Delta mu, and the chain snaps at the end. The first two links come from the supplied tree and bound. No cost rule touches them.
 
 
 11. COMPARING TWO COST MODELS
 
-The VM's payload-sensitive schedule charges `flen * 8 + S(delta)` for LASSERT. The formula-length contract relates `flen * 8` to the formula's encoded bit length B, giving a B + 1 floor for the stated successful-certification case. Meanwhile, an abstract instruction counter records one executed instruction. This compares two chosen metrics; it is not a speedup, a runtime lower bound for all implementations, or a consequence of A2 alone.
+Two meters can watch the same instruction and read different numbers. The VM's payload-sensitive schedule charges LASSERT `flen * 8 + S(delta)`. The formula-length contract ties `flen * 8` to the formula's encoded bit length B, which gives a B + 1 floor in the stated successful-certification case. An abstract instruction counter watching the same step reads 1. That's a comparison between two chosen meters. It isn't a speedup, a runtime lower bound for every implementation, or something A2 gives you on its own.
 
-The B + 1 floor requires the formula-length and additive-pricing contracts of the result being used. A2 says that a false-to-true certification transition costs at least one. If another requirement says the same step costs at least B, the two requirements together imply `cost >= max(B, 1)`, not `cost >= B + 1`. For B >= 1, charging B satisfies both individual floors. Additivity needs a further premise or a chosen schedule.
+The B + 1 floor needs the formula-length and additive-pricing contracts of the result you're using. A2 says a false-to-true certification step costs at least 1. If some other rule says the same step costs at least B, the two together give `cost >= max(B, 1)`. They don't give `cost >= B + 1`. For B >= 1, charging B satisfies both. Getting them to add takes another premise, or a schedule chosen that way.
 
-The VM's schedule and the payload-pricing contracts should therefore be named explicitly. They do not measure physical information erased merely because mu increases. Nor does counting one abstract LASSERT prove that a conventional RAM can check an arbitrary B-bit assertion in one physical or primitive machine step.
+So name the VM's schedule and the payload-pricing contracts out loud. A rising mu doesn't measure physical information erased. And counting one abstract LASSERT doesn't show an ordinary RAM can check an arbitrary B-bit assertion in one physical or primitive step.
 
-To compare execution efficiency, fix a shared task, representation, primitive instruction set, and cost metric. The between-metric comparison by itself establishes no such efficiency separation.
+To compare speed you have to fix the same task, the same representation, the same primitive instructions, and the same cost meter on both sides. Comparing two different meters doesn't give you a speed difference.
 
 
 12. HOW TO CHECK THE CLAIMS
 
-Read the definitions before the theorem names. A checked implication can be correct while its prose describes a larger class of systems than its premises allow.
+Read the definitions before the theorem names. An implication can check out in Coq while the sentence describing it reaches past what its premises allow. That gap is where I'd look.
 
-The principal checks are:
+Where to push:
 
-  1. For the accounting theorem, inspect A2, non-negative costs, and ledger conservation. Then check the trace argument in Section 3. Whether a particular event should carry that price is a modeling question separate from the implication.
-  2. For observation and verifier results, identify the observation, query, state domain, and colliding witnesses. Check the claims on precisely that domain. An encoding that retains more information is a legitimate comparison, not something to exclude by wording.
-  3. For implementation claims, check permitted transitions and the abstraction relation. Include WFDrivenRun preconditions and the named compiler/backend boundary when discussing generated RTL.
-  4. For the diagonal, inspect the recursion and representability premises. Distinguish a predicate on arbitrary programs from a Boolean query on a supplied state. Do not infer non-reducibility from the absence of a reduction in this proof.
-  5. For Section 10's quantitative bound, inspect the explicit tree, posterior-representative/fiber premise, and depth/payment condition. Those hypotheses are part of the result; the bound is not asserted for every deterministic decision trace.
-  6. For a payload-cost claim, identify the actual schedule and the premise requiring additive charges. Keep that metric separate from runtime and physical dissipation.
+  1. The accounting theorem. Look at A2, non-negative costs, and conservation, then walk the run argument in Section 3. Whether a particular event deserves that price is a modeling question. The implication doesn't answer it.
+  2. Observation and verifier results. Pin down the window, the question, the states allowed, and the colliding pair. Check the claim on exactly that. An encoding that keeps more is a fair comparison. Don't let wording rule it out.
+  3. Implementation claims. Look at which steps are allowed and at the abstraction relation. For generated RTL, include the WFDrivenRun preconditions and the named compiler/backend boundary.
+  4. The diagonal. Look at the recursion and representability premises. Keep a predicate over arbitrary programs apart from a yes/no read of a state you've been handed. Don't read "this proof didn't go through halting" as "this can't be reduced to halting".
+  5. Section 10's bound. Look at the tree, the representative/fiber premise, and the depth-and-payment condition. They're part of the result. The bound isn't claimed for every deterministic decision run.
+  6. Payload-cost claims. Find the actual schedule and the premise that makes charges add. Keep that meter apart from runtime and from physical heat.
 
-The v3.2.2 documentation describes these boundaries without changing the kernel theorems. The assumption receipt covers 12,335 statements: 5,520 closed under the global context and 6,815 depending on standard-library assumptions. The receipt reports no project-local axiom findings. A theorem's explicit hypotheses still matter even when it is closed under the global context.
+In v3.2.2 the documentation draws these lines without changing any kernel theorem. The assumption receipt covers 12,817 statements: 5,526 closed under the global context and 7,291 depending on standard-library assumptions. It reports no project-local axioms. A theorem's own hypotheses still matter, even when it's closed under the global context.
 
-Start with `README.md` and the proof contracts it links. Run `make verify`, `make verify-claims`, and `make verify-research` in the documented build environment. These checks provide reproducible evidence about their defined scope; they do not certify every interpretation in an essay.
+Start with `README.md` and the proof contracts it links. Run `make verify`, `make verify-claims`, and `make verify-research` in the documented build environment. They give you reproducible evidence about what they check. They don't certify every reading of an essay.
 
-I want the argument to survive being read closely. If a definition misses the phenomenon I intended, or a sentence exceeds its theorem, that is a correction to make, even when the proof compiles.
+I want this to hold up when someone reads it closely. If a definition misses what I was reaching for, or a sentence says more than its theorem, I want it fixed, even when the proof compiles.
 
 
 ------------------------------------------------------------

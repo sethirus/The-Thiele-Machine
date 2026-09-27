@@ -51,6 +51,10 @@
 
 \maketitle
 
+\noindent\textbf{Before the specification.} I don't do math by hand. I think in shapes, directions, and connections, and my part of this work was to see where things had to fit, to direct, and to refuse what didn't fit. This document is the translation. Language models wrote the formal statements and the proofs, Coq checked every one of them, and I read the statements to make sure they say what the shape says. So nothing below is in my voice, on purpose. It's the reference layer: exact statements, exact premises, and where each one lives. If you want the pictures, the monograph starts with them. If you want to know exactly what is claimed, it's here.
+
+\medskip
+
 \noindent\textbf{The Thiele Machine is an argument about what an account of computation should preserve.}
 
 Certification is one concrete witness of a broader investigation of structural state, observation, and cost. The abstract laws, theorems, and executable realizations belong to that investigation. Selected projections lose distinctions that the richer state can express; cost laws constrain specified events under explicit hypotheses.
@@ -60,7 +64,7 @@ A conventional encoding can preserve those distinctions. A projection that disca
 \begin{abstract}
 This is the complete mathematical specification of the Thiele Machine: a formal model of computation where structural information carries an explicit, monotone cost $\mu$ that starts at zero and never decreases. Everything here is built from the machine-checked Coq corpus. You can reconstruct the machine from what's in this document alone.
 
-Coq establishes that conclusions follow from axioms. It does \emph{not} establish that axioms model physical reality. That distinction matters and I keep it explicit throughout. Every result is tagged as one of three types: \textbf{(S)}~structural theorems about the machine as a mathematical object, \textbf{(C)}~conditional derivations where a physics conclusion follows from a stated axiom, and \textbf{(R)}~consistency relations that check internal coherence but are not independent predictions.
+Coq establishes that conclusions follow from axioms. It does \emph{not} establish that axioms model physical reality. That distinction is kept explicit throughout. Every result is tagged as one of three types: \textbf{(S)}~structural theorems about the machine as a mathematical object, \textbf{(C)}~conditional derivations where a physics conclusion follows from a stated axiom, and \textbf{(R)}~consistency relations that check internal coherence but are not independent predictions.
 
 The core claims are structural (S): No Free Insight; $\mu$-conservation; $\mu$-hierarchy; $\mu$-ledger necessity (five-way independence classification); categorical separation; strict Turing subsumption; the classical CHSH bound ($|S| \leq 2$); the algebraic Tsirelson bound ($|S| \leq 2\sqrt{2}$); and the biconditional with no project-local axioms \texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}quantum\_\allowbreak{}realizable}. The CHSH algebraic result is pure math. The Landauer connection is motivation. Geometry: the discrete angle-defect identity under its incidence assumptions and the additional restriction $B=3\chi$.
 
@@ -74,9 +78,9 @@ The document also covers, with explicit epistemological tags, conditional deriva
 %=============================================================================
 
 \chapter{Introduction}
-The Thiele Machine makes the cost of structure explicit. Ordinary step-counting assigns one time unit per transition; it does not specify this structural-cost schedule. The Thiele Machine assigns a specific cost $\mu$ to every operation that extracts or asserts structural information. That's the design. Here is where it goes.
+The Thiele Machine makes the cost of structure explicit. Ordinary step-counting assigns one time unit per transition; it does not specify this structural-cost schedule. The Thiele Machine assigns a specific cost $\mu$ to every operation that extracts or asserts structural information. The chapters below lay out the consequences.
 
-The central claim, proven formally: \emph{specified certification and structural-entitlement events have the cost floors proved under their stated hypotheses}. Combined with explicit physical axioms (linearity, information conservation), that constraint produces structural results that parallel quantum mechanics and thermodynamics. Each result's status, whether a structural theorem~\textbf{(S)}, a conditional derivation~\textbf{(C)}, or a consistency relation~\textbf{(R)}, is marked directly. Nothing is hidden.
+The central claim, proven formally: \emph{specified certification and structural-entitlement events have the cost floors proved under their stated hypotheses}. Combined with explicit physical axioms (linearity, information conservation), that constraint produces structural results that parallel quantum mechanics and thermodynamics. Each result's status, whether a structural theorem~\textbf{(S)}, a conditional derivation~\textbf{(C)}, or a consistency relation~\textbf{(R)}, is marked directly.
 
 The document is organized as:
 \begin{enumerate}
@@ -361,7 +365,7 @@ These 7 opcodes (0x27--0x2D) implement the categorical layer over partition modu
 
 \emph{A reminder before the machinery: this ISA is scaffolding. It is one way to build the substrate, not the substrate itself. Burn all 51 opcodes and the machine is exactly as real, because the machine is the law, not the instruction set.}
 
-The active implementation exposes a 51-opcode ISA: 14 arithmetic/data, 8 memory and control flow, 7 I/O and tensor, 4 partition operations, 3 logic and certification, 8 witness and certification (\texttt{CHSH\_\allowbreak{}TRIAL}, \texttt{CERTIFY}, \texttt{REVEAL}, \texttt{CHSH\_\allowbreak{}LASSERT}, and the four $Q_{1+AB}$ check variants), 7 categorical morphism operations ($14+8+7+4+3+8+7=51$). 47 of the 51 are synth-realized; the four $Q_{1+AB}$ variants live in the Kami HW abstraction with kernel-equivalence proven but are excluded from the synthesized Verilog by silicon budget. This condensed mathematical specification presents the core instruction families relevant to the kernel semantics and cost model. Every instruction carries an explicit $\Delta\mu$ parameter; the function $\texttt{instruction\_\allowbreak{}cost}$ extracts it.
+The active implementation exposes a 51-opcode ISA: 14 arithmetic/data, 8 memory and control flow, 7 I/O and tensor, 4 partition operations, 3 logic and certification, 8 witness and certification (\texttt{CHSH\_\allowbreak{}TRIAL}, \texttt{CERTIFY}, \texttt{REVEAL}, \texttt{CHSH\_\allowbreak{}LASSERT}, and the four $Q_{1+AB}$ check variants), 7 categorical morphism operations ($14+8+7+4+3+8+7=51$). 47 of the 51 are synth-realized. The four $Q_{1+AB}$ variants live in the Kami HW abstraction with kernel-equivalence proven; their hardware has not been built, so they are not in the synthesized Verilog. This condensed mathematical specification presents the core instruction families relevant to the kernel semantics and cost model. Every instruction carries an explicit $\Delta\mu$ parameter; the function $\texttt{instruction\_\allowbreak{}cost}$ extracts it.
 
 \section{Cost Model}
 Every instruction $i$ carries an explicit cost parameter $\Delta\mu_i \in \N$. The function $\texttt{instruction\_\allowbreak{}cost}(i)$ extracts this parameter. The cost is applied via $\texttt{apply\_\allowbreak{}cost}(s, i) = s.\mu + \texttt{instruction\_\allowbreak{}cost}(i)$. Since $\Delta\mu_i : \N$, the $\mu$-ledger is monotonically non-decreasing by construction.
@@ -1905,7 +1909,7 @@ Exhibit $E_{00}, E_{01}, E_{10}, E_{11}$ satisfying the three column-contractivi
 
 Find $k \geq 1$ and a trace reaching \texttt{vm\_\allowbreak{}certified = true} and $\texttt{vm\_\allowbreak{}mu} \geq k$ with total trace cost $< k$. This contradicts \texttt{mu\_\allowbreak{}hierarchy\_\allowbreak{}theorem}.
 
-\section{What I Don't Know}
+\section{Open Questions}
 
 \begin{itemize}
 \item \textbf{Physical interpretation of $\mu$}: Whether the $\mu$ ledger corresponds to thermodynamic entropy in a physical Thiele Machine is an open empirical question. The formal development is consistent with Landauer's principle. The calibration hypothesis is named (\texttt{mu\_\allowbreak{}landauer\_\allowbreak{}unruh\_\allowbreak{}calibrated}) and not proved in Coq.

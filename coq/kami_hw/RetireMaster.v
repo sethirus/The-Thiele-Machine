@@ -1364,8 +1364,8 @@ Lemma retire_chsh_lassert : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 
 Proof.
   intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb Hlive P0 P1 P2.
   pose proof Hlive as [Hh [He _]].
-  exists (chsh_iter 23 (step_next b)). split; [exact Hlive|].
-  split; [exists 23; exact (chsh_lassert_runs a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb Hlive)|].
+  exists (chsh_iter 29 (step_next b)). split; [exact Hlive|].
+  split; [exists 29; exact (chsh_lassert_runs a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb Hlive)|].
   destruct (chsh_run_result (step_next b) (step_chsh_lassert_chsh_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)) as [_ [Hc _]].
   split; [split; [rewrite iter_keeps_lassert_phase; exact (step_chsh_lassert_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)|split; [exact Hc|rewrite iter_keeps_mc_phase; exact (step_chsh_lassert_mc_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)]]|].
   exact (chsh_lassert_refines a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb He Hh P0 P1 P2).

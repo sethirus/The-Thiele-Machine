@@ -178,8 +178,8 @@ def generate():
                     f'  exact ({t["name"]} {call_args}).\nQed.\n')
         elif t['name'] == 'chsh_lassert_refines':
             bb = bnames_bits(bnames)
-            lem += ('  exists (chsh_iter 23 (step_next b)). split; [exact Hlive|].\n'
-                    f'  split; [exists 23; exact (chsh_lassert_runs {bb} b Hf Hb Hlive)|].\n'
+            lem += ('  exists (chsh_iter 29 (step_next b)). split; [exact Hlive|].\n'
+                    f'  split; [exists 29; exact (chsh_lassert_runs {bb} b Hf Hb Hlive)|].\n'
                     f'  destruct (chsh_run_result (step_next b) (step_chsh_lassert_chsh_phase {bb} b Hf Hb)) as [_ [Hc _]].\n'
                     f'  split; [split; [rewrite iter_keeps_lassert_phase; exact (step_chsh_lassert_lassert_phase {bb} b Hf Hb)|'
                     f'split; [exact Hc|rewrite iter_keeps_mc_phase; exact (step_chsh_lassert_mc_phase {bb} b Hf Hb)]]|].\n'

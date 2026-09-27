@@ -11,46 +11,22 @@ From KamiHW Require Import ThieleTypes ThieleCPUCore HWBoundary RuleNext ChshDec
     checks each one in milliseconds when the proof term is checked at [Qed]. *)
 Ltac kernel_refl := match goal with |- ?x = _ => exact_no_check (eq_refl x) end.
 
-Definition chsh_n00_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 64 384) (Var type (SyntaxKind (Bit 64)) (hw_chsh_n00 b)))%kami_expr.
-Definition chsh_n01_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 64 384) (Var type (SyntaxKind (Bit 64)) (hw_chsh_n01 b)))%kami_expr.
-Definition chsh_n10_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 64 384) (Var type (SyntaxKind (Bit 64)) (hw_chsh_n10 b)))%kami_expr.
-Definition chsh_n11_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 64 384) (Var type (SyntaxKind (Bit 64)) (hw_chsh_n11 b)))%kami_expr.
-Definition chsh_d00_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 64 384) (Var type (SyntaxKind (Bit 64)) (hw_chsh_d00 b)))%kami_expr.
-Definition chsh_d01_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 64 384) (Var type (SyntaxKind (Bit 64)) (hw_chsh_d01 b)))%kami_expr.
-Definition chsh_d10_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 64 384) (Var type (SyntaxKind (Bit 64)) (hw_chsh_d10 b)))%kami_expr.
-Definition chsh_d11_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 64 384) (Var type (SyntaxKind (Bit 64)) (hw_chsh_d11 b)))%kami_expr.
-Definition chsh_n00sq_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 128 384) (Var type (SyntaxKind (Bit 128)) (hw_chsh_n00sq b)))%kami_expr.
-Definition chsh_n01sq_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 128 384) (Var type (SyntaxKind (Bit 128)) (hw_chsh_n01sq b)))%kami_expr.
-Definition chsh_n10sq_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 128 384) (Var type (SyntaxKind (Bit 128)) (hw_chsh_n10sq b)))%kami_expr.
-Definition chsh_n11sq_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 128 384) (Var type (SyntaxKind (Bit 128)) (hw_chsh_n11sq b)))%kami_expr.
-Definition chsh_d00sq_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 128 384) (Var type (SyntaxKind (Bit 128)) (hw_chsh_d00sq b)))%kami_expr.
-Definition chsh_d01sq_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 128 384) (Var type (SyntaxKind (Bit 128)) (hw_chsh_d01sq b)))%kami_expr.
-Definition chsh_d10sq_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 128 384) (Var type (SyntaxKind (Bit 128)) (hw_chsh_d10sq b)))%kami_expr.
-Definition chsh_d11sq_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 128 384) (Var type (SyntaxKind (Bit 128)) (hw_chsh_d11sq b)))%kami_expr.
-Definition chsh_d00d01_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 128 384) (Var type (SyntaxKind (Bit 128)) (hw_chsh_d00d01 b)))%kami_expr.
-Definition chsh_n10n11_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 128 384) (Var type (SyntaxKind (Bit 128)) (hw_chsh_n10n11 b)))%kami_expr.
-Definition chsh_d10d11_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 128 384) (Var type (SyntaxKind (Bit 128)) (hw_chsh_d10d11 b)))%kami_expr.
-Definition chsh_n00n01_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 128 384) (Var type (SyntaxKind (Bit 128)) (hw_chsh_n00n01 b)))%kami_expr.
+Definition chsh_n00_128 (b : HWB) : type (Bit 128) :=
+  evalExpr (UniBit (ZeroExtendTrunc 64 128) (Var type (SyntaxKind (Bit 64)) (hw_chsh_n00 b)))%kami_expr.
+Definition chsh_n01_128 (b : HWB) : type (Bit 128) :=
+  evalExpr (UniBit (ZeroExtendTrunc 64 128) (Var type (SyntaxKind (Bit 64)) (hw_chsh_n01 b)))%kami_expr.
+Definition chsh_n10_128 (b : HWB) : type (Bit 128) :=
+  evalExpr (UniBit (ZeroExtendTrunc 64 128) (Var type (SyntaxKind (Bit 64)) (hw_chsh_n10 b)))%kami_expr.
+Definition chsh_n11_128 (b : HWB) : type (Bit 128) :=
+  evalExpr (UniBit (ZeroExtendTrunc 64 128) (Var type (SyntaxKind (Bit 64)) (hw_chsh_n11 b)))%kami_expr.
+Definition chsh_d00_128 (b : HWB) : type (Bit 128) :=
+  evalExpr (UniBit (ZeroExtendTrunc 64 128) (Var type (SyntaxKind (Bit 64)) (hw_chsh_d00 b)))%kami_expr.
+Definition chsh_d01_128 (b : HWB) : type (Bit 128) :=
+  evalExpr (UniBit (ZeroExtendTrunc 64 128) (Var type (SyntaxKind (Bit 64)) (hw_chsh_d01 b)))%kami_expr.
+Definition chsh_d10_128 (b : HWB) : type (Bit 128) :=
+  evalExpr (UniBit (ZeroExtendTrunc 64 128) (Var type (SyntaxKind (Bit 64)) (hw_chsh_d10 b)))%kami_expr.
+Definition chsh_d11_128 (b : HWB) : type (Bit 128) :=
+  evalExpr (UniBit (ZeroExtendTrunc 64 128) (Var type (SyntaxKind (Bit 64)) (hw_chsh_d11 b)))%kami_expr.
 Definition chsh_signC1_v (b : HWB) : type (Bool) :=
   evalExpr ((Var type (SyntaxKind (Bool)) (hw_chsh_sign00 b)) != (Var type (SyntaxKind (Bool)) (hw_chsh_sign01 b)))%kami_expr.
 Definition chsh_signC2_v (b : HWB) : type (Bool) :=
@@ -65,24 +41,30 @@ Definition chsh_C_terms_diff (b : HWB) : type (Bit 256) :=
   evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_C1_ge_C2_v b)) then ((Var type (SyntaxKind (Bit 256)) (hw_chsh_abs_C1 b)) - (Var type (SyntaxKind (Bit 256)) (hw_chsh_abs_C2 b))) else ((Var type (SyntaxKind (Bit 256)) (hw_chsh_abs_C2 b)) - (Var type (SyntaxKind (Bit 256)) (hw_chsh_abs_C1 b))))%kami_expr.
 Definition chsh_abs_C_256 (b : HWB) : type (Bit 256) :=
   evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_signs_agree_v b)) then (Var type (SyntaxKind (Bit 256)) (chsh_C_terms_sum b)) else (Var type (SyntaxKind (Bit 256)) (chsh_C_terms_diff b)))%kami_expr.
-Definition chsh_abs_C_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 256 384) (Var type (SyntaxKind (Bit 256)) (chsh_abs_C_256 b)))%kami_expr.
+Definition chsh_abs_C_lo (b : HWB) : type (Bit 128) :=
+  evalExpr (UniBit (Trunc 128 128) (Var type (SyntaxKind (Bit 256)) (chsh_abs_C_256 b)))%kami_expr.
+Definition chsh_abs_C_hi (b : HWB) : type (Bit 128) :=
+  evalExpr (UniBit (TruncLsb 128 128) (Var type (SyntaxKind (Bit 256)) (chsh_abs_C_256 b)))%kami_expr.
 Definition chsh_A_neg_v (b : HWB) : type (Bit 256) :=
   evalExpr ((Var type (SyntaxKind (Bit 256)) (hw_chsh_A_neg_a b)) + (Var type (SyntaxKind (Bit 256)) (hw_chsh_A_neg_b b)))%kami_expr.
 Definition chsh_A_ge0_v (b : HWB) : type (Bool) :=
   evalExpr ((Var type (SyntaxKind (Bit 256)) (hw_chsh_A_pos b)) >= (Var type (SyntaxKind (Bit 256)) (chsh_A_neg_v b)))%kami_expr.
 Definition chsh_abs_A_256 (b : HWB) : type (Bit 256) :=
   evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_A_ge0_v b)) then ((Var type (SyntaxKind (Bit 256)) (hw_chsh_A_pos b)) - (Var type (SyntaxKind (Bit 256)) (chsh_A_neg_v b))) else ((Var type (SyntaxKind (Bit 256)) (chsh_A_neg_v b)) - (Var type (SyntaxKind (Bit 256)) (hw_chsh_A_pos b))))%kami_expr.
-Definition chsh_abs_A_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 256 384) (Var type (SyntaxKind (Bit 256)) (chsh_abs_A_256 b)))%kami_expr.
+Definition chsh_abs_A_lo (b : HWB) : type (Bit 128) :=
+  evalExpr (UniBit (Trunc 128 128) (Var type (SyntaxKind (Bit 256)) (chsh_abs_A_256 b)))%kami_expr.
+Definition chsh_abs_A_hi (b : HWB) : type (Bit 128) :=
+  evalExpr (UniBit (TruncLsb 128 128) (Var type (SyntaxKind (Bit 256)) (chsh_abs_A_256 b)))%kami_expr.
 Definition chsh_B_neg_v (b : HWB) : type (Bit 256) :=
   evalExpr ((Var type (SyntaxKind (Bit 256)) (hw_chsh_B_neg_a b)) + (Var type (SyntaxKind (Bit 256)) (hw_chsh_B_neg_b b)))%kami_expr.
 Definition chsh_B_ge0_v (b : HWB) : type (Bool) :=
   evalExpr ((Var type (SyntaxKind (Bit 256)) (hw_chsh_B_pos b)) >= (Var type (SyntaxKind (Bit 256)) (chsh_B_neg_v b)))%kami_expr.
 Definition chsh_abs_B_256 (b : HWB) : type (Bit 256) :=
   evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_B_ge0_v b)) then ((Var type (SyntaxKind (Bit 256)) (hw_chsh_B_pos b)) - (Var type (SyntaxKind (Bit 256)) (chsh_B_neg_v b))) else ((Var type (SyntaxKind (Bit 256)) (chsh_B_neg_v b)) - (Var type (SyntaxKind (Bit 256)) (hw_chsh_B_pos b))))%kami_expr.
-Definition chsh_abs_B_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (ZeroExtendTrunc 256 384) (Var type (SyntaxKind (Bit 256)) (chsh_abs_B_256 b)))%kami_expr.
+Definition chsh_abs_B_lo (b : HWB) : type (Bit 128) :=
+  evalExpr (UniBit (Trunc 128 128) (Var type (SyntaxKind (Bit 256)) (chsh_abs_B_256 b)))%kami_expr.
+Definition chsh_abs_B_hi (b : HWB) : type (Bit 128) :=
+  evalExpr (UniBit (TruncLsb 128 128) (Var type (SyntaxKind (Bit 256)) (chsh_abs_B_256 b)))%kami_expr.
 Definition chsh_phase_eq_1 (b : HWB) : type (Bool) :=
   evalExpr ((Var type (SyntaxKind (Bit 5)) (hw_chsh_phase b)) == $$(WO~0~0~0~0~1))%kami_expr.
 Definition chsh_phase_eq_2 (b : HWB) : type (Bool) :=
@@ -129,18 +111,32 @@ Definition chsh_phase_eq_22 (b : HWB) : type (Bool) :=
   evalExpr ((Var type (SyntaxKind (Bit 5)) (hw_chsh_phase b)) == $$(WO~1~0~1~1~0))%kami_expr.
 Definition chsh_phase_eq_23 (b : HWB) : type (Bool) :=
   evalExpr ((Var type (SyntaxKind (Bit 5)) (hw_chsh_phase b)) == $$(WO~1~0~1~1~1))%kami_expr.
-Definition chsh_op_a_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_1 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n00_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_2 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n01_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_3 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n10_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_4 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n11_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_5 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d00_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_6 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d01_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_7 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d10_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_8 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d11_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_9 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n00sq_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_10 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d00sq_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_11 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d10sq_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_12 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n01sq_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_13 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d01sq_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_14 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d11sq_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_15 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d00_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_16 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n10_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_17 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d10_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_18 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n00_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_19 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d00d01_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_20 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d10d11_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_21 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_abs_C_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_22 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_abs_A_384 b)) else $0)%kami_expr.
-Definition chsh_op_b_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_1 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n00_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_2 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n01_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_3 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n10_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_4 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n11_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_5 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d00_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_6 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d01_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_7 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d10_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_8 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d11_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_9 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n10sq_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_10 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n10sq_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_11 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n00sq_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_12 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n11sq_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_13 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n11sq_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_14 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n01sq_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_15 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d01_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_16 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n11_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_17 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_d11_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_18 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n01_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_19 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n10n11_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_20 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_n00n01_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_21 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_abs_C_384 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_22 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_abs_B_384 b)) else $0)%kami_expr.
-Definition chsh_mult_result_768 (b : HWB) : type (Bit 768) :=
-  evalExpr (BinBit (Mul 768 SignUU) (UniBit (ZeroExtendTrunc 384 768) (Var type (SyntaxKind (Bit 384)) (chsh_op_a_384 b))) (UniBit (ZeroExtendTrunc 384 768) (Var type (SyntaxKind (Bit 384)) (chsh_op_b_384 b))))%kami_expr.
-Definition chsh_mult_128 (b : HWB) : type (Bit 128) :=
-  evalExpr (UniBit (Trunc 128 _) (Var type (SyntaxKind (Bit 768)) (chsh_mult_result_768 b)))%kami_expr.
+Definition chsh_phase_eq_24 (b : HWB) : type (Bool) :=
+  evalExpr ((Var type (SyntaxKind (Bit 5)) (hw_chsh_phase b)) == $$(WO~1~1~0~0~0))%kami_expr.
+Definition chsh_phase_eq_25 (b : HWB) : type (Bool) :=
+  evalExpr ((Var type (SyntaxKind (Bit 5)) (hw_chsh_phase b)) == $$(WO~1~1~0~0~1))%kami_expr.
+Definition chsh_phase_eq_26 (b : HWB) : type (Bool) :=
+  evalExpr ((Var type (SyntaxKind (Bit 5)) (hw_chsh_phase b)) == $$(WO~1~1~0~1~0))%kami_expr.
+Definition chsh_phase_eq_27 (b : HWB) : type (Bool) :=
+  evalExpr ((Var type (SyntaxKind (Bit 5)) (hw_chsh_phase b)) == $$(WO~1~1~0~1~1))%kami_expr.
+Definition chsh_phase_eq_28 (b : HWB) : type (Bool) :=
+  evalExpr ((Var type (SyntaxKind (Bit 5)) (hw_chsh_phase b)) == $$(WO~1~1~1~0~0))%kami_expr.
+Definition chsh_phase_eq_29 (b : HWB) : type (Bool) :=
+  evalExpr ((Var type (SyntaxKind (Bit 5)) (hw_chsh_phase b)) == $$(WO~1~1~1~0~1))%kami_expr.
+Definition chsh_op_a_128 (b : HWB) : type (Bit 128) :=
+  evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_1 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_n00_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_2 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_n01_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_3 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_n10_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_4 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_n11_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_5 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_d00_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_6 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_d01_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_7 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_d10_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_8 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_d11_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_9 b)) then (Var type (SyntaxKind (Bit 128)) (hw_chsh_n00sq b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_10 b)) then (Var type (SyntaxKind (Bit 128)) (hw_chsh_d00sq b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_11 b)) then (Var type (SyntaxKind (Bit 128)) (hw_chsh_d10sq b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_12 b)) then (Var type (SyntaxKind (Bit 128)) (hw_chsh_n01sq b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_13 b)) then (Var type (SyntaxKind (Bit 128)) (hw_chsh_d01sq b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_14 b)) then (Var type (SyntaxKind (Bit 128)) (hw_chsh_d11sq b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_15 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_d00_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_16 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_n10_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_17 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_d10_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_18 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_n00_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_19 b)) then (Var type (SyntaxKind (Bit 128)) (hw_chsh_d00d01 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_20 b)) then (Var type (SyntaxKind (Bit 128)) (hw_chsh_d10d11 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_21 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_abs_C_lo b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_22 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_abs_C_lo b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_23 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_abs_C_hi b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_24 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_abs_C_hi b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_25 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_abs_A_lo b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_26 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_abs_A_lo b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_27 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_abs_A_hi b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_28 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_abs_A_hi b)) else $0)%kami_expr.
+Definition chsh_op_b_128 (b : HWB) : type (Bit 128) :=
+  evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_1 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_n00_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_2 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_n01_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_3 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_n10_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_4 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_n11_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_5 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_d00_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_6 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_d01_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_7 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_d10_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_8 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_d11_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_9 b)) then (Var type (SyntaxKind (Bit 128)) (hw_chsh_n10sq b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_10 b)) then (Var type (SyntaxKind (Bit 128)) (hw_chsh_n10sq b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_11 b)) then (Var type (SyntaxKind (Bit 128)) (hw_chsh_n00sq b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_12 b)) then (Var type (SyntaxKind (Bit 128)) (hw_chsh_n11sq b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_13 b)) then (Var type (SyntaxKind (Bit 128)) (hw_chsh_n11sq b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_14 b)) then (Var type (SyntaxKind (Bit 128)) (hw_chsh_n01sq b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_15 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_d01_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_16 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_n11_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_17 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_d11_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_18 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_n01_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_19 b)) then (Var type (SyntaxKind (Bit 128)) (hw_chsh_n10n11 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_20 b)) then (Var type (SyntaxKind (Bit 128)) (hw_chsh_n00n01 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_21 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_abs_C_lo b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_22 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_abs_C_hi b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_23 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_abs_C_lo b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_24 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_abs_C_hi b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_25 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_abs_B_lo b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_26 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_abs_B_hi b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_27 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_abs_B_lo b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_28 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_abs_B_hi b)) else $0)%kami_expr.
 Definition chsh_mult_256 (b : HWB) : type (Bit 256) :=
-  evalExpr (UniBit (Trunc 256 _) (Var type (SyntaxKind (Bit 768)) (chsh_mult_result_768 b)))%kami_expr.
-Definition chsh_mult_384 (b : HWB) : type (Bit 384) :=
-  evalExpr (UniBit (Trunc 384 _) (Var type (SyntaxKind (Bit 768)) (chsh_mult_result_768 b)))%kami_expr.
+  evalExpr (BinBit (Mul 256 SignUU) (UniBit (ZeroExtendTrunc 128 256) (Var type (SyntaxKind (Bit 128)) (chsh_op_a_128 b))) (UniBit (ZeroExtendTrunc 128 256) (Var type (SyntaxKind (Bit 128)) (chsh_op_b_128 b))))%kami_expr.
+Definition chsh_mult_128 (b : HWB) : type (Bit 128) :=
+  evalExpr (UniBit (Trunc 128 128) (Var type (SyntaxKind (Bit 256)) (chsh_mult_256 b)))%kami_expr.
+Definition chsh_part_0 (b : HWB) : type (Bit 384) :=
+  evalExpr (UniBit (ZeroExtendTrunc 256 384) (Var type (SyntaxKind (Bit 256)) (chsh_mult_256 b)))%kami_expr.
+Definition chsh_part_128 (b : HWB) : type (Bit 384) :=
+  evalExpr (BinBit (Concat 256 128) (Var type (SyntaxKind (Bit 256)) (chsh_mult_256 b)) $0)%kami_expr.
+Definition chsh_part_256 (b : HWB) : type (Bit 384) :=
+  evalExpr (BinBit (Concat 128 256) (Var type (SyntaxKind (Bit 128)) (chsh_mult_128 b)) $0)%kami_expr.
 Definition chsh_all_n_pos (b : HWB) : type (Bool) :=
   evalExpr (((Var type (SyntaxKind (Bit 64)) (hw_chsh_n00 b)) != $0) && ((Var type (SyntaxKind (Bit 64)) (hw_chsh_n01 b)) != $0) && ((Var type (SyntaxKind (Bit 64)) (hw_chsh_n10 b)) != $0) && ((Var type (SyntaxKind (Bit 64)) (hw_chsh_n11 b)) != $0))%kami_expr.
 Definition chsh_ab_ge_csq (b : HWB) : type (Bool) :=
@@ -148,7 +144,7 @@ Definition chsh_ab_ge_csq (b : HWB) : type (Bool) :=
 Definition chsh_final_ok (b : HWB) : type (Bool) :=
   evalExpr ((Var type (SyntaxKind (Bool)) (chsh_all_n_pos b)) && (Var type (SyntaxKind (Bool)) (chsh_A_ge0_v b)) && (Var type (SyntaxKind (Bool)) (chsh_B_ge0_v b)) && (Var type (SyntaxKind (Bool)) (chsh_ab_ge_csq b)))%kami_expr.
 Definition chsh_commit_trap (b : HWB) : type (Bool) :=
-  evalExpr ((Var type (SyntaxKind (Bool)) (chsh_phase_eq_23 b)) && !(Var type (SyntaxKind (Bool)) (chsh_final_ok b)))%kami_expr.
+  evalExpr ((Var type (SyntaxKind (Bool)) (chsh_phase_eq_29 b)) && !(Var type (SyntaxKind (Bool)) (chsh_final_ok b)))%kami_expr.
 
 Lemma chsh_next_chsh_n00sq : forall b,
   hw_chsh_n00sq (chsh_next b) = evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_1 b)) then (Var type (SyntaxKind (Bit 128)) (chsh_mult_128 b)) else (Var type (SyntaxKind (Bit 128)) (hw_chsh_n00sq b)))%kami_expr.
@@ -211,13 +207,13 @@ Lemma chsh_next_chsh_abs_C2 : forall b,
   hw_chsh_abs_C2 (chsh_next b) = evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_20 b)) then (Var type (SyntaxKind (Bit 256)) (chsh_mult_256 b)) else (Var type (SyntaxKind (Bit 256)) (hw_chsh_abs_C2 b)))%kami_expr.
 Proof. intro b. kernel_refl. Qed.
 Lemma chsh_next_chsh_C_sq : forall b,
-  hw_chsh_C_sq (chsh_next b) = evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_21 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_mult_384 b)) else (Var type (SyntaxKind (Bit 384)) (hw_chsh_C_sq b)))%kami_expr.
+  hw_chsh_C_sq (chsh_next b) = evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_21 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_part_0 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_22 b)) then (Var type (SyntaxKind (Bit 384)) (hw_chsh_C_sq b)) + (Var type (SyntaxKind (Bit 384)) (chsh_part_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_23 b)) then (Var type (SyntaxKind (Bit 384)) (hw_chsh_C_sq b)) + (Var type (SyntaxKind (Bit 384)) (chsh_part_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_24 b)) then (Var type (SyntaxKind (Bit 384)) (hw_chsh_C_sq b)) + (Var type (SyntaxKind (Bit 384)) (chsh_part_256 b)) else (Var type (SyntaxKind (Bit 384)) (hw_chsh_C_sq b)))%kami_expr.
 Proof. intro b. kernel_refl. Qed.
 Lemma chsh_next_chsh_A_times_B : forall b,
-  hw_chsh_A_times_B (chsh_next b) = evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_22 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_mult_384 b)) else (Var type (SyntaxKind (Bit 384)) (hw_chsh_A_times_B b)))%kami_expr.
+  hw_chsh_A_times_B (chsh_next b) = evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_25 b)) then (Var type (SyntaxKind (Bit 384)) (chsh_part_0 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_26 b)) then (Var type (SyntaxKind (Bit 384)) (hw_chsh_A_times_B b)) + (Var type (SyntaxKind (Bit 384)) (chsh_part_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_27 b)) then (Var type (SyntaxKind (Bit 384)) (hw_chsh_A_times_B b)) + (Var type (SyntaxKind (Bit 384)) (chsh_part_128 b)) else IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_28 b)) then (Var type (SyntaxKind (Bit 384)) (hw_chsh_A_times_B b)) + (Var type (SyntaxKind (Bit 384)) (chsh_part_256 b)) else (Var type (SyntaxKind (Bit 384)) (hw_chsh_A_times_B b)))%kami_expr.
 Proof. intro b. kernel_refl. Qed.
 Lemma chsh_next_chsh_check_result : forall b,
-  hw_chsh_check_result (chsh_next b) = evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_23 b)) then (Var type (SyntaxKind (Bool)) (chsh_final_ok b)) else (Var type (SyntaxKind (Bool)) (hw_chsh_check_result b)))%kami_expr.
+  hw_chsh_check_result (chsh_next b) = evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_29 b)) then (Var type (SyntaxKind (Bool)) (chsh_final_ok b)) else (Var type (SyntaxKind (Bool)) (hw_chsh_check_result b)))%kami_expr.
 Proof. intro b. kernel_refl. Qed.
 Lemma chsh_next_pc : forall b,
   hw_pc (chsh_next b) = evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_commit_trap b)) then (Var type (SyntaxKind (Bit WordSz)) (hw_trap_vector b)) else (Var type (SyntaxKind (Bit WordSz)) (hw_pc b)))%kami_expr.
@@ -229,7 +225,7 @@ Lemma chsh_next_error_code : forall b,
   hw_error_code (chsh_next b) = evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_commit_trap b)) then $$(ERR_LOGIC_VAL) else (Var type (SyntaxKind (Bit WordSz)) (hw_error_code b)))%kami_expr.
 Proof. intro b. kernel_refl. Qed.
 Lemma chsh_next_chsh_phase : forall b,
-  hw_chsh_phase (chsh_next b) = evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_23 b)) then $$(WO~0~0~0~0~0) else ((Var type (SyntaxKind (Bit 5)) (hw_chsh_phase b)) + $$(WO~0~0~0~0~1)))%kami_expr.
+  hw_chsh_phase (chsh_next b) = evalExpr (IF (Var type (SyntaxKind (Bool)) (chsh_phase_eq_29 b)) then $$(WO~0~0~0~0~0) else ((Var type (SyntaxKind (Bit 5)) (hw_chsh_phase b)) + $$(WO~0~0~0~0~1)))%kami_expr.
 Proof. intro b. kernel_refl. Qed.
 
 Lemma chsh_keeps_mu : forall b, hw_mu (chsh_next b) = hw_mu b.

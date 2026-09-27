@@ -30,8 +30,8 @@ Definition dispatch_fetch_action : Action Void :=
         Assert (#mc_phase_v == $0);
 
         (* CHSH_LASSERT FSM: step rule also inhibited when CHSH FSM is running.
-           The chsh check is multi-cycle (23 phases sharing one 384-bit mult),
-           and on phase 23 the FSM overrides PC/err/error_code if the check
+           The chsh check is multi-cycle (29 phases sharing one 128x128 mult),
+           and on phase 29 the FSM overrides PC/err/error_code if the check
            failed. Until then the step rule sees a stale chsh_check_result;
            the Assert below guarantees the step rule fires only between
            CHSH_LASSERT invocations, never during a CHSH FSM run. *)

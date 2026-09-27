@@ -14,7 +14,7 @@
     fields and two label fields, plus [StepEval]'s six unconditional lemmas
     for the rest, close [hwb_table_invariants_frame] directly. The remaining
     two (CHSH_LASSERT, LASSERT_SAT) run a multi-cycle FSM after [step_next]
-    ([chsh_iter 23], respectively [lscan_iter n (lhdr_next (step_next b))]);
+    ([chsh_iter 29], respectively [lscan_iter n (lhdr_next (step_next b))]);
     [ChshRun]'s and [LassertWord]/[LassertRetire]'s own [iter_keeps_X]/
     [lscan_iter_keeps_X]/[lhdr_keeps_X] frame catalogues chain onto the same
     opcode-specific [step_next] equations to reach the same twelve facts.
@@ -1719,12 +1719,12 @@ Lemma preserved_chsh_lassert : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 
   hwb_table_invariants d.
 Proof.
   intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b d Hf Hb Hlive Hinv HR.
-  assert (Hidle : hw_idle (chsh_iter 23 (step_next b))).
+  assert (Hidle : hw_idle (chsh_iter 29 (step_next b))).
   { split; [rewrite iter_keeps_lassert_phase; exact (step_chsh_lassert_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)|split].
     - destruct (chsh_run_result (step_next b) (step_chsh_lassert_chsh_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)) as [_ [Hc _]]. exact Hc.
     - rewrite iter_keeps_mc_phase. exact (step_chsh_lassert_mc_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb). }
   pose proof (chsh_lassert_runs a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb Hlive) as Hrun.
-  assert (Hd : d = chsh_iter 23 (step_next b)).
+  assert (Hd : d = chsh_iter 29 (step_next b)).
   { destruct HR as [_ [[n Hn] [Hdi _]]].
     exact (proj1 (busy_runs_unique _ _ _ Hn Hdi _ _ Hrun Hidle)). }
   subst d.

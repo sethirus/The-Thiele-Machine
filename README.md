@@ -11,7 +11,7 @@
 **I didn't invent a machine. I found one.**
 
 That is how I see this work.
-I think there is structure here that our usual picture of computation leaves out, and I built a machine to put that conviction on the table.
+I think there is structure here that the usual picture of computation leaves out, and I built a machine to put that conviction on the table.
 
 A computation gives you an answer.
 What did it establish on the way there?
@@ -22,7 +22,7 @@ I want those questions inside the mathematics, where somebody can take the argum
 Certification is one point I could pin down.
 There is more here than one point, and I am not done looking.
 The Thiele Machine carries structural state, a cost ledger, and rules for particular events.
-I wrote the definitions, built the executable machine, and proved what happens when you throw some of that information away.
+I pinned down the definitions, built the machine you can run, and made Coq check what happens when you throw some of that information away.
 
 I call what remains a **shadow**.
 For the projections in the proofs, the blindness is real: different executions become indistinguishable, and no clever decoder can recover a distinction the observation has erased.
@@ -56,10 +56,10 @@ python3 minimal/nofi_demo.py   # exhaustive sweeps + measured algorithms against
 python3 -c "import json; d=json.load(open('artifacts/print_assumptions_all_proofs.json')); print(d['summary'])"
 ```
 
-The second command prints the committed assumption receipt: 12,335 theorems probed, zero *project-local* axiom findings.
+The second command prints the committed assumption receipt: 12,817 theorems probed, zero *project-local* axiom findings.
 The badge says project-local, and that is the precise claim: it is not "zero axioms".
-5,520 of those theorems are closed under the global context outright; the remaining 6,815 use only Coq standard-library assumptions: dependent functional extensionality, `Eqdep.Eq_rect_eq.eq_rect_eq`, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
-Those library assumptions are disclosed in the receipt; what is zero is axioms *I* wrote.
+5,526 of those theorems are closed under the global context outright; the remaining 7,291 use only Coq standard-library assumptions: dependent functional extensionality, `Eqdep.Eq_rect_eq.eq_rect_eq`, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
+Those library assumptions are disclosed in the receipt; what is zero is axioms this project added.
 Validate the committed receipt quickly with `make assumption-receipt-check`.
 That path reuses the exact theorem/axiom results when the semantic fingerprint is unchanged and performs the full corpus derivation only after proof-relevant inputs drift.
 Regenerate the receipt itself with `make assumption-receipt`.
@@ -95,22 +95,27 @@ Generated and vendored surfaces are governed by their own generators and are not
 ## The argument, formally
 
 1. **A local law constrains admissible executions.**
+   The flip from uncertified to certified has to happen at some step, and wherever it happens, that step pays.
    For any `CertificationSystem`, A2 requires positive instruction cost on a false-to-true transition of its designated predicate.
    `universal_nfi_any_substrate` proves the corresponding trace-level floor.
    The state space and predicate are abstract; the VM's `vm_certified` field is one instance.
 2. **Pricing adequacy can be characterized.**
+   A2 sets a floor.
+   It doesn't set a price list.
    `CommitmentPredicateAdequacy.v` proves which local charged-event predicates cover certification flips.
    Requiring both the floor and no overcharge *relative to flip count* characterizes exact unit event pricing.
    For a finite family of unit event floors, the least joint charge is one whenever any event fires.
    Several events can share that unit; independent coordinates alone do not force additive charges.
    This does not derive the choice of event or the entire VM cost schedule from A2.
 3. **Selected projections lose relevant distinctions.**
+   Two runs can look identical through a window and still need different answers.
    The receipt and separation theorems exhibit equal observations with different ledgers, certification values, or graph structure.
    No decoder of those observations can recover the differing property on every state.
    The general condition is exact: the query must be constant on each observation class.
    Given a representative of every class, that condition also constructs a decoder.
    It applies to arbitrary queries, including ones unrelated to certification.
 4. **The construction supports further mathematics and implementations.**
+   Fix the schedule and the starting value, and the books only balance one way.
    Ledger uniqueness follows for a fixed schedule and initial value.
    `thiele_trace_fold_initial` gives unique instruction-list evaluation from a chosen basepoint; evaluation defines a unique target value per reachable VM state exactly when equal VM outcomes give equal target outcomes.
    Constructing a reachable simulation also takes representative traces and certification agreement.
@@ -130,7 +135,8 @@ Generated RTL retains its named compiler/backend trust boundary.
 
 ## The verifier corollary
 
-For the selected strict-shadow transcript, the witness collision yields a verification impossibility.
+Two runs look the same to the checker, and only one of them paid.
+For the selected strict-shadow transcript, that collision makes honest verification impossible.
 
 A verifier whose transcript is `list StrictClassicalState`, the strict-shadow trace, cannot soundly decide a claim that depends on μ.
 The two single-step witnesses from the Core Proof project to the same classical trace; one satisfies the μ=1 claim, one does not.
@@ -159,20 +165,23 @@ This file reduces that meta-question to the structural-enrichment question; it d
 
 ## Observation, enforcement, and representation
 
-A transition law can enforce an invariant while exposing a projection that omits its evidence.
-Conversely, storing a ledger does not establish that all transitions maintain it correctly.
-The relevant comparison specifies the permitted transitions, the observation interface, and the trusted implementation.
+Enforcing a law, storing it, and seeing it are three different things.
+A machine can enforce a rule in every step and still show you a window that hides the evidence.
+Going the other way, having a ledger field doesn't prove every step keeps it right.
+So every comparison here names the steps allowed, the window, and what you're trusting the implementation to do.
 
-Even a reset can preserve information in a larger state: recording the previous state in a history list makes each fixed-instruction transition injective.
-A program counter collapsing to one therefore does not establish global erasure or a physical dissipation bound.
+Even a reset can keep information around in a bigger state.
+Record the previous state in a history list and each fixed-instruction step becomes injective.
+So a program counter collapsing to one place doesn't prove anything was globally erased, and it doesn't give a physical heat bound.
 
-Conventional encodings can represent the full state, and particular machines can enforce invariants through their prescribed transitions.
-Turing equivalence concerns computational power; it neither supplies nor forbids the particular accounting discipline.
-In this document, a ledgerless shadow means the specified observation or fragment with those distinctions omitted.
+Ordinary encodings can hold the full state, and a particular machine can enforce an invariant just by which transitions it allows.
+Turing equivalence is about what can be computed.
+It doesn't hand you this accounting discipline, and it doesn't forbid it either.
+When this README says a ledgerless shadow, it means the specified window or fragment with those distinctions left out.
 
-The concrete kernel permits zero-cost structural operations as well as paid events.
-It therefore does not prove that every change of observable has positive cost.
-Its ledger starts at zero and sums the declared schedule; selected certification operations have mandatory positive floors.
+The concrete kernel lets some structural operations happen for free, alongside the paid events.
+So it doesn't prove that every observable change costs something.
+Its ledger starts at zero and adds up the declared schedule, and the certification operations carry mandatory positive floors.
 
 ## The Core Proof
 
@@ -231,7 +240,7 @@ Coq closes the contradiction by `congruence`.
 Closed under the global context
 ```
 
-The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 12,335 addressable theorems probed and no user/project-local axiom findings in the committed assumption scan.
+The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 12,817 addressable theorems probed and no user/project-local axiom findings in the committed assumption scan.
 
 ## Beyond the minimal witness
 
@@ -239,16 +248,17 @@ The minimal witness demonstrates a collision under a projection.
 The abstract accounting theorem ranges over arbitrary state and instruction types, and pricing adequacy classifies local rules relative to the designated event.
 The broader development also studies structural entitlement, graph operations, verifier interfaces, quantum certificate algebra, and realizations in software and hardware.
 
-These results motivate studying the framework; they do not eliminate its modeling choices.
-The verifier impossibility follows from the observation collision.
-The Python examples check finite combinatorial and algorithmic instances.
-The CHSH soundness bridge uses additional algebra.
-Their combination is not an independent derivation of physical A2.
+These results are reasons to keep studying the framework.
+They don't make its modeling choices for it.
+The verifier impossibility comes out of the observation collision.
+The Python examples check finite combinatorial and algorithmic cases.
+The CHSH soundness bridge adds more algebra.
+Put together, they still aren't an independent derivation of A2 from physics.
 
-The pointer-observable models investigate why particular commitment events are recorded by other parties.
+The pointer-observable models ask why some commitment events get recorded by other parties.
 The models and their counterexamples are part of the research argument.
-They do not establish that forgery resistance forces metering, nor that all public verifiability implies actual record storage by every observer.
-Certification remains one worked example, and a universally forced choice of priced events remains open.
+They don't show that resisting forgery forces metering, and they don't show that being publicly checkable means every observer actually keeps a record.
+Certification is still one worked example, and which events every account has to price is still open.
 
 ## Formal Spine
 
@@ -469,9 +479,9 @@ Two independent receipts track proof assumptions.
 - [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records Coq `Print Assumptions` over the audited theorem set.
 
 The master theorem ledger is [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v).
-The current committed assumption receipt reports 12,335 addressable theorems probed and no user/project-local axiom findings.
-The split: 5,520 close under the global context outright, and the remaining 6,815 lean only on Coq-stdlib axiom families.
-Those families are `functional_extensionality_dep` (6,526), `eq_rect_eq` (3,685), the classical-reals pair `sig_forall_dec` (1,009) and `sig_not_dec` (277), and `classic` (67).
+The current committed assumption receipt reports 12,817 addressable theorems probed and no user/project-local axiom findings.
+The split: 5,526 close under the global context outright, and the remaining 7,291 lean only on Coq-stdlib axiom families.
+Those families are `functional_extensionality_dep` (7,000), `eq_rect_eq` (3,849), the classical-reals pair `sig_forall_dec` (1,009) and `sig_not_dec` (277), and `classic` (67).
 Those families enter through the real-number and physics layers; the minimal core uses none of them.
 "Zero axioms" here means zero project-local axioms, the same convention the monograph uses.
 The receipt is what enforces that count.
@@ -493,7 +503,8 @@ make proof-undeniable
 
 The VM exposes 51 opcodes total.
 47 are synth-realized and implemented in the generated RTL; full physical retirement refinement remains open.
-Four are Q_{1+AB} cert-opcodes that live in the Kami HW abstraction with kernel-equivalence proven but are excluded from the synthesized Verilog by silicon budget.
+Four are Q_{1+AB} cert-opcodes that live in the Kami HW abstraction with kernel-equivalence proven.
+They aren't in the synthesized Verilog, because their hardware hasn't been built.
 They contribute the OCaml/RTL parity tests' tolerated slack of 4 (theorem `rtl_coverage_partition`: 37 + 10 + 0 = 47).
 The 47 synth-realized opcodes fall into six families.
 

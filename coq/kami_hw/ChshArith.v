@@ -14,17 +14,28 @@ Definition hw_ltb {n} (a b : word n) : bool := if wlt_dec a b then true else fal
 Definition hw_absdiffw {n} (x y : word n) : word n :=
   if negb (hw_ltb x y) then wminus x y else wminus y x.
 
-(** Products as the FSM forms them: both operands zero-extended to 384 and
-    then 768 bits, one 768-bit multiplication, truncation to the result width. *)
+(** Products as the FSM forms them: both operands zero-extended to 128 and
+    then 256 bits, one 256-bit multiplication, truncation to the result width. *)
 Definition m128 (x y : word 64) : word 128 :=
-  split1 128 640 (wmult (evalZeroExtendTrunc 768 (evalZeroExtendTrunc 384 x))
-                        (evalZeroExtendTrunc 768 (evalZeroExtendTrunc 384 y))).
+  split1 128 128 (wmult (evalZeroExtendTrunc 256 (evalZeroExtendTrunc 128 x))
+                        (evalZeroExtendTrunc 256 (evalZeroExtendTrunc 128 y))).
 Definition m256 (x y : word 128) : word 256 :=
-  split1 256 512 (wmult (evalZeroExtendTrunc 768 (evalZeroExtendTrunc 384 x))
-                        (evalZeroExtendTrunc 768 (evalZeroExtendTrunc 384 y))).
+  wmult (evalZeroExtendTrunc 256 x) (evalZeroExtendTrunc 256 y).
+
+(** The product of two 256-bit magnitudes modulo 2^384. *)
 Definition m384 (x y : word 256) : word 384 :=
-  split1 384 384 (wmult (evalZeroExtendTrunc 768 (evalZeroExtendTrunc 384 x))
-                        (evalZeroExtendTrunc 768 (evalZeroExtendTrunc 384 y))).
+  split1 384 384 (wmult (evalZeroExtendTrunc 768 x) (evalZeroExtendTrunc 768 y)).
+
+(** [m384] as the FSM forms it over four phases: the four 128x128 partial
+    products of the operand halves, shifted into place by concatenation with
+    zeros and summed at 384 bits. *)
+Definition m384_parts (x y : word 256) : word 384 :=
+  let xl := split1 128 128 x in let xh := split2 128 128 x in
+  let yl := split1 128 128 y in let yh := split2 128 128 y in
+  wplus (wplus (wplus (evalZeroExtendTrunc 384 (m256 xl yl))
+                      (combine (natToWord 128 0) (m256 xl yh)))
+               (combine (natToWord 128 0) (m256 xh yl)))
+        (combine (natToWord 256 0) (split1 128 128 (m256 xh yh))).
 
 Lemma evalZeroExtendTrunc_nat : forall n1 n2 (w : word n1),
   n1 < n2 -> wordToNat (evalZeroExtendTrunc n2 w) = wordToNat w.
@@ -73,7 +84,7 @@ Proof. intros. apply Nat.pow_le_mono_r; lia. Qed.
 Lemma m128_nat : forall x y, wordToNat x * wordToNat y < pow2 128 ->
   wordToNat (m128 x y) = wordToNat x * wordToNat y.
 Proof.
-  intros x y H. unfold m128. rewrite (wordToNat_split1 128 640), wordToNat_wmult, !evalZeroExtendTrunc_nat by lia.
+  intros x y H. unfold m128. rewrite (wordToNat_split1 128 128), wordToNat_wmult, !evalZeroExtendTrunc_nat by lia.
   rewrite (Nat.mod_small (wordToNat x * wordToNat y)) by (eapply Nat.lt_le_trans; [exact H|apply pow2_mono; lia]).
   apply Nat.mod_small. exact H.
 Qed.
@@ -81,8 +92,7 @@ Qed.
 Lemma m256_nat : forall x y, wordToNat x * wordToNat y < pow2 256 ->
   wordToNat (m256 x y) = wordToNat x * wordToNat y.
 Proof.
-  intros x y H. unfold m256. rewrite (wordToNat_split1 256 512), wordToNat_wmult, !evalZeroExtendTrunc_nat by lia.
-  rewrite (Nat.mod_small (wordToNat x * wordToNat y)) by (eapply Nat.lt_le_trans; [exact H|apply pow2_mono; lia]).
+  intros x y H. unfold m256. rewrite wordToNat_wmult, !evalZeroExtendTrunc_nat by lia.
   apply Nat.mod_small. exact H.
 Qed.
 
@@ -99,6 +109,80 @@ Proof. intros. rewrite Nat.pow_add_r. nia. Qed.
 
 Lemma lt_pow2_mono : forall x a b, x < pow2 a -> a <= b -> x < pow2 b.
 Proof. intros. eapply Nat.lt_le_trans; [eassumption|apply pow2_mono; lia]. Qed.
+
+(** Schoolbook multiplication in base [M], keeping three digits: summing the
+    partial products one at a time modulo [M^3], with the top partial
+    product cut to one digit, gives the full product modulo [M^3]. *)
+Lemma parts_nat : forall M XL XH YL YH, M <> 0 ->
+  (((XL * YL + M * (XL * YH)) mod (M * M * M) + M * (XH * YL)) mod (M * M * M)
+     + M * M * ((XH * YH) mod M)) mod (M * M * M)
+  = ((XL + M * XH) * (YL + M * YH)) mod (M * M * M).
+Proof.
+  intros M XL XH YL YH HM.
+  assert (HN : M * M * M <> 0) by (apply Nat.neq_mul_0; split; [apply Nat.neq_mul_0|]; tauto).
+  rewrite Nat.Div0.add_mod_idemp_l, <- Nat.add_assoc, Nat.Div0.add_mod_idemp_l, Nat.add_assoc.
+  pose proof (Nat.div_mod (XH * YH) M HM) as E.
+  set (q := (XH * YH) / M) in *. set (r := (XH * YH) mod M) in *.
+  assert (Hexp : (XL + M * XH) * (YL + M * YH) =
+                 XL * YL + M * (XL * YH) + M * (XH * YL) + M * M * r + q * (M * M * M)).
+  { transitivity (XL * YL + M * (XL * YH) + M * (XH * YL) + M * M * (XH * YH)); [ring|].
+    rewrite E. ring. }
+  rewrite Hexp, Nat.mod_add by exact HN. reflexivity.
+Qed.
+
+Lemma m256_exact : forall x y : word 128, wordToNat (m256 x y) = wordToNat x * wordToNat y.
+Proof.
+  intros x y. apply m256_nat. change (pow2 256) with (pow2 (128 + 128)).
+  apply mul_pow2_lt; apply wordToNat_bound.
+Qed.
+
+Lemma m384_mod : forall x y : word 256,
+  wordToNat (m384 x y) = (wordToNat x * wordToNat y) mod pow2 384.
+Proof.
+  intros x y. unfold m384. rewrite (wordToNat_split1 384 384), wordToNat_wmult, !evalZeroExtendTrunc_nat by lia.
+  rewrite (Nat.mod_small (wordToNat x * wordToNat y)); [reflexivity|].
+  apply (lt_pow2_mono _ (256 + 256)); [apply mul_pow2_lt; apply wordToNat_bound|lia].
+Qed.
+
+Lemma wordToNat_lo128 : forall w : word 256, wordToNat (split1 128 128 w) = wordToNat w mod pow2 128.
+Proof. intro w. exact (wordToNat_split1 128 128 w). Qed.
+
+Lemma wordToNat_halves : forall w : word 256,
+  wordToNat w = wordToNat (split1 128 128 w) + pow2 128 * wordToNat (split2 128 128 w).
+Proof. intro w. rewrite <- wordToNat_combine, combine_split. reflexivity. Qed.
+
+(** A 384-bit word built from a product and low zeros, stated at the 384-bit
+    width the FSM's sums use. *)
+Lemma wordToNat_shift128 : forall w : word 256,
+  @wordToNat 384 (combine (natToWord 128 0) w) = pow2 128 * wordToNat w.
+Proof.
+  intro w. change (@wordToNat 384 (combine (natToWord 128 0) w))
+    with (@wordToNat (128 + 256) (combine (natToWord 128 0) w)).
+  rewrite wordToNat_combine, roundTrip_0. reflexivity.
+Qed.
+
+Lemma wordToNat_shift256 : forall w : word 128,
+  @wordToNat 384 (combine (natToWord 256 0) w) = pow2 256 * wordToNat w.
+Proof.
+  intro w. change (@wordToNat 384 (combine (natToWord 256 0) w))
+    with (@wordToNat (256 + 128) (combine (natToWord 256 0) w)).
+  rewrite wordToNat_combine, roundTrip_0. reflexivity.
+Qed.
+
+(** The four-phase sum the FSM accumulates is the 384-bit product. *)
+Lemma m384_parts_eq : forall x y : word 256, m384_parts x y = m384 x y.
+Proof.
+  intros x y. apply wordToNat_inj. rewrite m384_mod.
+  unfold m384_parts. cbv zeta.
+  rewrite !wordToNat_wplus, !wordToNat_shift128, wordToNat_shift256.
+  rewrite evalZeroExtendTrunc_nat by lia.
+  rewrite wordToNat_lo128, !m256_exact.
+  rewrite (wordToNat_halves x), (wordToNat_halves y).
+  replace (pow2 256) with (pow2 128 * pow2 128) by (rewrite <- Nat.pow_add_r; reflexivity).
+  replace (pow2 384) with (pow2 128 * pow2 128 * pow2 128)
+    by (rewrite <- !Nat.pow_add_r; reflexivity).
+  apply parts_nat. apply Nat.pow_nonzero. lia.
+Qed.
 
 Definition hw_eqb {n} (a b : word n) : bool := if weq a b then true else false.
 

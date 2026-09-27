@@ -23,18 +23,18 @@
 # How the design fits K325T (K420T has no parent-dir tilegrid in openXC7's
 # prjxray-db; K480T is not the Genesys 2 device):
 #   (1) instr_chsh_lassert's witness check is implemented in Kami as a
-#       23-phase FSM (`chsh_lassert_fsm` rule in
-#       coq/kami_hw/ThieleCPUCore.v) that time-shares one 384×384 SignUU
+#       29-phase FSM (`chsh_lassert_fsm` rule in
+#       coq/kami_hw/ThieleCPUCore.v) that time-shares one 128×128
 #       multiplier across the 22 wide multiplications it needs, so only one
-#       wide multiply is live per cycle. The Coq spec is still single-step;
-#       multi-cycle execution is a Kami-implementation detail invisible to
-#       the spec, the same pattern as instr_lassert.
-#   (2) synth_xc7.ys leaves DSP inference on, so that multiplier lands in
-#       DSP48E1 slices instead of LUTs. The slices stay standalone
-#       (`xilinx_dsp.multonly`), because cascaded DSP chains stall the
-#       nextpnr-xilinx placer. Built from LUTs (`-nodsp`) the multiplier
-#       pushes the design to about 160K LUTs, past what nextpnr-xilinx can
-#       route inside the CI time limit.
+#       multiply is live per cycle. The two 256×256 products are each summed
+#       from four 128×128 partial products. The Coq spec is still
+#       single-step; multi-cycle execution is a Kami-implementation detail
+#       invisible to the spec, the same pattern as instr_lassert.
+#   (2) DSP inference is disabled in synth_xc7.ys (`-nodsp`), so the
+#       multiplier maps to LUTs and the design comes to about 60K LUTs.
+#       With DSP48E1 slices the design did not finish inside the CI limit:
+#       cascaded slices stall the nextpnr-xilinx placer, and standalone
+#       slices leave routing badly congested.
 #   (3) The 16×16 module tensor store is a 256-entry RegFile (LUT RAM), not
 #       flip-flops; see scripts/bsv_regfile_transform.py.
 # DSP vs LUT is a silicon-utilisation choice, not a correctness one; the proof

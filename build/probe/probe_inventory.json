@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
   "files_probed": 421,
-  "total_addressable": 12334,
+  "total_addressable": 12816,
   "total_unaddressable": 4,
   "extras_addressable_via_instantiation": [
     {
@@ -3144,7 +3144,7 @@
     {
       "file": "coq/kami_hw/ChshArith.v",
       "qualified_module": "KamiHW.ChshArith",
-      "addressable_count": 34,
+      "addressable_count": 42,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -3196,6 +3196,46 @@
           "local_name": "lt_pow2_mono",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshArith.lt_pow2_mono"
+        },
+        {
+          "local_name": "parts_nat",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshArith.parts_nat"
+        },
+        {
+          "local_name": "m256_exact",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshArith.m256_exact"
+        },
+        {
+          "local_name": "m384_mod",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshArith.m384_mod"
+        },
+        {
+          "local_name": "wordToNat_lo128",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshArith.wordToNat_lo128"
+        },
+        {
+          "local_name": "wordToNat_halves",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshArith.wordToNat_halves"
+        },
+        {
+          "local_name": "wordToNat_shift128",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshArith.wordToNat_shift128"
+        },
+        {
+          "local_name": "wordToNat_shift256",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshArith.wordToNat_shift256"
+        },
+        {
+          "local_name": "m384_parts_eq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshArith.m384_parts_eq"
         },
         {
           "local_name": "hw_eqb_nat",
@@ -4076,7 +4116,7 @@
     {
       "file": "coq/kami_hw/ChshPhases.v",
       "qualified_module": "KamiHW.ChshPhases",
-      "addressable_count": 1150,
+      "addressable_count": 1624,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -4195,6 +4235,36 @@
           "full_name": "KamiHW.ChshPhases.chsh_eq1_at23"
         },
         {
+          "local_name": "chsh_eq1_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq1_at24"
+        },
+        {
+          "local_name": "chsh_eq1_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq1_at25"
+        },
+        {
+          "local_name": "chsh_eq1_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq1_at26"
+        },
+        {
+          "local_name": "chsh_eq1_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq1_at27"
+        },
+        {
+          "local_name": "chsh_eq1_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq1_at28"
+        },
+        {
+          "local_name": "chsh_eq1_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq1_at29"
+        },
+        {
           "local_name": "chsh_eq2_at1",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq2_at1"
@@ -4308,6 +4378,36 @@
           "local_name": "chsh_eq2_at23",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq2_at23"
+        },
+        {
+          "local_name": "chsh_eq2_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq2_at24"
+        },
+        {
+          "local_name": "chsh_eq2_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq2_at25"
+        },
+        {
+          "local_name": "chsh_eq2_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq2_at26"
+        },
+        {
+          "local_name": "chsh_eq2_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq2_at27"
+        },
+        {
+          "local_name": "chsh_eq2_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq2_at28"
+        },
+        {
+          "local_name": "chsh_eq2_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq2_at29"
         },
         {
           "local_name": "chsh_eq3_at1",
@@ -4425,6 +4525,36 @@
           "full_name": "KamiHW.ChshPhases.chsh_eq3_at23"
         },
         {
+          "local_name": "chsh_eq3_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq3_at24"
+        },
+        {
+          "local_name": "chsh_eq3_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq3_at25"
+        },
+        {
+          "local_name": "chsh_eq3_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq3_at26"
+        },
+        {
+          "local_name": "chsh_eq3_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq3_at27"
+        },
+        {
+          "local_name": "chsh_eq3_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq3_at28"
+        },
+        {
+          "local_name": "chsh_eq3_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq3_at29"
+        },
+        {
           "local_name": "chsh_eq4_at1",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq4_at1"
@@ -4538,6 +4668,36 @@
           "local_name": "chsh_eq4_at23",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq4_at23"
+        },
+        {
+          "local_name": "chsh_eq4_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq4_at24"
+        },
+        {
+          "local_name": "chsh_eq4_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq4_at25"
+        },
+        {
+          "local_name": "chsh_eq4_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq4_at26"
+        },
+        {
+          "local_name": "chsh_eq4_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq4_at27"
+        },
+        {
+          "local_name": "chsh_eq4_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq4_at28"
+        },
+        {
+          "local_name": "chsh_eq4_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq4_at29"
         },
         {
           "local_name": "chsh_eq5_at1",
@@ -4655,6 +4815,36 @@
           "full_name": "KamiHW.ChshPhases.chsh_eq5_at23"
         },
         {
+          "local_name": "chsh_eq5_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq5_at24"
+        },
+        {
+          "local_name": "chsh_eq5_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq5_at25"
+        },
+        {
+          "local_name": "chsh_eq5_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq5_at26"
+        },
+        {
+          "local_name": "chsh_eq5_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq5_at27"
+        },
+        {
+          "local_name": "chsh_eq5_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq5_at28"
+        },
+        {
+          "local_name": "chsh_eq5_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq5_at29"
+        },
+        {
           "local_name": "chsh_eq6_at1",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq6_at1"
@@ -4768,6 +4958,36 @@
           "local_name": "chsh_eq6_at23",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq6_at23"
+        },
+        {
+          "local_name": "chsh_eq6_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq6_at24"
+        },
+        {
+          "local_name": "chsh_eq6_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq6_at25"
+        },
+        {
+          "local_name": "chsh_eq6_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq6_at26"
+        },
+        {
+          "local_name": "chsh_eq6_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq6_at27"
+        },
+        {
+          "local_name": "chsh_eq6_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq6_at28"
+        },
+        {
+          "local_name": "chsh_eq6_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq6_at29"
         },
         {
           "local_name": "chsh_eq7_at1",
@@ -4885,6 +5105,36 @@
           "full_name": "KamiHW.ChshPhases.chsh_eq7_at23"
         },
         {
+          "local_name": "chsh_eq7_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq7_at24"
+        },
+        {
+          "local_name": "chsh_eq7_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq7_at25"
+        },
+        {
+          "local_name": "chsh_eq7_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq7_at26"
+        },
+        {
+          "local_name": "chsh_eq7_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq7_at27"
+        },
+        {
+          "local_name": "chsh_eq7_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq7_at28"
+        },
+        {
+          "local_name": "chsh_eq7_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq7_at29"
+        },
+        {
           "local_name": "chsh_eq8_at1",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq8_at1"
@@ -4998,6 +5248,36 @@
           "local_name": "chsh_eq8_at23",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq8_at23"
+        },
+        {
+          "local_name": "chsh_eq8_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq8_at24"
+        },
+        {
+          "local_name": "chsh_eq8_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq8_at25"
+        },
+        {
+          "local_name": "chsh_eq8_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq8_at26"
+        },
+        {
+          "local_name": "chsh_eq8_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq8_at27"
+        },
+        {
+          "local_name": "chsh_eq8_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq8_at28"
+        },
+        {
+          "local_name": "chsh_eq8_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq8_at29"
         },
         {
           "local_name": "chsh_eq9_at1",
@@ -5115,6 +5395,36 @@
           "full_name": "KamiHW.ChshPhases.chsh_eq9_at23"
         },
         {
+          "local_name": "chsh_eq9_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq9_at24"
+        },
+        {
+          "local_name": "chsh_eq9_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq9_at25"
+        },
+        {
+          "local_name": "chsh_eq9_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq9_at26"
+        },
+        {
+          "local_name": "chsh_eq9_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq9_at27"
+        },
+        {
+          "local_name": "chsh_eq9_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq9_at28"
+        },
+        {
+          "local_name": "chsh_eq9_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq9_at29"
+        },
+        {
           "local_name": "chsh_eq10_at1",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq10_at1"
@@ -5228,6 +5538,36 @@
           "local_name": "chsh_eq10_at23",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq10_at23"
+        },
+        {
+          "local_name": "chsh_eq10_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq10_at24"
+        },
+        {
+          "local_name": "chsh_eq10_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq10_at25"
+        },
+        {
+          "local_name": "chsh_eq10_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq10_at26"
+        },
+        {
+          "local_name": "chsh_eq10_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq10_at27"
+        },
+        {
+          "local_name": "chsh_eq10_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq10_at28"
+        },
+        {
+          "local_name": "chsh_eq10_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq10_at29"
         },
         {
           "local_name": "chsh_eq11_at1",
@@ -5345,6 +5685,36 @@
           "full_name": "KamiHW.ChshPhases.chsh_eq11_at23"
         },
         {
+          "local_name": "chsh_eq11_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq11_at24"
+        },
+        {
+          "local_name": "chsh_eq11_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq11_at25"
+        },
+        {
+          "local_name": "chsh_eq11_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq11_at26"
+        },
+        {
+          "local_name": "chsh_eq11_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq11_at27"
+        },
+        {
+          "local_name": "chsh_eq11_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq11_at28"
+        },
+        {
+          "local_name": "chsh_eq11_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq11_at29"
+        },
+        {
           "local_name": "chsh_eq12_at1",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq12_at1"
@@ -5458,6 +5828,36 @@
           "local_name": "chsh_eq12_at23",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq12_at23"
+        },
+        {
+          "local_name": "chsh_eq12_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq12_at24"
+        },
+        {
+          "local_name": "chsh_eq12_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq12_at25"
+        },
+        {
+          "local_name": "chsh_eq12_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq12_at26"
+        },
+        {
+          "local_name": "chsh_eq12_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq12_at27"
+        },
+        {
+          "local_name": "chsh_eq12_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq12_at28"
+        },
+        {
+          "local_name": "chsh_eq12_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq12_at29"
         },
         {
           "local_name": "chsh_eq13_at1",
@@ -5575,6 +5975,36 @@
           "full_name": "KamiHW.ChshPhases.chsh_eq13_at23"
         },
         {
+          "local_name": "chsh_eq13_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq13_at24"
+        },
+        {
+          "local_name": "chsh_eq13_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq13_at25"
+        },
+        {
+          "local_name": "chsh_eq13_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq13_at26"
+        },
+        {
+          "local_name": "chsh_eq13_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq13_at27"
+        },
+        {
+          "local_name": "chsh_eq13_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq13_at28"
+        },
+        {
+          "local_name": "chsh_eq13_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq13_at29"
+        },
+        {
           "local_name": "chsh_eq14_at1",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq14_at1"
@@ -5688,6 +6118,36 @@
           "local_name": "chsh_eq14_at23",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq14_at23"
+        },
+        {
+          "local_name": "chsh_eq14_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq14_at24"
+        },
+        {
+          "local_name": "chsh_eq14_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq14_at25"
+        },
+        {
+          "local_name": "chsh_eq14_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq14_at26"
+        },
+        {
+          "local_name": "chsh_eq14_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq14_at27"
+        },
+        {
+          "local_name": "chsh_eq14_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq14_at28"
+        },
+        {
+          "local_name": "chsh_eq14_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq14_at29"
         },
         {
           "local_name": "chsh_eq15_at1",
@@ -5805,6 +6265,36 @@
           "full_name": "KamiHW.ChshPhases.chsh_eq15_at23"
         },
         {
+          "local_name": "chsh_eq15_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq15_at24"
+        },
+        {
+          "local_name": "chsh_eq15_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq15_at25"
+        },
+        {
+          "local_name": "chsh_eq15_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq15_at26"
+        },
+        {
+          "local_name": "chsh_eq15_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq15_at27"
+        },
+        {
+          "local_name": "chsh_eq15_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq15_at28"
+        },
+        {
+          "local_name": "chsh_eq15_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq15_at29"
+        },
+        {
           "local_name": "chsh_eq16_at1",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq16_at1"
@@ -5918,6 +6408,36 @@
           "local_name": "chsh_eq16_at23",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq16_at23"
+        },
+        {
+          "local_name": "chsh_eq16_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq16_at24"
+        },
+        {
+          "local_name": "chsh_eq16_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq16_at25"
+        },
+        {
+          "local_name": "chsh_eq16_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq16_at26"
+        },
+        {
+          "local_name": "chsh_eq16_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq16_at27"
+        },
+        {
+          "local_name": "chsh_eq16_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq16_at28"
+        },
+        {
+          "local_name": "chsh_eq16_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq16_at29"
         },
         {
           "local_name": "chsh_eq17_at1",
@@ -6035,6 +6555,36 @@
           "full_name": "KamiHW.ChshPhases.chsh_eq17_at23"
         },
         {
+          "local_name": "chsh_eq17_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq17_at24"
+        },
+        {
+          "local_name": "chsh_eq17_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq17_at25"
+        },
+        {
+          "local_name": "chsh_eq17_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq17_at26"
+        },
+        {
+          "local_name": "chsh_eq17_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq17_at27"
+        },
+        {
+          "local_name": "chsh_eq17_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq17_at28"
+        },
+        {
+          "local_name": "chsh_eq17_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq17_at29"
+        },
+        {
           "local_name": "chsh_eq18_at1",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq18_at1"
@@ -6148,6 +6698,36 @@
           "local_name": "chsh_eq18_at23",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq18_at23"
+        },
+        {
+          "local_name": "chsh_eq18_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq18_at24"
+        },
+        {
+          "local_name": "chsh_eq18_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq18_at25"
+        },
+        {
+          "local_name": "chsh_eq18_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq18_at26"
+        },
+        {
+          "local_name": "chsh_eq18_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq18_at27"
+        },
+        {
+          "local_name": "chsh_eq18_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq18_at28"
+        },
+        {
+          "local_name": "chsh_eq18_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq18_at29"
         },
         {
           "local_name": "chsh_eq19_at1",
@@ -6265,6 +6845,36 @@
           "full_name": "KamiHW.ChshPhases.chsh_eq19_at23"
         },
         {
+          "local_name": "chsh_eq19_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq19_at24"
+        },
+        {
+          "local_name": "chsh_eq19_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq19_at25"
+        },
+        {
+          "local_name": "chsh_eq19_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq19_at26"
+        },
+        {
+          "local_name": "chsh_eq19_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq19_at27"
+        },
+        {
+          "local_name": "chsh_eq19_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq19_at28"
+        },
+        {
+          "local_name": "chsh_eq19_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq19_at29"
+        },
+        {
           "local_name": "chsh_eq20_at1",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq20_at1"
@@ -6378,6 +6988,36 @@
           "local_name": "chsh_eq20_at23",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq20_at23"
+        },
+        {
+          "local_name": "chsh_eq20_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq20_at24"
+        },
+        {
+          "local_name": "chsh_eq20_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq20_at25"
+        },
+        {
+          "local_name": "chsh_eq20_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq20_at26"
+        },
+        {
+          "local_name": "chsh_eq20_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq20_at27"
+        },
+        {
+          "local_name": "chsh_eq20_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq20_at28"
+        },
+        {
+          "local_name": "chsh_eq20_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq20_at29"
         },
         {
           "local_name": "chsh_eq21_at1",
@@ -6495,6 +7135,36 @@
           "full_name": "KamiHW.ChshPhases.chsh_eq21_at23"
         },
         {
+          "local_name": "chsh_eq21_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq21_at24"
+        },
+        {
+          "local_name": "chsh_eq21_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq21_at25"
+        },
+        {
+          "local_name": "chsh_eq21_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq21_at26"
+        },
+        {
+          "local_name": "chsh_eq21_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq21_at27"
+        },
+        {
+          "local_name": "chsh_eq21_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq21_at28"
+        },
+        {
+          "local_name": "chsh_eq21_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq21_at29"
+        },
+        {
           "local_name": "chsh_eq22_at1",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq22_at1"
@@ -6610,6 +7280,36 @@
           "full_name": "KamiHW.ChshPhases.chsh_eq22_at23"
         },
         {
+          "local_name": "chsh_eq22_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq22_at24"
+        },
+        {
+          "local_name": "chsh_eq22_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq22_at25"
+        },
+        {
+          "local_name": "chsh_eq22_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq22_at26"
+        },
+        {
+          "local_name": "chsh_eq22_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq22_at27"
+        },
+        {
+          "local_name": "chsh_eq22_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq22_at28"
+        },
+        {
+          "local_name": "chsh_eq22_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq22_at29"
+        },
+        {
           "local_name": "chsh_eq23_at1",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq23_at1"
@@ -6723,6 +7423,906 @@
           "local_name": "chsh_eq23_at23",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_eq23_at23"
+        },
+        {
+          "local_name": "chsh_eq23_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq23_at24"
+        },
+        {
+          "local_name": "chsh_eq23_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq23_at25"
+        },
+        {
+          "local_name": "chsh_eq23_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq23_at26"
+        },
+        {
+          "local_name": "chsh_eq23_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq23_at27"
+        },
+        {
+          "local_name": "chsh_eq23_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq23_at28"
+        },
+        {
+          "local_name": "chsh_eq23_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq23_at29"
+        },
+        {
+          "local_name": "chsh_eq24_at1",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at1"
+        },
+        {
+          "local_name": "chsh_eq24_at2",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at2"
+        },
+        {
+          "local_name": "chsh_eq24_at3",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at3"
+        },
+        {
+          "local_name": "chsh_eq24_at4",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at4"
+        },
+        {
+          "local_name": "chsh_eq24_at5",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at5"
+        },
+        {
+          "local_name": "chsh_eq24_at6",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at6"
+        },
+        {
+          "local_name": "chsh_eq24_at7",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at7"
+        },
+        {
+          "local_name": "chsh_eq24_at8",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at8"
+        },
+        {
+          "local_name": "chsh_eq24_at9",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at9"
+        },
+        {
+          "local_name": "chsh_eq24_at10",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at10"
+        },
+        {
+          "local_name": "chsh_eq24_at11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at11"
+        },
+        {
+          "local_name": "chsh_eq24_at12",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at12"
+        },
+        {
+          "local_name": "chsh_eq24_at13",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at13"
+        },
+        {
+          "local_name": "chsh_eq24_at14",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at14"
+        },
+        {
+          "local_name": "chsh_eq24_at15",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at15"
+        },
+        {
+          "local_name": "chsh_eq24_at16",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at16"
+        },
+        {
+          "local_name": "chsh_eq24_at17",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at17"
+        },
+        {
+          "local_name": "chsh_eq24_at18",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at18"
+        },
+        {
+          "local_name": "chsh_eq24_at19",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at19"
+        },
+        {
+          "local_name": "chsh_eq24_at20",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at20"
+        },
+        {
+          "local_name": "chsh_eq24_at21",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at21"
+        },
+        {
+          "local_name": "chsh_eq24_at22",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at22"
+        },
+        {
+          "local_name": "chsh_eq24_at23",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at23"
+        },
+        {
+          "local_name": "chsh_eq24_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at24"
+        },
+        {
+          "local_name": "chsh_eq24_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at25"
+        },
+        {
+          "local_name": "chsh_eq24_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at26"
+        },
+        {
+          "local_name": "chsh_eq24_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at27"
+        },
+        {
+          "local_name": "chsh_eq24_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at28"
+        },
+        {
+          "local_name": "chsh_eq24_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq24_at29"
+        },
+        {
+          "local_name": "chsh_eq25_at1",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at1"
+        },
+        {
+          "local_name": "chsh_eq25_at2",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at2"
+        },
+        {
+          "local_name": "chsh_eq25_at3",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at3"
+        },
+        {
+          "local_name": "chsh_eq25_at4",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at4"
+        },
+        {
+          "local_name": "chsh_eq25_at5",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at5"
+        },
+        {
+          "local_name": "chsh_eq25_at6",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at6"
+        },
+        {
+          "local_name": "chsh_eq25_at7",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at7"
+        },
+        {
+          "local_name": "chsh_eq25_at8",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at8"
+        },
+        {
+          "local_name": "chsh_eq25_at9",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at9"
+        },
+        {
+          "local_name": "chsh_eq25_at10",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at10"
+        },
+        {
+          "local_name": "chsh_eq25_at11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at11"
+        },
+        {
+          "local_name": "chsh_eq25_at12",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at12"
+        },
+        {
+          "local_name": "chsh_eq25_at13",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at13"
+        },
+        {
+          "local_name": "chsh_eq25_at14",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at14"
+        },
+        {
+          "local_name": "chsh_eq25_at15",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at15"
+        },
+        {
+          "local_name": "chsh_eq25_at16",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at16"
+        },
+        {
+          "local_name": "chsh_eq25_at17",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at17"
+        },
+        {
+          "local_name": "chsh_eq25_at18",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at18"
+        },
+        {
+          "local_name": "chsh_eq25_at19",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at19"
+        },
+        {
+          "local_name": "chsh_eq25_at20",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at20"
+        },
+        {
+          "local_name": "chsh_eq25_at21",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at21"
+        },
+        {
+          "local_name": "chsh_eq25_at22",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at22"
+        },
+        {
+          "local_name": "chsh_eq25_at23",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at23"
+        },
+        {
+          "local_name": "chsh_eq25_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at24"
+        },
+        {
+          "local_name": "chsh_eq25_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at25"
+        },
+        {
+          "local_name": "chsh_eq25_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at26"
+        },
+        {
+          "local_name": "chsh_eq25_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at27"
+        },
+        {
+          "local_name": "chsh_eq25_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at28"
+        },
+        {
+          "local_name": "chsh_eq25_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq25_at29"
+        },
+        {
+          "local_name": "chsh_eq26_at1",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at1"
+        },
+        {
+          "local_name": "chsh_eq26_at2",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at2"
+        },
+        {
+          "local_name": "chsh_eq26_at3",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at3"
+        },
+        {
+          "local_name": "chsh_eq26_at4",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at4"
+        },
+        {
+          "local_name": "chsh_eq26_at5",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at5"
+        },
+        {
+          "local_name": "chsh_eq26_at6",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at6"
+        },
+        {
+          "local_name": "chsh_eq26_at7",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at7"
+        },
+        {
+          "local_name": "chsh_eq26_at8",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at8"
+        },
+        {
+          "local_name": "chsh_eq26_at9",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at9"
+        },
+        {
+          "local_name": "chsh_eq26_at10",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at10"
+        },
+        {
+          "local_name": "chsh_eq26_at11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at11"
+        },
+        {
+          "local_name": "chsh_eq26_at12",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at12"
+        },
+        {
+          "local_name": "chsh_eq26_at13",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at13"
+        },
+        {
+          "local_name": "chsh_eq26_at14",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at14"
+        },
+        {
+          "local_name": "chsh_eq26_at15",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at15"
+        },
+        {
+          "local_name": "chsh_eq26_at16",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at16"
+        },
+        {
+          "local_name": "chsh_eq26_at17",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at17"
+        },
+        {
+          "local_name": "chsh_eq26_at18",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at18"
+        },
+        {
+          "local_name": "chsh_eq26_at19",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at19"
+        },
+        {
+          "local_name": "chsh_eq26_at20",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at20"
+        },
+        {
+          "local_name": "chsh_eq26_at21",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at21"
+        },
+        {
+          "local_name": "chsh_eq26_at22",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at22"
+        },
+        {
+          "local_name": "chsh_eq26_at23",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at23"
+        },
+        {
+          "local_name": "chsh_eq26_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at24"
+        },
+        {
+          "local_name": "chsh_eq26_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at25"
+        },
+        {
+          "local_name": "chsh_eq26_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at26"
+        },
+        {
+          "local_name": "chsh_eq26_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at27"
+        },
+        {
+          "local_name": "chsh_eq26_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at28"
+        },
+        {
+          "local_name": "chsh_eq26_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq26_at29"
+        },
+        {
+          "local_name": "chsh_eq27_at1",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at1"
+        },
+        {
+          "local_name": "chsh_eq27_at2",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at2"
+        },
+        {
+          "local_name": "chsh_eq27_at3",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at3"
+        },
+        {
+          "local_name": "chsh_eq27_at4",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at4"
+        },
+        {
+          "local_name": "chsh_eq27_at5",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at5"
+        },
+        {
+          "local_name": "chsh_eq27_at6",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at6"
+        },
+        {
+          "local_name": "chsh_eq27_at7",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at7"
+        },
+        {
+          "local_name": "chsh_eq27_at8",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at8"
+        },
+        {
+          "local_name": "chsh_eq27_at9",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at9"
+        },
+        {
+          "local_name": "chsh_eq27_at10",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at10"
+        },
+        {
+          "local_name": "chsh_eq27_at11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at11"
+        },
+        {
+          "local_name": "chsh_eq27_at12",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at12"
+        },
+        {
+          "local_name": "chsh_eq27_at13",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at13"
+        },
+        {
+          "local_name": "chsh_eq27_at14",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at14"
+        },
+        {
+          "local_name": "chsh_eq27_at15",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at15"
+        },
+        {
+          "local_name": "chsh_eq27_at16",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at16"
+        },
+        {
+          "local_name": "chsh_eq27_at17",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at17"
+        },
+        {
+          "local_name": "chsh_eq27_at18",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at18"
+        },
+        {
+          "local_name": "chsh_eq27_at19",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at19"
+        },
+        {
+          "local_name": "chsh_eq27_at20",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at20"
+        },
+        {
+          "local_name": "chsh_eq27_at21",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at21"
+        },
+        {
+          "local_name": "chsh_eq27_at22",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at22"
+        },
+        {
+          "local_name": "chsh_eq27_at23",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at23"
+        },
+        {
+          "local_name": "chsh_eq27_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at24"
+        },
+        {
+          "local_name": "chsh_eq27_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at25"
+        },
+        {
+          "local_name": "chsh_eq27_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at26"
+        },
+        {
+          "local_name": "chsh_eq27_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at27"
+        },
+        {
+          "local_name": "chsh_eq27_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at28"
+        },
+        {
+          "local_name": "chsh_eq27_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq27_at29"
+        },
+        {
+          "local_name": "chsh_eq28_at1",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at1"
+        },
+        {
+          "local_name": "chsh_eq28_at2",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at2"
+        },
+        {
+          "local_name": "chsh_eq28_at3",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at3"
+        },
+        {
+          "local_name": "chsh_eq28_at4",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at4"
+        },
+        {
+          "local_name": "chsh_eq28_at5",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at5"
+        },
+        {
+          "local_name": "chsh_eq28_at6",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at6"
+        },
+        {
+          "local_name": "chsh_eq28_at7",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at7"
+        },
+        {
+          "local_name": "chsh_eq28_at8",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at8"
+        },
+        {
+          "local_name": "chsh_eq28_at9",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at9"
+        },
+        {
+          "local_name": "chsh_eq28_at10",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at10"
+        },
+        {
+          "local_name": "chsh_eq28_at11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at11"
+        },
+        {
+          "local_name": "chsh_eq28_at12",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at12"
+        },
+        {
+          "local_name": "chsh_eq28_at13",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at13"
+        },
+        {
+          "local_name": "chsh_eq28_at14",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at14"
+        },
+        {
+          "local_name": "chsh_eq28_at15",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at15"
+        },
+        {
+          "local_name": "chsh_eq28_at16",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at16"
+        },
+        {
+          "local_name": "chsh_eq28_at17",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at17"
+        },
+        {
+          "local_name": "chsh_eq28_at18",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at18"
+        },
+        {
+          "local_name": "chsh_eq28_at19",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at19"
+        },
+        {
+          "local_name": "chsh_eq28_at20",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at20"
+        },
+        {
+          "local_name": "chsh_eq28_at21",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at21"
+        },
+        {
+          "local_name": "chsh_eq28_at22",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at22"
+        },
+        {
+          "local_name": "chsh_eq28_at23",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at23"
+        },
+        {
+          "local_name": "chsh_eq28_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at24"
+        },
+        {
+          "local_name": "chsh_eq28_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at25"
+        },
+        {
+          "local_name": "chsh_eq28_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at26"
+        },
+        {
+          "local_name": "chsh_eq28_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at27"
+        },
+        {
+          "local_name": "chsh_eq28_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at28"
+        },
+        {
+          "local_name": "chsh_eq28_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq28_at29"
+        },
+        {
+          "local_name": "chsh_eq29_at1",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at1"
+        },
+        {
+          "local_name": "chsh_eq29_at2",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at2"
+        },
+        {
+          "local_name": "chsh_eq29_at3",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at3"
+        },
+        {
+          "local_name": "chsh_eq29_at4",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at4"
+        },
+        {
+          "local_name": "chsh_eq29_at5",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at5"
+        },
+        {
+          "local_name": "chsh_eq29_at6",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at6"
+        },
+        {
+          "local_name": "chsh_eq29_at7",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at7"
+        },
+        {
+          "local_name": "chsh_eq29_at8",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at8"
+        },
+        {
+          "local_name": "chsh_eq29_at9",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at9"
+        },
+        {
+          "local_name": "chsh_eq29_at10",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at10"
+        },
+        {
+          "local_name": "chsh_eq29_at11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at11"
+        },
+        {
+          "local_name": "chsh_eq29_at12",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at12"
+        },
+        {
+          "local_name": "chsh_eq29_at13",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at13"
+        },
+        {
+          "local_name": "chsh_eq29_at14",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at14"
+        },
+        {
+          "local_name": "chsh_eq29_at15",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at15"
+        },
+        {
+          "local_name": "chsh_eq29_at16",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at16"
+        },
+        {
+          "local_name": "chsh_eq29_at17",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at17"
+        },
+        {
+          "local_name": "chsh_eq29_at18",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at18"
+        },
+        {
+          "local_name": "chsh_eq29_at19",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at19"
+        },
+        {
+          "local_name": "chsh_eq29_at20",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at20"
+        },
+        {
+          "local_name": "chsh_eq29_at21",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at21"
+        },
+        {
+          "local_name": "chsh_eq29_at22",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at22"
+        },
+        {
+          "local_name": "chsh_eq29_at23",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at23"
+        },
+        {
+          "local_name": "chsh_eq29_at24",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at24"
+        },
+        {
+          "local_name": "chsh_eq29_at25",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at25"
+        },
+        {
+          "local_name": "chsh_eq29_at26",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at26"
+        },
+        {
+          "local_name": "chsh_eq29_at27",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at27"
+        },
+        {
+          "local_name": "chsh_eq29_at28",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at28"
+        },
+        {
+          "local_name": "chsh_eq29_at29",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_eq29_at29"
         },
         {
           "local_name": "chsh_phase1_chsh_n00sq",
@@ -9828,6 +11428,816 @@
           "local_name": "chsh_phase23_chsh_phase",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshPhases.chsh_phase23_chsh_phase"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_n00sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_n00sq"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_n01sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_n01sq"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_n10sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_n10sq"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_n11sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_n11sq"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_d00sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_d00sq"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_d01sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_d01sq"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_d10sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_d10sq"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_d11sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_d11sq"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_A_pos",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_A_pos"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_A_neg_a",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_A_neg_a"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_A_neg_b",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_A_neg_b"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_B_pos",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_B_pos"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_B_neg_a",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_B_neg_a"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_B_neg_b",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_B_neg_b"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_d00d01",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_d00d01"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_n10n11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_n10n11"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_d10d11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_d10d11"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_n00n01",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_n00n01"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_abs_C1",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_abs_C1"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_abs_C2",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_abs_C2"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_C_sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_C_sq"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_A_times_B",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_A_times_B"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_check_result",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_check_result"
+        },
+        {
+          "local_name": "chsh_phase24_pc",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_pc"
+        },
+        {
+          "local_name": "chsh_phase24_err",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_err"
+        },
+        {
+          "local_name": "chsh_phase24_error_code",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_error_code"
+        },
+        {
+          "local_name": "chsh_phase24_chsh_phase",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase24_chsh_phase"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_n00sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_n00sq"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_n01sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_n01sq"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_n10sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_n10sq"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_n11sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_n11sq"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_d00sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_d00sq"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_d01sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_d01sq"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_d10sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_d10sq"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_d11sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_d11sq"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_A_pos",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_A_pos"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_A_neg_a",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_A_neg_a"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_A_neg_b",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_A_neg_b"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_B_pos",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_B_pos"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_B_neg_a",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_B_neg_a"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_B_neg_b",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_B_neg_b"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_d00d01",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_d00d01"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_n10n11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_n10n11"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_d10d11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_d10d11"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_n00n01",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_n00n01"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_abs_C1",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_abs_C1"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_abs_C2",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_abs_C2"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_C_sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_C_sq"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_A_times_B",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_A_times_B"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_check_result",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_check_result"
+        },
+        {
+          "local_name": "chsh_phase25_pc",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_pc"
+        },
+        {
+          "local_name": "chsh_phase25_err",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_err"
+        },
+        {
+          "local_name": "chsh_phase25_error_code",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_error_code"
+        },
+        {
+          "local_name": "chsh_phase25_chsh_phase",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase25_chsh_phase"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_n00sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_n00sq"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_n01sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_n01sq"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_n10sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_n10sq"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_n11sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_n11sq"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_d00sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_d00sq"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_d01sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_d01sq"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_d10sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_d10sq"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_d11sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_d11sq"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_A_pos",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_A_pos"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_A_neg_a",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_A_neg_a"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_A_neg_b",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_A_neg_b"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_B_pos",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_B_pos"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_B_neg_a",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_B_neg_a"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_B_neg_b",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_B_neg_b"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_d00d01",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_d00d01"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_n10n11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_n10n11"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_d10d11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_d10d11"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_n00n01",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_n00n01"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_abs_C1",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_abs_C1"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_abs_C2",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_abs_C2"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_C_sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_C_sq"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_A_times_B",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_A_times_B"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_check_result",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_check_result"
+        },
+        {
+          "local_name": "chsh_phase26_pc",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_pc"
+        },
+        {
+          "local_name": "chsh_phase26_err",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_err"
+        },
+        {
+          "local_name": "chsh_phase26_error_code",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_error_code"
+        },
+        {
+          "local_name": "chsh_phase26_chsh_phase",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase26_chsh_phase"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_n00sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_n00sq"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_n01sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_n01sq"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_n10sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_n10sq"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_n11sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_n11sq"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_d00sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_d00sq"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_d01sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_d01sq"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_d10sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_d10sq"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_d11sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_d11sq"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_A_pos",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_A_pos"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_A_neg_a",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_A_neg_a"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_A_neg_b",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_A_neg_b"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_B_pos",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_B_pos"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_B_neg_a",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_B_neg_a"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_B_neg_b",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_B_neg_b"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_d00d01",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_d00d01"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_n10n11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_n10n11"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_d10d11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_d10d11"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_n00n01",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_n00n01"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_abs_C1",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_abs_C1"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_abs_C2",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_abs_C2"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_C_sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_C_sq"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_A_times_B",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_A_times_B"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_check_result",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_check_result"
+        },
+        {
+          "local_name": "chsh_phase27_pc",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_pc"
+        },
+        {
+          "local_name": "chsh_phase27_err",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_err"
+        },
+        {
+          "local_name": "chsh_phase27_error_code",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_error_code"
+        },
+        {
+          "local_name": "chsh_phase27_chsh_phase",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase27_chsh_phase"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_n00sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_n00sq"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_n01sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_n01sq"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_n10sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_n10sq"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_n11sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_n11sq"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_d00sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_d00sq"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_d01sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_d01sq"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_d10sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_d10sq"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_d11sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_d11sq"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_A_pos",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_A_pos"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_A_neg_a",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_A_neg_a"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_A_neg_b",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_A_neg_b"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_B_pos",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_B_pos"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_B_neg_a",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_B_neg_a"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_B_neg_b",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_B_neg_b"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_d00d01",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_d00d01"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_n10n11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_n10n11"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_d10d11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_d10d11"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_n00n01",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_n00n01"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_abs_C1",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_abs_C1"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_abs_C2",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_abs_C2"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_C_sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_C_sq"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_A_times_B",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_A_times_B"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_check_result",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_check_result"
+        },
+        {
+          "local_name": "chsh_phase28_pc",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_pc"
+        },
+        {
+          "local_name": "chsh_phase28_err",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_err"
+        },
+        {
+          "local_name": "chsh_phase28_error_code",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_error_code"
+        },
+        {
+          "local_name": "chsh_phase28_chsh_phase",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase28_chsh_phase"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_n00sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_n00sq"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_n01sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_n01sq"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_n10sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_n10sq"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_n11sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_n11sq"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_d00sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_d00sq"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_d01sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_d01sq"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_d10sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_d10sq"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_d11sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_d11sq"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_A_pos",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_A_pos"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_A_neg_a",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_A_neg_a"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_A_neg_b",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_A_neg_b"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_B_pos",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_B_pos"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_B_neg_a",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_B_neg_a"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_B_neg_b",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_B_neg_b"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_d00d01",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_d00d01"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_n10n11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_n10n11"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_d10d11",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_d10d11"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_n00n01",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_n00n01"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_abs_C1",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_abs_C1"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_abs_C2",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_abs_C2"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_C_sq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_C_sq"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_A_times_B",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_A_times_B"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_check_result",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_check_result"
+        },
+        {
+          "local_name": "chsh_phase29_pc",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_pc"
+        },
+        {
+          "local_name": "chsh_phase29_err",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_err"
+        },
+        {
+          "local_name": "chsh_phase29_error_code",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_error_code"
+        },
+        {
+          "local_name": "chsh_phase29_chsh_phase",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshPhases.chsh_phase29_chsh_phase"
         }
       ],
       "unaddressable": []

@@ -7,7 +7,14 @@ Derived from the Fully Machine-Checked Coq Corpus
                   Devon Thiele
 
                 September 2026
-The Thiele Machine is an argument about what an account of computation should
+Before the specification. I don’t do math by hand. I think in shapes, directions, and
+connections, and my part of this work was to see where things had to fit, to direct, and to refuse
+what didn’t fit. This document is the translation. Language models wrote the formal statements
+and the proofs, Coq checked every one of them, and I read the statements to make sure they say
+what the shape says. So nothing below is in my voice, on purpose. It’s the reference layer: exact
+statements, exact premises, and where each one lives. If you want the pictures, the monograph
+starts with them. If you want to know exactly what is claimed, it’s here.
+The Thiele Machine is an argument about what an account of computation should
 preserve.
     Certification is one concrete witness of a broader investigation of structural state, observation,
 and cost. The abstract laws, theorems, and executable realizations belong to that investigation.
@@ -23,17 +30,17 @@ The status of each result is stated below.
 
 
                                                   1
-                                            Abstract
+                                             Abstract
 
 This is the complete mathematical specification of the Thiele Machine: a formal model of
 computation where structural information carries an explicit, monotone cost µ that starts at
 zero and never decreases. Everything here is built from the machine-checked Coq corpus. You
 can reconstruct the machine from what’s in this document alone.
     Coq establishes that conclusions follow from axioms. It does not establish that axioms model
-physical reality. That distinction matters and I keep it explicit throughout. Every result is
-tagged as one of three types: (S) structural theorems about the machine as a mathematical
-object, (C) conditional derivations where a physics conclusion follows from a stated axiom, and
-(R) consistency relations that check internal coherence but are not independent predictions.
+physical reality. That distinction is kept explicit throughout. Every result is tagged as one of three
+types: (S) structural theorems about the machine as a mathematical object, (C) conditional
+derivations where a physics conclusion follows from a stated axiom, and (R) consistency relations
+that check internal coherence but are not independent predictions.
     The core claims are structural (S): No Free Insight; µ-conservation; µ-hierarchy; µ-ledger
 necessity (five-way independence classification); categorical separation; strict Turing√subsumption;
 the classical CHSH bound (|S| ≤ 2); the algebraic Tsirelson bound (|S| ≤ 2 2); and the
@@ -175,7 +182,7 @@ quantum axiom).
    25.2 Falsify the Classical CHSH Bound . . . . . . . . . . . . . . . . . . . . . . . . . .        57
    25.3 Falsify the Biconditional . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   57
    25.4 Falsify the µ-Hierarchy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   57
-   25.5 What I Don’t Know . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       57
+   25.5 Open Questions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    57
 
 A Proof File Index                                                                                  59
 
@@ -191,42 +198,40 @@ Introduction
 
 The Thiele Machine makes the cost of structure explicit. Ordinary step-counting assigns one
 time unit per transition; it does not specify this structural-cost schedule. The Thiele Machine
-assigns a specific cost µ to every operation that extracts or asserts structural information. That’s
-the design. Here is where it goes.
+assigns a specific cost µ to every operation that extracts or asserts structural information. The
+chapters below lay out the consequences.
     The central claim, proven formally: specified certification and structural-entitlement events
 have the cost floors proved under their stated hypotheses. Combined with explicit physical
 axioms (linearity, information conservation), that constraint produces structural results that
 parallel quantum mechanics and thermodynamics. Each result’s status, whether a structural
 theorem (S), a conditional derivation (C), or a consistency relation (R), is marked directly.
-Nothing is hidden.
     The document is organized as:
-   1. Foundations: State space, instruction set, operational semantics.
-   2. Core Theorems: No Free Insight, µ-ledger necessity, µ-Chaitin, µ-conservation.
-   3. Computation: Strict Turing subsumption, oracle pricing as instantiation of universal
-      NFI, µ-complexity classes, µ-cost hierarchy.
-   4. Symmetry & Conservation: Gauge action, Noether’s theorem, receipts.
-   5. Quantum / CHSH algebra: Tsirelson bound (algebraic), CHSH classical bound,
-      biconditional column-contractive ⇐⇒ NPA-realizable, three-tier observation taxonomy.
-      Pure polynomial arithmetic, zero physics axioms.
-   6. Conditional physics: Born rule (under linearity), unitarity, no-cloning, purification,
-      Landauer (with second-law assumed as a record field), affine EFE family. Each is conditional
-      on stated axioms in its own file.
-   7. Discrete Geometry: Restricted angle-defect identity with B = 3χ (not classical Gauss-
-      Bonnet); 4D simplicial complex and Einstein-tensor definitions (reference exploration only,
-      vacuum case is a 0 = 0 consistency check).
-   8. Meta-Theory: Three-layer Coq/Python/RTL observable contract, categorical structure.
-   9. Predictions: Falsifiable predictions tied to specific Coq-verifiable claims.
+  1. Foundations: State space, instruction set, operational semantics.
+  2. Core Theorems: No Free Insight, µ-ledger necessity, µ-Chaitin, µ-conservation.
+  3. Computation: Strict Turing subsumption, oracle pricing as instantiation of universal
+     NFI, µ-complexity classes, µ-cost hierarchy.
+  4. Symmetry & Conservation: Gauge action, Noether’s theorem, receipts.
+  5. Quantum / CHSH algebra: Tsirelson bound (algebraic), CHSH classical bound,
+     biconditional column-contractive ⇐⇒ NPA-realizable, three-tier observation taxonomy.
+     Pure polynomial arithmetic, zero physics axioms.
+  6. Conditional physics: Born rule (under linearity), unitarity, no-cloning, purification,
+     Landauer (with second-law assumed as a record field), affine EFE family. Each is conditional
+     on stated axioms in its own file.
+  7. Discrete Geometry: Restricted angle-defect identity with B = 3χ (not classical Gauss-
+     Bonnet); 4D simplicial complex and Einstein-tensor definitions (reference exploration only,
+     vacuum case is a 0 = 0 consistency check).
+  8. Meta-Theory: Three-layer Coq/Python/RTL observable contract, categorical structure.
+  9. Predictions: Falsifiable predictions tied to specific Coq-verifiable claims.
 
 
 1.1     Epistemological Framework
 Formal verification (Coq) establishes that conclusions follow logically from axioms. It does not
 establish that axioms model physical reality. This distinction is critical for evaluating the physics
 claims in Parts V–VIII.
+    Every result in this specification falls into one of three categories:
 
                                                  4
-   Every result in this specification falls into one of three categories:
-
-(S) Structural Theorems about the Thiele Machine as a mathematical object. Their conclu-
+(S) Structural Theorems about the Thiele Machine as a mathematical object. Their conclu-
      sions follow from the definitions, explicit hypotheses, and reported library assumptions.
      Examples: µ-conservation, gauge invariance, confluence, halting undecidability, strict
      Turing subsumption.
@@ -247,7 +252,7 @@ assumptions. See Appendix B for the complete classification table.
 
 
 
-                                                 5
+                                                5
 Chapter 2
 
 Notation and Conventions
@@ -528,12 +533,12 @@ machine is the law, not the instruction set.
     The active implementation exposes a 51-opcode ISA: 14 arithmetic/data, 8 memory and
 control flow, 7 I/O and tensor, 4 partition operations, 3 logic and certification, 8 witness and
 certification (CHSH_TRIAL, CERTIFY, REVEAL, CHSH_LASSERT, and the four Q1+AB check variants),
-7 categorical morphism operations (14 + 8 + 7 + 4 + 3 + 8 + 7 = 51). 47 of the 51 are synth-realized;
-the four Q1+AB variants live in the Kami HW abstraction with kernel-equivalence proven but
-are excluded from the synthesized Verilog by silicon budget. This condensed mathematical
-specification presents the core instruction families relevant to the kernel semantics and cost
-model. Every instruction carries an explicit ∆µ parameter; the function instruction_cost
-extracts it.
+7 categorical morphism operations (14 + 8 + 7 + 4 + 3 + 8 + 7 = 51). 47 of the 51 are synth-
+realized. The four Q1+AB variants live in the Kami HW abstraction with kernel-equivalence
+proven; their hardware has not been built, so they are not in the synthesized Verilog. This
+condensed mathematical specification presents the core instruction families relevant to the kernel
+semantics and cost model. Every instruction carries an explicit ∆µ parameter; the function
+instruction_cost extracts it.
 
 
 4.3     Cost Model
@@ -2447,7 +2452,7 @@ Find k ≥ 1 and a trace reaching vm_certified = true and vm_mu ≥ k with total
 < k. This contradicts mu_hierarchy_theorem.
 
 
-25.5     What I Don’t Know
+25.5     Open Questions
   • Physical interpretation of µ: Whether the µ ledger corresponds to thermodynamic
     entropy in a physical Thiele Machine is an open empirical question. The formal development
     is consistent with Landauer’s principle. The calibration hypothesis is named (mu_landauer_

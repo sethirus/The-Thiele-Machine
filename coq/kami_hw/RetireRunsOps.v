@@ -27,11 +27,11 @@ Proof. intros b H. exact (runs_one b _ _ (live_step_selected b H)). Qed.
 
 Theorem chsh_lassert_runs : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 (b : HWB),
   step_fetched b = chsh_lassert_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false -> hw_live b ->
-  Busy_runs (step_next b) (chsh_iter 23 (step_next b)) 23.
+  Busy_runs (step_next b) (chsh_iter 29 (step_next b)) 29.
 Proof.
   intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb Hlive.
   destruct (chsh_run_result (step_next b) (step_chsh_lassert_chsh_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)) as [Hph _].
-  exact (chsh_runs 23 (step_next b) (step_chsh_lassert_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)
+  exact (chsh_runs 29 (step_next b) (step_chsh_lassert_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)
     (step_chsh_lassert_mc_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)
     (fun m Hm => eq_ind_r (fun x => x <> natToWord 5 0) (natToWord5_succ_ne0 m ltac:(lia)) (Hph m ltac:(lia)))).
 Qed.

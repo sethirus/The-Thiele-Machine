@@ -196,19 +196,18 @@ jobs:
     # and produces its own bitstream end-to-end.
     #
     # CHSH_LASSERT's column_contractive_check_witness performs 22 wide
-    # integer multiplications. In Kami it's implemented as a 23-phase FSM
+    # integer multiplications. In Kami it's implemented as a 29-phase FSM
     # (`chsh_lassert_fsm` rule in coq/kami_hw/ThieleCPUCore.v) that
-    # time-shares one 384×384 SignUU multiplier across the phases, so only
-    # one wide multiply is live per cycle. The Coq spec is still
+    # time-shares one 128×128 multiplier across the phases, so only one
+    # multiply is live per cycle; the two 256×256 products are each summed
+    # from four 128×128 partial products. The Coq spec is still
     # single-step; multi-cycle execution is a Kami-implementation detail
     # invisible to the spec, same pattern as instr_lassert. synth_xc7.ys
-    # maps that multiplier onto DSP48E1 slices and the module tensor store
-    # is a LUT-RAM RegFile. Built from LUTs and flip-flops instead, the
-    # design needs about 160K LUTs and nextpnr-xilinx cannot finish
-    # routing within this job's limit. The synthesis driver uses nextpnr's
-    # `--no-tmdriv` mode so placement effort goes to routability; the
-    # uploaded nextpnr log reports the achieved frequency against the
-    # 12 MHz target.
+    # builds the multiplier from LUTs (`-nodsp`) and the module tensor store
+    # is a LUT-RAM RegFile, for about 60K LUTs in all. The synthesis driver
+    # uses nextpnr's `--no-tmdriv` mode so placement effort goes to
+    # routability; the uploaded nextpnr log reports the achieved frequency
+    # against the 12 MHz target.
     # A bitstream-generation failure must fail the workflow; the default
     # continue-on-error policy is intentionally strict.
     # Keep a hard safety cap well above the expected runtime.
