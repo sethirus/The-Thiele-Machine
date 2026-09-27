@@ -32,7 +32,7 @@ def generate():
     ideal = {}
 
     def magnitude(base, m):
-        """(ideal term, rewrite tactics) for the 256-bit magnitude abs_C, abs_A
+        """(ideal term, rewrite tactics) for the 134-bit magnitude abs_C, abs_A
         or abs_B read at state m."""
         if base == 'abs_C':
             parts = [ideal['chsh_abs_C1'], ideal['chsh_abs_C2']]

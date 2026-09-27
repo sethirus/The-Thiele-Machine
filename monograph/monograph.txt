@@ -4992,11 +4992,12 @@ synthesis pipeline I use: yosys does the gate-level synthesis, nextpnr-xilinx do
 place-and-route, and prjxray’s xc7frames2bit produces the bitstream the chip reads
 to configure itself.
 
-CI (Full) runs synthesis, simulation, and bitstream generation. A resource, timing,
-or bitstream report only counts for the exact RTL and tool versions recorded with
-it. Compiling the Coq proofs doesn’t measure changed RTL. Any physical claim
-about the current design needs freshly regenerated pipeline artifacts tied to the source
-identity in Section 20.1.
+CI (Full) runs synthesis, simulation, and bitstream generation. I don’t own a Genesys 2.
+CI routes the design and writes the bitstream, and no board has loaded it yet. A
+resource, timing, or bitstream report only counts for the exact RTL and tool versions
+recorded with it. Compiling the Coq proofs doesn’t measure changed RTL. Any
+physical claim about the current design needs freshly regenerated pipeline artifacts
+tied to the source identity in Section 20.1.
 
 The kernel proofs are parametric in REG_COUNT and MEM_SIZE, so the same proofs
 apply at any size constants the design picks. This part was a proof of existence on
@@ -5025,14 +5026,14 @@ checks that premise at every visited state. This is the intermediate Coq model s
 separate from physical clock transitions in ThieleCPUCore.v.
 
    • The default branch of WFDrivenPrecondition is True. It adds no instruction-
-     specific premise to this intermediate model equality.
 
 
 
                                           101
-The Thiele Machine                                          Devon Thiele • September 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
+      specific premise to this intermediate model equality.
    • CALL and RET require WellFormedSnapshot, with a PC bound for CALL.
      CHSH_TRIAL requires Boolean operands. LASSERT requires agreement with
      its memory header. Tensor access requires valid indices, and TENSOR_GET also
@@ -5075,12 +5076,12 @@ filter, and the full endpoint/region representation contract remains an obligati
 broader physical correspondence claim. The RTL normalizes the newly allocated pair
 range, retaining each pair’s last occurrence as the software’s nodup does. Allocation
 first requires room for the raw intermediate list; a normalized result fitting the table
-does not guarantee admission when the raw list exceeds it.
-
 
                                           102
 The Thiele Machine                                           Devon Thiele • September 2026
 
+
+does not guarantee admission when the raw list exceeds it.
 
 The inventory arithmetic rtl_coverage_partition is not a proof of these repre-
 sentation obligations. The 47 synthesized / four nonsynthesized distinction describes

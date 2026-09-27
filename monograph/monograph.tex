@@ -2724,6 +2724,8 @@ The hardware has:
 The Verilog is the hardware artifact. The FPGA is whatever I could put it on for free. The current target is the Xilinx Kintex-7 \texttt{xc7k325tffg900-2} on the Digilent Genesys~2: the smallest fully-open-toolchain part the design still fits comfortably after the multi-cycle \texttt{CHSH\_LASSERT} witness checker landed. Section~\ref{sec:vocab} explains the synthesis pipeline I use: yosys does the gate-level synthesis, nextpnr-xilinx does the place-and-route, and prjxray's \texttt{xc7frames2bit} produces the bitstream the chip reads to configure itself.
 
 CI (Full) runs synthesis, simulation, and bitstream generation.
+I don't own a Genesys~2. CI routes the design and writes the bitstream, and
+no board has loaded it yet.
 A resource, timing, or bitstream report only counts for the exact RTL and
 tool versions recorded with it. Compiling the Coq proofs doesn't measure
 changed RTL. Any physical claim about the current design needs freshly
