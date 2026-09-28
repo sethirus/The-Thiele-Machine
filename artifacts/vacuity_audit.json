@@ -7099,386 +7099,6 @@
       "status": "ok"
     },
     {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Lemma",
-      "line": 58,
-      "name": "Qabs_bound",
-      "probe_a": {
-        "coq_stderr_tail": "adpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__Qabs_bound__a.v\", line 3, characters 51-52:\nError: The reference Q was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__Qabs_bound__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "adpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__Qabs_bound__b.v\", line 3, characters 51-52:\nError: The reference Q was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__Qabs_bound__b.v",
-        "succeeded": false
-      },
-      "statement": "forall x y : Q, Qabs x <= y -> -y <= x /\\ x <= y",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Theorem",
-      "line": 66,
-      "name": "chsh_bound_4",
-      "probe_a": {
-        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_bound_4__a.v\", line 3, characters 64-68:\nError: The reference Qabs was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_bound_4__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_bound_4__b.v\", line 3, characters 64-68:\nError: The reference Qabs was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_bound_4__b.v",
-        "succeeded": false
-      },
-      "statement": "forall c : Correlators, Qabs (E00 c) <= 1 /\\ Qabs (E01 c) <= 1 /\\ Qabs (E10 c) <= 1 /\\ Qabs (E11 c) <= 1 -> Qabs (S_from_correlators c) <= 4",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Theorem",
-      "line": 110,
-      "name": "symmetric_tsirelson_bound",
-      "probe_a": {
-        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_tsirelson_bound__a.v\", line 3, characters 158-159:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_tsirelson_bound__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_tsirelson_bound__b.v\", line 3, characters 158-159:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_tsirelson_bound__b.v",
-        "succeeded": false
-      },
-      "statement": "forall e : Q, 0 <= e -> (exists t : Q, 0 <= minor_3x3 t e e /\\ 0 <= minor_3x3 t e (-e)) -> 4 * e <= (5657#2000)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Theorem",
-      "line": 135,
-      "name": "tsirelson_from_algebraic_coherence",
-      "probe_a": {
-        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_from_algebraic_coherence__a.v\", line 3, characters 114-118:\nError: The reference Qabs was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_from_algebraic_coherence__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_from_algebraic_coherence__b.v\", line 3, characters 114-118:\nError: The reference Qabs was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_from_algebraic_coherence__b.v",
-        "succeeded": false
-      },
-      "statement": "forall c : Correlators, algebraically_coherent c -> Qabs (S_from_correlators c) <= 4",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Theorem",
-      "line": 155,
-      "name": "algebraic_max_not_coherent",
-      "probe_a": {
-        "coq_stderr_tail": "end\n                         end\n                       for\n                       add) y (BinNums.xO (mul p y))\n                  | BinNums.xO p => BinNums.xO (mul p y)\n                  | BinNums.xH => y\n                  end) x' BinNums.xH)\n        end\n      with\n      | BinNums.Z0 => Eq\n      | BinNums.Zpos _ => Lt\n      | BinNums.Zneg _ => Gt\n      end = Gt -> False)) -> False\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__algebraic_max_not_coherent__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__algebraic_max_not_coherent__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__algebraic_max_not_coherent__b.v",
-        "succeeded": false
-      },
-      "statement": "~ algebraically_coherent max_trace",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Lemma",
-      "line": 178,
-      "name": "sum_6_squares_nonneg",
-      "probe_a": {
-        "coq_stderr_tail": "esystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__sum_6_squares_nonneg__a.v\", line 3, characters 69-70:\nError: The reference Q was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__sum_6_squares_nonneg__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "esystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__sum_6_squares_nonneg__b.v\", line 3, characters 69-70:\nError: The reference Q was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__sum_6_squares_nonneg__b.v",
-        "succeeded": false
-      },
-      "statement": "forall p q r s t u : Q, 0 <= p*p + q*q + r*r + s*s + t*t + u*u",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Lemma",
-      "line": 193,
-      "name": "cauchy_schwarz_chsh",
-      "probe_a": {
-        "coq_stderr_tail": "lesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__cauchy_schwarz_chsh__a.v\", line 3, characters 64-65:\nError: The reference Q was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__cauchy_schwarz_chsh__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "lesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__cauchy_schwarz_chsh__b.v\", line 3, characters 64-65:\nError: The reference Q was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__cauchy_schwarz_chsh__b.v",
-        "succeeded": false
-      },
-      "statement": "forall a b c d : Q, (a + b + c - d) * (a + b + c - d) <= 4 * (a*a + b*b + c*c + d*d)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Lemma",
-      "line": 204,
-      "name": "correlation_squares_bound",
-      "probe_a": {
-        "coq_stderr_tail": "em,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__correlation_squares_bound__a.v\", line 3, characters 78-79:\nError: The reference Q was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__correlation_squares_bound__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "em,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__correlation_squares_bound__b.v\", line 3, characters 78-79:\nError: The reference Q was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__correlation_squares_bound__b.v",
-        "succeeded": false
-      },
-      "statement": "forall e00 e01 e10 e11 : Q, Qabs e00 <= 1 -> Qabs e01 <= 1 -> Qabs e10 <= 1 -> Qabs e11 <= 1 -> e00*e00 + e01*e01 + e10*e10 + e11*e11 <= 4",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Lemma",
-      "line": 218,
-      "name": "chsh_weak_bound",
-      "probe_a": {
-        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_weak_bound__a.v\", line 3, characters 68-69:\nError: The reference Q was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_weak_bound__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_weak_bound__b.v\", line 3, characters 68-69:\nError: The reference Q was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_weak_bound__b.v",
-        "succeeded": false
-      },
-      "statement": "forall e00 e01 e10 e11 : Q, Qabs e00 <= 1 -> Qabs e01 <= 1 -> Qabs e10 <= 1 -> Qabs e11 <= 1 -> (e00 + e01 + e10 - e11) * (e00 + e01 + e10 - e11) <= 16",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Lemma",
-      "line": 230,
-      "name": "chsh_squared_bound_from_correlations",
-      "probe_a": {
-        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_squared_bound_from_correlations__a.v\", line 3, characters 89-90:\nError: The reference Q was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_squared_bound_from_correlations__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_squared_bound_from_correlations__b.v\", line 3, characters 89-90:\nError: The reference Q was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_squared_bound_from_correlations__b.v",
-        "succeeded": false
-      },
-      "statement": "forall e00 e01 e10 e11 : Q, Qabs e00 <= 1 -> Qabs e01 <= 1 -> Qabs e10 <= 1 -> Qabs e11 <= 1 -> e00*e00 + e01*e01 + e10*e10 + e11*e11 <= 2 -> (e00 + e01 + e10 - e11) * (e00 + e01 + e10 - e11) <= 8",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Lemma",
-      "line": 247,
-      "name": "symmetric_minor_implies_sum_bound",
-      "probe_a": {
-        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_minor_implies_sum_bound__a.v\", line 3, characters 72-73:\nError: The reference Q was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_minor_implies_sum_bound__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_minor_implies_sum_bound__b.v\", line 3, characters 72-73:\nError: The reference Q was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_minor_implies_sum_bound__b.v",
-        "succeeded": false
-      },
-      "statement": "forall e : Q, 0 <= minor_3x3 0 e e -> 4 * (e*e) <= 2",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Theorem",
-      "line": 259,
-      "name": "symmetric_case_implies_tsirelson",
-      "probe_a": {
-        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_case_implies_tsirelson__a.v\", line 3, characters 161-162:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_case_implies_tsirelson__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_case_implies_tsirelson__b.v\", line 3, characters 161-162:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_case_implies_tsirelson__b.v",
-        "succeeded": false
-      },
-      "statement": "forall e : Q, Qabs e <= 1 -> 0 <= minor_3x3 0 e e -> 0 <= minor_3x3 0 e (-e) -> Qabs (4 * e) <= (5657#2000)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Theorem",
-      "line": 276,
-      "name": "chsh_general_bound",
-      "probe_a": {
-        "coq_stderr_tail": "system,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_general_bound__a.v\", line 3, characters 70-74:\nError: The reference Qabs was not found in the current environment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_general_bound__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "system,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_general_bound__b.v\", line 3, characters 70-74:\nError: The reference Qabs was not found in the current environment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_general_bound__b.v",
-        "succeeded": false
-      },
-      "statement": "forall c : Correlators, Qabs (E00 c) <= 1 -> Qabs (E01 c) <= 1 -> Qabs (E10 c) <= 1 -> Qabs (E11 c) <= 1 -> Qabs (S_from_correlators c) <= 4",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Lemma",
-      "line": 298,
-      "name": "tsirelson_config_S",
-      "probe_a": {
-        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_config_S__a.v\", line 3, characters 101-102:\nError: Syntax error: [term] expected after '=' (in [term]).",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_config_S__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_config_S__b.v\", line 3, characters 101-102:\nError: Syntax error: [term] expected after '=' (in [term]).",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_config_S__b.v",
-        "succeeded": false
-      },
-      "statement": "forall e : Q, S_from_correlators (tsirelson_config e) == 4 * e",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Lemma",
-      "line": 320,
-      "name": "tsirelson_achieving_coherent",
-      "probe_a": {
-        "coq_stderr_tail": "end\n                         end\n                       for\n                       add) y (BinNums.xO (mul p y))\n                  | BinNums.xO p => BinNums.xO (mul p y)\n                  | BinNums.xH => y\n                  end) x' BinNums.xH)\n        end\n      with\n      | BinNums.Z0 => Eq\n      | BinNums.Zpos _ => Lt\n      | BinNums.Zneg _ => Gt\n      end = Gt -> False))\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_achieving_coherent__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "verriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_achieving_coherent__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_achieving_coherent__b.v",
-        "succeeded": false
-      },
-      "statement": "algebraically_coherent tsirelson_achieving",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Lemma",
-      "line": 335,
-      "name": "tsirelson_achieving_value",
-      "probe_a": {
-        "coq_stderr_tail": "esystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_achieving_value__a.v\", line 3, characters 93-94:\nError: Syntax error: [term] expected after '=' (in [term]).",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_achieving_value__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "esystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_achieving_value__b.v\", line 3, characters 93-94:\nError: Syntax error: [term] expected after '=' (in [term]).",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_achieving_value__b.v",
-        "succeeded": false
-      },
-      "statement": "S_from_correlators tsirelson_achieving == (28284#10000)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Theorem",
-      "line": 343,
-      "name": "tsirelson_bound_tight",
-      "probe_a": {
-        "coq_stderr_tail": "]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_bound_tight__a.v\", line 3, characters 131-132:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_bound_tight__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_bound_tight__b.v\", line 3, characters 131-132:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_bound_tight__b.v",
-        "succeeded": false
-      },
-      "statement": "exists c : Correlators, algebraically_coherent c /\\ S_from_correlators c >= (28284#10000)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Theorem",
-      "line": 361,
-      "name": "algebraically_coherent_tsirelson_general",
-      "probe_a": {
-        "coq_stderr_tail": "nd to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_general__a.v\", line 3, characters 121-141:\nError:\nIn environment\nc : Correlators\nThe term \"S_from_correlators c\" has type \"QArith_base.Q\"\nwhile it is expected to have type \"nat\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_general__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "nd to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_general__b.v\", line 3, characters 121-141:\nError:\nIn environment\nc : Correlators\nThe term \"S_from_correlators c\" has type \"QArith_base.Q\"\nwhile it is expected to have type \"nat\".",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_general__b.v",
-        "succeeded": false
-      },
-      "statement": "forall c : Correlators, algebraically_coherent c -> (S_from_correlators c) * (S_from_correlators c) <= 8",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/category/AlgebraicCoherence.v",
-      "kind": "Corollary",
-      "line": 379,
-      "name": "algebraically_coherent_tsirelson_abs",
-      "probe_a": {
-        "coq_stderr_tail": "kspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_abs__a.v\", line 3, characters 152-153:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_abs__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "kspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_abs__b.v\", line 3, characters 152-153:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_abs__b.v",
-        "succeeded": false
-      },
-      "statement": "forall c : Correlators, algebraically_coherent c -> Qabs (S_from_correlators c) <= (5657#2000)",
-      "status": "ok"
-    },
-    {
       "file": "coq/kernel/curvature/PhysicsClosure.v",
       "kind": "Theorem",
       "line": 29,
@@ -11696,6 +11316,386 @@
         "succeeded": false
       },
       "statement": "forall k, k >= 1 -> exists fuel proof_script, certifies_k_claims k fuel proof_script /\\ trace_mu_cost fuel proof_script init_state = k",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Lemma",
+      "line": 58,
+      "name": "Qabs_bound",
+      "probe_a": {
+        "coq_stderr_tail": "adpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__Qabs_bound__a.v\", line 3, characters 51-52:\nError: The reference Q was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__Qabs_bound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "adpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__Qabs_bound__b.v\", line 3, characters 51-52:\nError: The reference Q was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__Qabs_bound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall x y : Q, Qabs x <= y -> -y <= x /\\ x <= y",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Theorem",
+      "line": 66,
+      "name": "chsh_bound_4",
+      "probe_a": {
+        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_bound_4__a.v\", line 3, characters 64-68:\nError: The reference Qabs was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_bound_4__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_bound_4__b.v\", line 3, characters 64-68:\nError: The reference Qabs was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_bound_4__b.v",
+        "succeeded": false
+      },
+      "statement": "forall c : Correlators, Qabs (E00 c) <= 1 /\\ Qabs (E01 c) <= 1 /\\ Qabs (E10 c) <= 1 /\\ Qabs (E11 c) <= 1 -> Qabs (S_from_correlators c) <= 4",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Theorem",
+      "line": 110,
+      "name": "symmetric_tsirelson_bound",
+      "probe_a": {
+        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_tsirelson_bound__a.v\", line 3, characters 158-159:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_tsirelson_bound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_tsirelson_bound__b.v\", line 3, characters 158-159:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_tsirelson_bound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall e : Q, 0 <= e -> (exists t : Q, 0 <= minor_3x3 t e e /\\ 0 <= minor_3x3 t e (-e)) -> 4 * e <= (5657#2000)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Theorem",
+      "line": 135,
+      "name": "tsirelson_from_algebraic_coherence",
+      "probe_a": {
+        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_from_algebraic_coherence__a.v\", line 3, characters 114-118:\nError: The reference Qabs was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_from_algebraic_coherence__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_from_algebraic_coherence__b.v\", line 3, characters 114-118:\nError: The reference Qabs was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_from_algebraic_coherence__b.v",
+        "succeeded": false
+      },
+      "statement": "forall c : Correlators, algebraically_coherent c -> Qabs (S_from_correlators c) <= 4",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Theorem",
+      "line": 155,
+      "name": "algebraic_max_not_coherent",
+      "probe_a": {
+        "coq_stderr_tail": "end\n                         end\n                       for\n                       add) y (BinNums.xO (mul p y))\n                  | BinNums.xO p => BinNums.xO (mul p y)\n                  | BinNums.xH => y\n                  end) x' BinNums.xH)\n        end\n      with\n      | BinNums.Z0 => Eq\n      | BinNums.Zpos _ => Lt\n      | BinNums.Zneg _ => Gt\n      end = Gt -> False)) -> False\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__algebraic_max_not_coherent__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__algebraic_max_not_coherent__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__algebraic_max_not_coherent__b.v",
+        "succeeded": false
+      },
+      "statement": "~ algebraically_coherent max_trace",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Lemma",
+      "line": 178,
+      "name": "sum_6_squares_nonneg",
+      "probe_a": {
+        "coq_stderr_tail": "esystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__sum_6_squares_nonneg__a.v\", line 3, characters 69-70:\nError: The reference Q was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__sum_6_squares_nonneg__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "esystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__sum_6_squares_nonneg__b.v\", line 3, characters 69-70:\nError: The reference Q was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__sum_6_squares_nonneg__b.v",
+        "succeeded": false
+      },
+      "statement": "forall p q r s t u : Q, 0 <= p*p + q*q + r*r + s*s + t*t + u*u",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Lemma",
+      "line": 193,
+      "name": "cauchy_schwarz_chsh",
+      "probe_a": {
+        "coq_stderr_tail": "lesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__cauchy_schwarz_chsh__a.v\", line 3, characters 64-65:\nError: The reference Q was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__cauchy_schwarz_chsh__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__cauchy_schwarz_chsh__b.v\", line 3, characters 64-65:\nError: The reference Q was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__cauchy_schwarz_chsh__b.v",
+        "succeeded": false
+      },
+      "statement": "forall a b c d : Q, (a + b + c - d) * (a + b + c - d) <= 4 * (a*a + b*b + c*c + d*d)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Lemma",
+      "line": 204,
+      "name": "correlation_squares_bound",
+      "probe_a": {
+        "coq_stderr_tail": "em,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__correlation_squares_bound__a.v\", line 3, characters 78-79:\nError: The reference Q was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__correlation_squares_bound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "em,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__correlation_squares_bound__b.v\", line 3, characters 78-79:\nError: The reference Q was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__correlation_squares_bound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall e00 e01 e10 e11 : Q, Qabs e00 <= 1 -> Qabs e01 <= 1 -> Qabs e10 <= 1 -> Qabs e11 <= 1 -> e00*e00 + e01*e01 + e10*e10 + e11*e11 <= 4",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Lemma",
+      "line": 219,
+      "name": "chsh_weak_bound",
+      "probe_a": {
+        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_weak_bound__a.v\", line 3, characters 68-69:\nError: The reference Q was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_weak_bound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_weak_bound__b.v\", line 3, characters 68-69:\nError: The reference Q was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_weak_bound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall e00 e01 e10 e11 : Q, Qabs e00 <= 1 -> Qabs e01 <= 1 -> Qabs e10 <= 1 -> Qabs e11 <= 1 -> (e00 + e01 + e10 - e11) * (e00 + e01 + e10 - e11) <= 16",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Lemma",
+      "line": 232,
+      "name": "chsh_squared_bound_from_correlations",
+      "probe_a": {
+        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_squared_bound_from_correlations__a.v\", line 3, characters 89-90:\nError: The reference Q was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_squared_bound_from_correlations__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_squared_bound_from_correlations__b.v\", line 3, characters 89-90:\nError: The reference Q was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_squared_bound_from_correlations__b.v",
+        "succeeded": false
+      },
+      "statement": "forall e00 e01 e10 e11 : Q, Qabs e00 <= 1 -> Qabs e01 <= 1 -> Qabs e10 <= 1 -> Qabs e11 <= 1 -> e00*e00 + e01*e01 + e10*e10 + e11*e11 <= 2 -> (e00 + e01 + e10 - e11) * (e00 + e01 + e10 - e11) <= 8",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Lemma",
+      "line": 249,
+      "name": "symmetric_minor_implies_sum_bound",
+      "probe_a": {
+        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_minor_implies_sum_bound__a.v\", line 3, characters 72-73:\nError: The reference Q was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_minor_implies_sum_bound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_minor_implies_sum_bound__b.v\", line 3, characters 72-73:\nError: The reference Q was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_minor_implies_sum_bound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall e : Q, 0 <= minor_3x3 0 e e -> 4 * (e*e) <= 2",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Theorem",
+      "line": 261,
+      "name": "symmetric_case_implies_tsirelson",
+      "probe_a": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_case_implies_tsirelson__a.v\", line 3, characters 161-162:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_case_implies_tsirelson__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_case_implies_tsirelson__b.v\", line 3, characters 161-162:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__symmetric_case_implies_tsirelson__b.v",
+        "succeeded": false
+      },
+      "statement": "forall e : Q, Qabs e <= 1 -> 0 <= minor_3x3 0 e e -> 0 <= minor_3x3 0 e (-e) -> Qabs (4 * e) <= (5657#2000)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Theorem",
+      "line": 278,
+      "name": "chsh_general_bound",
+      "probe_a": {
+        "coq_stderr_tail": "system,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_general_bound__a.v\", line 3, characters 70-74:\nError: The reference Qabs was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_general_bound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "system,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_general_bound__b.v\", line 3, characters 70-74:\nError: The reference Qabs was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__chsh_general_bound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall c : Correlators, Qabs (E00 c) <= 1 -> Qabs (E01 c) <= 1 -> Qabs (E10 c) <= 1 -> Qabs (E11 c) <= 1 -> Qabs (S_from_correlators c) <= 4",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Lemma",
+      "line": 300,
+      "name": "tsirelson_config_S",
+      "probe_a": {
+        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_config_S__a.v\", line 3, characters 101-102:\nError: Syntax error: [term] expected after '=' (in [term]).",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_config_S__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_config_S__b.v\", line 3, characters 101-102:\nError: Syntax error: [term] expected after '=' (in [term]).",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_config_S__b.v",
+        "succeeded": false
+      },
+      "statement": "forall e : Q, S_from_correlators (tsirelson_config e) == 4 * e",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Lemma",
+      "line": 322,
+      "name": "tsirelson_achieving_coherent",
+      "probe_a": {
+        "coq_stderr_tail": "end\n                         end\n                       for\n                       add) y (BinNums.xO (mul p y))\n                  | BinNums.xO p => BinNums.xO (mul p y)\n                  | BinNums.xH => y\n                  end) x' BinNums.xH)\n        end\n      with\n      | BinNums.Z0 => Eq\n      | BinNums.Zpos _ => Lt\n      | BinNums.Zneg _ => Gt\n      end = Gt -> False))\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_achieving_coherent__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "verriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_achieving_coherent__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_achieving_coherent__b.v",
+        "succeeded": false
+      },
+      "statement": "algebraically_coherent tsirelson_achieving",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Lemma",
+      "line": 337,
+      "name": "tsirelson_achieving_value",
+      "probe_a": {
+        "coq_stderr_tail": "esystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_achieving_value__a.v\", line 3, characters 93-94:\nError: Syntax error: [term] expected after '=' (in [term]).",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_achieving_value__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "esystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_achieving_value__b.v\", line 3, characters 93-94:\nError: Syntax error: [term] expected after '=' (in [term]).",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_achieving_value__b.v",
+        "succeeded": false
+      },
+      "statement": "S_from_correlators tsirelson_achieving == (28284#10000)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Theorem",
+      "line": 345,
+      "name": "tsirelson_bound_tight",
+      "probe_a": {
+        "coq_stderr_tail": "]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_bound_tight__a.v\", line 3, characters 131-132:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_bound_tight__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_bound_tight__b.v\", line 3, characters 131-132:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_bound_tight__b.v",
+        "succeeded": false
+      },
+      "statement": "exists c : Correlators, algebraically_coherent c /\\ S_from_correlators c >= (28284#10000)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Theorem",
+      "line": 363,
+      "name": "algebraically_coherent_tsirelson_general",
+      "probe_a": {
+        "coq_stderr_tail": "nd to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_general__a.v\", line 3, characters 121-141:\nError:\nIn environment\nc : Correlators\nThe term \"S_from_correlators c\" has type \"QArith_base.Q\"\nwhile it is expected to have type \"nat\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_general__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "nd to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_general__b.v\", line 3, characters 121-141:\nError:\nIn environment\nc : Correlators\nThe term \"S_from_correlators c\" has type \"QArith_base.Q\"\nwhile it is expected to have type \"nat\".",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_general__b.v",
+        "succeeded": false
+      },
+      "statement": "forall c : Correlators, algebraically_coherent c -> (S_from_correlators c) * (S_from_correlators c) <= 8",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/category/AlgebraicCoherence.v",
+      "kind": "Corollary",
+      "line": 381,
+      "name": "algebraically_coherent_tsirelson_abs",
+      "probe_a": {
+        "coq_stderr_tail": "kspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_abs__a.v\", line 3, characters 152-153:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_abs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "kspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_abs__b.v\", line 3, characters 152-153:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__algebraically_coherent_tsirelson_abs__b.v",
+        "succeeded": false
+      },
+      "statement": "forall c : Correlators, algebraically_coherent c -> Qabs (S_from_correlators c) <= (5657#2000)",
       "status": "ok"
     }
   ]

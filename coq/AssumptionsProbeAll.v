@@ -293,6 +293,7 @@ Require Kernel.Certification.
 Require Kernel.CommitmentCostDecomposition.
 Require Kernel.CommitmentPredicateAdequacy.
 Require Kernel.CommitmentVsErasure.
+Require Kernel.FiniteCertMachine.
 Require Kernel.HonestCostTracking.
 Require Kernel.HonestMeasurement.
 Require Kernel.HonestNoFI.
@@ -307,10 +308,14 @@ Require Kernel.NecessityAbstract.
 Require Kernel.NoFreeInsight.
 Require Kernel.NonAdaptiveLowerBound.
 Require Kernel.PartitionRefinementNoFI.
+Require Kernel.PermanentCertification.
+Require Kernel.PermanentCertificationEntropy.
+Require Kernel.PermanentRecordPricing.
 Require Kernel.PrimeAxiom.
 Require Kernel.ReceiptCore.
 Require Kernel.ReceiptIntegrity.
 Require Kernel.RevelationRequirement.
+Require Kernel.ShadowPricing.
 Require Kernel.SimpleMorphShortcut.
 Require Kernel.StructuralAdvantage.
 Require Kernel.StructuralAdvantageCertifiedShortcut.
@@ -9807,7 +9812,7 @@ Print Assumptions Kernel.Closure.KernelMaximalClosure.
 (* === Kernel.FalsifiablePrediction : 2 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.FalsifiablePrediction.mu_monotonic_step.
 Print Assumptions Kernel.FalsifiablePrediction.mu_cost_additive.
-(* === Kernel.MasterSummary : 55 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.MasterSummary : 57 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.MasterSummary.master_summary_declares_project_local_axioms_count_zero.
 Print Assumptions Kernel.MasterSummary.master_summary_declares_project_local_admits_count_zero.
 Print Assumptions Kernel.MasterSummary.master_summary_declares_no_hidden_project_assumptions.
@@ -9853,6 +9858,8 @@ Print Assumptions Kernel.MasterSummary.master_honest_nofi_conditional_shannon.
 Print Assumptions Kernel.MasterSummary.master_honest_nofi_quantitative_state_space.
 Print Assumptions Kernel.MasterSummary.master_honest_nofi_posterior_representative_reduction.
 Print Assumptions Kernel.MasterSummary.master_a2_equal_trust_substitution_payoff.
+Print Assumptions Kernel.MasterSummary.master_permanent_certification.
+Print Assumptions Kernel.MasterSummary.master_permanent_flip_heat.
 Print Assumptions Kernel.MasterSummary.master_nofi_to_discrete_einstein.
 Print Assumptions Kernel.MasterSummary.master_nofi_to_discrete_einstein_from_bekenstein_calibration.
 Print Assumptions Kernel.MasterSummary.master_verification_chain.
@@ -11998,6 +12005,30 @@ Print Assumptions Kernel.CommitmentVsErasure.erasure_branch_unreachable.
 Print Assumptions Kernel.CommitmentVsErasure.trusted_erasure_system_certifies_without_erasure.
 Print Assumptions Kernel.CommitmentVsErasure.trusted_a2_system_certification_cost_floor.
 Print Assumptions Kernel.CommitmentVsErasure.commitment_cost_not_reducible_to_erasure_cost.
+(* === Kernel.FiniteCertMachine : 23 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.FiniteCertMachine.filter_split_length.
+Print Assumptions Kernel.FiniteCertMachine.fiber_bound_compression.
+Print Assumptions Kernel.FiniteCertMachine.fin_finite.
+Print Assumptions Kernel.FiniteCertMachine.fin_permanent.
+Print Assumptions Kernel.FiniteCertMachine.next_slot_injective.
+Print Assumptions Kernel.FiniteCertMachine.fnext_injective.
+Print Assumptions Kernel.FiniteCertMachine.fcertify_merges.
+Print Assumptions Kernel.FiniteCertMachine.fjump_merges.
+Print Assumptions Kernel.FiniteCertMachine.fin_merging_priced.
+Print Assumptions Kernel.FiniteCertMachine.fin_fiber_bound.
+Print Assumptions Kernel.FiniteCertMachine.fin_compression_priced.
+Print Assumptions Kernel.FiniteCertMachine.fin_a2_from_merging_price.
+Print Assumptions Kernel.FiniteCertMachine.fin_a2_from_compression_price.
+Print Assumptions Kernel.FiniteCertMachine.slot_of_nat_of_slot.
+Print Assumptions Kernel.FiniteCertMachine.vm_runs_finite_machine.
+Print Assumptions Kernel.FiniteCertMachine.vm_pays_finite_price.
+Print Assumptions Kernel.FiniteCertMachine.vm_runs_finite_trace.
+Print Assumptions Kernel.FiniteCertMachine.vm_fragment_certification_paid.
+Print Assumptions Kernel.FiniteCertMachine.certify_forgets_flag.
+Print Assumptions Kernel.FiniteCertMachine.vm_certify_merges.
+Print Assumptions Kernel.FiniteCertMachine.vm_certifying_step_is_priced_merge.
+Print Assumptions Kernel.FiniteCertMachine.vm_jump_is_free_merge.
+Print Assumptions Kernel.FiniteCertMachine.vm_prices_certifying_merge_leaves_others_free.
 (* === Kernel.HonestCostTracking : 5 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.HonestCostTracking.dishonest_free_certification.
 Print Assumptions Kernel.HonestCostTracking.honest_cost_tracking_strict_restriction.
@@ -12261,6 +12292,92 @@ Print Assumptions Kernel.PartitionRefinementNoFI.partition_structural_trace_cann
 Print Assumptions Kernel.PartitionRefinementNoFI.partition_structural_only_trace_stays_uncertified.
 Print Assumptions Kernel.PartitionRefinementNoFI.partition_refinement_nonfree.
 Print Assumptions Kernel.PartitionRefinementNoFI.partition_free_but_certification_nonfree.
+(* === Kernel.PermanentCertification : 16 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.PermanentCertification.certified_states_spec.
+Print Assumptions Kernel.PermanentCertification.certified_states_nodup.
+Print Assumptions Kernel.PermanentCertification.permanent_image_incl.
+Print Assumptions Kernel.PermanentCertification.permanent_flip_is_not_injective.
+Print Assumptions Kernel.PermanentCertification.permanent_flips_collapse_at_least.
+Print Assumptions Kernel.PermanentCertification.a2_from_merging_price_and_permanence.
+Print Assumptions Kernel.PermanentCertification.permanent_certification_trace_floor.
+Print Assumptions Kernel.PermanentCertification.honest_erasure_accounting_implies_a2.
+Print Assumptions Kernel.PermanentCertification.commit_without_erasure_system_is_not_honest.
+Print Assumptions Kernel.PermanentCertification.commit_without_erasure_system_finite_permanent.
+Print Assumptions Kernel.PermanentCertification.unbounded_history_escapes.
+Print Assumptions Kernel.PermanentCertification.revocable_certificate_escapes.
+Print Assumptions Kernel.PermanentCertification.sheets_finite.
+Print Assumptions Kernel.PermanentCertification.stamp_is_permanent.
+Print Assumptions Kernel.PermanentCertification.priced_reset_satisfies_premises.
+Print Assumptions Kernel.PermanentCertification.free_merge_escapes.
+(* === Kernel.PermanentCertificationEntropy : 49 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.PermanentCertificationEntropy.rsum_nil.
+Print Assumptions Kernel.PermanentCertificationEntropy.rsum_cons.
+Print Assumptions Kernel.PermanentCertificationEntropy.rsum_ext_in.
+Print Assumptions Kernel.PermanentCertificationEntropy.rsum_le.
+Print Assumptions Kernel.PermanentCertificationEntropy.rsum_nonneg.
+Print Assumptions Kernel.PermanentCertificationEntropy.rsum_plus.
+Print Assumptions Kernel.PermanentCertificationEntropy.rsum_minus.
+Print Assumptions Kernel.PermanentCertificationEntropy.rsum_scal.
+Print Assumptions Kernel.PermanentCertificationEntropy.rsum_zero.
+Print Assumptions Kernel.PermanentCertificationEntropy.rsum_indicator.
+Print Assumptions Kernel.PermanentCertificationEntropy.rsum_swap.
+Print Assumptions Kernel.PermanentCertificationEntropy.ln2_pos.
+Print Assumptions Kernel.PermanentCertificationEntropy.ln_le_minus_one.
+Print Assumptions Kernel.PermanentCertificationEntropy.entropy_le_log_support.
+Print Assumptions Kernel.PermanentCertificationEntropy.filter_in_b_length.
+Print Assumptions Kernel.PermanentCertificationEntropy.uniform_on_distribution.
+Print Assumptions Kernel.PermanentCertificationEntropy.uniform_on_entropy.
+Print Assumptions Kernel.PermanentCertificationEntropy.filter_eq_length_one.
+Print Assumptions Kernel.PermanentCertificationEntropy.push_distribution.
+Print Assumptions Kernel.PermanentCertificationEntropy.push_support.
+Print Assumptions Kernel.PermanentCertificationEntropy.rsum_permutation.
+Print Assumptions Kernel.PermanentCertificationEntropy.rsum_map.
+Print Assumptions Kernel.PermanentCertificationEntropy.push_injective_at.
+Print Assumptions Kernel.PermanentCertificationEntropy.step_entropy_invariant_if_injective.
+Print Assumptions Kernel.PermanentCertificationEntropy.rsum_select.
+Print Assumptions Kernel.PermanentCertificationEntropy.rsum_nonneg_in.
+Print Assumptions Kernel.PermanentCertificationEntropy.rsum_pos_witness.
+Print Assumptions Kernel.PermanentCertificationEntropy.ln_le_mono.
+Print Assumptions Kernel.PermanentCertificationEntropy.push_ge_point.
+Print Assumptions Kernel.PermanentCertificationEntropy.push_ge_two.
+Print Assumptions Kernel.PermanentCertificationEntropy.push_entropy_as_point_sum.
+Print Assumptions Kernel.PermanentCertificationEntropy.entropy_drop_as_point_sum.
+Print Assumptions Kernel.PermanentCertificationEntropy.entropy_drop_term_nonneg.
+Print Assumptions Kernel.PermanentCertificationEntropy.entropy_drop_nonneg.
+Print Assumptions Kernel.PermanentCertificationEntropy.entropy_drop_pos_of_support_merge.
+Print Assumptions Kernel.PermanentCertificationEntropy.known_state_step_removes_no_entropy.
+Print Assumptions Kernel.PermanentCertificationEntropy.not_nodup_map_witness.
+Print Assumptions Kernel.PermanentCertificationEntropy.certified_and_flips_nodup.
+Print Assumptions Kernel.PermanentCertificationEntropy.certified_and_flips_land_certified.
+Print Assumptions Kernel.PermanentCertificationEntropy.permanent_step_entropy_ceiling.
+Print Assumptions Kernel.PermanentCertificationEntropy.permanent_step_entropy_drop.
+Print Assumptions Kernel.PermanentCertificationEntropy.permanent_flip_uniform_entropy_drop.
+Print Assumptions Kernel.PermanentCertificationEntropy.a2_from_entropy_price_and_permanence.
+Print Assumptions Kernel.PermanentCertificationEntropy.permanent_flip_heat_floor.
+Print Assumptions Kernel.PermanentCertificationEntropy.permanent_flip_heat_positive.
+Print Assumptions Kernel.PermanentCertificationEntropy.permanent_flip_full_support_entropy_drop_positive.
+Print Assumptions Kernel.PermanentCertificationEntropy.permanent_flip_full_support_heat_positive.
+Print Assumptions Kernel.PermanentCertificationEntropy.known_state_flip_forces_no_heat.
+Print Assumptions Kernel.PermanentCertificationEntropy.entropy_priced_trace_floor.
+(* === Kernel.PermanentRecordPricing : 18 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.PermanentRecordPricing.nodup_app_disjoint.
+Print Assumptions Kernel.PermanentRecordPricing.permanent_flips_compression_bound.
+Print Assumptions Kernel.PermanentRecordPricing.flip_gives_certified_state.
+Print Assumptions Kernel.PermanentRecordPricing.permanent_flips_log_bound.
+Print Assumptions Kernel.PermanentRecordPricing.a2_from_compression_price_and_permanence.
+Print Assumptions Kernel.PermanentRecordPricing.compression_priced_trace_floor.
+Print Assumptions Kernel.PermanentRecordPricing.quads_finite.
+Print Assumptions Kernel.PermanentRecordPricing.quad_stamp_permanent.
+Print Assumptions Kernel.PermanentRecordPricing.quad_image_nonempty.
+Print Assumptions Kernel.PermanentRecordPricing.quad_lists_short.
+Print Assumptions Kernel.PermanentRecordPricing.quad_stamp_cost_two_is_priced.
+Print Assumptions Kernel.PermanentRecordPricing.quad_stamp_needs_two.
+Print Assumptions Kernel.PermanentRecordPricing.permanent_at_flip_is_not_injective.
+Print Assumptions Kernel.PermanentRecordPricing.flip_merges_or_revokes.
+Print Assumptions Kernel.PermanentRecordPricing.injective_flip_revokes.
+Print Assumptions Kernel.PermanentRecordPricing.forced_priced_iff_merges.
+Print Assumptions Kernel.PermanentRecordPricing.permanent_record_write_is_forced_priced.
+Print Assumptions Kernel.PermanentRecordPricing.forced_price_without_permanent_record.
 (* === Kernel.PrimeAxiom : 6 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.PrimeAxiom.vm_apply_certified.
 Print Assumptions Kernel.PrimeAxiom.vm_apply_mu_nondecreasing.
@@ -12296,6 +12413,16 @@ Print Assumptions Kernel.RevelationRequirement.RevelationProof.non_morph_assert_
 Print Assumptions Kernel.RevelationRequirement.RevelationProof.non_morph_assert_trace_cannot_gain_supra_cert.
 Print Assumptions Kernel.RevelationRequirement.RevelationProof.nonlocal_correlation_requires_revelation.
 Print Assumptions Kernel.RevelationRequirement.RevelationProof.cert_setter_necessary_for_supra.
+(* === Kernel.ShadowPricing : 9 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.ShadowPricing.shadow_floor_overcharges.
+Print Assumptions Kernel.ShadowPricing.shadow_cannot_price_exactly.
+Print Assumptions Kernel.ShadowPricing.step_price_is_exact.
+Print Assumptions Kernel.ShadowPricing.window_showing_reading_prices_exactly.
+Print Assumptions Kernel.ShadowPricing.window_showing_reading_has_no_collision.
+Print Assumptions Kernel.ShadowPricing.vm_bare_observable_collision.
+Print Assumptions Kernel.ShadowPricing.vm_forget_collision.
+Print Assumptions Kernel.ShadowPricing.vm_bare_shadow_cannot_price_exactly.
+Print Assumptions Kernel.ShadowPricing.vm_forget_shadow_cannot_price_exactly.
 (* === Kernel.SimpleMorphShortcut : 15 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.SimpleMorphShortcut.simple_morph_final_has_supra_cert.
 Print Assumptions Kernel.SimpleMorphShortcut.simple_morph_final_err_false.

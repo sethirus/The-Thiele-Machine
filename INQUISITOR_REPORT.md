@@ -1,11 +1,11 @@
 # INQUISITOR REPORT
-Generated: 2026-09-27 15:21:04Z (UTC)
-Scanned: 435 Coq files across the repo
+Generated: 2026-09-28 07:25:22Z (UTC)
+Scanned: 440 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
-- LOW: 2
-- SCOPE NOTES: 328 in-source scope markers across 136 files (238 SCOPE NOTE, 90 SAFE markers)
+- LOW: 0
+- SCOPE NOTES: 330 in-source scope markers across 136 files (238 SCOPE NOTE, 92 SAFE markers)
   - Read the severity counts as *unsuppressed* findings. Each scope note silences one check at one site; the justification is the comment text itself. Grep for the markers to audit them.
 
 ## Rules
@@ -101,11 +101,4 @@ Scanned: 435 Coq files across the repo
 (no files scored above zero — no trivially-true or placeholder patterns detected)
 
 ## Findings
-### LOW
-
-#### `coq/kernel/category/AlgebraicCoherence.v`
-- L218: **CHSH_BOUND_MISSING** — CHSH bound theorem \`chsh_weak_bound\` may not reference proper Tsirelson bound value.
-  - `Lemma chsh_weak_bound : forall e00 e01 e10 e11 : Q,`
-- L230: **CHSH_BOUND_MISSING** — CHSH bound theorem \`chsh_squared_bound_from_correlations\` may not reference proper Tsirelson bound value.
-  - `Lemma chsh_squared_bound_from_correlations : forall e00 e01 e10 e11 : Q,`
-
+(none)

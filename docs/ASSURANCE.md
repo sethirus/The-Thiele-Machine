@@ -33,6 +33,7 @@ The implementation path is intentionally not summarized as one unconditional RTL
 
 | Edge | Current assurance | Boundary or domain |
 | --- | --- | --- |
+| One-file `ThieleMachineComplete.v` VM → kernel `vm_apply` | Tested | `tests/test_standalone_kernel_agreement.py` requires every definition reachable from the kernel's `vm_apply`, `instruction_cost`, `is_cert_setterb`, `VMState`, and `vm_instruction` to have identical text in the one-file copy, and the 51 instructions to agree. No Coq theorem relates the two state types. |
 | Gallina `vm_apply` → Kami `kami_step` | Proved in Coq | `driven_step_wf` requires `WFDrivenPrecondition`; `driven_trace_commutes` requires `WFDrivenRun`. |
 | Kami rules → actual priority-scheduler retirement | Proved for admitted `Retire`/`AdmittedRun` chains | `fsm_retirement_refinement` and `admitted_run_progress` cover reset-originating admitted chains; this is not an arbitrary-scheduler fairness theorem. |
 | Kami model → extracted OCaml semantics | Coq-side theorem plus parity testing of the external binary | `ocaml_bisimulation_closure` concerns the extracted observable; the built binary and printer remain a tested boundary. |

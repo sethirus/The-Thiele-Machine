@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 421,
-  "total_addressable": 12816,
+  "files_probed": 426,
+  "total_addressable": 12933,
   "total_unaddressable": 4,
   "extras_addressable_via_instantiation": [
     {
@@ -47500,7 +47500,7 @@
     {
       "file": "coq/kernel/aggregators/MasterSummary.v",
       "qualified_module": "Kernel.MasterSummary",
-      "addressable_count": 55,
+      "addressable_count": 57,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -47727,6 +47727,16 @@
           "local_name": "master_a2_equal_trust_substitution_payoff",
           "kind": "Theorem",
           "full_name": "Kernel.MasterSummary.master_a2_equal_trust_substitution_payoff"
+        },
+        {
+          "local_name": "master_permanent_certification",
+          "kind": "Theorem",
+          "full_name": "Kernel.MasterSummary.master_permanent_certification"
+        },
+        {
+          "local_name": "master_permanent_flip_heat",
+          "kind": "Theorem",
+          "full_name": "Kernel.MasterSummary.master_permanent_flip_heat"
         },
         {
           "local_name": "master_nofi_to_discrete_einstein",
@@ -59077,6 +59087,130 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/nfi/FiniteCertMachine.v",
+      "qualified_module": "Kernel.FiniteCertMachine",
+      "addressable_count": 23,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "filter_split_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteCertMachine.filter_split_length"
+        },
+        {
+          "local_name": "fiber_bound_compression",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteCertMachine.fiber_bound_compression"
+        },
+        {
+          "local_name": "fin_finite",
+          "kind": "Theorem",
+          "full_name": "Kernel.FiniteCertMachine.fin_finite"
+        },
+        {
+          "local_name": "fin_permanent",
+          "kind": "Theorem",
+          "full_name": "Kernel.FiniteCertMachine.fin_permanent"
+        },
+        {
+          "local_name": "next_slot_injective",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteCertMachine.next_slot_injective"
+        },
+        {
+          "local_name": "fnext_injective",
+          "kind": "Theorem",
+          "full_name": "Kernel.FiniteCertMachine.fnext_injective"
+        },
+        {
+          "local_name": "fcertify_merges",
+          "kind": "Theorem",
+          "full_name": "Kernel.FiniteCertMachine.fcertify_merges"
+        },
+        {
+          "local_name": "fjump_merges",
+          "kind": "Theorem",
+          "full_name": "Kernel.FiniteCertMachine.fjump_merges"
+        },
+        {
+          "local_name": "fin_merging_priced",
+          "kind": "Theorem",
+          "full_name": "Kernel.FiniteCertMachine.fin_merging_priced"
+        },
+        {
+          "local_name": "fin_fiber_bound",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteCertMachine.fin_fiber_bound"
+        },
+        {
+          "local_name": "fin_compression_priced",
+          "kind": "Theorem",
+          "full_name": "Kernel.FiniteCertMachine.fin_compression_priced"
+        },
+        {
+          "local_name": "fin_a2_from_merging_price",
+          "kind": "Theorem",
+          "full_name": "Kernel.FiniteCertMachine.fin_a2_from_merging_price"
+        },
+        {
+          "local_name": "fin_a2_from_compression_price",
+          "kind": "Theorem",
+          "full_name": "Kernel.FiniteCertMachine.fin_a2_from_compression_price"
+        },
+        {
+          "local_name": "slot_of_nat_of_slot",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteCertMachine.slot_of_nat_of_slot"
+        },
+        {
+          "local_name": "vm_runs_finite_machine",
+          "kind": "Theorem",
+          "full_name": "Kernel.FiniteCertMachine.vm_runs_finite_machine"
+        },
+        {
+          "local_name": "vm_pays_finite_price",
+          "kind": "Theorem",
+          "full_name": "Kernel.FiniteCertMachine.vm_pays_finite_price"
+        },
+        {
+          "local_name": "vm_runs_finite_trace",
+          "kind": "Theorem",
+          "full_name": "Kernel.FiniteCertMachine.vm_runs_finite_trace"
+        },
+        {
+          "local_name": "vm_fragment_certification_paid",
+          "kind": "Theorem",
+          "full_name": "Kernel.FiniteCertMachine.vm_fragment_certification_paid"
+        },
+        {
+          "local_name": "certify_forgets_flag",
+          "kind": "Lemma",
+          "full_name": "Kernel.FiniteCertMachine.certify_forgets_flag"
+        },
+        {
+          "local_name": "vm_certify_merges",
+          "kind": "Theorem",
+          "full_name": "Kernel.FiniteCertMachine.vm_certify_merges"
+        },
+        {
+          "local_name": "vm_certifying_step_is_priced_merge",
+          "kind": "Theorem",
+          "full_name": "Kernel.FiniteCertMachine.vm_certifying_step_is_priced_merge"
+        },
+        {
+          "local_name": "vm_jump_is_free_merge",
+          "kind": "Theorem",
+          "full_name": "Kernel.FiniteCertMachine.vm_jump_is_free_merge"
+        },
+        {
+          "local_name": "vm_prices_certifying_merge_leaves_others_free",
+          "kind": "Theorem",
+          "full_name": "Kernel.FiniteCertMachine.vm_prices_certifying_merge_leaves_others_free"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/nfi/HonestCostTracking.v",
       "qualified_module": "Kernel.HonestCostTracking",
       "addressable_count": 5,
@@ -60448,6 +60582,448 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/nfi/PermanentCertification.v",
+      "qualified_module": "Kernel.PermanentCertification",
+      "addressable_count": 16,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "certified_states_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertification.certified_states_spec"
+        },
+        {
+          "local_name": "certified_states_nodup",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertification.certified_states_nodup"
+        },
+        {
+          "local_name": "permanent_image_incl",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertification.permanent_image_incl"
+        },
+        {
+          "local_name": "permanent_flip_is_not_injective",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertification.permanent_flip_is_not_injective"
+        },
+        {
+          "local_name": "permanent_flips_collapse_at_least",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertification.permanent_flips_collapse_at_least"
+        },
+        {
+          "local_name": "a2_from_merging_price_and_permanence",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertification.a2_from_merging_price_and_permanence"
+        },
+        {
+          "local_name": "permanent_certification_trace_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertification.permanent_certification_trace_floor"
+        },
+        {
+          "local_name": "honest_erasure_accounting_implies_a2",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertification.honest_erasure_accounting_implies_a2"
+        },
+        {
+          "local_name": "commit_without_erasure_system_is_not_honest",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertification.commit_without_erasure_system_is_not_honest"
+        },
+        {
+          "local_name": "commit_without_erasure_system_finite_permanent",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertification.commit_without_erasure_system_finite_permanent"
+        },
+        {
+          "local_name": "unbounded_history_escapes",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertification.unbounded_history_escapes"
+        },
+        {
+          "local_name": "revocable_certificate_escapes",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertification.revocable_certificate_escapes"
+        },
+        {
+          "local_name": "sheets_finite",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertification.sheets_finite"
+        },
+        {
+          "local_name": "stamp_is_permanent",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertification.stamp_is_permanent"
+        },
+        {
+          "local_name": "priced_reset_satisfies_premises",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertification.priced_reset_satisfies_premises"
+        },
+        {
+          "local_name": "free_merge_escapes",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertification.free_merge_escapes"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/nfi/PermanentCertificationEntropy.v",
+      "qualified_module": "Kernel.PermanentCertificationEntropy",
+      "addressable_count": 49,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "rsum_nil",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.rsum_nil"
+        },
+        {
+          "local_name": "rsum_cons",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.rsum_cons"
+        },
+        {
+          "local_name": "rsum_ext_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.rsum_ext_in"
+        },
+        {
+          "local_name": "rsum_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.rsum_le"
+        },
+        {
+          "local_name": "rsum_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.rsum_nonneg"
+        },
+        {
+          "local_name": "rsum_plus",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.rsum_plus"
+        },
+        {
+          "local_name": "rsum_minus",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.rsum_minus"
+        },
+        {
+          "local_name": "rsum_scal",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.rsum_scal"
+        },
+        {
+          "local_name": "rsum_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.rsum_zero"
+        },
+        {
+          "local_name": "rsum_indicator",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.rsum_indicator"
+        },
+        {
+          "local_name": "rsum_swap",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.rsum_swap"
+        },
+        {
+          "local_name": "ln2_pos",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.ln2_pos"
+        },
+        {
+          "local_name": "ln_le_minus_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.ln_le_minus_one"
+        },
+        {
+          "local_name": "entropy_le_log_support",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.entropy_le_log_support"
+        },
+        {
+          "local_name": "filter_in_b_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.filter_in_b_length"
+        },
+        {
+          "local_name": "uniform_on_distribution",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.uniform_on_distribution"
+        },
+        {
+          "local_name": "uniform_on_entropy",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.uniform_on_entropy"
+        },
+        {
+          "local_name": "filter_eq_length_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.filter_eq_length_one"
+        },
+        {
+          "local_name": "push_distribution",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.push_distribution"
+        },
+        {
+          "local_name": "push_support",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.push_support"
+        },
+        {
+          "local_name": "rsum_permutation",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.rsum_permutation"
+        },
+        {
+          "local_name": "rsum_map",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.rsum_map"
+        },
+        {
+          "local_name": "push_injective_at",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.push_injective_at"
+        },
+        {
+          "local_name": "step_entropy_invariant_if_injective",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.step_entropy_invariant_if_injective"
+        },
+        {
+          "local_name": "rsum_select",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.rsum_select"
+        },
+        {
+          "local_name": "rsum_nonneg_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.rsum_nonneg_in"
+        },
+        {
+          "local_name": "rsum_pos_witness",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.rsum_pos_witness"
+        },
+        {
+          "local_name": "ln_le_mono",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.ln_le_mono"
+        },
+        {
+          "local_name": "push_ge_point",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.push_ge_point"
+        },
+        {
+          "local_name": "push_ge_two",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.push_ge_two"
+        },
+        {
+          "local_name": "push_entropy_as_point_sum",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.push_entropy_as_point_sum"
+        },
+        {
+          "local_name": "entropy_drop_as_point_sum",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.entropy_drop_as_point_sum"
+        },
+        {
+          "local_name": "entropy_drop_term_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.entropy_drop_term_nonneg"
+        },
+        {
+          "local_name": "entropy_drop_nonneg",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.entropy_drop_nonneg"
+        },
+        {
+          "local_name": "entropy_drop_pos_of_support_merge",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.entropy_drop_pos_of_support_merge"
+        },
+        {
+          "local_name": "known_state_step_removes_no_entropy",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.known_state_step_removes_no_entropy"
+        },
+        {
+          "local_name": "not_nodup_map_witness",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.not_nodup_map_witness"
+        },
+        {
+          "local_name": "certified_and_flips_nodup",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.certified_and_flips_nodup"
+        },
+        {
+          "local_name": "certified_and_flips_land_certified",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentCertificationEntropy.certified_and_flips_land_certified"
+        },
+        {
+          "local_name": "permanent_step_entropy_ceiling",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.permanent_step_entropy_ceiling"
+        },
+        {
+          "local_name": "permanent_step_entropy_drop",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.permanent_step_entropy_drop"
+        },
+        {
+          "local_name": "permanent_flip_uniform_entropy_drop",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.permanent_flip_uniform_entropy_drop"
+        },
+        {
+          "local_name": "a2_from_entropy_price_and_permanence",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.a2_from_entropy_price_and_permanence"
+        },
+        {
+          "local_name": "permanent_flip_heat_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.permanent_flip_heat_floor"
+        },
+        {
+          "local_name": "permanent_flip_heat_positive",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.permanent_flip_heat_positive"
+        },
+        {
+          "local_name": "permanent_flip_full_support_entropy_drop_positive",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.permanent_flip_full_support_entropy_drop_positive"
+        },
+        {
+          "local_name": "permanent_flip_full_support_heat_positive",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.permanent_flip_full_support_heat_positive"
+        },
+        {
+          "local_name": "known_state_flip_forces_no_heat",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.known_state_flip_forces_no_heat"
+        },
+        {
+          "local_name": "entropy_priced_trace_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentCertificationEntropy.entropy_priced_trace_floor"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/nfi/PermanentRecordPricing.v",
+      "qualified_module": "Kernel.PermanentRecordPricing",
+      "addressable_count": 18,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "nodup_app_disjoint",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentRecordPricing.nodup_app_disjoint"
+        },
+        {
+          "local_name": "permanent_flips_compression_bound",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentRecordPricing.permanent_flips_compression_bound"
+        },
+        {
+          "local_name": "flip_gives_certified_state",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentRecordPricing.flip_gives_certified_state"
+        },
+        {
+          "local_name": "permanent_flips_log_bound",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentRecordPricing.permanent_flips_log_bound"
+        },
+        {
+          "local_name": "a2_from_compression_price_and_permanence",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentRecordPricing.a2_from_compression_price_and_permanence"
+        },
+        {
+          "local_name": "compression_priced_trace_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentRecordPricing.compression_priced_trace_floor"
+        },
+        {
+          "local_name": "quads_finite",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentRecordPricing.quads_finite"
+        },
+        {
+          "local_name": "quad_stamp_permanent",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentRecordPricing.quad_stamp_permanent"
+        },
+        {
+          "local_name": "quad_image_nonempty",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentRecordPricing.quad_image_nonempty"
+        },
+        {
+          "local_name": "quad_lists_short",
+          "kind": "Lemma",
+          "full_name": "Kernel.PermanentRecordPricing.quad_lists_short"
+        },
+        {
+          "local_name": "quad_stamp_cost_two_is_priced",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentRecordPricing.quad_stamp_cost_two_is_priced"
+        },
+        {
+          "local_name": "quad_stamp_needs_two",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentRecordPricing.quad_stamp_needs_two"
+        },
+        {
+          "local_name": "permanent_at_flip_is_not_injective",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentRecordPricing.permanent_at_flip_is_not_injective"
+        },
+        {
+          "local_name": "flip_merges_or_revokes",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentRecordPricing.flip_merges_or_revokes"
+        },
+        {
+          "local_name": "injective_flip_revokes",
+          "kind": "Corollary",
+          "full_name": "Kernel.PermanentRecordPricing.injective_flip_revokes"
+        },
+        {
+          "local_name": "forced_priced_iff_merges",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentRecordPricing.forced_priced_iff_merges"
+        },
+        {
+          "local_name": "permanent_record_write_is_forced_priced",
+          "kind": "Corollary",
+          "full_name": "Kernel.PermanentRecordPricing.permanent_record_write_is_forced_priced"
+        },
+        {
+          "local_name": "forced_price_without_permanent_record",
+          "kind": "Theorem",
+          "full_name": "Kernel.PermanentRecordPricing.forced_price_without_permanent_record"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/nfi/PrimeAxiom.v",
       "qualified_module": "Kernel.PrimeAxiom",
       "addressable_count": 6,
@@ -60638,6 +61214,60 @@
           "local_name": "RevelationProof.cert_setter_necessary_for_supra",
           "kind": "Corollary",
           "full_name": "Kernel.RevelationRequirement.RevelationProof.cert_setter_necessary_for_supra"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/nfi/ShadowPricing.v",
+      "qualified_module": "Kernel.ShadowPricing",
+      "addressable_count": 9,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "shadow_floor_overcharges",
+          "kind": "Theorem",
+          "full_name": "Kernel.ShadowPricing.shadow_floor_overcharges"
+        },
+        {
+          "local_name": "shadow_cannot_price_exactly",
+          "kind": "Theorem",
+          "full_name": "Kernel.ShadowPricing.shadow_cannot_price_exactly"
+        },
+        {
+          "local_name": "step_price_is_exact",
+          "kind": "Theorem",
+          "full_name": "Kernel.ShadowPricing.step_price_is_exact"
+        },
+        {
+          "local_name": "window_showing_reading_prices_exactly",
+          "kind": "Theorem",
+          "full_name": "Kernel.ShadowPricing.window_showing_reading_prices_exactly"
+        },
+        {
+          "local_name": "window_showing_reading_has_no_collision",
+          "kind": "Theorem",
+          "full_name": "Kernel.ShadowPricing.window_showing_reading_has_no_collision"
+        },
+        {
+          "local_name": "vm_bare_observable_collision",
+          "kind": "Theorem",
+          "full_name": "Kernel.ShadowPricing.vm_bare_observable_collision"
+        },
+        {
+          "local_name": "vm_forget_collision",
+          "kind": "Theorem",
+          "full_name": "Kernel.ShadowPricing.vm_forget_collision"
+        },
+        {
+          "local_name": "vm_bare_shadow_cannot_price_exactly",
+          "kind": "Theorem",
+          "full_name": "Kernel.ShadowPricing.vm_bare_shadow_cannot_price_exactly"
+        },
+        {
+          "local_name": "vm_forget_shadow_cannot_price_exactly",
+          "kind": "Theorem",
+          "full_name": "Kernel.ShadowPricing.vm_forget_shadow_cannot_price_exactly"
         }
       ],
       "unaddressable": []

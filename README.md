@@ -11,7 +11,32 @@
 **I didn't invent a machine. I found one.**
 
 That is how I see this work.
-I think there is structure here that the usual picture of computation leaves out, and I built a machine to put that conviction on the table.
+I think there is structure here that the usual picture of computation leaves out.
+
+**What the Thiele Machine is.**
+It is an abstract model of computation.
+It is a machine the way Turing's machine is a machine: mathematics you can reason about, not a device.
+It is not a CPU.
+It is not an instruction set, a VM, a graph, or category theory.
+Those are things I built with it, or things it can carry.
+The model is small: a state, a step rule, a ledger that only climbs, a rule for which steps have to pay, and a window saying what an observer sees.
+
+**What this repository is.**
+It is an argument, made with that model, about what an account of computation should preserve.
+The usual account describes a computation by what it reads and writes: memory, registers, where the program is.
+I think that account is a shadow.
+There is another axis: what the computation established, and what establishing it cost.
+
+1. **The shadow loses something real.** Two runs can look identical through the usual window and still differ in what they established and paid. Proved, for each window I name.
+2. **Establishing is not free.** If the step that turns uncertified into certified has to pay, every run from uncertified to certified has paid. Proved, for any system that follows that rule. The rule isn't arbitrary: on a machine with finite memory, a certificate that can never be revoked can only be switched on by a step that merges two states, and merging is what Landauer's principle charges for whenever the machine could be in either state. Proved in [PermanentCertification.v](coq/kernel/nfi/PermanentCertification.v), with Landauer's principle as the named premise. The heat comes from that uncertainty: a machine already known to be in one state loses nothing, and [PermanentCertificationEntropy.v](coq/kernel/nfi/PermanentCertificationEntropy.v) proves both sides. A small finite piece of the VM is such a machine, and the VM runs it paying exactly what its merges cost ([FiniteCertMachine.v](coq/kernel/nfi/FiniteCertMachine.v)). The full VM prices the merge that certifies and leaves other merges free. That is a design choice, and the same file proves both halves of it.
+3. **Leaning on a fact takes a paid history.** A computation is entitled to lean on a structural fact when it holds the evidence and a history that earned it. Defined; the cost floor is proved for shortcuts that hand over their receipts.
+4. **So the axis belongs in the step.** Proposed. This is the conviction the proofs are there to test. Part of it is proved. An account that prices certification exactly, never less and never more, can't compute that price from the window: a step that certifies and a step that doesn't can look the same through it, and the VM has such a pair for both windows I name ([ShadowPricing.v](coq/kernel/nfi/ShadowPricing.v)). The exact price needs the reading in the step. And on a machine with finite memory, an account that prices merging steps the way Landauer's principle does already charges every step that writes a permanent record, at least the logarithm of how many states it squeezes together ([PermanentRecordPricing.v](coq/kernel/nfi/PermanentRecordPricing.v)). The same bound holds in bits of Shannon entropy, and under Landauer's principle as a named premise it is at least k_B T ln((m+k)/m) of heat ([PermanentCertificationEntropy.v](coq/kernel/nfi/PermanentCertificationEntropy.v)). Whether every account has to price merges is physics.
+5. **Which events every account has to price.** Certification is the one I pinned down. On finite hardware the events that must be priced are the merges; every permanent-record write is one, and a flip escapes the price only when the same step can take it back. Proved, with Landauer's principle as the named premise. The guess that the priced events are exactly the permanent records is false; a three-state counterexample is in the same file. What else belongs on the meter is open.
+
+The 51-opcode VM, the Coq kernel, the hardware, and the CHSH check are one build of the model.
+They are there so the argument has something you can run and try to break.
+They are witnesses.
+They are not the subject.
 
 A computation gives you an answer.
 What did it establish on the way there?
@@ -21,8 +46,7 @@ I want those questions inside the mathematics, where somebody can take the argum
 
 Certification is one point I could pin down.
 There is more here than one point, and I am not done looking.
-The Thiele Machine carries structural state, a cost ledger, and rules for particular events.
-I pinned down the definitions, built the machine you can run, and made Coq check what happens when you throw some of that information away.
+I pinned down the definitions, built a VM you can run, and made Coq check what happens when you throw some of that information away.
 
 I call what remains a **shadow**.
 For the projections in the proofs, the blindness is real: different executions become indistinguishable, and no clever decoder can recover a distinction the observation has erased.
@@ -56,9 +80,9 @@ python3 minimal/nofi_demo.py   # exhaustive sweeps + measured algorithms against
 python3 -c "import json; d=json.load(open('artifacts/print_assumptions_all_proofs.json')); print(d['summary'])"
 ```
 
-The second command prints the committed assumption receipt: 12,817 theorems probed, zero *project-local* axiom findings.
+The second command prints the committed assumption receipt: 12,934 theorems probed, zero *project-local* axiom findings.
 The badge says project-local, and that is the precise claim: it is not "zero axioms".
-5,526 of those theorems are closed under the global context outright; the remaining 7,291 use only Coq standard-library assumptions: dependent functional extensionality, `Eqdep.Eq_rect_eq.eq_rect_eq`, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
+5,598 of those theorems are closed under the global context outright; the remaining 7,336 use only Coq standard-library assumptions: dependent functional extensionality, `Eqdep.Eq_rect_eq.eq_rect_eq`, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
 Those library assumptions are disclosed in the receipt; what is zero is axioms this project added.
 Validate the committed receipt quickly with `make assumption-receipt-check`.
 That path reuses the exact theorem/axiom results when the semantic fingerprint is unchanged and performs the full corpus derivation only after proof-relevant inputs drift.
@@ -240,7 +264,7 @@ Coq closes the contradiction by `congruence`.
 Closed under the global context
 ```
 
-The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 12,817 addressable theorems probed and no user/project-local axiom findings in the committed assumption scan.
+The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 12,934 addressable theorems probed and no user/project-local axiom findings in the committed assumption scan.
 
 ## Beyond the minimal witness
 
@@ -312,7 +336,10 @@ They do not rule out a section that chooses default metadata, or a different enc
 
 ## Architecture
 
-One semantics source, two execution paths:
+This section is the build, not the model.
+The core of the model fits in one short file, [minimal/MuCore.v](minimal/MuCore.v): a state, two toy instructions (store and certify), and the law.
+None of the VM's 51 opcodes appear in it.
+The build has one semantics source and two execution paths:
 
 ```text
 coq/kernel/foundation/VMStep.v
@@ -479,9 +506,9 @@ Two independent receipts track proof assumptions.
 - [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records Coq `Print Assumptions` over the audited theorem set.
 
 The master theorem ledger is [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v).
-The current committed assumption receipt reports 12,817 addressable theorems probed and no user/project-local axiom findings.
-The split: 5,526 close under the global context outright, and the remaining 7,291 lean only on Coq-stdlib axiom families.
-Those families are `functional_extensionality_dep` (7,000), `eq_rect_eq` (3,849), the classical-reals pair `sig_forall_dec` (1,009) and `sig_not_dec` (277), and `classic` (67).
+The current committed assumption receipt reports 12,934 addressable theorems probed and no user/project-local axiom findings.
+The split: 5,598 close under the global context outright, and the remaining 7,336 lean only on Coq-stdlib axiom families.
+Those families are `functional_extensionality_dep` (7,041), `eq_rect_eq` (3,849), the classical-reals pair `sig_forall_dec` (1,054) and `sig_not_dec` (300), and `classic` (90).
 Those families enter through the real-number and physics layers; the minimal core uses none of them.
 "Zero axioms" here means zero project-local axioms, the same convention the monograph uses.
 The receipt is what enforces that count.
@@ -530,7 +557,8 @@ Single-step semantics live in [coq/kernel/foundation/VMStep.v](coq/kernel/founda
 
 | Document | Role |
 |---|---|
-| [monograph/monograph.pdf](monograph/monograph.pdf) | Narrative monograph: full informal walkthrough with theorems tagged to Coq files. |
+| [THIELE_MACHINE.txt](THIELE_MACHINE.txt) | The model and the argument in plain text, no build details. Start here. |
+| [monograph/monograph.pdf](monograph/monograph.pdf) | The monograph. Part I is the argument, Part II is the VM build, Part III is how to check it, Part IV is what is open. |
 | [monograph/thiele_machine_math_spec.tex](monograph/thiele_machine_math_spec.tex) | Mathematical specification. |
 | [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v) | Audited theorem ledger. |
 | [coq/README.md](coq/README.md) | Map of the active Coq proof tree. |
@@ -551,7 +579,7 @@ The software in this repository is Apache 2.0 licensed, including the license's 
   title        = {The Thiele Machine: A Computational Model with Explicit Structural Cost},
   author       = {Thiele, Devon},
   year         = {2026},
-  version      = {3.2.2},
+  version      = {3.3.0},
   doi          = {10.5281/zenodo.17316437},
   publisher    = {Zenodo},
   howpublished = {\url{https://doi.org/10.5281/zenodo.17316437}}

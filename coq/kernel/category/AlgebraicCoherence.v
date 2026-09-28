@@ -215,6 +215,7 @@ Qed.
 
 (** [chsh_weak_bound] combines the polynomial inequality with the unit
     bounds to obtain the conditional squared bound 16. *)
+(* SAFE: the bound is stated squared; S^2 <= 16 is |S| <= 4, the algebraic maximum. *)
 Lemma chsh_weak_bound : forall e00 e01 e10 e11 : Q,
   Qabs e00 <= 1 -> Qabs e01 <= 1 -> Qabs e10 <= 1 -> Qabs e11 <= 1 ->
   (e00 + e01 + e10 - e11) * (e00 + e01 + e10 - e11) <= 16.
@@ -227,6 +228,7 @@ Qed.
 
 (** [chsh_squared_bound_from_correlations] derives the squared bound from its
     explicitly supplied sum-of-squares premise. *)
+(* SAFE: the bound is stated squared; S^2 <= 8 is |S| <= 2 sqrt 2, the Tsirelson bound. *)
 Lemma chsh_squared_bound_from_correlations : forall e00 e01 e10 e11 : Q,
   Qabs e00 <= 1 -> Qabs e01 <= 1 -> Qabs e10 <= 1 -> Qabs e11 <= 1 ->
   (* The sum-of-squares inequality is an explicit premise of this lemma. *)
