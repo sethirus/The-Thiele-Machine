@@ -14,16 +14,17 @@
     discharges those three premises, leaving the VM theorem conditional on
     EXACTLY ONE thing: the VM's internal recursion theorem.
 
-    What remains genuinely open after this file, stated by content and not
-    hidden: the recursion theorem itself — a universal interpreter realized as a
-    [list vm_instruction], together with its s-m-n parametrization, in the
-    unbounded-fuel model. That single premise is named explicitly in
-    [vm_structural_shortcut_undecidable_encoded] below. The unconditional
-    substrate-level discharge of the limitative theorem already exists at the
-    nat-coded substrate
-    ([NatSubstrateInstance.nat_structural_shortcut_undecidable], closed under the
-    global context); this file tightens the 51-opcode presentation so its only
-    remaining hypothesis is the recursion theorem, with the encoding proven. *)
+    The remaining recurrence premise is stated for the bounded [vm_run].
+    It quantifies over a supplied representability predicate. The separate
+    VMBoundedDecidability file proves that bounded shortcut membership is
+    externally decidable, and that any class satisfying this recurrence
+    premise excludes the external decider's flip transformer.
+
+    An unbounded self-interpreter would require a different execution
+    contract and a correspondence theorem before it could supply this
+    premise. VMUnboundedExec provides the unbounded halting foundation.
+    The nat construction is a separate family indexed by its candidate
+    decider; its closed global assumption report preserves that parameter. *)
 
 From Coq Require Import List Arith.PeanoNat Bool.
 Import ListNotations.

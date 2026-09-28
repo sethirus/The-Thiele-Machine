@@ -29,4 +29,6 @@
 | `ThieleTypes.v` | 0 | ✅ |
 | `VerilogRefinement.v` | 0 | ✅ |
 
-**Result:** All 22 files verified with 0 admits.
+**Result:** All 123 active `.v` files in `coq/kami_hw/` are verified with
+zero `Admitted.` declarations. The table lists the public bridge and
+retirement files; generated helper modules are included in the count.

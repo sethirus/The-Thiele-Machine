@@ -1,0 +1,623 @@
+DIGEST ecd5a18836dcbd18f9245197fa2b80fb
+FUndecidability.StackMachines.Util.BSM_sss
+R748:779 Undecidability.StackMachines.BSM <> <> lib
+R798:801 Coq.Lists.List <> <> lib
+R803:806 Coq.Bool.Bool <> <> lib
+R808:810 Coq.micromega.Lia <> <> lib
+R812:814 Coq.Init.Nat <> <> lib
+R872:880 Undecidability.Shared.Libs.DLW.Utils.list_bool <> <> lib
+R882:884 Undecidability.Shared.Libs.DLW.Vec.pos <> <> lib
+R886:888 Undecidability.Shared.Libs.DLW.Vec.vec <> <> lib
+R890:892 Undecidability.Shared.Libs.DLW.Code.sss <> <> lib
+R1530:1536 Undecidability.StackMachines.BSM <> bsm_pop constr
+R1530:1536 Undecidability.StackMachines.BSM <> bsm_pop constr
+R1553:1560 Undecidability.StackMachines.BSM <> bsm_push constr
+R1553:1560 Undecidability.StackMachines.BSM <> bsm_push constr
+abbrev 1577:1579 <> POP
+R1585:1591 Undecidability.StackMachines.BSM <> bsm_pop constr
+abbrev 1603:1606 <> PUSH
+R1611:1618 Undecidability.StackMachines.BSM <> bsm_push constr
+sec 1658:1677 <> Binary_Stack_Machine
+var 1693:1693 Binary_Stack_Machine n
+R1697:1699 Coq.Init.Datatypes <> nat ind
+def 1717:1725 <> bsm_state
+R1734:1734 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1731:1733 Coq.Init.Datatypes <> nat ind
+R1735:1737 Undecidability.Shared.Libs.DLW.Vec.vec <> vec abbrev
+R1740:1743 Coq.Init.Datatypes <> list ind
+R1745:1748 Coq.Init.Datatypes <> bool ind
+R1751:1751 Undecidability.StackMachines.Util.BSM_sss <> Binary_Stack_Machine.n var
+R1791:1797 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_pos def
+not 1778:1778 Binary_Stack_Machine :::x_'#>'_x
+R1840:1849 Undecidability.Shared.Libs.DLW.Vec.vec <> vec_change def
+not 1822:1822 Binary_Stack_Machine :::x_'['_x_'/'_x_']'
+ind 1872:1878 <> bsm_sss
+constr 1937:1952 <> in_bsm_sss_pop_E
+constr 2033:2048 <> in_bsm_sss_pop_0
+constr 2135:2150 <> in_bsm_sss_pop_1
+constr 2237:2251 <> in_bsm_sss_push
+R1893:1896 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1882:1890 Undecidability.StackMachines.BSM <> bsm_instr ind
+R1892:1892 Undecidability.StackMachines.Util.BSM_sss <> Binary_Stack_Machine.n var
+R1906:1909 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1897:1905 Undecidability.StackMachines.Util.BSM_sss <> bsm_state def
+R1919:1922 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1910:1918 Undecidability.StackMachines.Util.BSM_sss <> bsm_state def
+R2367:2373 Undecidability.StackMachines.Util.BSM_sss <> bsm_sss:3 ind
+binder 1963:1963 <> i:4
+binder 1965:1965 <> x:5
+binder 1967:1967 <> p:6
+binder 1969:1969 <> q:7
+binder 1971:1971 <> v:8
+R1987:1995 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1981:1983 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1978:1979 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'#>'_x not
+R1977:1977 Undecidability.StackMachines.Util.BSM_sss <> v:8 var
+R1980:1980 Undecidability.StackMachines.Util.BSM_sss <> x:5 var
+R1984:1986 Coq.Init.Datatypes <> nil constr
+R2005:2008 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'//'_x_'-1>'_x not
+R2014:2018 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'//'_x_'-1>'_x not
+R1996:1998 Undecidability.StackMachines.Util.BSM_sss <> POP abbrev
+R2004:2004 Undecidability.StackMachines.Util.BSM_sss <> q:7 var
+R2002:2002 Undecidability.StackMachines.Util.BSM_sss <> p:6 var
+R2000:2000 Undecidability.StackMachines.Util.BSM_sss <> x:5 var
+R2009:2009 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2011:2011 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2013:2013 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2010:2010 Undecidability.StackMachines.Util.BSM_sss <> i:4 var
+R2012:2012 Undecidability.StackMachines.Util.BSM_sss <> v:8 var
+R2019:2021 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2023:2023 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2025:2025 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2022:2022 Undecidability.StackMachines.Util.BSM_sss <> q:7 var
+R2024:2024 Undecidability.StackMachines.Util.BSM_sss <> v:8 var
+binder 2059:2059 <> i:9
+binder 2061:2061 <> x:10
+binder 2063:2063 <> p:11
+binder 2065:2065 <> q:12
+binder 2067:2067 <> v:13
+binder 2069:2070 <> ll:14
+R2088:2091 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2077:2079 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2074:2075 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'#>'_x not
+R2073:2073 Undecidability.StackMachines.Util.BSM_sss <> v:13 var
+R2076:2076 Undecidability.StackMachines.Util.BSM_sss <> x:10 var
+R2084:2085 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2080:2083 Undecidability.Shared.Libs.DLW.Utils.list_bool <> Zero abbrev
+R2086:2087 Undecidability.StackMachines.Util.BSM_sss <> ll:14 var
+R2101:2104 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'//'_x_'-1>'_x not
+R2110:2114 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'//'_x_'-1>'_x not
+R2092:2094 Undecidability.StackMachines.Util.BSM_sss <> POP abbrev
+R2100:2100 Undecidability.StackMachines.Util.BSM_sss <> q:12 var
+R2098:2098 Undecidability.StackMachines.Util.BSM_sss <> p:11 var
+R2096:2096 Undecidability.StackMachines.Util.BSM_sss <> x:10 var
+R2105:2105 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2107:2107 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2109:2109 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2106:2106 Undecidability.StackMachines.Util.BSM_sss <> i:9 var
+R2108:2108 Undecidability.StackMachines.Util.BSM_sss <> v:13 var
+R2115:2117 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2119:2119 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2127:2127 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2118:2118 Undecidability.StackMachines.Util.BSM_sss <> p:11 var
+R2121:2121 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'['_x_'/'_x_']' not
+R2124:2124 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'['_x_'/'_x_']' not
+R2126:2126 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'['_x_'/'_x_']' not
+R2120:2120 Undecidability.StackMachines.Util.BSM_sss <> v:13 var
+R2125:2125 Undecidability.StackMachines.Util.BSM_sss <> x:10 var
+R2122:2123 Undecidability.StackMachines.Util.BSM_sss <> ll:14 var
+binder 2161:2161 <> i:15
+binder 2163:2163 <> x:16
+binder 2165:2165 <> p:17
+binder 2167:2167 <> q:18
+binder 2169:2169 <> v:19
+binder 2171:2172 <> ll:20
+R2190:2193 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2179:2181 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2176:2177 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'#>'_x not
+R2175:2175 Undecidability.StackMachines.Util.BSM_sss <> v:19 var
+R2178:2178 Undecidability.StackMachines.Util.BSM_sss <> x:16 var
+R2185:2187 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2182:2184 Undecidability.Shared.Libs.DLW.Utils.list_bool <> One abbrev
+R2188:2189 Undecidability.StackMachines.Util.BSM_sss <> ll:20 var
+R2203:2206 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'//'_x_'-1>'_x not
+R2212:2216 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'//'_x_'-1>'_x not
+R2194:2196 Undecidability.StackMachines.Util.BSM_sss <> POP abbrev
+R2202:2202 Undecidability.StackMachines.Util.BSM_sss <> q:18 var
+R2200:2200 Undecidability.StackMachines.Util.BSM_sss <> p:17 var
+R2198:2198 Undecidability.StackMachines.Util.BSM_sss <> x:16 var
+R2207:2207 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2209:2209 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2211:2211 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2208:2208 Undecidability.StackMachines.Util.BSM_sss <> i:15 var
+R2210:2210 Undecidability.StackMachines.Util.BSM_sss <> v:19 var
+R2217:2217 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2221:2221 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2229:2229 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2219:2219 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R2220:2220 Undecidability.StackMachines.Util.BSM_sss <> i:15 var
+R2223:2223 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'['_x_'/'_x_']' not
+R2226:2226 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'['_x_'/'_x_']' not
+R2228:2228 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'['_x_'/'_x_']' not
+R2222:2222 Undecidability.StackMachines.Util.BSM_sss <> v:19 var
+R2227:2227 Undecidability.StackMachines.Util.BSM_sss <> x:16 var
+R2224:2225 Undecidability.StackMachines.Util.BSM_sss <> ll:20 var
+binder 2263:2263 <> i:21
+binder 2265:2265 <> x:22
+binder 2267:2267 <> b:23
+binder 2269:2269 <> v:24
+R2304:2308 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'//'_x_'-1>'_x not
+R2314:2318 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'//'_x_'-1>'_x not
+R2296:2299 Undecidability.StackMachines.Util.BSM_sss <> PUSH abbrev
+R2303:2303 Undecidability.StackMachines.Util.BSM_sss <> b:23 var
+R2301:2301 Undecidability.StackMachines.Util.BSM_sss <> x:22 var
+R2309:2309 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2311:2311 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2313:2313 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2310:2310 Undecidability.StackMachines.Util.BSM_sss <> i:21 var
+R2312:2312 Undecidability.StackMachines.Util.BSM_sss <> v:24 var
+R2319:2319 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2323:2323 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2338:2338 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2321:2321 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R2322:2322 Undecidability.StackMachines.Util.BSM_sss <> i:21 var
+R2325:2326 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'['_x_'/'_x_']' not
+R2334:2335 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'['_x_'/'_x_']' not
+R2337:2337 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'['_x_'/'_x_']' not
+R2324:2324 Undecidability.StackMachines.Util.BSM_sss <> v:24 var
+R2336:2336 Undecidability.StackMachines.Util.BSM_sss <> x:22 var
+R2328:2329 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2327:2327 Undecidability.StackMachines.Util.BSM_sss <> b:23 var
+R2331:2332 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine :::x_'#>'_x not
+R2330:2330 Undecidability.StackMachines.Util.BSM_sss <> v:24 var
+R2333:2333 Undecidability.StackMachines.Util.BSM_sss <> x:22 var
+scheme 1872:1878 <> bsm_sss_ind
+scheme 1872:1878 <> bsm_sss_sind
+R2367:2373 Undecidability.StackMachines.Util.BSM_sss <> bsm_sss ind
+not 2348:2348 Binary_Stack_Machine :::x_'//'_x_'-1>'_x
+R2388:2407 Undecidability.StackMachines.Util.BSM_sss Binary_Stack_Machine <> sec
+prf 2417:2435 <> eval_to_sss_compute
+binder 2437:2437 <> n:25
+binder 2439:2439 <> i:26
+R2446:2449 Coq.Init.Datatypes <> list ind
+R2452:2460 Undecidability.StackMachines.BSM <> bsm_instr ind
+R2462:2462 Undecidability.StackMachines.Util.BSM_sss <> n:25 var
+binder 2442:2442 <> P:27
+binder 2466:2466 <> c:28
+R2473:2475 Undecidability.Shared.Libs.DLW.Vec.vec <> vec abbrev
+R2478:2481 Coq.Init.Datatypes <> list ind
+R2483:2486 Coq.Init.Datatypes <> bool ind
+R2489:2489 Undecidability.StackMachines.Util.BSM_sss <> n:25 var
+binder 2469:2469 <> v:29
+binder 2492:2493 <> c':30
+binder 2495:2496 <> v':31
+R2531:2534 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2502:2505 Undecidability.StackMachines.BSM <> eval ind
+R2509:2509 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2511:2512 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2514:2514 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2510:2510 Undecidability.StackMachines.Util.BSM_sss <> i:26 var
+R2513:2513 Undecidability.StackMachines.Util.BSM_sss <> P:27 var
+R2516:2516 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2518:2519 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2521:2521 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2517:2517 Undecidability.StackMachines.Util.BSM_sss <> c:28 var
+R2520:2520 Undecidability.StackMachines.Util.BSM_sss <> v:29 var
+R2523:2523 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2526:2527 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2530:2530 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2524:2525 Undecidability.StackMachines.Util.BSM_sss <> c':30 var
+R2528:2529 Undecidability.StackMachines.Util.BSM_sss <> v':31 var
+R2507:2507 Undecidability.StackMachines.Util.BSM_sss <> n:25 var
+R2535:2545 Undecidability.Shared.Libs.DLW.Code.sss <> sss_compute def
+R2573:2573 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2576:2577 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2580:2580 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2574:2575 Undecidability.StackMachines.Util.BSM_sss <> c':30 var
+R2578:2579 Undecidability.StackMachines.Util.BSM_sss <> v':31 var
+R2566:2566 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2568:2569 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2571:2571 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2567:2567 Undecidability.StackMachines.Util.BSM_sss <> c:28 var
+R2570:2570 Undecidability.StackMachines.Util.BSM_sss <> v:29 var
+R2560:2560 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2562:2562 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2564:2564 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2561:2561 Undecidability.StackMachines.Util.BSM_sss <> i:26 var
+R2563:2563 Undecidability.StackMachines.Util.BSM_sss <> P:27 var
+R2549:2555 Undecidability.StackMachines.Util.BSM_sss <> bsm_sss ind
+R2603:2603 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2605:2606 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2608:2608 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2603:2603 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2605:2606 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2608:2608 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2630:2630 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2632:2633 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2635:2635 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2630:2630 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2632:2633 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2635:2635 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2657:2657 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2660:2661 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2664:2664 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2657:2657 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2660:2661 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2664:2664 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2989:2991 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R2989:2991 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3007:3021 Coq.Lists.List <> nth_error_split thm
+R3007:3021 Coq.Lists.List <> nth_error_split thm
+R3118:3120 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3131:3133 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3118:3120 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3131:3133 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3158:3160 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3158:3160 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3176:3190 Coq.Lists.List <> nth_error_split thm
+R3176:3190 Coq.Lists.List <> nth_error_split thm
+R3314:3316 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3327:3329 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3314:3316 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3327:3329 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3375:3377 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3375:3377 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3393:3407 Coq.Lists.List <> nth_error_split thm
+R3393:3407 Coq.Lists.List <> nth_error_split thm
+R3540:3542 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3540:3542 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3558:3572 Coq.Lists.List <> nth_error_split thm
+R3558:3572 Coq.Lists.List <> nth_error_split thm
+prf 3704:3723 <> eval_to_sss_out_code
+binder 3725:3725 <> n:32
+binder 3727:3727 <> i:33
+R3734:3737 Coq.Init.Datatypes <> list ind
+R3740:3748 Undecidability.StackMachines.BSM <> bsm_instr ind
+R3750:3750 Undecidability.StackMachines.Util.BSM_sss <> n:32 var
+binder 3730:3730 <> P:34
+binder 3754:3754 <> c:35
+R3761:3763 Undecidability.Shared.Libs.DLW.Vec.vec <> vec abbrev
+R3766:3769 Coq.Init.Datatypes <> list ind
+R3771:3774 Coq.Init.Datatypes <> bool ind
+R3777:3777 Undecidability.StackMachines.Util.BSM_sss <> n:32 var
+binder 3757:3757 <> v:36
+binder 3780:3781 <> c':37
+binder 3783:3784 <> v':38
+R3819:3822 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3790:3793 Undecidability.StackMachines.BSM <> eval ind
+R3797:3797 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3799:3800 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3802:3802 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3798:3798 Undecidability.StackMachines.Util.BSM_sss <> i:33 var
+R3801:3801 Undecidability.StackMachines.Util.BSM_sss <> P:34 var
+R3804:3804 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3806:3807 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3809:3809 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3805:3805 Undecidability.StackMachines.Util.BSM_sss <> c:35 var
+R3808:3808 Undecidability.StackMachines.Util.BSM_sss <> v:36 var
+R3811:3811 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3814:3815 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3818:3818 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3812:3813 Undecidability.StackMachines.Util.BSM_sss <> c':37 var
+R3816:3817 Undecidability.StackMachines.Util.BSM_sss <> v':38 var
+R3795:3795 Undecidability.StackMachines.Util.BSM_sss <> n:32 var
+R3823:3838 Undecidability.Shared.Libs.DLW.Code.subcode <> out_code def
+R3855:3855 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3857:3858 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3860:3860 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3856:3856 Undecidability.StackMachines.Util.BSM_sss <> i:33 var
+R3859:3859 Undecidability.StackMachines.Util.BSM_sss <> P:34 var
+R3841:3843 Coq.Init.Datatypes <> fst def
+R3845:3845 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3848:3849 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3852:3852 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3846:3847 Undecidability.StackMachines.Util.BSM_sss <> c':37 var
+R3850:3851 Undecidability.StackMachines.Util.BSM_sss <> v':38 var
+R3883:3883 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3885:3886 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3888:3888 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3883:3883 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3885:3886 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3888:3888 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3910:3910 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3912:3913 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3915:3915 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3910:3910 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3912:3913 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3915:3915 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3937:3937 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3940:3941 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3944:3944 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3937:3937 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3940:3941 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3944:3944 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+prf 4242:4259 <> sss_output_to_eval
+binder 4261:4261 <> n:39
+binder 4263:4263 <> i:40
+R4270:4273 Coq.Init.Datatypes <> list ind
+R4276:4284 Undecidability.StackMachines.BSM <> bsm_instr ind
+R4286:4286 Undecidability.StackMachines.Util.BSM_sss <> n:39 var
+binder 4266:4266 <> P:41
+binder 4290:4290 <> c:42
+R4297:4299 Undecidability.Shared.Libs.DLW.Vec.vec <> vec abbrev
+R4302:4305 Coq.Init.Datatypes <> list ind
+R4307:4310 Coq.Init.Datatypes <> bool ind
+R4313:4313 Undecidability.StackMachines.Util.BSM_sss <> n:39 var
+binder 4293:4293 <> v:43
+binder 4316:4317 <> c':44
+binder 4319:4320 <> v':45
+R4371:4374 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4326:4335 Undecidability.Shared.Libs.DLW.Code.sss <> sss_output def
+R4363:4363 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4366:4367 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4370:4370 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4364:4365 Undecidability.StackMachines.Util.BSM_sss <> c':44 var
+R4368:4369 Undecidability.StackMachines.Util.BSM_sss <> v':45 var
+R4356:4356 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4358:4359 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4361:4361 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4357:4357 Undecidability.StackMachines.Util.BSM_sss <> c:42 var
+R4360:4360 Undecidability.StackMachines.Util.BSM_sss <> v:43 var
+R4350:4350 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4352:4352 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4354:4354 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4351:4351 Undecidability.StackMachines.Util.BSM_sss <> i:40 var
+R4353:4353 Undecidability.StackMachines.Util.BSM_sss <> P:41 var
+R4339:4345 Undecidability.StackMachines.Util.BSM_sss <> bsm_sss ind
+R4375:4378 Undecidability.StackMachines.BSM <> eval ind
+R4382:4382 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4384:4385 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4387:4387 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4383:4383 Undecidability.StackMachines.Util.BSM_sss <> i:40 var
+R4386:4386 Undecidability.StackMachines.Util.BSM_sss <> P:41 var
+R4389:4389 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4391:4392 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4394:4394 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4390:4390 Undecidability.StackMachines.Util.BSM_sss <> c:42 var
+R4393:4393 Undecidability.StackMachines.Util.BSM_sss <> v:43 var
+R4396:4396 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4399:4400 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4403:4403 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4397:4398 Undecidability.StackMachines.Util.BSM_sss <> c':44 var
+R4401:4402 Undecidability.StackMachines.Util.BSM_sss <> v':45 var
+R4380:4380 Undecidability.StackMachines.Util.BSM_sss <> n:39 var
+R4426:4426 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4428:4429 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4431:4431 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4426:4426 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4428:4429 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4431:4431 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4453:4453 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4455:4456 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4458:4458 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4453:4453 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4455:4456 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4458:4458 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4480:4480 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4483:4484 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4487:4487 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4480:4480 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4483:4484 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4487:4487 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4853:4870 Undecidability.StackMachines.BSM <> eval_bsm_pop_empty constr
+R4853:4870 Undecidability.StackMachines.BSM <> eval_bsm_pop_empty constr
+R4908:4921 Coq.Lists.List <> nth_error_app2 thm
+R4908:4921 Coq.Lists.List <> nth_error_app2 thm
+R4908:4921 Coq.Lists.List <> nth_error_app2 thm
+R4908:4921 Coq.Lists.List <> nth_error_app2 thm
+R4969:4971 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R4965:4967 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R4954:4956 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R4957:4962 Coq.Init.Datatypes <> length def
+R4972:4977 Coq.Init.Datatypes <> length def
+R4969:4971 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R4965:4967 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R4954:4956 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R4957:4962 Coq.Init.Datatypes <> length def
+R4972:4977 Coq.Init.Datatypes <> length def
+R5010:5027 Undecidability.StackMachines.BSM <> eval_bsm_pop_false constr
+R5010:5027 Undecidability.StackMachines.BSM <> eval_bsm_pop_false constr
+R5065:5078 Coq.Lists.List <> nth_error_app2 thm
+R5065:5078 Coq.Lists.List <> nth_error_app2 thm
+R5065:5078 Coq.Lists.List <> nth_error_app2 thm
+R5065:5078 Coq.Lists.List <> nth_error_app2 thm
+R5126:5128 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R5122:5124 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R5111:5113 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5114:5119 Coq.Init.Datatypes <> length def
+R5129:5134 Coq.Init.Datatypes <> length def
+R5126:5128 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R5122:5124 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R5111:5113 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5114:5119 Coq.Init.Datatypes <> length def
+R5129:5134 Coq.Init.Datatypes <> length def
+R5167:5183 Undecidability.StackMachines.BSM <> eval_bsm_pop_true constr
+R5167:5183 Undecidability.StackMachines.BSM <> eval_bsm_pop_true constr
+R5223:5236 Coq.Lists.List <> nth_error_app2 thm
+R5223:5236 Coq.Lists.List <> nth_error_app2 thm
+R5223:5236 Coq.Lists.List <> nth_error_app2 thm
+R5223:5236 Coq.Lists.List <> nth_error_app2 thm
+R5286:5288 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R5282:5284 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R5271:5273 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5274:5279 Coq.Init.Datatypes <> length def
+R5289:5294 Coq.Init.Datatypes <> length def
+R5286:5288 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R5282:5284 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R5271:5273 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5274:5279 Coq.Init.Datatypes <> length def
+R5289:5294 Coq.Init.Datatypes <> length def
+R5347:5349 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5336:5338 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5339:5344 Coq.Init.Datatypes <> length def
+R5360:5363 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5376:5376 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5365:5367 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5368:5373 Coq.Init.Datatypes <> length def
+R5347:5349 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5336:5338 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5339:5344 Coq.Init.Datatypes <> length def
+R5360:5363 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5376:5376 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5365:5367 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5368:5373 Coq.Init.Datatypes <> length def
+R5400:5412 Undecidability.StackMachines.BSM <> eval_bsm_push constr
+R5400:5412 Undecidability.StackMachines.BSM <> eval_bsm_push constr
+R5452:5465 Coq.Lists.List <> nth_error_app2 thm
+R5452:5465 Coq.Lists.List <> nth_error_app2 thm
+R5452:5465 Coq.Lists.List <> nth_error_app2 thm
+R5452:5465 Coq.Lists.List <> nth_error_app2 thm
+R5515:5517 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R5511:5513 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R5500:5502 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5503:5508 Coq.Init.Datatypes <> length def
+R5518:5523 Coq.Init.Datatypes <> length def
+R5515:5517 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R5511:5513 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R5500:5502 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5503:5508 Coq.Init.Datatypes <> length def
+R5518:5523 Coq.Init.Datatypes <> length def
+R5576:5578 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5565:5567 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5568:5573 Coq.Init.Datatypes <> length def
+R5589:5592 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5605:5605 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5594:5596 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5597:5602 Coq.Init.Datatypes <> length def
+R5576:5578 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5565:5567 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5568:5573 Coq.Init.Datatypes <> length def
+R5589:5592 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5605:5605 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5594:5596 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5597:5602 Coq.Init.Datatypes <> length def
+prf 5630:5637 <> eval_iff
+binder 5639:5639 <> n:46
+binder 5641:5641 <> i:47
+R5648:5651 Coq.Init.Datatypes <> list ind
+R5654:5662 Undecidability.StackMachines.BSM <> bsm_instr ind
+R5664:5664 Undecidability.StackMachines.Util.BSM_sss <> n:46 var
+binder 5644:5644 <> P:48
+binder 5668:5668 <> c:49
+R5675:5677 Undecidability.Shared.Libs.DLW.Vec.vec <> vec abbrev
+R5680:5683 Coq.Init.Datatypes <> list ind
+R5685:5688 Coq.Init.Datatypes <> bool ind
+R5691:5691 Undecidability.StackMachines.Util.BSM_sss <> n:46 var
+binder 5671:5671 <> v:50
+binder 5694:5695 <> c':51
+binder 5697:5698 <> v':52
+R5733:5737 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5704:5707 Undecidability.StackMachines.BSM <> eval ind
+R5711:5711 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5713:5714 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5716:5716 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5712:5712 Undecidability.StackMachines.Util.BSM_sss <> i:47 var
+R5715:5715 Undecidability.StackMachines.Util.BSM_sss <> P:48 var
+R5718:5718 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5720:5721 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5723:5723 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5719:5719 Undecidability.StackMachines.Util.BSM_sss <> c:49 var
+R5722:5722 Undecidability.StackMachines.Util.BSM_sss <> v:50 var
+R5725:5725 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5728:5729 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5732:5732 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5726:5727 Undecidability.StackMachines.Util.BSM_sss <> c':51 var
+R5730:5731 Undecidability.StackMachines.Util.BSM_sss <> v':52 var
+R5709:5709 Undecidability.StackMachines.Util.BSM_sss <> n:46 var
+R5738:5747 Undecidability.Shared.Libs.DLW.Code.sss <> sss_output def
+R5775:5775 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5778:5779 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5782:5782 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5776:5777 Undecidability.StackMachines.Util.BSM_sss <> c':51 var
+R5780:5781 Undecidability.StackMachines.Util.BSM_sss <> v':52 var
+R5768:5768 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5770:5771 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5773:5773 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5769:5769 Undecidability.StackMachines.Util.BSM_sss <> c:49 var
+R5772:5772 Undecidability.StackMachines.Util.BSM_sss <> v:50 var
+R5762:5762 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5764:5764 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5766:5766 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5763:5763 Undecidability.StackMachines.Util.BSM_sss <> i:47 var
+R5765:5765 Undecidability.StackMachines.Util.BSM_sss <> P:48 var
+R5751:5757 Undecidability.StackMachines.Util.BSM_sss <> bsm_sss ind
+R5839:5857 Undecidability.StackMachines.Util.BSM_sss <> eval_to_sss_compute thm
+R5839:5857 Undecidability.StackMachines.Util.BSM_sss <> eval_to_sss_compute thm
+R5873:5892 Undecidability.StackMachines.Util.BSM_sss <> eval_to_sss_out_code thm
+R5873:5892 Undecidability.StackMachines.Util.BSM_sss <> eval_to_sss_out_code thm
+R5933:5950 Undecidability.StackMachines.Util.BSM_sss <> sss_output_to_eval thm
+R5933:5950 Undecidability.StackMachines.Util.BSM_sss <> sss_output_to_eval thm
+def 6007:6017 <> BSM_PROBLEM
+R6022:6023 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R6025:6027 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R6031:6033 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R6094:6095 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R6028:6030 Coq.Init.Datatypes <> nat ind
+binder 6024:6024 <> n:53
+R6034:6035 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R6037:6039 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R6043:6045 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R6092:6093 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R6040:6042 Coq.Init.Datatypes <> nat ind
+binder 6036:6036 <> i:54
+R6046:6047 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R6049:6051 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R6070:6072 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R6090:6091 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'}' not
+R6052:6055 Coq.Init.Datatypes <> list ind
+R6058:6066 Undecidability.StackMachines.BSM <> bsm_instr ind
+R6068:6068 Undecidability.StackMachines.Util.BSM_sss <> n:53 var
+binder 6048:6048 <> P:55
+R6073:6075 Undecidability.Shared.Libs.DLW.Vec.vec <> vec abbrev
+R6078:6081 Coq.Init.Datatypes <> list ind
+R6083:6086 Coq.Init.Datatypes <> bool ind
+R6089:6089 Undecidability.StackMachines.Util.BSM_sss <> n:53 var
+R6131:6144 Undecidability.Shared.Libs.DLW.Code.sss <> sss_terminates def
+R6148:6154 Undecidability.StackMachines.Util.BSM_sss <> bsm_sss ind
+not 6114:6114 <> :::x_'//'_x_'↓'
+def 6177:6188 <> BSMn_HALTING
+binder 6190:6190 <> n:56
+R6197:6208 Undecidability.StackMachines.BSM <> BSMn_PROBLEM def
+R6210:6210 Undecidability.StackMachines.Util.BSM_sss <> n:56 var
+binder 6193:6193 <> P:57
+R6224:6224 Undecidability.StackMachines.Util.BSM_sss <> P:57 var
+R6231:6236 Coq.Init.Specif <> existT constr
+R6243:6248 Coq.Init.Specif <> existT constr
+R6265:6268 Undecidability.StackMachines.Util.BSM_sss <> :::x_'//'_x_'↓' not
+R6274:6277 Undecidability.StackMachines.Util.BSM_sss <> :::x_'//'_x_'↓' not
+R6260:6260 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6262:6262 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6264:6264 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6263:6263 Undecidability.StackMachines.Util.BSM_sss <> P:57 var
+R6269:6269 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6271:6271 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6273:6273 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6295:6306 Undecidability.StackMachines.Util.BSM_sss <> BSMn_HALTING def
+R6295:6306 Undecidability.StackMachines.Util.BSM_sss <> BSMn_HALTING def
+def 6339:6349 <> BSM_HALTING
+R6356:6366 Undecidability.StackMachines.Util.BSM_sss <> BSM_PROBLEM def
+binder 6352:6352 <> P:59
+R6381:6381 Undecidability.StackMachines.Util.BSM_sss <> P:59 var
+R6388:6393 Coq.Init.Specif <> existT constr
+R6400:6405 Coq.Init.Specif <> existT constr
+R6412:6417 Coq.Init.Specif <> existT constr
+R6435:6438 Undecidability.StackMachines.Util.BSM_sss <> :::x_'//'_x_'↓' not
+R6444:6447 Undecidability.StackMachines.Util.BSM_sss <> :::x_'//'_x_'↓' not
+R6430:6430 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6432:6432 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6434:6434 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6433:6433 Undecidability.StackMachines.Util.BSM_sss <> P:59 var
+R6439:6439 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6441:6441 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6443:6443 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+prf 6461:6472 <> Halt_BSM_iff
+binder 6474:6474 <> P:61
+R6490:6494 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6480:6487 Undecidability.StackMachines.BSM <> Halt_BSM def
+R6489:6489 Undecidability.StackMachines.Util.BSM_sss <> P:61 var
+R6495:6505 Undecidability.StackMachines.Util.BSM_sss <> BSM_HALTING def
+R6507:6507 Undecidability.StackMachines.Util.BSM_sss <> P:61 var
+R6590:6597 Undecidability.StackMachines.Util.BSM_sss <> eval_iff thm
+R6590:6597 Undecidability.StackMachines.Util.BSM_sss <> eval_iff thm
+R6642:6649 Undecidability.StackMachines.Util.BSM_sss <> eval_iff thm
+R6642:6649 Undecidability.StackMachines.Util.BSM_sss <> eval_iff thm

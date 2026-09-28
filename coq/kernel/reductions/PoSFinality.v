@@ -17,11 +17,9 @@
     cost floor is [universal_nfi_any_substrate] instantiated: every run from
     unfinalized to finalized risks at least one unit of stake.
 
-    FALSIFIER: exhibit a protocol whose known nothing-at-stake status
-    contradicts the formal classification: a zero-stake-at-finalize gadget
-    that still admits an A2 proof, or a slashing gadget (finalize
-    risks >= 1) with a finalizing trace of total stake-at-risk 0. Coq accepts
-    the construction if it exists; either breaks this file.
+    The classification is conditional on the supplied stake schedule. A
+    zero-stake finalization carrying an A2 proof, or a slashing schedule with a
+    zero-cost finalizing trace, would contradict the corresponding premise.
 
     This file does not model economic rationality, network timing, or
     validator collusion. It prices exactly one event: the finalization flip. *)

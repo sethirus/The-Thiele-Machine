@@ -51,9 +51,9 @@ Definition simple_morph_obs_fn (s : VMState) : list vm_instruction :=
     uses it through [observation_equiv], so a constant function makes every
     prior state equivalent to every posterior state under this representative;
     the actual narrowing information lives in [simple_morph_obs_fn], not here.
-    A bare [[]] would be flagged as an empty-list placeholder; a constant
-    non-empty receipt list has the same mathematical role with the right
-    syntactic shape. *)
+    A bare [[]] would provide no receipt-shaped observation. A constant
+    non-empty receipt list has the same mathematical role while preserving
+    the intended observation type. *)
 Definition simple_morph_repr_obs_fn (_ : VMState) : list vm_instruction :=
   [instr_halt 0].
 

@@ -1,265 +1,265 @@
-DIGEST 7ede930340d55252f827217eee268f3e
+DIGEST f6a67eaebc4363bcade4bd0e5291b0cd
 FKernel.PoSFinality
-R1556:1559 Coq.Lists.List <> <> lib
-R1561:1574 Coq.Arith.PeanoNat <> <> lib
-R1576:1578 Coq.micromega.Lia <> <> lib
-R1580:1583 Coq.Bool.Bool <> <> lib
-R1593:1605 Coq.Lists.List ListNotations <> mod
-R1636:1661 Kernel.UniversalCertificationCost <> <> lib
-R1663:1680 Kernel.HonestCostTracking <> <> lib
-sec 1692:1702 <> PoSFinality
-var 1945:1957 PoSFinality ValidatorView
-ind 2345:2353 <> pos_instr
-constr 2367:2373 <> PoSVote
-constr 2418:2428 <> PoSFinalize
-R2397:2400 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2384:2396 Kernel.PoSFinality <> PoSFinality.ValidatorView var
-R2401:2413 Kernel.PoSFinality <> PoSFinality.ValidatorView var
-binder 2376:2380 <> delta:4
-scheme 2345:2353 <> pos_instr_rect
-scheme 2345:2353 <> pos_instr_ind
-scheme 2345:2353 <> pos_instr_rec
-scheme 2345:2353 <> pos_instr_sind
-def 2577:2585 <> pos_state
-R2611:2613 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R2598:2610 Kernel.PoSFinality <> PoSFinality.ValidatorView var
-R2614:2617 Coq.Init.Datatypes <> bool ind
-def 2776:2783 <> pos_step
-R2790:2798 Kernel.PoSFinality <> pos_state def
-binder 2786:2786 <> s:5
-R2806:2814 Kernel.PoSFinality <> pos_instr ind
-binder 2802:2802 <> i:6
-R2819:2827 Kernel.PoSFinality <> pos_state def
-R2840:2840 Kernel.PoSFinality <> i:6 var
-R2851:2857 Kernel.PoSFinality <> PoSVote constr
-R2868:2868 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2882:2883 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2889:2889 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2876:2878 Coq.Init.Datatypes <> fst def
-R2880:2880 Kernel.PoSFinality <> s:5 var
-R2884:2886 Coq.Init.Datatypes <> snd def
-R2888:2888 Kernel.PoSFinality <> s:5 var
-R2895:2905 Kernel.PoSFinality <> PoSFinalize constr
-R2912:2912 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2918:2919 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2924:2924 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2913:2915 Coq.Init.Datatypes <> fst def
-R2917:2917 Kernel.PoSFinality <> s:5 var
-R2920:2923 Coq.Init.Datatypes <> true constr
-def 3014:3026 <> pos_finalized
-R3039:3042 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3030:3038 Kernel.PoSFinality <> pos_state def
-R3043:3046 Coq.Init.Datatypes <> bool ind
-R3051:3053 Coq.Init.Datatypes <> snd def
-prf 3283:3306 <> vote_preserves_finalized
-R3324:3332 Kernel.PoSFinality <> pos_state def
-binder 3320:3320 <> s:8
-R3357:3360 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3344:3356 Kernel.PoSFinality <> PoSFinality.ValidatorView var
-R3361:3373 Kernel.PoSFinality <> PoSFinality.ValidatorView var
-binder 3336:3340 <> delta:9
-R3423:3425 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3381:3393 Kernel.PoSFinality <> pos_finalized def
-R3396:3403 Kernel.PoSFinality <> pos_step def
-R3405:3405 Kernel.PoSFinality <> s:8 var
-R3408:3414 Kernel.PoSFinality <> PoSVote constr
-R3416:3420 Kernel.PoSFinality <> delta:9 var
-R3426:3438 Kernel.PoSFinality <> pos_finalized def
-R3440:3440 Kernel.PoSFinality <> s:8 var
-def 3882:3904 <> nothing_at_stake_gadget
-R3908:3924 Kernel.HonestCostTracking <> CostBearingSystem rec
-R3934:3941 Kernel.HonestCostTracking <> cb_state proj
-R3934:3941 Kernel.HonestCostTracking <> cb_state proj
-R3934:3941 Kernel.HonestCostTracking <> cb_state proj
-R3962:3969 Kernel.HonestCostTracking <> cb_instr proj
-R3962:3969 Kernel.HonestCostTracking <> cb_instr proj
-R3990:3996 Kernel.HonestCostTracking <> cb_step proj
-R3990:3996 Kernel.HonestCostTracking <> cb_step proj
-R4017:4023 Kernel.HonestCostTracking <> cb_cost proj
-R4017:4023 Kernel.HonestCostTracking <> cb_cost proj
-R4046:4052 Kernel.HonestCostTracking <> cb_cert proj
-R4046:4052 Kernel.HonestCostTracking <> cb_cert proj
-R3946:3954 Kernel.PoSFinality <> pos_state def
-R3974:3982 Kernel.PoSFinality <> pos_instr ind
-R4002:4009 Kernel.PoSFinality <> pos_step def
-R4058:4070 Kernel.PoSFinality <> pos_finalized def
-prf 4631:4664 <> nothing_at_stake_free_finalization
-R4681:4689 Kernel.PoSFinality <> pos_state def
-binder 4677:4677 <> s:10
-R4719:4729 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4711:4713 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4696:4708 Kernel.PoSFinality <> pos_finalized def
-R4710:4710 Kernel.PoSFinality <> s:10 var
-R4714:4718 Coq.Init.Datatypes <> false constr
-R4771:4778 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4763:4765 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4730:4736 Kernel.HonestCostTracking <> cb_cert proj
-R4738:4760 Kernel.PoSFinality <> nothing_at_stake_gadget def
-R4762:4762 Kernel.PoSFinality <> s:10 var
-R4766:4770 Coq.Init.Datatypes <> false constr
-R4876:4883 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4869:4871 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4779:4785 Kernel.HonestCostTracking <> cb_cert proj
-R4787:4809 Kernel.PoSFinality <> nothing_at_stake_gadget def
-R4822:4827 Kernel.HonestCostTracking <> cb_run def
-R4829:4851 Kernel.PoSFinality <> nothing_at_stake_gadget def
-R4853:4853 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R4865:4865 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R4854:4864 Kernel.PoSFinality <> PoSFinalize constr
-R4867:4867 Kernel.PoSFinality <> s:10 var
-R4872:4875 Coq.Init.Datatypes <> true constr
-R4935:4937 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4884:4896 Kernel.HonestCostTracking <> cb_total_cost def
-R4898:4920 Kernel.PoSFinality <> nothing_at_stake_gadget def
-R4922:4922 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R4934:4934 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R4923:4933 Kernel.PoSFinality <> PoSFinalize constr
-prf 5902:5933 <> nothing_at_stake_is_free_forgery
-R5950:5962 Kernel.PoSFinality <> PoSFinality.ValidatorView var
-binder 5946:5946 <> v:11
-R5969:5971 Coq.Init.Logic <> ::type_scope:'~'_x not
-R6283:6283 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5984:5991 Kernel.HonestCostTracking <> cb_state proj
-R5993:6015 Kernel.PoSFinality <> nothing_at_stake_gadget def
-binder 5980:5980 <> s:12
-R6037:6044 Kernel.HonestCostTracking <> cb_instr proj
-R6046:6068 Kernel.PoSFinality <> nothing_at_stake_gadget def
-binder 6033:6033 <> i:13
-R6123:6136 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6115:6117 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6082:6088 Kernel.HonestCostTracking <> cb_cert proj
-R6090:6112 Kernel.PoSFinality <> nothing_at_stake_gadget def
-R6114:6114 Kernel.PoSFinality <> s:12 var
-R6118:6122 Coq.Init.Datatypes <> false constr
-R6231:6244 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6224:6226 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6137:6143 Kernel.HonestCostTracking <> cb_cert proj
-R6145:6167 Kernel.PoSFinality <> nothing_at_stake_gadget def
-R6188:6194 Kernel.HonestCostTracking <> cb_step proj
-R6196:6218 Kernel.PoSFinality <> nothing_at_stake_gadget def
-R6220:6220 Kernel.PoSFinality <> s:12 var
-R6222:6222 Kernel.PoSFinality <> i:13 var
-R6227:6230 Coq.Init.Datatypes <> true constr
-R6278:6281 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6245:6251 Kernel.HonestCostTracking <> cb_cost proj
-R6253:6275 Kernel.PoSFinality <> nothing_at_stake_gadget def
-R6277:6277 Kernel.PoSFinality <> i:13 var
-R6313:6336 Kernel.HonestCostTracking <> free_forgery_violates_A2 thm
-R6349:6371 Kernel.PoSFinality <> nothing_at_stake_gadget def
-R6373:6373 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6375:6376 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6382:6382 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6377:6381 Coq.Init.Datatypes <> false constr
-R6384:6394 Kernel.PoSFinality <> PoSFinalize constr
-R6313:6336 Kernel.HonestCostTracking <> free_forgery_violates_A2 thm
-R6349:6371 Kernel.PoSFinality <> nothing_at_stake_gadget def
-R6373:6373 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6375:6376 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6382:6382 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6377:6381 Coq.Init.Datatypes <> false constr
-R6384:6394 Kernel.PoSFinality <> PoSFinalize constr
-prf 7133:7151 <> slashing_cert_costs
-R7190:7193 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7181:7189 Kernel.PoSFinality <> pos_instr ind
-R7194:7196 Coq.Init.Datatypes <> nat ind
-binder 7165:7177 <> stake_at_risk:14
-R7234:7241 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7229:7232 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7204:7216 Kernel.PoSFinality <> stake_at_risk:14 var
-R7218:7228 Kernel.PoSFinality <> PoSFinalize constr
-R7254:7262 Kernel.PoSFinality <> pos_state def
-binder 7250:7250 <> s:15
-R7270:7278 Kernel.PoSFinality <> pos_instr ind
-binder 7266:7266 <> i:16
-R7311:7320 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7303:7305 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7288:7300 Kernel.PoSFinality <> pos_finalized def
-R7302:7302 Kernel.PoSFinality <> s:15 var
-R7306:7310 Coq.Init.Datatypes <> false constr
-R7356:7365 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7349:7351 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7321:7333 Kernel.PoSFinality <> pos_finalized def
-R7336:7343 Kernel.PoSFinality <> pos_step def
-R7345:7345 Kernel.PoSFinality <> s:15 var
-R7347:7347 Kernel.PoSFinality <> i:16 var
-R7352:7355 Coq.Init.Datatypes <> true constr
-R7381:7384 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7366:7378 Kernel.PoSFinality <> stake_at_risk:14 var
-R7380:7380 Kernel.PoSFinality <> i:16 var
-R7483:7506 Kernel.PoSFinality <> vote_preserves_finalized thm
-R7483:7506 Kernel.PoSFinality <> vote_preserves_finalized thm
-R7483:7506 Kernel.PoSFinality <> vote_preserves_finalized thm
-def 7926:7940 <> slashing_gadget
-R7979:7982 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7970:7978 Kernel.PoSFinality <> pos_instr ind
-R7983:7985 Coq.Init.Datatypes <> nat ind
-binder 7954:7966 <> stake_at_risk:17
-R8034:8037 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8009:8021 Kernel.PoSFinality <> stake_at_risk:17 var
-R8023:8033 Kernel.PoSFinality <> PoSFinalize constr
-binder 8000:8005 <> Hslash:18
-R8043:8061 Kernel.UniversalCertificationCost <> CertificationSystem rec
-R8071:8078 Kernel.UniversalCertificationCost <> cs_state proj
-R8071:8078 Kernel.UniversalCertificationCost <> cs_state proj
-R8071:8078 Kernel.UniversalCertificationCost <> cs_state proj
-R8099:8106 Kernel.UniversalCertificationCost <> cs_instr proj
-R8099:8106 Kernel.UniversalCertificationCost <> cs_instr proj
-R8127:8133 Kernel.UniversalCertificationCost <> cs_step proj
-R8127:8133 Kernel.UniversalCertificationCost <> cs_step proj
-R8154:8160 Kernel.UniversalCertificationCost <> cs_cost proj
-R8154:8160 Kernel.UniversalCertificationCost <> cs_cost proj
-R8186:8192 Kernel.UniversalCertificationCost <> cs_cert proj
-R8186:8192 Kernel.UniversalCertificationCost <> cs_cert proj
-R8218:8230 Kernel.UniversalCertificationCost <> cs_cert_costs proj
-R8218:8230 Kernel.UniversalCertificationCost <> cs_cert_costs proj
-R8083:8091 Kernel.PoSFinality <> pos_state def
-R8111:8119 Kernel.PoSFinality <> pos_instr ind
-R8139:8146 Kernel.PoSFinality <> pos_step def
-R8166:8178 Kernel.PoSFinality <> stake_at_risk:17 var
-R8198:8210 Kernel.PoSFinality <> pos_finalized def
-R8235:8253 Kernel.PoSFinality <> slashing_cert_costs thm
-R8255:8267 Kernel.PoSFinality <> stake_at_risk:17 var
-R8269:8274 Kernel.PoSFinality <> Hslash:18 var
-prf 9083:9105 <> slashing_finality_floor
-R9144:9147 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9135:9143 Kernel.PoSFinality <> pos_instr ind
-R9148:9150 Coq.Init.Datatypes <> nat ind
-binder 9119:9131 <> stake_at_risk:19
-R9197:9200 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R9172:9184 Kernel.PoSFinality <> stake_at_risk:19 var
-R9186:9196 Kernel.PoSFinality <> PoSFinalize constr
-binder 9163:9168 <> Hslash:20
-R9222:9225 Coq.Init.Datatypes <> list ind
-R9227:9235 Kernel.PoSFinality <> pos_instr ind
-binder 9214:9218 <> trace:21
-R9253:9261 Kernel.PoSFinality <> pos_state def
-binder 9248:9249 <> s0:22
-R9293:9300 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9285:9287 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9269:9281 Kernel.PoSFinality <> pos_finalized def
-R9283:9284 Kernel.PoSFinality <> s0:22 var
-R9288:9292 Coq.Init.Datatypes <> false constr
-R9384:9391 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9377:9379 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9301:9313 Kernel.PoSFinality <> pos_finalized def
-R9322:9327 Kernel.UniversalCertificationCost <> cs_run def
-R9330:9344 Kernel.PoSFinality <> slashing_gadget def
-R9346:9358 Kernel.PoSFinality <> stake_at_risk:19 var
-R9360:9365 Kernel.PoSFinality <> Hslash:20 var
-R9368:9372 Kernel.PoSFinality <> trace:21 var
-R9374:9375 Kernel.PoSFinality <> s0:22 var
-R9380:9383 Coq.Init.Datatypes <> true constr
-R9450:9453 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R9392:9404 Kernel.UniversalCertificationCost <> cs_total_cost def
-R9407:9421 Kernel.PoSFinality <> slashing_gadget def
-R9423:9435 Kernel.PoSFinality <> stake_at_risk:19 var
-R9437:9442 Kernel.PoSFinality <> Hslash:20 var
-R9445:9449 Kernel.PoSFinality <> trace:21 var
-R9528:9554 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-R9568:9582 Kernel.PoSFinality <> slashing_gadget def
-R9528:9554 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-R9568:9582 Kernel.PoSFinality <> slashing_gadget def
-R9642:9652 Kernel.PoSFinality PoSFinality <> sec
-R9674:9707 Kernel.PoSFinality <> nothing_at_stake_free_finalization thm
-R9728:9759 Kernel.PoSFinality <> nothing_at_stake_is_free_forgery thm
-R9780:9802 Kernel.PoSFinality <> slashing_finality_floor thm
+R1435:1438 Coq.Lists.List <> <> lib
+R1440:1453 Coq.Arith.PeanoNat <> <> lib
+R1455:1457 Coq.micromega.Lia <> <> lib
+R1459:1462 Coq.Bool.Bool <> <> lib
+R1472:1484 Coq.Lists.List ListNotations <> mod
+R1515:1540 Kernel.UniversalCertificationCost <> <> lib
+R1542:1559 Kernel.HonestCostTracking <> <> lib
+sec 1571:1581 <> PoSFinality
+var 1824:1836 PoSFinality ValidatorView
+ind 2224:2232 <> pos_instr
+constr 2246:2252 <> PoSVote
+constr 2297:2307 <> PoSFinalize
+R2276:2279 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2263:2275 Kernel.PoSFinality <> PoSFinality.ValidatorView var
+R2280:2292 Kernel.PoSFinality <> PoSFinality.ValidatorView var
+binder 2255:2259 <> delta:4
+scheme 2224:2232 <> pos_instr_rect
+scheme 2224:2232 <> pos_instr_ind
+scheme 2224:2232 <> pos_instr_rec
+scheme 2224:2232 <> pos_instr_sind
+def 2456:2464 <> pos_state
+R2490:2492 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2477:2489 Kernel.PoSFinality <> PoSFinality.ValidatorView var
+R2493:2496 Coq.Init.Datatypes <> bool ind
+def 2655:2662 <> pos_step
+R2669:2677 Kernel.PoSFinality <> pos_state def
+binder 2665:2665 <> s:5
+R2685:2693 Kernel.PoSFinality <> pos_instr ind
+binder 2681:2681 <> i:6
+R2698:2706 Kernel.PoSFinality <> pos_state def
+R2719:2719 Kernel.PoSFinality <> i:6 var
+R2730:2736 Kernel.PoSFinality <> PoSVote constr
+R2747:2747 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2761:2762 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2768:2768 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2755:2757 Coq.Init.Datatypes <> fst def
+R2759:2759 Kernel.PoSFinality <> s:5 var
+R2763:2765 Coq.Init.Datatypes <> snd def
+R2767:2767 Kernel.PoSFinality <> s:5 var
+R2774:2784 Kernel.PoSFinality <> PoSFinalize constr
+R2791:2791 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2797:2798 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2803:2803 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2792:2794 Coq.Init.Datatypes <> fst def
+R2796:2796 Kernel.PoSFinality <> s:5 var
+R2799:2802 Coq.Init.Datatypes <> true constr
+def 2893:2905 <> pos_finalized
+R2918:2921 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2909:2917 Kernel.PoSFinality <> pos_state def
+R2922:2925 Coq.Init.Datatypes <> bool ind
+R2930:2932 Coq.Init.Datatypes <> snd def
+prf 3162:3185 <> vote_preserves_finalized
+R3203:3211 Kernel.PoSFinality <> pos_state def
+binder 3199:3199 <> s:8
+R3236:3239 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3223:3235 Kernel.PoSFinality <> PoSFinality.ValidatorView var
+R3240:3252 Kernel.PoSFinality <> PoSFinality.ValidatorView var
+binder 3215:3219 <> delta:9
+R3302:3304 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3260:3272 Kernel.PoSFinality <> pos_finalized def
+R3275:3282 Kernel.PoSFinality <> pos_step def
+R3284:3284 Kernel.PoSFinality <> s:8 var
+R3287:3293 Kernel.PoSFinality <> PoSVote constr
+R3295:3299 Kernel.PoSFinality <> delta:9 var
+R3305:3317 Kernel.PoSFinality <> pos_finalized def
+R3319:3319 Kernel.PoSFinality <> s:8 var
+def 3761:3783 <> nothing_at_stake_gadget
+R3787:3803 Kernel.HonestCostTracking <> CostBearingSystem rec
+R3813:3820 Kernel.HonestCostTracking <> cb_state proj
+R3813:3820 Kernel.HonestCostTracking <> cb_state proj
+R3813:3820 Kernel.HonestCostTracking <> cb_state proj
+R3841:3848 Kernel.HonestCostTracking <> cb_instr proj
+R3841:3848 Kernel.HonestCostTracking <> cb_instr proj
+R3869:3875 Kernel.HonestCostTracking <> cb_step proj
+R3869:3875 Kernel.HonestCostTracking <> cb_step proj
+R3896:3902 Kernel.HonestCostTracking <> cb_cost proj
+R3896:3902 Kernel.HonestCostTracking <> cb_cost proj
+R3925:3931 Kernel.HonestCostTracking <> cb_cert proj
+R3925:3931 Kernel.HonestCostTracking <> cb_cert proj
+R3825:3833 Kernel.PoSFinality <> pos_state def
+R3853:3861 Kernel.PoSFinality <> pos_instr ind
+R3881:3888 Kernel.PoSFinality <> pos_step def
+R3937:3949 Kernel.PoSFinality <> pos_finalized def
+prf 4510:4543 <> nothing_at_stake_free_finalization
+R4560:4568 Kernel.PoSFinality <> pos_state def
+binder 4556:4556 <> s:10
+R4598:4608 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4590:4592 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4575:4587 Kernel.PoSFinality <> pos_finalized def
+R4589:4589 Kernel.PoSFinality <> s:10 var
+R4593:4597 Coq.Init.Datatypes <> false constr
+R4650:4657 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4642:4644 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4609:4615 Kernel.HonestCostTracking <> cb_cert proj
+R4617:4639 Kernel.PoSFinality <> nothing_at_stake_gadget def
+R4641:4641 Kernel.PoSFinality <> s:10 var
+R4645:4649 Coq.Init.Datatypes <> false constr
+R4755:4762 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4748:4750 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4658:4664 Kernel.HonestCostTracking <> cb_cert proj
+R4666:4688 Kernel.PoSFinality <> nothing_at_stake_gadget def
+R4701:4706 Kernel.HonestCostTracking <> cb_run def
+R4708:4730 Kernel.PoSFinality <> nothing_at_stake_gadget def
+R4732:4732 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4744:4744 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4733:4743 Kernel.PoSFinality <> PoSFinalize constr
+R4746:4746 Kernel.PoSFinality <> s:10 var
+R4751:4754 Coq.Init.Datatypes <> true constr
+R4814:4816 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4763:4775 Kernel.HonestCostTracking <> cb_total_cost def
+R4777:4799 Kernel.PoSFinality <> nothing_at_stake_gadget def
+R4801:4801 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4813:4813 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4802:4812 Kernel.PoSFinality <> PoSFinalize constr
+prf 5781:5812 <> nothing_at_stake_is_free_forgery
+R5829:5841 Kernel.PoSFinality <> PoSFinality.ValidatorView var
+binder 5825:5825 <> v:11
+R5848:5850 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6162:6162 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5863:5870 Kernel.HonestCostTracking <> cb_state proj
+R5872:5894 Kernel.PoSFinality <> nothing_at_stake_gadget def
+binder 5859:5859 <> s:12
+R5916:5923 Kernel.HonestCostTracking <> cb_instr proj
+R5925:5947 Kernel.PoSFinality <> nothing_at_stake_gadget def
+binder 5912:5912 <> i:13
+R6002:6015 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5994:5996 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5961:5967 Kernel.HonestCostTracking <> cb_cert proj
+R5969:5991 Kernel.PoSFinality <> nothing_at_stake_gadget def
+R5993:5993 Kernel.PoSFinality <> s:12 var
+R5997:6001 Coq.Init.Datatypes <> false constr
+R6110:6123 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6103:6105 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6016:6022 Kernel.HonestCostTracking <> cb_cert proj
+R6024:6046 Kernel.PoSFinality <> nothing_at_stake_gadget def
+R6067:6073 Kernel.HonestCostTracking <> cb_step proj
+R6075:6097 Kernel.PoSFinality <> nothing_at_stake_gadget def
+R6099:6099 Kernel.PoSFinality <> s:12 var
+R6101:6101 Kernel.PoSFinality <> i:13 var
+R6106:6109 Coq.Init.Datatypes <> true constr
+R6157:6160 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6124:6130 Kernel.HonestCostTracking <> cb_cost proj
+R6132:6154 Kernel.PoSFinality <> nothing_at_stake_gadget def
+R6156:6156 Kernel.PoSFinality <> i:13 var
+R6192:6215 Kernel.HonestCostTracking <> free_forgery_violates_A2 thm
+R6228:6250 Kernel.PoSFinality <> nothing_at_stake_gadget def
+R6252:6252 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6254:6255 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6261:6261 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6256:6260 Coq.Init.Datatypes <> false constr
+R6263:6273 Kernel.PoSFinality <> PoSFinalize constr
+R6192:6215 Kernel.HonestCostTracking <> free_forgery_violates_A2 thm
+R6228:6250 Kernel.PoSFinality <> nothing_at_stake_gadget def
+R6252:6252 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6254:6255 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6261:6261 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6256:6260 Coq.Init.Datatypes <> false constr
+R6263:6273 Kernel.PoSFinality <> PoSFinalize constr
+prf 7012:7030 <> slashing_cert_costs
+R7069:7072 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7060:7068 Kernel.PoSFinality <> pos_instr ind
+R7073:7075 Coq.Init.Datatypes <> nat ind
+binder 7044:7056 <> stake_at_risk:14
+R7113:7120 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7108:7111 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7083:7095 Kernel.PoSFinality <> stake_at_risk:14 var
+R7097:7107 Kernel.PoSFinality <> PoSFinalize constr
+R7133:7141 Kernel.PoSFinality <> pos_state def
+binder 7129:7129 <> s:15
+R7149:7157 Kernel.PoSFinality <> pos_instr ind
+binder 7145:7145 <> i:16
+R7190:7199 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7182:7184 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7167:7179 Kernel.PoSFinality <> pos_finalized def
+R7181:7181 Kernel.PoSFinality <> s:15 var
+R7185:7189 Coq.Init.Datatypes <> false constr
+R7235:7244 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7228:7230 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7200:7212 Kernel.PoSFinality <> pos_finalized def
+R7215:7222 Kernel.PoSFinality <> pos_step def
+R7224:7224 Kernel.PoSFinality <> s:15 var
+R7226:7226 Kernel.PoSFinality <> i:16 var
+R7231:7234 Coq.Init.Datatypes <> true constr
+R7260:7263 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7245:7257 Kernel.PoSFinality <> stake_at_risk:14 var
+R7259:7259 Kernel.PoSFinality <> i:16 var
+R7362:7385 Kernel.PoSFinality <> vote_preserves_finalized thm
+R7362:7385 Kernel.PoSFinality <> vote_preserves_finalized thm
+R7362:7385 Kernel.PoSFinality <> vote_preserves_finalized thm
+def 7805:7819 <> slashing_gadget
+R7858:7861 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7849:7857 Kernel.PoSFinality <> pos_instr ind
+R7862:7864 Coq.Init.Datatypes <> nat ind
+binder 7833:7845 <> stake_at_risk:17
+R7913:7916 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7888:7900 Kernel.PoSFinality <> stake_at_risk:17 var
+R7902:7912 Kernel.PoSFinality <> PoSFinalize constr
+binder 7879:7884 <> Hslash:18
+R7922:7940 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R7950:7957 Kernel.UniversalCertificationCost <> cs_state proj
+R7950:7957 Kernel.UniversalCertificationCost <> cs_state proj
+R7950:7957 Kernel.UniversalCertificationCost <> cs_state proj
+R7978:7985 Kernel.UniversalCertificationCost <> cs_instr proj
+R7978:7985 Kernel.UniversalCertificationCost <> cs_instr proj
+R8006:8012 Kernel.UniversalCertificationCost <> cs_step proj
+R8006:8012 Kernel.UniversalCertificationCost <> cs_step proj
+R8033:8039 Kernel.UniversalCertificationCost <> cs_cost proj
+R8033:8039 Kernel.UniversalCertificationCost <> cs_cost proj
+R8065:8071 Kernel.UniversalCertificationCost <> cs_cert proj
+R8065:8071 Kernel.UniversalCertificationCost <> cs_cert proj
+R8097:8109 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R8097:8109 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R7962:7970 Kernel.PoSFinality <> pos_state def
+R7990:7998 Kernel.PoSFinality <> pos_instr ind
+R8018:8025 Kernel.PoSFinality <> pos_step def
+R8045:8057 Kernel.PoSFinality <> stake_at_risk:17 var
+R8077:8089 Kernel.PoSFinality <> pos_finalized def
+R8114:8132 Kernel.PoSFinality <> slashing_cert_costs thm
+R8134:8146 Kernel.PoSFinality <> stake_at_risk:17 var
+R8148:8153 Kernel.PoSFinality <> Hslash:18 var
+prf 8962:8984 <> slashing_finality_floor
+R9023:9026 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9014:9022 Kernel.PoSFinality <> pos_instr ind
+R9027:9029 Coq.Init.Datatypes <> nat ind
+binder 8998:9010 <> stake_at_risk:19
+R9076:9079 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9051:9063 Kernel.PoSFinality <> stake_at_risk:19 var
+R9065:9075 Kernel.PoSFinality <> PoSFinalize constr
+binder 9042:9047 <> Hslash:20
+R9101:9104 Coq.Init.Datatypes <> list ind
+R9106:9114 Kernel.PoSFinality <> pos_instr ind
+binder 9093:9097 <> trace:21
+R9132:9140 Kernel.PoSFinality <> pos_state def
+binder 9127:9128 <> s0:22
+R9172:9179 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9164:9166 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9148:9160 Kernel.PoSFinality <> pos_finalized def
+R9162:9163 Kernel.PoSFinality <> s0:22 var
+R9167:9171 Coq.Init.Datatypes <> false constr
+R9263:9270 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9256:9258 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9180:9192 Kernel.PoSFinality <> pos_finalized def
+R9201:9206 Kernel.UniversalCertificationCost <> cs_run def
+R9209:9223 Kernel.PoSFinality <> slashing_gadget def
+R9225:9237 Kernel.PoSFinality <> stake_at_risk:19 var
+R9239:9244 Kernel.PoSFinality <> Hslash:20 var
+R9247:9251 Kernel.PoSFinality <> trace:21 var
+R9253:9254 Kernel.PoSFinality <> s0:22 var
+R9259:9262 Coq.Init.Datatypes <> true constr
+R9329:9332 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9271:9283 Kernel.UniversalCertificationCost <> cs_total_cost def
+R9286:9300 Kernel.PoSFinality <> slashing_gadget def
+R9302:9314 Kernel.PoSFinality <> stake_at_risk:19 var
+R9316:9321 Kernel.PoSFinality <> Hslash:20 var
+R9324:9328 Kernel.PoSFinality <> trace:21 var
+R9407:9433 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R9447:9461 Kernel.PoSFinality <> slashing_gadget def
+R9407:9433 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R9447:9461 Kernel.PoSFinality <> slashing_gadget def
+R9521:9531 Kernel.PoSFinality PoSFinality <> sec
+R9553:9586 Kernel.PoSFinality <> nothing_at_stake_free_finalization thm
+R9607:9638 Kernel.PoSFinality <> nothing_at_stake_is_free_forgery thm
+R9659:9681 Kernel.PoSFinality <> slashing_finality_floor thm

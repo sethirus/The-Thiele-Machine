@@ -10,7 +10,7 @@
   actually needs.
 *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
    imports no kernel module.
@@ -18,8 +18,8 @@
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
 
 Require Import Coq.Reals.Reals.
 Require Import Coq.micromega.Lra.
@@ -27,67 +27,27 @@ Require Import Coq.micromega.Psatz.
 
 Local Open Scope R_scope.
 
-(** bloch_mixed: Mixed state constraint
-    A point (x,y,z) in the Bloch ball satisfies x² + y² + z² ≤ 1.
-    The interior (< 1) represents mixed states. The boundary (= 1) is pure states.
-
-    PHYSICAL MEANING: Distance from origin = purity. Center = maximally mixed
-    (completely uncertain). Surface = pure (fully determined quantum state).
-*)
+(** [bloch_mixed] is the radius-at-most-one predicate on three real coordinates. *)
 Definition bloch_mixed (x y z : R) : Prop := x*x + y*y + z*z <= 1.
 
-(** bloch_pure: Pure state constraint
-    Surface of the Bloch sphere: x² + y² + z² = 1.
-
-    PHYSICAL MEANING: Maximum knowledge. The state is |ψ⟩ = cos(θ/2)|0⟩ + e^(iφ)sin(θ/2)|1⟩
-    where θ, φ are determined by x,y,z. Every pure qubit state is on this sphere.
-*)
+(** [bloch_pure] is the radius-one predicate on three real coordinates. *)
 Definition bloch_pure (x y z : R) : Prop := x*x + y*y + z*z = 1.
 
 (** The inclusion [bloch_pure -> bloch_mixed] holds by lra after unfolding
     both definitions; no caller in the development needs it as a
     standalone lemma, so it is not exported. *)
 
-(** purity: Squared radius in Bloch ball
-    r² = x² + y² + z² measures how "pure" the state is.
-    r² = 1: pure state (surface)
-    r² = 0: maximally mixed (center)
-    0 < r² < 1: partially mixed
-
-    PHYSICAL MEANING: This is Tr(ρ²) for density matrix ρ. Pure states have
-    Tr(ρ²) = 1, mixed states have Tr(ρ²) < 1. It's the "self-overlap" of the state.
-*)
+(** [purity] is the squared-radius expression used by this file. *)
 Definition purity (x y z : R) : R := x*x + y*y + z*z.
 
 (** Non-negativity of purity is sum-of-squares >= 0, dispatched by nra
     after unfolding. No caller imports it, so no standalone lemma is
     exported. *)
 
-(** purification_deficit: How much "reference system" is needed
-    deficit = 1 - r² measures the GAP between current purity and maximum purity.
-
-    To purify a mixed state, you add a reference system (ancilla qubits) and
-    view the original state as PART of a larger pure state. The deficit tells
-    you the MINIMUM size of that reference system. deficit = 0 means the state
-    is already pure (no reference needed). deficit = 1 means you need a full
-    reference system (maximally entangled).
-
-    This is the quantum version of: "mixed classical state = you don't know
-    which pure state you're in." The deficit quantifies your ignorance.
-*)
+(** [purification_deficit] is one minus the formal squared-radius expression. *)
 Definition purification_deficit (x y z : R) : R := 1 - purity x y z.
 
-(** mixed_has_deficit: Mixed states have non-negative deficit
-    If x² + y² + z² ≤ 1, then 1 - (x² + y² + z²) ≥ 0.
-
-    PROOF: Arithmetic rearrangement of the mixed state bound.
-
-    WHY THIS MATTERS: It proves the deficit is well-defined (always a valid
-    non-negative real number). You can always measure how far a state is from purity.
-
-    To falsify: Find a mixed state with deficit < 0 (would require r² > 1,
-    contradicting bloch_mixed).
-*)
+(** [mixed_has_deficit] derives the nonnegative deficit bound from [bloch_mixed]. *)
 Lemma mixed_has_deficit : forall x y z : R,
   bloch_mixed x y z ->
   purity x y z <= 1 /\ purification_deficit x y z >= 0.
@@ -100,48 +60,17 @@ Proof.
     apply Rge_minus. apply Rle_ge. exact Hmixed.
 Qed.
 
-(** sq_nonneg: Squares are non-negative
-    Basic arithmetic fact: x² ≥ 0 for any real x.
-    Used repeatedly in purity calculations.
-(** HELPER: Non-negativity property *)
-*)
-(** HELPER: Non-negativity property *)
+(** [sq_nonneg] records the nonnegativity of a real square for later arithmetic. *)
 Lemma sq_nonneg : forall x : R, x * x >= 0.
 Proof. intro x. nra. Qed.
 
-(** purification_principle: THE MAIN THEOREM
-    CLAIM: Every mixed state can be written as a convex combination of two
-    probability amplitudes λ₁, λ₂ where:
-    1. Both are valid probabilities (0 ≤ λᵢ ≤ 1)
-    2. They sum to 1 (λ₁ + λ₂ = 1)
-    3. Their difference squared equals the purity: (λ₁ - λ₂)² = r²
+(** [purification_principle] supplies two real numbers for every [bloch_mixed] triple. *)
 
-    CONSTRUCTION:
-    λ₁ = (1 + √r²)/2  (larger probability)
-    λ₂ = (1 - √r²)/2  (smaller probability)
+(** The witnesses lie in [0,1], sum to one, and have squared difference equal to [purity x y z]. *)
 
-    PROOF TECHNIQUE:
-    1. Show r² is bounded: 0 ≤ r² ≤ 1 (from bloch_mixed)
-    2. Therefore √r² is well-defined and 0 ≤ √r² ≤ 1
-    3. The formulas for λ₁, λ₂ then satisfy all conditions by arithmetic
-    4. Verify (λ₁ - λ₂)² = ((1+√r²)/2 - (1-√r²)/2)² = (√r²)² = r² ✓
+(** The proof uses the explicit square-root construction and real arithmetic. *)
 
-    This proves EVERY mixed state arises from a classical mixture of pure states.
-    If you have a mixed qubit (r² < 1), it's because you have probability λ₁
-    of being in one pure state and probability λ₂ of being in another, and
-    you don't know which. The purification principle says this decomposition
-    ALWAYS EXISTS - mixedness is ignorance, not fundamental indeterminacy.
-
-    WHY λ₁ ≠ λ₂ unless r² = 0:
-    The bias (λ₁ - λ₂) encodes the purity. If λ₁ = λ₂ = 1/2 (unbiased coin flip),
-    then r² = 0 (maximally mixed). As the bias increases (λ₁ > λ₂), the purity
-    increases (r² → 1), until λ₁ = 1, λ₂ = 0 (pure state, r² = 1).
-
-    Find a mixed state where NO choice of λ₁, λ₂ satisfies the conditions.
-    This would mean the Bloch ball model is wrong - there are quantum states
-    outside the geometric structure. Or find λ₁ + λ₂ ≠ 1 for the constructed
-    values (arithmetic error in proof).
-*)
+(** It does not establish a decomposition of density matrices or a physical purification protocol. *)
 Theorem purification_principle :
   forall x y z : R,
     bloch_mixed x y z ->
@@ -192,18 +121,7 @@ Proof.
     rewrite sqrt_sqrt; [reflexivity | destruct Hr2_bound; lra].
 Qed.
 
-(** pure_needs_no_reference: Pure states have zero deficit
-    If r² = 1 (pure state), then deficit = 1 - 1 = 0.
-
-    PHYSICAL MEANING: Pure states are already "purified" - they need no
-    reference system. They are the ENDPOINT of purification. When you purify
-    a mixed state, you're finding a pure state in a larger Hilbert space that
-    reduces to your mixed state when you ignore (trace out) the reference.
-
-    PROOF: Arithmetic substitution.
-
-    To falsify: Find a pure state with deficit ≠ 0 (impossible by definition).
-*)
+(** [pure_needs_no_reference] is the arithmetic consequence of [bloch_pure] and [purification_deficit]. *)
 Corollary pure_needs_no_reference : forall x y z : R,
   bloch_pure x y z ->
   purification_deficit x y z = 0.

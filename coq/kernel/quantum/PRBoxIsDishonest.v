@@ -12,16 +12,18 @@
 
     All three statements are closed under the global context.
 
-    DOES: A deterministic resource that produces PR-box correlation
-    outcomes for every (x, y) pair must signal. The Bell-locality
-    refutation in concrete form.
+    The result is about the [CorrelatedResource] interface and its
+    [cr_no_signalling] predicate.
 
-    DOES NOT: rule out the probabilistic/relational PR-box. That object
-    is constructed axiom-free in
-    [MeasurementExtraction.relational_prbox_is_consistent]; the
-    deterministic theorem here does not apply to it. The classical
-    "PR-box is forbidden" survives only in the deterministic
-    no-signalling case, which is provably empty.
+    It does not rule out the separate relational construction in
+    [MeasurementExtraction.relational_prbox_is_consistent], because that is not
+    the deterministic resource defined here.
+
+    The conclusion is therefore a deterministic no-signalling impossibility in
+    this formal interface, not a general physical claim about every PR-box model.
+
+    PROOF SCOPE: standalone algebra; any VM correspondence is supplied by a
+    separate bridge theorem.
 *)
 
 From Coq Require Import Bool Arith.PeanoNat Lia.
@@ -35,10 +37,9 @@ From Kernel Require Import MeasurementExtraction.
       B = sigma XOR (x AND y)
     Constraint: A XOR B = sigma XOR sigma XOR (x AND y) = x AND y.
 
-    Note: B depends on x. The resource SIGNALS by construction; this is
-    not optional, it is forced by the Bell theorem in
-    [MeasurementExtraction.v]. There is no deterministic no-signalling
-    realization of the PR-box. *)
+    Note: B depends on x. The resource therefore violates the formal
+    [cr_no_signalling] predicate by construction. The general deterministic
+    no-signalling impossibility is supplied by [MeasurementExtraction.v]. *)
 
 Definition prbox_outcomes (s : bool) (x y : bool) : bool * bool :=
   (s, xorb s (andb x y)).
@@ -83,15 +84,15 @@ Proof.
   destruct a0, a1, y; reflexivity.
 Qed.
 
-(** The PR-box resource makes the RAC protocol succeed on every input. *)
+(** This resource makes the formal RAC protocol succeed on every input. *)
 Theorem prbox_rac_succeeds : rac_protocol_succeeds prbox_resource.
 Proof.
   intros a0 a1 y. apply prbox_protocol_calculation.
 Qed.
 
-(** *** Main result: the deterministic PR-box realization signals.
+(** *** Main result: the deterministic realization signals in this model.
 
-    Proved by combining the Bell theorem
+    Proved by combining the imported RAC implication
     [rac_success_implies_signalling] from MeasurementExtraction.v with
     [prbox_rac_succeeds] above. No axioms. *)
 Theorem prbox_resource_signals :
@@ -100,15 +101,15 @@ Proof.
   apply rac_success_implies_signalling. exact prbox_rac_succeeds.
 Qed.
 
-(** Direct, calculational form: Bob's outcome on the PR-box realization
+(** Direct, calculational form: Bob's outcome on this realization
     explicitly depends on Alice's input x.
 
     Set s = false, y = true. Then Bob's outcome at x = false is
     false XOR (false AND true) = false, but Bob's outcome at x = true is
     false XOR (true AND true) = true. The two differ.
 
-    This is the witness Alice can use to communicate via the resource:
-    Bob reads x from his Y=true query result. Hence "signalling." *)
+    This is the explicit dependence on x that violates the formal
+    no-signalling predicate. *)
 Theorem prbox_bob_depends_on_x :
   cr_bob prbox_resource false false true
   <> cr_bob prbox_resource false true  true.
@@ -148,12 +149,11 @@ Proof.
   exact Hrel.
 Qed.
 
-(** *** Quantitative: PR-box saturates RAC at 8/8.
+(** *** Quantitative: this realization saturates the formal RAC count at 8/8.
 
-    The classical bound says no-signalling resources cap at 6/8 successes
-    ([MeasurementExtraction.classical_rac_bound]). The PR-box realization
-    here, which signals, achieves the full 8/8. This is the strict
-    classical/super-quantum gap at the success-count level. *)
+    The formal no-signalling bound is 6/8 successes
+    ([MeasurementExtraction.classical_rac_bound]). This signaling realization
+    achieves 8/8, giving the stated gap in the count model. *)
 Theorem prbox_rac_success_count :
   rac_success_count prbox_resource = 8.
 Proof.
@@ -162,7 +162,8 @@ Proof.
   cbn. reflexivity.
 Qed.
 
-(** Combined statement: PR-box achieves 8/8, classical caps at 6/8, gap of 2. *)
+(** Combined statement: this realization achieves 8/8, while the formal no-signalling
+    bound is 6/8, giving a gap of 2. *)
 Theorem prbox_strictly_beats_classical :
   forall (CR : CorrelatedResource),
     cr_no_signalling CR ->
@@ -174,7 +175,7 @@ Proof.
   lia.
 Qed.
 
-(** *** PR-box maxes out the CHSH-style match count.
+(** *** This realization reaches the formal CHSH-style match count.
 
     PR-box hits 4/4, classical caps at 3/4. Same statement as
     [prbox_strictly_beats_classical] but in CHSH normalization. *)
@@ -184,8 +185,8 @@ Proof.
   reflexivity.
 Qed.
 
-(** Strict CHSH-gap: PR-box's match count exceeds any no-signalling
-    resource by at least 1. *)
+(** Strict count gap: this match count exceeds every formal no-signalling resource
+    by at least 1. *)
 Theorem prbox_chsh_strict_gap :
   forall (CR : CorrelatedResource),
     cr_no_signalling CR ->
@@ -246,24 +247,9 @@ Proof.
   lra.
 Qed.
 
-(** ** Substrate connection anchor.
+(** ** Scope of the result.
 
-    The PR-box dishonesty result proved here is downstream of the
-    HonestMeasurement framework, whose mu-cost interpretation
-    governs the Thiele Machine's mu-ledger. See the waiver note
-    below. *)
-
-(* INQUISITOR NOTE: proof-connectivity waiver (foundation connectivity).
-
-    This file is standalone algebra. It does not engage VM semantics, no
-    theorem here mentions [VMState] or [vm_mu], and it imports no kernel
-    module. That is deliberate: the results stand on their own, and the
-    connection to the mu-ledger is made by the theorems downstream that
-    consume them (see UnificationProbeBridges), not by anything in this file.
-
-    The audit is waived here rather than satisfied, because the only way to
-    satisfy it from inside would be to add a definition that references
-    [vm_mu] without using it; an identity function referenced by nothing
-    carries no proof obligation. A link that can be manufactured that way is
-    not evidence of one. This waiver is counted in the WAIVERS census in
-    INQUISITOR_REPORT.md. *)
+    This file is standalone algebra. Its theorems concern the specified
+    correlated-resource and honest-measurement predicates; they do not
+    mention VMState or vm_mu. Any connection to the VM ledger must be made by
+    a separate theorem that supplies that correspondence explicitly. *)

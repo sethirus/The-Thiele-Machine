@@ -1,23 +1,6 @@
-(**
-    Locality: existing module regions are preserved outside instruction targets.
+(** This file proves the stated VM-locality property for normalized module regions: under graph well-formedness and the range premises, an instruction that does not target [mid] preserves the observation at [mid]. *)
 
-    This file proves a VM-locality theorem for the observable used here:
-    normalized module regions. For each instruction type, if an existing module
-    mid is not explicitly targeted, then module_region_obs(s, mid) =
-    module_region_obs(s', mid).
-
-    Proof structure: use the well_formed_graph invariant throughout. New modules
-    are added at pg_next_id (beyond existing IDs), so lookup at mid < pg_next_id
-    is unaffected by additions at ≥ pg_next_id. For ops that remove modules
-    (psplit, pmerge), explicitly check untargeted modules remain unchanged.
-
-    To falsify: find an instruction where executing it on module A changes
-    the normalized region observation of an existing, untargeted module B. Or
-    show the well_formed_graph invariant is not strong enough for the lookup
-    preservation arguments.
-    *)
-
-(* INQUISITOR NOTE: proof-connectivity - bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity - bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Arith.PeanoNat Lia Bool.
@@ -595,7 +578,7 @@ Proof.
       change graph' with (fst (graph', morph_id)).
       match goal with
       | Hmorph : (graph', morph_id) =
-                 graph_add_morphism (vm_graph s) src_mod dst_mod empty_coupling_data false |- _ =>
+                 graph_add_morphism (vm_graph s) src_mod dst_mod ?c false |- _ =>
           rewrite Hmorph
       end.
       apply graph_add_morphism_preserves_lookup.

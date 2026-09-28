@@ -47,7 +47,12 @@ class TestMorphCreate:
         assert morph.morph_source == 1
         assert morph.morph_target == 2
         assert not morph.morph_is_identity
-        assert morph.morph_coupling.coupling_label == "empty"
+        # A plain MORPH commits one "" atom (its in-memory label), so the
+        # joined label is "". The kernel's "empty" label belongs to a morphism
+        # with no valid descriptor (MORPH_ID, identity morphisms, legacy
+        # self-MORPH). See C2_DIVERGENCE_LEDGER.md, "CPU changes for COMPOSE
+        # labels and MORPH_TENSOR".
+        assert morph.morph_coupling.coupling_label == ""
         assert morph.morph_coupling.coupling_pairs == []
 
     @pytest.mark.skipif(not vm._runner_available(), reason="OCaml runner unavailable")
@@ -118,6 +123,22 @@ class TestMorphCreate:
         assert state.regs[5] == 1, f"Expected first morphism ID=1, got {state.regs[5]}"
         # mu: PNEW×2 (cost 1 each) + MORPH (cost 2) = 4
         assert state.mu == 4, f"mu={state.mu}, expected 4"
+
+    def test_morph_loads_nonempty_coupling_from_memory(self):
+        """The reference VM decodes a serialized, in-range coupling block."""
+        state = vm.run_vm([
+            "INIT_MEM 80 1",  # one serialized pair
+            "INIT_MEM 81 0",  # source cell
+            "INIT_MEM 82 1",  # target cell
+            "PNEW {0,1} 0",
+            "PNEW {0,1} 0",
+            "MORPH 5 1 2 80 0",
+            "HALT 0",
+        ])
+        assert not state.err
+        morph_id, morph = state.graph.pg_morphisms[0]
+        assert morph_id == 1
+        assert morph.morph_coupling.coupling_pairs == [(0, 1)]
 
     def test_morph_failure_on_missing_module(self):
         """MORPH with non-existent module IDs sets err flag."""

@@ -54,13 +54,13 @@ Theorem mu_zero_algebraic_bound :
     mu_zero_program fuel trace ->
     Qabs (chsh_from_vm_trace fuel trace s_init) <= 4.
 Proof.
-  (* INQUISITOR NOTE: This proof delegates to mu_zero_chsh_bounded (TsirelsonUpperBound.v).
+  (* SCOPE NOTE: This proof delegates to mu_zero_chsh_bounded (TsirelsonUpperBound.v).
      This is PROPER PROOF COMPOSITION, not a placeholder.
      The substantive proof is in the called lemma. Short proofs can be complete proofs. *)
   intros. apply mu_zero_chsh_bounded. assumption.
 Qed.
 
-(** ** Framework Revision (January 2026): Classical vs Quantum Distinction *)
+(** ** Classical and Quantum Boundaries *)
 
 (** CORRECTED UNDERSTANDING:
     - μ=0 operations alone do NOT give classical bound!
@@ -89,4 +89,3 @@ Qed.
     about quantum correlations that would require extensive operator algebra
     to prove rigorously. The Tsirelson bound (2sqrt2) is accepted as an
     empirically verified fact. *)
-

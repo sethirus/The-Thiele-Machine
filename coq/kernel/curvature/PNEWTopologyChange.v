@@ -9,7 +9,7 @@
   changes chi in every configuration. The point is to state carefully which
   graph changes are guaranteed and which depend on overlap geometry. *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Arith.PeanoNat Lia Bool ZArith.

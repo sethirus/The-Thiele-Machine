@@ -10,7 +10,7 @@
 
   *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Arith.PeanoNat Lia.
@@ -21,50 +21,30 @@ Import ListNotations.
 
 (** Abstract weight interface. *)
 
-(** WEIGHT: Abstract "probability-like" function on traces
-
-    REPRESENTS: Any numerical assignment to instruction sequences that might
-    represent frequency, probability, cost, or other compositional measure.
-
-    This is intentionally general - we're proving a negative result, so we
-    want the weakest possible assumptions. *)
+(** [Weight] is an arbitrary natural-valued assignment to instruction lists.
+    The type is deliberately broad: the theorem below concerns the algebraic
+    interface only and does not identify a weight with probability or cost. *)
 Definition Weight := list vm_instruction -> nat.
 
-(** COMPOSITIONAL WEIGHT: Algebraic composition law
-
-    A weight is compositional if:
-    1. Empty trace has weight 0: w([]) = 0
-    2. Sequential composition adds: w(t1++t2) = w(t1) + w(t2)
-
-    This is the minimal algebraic structure one might hope uniquely determines
-    probability. We prove it DOESN'T. *)
+(** [weight_compositional] requires a zero value on the empty list and
+    additivity under list concatenation. It is the only interface used by the
+    non-uniqueness theorem. *)
 Definition weight_compositional (w : Weight) : Prop :=
   w [] = 0 /\
   forall t1 t2, w (t1 ++ t2) = w t1 + w t2.
 
 (** Counterexample constructions. *)
 
-(** WEIGHT 1: Trace length
-
-    Simply count the number of instructions. This is obviously compositional:
-    length(t1++t2) = length(t1) + length(t2). *)
+(** [w_len] assigns the length of the instruction list. *)
 Definition w_len : Weight := fun t => length t.
 
-(** WEIGHT 2: Double length
-
-    Count instructions but multiply by 2. Still compositional:
-    2*length(t1++t2) = 2*length(t1) + 2*length(t2).
-
-    This is a DIFFERENT weight function but satisfies the same composition law. *)
+(** [w_len2] assigns twice the instruction-list length. It satisfies the same
+    interface while remaining distinct from [w_len]. *)
 Definition w_len2 : Weight := fun t => 2 * length t.
 
 (** Compositionality proofs. *)
 
-(** W_LEN IS COMPOSITIONAL: Trace length satisfies composition
-
-    WHY THIS LEMMA: Establishes that simple trace length is a valid weight.
-
-    STRATEGY: Direct calculation using list properties. *)
+(** Trace length satisfies the compositional interface by [app_length]. *)
 Lemma w_len_compositional : weight_compositional w_len.
 Proof.
   split.
@@ -78,11 +58,7 @@ Proof.
     lia.
 Qed.
 
-(** W_LEN2 IS COMPOSITIONAL: Double length also satisfies composition
-
-    WHY THIS LEMMA: Establishes the second counterexample weight.
-
-    STRATEGY: Same as w_len but with factor of 2. *)
+(** Twice the trace length also satisfies the compositional interface. *)
 Lemma w_len2_compositional : weight_compositional w_len2.
 Proof.
   split.
@@ -96,31 +72,11 @@ Proof.
     lia.
 Qed.
 
-(**
-    IMPOSSIBILITY THEOREM
-    *)
-
-(** BORN RULE CANNOT BE UNIQUELY DERIVED FROM COMPOSITION
-
-    THIS IS THE KEY RESULT: Compositional structure alone does NOT uniquely
-    determine weights on traces. We prove non-uniqueness by construction.
-
-    CLAIM: There exist at least two distinct compositional weight functions.
-
-    1. Exhibit w1 = w_len (trace length)
-    2. Exhibit w2 = w_len2 (double trace length)
-    3. Prove both are compositional
-    4. Show they differ on at least one trace
-
-    IMPLICATIONS:
-    - The Born rule (|ψ|²) cannot be derived from composition alone
-    - Probability theory requires additional axioms beyond computation
-    - Frequency interpretations are not unique without extra structure
-    - The kernel cannot derive its own probability measure
-
-    To falsify: Prove all compositional weights are identical. This would
-    require showing w_len = w_len2, but we explicitly demonstrate they differ
-    on the trace [instr_halt 0]: w_len gives 1, w_len2 gives 2. *)
+(** The theorem is a non-uniqueness result for the stated interface. It
+    exhibits two compositional weights and a one-instruction list on which they
+    differ. It does not by itself make a claim about the physical Born rule;
+    it shows that composition and a zero base value are insufficient to select
+    one numerical interpretation. *)
 Theorem Born_Rule_Unique_Fails_Without_More_Structure :
   exists w1 w2,
     weight_compositional w1 /\

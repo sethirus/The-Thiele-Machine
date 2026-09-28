@@ -1,44 +1,14 @@
-(** BoxCHSH: The correlation box formalism for Bell inequalities
+(** This file defines rational correlation-box operations and proves their stated CHSH bounds. *)
 
-    CHSH inequality tests need a precise mathematical framework. This file
-    defines correlation "boxes" (probability distributions over Alice/Bob outcomes)
-    and proves the fundamental bounds on CHSH values for different classes.
+(** The valid-box predicates are nonnegativity, normalization, and no-signaling. *)
 
-    THE BOX FORMALISM:
-    A "box" is a function P(a,b|x,y) giving the probability of:
-    - Alice gets outcome a when measuring setting x
-    - Bob gets outcome b when measuring setting y
+(** The correlator and CHSH expressions are finite rational formulas over the box entries. *)
 
-    Valid boxes satisfy:
-    - Non-negative: P ≥ 0
-    - Normalized: Σ_ab P(a,b|x,y) = 1
-    - No-signaling: Alice's marginals don't depend on Bob's setting (and vice versa)
+(** The weak bound, deterministic bound, and algebraic Tsirelson bridge are separate theorems with separate premises. *)
 
-    THE CORRELATOR:
-    E(x,y) = P(same) - P(diff) = Σ_ab (-1)^(a⊕b) P(a,b|x,y)
-    This is the expectation value of Alice's outcome times Bob's outcome.
+(** A box in this file is a mathematical function; no physical device is constructed here. *)
 
-    THE CHSH PARAMETER:
-    S = E(0,0) + E(0,1) + E(1,0) - E(1,1)
-
-    THE BOUNDS PROVED HERE:
-    - |E| ≤ 1 (correlations are bounded)
-    - |S| ≤ 4 (no-signaling bound, triangle inequality)
-    - Deterministic local strategies satisfy |S| ≤ 2
-
-    The Tsirelson bound [|S| ≤ 2√2] is proved in this file via
-    [box_chsh_bound_algebraic], which uses
-    [algebraically_coherent_tsirelson_general] from
-    [AlgebraicCoherence.v] (closed via CSDP/psatz). The weak bound
-    [|S| ≤ 4] is exposed as [box_chsh_bound_algebraic_weak] as a thin
-    summary export.
-
-    Find a valid box with |E| > 1, or a valid box with |S| > 4, or a
-    deterministic local strategy with |S| > 2. Those are the machine-checked
-    claims in this file.
-*)
-
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
    imports no kernel module.
@@ -46,8 +16,8 @@
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
     
 Require Import Coq.QArith.QArith.
 Require Import Coq.QArith.Qabs.
@@ -103,24 +73,9 @@ Proof.
   field.
 Qed.
 
-(** normalized_E_bound: Correlations from probability distributions are bounded.
-    If you have a valid probability distribution P(a,b|x,y), the correlation
-    E(x,y) = P(00) - P(01) - P(10) + P(11) is ALWAYS bounded by |E| ≤ 1.
+(** [normalized_E_bound] derives the correlator interval from nonnegative entries and the supplied normalization equation. *)
 
-    THE PROOF IDEA:
-    E = (P00 + P11) - (P01 + P10). Since P00+P01+P10+P11 = 1 (normalization)
-    and all P_ij ≥ 0 (non-negativity), we have:
-    - P00 + P11 ≤ 1 (the "same" outcomes)
-    - P01 + P10 ≤ 1 (the "different" outcomes)
-
-    Therefore |E| = |(P00+P11) - (P01+P10)| ≤ max(P00+P11, P01+P10) ≤ 1.
-
-    This is the foundation for ALL CHSH bounds. Correlations from probabilities
-    can't exceed 1. Any theory violating this would be internally inconsistent.
-
-    Find non-negative probabilities summing to 1 where |E| > 1. Can't happen.
-    The proof is just probability theory.
-*)
+(** The proof is rational arithmetic over the four binary-output entries. *)
 Lemma normalized_E_bound : forall B x y,
   non_negative B -> normalized B -> Qabs (E B x y) <= 1.
 Proof.

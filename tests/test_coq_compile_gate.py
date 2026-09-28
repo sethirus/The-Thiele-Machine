@@ -12,7 +12,7 @@ What this enforces
 4. Zero freestanding ``Axiom``/``Parameter`` declarations outside Section scope
    appear in any production kernel file (only Section Variables allowed).
 5. Every file listed in coq/_CoqProject actually exists on disk.
-6. All five previously-unregistered physics/geometry kernel files are now
+6. All five physics/geometry kernel files are
    present in _CoqProject and have a compiled .vo artefact.
 
 Running
@@ -118,7 +118,7 @@ def test_all_coqproject_files_exist_on_disk():
 
 @pytest.mark.coq
 def test_required_physics_files_registered():
-    """The 5 previously-unregistered physics/geometry files must be in _CoqProject."""
+    """The five physics/geometry kernel files must be in _CoqProject."""
     text = COQ_PROJECT.read_text(encoding="utf-8")
     missing = [f for f in REQUIRED_KERNEL_PHYSICS_FILES if f not in text]
     assert not missing, (

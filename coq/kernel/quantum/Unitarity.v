@@ -1,16 +1,6 @@
-(** Unitarity from conservation laws.
+(** This file develops a small real-valued Bloch-vector algebra and proves the identities stated by its definitions. The names “unitary,” “CPTP,” and “purity” provide the intended comparison, but these lemmas are not a physical derivation and do not connect to [VMState] unless a later bridge supplies that connection. *)
 
-  The claim here is that unitary or CPTP-style evolution is not being added as
-  a free postulate. The file tries to derive the reversible side of that story
-  from zero mu-cost together with the conservation properties already assumed.
-
-  The Bloch-sphere language is only a concrete picture for the same idea.
-  Pure-state radius staying fixed corresponds to no information loss. Once
-  purity drops, mu has to show up on the accounting side. So the file is
-  really about tying reversible quantum evolution back to the information-cost
-  ledger instead of treating them as unrelated formalisms. *)
-
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
    imports no kernel module.
@@ -18,8 +8,8 @@
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
 
 Require Import Coq.Reals.Reals.
 Require Import Coq.micromega.Lra.
@@ -28,29 +18,15 @@ Require Import Coq.micromega.Psatz.
 Local Open Scope R_scope.
 
 
-(** Pauli matrix traces (from first principles):
-    The 2×2 identity has Tr(I) = 2.
-    The three Pauli matrices are traceless: Tr(σ_x) = Tr(σ_y) = Tr(σ_z) = 0.
-    These follow from the matrix definitions σ_x=[[0,1],[1,0]], etc.
-*)
+(** Selected scalar trace constants for the Bloch-style record.
+    The names preserve the usual matrix notation, but this file does not
+    define matrices or prove a matrix-trace realization. *)
 Definition pauli_tr_identity : R := 2.  (** Tr(I₂ₓ₂) = 0+0+1+1... wait, I₂ₓ₂ = [[1,0],[0,1]], Tr = 2 *)
 Definition pauli_tr_sigma_x : R := 0.   (* SAFE: traceless Pauli matrix Tr([[0,1],[1,0]])=0 *)
 Definition pauli_tr_sigma_y : R := 0.   (* SAFE: traceless Pauli matrix Tr([[0,-i],[i,0]])=0 *)
 Definition pauli_tr_sigma_z : R := 0.   (* SAFE: traceless Pauli matrix Tr([[1,0],[0,-1]])=0 *)
 
-(** trace_rho: Trace of density matrix
-    For the Bloch sphere representation ρ = (I + x·σ_x + y·σ_y + z·σ_z)/2,
-    Tr(ρ) is computed from the Pauli matrix traces above:
-      Tr(ρ) = Tr(I/2) + x·Tr(σ_x)/2 + y·Tr(σ_y)/2 + z·Tr(σ_z)/2
-             = pauli_tr_identity/2 + x·pauli_tr_sigma_x/2 + ...
-             = 2/2 + x·0/2 + y·0/2 + z·0/2 = 1
-
-    PHYSICAL MEANING: Probabilities must sum to 1. This is independent of
-    the Bloch vector (x,y,z) - all density matrices have unit trace.
-
-    To falsify: Find a physical density matrix with Tr(ρ) ≠ 1 (impossible
-    by definition of density matrix).
-*)
+(** [trace_rho] is the scalar trace expression for the model's Bloch-vector parameterization. With the declared Pauli trace constants, it simplifies to one. *)
 Definition trace_rho (x y z : R) : R :=
   pauli_tr_identity / 2
   + x * pauli_tr_sigma_x / 2
@@ -63,41 +39,11 @@ Definition trace_rho (x y z : R) : R :=
     [unitary_preserves_trace] below; [trace_preserved_by_normalization]
     is similarly handled inline. *)
 
-(** trace_rho_squared: Purity measure Tr(ρ²)
-    For Bloch vector (x,y,z): Tr(ρ²) = (1 + r²)/2 where r² = x² + y² + z².
-
-    DERIVATION:
-    ρ² = [(I + x·σ_x + y·σ_y + z·σ_z)/2]²
-       = (I + 2(x·σ_x + y·σ_y + z·σ_z) + (x² + y² + z²)·I)/4
-       (using σ_i² = I and σ_i·σ_j anticommutators)
-    Tr(ρ²) = Tr((2I + (x² + y² + z²)·I)/4) = (2 + r²)/4 · 2 = (1 + r²)/2
-
-    PHYSICAL MEANING:
-    - Tr(ρ²) = 1: pure state (r² = 1, on surface)
-    - Tr(ρ²) = 1/2: maximally mixed (r² = 0, at center)
-    - 1/2 < Tr(ρ²) < 1: partially mixed (0 < r² < 1, interior)
-
-    To falsify: Compute Tr(ρ²) independently and verify formula. Or find
-    states with Tr(ρ²) > 1 or Tr(ρ²) < 1/2 (violating Bloch ball geometry).
-*)
+(** [trace_rho_squared] is the declared purity expression [((1 + x² + y² + z²) / 2)]. Its later bounds require the explicit radius assumptions stated by those lemmas. *)
 Definition trace_rho_squared (x y z : R) : R :=
   (1 + x*x + y*y + z*z) / 2.
 
-(** lambda_plus, lambda_minus: Eigenvalues of density matrix
-    For Bloch vector (x,y,z), eigenvalues are:
-    λ₊ = (1 + r)/2, λ₋ = (1 - r)/2 where r = √(x² + y² + z²)
-
-    PHYSICAL MEANING:
-    - λ₊ + λ₋ = 1 (trace normalization)
-    - 0 ≤ λ₋ ≤ λ₊ ≤ 1 (positivity constraints)
-    - λ₊ = 1, λ₋ = 0 for pure states (r = 1)
-    - λ₊ = λ₋ = 1/2 for maximally mixed (r = 0)
-
-    These are the probabilities of the two eigenstates |ψ₊⟩, |ψ₋⟩.
-
-    To falsify: Find (x,y,z) with r ≤ 1 where eigenvalues violate 0 ≤ λ ≤ 1
-    (impossible by Bloch ball definition).
-*)
+(** [lambda_plus] and [lambda_minus] are the two scalar expressions assigned to the Bloch-vector eigenvalue model. Their interval properties are proved only under the radius premises supplied in the relevant lemmas. *)
 Definition lambda_plus (x y z : R) : R :=
   (1 + sqrt (x*x + y*y + z*z)) / 2.
 
@@ -105,18 +51,7 @@ Definition lambda_minus (x y z : R) : R :=
   (1 - sqrt (x*x + y*y + z*z)) / 2.
 
 
-(** Evolution: A quantum channel (CPTP map)
-    Maps input Bloch vector (x,y,z) to output (x',y',z').
-    evo_mu tracks the μ-cost (information erased during evolution).
-
-    PHYSICAL EXAMPLES:
-    - Unitary (rotation): evo_mu = 0, preserves r²
-    - Measurement: evo_mu > 0, projects to axis (decreases r²)
-    - Decoherence: evo_mu > 0, shrinks Bloch ball toward center
-
-    To falsify: Build a physical quantum channel with evo_mu < 0 (creating
-    information from nothing, violating second law).
-*)
+(** [Evolution] packages three real-valued output functions and a real cost parameter. The record alone does not assert that the functions form a physical quantum channel or that [evo_mu] is thermodynamic cost. *)
 Record Evolution := {
   (* The evolution maps (x,y,z) to (x',y',z') *)
   evo_x : R -> R -> R -> R;
@@ -126,34 +61,12 @@ Record Evolution := {
   evo_mu : R
 }.
 
-(** trace_preserving: Normalization is conserved
-    Tr(ρ_out) = Tr(ρ_in) = 1 for all inputs.
-
-    PHYSICAL MEANING: Probabilities always sum to 1. This is a MUST for
-    physical channels - losing or gaining probability violates basic probability
-    theory.
-
-    To falsify: Find an evolution where Tr(ρ_out) ≠ 1 for some valid input
-    (breaking normalization).
-*)
+(** [trace_preserving] requires equality of the model's input and output trace expressions for every input triple. *)
 Definition trace_preserving (E : Evolution) : Prop :=
   forall x y z, trace_rho (E.(evo_x) x y z) (E.(evo_y) x y z) (E.(evo_z) x y z) =
                 trace_rho x y z.
 
-(** purity_nonincreasing: Purity can only decrease (or stay same)
-    Tr(ρ_out²) ≤ Tr(ρ_in²) + evo_mu
-
-    PHYSICAL MEANING: Information loss is bounded by μ-cost. If you erase
-    information (decreasing purity), you must pay μ-cost to account for it.
-    This is the quantum version of Landauer's principle.
-
-    WHY "+ evo_mu": The μ-cost is the ALLOWED information loss. If μ=0,
-    purity cannot decrease (reversible). If μ>0, purity can decrease by at
-    most μ (irreversible, thermodynamic cost).
-
-    To falsify: Find an evolution where purity drops by more than evo_mu
-    (violating conservation).
-*)
+(** [purity_nonincreasing] is the explicit radius inequality used by this model; its [evo_mu] term is a formal parameter, not a derived thermodynamic quantity. *)
 Definition purity_nonincreasing (E : Evolution) : Prop :=
   forall x y z,
     x*x + y*y + z*z <= 1 ->
@@ -161,16 +74,7 @@ Definition purity_nonincreasing (E : Evolution) : Prop :=
     (E.(evo_y) x y z)*(E.(evo_y) x y z) +
     (E.(evo_z) x y z)*(E.(evo_z) x y z) <= x*x + y*y + z*z + E.(evo_mu).
 
-(** positivity_preserving: Valid states map to valid states
-    If r²_in ≤ 1, then r²_out ≤ 1.
-
-    PHYSICAL MEANING: The Bloch ball maps into itself. Physical states remain
-    physical after evolution. This prevents "super-pure" states (r² > 1) or
-    negative probabilities (outside ball).
-
-    To falsify: Find an evolution mapping interior point to exterior point
-    (breaking physical constraint r² ≤ 1).
-*)
+(** [positivity_preserving] requires that the declared unit-radius region maps back into itself. *)
 Definition positivity_preserving (E : Evolution) : Prop :=
   forall x y z,
     x*x + y*y + z*z <= 1 ->
@@ -179,17 +83,7 @@ Definition positivity_preserving (E : Evolution) : Prop :=
     (E.(evo_z) x y z)*(E.(evo_z) x y z) <= 1.
 
 
-(** is_unitary: Purity-preserving evolution (rotation of Bloch sphere)
-    r²_out = r²_in exactly (no shrinking or expanding).
-
-    PHYSICAL MEANING: Unitary operators rotate the Bloch sphere rigidly.
-    Pure states stay pure, mixed states stay at same mixedness. This is
-    TIME EVOLUTION in closed quantum systems (Schrödinger equation).
-
-    EXAMPLES: Pauli rotations (X, Y, Z gates), Hadamard, phase gates.
-
-    To falsify: Find a unitary where r²_out ≠ r²_in (violating definition).
-*)
+(** [is_unitary] is defined here as preservation of the squared radius on the declared unit ball. It is not a proof that an arbitrary [Evolution] record comes from a Hilbert-space operator. *)
 Definition is_unitary (E : Evolution) : Prop :=
   forall x y z,
     x*x + y*y + z*z <= 1 ->
@@ -197,15 +91,7 @@ Definition is_unitary (E : Evolution) : Prop :=
     (E.(evo_y) x y z)*(E.(evo_y) x y z) +
     (E.(evo_z) x y z)*(E.(evo_z) x y z) = x*x + y*y + z*z.
 
-(** unitary_zero_cost: Unitaries have zero μ-cost
-    Reversible operations don't erase information, so μ = 0.
-
-    LANDAUER CONNECTION: Reversible computations are thermodynamically free
-    (no entropy increase, no heat dissipation). Unitaries are reversible
-    (U† inverts U), so they cost zero energy/μ.
-
-    To falsify: Find a unitary with μ > 0 (violating Landauer).
-*)
+(** [unitary_zero_cost] is a separate implication that assigns zero formal cost to an [is_unitary] evolution. It is a model contract, not a Landauer derivation. *)
 Definition unitary_zero_cost (E : Evolution) : Prop :=
   is_unitary E -> E.(evo_mu) = 0.
 
@@ -231,18 +117,7 @@ Proof.
   lra.
 Qed.
 
-(** unitary_preserves_positivity: Unitaries preserve physical constraints
-    If r²_in ≤ 1, then r²_out ≤ 1 for unitaries.
-
-    PROOF: Unitary preserves r² exactly (is_unitary), so r²_out = r²_in ≤ 1.
-
-    WHY PROVE THIS: Unitaries map Bloch ball to itself (preserving physics).
-    Part of complete positivity requirement.
-
-    To falsify: Find unitary mapping valid state to invalid state (r² > 1).
-*)
-(** HELPER: Non-negativity property *)
-(** HELPER: Non-negativity property *)
+(** [unitary_preserves_positivity] is the direct consequence of radius preservation and the unit-ball premise. *)
 Theorem unitary_preserves_positivity :
   forall E : Evolution,
     is_unitary E ->
@@ -256,52 +131,20 @@ Proof.
 Qed.
 
 
-(** info_loss: How much purity decreased
-    Δr² = r²_in - r²_out
-
-    PHYSICAL MEANING: Information erased during evolution. For unitaries,
-    info_loss = 0. For measurements/decoherence, info_loss > 0.
-
-    CONNECTION TO ENTROPY: Δ(Tr(ρ²)) ≈ ΔS (entropy increase). Information
-    loss is entropy gain.
-
-    To falsify: Find evolution with info_loss < 0 (purity increases,
-    violating second law).
-*)
+(** [info_loss] is the input squared radius minus the output squared radius. The definition does not identify this difference with von Neumann entropy or physical erasure. *)
 Definition info_loss (E : Evolution) (x y z : R) : R :=
   (x*x + y*y + z*z) -
   ((E.(evo_x) x y z)*(E.(evo_x) x y z) +
    (E.(evo_y) x y z)*(E.(evo_y) x y z) +
    (E.(evo_z) x y z)*(E.(evo_z) x y z)).
 
-(** respects_info_conservation: μ-cost accounts for information loss
-    info_loss ≤ evo_mu for all states.
-
-    PHYSICAL MEANING: You must PAY (in μ-bits) for information you erase.
-    This is the accounting law: erasing information costs thermodynamic work
-    (Landauer), which μ tracks.
-
-    To falsify: Find evolution where info_loss > evo_mu (μ-accounting
-    violated, information destroyed without payment).
-*)
+(** [respects_info_conservation] requires the formal [info_loss] value to be bounded by the formal [evo_mu] value on valid input triples. *)
 Definition respects_info_conservation (E : Evolution) : Prop :=
   forall x y z,
     x*x + y*y + z*z <= 1 ->
     info_loss E x y z <= E.(evo_mu).
 
-(** nonunitary_requires_mu: Information loss requires μ-cost
-    If ANY state has info_loss > 0, then evo_mu > 0.
-
-    PROOF: Assume info_loss > 0 for some (x,y,z). By respects_info_conservation,
-    info_loss ≤ evo_mu. Thus evo_mu ≥ info_loss > 0, so evo_mu > 0. QED.
-
-    Irreversible operations (measurement, reset, decoherence) MUST have μ > 0.
-    There's no erasing information without thermodynamic cost. This connects
-    quantum mechanics to thermodynamics directly.
-
-    To falsify: Find a non-unitary (info_loss > 0) operation with μ = 0
-    (free information erasure, violating Landauer).
-*)
+(** [nonunitary_requires_mu] is the elementary real-arithmetic consequence of [respects_info_conservation] and one positive [info_loss] witness. *)
 Theorem nonunitary_requires_mu :
   forall E : Evolution,
     respects_info_conservation E ->
@@ -317,22 +160,7 @@ Proof.
 Qed.
 
 
-(** is_CP: Completely Positive map
-    A map is completely positive (CP) if it preserves positivity even when
-    tensored with the identity on an ancilla system.
-
-    PHYSICAL MEANING: CP ensures the map remains physical even when applied
-    to part of an entangled system. This prevents "super-measurements" that
-    would create negative probabilities on composite systems.
-
-    BLOCH BALL CHARACTERIZATION:
-    For single qubits, CP is equivalent to the Bloch ball shrinking (or staying
-    same size). No expanding (r²_out ≤ r²_in for all points inside ball), and
-    no mapping interior to exterior (r²_out ≤ 1 always).
-
-    To falsify: Find a map that preserves positivity on single qubits but
-    violates positivity when tensored with identity (breaking complete positivity).
-*)
+(** [is_CP] is the conjunction of the formal unit-ball preservation predicate and a second copy of the same radius bound. *)
 Definition is_CP (E : Evolution) : Prop :=
   positivity_preserving E /\
   (* Contractivity: Bloch ball maps inside itself *)
@@ -342,34 +170,16 @@ Definition is_CP (E : Evolution) : Prop :=
     (E.(evo_y) x y z)*(E.(evo_y) x y z) +
     (E.(evo_z) x y z)*(E.(evo_z) x y z) <= 1.
 
-(** is_CPTP: Completely Positive Trace Preserving
-    The most general form of quantum channel. CPTP maps are exactly the
-    physically realizable operations on quantum states.
+(** [is_CPTP] is the conjunction of [is_CP] and [trace_preserving].
 
-    PHYSICAL MEANING:
-    - Completely Positive: preserves positivity under composition with ancillas
-    - Trace Preserving: preserves normalization (probabilities sum to 1)
-
-    STINESPRING DILATION: Every CPTP map can be realized as unitary evolution
-    on system + environment, followed by tracing out the environment. This
-    proves CPTP maps are exactly the "open system" evolutions.
-
-    To falsify: Find a physical quantum operation that is not CPTP (impossible
-    by Stinespring theorem).
+    The definition supplies a name for this formal conjunction but does not prove a physical channel characterization.
 *)
 Definition is_CPTP (E : Evolution) : Prop :=
   is_CP E /\ trace_preserving E.
 
-(** physical_evolution_is_CPTP: Physical operations satisfy CPTP
-    If an evolution preserves positivity and trace, it's CPTP.
+(** [physical_evolution_is_CPTP] packages the two supplied formal premises into [is_CPTP].
 
-    PROOF: Trivial conjunction - definition of CPTP is exactly these two properties.
-
-    WHY PROVE THIS: Establishes that our evolution model (positivity + trace
-    preservation) captures the full generality of quantum channels.
-
-    To falsify: Show physical evolution violating CPTP axioms (contradicts
-    quantum channel theory).
+    It does not establish that every physical operation is represented by this record.
 *)
 Theorem physical_evolution_is_CPTP :
   forall E : Evolution,
@@ -385,36 +195,18 @@ Proof.
 Qed.
 
 
-(** dissipation_rate: Rate of purity loss
-    How fast information is lost during evolution.
+(** [dissipation_rate] is an alias for the formal [info_loss] expression.
 
-    PHYSICAL MEANING: dissipation_rate = d(Tr(ρ²))/dt in continuous time.
-    For discrete maps, it's just the info_loss per step.
-
-    LINDBLAD EQUATION: dρ/dt = -i[H,ρ] + Σ_k (L_k ρ L_k† - {L_k†L_k, ρ}/2)
-    The second term (Lindblad operators L_k) causes dissipation. The dissipation
-    rate is Σ_k Tr(L_k† L_k ρ²), which equals μ-cost per unit time.
-
-    To falsify: Find dissipation (purity loss) without μ-cost (free information
-    erasure, violating thermodynamics).
+    The definition does not introduce a time derivative or a physical dissipation rate.
 *)
 Definition dissipation_rate (E : Evolution) (x y z : R) : R :=
   info_loss E x y z.
 
-(** satisfies_lindblad_bound: Lindblad dissipation proportional to purity
-    dissipation_rate ≤ γ · Tr(ρ²) where γ ≥ 0 is the damping rate.
+(** [satisfies_lindblad_bound] is a named inequality over the formal [dissipation_rate] expression.
 
-    PHYSICAL EXAMPLES:
-    - Amplitude damping (spontaneous emission): γ = decay rate (1/T₁)
-    - Phase damping (dephasing): γ = dephasing rate (1/T₂)
-    - Depolarizing channel: γ = depolarization rate
+    The parameter [gamma] is a nonnegative real in this model.
 
-    WHY PROPORTIONAL TO PURITY: Maximally mixed states (r² = 0) cannot lose
-    more purity. Pure states (r² = 1) lose purity fastest. The bound ensures
-    dissipation respects this structure.
-
-    To falsify: Find Lindblad evolution where dissipation exceeds γ · Tr(ρ²)
-    (violating bound).
+    No Lindblad equation or physical channel is constructed by the definition.
 *)
 Definition satisfies_lindblad_bound (E : Evolution) (gamma : R) : Prop :=
   gamma >= 0 /\
@@ -422,19 +214,9 @@ Definition satisfies_lindblad_bound (E : Evolution) (gamma : R) : Prop :=
     x*x + y*y + z*z <= 1 ->
     dissipation_rate E x y z <= gamma * (x*x + y*y + z*z).
 
-(** lindblad_requires_mu: Lindblad dissipation costs μ
-    If dissipation rate is γ > 0, then μ-cost ≥ γ.
+(** [lindblad_requires_mu] is a real-arithmetic consequence of the supplied bound, conservation premise, and explicit witness [info_loss E 1 0 0 = gamma].
 
-    PROOF: Assume max dissipation γ occurs at some state (e.g., pure state |0⟩
-    with x=1, y=z=0). By respects_info_conservation, info_loss ≤ evo_mu. Since
-    info_loss = γ (maximal), we have evo_mu ≥ γ. QED.
-
-    Decoherence (Lindblad dissipation) is NOT free. Each bit of information lost
-    to the environment costs μ ≥ γ (the dissipation rate). This connects
-    decoherence theory to thermodynamics: losing coherence = thermodynamic cost.
-
-    To falsify: Find Lindblad channel with γ > 0 but μ = 0 (dissipation
-    without cost, violating second law).
+    It does not prove a cost law for Lindblad dynamics or a thermodynamic result.
 *)
 Theorem lindblad_requires_mu :
   forall E gamma,
@@ -455,21 +237,7 @@ Proof.
 Qed.
 
 
-(** is_reversible: Evolution has an inverse
-    There exists E_inv such that E_inv ∘ E = identity on all valid states.
-
-    PHYSICAL MEANING: Reversible operations can be undone. Like running a
-    movie backwards - all information is preserved, so you can reconstruct
-    the past from the present.
-
-    EXAMPLES:
-    - Unitary gates (X, Y, Z, H, CNOT): all reversible (inverse = adjoint)
-    - Measurement: NOT reversible (collapses state, loses information)
-    - Decoherence: NOT reversible (environment entanglement is one-way)
-
-    To falsify: Find a reversible operation with μ > 0 (information loss
-    despite invertibility, contradicting definition).
-*)
+(** [is_reversible] requires a formal inverse on every input triple in the declared unit ball. *)
 Definition is_reversible (E : Evolution) : Prop :=
   exists E_inv : Evolution,
     forall x y z,
@@ -478,24 +246,7 @@ Definition is_reversible (E : Evolution) : Prop :=
       E_inv.(evo_y) (E.(evo_x) x y z) (E.(evo_y) x y z) (E.(evo_z) x y z) = y /\
       E_inv.(evo_z) (E.(evo_x) x y z) (E.(evo_y) x y z) (E.(evo_z) x y z) = z.
 
-(** zero_cost_preserves_purity: μ=0 + conservation → purity preserved
-    If evo_mu = 0 and info_conservation holds, then purity cannot decrease.
-
-    PROOF: By respects_info_conservation, info_loss ≤ evo_mu = 0. Since
-    info_loss = r²_in - r²_out ≥ 0 (non-negative by definition), we have
-    r²_in - r²_out = 0, so r²_out = r²_in. Thus purity is preserved. QED.
-
-    Zero-cost operations are REVERSIBLE. No information is lost, so purity
-    (information content) stays constant. This is Landauer's principle in
-    reverse: if no thermodynamic cost, then no information erasure.
-
-    LANDAUER'S PRINCIPLE:
-    Erasing 1 bit costs at least kT ln 2 Joules (at temperature T). Equivalently,
-    μ-cost ≥ 1 μ-bit per bit erased. The contrapositive: μ=0 → no erasure.
-
-    To falsify: Find zero-cost operation (μ=0) with purity loss (r²_out < r²_in),
-    violating conservation and Landauer.
-*)
+(** [zero_cost_preserves_purity] derives the displayed output-radius lower bound from [respects_info_conservation] and zero formal cost. *)
 Theorem zero_cost_preserves_purity :
   forall E : Evolution,
     respects_info_conservation E ->
@@ -513,30 +264,8 @@ Proof.
   lra.
 Qed.
 
-(** zero_cost_implies_unitary: μ=0 + both conservation laws → unitary
-
-    If an evolution respects info conservation (lower bound on r²_out)
-    AND purity is nonincreasing (upper bound on r²_out), AND μ=0, then
-    r²_out = r²_in — i.e., the evolution is unitary.
-
-    - respects_info_conservation + μ=0 → r²_out ≥ r²_in (from zero_cost_preserves_purity)
-    - purity_nonincreasing + μ=0 → r²_out ≤ r²_in
-    - Combined: r²_out = r²_in (antisymmetry)
-
-    This DERIVES unitarity from conservation laws rather than assuming it.
-    Zero-cost (μ=0) evolution that satisfies both:
-      (a) information cannot be lost without payment (conservation)
-      (b) purity cannot increase beyond input + cost (nonincreasing)
-    is forced to be purity-preserving, i.e., unitary.
-
-    This is the quantum version of: reversible transformations conserve purity.
-    It connects thermodynamic reversibility (μ=0) to quantum unitarity (r² preserved).
-
-    To falsify: Find an evolution with μ=0 satisfying both conservation laws
-    but with r²_out ≠ r²_in. This would require ≥ and ≤ to not give =,
-    which is arithmetically impossible.
-*)
-(* INQUISITOR NOTE: key derived theorem — zero-cost + dual conservation → unitarity.
+(** [zero_cost_implies_unitary] derives the local [is_unitary] predicate from the two displayed radius inequalities and zero formal cost. *)
+(* SCOPE NOTE: key derived theorem — zero-cost + dual conservation → unitarity.
    Bridges Unitarity.v to NoCloning.v by eliminating the unitarity assumption. *)
 Theorem zero_cost_implies_unitary :
   forall E : Evolution,
@@ -557,9 +286,7 @@ Proof.
   lra.
 Qed.
 
-(** reversible_zero_cost_is_unitary: Corollary with reversibility hypothesis.
-    The stronger zero_cost_implies_unitary above doesn't even need reversibility —
-    the dual conservation laws suffice. This corollary keeps the old interface. *)
+(** [reversible_zero_cost_is_unitary] preserves an older interface while delegating to [zero_cost_implies_unitary]. *)
 Corollary reversible_zero_cost_is_unitary :
   forall E : Evolution,
     is_reversible E ->
@@ -573,6 +300,5 @@ Proof.
   exact (zero_cost_implies_unitary E Hcons Hpni Hmu0).
 Qed.
 
-(* INQUISITOR NOTE: connectivity anchor for unitarity auxiliary definitions. *)
+(* SCOPE NOTE: connectivity anchor for unitarity auxiliary definitions. *)
 Definition unitarity_coverage_anchor := (trace_rho_squared, lambda_plus, lambda_minus).
-

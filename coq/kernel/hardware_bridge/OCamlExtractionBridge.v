@@ -117,10 +117,9 @@ Qed.
         OCaml runner ↔ Python VM agreement on all 32 opcodes × test corpus.
     (c) Coq extraction is deterministic and mechanical.
 
-    WHY AN AXIOM (not a proof):
-    OCaml semantics are not formalized in Coq.  This is a known boundary
-    in formal verification — the TCB includes Coq's extraction mechanism.
-    The axiom makes this trust boundary explicit and auditable.
+    This is an explicit trust-boundary premise because OCaml semantics are not
+    formalized in Coq. The TCB therefore includes the extraction mechanism and
+    the separate parity tests.
     The kernel theorems do NOT import this file and remain axiom-free.
 
     Placed in Section ExtractionTrustBoundary to satisfy the project axiom
@@ -128,7 +127,7 @@ Qed.
 *)
 Section ExtractionTrustBoundary.
 
-(* INQUISITOR NOTE: the Coq statement below reduces to X = X (a
+(* SCOPE NOTE: the Coq statement below reduces to X = X (a
    tautology) and is therefore provable by reflexivity. The real
    trust-boundary content lives in the CI bisimulation test suite:
    [scripts/parity_extracted_only.sh] verifies that all 12

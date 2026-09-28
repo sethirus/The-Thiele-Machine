@@ -1,0 +1,318 @@
+DIGEST 1e3ade9e5ad166ede17553d1989569ef
+FKamiHW.RetireProgress
+R938:946 Kami.Kami <> <> lib
+R948:961 Kami.Semantics <> <> lib
+R963:977 Kami.Lib.NatLib <> <> lib
+R1004:1009 Coq.Strings.String <> <> lib
+R1011:1014 Coq.Lists.List <> <> lib
+R1016:1020 Coq.Arith.Arith <> <> lib
+R1022:1024 Coq.micromega.Lia <> <> lib
+R1026:1029 Coq.Bool.Bool <> <> lib
+R1031:1054 Coq.Logic.FunctionalExtensionality <> <> lib
+R1064:1076 Coq.Lists.List ListNotations <> mod
+R1094:1107 Kernel.VMState <> <> lib
+R1109:1121 Kernel.VMStep <> <> lib
+R1123:1138 Kernel.CertCheck <> <> lib
+R1148:1160 Kernel.VMStep VMStep <> mod
+R1190:1200 KamiHW.ThieleTypes <> <> lib
+R1202:1214 KamiHW.ThieleCPUCore <> <> lib
+R1216:1225 KamiHW.HWBoundary <> <> lib
+R1227:1234 KamiHW.RuleNext <> <> lib
+R1236:1243 KamiHW.RuleStep <> <> lib
+R1245:1259 KamiHW.BoundaryDecoded <> <> lib
+R1261:1268 KamiHW.StepEval <> <> lib
+R1272:1284 KamiHW.StepWordFacts <> <> lib
+R1286:1295 KamiHW.StepFields <> <> lib
+R1297:1312 KamiHW.StepRefineCommon <> <> lib
+R1314:1323 KamiHW.StepRefine <> <> lib
+R1325:1339 KamiHW.StepFieldsMorph <> <> lib
+R1341:1355 KamiHW.StepRefineMorph <> <> lib
+R1359:1380 KamiHW.ImplementationContract <> <> lib
+R1382:1392 KamiHW.Abstraction <> <> lib
+R1394:1402 KamiHW.EmbedStep <> <> lib
+R1404:1421 KamiHW.NormalizationSteps <> <> lib
+R1423:1439 KamiHW.NormalizationLoop <> <> lib
+R1441:1463 KamiHW.NormalizationRetirement <> <> lib
+R1467:1478 KamiHW.MorphLoading <> <> lib
+R1480:1490 KamiHW.RuleEnabled <> <> lib
+R1492:1501 KamiHW.FsmDecoded <> <> lib
+R1503:1513 KamiHW.ChshDecoded <> <> lib
+R1515:1521 KamiHW.ChshRun <> <> lib
+R1523:1536 KamiHW.ChshStepFields <> <> lib
+R1538:1547 KamiHW.ChshRetire <> <> lib
+R1551:1561 KamiHW.LassertSpec <> <> lib
+R1563:1573 KamiHW.LassertWord <> <> lib
+R1575:1591 KamiHW.LassertStepFields <> <> lib
+R1593:1605 KamiHW.LassertRetire <> <> lib
+R1607:1621 KamiHW.CouplingFsmEnds <> <> lib
+R1623:1636 KamiHW.CouplingFsmRun <> <> lib
+R1640:1656 KamiHW.CouplingMorphRich <> <> lib
+R1658:1674 KamiHW.CouplingMorphKami <> <> lib
+R1676:1694 KamiHW.CouplingMorphRetire <> <> lib
+R1698:1715 KamiHW.CouplingComposeRun <> <> lib
+R1717:1735 KamiHW.CouplingComposeKami <> <> lib
+R1737:1757 KamiHW.CouplingComposeRetire <> <> lib
+R1759:1772 KamiHW.CouplingFaults <> <> lib
+R1776:1786 KamiHW.BoundaryRun <> <> lib
+R1788:1797 KamiHW.RetireRuns <> <> lib
+R1799:1811 KamiHW.RetireRunsFsm <> <> lib
+R1813:1825 KamiHW.RetireRunsOps <> <> lib
+R1827:1838 KamiHW.RetireMaster <> <> lib
+R1842:1854 KamiHW.DispatchReset <> <> lib
+R1856:1872 KamiHW.DispatchExecution <> <> lib
+R1874:1883 KamiHW.StepFaults <> <> lib
+R1885:1899 KamiHW.TableInvariants <> <> lib
+R1901:1924 KamiHW.TableInvariantsPreserved <> <> lib
+R1928:1951 KamiHW.TableInvariantsReachable <> <> lib
+prf 2169:2179 <> retire_runs
+binder 2190:2190 <> b:1
+binder 2192:2192 <> i:2
+binder 2194:2194 <> d:3
+R2209:2212 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2197:2202 KamiHW.RetireMaster <> Retire def
+R2204:2204 KamiHW.RetireProgress <> b:1 var
+R2206:2206 KamiHW.RetireProgress <> i:2 var
+R2208:2208 KamiHW.RetireProgress <> d:3 var
+R2213:2219 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2221:2222 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2220:2220 <> k:4
+R2223:2226 KamiHW.RetireRuns <> Runs ind
+R2228:2228 KamiHW.RetireProgress <> b:1 var
+R2230:2230 KamiHW.RetireProgress <> d:3 var
+R2232:2232 KamiHW.RetireProgress <> k:4 var
+R2291:2304 KamiHW.RetireRunsOps <> live_step_runs thm
+R2291:2304 KamiHW.RetireRunsOps <> live_step_runs thm
+R2333:2335 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2333:2335 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2349:2358 KamiHW.RetireRuns <> runs_trans thm
+R2363:2371 KamiHW.RuleStep <> step_next def
+R2386:2399 KamiHW.RetireRuns <> busy_runs_runs thm
+R2349:2358 KamiHW.RetireRuns <> runs_trans thm
+R2363:2371 KamiHW.RuleStep <> step_next def
+R2386:2399 KamiHW.RetireRuns <> busy_runs_runs thm
+prf 2528:2544 <> admitted_progress
+binder 2555:2555 <> b:5
+binder 2557:2557 <> i:6
+binder 2559:2559 <> d:7
+R2574:2579 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2562:2567 KamiHW.RetireMaster <> Retire def
+R2569:2569 KamiHW.RetireProgress <> b:5 var
+R2571:2571 KamiHW.RetireProgress <> i:6 var
+R2573:2573 KamiHW.RetireProgress <> d:7 var
+R2580:2586 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2588:2589 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2587:2587 <> k:8
+R2622:2629 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2618:2620 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2590:2592 Coq.Init.Datatypes <> fst def
+R2595:2612 KamiHW.BoundaryRun <> run_boundary_rules def
+R2614:2614 KamiHW.RetireProgress <> k:8 var
+R2616:2616 KamiHW.RetireProgress <> b:5 var
+R2621:2621 KamiHW.RetireProgress <> d:7 var
+R2675:2683 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2742:2742 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2644:2646 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2630:2641 KamiHW.ImplementationContract <> hwb_snapshot def
+R2643:2643 KamiHW.RetireProgress <> d:7 var
+R2647:2655 KamiHW.Abstraction <> kami_step def
+R2658:2669 KamiHW.ImplementationContract <> hwb_snapshot def
+R2671:2671 KamiHW.RetireProgress <> b:5 var
+R2674:2674 KamiHW.RetireProgress <> i:6 var
+R2684:2690 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2692:2693 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2691:2691 <> l:9
+R2694:2702 Kami.Semantics <> Multistep ind
+R2741:2741 KamiHW.RetireProgress <> l:9 var
+R2729:2736 KamiHW.HWBoundary <> hwb_regs def
+R2738:2738 KamiHW.RetireProgress <> d:7 var
+R2716:2723 KamiHW.HWBoundary <> hwb_regs def
+R2725:2725 KamiHW.RetireProgress <> b:5 var
+R2704:2713 KamiHW.ThieleCPUCore <> thieleCore def
+R2783:2793 KamiHW.RetireProgress <> retire_runs thm
+R2783:2793 KamiHW.RetireProgress <> retire_runs thm
+R2828:2843 KamiHW.RetireMaster <> retire_multistep thm
+R2828:2843 KamiHW.RetireMaster <> retire_multistep thm
+R2911:2918 Coq.Init.Logic <> ex_intro constr
+R2925:2928 Coq.Init.Logic <> conj constr
+R2960:2963 Coq.Init.Logic <> conj constr
+R2972:2979 Coq.Init.Logic <> ex_intro constr
+R2931:2947 KamiHW.RetireRuns <> runs_runner_exact thm
+R2911:2918 Coq.Init.Logic <> ex_intro constr
+R2925:2928 Coq.Init.Logic <> conj constr
+R2960:2963 Coq.Init.Logic <> conj constr
+R2972:2979 Coq.Init.Logic <> ex_intro constr
+R2931:2947 KamiHW.RetireRuns <> runs_runner_exact thm
+prf 3200:3228 <> admitted_instruction_progress
+binder 3239:3239 <> b:10
+binder 3241:3241 <> i:11
+R3258:3263 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3246:3253 KamiHW.RetireMaster <> admitted ind
+R3255:3255 KamiHW.RetireProgress <> b:10 var
+R3257:3257 KamiHW.RetireProgress <> i:11 var
+R3264:3270 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3274:3275 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3271:3271 <> d:12
+binder 3273:3273 <> k:13
+R3308:3315 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3304:3306 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3276:3278 Coq.Init.Datatypes <> fst def
+R3281:3298 KamiHW.BoundaryRun <> run_boundary_rules def
+R3300:3300 KamiHW.RetireProgress <> k:13 var
+R3302:3302 KamiHW.RetireProgress <> b:10 var
+R3307:3307 KamiHW.RetireProgress <> d:12 var
+R3361:3369 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3428:3428 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3330:3332 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3316:3327 KamiHW.ImplementationContract <> hwb_snapshot def
+R3329:3329 KamiHW.RetireProgress <> d:12 var
+R3333:3341 KamiHW.Abstraction <> kami_step def
+R3344:3355 KamiHW.ImplementationContract <> hwb_snapshot def
+R3357:3357 KamiHW.RetireProgress <> b:10 var
+R3360:3360 KamiHW.RetireProgress <> i:11 var
+R3370:3376 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3378:3379 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3377:3377 <> l:14
+R3380:3388 Kami.Semantics <> Multistep ind
+R3427:3427 KamiHW.RetireProgress <> l:14 var
+R3415:3422 KamiHW.HWBoundary <> hwb_regs def
+R3424:3424 KamiHW.RetireProgress <> d:12 var
+R3402:3409 KamiHW.HWBoundary <> hwb_regs def
+R3411:3411 KamiHW.RetireProgress <> b:10 var
+R3390:3399 KamiHW.ThieleCPUCore <> thieleCore def
+R3469:3484 KamiHW.RetireMaster <> admitted_retires thm
+R3469:3484 KamiHW.RetireMaster <> admitted_retires thm
+R3519:3535 KamiHW.RetireProgress <> admitted_progress thm
+R3519:3535 KamiHW.RetireProgress <> admitted_progress thm
+R3577:3584 Coq.Init.Logic <> ex_intro constr
+R3591:3598 Coq.Init.Logic <> ex_intro constr
+R3605:3608 Coq.Init.Logic <> conj constr
+R3614:3617 Coq.Init.Logic <> conj constr
+R3577:3584 Coq.Init.Logic <> ex_intro constr
+R3591:3598 Coq.Init.Logic <> ex_intro constr
+R3605:3608 Coq.Init.Logic <> conj constr
+R3614:3617 Coq.Init.Logic <> conj constr
+prf 3878:3898 <> admitted_run_progress
+binder 3909:3909 <> b:15
+binder 3911:3912 <> is:16
+binder 3914:3914 <> d:17
+R3935:3940 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3917:3927 KamiHW.TableInvariantsReachable <> AdmittedRun ind
+R3929:3929 KamiHW.RetireProgress <> b:15 var
+R3931:3932 KamiHW.RetireProgress <> is:16 var
+R3934:3934 KamiHW.RetireProgress <> d:17 var
+R3941:3947 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3949:3950 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3948:3948 <> k:18
+R3961:3968 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3951:3954 KamiHW.RetireRuns <> Runs ind
+R3956:3956 KamiHW.RetireProgress <> b:15 var
+R3958:3958 KamiHW.RetireProgress <> d:17 var
+R3960:3960 KamiHW.RetireProgress <> k:18 var
+R4019:4027 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4086:4086 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3983:3985 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3969:3980 KamiHW.ImplementationContract <> hwb_snapshot def
+R3982:3982 KamiHW.RetireProgress <> d:17 var
+R3986:3998 KamiHW.TableInvariantsReachable <> kami_run_list def
+R4000:4001 KamiHW.RetireProgress <> is:16 var
+R4004:4015 KamiHW.ImplementationContract <> hwb_snapshot def
+R4017:4017 KamiHW.RetireProgress <> b:15 var
+R4028:4034 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4036:4037 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4035:4035 <> l:19
+R4038:4046 Kami.Semantics <> Multistep ind
+R4085:4085 KamiHW.RetireProgress <> l:19 var
+R4073:4080 KamiHW.HWBoundary <> hwb_regs def
+R4082:4082 KamiHW.RetireProgress <> d:17 var
+R4060:4067 KamiHW.HWBoundary <> hwb_regs def
+R4069:4069 KamiHW.RetireProgress <> b:15 var
+R4048:4057 KamiHW.ThieleCPUCore <> thieleCore def
+R4198:4206 KamiHW.RetireRuns <> runs_done constr
+R4198:4206 KamiHW.RetireRuns <> runs_done constr
+R4247:4249 Coq.Init.Datatypes <> nil constr
+R4251:4256 Kami.Semantics <> LabelT rec
+R4247:4249 Coq.Init.Datatypes <> nil constr
+R4251:4256 Kami.Semantics <> LabelT rec
+R4266:4277 Kami.Semantics <> NilMultistep constr
+R4266:4277 Kami.Semantics <> NilMultistep constr
+R4307:4317 KamiHW.RetireProgress <> retire_runs thm
+R4307:4317 KamiHW.RetireProgress <> retire_runs thm
+R4401:4416 KamiHW.RetireMaster <> retire_multistep thm
+R4401:4416 KamiHW.RetireMaster <> retire_multistep thm
+R4493:4495 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4493:4495 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4516:4525 KamiHW.RetireRuns <> runs_trans thm
+R4516:4525 KamiHW.RetireRuns <> runs_trans thm
+R4571:4583 KamiHW.TableInvariantsReachable <> kami_run_list def
+R4629:4636 Coq.Lists.List <> app abbrev
+R4629:4636 Coq.Lists.List <> app abbrev
+R4659:4687 KamiHW.NormalizationRetirement <> normalization_multistep_trans thm
+R4659:4687 KamiHW.NormalizationRetirement <> normalization_multistep_trans thm
+prf 4779:4806 <> admitted_run_progress_runner
+binder 4817:4817 <> b:20
+binder 4819:4820 <> is:21
+binder 4822:4822 <> d:22
+R4843:4848 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4825:4835 KamiHW.TableInvariantsReachable <> AdmittedRun ind
+R4837:4837 KamiHW.RetireProgress <> b:20 var
+R4839:4840 KamiHW.RetireProgress <> is:21 var
+R4842:4842 KamiHW.RetireProgress <> d:22 var
+R4849:4855 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4857:4858 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4856:4856 <> k:23
+R4887:4889 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4859:4861 Coq.Init.Datatypes <> fst def
+R4864:4881 KamiHW.BoundaryRun <> run_boundary_rules def
+R4883:4883 KamiHW.RetireProgress <> k:23 var
+R4885:4885 KamiHW.RetireProgress <> b:20 var
+R4890:4890 KamiHW.RetireProgress <> d:22 var
+R4934:4954 KamiHW.RetireProgress <> admitted_run_progress thm
+R4934:4954 KamiHW.RetireProgress <> admitted_run_progress thm
+R4993:5000 Coq.Init.Logic <> ex_intro constr
+R5007:5023 KamiHW.RetireRuns <> runs_runner_exact thm
+R4993:5000 Coq.Init.Logic <> ex_intro constr
+R5007:5023 KamiHW.RetireRuns <> runs_runner_exact thm
+prf 5238:5269 <> admitted_run_progress_invariants
+binder 5280:5280 <> b:24
+binder 5282:5283 <> is:25
+binder 5285:5285 <> d:26
+R5312:5315 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5290:5309 KamiHW.TableInvariants <> hwb_table_invariants def
+R5311:5311 KamiHW.RetireProgress <> b:24 var
+R5334:5339 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5316:5326 KamiHW.TableInvariantsReachable <> AdmittedRun ind
+R5328:5328 KamiHW.RetireProgress <> b:24 var
+R5330:5331 KamiHW.RetireProgress <> is:25 var
+R5333:5333 KamiHW.RetireProgress <> d:26 var
+R5340:5346 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5348:5349 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5347:5347 <> k:27
+R5382:5389 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5378:5380 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5350:5352 Coq.Init.Datatypes <> fst def
+R5355:5372 KamiHW.BoundaryRun <> run_boundary_rules def
+R5374:5374 KamiHW.RetireProgress <> k:27 var
+R5376:5376 KamiHW.RetireProgress <> b:24 var
+R5381:5381 KamiHW.RetireProgress <> d:26 var
+R5412:5419 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5390:5409 KamiHW.TableInvariants <> hwb_table_invariants def
+R5411:5411 KamiHW.RetireProgress <> d:26 var
+R5434:5436 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5420:5431 KamiHW.ImplementationContract <> hwb_snapshot def
+R5433:5433 KamiHW.RetireProgress <> d:26 var
+R5437:5449 KamiHW.TableInvariantsReachable <> kami_run_list def
+R5451:5452 KamiHW.RetireProgress <> is:25 var
+R5455:5466 KamiHW.ImplementationContract <> hwb_snapshot def
+R5468:5468 KamiHW.RetireProgress <> b:24 var
+R5518:5538 KamiHW.RetireProgress <> admitted_run_progress thm
+R5518:5538 KamiHW.RetireProgress <> admitted_run_progress thm
+R5582:5589 Coq.Init.Logic <> ex_intro constr
+R5596:5599 Coq.Init.Logic <> conj constr
+R5635:5638 Coq.Init.Logic <> conj constr
+R5641:5664 KamiHW.TableInvariantsReachable <> hwb_table_invariants_run thm
+R5602:5618 KamiHW.RetireRuns <> runs_runner_exact thm
+R5582:5589 Coq.Init.Logic <> ex_intro constr
+R5596:5599 Coq.Init.Logic <> conj constr
+R5635:5638 Coq.Init.Logic <> conj constr
+R5641:5664 KamiHW.TableInvariantsReachable <> hwb_table_invariants_run thm
+R5602:5618 KamiHW.RetireRuns <> runs_runner_exact thm

@@ -1,38 +1,8 @@
-(** BornRuleLinearity: Born rule uniqueness from affinity plus boundaries
-
-    Uniqueness of affine probability on [-1,1].
-
-    THE PROBLEM:
-    BornRule.v assumes `is_linear_in_z` as a hypothesis. But WHY is probability
-    linear in the Bloch z-coordinate?
-
-    THE ANSWER (from quantum foundations):
-    Linearity follows from TWO constraints:
-    1. MIXTURE COMPATIBILITY (affinity): P(λa + (1-λ)b) = λ·P(a) + (1-λ)·P(b)
-       (preparing a mixture of states means the measurement statistics mix
-       correspondingly)
-    2. BOUNDARY CONDITIONS: P(z=+1)=1, P(z=-1)=0 (perfect alignment)
-
-    Together these force P(z) = (1+z)/2, the Born rule for this one-coordinate
-    model.
-
-    CRITICAL NOTE ON THE BRIDGE:
-    The function no_signaling_constraint_implies_mixture_compatibility (below)
-    is a definitional identity (fun P Hns => Hns) because no-signaling
-    as formulated here IS mixture_compatible by type. The physical argument
-    for WHY no-signaling implies affinity (Hardy 2001, Chiribella 2011) is
-    represented later as explicit hypotheses, not as a theorem derived from
-    VM semantics alone.
-
-    THE PROOF (4-step derivation):
-    Step C3a: Define mixture compatibility (affinity of probability in state)
-    Step C3b: Note no-signaling IS mixture compatibility (definitional)
-    Step C3c: Derive Born rule from mixture compatibility + boundary conditions
-    Step C3d: Bridge to BornRule.v's is_linear_in_z
-
-    Hardy (2001) "Quantum Theory From Five Reasonable Axioms"
-    Chiribella et al. (2011) "Informational Derivation of QM"
-*)
+(** BornRuleLinearity proves the algebraic uniqueness statement for an affine
+    probability rule on [-1,1] with the two boundary values. It also records a
+    separate Hardy-style bridge for the physical premise that an operational
+    no-signaling principle entails affinity. The direct algebraic theorem does
+    not derive that premise from VM semantics. *)
 
 From Coq Require Import List Lia Arith.PeanoNat.
 From Coq Require Import Reals Lra Psatz.
@@ -49,22 +19,11 @@ Local Open Scope R_scope.
     For a qubit measured in the z-basis, P(z) = probability of outcome +1. *)
 Definition ProbabilityRule := R -> R.
 
-(** MIXTURE COMPATIBILITY (AFFINITY):
-    If you randomly prepare state-a with probability λ or state-b with
-    probability (1-λ), the measurement outcome probability must be
-    λ·P(a) + (1-λ)·P(b).
-
-    WHY THIS IS FORCED BY NO-SIGNALING:
-    A "mixture" λρ_a + (1-λ)ρ_b is operationally: flip a biased coin,
-    prepare ρ_a or ρ_b accordingly, then hand to the measurer WITHOUT
-    telling them which was prepared.
-
-    If the measurer's outcome probability P(mixture) ≠ λ·P(a) + (1-λ)·P(b),
-    then by repeating many measurements, the measurer could statistically
-    determine λ, learning information about the preparer's coin flip.
-    This would be SIGNALING from preparer to measurer, violating locality.
-
-    Therefore no-signaling FORCES mixture compatibility. *)
+(** [mixture_compatible] is the affine law used by the algebraic derivation.
+    Its operational reading is that the statistics of a preparation mixture are
+    the corresponding mixture of the endpoint statistics. Whether a physical
+    no-signaling principle entails this law is represented by the explicit
+    bridge hypotheses below. *)
 Definition mixture_compatible (P : ProbabilityRule) : Prop :=
   forall (a b lambda : R),
     0 <= lambda <= 1 ->
@@ -83,7 +42,7 @@ Definition born_probability (z : R) : R := (1 + z) / 2.
 
 (** Born-rule uniqueness from mixture compatibility. *)
 
-(** INQUISITOR NOTE: This is the key derivation. Any z in [-1,1] can be
+(** SCOPE NOTE: This is the key derivation. Any z in [-1,1] can be
     written as a mixture of the boundary points z=+1 and z=-1. Mixture
     compatibility then forces P(z) = (1+z)/2. *)
 Theorem born_rule_from_mixture_compatibility :
@@ -121,7 +80,7 @@ Qed.
 
 (** Uniqueness of the Born rule. *)
 
-(** INQUISITOR NOTE: born_rule_unique shows that any valid probability rule
+(** SCOPE NOTE: born_rule_unique shows that any valid probability rule
     must agree with born_probability on [-1,1]. This is the uniqueness half
     of the derivation: not just that (1+z)/2 works, but that it is the only
     function that works. *)
@@ -212,7 +171,7 @@ Record PrepMeasProtocol := {
   pm_meas_valid : (pm_meas_mid < pg_next_id pm_graph)%nat;
 }.
 
-(** INQUISITOR NOTE: vm_preparation_no_signaling is the VM-level bridge:
+(** SCOPE NOTE: vm_preparation_no_signaling is the VM-level bridge:
     preparation instructions targeting one module do not change the observable
     of a disjoint module. Direct corollary of observational_no_signaling. *)
 Theorem vm_preparation_no_signaling :
@@ -232,44 +191,14 @@ Proof.
     exact (pm_disjoint pmp Heq).
 Qed.
 
-(** The mathematical bridge: no-signaling forces mixture compatibility.
+(** The operational bridge compares direct preparation with preparation by a
+    mixture. The hypotheses in the formal bridge below are the boundary for
+    that comparison; the VM definitions alone do not supply them. *)
 
-    THE FORMAL ARGUMENT:
-    A probability rule P maps a state parameter z to an outcome probability.
-    No-signaling means: P depends ONLY on the state z, not on how z was prepared.
-
-    In particular, there are two ways to achieve state z = λa + (1-λ)b:
-    (A) DIRECT: Prepare the state z directly.
-    (B) MIXTURE: Flip a λ-biased coin; prepare a with probability λ, b with (1-λ).
-
-    The measurer cannot distinguish (A) from (B) by no-signaling.
-    Under method (B), the expected outcome probability is λ·P(a) + (1-λ)·P(b).
-    Under method (A), the outcome probability is P(z) = P(λa + (1-λ)b).
-
-    Since these must be identical: P(λa + (1-λ)b) = λ·P(a) + (1-λ)·P(b).
-    This IS mixture_compatible. *)
-
-(** Thin definitional bridge.
-
-    This definition is a definitional identity: [fun P Hns => Hns].
-    The no-signaling constraint as formulated in its hypothesis type IS
-    mixture_compatible by type, so the "proof" is just the identity function.
-    No genuine derivation takes place.
-
-    WHY THIS IS DISHONEST: The physical argument is that no-signaling
-    IMPLIES affinity (Hardy 2001, Chiribella 2011).  That requires a
-    substantive step showing that operationally indistinguishable preparations
-    force linearity.  That content lives in [hardy_born_rule_bridge] (below),
-    which takes genuinely distinct hypotheses (H_grounded, H_observable,
-    H_convex, H_universal) and composes them into mixture_compatible.
-
-    FOR NEW CODE: Use [hardy_born_rule_bridge] or [hardy_born_rule] instead.
-    This definition is retained only for backward compatibility with
-    [born_rule_from_no_signaling].
-
-    INQUISITOR NOTE: no_signaling_constraint_implies_mixture_compatibility
-    formalizes that the no-signaling constraint on probability rules IS the
-    definition of mixture_compatible. This is a definitional equivalence. *)
+(** This compatibility alias is not a physical derivation. Its hypothesis
+    already has the type [mixture_compatible], so the definition returns that
+    hypothesis unchanged. The substantive Hardy-style bridge is
+    [hardy_born_rule_bridge]; this alias remains for the older interface. *)
 (* Deprecated definitional bridge; use hardy_born_rule_bridge for named assumptions. *)
 Definition no_signaling_constraint_implies_mixture_compatibility :
   forall (P : ProbabilityRule),
@@ -289,7 +218,7 @@ Definition no_signaling_forces_mixture_compatibility :=
 
 (** End-to-end C3 closure: no-signaling → Born rule.
     Combines Layers 3 and 4 in one theorem. *)
-(** INQUISITOR NOTE: born_rule_from_no_signaling is the C3 end-to-end closure:
+(** SCOPE NOTE: born_rule_from_no_signaling is the C3 end-to-end closure:
     no-signaling (as mixture compatibility) + boundary conditions → Born rule.
     Compositional proof from no_signaling_forces_mixture_compatibility and
     born_rule_from_mixture_compatibility. *)
@@ -767,45 +696,18 @@ Proof.
   - rewrite witness_state_read_reg_0. simpl. lra.
 Qed.
 
-(** Capstone: the algebraic Born rule is closed without Hardy bridge hypotheses.
+(** The capstone follows the direct algebraic path. The displayed rule is
+    shown affine, its endpoint values are computed, and the uniqueness lemma
+    is applied. The Hardy-style assumptions are an optional separate route.
 
-    The direct algebraic path to the Born rule is machine-checked with no
-    named Hardy hypotheses, no section variables, and no admits:
-
-    1. born_probability is mixture_compatible (discharged inline in
-       born_probability_valid below via unfold + lra).
-       Proof: arithmetic on (1+z)/2.
-
-    2. born_probability satisfies has_boundary_conditions (also inline
-       in born_probability_valid).
-       Proof: P(1) = 1 and P(-1) = 0 by computation.
-
-    3. born_rule_from_mixture_compatibility: mixture_compatible P /\
-       has_boundary_conditions P -> P z = born_probability z for z in [-1,1].
-       Proof: affine function with two fixed points is unique.
-
-    4. born_rule_unique: valid_born_rule P -> P = born_probability on [-1,1].
-       Proof: direct composition of (3).
-
-    The Hardy bridge (hardy_born_rule_bridge) provides an alternative
-    derivation showing WHY mixture_compatible holds physically (from
-    no-signaling plus Hardy-style assumptions).  Its four hypotheses
-    (H_grounded, H_observable, H_convex, H_universal) are the physical
-    content of the derivation, stated explicitly.
-
-    FORMALIZATION NOTE ON THE HARDY HYPOTHESES:
-    H_grounded and H_convex quantify over ALL registers (forall r),
-    but the Hardy bridge proof only uses the SPECIFIC register from
-    each H_universal witness.  With the current nat encoding
-    (bloch_z_encoded via INR), the forall-r forms are unsatisfiable
-    when a state has registers encoding different z values.  The
-    proof is sound because the forall-r is STRONGER than needed.
-    The direct algebraic path below avoids this issue entirely.
-*)
+    The current Hardy predicates quantify over the register encodings supplied
+    by their interfaces. That representation choice can make them stronger
+    than the witnesses needed by the bridge; the direct theorem below avoids
+    relying on that additional encoding premise. *)
 
 (** Capstone: born_probability is the unique valid Born rule.
     No Hardy bridge hypotheses. The theorem still assumes [valid_born_rule P]. *)
-(* INQUISITOR NOTE: alias for born_rule_unique, capstone re-export for the summary. *)
+(* SCOPE NOTE: alias for born_rule_unique, capstone re-export for the summary. *)
 Theorem born_rule_capstone :
   forall (P : ProbabilityRule),
     valid_born_rule P ->

@@ -20,11 +20,6 @@
     This file leaves Lorentz invariance to spacetime/metric layers instead of
     treating it as a primitive kernel constraint.
 
-    To falsify: show causal_cone uniquely determines a Lorentz group structure
-    without additional geometric input, or prove Lorentz boosts are the ONLY
-    cone-preserving symmetries (contradicting the stutter example), or show
-    kernel-level objects that encode metric/interval structure.
-
     This file localizes a kernel-level boundary:
     With only the current kernel primitives, "Lorentz invariance" has no
     canonical statement because there is no derived metric/interval, and
@@ -43,7 +38,7 @@
     present in the kernel layer.
 *)
 
-(* INQUISITOR NOTE: proof-connectivity - bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity - bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import List.

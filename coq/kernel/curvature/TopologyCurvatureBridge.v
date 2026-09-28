@@ -13,7 +13,7 @@
     difference. Since the proof is just Gauss-Bonnet applied twice and
     subtracted, any such counterexample would also break the earlier theorem. *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Arith.PeanoNat Lia Bool ZArith Reals.

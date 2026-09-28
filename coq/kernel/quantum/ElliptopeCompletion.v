@@ -56,18 +56,14 @@
     together with [lhv] containment this places the elliptope strictly
     between the classical polytope and the no-signaling cube.
 
-  Scope, stated the way the monograph fences everything: this is the
-  correlator-level characterization. Marginals stay zero in the completed
-  matrix; by Tsirelson's construction that loses nothing at the correlator
-  level, and the correlator level is the honest scope (Ishizaka 2025 gives
-  Q_{1+AB} = Q for correlators; Chaturvedi 2026 shows no finite NPA level is
-  exact for the full behavior set). Nothing here derives physics; PSD of a
-  completed matrix is polynomial arithmetic, and the identification of that
-  condition with quantum realizability lives in the externally cited
-  Tsirelson/NPA literature, exactly as for the zero-marginal slice.
+  Scope: this is the correlator completion model, with zero marginals and
+  free within-party cross moments. Its identification with quantum correlators
+  uses the external Tsirelson representation theorem. The proofs here concern
+  the completed matrix and its quadratic form. Complete behaviors, including
+  specified marginals, are a different object.
 *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
    imports no kernel module.
@@ -75,8 +71,8 @@
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
 From Kernel Require Import ConstructivePSD NPAMomentMatrix.
 
 From Coq Require Import Reals Lra Psatz Lia.
@@ -684,6 +680,6 @@ Proof.
     apply deterministic_strategy_elliptope; assumption.
 Qed.
 
-(** * Anchor for proof-connectivity audits *)
+(** * Anchor for foundation connectivity audits *)
 
 Definition elliptope_completion_anchor := @completed_matrix.

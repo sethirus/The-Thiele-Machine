@@ -20,28 +20,27 @@
 # Chipdb (xc7k325tffg900-2.bin) is generated at run-time via bbaexport +
 # bbasm — too large (~90MB) to commit per part.
 #
-# Why K325T with `-nodsp`: yosys's DSP48E1 inference for
-# column_contractive_check_witness maps onto more DSP slices than K325T's 840
-# (and the wider operand widths force chained DSPs that slow openXC7's
-# nextpnr-xilinx placer to 1-2+ hours, sometimes timing out). Rather than
-# escalating to a bigger part (K420T has no parent-dir tilegrid in openXC7's
-# prjxray-db; K480T fits but its placer takes 1-2+ hours and sometimes
-# doesn't finish at all on the open-source nextpnr-xilinx), we use two
-# complementary changes:
+# How the design fits K325T (K420T has no parent-dir tilegrid in openXC7's
+# prjxray-db; K480T is not the Genesys 2 device):
 #   (1) instr_chsh_lassert's witness check is implemented in Kami as a
-#       23-phase FSM (`chsh_lassert_fsm` rule in
-#       coq/kami_hw/ThieleCPUCore.v) that time-shares one 384×384 SignUU
+#       29-phase FSM (`chsh_lassert_fsm` rule in
+#       coq/kami_hw/ThieleCPUCore.v) that time-shares one 67×67
 #       multiplier across the 22 wide multiplications it needs, so only one
-#       wide multiply is live per cycle (Coq spec is still single-step;
-#       multi-cycle execution is a Kami-implementation detail invisible to
-#       the spec — same pattern as instr_lassert).
-#   (2) DSP inference is disabled in synth_xc7.ys (`-nodsp`) so yosys maps
-#       the multiplier to LUTs.
-# The result fits in ~151K LUT6 (~74% of K325T's 203K LUT6 budget) and the
-# placer finishes in ~10 min. DSP vs LUT is a silicon-utilisation choice,
-# not a correctness one; the proof chain (Coq → OCaml → Bluespec → Verilog)
-# is identical either way. We accept the LUT cost in exchange for an
-# open-source flow that finishes in CI.
+#       multiply is live per cycle. Each FSM register is sized to the largest
+#       value 32-bit counters can put there (67, 134 and 268 bits), and the
+#       two 134×134 products are each summed from four 67×67 partial
+#       products. The Coq spec is still single-step; multi-cycle execution is
+#       a Kami-implementation detail invisible to the spec, the same pattern
+#       as instr_lassert.
+#   (2) DSP inference is disabled in synth_xc7.ys (`-nodsp`), so the
+#       multiplier maps to LUTs and the design comes to about 37K LUTs.
+#       With DSP48E1 slices the design did not finish inside the CI limit:
+#       cascaded slices stall the nextpnr-xilinx placer, and standalone
+#       slices leave routing badly congested.
+#   (3) The 16×16 module tensor store is a 256-entry RegFile (LUT RAM), not
+#       flip-flops; see scripts/bsv_regfile_transform.py.
+# DSP vs LUT is a silicon-utilisation choice, not a correctness one; the proof
+# chain (Coq → OCaml → Bluespec → Verilog) is identical either way.
 #
 # Outputs in build/:
 #   - thiele_xc7k325t.json     (yosys post-synthesis netlist)
@@ -91,7 +90,7 @@ PRJXRAY_DB="${PRJXRAY_DB:-/opt/prjxray-db/kintex7}"
 
 mkdir -p "${BUILD_DIR}"
 
-# Always remove stale per-part outputs so a previously-failed bitstream
+# Always remove stale per-part outputs so an interrupted bitstream generation
 # (which CI's `if: always()` upload would otherwise re-publish) cannot
 # masquerade as a fresh success. The chipdb is part-stable and expensive
 # to regenerate (~30s), so keep it.
@@ -155,6 +154,7 @@ echo "=== [3/5] nextpnr-xilinx place-and-route (${PART}) ==="
     --xdc "${XDC}" \
     --json "${JSON}" \
     --fasm "${FASM}" \
+    --no-tmdriv \
     --timing-allow-fail \
     2>&1 | tee "${BUILD_DIR}/nextpnr_xc7.log"
 echo "    fasm:   ${FASM}"

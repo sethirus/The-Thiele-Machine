@@ -220,7 +220,7 @@ Qed.
 
 (** PROVEN: The mu gap between blind and sighted grows as Θ(N²).
     For N ≥ 6, the iteration savings exceed the 18 mu cost by a growing margin. *)
-(* INQUISITOR NOTE: alias for iteration_savings_dwarfs_mu_cost export. *)
+(* SCOPE NOTE: alias for iteration_savings_dwarfs_mu_cost export. *)
 Theorem geodesic_efficiency :
   forall N : nat,
     N >= 6 ->
@@ -249,7 +249,7 @@ Qed.
     some node in the network — the ledger is the routing table. *)
 
 (** PROVEN: The k-dimensional generalization: N^k > k*N + k for N≥4, k≥2. *)
-(* INQUISITOR NOTE: alias for k_factor_savings_exceed_mu_cost export. *)
+(* SCOPE NOTE: alias for k_factor_savings_exceed_mu_cost export. *)
 Theorem geodesic_routing_k_dimensions :
   forall N k : nat,
     N >= 4 -> k >= 2 ->
@@ -259,7 +259,7 @@ Proof.
 Qed.
 
 (** PROVEN: Sighted dominates blind for L ≥ 1. *)
-(* INQUISITOR NOTE: alias for sighted_wins_for_nontrivial_left export. *)
+(* SCOPE NOTE: alias for sighted_wins_for_nontrivial_left export. *)
 Theorem geodesic_dominates_blind :
   forall N L R : nat,
     N >= 3 -> L >= 1 ->

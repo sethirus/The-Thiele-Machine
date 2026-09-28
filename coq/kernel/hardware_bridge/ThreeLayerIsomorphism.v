@@ -18,12 +18,10 @@
           | (abstract contracts here)    | (tested)
      Python VM.step <--[testing]---> Verilog thiele_cpu  (cosimulation tests)
 
-    To falsify the formal content here, produce either:
-    - a [WireSpec]-conforming pair of implementations that disagree on μ or PC,
-      or
-    - a [FullWireSpec]-conforming pair that disagree on one projected field.
-
-    This file does not by itself prove that the repository's concrete Python
+    The boundary is the supplied interface record: a counterexample would be a
+    [WireSpec]-conforming pair that disagrees on μ or PC, or a
+    [FullWireSpec]-conforming pair that disagrees on a projected field. This
+    file does not by itself prove that the repository's concrete Python
     and Verilog artifacts satisfy those interface records.
 *)
 
@@ -154,7 +152,7 @@ Definition increments_pc_by_one (instr : vm_instruction) : bool :=
   end.
 
 (** PC advances by exactly 1 for non-jump instructions (proven). *)
-(* INQUISITOR NOTE: proven theorem restricted to non-jump instructions *)
+(* SCOPE NOTE: proven theorem restricted to non-jump instructions *)
 Theorem pc_advance : forall (s : VMState) (i : vm_instruction),
   increments_pc_by_one i = true ->
   vm_pc (vm_apply s i) = S (vm_pc s).
@@ -210,7 +208,7 @@ Record WireSpec := {
     increment PC by 1. The complete semantics are proven in SimulationProof.v and
     HardwareBridge.v. This partial spec is kept for documentation but not proven. *)
 (*
-(* INQUISITOR NOTE: coq_wire_spec commented out - WireSpec pc_advance incompatible with jump instructions *)
+(* SCOPE NOTE: coq_wire_spec commented out - WireSpec pc_advance incompatible with jump instructions *)
 Definition coq_wire_spec : WireSpec := {|
   ws_state := VMState;
   ws_step  := vm_apply;
@@ -276,7 +274,7 @@ Proof.
 Qed.
 
 (** Corollary: Coq kernel bisimilar to any conforming implementation. *)
-(* INQUISITOR NOTE: corollary commented out - depends on coq_wire_spec which cannot be proven for jumps
+(* SCOPE NOTE: corollary commented out - depends on coq_wire_spec which cannot be proven for jumps
 Corollary coq_bisimilar_to_any :
   forall (impl : WireSpec)
     (s_coq : VMState) (s_impl : ws_state impl)

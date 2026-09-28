@@ -29,7 +29,7 @@
     bridge to physical joules requires a fixed conversion factor
     k_B · T · ln 2; the theorems here state Landauer in those units. *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
    imports no kernel module.
@@ -37,8 +37,8 @@
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
 
 Require Import Coq.Arith.Arith.
 Require Import Coq.Lists.List.
@@ -187,10 +187,8 @@ Qed.
 (** Note: a single-step μ-cost identity
     [mu_value (execute_op op s) = mu_value s + op_mu_cost op (config s)]
     holds by [unfold execute_op; simpl; reflexivity] from the
-    [execute_op] definition. It used to be exposed as both
-    [single_op_mu] and [mu_increases_by_cost]; neither had proof
-    callers, so the identity is left to be discharged inline at any
-    future use site. The cumulative analogue lives in
+    [execute_op] definition. The identity is discharged inline at the
+    call sites that need it. The cumulative analogue lives in
     [mu_total_cost] above. *)
 
 (** Theorem 3: total μ equals the sum of per-step costs along the

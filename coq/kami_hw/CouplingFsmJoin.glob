@@ -1,0 +1,3828 @@
+DIGEST b545c8ddccfb47ebd3e16c3dca67a548
+FKamiHW.CouplingFsmJoin
+R285:293 Kami.Kami <> <> lib
+R295:308 Kami.Semantics <> <> lib
+R310:324 Kami.Lib.NatLib <> <> lib
+R351:356 Coq.Strings.String <> <> lib
+R358:361 Coq.Lists.List <> <> lib
+R363:367 Coq.Arith.Arith <> <> lib
+R369:371 Coq.micromega.Lia <> <> lib
+R373:376 Coq.Bool.Bool <> <> lib
+R386:398 Coq.Lists.List ListNotations <> mod
+R428:438 KamiHW.ThieleTypes <> <> lib
+R440:452 KamiHW.ThieleCPUCore <> <> lib
+R454:463 KamiHW.HWBoundary <> <> lib
+R465:472 KamiHW.RuleNext <> <> lib
+R474:481 KamiHW.RuleStep <> <> lib
+R483:497 KamiHW.ActionEvaluator <> <> lib
+R501:509 KamiHW.CoreRules <> <> lib
+R511:523 KamiHW.CoreExecution <> <> lib
+R525:542 KamiHW.NormalizationSteps <> <> lib
+R544:565 KamiHW.NormalizationExecution <> <> lib
+R567:589 KamiHW.NormalizationRetirement <> <> lib
+R593:609 KamiHW.NormalizationLoop <> <> lib
+R611:629 KamiHW.NormalizationPrefix <> <> lib
+R631:642 KamiHW.MorphLoading <> <> lib
+R644:652 KamiHW.MorphCopy <> <> lib
+R654:662 KamiHW.MorphJoin <> <> lib
+R664:674 KamiHW.RuleEnabled <> <> lib
+R676:685 KamiHW.FsmDecoded <> <> lib
+R687:696 KamiHW.ChshRetire <> <> lib
+R700:714 KamiHW.CouplingFsmEnds <> <> lib
+R716:730 KamiHW.CouplingFsmLoad <> <> lib
+R732:746 KamiHW.CouplingFsmNorm <> <> lib
+prf 813:827 <> mcjoin_keeps_pc
+binder 838:838 <> c:1
+R862:864 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R841:845 KamiHW.HWBoundary <> hw_pc proj
+R848:858 KamiHW.FsmDecoded <> mcjoin_next def
+R860:860 KamiHW.CouplingFsmJoin <> c:1 var
+R865:869 KamiHW.HWBoundary <> hw_pc proj
+R871:871 KamiHW.CouplingFsmJoin <> c:1 var
+prf 905:919 <> mcjoin_keeps_mu
+binder 930:930 <> c:2
+R954:956 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R933:937 KamiHW.HWBoundary <> hw_mu proj
+R940:950 KamiHW.FsmDecoded <> mcjoin_next def
+R952:952 KamiHW.CouplingFsmJoin <> c:2 var
+R957:961 KamiHW.HWBoundary <> hw_mu proj
+R963:963 KamiHW.CouplingFsmJoin <> c:2 var
+prf 997:1015 <> mcjoin_keeps_halted
+binder 1026:1026 <> c:3
+R1054:1056 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1029:1037 KamiHW.HWBoundary <> hw_halted proj
+R1040:1050 KamiHW.FsmDecoded <> mcjoin_next def
+R1052:1052 KamiHW.CouplingFsmJoin <> c:3 var
+R1057:1065 KamiHW.HWBoundary <> hw_halted proj
+R1067:1067 KamiHW.CouplingFsmJoin <> c:3 var
+prf 1101:1117 <> mcjoin_keeps_regs
+binder 1128:1128 <> c:4
+R1154:1156 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1131:1137 KamiHW.HWBoundary <> hw_regs proj
+R1140:1150 KamiHW.FsmDecoded <> mcjoin_next def
+R1152:1152 KamiHW.CouplingFsmJoin <> c:4 var
+R1157:1163 KamiHW.HWBoundary <> hw_regs proj
+R1165:1165 KamiHW.CouplingFsmJoin <> c:4 var
+prf 1199:1214 <> mcjoin_keeps_mem
+binder 1225:1225 <> c:5
+R1250:1252 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1228:1233 KamiHW.HWBoundary <> hw_mem proj
+R1236:1246 KamiHW.FsmDecoded <> mcjoin_next def
+R1248:1248 KamiHW.CouplingFsmJoin <> c:5 var
+R1253:1258 KamiHW.HWBoundary <> hw_mem proj
+R1260:1260 KamiHW.CouplingFsmJoin <> c:5 var
+prf 1294:1310 <> mcjoin_keeps_imem
+binder 1321:1321 <> c:6
+R1347:1349 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1324:1330 KamiHW.HWBoundary <> hw_imem proj
+R1333:1343 KamiHW.FsmDecoded <> mcjoin_next def
+R1345:1345 KamiHW.CouplingFsmJoin <> c:6 var
+R1350:1356 KamiHW.HWBoundary <> hw_imem proj
+R1358:1358 KamiHW.CouplingFsmJoin <> c:6 var
+prf 1392:1417 <> mcjoin_keeps_partition_ops
+binder 1428:1428 <> c:7
+R1463:1465 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1431:1446 KamiHW.HWBoundary <> hw_partition_ops proj
+R1449:1459 KamiHW.FsmDecoded <> mcjoin_next def
+R1461:1461 KamiHW.CouplingFsmJoin <> c:7 var
+R1466:1481 KamiHW.HWBoundary <> hw_partition_ops proj
+R1483:1483 KamiHW.CouplingFsmJoin <> c:7 var
+prf 1517:1536 <> mcjoin_keeps_mdl_ops
+binder 1547:1547 <> c:8
+R1576:1578 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1550:1559 KamiHW.HWBoundary <> hw_mdl_ops proj
+R1562:1572 KamiHW.FsmDecoded <> mcjoin_next def
+R1574:1574 KamiHW.CouplingFsmJoin <> c:8 var
+R1579:1588 KamiHW.HWBoundary <> hw_mdl_ops proj
+R1590:1590 KamiHW.CouplingFsmJoin <> c:8 var
+prf 1624:1645 <> mcjoin_keeps_info_gain
+binder 1656:1656 <> c:9
+R1687:1689 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1659:1670 KamiHW.HWBoundary <> hw_info_gain proj
+R1673:1683 KamiHW.FsmDecoded <> mcjoin_next def
+R1685:1685 KamiHW.CouplingFsmJoin <> c:9 var
+R1690:1701 KamiHW.HWBoundary <> hw_info_gain proj
+R1703:1703 KamiHW.CouplingFsmJoin <> c:9 var
+prf 1737:1758 <> mcjoin_keeps_logic_acc
+binder 1769:1769 <> c:10
+R1800:1802 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1772:1783 KamiHW.HWBoundary <> hw_logic_acc proj
+R1786:1796 KamiHW.FsmDecoded <> mcjoin_next def
+R1798:1798 KamiHW.CouplingFsmJoin <> c:10 var
+R1803:1814 KamiHW.HWBoundary <> hw_logic_acc proj
+R1816:1816 KamiHW.CouplingFsmJoin <> c:10 var
+prf 1850:1871 <> mcjoin_keeps_cert_addr
+binder 1882:1882 <> c:11
+R1913:1915 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1885:1896 KamiHW.HWBoundary <> hw_cert_addr proj
+R1899:1909 KamiHW.FsmDecoded <> mcjoin_next def
+R1911:1911 KamiHW.CouplingFsmJoin <> c:11 var
+R1916:1927 KamiHW.HWBoundary <> hw_cert_addr proj
+R1929:1929 KamiHW.CouplingFsmJoin <> c:11 var
+prf 1963:1988 <> mcjoin_keeps_active_module
+binder 1999:1999 <> c:12
+R2034:2036 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2002:2017 KamiHW.HWBoundary <> hw_active_module proj
+R2020:2030 KamiHW.FsmDecoded <> mcjoin_next def
+R2032:2032 KamiHW.CouplingFsmJoin <> c:12 var
+R2037:2052 KamiHW.HWBoundary <> hw_active_module proj
+R2054:2054 KamiHW.CouplingFsmJoin <> c:12 var
+prf 2088:2107 <> mcjoin_keeps_mstatus
+binder 2118:2118 <> c:13
+R2147:2149 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2121:2130 KamiHW.HWBoundary <> hw_mstatus proj
+R2133:2143 KamiHW.FsmDecoded <> mcjoin_next def
+R2145:2145 KamiHW.CouplingFsmJoin <> c:13 var
+R2150:2159 KamiHW.HWBoundary <> hw_mstatus proj
+R2161:2161 KamiHW.CouplingFsmJoin <> c:13 var
+prf 2195:2216 <> mcjoin_keeps_mcycle_lo
+binder 2227:2227 <> c:14
+R2258:2260 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2230:2241 KamiHW.HWBoundary <> hw_mcycle_lo proj
+R2244:2254 KamiHW.FsmDecoded <> mcjoin_next def
+R2256:2256 KamiHW.CouplingFsmJoin <> c:14 var
+R2261:2272 KamiHW.HWBoundary <> hw_mcycle_lo proj
+R2274:2274 KamiHW.CouplingFsmJoin <> c:14 var
+prf 2308:2329 <> mcjoin_keeps_mcycle_hi
+binder 2340:2340 <> c:15
+R2371:2373 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2343:2354 KamiHW.HWBoundary <> hw_mcycle_hi proj
+R2357:2367 KamiHW.FsmDecoded <> mcjoin_next def
+R2369:2369 KamiHW.CouplingFsmJoin <> c:15 var
+R2374:2385 KamiHW.HWBoundary <> hw_mcycle_hi proj
+R2387:2387 KamiHW.CouplingFsmJoin <> c:15 var
+prf 2421:2444 <> mcjoin_keeps_minstret_lo
+binder 2455:2455 <> c:16
+R2488:2490 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2458:2471 KamiHW.HWBoundary <> hw_minstret_lo proj
+R2474:2484 KamiHW.FsmDecoded <> mcjoin_next def
+R2486:2486 KamiHW.CouplingFsmJoin <> c:16 var
+R2491:2504 KamiHW.HWBoundary <> hw_minstret_lo proj
+R2506:2506 KamiHW.CouplingFsmJoin <> c:16 var
+prf 2540:2563 <> mcjoin_keeps_minstret_hi
+binder 2574:2574 <> c:17
+R2607:2609 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2577:2590 KamiHW.HWBoundary <> hw_minstret_hi proj
+R2593:2603 KamiHW.FsmDecoded <> mcjoin_next def
+R2605:2605 KamiHW.CouplingFsmJoin <> c:17 var
+R2610:2623 KamiHW.HWBoundary <> hw_minstret_hi proj
+R2625:2625 KamiHW.CouplingFsmJoin <> c:17 var
+prf 2659:2682 <> mcjoin_keeps_trap_vector
+binder 2693:2693 <> c:18
+R2726:2728 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2696:2709 KamiHW.HWBoundary <> hw_trap_vector proj
+R2712:2722 KamiHW.FsmDecoded <> mcjoin_next def
+R2724:2724 KamiHW.CouplingFsmJoin <> c:18 var
+R2729:2742 KamiHW.HWBoundary <> hw_trap_vector proj
+R2744:2744 KamiHW.CouplingFsmJoin <> c:18 var
+prf 2778:2799 <> mcjoin_keeps_certified
+binder 2810:2810 <> c:19
+R2841:2843 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2813:2824 KamiHW.HWBoundary <> hw_certified proj
+R2827:2837 KamiHW.FsmDecoded <> mcjoin_next def
+R2839:2839 KamiHW.CouplingFsmJoin <> c:19 var
+R2844:2855 KamiHW.HWBoundary <> hw_certified proj
+R2857:2857 KamiHW.CouplingFsmJoin <> c:19 var
+prf 2891:2916 <> mcjoin_keeps_lassert_phase
+binder 2927:2927 <> c:20
+R2962:2964 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2930:2945 KamiHW.HWBoundary <> hw_lassert_phase proj
+R2948:2958 KamiHW.FsmDecoded <> mcjoin_next def
+R2960:2960 KamiHW.CouplingFsmJoin <> c:20 var
+R2965:2980 KamiHW.HWBoundary <> hw_lassert_phase proj
+R2982:2982 KamiHW.CouplingFsmJoin <> c:20 var
+prf 3016:3040 <> mcjoin_keeps_lassert_kind
+binder 3051:3051 <> c:21
+R3085:3087 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3054:3068 KamiHW.HWBoundary <> hw_lassert_kind proj
+R3071:3081 KamiHW.FsmDecoded <> mcjoin_next def
+R3083:3083 KamiHW.CouplingFsmJoin <> c:21 var
+R3088:3102 KamiHW.HWBoundary <> hw_lassert_kind proj
+R3104:3104 KamiHW.CouplingFsmJoin <> c:21 var
+prf 3138:3163 <> mcjoin_keeps_lassert_fbase
+binder 3174:3174 <> c:22
+R3209:3211 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3177:3192 KamiHW.HWBoundary <> hw_lassert_fbase proj
+R3195:3205 KamiHW.FsmDecoded <> mcjoin_next def
+R3207:3207 KamiHW.CouplingFsmJoin <> c:22 var
+R3212:3227 KamiHW.HWBoundary <> hw_lassert_fbase proj
+R3229:3229 KamiHW.CouplingFsmJoin <> c:22 var
+prf 3263:3288 <> mcjoin_keeps_lassert_cbase
+binder 3299:3299 <> c:23
+R3334:3336 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3302:3317 KamiHW.HWBoundary <> hw_lassert_cbase proj
+R3320:3330 KamiHW.FsmDecoded <> mcjoin_next def
+R3332:3332 KamiHW.CouplingFsmJoin <> c:23 var
+R3337:3352 KamiHW.HWBoundary <> hw_lassert_cbase proj
+R3354:3354 KamiHW.CouplingFsmJoin <> c:23 var
+prf 3388:3412 <> mcjoin_keeps_lassert_flen
+binder 3423:3423 <> c:24
+R3457:3459 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3426:3440 KamiHW.HWBoundary <> hw_lassert_flen proj
+R3443:3453 KamiHW.FsmDecoded <> mcjoin_next def
+R3455:3455 KamiHW.CouplingFsmJoin <> c:24 var
+R3460:3474 KamiHW.HWBoundary <> hw_lassert_flen proj
+R3476:3476 KamiHW.CouplingFsmJoin <> c:24 var
+prf 3510:3534 <> mcjoin_keeps_lassert_clen
+binder 3545:3545 <> c:25
+R3579:3581 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3548:3562 KamiHW.HWBoundary <> hw_lassert_clen proj
+R3565:3575 KamiHW.FsmDecoded <> mcjoin_next def
+R3577:3577 KamiHW.CouplingFsmJoin <> c:25 var
+R3582:3596 KamiHW.HWBoundary <> hw_lassert_clen proj
+R3598:3598 KamiHW.CouplingFsmJoin <> c:25 var
+prf 3632:3657 <> mcjoin_keeps_lassert_nvars
+binder 3668:3668 <> c:26
+R3703:3705 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3671:3686 KamiHW.HWBoundary <> hw_lassert_nvars proj
+R3689:3699 KamiHW.FsmDecoded <> mcjoin_next def
+R3701:3701 KamiHW.CouplingFsmJoin <> c:26 var
+R3706:3721 KamiHW.HWBoundary <> hw_lassert_nvars proj
+R3723:3723 KamiHW.CouplingFsmJoin <> c:26 var
+prf 3757:3781 <> mcjoin_keeps_lassert_fptr
+binder 3792:3792 <> c:27
+R3826:3828 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3795:3809 KamiHW.HWBoundary <> hw_lassert_fptr proj
+R3812:3822 KamiHW.FsmDecoded <> mcjoin_next def
+R3824:3824 KamiHW.CouplingFsmJoin <> c:27 var
+R3829:3843 KamiHW.HWBoundary <> hw_lassert_fptr proj
+R3845:3845 KamiHW.CouplingFsmJoin <> c:27 var
+prf 3879:3903 <> mcjoin_keeps_lassert_cptr
+binder 3914:3914 <> c:28
+R3948:3950 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3917:3931 KamiHW.HWBoundary <> hw_lassert_cptr proj
+R3934:3944 KamiHW.FsmDecoded <> mcjoin_next def
+R3946:3946 KamiHW.CouplingFsmJoin <> c:28 var
+R3951:3965 KamiHW.HWBoundary <> hw_lassert_cptr proj
+R3967:3967 KamiHW.CouplingFsmJoin <> c:28 var
+prf 4001:4025 <> mcjoin_keeps_lassert_fbuf
+binder 4036:4036 <> c:29
+R4070:4072 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4039:4053 KamiHW.HWBoundary <> hw_lassert_fbuf proj
+R4056:4066 KamiHW.FsmDecoded <> mcjoin_next def
+R4068:4068 KamiHW.CouplingFsmJoin <> c:29 var
+R4073:4087 KamiHW.HWBoundary <> hw_lassert_fbuf proj
+R4089:4089 KamiHW.CouplingFsmJoin <> c:29 var
+prf 4123:4147 <> mcjoin_keeps_lassert_cbuf
+binder 4158:4158 <> c:30
+R4192:4194 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4161:4175 KamiHW.HWBoundary <> hw_lassert_cbuf proj
+R4178:4188 KamiHW.FsmDecoded <> mcjoin_next def
+R4190:4190 KamiHW.CouplingFsmJoin <> c:30 var
+R4195:4209 KamiHW.HWBoundary <> hw_lassert_cbuf proj
+R4211:4211 KamiHW.CouplingFsmJoin <> c:30 var
+prf 4245:4275 <> mcjoin_keeps_lassert_clause_sat
+binder 4286:4286 <> c:31
+R4326:4328 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4289:4309 KamiHW.HWBoundary <> hw_lassert_clause_sat proj
+R4312:4322 KamiHW.FsmDecoded <> mcjoin_next def
+R4324:4324 KamiHW.CouplingFsmJoin <> c:31 var
+R4329:4349 KamiHW.HWBoundary <> hw_lassert_clause_sat proj
+R4351:4351 KamiHW.CouplingFsmJoin <> c:31 var
+prf 4385:4423 <> mcjoin_keeps_lassert_counter_clause_sat
+binder 4434:4434 <> c:32
+R4482:4484 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4437:4465 KamiHW.HWBoundary <> hw_lassert_counter_clause_sat proj
+R4468:4478 KamiHW.FsmDecoded <> mcjoin_next def
+R4480:4480 KamiHW.CouplingFsmJoin <> c:32 var
+R4485:4513 KamiHW.HWBoundary <> hw_lassert_counter_clause_sat proj
+R4515:4515 KamiHW.CouplingFsmJoin <> c:32 var
+prf 4549:4586 <> mcjoin_keeps_lassert_counter_seen_fail
+binder 4597:4597 <> c:33
+R4644:4646 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4600:4627 KamiHW.HWBoundary <> hw_lassert_counter_seen_fail proj
+R4630:4640 KamiHW.FsmDecoded <> mcjoin_next def
+R4642:4642 KamiHW.CouplingFsmJoin <> c:33 var
+R4647:4674 KamiHW.HWBoundary <> hw_lassert_counter_seen_fail proj
+R4676:4676 KamiHW.CouplingFsmJoin <> c:33 var
+prf 4710:4732 <> mcjoin_keeps_chsh_phase
+binder 4743:4743 <> c:34
+R4775:4777 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4746:4758 KamiHW.HWBoundary <> hw_chsh_phase proj
+R4761:4771 KamiHW.FsmDecoded <> mcjoin_next def
+R4773:4773 KamiHW.CouplingFsmJoin <> c:34 var
+R4778:4790 KamiHW.HWBoundary <> hw_chsh_phase proj
+R4792:4792 KamiHW.CouplingFsmJoin <> c:34 var
+prf 4826:4846 <> mcjoin_keeps_chsh_n00
+binder 4857:4857 <> c:35
+R4887:4889 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4860:4870 KamiHW.HWBoundary <> hw_chsh_n00 proj
+R4873:4883 KamiHW.FsmDecoded <> mcjoin_next def
+R4885:4885 KamiHW.CouplingFsmJoin <> c:35 var
+R4890:4900 KamiHW.HWBoundary <> hw_chsh_n00 proj
+R4902:4902 KamiHW.CouplingFsmJoin <> c:35 var
+prf 4936:4956 <> mcjoin_keeps_chsh_n01
+binder 4967:4967 <> c:36
+R4997:4999 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4970:4980 KamiHW.HWBoundary <> hw_chsh_n01 proj
+R4983:4993 KamiHW.FsmDecoded <> mcjoin_next def
+R4995:4995 KamiHW.CouplingFsmJoin <> c:36 var
+R5000:5010 KamiHW.HWBoundary <> hw_chsh_n01 proj
+R5012:5012 KamiHW.CouplingFsmJoin <> c:36 var
+prf 5046:5066 <> mcjoin_keeps_chsh_n10
+binder 5077:5077 <> c:37
+R5107:5109 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5080:5090 KamiHW.HWBoundary <> hw_chsh_n10 proj
+R5093:5103 KamiHW.FsmDecoded <> mcjoin_next def
+R5105:5105 KamiHW.CouplingFsmJoin <> c:37 var
+R5110:5120 KamiHW.HWBoundary <> hw_chsh_n10 proj
+R5122:5122 KamiHW.CouplingFsmJoin <> c:37 var
+prf 5156:5176 <> mcjoin_keeps_chsh_n11
+binder 5187:5187 <> c:38
+R5217:5219 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5190:5200 KamiHW.HWBoundary <> hw_chsh_n11 proj
+R5203:5213 KamiHW.FsmDecoded <> mcjoin_next def
+R5215:5215 KamiHW.CouplingFsmJoin <> c:38 var
+R5220:5230 KamiHW.HWBoundary <> hw_chsh_n11 proj
+R5232:5232 KamiHW.CouplingFsmJoin <> c:38 var
+prf 5266:5286 <> mcjoin_keeps_chsh_d00
+binder 5297:5297 <> c:39
+R5327:5329 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5300:5310 KamiHW.HWBoundary <> hw_chsh_d00 proj
+R5313:5323 KamiHW.FsmDecoded <> mcjoin_next def
+R5325:5325 KamiHW.CouplingFsmJoin <> c:39 var
+R5330:5340 KamiHW.HWBoundary <> hw_chsh_d00 proj
+R5342:5342 KamiHW.CouplingFsmJoin <> c:39 var
+prf 5376:5396 <> mcjoin_keeps_chsh_d01
+binder 5407:5407 <> c:40
+R5437:5439 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5410:5420 KamiHW.HWBoundary <> hw_chsh_d01 proj
+R5423:5433 KamiHW.FsmDecoded <> mcjoin_next def
+R5435:5435 KamiHW.CouplingFsmJoin <> c:40 var
+R5440:5450 KamiHW.HWBoundary <> hw_chsh_d01 proj
+R5452:5452 KamiHW.CouplingFsmJoin <> c:40 var
+prf 5486:5506 <> mcjoin_keeps_chsh_d10
+binder 5517:5517 <> c:41
+R5547:5549 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5520:5530 KamiHW.HWBoundary <> hw_chsh_d10 proj
+R5533:5543 KamiHW.FsmDecoded <> mcjoin_next def
+R5545:5545 KamiHW.CouplingFsmJoin <> c:41 var
+R5550:5560 KamiHW.HWBoundary <> hw_chsh_d10 proj
+R5562:5562 KamiHW.CouplingFsmJoin <> c:41 var
+prf 5596:5616 <> mcjoin_keeps_chsh_d11
+binder 5627:5627 <> c:42
+R5657:5659 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5630:5640 KamiHW.HWBoundary <> hw_chsh_d11 proj
+R5643:5653 KamiHW.FsmDecoded <> mcjoin_next def
+R5655:5655 KamiHW.CouplingFsmJoin <> c:42 var
+R5660:5670 KamiHW.HWBoundary <> hw_chsh_d11 proj
+R5672:5672 KamiHW.CouplingFsmJoin <> c:42 var
+prf 5706:5729 <> mcjoin_keeps_chsh_sign00
+binder 5740:5740 <> c:43
+R5773:5775 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5743:5756 KamiHW.HWBoundary <> hw_chsh_sign00 proj
+R5759:5769 KamiHW.FsmDecoded <> mcjoin_next def
+R5771:5771 KamiHW.CouplingFsmJoin <> c:43 var
+R5776:5789 KamiHW.HWBoundary <> hw_chsh_sign00 proj
+R5791:5791 KamiHW.CouplingFsmJoin <> c:43 var
+prf 5825:5848 <> mcjoin_keeps_chsh_sign01
+binder 5859:5859 <> c:44
+R5892:5894 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5862:5875 KamiHW.HWBoundary <> hw_chsh_sign01 proj
+R5878:5888 KamiHW.FsmDecoded <> mcjoin_next def
+R5890:5890 KamiHW.CouplingFsmJoin <> c:44 var
+R5895:5908 KamiHW.HWBoundary <> hw_chsh_sign01 proj
+R5910:5910 KamiHW.CouplingFsmJoin <> c:44 var
+prf 5944:5967 <> mcjoin_keeps_chsh_sign10
+binder 5978:5978 <> c:45
+R6011:6013 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5981:5994 KamiHW.HWBoundary <> hw_chsh_sign10 proj
+R5997:6007 KamiHW.FsmDecoded <> mcjoin_next def
+R6009:6009 KamiHW.CouplingFsmJoin <> c:45 var
+R6014:6027 KamiHW.HWBoundary <> hw_chsh_sign10 proj
+R6029:6029 KamiHW.CouplingFsmJoin <> c:45 var
+prf 6063:6086 <> mcjoin_keeps_chsh_sign11
+binder 6097:6097 <> c:46
+R6130:6132 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6100:6113 KamiHW.HWBoundary <> hw_chsh_sign11 proj
+R6116:6126 KamiHW.FsmDecoded <> mcjoin_next def
+R6128:6128 KamiHW.CouplingFsmJoin <> c:46 var
+R6133:6146 KamiHW.HWBoundary <> hw_chsh_sign11 proj
+R6148:6148 KamiHW.CouplingFsmJoin <> c:46 var
+prf 6182:6204 <> mcjoin_keeps_chsh_n00sq
+binder 6215:6215 <> c:47
+R6247:6249 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6218:6230 KamiHW.HWBoundary <> hw_chsh_n00sq proj
+R6233:6243 KamiHW.FsmDecoded <> mcjoin_next def
+R6245:6245 KamiHW.CouplingFsmJoin <> c:47 var
+R6250:6262 KamiHW.HWBoundary <> hw_chsh_n00sq proj
+R6264:6264 KamiHW.CouplingFsmJoin <> c:47 var
+prf 6298:6320 <> mcjoin_keeps_chsh_n01sq
+binder 6331:6331 <> c:48
+R6363:6365 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6334:6346 KamiHW.HWBoundary <> hw_chsh_n01sq proj
+R6349:6359 KamiHW.FsmDecoded <> mcjoin_next def
+R6361:6361 KamiHW.CouplingFsmJoin <> c:48 var
+R6366:6378 KamiHW.HWBoundary <> hw_chsh_n01sq proj
+R6380:6380 KamiHW.CouplingFsmJoin <> c:48 var
+prf 6414:6436 <> mcjoin_keeps_chsh_n10sq
+binder 6447:6447 <> c:49
+R6479:6481 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6450:6462 KamiHW.HWBoundary <> hw_chsh_n10sq proj
+R6465:6475 KamiHW.FsmDecoded <> mcjoin_next def
+R6477:6477 KamiHW.CouplingFsmJoin <> c:49 var
+R6482:6494 KamiHW.HWBoundary <> hw_chsh_n10sq proj
+R6496:6496 KamiHW.CouplingFsmJoin <> c:49 var
+prf 6530:6552 <> mcjoin_keeps_chsh_n11sq
+binder 6563:6563 <> c:50
+R6595:6597 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6566:6578 KamiHW.HWBoundary <> hw_chsh_n11sq proj
+R6581:6591 KamiHW.FsmDecoded <> mcjoin_next def
+R6593:6593 KamiHW.CouplingFsmJoin <> c:50 var
+R6598:6610 KamiHW.HWBoundary <> hw_chsh_n11sq proj
+R6612:6612 KamiHW.CouplingFsmJoin <> c:50 var
+prf 6646:6668 <> mcjoin_keeps_chsh_d00sq
+binder 6679:6679 <> c:51
+R6711:6713 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6682:6694 KamiHW.HWBoundary <> hw_chsh_d00sq proj
+R6697:6707 KamiHW.FsmDecoded <> mcjoin_next def
+R6709:6709 KamiHW.CouplingFsmJoin <> c:51 var
+R6714:6726 KamiHW.HWBoundary <> hw_chsh_d00sq proj
+R6728:6728 KamiHW.CouplingFsmJoin <> c:51 var
+prf 6762:6784 <> mcjoin_keeps_chsh_d01sq
+binder 6795:6795 <> c:52
+R6827:6829 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6798:6810 KamiHW.HWBoundary <> hw_chsh_d01sq proj
+R6813:6823 KamiHW.FsmDecoded <> mcjoin_next def
+R6825:6825 KamiHW.CouplingFsmJoin <> c:52 var
+R6830:6842 KamiHW.HWBoundary <> hw_chsh_d01sq proj
+R6844:6844 KamiHW.CouplingFsmJoin <> c:52 var
+prf 6878:6900 <> mcjoin_keeps_chsh_d10sq
+binder 6911:6911 <> c:53
+R6943:6945 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6914:6926 KamiHW.HWBoundary <> hw_chsh_d10sq proj
+R6929:6939 KamiHW.FsmDecoded <> mcjoin_next def
+R6941:6941 KamiHW.CouplingFsmJoin <> c:53 var
+R6946:6958 KamiHW.HWBoundary <> hw_chsh_d10sq proj
+R6960:6960 KamiHW.CouplingFsmJoin <> c:53 var
+prf 6994:7016 <> mcjoin_keeps_chsh_d11sq
+binder 7027:7027 <> c:54
+R7059:7061 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7030:7042 KamiHW.HWBoundary <> hw_chsh_d11sq proj
+R7045:7055 KamiHW.FsmDecoded <> mcjoin_next def
+R7057:7057 KamiHW.CouplingFsmJoin <> c:54 var
+R7062:7074 KamiHW.HWBoundary <> hw_chsh_d11sq proj
+R7076:7076 KamiHW.CouplingFsmJoin <> c:54 var
+prf 7110:7132 <> mcjoin_keeps_chsh_A_pos
+binder 7143:7143 <> c:55
+R7175:7177 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7146:7158 KamiHW.HWBoundary <> hw_chsh_A_pos proj
+R7161:7171 KamiHW.FsmDecoded <> mcjoin_next def
+R7173:7173 KamiHW.CouplingFsmJoin <> c:55 var
+R7178:7190 KamiHW.HWBoundary <> hw_chsh_A_pos proj
+R7192:7192 KamiHW.CouplingFsmJoin <> c:55 var
+prf 7226:7250 <> mcjoin_keeps_chsh_A_neg_a
+binder 7261:7261 <> c:56
+R7295:7297 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7264:7278 KamiHW.HWBoundary <> hw_chsh_A_neg_a proj
+R7281:7291 KamiHW.FsmDecoded <> mcjoin_next def
+R7293:7293 KamiHW.CouplingFsmJoin <> c:56 var
+R7298:7312 KamiHW.HWBoundary <> hw_chsh_A_neg_a proj
+R7314:7314 KamiHW.CouplingFsmJoin <> c:56 var
+prf 7348:7372 <> mcjoin_keeps_chsh_A_neg_b
+binder 7383:7383 <> c:57
+R7417:7419 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7386:7400 KamiHW.HWBoundary <> hw_chsh_A_neg_b proj
+R7403:7413 KamiHW.FsmDecoded <> mcjoin_next def
+R7415:7415 KamiHW.CouplingFsmJoin <> c:57 var
+R7420:7434 KamiHW.HWBoundary <> hw_chsh_A_neg_b proj
+R7436:7436 KamiHW.CouplingFsmJoin <> c:57 var
+prf 7470:7492 <> mcjoin_keeps_chsh_B_pos
+binder 7503:7503 <> c:58
+R7535:7537 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7506:7518 KamiHW.HWBoundary <> hw_chsh_B_pos proj
+R7521:7531 KamiHW.FsmDecoded <> mcjoin_next def
+R7533:7533 KamiHW.CouplingFsmJoin <> c:58 var
+R7538:7550 KamiHW.HWBoundary <> hw_chsh_B_pos proj
+R7552:7552 KamiHW.CouplingFsmJoin <> c:58 var
+prf 7586:7610 <> mcjoin_keeps_chsh_B_neg_a
+binder 7621:7621 <> c:59
+R7655:7657 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7624:7638 KamiHW.HWBoundary <> hw_chsh_B_neg_a proj
+R7641:7651 KamiHW.FsmDecoded <> mcjoin_next def
+R7653:7653 KamiHW.CouplingFsmJoin <> c:59 var
+R7658:7672 KamiHW.HWBoundary <> hw_chsh_B_neg_a proj
+R7674:7674 KamiHW.CouplingFsmJoin <> c:59 var
+prf 7708:7732 <> mcjoin_keeps_chsh_B_neg_b
+binder 7743:7743 <> c:60
+R7777:7779 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7746:7760 KamiHW.HWBoundary <> hw_chsh_B_neg_b proj
+R7763:7773 KamiHW.FsmDecoded <> mcjoin_next def
+R7775:7775 KamiHW.CouplingFsmJoin <> c:60 var
+R7780:7794 KamiHW.HWBoundary <> hw_chsh_B_neg_b proj
+R7796:7796 KamiHW.CouplingFsmJoin <> c:60 var
+prf 7830:7853 <> mcjoin_keeps_chsh_d00d01
+binder 7864:7864 <> c:61
+R7897:7899 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7867:7880 KamiHW.HWBoundary <> hw_chsh_d00d01 proj
+R7883:7893 KamiHW.FsmDecoded <> mcjoin_next def
+R7895:7895 KamiHW.CouplingFsmJoin <> c:61 var
+R7900:7913 KamiHW.HWBoundary <> hw_chsh_d00d01 proj
+R7915:7915 KamiHW.CouplingFsmJoin <> c:61 var
+prf 7949:7972 <> mcjoin_keeps_chsh_n10n11
+binder 7983:7983 <> c:62
+R8016:8018 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7986:7999 KamiHW.HWBoundary <> hw_chsh_n10n11 proj
+R8002:8012 KamiHW.FsmDecoded <> mcjoin_next def
+R8014:8014 KamiHW.CouplingFsmJoin <> c:62 var
+R8019:8032 KamiHW.HWBoundary <> hw_chsh_n10n11 proj
+R8034:8034 KamiHW.CouplingFsmJoin <> c:62 var
+prf 8068:8091 <> mcjoin_keeps_chsh_d10d11
+binder 8102:8102 <> c:63
+R8135:8137 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8105:8118 KamiHW.HWBoundary <> hw_chsh_d10d11 proj
+R8121:8131 KamiHW.FsmDecoded <> mcjoin_next def
+R8133:8133 KamiHW.CouplingFsmJoin <> c:63 var
+R8138:8151 KamiHW.HWBoundary <> hw_chsh_d10d11 proj
+R8153:8153 KamiHW.CouplingFsmJoin <> c:63 var
+prf 8187:8210 <> mcjoin_keeps_chsh_n00n01
+binder 8221:8221 <> c:64
+R8254:8256 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8224:8237 KamiHW.HWBoundary <> hw_chsh_n00n01 proj
+R8240:8250 KamiHW.FsmDecoded <> mcjoin_next def
+R8252:8252 KamiHW.CouplingFsmJoin <> c:64 var
+R8257:8270 KamiHW.HWBoundary <> hw_chsh_n00n01 proj
+R8272:8272 KamiHW.CouplingFsmJoin <> c:64 var
+prf 8306:8329 <> mcjoin_keeps_chsh_abs_C1
+binder 8340:8340 <> c:65
+R8373:8375 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8343:8356 KamiHW.HWBoundary <> hw_chsh_abs_C1 proj
+R8359:8369 KamiHW.FsmDecoded <> mcjoin_next def
+R8371:8371 KamiHW.CouplingFsmJoin <> c:65 var
+R8376:8389 KamiHW.HWBoundary <> hw_chsh_abs_C1 proj
+R8391:8391 KamiHW.CouplingFsmJoin <> c:65 var
+prf 8425:8448 <> mcjoin_keeps_chsh_abs_C2
+binder 8459:8459 <> c:66
+R8492:8494 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8462:8475 KamiHW.HWBoundary <> hw_chsh_abs_C2 proj
+R8478:8488 KamiHW.FsmDecoded <> mcjoin_next def
+R8490:8490 KamiHW.CouplingFsmJoin <> c:66 var
+R8495:8508 KamiHW.HWBoundary <> hw_chsh_abs_C2 proj
+R8510:8510 KamiHW.CouplingFsmJoin <> c:66 var
+prf 8544:8565 <> mcjoin_keeps_chsh_C_sq
+binder 8576:8576 <> c:67
+R8607:8609 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8579:8590 KamiHW.HWBoundary <> hw_chsh_C_sq proj
+R8593:8603 KamiHW.FsmDecoded <> mcjoin_next def
+R8605:8605 KamiHW.CouplingFsmJoin <> c:67 var
+R8610:8621 KamiHW.HWBoundary <> hw_chsh_C_sq proj
+R8623:8623 KamiHW.CouplingFsmJoin <> c:67 var
+prf 8657:8683 <> mcjoin_keeps_chsh_A_times_B
+binder 8694:8694 <> c:68
+R8730:8732 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8697:8713 KamiHW.HWBoundary <> hw_chsh_A_times_B proj
+R8716:8726 KamiHW.FsmDecoded <> mcjoin_next def
+R8728:8728 KamiHW.CouplingFsmJoin <> c:68 var
+R8733:8749 KamiHW.HWBoundary <> hw_chsh_A_times_B proj
+R8751:8751 KamiHW.CouplingFsmJoin <> c:68 var
+prf 8785:8814 <> mcjoin_keeps_chsh_check_result
+binder 8825:8825 <> c:69
+R8864:8866 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8828:8847 KamiHW.HWBoundary <> hw_chsh_check_result proj
+R8850:8860 KamiHW.FsmDecoded <> mcjoin_next def
+R8862:8862 KamiHW.CouplingFsmJoin <> c:69 var
+R8867:8886 KamiHW.HWBoundary <> hw_chsh_check_result proj
+R8888:8888 KamiHW.CouplingFsmJoin <> c:69 var
+prf 8922:8953 <> mcjoin_keeps_bus_load_instr_addr
+binder 8964:8964 <> c:70
+R9005:9007 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8967:8988 KamiHW.HWBoundary <> hw_bus_load_instr_addr proj
+R8991:9001 KamiHW.FsmDecoded <> mcjoin_next def
+R9003:9003 KamiHW.CouplingFsmJoin <> c:70 var
+R9008:9029 KamiHW.HWBoundary <> hw_bus_load_instr_addr proj
+R9031:9031 KamiHW.CouplingFsmJoin <> c:70 var
+prf 9065:9096 <> mcjoin_keeps_bus_load_instr_data
+binder 9107:9107 <> c:71
+R9148:9150 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9110:9131 KamiHW.HWBoundary <> hw_bus_load_instr_data proj
+R9134:9144 KamiHW.FsmDecoded <> mcjoin_next def
+R9146:9146 KamiHW.CouplingFsmJoin <> c:71 var
+R9151:9172 KamiHW.HWBoundary <> hw_bus_load_instr_data proj
+R9174:9174 KamiHW.CouplingFsmJoin <> c:71 var
+prf 9208:9239 <> mcjoin_keeps_bus_load_instr_kick
+binder 9250:9250 <> c:72
+R9291:9293 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9253:9274 KamiHW.HWBoundary <> hw_bus_load_instr_kick proj
+R9277:9287 KamiHW.FsmDecoded <> mcjoin_next def
+R9289:9289 KamiHW.CouplingFsmJoin <> c:72 var
+R9294:9315 KamiHW.HWBoundary <> hw_bus_load_instr_kick proj
+R9317:9317 KamiHW.CouplingFsmJoin <> c:72 var
+prf 9351:9372 <> mcjoin_keeps_mu_tensor
+binder 9383:9383 <> c:73
+R9414:9416 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9386:9397 KamiHW.HWBoundary <> hw_mu_tensor proj
+R9400:9410 KamiHW.FsmDecoded <> mcjoin_next def
+R9412:9412 KamiHW.CouplingFsmJoin <> c:73 var
+R9417:9428 KamiHW.HWBoundary <> hw_mu_tensor proj
+R9430:9430 KamiHW.CouplingFsmJoin <> c:73 var
+prf 9464:9490 <> mcjoin_keeps_module_tensors
+binder 9501:9501 <> c:74
+R9537:9539 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9504:9520 KamiHW.HWBoundary <> hw_module_tensors proj
+R9523:9533 KamiHW.FsmDecoded <> mcjoin_next def
+R9535:9535 KamiHW.CouplingFsmJoin <> c:74 var
+R9540:9556 KamiHW.HWBoundary <> hw_module_tensors proj
+R9558:9558 KamiHW.CouplingFsmJoin <> c:74 var
+prf 9592:9614 <> mcjoin_keeps_csr_status
+binder 9625:9625 <> c:75
+R9657:9659 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9628:9640 KamiHW.HWBoundary <> hw_csr_status proj
+R9643:9653 KamiHW.FsmDecoded <> mcjoin_next def
+R9655:9655 KamiHW.CouplingFsmJoin <> c:75 var
+R9660:9672 KamiHW.HWBoundary <> hw_csr_status proj
+R9674:9674 KamiHW.CouplingFsmJoin <> c:75 var
+prf 9708:9733 <> mcjoin_keeps_csr_heap_base
+binder 9744:9744 <> c:76
+R9779:9781 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9747:9762 KamiHW.HWBoundary <> hw_csr_heap_base proj
+R9765:9775 KamiHW.FsmDecoded <> mcjoin_next def
+R9777:9777 KamiHW.CouplingFsmJoin <> c:76 var
+R9782:9797 KamiHW.HWBoundary <> hw_csr_heap_base proj
+R9799:9799 KamiHW.CouplingFsmJoin <> c:76 var
+prf 9833:9852 <> mcjoin_keeps_ptTable
+binder 9863:9863 <> c:77
+R9892:9894 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9866:9875 KamiHW.HWBoundary <> hw_ptTable proj
+R9878:9888 KamiHW.FsmDecoded <> mcjoin_next def
+R9890:9890 KamiHW.CouplingFsmJoin <> c:77 var
+R9895:9904 KamiHW.HWBoundary <> hw_ptTable proj
+R9906:9906 KamiHW.CouplingFsmJoin <> c:77 var
+prf 9940:9962 <> mcjoin_keeps_pt_next_id
+binder 9973:9973 <> c:78
+R10005:10007 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9976:9988 KamiHW.HWBoundary <> hw_pt_next_id proj
+R9991:10001 KamiHW.FsmDecoded <> mcjoin_next def
+R10003:10003 KamiHW.CouplingFsmJoin <> c:78 var
+R10008:10020 KamiHW.HWBoundary <> hw_pt_next_id proj
+R10022:10022 KamiHW.CouplingFsmJoin <> c:78 var
+prf 10056:10083 <> mcjoin_keeps_morph_src_table
+binder 10094:10094 <> c:79
+R10131:10133 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10097:10114 KamiHW.HWBoundary <> hw_morph_src_table proj
+R10117:10127 KamiHW.FsmDecoded <> mcjoin_next def
+R10129:10129 KamiHW.CouplingFsmJoin <> c:79 var
+R10134:10151 KamiHW.HWBoundary <> hw_morph_src_table proj
+R10153:10153 KamiHW.CouplingFsmJoin <> c:79 var
+prf 10187:10214 <> mcjoin_keeps_morph_dst_table
+binder 10225:10225 <> c:80
+R10262:10264 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10228:10245 KamiHW.HWBoundary <> hw_morph_dst_table proj
+R10248:10258 KamiHW.FsmDecoded <> mcjoin_next def
+R10260:10260 KamiHW.CouplingFsmJoin <> c:80 var
+R10265:10282 KamiHW.HWBoundary <> hw_morph_dst_table proj
+R10284:10284 KamiHW.CouplingFsmJoin <> c:80 var
+prf 10318:10355 <> mcjoin_keeps_morph_coupling_desc_table
+binder 10366:10366 <> c:81
+R10413:10415 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10369:10396 KamiHW.HWBoundary <> hw_morph_coupling_desc_table proj
+R10399:10409 KamiHW.FsmDecoded <> mcjoin_next def
+R10411:10411 KamiHW.CouplingFsmJoin <> c:81 var
+R10416:10443 KamiHW.HWBoundary <> hw_morph_coupling_desc_table proj
+R10445:10445 KamiHW.CouplingFsmJoin <> c:81 var
+prf 10479:10508 <> mcjoin_keeps_morph_valid_table
+binder 10519:10519 <> c:82
+R10558:10560 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10522:10541 KamiHW.HWBoundary <> hw_morph_valid_table proj
+R10544:10554 KamiHW.FsmDecoded <> mcjoin_next def
+R10556:10556 KamiHW.CouplingFsmJoin <> c:82 var
+R10561:10580 KamiHW.HWBoundary <> hw_morph_valid_table proj
+R10582:10582 KamiHW.CouplingFsmJoin <> c:82 var
+prf 10616:10648 <> mcjoin_keeps_morph_identity_table
+binder 10659:10659 <> c:83
+R10701:10703 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10662:10684 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R10687:10697 KamiHW.FsmDecoded <> mcjoin_next def
+R10699:10699 KamiHW.CouplingFsmJoin <> c:83 var
+R10704:10726 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R10728:10728 KamiHW.CouplingFsmJoin <> c:83 var
+prf 10762:10787 <> mcjoin_keeps_morph_next_id
+binder 10798:10798 <> c:84
+R10833:10835 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10801:10816 KamiHW.HWBoundary <> hw_morph_next_id proj
+R10819:10829 KamiHW.FsmDecoded <> mcjoin_next def
+R10831:10831 KamiHW.CouplingFsmJoin <> c:84 var
+R10836:10851 KamiHW.HWBoundary <> hw_morph_next_id proj
+R10853:10853 KamiHW.CouplingFsmJoin <> c:84 var
+prf 10887:10923 <> mcjoin_keeps_coupling_desc_base_table
+binder 10934:10934 <> c:85
+R10980:10982 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10937:10963 KamiHW.HWBoundary <> hw_coupling_desc_base_table proj
+R10966:10976 KamiHW.FsmDecoded <> mcjoin_next def
+R10978:10978 KamiHW.CouplingFsmJoin <> c:85 var
+R10983:11009 KamiHW.HWBoundary <> hw_coupling_desc_base_table proj
+R11011:11011 KamiHW.CouplingFsmJoin <> c:85 var
+prf 11045:11082 <> mcjoin_keeps_coupling_desc_count_table
+binder 11093:11093 <> c:86
+R11140:11142 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11096:11123 KamiHW.HWBoundary <> hw_coupling_desc_count_table proj
+R11126:11136 KamiHW.FsmDecoded <> mcjoin_next def
+R11138:11138 KamiHW.CouplingFsmJoin <> c:86 var
+R11143:11170 KamiHW.HWBoundary <> hw_coupling_desc_count_table proj
+R11172:11172 KamiHW.CouplingFsmJoin <> c:86 var
+prf 11206:11243 <> mcjoin_keeps_coupling_desc_valid_table
+binder 11254:11254 <> c:87
+R11301:11303 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11257:11284 KamiHW.HWBoundary <> hw_coupling_desc_valid_table proj
+R11287:11297 KamiHW.FsmDecoded <> mcjoin_next def
+R11299:11299 KamiHW.CouplingFsmJoin <> c:87 var
+R11304:11331 KamiHW.HWBoundary <> hw_coupling_desc_valid_table proj
+R11333:11333 KamiHW.CouplingFsmJoin <> c:87 var
+prf 11367:11404 <> mcjoin_keeps_coupling_desc_label_table
+binder 11415:11415 <> c:88
+R11462:11464 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11418:11445 KamiHW.HWBoundary <> hw_coupling_desc_label_table proj
+R11448:11458 KamiHW.FsmDecoded <> mcjoin_next def
+R11460:11460 KamiHW.CouplingFsmJoin <> c:88 var
+R11465:11492 KamiHW.HWBoundary <> hw_coupling_desc_label_table proj
+R11494:11494 KamiHW.CouplingFsmJoin <> c:88 var
+prf 11528:11569 <> mcjoin_keeps_coupling_desc_label_len_table
+binder 11580:11580 <> c:89
+R11631:11633 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11583:11614 KamiHW.HWBoundary <> hw_coupling_desc_label_len_table proj
+R11617:11627 KamiHW.FsmDecoded <> mcjoin_next def
+R11629:11629 KamiHW.CouplingFsmJoin <> c:89 var
+R11634:11665 KamiHW.HWBoundary <> hw_coupling_desc_label_len_table proj
+R11667:11667 KamiHW.CouplingFsmJoin <> c:89 var
+prf 11701:11734 <> mcjoin_keeps_coupling_desc_next_id
+binder 11745:11745 <> c:90
+R11788:11790 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11748:11771 KamiHW.HWBoundary <> hw_coupling_desc_next_id proj
+R11774:11784 KamiHW.FsmDecoded <> mcjoin_next def
+R11786:11786 KamiHW.CouplingFsmJoin <> c:90 var
+R11791:11814 KamiHW.HWBoundary <> hw_coupling_desc_next_id proj
+R11816:11816 KamiHW.CouplingFsmJoin <> c:90 var
+prf 11850:11883 <> mcjoin_keeps_coupling_pair_next_id
+binder 11894:11894 <> c:91
+R11937:11939 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11897:11920 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R11923:11933 KamiHW.FsmDecoded <> mcjoin_next def
+R11935:11935 KamiHW.CouplingFsmJoin <> c:91 var
+R11940:11963 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R11965:11965 KamiHW.CouplingFsmJoin <> c:91 var
+prf 11999:12016 <> mcjoin_keeps_mc_op
+binder 12027:12027 <> c:92
+R12054:12056 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12030:12037 KamiHW.HWBoundary <> hw_mc_op proj
+R12040:12050 KamiHW.FsmDecoded <> mcjoin_next def
+R12052:12052 KamiHW.CouplingFsmJoin <> c:92 var
+R12057:12064 KamiHW.HWBoundary <> hw_mc_op proj
+R12066:12066 KamiHW.CouplingFsmJoin <> c:92 var
+prf 12100:12123 <> mcjoin_keeps_mc_mem_base
+binder 12134:12134 <> c:93
+R12167:12169 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12137:12150 KamiHW.HWBoundary <> hw_mc_mem_base proj
+R12153:12163 KamiHW.FsmDecoded <> mcjoin_next def
+R12165:12165 KamiHW.CouplingFsmJoin <> c:93 var
+R12170:12183 KamiHW.HWBoundary <> hw_mc_mem_base proj
+R12185:12185 KamiHW.CouplingFsmJoin <> c:93 var
+prf 12219:12244 <> mcjoin_keeps_mc_pair_count
+binder 12255:12255 <> c:94
+R12290:12292 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12258:12273 KamiHW.HWBoundary <> hw_mc_pair_count proj
+R12276:12286 KamiHW.FsmDecoded <> mcjoin_next def
+R12288:12288 KamiHW.CouplingFsmJoin <> c:94 var
+R12293:12308 KamiHW.HWBoundary <> hw_mc_pair_count proj
+R12310:12310 KamiHW.CouplingFsmJoin <> c:94 var
+prf 12344:12367 <> mcjoin_keeps_mc_read_ptr
+binder 12378:12378 <> c:95
+R12411:12413 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12381:12394 KamiHW.HWBoundary <> hw_mc_read_ptr proj
+R12397:12407 KamiHW.FsmDecoded <> mcjoin_next def
+R12409:12409 KamiHW.CouplingFsmJoin <> c:95 var
+R12414:12427 KamiHW.HWBoundary <> hw_mc_read_ptr proj
+R12429:12429 KamiHW.CouplingFsmJoin <> c:95 var
+prf 12463:12487 <> mcjoin_keeps_mc_src1_base
+binder 12498:12498 <> c:96
+R12532:12534 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12501:12515 KamiHW.HWBoundary <> hw_mc_src1_base proj
+R12518:12528 KamiHW.FsmDecoded <> mcjoin_next def
+R12530:12530 KamiHW.CouplingFsmJoin <> c:96 var
+R12535:12549 KamiHW.HWBoundary <> hw_mc_src1_base proj
+R12551:12551 KamiHW.CouplingFsmJoin <> c:96 var
+prf 12585:12610 <> mcjoin_keeps_mc_src1_count
+binder 12621:12621 <> c:97
+R12656:12658 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12624:12639 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R12642:12652 KamiHW.FsmDecoded <> mcjoin_next def
+R12654:12654 KamiHW.CouplingFsmJoin <> c:97 var
+R12659:12674 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R12676:12676 KamiHW.CouplingFsmJoin <> c:97 var
+prf 12710:12734 <> mcjoin_keeps_mc_src2_base
+binder 12745:12745 <> c:98
+R12779:12781 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12748:12762 KamiHW.HWBoundary <> hw_mc_src2_base proj
+R12765:12775 KamiHW.FsmDecoded <> mcjoin_next def
+R12777:12777 KamiHW.CouplingFsmJoin <> c:98 var
+R12782:12796 KamiHW.HWBoundary <> hw_mc_src2_base proj
+R12798:12798 KamiHW.CouplingFsmJoin <> c:98 var
+prf 12832:12857 <> mcjoin_keeps_mc_src2_count
+binder 12868:12868 <> c:99
+R12903:12905 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12871:12886 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R12889:12899 KamiHW.FsmDecoded <> mcjoin_next def
+R12901:12901 KamiHW.CouplingFsmJoin <> c:99 var
+R12906:12921 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R12923:12923 KamiHW.CouplingFsmJoin <> c:99 var
+prf 12957:12978 <> mcjoin_keeps_mc_is_id1
+binder 12989:12989 <> c:100
+R13020:13022 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12992:13003 KamiHW.HWBoundary <> hw_mc_is_id1 proj
+R13006:13016 KamiHW.FsmDecoded <> mcjoin_next def
+R13018:13018 KamiHW.CouplingFsmJoin <> c:100 var
+R13023:13034 KamiHW.HWBoundary <> hw_mc_is_id1 proj
+R13036:13036 KamiHW.CouplingFsmJoin <> c:100 var
+prf 13070:13091 <> mcjoin_keeps_mc_is_id2
+binder 13102:13102 <> c:101
+R13133:13135 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13105:13116 KamiHW.HWBoundary <> hw_mc_is_id2 proj
+R13119:13129 KamiHW.FsmDecoded <> mcjoin_next def
+R13131:13131 KamiHW.CouplingFsmJoin <> c:101 var
+R13136:13147 KamiHW.HWBoundary <> hw_mc_is_id2 proj
+R13149:13149 KamiHW.CouplingFsmJoin <> c:101 var
+prf 13183:13208 <> mcjoin_keeps_mc_write_base
+binder 13219:13219 <> c:102
+R13254:13256 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13222:13237 KamiHW.HWBoundary <> hw_mc_write_base proj
+R13240:13250 KamiHW.FsmDecoded <> mcjoin_next def
+R13252:13252 KamiHW.CouplingFsmJoin <> c:102 var
+R13257:13272 KamiHW.HWBoundary <> hw_mc_write_base proj
+R13274:13274 KamiHW.CouplingFsmJoin <> c:102 var
+prf 13308:13331 <> mcjoin_keeps_mc_norm_ptr
+binder 13342:13342 <> c:103
+R13375:13377 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13345:13358 KamiHW.HWBoundary <> hw_mc_norm_ptr proj
+R13361:13371 KamiHW.FsmDecoded <> mcjoin_next def
+R13373:13373 KamiHW.CouplingFsmJoin <> c:103 var
+R13378:13391 KamiHW.HWBoundary <> hw_mc_norm_ptr proj
+R13393:13393 KamiHW.CouplingFsmJoin <> c:103 var
+prf 13427:13451 <> mcjoin_keeps_mc_duplicate
+binder 13462:13462 <> c:104
+R13496:13498 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13465:13479 KamiHW.HWBoundary <> hw_mc_duplicate proj
+R13482:13492 KamiHW.FsmDecoded <> mcjoin_next def
+R13494:13494 KamiHW.CouplingFsmJoin <> c:104 var
+R13499:13513 KamiHW.HWBoundary <> hw_mc_duplicate proj
+R13515:13515 KamiHW.CouplingFsmJoin <> c:104 var
+prf 13549:13571 <> mcjoin_keeps_mc_dst_reg
+binder 13582:13582 <> c:105
+R13614:13616 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13585:13597 KamiHW.HWBoundary <> hw_mc_dst_reg proj
+R13600:13610 KamiHW.FsmDecoded <> mcjoin_next def
+R13612:13612 KamiHW.CouplingFsmJoin <> c:105 var
+R13617:13629 KamiHW.HWBoundary <> hw_mc_dst_reg proj
+R13631:13631 KamiHW.CouplingFsmJoin <> c:105 var
+prf 13665:13690 <> mcjoin_keeps_mc_morph_slot
+binder 13701:13701 <> c:106
+R13736:13738 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13704:13719 KamiHW.HWBoundary <> hw_mc_morph_slot proj
+R13722:13732 KamiHW.FsmDecoded <> mcjoin_next def
+R13734:13734 KamiHW.CouplingFsmJoin <> c:106 var
+R13739:13754 KamiHW.HWBoundary <> hw_mc_morph_slot proj
+R13756:13756 KamiHW.CouplingFsmJoin <> c:106 var
+prf 13790:13816 <> mcjoin_keeps_mc_new_src_mod
+binder 13827:13827 <> c:107
+R13863:13865 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13830:13846 KamiHW.HWBoundary <> hw_mc_new_src_mod proj
+R13849:13859 KamiHW.FsmDecoded <> mcjoin_next def
+R13861:13861 KamiHW.CouplingFsmJoin <> c:107 var
+R13866:13882 KamiHW.HWBoundary <> hw_mc_new_src_mod proj
+R13884:13884 KamiHW.CouplingFsmJoin <> c:107 var
+prf 13918:13944 <> mcjoin_keeps_mc_new_dst_mod
+binder 13955:13955 <> c:108
+R13991:13993 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13958:13974 KamiHW.HWBoundary <> hw_mc_new_dst_mod proj
+R13977:13987 KamiHW.FsmDecoded <> mcjoin_next def
+R13989:13989 KamiHW.CouplingFsmJoin <> c:108 var
+R13994:14010 KamiHW.HWBoundary <> hw_mc_new_dst_mod proj
+R14012:14012 KamiHW.CouplingFsmJoin <> c:108 var
+prf 14046:14065 <> mcjoin_keeps_mc_cost
+binder 14076:14076 <> c:109
+R14105:14107 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14079:14088 KamiHW.HWBoundary <> hw_mc_cost proj
+R14091:14101 KamiHW.FsmDecoded <> mcjoin_next def
+R14103:14103 KamiHW.CouplingFsmJoin <> c:109 var
+R14108:14117 KamiHW.HWBoundary <> hw_mc_cost proj
+R14119:14119 KamiHW.CouplingFsmJoin <> c:109 var
+prf 14153:14188 <> mcjoin_keeps_formula_desc_base_table
+binder 14199:14199 <> c:110
+R14244:14246 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14202:14227 KamiHW.HWBoundary <> hw_formula_desc_base_table proj
+R14230:14240 KamiHW.FsmDecoded <> mcjoin_next def
+R14242:14242 KamiHW.CouplingFsmJoin <> c:110 var
+R14247:14272 KamiHW.HWBoundary <> hw_formula_desc_base_table proj
+R14274:14274 KamiHW.CouplingFsmJoin <> c:110 var
+prf 14308:14344 <> mcjoin_keeps_formula_desc_count_table
+binder 14355:14355 <> c:111
+R14401:14403 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14358:14384 KamiHW.HWBoundary <> hw_formula_desc_count_table proj
+R14387:14397 KamiHW.FsmDecoded <> mcjoin_next def
+R14399:14399 KamiHW.CouplingFsmJoin <> c:111 var
+R14404:14430 KamiHW.HWBoundary <> hw_formula_desc_count_table proj
+R14432:14432 KamiHW.CouplingFsmJoin <> c:111 var
+prf 14466:14502 <> mcjoin_keeps_formula_desc_valid_table
+binder 14513:14513 <> c:112
+R14559:14561 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14516:14542 KamiHW.HWBoundary <> hw_formula_desc_valid_table proj
+R14545:14555 KamiHW.FsmDecoded <> mcjoin_next def
+R14557:14557 KamiHW.CouplingFsmJoin <> c:112 var
+R14562:14588 KamiHW.HWBoundary <> hw_formula_desc_valid_table proj
+R14590:14590 KamiHW.CouplingFsmJoin <> c:112 var
+prf 14624:14656 <> mcjoin_keeps_formula_desc_next_id
+binder 14667:14667 <> c:113
+R14709:14711 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14670:14692 KamiHW.HWBoundary <> hw_formula_desc_next_id proj
+R14695:14705 KamiHW.FsmDecoded <> mcjoin_next def
+R14707:14707 KamiHW.CouplingFsmJoin <> c:113 var
+R14712:14734 KamiHW.HWBoundary <> hw_formula_desc_next_id proj
+R14736:14736 KamiHW.CouplingFsmJoin <> c:113 var
+prf 14770:14802 <> mcjoin_keeps_cert_desc_base_table
+binder 14813:14813 <> c:114
+R14855:14857 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14816:14838 KamiHW.HWBoundary <> hw_cert_desc_base_table proj
+R14841:14851 KamiHW.FsmDecoded <> mcjoin_next def
+R14853:14853 KamiHW.CouplingFsmJoin <> c:114 var
+R14858:14880 KamiHW.HWBoundary <> hw_cert_desc_base_table proj
+R14882:14882 KamiHW.CouplingFsmJoin <> c:114 var
+prf 14916:14949 <> mcjoin_keeps_cert_desc_count_table
+binder 14960:14960 <> c:115
+R15003:15005 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14963:14986 KamiHW.HWBoundary <> hw_cert_desc_count_table proj
+R14989:14999 KamiHW.FsmDecoded <> mcjoin_next def
+R15001:15001 KamiHW.CouplingFsmJoin <> c:115 var
+R15006:15029 KamiHW.HWBoundary <> hw_cert_desc_count_table proj
+R15031:15031 KamiHW.CouplingFsmJoin <> c:115 var
+prf 15065:15098 <> mcjoin_keeps_cert_desc_valid_table
+binder 15109:15109 <> c:116
+R15152:15154 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15112:15135 KamiHW.HWBoundary <> hw_cert_desc_valid_table proj
+R15138:15148 KamiHW.FsmDecoded <> mcjoin_next def
+R15150:15150 KamiHW.CouplingFsmJoin <> c:116 var
+R15155:15178 KamiHW.HWBoundary <> hw_cert_desc_valid_table proj
+R15180:15180 KamiHW.CouplingFsmJoin <> c:116 var
+prf 15214:15243 <> mcjoin_keeps_cert_desc_next_id
+binder 15254:15254 <> c:117
+R15293:15295 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15257:15276 KamiHW.HWBoundary <> hw_cert_desc_next_id proj
+R15279:15289 KamiHW.FsmDecoded <> mcjoin_next def
+R15291:15291 KamiHW.CouplingFsmJoin <> c:117 var
+R15296:15315 KamiHW.HWBoundary <> hw_cert_desc_next_id proj
+R15317:15317 KamiHW.CouplingFsmJoin <> c:117 var
+prf 15351:15386 <> mcjoin_keeps_desc_meta_subtype_table
+binder 15397:15397 <> c:118
+R15442:15444 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15400:15425 KamiHW.HWBoundary <> hw_desc_meta_subtype_table proj
+R15428:15438 KamiHW.FsmDecoded <> mcjoin_next def
+R15440:15440 KamiHW.CouplingFsmJoin <> c:118 var
+R15445:15470 KamiHW.HWBoundary <> hw_desc_meta_subtype_table proj
+R15472:15472 KamiHW.CouplingFsmJoin <> c:118 var
+prf 15506:15538 <> mcjoin_keeps_desc_meta_kind_table
+binder 15549:15549 <> c:119
+R15591:15593 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15552:15574 KamiHW.HWBoundary <> hw_desc_meta_kind_table proj
+R15577:15587 KamiHW.FsmDecoded <> mcjoin_next def
+R15589:15589 KamiHW.CouplingFsmJoin <> c:119 var
+R15594:15616 KamiHW.HWBoundary <> hw_desc_meta_kind_table proj
+R15618:15618 KamiHW.CouplingFsmJoin <> c:119 var
+prf 15652:15690 <> mcjoin_keeps_desc_meta_inline_len_table
+binder 15701:15701 <> c:120
+R15749:15751 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15704:15732 KamiHW.HWBoundary <> hw_desc_meta_inline_len_table proj
+R15735:15745 KamiHW.FsmDecoded <> mcjoin_next def
+R15747:15747 KamiHW.CouplingFsmJoin <> c:120 var
+R15752:15780 KamiHW.HWBoundary <> hw_desc_meta_inline_len_table proj
+R15782:15782 KamiHW.CouplingFsmJoin <> c:120 var
+prf 15816:15847 <> mcjoin_keeps_desc_meta_aux_table
+binder 15858:15858 <> c:121
+R15899:15901 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15861:15882 KamiHW.HWBoundary <> hw_desc_meta_aux_table proj
+R15885:15895 KamiHW.FsmDecoded <> mcjoin_next def
+R15897:15897 KamiHW.CouplingFsmJoin <> c:121 var
+R15902:15923 KamiHW.HWBoundary <> hw_desc_meta_aux_table proj
+R15925:15925 KamiHW.CouplingFsmJoin <> c:121 var
+prf 15959:15992 <> mcjoin_keeps_desc_meta_valid_table
+binder 16003:16003 <> c:122
+R16046:16048 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16006:16029 KamiHW.HWBoundary <> hw_desc_meta_valid_table proj
+R16032:16042 KamiHW.FsmDecoded <> mcjoin_next def
+R16044:16044 KamiHW.CouplingFsmJoin <> c:122 var
+R16049:16072 KamiHW.HWBoundary <> hw_desc_meta_valid_table proj
+R16074:16074 KamiHW.CouplingFsmJoin <> c:122 var
+prf 16108:16137 <> mcjoin_keeps_desc_meta_next_id
+binder 16148:16148 <> c:123
+R16187:16189 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16151:16170 KamiHW.HWBoundary <> hw_desc_meta_next_id proj
+R16173:16183 KamiHW.FsmDecoded <> mcjoin_next def
+R16185:16185 KamiHW.CouplingFsmJoin <> c:123 var
+R16190:16209 KamiHW.HWBoundary <> hw_desc_meta_next_id proj
+R16211:16211 KamiHW.CouplingFsmJoin <> c:123 var
+prf 16245:16267 <> mcjoin_keeps_wc_same_00
+binder 16278:16278 <> c:124
+R16310:16312 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16281:16293 KamiHW.HWBoundary <> hw_wc_same_00 proj
+R16296:16306 KamiHW.FsmDecoded <> mcjoin_next def
+R16308:16308 KamiHW.CouplingFsmJoin <> c:124 var
+R16313:16325 KamiHW.HWBoundary <> hw_wc_same_00 proj
+R16327:16327 KamiHW.CouplingFsmJoin <> c:124 var
+prf 16361:16383 <> mcjoin_keeps_wc_diff_00
+binder 16394:16394 <> c:125
+R16426:16428 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16397:16409 KamiHW.HWBoundary <> hw_wc_diff_00 proj
+R16412:16422 KamiHW.FsmDecoded <> mcjoin_next def
+R16424:16424 KamiHW.CouplingFsmJoin <> c:125 var
+R16429:16441 KamiHW.HWBoundary <> hw_wc_diff_00 proj
+R16443:16443 KamiHW.CouplingFsmJoin <> c:125 var
+prf 16477:16499 <> mcjoin_keeps_wc_same_01
+binder 16510:16510 <> c:126
+R16542:16544 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16513:16525 KamiHW.HWBoundary <> hw_wc_same_01 proj
+R16528:16538 KamiHW.FsmDecoded <> mcjoin_next def
+R16540:16540 KamiHW.CouplingFsmJoin <> c:126 var
+R16545:16557 KamiHW.HWBoundary <> hw_wc_same_01 proj
+R16559:16559 KamiHW.CouplingFsmJoin <> c:126 var
+prf 16593:16615 <> mcjoin_keeps_wc_diff_01
+binder 16626:16626 <> c:127
+R16658:16660 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16629:16641 KamiHW.HWBoundary <> hw_wc_diff_01 proj
+R16644:16654 KamiHW.FsmDecoded <> mcjoin_next def
+R16656:16656 KamiHW.CouplingFsmJoin <> c:127 var
+R16661:16673 KamiHW.HWBoundary <> hw_wc_diff_01 proj
+R16675:16675 KamiHW.CouplingFsmJoin <> c:127 var
+prf 16709:16731 <> mcjoin_keeps_wc_same_10
+binder 16742:16742 <> c:128
+R16774:16776 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16745:16757 KamiHW.HWBoundary <> hw_wc_same_10 proj
+R16760:16770 KamiHW.FsmDecoded <> mcjoin_next def
+R16772:16772 KamiHW.CouplingFsmJoin <> c:128 var
+R16777:16789 KamiHW.HWBoundary <> hw_wc_same_10 proj
+R16791:16791 KamiHW.CouplingFsmJoin <> c:128 var
+prf 16825:16847 <> mcjoin_keeps_wc_diff_10
+binder 16858:16858 <> c:129
+R16890:16892 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16861:16873 KamiHW.HWBoundary <> hw_wc_diff_10 proj
+R16876:16886 KamiHW.FsmDecoded <> mcjoin_next def
+R16888:16888 KamiHW.CouplingFsmJoin <> c:129 var
+R16893:16905 KamiHW.HWBoundary <> hw_wc_diff_10 proj
+R16907:16907 KamiHW.CouplingFsmJoin <> c:129 var
+prf 16941:16963 <> mcjoin_keeps_wc_same_11
+binder 16974:16974 <> c:130
+R17006:17008 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16977:16989 KamiHW.HWBoundary <> hw_wc_same_11 proj
+R16992:17002 KamiHW.FsmDecoded <> mcjoin_next def
+R17004:17004 KamiHW.CouplingFsmJoin <> c:130 var
+R17009:17021 KamiHW.HWBoundary <> hw_wc_same_11 proj
+R17023:17023 KamiHW.CouplingFsmJoin <> c:130 var
+prf 17057:17079 <> mcjoin_keeps_wc_diff_11
+binder 17090:17090 <> c:131
+R17122:17124 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17093:17105 KamiHW.HWBoundary <> hw_wc_diff_11 proj
+R17108:17118 KamiHW.FsmDecoded <> mcjoin_next def
+R17120:17120 KamiHW.CouplingFsmJoin <> c:131 var
+R17125:17137 KamiHW.HWBoundary <> hw_wc_diff_11 proj
+R17139:17139 KamiHW.CouplingFsmJoin <> c:131 var
+def 17179:17188 <> cjoin_args
+R17195:17197 KamiHW.HWBoundary <> HWB rec
+binder 17191:17191 <> c:132
+R17203:17203 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R17213:17214 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R17224:17225 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R17244:17245 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R17264:17264 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R17204:17210 KamiHW.HWBoundary <> hw_mc_i proj
+R17212:17212 KamiHW.CouplingFsmJoin <> c:132 var
+R17215:17221 KamiHW.HWBoundary <> hw_mc_j proj
+R17223:17223 KamiHW.CouplingFsmJoin <> c:132 var
+R17226:17241 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R17243:17243 KamiHW.CouplingFsmJoin <> c:132 var
+R17246:17261 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R17263:17263 KamiHW.CouplingFsmJoin <> c:132 var
+def 17278:17288 <> cjoin_emits
+R17295:17297 KamiHW.HWBoundary <> HWB rec
+binder 17291:17291 <> c:133
+R17303:17312 KamiHW.MorphJoin <> join_emits def
+R17315:17321 KamiHW.HWBoundary <> hw_mc_i proj
+R17323:17323 KamiHW.CouplingFsmJoin <> c:133 var
+R17327:17333 KamiHW.HWBoundary <> hw_mc_j proj
+R17335:17335 KamiHW.CouplingFsmJoin <> c:133 var
+R17339:17354 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R17356:17356 KamiHW.CouplingFsmJoin <> c:133 var
+R17360:17375 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R17377:17377 KamiHW.CouplingFsmJoin <> c:133 var
+R17383:17397 KamiHW.HWBoundary <> hw_mc_write_ptr proj
+R17399:17399 KamiHW.CouplingFsmJoin <> c:133 var
+R17403:17417 KamiHW.HWBoundary <> hw_mc_src1_base proj
+R17419:17419 KamiHW.CouplingFsmJoin <> c:133 var
+R17423:17437 KamiHW.HWBoundary <> hw_mc_src2_base proj
+R17439:17439 KamiHW.CouplingFsmJoin <> c:133 var
+R17443:17468 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R17470:17470 KamiHW.CouplingFsmJoin <> c:133 var
+R17474:17499 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R17501:17501 KamiHW.CouplingFsmJoin <> c:133 var
+def 17516:17529 <> cjoin_overflow
+R17536:17538 KamiHW.HWBoundary <> HWB rec
+binder 17532:17532 <> c:134
+R17544:17556 KamiHW.MorphJoin <> join_overflow def
+R17559:17565 KamiHW.HWBoundary <> hw_mc_i proj
+R17567:17567 KamiHW.CouplingFsmJoin <> c:134 var
+R17571:17577 KamiHW.HWBoundary <> hw_mc_j proj
+R17579:17579 KamiHW.CouplingFsmJoin <> c:134 var
+R17583:17598 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R17600:17600 KamiHW.CouplingFsmJoin <> c:134 var
+R17604:17619 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R17621:17621 KamiHW.CouplingFsmJoin <> c:134 var
+R17627:17641 KamiHW.HWBoundary <> hw_mc_write_ptr proj
+R17643:17643 KamiHW.CouplingFsmJoin <> c:134 var
+R17647:17661 KamiHW.HWBoundary <> hw_mc_src1_base proj
+R17663:17663 KamiHW.CouplingFsmJoin <> c:134 var
+R17667:17681 KamiHW.HWBoundary <> hw_mc_src2_base proj
+R17683:17683 KamiHW.CouplingFsmJoin <> c:134 var
+R17687:17712 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R17714:17714 KamiHW.CouplingFsmJoin <> c:134 var
+R17718:17743 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R17745:17745 KamiHW.CouplingFsmJoin <> c:134 var
+prf 17756:17765 <> mcjoin_src
+binder 17776:17776 <> c:135
+R17821:17825 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17779:17804 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R17807:17817 KamiHW.FsmDecoded <> mcjoin_next def
+R17819:17819 KamiHW.CouplingFsmJoin <> c:135 var
+R17829:17839 KamiHW.CouplingFsmJoin <> cjoin_emits def
+R17841:17841 KamiHW.CouplingFsmJoin <> c:135 var
+R18008:18033 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R18035:18035 KamiHW.CouplingFsmJoin <> c:135 var
+R17848:17857 KamiHW.NormalizationSteps <> put_vector def
+R17928:17953 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R17955:17955 KamiHW.CouplingFsmJoin <> c:135 var
+R17958:17967 KamiHW.MorphJoin <> join_index def
+R17970:17984 KamiHW.HWBoundary <> hw_mc_src1_base proj
+R17986:17986 KamiHW.CouplingFsmJoin <> c:135 var
+R17990:17996 KamiHW.HWBoundary <> hw_mc_i proj
+R17998:17998 KamiHW.CouplingFsmJoin <> c:135 var
+R17891:17900 KamiHW.NormalizationSteps <> pair_index def
+R17903:17917 KamiHW.HWBoundary <> hw_mc_write_ptr proj
+R17919:17919 KamiHW.CouplingFsmJoin <> c:135 var
+R17860:17885 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R17887:17887 KamiHW.CouplingFsmJoin <> c:135 var
+prf 18069:18078 <> mcjoin_dst
+binder 18089:18089 <> c:136
+R18134:18138 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18092:18117 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R18120:18130 KamiHW.FsmDecoded <> mcjoin_next def
+R18132:18132 KamiHW.CouplingFsmJoin <> c:136 var
+R18142:18152 KamiHW.CouplingFsmJoin <> cjoin_emits def
+R18154:18154 KamiHW.CouplingFsmJoin <> c:136 var
+R18321:18346 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R18348:18348 KamiHW.CouplingFsmJoin <> c:136 var
+R18161:18170 KamiHW.NormalizationSteps <> put_vector def
+R18241:18266 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R18268:18268 KamiHW.CouplingFsmJoin <> c:136 var
+R18271:18280 KamiHW.MorphJoin <> join_index def
+R18283:18297 KamiHW.HWBoundary <> hw_mc_src2_base proj
+R18299:18299 KamiHW.CouplingFsmJoin <> c:136 var
+R18303:18309 KamiHW.HWBoundary <> hw_mc_j proj
+R18311:18311 KamiHW.CouplingFsmJoin <> c:136 var
+R18204:18213 KamiHW.NormalizationSteps <> pair_index def
+R18216:18230 KamiHW.HWBoundary <> hw_mc_write_ptr proj
+R18232:18232 KamiHW.CouplingFsmJoin <> c:136 var
+R18173:18198 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R18200:18200 KamiHW.CouplingFsmJoin <> c:136 var
+prf 18382:18393 <> mcjoin_valid
+binder 18404:18404 <> c:137
+R18451:18455 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18407:18434 KamiHW.HWBoundary <> hw_coupling_pair_valid_table proj
+R18437:18447 KamiHW.FsmDecoded <> mcjoin_next def
+R18449:18449 KamiHW.CouplingFsmJoin <> c:137 var
+R18459:18469 KamiHW.CouplingFsmJoin <> cjoin_emits def
+R18471:18471 KamiHW.CouplingFsmJoin <> c:137 var
+R18567:18594 KamiHW.HWBoundary <> hw_coupling_pair_valid_table proj
+R18596:18596 KamiHW.CouplingFsmJoin <> c:137 var
+R18478:18487 KamiHW.NormalizationSteps <> put_vector def
+R18555:18558 Coq.Init.Datatypes <> true constr
+R18523:18532 KamiHW.NormalizationSteps <> pair_index def
+R18535:18549 KamiHW.HWBoundary <> hw_mc_write_ptr proj
+R18551:18551 KamiHW.CouplingFsmJoin <> c:137 var
+R18490:18517 KamiHW.HWBoundary <> hw_coupling_pair_valid_table proj
+R18519:18519 KamiHW.CouplingFsmJoin <> c:137 var
+prf 18630:18645 <> mcjoin_write_ptr
+binder 18656:18656 <> c:138
+R18690:18694 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18659:18673 KamiHW.HWBoundary <> hw_mc_write_ptr proj
+R18676:18686 KamiHW.FsmDecoded <> mcjoin_next def
+R18688:18688 KamiHW.CouplingFsmJoin <> c:138 var
+R18698:18708 KamiHW.CouplingFsmJoin <> cjoin_emits def
+R18710:18710 KamiHW.CouplingFsmJoin <> c:138 var
+R18764:18778 KamiHW.HWBoundary <> hw_mc_write_ptr proj
+R18780:18780 KamiHW.CouplingFsmJoin <> c:138 var
+R18717:18721 Kami.Lib.Word <> wplus def
+R18744:18752 Kami.Lib.Word <> natToWord def
+R18724:18738 KamiHW.HWBoundary <> hw_mc_write_ptr proj
+R18740:18740 KamiHW.CouplingFsmJoin <> c:138 var
+prf 18814:18821 <> mcjoin_j
+binder 18832:18832 <> c:139
+R18858:18862 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18835:18841 KamiHW.HWBoundary <> hw_mc_j proj
+R18844:18854 KamiHW.FsmDecoded <> mcjoin_next def
+R18856:18856 KamiHW.CouplingFsmJoin <> c:139 var
+R18866:18874 KamiHW.MorphJoin <> join_wrap def
+R18877:18883 KamiHW.HWBoundary <> hw_mc_j proj
+R18885:18885 KamiHW.CouplingFsmJoin <> c:139 var
+R18889:18904 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R18906:18906 KamiHW.CouplingFsmJoin <> c:139 var
+R18933:18937 Kami.Lib.Word <> wplus def
+R18952:18960 Kami.Lib.Word <> natToWord def
+R18940:18946 KamiHW.HWBoundary <> hw_mc_j proj
+R18948:18948 KamiHW.CouplingFsmJoin <> c:139 var
+R18914:18922 Kami.Lib.Word <> natToWord def
+prf 18999:19006 <> mcjoin_i
+binder 19017:19017 <> c:140
+R19043:19047 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19020:19026 KamiHW.HWBoundary <> hw_mc_i proj
+R19029:19039 KamiHW.FsmDecoded <> mcjoin_next def
+R19041:19041 KamiHW.CouplingFsmJoin <> c:140 var
+R19051:19059 KamiHW.MorphJoin <> join_wrap def
+R19062:19068 KamiHW.HWBoundary <> hw_mc_j proj
+R19070:19070 KamiHW.CouplingFsmJoin <> c:140 var
+R19074:19089 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R19091:19091 KamiHW.CouplingFsmJoin <> c:140 var
+R19138:19144 KamiHW.HWBoundary <> hw_mc_i proj
+R19146:19146 KamiHW.CouplingFsmJoin <> c:140 var
+R19099:19103 Kami.Lib.Word <> wplus def
+R19118:19126 Kami.Lib.Word <> natToWord def
+R19106:19112 KamiHW.HWBoundary <> hw_mc_i proj
+R19114:19114 KamiHW.CouplingFsmJoin <> c:140 var
+prf 19180:19191 <> mcjoin_phase
+binder 19202:19202 <> c:141
+R19232:19236 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19205:19215 KamiHW.HWBoundary <> hw_mc_phase proj
+R19218:19228 KamiHW.FsmDecoded <> mcjoin_next def
+R19230:19230 KamiHW.CouplingFsmJoin <> c:141 var
+R19240:19253 KamiHW.CouplingFsmJoin <> cjoin_overflow def
+R19255:19255 KamiHW.CouplingFsmJoin <> c:141 var
+R19286:19288 Coq.Init.Datatypes <> orb def
+R19360:19368 KamiHW.MorphJoin <> join_done def
+R19371:19377 KamiHW.HWBoundary <> hw_mc_i proj
+R19379:19379 KamiHW.CouplingFsmJoin <> c:141 var
+R19383:19389 KamiHW.HWBoundary <> hw_mc_j proj
+R19391:19391 KamiHW.CouplingFsmJoin <> c:141 var
+R19395:19410 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R19412:19412 KamiHW.CouplingFsmJoin <> c:141 var
+R19416:19431 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R19433:19433 KamiHW.CouplingFsmJoin <> c:141 var
+R19291:19300 KamiHW.MorphJoin <> join_empty def
+R19303:19318 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R19320:19320 KamiHW.CouplingFsmJoin <> c:141 var
+R19324:19339 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R19341:19341 KamiHW.CouplingFsmJoin <> c:141 var
+R19468:19476 Kami.Lib.Word <> natToWord def
+R19449:19457 Kami.Lib.Word <> natToWord def
+R19262:19270 Kami.Lib.Word <> natToWord def
+prf 19514:19523 <> mcjoin_err
+binder 19534:19534 <> c:142
+R19559:19561 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19537:19542 KamiHW.HWBoundary <> hw_err proj
+R19545:19555 KamiHW.FsmDecoded <> mcjoin_next def
+R19557:19557 KamiHW.CouplingFsmJoin <> c:142 var
+R19562:19564 Coq.Init.Datatypes <> orb def
+R19578:19591 KamiHW.CouplingFsmJoin <> cjoin_overflow def
+R19593:19593 KamiHW.CouplingFsmJoin <> c:142 var
+R19567:19572 KamiHW.HWBoundary <> hw_err proj
+R19574:19574 KamiHW.CouplingFsmJoin <> c:142 var
+prf 19628:19644 <> mcjoin_error_code
+binder 19655:19655 <> c:143
+R19687:19691 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19658:19670 KamiHW.HWBoundary <> hw_error_code proj
+R19673:19683 KamiHW.FsmDecoded <> mcjoin_next def
+R19685:19685 KamiHW.CouplingFsmJoin <> c:143 var
+R19695:19708 KamiHW.CouplingFsmJoin <> cjoin_overflow def
+R19710:19710 KamiHW.CouplingFsmJoin <> c:143 var
+R19743:19755 KamiHW.HWBoundary <> hw_error_code proj
+R19757:19757 KamiHW.CouplingFsmJoin <> c:143 var
+R19717:19736 KamiHW.ThieleTypes <> ERR_COUPLING_INVALID def
+def 19795:19803 <> join_iter
+R19810:19812 Coq.Init.Datatypes <> nat ind
+binder 19806:19806 <> n:144
+R19820:19822 KamiHW.HWBoundary <> HWB rec
+binder 19816:19816 <> c:145
+R19827:19829 KamiHW.HWBoundary <> HWB rec
+R19842:19842 KamiHW.CouplingFsmJoin <> n:144 var
+R19853:19853 Coq.Init.Datatypes <> O constr
+R19858:19858 KamiHW.CouplingFsmJoin <> c:145 var
+R19864:19864 Coq.Init.Datatypes <> S constr
+R19871:19879 KamiHW.CouplingFsmJoin <> join_iter:146 def
+R19884:19894 KamiHW.FsmDecoded <> mcjoin_next def
+R19896:19896 KamiHW.CouplingFsmJoin <> c:145 var
+prf 19913:19930 <> join_iter_keeps_pc
+binder 19941:19941 <> n:148
+binder 19943:19943 <> c:149
+R19967:19969 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19946:19950 KamiHW.HWBoundary <> hw_pc proj
+R19953:19961 KamiHW.CouplingFsmJoin <> join_iter def
+R19963:19963 KamiHW.CouplingFsmJoin <> n:148 var
+R19965:19965 KamiHW.CouplingFsmJoin <> c:149 var
+R19970:19974 KamiHW.HWBoundary <> hw_pc proj
+R19976:19976 KamiHW.CouplingFsmJoin <> c:149 var
+R20037:20045 KamiHW.CouplingFsmJoin <> join_iter def
+R20067:20081 KamiHW.CouplingFsmJoin <> mcjoin_keeps_pc thm
+R20067:20081 KamiHW.CouplingFsmJoin <> mcjoin_keeps_pc thm
+prf 20096:20113 <> join_iter_keeps_mu
+binder 20124:20124 <> n:150
+binder 20126:20126 <> c:151
+R20150:20152 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20129:20133 KamiHW.HWBoundary <> hw_mu proj
+R20136:20144 KamiHW.CouplingFsmJoin <> join_iter def
+R20146:20146 KamiHW.CouplingFsmJoin <> n:150 var
+R20148:20148 KamiHW.CouplingFsmJoin <> c:151 var
+R20153:20157 KamiHW.HWBoundary <> hw_mu proj
+R20159:20159 KamiHW.CouplingFsmJoin <> c:151 var
+R20220:20228 KamiHW.CouplingFsmJoin <> join_iter def
+R20250:20264 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mu thm
+R20250:20264 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mu thm
+prf 20279:20300 <> join_iter_keeps_halted
+binder 20311:20311 <> n:152
+binder 20313:20313 <> c:153
+R20341:20343 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20316:20324 KamiHW.HWBoundary <> hw_halted proj
+R20327:20335 KamiHW.CouplingFsmJoin <> join_iter def
+R20337:20337 KamiHW.CouplingFsmJoin <> n:152 var
+R20339:20339 KamiHW.CouplingFsmJoin <> c:153 var
+R20344:20352 KamiHW.HWBoundary <> hw_halted proj
+R20354:20354 KamiHW.CouplingFsmJoin <> c:153 var
+R20415:20423 KamiHW.CouplingFsmJoin <> join_iter def
+R20445:20463 KamiHW.CouplingFsmJoin <> mcjoin_keeps_halted thm
+R20445:20463 KamiHW.CouplingFsmJoin <> mcjoin_keeps_halted thm
+prf 20478:20497 <> join_iter_keeps_regs
+binder 20508:20508 <> n:154
+binder 20510:20510 <> c:155
+R20536:20538 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20513:20519 KamiHW.HWBoundary <> hw_regs proj
+R20522:20530 KamiHW.CouplingFsmJoin <> join_iter def
+R20532:20532 KamiHW.CouplingFsmJoin <> n:154 var
+R20534:20534 KamiHW.CouplingFsmJoin <> c:155 var
+R20539:20545 KamiHW.HWBoundary <> hw_regs proj
+R20547:20547 KamiHW.CouplingFsmJoin <> c:155 var
+R20608:20616 KamiHW.CouplingFsmJoin <> join_iter def
+R20638:20654 KamiHW.CouplingFsmJoin <> mcjoin_keeps_regs thm
+R20638:20654 KamiHW.CouplingFsmJoin <> mcjoin_keeps_regs thm
+prf 20669:20687 <> join_iter_keeps_mem
+binder 20698:20698 <> n:156
+binder 20700:20700 <> c:157
+R20725:20727 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20703:20708 KamiHW.HWBoundary <> hw_mem proj
+R20711:20719 KamiHW.CouplingFsmJoin <> join_iter def
+R20721:20721 KamiHW.CouplingFsmJoin <> n:156 var
+R20723:20723 KamiHW.CouplingFsmJoin <> c:157 var
+R20728:20733 KamiHW.HWBoundary <> hw_mem proj
+R20735:20735 KamiHW.CouplingFsmJoin <> c:157 var
+R20796:20804 KamiHW.CouplingFsmJoin <> join_iter def
+R20826:20841 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mem thm
+R20826:20841 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mem thm
+prf 20856:20875 <> join_iter_keeps_imem
+binder 20886:20886 <> n:158
+binder 20888:20888 <> c:159
+R20914:20916 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20891:20897 KamiHW.HWBoundary <> hw_imem proj
+R20900:20908 KamiHW.CouplingFsmJoin <> join_iter def
+R20910:20910 KamiHW.CouplingFsmJoin <> n:158 var
+R20912:20912 KamiHW.CouplingFsmJoin <> c:159 var
+R20917:20923 KamiHW.HWBoundary <> hw_imem proj
+R20925:20925 KamiHW.CouplingFsmJoin <> c:159 var
+R20986:20994 KamiHW.CouplingFsmJoin <> join_iter def
+R21016:21032 KamiHW.CouplingFsmJoin <> mcjoin_keeps_imem thm
+R21016:21032 KamiHW.CouplingFsmJoin <> mcjoin_keeps_imem thm
+prf 21047:21075 <> join_iter_keeps_partition_ops
+binder 21086:21086 <> n:160
+binder 21088:21088 <> c:161
+R21123:21125 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21091:21106 KamiHW.HWBoundary <> hw_partition_ops proj
+R21109:21117 KamiHW.CouplingFsmJoin <> join_iter def
+R21119:21119 KamiHW.CouplingFsmJoin <> n:160 var
+R21121:21121 KamiHW.CouplingFsmJoin <> c:161 var
+R21126:21141 KamiHW.HWBoundary <> hw_partition_ops proj
+R21143:21143 KamiHW.CouplingFsmJoin <> c:161 var
+R21204:21212 KamiHW.CouplingFsmJoin <> join_iter def
+R21234:21259 KamiHW.CouplingFsmJoin <> mcjoin_keeps_partition_ops thm
+R21234:21259 KamiHW.CouplingFsmJoin <> mcjoin_keeps_partition_ops thm
+prf 21274:21296 <> join_iter_keeps_mdl_ops
+binder 21307:21307 <> n:162
+binder 21309:21309 <> c:163
+R21338:21340 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21312:21321 KamiHW.HWBoundary <> hw_mdl_ops proj
+R21324:21332 KamiHW.CouplingFsmJoin <> join_iter def
+R21334:21334 KamiHW.CouplingFsmJoin <> n:162 var
+R21336:21336 KamiHW.CouplingFsmJoin <> c:163 var
+R21341:21350 KamiHW.HWBoundary <> hw_mdl_ops proj
+R21352:21352 KamiHW.CouplingFsmJoin <> c:163 var
+R21413:21421 KamiHW.CouplingFsmJoin <> join_iter def
+R21443:21462 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mdl_ops thm
+R21443:21462 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mdl_ops thm
+prf 21477:21501 <> join_iter_keeps_info_gain
+binder 21512:21512 <> n:164
+binder 21514:21514 <> c:165
+R21545:21547 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21517:21528 KamiHW.HWBoundary <> hw_info_gain proj
+R21531:21539 KamiHW.CouplingFsmJoin <> join_iter def
+R21541:21541 KamiHW.CouplingFsmJoin <> n:164 var
+R21543:21543 KamiHW.CouplingFsmJoin <> c:165 var
+R21548:21559 KamiHW.HWBoundary <> hw_info_gain proj
+R21561:21561 KamiHW.CouplingFsmJoin <> c:165 var
+R21622:21630 KamiHW.CouplingFsmJoin <> join_iter def
+R21652:21673 KamiHW.CouplingFsmJoin <> mcjoin_keeps_info_gain thm
+R21652:21673 KamiHW.CouplingFsmJoin <> mcjoin_keeps_info_gain thm
+prf 21688:21712 <> join_iter_keeps_logic_acc
+binder 21723:21723 <> n:166
+binder 21725:21725 <> c:167
+R21756:21758 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21728:21739 KamiHW.HWBoundary <> hw_logic_acc proj
+R21742:21750 KamiHW.CouplingFsmJoin <> join_iter def
+R21752:21752 KamiHW.CouplingFsmJoin <> n:166 var
+R21754:21754 KamiHW.CouplingFsmJoin <> c:167 var
+R21759:21770 KamiHW.HWBoundary <> hw_logic_acc proj
+R21772:21772 KamiHW.CouplingFsmJoin <> c:167 var
+R21833:21841 KamiHW.CouplingFsmJoin <> join_iter def
+R21863:21884 KamiHW.CouplingFsmJoin <> mcjoin_keeps_logic_acc thm
+R21863:21884 KamiHW.CouplingFsmJoin <> mcjoin_keeps_logic_acc thm
+prf 21899:21923 <> join_iter_keeps_cert_addr
+binder 21934:21934 <> n:168
+binder 21936:21936 <> c:169
+R21967:21969 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21939:21950 KamiHW.HWBoundary <> hw_cert_addr proj
+R21953:21961 KamiHW.CouplingFsmJoin <> join_iter def
+R21963:21963 KamiHW.CouplingFsmJoin <> n:168 var
+R21965:21965 KamiHW.CouplingFsmJoin <> c:169 var
+R21970:21981 KamiHW.HWBoundary <> hw_cert_addr proj
+R21983:21983 KamiHW.CouplingFsmJoin <> c:169 var
+R22044:22052 KamiHW.CouplingFsmJoin <> join_iter def
+R22074:22095 KamiHW.CouplingFsmJoin <> mcjoin_keeps_cert_addr thm
+R22074:22095 KamiHW.CouplingFsmJoin <> mcjoin_keeps_cert_addr thm
+prf 22110:22138 <> join_iter_keeps_active_module
+binder 22149:22149 <> n:170
+binder 22151:22151 <> c:171
+R22186:22188 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22154:22169 KamiHW.HWBoundary <> hw_active_module proj
+R22172:22180 KamiHW.CouplingFsmJoin <> join_iter def
+R22182:22182 KamiHW.CouplingFsmJoin <> n:170 var
+R22184:22184 KamiHW.CouplingFsmJoin <> c:171 var
+R22189:22204 KamiHW.HWBoundary <> hw_active_module proj
+R22206:22206 KamiHW.CouplingFsmJoin <> c:171 var
+R22267:22275 KamiHW.CouplingFsmJoin <> join_iter def
+R22297:22322 KamiHW.CouplingFsmJoin <> mcjoin_keeps_active_module thm
+R22297:22322 KamiHW.CouplingFsmJoin <> mcjoin_keeps_active_module thm
+prf 22337:22359 <> join_iter_keeps_mstatus
+binder 22370:22370 <> n:172
+binder 22372:22372 <> c:173
+R22401:22403 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22375:22384 KamiHW.HWBoundary <> hw_mstatus proj
+R22387:22395 KamiHW.CouplingFsmJoin <> join_iter def
+R22397:22397 KamiHW.CouplingFsmJoin <> n:172 var
+R22399:22399 KamiHW.CouplingFsmJoin <> c:173 var
+R22404:22413 KamiHW.HWBoundary <> hw_mstatus proj
+R22415:22415 KamiHW.CouplingFsmJoin <> c:173 var
+R22476:22484 KamiHW.CouplingFsmJoin <> join_iter def
+R22506:22525 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mstatus thm
+R22506:22525 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mstatus thm
+prf 22540:22564 <> join_iter_keeps_mcycle_lo
+binder 22575:22575 <> n:174
+binder 22577:22577 <> c:175
+R22608:22610 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22580:22591 KamiHW.HWBoundary <> hw_mcycle_lo proj
+R22594:22602 KamiHW.CouplingFsmJoin <> join_iter def
+R22604:22604 KamiHW.CouplingFsmJoin <> n:174 var
+R22606:22606 KamiHW.CouplingFsmJoin <> c:175 var
+R22611:22622 KamiHW.HWBoundary <> hw_mcycle_lo proj
+R22624:22624 KamiHW.CouplingFsmJoin <> c:175 var
+R22685:22693 KamiHW.CouplingFsmJoin <> join_iter def
+R22715:22736 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mcycle_lo thm
+R22715:22736 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mcycle_lo thm
+prf 22751:22775 <> join_iter_keeps_mcycle_hi
+binder 22786:22786 <> n:176
+binder 22788:22788 <> c:177
+R22819:22821 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22791:22802 KamiHW.HWBoundary <> hw_mcycle_hi proj
+R22805:22813 KamiHW.CouplingFsmJoin <> join_iter def
+R22815:22815 KamiHW.CouplingFsmJoin <> n:176 var
+R22817:22817 KamiHW.CouplingFsmJoin <> c:177 var
+R22822:22833 KamiHW.HWBoundary <> hw_mcycle_hi proj
+R22835:22835 KamiHW.CouplingFsmJoin <> c:177 var
+R22896:22904 KamiHW.CouplingFsmJoin <> join_iter def
+R22926:22947 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mcycle_hi thm
+R22926:22947 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mcycle_hi thm
+prf 22962:22988 <> join_iter_keeps_minstret_lo
+binder 22999:22999 <> n:178
+binder 23001:23001 <> c:179
+R23034:23036 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23004:23017 KamiHW.HWBoundary <> hw_minstret_lo proj
+R23020:23028 KamiHW.CouplingFsmJoin <> join_iter def
+R23030:23030 KamiHW.CouplingFsmJoin <> n:178 var
+R23032:23032 KamiHW.CouplingFsmJoin <> c:179 var
+R23037:23050 KamiHW.HWBoundary <> hw_minstret_lo proj
+R23052:23052 KamiHW.CouplingFsmJoin <> c:179 var
+R23113:23121 KamiHW.CouplingFsmJoin <> join_iter def
+R23143:23166 KamiHW.CouplingFsmJoin <> mcjoin_keeps_minstret_lo thm
+R23143:23166 KamiHW.CouplingFsmJoin <> mcjoin_keeps_minstret_lo thm
+prf 23181:23207 <> join_iter_keeps_minstret_hi
+binder 23218:23218 <> n:180
+binder 23220:23220 <> c:181
+R23253:23255 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23223:23236 KamiHW.HWBoundary <> hw_minstret_hi proj
+R23239:23247 KamiHW.CouplingFsmJoin <> join_iter def
+R23249:23249 KamiHW.CouplingFsmJoin <> n:180 var
+R23251:23251 KamiHW.CouplingFsmJoin <> c:181 var
+R23256:23269 KamiHW.HWBoundary <> hw_minstret_hi proj
+R23271:23271 KamiHW.CouplingFsmJoin <> c:181 var
+R23332:23340 KamiHW.CouplingFsmJoin <> join_iter def
+R23362:23385 KamiHW.CouplingFsmJoin <> mcjoin_keeps_minstret_hi thm
+R23362:23385 KamiHW.CouplingFsmJoin <> mcjoin_keeps_minstret_hi thm
+prf 23400:23426 <> join_iter_keeps_trap_vector
+binder 23437:23437 <> n:182
+binder 23439:23439 <> c:183
+R23472:23474 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23442:23455 KamiHW.HWBoundary <> hw_trap_vector proj
+R23458:23466 KamiHW.CouplingFsmJoin <> join_iter def
+R23468:23468 KamiHW.CouplingFsmJoin <> n:182 var
+R23470:23470 KamiHW.CouplingFsmJoin <> c:183 var
+R23475:23488 KamiHW.HWBoundary <> hw_trap_vector proj
+R23490:23490 KamiHW.CouplingFsmJoin <> c:183 var
+R23551:23559 KamiHW.CouplingFsmJoin <> join_iter def
+R23581:23604 KamiHW.CouplingFsmJoin <> mcjoin_keeps_trap_vector thm
+R23581:23604 KamiHW.CouplingFsmJoin <> mcjoin_keeps_trap_vector thm
+prf 23619:23643 <> join_iter_keeps_certified
+binder 23654:23654 <> n:184
+binder 23656:23656 <> c:185
+R23687:23689 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23659:23670 KamiHW.HWBoundary <> hw_certified proj
+R23673:23681 KamiHW.CouplingFsmJoin <> join_iter def
+R23683:23683 KamiHW.CouplingFsmJoin <> n:184 var
+R23685:23685 KamiHW.CouplingFsmJoin <> c:185 var
+R23690:23701 KamiHW.HWBoundary <> hw_certified proj
+R23703:23703 KamiHW.CouplingFsmJoin <> c:185 var
+R23764:23772 KamiHW.CouplingFsmJoin <> join_iter def
+R23794:23815 KamiHW.CouplingFsmJoin <> mcjoin_keeps_certified thm
+R23794:23815 KamiHW.CouplingFsmJoin <> mcjoin_keeps_certified thm
+prf 23830:23858 <> join_iter_keeps_lassert_phase
+binder 23869:23869 <> n:186
+binder 23871:23871 <> c:187
+R23906:23908 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23874:23889 KamiHW.HWBoundary <> hw_lassert_phase proj
+R23892:23900 KamiHW.CouplingFsmJoin <> join_iter def
+R23902:23902 KamiHW.CouplingFsmJoin <> n:186 var
+R23904:23904 KamiHW.CouplingFsmJoin <> c:187 var
+R23909:23924 KamiHW.HWBoundary <> hw_lassert_phase proj
+R23926:23926 KamiHW.CouplingFsmJoin <> c:187 var
+R23987:23995 KamiHW.CouplingFsmJoin <> join_iter def
+R24017:24042 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_phase thm
+R24017:24042 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_phase thm
+prf 24057:24084 <> join_iter_keeps_lassert_kind
+binder 24095:24095 <> n:188
+binder 24097:24097 <> c:189
+R24131:24133 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24100:24114 KamiHW.HWBoundary <> hw_lassert_kind proj
+R24117:24125 KamiHW.CouplingFsmJoin <> join_iter def
+R24127:24127 KamiHW.CouplingFsmJoin <> n:188 var
+R24129:24129 KamiHW.CouplingFsmJoin <> c:189 var
+R24134:24148 KamiHW.HWBoundary <> hw_lassert_kind proj
+R24150:24150 KamiHW.CouplingFsmJoin <> c:189 var
+R24211:24219 KamiHW.CouplingFsmJoin <> join_iter def
+R24241:24265 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_kind thm
+R24241:24265 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_kind thm
+prf 24280:24308 <> join_iter_keeps_lassert_fbase
+binder 24319:24319 <> n:190
+binder 24321:24321 <> c:191
+R24356:24358 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24324:24339 KamiHW.HWBoundary <> hw_lassert_fbase proj
+R24342:24350 KamiHW.CouplingFsmJoin <> join_iter def
+R24352:24352 KamiHW.CouplingFsmJoin <> n:190 var
+R24354:24354 KamiHW.CouplingFsmJoin <> c:191 var
+R24359:24374 KamiHW.HWBoundary <> hw_lassert_fbase proj
+R24376:24376 KamiHW.CouplingFsmJoin <> c:191 var
+R24437:24445 KamiHW.CouplingFsmJoin <> join_iter def
+R24467:24492 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_fbase thm
+R24467:24492 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_fbase thm
+prf 24507:24535 <> join_iter_keeps_lassert_cbase
+binder 24546:24546 <> n:192
+binder 24548:24548 <> c:193
+R24583:24585 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24551:24566 KamiHW.HWBoundary <> hw_lassert_cbase proj
+R24569:24577 KamiHW.CouplingFsmJoin <> join_iter def
+R24579:24579 KamiHW.CouplingFsmJoin <> n:192 var
+R24581:24581 KamiHW.CouplingFsmJoin <> c:193 var
+R24586:24601 KamiHW.HWBoundary <> hw_lassert_cbase proj
+R24603:24603 KamiHW.CouplingFsmJoin <> c:193 var
+R24664:24672 KamiHW.CouplingFsmJoin <> join_iter def
+R24694:24719 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_cbase thm
+R24694:24719 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_cbase thm
+prf 24734:24761 <> join_iter_keeps_lassert_flen
+binder 24772:24772 <> n:194
+binder 24774:24774 <> c:195
+R24808:24810 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24777:24791 KamiHW.HWBoundary <> hw_lassert_flen proj
+R24794:24802 KamiHW.CouplingFsmJoin <> join_iter def
+R24804:24804 KamiHW.CouplingFsmJoin <> n:194 var
+R24806:24806 KamiHW.CouplingFsmJoin <> c:195 var
+R24811:24825 KamiHW.HWBoundary <> hw_lassert_flen proj
+R24827:24827 KamiHW.CouplingFsmJoin <> c:195 var
+R24888:24896 KamiHW.CouplingFsmJoin <> join_iter def
+R24918:24942 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_flen thm
+R24918:24942 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_flen thm
+prf 24957:24984 <> join_iter_keeps_lassert_clen
+binder 24995:24995 <> n:196
+binder 24997:24997 <> c:197
+R25031:25033 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25000:25014 KamiHW.HWBoundary <> hw_lassert_clen proj
+R25017:25025 KamiHW.CouplingFsmJoin <> join_iter def
+R25027:25027 KamiHW.CouplingFsmJoin <> n:196 var
+R25029:25029 KamiHW.CouplingFsmJoin <> c:197 var
+R25034:25048 KamiHW.HWBoundary <> hw_lassert_clen proj
+R25050:25050 KamiHW.CouplingFsmJoin <> c:197 var
+R25111:25119 KamiHW.CouplingFsmJoin <> join_iter def
+R25141:25165 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_clen thm
+R25141:25165 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_clen thm
+prf 25180:25208 <> join_iter_keeps_lassert_nvars
+binder 25219:25219 <> n:198
+binder 25221:25221 <> c:199
+R25256:25258 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25224:25239 KamiHW.HWBoundary <> hw_lassert_nvars proj
+R25242:25250 KamiHW.CouplingFsmJoin <> join_iter def
+R25252:25252 KamiHW.CouplingFsmJoin <> n:198 var
+R25254:25254 KamiHW.CouplingFsmJoin <> c:199 var
+R25259:25274 KamiHW.HWBoundary <> hw_lassert_nvars proj
+R25276:25276 KamiHW.CouplingFsmJoin <> c:199 var
+R25337:25345 KamiHW.CouplingFsmJoin <> join_iter def
+R25367:25392 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_nvars thm
+R25367:25392 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_nvars thm
+prf 25407:25434 <> join_iter_keeps_lassert_fptr
+binder 25445:25445 <> n:200
+binder 25447:25447 <> c:201
+R25481:25483 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25450:25464 KamiHW.HWBoundary <> hw_lassert_fptr proj
+R25467:25475 KamiHW.CouplingFsmJoin <> join_iter def
+R25477:25477 KamiHW.CouplingFsmJoin <> n:200 var
+R25479:25479 KamiHW.CouplingFsmJoin <> c:201 var
+R25484:25498 KamiHW.HWBoundary <> hw_lassert_fptr proj
+R25500:25500 KamiHW.CouplingFsmJoin <> c:201 var
+R25561:25569 KamiHW.CouplingFsmJoin <> join_iter def
+R25591:25615 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_fptr thm
+R25591:25615 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_fptr thm
+prf 25630:25657 <> join_iter_keeps_lassert_cptr
+binder 25668:25668 <> n:202
+binder 25670:25670 <> c:203
+R25704:25706 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25673:25687 KamiHW.HWBoundary <> hw_lassert_cptr proj
+R25690:25698 KamiHW.CouplingFsmJoin <> join_iter def
+R25700:25700 KamiHW.CouplingFsmJoin <> n:202 var
+R25702:25702 KamiHW.CouplingFsmJoin <> c:203 var
+R25707:25721 KamiHW.HWBoundary <> hw_lassert_cptr proj
+R25723:25723 KamiHW.CouplingFsmJoin <> c:203 var
+R25784:25792 KamiHW.CouplingFsmJoin <> join_iter def
+R25814:25838 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_cptr thm
+R25814:25838 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_cptr thm
+prf 25853:25880 <> join_iter_keeps_lassert_fbuf
+binder 25891:25891 <> n:204
+binder 25893:25893 <> c:205
+R25927:25929 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25896:25910 KamiHW.HWBoundary <> hw_lassert_fbuf proj
+R25913:25921 KamiHW.CouplingFsmJoin <> join_iter def
+R25923:25923 KamiHW.CouplingFsmJoin <> n:204 var
+R25925:25925 KamiHW.CouplingFsmJoin <> c:205 var
+R25930:25944 KamiHW.HWBoundary <> hw_lassert_fbuf proj
+R25946:25946 KamiHW.CouplingFsmJoin <> c:205 var
+R26007:26015 KamiHW.CouplingFsmJoin <> join_iter def
+R26037:26061 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_fbuf thm
+R26037:26061 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_fbuf thm
+prf 26076:26103 <> join_iter_keeps_lassert_cbuf
+binder 26114:26114 <> n:206
+binder 26116:26116 <> c:207
+R26150:26152 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26119:26133 KamiHW.HWBoundary <> hw_lassert_cbuf proj
+R26136:26144 KamiHW.CouplingFsmJoin <> join_iter def
+R26146:26146 KamiHW.CouplingFsmJoin <> n:206 var
+R26148:26148 KamiHW.CouplingFsmJoin <> c:207 var
+R26153:26167 KamiHW.HWBoundary <> hw_lassert_cbuf proj
+R26169:26169 KamiHW.CouplingFsmJoin <> c:207 var
+R26230:26238 KamiHW.CouplingFsmJoin <> join_iter def
+R26260:26284 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_cbuf thm
+R26260:26284 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_cbuf thm
+prf 26299:26332 <> join_iter_keeps_lassert_clause_sat
+binder 26343:26343 <> n:208
+binder 26345:26345 <> c:209
+R26385:26387 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26348:26368 KamiHW.HWBoundary <> hw_lassert_clause_sat proj
+R26371:26379 KamiHW.CouplingFsmJoin <> join_iter def
+R26381:26381 KamiHW.CouplingFsmJoin <> n:208 var
+R26383:26383 KamiHW.CouplingFsmJoin <> c:209 var
+R26388:26408 KamiHW.HWBoundary <> hw_lassert_clause_sat proj
+R26410:26410 KamiHW.CouplingFsmJoin <> c:209 var
+R26471:26479 KamiHW.CouplingFsmJoin <> join_iter def
+R26501:26531 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_clause_sat thm
+R26501:26531 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_clause_sat thm
+prf 26546:26587 <> join_iter_keeps_lassert_counter_clause_sat
+binder 26598:26598 <> n:210
+binder 26600:26600 <> c:211
+R26648:26650 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26603:26631 KamiHW.HWBoundary <> hw_lassert_counter_clause_sat proj
+R26634:26642 KamiHW.CouplingFsmJoin <> join_iter def
+R26644:26644 KamiHW.CouplingFsmJoin <> n:210 var
+R26646:26646 KamiHW.CouplingFsmJoin <> c:211 var
+R26651:26679 KamiHW.HWBoundary <> hw_lassert_counter_clause_sat proj
+R26681:26681 KamiHW.CouplingFsmJoin <> c:211 var
+R26742:26750 KamiHW.CouplingFsmJoin <> join_iter def
+R26772:26810 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_counter_clause_sat thm
+R26772:26810 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_counter_clause_sat thm
+prf 26825:26865 <> join_iter_keeps_lassert_counter_seen_fail
+binder 26876:26876 <> n:212
+binder 26878:26878 <> c:213
+R26925:26927 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26881:26908 KamiHW.HWBoundary <> hw_lassert_counter_seen_fail proj
+R26911:26919 KamiHW.CouplingFsmJoin <> join_iter def
+R26921:26921 KamiHW.CouplingFsmJoin <> n:212 var
+R26923:26923 KamiHW.CouplingFsmJoin <> c:213 var
+R26928:26955 KamiHW.HWBoundary <> hw_lassert_counter_seen_fail proj
+R26957:26957 KamiHW.CouplingFsmJoin <> c:213 var
+R27018:27026 KamiHW.CouplingFsmJoin <> join_iter def
+R27048:27085 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_counter_seen_fail thm
+R27048:27085 KamiHW.CouplingFsmJoin <> mcjoin_keeps_lassert_counter_seen_fail thm
+prf 27100:27125 <> join_iter_keeps_chsh_phase
+binder 27136:27136 <> n:214
+binder 27138:27138 <> c:215
+R27170:27172 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27141:27153 KamiHW.HWBoundary <> hw_chsh_phase proj
+R27156:27164 KamiHW.CouplingFsmJoin <> join_iter def
+R27166:27166 KamiHW.CouplingFsmJoin <> n:214 var
+R27168:27168 KamiHW.CouplingFsmJoin <> c:215 var
+R27173:27185 KamiHW.HWBoundary <> hw_chsh_phase proj
+R27187:27187 KamiHW.CouplingFsmJoin <> c:215 var
+R27248:27256 KamiHW.CouplingFsmJoin <> join_iter def
+R27278:27300 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_phase thm
+R27278:27300 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_phase thm
+prf 27315:27338 <> join_iter_keeps_chsh_n00
+binder 27349:27349 <> n:216
+binder 27351:27351 <> c:217
+R27381:27383 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27354:27364 KamiHW.HWBoundary <> hw_chsh_n00 proj
+R27367:27375 KamiHW.CouplingFsmJoin <> join_iter def
+R27377:27377 KamiHW.CouplingFsmJoin <> n:216 var
+R27379:27379 KamiHW.CouplingFsmJoin <> c:217 var
+R27384:27394 KamiHW.HWBoundary <> hw_chsh_n00 proj
+R27396:27396 KamiHW.CouplingFsmJoin <> c:217 var
+R27457:27465 KamiHW.CouplingFsmJoin <> join_iter def
+R27487:27507 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n00 thm
+R27487:27507 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n00 thm
+prf 27522:27545 <> join_iter_keeps_chsh_n01
+binder 27556:27556 <> n:218
+binder 27558:27558 <> c:219
+R27588:27590 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27561:27571 KamiHW.HWBoundary <> hw_chsh_n01 proj
+R27574:27582 KamiHW.CouplingFsmJoin <> join_iter def
+R27584:27584 KamiHW.CouplingFsmJoin <> n:218 var
+R27586:27586 KamiHW.CouplingFsmJoin <> c:219 var
+R27591:27601 KamiHW.HWBoundary <> hw_chsh_n01 proj
+R27603:27603 KamiHW.CouplingFsmJoin <> c:219 var
+R27664:27672 KamiHW.CouplingFsmJoin <> join_iter def
+R27694:27714 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n01 thm
+R27694:27714 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n01 thm
+prf 27729:27752 <> join_iter_keeps_chsh_n10
+binder 27763:27763 <> n:220
+binder 27765:27765 <> c:221
+R27795:27797 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27768:27778 KamiHW.HWBoundary <> hw_chsh_n10 proj
+R27781:27789 KamiHW.CouplingFsmJoin <> join_iter def
+R27791:27791 KamiHW.CouplingFsmJoin <> n:220 var
+R27793:27793 KamiHW.CouplingFsmJoin <> c:221 var
+R27798:27808 KamiHW.HWBoundary <> hw_chsh_n10 proj
+R27810:27810 KamiHW.CouplingFsmJoin <> c:221 var
+R27871:27879 KamiHW.CouplingFsmJoin <> join_iter def
+R27901:27921 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n10 thm
+R27901:27921 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n10 thm
+prf 27936:27959 <> join_iter_keeps_chsh_n11
+binder 27970:27970 <> n:222
+binder 27972:27972 <> c:223
+R28002:28004 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27975:27985 KamiHW.HWBoundary <> hw_chsh_n11 proj
+R27988:27996 KamiHW.CouplingFsmJoin <> join_iter def
+R27998:27998 KamiHW.CouplingFsmJoin <> n:222 var
+R28000:28000 KamiHW.CouplingFsmJoin <> c:223 var
+R28005:28015 KamiHW.HWBoundary <> hw_chsh_n11 proj
+R28017:28017 KamiHW.CouplingFsmJoin <> c:223 var
+R28078:28086 KamiHW.CouplingFsmJoin <> join_iter def
+R28108:28128 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n11 thm
+R28108:28128 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n11 thm
+prf 28143:28166 <> join_iter_keeps_chsh_d00
+binder 28177:28177 <> n:224
+binder 28179:28179 <> c:225
+R28209:28211 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28182:28192 KamiHW.HWBoundary <> hw_chsh_d00 proj
+R28195:28203 KamiHW.CouplingFsmJoin <> join_iter def
+R28205:28205 KamiHW.CouplingFsmJoin <> n:224 var
+R28207:28207 KamiHW.CouplingFsmJoin <> c:225 var
+R28212:28222 KamiHW.HWBoundary <> hw_chsh_d00 proj
+R28224:28224 KamiHW.CouplingFsmJoin <> c:225 var
+R28285:28293 KamiHW.CouplingFsmJoin <> join_iter def
+R28315:28335 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d00 thm
+R28315:28335 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d00 thm
+prf 28350:28373 <> join_iter_keeps_chsh_d01
+binder 28384:28384 <> n:226
+binder 28386:28386 <> c:227
+R28416:28418 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28389:28399 KamiHW.HWBoundary <> hw_chsh_d01 proj
+R28402:28410 KamiHW.CouplingFsmJoin <> join_iter def
+R28412:28412 KamiHW.CouplingFsmJoin <> n:226 var
+R28414:28414 KamiHW.CouplingFsmJoin <> c:227 var
+R28419:28429 KamiHW.HWBoundary <> hw_chsh_d01 proj
+R28431:28431 KamiHW.CouplingFsmJoin <> c:227 var
+R28492:28500 KamiHW.CouplingFsmJoin <> join_iter def
+R28522:28542 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d01 thm
+R28522:28542 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d01 thm
+prf 28557:28580 <> join_iter_keeps_chsh_d10
+binder 28591:28591 <> n:228
+binder 28593:28593 <> c:229
+R28623:28625 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28596:28606 KamiHW.HWBoundary <> hw_chsh_d10 proj
+R28609:28617 KamiHW.CouplingFsmJoin <> join_iter def
+R28619:28619 KamiHW.CouplingFsmJoin <> n:228 var
+R28621:28621 KamiHW.CouplingFsmJoin <> c:229 var
+R28626:28636 KamiHW.HWBoundary <> hw_chsh_d10 proj
+R28638:28638 KamiHW.CouplingFsmJoin <> c:229 var
+R28699:28707 KamiHW.CouplingFsmJoin <> join_iter def
+R28729:28749 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d10 thm
+R28729:28749 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d10 thm
+prf 28764:28787 <> join_iter_keeps_chsh_d11
+binder 28798:28798 <> n:230
+binder 28800:28800 <> c:231
+R28830:28832 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28803:28813 KamiHW.HWBoundary <> hw_chsh_d11 proj
+R28816:28824 KamiHW.CouplingFsmJoin <> join_iter def
+R28826:28826 KamiHW.CouplingFsmJoin <> n:230 var
+R28828:28828 KamiHW.CouplingFsmJoin <> c:231 var
+R28833:28843 KamiHW.HWBoundary <> hw_chsh_d11 proj
+R28845:28845 KamiHW.CouplingFsmJoin <> c:231 var
+R28906:28914 KamiHW.CouplingFsmJoin <> join_iter def
+R28936:28956 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d11 thm
+R28936:28956 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d11 thm
+prf 28971:28997 <> join_iter_keeps_chsh_sign00
+binder 29008:29008 <> n:232
+binder 29010:29010 <> c:233
+R29043:29045 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29013:29026 KamiHW.HWBoundary <> hw_chsh_sign00 proj
+R29029:29037 KamiHW.CouplingFsmJoin <> join_iter def
+R29039:29039 KamiHW.CouplingFsmJoin <> n:232 var
+R29041:29041 KamiHW.CouplingFsmJoin <> c:233 var
+R29046:29059 KamiHW.HWBoundary <> hw_chsh_sign00 proj
+R29061:29061 KamiHW.CouplingFsmJoin <> c:233 var
+R29122:29130 KamiHW.CouplingFsmJoin <> join_iter def
+R29152:29175 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_sign00 thm
+R29152:29175 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_sign00 thm
+prf 29190:29216 <> join_iter_keeps_chsh_sign01
+binder 29227:29227 <> n:234
+binder 29229:29229 <> c:235
+R29262:29264 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29232:29245 KamiHW.HWBoundary <> hw_chsh_sign01 proj
+R29248:29256 KamiHW.CouplingFsmJoin <> join_iter def
+R29258:29258 KamiHW.CouplingFsmJoin <> n:234 var
+R29260:29260 KamiHW.CouplingFsmJoin <> c:235 var
+R29265:29278 KamiHW.HWBoundary <> hw_chsh_sign01 proj
+R29280:29280 KamiHW.CouplingFsmJoin <> c:235 var
+R29341:29349 KamiHW.CouplingFsmJoin <> join_iter def
+R29371:29394 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_sign01 thm
+R29371:29394 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_sign01 thm
+prf 29409:29435 <> join_iter_keeps_chsh_sign10
+binder 29446:29446 <> n:236
+binder 29448:29448 <> c:237
+R29481:29483 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29451:29464 KamiHW.HWBoundary <> hw_chsh_sign10 proj
+R29467:29475 KamiHW.CouplingFsmJoin <> join_iter def
+R29477:29477 KamiHW.CouplingFsmJoin <> n:236 var
+R29479:29479 KamiHW.CouplingFsmJoin <> c:237 var
+R29484:29497 KamiHW.HWBoundary <> hw_chsh_sign10 proj
+R29499:29499 KamiHW.CouplingFsmJoin <> c:237 var
+R29560:29568 KamiHW.CouplingFsmJoin <> join_iter def
+R29590:29613 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_sign10 thm
+R29590:29613 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_sign10 thm
+prf 29628:29654 <> join_iter_keeps_chsh_sign11
+binder 29665:29665 <> n:238
+binder 29667:29667 <> c:239
+R29700:29702 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29670:29683 KamiHW.HWBoundary <> hw_chsh_sign11 proj
+R29686:29694 KamiHW.CouplingFsmJoin <> join_iter def
+R29696:29696 KamiHW.CouplingFsmJoin <> n:238 var
+R29698:29698 KamiHW.CouplingFsmJoin <> c:239 var
+R29703:29716 KamiHW.HWBoundary <> hw_chsh_sign11 proj
+R29718:29718 KamiHW.CouplingFsmJoin <> c:239 var
+R29779:29787 KamiHW.CouplingFsmJoin <> join_iter def
+R29809:29832 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_sign11 thm
+R29809:29832 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_sign11 thm
+prf 29847:29872 <> join_iter_keeps_chsh_n00sq
+binder 29883:29883 <> n:240
+binder 29885:29885 <> c:241
+R29917:29919 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29888:29900 KamiHW.HWBoundary <> hw_chsh_n00sq proj
+R29903:29911 KamiHW.CouplingFsmJoin <> join_iter def
+R29913:29913 KamiHW.CouplingFsmJoin <> n:240 var
+R29915:29915 KamiHW.CouplingFsmJoin <> c:241 var
+R29920:29932 KamiHW.HWBoundary <> hw_chsh_n00sq proj
+R29934:29934 KamiHW.CouplingFsmJoin <> c:241 var
+R29995:30003 KamiHW.CouplingFsmJoin <> join_iter def
+R30025:30047 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n00sq thm
+R30025:30047 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n00sq thm
+prf 30062:30087 <> join_iter_keeps_chsh_n01sq
+binder 30098:30098 <> n:242
+binder 30100:30100 <> c:243
+R30132:30134 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30103:30115 KamiHW.HWBoundary <> hw_chsh_n01sq proj
+R30118:30126 KamiHW.CouplingFsmJoin <> join_iter def
+R30128:30128 KamiHW.CouplingFsmJoin <> n:242 var
+R30130:30130 KamiHW.CouplingFsmJoin <> c:243 var
+R30135:30147 KamiHW.HWBoundary <> hw_chsh_n01sq proj
+R30149:30149 KamiHW.CouplingFsmJoin <> c:243 var
+R30210:30218 KamiHW.CouplingFsmJoin <> join_iter def
+R30240:30262 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n01sq thm
+R30240:30262 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n01sq thm
+prf 30277:30302 <> join_iter_keeps_chsh_n10sq
+binder 30313:30313 <> n:244
+binder 30315:30315 <> c:245
+R30347:30349 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30318:30330 KamiHW.HWBoundary <> hw_chsh_n10sq proj
+R30333:30341 KamiHW.CouplingFsmJoin <> join_iter def
+R30343:30343 KamiHW.CouplingFsmJoin <> n:244 var
+R30345:30345 KamiHW.CouplingFsmJoin <> c:245 var
+R30350:30362 KamiHW.HWBoundary <> hw_chsh_n10sq proj
+R30364:30364 KamiHW.CouplingFsmJoin <> c:245 var
+R30425:30433 KamiHW.CouplingFsmJoin <> join_iter def
+R30455:30477 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n10sq thm
+R30455:30477 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n10sq thm
+prf 30492:30517 <> join_iter_keeps_chsh_n11sq
+binder 30528:30528 <> n:246
+binder 30530:30530 <> c:247
+R30562:30564 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30533:30545 KamiHW.HWBoundary <> hw_chsh_n11sq proj
+R30548:30556 KamiHW.CouplingFsmJoin <> join_iter def
+R30558:30558 KamiHW.CouplingFsmJoin <> n:246 var
+R30560:30560 KamiHW.CouplingFsmJoin <> c:247 var
+R30565:30577 KamiHW.HWBoundary <> hw_chsh_n11sq proj
+R30579:30579 KamiHW.CouplingFsmJoin <> c:247 var
+R30640:30648 KamiHW.CouplingFsmJoin <> join_iter def
+R30670:30692 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n11sq thm
+R30670:30692 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n11sq thm
+prf 30707:30732 <> join_iter_keeps_chsh_d00sq
+binder 30743:30743 <> n:248
+binder 30745:30745 <> c:249
+R30777:30779 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30748:30760 KamiHW.HWBoundary <> hw_chsh_d00sq proj
+R30763:30771 KamiHW.CouplingFsmJoin <> join_iter def
+R30773:30773 KamiHW.CouplingFsmJoin <> n:248 var
+R30775:30775 KamiHW.CouplingFsmJoin <> c:249 var
+R30780:30792 KamiHW.HWBoundary <> hw_chsh_d00sq proj
+R30794:30794 KamiHW.CouplingFsmJoin <> c:249 var
+R30855:30863 KamiHW.CouplingFsmJoin <> join_iter def
+R30885:30907 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d00sq thm
+R30885:30907 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d00sq thm
+prf 30922:30947 <> join_iter_keeps_chsh_d01sq
+binder 30958:30958 <> n:250
+binder 30960:30960 <> c:251
+R30992:30994 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30963:30975 KamiHW.HWBoundary <> hw_chsh_d01sq proj
+R30978:30986 KamiHW.CouplingFsmJoin <> join_iter def
+R30988:30988 KamiHW.CouplingFsmJoin <> n:250 var
+R30990:30990 KamiHW.CouplingFsmJoin <> c:251 var
+R30995:31007 KamiHW.HWBoundary <> hw_chsh_d01sq proj
+R31009:31009 KamiHW.CouplingFsmJoin <> c:251 var
+R31070:31078 KamiHW.CouplingFsmJoin <> join_iter def
+R31100:31122 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d01sq thm
+R31100:31122 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d01sq thm
+prf 31137:31162 <> join_iter_keeps_chsh_d10sq
+binder 31173:31173 <> n:252
+binder 31175:31175 <> c:253
+R31207:31209 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R31178:31190 KamiHW.HWBoundary <> hw_chsh_d10sq proj
+R31193:31201 KamiHW.CouplingFsmJoin <> join_iter def
+R31203:31203 KamiHW.CouplingFsmJoin <> n:252 var
+R31205:31205 KamiHW.CouplingFsmJoin <> c:253 var
+R31210:31222 KamiHW.HWBoundary <> hw_chsh_d10sq proj
+R31224:31224 KamiHW.CouplingFsmJoin <> c:253 var
+R31285:31293 KamiHW.CouplingFsmJoin <> join_iter def
+R31315:31337 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d10sq thm
+R31315:31337 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d10sq thm
+prf 31352:31377 <> join_iter_keeps_chsh_d11sq
+binder 31388:31388 <> n:254
+binder 31390:31390 <> c:255
+R31422:31424 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R31393:31405 KamiHW.HWBoundary <> hw_chsh_d11sq proj
+R31408:31416 KamiHW.CouplingFsmJoin <> join_iter def
+R31418:31418 KamiHW.CouplingFsmJoin <> n:254 var
+R31420:31420 KamiHW.CouplingFsmJoin <> c:255 var
+R31425:31437 KamiHW.HWBoundary <> hw_chsh_d11sq proj
+R31439:31439 KamiHW.CouplingFsmJoin <> c:255 var
+R31500:31508 KamiHW.CouplingFsmJoin <> join_iter def
+R31530:31552 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d11sq thm
+R31530:31552 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d11sq thm
+prf 31567:31592 <> join_iter_keeps_chsh_A_pos
+binder 31603:31603 <> n:256
+binder 31605:31605 <> c:257
+R31637:31639 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R31608:31620 KamiHW.HWBoundary <> hw_chsh_A_pos proj
+R31623:31631 KamiHW.CouplingFsmJoin <> join_iter def
+R31633:31633 KamiHW.CouplingFsmJoin <> n:256 var
+R31635:31635 KamiHW.CouplingFsmJoin <> c:257 var
+R31640:31652 KamiHW.HWBoundary <> hw_chsh_A_pos proj
+R31654:31654 KamiHW.CouplingFsmJoin <> c:257 var
+R31715:31723 KamiHW.CouplingFsmJoin <> join_iter def
+R31745:31767 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_A_pos thm
+R31745:31767 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_A_pos thm
+prf 31782:31809 <> join_iter_keeps_chsh_A_neg_a
+binder 31820:31820 <> n:258
+binder 31822:31822 <> c:259
+R31856:31858 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R31825:31839 KamiHW.HWBoundary <> hw_chsh_A_neg_a proj
+R31842:31850 KamiHW.CouplingFsmJoin <> join_iter def
+R31852:31852 KamiHW.CouplingFsmJoin <> n:258 var
+R31854:31854 KamiHW.CouplingFsmJoin <> c:259 var
+R31859:31873 KamiHW.HWBoundary <> hw_chsh_A_neg_a proj
+R31875:31875 KamiHW.CouplingFsmJoin <> c:259 var
+R31936:31944 KamiHW.CouplingFsmJoin <> join_iter def
+R31966:31990 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_A_neg_a thm
+R31966:31990 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_A_neg_a thm
+prf 32005:32032 <> join_iter_keeps_chsh_A_neg_b
+binder 32043:32043 <> n:260
+binder 32045:32045 <> c:261
+R32079:32081 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32048:32062 KamiHW.HWBoundary <> hw_chsh_A_neg_b proj
+R32065:32073 KamiHW.CouplingFsmJoin <> join_iter def
+R32075:32075 KamiHW.CouplingFsmJoin <> n:260 var
+R32077:32077 KamiHW.CouplingFsmJoin <> c:261 var
+R32082:32096 KamiHW.HWBoundary <> hw_chsh_A_neg_b proj
+R32098:32098 KamiHW.CouplingFsmJoin <> c:261 var
+R32159:32167 KamiHW.CouplingFsmJoin <> join_iter def
+R32189:32213 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_A_neg_b thm
+R32189:32213 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_A_neg_b thm
+prf 32228:32253 <> join_iter_keeps_chsh_B_pos
+binder 32264:32264 <> n:262
+binder 32266:32266 <> c:263
+R32298:32300 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32269:32281 KamiHW.HWBoundary <> hw_chsh_B_pos proj
+R32284:32292 KamiHW.CouplingFsmJoin <> join_iter def
+R32294:32294 KamiHW.CouplingFsmJoin <> n:262 var
+R32296:32296 KamiHW.CouplingFsmJoin <> c:263 var
+R32301:32313 KamiHW.HWBoundary <> hw_chsh_B_pos proj
+R32315:32315 KamiHW.CouplingFsmJoin <> c:263 var
+R32376:32384 KamiHW.CouplingFsmJoin <> join_iter def
+R32406:32428 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_B_pos thm
+R32406:32428 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_B_pos thm
+prf 32443:32470 <> join_iter_keeps_chsh_B_neg_a
+binder 32481:32481 <> n:264
+binder 32483:32483 <> c:265
+R32517:32519 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32486:32500 KamiHW.HWBoundary <> hw_chsh_B_neg_a proj
+R32503:32511 KamiHW.CouplingFsmJoin <> join_iter def
+R32513:32513 KamiHW.CouplingFsmJoin <> n:264 var
+R32515:32515 KamiHW.CouplingFsmJoin <> c:265 var
+R32520:32534 KamiHW.HWBoundary <> hw_chsh_B_neg_a proj
+R32536:32536 KamiHW.CouplingFsmJoin <> c:265 var
+R32597:32605 KamiHW.CouplingFsmJoin <> join_iter def
+R32627:32651 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_B_neg_a thm
+R32627:32651 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_B_neg_a thm
+prf 32666:32693 <> join_iter_keeps_chsh_B_neg_b
+binder 32704:32704 <> n:266
+binder 32706:32706 <> c:267
+R32740:32742 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32709:32723 KamiHW.HWBoundary <> hw_chsh_B_neg_b proj
+R32726:32734 KamiHW.CouplingFsmJoin <> join_iter def
+R32736:32736 KamiHW.CouplingFsmJoin <> n:266 var
+R32738:32738 KamiHW.CouplingFsmJoin <> c:267 var
+R32743:32757 KamiHW.HWBoundary <> hw_chsh_B_neg_b proj
+R32759:32759 KamiHW.CouplingFsmJoin <> c:267 var
+R32820:32828 KamiHW.CouplingFsmJoin <> join_iter def
+R32850:32874 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_B_neg_b thm
+R32850:32874 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_B_neg_b thm
+prf 32889:32915 <> join_iter_keeps_chsh_d00d01
+binder 32926:32926 <> n:268
+binder 32928:32928 <> c:269
+R32961:32963 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32931:32944 KamiHW.HWBoundary <> hw_chsh_d00d01 proj
+R32947:32955 KamiHW.CouplingFsmJoin <> join_iter def
+R32957:32957 KamiHW.CouplingFsmJoin <> n:268 var
+R32959:32959 KamiHW.CouplingFsmJoin <> c:269 var
+R32964:32977 KamiHW.HWBoundary <> hw_chsh_d00d01 proj
+R32979:32979 KamiHW.CouplingFsmJoin <> c:269 var
+R33040:33048 KamiHW.CouplingFsmJoin <> join_iter def
+R33070:33093 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d00d01 thm
+R33070:33093 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d00d01 thm
+prf 33108:33134 <> join_iter_keeps_chsh_n10n11
+binder 33145:33145 <> n:270
+binder 33147:33147 <> c:271
+R33180:33182 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33150:33163 KamiHW.HWBoundary <> hw_chsh_n10n11 proj
+R33166:33174 KamiHW.CouplingFsmJoin <> join_iter def
+R33176:33176 KamiHW.CouplingFsmJoin <> n:270 var
+R33178:33178 KamiHW.CouplingFsmJoin <> c:271 var
+R33183:33196 KamiHW.HWBoundary <> hw_chsh_n10n11 proj
+R33198:33198 KamiHW.CouplingFsmJoin <> c:271 var
+R33259:33267 KamiHW.CouplingFsmJoin <> join_iter def
+R33289:33312 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n10n11 thm
+R33289:33312 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n10n11 thm
+prf 33327:33353 <> join_iter_keeps_chsh_d10d11
+binder 33364:33364 <> n:272
+binder 33366:33366 <> c:273
+R33399:33401 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33369:33382 KamiHW.HWBoundary <> hw_chsh_d10d11 proj
+R33385:33393 KamiHW.CouplingFsmJoin <> join_iter def
+R33395:33395 KamiHW.CouplingFsmJoin <> n:272 var
+R33397:33397 KamiHW.CouplingFsmJoin <> c:273 var
+R33402:33415 KamiHW.HWBoundary <> hw_chsh_d10d11 proj
+R33417:33417 KamiHW.CouplingFsmJoin <> c:273 var
+R33478:33486 KamiHW.CouplingFsmJoin <> join_iter def
+R33508:33531 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d10d11 thm
+R33508:33531 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_d10d11 thm
+prf 33546:33572 <> join_iter_keeps_chsh_n00n01
+binder 33583:33583 <> n:274
+binder 33585:33585 <> c:275
+R33618:33620 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33588:33601 KamiHW.HWBoundary <> hw_chsh_n00n01 proj
+R33604:33612 KamiHW.CouplingFsmJoin <> join_iter def
+R33614:33614 KamiHW.CouplingFsmJoin <> n:274 var
+R33616:33616 KamiHW.CouplingFsmJoin <> c:275 var
+R33621:33634 KamiHW.HWBoundary <> hw_chsh_n00n01 proj
+R33636:33636 KamiHW.CouplingFsmJoin <> c:275 var
+R33697:33705 KamiHW.CouplingFsmJoin <> join_iter def
+R33727:33750 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n00n01 thm
+R33727:33750 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_n00n01 thm
+prf 33765:33791 <> join_iter_keeps_chsh_abs_C1
+binder 33802:33802 <> n:276
+binder 33804:33804 <> c:277
+R33837:33839 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33807:33820 KamiHW.HWBoundary <> hw_chsh_abs_C1 proj
+R33823:33831 KamiHW.CouplingFsmJoin <> join_iter def
+R33833:33833 KamiHW.CouplingFsmJoin <> n:276 var
+R33835:33835 KamiHW.CouplingFsmJoin <> c:277 var
+R33840:33853 KamiHW.HWBoundary <> hw_chsh_abs_C1 proj
+R33855:33855 KamiHW.CouplingFsmJoin <> c:277 var
+R33916:33924 KamiHW.CouplingFsmJoin <> join_iter def
+R33946:33969 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_abs_C1 thm
+R33946:33969 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_abs_C1 thm
+prf 33984:34010 <> join_iter_keeps_chsh_abs_C2
+binder 34021:34021 <> n:278
+binder 34023:34023 <> c:279
+R34056:34058 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34026:34039 KamiHW.HWBoundary <> hw_chsh_abs_C2 proj
+R34042:34050 KamiHW.CouplingFsmJoin <> join_iter def
+R34052:34052 KamiHW.CouplingFsmJoin <> n:278 var
+R34054:34054 KamiHW.CouplingFsmJoin <> c:279 var
+R34059:34072 KamiHW.HWBoundary <> hw_chsh_abs_C2 proj
+R34074:34074 KamiHW.CouplingFsmJoin <> c:279 var
+R34135:34143 KamiHW.CouplingFsmJoin <> join_iter def
+R34165:34188 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_abs_C2 thm
+R34165:34188 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_abs_C2 thm
+prf 34203:34227 <> join_iter_keeps_chsh_C_sq
+binder 34238:34238 <> n:280
+binder 34240:34240 <> c:281
+R34271:34273 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34243:34254 KamiHW.HWBoundary <> hw_chsh_C_sq proj
+R34257:34265 KamiHW.CouplingFsmJoin <> join_iter def
+R34267:34267 KamiHW.CouplingFsmJoin <> n:280 var
+R34269:34269 KamiHW.CouplingFsmJoin <> c:281 var
+R34274:34285 KamiHW.HWBoundary <> hw_chsh_C_sq proj
+R34287:34287 KamiHW.CouplingFsmJoin <> c:281 var
+R34348:34356 KamiHW.CouplingFsmJoin <> join_iter def
+R34378:34399 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_C_sq thm
+R34378:34399 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_C_sq thm
+prf 34414:34443 <> join_iter_keeps_chsh_A_times_B
+binder 34454:34454 <> n:282
+binder 34456:34456 <> c:283
+R34492:34494 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34459:34475 KamiHW.HWBoundary <> hw_chsh_A_times_B proj
+R34478:34486 KamiHW.CouplingFsmJoin <> join_iter def
+R34488:34488 KamiHW.CouplingFsmJoin <> n:282 var
+R34490:34490 KamiHW.CouplingFsmJoin <> c:283 var
+R34495:34511 KamiHW.HWBoundary <> hw_chsh_A_times_B proj
+R34513:34513 KamiHW.CouplingFsmJoin <> c:283 var
+R34574:34582 KamiHW.CouplingFsmJoin <> join_iter def
+R34604:34630 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_A_times_B thm
+R34604:34630 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_A_times_B thm
+prf 34645:34677 <> join_iter_keeps_chsh_check_result
+binder 34688:34688 <> n:284
+binder 34690:34690 <> c:285
+R34729:34731 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34693:34712 KamiHW.HWBoundary <> hw_chsh_check_result proj
+R34715:34723 KamiHW.CouplingFsmJoin <> join_iter def
+R34725:34725 KamiHW.CouplingFsmJoin <> n:284 var
+R34727:34727 KamiHW.CouplingFsmJoin <> c:285 var
+R34732:34751 KamiHW.HWBoundary <> hw_chsh_check_result proj
+R34753:34753 KamiHW.CouplingFsmJoin <> c:285 var
+R34814:34822 KamiHW.CouplingFsmJoin <> join_iter def
+R34844:34873 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_check_result thm
+R34844:34873 KamiHW.CouplingFsmJoin <> mcjoin_keeps_chsh_check_result thm
+prf 34888:34922 <> join_iter_keeps_bus_load_instr_addr
+binder 34933:34933 <> n:286
+binder 34935:34935 <> c:287
+R34976:34978 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34938:34959 KamiHW.HWBoundary <> hw_bus_load_instr_addr proj
+R34962:34970 KamiHW.CouplingFsmJoin <> join_iter def
+R34972:34972 KamiHW.CouplingFsmJoin <> n:286 var
+R34974:34974 KamiHW.CouplingFsmJoin <> c:287 var
+R34979:35000 KamiHW.HWBoundary <> hw_bus_load_instr_addr proj
+R35002:35002 KamiHW.CouplingFsmJoin <> c:287 var
+R35063:35071 KamiHW.CouplingFsmJoin <> join_iter def
+R35093:35124 KamiHW.CouplingFsmJoin <> mcjoin_keeps_bus_load_instr_addr thm
+R35093:35124 KamiHW.CouplingFsmJoin <> mcjoin_keeps_bus_load_instr_addr thm
+prf 35139:35173 <> join_iter_keeps_bus_load_instr_data
+binder 35184:35184 <> n:288
+binder 35186:35186 <> c:289
+R35227:35229 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35189:35210 KamiHW.HWBoundary <> hw_bus_load_instr_data proj
+R35213:35221 KamiHW.CouplingFsmJoin <> join_iter def
+R35223:35223 KamiHW.CouplingFsmJoin <> n:288 var
+R35225:35225 KamiHW.CouplingFsmJoin <> c:289 var
+R35230:35251 KamiHW.HWBoundary <> hw_bus_load_instr_data proj
+R35253:35253 KamiHW.CouplingFsmJoin <> c:289 var
+R35314:35322 KamiHW.CouplingFsmJoin <> join_iter def
+R35344:35375 KamiHW.CouplingFsmJoin <> mcjoin_keeps_bus_load_instr_data thm
+R35344:35375 KamiHW.CouplingFsmJoin <> mcjoin_keeps_bus_load_instr_data thm
+prf 35390:35424 <> join_iter_keeps_bus_load_instr_kick
+binder 35435:35435 <> n:290
+binder 35437:35437 <> c:291
+R35478:35480 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35440:35461 KamiHW.HWBoundary <> hw_bus_load_instr_kick proj
+R35464:35472 KamiHW.CouplingFsmJoin <> join_iter def
+R35474:35474 KamiHW.CouplingFsmJoin <> n:290 var
+R35476:35476 KamiHW.CouplingFsmJoin <> c:291 var
+R35481:35502 KamiHW.HWBoundary <> hw_bus_load_instr_kick proj
+R35504:35504 KamiHW.CouplingFsmJoin <> c:291 var
+R35565:35573 KamiHW.CouplingFsmJoin <> join_iter def
+R35595:35626 KamiHW.CouplingFsmJoin <> mcjoin_keeps_bus_load_instr_kick thm
+R35595:35626 KamiHW.CouplingFsmJoin <> mcjoin_keeps_bus_load_instr_kick thm
+prf 35641:35665 <> join_iter_keeps_mu_tensor
+binder 35676:35676 <> n:292
+binder 35678:35678 <> c:293
+R35709:35711 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35681:35692 KamiHW.HWBoundary <> hw_mu_tensor proj
+R35695:35703 KamiHW.CouplingFsmJoin <> join_iter def
+R35705:35705 KamiHW.CouplingFsmJoin <> n:292 var
+R35707:35707 KamiHW.CouplingFsmJoin <> c:293 var
+R35712:35723 KamiHW.HWBoundary <> hw_mu_tensor proj
+R35725:35725 KamiHW.CouplingFsmJoin <> c:293 var
+R35786:35794 KamiHW.CouplingFsmJoin <> join_iter def
+R35816:35837 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mu_tensor thm
+R35816:35837 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mu_tensor thm
+prf 35852:35881 <> join_iter_keeps_module_tensors
+binder 35892:35892 <> n:294
+binder 35894:35894 <> c:295
+R35930:35932 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35897:35913 KamiHW.HWBoundary <> hw_module_tensors proj
+R35916:35924 KamiHW.CouplingFsmJoin <> join_iter def
+R35926:35926 KamiHW.CouplingFsmJoin <> n:294 var
+R35928:35928 KamiHW.CouplingFsmJoin <> c:295 var
+R35933:35949 KamiHW.HWBoundary <> hw_module_tensors proj
+R35951:35951 KamiHW.CouplingFsmJoin <> c:295 var
+R36012:36020 KamiHW.CouplingFsmJoin <> join_iter def
+R36042:36068 KamiHW.CouplingFsmJoin <> mcjoin_keeps_module_tensors thm
+R36042:36068 KamiHW.CouplingFsmJoin <> mcjoin_keeps_module_tensors thm
+prf 36083:36108 <> join_iter_keeps_csr_status
+binder 36119:36119 <> n:296
+binder 36121:36121 <> c:297
+R36153:36155 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36124:36136 KamiHW.HWBoundary <> hw_csr_status proj
+R36139:36147 KamiHW.CouplingFsmJoin <> join_iter def
+R36149:36149 KamiHW.CouplingFsmJoin <> n:296 var
+R36151:36151 KamiHW.CouplingFsmJoin <> c:297 var
+R36156:36168 KamiHW.HWBoundary <> hw_csr_status proj
+R36170:36170 KamiHW.CouplingFsmJoin <> c:297 var
+R36231:36239 KamiHW.CouplingFsmJoin <> join_iter def
+R36261:36283 KamiHW.CouplingFsmJoin <> mcjoin_keeps_csr_status thm
+R36261:36283 KamiHW.CouplingFsmJoin <> mcjoin_keeps_csr_status thm
+prf 36298:36326 <> join_iter_keeps_csr_heap_base
+binder 36337:36337 <> n:298
+binder 36339:36339 <> c:299
+R36374:36376 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36342:36357 KamiHW.HWBoundary <> hw_csr_heap_base proj
+R36360:36368 KamiHW.CouplingFsmJoin <> join_iter def
+R36370:36370 KamiHW.CouplingFsmJoin <> n:298 var
+R36372:36372 KamiHW.CouplingFsmJoin <> c:299 var
+R36377:36392 KamiHW.HWBoundary <> hw_csr_heap_base proj
+R36394:36394 KamiHW.CouplingFsmJoin <> c:299 var
+R36455:36463 KamiHW.CouplingFsmJoin <> join_iter def
+R36485:36510 KamiHW.CouplingFsmJoin <> mcjoin_keeps_csr_heap_base thm
+R36485:36510 KamiHW.CouplingFsmJoin <> mcjoin_keeps_csr_heap_base thm
+prf 36525:36547 <> join_iter_keeps_ptTable
+binder 36558:36558 <> n:300
+binder 36560:36560 <> c:301
+R36589:36591 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36563:36572 KamiHW.HWBoundary <> hw_ptTable proj
+R36575:36583 KamiHW.CouplingFsmJoin <> join_iter def
+R36585:36585 KamiHW.CouplingFsmJoin <> n:300 var
+R36587:36587 KamiHW.CouplingFsmJoin <> c:301 var
+R36592:36601 KamiHW.HWBoundary <> hw_ptTable proj
+R36603:36603 KamiHW.CouplingFsmJoin <> c:301 var
+R36664:36672 KamiHW.CouplingFsmJoin <> join_iter def
+R36694:36713 KamiHW.CouplingFsmJoin <> mcjoin_keeps_ptTable thm
+R36694:36713 KamiHW.CouplingFsmJoin <> mcjoin_keeps_ptTable thm
+prf 36728:36753 <> join_iter_keeps_pt_next_id
+binder 36764:36764 <> n:302
+binder 36766:36766 <> c:303
+R36798:36800 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36769:36781 KamiHW.HWBoundary <> hw_pt_next_id proj
+R36784:36792 KamiHW.CouplingFsmJoin <> join_iter def
+R36794:36794 KamiHW.CouplingFsmJoin <> n:302 var
+R36796:36796 KamiHW.CouplingFsmJoin <> c:303 var
+R36801:36813 KamiHW.HWBoundary <> hw_pt_next_id proj
+R36815:36815 KamiHW.CouplingFsmJoin <> c:303 var
+R36876:36884 KamiHW.CouplingFsmJoin <> join_iter def
+R36906:36928 KamiHW.CouplingFsmJoin <> mcjoin_keeps_pt_next_id thm
+R36906:36928 KamiHW.CouplingFsmJoin <> mcjoin_keeps_pt_next_id thm
+prf 36943:36973 <> join_iter_keeps_morph_src_table
+binder 36984:36984 <> n:304
+binder 36986:36986 <> c:305
+R37023:37025 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36989:37006 KamiHW.HWBoundary <> hw_morph_src_table proj
+R37009:37017 KamiHW.CouplingFsmJoin <> join_iter def
+R37019:37019 KamiHW.CouplingFsmJoin <> n:304 var
+R37021:37021 KamiHW.CouplingFsmJoin <> c:305 var
+R37026:37043 KamiHW.HWBoundary <> hw_morph_src_table proj
+R37045:37045 KamiHW.CouplingFsmJoin <> c:305 var
+R37106:37114 KamiHW.CouplingFsmJoin <> join_iter def
+R37136:37163 KamiHW.CouplingFsmJoin <> mcjoin_keeps_morph_src_table thm
+R37136:37163 KamiHW.CouplingFsmJoin <> mcjoin_keeps_morph_src_table thm
+prf 37178:37208 <> join_iter_keeps_morph_dst_table
+binder 37219:37219 <> n:306
+binder 37221:37221 <> c:307
+R37258:37260 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R37224:37241 KamiHW.HWBoundary <> hw_morph_dst_table proj
+R37244:37252 KamiHW.CouplingFsmJoin <> join_iter def
+R37254:37254 KamiHW.CouplingFsmJoin <> n:306 var
+R37256:37256 KamiHW.CouplingFsmJoin <> c:307 var
+R37261:37278 KamiHW.HWBoundary <> hw_morph_dst_table proj
+R37280:37280 KamiHW.CouplingFsmJoin <> c:307 var
+R37341:37349 KamiHW.CouplingFsmJoin <> join_iter def
+R37371:37398 KamiHW.CouplingFsmJoin <> mcjoin_keeps_morph_dst_table thm
+R37371:37398 KamiHW.CouplingFsmJoin <> mcjoin_keeps_morph_dst_table thm
+prf 37413:37453 <> join_iter_keeps_morph_coupling_desc_table
+binder 37464:37464 <> n:308
+binder 37466:37466 <> c:309
+R37513:37515 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R37469:37496 KamiHW.HWBoundary <> hw_morph_coupling_desc_table proj
+R37499:37507 KamiHW.CouplingFsmJoin <> join_iter def
+R37509:37509 KamiHW.CouplingFsmJoin <> n:308 var
+R37511:37511 KamiHW.CouplingFsmJoin <> c:309 var
+R37516:37543 KamiHW.HWBoundary <> hw_morph_coupling_desc_table proj
+R37545:37545 KamiHW.CouplingFsmJoin <> c:309 var
+R37606:37614 KamiHW.CouplingFsmJoin <> join_iter def
+R37636:37673 KamiHW.CouplingFsmJoin <> mcjoin_keeps_morph_coupling_desc_table thm
+R37636:37673 KamiHW.CouplingFsmJoin <> mcjoin_keeps_morph_coupling_desc_table thm
+prf 37688:37720 <> join_iter_keeps_morph_valid_table
+binder 37731:37731 <> n:310
+binder 37733:37733 <> c:311
+R37772:37774 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R37736:37755 KamiHW.HWBoundary <> hw_morph_valid_table proj
+R37758:37766 KamiHW.CouplingFsmJoin <> join_iter def
+R37768:37768 KamiHW.CouplingFsmJoin <> n:310 var
+R37770:37770 KamiHW.CouplingFsmJoin <> c:311 var
+R37775:37794 KamiHW.HWBoundary <> hw_morph_valid_table proj
+R37796:37796 KamiHW.CouplingFsmJoin <> c:311 var
+R37857:37865 KamiHW.CouplingFsmJoin <> join_iter def
+R37887:37916 KamiHW.CouplingFsmJoin <> mcjoin_keeps_morph_valid_table thm
+R37887:37916 KamiHW.CouplingFsmJoin <> mcjoin_keeps_morph_valid_table thm
+prf 37931:37966 <> join_iter_keeps_morph_identity_table
+binder 37977:37977 <> n:312
+binder 37979:37979 <> c:313
+R38021:38023 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R37982:38004 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R38007:38015 KamiHW.CouplingFsmJoin <> join_iter def
+R38017:38017 KamiHW.CouplingFsmJoin <> n:312 var
+R38019:38019 KamiHW.CouplingFsmJoin <> c:313 var
+R38024:38046 KamiHW.HWBoundary <> hw_morph_identity_table proj
+R38048:38048 KamiHW.CouplingFsmJoin <> c:313 var
+R38109:38117 KamiHW.CouplingFsmJoin <> join_iter def
+R38139:38171 KamiHW.CouplingFsmJoin <> mcjoin_keeps_morph_identity_table thm
+R38139:38171 KamiHW.CouplingFsmJoin <> mcjoin_keeps_morph_identity_table thm
+prf 38186:38214 <> join_iter_keeps_morph_next_id
+binder 38225:38225 <> n:314
+binder 38227:38227 <> c:315
+R38262:38264 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38230:38245 KamiHW.HWBoundary <> hw_morph_next_id proj
+R38248:38256 KamiHW.CouplingFsmJoin <> join_iter def
+R38258:38258 KamiHW.CouplingFsmJoin <> n:314 var
+R38260:38260 KamiHW.CouplingFsmJoin <> c:315 var
+R38265:38280 KamiHW.HWBoundary <> hw_morph_next_id proj
+R38282:38282 KamiHW.CouplingFsmJoin <> c:315 var
+R38343:38351 KamiHW.CouplingFsmJoin <> join_iter def
+R38373:38398 KamiHW.CouplingFsmJoin <> mcjoin_keeps_morph_next_id thm
+R38373:38398 KamiHW.CouplingFsmJoin <> mcjoin_keeps_morph_next_id thm
+prf 38413:38452 <> join_iter_keeps_coupling_desc_base_table
+binder 38463:38463 <> n:316
+binder 38465:38465 <> c:317
+R38511:38513 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38468:38494 KamiHW.HWBoundary <> hw_coupling_desc_base_table proj
+R38497:38505 KamiHW.CouplingFsmJoin <> join_iter def
+R38507:38507 KamiHW.CouplingFsmJoin <> n:316 var
+R38509:38509 KamiHW.CouplingFsmJoin <> c:317 var
+R38514:38540 KamiHW.HWBoundary <> hw_coupling_desc_base_table proj
+R38542:38542 KamiHW.CouplingFsmJoin <> c:317 var
+R38603:38611 KamiHW.CouplingFsmJoin <> join_iter def
+R38633:38669 KamiHW.CouplingFsmJoin <> mcjoin_keeps_coupling_desc_base_table thm
+R38633:38669 KamiHW.CouplingFsmJoin <> mcjoin_keeps_coupling_desc_base_table thm
+prf 38684:38724 <> join_iter_keeps_coupling_desc_count_table
+binder 38735:38735 <> n:318
+binder 38737:38737 <> c:319
+R38784:38786 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38740:38767 KamiHW.HWBoundary <> hw_coupling_desc_count_table proj
+R38770:38778 KamiHW.CouplingFsmJoin <> join_iter def
+R38780:38780 KamiHW.CouplingFsmJoin <> n:318 var
+R38782:38782 KamiHW.CouplingFsmJoin <> c:319 var
+R38787:38814 KamiHW.HWBoundary <> hw_coupling_desc_count_table proj
+R38816:38816 KamiHW.CouplingFsmJoin <> c:319 var
+R38877:38885 KamiHW.CouplingFsmJoin <> join_iter def
+R38907:38944 KamiHW.CouplingFsmJoin <> mcjoin_keeps_coupling_desc_count_table thm
+R38907:38944 KamiHW.CouplingFsmJoin <> mcjoin_keeps_coupling_desc_count_table thm
+prf 38959:38999 <> join_iter_keeps_coupling_desc_valid_table
+binder 39010:39010 <> n:320
+binder 39012:39012 <> c:321
+R39059:39061 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R39015:39042 KamiHW.HWBoundary <> hw_coupling_desc_valid_table proj
+R39045:39053 KamiHW.CouplingFsmJoin <> join_iter def
+R39055:39055 KamiHW.CouplingFsmJoin <> n:320 var
+R39057:39057 KamiHW.CouplingFsmJoin <> c:321 var
+R39062:39089 KamiHW.HWBoundary <> hw_coupling_desc_valid_table proj
+R39091:39091 KamiHW.CouplingFsmJoin <> c:321 var
+R39152:39160 KamiHW.CouplingFsmJoin <> join_iter def
+R39182:39219 KamiHW.CouplingFsmJoin <> mcjoin_keeps_coupling_desc_valid_table thm
+R39182:39219 KamiHW.CouplingFsmJoin <> mcjoin_keeps_coupling_desc_valid_table thm
+prf 39234:39274 <> join_iter_keeps_coupling_desc_label_table
+binder 39285:39285 <> n:322
+binder 39287:39287 <> c:323
+R39334:39336 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R39290:39317 KamiHW.HWBoundary <> hw_coupling_desc_label_table proj
+R39320:39328 KamiHW.CouplingFsmJoin <> join_iter def
+R39330:39330 KamiHW.CouplingFsmJoin <> n:322 var
+R39332:39332 KamiHW.CouplingFsmJoin <> c:323 var
+R39337:39364 KamiHW.HWBoundary <> hw_coupling_desc_label_table proj
+R39366:39366 KamiHW.CouplingFsmJoin <> c:323 var
+R39427:39435 KamiHW.CouplingFsmJoin <> join_iter def
+R39457:39494 KamiHW.CouplingFsmJoin <> mcjoin_keeps_coupling_desc_label_table thm
+R39457:39494 KamiHW.CouplingFsmJoin <> mcjoin_keeps_coupling_desc_label_table thm
+prf 39509:39553 <> join_iter_keeps_coupling_desc_label_len_table
+binder 39564:39564 <> n:324
+binder 39566:39566 <> c:325
+R39617:39619 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R39569:39600 KamiHW.HWBoundary <> hw_coupling_desc_label_len_table proj
+R39603:39611 KamiHW.CouplingFsmJoin <> join_iter def
+R39613:39613 KamiHW.CouplingFsmJoin <> n:324 var
+R39615:39615 KamiHW.CouplingFsmJoin <> c:325 var
+R39620:39651 KamiHW.HWBoundary <> hw_coupling_desc_label_len_table proj
+R39653:39653 KamiHW.CouplingFsmJoin <> c:325 var
+R39714:39722 KamiHW.CouplingFsmJoin <> join_iter def
+R39744:39785 KamiHW.CouplingFsmJoin <> mcjoin_keeps_coupling_desc_label_len_table thm
+R39744:39785 KamiHW.CouplingFsmJoin <> mcjoin_keeps_coupling_desc_label_len_table thm
+prf 39800:39836 <> join_iter_keeps_coupling_desc_next_id
+binder 39847:39847 <> n:326
+binder 39849:39849 <> c:327
+R39892:39894 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R39852:39875 KamiHW.HWBoundary <> hw_coupling_desc_next_id proj
+R39878:39886 KamiHW.CouplingFsmJoin <> join_iter def
+R39888:39888 KamiHW.CouplingFsmJoin <> n:326 var
+R39890:39890 KamiHW.CouplingFsmJoin <> c:327 var
+R39895:39918 KamiHW.HWBoundary <> hw_coupling_desc_next_id proj
+R39920:39920 KamiHW.CouplingFsmJoin <> c:327 var
+R39981:39989 KamiHW.CouplingFsmJoin <> join_iter def
+R40011:40044 KamiHW.CouplingFsmJoin <> mcjoin_keeps_coupling_desc_next_id thm
+R40011:40044 KamiHW.CouplingFsmJoin <> mcjoin_keeps_coupling_desc_next_id thm
+prf 40059:40095 <> join_iter_keeps_coupling_pair_next_id
+binder 40106:40106 <> n:328
+binder 40108:40108 <> c:329
+R40151:40153 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R40111:40134 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R40137:40145 KamiHW.CouplingFsmJoin <> join_iter def
+R40147:40147 KamiHW.CouplingFsmJoin <> n:328 var
+R40149:40149 KamiHW.CouplingFsmJoin <> c:329 var
+R40154:40177 KamiHW.HWBoundary <> hw_coupling_pair_next_id proj
+R40179:40179 KamiHW.CouplingFsmJoin <> c:329 var
+R40240:40248 KamiHW.CouplingFsmJoin <> join_iter def
+R40270:40303 KamiHW.CouplingFsmJoin <> mcjoin_keeps_coupling_pair_next_id thm
+R40270:40303 KamiHW.CouplingFsmJoin <> mcjoin_keeps_coupling_pair_next_id thm
+prf 40318:40338 <> join_iter_keeps_mc_op
+binder 40349:40349 <> n:330
+binder 40351:40351 <> c:331
+R40378:40380 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R40354:40361 KamiHW.HWBoundary <> hw_mc_op proj
+R40364:40372 KamiHW.CouplingFsmJoin <> join_iter def
+R40374:40374 KamiHW.CouplingFsmJoin <> n:330 var
+R40376:40376 KamiHW.CouplingFsmJoin <> c:331 var
+R40381:40388 KamiHW.HWBoundary <> hw_mc_op proj
+R40390:40390 KamiHW.CouplingFsmJoin <> c:331 var
+R40451:40459 KamiHW.CouplingFsmJoin <> join_iter def
+R40481:40498 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_op thm
+R40481:40498 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_op thm
+prf 40513:40539 <> join_iter_keeps_mc_mem_base
+binder 40550:40550 <> n:332
+binder 40552:40552 <> c:333
+R40585:40587 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R40555:40568 KamiHW.HWBoundary <> hw_mc_mem_base proj
+R40571:40579 KamiHW.CouplingFsmJoin <> join_iter def
+R40581:40581 KamiHW.CouplingFsmJoin <> n:332 var
+R40583:40583 KamiHW.CouplingFsmJoin <> c:333 var
+R40588:40601 KamiHW.HWBoundary <> hw_mc_mem_base proj
+R40603:40603 KamiHW.CouplingFsmJoin <> c:333 var
+R40664:40672 KamiHW.CouplingFsmJoin <> join_iter def
+R40694:40717 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_mem_base thm
+R40694:40717 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_mem_base thm
+prf 40732:40760 <> join_iter_keeps_mc_pair_count
+binder 40771:40771 <> n:334
+binder 40773:40773 <> c:335
+R40808:40810 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R40776:40791 KamiHW.HWBoundary <> hw_mc_pair_count proj
+R40794:40802 KamiHW.CouplingFsmJoin <> join_iter def
+R40804:40804 KamiHW.CouplingFsmJoin <> n:334 var
+R40806:40806 KamiHW.CouplingFsmJoin <> c:335 var
+R40811:40826 KamiHW.HWBoundary <> hw_mc_pair_count proj
+R40828:40828 KamiHW.CouplingFsmJoin <> c:335 var
+R40889:40897 KamiHW.CouplingFsmJoin <> join_iter def
+R40919:40944 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_pair_count thm
+R40919:40944 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_pair_count thm
+prf 40959:40985 <> join_iter_keeps_mc_read_ptr
+binder 40996:40996 <> n:336
+binder 40998:40998 <> c:337
+R41031:41033 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41001:41014 KamiHW.HWBoundary <> hw_mc_read_ptr proj
+R41017:41025 KamiHW.CouplingFsmJoin <> join_iter def
+R41027:41027 KamiHW.CouplingFsmJoin <> n:336 var
+R41029:41029 KamiHW.CouplingFsmJoin <> c:337 var
+R41034:41047 KamiHW.HWBoundary <> hw_mc_read_ptr proj
+R41049:41049 KamiHW.CouplingFsmJoin <> c:337 var
+R41110:41118 KamiHW.CouplingFsmJoin <> join_iter def
+R41140:41163 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_read_ptr thm
+R41140:41163 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_read_ptr thm
+prf 41178:41205 <> join_iter_keeps_mc_src1_base
+binder 41216:41216 <> n:338
+binder 41218:41218 <> c:339
+R41252:41254 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41221:41235 KamiHW.HWBoundary <> hw_mc_src1_base proj
+R41238:41246 KamiHW.CouplingFsmJoin <> join_iter def
+R41248:41248 KamiHW.CouplingFsmJoin <> n:338 var
+R41250:41250 KamiHW.CouplingFsmJoin <> c:339 var
+R41255:41269 KamiHW.HWBoundary <> hw_mc_src1_base proj
+R41271:41271 KamiHW.CouplingFsmJoin <> c:339 var
+R41332:41340 KamiHW.CouplingFsmJoin <> join_iter def
+R41362:41386 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src1_base thm
+R41362:41386 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src1_base thm
+prf 41401:41429 <> join_iter_keeps_mc_src1_count
+binder 41440:41440 <> n:340
+binder 41442:41442 <> c:341
+R41477:41479 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41445:41460 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R41463:41471 KamiHW.CouplingFsmJoin <> join_iter def
+R41473:41473 KamiHW.CouplingFsmJoin <> n:340 var
+R41475:41475 KamiHW.CouplingFsmJoin <> c:341 var
+R41480:41495 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R41497:41497 KamiHW.CouplingFsmJoin <> c:341 var
+R41558:41566 KamiHW.CouplingFsmJoin <> join_iter def
+R41588:41613 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src1_count thm
+R41588:41613 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src1_count thm
+prf 41628:41655 <> join_iter_keeps_mc_src2_base
+binder 41666:41666 <> n:342
+binder 41668:41668 <> c:343
+R41702:41704 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41671:41685 KamiHW.HWBoundary <> hw_mc_src2_base proj
+R41688:41696 KamiHW.CouplingFsmJoin <> join_iter def
+R41698:41698 KamiHW.CouplingFsmJoin <> n:342 var
+R41700:41700 KamiHW.CouplingFsmJoin <> c:343 var
+R41705:41719 KamiHW.HWBoundary <> hw_mc_src2_base proj
+R41721:41721 KamiHW.CouplingFsmJoin <> c:343 var
+R41782:41790 KamiHW.CouplingFsmJoin <> join_iter def
+R41812:41836 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src2_base thm
+R41812:41836 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src2_base thm
+prf 41851:41879 <> join_iter_keeps_mc_src2_count
+binder 41890:41890 <> n:344
+binder 41892:41892 <> c:345
+R41927:41929 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41895:41910 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R41913:41921 KamiHW.CouplingFsmJoin <> join_iter def
+R41923:41923 KamiHW.CouplingFsmJoin <> n:344 var
+R41925:41925 KamiHW.CouplingFsmJoin <> c:345 var
+R41930:41945 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R41947:41947 KamiHW.CouplingFsmJoin <> c:345 var
+R42008:42016 KamiHW.CouplingFsmJoin <> join_iter def
+R42038:42063 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src2_count thm
+R42038:42063 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src2_count thm
+prf 42078:42102 <> join_iter_keeps_mc_is_id1
+binder 42113:42113 <> n:346
+binder 42115:42115 <> c:347
+R42146:42148 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R42118:42129 KamiHW.HWBoundary <> hw_mc_is_id1 proj
+R42132:42140 KamiHW.CouplingFsmJoin <> join_iter def
+R42142:42142 KamiHW.CouplingFsmJoin <> n:346 var
+R42144:42144 KamiHW.CouplingFsmJoin <> c:347 var
+R42149:42160 KamiHW.HWBoundary <> hw_mc_is_id1 proj
+R42162:42162 KamiHW.CouplingFsmJoin <> c:347 var
+R42223:42231 KamiHW.CouplingFsmJoin <> join_iter def
+R42253:42274 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_is_id1 thm
+R42253:42274 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_is_id1 thm
+prf 42289:42313 <> join_iter_keeps_mc_is_id2
+binder 42324:42324 <> n:348
+binder 42326:42326 <> c:349
+R42357:42359 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R42329:42340 KamiHW.HWBoundary <> hw_mc_is_id2 proj
+R42343:42351 KamiHW.CouplingFsmJoin <> join_iter def
+R42353:42353 KamiHW.CouplingFsmJoin <> n:348 var
+R42355:42355 KamiHW.CouplingFsmJoin <> c:349 var
+R42360:42371 KamiHW.HWBoundary <> hw_mc_is_id2 proj
+R42373:42373 KamiHW.CouplingFsmJoin <> c:349 var
+R42434:42442 KamiHW.CouplingFsmJoin <> join_iter def
+R42464:42485 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_is_id2 thm
+R42464:42485 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_is_id2 thm
+prf 42500:42528 <> join_iter_keeps_mc_write_base
+binder 42539:42539 <> n:350
+binder 42541:42541 <> c:351
+R42576:42578 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R42544:42559 KamiHW.HWBoundary <> hw_mc_write_base proj
+R42562:42570 KamiHW.CouplingFsmJoin <> join_iter def
+R42572:42572 KamiHW.CouplingFsmJoin <> n:350 var
+R42574:42574 KamiHW.CouplingFsmJoin <> c:351 var
+R42579:42594 KamiHW.HWBoundary <> hw_mc_write_base proj
+R42596:42596 KamiHW.CouplingFsmJoin <> c:351 var
+R42657:42665 KamiHW.CouplingFsmJoin <> join_iter def
+R42687:42712 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_write_base thm
+R42687:42712 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_write_base thm
+prf 42727:42753 <> join_iter_keeps_mc_norm_ptr
+binder 42764:42764 <> n:352
+binder 42766:42766 <> c:353
+R42799:42801 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R42769:42782 KamiHW.HWBoundary <> hw_mc_norm_ptr proj
+R42785:42793 KamiHW.CouplingFsmJoin <> join_iter def
+R42795:42795 KamiHW.CouplingFsmJoin <> n:352 var
+R42797:42797 KamiHW.CouplingFsmJoin <> c:353 var
+R42802:42815 KamiHW.HWBoundary <> hw_mc_norm_ptr proj
+R42817:42817 KamiHW.CouplingFsmJoin <> c:353 var
+R42878:42886 KamiHW.CouplingFsmJoin <> join_iter def
+R42908:42931 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_norm_ptr thm
+R42908:42931 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_norm_ptr thm
+prf 42946:42973 <> join_iter_keeps_mc_duplicate
+binder 42984:42984 <> n:354
+binder 42986:42986 <> c:355
+R43020:43022 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R42989:43003 KamiHW.HWBoundary <> hw_mc_duplicate proj
+R43006:43014 KamiHW.CouplingFsmJoin <> join_iter def
+R43016:43016 KamiHW.CouplingFsmJoin <> n:354 var
+R43018:43018 KamiHW.CouplingFsmJoin <> c:355 var
+R43023:43037 KamiHW.HWBoundary <> hw_mc_duplicate proj
+R43039:43039 KamiHW.CouplingFsmJoin <> c:355 var
+R43100:43108 KamiHW.CouplingFsmJoin <> join_iter def
+R43130:43154 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_duplicate thm
+R43130:43154 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_duplicate thm
+prf 43169:43194 <> join_iter_keeps_mc_dst_reg
+binder 43205:43205 <> n:356
+binder 43207:43207 <> c:357
+R43239:43241 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R43210:43222 KamiHW.HWBoundary <> hw_mc_dst_reg proj
+R43225:43233 KamiHW.CouplingFsmJoin <> join_iter def
+R43235:43235 KamiHW.CouplingFsmJoin <> n:356 var
+R43237:43237 KamiHW.CouplingFsmJoin <> c:357 var
+R43242:43254 KamiHW.HWBoundary <> hw_mc_dst_reg proj
+R43256:43256 KamiHW.CouplingFsmJoin <> c:357 var
+R43317:43325 KamiHW.CouplingFsmJoin <> join_iter def
+R43347:43369 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_dst_reg thm
+R43347:43369 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_dst_reg thm
+prf 43384:43412 <> join_iter_keeps_mc_morph_slot
+binder 43423:43423 <> n:358
+binder 43425:43425 <> c:359
+R43460:43462 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R43428:43443 KamiHW.HWBoundary <> hw_mc_morph_slot proj
+R43446:43454 KamiHW.CouplingFsmJoin <> join_iter def
+R43456:43456 KamiHW.CouplingFsmJoin <> n:358 var
+R43458:43458 KamiHW.CouplingFsmJoin <> c:359 var
+R43463:43478 KamiHW.HWBoundary <> hw_mc_morph_slot proj
+R43480:43480 KamiHW.CouplingFsmJoin <> c:359 var
+R43541:43549 KamiHW.CouplingFsmJoin <> join_iter def
+R43571:43596 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_morph_slot thm
+R43571:43596 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_morph_slot thm
+prf 43611:43640 <> join_iter_keeps_mc_new_src_mod
+binder 43651:43651 <> n:360
+binder 43653:43653 <> c:361
+R43689:43691 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R43656:43672 KamiHW.HWBoundary <> hw_mc_new_src_mod proj
+R43675:43683 KamiHW.CouplingFsmJoin <> join_iter def
+R43685:43685 KamiHW.CouplingFsmJoin <> n:360 var
+R43687:43687 KamiHW.CouplingFsmJoin <> c:361 var
+R43692:43708 KamiHW.HWBoundary <> hw_mc_new_src_mod proj
+R43710:43710 KamiHW.CouplingFsmJoin <> c:361 var
+R43771:43779 KamiHW.CouplingFsmJoin <> join_iter def
+R43801:43827 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_new_src_mod thm
+R43801:43827 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_new_src_mod thm
+prf 43842:43871 <> join_iter_keeps_mc_new_dst_mod
+binder 43882:43882 <> n:362
+binder 43884:43884 <> c:363
+R43920:43922 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R43887:43903 KamiHW.HWBoundary <> hw_mc_new_dst_mod proj
+R43906:43914 KamiHW.CouplingFsmJoin <> join_iter def
+R43916:43916 KamiHW.CouplingFsmJoin <> n:362 var
+R43918:43918 KamiHW.CouplingFsmJoin <> c:363 var
+R43923:43939 KamiHW.HWBoundary <> hw_mc_new_dst_mod proj
+R43941:43941 KamiHW.CouplingFsmJoin <> c:363 var
+R44002:44010 KamiHW.CouplingFsmJoin <> join_iter def
+R44032:44058 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_new_dst_mod thm
+R44032:44058 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_new_dst_mod thm
+prf 44073:44095 <> join_iter_keeps_mc_cost
+binder 44106:44106 <> n:364
+binder 44108:44108 <> c:365
+R44137:44139 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R44111:44120 KamiHW.HWBoundary <> hw_mc_cost proj
+R44123:44131 KamiHW.CouplingFsmJoin <> join_iter def
+R44133:44133 KamiHW.CouplingFsmJoin <> n:364 var
+R44135:44135 KamiHW.CouplingFsmJoin <> c:365 var
+R44140:44149 KamiHW.HWBoundary <> hw_mc_cost proj
+R44151:44151 KamiHW.CouplingFsmJoin <> c:365 var
+R44212:44220 KamiHW.CouplingFsmJoin <> join_iter def
+R44242:44261 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_cost thm
+R44242:44261 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_cost thm
+prf 44276:44314 <> join_iter_keeps_formula_desc_base_table
+binder 44325:44325 <> n:366
+binder 44327:44327 <> c:367
+R44372:44374 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R44330:44355 KamiHW.HWBoundary <> hw_formula_desc_base_table proj
+R44358:44366 KamiHW.CouplingFsmJoin <> join_iter def
+R44368:44368 KamiHW.CouplingFsmJoin <> n:366 var
+R44370:44370 KamiHW.CouplingFsmJoin <> c:367 var
+R44375:44400 KamiHW.HWBoundary <> hw_formula_desc_base_table proj
+R44402:44402 KamiHW.CouplingFsmJoin <> c:367 var
+R44463:44471 KamiHW.CouplingFsmJoin <> join_iter def
+R44493:44528 KamiHW.CouplingFsmJoin <> mcjoin_keeps_formula_desc_base_table thm
+R44493:44528 KamiHW.CouplingFsmJoin <> mcjoin_keeps_formula_desc_base_table thm
+prf 44543:44582 <> join_iter_keeps_formula_desc_count_table
+binder 44593:44593 <> n:368
+binder 44595:44595 <> c:369
+R44641:44643 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R44598:44624 KamiHW.HWBoundary <> hw_formula_desc_count_table proj
+R44627:44635 KamiHW.CouplingFsmJoin <> join_iter def
+R44637:44637 KamiHW.CouplingFsmJoin <> n:368 var
+R44639:44639 KamiHW.CouplingFsmJoin <> c:369 var
+R44644:44670 KamiHW.HWBoundary <> hw_formula_desc_count_table proj
+R44672:44672 KamiHW.CouplingFsmJoin <> c:369 var
+R44733:44741 KamiHW.CouplingFsmJoin <> join_iter def
+R44763:44799 KamiHW.CouplingFsmJoin <> mcjoin_keeps_formula_desc_count_table thm
+R44763:44799 KamiHW.CouplingFsmJoin <> mcjoin_keeps_formula_desc_count_table thm
+prf 44814:44853 <> join_iter_keeps_formula_desc_valid_table
+binder 44864:44864 <> n:370
+binder 44866:44866 <> c:371
+R44912:44914 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R44869:44895 KamiHW.HWBoundary <> hw_formula_desc_valid_table proj
+R44898:44906 KamiHW.CouplingFsmJoin <> join_iter def
+R44908:44908 KamiHW.CouplingFsmJoin <> n:370 var
+R44910:44910 KamiHW.CouplingFsmJoin <> c:371 var
+R44915:44941 KamiHW.HWBoundary <> hw_formula_desc_valid_table proj
+R44943:44943 KamiHW.CouplingFsmJoin <> c:371 var
+R45004:45012 KamiHW.CouplingFsmJoin <> join_iter def
+R45034:45070 KamiHW.CouplingFsmJoin <> mcjoin_keeps_formula_desc_valid_table thm
+R45034:45070 KamiHW.CouplingFsmJoin <> mcjoin_keeps_formula_desc_valid_table thm
+prf 45085:45120 <> join_iter_keeps_formula_desc_next_id
+binder 45131:45131 <> n:372
+binder 45133:45133 <> c:373
+R45175:45177 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R45136:45158 KamiHW.HWBoundary <> hw_formula_desc_next_id proj
+R45161:45169 KamiHW.CouplingFsmJoin <> join_iter def
+R45171:45171 KamiHW.CouplingFsmJoin <> n:372 var
+R45173:45173 KamiHW.CouplingFsmJoin <> c:373 var
+R45178:45200 KamiHW.HWBoundary <> hw_formula_desc_next_id proj
+R45202:45202 KamiHW.CouplingFsmJoin <> c:373 var
+R45263:45271 KamiHW.CouplingFsmJoin <> join_iter def
+R45293:45325 KamiHW.CouplingFsmJoin <> mcjoin_keeps_formula_desc_next_id thm
+R45293:45325 KamiHW.CouplingFsmJoin <> mcjoin_keeps_formula_desc_next_id thm
+prf 45340:45375 <> join_iter_keeps_cert_desc_base_table
+binder 45386:45386 <> n:374
+binder 45388:45388 <> c:375
+R45430:45432 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R45391:45413 KamiHW.HWBoundary <> hw_cert_desc_base_table proj
+R45416:45424 KamiHW.CouplingFsmJoin <> join_iter def
+R45426:45426 KamiHW.CouplingFsmJoin <> n:374 var
+R45428:45428 KamiHW.CouplingFsmJoin <> c:375 var
+R45433:45455 KamiHW.HWBoundary <> hw_cert_desc_base_table proj
+R45457:45457 KamiHW.CouplingFsmJoin <> c:375 var
+R45518:45526 KamiHW.CouplingFsmJoin <> join_iter def
+R45548:45580 KamiHW.CouplingFsmJoin <> mcjoin_keeps_cert_desc_base_table thm
+R45548:45580 KamiHW.CouplingFsmJoin <> mcjoin_keeps_cert_desc_base_table thm
+prf 45595:45631 <> join_iter_keeps_cert_desc_count_table
+binder 45642:45642 <> n:376
+binder 45644:45644 <> c:377
+R45687:45689 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R45647:45670 KamiHW.HWBoundary <> hw_cert_desc_count_table proj
+R45673:45681 KamiHW.CouplingFsmJoin <> join_iter def
+R45683:45683 KamiHW.CouplingFsmJoin <> n:376 var
+R45685:45685 KamiHW.CouplingFsmJoin <> c:377 var
+R45690:45713 KamiHW.HWBoundary <> hw_cert_desc_count_table proj
+R45715:45715 KamiHW.CouplingFsmJoin <> c:377 var
+R45776:45784 KamiHW.CouplingFsmJoin <> join_iter def
+R45806:45839 KamiHW.CouplingFsmJoin <> mcjoin_keeps_cert_desc_count_table thm
+R45806:45839 KamiHW.CouplingFsmJoin <> mcjoin_keeps_cert_desc_count_table thm
+prf 45854:45890 <> join_iter_keeps_cert_desc_valid_table
+binder 45901:45901 <> n:378
+binder 45903:45903 <> c:379
+R45946:45948 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R45906:45929 KamiHW.HWBoundary <> hw_cert_desc_valid_table proj
+R45932:45940 KamiHW.CouplingFsmJoin <> join_iter def
+R45942:45942 KamiHW.CouplingFsmJoin <> n:378 var
+R45944:45944 KamiHW.CouplingFsmJoin <> c:379 var
+R45949:45972 KamiHW.HWBoundary <> hw_cert_desc_valid_table proj
+R45974:45974 KamiHW.CouplingFsmJoin <> c:379 var
+R46035:46043 KamiHW.CouplingFsmJoin <> join_iter def
+R46065:46098 KamiHW.CouplingFsmJoin <> mcjoin_keeps_cert_desc_valid_table thm
+R46065:46098 KamiHW.CouplingFsmJoin <> mcjoin_keeps_cert_desc_valid_table thm
+prf 46113:46145 <> join_iter_keeps_cert_desc_next_id
+binder 46156:46156 <> n:380
+binder 46158:46158 <> c:381
+R46197:46199 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R46161:46180 KamiHW.HWBoundary <> hw_cert_desc_next_id proj
+R46183:46191 KamiHW.CouplingFsmJoin <> join_iter def
+R46193:46193 KamiHW.CouplingFsmJoin <> n:380 var
+R46195:46195 KamiHW.CouplingFsmJoin <> c:381 var
+R46200:46219 KamiHW.HWBoundary <> hw_cert_desc_next_id proj
+R46221:46221 KamiHW.CouplingFsmJoin <> c:381 var
+R46282:46290 KamiHW.CouplingFsmJoin <> join_iter def
+R46312:46341 KamiHW.CouplingFsmJoin <> mcjoin_keeps_cert_desc_next_id thm
+R46312:46341 KamiHW.CouplingFsmJoin <> mcjoin_keeps_cert_desc_next_id thm
+prf 46356:46394 <> join_iter_keeps_desc_meta_subtype_table
+binder 46405:46405 <> n:382
+binder 46407:46407 <> c:383
+R46452:46454 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R46410:46435 KamiHW.HWBoundary <> hw_desc_meta_subtype_table proj
+R46438:46446 KamiHW.CouplingFsmJoin <> join_iter def
+R46448:46448 KamiHW.CouplingFsmJoin <> n:382 var
+R46450:46450 KamiHW.CouplingFsmJoin <> c:383 var
+R46455:46480 KamiHW.HWBoundary <> hw_desc_meta_subtype_table proj
+R46482:46482 KamiHW.CouplingFsmJoin <> c:383 var
+R46543:46551 KamiHW.CouplingFsmJoin <> join_iter def
+R46573:46608 KamiHW.CouplingFsmJoin <> mcjoin_keeps_desc_meta_subtype_table thm
+R46573:46608 KamiHW.CouplingFsmJoin <> mcjoin_keeps_desc_meta_subtype_table thm
+prf 46623:46658 <> join_iter_keeps_desc_meta_kind_table
+binder 46669:46669 <> n:384
+binder 46671:46671 <> c:385
+R46713:46715 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R46674:46696 KamiHW.HWBoundary <> hw_desc_meta_kind_table proj
+R46699:46707 KamiHW.CouplingFsmJoin <> join_iter def
+R46709:46709 KamiHW.CouplingFsmJoin <> n:384 var
+R46711:46711 KamiHW.CouplingFsmJoin <> c:385 var
+R46716:46738 KamiHW.HWBoundary <> hw_desc_meta_kind_table proj
+R46740:46740 KamiHW.CouplingFsmJoin <> c:385 var
+R46801:46809 KamiHW.CouplingFsmJoin <> join_iter def
+R46831:46863 KamiHW.CouplingFsmJoin <> mcjoin_keeps_desc_meta_kind_table thm
+R46831:46863 KamiHW.CouplingFsmJoin <> mcjoin_keeps_desc_meta_kind_table thm
+prf 46878:46919 <> join_iter_keeps_desc_meta_inline_len_table
+binder 46930:46930 <> n:386
+binder 46932:46932 <> c:387
+R46980:46982 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R46935:46963 KamiHW.HWBoundary <> hw_desc_meta_inline_len_table proj
+R46966:46974 KamiHW.CouplingFsmJoin <> join_iter def
+R46976:46976 KamiHW.CouplingFsmJoin <> n:386 var
+R46978:46978 KamiHW.CouplingFsmJoin <> c:387 var
+R46983:47011 KamiHW.HWBoundary <> hw_desc_meta_inline_len_table proj
+R47013:47013 KamiHW.CouplingFsmJoin <> c:387 var
+R47074:47082 KamiHW.CouplingFsmJoin <> join_iter def
+R47104:47142 KamiHW.CouplingFsmJoin <> mcjoin_keeps_desc_meta_inline_len_table thm
+R47104:47142 KamiHW.CouplingFsmJoin <> mcjoin_keeps_desc_meta_inline_len_table thm
+prf 47157:47191 <> join_iter_keeps_desc_meta_aux_table
+binder 47202:47202 <> n:388
+binder 47204:47204 <> c:389
+R47245:47247 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R47207:47228 KamiHW.HWBoundary <> hw_desc_meta_aux_table proj
+R47231:47239 KamiHW.CouplingFsmJoin <> join_iter def
+R47241:47241 KamiHW.CouplingFsmJoin <> n:388 var
+R47243:47243 KamiHW.CouplingFsmJoin <> c:389 var
+R47248:47269 KamiHW.HWBoundary <> hw_desc_meta_aux_table proj
+R47271:47271 KamiHW.CouplingFsmJoin <> c:389 var
+R47332:47340 KamiHW.CouplingFsmJoin <> join_iter def
+R47362:47393 KamiHW.CouplingFsmJoin <> mcjoin_keeps_desc_meta_aux_table thm
+R47362:47393 KamiHW.CouplingFsmJoin <> mcjoin_keeps_desc_meta_aux_table thm
+prf 47408:47444 <> join_iter_keeps_desc_meta_valid_table
+binder 47455:47455 <> n:390
+binder 47457:47457 <> c:391
+R47500:47502 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R47460:47483 KamiHW.HWBoundary <> hw_desc_meta_valid_table proj
+R47486:47494 KamiHW.CouplingFsmJoin <> join_iter def
+R47496:47496 KamiHW.CouplingFsmJoin <> n:390 var
+R47498:47498 KamiHW.CouplingFsmJoin <> c:391 var
+R47503:47526 KamiHW.HWBoundary <> hw_desc_meta_valid_table proj
+R47528:47528 KamiHW.CouplingFsmJoin <> c:391 var
+R47589:47597 KamiHW.CouplingFsmJoin <> join_iter def
+R47619:47652 KamiHW.CouplingFsmJoin <> mcjoin_keeps_desc_meta_valid_table thm
+R47619:47652 KamiHW.CouplingFsmJoin <> mcjoin_keeps_desc_meta_valid_table thm
+prf 47667:47699 <> join_iter_keeps_desc_meta_next_id
+binder 47710:47710 <> n:392
+binder 47712:47712 <> c:393
+R47751:47753 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R47715:47734 KamiHW.HWBoundary <> hw_desc_meta_next_id proj
+R47737:47745 KamiHW.CouplingFsmJoin <> join_iter def
+R47747:47747 KamiHW.CouplingFsmJoin <> n:392 var
+R47749:47749 KamiHW.CouplingFsmJoin <> c:393 var
+R47754:47773 KamiHW.HWBoundary <> hw_desc_meta_next_id proj
+R47775:47775 KamiHW.CouplingFsmJoin <> c:393 var
+R47836:47844 KamiHW.CouplingFsmJoin <> join_iter def
+R47866:47895 KamiHW.CouplingFsmJoin <> mcjoin_keeps_desc_meta_next_id thm
+R47866:47895 KamiHW.CouplingFsmJoin <> mcjoin_keeps_desc_meta_next_id thm
+prf 47910:47935 <> join_iter_keeps_wc_same_00
+binder 47946:47946 <> n:394
+binder 47948:47948 <> c:395
+R47980:47982 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R47951:47963 KamiHW.HWBoundary <> hw_wc_same_00 proj
+R47966:47974 KamiHW.CouplingFsmJoin <> join_iter def
+R47976:47976 KamiHW.CouplingFsmJoin <> n:394 var
+R47978:47978 KamiHW.CouplingFsmJoin <> c:395 var
+R47983:47995 KamiHW.HWBoundary <> hw_wc_same_00 proj
+R47997:47997 KamiHW.CouplingFsmJoin <> c:395 var
+R48058:48066 KamiHW.CouplingFsmJoin <> join_iter def
+R48088:48110 KamiHW.CouplingFsmJoin <> mcjoin_keeps_wc_same_00 thm
+R48088:48110 KamiHW.CouplingFsmJoin <> mcjoin_keeps_wc_same_00 thm
+prf 48125:48150 <> join_iter_keeps_wc_diff_00
+binder 48161:48161 <> n:396
+binder 48163:48163 <> c:397
+R48195:48197 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R48166:48178 KamiHW.HWBoundary <> hw_wc_diff_00 proj
+R48181:48189 KamiHW.CouplingFsmJoin <> join_iter def
+R48191:48191 KamiHW.CouplingFsmJoin <> n:396 var
+R48193:48193 KamiHW.CouplingFsmJoin <> c:397 var
+R48198:48210 KamiHW.HWBoundary <> hw_wc_diff_00 proj
+R48212:48212 KamiHW.CouplingFsmJoin <> c:397 var
+R48273:48281 KamiHW.CouplingFsmJoin <> join_iter def
+R48303:48325 KamiHW.CouplingFsmJoin <> mcjoin_keeps_wc_diff_00 thm
+R48303:48325 KamiHW.CouplingFsmJoin <> mcjoin_keeps_wc_diff_00 thm
+prf 48340:48365 <> join_iter_keeps_wc_same_01
+binder 48376:48376 <> n:398
+binder 48378:48378 <> c:399
+R48410:48412 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R48381:48393 KamiHW.HWBoundary <> hw_wc_same_01 proj
+R48396:48404 KamiHW.CouplingFsmJoin <> join_iter def
+R48406:48406 KamiHW.CouplingFsmJoin <> n:398 var
+R48408:48408 KamiHW.CouplingFsmJoin <> c:399 var
+R48413:48425 KamiHW.HWBoundary <> hw_wc_same_01 proj
+R48427:48427 KamiHW.CouplingFsmJoin <> c:399 var
+R48488:48496 KamiHW.CouplingFsmJoin <> join_iter def
+R48518:48540 KamiHW.CouplingFsmJoin <> mcjoin_keeps_wc_same_01 thm
+R48518:48540 KamiHW.CouplingFsmJoin <> mcjoin_keeps_wc_same_01 thm
+prf 48555:48580 <> join_iter_keeps_wc_diff_01
+binder 48591:48591 <> n:400
+binder 48593:48593 <> c:401
+R48625:48627 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R48596:48608 KamiHW.HWBoundary <> hw_wc_diff_01 proj
+R48611:48619 KamiHW.CouplingFsmJoin <> join_iter def
+R48621:48621 KamiHW.CouplingFsmJoin <> n:400 var
+R48623:48623 KamiHW.CouplingFsmJoin <> c:401 var
+R48628:48640 KamiHW.HWBoundary <> hw_wc_diff_01 proj
+R48642:48642 KamiHW.CouplingFsmJoin <> c:401 var
+R48703:48711 KamiHW.CouplingFsmJoin <> join_iter def
+R48733:48755 KamiHW.CouplingFsmJoin <> mcjoin_keeps_wc_diff_01 thm
+R48733:48755 KamiHW.CouplingFsmJoin <> mcjoin_keeps_wc_diff_01 thm
+prf 48770:48795 <> join_iter_keeps_wc_same_10
+binder 48806:48806 <> n:402
+binder 48808:48808 <> c:403
+R48840:48842 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R48811:48823 KamiHW.HWBoundary <> hw_wc_same_10 proj
+R48826:48834 KamiHW.CouplingFsmJoin <> join_iter def
+R48836:48836 KamiHW.CouplingFsmJoin <> n:402 var
+R48838:48838 KamiHW.CouplingFsmJoin <> c:403 var
+R48843:48855 KamiHW.HWBoundary <> hw_wc_same_10 proj
+R48857:48857 KamiHW.CouplingFsmJoin <> c:403 var
+R48918:48926 KamiHW.CouplingFsmJoin <> join_iter def
+R48948:48970 KamiHW.CouplingFsmJoin <> mcjoin_keeps_wc_same_10 thm
+R48948:48970 KamiHW.CouplingFsmJoin <> mcjoin_keeps_wc_same_10 thm
+prf 48985:49010 <> join_iter_keeps_wc_diff_10
+binder 49021:49021 <> n:404
+binder 49023:49023 <> c:405
+R49055:49057 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R49026:49038 KamiHW.HWBoundary <> hw_wc_diff_10 proj
+R49041:49049 KamiHW.CouplingFsmJoin <> join_iter def
+R49051:49051 KamiHW.CouplingFsmJoin <> n:404 var
+R49053:49053 KamiHW.CouplingFsmJoin <> c:405 var
+R49058:49070 KamiHW.HWBoundary <> hw_wc_diff_10 proj
+R49072:49072 KamiHW.CouplingFsmJoin <> c:405 var
+R49133:49141 KamiHW.CouplingFsmJoin <> join_iter def
+R49163:49185 KamiHW.CouplingFsmJoin <> mcjoin_keeps_wc_diff_10 thm
+R49163:49185 KamiHW.CouplingFsmJoin <> mcjoin_keeps_wc_diff_10 thm
+prf 49200:49225 <> join_iter_keeps_wc_same_11
+binder 49236:49236 <> n:406
+binder 49238:49238 <> c:407
+R49270:49272 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R49241:49253 KamiHW.HWBoundary <> hw_wc_same_11 proj
+R49256:49264 KamiHW.CouplingFsmJoin <> join_iter def
+R49266:49266 KamiHW.CouplingFsmJoin <> n:406 var
+R49268:49268 KamiHW.CouplingFsmJoin <> c:407 var
+R49273:49285 KamiHW.HWBoundary <> hw_wc_same_11 proj
+R49287:49287 KamiHW.CouplingFsmJoin <> c:407 var
+R49348:49356 KamiHW.CouplingFsmJoin <> join_iter def
+R49378:49400 KamiHW.CouplingFsmJoin <> mcjoin_keeps_wc_same_11 thm
+R49378:49400 KamiHW.CouplingFsmJoin <> mcjoin_keeps_wc_same_11 thm
+prf 49415:49440 <> join_iter_keeps_wc_diff_11
+binder 49451:49451 <> n:408
+binder 49453:49453 <> c:409
+R49485:49487 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R49456:49468 KamiHW.HWBoundary <> hw_wc_diff_11 proj
+R49471:49479 KamiHW.CouplingFsmJoin <> join_iter def
+R49481:49481 KamiHW.CouplingFsmJoin <> n:408 var
+R49483:49483 KamiHW.CouplingFsmJoin <> c:409 var
+R49488:49500 KamiHW.HWBoundary <> hw_wc_diff_11 proj
+R49502:49502 KamiHW.CouplingFsmJoin <> c:409 var
+R49563:49571 KamiHW.CouplingFsmJoin <> join_iter def
+R49593:49615 KamiHW.CouplingFsmJoin <> mcjoin_keeps_wc_diff_11 thm
+R49593:49615 KamiHW.CouplingFsmJoin <> mcjoin_keeps_wc_diff_11 thm
+prf 49687:49701 <> join_step_facts
+binder 49712:49712 <> c:410
+binder 49714:49719 <> rawsrc:411
+binder 49721:49726 <> rawdst:412
+binder 49728:49728 <> b:413
+binder 49730:49732 <> out:414
+binder 49734:49734 <> i:415
+binder 49736:49736 <> j:416
+binder 49738:49739 <> c1:417
+binder 49741:49742 <> c2:418
+binder 49744:49745 <> a1:419
+binder 49747:49748 <> a2:420
+R49765:49768 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49754:49756 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R49759:49762 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R49753:49753 KamiHW.CouplingFsmJoin <> i:415 var
+R49757:49758 KamiHW.CouplingFsmJoin <> c1:417 var
+R49757:49758 KamiHW.CouplingFsmJoin <> c1:417 var
+R49781:49784 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49770:49772 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R49775:49778 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R49769:49769 KamiHW.CouplingFsmJoin <> j:416 var
+R49773:49774 KamiHW.CouplingFsmJoin <> c2:418 var
+R49773:49774 KamiHW.CouplingFsmJoin <> c2:418 var
+R49799:49802 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49786:49789 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R49793:49796 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R49785:49785 KamiHW.CouplingFsmJoin <> b:413 var
+R49790:49792 KamiHW.CouplingFsmJoin <> out:414 var
+R49790:49792 KamiHW.CouplingFsmJoin <> out:414 var
+R49815:49818 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49810:49813 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R49805:49807 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R49803:49804 KamiHW.CouplingFsmJoin <> a1:419 var
+R49808:49809 KamiHW.CouplingFsmJoin <> c1:417 var
+R49814:49814 KamiHW.CouplingFsmJoin <> b:413 var
+R49831:49836 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49826:49829 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R49821:49823 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R49819:49820 KamiHW.CouplingFsmJoin <> a2:420 var
+R49824:49825 KamiHW.CouplingFsmJoin <> c2:418 var
+R49830:49830 KamiHW.CouplingFsmJoin <> b:413 var
+R49887:49890 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49837:49846 KamiHW.MorphCopy <> low_agrees def
+R49848:49848 KamiHW.CouplingFsmJoin <> b:413 var
+R49851:49876 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R49878:49878 KamiHW.CouplingFsmJoin <> c:410 var
+R49881:49886 KamiHW.CouplingFsmJoin <> rawsrc:411 var
+R49941:49946 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49891:49900 KamiHW.MorphCopy <> low_agrees def
+R49902:49902 KamiHW.CouplingFsmJoin <> b:413 var
+R49905:49930 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R49932:49932 KamiHW.CouplingFsmJoin <> c:410 var
+R49935:49940 KamiHW.CouplingFsmJoin <> rawdst:412 var
+R49947:49947 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R50006:50012 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49994:49997 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49987:49989 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R49948:49962 KamiHW.MorphJoin <> candidate_match def
+R49964:49969 KamiHW.CouplingFsmJoin <> rawsrc:411 var
+R49971:49976 KamiHW.CouplingFsmJoin <> rawdst:412 var
+R49978:49979 KamiHW.CouplingFsmJoin <> a1:419 var
+R49981:49982 KamiHW.CouplingFsmJoin <> a2:420 var
+R49984:49984 KamiHW.CouplingFsmJoin <> i:415 var
+R49986:49986 KamiHW.CouplingFsmJoin <> j:416 var
+R49990:49993 Coq.Init.Datatypes <> true constr
+R50001:50003 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R49998:50000 KamiHW.CouplingFsmJoin <> out:414 var
+R50038:50041 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R50022:50024 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R50013:50019 KamiHW.HWBoundary <> hw_mc_i proj
+R50021:50021 KamiHW.CouplingFsmJoin <> c:410 var
+R50025:50033 Kami.Lib.Word <> natToWord def
+R50037:50037 KamiHW.CouplingFsmJoin <> i:415 var
+R50067:50072 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R50051:50053 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R50042:50048 KamiHW.HWBoundary <> hw_mc_j proj
+R50050:50050 KamiHW.CouplingFsmJoin <> c:410 var
+R50054:50062 Kami.Lib.Word <> natToWord def
+R50066:50066 KamiHW.CouplingFsmJoin <> j:416 var
+R50108:50111 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R50091:50093 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R50073:50088 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R50090:50090 KamiHW.CouplingFsmJoin <> c:410 var
+R50094:50102 Kami.Lib.Word <> natToWord def
+R50106:50107 KamiHW.CouplingFsmJoin <> c1:417 var
+R50147:50152 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R50130:50132 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R50112:50127 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R50129:50129 KamiHW.CouplingFsmJoin <> c:410 var
+R50133:50141 Kami.Lib.Word <> natToWord def
+R50145:50146 KamiHW.CouplingFsmJoin <> c2:418 var
+R50187:50190 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R50170:50172 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R50153:50167 KamiHW.HWBoundary <> hw_mc_src1_base proj
+R50169:50169 KamiHW.CouplingFsmJoin <> c:410 var
+R50173:50181 Kami.Lib.Word <> natToWord def
+R50185:50186 KamiHW.CouplingFsmJoin <> a1:419 var
+R50225:50230 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R50208:50210 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R50191:50205 KamiHW.HWBoundary <> hw_mc_src2_base proj
+R50207:50207 KamiHW.CouplingFsmJoin <> c:410 var
+R50211:50219 Kami.Lib.Word <> natToWord def
+R50223:50224 KamiHW.CouplingFsmJoin <> a2:420 var
+R50266:50271 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R50248:50250 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R50231:50245 KamiHW.HWBoundary <> hw_mc_write_ptr proj
+R50247:50247 KamiHW.CouplingFsmJoin <> c:410 var
+R50251:50259 Kami.Lib.Word <> natToWord def
+R50263:50265 KamiHW.CouplingFsmJoin <> out:414 var
+R50287:50301 KamiHW.MorphJoin <> candidate_match def
+R50303:50308 KamiHW.CouplingFsmJoin <> rawsrc:411 var
+R50310:50315 KamiHW.CouplingFsmJoin <> rawdst:412 var
+R50317:50318 KamiHW.CouplingFsmJoin <> a1:419 var
+R50320:50321 KamiHW.CouplingFsmJoin <> a2:420 var
+R50323:50323 KamiHW.CouplingFsmJoin <> i:415 var
+R50325:50325 KamiHW.CouplingFsmJoin <> j:416 var
+binder 50276:50282 <> matched:421
+R50416:50421 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R50359:50361 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R50332:50342 KamiHW.HWBoundary <> hw_mc_phase proj
+R50345:50355 KamiHW.FsmDecoded <> mcjoin_next def
+R50357:50357 KamiHW.CouplingFsmJoin <> c:410 var
+R50362:50370 Kami.Lib.Word <> natToWord def
+R50378:50390 KamiHW.MorphJoin <> join_terminal def
+R50392:50392 KamiHW.CouplingFsmJoin <> i:415 var
+R50394:50394 KamiHW.CouplingFsmJoin <> j:416 var
+R50396:50397 KamiHW.CouplingFsmJoin <> c1:417 var
+R50399:50400 KamiHW.CouplingFsmJoin <> c2:418 var
+R50482:50487 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R50445:50447 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R50422:50428 KamiHW.HWBoundary <> hw_mc_i proj
+R50431:50441 KamiHW.FsmDecoded <> mcjoin_next def
+R50443:50443 KamiHW.CouplingFsmJoin <> c:410 var
+R50448:50456 Kami.Lib.Word <> natToWord def
+R50461:50473 KamiHW.MorphJoin <> join_cursor_i def
+R50475:50475 KamiHW.CouplingFsmJoin <> i:415 var
+R50477:50477 KamiHW.CouplingFsmJoin <> j:416 var
+R50479:50480 KamiHW.CouplingFsmJoin <> c2:418 var
+R50546:50551 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R50511:50513 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R50488:50494 KamiHW.HWBoundary <> hw_mc_j proj
+R50497:50507 KamiHW.FsmDecoded <> mcjoin_next def
+R50509:50509 KamiHW.CouplingFsmJoin <> c:410 var
+R50514:50522 Kami.Lib.Word <> natToWord def
+R50527:50539 KamiHW.MorphJoin <> join_cursor_j def
+R50541:50541 KamiHW.CouplingFsmJoin <> j:416 var
+R50543:50544 KamiHW.CouplingFsmJoin <> c2:418 var
+R50620:50625 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R50583:50585 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R50552:50566 KamiHW.HWBoundary <> hw_mc_write_ptr proj
+R50569:50579 KamiHW.FsmDecoded <> mcjoin_next def
+R50581:50581 KamiHW.CouplingFsmJoin <> c:410 var
+R50586:50594 Kami.Lib.Word <> natToWord def
+R50599:50606 KamiHW.MorphJoin <> join_out def
+R50608:50610 KamiHW.CouplingFsmJoin <> out:414 var
+R50612:50618 KamiHW.CouplingFsmJoin <> matched:421 var
+R50750:50755 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R50668:50670 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R50626:50651 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R50654:50664 KamiHW.FsmDecoded <> mcjoin_next def
+R50666:50666 KamiHW.CouplingFsmJoin <> c:410 var
+R50671:50680 KamiHW.MorphJoin <> join_table def
+R50683:50708 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R50710:50710 KamiHW.CouplingFsmJoin <> c:410 var
+R50713:50715 KamiHW.CouplingFsmJoin <> out:414 var
+R50718:50724 KamiHW.MorphCopy <> pair_at def
+R50726:50731 KamiHW.CouplingFsmJoin <> rawsrc:411 var
+R50736:50738 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R50734:50735 KamiHW.CouplingFsmJoin <> a1:419 var
+R50739:50739 KamiHW.CouplingFsmJoin <> i:415 var
+R50743:50749 KamiHW.CouplingFsmJoin <> matched:421 var
+R50880:50885 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R50798:50800 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R50756:50781 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R50784:50794 KamiHW.FsmDecoded <> mcjoin_next def
+R50796:50796 KamiHW.CouplingFsmJoin <> c:410 var
+R50801:50810 KamiHW.MorphJoin <> join_table def
+R50813:50838 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R50840:50840 KamiHW.CouplingFsmJoin <> c:410 var
+R50843:50845 KamiHW.CouplingFsmJoin <> out:414 var
+R50848:50854 KamiHW.MorphCopy <> pair_at def
+R50856:50861 KamiHW.CouplingFsmJoin <> rawdst:412 var
+R50866:50868 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R50864:50865 KamiHW.CouplingFsmJoin <> a2:420 var
+R50869:50869 KamiHW.CouplingFsmJoin <> j:416 var
+R50873:50879 KamiHW.CouplingFsmJoin <> matched:421 var
+R50994:50999 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R50930:50932 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R50886:50913 KamiHW.HWBoundary <> hw_coupling_pair_valid_table proj
+R50916:50926 KamiHW.FsmDecoded <> mcjoin_next def
+R50928:50928 KamiHW.CouplingFsmJoin <> c:410 var
+R50933:50948 KamiHW.MorphJoin <> join_valid_table def
+R50951:50978 KamiHW.HWBoundary <> hw_coupling_pair_valid_table proj
+R50980:50980 KamiHW.CouplingFsmJoin <> c:410 var
+R50983:50985 KamiHW.CouplingFsmJoin <> out:414 var
+R50987:50993 KamiHW.CouplingFsmJoin <> matched:421 var
+R51033:51036 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R51022:51024 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51000:51005 KamiHW.HWBoundary <> hw_err proj
+R51008:51018 KamiHW.FsmDecoded <> mcjoin_next def
+R51020:51020 KamiHW.CouplingFsmJoin <> c:410 var
+R51025:51030 KamiHW.HWBoundary <> hw_err proj
+R51032:51032 KamiHW.CouplingFsmJoin <> c:410 var
+R51066:51068 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51037:51049 KamiHW.HWBoundary <> hw_error_code proj
+R51052:51062 KamiHW.FsmDecoded <> mcjoin_next def
+R51064:51064 KamiHW.CouplingFsmJoin <> c:410 var
+R51069:51081 KamiHW.HWBoundary <> hw_error_code proj
+R51083:51083 KamiHW.CouplingFsmJoin <> c:410 var
+R51311:51313 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51224:51238 KamiHW.MorphJoin <> candidate_match def
+R51241:51266 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R51272:51297 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R51311:51313 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51224:51238 KamiHW.MorphJoin <> candidate_match def
+R51241:51266 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R51272:51297 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R51344:51358 KamiHW.MorphJoin <> candidate_match def
+R51413:51434 KamiHW.MorphJoin <> join_admitted_controls thm
+R51457:51482 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R51488:51513 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R51413:51434 KamiHW.MorphJoin <> join_admitted_controls thm
+R51457:51482 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R51488:51513 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R51658:51660 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51645:51655 KamiHW.CouplingFsmJoin <> cjoin_emits def
+R51681:51691 KamiHW.CouplingFsmJoin <> cjoin_emits def
+R51658:51660 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51645:51655 KamiHW.CouplingFsmJoin <> cjoin_emits def
+R51785:51787 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51769:51782 KamiHW.CouplingFsmJoin <> cjoin_overflow def
+R51788:51792 Coq.Init.Datatypes <> false constr
+R51806:51819 KamiHW.CouplingFsmJoin <> cjoin_overflow def
+R51785:51787 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51769:51782 KamiHW.CouplingFsmJoin <> cjoin_overflow def
+R51788:51792 Coq.Init.Datatypes <> false constr
+R51946:51948 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51894:51903 KamiHW.MorphJoin <> join_empty def
+R51906:51921 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R51927:51942 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R51949:51953 Coq.Init.Datatypes <> false constr
+R51946:51948 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51894:51903 KamiHW.MorphJoin <> join_empty def
+R51906:51921 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R51927:51942 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R51949:51953 Coq.Init.Datatypes <> false constr
+R51979:51992 KamiHW.MorphJoin <> join_empty_nat thm
+R51979:51992 KamiHW.MorphJoin <> join_empty_nat thm
+R51979:51992 KamiHW.MorphJoin <> join_empty_nat thm
+R52015:52019 Coq.Init.Logic <> proj2 thm
+R52022:52032 Coq.Arith.PeanoNat Nat eqb_neq thm
+R52043:52047 Coq.Init.Logic <> proj2 thm
+R52050:52060 Coq.Arith.PeanoNat Nat eqb_neq thm
+R52015:52019 Coq.Init.Logic <> proj2 thm
+R52022:52032 Coq.Arith.PeanoNat Nat eqb_neq thm
+R52015:52019 Coq.Init.Logic <> proj2 thm
+R52022:52032 Coq.Arith.PeanoNat Nat eqb_neq thm
+R52043:52047 Coq.Init.Logic <> proj2 thm
+R52050:52060 Coq.Arith.PeanoNat Nat eqb_neq thm
+R52043:52047 Coq.Init.Logic <> proj2 thm
+R52050:52060 Coq.Arith.PeanoNat Nat eqb_neq thm
+R52149:52151 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R52107:52115 KamiHW.MorphJoin <> join_wrap def
+R52118:52124 KamiHW.HWBoundary <> hw_mc_j proj
+R52130:52145 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R52152:52158 Coq.Arith.PeanoNat Nat eqb def
+R52161:52161 Coq.Init.Datatypes <> S constr
+R52198:52210 KamiHW.MorphJoin <> join_wrap_nat thm
+R52149:52151 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R52107:52115 KamiHW.MorphJoin <> join_wrap def
+R52118:52124 KamiHW.HWBoundary <> hw_mc_j proj
+R52130:52145 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R52152:52158 Coq.Arith.PeanoNat Nat eqb def
+R52161:52161 Coq.Init.Datatypes <> S constr
+R52198:52210 KamiHW.MorphJoin <> join_wrap_nat thm
+R52309:52311 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R52234:52242 KamiHW.MorphJoin <> join_done def
+R52245:52251 KamiHW.HWBoundary <> hw_mc_i proj
+R52257:52263 KamiHW.HWBoundary <> hw_mc_j proj
+R52269:52284 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R52290:52305 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R52312:52324 KamiHW.MorphJoin <> join_terminal def
+R52379:52391 KamiHW.MorphJoin <> join_done_nat thm
+R52309:52311 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R52234:52242 KamiHW.MorphJoin <> join_done def
+R52245:52251 KamiHW.HWBoundary <> hw_mc_i proj
+R52257:52263 KamiHW.HWBoundary <> hw_mc_j proj
+R52269:52284 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R52290:52305 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R52312:52324 KamiHW.MorphJoin <> join_terminal def
+R52379:52391 KamiHW.MorphJoin <> join_done_nat thm
+R52418:52429 KamiHW.CouplingFsmJoin <> mcjoin_phase thm
+R52450:52452 Coq.Init.Datatypes <> orb def
+R52466:52478 KamiHW.MorphJoin <> join_terminal def
+R52418:52429 KamiHW.CouplingFsmJoin <> mcjoin_phase thm
+R52418:52429 KamiHW.CouplingFsmJoin <> mcjoin_phase thm
+R52466:52478 KamiHW.MorphJoin <> join_terminal def
+R52525:52532 KamiHW.CouplingFsmJoin <> mcjoin_i thm
+R52551:52563 KamiHW.MorphJoin <> join_cursor_i def
+R52576:52582 Coq.Arith.PeanoNat Nat eqb def
+R52585:52585 Coq.Init.Datatypes <> S constr
+R52602:52611 KamiHW.CouplingFsmNorm <> succ_word5 thm
+R52525:52532 KamiHW.CouplingFsmJoin <> mcjoin_i thm
+R52525:52532 KamiHW.CouplingFsmJoin <> mcjoin_i thm
+R52576:52582 Coq.Arith.PeanoNat Nat eqb def
+R52585:52585 Coq.Init.Datatypes <> S constr
+R52602:52611 KamiHW.CouplingFsmNorm <> succ_word5 thm
+R52647:52654 KamiHW.CouplingFsmJoin <> mcjoin_j thm
+R52673:52685 KamiHW.MorphJoin <> join_cursor_j def
+R52698:52704 Coq.Arith.PeanoNat Nat eqb def
+R52707:52707 Coq.Init.Datatypes <> S constr
+R52736:52745 KamiHW.CouplingFsmNorm <> succ_word5 thm
+R52647:52654 KamiHW.CouplingFsmJoin <> mcjoin_j thm
+R52647:52654 KamiHW.CouplingFsmJoin <> mcjoin_j thm
+R52698:52704 Coq.Arith.PeanoNat Nat eqb def
+R52707:52707 Coq.Init.Datatypes <> S constr
+R52736:52745 KamiHW.CouplingFsmNorm <> succ_word5 thm
+R52769:52784 KamiHW.CouplingFsmJoin <> mcjoin_write_ptr thm
+R52802:52809 KamiHW.MorphJoin <> join_out def
+R52837:52846 KamiHW.CouplingFsmNorm <> succ_word5 thm
+R52769:52784 KamiHW.CouplingFsmJoin <> mcjoin_write_ptr thm
+R52769:52784 KamiHW.CouplingFsmJoin <> mcjoin_write_ptr thm
+R52837:52846 KamiHW.CouplingFsmNorm <> succ_word5 thm
+R52885:52894 KamiHW.CouplingFsmJoin <> mcjoin_src thm
+R52916:52929 KamiHW.MorphJoin <> join_index_nat thm
+R52885:52894 KamiHW.CouplingFsmJoin <> mcjoin_src thm
+R52885:52894 KamiHW.CouplingFsmJoin <> mcjoin_src thm
+R52916:52929 KamiHW.MorphJoin <> join_index_nat thm
+R52916:52929 KamiHW.MorphJoin <> join_index_nat thm
+R52946:52955 KamiHW.MorphJoin <> join_table def
+R52958:52968 KamiHW.MorphCopy <> append_pair def
+R53032:53034 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R53032:53034 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R53074:53083 KamiHW.CouplingFsmJoin <> mcjoin_dst thm
+R53105:53118 KamiHW.MorphJoin <> join_index_nat thm
+R53074:53083 KamiHW.CouplingFsmJoin <> mcjoin_dst thm
+R53074:53083 KamiHW.CouplingFsmJoin <> mcjoin_dst thm
+R53105:53118 KamiHW.MorphJoin <> join_index_nat thm
+R53105:53118 KamiHW.MorphJoin <> join_index_nat thm
+R53135:53144 KamiHW.MorphJoin <> join_table def
+R53147:53157 KamiHW.MorphCopy <> append_pair def
+R53221:53223 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R53221:53223 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R53260:53271 KamiHW.CouplingFsmJoin <> mcjoin_valid thm
+R53289:53304 KamiHW.MorphJoin <> join_valid_table def
+R53260:53271 KamiHW.CouplingFsmJoin <> mcjoin_valid thm
+R53260:53271 KamiHW.CouplingFsmJoin <> mcjoin_valid thm
+R53350:53359 KamiHW.CouplingFsmJoin <> mcjoin_err thm
+R53362:53378 KamiHW.CouplingFsmJoin <> mcjoin_error_code thm
+R53385:53395 Coq.Bool.Bool <> orb_false_r thm
+R53350:53359 KamiHW.CouplingFsmJoin <> mcjoin_err thm
+R53350:53359 KamiHW.CouplingFsmJoin <> mcjoin_err thm
+R53362:53378 KamiHW.CouplingFsmJoin <> mcjoin_error_code thm
+R53362:53378 KamiHW.CouplingFsmJoin <> mcjoin_error_code thm
+R53385:53395 Coq.Bool.Bool <> orb_false_r thm
+R53385:53395 Coq.Bool.Bool <> orb_false_r thm
+prf 53456:53463 <> join_run
+binder 53474:53474 <> n:422
+binder 53476:53476 <> c:423
+binder 53478:53483 <> rawsrc:424
+binder 53485:53490 <> rawdst:425
+binder 53492:53492 <> b:426
+binder 53494:53496 <> out:427
+binder 53498:53498 <> i:428
+binder 53500:53500 <> j:429
+binder 53502:53503 <> c1:430
+binder 53505:53506 <> c2:431
+binder 53508:53509 <> a1:432
+binder 53511:53512 <> a2:433
+R53562:53567 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53558:53560 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R53517:53527 Coq.Lists.List <> length abbrev
+R53530:53546 KamiHW.MorphJoin <> candidate_indices def
+R53548:53548 KamiHW.CouplingFsmJoin <> i:428 var
+R53550:53550 KamiHW.CouplingFsmJoin <> j:429 var
+R53552:53553 KamiHW.CouplingFsmJoin <> c1:430 var
+R53555:53556 KamiHW.CouplingFsmJoin <> c2:431 var
+R53561:53561 KamiHW.CouplingFsmJoin <> n:422 var
+R53580:53583 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53569:53571 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R53574:53577 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R53568:53568 KamiHW.CouplingFsmJoin <> i:428 var
+R53572:53573 KamiHW.CouplingFsmJoin <> c1:430 var
+R53572:53573 KamiHW.CouplingFsmJoin <> c1:430 var
+R53596:53599 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53585:53587 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R53590:53593 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R53584:53584 KamiHW.CouplingFsmJoin <> j:429 var
+R53588:53589 KamiHW.CouplingFsmJoin <> c2:431 var
+R53588:53589 KamiHW.CouplingFsmJoin <> c2:431 var
+R53608:53613 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53601:53604 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R53600:53600 KamiHW.CouplingFsmJoin <> b:426 var
+R53605:53607 KamiHW.CouplingFsmJoin <> out:427 var
+R53684:53689 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53678:53681 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R53617:53619 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R53614:53616 KamiHW.CouplingFsmJoin <> out:427 var
+R53620:53630 Coq.Lists.List <> length abbrev
+R53633:53646 KamiHW.MorphJoin <> remaining_join def
+R53648:53653 KamiHW.CouplingFsmJoin <> rawsrc:424 var
+R53655:53660 KamiHW.CouplingFsmJoin <> rawdst:425 var
+R53662:53663 KamiHW.CouplingFsmJoin <> a1:432 var
+R53665:53666 KamiHW.CouplingFsmJoin <> a2:433 var
+R53668:53668 KamiHW.CouplingFsmJoin <> i:428 var
+R53670:53670 KamiHW.CouplingFsmJoin <> j:429 var
+R53672:53673 KamiHW.CouplingFsmJoin <> c1:430 var
+R53675:53676 KamiHW.CouplingFsmJoin <> c2:431 var
+R53702:53705 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53697:53700 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R53692:53694 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R53690:53691 KamiHW.CouplingFsmJoin <> a1:432 var
+R53695:53696 KamiHW.CouplingFsmJoin <> c1:430 var
+R53701:53701 KamiHW.CouplingFsmJoin <> b:426 var
+R53718:53723 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53713:53716 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R53708:53710 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R53706:53707 KamiHW.CouplingFsmJoin <> a2:433 var
+R53711:53712 KamiHW.CouplingFsmJoin <> c2:431 var
+R53717:53717 KamiHW.CouplingFsmJoin <> b:426 var
+R53774:53777 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53724:53733 KamiHW.MorphCopy <> low_agrees def
+R53735:53735 KamiHW.CouplingFsmJoin <> b:426 var
+R53738:53763 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R53765:53765 KamiHW.CouplingFsmJoin <> c:423 var
+R53768:53773 KamiHW.CouplingFsmJoin <> rawsrc:424 var
+R53828:53833 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53778:53787 KamiHW.MorphCopy <> low_agrees def
+R53789:53789 KamiHW.CouplingFsmJoin <> b:426 var
+R53792:53817 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R53819:53819 KamiHW.CouplingFsmJoin <> c:423 var
+R53822:53827 KamiHW.CouplingFsmJoin <> rawdst:425 var
+R53863:53866 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53847:53849 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R53834:53844 KamiHW.HWBoundary <> hw_mc_phase proj
+R53846:53846 KamiHW.CouplingFsmJoin <> c:423 var
+R53850:53858 Kami.Lib.Word <> natToWord def
+R53892:53895 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53876:53878 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R53867:53873 KamiHW.HWBoundary <> hw_mc_i proj
+R53875:53875 KamiHW.CouplingFsmJoin <> c:423 var
+R53879:53887 Kami.Lib.Word <> natToWord def
+R53891:53891 KamiHW.CouplingFsmJoin <> i:428 var
+R53921:53926 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53905:53907 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R53896:53902 KamiHW.HWBoundary <> hw_mc_j proj
+R53904:53904 KamiHW.CouplingFsmJoin <> c:423 var
+R53908:53916 Kami.Lib.Word <> natToWord def
+R53920:53920 KamiHW.CouplingFsmJoin <> j:429 var
+R53962:53965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53945:53947 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R53927:53942 KamiHW.HWBoundary <> hw_mc_src1_count proj
+R53944:53944 KamiHW.CouplingFsmJoin <> c:423 var
+R53948:53956 Kami.Lib.Word <> natToWord def
+R53960:53961 KamiHW.CouplingFsmJoin <> c1:430 var
+R54001:54006 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53984:53986 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R53966:53981 KamiHW.HWBoundary <> hw_mc_src2_count proj
+R53983:53983 KamiHW.CouplingFsmJoin <> c:423 var
+R53987:53995 Kami.Lib.Word <> natToWord def
+R53999:54000 KamiHW.CouplingFsmJoin <> c2:431 var
+R54041:54044 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R54024:54026 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R54007:54021 KamiHW.HWBoundary <> hw_mc_src1_base proj
+R54023:54023 KamiHW.CouplingFsmJoin <> c:423 var
+R54027:54035 Kami.Lib.Word <> natToWord def
+R54039:54040 KamiHW.CouplingFsmJoin <> a1:432 var
+R54079:54084 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R54062:54064 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R54045:54059 KamiHW.HWBoundary <> hw_mc_src2_base proj
+R54061:54061 KamiHW.CouplingFsmJoin <> c:423 var
+R54065:54073 Kami.Lib.Word <> natToWord def
+R54077:54078 KamiHW.CouplingFsmJoin <> a2:433 var
+R54120:54125 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R54102:54104 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R54085:54099 KamiHW.HWBoundary <> hw_mc_write_ptr proj
+R54101:54101 KamiHW.CouplingFsmJoin <> c:423 var
+R54105:54113 Kami.Lib.Word <> natToWord def
+R54117:54119 KamiHW.CouplingFsmJoin <> out:427 var
+R54138:54151 KamiHW.MorphJoin <> remaining_join def
+R54153:54158 KamiHW.CouplingFsmJoin <> rawsrc:424 var
+R54160:54165 KamiHW.CouplingFsmJoin <> rawdst:425 var
+R54167:54168 KamiHW.CouplingFsmJoin <> a1:432 var
+R54170:54171 KamiHW.CouplingFsmJoin <> a2:433 var
+R54173:54173 KamiHW.CouplingFsmJoin <> i:428 var
+R54175:54175 KamiHW.CouplingFsmJoin <> j:429 var
+R54177:54178 KamiHW.CouplingFsmJoin <> c1:430 var
+R54180:54181 KamiHW.CouplingFsmJoin <> c2:431 var
+binder 54130:54133 <> rest:434
+R54188:54188 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R54251:54257 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 54196:54196 <> m:435
+R54204:54207 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R54200:54202 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R54199:54199 KamiHW.CouplingFsmJoin <> m:435 var
+R54203:54203 KamiHW.CouplingFsmJoin <> n:422 var
+R54235:54237 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R54208:54218 KamiHW.HWBoundary <> hw_mc_phase proj
+R54221:54229 KamiHW.CouplingFsmJoin <> join_iter def
+R54231:54231 KamiHW.CouplingFsmJoin <> m:435 var
+R54233:54233 KamiHW.CouplingFsmJoin <> c:423 var
+R54238:54246 Kami.Lib.Word <> natToWord def
+R54301:54306 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R54285:54287 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R54258:54268 KamiHW.HWBoundary <> hw_mc_phase proj
+R54271:54279 KamiHW.CouplingFsmJoin <> join_iter def
+R54281:54281 KamiHW.CouplingFsmJoin <> n:422 var
+R54283:54283 KamiHW.CouplingFsmJoin <> c:423 var
+R54288:54296 Kami.Lib.Word <> natToWord def
+R54377:54382 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R54338:54340 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R54307:54321 KamiHW.HWBoundary <> hw_mc_write_ptr proj
+R54324:54332 KamiHW.CouplingFsmJoin <> join_iter def
+R54334:54334 KamiHW.CouplingFsmJoin <> n:422 var
+R54336:54336 KamiHW.CouplingFsmJoin <> c:423 var
+R54341:54349 Kami.Lib.Word <> natToWord def
+R54357:54359 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R54354:54356 KamiHW.CouplingFsmJoin <> out:427 var
+R54360:54370 Coq.Lists.List <> length abbrev
+R54372:54375 KamiHW.CouplingFsmJoin <> rest:434 var
+R54484:54489 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R54425:54427 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R54383:54408 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R54411:54419 KamiHW.CouplingFsmJoin <> join_iter def
+R54421:54421 KamiHW.CouplingFsmJoin <> n:422 var
+R54423:54423 KamiHW.CouplingFsmJoin <> c:423 var
+R54428:54438 KamiHW.MorphCopy <> store_pairs def
+R54441:54466 KamiHW.HWBoundary <> hw_coupling_pair_src_table proj
+R54468:54468 KamiHW.CouplingFsmJoin <> c:423 var
+R54471:54473 KamiHW.CouplingFsmJoin <> out:427 var
+R54475:54478 KamiHW.CouplingFsmJoin <> rest:434 var
+R54480:54483 Coq.Init.Datatypes <> true constr
+R54592:54597 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R54532:54534 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R54490:54515 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R54518:54526 KamiHW.CouplingFsmJoin <> join_iter def
+R54528:54528 KamiHW.CouplingFsmJoin <> n:422 var
+R54530:54530 KamiHW.CouplingFsmJoin <> c:423 var
+R54535:54545 KamiHW.MorphCopy <> store_pairs def
+R54548:54573 KamiHW.HWBoundary <> hw_coupling_pair_dst_table proj
+R54575:54575 KamiHW.CouplingFsmJoin <> c:423 var
+R54578:54580 KamiHW.CouplingFsmJoin <> out:427 var
+R54582:54585 KamiHW.CouplingFsmJoin <> rest:434 var
+R54587:54591 Coq.Init.Datatypes <> false constr
+R54713:54718 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R54642:54644 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R54598:54625 KamiHW.HWBoundary <> hw_coupling_pair_valid_table proj
+R54628:54636 KamiHW.CouplingFsmJoin <> join_iter def
+R54638:54638 KamiHW.CouplingFsmJoin <> n:422 var
+R54640:54640 KamiHW.CouplingFsmJoin <> c:423 var
+R54645:54656 KamiHW.MorphLoading <> loaded_valid def
+R54658:54660 KamiHW.CouplingFsmJoin <> out:427 var
+R54663:54673 Coq.Lists.List <> length abbrev
+R54675:54678 KamiHW.CouplingFsmJoin <> rest:434 var
+R54682:54709 KamiHW.HWBoundary <> hw_coupling_pair_valid_table proj
+R54711:54711 KamiHW.CouplingFsmJoin <> c:423 var
+R54752:54755 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R54741:54743 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R54719:54724 KamiHW.HWBoundary <> hw_err proj
+R54727:54735 KamiHW.CouplingFsmJoin <> join_iter def
+R54737:54737 KamiHW.CouplingFsmJoin <> n:422 var
+R54739:54739 KamiHW.CouplingFsmJoin <> c:423 var
+R54744:54749 KamiHW.HWBoundary <> hw_err proj
+R54751:54751 KamiHW.CouplingFsmJoin <> c:423 var
+R54785:54787 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R54756:54768 KamiHW.HWBoundary <> hw_error_code proj
+R54771:54779 KamiHW.CouplingFsmJoin <> join_iter def
+R54781:54781 KamiHW.CouplingFsmJoin <> n:422 var
+R54783:54783 KamiHW.CouplingFsmJoin <> c:423 var
+R54788:54800 KamiHW.HWBoundary <> hw_error_code proj
+R54802:54802 KamiHW.CouplingFsmJoin <> c:423 var
+R54970:54991 KamiHW.MorphJoin <> candidate_indices_cons thm
+R54970:54991 KamiHW.MorphJoin <> candidate_indices_cons thm
+R54970:54991 KamiHW.MorphJoin <> candidate_indices_cons thm
+R55041:55055 KamiHW.MorphJoin <> candidate_match def
+R55041:55055 KamiHW.MorphJoin <> candidate_match def
+R55098:55110 KamiHW.MorphJoin <> join_cursor_i def
+R55098:55110 KamiHW.MorphJoin <> join_cursor_i def
+R55132:55144 KamiHW.MorphJoin <> join_cursor_j def
+R55132:55144 KamiHW.MorphJoin <> join_cursor_j def
+R55170:55183 KamiHW.MorphJoin <> remaining_join def
+R55170:55183 KamiHW.MorphJoin <> remaining_join def
+R55243:55245 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R55246:55253 Coq.Lists.List <> app abbrev
+R55318:55320 Coq.Init.Datatypes <> nil constr
+R55272:55272 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R55311:55311 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R55273:55286 KamiHW.MorphJoin <> candidate_pair def
+R55345:55363 KamiHW.MorphJoin <> remaining_join_cons thm
+R55243:55245 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R55246:55253 Coq.Lists.List <> app abbrev
+R55318:55320 Coq.Init.Datatypes <> nil constr
+R55272:55272 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R55311:55311 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R55273:55286 KamiHW.MorphJoin <> candidate_pair def
+R55345:55363 KamiHW.MorphJoin <> remaining_join_cons thm
+R55406:55409 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R55399:55401 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R55402:55405 Coq.Init.Datatypes <> true constr
+R55413:55415 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R55406:55409 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R55399:55401 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R55402:55405 Coq.Init.Datatypes <> true constr
+R55413:55415 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R55487:55494 Coq.Init.Datatypes <> app def
+R55496:55506 Coq.Init.Datatypes <> length def
+R55539:55553 KamiHW.CouplingFsmJoin <> join_step_facts thm
+R55667:55673 Coq.Init.Logic <> eq_refl constr
+R55539:55553 KamiHW.CouplingFsmJoin <> join_step_facts thm
+R55667:55673 Coq.Init.Logic <> eq_refl constr
+R55667:55673 Coq.Init.Logic <> eq_refl constr
+R55858:55866 KamiHW.CouplingFsmJoin <> join_iter def
+R55884:55896 KamiHW.MorphJoin <> join_terminal def
+R55884:55896 KamiHW.MorphJoin <> join_terminal def
+R55936:55956 KamiHW.MorphJoin <> join_terminal_cursors thm
+R55936:55956 KamiHW.MorphJoin <> join_terminal_cursors thm
+R56014:56016 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R56032:56055 KamiHW.MorphJoin <> candidate_indices_length thm
+R56014:56016 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R56032:56055 KamiHW.MorphJoin <> candidate_indices_length thm
+R56032:56055 KamiHW.MorphJoin <> candidate_indices_length thm
+R56091:56099 KamiHW.CouplingFsmJoin <> join_iter def
+R56129:56131 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R56132:56134 Coq.Init.Datatypes <> nil constr
+R56186:56208 KamiHW.MorphJoin <> remaining_join_terminal thm
+R56129:56131 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R56132:56134 Coq.Init.Datatypes <> nil constr
+R56186:56208 KamiHW.MorphJoin <> remaining_join_terminal thm
+R56251:56259 Coq.Lists.List <> app_nil_r thm
+R56251:56259 Coq.Lists.List <> app_nil_r thm
+R56251:56259 Coq.Lists.List <> app_nil_r thm
+R56298:56300 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R56298:56300 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R56372:56379 KamiHW.MorphJoin <> join_out def
+R56382:56391 KamiHW.MorphJoin <> join_table def
+R56394:56409 KamiHW.MorphJoin <> join_valid_table def
+R56412:56425 KamiHW.MorphJoin <> candidate_pair def
+R56428:56438 KamiHW.MorphCopy <> append_pair def
+R56475:56485 Coq.Init.Datatypes <> length def
+R56487:56497 KamiHW.MorphCopy <> store_pairs def
+R56499:56510 KamiHW.MorphLoading <> loaded_valid def
+R56512:56514 Coq.Init.Datatypes <> fst def
+R56516:56518 Coq.Init.Datatypes <> snd def
+R56708:56723 KamiHW.MorphJoin <> join_next_bounds thm
+R56708:56723 KamiHW.MorphJoin <> join_next_bounds thm
+R56841:56843 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R56798:56808 Coq.Lists.List <> length abbrev
+R56811:56827 KamiHW.MorphJoin <> candidate_indices def
+R56841:56843 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R56798:56808 Coq.Lists.List <> length abbrev
+R56811:56827 KamiHW.MorphJoin <> candidate_indices def
+R56864:56885 KamiHW.MorphJoin <> candidate_indices_cons thm
+R56864:56885 KamiHW.MorphJoin <> candidate_indices_cons thm
+R56864:56885 KamiHW.MorphJoin <> candidate_indices_cons thm
+R56906:56916 Coq.Init.Datatypes <> length def
+R56932:56943 Coq.Arith.PeanoNat Nat succ_inj thm
+R56932:56943 Coq.Arith.PeanoNat Nat succ_inj thm
+R57025:57028 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R57006:57008 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R56986:56993 KamiHW.MorphJoin <> join_out def
+R57009:57019 Coq.Lists.List <> length abbrev
+R57025:57028 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R57006:57008 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R56986:56993 KamiHW.MorphJoin <> join_out def
+R57009:57019 Coq.Lists.List <> length abbrev
+R57091:57098 KamiHW.MorphJoin <> join_out def
+R57124:57131 Coq.Init.Datatypes <> app def
+R57133:57143 Coq.Init.Datatypes <> length def
+R57179:57189 KamiHW.FsmDecoded <> mcjoin_next def
+R57211:57218 KamiHW.MorphJoin <> join_out def
+R57320:57327 KamiHW.MorphJoin <> join_out def
+R57400:57423 KamiHW.MorphJoin <> join_table_preserves_low thm
+R57512:57518 Coq.Init.Logic <> eq_refl constr
+R57574:57597 KamiHW.MorphJoin <> join_table_preserves_low thm
+R57686:57692 Coq.Init.Logic <> eq_refl constr
+R57746:57771 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src1_count thm
+R57799:57824 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src2_count thm
+R57860:57884 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src1_base thm
+R57913:57937 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src2_base thm
+R57179:57189 KamiHW.FsmDecoded <> mcjoin_next def
+R57211:57218 KamiHW.MorphJoin <> join_out def
+R57320:57327 KamiHW.MorphJoin <> join_out def
+R57400:57423 KamiHW.MorphJoin <> join_table_preserves_low thm
+R57512:57518 Coq.Init.Logic <> eq_refl constr
+R57574:57597 KamiHW.MorphJoin <> join_table_preserves_low thm
+R57686:57692 Coq.Init.Logic <> eq_refl constr
+R57746:57771 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src1_count thm
+R57799:57824 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src2_count thm
+R57860:57884 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src1_base thm
+R57913:57937 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src2_base thm
+R57400:57423 KamiHW.MorphJoin <> join_table_preserves_low thm
+R57512:57518 Coq.Init.Logic <> eq_refl constr
+R57512:57518 Coq.Init.Logic <> eq_refl constr
+R57574:57597 KamiHW.MorphJoin <> join_table_preserves_low thm
+R57686:57692 Coq.Init.Logic <> eq_refl constr
+R57686:57692 Coq.Init.Logic <> eq_refl constr
+R57746:57771 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src1_count thm
+R57746:57771 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src1_count thm
+R57799:57824 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src2_count thm
+R57799:57824 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src2_count thm
+R57860:57884 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src1_base thm
+R57860:57884 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src1_base thm
+R57913:57937 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src2_base thm
+R57913:57937 KamiHW.CouplingFsmJoin <> mcjoin_keeps_mc_src2_base thm
+R58103:58111 KamiHW.CouplingFsmJoin <> join_iter def
+R58300:58307 KamiHW.MorphJoin <> join_out def
+R58310:58319 KamiHW.MorphJoin <> join_table def
+R58322:58337 KamiHW.MorphJoin <> join_valid_table def
+R58340:58353 KamiHW.MorphJoin <> candidate_pair def
+R58356:58366 KamiHW.MorphCopy <> append_pair def
+R58403:58410 Coq.Init.Datatypes <> app def
+R58412:58422 Coq.Init.Datatypes <> length def
+R58424:58434 KamiHW.MorphCopy <> store_pairs def
+R58436:58447 KamiHW.MorphLoading <> loaded_valid def
+R58449:58451 Coq.Init.Datatypes <> fst def
+R58453:58455 Coq.Init.Datatypes <> snd def
+prf 58719:58732 <> join_multistep
+binder 58743:58743 <> n:436
+binder 58745:58745 <> c:437
+R58750:58750 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R58813:58819 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 58758:58758 <> m:438
+R58766:58769 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R58762:58764 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R58761:58761 KamiHW.CouplingFsmJoin <> m:438 var
+R58765:58765 KamiHW.CouplingFsmJoin <> n:436 var
+R58797:58799 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R58770:58780 KamiHW.HWBoundary <> hw_mc_phase proj
+R58783:58791 KamiHW.CouplingFsmJoin <> join_iter def
+R58793:58793 KamiHW.CouplingFsmJoin <> m:438 var
+R58795:58795 KamiHW.CouplingFsmJoin <> c:437 var
+R58800:58808 Kami.Lib.Word <> natToWord def
+R58820:58826 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R58828:58829 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 58827:58827 <> l:439
+R58830:58838 Kami.Semantics <> Multistep ind
+R58891:58891 KamiHW.CouplingFsmJoin <> l:439 var
+R58865:58872 KamiHW.HWBoundary <> hwb_regs def
+R58875:58883 KamiHW.CouplingFsmJoin <> join_iter def
+R58885:58885 KamiHW.CouplingFsmJoin <> n:436 var
+R58887:58887 KamiHW.CouplingFsmJoin <> c:437 var
+R58852:58859 KamiHW.HWBoundary <> hwb_regs def
+R58861:58861 KamiHW.CouplingFsmJoin <> c:437 var
+R58840:58849 KamiHW.ThieleCPUCore <> thieleCore def
+R58950:58952 Coq.Init.Datatypes <> nil constr
+R58950:58952 Coq.Init.Datatypes <> nil constr
+R59085:59087 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R58997:59004 Kami.Semantics <> evalExpr def
+R59008:59008 Kami.Notations <> ::kami_expr_scope:x_'=='_x not
+R59054:59058 Kami.Notations <> ::kami_expr_scope:x_'=='_x not
+R59009:59011 Kami.Syntax <> Var constr
+R59040:59050 KamiHW.HWBoundary <> hw_mc_phase proj
+R59019:59028 Kami.Syntax <> SyntaxKind constr
+R59031:59033 Kami.Syntax <> Bit constr
+R59013:59016 Kami.Syntax <> type def
+R59059:59061 Kami.Notations <> ::kami_expr_scope:'$$'_x not
+R59072:59072 Kami.Notations <> ::kami_expr_scope:'$$'_x not
+R59070:59071 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R59068:59069 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R59066:59067 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R59064:59065 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R59062:59063 Kami.Lib.Word <> WO constr
+R59088:59091 Coq.Init.Datatypes <> true constr
+R59085:59087 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R58997:59004 Kami.Semantics <> evalExpr def
+R59008:59008 Kami.Notations <> ::kami_expr_scope:x_'=='_x not
+R59054:59058 Kami.Notations <> ::kami_expr_scope:x_'=='_x not
+R59009:59011 Kami.Syntax <> Var constr
+R59040:59050 KamiHW.HWBoundary <> hw_mc_phase proj
+R59019:59028 Kami.Syntax <> SyntaxKind constr
+R59031:59033 Kami.Syntax <> Bit constr
+R59013:59016 Kami.Syntax <> type def
+R59059:59061 Kami.Notations <> ::kami_expr_scope:'$$'_x not
+R59072:59072 Kami.Notations <> ::kami_expr_scope:'$$'_x not
+R59070:59071 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R59068:59069 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R59066:59067 Kami.Lib.Word <> ::word_scope:x_'~'_'1' not
+R59064:59065 Kami.Lib.Word <> ::word_scope:x_'~'_'0' not
+R59062:59063 Kami.Lib.Word <> WO constr
+R59088:59091 Coq.Init.Datatypes <> true constr
+R59106:59113 Kami.Semantics <> evalExpr def
+R59115:59124 Kami.Semantics <> evalConstT def
+R59136:59146 KamiHW.HWBoundary <> hw_mc_phase proj
+R59157:59167 KamiHW.HWBoundary <> hw_mc_phase proj
+R59170:59178 KamiHW.CouplingFsmJoin <> join_iter def
+R59136:59146 KamiHW.HWBoundary <> hw_mc_phase proj
+R59157:59167 KamiHW.HWBoundary <> hw_mc_phase proj
+R59170:59178 KamiHW.CouplingFsmJoin <> join_iter def
+R59157:59167 KamiHW.HWBoundary <> hw_mc_phase proj
+R59170:59178 KamiHW.CouplingFsmJoin <> join_iter def
+R59157:59167 KamiHW.HWBoundary <> hw_mc_phase proj
+R59170:59178 KamiHW.CouplingFsmJoin <> join_iter def
+R59242:59255 KamiHW.FsmDecoded <> mcjoin_enabled thm
+R59242:59255 KamiHW.FsmDecoded <> mcjoin_enabled thm
+R59296:59306 KamiHW.FsmDecoded <> mcjoin_next def
+R59340:59340 Coq.Init.Datatypes <> S constr
+R59296:59306 KamiHW.FsmDecoded <> mcjoin_next def
+R59340:59340 Coq.Init.Datatypes <> S constr
+R59340:59340 Coq.Init.Datatypes <> S constr
+R59388:59396 KamiHW.CouplingFsmJoin <> join_iter def
+R59407:59435 KamiHW.NormalizationRetirement <> normalization_multistep_trans thm
+R59440:59447 KamiHW.HWBoundary <> hwb_regs def
+R59450:59460 KamiHW.FsmDecoded <> mcjoin_next def
+R59407:59435 KamiHW.NormalizationRetirement <> normalization_multistep_trans thm
+R59440:59447 KamiHW.HWBoundary <> hwb_regs def
+R59450:59460 KamiHW.FsmDecoded <> mcjoin_next def
+R59506:59536 KamiHW.NormalizationExecution <> normalization_substep_execution thm
+R59506:59536 KamiHW.NormalizationExecution <> normalization_substep_execution thm
+R59550:59565 KamiHW.ChshRetire <> cpu_rule_substep thm
+R59574:59586 KamiHW.CouplingFsmNorm <> rule_in_index thm
+R59550:59565 KamiHW.ChshRetire <> cpu_rule_substep thm
+R59574:59586 KamiHW.CouplingFsmNorm <> rule_in_index thm

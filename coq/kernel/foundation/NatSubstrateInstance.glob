@@ -1,281 +1,281 @@
-DIGEST d6c759c4bbf9105e901baaeb28859311
+DIGEST adc6221c71db1260c635b67bb4207732
 FKernel.NatSubstrateInstance
-R2526:2539 Coq.Arith.PeanoNat <> <> lib
-R2541:2543 Coq.micromega.Lia <> <> lib
-R2573:2581 Kernel.Substrate <> <> lib
-R3069:3075 Kernel.VMState <> <> lib
-sec 4016:4021 <> NatSub
-var 4035:4035 NatSub d
-R4042:4045 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4039:4041 Coq.Init.Datatypes <> nat ind
-R4046:4049 Coq.Init.Datatypes <> bool ind
-def 4066:4074 <> nat_state
-R4086:4088 Coq.Init.Datatypes <> nat ind
-def 4104:4114 <> nat_Program
-R4126:4128 Coq.Init.Datatypes <> nat ind
-def 4145:4151 <> nat_run
-R4158:4168 Kernel.NatSubstrateInstance <> nat_Program def
-binder 4154:4154 <> p:2
-R4176:4184 Kernel.NatSubstrateInstance <> nat_state def
-binder 4172:4172 <> s:3
-R4189:4194 Coq.Init.Datatypes <> option ind
-R4196:4204 Kernel.NatSubstrateInstance <> nat_state def
-R4219:4219 Kernel.NatSubstrateInstance <> p:2 var
-R4237:4240 Coq.Init.Datatypes <> Some constr
-R4255:4258 Coq.Init.Datatypes <> Some constr
-R4276:4276 Kernel.NatSubstrateInstance <> NatSub.d var
-R4297:4300 Coq.Init.Datatypes <> Some constr
-R4285:4288 Coq.Init.Datatypes <> Some constr
-R4315:4318 Coq.Init.Datatypes <> None constr
-def 5025:5030 <> nat_mu
-R5037:5045 Kernel.NatSubstrateInstance <> nat_state def
-R5050:5052 Coq.Init.Datatypes <> nat ind
-def 5074:5081 <> nat_step
-R5088:5098 Kernel.NatSubstrateInstance <> nat_Program def
-binder 5084:5084 <> p:5
-R5109:5117 Kernel.NatSubstrateInstance <> nat_state def
-binder 5102:5102 <> s:6
-binder 5104:5105 <> s':7
-R5145:5147 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5134:5140 Kernel.NatSubstrateInstance <> nat_run def
-R5142:5142 Kernel.NatSubstrateInstance <> p:5 var
-R5144:5144 Kernel.NatSubstrateInstance <> s:6 var
-R5148:5151 Coq.Init.Datatypes <> Some constr
-R5153:5154 Kernel.NatSubstrateInstance <> s':7 var
-prf 5166:5180 <> nat_mu_monotone
-R5200:5210 Kernel.NatSubstrateInstance <> nat_Program def
-binder 5196:5196 <> p:8
-R5221:5229 Kernel.NatSubstrateInstance <> nat_state def
-binder 5214:5214 <> s:9
-binder 5216:5217 <> s':10
-R5254:5257 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5239:5246 Kernel.NatSubstrateInstance <> nat_step def
-R5248:5248 Kernel.NatSubstrateInstance <> p:8 var
-R5250:5250 Kernel.NatSubstrateInstance <> s:9 var
-R5252:5253 Kernel.NatSubstrateInstance <> s':10 var
-R5266:5269 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5258:5263 Kernel.NatSubstrateInstance <> nat_mu def
-R5265:5265 Kernel.NatSubstrateInstance <> s:9 var
-R5270:5275 Kernel.NatSubstrateInstance <> nat_mu def
-R5277:5278 Kernel.NatSubstrateInstance <> s':10 var
-R5305:5310 Kernel.NatSubstrateInstance <> nat_mu def
-R5319:5322 Coq.Init.Peano <> le_n constr
-R5319:5322 Coq.Init.Peano <> le_n constr
-def 5344:5353 <> nat_encode
-R5360:5370 Kernel.NatSubstrateInstance <> nat_Program def
-binder 5356:5356 <> p:11
-R5375:5383 Kernel.NatSubstrateInstance <> nat_state def
-R5388:5388 Kernel.NatSubstrateInstance <> p:11 var
-def 5404:5418 <> nat_decode_safe
-R5425:5433 Kernel.NatSubstrateInstance <> nat_state def
-binder 5421:5421 <> s:12
-R5438:5448 Kernel.NatSubstrateInstance <> nat_Program def
-R5453:5453 Kernel.NatSubstrateInstance <> s:12 var
-prf 5465:5481 <> nat_encode_decode
-binder 5496:5496 <> p:13
-R5529:5531 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5499:5513 Kernel.NatSubstrateInstance <> nat_decode_safe def
-R5516:5525 Kernel.NatSubstrateInstance <> nat_encode def
-R5527:5527 Kernel.NatSubstrateInstance <> p:13 var
-R5532:5532 Kernel.NatSubstrateInstance <> p:13 var
-def 6133:6149 <> nat_Representable
-R6167:6170 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6156:6166 Kernel.NatSubstrateInstance <> nat_Program def
-R6171:6181 Kernel.NatSubstrateInstance <> nat_Program def
-binder 6152:6152 <> f:14
-binder 6205:6205 <> p:15
-R6211:6214 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6235:6235 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6208:6208 Kernel.NatSubstrateInstance <> f:14 var
-R6210:6210 Kernel.NatSubstrateInstance <> p:15 var
-R6218:6218 Kernel.NatSubstrateInstance <> NatSub.d var
-R6220:6220 Kernel.NatSubstrateInstance <> p:15 var
-prf 6567:6587 <> nat_recursion_theorem
-R6618:6621 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6607:6617 Kernel.NatSubstrateInstance <> nat_Program def
-R6622:6632 Kernel.NatSubstrateInstance <> nat_Program def
-binder 6603:6603 <> f:16
-R6661:6670 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6642:6658 Kernel.NatSubstrateInstance <> nat_Representable def
-R6660:6660 Kernel.NatSubstrateInstance <> f:16 var
-R6671:6678 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6694:6704 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6683:6693 Kernel.NatSubstrateInstance <> nat_Program def
-binder 6679:6679 <> p:17
-binder 6712:6712 <> s:18
-R6726:6728 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6715:6721 Kernel.NatSubstrateInstance <> nat_run def
-R6723:6723 Kernel.NatSubstrateInstance <> p:17 var
-R6725:6725 Kernel.NatSubstrateInstance <> s:18 var
-R6729:6735 Kernel.NatSubstrateInstance <> nat_run def
-R6738:6738 Kernel.NatSubstrateInstance <> f:16 var
-R6740:6740 Kernel.NatSubstrateInstance <> p:17 var
-R6743:6743 Kernel.NatSubstrateInstance <> s:18 var
-R6808:6814 Kernel.NatSubstrateInstance <> nat_run def
-R6817:6833 Kernel.NatSubstrateInstance <> nat_Representable def
-R6894:6894 Kernel.NatSubstrateInstance <> NatSub.d var
-R6894:6894 Kernel.NatSubstrateInstance <> NatSub.d var
-def 6958:6970 <> nat_substrate
-R6974:6982 Kernel.Substrate <> Substrate class
-R7000:7004 Kernel.Substrate <> state meth
-R7000:7004 Kernel.Substrate <> state meth
-R7000:7004 Kernel.Substrate <> state meth
-R7026:7032 Kernel.Substrate <> Program meth
-R7026:7032 Kernel.Substrate <> Program meth
-R7056:7058 Kernel.Substrate <> run meth
-R7056:7058 Kernel.Substrate <> run meth
-R7078:7079 Kernel.Substrate <> mu meth
-R7078:7079 Kernel.Substrate <> mu meth
-R7098:7101 Kernel.Substrate <> step meth
-R7098:7101 Kernel.Substrate <> step meth
-R7122:7132 Kernel.Substrate <> mu_monotone meth
-R7122:7132 Kernel.Substrate <> mu_monotone meth
-R7160:7165 Kernel.Substrate <> encode meth
-R7160:7165 Kernel.Substrate <> encode meth
-R7188:7198 Kernel.Substrate <> decode_safe meth
-R7188:7198 Kernel.Substrate <> decode_safe meth
-R7226:7238 Kernel.Substrate <> encode_decode meth
-R7226:7238 Kernel.Substrate <> encode_decode meth
-R7268:7280 Kernel.Substrate <> Representable meth
-R7268:7280 Kernel.Substrate <> Representable meth
-R7310:7326 Kernel.Substrate <> recursion_theorem meth
-R7310:7326 Kernel.Substrate <> recursion_theorem meth
-R7009:7017 Kernel.NatSubstrateInstance <> nat_state def
-R7037:7047 Kernel.NatSubstrateInstance <> nat_Program def
-R7063:7069 Kernel.NatSubstrateInstance <> nat_run def
-R7084:7089 Kernel.NatSubstrateInstance <> nat_mu def
-R7106:7113 Kernel.NatSubstrateInstance <> nat_step def
-R7137:7151 Kernel.NatSubstrateInstance <> nat_mu_monotone thm
-R7170:7179 Kernel.NatSubstrateInstance <> nat_encode def
-R7203:7217 Kernel.NatSubstrateInstance <> nat_decode_safe def
-R7243:7259 Kernel.NatSubstrateInstance <> nat_encode_decode thm
-R7285:7301 Kernel.NatSubstrateInstance <> nat_Representable def
-R7331:7351 Kernel.NatSubstrateInstance <> nat_recursion_theorem thm
-R7367:7372 Kernel.NatSubstrateInstance NatSub <> sec
-R7461:7484 Kernel.StructuralUndecidability <> <> lib
-sec 7496:7506 <> NatShortcut
-var 7520:7520 NatShortcut d
-R7527:7530 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7524:7526 Coq.Init.Datatypes <> nat ind
-R7531:7534 Coq.Init.Datatypes <> bool ind
-def 7911:7920 <> nat_admits
-R7927:7929 Coq.Init.Datatypes <> nat ind
-binder 7923:7923 <> p:20
-R7959:7961 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7946:7952 Kernel.NatSubstrateInstance <> nat_run def
-R7956:7956 Kernel.NatSubstrateInstance <> p:20 var
-R7954:7954 Kernel.NatSubstrateInstance <> NatShortcut.d var
-R7962:7965 Coq.Init.Datatypes <> Some constr
-prf 8057:8070 <> nat_no_refuses
-R8074:8075 Coq.Init.Logic <> ::type_scope:'~'_x not
-R8076:8085 Kernel.NatSubstrateInstance <> nat_admits def
-R8106:8115 Kernel.NatSubstrateInstance <> nat_admits def
-R8118:8124 Kernel.NatSubstrateInstance <> nat_run def
-prf 8155:8176 <> nat_admits_extensional
-binder 8191:8192 <> p1:21
-binder 8194:8195 <> p2:22
-R8204:8204 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8246:8256 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 8212:8212 <> s:23
-R8229:8231 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8215:8221 Kernel.NatSubstrateInstance <> nat_run def
-R8225:8226 Kernel.NatSubstrateInstance <> p1:21 var
-R8228:8228 Kernel.NatSubstrateInstance <> s:23 var
-R8223:8223 Kernel.NatSubstrateInstance <> NatShortcut.d var
-R8232:8238 Kernel.NatSubstrateInstance <> nat_run def
-R8242:8243 Kernel.NatSubstrateInstance <> p2:22 var
-R8245:8245 Kernel.NatSubstrateInstance <> s:23 var
-R8240:8240 Kernel.NatSubstrateInstance <> NatShortcut.d var
-R8270:8274 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R8257:8266 Kernel.NatSubstrateInstance <> nat_admits def
-R8268:8269 Kernel.NatSubstrateInstance <> p1:21 var
-R8275:8284 Kernel.NatSubstrateInstance <> nat_admits def
-R8286:8287 Kernel.NatSubstrateInstance <> p2:22 var
-R8329:8338 Kernel.NatSubstrateInstance <> nat_admits def
-def 8453:8469 <> nat_with_shortcut
-R8478:8498 Kernel.StructuralUndecidability <> WithShortcutPredicate class
-R8501:8513 Kernel.NatSubstrateInstance <> nat_substrate def
-R8515:8515 Kernel.NatSubstrateInstance <> NatShortcut.d var
-R8547:8573 Kernel.StructuralUndecidability <> Build_WithShortcutPredicate constr
-R8576:8588 Kernel.NatSubstrateInstance <> nat_substrate def
-R8590:8590 Kernel.NatSubstrateInstance <> NatShortcut.d var
-R8602:8611 Kernel.NatSubstrateInstance <> nat_admits def
-R8547:8573 Kernel.StructuralUndecidability <> Build_WithShortcutPredicate constr
-R8576:8588 Kernel.NatSubstrateInstance <> nat_substrate def
-R8590:8590 Kernel.NatSubstrateInstance <> NatShortcut.d var
-R8602:8611 Kernel.NatSubstrateInstance <> nat_admits def
-R8638:8647 Kernel.NatSubstrateInstance <> nat_admits def
-R8650:8656 Kernel.NatSubstrateInstance <> nat_run def
-R8684:8697 Kernel.NatSubstrateInstance <> nat_no_refuses thm
-R8684:8697 Kernel.NatSubstrateInstance <> nat_no_refuses thm
-R8731:8752 Kernel.NatSubstrateInstance <> nat_admits_extensional thm
-R8731:8752 Kernel.NatSubstrateInstance <> nat_admits_extensional thm
-R8803:8813 Kernel.NatSubstrateInstance NatShortcut <> sec
-prf 9799:9833 <> nat_structural_shortcut_undecidable
-R9854:9857 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9851:9853 Coq.Init.Datatypes <> nat ind
-R9858:9861 Coq.Init.Datatypes <> bool ind
-binder 9847:9847 <> d:24
-R9869:9870 Coq.Init.Logic <> ::type_scope:'~'_x not
-R9871:9878 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R9899:9909 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R9891:9894 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9888:9890 Coq.Init.Datatypes <> nat ind
-R9895:9898 Coq.Init.Datatypes <> bool ind
-binder 9879:9884 <> decide:25
-R10130:10141 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9911:9923 Kernel.Substrate <> Representable meth
-R9926:9938 Kernel.NatSubstrateInstance <> nat_substrate def
-R9940:9940 Kernel.NatSubstrateInstance <> d:24 var
-binder 9958:9958 <> p:26
-R9966:9971 Kernel.NatSubstrateInstance <> decide:25 var
-R9973:9973 Kernel.NatSubstrateInstance <> p:26 var
-R10078:10088 Kernel.StructuralUndecidability <> yes_program meth
-R10091:10103 Kernel.NatSubstrateInstance <> nat_substrate def
-R10105:10105 Kernel.NatSubstrateInstance <> d:24 var
-R10109:10125 Kernel.NatSubstrateInstance <> nat_with_shortcut def
-R10127:10127 Kernel.NatSubstrateInstance <> d:24 var
-R10001:10010 Kernel.StructuralUndecidability <> no_program meth
-R10013:10025 Kernel.NatSubstrateInstance <> nat_substrate def
-R10027:10027 Kernel.NatSubstrateInstance <> d:24 var
-R10031:10047 Kernel.NatSubstrateInstance <> nat_with_shortcut def
-R10049:10049 Kernel.NatSubstrateInstance <> d:24 var
-binder 10149:10149 <> p:27
-R10167:10171 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R10160:10162 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10152:10157 Kernel.NatSubstrateInstance <> decide:25 var
-R10159:10159 Kernel.NatSubstrateInstance <> p:27 var
-R10163:10166 Coq.Init.Datatypes <> true constr
-R10173:10186 Kernel.StructuralUndecidability <> AdmitsShortcut meth
-R10189:10201 Kernel.NatSubstrateInstance <> nat_substrate def
-R10203:10203 Kernel.NatSubstrateInstance <> d:24 var
-R10251:10267 Kernel.NatSubstrateInstance <> nat_with_shortcut def
-R10269:10269 Kernel.NatSubstrateInstance <> d:24 var
-R10272:10272 Kernel.NatSubstrateInstance <> p:27 var
-R10303:10333 Kernel.StructuralUndecidability <> structural_shortcut_undecidable thm
-R10336:10348 Kernel.NatSubstrateInstance <> nat_substrate def
-R10396:10412 Kernel.NatSubstrateInstance <> nat_with_shortcut def
-R10303:10333 Kernel.StructuralUndecidability <> structural_shortcut_undecidable thm
-R10336:10348 Kernel.NatSubstrateInstance <> nat_substrate def
-R10396:10412 Kernel.NatSubstrateInstance <> nat_with_shortcut def
-prf 10834:10853 <> nat_self_undecidable
-R10874:10877 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10871:10873 Coq.Init.Datatypes <> nat ind
-R10878:10881 Coq.Init.Datatypes <> bool ind
-binder 10867:10867 <> d:28
-R10889:10890 Coq.Init.Logic <> ::type_scope:'~'_x not
-binder 10898:10898 <> p:29
-R10911:10915 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R10904:10906 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10901:10901 Kernel.NatSubstrateInstance <> d:28 var
-R10903:10903 Kernel.NatSubstrateInstance <> p:29 var
-R10907:10910 Coq.Init.Datatypes <> true constr
-R10917:10930 Kernel.StructuralUndecidability <> AdmitsShortcut meth
-R10933:10945 Kernel.NatSubstrateInstance <> nat_substrate def
-R10947:10947 Kernel.NatSubstrateInstance <> d:28 var
-R10987:11003 Kernel.NatSubstrateInstance <> nat_with_shortcut def
-R11005:11005 Kernel.NatSubstrateInstance <> d:28 var
-R11008:11008 Kernel.NatSubstrateInstance <> p:29 var
-R11048:11082 Kernel.NatSubstrateInstance <> nat_structural_shortcut_undecidable thm
-R11048:11082 Kernel.NatSubstrateInstance <> nat_structural_shortcut_undecidable thm
-R11275:11291 Kernel.NatSubstrateInstance <> nat_Representable def
+R2459:2472 Coq.Arith.PeanoNat <> <> lib
+R2474:2476 Coq.micromega.Lia <> <> lib
+R2506:2514 Kernel.Substrate <> <> lib
+R3002:3008 Kernel.VMState <> <> lib
+sec 3949:3954 <> NatSub
+var 3968:3968 NatSub d
+R3975:3978 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3972:3974 Coq.Init.Datatypes <> nat ind
+R3979:3982 Coq.Init.Datatypes <> bool ind
+def 3999:4007 <> nat_state
+R4019:4021 Coq.Init.Datatypes <> nat ind
+def 4037:4047 <> nat_Program
+R4059:4061 Coq.Init.Datatypes <> nat ind
+def 4078:4084 <> nat_run
+R4091:4101 Kernel.NatSubstrateInstance <> nat_Program def
+binder 4087:4087 <> p:2
+R4109:4117 Kernel.NatSubstrateInstance <> nat_state def
+binder 4105:4105 <> s:3
+R4122:4127 Coq.Init.Datatypes <> option ind
+R4129:4137 Kernel.NatSubstrateInstance <> nat_state def
+R4152:4152 Kernel.NatSubstrateInstance <> p:2 var
+R4170:4173 Coq.Init.Datatypes <> Some constr
+R4188:4191 Coq.Init.Datatypes <> Some constr
+R4209:4209 Kernel.NatSubstrateInstance <> NatSub.d var
+R4230:4233 Coq.Init.Datatypes <> Some constr
+R4218:4221 Coq.Init.Datatypes <> Some constr
+R4248:4251 Coq.Init.Datatypes <> None constr
+def 4958:4963 <> nat_mu
+R4970:4978 Kernel.NatSubstrateInstance <> nat_state def
+R4983:4985 Coq.Init.Datatypes <> nat ind
+def 5007:5014 <> nat_step
+R5021:5031 Kernel.NatSubstrateInstance <> nat_Program def
+binder 5017:5017 <> p:5
+R5042:5050 Kernel.NatSubstrateInstance <> nat_state def
+binder 5035:5035 <> s:6
+binder 5037:5038 <> s':7
+R5078:5080 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5067:5073 Kernel.NatSubstrateInstance <> nat_run def
+R5075:5075 Kernel.NatSubstrateInstance <> p:5 var
+R5077:5077 Kernel.NatSubstrateInstance <> s:6 var
+R5081:5084 Coq.Init.Datatypes <> Some constr
+R5086:5087 Kernel.NatSubstrateInstance <> s':7 var
+prf 5099:5113 <> nat_mu_monotone
+R5133:5143 Kernel.NatSubstrateInstance <> nat_Program def
+binder 5129:5129 <> p:8
+R5154:5162 Kernel.NatSubstrateInstance <> nat_state def
+binder 5147:5147 <> s:9
+binder 5149:5150 <> s':10
+R5187:5190 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5172:5179 Kernel.NatSubstrateInstance <> nat_step def
+R5181:5181 Kernel.NatSubstrateInstance <> p:8 var
+R5183:5183 Kernel.NatSubstrateInstance <> s:9 var
+R5185:5186 Kernel.NatSubstrateInstance <> s':10 var
+R5199:5202 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5191:5196 Kernel.NatSubstrateInstance <> nat_mu def
+R5198:5198 Kernel.NatSubstrateInstance <> s:9 var
+R5203:5208 Kernel.NatSubstrateInstance <> nat_mu def
+R5210:5211 Kernel.NatSubstrateInstance <> s':10 var
+R5238:5243 Kernel.NatSubstrateInstance <> nat_mu def
+R5252:5255 Coq.Init.Peano <> le_n constr
+R5252:5255 Coq.Init.Peano <> le_n constr
+def 5277:5286 <> nat_encode
+R5293:5303 Kernel.NatSubstrateInstance <> nat_Program def
+binder 5289:5289 <> p:11
+R5308:5316 Kernel.NatSubstrateInstance <> nat_state def
+R5321:5321 Kernel.NatSubstrateInstance <> p:11 var
+def 5337:5351 <> nat_decode_safe
+R5358:5366 Kernel.NatSubstrateInstance <> nat_state def
+binder 5354:5354 <> s:12
+R5371:5381 Kernel.NatSubstrateInstance <> nat_Program def
+R5386:5386 Kernel.NatSubstrateInstance <> s:12 var
+prf 5398:5414 <> nat_encode_decode
+binder 5429:5429 <> p:13
+R5462:5464 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5432:5446 Kernel.NatSubstrateInstance <> nat_decode_safe def
+R5449:5458 Kernel.NatSubstrateInstance <> nat_encode def
+R5460:5460 Kernel.NatSubstrateInstance <> p:13 var
+R5465:5465 Kernel.NatSubstrateInstance <> p:13 var
+def 6066:6082 <> nat_Representable
+R6100:6103 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6089:6099 Kernel.NatSubstrateInstance <> nat_Program def
+R6104:6114 Kernel.NatSubstrateInstance <> nat_Program def
+binder 6085:6085 <> f:14
+binder 6138:6138 <> p:15
+R6144:6147 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6168:6168 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6141:6141 Kernel.NatSubstrateInstance <> f:14 var
+R6143:6143 Kernel.NatSubstrateInstance <> p:15 var
+R6151:6151 Kernel.NatSubstrateInstance <> NatSub.d var
+R6153:6153 Kernel.NatSubstrateInstance <> p:15 var
+prf 6500:6520 <> nat_recursion_theorem
+R6551:6554 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6540:6550 Kernel.NatSubstrateInstance <> nat_Program def
+R6555:6565 Kernel.NatSubstrateInstance <> nat_Program def
+binder 6536:6536 <> f:16
+R6594:6603 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6575:6591 Kernel.NatSubstrateInstance <> nat_Representable def
+R6593:6593 Kernel.NatSubstrateInstance <> f:16 var
+R6604:6611 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6627:6637 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6616:6626 Kernel.NatSubstrateInstance <> nat_Program def
+binder 6612:6612 <> p:17
+binder 6645:6645 <> s:18
+R6659:6661 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6648:6654 Kernel.NatSubstrateInstance <> nat_run def
+R6656:6656 Kernel.NatSubstrateInstance <> p:17 var
+R6658:6658 Kernel.NatSubstrateInstance <> s:18 var
+R6662:6668 Kernel.NatSubstrateInstance <> nat_run def
+R6671:6671 Kernel.NatSubstrateInstance <> f:16 var
+R6673:6673 Kernel.NatSubstrateInstance <> p:17 var
+R6676:6676 Kernel.NatSubstrateInstance <> s:18 var
+R6741:6747 Kernel.NatSubstrateInstance <> nat_run def
+R6750:6766 Kernel.NatSubstrateInstance <> nat_Representable def
+R6827:6827 Kernel.NatSubstrateInstance <> NatSub.d var
+R6827:6827 Kernel.NatSubstrateInstance <> NatSub.d var
+def 6891:6903 <> nat_substrate
+R6907:6915 Kernel.Substrate <> Substrate class
+R6933:6937 Kernel.Substrate <> state meth
+R6933:6937 Kernel.Substrate <> state meth
+R6933:6937 Kernel.Substrate <> state meth
+R6959:6965 Kernel.Substrate <> Program meth
+R6959:6965 Kernel.Substrate <> Program meth
+R6989:6991 Kernel.Substrate <> run meth
+R6989:6991 Kernel.Substrate <> run meth
+R7011:7012 Kernel.Substrate <> mu meth
+R7011:7012 Kernel.Substrate <> mu meth
+R7031:7034 Kernel.Substrate <> step meth
+R7031:7034 Kernel.Substrate <> step meth
+R7055:7065 Kernel.Substrate <> mu_monotone meth
+R7055:7065 Kernel.Substrate <> mu_monotone meth
+R7093:7098 Kernel.Substrate <> encode meth
+R7093:7098 Kernel.Substrate <> encode meth
+R7121:7131 Kernel.Substrate <> decode_safe meth
+R7121:7131 Kernel.Substrate <> decode_safe meth
+R7159:7171 Kernel.Substrate <> encode_decode meth
+R7159:7171 Kernel.Substrate <> encode_decode meth
+R7201:7213 Kernel.Substrate <> Representable meth
+R7201:7213 Kernel.Substrate <> Representable meth
+R7243:7259 Kernel.Substrate <> recursion_theorem meth
+R7243:7259 Kernel.Substrate <> recursion_theorem meth
+R6942:6950 Kernel.NatSubstrateInstance <> nat_state def
+R6970:6980 Kernel.NatSubstrateInstance <> nat_Program def
+R6996:7002 Kernel.NatSubstrateInstance <> nat_run def
+R7017:7022 Kernel.NatSubstrateInstance <> nat_mu def
+R7039:7046 Kernel.NatSubstrateInstance <> nat_step def
+R7070:7084 Kernel.NatSubstrateInstance <> nat_mu_monotone thm
+R7103:7112 Kernel.NatSubstrateInstance <> nat_encode def
+R7136:7150 Kernel.NatSubstrateInstance <> nat_decode_safe def
+R7176:7192 Kernel.NatSubstrateInstance <> nat_encode_decode thm
+R7218:7234 Kernel.NatSubstrateInstance <> nat_Representable def
+R7264:7284 Kernel.NatSubstrateInstance <> nat_recursion_theorem thm
+R7300:7305 Kernel.NatSubstrateInstance NatSub <> sec
+R7394:7417 Kernel.StructuralUndecidability <> <> lib
+sec 7429:7439 <> NatShortcut
+var 7453:7453 NatShortcut d
+R7460:7463 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7457:7459 Coq.Init.Datatypes <> nat ind
+R7464:7467 Coq.Init.Datatypes <> bool ind
+def 7844:7853 <> nat_admits
+R7860:7862 Coq.Init.Datatypes <> nat ind
+binder 7856:7856 <> p:20
+R7892:7894 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7879:7885 Kernel.NatSubstrateInstance <> nat_run def
+R7889:7889 Kernel.NatSubstrateInstance <> p:20 var
+R7887:7887 Kernel.NatSubstrateInstance <> NatShortcut.d var
+R7895:7898 Coq.Init.Datatypes <> Some constr
+prf 7990:8003 <> nat_no_refuses
+R8007:8008 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8009:8018 Kernel.NatSubstrateInstance <> nat_admits def
+R8039:8048 Kernel.NatSubstrateInstance <> nat_admits def
+R8051:8057 Kernel.NatSubstrateInstance <> nat_run def
+prf 8088:8109 <> nat_admits_extensional
+binder 8124:8125 <> p1:21
+binder 8127:8128 <> p2:22
+R8137:8137 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8179:8189 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8145:8145 <> s:23
+R8162:8164 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8148:8154 Kernel.NatSubstrateInstance <> nat_run def
+R8158:8159 Kernel.NatSubstrateInstance <> p1:21 var
+R8161:8161 Kernel.NatSubstrateInstance <> s:23 var
+R8156:8156 Kernel.NatSubstrateInstance <> NatShortcut.d var
+R8165:8171 Kernel.NatSubstrateInstance <> nat_run def
+R8175:8176 Kernel.NatSubstrateInstance <> p2:22 var
+R8178:8178 Kernel.NatSubstrateInstance <> s:23 var
+R8173:8173 Kernel.NatSubstrateInstance <> NatShortcut.d var
+R8203:8207 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R8190:8199 Kernel.NatSubstrateInstance <> nat_admits def
+R8201:8202 Kernel.NatSubstrateInstance <> p1:21 var
+R8208:8217 Kernel.NatSubstrateInstance <> nat_admits def
+R8219:8220 Kernel.NatSubstrateInstance <> p2:22 var
+R8262:8271 Kernel.NatSubstrateInstance <> nat_admits def
+def 8386:8402 <> nat_with_shortcut
+R8411:8431 Kernel.StructuralUndecidability <> WithShortcutPredicate class
+R8434:8446 Kernel.NatSubstrateInstance <> nat_substrate def
+R8448:8448 Kernel.NatSubstrateInstance <> NatShortcut.d var
+R8480:8506 Kernel.StructuralUndecidability <> Build_WithShortcutPredicate constr
+R8509:8521 Kernel.NatSubstrateInstance <> nat_substrate def
+R8523:8523 Kernel.NatSubstrateInstance <> NatShortcut.d var
+R8535:8544 Kernel.NatSubstrateInstance <> nat_admits def
+R8480:8506 Kernel.StructuralUndecidability <> Build_WithShortcutPredicate constr
+R8509:8521 Kernel.NatSubstrateInstance <> nat_substrate def
+R8523:8523 Kernel.NatSubstrateInstance <> NatShortcut.d var
+R8535:8544 Kernel.NatSubstrateInstance <> nat_admits def
+R8571:8580 Kernel.NatSubstrateInstance <> nat_admits def
+R8583:8589 Kernel.NatSubstrateInstance <> nat_run def
+R8617:8630 Kernel.NatSubstrateInstance <> nat_no_refuses thm
+R8617:8630 Kernel.NatSubstrateInstance <> nat_no_refuses thm
+R8664:8685 Kernel.NatSubstrateInstance <> nat_admits_extensional thm
+R8664:8685 Kernel.NatSubstrateInstance <> nat_admits_extensional thm
+R8736:8746 Kernel.NatSubstrateInstance NatShortcut <> sec
+prf 9732:9766 <> nat_structural_shortcut_undecidable
+R9787:9790 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9784:9786 Coq.Init.Datatypes <> nat ind
+R9791:9794 Coq.Init.Datatypes <> bool ind
+binder 9780:9780 <> d:24
+R9802:9803 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9804:9811 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9832:9842 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9824:9827 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9821:9823 Coq.Init.Datatypes <> nat ind
+R9828:9831 Coq.Init.Datatypes <> bool ind
+binder 9812:9817 <> decide:25
+R10063:10074 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9844:9856 Kernel.Substrate <> Representable meth
+R9859:9871 Kernel.NatSubstrateInstance <> nat_substrate def
+R9873:9873 Kernel.NatSubstrateInstance <> d:24 var
+binder 9891:9891 <> p:26
+R9899:9904 Kernel.NatSubstrateInstance <> decide:25 var
+R9906:9906 Kernel.NatSubstrateInstance <> p:26 var
+R10011:10021 Kernel.StructuralUndecidability <> yes_program meth
+R10024:10036 Kernel.NatSubstrateInstance <> nat_substrate def
+R10038:10038 Kernel.NatSubstrateInstance <> d:24 var
+R10042:10058 Kernel.NatSubstrateInstance <> nat_with_shortcut def
+R10060:10060 Kernel.NatSubstrateInstance <> d:24 var
+R9934:9943 Kernel.StructuralUndecidability <> no_program meth
+R9946:9958 Kernel.NatSubstrateInstance <> nat_substrate def
+R9960:9960 Kernel.NatSubstrateInstance <> d:24 var
+R9964:9980 Kernel.NatSubstrateInstance <> nat_with_shortcut def
+R9982:9982 Kernel.NatSubstrateInstance <> d:24 var
+binder 10082:10082 <> p:27
+R10100:10104 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R10093:10095 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10085:10090 Kernel.NatSubstrateInstance <> decide:25 var
+R10092:10092 Kernel.NatSubstrateInstance <> p:27 var
+R10096:10099 Coq.Init.Datatypes <> true constr
+R10106:10119 Kernel.StructuralUndecidability <> AdmitsShortcut meth
+R10122:10134 Kernel.NatSubstrateInstance <> nat_substrate def
+R10136:10136 Kernel.NatSubstrateInstance <> d:24 var
+R10184:10200 Kernel.NatSubstrateInstance <> nat_with_shortcut def
+R10202:10202 Kernel.NatSubstrateInstance <> d:24 var
+R10205:10205 Kernel.NatSubstrateInstance <> p:27 var
+R10236:10266 Kernel.StructuralUndecidability <> structural_shortcut_undecidable thm
+R10269:10281 Kernel.NatSubstrateInstance <> nat_substrate def
+R10329:10345 Kernel.NatSubstrateInstance <> nat_with_shortcut def
+R10236:10266 Kernel.StructuralUndecidability <> structural_shortcut_undecidable thm
+R10269:10281 Kernel.NatSubstrateInstance <> nat_substrate def
+R10329:10345 Kernel.NatSubstrateInstance <> nat_with_shortcut def
+prf 10767:10786 <> nat_self_undecidable
+R10807:10810 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10804:10806 Coq.Init.Datatypes <> nat ind
+R10811:10814 Coq.Init.Datatypes <> bool ind
+binder 10800:10800 <> d:28
+R10822:10823 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 10831:10831 <> p:29
+R10844:10848 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R10837:10839 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10834:10834 Kernel.NatSubstrateInstance <> d:28 var
+R10836:10836 Kernel.NatSubstrateInstance <> p:29 var
+R10840:10843 Coq.Init.Datatypes <> true constr
+R10850:10863 Kernel.StructuralUndecidability <> AdmitsShortcut meth
+R10866:10878 Kernel.NatSubstrateInstance <> nat_substrate def
+R10880:10880 Kernel.NatSubstrateInstance <> d:28 var
+R10920:10936 Kernel.NatSubstrateInstance <> nat_with_shortcut def
+R10938:10938 Kernel.NatSubstrateInstance <> d:28 var
+R10941:10941 Kernel.NatSubstrateInstance <> p:29 var
+R10981:11015 Kernel.NatSubstrateInstance <> nat_structural_shortcut_undecidable thm
+R10981:11015 Kernel.NatSubstrateInstance <> nat_structural_shortcut_undecidable thm
+R11208:11224 Kernel.NatSubstrateInstance <> nat_Representable def

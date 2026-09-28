@@ -44,19 +44,11 @@ Record CertificationSystem := mk_cert_system {
   (** The certification indicator: is this state certified? *)
   cs_cert  : cs_state -> bool;
 
-  (** *** AXIOM A2: The certification transition has cost ≥ 1. ***
-
-      Going from uncertified to certified in a SINGLE step requires that
-      the instruction executing that step has cost ≥ 1.
-
-      This is the formal content of "No Free Certification":
-        - Certification is never free.
-        - Any system where A2 fails has "free forgery" — it can certify
-          without spending anything, which is not honest accounting.
-
-      Physical reading: measurement, proof verification, or consensus
-      finalization all require performing work.  A2 names this formally.
-  *)
+  (** A2: a single false-to-true certification transition has cost at least
+      one. This is the complete premise used by the abstract cost-floor
+      theorem. It is a contract on the supplied step and cost functions; the
+      record does not identify the cost with work, energy, or any particular
+      physical process. *)
   cs_cert_costs :
     forall (s : cs_state) (i : cs_instr),
       cs_cert s = false ->
@@ -220,45 +212,12 @@ Proof.
   exact (universal_nfi_any_substrate thiele_certified_system trace s0 Hfalse Htrue).
 Qed.
 
-(**
-
-    The theorem is substrate-independent in the following sense:
-
-    ANY system satisfying A2 (cs_cert_costs) is subject to this theorem.
-    A2 says: the moment of certification costs ≥ 1.
-
-    For the Thiele VM: cost = instruction_cost (vm_mu accounting).
-    For a proof assistant: cost = proof term length (Kolmogorov-adjacent).
-    For a consensus protocol: cost = computational work (hashcash etc).
-    For a physical measurement: cost = thermodynamic work (Landauer).
-    For a neural network: cost = training compute.
-
-    The theorem does not depend on WHAT the cost measures — only that the
-    certification transition is non-free.
-
-    WHY A2 IS MINIMAL:
-    A2 cannot be weakened further while retaining the conclusion.
-    If A2 fails — if there exists a state s and instruction i with
-      cs_cert s = false, cs_cert (cs_step s i) = true, cs_cost i = 0
-    then the system has "free certification."  Running that single
-    instruction certifies for free, and the trace has total cost 0.
-    The theorem would be false.
-
-    So A2 is exactly the right minimal condition.
-
-    which is a STRUCTURAL REQUIREMENT of CertificationSystem, not an axiom
-    about any particular system.  Each instance discharges it by proof.
-
-    The quantitative bound — Axiom 5 — is not stated in this file.
-    The shape it would take:
-
-        ∃ trace s0.  cs_cert (cs_run CS trace s0) = true  ∧
-                     cs_total_cost CS trace < K(certificate)
-
-    Stating Axiom 5 would require adding a witness-complexity measure
-    to [CertificationSystem] and proving [cost ≥ complexity(witness)].
-    That extension is not provided here; this file is bounded to the
-    A2 cost-floor result. *)
+(** The abstract theorem applies to every supplied [CertificationSystem] whose
+    [cs_cert_costs] field holds. If that field were weakened to permit a
+    false-to-true step with cost zero, the one-step trace would be a direct
+    counterexample to the conclusion. This file proves only the unit floor;
+    a bound tied to witness complexity would require additional fields and a
+    separate theorem. *)
 
 (**
 

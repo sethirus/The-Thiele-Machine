@@ -133,7 +133,7 @@ def test_kami_core_wires_rich_fault_decode_and_trap_path() -> None:
         "then $$(ERR_INLINE_MALFORMED)",
         "then $$(ERR_TABLE_OVERFLOW)",
         "then $$(ERR_CERT_DESC_INVALID)",
-        'Write "lassert_phase"      <- IF (#is_lassert && #lassert_is_sat && !#rich_fault)',
+        'Write "lassert_phase"      <- IF (#is_lassert && #lassert_is_sat && #assertion_dispatch_allowed)',
     ]
     for needle in expected:
         assert needle in text, f"Missing rich-fault decoder hook: {needle}"

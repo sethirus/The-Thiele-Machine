@@ -16,8 +16,8 @@
     against a live system: two populations shown bare-indistinguishable
     views that differ in the non-classical part.
 
-    FALSIFIER: a sound and complete log-free verifier with the same
-    soundness target — its Coq construction contradicts
+    The boundary is the named bare projection and soundness target. A sound and
+    complete log-free verifier for that same target would contradict
     [bare_setting_no_sound_complete_verifier].
 
     This file does not model gossip protocols, log operator governance, or
@@ -196,7 +196,7 @@ Definition log_free_verifier : Type := BareVerifier.
     same claim, same unit-cost regime — the difference between possible
     and impossible is exactly whether the transcript carries the log's
     bit. *)
-(* INQUISITOR NOTE: alias for bare_setting_no_sound_complete_verifier — deliberate re-export so the log-free impossibility is on the record in CT vocabulary, paired against MAIN 1's escape. *)
+(* SCOPE NOTE: alias for bare_setting_no_sound_complete_verifier — deliberate re-export so the log-free impossibility is on the record in CT vocabulary, paired against MAIN 1's escape. *)
 Theorem log_free_verifier_impossible :
   ~ exists V : log_free_verifier,
       bare_sound mu_eq_one_problem V /\

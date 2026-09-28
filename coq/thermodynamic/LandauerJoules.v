@@ -66,7 +66,7 @@
       - The two non-VM facts (Boltzmann's formula and the second law)
         are named, isolated, and visible to [Print Assumptions]. *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost. Any
    Kernel module it imports is a peer result in the same mathematical
@@ -74,14 +74,13 @@
 
    It reached the foundation chain only transitively, through modules that
    imported the kernel without using it; with those phantom imports gone the
-   honest statement is that this file is standalone. Counted in the WAIVERS
-   census in INQUISITOR_REPORT.md. *)
+   honest statement is that this file is standalone. *)
 From Coq Require Import Reals Lra Lia Arith.
 From Thermodynamic Require Import LandauerDerived.
 
 Local Open Scope R_scope.
 
-(* INQUISITOR NOTE: SECTION PARAMETER — Variable and Hypothesis
+(* SCOPE NOTE: SECTION PARAMETER — Variable and Hypothesis
    declarations across this Section are section parameters that become
    EXPLICIT FORALL premises on every theorem when the Section closes.
    T_pos and k_B_pos are physical positivity for thermodynamic
@@ -170,7 +169,7 @@ Section LandauerJoulesDerivation.
       does NOT enter through this hypothesis — it enters through
       [info_entropy_decrease_value], which is pure mathematics. *)
 
-  (* INQUISITOR NOTE: SECTION PARAMETER (continued) — the Variable
+  (* SCOPE NOTE: SECTION PARAMETER (continued) — the Variable
      system_thermo_entropy_decrease and the boltzmann_bridge Hypothesis
      are section parameters that become EXPLICIT FORALL premises on
      each theorem when the Section closes. boltzmann_bridge is the
@@ -193,7 +192,7 @@ Section LandauerJoulesDerivation.
 
       This hypothesis contains no [k_B] and no [ln 2] — just [T]. *)
 
-  (* INQUISITOR NOTE: SECTION PARAMETER (continued) — heat_to_bath
+  (* SCOPE NOTE: SECTION PARAMETER (continued) — heat_to_bath
      Variable and second_law_thermal_bath Hypothesis are section
      parameters that become EXPLICIT FORALL premises on every theorem
      when the Section closes. The hypothesis is Clausius's statement

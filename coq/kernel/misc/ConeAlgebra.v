@@ -29,7 +29,7 @@
     no proof admissions.
 *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Kernel Require Import VMState VMStep KernelPhysics.
@@ -47,22 +47,10 @@ Import Nat.
     with the operational semantics and the closure theorems. *)
 
 
-(** cone_composition: causal cones compose via set union. For traces t1 and t2,
-  cone(t1 ++ t2) = cone(t1) ∪ cone(t2), so a module is in the composed cone
-  iff it is in either component cone.
-
-  This is true because causal_cone(trace) is the union of all instruction
-  targets. Appending traces appends their target lists, so the union
-  distributes. That gives the monoid-composition law underneath sequential
-  composition: if operation A affects M1 and B affects M2, then A;B affects
-  M1 ∪ M2.
-
-  Proof: induction on t1. Base case is the empty trace. Inductive case pulls
-  off the head instruction and reassociates targets(i) ∪ cone(rest) ∪ cone(t2)
-  using the IH. Physically this is future-light-cone union. To falsify it,
-  find x in cone(t1++t2) but not in cone(t1) ∪ cone(t2). The definition makes
-  that impossible.
-*)
+(** [cone_composition] identifies the target projection of an appended trace
+  with the union of the two target projections. It follows by induction from
+  the recursive definition of [causal_cone]. The result is about this finite
+  target projection; it does not define a spacetime light cone. *)
 Theorem cone_composition : forall t1 t2,
   (forall x, In x (causal_cone (t1 ++ t2)) <->
              In x (causal_cone t1) \/ In x (causal_cone t2)).
@@ -104,16 +92,9 @@ Proof.
 Qed.
 
 
-(** cone_idempotent: repeating a trace does not expand the cone.
-  cone(t ++ t) = cone(t) because cone(t ++ t) = cone(t) ∪ cone(t), and set
-  union is idempotent.
-
-  The point is about WHICH modules are affected, not HOW they are affected.
-  Repetition can still change state or μ-cost, but it does not widen the
-  causal footprint. To falsify it, find x outside cone(t) but inside
-  cone(t ++ t). That would mean repetition created a new target, which the
-  definition does not allow.
-*)
+(** [cone_idempotent] states that repeating a trace preserves its set of
+  instruction targets. It says nothing about the resulting VM state or ledger
+  value. *)
 Theorem cone_idempotent : forall t x,
   In x (causal_cone (t ++ t)) <-> In x (causal_cone t).
 Proof.
@@ -134,16 +115,9 @@ Qed.
 Definition targets_disjoint (i1 i2 : vm_instruction) : Prop :=
   forall x, In x (instr_targets i1) -> ~ In x (instr_targets i2).
 
-(** cone_swap_disjoint: disjoint instructions commute cone-wise.
-  If i1 and i2 are disjoint, then cone([i1; i2]) = cone([i2; i1]). This is
-  just commutativity of set union after unfolding the one-step cones.
-
-  The point is partial commutativity: not all instructions commute, but the
-  disjoint ones do, which is exactly the algebra behind parallelism. In
-  categorical terms this is the interchange law showing up in the cone
-  algebra. To falsify it, find disjoint instructions whose target-union
-  changes when you swap them.
-*)
+(** [cone_swap_disjoint] compares the target projections of two
+  two-instruction lists. The disjointness premise is retained as the
+  interface's independence condition; the proof uses list-union membership. *)
 Theorem cone_swap_disjoint : forall i1 i2,
   targets_disjoint i1 i2 ->
   (forall x, In x (causal_cone [i1; i2]) <-> In x (causal_cone [i2; i1])).
@@ -161,22 +135,12 @@ Proof.
 Qed.
 
 
-(** cone_empty: the empty trace has empty cone, so it is the monoid identity.
-  No operations means no causal influence. This matters because it confirms
-  the algebraic structure is really a monoid, not just a suggestive analogy.
-  Proof is reflexivity from the definition. Physically this is the do-nothing
-  or vacuum-like operation.
-*)
+(** [cone_empty] gives the empty target projection for the empty trace. *)
 Theorem cone_empty : causal_cone [] = [].
 Proof. reflexivity. Qed.
 
-(** cone_associative: grouping does not matter for causal influence.
-  cone((t1 ++ t2) ++ t3) = cone(t1 ++ (t2 ++ t3)). This is associativity of
-  set union inherited through list append. Together with cone_empty it gives
-  the monoid law you need for compositional reasoning. To falsify it, find a
-  trace where regrouping append changes the causal footprint. That would mean
-  breaking app_assoc itself.
-*)
+(** [cone_associative] transfers list-append associativity to the target
+  projection. *)
 Theorem cone_associative : forall t1 t2 t3 x,
   In x (causal_cone ((t1 ++ t2) ++ t3)) <->
   In x (causal_cone (t1 ++ (t2 ++ t3))).
@@ -197,16 +161,9 @@ Qed.
 Definition causally_independent (t1 t2 : list vm_instruction) : Prop :=
   forall x, In x (causal_cone t1) -> ~ In x (causal_cone t2).
 
-(** independent_traces_commute: independent traces commute cone-wise.
-  If t1 and t2 are causally independent, then cone(t1 ++ t2) = cone(t2 ++ t1).
-  Formally the independence hypothesis is stronger than necessary — union is
-  commutative anyway — but it isolates the physically meaningful case of
-  independent operations and race-free parallelism.
-
-  This is cone commutativity, not state commutativity. It says which modules
-  can be affected is order-insensitive in the independent case. To falsify it,
-  find independent traces whose union of affected modules changes under swap.
-*)
+(** [independent_traces_commute] is a commutation result for the target
+  projection. It is not a commutation theorem for VM states or instruction
+  effects. *)
 Theorem independent_traces_commute : forall t1 t2,
   causally_independent t1 t2 ->
   (forall x, In x (causal_cone (t1 ++ t2)) <-> In x (causal_cone (t2 ++ t1))).
@@ -221,17 +178,9 @@ Proof.
 Qed.
 
 
-(** min_steps_to_target: causal distance in instruction steps.
-    Returns Some n if mid first appears in the cone after n steps, None if it
-    never appears. The algorithm walks the trace, returning 0 on the first hit
-    and otherwise recursing with S n.
-
-    This is the metric-like notion in the file: if mid is reachable, the value
-    is the index of the first instruction that targets it; if not, there is no
-    finite depth. That makes "distance" here a causal-distance proxy on the
-    partition graph. To falsify it, find Some n even though mid appeared earlier.
-    The recursion is explicitly first-hit, so that cannot happen.
-*)
+(** [min_steps_to_target] returns the first index at which a target appears in
+  a finite trace, or [None] when it never appears. This is an index on the
+  instruction list, not a metric on physical spacetime. *)
 Fixpoint min_steps_to_target (mid : nat) (trace : list vm_instruction) : option nat :=
   match trace with
   | [] => None
@@ -337,19 +286,8 @@ Proof.
       specialize (IH n' Hrefl). simpl. lia.
 Qed.
 
-(** target_has_depth: if mid is in the cone, then it has finite causal depth.
-  In other words, mid ∈ cone(trace) implies there exists n with
-  min_steps_to_target mid trace = Some n.
-
-  This is true because the cone comes from a finite trace with finite target
-  lists. Proof is induction on the trace: either the head targets mid, so the
-  depth is 0, or mid is in the rest and the IH gives Some n, upgraded to
-  Some (S n).
-
-  This is the well-foundedness result in the file: no infinite causal chains,
-  every influenced module is finitely many steps away. To falsify it, find a
-  trace where mid ∈ cone but min_steps_to_target returns None.
-*)
+(** [target_has_depth] says that membership in the finite target projection
+  supplies a first target index. The proof is induction on the trace. *)
 Theorem target_has_depth : forall mid trace,
   In mid (causal_cone trace) -> exists n, min_steps_to_target mid trace = Some n.
 Proof.
@@ -385,26 +323,8 @@ Proof.
     + lia.
 Qed.
 
-(** Summary.
-
-   This file proves: cone_composition, cone_monotonic, cone_idempotent,
-   cone_swap_disjoint, cone_empty, cone_associative,
-   independent_traces_commute, min_steps_to_target, target_has_depth, and
-   min_steps_to_target_triangle. Together those show the cone algebra is not
-   "just paths in a graph" but a monoid with partial commutativity and a
-   causal-distance structure.
-
-   The physical point is that causality has algebraic structure. The monoid
-   laws make composition well-behaved. The metric bounds propagation depth.
-   Commutativity captures the independent / parallel case. None of that is an
-   arbitrary add-on. It is derived from the partition-graph semantics.
-
-   The quantum-mechanics connection is the same symmetric-monoidal shape used
-   for tensor products and composition of operators. This file does not derive
-   the Born rule — that happens independently in BornRule.v via μ-cost
-   accounting — but it does feed the gravity pipeline through MuGravity.v.
-
-   To falsify it, find any VM operation that violates one of these algebraic
-   laws. The semantics would have to stop satisfying theorems already proved
-   from vm_step's definition.
-*)
+(** Summary: the file proves composition, monotonicity, idempotence, swap,
+   empty-trace, and append-associativity lemmas for the selected target list,
+   together with first-hit depth bounds. These are properties of the finite
+   [causal_cone] definition. They do not derive a physical causal geometry or
+   the Born rule. *)

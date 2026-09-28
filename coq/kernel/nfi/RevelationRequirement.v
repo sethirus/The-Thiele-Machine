@@ -21,7 +21,7 @@ Import ListNotations.
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import KernelPhysics SimulationProof.
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 (** Decidable equality for vm_instruction (needed for discriminate). *)
@@ -316,8 +316,8 @@ Proof.
     unfold advance_state. simpl. reflexivity.
   - (* pmerge *)
     unfold advance_state. simpl. reflexivity.
-  - (* lassert *)
-    simpl. reflexivity.
+  - (* lassert: a failing check sets only the CSR error flag *)
+    simpl. destruct (lassert_exec_ok _ _ _ _ _); reflexivity.
   - (* ljoin *)
     unfold advance_state. simpl. reflexivity.
   - (* mdlacc *)

@@ -1,0 +1,115 @@
+DIGEST 54540dc1ccbd924c92b184d9d0e927c9
+FKamiHW.RichLoadGuard
+R1565:1573 Kami.Kami <> <> lib
+R1575:1588 Kami.Semantics <> <> lib
+R1615:1620 Coq.Strings.String <> <> lib
+R1622:1625 Coq.Lists.List <> <> lib
+R1627:1630 Coq.Bool.Bool <> <> lib
+R1632:1636 Coq.Arith.Arith <> <> lib
+R1638:1640 Coq.micromega.Lia <> <> lib
+R1670:1680 KamiHW.ThieleTypes <> <> lib
+R1682:1694 KamiHW.ThieleCPUCore <> <> lib
+R1696:1705 KamiHW.HWBoundary <> <> lib
+R1707:1714 KamiHW.RuleNext <> <> lib
+R1716:1723 KamiHW.RuleStep <> <> lib
+R1725:1739 KamiHW.BoundaryDecoded <> <> lib
+R1743:1750 KamiHW.StepEval <> <> lib
+R1752:1764 KamiHW.StepWordFacts <> <> lib
+R1766:1777 KamiHW.DispatchLets <> <> lib
+R1779:1789 KamiHW.Abstraction <> <> lib
+R1791:1812 KamiHW.ImplementationContract <> <> lib
+R1816:1825 KamiHW.StepFields <> <> lib
+R1827:1841 KamiHW.StepFieldsMorph <> <> lib
+R1843:1852 KamiHW.StepFaults <> <> lib
+R1854:1869 KamiHW.StepRefineCommon <> <> lib
+R1871:1886 KamiHW.LegacyWordDecode <> <> lib
+R1888:1901 KamiHW.RichWordDecode <> <> lib
+R1953:1960 Kami.Semantics <> evalExpr def
+R1962:1972 Kami.Semantics <> evalBinBool def
+R1974:1984 Kami.Semantics <> evalUniBool def
+R1986:1995 Kami.Semantics <> evalConstT def
+R1997:2000 Kami.Semantics <> isEq def
+R2002:2015 Kami.Semantics <> evalBinBitBool def
+R2017:2026 Kami.Semantics <> evalUniBit def
+R2028:2046 Kami.Semantics <> evalZeroExtendTrunc def
+R2088:2090 Coq.Init.Datatypes <> orb def
+R2092:2095 Coq.Init.Datatypes <> andb def
+R2097:2100 Coq.Init.Datatypes <> negb def
+prf 2111:2141 <> dd_load_locality_bad_false_rich
+binder 2152:2153 <> bd:1
+R2162:2165 Kami.Lib.Word <> word ind
+binder 2156:2158 <> isa:2
+R2177:2180 Kami.Lib.Word <> word ind
+R2182:2191 KamiHW.ThieleTypes <> FormatIdSz def
+binder 2171:2173 <> fid:3
+R2207:2210 Kami.Lib.Word <> word ind
+binder 2199:2203 <> flags:4
+R2228:2231 Kami.Lib.Word <> word ind
+binder 2217:2224 <> reserved:5
+R2245:2248 Kami.Lib.Word <> word ind
+R2250:2255 KamiHW.ThieleTypes <> WordSz def
+binder 2238:2241 <> ext0:6
+R2267:2270 Kami.Lib.Word <> word ind
+binder 2259:2259 <> a:7
+binder 2261:2261 <> b:8
+binder 2263:2263 <> c:9
+R2412:2417 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2358:2364 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2278:2286 Kami.Lib.Word <> wordToNat def
+R2289:2299 KamiHW.DispatchLets <> dd_mem_addr def
+R2301:2302 KamiHW.RichLoadGuard <> bd:1 var
+R2305:2313 KamiHW.RichWordDecode <> rich_word def
+R2315:2317 KamiHW.RichLoadGuard <> isa:2 var
+R2319:2321 KamiHW.RichLoadGuard <> fid:3 var
+R2323:2327 KamiHW.RichLoadGuard <> flags:4 var
+R2329:2336 KamiHW.RichLoadGuard <> reserved:5 var
+R2338:2341 KamiHW.RichLoadGuard <> ext0:6 var
+R2343:2349 KamiHW.ThieleTypes <> OP_LOAD def
+R2351:2351 KamiHW.RichLoadGuard <> a:7 var
+R2353:2353 KamiHW.RichLoadGuard <> b:8 var
+R2355:2355 KamiHW.RichLoadGuard <> c:9 var
+R2365:2373 Kami.Lib.Word <> wordToNat def
+R2376:2385 KamiHW.HWBoundary <> hw_ptTable proj
+R2387:2388 KamiHW.RichLoadGuard <> bd:1 var
+R2391:2406 KamiHW.HWBoundary <> hw_active_module proj
+R2408:2409 KamiHW.RichLoadGuard <> bd:1 var
+R2495:2497 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2418:2437 KamiHW.DispatchLets <> dd_load_locality_bad def
+R2439:2440 KamiHW.RichLoadGuard <> bd:1 var
+R2443:2451 KamiHW.RichWordDecode <> rich_word def
+R2453:2455 KamiHW.RichLoadGuard <> isa:2 var
+R2457:2459 KamiHW.RichLoadGuard <> fid:3 var
+R2461:2465 KamiHW.RichLoadGuard <> flags:4 var
+R2467:2474 KamiHW.RichLoadGuard <> reserved:5 var
+R2476:2479 KamiHW.RichLoadGuard <> ext0:6 var
+R2481:2487 KamiHW.ThieleTypes <> OP_LOAD def
+R2489:2489 KamiHW.RichLoadGuard <> a:7 var
+R2491:2491 KamiHW.RichLoadGuard <> b:8 var
+R2493:2493 KamiHW.RichLoadGuard <> c:9 var
+R2498:2502 Coq.Init.Datatypes <> false constr
+R2575:2594 KamiHW.DispatchLets <> dd_load_locality_bad def
+R2597:2609 KamiHW.DispatchLets <> dd_is_load_op def
+R2612:2628 KamiHW.DispatchLets <> dd_load_in_bounds def
+R2661:2673 KamiHW.RichWordDecode <> rw_op_correct thm
+R2661:2673 KamiHW.RichWordDecode <> rw_op_correct thm
+R2661:2673 KamiHW.RichWordDecode <> rw_op_correct thm
+R2688:2690 Kami.Lib.Word <> weq def
+R2700:2706 KamiHW.ThieleTypes <> OP_LOAD def
+R2692:2698 KamiHW.ThieleTypes <> OP_LOAD def
+R2688:2690 Kami.Lib.Word <> weq def
+R2700:2706 KamiHW.ThieleTypes <> OP_LOAD def
+R2692:2698 KamiHW.ThieleTypes <> OP_LOAD def
+R2769:2771 Kami.Lib.Word <> weq def
+R2781:2792 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
+R2773:2779 KamiHW.ThieleTypes <> OP_LOAD def
+R2769:2771 Kami.Lib.Word <> weq def
+R2781:2792 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
+R2773:2779 KamiHW.ThieleTypes <> OP_LOAD def
+R2846:2866 KamiHW.DispatchLets <> dd_active_region_size def
+R2881:2887 Kami.Lib.Word <> wlt_dec def
+R2881:2887 Kami.Lib.Word <> wlt_dec def
+R2954:2959 Kami.Lib.Word <> lt_wlt thm
+R2954:2959 Kami.Lib.Word <> lt_wlt thm
+R2972:2990 KamiHW.StepRefineCommon <> wordToNat_zext7_ext thm
+R2972:2990 KamiHW.StepRefineCommon <> wordToNat_zext7_ext thm
+R2972:2990 KamiHW.StepRefineCommon <> wordToNat_zext7_ext thm

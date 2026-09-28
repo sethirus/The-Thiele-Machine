@@ -29,8 +29,8 @@ hardware synthesis, FPGA bitstream and full vacuity checks. Before merging,
 verify both workflows succeeded on the current PR head commit.
 
 ```sh
-gh workflow run ci-full.yml --ref work/structural-ground-truth
-gh run list --branch work/structural-ground-truth --workflow ci-full.yml
+gh workflow run ci-full.yml --ref <branch-name>
+gh run list --branch <branch-name> --workflow ci-full.yml
 ```
 
 A dispatch error `403: Resource not accessible by integration` means the calling
@@ -39,17 +39,17 @@ token cannot perform this operation. Starting a workflow requires repository
 affects that workflow's job token and cannot grant access to a Codespace.
 See [GitHub's dispatch permission documentation](https://docs.github.com/en/rest/actions/workflows#create-a-workflow-dispatch-event).
 
-`.devcontainer/devcontainer.json` requests `contents: write` and `actions: write`
-for this repository. Review and authorize these permissions when creating a
-new Codespace. GitHub applies these requests only to new Codespaces after the
-configuration is committed; rebuilding an existing one does not update its
-token. See [GitHub's Codespaces permissions documentation](https://docs.github.com/en/codespaces/managing-your-codespaces/managing-repository-access-for-your-codespaces).
+Build and reproduce with native tools and repository-managed dependencies.
+Docker and devcontainer configuration are not supported. Run
+`python3 scripts/reproduce_coq.py` for a fresh source-only proof rebuild; see
+[native reproduction](../docs/REPRODUCTION.md).
+Repository configuration does not grant GitHub account permissions.
 
 For an existing Codespace, authenticate GitHub CLI with your account:
 
 ```sh
 env -u GITHUB_TOKEN -u GH_TOKEN gh auth login --hostname github.com --git-protocol https --web
-env -u GITHUB_TOKEN -u GH_TOKEN gh workflow run ci-full.yml --ref work/structural-ground-truth
+env -u GITHUB_TOKEN -u GH_TOKEN gh workflow run ci-full.yml --ref <branch-name>
 ```
 
 Unsetting these variables for the command makes the CLI use its stored login

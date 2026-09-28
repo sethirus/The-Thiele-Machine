@@ -1,0 +1,77 @@
+DIGEST a9353071072842dc09e71450b44deac3
+FUndecidability.Synthetic.Undecidability
+R15:50 Undecidability.Synthetic.Definitions <> <> lib
+R68:109 Undecidability.Synthetic.DecidabilityFacts <> <> lib
+R127:168 Undecidability.Synthetic.ReducibilityFacts <> <> lib
+R186:207 Undecidability.TM.SBTM <> <> lib
+def 1186:1196 <> undecidable
+binder 1199:1199 <> X:1
+R1208:1211 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1207:1207 Undecidability.Synthetic.Undecidability <> X:1 var
+binder 1203:1203 <> p:2
+R1234:1237 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1223:1231 Undecidability.Synthetic.Definitions <> decidable def
+R1233:1233 Undecidability.Synthetic.Undecidability <> p:2 var
+R1238:1247 Undecidability.Synthetic.Definitions <> enumerable def
+R1250:1259 Undecidability.Synthetic.Definitions <> complement def
+R1261:1269 Undecidability.TM.SBTM <> SBTM_HALT def
+prf 1280:1311 <> undecidability_from_reducibility
+binder 1314:1314 <> X:3
+R1323:1326 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1322:1322 Undecidability.Synthetic.Undecidability <> X:3 var
+binder 1318:1318 <> p:4
+binder 1334:1334 <> Y:5
+R1343:1346 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1342:1342 Undecidability.Synthetic.Undecidability <> Y:5 var
+binder 1338:1338 <> q:6
+R1370:1373 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1357:1367 Undecidability.Synthetic.Undecidability <> undecidable def
+R1369:1369 Undecidability.Synthetic.Undecidability <> p:4 var
+R1381:1384 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1375:1379 Undecidability.Synthetic.Definitions <> :::x_'⪯'_x not
+R1374:1374 Undecidability.Synthetic.Undecidability <> p:4 var
+R1380:1380 Undecidability.Synthetic.Undecidability <> q:6 var
+R1385:1395 Undecidability.Synthetic.Undecidability <> undecidable def
+R1397:1397 Undecidability.Synthetic.Undecidability <> q:6 var
+R1416:1426 Undecidability.Synthetic.Undecidability <> undecidable def
+R1429:1437 Undecidability.Synthetic.Definitions <> decidable def
+R1440:1446 Undecidability.Synthetic.Definitions <> decider def
+R1449:1455 Undecidability.Synthetic.Definitions <> reduces def
+R1458:1466 Undecidability.Synthetic.Definitions <> reduction def
+R1469:1476 Undecidability.Synthetic.Definitions <> reflects def
+binder 1527:1527 <> x:7
+R1537:1537 Undecidability.Synthetic.Undecidability <> x:7 var
+binder 1527:1527 <> x:8
+R1537:1537 Undecidability.Synthetic.Undecidability <> x:8 var
+prf 1587:1616 <> undecidability_from_complement
+binder 1619:1619 <> X:9
+R1628:1631 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1627:1627 Undecidability.Synthetic.Undecidability <> X:9 var
+binder 1623:1623 <> p:10
+R1668:1671 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1642:1652 Undecidability.Synthetic.Undecidability <> undecidable def
+R1655:1664 Undecidability.Synthetic.Definitions <> complement def
+R1666:1666 Undecidability.Synthetic.Undecidability <> p:10 var
+R1672:1682 Undecidability.Synthetic.Undecidability <> undecidable def
+R1684:1684 Undecidability.Synthetic.Undecidability <> p:10 var
+R1722:1730 Undecidability.Synthetic.DecidabilityFacts <> dec_compl thm
+R1722:1730 Undecidability.Synthetic.DecidabilityFacts <> dec_compl thm
+prf 1745:1772 <> undecidability_to_complement
+binder 1775:1775 <> X:11
+R1784:1787 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1783:1783 Undecidability.Synthetic.Undecidability <> X:11 var
+binder 1779:1779 <> p:12
+R1824:1827 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1798:1808 Undecidability.Synthetic.Undecidability <> undecidable def
+R1811:1820 Undecidability.Synthetic.Definitions <> complement def
+R1822:1822 Undecidability.Synthetic.Undecidability <> p:12 var
+R1828:1838 Undecidability.Synthetic.Undecidability <> undecidable def
+R1841:1850 Undecidability.Synthetic.Definitions <> complement def
+R1853:1862 Undecidability.Synthetic.Definitions <> complement def
+R1864:1864 Undecidability.Synthetic.Undecidability <> p:12 var
+R1904:1913 Undecidability.Synthetic.DecidabilityFacts <> dec_compl' thm
+R1904:1913 Undecidability.Synthetic.DecidabilityFacts <> dec_compl' thm
+mod 1929:1951 <> UndecidabilityNotations
+R1961:1983 Undecidability.Synthetic.ReducibilityFacts ReductionChainNotations <> mod
+R2040:2071 Undecidability.Synthetic.Undecidability <> undecidability_from_reducibility thm
+R2190:2212 Undecidability.Synthetic.Undecidability UndecidabilityNotations <> mod

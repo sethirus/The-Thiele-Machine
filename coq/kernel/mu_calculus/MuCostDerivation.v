@@ -27,12 +27,9 @@
     measured by log2 differences, plus description_bits. PNEW/PSPLIT/PMERGE
     are modeled here as reversible bookkeeping with zero erasure cost.
 
-    To falsify the local lower-bound interface: provide an implementation model
-    satisfying the stated state-reduction and description-cost premises but
-    paying less than their sum.
-
-    Or choose a different physical calibration. That changes the bridge premise,
-    not the arithmetic lemmas in this file.
+    The lower-bound interface is conditional on the stated state-reduction and
+    description-cost premises. A different physical calibration would be a
+    different bridge premise, not a refutation of these arithmetic lemmas.
 
     log2_subtraction_valid proven by Nat.log2_le_mono + case analysis
 
@@ -43,7 +40,7 @@ From Coq Require Import Nat.
 Import ListNotations.
 
 From Kernel Require Import VMState VMStep StateSpaceCounting SemanticMuCost.
-(* INQUISITOR NOTE: cross-tier import for Erasure type linking mu-cost accounting
+(* SCOPE NOTE: cross-tier import for Erasure type linking mu-cost accounting
    to the normalized thermodynamic-cost interface. *)
 From Thermodynamic Require Import LandauerDerived.
 
@@ -118,13 +115,6 @@ Definition to_erasure (change : StateSpaceChange) : Erasure :=
   let n_after := log2_nat (omega_after change) in
   mkErasure n_before n_after (log2_subtraction_valid _ _ (reduction_valid change)).
 
-(** Previously: [state_reduction_is_erasure] asserted
-    [bits_erased (to_erasure change) = information_cost_bits change].
-    Both sides reduce to the same log2 difference by definition, so the
-    statement carries no proof content beyond unfolding.  No caller refers
-    to it; the equality is available by [reflexivity] at any use site. *)
-
-
 (** LASSERT adds a constraint that partitions the state space.
 
     Information-theoretic analysis:
@@ -157,14 +147,6 @@ Definition lassert_total_cost (change : LASSERTChange) : nat :=
   let state_reduction_cost := log2_nat (omega_pre change) - log2_nat (omega_post change) in
   state_reduction_cost + description_bits change.
 
-(** Previously: four lemmas recorded that [lassert_total_cost change] is
-    [>= itself], [= (log2 gap) + description_bits change], and is bounded
-    below by each summand.  All four reduced by unfolding [lassert_total_cost]
-    and finishing with [reflexivity] or [lia]; none were referenced outside
-    this file.  [cost_uniqueness] now inlines the [reflexivity] step
-    directly.  The summand lower bounds remain available at any caller via
-    [unfold lassert_total_cost; lia]. *)
-
 (** NOTE: The uniqueness of this cost formula follows from the fact that:
     1. Any implementation MUST erase >= log₂(Ω/Ω') bits (state space reduction)
     2. Any implementation MUST encode the constraint (description_bits)
@@ -189,14 +171,6 @@ Record ReversibleOp := {
   omega : nat;
   omega_unchanged : omega = omega
 }.
-
-(** Previously: a constant [reversible_info_cost := fun _ => 0] sat here,
-    together with a [partition_ops_zero_cost] lemma reducing it to [0 = 0].
-    Neither had any caller in the development; the nontrivial content of
-    "reversible operations cost zero" is carried by
-    [partition_ops_cannot_cost] below, which uses the operation's state
-    space size [omega op] and the [bits_erased] computation rather than a
-    stand-alone constant zero. *)
 
 (** No positive cost is justified for reversible operations *)
 Theorem partition_ops_cannot_cost : forall (op : ReversibleOp) (cost : nat),
@@ -261,10 +235,9 @@ Definition derived_instruction_cost (instr : vm_instruction) : nat :=
     That bridge is documented in NoFIToEinstein.v as
     mu_landauer_unruh_calibrated.
 
-    WHY IT STAYS: This theorem is useful for verifying that the cost accounting is
-    self-consistent. It is correctly cited as "the cost formula is consistent with
-    information theory." It is NOT cited as "the costs are derived from information
-    theory." See claim_ledger.md for the precise BRIDGE-tier status of this claim. *)
+    This theorem checks consistency of the supplied cost formula with the
+    supplied information expression. It does not derive the VM schedule from
+    information theory; the calibration remains a separate bridge premise. *)
 Theorem cost_function_unique : forall (instr : vm_instruction),
   match instr with
   | instr_lassert fa ca k flen delta =>

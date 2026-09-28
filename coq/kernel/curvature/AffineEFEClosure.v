@@ -102,7 +102,7 @@ Proof.
     s mu nu H1 H0 H2 H3 H4 Hmass Hmu Hnu).
 Qed.
 
-(** ** Summary: what this closes and what remains.
+(** ** Summary and scope boundary.
 
     CLOSED (zero Admitted, zero Section Variables):
 
@@ -120,14 +120,13 @@ Qed.
     they specify a concrete geometry. Any VMState satisfying has_nonuniform_isotropic_metric
     and module_structural_mass s 1 = 1 lands in both theorems.
 
-    WHAT REMAINS:
-    - The affine factor (8 - 5 * g_{00}) is derived from the boundary shell
-      geometry. Deriving it from first principles rather than stating it as a
-      definition requires a physical argument about which operator correctly
-      discretizes the smooth EFE.
-    - The Lorentz signature version of the affine EFE is not yet done.
-    - The physical calibration (Landauer-Unruh, kappa to Newton's constant)
-      remains a named hypothesis permanently outside Coq's scope.
+    SCOPE BOUNDARY:
+    - The affine factor (8 - 5 * g_{00}) is a definition selected for the
+      boundary-shell operator; this file does not derive it from a continuum
+      discretization principle.
+    - The development uses the stated Euclidean metric convention.  Lorentzian
+      signature and physical calibration are separate models, not premises of
+      these theorems.
 
     OUTER VERTEX CHARACTERIZATION (below):
     At outer vertices (0,2,3,4) the affine factor is 3, but the off-diagonal Ricci

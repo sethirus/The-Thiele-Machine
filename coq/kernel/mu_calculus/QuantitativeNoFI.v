@@ -96,8 +96,9 @@ Record QuantitativeCertificationSystem := mk_qcs {
       This is the key quantitative axiom.  In nat arithmetic (no negatives),
       this says: the increase in witness (if any) is at most the cost paid.
 
-      Physical reading: nothing learns more than it pays for.
-      Information-theoretic reading: Δinformation ≤ Δwork.
+      This is a model-level witness-growth bound. It does not identify the
+      witness with physical information or the cost with work; those readings
+      require a separate calibration.
   *)
   qcs_cost_bounds_witness :
     forall (s : cs_state qcs_base) (i : cs_instr qcs_base),
@@ -111,8 +112,9 @@ Record QuantitativeCertificationSystem := mk_qcs {
       When qcs_threshold = 1, this says "cert requires any nonzero evidence."
       When qcs_threshold = N, this says "cert requires N units of evidence."
 
-      Physical reading: nothing certifies something of complexity N without
-      having accumulated N units of evidence first.
+      This is the stated threshold contract between the Boolean certification
+      predicate and the witness. Its physical or semantic interpretation is
+      outside this record.
   *)
   qcs_cert_threshold_witness :
     forall (s : cs_state qcs_base),
@@ -150,8 +152,9 @@ Record QuantitativeCertificationSystem_full := mk_qcs_full {
 
       Formally: qcs_witness s ≤ qcs_witness (cs_step qcs_base s i).
 
-      Physical reading: nothing "unlearns" something once it's learned.
-      Information-theoretic reading: information is not spontaneously lost.
+      This optional field says that the supplied witness value is monotone under
+      every step. It is a formal persistence condition, not a general claim
+      about memory, information, or physical erasure.
 
       (This can fail in systems with noise / forgetting — those would
        not satisfy NoFI in the strong quantitative sense.)
@@ -278,9 +281,8 @@ Qed.
     extend that bound; the content-dependent lift to threshold = S(d)
     is delivered later in this file by [certify_d_trace_cost_lower_bound].
 
-    WHY IT MATTERS: this section proves the framework is instantiable
-    and is the entry point for the per-instruction tightening that
-    follows. *)
+    This section supplies the VM instance used by the quantitative results and
+    provides the starting point for the later per-instruction bound. *)
 
 (** A3 for Thiele (cert_addr channel, witness = vm_mu):
     vm_mu s + instruction_cost i ≥ vm_mu (vm_apply s i)

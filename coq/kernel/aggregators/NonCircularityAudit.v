@@ -72,9 +72,9 @@ Qed.
 
 (** ** Audit 3: Where Does 2√2 Appear? *)
 
-(** Corrected January 2026 note.
+(** Scope of the bound.
   The value 2 is achieved by μ=0 programs via ClassicalBound.v. The stronger
-  Tsirelson-side value only appears once positive-cost operations enter. *)
+  Tsirelson-side result belongs to the separately stated quantum bridge. *)
 
 Definition classical_bound_appears_as_achievable : Prop :=
   classical_chsh_value = 2%Q /\
@@ -293,12 +293,9 @@ Qed.
 
 (** Non-circularity certificate.
 
-    Part B ("CHSH is defined without μ reference") was previously encoded
-    as the trivial [chsh_formula_is_algebraic := forall x y z w, x = x]
-    Prop. That conjunct has been dropped: it added no proof content
-    beyond [eq_refl], and the structural observation it recorded is
-    already visible in the Q-arithmetic definitions of [classical_chsh_value]
-    and [chsh_value]. The three remaining parts each carry real proof
+    Part B ("CHSH is defined without μ reference") is witnessed directly by
+    the Q-arithmetic definitions of [classical_chsh_value] and [chsh_value].
+    The certificate therefore records only the three parts carrying proof
     obligations. *)
 Definition non_circularity_certificate : Prop :=
   (* Part A: μ-cost is defined without CHSH reference *)

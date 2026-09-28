@@ -36,6 +36,8 @@ From Kernel Require Import DiscreteTopology DiscreteGaussBonnet.
 From Kernel Require Import EinsteinEmergence.
 From Kernel Require Import CurvedTensorPipeline.
 From Kernel Require Import CategoryLaws CategoryBridge CategoryMonoidal.
+From Kernel Require PermanentCertification PermanentRecordPricing ShadowPricing
+  FiniteCertMachine PermanentCertificationEntropy.
 From KamiHW Require Import FullEmbedStep GraphReconstructionBridge.
 
 (* MinorConstraints opens R_scope globally; reassert Q as default for this file. *)
@@ -196,8 +198,9 @@ Record open_obligation_entry := {
 
         make assumption-receipt
 
-    and CI byte-diffs the regenerated receipt against the committed one. THAT
-    is the check. This record is a human-readable summary of its conclusion,
+    and CI validates the fingerprint, re-deriving the corpus when proof inputs
+    change, and compares the result with the committed receipt. THAT is the
+    check. This record is a human-readable summary of its conclusion,
     kept in sync by `tests/test_proof_hygiene_numbers.py`. Cite the receipt;
     do not cite the reflexivity lemmas as evidence of anything. *)
 Definition master_summary_assumptions : assumption_surface :=
@@ -237,7 +240,7 @@ Qed.
 
 (** Conjunction of the two field read-backs above. Nothing here verifies
     anything about the corpus; the corpus-level check is
-    `make assumption-receipt` plus the CI byte-diff of
+    `make assumption-receipt` plus the CI receipt check
     `artifacts/print_assumptions_all_proofs.json`. *)
 Theorem master_summary_declares_no_hidden_project_assumptions :
   master_summary_no_hidden_project_assumptions.
@@ -285,7 +288,7 @@ Definition trace_quantum_model_semantic_boundary : semantic_boundary_entry :=
      boundary_links :=
        [ "trace_quantum_model fuel trace s_init is defined in TsirelsonQuantumModel.v";
          "It unfolds to quantum_realizable (trace_zero_marginal_npa fuel trace s_init)";
-         "quantum_realizable unfolds to symmetric5 M /\\ PSD5 M in NPAMomentMatrix.v" ];
+         "quantum_realizable unfolds to symmetric5 M /\ PSD5 M in NPAMomentMatrix.v" ];
      boundary_status := Definitional;
      boundary_external_boundary :=
        [ "This is an internal mathematical classification of the extracted moment matrix.";
@@ -334,15 +337,15 @@ Definition audit_master_classical_bound : HonestClaim :=
        [ "Does not prove every μ=0 trace is factorizable.";
          "Does not prove anything about physical state preparation." ] |}.
 
-Definition audit_master_quantum_foundations : HonestClaim :=
-  {| claim_name := "master_quantum_foundations";
-     claim_sources := [ "QuantumEquivalence.quantum_foundations_complete"; "QuantumEquivalence.hierarchy_is_derived"; "QuantumEquivalence.qm_equals_cost_free" ];
+Definition audit_master_rational_chsh_predicates : HonestClaim :=
+  {| claim_name := "master_rational_chsh_predicates";
+     claim_sources := [ "QuantumEquivalence.rational_bound_ordering_and_spec"; "QuantumEquivalence.classical_bound_below_rational_ceiling"; "QuantumEquivalence.rational_chsh_ceiling_unfolds" ];
      claim_scope := MixedSummary;
      claim_status := StatusUnconditional;
      claim_role := WrapperOnly;
      claim_premises :=
        [ "classical_bound <= tsirelson_bound as a numerical inequality";
-         "is_quantum_correlation is defined as satisfies_no_signaling /\\ chsh_value <= tsirelson_bound" ];
+         "satisfies_rational_chsh_ceiling is defined as satisfies_no_signaling /\ chsh_value <= tsirelson_bound" ];
      claim_premise_kinds := [ PremiseAlgebraic; PremiseSyntactic ];
      claim_not_imply :=
        [ "Does not derive quantum mechanics from μ-accounting.";
@@ -408,7 +411,7 @@ Definition audit_master_trace_quantum_model_unfolds : HonestClaim :=
      claim_role := DefinitionalRestatement;
      claim_premises :=
        [ "trace_zero_marginal_npa fuel trace s_init is defined";
-         "quantum_realizable is defined as symmetric5 /\\ PSD5 on the induced 5x5 moment matrix" ];
+         "quantum_realizable is defined as symmetric5 /\ PSD5 on the induced 5x5 moment matrix" ];
      claim_premise_kinds := [ PremiseSemantic; PremiseSyntactic ];
      claim_not_imply :=
        [ "Does not prove the trace satisfies the predicate; it only exposes what the predicate means.";
@@ -466,7 +469,7 @@ Definition audit_master_honest_nofi_conditional_shannon : HonestClaim :=
          "the concrete run executes at least log2(n) cert-setting steps" ];
      claim_premise_kinds := [ PremiseStructural; PremiseSemantic ];
      claim_not_imply :=
-       [ "Does not yet collapse the full feasible-set ratio theorem into one unconditional export." ] |}.
+       [ "Does not collapse the full feasible-set ratio theorem into one unconditional export." ] |}.
 
 Definition audit_master_honest_nofi_quantitative_state_space : HonestClaim :=
   {| claim_name := "master_honest_nofi_quantitative_state_space";
@@ -496,7 +499,7 @@ Definition audit_master_honest_nofi_posterior_representative_reduction : HonestC
      claim_premise_kinds := [ PremiseStructural; PremiseSemantic; PremiseSemantic; PremiseSemantic ];
      claim_not_imply :=
        [ "Does not automatically derive the posterior-representative witness from arbitrary feasible-set collapse.";
-         "Does not yet eliminate the explicit decision-tree premise." ] |}.
+         "Does not eliminate the explicit decision-tree premise." ] |}.
 
 Definition audit_master_a2_equal_trust_substitution_payoff : HonestClaim :=
   {| claim_name := "master_a2_equal_trust_substitution_payoff";
@@ -565,7 +568,7 @@ Definition audit_master_nofi_to_discrete_einstein_from_psplit_bekenstein_calibra
          "well-formed pre/post triangulations" ];
      claim_premise_kinds := [ PremisePhysical; PremiseSemantic; PremiseStructural; PremisePhysical; PremiseSemantic; PremiseStructural ];
      claim_not_imply :=
-       [ "Does not yet generalize the execution-grounded entropy bridge beyond the PSPLIT family.";
+       [ "Does not generalize the execution-grounded entropy bridge beyond the PSPLIT family.";
          "Does not eliminate the constants calibration premise." ] |}.
 
 Definition audit_master_verification_chain : HonestClaim :=
@@ -716,7 +719,7 @@ Definition audit_master_second_axis_of_undecidability : HonestClaim :=
 (* Claim 2: the concrete 51-opcode VM instance. Its Goedel encoding is
    discharged; the one surviving antecedent is the VM's internal Kleene
    recursion theorem, whose unbounded-execution foundation is VMUnboundedExec.v.
-   Marked StatusConditional precisely because that antecedent is not yet
+   Marked StatusConditional precisely because that antecedent is not
    discharged at the 51-opcode level (the axiom-free discharge lives at the
    nat-coded substrate, claim 1 above). *)
 Definition audit_master_second_axis_vm_instance : HonestClaim :=
@@ -737,10 +740,54 @@ Definition audit_master_second_axis_vm_instance : HonestClaim :=
        [ "The 51-opcode VM-instance undecidability is stated as an implication antecedented on the VM recursion theorem; it is NOT an axiom-free closed statement that quantifies away a fixed decider. The axiom-free closed form is the substrate-level claim master_second_axis_of_undecidability (via nat_structural_shortcut_undecidable).";
          "VMUnboundedExec.v supplies the unbounded-execution layer the recursion theorem needs but does not by itself construct the universal interpreter; the recursion theorem remains the stated open antecedent of the 51-opcode instance." ] |}.
 
+Definition audit_master_permanent_certification : HonestClaim :=
+  {| claim_name := "master_permanent_certification";
+     claim_sources :=
+       [ "PermanentCertification.permanent_flip_is_not_injective";
+         "PermanentCertification.a2_from_merging_price_and_permanence";
+         "PermanentRecordPricing.permanent_flips_compression_bound";
+         "PermanentRecordPricing.flip_merges_or_revokes";
+         "ShadowPricing.shadow_cannot_price_exactly";
+         "FiniteCertMachine.vm_runs_finite_trace";
+         "FiniteCertMachine.vm_prices_certifying_merge_leaves_others_free" ];
+     claim_scope := Structural;
+     claim_status := StatusUnconditional;
+     claim_role := WrapperOnly;
+     claim_premises :=
+       [ "finite duplicate-free enumeration of the states";
+         "a certificate no step revokes";
+         "merging steps priced at one or more (Landauer's principle, worst case over the state distribution, as a named premise)";
+         "a window collision for the shadow-pricing part" ];
+     claim_premise_kinds := [ PremiseStructural; PremiseStructural; PremisePhysical; PremiseStructural ];
+     claim_not_imply :=
+       [ "Does not make the full 51-opcode VM an instance: its ledger is unbounded and it leaves non-certifying merges free by design.";
+         "Does not show every account of computation must price merges; that is Landauer's principle, which is physics.";
+         "Does not claim the ingredients are new: unconditional set is Landauer's example, finite-memory erasure is Bennett's, the counting is the pigeonhole." ] |}.
+
+Definition audit_master_permanent_flip_heat : HonestClaim :=
+  {| claim_name := "master_permanent_flip_heat";
+     claim_sources :=
+       [ "PermanentCertificationEntropy.permanent_flip_uniform_entropy_drop";
+         "PermanentCertificationEntropy.permanent_flip_heat_floor";
+         "PermanentCertificationEntropy.permanent_flip_full_support_heat_positive";
+         "PermanentCertificationEntropy.known_state_flip_forces_no_heat" ];
+     claim_scope := ConditionalPhysical;
+     claim_status := StatusConditional;
+     claim_role := WrapperOnly;
+     claim_premises :=
+       [ "finite duplicate-free enumeration and a permanent certificate";
+         "a distribution positive on the certified states and the flipping state";
+         "the named premise landauer_heat: heat >= k_B T ln 2 times the entropy removed" ];
+     claim_premise_kinds := [ PremiseStructural; PremiseStructural; PremisePhysical ];
+     claim_not_imply :=
+       [ "Does not derive Landauer's principle; landauer_heat is a premise.";
+         "Does not force heat when the state is known in advance; known_state_flip_forces_no_heat says that case owes none.";
+         "Does not report a measurement of any device." ] |}.
+
 Definition master_claim_ledger : list HonestClaim :=
   [ audit_master_mu_zero_algebraic_bound;
     audit_master_classical_bound;
-    audit_master_quantum_foundations;
+    audit_master_rational_chsh_predicates;
     audit_master_non_circularity;
     audit_master_tsirelson_conditional;
     audit_master_psd_iff_column_contractive;
@@ -762,7 +809,9 @@ Definition master_claim_ledger : list HonestClaim :=
     audit_master_tee_attestation_reduction;
     audit_master_transparency_log_reduction;
     audit_master_proof_carrying_reduction;
-    audit_master_second_axis_of_undecidability ].
+    audit_master_second_axis_of_undecidability;
+    audit_master_permanent_certification;
+    audit_master_permanent_flip_heat ].
 
 (**
     PART 0a: MECHANISM FILE MAP
@@ -777,40 +826,40 @@ Definition master_claim_ledger : list HonestClaim :=
 *)
 
 Definition exact_mechanism_file_map : list string :=
-  [ "1. core state semantics: coq/kernel/VMState.v";
-    "1. one-step execution semantics: coq/kernel/VMStep.v";
-    "1. operational simulation helpers: coq/kernel/SimulationProof.v";
-    "2. mu-cost definition and trace accumulation: coq/kernel/MuCostModel.v";
-    "2. structure-addition predicate: coq/kernel/NoFreeInsight.v";
-    "3. trace and CHSH observable extraction: coq/kernel/CHSHExtraction.v";
-    "3. trace correlators and trace_zero_marginal_npa construction: coq/kernel/MuLedgerQuantumBridge.v";
-    "4. trace_quantum_bridge_coherent and trace_quantum_model: coq/kernel/TsirelsonQuantumModel.v";
-    "4. quantum_realizable: coq/kernel/NPAMomentMatrix.v";
-    "4. trace_column_contractive: coq/kernel/MuLedgerQuantumBridge.v";
-    "5. PSD <-> column contractive theorem chain: coq/kernel/QuantumPartitionPSD.v";
-    "5. trace bridge to Tsirelson: coq/kernel/TsirelsonQuantumModel.v";
-    "5. non-circularity theorem chain: coq/kernel/NonCircularityAudit.v";
-    "5. structural No Free Insight export chain: coq/kernel/HonestNoFI_TheoremsWithoutAssumptions.v";
-    "5. quantitative cert-setter / Shannon bounds: coq/kernel/MuShannonQuantitative.v";
-    "5. posterior-representative / fibered reduction semantics lift: coq/kernel/MuShannonBridge.v";
-    "5. conservative quantitative state-space-counting wrapper: coq/kernel/StateSpaceCounting.v";
-    "5. split-morphism locality witness: coq/kernel/LocalMorphismSemantics.v";
-    "5. locality-to-entropy area-law bridge: coq/kernel/EntanglementEntropy.v";
-    "5. explicit Clausius witness from entropy/temperature control: coq/kernel/ClausiusFromEntropyArea.v";
-    "5. Raychaudhuri null-flux bridge: coq/kernel/RaychaudhuriFluxBridge.v";
-    "5. Jacobson component decomposition: coq/kernel/JacobsonBridgeComponents.v";
-    "5. thermodynamic locality to Einstein-target bridge: coq/kernel/ThermoEinsteinBridge.v";
-    "5. abstract verification transfer theorem chain: coq/kernel/HardwareBisimulation.v";
+  [ "1. core state semantics: coq/kernel/foundation/VMState.v";
+    "1. one-step execution semantics: coq/kernel/foundation/VMStep.v";
+    "1. operational simulation helpers: coq/kernel/foundation/SimulationProof.v";
+    "2. mu-cost definition and trace accumulation: coq/kernel/foundation/MuCostModel.v";
+    "2. structure-addition predicate: coq/kernel/nfi/NoFreeInsight.v";
+    "3. trace and CHSH observable extraction: coq/kernel/quantum/CHSHExtraction.v";
+    "3. trace correlators and trace_zero_marginal_npa construction: coq/kernel/nfi/MuLedgerQuantumBridge.v";
+    "4. trace_quantum_bridge_coherent and trace_quantum_model: coq/kernel/quantum/TsirelsonQuantumModel.v";
+    "4. quantum_realizable: coq/kernel/quantum/NPAMomentMatrix.v";
+    "4. trace_column_contractive: coq/kernel/nfi/MuLedgerQuantumBridge.v";
+    "5. PSD <-> column contractive theorem chain: coq/kernel/quantum/QuantumPartitionPSD.v";
+    "5. trace bridge to Tsirelson: coq/kernel/quantum/TsirelsonQuantumModel.v";
+    "5. non-circularity theorem chain: coq/kernel/aggregators/NonCircularityAudit.v";
+    "5. structural No Free Insight export chain: coq/kernel/nfi/HonestNoFI_TheoremsWithoutAssumptions.v";
+    "5. quantitative cert-setter / Shannon bounds: coq/kernel/mu_calculus/MuShannonQuantitative.v";
+    "5. posterior-representative / fibered reduction semantics lift: coq/kernel/mu_calculus/MuShannonBridge.v";
+    "5. conservative quantitative state-space-counting wrapper: coq/kernel/foundation/StateSpaceCounting.v";
+    "5. split-morphism locality witness: coq/kernel/curvature/LocalMorphismSemantics.v";
+    "5. locality-to-entropy area-law bridge: coq/kernel/quantum/EntanglementEntropy.v";
+    "5. explicit Clausius witness from entropy/temperature control: coq/kernel/thermodynamic/ClausiusFromEntropyArea.v";
+    "5. Raychaudhuri null-flux bridge: coq/kernel/curvature/RaychaudhuriFluxBridge.v";
+    "5. Jacobson component decomposition: coq/kernel/curvature/JacobsonBridgeComponents.v";
+    "5. thermodynamic locality to Einstein-target bridge: coq/kernel/thermodynamic/ThermoEinsteinBridge.v";
+    "5. abstract verification transfer theorem chain: coq/kernel/hardware_bridge/HardwareBisimulation.v";
     "6. hardware abstraction path from Kami snapshot to VMState: coq/kami_hw/Abstraction.v";
     "6. full-state per-instruction embed step: coq/kami_hw/FullEmbedStep.v";
-    "6. full-state step commutation bridge (all 46 opcodes): coq/kami_hw/GraphReconstructionBridge.v";
+    "6. full-state step commutation bridge (driven_step_wf, under WFDrivenPrecondition): coq/kami_hw/GraphReconstructionBridge.v";
     "6. Verilog/RTL refinement theorems: coq/kami_hw/VerilogRefinement.v";
     "6. generated RTL implementation: thielecpu/hardware/rtl/thiele_cpu_kami.v";
     "6. simulation testbench: rtl_harness/testbench/thiele_cpu_kami_tb.v";
     "6. co-simulation harness: rtl_harness/cosim.py";
-    "6. FPGA synthesis entrypoint: fpga/run_synthesis.sh";
-    "7. concrete executable witness trace: coq/kernel/ClassicalBound.v";
-    "7. three-layer observable alignment route: archive/coq_unused/thielemachine/verification/FullIsomorphism.v (archived)" ].
+    "6. FPGA synthesis entrypoint: fpga/run_synthesis_xc7.sh";
+    "7. concrete executable witness trace: coq/kernel/foundation/ClassicalBound.v";
+    "8. A2 from merge pricing on finite hardware with a permanent certificate: coq/kernel/nfi/PermanentCertification.v" ].
 
 Theorem exact_mechanism_file_map_explicit :
   List.length exact_mechanism_file_map = 34%nat.
@@ -819,8 +868,8 @@ Proof.
 Qed.
 
 Definition end_to_end_example_route : list string :=
-  [ "Executable witness trace: ClassicalBound.classical_achieving_trace in coq/kernel/ClassicalBound.v";
-    "Summary-level witness alias: master_mu_zero_witness_trace in coq/kernel/MasterSummary.v";
+  [ "Executable witness trace: ClassicalBound.classical_achieving_trace in coq/kernel/foundation/ClassicalBound.v";
+    "Summary-level witness alias: master_mu_zero_witness_trace in coq/kernel/aggregators/MasterSummary.v";
     "Python VM embodiment: thielecpu/vm.py";
     "OCaml extraction artifacts: build/extracted_vm_runner.ml and build/thiele_core.ml";
     "RTL embodiment and testbench: thielecpu/hardware/rtl/thiele_cpu_kami.v and rtl_harness/testbench/thiele_cpu_kami_tb.v";
@@ -1247,7 +1296,7 @@ Definition master_exported_theorem_names : list string :=
     "master_quantum_violation_proves_nonclassicality";
     "master_algebraic_tsirelson";
     "master_algebraic_tsirelson_tight";
-    "master_quantum_foundations";
+    "master_rational_chsh_predicates";
     "master_non_circularity";
     "master_tsirelson_conditional";
     "master_psd_iff_column_contractive";
@@ -1266,7 +1315,9 @@ Definition master_exported_theorem_names : list string :=
     "master_verification_preserved_observables";
     "master_non_circular_mu_cost_primitives";
     "master_non_circular_classical_witness";
-    "master_non_circular_mu_zero_locc" ].
+    "master_non_circular_mu_zero_locc";
+    "master_permanent_certification";
+    "master_permanent_flip_heat" ].
 
 Definition master_theorem_metadata_ledger : list TheoremMetadata :=
   [ {| metadata_name := "master_summary_declares_no_hidden_project_assumptions";
@@ -1283,7 +1334,7 @@ Definition master_theorem_metadata_ledger : list TheoremMetadata :=
        metadata_scope := Algebraic; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
     {| metadata_name := "master_algebraic_tsirelson_tight";
        metadata_scope := Algebraic; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
-    {| metadata_name := "master_quantum_foundations";
+    {| metadata_name := "master_rational_chsh_predicates";
        metadata_scope := MixedSummary; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
     {| metadata_name := "master_non_circularity";
        metadata_scope := Structural; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
@@ -1322,7 +1373,11 @@ Definition master_theorem_metadata_ledger : list TheoremMetadata :=
     {| metadata_name := "master_non_circular_classical_witness";
        metadata_scope := Structural; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
     {| metadata_name := "master_non_circular_mu_zero_locc";
-       metadata_scope := Structural; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |} ].
+       metadata_scope := Structural; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
+    {| metadata_name := "master_permanent_certification";
+       metadata_scope := Structural; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
+    {| metadata_name := "master_permanent_flip_heat";
+       metadata_scope := ConditionalPhysical; metadata_status := StatusConditional; metadata_role := WrapperOnly |} ].
 
 Definition master_theorem_metadata_names : list string :=
   map metadata_name master_theorem_metadata_ledger.
@@ -1372,7 +1427,7 @@ Definition summary_file_theorem_names : list string :=
     "master_quantum_violation_proves_nonclassicality";
     "master_algebraic_tsirelson";
     "master_algebraic_tsirelson_tight";
-    "master_quantum_foundations";
+    "master_rational_chsh_predicates";
     "master_non_circularity";
     "master_tsirelson_conditional";
     "master_psd_iff_column_contractive";
@@ -1393,10 +1448,12 @@ Definition summary_file_theorem_names : list string :=
     "master_non_circular_classical_witness";
     "master_non_circular_mu_zero_locc";
     "thiele_machine_core_summary_verified";
-    "thiele_machine_core_summary_verified_export" ].
+    "thiele_machine_core_summary_verified_export";
+    "master_permanent_certification";
+    "master_permanent_flip_heat" ].
 
 Theorem summary_file_theorem_inventory_explicit :
-  List.length summary_file_theorem_names = 51%nat.
+  List.length summary_file_theorem_names = 53%nat.
 Proof.
   reflexivity.
 Qed.
@@ -1415,8 +1472,9 @@ Definition kernel_story_coverage_ledger : list kernel_story_coverage_entry :=
            "master_honest_nofi_conditional_shannon";
            "master_honest_nofi_quantitative_state_space";
            "master_honest_nofi_posterior_representative_reduction";
-           "master_a2_equal_trust_substitution_payoff" ];
-       coverage_note := "Structural NoFI, cert-setter/Shannon bounds, the posterior-representative semantics lift, the conservative state-space-counting wrapper, and the equal-trust A2 substitution gate are in scope." |};
+           "master_a2_equal_trust_substitution_payoff";
+           "master_permanent_certification" ];
+       coverage_note := "Structural NoFI, cert-setter/Shannon bounds, the posterior-representative semantics lift, the conservative state-space-counting wrapper, the equal-trust A2 substitution gate, and A2 from merge pricing on finite hardware with a permanent certificate are in scope." |};
     {| coverage_area := AreaVerificationSurface;
        coverage_support := [ "master_verification_chain"; "master_verification_preserved_observables" ];
        coverage_note := "Verification scope is explicit and intentionally abstract." |};
@@ -1434,7 +1492,8 @@ Definition kernel_story_coverage_ledger : list kernel_story_coverage_entry :=
          [ "master_nofi_to_discrete_einstein";
            "master_nofi_to_discrete_einstein_from_bekenstein_calibration";
            "master_physics_reading_inventory";
-           "master_remaining_open_obligations" ];
+           "master_remaining_open_obligations";
+           "master_permanent_flip_heat" ];
        coverage_note := "Physics claims, discrete-Einstein entry theorems, and nonclaims are partitioned explicitly." |} ].
 
 Definition kernel_story_area_names : list kernel_story_area :=
@@ -1545,7 +1604,7 @@ Qed.
 Definition verification_nonclaims_list : list string :=
   [ "Raw RTL JSON bit-for-bit lockstep is bounded to the concrete hardware memory extent; VM memory-tail equality is carried by the formal full-state abstraction bridge.";
     "Raw RTL JSON carries bounded descriptor/table/shadow graph encodings, not high-level VMAxiom string payload equality.";
-    "Complete CSR-status equality beyond the emitted runtime CSR lanes is carried by coq/kami_hw/FullAbstraction.v and coq/kernel/VerilogRTLCorrespondence.v." ].
+    "Complete CSR-status equality beyond the emitted runtime CSR lanes is carried by coq/kami_hw/FullAbstraction.v and coq/kernel/hardware_bridge/VerilogRTLCorrespondence.v." ].
 
 Definition master_full_state_observables : list string :=
   [ "pc"; "mu"; "err"; "registers"; "hardware-memory-extent";
@@ -1569,15 +1628,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** Previously: a separate lemma
-    [master_verification_scope_includes_full_state_equivalence] recorded
-    that [verification_scope_includes_full_state_equivalence
-    master_verification_scope = true].  That equation is the defining
-    field of [master_verification_scope] (a record constant), so the
-    statement reduced to [true = true] by [reflexivity].  The lemma was
-    used exactly once, in [master_verification_scope_is_explicit] below;
-    the proof now finishes that bullet with [reflexivity] directly. *)
-
 Theorem master_verification_scope_is_explicit :
   master_verification_scope_statement.
 Proof.
@@ -1594,7 +1644,15 @@ Qed.
     *)
 
 Definition master_physics_reading_inventory : list physical_reading_entry :=
-  [ {| reading_name := "Classical factorizable correlations obey |CHSH| <= 2";
+  [ {| reading_name := "A permanent certification flip on finite hardware dissipates heat";
+       reading_status := ProvedKernelConsequence;
+       reading_basis := [ "master_permanent_flip_heat" ];
+       reading_boundary := "Conditional on the named premise landauer_heat and on a distribution positive on the states in play; a state known in advance owes no heat (known_state_flip_forces_no_heat)." |};
+    {| reading_name := "Landauer's principle: heat >= k_B T ln 2 per bit of entropy removed from the actual state distribution";
+       reading_status := ExternalEmpiricalHypothesis;
+       reading_basis := [ "PermanentCertificationEntropy.landauer_heat" ];
+       reading_boundary := "Stated as a named premise; not proved and not measured here." |};
+    {| reading_name := "Classical factorizable correlations obey |CHSH| <= 2";
        reading_status := ProvedKernelConsequence;
        reading_basis := [ "master_classical_bound" ];
        reading_boundary := "Formal kernel theorem." |};
@@ -1678,7 +1736,7 @@ Definition kernel_story_semantic_sufficiency_statement : Prop :=
      (e00 * e00 + e01 * e01 <= 1)%R /\
      (e10 * e10 + e11 * e11 <= 1)%R /\
      TsirelsonFromAlgebra.CHSH_value e00 e01 e10 e11 = sqrt 8) /\
-  (correlation_hierarchy_derived /\ qm_is_cost_free_computation) /\
+  (rational_bound_ordering /\ rational_chsh_ceiling_spec) /\
   exposed_zero_marginal_psd_contractivity_spine /\
   exposed_trace_bridge_spine /\
   exposed_non_circularity_spine /\
@@ -1716,7 +1774,7 @@ Proof.
         split.
         { exact TsirelsonFromAlgebra.tsirelson_tight. }
         split.
-        { exact quantum_foundations_complete. }
+        { exact rational_bound_ordering_and_spec. }
         split.
         { exact exposed_zero_marginal_psd_contractivity. }
         split.
@@ -1967,21 +2025,21 @@ Local Open Scope Q_scope.
     - an independent derivation of the physical Tsirelson principle
 *)
 (* AUDIT:
-   theorem: master_quantum_foundations
+   theorem: master_rational_chsh_predicates
    status: definitional
    kind: export-only
-   depends_on: QuantumEquivalence.quantum_foundations_complete
+   depends_on: QuantumEquivalence.rational_bound_ordering_and_spec
    premise_kinds: syntactic; algebraic
    new_content_here: none
    semantic_layer: formal theorem layer
    external_interpretation: does not derive quantum mechanics from μ-accounting
 *)
-(* INQUISITOR NOTE: alias for quantum_foundations_complete - summary module export *)
-Theorem master_quantum_foundations :
-  correlation_hierarchy_derived /\
-  qm_is_cost_free_computation.
+(* SCOPE NOTE: alias for rational_bound_ordering_and_spec - summary module export *)
+Theorem master_rational_chsh_predicates :
+  rational_bound_ordering /\
+  rational_chsh_ceiling_spec.
 Proof.
-  exact quantum_foundations_complete.
+  exact rational_bound_ordering_and_spec.
 Qed.
 
 (** Theorem 4: Non-circularity certificate.
@@ -2003,7 +2061,7 @@ Qed.
   semantic_layer: formal theorem layer
   external_interpretation: exports the certificate; decomposition appears later in this file
 *)
-(* INQUISITOR NOTE: alias for non_circularity_verified - summary module export *)
+(* SCOPE NOTE: alias for non_circularity_verified - summary module export *)
 Theorem master_non_circularity : non_circularity_certificate.
 Proof.
   exact non_circularity_verified.
@@ -2340,11 +2398,74 @@ Qed.
 *)
 (* This summary module re-exports kernel theorems under master_* names so the
    monograph can cite one stable surface. Deliberate, no new content.
-   INQUISITOR NOTE: alias for a2_equal_trust_substitution_payoff. *)
+   SCOPE NOTE: alias for a2_equal_trust_substitution_payoff. *)
 Theorem master_a2_equal_trust_substitution_payoff :
   exposed_a2_equal_trust_substitution_spine.
 Proof.
   exact a2_equal_trust_substitution_payoff.
+Qed.
+
+(** ** Permanent certification on finite hardware
+
+    Each spine below is built from the types of the source theorems, so it
+    states exactly what those theorems state. *)
+
+Definition exposed_permanent_certification_spine : Prop :=
+  ltac:(let a := type of PermanentCertification.permanent_flip_is_not_injective in
+        let b := type of PermanentCertification.a2_from_merging_price_and_permanence in
+        let c := type of PermanentRecordPricing.permanent_flips_compression_bound in
+        let d := type of PermanentRecordPricing.flip_merges_or_revokes in
+        let e := type of ShadowPricing.shadow_cannot_price_exactly in
+        let f := type of FiniteCertMachine.vm_runs_finite_trace in
+        let g := type of FiniteCertMachine.vm_prices_certifying_merge_leaves_others_free in
+        exact (a /\ b /\ c /\ d /\ e /\ f /\ g)).
+
+(* AUDIT:
+   theorem: master_permanent_certification
+   status: unconditional (the merge-pricing premise is an explicit hypothesis of the source theorems)
+   kind: export-bundle
+   depends_on: PermanentCertification, PermanentRecordPricing, ShadowPricing, FiniteCertMachine
+   premise_kinds: structural; physical (merge pricing stands for Landauer's principle)
+   new_content_here: none
+   semantic_layer: formal theorem layer
+   external_interpretation: does not make the full VM an instance; it prices only the certifying merge by design
+*)
+Theorem master_permanent_certification :
+  exposed_permanent_certification_spine.
+Proof.
+  exact (conj PermanentCertification.permanent_flip_is_not_injective
+        (conj PermanentCertification.a2_from_merging_price_and_permanence
+        (conj PermanentRecordPricing.permanent_flips_compression_bound
+        (conj PermanentRecordPricing.flip_merges_or_revokes
+        (conj ShadowPricing.shadow_cannot_price_exactly
+        (conj FiniteCertMachine.vm_runs_finite_trace
+              FiniteCertMachine.vm_prices_certifying_merge_leaves_others_free)))))).
+Qed.
+
+Definition exposed_permanent_flip_heat_spine : Prop :=
+  ltac:(let a := type of PermanentCertificationEntropy.permanent_flip_uniform_entropy_drop in
+        let b := type of PermanentCertificationEntropy.permanent_flip_heat_floor in
+        let c := type of PermanentCertificationEntropy.permanent_flip_full_support_heat_positive in
+        let d := type of PermanentCertificationEntropy.known_state_flip_forces_no_heat in
+        exact (a /\ b /\ c /\ d)).
+
+(* AUDIT:
+   theorem: master_permanent_flip_heat
+   status: conditional
+   kind: export-bundle
+   depends_on: PermanentCertificationEntropy
+   premise_kinds: structural; physical (landauer_heat is a named premise)
+   new_content_here: none
+   semantic_layer: formal theorem layer -> physical interpretation layer
+   external_interpretation: heat only through landauer_heat; a known state owes none
+*)
+Theorem master_permanent_flip_heat :
+  exposed_permanent_flip_heat_spine.
+Proof.
+  exact (conj PermanentCertificationEntropy.permanent_flip_uniform_entropy_drop
+        (conj PermanentCertificationEntropy.permanent_flip_heat_floor
+        (conj PermanentCertificationEntropy.permanent_flip_full_support_heat_positive
+              PermanentCertificationEntropy.known_state_flip_forces_no_heat))).
 Qed.
 
 (* AUDIT:
@@ -2413,8 +2534,8 @@ Definition verification_chain_holds : Prop :=
   forall hw_init py_init,
     hw_bisimulation_invariant hw_init py_init ->
     forall costs : list nat,
-    hw_bisimulation_invariant 
-      (hardware_multi_step hw_init costs) 
+    hw_bisimulation_invariant
+      (hardware_multi_step hw_init costs)
       (python_multi_step py_init costs) /\
     hw_mu_accumulator (hardware_multi_step hw_init costs) =
       py_mu (python_multi_step py_init costs).
@@ -2559,7 +2680,7 @@ Qed.
   semantic_layer: formal theorem layer
   external_interpretation: operational-class structure certificate only
 *)
-(* INQUISITOR NOTE: alias for mu_zero_is_locc_like - summary module export *)
+(* SCOPE NOTE: alias for mu_zero_is_locc_like - summary module export *)
 Theorem master_non_circular_mu_zero_locc : mu_zero_locc_correspondence.
 Proof.
   exact mu_zero_is_locc_like.
@@ -2588,7 +2709,7 @@ Definition non_circularity_nonclaims : list string :=
     - [archive/coq_unused/thielemachine/verification/FullIsomorphism.v (archived)] records a stronger
       three-layer observable-alignment story for Coq, Python, and Verilog.
     - [artifacts/proof_dependency_connectivity.json] records repository-wide
-      proof-connectivity evidence with zero disconnected files.
+      foundation connectivity evidence with zero disconnected files.
 
     The role of this file is therefore:
     - to present the kernel-story theorem bundle and its explicit boundaries
@@ -2600,7 +2721,7 @@ Definition stronger_repository_results_elsewhere : list string :=
   [ "coq/kami_hw/Abstraction.v: full KamiSnapshot abstraction to VMState, including register, memory, and partition-table projections";
     "coq/kami_hw/VerilogRefinement.v: per-instruction Verilog-to-VM simulation theorems stronger than the abstract PC/mu transfer exported here";
     "archive/coq_unused/thielemachine/verification/FullIsomorphism.v (archived): stronger three-layer observable alignment for Coq, Python, and Verilog";
-    "artifacts/proof_dependency_connectivity.json: repository-wide proof-connectivity artifact with zero disconnected files" ].
+    "artifacts/proof_dependency_connectivity.json: repository-wide foundation connectivity artifact with zero disconnected files" ].
 
 Theorem stronger_repository_results_elsewhere_explicit :
   List.length stronger_repository_results_elsewhere = 4%nat.
@@ -2664,7 +2785,7 @@ Definition thiele_machine_core_summary_holds : Prop :=
   (* μ=0 witness exists *)
   (exists fuel trace, mu_cost_of_trace fuel trace 0 = 0%nat) /\
   (* Numerical hierarchy: classical bound ≤ Tsirelson bound *)
-  correlation_hierarchy_derived /\
+  rational_bound_ordering /\
   (* Non-circularity: μ-cost rules have no quantum references *)
   non_circularity_certificate /\
   (* Verification transfer surface used in this summary *)
@@ -2688,7 +2809,7 @@ Definition thiele_machine_core_summary_holds : Prop :=
   theorem: thiele_machine_core_summary_verified
   status: unconditional
   kind: new-composition
-  depends_on: master_mu_zero_witness_sound; hierarchy_is_derived; non_circularity_verified; master_verification_chain
+  depends_on: master_mu_zero_witness_sound; classical_bound_below_rational_ceiling; non_circularity_verified; master_verification_chain
   premise_kinds: structural; algebraic; verification
   new_content_here: bundling of the core summary components indexed by this file
   semantic_layer: formal theorem layer
@@ -2699,7 +2820,7 @@ Proof.
   unfold thiele_machine_core_summary_holds.
   split; [| split; [| split]].
   - exists 10%nat, classical_achieving_trace. apply classical_program_mu_zero.
-  - exact hierarchy_is_derived.
+  - exact classical_bound_below_rational_ceiling.
   - exact non_circularity_verified.
   - exact master_verification_chain.
 Qed.
@@ -2731,7 +2852,7 @@ Proof.
   split; [| split; [| split]].
   - exists master_mu_zero_witness_fuel, master_mu_zero_witness_trace.
     exact master_mu_zero_witness_sound.
-  - exact hierarchy_is_derived.
+  - exact classical_bound_below_rational_ceiling.
   - exact non_circularity_verified.
   - exact master_verification_chain.
 Qed.
@@ -2743,7 +2864,7 @@ Qed.
     |---------------------------------------------------|----------------------|-------------------------------------------------|----------------|
     | master_mu_zero_algebraic_bound                    | unconditional        | μ=0 witness + algebraic CHSH boundedness        | classical/Tsirelson bounds or physical classification by itself |
     | master_classical_bound                            | unconditional        | factorizability theorem                         | that all μ=0 traces are factorizable or physical |
-    | master_quantum_foundations                        | mixed summary        | numerical hierarchy + definitional unfolding    | derivation of QM from μ-cost |
+    | master_rational_chsh_predicates                   | mixed summary        | numerical hierarchy + definitional unfolding    | derivation of QM from μ-cost |
     | master_non_circularity                            | unconditional        | non-circularity certificate                     | repository-global dependency acyclicity |
     | master_tsirelson_conditional                      | conditional          | coherence / PSD / NPA bridge premise            | derivation of the coherence premise or an unconditional physical Tsirelson theorem |
     | master_psd_iff_column_contractive                 | unconditional        | algebraic PSD lemmas                            | runtime coherence for arbitrary traces |
@@ -2760,6 +2881,9 @@ Qed.
     | master_verification_chain                         | transfer theorem     | abstract hw/python bisimulation                 | full register/memory/partition-state equivalence or arbitrary semantic preservation |
     | master_verification_preserved_observables         | conditional          | projection from verification transfer theorem   | equality of all hardware observables |
     | master_second_axis_of_undecidability              | unconditional        | μ-not-a-function-of-classical + reachable cert_addr keystone + survives-any-classical-oracle (Rung B) + mutual independence (Rung C) | that μ measures entropy/Kolmogorov information, or a Turing-degree separation — the structural set is decidable-from-full-state, so the independence is information-theoretic not degree-theoretic |
+
+    | master_permanent_certification                    | unconditional        | finite enumeration + permanent certificate + merge pricing (Landauer, worst case, named premise) | that the full VM is an instance, or that every account must price merges |
+    | master_permanent_flip_heat                        | conditional          | landauer_heat premise + distribution positive on the states in play | Landauer's principle itself, heat from a known state, or any measurement |
 
     The machine-visible source for the same table is [master_claim_ledger].
     The complete top-level theorem inventory for this file is [summary_file_theorem_names].

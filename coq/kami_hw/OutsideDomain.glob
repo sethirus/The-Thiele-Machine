@@ -1,0 +1,356 @@
+DIGEST a574d6084496936e15503fbe624a7236
+FKamiHW.OutsideDomain
+R1072:1080 Kami.Kami <> <> lib
+R1082:1095 Kami.Semantics <> <> lib
+R1122:1127 Coq.Strings.String <> <> lib
+R1129:1132 Coq.Lists.List <> <> lib
+R1134:1137 Coq.Bool.Bool <> <> lib
+R1139:1143 Coq.Arith.Arith <> <> lib
+R1145:1147 Coq.micromega.Lia <> <> lib
+R1177:1187 KamiHW.ThieleTypes <> <> lib
+R1189:1201 KamiHW.ThieleCPUCore <> <> lib
+R1203:1212 KamiHW.HWBoundary <> <> lib
+R1214:1221 KamiHW.RuleNext <> <> lib
+R1223:1230 KamiHW.RuleStep <> <> lib
+R1232:1246 KamiHW.BoundaryDecoded <> <> lib
+R1250:1257 KamiHW.StepEval <> <> lib
+R1259:1271 KamiHW.StepWordFacts <> <> lib
+R1273:1284 KamiHW.DispatchLets <> <> lib
+R1286:1296 KamiHW.Abstraction <> <> lib
+R1298:1319 KamiHW.ImplementationContract <> <> lib
+R1323:1332 KamiHW.StepFields <> <> lib
+R1334:1348 KamiHW.StepFieldsMorph <> <> lib
+R1350:1359 KamiHW.StepFaults <> <> lib
+prf 1558:1576 <> not_guard_of_opcode
+R1592:1594 KamiHW.HWBoundary <> HWB rec
+binder 1588:1588 <> b:1
+R1602:1605 Kami.Lib.Word <> word ind
+R1607:1613 KamiHW.ThieleTypes <> InstrSz def
+binder 1598:1598 <> w:2
+R1621:1624 Kami.Lib.Word <> word ind
+R1626:1633 KamiHW.ThieleTypes <> OpcodeSz def
+binder 1617:1617 <> c:3
+R1656:1659 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1652:1654 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1639:1647 KamiHW.DispatchLets <> dd_opcode def
+R1649:1649 KamiHW.OutsideDomain <> b:1 var
+R1651:1651 KamiHW.OutsideDomain <> w:2 var
+R1655:1655 KamiHW.OutsideDomain <> c:3 var
+R1693:1698 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1685:1687 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1660:1668 KamiHW.StepFaults <> op_member def
+R1670:1670 KamiHW.OutsideDomain <> c:3 var
+R1672:1684 KamiHW.StepFaults <> guard_opcodes def
+R1688:1692 Coq.Init.Datatypes <> false constr
+R1786:1788 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1760:1765 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R1724:1727 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R1699:1719 KamiHW.DispatchLets <> dd_locality_violation def
+R1721:1721 KamiHW.OutsideDomain <> b:1 var
+R1723:1723 KamiHW.OutsideDomain <> w:2 var
+R1728:1755 KamiHW.DispatchLets <> dd_ptable_overflow_violation def
+R1757:1757 KamiHW.OutsideDomain <> b:1 var
+R1759:1759 KamiHW.OutsideDomain <> w:2 var
+R1766:1781 KamiHW.DispatchLets <> dd_nfi_violation def
+R1783:1783 KamiHW.OutsideDomain <> b:1 var
+R1785:1785 KamiHW.OutsideDomain <> w:2 var
+R1789:1793 Coq.Init.Datatypes <> false constr
+R1898:1913 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R1862:1865 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R1837:1857 KamiHW.DispatchLets <> dd_locality_violation def
+R1866:1893 KamiHW.DispatchLets <> dd_ptable_overflow_violation def
+R1914:1929 KamiHW.DispatchLets <> dd_nfi_violation def
+R1898:1913 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R1862:1865 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R1837:1857 KamiHW.DispatchLets <> dd_locality_violation def
+R1866:1893 KamiHW.DispatchLets <> dd_ptable_overflow_violation def
+R1914:1929 KamiHW.DispatchLets <> dd_nfi_violation def
+R1982:1996 KamiHW.StepFaults <> dd_guard_opcode thm
+R1982:1996 KamiHW.StepFaults <> dd_guard_opcode thm
+R2041:2058 KamiHW.StepFaults <> op_in_member_false thm
+R2064:2076 KamiHW.StepFaults <> guard_opcodes def
+R2085:2091 Coq.Init.Logic <> eq_refl constr
+R2041:2058 KamiHW.StepFaults <> op_in_member_false thm
+R2064:2076 KamiHW.StepFaults <> guard_opcodes def
+R2085:2091 Coq.Init.Logic <> eq_refl constr
+prf 2221:2230 <> op_off_add
+R2264:2266 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2234:2242 KamiHW.StepFaults <> op_member def
+R2244:2249 KamiHW.ThieleTypes <> OP_ADD def
+R2251:2263 KamiHW.StepFaults <> guard_opcodes def
+R2267:2271 Coq.Init.Datatypes <> false constr
+prf 2317:2326 <> op_off_sub
+R2360:2362 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2330:2338 KamiHW.StepFaults <> op_member def
+R2340:2345 KamiHW.ThieleTypes <> OP_SUB def
+R2347:2359 KamiHW.StepFaults <> guard_opcodes def
+R2363:2367 Coq.Init.Datatypes <> false constr
+prf 2413:2422 <> op_off_and
+R2456:2458 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2426:2434 KamiHW.StepFaults <> op_member def
+R2436:2441 KamiHW.ThieleTypes <> OP_AND def
+R2443:2455 KamiHW.StepFaults <> guard_opcodes def
+R2459:2463 Coq.Init.Datatypes <> false constr
+prf 2509:2517 <> op_off_or
+R2550:2552 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2521:2529 KamiHW.StepFaults <> op_member def
+R2531:2535 KamiHW.ThieleTypes <> OP_OR def
+R2537:2549 KamiHW.StepFaults <> guard_opcodes def
+R2553:2557 Coq.Init.Datatypes <> false constr
+prf 2603:2616 <> op_off_xor_add
+R2654:2656 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2620:2628 KamiHW.StepFaults <> op_member def
+R2630:2639 KamiHW.ThieleTypes <> OP_XOR_ADD def
+R2641:2653 KamiHW.StepFaults <> guard_opcodes def
+R2657:2661 Coq.Init.Datatypes <> false constr
+prf 2707:2716 <> op_off_mul
+R2750:2752 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2720:2728 KamiHW.StepFaults <> op_member def
+R2730:2735 KamiHW.ThieleTypes <> OP_MUL def
+R2737:2749 KamiHW.StepFaults <> guard_opcodes def
+R2753:2757 Coq.Init.Datatypes <> false constr
+prf 2803:2813 <> op_off_xfer
+R2848:2850 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2817:2825 KamiHW.StepFaults <> op_member def
+R2827:2833 KamiHW.ThieleTypes <> OP_XFER def
+R2835:2847 KamiHW.StepFaults <> guard_opcodes def
+R2851:2855 Coq.Init.Datatypes <> false constr
+prf 2901:2915 <> op_off_load_imm
+R2954:2956 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2919:2927 KamiHW.StepFaults <> op_member def
+R2929:2939 KamiHW.ThieleTypes <> OP_LOAD_IMM def
+R2941:2953 KamiHW.StepFaults <> guard_opcodes def
+R2957:2961 Coq.Init.Datatypes <> false constr
+prf 3007:3016 <> op_off_shl
+R3050:3052 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3020:3028 KamiHW.StepFaults <> op_member def
+R3030:3035 KamiHW.ThieleTypes <> OP_SHL def
+R3037:3049 KamiHW.StepFaults <> guard_opcodes def
+R3053:3057 Coq.Init.Datatypes <> false constr
+prf 3103:3112 <> op_off_shr
+R3146:3148 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3116:3124 KamiHW.StepFaults <> op_member def
+R3126:3131 KamiHW.ThieleTypes <> OP_SHR def
+R3133:3145 KamiHW.StepFaults <> guard_opcodes def
+R3149:3153 Coq.Init.Datatypes <> false constr
+prf 3199:3208 <> op_off_lui
+R3242:3244 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3212:3220 KamiHW.StepFaults <> op_member def
+R3222:3227 KamiHW.ThieleTypes <> OP_LUI def
+R3229:3241 KamiHW.StepFaults <> guard_opcodes def
+R3245:3249 Coq.Init.Datatypes <> false constr
+prf 3295:3309 <> op_off_xor_load
+R3348:3350 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3313:3321 KamiHW.StepFaults <> op_member def
+R3323:3333 KamiHW.ThieleTypes <> OP_XOR_LOAD def
+R3335:3347 KamiHW.StepFaults <> guard_opcodes def
+R3351:3355 Coq.Init.Datatypes <> false constr
+prf 3401:3411 <> op_off_jump
+R3446:3448 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3415:3423 KamiHW.StepFaults <> op_member def
+R3425:3431 KamiHW.ThieleTypes <> OP_JUMP def
+R3433:3445 KamiHW.StepFaults <> guard_opcodes def
+R3449:3453 Coq.Init.Datatypes <> false constr
+prf 3499:3509 <> op_off_jnez
+R3544:3546 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3513:3521 KamiHW.StepFaults <> op_member def
+R3523:3529 KamiHW.ThieleTypes <> OP_JNEZ def
+R3531:3543 KamiHW.StepFaults <> guard_opcodes def
+R3547:3551 Coq.Init.Datatypes <> false constr
+prf 3597:3609 <> op_off_mdlacc
+R3646:3648 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3613:3621 KamiHW.StepFaults <> op_member def
+R3623:3631 KamiHW.ThieleTypes <> OP_MDLACC def
+R3633:3645 KamiHW.StepFaults <> guard_opcodes def
+R3649:3653 Coq.Init.Datatypes <> false constr
+prf 3699:3710 <> op_off_ljoin
+R3746:3748 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3714:3722 KamiHW.StepFaults <> op_member def
+R3724:3731 KamiHW.ThieleTypes <> OP_LJOIN def
+R3733:3745 KamiHW.StepFaults <> guard_opcodes def
+R3749:3753 Coq.Init.Datatypes <> false constr
+prf 3799:3812 <> op_off_certify
+R3850:3852 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3816:3824 KamiHW.StepFaults <> op_member def
+R3826:3835 KamiHW.ThieleTypes <> OP_CERTIFY def
+R3837:3849 KamiHW.StepFaults <> guard_opcodes def
+R3853:3857 Coq.Init.Datatypes <> false constr
+prf 3903:3918 <> op_off_read_port
+R3958:3960 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3922:3930 KamiHW.StepFaults <> op_member def
+R3932:3943 KamiHW.ThieleTypes <> OP_READ_PORT def
+R3945:3957 KamiHW.StepFaults <> guard_opcodes def
+R3961:3965 Coq.Init.Datatypes <> false constr
+prf 4011:4021 <> op_off_emit
+R4056:4058 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4025:4033 KamiHW.StepFaults <> op_member def
+R4035:4041 KamiHW.ThieleTypes <> OP_EMIT def
+R4043:4055 KamiHW.StepFaults <> guard_opcodes def
+R4059:4063 Coq.Init.Datatypes <> false constr
+prf 4109:4121 <> op_off_reveal
+R4158:4160 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4125:4133 KamiHW.StepFaults <> op_member def
+R4135:4143 KamiHW.ThieleTypes <> OP_REVEAL def
+R4145:4157 KamiHW.StepFaults <> guard_opcodes def
+R4161:4165 Coq.Init.Datatypes <> false constr
+prf 4211:4225 <> op_off_xor_swap
+R4264:4266 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4229:4237 KamiHW.StepFaults <> op_member def
+R4239:4249 KamiHW.ThieleTypes <> OP_XOR_SWAP def
+R4251:4263 KamiHW.StepFaults <> guard_opcodes def
+R4267:4271 Coq.Init.Datatypes <> false constr
+prf 4317:4333 <> op_off_tensor_set
+R4374:4376 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4337:4345 KamiHW.StepFaults <> op_member def
+R4347:4359 KamiHW.ThieleTypes <> OP_TENSOR_SET def
+R4361:4373 KamiHW.StepFaults <> guard_opcodes def
+R4377:4381 Coq.Init.Datatypes <> false constr
+prf 4427:4443 <> op_off_tensor_get
+R4484:4486 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4447:4455 KamiHW.StepFaults <> op_member def
+R4457:4469 KamiHW.ThieleTypes <> OP_TENSOR_GET def
+R4471:4483 KamiHW.StepFaults <> guard_opcodes def
+R4487:4491 Coq.Init.Datatypes <> false constr
+prf 4537:4553 <> op_off_chsh_trial
+R4594:4596 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4557:4565 KamiHW.StepFaults <> op_member def
+R4567:4579 KamiHW.ThieleTypes <> OP_CHSH_TRIAL def
+R4581:4593 KamiHW.StepFaults <> guard_opcodes def
+R4597:4601 Coq.Init.Datatypes <> false constr
+prf 4647:4661 <> op_off_xor_rank
+R4700:4702 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4665:4673 KamiHW.StepFaults <> op_member def
+R4675:4685 KamiHW.ThieleTypes <> OP_XOR_RANK def
+R4687:4699 KamiHW.StepFaults <> guard_opcodes def
+R4703:4707 Coq.Init.Datatypes <> false constr
+prf 4753:4763 <> op_off_halt
+R4798:4800 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4767:4775 KamiHW.StepFaults <> op_member def
+R4777:4783 KamiHW.ThieleTypes <> OP_HALT def
+R4785:4797 KamiHW.StepFaults <> guard_opcodes def
+R4801:4805 Coq.Init.Datatypes <> false constr
+prf 4851:4867 <> op_off_checkpoint
+R4908:4910 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4871:4879 KamiHW.StepFaults <> op_member def
+R4881:4893 KamiHW.ThieleTypes <> OP_CHECKPOINT def
+R4895:4907 KamiHW.StepFaults <> guard_opcodes def
+R4911:4915 Coq.Init.Datatypes <> false constr
+prf 4961:4977 <> op_off_write_port
+R5018:5020 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4981:4989 KamiHW.StepFaults <> op_member def
+R4991:5003 KamiHW.ThieleTypes <> OP_WRITE_PORT def
+R5005:5017 KamiHW.StepFaults <> guard_opcodes def
+R5021:5025 Coq.Init.Datatypes <> false constr
+prf 5071:5089 <> op_off_morph_delete
+R5132:5134 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5093:5101 KamiHW.StepFaults <> op_member def
+R5103:5117 KamiHW.ThieleTypes <> OP_MORPH_DELETE def
+R5119:5131 KamiHW.StepFaults <> guard_opcodes def
+R5135:5139 Coq.Init.Datatypes <> false constr
+prf 5185:5203 <> op_off_morph_assert
+R5246:5248 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5207:5215 KamiHW.StepFaults <> op_member def
+R5217:5231 KamiHW.ThieleTypes <> OP_MORPH_ASSERT def
+R5233:5245 KamiHW.StepFaults <> guard_opcodes def
+R5249:5253 Coq.Init.Datatypes <> false constr
+prf 5299:5314 <> op_off_morph_get
+R5354:5356 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5318:5326 KamiHW.StepFaults <> op_member def
+R5328:5339 KamiHW.ThieleTypes <> OP_MORPH_GET def
+R5341:5353 KamiHW.StepFaults <> guard_opcodes def
+R5357:5361 Coq.Init.Datatypes <> false constr
+prf 5407:5421 <> op_off_morph_id
+R5460:5462 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5425:5433 KamiHW.StepFaults <> op_member def
+R5435:5445 KamiHW.ThieleTypes <> OP_MORPH_ID def
+R5447:5459 KamiHW.StepFaults <> guard_opcodes def
+R5463:5467 Coq.Init.Datatypes <> false constr
+prf 5513:5524 <> op_off_morph
+R5560:5562 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5528:5536 KamiHW.StepFaults <> op_member def
+R5538:5545 KamiHW.ThieleTypes <> OP_MORPH def
+R5547:5559 KamiHW.StepFaults <> guard_opcodes def
+R5563:5567 Coq.Init.Datatypes <> false constr
+prf 5613:5626 <> op_off_compose
+R5664:5666 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5630:5638 KamiHW.StepFaults <> op_member def
+R5640:5649 KamiHW.ThieleTypes <> OP_COMPOSE def
+R5651:5663 KamiHW.StepFaults <> guard_opcodes def
+R5667:5671 Coq.Init.Datatypes <> false constr
+prf 5717:5730 <> op_off_lassert
+R5768:5770 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5734:5742 KamiHW.StepFaults <> op_member def
+R5744:5753 KamiHW.ThieleTypes <> OP_LASSERT def
+R5755:5767 KamiHW.StepFaults <> guard_opcodes def
+R5771:5775 Coq.Init.Datatypes <> false constr
+prf 5821:5839 <> op_off_chsh_lassert
+R5882:5884 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5843:5851 KamiHW.StepFaults <> op_member def
+R5853:5867 KamiHW.ThieleTypes <> OP_CHSH_LASSERT def
+R5869:5881 KamiHW.StepFaults <> guard_opcodes def
+R5885:5889 Coq.Init.Datatypes <> false constr
+prf 6043:6061 <> guard_opcodes_exact
+R6080:6082 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6067:6079 KamiHW.StepFaults <> guard_opcodes def
+R6090:6093 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6083:6089 KamiHW.ThieleTypes <> OP_LOAD def
+R6106:6109 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6094:6105 KamiHW.ThieleTypes <> OP_HEAP_LOAD def
+R6118:6121 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6110:6117 KamiHW.ThieleTypes <> OP_STORE def
+R6135:6142 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6122:6134 KamiHW.ThieleTypes <> OP_HEAP_STORE def
+R6150:6153 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6143:6149 KamiHW.ThieleTypes <> OP_CALL def
+R6160:6163 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6154:6159 KamiHW.ThieleTypes <> OP_RET def
+R6171:6174 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6164:6170 KamiHW.ThieleTypes <> OP_PNEW def
+R6184:6187 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6175:6183 KamiHW.ThieleTypes <> OP_PSPLIT def
+R6197:6200 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6188:6196 KamiHW.ThieleTypes <> OP_PMERGE def
+R6213:6216 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6201:6212 KamiHW.ThieleTypes <> OP_PDISCOVER def
+R6217:6219 Coq.Init.Datatypes <> nil constr
+prf 6254:6279 <> locality_opcodes_sub_guard
+binder 6290:6290 <> c:4
+R6314:6317 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6293:6294 Coq.Lists.List <> In def
+R6298:6313 KamiHW.StepFaults <> locality_opcodes def
+R6296:6296 KamiHW.OutsideDomain <> c:4 var
+R6318:6319 Coq.Lists.List <> In def
+R6323:6335 KamiHW.StepFaults <> guard_opcodes def
+R6321:6321 KamiHW.OutsideDomain <> c:4 var
+R6364:6379 KamiHW.StepFaults <> locality_opcodes def
+R6382:6394 KamiHW.StepFaults <> guard_opcodes def
+prf 6433:6459 <> partition_opcodes_sub_guard
+binder 6470:6470 <> c:5
+R6495:6498 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6473:6474 Coq.Lists.List <> In def
+R6478:6494 KamiHW.StepFaults <> partition_opcodes def
+R6476:6476 KamiHW.OutsideDomain <> c:5 var
+R6499:6500 Coq.Lists.List <> In def
+R6504:6516 KamiHW.StepFaults <> guard_opcodes def
+R6502:6502 KamiHW.OutsideDomain <> c:5 var
+R6545:6561 KamiHW.StepFaults <> partition_opcodes def
+R6564:6576 KamiHW.StepFaults <> guard_opcodes def
+prf 7208:7228 <> op_member_guard_of_in
+binder 7239:7239 <> c:6
+R7260:7263 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7242:7243 Coq.Lists.List <> In def
+R7247:7259 KamiHW.StepFaults <> guard_opcodes def
+R7245:7245 KamiHW.OutsideDomain <> c:6 var
+R7289:7291 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7264:7272 KamiHW.StepFaults <> op_member def
+R7274:7274 KamiHW.OutsideDomain <> c:6 var
+R7276:7288 KamiHW.StepFaults <> guard_opcodes def
+R7292:7295 Coq.Init.Datatypes <> true constr
+R7325:7347 Coq.Bool.Bool <> not_false_iff_true thm
+R7325:7347 Coq.Bool.Bool <> not_false_iff_true thm
+R7369:7386 KamiHW.StepFaults <> op_in_member_false thm
+R7392:7404 KamiHW.StepFaults <> guard_opcodes def
+R7411:7417 Coq.Init.Logic <> eq_refl constr
+R7369:7386 KamiHW.StepFaults <> op_in_member_false thm
+R7392:7404 KamiHW.StepFaults <> guard_opcodes def
+R7411:7417 Coq.Init.Logic <> eq_refl constr

@@ -1,151 +1,151 @@
-DIGEST ecfa3473253252ac2376e5ade12ca0db
+DIGEST 48072d396741bda559fa96ec56c2b23c
 FKernel.MuChaitin
-R1828:1831 Coq.Lists.List <> <> lib
-R1833:1835 Coq.micromega.Lia <> <> lib
-R1837:1850 Coq.Arith.PeanoNat <> <> lib
-R1852:1865 Coq.Strings.String <> <> lib
-R1875:1887 Coq.Lists.List ListNotations <> mod
-R1918:1924 Kernel.VMState <> <> lib
-R1926:1931 Kernel.VMStep <> <> lib
-R1961:1973 Kernel.MuInformation <> <> lib
-R1975:2001 Kernel.MuNoFreeInsightQuantitative <> <> lib
-R2031:2051 Kernel.RevelationRequirement <> <> lib
-mod 2062:2070 <> MuChaitin
-R2081:2093 Kernel.VMStep VMStep <> mod
-R2103:2117 Kernel.RevelationRequirement RevelationProof <> mod
-def 3263:3279 MuChaitin cert_payload_size
-R3286:3299 Kernel.VMStep VMStep vm_instruction ind
-binder 3282:3282 <> i:1
-R3304:3306 Coq.Init.Datatypes <> nat ind
-R3319:3319 Kernel.MuChaitin <> i:1 var
-R3330:3341 Kernel.VMStep VMStep instr_reveal constr
-R3366:3375 Kernel.VMStep VMStep instr_emit constr
-R3392:3409 Kernel.VMStep VMStep payload_bit_length def
-R3423:3437 Kernel.VMStep VMStep instr_read_port constr
-R3464:3474 Kernel.VMStep VMStep instr_ljoin constr
-R3548:3560 Kernel.VMStep VMStep instr_lassert constr
-R3582:3584 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R3591:3608 Kernel.VMStep VMStep instr_morph_assert constr
-R3664:3666 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3637:3654 Kernel.VMStep VMStep payload_bit_length def
-R3667:3684 Kernel.VMStep VMStep payload_bit_length def
-R3695:3707 Kernel.VMStep VMStep instr_certify constr
-R3734:3742 Kernel.VMStep VMStep instr_and constr
-R3761:3768 Kernel.VMStep VMStep instr_or constr
-R3787:3795 Kernel.VMStep VMStep instr_shl constr
-R3814:3822 Kernel.VMStep VMStep instr_shr constr
-R3841:3849 Kernel.VMStep VMStep instr_mul constr
-R3868:3876 Kernel.VMStep VMStep instr_lui constr
-def 4518:4528 MuChaitin cert_priced
-R4535:4548 Kernel.VMStep VMStep vm_instruction ind
-binder 4531:4531 <> i:3
-R4607:4610 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4563:4604 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
-R4606:4606 Kernel.MuChaitin <> i:3 var
-R4630:4633 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R4611:4627 Kernel.MuChaitin MuChaitin cert_payload_size def
-R4629:4629 Kernel.MuChaitin <> i:3 var
-R4634:4649 Kernel.VMStep VMStep instruction_cost def
-R4651:4651 Kernel.MuChaitin <> i:3 var
-prf 5225:5252 MuChaitin mu_info_nat_ge_from_mu_total
-R5283:5289 Kernel.VMState <> VMState rec
-binder 5266:5271 <> s_init:4
-binder 5273:5279 <> s_final:5
-R5297:5299 Coq.Init.Datatypes <> nat ind
-binder 5293:5293 <> k:6
-R5344:5351 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5322:5325 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5316:5320 Kernel.VMState <> vm_mu proj
-R5307:5313 Kernel.MuChaitin <> s_final:5 var
-R5340:5342 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5334:5338 Kernel.VMState <> vm_mu proj
-R5326:5331 Kernel.MuChaitin <> s_init:4 var
-R5343:5343 Kernel.MuChaitin <> k:6 var
-R5378:5381 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5352:5362 Kernel.MuInformation <> mu_info_nat def
-R5364:5369 Kernel.MuChaitin <> s_init:4 var
-R5371:5377 Kernel.MuChaitin <> s_final:5 var
-R5382:5382 Kernel.MuChaitin <> k:6 var
-R5430:5440 Kernel.MuInformation <> mu_info_nat def
-R5443:5450 Kernel.MuInformation <> mu_total def
-prf 6592:6633 MuChaitin supra_cert_implies_mu_info_nat_lower_bound
-binder 6646:6649 <> fuel:7
-binder 6651:6655 <> trace:8
-binder 6657:6662 <> s_init:9
-binder 6664:6670 <> s_final:10
-R6719:6726 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6704:6706 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6677:6685 Kernel.RevelationRequirement RevelationProof trace_run def
-R6687:6690 Kernel.MuChaitin <> fuel:7 var
-R6692:6696 Kernel.MuChaitin <> trace:8 var
-R6698:6703 Kernel.MuChaitin <> s_init:9 var
-R6707:6710 Coq.Init.Datatypes <> Some constr
-R6712:6718 Kernel.MuChaitin <> s_final:10 var
-R6767:6774 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6759:6761 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6745:6757 Kernel.VMState <> csr_cert_addr proj
-R6735:6741 Kernel.VMState <> vm_csrs proj
-R6727:6732 Kernel.MuChaitin <> s_init:9 var
-R6797:6804 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6775:6788 Kernel.RevelationRequirement RevelationProof has_supra_cert def
-R6790:6796 Kernel.MuChaitin <> s_final:10 var
-R6805:6811 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6817:6824 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 6812:6816 <> instr:11
-R6873:6882 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6825:6866 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
-R6868:6872 Kernel.MuChaitin <> instr:11 var
-R6909:6912 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6883:6893 Kernel.MuInformation <> mu_info_nat def
-R6895:6900 Kernel.MuChaitin <> s_init:9 var
-R6902:6908 Kernel.MuChaitin <> s_final:10 var
-R6913:6928 Kernel.VMStep VMStep instruction_cost def
-R6930:6934 Kernel.MuChaitin <> instr:11 var
-R7015:7085 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative supra_cert_implies_mu_lower_bound_trace_run thm
-R7015:7085 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative supra_cert_implies_mu_lower_bound_trace_run thm
-R7221:7248 Kernel.MuChaitin MuChaitin mu_info_nat_ge_from_mu_total thm
-R7221:7248 Kernel.MuChaitin MuChaitin mu_info_nat_ge_from_mu_total thm
-prf 8242:8282 MuChaitin supra_cert_implies_mu_bounds_cert_payload
-binder 8295:8298 <> fuel:12
-binder 8300:8304 <> trace:13
-binder 8306:8311 <> s_init:14
-binder 8313:8319 <> s_final:15
-R8368:8375 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8353:8355 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8326:8334 Kernel.RevelationRequirement RevelationProof trace_run def
-R8336:8339 Kernel.MuChaitin <> fuel:12 var
-R8341:8345 Kernel.MuChaitin <> trace:13 var
-R8347:8352 Kernel.MuChaitin <> s_init:14 var
-R8356:8359 Coq.Init.Datatypes <> Some constr
-R8361:8367 Kernel.MuChaitin <> s_final:15 var
-R8416:8423 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8408:8410 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8394:8406 Kernel.VMState <> csr_cert_addr proj
-R8384:8390 Kernel.VMState <> vm_csrs proj
-R8376:8381 Kernel.MuChaitin <> s_init:14 var
-R8446:8453 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8424:8437 Kernel.RevelationRequirement RevelationProof has_supra_cert def
-R8439:8445 Kernel.MuChaitin <> s_final:15 var
-R8454:8454 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8486:8494 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 8462:8466 <> instr:16
-R8469:8479 Kernel.MuChaitin MuChaitin cert_priced def
-R8481:8485 Kernel.MuChaitin <> instr:16 var
-R8495:8501 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R8507:8514 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 8502:8506 <> instr:17
-R8563:8572 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8515:8556 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
-R8558:8562 Kernel.MuChaitin <> instr:17 var
-R8599:8602 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8573:8583 Kernel.MuInformation <> mu_info_nat def
-R8585:8590 Kernel.MuChaitin <> s_init:14 var
-R8592:8598 Kernel.MuChaitin <> s_final:15 var
-R8603:8619 Kernel.MuChaitin MuChaitin cert_payload_size def
-R8621:8625 Kernel.MuChaitin <> instr:17 var
-R8709:8750 Kernel.MuChaitin MuChaitin supra_cert_implies_mu_info_nat_lower_bound thm
-R8709:8750 Kernel.MuChaitin MuChaitin supra_cert_implies_mu_info_nat_lower_bound thm
-R8914:8924 Kernel.MuChaitin MuChaitin cert_priced def
-R9033:9044 Coq.Arith.PeanoNat Nat le_trans thm
-R9033:9044 Coq.Arith.PeanoNat Nat le_trans thm
-R9095:9103 Kernel.MuChaitin MuChaitin <> mod
+R1403:1406 Coq.Lists.List <> <> lib
+R1408:1410 Coq.micromega.Lia <> <> lib
+R1412:1425 Coq.Arith.PeanoNat <> <> lib
+R1427:1440 Coq.Strings.String <> <> lib
+R1450:1462 Coq.Lists.List ListNotations <> mod
+R1493:1499 Kernel.VMState <> <> lib
+R1501:1506 Kernel.VMStep <> <> lib
+R1536:1548 Kernel.MuInformation <> <> lib
+R1550:1576 Kernel.MuNoFreeInsightQuantitative <> <> lib
+R1606:1626 Kernel.RevelationRequirement <> <> lib
+mod 1637:1645 <> MuChaitin
+R1656:1668 Kernel.VMStep VMStep <> mod
+R1678:1692 Kernel.RevelationRequirement RevelationProof <> mod
+def 2019:2035 MuChaitin cert_payload_size
+R2042:2055 Kernel.VMStep VMStep vm_instruction ind
+binder 2038:2038 <> i:1
+R2060:2062 Coq.Init.Datatypes <> nat ind
+R2075:2075 Kernel.MuChaitin <> i:1 var
+R2086:2097 Kernel.VMStep VMStep instr_reveal constr
+R2122:2131 Kernel.VMStep VMStep instr_emit constr
+R2148:2165 Kernel.VMStep VMStep payload_bit_length def
+R2179:2193 Kernel.VMStep VMStep instr_read_port constr
+R2220:2230 Kernel.VMStep VMStep instr_ljoin constr
+R2304:2316 Kernel.VMStep VMStep instr_lassert constr
+R2338:2340 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2347:2364 Kernel.VMStep VMStep instr_morph_assert constr
+R2420:2422 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2393:2410 Kernel.VMStep VMStep payload_bit_length def
+R2423:2440 Kernel.VMStep VMStep payload_bit_length def
+R2451:2463 Kernel.VMStep VMStep instr_certify constr
+R2490:2498 Kernel.VMStep VMStep instr_and constr
+R2517:2524 Kernel.VMStep VMStep instr_or constr
+R2543:2551 Kernel.VMStep VMStep instr_shl constr
+R2570:2578 Kernel.VMStep VMStep instr_shr constr
+R2597:2605 Kernel.VMStep VMStep instr_mul constr
+R2624:2632 Kernel.VMStep VMStep instr_lui constr
+def 2939:2949 MuChaitin cert_priced
+R2956:2969 Kernel.VMStep VMStep vm_instruction ind
+binder 2952:2952 <> i:3
+R3028:3031 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2984:3025 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
+R3027:3027 Kernel.MuChaitin <> i:3 var
+R3051:3054 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3032:3048 Kernel.MuChaitin MuChaitin cert_payload_size def
+R3050:3050 Kernel.MuChaitin <> i:3 var
+R3055:3070 Kernel.VMStep VMStep instruction_cost def
+R3072:3072 Kernel.MuChaitin <> i:3 var
+prf 3356:3383 MuChaitin mu_info_nat_ge_from_mu_total
+R3414:3420 Kernel.VMState <> VMState rec
+binder 3397:3402 <> s_init:4
+binder 3404:3410 <> s_final:5
+R3428:3430 Coq.Init.Datatypes <> nat ind
+binder 3424:3424 <> k:6
+R3475:3482 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3453:3456 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3447:3451 Kernel.VMState <> vm_mu proj
+R3438:3444 Kernel.MuChaitin <> s_final:5 var
+R3471:3473 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3465:3469 Kernel.VMState <> vm_mu proj
+R3457:3462 Kernel.MuChaitin <> s_init:4 var
+R3474:3474 Kernel.MuChaitin <> k:6 var
+R3509:3512 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3483:3493 Kernel.MuInformation <> mu_info_nat def
+R3495:3500 Kernel.MuChaitin <> s_init:4 var
+R3502:3508 Kernel.MuChaitin <> s_final:5 var
+R3513:3513 Kernel.MuChaitin <> k:6 var
+R3561:3571 Kernel.MuInformation <> mu_info_nat def
+R3574:3581 Kernel.MuInformation <> mu_total def
+prf 4667:4708 MuChaitin supra_cert_implies_mu_info_nat_lower_bound
+binder 4721:4724 <> fuel:7
+binder 4726:4730 <> trace:8
+binder 4732:4737 <> s_init:9
+binder 4739:4745 <> s_final:10
+R4794:4801 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4779:4781 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4752:4760 Kernel.RevelationRequirement RevelationProof trace_run def
+R4762:4765 Kernel.MuChaitin <> fuel:7 var
+R4767:4771 Kernel.MuChaitin <> trace:8 var
+R4773:4778 Kernel.MuChaitin <> s_init:9 var
+R4782:4785 Coq.Init.Datatypes <> Some constr
+R4787:4793 Kernel.MuChaitin <> s_final:10 var
+R4842:4849 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4834:4836 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4820:4832 Kernel.VMState <> csr_cert_addr proj
+R4810:4816 Kernel.VMState <> vm_csrs proj
+R4802:4807 Kernel.MuChaitin <> s_init:9 var
+R4872:4879 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4850:4863 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R4865:4871 Kernel.MuChaitin <> s_final:10 var
+R4880:4886 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4892:4899 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4887:4891 <> instr:11
+R4948:4957 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4900:4941 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
+R4943:4947 Kernel.MuChaitin <> instr:11 var
+R4984:4987 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4958:4968 Kernel.MuInformation <> mu_info_nat def
+R4970:4975 Kernel.MuChaitin <> s_init:9 var
+R4977:4983 Kernel.MuChaitin <> s_final:10 var
+R4988:5003 Kernel.VMStep VMStep instruction_cost def
+R5005:5009 Kernel.MuChaitin <> instr:11 var
+R5090:5160 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative supra_cert_implies_mu_lower_bound_trace_run thm
+R5090:5160 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative supra_cert_implies_mu_lower_bound_trace_run thm
+R5296:5323 Kernel.MuChaitin MuChaitin mu_info_nat_ge_from_mu_total thm
+R5296:5323 Kernel.MuChaitin MuChaitin mu_info_nat_ge_from_mu_total thm
+prf 6308:6348 MuChaitin supra_cert_implies_mu_bounds_cert_payload
+binder 6361:6364 <> fuel:12
+binder 6366:6370 <> trace:13
+binder 6372:6377 <> s_init:14
+binder 6379:6385 <> s_final:15
+R6434:6441 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6419:6421 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6392:6400 Kernel.RevelationRequirement RevelationProof trace_run def
+R6402:6405 Kernel.MuChaitin <> fuel:12 var
+R6407:6411 Kernel.MuChaitin <> trace:13 var
+R6413:6418 Kernel.MuChaitin <> s_init:14 var
+R6422:6425 Coq.Init.Datatypes <> Some constr
+R6427:6433 Kernel.MuChaitin <> s_final:15 var
+R6482:6489 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6474:6476 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6460:6472 Kernel.VMState <> csr_cert_addr proj
+R6450:6456 Kernel.VMState <> vm_csrs proj
+R6442:6447 Kernel.MuChaitin <> s_init:14 var
+R6512:6519 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6490:6503 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R6505:6511 Kernel.MuChaitin <> s_final:15 var
+R6520:6520 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6552:6560 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 6528:6532 <> instr:16
+R6535:6545 Kernel.MuChaitin MuChaitin cert_priced def
+R6547:6551 Kernel.MuChaitin <> instr:16 var
+R6561:6567 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6573:6580 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6568:6572 <> instr:17
+R6629:6638 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6581:6622 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
+R6624:6628 Kernel.MuChaitin <> instr:17 var
+R6665:6668 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6639:6649 Kernel.MuInformation <> mu_info_nat def
+R6651:6656 Kernel.MuChaitin <> s_init:14 var
+R6658:6664 Kernel.MuChaitin <> s_final:15 var
+R6669:6685 Kernel.MuChaitin MuChaitin cert_payload_size def
+R6687:6691 Kernel.MuChaitin <> instr:17 var
+R6775:6816 Kernel.MuChaitin MuChaitin supra_cert_implies_mu_info_nat_lower_bound thm
+R6775:6816 Kernel.MuChaitin MuChaitin supra_cert_implies_mu_info_nat_lower_bound thm
+R6980:6990 Kernel.MuChaitin MuChaitin cert_priced def
+R7099:7110 Coq.Arith.PeanoNat Nat le_trans thm
+R7099:7110 Coq.Arith.PeanoNat Nat le_trans thm
+R7161:7169 Kernel.MuChaitin MuChaitin <> mod

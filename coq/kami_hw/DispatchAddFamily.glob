@@ -1,0 +1,324 @@
+DIGEST d6523f7f8c70d8441c72ca03e4f484c4
+FKamiHW.DispatchAddFamily
+R316:324 Kami.Kami <> <> lib
+R326:339 Kami.Semantics <> <> lib
+R369:387 KamiHW.DispatchObservation <> <> lib
+R389:405 KamiHW.DispatchContracts <> <> lib
+R407:423 KamiHW.DispatchExecution <> <> lib
+R425:435 KamiHW.ThieleTypes <> <> lib
+R462:467 Coq.Strings.String <> <> lib
+R469:472 Coq.Lists.List <> <> lib
+R482:494 Coq.Lists.List ListNotations <> mod
+def 533:561 <> dispatch_add_family_registers
+R570:573 Kami.Lib.Word <> word ind
+binder 564:564 <> x:1
+binder 566:566 <> y:2
+R581:584 Kami.Syntax <> type def
+R587:592 Kami.Syntax <> Vector constr
+R595:597 Kami.Syntax <> Bit constr
+binder 615:617 <> idx:3
+R625:627 Kami.Lib.Word <> weq def
+R634:642 Kami.Lib.Word <> natToWord def
+R629:631 KamiHW.DispatchAddFamily <> idx:3 var
+R668:670 Kami.Lib.Word <> weq def
+R677:685 Kami.Lib.Word <> natToWord def
+R672:674 KamiHW.DispatchAddFamily <> idx:3 var
+R704:712 Kami.Lib.Word <> natToWord def
+R697:697 KamiHW.DispatchAddFamily <> y:2 var
+R654:654 KamiHW.DispatchAddFamily <> x:1 var
+def 731:755 <> dispatch_add_family_state
+R764:767 Kami.Lib.Word <> word ind
+binder 758:758 <> x:4
+binder 760:760 <> y:5
+R775:779 Kami.Semantics <> RegsT def
+R786:790 Kami.Lib.FMap M add def
+R898:918 KamiHW.DispatchContracts <> dispatch_loaded_reset def
+R920:943 KamiHW.DispatchObservation <> dispatch_add_instruction def
+R800:805 Coq.Init.Specif <> existT constr
+R857:885 KamiHW.DispatchAddFamily <> dispatch_add_family_registers def
+R887:887 KamiHW.DispatchAddFamily <> x:4 var
+R889:889 KamiHW.DispatchAddFamily <> y:5 var
+R824:833 Kami.Syntax <> SyntaxKind constr
+R836:841 Kami.Syntax <> Vector constr
+R844:846 Kami.Syntax <> Bit constr
+R808:815 Kami.Syntax <> fullType def
+R817:820 Kami.Syntax <> type def
+def 958:983 <> dispatch_add_family_result
+R992:995 Kami.Lib.Word <> word ind
+binder 986:986 <> x:6
+binder 988:988 <> y:7
+R1003:1006 Kami.Syntax <> type def
+R1009:1014 Kami.Syntax <> Vector constr
+R1017:1019 Kami.Syntax <> Bit constr
+binder 1037:1039 <> idx:8
+R1047:1049 Kami.Lib.Word <> weq def
+R1056:1064 Kami.Lib.Word <> natToWord def
+R1051:1053 KamiHW.DispatchAddFamily <> idx:8 var
+R1091:1119 KamiHW.DispatchAddFamily <> dispatch_add_family_registers def
+R1121:1121 KamiHW.DispatchAddFamily <> x:6 var
+R1123:1123 KamiHW.DispatchAddFamily <> y:7 var
+R1125:1127 KamiHW.DispatchAddFamily <> idx:8 var
+R1076:1080 Kami.Lib.Word <> wplus def
+R1084:1084 KamiHW.DispatchAddFamily <> y:7 var
+R1082:1082 KamiHW.DispatchAddFamily <> x:6 var
+prf 1136:1162 <> dispatch_add_family_enabled
+binder 1173:1173 <> x:9
+binder 1175:1175 <> y:10
+R1180:1180 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1272:1275 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1187:1199 KamiHW.DispatchExecution <> eval_dispatch def
+R1202:1226 KamiHW.DispatchAddFamily <> dispatch_add_family_state def
+R1228:1228 KamiHW.DispatchAddFamily <> x:9 var
+R1230:1230 KamiHW.DispatchAddFamily <> y:10 var
+R1238:1241 Coq.Init.Datatypes <> Some constr
+R1248:1251 Coq.Init.Datatypes <> true constr
+R1255:1258 Coq.Init.Datatypes <> None constr
+R1263:1267 Coq.Init.Datatypes <> false constr
+R1276:1279 Coq.Init.Datatypes <> true constr
+prf 1333:1367 <> dispatch_add_family_regs_projection
+binder 1378:1378 <> x:11
+binder 1380:1380 <> y:12
+R1446:1450 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1385:1406 KamiHW.DispatchObservation <> observe_dispatch_write def
+R1409:1433 KamiHW.DispatchAddFamily <> dispatch_add_family_state def
+R1435:1435 KamiHW.DispatchAddFamily <> x:11 var
+R1437:1437 KamiHW.DispatchAddFamily <> y:12 var
+R1451:1454 Coq.Init.Datatypes <> Some constr
+R1457:1462 Coq.Init.Specif <> existT constr
+R1514:1539 KamiHW.DispatchAddFamily <> dispatch_add_family_result def
+R1541:1541 KamiHW.DispatchAddFamily <> x:11 var
+R1543:1543 KamiHW.DispatchAddFamily <> y:12 var
+R1481:1490 Kami.Syntax <> SyntaxKind constr
+R1493:1498 Kami.Syntax <> Vector constr
+R1501:1503 Kami.Syntax <> Bit constr
+R1465:1472 Kami.Syntax <> fullType def
+R1474:1477 Kami.Syntax <> type def
+R1641:1644 Coq.Init.Datatypes <> Some constr
+R1621:1627 Coq.Init.Logic <> f_equal thm
+R1641:1644 Coq.Init.Datatypes <> Some constr
+R1621:1627 Coq.Init.Logic <> f_equal thm
+R1685:1688 Kami.Syntax <> type def
+R1691:1696 Kami.Syntax <> Vector constr
+R1699:1701 Kami.Syntax <> Bit constr
+binder 1681:1681 <> v:13
+R1717:1722 Coq.Init.Specif <> existT constr
+R1773:1773 KamiHW.DispatchAddFamily <> v:13 var
+R1741:1750 Kami.Syntax <> SyntaxKind constr
+R1753:1758 Kami.Syntax <> Vector constr
+R1761:1763 Kami.Syntax <> Bit constr
+R1725:1732 Kami.Syntax <> fullType def
+R1734:1737 Kami.Syntax <> type def
+R1658:1664 Coq.Init.Logic <> f_equal thm
+R1685:1688 Kami.Syntax <> type def
+R1691:1696 Kami.Syntax <> Vector constr
+R1699:1701 Kami.Syntax <> Bit constr
+binder 1681:1681 <> v:14
+R1717:1722 Coq.Init.Specif <> existT constr
+R1773:1773 KamiHW.DispatchAddFamily <> v:14 var
+R1741:1750 Kami.Syntax <> SyntaxKind constr
+R1753:1758 Kami.Syntax <> Vector constr
+R1761:1763 Kami.Syntax <> Bit constr
+R1725:1732 Kami.Syntax <> fullType def
+R1734:1737 Kami.Syntax <> type def
+R1658:1664 Coq.Init.Logic <> f_equal thm
+R1785:1813 KamiHW.DispatchObservation <> word4_function_extensionality thm
+R1785:1813 KamiHW.DispatchObservation <> word4_function_extensionality thm
+prf 1900:1932 <> dispatch_add_family_pc_projection
+binder 1943:1943 <> x:15
+binder 1945:1945 <> y:16
+R2009:2015 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1950:1971 KamiHW.DispatchObservation <> observe_dispatch_write def
+R1974:1998 KamiHW.DispatchAddFamily <> dispatch_add_family_state def
+R2000:2000 KamiHW.DispatchAddFamily <> x:15 var
+R2002:2002 KamiHW.DispatchAddFamily <> y:16 var
+R2016:2019 Coq.Init.Datatypes <> Some constr
+R2022:2027 Coq.Init.Specif <> existT constr
+R2068:2076 Kami.Lib.Word <> natToWord def
+R2046:2055 Kami.Syntax <> SyntaxKind constr
+R2058:2060 Kami.Syntax <> Bit constr
+R2030:2037 Kami.Syntax <> fullType def
+R2039:2042 Kami.Syntax <> type def
+prf 2165:2197 <> dispatch_add_family_mu_projection
+binder 2208:2208 <> x:17
+binder 2210:2210 <> y:18
+R2274:2280 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2215:2236 KamiHW.DispatchObservation <> observe_dispatch_write def
+R2239:2263 KamiHW.DispatchAddFamily <> dispatch_add_family_state def
+R2265:2265 KamiHW.DispatchAddFamily <> x:17 var
+R2267:2267 KamiHW.DispatchAddFamily <> y:18 var
+R2281:2284 Coq.Init.Datatypes <> Some constr
+R2287:2292 Coq.Init.Specif <> existT constr
+R2333:2341 Kami.Lib.Word <> natToWord def
+R2311:2320 Kami.Syntax <> SyntaxKind constr
+R2323:2325 Kami.Syntax <> Bit constr
+R2295:2302 Kami.Syntax <> fullType def
+R2304:2307 Kami.Syntax <> type def
+prf 2430:2463 <> dispatch_add_family_err_projection
+binder 2474:2474 <> x:19
+binder 2476:2476 <> y:20
+R2541:2547 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2481:2502 KamiHW.DispatchObservation <> observe_dispatch_write def
+R2505:2529 KamiHW.DispatchAddFamily <> dispatch_add_family_state def
+R2531:2531 KamiHW.DispatchAddFamily <> x:19 var
+R2533:2533 KamiHW.DispatchAddFamily <> y:20 var
+R2548:2551 Coq.Init.Datatypes <> Some constr
+R2554:2559 Coq.Init.Specif <> existT constr
+R2595:2599 Coq.Init.Datatypes <> false constr
+R2578:2587 Kami.Syntax <> SyntaxKind constr
+R2589:2592 Kami.Syntax <> Bool constr
+R2562:2569 Kami.Syntax <> fullType def
+R2571:2574 Kami.Syntax <> type def
+def 2687:2710 <> dispatch_add_family_post
+R2719:2722 Kami.Lib.Word <> word ind
+binder 2713:2713 <> x:21
+binder 2715:2715 <> y:22
+R2737:2741 Kami.Semantics <> RegsT def
+binder 2729:2733 <> final:23
+R2844:2849 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2773:2775 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2756:2761 Kami.Lib.FMap M find def
+R2768:2772 KamiHW.DispatchAddFamily <> final:23 var
+R2776:2779 Coq.Init.Datatypes <> Some constr
+R2782:2787 Coq.Init.Specif <> existT constr
+R2828:2836 Kami.Lib.Word <> natToWord def
+R2806:2815 Kami.Syntax <> SyntaxKind constr
+R2818:2820 Kami.Syntax <> Bit constr
+R2790:2797 Kami.Syntax <> fullType def
+R2799:2802 Kami.Syntax <> type def
+R2938:2943 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2867:2869 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2850:2855 Kami.Lib.FMap M find def
+R2862:2866 KamiHW.DispatchAddFamily <> final:23 var
+R2870:2873 Coq.Init.Datatypes <> Some constr
+R2876:2881 Coq.Init.Specif <> existT constr
+R2922:2930 Kami.Lib.Word <> natToWord def
+R2900:2909 Kami.Syntax <> SyntaxKind constr
+R2912:2914 Kami.Syntax <> Bit constr
+R2884:2891 Kami.Syntax <> fullType def
+R2893:2896 Kami.Syntax <> type def
+R3018:3023 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2962:2964 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2944:2949 Kami.Lib.FMap M find def
+R2957:2961 KamiHW.DispatchAddFamily <> final:23 var
+R2965:2968 Coq.Init.Datatypes <> Some constr
+R2971:2976 Coq.Init.Specif <> existT constr
+R3012:3016 Coq.Init.Datatypes <> false constr
+R2995:3004 Kami.Syntax <> SyntaxKind constr
+R3006:3009 Kami.Syntax <> Bool constr
+R2979:2986 Kami.Syntax <> fullType def
+R2988:2991 Kami.Syntax <> type def
+R3043:3045 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3024:3029 Kami.Lib.FMap M find def
+R3038:3042 KamiHW.DispatchAddFamily <> final:23 var
+R3046:3049 Coq.Init.Datatypes <> Some constr
+R3052:3057 Coq.Init.Specif <> existT constr
+R3113:3138 KamiHW.DispatchAddFamily <> dispatch_add_family_result def
+R3140:3140 KamiHW.DispatchAddFamily <> x:21 var
+R3142:3142 KamiHW.DispatchAddFamily <> y:22 var
+R3080:3089 Kami.Syntax <> SyntaxKind constr
+R3092:3097 Kami.Syntax <> Vector constr
+R3100:3102 Kami.Syntax <> Bit constr
+R3060:3067 Kami.Syntax <> fullType def
+R3069:3072 Kami.Syntax <> type def
+prf 3156:3186 <> dispatch_add_family_actual_post
+binder 3197:3197 <> x:24
+binder 3199:3199 <> y:25
+binder 3201:3201 <> u:26
+R3260:3265 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3251:3253 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3206:3218 KamiHW.DispatchExecution <> eval_dispatch def
+R3221:3245 KamiHW.DispatchAddFamily <> dispatch_add_family_state def
+R3247:3247 KamiHW.DispatchAddFamily <> x:24 var
+R3249:3249 KamiHW.DispatchAddFamily <> y:25 var
+R3254:3257 Coq.Init.Datatypes <> Some constr
+R3259:3259 KamiHW.DispatchAddFamily <> u:26 var
+R3266:3289 KamiHW.DispatchAddFamily <> dispatch_add_family_post def
+R3291:3291 KamiHW.DispatchAddFamily <> x:24 var
+R3293:3293 KamiHW.DispatchAddFamily <> y:25 var
+R3296:3302 Kami.Lib.FMap M union def
+R3307:3331 KamiHW.DispatchAddFamily <> dispatch_add_family_state def
+R3333:3333 KamiHW.DispatchAddFamily <> x:24 var
+R3335:3335 KamiHW.DispatchAddFamily <> y:25 var
+R3304:3304 KamiHW.DispatchAddFamily <> u:26 var
+R3373:3396 KamiHW.DispatchAddFamily <> dispatch_add_family_post def
+R3423:3434 Kami.Lib.FMap M find_union thm
+R3453:3482 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R3423:3434 Kami.Lib.FMap M find_union thm
+R3423:3434 Kami.Lib.FMap M find_union thm
+R3423:3434 Kami.Lib.FMap M find_union thm
+R3423:3434 Kami.Lib.FMap M find_union thm
+R3423:3434 Kami.Lib.FMap M find_union thm
+R3423:3434 Kami.Lib.FMap M find_union thm
+R3423:3434 Kami.Lib.FMap M find_union thm
+R3423:3434 Kami.Lib.FMap M find_union thm
+R3453:3482 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R3453:3482 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R3453:3482 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R3453:3482 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R3453:3482 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R3453:3482 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R3453:3482 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R3453:3482 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R3507:3539 KamiHW.DispatchAddFamily <> dispatch_add_family_pc_projection thm
+R3507:3539 KamiHW.DispatchAddFamily <> dispatch_add_family_pc_projection thm
+R3507:3539 KamiHW.DispatchAddFamily <> dispatch_add_family_pc_projection thm
+R3567:3599 KamiHW.DispatchAddFamily <> dispatch_add_family_mu_projection thm
+R3567:3599 KamiHW.DispatchAddFamily <> dispatch_add_family_mu_projection thm
+R3567:3599 KamiHW.DispatchAddFamily <> dispatch_add_family_mu_projection thm
+R3627:3660 KamiHW.DispatchAddFamily <> dispatch_add_family_err_projection thm
+R3627:3660 KamiHW.DispatchAddFamily <> dispatch_add_family_err_projection thm
+R3627:3660 KamiHW.DispatchAddFamily <> dispatch_add_family_err_projection thm
+R3688:3722 KamiHW.DispatchAddFamily <> dispatch_add_family_regs_projection thm
+R3688:3722 KamiHW.DispatchAddFamily <> dispatch_add_family_regs_projection thm
+R3688:3722 KamiHW.DispatchAddFamily <> dispatch_add_family_regs_projection thm
+prf 3752:3787 <> dispatch_add_family_actual_execution
+binder 3798:3798 <> x:27
+binder 3800:3800 <> y:28
+R3803:3809 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3811:3814 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3810:3810 <> u:29
+R3903:3908 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3815:3823 Kami.Semantics <> SemAction ind
+R3901:3902 Kami.Lib.Word <> WO constr
+R3890:3896 Kami.Lib.FMap M empty def
+R3887:3887 KamiHW.DispatchAddFamily <> u:29 var
+R3858:3865 Kami.Lib.Struct <> attrType proj
+R3881:3884 Kami.Syntax <> type def
+R3867:3879 KamiHW.DispatchExecution <> dispatch_rule def
+R3826:3850 KamiHW.DispatchAddFamily <> dispatch_add_family_state def
+R3852:3852 KamiHW.DispatchAddFamily <> x:27 var
+R3854:3854 KamiHW.DispatchAddFamily <> y:28 var
+R4075:4080 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3909:3917 Kami.Semantics <> Multistep ind
+R4024:4024 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4074:4074 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4025:4066 KamiHW.NormalizationExecution <> normalization_label def
+R3981:3987 Kami.Lib.FMap M union def
+R3992:4016 KamiHW.DispatchAddFamily <> dispatch_add_family_state def
+R4018:4018 KamiHW.DispatchAddFamily <> x:27 var
+R4020:4020 KamiHW.DispatchAddFamily <> y:28 var
+R3989:3989 KamiHW.DispatchAddFamily <> u:29 var
+R3945:3969 KamiHW.DispatchAddFamily <> dispatch_add_family_state def
+R3971:3971 KamiHW.DispatchAddFamily <> x:27 var
+R3973:3973 KamiHW.DispatchAddFamily <> y:28 var
+R3919:3942 KamiHW.ThieleCPUCore <> thieleCore def
+R4081:4104 KamiHW.DispatchAddFamily <> dispatch_add_family_post def
+R4106:4106 KamiHW.DispatchAddFamily <> x:27 var
+R4108:4108 KamiHW.DispatchAddFamily <> y:28 var
+R4111:4117 Kami.Lib.FMap M union def
+R4122:4146 KamiHW.DispatchAddFamily <> dispatch_add_family_state def
+R4148:4148 KamiHW.DispatchAddFamily <> x:27 var
+R4150:4150 KamiHW.DispatchAddFamily <> y:28 var
+R4119:4119 KamiHW.DispatchAddFamily <> u:29 var
+R4188:4214 KamiHW.DispatchAddFamily <> dispatch_add_family_enabled thm
+R4188:4214 KamiHW.DispatchAddFamily <> dispatch_add_family_enabled thm
+R4239:4251 KamiHW.DispatchExecution <> eval_dispatch def
+R4254:4278 KamiHW.DispatchAddFamily <> dispatch_add_family_state def
+R4239:4251 KamiHW.DispatchExecution <> eval_dispatch def
+R4254:4278 KamiHW.DispatchAddFamily <> dispatch_add_family_state def
+R4348:4373 KamiHW.DispatchExecution <> dispatch_actual_action_iff thm
+R4348:4373 KamiHW.DispatchExecution <> dispatch_actual_action_iff thm
+R4409:4433 KamiHW.DispatchExecution <> dispatch_actual_execution thm
+R4409:4433 KamiHW.DispatchExecution <> dispatch_actual_execution thm
+R4458:4488 KamiHW.DispatchAddFamily <> dispatch_add_family_actual_post thm
+R4458:4488 KamiHW.DispatchAddFamily <> dispatch_add_family_actual_post thm

@@ -33,7 +33,7 @@
     is impossible.
 *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
    imports no kernel module.
@@ -41,8 +41,8 @@
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
 
 Require Import Coq.Reals.Reals.
 Require Import Coq.micromega.Lra.
@@ -89,7 +89,7 @@ Proof.
   lra.
 Qed.
 
-(* DEFINITIONAL HELPER — INQUISITOR NOTE: arithmetic derivation from prob_zero + prob_one definitions. *)
+(* DEFINITIONAL HELPER — SCOPE NOTE: arithmetic derivation from prob_zero + prob_one definitions. *)
 (** The two computational-basis probabilities sum to one by definition. *)
 Lemma probs_sum_to_one : forall x y z,
   prob_zero x y z + prob_one x y z = 1.
@@ -301,7 +301,7 @@ Proof.
     lra.
 Qed.
 
-(* INQUISITOR NOTE: connectivity anchor for post-measurement pure-state lemmas. *)
+(* SCOPE NOTE: connectivity anchor for post-measurement pure-state lemmas. *)
 Lemma born_rule_measurement_cases :
   (forall x y z,
     let '(x', y', z') := post_measurement_zero x y z in

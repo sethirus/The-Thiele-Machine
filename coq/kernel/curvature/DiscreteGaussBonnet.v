@@ -24,7 +24,7 @@
     DiscreteTopology.v and the equilateral-angle model both hold, this file
     says there isn't one. *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* SCOPE NOTE: foundation connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Arith.PeanoNat Lia Bool ZArith Reals.
@@ -54,7 +54,7 @@ Definition triangle_interior_angle : R := (PI / 3)%R.  (* Equilateral approximat
 Definition vertex_angle_sum (g : PartitionGraph) (vertex : nat) : R :=
   INR (DiscreteTopology.vertex_degree g vertex) * triangle_interior_angle.
 
-(** The vertex defect is what remains after subtracting that angle sum from 2π. *)
+(** The vertex defect is the residual after subtracting that angle sum from 2π. *)
 Definition angle_defect (g : PartitionGraph) (vertex : nat) : R :=
   (2 * PI - vertex_angle_sum g vertex)%R.
 

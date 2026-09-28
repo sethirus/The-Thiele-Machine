@@ -18,9 +18,9 @@
     are this corollary executed against mainnet); charging a non-committing
     step breaks exactness in the other direction.
 
-    FALSIFIER: construct a conforming schedule (floor + no-overcharge) whose
-    charge predicate differs from cert-flip on some reachable step. Coq
-    accepts its construction if it exists; [gas_schedule_exactness] falls.
+    The exactness boundary is the pair of stated schedule premises. A conforming
+    schedule with a different charge predicate on a reachable step would be a
+    counterexample to this characterization.
 
     This file does not bound gate counts, model gas refunds, or price
     anything except the commitment event itself. *)
@@ -89,7 +89,7 @@ Definition GasSchedule := LocalPredicatePricedSystem.
     in this file is downstream: the failure modes (Mains 2 and 3) and
     the concrete inhabitants ([toy_gas_schedule_is_exact],
     [thiele_vm_commit_pricing_is_exact]). *)
-(* INQUISITOR NOTE: alias for exact_commitment_pricing_characterization — deliberate vocabulary re-export; the file's new content is the failure modes and concrete instances below. *)
+(* SCOPE NOTE: alias for exact_commitment_pricing_characterization — deliberate vocabulary re-export; the file's new content is the failure modes and concrete instances below. *)
 Theorem gas_schedule_exactness :
   forall G : GasSchedule,
     (quantitative_certification_floor G /\
@@ -110,20 +110,10 @@ Qed.
     where its predicate says, so a predicate gap is a free pass through
     the commitment event.
 
-    The theorem prices the limiting case: the charge on a committing
-    step is missing entirely, and the trace is free. The 2016 Ethereum
-    underpriced-opcode DoS episodes (the attacks that forced the EIP-150
-    repricing) were the graded version of the same failure shape —
-    opcodes priced far below their real cost, attackers buying state
-    growth almost free. The fix, repricing, is restoring the charging
-    predicate's coverage; in the limiting case that is exactly
-    [covers_cert_flips].
-
-    FALSIFICATION: exhibit [G], [s], [i] with an uncharged committing
-    step whose one-step trace still costs gas. That would mean a
-    trusted schedule billed outside its own predicate, contradicting
-    [lps_uncharged_free]: it would break the kernel record, not
-    just this file. *)
+    The theorem is conditional on the [GasSchedule] record: an uncharged
+    committing step has zero total cost under that record's own cost rule.
+    It does not compare this abstract schedule with a deployed gas system or
+    claim that every underpricing problem has this exact form. *)
 Theorem undercharged_opcode_admits_free_commitment :
   forall (G : GasSchedule) (s : lps_state G) (i : lps_instr G),
     lps_cert G s = false ->

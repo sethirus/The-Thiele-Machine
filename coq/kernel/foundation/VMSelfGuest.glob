@@ -1,0 +1,1817 @@
+DIGEST 6cad07e2f87e8b6ba1f60dcb77fd9f37
+FKernel.VMSelfGuest
+R1770:1774 Coq.Arith.Arith <> <> lib
+R1776:1778 Coq.micromega.Lia <> <> lib
+R1780:1783 Coq.Lists.List <> <> lib
+R1810:1822 Coq.NArith.NArith <> <> lib
+R1832:1844 Coq.Lists.List ListNotations <> mod
+R1874:1880 Kernel.VMState <> <> lib
+R1882:1887 Kernel.VMStep <> <> lib
+R1889:1903 Kernel.VMUnboundedStep <> <> lib
+R1933:1959 Kernel.VMUnboundedInterpreterSlots <> <> lib
+ind 2104:2109 <> GInstr
+constr 2123:2127 <> GHalt
+constr 2147:2154 <> GLoadImm
+constr 2177:2181 <> GXfer
+constr 2205:2208 <> GAdd
+constr 2235:2238 <> GSub
+constr 2265:2268 <> GMul
+constr 2295:2298 <> GAnd
+constr 2325:2327 <> GOr
+constr 2355:2358 <> GShl
+constr 2385:2388 <> GShr
+constr 2415:2419 <> GJump
+constr 2446:2450 <> GJnez
+R2140:2142 Coq.Init.Datatypes <> nat ind
+binder 2133:2136 <> cost:3
+R2170:2172 Coq.Init.Datatypes <> nat ind
+binder 2157:2157 <> d:4
+binder 2159:2161 <> imm:5
+binder 2163:2166 <> cost:6
+R2198:2200 Coq.Init.Datatypes <> nat ind
+binder 2187:2187 <> d:7
+binder 2189:2189 <> s:8
+binder 2191:2194 <> cost:9
+R2228:2230 Coq.Init.Datatypes <> nat ind
+binder 2215:2215 <> d:10
+binder 2217:2217 <> a:11
+binder 2219:2219 <> b:12
+binder 2221:2224 <> cost:13
+R2258:2260 Coq.Init.Datatypes <> nat ind
+binder 2245:2245 <> d:14
+binder 2247:2247 <> a:15
+binder 2249:2249 <> b:16
+binder 2251:2254 <> cost:17
+R2288:2290 Coq.Init.Datatypes <> nat ind
+binder 2275:2275 <> d:18
+binder 2277:2277 <> a:19
+binder 2279:2279 <> b:20
+binder 2281:2284 <> cost:21
+R2318:2320 Coq.Init.Datatypes <> nat ind
+binder 2305:2305 <> d:22
+binder 2307:2307 <> a:23
+binder 2309:2309 <> b:24
+binder 2311:2314 <> cost:25
+R2348:2350 Coq.Init.Datatypes <> nat ind
+binder 2335:2335 <> d:26
+binder 2337:2337 <> a:27
+binder 2339:2339 <> b:28
+binder 2341:2344 <> cost:29
+R2378:2380 Coq.Init.Datatypes <> nat ind
+binder 2365:2365 <> d:30
+binder 2367:2367 <> a:31
+binder 2369:2369 <> b:32
+binder 2371:2374 <> cost:33
+R2408:2410 Coq.Init.Datatypes <> nat ind
+binder 2395:2395 <> d:34
+binder 2397:2397 <> a:35
+binder 2399:2399 <> b:36
+binder 2401:2404 <> cost:37
+R2439:2441 Coq.Init.Datatypes <> nat ind
+binder 2425:2430 <> target:38
+binder 2432:2435 <> cost:39
+R2472:2474 Coq.Init.Datatypes <> nat ind
+binder 2456:2456 <> r:40
+binder 2458:2463 <> target:41
+binder 2465:2468 <> cost:42
+scheme 2104:2109 <> GInstr_rect
+scheme 2104:2109 <> GInstr_ind
+scheme 2104:2109 <> GInstr_rec
+scheme 2104:2109 <> GInstr_sind
+def 2490:2497 <> g_denote
+R2504:2509 Kernel.VMSelfGuest <> GInstr ind
+binder 2500:2500 <> i:43
+R2514:2527 Kernel.VMStep VMStep vm_instruction ind
+R2540:2540 Kernel.VMSelfGuest <> i:43 var
+R2551:2555 Kernel.VMSelfGuest <> GHalt constr
+R2571:2580 Kernel.VMStep VMStep instr_halt constr
+R2588:2595 Kernel.VMSelfGuest <> GLoadImm constr
+R2608:2621 Kernel.VMStep VMStep instr_load_imm constr
+R2635:2639 Kernel.VMSelfGuest <> GXfer constr
+R2655:2664 Kernel.VMStep VMStep instr_xfer constr
+R2676:2679 Kernel.VMSelfGuest <> GAdd constr
+R2696:2704 Kernel.VMStep VMStep instr_add constr
+R2718:2721 Kernel.VMSelfGuest <> GSub constr
+R2738:2746 Kernel.VMStep VMStep instr_sub constr
+R2760:2763 Kernel.VMSelfGuest <> GMul constr
+R2780:2788 Kernel.VMStep VMStep instr_mul constr
+R2802:2805 Kernel.VMSelfGuest <> GAnd constr
+R2822:2830 Kernel.VMStep VMStep instr_and constr
+R2844:2846 Kernel.VMSelfGuest <> GOr constr
+R2864:2871 Kernel.VMStep VMStep instr_or constr
+R2885:2888 Kernel.VMSelfGuest <> GShl constr
+R2905:2913 Kernel.VMStep VMStep instr_shl constr
+R2927:2930 Kernel.VMSelfGuest <> GShr constr
+R2947:2955 Kernel.VMStep VMStep instr_shr constr
+R2969:2973 Kernel.VMSelfGuest <> GJump constr
+R2989:2998 Kernel.VMStep VMStep instr_jump constr
+R3008:3012 Kernel.VMSelfGuest <> GJnez constr
+R3028:3037 Kernel.VMStep VMStep instr_jnez constr
+def 3064:3072 <> g_program
+R3079:3082 Coq.Init.Datatypes <> list ind
+R3084:3089 Kernel.VMSelfGuest <> GInstr ind
+binder 3075:3075 <> p:45
+R3094:3097 Coq.Init.Datatypes <> list ind
+R3099:3112 Kernel.VMStep VMStep vm_instruction ind
+R3117:3119 Coq.Lists.List <> map def
+R3130:3130 Kernel.VMSelfGuest <> p:45 var
+R3121:3128 Kernel.VMSelfGuest <> g_denote def
+def 3362:3369 <> g_opcode
+R3376:3381 Kernel.VMSelfGuest <> GInstr ind
+binder 3372:3372 <> i:46
+R3386:3388 Coq.Init.Datatypes <> nat ind
+R3401:3401 Kernel.VMSelfGuest <> i:46 var
+R3412:3416 Kernel.VMSelfGuest <> GHalt constr
+R3427:3434 Kernel.VMSelfGuest <> GLoadImm constr
+R3449:3453 Kernel.VMSelfGuest <> GXfer constr
+R3470:3473 Kernel.VMSelfGuest <> GAdd constr
+R3490:3493 Kernel.VMSelfGuest <> GSub constr
+R3510:3513 Kernel.VMSelfGuest <> GMul constr
+R3532:3535 Kernel.VMSelfGuest <> GAnd constr
+R3552:3554 Kernel.VMSelfGuest <> GOr constr
+R3571:3574 Kernel.VMSelfGuest <> GShl constr
+R3593:3596 Kernel.VMSelfGuest <> GShr constr
+R3614:3618 Kernel.VMSelfGuest <> GJump constr
+R3632:3636 Kernel.VMSelfGuest <> GJnez constr
+def 3669:3673 <> g_dst
+R3680:3685 Kernel.VMSelfGuest <> GInstr ind
+binder 3676:3676 <> i:48
+R3690:3692 Coq.Init.Datatypes <> nat ind
+R3705:3705 Kernel.VMSelfGuest <> i:48 var
+R3716:3720 Kernel.VMSelfGuest <> GHalt constr
+R3731:3738 Kernel.VMSelfGuest <> GLoadImm constr
+R3753:3757 Kernel.VMSelfGuest <> GXfer constr
+R3774:3777 Kernel.VMSelfGuest <> GAdd constr
+R3794:3797 Kernel.VMSelfGuest <> GSub constr
+R3814:3817 Kernel.VMSelfGuest <> GMul constr
+R3836:3839 Kernel.VMSelfGuest <> GAnd constr
+R3856:3858 Kernel.VMSelfGuest <> GOr constr
+R3875:3878 Kernel.VMSelfGuest <> GShl constr
+R3897:3900 Kernel.VMSelfGuest <> GShr constr
+R3917:3921 Kernel.VMSelfGuest <> GJump constr
+R3934:3938 Kernel.VMSelfGuest <> GJnez constr
+def 3970:3974 <> g_rs1
+R3981:3986 Kernel.VMSelfGuest <> GInstr ind
+binder 3977:3977 <> i:50
+R3991:3993 Coq.Init.Datatypes <> nat ind
+R4006:4006 Kernel.VMSelfGuest <> i:50 var
+R4017:4021 Kernel.VMSelfGuest <> GHalt constr
+R4032:4039 Kernel.VMSelfGuest <> GLoadImm constr
+R4054:4058 Kernel.VMSelfGuest <> GXfer constr
+R4075:4078 Kernel.VMSelfGuest <> GAdd constr
+R4095:4098 Kernel.VMSelfGuest <> GSub constr
+R4115:4118 Kernel.VMSelfGuest <> GMul constr
+R4137:4140 Kernel.VMSelfGuest <> GAnd constr
+R4157:4159 Kernel.VMSelfGuest <> GOr constr
+R4176:4179 Kernel.VMSelfGuest <> GShl constr
+R4198:4201 Kernel.VMSelfGuest <> GShr constr
+R4218:4222 Kernel.VMSelfGuest <> GJump constr
+R4235:4239 Kernel.VMSelfGuest <> GJnez constr
+def 4271:4275 <> g_rs2
+R4282:4287 Kernel.VMSelfGuest <> GInstr ind
+binder 4278:4278 <> i:52
+R4292:4294 Coq.Init.Datatypes <> nat ind
+R4307:4307 Kernel.VMSelfGuest <> i:52 var
+R4318:4321 Kernel.VMSelfGuest <> GAdd constr
+R4338:4341 Kernel.VMSelfGuest <> GSub constr
+R4358:4361 Kernel.VMSelfGuest <> GMul constr
+R4380:4383 Kernel.VMSelfGuest <> GAnd constr
+R4400:4402 Kernel.VMSelfGuest <> GOr constr
+R4419:4422 Kernel.VMSelfGuest <> GShl constr
+R4441:4444 Kernel.VMSelfGuest <> GShr constr
+def 4487:4492 <> g_cost
+R4499:4504 Kernel.VMSelfGuest <> GInstr ind
+binder 4495:4495 <> i:54
+R4509:4511 Coq.Init.Datatypes <> nat ind
+R4524:4524 Kernel.VMSelfGuest <> i:54 var
+R4535:4539 Kernel.VMSelfGuest <> GHalt constr
+R4550:4557 Kernel.VMSelfGuest <> GLoadImm constr
+R4572:4576 Kernel.VMSelfGuest <> GXfer constr
+R4593:4596 Kernel.VMSelfGuest <> GAdd constr
+R4613:4616 Kernel.VMSelfGuest <> GSub constr
+R4633:4636 Kernel.VMSelfGuest <> GMul constr
+R4655:4658 Kernel.VMSelfGuest <> GAnd constr
+R4675:4677 Kernel.VMSelfGuest <> GOr constr
+R4694:4697 Kernel.VMSelfGuest <> GShl constr
+R4716:4719 Kernel.VMSelfGuest <> GShr constr
+R4736:4740 Kernel.VMSelfGuest <> GJump constr
+R4753:4757 Kernel.VMSelfGuest <> GJnez constr
+def 4789:4793 <> g_imm
+R4800:4805 Kernel.VMSelfGuest <> GInstr ind
+binder 4796:4796 <> i:56
+R4810:4812 Coq.Init.Datatypes <> nat ind
+R4825:4825 Kernel.VMSelfGuest <> i:56 var
+R4836:4843 Kernel.VMSelfGuest <> GLoadImm constr
+R4862:4866 Kernel.VMSelfGuest <> GJump constr
+R4879:4883 Kernel.VMSelfGuest <> GJnez constr
+def 5202:5209 <> g_word_N
+R5216:5221 Kernel.VMSelfGuest <> GInstr ind
+binder 5212:5212 <> i:58
+R5226:5226 Coq.Numbers.BinNums <> N ind
+R5255:5260 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R5234:5241 Coq.NArith.BinNat N of_nat def
+R5244:5251 Kernel.VMSelfGuest <> g_opcode def
+R5253:5253 Kernel.VMSelfGuest <> i:58 var
+R5266:5269 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R5423:5423 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R5262:5264 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R5288:5293 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R5270:5277 Coq.NArith.BinNat N of_nat def
+R5280:5284 Kernel.VMSelfGuest <> g_dst def
+R5286:5286 Kernel.VMSelfGuest <> i:58 var
+R5299:5302 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R5422:5422 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R5295:5297 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R5321:5326 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R5303:5310 Coq.NArith.BinNat N of_nat def
+R5313:5317 Kernel.VMSelfGuest <> g_rs1 def
+R5319:5319 Kernel.VMSelfGuest <> i:58 var
+R5332:5335 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R5421:5421 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R5328:5330 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R5354:5359 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R5336:5343 Coq.NArith.BinNat N of_nat def
+R5346:5350 Kernel.VMSelfGuest <> g_rs2 def
+R5352:5352 Kernel.VMSelfGuest <> i:58 var
+R5365:5368 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R5420:5420 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R5361:5363 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R5388:5393 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R5369:5376 Coq.NArith.BinNat N of_nat def
+R5379:5384 Kernel.VMSelfGuest <> g_cost def
+R5386:5386 Kernel.VMSelfGuest <> i:58 var
+R5399:5401 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R5395:5397 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R5402:5409 Coq.NArith.BinNat N of_nat def
+R5412:5416 Kernel.VMSelfGuest <> g_imm def
+R5418:5418 Kernel.VMSelfGuest <> i:58 var
+def 5441:5446 <> g_word
+R5453:5458 Kernel.VMSelfGuest <> GInstr ind
+binder 5449:5449 <> i:59
+R5463:5465 Coq.Init.Datatypes <> nat ind
+R5470:5477 Coq.NArith.BinNat N to_nat def
+R5480:5487 Kernel.VMSelfGuest <> g_word_N def
+R5489:5489 Kernel.VMSelfGuest <> i:59 var
+def 5585:5588 <> g_wf
+R5595:5600 Kernel.VMSelfGuest <> GInstr ind
+binder 5591:5591 <> i:60
+R5626:5629 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5622:5624 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5615:5619 Kernel.VMSelfGuest <> g_dst def
+R5621:5621 Kernel.VMSelfGuest <> i:60 var
+R5641:5644 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5637:5639 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5630:5634 Kernel.VMSelfGuest <> g_rs1 def
+R5636:5636 Kernel.VMSelfGuest <> i:60 var
+R5656:5659 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5652:5654 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5645:5649 Kernel.VMSelfGuest <> g_rs2 def
+R5651:5651 Kernel.VMSelfGuest <> i:60 var
+R5668:5670 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5660:5665 Kernel.VMSelfGuest <> g_cost def
+R5667:5667 Kernel.VMSelfGuest <> i:60 var
+def 5688:5699 <> g_wf_program
+R5706:5709 Coq.Init.Datatypes <> list ind
+R5711:5716 Kernel.VMSelfGuest <> GInstr ind
+binder 5702:5702 <> p:61
+R5729:5734 Coq.Lists.List <> Forall ind
+R5741:5741 Kernel.VMSelfGuest <> p:61 var
+R5736:5739 Kernel.VMSelfGuest <> g_wf def
+prf 5751:5761 <> g_opcode_lt
+binder 5772:5772 <> i:62
+R5785:5787 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5775:5782 Kernel.VMSelfGuest <> g_opcode def
+R5784:5784 Kernel.VMSelfGuest <> i:62 var
+R5827:5834 Kernel.VMSelfGuest <> g_opcode def
+prf 5854:5865 <> g_opcode_pos
+binder 5876:5876 <> i:63
+R5880:5882 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5883:5890 Kernel.VMSelfGuest <> g_opcode def
+R5892:5892 Kernel.VMSelfGuest <> i:63 var
+R5930:5937 Kernel.VMSelfGuest <> g_opcode def
+prf 6176:6190 <> N_div_add_small
+binder 6201:6201 <> a:64
+binder 6203:6203 <> k:65
+binder 6205:6205 <> X:66
+R6223:6226 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6212:6214 Coq.NArith.BinNat <> ::N_scope:x_'<'_x not
+R6211:6211 Kernel.VMSelfGuest <> a:64 var
+R6216:6218 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R6219:6219 Kernel.VMSelfGuest <> k:65 var
+R6254:6256 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6228:6228 Coq.NArith.BinNat <> ::N_scope:x_'/'_x not
+R6242:6245 Coq.NArith.BinNat <> ::N_scope:x_'/'_x not
+R6230:6232 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R6229:6229 Kernel.VMSelfGuest <> a:64 var
+R6238:6240 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R6234:6236 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R6237:6237 Kernel.VMSelfGuest <> k:65 var
+R6241:6241 Kernel.VMSelfGuest <> X:66 var
+R6247:6249 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R6250:6250 Kernel.VMSelfGuest <> k:65 var
+R6257:6257 Kernel.VMSelfGuest <> X:66 var
+R6328:6340 Coq.NArith.BinNat N pow_nonzero thm
+R6296:6305 Coq.NArith.BinNat N mul_comm thm
+R6308:6316 Coq.NArith.BinNat N div_add def
+R6296:6305 Coq.NArith.BinNat N mul_comm thm
+R6296:6305 Coq.NArith.BinNat N mul_comm thm
+R6308:6316 Coq.NArith.BinNat N div_add def
+R6328:6340 Coq.NArith.BinNat N pow_nonzero thm
+R6308:6316 Coq.NArith.BinNat N div_add def
+R6359:6369 Coq.NArith.BinNat N div_small def
+R6359:6369 Coq.NArith.BinNat N div_small def
+R6359:6369 Coq.NArith.BinNat N div_small def
+prf 6401:6415 <> N_mod_add_small
+binder 6426:6426 <> b:67
+binder 6428:6428 <> m:68
+binder 6430:6430 <> Y:69
+R6448:6451 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6437:6439 Coq.NArith.BinNat <> ::N_scope:x_'<'_x not
+R6436:6436 Kernel.VMSelfGuest <> b:67 var
+R6441:6443 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R6444:6444 Kernel.VMSelfGuest <> m:68 var
+R6481:6483 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6453:6453 Coq.NArith.BinNat <> ::N_scope:x_'mod'_x not
+R6467:6472 Coq.NArith.BinNat <> ::N_scope:x_'mod'_x not
+R6455:6457 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R6454:6454 Kernel.VMSelfGuest <> b:67 var
+R6463:6465 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R6459:6461 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R6462:6462 Kernel.VMSelfGuest <> m:68 var
+R6466:6466 Kernel.VMSelfGuest <> Y:69 var
+R6474:6476 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R6477:6477 Kernel.VMSelfGuest <> m:68 var
+R6484:6484 Kernel.VMSelfGuest <> b:67 var
+R6560:6572 Coq.NArith.BinNat N pow_nonzero thm
+R6523:6532 Coq.NArith.BinNat N mul_comm thm
+R6535:6548 Coq.NArith.BinNat N.Div0 mod_add thm
+R6523:6532 Coq.NArith.BinNat N mul_comm thm
+R6523:6532 Coq.NArith.BinNat N mul_comm thm
+R6535:6548 Coq.NArith.BinNat N.Div0 mod_add thm
+R6535:6548 Coq.NArith.BinNat N.Div0 mod_add thm
+R6589:6599 Coq.NArith.BinNat N mod_small def
+R6589:6599 Coq.NArith.BinNat N mod_small def
+prf 6624:6636 <> g_opcode_fits
+binder 6647:6647 <> i:70
+R6672:6674 Coq.NArith.BinNat <> ::N_scope:x_'<'_x not
+R6651:6658 Coq.NArith.BinNat N of_nat def
+R6661:6668 Kernel.VMSelfGuest <> g_opcode def
+R6670:6670 Kernel.VMSelfGuest <> i:70 var
+R6676:6678 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R6713:6723 Kernel.VMSelfGuest <> g_opcode_lt thm
+R6713:6723 Kernel.VMSelfGuest <> g_opcode_lt thm
+def 6829:6835 <> g_tail1
+R6842:6847 Kernel.VMSelfGuest <> GInstr ind
+binder 6838:6838 <> i:71
+R6852:6852 Coq.Numbers.BinNums <> N ind
+R6878:6883 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R6860:6867 Coq.NArith.BinNat N of_nat def
+R6870:6874 Kernel.VMSelfGuest <> g_dst def
+R6876:6876 Kernel.VMSelfGuest <> i:71 var
+R6889:6892 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R7012:7012 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R6885:6887 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R6911:6916 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R6893:6900 Coq.NArith.BinNat N of_nat def
+R6903:6907 Kernel.VMSelfGuest <> g_rs1 def
+R6909:6909 Kernel.VMSelfGuest <> i:71 var
+R6922:6925 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R7011:7011 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R6918:6920 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R6944:6949 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R6926:6933 Coq.NArith.BinNat N of_nat def
+R6936:6940 Kernel.VMSelfGuest <> g_rs2 def
+R6942:6942 Kernel.VMSelfGuest <> i:71 var
+R6955:6958 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R7010:7010 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R6951:6953 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R6978:6983 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R6959:6966 Coq.NArith.BinNat N of_nat def
+R6969:6974 Kernel.VMSelfGuest <> g_cost def
+R6976:6976 Kernel.VMSelfGuest <> i:71 var
+R6989:6991 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R6985:6987 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R6992:6999 Coq.NArith.BinNat N of_nat def
+R7002:7006 Kernel.VMSelfGuest <> g_imm def
+R7008:7008 Kernel.VMSelfGuest <> i:71 var
+def 7029:7035 <> g_tail2
+R7042:7047 Kernel.VMSelfGuest <> GInstr ind
+binder 7038:7038 <> i:72
+R7052:7052 Coq.Numbers.BinNums <> N ind
+R7078:7083 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R7060:7067 Coq.NArith.BinNat N of_nat def
+R7070:7074 Kernel.VMSelfGuest <> g_rs1 def
+R7076:7076 Kernel.VMSelfGuest <> i:72 var
+R7089:7092 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R7178:7178 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R7085:7087 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R7111:7116 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R7093:7100 Coq.NArith.BinNat N of_nat def
+R7103:7107 Kernel.VMSelfGuest <> g_rs2 def
+R7109:7109 Kernel.VMSelfGuest <> i:72 var
+R7122:7125 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R7177:7177 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R7118:7120 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R7145:7150 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R7126:7133 Coq.NArith.BinNat N of_nat def
+R7136:7141 Kernel.VMSelfGuest <> g_cost def
+R7143:7143 Kernel.VMSelfGuest <> i:72 var
+R7156:7158 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R7152:7154 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R7159:7166 Coq.NArith.BinNat N of_nat def
+R7169:7173 Kernel.VMSelfGuest <> g_imm def
+R7175:7175 Kernel.VMSelfGuest <> i:72 var
+def 7195:7201 <> g_tail3
+R7208:7213 Kernel.VMSelfGuest <> GInstr ind
+binder 7204:7204 <> i:73
+R7218:7218 Coq.Numbers.BinNums <> N ind
+R7244:7249 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R7226:7233 Coq.NArith.BinNat N of_nat def
+R7236:7240 Kernel.VMSelfGuest <> g_rs2 def
+R7242:7242 Kernel.VMSelfGuest <> i:73 var
+R7255:7258 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R7310:7310 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R7251:7253 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R7278:7283 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R7259:7266 Coq.NArith.BinNat N of_nat def
+R7269:7274 Kernel.VMSelfGuest <> g_cost def
+R7276:7276 Kernel.VMSelfGuest <> i:73 var
+R7289:7291 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R7285:7287 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R7292:7299 Coq.NArith.BinNat N of_nat def
+R7302:7306 Kernel.VMSelfGuest <> g_imm def
+R7308:7308 Kernel.VMSelfGuest <> i:73 var
+def 7327:7333 <> g_tail4
+R7340:7345 Kernel.VMSelfGuest <> GInstr ind
+binder 7336:7336 <> i:74
+R7350:7350 Coq.Numbers.BinNums <> N ind
+R7377:7379 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R7358:7365 Coq.NArith.BinNat N of_nat def
+R7368:7373 Kernel.VMSelfGuest <> g_cost def
+R7375:7375 Kernel.VMSelfGuest <> i:74 var
+R7385:7387 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R7381:7383 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R7388:7395 Coq.NArith.BinNat N of_nat def
+R7398:7402 Kernel.VMSelfGuest <> g_imm def
+R7404:7404 Kernel.VMSelfGuest <> i:74 var
+prf 7418:7432 <> g_word_N_unfold
+binder 7443:7443 <> i:75
+R7458:7460 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7448:7455 Kernel.VMSelfGuest <> g_word_N def
+R7457:7457 Kernel.VMSelfGuest <> i:75 var
+R7483:7485 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R7462:7469 Coq.NArith.BinNat N of_nat def
+R7472:7479 Kernel.VMSelfGuest <> g_opcode def
+R7481:7481 Kernel.VMSelfGuest <> i:75 var
+R7491:7493 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R7487:7489 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R7494:7500 Kernel.VMSelfGuest <> g_tail1 def
+R7502:7502 Kernel.VMSelfGuest <> i:75 var
+prf 7540:7553 <> g_tail1_unfold
+binder 7564:7564 <> i:76
+R7578:7580 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7569:7575 Kernel.VMSelfGuest <> g_tail1 def
+R7577:7577 Kernel.VMSelfGuest <> i:76 var
+R7600:7602 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R7582:7589 Coq.NArith.BinNat N of_nat def
+R7592:7596 Kernel.VMSelfGuest <> g_dst def
+R7598:7598 Kernel.VMSelfGuest <> i:76 var
+R7608:7610 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R7604:7606 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R7611:7617 Kernel.VMSelfGuest <> g_tail2 def
+R7619:7619 Kernel.VMSelfGuest <> i:76 var
+prf 7656:7669 <> g_tail2_unfold
+binder 7680:7680 <> i:77
+R7694:7696 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7685:7691 Kernel.VMSelfGuest <> g_tail2 def
+R7693:7693 Kernel.VMSelfGuest <> i:77 var
+R7716:7718 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R7698:7705 Coq.NArith.BinNat N of_nat def
+R7708:7712 Kernel.VMSelfGuest <> g_rs1 def
+R7714:7714 Kernel.VMSelfGuest <> i:77 var
+R7724:7726 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R7720:7722 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R7727:7733 Kernel.VMSelfGuest <> g_tail3 def
+R7735:7735 Kernel.VMSelfGuest <> i:77 var
+prf 7772:7785 <> g_tail3_unfold
+binder 7796:7796 <> i:78
+R7810:7812 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7801:7807 Kernel.VMSelfGuest <> g_tail3 def
+R7809:7809 Kernel.VMSelfGuest <> i:78 var
+R7832:7834 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R7814:7821 Coq.NArith.BinNat N of_nat def
+R7824:7828 Kernel.VMSelfGuest <> g_rs2 def
+R7830:7830 Kernel.VMSelfGuest <> i:78 var
+R7840:7842 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R7836:7838 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R7843:7849 Kernel.VMSelfGuest <> g_tail4 def
+R7851:7851 Kernel.VMSelfGuest <> i:78 var
+prf 7888:7901 <> g_tail4_unfold
+binder 7912:7912 <> i:79
+R7926:7928 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7917:7923 Kernel.VMSelfGuest <> g_tail4 def
+R7925:7925 Kernel.VMSelfGuest <> i:79 var
+R7949:7951 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R7930:7937 Coq.NArith.BinNat N of_nat def
+R7940:7945 Kernel.VMSelfGuest <> g_cost def
+R7947:7947 Kernel.VMSelfGuest <> i:79 var
+R7957:7959 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R7953:7955 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R7960:7967 Coq.NArith.BinNat N of_nat def
+R7970:7974 Kernel.VMSelfGuest <> g_imm def
+R7976:7976 Kernel.VMSelfGuest <> i:79 var
+prf 8085:8090 <> g_div4
+binder 8101:8101 <> i:80
+R8126:8128 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8115:8117 Coq.NArith.BinNat <> ::N_scope:x_'/'_x not
+R8105:8112 Kernel.VMSelfGuest <> g_word_N def
+R8114:8114 Kernel.VMSelfGuest <> i:80 var
+R8119:8121 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R8129:8135 Kernel.VMSelfGuest <> g_tail1 def
+R8137:8137 Kernel.VMSelfGuest <> i:80 var
+R8166:8180 Kernel.VMSelfGuest <> g_word_N_unfold thm
+R8166:8180 Kernel.VMSelfGuest <> g_word_N_unfold thm
+R8166:8180 Kernel.VMSelfGuest <> g_word_N_unfold thm
+R8189:8203 Kernel.VMSelfGuest <> N_div_add_small thm
+R8206:8218 Kernel.VMSelfGuest <> g_opcode_fits thm
+R8189:8203 Kernel.VMSelfGuest <> N_div_add_small thm
+R8206:8218 Kernel.VMSelfGuest <> g_opcode_fits thm
+prf 8233:8238 <> g_div6
+binder 8249:8249 <> i:81
+R8258:8261 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8252:8255 Kernel.VMSelfGuest <> g_wf def
+R8257:8257 Kernel.VMSelfGuest <> i:81 var
+R8284:8286 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8273:8275 Coq.NArith.BinNat <> ::N_scope:x_'/'_x not
+R8263:8270 Kernel.VMSelfGuest <> g_word_N def
+R8272:8272 Kernel.VMSelfGuest <> i:81 var
+R8277:8279 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R8287:8293 Kernel.VMSelfGuest <> g_tail2 def
+R8295:8295 Kernel.VMSelfGuest <> i:81 var
+R8346:8348 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R8365:8367 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R8361:8363 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R8369:8371 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R8346:8348 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R8365:8367 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R8361:8363 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R8369:8371 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R8431:8443 Coq.NArith.BinNat N pow_nonzero thm
+R8406:8419 Coq.NArith.BinNat N.Div0 div_div thm
+R8406:8419 Coq.NArith.BinNat N.Div0 div_div thm
+R8406:8419 Coq.NArith.BinNat N.Div0 div_div thm
+R8462:8467 Kernel.VMSelfGuest <> g_div4 thm
+R8470:8483 Kernel.VMSelfGuest <> g_tail1_unfold thm
+R8462:8467 Kernel.VMSelfGuest <> g_div4 thm
+R8462:8467 Kernel.VMSelfGuest <> g_div4 thm
+R8470:8483 Kernel.VMSelfGuest <> g_tail1_unfold thm
+R8470:8483 Kernel.VMSelfGuest <> g_tail1_unfold thm
+R8492:8506 Kernel.VMSelfGuest <> N_div_add_small thm
+R8492:8506 Kernel.VMSelfGuest <> N_div_add_small thm
+prf 8526:8531 <> g_div8
+binder 8542:8542 <> i:82
+R8551:8554 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8545:8548 Kernel.VMSelfGuest <> g_wf def
+R8550:8550 Kernel.VMSelfGuest <> i:82 var
+R8577:8579 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8566:8568 Coq.NArith.BinNat <> ::N_scope:x_'/'_x not
+R8556:8563 Kernel.VMSelfGuest <> g_word_N def
+R8565:8565 Kernel.VMSelfGuest <> i:82 var
+R8570:8572 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R8580:8586 Kernel.VMSelfGuest <> g_tail3 def
+R8588:8588 Kernel.VMSelfGuest <> i:82 var
+R8663:8665 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R8682:8684 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R8678:8680 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R8686:8688 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R8663:8665 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R8682:8684 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R8678:8680 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R8686:8688 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R8748:8760 Coq.NArith.BinNat N pow_nonzero thm
+R8723:8736 Coq.NArith.BinNat N.Div0 div_div thm
+R8723:8736 Coq.NArith.BinNat N.Div0 div_div thm
+R8723:8736 Coq.NArith.BinNat N.Div0 div_div thm
+R8779:8784 Kernel.VMSelfGuest <> g_div6 thm
+R8779:8784 Kernel.VMSelfGuest <> g_div6 thm
+R8779:8784 Kernel.VMSelfGuest <> g_div6 thm
+R8810:8823 Kernel.VMSelfGuest <> g_tail2_unfold thm
+R8810:8823 Kernel.VMSelfGuest <> g_tail2_unfold thm
+R8810:8823 Kernel.VMSelfGuest <> g_tail2_unfold thm
+R8832:8846 Kernel.VMSelfGuest <> N_div_add_small thm
+R8832:8846 Kernel.VMSelfGuest <> N_div_add_small thm
+prf 8866:8872 <> g_div10
+binder 8883:8883 <> i:83
+R8892:8895 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8886:8889 Kernel.VMSelfGuest <> g_wf def
+R8891:8891 Kernel.VMSelfGuest <> i:83 var
+R8919:8921 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8907:8909 Coq.NArith.BinNat <> ::N_scope:x_'/'_x not
+R8897:8904 Kernel.VMSelfGuest <> g_word_N def
+R8906:8906 Kernel.VMSelfGuest <> i:83 var
+R8911:8913 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R8922:8928 Kernel.VMSelfGuest <> g_tail4 def
+R8930:8930 Kernel.VMSelfGuest <> i:83 var
+R9007:9009 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R9027:9029 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R9023:9025 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R9031:9033 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R9007:9009 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R9027:9029 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R9023:9025 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R9031:9033 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R9093:9105 Coq.NArith.BinNat N pow_nonzero thm
+R9068:9081 Coq.NArith.BinNat N.Div0 div_div thm
+R9068:9081 Coq.NArith.BinNat N.Div0 div_div thm
+R9068:9081 Coq.NArith.BinNat N.Div0 div_div thm
+R9124:9129 Kernel.VMSelfGuest <> g_div8 thm
+R9124:9129 Kernel.VMSelfGuest <> g_div8 thm
+R9124:9129 Kernel.VMSelfGuest <> g_div8 thm
+R9153:9166 Kernel.VMSelfGuest <> g_tail3_unfold thm
+R9153:9166 Kernel.VMSelfGuest <> g_tail3_unfold thm
+R9153:9166 Kernel.VMSelfGuest <> g_tail3_unfold thm
+R9177:9191 Kernel.VMSelfGuest <> N_div_add_small thm
+R9177:9191 Kernel.VMSelfGuest <> N_div_add_small thm
+prf 9211:9217 <> g_div18
+binder 9228:9228 <> i:84
+R9237:9240 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9231:9234 Kernel.VMSelfGuest <> g_wf def
+R9236:9236 Kernel.VMSelfGuest <> i:84 var
+R9264:9266 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9252:9254 Coq.NArith.BinNat <> ::N_scope:x_'/'_x not
+R9242:9249 Kernel.VMSelfGuest <> g_word_N def
+R9251:9251 Kernel.VMSelfGuest <> i:84 var
+R9256:9258 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R9267:9274 Coq.NArith.BinNat N of_nat def
+R9277:9281 Kernel.VMSelfGuest <> g_imm def
+R9283:9283 Kernel.VMSelfGuest <> i:84 var
+R9361:9363 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R9382:9384 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R9377:9379 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R9386:9388 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R9361:9363 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R9382:9384 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R9377:9379 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R9386:9388 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R9448:9460 Coq.NArith.BinNat N pow_nonzero thm
+R9423:9436 Coq.NArith.BinNat N.Div0 div_div thm
+R9423:9436 Coq.NArith.BinNat N.Div0 div_div thm
+R9423:9436 Coq.NArith.BinNat N.Div0 div_div thm
+R9479:9485 Kernel.VMSelfGuest <> g_div10 thm
+R9479:9485 Kernel.VMSelfGuest <> g_div10 thm
+R9479:9485 Kernel.VMSelfGuest <> g_div10 thm
+R9509:9522 Kernel.VMSelfGuest <> g_tail4_unfold thm
+R9509:9522 Kernel.VMSelfGuest <> g_tail4_unfold thm
+R9509:9522 Kernel.VMSelfGuest <> g_tail4_unfold thm
+R9533:9547 Kernel.VMSelfGuest <> N_div_add_small thm
+R9533:9547 Kernel.VMSelfGuest <> N_div_add_small thm
+prf 9567:9578 <> g_mod_opcode
+binder 9589:9589 <> i:85
+R9616:9618 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9603:9607 Coq.NArith.BinNat <> ::N_scope:x_'mod'_x not
+R9593:9600 Kernel.VMSelfGuest <> g_word_N def
+R9602:9602 Kernel.VMSelfGuest <> i:85 var
+R9609:9611 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R9619:9626 Coq.NArith.BinNat N of_nat def
+R9629:9636 Kernel.VMSelfGuest <> g_opcode def
+R9638:9638 Kernel.VMSelfGuest <> i:85 var
+R9668:9682 Kernel.VMSelfGuest <> g_word_N_unfold thm
+R9668:9682 Kernel.VMSelfGuest <> g_word_N_unfold thm
+R9668:9682 Kernel.VMSelfGuest <> g_word_N_unfold thm
+R9691:9705 Kernel.VMSelfGuest <> N_mod_add_small thm
+R9708:9720 Kernel.VMSelfGuest <> g_opcode_fits thm
+R9691:9705 Kernel.VMSelfGuest <> N_mod_add_small thm
+R9708:9720 Kernel.VMSelfGuest <> g_opcode_fits thm
+prf 9735:9743 <> g_mod_dst
+binder 9754:9754 <> i:86
+R9763:9766 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9757:9760 Kernel.VMSelfGuest <> g_wf def
+R9762:9762 Kernel.VMSelfGuest <> i:86 var
+R9801:9803 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9768:9768 Coq.NArith.BinNat <> ::N_scope:x_'mod'_x not
+R9787:9792 Coq.NArith.BinNat <> ::N_scope:x_'mod'_x not
+R9779:9781 Coq.NArith.BinNat <> ::N_scope:x_'/'_x not
+R9769:9776 Kernel.VMSelfGuest <> g_word_N def
+R9778:9778 Kernel.VMSelfGuest <> i:86 var
+R9783:9785 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R9794:9796 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R9804:9811 Coq.NArith.BinNat N of_nat def
+R9814:9818 Kernel.VMSelfGuest <> g_dst def
+R9820:9820 Kernel.VMSelfGuest <> i:86 var
+R9868:9873 Kernel.VMSelfGuest <> g_div4 thm
+R9876:9889 Kernel.VMSelfGuest <> g_tail1_unfold thm
+R9868:9873 Kernel.VMSelfGuest <> g_div4 thm
+R9868:9873 Kernel.VMSelfGuest <> g_div4 thm
+R9876:9889 Kernel.VMSelfGuest <> g_tail1_unfold thm
+R9876:9889 Kernel.VMSelfGuest <> g_tail1_unfold thm
+R9900:9914 Kernel.VMSelfGuest <> N_mod_add_small thm
+R9900:9914 Kernel.VMSelfGuest <> N_mod_add_small thm
+prf 9934:9942 <> g_mod_rs1
+binder 9953:9953 <> i:87
+R9962:9965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9956:9959 Kernel.VMSelfGuest <> g_wf def
+R9961:9961 Kernel.VMSelfGuest <> i:87 var
+R10000:10002 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9967:9967 Coq.NArith.BinNat <> ::N_scope:x_'mod'_x not
+R9986:9991 Coq.NArith.BinNat <> ::N_scope:x_'mod'_x not
+R9978:9980 Coq.NArith.BinNat <> ::N_scope:x_'/'_x not
+R9968:9975 Kernel.VMSelfGuest <> g_word_N def
+R9977:9977 Kernel.VMSelfGuest <> i:87 var
+R9982:9984 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R9993:9995 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R10003:10010 Coq.NArith.BinNat N of_nat def
+R10013:10017 Kernel.VMSelfGuest <> g_rs1 def
+R10019:10019 Kernel.VMSelfGuest <> i:87 var
+R10093:10098 Kernel.VMSelfGuest <> g_div6 thm
+R10093:10098 Kernel.VMSelfGuest <> g_div6 thm
+R10093:10098 Kernel.VMSelfGuest <> g_div6 thm
+R10122:10135 Kernel.VMSelfGuest <> g_tail2_unfold thm
+R10122:10135 Kernel.VMSelfGuest <> g_tail2_unfold thm
+R10122:10135 Kernel.VMSelfGuest <> g_tail2_unfold thm
+R10146:10160 Kernel.VMSelfGuest <> N_mod_add_small thm
+R10146:10160 Kernel.VMSelfGuest <> N_mod_add_small thm
+prf 10180:10188 <> g_mod_rs2
+binder 10199:10199 <> i:88
+R10208:10211 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10202:10205 Kernel.VMSelfGuest <> g_wf def
+R10207:10207 Kernel.VMSelfGuest <> i:88 var
+R10246:10248 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10213:10213 Coq.NArith.BinNat <> ::N_scope:x_'mod'_x not
+R10232:10237 Coq.NArith.BinNat <> ::N_scope:x_'mod'_x not
+R10224:10226 Coq.NArith.BinNat <> ::N_scope:x_'/'_x not
+R10214:10221 Kernel.VMSelfGuest <> g_word_N def
+R10223:10223 Kernel.VMSelfGuest <> i:88 var
+R10228:10230 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R10239:10241 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R10249:10256 Coq.NArith.BinNat N of_nat def
+R10259:10263 Kernel.VMSelfGuest <> g_rs2 def
+R10265:10265 Kernel.VMSelfGuest <> i:88 var
+R10340:10345 Kernel.VMSelfGuest <> g_div8 thm
+R10340:10345 Kernel.VMSelfGuest <> g_div8 thm
+R10340:10345 Kernel.VMSelfGuest <> g_div8 thm
+R10369:10382 Kernel.VMSelfGuest <> g_tail3_unfold thm
+R10369:10382 Kernel.VMSelfGuest <> g_tail3_unfold thm
+R10369:10382 Kernel.VMSelfGuest <> g_tail3_unfold thm
+R10393:10407 Kernel.VMSelfGuest <> N_mod_add_small thm
+R10393:10407 Kernel.VMSelfGuest <> N_mod_add_small thm
+prf 10427:10436 <> g_mod_cost
+binder 10447:10447 <> i:89
+R10456:10459 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10450:10453 Kernel.VMSelfGuest <> g_wf def
+R10455:10455 Kernel.VMSelfGuest <> i:89 var
+R10495:10497 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10461:10461 Coq.NArith.BinNat <> ::N_scope:x_'mod'_x not
+R10481:10486 Coq.NArith.BinNat <> ::N_scope:x_'mod'_x not
+R10472:10474 Coq.NArith.BinNat <> ::N_scope:x_'/'_x not
+R10462:10469 Kernel.VMSelfGuest <> g_word_N def
+R10471:10471 Kernel.VMSelfGuest <> i:89 var
+R10476:10478 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R10488:10490 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R10498:10505 Coq.NArith.BinNat N of_nat def
+R10508:10513 Kernel.VMSelfGuest <> g_cost def
+R10515:10515 Kernel.VMSelfGuest <> i:89 var
+R10591:10597 Kernel.VMSelfGuest <> g_div10 thm
+R10591:10597 Kernel.VMSelfGuest <> g_div10 thm
+R10591:10597 Kernel.VMSelfGuest <> g_div10 thm
+R10621:10634 Kernel.VMSelfGuest <> g_tail4_unfold thm
+R10621:10634 Kernel.VMSelfGuest <> g_tail4_unfold thm
+R10621:10634 Kernel.VMSelfGuest <> g_tail4_unfold thm
+R10645:10659 Kernel.VMSelfGuest <> N_mod_add_small thm
+R10645:10659 Kernel.VMSelfGuest <> N_mod_add_small thm
+prf 10887:10902 <> g_word_N_nonzero
+binder 10913:10913 <> i:90
+R10926:10929 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10916:10923 Kernel.VMSelfGuest <> g_word_N def
+R10925:10925 Kernel.VMSelfGuest <> i:90 var
+R10978:10989 Kernel.VMSelfGuest <> g_mod_opcode thm
+R10978:10989 Kernel.VMSelfGuest <> g_mod_opcode thm
+R11032:11036 Coq.NArith.BinNat <> ::N_scope:x_'mod'_x not
+R11038:11040 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R11032:11036 Coq.NArith.BinNat <> ::N_scope:x_'mod'_x not
+R11038:11040 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R11075:11086 Kernel.VMSelfGuest <> g_opcode_pos thm
+R11075:11086 Kernel.VMSelfGuest <> g_opcode_pos thm
+prf 11109:11122 <> g_word_nonzero
+binder 11133:11133 <> i:91
+R11144:11147 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R11136:11141 Kernel.VMSelfGuest <> g_word def
+R11143:11143 Kernel.VMSelfGuest <> i:91 var
+R11176:11181 Kernel.VMSelfGuest <> g_word def
+R11203:11218 Kernel.VMSelfGuest <> g_word_N_nonzero thm
+R11203:11218 Kernel.VMSelfGuest <> g_word_N_nonzero thm
+R11249:11256 Coq.NArith.Nnat N2Nat id thm
+R11259:11266 Kernel.VMSelfGuest <> g_word_N def
+R11249:11256 Coq.NArith.Nnat N2Nat id thm
+R11259:11266 Kernel.VMSelfGuest <> g_word_N def
+R11249:11256 Coq.NArith.Nnat N2Nat id thm
+R11259:11266 Kernel.VMSelfGuest <> g_word_N def
+prf 11489:11497 <> u_field_N
+binder 11508:11508 <> w:92
+binder 11510:11510 <> k:93
+binder 11512:11512 <> m:94
+R11567:11571 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11517:11524 Coq.NArith.BinNat N of_nat def
+R11527:11531 Kernel.VMUnboundedStep <> u_and def
+R11534:11538 Kernel.VMUnboundedStep <> u_shr def
+R11540:11540 Kernel.VMSelfGuest <> w:92 var
+R11542:11542 Kernel.VMSelfGuest <> k:93 var
+R11546:11550 Kernel.VMUnboundedStep <> u_sub def
+R11553:11557 Kernel.VMUnboundedStep <> u_shl def
+R11561:11561 Kernel.VMSelfGuest <> m:94 var
+R11573:11573 Coq.NArith.BinNat <> ::N_scope:x_'mod'_x not
+R11601:11606 Coq.NArith.BinNat <> ::N_scope:x_'mod'_x not
+R11584:11586 Coq.NArith.BinNat <> ::N_scope:x_'/'_x not
+R11574:11581 Coq.NArith.BinNat N of_nat def
+R11583:11583 Kernel.VMSelfGuest <> w:92 var
+R11588:11590 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R11591:11598 Coq.NArith.BinNat N of_nat def
+R11600:11600 Kernel.VMSelfGuest <> k:93 var
+R11608:11610 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R11611:11618 Coq.NArith.BinNat N of_nat def
+R11620:11620 Kernel.VMSelfGuest <> m:94 var
+R11657:11670 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_and thm
+R11673:11686 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_shr thm
+R11689:11699 Kernel.VMUnboundedInterpreterSlots <> nat_ones_eq thm
+R11702:11709 Coq.NArith.Nnat N2Nat id thm
+R11657:11670 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_and thm
+R11657:11670 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_and thm
+R11673:11686 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_shr thm
+R11673:11686 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_shr thm
+R11689:11699 Kernel.VMUnboundedInterpreterSlots <> nat_ones_eq thm
+R11689:11699 Kernel.VMUnboundedInterpreterSlots <> nat_ones_eq thm
+R11702:11709 Coq.NArith.Nnat N2Nat id thm
+R11702:11709 Coq.NArith.Nnat N2Nat id thm
+R11722:11732 Coq.NArith.BinNat N land_ones thm
+R11735:11751 Coq.NArith.BinNat N shiftr_div_pow2 thm
+R11722:11732 Coq.NArith.BinNat N land_ones thm
+R11722:11732 Coq.NArith.BinNat N land_ones thm
+R11735:11751 Coq.NArith.BinNat N shiftr_div_pow2 thm
+R11735:11751 Coq.NArith.BinNat N shiftr_div_pow2 thm
+prf 11779:11791 <> g_host_opcode
+binder 11802:11802 <> i:95
+R11826:11828 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11807:11811 Kernel.VMUnboundedStep <> u_and def
+R11814:11819 Kernel.VMSelfGuest <> g_word def
+R11821:11821 Kernel.VMSelfGuest <> i:95 var
+R11829:11836 Kernel.VMSelfGuest <> g_opcode def
+R11838:11838 Kernel.VMSelfGuest <> i:95 var
+R11865:11873 Coq.NArith.Nnat Nat2N inj thm
+R11865:11873 Coq.NArith.Nnat Nat2N inj thm
+R11894:11898 Kernel.VMUnboundedStep <> u_sub def
+R11901:11905 Kernel.VMUnboundedStep <> u_shl def
+R11894:11898 Kernel.VMUnboundedStep <> u_sub def
+R11901:11905 Kernel.VMUnboundedStep <> u_shl def
+R11926:11939 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_and thm
+R11942:11952 Kernel.VMUnboundedInterpreterSlots <> nat_ones_eq thm
+R11955:11962 Coq.NArith.Nnat N2Nat id thm
+R11965:11975 Coq.NArith.BinNat N land_ones thm
+R11926:11939 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_and thm
+R11926:11939 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_and thm
+R11942:11952 Kernel.VMUnboundedInterpreterSlots <> nat_ones_eq thm
+R11942:11952 Kernel.VMUnboundedInterpreterSlots <> nat_ones_eq thm
+R11955:11962 Coq.NArith.Nnat N2Nat id thm
+R11955:11962 Coq.NArith.Nnat N2Nat id thm
+R11965:11975 Coq.NArith.BinNat N land_ones thm
+R11965:11975 Coq.NArith.BinNat N land_ones thm
+R11987:11992 Kernel.VMSelfGuest <> g_word def
+R12003:12010 Coq.NArith.Nnat N2Nat id thm
+R12003:12010 Coq.NArith.Nnat N2Nat id thm
+R12003:12010 Coq.NArith.Nnat N2Nat id thm
+R12019:12030 Kernel.VMSelfGuest <> g_mod_opcode thm
+R12019:12030 Kernel.VMSelfGuest <> g_mod_opcode thm
+prf 12045:12054 <> g_host_dst
+binder 12065:12065 <> i:96
+R12074:12079 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12068:12071 Kernel.VMSelfGuest <> g_wf def
+R12073:12073 Kernel.VMSelfGuest <> i:96 var
+R12108:12110 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12080:12084 Kernel.VMUnboundedStep <> u_and def
+R12087:12091 Kernel.VMUnboundedStep <> u_shr def
+R12094:12099 Kernel.VMSelfGuest <> g_word def
+R12101:12101 Kernel.VMSelfGuest <> i:96 var
+R12111:12115 Kernel.VMSelfGuest <> g_dst def
+R12117:12117 Kernel.VMSelfGuest <> i:96 var
+R12149:12157 Coq.NArith.Nnat Nat2N inj thm
+R12149:12157 Coq.NArith.Nnat Nat2N inj thm
+R12177:12181 Kernel.VMUnboundedStep <> u_sub def
+R12184:12188 Kernel.VMUnboundedStep <> u_shl def
+R12177:12181 Kernel.VMUnboundedStep <> u_sub def
+R12184:12188 Kernel.VMUnboundedStep <> u_shl def
+R12177:12181 Kernel.VMUnboundedStep <> u_sub def
+R12184:12188 Kernel.VMUnboundedStep <> u_shl def
+R12207:12215 Kernel.VMSelfGuest <> u_field_N thm
+R12207:12215 Kernel.VMSelfGuest <> u_field_N thm
+R12207:12215 Kernel.VMSelfGuest <> u_field_N thm
+R12227:12232 Kernel.VMSelfGuest <> g_word def
+R12243:12250 Coq.NArith.Nnat N2Nat id thm
+R12243:12250 Coq.NArith.Nnat N2Nat id thm
+R12243:12250 Coq.NArith.Nnat N2Nat id thm
+R12259:12267 Kernel.VMSelfGuest <> g_mod_dst thm
+R12259:12267 Kernel.VMSelfGuest <> g_mod_dst thm
+prf 12287:12296 <> g_host_rs1
+binder 12307:12307 <> i:97
+R12316:12321 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12310:12313 Kernel.VMSelfGuest <> g_wf def
+R12315:12315 Kernel.VMSelfGuest <> i:97 var
+R12350:12352 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12322:12326 Kernel.VMUnboundedStep <> u_and def
+R12329:12333 Kernel.VMUnboundedStep <> u_shr def
+R12336:12341 Kernel.VMSelfGuest <> g_word def
+R12343:12343 Kernel.VMSelfGuest <> i:97 var
+R12353:12357 Kernel.VMSelfGuest <> g_rs1 def
+R12359:12359 Kernel.VMSelfGuest <> i:97 var
+R12391:12399 Coq.NArith.Nnat Nat2N inj thm
+R12391:12399 Coq.NArith.Nnat Nat2N inj thm
+R12419:12423 Kernel.VMUnboundedStep <> u_sub def
+R12426:12430 Kernel.VMUnboundedStep <> u_shl def
+R12419:12423 Kernel.VMUnboundedStep <> u_sub def
+R12426:12430 Kernel.VMUnboundedStep <> u_shl def
+R12419:12423 Kernel.VMUnboundedStep <> u_sub def
+R12426:12430 Kernel.VMUnboundedStep <> u_shl def
+R12449:12457 Kernel.VMSelfGuest <> u_field_N thm
+R12449:12457 Kernel.VMSelfGuest <> u_field_N thm
+R12449:12457 Kernel.VMSelfGuest <> u_field_N thm
+R12469:12474 Kernel.VMSelfGuest <> g_word def
+R12485:12492 Coq.NArith.Nnat N2Nat id thm
+R12485:12492 Coq.NArith.Nnat N2Nat id thm
+R12485:12492 Coq.NArith.Nnat N2Nat id thm
+R12501:12509 Kernel.VMSelfGuest <> g_mod_rs1 thm
+R12501:12509 Kernel.VMSelfGuest <> g_mod_rs1 thm
+prf 12529:12538 <> g_host_rs2
+binder 12549:12549 <> i:98
+R12558:12563 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12552:12555 Kernel.VMSelfGuest <> g_wf def
+R12557:12557 Kernel.VMSelfGuest <> i:98 var
+R12592:12594 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12564:12568 Kernel.VMUnboundedStep <> u_and def
+R12571:12575 Kernel.VMUnboundedStep <> u_shr def
+R12578:12583 Kernel.VMSelfGuest <> g_word def
+R12585:12585 Kernel.VMSelfGuest <> i:98 var
+R12595:12599 Kernel.VMSelfGuest <> g_rs2 def
+R12601:12601 Kernel.VMSelfGuest <> i:98 var
+R12633:12641 Coq.NArith.Nnat Nat2N inj thm
+R12633:12641 Coq.NArith.Nnat Nat2N inj thm
+R12661:12665 Kernel.VMUnboundedStep <> u_sub def
+R12668:12672 Kernel.VMUnboundedStep <> u_shl def
+R12661:12665 Kernel.VMUnboundedStep <> u_sub def
+R12668:12672 Kernel.VMUnboundedStep <> u_shl def
+R12661:12665 Kernel.VMUnboundedStep <> u_sub def
+R12668:12672 Kernel.VMUnboundedStep <> u_shl def
+R12691:12699 Kernel.VMSelfGuest <> u_field_N thm
+R12691:12699 Kernel.VMSelfGuest <> u_field_N thm
+R12691:12699 Kernel.VMSelfGuest <> u_field_N thm
+R12711:12716 Kernel.VMSelfGuest <> g_word def
+R12727:12734 Coq.NArith.Nnat N2Nat id thm
+R12727:12734 Coq.NArith.Nnat N2Nat id thm
+R12727:12734 Coq.NArith.Nnat N2Nat id thm
+R12743:12751 Kernel.VMSelfGuest <> g_mod_rs2 thm
+R12743:12751 Kernel.VMSelfGuest <> g_mod_rs2 thm
+prf 12771:12781 <> g_host_cost
+binder 12792:12792 <> i:99
+R12801:12806 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12795:12798 Kernel.VMSelfGuest <> g_wf def
+R12800:12800 Kernel.VMSelfGuest <> i:99 var
+R12838:12840 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12807:12811 Kernel.VMUnboundedStep <> u_and def
+R12814:12818 Kernel.VMUnboundedStep <> u_shr def
+R12821:12826 Kernel.VMSelfGuest <> g_word def
+R12828:12828 Kernel.VMSelfGuest <> i:99 var
+R12841:12846 Kernel.VMSelfGuest <> g_cost def
+R12848:12848 Kernel.VMSelfGuest <> i:99 var
+R12880:12888 Coq.NArith.Nnat Nat2N inj thm
+R12880:12888 Coq.NArith.Nnat Nat2N inj thm
+R12910:12914 Kernel.VMUnboundedStep <> u_sub def
+R12917:12921 Kernel.VMUnboundedStep <> u_shl def
+R12910:12914 Kernel.VMUnboundedStep <> u_sub def
+R12917:12921 Kernel.VMUnboundedStep <> u_shl def
+R12940:12948 Kernel.VMSelfGuest <> u_field_N thm
+R12940:12948 Kernel.VMSelfGuest <> u_field_N thm
+R12940:12948 Kernel.VMSelfGuest <> u_field_N thm
+R12960:12965 Kernel.VMSelfGuest <> g_word def
+R12976:12983 Coq.NArith.Nnat N2Nat id thm
+R12976:12983 Coq.NArith.Nnat N2Nat id thm
+R12976:12983 Coq.NArith.Nnat N2Nat id thm
+R12992:13001 Kernel.VMSelfGuest <> g_mod_cost thm
+R12992:13001 Kernel.VMSelfGuest <> g_mod_cost thm
+prf 13021:13030 <> g_host_imm
+binder 13041:13041 <> i:100
+R13050:13055 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13044:13047 Kernel.VMSelfGuest <> g_wf def
+R13049:13049 Kernel.VMSelfGuest <> i:100 var
+R13075:13077 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13056:13060 Kernel.VMUnboundedStep <> u_shr def
+R13063:13068 Kernel.VMSelfGuest <> g_word def
+R13070:13070 Kernel.VMSelfGuest <> i:100 var
+R13078:13082 Kernel.VMSelfGuest <> g_imm def
+R13084:13084 Kernel.VMSelfGuest <> i:100 var
+R13116:13124 Coq.NArith.Nnat Nat2N inj thm
+R13116:13124 Coq.NArith.Nnat Nat2N inj thm
+R13137:13150 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_shr thm
+R13153:13169 Coq.NArith.BinNat N shiftr_div_pow2 thm
+R13137:13150 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_shr thm
+R13137:13150 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_shr thm
+R13153:13169 Coq.NArith.BinNat N shiftr_div_pow2 thm
+R13153:13169 Coq.NArith.BinNat N shiftr_div_pow2 thm
+R13181:13186 Kernel.VMSelfGuest <> g_word def
+R13197:13204 Coq.NArith.Nnat N2Nat id thm
+R13197:13204 Coq.NArith.Nnat N2Nat id thm
+R13197:13204 Coq.NArith.Nnat N2Nat id thm
+R13213:13219 Kernel.VMSelfGuest <> g_div18 thm
+R13213:13219 Kernel.VMSelfGuest <> g_div18 thm
+def 13303:13310 <> g_code_N
+R13321:13323 Coq.Init.Datatypes <> nat ind
+binder 13313:13317 <> width:101
+R13331:13334 Coq.Init.Datatypes <> list ind
+R13336:13341 Kernel.VMSelfGuest <> GInstr ind
+binder 13327:13327 <> p:102
+R13346:13346 Coq.Numbers.BinNums <> N ind
+R13359:13359 Kernel.VMSelfGuest <> p:102 var
+R13370:13371 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R13385:13388 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R13408:13410 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R13398:13405 Kernel.VMSelfGuest <> g_word_N def
+R13429:13431 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R13412:13414 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R13415:13422 Coq.NArith.BinNat N of_nat def
+R13424:13428 Kernel.VMSelfGuest <> width:101 var
+R13432:13439 Kernel.VMSelfGuest <> g_code_N:103 def
+R13441:13445 Kernel.VMSelfGuest <> width:101 var
+def 13474:13479 <> g_code
+R13490:13492 Coq.Init.Datatypes <> nat ind
+binder 13482:13486 <> width:105
+R13500:13503 Coq.Init.Datatypes <> list ind
+R13505:13510 Kernel.VMSelfGuest <> GInstr ind
+binder 13496:13496 <> p:106
+R13515:13517 Coq.Init.Datatypes <> nat ind
+R13522:13529 Coq.NArith.BinNat N to_nat def
+R13532:13539 Kernel.VMSelfGuest <> g_code_N def
+R13541:13545 Kernel.VMSelfGuest <> width:105 var
+R13547:13547 Kernel.VMSelfGuest <> p:106 var
+def 13563:13568 <> g_fits
+R13579:13581 Coq.Init.Datatypes <> nat ind
+binder 13571:13575 <> width:107
+R13589:13592 Coq.Init.Datatypes <> list ind
+R13594:13599 Kernel.VMSelfGuest <> GInstr ind
+binder 13585:13585 <> p:108
+R13614:13619 Coq.Lists.List <> Forall ind
+R13668:13668 Kernel.VMSelfGuest <> p:108 var
+binder 13626:13626 <> i:109
+R13642:13644 Coq.NArith.BinNat <> ::N_scope:x_'<'_x not
+R13632:13639 Kernel.VMSelfGuest <> g_word_N def
+R13641:13641 Kernel.VMSelfGuest <> i:109 var
+R13646:13648 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R13649:13656 Coq.NArith.BinNat N of_nat def
+R13658:13662 Kernel.VMSelfGuest <> width:107 var
+def 13734:13740 <> g_fetch
+R13759:13761 Coq.Init.Datatypes <> nat ind
+binder 13743:13746 <> code:110
+binder 13748:13752 <> width:111
+binder 13754:13755 <> pc:112
+R13766:13768 Coq.Init.Datatypes <> nat ind
+R13775:13779 Kernel.VMUnboundedStep <> u_and def
+R13782:13786 Kernel.VMUnboundedStep <> u_shr def
+R13788:13791 Kernel.VMSelfGuest <> code:110 var
+R13796:13798 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R13794:13795 Kernel.VMSelfGuest <> pc:112 var
+R13799:13803 Kernel.VMSelfGuest <> width:111 var
+R13808:13812 Kernel.VMUnboundedStep <> u_sub def
+R13815:13819 Kernel.VMUnboundedStep <> u_shl def
+R13823:13827 Kernel.VMSelfGuest <> width:111 var
+prf 13841:13856 <> g_code_drop_head
+binder 13867:13871 <> width:113
+binder 13873:13873 <> i:114
+binder 13875:13878 <> rest:115
+R13918:13923 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13894:13896 Coq.NArith.BinNat <> ::N_scope:x_'<'_x not
+R13884:13891 Kernel.VMSelfGuest <> g_word_N def
+R13893:13893 Kernel.VMSelfGuest <> i:114 var
+R13898:13900 Coq.NArith.BinNat <> ::N_scope:x_'^'_x not
+R13901:13908 Coq.NArith.BinNat N of_nat def
+R13910:13914 Kernel.VMSelfGuest <> width:113 var
+R13978:13980 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13924:13931 Coq.NArith.BinNat N shiftr def
+R13934:13941 Kernel.VMSelfGuest <> g_code_N def
+R13943:13947 Kernel.VMSelfGuest <> width:113 var
+R13951:13954 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R13950:13950 Kernel.VMSelfGuest <> i:114 var
+R13955:13958 Kernel.VMSelfGuest <> rest:115 var
+R13963:13970 Coq.NArith.BinNat N of_nat def
+R13972:13976 Kernel.VMSelfGuest <> width:113 var
+R13981:13988 Kernel.VMSelfGuest <> g_code_N def
+R13990:13994 Kernel.VMSelfGuest <> width:113 var
+R13996:13999 Kernel.VMSelfGuest <> rest:115 var
+R14042:14049 Kernel.VMSelfGuest <> g_code_N def
+R14063:14079 Coq.NArith.BinNat N shiftr_div_pow2 thm
+R14063:14079 Coq.NArith.BinNat N shiftr_div_pow2 thm
+R14063:14079 Coq.NArith.BinNat N shiftr_div_pow2 thm
+R14088:14102 Kernel.VMSelfGuest <> N_div_add_small thm
+R14088:14102 Kernel.VMSelfGuest <> N_div_add_small thm
+def 14134:14142 <> g_fetch_N
+R14152:14152 Coq.Numbers.BinNums <> N ind
+binder 14145:14148 <> code:116
+R14167:14169 Coq.Init.Datatypes <> nat ind
+binder 14156:14160 <> width:117
+binder 14162:14163 <> pc:118
+R14174:14174 Coq.Numbers.BinNums <> N ind
+R14181:14186 Coq.NArith.BinNat N land def
+R14189:14196 Coq.NArith.BinNat N shiftr def
+R14198:14201 Kernel.VMSelfGuest <> code:116 var
+R14215:14217 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R14204:14211 Coq.NArith.BinNat N of_nat def
+R14213:14214 Kernel.VMSelfGuest <> pc:118 var
+R14218:14225 Coq.NArith.BinNat N of_nat def
+R14227:14231 Kernel.VMSelfGuest <> width:117 var
+R14236:14241 Coq.NArith.BinNat N ones def
+R14244:14251 Coq.NArith.BinNat N of_nat def
+R14253:14257 Kernel.VMSelfGuest <> width:117 var
+prf 14269:14280 <> g_fetch_N_eq
+binder 14291:14294 <> code:119
+binder 14296:14300 <> width:120
+binder 14302:14303 <> pc:121
+R14340:14342 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14308:14315 Coq.NArith.BinNat N of_nat def
+R14318:14324 Kernel.VMSelfGuest <> g_fetch def
+R14326:14329 Kernel.VMSelfGuest <> code:119 var
+R14331:14335 Kernel.VMSelfGuest <> width:120 var
+R14337:14338 Kernel.VMSelfGuest <> pc:121 var
+R14343:14351 Kernel.VMSelfGuest <> g_fetch_N def
+R14354:14361 Coq.NArith.BinNat N of_nat def
+R14363:14366 Kernel.VMSelfGuest <> code:119 var
+R14369:14373 Kernel.VMSelfGuest <> width:120 var
+R14375:14376 Kernel.VMSelfGuest <> pc:121 var
+R14403:14409 Kernel.VMSelfGuest <> g_fetch def
+R14412:14420 Kernel.VMSelfGuest <> g_fetch_N def
+R14433:14446 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_and thm
+R14449:14462 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_shr thm
+R14465:14475 Kernel.VMUnboundedInterpreterSlots <> nat_ones_eq thm
+R14478:14485 Coq.NArith.Nnat N2Nat id thm
+R14488:14500 Coq.NArith.Nnat Nat2N inj_mul thm
+R14433:14446 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_and thm
+R14433:14446 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_and thm
+R14449:14462 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_shr thm
+R14449:14462 Kernel.VMUnboundedInterpreterSlots <> N_of_nat_u_shr thm
+R14465:14475 Kernel.VMUnboundedInterpreterSlots <> nat_ones_eq thm
+R14465:14475 Kernel.VMUnboundedInterpreterSlots <> nat_ones_eq thm
+R14478:14485 Coq.NArith.Nnat N2Nat id thm
+R14478:14485 Coq.NArith.Nnat N2Nat id thm
+R14488:14500 Coq.NArith.Nnat Nat2N inj_mul thm
+R14488:14500 Coq.NArith.Nnat Nat2N inj_mul thm
+prf 14530:14543 <> g_code_fetch_N
+binder 14554:14554 <> p:122
+binder 14556:14560 <> width:123
+binder 14562:14563 <> pc:124
+R14582:14585 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14568:14573 Kernel.VMSelfGuest <> g_fits def
+R14575:14579 Kernel.VMSelfGuest <> width:123 var
+R14581:14581 Kernel.VMSelfGuest <> p:122 var
+R14599:14604 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14588:14590 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14586:14587 Kernel.VMSelfGuest <> pc:124 var
+R14591:14596 Coq.Init.Datatypes <> length def
+R14598:14598 Kernel.VMSelfGuest <> p:122 var
+R14642:14644 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14605:14613 Kernel.VMSelfGuest <> g_fetch_N def
+R14616:14623 Kernel.VMSelfGuest <> g_code_N def
+R14625:14629 Kernel.VMSelfGuest <> width:123 var
+R14631:14631 Kernel.VMSelfGuest <> p:122 var
+R14634:14638 Kernel.VMSelfGuest <> width:123 var
+R14640:14641 Kernel.VMSelfGuest <> pc:124 var
+R14645:14652 Kernel.VMSelfGuest <> g_word_N def
+R14655:14657 Coq.Lists.List <> nth def
+R14665:14669 Kernel.VMSelfGuest <> GHalt constr
+R14662:14662 Kernel.VMSelfGuest <> p:122 var
+R14659:14660 Kernel.VMSelfGuest <> pc:124 var
+R14748:14753 Coq.Init.Datatypes <> length def
+R14824:14826 Coq.Lists.List <> nth def
+R14837:14845 Kernel.VMSelfGuest <> g_fetch_N def
+R14871:14873 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R14861:14868 Coq.NArith.BinNat N of_nat def
+R14874:14881 Coq.NArith.BinNat N of_nat def
+R14871:14873 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R14861:14868 Coq.NArith.BinNat N of_nat def
+R14874:14881 Coq.NArith.BinNat N of_nat def
+R14929:14940 Coq.NArith.BinNat N shiftr_0_r thm
+R14943:14953 Coq.NArith.BinNat N land_ones thm
+R14929:14940 Coq.NArith.BinNat N shiftr_0_r thm
+R14929:14940 Coq.NArith.BinNat N shiftr_0_r thm
+R14943:14953 Coq.NArith.BinNat N land_ones thm
+R14943:14953 Coq.NArith.BinNat N land_ones thm
+R14961:14968 Kernel.VMSelfGuest <> g_code_N def
+R14982:14996 Kernel.VMSelfGuest <> N_mod_add_small thm
+R14982:14996 Kernel.VMSelfGuest <> N_mod_add_small thm
+R15062:15070 Kernel.VMSelfGuest <> g_fetch_N def
+R15101:15103 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R15086:15093 Coq.NArith.BinNat N of_nat def
+R15096:15096 Coq.Init.Datatypes <> S constr
+R15104:15111 Coq.NArith.BinNat N of_nat def
+R15154:15156 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R15140:15147 Coq.NArith.BinNat N of_nat def
+R15168:15170 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R15157:15164 Coq.NArith.BinNat N of_nat def
+R15171:15178 Coq.NArith.BinNat N of_nat def
+R15207:15220 Coq.NArith.Nnat Nat2N inj_succ thm
+R15101:15103 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R15086:15093 Coq.NArith.BinNat N of_nat def
+R15096:15096 Coq.Init.Datatypes <> S constr
+R15104:15111 Coq.NArith.BinNat N of_nat def
+R15154:15156 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R15140:15147 Coq.NArith.BinNat N of_nat def
+R15168:15170 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R15157:15164 Coq.NArith.BinNat N of_nat def
+R15171:15178 Coq.NArith.BinNat N of_nat def
+R15207:15220 Coq.NArith.Nnat Nat2N inj_succ thm
+R15207:15220 Coq.NArith.Nnat Nat2N inj_succ thm
+R15244:15258 Coq.NArith.BinNat N shiftr_shiftr thm
+R15261:15276 Kernel.VMSelfGuest <> g_code_drop_head thm
+R15244:15258 Coq.NArith.BinNat N shiftr_shiftr thm
+R15244:15258 Coq.NArith.BinNat N shiftr_shiftr thm
+R15261:15276 Kernel.VMSelfGuest <> g_code_drop_head thm
+R15261:15276 Kernel.VMSelfGuest <> g_code_drop_head thm
+prf 15339:15360 <> g_code_fetch_N_outside
+binder 15371:15371 <> p:125
+binder 15373:15377 <> width:126
+binder 15379:15380 <> pc:127
+R15399:15402 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15385:15390 Kernel.VMSelfGuest <> g_fits def
+R15392:15396 Kernel.VMSelfGuest <> width:126 var
+R15398:15398 Kernel.VMSelfGuest <> p:125 var
+R15417:15422 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15411:15414 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R15403:15408 Coq.Init.Datatypes <> length def
+R15410:15410 Kernel.VMSelfGuest <> p:125 var
+R15415:15416 Kernel.VMSelfGuest <> pc:127 var
+R15460:15462 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15423:15431 Kernel.VMSelfGuest <> g_fetch_N def
+R15434:15441 Kernel.VMSelfGuest <> g_code_N def
+R15443:15447 Kernel.VMSelfGuest <> width:126 var
+R15449:15449 Kernel.VMSelfGuest <> p:125 var
+R15452:15456 Kernel.VMSelfGuest <> width:126 var
+R15458:15459 Kernel.VMSelfGuest <> pc:127 var
+R15543:15551 Kernel.VMSelfGuest <> g_fetch_N def
+R15559:15566 Kernel.VMSelfGuest <> g_code_N def
+R15578:15589 Coq.NArith.BinNat N shiftr_0_l thm
+R15578:15589 Coq.NArith.BinNat N shiftr_0_l thm
+R15578:15589 Coq.NArith.BinNat N shiftr_0_l thm
+R15636:15641 Coq.Init.Datatypes <> length def
+R15713:15721 Kernel.VMSelfGuest <> g_fetch_N def
+R15752:15754 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R15737:15744 Coq.NArith.BinNat N of_nat def
+R15747:15747 Coq.Init.Datatypes <> S constr
+R15755:15762 Coq.NArith.BinNat N of_nat def
+R15805:15807 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R15791:15798 Coq.NArith.BinNat N of_nat def
+R15819:15821 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R15808:15815 Coq.NArith.BinNat N of_nat def
+R15822:15829 Coq.NArith.BinNat N of_nat def
+R15858:15871 Coq.NArith.Nnat Nat2N inj_succ thm
+R15752:15754 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R15737:15744 Coq.NArith.BinNat N of_nat def
+R15747:15747 Coq.Init.Datatypes <> S constr
+R15755:15762 Coq.NArith.BinNat N of_nat def
+R15805:15807 Coq.NArith.BinNat <> ::N_scope:x_'+'_x not
+R15791:15798 Coq.NArith.BinNat N of_nat def
+R15819:15821 Coq.NArith.BinNat <> ::N_scope:x_'*'_x not
+R15808:15815 Coq.NArith.BinNat N of_nat def
+R15822:15829 Coq.NArith.BinNat N of_nat def
+R15858:15871 Coq.NArith.Nnat Nat2N inj_succ thm
+R15858:15871 Coq.NArith.Nnat Nat2N inj_succ thm
+R15895:15909 Coq.NArith.BinNat N shiftr_shiftr thm
+R15912:15927 Kernel.VMSelfGuest <> g_code_drop_head thm
+R15895:15909 Coq.NArith.BinNat N shiftr_shiftr thm
+R15895:15909 Coq.NArith.BinNat N shiftr_shiftr thm
+R15912:15927 Kernel.VMSelfGuest <> g_code_drop_head thm
+R15912:15927 Kernel.VMSelfGuest <> g_code_drop_head thm
+prf 15992:16003 <> g_code_fetch
+binder 16014:16014 <> p:128
+binder 16016:16020 <> width:129
+binder 16022:16023 <> pc:130
+R16042:16045 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16028:16033 Kernel.VMSelfGuest <> g_fits def
+R16035:16039 Kernel.VMSelfGuest <> width:129 var
+R16041:16041 Kernel.VMSelfGuest <> p:128 var
+R16059:16064 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16048:16050 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R16046:16047 Kernel.VMSelfGuest <> pc:130 var
+R16051:16056 Coq.Init.Datatypes <> length def
+R16058:16058 Kernel.VMSelfGuest <> p:128 var
+R16098:16100 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16065:16071 Kernel.VMSelfGuest <> g_fetch def
+R16074:16079 Kernel.VMSelfGuest <> g_code def
+R16081:16085 Kernel.VMSelfGuest <> width:129 var
+R16087:16087 Kernel.VMSelfGuest <> p:128 var
+R16090:16094 Kernel.VMSelfGuest <> width:129 var
+R16096:16097 Kernel.VMSelfGuest <> pc:130 var
+R16101:16106 Kernel.VMSelfGuest <> g_word def
+R16109:16111 Coq.Lists.List <> nth def
+R16119:16123 Kernel.VMSelfGuest <> GHalt constr
+R16116:16116 Kernel.VMSelfGuest <> p:128 var
+R16113:16114 Kernel.VMSelfGuest <> pc:130 var
+R16173:16181 Coq.NArith.Nnat Nat2N inj thm
+R16173:16181 Coq.NArith.Nnat Nat2N inj thm
+R16194:16205 Kernel.VMSelfGuest <> g_fetch_N_eq thm
+R16194:16205 Kernel.VMSelfGuest <> g_fetch_N_eq thm
+R16194:16205 Kernel.VMSelfGuest <> g_fetch_N_eq thm
+R16215:16220 Kernel.VMSelfGuest <> g_code def
+R16223:16228 Kernel.VMSelfGuest <> g_word def
+R16240:16247 Coq.NArith.Nnat N2Nat id thm
+R16240:16247 Coq.NArith.Nnat N2Nat id thm
+R16240:16247 Coq.NArith.Nnat N2Nat id thm
+R16240:16247 Coq.NArith.Nnat N2Nat id thm
+R16240:16247 Coq.NArith.Nnat N2Nat id thm
+R16258:16271 Kernel.VMSelfGuest <> g_code_fetch_N thm
+R16258:16271 Kernel.VMSelfGuest <> g_code_fetch_N thm
+prf 16300:16319 <> g_code_fetch_outside
+binder 16330:16330 <> p:131
+binder 16332:16336 <> width:132
+binder 16338:16339 <> pc:133
+R16358:16361 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16344:16349 Kernel.VMSelfGuest <> g_fits def
+R16351:16355 Kernel.VMSelfGuest <> width:132 var
+R16357:16357 Kernel.VMSelfGuest <> p:131 var
+R16376:16381 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16370:16373 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R16362:16367 Coq.Init.Datatypes <> length def
+R16369:16369 Kernel.VMSelfGuest <> p:131 var
+R16374:16375 Kernel.VMSelfGuest <> pc:133 var
+R16415:16417 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16382:16388 Kernel.VMSelfGuest <> g_fetch def
+R16391:16396 Kernel.VMSelfGuest <> g_code def
+R16398:16402 Kernel.VMSelfGuest <> width:132 var
+R16404:16404 Kernel.VMSelfGuest <> p:131 var
+R16407:16411 Kernel.VMSelfGuest <> width:132 var
+R16413:16414 Kernel.VMSelfGuest <> pc:133 var
+R16464:16472 Coq.NArith.Nnat Nat2N inj thm
+R16464:16472 Coq.NArith.Nnat Nat2N inj thm
+R16485:16496 Kernel.VMSelfGuest <> g_fetch_N_eq thm
+R16485:16496 Kernel.VMSelfGuest <> g_fetch_N_eq thm
+R16485:16496 Kernel.VMSelfGuest <> g_fetch_N_eq thm
+R16506:16511 Kernel.VMSelfGuest <> g_code def
+R16522:16529 Coq.NArith.Nnat N2Nat id thm
+R16522:16529 Coq.NArith.Nnat N2Nat id thm
+R16522:16529 Coq.NArith.Nnat N2Nat id thm
+R16542:16563 Kernel.VMSelfGuest <> g_code_fetch_N_outside thm
+R16542:16563 Kernel.VMSelfGuest <> g_code_fetch_N_outside thm
+R16542:16563 Kernel.VMSelfGuest <> g_code_fetch_N_outside thm
+def 16759:16770 <> g_max_word_N
+R16777:16780 Coq.Init.Datatypes <> list ind
+R16782:16787 Kernel.VMSelfGuest <> GInstr ind
+binder 16773:16773 <> p:134
+R16792:16792 Coq.Numbers.BinNums <> N ind
+R16805:16805 Kernel.VMSelfGuest <> p:134 var
+R16816:16817 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R16831:16834 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R16843:16847 Coq.NArith.BinNat N max def
+R16850:16857 Kernel.VMSelfGuest <> g_word_N def
+R16863:16874 Kernel.VMSelfGuest <> g_max_word_N:135 def
+def 16901:16907 <> g_width
+R16914:16917 Coq.Init.Datatypes <> list ind
+R16919:16924 Kernel.VMSelfGuest <> GInstr ind
+binder 16910:16910 <> p:137
+R16929:16931 Coq.Init.Datatypes <> nat ind
+R16936:16943 Coq.NArith.BinNat N to_nat def
+R16946:16951 Coq.NArith.BinNat N size def
+R16954:16965 Kernel.VMSelfGuest <> g_max_word_N def
+R16967:16967 Kernel.VMSelfGuest <> p:137 var
+prf 16979:16991 <> g_max_word_ge
+binder 17002:17002 <> p:138
+binder 17004:17004 <> i:139
+R17013:17016 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17007:17008 Coq.Lists.List <> In def
+R17012:17012 Kernel.VMSelfGuest <> p:138 var
+R17010:17010 Kernel.VMSelfGuest <> i:139 var
+R17028:17031 Coq.NArith.BinNat <> ::N_scope:x_'<='_x not
+R17018:17025 Kernel.VMSelfGuest <> g_word_N def
+R17027:17027 Kernel.VMSelfGuest <> i:139 var
+R17032:17043 Kernel.VMSelfGuest <> g_max_word_N def
+R17045:17045 Kernel.VMSelfGuest <> p:138 var
+R17166:17175 Coq.NArith.BinNat N le_max_l thm
+R17166:17175 Coq.NArith.BinNat N le_max_l thm
+R17189:17198 Coq.NArith.BinNat N le_trans thm
+R17222:17231 Coq.NArith.BinNat N le_max_r thm
+R17189:17198 Coq.NArith.BinNat N le_trans thm
+R17222:17231 Coq.NArith.BinNat N le_max_r thm
+prf 17249:17260 <> g_width_fits
+binder 17271:17271 <> p:140
+R17274:17279 Kernel.VMSelfGuest <> g_fits def
+R17282:17288 Kernel.VMSelfGuest <> g_width def
+R17290:17290 Kernel.VMSelfGuest <> p:140 var
+R17293:17293 Kernel.VMSelfGuest <> p:140 var
+R17320:17332 Coq.Lists.List <> Forall_forall thm
+R17320:17332 Coq.Lists.List <> Forall_forall thm
+R17358:17364 Kernel.VMSelfGuest <> g_width def
+R17375:17382 Coq.NArith.Nnat N2Nat id thm
+R17375:17382 Coq.NArith.Nnat N2Nat id thm
+R17375:17382 Coq.NArith.Nnat N2Nat id thm
+R17394:17406 Coq.NArith.BinNat N le_lt_trans thm
+R17416:17428 Kernel.VMSelfGuest <> g_max_word_ge thm
+R17394:17406 Coq.NArith.BinNat N le_lt_trans thm
+R17416:17428 Kernel.VMSelfGuest <> g_max_word_ge thm
+R17446:17454 Coq.NArith.BinNat N size_gt thm
+R17446:17454 Coq.NArith.BinNat N size_gt thm
+def 17814:17820 <> g_state
+R17829:17835 Kernel.VMState <> VMState rec
+binder 17823:17825 <> amb:141
+R17859:17861 Coq.Init.Datatypes <> nat ind
+binder 17839:17840 <> pc:142
+binder 17842:17843 <> mu:143
+binder 17845:17846 <> g0:144
+binder 17848:17849 <> g1:145
+binder 17851:17852 <> g2:146
+binder 17854:17855 <> g3:147
+R17870:17873 Coq.Init.Datatypes <> list ind
+R17875:17877 Coq.Init.Datatypes <> nat ind
+binder 17865:17866 <> tl:148
+R17882:17888 Kernel.VMState <> VMState rec
+R17898:17905 Kernel.VMState <> vm_graph proj
+R17898:17905 Kernel.VMState <> vm_graph proj
+R17898:17905 Kernel.VMState <> vm_graph proj
+R17926:17932 Kernel.VMState <> vm_csrs proj
+R17926:17932 Kernel.VMState <> vm_csrs proj
+R17957:17963 Kernel.VMState <> vm_regs proj
+R17957:17963 Kernel.VMState <> vm_regs proj
+R17996:18001 Kernel.VMState <> vm_mem proj
+R17996:18001 Kernel.VMState <> vm_mem proj
+R18025:18029 Kernel.VMState <> vm_pc proj
+R18025:18029 Kernel.VMState <> vm_pc proj
+R18038:18042 Kernel.VMState <> vm_mu proj
+R18038:18042 Kernel.VMState <> vm_mu proj
+R18051:18062 Kernel.VMState <> vm_mu_tensor proj
+R18051:18062 Kernel.VMState <> vm_mu_tensor proj
+R18092:18097 Kernel.VMState <> vm_err proj
+R18092:18097 Kernel.VMState <> vm_err proj
+R18116:18127 Kernel.VMState <> vm_logic_acc proj
+R18116:18127 Kernel.VMState <> vm_logic_acc proj
+R18157:18166 Kernel.VMState <> vm_mstatus proj
+R18157:18166 Kernel.VMState <> vm_mstatus proj
+R18189:18198 Kernel.VMState <> vm_witness proj
+R18189:18198 Kernel.VMState <> vm_witness proj
+R18226:18237 Kernel.VMState <> vm_certified proj
+R18226:18237 Kernel.VMState <> vm_certified proj
+R17915:17922 Kernel.VMState <> vm_graph proj
+R17910:17912 Kernel.VMSelfGuest <> amb:141 var
+R17942:17948 Kernel.VMState <> vm_csrs proj
+R17937:17939 Kernel.VMSelfGuest <> amb:141 var
+R17970:17973 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R17968:17969 Kernel.VMSelfGuest <> g0:144 var
+R17976:17979 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R17974:17975 Kernel.VMSelfGuest <> g1:145 var
+R17982:17985 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R17980:17981 Kernel.VMSelfGuest <> g2:146 var
+R17988:17991 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R17986:17987 Kernel.VMSelfGuest <> g3:147 var
+R17992:17993 Kernel.VMSelfGuest <> tl:148 var
+R18011:18016 Kernel.VMState <> vm_mem proj
+R18006:18008 Kernel.VMSelfGuest <> amb:141 var
+R18034:18035 Kernel.VMSelfGuest <> pc:142 var
+R18047:18048 Kernel.VMSelfGuest <> mu:143 var
+R18072:18083 Kernel.VMState <> vm_mu_tensor proj
+R18067:18069 Kernel.VMSelfGuest <> amb:141 var
+R18107:18112 Kernel.VMState <> vm_err proj
+R18102:18104 Kernel.VMSelfGuest <> amb:141 var
+R18137:18148 Kernel.VMState <> vm_logic_acc proj
+R18132:18134 Kernel.VMSelfGuest <> amb:141 var
+R18176:18185 Kernel.VMState <> vm_mstatus proj
+R18171:18173 Kernel.VMSelfGuest <> amb:141 var
+R18208:18217 Kernel.VMState <> vm_witness proj
+R18203:18205 Kernel.VMSelfGuest <> amb:141 var
+R18247:18258 Kernel.VMState <> vm_certified proj
+R18242:18244 Kernel.VMSelfGuest <> amb:141 var
+rec 18273:18277 <> GRegs
+proj 18284:18286 <> gr0
+proj 18295:18297 <> gr1
+proj 18306:18308 <> gr2
+proj 18317:18319 <> gr3
+R18290:18292 Coq.Init.Datatypes <> nat ind
+R18301:18303 Coq.Init.Datatypes <> nat ind
+R18312:18314 Coq.Init.Datatypes <> nat ind
+R18323:18325 Coq.Init.Datatypes <> nat ind
+def 18342:18346 <> g_get
+R18353:18357 Kernel.VMSelfGuest <> GRegs rec
+binder 18349:18349 <> g:154
+R18365:18367 Coq.Init.Datatypes <> nat ind
+binder 18361:18361 <> r:155
+R18372:18374 Coq.Init.Datatypes <> nat ind
+R18387:18387 Kernel.VMSelfGuest <> r:155 var
+R18402:18404 Kernel.VMSelfGuest <> gr0 proj
+R18399:18399 Kernel.VMSelfGuest <> g:154 var
+R18417:18419 Kernel.VMSelfGuest <> gr1 proj
+R18414:18414 Kernel.VMSelfGuest <> g:154 var
+R18432:18434 Kernel.VMSelfGuest <> gr2 proj
+R18429:18429 Kernel.VMSelfGuest <> g:154 var
+R18447:18449 Kernel.VMSelfGuest <> gr3 proj
+R18444:18444 Kernel.VMSelfGuest <> g:154 var
+def 18469:18473 <> g_set
+R18480:18484 Kernel.VMSelfGuest <> GRegs rec
+binder 18476:18476 <> g:157
+R18494:18496 Coq.Init.Datatypes <> nat ind
+binder 18488:18488 <> r:158
+binder 18490:18490 <> v:159
+R18501:18505 Kernel.VMSelfGuest <> GRegs rec
+R18518:18518 Kernel.VMSelfGuest <> r:158 var
+R18537:18539 Kernel.VMSelfGuest <> gr0 proj
+R18537:18539 Kernel.VMSelfGuest <> gr0 proj
+R18537:18539 Kernel.VMSelfGuest <> gr0 proj
+R18547:18549 Kernel.VMSelfGuest <> gr1 proj
+R18547:18549 Kernel.VMSelfGuest <> gr1 proj
+R18563:18565 Kernel.VMSelfGuest <> gr2 proj
+R18563:18565 Kernel.VMSelfGuest <> gr2 proj
+R18579:18581 Kernel.VMSelfGuest <> gr3 proj
+R18579:18581 Kernel.VMSelfGuest <> gr3 proj
+R18544:18544 Kernel.VMSelfGuest <> v:159 var
+R18557:18559 Kernel.VMSelfGuest <> gr1 proj
+R18554:18554 Kernel.VMSelfGuest <> g:157 var
+R18573:18575 Kernel.VMSelfGuest <> gr2 proj
+R18570:18570 Kernel.VMSelfGuest <> g:157 var
+R18589:18591 Kernel.VMSelfGuest <> gr3 proj
+R18586:18586 Kernel.VMSelfGuest <> g:157 var
+R18609:18611 Kernel.VMSelfGuest <> gr0 proj
+R18609:18611 Kernel.VMSelfGuest <> gr0 proj
+R18609:18611 Kernel.VMSelfGuest <> gr0 proj
+R18625:18627 Kernel.VMSelfGuest <> gr1 proj
+R18625:18627 Kernel.VMSelfGuest <> gr1 proj
+R18635:18637 Kernel.VMSelfGuest <> gr2 proj
+R18635:18637 Kernel.VMSelfGuest <> gr2 proj
+R18651:18653 Kernel.VMSelfGuest <> gr3 proj
+R18651:18653 Kernel.VMSelfGuest <> gr3 proj
+R18619:18621 Kernel.VMSelfGuest <> gr0 proj
+R18616:18616 Kernel.VMSelfGuest <> g:157 var
+R18632:18632 Kernel.VMSelfGuest <> v:159 var
+R18645:18647 Kernel.VMSelfGuest <> gr2 proj
+R18642:18642 Kernel.VMSelfGuest <> g:157 var
+R18661:18663 Kernel.VMSelfGuest <> gr3 proj
+R18658:18658 Kernel.VMSelfGuest <> g:157 var
+R18681:18683 Kernel.VMSelfGuest <> gr0 proj
+R18681:18683 Kernel.VMSelfGuest <> gr0 proj
+R18681:18683 Kernel.VMSelfGuest <> gr0 proj
+R18697:18699 Kernel.VMSelfGuest <> gr1 proj
+R18697:18699 Kernel.VMSelfGuest <> gr1 proj
+R18713:18715 Kernel.VMSelfGuest <> gr2 proj
+R18713:18715 Kernel.VMSelfGuest <> gr2 proj
+R18723:18725 Kernel.VMSelfGuest <> gr3 proj
+R18723:18725 Kernel.VMSelfGuest <> gr3 proj
+R18691:18693 Kernel.VMSelfGuest <> gr0 proj
+R18688:18688 Kernel.VMSelfGuest <> g:157 var
+R18707:18709 Kernel.VMSelfGuest <> gr1 proj
+R18704:18704 Kernel.VMSelfGuest <> g:157 var
+R18720:18720 Kernel.VMSelfGuest <> v:159 var
+R18733:18735 Kernel.VMSelfGuest <> gr3 proj
+R18730:18730 Kernel.VMSelfGuest <> g:157 var
+R18753:18755 Kernel.VMSelfGuest <> gr0 proj
+R18753:18755 Kernel.VMSelfGuest <> gr0 proj
+R18753:18755 Kernel.VMSelfGuest <> gr0 proj
+R18769:18771 Kernel.VMSelfGuest <> gr1 proj
+R18769:18771 Kernel.VMSelfGuest <> gr1 proj
+R18785:18787 Kernel.VMSelfGuest <> gr2 proj
+R18785:18787 Kernel.VMSelfGuest <> gr2 proj
+R18801:18803 Kernel.VMSelfGuest <> gr3 proj
+R18801:18803 Kernel.VMSelfGuest <> gr3 proj
+R18763:18765 Kernel.VMSelfGuest <> gr0 proj
+R18760:18760 Kernel.VMSelfGuest <> g:157 var
+R18779:18781 Kernel.VMSelfGuest <> gr1 proj
+R18776:18776 Kernel.VMSelfGuest <> g:157 var
+R18795:18797 Kernel.VMSelfGuest <> gr2 proj
+R18792:18792 Kernel.VMSelfGuest <> g:157 var
+R18808:18808 Kernel.VMSelfGuest <> v:159 var
+def 18832:18835 <> g_st
+R18844:18850 Kernel.VMState <> VMState rec
+binder 18838:18840 <> amb:161
+R18862:18864 Coq.Init.Datatypes <> nat ind
+binder 18854:18855 <> pc:162
+binder 18857:18858 <> mu:163
+R18872:18876 Kernel.VMSelfGuest <> GRegs rec
+binder 18868:18868 <> g:164
+R18885:18888 Coq.Init.Datatypes <> list ind
+R18890:18892 Coq.Init.Datatypes <> nat ind
+binder 18880:18881 <> tl:165
+R18897:18903 Kernel.VMState <> VMState rec
+R18910:18916 Kernel.VMSelfGuest <> g_state def
+R18918:18920 Kernel.VMSelfGuest <> amb:161 var
+R18922:18923 Kernel.VMSelfGuest <> pc:162 var
+R18925:18926 Kernel.VMSelfGuest <> mu:163 var
+R18931:18933 Kernel.VMSelfGuest <> gr0 proj
+R18928:18928 Kernel.VMSelfGuest <> g:164 var
+R18939:18941 Kernel.VMSelfGuest <> gr1 proj
+R18936:18936 Kernel.VMSelfGuest <> g:164 var
+R18947:18949 Kernel.VMSelfGuest <> gr2 proj
+R18944:18944 Kernel.VMSelfGuest <> g:164 var
+R18955:18957 Kernel.VMSelfGuest <> gr3 proj
+R18952:18952 Kernel.VMSelfGuest <> g:164 var
+R18960:18961 Kernel.VMSelfGuest <> tl:165 var
+def 19180:19185 <> g_next
+R19192:19197 Kernel.VMSelfGuest <> GInstr ind
+binder 19188:19188 <> i:166
+R19209:19211 Coq.Init.Datatypes <> nat ind
+binder 19201:19202 <> pc:167
+binder 19204:19205 <> mu:168
+R19219:19223 Kernel.VMSelfGuest <> GRegs rec
+binder 19215:19215 <> g:169
+R19237:19239 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R19231:19233 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R19228:19230 Coq.Init.Datatypes <> nat ind
+R19234:19236 Coq.Init.Datatypes <> nat ind
+R19240:19244 Kernel.VMSelfGuest <> GRegs rec
+R19264:19266 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19262:19263 Kernel.VMSelfGuest <> mu:168 var
+R19267:19272 Kernel.VMSelfGuest <> g_cost def
+R19274:19274 Kernel.VMSelfGuest <> i:166 var
+binder 19255:19257 <> mu':170
+R19287:19287 Kernel.VMSelfGuest <> i:166 var
+R19298:19302 Kernel.VMSelfGuest <> GHalt constr
+R19318:19318 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19323:19324 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19328:19329 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19331:19331 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19319:19319 Coq.Init.Datatypes <> S constr
+R19321:19322 Kernel.VMSelfGuest <> pc:167 var
+R19325:19327 Kernel.VMSelfGuest <> mu':170 var
+R19330:19330 Kernel.VMSelfGuest <> g:169 var
+R19337:19344 Kernel.VMSelfGuest <> GLoadImm constr
+R19357:19357 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19362:19363 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19367:19368 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19382:19382 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19358:19358 Coq.Init.Datatypes <> S constr
+R19360:19361 Kernel.VMSelfGuest <> pc:167 var
+R19364:19366 Kernel.VMSelfGuest <> mu':170 var
+R19369:19373 Kernel.VMSelfGuest <> g_set def
+R19375:19375 Kernel.VMSelfGuest <> g:169 var
+R19388:19392 Kernel.VMSelfGuest <> GXfer constr
+R19408:19408 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19413:19414 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19418:19419 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19441:19441 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19409:19409 Coq.Init.Datatypes <> S constr
+R19411:19412 Kernel.VMSelfGuest <> pc:167 var
+R19415:19417 Kernel.VMSelfGuest <> mu':170 var
+R19420:19424 Kernel.VMSelfGuest <> g_set def
+R19426:19426 Kernel.VMSelfGuest <> g:169 var
+R19431:19435 Kernel.VMSelfGuest <> g_get def
+R19437:19437 Kernel.VMSelfGuest <> g:169 var
+R19447:19450 Kernel.VMSelfGuest <> GAdd constr
+R19467:19467 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19472:19473 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19477:19478 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19520:19520 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19468:19468 Coq.Init.Datatypes <> S constr
+R19470:19471 Kernel.VMSelfGuest <> pc:167 var
+R19474:19476 Kernel.VMSelfGuest <> mu':170 var
+R19479:19483 Kernel.VMSelfGuest <> g_set def
+R19485:19485 Kernel.VMSelfGuest <> g:169 var
+R19490:19494 Kernel.VMUnboundedStep <> u_add def
+R19497:19501 Kernel.VMSelfGuest <> g_get def
+R19503:19503 Kernel.VMSelfGuest <> g:169 var
+R19509:19513 Kernel.VMSelfGuest <> g_get def
+R19515:19515 Kernel.VMSelfGuest <> g:169 var
+R19526:19529 Kernel.VMSelfGuest <> GSub constr
+R19546:19546 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19551:19552 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19556:19557 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19599:19599 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19547:19547 Coq.Init.Datatypes <> S constr
+R19549:19550 Kernel.VMSelfGuest <> pc:167 var
+R19553:19555 Kernel.VMSelfGuest <> mu':170 var
+R19558:19562 Kernel.VMSelfGuest <> g_set def
+R19564:19564 Kernel.VMSelfGuest <> g:169 var
+R19569:19573 Kernel.VMUnboundedStep <> u_sub def
+R19576:19580 Kernel.VMSelfGuest <> g_get def
+R19582:19582 Kernel.VMSelfGuest <> g:169 var
+R19588:19592 Kernel.VMSelfGuest <> g_get def
+R19594:19594 Kernel.VMSelfGuest <> g:169 var
+R19605:19608 Kernel.VMSelfGuest <> GMul constr
+R19625:19625 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19630:19631 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19635:19636 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19678:19678 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19626:19626 Coq.Init.Datatypes <> S constr
+R19628:19629 Kernel.VMSelfGuest <> pc:167 var
+R19632:19634 Kernel.VMSelfGuest <> mu':170 var
+R19637:19641 Kernel.VMSelfGuest <> g_set def
+R19643:19643 Kernel.VMSelfGuest <> g:169 var
+R19648:19652 Kernel.VMUnboundedStep <> u_mul def
+R19655:19659 Kernel.VMSelfGuest <> g_get def
+R19661:19661 Kernel.VMSelfGuest <> g:169 var
+R19667:19671 Kernel.VMSelfGuest <> g_get def
+R19673:19673 Kernel.VMSelfGuest <> g:169 var
+R19684:19687 Kernel.VMSelfGuest <> GAnd constr
+R19704:19704 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19709:19710 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19714:19715 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19757:19757 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19705:19705 Coq.Init.Datatypes <> S constr
+R19707:19708 Kernel.VMSelfGuest <> pc:167 var
+R19711:19713 Kernel.VMSelfGuest <> mu':170 var
+R19716:19720 Kernel.VMSelfGuest <> g_set def
+R19722:19722 Kernel.VMSelfGuest <> g:169 var
+R19727:19731 Kernel.VMUnboundedStep <> u_and def
+R19734:19738 Kernel.VMSelfGuest <> g_get def
+R19740:19740 Kernel.VMSelfGuest <> g:169 var
+R19746:19750 Kernel.VMSelfGuest <> g_get def
+R19752:19752 Kernel.VMSelfGuest <> g:169 var
+R19763:19765 Kernel.VMSelfGuest <> GOr constr
+R19783:19783 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19788:19789 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19793:19794 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19835:19835 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19784:19784 Coq.Init.Datatypes <> S constr
+R19786:19787 Kernel.VMSelfGuest <> pc:167 var
+R19790:19792 Kernel.VMSelfGuest <> mu':170 var
+R19795:19799 Kernel.VMSelfGuest <> g_set def
+R19801:19801 Kernel.VMSelfGuest <> g:169 var
+R19806:19809 Kernel.VMUnboundedStep <> u_or def
+R19812:19816 Kernel.VMSelfGuest <> g_get def
+R19818:19818 Kernel.VMSelfGuest <> g:169 var
+R19824:19828 Kernel.VMSelfGuest <> g_get def
+R19830:19830 Kernel.VMSelfGuest <> g:169 var
+R19841:19844 Kernel.VMSelfGuest <> GShl constr
+R19861:19861 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19866:19867 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19871:19872 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19914:19914 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19862:19862 Coq.Init.Datatypes <> S constr
+R19864:19865 Kernel.VMSelfGuest <> pc:167 var
+R19868:19870 Kernel.VMSelfGuest <> mu':170 var
+R19873:19877 Kernel.VMSelfGuest <> g_set def
+R19879:19879 Kernel.VMSelfGuest <> g:169 var
+R19884:19888 Kernel.VMUnboundedStep <> u_shl def
+R19891:19895 Kernel.VMSelfGuest <> g_get def
+R19897:19897 Kernel.VMSelfGuest <> g:169 var
+R19903:19907 Kernel.VMSelfGuest <> g_get def
+R19909:19909 Kernel.VMSelfGuest <> g:169 var
+R19920:19923 Kernel.VMSelfGuest <> GShr constr
+R19940:19940 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19945:19946 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19950:19951 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19993:19993 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19941:19941 Coq.Init.Datatypes <> S constr
+R19943:19944 Kernel.VMSelfGuest <> pc:167 var
+R19947:19949 Kernel.VMSelfGuest <> mu':170 var
+R19952:19956 Kernel.VMSelfGuest <> g_set def
+R19958:19958 Kernel.VMSelfGuest <> g:169 var
+R19963:19967 Kernel.VMUnboundedStep <> u_shr def
+R19970:19974 Kernel.VMSelfGuest <> g_get def
+R19976:19976 Kernel.VMSelfGuest <> g:169 var
+R19982:19986 Kernel.VMSelfGuest <> g_get def
+R19988:19988 Kernel.VMSelfGuest <> g:169 var
+R19999:20003 Kernel.VMSelfGuest <> GJump constr
+R20019:20019 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20021:20022 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20026:20027 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20029:20029 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20023:20025 Kernel.VMSelfGuest <> mu':170 var
+R20028:20028 Kernel.VMSelfGuest <> g:169 var
+R20035:20039 Kernel.VMSelfGuest <> GJnez constr
+R20055:20055 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20097:20098 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20102:20103 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20105:20105 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20059:20065 Coq.Arith.PeanoNat Nat eqb def
+R20068:20072 Kernel.VMSelfGuest <> g_get def
+R20074:20074 Kernel.VMSelfGuest <> g:169 var
+R20086:20086 Coq.Init.Datatypes <> S constr
+R20088:20089 Kernel.VMSelfGuest <> pc:167 var
+R20099:20101 Kernel.VMSelfGuest <> mu':170 var
+R20104:20104 Kernel.VMSelfGuest <> g:169 var
+prf 20123:20142 <> g_step_is_vm_apply_u
+binder 20153:20155 <> amb:172
+binder 20157:20158 <> pc:173
+binder 20160:20161 <> mu:174
+binder 20163:20163 <> g:175
+binder 20165:20166 <> tl:176
+binder 20168:20168 <> i:177
+R20179:20184 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20173:20176 Kernel.VMSelfGuest <> g_wf def
+R20178:20178 Kernel.VMSelfGuest <> i:177 var
+R20208:20213 Kernel.VMSelfGuest <> g_next def
+R20215:20215 Kernel.VMSelfGuest <> i:177 var
+R20217:20218 Kernel.VMSelfGuest <> pc:173 var
+R20220:20221 Kernel.VMSelfGuest <> mu:174 var
+R20223:20223 Kernel.VMSelfGuest <> g:175 var
+R20190:20190 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20194:20195 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20199:20200 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20203:20203 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20275:20277 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20230:20239 Kernel.VMUnboundedStep <> vm_apply_u def
+R20242:20245 Kernel.VMSelfGuest <> g_st def
+R20247:20249 Kernel.VMSelfGuest <> amb:172 var
+R20251:20252 Kernel.VMSelfGuest <> pc:173 var
+R20254:20255 Kernel.VMSelfGuest <> mu:174 var
+R20257:20257 Kernel.VMSelfGuest <> g:175 var
+R20259:20260 Kernel.VMSelfGuest <> tl:176 var
+R20264:20271 Kernel.VMSelfGuest <> g_denote def
+R20273:20273 Kernel.VMSelfGuest <> i:177 var
+R20278:20281 Kernel.VMSelfGuest <> g_st def
+R20283:20285 Kernel.VMSelfGuest <> amb:172 var
+R20298:20299 Kernel.VMSelfGuest <> tl:176 var
+R20386:20390 Kernel.VMSelfGuest <> g_dst def
+R20392:20396 Kernel.VMSelfGuest <> g_rs1 def
+R20398:20402 Kernel.VMSelfGuest <> g_rs2 def
+R20453:20455 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R20453:20455 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R20673:20679 Coq.Arith.PeanoNat Nat eqb def
+R20673:20679 Coq.Arith.PeanoNat Nat eqb def
+R20700:20706 Coq.Arith.PeanoNat Nat eqb def
+R20700:20706 Coq.Arith.PeanoNat Nat eqb def
+R20700:20706 Coq.Arith.PeanoNat Nat eqb def
+R20700:20706 Coq.Arith.PeanoNat Nat eqb def
+R20700:20706 Coq.Arith.PeanoNat Nat eqb def

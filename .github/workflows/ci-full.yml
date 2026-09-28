@@ -16,16 +16,14 @@ env:
 
 jobs:
   # Import the primary CI checks first.
-  # Hardware verification only runs after the main software/proof surface passes.
+  # The software/proof surface and hardware checks are independent branches.
   fast-verify:
     uses: ./.github/workflows/ci.yml
     secrets: inherit
 
   # Hardware synthesis & simulation. Runs in PARALLEL with fast-verify —
   # only consumes RTL files (.v) already in the repo at checkout, so it does
-  # not depend on any fast-verify output. Previously gated as
-  # `needs: fast-verify` for ordering, which serialized 17m + 15m = 32m of
-  # critical path for no real reason.
+  # not depend on any fast-verify output.
   hardware-synthesis:
     name: Hardware synthesis & simulation
     runs-on: ubuntu-latest
@@ -97,7 +95,8 @@ jobs:
             coq/**/*.glob
             coq/Makefile
             coq/Makefile.conf
-          key: coq-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject') }}
+            coq/.Makefile.d
+          key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
 
       - name: Install Python dependencies
         run: |
@@ -186,38 +185,33 @@ jobs:
     name: FPGA bitstream generation (Kintex-7 K325T / ffg900 / openXC7)
     runs-on: ubuntu-latest
     env:
-      # Revisions corresponding to the successful 2026-07-14 run
+      # Revisions used for the reproducible FPGA toolchain snapshot
       # https://github.com/sethirus/The-Thiele-Machine/actions/runs/29304801708
-      # The RTL is unchanged since that run. Building moving upstream heads
-      # later introduced post-placement relocation and routing timeouts.
-      # Keep the router, chip database and frame packager reproducible together.
+      # Pinning the router, chip database, and frame packager keeps placement
+      # and bitstream generation reproducible together.
       NEXTPNR_REV: 683858daf7b85e5984ecccb27884c88df3ec01f6
       PRJXRAY_REV: c9f02d8576042325425824647ab5555b1bc77833
       PRJXRAY_DB_REV: 381966a746cb4cf4a7f854f0e53caa3bf74fbe62
     # No `needs:` — this job only reads .v files from the repo at checkout
-    # and produces its own bitstream end-to-end. Previously gated as
-    # `needs: hardware-synthesis` for ordering, which serialized 15m + 21m
-    # of critical path on a dependency that wasn't there.
+    # and produces its own bitstream end-to-end.
     #
     # CHSH_LASSERT's column_contractive_check_witness performs 22 wide
-    # integer multiplications (widest two are 128×128 → 256). In Kami it's
-    # implemented as a 23-phase FSM (`chsh_lassert_fsm` rule in
-    # coq/kami_hw/ThieleCPUCore.v) that time-shares one 384×384 SignUU
-    # multiplier across the phases, so only one wide multiply is live per
-    # cycle. The Coq spec is still single-step — multi-cycle execution is
-    # a Kami-implementation detail invisible to the spec, same pattern as
-    # instr_lassert.  Even with the FSM, yosys's DSP48E1 inference would
-    # fan that single multiplier out to more DSP48E1 slices than K325T's
-    # 840 (wider operand widths force chained DSPs each) and slow
-    # openXC7's placer to 1-2+ hours (sometimes timing out). synth_xc7.ys
-    # specifies `-nodsp`, so the multiplier maps to LUTs and the design
-    # fits in ~151K LUT6 of K325T's 203K (~74%). Placer finishes in
-    # ~10 min.
-    # `continue-on-error: false` (default): if bitstream generation fails,
-    # CI must fail too. The job previously had continue-on-error: true,
-    # which let packaging bugs (fasm2frames path errors, fasm pypi
-    # circular-import regressions, etc.) hide behind a green checkmark.
-    timeout-minutes: 120
+    # integer multiplications. In Kami it's implemented as a 29-phase FSM
+    # (`chsh_lassert_fsm` rule in coq/kami_hw/ThieleCPUCore.v) that
+    # time-shares one 67×67 multiplier across the phases, so only one
+    # multiply is live per cycle; each FSM register is sized to the largest
+    # value 32-bit counters can put there, and the two 134×134 products are
+    # each summed from four 67×67 partial products. The Coq spec is still
+    # single-step; multi-cycle execution is a Kami-implementation detail
+    # invisible to the spec, same pattern as instr_lassert. synth_xc7.ys
+    # builds the multiplier from LUTs (`-nodsp`) and the module tensor store
+    # is a LUT-RAM RegFile, for about 37K LUTs in all. The synthesis driver
+    # uses nextpnr's `--no-tmdriv` mode so placement effort goes to
+    # routability; the uploaded nextpnr log reports the achieved frequency.
+    # A bitstream-generation failure must fail the workflow; the default
+    # continue-on-error policy is intentionally strict.
+    # Keep a hard safety cap well above the expected runtime.
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
 
@@ -394,7 +388,8 @@ jobs:
             coq/**/*.glob
             coq/Makefile
             coq/Makefile.conf
-          key: coq-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject') }}
+            coq/.Makefile.d
+          key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
 
       - name: Refresh Coq artefact mtimes
         run: |
@@ -405,10 +400,14 @@ jobs:
 
       - name: Build Coq proof tree
         if: steps.cache-coq.outputs.cache-hit != 'true'
+        shell: bash
         run: |
+          set -Eeuo pipefail
           cd coq
-          coq_makefile -f _CoqProject -o Makefile 2>&1 | { grep -v "Warning:" || true; }
-          make -j4
+          rm -f Makefile Makefile.conf .Makefile.d
+          find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          coq_makefile -f _CoqProject -o Makefile
+          make V=1 -j4
 
       - name: Run full vacuity sweep
         run: make vacuity-audit
@@ -443,18 +442,31 @@ jobs:
 
           | Phase | Status |
           |-------|--------|
-          | Fast verify (proof + extraction + tests) | ${{ needs.fast-verify.result }} |
-          | Hardware Synthesis | ${{ needs.hardware-synthesis.result }} |
-          | FPGA Bitstream (K325T) | ${{ needs.fpga-bitstream.result }} |
-          | Vacuity audit (full sweep) | ${{ needs.vacuity-audit.result }} |
-
-          Critical path: max of the parallel branches rather than their sum.
+          | Fast verify | ${{ needs.fast-verify.result }} |
+          | Hardware synthesis | ${{ needs.hardware-synthesis.result }} |
+          | FPGA bitstream | ${{ needs.fpga-bitstream.result }} |
+          | Vacuity audit | ${{ needs.vacuity-audit.result }} |
           EOF
           cat /tmp/summary.md >> "$GITHUB_STEP_SUMMARY"
+          cat /tmp/summary.md
 
       - name: Fail if any required job failed
-        # Every needed job must come back 'success'. A hand-kept '== failure'
-        # list misses jobs omitted from it and misses the 'skipped' result a
-        # job gets when something upstream of it failed.
         if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped')
-        run: exit 1
+        run: |
+          failed=0
+
+          for result in \
+            "fast-verify=${{ needs.fast-verify.result }}" \
+            "hardware-synthesis=${{ needs.hardware-synthesis.result }}" \
+            "fpga-bitstream=${{ needs.fpga-bitstream.result }}" \
+            "vacuity-audit=${{ needs.vacuity-audit.result }}"
+          do
+            echo "$result"
+            case "$result" in
+              *"=failure"|*"=cancelled"|*"=skipped")
+                failed=1
+                ;;
+            esac
+          done
+
+          exit "$failed"

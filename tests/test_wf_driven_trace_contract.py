@@ -111,17 +111,24 @@ class TestWFDrivenTraceContract:
         assert chsh_state["mu"] == 3
 
     def test_tensor_family_trace_executes_cleanly(self) -> None:
+        # TENSOR_SET mid i j value cost / TENSOR_GET rd mid i j cost: the
+        # module index and the (i, j) cell are separate operands here, so a
+        # round trip must name the same cell on both sides. The old form
+        # (TENSOR_SET 3 2 50) predates that split: it packed "2" as mid and
+        # wrote cell (0, 0), so its paired TENSOR_GET read a different cell and
+        # the value never came back. mu = LOAD_IMM 50 + TENSOR_SET 1 +
+        # TENSOR_GET 1.
         state = _run([
             "LOAD_IMM 2 42 50",
-            "TENSOR_SET 3 2 50",
-            "TENSOR_GET 3 0 1",
+            "TENSOR_SET 3 0 0 42 1",
+            "TENSOR_GET 3 3 0 0 1",
             "HALT 0",
         ])
 
         assert not state["err"], f"unexpected tensor-family trace error: {state}"
         assert state["status"] == 2
         assert state["regs"][3] == 42
-        assert state["mu"] == 101
+        assert state["mu"] == 52
 
     def test_morph_family_trace_executes_cleanly(self) -> None:
         state = _run([

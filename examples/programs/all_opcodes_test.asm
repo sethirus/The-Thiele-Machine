@@ -85,7 +85,7 @@ MDLACC 0 0 1                  # model accumulate
 CERTIFY 0 0 1                 # set certification flag
 
 # ---- I/O opcodes ----
-READ_PORT  0 0 1              # read port (NOP in hardware)
+READ_PORT  r0 0 0 8 1         # read port 0, returning an 8-bit value into r0
 WRITE_PORT 0 0 1              # write port (NOP in hardware)
 
 # ---- Partition opcodes (require logic_acc = 0xCAFEEACE) ----

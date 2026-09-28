@@ -11,7 +11,7 @@
 
   *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
    imports no kernel module.
@@ -19,8 +19,8 @@
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
 
 From Coq Require Import List.
 Import ListNotations.
@@ -79,12 +79,6 @@ Definition decode (ch : ReceiptChannel) (tr : Trace) : list (list nat) :=
     This is the verification statement: "the trace contains this data stream". *)
 Definition decodes_to (ch : ReceiptChannel) (tr : Trace) (xs : list (list nat)) : Prop :=
   decode ch tr = xs.
-
-(** Previously: [decodes_to_refl] asserted [decodes_to ch tr (decode ch tr)].
-    Since [decodes_to ch tr xs] is defined as [decode ch tr = xs], the
-    claim reduces to [decode ch tr = decode ch tr] and discharges by
-    [reflexivity].  No caller depended on the lemma; the reflexivity
-    fact is available at any site by [unfold decodes_to; reflexivity]. *)
 
 (**
     FRAMEWORK NOTES

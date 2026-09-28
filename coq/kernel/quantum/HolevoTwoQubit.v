@@ -377,9 +377,9 @@ Print Assumptions holevo_chi_one_bit_2d.
     The binary entropy bound proved here is the d=2 case of the
     Holevo bound, whose intended target is the Thiele Machine's
     mu-ledger via the chain in HolevoGeneralD and the bridges in
-    UnificationProbeBridges. See the waiver note below. *)
+    UnificationProbeBridges. See the scope note below. *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver (foundation connectivity).
+(* SCOPE NOTE: standalone proof scope (foundation connectivity).
 
     This file is standalone algebra. It does not engage VM semantics, no
     theorem here mentions [VMState] or [vm_mu], and it imports no kernel
@@ -391,5 +391,5 @@ Print Assumptions holevo_chi_one_bit_2d.
     satisfy it from inside would be to add a definition that references
     [vm_mu] without using it; an identity function referenced by nothing
     carries no proof obligation. A link that can be manufactured that way is
-    not evidence of one. This waiver is counted in the WAIVERS census in
-    INQUISITOR_REPORT.md. *)
+    not evidence of one. The boundary is stated here rather than inferred
+    from an import. *)

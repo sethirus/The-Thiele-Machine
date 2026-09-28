@@ -667,13 +667,6 @@ Proof.
   - unfold set_cert, abs_zero. simpl. discriminate.
 Qed.
 
-(** Previously: four named [proj_forgets_*] witnesses [P_strict_forgets_mu],
-    [P_strict_forgets_cert], [P_cost_forgets_cert], [P_cert_forgets_mu]
-    sat here.  Each was a one-line reduction of the corresponding projection
-    against [set_mu] / [set_cert], and each was used exactly once — in the
-    matching bullet of [mu_ledger_minimality] below.  The four field-erasure
-    facts are now supplied inline at those bullets. *)
-
 (** ── P_full: the minimal complete extension ─────────────────────────────── *)
 
 Record FullMuLedgerShadow := mk_full_mu_ledger {

@@ -40,47 +40,52 @@
         "address_bits": 7,
         "element_type": "Bit#(32)",
         "name": "mem"
+      },
+      {
+        "address_bits": 8,
+        "element_type": "Bit#(32)",
+        "name": "module_tensors"
       }
     ],
-    "sub_reads": 12,
-    "upd_writes": 5
+    "sub_reads": 18,
+    "upd_writes": 6
   },
   "files": {
     "bsv_transform_script": {
-      "bytes": 13951,
-      "lines": 436,
+      "bytes": 19063,
+      "lines": 528,
       "path": "scripts/bsv_regfile_transform.py",
-      "sha256": "30c36d829f2d1b2aba48fed024b07f76a4f3ff78e237d5c5299352f0681a8a8b"
+      "sha256": "ac77bb3beee88685d8c921138f3b92a47ccd93e557da16673b1c804387f36ce7"
     },
     "clean_bsv": {
-      "bytes": 76536,
-      "lines": 1697,
+      "bytes": 88244,
+      "lines": 1999,
       "path": "build/kami_hw/thiele_hw_clean.bsv",
-      "sha256": "4c8f3172483d5d9a2b3034451796a753ecbad7231e11e9f85977b4af66f26af0"
+      "sha256": "e8d031b54d85fc7be3c533fac67e917b871c4b1fec39a0338ac4d90119316343"
     },
     "raw_bsv": {
-      "bytes": 76808,
-      "lines": 1708,
+      "bytes": 88790,
+      "lines": 2014,
       "path": "build/kami_hw/thiele_hw.bsv",
-      "sha256": "c0e6e093f88a3a9744b32067b6972bf7f43e25194456640fe2d14ab9fd7df92d"
+      "sha256": "35e239af1a6025a4cb4270a7ac99eacc638617367b2f2e5cb5487955036c8cdb"
     },
     "raw_verilog": {
-      "bytes": 475748,
-      "lines": 11590,
+      "bytes": 578754,
+      "lines": 14223,
       "path": "build/kami_hw/mkModule1.v",
-      "sha256": "40cdf4efdb01222c9cb7346f67ae9c16f8b8c69037646c2b8a15d9bb6519d676"
+      "sha256": "76732eff3b4630b6c21121e89a12f47618e580db29f861aa12f8d149cda7761d"
     },
     "synth_verilog": {
-      "bytes": 487483,
-      "lines": 11714,
+      "bytes": 589929,
+      "lines": 14347,
       "path": "build/kami_hw/mkModule1_synth.v",
-      "sha256": "2108e5032fa3a6d67f774ae37e31dd3eb836aa3d09cdd567cfe11c3b2e8dd9bf"
+      "sha256": "3568b44a91c3653cf1899388a46ff8de61e1e3fbef5c680b12f27783a363654f"
     },
     "tracked_rtl": {
-      "bytes": 487483,
-      "lines": 11714,
+      "bytes": 589929,
+      "lines": 14347,
       "path": "thielecpu/hardware/rtl/thiele_cpu_kami.v",
-      "sha256": "2108e5032fa3a6d67f774ae37e31dd3eb836aa3d09cdd567cfe11c3b2e8dd9bf"
+      "sha256": "3568b44a91c3653cf1899388a46ff8de61e1e3fbef5c680b12f27783a363654f"
     },
     "verilog_transform_script": {
       "bytes": 34722,
@@ -91,13 +96,16 @@
   },
   "invariants": {
     "bsv_expected_regfiles_present": true,
+    "bsv_module_tensors_is_matrix_regfile": true,
     "bsv_no_large_vector_mkreg_remains": true,
     "bsv_no_vec_constructor_remains": true,
     "bsv_preprocessed_then_regfile_transform_reproduces_clean_bsv": true,
     "bsv_wrapper_removed": true,
     "tracked_rtl_matches_synth_verilog": true,
     "verilog_bsc_regfile_submodules_preserved": true,
+    "verilog_csr_storage_present": true,
     "verilog_flat_storage_removed": true,
+    "verilog_module_tensors_is_regfile_submodule": true,
     "verilog_mu_tensor_array_present": true,
     "verilog_synth_transform_reproduces_synth_verilog": true,
     "verilog_top_module_preserved": true
@@ -117,7 +125,7 @@
     "storage_rewrites": {
       "dm_refs": 0,
       "imem_arr_refs": 0,
-      "mt_arr_refs": 114,
+      "mt_arr_refs": 98,
       "pt_tbl_refs": 0,
       "rf_refs": 0
     },

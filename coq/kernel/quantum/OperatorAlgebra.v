@@ -235,7 +235,7 @@ Print Assumptions vec_norm_sq_nonneg.
     Holevo bound, which in turn governs the Thiele Machine's
     mu-ledger. The connection is made by downstream consumers, not by this file. *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver (foundation connectivity).
+(* SCOPE NOTE: standalone proof scope (foundation connectivity).
 
     This file is standalone algebra. It does not engage VM semantics, no
     theorem here mentions [VMState] or [vm_mu], and it imports no kernel
@@ -247,5 +247,5 @@ Print Assumptions vec_norm_sq_nonneg.
     satisfy it from inside would be to add a definition that references
     [vm_mu] without using it; an identity function referenced by nothing
     carries no proof obligation. A link that can be manufactured that way is
-    not evidence of one. This waiver is counted in the WAIVERS census in
-    INQUISITOR_REPORT.md. *)
+    not evidence of one. The boundary is stated here rather than inferred
+    from an import. *)

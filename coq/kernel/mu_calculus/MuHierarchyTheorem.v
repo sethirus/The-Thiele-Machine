@@ -1,49 +1,10 @@
-(** MuHierarchyTheorem.v: The µ-Cost Hierarchy Theorem
+(** Certification-price levels in executed traces.
 
-    CONTEXT: A new theorem using the Thiele Machine's NoFI principle to prove a
-    genuine complexity separation. This is the µ-analogue of the classical time
-    hierarchy theorem: just as DTIME(f(n)) strictly contains DTIME(g(n)) when f
-    grows faster than g, here µ-budget k strictly separates from µ-budget (k-1)
-    via the irreducible cost of certified structural knowledge.
-
-    COMPANION FILE: coq/IntrinsicLevelHierarchy.v provides the state-level
-    entry point to the same hierarchy. The trace-level [level_k_certified]
-    predicate defined here ("the executed-instruction log contains an
-    [instr_certify d] with S d >= k") is matched there by the state-level
-    [level_intrinsic_at_least k s] ("every trace reaching s with vm_certified
-    requires >= k cert-setter events"). The two predicates address complementary
-    questions: this file's lower-bound is the witness-trace cost floor; the
-    state-level theorem [level_k_plus_1_forces_more_than_k_cert_events] gives the strict separation as
-    a property of the final state independent of which trace reaches it. Both
-    close under the global context.
-
-    MAIN THEOREM (mu_hierarchy_theorem):
-    For every k ≥ 1:
-      (1) ACHIEVABILITY: there exists a trace of µ-cost exactly k from init_state
-          that executes a level-k CERTIFY and produces vm_certified = true.
-      (2) LOWER BOUND: any trace from init_state that executes a level-k
-          CERTIFY and ends certified must have spent ≥ k µ to get there.
-    Together, (1) and (2) establish: µ-budget k is necessary and sufficient for
-    "level-k certification" as an executed certificate entitlement.
-
-    COROLLARY (mu_hierarchy_no_upper_bound):
-    No fixed µ-budget suffices for all levels.
-
-    PROOF TECHNIQUE:
-    - Lower bound: semantic execution scan. A level-k certificate means the
-      run executed a [CERTIFY delta] with [S delta >= k]. The instruction's
-      cost appears in the executed ledger entries, so the ledger sum and
-      trace cost are at least k.
-    - Upper bound: explicit witness [instr_certify (k-1)] costs S(k-1) = k,
-      sets vm_certified := true in one step from init_state.
-
-    NO NEW AXIOMS. All proofs use existing kernel lemmas.
-
-    SIGNIFICANCE: Formalizes the P-vs-NP intuition in the µ-cost setting.
-    The verifier just runs the certificate and checks fields (0 additional µ).
-    The finder must produce the certificate, which costs µ ≥ k.
-    The µ-dimension therefore admits a genuine infinite separation.
-*)
+    A level-k certifier is a CERTIFY instruction with declared price at
+    least k. Such a trace has total cost at least k, and CERTIFY (k-1)
+    attains the bound for positive k. The hierarchy is relative to this
+    event definition and price schedule; it is not a separation between
+    language complexity classes or a search-versus-verification bound. *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool.
 Import ListNotations.
@@ -264,9 +225,7 @@ Qed.
     (2) Level k requires cost ≥ k: no cheaper trace can execute a level-k
         certifier and end certified.
 
-    This is the µ-analogue of the time hierarchy theorem.
-    The µ-dimension creates a proper infinite complexity ladder:
-    each rung requires irreducibly more certified structural cost. *)
+    The levels classify executed certification events by their declared cost. *)
 Theorem mu_hierarchy_theorem :
   forall k, k >= 1 ->
     (* Part 1: Achievability — existence of a k-cost certifying trace *)

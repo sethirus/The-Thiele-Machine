@@ -279,13 +279,14 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
   | instr_lassert freg creg kind flen cost =>
       (* Hardware FSM: binary SAT checker from memory, trap on failure.
         Successful execution additionally requires the declared flen to match
-        the in-memory header. No axiom addition, no CSR modification.
+        the in-memory header. No axiom addition; a failing check sets the
+        CSR error flag, as CHSH_LASSERT does.
         Cost: always instruction_cost = flen*8+S(cost). *)
       let check_ok := lassert_exec_ok s freg creg kind flen in
       let new_pc   := if check_ok then S s.(vm_pc) else LASSERT_TRAP_PC in
       let new_err  := if check_ok then s.(vm_err) else true in
       {| vm_graph := s.(vm_graph);
-         vm_csrs := s.(vm_csrs);
+         vm_csrs := if check_ok then s.(vm_csrs) else csr_set_err s.(vm_csrs) 1;
          vm_regs := s.(vm_regs);
          vm_mem := s.(vm_mem);
          vm_pc := new_pc;
@@ -485,9 +486,11 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
   (* Categorical / morphism instructions *)
   | instr_morph dst src_mod dst_mod coupling_idx cost =>
       match graph_lookup s.(vm_graph) src_mod, graph_lookup s.(vm_graph) dst_mod with
-      | Some _, Some _ =>
+      | Some ms_src, Some ms_dst =>
+          let coupling := load_coupling_from_mem s ms_src.(module_region)
+                            ms_dst.(module_region) coupling_idx in
           let '(graph', morph_id) :=
-            graph_add_morphism s.(vm_graph) src_mod dst_mod empty_coupling_data false in
+            graph_add_morphism s.(vm_graph) src_mod dst_mod coupling false in
           advance_state_rm s (instr_morph dst src_mod dst_mod coupling_idx cost)
             graph' s.(vm_csrs) (write_reg s dst morph_id) s.(vm_mem) s.(vm_err)
       | _, _ =>

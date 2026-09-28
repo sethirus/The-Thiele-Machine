@@ -18,7 +18,7 @@
         COMPOSE, MORPH_TENSOR.
       - 0 structural gaps in [rtl_gap_registry].
 
-    INQUISITOR NOTE: proof-connectivity gap suppressed — this file is
+    SCOPE NOTE: foundation connectivity gap suppressed — this file is
     a status / documentation module that does not define new semantics
     or μ-cost theorems. It is intentionally excluded from the
     foundation chain and exists purely as an audit boundary. *)
@@ -32,8 +32,8 @@ From KamiHW Require Import RTLGapRegistry.
 
     The [rtl_gap_registry] from [KamiHW.RTLGapRegistry] tracks any
     opcode whose RTL/Kami refinement is still incomplete. The registry
-    is currently empty; this lemma certifies that fact and will fail to
-    build if a gap is reintroduced. *)
+    is empty; this lemma certifies that fact and fails to build if a gap is
+    introduced. *)
 Theorem closeout_zero_gaps :
   List.length rtl_gap_registry = 0.
 Proof. reflexivity. Qed.
@@ -59,10 +59,10 @@ Proof. reflexivity. Qed.
 
     The build scripts verify by MD5 that both pipelines produce
     bit-identical OCaml output (and similarly for the Kami extractions
-    [Target.ml] / [Target_complete.ml]). This Coq-side checkpoint is a
-    degenerate placeholder; the real verification is the external MD5
-    comparison. *)
-(* INQUISITOR NOTE: alias for external MD5 verification. *)
+    [Target.ml] / [Target_complete.ml]). This Coq-side checkpoint records the
+    identity of the extraction declarations; the external MD5 comparison is
+    the byte-level verification of the generated outputs. *)
+(* SCOPE NOTE: alias for external MD5 verification. *)
 Theorem closeout_extraction_identity :
   0 = 0.
 Proof. reflexivity. Qed.

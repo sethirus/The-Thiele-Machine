@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit every \texttt{...} citation in the LaTeX monograph against the live Coq tree.
+r"""Audit every \texttt{...} citation in the LaTeX monograph against the live Coq tree.
 
 For each \texttt{...}:
   - if it looks like a path ending in .v: the file must exist on disk
@@ -36,7 +36,7 @@ NON_COQ_TOKENS = {
     "mem", "regs", "pc", "mu", "certified", "halted", "err",
     # Pattern variables / placeholders
     "wc_same", "wc_diff", "wc_same_AB", "wc_diff_AB", "wc_same_xy", "wc_diff_xy",
-    # Coq tactics not yet listed
+    # Coq tactics covered by the citation vocabulary
     "discriminate", "inversion", "constructor", "split", "left", "right",
     "specialize", "pose", "assert", "subst", "simpl", "cbn", "fold", "unfold",
     # Python prose tokens that show up wrapped in `code` in markdown / chapter docs

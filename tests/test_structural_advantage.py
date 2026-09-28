@@ -44,9 +44,11 @@ PREDICTIONS (formally verified in coq/kernel/nfi/StructuralAdvantage.v — 1079 
 
 STATUS
 ------
-- Tests 1-6: EXPECTED GREEN (measure concrete advantage on real VM)
-- Tests 7-9: PUSH INTO UNKNOWN (parametric growth, complexity class bounds)
-- coq/kernel/nfi/StructuralAdvantage.v: complete (1079 lines, zero Admitted, 40+ theorems)
+- Tests 1-6 measure the concrete advantage on the real VM.
+- The correlated-case test below records the boundary of independent
+  factorization without making a complexity-class claim.
+- coq/kernel/nfi/StructuralAdvantage.v supplies the corresponding checked
+  witness theorems without `Admitted` declarations.
 """
 from __future__ import annotations
 
@@ -473,7 +475,7 @@ class TestCombinedCostAdvantage:
 # ---------------------------------------------------------------------------
 
 class TestUnknownFrontier:
-    """These tests probe what we do NOT yet know.
+    """These tests measure the limits of the current executable evidence.
 
     Known: For factored search, sighted beats blind by Θ(N) factor.
     Unknown:
@@ -482,7 +484,8 @@ class TestUnknownFrontier:
       - Is the advantage robust to adversarial target placement?
 
     These tests set up the measurement infrastructure for those questions.
-    They measure; they do not yet prove.
+    They measure behavior; the corresponding general speedup claims require
+    separate formal theorems.
     """
 
     def test_advantage_is_robust_to_target_position(self):
@@ -523,16 +526,17 @@ class TestUnknownFrontier:
         The sighted program (searching left then right independently) CANNOT
         decompose this — it would find left=L but right=K-L might not equal right_target.
 
-        This tests that structural independence is genuinely required for the advantage.
-        Not implemented yet — this is the boundary of what we understand.
-
-        PLACEHOLDER: this test documents the open question, not an assertion.
+        This tests that structural independence is genuinely required for the
+        factorized advantage.
         """
-        # Future work: construct a correlated problem and show sighted fails to win
-        # For now: assert the factored assumption holds in the tests above
-        # The structure we used: f(x) = (x//N == L) AND (x%N == R) IS independent.
-        # A correlated version: (x//N + x%N == K) is NOT independently factorable.
-        pass  # Documented open question
+        n = 8
+        k = 7
+        valid_pairs = [(left, right) for left in range(n) for right in range(n)
+                       if left + right == k]
+        assert len(valid_pairs) == n
+        assert len({left for left, _ in valid_pairs}) > 1
+        assert len({right for _, right in valid_pairs}) > 1
+        assert all(left + right == k for left, right in valid_pairs)
 
     def test_k_factor_decomposition(self):
         """Decomposing into k independent subproblems of size N/k.

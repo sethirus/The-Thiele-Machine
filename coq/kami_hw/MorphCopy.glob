@@ -1,0 +1,3448 @@
+DIGEST 205d4634b09460514ade586d37ccad59
+FKamiHW.MorphCopy
+R167:175 Kami.Kami <> <> lib
+R177:190 Kami.Semantics <> <> lib
+R220:230 KamiHW.ThieleTypes <> <> lib
+R232:244 KamiHW.ThieleCPUCore <> <> lib
+R246:263 KamiHW.NormalizationStart <> <> lib
+R266:283 KamiHW.NormalizationSteps <> <> lib
+R285:301 KamiHW.NormalizationLoop <> <> lib
+R303:324 KamiHW.NormalizationExecution <> <> lib
+R326:348 KamiHW.NormalizationRetirement <> <> lib
+R350:367 KamiHW.NormalizationFrame <> <> lib
+R369:380 KamiHW.MorphLoading <> <> lib
+R407:410 Coq.Lists.List <> <> lib
+R412:417 Coq.Strings.String <> <> lib
+R419:422 Coq.Bool.Bool <> <> lib
+R424:428 Coq.Arith.Arith <> <> lib
+R430:432 Coq.micromega.Lia <> <> lib
+R442:454 Coq.Lists.List ListNotations <> mod
+def 493:501 <> copy_rule
+R506:523 KamiHW.NormalizationSteps <> normalization_rule def
+def 539:548 <> copy_first
+R558:561 Kami.Lib.Word <> word ind
+binder 551:551 <> i:1
+binder 553:554 <> c1:2
+R569:576 KamiHW.NormalizationSteps <> word_ltb def
+R580:581 KamiHW.MorphCopy <> c1:2 var
+R578:578 KamiHW.MorphCopy <> i:1 var
+def 595:603 <> copy_done
+R618:621 Kami.Lib.Word <> word ind
+binder 606:606 <> i:3
+binder 608:608 <> j:4
+binder 610:611 <> c1:5
+binder 613:614 <> c2:6
+R630:633 Coq.Init.Datatypes <> andb def
+R659:662 Coq.Init.Datatypes <> negb def
+R665:672 KamiHW.NormalizationSteps <> word_ltb def
+R676:677 KamiHW.MorphCopy <> c2:6 var
+R674:674 KamiHW.MorphCopy <> j:4 var
+R636:639 Coq.Init.Datatypes <> negb def
+R642:649 KamiHW.NormalizationSteps <> word_ltb def
+R653:654 KamiHW.MorphCopy <> c1:5 var
+R651:651 KamiHW.MorphCopy <> i:3 var
+def 693:701 <> copy_full
+R710:713 Kami.Lib.Word <> word ind
+binder 704:706 <> out:7
+R721:728 KamiHW.NormalizationSteps <> word_eqb def
+R735:743 Kami.Lib.Word <> natToWord def
+R730:732 KamiHW.MorphCopy <> out:7 var
+def 763:772 <> copy_index
+R784:787 Kami.Lib.Word <> word ind
+binder 775:775 <> i:8
+binder 777:777 <> j:9
+binder 779:780 <> c1:10
+R801:804 Kami.Lib.Word <> word ind
+binder 793:794 <> a1:11
+binder 796:797 <> a2:12
+R816:825 KamiHW.MorphCopy <> copy_first def
+R827:827 KamiHW.MorphCopy <> i:8 var
+R829:830 KamiHW.MorphCopy <> c1:10 var
+R866:870 Kami.Lib.Word <> wplus def
+R876:885 KamiHW.NormalizationSteps <> pair_index def
+R887:887 KamiHW.MorphCopy <> j:9 var
+R872:873 KamiHW.MorphCopy <> a2:12 var
+R837:841 Kami.Lib.Word <> wplus def
+R847:856 KamiHW.NormalizationSteps <> pair_index def
+R858:858 KamiHW.MorphCopy <> i:8 var
+R843:844 KamiHW.MorphCopy <> a1:11 var
+def 902:913 <> copy_updates
+R932:935 Kami.Lib.Word <> word ind
+binder 916:916 <> i:13
+binder 918:918 <> j:14
+binder 920:921 <> c1:15
+binder 923:924 <> c2:16
+binder 926:928 <> out:17
+R949:952 Kami.Lib.Word <> word ind
+binder 941:942 <> a1:18
+binder 944:945 <> a2:19
+R969:977 KamiHW.NormalizationSteps <> PairTable def
+binder 959:961 <> src:20
+binder 963:965 <> dst:21
+R995:998 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R989:992 Kami.Lib.Word <> word ind
+R999:1002 Coq.Init.Datatypes <> bool ind
+binder 981:985 <> valid:22
+binder 1005:1007 <> err:23
+binder 1009:1012 <> code:24
+R1016:1023 Kami.Semantics <> UpdatesT def
+R1041:1049 KamiHW.MorphCopy <> copy_done def
+R1051:1051 KamiHW.MorphCopy <> i:13 var
+R1053:1053 KamiHW.MorphCopy <> j:14 var
+R1055:1056 KamiHW.MorphCopy <> c1:15 var
+R1058:1059 KamiHW.MorphCopy <> c2:16 var
+binder 1033:1036 <> done:25
+R1077:1085 KamiHW.MorphCopy <> copy_full def
+R1087:1089 KamiHW.MorphCopy <> out:17 var
+binder 1069:1072 <> full:26
+R1110:1112 Coq.Init.Datatypes <> orb def
+R1119:1122 KamiHW.MorphCopy <> full:26 var
+R1114:1117 KamiHW.MorphCopy <> done:25 var
+binder 1099:1105 <> blocked:27
+R1144:1147 Coq.Init.Datatypes <> andb def
+R1161:1164 KamiHW.MorphCopy <> full:26 var
+R1150:1153 Coq.Init.Datatypes <> negb def
+R1155:1158 KamiHW.MorphCopy <> done:25 var
+binder 1132:1139 <> overflow:28
+R1181:1190 KamiHW.MorphCopy <> copy_index def
+R1192:1192 KamiHW.MorphCopy <> i:13 var
+R1194:1194 KamiHW.MorphCopy <> j:14 var
+R1196:1197 KamiHW.MorphCopy <> c1:15 var
+R1199:1200 KamiHW.MorphCopy <> a1:18 var
+R1202:1203 KamiHW.MorphCopy <> a2:19 var
+binder 1174:1176 <> idx:29
+R1209:1213 Kami.Lib.FMap M add def
+R1252:1256 Kami.Lib.FMap M add def
+R1331:1335 Kami.Lib.FMap M add def
+R1446:1450 Kami.Lib.FMap M add def
+R1561:1565 Kami.Lib.FMap M add def
+R1677:1681 Kami.Lib.FMap M add def
+R1756:1760 Kami.Lib.FMap M add def
+R1835:1839 Kami.Lib.FMap M add def
+R1918:1922 Kami.Lib.FMap M add def
+R2028:2034 Kami.Lib.FMap M empty def
+R1936:1939 KamiHW.NormalizationStart <> reg4 def
+R1945:1952 KamiHW.MorphCopy <> overflow:28 var
+R1982:1985 KamiHW.MorphCopy <> done:25 var
+R2011:2019 Kami.Lib.Word <> natToWord def
+R1992:2000 Kami.Lib.Word <> natToWord def
+R1959:1967 Kami.Lib.Word <> natToWord def
+R1857:1860 KamiHW.NormalizationStart <> reg5 def
+R1866:1872 KamiHW.MorphCopy <> blocked:27 var
+R1888:1892 Kami.Lib.Word <> wplus def
+R1899:1907 Kami.Lib.Word <> natToWord def
+R1894:1896 KamiHW.MorphCopy <> out:17 var
+R1879:1881 KamiHW.MorphCopy <> out:17 var
+R1770:1773 KamiHW.NormalizationStart <> reg5 def
+R1779:1788 KamiHW.MorphCopy <> copy_first def
+R1790:1790 KamiHW.MorphCopy <> i:13 var
+R1792:1793 KamiHW.MorphCopy <> c1:15 var
+R1807:1811 Kami.Lib.Word <> wplus def
+R1816:1824 Kami.Lib.Word <> natToWord def
+R1813:1813 KamiHW.MorphCopy <> j:14 var
+R1800:1800 KamiHW.MorphCopy <> j:14 var
+R1691:1694 KamiHW.NormalizationStart <> reg5 def
+R1700:1709 KamiHW.MorphCopy <> copy_first def
+R1711:1711 KamiHW.MorphCopy <> i:13 var
+R1713:1714 KamiHW.MorphCopy <> c1:15 var
+R1750:1750 KamiHW.MorphCopy <> i:13 var
+R1721:1725 Kami.Lib.Word <> wplus def
+R1730:1738 Kami.Lib.Word <> natToWord def
+R1727:1727 KamiHW.MorphCopy <> i:13 var
+R1596:1603 KamiHW.NormalizationSteps <> regvalid def
+R1609:1615 KamiHW.MorphCopy <> blocked:27 var
+R1634:1643 KamiHW.NormalizationSteps <> put_vector def
+R1668:1671 Coq.Init.Datatypes <> true constr
+R1652:1661 KamiHW.NormalizationSteps <> pair_index def
+R1663:1665 KamiHW.MorphCopy <> out:17 var
+R1645:1649 KamiHW.MorphCopy <> valid:22 var
+R1622:1626 KamiHW.MorphCopy <> valid:22 var
+R1479:1486 KamiHW.NormalizationSteps <> regpairs def
+R1492:1498 KamiHW.MorphCopy <> blocked:27 var
+R1515:1524 KamiHW.NormalizationSteps <> put_vector def
+R1548:1550 KamiHW.MorphCopy <> dst:21 var
+R1552:1554 KamiHW.MorphCopy <> idx:29 var
+R1531:1540 KamiHW.NormalizationSteps <> pair_index def
+R1542:1544 KamiHW.MorphCopy <> out:17 var
+R1526:1528 KamiHW.MorphCopy <> dst:21 var
+R1505:1507 KamiHW.MorphCopy <> dst:21 var
+R1364:1371 KamiHW.NormalizationSteps <> regpairs def
+R1377:1383 KamiHW.MorphCopy <> blocked:27 var
+R1400:1409 KamiHW.NormalizationSteps <> put_vector def
+R1433:1435 KamiHW.MorphCopy <> src:20 var
+R1437:1439 KamiHW.MorphCopy <> idx:29 var
+R1416:1425 KamiHW.NormalizationSteps <> pair_index def
+R1427:1429 KamiHW.MorphCopy <> out:17 var
+R1411:1413 KamiHW.MorphCopy <> src:20 var
+R1390:1392 KamiHW.MorphCopy <> src:20 var
+R1272:1276 KamiHW.MorphLoading <> reg32 def
+R1282:1289 KamiHW.MorphCopy <> overflow:28 var
+R1322:1325 KamiHW.MorphCopy <> code:24 var
+R1296:1315 KamiHW.ThieleTypes <> ERR_COUPLING_INVALID def
+R1222:1228 KamiHW.NormalizationStart <> regbool def
+R1231:1233 Coq.Init.Datatypes <> orb def
+R1239:1246 KamiHW.MorphCopy <> overflow:28 var
+R1235:1237 KamiHW.MorphCopy <> err:23 var
+prf 2054:2067 <> copy_rule_name
+R2089:2091 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2071:2078 Kami.Lib.Struct <> attrName proj
+R2080:2088 KamiHW.MorphCopy <> copy_rule def
+prf 2139:2150 <> copy_rule_in
+R2154:2155 Coq.Lists.List <> In def
+R2168:2175 Kami.Syntax <> getRules def
+R2177:2186 KamiHW.ThieleCPUCore <> thieleCore def
+R2157:2165 KamiHW.MorphCopy <> copy_rule def
+R2204:2212 KamiHW.MorphCopy <> copy_rule def
+R2215:2232 KamiHW.NormalizationSteps <> normalization_rule def
+R2241:2246 Coq.Lists.List <> nth_In thm
+R2258:2258 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2241:2246 Coq.Lists.List <> nth_In thm
+R2258:2258 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+prf 2286:2303 <> copy_actual_action
+binder 2314:2316 <> old:30
+binder 2318:2318 <> i:31
+binder 2320:2320 <> j:32
+binder 2322:2323 <> c1:33
+binder 2325:2326 <> c2:34
+binder 2328:2330 <> out:35
+binder 2332:2333 <> a1:36
+binder 2335:2336 <> a2:37
+binder 2338:2340 <> src:38
+binder 2342:2344 <> dst:39
+binder 2346:2350 <> valid:40
+binder 2352:2354 <> err:41
+binder 2356:2359 <> code:42
+R2414:2418 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2384:2386 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2363:2368 Kami.Lib.FMap M find def
+R2381:2383 KamiHW.MorphCopy <> old:30 var
+R2387:2390 Coq.Init.Datatypes <> Some constr
+R2393:2396 KamiHW.NormalizationStart <> reg4 def
+R2399:2407 Kami.Lib.Word <> natToWord def
+R2452:2456 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2436:2438 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2419:2424 Kami.Lib.FMap M find def
+R2433:2435 KamiHW.MorphCopy <> old:30 var
+R2439:2442 Coq.Init.Datatypes <> Some constr
+R2445:2448 KamiHW.NormalizationStart <> reg5 def
+R2450:2450 KamiHW.MorphCopy <> i:31 var
+R2490:2494 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2474:2476 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2457:2462 Kami.Lib.FMap M find def
+R2471:2473 KamiHW.MorphCopy <> old:30 var
+R2477:2480 Coq.Init.Datatypes <> Some constr
+R2483:2486 KamiHW.NormalizationStart <> reg5 def
+R2488:2488 KamiHW.MorphCopy <> j:32 var
+R2537:2541 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2520:2522 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2495:2500 Kami.Lib.FMap M find def
+R2517:2519 KamiHW.MorphCopy <> old:30 var
+R2523:2526 Coq.Init.Datatypes <> Some constr
+R2529:2532 KamiHW.NormalizationStart <> reg4 def
+R2534:2535 KamiHW.MorphCopy <> a1:36 var
+R2585:2589 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2568:2570 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2542:2547 Kami.Lib.FMap M find def
+R2565:2567 KamiHW.MorphCopy <> old:30 var
+R2571:2574 Coq.Init.Datatypes <> Some constr
+R2577:2580 KamiHW.NormalizationStart <> reg5 def
+R2582:2583 KamiHW.MorphCopy <> c1:33 var
+R2632:2636 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2615:2617 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2590:2595 Kami.Lib.FMap M find def
+R2612:2614 KamiHW.MorphCopy <> old:30 var
+R2618:2621 Coq.Init.Datatypes <> Some constr
+R2624:2627 KamiHW.NormalizationStart <> reg4 def
+R2629:2630 KamiHW.MorphCopy <> a2:37 var
+R2680:2684 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2663:2665 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2637:2642 Kami.Lib.FMap M find def
+R2660:2662 KamiHW.MorphCopy <> old:30 var
+R2666:2669 Coq.Init.Datatypes <> Some constr
+R2672:2675 KamiHW.NormalizationStart <> reg5 def
+R2677:2678 KamiHW.MorphCopy <> c2:34 var
+R2728:2732 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2710:2712 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2685:2690 Kami.Lib.FMap M find def
+R2707:2709 KamiHW.MorphCopy <> old:30 var
+R2713:2716 Coq.Init.Datatypes <> Some constr
+R2719:2722 KamiHW.NormalizationStart <> reg5 def
+R2724:2726 KamiHW.MorphCopy <> out:35 var
+R2791:2795 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2769:2771 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2733:2738 Kami.Lib.FMap M find def
+R2766:2768 KamiHW.MorphCopy <> old:30 var
+R2772:2775 Coq.Init.Datatypes <> Some constr
+R2778:2785 KamiHW.NormalizationSteps <> regpairs def
+R2787:2789 KamiHW.MorphCopy <> src:38 var
+R2854:2858 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2832:2834 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2796:2801 Kami.Lib.FMap M find def
+R2829:2831 KamiHW.MorphCopy <> old:30 var
+R2835:2838 Coq.Init.Datatypes <> Some constr
+R2841:2848 KamiHW.NormalizationSteps <> regpairs def
+R2850:2852 KamiHW.MorphCopy <> dst:39 var
+R2921:2925 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2897:2899 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2859:2864 Kami.Lib.FMap M find def
+R2894:2896 KamiHW.MorphCopy <> old:30 var
+R2900:2903 Coq.Init.Datatypes <> Some constr
+R2906:2913 KamiHW.NormalizationSteps <> regvalid def
+R2915:2919 KamiHW.MorphCopy <> valid:40 var
+R2963:2967 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2942:2944 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2926:2931 Kami.Lib.FMap M find def
+R2939:2941 KamiHW.MorphCopy <> old:30 var
+R2945:2948 Coq.Init.Datatypes <> Some constr
+R2951:2957 KamiHW.NormalizationStart <> regbool def
+R2959:2961 KamiHW.MorphCopy <> err:41 var
+R3011:3015 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2991:2993 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2968:2973 Kami.Lib.FMap M find def
+R2988:2990 KamiHW.MorphCopy <> old:30 var
+R2994:2997 Coq.Init.Datatypes <> Some constr
+R3000:3004 KamiHW.MorphLoading <> reg32 def
+R3006:3009 KamiHW.MorphCopy <> code:42 var
+R3016:3024 Kami.Semantics <> SemAction ind
+R3127:3128 Kami.Lib.Word <> WO constr
+R3116:3122 Kami.Lib.FMap M empty def
+R3058:3069 KamiHW.MorphCopy <> copy_updates def
+R3071:3071 KamiHW.MorphCopy <> i:31 var
+R3073:3073 KamiHW.MorphCopy <> j:32 var
+R3075:3076 KamiHW.MorphCopy <> c1:33 var
+R3078:3079 KamiHW.MorphCopy <> c2:34 var
+R3081:3083 KamiHW.MorphCopy <> out:35 var
+R3085:3086 KamiHW.MorphCopy <> a1:36 var
+R3088:3089 KamiHW.MorphCopy <> a2:37 var
+R3091:3093 KamiHW.MorphCopy <> src:38 var
+R3095:3097 KamiHW.MorphCopy <> dst:39 var
+R3099:3103 KamiHW.MorphCopy <> valid:40 var
+R3105:3107 KamiHW.MorphCopy <> err:41 var
+R3109:3112 KamiHW.MorphCopy <> code:42 var
+R3031:3038 Kami.Lib.Struct <> attrType proj
+R3050:3053 Kami.Syntax <> type def
+R3040:3048 KamiHW.MorphCopy <> copy_rule def
+R3026:3028 KamiHW.MorphCopy <> old:30 var
+R3248:3256 KamiHW.MorphCopy <> copy_rule def
+R3259:3276 KamiHW.NormalizationSteps <> normalization_rule def
+R3284:3286 Coq.Lists.List <> nth def
+R3288:3295 Kami.Syntax <> getRules def
+R3297:3304 Kami.Lib.Struct <> attrType proj
+R3316:3325 Kami.Semantics <> SemReadReg constr
+R3316:3325 Kami.Semantics <> SemReadReg constr
+R3347:3359 Kami.Semantics <> SemAssertTrue constr
+R3347:3359 Kami.Semantics <> SemAssertTrue constr
+R3386:3395 Kami.Semantics <> SemReadReg constr
+R3386:3395 Kami.Semantics <> SemReadReg constr
+R3418:3427 Kami.Semantics <> SemReadReg constr
+R3418:3427 Kami.Semantics <> SemReadReg constr
+R3451:3460 Kami.Semantics <> SemReadReg constr
+R3451:3460 Kami.Semantics <> SemReadReg constr
+R3484:3493 Kami.Semantics <> SemReadReg constr
+R3484:3493 Kami.Semantics <> SemReadReg constr
+R3518:3527 Kami.Semantics <> SemReadReg constr
+R3518:3527 Kami.Semantics <> SemReadReg constr
+R3551:3560 Kami.Semantics <> SemReadReg constr
+R3551:3560 Kami.Semantics <> SemReadReg constr
+R3585:3594 Kami.Semantics <> SemReadReg constr
+R3585:3594 Kami.Semantics <> SemReadReg constr
+R3617:3626 Kami.Semantics <> SemReadReg constr
+R3617:3626 Kami.Semantics <> SemReadReg constr
+R3650:3659 Kami.Semantics <> SemReadReg constr
+R3650:3659 Kami.Semantics <> SemReadReg constr
+R3682:3691 Kami.Semantics <> SemReadReg constr
+R3682:3691 Kami.Semantics <> SemReadReg constr
+R3715:3724 Kami.Semantics <> SemReadReg constr
+R3715:3724 Kami.Semantics <> SemReadReg constr
+R3747:3756 Kami.Semantics <> SemReadReg constr
+R3747:3756 Kami.Semantics <> SemReadReg constr
+R3789:3794 Kami.Semantics <> SemLet constr
+R3789:3794 Kami.Semantics <> SemLet constr
+R3789:3794 Kami.Semantics <> SemLet constr
+R3789:3794 Kami.Semantics <> SemLet constr
+R3789:3794 Kami.Semantics <> SemLet constr
+R3789:3794 Kami.Semantics <> SemLet constr
+R3789:3794 Kami.Semantics <> SemLet constr
+R3789:3794 Kami.Semantics <> SemLet constr
+R3789:3794 Kami.Semantics <> SemLet constr
+R3789:3794 Kami.Semantics <> SemLet constr
+R3789:3794 Kami.Semantics <> SemLet constr
+R3789:3794 Kami.Semantics <> SemLet constr
+R3805:3816 KamiHW.MorphCopy <> copy_updates def
+R3819:3827 KamiHW.MorphCopy <> copy_done def
+R3830:3838 KamiHW.MorphCopy <> copy_full def
+R3841:3850 KamiHW.MorphCopy <> copy_index def
+R3853:3862 KamiHW.MorphCopy <> copy_first def
+R3865:3872 KamiHW.NormalizationSteps <> word_eqb def
+R3875:3882 KamiHW.NormalizationSteps <> word_ltb def
+R3885:3894 KamiHW.NormalizationSteps <> pair_index def
+R3897:3906 KamiHW.NormalizationSteps <> put_vector def
+R3923:3933 Kami.Semantics <> SemWriteReg constr
+R3923:3933 Kami.Semantics <> SemWriteReg constr
+R3923:3933 Kami.Semantics <> SemWriteReg constr
+R3923:3933 Kami.Semantics <> SemWriteReg constr
+R3923:3933 Kami.Semantics <> SemWriteReg constr
+R3923:3933 Kami.Semantics <> SemWriteReg constr
+R3923:3933 Kami.Semantics <> SemWriteReg constr
+R3923:3933 Kami.Semantics <> SemWriteReg constr
+R3923:3933 Kami.Semantics <> SemWriteReg constr
+R3923:3933 Kami.Semantics <> SemWriteReg constr
+R3966:3974 Kami.Semantics <> SemReturn constr
+R3966:3974 Kami.Semantics <> SemReturn constr
+rec 4032:4045 <> copy_registers
+proj 4107:4114 <> cr_phase
+proj 4172:4175 <> cr_i
+proj 4229:4232 <> cr_j
+proj 4286:4290 <> cr_a1
+proj 4353:4357 <> cr_c1
+proj 4421:4425 <> cr_a2
+proj 4488:4492 <> cr_c2
+proj 4556:4561 <> cr_out
+proj 4625:4630 <> cr_src
+proj 4695:4700 <> cr_dst
+proj 4765:4772 <> cr_valid
+proj 4841:4846 <> cr_err
+proj 4890:4896 <> cr_code
+binder 4047:4049 <> old:43
+binder 4051:4051 <> i:44
+binder 4053:4053 <> j:45
+binder 4055:4056 <> c1:46
+binder 4058:4059 <> c2:47
+binder 4061:4063 <> out:48
+binder 4065:4066 <> a1:49
+binder 4068:4069 <> a2:50
+binder 4071:4073 <> src:51
+binder 4075:4077 <> dst:52
+binder 4079:4083 <> valid:53
+binder 4085:4087 <> err:54
+binder 4089:4092 <> code:55
+R4139:4141 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4118:4123 Kami.Lib.FMap M find def
+R4136:4138 KamiHW.MorphCopy <> old:43 var
+R4142:4145 Coq.Init.Datatypes <> Some constr
+R4148:4151 KamiHW.NormalizationStart <> reg4 def
+R4154:4162 Kami.Lib.Word <> natToWord def
+R4196:4198 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4179:4184 Kami.Lib.FMap M find def
+R4193:4195 KamiHW.MorphCopy <> old:43 var
+R4199:4202 Coq.Init.Datatypes <> Some constr
+R4205:4208 KamiHW.NormalizationStart <> reg5 def
+R4211:4219 Kami.Lib.Word <> natToWord def
+R4223:4223 KamiHW.MorphCopy <> i:44 var
+R4253:4255 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4236:4241 Kami.Lib.FMap M find def
+R4250:4252 KamiHW.MorphCopy <> old:43 var
+R4256:4259 Coq.Init.Datatypes <> Some constr
+R4262:4265 KamiHW.NormalizationStart <> reg5 def
+R4268:4276 Kami.Lib.Word <> natToWord def
+R4280:4280 KamiHW.MorphCopy <> j:45 var
+R4319:4321 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4294:4299 Kami.Lib.FMap M find def
+R4316:4318 KamiHW.MorphCopy <> old:43 var
+R4322:4325 Coq.Init.Datatypes <> Some constr
+R4328:4331 KamiHW.NormalizationStart <> reg4 def
+R4334:4342 Kami.Lib.Word <> natToWord def
+R4346:4347 KamiHW.MorphCopy <> a1:49 var
+R4387:4389 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4361:4366 Kami.Lib.FMap M find def
+R4384:4386 KamiHW.MorphCopy <> old:43 var
+R4390:4393 Coq.Init.Datatypes <> Some constr
+R4396:4399 KamiHW.NormalizationStart <> reg5 def
+R4402:4410 Kami.Lib.Word <> natToWord def
+R4414:4415 KamiHW.MorphCopy <> c1:46 var
+R4454:4456 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4429:4434 Kami.Lib.FMap M find def
+R4451:4453 KamiHW.MorphCopy <> old:43 var
+R4457:4460 Coq.Init.Datatypes <> Some constr
+R4463:4466 KamiHW.NormalizationStart <> reg4 def
+R4469:4477 Kami.Lib.Word <> natToWord def
+R4481:4482 KamiHW.MorphCopy <> a2:50 var
+R4522:4524 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4496:4501 Kami.Lib.FMap M find def
+R4519:4521 KamiHW.MorphCopy <> old:43 var
+R4525:4528 Coq.Init.Datatypes <> Some constr
+R4531:4534 KamiHW.NormalizationStart <> reg5 def
+R4537:4545 Kami.Lib.Word <> natToWord def
+R4549:4550 KamiHW.MorphCopy <> c2:47 var
+R4590:4592 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4565:4570 Kami.Lib.FMap M find def
+R4587:4589 KamiHW.MorphCopy <> old:43 var
+R4593:4596 Coq.Init.Datatypes <> Some constr
+R4599:4602 KamiHW.NormalizationStart <> reg5 def
+R4605:4613 Kami.Lib.Word <> natToWord def
+R4617:4619 KamiHW.MorphCopy <> out:48 var
+R4670:4672 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4634:4639 Kami.Lib.FMap M find def
+R4667:4669 KamiHW.MorphCopy <> old:43 var
+R4673:4676 Coq.Init.Datatypes <> Some constr
+R4679:4686 KamiHW.NormalizationSteps <> regpairs def
+R4688:4690 KamiHW.MorphCopy <> src:51 var
+R4740:4742 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4704:4709 Kami.Lib.FMap M find def
+R4737:4739 KamiHW.MorphCopy <> old:43 var
+R4743:4746 Coq.Init.Datatypes <> Some constr
+R4749:4756 KamiHW.NormalizationSteps <> regpairs def
+R4758:4760 KamiHW.MorphCopy <> dst:52 var
+R4814:4816 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4776:4781 Kami.Lib.FMap M find def
+R4811:4813 KamiHW.MorphCopy <> old:43 var
+R4817:4820 Coq.Init.Datatypes <> Some constr
+R4823:4830 KamiHW.NormalizationSteps <> regvalid def
+R4832:4836 KamiHW.MorphCopy <> valid:53 var
+R4866:4868 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4850:4855 Kami.Lib.FMap M find def
+R4863:4865 KamiHW.MorphCopy <> old:43 var
+R4869:4872 Coq.Init.Datatypes <> Some constr
+R4875:4881 KamiHW.NormalizationStart <> regbool def
+R4883:4885 KamiHW.MorphCopy <> err:54 var
+R4923:4925 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4900:4905 Kami.Lib.FMap M find def
+R4920:4922 KamiHW.MorphCopy <> old:43 var
+R4926:4929 Coq.Init.Datatypes <> Some constr
+R4932:4936 KamiHW.MorphLoading <> reg32 def
+R4938:4941 KamiHW.MorphCopy <> code:55 var
+def 4958:4967 <> copy_state
+binder 4969:4971 <> old:70
+binder 4973:4973 <> i:71
+binder 4975:4975 <> j:72
+binder 4977:4978 <> c1:73
+binder 4980:4981 <> c2:74
+binder 4983:4985 <> out:75
+binder 4987:4988 <> a1:76
+binder 4990:4991 <> a2:77
+binder 4993:4995 <> src:78
+binder 4997:4999 <> dst:79
+binder 5001:5005 <> valid:80
+binder 5007:5009 <> err:81
+binder 5011:5014 <> code:82
+R5020:5026 Kami.Lib.FMap M union def
+R5185:5187 KamiHW.MorphCopy <> old:70 var
+R5029:5040 KamiHW.MorphCopy <> copy_updates def
+R5043:5051 Kami.Lib.Word <> natToWord def
+R5055:5055 KamiHW.MorphCopy <> i:71 var
+R5059:5067 Kami.Lib.Word <> natToWord def
+R5071:5071 KamiHW.MorphCopy <> j:72 var
+R5075:5083 Kami.Lib.Word <> natToWord def
+R5087:5088 KamiHW.MorphCopy <> c1:73 var
+R5092:5100 Kami.Lib.Word <> natToWord def
+R5104:5105 KamiHW.MorphCopy <> c2:74 var
+R5110:5118 Kami.Lib.Word <> natToWord def
+R5122:5124 KamiHW.MorphCopy <> out:75 var
+R5128:5136 Kami.Lib.Word <> natToWord def
+R5140:5141 KamiHW.MorphCopy <> a1:76 var
+R5145:5153 Kami.Lib.Word <> natToWord def
+R5157:5158 KamiHW.MorphCopy <> a2:77 var
+R5161:5163 KamiHW.MorphCopy <> src:78 var
+R5165:5167 KamiHW.MorphCopy <> dst:79 var
+R5169:5173 KamiHW.MorphCopy <> valid:80 var
+R5175:5177 KamiHW.MorphCopy <> err:81 var
+R5179:5182 KamiHW.MorphCopy <> code:82 var
+def 5201:5214 <> copy_footprint
+R5219:5219 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5225:5226 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5239:5240 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5266:5268 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5294:5295 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5323:5324 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5331:5332 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5339:5340 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5355:5356 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5367:5367 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+prf 5376:5385 <> copy_frame
+binder 5396:5398 <> old:83
+binder 5400:5400 <> i:84
+binder 5402:5402 <> j:85
+binder 5404:5405 <> c1:86
+binder 5407:5408 <> c2:87
+binder 5410:5412 <> out:88
+binder 5414:5415 <> a1:89
+binder 5417:5418 <> a2:90
+binder 5420:5422 <> src:91
+binder 5424:5426 <> dst:92
+binder 5428:5432 <> valid:93
+binder 5434:5436 <> err:94
+binder 5438:5441 <> code:95
+binder 5443:5445 <> key:96
+R5472:5476 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5449:5450 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5451:5452 Coq.Lists.List <> In def
+R5458:5471 KamiHW.MorphCopy <> copy_footprint def
+R5454:5456 KamiHW.MorphCopy <> key:96 var
+R5547:5549 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5477:5482 Kami.Lib.FMap M find def
+R5489:5498 KamiHW.MorphCopy <> copy_state def
+R5500:5502 KamiHW.MorphCopy <> old:83 var
+R5504:5504 KamiHW.MorphCopy <> i:84 var
+R5506:5506 KamiHW.MorphCopy <> j:85 var
+R5508:5509 KamiHW.MorphCopy <> c1:86 var
+R5511:5512 KamiHW.MorphCopy <> c2:87 var
+R5514:5516 KamiHW.MorphCopy <> out:88 var
+R5518:5519 KamiHW.MorphCopy <> a1:89 var
+R5521:5522 KamiHW.MorphCopy <> a2:90 var
+R5524:5526 KamiHW.MorphCopy <> src:91 var
+R5528:5530 KamiHW.MorphCopy <> dst:92 var
+R5532:5536 KamiHW.MorphCopy <> valid:93 var
+R5538:5540 KamiHW.MorphCopy <> err:94 var
+R5542:5545 KamiHW.MorphCopy <> code:95 var
+R5484:5486 KamiHW.MorphCopy <> key:96 var
+R5550:5555 Kami.Lib.FMap M find def
+R5561:5563 KamiHW.MorphCopy <> old:83 var
+R5557:5559 KamiHW.MorphCopy <> key:96 var
+R5589:5598 KamiHW.MorphCopy <> copy_state def
+R5609:5620 Kami.Lib.FMap M find_union thm
+R5609:5620 Kami.Lib.FMap M find_union thm
+R5609:5620 Kami.Lib.FMap M find_union thm
+R5630:5641 KamiHW.MorphCopy <> copy_updates def
+R5644:5657 KamiHW.MorphCopy <> copy_footprint def
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5681:5692 Kami.Lib.FMap M find_add_2 thm
+R5731:5742 Kami.Lib.FMap M find_empty thm
+R5731:5742 Kami.Lib.FMap M find_empty thm
+R5731:5742 Kami.Lib.FMap M find_empty thm
+prf 5769:5789 <> copy_actual_execution
+binder 5800:5802 <> old:97
+binder 5804:5804 <> i:98
+binder 5806:5806 <> j:99
+binder 5808:5809 <> c1:100
+binder 5811:5812 <> c2:101
+binder 5814:5816 <> out:102
+binder 5818:5819 <> a1:103
+binder 5821:5822 <> a2:104
+binder 5824:5826 <> src:105
+binder 5828:5830 <> dst:106
+binder 5832:5836 <> valid:107
+binder 5838:5840 <> err:108
+binder 5842:5845 <> code:109
+R5910:5914 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5849:5862 KamiHW.MorphCopy <> copy_registers rec
+R5864:5866 KamiHW.MorphCopy <> old:97 var
+R5868:5868 KamiHW.MorphCopy <> i:98 var
+R5870:5870 KamiHW.MorphCopy <> j:99 var
+R5872:5873 KamiHW.MorphCopy <> c1:100 var
+R5875:5876 KamiHW.MorphCopy <> c2:101 var
+R5878:5880 KamiHW.MorphCopy <> out:102 var
+R5882:5883 KamiHW.MorphCopy <> a1:103 var
+R5885:5886 KamiHW.MorphCopy <> a2:104 var
+R5888:5890 KamiHW.MorphCopy <> src:105 var
+R5892:5894 KamiHW.MorphCopy <> dst:106 var
+R5896:5900 KamiHW.MorphCopy <> valid:107 var
+R5902:5904 KamiHW.MorphCopy <> err:108 var
+R5906:5909 KamiHW.MorphCopy <> code:109 var
+R5915:5923 Kami.Semantics <> Multistep ind
+R6001:6001 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6036:6036 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6002:6020 KamiHW.NormalizationExecution <> normalization_label def
+R5941:5950 KamiHW.MorphCopy <> copy_state def
+R5952:5954 KamiHW.MorphCopy <> old:97 var
+R5956:5956 KamiHW.MorphCopy <> i:98 var
+R5958:5958 KamiHW.MorphCopy <> j:99 var
+R5960:5961 KamiHW.MorphCopy <> c1:100 var
+R5963:5964 KamiHW.MorphCopy <> c2:101 var
+R5966:5968 KamiHW.MorphCopy <> out:102 var
+R5970:5971 KamiHW.MorphCopy <> a1:103 var
+R5973:5974 KamiHW.MorphCopy <> a2:104 var
+R5976:5978 KamiHW.MorphCopy <> src:105 var
+R5980:5982 KamiHW.MorphCopy <> dst:106 var
+R5984:5988 KamiHW.MorphCopy <> valid:107 var
+R5990:5992 KamiHW.MorphCopy <> err:108 var
+R5994:5997 KamiHW.MorphCopy <> code:109 var
+R5936:5938 KamiHW.MorphCopy <> old:97 var
+R5925:5934 KamiHW.ThieleCPUCore <> thieleCore def
+R6061:6091 KamiHW.NormalizationExecution <> normalization_substep_execution thm
+R6061:6091 KamiHW.NormalizationExecution <> normalization_substep_execution thm
+R6124:6131 Kami.Lib.Struct <> attrType proj
+R6133:6141 KamiHW.MorphCopy <> copy_rule def
+R6102:6111 Kami.Semantics <> SingleRule constr
+R6152:6163 KamiHW.MorphCopy <> copy_rule_in thm
+R6124:6131 Kami.Lib.Struct <> attrType proj
+R6133:6141 KamiHW.MorphCopy <> copy_rule def
+R6102:6111 Kami.Semantics <> SingleRule constr
+R6152:6163 KamiHW.MorphCopy <> copy_rule_in thm
+R6175:6192 KamiHW.MorphCopy <> copy_actual_action thm
+R6175:6192 KamiHW.MorphCopy <> copy_actual_action thm
+prf 6231:6246 <> pair_index_small
+binder 6257:6257 <> n:110
+R6270:6274 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6262:6262 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6261:6261 KamiHW.MorphCopy <> n:110 var
+R6301:6303 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6275:6284 KamiHW.NormalizationSteps <> pair_index def
+R6287:6295 Kami.Lib.Word <> natToWord def
+R6299:6299 KamiHW.MorphCopy <> n:110 var
+R6304:6312 Kami.Lib.Word <> natToWord def
+R6316:6316 KamiHW.MorphCopy <> n:110 var
+R6341:6353 Kami.Lib.Word <> wordToNat_inj thm
+R6341:6353 Kami.Lib.Word <> wordToNat_inj thm
+R6364:6393 KamiHW.NormalizationSteps <> normalization_pair_index_exact thm
+R6364:6393 KamiHW.NormalizationSteps <> normalization_pair_index_exact thm
+R6364:6393 KamiHW.NormalizationSteps <> normalization_pair_index_exact thm
+R6454:6454 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6419:6439 Kami.Lib.Word <> wordToNat_natToWord_2 thm
+R6419:6439 Kami.Lib.Word <> wordToNat_natToWord_2 thm
+R6454:6454 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6419:6439 Kami.Lib.Word <> wordToNat_natToWord_2 thm
+prf 6501:6514 <> copy_first_nat
+binder 6525:6525 <> i:111
+binder 6527:6527 <> c:112
+R6541:6544 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6532:6533 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6531:6531 KamiHW.MorphCopy <> i:111 var
+R6556:6560 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6547:6548 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6546:6546 KamiHW.MorphCopy <> c:112 var
+R6603:6605 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6561:6570 KamiHW.MorphCopy <> copy_first def
+R6573:6581 Kami.Lib.Word <> natToWord def
+R6585:6585 KamiHW.MorphCopy <> i:111 var
+R6589:6597 Kami.Lib.Word <> natToWord def
+R6601:6601 KamiHW.MorphCopy <> c:112 var
+R6606:6612 Coq.Arith.PeanoNat Nat ltb def
+R6614:6614 KamiHW.MorphCopy <> i:111 var
+R6616:6616 KamiHW.MorphCopy <> c:112 var
+R6641:6650 KamiHW.MorphCopy <> copy_first def
+R6659:6674 KamiHW.NormalizationLoop <> bounded_word_ltb thm
+R6659:6674 KamiHW.NormalizationLoop <> bounded_word_ltb thm
+prf 6693:6705 <> copy_done_nat
+binder 6716:6716 <> i:113
+binder 6718:6718 <> j:114
+binder 6720:6721 <> c1:115
+binder 6723:6724 <> c2:116
+R6743:6746 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6730:6731 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R6734:6735 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R6729:6729 KamiHW.MorphCopy <> i:113 var
+R6732:6733 KamiHW.MorphCopy <> c1:115 var
+R6732:6733 KamiHW.MorphCopy <> c1:115 var
+R6762:6766 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6749:6750 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R6753:6754 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R6748:6748 KamiHW.MorphCopy <> j:114 var
+R6751:6752 KamiHW.MorphCopy <> c2:116 var
+R6751:6752 KamiHW.MorphCopy <> c2:116 var
+R6842:6845 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6767:6775 KamiHW.MorphCopy <> copy_done def
+R6778:6786 Kami.Lib.Word <> natToWord def
+R6790:6790 KamiHW.MorphCopy <> i:113 var
+R6794:6802 Kami.Lib.Word <> natToWord def
+R6806:6806 KamiHW.MorphCopy <> j:114 var
+R6810:6818 Kami.Lib.Word <> natToWord def
+R6822:6823 KamiHW.MorphCopy <> c1:115 var
+R6827:6835 Kami.Lib.Word <> natToWord def
+R6839:6840 KamiHW.MorphCopy <> c2:116 var
+R6846:6849 Coq.Init.Datatypes <> andb def
+R6867:6873 Coq.Arith.PeanoNat Nat eqb def
+R6875:6875 KamiHW.MorphCopy <> j:114 var
+R6877:6878 KamiHW.MorphCopy <> c2:116 var
+R6852:6858 Coq.Arith.PeanoNat Nat eqb def
+R6860:6860 KamiHW.MorphCopy <> i:113 var
+R6862:6863 KamiHW.MorphCopy <> c1:115 var
+R6905:6913 KamiHW.MorphCopy <> copy_done def
+R6925:6940 KamiHW.NormalizationLoop <> bounded_word_ltb thm
+R6925:6940 KamiHW.NormalizationLoop <> bounded_word_ltb thm
+R6925:6940 KamiHW.NormalizationLoop <> bounded_word_ltb thm
+R6925:6940 KamiHW.NormalizationLoop <> bounded_word_ltb thm
+R6925:6940 KamiHW.NormalizationLoop <> bounded_word_ltb thm
+R6961:6970 Coq.Arith.PeanoNat Nat eq_dec thm
+R7000:7009 Coq.Arith.PeanoNat Nat eq_dec thm
+R7052:7065 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R7083:7094 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7111:7115 Coq.Init.Logic <> proj2 thm
+R7118:7127 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7162:7166 Coq.Init.Logic <> proj2 thm
+R7169:7178 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7213:7217 Coq.Init.Logic <> proj2 thm
+R7220:7230 Coq.Arith.PeanoNat Nat eqb_neq thm
+R7265:7269 Coq.Init.Logic <> proj2 thm
+R7272:7282 Coq.Arith.PeanoNat Nat eqb_neq thm
+R6961:6970 Coq.Arith.PeanoNat Nat eq_dec thm
+R7000:7009 Coq.Arith.PeanoNat Nat eq_dec thm
+R7000:7009 Coq.Arith.PeanoNat Nat eq_dec thm
+R7052:7065 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R7052:7065 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R7052:7065 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R7052:7065 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R7052:7065 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R7052:7065 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R7052:7065 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R7052:7065 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R7052:7065 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R7052:7065 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R7052:7065 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R7052:7065 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R7083:7094 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7083:7094 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7083:7094 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7083:7094 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7083:7094 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7083:7094 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7083:7094 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7083:7094 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7083:7094 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7083:7094 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7083:7094 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7083:7094 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7111:7115 Coq.Init.Logic <> proj2 thm
+R7118:7127 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7111:7115 Coq.Init.Logic <> proj2 thm
+R7118:7127 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7111:7115 Coq.Init.Logic <> proj2 thm
+R7118:7127 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7111:7115 Coq.Init.Logic <> proj2 thm
+R7118:7127 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7111:7115 Coq.Init.Logic <> proj2 thm
+R7118:7127 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7111:7115 Coq.Init.Logic <> proj2 thm
+R7118:7127 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7162:7166 Coq.Init.Logic <> proj2 thm
+R7169:7178 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7162:7166 Coq.Init.Logic <> proj2 thm
+R7169:7178 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7162:7166 Coq.Init.Logic <> proj2 thm
+R7169:7178 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7162:7166 Coq.Init.Logic <> proj2 thm
+R7169:7178 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7162:7166 Coq.Init.Logic <> proj2 thm
+R7169:7178 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7162:7166 Coq.Init.Logic <> proj2 thm
+R7169:7178 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7213:7217 Coq.Init.Logic <> proj2 thm
+R7220:7230 Coq.Arith.PeanoNat Nat eqb_neq thm
+R7213:7217 Coq.Init.Logic <> proj2 thm
+R7220:7230 Coq.Arith.PeanoNat Nat eqb_neq thm
+R7213:7217 Coq.Init.Logic <> proj2 thm
+R7220:7230 Coq.Arith.PeanoNat Nat eqb_neq thm
+R7213:7217 Coq.Init.Logic <> proj2 thm
+R7220:7230 Coq.Arith.PeanoNat Nat eqb_neq thm
+R7213:7217 Coq.Init.Logic <> proj2 thm
+R7220:7230 Coq.Arith.PeanoNat Nat eqb_neq thm
+R7213:7217 Coq.Init.Logic <> proj2 thm
+R7220:7230 Coq.Arith.PeanoNat Nat eqb_neq thm
+R7265:7269 Coq.Init.Logic <> proj2 thm
+R7272:7282 Coq.Arith.PeanoNat Nat eqb_neq thm
+R7265:7269 Coq.Init.Logic <> proj2 thm
+R7272:7282 Coq.Arith.PeanoNat Nat eqb_neq thm
+R7265:7269 Coq.Init.Logic <> proj2 thm
+R7272:7282 Coq.Arith.PeanoNat Nat eqb_neq thm
+R7265:7269 Coq.Init.Logic <> proj2 thm
+R7272:7282 Coq.Arith.PeanoNat Nat eqb_neq thm
+R7265:7269 Coq.Init.Logic <> proj2 thm
+R7272:7282 Coq.Arith.PeanoNat Nat eqb_neq thm
+R7265:7269 Coq.Init.Logic <> proj2 thm
+R7272:7282 Coq.Arith.PeanoNat Nat eqb_neq thm
+prf 7327:7339 <> copy_full_nat
+binder 7350:7352 <> out:117
+R7368:7372 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7359:7360 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7356:7358 KamiHW.MorphCopy <> out:117 var
+R7400:7402 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7373:7381 KamiHW.MorphCopy <> copy_full def
+R7384:7392 Kami.Lib.Word <> natToWord def
+R7396:7398 KamiHW.MorphCopy <> out:117 var
+R7403:7409 Coq.Arith.PeanoNat Nat eqb def
+R7411:7413 KamiHW.MorphCopy <> out:117 var
+R7441:7449 KamiHW.MorphCopy <> copy_full def
+R7458:7473 KamiHW.NormalizationRetirement <> bounded_word_eqb thm
+R7458:7473 KamiHW.NormalizationRetirement <> bounded_word_eqb thm
+prf 7492:7511 <> copy_index_first_nat
+binder 7522:7522 <> i:118
+binder 7524:7524 <> j:119
+binder 7526:7527 <> c1:120
+binder 7529:7530 <> a1:121
+binder 7532:7533 <> a2:122
+R7551:7554 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7539:7539 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R7542:7543 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R7538:7538 KamiHW.MorphCopy <> i:118 var
+R7540:7541 KamiHW.MorphCopy <> c1:120 var
+R7540:7541 KamiHW.MorphCopy <> c1:120 var
+R7568:7572 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7560:7560 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7558:7558 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7556:7557 KamiHW.MorphCopy <> a1:121 var
+R7559:7559 KamiHW.MorphCopy <> i:118 var
+R7667:7669 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7573:7582 KamiHW.MorphCopy <> copy_index def
+R7585:7593 Kami.Lib.Word <> natToWord def
+R7597:7597 KamiHW.MorphCopy <> i:118 var
+R7601:7609 Kami.Lib.Word <> natToWord def
+R7613:7613 KamiHW.MorphCopy <> j:119 var
+R7617:7625 Kami.Lib.Word <> natToWord def
+R7629:7630 KamiHW.MorphCopy <> c1:120 var
+R7635:7643 Kami.Lib.Word <> natToWord def
+R7647:7648 KamiHW.MorphCopy <> a1:121 var
+R7652:7660 Kami.Lib.Word <> natToWord def
+R7664:7665 KamiHW.MorphCopy <> a2:122 var
+R7670:7679 KamiHW.NormalizationSteps <> pair_index def
+R7682:7690 Kami.Lib.Word <> natToWord def
+R7697:7697 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7695:7696 KamiHW.MorphCopy <> a1:121 var
+R7698:7698 KamiHW.MorphCopy <> i:118 var
+R7726:7735 KamiHW.MorphCopy <> copy_index def
+R7746:7759 KamiHW.MorphCopy <> copy_first_nat thm
+R7746:7759 KamiHW.MorphCopy <> copy_first_nat thm
+R7746:7759 KamiHW.MorphCopy <> copy_first_nat thm
+R7779:7783 Coq.Init.Logic <> proj2 thm
+R7786:7795 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7817:7832 KamiHW.MorphCopy <> pair_index_small thm
+R7779:7783 Coq.Init.Logic <> proj2 thm
+R7786:7795 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7779:7783 Coq.Init.Logic <> proj2 thm
+R7786:7795 Coq.Arith.PeanoNat Nat ltb_lt thm
+R7817:7832 KamiHW.MorphCopy <> pair_index_small thm
+R7817:7832 KamiHW.MorphCopy <> pair_index_small thm
+R7817:7832 KamiHW.MorphCopy <> pair_index_small thm
+R7817:7832 KamiHW.MorphCopy <> pair_index_small thm
+R7854:7867 Kami.Lib.Word <> natToWord_plus thm
+R7854:7867 Kami.Lib.Word <> natToWord_plus thm
+R7854:7867 Kami.Lib.Word <> natToWord_plus thm
+prf 7894:7914 <> copy_index_second_nat
+binder 7925:7925 <> i:123
+binder 7927:7927 <> j:124
+binder 7929:7930 <> c1:125
+binder 7932:7933 <> c2:126
+binder 7935:7936 <> a1:127
+binder 7938:7939 <> a2:128
+R7953:7956 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7945:7945 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7944:7944 KamiHW.MorphCopy <> i:123 var
+R7946:7947 KamiHW.MorphCopy <> c1:125 var
+R7969:7972 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7960:7961 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7958:7959 KamiHW.MorphCopy <> c1:125 var
+R7987:7990 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7975:7975 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R7978:7979 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R7974:7974 KamiHW.MorphCopy <> j:124 var
+R7976:7977 KamiHW.MorphCopy <> c2:126 var
+R7976:7977 KamiHW.MorphCopy <> c2:126 var
+R8004:8008 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7996:7996 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7994:7994 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7992:7993 KamiHW.MorphCopy <> a2:128 var
+R7995:7995 KamiHW.MorphCopy <> j:124 var
+R8103:8105 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8009:8018 KamiHW.MorphCopy <> copy_index def
+R8021:8029 Kami.Lib.Word <> natToWord def
+R8033:8033 KamiHW.MorphCopy <> i:123 var
+R8037:8045 Kami.Lib.Word <> natToWord def
+R8049:8049 KamiHW.MorphCopy <> j:124 var
+R8053:8061 Kami.Lib.Word <> natToWord def
+R8065:8066 KamiHW.MorphCopy <> c1:125 var
+R8071:8079 Kami.Lib.Word <> natToWord def
+R8083:8084 KamiHW.MorphCopy <> a1:127 var
+R8088:8096 Kami.Lib.Word <> natToWord def
+R8100:8101 KamiHW.MorphCopy <> a2:128 var
+R8106:8115 KamiHW.NormalizationSteps <> pair_index def
+R8118:8126 Kami.Lib.Word <> natToWord def
+R8133:8133 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8131:8132 KamiHW.MorphCopy <> a2:128 var
+R8134:8134 KamiHW.MorphCopy <> j:124 var
+R8171:8180 KamiHW.MorphCopy <> copy_index def
+R8191:8204 KamiHW.MorphCopy <> copy_first_nat thm
+R8191:8204 KamiHW.MorphCopy <> copy_first_nat thm
+R8191:8204 KamiHW.MorphCopy <> copy_first_nat thm
+R8223:8236 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R8240:8255 KamiHW.MorphCopy <> pair_index_small thm
+R8223:8236 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R8223:8236 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R8240:8255 KamiHW.MorphCopy <> pair_index_small thm
+R8240:8255 KamiHW.MorphCopy <> pair_index_small thm
+R8240:8255 KamiHW.MorphCopy <> pair_index_small thm
+R8240:8255 KamiHW.MorphCopy <> pair_index_small thm
+R8277:8290 Kami.Lib.Word <> natToWord_plus thm
+R8277:8290 Kami.Lib.Word <> natToWord_plus thm
+R8277:8290 Kami.Lib.Word <> natToWord_plus thm
+R8340:8349 KamiHW.MorphCopy <> copy_state def
+R8360:8371 Kami.Lib.FMap M find_union thm
+R8382:8393 KamiHW.MorphCopy <> copy_updates def
+R8411:8422 Kami.Lib.FMap M find_add_2 thm
+R8450:8461 Kami.Lib.FMap M find_add_1 thm
+prf 8486:8502 <> copy_done_control
+binder 8513:8514 <> c1:129
+binder 8516:8517 <> c2:130
+R8532:8535 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8523:8524 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8521:8522 KamiHW.MorphCopy <> c1:129 var
+R8548:8552 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8539:8540 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8537:8538 KamiHW.MorphCopy <> c2:130 var
+R8630:8632 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8553:8561 KamiHW.MorphCopy <> copy_done def
+R8564:8572 Kami.Lib.Word <> natToWord def
+R8576:8577 KamiHW.MorphCopy <> c1:129 var
+R8581:8589 Kami.Lib.Word <> natToWord def
+R8593:8594 KamiHW.MorphCopy <> c2:130 var
+R8598:8606 Kami.Lib.Word <> natToWord def
+R8610:8611 KamiHW.MorphCopy <> c1:129 var
+R8615:8623 Kami.Lib.Word <> natToWord def
+R8627:8628 KamiHW.MorphCopy <> c2:130 var
+R8633:8636 Coq.Init.Datatypes <> true constr
+R8662:8674 KamiHW.MorphCopy <> copy_done_nat thm
+R8693:8704 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8662:8674 KamiHW.MorphCopy <> copy_done_nat thm
+R8662:8674 KamiHW.MorphCopy <> copy_done_nat thm
+R8693:8704 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8693:8704 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8693:8704 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8693:8704 Coq.Arith.PeanoNat Nat eqb_refl thm
+prf 8731:8755 <> copy_active_first_control
+binder 8766:8766 <> i:131
+binder 8768:8768 <> j:132
+binder 8770:8771 <> c1:133
+binder 8773:8774 <> c2:134
+R8792:8795 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8780:8780 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R8783:8784 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R8779:8779 KamiHW.MorphCopy <> i:131 var
+R8781:8782 KamiHW.MorphCopy <> c1:133 var
+R8781:8782 KamiHW.MorphCopy <> c1:133 var
+R8811:8815 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8798:8799 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R8802:8803 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R8797:8797 KamiHW.MorphCopy <> j:132 var
+R8800:8801 KamiHW.MorphCopy <> c2:134 var
+R8800:8801 KamiHW.MorphCopy <> c2:134 var
+R8891:8893 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8816:8824 KamiHW.MorphCopy <> copy_done def
+R8827:8835 Kami.Lib.Word <> natToWord def
+R8839:8839 KamiHW.MorphCopy <> i:131 var
+R8843:8851 Kami.Lib.Word <> natToWord def
+R8855:8855 KamiHW.MorphCopy <> j:132 var
+R8859:8867 Kami.Lib.Word <> natToWord def
+R8871:8872 KamiHW.MorphCopy <> c1:133 var
+R8876:8884 Kami.Lib.Word <> natToWord def
+R8888:8889 KamiHW.MorphCopy <> c2:134 var
+R8894:8898 Coq.Init.Datatypes <> false constr
+R8924:8936 KamiHW.MorphCopy <> copy_done_nat thm
+R8955:8959 Coq.Init.Logic <> proj2 thm
+R8962:8972 Coq.Arith.PeanoNat Nat eqb_neq thm
+R8924:8936 KamiHW.MorphCopy <> copy_done_nat thm
+R8924:8936 KamiHW.MorphCopy <> copy_done_nat thm
+R8955:8959 Coq.Init.Logic <> proj2 thm
+R8962:8972 Coq.Arith.PeanoNat Nat eqb_neq thm
+R8955:8959 Coq.Init.Logic <> proj2 thm
+R8962:8972 Coq.Arith.PeanoNat Nat eqb_neq thm
+prf 9017:9042 <> copy_active_second_control
+binder 9053:9054 <> c1:135
+binder 9056:9056 <> j:136
+binder 9058:9059 <> c2:137
+R9075:9078 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9066:9067 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9064:9065 KamiHW.MorphCopy <> c1:135 var
+R9093:9097 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9081:9081 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R9084:9085 Coq.Init.Peano <> ::nat_scope:x_'<'_x_'<='_x not
+R9080:9080 KamiHW.MorphCopy <> j:136 var
+R9082:9083 KamiHW.MorphCopy <> c2:137 var
+R9082:9083 KamiHW.MorphCopy <> c2:137 var
+R9174:9176 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9098:9106 KamiHW.MorphCopy <> copy_done def
+R9109:9117 Kami.Lib.Word <> natToWord def
+R9121:9122 KamiHW.MorphCopy <> c1:135 var
+R9126:9134 Kami.Lib.Word <> natToWord def
+R9138:9138 KamiHW.MorphCopy <> j:136 var
+R9142:9150 Kami.Lib.Word <> natToWord def
+R9154:9155 KamiHW.MorphCopy <> c1:135 var
+R9159:9167 Kami.Lib.Word <> natToWord def
+R9171:9172 KamiHW.MorphCopy <> c2:137 var
+R9177:9181 Coq.Init.Datatypes <> false constr
+R9207:9219 KamiHW.MorphCopy <> copy_done_nat thm
+R9237:9248 Coq.Arith.PeanoNat Nat eqb_refl thm
+R9252:9256 Coq.Init.Logic <> proj2 thm
+R9259:9269 Coq.Arith.PeanoNat Nat eqb_neq thm
+R9207:9219 KamiHW.MorphCopy <> copy_done_nat thm
+R9207:9219 KamiHW.MorphCopy <> copy_done_nat thm
+R9237:9248 Coq.Arith.PeanoNat Nat eqb_refl thm
+R9237:9248 Coq.Arith.PeanoNat Nat eqb_refl thm
+R9252:9256 Coq.Init.Logic <> proj2 thm
+R9259:9269 Coq.Arith.PeanoNat Nat eqb_neq thm
+R9252:9256 Coq.Init.Logic <> proj2 thm
+R9259:9269 Coq.Arith.PeanoNat Nat eqb_neq thm
+prf 9315:9334 <> copy_terminal_result
+binder 9345:9347 <> old:138
+binder 9349:9350 <> c1:139
+binder 9352:9353 <> c2:140
+binder 9355:9357 <> out:141
+binder 9359:9360 <> a1:142
+binder 9362:9363 <> a2:143
+binder 9365:9367 <> src:144
+binder 9369:9371 <> dst:145
+binder 9373:9377 <> valid:146
+binder 9379:9381 <> err:147
+binder 9383:9386 <> code:148
+R9402:9405 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9393:9394 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9391:9392 KamiHW.MorphCopy <> c1:139 var
+R9418:9422 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9409:9410 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9407:9408 KamiHW.MorphCopy <> c2:140 var
+R9436:9445 KamiHW.MorphCopy <> copy_state def
+R9447:9449 KamiHW.MorphCopy <> old:138 var
+R9451:9452 KamiHW.MorphCopy <> c1:139 var
+R9454:9455 KamiHW.MorphCopy <> c2:140 var
+R9457:9458 KamiHW.MorphCopy <> c1:139 var
+R9460:9461 KamiHW.MorphCopy <> c2:140 var
+R9463:9465 KamiHW.MorphCopy <> out:141 var
+R9467:9468 KamiHW.MorphCopy <> a1:142 var
+R9470:9471 KamiHW.MorphCopy <> a2:143 var
+R9473:9475 KamiHW.MorphCopy <> src:144 var
+R9477:9479 KamiHW.MorphCopy <> dst:145 var
+R9481:9485 KamiHW.MorphCopy <> valid:146 var
+R9487:9489 KamiHW.MorphCopy <> err:147 var
+R9491:9494 KamiHW.MorphCopy <> code:148 var
+binder 9427:9431 <> final:149
+R9553:9557 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9523:9525 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9500:9505 Kami.Lib.FMap M find def
+R9518:9522 KamiHW.MorphCopy <> final:149 var
+R9526:9529 Coq.Init.Datatypes <> Some constr
+R9532:9535 KamiHW.NormalizationStart <> reg4 def
+R9538:9546 Kami.Lib.Word <> natToWord def
+R9617:9621 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9585:9587 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9558:9563 Kami.Lib.FMap M find def
+R9580:9584 KamiHW.MorphCopy <> final:149 var
+R9588:9591 Coq.Init.Datatypes <> Some constr
+R9594:9597 KamiHW.NormalizationStart <> reg5 def
+R9600:9608 Kami.Lib.Word <> natToWord def
+R9612:9614 KamiHW.MorphCopy <> out:141 var
+R9672:9676 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9641:9643 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9622:9627 Kami.Lib.FMap M find def
+R9636:9640 KamiHW.MorphCopy <> final:149 var
+R9644:9647 Coq.Init.Datatypes <> Some constr
+R9650:9653 KamiHW.NormalizationStart <> reg5 def
+R9656:9664 Kami.Lib.Word <> natToWord def
+R9668:9669 KamiHW.MorphCopy <> c1:139 var
+R9731:9735 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9696:9698 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9677:9682 Kami.Lib.FMap M find def
+R9691:9695 KamiHW.MorphCopy <> final:149 var
+R9699:9702 Coq.Init.Datatypes <> Some constr
+R9705:9708 KamiHW.NormalizationStart <> reg5 def
+R9711:9719 Kami.Lib.Word <> natToWord def
+R9724:9724 Coq.Init.Datatypes <> S constr
+R9726:9727 KamiHW.MorphCopy <> c2:140 var
+R9796:9800 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9774:9776 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9736:9741 Kami.Lib.FMap M find def
+R9769:9773 KamiHW.MorphCopy <> final:149 var
+R9777:9780 Coq.Init.Datatypes <> Some constr
+R9783:9790 KamiHW.NormalizationSteps <> regpairs def
+R9792:9794 KamiHW.MorphCopy <> src:144 var
+R9861:9865 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9839:9841 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9801:9806 Kami.Lib.FMap M find def
+R9834:9838 KamiHW.MorphCopy <> final:149 var
+R9842:9845 Coq.Init.Datatypes <> Some constr
+R9848:9855 KamiHW.NormalizationSteps <> regpairs def
+R9857:9859 KamiHW.MorphCopy <> dst:145 var
+R9930:9934 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9906:9908 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9866:9871 Kami.Lib.FMap M find def
+R9901:9905 KamiHW.MorphCopy <> final:149 var
+R9909:9912 Coq.Init.Datatypes <> Some constr
+R9915:9922 KamiHW.NormalizationSteps <> regvalid def
+R9924:9928 KamiHW.MorphCopy <> valid:146 var
+R9974:9978 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9953:9955 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9935:9940 Kami.Lib.FMap M find def
+R9948:9952 KamiHW.MorphCopy <> final:149 var
+R9956:9959 Coq.Init.Datatypes <> Some constr
+R9962:9968 KamiHW.NormalizationStart <> regbool def
+R9970:9972 KamiHW.MorphCopy <> err:147 var
+R10004:10006 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9979:9984 Kami.Lib.FMap M find def
+R9999:10003 KamiHW.MorphCopy <> final:149 var
+R10007:10010 Coq.Init.Datatypes <> Some constr
+R10013:10017 KamiHW.MorphLoading <> reg32 def
+R10019:10022 KamiHW.MorphCopy <> code:148 var
+R10146:10162 KamiHW.MorphCopy <> copy_done_control thm
+R10192:10205 KamiHW.MorphCopy <> copy_first_nat thm
+R10228:10241 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R10249:10252 Coq.Init.Datatypes <> andb def
+R10254:10256 Coq.Init.Datatypes <> orb def
+R10258:10261 Coq.Init.Datatypes <> negb def
+R10278:10288 Coq.Bool.Bool <> orb_false_r thm
+R10306:10319 Kami.Lib.Word <> natToWord_plus thm
+R10338:10338 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10352:10352 Coq.Init.Datatypes <> S constr
+R10146:10162 KamiHW.MorphCopy <> copy_done_control thm
+R10146:10162 KamiHW.MorphCopy <> copy_done_control thm
+R10146:10162 KamiHW.MorphCopy <> copy_done_control thm
+R10146:10162 KamiHW.MorphCopy <> copy_done_control thm
+R10146:10162 KamiHW.MorphCopy <> copy_done_control thm
+R10146:10162 KamiHW.MorphCopy <> copy_done_control thm
+R10146:10162 KamiHW.MorphCopy <> copy_done_control thm
+R10146:10162 KamiHW.MorphCopy <> copy_done_control thm
+R10146:10162 KamiHW.MorphCopy <> copy_done_control thm
+R10146:10162 KamiHW.MorphCopy <> copy_done_control thm
+R10146:10162 KamiHW.MorphCopy <> copy_done_control thm
+R10146:10162 KamiHW.MorphCopy <> copy_done_control thm
+R10146:10162 KamiHW.MorphCopy <> copy_done_control thm
+R10146:10162 KamiHW.MorphCopy <> copy_done_control thm
+R10146:10162 KamiHW.MorphCopy <> copy_done_control thm
+R10146:10162 KamiHW.MorphCopy <> copy_done_control thm
+R10192:10205 KamiHW.MorphCopy <> copy_first_nat thm
+R10192:10205 KamiHW.MorphCopy <> copy_first_nat thm
+R10192:10205 KamiHW.MorphCopy <> copy_first_nat thm
+R10192:10205 KamiHW.MorphCopy <> copy_first_nat thm
+R10192:10205 KamiHW.MorphCopy <> copy_first_nat thm
+R10192:10205 KamiHW.MorphCopy <> copy_first_nat thm
+R10192:10205 KamiHW.MorphCopy <> copy_first_nat thm
+R10192:10205 KamiHW.MorphCopy <> copy_first_nat thm
+R10192:10205 KamiHW.MorphCopy <> copy_first_nat thm
+R10192:10205 KamiHW.MorphCopy <> copy_first_nat thm
+R10192:10205 KamiHW.MorphCopy <> copy_first_nat thm
+R10228:10241 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R10228:10241 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R10228:10241 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R10228:10241 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R10228:10241 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R10228:10241 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R10228:10241 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R10228:10241 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R10228:10241 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R10228:10241 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R10228:10241 Coq.Arith.PeanoNat Nat ltb_irrefl thm
+R10278:10288 Coq.Bool.Bool <> orb_false_r thm
+R10278:10288 Coq.Bool.Bool <> orb_false_r thm
+R10278:10288 Coq.Bool.Bool <> orb_false_r thm
+R10278:10288 Coq.Bool.Bool <> orb_false_r thm
+R10278:10288 Coq.Bool.Bool <> orb_false_r thm
+R10278:10288 Coq.Bool.Bool <> orb_false_r thm
+R10278:10288 Coq.Bool.Bool <> orb_false_r thm
+R10278:10288 Coq.Bool.Bool <> orb_false_r thm
+R10278:10288 Coq.Bool.Bool <> orb_false_r thm
+R10278:10288 Coq.Bool.Bool <> orb_false_r thm
+R10306:10319 Kami.Lib.Word <> natToWord_plus thm
+R10306:10319 Kami.Lib.Word <> natToWord_plus thm
+R10306:10319 Kami.Lib.Word <> natToWord_plus thm
+R10306:10319 Kami.Lib.Word <> natToWord_plus thm
+R10306:10319 Kami.Lib.Word <> natToWord_plus thm
+R10306:10319 Kami.Lib.Word <> natToWord_plus thm
+R10306:10319 Kami.Lib.Word <> natToWord_plus thm
+R10306:10319 Kami.Lib.Word <> natToWord_plus thm
+R10306:10319 Kami.Lib.Word <> natToWord_plus thm
+R10306:10319 Kami.Lib.Word <> natToWord_plus thm
+R10338:10338 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10352:10352 Coq.Init.Datatypes <> S constr
+R10338:10338 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10352:10352 Coq.Init.Datatypes <> S constr
+R10338:10338 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10352:10352 Coq.Init.Datatypes <> S constr
+R10338:10338 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10352:10352 Coq.Init.Datatypes <> S constr
+R10338:10338 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10352:10352 Coq.Init.Datatypes <> S constr
+R10338:10338 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10352:10352 Coq.Init.Datatypes <> S constr
+R10338:10338 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10352:10352 Coq.Init.Datatypes <> S constr
+R10338:10338 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10352:10352 Coq.Init.Datatypes <> S constr
+R10338:10338 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10352:10352 Coq.Init.Datatypes <> S constr
+prf 10391:10411 <> copy_capacity_failure
+binder 10422:10424 <> old:150
+binder 10426:10426 <> i:151
+binder 10428:10428 <> j:152
+binder 10430:10431 <> c1:153
+binder 10433:10434 <> c2:154
+binder 10436:10437 <> a1:155
+binder 10439:10440 <> a2:156
+binder 10442:10444 <> src:157
+binder 10446:10448 <> dst:158
+binder 10450:10454 <> valid:159
+binder 10456:10458 <> err:160
+binder 10460:10463 <> code:161
+R10550:10554 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10542:10544 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10467:10475 KamiHW.MorphCopy <> copy_done def
+R10478:10486 Kami.Lib.Word <> natToWord def
+R10490:10490 KamiHW.MorphCopy <> i:151 var
+R10494:10502 Kami.Lib.Word <> natToWord def
+R10506:10506 KamiHW.MorphCopy <> j:152 var
+R10510:10518 Kami.Lib.Word <> natToWord def
+R10522:10523 KamiHW.MorphCopy <> c1:153 var
+R10527:10535 Kami.Lib.Word <> natToWord def
+R10539:10540 KamiHW.MorphCopy <> c2:154 var
+R10545:10549 Coq.Init.Datatypes <> false constr
+R10568:10577 KamiHW.MorphCopy <> copy_state def
+R10579:10581 KamiHW.MorphCopy <> old:150 var
+R10583:10583 KamiHW.MorphCopy <> i:151 var
+R10585:10585 KamiHW.MorphCopy <> j:152 var
+R10587:10588 KamiHW.MorphCopy <> c1:153 var
+R10590:10591 KamiHW.MorphCopy <> c2:154 var
+R10596:10597 KamiHW.MorphCopy <> a1:155 var
+R10599:10600 KamiHW.MorphCopy <> a2:156 var
+R10602:10604 KamiHW.MorphCopy <> src:157 var
+R10606:10608 KamiHW.MorphCopy <> dst:158 var
+R10610:10614 KamiHW.MorphCopy <> valid:159 var
+R10616:10618 KamiHW.MorphCopy <> err:160 var
+R10620:10623 KamiHW.MorphCopy <> code:161 var
+binder 10559:10563 <> final:162
+R10682:10686 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10652:10654 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10629:10634 Kami.Lib.FMap M find def
+R10647:10651 KamiHW.MorphCopy <> final:162 var
+R10655:10658 Coq.Init.Datatypes <> Some constr
+R10661:10664 KamiHW.NormalizationStart <> reg4 def
+R10667:10675 Kami.Lib.Word <> natToWord def
+R10727:10731 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10705:10707 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10687:10692 Kami.Lib.FMap M find def
+R10700:10704 KamiHW.MorphCopy <> final:162 var
+R10708:10711 Coq.Init.Datatypes <> Some constr
+R10714:10720 KamiHW.NormalizationStart <> regbool def
+R10722:10725 Coq.Init.Datatypes <> true constr
+R10793:10797 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10757:10759 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10732:10737 Kami.Lib.FMap M find def
+R10752:10756 KamiHW.MorphCopy <> final:162 var
+R10760:10763 Coq.Init.Datatypes <> Some constr
+R10766:10770 KamiHW.MorphLoading <> reg32 def
+R10772:10791 KamiHW.ThieleTypes <> ERR_COUPLING_INVALID def
+R10856:10860 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10825:10827 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10798:10803 Kami.Lib.FMap M find def
+R10820:10824 KamiHW.MorphCopy <> final:162 var
+R10828:10831 Coq.Init.Datatypes <> Some constr
+R10834:10837 KamiHW.NormalizationStart <> reg5 def
+R10840:10848 Kami.Lib.Word <> natToWord def
+R10921:10925 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10899:10901 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10861:10866 Kami.Lib.FMap M find def
+R10894:10898 KamiHW.MorphCopy <> final:162 var
+R10902:10905 Coq.Init.Datatypes <> Some constr
+R10908:10915 KamiHW.NormalizationSteps <> regpairs def
+R10917:10919 KamiHW.MorphCopy <> src:157 var
+R10986:10990 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10964:10966 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10926:10931 Kami.Lib.FMap M find def
+R10959:10963 KamiHW.MorphCopy <> final:162 var
+R10967:10970 Coq.Init.Datatypes <> Some constr
+R10973:10980 KamiHW.NormalizationSteps <> regpairs def
+R10982:10984 KamiHW.MorphCopy <> dst:158 var
+R11031:11033 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10991:10996 Kami.Lib.FMap M find def
+R11026:11030 KamiHW.MorphCopy <> final:162 var
+R11034:11037 Coq.Init.Datatypes <> Some constr
+R11040:11047 KamiHW.NormalizationSteps <> regvalid def
+R11049:11053 KamiHW.MorphCopy <> valid:159 var
+R11186:11194 KamiHW.MorphCopy <> copy_full def
+R11197:11205 Kami.Lib.Word <> natToWord def
+R11219:11222 Coq.Init.Datatypes <> true constr
+R11230:11233 Coq.Init.Datatypes <> andb def
+R11235:11237 Coq.Init.Datatypes <> orb def
+R11239:11242 Coq.Init.Datatypes <> negb def
+R11258:11267 Coq.Bool.Bool <> orb_true_r thm
+R11186:11194 KamiHW.MorphCopy <> copy_full def
+R11197:11205 Kami.Lib.Word <> natToWord def
+R11219:11222 Coq.Init.Datatypes <> true constr
+R11186:11194 KamiHW.MorphCopy <> copy_full def
+R11197:11205 Kami.Lib.Word <> natToWord def
+R11219:11222 Coq.Init.Datatypes <> true constr
+R11186:11194 KamiHW.MorphCopy <> copy_full def
+R11197:11205 Kami.Lib.Word <> natToWord def
+R11219:11222 Coq.Init.Datatypes <> true constr
+R11186:11194 KamiHW.MorphCopy <> copy_full def
+R11197:11205 Kami.Lib.Word <> natToWord def
+R11219:11222 Coq.Init.Datatypes <> true constr
+R11186:11194 KamiHW.MorphCopy <> copy_full def
+R11197:11205 Kami.Lib.Word <> natToWord def
+R11219:11222 Coq.Init.Datatypes <> true constr
+R11186:11194 KamiHW.MorphCopy <> copy_full def
+R11197:11205 Kami.Lib.Word <> natToWord def
+R11219:11222 Coq.Init.Datatypes <> true constr
+R11186:11194 KamiHW.MorphCopy <> copy_full def
+R11197:11205 Kami.Lib.Word <> natToWord def
+R11219:11222 Coq.Init.Datatypes <> true constr
+R11258:11267 Coq.Bool.Bool <> orb_true_r thm
+R11258:11267 Coq.Bool.Bool <> orb_true_r thm
+R11258:11267 Coq.Bool.Bool <> orb_true_r thm
+R11258:11267 Coq.Bool.Bool <> orb_true_r thm
+R11258:11267 Coq.Bool.Bool <> orb_true_r thm
+R11258:11267 Coq.Bool.Bool <> orb_true_r thm
+R11258:11267 Coq.Bool.Bool <> orb_true_r thm
+R11258:11267 Coq.Bool.Bool <> orb_true_r thm
+def 11300:11307 <> cursor_i
+binder 11309:11309 <> i:163
+binder 11311:11312 <> c1:164
+R11320:11326 Coq.Arith.PeanoNat Nat ltb def
+R11328:11328 KamiHW.MorphCopy <> i:163 var
+R11330:11331 KamiHW.MorphCopy <> c1:164 var
+R11347:11347 KamiHW.MorphCopy <> i:163 var
+R11338:11338 Coq.Init.Datatypes <> S constr
+R11340:11340 KamiHW.MorphCopy <> i:163 var
+def 11361:11368 <> cursor_j
+binder 11370:11370 <> i:165
+binder 11372:11372 <> j:166
+binder 11374:11375 <> c1:167
+R11383:11389 Coq.Arith.PeanoNat Nat ltb def
+R11391:11391 KamiHW.MorphCopy <> i:165 var
+R11393:11394 KamiHW.MorphCopy <> c1:167 var
+R11408:11408 Coq.Init.Datatypes <> S constr
+R11410:11410 KamiHW.MorphCopy <> j:166 var
+R11401:11401 KamiHW.MorphCopy <> j:166 var
+def 11424:11435 <> source_index
+binder 11437:11437 <> i:168
+binder 11439:11439 <> j:169
+binder 11441:11442 <> c1:170
+binder 11444:11445 <> a1:171
+binder 11447:11448 <> a2:172
+R11456:11462 Coq.Arith.PeanoNat Nat ltb def
+R11464:11464 KamiHW.MorphCopy <> i:168 var
+R11466:11467 KamiHW.MorphCopy <> c1:170 var
+R11493:11493 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11491:11492 KamiHW.MorphCopy <> a2:172 var
+R11494:11494 KamiHW.MorphCopy <> j:169 var
+R11477:11477 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11475:11476 KamiHW.MorphCopy <> a1:171 var
+R11478:11478 KamiHW.MorphCopy <> i:168 var
+def 11513:11519 <> pair_at
+R11530:11538 KamiHW.NormalizationSteps <> PairTable def
+binder 11522:11526 <> table:173
+binder 11541:11541 <> k:174
+R11546:11550 KamiHW.MorphCopy <> table:173 var
+R11553:11562 KamiHW.NormalizationSteps <> pair_index def
+R11565:11573 Kami.Lib.Word <> natToWord def
+R11577:11577 KamiHW.MorphCopy <> k:174 var
+def 11593:11603 <> append_pair
+R11614:11622 KamiHW.NormalizationSteps <> PairTable def
+binder 11606:11610 <> table:175
+binder 11625:11627 <> out:176
+binder 11629:11633 <> value:177
+R11638:11647 KamiHW.NormalizationSteps <> put_vector def
+R11686:11690 KamiHW.MorphCopy <> value:177 var
+R11656:11665 KamiHW.NormalizationSteps <> pair_index def
+R11668:11676 Kami.Lib.Word <> natToWord def
+R11680:11682 KamiHW.MorphCopy <> out:176 var
+R11649:11653 KamiHW.MorphCopy <> table:175 var
+prf 11699:11719 <> copy_active_registers
+binder 11730:11732 <> old:178
+binder 11734:11734 <> i:179
+binder 11736:11736 <> j:180
+binder 11738:11739 <> c1:181
+binder 11741:11742 <> c2:182
+binder 11744:11746 <> out:183
+binder 11748:11749 <> a1:184
+binder 11751:11752 <> a2:185
+binder 11754:11756 <> src:186
+binder 11758:11760 <> dst:187
+binder 11762:11766 <> valid:188
+binder 11768:11770 <> err:189
+binder 11772:11775 <> code:190
+R11794:11797 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11781:11782 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R11785:11786 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R11780:11780 KamiHW.MorphCopy <> i:179 var
+R11783:11784 KamiHW.MorphCopy <> c1:181 var
+R11783:11784 KamiHW.MorphCopy <> c1:181 var
+R11813:11816 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11800:11801 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R11804:11805 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R11799:11799 KamiHW.MorphCopy <> j:180 var
+R11802:11803 KamiHW.MorphCopy <> c2:182 var
+R11802:11803 KamiHW.MorphCopy <> c2:182 var
+R11829:11833 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11821:11821 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R11818:11820 KamiHW.MorphCopy <> out:183 var
+R11856:11860 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11835:11835 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R11840:11845 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R11850:11850 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R11837:11837 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R11836:11836 KamiHW.MorphCopy <> i:179 var
+R11838:11839 KamiHW.MorphCopy <> c1:181 var
+R11847:11847 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R11846:11846 KamiHW.MorphCopy <> j:180 var
+R11848:11849 KamiHW.MorphCopy <> c2:182 var
+R11876:11879 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11867:11868 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11864:11864 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11862:11863 KamiHW.MorphCopy <> a1:184 var
+R11865:11866 KamiHW.MorphCopy <> c1:181 var
+R11895:11899 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11886:11887 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11883:11883 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11881:11882 KamiHW.MorphCopy <> a2:185 var
+R11884:11885 KamiHW.MorphCopy <> c2:182 var
+R11961:11965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11900:11913 KamiHW.MorphCopy <> copy_registers rec
+R11915:11917 KamiHW.MorphCopy <> old:178 var
+R11919:11919 KamiHW.MorphCopy <> i:179 var
+R11921:11921 KamiHW.MorphCopy <> j:180 var
+R11923:11924 KamiHW.MorphCopy <> c1:181 var
+R11926:11927 KamiHW.MorphCopy <> c2:182 var
+R11929:11931 KamiHW.MorphCopy <> out:183 var
+R11933:11934 KamiHW.MorphCopy <> a1:184 var
+R11936:11937 KamiHW.MorphCopy <> a2:185 var
+R11939:11941 KamiHW.MorphCopy <> src:186 var
+R11943:11945 KamiHW.MorphCopy <> dst:187 var
+R11947:11951 KamiHW.MorphCopy <> valid:188 var
+R11953:11955 KamiHW.MorphCopy <> err:189 var
+R11957:11960 KamiHW.MorphCopy <> code:190 var
+R11966:11979 KamiHW.MorphCopy <> copy_registers rec
+R11982:11991 KamiHW.MorphCopy <> copy_state def
+R11993:11995 KamiHW.MorphCopy <> old:178 var
+R11997:11997 KamiHW.MorphCopy <> i:179 var
+R11999:11999 KamiHW.MorphCopy <> j:180 var
+R12001:12002 KamiHW.MorphCopy <> c1:181 var
+R12004:12005 KamiHW.MorphCopy <> c2:182 var
+R12007:12009 KamiHW.MorphCopy <> out:183 var
+R12011:12012 KamiHW.MorphCopy <> a1:184 var
+R12014:12015 KamiHW.MorphCopy <> a2:185 var
+R12017:12019 KamiHW.MorphCopy <> src:186 var
+R12021:12023 KamiHW.MorphCopy <> dst:187 var
+R12025:12029 KamiHW.MorphCopy <> valid:188 var
+R12031:12033 KamiHW.MorphCopy <> err:189 var
+R12035:12038 KamiHW.MorphCopy <> code:190 var
+R12043:12050 KamiHW.MorphCopy <> cursor_i def
+R12052:12052 KamiHW.MorphCopy <> i:179 var
+R12054:12055 KamiHW.MorphCopy <> c1:181 var
+R12059:12066 KamiHW.MorphCopy <> cursor_j def
+R12068:12068 KamiHW.MorphCopy <> i:179 var
+R12070:12070 KamiHW.MorphCopy <> j:180 var
+R12072:12073 KamiHW.MorphCopy <> c1:181 var
+R12076:12077 KamiHW.MorphCopy <> c1:181 var
+R12079:12080 KamiHW.MorphCopy <> c2:182 var
+R12083:12083 Coq.Init.Datatypes <> S constr
+R12085:12087 KamiHW.MorphCopy <> out:183 var
+R12090:12091 KamiHW.MorphCopy <> a1:184 var
+R12093:12094 KamiHW.MorphCopy <> a2:185 var
+R12098:12108 KamiHW.MorphCopy <> append_pair def
+R12110:12112 KamiHW.MorphCopy <> src:186 var
+R12114:12116 KamiHW.MorphCopy <> out:183 var
+R12119:12125 KamiHW.MorphCopy <> pair_at def
+R12127:12129 KamiHW.MorphCopy <> src:186 var
+R12132:12143 KamiHW.MorphCopy <> source_index def
+R12145:12145 KamiHW.MorphCopy <> i:179 var
+R12147:12147 KamiHW.MorphCopy <> j:180 var
+R12149:12150 KamiHW.MorphCopy <> c1:181 var
+R12152:12153 KamiHW.MorphCopy <> a1:184 var
+R12155:12156 KamiHW.MorphCopy <> a2:185 var
+R12163:12173 KamiHW.MorphCopy <> append_pair def
+R12175:12177 KamiHW.MorphCopy <> dst:187 var
+R12179:12181 KamiHW.MorphCopy <> out:183 var
+R12184:12190 KamiHW.MorphCopy <> pair_at def
+R12192:12194 KamiHW.MorphCopy <> dst:187 var
+R12197:12208 KamiHW.MorphCopy <> source_index def
+R12210:12210 KamiHW.MorphCopy <> i:179 var
+R12212:12212 KamiHW.MorphCopy <> j:180 var
+R12214:12215 KamiHW.MorphCopy <> c1:181 var
+R12217:12218 KamiHW.MorphCopy <> a1:184 var
+R12220:12221 KamiHW.MorphCopy <> a2:185 var
+R12228:12237 KamiHW.NormalizationSteps <> put_vector def
+R12276:12279 Coq.Init.Datatypes <> true constr
+R12246:12255 KamiHW.NormalizationSteps <> pair_index def
+R12258:12266 Kami.Lib.Word <> natToWord def
+R12270:12272 KamiHW.MorphCopy <> out:183 var
+R12239:12243 KamiHW.MorphCopy <> valid:188 var
+R12282:12284 KamiHW.MorphCopy <> err:189 var
+R12286:12289 KamiHW.MorphCopy <> code:190 var
+R12475:12477 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12400:12408 KamiHW.MorphCopy <> copy_done def
+R12411:12419 Kami.Lib.Word <> natToWord def
+R12427:12435 Kami.Lib.Word <> natToWord def
+R12443:12451 Kami.Lib.Word <> natToWord def
+R12460:12468 Kami.Lib.Word <> natToWord def
+R12478:12482 Coq.Init.Datatypes <> false constr
+R12475:12477 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12400:12408 KamiHW.MorphCopy <> copy_done def
+R12411:12419 Kami.Lib.Word <> natToWord def
+R12427:12435 Kami.Lib.Word <> natToWord def
+R12443:12451 Kami.Lib.Word <> natToWord def
+R12460:12468 Kami.Lib.Word <> natToWord def
+R12478:12482 Coq.Init.Datatypes <> false constr
+R12499:12513 Coq.Arith.PeanoNat Nat lt_ge_cases thm
+R12499:12513 Coq.Arith.PeanoNat Nat lt_ge_cases thm
+R12533:12557 KamiHW.MorphCopy <> copy_active_first_control thm
+R12533:12557 KamiHW.MorphCopy <> copy_active_first_control thm
+R12579:12579 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12605:12630 KamiHW.MorphCopy <> copy_active_second_control thm
+R12579:12579 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12605:12630 KamiHW.MorphCopy <> copy_active_second_control thm
+R12684:12686 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12657:12665 KamiHW.MorphCopy <> copy_full def
+R12668:12676 Kami.Lib.Word <> natToWord def
+R12687:12691 Coq.Init.Datatypes <> false constr
+R12684:12686 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12657:12665 KamiHW.MorphCopy <> copy_full def
+R12668:12676 Kami.Lib.Word <> natToWord def
+R12687:12691 Coq.Init.Datatypes <> false constr
+R12706:12718 KamiHW.MorphCopy <> copy_full_nat thm
+R12734:12744 Coq.Arith.PeanoNat Nat eqb_neq thm
+R12706:12718 KamiHW.MorphCopy <> copy_full_nat thm
+R12706:12718 KamiHW.MorphCopy <> copy_full_nat thm
+R12734:12744 Coq.Arith.PeanoNat Nat eqb_neq thm
+R12864:12866 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12770:12779 KamiHW.MorphCopy <> copy_index def
+R12782:12790 Kami.Lib.Word <> natToWord def
+R12798:12806 Kami.Lib.Word <> natToWord def
+R12814:12822 Kami.Lib.Word <> natToWord def
+R12832:12840 Kami.Lib.Word <> natToWord def
+R12849:12857 Kami.Lib.Word <> natToWord def
+R12867:12876 KamiHW.NormalizationSteps <> pair_index def
+R12879:12887 Kami.Lib.Word <> natToWord def
+R12892:12903 KamiHW.MorphCopy <> source_index def
+R12864:12866 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12770:12779 KamiHW.MorphCopy <> copy_index def
+R12782:12790 Kami.Lib.Word <> natToWord def
+R12798:12806 Kami.Lib.Word <> natToWord def
+R12814:12822 Kami.Lib.Word <> natToWord def
+R12832:12840 Kami.Lib.Word <> natToWord def
+R12849:12857 Kami.Lib.Word <> natToWord def
+R12867:12876 KamiHW.NormalizationSteps <> pair_index def
+R12879:12887 Kami.Lib.Word <> natToWord def
+R12892:12903 KamiHW.MorphCopy <> source_index def
+R12932:12943 KamiHW.MorphCopy <> source_index def
+R12956:12962 Coq.Arith.PeanoNat Nat ltb def
+R12956:12962 Coq.Arith.PeanoNat Nat ltb def
+R12988:12997 Coq.Arith.PeanoNat Nat ltb_lt thm
+R13011:13030 KamiHW.MorphCopy <> copy_index_first_nat thm
+R12988:12997 Coq.Arith.PeanoNat Nat ltb_lt thm
+R13011:13030 KamiHW.MorphCopy <> copy_index_first_nat thm
+R13049:13058 Coq.Arith.PeanoNat Nat ltb_ge thm
+R13073:13093 KamiHW.MorphCopy <> copy_index_second_nat thm
+R13049:13058 Coq.Arith.PeanoNat Nat ltb_ge thm
+R13073:13093 KamiHW.MorphCopy <> copy_index_second_nat thm
+R13167:13180 KamiHW.MorphCopy <> copy_footprint def
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13308:13321 KamiHW.MorphCopy <> copy_first_nat thm
+R13355:13358 Coq.Init.Datatypes <> andb def
+R13360:13362 Coq.Init.Datatypes <> orb def
+R13364:13367 Coq.Init.Datatypes <> negb def
+R13383:13393 Coq.Bool.Bool <> orb_false_r thm
+R13404:13411 KamiHW.MorphCopy <> cursor_i def
+R13414:13421 KamiHW.MorphCopy <> cursor_j def
+R13424:13434 KamiHW.MorphCopy <> append_pair def
+R13437:13443 KamiHW.MorphCopy <> pair_at def
+R13462:13475 Kami.Lib.Word <> natToWord_plus thm
+R13495:13495 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13509:13509 Coq.Init.Datatypes <> S constr
+R13539:13545 Coq.Arith.PeanoNat Nat ltb def
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13145:13154 KamiHW.MorphCopy <> copy_frame thm
+R13308:13321 KamiHW.MorphCopy <> copy_first_nat thm
+R13308:13321 KamiHW.MorphCopy <> copy_first_nat thm
+R13308:13321 KamiHW.MorphCopy <> copy_first_nat thm
+R13308:13321 KamiHW.MorphCopy <> copy_first_nat thm
+R13308:13321 KamiHW.MorphCopy <> copy_first_nat thm
+R13308:13321 KamiHW.MorphCopy <> copy_first_nat thm
+R13308:13321 KamiHW.MorphCopy <> copy_first_nat thm
+R13308:13321 KamiHW.MorphCopy <> copy_first_nat thm
+R13308:13321 KamiHW.MorphCopy <> copy_first_nat thm
+R13308:13321 KamiHW.MorphCopy <> copy_first_nat thm
+R13308:13321 KamiHW.MorphCopy <> copy_first_nat thm
+R13383:13393 Coq.Bool.Bool <> orb_false_r thm
+R13383:13393 Coq.Bool.Bool <> orb_false_r thm
+R13383:13393 Coq.Bool.Bool <> orb_false_r thm
+R13383:13393 Coq.Bool.Bool <> orb_false_r thm
+R13383:13393 Coq.Bool.Bool <> orb_false_r thm
+R13383:13393 Coq.Bool.Bool <> orb_false_r thm
+R13383:13393 Coq.Bool.Bool <> orb_false_r thm
+R13383:13393 Coq.Bool.Bool <> orb_false_r thm
+R13383:13393 Coq.Bool.Bool <> orb_false_r thm
+R13383:13393 Coq.Bool.Bool <> orb_false_r thm
+R13462:13475 Kami.Lib.Word <> natToWord_plus thm
+R13462:13475 Kami.Lib.Word <> natToWord_plus thm
+R13462:13475 Kami.Lib.Word <> natToWord_plus thm
+R13462:13475 Kami.Lib.Word <> natToWord_plus thm
+R13462:13475 Kami.Lib.Word <> natToWord_plus thm
+R13462:13475 Kami.Lib.Word <> natToWord_plus thm
+R13462:13475 Kami.Lib.Word <> natToWord_plus thm
+R13462:13475 Kami.Lib.Word <> natToWord_plus thm
+R13462:13475 Kami.Lib.Word <> natToWord_plus thm
+R13462:13475 Kami.Lib.Word <> natToWord_plus thm
+R13462:13475 Kami.Lib.Word <> natToWord_plus thm
+R13462:13475 Kami.Lib.Word <> natToWord_plus thm
+R13495:13495 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13509:13509 Coq.Init.Datatypes <> S constr
+R13495:13495 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13509:13509 Coq.Init.Datatypes <> S constr
+R13495:13495 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13509:13509 Coq.Init.Datatypes <> S constr
+R13495:13495 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13509:13509 Coq.Init.Datatypes <> S constr
+R13495:13495 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13509:13509 Coq.Init.Datatypes <> S constr
+R13495:13495 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13509:13509 Coq.Init.Datatypes <> S constr
+R13495:13495 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13509:13509 Coq.Init.Datatypes <> S constr
+R13495:13495 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13509:13509 Coq.Init.Datatypes <> S constr
+R13495:13495 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13509:13509 Coq.Init.Datatypes <> S constr
+R13539:13545 Coq.Arith.PeanoNat Nat ltb def
+R13539:13545 Coq.Arith.PeanoNat Nat ltb def
+R13539:13545 Coq.Arith.PeanoNat Nat ltb def
+R13539:13545 Coq.Arith.PeanoNat Nat ltb def
+R13539:13545 Coq.Arith.PeanoNat Nat ltb def
+R13539:13545 Coq.Arith.PeanoNat Nat ltb def
+R13539:13545 Coq.Arith.PeanoNat Nat ltb def
+R13539:13545 Coq.Arith.PeanoNat Nat ltb def
+R13539:13545 Coq.Arith.PeanoNat Nat ltb def
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13570:13583 Kami.Lib.Word <> natToWord_plus thm
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13601:13601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13615:13615 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+R13643:13643 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13657:13657 Coq.Init.Datatypes <> S constr
+def 13700:13709 <> low_agrees
+binder 13711:13711 <> b:191
+R13726:13734 KamiHW.NormalizationSteps <> PairTable def
+binder 13714:13718 <> table:192
+binder 13720:13722 <> raw:193
+binder 13747:13747 <> k:194
+R13759:13762 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13752:13752 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R13751:13751 KamiHW.MorphCopy <> k:194 var
+R13753:13753 KamiHW.MorphCopy <> b:191 var
+R13778:13780 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13763:13769 KamiHW.MorphCopy <> pair_at def
+R13771:13775 KamiHW.MorphCopy <> table:192 var
+R13777:13777 KamiHW.MorphCopy <> k:194 var
+R13781:13787 KamiHW.MorphCopy <> pair_at def
+R13789:13791 KamiHW.MorphCopy <> raw:193 var
+R13793:13793 KamiHW.MorphCopy <> k:194 var
+prf 13802:13826 <> append_pair_preserves_low
+binder 13837:13837 <> b:195
+binder 13839:13841 <> out:196
+binder 13843:13847 <> table:197
+binder 13849:13851 <> raw:198
+binder 13853:13857 <> value:199
+R13876:13879 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13863:13864 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<'_x not
+R13868:13868 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<'_x not
+R13862:13862 KamiHW.MorphCopy <> b:195 var
+R13865:13867 KamiHW.MorphCopy <> out:196 var
+R13865:13867 KamiHW.MorphCopy <> out:196 var
+R13902:13906 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13880:13889 KamiHW.MorphCopy <> low_agrees def
+R13891:13891 KamiHW.MorphCopy <> b:195 var
+R13893:13897 KamiHW.MorphCopy <> table:197 var
+R13899:13901 KamiHW.MorphCopy <> raw:198 var
+R13907:13916 KamiHW.MorphCopy <> low_agrees def
+R13918:13918 KamiHW.MorphCopy <> b:195 var
+R13921:13931 KamiHW.MorphCopy <> append_pair def
+R13933:13937 KamiHW.MorphCopy <> table:197 var
+R13939:13941 KamiHW.MorphCopy <> out:196 var
+R13943:13947 KamiHW.MorphCopy <> value:199 var
+R13950:13952 KamiHW.MorphCopy <> raw:198 var
+R14014:14020 KamiHW.MorphCopy <> pair_at def
+R14023:14033 KamiHW.MorphCopy <> append_pair def
+R14036:14045 KamiHW.NormalizationSteps <> put_vector def
+R14059:14061 Kami.Lib.Word <> weq def
+R14093:14102 KamiHW.NormalizationSteps <> pair_index def
+R14105:14113 Kami.Lib.Word <> natToWord def
+R14064:14073 KamiHW.NormalizationSteps <> pair_index def
+R14076:14084 Kami.Lib.Word <> natToWord def
+R14059:14061 Kami.Lib.Word <> weq def
+R14093:14102 KamiHW.NormalizationSteps <> pair_index def
+R14105:14113 Kami.Lib.Word <> natToWord def
+R14064:14073 KamiHW.NormalizationSteps <> pair_index def
+R14076:14084 Kami.Lib.Word <> natToWord def
+R14153:14187 KamiHW.NormalizationSteps <> normalization_distinct_pair_indices thm
+R14153:14187 KamiHW.NormalizationSteps <> normalization_distinct_pair_indices thm
+def 14280:14294 <> remaining_pairs
+binder 14296:14301 <> rawsrc:200
+binder 14303:14308 <> rawdst:201
+binder 14310:14311 <> a1:202
+binder 14313:14314 <> c1:203
+binder 14316:14317 <> a2:204
+binder 14319:14320 <> c2:205
+binder 14322:14322 <> i:206
+binder 14324:14324 <> j:207
+R14330:14337 Coq.Lists.List <> app abbrev
+R14383:14393 KamiHW.NormalizationLoop <> table_slice def
+R14395:14400 KamiHW.MorphCopy <> rawsrc:200 var
+R14402:14407 KamiHW.MorphCopy <> rawdst:201 var
+R14412:14412 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14410:14411 KamiHW.MorphCopy <> a2:204 var
+R14413:14413 KamiHW.MorphCopy <> j:207 var
+R14419:14419 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R14417:14418 KamiHW.MorphCopy <> c2:205 var
+R14420:14420 KamiHW.MorphCopy <> j:207 var
+R14340:14350 KamiHW.NormalizationLoop <> table_slice def
+R14352:14357 KamiHW.MorphCopy <> rawsrc:200 var
+R14359:14364 KamiHW.MorphCopy <> rawdst:201 var
+R14369:14369 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14367:14368 KamiHW.MorphCopy <> a1:202 var
+R14370:14370 KamiHW.MorphCopy <> i:206 var
+R14376:14376 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R14374:14375 KamiHW.MorphCopy <> c1:203 var
+R14377:14377 KamiHW.MorphCopy <> i:206 var
+prf 14431:14446 <> table_slice_cons
+binder 14457:14459 <> src:208
+binder 14461:14463 <> dst:209
+binder 14465:14469 <> start:210
+binder 14471:14471 <> n:211
+R14506:14509 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14475:14485 KamiHW.NormalizationLoop <> table_slice def
+R14487:14489 KamiHW.MorphCopy <> src:208 var
+R14491:14493 KamiHW.MorphCopy <> dst:209 var
+R14495:14499 KamiHW.MorphCopy <> start:210 var
+R14502:14502 Coq.Init.Datatypes <> S constr
+R14504:14504 KamiHW.MorphCopy <> n:211 var
+R14510:14513 Coq.Init.Datatypes <> cons constr
+R14543:14553 KamiHW.NormalizationLoop <> table_slice def
+R14555:14557 KamiHW.MorphCopy <> src:208 var
+R14559:14561 KamiHW.MorphCopy <> dst:209 var
+R14564:14564 Coq.Init.Datatypes <> S constr
+R14566:14570 KamiHW.MorphCopy <> start:210 var
+R14573:14573 KamiHW.MorphCopy <> n:211 var
+R14516:14525 KamiHW.NormalizationLoop <> table_pair def
+R14527:14529 KamiHW.MorphCopy <> src:208 var
+R14531:14533 KamiHW.MorphCopy <> dst:209 var
+R14535:14539 KamiHW.MorphCopy <> start:210 var
+prf 14608:14629 <> remaining_pairs_length
+binder 14640:14645 <> rawsrc:212
+binder 14647:14652 <> rawdst:213
+binder 14654:14655 <> a1:214
+binder 14657:14658 <> c1:215
+binder 14660:14661 <> a2:216
+binder 14663:14664 <> c2:217
+binder 14666:14666 <> i:218
+binder 14668:14668 <> j:219
+R14731:14733 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14672:14682 Coq.Lists.List <> length abbrev
+R14685:14699 KamiHW.MorphCopy <> remaining_pairs def
+R14701:14706 KamiHW.MorphCopy <> rawsrc:212 var
+R14708:14713 KamiHW.MorphCopy <> rawdst:213 var
+R14715:14716 KamiHW.MorphCopy <> a1:214 var
+R14718:14719 KamiHW.MorphCopy <> c1:215 var
+R14721:14722 KamiHW.MorphCopy <> a2:216 var
+R14724:14725 KamiHW.MorphCopy <> c2:217 var
+R14727:14727 KamiHW.MorphCopy <> i:218 var
+R14729:14729 KamiHW.MorphCopy <> j:219 var
+R14739:14740 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14745:14745 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14737:14737 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R14735:14736 KamiHW.MorphCopy <> c1:215 var
+R14738:14738 KamiHW.MorphCopy <> i:218 var
+R14743:14743 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R14741:14742 KamiHW.MorphCopy <> c2:217 var
+R14744:14744 KamiHW.MorphCopy <> j:219 var
+R14776:14790 KamiHW.MorphCopy <> remaining_pairs def
+R14793:14803 KamiHW.NormalizationLoop <> table_slice def
+R14814:14823 Coq.Lists.List <> app_length thm
+R14827:14836 Coq.Lists.List <> map_length thm
+R14840:14849 Coq.Lists.List <> seq_length thm
+R14814:14823 Coq.Lists.List <> app_length thm
+R14814:14823 Coq.Lists.List <> app_length thm
+R14827:14836 Coq.Lists.List <> map_length thm
+R14827:14836 Coq.Lists.List <> map_length thm
+R14827:14836 Coq.Lists.List <> map_length thm
+R14827:14836 Coq.Lists.List <> map_length thm
+R14840:14849 Coq.Lists.List <> seq_length thm
+R14840:14849 Coq.Lists.List <> seq_length thm
+R14840:14849 Coq.Lists.List <> seq_length thm
+R14840:14849 Coq.Lists.List <> seq_length thm
+prf 14876:14895 <> remaining_pairs_cons
+binder 14906:14911 <> rawsrc:220
+binder 14913:14918 <> rawdst:221
+binder 14920:14921 <> a1:222
+binder 14923:14924 <> c1:223
+binder 14926:14927 <> a2:224
+binder 14929:14930 <> c2:225
+binder 14932:14932 <> i:226
+binder 14934:14934 <> j:227
+R14949:14952 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14940:14941 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R14939:14939 KamiHW.MorphCopy <> i:226 var
+R14942:14943 KamiHW.MorphCopy <> c1:223 var
+R14964:14967 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14955:14956 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R14954:14954 KamiHW.MorphCopy <> j:227 var
+R14957:14958 KamiHW.MorphCopy <> c2:225 var
+R14990:14994 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14969:14969 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R14974:14979 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R14984:14984 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R14971:14971 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14970:14970 KamiHW.MorphCopy <> i:226 var
+R14972:14973 KamiHW.MorphCopy <> c1:223 var
+R14981:14981 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14980:14980 KamiHW.MorphCopy <> j:227 var
+R14982:14983 KamiHW.MorphCopy <> c2:225 var
+R15040:15043 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14995:15009 KamiHW.MorphCopy <> remaining_pairs def
+R15011:15016 KamiHW.MorphCopy <> rawsrc:220 var
+R15018:15023 KamiHW.MorphCopy <> rawdst:221 var
+R15025:15026 KamiHW.MorphCopy <> a1:222 var
+R15028:15029 KamiHW.MorphCopy <> c1:223 var
+R15031:15032 KamiHW.MorphCopy <> a2:224 var
+R15034:15035 KamiHW.MorphCopy <> c2:225 var
+R15037:15037 KamiHW.MorphCopy <> i:226 var
+R15039:15039 KamiHW.MorphCopy <> j:227 var
+R15044:15047 Coq.Init.Datatypes <> cons constr
+R15106:15120 KamiHW.MorphCopy <> remaining_pairs def
+R15122:15127 KamiHW.MorphCopy <> rawsrc:220 var
+R15129:15134 KamiHW.MorphCopy <> rawdst:221 var
+R15136:15137 KamiHW.MorphCopy <> a1:222 var
+R15139:15140 KamiHW.MorphCopy <> c1:223 var
+R15142:15143 KamiHW.MorphCopy <> a2:224 var
+R15145:15146 KamiHW.MorphCopy <> c2:225 var
+R15149:15156 KamiHW.MorphCopy <> cursor_i def
+R15158:15158 KamiHW.MorphCopy <> i:226 var
+R15160:15161 KamiHW.MorphCopy <> c1:223 var
+R15165:15172 KamiHW.MorphCopy <> cursor_j def
+R15174:15174 KamiHW.MorphCopy <> i:226 var
+R15176:15176 KamiHW.MorphCopy <> j:227 var
+R15178:15179 KamiHW.MorphCopy <> c1:223 var
+R15050:15059 KamiHW.NormalizationLoop <> table_pair def
+R15061:15066 KamiHW.MorphCopy <> rawsrc:220 var
+R15068:15073 KamiHW.MorphCopy <> rawdst:221 var
+R15076:15087 KamiHW.MorphCopy <> source_index def
+R15089:15089 KamiHW.MorphCopy <> i:226 var
+R15091:15091 KamiHW.MorphCopy <> j:227 var
+R15093:15094 KamiHW.MorphCopy <> c1:223 var
+R15096:15097 KamiHW.MorphCopy <> a1:222 var
+R15099:15100 KamiHW.MorphCopy <> a2:224 var
+R15207:15218 KamiHW.MorphCopy <> source_index def
+R15221:15228 KamiHW.MorphCopy <> cursor_i def
+R15231:15238 KamiHW.MorphCopy <> cursor_j def
+R15252:15258 Coq.Arith.PeanoNat Nat ltb def
+R15252:15258 Coq.Arith.PeanoNat Nat ltb def
+R15282:15291 Coq.Arith.PeanoNat Nat ltb_lt thm
+R15282:15291 Coq.Arith.PeanoNat Nat ltb_lt thm
+R15306:15320 KamiHW.MorphCopy <> remaining_pairs def
+R15337:15337 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15351:15351 Coq.Init.Datatypes <> S constr
+R15356:15356 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15357:15357 Coq.Init.Datatypes <> S constr
+R15337:15337 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15351:15351 Coq.Init.Datatypes <> S constr
+R15356:15356 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15357:15357 Coq.Init.Datatypes <> S constr
+R15382:15397 KamiHW.MorphCopy <> table_slice_cons thm
+R15382:15397 KamiHW.MorphCopy <> table_slice_cons thm
+R15382:15397 KamiHW.MorphCopy <> table_slice_cons thm
+R15406:15413 Coq.Init.Datatypes <> app def
+R15428:15428 Coq.Init.Datatypes <> S constr
+R15433:15433 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15450:15450 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15451:15451 Coq.Init.Datatypes <> S constr
+R15428:15428 Coq.Init.Datatypes <> S constr
+R15433:15433 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15450:15450 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15451:15451 Coq.Init.Datatypes <> S constr
+R15490:15499 Coq.Arith.PeanoNat Nat ltb_ge thm
+R15490:15499 Coq.Arith.PeanoNat Nat ltb_ge thm
+R15516:15516 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15516:15516 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15546:15560 KamiHW.MorphCopy <> remaining_pairs def
+R15571:15582 Coq.Arith.PeanoNat Nat sub_diag thm
+R15571:15582 Coq.Arith.PeanoNat Nat sub_diag thm
+R15571:15582 Coq.Arith.PeanoNat Nat sub_diag thm
+R15590:15600 KamiHW.NormalizationLoop <> table_slice def
+R15602:15604 Coq.Lists.List <> seq def
+R15606:15608 Coq.Lists.List <> map def
+R15610:15617 Coq.Init.Datatypes <> app def
+R15635:15635 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15649:15649 Coq.Init.Datatypes <> S constr
+R15654:15654 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15655:15655 Coq.Init.Datatypes <> S constr
+R15635:15635 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15649:15649 Coq.Init.Datatypes <> S constr
+R15654:15654 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15655:15655 Coq.Init.Datatypes <> S constr
+R15680:15695 KamiHW.MorphCopy <> table_slice_cons thm
+R15680:15695 KamiHW.MorphCopy <> table_slice_cons thm
+R15680:15695 KamiHW.MorphCopy <> table_slice_cons thm
+R15707:15707 Coq.Init.Datatypes <> S constr
+R15712:15712 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15729:15729 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15730:15730 Coq.Init.Datatypes <> S constr
+R15707:15707 Coq.Init.Datatypes <> S constr
+R15712:15712 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15729:15729 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15730:15730 Coq.Init.Datatypes <> S constr
+def 15774:15784 <> store_pairs
+R15795:15803 KamiHW.NormalizationSteps <> PairTable def
+binder 15787:15791 <> table:228
+binder 15806:15808 <> out:229
+R15819:15822 Coq.Init.Datatypes <> list ind
+R15832:15834 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15825:15828 Kami.Lib.Word <> word ind
+R15835:15838 Kami.Lib.Word <> word ind
+binder 15811:15815 <> pairs:230
+R15854:15857 Coq.Init.Datatypes <> bool ind
+binder 15846:15850 <> first:231
+R15862:15870 KamiHW.NormalizationSteps <> PairTable def
+R15882:15886 KamiHW.MorphCopy <> pairs:230 var
+R15896:15898 Coq.Init.Datatypes <> nil constr
+R15903:15907 KamiHW.MorphCopy <> table:228 var
+R15913:15914 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R15921:15931 KamiHW.MorphCopy <> store_pairs:232 def
+R16001:16005 KamiHW.MorphCopy <> first:231 var
+R15991:15991 Coq.Init.Datatypes <> S constr
+R15993:15995 KamiHW.MorphCopy <> out:229 var
+R15934:15944 KamiHW.MorphCopy <> append_pair def
+R15946:15950 KamiHW.MorphCopy <> table:228 var
+R15952:15954 KamiHW.MorphCopy <> out:229 var
+R15960:15964 KamiHW.MorphCopy <> first:231 var
+R15982:15984 Coq.Init.Datatypes <> snd def
+R15971:15973 Coq.Init.Datatypes <> fst def
+prf 16022:16040 <> copy_loop_execution
+binder 16051:16051 <> n:234
+binder 16053:16055 <> old:235
+binder 16057:16062 <> rawsrc:236
+binder 16064:16069 <> rawdst:237
+binder 16071:16073 <> src:238
+binder 16075:16077 <> dst:239
+binder 16079:16083 <> valid:240
+binder 16085:16087 <> err:241
+binder 16089:16092 <> code:242
+binder 16095:16095 <> b:243
+binder 16097:16099 <> out:244
+binder 16101:16101 <> i:245
+binder 16103:16103 <> j:246
+binder 16105:16106 <> c1:247
+binder 16108:16109 <> c2:248
+binder 16111:16112 <> a1:249
+binder 16114:16115 <> a2:250
+R16138:16142 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16131:16131 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16124:16125 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16130:16130 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16122:16122 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R16120:16121 KamiHW.MorphCopy <> c1:247 var
+R16123:16123 KamiHW.MorphCopy <> i:245 var
+R16128:16128 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R16126:16127 KamiHW.MorphCopy <> c2:248 var
+R16129:16129 KamiHW.MorphCopy <> j:246 var
+R16132:16132 KamiHW.MorphCopy <> n:234 var
+R16158:16161 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16145:16146 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R16149:16150 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R16144:16144 KamiHW.MorphCopy <> i:245 var
+R16147:16148 KamiHW.MorphCopy <> c1:247 var
+R16147:16148 KamiHW.MorphCopy <> c1:247 var
+R16177:16181 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16164:16165 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R16168:16169 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R16163:16163 KamiHW.MorphCopy <> j:246 var
+R16166:16167 KamiHW.MorphCopy <> c2:248 var
+R16166:16167 KamiHW.MorphCopy <> c2:248 var
+R16194:16197 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16184:16185 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R16183:16183 KamiHW.MorphCopy <> b:243 var
+R16186:16188 KamiHW.MorphCopy <> out:244 var
+R16213:16217 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16204:16205 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R16202:16202 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16199:16201 KamiHW.MorphCopy <> out:244 var
+R16203:16203 KamiHW.MorphCopy <> n:234 var
+R16232:16235 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16224:16225 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R16221:16221 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16219:16220 KamiHW.MorphCopy <> a1:249 var
+R16222:16223 KamiHW.MorphCopy <> c1:247 var
+R16226:16226 KamiHW.MorphCopy <> b:243 var
+R16250:16254 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16242:16243 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R16239:16239 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16237:16238 KamiHW.MorphCopy <> a2:250 var
+R16240:16241 KamiHW.MorphCopy <> c2:248 var
+R16244:16244 KamiHW.MorphCopy <> b:243 var
+R16278:16281 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16255:16264 KamiHW.MorphCopy <> low_agrees def
+R16266:16266 KamiHW.MorphCopy <> b:243 var
+R16268:16270 KamiHW.MorphCopy <> src:238 var
+R16272:16277 KamiHW.MorphCopy <> rawsrc:236 var
+R16305:16309 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16282:16291 KamiHW.MorphCopy <> low_agrees def
+R16293:16293 KamiHW.MorphCopy <> b:243 var
+R16295:16297 KamiHW.MorphCopy <> dst:239 var
+R16299:16304 KamiHW.MorphCopy <> rawdst:237 var
+R16371:16375 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16310:16323 KamiHW.MorphCopy <> copy_registers rec
+R16325:16327 KamiHW.MorphCopy <> old:235 var
+R16329:16329 KamiHW.MorphCopy <> i:245 var
+R16331:16331 KamiHW.MorphCopy <> j:246 var
+R16333:16334 KamiHW.MorphCopy <> c1:247 var
+R16336:16337 KamiHW.MorphCopy <> c2:248 var
+R16339:16341 KamiHW.MorphCopy <> out:244 var
+R16343:16344 KamiHW.MorphCopy <> a1:249 var
+R16346:16347 KamiHW.MorphCopy <> a2:250 var
+R16349:16351 KamiHW.MorphCopy <> src:238 var
+R16353:16355 KamiHW.MorphCopy <> dst:239 var
+R16357:16361 KamiHW.MorphCopy <> valid:240 var
+R16363:16365 KamiHW.MorphCopy <> err:241 var
+R16367:16370 KamiHW.MorphCopy <> code:242 var
+R16376:16382 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16388:16390 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16383:16387 <> final:251
+R16473:16477 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16391:16399 Kami.Semantics <> Multistep ind
+R16423:16428 Coq.Lists.List <> repeat def
+R16468:16468 Coq.Init.Datatypes <> S constr
+R16470:16470 KamiHW.MorphCopy <> n:234 var
+R16431:16449 KamiHW.NormalizationExecution <> normalization_label def
+R16416:16420 KamiHW.MorphCopy <> final:251 var
+R16412:16414 KamiHW.MorphCopy <> old:235 var
+R16401:16410 KamiHW.ThieleCPUCore <> thieleCore def
+R16531:16535 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16501:16503 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16478:16483 Kami.Lib.FMap M find def
+R16496:16500 KamiHW.MorphCopy <> final:251 var
+R16504:16507 Coq.Init.Datatypes <> Some constr
+R16510:16513 KamiHW.NormalizationStart <> reg4 def
+R16516:16524 Kami.Lib.Word <> natToWord def
+R16599:16603 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16563:16565 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16536:16541 Kami.Lib.FMap M find def
+R16558:16562 KamiHW.MorphCopy <> final:251 var
+R16566:16569 Coq.Init.Datatypes <> Some constr
+R16572:16575 KamiHW.NormalizationStart <> reg5 def
+R16578:16586 Kami.Lib.Word <> natToWord def
+R16594:16594 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16591:16593 KamiHW.MorphCopy <> out:244 var
+R16595:16595 KamiHW.MorphCopy <> n:234 var
+R16654:16658 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16623:16625 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16604:16609 Kami.Lib.FMap M find def
+R16618:16622 KamiHW.MorphCopy <> final:251 var
+R16626:16629 Coq.Init.Datatypes <> Some constr
+R16632:16635 KamiHW.NormalizationStart <> reg5 def
+R16638:16646 Kami.Lib.Word <> natToWord def
+R16650:16651 KamiHW.MorphCopy <> c1:247 var
+R16713:16717 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16678:16680 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16659:16664 Kami.Lib.FMap M find def
+R16673:16677 KamiHW.MorphCopy <> final:251 var
+R16681:16684 Coq.Init.Datatypes <> Some constr
+R16687:16690 KamiHW.NormalizationStart <> reg5 def
+R16693:16701 Kami.Lib.Word <> natToWord def
+R16706:16706 Coq.Init.Datatypes <> S constr
+R16708:16709 KamiHW.MorphCopy <> c2:248 var
+R16850:16854 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16756:16759 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16718:16723 Kami.Lib.FMap M find def
+R16751:16755 KamiHW.MorphCopy <> final:251 var
+R16760:16763 Coq.Init.Datatypes <> Some constr
+R16766:16773 KamiHW.NormalizationSteps <> regpairs def
+R16776:16786 KamiHW.MorphCopy <> store_pairs def
+R16788:16790 KamiHW.MorphCopy <> src:238 var
+R16792:16794 KamiHW.MorphCopy <> out:244 var
+R16797:16811 KamiHW.MorphCopy <> remaining_pairs def
+R16813:16818 KamiHW.MorphCopy <> rawsrc:236 var
+R16820:16825 KamiHW.MorphCopy <> rawdst:237 var
+R16827:16828 KamiHW.MorphCopy <> a1:249 var
+R16830:16831 KamiHW.MorphCopy <> c1:247 var
+R16833:16834 KamiHW.MorphCopy <> a2:250 var
+R16836:16837 KamiHW.MorphCopy <> c2:248 var
+R16839:16839 KamiHW.MorphCopy <> i:245 var
+R16841:16841 KamiHW.MorphCopy <> j:246 var
+R16844:16847 Coq.Init.Datatypes <> true constr
+R16988:16992 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16893:16896 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16855:16860 Kami.Lib.FMap M find def
+R16888:16892 KamiHW.MorphCopy <> final:251 var
+R16897:16900 Coq.Init.Datatypes <> Some constr
+R16903:16910 KamiHW.NormalizationSteps <> regpairs def
+R16913:16923 KamiHW.MorphCopy <> store_pairs def
+R16925:16927 KamiHW.MorphCopy <> dst:239 var
+R16929:16931 KamiHW.MorphCopy <> out:244 var
+R16934:16948 KamiHW.MorphCopy <> remaining_pairs def
+R16950:16955 KamiHW.MorphCopy <> rawsrc:236 var
+R16957:16962 KamiHW.MorphCopy <> rawdst:237 var
+R16964:16965 KamiHW.MorphCopy <> a1:249 var
+R16967:16968 KamiHW.MorphCopy <> c1:247 var
+R16970:16971 KamiHW.MorphCopy <> a2:250 var
+R16973:16974 KamiHW.MorphCopy <> c2:248 var
+R16976:16976 KamiHW.MorphCopy <> i:245 var
+R16978:16978 KamiHW.MorphCopy <> j:246 var
+R16981:16985 Coq.Init.Datatypes <> false constr
+R17032:17036 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17011:17013 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16993:16998 Kami.Lib.FMap M find def
+R17006:17010 KamiHW.MorphCopy <> final:251 var
+R17014:17017 Coq.Init.Datatypes <> Some constr
+R17020:17026 KamiHW.NormalizationStart <> regbool def
+R17028:17030 KamiHW.MorphCopy <> err:241 var
+R17082:17087 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17160:17160 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17062:17064 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17037:17042 Kami.Lib.FMap M find def
+R17057:17061 KamiHW.MorphCopy <> final:251 var
+R17065:17068 Coq.Init.Datatypes <> Some constr
+R17071:17075 KamiHW.MorphLoading <> reg32 def
+R17077:17080 KamiHW.MorphCopy <> code:242 var
+binder 17095:17097 <> key:252
+R17123:17126 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17100:17101 Coq.Init.Logic <> ::type_scope:'~'_x not
+R17102:17103 Coq.Lists.List <> In def
+R17109:17122 KamiHW.MorphCopy <> copy_footprint def
+R17105:17107 KamiHW.MorphCopy <> key:252 var
+R17143:17145 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17127:17132 Kami.Lib.FMap M find def
+R17138:17142 KamiHW.MorphCopy <> final:251 var
+R17134:17136 KamiHW.MorphCopy <> key:252 var
+R17146:17151 Kami.Lib.FMap M find def
+R17157:17159 KamiHW.MorphCopy <> old:235 var
+R17153:17155 KamiHW.MorphCopy <> key:252 var
+R17321:17321 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17321:17321 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17343:17343 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17343:17343 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17378:17387 KamiHW.MorphCopy <> copy_state def
+R17378:17387 KamiHW.MorphCopy <> copy_state def
+R17457:17477 KamiHW.MorphCopy <> copy_actual_execution thm
+R17457:17477 KamiHW.MorphCopy <> copy_actual_execution thm
+R17505:17524 KamiHW.MorphCopy <> copy_terminal_result thm
+R17505:17524 KamiHW.MorphCopy <> copy_terminal_result thm
+R17654:17668 KamiHW.MorphCopy <> remaining_pairs def
+R17680:17691 Coq.Arith.PeanoNat Nat sub_diag thm
+R17699:17709 KamiHW.NormalizationLoop <> table_slice def
+R17711:17713 Coq.Lists.List <> seq def
+R17715:17717 Coq.Lists.List <> map def
+R17719:17726 Coq.Init.Datatypes <> app def
+R17728:17738 KamiHW.MorphCopy <> store_pairs def
+R17680:17691 Coq.Arith.PeanoNat Nat sub_diag thm
+R17680:17691 Coq.Arith.PeanoNat Nat sub_diag thm
+R17680:17691 Coq.Arith.PeanoNat Nat sub_diag thm
+R17680:17691 Coq.Arith.PeanoNat Nat sub_diag thm
+R17753:17763 Coq.Arith.PeanoNat Nat add_0_r thm
+R17753:17763 Coq.Arith.PeanoNat Nat add_0_r thm
+R17753:17763 Coq.Arith.PeanoNat Nat add_0_r thm
+R17801:17810 KamiHW.MorphCopy <> copy_frame thm
+R17801:17810 KamiHW.MorphCopy <> copy_frame thm
+R17835:17835 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R17840:17845 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R17850:17850 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R17837:17837 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17847:17847 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17835:17835 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R17840:17845 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R17850:17850 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R17837:17837 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17847:17847 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17910:17912 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17885:17896 KamiHW.MorphCopy <> source_index def
+R17910:17912 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17885:17896 KamiHW.MorphCopy <> source_index def
+R17934:17945 KamiHW.MorphCopy <> source_index def
+R17958:17964 Coq.Arith.PeanoNat Nat ltb def
+R17991:18000 Coq.Arith.PeanoNat Nat ltb_lt thm
+R18013:18022 Coq.Arith.PeanoNat Nat ltb_ge thm
+R17958:17964 Coq.Arith.PeanoNat Nat ltb def
+R17991:18000 Coq.Arith.PeanoNat Nat ltb_lt thm
+R18013:18022 Coq.Arith.PeanoNat Nat ltb_ge thm
+R18054:18065 KamiHW.MorphCopy <> source_index def
+R18054:18065 KamiHW.MorphCopy <> source_index def
+R18099:18108 KamiHW.MorphCopy <> copy_state def
+R18099:18108 KamiHW.MorphCopy <> copy_state def
+R18176:18186 KamiHW.MorphCopy <> append_pair def
+R18197:18203 KamiHW.MorphCopy <> pair_at def
+R18176:18186 KamiHW.MorphCopy <> append_pair def
+R18197:18203 KamiHW.MorphCopy <> pair_at def
+R18236:18246 KamiHW.MorphCopy <> append_pair def
+R18257:18263 KamiHW.MorphCopy <> pair_at def
+R18236:18246 KamiHW.MorphCopy <> append_pair def
+R18257:18263 KamiHW.MorphCopy <> pair_at def
+R18298:18307 KamiHW.NormalizationSteps <> put_vector def
+R18346:18349 Coq.Init.Datatypes <> true constr
+R18316:18325 KamiHW.NormalizationSteps <> pair_index def
+R18328:18336 Kami.Lib.Word <> natToWord def
+R18298:18307 KamiHW.NormalizationSteps <> put_vector def
+R18346:18349 Coq.Init.Datatypes <> true constr
+R18316:18325 KamiHW.NormalizationSteps <> pair_index def
+R18328:18336 Kami.Lib.Word <> natToWord def
+R18372:18385 KamiHW.MorphCopy <> copy_registers rec
+R18393:18400 KamiHW.MorphCopy <> cursor_i def
+R18409:18416 KamiHW.MorphCopy <> cursor_j def
+R18437:18437 Coq.Init.Datatypes <> S constr
+R18372:18385 KamiHW.MorphCopy <> copy_registers rec
+R18393:18400 KamiHW.MorphCopy <> cursor_i def
+R18409:18416 KamiHW.MorphCopy <> cursor_j def
+R18437:18437 Coq.Init.Datatypes <> S constr
+R18495:18515 KamiHW.MorphCopy <> copy_active_registers thm
+R18495:18515 KamiHW.MorphCopy <> copy_active_registers thm
+R18741:18741 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18720:18721 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R18740:18740 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R18706:18706 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R18707:18714 KamiHW.MorphCopy <> cursor_i def
+R18724:18724 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R18725:18732 KamiHW.MorphCopy <> cursor_j def
+R18741:18741 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18720:18721 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R18740:18740 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R18706:18706 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R18707:18714 KamiHW.MorphCopy <> cursor_i def
+R18724:18724 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R18725:18732 KamiHW.MorphCopy <> cursor_j def
+R18763:18770 KamiHW.MorphCopy <> cursor_i def
+R18773:18780 KamiHW.MorphCopy <> cursor_j def
+R18793:18799 Coq.Arith.PeanoNat Nat ltb def
+R18826:18835 Coq.Arith.PeanoNat Nat ltb_lt thm
+R18848:18857 Coq.Arith.PeanoNat Nat ltb_ge thm
+R18793:18799 Coq.Arith.PeanoNat Nat ltb def
+R18826:18835 Coq.Arith.PeanoNat Nat ltb_lt thm
+R18848:18857 Coq.Arith.PeanoNat Nat ltb_ge thm
+R18907:18908 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R18911:18912 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R18894:18901 KamiHW.MorphCopy <> cursor_i def
+R18907:18908 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R18911:18912 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R18894:18901 KamiHW.MorphCopy <> cursor_i def
+R18935:18942 KamiHW.MorphCopy <> cursor_i def
+R18955:18961 Coq.Arith.PeanoNat Nat ltb def
+R18988:18997 Coq.Arith.PeanoNat Nat ltb_lt thm
+R19010:19019 Coq.Arith.PeanoNat Nat ltb_ge thm
+R18955:18961 Coq.Arith.PeanoNat Nat ltb def
+R18988:18997 Coq.Arith.PeanoNat Nat ltb_lt thm
+R19010:19019 Coq.Arith.PeanoNat Nat ltb_ge thm
+R19071:19072 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R19075:19076 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R19056:19063 KamiHW.MorphCopy <> cursor_j def
+R19071:19072 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R19075:19076 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R19056:19063 KamiHW.MorphCopy <> cursor_j def
+R19099:19106 KamiHW.MorphCopy <> cursor_j def
+R19119:19125 Coq.Arith.PeanoNat Nat ltb def
+R19152:19161 Coq.Arith.PeanoNat Nat ltb_lt thm
+R19174:19183 Coq.Arith.PeanoNat Nat ltb_ge thm
+R19119:19125 Coq.Arith.PeanoNat Nat ltb def
+R19152:19161 Coq.Arith.PeanoNat Nat ltb_lt thm
+R19174:19183 Coq.Arith.PeanoNat Nat ltb_ge thm
+R19263:19263 Coq.Init.Datatypes <> S constr
+R19275:19282 KamiHW.MorphCopy <> cursor_i def
+R19291:19298 KamiHW.MorphCopy <> cursor_j def
+R19380:19404 KamiHW.MorphCopy <> append_pair_preserves_low thm
+R19448:19472 KamiHW.MorphCopy <> append_pair_preserves_low thm
+R19263:19263 Coq.Init.Datatypes <> S constr
+R19275:19282 KamiHW.MorphCopy <> cursor_i def
+R19291:19298 KamiHW.MorphCopy <> cursor_j def
+R19380:19404 KamiHW.MorphCopy <> append_pair_preserves_low thm
+R19448:19472 KamiHW.MorphCopy <> append_pair_preserves_low thm
+R19628:19628 Coq.Init.Datatypes <> S constr
+R19631:19631 Coq.Init.Datatypes <> S constr
+R19646:19646 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19643:19643 Coq.Init.Datatypes <> S constr
+R19628:19628 Coq.Init.Datatypes <> S constr
+R19631:19631 Coq.Init.Datatypes <> S constr
+R19646:19646 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19643:19643 Coq.Init.Datatypes <> S constr
+R19670:19679 Coq.Lists.List <> repeat_app thm
+R19687:19692 Coq.Lists.List <> repeat def
+R19670:19679 Coq.Lists.List <> repeat_app thm
+R19670:19679 Coq.Lists.List <> repeat_app thm
+R19708:19736 KamiHW.NormalizationRetirement <> normalization_multistep_trans thm
+R19746:19766 KamiHW.MorphCopy <> copy_actual_execution thm
+R19708:19736 KamiHW.NormalizationRetirement <> normalization_multistep_trans thm
+R19746:19766 KamiHW.MorphCopy <> copy_actual_execution thm
+R19836:19836 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19837:19837 Coq.Init.Datatypes <> S constr
+R19857:19857 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19852:19852 Coq.Init.Datatypes <> S constr
+R19836:19836 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19837:19837 Coq.Init.Datatypes <> S constr
+R19857:19857 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19852:19852 Coq.Init.Datatypes <> S constr
+R19953:19972 KamiHW.MorphCopy <> remaining_pairs_cons thm
+R19953:19972 KamiHW.MorphCopy <> remaining_pairs_cons thm
+R19953:19972 KamiHW.MorphCopy <> remaining_pairs_cons thm
+R20015:20034 KamiHW.MorphCopy <> remaining_pairs_cons thm
+R20015:20034 KamiHW.MorphCopy <> remaining_pairs_cons thm
+R20015:20034 KamiHW.MorphCopy <> remaining_pairs_cons thm
+R20159:20168 KamiHW.MorphCopy <> copy_frame thm
+R20159:20168 KamiHW.MorphCopy <> copy_frame thm
+prf 20195:20215 <> store_pairs_untouched
+binder 20226:20230 <> pairs:253
+binder 20232:20236 <> table:254
+binder 20238:20240 <> out:255
+binder 20242:20246 <> first:256
+binder 20248:20248 <> k:257
+R20283:20286 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20274:20275 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R20256:20256 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R20253:20255 KamiHW.MorphCopy <> out:255 var
+R20257:20267 Coq.Lists.List <> length abbrev
+R20269:20273 KamiHW.MorphCopy <> pairs:253 var
+R20297:20300 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20289:20289 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R20288:20288 KamiHW.MorphCopy <> k:257 var
+R20344:20348 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20302:20302 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R20308:20313 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R20338:20338 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R20304:20304 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R20303:20303 KamiHW.MorphCopy <> k:257 var
+R20305:20307 KamiHW.MorphCopy <> out:255 var
+R20335:20336 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R20317:20317 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R20314:20316 KamiHW.MorphCopy <> out:255 var
+R20318:20328 Coq.Lists.List <> length abbrev
+R20330:20334 KamiHW.MorphCopy <> pairs:253 var
+R20337:20337 KamiHW.MorphCopy <> k:257 var
+R20394:20396 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20349:20355 KamiHW.MorphCopy <> pair_at def
+R20358:20368 KamiHW.MorphCopy <> store_pairs def
+R20370:20374 KamiHW.MorphCopy <> table:254 var
+R20376:20378 KamiHW.MorphCopy <> out:255 var
+R20380:20384 KamiHW.MorphCopy <> pairs:253 var
+R20386:20390 KamiHW.MorphCopy <> first:256 var
+R20393:20393 KamiHW.MorphCopy <> k:257 var
+R20397:20403 KamiHW.MorphCopy <> pair_at def
+R20405:20409 KamiHW.MorphCopy <> table:254 var
+R20411:20411 KamiHW.MorphCopy <> k:257 var
+R20495:20505 KamiHW.MorphCopy <> store_pairs def
+R20571:20577 KamiHW.MorphCopy <> pair_at def
+R20580:20590 KamiHW.MorphCopy <> append_pair def
+R20593:20602 KamiHW.NormalizationSteps <> put_vector def
+R20618:20620 Kami.Lib.Word <> weq def
+R20652:20661 KamiHW.NormalizationSteps <> pair_index def
+R20664:20672 Kami.Lib.Word <> natToWord def
+R20623:20632 KamiHW.NormalizationSteps <> pair_index def
+R20635:20643 Kami.Lib.Word <> natToWord def
+R20618:20620 Kami.Lib.Word <> weq def
+R20652:20661 KamiHW.NormalizationSteps <> pair_index def
+R20664:20672 Kami.Lib.Word <> natToWord def
+R20623:20632 KamiHW.NormalizationSteps <> pair_index def
+R20635:20643 Kami.Lib.Word <> natToWord def
+R20714:20748 KamiHW.NormalizationSteps <> normalization_distinct_pair_indices thm
+R20714:20748 KamiHW.NormalizationSteps <> normalization_distinct_pair_indices thm
+prf 20853:20870 <> store_pairs_target
+binder 20881:20885 <> pairs:258
+binder 20887:20887 <> p:259
+binder 20889:20893 <> table:260
+binder 20895:20897 <> out:261
+binder 20899:20903 <> first:262
+R20942:20946 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20933:20934 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R20911:20911 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R20908:20910 KamiHW.MorphCopy <> out:261 var
+R20912:20912 Coq.Init.Datatypes <> S constr
+R20915:20925 Coq.Lists.List <> length abbrev
+R20927:20931 KamiHW.MorphCopy <> pairs:258 var
+R20999:21001 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20947:20953 KamiHW.MorphCopy <> pair_at def
+R20956:20966 KamiHW.MorphCopy <> store_pairs def
+R20968:20972 KamiHW.MorphCopy <> table:260 var
+R20974:20976 KamiHW.MorphCopy <> out:261 var
+R20980:20981 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R20979:20979 KamiHW.MorphCopy <> p:259 var
+R20982:20986 KamiHW.MorphCopy <> pairs:258 var
+R20989:20993 KamiHW.MorphCopy <> first:262 var
+R20996:20998 KamiHW.MorphCopy <> out:261 var
+R21005:21009 KamiHW.MorphCopy <> first:262 var
+R21027:21029 Coq.Init.Datatypes <> snd def
+R21031:21031 KamiHW.MorphCopy <> p:259 var
+R21016:21018 Coq.Init.Datatypes <> fst def
+R21020:21020 KamiHW.MorphCopy <> p:259 var
+R21055:21065 KamiHW.MorphCopy <> store_pairs def
+R21077:21097 KamiHW.MorphCopy <> store_pairs_untouched thm
+R21077:21097 KamiHW.MorphCopy <> store_pairs_untouched thm
+R21077:21097 KamiHW.MorphCopy <> store_pairs_untouched thm
+R21115:21121 KamiHW.MorphCopy <> pair_at def
+R21124:21134 KamiHW.MorphCopy <> append_pair def
+R21137:21146 KamiHW.NormalizationSteps <> put_vector def
+R21160:21162 Kami.Lib.Word <> weq def
+R21196:21205 KamiHW.NormalizationSteps <> pair_index def
+R21208:21216 Kami.Lib.Word <> natToWord def
+R21165:21174 KamiHW.NormalizationSteps <> pair_index def
+R21177:21185 Kami.Lib.Word <> natToWord def
+R21160:21162 Kami.Lib.Word <> weq def
+R21196:21205 KamiHW.NormalizationSteps <> pair_index def
+R21208:21216 Kami.Lib.Word <> natToWord def
+R21165:21174 KamiHW.NormalizationSteps <> pair_index def
+R21177:21185 Kami.Lib.Word <> natToWord def
+prf 21271:21287 <> store_pairs_slice
+binder 21298:21302 <> pairs:263
+binder 21304:21306 <> src:264
+binder 21308:21310 <> dst:265
+binder 21312:21314 <> out:266
+R21349:21353 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21340:21341 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R21322:21322 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21319:21321 KamiHW.MorphCopy <> out:266 var
+R21323:21333 Coq.Lists.List <> length abbrev
+R21335:21339 KamiHW.MorphCopy <> pairs:263 var
+R21457:21459 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21354:21364 KamiHW.NormalizationLoop <> table_slice def
+R21367:21377 KamiHW.MorphCopy <> store_pairs def
+R21379:21381 KamiHW.MorphCopy <> src:264 var
+R21383:21385 KamiHW.MorphCopy <> out:266 var
+R21387:21391 KamiHW.MorphCopy <> pairs:263 var
+R21393:21396 Coq.Init.Datatypes <> true constr
+R21400:21410 KamiHW.MorphCopy <> store_pairs def
+R21412:21414 KamiHW.MorphCopy <> dst:265 var
+R21416:21418 KamiHW.MorphCopy <> out:266 var
+R21420:21424 KamiHW.MorphCopy <> pairs:263 var
+R21426:21430 Coq.Init.Datatypes <> false constr
+R21434:21436 KamiHW.MorphCopy <> out:266 var
+R21439:21449 Coq.Lists.List <> length abbrev
+R21451:21455 KamiHW.MorphCopy <> pairs:263 var
+R21460:21464 KamiHW.MorphCopy <> pairs:263 var
+R21555:21565 Coq.Init.Datatypes <> length def
+R21577:21592 KamiHW.MorphCopy <> table_slice_cons thm
+R21577:21592 KamiHW.MorphCopy <> table_slice_cons thm
+R21577:21592 KamiHW.MorphCopy <> table_slice_cons thm
+R21835:21837 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21604:21607 Coq.Init.Datatypes <> cons constr
+R21718:21728 KamiHW.NormalizationLoop <> table_slice def
+R21731:21741 KamiHW.MorphCopy <> store_pairs def
+R21757:21758 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R21752:21752 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21754:21754 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21756:21756 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21763:21766 Coq.Init.Datatypes <> true constr
+R21771:21781 KamiHW.MorphCopy <> store_pairs def
+R21797:21798 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R21792:21792 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21794:21794 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21796:21796 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21803:21807 Coq.Init.Datatypes <> false constr
+R21811:21811 Coq.Init.Datatypes <> S constr
+R21819:21829 Coq.Lists.List <> length abbrev
+R21609:21609 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21660:21662 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21714:21714 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21610:21616 KamiHW.MorphCopy <> pair_at def
+R21619:21629 KamiHW.MorphCopy <> store_pairs def
+R21645:21646 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R21640:21640 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21642:21642 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21644:21644 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21651:21654 Coq.Init.Datatypes <> true constr
+R21663:21669 KamiHW.MorphCopy <> pair_at def
+R21672:21682 KamiHW.MorphCopy <> store_pairs def
+R21698:21699 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R21693:21693 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21695:21695 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21697:21697 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21704:21708 Coq.Init.Datatypes <> false constr
+R21843:21844 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R21838:21838 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21840:21840 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21842:21842 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21835:21837 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21604:21607 Coq.Init.Datatypes <> cons constr
+R21718:21728 KamiHW.NormalizationLoop <> table_slice def
+R21731:21741 KamiHW.MorphCopy <> store_pairs def
+R21757:21758 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R21752:21752 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21754:21754 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21756:21756 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21763:21766 Coq.Init.Datatypes <> true constr
+R21771:21781 KamiHW.MorphCopy <> store_pairs def
+R21797:21798 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R21792:21792 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21794:21794 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21796:21796 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21803:21807 Coq.Init.Datatypes <> false constr
+R21811:21811 Coq.Init.Datatypes <> S constr
+R21819:21829 Coq.Lists.List <> length abbrev
+R21609:21609 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21660:21662 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21714:21714 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21610:21616 KamiHW.MorphCopy <> pair_at def
+R21619:21629 KamiHW.MorphCopy <> store_pairs def
+R21645:21646 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R21640:21640 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21642:21642 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21644:21644 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21651:21654 Coq.Init.Datatypes <> true constr
+R21663:21669 KamiHW.MorphCopy <> pair_at def
+R21672:21682 KamiHW.MorphCopy <> store_pairs def
+R21698:21699 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R21693:21693 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21695:21695 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21697:21697 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21704:21708 Coq.Init.Datatypes <> false constr
+R21843:21844 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R21838:21838 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21840:21840 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21842:21842 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21860:21877 KamiHW.MorphCopy <> store_pairs_target thm
+R21860:21877 KamiHW.MorphCopy <> store_pairs_target thm
+R21860:21877 KamiHW.MorphCopy <> store_pairs_target thm
+R21860:21877 KamiHW.MorphCopy <> store_pairs_target thm
+R21860:21877 KamiHW.MorphCopy <> store_pairs_target thm
+R21897:21899 Coq.Init.Datatypes <> fst def
+R21901:21903 Coq.Init.Datatypes <> snd def
+R21905:21915 KamiHW.MorphCopy <> store_pairs def
+prf 21981:22001 <> copy_admitted_loading
+binder 22012:22014 <> old:267
+binder 22016:22016 <> b:268
+binder 22018:22019 <> a1:269
+binder 22021:22022 <> c1:270
+binder 22024:22025 <> a2:271
+binder 22027:22028 <> c2:272
+binder 22030:22032 <> src:273
+binder 22034:22036 <> dst:274
+binder 22038:22042 <> valid:275
+binder 22044:22046 <> err:276
+binder 22048:22051 <> code:277
+R22072:22075 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22063:22064 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R22060:22060 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R22057:22057 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R22056:22056 KamiHW.MorphCopy <> b:268 var
+R22058:22059 KamiHW.MorphCopy <> c1:270 var
+R22061:22062 KamiHW.MorphCopy <> c2:272 var
+R22090:22093 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22082:22083 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R22079:22079 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R22077:22078 KamiHW.MorphCopy <> a1:269 var
+R22080:22081 KamiHW.MorphCopy <> c1:270 var
+R22084:22084 KamiHW.MorphCopy <> b:268 var
+R22108:22112 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22100:22101 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R22097:22097 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R22095:22096 KamiHW.MorphCopy <> a2:271 var
+R22098:22099 KamiHW.MorphCopy <> c2:272 var
+R22102:22102 KamiHW.MorphCopy <> b:268 var
+R22172:22176 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22113:22126 KamiHW.MorphCopy <> copy_registers rec
+R22128:22130 KamiHW.MorphCopy <> old:267 var
+R22136:22137 KamiHW.MorphCopy <> c1:270 var
+R22139:22140 KamiHW.MorphCopy <> c2:272 var
+R22142:22142 KamiHW.MorphCopy <> b:268 var
+R22144:22145 KamiHW.MorphCopy <> a1:269 var
+R22147:22148 KamiHW.MorphCopy <> a2:271 var
+R22150:22152 KamiHW.MorphCopy <> src:273 var
+R22154:22156 KamiHW.MorphCopy <> dst:274 var
+R22158:22162 KamiHW.MorphCopy <> valid:275 var
+R22164:22166 KamiHW.MorphCopy <> err:276 var
+R22168:22171 KamiHW.MorphCopy <> code:277 var
+R22177:22183 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22199:22201 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 22184:22188 <> final:278
+binder 22190:22193 <> src':279
+binder 22195:22198 <> dst':280
+R22291:22295 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22202:22210 Kami.Semantics <> Multistep ind
+R22235:22240 Coq.Lists.List <> repeat def
+R22280:22280 Coq.Init.Datatypes <> S constr
+R22285:22285 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R22283:22284 KamiHW.MorphCopy <> c1:270 var
+R22286:22287 KamiHW.MorphCopy <> c2:272 var
+R22243:22261 KamiHW.NormalizationExecution <> normalization_label def
+R22227:22231 KamiHW.MorphCopy <> final:278 var
+R22223:22225 KamiHW.MorphCopy <> old:267 var
+R22212:22221 KamiHW.ThieleCPUCore <> thieleCore def
+R22349:22353 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22319:22321 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22296:22301 Kami.Lib.FMap M find def
+R22314:22318 KamiHW.MorphCopy <> final:278 var
+R22322:22325 Coq.Init.Datatypes <> Some constr
+R22328:22331 KamiHW.NormalizationStart <> reg4 def
+R22334:22342 Kami.Lib.Word <> natToWord def
+R22419:22423 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22381:22383 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22354:22359 Kami.Lib.FMap M find def
+R22376:22380 KamiHW.MorphCopy <> final:278 var
+R22384:22387 Coq.Init.Datatypes <> Some constr
+R22390:22393 KamiHW.NormalizationStart <> reg5 def
+R22396:22404 Kami.Lib.Word <> natToWord def
+R22413:22413 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R22410:22410 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R22409:22409 KamiHW.MorphCopy <> b:268 var
+R22411:22412 KamiHW.MorphCopy <> c1:270 var
+R22414:22415 KamiHW.MorphCopy <> c2:272 var
+R22474:22478 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22443:22445 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22424:22429 Kami.Lib.FMap M find def
+R22438:22442 KamiHW.MorphCopy <> final:278 var
+R22446:22449 Coq.Init.Datatypes <> Some constr
+R22452:22455 KamiHW.NormalizationStart <> reg5 def
+R22458:22466 Kami.Lib.Word <> natToWord def
+R22470:22471 KamiHW.MorphCopy <> c1:270 var
+R22533:22537 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22498:22500 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22479:22484 Kami.Lib.FMap M find def
+R22493:22497 KamiHW.MorphCopy <> final:278 var
+R22501:22504 Coq.Init.Datatypes <> Some constr
+R22507:22510 KamiHW.NormalizationStart <> reg5 def
+R22513:22521 Kami.Lib.Word <> natToWord def
+R22526:22526 Coq.Init.Datatypes <> S constr
+R22528:22529 KamiHW.MorphCopy <> c2:272 var
+R22599:22603 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22576:22578 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22538:22543 Kami.Lib.FMap M find def
+R22571:22575 KamiHW.MorphCopy <> final:278 var
+R22579:22582 Coq.Init.Datatypes <> Some constr
+R22585:22592 KamiHW.NormalizationSteps <> regpairs def
+R22594:22597 KamiHW.MorphCopy <> src':279 var
+R22665:22669 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22642:22644 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22604:22609 Kami.Lib.FMap M find def
+R22637:22641 KamiHW.MorphCopy <> final:278 var
+R22645:22648 Coq.Init.Datatypes <> Some constr
+R22651:22658 KamiHW.NormalizationSteps <> regpairs def
+R22660:22663 KamiHW.MorphCopy <> dst':280 var
+R22769:22773 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22701:22704 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22670:22680 KamiHW.NormalizationLoop <> table_slice def
+R22682:22685 KamiHW.MorphCopy <> src':279 var
+R22687:22690 KamiHW.MorphCopy <> dst':280 var
+R22692:22692 KamiHW.MorphCopy <> b:268 var
+R22697:22697 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R22695:22696 KamiHW.MorphCopy <> c1:270 var
+R22698:22699 KamiHW.MorphCopy <> c2:272 var
+R22705:22712 Coq.Lists.List <> app abbrev
+R22743:22753 KamiHW.NormalizationLoop <> table_slice def
+R22755:22757 KamiHW.MorphCopy <> src:273 var
+R22759:22761 KamiHW.MorphCopy <> dst:274 var
+R22763:22764 KamiHW.MorphCopy <> a2:271 var
+R22766:22767 KamiHW.MorphCopy <> c2:272 var
+R22715:22725 KamiHW.NormalizationLoop <> table_slice def
+R22727:22729 KamiHW.MorphCopy <> src:273 var
+R22731:22733 KamiHW.MorphCopy <> dst:274 var
+R22735:22736 KamiHW.MorphCopy <> a1:269 var
+R22738:22739 KamiHW.MorphCopy <> c1:270 var
+R22795:22798 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22774:22783 KamiHW.MorphCopy <> low_agrees def
+R22785:22785 KamiHW.MorphCopy <> b:268 var
+R22787:22790 KamiHW.MorphCopy <> src':279 var
+R22792:22794 KamiHW.MorphCopy <> src:273 var
+R22820:22824 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22799:22808 KamiHW.MorphCopy <> low_agrees def
+R22810:22810 KamiHW.MorphCopy <> b:268 var
+R22812:22815 KamiHW.MorphCopy <> dst':280 var
+R22817:22819 KamiHW.MorphCopy <> dst:274 var
+R22864:22868 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22843:22845 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22825:22830 Kami.Lib.FMap M find def
+R22838:22842 KamiHW.MorphCopy <> final:278 var
+R22846:22849 Coq.Init.Datatypes <> Some constr
+R22852:22858 KamiHW.NormalizationStart <> regbool def
+R22860:22862 KamiHW.MorphCopy <> err:276 var
+R22914:22919 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22992:22992 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22894:22896 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22869:22874 Kami.Lib.FMap M find def
+R22889:22893 KamiHW.MorphCopy <> final:278 var
+R22897:22900 Coq.Init.Datatypes <> Some constr
+R22903:22907 KamiHW.MorphLoading <> reg32 def
+R22909:22912 KamiHW.MorphCopy <> code:277 var
+binder 22927:22929 <> key:281
+R22955:22958 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22932:22933 Coq.Init.Logic <> ::type_scope:'~'_x not
+R22934:22935 Coq.Lists.List <> In def
+R22941:22954 KamiHW.MorphCopy <> copy_footprint def
+R22937:22939 KamiHW.MorphCopy <> key:281 var
+R22975:22977 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22959:22964 Kami.Lib.FMap M find def
+R22970:22974 KamiHW.MorphCopy <> final:278 var
+R22966:22968 KamiHW.MorphCopy <> key:281 var
+R22978:22983 Kami.Lib.FMap M find def
+R22989:22991 KamiHW.MorphCopy <> old:267 var
+R22985:22987 KamiHW.MorphCopy <> key:281 var
+R23079:23097 KamiHW.MorphCopy <> copy_loop_execution thm
+R23102:23102 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23079:23097 KamiHW.MorphCopy <> copy_loop_execution thm
+R23102:23102 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23373:23387 KamiHW.MorphCopy <> remaining_pairs def
+R23409:23419 Coq.Arith.PeanoNat Nat add_0_r thm
+R23423:23433 Coq.Arith.PeanoNat Nat sub_0_r thm
+R23409:23419 Coq.Arith.PeanoNat Nat add_0_r thm
+R23409:23419 Coq.Arith.PeanoNat Nat add_0_r thm
+R23409:23419 Coq.Arith.PeanoNat Nat add_0_r thm
+R23409:23419 Coq.Arith.PeanoNat Nat add_0_r thm
+R23423:23433 Coq.Arith.PeanoNat Nat sub_0_r thm
+R23423:23433 Coq.Arith.PeanoNat Nat sub_0_r thm
+R23423:23433 Coq.Arith.PeanoNat Nat sub_0_r thm
+R23423:23433 Coq.Arith.PeanoNat Nat sub_0_r thm
+R23462:23469 Coq.Lists.List <> app abbrev
+R23500:23510 KamiHW.NormalizationLoop <> table_slice def
+R23472:23482 KamiHW.NormalizationLoop <> table_slice def
+R23462:23469 Coq.Lists.List <> app abbrev
+R23500:23510 KamiHW.NormalizationLoop <> table_slice def
+R23472:23482 KamiHW.NormalizationLoop <> table_slice def
+R23562:23564 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23545:23555 Coq.Lists.List <> length abbrev
+R23568:23568 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23562:23564 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23545:23555 Coq.Lists.List <> length abbrev
+R23568:23568 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23595:23605 KamiHW.NormalizationLoop <> table_slice def
+R23616:23625 Coq.Lists.List <> app_length thm
+R23628:23637 Coq.Lists.List <> map_length thm
+R23640:23649 Coq.Lists.List <> seq_length thm
+R23616:23625 Coq.Lists.List <> app_length thm
+R23616:23625 Coq.Lists.List <> app_length thm
+R23628:23637 Coq.Lists.List <> map_length thm
+R23628:23637 Coq.Lists.List <> map_length thm
+R23628:23637 Coq.Lists.List <> map_length thm
+R23628:23637 Coq.Lists.List <> map_length thm
+R23640:23649 Coq.Lists.List <> seq_length thm
+R23640:23649 Coq.Lists.List <> seq_length thm
+R23640:23649 Coq.Lists.List <> seq_length thm
+R23640:23649 Coq.Lists.List <> seq_length thm
+R23683:23693 KamiHW.MorphCopy <> store_pairs def
+R23707:23710 Coq.Init.Datatypes <> true constr
+R23715:23725 KamiHW.MorphCopy <> store_pairs def
+R23739:23743 Coq.Init.Datatypes <> false constr
+R23683:23693 KamiHW.MorphCopy <> store_pairs def
+R23707:23710 Coq.Init.Datatypes <> true constr
+R23715:23725 KamiHW.MorphCopy <> store_pairs def
+R23739:23743 Coq.Init.Datatypes <> false constr
+R23812:23812 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23809:23809 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23828:23829 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23835:23835 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23832:23832 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23812:23812 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23809:23809 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23828:23829 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23835:23835 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23832:23832 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23975:23991 KamiHW.MorphCopy <> store_pairs_slice thm
+R24021:24022 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R24003:24003 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R24004:24014 Coq.Lists.List <> length abbrev
+R23975:23991 KamiHW.MorphCopy <> store_pairs_slice thm
+R24021:24022 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R24003:24003 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R24004:24014 Coq.Lists.List <> length abbrev
+R24082:24102 KamiHW.MorphCopy <> store_pairs_untouched thm
+R24116:24119 Coq.Init.Datatypes <> true constr
+R24153:24154 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R24135:24135 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R24136:24146 Coq.Lists.List <> length abbrev
+R24082:24102 KamiHW.MorphCopy <> store_pairs_untouched thm
+R24116:24119 Coq.Init.Datatypes <> true constr
+R24153:24154 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R24135:24135 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R24136:24146 Coq.Lists.List <> length abbrev
+R24234:24254 KamiHW.MorphCopy <> store_pairs_untouched thm
+R24268:24272 Coq.Init.Datatypes <> false constr
+R24306:24307 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R24288:24288 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R24289:24299 Coq.Lists.List <> length abbrev
+R24234:24254 KamiHW.MorphCopy <> store_pairs_untouched thm
+R24268:24272 Coq.Init.Datatypes <> false constr
+R24306:24307 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R24288:24288 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R24289:24299 Coq.Lists.List <> length abbrev
+prf 24428:24464 <> copy_cursor_updates_even_when_blocked
+binder 24475:24477 <> old:282
+binder 24479:24479 <> i:283
+binder 24481:24481 <> j:284
+binder 24483:24484 <> c1:285
+binder 24486:24487 <> c2:286
+binder 24489:24491 <> out:287
+binder 24493:24494 <> a1:288
+binder 24496:24497 <> a2:289
+binder 24499:24501 <> src:290
+binder 24503:24505 <> dst:291
+binder 24507:24511 <> valid:292
+binder 24513:24515 <> err:293
+binder 24517:24520 <> code:294
+R24535:24538 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24526:24527 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R24525:24525 KamiHW.MorphCopy <> i:283 var
+R24551:24555 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24542:24543 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R24540:24541 KamiHW.MorphCopy <> c1:285 var
+R24674:24678 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R24629:24632 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24556:24561 Kami.Lib.FMap M find def
+R24571:24580 KamiHW.MorphCopy <> copy_state def
+R24582:24584 KamiHW.MorphCopy <> old:282 var
+R24586:24586 KamiHW.MorphCopy <> i:283 var
+R24588:24588 KamiHW.MorphCopy <> j:284 var
+R24590:24591 KamiHW.MorphCopy <> c1:285 var
+R24593:24594 KamiHW.MorphCopy <> c2:286 var
+R24596:24598 KamiHW.MorphCopy <> out:287 var
+R24600:24601 KamiHW.MorphCopy <> a1:288 var
+R24603:24604 KamiHW.MorphCopy <> a2:289 var
+R24606:24608 KamiHW.MorphCopy <> src:290 var
+R24610:24612 KamiHW.MorphCopy <> dst:291 var
+R24614:24618 KamiHW.MorphCopy <> valid:292 var
+R24620:24622 KamiHW.MorphCopy <> err:293 var
+R24624:24627 KamiHW.MorphCopy <> code:294 var
+R24633:24636 Coq.Init.Datatypes <> Some constr
+R24639:24642 KamiHW.NormalizationStart <> reg5 def
+R24645:24653 Kami.Lib.Word <> natToWord def
+R24658:24665 KamiHW.MorphCopy <> cursor_i def
+R24667:24667 KamiHW.MorphCopy <> i:283 var
+R24669:24670 KamiHW.MorphCopy <> c1:285 var
+R24752:24755 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24679:24684 Kami.Lib.FMap M find def
+R24694:24703 KamiHW.MorphCopy <> copy_state def
+R24705:24707 KamiHW.MorphCopy <> old:282 var
+R24709:24709 KamiHW.MorphCopy <> i:283 var
+R24711:24711 KamiHW.MorphCopy <> j:284 var
+R24713:24714 KamiHW.MorphCopy <> c1:285 var
+R24716:24717 KamiHW.MorphCopy <> c2:286 var
+R24719:24721 KamiHW.MorphCopy <> out:287 var
+R24723:24724 KamiHW.MorphCopy <> a1:288 var
+R24726:24727 KamiHW.MorphCopy <> a2:289 var
+R24729:24731 KamiHW.MorphCopy <> src:290 var
+R24733:24735 KamiHW.MorphCopy <> dst:291 var
+R24737:24741 KamiHW.MorphCopy <> valid:292 var
+R24743:24745 KamiHW.MorphCopy <> err:293 var
+R24747:24750 KamiHW.MorphCopy <> code:294 var
+R24756:24759 Coq.Init.Datatypes <> Some constr
+R24762:24765 KamiHW.NormalizationStart <> reg5 def
+R24768:24776 Kami.Lib.Word <> natToWord def
+R24781:24788 KamiHW.MorphCopy <> cursor_j def
+R24790:24790 KamiHW.MorphCopy <> i:283 var
+R24792:24792 KamiHW.MorphCopy <> j:284 var
+R24794:24795 KamiHW.MorphCopy <> c1:285 var
+R24847:24860 KamiHW.MorphCopy <> copy_first_nat thm
+R24885:24892 KamiHW.MorphCopy <> cursor_i def
+R24894:24901 KamiHW.MorphCopy <> cursor_j def
+R24914:24920 Coq.Arith.PeanoNat Nat ltb def
+R24958:24971 Kami.Lib.Word <> natToWord_plus thm
+R24986:24986 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25000:25000 Coq.Init.Datatypes <> S constr
+R25022:25022 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25036:25036 Coq.Init.Datatypes <> S constr
+R24847:24860 KamiHW.MorphCopy <> copy_first_nat thm
+R24847:24860 KamiHW.MorphCopy <> copy_first_nat thm
+R24847:24860 KamiHW.MorphCopy <> copy_first_nat thm
+R24847:24860 KamiHW.MorphCopy <> copy_first_nat thm
+R24914:24920 Coq.Arith.PeanoNat Nat ltb def
+R24914:24920 Coq.Arith.PeanoNat Nat ltb def
+R24958:24971 Kami.Lib.Word <> natToWord_plus thm
+R24958:24971 Kami.Lib.Word <> natToWord_plus thm
+R24958:24971 Kami.Lib.Word <> natToWord_plus thm
+R24958:24971 Kami.Lib.Word <> natToWord_plus thm
+R24986:24986 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25000:25000 Coq.Init.Datatypes <> S constr
+R25022:25022 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25036:25036 Coq.Init.Datatypes <> S constr
+prf 25076:25101 <> copy_admitted_firing_bound
+binder 25112:25112 <> b:295
+binder 25114:25115 <> c1:296
+binder 25117:25118 <> c2:297
+R25139:25143 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25130:25131 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R25127:25127 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25124:25124 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25123:25123 KamiHW.MorphCopy <> b:295 var
+R25125:25126 KamiHW.MorphCopy <> c1:296 var
+R25128:25129 KamiHW.MorphCopy <> c2:297 var
+R25214:25217 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R25145:25155 Coq.Lists.List <> length abbrev
+R25158:25163 Coq.Lists.List <> repeat def
+R25203:25203 Coq.Init.Datatypes <> S constr
+R25208:25208 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25206:25207 KamiHW.MorphCopy <> c1:296 var
+R25209:25210 KamiHW.MorphCopy <> c2:297 var
+R25166:25184 KamiHW.NormalizationExecution <> normalization_label def
+R25250:25262 Coq.Lists.List <> repeat_length thm
+R25250:25262 Coq.Lists.List <> repeat_length thm
+R25250:25262 Coq.Lists.List <> repeat_length thm
+def 25287:25311 <> copy_retirement_footprint
+R25316:25323 Coq.Lists.List <> app abbrev
+R25340:25354 KamiHW.NormalizationRetirement <> outer_footprint def
+R25325:25338 KamiHW.MorphCopy <> copy_footprint def
+prf 25365:25379 <> copy_retirement
+binder 25390:25392 <> old:298
+binder 25394:25394 <> b:299
+binder 25396:25397 <> a1:300
+binder 25399:25400 <> c1:301
+binder 25402:25403 <> a2:302
+binder 25405:25406 <> c2:303
+binder 25408:25410 <> src:304
+binder 25412:25414 <> dst:305
+binder 25416:25420 <> valid:306
+binder 25422:25424 <> err:307
+binder 25426:25429 <> code:308
+binder 25432:25432 <> d:309
+binder 25434:25438 <> bases:310
+binder 25440:25445 <> counts:311
+binder 25447:25455 <> descvalid:312
+R25476:25479 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25467:25468 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R25464:25464 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25461:25461 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25460:25460 KamiHW.MorphCopy <> b:299 var
+R25462:25463 KamiHW.MorphCopy <> c1:301 var
+R25465:25466 KamiHW.MorphCopy <> c2:303 var
+R25494:25497 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25486:25487 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R25483:25483 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25481:25482 KamiHW.MorphCopy <> a1:300 var
+R25484:25485 KamiHW.MorphCopy <> c1:301 var
+R25488:25488 KamiHW.MorphCopy <> b:299 var
+R25512:25516 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25504:25505 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R25501:25501 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25499:25500 KamiHW.MorphCopy <> a2:302 var
+R25502:25503 KamiHW.MorphCopy <> c2:303 var
+R25506:25506 KamiHW.MorphCopy <> b:299 var
+R25576:25580 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25517:25530 KamiHW.MorphCopy <> copy_registers rec
+R25532:25534 KamiHW.MorphCopy <> old:298 var
+R25540:25541 KamiHW.MorphCopy <> c1:301 var
+R25543:25544 KamiHW.MorphCopy <> c2:303 var
+R25546:25546 KamiHW.MorphCopy <> b:299 var
+R25548:25549 KamiHW.MorphCopy <> a1:300 var
+R25551:25552 KamiHW.MorphCopy <> a2:302 var
+R25554:25556 KamiHW.MorphCopy <> src:304 var
+R25558:25560 KamiHW.MorphCopy <> dst:305 var
+R25562:25566 KamiHW.MorphCopy <> valid:306 var
+R25568:25570 KamiHW.MorphCopy <> err:307 var
+R25572:25575 KamiHW.MorphCopy <> code:308 var
+R25637:25641 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25607:25609 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25581:25586 Kami.Lib.FMap M find def
+R25604:25606 KamiHW.MorphCopy <> old:298 var
+R25610:25613 Coq.Init.Datatypes <> Some constr
+R25616:25619 KamiHW.NormalizationStart <> reg5 def
+R25622:25630 Kami.Lib.Word <> natToWord def
+R25634:25634 KamiHW.MorphCopy <> b:299 var
+R25692:25696 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25676:25678 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25642:25647 Kami.Lib.FMap M find def
+R25673:25675 KamiHW.MorphCopy <> old:298 var
+R25679:25682 Coq.Init.Datatypes <> Some constr
+R25685:25688 KamiHW.NormalizationStart <> reg5 def
+R25690:25690 KamiHW.MorphCopy <> d:309 var
+R25758:25762 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25734:25736 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25697:25702 Kami.Lib.FMap M find def
+R25731:25733 KamiHW.MorphCopy <> old:298 var
+R25737:25740 Coq.Init.Datatypes <> Some constr
+R25743:25750 KamiHW.NormalizationSteps <> regbases def
+R25752:25756 KamiHW.MorphCopy <> bases:310 var
+R25827:25831 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25801:25803 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25763:25768 Kami.Lib.FMap M find def
+R25798:25800 KamiHW.MorphCopy <> old:298 var
+R25804:25807 Coq.Init.Datatypes <> Some constr
+R25810:25818 KamiHW.NormalizationSteps <> regcounts def
+R25820:25825 KamiHW.MorphCopy <> counts:311 var
+R25898:25902 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25870:25872 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25832:25837 Kami.Lib.FMap M find def
+R25867:25869 KamiHW.MorphCopy <> old:298 var
+R25873:25876 Coq.Init.Datatypes <> Some constr
+R25879:25886 KamiHW.NormalizationSteps <> regvalid def
+R25888:25896 KamiHW.MorphCopy <> descvalid:312 var
+R25903:25909 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R25940:25942 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 25910:25918 <> precommit:313
+binder 25920:25925 <> labels:314
+binder 25927:25930 <> src':315
+binder 25932:25935 <> dst':316
+binder 25937:25939 <> out:317
+R25964:25968 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R25945:25946 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R25950:25951 Coq.Init.Peano <> ::nat_scope:x_'<='_x_'<='_x not
+R25944:25944 KamiHW.MorphCopy <> b:299 var
+R25947:25949 KamiHW.MorphCopy <> out:317 var
+R25947:25949 KamiHW.MorphCopy <> out:317 var
+R25956:25956 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25953:25953 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25952:25952 KamiHW.MorphCopy <> b:299 var
+R25954:25955 KamiHW.MorphCopy <> c1:301 var
+R25957:25958 KamiHW.MorphCopy <> c2:303 var
+R26115:26119 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R25969:25977 Kami.Semantics <> Multistep ind
+R26109:26114 KamiHW.MorphCopy <> labels:314 var
+R25996:26002 Kami.Lib.FMap M union def
+R26098:26106 KamiHW.MorphCopy <> precommit:313 var
+R26005:26032 KamiHW.NormalizationSteps <> normalization_commit_updates def
+R26035:26043 Kami.Lib.Word <> natToWord def
+R26047:26047 KamiHW.MorphCopy <> b:299 var
+R26051:26059 Kami.Lib.Word <> natToWord def
+R26063:26065 KamiHW.MorphCopy <> out:317 var
+R26072:26072 KamiHW.MorphCopy <> d:309 var
+R26074:26078 KamiHW.MorphCopy <> bases:310 var
+R26080:26085 KamiHW.MorphCopy <> counts:311 var
+R26087:26095 KamiHW.MorphCopy <> descvalid:312 var
+R25990:25992 KamiHW.MorphCopy <> old:298 var
+R25979:25988 KamiHW.ThieleCPUCore <> thieleCore def
+R26282:26286 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R26252:26254 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26120:26125 Kami.Lib.FMap M find def
+R26140:26146 Kami.Lib.FMap M union def
+R26242:26250 KamiHW.MorphCopy <> precommit:313 var
+R26149:26176 KamiHW.NormalizationSteps <> normalization_commit_updates def
+R26179:26187 Kami.Lib.Word <> natToWord def
+R26191:26191 KamiHW.MorphCopy <> b:299 var
+R26195:26203 Kami.Lib.Word <> natToWord def
+R26207:26209 KamiHW.MorphCopy <> out:317 var
+R26216:26216 KamiHW.MorphCopy <> d:309 var
+R26218:26222 KamiHW.MorphCopy <> bases:310 var
+R26224:26229 KamiHW.MorphCopy <> counts:311 var
+R26231:26239 KamiHW.MorphCopy <> descvalid:312 var
+R26255:26258 Coq.Init.Datatypes <> Some constr
+R26261:26264 KamiHW.NormalizationStart <> reg4 def
+R26267:26275 Kami.Lib.Word <> natToWord def
+R26352:26356 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R26329:26331 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26287:26292 Kami.Lib.FMap M find def
+R26320:26328 KamiHW.MorphCopy <> precommit:313 var
+R26332:26335 Coq.Init.Datatypes <> Some constr
+R26338:26345 KamiHW.NormalizationSteps <> regpairs def
+R26347:26350 KamiHW.MorphCopy <> src':315 var
+R26422:26426 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R26399:26401 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26357:26362 Kami.Lib.FMap M find def
+R26390:26398 KamiHW.MorphCopy <> precommit:313 var
+R26402:26405 Coq.Init.Datatypes <> Some constr
+R26408:26415 KamiHW.NormalizationSteps <> regpairs def
+R26417:26420 KamiHW.MorphCopy <> dst':316 var
+R26555:26559 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R26458:26460 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26427:26437 KamiHW.NormalizationLoop <> table_slice def
+R26439:26442 KamiHW.MorphCopy <> src':315 var
+R26444:26447 KamiHW.MorphCopy <> dst':316 var
+R26449:26449 KamiHW.MorphCopy <> b:299 var
+R26455:26455 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R26452:26454 KamiHW.MorphCopy <> out:317 var
+R26456:26456 KamiHW.MorphCopy <> b:299 var
+R26461:26465 Coq.Lists.List <> nodup def
+R26490:26497 Coq.Lists.List <> app abbrev
+R26528:26538 KamiHW.NormalizationLoop <> table_slice def
+R26540:26542 KamiHW.MorphCopy <> src:304 var
+R26544:26546 KamiHW.MorphCopy <> dst:305 var
+R26548:26549 KamiHW.MorphCopy <> a2:302 var
+R26551:26552 KamiHW.MorphCopy <> c2:303 var
+R26500:26510 KamiHW.NormalizationLoop <> table_slice def
+R26512:26514 KamiHW.MorphCopy <> src:304 var
+R26516:26518 KamiHW.MorphCopy <> dst:305 var
+R26520:26521 KamiHW.MorphCopy <> a1:300 var
+R26523:26524 KamiHW.MorphCopy <> c1:301 var
+R26467:26486 KamiHW.NormalizationLoop <> coupling_pair_eq_dec def
+R26616:26620 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R26578:26580 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26560:26570 Coq.Lists.List <> length abbrev
+R26572:26577 KamiHW.MorphCopy <> labels:314 var
+R26589:26589 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R26587:26587 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R26584:26584 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R26582:26583 KamiHW.MorphCopy <> c1:301 var
+R26585:26586 KamiHW.MorphCopy <> c2:303 var
+R26590:26602 KamiHW.NormalizationRetirement <> outer_firings def
+R26607:26607 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R26605:26606 KamiHW.MorphCopy <> c1:301 var
+R26608:26609 KamiHW.MorphCopy <> c2:303 var
+R26621:26621 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R26709:26714 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 26629:26631 <> key:318
+R26668:26671 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26634:26635 Coq.Init.Logic <> ::type_scope:'~'_x not
+R26636:26637 Coq.Lists.List <> In def
+R26643:26667 KamiHW.MorphCopy <> copy_retirement_footprint def
+R26639:26641 KamiHW.MorphCopy <> key:318 var
+R26692:26694 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26672:26677 Kami.Lib.FMap M find def
+R26683:26691 KamiHW.MorphCopy <> precommit:313 var
+R26679:26681 KamiHW.MorphCopy <> key:318 var
+R26695:26700 Kami.Lib.FMap M find def
+R26706:26708 KamiHW.MorphCopy <> old:298 var
+R26702:26704 KamiHW.MorphCopy <> key:318 var
+R26715:26733 KamiHW.NormalizationFrame <> table_prefix_agrees def
+R26735:26735 KamiHW.MorphCopy <> b:299 var
+R26737:26740 KamiHW.MorphCopy <> src':315 var
+R26742:26745 KamiHW.MorphCopy <> dst':316 var
+R26747:26749 KamiHW.MorphCopy <> src:304 var
+R26751:26753 KamiHW.MorphCopy <> dst:305 var
+R26889:26909 KamiHW.MorphCopy <> copy_admitted_loading thm
+R26889:26909 KamiHW.MorphCopy <> copy_admitted_loading thm
+R27144:27146 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27115:27120 Kami.Lib.FMap M find def
+R27147:27150 Coq.Init.Datatypes <> Some constr
+R27153:27156 KamiHW.NormalizationStart <> reg5 def
+R27159:27167 Kami.Lib.Word <> natToWord def
+R27144:27146 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27115:27120 Kami.Lib.FMap M find def
+R27147:27150 Coq.Init.Datatypes <> Some constr
+R27153:27156 KamiHW.NormalizationStart <> reg5 def
+R27159:27167 Kami.Lib.Word <> natToWord def
+R27215:27228 KamiHW.MorphCopy <> copy_footprint def
+R27316:27318 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27279:27284 Kami.Lib.FMap M find def
+R27319:27322 Coq.Init.Datatypes <> Some constr
+R27325:27328 KamiHW.NormalizationStart <> reg5 def
+R27316:27318 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27279:27284 Kami.Lib.FMap M find def
+R27319:27322 Coq.Init.Datatypes <> Some constr
+R27325:27328 KamiHW.NormalizationStart <> reg5 def
+R27373:27386 KamiHW.MorphCopy <> copy_footprint def
+R27478:27480 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27438:27443 Kami.Lib.FMap M find def
+R27481:27484 Coq.Init.Datatypes <> Some constr
+R27487:27494 KamiHW.NormalizationSteps <> regbases def
+R27478:27480 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27438:27443 Kami.Lib.FMap M find def
+R27481:27484 Coq.Init.Datatypes <> Some constr
+R27487:27494 KamiHW.NormalizationSteps <> regbases def
+R27543:27556 KamiHW.MorphCopy <> copy_footprint def
+R27649:27651 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27608:27613 Kami.Lib.FMap M find def
+R27652:27655 Coq.Init.Datatypes <> Some constr
+R27658:27666 KamiHW.NormalizationSteps <> regcounts def
+R27649:27651 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27608:27613 Kami.Lib.FMap M find def
+R27652:27655 Coq.Init.Datatypes <> Some constr
+R27658:27666 KamiHW.NormalizationSteps <> regcounts def
+R27716:27729 KamiHW.MorphCopy <> copy_footprint def
+R27822:27824 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27781:27786 Kami.Lib.FMap M find def
+R27825:27828 Coq.Init.Datatypes <> Some constr
+R27831:27838 KamiHW.NormalizationSteps <> regvalid def
+R27822:27824 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27781:27786 Kami.Lib.FMap M find def
+R27825:27828 Coq.Init.Datatypes <> Some constr
+R27831:27838 KamiHW.NormalizationSteps <> regvalid def
+R27891:27904 KamiHW.MorphCopy <> copy_footprint def
+R27952:27987 KamiHW.NormalizationFrame <> normalization_retirement_with_prefix thm
+R28013:28013 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28010:28010 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R27952:27987 KamiHW.NormalizationFrame <> normalization_retirement_with_prefix thm
+R28013:28013 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28010:28010 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28234:28241 Coq.Lists.List <> app abbrev
+R28251:28256 Coq.Lists.List <> repeat def
+R28296:28296 Coq.Init.Datatypes <> S constr
+R28301:28301 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28259:28277 KamiHW.NormalizationExecution <> normalization_label def
+R28234:28241 Coq.Lists.List <> app abbrev
+R28251:28256 Coq.Lists.List <> repeat def
+R28296:28296 Coq.Init.Datatypes <> S constr
+R28301:28301 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28259:28277 KamiHW.NormalizationExecution <> normalization_label def
+R28367:28395 KamiHW.NormalizationRetirement <> normalization_multistep_trans thm
+R28367:28395 KamiHW.NormalizationRetirement <> normalization_multistep_trans thm
+R28520:28520 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R28517:28517 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28514:28514 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28536:28536 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28520:28520 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R28517:28517 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28514:28514 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28536:28536 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28611:28620 Coq.Lists.List <> app_length thm
+R28623:28635 Coq.Lists.List <> repeat_length thm
+R28611:28620 Coq.Lists.List <> app_length thm
+R28611:28620 Coq.Lists.List <> app_length thm
+R28623:28635 Coq.Lists.List <> repeat_length thm
+R28623:28635 Coq.Lists.List <> repeat_length thm
+R28665:28665 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R28662:28662 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28659:28659 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28681:28681 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28665:28665 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R28662:28662 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28659:28659 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28681:28681 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R28790:28814 KamiHW.MorphCopy <> copy_retirement_footprint def
+R28843:28852 Coq.Lists.List <> in_app_iff thm
+R28843:28852 Coq.Lists.List <> in_app_iff thm
+R28843:28852 Coq.Lists.List <> in_app_iff thm
+R28891:28915 KamiHW.MorphCopy <> copy_retirement_footprint def
+R28934:28943 Coq.Lists.List <> in_app_iff thm
+R28934:28943 Coq.Lists.List <> in_app_iff thm
+R28934:28943 Coq.Lists.List <> in_app_iff thm
+R29065:29067 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29033:29033 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29048:29049 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29064:29064 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29034:29040 KamiHW.MorphCopy <> pair_at def
+R29050:29056 KamiHW.MorphCopy <> pair_at def
+R29068:29068 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29082:29083 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29097:29097 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29069:29075 KamiHW.MorphCopy <> pair_at def
+R29084:29090 KamiHW.MorphCopy <> pair_at def
+R29065:29067 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29033:29033 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29048:29049 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29064:29064 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29034:29040 KamiHW.MorphCopy <> pair_at def
+R29050:29056 KamiHW.MorphCopy <> pair_at def
+R29068:29068 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29082:29083 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29097:29097 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R29069:29075 KamiHW.MorphCopy <> pair_at def
+R29084:29090 KamiHW.MorphCopy <> pair_at def
+prf 29168:29195 <> copy_retirement_firing_bound
+binder 29206:29206 <> b:319
+binder 29208:29209 <> c1:320
+binder 29211:29212 <> c2:321
+R29233:29236 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29224:29225 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R29221:29221 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R29218:29218 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R29217:29217 KamiHW.MorphCopy <> b:319 var
+R29219:29220 KamiHW.MorphCopy <> c1:320 var
+R29222:29223 KamiHW.MorphCopy <> c2:321 var
+R29267:29268 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R29245:29245 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R29243:29243 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R29240:29240 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R29238:29239 KamiHW.MorphCopy <> c1:320 var
+R29241:29242 KamiHW.MorphCopy <> c2:321 var
+R29246:29258 KamiHW.NormalizationRetirement <> outer_firings def
+R29263:29263 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R29261:29262 KamiHW.MorphCopy <> c1:320 var
+R29264:29265 KamiHW.MorphCopy <> c2:321 var
+R29306:29339 KamiHW.NormalizationRetirement <> normalization_outer_firing_formula thm
+R29344:29344 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R29306:29339 KamiHW.NormalizationRetirement <> normalization_outer_firing_formula thm
+R29344:29344 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+prf 29563:29595 <> copy_retirement_prefix_components
+binder 29606:29606 <> b:322
+binder 29608:29610 <> src:323
+binder 29612:29614 <> dst:324
+binder 29616:29621 <> rawsrc:325
+binder 29623:29628 <> rawdst:326
+R29675:29679 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29632:29650 KamiHW.NormalizationFrame <> table_prefix_agrees def
+R29652:29652 KamiHW.MorphCopy <> b:322 var
+R29654:29656 KamiHW.MorphCopy <> src:323 var
+R29658:29660 KamiHW.MorphCopy <> dst:324 var
+R29662:29667 KamiHW.MorphCopy <> rawsrc:325 var
+R29669:29674 KamiHW.MorphCopy <> rawdst:326 var
+R29703:29706 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R29680:29689 KamiHW.MorphCopy <> low_agrees def
+R29691:29691 KamiHW.MorphCopy <> b:322 var
+R29693:29695 KamiHW.MorphCopy <> src:323 var
+R29697:29702 KamiHW.MorphCopy <> rawsrc:325 var
+R29707:29716 KamiHW.MorphCopy <> low_agrees def
+R29718:29718 KamiHW.MorphCopy <> b:322 var
+R29720:29722 KamiHW.MorphCopy <> dst:324 var
+R29724:29729 KamiHW.MorphCopy <> rawdst:326 var
+R29810:29816 Coq.Init.Logic <> f_equal thm
+R29820:29822 Coq.Init.Datatypes <> fst def
+R29825:29828 Kami.Lib.Word <> word ind
+R29835:29838 Kami.Lib.Word <> word ind
+R29810:29816 Coq.Init.Logic <> f_equal thm
+R29820:29822 Coq.Init.Datatypes <> fst def
+R29825:29828 Kami.Lib.Word <> word ind
+R29835:29838 Kami.Lib.Word <> word ind
+R29872:29878 Coq.Init.Logic <> f_equal thm
+R29882:29884 Coq.Init.Datatypes <> snd def
+R29887:29890 Kami.Lib.Word <> word ind
+R29897:29900 Kami.Lib.Word <> word ind
+R29872:29878 Coq.Init.Logic <> f_equal thm
+R29882:29884 Coq.Init.Datatypes <> snd def
+R29887:29890 Kami.Lib.Word <> word ind
+R29897:29900 Kami.Lib.Word <> word ind

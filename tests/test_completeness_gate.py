@@ -120,10 +120,10 @@ class TestSourceBlockerClassification:
             for phrase in banned_phrases:
                 assert phrase not in text, f"{path.relative_to(ROOT)} still contains {phrase!r}"
 
-        assert "demoted research extension, not an active closeout claim" in (
+        assert "No theorem in this file depends on that extension" in (
             _kernel_v("ConstructivePSD.v")
         ).read_text(encoding="utf-8")
-        assert "outside the closeout claim" in (
+        assert "Finite-sample confidence remains outside this aggregate-count model" in (
             _kernel_v("CHSHStatisticalBridge.v")
         ).read_text(encoding="utf-8")
 
@@ -221,8 +221,8 @@ class TestCoqLayer:
         kami_dir = self.COQ_DIR / "kami_hw"
         if not kami_dir.exists():
             pytest.skip("coq/kami_hw/ directory not found")
-        # As of 2026-04-16, all Admitted proofs have been closed to Qed.
-        # Zero Admitted remain — no allowlist needed.
+        # The active hardware proof tree contains no admitted proofs, so this
+        # gate has no allowlist.
         for vf in kami_dir.rglob("*.v"):
             text = vf.read_text(encoding="utf-8")
             text_no_comments = re.sub(r"\(\*.*?\*\)", "", text, flags=re.DOTALL)

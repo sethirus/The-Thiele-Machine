@@ -1,0 +1,493 @@
+DIGEST 2f9f374b1eb30b45ec7a32106cb61af5
+FUndecidability.TM.TM
+R110:163 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> <> lib
+R181:186 Coq.Vectors.Vector <> <> lib
+R188:191 Coq.Lists.List <> <> lib
+sec 420:428 <> Fix_Sigma
+var 469:470 Fix_Sigma Σ
+ind 994:997 <> tape
+constr 1013:1019 <> niltape
+constr 1032:1037 <> leftof
+constr 1067:1073 <> rightof
+constr 1103:1109 <> midtape
+R1023:1026 Undecidability.TM.TM <> tape:2 ind
+R1043:1046 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1041:1042 Undecidability.TM.TM <> Fix_Sigma.Σ var
+R1054:1057 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1047:1050 Coq.Init.Datatypes <> list ind
+R1052:1053 Undecidability.TM.TM <> Fix_Sigma.Σ var
+R1058:1061 Undecidability.TM.TM <> tape:2 ind
+R1079:1082 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1077:1078 Undecidability.TM.TM <> Fix_Sigma.Σ var
+R1090:1093 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1083:1086 Coq.Init.Datatypes <> list ind
+R1088:1089 Undecidability.TM.TM <> Fix_Sigma.Σ var
+R1094:1097 Undecidability.TM.TM <> tape:2 ind
+R1120:1123 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1113:1116 Coq.Init.Datatypes <> list ind
+R1118:1119 Undecidability.TM.TM <> Fix_Sigma.Σ var
+R1126:1129 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1124:1125 Undecidability.TM.TM <> Fix_Sigma.Σ var
+R1137:1140 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1130:1133 Coq.Init.Datatypes <> list ind
+R1135:1136 Undecidability.TM.TM <> Fix_Sigma.Σ var
+R1141:1144 Undecidability.TM.TM <> tape:2 ind
+scheme 994:997 <> tape_rect
+scheme 994:997 <> tape_ind
+scheme 994:997 <> tape_rec
+scheme 994:997 <> tape_sind
+def 1345:1351 <> current
+R1358:1361 Undecidability.TM.TM <> tape ind
+binder 1354:1354 <> t:4
+R1366:1371 Coq.Init.Datatypes <> option ind
+R1373:1374 Undecidability.TM.TM <> Fix_Sigma.Σ var
+R1389:1389 Undecidability.TM.TM <> t:4 var
+R1402:1408 Undecidability.TM.TM <> midtape constr
+R1419:1422 Coq.Init.Datatypes <> Some constr
+R1437:1440 Coq.Init.Datatypes <> None constr
+ind 1464:1467 <> move
+constr 1479:1483 <> Lmove
+constr 1494:1498 <> Rmove
+constr 1509:1513 <> Nmove
+R1487:1490 Undecidability.TM.TM <> move:6 ind
+R1502:1505 Undecidability.TM.TM <> move:6 ind
+R1517:1520 Undecidability.TM.TM <> move:6 ind
+scheme 1464:1467 <> move_rect
+scheme 1464:1467 <> move_ind
+scheme 1464:1467 <> move_rec
+scheme 1464:1467 <> move_sind
+def 1621:1622 <> mv
+R1629:1632 Undecidability.TM.TM <> move ind
+binder 1625:1625 <> m:8
+R1640:1643 Undecidability.TM.TM <> tape ind
+binder 1636:1636 <> t:9
+R1662:1662 Undecidability.TM.TM <> t:9 var
+R1659:1659 Undecidability.TM.TM <> m:8 var
+R1675:1679 Undecidability.TM.TM <> Lmove constr
+R1682:1688 Undecidability.TM.TM <> rightof constr
+R1698:1704 Undecidability.TM.TM <> midtape constr
+R1711:1713 Coq.Lists.List <> nil abbrev
+R1721:1725 Undecidability.TM.TM <> Lmove constr
+R1728:1734 Undecidability.TM.TM <> midtape constr
+R1736:1738 Coq.Lists.List <> nil abbrev
+R1748:1753 Undecidability.TM.TM <> leftof constr
+R1755:1755 Undecidability.TM.TM <> m:8 var
+R1766:1770 Undecidability.TM.TM <> Lmove constr
+R1773:1779 Undecidability.TM.TM <> midtape constr
+R1783:1786 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1799:1805 Undecidability.TM.TM <> midtape constr
+R1814:1817 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1813:1813 Undecidability.TM.TM <> m:8 var
+R1828:1832 Undecidability.TM.TM <> Rmove constr
+R1835:1840 Undecidability.TM.TM <> leftof constr
+R1850:1856 Undecidability.TM.TM <> midtape constr
+R1858:1860 Coq.Lists.List <> nil abbrev
+R1873:1877 Undecidability.TM.TM <> Rmove constr
+R1880:1886 Undecidability.TM.TM <> midtape constr
+R1893:1895 Coq.Lists.List <> nil abbrev
+R1900:1906 Undecidability.TM.TM <> rightof constr
+R1908:1908 Undecidability.TM.TM <> m:8 var
+R1919:1923 Undecidability.TM.TM <> Rmove constr
+R1926:1932 Undecidability.TM.TM <> midtape constr
+R1941:1944 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1952:1958 Undecidability.TM.TM <> midtape constr
+R1962:1965 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1961:1961 Undecidability.TM.TM <> m:8 var
+R1989:1989 Undecidability.TM.TM <> t:9 var
+def 2257:2258 <> wr
+R2265:2270 Coq.Init.Datatypes <> option ind
+R2272:2273 Undecidability.TM.TM <> Fix_Sigma.Σ var
+binder 2261:2261 <> s:12
+R2281:2284 Undecidability.TM.TM <> tape ind
+binder 2277:2277 <> t:13
+R2289:2292 Undecidability.TM.TM <> tape ind
+R2310:2310 Undecidability.TM.TM <> t:13 var
+R2307:2307 Undecidability.TM.TM <> s:12 var
+R2323:2326 Coq.Init.Datatypes <> None constr
+R2334:2334 Undecidability.TM.TM <> t:13 var
+R2342:2345 Coq.Init.Datatypes <> Some constr
+R2350:2356 Undecidability.TM.TM <> niltape constr
+R2361:2367 Undecidability.TM.TM <> midtape constr
+R2369:2371 Coq.Lists.List <> nil abbrev
+R2375:2377 Coq.Lists.List <> nil abbrev
+R2385:2388 Coq.Init.Datatypes <> Some constr
+R2393:2398 Undecidability.TM.TM <> leftof constr
+R2408:2414 Undecidability.TM.TM <> midtape constr
+R2416:2418 Coq.Lists.List <> nil abbrev
+R2424:2427 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2438:2441 Coq.Init.Datatypes <> Some constr
+R2446:2452 Undecidability.TM.TM <> midtape constr
+R2465:2471 Undecidability.TM.TM <> midtape constr
+R2487:2490 Coq.Init.Datatypes <> Some constr
+R2495:2501 Undecidability.TM.TM <> rightof constr
+R2511:2517 Undecidability.TM.TM <> midtape constr
+R2521:2524 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2531:2533 Coq.Lists.List <> nil abbrev
+R2549:2557 Undecidability.TM.TM Fix_Sigma <> sec
+R3356:3362 Undecidability.TM.TM <> niltape constr
+R3356:3362 Undecidability.TM.TM <> niltape constr
+R3382:3387 Undecidability.TM.TM <> leftof constr
+R3382:3387 Undecidability.TM.TM <> leftof constr
+R3415:3421 Undecidability.TM.TM <> rightof constr
+R3415:3421 Undecidability.TM.TM <> rightof constr
+R3449:3455 Undecidability.TM.TM <> midtape constr
+R3449:3455 Undecidability.TM.TM <> midtape constr
+R3488:3494 Undecidability.TM.TM <> current def
+R3488:3494 Undecidability.TM.TM <> current def
+R3514:3515 Undecidability.TM.TM <> wr def
+R3514:3515 Undecidability.TM.TM <> wr def
+R3536:3537 Undecidability.TM.TM <> mv def
+R3536:3537 Undecidability.TM.TM <> mv def
+sec 3555:3566 <> Fix_Alphabet
+var 3631:3632 Fix_Alphabet Σ
+R3636:3642 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+var 4056:4056 Fix_Alphabet n
+R4060:4062 Coq.Init.Datatypes <> nat ind
+rec 4125:4126 <> TM
+proj 4184:4188 <> state
+proj 4236:4240 <> trans
+proj 4350:4354 <> start
+proj 4414:4417 <> halt
+R4192:4198 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+R4276:4279 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4249:4252 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R4275:4275 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R4244:4248 Undecidability.TM.TM <> state:19 meth
+R4253:4260 Coq.Vectors.Vector <> t ind
+R4263:4268 Coq.Init.Datatypes <> option ind
+R4270:4271 Undecidability.TM.TM <> Fix_Alphabet.Σ var
+R4274:4274 Undecidability.TM.TM <> Fix_Alphabet.n var
+R4285:4288 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R4320:4320 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R4280:4284 Undecidability.TM.TM <> state:19 meth
+R4289:4296 Coq.Vectors.Vector <> t ind
+R4299:4299 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R4309:4312 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R4300:4305 Coq.Init.Datatypes <> option ind
+R4307:4308 Undecidability.TM.TM <> Fix_Alphabet.Σ var
+R4313:4316 Undecidability.TM.TM <> move ind
+R4319:4319 Undecidability.TM.TM <> Fix_Alphabet.n var
+R4357:4361 Undecidability.TM.TM <> state:19 meth
+R4426:4429 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4421:4425 Undecidability.TM.TM <> state:19 meth
+R4430:4433 Coq.Init.Datatypes <> bool ind
+ind 4531:4534 <> eval
+constr 4635:4643 <> eval_halt
+constr 4697:4705 <> eval_step
+R4541:4542 Undecidability.TM.TM <> TM rec
+binder 4537:4537 <> M:23
+R4550:4554 Undecidability.TM.TM <> state proj
+R4556:4556 Undecidability.TM.TM <> M:23 var
+binder 4546:4546 <> q:24
+R4564:4571 Coq.Vectors.Vector <> t ind
+R4574:4577 Undecidability.TM.TM <> tape ind
+R4579:4580 Undecidability.TM.TM <> Fix_Alphabet.Σ var
+R4583:4583 Undecidability.TM.TM <> Fix_Alphabet.n var
+binder 4560:4560 <> t:25
+R4595:4598 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4588:4592 Undecidability.TM.TM <> state proj
+R4619:4622 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4599:4606 Coq.Vectors.Vector <> t ind
+R4609:4612 Undecidability.TM.TM <> tape ind
+R4614:4615 Undecidability.TM.TM <> Fix_Alphabet.Σ var
+R4618:4618 Undecidability.TM.TM <> Fix_Alphabet.n var
+R4668:4677 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4661:4663 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4653:4656 Undecidability.TM.TM <> halt proj
+R4658:4658 Undecidability.TM.TM <> M:23 var
+R4660:4660 Undecidability.TM.TM <> q:24 var
+R4664:4667 Coq.Init.Datatypes <> true constr
+R4678:4681 Undecidability.TM.TM <> eval:26 ind
+R4691:4691 Undecidability.TM.TM <> t:25 var
+R4689:4689 Undecidability.TM.TM <> q:24 var
+R4687:4687 Undecidability.TM.TM <> t:25 var
+R4685:4685 Undecidability.TM.TM <> q:24 var
+R4683:4683 Undecidability.TM.TM <> M:23 var
+binder 4707:4708 <> q':28
+binder 4710:4710 <> a:29
+binder 4712:4714 <> q'':30
+binder 4716:4717 <> t':31
+R4743:4752 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4735:4737 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4727:4730 Undecidability.TM.TM <> halt proj
+R4732:4732 Undecidability.TM.TM <> M:23 var
+R4734:4734 Undecidability.TM.TM <> q:24 var
+R4738:4742 Coq.Init.Datatypes <> false constr
+R4796:4805 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4786:4788 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4753:4757 Undecidability.TM.TM <> trans proj
+R4759:4759 Undecidability.TM.TM <> M:23 var
+R4761:4761 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4763:4764 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4785:4785 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4762:4762 Undecidability.TM.TM <> q:24 var
+R4765:4774 Coq.Vectors.Vector <> map def
+R4784:4784 Undecidability.TM.TM <> t:25 var
+R4776:4782 Undecidability.TM.TM <> current def
+R4789:4789 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4792:4793 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4795:4795 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4790:4791 Undecidability.TM.TM <> q':28 var
+R4794:4794 Undecidability.TM.TM <> a:29 var
+R4874:4883 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4806:4809 Undecidability.TM.TM <> eval:26 ind
+R4872:4873 Undecidability.TM.TM <> t':31 var
+R4868:4870 Undecidability.TM.TM <> q'':30 var
+R4817:4827 Coq.Vectors.Vector <> map2 def
+R4865:4865 Undecidability.TM.TM <> a:29 var
+R4863:4863 Undecidability.TM.TM <> t:25 var
+binder 4834:4835 <> tp:32
+R4838:4838 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4840:4840 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4842:4842 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 4841:4841 <> m:33
+binder 4839:4839 <> c:34
+binder 4838:4842 <> pat:35
+R4847:4848 Undecidability.TM.TM <> mv def
+R4853:4854 Undecidability.TM.TM <> wr def
+R4858:4859 Undecidability.TM.TM <> tp:32 var
+R4856:4856 Undecidability.TM.TM <> c:34 var
+R4850:4850 Undecidability.TM.TM <> m:33 var
+R4813:4814 Undecidability.TM.TM <> q':28 var
+R4811:4811 Undecidability.TM.TM <> M:23 var
+R4884:4887 Undecidability.TM.TM <> eval:26 ind
+R4899:4900 Undecidability.TM.TM <> t':31 var
+R4895:4897 Undecidability.TM.TM <> q'':30 var
+R4893:4893 Undecidability.TM.TM <> t:25 var
+R4891:4891 Undecidability.TM.TM <> q:24 var
+R4889:4889 Undecidability.TM.TM <> M:23 var
+scheme 4531:4534 <> eval_ind
+scheme 4531:4534 <> eval_sind
+R4908:4919 Undecidability.TM.TM Fix_Alphabet <> sec
+R4933:4937 Undecidability.TM.TM <> state proj
+R4933:4937 Undecidability.TM.TM <> state proj
+R4967:4971 Undecidability.TM.TM <> trans proj
+R4967:4971 Undecidability.TM.TM <> trans proj
+R5014:5018 Undecidability.TM.TM <> start proj
+R5014:5018 Undecidability.TM.TM <> start proj
+R5048:5051 Undecidability.TM.TM <> halt proj
+R5048:5051 Undecidability.TM.TM <> halt proj
+R5095:5098 Undecidability.TM.TM <> eval ind
+R5095:5098 Undecidability.TM.TM <> eval ind
+R5128:5135 Undecidability.TM.TM <> Build_TM constr
+R5128:5135 Undecidability.TM.TM <> Build_TM constr
+def 5164:5170 <> HaltsTM
+R5177:5183 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+binder 5173:5174 <> Σ:36
+R5190:5192 Coq.Init.Datatypes <> nat ind
+binder 5187:5187 <> n:37
+R5200:5201 Undecidability.TM.TM <> TM rec
+R5206:5206 Undecidability.TM.TM <> n:37 var
+R5203:5204 Undecidability.TM.TM <> Σ:36 var
+binder 5196:5196 <> M:38
+R5214:5221 Coq.Vectors.Vector <> t ind
+R5224:5227 Undecidability.TM.TM <> tape ind
+R5229:5230 Undecidability.TM.TM <> Σ:36 var
+R5233:5233 Undecidability.TM.TM <> n:37 var
+binder 5210:5210 <> t:39
+R5241:5247 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5253:5254 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5248:5249 <> q':40
+binder 5251:5252 <> t':41
+R5255:5258 Undecidability.TM.TM <> eval ind
+R5277:5278 Undecidability.TM.TM <> t':41 var
+R5274:5275 Undecidability.TM.TM <> q':40 var
+R5272:5272 Undecidability.TM.TM <> t:39 var
+R5263:5267 Undecidability.TM.TM <> start proj
+R5269:5269 Undecidability.TM.TM <> M:38 var
+R5260:5260 Undecidability.TM.TM <> M:38 var
+R5291:5297 Undecidability.TM.TM <> HaltsTM def
+R5291:5297 Undecidability.TM.TM <> HaltsTM def
+def 5331:5336 <> HaltTM
+R5343:5345 Coq.Init.Datatypes <> nat ind
+binder 5339:5339 <> n:42
+R5397:5400 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5350:5350 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'&'_x_'}' not
+R5353:5355 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'&'_x_'}' not
+R5363:5365 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'&'_x_'}' not
+R5373:5375 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'&'_x_'}' not
+R5396:5396 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'&'_x_'&'_x_'}' not
+R5356:5362 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+binder 5351:5352 <> Σ:43
+R5366:5367 Undecidability.TM.TM <> TM rec
+R5372:5372 Undecidability.TM.TM <> n:42 var
+R5369:5370 Undecidability.TM.TM <> Σ:43 var
+binder 5351:5352 <> Σ:44
+R5376:5383 Coq.Vectors.Vector <> t ind
+R5386:5389 Undecidability.TM.TM <> tape ind
+R5391:5392 Undecidability.TM.TM <> Σ:44 var
+R5395:5395 Undecidability.TM.TM <> n:42 var
+R5417:5423 Coq.Init.Specif <> existT2 constr
+binder 5434:5434 <> t:45
+binder 5432:5432 <> M:46
+binder 5429:5430 <> Σ:47
+binder 5417:5434 <> pat:48
+R5440:5446 Undecidability.TM.TM <> HaltsTM def
+R5450:5450 Undecidability.TM.TM <> t:45 var
+R5448:5448 Undecidability.TM.TM <> M:46 var
+def 5465:5471 <> HaltMTM
+R5533:5536 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5475:5476 Coq.Init.Specif <> ::type_scope:'{'_''''_x_':'_x_'&'_x_'&'_x_'}' not
+R5483:5485 Coq.Init.Specif <> ::type_scope:'{'_''''_x_':'_x_'&'_x_'&'_x_'}' not
+R5499:5501 Coq.Init.Specif <> ::type_scope:'{'_''''_x_':'_x_'&'_x_'&'_x_'}' not
+R5509:5511 Coq.Init.Specif <> ::type_scope:'{'_''''_x_':'_x_'&'_x_'&'_x_'}' not
+R5532:5532 Coq.Init.Specif <> ::type_scope:'{'_''''_x_':'_x_'&'_x_'&'_x_'}' not
+R5489:5491 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5486:5488 Coq.Init.Datatypes <> nat ind
+R5492:5498 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+R5477:5477 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5479:5479 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5482:5482 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 5480:5481 <> Σ:49
+binder 5478:5478 <> n:50
+binder 5477:5482 <> pat:51
+R5502:5503 Undecidability.TM.TM <> TM rec
+R5508:5508 Undecidability.TM.TM <> n:50 var
+R5505:5506 Undecidability.TM.TM <> Σ:49 var
+R5477:5477 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5479:5479 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5482:5482 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 5480:5481 <> Σ:52
+binder 5478:5478 <> n:53
+binder 5477:5482 <> pat:54
+R5512:5519 Coq.Vectors.Vector <> t ind
+R5522:5525 Undecidability.TM.TM <> tape ind
+R5527:5528 Undecidability.TM.TM <> Σ:52 var
+R5531:5531 Undecidability.TM.TM <> n:53 var
+R5553:5559 Coq.Init.Specif <> existT2 constr
+R5565:5565 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5567:5568 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5571:5571 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 5575:5575 <> t:55
+binder 5573:5573 <> M:56
+binder 5569:5570 <> Σ:57
+binder 5566:5566 <> n:58
+binder 5553:5575 <> pat:59
+R5581:5587 Undecidability.TM.TM <> HaltsTM def
+R5591:5591 Undecidability.TM.TM <> t:55 var
+R5589:5589 Undecidability.TM.TM <> M:56 var
+R5602:5614 Coq.Lists.List ListNotations <> mod
+R5616:5637 Coq.Vectors.Vector VectorNotations <> mod
+def 5652:5659 <> encNatTM
+binder 5662:5663 <> Σ:60
+R5680:5681 Undecidability.TM.TM <> Σ:60 var
+binder 5674:5674 <> s:61
+binder 5676:5676 <> b:62
+R5689:5691 Coq.Init.Datatypes <> nat ind
+binder 5685:5685 <> n:63
+R5700:5706 Undecidability.TM.TM <> midtape constr
+R5708:5709 Undecidability.TM.TM <> Σ:60 var
+R5711:5712 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5714:5714 Undecidability.TM.TM <> b:62 var
+R5717:5722 Coq.Lists.List <> repeat def
+R5726:5726 Undecidability.TM.TM <> n:63 var
+R5724:5724 Undecidability.TM.TM <> s:61 var
+def 5742:5754 <> TM_computable
+binder 5757:5757 <> k:64
+R5779:5782 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5765:5772 Coq.Vectors.Vector <> t ind
+R5774:5776 Coq.Init.Datatypes <> nat ind
+R5778:5778 Undecidability.TM.TM <> k:64 var
+R5786:5789 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5783:5785 Coq.Init.Datatypes <> nat ind
+binder 5761:5761 <> R:65
+R5802:5808 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5816:5817 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5813:5815 Coq.Init.Datatypes <> nat ind
+binder 5809:5809 <> n:66
+R5818:5824 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5837:5838 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5830:5836 Undecidability.Shared.Libs.PSL.FiniteTypes.FinTypesDef <> finType rec
+binder 5825:5826 <> Σ:67
+R5839:5845 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5854:5855 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5852:5853 Undecidability.TM.TM <> Σ:67 var
+binder 5846:5846 <> s:68
+R5852:5853 Undecidability.TM.TM <> Σ:67 var
+binder 5848:5848 <> b:69
+R5862:5868 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5857:5860 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5856:5856 Undecidability.TM.TM <> s:68 var
+R5861:5861 Undecidability.TM.TM <> b:69 var
+R5869:5875 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5897:5900 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5880:5881 Undecidability.TM.TM <> TM rec
+R5892:5894 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5888:5890 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5891:5891 Undecidability.TM.TM <> k:64 var
+R5895:5895 Undecidability.TM.TM <> n:66 var
+R5883:5884 Undecidability.TM.TM <> Σ:67 var
+binder 5876:5876 <> M:70
+R5912:5919 Coq.Vectors.Vector <> t ind
+R5921:5923 Coq.Init.Datatypes <> nat ind
+R5925:5925 Undecidability.TM.TM <> k:64 var
+binder 5908:5908 <> v:71
+R5931:5931 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6120:6127 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6284:6284 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 5939:5939 <> m:72
+R5947:5951 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5942:5942 Undecidability.TM.TM <> R:65 var
+R5946:5946 Undecidability.TM.TM <> m:72 var
+R5944:5944 Undecidability.TM.TM <> v:71 var
+R5952:5958 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5962:5963 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5959:5959 <> q:73
+binder 5961:5961 <> t:74
+R6056:6091 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5964:5970 Undecidability.TM.TM <> eval ind
+R6055:6055 Undecidability.TM.TM <> t:74 var
+R6053:6053 Undecidability.TM.TM <> q:73 var
+R5985:5985 Coq.Vectors.VectorDef VectorNotations ::vector_scope:x_'++'_x not
+R6024:6028 Coq.Vectors.VectorDef VectorNotations ::vector_scope:x_'++'_x not
+R5993:5996 Coq.Vectors.VectorDef VectorNotations ::vector_scope:x_'::'_x not
+R5986:5992 Undecidability.TM.TM <> niltape constr
+R5997:6006 Coq.Vectors.Vector <> map def
+R6023:6023 Undecidability.TM.TM <> v:71 var
+R6009:6016 Undecidability.TM.TM <> encNatTM def
+R6020:6020 Undecidability.TM.TM <> b:69 var
+R6018:6018 Undecidability.TM.TM <> s:68 var
+R6029:6040 Coq.Vectors.Vector <> const def
+R6050:6050 Undecidability.TM.TM <> n:66 var
+R6042:6048 Undecidability.TM.TM <> niltape constr
+R5975:5979 Undecidability.TM.TM <> start proj
+R5981:5981 Undecidability.TM.TM <> M:70 var
+R5972:5972 Undecidability.TM.TM <> M:70 var
+R6103:6105 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6092:6100 Coq.Vectors.Vector <> hd def
+R6102:6102 Undecidability.TM.TM <> t:74 var
+R6106:6113 Undecidability.TM.TM <> encNatTM def
+R6119:6119 Undecidability.TM.TM <> m:72 var
+R6117:6117 Undecidability.TM.TM <> b:69 var
+R6115:6115 Undecidability.TM.TM <> s:68 var
+binder 6135:6135 <> q:75
+binder 6137:6137 <> t:76
+R6232:6245 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6140:6146 Undecidability.TM.TM <> eval ind
+R6231:6231 Undecidability.TM.TM <> t:76 var
+R6229:6229 Undecidability.TM.TM <> q:75 var
+R6161:6161 Coq.Vectors.VectorDef VectorNotations ::vector_scope:x_'++'_x not
+R6200:6204 Coq.Vectors.VectorDef VectorNotations ::vector_scope:x_'++'_x not
+R6169:6172 Coq.Vectors.VectorDef VectorNotations ::vector_scope:x_'::'_x not
+R6162:6168 Undecidability.TM.TM <> niltape constr
+R6173:6182 Coq.Vectors.Vector <> map def
+R6199:6199 Undecidability.TM.TM <> v:71 var
+R6185:6192 Undecidability.TM.TM <> encNatTM def
+R6196:6196 Undecidability.TM.TM <> b:69 var
+R6194:6194 Undecidability.TM.TM <> s:68 var
+R6205:6216 Coq.Vectors.Vector <> const def
+R6226:6226 Undecidability.TM.TM <> n:66 var
+R6218:6224 Undecidability.TM.TM <> niltape constr
+R6151:6155 Undecidability.TM.TM <> start proj
+R6157:6157 Undecidability.TM.TM <> M:70 var
+R6148:6148 Undecidability.TM.TM <> M:70 var
+R6246:6252 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6254:6255 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6253:6253 <> m:77
+R6267:6269 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6256:6264 Coq.Vectors.Vector <> hd def
+R6266:6266 Undecidability.TM.TM <> t:76 var
+R6270:6277 Undecidability.TM.TM <> encNatTM def
+R6283:6283 Undecidability.TM.TM <> m:77 var
+R6281:6281 Undecidability.TM.TM <> b:69 var
+R6279:6279 Undecidability.TM.TM <> s:68 var

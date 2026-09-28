@@ -189,7 +189,7 @@ Qed.
     argument (psd_3x3_determinant_nonneg in ConstructivePSD.v).
     *)
 
-(** INQUISITOR NOTE: c4_direct_tsirelson_from_quantum_realizable is the
+(** SCOPE NOTE: c4_direct_tsirelson_from_quantum_realizable is the
     direct C4 closure: quantum_realizable → Tsirelson, no intermediate
     coherence assumptions. Uses quantum_realizable_implies_tsirelson_bound. *)
 (* definitional lemma *)

@@ -3,8 +3,7 @@
     This file packages Thiele programs (defined in [ThieleMachine.v]) as the
     morphisms of a small category [ThieleProc]:
 
-      - Objects are [Interface] records, currently carrying a partition
-        count.
+      - Objects are [Interface] records carrying a partition count.
       - Morphisms are programs ([Prog]).
       - Composition is concatenation of code.
       - The identity morphism on every object is [empty_prog].
@@ -31,7 +30,7 @@
     use the lemmas here as concrete footholds rather than re-deriving the
     sequential reasoning. *)
 
-(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+(* SCOPE NOTE: standalone proof scope. This file stands on its own
    mathematics and does not engage VM semantics. No definition or theorem here
    mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
    imports no kernel module.
@@ -39,8 +38,8 @@
    The audit is waived rather than satisfied: satisfying it from inside would
    mean importing the kernel without using it, which asserts a bridge that is
    not here. Where these results feed the mu-ledger, they do so through the
-   theorems downstream that consume them. Counted in the WAIVERS census in
-   INQUISITOR_REPORT.md. *)
+   theorems downstream that consume them. The standalone boundary is stated
+   here rather than inferred from an import. *)
 
 From Coq Require Import List Arith.
 From ThieleMachine Require Import ThieleMachine.
@@ -51,8 +50,8 @@ Set Implicit Arguments.
 (** ** Interfaces
 
     An [Interface] is a tiny structural label for a program's external
-    shape. Right now it carries only a partition count; later layers can
-    extend the record without breaking this file's lemmas. *)
+    shape.  The record carries the partition count used by this category's
+    tensor and identity laws. *)
 Record Interface := {
   iface_partitions : nat;
 }.
@@ -129,7 +128,7 @@ Qed.
 (** Note: the projection [(fst (run_closed P)).(pc) = length P.(code)]
     follows by [unfold run_closed; simpl; reflexivity]. The named
     lemma [run_closed_pc] had no proof callers and is left to reduce
-    inline at any future use site. *)
+    inline at the call sites that need the corresponding equality. *)
 
 (** The canonical starting state for a closed run: PC = 0. *)
 Definition closed_state : State := {| pc := 0 |}.

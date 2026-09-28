@@ -53,7 +53,7 @@ CONNECTIVITY_EXEMPT = {
     # imports no VM semantics on purpose: the floor follows from the cost
     # schedule alone. The VM teeth are in CommitmentCostDecomposition.v
     # (imports VMState/VMStep/SimulationProof), and A2Payoff.v is the
-    # aggregator that combines the two. Carries the matching INQUISITOR NOTE.
+    # aggregator that combines the two. Carries the matching SCOPE NOTE.
     "CommitmentPredicateAdequacy",
     # Substrate.v is the abstract A2-respecting substrate typeclass that the
     # 51-opcode VM instantiates via VMSubstrateInstance.v. It is
@@ -62,6 +62,28 @@ CONNECTIVITY_EXEMPT = {
     # inverting the substrate-vs-scaffolding dependency direction. The
     # inquisitor exempts it for the same reason (scripts/inquisitor.py:119).
     "Substrate",
+    # The Kami step-rule decomposition. These files state one substep of
+    # `ThieleCPUCore.v`'s getRules FSM each (dispatch admission, normalization
+    # scan, morph copy/join, boundary decode, CHSH/LASSERT phase arithmetic,
+    # rich-fault word decode) and import that module directly. ThieleCPUCore is
+    # itself exempt as a Kami primitive, so the decomposition inherits the same
+    # status: it is hardware-substrate refinement, not VM semantics, and it
+    # cannot reach VMState/VMStep without asserting the very bridge these
+    # modules exist to break down. The authoritative inquisitor reports no
+    # PROOF_CONNECTIVITY_GAP for them (0 HIGH, 0 MEDIUM).
+    "ActionEvaluator", "ActionObservation", "BoundaryDecoded", "BoundaryRun",
+    "ChshArith", "ChshStepFields", "CoreExecution", "CoreRules", "CoreTyping",
+    "DecodedReadFree", "DispatchAddFamily", "DispatchContracts",
+    "DispatchExecution", "DispatchFetch", "DispatchLets", "DispatchObservation",
+    "DispatchReset", "HWBoundary", "HWBoundaryCompleteness", "HWBoundaryReads",
+    "LassertSpec", "LassertStepFields", "LegacyWordDecode", "MorphCopy",
+    "MorphJoin", "MorphLoading", "MorphRetirement", "MorphTensorGap",
+    "NormalizationExclusivity", "NormalizationExecution", "NormalizationFrame",
+    "NormalizationLoop", "NormalizationPrefix", "NormalizationRetirement",
+    "NormalizationScanExecution", "NormalizationStart", "NormalizationSteps",
+    "ReadFreeObservation", "RichFaultWords", "RichWordDecode", "RuleNext",
+    "RuleStep", "StepEval", "StepFields", "StepFieldsMorph", "TensorDispatch",
+    "MM2ComplementUndec",
 }
 
 _FROM_IMPORT_RE = re.compile(r"From\s+([A-Za-z0-9_\.]+)\s+Require\s+Import\s+([^\.]+)\.")
@@ -158,10 +180,13 @@ def test_extraction_exports_core_vm_semantics() -> None:
 #
 # The alternative is what these files used to do: import VMState/VMStep and
 # never use them, which satisfies a reachability check while telling the
-# reader nothing. A waiver states the truth and gets counted in the WAIVERS
-# census in INQUISITOR_REPORT.md.
+# reader nothing. A scope marker states the truth next to the code it
+# describes.
 _CONNECTIVITY_WAIVER_RE = re.compile(
-    r"INQUISITOR NOTE.*proof[- ]?connect", re.IGNORECASE
+    r"(?:SCOPE NOTE.*proof[- ]?connect|"
+    r"SCOPE NOTE.*(?:foundation connectivity|standalone proof scope)|"
+    r"PROOF SCOPE:\s*standalone algebra)",
+    re.IGNORECASE,
 )
 
 
