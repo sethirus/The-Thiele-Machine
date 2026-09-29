@@ -6265,7 +6265,7 @@ def _run_make_all(repo_root: Path) -> tuple[int, list[Finding]]:
     _log_progress("Compiling all Coq proofs")
     try:
         proc = _run_command(
-            ["make", "-C", str(coq_dir), "-j4"],
+            ["make", "-C", str(coq_dir), "-j1"],
             cwd=repo_root,
             stage="coq build",
         )
@@ -6356,7 +6356,7 @@ def _run_ocaml_extraction_build(repo_root: Path) -> list[Finding]:
     targets = ["Extraction.vo"]
     try:
         proc = _run_command(
-            ["make", "-C", str(coq_dir), "-j4", *targets],
+            ["make", "-C", str(coq_dir), "-j1", *targets],
             cwd=repo_root,
             stage="ocaml extraction build",
         )

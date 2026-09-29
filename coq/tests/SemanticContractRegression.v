@@ -33,7 +33,7 @@ Example classical_all_ones_satisfies_ic :
 Proof. unfold ic_quadratic_bound; simpl; lra. Qed.
 
 Example all_ones_outside_fixed_slice :
-  ~ quantum_realizable (zero_marginal_npa 1 1 1 1).
+  ~ npa_psd (zero_marginal_npa 1 1 1 1).
 Proof.
   intros [_ Hpsd].
   pose proof (npa_psd_implies_column_contractive 1 1 1 1 Hpsd) as H.
@@ -50,3 +50,13 @@ Qed.
 
 Print Assumptions contract_certification_and_witness_trace.
 Print Assumptions all_ones_in_full_completion.
+
+From Kernel Require Import TPMQuoteGap.
+Require Import VerifierExhaustiveness.
+
+Example tpm_runtime_claim_needs_more_than_quote :
+  forall (H : nat -> nat -> nat) (digest : nat -> nat) nonce
+         (V : Platform -> bool),
+    (forall p, V p = runtime_is_measured_software p) ->
+    ~ factors_classical (quote_projection H digest nonce) V.
+Proof. exact quote_runtime_verifier_separation. Qed.

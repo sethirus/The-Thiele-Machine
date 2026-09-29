@@ -202,7 +202,7 @@ canonical-source-gate:
 
 canonical-extract: install-hooks canonical-source-gate
 	@echo "[canonical-extract] Rebuilding extraction artefacts from canonical source..."
-	@$(MAKE) -C coq -j4 Extraction.vo kami_hw/KamiExtraction.vo ThieleMachineComplete.vo
+	@$(MAKE) -C coq -j1 Extraction.vo kami_hw/KamiExtraction.vo ThieleMachineComplete.vo
 	@python3 scripts/check_extraction.py --write
 	@if [ ! -s "build/thiele_core.ml" ]; then echo "FAIL: build/thiele_core.ml missing or empty"; exit 1; fi
 	@if [ ! -s "build/kami_hw/Target.ml" ]; then echo "FAIL: build/kami_hw/Target.ml missing or empty"; exit 1; fi
@@ -256,7 +256,7 @@ refresh-manifests:
 # Requires a built corpus, because Print Assumptions loads .vo files.
 assumption-receipt:
 	@echo "[assumption-receipt] Building corpus first (Print Assumptions needs .vo)..."
-	$(MAKE) -C coq -j4
+	$(MAKE) -C coq -j1
 	@bash scripts/generate_assumption_receipt.sh
 
 # Validate the receipt. The check reuses it for an unchanged semantic corpus
@@ -278,7 +278,7 @@ rtl-text-transform-audit-check: canonical-extract
 
 coq-gate: install-hooks
 	@echo "[coq-gate] Building all Coq proofs..."
-	$(MAKE) -C coq -j4
+	$(MAKE) -C coq -j1
 	@echo "[coq-gate] Checking for Admitted..."
 	@count=$$(grep -rnE '^\s*Admitted\.' coq/ --include='*.v' | grep -v patches | wc -l); \
 	 if [ "$$count" -ne 0 ]; then \
@@ -552,7 +552,7 @@ check-sensitive-files:
 	   echo "     Extraction.v    → build/thiele_core.ml freshness (run: make canonical-extract)"; \
 	   echo ""; \
 	   echo "   Required actions before committing:"; \
-	   echo "     1. make -C coq -j4              (rebuild proofs)"; \
+	   echo "     1. make -C coq -j1              (rebuild proofs)"; \
 	   echo "     2. make isa-proof-freshness-check (verify .vo freshness)"; \
 	   echo "     3. python3 scripts/inquisitor.py  (zero Admitted check)"; \
 	   echo "     4. Update artifacts/final_claim_audit/isa_proof_impact.md if ISA changed"; \
@@ -578,7 +578,7 @@ check-sensitive-files-strict:
 	   echo ""; \
 	   echo "  proof-undeniable requires a clean proof-sensitive file state."; \
 	   echo "  Required actions before re-running:"; \
-	   echo "    1. make -C coq -j4              (rebuild proofs)"; \
+	   echo "    1. make -C coq -j1              (rebuild proofs)"; \
 	   echo "    2. make isa-proof-freshness-check (verify .vo freshness)"; \
 	   echo "    3. python3 scripts/inquisitor.py  (zero Admitted check)"; \
 	   echo "    4. git add + git commit the changed files"; \
@@ -682,14 +682,14 @@ coq-clean:
 .PHONY: vendor-bbv-build
 vendor-bbv-build:
 	@git submodule update --init --recursive vendor/bbv
-	@cd vendor/bbv && make -j4
+	@cd vendor/bbv && make -j1
 	@echo "✅ [vendor-bbv-build] vendor/bbv full build completed"
 
 .PHONY: vendor-kami-build
 vendor-kami-build:
 	@git submodule update --init --recursive vendor/kami
 	@./scripts/fix_kami_coq18.sh
-	@cd vendor/kami && make -j4
+	@cd vendor/kami && make -j1
 	@echo "✅ [vendor-kami-build] vendor/kami full build completed"
 
 RELEASE_BLUESPECDIR ?= /usr/local/lib

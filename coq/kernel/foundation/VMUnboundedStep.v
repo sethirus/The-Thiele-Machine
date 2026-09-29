@@ -1,15 +1,15 @@
 (** VMUnboundedStep.v — the unbounded sibling of the physical VM's vm_apply.
 
-    Scaffolding #1 (VMState.v / VMStep.v / SimulationProof.v) is the
-    hardware-faithful model: write_reg/write_mem apply word64 on every
-    write, matching the real 64-bit register file and 128-word memory that
-    ThieleCPUCore.v synthesizes to silicon. VMWord64BoundednessObstruction.v
-    proves that model has finite capacity ((2^64)^144 reachable
-    (regs,mem) contents) — a genuine, permanent architectural fact about
-    that physical realization, not a bug.
+    Scaffolding #1 (VMState.v / VMStep.v / SimulationProof.v) is the bounded
+    Coq VM: write_reg/write_mem apply word64 on every write.
+    VMWord64BoundednessObstruction.v proves that model has finite capacity
+    ((2^64)^144 reachable (regs,mem) contents). Correspondence with any
+    finite-width hardware implementation is a separate, width-specific
+    refinement obligation; this file asserts no such bridge.
 
-    This file is Scaffolding #2: the same instruction set, the same
-    vm_instruction type, the same VMState record, the same graph/morphism/
+    This file is Scaffolding #2, an unbounded mathematical semantics: the
+    same instruction set, the same vm_instruction type, the same VMState
+    record, the same graph/morphism/
     certification/mu-ledger machinery (all reused unchanged from VMStep.v
     and SimulationProof.v's helper functions) — but with vm_apply's write
     path re-derived (vm_apply_u) using write_reg_u/write_mem_u, which store
@@ -23,11 +23,11 @@
     two's-complement wraparound like word64_sub. Wraparound is meaningful
     for a FIXED-width register; without a fixed width there is nothing to
     wrap around, so saturation is the faithful unbounded analogue. u_shl/
-    u_shr/u_and/u_or/u_xor/u_popcount drop word64's masking but are
-    otherwise the same bit operations (via N), so they agree with their
-    word64_* counterparts exactly whenever both operands already fit in 64
-    bits — this sibling model is a conservative extension, not a
-    reinterpretation, of the bounded one.
+    u_shr/u_and/u_or/u_xor/u_popcount drop word64's masking and otherwise
+    use the corresponding operations over N. Any bridge to
+    word-level arithmetic must prove the required operation-specific
+    no-overflow, no-underflow, and shift-range premises explicitly; no
+    blanket equivalence with the bounded VM is asserted here.
 
     This file builds the sibling *semantics*.  It intentionally stops before
     the self-interpreter layer: B3's uniform_interpreter_simulation/_correct
@@ -45,10 +45,13 @@ Import ListNotations.
 Close Scope string_scope.
 Open Scope list_scope.
 
-(** * 1. Unmasked arithmetic: same bit operations as word64_*, minus the
-    final mask to 64 bits. Agrees with word64_* whenever both operands are
-    already below 2^64 (proved below, per operation, as a sanity check that
-    this is a conservative extension and not an arbitrary reinterpretation). *)
+(** * 1. Unmasked arithmetic.
+
+    These operations omit the bounded VM's final word64 mask. Relating a
+    particular operation to a finite-width counterpart requires explicit
+    hypotheses ensuring that its inputs and result lie in the relevant range
+    (and, for subtraction and shifts, the corresponding side conditions).
+    This file does not claim a general word-level equivalence. *)
 
 Definition u_add (a b : nat) : nat := a + b.
 Definition u_sub (a b : nat) : nat := a - b.

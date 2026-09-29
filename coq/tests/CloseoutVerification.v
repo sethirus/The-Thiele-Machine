@@ -42,9 +42,8 @@ Proof. reflexivity. Qed.
 
     The synth-realised RTL surface covers 47 opcodes. Coverage splits into
     37 unconditional proofs, 10 conditional (under structural
-    preconditions), and 0 gaps. The arithmetic check below is trivial; its
-    purpose is to make any mismatch between the partition and reality break
-    the build. *)
+    preconditions), and 0 gaps. The check below is arithmetic on those
+    three numbers. It records the count and checks no opcode. *)
 Theorem closeout_47_opcodes :
   37 + 10 + 0 = 47.
 Proof. reflexivity. Qed.

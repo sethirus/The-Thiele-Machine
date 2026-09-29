@@ -43,7 +43,7 @@
       morph_table_wf /\ coupling_wf /\ coupling_desc_safe; each component is
       preserved by every kami_step (morph_table_wf_kami_step_preserved,
       coupling_wf_kami_step_preserved, coupling_desc_safe_kami_step_preserved).
-    - rtl_gap_registry is empty: rtl_coverage_partition: 36 + 10 + 0 = 46.
+    - rtl_gap_registry is empty (rtl_gap_registry_empty).
 *)
 
 From Coq Require Import List Arith.PeanoNat Lia.

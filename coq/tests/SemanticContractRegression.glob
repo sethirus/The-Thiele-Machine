@@ -1,4 +1,4 @@
-DIGEST e037ac4fbc78c9d1f0c2d8a1f7c4e853
+DIGEST ebc7d80ba276d962d5f04e07d9be4816
 FTests.SemanticContractRegression
 R92:95 Coq.Lists.List <> <> lib
 R97:101 Coq.Reals.Reals <> <> lib
@@ -100,18 +100,53 @@ R1389:1394 Kernel.TsirelsonFromMu <> cb_E11 proj
 R1419:1436 Kernel.TsirelsonFromIC <> ic_quadratic_bound def
 def 1465:1492 <> all_ones_outside_fixed_slice
 R1498:1499 Coq.Init.Logic <> ::type_scope:'~'_x not
-R1500:1517 Kernel.NPAMomentMatrix <> quantum_realizable def
-R1520:1536 Kernel.NPAMomentMatrix <> zero_marginal_npa def
-R1588:1621 Kernel.QuantumPartitionPSD <> npa_psd_implies_column_contractive thm
-R1588:1621 Kernel.QuantumPartitionPSD <> npa_psd_implies_column_contractive thm
-R1652:1683 Kernel.MuLedgerQuantumBridge <> zero_marginal_column_contractive def
-prf 1731:1757 <> all_ones_in_full_completion
-R1761:1780 Kernel.ElliptopeCompletion <> elliptope_realizable def
-R1812:1843 Kernel.ElliptopeCompletion <> deterministic_strategy_elliptope thm
-R1812:1843 Kernel.ElliptopeCompletion <> deterministic_strategy_elliptope thm
-R1882:1884 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1878:1880 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R1882:1884 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1878:1880 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R1987:2026 Tests.SemanticContractRegression <> contract_certification_and_witness_trace ex
-R2047:2073 Tests.SemanticContractRegression <> all_ones_in_full_completion thm
+R1500:1506 Kernel.NPAMomentMatrix <> npa_psd def
+R1509:1525 Kernel.NPAMomentMatrix <> zero_marginal_npa def
+R1577:1610 Kernel.QuantumPartitionPSD <> npa_psd_implies_column_contractive thm
+R1577:1610 Kernel.QuantumPartitionPSD <> npa_psd_implies_column_contractive thm
+R1641:1672 Kernel.MuLedgerQuantumBridge <> zero_marginal_column_contractive def
+prf 1720:1746 <> all_ones_in_full_completion
+R1750:1769 Kernel.ElliptopeCompletion <> elliptope_realizable def
+R1801:1832 Kernel.ElliptopeCompletion <> deterministic_strategy_elliptope thm
+R1801:1832 Kernel.ElliptopeCompletion <> deterministic_strategy_elliptope thm
+R1871:1873 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1867:1869 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1871:1873 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1867:1869 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1976:2015 Tests.SemanticContractRegression <> contract_certification_and_witness_trace ex
+R2036:2062 Tests.SemanticContractRegression <> all_ones_in_full_completion thm
+R2093:2103 Kernel.TPMQuoteGap <> <> lib
+R2121:2142 VerifierExhaustiveness <> <> lib
+def 2154:2192 <> tpm_runtime_claim_needs_more_than_quote
+R2213:2216 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2210:2212 Coq.Init.Datatypes <> nat ind
+R2220:2223 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2217:2219 Coq.Init.Datatypes <> nat ind
+R2224:2226 Coq.Init.Datatypes <> nat ind
+binder 2206:2206 <> H:3
+R2242:2245 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2239:2241 Coq.Init.Datatypes <> nat ind
+R2246:2248 Coq.Init.Datatypes <> nat ind
+binder 2230:2235 <> digest:4
+binder 2251:2255 <> nonce:5
+R2279:2282 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2271:2278 Kernel.TPMQuoteGap <> Platform rec
+R2283:2286 Coq.Init.Datatypes <> bool ind
+binder 2267:2267 <> V:6
+R2294:2294 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2341:2349 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 2302:2302 <> p:7
+R2308:2310 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2305:2305 Tests.SemanticContractRegression <> V:6 var
+R2307:2307 Tests.SemanticContractRegression <> p:7 var
+R2311:2338 Kernel.TPMQuoteGap <> runtime_is_measured_software proj
+R2340:2340 Tests.SemanticContractRegression <> p:7 var
+R2350:2351 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2352:2368 VerifierExhaustiveness <> factors_classical def
+R2404:2404 Tests.SemanticContractRegression <> V:6 var
+R2371:2386 Kernel.TPMQuoteGap <> quote_projection def
+R2397:2401 Tests.SemanticContractRegression <> nonce:5 var
+R2390:2395 Tests.SemanticContractRegression <> digest:4 var
+R2388:2388 Tests.SemanticContractRegression <> H:3 var
+R2420:2452 Kernel.TPMQuoteGap <> quote_runtime_verifier_separation thm
+R2420:2452 Kernel.TPMQuoteGap <> quote_runtime_verifier_separation thm

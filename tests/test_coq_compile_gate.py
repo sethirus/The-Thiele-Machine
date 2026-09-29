@@ -22,7 +22,7 @@ Full rebuild (slow):     COQ_REBUILD=1 pytest tests/test_coq_compile_gate.py -v 
 
 Environment variables
 ---------------------
-COQ_REBUILD=1     Force a full ``make -C coq -j4`` instead of trusting existing .vo.
+COQ_REBUILD=1     Force a full ``make -C coq -j1`` instead of trusting existing .vo.
 """
 
 from __future__ import annotations
@@ -233,7 +233,7 @@ def test_no_bare_axioms_in_kernel_outside_sections():
 @pytest.mark.slow
 def test_full_coq_build_succeeds():
     """
-    Run ``make -C coq -j4`` and assert exit code 0.
+    Run ``make -C coq -j1`` and assert exit code 0.
 
     This is the ground-truth gate: if it passes, every proof in the project
     compiles with zero errors. Marked slow; skipped unless COQ_REBUILD=1
@@ -253,7 +253,7 @@ def test_full_coq_build_succeeds():
         return
 
     result = subprocess.run(
-        ["make", "-j4"],
+        ["make", "-j1"],
         cwd=str(COQ_DIR),
         capture_output=True,
         text=True,
@@ -265,6 +265,19 @@ def test_full_coq_build_succeeds():
         f"STDOUT (tail):\n{result.stdout[-3000:]}\n\n"
         f"STDERR (tail):\n{result.stderr[-3000:]}"
     )
+
+
+def test_rebuild_uses_one_compiler_worker(monkeypatch):
+    commands = []
+
+    def record_run(command, **kwargs):
+        commands.append(command)
+        return subprocess.CompletedProcess(command, 0, stdout="", stderr="")
+
+    monkeypatch.setenv("COQ_REBUILD", "1")
+    monkeypatch.setattr(subprocess, "run", record_run)
+    test_full_coq_build_succeeds()
+    assert commands == [["make", "-j1"]]
 
 
 @pytest.mark.coq

@@ -105,20 +105,20 @@ Proof.
   exact born_rule_unique.
 Qed.
 
-(* definitional lemma: re-exports the trace_quantum_model + Tsirelson bound
+(* definitional lemma: re-exports the trace_npa_model + Tsirelson bound
    conclusion under a shorter name; no new mathematical content. *)
 (* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)
 Theorem extraction_c4_tsirelson_model_anchor :
   forall fuel trace s_init,
     trace_quantum_bridge_coherent fuel trace s_init ->
-    trace_quantum_model fuel trace s_init /\
+    trace_npa_model fuel trace s_init /\
     (Rabs (CHSH
       (trace_e00 fuel trace s_init)
       (trace_e01 fuel trace s_init)
       (trace_e10 fuel trace s_init)
       (trace_e11 fuel trace s_init)) <= sqrt8)%R.
 Proof.
-  exact trace_quantum_model_connection_closed.
+  exact trace_npa_model_connection_closed.
 Qed.
 
 (* SCOPE NOTE: alias for extraction proof-root dependency wiring. *)

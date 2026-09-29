@@ -102,7 +102,7 @@ Theorem KernelTOE_CoreProofWiring :
       forall (z : R), (-1 <= z <= 1)%R -> P z = born_probability z) /\
    (forall fuel trace s_init,
          trace_quantum_bridge_coherent fuel trace s_init ->
-         trace_quantum_model fuel trace s_init /\
+         trace_npa_model fuel trace s_init /\
       (Rabs (CHSH
             (trace_e00 fuel trace s_init)
             (trace_e01 fuel trace s_init)
@@ -115,7 +115,7 @@ Proof.
       + intros P Hvalid z Hz.
          exact (born_rule_unique P Hvalid z Hz).
       + intros fuel trace s_init Hcoh.
-         exact (trace_quantum_model_connection_closed fuel trace s_init Hcoh).
+         exact (trace_npa_model_connection_closed fuel trace s_init Hcoh).
 Qed.
 
 (**

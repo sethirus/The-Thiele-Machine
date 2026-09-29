@@ -1,31 +1,32 @@
-(** * VerifierExhaustiveness.v — factorisation impossibility for sound verification.
+(** * VerifierExhaustiveness.v: factorisation impossibility for sound
+    verification, under a supplied collision.
 
     The three escape files exhibit sound complete verifiers for the
     μ-sensitive claim under three structurally distinct transcript
-    augmentations (substrate, hardness, interaction). The natural next
-    question is whether some richer transcript could allow a sound
-    complete verifier that still factors through the classical
-    projection of the transcript. The answer is no.
+    augmentations: a full-state transcript, an exact commitment-bit
+    contract, and a reported response. The natural next question is
+    whether some richer transcript could allow a sound complete verifier
+    that still factors through the classical projection of the transcript.
+    The answer is no, whenever that projection has the collision.
 
-    What we prove here:
-
-      **Any verifier on any transcript type that is sound and complete
-        for the μ-sensitive claim cannot factor through the classical
-        projection of the transcript.**
+    What is proved here: start with supplied colliding transcripts [t_A]
+    and [t_B]. Their classical projections are equal, and each explains the
+    corresponding fixed VM witness. Then any verifier, on any transcript
+    type, that is sound and complete for the μ-sensitive claim cannot factor
+    through that projection. The theorem does not create the collision for
+    an arbitrary transcript type or projection. A projection that already
+    separates the witnesses does not meet its premises.
 
     That is, soundness + completeness forces the verifier to depend on
-    non-classical structural information in the transcript. The three
-    escapes are three concrete ways of carrying that structural
-    information; this theorem says they are not just three options
-    among many — they are three instances of the only option, which is
-    "the transcript carries non-classical structure and the verifier
-    reads it."
+    information the colliding projection forgets. The three escapes are
+    three concrete ways of carrying that information. They are three
+    sufficient interfaces, not a proof that they are the only ones, and the
+    commitment-bit construction is not a computational-hardness theorem.
 
-    Full meta-theoretic exhaustiveness — whether the substrate,
-    hardness, and interaction routes partition the space of
-    non-classical structures — sits outside Coq's object-level type
-    theory. This file reduces that meta-question to the structural-
-    enrichment question, which is what the kernel can speak to.
+    Full meta-theoretic exhaustiveness (whether some list of routes
+    partitions the space of non-classical structures) sits outside Coq's
+    object-level type theory. This file reduces that meta-question to the
+    structural-enrichment question, which is what the kernel can speak to.
 *)
 
 From Coq Require Import List Arith.PeanoNat.
@@ -110,26 +111,25 @@ Qed.
 Print Assumptions V_does_not_factor_through_classical.
 
 (* -------------------------------------------------------------------- *)
-(** ** Corollary: structural-access principle.
+(** ** Corollary: structural-access principle, under the collision.
 
     Combining the factorisation impossibility with the existence of the
     three escapes ([VerifierEscape_Substrate], [VerifierEscape_Hardness],
-    [VerifierEscape_Interaction]), we get a clean statement:
+    [VerifierEscape_Interaction]) gives one statement:
 
-    *Sound + complete verification of μ-sensitive claims requires
-    structural access to the transcript beyond its classical
-    projection.*
+    *Sound + complete verification of μ-sensitive claims requires access
+    to the transcript beyond any classical projection that has the
+    collision.*
 
-    Concretely: three structural mechanisms suffice — substrate,
-    hardness, interaction — and every sound complete verifier on the
-    μ-sensitive problem uses such a mechanism (the contrapositive of
-    the factorisation theorem).
-
-    The strongest formal claim Coq carries here, without meta-theoretic
-    quantification over transcript types: any verifier sound and
-    complete on the μ-sensitive claim cannot be a function of the
-    classical projection. Whether the three named mechanisms exhaust
-    the space of sufficient mechanisms is the meta-question.
+    Concretely: three structural mechanisms suffice, and every sound
+    complete verifier on the μ-sensitive problem reads past a colliding
+    projection (the contrapositive of the factorisation theorem). The first
+    conjunct below repeats the bare-setting impossibility. The second
+    quantifies the same conditional result over transcript types,
+    projections, supplied colliding transcripts, and explanation relations.
+    It does not assert that every projection has such a collision. Whether
+    the three named mechanisms exhaust the space of sufficient mechanisms
+    is the meta-question.
 *)
 
 Theorem verifier_corollary_summary :

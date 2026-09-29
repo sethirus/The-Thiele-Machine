@@ -281,7 +281,7 @@ Qed.
 Theorem canonical_c4_tsirelson_model_anchor :
   forall fuel trace s_init,
     trace_quantum_bridge_coherent fuel trace s_init ->
-    trace_quantum_model fuel trace s_init /\
+    trace_npa_model fuel trace s_init /\
     (Rabs (CHSH
       (trace_e00 fuel trace s_init)
       (trace_e01 fuel trace s_init)
@@ -289,7 +289,7 @@ Theorem canonical_c4_tsirelson_model_anchor :
       (trace_e11 fuel trace s_init)) <= sqrt8)%R.
 Proof.
   intros fuel trace s_init Hcoherent.
-  apply trace_quantum_model_connection_closed; assumption.
+  apply trace_npa_model_connection_closed; assumption.
 Qed.
 
 (** Canonical extraction-root dependency wiring: re-exports the corresponding

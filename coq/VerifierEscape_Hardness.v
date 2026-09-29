@@ -1,22 +1,38 @@
-(** * VerifierEscape_Hardness.v — hardness escape.
+(** * VerifierEscape_Hardness.v: the commitment-contract interface.
 
-    The bare-setting impossibility ruled out cheap sound verifiers
-    whose transcript carries only the classical projection of a VM
-    execution. Here is the **hardness escape**: have the transcript
-    also carry a *commitment* that is unforgeable under some hardness
-    assumption A. A cheap deterministic verifier is then sound (in the
-    weak existential sense) for vm_mu-sensitive claims — conditional
-    on A holding.
+    The historical filename calls this the hardness escape. The formal model
+    contains no computational hardness assumption. The bare-setting
+    impossibility rules out an abstract unit-cost verifier that is both
+    sound and complete for a mu-sensitive claim when its transcript carries
+    only the classical projection of a run. The hardness escape adds one
+    thing to the transcript: a commitment bit. In a real cryptographic
+    system the commitment would be an unforgeable signature, a SNARK, a hash
+    revelation; here it is a bit. The contract requires that this bit states
+    whether the claim holds for every explaining state.
 
-    Modeling note: we do NOT instantiate A with a concrete cryptographic
-    assumption. The escape is parameterised: given any
-    [HardnessHypothesis] record (which packages an unforgeability
-    predicate as a *hypothesis*, not an axiom), the verifier is
-    sound. Whether such a record exists in nature is a question for
-    cryptography, not for this kernel.
-*)
+    That contract is [CommitmentBitContract]. It is stated against a relation
+    [explains] that says which transcripts each state can stand behind,
+    adversarial ones included. It has two fields.
 
-From Coq Require Import List Arith.PeanoNat.
+    - Binding: a state that stands behind a transcript with the bit set
+      satisfies the claim. Forging the bit is impossible.
+    - Honesty: a state that satisfies the claim only stands behind
+      transcripts with the bit set. The honest prover always commits.
+
+    Under that contract the verifier that reads the bit is sound and
+    complete in the same universal sense the bare setting refutes
+    ([commitment_contract_verifier]). The contract is not automatic: it holds
+    for the definition that sets the bit from the claim
+    ([honest_commitments_satisfy_contract]) and fails when an unchecked bit can
+    be set independently ([unchecked_bit_violates_contract]).
+    This is a verifier construction from an exact disclosure contract.
+    It supplies neither a computational hardness reduction nor a security
+    parameter or adversary model. The constant cost is an abstract price
+    for reading the bit, not the cost of checking a cryptographic proof.
+    Whether a real commitment scheme meets the contract is a question for
+    cryptography, not for this kernel. *)
+
+From Coq Require Import List Arith.PeanoNat Bool.
 Import ListNotations.
 
 From Kernel Require Import VMState.
@@ -24,92 +40,108 @@ Require Import NecessityOfMuLedger.
 Require Import VerifierModel.
 Require Import VerifierImpossibility.
 
-(* -------------------------------------------------------------------- *)
-(** ** Hardness-augmented transcripts.
+(** ** Commitment-augmented transcripts *)
 
-    A hardness transcript is the bare transcript paired with a single
-    Boolean commitment bit. In a real cryptographic system the
-    commitment would be an unforgeable signature, a snark, a hash
-    revelation, etc.; here we model it abstractly as a bit whose
-    truthful setting is constrained by the [HardnessHypothesis].
-*)
+(** The bare transcript paired with a commitment bit. In a deployed system
+    the bit stands for a signature, a proof, or an inclusion path; here it
+    is the verdict of checking one. *)
+Definition CommitmentTranscript : Type := BareTranscript * bool.
 
-Definition HardnessTranscript : Type := BareTranscript * bool.
+Definition ct_bare (t : CommitmentTranscript) : BareTranscript := fst t.
+Definition ct_commitment (t : CommitmentTranscript) : bool := snd t.
 
-Definition ht_commitment (t : HardnessTranscript) : bool := snd t.
+(** ** The verifier *)
 
-(* -------------------------------------------------------------------- *)
-(** ** The hardness hypothesis.
+(** Accept exactly when the commitment is set. Unit cost. *)
+Definition commitment_decide (t : CommitmentTranscript) : bool := ct_commitment t.
 
-    [HardnessHypothesis] packages the cryptographic assumption as a
-    record. The unforgeability field asserts: any transcript whose
-    commitment bit is set was produced by an honest prover whose
-    underlying state satisfies the μ=1 claim. We never *prove* this
-    field; the verifier is sound *conditional* on an instance of this
-    record being supplied at use site.
-*)
+Definition commitment_cost (t : CommitmentTranscript) : nat := 1.
 
-Record HardnessHypothesis : Type := mk_hh {
-  hh_unforgeable :
-    forall (t : HardnessTranscript),
-      ht_commitment t = true ->
-      exists s : VMState, s.(vm_mu) = 1
+Theorem commitment_verifier_abstract_unit_cost :
+  forall t : CommitmentTranscript, commitment_cost t = 1.
+Proof. reflexivity. Qed.
+
+Section CommitmentContract.
+
+(** Which transcripts each state can stand behind, forged ones included. *)
+Variable explains : VMState -> CommitmentTranscript -> Prop.
+
+Record CommitmentBitContract : Prop := mk_hh {
+  hh_binding :
+    forall s t, explains s t -> ct_commitment t = true -> s.(vm_mu) = 1;
+  hh_honest :
+    forall s t, explains s t -> s.(vm_mu) = 1 -> ct_commitment t = true
 }.
 
-(* -------------------------------------------------------------------- *)
-(** ** The hardness verifier.
-
-    The verifier checks the commitment bit cheaply (constant cost) and
-    accepts iff the commitment is set.
-*)
-
-Definition hardness_decide (t : HardnessTranscript) : bool := ht_commitment t.
-
-Definition hardness_cost (t : HardnessTranscript) : nat := 1.
-
-(* -------------------------------------------------------------------- *)
-(** ** Soundness conditional on the hardness hypothesis.
-
-    Note this is *weak* (existential) soundness — under hardness, an
-    accepted transcript witnesses SOME honest state satisfying the
-    claim, not every possible explanation. This is the standard
-    cryptographic notion. The bare-setting impossibility used *strong*
-    (universal) soundness; the two notions differ exactly in what
-    structural addition each requires.
-*)
-
-Theorem hardness_verifier_weak_sound :
-  forall (H : HardnessHypothesis) (t : HardnessTranscript),
-    hardness_decide t = true ->
-    exists s : VMState, s.(vm_mu) = 1.
-Proof.
-  intros H t Hdec.
-  apply (hh_unforgeable H t). exact Hdec.
-Qed.
-
-(* -------------------------------------------------------------------- *)
-(** ** Cheapness. *)
-
-Theorem hardness_verifier_cheap :
-  forall t : HardnessTranscript, hardness_cost t = 1.
-Proof. intros. reflexivity. Qed.
-
-(* -------------------------------------------------------------------- *)
-(** ** The escape: a cheap weak-sound verifier exists conditional on
-    any hardness hypothesis. *)
-Theorem hardness_escape_succeeds :
-  forall H : HardnessHypothesis,
-  exists (decide : HardnessTranscript -> bool)
-         (cost   : HardnessTranscript -> nat),
-    (forall t, decide t = true ->
-       exists s : VMState, s.(vm_mu) = 1) /\
+(** The escape: under the hypothesis, a unit-cost verifier is sound and
+    complete. *)
+Theorem commitment_contract_verifier :
+  CommitmentBitContract ->
+  exists (decide : CommitmentTranscript -> bool)
+         (cost   : CommitmentTranscript -> nat),
+    (forall t, decide t = true -> forall s, explains s t -> s.(vm_mu) = 1) /\
+    (forall s t, s.(vm_mu) = 1 -> explains s t -> decide t = true) /\
     (forall t, cost t = 1).
 Proof.
-  intro H.
-  exists hardness_decide, hardness_cost.
+  intro H. exists commitment_decide, commitment_cost.
   split.
-  - intros t Hdec. apply (hardness_verifier_weak_sound H t Hdec).
-  - apply hardness_verifier_cheap.
+  - intros t Hbit s Hex. exact (hh_binding H s t Hex Hbit).
+  - split.
+    + intros s t Hmu Hex. exact (hh_honest H s t Hex Hmu).
+    + exact commitment_verifier_abstract_unit_cost.
 Qed.
 
-Print Assumptions hardness_escape_succeeds.
+End CommitmentContract.
+
+(** ** The hypothesis can hold *)
+
+(** Honest commitments: the bare view is one the state explains, and the
+    bit says whether the claim holds. *)
+Definition honest_commitment_explains
+    (s : VMState) (t : CommitmentTranscript) : Prop :=
+  mu_collision_explains s (ct_bare t) /\ ct_commitment t = Nat.eqb s.(vm_mu) 1.
+
+Theorem honest_commitments_satisfy_contract :
+  CommitmentBitContract honest_commitment_explains.
+Proof.
+  split.
+  - intros s t [_ Hbit] Hc. rewrite Hc in Hbit.
+    apply Nat.eqb_eq. symmetry. exact Hbit.
+  - intros s t [_ Hbit] Hmu. rewrite Hbit. rewrite Hmu. reflexivity.
+Qed.
+
+(** ** The hypothesis carries weight *)
+
+(** If the bit can be set by anyone, the state with the claim false stands
+    behind a committed transcript, and binding fails. *)
+Definition unchecked_bit_explains
+    (s : VMState) (t : CommitmentTranscript) : Prop :=
+  mu_collision_explains s (ct_bare t).
+
+Theorem unchecked_bit_violates_contract :
+  ~ CommitmentBitContract unchecked_bit_explains.
+Proof.
+  intros [Hbind _].
+  apply witness_B_violates_claim.
+  apply (Hbind po1_state_B (po1_strict_trace_A, true)); [| reflexivity].
+  unfold unchecked_bit_explains, mu_collision_explains, ct_bare. simpl.
+  split; [reflexivity | right; reflexivity].
+Qed.
+
+(** Under honest commitments the bare collision pair lifts to two
+    transcripts with the same bare view and different bits. The verifier
+    escapes the bare-setting impossibility by reading that bit. *)
+Theorem honest_lift_separates_collision :
+  honest_commitment_explains po1_state_A (po1_strict_trace_A, true) /\
+  honest_commitment_explains po1_state_B (po1_strict_trace_A, false).
+Proof.
+  unfold honest_commitment_explains, mu_collision_explains, ct_bare, ct_commitment.
+  simpl.
+  split; split.
+  - split; [reflexivity | left; reflexivity].
+  - reflexivity.
+  - split; [reflexivity | right; reflexivity].
+  - reflexivity.
+Qed.
+
+Print Assumptions commitment_contract_verifier.

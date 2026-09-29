@@ -103,7 +103,7 @@ Definition completed_matrix (E00 E01 E10 E11 x y : RealNumber) : Matrix5 :=
     zero-marginal slice pinned, this frees. *)
 Definition elliptope_realizable (E00 E01 E10 E11 : RealNumber) : Prop :=
   exists x y : RealNumber,
-    quantum_realizable (completed_npa E00 E01 E10 E11 x y).
+    npa_psd (completed_npa E00 E01 E10 E11 x y).
 
 (** The CHSH functional, spelled locally so this file reads standalone. *)
 Definition chsh_S (E00 E01 E10 E11 : RealNumber) : RealNumber := E00 + E01 + E10 - E11.
@@ -142,7 +142,7 @@ Qed.
 
 Theorem zero_marginal_implies_elliptope :
   forall E00 E01 E10 E11,
-    quantum_realizable (zero_marginal_npa E00 E01 E10 E11) ->
+    npa_psd (zero_marginal_npa E00 E01 E10 E11) ->
     elliptope_realizable E00 E01 E10 E11.
 Proof.
   intros E00 E01 E10 E11 H.

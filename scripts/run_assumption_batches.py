@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Run a generated Print Assumptions probe in bounded, validated batches.
 
-All queries are re-executed. Publish combined output only after every batch
-succeeds, contains one result per query, and reports no Coq error. The existing
+Every query is checked against the current source and compiled corpus. Publish
+combined output only after every batch succeeds, contains one result per query,
+and reports no Coq error. The existing
 aggregator remains responsible for classifying the resulting assumptions.
 """
 from __future__ import annotations
@@ -10,6 +11,7 @@ from __future__ import annotations
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 import json
+import hashlib
 from pathlib import Path
 import re
 import subprocess
@@ -19,6 +21,26 @@ import time
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from coq_proof_scope import FULL_ASSUMPTION_PROBE
+from assumption_receipt_fingerprint import corpus_digest, _coq_source_paths
+
+
+def compiled_digest(root: Path) -> str:
+    """Bind saved answers to the compiled libraries Coq actually loads."""
+    hasher = hashlib.sha256()
+    for source in _coq_source_paths(root):
+        obj = source.with_suffix(".vo")
+        if not obj.exists():
+            continue  # Vendor sources outside the built dependency closure.
+        hasher.update(obj.relative_to(root).as_posix().encode())
+        hasher.update(b"\0")
+        with obj.open("rb") as stream:
+            for block in iter(lambda: stream.read(1024 * 1024), b""):
+                hasher.update(block)
+    return hasher.hexdigest()
+
+
+def bind_corpus(source: str, source_digest: str, objects_digest: str) -> str:
+    return f"(* Receipt inputs: {source_digest} {objects_digest} *)\n" + source
 
 BLOCK = re.compile(r"^(?:Closed under the global context|Axioms:)$", re.MULTILINE)
 ERROR = re.compile(r"^\s*(?:Error:|Anomaly:|Fatal error:)", re.MULTILINE)
@@ -37,6 +59,33 @@ def split_probe(source: str) -> tuple[str, list[str]]:
     return prefix, queries
 
 
+def batch_prefix(prefix: str, queries: list[str]) -> str:
+    """Load the libraries named by this batch; Coq loads their dependencies.
+
+    The generator emits only plain Require commands. Any unfamiliar command
+    or unmatched query keeps the entire prefix, so this optimization cannot
+    silently discard an import context it does not understand.
+    """
+    clean = re.sub(r"\(\*.*?\*\)", "", prefix, flags=re.DOTALL)
+    lines = [line.strip() for line in clean.splitlines() if line.strip()]
+    modules = []
+    for line in lines:
+        match = re.fullmatch(r"Require ([\w.']+)\.", line)
+        if match is None:
+            return prefix
+        modules.append(match.group(1))
+    needed = set()
+    for query in queries:
+        match = re.fullmatch(r"Print Assumptions ([\w.']+)\.", query)
+        if match is None:
+            return prefix
+        owners = [module for module in modules if match.group(1).startswith(module + ".")]
+        if not owners:
+            return prefix
+        needed.add(max(owners, key=len))
+    return "".join(f"Require {module}.\n" for module in modules if module in needed)
+
+
 def validate_output(stdout: str, stderr: str, expected: int) -> str:
     if ERROR.search(stderr) or ERROR.search(stdout):
         raise ValueError("Coq reported an error while checking assumptions")
@@ -44,6 +93,31 @@ def validate_output(stdout: str, stderr: str, expected: int) -> str:
     if len(blocks) != expected:
         raise ValueError(f"Expected {expected} assumption results, received {len(blocks)}")
     return stdout[blocks[0].start():]
+
+
+def batch_completion(source: str, stdout: str, stderr: str, expected: int) -> dict:
+    return {
+        "schema": "assumption-batch-completion.v1",
+        "queries": expected,
+        "source_sha256": hashlib.sha256(source.encode()).hexdigest(),
+        "stdout_sha256": hashlib.sha256(stdout.encode()).hexdigest(),
+        "stderr_sha256": hashlib.sha256(stderr.encode()).hexdigest(),
+    }
+
+
+def publish_completed_batch(directory: Path, lo: int, hi: int,
+                            source: str, stdout: str, stderr: str) -> None:
+    """Publish a validated batch, with the completion record written last."""
+    validate_output(stdout, stderr, hi - lo)
+    stem = directory / f"{lo + 1}-{hi}"
+    marker = stem.with_suffix(".complete.json")
+    marker.unlink(missing_ok=True)
+    stem.with_suffix(".v").write_text(source)
+    stem.with_suffix(".output.txt").write_text(stdout)
+    stem.with_suffix(".errors.txt").write_text(stderr)
+    pending = stem.with_suffix(".complete.pending")
+    pending.write_text(json.dumps(batch_completion(source, stdout, stderr, hi - lo)))
+    pending.replace(marker)
 
 
 def load_saved_batch(directory: Path, lo: int, hi: int, source: str) -> tuple[int, str, str] | None:
@@ -57,15 +131,16 @@ def load_saved_batch(directory: Path, lo: int, hi: int, source: str) -> tuple[in
     stem = directory / f"{lo + 1}-{hi}"
     out_file, err_file = stem.with_suffix(".output.txt"), stem.with_suffix(".errors.txt")
     source_file = stem.with_suffix(".v")
-    if not out_file.exists() or not source_file.exists():
-        return None
-    if source_file.read_text() != source:
-        return None
-    stdout = out_file.read_text()
-    stderr = err_file.read_text() if err_file.exists() else ""
     try:
+        marker = json.loads(stem.with_suffix(".complete.json").read_text())
+        if source_file.read_text() != source:
+            return None
+        stdout = out_file.read_text()
+        stderr = err_file.read_text()
+        if marker != batch_completion(source, stdout, stderr, hi - lo):
+            return None
         output = validate_output(stdout, stderr, hi - lo)
-    except ValueError:
+    except (OSError, ValueError):
         return None
     return lo, output, stderr
 
@@ -101,6 +176,9 @@ def main() -> None:
     root = Path(__file__).resolve().parents[1]
     build = root / "build/probe"
     prefix, queries = split_probe((root / FULL_ASSUMPTION_PROBE).read_text())
+    source_digest = corpus_digest(root)
+    objects_digest = compiled_digest(root)
+    reused_batches: list[tuple[int, int]] = []
     batches = [(lo, min(lo + args.batch_size, len(queries)))
                for lo in range(0, len(queries), args.batch_size)]
     if args.work_dir:
@@ -113,7 +191,9 @@ def main() -> None:
         directory = Path(tempfile.mkdtemp(prefix="assumption-batches-", dir=build))
 
     def batch_source(lo: int, hi: int) -> str:
-        return prefix + "\n".join(queries[lo:hi]) + "\nQuit.\n"
+        imports = batch_prefix(prefix, queries[lo:hi])
+        return bind_corpus(imports + "\n".join(queries[lo:hi]) + "\nQuit.\n",
+                           source_digest, objects_digest)
 
     def saved(bounds: tuple[int, int]) -> tuple[int, str, str] | None:
         lo, hi = bounds
@@ -123,6 +203,8 @@ def main() -> None:
         lo, hi = bounds
         source = batch_source(lo, hi)
         stem = directory / f"{lo + 1}-{hi}"
+        # Invalidate before changing any member of a previous saved batch.
+        stem.with_suffix(".complete.json").unlink(missing_ok=True)
         stem.with_suffix(".v").write_text(source)
         result = subprocess.run(["coqtop", "-quiet", *coq_args], cwd=root / "coq",
                                 input=source, text=True, capture_output=True,
@@ -132,6 +214,7 @@ def main() -> None:
         if result.returncode:
             raise RuntimeError(f"Coq exited {result.returncode} for queries {lo + 1}..{hi}: {stem}")
         output = validate_output(result.stdout, result.stderr, hi - lo)
+        publish_completed_batch(directory, lo, hi, source, result.stdout, result.stderr)
         return lo, output, result.stderr
 
     def run(bounds: tuple[int, int]) -> tuple[int, str, str]:
@@ -139,6 +222,7 @@ def main() -> None:
         if args.work_dir:
             resumed = saved(bounds)
             if resumed is not None:
+                reused_batches.append(bounds)
                 print(f"[assumption-batch] reused {lo + 1}..{hi}", flush=True)
                 return resumed
         for attempt in range(args.retries + 1):
@@ -163,6 +247,8 @@ def main() -> None:
 
     with ThreadPoolExecutor(max_workers=args.jobs) as pool:
         results = sorted(pool.map(run, batches))
+    if corpus_digest(root) != source_digest or compiled_digest(root) != objects_digest:
+        raise RuntimeError("Proof inputs changed during the receipt run; no combined result published")
     combined = "".join(output for _, output, _ in results)
     errors = "".join(stderr for _, _, stderr in results)
     validate_output(combined, errors, len(queries))
@@ -170,7 +256,9 @@ def main() -> None:
     (build / "probe_all_err.txt").write_text(errors)
     (build / "probe_batches.json").write_text(json.dumps({
         "queries": len(queries), "jobs": args.jobs, "batch_size": args.batch_size,
-        "all_queries_reexecuted": True, "alignment_ok": True,
+        "source_digest": source_digest, "compiled_digest": objects_digest,
+        "all_queries_reexecuted": not reused_batches, "alignment_ok": True,
+        "reused_batches": [{"first": lo + 1, "last": hi} for lo, hi in sorted(reused_batches)],
         "batch_directory": str(directory.relative_to(root)),
         "batches": [{"first": lo + 1, "last": hi} for lo, hi in batches],
     }, indent=2) + "\n")

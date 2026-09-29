@@ -29,7 +29,7 @@ Theorem verilog_refines_register_write :
       (fun j => if Nat.eqb j dst then word64 v else snap_regs hs j) =
     write_reg (abs_phase1 hs) dst v.
 Proof.
-  exact kami_refines_vm_step.
+  exact kami_register_write_matches_vm.
 Qed.
 
 (** ---------------------------------------------------------------

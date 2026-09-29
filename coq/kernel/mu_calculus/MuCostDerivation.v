@@ -12,20 +12,25 @@
         ([to_erasure], [information_cost_bits]);
     (2) LASSERT cost is represented as state reduction plus description bits
         ([lassert_total_cost]);
-    (3) reversible partition operations have zero information-erasure cost
-        ([partition_ops_cannot_cost]);
-    (4) [derived_instruction_cost] agrees with the supplied delta formula when
-        the matching hypotheses are provided ([cost_function_unique]);
-    (5) the LASSERT cost formula is the minimum cost satisfying both the
-        Shannon and description lower bounds ([cost_necessity],
-        [cost_forcing_lower_bound], [cost_uniqueness]).
+    (3) an equal-size input/output model has zero information-erasure cost
+        ([positive_cost_exceeds_equal_size_erasure]);
+    (4) [proposed_selected_cost] agrees with a supplied delta formula when
+        the matching hypotheses are provided
+        ([supplied_delta_schedule_consistent]);
+    (5) a cost meeting both the state-term and the description-term premises
+        is at least the LASSERT formula ([lassert_cost_from_component_floors],
+        [lassert_cost_formula_lower_bound], [lassert_cost_is_its_formula]).
+        The premises are not proved, and KnowledgeNarrowing shows the
+        state-term premise is not forced by merge pricing.
 
-    cost_function_unique: consistency check for the supplied delta formula.
+    supplied_delta_schedule_consistent: consistency check for a supplied
+    delta formula.
     mu_cost_thermodynamic_bound: normalized identity for the bit-cost model.
 
     LASSERT(formula) is modeled as reducing accessible states from Ω to Ω',
     measured by log2 differences, plus description_bits. PNEW/PSPLIT/PMERGE
-    are modeled here as reversible bookkeeping with zero erasure cost.
+    are assigned zero by the proposed selected schedule. This file does not
+    prove that the VM operations are physically reversible.
 
     The lower-bound interface is conditional on the stated state-reduction and
     description-cost premises. A different physical calibration would be a
@@ -147,37 +152,47 @@ Definition lassert_total_cost (change : LASSERTChange) : nat :=
   let state_reduction_cost := log2_nat (omega_pre change) - log2_nat (omega_post change) in
   state_reduction_cost + description_bits change.
 
-(** NOTE: The uniqueness of this cost formula follows from the fact that:
-    1. Any implementation MUST erase >= log₂(Ω/Ω') bits (state space reduction)
-    2. Any implementation MUST encode the constraint (description_bits)
-    3. Therefore lassert_total_cost is the MINIMAL cost satisfying these bounds
+(** NOTE: The formula adds two terms, and each term stands for a premise,
+    not a theorem.
 
-    A formal uniqueness theorem would require additional assumptions about
-    what "minimal" means in this context (e.g., no wasted erasures). The
-    key result is that the cost is DETERMINED, not free. *)
+    1. The state term, log2(Ω) - log2(Ω'), charges for narrowing the set of
+       states consistent with the constraint. KnowledgeNarrowing shows that
+       narrowing what an observer knows can happen with no merge at all, so
+       a merge price does not force this term. It is forced only when the
+       narrowing has to be recorded in a way that merges machine states.
+    2. The description term charges for writing the constraint down.
+
+    The lemmas below show that a cost meeting both premises is at least the
+    formula. That is addition. It does not show the premises hold. *)
 
 
-(** Partition operations are REVERSIBLE - they don't destroy information.
+(** The proposal reads the partition operations as reversible bookkeeping.
 
-    - PNEW: Creates new partition (labels a region, reversible by unlabeling)
-    - PSPLIT: Splits partition into subregions (reversible by PMERGE)
-    - PMERGE: Merges partitions (reversible by PSPLIT)
+    - PNEW: creates a new partition (labels a region, undone by unlabeling)
+    - PSPLIT: splits a partition into subregions (undone by PMERGE)
+    - PMERGE: merges partitions (undone by PSPLIT)
 
-    By Landauer: Reversible operations have μ-cost = 0.
-*)
+    By Landauer, a reversible operation needs no erasure cost. That is the
+    reason for the zeros in the proposed schedule below. This file does not
+    prove the VM operations are reversible; the reading is the proposal.
 
-(** A partition operation that doesn't change state space *)
-Record ReversibleOp := {
-  omega : nat;
-  omega_unchanged : omega = omega
+    What it does prove is smaller. An equal-size abstraction has the same
+    modeled number of input and output states. This record is deliberately
+    not called a reversible operation: cardinality equality alone does not
+    supply an inverse for a VM step. *)
+Record EqualSizeErasureModel := {
+  modeled_state_count : nat
 }.
 
-(** No positive cost is justified for reversible operations *)
-Theorem partition_ops_cannot_cost : forall (op : ReversibleOp) (cost : nat),
+(** In the normalized erasure model, a positive candidate cost is strictly
+    greater than the computed zero-bit erasure of an equal-size abstraction.
+    This arithmetic fact neither assigns costs to partition instructions nor
+    proves those instructions reversible. *)
+Theorem positive_cost_exceeds_equal_size_erasure :
+  forall (op : EqualSizeErasureModel) (cost : nat),
   cost > 0 ->
-  (* Then cost violates information conservation *)
-  cost > bits_erased {| input_bits := log2_nat (omega op);
-                        output_bits := log2_nat (omega op);
+  cost > bits_erased {| input_bits := log2_nat (modeled_state_count op);
+                        output_bits := log2_nat (modeled_state_count op);
                         output_leq := Nat.le_refl _ |}.
 Proof.
   intros op cost Hpos.
@@ -209,25 +224,26 @@ Qed.
 (** Physical-unit readings require an external calibration hypothesis. *)
 
 
-(** The complete cost function for VM instructions *)
-Definition derived_instruction_cost (instr : vm_instruction) : nat :=
+(** A proposed schedule for the selected partition and assertion cases. It is
+    not the VM's complete [instruction_cost] schedule and is not derived from
+    the operational semantics. *)
+Definition proposed_selected_cost (instr : vm_instruction) : nat :=
   match instr with
   | instr_pnew _ _ => 0           (* Reversible *)
   | instr_psplit _ _ _ _ => 0     (* Reversible *)
   | instr_pmerge _ _ _ => 0       (* Reversible *)
   | instr_lassert _ _ _ flen delta =>
-      (* delta MUST equal: *)
-      (* (1 bit sentinel) + (state reduction log₂(Ω/Ω')) + (description bits) *)
-      (* For now, we assert delta is provided - but it's DETERMINED by these *)
+      (* The caller may separately relate delta to an information formula. *)
       flen * 8 + S delta
-  | _ => 0  (* Other instructions to be analyzed *)
+  | _ => 0  (* No claim about the omitted instruction cases. *)
   end.
 
-(** cost_function_unique: CONSISTENCY CHECK - not a true independence proof.
+(** [supplied_delta_schedule_consistent] is a consistency check, not an
+    independence or necessity proof.
 
-    HONEST STATUS: This theorem shows that IF delta equals the information-theoretic
-    formula, THEN derived_instruction_cost returns the expected value. This is a
-    consistency check, not a proof that the formula uniquely forces delta.
+    If delta is supplied equal to the information expression, then the proposed
+    selected schedule returns its syntactic result. The theorem does not prove
+    that the expression uniquely forces delta.
 
     The stronger independence argument (that the formula determines mu_delta
     rather than describing a supplied delta) requires a physical calibration
@@ -238,7 +254,7 @@ Definition derived_instruction_cost (instr : vm_instruction) : nat :=
     This theorem checks consistency of the supplied cost formula with the
     supplied information expression. It does not derive the VM schedule from
     information theory; the calibration remains a separate bridge premise. *)
-Theorem cost_function_unique : forall (instr : vm_instruction),
+Theorem supplied_delta_schedule_consistent : forall (instr : vm_instruction),
   match instr with
   | instr_lassert fa ca k flen delta =>
       (* The supplied delta is checked against: *)
@@ -248,39 +264,36 @@ Theorem cost_function_unique : forall (instr : vm_instruction),
         omega_after <= omega_before ->
         desc_bits = semantic_complexity_bits ast ->
         delta = 1 + (log2_nat omega_before - log2_nat omega_after) + desc_bits ->
-        derived_instruction_cost instr = flen * 8 + S delta
+        proposed_selected_cost instr = flen * 8 + S delta
   | instr_pnew _ delta =>
-      delta = 0 -> derived_instruction_cost instr = delta
+      delta = 0 -> proposed_selected_cost instr = delta
   | instr_psplit _ _ _ delta =>
-      delta = 0 -> derived_instruction_cost instr = delta
+      delta = 0 -> proposed_selected_cost instr = delta
   | instr_pmerge _ _ delta =>
-      delta = 0 -> derived_instruction_cost instr = delta
+      delta = 0 -> proposed_selected_cost instr = delta
   | _ => True
   end.
 Proof.
   intro instr.
-  destruct instr; unfold derived_instruction_cost; simpl; auto;
+  destruct instr; unfold proposed_selected_cost; simpl; auto;
     (* Handle the four explicit cases *)
     try (intros; rewrite <- H; reflexivity);      (* PNEW, PSPLIT, PMERGE *)
     try (intros; rewrite <- H2; reflexivity).     (* LASSERT *)
 Qed.
 
 
-(** ORIGINAL CIRCULARITY (from MuInitiality.v):
+(** What the delta formula is.
 
-    instruction_cost(instr) = instr.mu_delta  // Just reads the parameter!
-
-    FIX:
-
-    mu_delta is not arbitrary. It MUST equal the information-theoretic bound:
-    - For LASSERT: 1 + log₂(Ω/Ω') + semantic_complexity_bits(formula)
-    - For partition ops: 0 (reversible)
-
-    These values are DETERMINED by:
-    1. Information theory (Shannon entropy)
-    2. Thermodynamics (Landauer's principle)
-    3. Computational semantics (state space reduction)
-*)
+    In the VM, instruction_cost reads the declared mu_delta. The formula
+    above is a proposed value for it: for LASSERT,
+    1 + log2(Ω/Ω') + semantic_complexity_bits(formula), and 0 for the
+    partition operations. [supplied_delta_schedule_consistent] checks that
+    the proposed selected schedule returns that value when the program
+    declares it. Nothing here forces a program to declare it, and no theorem
+    here identifies this proposal with the complete VM schedule. Whether
+    physics forces the log2 term is the question KnowledgeNarrowing
+    answers: narrowing knowledge does not by itself merge states, so merge
+    pricing does not force it. *)
 
 (** Bridge premise used by downstream physical readings
 
@@ -309,20 +322,13 @@ Qed.
     This keeps the cost assumptions explicit rather than hidden in prose.
 *)
 
-(** Connection to VMStep instruction_cost:
+(** Connection to [VMStep.instruction_cost].
 
-    The instruction_cost function in VMStep.v extracts mu_delta parameters
-    from instructions. This file proves that those parameters are not arbitrary:
-
-    - For LASSERT: mu_delta = 1 + log₂(Ω/Ω') + semantic_complexity_bits(formula)
-    - For PNEW/PSPLIT/PMERGE: mu_delta = 0 (reversible operations)
-
-    These are the cost formulas checked by this file's local lemmas.
-
-    The circularity in MuInitiality.v is broken because instruction costs
-    can now be discussed against explicit lower-bound hypotheses rather than
-    left as unexplained parameters.
-*)
+    The VM schedule reads encoded delta parameters and adds constructor-specific
+    floors. This file does not determine those parameters. It records a proposed
+    value for selected cases and proves conditional lower bounds when callers
+    provide both component premises. [MuInitiality] therefore remains relative
+    to the chosen VM schedule. *)
 
 
 (**
@@ -334,15 +340,15 @@ Qed.
    2. LASSERT cost formula combines log₂(Ω/Ω') and description_bits
       (via [lassert_total_cost]; component lower bounds hold by [lia]
       after [unfold lassert_total_cost] at any caller).
-   3. Reversible partition operations have zero erasure cost
-      ([partition_ops_cannot_cost] gives the nontrivial bound: any
-      positive candidate cost strictly exceeds the [bits_erased]
-      computation on the operation's own state space).
+   3. An equal-size abstraction has zero erasure cost
+      ([positive_cost_exceeds_equal_size_erasure] says any positive candidate
+      exceeds that zero-bit computation). No VM reversibility theorem follows.
    4. Normalized bit-cost identity ([mu_cost_thermodynamic_bound]).
-   5. Cost formula consistency check ([cost_function_unique]).
-   6. Cost-uniqueness package: [cost_necessity], [cost_forcing_lower_bound],
-      [cost_uniqueness] — the LASSERT formula is the minimum sum satisfying
-      both the Shannon and description lower bounds.
+   5. Cost formula consistency check
+      ([supplied_delta_schedule_consistent]).
+   6. Formula package: [lassert_cost_from_component_floors],
+      [lassert_cost_formula_lower_bound], [lassert_cost_is_its_formula]: a cost
+      meeting both premises is at least the formula.
 
    ALL PROVEN (zero Admitted):
 
@@ -354,39 +360,33 @@ Qed.
 (**
 
     BRIDGE CLOSURE:
-    cost_function_unique (Part 5) is a CONSISTENCY check: IF delta equals
-    the information-theoretic formula, THEN derived_instruction_cost returns
-    the expected value. The remaining bridge question is whether the costs are
-    physically necessary or merely consistent with the local model.
+    [supplied_delta_schedule_consistent] (Part 5) is a consistency check: if
+    delta equals the information expression, then [proposed_selected_cost]
+    returns the stated syntactic value. The remaining bridge question is
+    whether the costs are physically necessary or merely consistent with
+    the local model.
 
     LOCAL ANSWER:
     The LASSERT cost formula is a minimum under both stated premises:
-    (a) Shannon entropy: state space reduction from Ω to Ω' forces erasure
-        of log₂(Ω/Ω') bits under the model.
+    (a) the state term: the model charges log2(Ω/Ω') for narrowing the
+        consistent states. This is a premise. Merge pricing does not force
+        it, because narrowing what is known need not merge states.
     (b) Description complexity: specifying the constraint costs description_bits
         under the model.
 
     These are separate requirements in the interface. Therefore any model that
     satisfies both lower-bound premises pays at least lassert_total_cost.
 
-    CONDITIONAL ON LANDAUER-UNRUH:
-    This forcing is physical (real energy expenditure) conditional on
-    mu_landauer_unruh_calibrated (named hypothesis in NoFIToEinstein.v).
-    Within the Coq semantics it is a mathematical minimum, not physical.
+    Within the Coq semantics this is addition over premises. A physical
+    reading needs mu_landauer_unruh_calibrated (named hypothesis in
+    NoFIToEinstein.v) and, for the state term, a merge the narrowing forces.
 *)
 
-(** cost_necessity: Any LASSERT implementation must pay BOTH the Shannon
-    entropy cost AND the description complexity cost.
-
-    If an implementation:
-    - pays [state_reduction_cost] >= log₂(Ω/Ω') (Shannon minimum), AND
-    - pays [description_cost] >= description_bits (description minimum)
-    THEN total cost >= lassert_total_cost.
-
-    This is the information-theoretic lower-bound argument: the formula is the
-    minimum sum satisfying both independent lower bounds. *)
+(** lassert_cost_from_component_floors: if a cost pays at least the state
+    term and at least the description term, it pays at least the formula.
+    The premises are the content; the conclusion is their sum. *)
 (* DEFINITIONAL HELPER *)
-Theorem cost_necessity :
+Theorem lassert_cost_from_component_floors :
   forall (change : LASSERTChange)
          (state_reduction_cost : nat)
          (description_cost : nat),
@@ -399,14 +399,10 @@ Proof.
   unfold lassert_total_cost. lia.
 Qed.
 
-(** cost_forcing_lower_bound: The lassert_total_cost formula is a lower bound
-    for ALL valid implementations.
-
-    Any total cost that simultaneously satisfies both the Shannon bound and
-    the description bound must be at least lassert_total_cost.  The formula
-    is TIGHT (equals the minimum), not just one possible cost. *)
+(** lassert_cost_formula_lower_bound: a total at least the sum of the two
+    terms is at least the formula, because the formula is that sum. *)
 (* DEFINITIONAL HELPER *)
-Theorem cost_forcing_lower_bound :
+Theorem lassert_cost_formula_lower_bound :
   forall (change : LASSERTChange) (total_cost : nat),
     total_cost >=
       (log2_nat (omega_pre change) - log2_nat (omega_post change)) +
@@ -417,20 +413,12 @@ Proof.
   unfold lassert_total_cost. lia.
 Qed.
 
-(** cost_uniqueness: The lassert_total_cost formula is the minimum under premises.
-
-    Combining lassert_cost_is_sum + cost_forcing_lower_bound:
-    - lassert_total_cost = (log₂ bound) + (description bound)   [from lassert_cost_is_sum]
-    - Any valid cost >= lassert_total_cost                       [from cost_forcing_lower_bound]
-    - lassert_total_cost itself achieves the bound               [by lassert_cost_is_sum]
-    Therefore: lassert_total_cost is the minimum relative to those premises.
-
-    This moves the claim from a chosen bound to a forced information bound.
-    The derivation is complete
-    within the Coq semantics.  The physical interpretation (actual energy
-    expenditure) is conditional on mu_landauer_unruh_calibrated in
-    NoFIToEinstein.v, a named physical hypothesis, not a Coq axiom. *)
-Theorem cost_uniqueness :
+(** lassert_cost_is_its_formula: the formula equals the sum of its two
+    terms, and any total at least that sum is at least the formula. Both
+    halves hold by unfolding the definition. Whether a physical
+    implementation must pay either term is the separate question the NOTE
+    above answers. *)
+Theorem lassert_cost_is_its_formula :
   forall (change : LASSERTChange),
     lassert_total_cost change =
       (log2_nat (omega_pre change) - log2_nat (omega_post change)) +
@@ -444,14 +432,14 @@ Proof.
   intro change.
   split.
   - unfold lassert_total_cost. reflexivity.
-  - intro total_cost. exact (cost_forcing_lower_bound change total_cost).
+  - intro total_cost. exact (lassert_cost_formula_lower_bound change total_cost).
 Qed.
 
 
 (** Check that our theorems don't use problematic axioms *)
-Print Assumptions cost_function_unique.
-Print Assumptions cost_necessity.
-Print Assumptions cost_forcing_lower_bound.
-Print Assumptions cost_uniqueness.
+Print Assumptions supplied_delta_schedule_consistent.
+Print Assumptions lassert_cost_from_component_floors.
+Print Assumptions lassert_cost_formula_lower_bound.
+Print Assumptions lassert_cost_is_its_formula.
 
 (** Expected: Only standard library axioms *)

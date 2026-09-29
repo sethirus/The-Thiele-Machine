@@ -80,9 +80,9 @@ python3 minimal/nofi_demo.py   # exhaustive sweeps + measured algorithms against
 python3 -c "import json; d=json.load(open('artifacts/print_assumptions_all_proofs.json')); print(d['summary'])"
 ```
 
-The second command prints the committed assumption receipt: 12,934 theorems probed, zero *project-local* axiom findings.
+The second command prints the committed assumption receipt: 13,028 theorems probed, zero *project-local* axiom findings.
 The badge says project-local, and that is the precise claim: it is not "zero axioms".
-5,598 of those theorems are closed under the global context outright; the remaining 7,336 use only Coq standard-library assumptions: dependent functional extensionality, `Eqdep.Eq_rect_eq.eq_rect_eq`, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
+5,692 of those theorems are closed under the global context outright; the remaining 7,336 use only Coq standard-library assumptions: dependent functional extensionality, `Eqdep.Eq_rect_eq.eq_rect_eq`, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
 Those library assumptions are disclosed in the receipt; what is zero is axioms this project added.
 Validate the committed receipt quickly with `make assumption-receipt-check`.
 That path reuses the exact theorem/axiom results when the semantic fingerprint is unchanged and performs the full corpus derivation only after proof-relevant inputs drift.
@@ -169,22 +169,22 @@ Completeness forces acceptance on the honest run.
 Both bars cannot be cleared.
 The bare-setting impossibility is `bare_setting_no_sound_complete_verifier`, in [coq/VerifierImpossibility.v](coq/VerifierImpossibility.v).
 
-Three sufficient constructions are formalized under their respective premises; the hardness construction has the weaker soundness guarantee stated in its theorem:
+Three sufficient evidence interfaces are formalized under their respective premises:
 
 - **Substrate**: the transcript carries the full `VMState`; the verifier reads `vm_mu` directly. `substrate_escape_succeeds`, in [coq/VerifierEscape_Substrate.v](coq/VerifierEscape_Substrate.v).
-- **Hardness**: the transcript carries an unforgeable commitment; the verifier accepts under a hardness hypothesis. `hardness_escape_succeeds`, in [coq/VerifierEscape_Hardness.v](coq/VerifierEscape_Hardness.v).
+- **Hardness, as a commitment contract**: the transcript carries a commitment bit, assumed to agree exactly with the claim for every explaining state. In a deployed system a signature and its hardness assumption would have to supply that contract; here it is assumed. `commitment_contract_verifier` constructs the verifier under it, in [coq/VerifierEscape_Hardness.v](coq/VerifierEscape_Hardness.v). It does not prove cryptographic security.
 - **Interaction**: the verifier challenges the prover for a response that pins the claim. `interactive_escape_succeeds`, in [coq/VerifierEscape_Interaction.v](coq/VerifierEscape_Interaction.v).
 
 The substrate channel is the option the structural axis makes available.
 The other two are what classical cryptography and complexity already use.
-The bottom of the trichotomy is `V_does_not_factor_through_classical` in [coq/VerifierExhaustiveness.v](coq/VerifierExhaustiveness.v).
-Its exact scope matters: **given a transcript type whose classical projection collides two witnesses** (`proj t_A = proj t_B`, supplied as a hypothesis), no sound + complete verifier on the μ-sensitive claim can be a function of that projection.
+The bottom of the three is `V_does_not_factor_through_classical` in [coq/VerifierExhaustiveness.v](coq/VerifierExhaustiveness.v).
+Its exact scope matters: **given a transcript type whose classical projection collides two witnesses** (`proj t_A = proj t_B`, supplied as a hypothesis, with an explanation premise for each fixed VM witness), no sound + complete verifier on the μ-sensitive claim can be a function of that projection.
 Where the collision exists, verification must access non-classical structure, and the three escapes are three concrete ways to expose it.
 
 The collision is a hypothesis, not a conclusion: on a transcript rich enough to separate the witnesses it is unsatisfiable, and the statement is vacuous there.
-So the trichotomy is closed at the bottom *where the projection collides*, which is the case the argument is about.
-"There is no fourth way" is the informal reading of that, not a theorem.
-Full meta-theoretic exhaustiveness, whether substrate, hardness, and interaction partition the space of non-classical structures, sits outside Coq's object-level type theory.
+So the three routes are pinned at the bottom *where the projection collides*, which is the case the argument is about.
+"There is no fourth way" would be the informal reading of that, and it is not a theorem: nothing shows the three are the only sufficient interfaces.
+Full meta-theoretic exhaustiveness, whether some list of routes partitions the space of non-classical structures, sits outside Coq's object-level type theory.
 This file reduces that meta-question to the structural-enrichment question; it does not settle it, and the file header says so.
 
 ## Observation, enforcement, and representation
@@ -264,7 +264,7 @@ Coq closes the contradiction by `congruence`.
 Closed under the global context
 ```
 
-The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 12,934 addressable theorems probed and no user/project-local axiom findings in the committed assumption scan.
+The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 13,028 addressable theorems probed across 433 files and no user/project-local axiom findings in the committed assumption scan.
 
 ## Beyond the minimal witness
 
@@ -302,19 +302,19 @@ The fourth column is the artifact that refutes the row, each one constructible i
 | Structural advantage | The factored-SAT lower bound is proved for the non-adaptive model; the thermodynamic parsing gap is proved separately. | [NonAdaptiveLowerBound.v](coq/kernel/nfi/NonAdaptiveLowerBound.v), [ThermodynamicStructuralAdvantage.v](coq/kernel/nfi/ThermodynamicStructuralAdvantage.v) | A non-adaptive solver deciding the factored instance while probing fewer than `2^n` assignments; `non_adaptive_sat_lower_bound` falls. |
 | Algebraic Tsirelson | The CHSH bound follows from rational polynomial constraints by Coq arithmetic. | [AlgebraicCoherence.v](coq/kernel/category/AlgebraicCoherence.v), [QuantumPartitionPSD.v](coq/kernel/quantum/QuantumPartitionPSD.v) | An `algebraically_coherent` correlator with `S² > 8`; `algebraically_coherent_tsirelson_general` falls. |
 | Physics closure | Locality, `mu` monotonicity (mu never decreases under any step), causality, and discrete curvature identities are formalized as VM-level consequences or named bridges. The flat/vacuum EFE closure (`full_efe_uniform_two_vertex`) is a discrete-geometry identity (both sides vanish), not a derivation of general relativity. | [PhysicsClosure.v](coq/kernel/curvature/PhysicsClosure.v), [EinsteinEmergence.v](coq/kernel/curvature/EinsteinEmergence.v), [PhysicsConditionalClosure.v](coq/PhysicsConditionalClosure.v) | A state `s` and instruction `i` with `(vm_apply s i)` paying less than `instruction_cost i` in `mu`, or a step writing outside its target module; `vm_apply_mu` (or the locality lemma) falls. |
-| Intermediate hardware-model correspondence | The load-bearing theorem is [`driven_step_wf`](coq/kami_hw/GraphReconstructionBridge.v#L3872): for every instruction, the abstracted Kami hardware step equals `vm_apply` under `WFDrivenPrecondition`: `abs_full_snapshot (kami_step ks i) = vm_apply (abs_full_snapshot ks) i`, discharged by per-opcode lemmas. CHSH_LASSERT's Kami snapshot semantics inspect the same witness buckets through the same check function, matching VM-step exactly via `abs_phase1`. (The bookkeeping identity `37 + 10 + 0 = 47` is recorded separately as `rtl_coverage_partition`; it is Peano arithmetic and proves nothing about opcodes, so cite `driven_step_wf`, not the partition.) | [GraphReconstructionBridge.v](coq/kami_hw/GraphReconstructionBridge.v#L3872), [coq/kami_hw](coq/kami_hw) | A cosim input on which synthesised RTL diverges from the Kami step for any synth-realised opcode (run `tests/test_verilog_cosim.py`); `rtl_step_correct` is violated empirically. |
-| CHSH ↔ NPA-PSD bridge | A successful `CHSH_LASSERT` step entails the witness-derived NPA moment matrix is PSD. | [chsh_lassert_no_trap_implies_quantum_realizable](coq/kernel/quantum/QuantumPartitionPSD.v), [column_contractive_check_witness_sound](coq/kernel/nfi/MuLedgerQuantumBridge.v) | A successful `CHSH_LASSERT` step whose witness-derived moment matrix is not PSD; `chsh_lassert_no_trap_implies_quantum_realizable` falls. |
+| Intermediate hardware-model correspondence | The load-bearing theorem is [`driven_step_wf`](coq/kami_hw/GraphReconstructionBridge.v#L3872): for every instruction, the abstracted Kami hardware step equals `vm_apply` under `WFDrivenPrecondition`: `abs_full_snapshot (kami_step ks i) = vm_apply (abs_full_snapshot ks) i`, discharged by per-opcode lemmas. CHSH_LASSERT's Kami snapshot semantics inspect the same witness buckets through the same check function, matching VM-step exactly via `abs_phase1`. (The bookkeeping identity `37 + 10 + 0 = 47` is recorded separately as `rtl_inventory_arithmetic`; it is Peano arithmetic and proves nothing about opcodes, so cite `driven_step_wf`, not the partition.) | [GraphReconstructionBridge.v](coq/kami_hw/GraphReconstructionBridge.v#L3872), [coq/kami_hw](coq/kami_hw) | A cosim input on which synthesised RTL diverges from the Kami step for any synth-realised opcode (run `tests/test_verilog_cosim.py`); `rtl_step_correct` is violated empirically. |
+| CHSH ↔ NPA-PSD bridge | A successful `CHSH_LASSERT` step entails the witness-derived NPA moment matrix is PSD. | [chsh_lassert_no_trap_implies_npa_psd](coq/kernel/quantum/QuantumPartitionPSD.v), [column_contractive_check_witness_sound](coq/kernel/nfi/MuLedgerQuantumBridge.v) | A successful `CHSH_LASSERT` step whose witness-derived moment matrix is not PSD; `chsh_lassert_no_trap_implies_npa_psd` falls. |
 | Elliptope completion | The completion-based PSD correlator model (physical quantum identification uses external mathematics): every LHV correlator inside (deterministic + n-ary mixtures), Tsirelson `S² ≤ 8` for the whole set, PR box excluded, classical ⊂ elliptope strict. | [ElliptopeCompletion.v](coq/kernel/quantum/ElliptopeCompletion.v) | An elliptope-realizable tuple with `S² > 8` (`elliptope_tsirelson` falls), a sign pattern whose completed Gram form goes negative (`deterministic_strategy_elliptope` falls), or a PSD completion of the PR box (`pr_box_not_elliptope` falls). |
 | Elliptope gate | Decidable Z-arithmetic membership check, two branches (fraction-free Sylvester for strict interior, rational LDL^T certificate reaching singular and boundary completions); passing provably entails elliptope membership; the µ=0 tightness witness, (1,0,1,0), and the on-Tsirelson-curve Pythagorean point (3/5,4/5,4/5,−3/5) accepted by computation; the PR box never accepted. | [ElliptopeGate.v](coq/kernel/quantum/ElliptopeGate.v) | Inputs making `elliptope_check_full` return true with correlators outside the set; `elliptope_check_full_sound` falls. |
 | Pointer-observable criterion | Observer ecosystems, redundant records, and uniqueness relative to rivals, with five minimal model instances. Event and observer choices remain modeling inputs. | [PointerObservable.v](coq/kernel/frontier/PointerObservable.v), [PointerObservableReductions.v](coq/kernel/frontier/PointerObservableReductions.v) | An independently justified ecosystem where the criterion fails would challenge its proposed applicability. |
-| Counterexamples to stronger criteria | Abstract observer models refute implications from forgery resistance to metering or record proliferation. The remaining public-record criterion is a proposal: public verifiability alone does not imply actual storage. | [PointerObservableCounterexamples.v](coq/kernel/frontier/PointerObservableCounterexamples.v) | Check the observer and security abstractions against their intended applications; these model proofs do not validate deployed protocols. |
-| PoS finality reduction | Nothing-at-stake is the kernel's free forgery: a zero-stake-at-finalize gadget admits no A2 field, and any slashing gadget (finalize risks ≥ 1) pays the finality floor: `universal_nfi_any_substrate` instantiated. | [PoSFinality.v](coq/kernel/reductions/PoSFinality.v) | A zero-stake-at-finalize gadget that admits an A2 proof, or a slashing gadget with a finalizing trace of total stake-at-risk 0; `nothing_at_stake_is_free_forgery` or `slashing_finality_floor` falls. |
-| Gas-metering reduction | A gas schedule satisfies the commitment floor + no-overcharge iff its charging predicate is the commitment predicate with exact unit pricing; the kernel VM itself inhabits the class. | [GasMetering.v](coq/kernel/reductions/GasMetering.v) | A `GasSchedule` satisfying floor + no-overcharge whose charge predicate differs from cert-flip on some reachable step; `gas_schedule_exactness` falls. |
-| TEE attestation reduction | Sound+complete attestation of a μ-dependent claim cannot factor through the bare transcript; the replay attack is the two-preimage witness; exposing the measurement register restores a sound, complete, unit-cost verifier. | [TEEAttestation.v](coq/kernel/reductions/TEEAttestation.v) | A sound+complete attestation verifier `V : TEEReport -> bool` with a proof of `factors_classical report_projection V`; `attestation_cannot_factor_through_bare_transcript` falls. |
-| Transparency-log reduction | The CT design is the hardness escape: log-backed transcripts admit a unit-cost grounded verifier while the log-free equivalent is impossible; split-view is the impossibility's witness pair. | [TransparencyLog.v](coq/kernel/reductions/TransparencyLog.v) | A sound+complete log-free (bare-transcript) verifier with the same soundness target; `log_free_verifier_impossible` falls. |
-| Proof-carrying reduction | Rounds restore sound, complete, unit-cost verification of the μ-claim; level-`k` certification costs ≥ `k` μ (events only, not gate counts or circuit size), with tightness witnessed. | [ProofCarryingVerifier.v](coq/kernel/reductions/ProofCarryingVerifier.v) | A level-`k` certified trace with total μ < `k`, or a sound+complete zero-round bare verifier; `level_k_verification_floor` or `bare_pcc_impossible` falls. |
+| Counterexamples to stronger criteria | The adversarial search refutes implications from forgery resistance to metering or to record proliferation. The refutations rest on prose arguments about the real designs; the Coq models fix only the observer maps behind them. The remaining public-record criterion is a proposal: public verifiability alone does not imply actual storage. | [PointerObservableCounterexamples.v](coq/kernel/frontier/PointerObservableCounterexamples.v) | Show a candidate's observer map is unfaithful to the real design in a way that changes its verdict; that candidate's refutation falls. |
+| PoS finality reduction | Free finalization is the kernel's free forgery: a zero-stake-at-finalize gadget admits no A2 field, and any slashing gadget (finalize risks ≥ 1) pays the finality floor: `universal_nfi_any_substrate` instantiated. The gadget is a synthetic Boolean model, not a Casper accountable-safety model. | [PoSFinality.v](coq/kernel/reductions/PoSFinality.v) | A zero-stake-at-finalize gadget that admits an A2 proof, or a slashing gadget with a finalizing trace of total stake-at-risk 0; `nothing_at_stake_is_free_forgery` or `slashing_finality_floor` falls. |
+| Gas-metering reduction | A gas schedule satisfies the commitment floor + no-overcharge iff its charging predicate is the commitment predicate with exact unit pricing; the kernel VM itself inhabits the class. The schedule is an abstract local charging law; no EVM opcode table is modeled. | [GasMetering.v](coq/kernel/reductions/GasMetering.v) | A `GasSchedule` satisfying floor + no-overcharge whose charge predicate differs from cert-flip on some reachable step; `gas_schedule_exactness` falls. |
+| TEE attestation reduction | Sound+complete attestation of a μ-dependent claim cannot factor through the bare transcript; the replay shape is the two-preimage witness; exposing the measurement register restores a sound, complete verifier at the model's unit cost. The report is a transcript plus one number stipulated equal to μ; this is not a TEE security model. | [TEEAttestation.v](coq/kernel/reductions/TEEAttestation.v) | A sound+complete attestation verifier `V : TEEReport -> bool` with a proof of `factors_classical report_projection V`; `attestation_cannot_factor_through_bare_transcript` falls. |
+| Transparency-log reduction | The CT design, read at one bit, is the commitment escape: log-backed transcripts admit a sound, complete, unit-cost verifier under the disclosure contract, while the log-free equivalent is impossible; a split view has the shape of the impossibility's witness pair. This is not an RFC or Merkle-security theorem. | [TransparencyLog.v](coq/kernel/reductions/TransparencyLog.v) | A sound+complete log-free (bare-transcript) verifier with the same soundness target; `abstract_bare_verifier_impossible` falls. |
+| Proof-carrying reduction | Rounds restore sound, complete, unit-cost verification of the μ-claim; level-`k` certification costs ≥ `k` μ (events only, not gate counts or circuit size), with tightness witnessed. The certificate is one number stipulated equal to μ; no PCC checker is modeled. | [ProofCarryingVerifier.v](coq/kernel/reductions/ProofCarryingVerifier.v) | A level-`k` certified trace with total μ < `k`, or a sound+complete zero-round bare verifier; `level_k_verification_floor` or `bare_pcc_impossible` falls. |
 
-The audited claim ledger is [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v).
+The audited claim ledger is [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v). It lists a selected set of established claims; newer modules enter it once their results settle.
 Its generated closure receipt is [artifacts/master_summary_open_obligations.json](artifacts/master_summary_open_obligations.json).
 
 ## What is established and what remains open
@@ -328,6 +328,8 @@ Its generated closure receipt is [artifacts/master_summary_open_obligations.json
 | Irrecoverability and verifier separation | For projections/transcripts that identify witnesses disagreeing on the queried property. |
 | Quantum certificate soundness | Specified slice or completion PSD conditions; not physical entanglement generation. |
 | Hardware trace commutation | The Coq hardware model under `WFDrivenRun`; downstream compiler/RTL trust remains explicit. |
+| Which narrowing is priced | On a finite machine that prices merges, the machine's own spread of possible states can't shrink for free (`run_narrowing_priced_log`). Observer knowledge need not be charged: `observer_narrowing_can_be_free` exhibits one admissible merge-priced cost assigning zero to an injective measurement, while wiping the record costs at least one (`wipe_costs_at_least_one`). Merge pricing is a lower bound and may overcharge injective steps. The insight No Free Insight prices is certified insight. |
+| Recursion theorem | Proved for L, a Turing-complete lambda calculus, from its reduction rules (`second_recursion`), with Rice's theorem and halting as corollaries (`L_rice`, `L_halting_undecidable`). The 51-opcode VM's recursion theorem is still a premise. |
 | Physical interpretation | Open. `F1_physical_premises_incompatible` proves the current full-ISA F1 premise pair has no instance. |
 
 The classical embedding results describe the formal fragments and simulation contracts in their cited files.
@@ -505,9 +507,9 @@ Two independent receipts track proof assumptions.
 - [scripts/inquisitor.py](scripts/inquisitor.py) scans for proof-hygiene issues such as admitted proofs, undeclared axioms, vacuous theorem shapes, and circular claim patterns.
 - [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records Coq `Print Assumptions` over the audited theorem set.
 
-The master theorem ledger is [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v).
-The current committed assumption receipt reports 12,934 addressable theorems probed and no user/project-local axiom findings.
-The split: 5,598 close under the global context outright, and the remaining 7,336 lean only on Coq-stdlib axiom families.
+The selected theorem ledger is [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v).
+The current committed assumption receipt reports 13,028 addressable theorems probed across 433 files and no user/project-local axiom findings.
+The split: 5,692 close under the global context outright, and the remaining 7,336 lean only on Coq-stdlib axiom families.
 Those families are `functional_extensionality_dep` (7,041), `eq_rect_eq` (3,849), the classical-reals pair `sig_forall_dec` (1,054) and `sig_not_dec` (300), and `classic` (90).
 Those families enter through the real-number and physics layers; the minimal core uses none of them.
 "Zero axioms" here means zero project-local axioms, the same convention the monograph uses.
@@ -532,7 +534,7 @@ The VM exposes 51 opcodes total.
 47 are synth-realized and implemented in the generated RTL; full physical retirement refinement remains open.
 Four are Q_{1+AB} cert-opcodes that live in the Kami HW abstraction with kernel-equivalence proven.
 They aren't in the synthesized Verilog, because their hardware hasn't been built.
-They contribute the OCaml/RTL parity tests' tolerated slack of 4 (theorem `rtl_coverage_partition`: 37 + 10 + 0 = 47).
+They contribute the OCaml/RTL parity tests' tolerated slack of 4 (the count is 37 + 10 + 0 = 47; `rtl_inventory_arithmetic` records that sum and checks no opcode).
 The 47 synth-realized opcodes fall into six families.
 
 | Family | Examples | Cost behavior |
@@ -542,7 +544,7 @@ The 47 synth-realized opcodes fall into six families.
 | Memory, ALU, control flow | `LOAD`, `STORE`, `ADD`, `JUMP`, `HALT` | Classical compute surface. |
 | Witness, tensor, cert flags | `CHSH_TRIAL`, `CERTIFY`, `REVEAL`, `TENSOR_SET`, `TENSOR_GET` | Certification/revelation instructions carry positive cost floors. |
 | Categorical morphisms | `MORPH`, `COMPOSE`, `MORPH_ID`, `MORPH_ASSERT` | Morphism assertions are certification-bearing. |
-| CHSH-aware certification | `CHSH_LASSERT` | Kernel-level column-contractivity check on `vm_witness` buckets. Decidable integer-arithmetic check; success ⇒ NPA-PSD via the bridge theorem [`chsh_lassert_no_trap_implies_quantum_realizable`](coq/kernel/quantum/QuantumPartitionPSD.v). Cost `S(mu_delta) ≥ 1` regardless of outcome (cert-setter discipline). |
+| CHSH-aware certification | `CHSH_LASSERT` | Kernel-level column-contractivity check on `vm_witness` buckets. Decidable integer-arithmetic check; success ⇒ NPA-PSD via the bridge theorem [`chsh_lassert_no_trap_implies_npa_psd`](coq/kernel/quantum/QuantumPartitionPSD.v). Cost `S(mu_delta) ≥ 1` regardless of outcome (cert-setter discipline). |
 
 The four Q_{1+AB} opcodes (`instr_chsh_lassert_1ab*`) extend `CHSH_LASSERT` with the Q_{1+AB} moment-matrix family.
 They are defined in the Kami HW abstraction with kernel-equivalence proven (`coq/kami_hw/Abstraction.v`, `EmbedStep.v`) and run on the OCaml/Python VM.
@@ -560,7 +562,7 @@ Single-step semantics live in [coq/kernel/foundation/VMStep.v](coq/kernel/founda
 | [THIELE_MACHINE.txt](THIELE_MACHINE.txt) | The model and the argument in plain text, no build details. Start here. |
 | [monograph/monograph.pdf](monograph/monograph.pdf) | The monograph. Part I is the argument, Part II is the VM build, Part III is how to check it, Part IV is what is open. |
 | [monograph/thiele_machine_math_spec.tex](monograph/thiele_machine_math_spec.tex) | Mathematical specification. |
-| [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v) | Audited theorem ledger. |
+| [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v) | Audited ledger of the selected established claim set. |
 | [coq/README.md](coq/README.md) | Map of the active Coq proof tree. |
 | [coq/PhysicsConditionalClosure.v](coq/PhysicsConditionalClosure.v) | VM accounting results and a conditional Tsirelson theorem from a full PSD completion. |
 | [TECHNICAL_DISCLOSURE.md](TECHNICAL_DISCLOSURE.md) | Prior-art disclosure for the public technical concepts. |

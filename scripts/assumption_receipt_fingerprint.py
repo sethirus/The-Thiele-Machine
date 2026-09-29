@@ -144,6 +144,8 @@ def _tool_inputs(root: Path) -> list[Path]:
         root / "build/probe/build_full_probe.py",
         root / "build/probe/aggregate_full_probe.py",
         root / "scripts/coq_proof_scope.py",
+        root / "scripts/run_assumption_batches.py",
+        root / "scripts/assumption_receipt_fingerprint.py",
     ]
 
 

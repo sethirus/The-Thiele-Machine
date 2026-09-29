@@ -8,7 +8,7 @@
     bound, and keeps the remaining PSD gap explicit.
 
     That last point matters. The file does not identify μ-ledger coherence with
-    full quantum realizability by fiat. Column contractivity remains an extra
+    PSD of the NPA matrix by fiat. Column contractivity remains an extra
     hypothesis beyond the row-minor conditions, and the counterexample in this
     file shows why that stronger PSD bridge cannot be silently smuggled in.
 *)
@@ -72,21 +72,18 @@ Definition trace_zero_marginal_npa
     (trace_e10 fuel trace s_init)
     (trace_e11 fuel trace s_init).
 
-(** PSPLIT quantum-state predicate.
+(** Trace NPA predicate.
 
-    A PSPLIT-initiated trace implements a quantum state here when the resulting
-    CHSH-trial statistics form a quantum_realizable NPA moment matrix. This is
-    an operational compatibility condition on the produced statistics, not an
-    assumed density-matrix model hidden in the trace itself.
-
-    The alias keeps the PSPLIT provenance visible. It matches
-    trace_quantum_model in TsirelsonQuantumModel.v, while the stronger bridge
-    predicates in this file additionally ask for certification and column-side
-    conditions.
+    The CHSH-trial statistics a trace produces form a symmetric PSD
+    zero-marginal NPA moment matrix. This is a condition on the recorded
+    statistics. It does not say the trace implements a quantum state, and no
+    density-matrix model is hidden in the trace. It matches trace_npa_model
+    in TsirelsonQuantumModel.v; the stronger bridge predicates in this file
+    also ask for certification and column-side conditions.
 *)
-Definition psplit_implements_quantum_state
+Definition trace_npa_matrix_psd
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
-  quantum_realizable (trace_zero_marginal_npa fuel trace s_init).
+  npa_psd (trace_zero_marginal_npa fuel trace s_init).
 
 (** ** Concrete state-side coherence *)
 
@@ -252,19 +249,19 @@ Definition execution_column_contractivity_certificate
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
   trace_column_contractive fuel trace s_init.
 
-Definition execution_quantum_gram_coherent
+Definition execution_npa_gram_coherent
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
   final_tensor_symmetric fuel trace s_init /\
   execution_column_contractivity_certificate fuel trace s_init.
 
-Definition mu_ledger_quantum_gram_coherent
+Definition mu_ledger_npa_gram_coherent
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
   mu_ledger_tsirelson_coherent fuel trace s_init /\
   execution_column_contractivity_certificate fuel trace s_init.
 
 Definition mu_ledger_coherent
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
-  mu_ledger_quantum_gram_coherent fuel trace s_init.
+  mu_ledger_npa_gram_coherent fuel trace s_init.
 
 Definition machine_internal_completed_run
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
@@ -282,15 +279,15 @@ Definition bridge_ready_completed_run
 Definition certified_bridge_counterexample_trace : list vm_instruction :=
   bridge_counterexample_trace ++ [instr_certify 0].
 
-Definition final_tensor_quantum_gram
+Definition final_tensor_npa_gram
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
   let M := nat_matrix_to_fin5 (npa_to_matrix (trace_zero_marginal_npa fuel trace s_init)) in
   symmetric5 M /\ PSD5 M.
 
-Lemma bridge_witness_execution_quantum_gram_coherent :
-  execution_quantum_gram_coherent 6%nat bridge_witness_trace bridge_counterexample_init.
+Lemma bridge_witness_execution_npa_gram_coherent :
+  execution_npa_gram_coherent 6%nat bridge_witness_trace bridge_counterexample_init.
 Proof.
-  unfold execution_quantum_gram_coherent.
+  unfold execution_npa_gram_coherent.
   split.
   - unfold final_tensor_symmetric, mu_tensor_symmetric.
     simpl.
@@ -304,8 +301,8 @@ Proof.
     vm_compute. lra.
 Qed.
 
-Lemma bridge_counterexample_not_execution_quantum_gram_coherent :
-  ~ execution_quantum_gram_coherent 6%nat bridge_counterexample_trace bridge_counterexample_init.
+Lemma bridge_counterexample_not_execution_npa_gram_coherent :
+  ~ execution_npa_gram_coherent 6%nat bridge_counterexample_trace bridge_counterexample_init.
 Proof.
   intros [_ Hcontractive].
   exact (bridge_counterexample_not_column_contractive Hcontractive).
@@ -328,12 +325,12 @@ Qed.
 (** With witness counts in VMState, the raw VMState version of the
     "cannot characterize" theorem is subsumed by the mu_tensor version below.
     The mu_tensor formulation is the physically meaningful one: no function of
-    the mu-tensor alone can characterize execution quantum gram coherence. *)
+    the mu-tensor alone can characterize execution NPA Gram coherence. *)
 
-Theorem raw_vm_mu_tensor_cannot_characterize_execution_quantum_gram :
+Theorem raw_vm_mu_tensor_cannot_characterize_execution_npa_gram :
   ~ exists P : list nat -> Prop,
       forall fuel trace s_init,
-        execution_quantum_gram_coherent fuel trace s_init <->
+        execution_npa_gram_coherent fuel trace s_init <->
         P (run_vm fuel trace s_init).(vm_mu_tensor).
 Proof.
   intros [P HP].
@@ -341,15 +338,15 @@ Proof.
   pose proof (HP 6%nat bridge_counterexample_trace bridge_counterexample_init) as Hbad.
   destruct Hgood as [Hgood_fwd _].
   destruct Hbad as [_ Hbad_rev].
-  apply bridge_counterexample_not_execution_quantum_gram_coherent.
+  apply bridge_counterexample_not_execution_npa_gram_coherent.
   apply Hbad_rev.
   rewrite <- bridge_good_and_bad_final_tensors_coincide.
   apply Hgood_fwd.
-  apply bridge_witness_execution_quantum_gram_coherent.
+  apply bridge_witness_execution_npa_gram_coherent.
 Qed.
 
-Lemma bridge_counterexample_not_final_tensor_quantum_gram :
-  ~ final_tensor_quantum_gram 6%nat bridge_counterexample_trace bridge_counterexample_init.
+Lemma bridge_counterexample_not_final_tensor_npa_gram :
+  ~ final_tensor_npa_gram 6%nat bridge_counterexample_trace bridge_counterexample_init.
 Proof.
   intros [_ Hpsd].
   specialize (Hpsd bridge_bad_psd_witness).
@@ -361,12 +358,12 @@ Qed.
 Theorem mu_ledger_tsirelson_coherent_not_sufficient :
   exists fuel trace s_init,
     mu_ledger_tsirelson_coherent fuel trace s_init /\
-    ~ final_tensor_quantum_gram fuel trace s_init.
+    ~ final_tensor_npa_gram fuel trace s_init.
 Proof.
   exists 6%nat, bridge_counterexample_trace, bridge_counterexample_init.
   split.
   - apply bridge_counterexample_tsirelson_coherent.
-  - apply bridge_counterexample_not_final_tensor_quantum_gram.
+  - apply bridge_counterexample_not_final_tensor_npa_gram.
 Qed.
 
 (** ** Basic realization lemmas *)
@@ -465,7 +462,7 @@ Qed.
 
 Definition mu_ledger_psd_coherent
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
-  mu_ledger_quantum_gram_coherent fuel trace s_init.
+  mu_ledger_npa_gram_coherent fuel trace s_init.
 
 Lemma psd2_quadratic_form_nonneg :
   forall a b d u v,
@@ -576,10 +573,10 @@ Proof.
   nra.
 Qed.
 
-Theorem execution_quantum_gram_coherent_implies_final_tensor_quantum_gram :
+Theorem execution_npa_gram_coherent_implies_final_tensor_npa_gram :
   forall fuel trace s_init,
-    execution_quantum_gram_coherent fuel trace s_init ->
-    final_tensor_quantum_gram fuel trace s_init.
+    execution_npa_gram_coherent fuel trace s_init ->
+    final_tensor_npa_gram fuel trace s_init.
 Proof.
   intros fuel trace s_init Hcoh.
   destruct Hcoh as [_ Hcontractive].
@@ -591,10 +588,10 @@ Proof.
     apply zero_marginal_npa_column_contractive_implies_psd; assumption.
 Qed.
 
-Theorem mu_ledger_quantum_gram_coherent_implies_final_tensor_quantum_gram :
+Theorem mu_ledger_npa_gram_coherent_implies_final_tensor_npa_gram :
   forall fuel trace s_init,
-    mu_ledger_quantum_gram_coherent fuel trace s_init ->
-    final_tensor_quantum_gram fuel trace s_init.
+    mu_ledger_npa_gram_coherent fuel trace s_init ->
+    final_tensor_npa_gram fuel trace s_init.
 Proof.
   intros fuel trace s_init Hcoh.
   destruct Hcoh as [_ Hcontractive].
@@ -606,33 +603,33 @@ Proof.
     apply zero_marginal_npa_column_contractive_implies_psd; assumption.
 Qed.
 
-Theorem final_tensor_quantum_gram_implies_quantum_realizable_of_trace :
+Theorem final_tensor_npa_gram_implies_npa_psd_of_trace :
   forall fuel trace s_init,
-    final_tensor_quantum_gram fuel trace s_init ->
-    quantum_realizable (trace_zero_marginal_npa fuel trace s_init).
+    final_tensor_npa_gram fuel trace s_init ->
+    npa_psd (trace_zero_marginal_npa fuel trace s_init).
 Proof.
   intros fuel trace s_init Hgram.
   exact Hgram.
 Qed.
 
-Theorem mu_ledger_psd_coherent_implies_quantum_realizable_of_trace :
+Theorem mu_ledger_psd_coherent_implies_npa_psd_of_trace :
   forall fuel trace s_init,
     mu_ledger_psd_coherent fuel trace s_init ->
-    quantum_realizable (trace_zero_marginal_npa fuel trace s_init).
+    npa_psd (trace_zero_marginal_npa fuel trace s_init).
 Proof.
   intros fuel trace s_init Hcoh.
-  apply final_tensor_quantum_gram_implies_quantum_realizable_of_trace.
-  apply mu_ledger_quantum_gram_coherent_implies_final_tensor_quantum_gram.
+  apply final_tensor_npa_gram_implies_npa_psd_of_trace.
+  apply mu_ledger_npa_gram_coherent_implies_final_tensor_npa_gram.
   exact Hcoh.
 Qed.
 
-Theorem mu_ledger_coherent_implies_quantum_realizable_of_trace :
+Theorem mu_ledger_coherent_implies_npa_psd_of_trace :
   forall fuel trace s_init,
     mu_ledger_coherent fuel trace s_init ->
-    quantum_realizable (trace_zero_marginal_npa fuel trace s_init).
+    npa_psd (trace_zero_marginal_npa fuel trace s_init).
 Proof.
   intros fuel trace s_init Hcoh.
-  apply mu_ledger_psd_coherent_implies_quantum_realizable_of_trace.
+  apply mu_ledger_psd_coherent_implies_npa_psd_of_trace.
   exact Hcoh.
 Qed.
 
@@ -679,58 +676,58 @@ Qed.
 
 (** The old weak bridge claim is refuted below and retained only so the exact
     failure mode remains explicit. *)
-Definition weak_final_tensor_quantum_gram_obligation : Prop :=
+Definition weak_final_tensor_npa_gram_obligation : Prop :=
   forall fuel trace s_init,
     mu_ledger_tsirelson_coherent fuel trace s_init ->
-    final_tensor_quantum_gram fuel trace s_init.
+    final_tensor_npa_gram fuel trace s_init.
 
-(** The real load-bearing bridge theorem is now phrased over the exact
+(** The real load-bearing bridge theorem is phrased over the exact
     execution-side invariant package that is genuinely sufficient for the final
-    quantum-Gram result. *)
-Definition final_tensor_quantum_gram_obligation : Prop :=
+    NPA Gram result. *)
+Definition final_tensor_npa_gram_obligation : Prop :=
   forall fuel trace s_init,
-    execution_quantum_gram_coherent fuel trace s_init ->
-    final_tensor_quantum_gram fuel trace s_init.
+    execution_npa_gram_coherent fuel trace s_init ->
+    final_tensor_npa_gram fuel trace s_init.
 
 Definition tensor_psd_bridge : Prop :=
-  final_tensor_quantum_gram_obligation.
+  final_tensor_npa_gram_obligation.
 
-Definition load_bearing_quantum_gram_obligation : Prop :=
-  final_tensor_quantum_gram_obligation.
+Definition load_bearing_npa_gram_obligation : Prop :=
+  final_tensor_npa_gram_obligation.
 
-Theorem final_tensor_quantum_gram_obligation_implies_quantum_realizable_of_trace :
-  final_tensor_quantum_gram_obligation ->
+Theorem final_tensor_npa_gram_obligation_implies_npa_psd_of_trace :
+  final_tensor_npa_gram_obligation ->
   forall fuel trace s_init,
-    execution_quantum_gram_coherent fuel trace s_init ->
-    quantum_realizable (trace_zero_marginal_npa fuel trace s_init).
+    execution_npa_gram_coherent fuel trace s_init ->
+    npa_psd (trace_zero_marginal_npa fuel trace s_init).
 Proof.
   intros Hgram fuel trace s_init Hcoh.
-  apply final_tensor_quantum_gram_implies_quantum_realizable_of_trace.
+  apply final_tensor_npa_gram_implies_npa_psd_of_trace.
   apply Hgram. exact Hcoh.
 Qed.
 
-Theorem tensor_psd_bridge_implies_quantum_realizable_of_trace :
+Theorem tensor_psd_bridge_implies_npa_psd_of_trace :
   tensor_psd_bridge ->
   forall fuel trace s_init,
-    execution_quantum_gram_coherent fuel trace s_init ->
-    quantum_realizable (trace_zero_marginal_npa fuel trace s_init).
+    execution_npa_gram_coherent fuel trace s_init ->
+    npa_psd (trace_zero_marginal_npa fuel trace s_init).
 Proof.
   intros Hpsd fuel trace s_init Hcoh.
-  eapply final_tensor_quantum_gram_obligation_implies_quantum_realizable_of_trace.
+  eapply final_tensor_npa_gram_obligation_implies_npa_psd_of_trace.
   - exact Hpsd.
   - exact Hcoh.
 Qed.
 
-Theorem final_tensor_quantum_gram_obligation_proved :
-  final_tensor_quantum_gram_obligation.
+Theorem final_tensor_npa_gram_obligation_proved :
+  final_tensor_npa_gram_obligation.
 Proof.
   intros fuel trace s_init Hcoh.
-  apply execution_quantum_gram_coherent_implies_final_tensor_quantum_gram.
+  apply execution_npa_gram_coherent_implies_final_tensor_npa_gram.
   exact Hcoh.
 Qed.
 
-Theorem weak_final_tensor_quantum_gram_obligation_refuted :
-  ~ weak_final_tensor_quantum_gram_obligation.
+Theorem weak_final_tensor_npa_gram_obligation_refuted :
+  ~ weak_final_tensor_npa_gram_obligation.
 Proof.
   intros Hob.
   destruct mu_ledger_tsirelson_coherent_not_sufficient as
@@ -741,7 +738,7 @@ Proof.
 Qed.
 
 Definition load_bearing_psd_obligation : Prop :=
-  final_tensor_quantum_gram_obligation.
+  final_tensor_npa_gram_obligation.
 
 (**
     Generic exact-characterization meta-layer
@@ -761,18 +758,18 @@ Definition mu_ledger_soundness_generic : Prop :=
   forall fuel trace s_init npa,
     mu_ledger_coherent fuel trace s_init ->
     trace_realizes_npa fuel trace s_init npa ->
-    quantum_realizable npa.
+    npa_psd npa.
 
 Definition mu_ledger_completeness_generic : Prop :=
   forall npa,
-    quantum_realizable npa ->
+    npa_psd npa ->
     exists fuel trace s_init,
       mu_ledger_coherent fuel trace s_init /\
       trace_realizes_npa fuel trace s_init npa.
 
 Definition mu_ledger_exact_characterization_generic : Prop :=
   forall npa,
-    mu_ledger_realizable npa <-> quantum_realizable npa.
+    mu_ledger_realizable npa <-> npa_psd npa.
 
 Theorem soundness_and_completeness_imply_exact_characterization :
   mu_ledger_soundness_generic ->
@@ -836,7 +833,7 @@ Definition state_column_contractive (s : VMState) : Prop :=
     This is the load-bearing theorem that closes the gap from kernel-level
     [instr_chsh_lassert] success (which decides the Z-arithmetic check on
     [vm_witness]) to the NPA-realizability condition on the correlator matrix
-    via [column_contractive_iff_quantum_realizable] (QuantumPartitionPSD.v).
+    via [column_contractive_iff_npa_psd] (QuantumPartitionPSD.v).
 
     The Z check requires (1) each [n_xy = same_xy + diff_xy] is strictly
     positive (at least one trial recorded for each setting pair), (2) two
@@ -1059,7 +1056,7 @@ Qed.
     where LASSERT_TRAP_PC happens to land. *)
 (** Convenience form: a successful CHSH_LASSERT step from any state with
     vm_err=false yields a column-contractive set of correlators.
-    The chain to NPA-realizability via [column_contractive_iff_quantum_realizable]
+    The chain to NPA-realizability via [column_contractive_iff_npa_psd]
     lives in [QuantumPartitionPSD.v] (which imports this file). *)
 Theorem chsh_lassert_no_trap_implies_state_column_contractive :
   forall s mu_delta,
@@ -1078,8 +1075,8 @@ Proof.
   apply state_column_contractive_check_witness_sound. exact Hchk.
 Qed.
 
-(** State quantum Gram: the NPA matrix from state is symmetric and PSD. *)
-Definition state_quantum_gram (s : VMState) : Prop :=
+(** State NPA Gram: the NPA matrix from state is symmetric and PSD. *)
+Definition state_npa_gram (s : VMState) : Prop :=
   let M := nat_matrix_to_fin5 (npa_to_matrix (state_zero_marginal_npa s)) in
   symmetric5 M /\ PSD5 M.
 
@@ -1146,14 +1143,14 @@ Proof.
       * apply certified_state_counterexample_not_state_column_contractive.
 Qed.
 
-(** State-based bridge: column contractivity implies quantum Gram. *)
-Theorem state_column_contractive_implies_quantum_gram :
+(** State-based bridge: column contractivity implies NPA Gram. *)
+Theorem state_column_contractive_implies_npa_gram :
   forall s : VMState,
     state_column_contractive s ->
-    state_quantum_gram s.
+    state_npa_gram s.
 Proof.
   intros s Hcc.
-  unfold state_quantum_gram, state_zero_marginal_npa.
+  unfold state_npa_gram, state_zero_marginal_npa.
   split.
   - apply npa_to_matrix_symmetric.
   - unfold state_column_contractive, zero_marginal_column_contractive in Hcc.
@@ -1174,14 +1171,14 @@ Proof.
   eapply kernel_certified_implies_positive_mu; eassumption.
 Qed.
 
-(** State-based bridge: coherence implies quantum realizability. *)
-Theorem kernel_state_bridge_coherent_implies_quantum_realizable :
+(** State-based bridge: coherence implies PSD of the zero-marginal NPA matrix. *)
+Theorem kernel_state_bridge_coherent_implies_npa_psd :
   forall fuel trace s_init,
     kernel_state_bridge_coherent fuel trace s_init ->
-    quantum_realizable (state_zero_marginal_npa (run_vm fuel trace s_init)).
+    npa_psd (state_zero_marginal_npa (run_vm fuel trace s_init)).
 Proof.
   intros fuel trace s_init [_ Hcc].
-  apply state_column_contractive_implies_quantum_gram in Hcc.
+  apply state_column_contractive_implies_npa_gram in Hcc.
   exact Hcc.
 Qed.
 
@@ -1191,13 +1188,13 @@ Theorem kernel_final_state_determines_quantum_object :
     kernel_state_bridge_coherent fuel trace s_init ->
     exists npa,
       npa = state_zero_marginal_npa (run_vm fuel trace s_init) /\
-      quantum_realizable npa.
+      npa_psd npa.
 Proof.
   intros fuel trace s_init Hcoh.
   exists (state_zero_marginal_npa (run_vm fuel trace s_init)).
   split.
   - reflexivity.
-  - apply kernel_state_bridge_coherent_implies_quantum_realizable. exact Hcoh.
+  - apply kernel_state_bridge_coherent_implies_npa_psd. exact Hcoh.
 Qed.
 
 (**
@@ -1228,12 +1225,12 @@ Qed.
     This uses psd_3x3_determinant_nonneg from ConstructivePSD.v.
     *)
 
-(** SCOPE NOTE: quantum_realizable_zero_marginal_implies_row_bounds derives
+(** SCOPE NOTE: npa_psd_zero_marginal_implies_row_bounds derives
     the row-sum constraints from PSD. The constraints follow from the 3x3 minor
     determinant argument via psd_3x3_determinant_nonneg. *)
-Theorem quantum_realizable_zero_marginal_implies_row_bounds :
+Theorem npa_psd_zero_marginal_implies_row_bounds :
   forall E00 E01 E10 E11 : RealNumber,
-    quantum_realizable (zero_marginal_npa E00 E01 E10 E11) ->
+    npa_psd (zero_marginal_npa E00 E01 E10 E11) ->
     minor_constraint_zero_marginal E00 E01 /\
     minor_constraint_zero_marginal E10 E11.
 Proof.
@@ -1267,9 +1264,9 @@ Proof.
     lra.
 Qed.
 
-Theorem execution_quantum_gram_coherent_implies_mu_ledger_tsirelson_coherent :
+Theorem execution_npa_gram_coherent_implies_mu_ledger_tsirelson_coherent :
   forall fuel trace s_init,
-    execution_quantum_gram_coherent fuel trace s_init ->
+    execution_npa_gram_coherent fuel trace s_init ->
     mu_ledger_tsirelson_coherent fuel trace s_init.
 Proof.
   intros fuel trace s_init Hexec.
@@ -1277,25 +1274,25 @@ Proof.
   split.
   - exact Hsym.
   - pose proof
-      (execution_quantum_gram_coherent_implies_final_tensor_quantum_gram fuel trace s_init
+      (execution_npa_gram_coherent_implies_final_tensor_npa_gram fuel trace s_init
          (conj Hsym Hcontractive)) as Hgram.
     pose proof
-      (final_tensor_quantum_gram_implies_quantum_realizable_of_trace fuel trace s_init Hgram) as Hqr.
+      (final_tensor_npa_gram_implies_npa_psd_of_trace fuel trace s_init Hgram) as Hqr.
     unfold trace_zero_marginal_npa in Hqr.
-    apply quantum_realizable_zero_marginal_implies_row_bounds in Hqr.
+    apply npa_psd_zero_marginal_implies_row_bounds in Hqr.
     exact Hqr.
 Qed.
 
-Theorem execution_quantum_gram_coherent_implies_mu_ledger_coherent :
+Theorem execution_npa_gram_coherent_implies_mu_ledger_coherent :
   forall fuel trace s_init,
-    execution_quantum_gram_coherent fuel trace s_init ->
+    execution_npa_gram_coherent fuel trace s_init ->
     mu_ledger_coherent fuel trace s_init.
 Proof.
   intros fuel trace s_init Hexec.
   destruct Hexec as [Hsym Hcontractive].
-  unfold mu_ledger_coherent, mu_ledger_quantum_gram_coherent.
+  unfold mu_ledger_coherent, mu_ledger_npa_gram_coherent.
   split.
-  - apply execution_quantum_gram_coherent_implies_mu_ledger_tsirelson_coherent.
+  - apply execution_npa_gram_coherent_implies_mu_ledger_tsirelson_coherent.
     exact (conj Hsym Hcontractive).
   - exact Hcontractive.
 Qed.
@@ -1306,17 +1303,17 @@ Theorem bridge_ready_completed_run_implies_mu_ledger_coherent :
     mu_ledger_coherent fuel trace s_init.
 Proof.
   intros fuel trace s_init [[_ [_ [_ Hsym]]] Hcontractive].
-  apply execution_quantum_gram_coherent_implies_mu_ledger_coherent.
+  apply execution_npa_gram_coherent_implies_mu_ledger_coherent.
   split; assumption.
 Qed.
 
-Theorem bridge_ready_completed_run_implies_quantum_realizable_of_trace :
+Theorem bridge_ready_completed_run_implies_npa_psd_of_trace :
   forall fuel trace s_init,
     bridge_ready_completed_run fuel trace s_init ->
-    quantum_realizable (trace_zero_marginal_npa fuel trace s_init).
+    npa_psd (trace_zero_marginal_npa fuel trace s_init).
 Proof.
   intros fuel trace s_init Hready.
-  apply mu_ledger_coherent_implies_quantum_realizable_of_trace.
+  apply mu_ledger_coherent_implies_npa_psd_of_trace.
   apply bridge_ready_completed_run_implies_mu_ledger_coherent.
   exact Hready.
 Qed.
@@ -1336,29 +1333,29 @@ Proof.
   exact Hready.
 Qed.
 
-(** C4 end-to-end: quantum realizability alone implies Tsirelson bound.
-    Chain: quantum_realizable → row bounds (above) → tsirelson_from_minors (existing). *)
-(** SCOPE NOTE: quantum_realizable_implies_tsirelson_bound is the C4
+(** C4 end-to-end: NPA PSD alone implies the Tsirelson bound.
+    Chain: npa_psd → row bounds (above) → tsirelson_from_minors (existing). *)
+(** SCOPE NOTE: npa_psd_implies_tsirelson_bound is the C4
     closure theorem. No assumed row bounds — they are DERIVED from PSD. *)
-Theorem quantum_realizable_implies_tsirelson_bound :
+Theorem npa_psd_implies_tsirelson_bound :
   forall E00 E01 E10 E11 : RealNumber,
-    quantum_realizable (zero_marginal_npa E00 E01 E10 E11) ->
+    npa_psd (zero_marginal_npa E00 E01 E10 E11) ->
     (CHSH E00 E01 E10 E11)² <= 8.
 Proof.
   intros E00 E01 E10 E11 Hqr.
-  apply quantum_realizable_zero_marginal_implies_row_bounds in Hqr.
+  apply npa_psd_zero_marginal_implies_row_bounds in Hqr.
   destruct Hqr as [Hrow1 Hrow2].
   apply tsirelson_from_minors; assumption.
 Qed.
 
 (** Absolute-value form: |S| ≤ 2√2. *)
-Theorem quantum_realizable_implies_tsirelson_bound_abs :
+Theorem npa_psd_implies_tsirelson_bound_abs :
   forall E00 E01 E10 E11 : RealNumber,
-    quantum_realizable (zero_marginal_npa E00 E01 E10 E11) ->
+    npa_psd (zero_marginal_npa E00 E01 E10 E11) ->
     Rabs (CHSH E00 E01 E10 E11) <= sqrt8.
 Proof.
   intros E00 E01 E10 E11 Hqr.
-  apply quantum_realizable_zero_marginal_implies_row_bounds in Hqr.
+  apply npa_psd_zero_marginal_implies_row_bounds in Hqr.
   destruct Hqr as [Hrow1 Hrow2].
   apply tsirelson_from_minors_abs; assumption.
 Qed.
@@ -1371,7 +1368,7 @@ Theorem state_column_contractive_implies_tsirelson :
     (CHSH (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s))² <= 8.
 Proof.
   intros s Hcc.
-  apply quantum_realizable_implies_tsirelson_bound.
-  apply state_column_contractive_implies_quantum_gram in Hcc.
+  apply npa_psd_implies_tsirelson_bound.
+  apply state_column_contractive_implies_npa_gram in Hcc.
   exact Hcc.
 Qed.

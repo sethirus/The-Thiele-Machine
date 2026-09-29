@@ -68,7 +68,7 @@ This is the complete mathematical specification of the Thiele Machine: a formal 
 
 Coq establishes that conclusions follow from axioms. It does \emph{not} establish that axioms model physical reality. That distinction is kept explicit throughout. Every result is tagged as one of three types: \textbf{(S)}~structural theorems about the machine as a mathematical object, \textbf{(C)}~conditional derivations where a physics conclusion follows from a stated axiom, and \textbf{(R)}~consistency relations that check internal coherence but are not independent predictions.
 
-The core claims are structural (S): No Free Insight; $\mu$-conservation; $\mu$-hierarchy; $\mu$-ledger necessity (five-way independence classification); categorical separation; strict Turing subsumption of instruction sets; the classical CHSH bound ($|S| \leq 2$); the algebraic Tsirelson bound ($|S| \leq 2\sqrt{2}$); and the biconditional with no project-local axioms \texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}quantum\_\allowbreak{}realizable}. The CHSH algebraic result is pure math. The Landauer connection is motivation. Geometry: the discrete angle-defect identity under its incidence assumptions and the additional restriction $B=3\chi$.
+The core claims are structural (S): No Free Insight; $\mu$-conservation; $\mu$-hierarchy; $\mu$-ledger necessity (five-way independence classification); categorical separation; strict Turing subsumption of instruction sets; the classical CHSH bound ($|S| \leq 2$); the algebraic Tsirelson bound ($|S| \leq 2\sqrt{2}$); and the biconditional with no project-local axioms \texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}npa\_\allowbreak{}psd}. The CHSH algebraic result is pure math. The Landauer connection is motivation. Geometry: the discrete angle-defect identity under its incidence assumptions and the additional restriction $B=3\chi$.
 
 The document also covers, with explicit epistemological tags, conditional derivations under named physical axioms (Born rule under linearity, no-cloning, unitarity) and reference explorations (4D simplicial-complex differential geometry, self-reference tower). These are marked (C) or (R) and do not form part of the primary claim ledger. Two named trust boundaries discussed here are: \texttt{bsc\_\allowbreak{}kami\_\allowbreak{}compilation\_\allowbreak{}trusted} (Layer 2 Verilog semantics gap) and \texttt{A\_\allowbreak{}QM} (physical quantum axiom).
 \end{abstract}
@@ -606,19 +606,19 @@ Inside the No Free Insight framework, the universal lower bound on certification
 \section{$\mu$-budget predicates}
 
 \begin{definition}[$\mu$-budget predicates {\normalfont (kernel/MuComplexity.v)}]
-Let $p_{\mathrm{fuel}}, p_{\mu} : \N \to \N$ be polynomial bounds and $\mathrm{size} : \mathrm{VMState} \to \N$ a size function.
+Let $p_{\mathrm{fuel}}, p_{\mu} : \N \to \N$ be numeric bounds and $\mathrm{size} : \mathrm{VMState} \to \N$ a size function. Polynomiality is not required.
 \begin{itemize}
-    \item A decision problem $f$ is \textbf{\texttt{mu\_\allowbreak{}budget\_\allowbreak{}decidable}} (with respect to $p_{\mathrm{fuel}}$ and $p_{\mu}$) iff a solver trace exists for every input: a trace of length $\le p_{\mathrm{fuel}}(\mathrm{size}(s))$ using at most $p_{\mu}(\mathrm{size}(s))$ units of $\mu$-cost that runs without error.
-    \item A decision problem $f$ is \textbf{\texttt{mu\_\allowbreak{}budget\_\allowbreak{}verifiable}} iff every positive instance has a certificate trace verifiable within the same fuel and $\mu$-cost bounds, ending with \texttt{vm\_\allowbreak{}certified = true}.
+    \item \texttt{error\_\allowbreak{}free\_\allowbreak{}preservation\_\allowbreak{}budget} means that every input has an error-free trace within the length and $\mu$ bounds, and that $f$ has equal values on the initial and final states whenever $\mu$ increases.
+    \item \texttt{positive\_\allowbreak{}input\_\allowbreak{}certification\_\allowbreak{}budget} means that every input satisfying $f$ has a trace within those bounds ending with \texttt{vm\_\allowbreak{}certified = true}.
 \end{itemize}
 \end{definition}
 
-\begin{theorem}[Zero-$\mu$ classical solvers are $\mu$-budget decidable {\normalfont (kernel/MuComplexity.v)}, \textbf{(S)}]
-\texttt{classical\_\allowbreak{}mu\_\allowbreak{}budget\_\allowbreak{}decidable}: any decision problem solved by a zero-$\mu$ classical program within polynomial fuel is \texttt{mu\_\allowbreak{}budget\_\allowbreak{}decidable} with $\mu$-bound 0. Classical computation is a degenerate case of $\mu$-computation. Zero Admitted.
+\begin{theorem}[Zero-$\mu$ traces satisfy the preservation budget {\normalfont (kernel/MuComplexity.v)}, \textbf{(S)}]
+\texttt{zero\_\allowbreak{}mu\_\allowbreak{}traces\_\allowbreak{}satisfy\_\allowbreak{}preservation\_\allowbreak{}budget}: if every input has a bounded, error-free, zero-$\mu$ trace, the preservation budget holds with $\mu$-bound zero for every Boolean state predicate. Its positive-$\mu$ antecedent never holds.
 \end{theorem}
 
 \begin{remark}
-\texttt{mu\_\allowbreak{}budget\_\allowbreak{}decidable} and \texttt{mu\_\allowbreak{}budget\_\allowbreak{}verifiable} are predicates classifying decision problems by their polynomial-$\mu$ envelope, not classical complexity classes. The Coq file states decidable-implies-verifiable as an explicit premise; it proves the zero-$\mu$ solver inclusion above. It does not prove a class separation. The factored-search witness in \texttt{StructuralAdvantage.v} gives a concrete program-level $\mu$-cost advantage (paying $\mu = 18$ to certify a decomposition and reduce search from $O(N^2)$ to $O(2N)$), but that is not a class separation. The predicates are deliberately not named \texttt{in\_\allowbreak{}muP} and \texttt{in\_\allowbreak{}muNP}: those names evoke the classical P-versus-NP question, which this file does not address.
+These predicates supply neither a uniform solver with a correct output nor a sound verifier rejecting negative inputs. They do not define decision or verification complexity classes. The implication between them is named as a premise, not proved. The factored-search witness in \texttt{StructuralAdvantage.v} gives a concrete program-level $\mu$-cost advantage (paying $\mu = 18$ to certify a decomposition and reduce search from $O(N^2)$ to $O(2N)$), but that is not a class separation.
 \end{remark}
 
 \begin{theorem}[$\mu$-Cost Hierarchy {\normalfont (kernel/MuHierarchyTheorem.v)}, \textbf{(S)}]
@@ -634,7 +634,7 @@ Formally (\texttt{mu\_\allowbreak{}hierarchy\_\allowbreak{}theorem}): for every 
 \end{theorem}
 
 \begin{remark}[$\mu$-Hierarchy as a P-vs-NP analogue, not a P-vs-NP result]
-Theorem~\ref{thm:mu-hierarchy} is the $\mu$-analogue of the classical time hierarchy theorem in shape. Its content is lighter. The level of a certificate is defined by the operand $\delta$ of the \texttt{CERTIFY} that issued it, and the cost schedule charges $\delta + 1$ for that instruction, so the floor comes from the schedule, not from a search or diagonal argument. It is not a statement about classical P versus NP, which this project does not touch. In the certified-structure setting it makes one thing precise: \emph{finding} a certificate of structural complexity $k$ costs $\mu \geq k$, while \emph{verifying} it (given the trace) costs $0$ extra $\mu$. The hierarchy is strict and unbounded, with zero \texttt{Admitted}, no oracle, and no diagonalization. The lower-bound proof is trace-side: a level-$k$ certified run executed a specific \texttt{CERTIFY}~$\delta$ with $S(\delta) \geq k$, and \texttt{executed\_\allowbreak{}instruction\_\allowbreak{}cost\_\allowbreak{}recorded} plus \texttt{ledger\_\allowbreak{}sum\_\allowbreak{}contains\_\allowbreak{}lower\_\allowbreak{}bound} place that cost in the ledger sum, which \texttt{run\_\allowbreak{}vm\_\allowbreak{}mu\_\allowbreak{}conservation} equates with the trace's $\mu$-cost.
+Theorem~\ref{thm:mu-hierarchy} is the $\mu$-analogue of the classical time hierarchy theorem in shape. Its content is lighter. The level of a certificate is defined by the operand $\delta$ of the \texttt{CERTIFY} that issued it, and the cost schedule charges $\delta + 1$ for that instruction, so the floor comes from the schedule, not from a search or diagonal argument. It is not a statement about classical P versus NP, which this project does not touch. In the certified-structure setting it makes one thing precise: issuing a certificate at level $k$ costs $\mu \geq k$, because the schedule charges $\delta + 1$ for the \texttt{CERTIFY} that sets the level. It says nothing about how hard the certified thing was to find. The hierarchy is strict and unbounded, with zero \texttt{Admitted}, no oracle, and no diagonalization. The lower-bound proof is trace-side: a level-$k$ certified run executed a specific \texttt{CERTIFY}~$\delta$ with $S(\delta) \geq k$, and \texttt{executed\_\allowbreak{}instruction\_\allowbreak{}cost\_\allowbreak{}recorded} plus \texttt{ledger\_\allowbreak{}sum\_\allowbreak{}contains\_\allowbreak{}lower\_\allowbreak{}bound} place that cost in the ledger sum, which \texttt{run\_\allowbreak{}vm\_\allowbreak{}mu\_\allowbreak{}conservation} equates with the trace's $\mu$-cost.
 \end{remark}
 
 \section{Intrinsic level hierarchy}
@@ -694,12 +694,12 @@ There is no bare verifier simultaneously \texttt{bare\_\allowbreak{}sound} and \
 $\texttt{po1\_\allowbreak{}state\_\allowbreak{}A}$ (the cost-1 \texttt{CERTIFY 0} result, $\mu = 1$) and $\texttt{po1\_\allowbreak{}state\_\allowbreak{}B}$ (the cost-0 \texttt{PNEW [] 0} result, $\mu = 0$) project to identical strict-shadow traces. Completeness applied to $A$'s honest run forces $V$ to accept the shared transcript. Strong soundness applied to the same accepted transcript at the explanation by $B$ forces $\texttt{vm\_\allowbreak{}mu}(B) = 1$, contradicting $\texttt{vm\_\allowbreak{}mu}(B) = 0$. \texttt{Print Assumptions} returns \texttt{Closed under the global context}.
 \end{proof}
 
-\begin{theorem}[Three sufficient escapes {\normalfont (coq/VerifierEscape\_\allowbreak{}\{Substrate,Hardness,Interaction\}.v)}]
+\begin{theorem}[Three sufficient interfaces {\normalfont (coq/VerifierEscape\_\allowbreak{}\{Substrate,Hardness,Interaction\}.v)}]
 \label{thm:three_escapes}
 Each kernel theorem below exhibits a constant-cost verifier that simultaneously satisfies soundness and completeness on the $\mu$-sensitive claim by augmenting the transcript with non-classical structure:
 \begin{itemize}
     \item \texttt{substrate\_\allowbreak{}escape\_\allowbreak{}succeeds}, transcript is $\texttt{list VMState}$; verifier reads $\mu$ directly.
-    \item \texttt{hardness\_\allowbreak{}escape\_\allowbreak{}succeeds}, transcript is $\texttt{BareTranscript} \times \texttt{bool}$ (commitment bit); verifier accepts the commitment under a parameterised \texttt{HardnessHypothesis} record.
+    \item \texttt{commitment\_\allowbreak{}contract\_\allowbreak{}verifier}, transcript is $\texttt{BareTranscript} \times \texttt{bool}$ (commitment bit); the \texttt{CommitmentBitContract} supplies exact agreement between the bit and the claim for every explaining state. The verifier reads the bit at abstract unit cost. No cryptographic security or runtime bound is proved.
     \item \texttt{interactive\_\allowbreak{}escape\_\allowbreak{}succeeds}, transcript is $\texttt{BareTranscript} \times \N$ (response); verifier checks the response against the claim.
 \end{itemize}
 Each closes under the global context with zero \texttt{Admitted}.
@@ -707,11 +707,11 @@ Each closes under the global context with zero \texttt{Admitted}.
 
 \begin{theorem}[Factorisation impossibility {\normalfont (coq/VerifierExhaustiveness.v::V\_\allowbreak{}does\_\allowbreak{}not\_\allowbreak{}factor\_\allowbreak{}through\_\allowbreak{}classical)}]
 \label{thm:verifier-factorisation}
-Let $T$ be any transcript type with a projection $\pi : T \to \texttt{BareTranscript}$. For any verifier $V : T \to \texttt{bool}$ simultaneously sound and complete on the $\mu$-sensitive claim (with the lifted-explains relation), $V$ does not factor through $\pi$: there exist $t_1, t_2 : T$ with $\pi(t_1) = \pi(t_2)$ and $V(t_1) \neq V(t_2)$.
+Let $T$ be a transcript type, $\pi : T \to \texttt{BareTranscript}$ a projection, and $\mathsf{explains}_T$ an explanation relation. Given supplied colliding transcripts $t_A,t_B : T$ such that $\pi(t_A)=\pi(t_B)$, where $t_A$ explains the fixed $\mu=1$ witness and $t_B$ explains the fixed $\mu=0$ witness, any verifier sound and complete for the named claim satisfies $\neg\,\texttt{factors\_classical}\;\pi\;V$.
 \end{theorem}
 
 \begin{remark}[The verifier corollary]
-Sound and complete verification of $\mu$-sensitive claims requires the transcript to carry non-classical structural information, exactly the structure the projection $\texttt{strict\_\allowbreak{}shadow}$ drops. The three escapes above are concrete realisations; Theorem~\ref{thm:verifier-factorisation} says no verifier on the bare classical projection alone succeeds, regardless of how rich its transcript is otherwise. The substrate channel is the option the structural axis makes available; hardness and interaction are the two routes classical cryptography and complexity already used.
+The collision and both explanation premises are hypotheses, not conclusions. The theorem does not construct a collision for arbitrary $T$ or $\pi$, and it does not classify all verifier designs. The full-state transcript, exact commitment-bit contract, and reported response above are three sufficient interfaces. The commitment-bit theorem is not a computational-hardness result. The substrate channel is the option the structural axis makes available; hardness and interaction are the two routes classical cryptography and complexity already used, and here the hardness route appears as the exact commitment-bit contract.
 \end{remark}
 
 %=============================================================================
@@ -847,7 +847,7 @@ $\mathrm{vm\_\allowbreak{}step}(S, i, S') \implies \mu(S) \le \mu(S')$. The $\mu
 %=============================================================================
 
 \begin{remark}[Part V Scope: Conditional Results and Named Axioms]
-The chapters in this part present results conditional on named physical axioms (linearity in the Bloch parameter for the Born rule, the second law for Landauer, and the \texttt{A\_\allowbreak{}QM} bridge for quantum realizability). They are marked \textbf{(C)} or \textbf{(R)} throughout. The primary unconditional quantum results, the classical CHSH bound, the algebraic Tsirelson bound, and the biconditional \texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}quantum\_\allowbreak{}realizable}, appear in the chapters that follow the conditional ones: the classical CHSH bound in Chapter~\ref{ch:bell}, the algebraic Tsirelson bound in Chapter~\ref{ch:tsirelson}, and the biconditional in Chapter~\ref{ch:biconditional}. Those are pure algebra, no physics axioms.
+The chapters in this part present results conditional on named physical axioms (linearity in the Bloch parameter for the Born rule, the second law for Landauer, and the \texttt{A\_\allowbreak{}QM} bridge from NPA PSD to quantum realizability). They are marked \textbf{(C)} or \textbf{(R)} throughout. The primary unconditional quantum results, the classical CHSH bound, the algebraic Tsirelson bound, and the biconditional \texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}npa\_\allowbreak{}psd}, appear in the chapters that follow the conditional ones: the classical CHSH bound in Chapter~\ref{ch:bell}, the algebraic Tsirelson bound in Chapter~\ref{ch:tsirelson}, and the biconditional in Chapter~\ref{ch:biconditional}. Those are pure algebra, no physics axioms.
 
 The results in this part are not primary claims of the project. They are explorations of what follows \emph{if} you add specific physical axioms. They show how far the machine reaches without claiming any physics the proofs do not support.
 \end{remark}
@@ -882,15 +882,15 @@ Proof: Boundary conditions force $a = 1/2$, $b = 1/2$. No other solution exists.
 An evolution $E$ maps Bloch vectors $(x,y,z) \mapsto (x',y',z')$ with associated $\mu$-cost. The cost is a real field of the record. Nothing in the file computes it from the map.
 \end{definition}
 
-In this chapter ``unitary'' is the file's name for a map that preserves the squared Bloch radius on the unit ball (\texttt{is\_\allowbreak{}unitary}). The file does not prove that such a map comes from a Hilbert-space operator. Two premises are supplied, not derived: \texttt{respects\_\allowbreak{}info\_\allowbreak{}conservation} (radius loss is at most $\mu$) and \texttt{purity\_\allowbreak{}nonincreasing} (radius gain is at most $\mu$).
+The predicate \texttt{radius\_\allowbreak{}preserving} means preservation of squared Bloch radius on the unit ball. The file does not prove that such a map comes from a Hilbert-space operator. Two premises are supplied, not derived: \texttt{respects\_\allowbreak{}info\_\allowbreak{}conservation} (radius loss is at most $\mu$) and \texttt{purity\_\allowbreak{}nonincreasing} (radius gain is at most $\mu$).
 
 \begin{theorem}[Zero Cost and Radius Preservation {\normalfont (Unitarity.v)}, \textbf{(C)}]
 \leavevmode
 \begin{enumerate}
     \item Under the conservation premise, $\mu = 0 \implies r'^2 \ge r^2$ (purity cannot decrease at zero cost). Proven as \texttt{zero\_\allowbreak{}cost\_\allowbreak{}preserves\_\allowbreak{}purity}.
     \item Under the conservation premise, non-unitary evolution ($r'^2 < r^2$ for some state) requires $\mu > 0$. Proven as \texttt{nonunitary\_\allowbreak{}requires\_\allowbreak{}mu}: the proof specializes the conservation hypothesis at the witness, then \texttt{lra}.
-    \item Under both premises, $\mu = 0$ implies \texttt{is\_\allowbreak{}unitary}. Proven as \texttt{zero\_\allowbreak{}cost\_\allowbreak{}implies\_\allowbreak{}unitary}: the two premises give $r'^2 \ge r^2$ and $r'^2 \le r^2$.
-    \item The converse, unitary $\Rightarrow \mu = 0$, is \emph{stated} in the file but not proven as a theorem. It appears as the \texttt{Definition} \texttt{unitary\_\allowbreak{}zero\_\allowbreak{}cost} (a proposition a reader may assume) rather than a proven \texttt{Theorem}. Because $\mu$ is a free field of the record, it could not be proved for every evolution.
+    \item Under both premises, $\mu = 0$ implies \texttt{radius\_\allowbreak{}preserving}. Proven as \texttt{zero\_\allowbreak{}cost\_\allowbreak{}preserves\_\allowbreak{}radius}: the two premises give $r'^2 \ge r^2$ and $r'^2 \le r^2$.
+    \item The converse, radius preservation $\Rightarrow \mu = 0$, is \emph{stated} in the file but not proven as a theorem. It appears as the \texttt{Definition} \texttt{radius\_\allowbreak{}preserving\_\allowbreak{}zero\_\allowbreak{}cost}. Because $\mu$ is a free field of the record, it could not be proved for every evolution.
 \end{enumerate}
 \end{theorem}
 
@@ -898,8 +898,8 @@ In this chapter ``unitary'' is the file's name for a map that preserves the squa
 Assume the conservation premise, a supplied bound \texttt{satisfies\_\allowbreak{}lindblad\_\allowbreak{}bound}~$E~\gamma$ with $\gamma > 0$, and a witness that the pure state $(1,0,0)$ loses exactly $\gamma$ of squared radius. Then $\mu \ge \gamma$ (\texttt{lindblad\_\allowbreak{}requires\_\allowbreak{}mu}). In this record, that loss is paid for. The file names the bound after Lindblad dynamics, but it constructs no Lindblad equation. Its ``dissipation rate'' is the radius loss, with no time derivative.
 \end{theorem}
 
-\begin{theorem}[A Named CPTP Conjunction {\normalfont (Unitarity.v)}, \textbf{(R)}]
-Positivity + trace preservation $\implies$ the evolution is \texttt{is\_\allowbreak{}CPTP} (\texttt{physical\_\allowbreak{}evolution\_\allowbreak{}is\_\allowbreak{}CPTP}). In this file, \texttt{is\_\allowbreak{}CP} means that the unit Bloch ball maps into itself, and \texttt{is\_\allowbreak{}CPTP} adds trace preservation. That is not complete positivity in the operator sense, which positivity and trace preservation do not imply in general. The theorem packages its two premises under that name.
+\begin{theorem}[The Scalar Ball-and-Trace Contract {\normalfont (Unitarity.v)}, \textbf{(R)}]
+Positivity and trace preservation imply \texttt{ball\_\allowbreak{}and\_\allowbreak{}trace\_\allowbreak{}preserving} (\texttt{ball\_\allowbreak{}trace\_\allowbreak{}contract\_\allowbreak{}from\_\allowbreak{}premises}). The theorem packages the supplied unit-ball and trace conditions. It has no ancillary-system test and establishes no complete positivity in the operator sense.
 \end{theorem}
 
 \chapter{Purification}
@@ -936,11 +936,11 @@ Perfect deletion also requires $\mu \ge I$ (dual of no-cloning), under the delet
 \label{ch:tsirelson}
 
 \begin{remark}[Epistemological Status: \textbf{(S)} algebraic, no physics axioms]
-The active-corpus derivation lives in \texttt{coq/\allowbreak{}kernel/\allowbreak{}quantum/\allowbreak{}TsirelsonGeneral.v} (\texttt{tsirelson\_\allowbreak{}from\_\allowbreak{}row\_\allowbreak{}bounds}) and \texttt{coq/\allowbreak{}kernel/\allowbreak{}category/\allowbreak{}AlgebraicCoherence.v} (\texttt{tsirelson\_\allowbreak{}bound\_\allowbreak{}tight}); both prove the bound algebraically without encoding $2\sqrt{2}$ into any definition. \texttt{TsirelsonGeneral.v} derives $S^2 \le 8$ from pure algebra: a sum-of-squares identity proves each CHSH row contributes $\le 2(e_1^2 + e_2^2)$, then Cauchy--Schwarz bounds the sum by $4\sum e_i^2 \le 8$. \texttt{TsirelsonFromAlgebra.v} provides a self-contained algebraic derivation with achievability witness ($e = \pm 1/\sqrt{2}$, giving $S = 2\sqrt{2}$) and a verified rational bound ($\sqrt{8} < 5657/2000$). Zero admits in both files.
+The upper bound appears in \texttt{coq/\allowbreak{}kernel/\allowbreak{}quantum/\allowbreak{}TsirelsonGeneral.v} (\texttt{tsirelson\_\allowbreak{}from\_\allowbreak{}row\_\allowbreak{}bounds}). \texttt{AlgebraicCoherence.v} supplies a rational coherent witness with $S \ge 28284/10000$ (\texttt{tsirelson\_\allowbreak{}rational\_\allowbreak{}lower\_\allowbreak{}witness}). That witness does not attain the irrational optimum. \texttt{TsirelsonGeneral.v} derives $S^2 \le 8$ from pure algebra: a sum-of-squares identity proves each CHSH row contributes $\le 2(e_1^2 + e_2^2)$, then Cauchy--Schwarz bounds the sum by $4\sum e_i^2 \le 8$. \texttt{TsirelsonFromAlgebra.v} provides a self-contained algebraic derivation with achievability witness ($e = \pm 1/\sqrt{2}$, giving $S = 2\sqrt{2}$) and a verified rational bound ($\sqrt{8} < 5657/2000$). Zero admits in both files.
 \end{remark}
 
 \begin{theorem}[Tsirelson Upper Bound for the Zero-Marginal NPA Model {\normalfont (TsirelsonQuantumModel.v, TsirelsonFromAlgebra.v)}, \textbf{(S)}]
-If a trace is quantum-realizable in the zero-marginal NPA model (i.e., is slice-coherent / column-contractive), then $|S_{\mathrm{CHSH}}| \le 2\sqrt{2}$.
+If a trace's zero-marginal NPA matrix is PSD (equivalently, the trace is slice-coherent, i.e.\ column-contractive), then $|S_{\mathrm{CHSH}}| \le 2\sqrt{2}$.
 
 The algebraic derivation (\texttt{TsirelsonFromAlgebra.v}) proves $S^2 \le 8$ for all algebraically coherent correlators satisfying the three column-contractivity conditions, using a sum-of-squares identity and psatz. No physics premises. Pure polynomial arithmetic.
 \end{theorem}
@@ -1045,13 +1045,13 @@ A correlation tuple $(E_{00}, E_{01}, E_{10}, E_{11})$ is \textbf{slice-coherent
 These are exactly the PSD conditions on the $5 \times 5$ zero-marginal NPA moment matrix.
 \end{definition}
 
-\begin{theorem}[Slice Coherence $\iff$ NPA Realizability {\normalfont (\texttt{coq/\allowbreak{}kernel/\allowbreak{}quantum/\allowbreak{}QuantumPartitionPSD.v}, corollary \texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}quantum\_\allowbreak{}realizable})}, \textbf{(S)}]
+\begin{theorem}[Slice Coherence $\iff$ NPA Realizability {\normalfont (\texttt{coq/\allowbreak{}kernel/\allowbreak{}quantum/\allowbreak{}QuantumPartitionPSD.v}, corollary \texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}npa\_\allowbreak{}psd})}, \textbf{(S)}]
 \label{thm:thiele_honest_iff_qr}
-\texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}quantum\_\allowbreak{}realizable}:
+\texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}npa\_\allowbreak{}psd}:
 \[
-\text{slice\_\allowbreak{}coherent}(\mathbf{E}) \iff \text{quantum\_\allowbreak{}realizable}(\mathbf{E})
+\text{slice\_\allowbreak{}coherent}(\mathbf{E}) \iff \text{npa\_\allowbreak{}psd}(\mathbf{E})
 \]
-where \emph{slice\_\allowbreak{}coherent} means the three column-contractivity conditions hold, and \emph{quantum\_\allowbreak{}realizable} means the $5\times5$ zero-marginal NPA moment matrix is positive semidefinite.
+where \emph{slice\_\allowbreak{}coherent} means the three column-contractivity conditions hold, and \emph{npa\_\allowbreak{}psd} means the $5\times5$ zero-marginal NPA moment matrix is positive semidefinite.
 
 \textbf{Forward direction} (\texttt{zero\_\allowbreak{}marginal\_\allowbreak{}npa\_\allowbreak{}column\_\allowbreak{}contractive\_\allowbreak{}implies\_\allowbreak{}psd} in \texttt{coq/\allowbreak{}kernel/\allowbreak{}nfi/\allowbreak{}MuLedgerQuantumBridge.v}): column-contractive $\Rightarrow$ NPA PSD. Proved by constructing the Cholesky decomposition of the $5\times5$ matrix from the three conditions.
 
@@ -1062,8 +1062,8 @@ This biconditional has no project-local axioms; its assumption report includes s
 Key consequences:
 \begin{itemize}
 \item PR box $(E_{00}=E_{01}=E_{10}=1, E_{11}=-1)$ fails condition 1 immediately ($1-1-1=-1<0$). Direct arithmetic; no separate theorem needed.
-\item \texttt{state\_\allowbreak{}column\_\allowbreak{}contractive\_\allowbreak{}implies\_\allowbreak{}tsirelson} (\texttt{coq/\allowbreak{}kernel/\allowbreak{}nfi/\allowbreak{}MuLedgerQuantumBridge.v}) directly proves slice-coherent $\Rightarrow$ $|S|^2 \leq 8$ (equivalently $|S| \leq 2\sqrt{2}$); its proof composes \texttt{state\_\allowbreak{}column\_\allowbreak{}contractive\_\allowbreak{}implies\_\allowbreak{}quantum\_\allowbreak{}gram} with \texttt{quantum\_\allowbreak{}realizable\_\allowbreak{}implies\_\allowbreak{}tsirelson\_\allowbreak{}bound}. The Cauchy--Schwarz inner step (PSD $\Rightarrow$ row bounds $\Rightarrow$ $|S|^2 \leq 8$) is \texttt{tsirelson\_\allowbreak{}from\_\allowbreak{}row\_\allowbreak{}bounds} in \texttt{coq/\allowbreak{}kernel/\allowbreak{}quantum/\allowbreak{}TsirelsonGeneral.v}. The contrapositive ($|S| > 2\sqrt{2}$ $\Rightarrow$ not slice-coherent) follows immediately. The converse is false and is not claimed.
-\item Turing-classical correlations $(1,0,1,0)$ satisfy $|S|=2$ but fail condition 1: $1-1-1=-1<0$. A Turing machine can output this correlation; the slice gate rejects it as slice-incoherent (the full-elliptope gate of the next section accepts it, the point is inside the elliptope, outside the zero-marginal slice). Direct arithmetic from \texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}quantum\_\allowbreak{}realizable}.
+\item \texttt{state\_\allowbreak{}column\_\allowbreak{}contractive\_\allowbreak{}implies\_\allowbreak{}tsirelson} (\texttt{coq/\allowbreak{}kernel/\allowbreak{}nfi/\allowbreak{}MuLedgerQuantumBridge.v}) directly proves slice-coherent $\Rightarrow$ $|S|^2 \leq 8$ (equivalently $|S| \leq 2\sqrt{2}$); its proof composes \texttt{state\_\allowbreak{}column\_\allowbreak{}contractive\_\allowbreak{}implies\_\allowbreak{}npa\_\allowbreak{}gram} with \texttt{npa\_\allowbreak{}psd\_\allowbreak{}implies\_\allowbreak{}tsirelson\_\allowbreak{}bound}. The Cauchy--Schwarz inner step (PSD $\Rightarrow$ row bounds $\Rightarrow$ $|S|^2 \leq 8$) is \texttt{tsirelson\_\allowbreak{}from\_\allowbreak{}row\_\allowbreak{}bounds} in \texttt{coq/\allowbreak{}kernel/\allowbreak{}quantum/\allowbreak{}TsirelsonGeneral.v}. The contrapositive ($|S| > 2\sqrt{2}$ $\Rightarrow$ not slice-coherent) follows immediately. The converse is false and is not claimed.
+\item Turing-classical correlations $(1,0,1,0)$ satisfy $|S|=2$ but fail condition 1: $1-1-1=-1<0$. A Turing machine can output this correlation; the slice gate rejects it as slice-incoherent (the full-elliptope gate of the next section accepts it, the point is inside the elliptope, outside the zero-marginal slice). Direct arithmetic from \texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}npa\_\allowbreak{}psd}.
 \end{itemize}
 Zero Admitted. Zero named hypotheses.
 \end{theorem}
@@ -1089,9 +1089,9 @@ The decidable gate (\texttt{coq/\allowbreak{}kernel/\allowbreak{}quantum/\allowb
 
 \texttt{coq/\allowbreak{}kernel/\allowbreak{}frontier/\allowbreak{}PointerObservable.v} formalizes the schema behind the metering conjecture. An \textbf{ecosystem} (\texttt{Ecosystem}) is a state type carrying $n$ observers, each holding a fragment map over states; an event $E$ \textbf{redundantly proliferates} (\texttt{redundantly\_\allowbreak{}proliferating}) iff every observer's fragment records $E$; and $E$ is the \textbf{unique pointer among} a designated list of rival events (\texttt{unique\_\allowbreak{}pointer\_\allowbreak{}among}) iff $E$ proliferates and no listed rival does. Uniqueness is relative to the named rivals on purpose, absolute uniqueness is false for free. A toy replicated-ledger instance shows the definitions are satisfiable and discriminating: the certification event is the unique pointer among the toy's two meterable events (\texttt{toy\_\allowbreak{}cert\_\allowbreak{}unique\_\allowbreak{}pointer}), a sanity instance only.
 
-\texttt{PointerObservableReductions.v} instantiates the schema at the five deployed metering disciplines of the reductions tier, proof-of-stake finality, gas metering, TEE attestation, certificate transparency, and proof-carrying verification. Each discipline's metered event is proved the unique pointer among its named rivals (\texttt{PoS\_\allowbreak{}unique\_\allowbreak{}pointer}, \texttt{Gas\_\allowbreak{}unique\_\allowbreak{}pointer}, \texttt{TEE\_\allowbreak{}unique\_\allowbreak{}pointer}, \texttt{CT\_\allowbreak{}unique\_\allowbreak{}pointer}, \texttt{PCC\_\allowbreak{}unique\_\allowbreak{}pointer}), and the conjunction is exported as \texttt{five\_\allowbreak{}disciplines\_\allowbreak{}are\_\allowbreak{}pointers}, which closes under the global Coq context, no axioms at all, stdlib or otherwise.
+\texttt{PointerObservableReductions.v} instantiates the schema at models of the five metering disciplines of the reductions tier: proof-of-stake finality, gas metering, TEE attestation, certificate transparency, and proof-carrying verification. In each model every observer returns the selected flag, and a named rival flag is omitted by construction; all five are one construction with the fields renamed. The metered event is proved the unique pointer among its named rivals in each model (\texttt{PoS\_\allowbreak{}model\_\allowbreak{}unique\_\allowbreak{}pointer}, \texttt{Gas\_\allowbreak{}model\_\allowbreak{}unique\_\allowbreak{}pointer}, \texttt{TEE\_\allowbreak{}model\_\allowbreak{}unique\_\allowbreak{}pointer}, \texttt{CT\_\allowbreak{}model\_\allowbreak{}unique\_\allowbreak{}pointer}, \texttt{PCC\_\allowbreak{}model\_\allowbreak{}unique\_\allowbreak{}pointer}), and the conjunction is exported as \texttt{five\_\allowbreak{}labeled\_\allowbreak{}models\_\allowbreak{}have\_\allowbreak{}selected\_\allowbreak{}pointer}, which closes under the global Coq context, no axioms at all, stdlib or otherwise.
 
-Scope, stated plainly: these theorems verify that the five formalized ecosystems have the claimed pointer structure. They are evidence for the pointer-observable conjecture, that deployed metering disciplines meter exactly the event whose record proliferates, not a proof of it. The forced-event question stays open, and the file header says so.
+Scope: these theorems verify that the five formalized ecosystems have the claimed pointer structure. No protocol semantics, deployment, or security property occurs in their statements. Whether the real disciplines have that observer structure is a modeling claim argued in prose; if it holds, it is evidence for the pointer-observable conjecture, not a proof of it. The forced-event question stays open, and the file header says so.
 
 \subsection{The adversarial search}
 \label{sec:pointer_counterexamples}
@@ -1099,42 +1099,37 @@ Scope, stated plainly: these theorems verify that the five formalized ecosystems
 Five confirmations settle nothing on their own. A criterion loose enough to accept anything accepts five things just as easily, and what makes a universality class convincing is never the confirmations. It is the reported absence of exceptions after somebody went looking. \texttt{coq/\allowbreak{}kernel/\allowbreak{}frontier/\allowbreak{}PointerObservableCounterexamples.v} is the looking, and it is aimed at the corner where the criterion is most likely to break rather than at systems resembling the five.
 
 The claim put at risk is the strong reading:
-
 \begin{quote}
 \textbf{(PO-STRONG)} Every system that must resist forgery of a commitment has a commitment event that redundantly proliferates.
 \end{quote}
-
 A counterexample must satisfy three conditions fixed in advance: (C1) it must resist forgery of a commitment, in the sense that its designers treat an unearned commitment as the primary failure mode; (C2) it must be deployed and independently evolved, owing nothing to this development; and (C3) its commitment event must fail \texttt{redundantly\_\allowbreak{}proliferating}.
 
-\textbf{(PO-STRONG) is false.} Three candidates refute it, each machine-checked:
+Each candidate has two halves. (C1) and (C2) are facts about a real design and are argued in prose. The Coq half fixes an observer map and computes (C3) for it. The file contains no definition of forgery resistance, EUF-CMA security, deniability, memory safety, metering, or deployment, so the Coq results alone neither refute nor confirm a security claim.
 
+\textbf{(PO-STRONG) is false}, on that two-part argument. Three candidates refute it; for each, the non-proliferating observer map is checked in Coq and its faithfulness to the design is argued in prose:
 \begin{itemize}
-    \item \textbf{Deniable (designated-verifier) authentication} (\texttt{deniable\_\allowbreak{}authentication\_\allowbreak{}refutes\_\allowbreak{}strong\_\allowbreak{}criterion}). The scheme is engineered so a third party cannot be convinced even given the whole transcript, because the designated verifier could have produced it. Non-transferability is the product requirement.
-    \item \textbf{Symmetric-key authentication} (\texttt{mac\_\allowbreak{}refutes\_\allowbreak{}strong\_\allowbreak{}criterion}). Existential unforgeability is the defining security notion of a MAC, and verification requires the shared secret, so no record reaches anyone else.
-    \item \textbf{Object capabilities} (\texttt{capability\_\allowbreak{}refutes\_\allowbreak{}strong\_\allowbreak{}criterion}). Unforgeability here is unconditional, enforced by memory safety rather than by a cost or a hardness assumption. Nothing is paid, nothing is logged, and no observer outside the holder can tell.
+    \item \textbf{Deniable (designated-verifier) authentication} (\texttt{deniable\_\allowbreak{}authentication\_\allowbreak{}model\_\allowbreak{}not\_\allowbreak{}proliferating}). The scheme is engineered so a third party cannot be convinced even given the whole transcript, because the designated verifier could have produced it. Non-transferability is the product requirement.
+    \item \textbf{Symmetric-key authentication} (\texttt{mac\_\allowbreak{}model\_\allowbreak{}not\_\allowbreak{}proliferating}). Existential unforgeability is the defining security notion of a MAC, and verification requires the shared secret, so no record reaches anyone else.
+    \item \textbf{Object capabilities} (\texttt{capability\_\allowbreak{}model\_\allowbreak{}not\_\allowbreak{}proliferating}). Unforgeability here is unconditional, enforced by memory safety rather than by a cost or a hardness assumption. Nothing is paid, nothing is logged, and no observer outside the holder can tell.
 \end{itemize}
-
-A public-log control (\texttt{public\_\allowbreak{}log\_\allowbreak{}confirms}) checks that the search can return \emph{confirms} and is not an instrument that only reports refutations; its rival effort event still fails to proliferate, so the control discriminates rather than accepting everything.
+A public-log control (\texttt{public\_\allowbreak{}log\_\allowbreak{}model\_\allowbreak{}proliferating}) checks that the search can return \emph{confirms} and is not an instrument that only reports refutations; its rival effort event still fails to proliferate (\texttt{public\_\allowbreak{}log\_\allowbreak{}effort\_\allowbreak{}not\_\allowbreak{}proliferating}), so the control discriminates rather than accepting everything.
 
 The boundary these trace is sharp, and it is not the one (PO-STRONG) guessed at. A MAC and a digital signature both resist forgery; only the signature proliferates. Deniable authentication and certificate transparency both resist forgery; deniability actively prevents third-party conviction while transparency actively requires it. Object capabilities and proof-carrying code both make unearned authority impossible; the capability confines it to the holder while the proof travels to every consumer. In each pair the proliferating member is the one whose commitment must convince parties who were not present. The criterion that survives is therefore:
-
 \begin{quote}
 \textbf{(PO-PUBLIC)} A system whose commitment must convince third parties who did not witness its creation will proliferate records of the commitment event.
 \end{quote}
-
 The signature observer model makes the commitment visible in each observer fragment and proves proliferation for that model. Its correspondence to deployed signatures remains a modeling judgment. Public availability of a verifier does not imply that every observer retains a record.
 
-The verifier constructions give three sufficient evidence interfaces under their respective premises. The hardness construction has the weaker soundness guarantee stated in its theorem. Neither these examples nor the factorization obstruction proves that only one route can involve metering.
+The verifier constructions give three sufficient evidence interfaces under their respective premises: a full-state transcript, an exact commitment-bit contract, and a reported response. Neither these examples nor the factorization obstruction proves that only one route can involve metering.
 
 Three statements travel together in loose prose and come apart under these candidates:
-
 \begin{description}
-    \item[(M1)] \textbf{Forgery resistance forces metering.} \textbf{False.} Signatures take the hardness route; object capabilities achieve unforgeability unconditionally through memory safety, with no cost, no record, and no assumption.
-    \item[(M2)] \textbf{Forgery resistance forces record proliferation.} \textbf{False.} Deniable authentication, symmetric MACs, and capabilities all resist forgery while proliferating nothing, and in the first case that is the design goal.
+    \item[(M1)] \textbf{Forgery resistance forces metering.} \textbf{False}, on the prose argument. Signatures take the hardness route; object capabilities achieve unforgeability unconditionally through memory safety, with no cost, no record, and no assumption.
+    \item[(M2)] \textbf{Forgery resistance forces record proliferation.} \textbf{False}, on the same argument. Deniable authentication, symmetric MACs, and capabilities all resist forgery while proliferating nothing, and in the first case that is the design goal.
     \item[(M3)] \textbf{Public commitments force record proliferation.} \textbf{Proposed.} The chosen observer models satisfy it. Actual record proliferation needs independent evidence; public verifiability alone is insufficient.
 \end{description}
 
-What remains of the metering claim, stated so a stranger can attack it: when a claim is $\mu$-sensitive, meaning it is not decidable from the classical projection, and the verifier can neither recheck it directly nor substitute a hardness assumption, the substrate route is what is left, and that route prices the commitment event. That is \texttt{V\_\allowbreak{}does\_\allowbreak{}not\_\allowbreak{}factor\_\allowbreak{}through\_\allowbreak{}classical} in different clothes. It is narrower than ``forgery resistance,'' and it is the version this development supports.
+What remains of the metering claim, stated so a stranger can attack it: when a claim is $\mu$-sensitive, meaning it is not decidable from the classical projection, and the verifier can neither recheck it directly nor substitute a hardness assumption, the substrate route is the available construction, and that route prices the commitment event. That is \texttt{V\_\allowbreak{}does\_\allowbreak{}not\_\allowbreak{}factor\_\allowbreak{}through\_\allowbreak{}classical}, under its supplied colliding transcripts, in different clothes. It is narrower than ``forgery resistance,'' and it is the version this development supports.
 
 %=============================================================================
 % PART VI: EMERGENT STRUCTURE
@@ -1212,7 +1207,7 @@ For every \texttt{VMState} $s$ at universal local calibration ($\forall m, \text
 \[
 \sum_{m \in \mathrm{pg\_\allowbreak{}modules}(\mathrm{vm\_\allowbreak{}graph}\,s)} \mathrm{geometric\_\allowbreak{}angle\_\allowbreak{}defect}(s, m) = 0.
 \]
-The proof composes two independent kernel facts: \texttt{calibration\_\allowbreak{}residual\_\allowbreak{}zero\_\allowbreak{}iff} (geometry $\leftrightarrow$ $\mu$-ledger at every module) and \texttt{total\_\allowbreak{}mu\_\allowbreak{}laplacian\_\allowbreak{}zero} (Theorem~\ref{thm:total_mu_laplacian_zero}). Both ingredients are load-bearing, drop counter-instances \texttt{F3\_\allowbreak{}drop\_\allowbreak{}calibration\_\allowbreak{}breaks\_\allowbreak{}prediction} and \texttt{F3\_\allowbreak{}drop\_\allowbreak{}sum\_\allowbreak{}zero\_\allowbreak{}breaks\_\allowbreak{}prediction} retained.
+The proof composes two kernel facts: \texttt{calibration\_\allowbreak{}residual\_\allowbreak{}zero\_\allowbreak{}iff} (geometry $\leftrightarrow$ $\mu$-ledger at every module) and \texttt{total\_\allowbreak{}mu\_\allowbreak{}laplacian\_\allowbreak{}zero} (Theorem~\ref{thm:total_mu_laplacian_zero}). The scalar examples \texttt{unit\_\allowbreak{}residual\_\allowbreak{}is\_\allowbreak{}nonzero} and \texttt{pi\_\allowbreak{}times\_\allowbreak{}unit\_\allowbreak{}is\_\allowbreak{}nonzero} state that $1$ and $\pi$ are nonzero. They do not supply VM counter-instances establishing independence of the premises.
 \end{theorem}
 
 \begin{remark}[Why this is not the topology version]
@@ -1734,6 +1729,26 @@ $\mathrm{vm\_apply}(\cdot, \texttt{CERTIFY}\ d)$ is not injective: states differ
 Let $\mathrm{step} : S \to I \to S$, $\mathrm{cert} : S \to \mathrm{bool}$, and $\mathrm{obs} : S \to O$ be arbitrary. A shadow price is $c(s,i) = \mathrm{price}(\mathrm{obs}(s), \mathrm{obs}(\mathrm{step}(s,i)))$. Call a collision two pairs $(s_1,i_1)$, $(s_2,i_2)$ with equal observations before and after, where the first flips $\mathrm{cert}$ from false to true and the second does not. If a collision exists, every shadow price meeting the floor charges a non-flipping step (\texttt{shadow\_\allowbreak{}floor\_\allowbreak{}overcharges}), so no shadow price both meets the floor and never overcharges (\texttt{shadow\_\allowbreak{}cannot\_\allowbreak{}price\_\allowbreak{}exactly}). The step price $[\text{flip}]$ is exact (\texttt{step\_\allowbreak{}price\_\allowbreak{}is\_\allowbreak{}exact}). If $\mathrm{cert} = r \circ \mathrm{obs}$ for some $r$, an exact shadow price exists (\texttt{window\_\allowbreak{}showing\_\allowbreak{}reading\_\allowbreak{}prices\_\allowbreak{}exactly}) and no collision exists (\texttt{window\_\allowbreak{}showing\_\allowbreak{}reading\_\allowbreak{}has\_\allowbreak{}no\_\allowbreak{}collision}). On the VM, $(\texttt{abs\_zero}, \texttt{CERTIFY 0})$ and $(\texttt{abs\_zero}, \texttt{JUMP 1 0})$ collide for \texttt{bare\_\allowbreak{}observable}, and $(\texttt{abs\_zero}, \texttt{CERTIFY 0})$ and $(\texttt{abs\_zero}, \texttt{JUMP 1 1})$ collide for \texttt{forget} (\texttt{vm\_\allowbreak{}bare\_\allowbreak{}observable\_\allowbreak{}collision}, \texttt{vm\_\allowbreak{}forget\_\allowbreak{}collision}), so neither window admits an exact price for VM certification (\texttt{vm\_\allowbreak{}bare\_\allowbreak{}shadow\_\allowbreak{}cannot\_\allowbreak{}price\_\allowbreak{}exactly}, \texttt{vm\_\allowbreak{}forget\_\allowbreak{}shadow\_\allowbreak{}cannot\_\allowbreak{}price\_\allowbreak{}exactly}). All nine theorems are closed under the global context.
 \end{theorem}
 
+\section{Which Narrowing a Merge Price Charges}
+\label{sec:narrowing}
+
+\begin{theorem}[The machine's spread is priced {\normalfont (\texttt{coq/\allowbreak{}kernel/\allowbreak{}nfi/\allowbreak{}KnowledgeNarrowing.v})}, \textbf{(S)}]
+Let $\mathrm{step} : S \to I \to S$ with decidable equality on $S$, and let $\mathrm{cost}$ meet \texttt{compression\_\allowbreak{}priced}. For every duplicate-free list $D$ and program $t$, with $D'$ the duplicate-free list of states $\mathrm{run}(s,t)$ for $s \in D$,
+\[ \lceil\log_2 |D|\rceil \leq \mathrm{cost}(t) + \lceil\log_2 |D'|\rceil \]
+(\texttt{run\_\allowbreak{}narrowing\_\allowbreak{}priced\_\allowbreak{}log}). No decision tree or payment premise is supplied.
+\end{theorem}
+
+\begin{theorem}[An observer's knowledge is not priced {\normalfont (\texttt{KnowledgeNarrowing.v})}, \textbf{(S)}]
+Let the observer's knowledge after $t$ from $s_0$ be the states of $\Omega$ whose observation along the run equals that of $s_0$. On $S = \mathrm{bool} \times \mathrm{bool}$ with $\mathtt{Measure}(x,d) = (x, d \oplus x)$ at cost $0$ and $\mathtt{Wipe}(x,d) = (x, \mathrm{false})$ at cost $1$, this particular cost meets \texttt{compression\_\allowbreak{}priced}, and from $\Omega = \{(0,0),(1,0)\}$ the program $[\mathtt{Measure}]$ at cost $0$ leaves the display observer one candidate. Hence $\lceil\log_2|\Omega|\rceil - \lceil\log_2|\Omega'|\rceil \leq \mathrm{cost}(t)$ fails for this admissible cost (\texttt{observer\_\allowbreak{}narrowing\_\allowbreak{}can\_\allowbreak{}be\_\allowbreak{}free}). Since \texttt{compression\_priced} is only a lower bound, it may also admit costs that overcharge the injective measurement. The machine's spread stays two (\texttt{demon\_\allowbreak{}machine\_\allowbreak{}spread\_\allowbreak{}kept}), and every squeeze-priced cost charges $\mathtt{Wipe}$ at least $1$ (\texttt{wipe\_\allowbreak{}costs\_\allowbreak{}at\_\allowbreak{}least\_\allowbreak{}one}). On the VM, \texttt{XOR\_ADD 2 1 0} separates two states that differ in register 1 through register 2 at cost $0$ (\texttt{vm\_\allowbreak{}observer\_\allowbreak{}narrowing\_\allowbreak{}at\_\allowbreak{}zero\_\allowbreak{}cost}). All closed under the global context.
+\end{theorem}
+
+\section{A Recursion Theorem for L}
+\label{sec:L}
+
+\begin{theorem}[Kleene and Rice for L {\normalfont (\texttt{coq/\allowbreak{}kernel/\allowbreak{}foundation/\allowbreak{}LRecursion.v})}, \textbf{(S)}]
+L is the weak call-by-value lambda calculus with de Bruijn terms and deterministic left-to-right reduction; $\ulcorner t \urcorner$ is the Scott encoding. There is a closed $Q$ with $Q\ulcorner t\urcorner \to^* \ulcorner\ulcorner t\urcorner\urcorner$ (\texttt{Q\_\allowbreak{}spec}). For every closed value $s$ there is a closed $t$ with $t \to^* s\ulcorner t\urcorner$ (\texttt{second\_\allowbreak{}recursion}). Every transformer computed on codes by a closed value has an extensional fixed point (\texttt{L\_\allowbreak{}recursion\_\allowbreak{}theorem}). No closed term decides, on codes, a property extensional in reached values that holds for one closed program and fails for another (\texttt{L\_\allowbreak{}rice}); in particular halting (\texttt{L\_\allowbreak{}halting\_\allowbreak{}undecidable}). All closed under the global context. L is not a \texttt{Substrate} instance, since the interface requires a total \texttt{run}; the diagonal is restated for L.
+\end{theorem}
+
 \section{The Dimensional Gap: Why Ledgers Cannot Fix Constants}
 \label{sec:dimensional_gap}
 
@@ -1852,17 +1867,12 @@ equal to Coq in all CI environments.
 
 \section{RTL Coverage: Zero Gaps}
 
-\begin{theorem}[RTL Gap Registry Empty {\normalfont (kami\_\allowbreak{}hw/RTLGapRegistry.v)}, \textbf{(S)}]
-\texttt{rtl\_\allowbreak{}gap\_\allowbreak{}count}: The RTL gap registry is empty. There are zero unresolved coverage gaps between the Kami hardware specification and the Coq kernel semantics:
-\[ \texttt{rtl\_\allowbreak{}gap\_\allowbreak{}count} = 0 \]
-\texttt{rtl\_\allowbreak{}coverage\_\allowbreak{}partition}: The 47 synth-realized opcodes (of the 51-opcode ISA) partition as:
-\[ 37 + 10 + 0 = 47. \]
-The counts denote unconditional cases, cases under the joint representation invariant, and registered gaps respectively. The joint invariant includes \texttt{coupling\_\allowbreak{}desc\_\allowbreak{}safe} as well as \texttt{coupling\_\allowbreak{}wf} and \texttt{morph\_\allowbreak{}table\_\allowbreak{}wf}.
-This is a Coq theorem (\texttt{rtl\_\allowbreak{}coverage\_\allowbreak{}partition} in \texttt{coq/\allowbreak{}kami\_\allowbreak{}hw/\allowbreak{}RTLGapRegistry.v}), not a comment. The partition equation is machine-checked. Zero Admitted.
+\begin{theorem}[RTL gap registry and inventory {\normalfont (kami\_\allowbreak{}hw/RTLGapRegistry.v)}, \textbf{(S)}]
+\texttt{rtl\_\allowbreak{}gap\_\allowbreak{}registry\_\allowbreak{}empty}: the hand-written RTL gap list is empty. \texttt{rtl\_\allowbreak{}inventory\_\allowbreak{}arithmetic}: $37 + 10 + 0 = 47$, the count of unconditional cases, cases under the joint representation invariant, and registered gaps among the 47 synthesized opcodes. Both are records, not coverage proofs: the first says what a list holds, and the second is arithmetic that mentions no opcode. The coverage evidence is the per-opcode theorems in the remark below and the step-level correspondence \texttt{driven\_\allowbreak{}step\_\allowbreak{}wf} under \texttt{WFDrivenPrecondition}.
 \end{theorem}
 
 \begin{remark}
-The official partition (\texttt{rtl\_\allowbreak{}coverage\_\allowbreak{}partition} in \texttt{coq/\allowbreak{}kami\_\allowbreak{}hw/\allowbreak{}RTLGapRegistry.v}) is $37 + 10 + 0 = 47$. The 37 unconditional proofs are: 31 from the SupportedOpcode group, including \texttt{CHSH\_\allowbreak{}LASSERT} (\texttt{coq/\allowbreak{}kami\_\allowbreak{}hw/\allowbreak{}EmbedStep.v}: \texttt{embed\_\allowbreak{}step\_\allowbreak{}compute}) plus CALL, RET, CHSH\_\allowbreak{}TRIAL (\texttt{coq/\allowbreak{}kami\_\allowbreak{}hw/\allowbreak{}EmbedStep\_\allowbreak{}WF.v}) and TENSOR\_\allowbreak{}SET, TENSOR\_\allowbreak{}GET, LASSERT (\texttt{coq/\allowbreak{}kami\_\allowbreak{}hw/\allowbreak{}GraphReconstructionBridge.v}). The remaining 10 (PNEW, PSPLIT, PMERGE, MORPH, MORPH\_\allowbreak{}ID, MORPH\_\allowbreak{}DELETE, MORPH\_\allowbreak{}ASSERT, MORPH\_\allowbreak{}GET, COMPOSE, MORPH\_\allowbreak{}TENSOR) carry Qed proofs under the joint structural invariant \texttt{morph\_\allowbreak{}table\_\allowbreak{}wf} $\wedge$ \texttt{coupling\_\allowbreak{}wf} $\wedge$ \texttt{coupling\_\allowbreak{}desc\_\allowbreak{}safe}. Each component is preserved by every \texttt{kami\_\allowbreak{}step}: \texttt{morph\_\allowbreak{}table\_\allowbreak{}wf\_\allowbreak{}kami\_\allowbreak{}step\_\allowbreak{}preserved}, \texttt{coupling\_\allowbreak{}desc\_\allowbreak{}safe\_\allowbreak{}kami\_\allowbreak{}step\_\allowbreak{}preserved}, and \texttt{coupling\_\allowbreak{}wf\_\allowbreak{}kami\_\allowbreak{}step\_\allowbreak{}preserved}. The last takes \texttt{coupling\_\allowbreak{}desc\_\allowbreak{}safe} as a side hypothesis (in addition to \texttt{coupling\_\allowbreak{}wf}), which is why the conjunction is the actual inductive invariant. So the precondition is discharged for any state reachable by machine execution. PNEW/PSPLIT/PMERGE additionally need \texttt{pt\_\allowbreak{}well\_\allowbreak{}formed} and arithmetic side conditions that are likewise inductive.
+The inventory is $37 + 10 + 0 = 47$. The 37 unconditional proofs are: 31 from the SupportedOpcode group, including \texttt{CHSH\_\allowbreak{}LASSERT} (\texttt{coq/\allowbreak{}kami\_\allowbreak{}hw/\allowbreak{}EmbedStep.v}: \texttt{embed\_\allowbreak{}step\_\allowbreak{}compute}) plus CALL, RET, CHSH\_\allowbreak{}TRIAL (\texttt{coq/\allowbreak{}kami\_\allowbreak{}hw/\allowbreak{}EmbedStep\_\allowbreak{}WF.v}) and TENSOR\_\allowbreak{}SET, TENSOR\_\allowbreak{}GET, LASSERT (\texttt{coq/\allowbreak{}kami\_\allowbreak{}hw/\allowbreak{}GraphReconstructionBridge.v}). The remaining 10 (PNEW, PSPLIT, PMERGE, MORPH, MORPH\_\allowbreak{}ID, MORPH\_\allowbreak{}DELETE, MORPH\_\allowbreak{}ASSERT, MORPH\_\allowbreak{}GET, COMPOSE, MORPH\_\allowbreak{}TENSOR) carry Qed proofs under the joint structural invariant \texttt{morph\_\allowbreak{}table\_\allowbreak{}wf} $\wedge$ \texttt{coupling\_\allowbreak{}wf} $\wedge$ \texttt{coupling\_\allowbreak{}desc\_\allowbreak{}safe}. Each component is preserved by every \texttt{kami\_\allowbreak{}step}: \texttt{morph\_\allowbreak{}table\_\allowbreak{}wf\_\allowbreak{}kami\_\allowbreak{}step\_\allowbreak{}preserved}, \texttt{coupling\_\allowbreak{}desc\_\allowbreak{}safe\_\allowbreak{}kami\_\allowbreak{}step\_\allowbreak{}preserved}, and \texttt{coupling\_\allowbreak{}wf\_\allowbreak{}kami\_\allowbreak{}step\_\allowbreak{}preserved}. The last takes \texttt{coupling\_\allowbreak{}desc\_\allowbreak{}safe} as a side hypothesis (in addition to \texttt{coupling\_\allowbreak{}wf}), which is why the conjunction is the actual inductive invariant. So the precondition is discharged for any state reachable by machine execution. PNEW/PSPLIT/PMERGE additionally need \texttt{pt\_\allowbreak{}well\_\allowbreak{}formed} and arithmetic side conditions that are likewise inductive.
 \end{remark}
 
 \section{Named Trust Boundaries}
@@ -1872,7 +1882,7 @@ The project has exactly two named trust boundaries. They are not Admitted proofs
 \begin{description}
 \item[\texttt{bsc\_\allowbreak{}kami\_\allowbreak{}compilation\_\allowbreak{}trusted} (Layer 2, Verilog semantics gap).] The Bluespec SystemVerilog compiler generates Verilog from the Kami hardware specification. The correctness of the BSC compilation step, that the generated Verilog implements exactly the Kami spec, is trusted, not proved in Coq. This is documented in \texttt{coq/\allowbreak{}kernel/\allowbreak{}hardware\_\allowbreak{}bridge/\allowbreak{}VerilogRTLCorrespondence.v} (Section~2b, ``BSC Compilation Trust Boundary'') and the matching \texttt{Definition bsc\_\allowbreak{}kami\_\allowbreak{}compilation\_\allowbreak{}trusted}. The Section Variable \texttt{rtl\_\allowbreak{}step\_\allowbreak{}correct} states that the synthesised RTL implements the Kami step function; this is the residual hypothesis that every theorem in the section quantifies over. The boundary is empirically backed by the cosim suite (\texttt{tests/\allowbreak{}test\_\allowbreak{}verilog\_\allowbreak{}cosim.py}, 38 tests, including \texttt{test\_\allowbreak{}all\_\allowbreak{}47\_\allowbreak{}opcodes\_\allowbreak{}in\_\allowbreak{}cosim} which checks that every opcode appears) and the parametrized cross-layer fuzz suites (\texttt{tests/\allowbreak{}test\_\allowbreak{}fuzz\_\allowbreak{}random\_\allowbreak{}programs.py} and \texttt{tests/\allowbreak{}test\_\allowbreak{}cross\_\allowbreak{}layer\_\allowbreak{}adversarial\_\allowbreak{}fuzz.py}).
 
-\item[\texttt{A\_\allowbreak{}QM} (physical quantum axiom).] Whether a physical Thiele Machine can produce CHSH-violating statistics by exploiting quantum entanglement in hardware is an open empirical question. The \texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}quantum\_\allowbreak{}realizable} biconditional (Theorem~\ref{thm:thiele_honest_iff_qr}) requires no physical axiom, it is pure algebra. The physical quantum axiom \texttt{A\_\allowbreak{}QM} (declared as a \texttt{Context} parameter in \texttt{coq/\allowbreak{}PhysicsConditionalClosure.v}) is the separate named hypothesis that the chosen quantum CHSH experimental predicate admits a PSD completion with free within-party cross moments. It does not appear in the kernel-tier proof of the biconditional; it is the bridge used in conditional theorems such as \texttt{master\_\allowbreak{}tsirelson\_\allowbreak{}conditional}.
+\item[\texttt{A\_\allowbreak{}QM} (physical quantum axiom).] Whether a physical Thiele Machine can produce CHSH-violating statistics by exploiting quantum entanglement in hardware is an open empirical question. The \texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}npa\_\allowbreak{}psd} biconditional (Theorem~\ref{thm:thiele_honest_iff_qr}) requires no physical axiom, it is pure algebra. The physical quantum axiom \texttt{A\_\allowbreak{}QM} (declared as a \texttt{Context} parameter in \texttt{coq/\allowbreak{}PhysicsConditionalClosure.v}) is the separate named hypothesis that the chosen quantum CHSH experimental predicate admits a PSD completion with free within-party cross moments. It does not appear in the kernel-tier proof of the biconditional; it is the bridge used in conditional theorems such as \texttt{master\_\allowbreak{}tsirelson\_\allowbreak{}conditional}.
 \end{description}
 \chapter{Categorical Structure}
 \label{ch:categorical}
@@ -1963,7 +1973,7 @@ Exhibit a locally factorizable strategy achieving $|S| > 2$. This contradicts \t
 
 \section{Falsify the Biconditional}
 
-Exhibit $E_{00}, E_{01}, E_{10}, E_{11}$ satisfying the three column-contractivity conditions but with a non-PSD NPA moment matrix. The theorem \texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}quantum\_\allowbreak{}realizable} says no such example exists.
+Exhibit $E_{00}, E_{01}, E_{10}, E_{11}$ satisfying the three column-contractivity conditions but with a non-PSD NPA moment matrix. The theorem \texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}npa\_\allowbreak{}psd} says no such example exists.
 
 \section{Falsify the $\mu$-Hierarchy}
 
@@ -2023,12 +2033,12 @@ Witness Insight Three-Tier Taxonomy & \texttt{coq/\allowbreak{}kernel/\allowbrea
 \hline
 \multicolumn{2}{l}{\emph{Quantum / CHSH algebra (no project-local axioms)}} \\
 \hline
-Slice-coherent $\iff$ NPA realizable (biconditional) & \texttt{coq/\allowbreak{}kernel/\allowbreak{}quantum/\allowbreak{}QuantumPartitionPSD.v}: \texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}quantum\_\allowbreak{}realizable} \\
+Slice-coherent $\iff$ NPA realizable (biconditional) & \texttt{coq/\allowbreak{}kernel/\allowbreak{}quantum/\allowbreak{}QuantumPartitionPSD.v}: \texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}npa\_\allowbreak{}psd} \\
 Forward: column-contractive $\Rightarrow$ NPA PSD & \texttt{coq/\allowbreak{}kernel/\allowbreak{}nfi/\allowbreak{}MuLedgerQuantumBridge.v}: \texttt{zero\_\allowbreak{}marginal\_\allowbreak{}npa\_\allowbreak{}column\_\allowbreak{}contractive\_\allowbreak{}implies\_\allowbreak{}psd} \\
 Reverse: NPA PSD $\Rightarrow$ column-contractive & \texttt{coq/\allowbreak{}kernel/\allowbreak{}quantum/\allowbreak{}QuantumPartitionPSD.v}: \texttt{npa\_\allowbreak{}psd\_\allowbreak{}implies\_\allowbreak{}column\_\allowbreak{}contractive} \\
 Quadratic-form discriminant lemma & \texttt{coq/\allowbreak{}kernel/\allowbreak{}quantum/\allowbreak{}ConstructivePSD.v}: \texttt{quadratic\_\allowbreak{}nonneg\_\allowbreak{}discriminant} \\
 Tsirelson from column contractivity ($|S| \le 2\sqrt{2}$) & \texttt{coq/\allowbreak{}kernel/\allowbreak{}nfi/\allowbreak{}MuLedgerQuantumBridge.v}: \texttt{state\_\allowbreak{}column\_\allowbreak{}contractive\_\allowbreak{}implies\_\allowbreak{}tsirelson} (\texttt{tsirelson\_\allowbreak{}from\_\allowbreak{}row\_\allowbreak{}bounds} in \texttt{TsirelsonGeneral.v} is the inner Cauchy--Schwarz step) \\
-Tsirelson (algebraic, tight) & \texttt{coq/\allowbreak{}kernel/\allowbreak{}category/\allowbreak{}AlgebraicCoherence.v}: \texttt{tsirelson\_\allowbreak{}bound\_\allowbreak{}tight} \\
+Tsirelson rational lower witness & \texttt{coq/\allowbreak{}kernel/\allowbreak{}category/\allowbreak{}AlgebraicCoherence.v}: \texttt{tsirelson\_\allowbreak{}rational\_\allowbreak{}lower\_\allowbreak{}witness} \\
 Tsirelson (algebraic from coherence) & \texttt{coq/\allowbreak{}kernel/\allowbreak{}quantum/\allowbreak{}TsirelsonFromAlgebra.v} \\
 General Algebraic Tsirelson ($S^2 \le 8$) & \texttt{coq/\allowbreak{}kernel/\allowbreak{}category/\allowbreak{}AlgebraicCoherence.v}: \texttt{algebraically\_\allowbreak{}coherent\_\allowbreak{}tsirelson\_\allowbreak{}general} \\
 Elliptope realizability (existential completion) & \texttt{coq/\allowbreak{}kernel/\allowbreak{}quantum/\allowbreak{}ElliptopeCompletion.v}: \texttt{elliptope\_\allowbreak{}realizable} (definition); \texttt{deterministic\_\allowbreak{}strategy\_\allowbreak{}elliptope}, \texttt{lhv\_\allowbreak{}mixture\_\allowbreak{}elliptope} (every LHV correlator inside) \\
@@ -2039,8 +2049,8 @@ Decidable elliptope gate (soundness) & \texttt{coq/\allowbreak{}kernel/\allowbre
 \multicolumn{2}{l}{\emph{Frontier: pointer-observable criterion}} \\
 \hline
 Proliferation / unique-pointer schema & \texttt{coq/\allowbreak{}kernel/\allowbreak{}frontier/\allowbreak{}PointerObservable.v}: \texttt{redundantly\_\allowbreak{}proliferating}, \texttt{unique\_\allowbreak{}pointer\_\allowbreak{}among} (definitions); \texttt{toy\_\allowbreak{}cert\_\allowbreak{}unique\_\allowbreak{}pointer} (sanity instance) \\
-Five deployed disciplines are unique pointers & \texttt{coq/\allowbreak{}kernel/\allowbreak{}frontier/\allowbreak{}PointerObservableReductions.v}: \texttt{PoS\_\allowbreak{}unique\_\allowbreak{}pointer}, \texttt{Gas\_\allowbreak{}unique\_\allowbreak{}pointer}, \texttt{TEE\_\allowbreak{}unique\_\allowbreak{}pointer}, \texttt{CT\_\allowbreak{}unique\_\allowbreak{}pointer}, \texttt{PCC\_\allowbreak{}unique\_\allowbreak{}pointer}; conjunction \texttt{five\_\allowbreak{}disciplines\_\allowbreak{}are\_\allowbreak{}pointers} (closed under the global context) \\
-Adversarial search: forgery-resistant systems that do \emph{not} proliferate & \texttt{coq/\allowbreak{}kernel/\allowbreak{}frontier/\allowbreak{}PointerObservableCounterexamples.v}: \texttt{deniable\_\allowbreak{}authentication\_\allowbreak{}refutes\_\allowbreak{}strong\_\allowbreak{}criterion}, \texttt{mac\_\allowbreak{}refutes\_\allowbreak{}strong\_\allowbreak{}criterion}, \texttt{capability\_\allowbreak{}refutes\_\allowbreak{}strong\_\allowbreak{}criterion}; control \texttt{public\_\allowbreak{}log\_\allowbreak{}confirms} \\
+Models of the five disciplines are unique pointers & \texttt{coq/\allowbreak{}kernel/\allowbreak{}frontier/\allowbreak{}PointerObservableReductions.v}: \texttt{PoS\_\allowbreak{}model\_\allowbreak{}unique\_\allowbreak{}pointer}, \texttt{Gas\_\allowbreak{}model\_\allowbreak{}unique\_\allowbreak{}pointer}, \texttt{TEE\_\allowbreak{}model\_\allowbreak{}unique\_\allowbreak{}pointer}, \texttt{CT\_\allowbreak{}model\_\allowbreak{}unique\_\allowbreak{}pointer}, \texttt{PCC\_\allowbreak{}model\_\allowbreak{}unique\_\allowbreak{}pointer}; conjunction \texttt{five\_\allowbreak{}labeled\_\allowbreak{}models\_\allowbreak{}have\_\allowbreak{}selected\_\allowbreak{}pointer} (closed under the global context). Correspondence to the deployed disciplines is argued in prose, not proved \\
+Adversarial search: forgery-resistant systems that do \emph{not} proliferate & \texttt{coq/\allowbreak{}kernel/\allowbreak{}frontier/\allowbreak{}PointerObservableCounterexamples.v}: \texttt{deniable\_\allowbreak{}authentication\_\allowbreak{}model\_\allowbreak{}not\_\allowbreak{}proliferating}, \texttt{mac\_\allowbreak{}model\_\allowbreak{}not\_\allowbreak{}proliferating}, \texttt{capability\_\allowbreak{}model\_\allowbreak{}not\_\allowbreak{}proliferating}; control \texttt{public\_\allowbreak{}log\_\allowbreak{}model\_\allowbreak{}proliferating}. The Coq results fix the observer maps; (C1) and (C2) are argued in prose \\
 \hline
 \multicolumn{2}{l}{\emph{Conditional physics derivations (under named axioms; (C) tier)}} \\
 \hline
@@ -2072,15 +2082,15 @@ Three-Layer (Coq $\leftrightarrow$ Python $\leftrightarrow$ RTL) Isomorphism & \
 \hline
 \multicolumn{2}{l}{\emph{Hardware / RTL / extraction}} \\
 \hline
-RTL Gap Count $= 0$ & \texttt{coq/\allowbreak{}kami\_\allowbreak{}hw/\allowbreak{}RTLGapRegistry.v}: \texttt{rtl\_\allowbreak{}gap\_\allowbreak{}count} \\
-RTL Coverage Partition ($37 + 10 + 0 = 47$) & \texttt{coq/\allowbreak{}kami\_\allowbreak{}hw/\allowbreak{}RTLGapRegistry.v}: \texttt{rtl\_\allowbreak{}coverage\_\allowbreak{}partition} \\
+RTL gap registry empty & \texttt{coq/\allowbreak{}kami\_\allowbreak{}hw/\allowbreak{}RTLGapRegistry.v}: \texttt{rtl\_\allowbreak{}gap\_\allowbreak{}registry\_\allowbreak{}empty} \\
+RTL inventory count ($37 + 10 + 0 = 47$, arithmetic only) & \texttt{coq/\allowbreak{}kami\_\allowbreak{}hw/\allowbreak{}RTLGapRegistry.v}: \texttt{rtl\_\allowbreak{}inventory\_\allowbreak{}arithmetic} \\
 RTL Trust Boundary (Section Variable) & \texttt{coq/\allowbreak{}kernel/\allowbreak{}hardware\_\allowbreak{}bridge/\allowbreak{}VerilogRTLCorrespondence.v}: \texttt{rtl\_\allowbreak{}step\_\allowbreak{}correct} \\
 BSC Compilation Trust Boundary & \texttt{coq/\allowbreak{}kernel/\allowbreak{}hardware\_\allowbreak{}bridge/\allowbreak{}VerilogRTLCorrespondence.v}: \texttt{bsc\_\allowbreak{}kami\_\allowbreak{}compilation\_\allowbreak{}trusted} \\
 Coq-Kami refinement (proves \texttt{rtl\_\allowbreak{}step\_\allowbreak{}correct} for COQKAMI) & \texttt{coq/\allowbreak{}kami\_\allowbreak{}hw/\allowbreak{}VerilogSemantics.v} \\
 EmbedStep / EmbedStep\_\allowbreak{}WF (per-opcode bisimulation) & \texttt{coq/\allowbreak{}kami\_\allowbreak{}hw/\allowbreak{}EmbedStep.v}, \texttt{coq/\allowbreak{}kami\_\allowbreak{}hw/\allowbreak{}EmbedStep\_\allowbreak{}WF.v} \\
 GraphReconstructionBridge (TENSOR\_\allowbreak{}*, LASSERT) & \texttt{coq/\allowbreak{}kami\_\allowbreak{}hw/\allowbreak{}GraphReconstructionBridge.v} \\
 ThieleCPU Kami specification & \texttt{coq/\allowbreak{}kami\_\allowbreak{}hw/\allowbreak{}ThieleCPUCore.v} \\
-OCaml extraction observable surface & \texttt{coq/\allowbreak{}kernel/\allowbreak{}hardware\_\allowbreak{}bridge/\allowbreak{}OCamlExtractionBridge.v}: \texttt{ocaml\_\allowbreak{}bisimulation\_\allowbreak{}closure} \\
+OCaml extraction observable surface & \texttt{coq/\allowbreak{}kernel/\allowbreak{}hardware\_\allowbreak{}bridge/\allowbreak{}OCamlExtractionBridge.v}: \texttt{ocaml\_\allowbreak{}observable\_\allowbreak{}nofi\_\allowbreak{}and\_\allowbreak{}monotone} \\
 \end{longtable}
 \endgroup
 
@@ -2146,15 +2156,15 @@ Three-Tier Observation Taxonomy & \textbf{(S)} & Machine semantics only \\
 Locally Consistent $\Rightarrow$ Separable Coupling & \textbf{(S)} & Coupling definition \\
 Local Coupling Bound ($|S| \le 2$) & \textbf{(S)} & Coupling definition \\
 $S > 2$ Rules Out Local Couplings & \textbf{(S)} & Coupling definition \\
-RTL Bisimulation (\texttt{driven\_\allowbreak{}step\_\allowbreak{}wf}) & \textbf{(S)} & Per-opcode Kami/\texttt{vm\_\allowbreak{}apply} agreement under \texttt{WFDrivenPrecondition}. (\texttt{rtl\_\allowbreak{}coverage\_\allowbreak{}partition}, $37{+}10{+}0=47$, is Peano arithmetic and is \emph{not} coverage evidence) \\
+RTL Bisimulation (\texttt{driven\_\allowbreak{}step\_\allowbreak{}wf}) & \textbf{(S)} & Per-opcode Kami/\texttt{vm\_\allowbreak{}apply} agreement under \texttt{WFDrivenPrecondition}. (\texttt{rtl\_\allowbreak{}inventory\_\allowbreak{}arithmetic}, $37{+}10{+}0=47$, is Peano arithmetic and is \emph{not} coverage evidence) \\
 Slice-Coherent $\iff$ NPA Realizable & \textbf{(S)} & Polynomial arithmetic; standard-library assumptions \\
 PR Box Not Slice-Coherent & \textbf{(S)} & Direct arithmetic on condition 1 \\
 Elliptope Realizability (full correlator set) & \textbf{(S)} & Existential completion; stdlib reals only \\
 Decidable Elliptope Gate Sound & \textbf{(S)} & Fraction-free $\mathbb{Z}$ arithmetic, two branches \\
-Five Disciplines Are Unique Pointers & \textbf{(S)} & Closed under the global context; no axioms. Evidence for (PO-PUBLIC), not (PO-STRONG); see Section~\ref{sec:pointer_counterexamples} \\
-Strong Pointer Criterion (PO-STRONG) Is False & \textbf{(S)} & Three machine-checked counterexamples (deniable authentication, symmetric MAC, object capabilities); forgery resistance does not imply metering \\
+Five Disciplines' Models Are Unique Pointers & \textbf{(S)} & Closed under the global context; model structure only. Evidence for (PO-PUBLIC) only through the prose correspondence; see Section~\ref{sec:pointer_counterexamples} \\
+Strong Pointer Criterion (PO-STRONG) Is False & \textbf{(S)} & Coq checks the three observer maps (deniable authentication, symmetric MAC, object capabilities); their faithfulness to the real designs, and so the refutation, is argued in prose \\
 Tsirelson Is Thiele Boundary (forward + contrapositive) & \textbf{(S)} & From column contractivity; converse not claimed \\
-Zero-$\mu$ classical solvers are $\mu$-budget decidable & \textbf{(S)} & $\mu$-budget definitions; not the classical class P \\
+Zero-$\mu$ traces satisfy the preservation budget & \textbf{(S)} & Error-free traces; no returned-answer or uniform-solver requirement \\
 Forced price is merging; merge or revoke & \textbf{(S)} & Finite enumeration; decidable instruction equality for the iff; converse to permanence fails on three states \\
 Entropy drop of a permanent flip & \textbf{(S)} & Finite enumeration, permanent certificate; Shannon entropy over Coq reals; standard real-number axioms only \\
 Finite VM instance & \textbf{(S)} & Eight-state machine; VM fragment \texttt{CERTIFY 0}, \texttt{JUMP a 2}, \texttt{CHECKPOINT} through the window $(\texttt{pc} \bmod 4, \texttt{certified})$ \\

@@ -32,7 +32,7 @@ Local Open Scope R_scope.
 
 (** ** run_vm-semantics invariance for the column-contractive bridge.
 
-    The bridge proven here is between quantum_realizable (PSD) and
+    The bridge proven here is between npa_psd (PSD) and
     trace_column_contractive on the NPA matrix built from VM trace
     correlators. The lemma below ties this bridge to run_vm semantics:
     if the VM is stuck at the initial state (program counter out of
@@ -228,20 +228,18 @@ Qed.
 
 (**
 
-    The biconditional has a clean physical reading:
-
-    A set of CHSH trial outcomes (e00, e01, e10, e11) is QUANTUM REALIZABLE
-    (i.e., can be produced by measurements on some entangled quantum state
-    with bounded observables) if and only if the induced NPA moment matrix
-    is positive semidefinite.
-
-    This is the NPA characterization theorem at level 1 for binary bipartite
-    correlators with zero marginals. The Tsirelson bound 2√2 is the algebraic
+    The biconditional has a clean physical reading, and the reading comes
+    from outside the kernel. Inside, it is algebra about one fixed matrix.
+    The NPA framework and Tsirelson's theorem connect PSD of such matrices
+    to correlators that measurements on a quantum state can produce; that
+    connection is cited, not proved here. The matrix pins the marginals and
+    the within-party moments to zero, so it describes one slice of
+    correlators. The Tsirelson bound 2√2 is the algebraic
     maximum of the CHSH expression over all PSD-satisfying correlators,
     computed by Cauchy-Schwarz in TsirelsonFromAlgebra.v.
 
     WHAT THIS MEANS FOR THE THIELE MACHINE:
-    The VM records CHSH_TRIAL outcomes. The quantum_realizable predicate
+    The VM records CHSH_TRIAL outcomes. The npa_psd predicate
     (PSD of NPA matrix) is CHECKABLE from the recorded data — it does not
     require additional quantum machinery. The CERTIFY opcode (with nonzero
     μ-cost) formalises the act of certifying this PSD condition.
@@ -255,15 +253,15 @@ Qed.
     to have been prepared via a quantum channel, which costs μ > 0 (by NoFI).
     Once the NPA-PSD certificate is verified, Tsirelson ≤ 2√2 follows. □ *)
 
-(** Corollary: quantum realizability is equivalent to column contractivity. *)
-Corollary column_contractive_iff_quantum_realizable :
+(** Corollary: NPA PSD is equivalent to column contractivity. *)
+Corollary column_contractive_iff_npa_psd :
   forall e00 e01 e10 e11 : R,
     zero_marginal_column_contractive e00 e01 e10 e11
     <->
-    quantum_realizable (zero_marginal_npa e00 e01 e10 e11).
+    npa_psd (zero_marginal_npa e00 e01 e10 e11).
 Proof.
   intros e00 e01 e10 e11.
-  unfold quantum_realizable.
+  unfold npa_psd.
   split.
   - intros [Hc0 [Hc1 Hdet]].
     split.
@@ -280,11 +278,11 @@ Qed.
     Lift the algebraic result to the trace-level predicates used in
     MasterSummary and the rest of the kernel. *)
 
-Theorem trace_column_contractive_iff_trace_quantum_model :
+Theorem trace_column_contractive_iff_trace_npa_model :
   forall fuel trace s_init,
     trace_column_contractive fuel trace s_init
     <->
-    quantum_realizable (trace_zero_marginal_npa fuel trace s_init).
+    npa_psd (trace_zero_marginal_npa fuel trace s_init).
 Proof.
   intros fuel trace s_init.
   unfold trace_column_contractive, trace_zero_marginal_npa.
@@ -292,44 +290,42 @@ Proof.
   set (e01 := trace_e01 fuel trace s_init).
   set (e10 := trace_e10 fuel trace s_init).
   set (e11 := trace_e11 fuel trace s_init).
-  apply column_contractive_iff_quantum_realizable.
+  apply column_contractive_iff_npa_psd.
 Qed.
 
 (**
 
-    This is the missing bridge from Gap C: if a PSPLIT-initiated trace
-    implements a quantum state (i.e., its NPA moment matrix is quantum
-    realizable), then the trace correlators are column-contractive.
-
-    The proof is the backward direction of the established biconditional
-    trace_column_contractive_iff_trace_quantum_model, which is itself
-    the trace-level lift of column_contractive_iff_quantum_realizable.
-      psplit_implements_quantum_state fuel trace s_init
-        (= quantum_realizable (trace_zero_marginal_npa fuel trace s_init))
-      → trace_column_contractive fuel trace s_init
+    If a trace's zero-marginal NPA matrix is PSD, its correlators are
+    column-contractive. This is the backward direction of
+    trace_column_contractive_iff_trace_npa_model, the trace-level lift of
+    column_contractive_iff_npa_psd:
+      trace_npa_matrix_psd fuel trace s_init
+        (= npa_psd (trace_zero_marginal_npa fuel trace s_init))
+      -> trace_column_contractive fuel trace s_init
         (= zero_marginal_column_contractive E00 E01 E10 E11)
-      via npa_psd_implies_column_contractive (test-vector proof, Section 2)
+      via npa_psd_implies_column_contractive (test-vector proof, Section 2).
 
-    This closes Gap C: column contractivity is DERIVED from the quantum
-    nature of PSPLIT bipartitions, not assumed as an external precondition.
+    The premise is a matrix condition. Nothing here says a PSPLIT trace
+    implements a quantum state; the two conditions are equivalent by
+    algebra, and the premise is assumed, not derived from the trace.
     *)
 
-Theorem psplit_quantum_implementation_implies_column_contractive :
+Theorem trace_npa_matrix_psd_implies_column_contractive :
   forall fuel trace s_init,
-    psplit_implements_quantum_state fuel trace s_init ->
+    trace_npa_matrix_psd fuel trace s_init ->
     trace_column_contractive fuel trace s_init.
 Proof.
   intros fuel trace s_init Hqr.
-  apply trace_column_contractive_iff_trace_quantum_model.
+  apply trace_column_contractive_iff_trace_npa_model.
   exact Hqr.
 Qed.
 
 (** Direct corollary: PSPLIT quantum state implies the Tsirelson bound.
-    Chain: psplit_implements_quantum_state → column_contractive → row_bounds → S² ≤ 8. *)
+    Chain: trace_npa_matrix_psd → column_contractive → row_bounds → S² ≤ 8. *)
 (* definitional lemma *)
-Corollary psplit_quantum_state_implies_tsirelson :
+Corollary trace_npa_matrix_psd_implies_tsirelson :
   forall fuel trace s_init,
-    psplit_implements_quantum_state fuel trace s_init ->
+    trace_npa_matrix_psd fuel trace s_init ->
     (CHSH
       (trace_e00 fuel trace s_init)
       (trace_e01 fuel trace s_init)
@@ -337,29 +333,29 @@ Corollary psplit_quantum_state_implies_tsirelson :
       (trace_e11 fuel trace s_init))² <= 8.
 Proof.
   intros fuel trace s_init Hqr.
-  unfold psplit_implements_quantum_state in Hqr.
+  unfold trace_npa_matrix_psd in Hqr.
   unfold trace_zero_marginal_npa in Hqr.
-  apply quantum_realizable_implies_tsirelson_bound.
+  apply npa_psd_implies_tsirelson_bound.
   exact Hqr.
 Qed.
 
 (** =========================================================================
-    The chsh_lassert quantum-realizability chain.
+    The chsh_lassert NPA PSD chain.
 
     Combines [state_column_contractive_check_witness_sound] (in
-    MuLedgerQuantumBridge.v) with [column_contractive_iff_quantum_realizable]
+    MuLedgerQuantumBridge.v) with [column_contractive_iff_npa_psd]
     (this file) to give the load-bearing kernel-level bridge: a successfully
     executed [instr_chsh_lassert] step implies the witness-derived NPA moment
-    matrix is quantum-realizable (PSD).
+    matrix is symmetric and PSD.
 *)
 
-Theorem chsh_lassert_check_implies_quantum_realizable :
+Theorem chsh_lassert_check_implies_npa_psd :
   forall (s : VMState),
     column_contractive_check_witness s.(vm_witness) = true ->
-    quantum_realizable (state_zero_marginal_npa s).
+    npa_psd (state_zero_marginal_npa s).
 Proof.
   intros s Hchk.
-  apply column_contractive_iff_quantum_realizable.
+  apply column_contractive_iff_npa_psd.
   apply state_column_contractive_check_witness_sound.
   exact Hchk.
 Qed.
@@ -370,13 +366,13 @@ Qed.
     established by the counterexample lemmas in MuLedgerQuantumBridge.v;
     the new opcode introduces a kernel mechanism that decidably enforces
     column-contractivity at certification time. *)
-Theorem chsh_lassert_no_trap_implies_quantum_realizable :
+Theorem chsh_lassert_no_trap_implies_npa_psd :
   forall s mu_delta,
     let s' := vm_apply s (instr_chsh_lassert mu_delta) in
     s'.(vm_pc) = S s.(vm_pc) ->
     s'.(vm_err) = s.(vm_err) ->
     s.(vm_err) = false ->
-    quantum_realizable (state_zero_marginal_npa s).
+    npa_psd (state_zero_marginal_npa s).
 Proof.
   intros s mu_delta s' Hpc Herr Herr0.
   assert (Hchk : column_contractive_check_witness s.(vm_witness) = true).
@@ -384,5 +380,5 @@ Proof.
     destruct (column_contractive_check_witness s.(vm_witness)) eqn:Echk.
     - reflexivity.
     - simpl in Herr. rewrite Herr0 in Herr. discriminate. }
-  apply chsh_lassert_check_implies_quantum_realizable. exact Hchk.
+  apply chsh_lassert_check_implies_npa_psd. exact Hchk.
 Qed.

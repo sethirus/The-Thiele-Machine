@@ -1,516 +1,516 @@
-DIGEST 710302ffd800c78dda793db4b9e1f860
+DIGEST bdfc09b91b06320afd906b6aed8ebc70
 FKernel.MuComplexity
-R1312:1315 Coq.Lists.List <> <> lib
-R1317:1330 Coq.Arith.PeanoNat <> <> lib
-R1332:1334 Coq.micromega.Lia <> <> lib
-R1344:1356 Coq.Lists.List ListNotations <> mod
-R1387:1393 Kernel.VMState <> <> lib
-R1395:1400 Kernel.VMStep <> <> lib
-R1402:1416 Kernel.SimulationProof <> <> lib
-def 1521:1525 <> Trace
-R1530:1533 Coq.Init.Datatypes <> list ind
-R1535:1548 Kernel.VMStep VMStep vm_instruction ind
-def 1638:1650 <> trace_mu_cost
-R1660:1662 Coq.Init.Datatypes <> nat ind
-binder 1653:1656 <> fuel:1
-R1674:1678 Kernel.MuComplexity <> Trace def
-binder 1666:1670 <> trace:2
-R1686:1692 Kernel.VMState <> VMState rec
-binder 1682:1682 <> s:3
-R1697:1699 Coq.Init.Datatypes <> nat ind
-R1735:1737 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R1729:1733 Kernel.VMState <> vm_mu proj
-R1707:1712 Kernel.SimulationProof <> run_vm def
-R1714:1717 Kernel.MuComplexity <> fuel:1 var
-R1719:1723 Kernel.MuComplexity <> trace:2 var
-R1725:1725 Kernel.MuComplexity <> s:3 var
-R1741:1745 Kernel.VMState <> vm_mu proj
-R1738:1738 Kernel.MuComplexity <> s:3 var
-def 1844:1858 <> DecisionProblem
-R1870:1873 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1863:1869 Kernel.VMState <> VMState rec
-R1874:1877 Coq.Init.Datatypes <> bool ind
-def 2449:2457 <> PolyBound
-R2465:2468 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2462:2464 Coq.Init.Datatypes <> nat ind
-R2469:2471 Coq.Init.Datatypes <> nat ind
-def 2486:2504 <> mu_budget_decidable
-R2515:2529 Kernel.MuComplexity <> DecisionProblem def
-binder 2511:2511 <> P:4
-R2551:2554 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2544:2550 Kernel.VMState <> VMState rec
-R2555:2557 Coq.Init.Datatypes <> nat ind
-binder 2537:2540 <> size:5
-R2574:2582 Kernel.MuComplexity <> PolyBound def
-binder 2565:2570 <> p_fuel:6
-R2597:2605 Kernel.MuComplexity <> PolyBound def
-binder 2590:2593 <> p_mu:7
+R1182:1185 Coq.Lists.List <> <> lib
+R1187:1200 Coq.Arith.PeanoNat <> <> lib
+R1202:1204 Coq.micromega.Lia <> <> lib
+R1214:1226 Coq.Lists.List ListNotations <> mod
+R1257:1263 Kernel.VMState <> <> lib
+R1265:1270 Kernel.VMStep <> <> lib
+R1272:1286 Kernel.SimulationProof <> <> lib
+def 1391:1395 <> Trace
+R1400:1403 Coq.Init.Datatypes <> list ind
+R1405:1418 Kernel.VMStep VMStep vm_instruction ind
+def 1508:1520 <> trace_mu_cost
+R1530:1532 Coq.Init.Datatypes <> nat ind
+binder 1523:1526 <> fuel:1
+R1544:1548 Kernel.MuComplexity <> Trace def
+binder 1536:1540 <> trace:2
+R1556:1562 Kernel.VMState <> VMState rec
+binder 1552:1552 <> s:3
+R1567:1569 Coq.Init.Datatypes <> nat ind
+R1605:1607 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R1599:1603 Kernel.VMState <> vm_mu proj
+R1577:1582 Kernel.SimulationProof <> run_vm def
+R1584:1587 Kernel.MuComplexity <> fuel:1 var
+R1589:1593 Kernel.MuComplexity <> trace:2 var
+R1595:1595 Kernel.MuComplexity <> s:3 var
+R1611:1615 Kernel.VMState <> vm_mu proj
+R1608:1608 Kernel.MuComplexity <> s:3 var
+def 1714:1728 <> DecisionProblem
+R1740:1743 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1733:1739 Kernel.VMState <> VMState rec
+R1744:1747 Coq.Init.Datatypes <> bool ind
+def 1819:1829 <> BudgetBound
+R1837:1840 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1834:1836 Coq.Init.Datatypes <> nat ind
+R1841:1843 Coq.Init.Datatypes <> nat ind
+def 1858:1887 <> error_free_preservation_budget
+R1898:1912 Kernel.MuComplexity <> DecisionProblem def
+binder 1894:1894 <> P:4
+R1934:1937 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1927:1933 Kernel.VMState <> VMState rec
+R1938:1940 Coq.Init.Datatypes <> nat ind
+binder 1920:1923 <> size:5
+R1957:1967 Kernel.MuComplexity <> BudgetBound def
+binder 1948:1953 <> p_fuel:6
+R1982:1992 Kernel.MuComplexity <> BudgetBound def
+binder 1975:1978 <> p_mu:7
+R2019:2025 Kernel.VMState <> VMState rec
+binder 2015:2015 <> s:8
+R2031:2038 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2052:2094 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2047:2051 Kernel.MuComplexity <> Trace def
+binder 2039:2043 <> trace:9
+R2126:2166 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2107:2110 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2095:2100 Coq.Init.Datatypes <> length def
+R2102:2106 Kernel.MuComplexity <> trace:9 var
+R2111:2116 Kernel.MuComplexity <> p_fuel:6 var
+R2119:2122 Kernel.MuComplexity <> size:5 var
+R2124:2124 Kernel.MuComplexity <> s:8 var
+R2223:2307 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2206:2209 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2167:2179 Kernel.MuComplexity <> trace_mu_cost def
+R2182:2187 Kernel.MuComplexity <> p_fuel:6 var
+R2190:2193 Kernel.MuComplexity <> size:5 var
+R2195:2195 Kernel.MuComplexity <> s:8 var
+R2199:2203 Kernel.MuComplexity <> trace:9 var
+R2205:2205 Kernel.MuComplexity <> s:8 var
+R2210:2213 Kernel.MuComplexity <> p_mu:7 var
+R2216:2219 Kernel.MuComplexity <> size:5 var
+R2221:2221 Kernel.MuComplexity <> s:8 var
+R2359:2367 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2473:2473 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2351:2353 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2344:2349 Kernel.VMState <> vm_err proj
+R2309:2314 Kernel.SimulationProof <> run_vm def
+R2317:2322 Kernel.MuComplexity <> p_fuel:6 var
+R2325:2328 Kernel.MuComplexity <> size:5 var
+R2330:2330 Kernel.MuComplexity <> s:8 var
+R2334:2338 Kernel.MuComplexity <> trace:9 var
+R2340:2340 Kernel.MuComplexity <> s:8 var
+R2354:2358 Coq.Init.Datatypes <> false constr
+R2422:2430 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2410:2412 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R2404:2408 Kernel.VMState <> vm_mu proj
+R2369:2374 Kernel.SimulationProof <> run_vm def
+R2377:2382 Kernel.MuComplexity <> p_fuel:6 var
+R2385:2388 Kernel.MuComplexity <> size:5 var
+R2390:2390 Kernel.MuComplexity <> s:8 var
+R2394:2398 Kernel.MuComplexity <> trace:9 var
+R2400:2400 Kernel.MuComplexity <> s:8 var
+R2416:2420 Kernel.VMState <> vm_mu proj
+R2413:2413 Kernel.MuComplexity <> s:8 var
+R2467:2469 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2431:2431 Kernel.MuComplexity <> P:4 var
+R2434:2439 Kernel.SimulationProof <> run_vm def
+R2442:2447 Kernel.MuComplexity <> p_fuel:6 var
+R2450:2453 Kernel.MuComplexity <> size:5 var
+R2455:2455 Kernel.MuComplexity <> s:8 var
+R2459:2463 Kernel.MuComplexity <> trace:9 var
+R2465:2465 Kernel.MuComplexity <> s:8 var
+R2470:2470 Kernel.MuComplexity <> P:4 var
+R2472:2472 Kernel.MuComplexity <> s:8 var
+def 2558:2592 <> positive_input_certification_budget
+R2603:2617 Kernel.MuComplexity <> DecisionProblem def
+binder 2599:2599 <> P:10
+R2639:2642 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R2632:2638 Kernel.VMState <> VMState rec
-binder 2628:2628 <> s:8
-R2644:2651 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2665:2707 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2660:2664 Kernel.MuComplexity <> Trace def
-binder 2652:2656 <> trace:9
-R2739:2779 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2720:2723 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2708:2713 Coq.Init.Datatypes <> length def
-R2715:2719 Kernel.MuComplexity <> trace:9 var
-R2724:2729 Kernel.MuComplexity <> p_fuel:6 var
-R2732:2735 Kernel.MuComplexity <> size:5 var
-R2737:2737 Kernel.MuComplexity <> s:8 var
-R2836:2893 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2819:2822 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2780:2792 Kernel.MuComplexity <> trace_mu_cost def
-R2795:2800 Kernel.MuComplexity <> p_fuel:6 var
-R2803:2806 Kernel.MuComplexity <> size:5 var
-R2808:2808 Kernel.MuComplexity <> s:8 var
-R2812:2816 Kernel.MuComplexity <> trace:9 var
-R2818:2818 Kernel.MuComplexity <> s:8 var
-R2823:2826 Kernel.MuComplexity <> p_mu:7 var
-R2829:2832 Kernel.MuComplexity <> size:5 var
-R2834:2834 Kernel.MuComplexity <> s:8 var
-R2945:2953 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3059:3059 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2937:2939 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2930:2935 Kernel.VMState <> vm_err proj
-R2895:2900 Kernel.SimulationProof <> run_vm def
-R2903:2908 Kernel.MuComplexity <> p_fuel:6 var
-R2911:2914 Kernel.MuComplexity <> size:5 var
-R2916:2916 Kernel.MuComplexity <> s:8 var
-R2920:2924 Kernel.MuComplexity <> trace:9 var
-R2926:2926 Kernel.MuComplexity <> s:8 var
-R2940:2944 Coq.Init.Datatypes <> false constr
-R3008:3016 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2996:2998 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R2990:2994 Kernel.VMState <> vm_mu proj
-R2955:2960 Kernel.SimulationProof <> run_vm def
-R2963:2968 Kernel.MuComplexity <> p_fuel:6 var
-R2971:2974 Kernel.MuComplexity <> size:5 var
-R2976:2976 Kernel.MuComplexity <> s:8 var
-R2980:2984 Kernel.MuComplexity <> trace:9 var
-R2986:2986 Kernel.MuComplexity <> s:8 var
-R3002:3006 Kernel.VMState <> vm_mu proj
-R2999:2999 Kernel.MuComplexity <> s:8 var
-R3053:3055 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3017:3017 Kernel.MuComplexity <> P:4 var
-R3020:3025 Kernel.SimulationProof <> run_vm def
-R3028:3033 Kernel.MuComplexity <> p_fuel:6 var
-R3036:3039 Kernel.MuComplexity <> size:5 var
-R3041:3041 Kernel.MuComplexity <> s:8 var
-R3045:3049 Kernel.MuComplexity <> trace:9 var
-R3051:3051 Kernel.MuComplexity <> s:8 var
-R3056:3056 Kernel.MuComplexity <> P:4 var
-R3058:3058 Kernel.MuComplexity <> s:8 var
-def 3361:3380 <> mu_budget_verifiable
-R3391:3405 Kernel.MuComplexity <> DecisionProblem def
-binder 3387:3387 <> P:10
-R3427:3430 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3420:3426 Kernel.VMState <> VMState rec
-R3431:3433 Coq.Init.Datatypes <> nat ind
-binder 3413:3416 <> size:11
-R3450:3458 Kernel.MuComplexity <> PolyBound def
-binder 3441:3446 <> p_fuel:12
-R3473:3481 Kernel.MuComplexity <> PolyBound def
-binder 3466:3469 <> p_mu:13
-R3508:3514 Kernel.VMState <> VMState rec
-binder 3504:3504 <> s:14
-R3532:3539 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3525:3527 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3522:3522 Kernel.MuComplexity <> P:10 var
-R3524:3524 Kernel.MuComplexity <> s:14 var
-R3528:3531 Coq.Init.Datatypes <> true constr
-R3540:3547 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3560:3568 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3555:3559 Kernel.MuComplexity <> Trace def
-binder 3548:3551 <> cert:15
-R3599:3608 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3580:3583 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3569:3574 Coq.Init.Datatypes <> length def
-R3576:3579 Kernel.MuComplexity <> cert:15 var
-R3584:3589 Kernel.MuComplexity <> p_fuel:12 var
-R3592:3595 Kernel.MuComplexity <> size:11 var
-R3597:3597 Kernel.MuComplexity <> s:14 var
-R3664:3673 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3647:3650 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3609:3621 Kernel.MuComplexity <> trace_mu_cost def
-R3624:3629 Kernel.MuComplexity <> p_fuel:12 var
-R3632:3635 Kernel.MuComplexity <> size:11 var
-R3637:3637 Kernel.MuComplexity <> s:14 var
-R3641:3644 Kernel.MuComplexity <> cert:15 var
-R3646:3646 Kernel.MuComplexity <> s:14 var
-R3651:3654 Kernel.MuComplexity <> p_mu:13 var
-R3657:3660 Kernel.MuComplexity <> size:11 var
-R3662:3662 Kernel.MuComplexity <> s:14 var
-R3722:3724 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3709:3720 Kernel.VMState <> vm_certified proj
-R3675:3680 Kernel.SimulationProof <> run_vm def
-R3683:3688 Kernel.MuComplexity <> p_fuel:12 var
-R3691:3694 Kernel.MuComplexity <> size:11 var
-R3696:3696 Kernel.MuComplexity <> s:14 var
-R3700:3703 Kernel.MuComplexity <> cert:15 var
-R3705:3705 Kernel.MuComplexity <> s:14 var
-R3725:3728 Coq.Init.Datatypes <> true constr
-def 4397:4432 <> decidable_implies_verifiable_premise
-R4443:4457 Kernel.MuComplexity <> DecisionProblem def
-binder 4439:4439 <> P:16
-R4475:4478 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4468:4474 Kernel.VMState <> VMState rec
-R4479:4481 Coq.Init.Datatypes <> nat ind
-binder 4461:4464 <> size:17
-R4503:4511 Kernel.MuComplexity <> PolyBound def
-binder 4489:4494 <> p_fuel:18
-binder 4496:4499 <> p_mu:19
-R4564:4569 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4526:4544 Kernel.MuComplexity <> mu_budget_decidable def
-R4546:4546 Kernel.MuComplexity <> P:16 var
-R4548:4551 Kernel.MuComplexity <> size:17 var
-R4553:4558 Kernel.MuComplexity <> p_fuel:18 var
-R4560:4563 Kernel.MuComplexity <> p_mu:19 var
-R4570:4576 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4590:4591 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 4577:4583 <> p_fuel':20
-binder 4585:4589 <> p_mu':21
-R4592:4611 Kernel.MuComplexity <> mu_budget_verifiable def
-R4613:4613 Kernel.MuComplexity <> P:16 var
-R4615:4618 Kernel.MuComplexity <> size:17 var
-R4620:4626 Kernel.MuComplexity <> p_fuel':20 var
-R4628:4632 Kernel.MuComplexity <> p_mu':21 var
-def 4753:4767 <> zero_mu_program
-R4777:4779 Coq.Init.Datatypes <> nat ind
-binder 4770:4773 <> fuel:22
-R4791:4795 Kernel.MuComplexity <> Trace def
-binder 4783:4787 <> trace:23
-R4803:4809 Kernel.VMState <> VMState rec
-binder 4799:4799 <> s:24
-R4850:4852 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4824:4836 Kernel.MuComplexity <> trace_mu_cost def
-R4838:4841 Kernel.MuComplexity <> fuel:22 var
-R4843:4847 Kernel.MuComplexity <> trace:23 var
-R4849:4849 Kernel.MuComplexity <> s:24 var
-prf 4946:4974 <> classical_mu_budget_decidable
-binder 4987:4987 <> P:25
-binder 4989:4992 <> size:26
-binder 4994:4999 <> p_fuel:27
-R5006:5006 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5180:5188 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 5014:5014 <> s:28
-R5017:5023 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5029:5036 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 5024:5028 <> trace:29
-R5068:5077 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5049:5052 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5037:5042 Coq.Init.Datatypes <> length def
-R5044:5048 Kernel.MuComplexity <> trace:29 var
-R5053:5058 Kernel.MuComplexity <> p_fuel:27 var
-R5061:5064 Kernel.MuComplexity <> size:26 var
-R5066:5066 Kernel.MuComplexity <> s:28 var
-R5119:5128 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5078:5092 Kernel.MuComplexity <> zero_mu_program def
-R5095:5100 Kernel.MuComplexity <> p_fuel:27 var
-R5103:5106 Kernel.MuComplexity <> size:26 var
-R5108:5108 Kernel.MuComplexity <> s:28 var
-R5112:5116 Kernel.MuComplexity <> trace:29 var
-R5118:5118 Kernel.MuComplexity <> s:28 var
-R5172:5174 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5165:5170 Kernel.VMState <> vm_err proj
-R5130:5135 Kernel.SimulationProof <> run_vm def
-R5138:5143 Kernel.MuComplexity <> p_fuel:27 var
-R5146:5149 Kernel.MuComplexity <> size:26 var
-R5151:5151 Kernel.MuComplexity <> s:28 var
-R5155:5159 Kernel.MuComplexity <> trace:29 var
-R5161:5161 Kernel.MuComplexity <> s:28 var
-R5175:5179 Coq.Init.Datatypes <> false constr
-R5189:5207 Kernel.MuComplexity <> mu_budget_decidable def
-R5209:5209 Kernel.MuComplexity <> P:25 var
-R5211:5214 Kernel.MuComplexity <> size:26 var
-R5216:5221 Kernel.MuComplexity <> p_fuel:27 var
-R5370:5384 Kernel.MuComplexity <> zero_mu_program def
-R5460:5474 Kernel.MuComplexity <> zero_mu_program def
-R5491:5503 Kernel.MuComplexity <> trace_mu_cost def
-def 6355:6370 <> mu_time_tradeoff
-R6384:6391 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6445:6451 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6442:6444 Coq.Init.Datatypes <> nat ind
-binder 6392:6392 <> N:30
-R6442:6444 Coq.Init.Datatypes <> nat ind
-binder 6394:6404 <> blind_steps:31
-R6442:6444 Coq.Init.Datatypes <> nat ind
-binder 6406:6413 <> blind_mu:32
-R6442:6444 Coq.Init.Datatypes <> nat ind
-binder 6415:6427 <> sighted_steps:33
-R6442:6444 Coq.Init.Datatypes <> nat ind
-binder 6429:6438 <> sighted_mu:34
-R6458:6465 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6453:6455 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R6452:6452 Kernel.MuComplexity <> N:30 var
-R6487:6490 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6477:6481 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6466:6476 Kernel.MuComplexity <> blind_steps:31 var
-R6483:6485 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R6482:6482 Kernel.MuComplexity <> N:30 var
-R6486:6486 Kernel.MuComplexity <> N:30 var
-R6505:6513 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6499:6503 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6491:6498 Kernel.MuComplexity <> blind_mu:32 var
-R6535:6538 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6527:6529 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6514:6526 Kernel.MuComplexity <> sighted_steps:33 var
-R6531:6533 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R6534:6534 Kernel.MuComplexity <> N:30 var
-R6554:6561 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6549:6551 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6539:6548 Kernel.MuComplexity <> sighted_mu:34 var
-R6586:6635 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6572:6577 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R6562:6571 Kernel.MuComplexity <> sighted_mu:34 var
-R6578:6585 Kernel.MuComplexity <> blind_mu:32 var
-R6649:6651 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R6636:6648 Kernel.MuComplexity <> sighted_steps:33 var
-R6652:6662 Kernel.MuComplexity <> blind_steps:31 var
-prf 6710:6733 <> mu_time_tradeoff_witness
-R6737:6752 Kernel.MuComplexity <> mu_time_tradeoff def
-R6780:6782 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R6794:6796 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R6780:6782 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R6794:6796 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-def 7898:7912 <> blind_sat_steps
-R7920:7922 Coq.Init.Datatypes <> nat ind
-binder 7916:7916 <> k:35
-R7927:7929 Coq.Init.Datatypes <> nat ind
-R7935:7937 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R7938:7938 Kernel.MuComplexity <> k:35 var
-def 7952:7968 <> sighted_sat_steps
-R7975:7977 Coq.Init.Datatypes <> nat ind
-binder 7971:7971 <> k:36
-R7982:7984 Coq.Init.Datatypes <> nat ind
-R7990:7992 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R7994:7996 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R7997:7997 Kernel.MuComplexity <> k:36 var
-def 8011:8024 <> sighted_sat_mu
-R8028:8030 Coq.Init.Datatypes <> nat ind
-prf 8102:8115 <> four_pow_is_sq
-R8132:8134 Coq.Init.Datatypes <> nat ind
-binder 8128:8128 <> k:37
-R8142:8144 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8138:8140 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R8141:8141 Kernel.MuComplexity <> k:37 var
-R8150:8152 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R8146:8148 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R8149:8149 Kernel.MuComplexity <> k:37 var
-R8154:8156 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R8157:8157 Kernel.MuComplexity <> k:37 var
-prf 8421:8449 <> sat_blind_sighted_ratio_exact
-R8467:8469 Coq.Init.Datatypes <> nat ind
-binder 8462:8463 <> k':38
-R8498:8500 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8476:8490 Kernel.MuComplexity <> blind_sat_steps def
-R8493:8493 Coq.Init.Datatypes <> S constr
-R8495:8496 Kernel.MuComplexity <> k':38 var
-R8507:8509 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R8502:8504 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R8505:8506 Kernel.MuComplexity <> k':38 var
-R8510:8526 Kernel.MuComplexity <> sighted_sat_steps def
-R8529:8529 Coq.Init.Datatypes <> S constr
-R8531:8532 Kernel.MuComplexity <> k':38 var
-R8565:8579 Kernel.MuComplexity <> blind_sat_steps def
-R8582:8598 Kernel.MuComplexity <> sighted_sat_steps def
-R8611:8624 Kernel.MuComplexity <> four_pow_is_sq thm
-R8611:8624 Kernel.MuComplexity <> four_pow_is_sq thm
-R8611:8624 Kernel.MuComplexity <> four_pow_is_sq thm
-R8635:8641 Coq.Arith.PeanoNat Nat pow def
-prf 8813:8826 <> sat_separation
-R8843:8845 Coq.Init.Datatypes <> nat ind
-binder 8839:8839 <> k:39
-R8858:8865 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8853:8856 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8852:8852 Kernel.MuComplexity <> k:39 var
-R8883:8885 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R8866:8880 Kernel.MuComplexity <> blind_sat_steps def
-R8882:8882 Kernel.MuComplexity <> k:39 var
-R8905:8907 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R8886:8902 Kernel.MuComplexity <> sighted_sat_steps def
-R8904:8904 Kernel.MuComplexity <> k:39 var
-R8908:8921 Kernel.MuComplexity <> sighted_sat_mu def
-R8955:8969 Kernel.MuComplexity <> blind_sat_steps def
-R8972:8988 Kernel.MuComplexity <> sighted_sat_steps def
-R8991:9004 Kernel.MuComplexity <> sighted_sat_mu def
-R9198:9200 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R9185:9187 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R9188:9188 Coq.Init.Datatypes <> S constr
-R9191:9191 Coq.Init.Datatypes <> S constr
-R9219:9221 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9202:9204 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R9206:9208 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R9209:9209 Coq.Init.Datatypes <> S constr
-R9212:9212 Coq.Init.Datatypes <> S constr
-R9198:9200 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R9185:9187 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R9188:9188 Coq.Init.Datatypes <> S constr
-R9191:9191 Coq.Init.Datatypes <> S constr
-R9219:9221 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9202:9204 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R9206:9208 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R9209:9209 Coq.Init.Datatypes <> S constr
-R9212:9212 Coq.Init.Datatypes <> S constr
-R9270:9284 Kernel.MuComplexity <> blind_sat_steps def
-R9287:9303 Kernel.MuComplexity <> sighted_sat_steps def
-R9306:9319 Kernel.MuComplexity <> sighted_sat_mu def
-R9366:9368 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9349:9351 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R9352:9352 Coq.Init.Datatypes <> S constr
-R9355:9355 Coq.Init.Datatypes <> S constr
-R9358:9358 Coq.Init.Datatypes <> S constr
-R9370:9372 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R9374:9376 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R9377:9377 Coq.Init.Datatypes <> S constr
-R9380:9380 Coq.Init.Datatypes <> S constr
-R9366:9368 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9349:9351 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R9352:9352 Coq.Init.Datatypes <> S constr
-R9355:9355 Coq.Init.Datatypes <> S constr
-R9358:9358 Coq.Init.Datatypes <> S constr
-R9370:9372 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R9374:9376 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R9377:9377 Coq.Init.Datatypes <> S constr
-R9380:9380 Coq.Init.Datatypes <> S constr
-R9453:9455 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9436:9438 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R9439:9439 Coq.Init.Datatypes <> S constr
-R9442:9442 Coq.Init.Datatypes <> S constr
-R9445:9445 Coq.Init.Datatypes <> S constr
-R9457:9459 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R9461:9463 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R9464:9464 Coq.Init.Datatypes <> S constr
-R9467:9467 Coq.Init.Datatypes <> S constr
-R9453:9455 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9436:9438 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R9439:9439 Coq.Init.Datatypes <> S constr
-R9442:9442 Coq.Init.Datatypes <> S constr
-R9445:9445 Coq.Init.Datatypes <> S constr
-R9457:9459 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R9461:9463 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R9464:9464 Coq.Init.Datatypes <> S constr
-R9467:9467 Coq.Init.Datatypes <> S constr
-prf 9618:9627 <> two_pow_gt
-R9644:9646 Coq.Init.Datatypes <> nat ind
-binder 9640:9640 <> n:40
-R9654:9656 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R9650:9652 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R9653:9653 Kernel.MuComplexity <> n:40 var
-R9657:9657 Kernel.MuComplexity <> n:40 var
-prf 9866:9895 <> sat_separation_ratio_unbounded
-R9912:9914 Coq.Init.Datatypes <> nat ind
-binder 9908:9908 <> B:41
-R9921:9927 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R9935:9942 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R9932:9934 Coq.Init.Datatypes <> nat ind
-binder 9928:9928 <> k:42
-R9949:9952 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9944:9947 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R9943:9943 Kernel.MuComplexity <> k:42 var
-R9970:9972 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R9953:9967 Kernel.MuComplexity <> blind_sat_steps def
-R9969:9969 Kernel.MuComplexity <> k:42 var
-R9974:9976 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R9973:9973 Kernel.MuComplexity <> B:41 var
-R9977:9993 Kernel.MuComplexity <> sighted_sat_steps def
-R9995:9995 Kernel.MuComplexity <> k:42 var
-R10097:10097 Coq.Init.Datatypes <> S constr
-R10100:10100 Coq.Init.Datatypes <> S constr
-R10097:10097 Coq.Init.Datatypes <> S constr
-R10100:10100 Coq.Init.Datatypes <> S constr
-R10132:10160 Kernel.MuComplexity <> sat_blind_sighted_ratio_exact thm
-R10163:10163 Coq.Init.Datatypes <> S constr
-R10132:10160 Kernel.MuComplexity <> sat_blind_sighted_ratio_exact thm
-R10163:10163 Coq.Init.Datatypes <> S constr
-R10132:10160 Kernel.MuComplexity <> sat_blind_sighted_ratio_exact thm
-R10163:10163 Coq.Init.Datatypes <> S constr
-R10302:10322 Coq.Arith.PeanoNat Nat mul_lt_mono_pos_r thm
-R10302:10322 Coq.Arith.PeanoNat Nat mul_lt_mono_pos_r thm
-R10336:10352 Kernel.MuComplexity <> sighted_sat_steps def
-R10373:10382 Kernel.MuComplexity <> two_pow_gt thm
-R10385:10385 Coq.Init.Datatypes <> S constr
-R10388:10388 Coq.Init.Datatypes <> S constr
-R10373:10382 Kernel.MuComplexity <> two_pow_gt thm
-R10385:10385 Coq.Init.Datatypes <> S constr
-R10388:10388 Coq.Init.Datatypes <> S constr
-R10418:10427 Kernel.MuComplexity <> two_pow_gt thm
-R10430:10430 Coq.Init.Datatypes <> S constr
-R10418:10427 Kernel.MuComplexity <> two_pow_gt thm
-R10430:10430 Coq.Init.Datatypes <> S constr
-prf 10540:10557 <> sat_mu_is_constant
-R10572:10574 Coq.Init.Datatypes <> nat ind
-binder 10568:10568 <> k:43
-R10591:10593 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10577:10590 Kernel.MuComplexity <> sighted_sat_mu def
-prf 11372:11410 <> structured_sat_blind_sighted_separation
-R11427:11429 Coq.Init.Datatypes <> nat ind
-binder 11423:11423 <> k:44
-R11442:11449 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11437:11440 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11436:11436 Kernel.MuComplexity <> k:44 var
-R11464:11478 Kernel.MuComplexity <> blind_sat_steps def
-R11480:11480 Kernel.MuComplexity <> k:44 var
-binder 11454:11458 <> blind:45
-R11504:11520 Kernel.MuComplexity <> sighted_sat_steps def
-R11522:11522 Kernel.MuComplexity <> k:44 var
-binder 11493:11499 <> sighted:46
-R11546:11559 Kernel.MuComplexity <> sighted_sat_mu def
-binder 11535:11541 <> mu_cert:47
-R11593:11601 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11654:11654 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11573:11575 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R11568:11572 Kernel.MuComplexity <> blind:45 var
-R11583:11585 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R11576:11582 Kernel.MuComplexity <> sighted:46 var
-R11586:11592 Kernel.MuComplexity <> mu_cert:47 var
-R11602:11608 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R11614:11615 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 11609:11613 <> ratio:48
-R11626:11629 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11621:11624 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11616:11620 Kernel.MuComplexity <> ratio:48 var
-R11635:11638 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11630:11634 Kernel.MuComplexity <> blind:45 var
-R11644:11646 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R11639:11643 Kernel.MuComplexity <> ratio:48 var
-R11647:11653 Kernel.MuComplexity <> sighted:46 var
-R11699:11712 Kernel.MuComplexity <> sat_separation thm
-R11699:11712 Kernel.MuComplexity <> sat_separation thm
-R11764:11766 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R11764:11766 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R11882:11891 Kernel.MuComplexity <> two_pow_gt thm
-R11882:11891 Kernel.MuComplexity <> two_pow_gt thm
-R11920:11948 Kernel.MuComplexity <> sat_blind_sighted_ratio_exact thm
-R11920:11948 Kernel.MuComplexity <> sat_blind_sighted_ratio_exact thm
-R11920:11948 Kernel.MuComplexity <> sat_blind_sighted_ratio_exact thm
-prf 12142:12162 <> sat_savings_unbounded
-R12184:12186 Coq.Init.Datatypes <> nat ind
-binder 12175:12180 <> lambda:49
-R12193:12199 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R12207:12214 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R12204:12206 Coq.Init.Datatypes <> nat ind
-binder 12200:12200 <> k:50
-R12221:12230 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R12216:12219 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R12215:12215 Kernel.MuComplexity <> k:50 var
-R12248:12250 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R12231:12245 Kernel.MuComplexity <> blind_sat_steps def
-R12247:12247 Kernel.MuComplexity <> k:50 var
-R12270:12272 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R12251:12267 Kernel.MuComplexity <> sighted_sat_steps def
-R12269:12269 Kernel.MuComplexity <> k:50 var
-R12273:12278 Kernel.MuComplexity <> lambda:49 var
-R12316:12345 Kernel.MuComplexity <> sat_separation_ratio_unbounded thm
-R12354:12356 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R12316:12345 Kernel.MuComplexity <> sat_separation_ratio_unbounded thm
-R12354:12356 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R12417:12433 Kernel.MuComplexity <> sighted_sat_steps def
-R12466:12469 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R12458:12460 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R12462:12464 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R12466:12469 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R12458:12460 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R12462:12464 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R12494:12503 Kernel.MuComplexity <> two_pow_gt thm
-R12494:12503 Kernel.MuComplexity <> two_pow_gt thm
+R2643:2645 Coq.Init.Datatypes <> nat ind
+binder 2625:2628 <> size:11
+R2662:2672 Kernel.MuComplexity <> BudgetBound def
+binder 2653:2658 <> p_fuel:12
+R2687:2697 Kernel.MuComplexity <> BudgetBound def
+binder 2680:2683 <> p_mu:13
+R2724:2730 Kernel.VMState <> VMState rec
+binder 2720:2720 <> s:14
+R2748:2755 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2741:2743 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2738:2738 Kernel.MuComplexity <> P:10 var
+R2740:2740 Kernel.MuComplexity <> s:14 var
+R2744:2747 Coq.Init.Datatypes <> true constr
+R2756:2763 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2776:2784 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2771:2775 Kernel.MuComplexity <> Trace def
+binder 2764:2767 <> cert:15
+R2815:2824 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2796:2799 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2785:2790 Coq.Init.Datatypes <> length def
+R2792:2795 Kernel.MuComplexity <> cert:15 var
+R2800:2805 Kernel.MuComplexity <> p_fuel:12 var
+R2808:2811 Kernel.MuComplexity <> size:11 var
+R2813:2813 Kernel.MuComplexity <> s:14 var
+R2880:2889 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2863:2866 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2825:2837 Kernel.MuComplexity <> trace_mu_cost def
+R2840:2845 Kernel.MuComplexity <> p_fuel:12 var
+R2848:2851 Kernel.MuComplexity <> size:11 var
+R2853:2853 Kernel.MuComplexity <> s:14 var
+R2857:2860 Kernel.MuComplexity <> cert:15 var
+R2862:2862 Kernel.MuComplexity <> s:14 var
+R2867:2870 Kernel.MuComplexity <> p_mu:13 var
+R2873:2876 Kernel.MuComplexity <> size:11 var
+R2878:2878 Kernel.MuComplexity <> s:14 var
+R2938:2940 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2925:2936 Kernel.VMState <> vm_certified proj
+R2891:2896 Kernel.SimulationProof <> run_vm def
+R2899:2904 Kernel.MuComplexity <> p_fuel:12 var
+R2907:2910 Kernel.MuComplexity <> size:11 var
+R2912:2912 Kernel.MuComplexity <> s:14 var
+R2916:2919 Kernel.MuComplexity <> cert:15 var
+R2921:2921 Kernel.MuComplexity <> s:14 var
+R2941:2944 Coq.Init.Datatypes <> true constr
+def 3038:3074 <> preservation_to_certification_premise
+R3085:3099 Kernel.MuComplexity <> DecisionProblem def
+binder 3081:3081 <> P:16
+R3117:3120 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3110:3116 Kernel.VMState <> VMState rec
+R3121:3123 Coq.Init.Datatypes <> nat ind
+binder 3103:3106 <> size:17
+R3145:3155 Kernel.MuComplexity <> BudgetBound def
+binder 3131:3136 <> p_fuel:18
+binder 3138:3141 <> p_mu:19
+R3219:3224 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3170:3199 Kernel.MuComplexity <> error_free_preservation_budget def
+R3201:3201 Kernel.MuComplexity <> P:16 var
+R3203:3206 Kernel.MuComplexity <> size:17 var
+R3208:3213 Kernel.MuComplexity <> p_fuel:18 var
+R3215:3218 Kernel.MuComplexity <> p_mu:19 var
+R3225:3231 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3245:3246 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3232:3238 <> p_fuel':20
+binder 3240:3244 <> p_mu':21
+R3247:3281 Kernel.MuComplexity <> positive_input_certification_budget def
+R3283:3283 Kernel.MuComplexity <> P:16 var
+R3285:3288 Kernel.MuComplexity <> size:17 var
+R3290:3296 Kernel.MuComplexity <> p_fuel':20 var
+R3298:3302 Kernel.MuComplexity <> p_mu':21 var
+def 3338:3352 <> zero_mu_program
+R3362:3364 Coq.Init.Datatypes <> nat ind
+binder 3355:3358 <> fuel:22
+R3376:3380 Kernel.MuComplexity <> Trace def
+binder 3368:3372 <> trace:23
+R3388:3394 Kernel.VMState <> VMState rec
+binder 3384:3384 <> s:24
+R3435:3437 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3409:3421 Kernel.MuComplexity <> trace_mu_cost def
+R3423:3426 Kernel.MuComplexity <> fuel:22 var
+R3428:3432 Kernel.MuComplexity <> trace:23 var
+R3434:3434 Kernel.MuComplexity <> s:24 var
+prf 3598:3639 <> zero_mu_traces_satisfy_preservation_budget
+binder 3652:3652 <> P:25
+binder 3654:3657 <> size:26
+binder 3659:3664 <> p_fuel:27
+R3671:3671 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3845:3853 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 3679:3679 <> s:28
+R3682:3688 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3694:3701 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3689:3693 <> trace:29
+R3733:3742 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3714:3717 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3702:3707 Coq.Init.Datatypes <> length def
+R3709:3713 Kernel.MuComplexity <> trace:29 var
+R3718:3723 Kernel.MuComplexity <> p_fuel:27 var
+R3726:3729 Kernel.MuComplexity <> size:26 var
+R3731:3731 Kernel.MuComplexity <> s:28 var
+R3784:3793 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3743:3757 Kernel.MuComplexity <> zero_mu_program def
+R3760:3765 Kernel.MuComplexity <> p_fuel:27 var
+R3768:3771 Kernel.MuComplexity <> size:26 var
+R3773:3773 Kernel.MuComplexity <> s:28 var
+R3777:3781 Kernel.MuComplexity <> trace:29 var
+R3783:3783 Kernel.MuComplexity <> s:28 var
+R3837:3839 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3830:3835 Kernel.VMState <> vm_err proj
+R3795:3800 Kernel.SimulationProof <> run_vm def
+R3803:3808 Kernel.MuComplexity <> p_fuel:27 var
+R3811:3814 Kernel.MuComplexity <> size:26 var
+R3816:3816 Kernel.MuComplexity <> s:28 var
+R3820:3824 Kernel.MuComplexity <> trace:29 var
+R3826:3826 Kernel.MuComplexity <> s:28 var
+R3840:3844 Coq.Init.Datatypes <> false constr
+R3854:3883 Kernel.MuComplexity <> error_free_preservation_budget def
+R3885:3885 Kernel.MuComplexity <> P:25 var
+R3887:3890 Kernel.MuComplexity <> size:26 var
+R3892:3897 Kernel.MuComplexity <> p_fuel:27 var
+R4046:4060 Kernel.MuComplexity <> zero_mu_program def
+R4136:4150 Kernel.MuComplexity <> zero_mu_program def
+R4167:4179 Kernel.MuComplexity <> trace_mu_cost def
+def 5031:5046 <> mu_time_tradeoff
+R5060:5067 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5121:5127 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5118:5120 Coq.Init.Datatypes <> nat ind
+binder 5068:5068 <> N:30
+R5118:5120 Coq.Init.Datatypes <> nat ind
+binder 5070:5080 <> blind_steps:31
+R5118:5120 Coq.Init.Datatypes <> nat ind
+binder 5082:5089 <> blind_mu:32
+R5118:5120 Coq.Init.Datatypes <> nat ind
+binder 5091:5103 <> sighted_steps:33
+R5118:5120 Coq.Init.Datatypes <> nat ind
+binder 5105:5114 <> sighted_mu:34
+R5134:5141 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5129:5131 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5128:5128 Kernel.MuComplexity <> N:30 var
+R5163:5166 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5153:5157 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5142:5152 Kernel.MuComplexity <> blind_steps:31 var
+R5159:5161 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5158:5158 Kernel.MuComplexity <> N:30 var
+R5162:5162 Kernel.MuComplexity <> N:30 var
+R5181:5189 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5175:5179 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5167:5174 Kernel.MuComplexity <> blind_mu:32 var
+R5211:5214 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5203:5205 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5190:5202 Kernel.MuComplexity <> sighted_steps:33 var
+R5207:5209 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5210:5210 Kernel.MuComplexity <> N:30 var
+R5230:5237 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5225:5227 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5215:5224 Kernel.MuComplexity <> sighted_mu:34 var
+R5262:5311 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5248:5253 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5238:5247 Kernel.MuComplexity <> sighted_mu:34 var
+R5254:5261 Kernel.MuComplexity <> blind_mu:32 var
+R5325:5327 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5312:5324 Kernel.MuComplexity <> sighted_steps:33 var
+R5328:5338 Kernel.MuComplexity <> blind_steps:31 var
+prf 5386:5409 <> mu_time_tradeoff_witness
+R5413:5428 Kernel.MuComplexity <> mu_time_tradeoff def
+R5456:5458 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5470:5472 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5456:5458 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R5470:5472 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+def 6574:6588 <> blind_sat_steps
+R6596:6598 Coq.Init.Datatypes <> nat ind
+binder 6592:6592 <> k:35
+R6603:6605 Coq.Init.Datatypes <> nat ind
+R6611:6613 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R6614:6614 Kernel.MuComplexity <> k:35 var
+def 6628:6644 <> sighted_sat_steps
+R6651:6653 Coq.Init.Datatypes <> nat ind
+binder 6647:6647 <> k:36
+R6658:6660 Coq.Init.Datatypes <> nat ind
+R6666:6668 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6670:6672 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R6673:6673 Kernel.MuComplexity <> k:36 var
+def 6687:6700 <> sighted_sat_mu
+R6704:6706 Coq.Init.Datatypes <> nat ind
+prf 6778:6791 <> four_pow_is_sq
+R6808:6810 Coq.Init.Datatypes <> nat ind
+binder 6804:6804 <> k:37
+R6818:6820 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6814:6816 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R6817:6817 Kernel.MuComplexity <> k:37 var
+R6826:6828 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6822:6824 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R6825:6825 Kernel.MuComplexity <> k:37 var
+R6830:6832 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R6833:6833 Kernel.MuComplexity <> k:37 var
+prf 7097:7125 <> sat_blind_sighted_ratio_exact
+R7143:7145 Coq.Init.Datatypes <> nat ind
+binder 7138:7139 <> k':38
+R7174:7176 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7152:7166 Kernel.MuComplexity <> blind_sat_steps def
+R7169:7169 Coq.Init.Datatypes <> S constr
+R7171:7172 Kernel.MuComplexity <> k':38 var
+R7183:7185 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7178:7180 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R7181:7182 Kernel.MuComplexity <> k':38 var
+R7186:7202 Kernel.MuComplexity <> sighted_sat_steps def
+R7205:7205 Coq.Init.Datatypes <> S constr
+R7207:7208 Kernel.MuComplexity <> k':38 var
+R7241:7255 Kernel.MuComplexity <> blind_sat_steps def
+R7258:7274 Kernel.MuComplexity <> sighted_sat_steps def
+R7287:7300 Kernel.MuComplexity <> four_pow_is_sq thm
+R7287:7300 Kernel.MuComplexity <> four_pow_is_sq thm
+R7287:7300 Kernel.MuComplexity <> four_pow_is_sq thm
+R7311:7317 Coq.Arith.PeanoNat Nat pow def
+prf 7489:7502 <> sat_separation
+R7519:7521 Coq.Init.Datatypes <> nat ind
+binder 7515:7515 <> k:39
+R7534:7541 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7529:7532 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7528:7528 Kernel.MuComplexity <> k:39 var
+R7559:7561 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7542:7556 Kernel.MuComplexity <> blind_sat_steps def
+R7558:7558 Kernel.MuComplexity <> k:39 var
+R7581:7583 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7562:7578 Kernel.MuComplexity <> sighted_sat_steps def
+R7580:7580 Kernel.MuComplexity <> k:39 var
+R7584:7597 Kernel.MuComplexity <> sighted_sat_mu def
+R7631:7645 Kernel.MuComplexity <> blind_sat_steps def
+R7648:7664 Kernel.MuComplexity <> sighted_sat_steps def
+R7667:7680 Kernel.MuComplexity <> sighted_sat_mu def
+R7874:7876 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7861:7863 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R7864:7864 Coq.Init.Datatypes <> S constr
+R7867:7867 Coq.Init.Datatypes <> S constr
+R7895:7897 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7878:7880 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7882:7884 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R7885:7885 Coq.Init.Datatypes <> S constr
+R7888:7888 Coq.Init.Datatypes <> S constr
+R7874:7876 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7861:7863 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R7864:7864 Coq.Init.Datatypes <> S constr
+R7867:7867 Coq.Init.Datatypes <> S constr
+R7895:7897 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7878:7880 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7882:7884 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R7885:7885 Coq.Init.Datatypes <> S constr
+R7888:7888 Coq.Init.Datatypes <> S constr
+R7946:7960 Kernel.MuComplexity <> blind_sat_steps def
+R7963:7979 Kernel.MuComplexity <> sighted_sat_steps def
+R7982:7995 Kernel.MuComplexity <> sighted_sat_mu def
+R8042:8044 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8025:8027 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8028:8028 Coq.Init.Datatypes <> S constr
+R8031:8031 Coq.Init.Datatypes <> S constr
+R8034:8034 Coq.Init.Datatypes <> S constr
+R8046:8048 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8050:8052 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8053:8053 Coq.Init.Datatypes <> S constr
+R8056:8056 Coq.Init.Datatypes <> S constr
+R8042:8044 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8025:8027 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8028:8028 Coq.Init.Datatypes <> S constr
+R8031:8031 Coq.Init.Datatypes <> S constr
+R8034:8034 Coq.Init.Datatypes <> S constr
+R8046:8048 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8050:8052 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8053:8053 Coq.Init.Datatypes <> S constr
+R8056:8056 Coq.Init.Datatypes <> S constr
+R8129:8131 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8112:8114 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8115:8115 Coq.Init.Datatypes <> S constr
+R8118:8118 Coq.Init.Datatypes <> S constr
+R8121:8121 Coq.Init.Datatypes <> S constr
+R8133:8135 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8137:8139 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8140:8140 Coq.Init.Datatypes <> S constr
+R8143:8143 Coq.Init.Datatypes <> S constr
+R8129:8131 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8112:8114 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8115:8115 Coq.Init.Datatypes <> S constr
+R8118:8118 Coq.Init.Datatypes <> S constr
+R8121:8121 Coq.Init.Datatypes <> S constr
+R8133:8135 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8137:8139 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8140:8140 Coq.Init.Datatypes <> S constr
+R8143:8143 Coq.Init.Datatypes <> S constr
+prf 8294:8303 <> two_pow_gt
+R8320:8322 Coq.Init.Datatypes <> nat ind
+binder 8316:8316 <> n:40
+R8330:8332 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R8326:8328 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8329:8329 Kernel.MuComplexity <> n:40 var
+R8333:8333 Kernel.MuComplexity <> n:40 var
+prf 8542:8571 <> sat_separation_ratio_unbounded
+R8588:8590 Coq.Init.Datatypes <> nat ind
+binder 8584:8584 <> B:41
+R8597:8603 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8611:8618 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8608:8610 Coq.Init.Datatypes <> nat ind
+binder 8604:8604 <> k:42
+R8625:8628 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8620:8623 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8619:8619 Kernel.MuComplexity <> k:42 var
+R8646:8648 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R8629:8643 Kernel.MuComplexity <> blind_sat_steps def
+R8645:8645 Kernel.MuComplexity <> k:42 var
+R8650:8652 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8649:8649 Kernel.MuComplexity <> B:41 var
+R8653:8669 Kernel.MuComplexity <> sighted_sat_steps def
+R8671:8671 Kernel.MuComplexity <> k:42 var
+R8773:8773 Coq.Init.Datatypes <> S constr
+R8776:8776 Coq.Init.Datatypes <> S constr
+R8773:8773 Coq.Init.Datatypes <> S constr
+R8776:8776 Coq.Init.Datatypes <> S constr
+R8808:8836 Kernel.MuComplexity <> sat_blind_sighted_ratio_exact thm
+R8839:8839 Coq.Init.Datatypes <> S constr
+R8808:8836 Kernel.MuComplexity <> sat_blind_sighted_ratio_exact thm
+R8839:8839 Coq.Init.Datatypes <> S constr
+R8808:8836 Kernel.MuComplexity <> sat_blind_sighted_ratio_exact thm
+R8839:8839 Coq.Init.Datatypes <> S constr
+R8978:8998 Coq.Arith.PeanoNat Nat mul_lt_mono_pos_r thm
+R8978:8998 Coq.Arith.PeanoNat Nat mul_lt_mono_pos_r thm
+R9012:9028 Kernel.MuComplexity <> sighted_sat_steps def
+R9049:9058 Kernel.MuComplexity <> two_pow_gt thm
+R9061:9061 Coq.Init.Datatypes <> S constr
+R9064:9064 Coq.Init.Datatypes <> S constr
+R9049:9058 Kernel.MuComplexity <> two_pow_gt thm
+R9061:9061 Coq.Init.Datatypes <> S constr
+R9064:9064 Coq.Init.Datatypes <> S constr
+R9094:9103 Kernel.MuComplexity <> two_pow_gt thm
+R9106:9106 Coq.Init.Datatypes <> S constr
+R9094:9103 Kernel.MuComplexity <> two_pow_gt thm
+R9106:9106 Coq.Init.Datatypes <> S constr
+prf 9216:9233 <> sat_mu_is_constant
+R9248:9250 Coq.Init.Datatypes <> nat ind
+binder 9244:9244 <> k:43
+R9267:9269 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9253:9266 Kernel.MuComplexity <> sighted_sat_mu def
+prf 10048:10086 <> structured_sat_blind_sighted_separation
+R10103:10105 Coq.Init.Datatypes <> nat ind
+binder 10099:10099 <> k:44
+R10118:10125 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10113:10116 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10112:10112 Kernel.MuComplexity <> k:44 var
+R10140:10154 Kernel.MuComplexity <> blind_sat_steps def
+R10156:10156 Kernel.MuComplexity <> k:44 var
+binder 10130:10134 <> blind:45
+R10180:10196 Kernel.MuComplexity <> sighted_sat_steps def
+R10198:10198 Kernel.MuComplexity <> k:44 var
+binder 10169:10175 <> sighted:46
+R10222:10235 Kernel.MuComplexity <> sighted_sat_mu def
+binder 10211:10217 <> mu_cert:47
+R10269:10277 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10330:10330 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10249:10251 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R10244:10248 Kernel.MuComplexity <> blind:45 var
+R10259:10261 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10252:10258 Kernel.MuComplexity <> sighted:46 var
+R10262:10268 Kernel.MuComplexity <> mu_cert:47 var
+R10278:10284 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10290:10291 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10285:10289 <> ratio:48
+R10302:10305 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10297:10300 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10292:10296 Kernel.MuComplexity <> ratio:48 var
+R10311:10314 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10306:10310 Kernel.MuComplexity <> blind:45 var
+R10320:10322 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R10315:10319 Kernel.MuComplexity <> ratio:48 var
+R10323:10329 Kernel.MuComplexity <> sighted:46 var
+R10375:10388 Kernel.MuComplexity <> sat_separation thm
+R10375:10388 Kernel.MuComplexity <> sat_separation thm
+R10440:10442 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R10440:10442 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R10558:10567 Kernel.MuComplexity <> two_pow_gt thm
+R10558:10567 Kernel.MuComplexity <> two_pow_gt thm
+R10596:10624 Kernel.MuComplexity <> sat_blind_sighted_ratio_exact thm
+R10596:10624 Kernel.MuComplexity <> sat_blind_sighted_ratio_exact thm
+R10596:10624 Kernel.MuComplexity <> sat_blind_sighted_ratio_exact thm
+prf 10818:10838 <> sat_savings_unbounded
+R10860:10862 Coq.Init.Datatypes <> nat ind
+binder 10851:10856 <> lambda:49
+R10869:10875 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10883:10890 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10880:10882 Coq.Init.Datatypes <> nat ind
+binder 10876:10876 <> k:50
+R10897:10906 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10892:10895 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10891:10891 Kernel.MuComplexity <> k:50 var
+R10924:10926 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R10907:10921 Kernel.MuComplexity <> blind_sat_steps def
+R10923:10923 Kernel.MuComplexity <> k:50 var
+R10946:10948 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10927:10943 Kernel.MuComplexity <> sighted_sat_steps def
+R10945:10945 Kernel.MuComplexity <> k:50 var
+R10949:10954 Kernel.MuComplexity <> lambda:49 var
+R10992:11021 Kernel.MuComplexity <> sat_separation_ratio_unbounded thm
+R11030:11032 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10992:11021 Kernel.MuComplexity <> sat_separation_ratio_unbounded thm
+R11030:11032 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11093:11109 Kernel.MuComplexity <> sighted_sat_steps def
+R11142:11145 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R11134:11136 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R11138:11140 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R11142:11145 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R11134:11136 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R11138:11140 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R11170:11179 Kernel.MuComplexity <> two_pow_gt thm
+R11170:11179 Kernel.MuComplexity <> two_pow_gt thm

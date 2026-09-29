@@ -46,8 +46,9 @@ Record RTLGap := {
 (* SAFE: rtl_gap_registry is intentionally empty — all RTL coverage gaps are closed *)
 Definition rtl_gap_registry : list RTLGap := [].
 
-(** Sanity-check theorem: the registry length is zero. *)
-Theorem rtl_gap_count :
+(** The hand-written gap registry lists no entries. This says what the
+    list holds; it does not check any opcode. *)
+Theorem rtl_gap_registry_empty :
   List.length rtl_gap_registry = 0.
 Proof. reflexivity. Qed.
 
@@ -71,6 +72,6 @@ Proof. reflexivity. Qed.
     i.e. this intermediate Gallina step agrees with [vm_apply] whenever
     the explicit [WFDrivenPrecondition] holds. This is not a theorem about
     every physical clock or every raw operand. *)
-Theorem rtl_coverage_partition :
+Theorem rtl_inventory_arithmetic :
   37 + 10 + 0 = 47.
 Proof. reflexivity. Qed.

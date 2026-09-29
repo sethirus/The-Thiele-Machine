@@ -146,8 +146,8 @@ def verified_claims() -> tuple[list[str], bool]:
          "Structural Advantage: blind search pays iterations, sighted search pays mu; gap unbounded (StructuralAdvantage.v + test_structural_advantage.py)"),
         ("elliptope_check_full_sound", "coq/kernel/quantum/ElliptopeGate.v",
          "Elliptope gate: a passing check entails elliptope membership; the PR box is never accepted (elliptope_check_full_sound, ElliptopeGate.v)"),
-        ("five_disciplines_are_pointers", "coq/kernel/frontier/PointerObservableReductions.v",
-         "Pointer observables: all five deployed metering disciplines are unique pointers, closed under the global context (five_disciplines_are_pointers, PointerObservableReductions.v)"),
+        ("five_labeled_models_have_selected_pointer", "coq/kernel/frontier/PointerObservableReductions.v",
+         "Pointer observables: five synthetic labelled mirror models satisfy their stipulated selected-flag predicates, with no deployed correspondence claim (five_labeled_models_have_selected_pointer, PointerObservableReductions.v)"),
         (None, None,
          "Hardware Parity: all 46 opcodes agree across Coq/Python/OCaml (test suite)"),
     ]

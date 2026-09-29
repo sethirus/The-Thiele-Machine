@@ -18,7 +18,7 @@ from pathlib import Path
 from collections import defaultdict
 
 REPO = Path(__file__).resolve().parent.parent
-COQ_ROOTS = [REPO / "coq"]
+COQ_ROOTS = [REPO / "coq", REPO / "minimal"]
 
 # Citations we should *not* try to resolve as Coq identifiers — language
 # keywords, tactics, English words, punctuation that LaTeX wraps in \texttt{}.
@@ -26,7 +26,7 @@ NON_COQ_TOKENS = {
     # tactics / keywords
     "Admitted", "admit", "give_up", "lra", "nra", "tauto", "trivial", "reflexivity",
     "psatz", "lia", "nia", "omega", "ring", "field", "auto", "intuition",
-    "destruct", "induction", "rewrite", "apply", "exact", "assumption",
+    "destruct", "induction", "rewrite", "apply", "exact", "assumption", "congruence",
     "Qed", "Proof", "Theorem", "Lemma", "Corollary", "Definition", "Inductive",
     "Axiom", "Parameter", "Hypothesis", "Variable", "Section", "Module", "Context",
     "Record", "Class", "Instance", "Notation", "Fixpoint",
@@ -76,7 +76,7 @@ NON_COQ_TOKENS = {
     "decode_instruction",                # explicitly clarified in chapter 4: kernel does not bit-decode
     # CLI / tools / non-Coq filenames
     "cosim", "yosys", "iverilog", "verilator", "make", "pytest",
-    "coqtop", "vvp", "Makefile", "nextpnr-xilinx", "xc7frames2bit",
+    "coqtop", "coqc", "coqchk", "ocamlfind", "vvp", "Makefile", "nextpnr-xilinx", "xc7frames2bit",
     "fasm2frames", "openFPGALoader",
     # External library / language modules referenced in prose (not Coq identifiers)
     "json", "Yojson", "Int64",
@@ -124,7 +124,11 @@ NON_COQ_TOKENS = {
     # three real-number / classical-logic lemmas Print Assumptions surfaces
     # for the CHSH algebra.
     "fold_left", "positive",
-    "sig_forall_dec", "sig_not_dec", "functional_extensionality_dep",
+    "sig_forall_dec", "sig_not_dec", "functional_extensionality_dep", "eq_rect_eq", "classic",
+    # Environment variable and vacuity-fixture expectation annotations.
+    "COQPATH", "EXPECT_VACUOUS_TRUE", "EXPECT_VACUOUS_HYP", "EXPECT_CLEAR",
+    # TPM Library Part 3 command, not a declaration in the Coq model.
+    "TPM2_Quote",
     # The machines themselves, typeset in code font as proper names.
     "Thiele", "Turing",
     # Kami HW objects: a morphism struct flag and an RTL rule name. Real, but
@@ -148,7 +152,7 @@ def find_top_level_decls(coq_roots):
     fields PLUS Inductive constructors."""
     decl_re = re.compile(
         r"^\s*(?:Global\s+|Local\s+|Program\s+)?"
-        r"(?:Theorem|Lemma|Corollary|Fact|Remark|Proposition|"
+        r"(?:Theorem|Lemma|Corollary|Fact|Remark|Proposition|Example|"
         r"Definition|Fixpoint|CoFixpoint|Inductive|CoInductive|"
         r"Record|Class|Instance|Notation|Variable|Variables|Hypothesis|Hypotheses|"
         r"Axiom|Parameter|Conjecture|Module(?:\s+Type)?)"
@@ -156,12 +160,14 @@ def find_top_level_decls(coq_roots):
         r"([A-Za-z_][A-Za-z0-9_']*)",
         re.MULTILINE,
     )
-    # Inductive constructor: lines starting with `| name (...)` inside an
-    # Inductive block.
-    constructor_re = re.compile(r"^\s*\|\s*([A-Za-z_][A-Za-z0-9_']*)", re.MULTILINE)
-    # Record field: lines like `field_name : type;` between `Record X := { ... }`
+    # Constructors may share the header or a line, including a first
+    # constructor without a leading bar.
+    constructor_re = re.compile(r"(?:\|\s*|:=\s*(?!\|))([A-Za-z_][A-Za-z0-9_']*)")
+    # Record and Class fields: lines like `field_name : type;` inside the
+    # defining braces. Class headers may contain implicit-context braces
+    # before `:=`, so scan non-greedily up to the actual body opener.
     record_block_re = re.compile(
-        r"Record\s+\w+(?:\s*\([^)]*\))?\s*(?::=\s*(?:\w+)?\s*\{|:\s*\w*\s*:=\s*\{)([^}]*)\}",
+        r"(?:Record|Class)\s+\w+.*?:=\s*(?:\w+\s*)?\{([^}]*)\}",
         re.DOTALL,
     )
     # Catch every `field_name :` even when multiple fields share a line:
@@ -183,7 +189,7 @@ def find_top_level_decls(coq_roots):
     # Anything starting at column 0 with one of these followed by whitespace
     # ends the inductive scan.
     top_level_terminator_re = re.compile(
-        r"^(?:Section|End|Module|Theorem|Lemma|Corollary|Fact|Remark|Proposition|"
+        r"^(?:Section|End|Module|Theorem|Lemma|Corollary|Fact|Remark|Proposition|Example|"
         r"Definition|Fixpoint|CoFixpoint|Inductive|CoInductive|Record|Class|"
         r"Instance|Notation|Axiom|Parameter|Conjecture|Hypothesis|Hypotheses|"
         r"Variable|Variables|Context|Print|Check|Eval|Compute|Goal|Proof|"
@@ -202,6 +208,10 @@ def find_top_level_decls(coq_roots):
             except OSError:
                 continue
             rel = vf.relative_to(REPO)
+
+            # Coq files define modules named by their stems even when the
+            # source contains no explicit `Module` declaration.
+            table[vf.stem].append(f"{rel}:1")
 
             # Top-level declarations
             for m in decl_re.finditer(text):
@@ -300,7 +310,8 @@ def find_files_by_basename(coq_roots):
 
 
 def extract_texttt_citations(tex_text):
-    """Pull every LaTeX citation token: \\texttt{...}, \\path{...}, and any
+    """Pull every LaTeX citation token: \\texttt{...}, \\code{...},
+    \\path{...}, and any
     bare `Foo.v` / `bar/Foo.v` filename appearing in plain text.
 
     Bare-filename catch is needed because the monograph sometimes places file
@@ -321,16 +332,18 @@ def extract_texttt_citations(tex_text):
     cites = []
     seen: set[tuple[str, int]] = set()
 
-    # \texttt{...} (LaTeX-escaped underscores)
-    for m in re.finditer(r"\\texttt\{([^{}]*)\}", tex_text):
-        raw = m.group(1)
-        unescaped = raw.replace("\\_", "_").replace("\\%", "%").replace("\\&", "&").strip()
-        if not unescaped:
-            continue
-        line = tex_text.count("\n", 0, m.start()) + 1
-        if (unescaped, line) not in seen:
-            seen.add((unescaped, line))
-            cites.append((unescaped, line))
+    # \texttt{...} and the monograph's \code{...} macro use the same
+    # citation syntax, including LaTeX-escaped underscores.
+    for command in ("texttt", "code"):
+        for m in re.finditer(rf"\\{command}\{{([^{{}}]*)\}}", tex_text):
+            raw = m.group(1)
+            unescaped = raw.replace("\\_", "_").replace("\\%", "%").replace("\\&", "&").strip()
+            if not unescaped:
+                continue
+            line = tex_text.count("\n", 0, m.start()) + 1
+            if (unescaped, line) not in seen:
+                seen.add((unescaped, line))
+                cites.append((unescaped, line))
 
     # \path{...} (\texttt-equivalent)
     for m in re.finditer(r"\\path\{([^{}]*)\}", tex_text):
@@ -385,7 +398,7 @@ def extract_citations(path: Path):
         return []  # auto-generated — citations are mechanically produced
     if path.suffix == ".tex":
         return extract_texttt_citations(text)
-    if path.suffix == ".md":
+    if path.suffix in {".md", ".txt"}:
         return extract_markdown_citations(text)
     return extract_texttt_citations(text)  # default to LaTeX
 

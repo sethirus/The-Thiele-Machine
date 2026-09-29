@@ -1,7 +1,7 @@
 (** GenRealizability: a dimension-polymorphic GENUINE PSD predicate, and the
     bridge that exhibits the 5x5 CHSH PSD as a special case of it (W2-M1).
 
-    The point of this file is to stop `quantum_realizable` being a standalone
+    The point of this file is to stop `npa_psd` being a standalone
     5x5 coincidence. `psd_n` below is the REAL quadratic-form-nonnegativity over
     EVERY vector — the full double sum over all i,j, NOT a diagonal-only sham
     like SemidefiniteProgramming.PSD {n} is for n >= 6. The dimension lives in
@@ -25,9 +25,9 @@ Local Open Scope R_scope.
 
 From Kernel Require Import ConstructivePSD.
 From Kernel Require Import MinorConstraints.   (* sum_n : nat -> (nat -> R) -> R *)
-From Kernel Require Import NPAMomentMatrix.     (* quantum_realizable, npa_to_matrix, zero_marginal_npa *)
+From Kernel Require Import NPAMomentMatrix.     (* npa_psd, npa_to_matrix, zero_marginal_npa *)
 From Kernel Require Import MuLedgerQuantumBridge. (* zero_marginal_column_contractive *)
-From Kernel Require Import QuantumPartitionPSD.   (* column_contractive_iff_quantum_realizable *)
+From Kernel Require Import QuantumPartitionPSD.   (* column_contractive_iff_npa_psd *)
 From Kernel Require Import QuantumPartitionPSD_1AB. (* PSD9, quad9, nat_matrix_to_fin9, the dim-9 headline *)
 From Kernel Require Import VMState VMStep SimulationProof. (* VMState, vm_apply, instr_chsh_lassert: the dim-5 instance is a VM step *)
 
@@ -142,7 +142,7 @@ Proof.
 Qed.
 
 (** W2-M2. The adapter equivalence: the general projection applied to the CHSH
-    claim is exactly the existing quantum_realizable predicate. Pure combination
+    claim is exactly the existing npa_psd predicate. Pure combination
     of the two bridges (psd_n_unfold_5 + symmetric_n_unfold_5) — no new
     mathematics, and the matrix is the SAME on both sides (npa_to_matrix of the
     zero-marginal NPA). No appeal to any Hilbert-space, Born-rule, density-
@@ -150,10 +150,10 @@ Qed.
 Theorem chsh_claim_is_zero_marginal_npa :
   forall e00 e01 e10 e11 : RealNumber,
     GenRealizable (chsh_claim e00 e01 e10 e11) <->
-    quantum_realizable (zero_marginal_npa e00 e01 e10 e11).
+    npa_psd (zero_marginal_npa e00 e01 e10 e11).
 Proof.
   intros e00 e01 e10 e11.
-  unfold GenRealizable, chsh_claim, quantum_realizable.
+  unfold GenRealizable, chsh_claim, npa_psd.
   cbn [rc_top rc_matrix].
   split.
   - intros [Hsym Hpsd]. split.
@@ -171,9 +171,9 @@ Print Assumptions chsh_claim_is_zero_marginal_npa.
 (** W2-M3. The original CHSH biconditional re-expressed against the GENERAL
     projection. This is a genuine Corollary, not a parallel theorem: it
     re-proves NONE of the hard PSD<->contractivity content. It imports the
-    original `column_contractive_iff_quantum_realizable` as a black box and
+    original `column_contractive_iff_npa_psd` as a black box and
     composes it with the structural adapter `chsh_claim_is_zero_marginal_npa`
-    (which only relates GenRealizable to quantum_realizable via the two genuine
+    (which only relates GenRealizable to npa_psd via the two genuine
     unfold bridges). The proof is pure proj1/proj2 plumbing.
 
     The decisive evidence that it is a corollary and not a re-derivation is the
@@ -188,10 +188,10 @@ Proof.
   split.
   - intro Hcc.
     apply (proj2 (chsh_claim_is_zero_marginal_npa e00 e01 e10 e11)).
-    apply (proj1 (column_contractive_iff_quantum_realizable e00 e01 e10 e11)).
+    apply (proj1 (column_contractive_iff_npa_psd e00 e01 e10 e11)).
     exact Hcc.
   - intro Hgr.
-    apply (proj2 (column_contractive_iff_quantum_realizable e00 e01 e10 e11)).
+    apply (proj2 (column_contractive_iff_npa_psd e00 e01 e10 e11)).
     apply (proj1 (chsh_claim_is_zero_marginal_npa e00 e01 e10 e11)).
     exact Hgr.
 Qed.
@@ -199,7 +199,7 @@ Qed.
 (** The two assumption lists, for the diff. The corollary's set must equal (or
     be a subset of) the original's — nothing beyond the headline axioms. *)
 Print Assumptions column_contractive_iff_general_realizable.
-Print Assumptions column_contractive_iff_quantum_realizable.
+Print Assumptions column_contractive_iff_npa_psd.
 
 (** ── W2-M4: the genericity test — dim-9, reusing the SAME psd_n ─────────── *)
 
@@ -328,15 +328,15 @@ Definition q1ab_claim
   (e00 e01 e10 e11 g1 g2 g3 g4 g5 : RealNumber) : RealizableClaim :=
   mk_realizable_claim 8 (q1ab_nat_matrix e00 e01 e10 e11 g1 g2 g3 g4 g5).
 
-(** Adapter: GenRealizable of the dim-9 claim = the existing quantum_realizable_q1ab.
+(** Adapter: GenRealizable of the dim-9 claim = the existing npa_psd_q1ab.
     Same GenRealizable, same psd_n, only top := 8. Pure proj/rewrite plumbing. *)
-Theorem q1ab_claim_is_quantum_realizable_q1ab :
+Theorem q1ab_claim_is_npa_psd_q1ab :
   forall e00 e01 e10 e11 g1 g2 g3 g4 g5,
     GenRealizable (q1ab_claim e00 e01 e10 e11 g1 g2 g3 g4 g5) <->
-    quantum_realizable_q1ab e00 e01 e10 e11 g1 g2 g3 g4 g5.
+    npa_psd_q1ab e00 e01 e10 e11 g1 g2 g3 g4 g5.
 Proof.
   intros.
-  unfold GenRealizable, q1ab_claim, quantum_realizable_q1ab. cbn [rc_top rc_matrix].
+  unfold GenRealizable, q1ab_claim, npa_psd_q1ab. cbn [rc_top rc_matrix].
   pose proof (q1ab_nat_to_fin9_eq e00 e01 e10 e11 g1 g2 g3 g4 g5) as Heq.
   split.
   - intros [Hsym Hpsd]. split.
@@ -358,12 +358,12 @@ Proof.
   intros.
   split.
   - intro H.
-    apply (proj2 (q1ab_claim_is_quantum_realizable_q1ab _ _ _ _ _ _ _ _ _)).
-    apply (proj1 (column_contractive_q1ab_iff_quantum_realizable _ _ _ _ _ _ _ _ _)).
+    apply (proj2 (q1ab_claim_is_npa_psd_q1ab _ _ _ _ _ _ _ _ _)).
+    apply (proj1 (column_contractive_q1ab_iff_npa_psd _ _ _ _ _ _ _ _ _)).
     exact H.
   - intro H.
-    apply (proj2 (column_contractive_q1ab_iff_quantum_realizable _ _ _ _ _ _ _ _ _)).
-    apply (proj1 (q1ab_claim_is_quantum_realizable_q1ab _ _ _ _ _ _ _ _ _)).
+    apply (proj2 (column_contractive_q1ab_iff_npa_psd _ _ _ _ _ _ _ _ _)).
+    apply (proj1 (q1ab_claim_is_npa_psd_q1ab _ _ _ _ _ _ _ _ _)).
     exact H.
 Qed.
 
@@ -447,15 +447,15 @@ Qed.
 Theorem genrealizable_captures_moment_presentable :
   (forall e00 e01 e10 e11,
      GenRealizable (chsh_claim e00 e01 e10 e11)
-     <-> quantum_realizable (zero_marginal_npa e00 e01 e10 e11))
+     <-> npa_psd (zero_marginal_npa e00 e01 e10 e11))
   /\
   (forall e00 e01 e10 e11 g1 g2 g3 g4 g5,
      GenRealizable (q1ab_claim e00 e01 e10 e11 g1 g2 g3 g4 g5)
-     <-> quantum_realizable_q1ab e00 e01 e10 e11 g1 g2 g3 g4 g5).
+     <-> npa_psd_q1ab e00 e01 e10 e11 g1 g2 g3 g4 g5).
 Proof.
   split.
   - exact chsh_claim_is_zero_marginal_npa.
-  - exact q1ab_claim_is_quantum_realizable_q1ab.
+  - exact q1ab_claim_is_npa_psd_q1ab.
 Qed.
 
 (** ── The dim-5 instance is a VM step, not a free-floating matrix fact ─────── *)
@@ -469,7 +469,7 @@ Qed.
     the same realizability projection run at dimension five, now stated over the
     actual machine state [s], so GenRealizable connects to vm_apply / VMState
     instead of standing apart from the kernel it generalizes. Composition only:
-    the VM bridge supplies quantum_realizable of the witness-derived NPA matrix,
+    the VM bridge supplies npa_psd of the witness-derived NPA matrix,
     which is definitionally the explicit four-correlator matrix, and
     chsh_claim_is_zero_marginal_npa carries it across into GenRealizable. *)
 Corollary vm_chsh_lassert_step_is_general_realizable :
@@ -483,7 +483,7 @@ Proof.
   intros s mu_delta s' Hpc Herr Herr0.
   apply (proj2 (chsh_claim_is_zero_marginal_npa
                   (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s))).
-  exact (chsh_lassert_no_trap_implies_quantum_realizable s mu_delta Hpc Herr Herr0).
+  exact (chsh_lassert_no_trap_implies_npa_psd s mu_delta Hpc Herr Herr0).
 Qed.
 
 Print Assumptions vm_chsh_lassert_step_is_general_realizable.

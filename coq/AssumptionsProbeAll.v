@@ -191,6 +191,7 @@ Require Kernel.Definitions.
 Require Kernel.Kernel.
 Require Kernel.KernelTM.
 Require Kernel.KernelThiele.
+Require Kernel.LRecursion.
 Require Kernel.Locality.
 Require Kernel.MM2ComplementUndec.
 Require Kernel.MuCostModel.
@@ -201,6 +202,8 @@ Require Kernel.Persistence.
 Require Kernel.ProperSubsumption.
 Require Kernel.SimulationProof.
 Require Kernel.StateSpaceCounting.
+Require Kernel.StructuralCore.
+Require Kernel.StructuralCoreRound2.
 Require Kernel.Substrate.
 Require Kernel.Subsumption.
 Require Kernel.TuringClassicalEmbedding.
@@ -240,6 +243,7 @@ Require Kernel.VMUnboundedGuestEncoding.
 Require Kernel.VMUnboundedInterpreterCode.
 Require Kernel.VMUnboundedInterpreterCompose.
 Require Kernel.VMUnboundedInterpreterSlots.
+Require Kernel.VMUnboundedLedger.
 Require Kernel.VMUnboundedMinskyCorrectness.
 Require Kernel.VMUnboundedMinskyEncoding.
 Require Kernel.VMUnboundedMinskyInterpreter.
@@ -293,6 +297,7 @@ Require Kernel.Certification.
 Require Kernel.CommitmentCostDecomposition.
 Require Kernel.CommitmentPredicateAdequacy.
 Require Kernel.CommitmentVsErasure.
+Require Kernel.CostSemanticsComparison.
 Require Kernel.FiniteCertMachine.
 Require Kernel.HonestCostTracking.
 Require Kernel.HonestMeasurement.
@@ -300,6 +305,7 @@ Require Kernel.HonestNoFI.
 Require Kernel.HonestNoFI_TheoremsWithoutAssumptions.
 Require Kernel.InformationGainToStrengthening.
 Require Kernel.InsightTaxonomy.
+Require Kernel.KnowledgeNarrowing.
 Require Kernel.LandauerDerivation.
 Require Kernel.MeasurementExtraction.
 Require Kernel.MuLedgerQuantumBridge.
@@ -372,6 +378,7 @@ Require Kernel.GasMetering.
 Require Kernel.PoSFinality.
 Require Kernel.ProofCarryingVerifier.
 Require Kernel.TEEAttestation.
+Require Kernel.TPMQuoteGap.
 Require Kernel.TransparencyLog.
 Require Kernel.AdditionalProbes.
 Require Kernel.BekensteinBound.
@@ -692,7 +699,7 @@ Print Assumptions ThieleMachineComplete.tsirelson_achievable.
 Print Assumptions ThieleMachineComplete.rational_tsirelson_bound.
 Print Assumptions ThieleMachineComplete.trace_rho_one.
 Print Assumptions ThieleMachineComplete.zero_cost_preserves_purity.
-Print Assumptions ThieleMachineComplete.zero_cost_implies_unitary.
+Print Assumptions ThieleMachineComplete.zero_cost_preserves_radius.
 Print Assumptions ThieleMachineComplete.no_cloning_from_conservation.
 Print Assumptions ThieleMachineComplete.cloning_requires_mu.
 Print Assumptions ThieleMachineComplete.approximate_cloning_bound.
@@ -941,10 +948,12 @@ Print Assumptions ThieleMachineComplete.witness_states_same_classical_projection
 Print Assumptions ThieleMachineComplete.classical_observer_cannot_separate.
 Print Assumptions ThieleMachineComplete.violation_wc_not_local_tc.
 Print Assumptions ThieleMachineComplete.chsh_violation_exceeds_classical_bound_tc.
-(* === VerifierEscape_Hardness : 3 addressable theorems (unaddressable: 0) === *)
-Print Assumptions VerifierEscape_Hardness.hardness_verifier_weak_sound.
-Print Assumptions VerifierEscape_Hardness.hardness_verifier_cheap.
-Print Assumptions VerifierEscape_Hardness.hardness_escape_succeeds.
+(* === VerifierEscape_Hardness : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions VerifierEscape_Hardness.commitment_verifier_abstract_unit_cost.
+Print Assumptions VerifierEscape_Hardness.commitment_contract_verifier.
+Print Assumptions VerifierEscape_Hardness.honest_commitments_satisfy_contract.
+Print Assumptions VerifierEscape_Hardness.unchecked_bit_violates_contract.
+Print Assumptions VerifierEscape_Hardness.honest_lift_separates_collision.
 (* === VerifierEscape_Interaction : 4 addressable theorems (unaddressable: 0) === *)
 Print Assumptions VerifierEscape_Interaction.interactive_verifier_sound.
 Print Assumptions VerifierEscape_Interaction.interactive_verifier_complete.
@@ -1006,7 +1015,7 @@ Print Assumptions KamiHW.Abstraction.partition_ops_count_correct.
 Print Assumptions KamiHW.Abstraction.mu_tensor_charges_correct.
 Print Assumptions KamiHW.Abstraction.mu_tensor_charges_other.
 Print Assumptions KamiHW.Abstraction.lassert_ljoin_abstraction_sound.
-Print Assumptions KamiHW.Abstraction.kami_refines_vm_step.
+Print Assumptions KamiHW.Abstraction.kami_register_write_matches_vm.
 Print Assumptions KamiHW.Abstraction.filtermap_ext_in.
 Print Assumptions KamiHW.Abstraction.filtermap_zero_filters_entry.
 Print Assumptions KamiHW.Abstraction.filtermap_two_zeros_filter.
@@ -7125,8 +7134,8 @@ Print Assumptions KamiHW.RTLCorrectnessInstantiation.coq_identity_complete_three
 Print Assumptions KamiHW.RTLCorrectnessInstantiation.coq_identity_mu_cost_correspondence.
 Print Assumptions KamiHW.RTLCorrectnessInstantiation.coq_identity_pc_correspondence.
 (* === KamiHW.RTLGapRegistry : 2 addressable theorems (unaddressable: 0) === *)
-Print Assumptions KamiHW.RTLGapRegistry.rtl_gap_count.
-Print Assumptions KamiHW.RTLGapRegistry.rtl_coverage_partition.
+Print Assumptions KamiHW.RTLGapRegistry.rtl_gap_registry_empty.
+Print Assumptions KamiHW.RTLGapRegistry.rtl_inventory_arithmetic.
 (* === KamiHW.ReadFreeObservation : 2 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.ReadFreeObservation.observe_read_free_action.
 Print Assumptions KamiHW.ReadFreeObservation.eval_read_free_action.
@@ -9837,7 +9846,7 @@ Print Assumptions Kernel.MasterSummary.master_assumption_boundary_explicit.
 Print Assumptions Kernel.MasterSummary.master_verification_scope_observables_exact.
 Print Assumptions Kernel.MasterSummary.master_verification_scope_is_explicit.
 Print Assumptions Kernel.MasterSummary.hardware_chain_connectivity_check.
-Print Assumptions Kernel.MasterSummary.master_open_obligations_are_explicit.
+Print Assumptions Kernel.MasterSummary.master_project_local_admits_are_explicit.
 Print Assumptions Kernel.MasterSummary.kernel_story_coverage_ledger_is_semantically_sufficient.
 Print Assumptions Kernel.MasterSummary.master_mu_zero_witness_sound.
 Print Assumptions Kernel.MasterSummary.master_mu_zero_algebraic_bound.
@@ -9849,8 +9858,8 @@ Print Assumptions Kernel.MasterSummary.master_rational_chsh_predicates.
 Print Assumptions Kernel.MasterSummary.master_non_circularity.
 Print Assumptions Kernel.MasterSummary.master_tsirelson_conditional.
 Print Assumptions Kernel.MasterSummary.master_psd_iff_column_contractive.
-Print Assumptions Kernel.MasterSummary.master_trace_column_contractive_iff_quantum_model.
-Print Assumptions Kernel.MasterSummary.master_trace_quantum_model_unfolds.
+Print Assumptions Kernel.MasterSummary.master_trace_column_contractive_iff_npa_model.
+Print Assumptions Kernel.MasterSummary.master_trace_npa_model_unfolds.
 Print Assumptions Kernel.MasterSummary.master_trace_quantum_bridge_forces_psd.
 Print Assumptions Kernel.MasterSummary.master_honest_nofi_structure_requirement.
 Print Assumptions Kernel.MasterSummary.master_honest_nofi_trace_separation.
@@ -9926,7 +9935,7 @@ Print Assumptions Kernel.AlgebraicCoherence.chsh_general_bound.
 Print Assumptions Kernel.AlgebraicCoherence.tsirelson_config_S.
 Print Assumptions Kernel.AlgebraicCoherence.tsirelson_achieving_coherent.
 Print Assumptions Kernel.AlgebraicCoherence.tsirelson_achieving_value.
-Print Assumptions Kernel.AlgebraicCoherence.tsirelson_bound_tight.
+Print Assumptions Kernel.AlgebraicCoherence.tsirelson_rational_lower_witness.
 Print Assumptions Kernel.AlgebraicCoherence.algebraically_coherent_tsirelson_general.
 Print Assumptions Kernel.AlgebraicCoherence.algebraically_coherent_tsirelson_abs.
 (* === Kernel.CategoryBridge : 26 addressable theorems (unaddressable: 0) === *)
@@ -10591,8 +10600,9 @@ Print Assumptions Kernel.TopologyCurvatureBridge.add_triangle_changes_curvature.
 Print Assumptions Kernel.TopologyCurvatureBridge.remove_triangle_changes_curvature.
 Print Assumptions Kernel.TopologyCurvatureBridge.topology_invariant_implies_curvature_invariant.
 Print Assumptions Kernel.TopologyCurvatureBridge.local_curvature_changes_sum_to_global.
-(* === Kernel.ClassicalBound : 2 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.ClassicalBound : 3 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.ClassicalBound.classical_program_mu_zero.
+Print Assumptions Kernel.ClassicalBound.classical_trace_tally.
 Print Assumptions Kernel.ClassicalBound.classical_bound_achieved.
 (* === Kernel.ClassicalConservativity : 9 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.ClassicalConservativity.classical_opcode_preserves_graph.
@@ -10638,6 +10648,53 @@ Print Assumptions Kernel.DagRestriction.dag_nfi_preserved.
 Print Assumptions Kernel.DagRestriction.dag_no_free_insight_corollary.
 (* === Kernel.KernelTM : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.KernelTM.tm_is_turing_complete.
+(* === Kernel.LRecursion : 46 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.LRecursion.bound_mono.
+Print Assumptions Kernel.LRecursion.subst_bound.
+Print Assumptions Kernel.LRecursion.subst_closed.
+Print Assumptions Kernel.LRecursion.bound_subst.
+Print Assumptions Kernel.LRecursion.value_no_step.
+Print Assumptions Kernel.LRecursion.step_deterministic.
+Print Assumptions Kernel.LRecursion.star_one.
+Print Assumptions Kernel.LRecursion.star_trans.
+Print Assumptions Kernel.LRecursion.star_appL.
+Print Assumptions Kernel.LRecursion.star_appR.
+Print Assumptions Kernel.LRecursion.star_app.
+Print Assumptions Kernel.LRecursion.star_value_confluent.
+Print Assumptions Kernel.LRecursion.equiv_sym.
+Print Assumptions Kernel.LRecursion.equiv_trans.
+Print Assumptions Kernel.LRecursion.star_equiv.
+Print Assumptions Kernel.LRecursion.encn_closed.
+Print Assumptions Kernel.LRecursion.enc_closed.
+Print Assumptions Kernel.LRecursion.encn_value.
+Print Assumptions Kernel.LRecursion.enc_value.
+Print Assumptions Kernel.LRecursion.mk_lam_spec.
+Print Assumptions Kernel.LRecursion.mk_var_spec.
+Print Assumptions Kernel.LRecursion.mk_app_spec.
+Print Assumptions Kernel.LRecursion.mk_app_enc.
+Print Assumptions Kernel.LRecursion.mk_lam_eval.
+Print Assumptions Kernel.LRecursion.mk_app_eval.
+Print Assumptions Kernel.LRecursion.W_closed.
+Print Assumptions Kernel.LRecursion.rec_closed.
+Print Assumptions Kernel.LRecursion.rec_spec.
+Print Assumptions Kernel.LRecursion.Fn_closed.
+Print Assumptions Kernel.LRecursion.Qn_closed.
+Print Assumptions Kernel.LRecursion.Qn_spec.
+Print Assumptions Kernel.LRecursion.Fq_closed.
+Print Assumptions Kernel.LRecursion.Q_closed.
+Print Assumptions Kernel.LRecursion.EV_closed.
+Print Assumptions Kernel.LRecursion.Q_spec.
+Print Assumptions Kernel.LRecursion.second_recursion.
+Print Assumptions Kernel.LRecursion.L_recursion_theorem.
+Print Assumptions Kernel.LRecursion.flip_term_closed.
+Print Assumptions Kernel.LRecursion.flip_true.
+Print Assumptions Kernel.LRecursion.flip_false.
+Print Assumptions Kernel.LRecursion.L_rice.
+Print Assumptions Kernel.LRecursion.L_structural_shortcut_undecidable.
+Print Assumptions Kernel.LRecursion.Omega_step.
+Print Assumptions Kernel.LRecursion.Omega_diverges.
+Print Assumptions Kernel.LRecursion.halts_extensional.
+Print Assumptions Kernel.LRecursion.L_halting_undecidable.
 (* === Kernel.Locality : 18 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.Locality.wf_graph_lookup_implies_below.
 Print Assumptions Kernel.Locality.all_ids_below_lookup_implies_below.
@@ -10767,6 +10824,17 @@ Print Assumptions Kernel.StateSpaceCounting.StateSpaceCounting.nofreeinsight_inf
 Print Assumptions Kernel.StateSpaceCounting.StateSpaceCounting.no_free_insight_quantitative.
 Print Assumptions Kernel.StateSpaceCounting.StateSpaceCounting.lassert_honest_cost.
 Print Assumptions Kernel.StateSpaceCounting.StateSpaceCounting.lassert_honest_mu_cost.
+(* === Kernel.StructuralCore : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.StructuralCore.run_vm_u_stopped.
+Print Assumptions Kernel.StructuralCore.run_vm_u_succ.
+Print Assumptions Kernel.StructuralCore.thiele_core_run.
+Print Assumptions Kernel.StructuralCore.thiele_step_mu.
+Print Assumptions Kernel.StructuralCore.thiele_core_ledger.
+Print Assumptions Kernel.StructuralCore.thiele_core_a2.
+Print Assumptions Kernel.StructuralCore.thiele_core_carries_record.
+Print Assumptions Kernel.StructuralCore.thiele_core_halting_problem_coverage.
+Print Assumptions Kernel.StructuralCore.thiele_core_adequate.
+Print Assumptions Kernel.StructuralCore.history_core_equiv_thiele.
 (* === Kernel.Substrate : 3 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.Substrate.prog_equiv_sym.
 Print Assumptions Kernel.Substrate.prog_equiv_trans.
@@ -11384,6 +11452,11 @@ Print Assumptions Kernel.VMUnboundedInterpreterSlots.set_slot_N_set_slot_N_same.
 Print Assumptions Kernel.VMUnboundedInterpreterSlots.set_slot_N_comm.
 Print Assumptions Kernel.VMUnboundedInterpreterSlots.set_slot_set_slot_same.
 Print Assumptions Kernel.VMUnboundedInterpreterSlots.set_slot_comm.
+(* === Kernel.VMUnboundedLedger : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.VMUnboundedLedger.vm_apply_u_mu.
+Print Assumptions Kernel.VMUnboundedLedger.vm_apply_u_certified.
+Print Assumptions Kernel.VMUnboundedLedger.vm_apply_u_certified_permanent.
+Print Assumptions Kernel.VMUnboundedLedger.vm_apply_u_no_free_certification.
 (* === Kernel.VMUnboundedMinskyCorrectness : 32 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.VMUnboundedMinskyCorrectness.minsky_rep_config_unique.
 Print Assumptions Kernel.VMUnboundedMinskyCorrectness.uniform_interpreter_run_simulation.
@@ -11598,8 +11671,8 @@ Print Assumptions Kernel.F3_PartitionTopologyCrossLink.strong_bridge_counterexam
 Print Assumptions Kernel.F3_PartitionTopologyCrossLink.calibration_pointwise.
 Print Assumptions Kernel.F3_PartitionTopologyCrossLink.sum_geometric_angle_defect_eq_pi_sum_mu_laplacian.
 Print Assumptions Kernel.F3_PartitionTopologyCrossLink.F3_partition_topology_mu_cross_link.
-Print Assumptions Kernel.F3_PartitionTopologyCrossLink.F3_drop_calibration_breaks_prediction.
-Print Assumptions Kernel.F3_PartitionTopologyCrossLink.F3_drop_sum_zero_breaks_prediction.
+Print Assumptions Kernel.F3_PartitionTopologyCrossLink.unit_residual_is_nonzero.
+Print Assumptions Kernel.F3_PartitionTopologyCrossLink.pi_times_unit_is_nonzero.
 (* === Kernel.F3_PlusOneStructural : 3 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.F3_PlusOneStructural.F3_plus_one_renaming_unification.
 Print Assumptions Kernel.F3_PlusOneStructural.F3_plus_one_substantive_unification_attempt.
@@ -11630,23 +11703,23 @@ Print Assumptions Kernel.PointerObservable.ReplicatedLedgerToy.toy_work_not_prol
 Print Assumptions Kernel.PointerObservable.ReplicatedLedgerToy.toy_cert_unique_pointer.
 (* === Kernel.PointerObservableCounterexamples : 9 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.PointerObservableCounterexamples.blind_observer_blocks_proliferation.
-Print Assumptions Kernel.PointerObservableCounterexamples.DeniableAuthentication.deniable_verifier_records.
-Print Assumptions Kernel.PointerObservableCounterexamples.DeniableAuthentication.deniable_authentication_refutes_strong_criterion.
-Print Assumptions Kernel.PointerObservableCounterexamples.SymmetricMAC.mac_refutes_strong_criterion.
-Print Assumptions Kernel.PointerObservableCounterexamples.ObjectCapability.capability_refutes_strong_criterion.
-Print Assumptions Kernel.PointerObservableCounterexamples.PublicLog.public_log_confirms.
+Print Assumptions Kernel.PointerObservableCounterexamples.DeniableAuthentication.deniable_model_observer_zero_records.
+Print Assumptions Kernel.PointerObservableCounterexamples.DeniableAuthentication.deniable_authentication_model_not_proliferating.
+Print Assumptions Kernel.PointerObservableCounterexamples.SymmetricMAC.mac_model_not_proliferating.
+Print Assumptions Kernel.PointerObservableCounterexamples.ObjectCapability.capability_model_not_proliferating.
+Print Assumptions Kernel.PointerObservableCounterexamples.PublicLog.public_log_model_proliferating.
 Print Assumptions Kernel.PointerObservableCounterexamples.PublicLog.public_log_effort_not_proliferating.
-Print Assumptions Kernel.PointerObservableCounterexamples.DigitalSignature.signature_confirms_proliferation.
-Print Assumptions Kernel.PointerObservableCounterexamples.adversarial_search_verdicts.
+Print Assumptions Kernel.PointerObservableCounterexamples.DigitalSignature.signature_model_proliferating.
+Print Assumptions Kernel.PointerObservableCounterexamples.labeled_model_verdicts.
 (* === Kernel.PointerObservableReductions : 8 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.PointerObservableReductions.mirror_rival_not_proliferating.
 Print Assumptions Kernel.PointerObservableReductions.mirror_unique_pointer.
-Print Assumptions Kernel.PointerObservableReductions.PoS_unique_pointer.
-Print Assumptions Kernel.PointerObservableReductions.Gas_unique_pointer.
-Print Assumptions Kernel.PointerObservableReductions.TEE_unique_pointer.
-Print Assumptions Kernel.PointerObservableReductions.CT_unique_pointer.
-Print Assumptions Kernel.PointerObservableReductions.PCC_unique_pointer.
-Print Assumptions Kernel.PointerObservableReductions.five_disciplines_are_pointers.
+Print Assumptions Kernel.PointerObservableReductions.PoS_model_unique_pointer.
+Print Assumptions Kernel.PointerObservableReductions.Gas_model_unique_pointer.
+Print Assumptions Kernel.PointerObservableReductions.TEE_model_unique_pointer.
+Print Assumptions Kernel.PointerObservableReductions.CT_model_unique_pointer.
+Print Assumptions Kernel.PointerObservableReductions.PCC_model_unique_pointer.
+Print Assumptions Kernel.PointerObservableReductions.five_labeled_models_have_selected_pointer.
 (* === Kernel.TraceStateDescent : 10 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.TraceStateDescent.trace_descent_unique_value_iff.
 Print Assumptions Kernel.TraceStateDescent.vm_trace_eval_extend.
@@ -11678,10 +11751,10 @@ Print Assumptions Kernel.OCamlExtractionBridge.eo_vm_apply_total.
 Print Assumptions Kernel.OCamlExtractionBridge.eo_mu_trace_nondecreasing.
 Print Assumptions Kernel.OCamlExtractionBridge.ocaml_extraction_faithful.
 Print Assumptions Kernel.OCamlExtractionBridge.extraction_trust_boundary.
-Print Assumptions Kernel.OCamlExtractionBridge.ocaml_runner_agrees.
+Print Assumptions Kernel.OCamlExtractionBridge.ocaml_runner_observable_defined.
 Print Assumptions Kernel.OCamlExtractionBridge.ocaml_nfi_transfers.
 Print Assumptions Kernel.OCamlExtractionBridge.ocaml_extraction_mu_nondecreasing.
-Print Assumptions Kernel.OCamlExtractionBridge.ocaml_bisimulation_closure.
+Print Assumptions Kernel.OCamlExtractionBridge.ocaml_observable_nofi_and_monotone.
 (* === Kernel.PythonBisimulation : 16 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.PythonBisimulation.initial_correspondence.
 Print Assumptions Kernel.PythonBisimulation.step_preserves_pc.
@@ -11758,7 +11831,7 @@ Print Assumptions Kernel.MuChaitin.MuChaitin.mu_info_nat_ge_from_mu_total.
 Print Assumptions Kernel.MuChaitin.MuChaitin.supra_cert_implies_mu_info_nat_lower_bound.
 Print Assumptions Kernel.MuChaitin.MuChaitin.supra_cert_implies_mu_bounds_cert_payload.
 (* === Kernel.MuComplexity : 10 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.MuComplexity.classical_mu_budget_decidable.
+Print Assumptions Kernel.MuComplexity.zero_mu_traces_satisfy_preservation_budget.
 Print Assumptions Kernel.MuComplexity.mu_time_tradeoff_witness.
 Print Assumptions Kernel.MuComplexity.four_pow_is_sq.
 Print Assumptions Kernel.MuComplexity.sat_blind_sighted_ratio_exact.
@@ -11770,12 +11843,12 @@ Print Assumptions Kernel.MuComplexity.structured_sat_blind_sighted_separation.
 Print Assumptions Kernel.MuComplexity.sat_savings_unbounded.
 (* === Kernel.MuCostDerivation : 7 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.MuCostDerivation.log2_subtraction_valid.
-Print Assumptions Kernel.MuCostDerivation.partition_ops_cannot_cost.
+Print Assumptions Kernel.MuCostDerivation.positive_cost_exceeds_equal_size_erasure.
 Print Assumptions Kernel.MuCostDerivation.mu_cost_thermodynamic_bound.
-Print Assumptions Kernel.MuCostDerivation.cost_function_unique.
-Print Assumptions Kernel.MuCostDerivation.cost_necessity.
-Print Assumptions Kernel.MuCostDerivation.cost_forcing_lower_bound.
-Print Assumptions Kernel.MuCostDerivation.cost_uniqueness.
+Print Assumptions Kernel.MuCostDerivation.supplied_delta_schedule_consistent.
+Print Assumptions Kernel.MuCostDerivation.lassert_cost_from_component_floors.
+Print Assumptions Kernel.MuCostDerivation.lassert_cost_formula_lower_bound.
+Print Assumptions Kernel.MuCostDerivation.lassert_cost_is_its_formula.
 (* === Kernel.MuGeometry : 5 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.MuGeometry.MuGeometry.mu_distance_nonneg.
 Print Assumptions Kernel.MuGeometry.MuGeometry.mu_distance_refl.
@@ -12005,6 +12078,15 @@ Print Assumptions Kernel.CommitmentVsErasure.erasure_branch_unreachable.
 Print Assumptions Kernel.CommitmentVsErasure.trusted_erasure_system_certifies_without_erasure.
 Print Assumptions Kernel.CommitmentVsErasure.trusted_a2_system_certification_cost_floor.
 Print Assumptions Kernel.CommitmentVsErasure.commitment_cost_not_reducible_to_erasure_cost.
+(* === Kernel.CostSemanticsComparison : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CostSemanticsComparison.bind_ret_l.
+Print Assumptions Kernel.CostSemanticsComparison.bind_ret_r.
+Print Assumptions Kernel.CostSemanticsComparison.bind_assoc.
+Print Assumptions Kernel.CostSemanticsComparison.run_writer_is_run_and_cost.
+Print Assumptions Kernel.CostSemanticsComparison.a2_iff_nonnegative_amortized_cost.
+Print Assumptions Kernel.CostSemanticsComparison.potential_telescoping.
+Print Assumptions Kernel.CostSemanticsComparison.nfi_by_potential.
+Print Assumptions Kernel.CostSemanticsComparison.certification_system_is_potential_method.
 (* === Kernel.FiniteCertMachine : 23 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.FiniteCertMachine.filter_split_length.
 Print Assumptions Kernel.FiniteCertMachine.fiber_bound_compression.
@@ -12090,6 +12172,24 @@ Print Assumptions Kernel.InsightTaxonomy.morph_preserves_cert_addr.
 Print Assumptions Kernel.InsightTaxonomy.structural_trace_preserves_cert_addr.
 Print Assumptions Kernel.InsightTaxonomy.structural_only_trace_cannot_certify.
 Print Assumptions Kernel.InsightTaxonomy.no_free_certified_insight.
+(* === Kernel.KnowledgeNarrowing : 17 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.KnowledgeNarrowing.run_image_nodup.
+Print Assumptions Kernel.KnowledgeNarrowing.run_image_spec.
+Print Assumptions Kernel.KnowledgeNarrowing.run_image_step.
+Print Assumptions Kernel.KnowledgeNarrowing.run_narrowing_priced.
+Print Assumptions Kernel.KnowledgeNarrowing.run_narrowing_priced_log.
+Print Assumptions Kernel.KnowledgeNarrowing.knowledge_contains_actual.
+Print Assumptions Kernel.KnowledgeNarrowing.knowledge_sublist.
+Print Assumptions Kernel.KnowledgeNarrowing.dstates_finite.
+Print Assumptions Kernel.KnowledgeNarrowing.measure_forgets_nothing.
+Print Assumptions Kernel.KnowledgeNarrowing.wipe_merges.
+Print Assumptions Kernel.KnowledgeNarrowing.demon_fiber_bound.
+Print Assumptions Kernel.KnowledgeNarrowing.demon_compression_priced.
+Print Assumptions Kernel.KnowledgeNarrowing.wipe_costs_at_least_one.
+Print Assumptions Kernel.KnowledgeNarrowing.demon_observer_learns.
+Print Assumptions Kernel.KnowledgeNarrowing.demon_machine_spread_kept.
+Print Assumptions Kernel.KnowledgeNarrowing.observer_narrowing_can_be_free.
+Print Assumptions Kernel.KnowledgeNarrowing.vm_observer_narrowing_at_zero_cost.
 (* === Kernel.LandauerDerivation : 10 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.LandauerDerivation.vm_apply_preserves_certified_non_certify.
 Print Assumptions Kernel.LandauerDerivation.vm_apply_certify_sets_true.
@@ -12131,12 +12231,12 @@ Print Assumptions Kernel.MuLedgerQuantumBridge.column_contractive_equal_opposite
 Print Assumptions Kernel.MuLedgerQuantumBridge.quantum_optimal_correlators_column_contractive.
 Print Assumptions Kernel.MuLedgerQuantumBridge.bridge_counterexample_tsirelson_coherent.
 Print Assumptions Kernel.MuLedgerQuantumBridge.bridge_counterexample_not_column_contractive.
-Print Assumptions Kernel.MuLedgerQuantumBridge.bridge_witness_execution_quantum_gram_coherent.
-Print Assumptions Kernel.MuLedgerQuantumBridge.bridge_counterexample_not_execution_quantum_gram_coherent.
+Print Assumptions Kernel.MuLedgerQuantumBridge.bridge_witness_execution_npa_gram_coherent.
+Print Assumptions Kernel.MuLedgerQuantumBridge.bridge_counterexample_not_execution_npa_gram_coherent.
 Print Assumptions Kernel.MuLedgerQuantumBridge.bridge_good_and_bad_run_vm_coincide.
 Print Assumptions Kernel.MuLedgerQuantumBridge.bridge_good_and_bad_final_tensors_coincide.
-Print Assumptions Kernel.MuLedgerQuantumBridge.raw_vm_mu_tensor_cannot_characterize_execution_quantum_gram.
-Print Assumptions Kernel.MuLedgerQuantumBridge.bridge_counterexample_not_final_tensor_quantum_gram.
+Print Assumptions Kernel.MuLedgerQuantumBridge.raw_vm_mu_tensor_cannot_characterize_execution_npa_gram.
+Print Assumptions Kernel.MuLedgerQuantumBridge.bridge_counterexample_not_final_tensor_npa_gram.
 Print Assumptions Kernel.MuLedgerQuantumBridge.mu_ledger_tsirelson_coherent_not_sufficient.
 Print Assumptions Kernel.MuLedgerQuantumBridge.trace_realizes_zero_marginal_chsh_refl.
 Print Assumptions Kernel.MuLedgerQuantumBridge.mu_ledger_coherent_implies_trace_realizes_zero_marginal_chsh.
@@ -12147,18 +12247,18 @@ Print Assumptions Kernel.MuLedgerQuantumBridge.mu_ledger_coherent_implies_tsirel
 Print Assumptions Kernel.MuLedgerQuantumBridge.trace_run_semantics_equiv.
 Print Assumptions Kernel.MuLedgerQuantumBridge.psd2_quadratic_form_nonneg.
 Print Assumptions Kernel.MuLedgerQuantumBridge.zero_marginal_npa_column_contractive_implies_psd.
-Print Assumptions Kernel.MuLedgerQuantumBridge.execution_quantum_gram_coherent_implies_final_tensor_quantum_gram.
-Print Assumptions Kernel.MuLedgerQuantumBridge.mu_ledger_quantum_gram_coherent_implies_final_tensor_quantum_gram.
-Print Assumptions Kernel.MuLedgerQuantumBridge.final_tensor_quantum_gram_implies_quantum_realizable_of_trace.
-Print Assumptions Kernel.MuLedgerQuantumBridge.mu_ledger_psd_coherent_implies_quantum_realizable_of_trace.
-Print Assumptions Kernel.MuLedgerQuantumBridge.mu_ledger_coherent_implies_quantum_realizable_of_trace.
+Print Assumptions Kernel.MuLedgerQuantumBridge.execution_npa_gram_coherent_implies_final_tensor_npa_gram.
+Print Assumptions Kernel.MuLedgerQuantumBridge.mu_ledger_npa_gram_coherent_implies_final_tensor_npa_gram.
+Print Assumptions Kernel.MuLedgerQuantumBridge.final_tensor_npa_gram_implies_npa_psd_of_trace.
+Print Assumptions Kernel.MuLedgerQuantumBridge.mu_ledger_psd_coherent_implies_npa_psd_of_trace.
+Print Assumptions Kernel.MuLedgerQuantumBridge.mu_ledger_coherent_implies_npa_psd_of_trace.
 Print Assumptions Kernel.MuLedgerQuantumBridge.certified_bridge_counterexample_is_machine_internal_completed.
 Print Assumptions Kernel.MuLedgerQuantumBridge.certified_bridge_counterexample_not_trace_column_contractive.
 Print Assumptions Kernel.MuLedgerQuantumBridge.machine_internal_completed_run_not_sufficient_for_trace_column_contractivity.
-Print Assumptions Kernel.MuLedgerQuantumBridge.final_tensor_quantum_gram_obligation_implies_quantum_realizable_of_trace.
-Print Assumptions Kernel.MuLedgerQuantumBridge.tensor_psd_bridge_implies_quantum_realizable_of_trace.
-Print Assumptions Kernel.MuLedgerQuantumBridge.final_tensor_quantum_gram_obligation_proved.
-Print Assumptions Kernel.MuLedgerQuantumBridge.weak_final_tensor_quantum_gram_obligation_refuted.
+Print Assumptions Kernel.MuLedgerQuantumBridge.final_tensor_npa_gram_obligation_implies_npa_psd_of_trace.
+Print Assumptions Kernel.MuLedgerQuantumBridge.tensor_psd_bridge_implies_npa_psd_of_trace.
+Print Assumptions Kernel.MuLedgerQuantumBridge.final_tensor_npa_gram_obligation_proved.
+Print Assumptions Kernel.MuLedgerQuantumBridge.weak_final_tensor_npa_gram_obligation_refuted.
 Print Assumptions Kernel.MuLedgerQuantumBridge.soundness_and_completeness_imply_exact_characterization.
 Print Assumptions Kernel.MuLedgerQuantumBridge.column_contractive_check_witness_sound.
 Print Assumptions Kernel.MuLedgerQuantumBridge.state_column_contractive_check_witness_sound.
@@ -12166,18 +12266,18 @@ Print Assumptions Kernel.MuLedgerQuantumBridge.chsh_lassert_no_trap_implies_stat
 Print Assumptions Kernel.MuLedgerQuantumBridge.certified_state_counterexample_not_state_column_contractive.
 Print Assumptions Kernel.MuLedgerQuantumBridge.vm_certified_alone_does_not_imply_state_column_contractive.
 Print Assumptions Kernel.MuLedgerQuantumBridge.certified_no_error_positive_mu_not_sufficient_for_state_column_contractivity.
-Print Assumptions Kernel.MuLedgerQuantumBridge.state_column_contractive_implies_quantum_gram.
+Print Assumptions Kernel.MuLedgerQuantumBridge.state_column_contractive_implies_npa_gram.
 Print Assumptions Kernel.MuLedgerQuantumBridge.kernel_state_bridge_coherent_implies_positive_mu.
-Print Assumptions Kernel.MuLedgerQuantumBridge.kernel_state_bridge_coherent_implies_quantum_realizable.
+Print Assumptions Kernel.MuLedgerQuantumBridge.kernel_state_bridge_coherent_implies_npa_psd.
 Print Assumptions Kernel.MuLedgerQuantumBridge.kernel_final_state_determines_quantum_object.
-Print Assumptions Kernel.MuLedgerQuantumBridge.quantum_realizable_zero_marginal_implies_row_bounds.
-Print Assumptions Kernel.MuLedgerQuantumBridge.execution_quantum_gram_coherent_implies_mu_ledger_tsirelson_coherent.
-Print Assumptions Kernel.MuLedgerQuantumBridge.execution_quantum_gram_coherent_implies_mu_ledger_coherent.
+Print Assumptions Kernel.MuLedgerQuantumBridge.npa_psd_zero_marginal_implies_row_bounds.
+Print Assumptions Kernel.MuLedgerQuantumBridge.execution_npa_gram_coherent_implies_mu_ledger_tsirelson_coherent.
+Print Assumptions Kernel.MuLedgerQuantumBridge.execution_npa_gram_coherent_implies_mu_ledger_coherent.
 Print Assumptions Kernel.MuLedgerQuantumBridge.bridge_ready_completed_run_implies_mu_ledger_coherent.
-Print Assumptions Kernel.MuLedgerQuantumBridge.bridge_ready_completed_run_implies_quantum_realizable_of_trace.
+Print Assumptions Kernel.MuLedgerQuantumBridge.bridge_ready_completed_run_implies_npa_psd_of_trace.
 Print Assumptions Kernel.MuLedgerQuantumBridge.bridge_ready_completed_run_implies_tsirelson_bound_abs.
-Print Assumptions Kernel.MuLedgerQuantumBridge.quantum_realizable_implies_tsirelson_bound.
-Print Assumptions Kernel.MuLedgerQuantumBridge.quantum_realizable_implies_tsirelson_bound_abs.
+Print Assumptions Kernel.MuLedgerQuantumBridge.npa_psd_implies_tsirelson_bound.
+Print Assumptions Kernel.MuLedgerQuantumBridge.npa_psd_implies_tsirelson_bound_abs.
 Print Assumptions Kernel.MuLedgerQuantumBridge.state_column_contractive_implies_tsirelson.
 (* === Kernel.MuRunIncompleteness : 32 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.MuRunIncompleteness.run_certify_reachable.
@@ -12786,7 +12886,7 @@ Print Assumptions Kernel.GenRealizability.q1ab_depends_only_on_index.
 Print Assumptions Kernel.GenRealizability.fin9_index_roundtrip.
 Print Assumptions Kernel.GenRealizability.q1ab_nat_to_fin9_eq.
 Print Assumptions Kernel.GenRealizability.symmetric_n_unfold_9.
-Print Assumptions Kernel.GenRealizability.q1ab_claim_is_quantum_realizable_q1ab.
+Print Assumptions Kernel.GenRealizability.q1ab_claim_is_npa_psd_q1ab.
 Print Assumptions Kernel.GenRealizability.column_contractive_q1ab_iff_general_realizable.
 Print Assumptions Kernel.GenRealizability.sum_n_affine.
 Print Assumptions Kernel.GenRealizability.quad_n_convex_combo.
@@ -12839,7 +12939,7 @@ Print Assumptions Kernel.InformationCausality.ic_monotonicity.
 Print Assumptions Kernel.InformationCausality.ic_communication_bounded.
 Print Assumptions Kernel.InformationCausality.ic_composition.
 Print Assumptions Kernel.InformationCausality.ic_equiv_cost_preservation.
-Print Assumptions Kernel.InformationCausality.zero_cost_is_quantum.
+Print Assumptions Kernel.InformationCausality.zero_communication_zero_cost.
 Print Assumptions Kernel.InformationCausality.ic_cost_optimal.
 Print Assumptions Kernel.InformationCausality.accessible_info_bounded.
 Print Assumptions Kernel.InformationCausality.ic_implies_partition_constraint.
@@ -12866,7 +12966,7 @@ Print Assumptions Kernel.NPAMomentMatrix.npa_E10_position.
 Print Assumptions Kernel.NPAMomentMatrix.npa_E11_position.
 Print Assumptions Kernel.NPAMomentMatrix.npa_rho_BB_position.
 Print Assumptions Kernel.NPAMomentMatrix.npa_rho_AA_position.
-Print Assumptions Kernel.NPAMomentMatrix.quantum_realizable_implies_normalized.
+Print Assumptions Kernel.NPAMomentMatrix.npa_psd_implies_normalized.
 Print Assumptions Kernel.NPAMomentMatrix.npa_to_matrix_symmetric.
 (* === Kernel.NoCloning : 6 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.NoCloning.no_cloning_from_conservation.
@@ -12932,12 +13032,12 @@ Print Assumptions Kernel.QuantumPartitionPSD.npa_quad5_test_col1.
 Print Assumptions Kernel.QuantumPartitionPSD.npa_quad5_test_schur.
 Print Assumptions Kernel.QuantumPartitionPSD.npa_psd_implies_column_contractive.
 Print Assumptions Kernel.QuantumPartitionPSD.npa_psd_iff_column_contractive.
-Print Assumptions Kernel.QuantumPartitionPSD.column_contractive_iff_quantum_realizable.
-Print Assumptions Kernel.QuantumPartitionPSD.trace_column_contractive_iff_trace_quantum_model.
-Print Assumptions Kernel.QuantumPartitionPSD.psplit_quantum_implementation_implies_column_contractive.
-Print Assumptions Kernel.QuantumPartitionPSD.psplit_quantum_state_implies_tsirelson.
-Print Assumptions Kernel.QuantumPartitionPSD.chsh_lassert_check_implies_quantum_realizable.
-Print Assumptions Kernel.QuantumPartitionPSD.chsh_lassert_no_trap_implies_quantum_realizable.
+Print Assumptions Kernel.QuantumPartitionPSD.column_contractive_iff_npa_psd.
+Print Assumptions Kernel.QuantumPartitionPSD.trace_column_contractive_iff_trace_npa_model.
+Print Assumptions Kernel.QuantumPartitionPSD.trace_npa_matrix_psd_implies_column_contractive.
+Print Assumptions Kernel.QuantumPartitionPSD.trace_npa_matrix_psd_implies_tsirelson.
+Print Assumptions Kernel.QuantumPartitionPSD.chsh_lassert_check_implies_npa_psd.
+Print Assumptions Kernel.QuantumPartitionPSD.chsh_lassert_no_trap_implies_npa_psd.
 (* === Kernel.QuantumPartitionPSD_1AB : 140 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.fin9_destruct.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_moment_matrix_symmetric.
@@ -12947,18 +13047,18 @@ Print Assumptions Kernel.QuantumPartitionPSD_1AB.vec9_destructure.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.column_contractive_q1ab_implies_psd9.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.psd9_implies_column_contractive_q1ab.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_psd_iff_column_contractive.
-Print Assumptions Kernel.QuantumPartitionPSD_1AB.column_contractive_q1ab_iff_quantum_realizable.
+Print Assumptions Kernel.QuantumPartitionPSD_1AB.column_contractive_q1ab_iff_npa_psd.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_residual_g_zero_decomp.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_top_block_nonneg.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_bottom_block_nonneg.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.column_contractive_check_q1ab_sound_at_g_zero.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.chsh_lassert_no_trap_with_sum_E_check_implies_q1ab_psd.
-Print Assumptions Kernel.QuantumPartitionPSD_1AB.chsh_lassert_no_trap_with_sum_E_check_implies_quantum_realizable_q1ab.
+Print Assumptions Kernel.QuantumPartitionPSD_1AB.chsh_lassert_no_trap_with_sum_E_check_implies_npa_psd_q1ab.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_check_at_gzero_forces_unit_ball.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_check_at_gzero_implies_classical_bound.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_caller_supplied_gamma_real_check_implies_psd9.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_no_trap_implies_q1ab_psd.
-Print Assumptions Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_no_trap_implies_quantum_realizable_q1ab.
+Print Assumptions Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_no_trap_implies_npa_psd_q1ab.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_residual_g5_only_decomp.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.weighted_4d_CS_SOS_identity.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.weighted_4d_CS_nonneg.
@@ -13076,9 +13176,9 @@ Print Assumptions Kernel.QuantumPartitionPSD_1AB.KZ12_pos.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.KZ16_pos.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_g12345_caller_witness_z_abs_sound.
 Print Assumptions Kernel.QuantumPartitionPSD_1AB.q1ab_g12345_caller_witness_z_abs_implies_psd9.
-Print Assumptions Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_g5_no_trap_implies_quantum_realizable_q1ab.
-Print Assumptions Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_g345_no_trap_implies_quantum_realizable_q1ab.
-Print Assumptions Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_g12345_no_trap_implies_quantum_realizable_q1ab.
+Print Assumptions Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_g5_no_trap_implies_npa_psd_q1ab.
+Print Assumptions Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_g345_no_trap_implies_npa_psd_q1ab.
+Print Assumptions Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_g12345_no_trap_implies_npa_psd_q1ab.
 (* === Kernel.SemidefiniteProgramming : 4 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.SemidefiniteProgramming.I_is_PSD.
 Print Assumptions Kernel.SemidefiniteProgramming.schur_2x2_criterion.
@@ -13123,16 +13223,16 @@ Print Assumptions Kernel.TsirelsonGeneral.tsirelson_from_minors_abs.
 (* === Kernel.TsirelsonQuantumModel : 12 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.TsirelsonQuantumModel.trace_run_vm_extract_invariant_at_stuck.
 Print Assumptions Kernel.TsirelsonQuantumModel.trace_run_vm_correlators_invariant_at_stuck.
-Print Assumptions Kernel.TsirelsonQuantumModel.trace_quantum_model_invariant.
+Print Assumptions Kernel.TsirelsonQuantumModel.trace_npa_model_invariant.
 Print Assumptions Kernel.TsirelsonQuantumModel.trace_quantum_bridge_coherent_invariant.
-Print Assumptions Kernel.TsirelsonQuantumModel.trace_quantum_bridge_coherent_implies_quantum_model.
+Print Assumptions Kernel.TsirelsonQuantumModel.trace_quantum_bridge_coherent_implies_npa_model.
 Print Assumptions Kernel.TsirelsonQuantumModel.trace_quantum_bridge_coherent_implies_tsirelson_squared.
 Print Assumptions Kernel.TsirelsonQuantumModel.trace_quantum_bridge_coherent_implies_tsirelson_abs.
-Print Assumptions Kernel.TsirelsonQuantumModel.trace_quantum_model_connection_closed.
-Print Assumptions Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_from_quantum_realizable.
-Print Assumptions Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_abs_from_quantum_realizable.
-Print Assumptions Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_from_quantum_realizable_invariant.
-Print Assumptions Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_abs_from_quantum_realizable_invariant.
+Print Assumptions Kernel.TsirelsonQuantumModel.trace_npa_model_connection_closed.
+Print Assumptions Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_from_npa_psd.
+Print Assumptions Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_abs_from_npa_psd.
+Print Assumptions Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_from_npa_psd_invariant.
+Print Assumptions Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_abs_from_npa_psd_invariant.
 (* === Kernel.TsirelsonUniqueness : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.TsirelsonUniqueness.mu_zero_algebraic_bound.
 (* === Kernel.TsirelsonUpperBound : 17 addressable theorems (unaddressable: 0) === *)
@@ -13154,14 +13254,14 @@ Print Assumptions Kernel.TsirelsonUpperBound.mu_zero_trace_exceeds_classical.
 Print Assumptions Kernel.TsirelsonUpperBound.mu_zero_trace_exceeds_quantum_tsirelson.
 Print Assumptions Kernel.TsirelsonUpperBound.mu_zero_algebraic_bound.
 (* === Kernel.Unitarity : 8 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.Unitarity.unitary_preserves_trace.
-Print Assumptions Kernel.Unitarity.unitary_preserves_positivity.
+Print Assumptions Kernel.Unitarity.radius_preserving_trace.
+Print Assumptions Kernel.Unitarity.radius_preserving_positivity.
 Print Assumptions Kernel.Unitarity.nonunitary_requires_mu.
-Print Assumptions Kernel.Unitarity.physical_evolution_is_CPTP.
+Print Assumptions Kernel.Unitarity.ball_trace_contract_from_premises.
 Print Assumptions Kernel.Unitarity.lindblad_requires_mu.
 Print Assumptions Kernel.Unitarity.zero_cost_preserves_purity.
-Print Assumptions Kernel.Unitarity.zero_cost_implies_unitary.
-Print Assumptions Kernel.Unitarity.reversible_zero_cost_is_unitary.
+Print Assumptions Kernel.Unitarity.zero_cost_preserves_radius.
+Print Assumptions Kernel.Unitarity.reversible_zero_cost_preserves_radius.
 (* === Kernel.ValidCorrelation : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.ValidCorrelation.bell_math_deterministic.
 (* === Kernel.GasMetering : 15 addressable theorems (unaddressable: 0) === *)
@@ -13209,16 +13309,23 @@ Print Assumptions Kernel.TEEAttestation.attest_decide_sound.
 Print Assumptions Kernel.TEEAttestation.attest_decide_complete.
 Print Assumptions Kernel.TEEAttestation.measurement_enriched_attestation_succeeds.
 Print Assumptions Kernel.TEEAttestation.working_attestation_verifier_reads_the_register.
-(* === Kernel.TransparencyLog : 9 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.TPMQuoteGap : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TPMQuoteGap.quote_collision.
+Print Assumptions Kernel.TPMQuoteGap.quote_cannot_attest_unmeasured_state.
+Print Assumptions Kernel.TPMQuoteGap.quote_decides_measured_claims.
+Print Assumptions Kernel.TPMQuoteGap.quote_projection_faithful.
+Print Assumptions Kernel.TPMQuoteGap.quote_runtime_verifier_separation.
+(* === Kernel.TransparencyLog : 10 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.TransparencyLog.inclusion_is_commitment.
 Print Assumptions Kernel.TransparencyLog.lbt_roundtrip.
-Print Assumptions Kernel.TransparencyLog.hardness_roundtrip.
-Print Assumptions Kernel.TransparencyLog.log_audit_is_hardness_decide.
-Print Assumptions Kernel.TransparencyLog.log_audit_weak_sound.
-Print Assumptions Kernel.TransparencyLog.transparency_log_escape.
-Print Assumptions Kernel.TransparencyLog.log_free_verifier_impossible.
-Print Assumptions Kernel.TransparencyLog.split_view_witness.
-Print Assumptions Kernel.TransparencyLog.split_view_same_verdict.
+Print Assumptions Kernel.TransparencyLog.commitment_roundtrip.
+Print Assumptions Kernel.TransparencyLog.log_audit_is_commitment_decide.
+Print Assumptions Kernel.TransparencyLog.log_audit_sound.
+Print Assumptions Kernel.TransparencyLog.log_audit_complete.
+Print Assumptions Kernel.TransparencyLog.abstract_log_bit_verifier.
+Print Assumptions Kernel.TransparencyLog.abstract_bare_verifier_impossible.
+Print Assumptions Kernel.TransparencyLog.abstract_mu_collision_witness.
+Print Assumptions Kernel.TransparencyLog.abstract_mu_collision_same_verdict.
 (* === Kernel.AdditionalProbes : 6 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.AdditionalProbes.margolus_levitin_bound.
 Print Assumptions Kernel.AdditionalProbes.margolus_levitin_time_lower.

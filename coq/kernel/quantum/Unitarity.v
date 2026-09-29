@@ -36,7 +36,7 @@ Definition trace_rho (x y z : R) : R :=
 (** The numerical identity [trace_rho x y z = 1] follows by unfolding the
     Pauli trace constants (pauli_tr_identity=2, all sigma traces 0) and
     applying lra. It is discharged inline at its sole transitive use site,
-    [unitary_preserves_trace] below; [trace_preserved_by_normalization]
+    [radius_preserving_trace] below; the normalization identity
     is similarly handled inline. *)
 
 (** [trace_rho_squared] is the declared purity expression [((1 + x² + y² + z²) / 2)]. Its later bounds require the explicit radius assumptions stated by those lemmas. *)
@@ -83,17 +83,17 @@ Definition positivity_preserving (E : Evolution) : Prop :=
     (E.(evo_z) x y z)*(E.(evo_z) x y z) <= 1.
 
 
-(** [is_unitary] is defined here as preservation of the squared radius on the declared unit ball. It is not a proof that an arbitrary [Evolution] record comes from a Hilbert-space operator. *)
-Definition is_unitary (E : Evolution) : Prop :=
+(** Preservation of squared radius on the unit ball. *)
+Definition radius_preserving (E : Evolution) : Prop :=
   forall x y z,
     x*x + y*y + z*z <= 1 ->
     (E.(evo_x) x y z)*(E.(evo_x) x y z) +
     (E.(evo_y) x y z)*(E.(evo_y) x y z) +
     (E.(evo_z) x y z)*(E.(evo_z) x y z) = x*x + y*y + z*z.
 
-(** [unitary_zero_cost] is a separate implication that assigns zero formal cost to an [is_unitary] evolution. It is a model contract, not a Landauer derivation. *)
-Definition unitary_zero_cost (E : Evolution) : Prop :=
-  is_unitary E -> E.(evo_mu) = 0.
+(** A separate cost assignment proposition. *)
+Definition radius_preserving_zero_cost (E : Evolution) : Prop :=
+  radius_preserving E -> E.(evo_mu) = 0.
 
 (** Trace preservation from normalization constraint.
     In the Bloch sphere parametrization ρ = (I + x·σ_x + y·σ_y + z·σ_z)/2,
@@ -101,14 +101,14 @@ Definition unitary_zero_cost (E : Evolution) : Prop :=
     (the Pauli matrices are traceless: Tr(σ_i) = 0).  This is NOT special to
     unitaries — it is a structural property of the parametrization itself.
     The general statement [trace_preserved_by_normalization] is the
-    corollary [unitary_preserves_trace] specialized at is_unitary = trivial;
+    corollary [radius_preserving_trace] with an unused radius premise;
     the general form is folded into the corollary below to avoid an
     arithmetic-only intermediate. The real non-trivial theorem is
-    [unitary_preserves_positivity] below, which actually USES the
-    [is_unitary] hypothesis. *)
-Corollary unitary_preserves_trace :
+    [radius_preserving_positivity] below, which uses the
+    [radius_preserving] hypothesis. *)
+Corollary radius_preserving_trace :
   forall E : Evolution,
-    is_unitary E ->
+    radius_preserving E ->
     trace_preserving E.
 Proof.
   intros E _ x y z.
@@ -117,14 +117,14 @@ Proof.
   lra.
 Qed.
 
-(** [unitary_preserves_positivity] is the direct consequence of radius preservation and the unit-ball premise. *)
-Theorem unitary_preserves_positivity :
+(** Radius preservation keeps the unit ball invariant. *)
+Theorem radius_preserving_positivity :
   forall E : Evolution,
-    is_unitary E ->
+    radius_preserving E ->
     positivity_preserving E.
 Proof.
   intros E Huni.
-  unfold is_unitary, positivity_preserving in *.
+  unfold radius_preserving, positivity_preserving in *.
   intros x y z Hvalid.
   rewrite (Huni x y z Hvalid).
   exact Hvalid.
@@ -160,8 +160,8 @@ Proof.
 Qed.
 
 
-(** [is_CP] is the conjunction of the formal unit-ball preservation predicate and a second copy of the same radius bound. *)
-Definition is_CP (E : Evolution) : Prop :=
+(** Unit-ball preservation and its explicit radius inequality. *)
+Definition ball_contractivity (E : Evolution) : Prop :=
   positivity_preserving E /\
   (* Contractivity: Bloch ball maps inside itself *)
   forall x y z,
@@ -170,25 +170,19 @@ Definition is_CP (E : Evolution) : Prop :=
     (E.(evo_y) x y z)*(E.(evo_y) x y z) +
     (E.(evo_z) x y z)*(E.(evo_z) x y z) <= 1.
 
-(** [is_CPTP] is the conjunction of [is_CP] and [trace_preserving].
+(** The scalar ball-and-trace contract contains no ancillary-system test. *)
+Definition ball_and_trace_preserving (E : Evolution) : Prop :=
+  ball_contractivity E /\ trace_preserving E.
 
-    The definition supplies a name for this formal conjunction but does not prove a physical channel characterization.
-*)
-Definition is_CPTP (E : Evolution) : Prop :=
-  is_CP E /\ trace_preserving E.
-
-(** [physical_evolution_is_CPTP] packages the two supplied formal premises into [is_CPTP].
-
-    It does not establish that every physical operation is represented by this record.
-*)
-Theorem physical_evolution_is_CPTP :
+(** Package positivity and trace preservation into the scalar contract. *)
+Theorem ball_trace_contract_from_premises :
   forall E : Evolution,
     positivity_preserving E ->
     trace_preserving E ->
-    is_CPTP E.
+    ball_and_trace_preserving E.
 Proof.
   intros E Hpos Htr.
-  unfold is_CPTP, is_CP.
+  unfold ball_and_trace_preserving, ball_contractivity.
   split.
   - split; [exact Hpos | exact Hpos].
   - exact Htr.
@@ -264,18 +258,18 @@ Proof.
   lra.
 Qed.
 
-(** [zero_cost_implies_unitary] derives the local [is_unitary] predicate from the two displayed radius inequalities and zero formal cost. *)
+(** Radius preservation follows from the two radius inequalities at zero cost. *)
 (* SCOPE NOTE: key derived theorem — zero-cost + dual conservation → unitarity.
    Bridges Unitarity.v to NoCloning.v by eliminating the unitarity assumption. *)
-Theorem zero_cost_implies_unitary :
+Theorem zero_cost_preserves_radius :
   forall E : Evolution,
     respects_info_conservation E ->
     purity_nonincreasing E ->
     E.(evo_mu) = 0 ->
-    is_unitary E.
+    radius_preserving E.
 Proof.
   intros E Hcons Hpni Hmu0.
-  unfold is_unitary. intros x y z Hvalid.
+  unfold radius_preserving. intros x y z Hvalid.
   (* Lower bound: r²_out ≥ r²_in (from zero_cost_preserves_purity) *)
   pose proof (zero_cost_preserves_purity E Hcons Hmu0 x y z Hvalid) as Hge.
   (* Upper bound: r²_out ≤ r²_in + evo_mu = r²_in + 0 = r²_in *)
@@ -286,18 +280,18 @@ Proof.
   lra.
 Qed.
 
-(** [reversible_zero_cost_is_unitary] preserves an older interface while delegating to [zero_cost_implies_unitary]. *)
-Corollary reversible_zero_cost_is_unitary :
+(** The radius result also holds when reversibility and positivity are supplied. *)
+Corollary reversible_zero_cost_preserves_radius :
   forall E : Evolution,
     is_reversible E ->
     positivity_preserving E ->
     respects_info_conservation E ->
     purity_nonincreasing E ->
     E.(evo_mu) = 0 ->
-    is_unitary E.
+    radius_preserving E.
 Proof.
   intros E _ _ Hcons Hpni Hmu0.
-  exact (zero_cost_implies_unitary E Hcons Hpni Hmu0).
+  exact (zero_cost_preserves_radius E Hcons Hpni Hmu0).
 Qed.
 
 (* SCOPE NOTE: connectivity anchor for unitarity auxiliary definitions. *)

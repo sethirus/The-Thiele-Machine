@@ -199,7 +199,7 @@ def main() -> int:
             "boundary_inventory": [
                 "chsh_trace_semantic_boundary",
                 "verification_semantic_boundary",
-                "trace_quantum_model_semantic_boundary",
+                "trace_npa_model_semantic_boundary",
             ],
             "completeness_theorem_status": "demoted-nonclaim-boundary-pinned",
             "obligation": "Formal completeness theorem for the semantic partition",

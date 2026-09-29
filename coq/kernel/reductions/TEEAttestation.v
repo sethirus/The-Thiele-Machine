@@ -6,24 +6,36 @@
     transcript does not carry. This file instantiates the kernel's verifier
     results in that vocabulary.
 
-    Core instantiation: [V_does_not_factor_through_classical] — a sound and
+    The vocabulary is the reading. Formally this file is an
+    abstract transcript-plus-nat wrapper: a bare VM transcript, one
+    natural-number field, and a relation [report_explains] that stipulates
+    the field equals [vm_mu]. No TEE instruction set, report format, measurement process,
+    MRENCLAVE/PCR semantics, signature, nonce, key hierarchy, or
+    remote-attestation protocol is in it.
+
+    Core instantiation: [V_does_not_factor_through_classical] -- a sound and
     complete verifier of a mu-dependent claim cannot factor through the bare
     classical transcript. Attestation of a measurement-dependent claim must
     expose non-classical structure (the measurement register), and the
-    ineliminable trust is exactly the named Section-Variable surface.
+    ineliminable trust is exactly the named explanation relation.
     [substrate_escape_succeeds] is the positive side: enrich the transcript
-    with the register and a sound, complete, unit-cost verifier exists.
+    with the register and a sound, complete verifier exists, at a cost the
+    model defines to be one.
 
-    Replay attacks are the kernel's two-preimage witnesses in engineering
-    clothes: two runs with identical bare transcripts and different
-    measurement state.
+    Replay attacks are the picture behind the kernel's two-preimage
+    witnesses: two runs with identical bare transcripts and different
+    measurement state. The witnesses are a projection collision between two
+    constructed reports. No signed report, freshness check, or adversary is
+    in them, so they are the shape of a replay, not a replay attack.
 
     The impossibility is conditional on the named projection collision and
     explanation relation. A sound and complete verifier factoring through that
     bare transcript would contradict [V_does_not_factor_through_classical].
 
     This file does not model side channels, key management, or the CPU
-    vendor's signing PKI; the trust surface it names is structural. *)
+    vendor's signing PKI; the trust surface it names is structural. It
+    proves an information-flow fact about its definitions, not the security
+    of deployed attestation. *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool.
 Import ListNotations.
@@ -46,14 +58,15 @@ Require Import VerifierImpossibility.
     A TEE attestation report, reduced to its load-bearing skeleton: the
     bare transcript the enclave's run presents to a classical observer,
     plus one measurement register. The register is the PCR/MRENCLAVE-style
-    slot — a value the trusted hardware accumulates as the run commits,
+    slot, a value the trusted hardware accumulates as the run commits,
     which no replay of the bare transcript recomputes. In the kernel's
     coordinates the register carries [vm_mu]: the structural ledger the
-    strict classical shadow forgets. *)
+    strict classical shadow forgets. Formally it is one natural number;
+    no hardware register is modeled. *)
 
 Record TEEReport := mk_tee_report {
   rep_bare        : BareTranscript; (** what a classical observer sees *)
-  rep_measurement : nat             (** the trusted measurement register *)
+  rep_measurement : nat             (** the measurement register *)
 }.
 
 (** Forgetting the register: the classical projection of a report. An
@@ -70,9 +83,9 @@ Definition report_projection (r : TEEReport) : BareTranscript :=
       - its measurement register equals the state's mu ledger.
 
     The second conjunct is the hardware's promise: the register is a
-    faithful readout of structural state, not a free-form integer. The
-    whole file is about what happens when a verifier is, or is not,
-    allowed to read it. *)
+    faithful readout of structural state, not a free-form integer. In the
+    model it is a premise, not a theorem about hardware. The whole file is
+    about what happens when a verifier is, or is not, allowed to read it. *)
 Definition report_explains (s : VMState) (r : TEEReport) : Prop :=
   bare_explains mu_eq_one_problem s (rep_bare r)
   /\ rep_measurement r = s.(vm_mu).
@@ -95,9 +108,10 @@ Definition attestation_complete (V : TEEReport -> bool) : Prop :=
     Trace A pays for certification (CERTIFY: mu goes 0 to 1); Trace B runs
     a partition instruction at mu-cost 0. Their strict classical shadows
     are equal ([po1_cond2_shadow_traces_equal]): the bare transcript
-    cannot tell the runs apart. The measurement registers differ — 1 for
+    cannot tell the runs apart. The measurement registers differ: 1 for
     the run that paid, 0 for the run that did not. [report_B] is the
-    replayed report: same observable log, no payment behind it. *)
+    replayed report in the picture: same observable log, no payment behind
+    it. Formally both are VM witness constructions, not signed reports. *)
 
 Definition report_A : TEEReport :=
   {| rep_bare := po1_strict_trace_A; rep_measurement := 1 |}.
@@ -107,7 +121,7 @@ Definition report_B : TEEReport :=
 
 (** The two reports are classically indistinguishable: their projections
     are the kernel's shadow-trace equality, verbatim. *)
-(* SCOPE NOTE: alias for po1_cond2_shadow_traces_equal — deliberate vocabulary lift of the kernel collision onto TEEReport projections for MAIN 1. *)
+(* SCOPE NOTE: alias for po1_cond2_shadow_traces_equal; deliberate vocabulary lift of the kernel collision onto TEEReport projections for MAIN 1. *)
 Lemma reports_project_equal :
   report_projection report_A = report_projection report_B.
 Proof.
@@ -143,8 +157,9 @@ Qed.
     mu-dependent claim depends on more than the bare transcript: it
     cannot be a function of [report_projection]. Concretely, "verify the
     enclave by auditing its classical execution log" is not a sound and
-    complete attestation scheme for measurement-dependent claims, no
-    matter how clever the auditor.
+    complete attestation scheme for this measurement-dependent claim, no
+    matter how clever the auditor. The conclusion is about the explanation
+    relation defined above, not every attestation scheme.
 
     This is an honest instantiation: it is
     [V_does_not_factor_through_classical] at [T := TEEReport], with the
@@ -172,23 +187,24 @@ Proof.
 Qed.
 
 (* -------------------------------------------------------------------- *)
-(** ** MAIN 2: the replay attack, as a theorem.
+(** ** MAIN 2: the replay shape, as a theorem.
 
     Two attestation reports with the same classical projection and
     different measurement registers, each honestly explained by a real
     prover state: the paid run and the unpaid run. This is the replay
-    attack in its structural form — the adversary re-presents the
-    observable log of a paid run, and the bare transcript carries
-    nothing that could expose the substitution. The only field that
-    separates the two reports is the register.
+    attack's structural shape: re-present the observable log of a paid run,
+    and the bare transcript carries nothing that could expose the
+    substitution. The only field that separates the two reports is the
+    register. No signed report, freshness check, nonce, or adversary action
+    occurs in the statement, so it is the shape and not a protocol attack.
 
     Nothing here is hypothetical: both reports are explained by concrete
     kernel states ([po1_state_A], [po1_state_B]), so the two-preimage
     collision is exhibited, not assumed.
 
     The displayed reports are the witness pair for the projection collision;
-    any claim that this particular pair agrees on the register contradicts the
-    constructed values. *)
+    any claim that this particular pair agrees on the register contradicts
+    the constructed values. *)
 Theorem replay_is_a_two_preimage_witness :
   exists r_A r_B : TEEReport,
     report_projection r_A = report_projection r_B
@@ -208,15 +224,18 @@ Qed.
 (** ** MAIN 3: exposing the register restores verification.
 
     The positive side. An attestation verifier that may read the
-    measurement register is sound, complete, and unit-cost for the
-    mu-dependent claim. The mechanism is the kernel's substrate-trust
-    escape: the register is a trusted readout of structural state, so
-    the verifier dereferences it instead of re-running the enclave.
+    measurement register is sound and complete for the mu-dependent claim.
+    The mechanism is the kernel's substrate-trust escape: the register is a
+    trusted readout of structural state, so the verifier dereferences it
+    instead of re-running the enclave. Its cost is the substrate verifier's
+    stipulated constant, not a runtime bound for report parsing, signature
+    validation, or TEE execution.
 
-    Construction: from a report's register we rebuild the substrate
-    snapshot it vouches for ([measured_snapshot]) and hand that to the
-    kernel's substrate verifier. The attestation verifier is literally
-    [substrate_decide_mu_eq_one] behind a register-decoding shim, and
+    Construction: from a report's register the construction rebuilds the
+    substrate snapshot it vouches for ([measured_snapshot]) and hands that
+    to the kernel's substrate verifier. The attestation verifier is
+    literally [substrate_decide_mu_eq_one] behind a register-decoding shim,
+    and
     the three conjuncts of the headline are discharged by
     [substrate_verifier_sound], [substrate_verifier_complete], and
     [substrate_verifier_cheap] — the components of
@@ -233,7 +252,8 @@ Definition measured_snapshot (r : TEEReport) : SubstrateTranscript :=
   [snapshot_state r].
 
 (** The attestation verifier: decode the register, ask the substrate
-    verifier. Cost is the substrate verifier's cost — one dereference. *)
+    verifier. Cost is the substrate verifier's cost, one dereference in the
+    model's abstract units. *)
 Definition attest_decide (r : TEEReport) : bool :=
   substrate_decide_mu_eq_one (measured_snapshot r).
 
@@ -292,15 +312,16 @@ Proof.
   - apply measured_snapshot_explains.
 Qed.
 
-(** The headline: with the measurement register exposed, a sound,
-    complete, unit-cost attestation verifier exists for the claim that
-    defeated every bare verifier. This is the substrate-trust escape
-    ([substrate_escape_succeeds]) in attestation vocabulary; the trust
-    being purchased is exactly "the register reports mu faithfully",
+(** The headline: with the measurement register exposed, a sound and
+    complete attestation verifier exists for the claim that defeated every
+    bare verifier, at the model's unit cost. This is the substrate-trust
+    escape ([substrate_escape_succeeds]) in attestation vocabulary; the
+    trust being purchased is exactly "the register reports mu faithfully",
     which [report_explains] makes explicit.
 
-    The witness below supplies a unit-cost verifier once the measurement
-    register is exposed; a stronger lower bound would contradict that witness. *)
+    The witness below supplies a verifier whose modeled cost is one once
+    the register is exposed; it says nothing about deployed verification
+    time. *)
 Theorem measurement_enriched_attestation_succeeds :
   exists (decide : TEEReport -> bool) (cost : TEEReport -> nat),
     attestation_sound decide
@@ -319,7 +340,7 @@ Qed.
 
     MAIN 1 applied to MAIN 3's witness: the verifier that works is not a
     function of the bare transcript. The escape and the impossibility
-    are two faces of the same fact — the verifier succeeds *because* it
+    are two faces of the same fact: the verifier succeeds *because* it
     depends on the field the classical projection forgets. *)
 Corollary working_attestation_verifier_reads_the_register :
   ~ factors_classical report_projection attest_decide.

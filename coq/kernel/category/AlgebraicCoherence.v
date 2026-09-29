@@ -339,10 +339,10 @@ Proof.
   unfold S_from_correlators, tsirelson_achieving. simpl. ring.
 Qed.
 
-(** [tsirelson_bound_tight] is a lower-bound witness for the selected rational
+(** [tsirelson_rational_lower_witness] is a lower-bound witness for the selected rational
     predicate. It gives existence at [28284/10000]; it is not an exact
     optimizer theorem and carries no VM or ledger claim. *)
-Theorem tsirelson_bound_tight :
+Theorem tsirelson_rational_lower_witness :
   exists c : Correlators,
     algebraically_coherent c /\
     S_from_correlators c >= (28284#10000).

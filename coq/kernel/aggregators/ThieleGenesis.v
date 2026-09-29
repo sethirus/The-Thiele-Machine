@@ -318,10 +318,9 @@ Check jzdec_nonzero_via_vm_apply.
         convex-linearity of outcomes, and boundary conditions.
         Derived via Hardy (2001) bridge from VM observables.
 
-    7e. TSIRELSON BOUND: If vm_apply's psplit opcode implements a
-        quantum state (i.e. its trace is NPA quantum-realizable),
-        then the resulting CHSH value is bounded by |S|^2 <= 8.
-        The chain: quantum state -> column contractive -> Tsirelson.
+    7e. TSIRELSON BOUND: If a trace's zero-marginal NPA matrix is PSD,
+        its CHSH value satisfies |S|^2 <= 8.
+        The chain: NPA PSD -> column contractive -> Tsirelson.
 
     7f. THERMODYNAMIC EINSTEIN EMERGENCE: Positive mass + focusing
         + Clausius witnesses imply the 4D local Einstein field
@@ -346,9 +345,9 @@ Check KernelCHSH.local_strategy_chsh_between_neg2_2.
 Check hardy_born_rule.
 Check hardy_born_rule_bridge.
 
-(** 7e. Tsirelson bound from quantum-realizable partition split. *)
-Check psplit_quantum_state_implies_tsirelson.
-Check psplit_quantum_implementation_implies_column_contractive.
+(** 7e. Tsirelson bound from a partition split whose NPA matrix is PSD. *)
+Check trace_npa_matrix_psd_implies_tsirelson.
+Check trace_npa_matrix_psd_implies_column_contractive.
 
 (** 7f. Thermodynamic Einstein: Clausius load-bearing -> 4D EFE. *)
 Check clausius_load_bearing_einstein_4d.
@@ -448,7 +447,7 @@ Check driven_trace_commutes.
     10. full_embed_step_compute        Kami hardware -> vm_apply.
     11. driven_trace_commutes          Hardware traces = software traces.
     12. hardy_born_rule                Born rule from no-signaling.
-    13. psplit_quantum_state_implies_tsirelson
+    13. trace_npa_matrix_psd_implies_tsirelson
                                        Tsirelson bound from VM quantum state.
     14. clausius_load_bearing_einstein_4d
                                        Thermodynamic -> 4D Einstein.
@@ -556,7 +555,7 @@ Definition thiele_genesis : ThieleGenesis := {|
       theorems, not axioms (Chapter 7b),
     - where the Born probability rule is derived from no-signaling
       and convex-linearity (Chapter 7d),
-    - where quantum-realizable partition splits satisfy the
+    - where partition splits with a PSD NPA matrix satisfy the
       Tsirelson bound |S|^2 <= 8 (Chapter 7e),
     - where thermodynamic Clausius witnesses load-bearingly imply
       the 4D Einstein field equation (Chapter 7f),

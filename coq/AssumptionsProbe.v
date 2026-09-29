@@ -44,8 +44,8 @@ Print Assumptions master_non_circular_mu_zero_locc.
    PSD / column-contractive / trace / quantum-model bridge
    ============================================================ *)
 Print Assumptions master_psd_iff_column_contractive.
-Print Assumptions master_trace_column_contractive_iff_quantum_model.
-Print Assumptions master_trace_quantum_model_unfolds.
+Print Assumptions master_trace_column_contractive_iff_npa_model.
+Print Assumptions master_trace_npa_model_unfolds.
 Print Assumptions master_trace_quantum_bridge_forces_psd.
 
 (* ============================================================

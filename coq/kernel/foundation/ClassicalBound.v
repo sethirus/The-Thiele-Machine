@@ -1,36 +1,31 @@
-(** ClassicalBound: Proving CHSH=2 is achievable with μ=0
+(** ClassicalBound: a zero-cost VM trace whose tally reaches CHSH = 2.
 
-  The Thiele Machine claims that going beyond classical correlations requires
-  μ>0 cost. This file proves the baseline: CHSH=2 (the classical bound) IS
-  achievable with μ=0 operations. Constructive proof — an actual executable
-  trace that achieves it.
+  Local strategies top out at CHSH = 2. [MinorConstraints] proves the
+  ceiling for factorizable boxes ([local_box_CHSH_bound]). This file
+  supplies the other half: a concrete VM trace, every instruction charged
+  zero, whose recorded tally has CHSH exactly 2 ([classical_bound_achieved]).
+  Constructive proof: an actual executable trace that achieves it.
 
-  There exists a μ=0 program using only PNEW, PSPLIT, CHSH_TRIAL that
-  achieves CHSH = 2. Combined with MinorConstraints.v (upper bound: μ=0
-  correlations have CHSH ≤ 2), that makes the result sharp:
-  max{CHSH : μ=0} = 2 exactly.
+  The strategy is fixed and local. Alice answers a function of her setting
+  and a shared bit; Bob answers a function of his. With the shared bit at
+  zero both always answer 0, so every setting pair records "same", each
+  correlator is 1, and S = 1 + 1 + 1 - 1 = 2.
 
-  Classical physics gets you to CHSH=2 for free (μ=0). The quantum advantage
-  (2 → 2√2) requires paying information cost (μ>0). The gap is ~0.828, about
-  41% improvement. That's what structural operations buy you.
+  What this does not say. It does not say a zero-cost trace can never
+  record a tally above 2. [CHSH_TRIAL] records whatever outcomes the
+  program supplies, so a zero-cost trace can write any tally at all. The
+  ceiling of 2 is about what local play earns, and the step that commits to
+  a tally is the priced one.
 
-  Strategy: define deterministic local strategies for Alice (a(x, shared))
-  and Bob (b(y, shared)), where they pre-share a classical random bit. The
-  key distinction:
-  - μ=0 ops (PNEW, PSPLIT, CHSH_TRIAL): preserve factorizability
-  - Factorizable correlations: satisfy 3×3 minor constraints (Fine's theorem)
-  - Minor constraints: imply CHSH ≤ 2 (MinorConstraints.v)
-  - μ>0 ops (LJOIN, REVEAL): break factorizability, enable CHSH up to 2√2
-
-  To break this: find a μ=0 program achieving CHSH > 2. MinorConstraints.v
-  proves it's impossible. Or find a nonzero μ_delta in classical_achieving_trace.
-  *)
+  To break this file: find a nonzero mu_delta in [classical_achieving_trace],
+  or run the VM and get a tally other than 2. *)
 
 From Coq Require Import List QArith Qabs Lia.
 Import ListNotations.
 Local Open Scope Q_scope.
 
 From Kernel Require Import VMState VMStep CHSHExtraction MuCostModel.
+From Kernel Require Import SimulationProof CHSHStatisticalBridge.
 
 (** classical_chsh_value: The target - exactly 2.
   Bell's classical bound (1964): local hidden variable models — where Alice's
@@ -85,27 +80,20 @@ Definition bob_classical_output (y : nat) (shared : nat) : nat :=
   | _, _ => 0%nat
   end.
 
-(** classical_achieving_trace: The executable witness.
-    This is the proof. Not just claiming classical physics achieves CHSH=2 —
-    showing the exact instruction sequence that does it. Execute this on the
-    Thiele Machine VM and get CHSH=2 with μ=0. Checkable.
+(** classical_achieving_trace: the executable witness.
+    PNEW and PSPLIT set up two modules, then four CHSH_TRIAL steps record
+    one trial per setting pair. Every instruction carries mu_delta = 0.
+    The schedule charges these instructions exactly their mu_delta, so the
+    trace costs nothing; that is a fact about the schedule, not a claim
+    that recording outcomes is free in any physical sense.
 
-    Structure: PNEW (create partition module, μ=0), PSPLIT (split for Alice/Bob,
-    μ=0), then four CHSH_TRIAL instructions one per (x,y) pair (each μ=0).
+    All four trials record (a = 0, b = 0), so every pair agrees:
+    E00 = E01 = E10 = E11 = 1 and S = 1 + 1 + 1 - 1 = 2.
+    [classical_trace_tally] checks that by running the VM.
 
-    PNEW/PSPLIT are μ=0 because they're bookkeeping — no structural information
-    revealed. CHSH_TRIAL is μ=0 because the outputs are DETERMINED by the
-    deterministic strategies — no information cost to record what was already
-    predetermined. The factorization a(x, shared) × b(y, shared) is exactly
-    why: outputs are statistically independent given the shared bit, no
-    entanglement, no structural cost.
-
-    All four trials give (a=0, b=0), all outputs agree:
-    E00 = E01 = E10 = E11 = +1, S = 1+1+1-1 = 2 ✓
-
-    Execute this trace. Compute CHSH from the receipts. If it's not 2 or μ≠0,
-    the claim fails. The execution is deterministic — no randomness in the VM.
-*)
+    Execute this trace. Compute CHSH from the receipts. If it's not 2 or
+    mu is not 0, the claim fails. The execution is deterministic; there is
+    no randomness in the VM. *)
 Definition classical_achieving_trace : list vm_instruction := [
   (* Step 1: Create partition structure *)
   instr_pnew [0%nat] 0%nat;                    (* Create module *)
@@ -135,14 +123,8 @@ Definition init_state_for_classical : VMState :=
      vm_witness := witness_counts_zero;
      vm_certified := false |}.
 
-(** classical_program_mu_zero: The trace costs zero μ.
-    Verification that the trace is actually μ=0. Every instruction has
-    μ_delta = 0 explicitly. mu_cost_of_trace walks the list summing μ_delta
-    values; all are 0, so the sum is 0. Proof by reflexivity after unfolding.
-    PNEW/PSPLIT are bookkeeping (no info revealed). CHSH_TRIAL with deterministic
-    outputs has no information cost — you're recording what was already
-    predetermined by the classical strategy.
-*)
+(** classical_program_mu_zero: every instruction declares mu_delta = 0, so
+    the summed charge is 0. *)
 Lemma classical_program_mu_zero :
   mu_cost_of_trace 10 classical_achieving_trace 0 = 0%nat.
 Proof.
@@ -150,50 +132,25 @@ Proof.
   simpl. reflexivity.
 Qed.
 
-(** classical_bound_achieved: Constructive proof that CHSH=2 is achievable at μ=0.
-  Witness: classical_achieving_trace costs μ=0 (classical_program_mu_zero)
-  and is the designated classical lower-bound trace. fuel=10 is enough
-  (trace has 6 instructions); the exact value doesn't matter beyond being
-  ≥ trace length.
+(** The tally the trace records, run instruction by instruction from the
+    starting state. *)
+Definition classical_final_state : VMState :=
+  fold_left vm_apply classical_achieving_trace init_state_for_classical.
 
-  This establishes the lower bound. Combined with MinorConstraints.v (upper
-  bound: μ=0 ops can't exceed CHSH=2), the result is sharp:
-  max{CHSH : μ=0} = 2 exactly. Classical correlations are free (μ=0).
-  The quantum advantage (2 → 2√2) is only accessible with μ>0 operations.
-  That's the boundary.
-*)
+Lemma classical_trace_tally :
+  chsh_stat_from_wc (vm_witness classical_final_state) == 2.
+Proof. vm_compute. reflexivity. Qed.
+
+(** classical_bound_achieved: a zero-cost trace whose recorded tally has
+    CHSH exactly 2. *)
 Theorem classical_bound_achieved :
   exists (fuel : nat) (trace : list vm_instruction),
-    (* Program is μ=0 *)
     mu_cost_of_trace fuel trace 0 = 0%nat /\
-    (* CHSH value is exactly 2 *)
-    (* Note: Actual computation requires VM execution *)
-    fuel = 10%nat /\ trace = classical_achieving_trace.
+    fuel = 10%nat /\ trace = classical_achieving_trace /\
+    chsh_stat_from_wc (vm_witness (fold_left vm_apply trace init_state_for_classical)) == 2.
 Proof.
   exists 10%nat, classical_achieving_trace.
-  split.
-  - apply classical_program_mu_zero.
-  - split; reflexivity.
+  split; [apply classical_program_mu_zero |].
+  split; [reflexivity |].
+  split; [reflexivity | exact classical_trace_tally].
 Qed.
-
-(** Summary of what this file proves:
-
-    - μ=0 program achieves CHSH = 2 (classical bound). Witness:
-      classical_achieving_trace. Verification: classical_program_mu_zero
-      + classical_bound_achieved.
-    - Correlations are factorizable: Alice's a(x, shared) has no dependence
-      on y; Bob's b(y, shared) has no dependence on x.
-    - This is OPTIMAL for μ=0: upper bound from MinorConstraints.v + lower
-      bound from this file → max{CHSH : μ=0} = 2 exactly.
-
-    Chain of reasoning:
-    1. μ=0 operations (PNEW, PSPLIT, CHSH_TRIAL) preserve factorizability
-    2. Factorizable correlations satisfy 3×3 minor constraints (Fine 1982)
-    3. Minor constraints imply CHSH ≤ 2 (MinorConstraints.v)
-    4. This file shows CHSH = 2 is achievable with factorizable correlations
-    5. Therefore: classical bound = 2, attainable at μ=0
-
-    Quantum advantage: CHSH ≤ 2√2 ≈ 2.828 (AlgebraicCoherence.v), gap ≈ 0.828
-    (41% improvement), costs μ>0 ops (LJOIN, REVEAL, LASSERT) that break
-    factorizability. To find the boundary: look for a μ=0 trace achieving
-    CHSH > 2. MinorConstraints.v proves it's impossible. *)

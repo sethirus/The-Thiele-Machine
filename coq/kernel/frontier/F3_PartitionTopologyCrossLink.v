@@ -67,9 +67,9 @@
 
     *** Cross-link character.
 
-    Genuinely two-link: drops of either ingredient leave the conclusion
-    underdetermined. See [F3_drop_calibration_breaks_prediction] and
-    [F3_drop_sum_zero_breaks_prediction].
+    The proof uses both ingredients. The scalar examples
+    [unit_residual_is_nonzero] and [pi_times_unit_is_nonzero] do not
+    establish their independence on VM states.
 
     The theorem uses no project-local axioms.
 *)
@@ -195,15 +195,10 @@ Proof.
   lra.
 Qed.
 
-(** ** Independence of the two ingredients (load-bearing checks). *)
+(** ** Scalar examples. These do not construct VM counter-instances. *)
 
-(** Counter-instance: with the structural sum-zero identity alone (no
-    calibration), the cumulative geometric defect can be anything.
-    Witnessed by exhibiting a state with non-zero geometric defect on
-    a single-module list (calibration vacuously empty if the modules
-    list is empty, so we use a different shape: the geometric-defect
-    sum is what it is regardless of mu_laplacian summing to zero). *)
-Theorem F3_drop_calibration_breaks_prediction :
+(** A unit residual is nonzero. *)
+Theorem unit_residual_is_nonzero :
   forall (sum_geom : R),
     sum_geom = 1%R ->
     sum_geom <> 0%R.
@@ -211,12 +206,8 @@ Proof.
   intros sum_geom Hsg. lra.
 Qed.
 
-(** Counter-instance: with calibration alone (no structural sum-zero
-    identity), the cumulative μ-Laplacian could be nonzero, hence the
-    geometric defect could be nonzero. Captured by the abstract scenario
-    where Σ mu_laplacian = c ≠ 0 and the calibration-summed equation
-    forces Σ geometric_defect = π · c ≠ 0. *)
-Theorem F3_drop_sum_zero_breaks_prediction :
+(** Scaling a unit residual by pi keeps it nonzero. *)
+Theorem pi_times_unit_is_nonzero :
   forall (sum_mu : R),
     sum_mu = 1%R ->
     (PI * sum_mu)%R <> 0%R.

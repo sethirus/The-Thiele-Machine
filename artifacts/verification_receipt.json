@@ -1,17 +1,17 @@
 {
   "schema": "thiele-verification-receipt-v1",
-  "generated": "2026-07-23T02:53:16.820690+00:00",
+  "generated": "2026-09-29T13:20:37.583515+00:00",
   "generator": "scripts/generate_verification_receipt.py",
   "verdict": "ALL CLAIMS VERIFIED",
   "repository": "/workspaces/The-Thiele-Machine",
   "phases": {
     "coq_build": {
       "status": "PASS",
-      "note": "281/281 .vo present, 0 Admitted (excl. patches/archive)"
+      "note": "433/433 .vo present, 0 Admitted (excl. patches/archive)"
     },
     "inquisitor": {
       "status": "PASS",
-      "note": "fresh run: HIGH=0 MEDIUM=0 LOW=0 (rc=0, 106s)"
+      "note": "fresh run: HIGH=0 MEDIUM=0 LOW=0 (rc=0, 154s)"
     },
     "structural_advantage": {
       "grid": "8x8",
@@ -28,8 +28,8 @@
     },
     "test_suite": {
       "status": "PASS",
-      "summary": "970 passed in 140.67s (0:02:20)",
-      "elapsed_s": 142.4
+      "summary": "1130 passed in 115.77s (0:01:55)",
+      "elapsed_s": 116.4
     }
   },
   "claims_verified": [
@@ -39,7 +39,7 @@
     "Separation: classical observer cannot distinguish Thiele-distinct states (ShadowProjection.v)",
     "Structural Advantage: blind search pays iterations, sighted search pays mu; gap unbounded (StructuralAdvantage.v + test_structural_advantage.py)",
     "Elliptope gate: a passing check entails elliptope membership; the PR box is never accepted (elliptope_check_full_sound, ElliptopeGate.v)",
-    "Pointer observables: all five deployed metering disciplines are unique pointers, closed under the global context (five_disciplines_are_pointers, PointerObservableReductions.v)",
+    "Pointer observables: five synthetic labelled mirror models satisfy their stipulated selected-flag predicates, with no deployed correspondence claim (five_labeled_models_have_selected_pointer, PointerObservableReductions.v)",
     "Hardware Parity: all 46 opcodes agree across Coq/Python/OCaml (test suite)"
   ]
 }

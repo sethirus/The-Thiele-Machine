@@ -78,7 +78,7 @@ if [[ ${#MESSAGES[@]} -gt 0 ]]; then
   done
   echo "" >&2
   echo "REQUIRED ACTION:" >&2
-  echo "  1. Rebuild all Coq proofs:  make -C coq -j4" >&2
+  echo "  1. Rebuild all Coq proofs:  make -C coq -j1" >&2
   echo "  2. Verify INQUISITOR passes: python3 scripts/inquisitor.py" >&2
   echo "  3. Update claim_ledger.md if any theorem's status changed" >&2
   echo "" >&2

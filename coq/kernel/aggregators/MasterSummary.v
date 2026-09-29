@@ -1,7 +1,7 @@
-(** MasterSummary: audit-facing index of the core kernel claims.
+(** MasterSummary: audit-facing index of selected established kernel claims.
 
   This file is here to make the repository harder to misread. It re-exports
-  the big results, but it also labels what kind of result each one is:
+  a selected stable claim set, but it also labels what kind of result each is:
   definitional restatement, direct algebraic theorem, conditional bridge,
   wrapper around an earlier theorem, or verification-transfer claim.
 
@@ -281,14 +281,14 @@ Definition verification_semantic_boundary : semantic_boundary_entry :=
        [ "HardwareBisimulation.v is a cost/PC abstraction, not a full register/memory/graph equivalence theorem.";
          "Fuller RTL correspondence lives elsewhere in the tree and should not be collapsed into this one theorem." ] |}.
 
-Definition trace_quantum_model_semantic_boundary : semantic_boundary_entry :=
-  {| boundary_name := "trace_quantum_model meaning";
+Definition trace_npa_model_semantic_boundary : semantic_boundary_entry :=
+  {| boundary_name := "trace_npa_model meaning";
      boundary_from := FormalTheoremLayer;
      boundary_to := ExecutableSemanticsLayer;
      boundary_links :=
-       [ "trace_quantum_model fuel trace s_init is defined in TsirelsonQuantumModel.v";
-         "It unfolds to quantum_realizable (trace_zero_marginal_npa fuel trace s_init)";
-         "quantum_realizable unfolds to symmetric5 M /\ PSD5 M in NPAMomentMatrix.v" ];
+       [ "trace_npa_model fuel trace s_init is defined in TsirelsonQuantumModel.v";
+         "It unfolds to npa_psd (trace_zero_marginal_npa fuel trace s_init)";
+         "npa_psd unfolds to symmetric5 M /\ PSD5 M in NPAMomentMatrix.v" ];
      boundary_status := Definitional;
      boundary_external_boundary :=
        [ "This is an internal mathematical classification of the extracted moment matrix.";
@@ -368,7 +368,7 @@ Definition audit_master_non_circularity : HonestClaim :=
 
 Definition audit_master_tsirelson_conditional : HonestClaim :=
   {| claim_name := "master_tsirelson_conditional";
-     claim_sources := [ "BornRuleLinearity.born_rule_unique"; "TsirelsonQuantumModel.trace_quantum_model_connection_closed" ];
+     claim_sources := [ "BornRuleLinearity.born_rule_unique"; "TsirelsonQuantumModel.trace_npa_model_connection_closed" ];
      claim_scope := ConditionalPhysical;
      claim_status := StatusConditional;
      claim_role := NewComposition;
@@ -392,9 +392,9 @@ Definition audit_master_psd_iff_column_contractive : HonestClaim :=
      claim_not_imply :=
        [ "Does not prove a runtime trace satisfies PSD; it classifies the algebraic condition once the correlators are given." ] |}.
 
-Definition audit_master_trace_column_contractive_iff_quantum_model : HonestClaim :=
-  {| claim_name := "master_trace_column_contractive_iff_quantum_model";
-     claim_sources := [ "QuantumPartitionPSD.trace_column_contractive_iff_trace_quantum_model" ];
+Definition audit_master_trace_column_contractive_iff_npa_model : HonestClaim :=
+  {| claim_name := "master_trace_column_contractive_iff_npa_model";
+     claim_sources := [ "QuantumPartitionPSD.trace_column_contractive_iff_trace_npa_model" ];
      claim_scope := ExecutableBridge;
      claim_status := StatusUnconditional;
      claim_role := WrapperOnly;
@@ -403,15 +403,15 @@ Definition audit_master_trace_column_contractive_iff_quantum_model : HonestClaim
      claim_not_imply :=
        [ "Does not say the trace came from a physical quantum device." ] |}.
 
-Definition audit_master_trace_quantum_model_unfolds : HonestClaim :=
-  {| claim_name := "master_trace_quantum_model_unfolds";
-     claim_sources := [ "TsirelsonQuantumModel.trace_quantum_model"; "NPAMomentMatrix.quantum_realizable" ];
+Definition audit_master_trace_npa_model_unfolds : HonestClaim :=
+  {| claim_name := "master_trace_npa_model_unfolds";
+     claim_sources := [ "TsirelsonQuantumModel.trace_npa_model"; "NPAMomentMatrix.npa_psd" ];
      claim_scope := Definitional;
      claim_status := StatusDefinitional;
      claim_role := DefinitionalRestatement;
      claim_premises :=
        [ "trace_zero_marginal_npa fuel trace s_init is defined";
-         "quantum_realizable is defined as symmetric5 /\ PSD5 on the induced 5x5 moment matrix" ];
+         "npa_psd is defined as symmetric5 /\ PSD5 on the induced 5x5 moment matrix" ];
      claim_premise_kinds := [ PremiseSemantic; PremiseSyntactic ];
      claim_not_imply :=
        [ "Does not prove the trace satisfies the predicate; it only exposes what the predicate means.";
@@ -419,7 +419,7 @@ Definition audit_master_trace_quantum_model_unfolds : HonestClaim :=
 
 Definition audit_master_trace_quantum_bridge_forces_psd : HonestClaim :=
   {| claim_name := "master_trace_quantum_bridge_forces_psd";
-     claim_sources := [ "TsirelsonQuantumModel.trace_quantum_bridge_coherent_implies_quantum_model" ];
+     claim_sources := [ "TsirelsonQuantumModel.trace_quantum_bridge_coherent_implies_npa_model" ];
      claim_scope := ExecutableBridge;
      claim_status := StatusConditional;
      claim_role := NewComposition;
@@ -597,9 +597,13 @@ Definition audit_master_verification_preserved_observables : HonestClaim :=
        [ "Does not export a theorem about every hardware observable.";
          "Pins down exactly the observables preserved here: PC and μ-accumulator." ] |}.
 
-(** The reductions tier: five real-world systems instantiated against the
-    kernel's abstract records (kernel/reductions/). Each row registers the
-    file's headline result with its honest scope and non-implications. *)
+(** The reductions tier: five real-world systems read against the kernel's
+    abstract records (kernel/reductions/). Each row registers the file's
+    headline result with its honest scope and non-implications. Each file is
+    a domain-inspired abstract wrapper, not a protocol implementation or a
+    correspondence theorem for a deployed system. [TPMQuoteGap] is a
+    separate, explicitly scoped abstraction of fields from a published
+    specification. *)
 
 Definition audit_master_pos_finality_reduction : HonestClaim :=
   {| claim_name := "master_pos_finality_reduction";
@@ -614,8 +618,9 @@ Definition audit_master_pos_finality_reduction : HonestClaim :=
          "slashing condition stake_at_risk PoSFinalize >= 1 (positive direction only)" ];
      claim_premise_kinds := [ PremiseStructural; PremiseStructural ];
      claim_not_imply :=
-       [ "Does not model economic rationality, network timing, or validator collusion.";
-         "Does not price any event other than the finalization flip." ] |}.
+       [ "This is a synthetic explicit-finalize Boolean gadget, not a Casper accountable-safety model.";
+         "Does not model checkpoints, quorum weights, votes, economic rationality, network timing, or validator collusion.";
+         "Does not price any event other than the selected finalization flip." ] |}.
 
 Definition audit_master_gas_metering_reduction : HonestClaim :=
   {| claim_name := "master_gas_metering_reduction";
@@ -630,8 +635,9 @@ Definition audit_master_gas_metering_reduction : HonestClaim :=
        [ "the trusted local-predicate pricing laws (charged steps cost >= 1, uncharged steps are free)" ];
      claim_premise_kinds := [ PremiseStructural ];
      claim_not_imply :=
-       [ "Does not bound gate counts or model gas refunds.";
-         "gas_schedule_exactness itself is the kernel characterization re-read in fee-market vocabulary; the failure modes and concrete instances are the new content." ] |}.
+       [ "This is a local Boolean charging wrapper, not an EVM opcode or state-transition model.";
+         "Does not bound gate counts or model refunds, access warmth, storage, or protocol state roots.";
+         "gas_schedule_exactness is the kernel characterization re-read in fee-market vocabulary." ] |}.
 
 Definition audit_master_tee_attestation_reduction : HonestClaim :=
   {| claim_name := "master_tee_attestation_reduction";
@@ -646,24 +652,25 @@ Definition audit_master_tee_attestation_reduction : HonestClaim :=
        [ "attestation soundness and completeness stated over the kernel's mu = 1 verification problem" ];
      claim_premise_kinds := [ PremiseStructural ];
      claim_not_imply :=
-       [ "Does not model side channels, key management, or the vendor signing PKI.";
-         "The ineliminable trust it names is structural, not an implementation audit." ] |}.
+       [ "The report is an abstract BareTranscript paired with a natural number; the collision is not a TEE replay attack.";
+         "Does not model PCRs, MRENCLAVE, freshness, side channels, key management, or a vendor signing PKI.";
+         "The unit dereference cost is stipulated, not a runtime or energy bound." ] |}.
 
 Definition audit_master_transparency_log_reduction : HonestClaim :=
   {| claim_name := "master_transparency_log_reduction";
      claim_sources :=
-       [ "TransparencyLog.transparency_log_escape";
-         "TransparencyLog.log_free_verifier_impossible";
-         "TransparencyLog.split_view_witness" ];
+       [ "TransparencyLog.abstract_log_bit_verifier";
+         "TransparencyLog.abstract_bare_verifier_impossible";
+         "TransparencyLog.abstract_mu_collision_witness" ];
      claim_scope := Structural;
      claim_status := StatusConditional;
      claim_role := NewComposition;
      claim_premises :=
-       [ "a HardnessHypothesis (the log's unforgeability is named, not proven)" ];
+       [ "a CommitmentBitContract (exact agreement between the bit and the claim; assumed, not a cryptographic reduction)" ];
      claim_premise_kinds := [ PremiseStructural ];
      claim_not_imply :=
        [ "Does not model gossip protocols, log governance, or Merkle internals.";
-         "log_free_verifier_impossible is the kernel's bare-setting impossibility re-exported in CT vocabulary." ] |}.
+         "abstract_bare_verifier_impossible is the kernel's bare-setting impossibility under a CT-inspired wrapper, not an RFC 9162 theorem." ] |}.
 
 Definition audit_master_proof_carrying_reduction : HonestClaim :=
   {| claim_name := "master_proof_carrying_reduction";
@@ -679,8 +686,9 @@ Definition audit_master_proof_carrying_reduction : HonestClaim :=
          "level_k_certified trace semantics for the floor" ];
      claim_premise_kinds := [ PremiseStructural; PremiseSemantic ];
      claim_not_imply :=
-       [ "The floor bounds certification events only - not gate counts, SNARK verifier circuit size, prover time, or proof length.";
-         "Does not model zero-knowledge hiding or soundness amplification." ] |}.
+       [ "The carried natural is assumed equal to mu; no code, policy, verification condition, proof object, or checker is modeled.";
+         "The floor bounds certification events only, not gate counts, verifier circuit size, prover time, or proof length.";
+         "Does not model interaction, zero-knowledge hiding, or soundness amplification." ] |}.
 
 (* The second axis splits into two claims so the unconditional substrate-level
    spine is never conflated with the 51-opcode VM instance, whose undecidability
@@ -791,8 +799,8 @@ Definition master_claim_ledger : list HonestClaim :=
     audit_master_non_circularity;
     audit_master_tsirelson_conditional;
     audit_master_psd_iff_column_contractive;
-    audit_master_trace_column_contractive_iff_quantum_model;
-    audit_master_trace_quantum_model_unfolds;
+    audit_master_trace_column_contractive_iff_npa_model;
+    audit_master_trace_npa_model_unfolds;
     audit_master_trace_quantum_bridge_forces_psd;
     audit_master_honest_nofi_structure_requirement;
     audit_master_honest_nofi_trace_separation;
@@ -833,8 +841,8 @@ Definition exact_mechanism_file_map : list string :=
     "2. structure-addition predicate: coq/kernel/nfi/NoFreeInsight.v";
     "3. trace and CHSH observable extraction: coq/kernel/quantum/CHSHExtraction.v";
     "3. trace correlators and trace_zero_marginal_npa construction: coq/kernel/nfi/MuLedgerQuantumBridge.v";
-    "4. trace_quantum_bridge_coherent and trace_quantum_model: coq/kernel/quantum/TsirelsonQuantumModel.v";
-    "4. quantum_realizable: coq/kernel/quantum/NPAMomentMatrix.v";
+    "4. trace_quantum_bridge_coherent and trace_npa_model: coq/kernel/quantum/TsirelsonQuantumModel.v";
+    "4. npa_psd: coq/kernel/quantum/NPAMomentMatrix.v";
     "4. trace_column_contractive: coq/kernel/nfi/MuLedgerQuantumBridge.v";
     "5. PSD <-> column contractive theorem chain: coq/kernel/quantum/QuantumPartitionPSD.v";
     "5. trace bridge to Tsirelson: coq/kernel/quantum/TsirelsonQuantumModel.v";
@@ -914,7 +922,7 @@ Qed.
 Definition exposed_trace_bridge_spine : Prop :=
   forall fuel trace s_init,
     trace_quantum_bridge_coherent fuel trace s_init ->
-    trace_quantum_model fuel trace s_init /\
+    trace_npa_model fuel trace s_init /\
     trace_column_contractive fuel trace s_init /\
     PSD5 (nat_matrix_to_fin5 (npa_to_matrix (trace_zero_marginal_npa fuel trace s_init))) /\
     (Rabs (CHSH
@@ -927,10 +935,10 @@ Theorem exposed_trace_bridge_content :
   exposed_trace_bridge_spine.
 Proof.
   intros fuel trace s_init Hcoh.
-  pose proof (trace_quantum_model_connection_closed fuel trace s_init Hcoh) as [Hmodel Hbound].
-  pose proof (proj2 (trace_column_contractive_iff_trace_quantum_model fuel trace s_init) Hmodel) as Hcontractive.
+  pose proof (trace_npa_model_connection_closed fuel trace s_init Hcoh) as [Hmodel Hbound].
+  pose proof (proj2 (trace_column_contractive_iff_trace_npa_model fuel trace s_init) Hmodel) as Hcontractive.
   pose proof Hmodel as Hmodel_psd.
-  unfold trace_quantum_model, quantum_realizable in Hmodel_psd.
+  unfold trace_npa_model, npa_psd in Hmodel_psd.
   destruct Hmodel_psd as [_ Hpsd].
   split.
   - exact Hmodel.
@@ -1265,7 +1273,7 @@ Definition exposed_nofi_to_discrete_einstein_from_psplit_bekenstein_calibration_
 
 Definition exposed_import_spine : list string :=
   [ "QuantumPartitionPSD.npa_psd_iff_column_contractive -> exposed_zero_marginal_psd_contractivity";
-    "TsirelsonQuantumModel.trace_quantum_model_connection_closed + QuantumPartitionPSD.trace_column_contractive_iff_trace_quantum_model -> exposed_trace_bridge_content";
+    "TsirelsonQuantumModel.trace_npa_model_connection_closed + QuantumPartitionPSD.trace_column_contractive_iff_trace_npa_model -> exposed_trace_bridge_content";
     "NonCircularityAudit.non_circularity_verified + sub-certificates -> exposed_non_circularity_content";
     "HardwareBisimulation.complete_verification_chain -> exposed_verification_surface_content";
     "HonestNoFI_TheoremsWithoutAssumptions.honest_information_reduction_requires_structure_addition -> exposed_honest_nofi_structure_content";
@@ -1300,8 +1308,8 @@ Definition master_exported_theorem_names : list string :=
     "master_non_circularity";
     "master_tsirelson_conditional";
     "master_psd_iff_column_contractive";
-    "master_trace_column_contractive_iff_quantum_model";
-    "master_trace_quantum_model_unfolds";
+    "master_trace_column_contractive_iff_npa_model";
+    "master_trace_npa_model_unfolds";
     "master_trace_quantum_bridge_forces_psd";
     "master_honest_nofi_structure_requirement";
     "master_honest_nofi_trace_separation";
@@ -1342,9 +1350,9 @@ Definition master_theorem_metadata_ledger : list TheoremMetadata :=
        metadata_scope := ConditionalPhysical; metadata_status := StatusConditional; metadata_role := NewComposition |};
     {| metadata_name := "master_psd_iff_column_contractive";
        metadata_scope := Algebraic; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
-    {| metadata_name := "master_trace_column_contractive_iff_quantum_model";
+    {| metadata_name := "master_trace_column_contractive_iff_npa_model";
        metadata_scope := ExecutableBridge; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
-    {| metadata_name := "master_trace_quantum_model_unfolds";
+    {| metadata_name := "master_trace_npa_model_unfolds";
        metadata_scope := Definitional; metadata_status := StatusDefinitional; metadata_role := DefinitionalRestatement |};
     {| metadata_name := "master_trace_quantum_bridge_forces_psd";
        metadata_scope := ExecutableBridge; metadata_status := StatusConditional; metadata_role := NewComposition |};
@@ -1419,7 +1427,7 @@ Definition summary_file_theorem_names : list string :=
     "master_assumption_artifact_is_pinned";
     "master_assumption_boundary_explicit";
     "master_verification_scope_is_explicit";
-    "master_open_obligations_are_explicit";
+    "master_project_local_admits_are_explicit";
     "kernel_story_coverage_ledger_is_semantically_sufficient";
     "master_mu_zero_witness_sound";
     "master_mu_zero_algebraic_bound";
@@ -1431,8 +1439,8 @@ Definition summary_file_theorem_names : list string :=
     "master_non_circularity";
     "master_tsirelson_conditional";
     "master_psd_iff_column_contractive";
-    "master_trace_column_contractive_iff_quantum_model";
-    "master_trace_quantum_model_unfolds";
+    "master_trace_column_contractive_iff_npa_model";
+    "master_trace_npa_model_unfolds";
     "master_trace_quantum_bridge_forces_psd";
     "master_honest_nofi_structure_requirement";
     "master_honest_nofi_trace_separation";
@@ -1463,7 +1471,7 @@ Definition kernel_story_coverage_ledger : list kernel_story_coverage_entry :=
        coverage_support := [ "master_mu_zero_algebraic_bound"; "master_classical_bound"; "master_algebraic_tsirelson"; "master_psd_iff_column_contractive" ];
        coverage_note := "Algebraic, classical, and PSD/contractive CHSH structure are in scope." |};
     {| coverage_area := AreaQuantumBridge;
-       coverage_support := [ "master_tsirelson_conditional"; "master_trace_column_contractive_iff_quantum_model"; "master_trace_quantum_model_unfolds"; "master_trace_quantum_bridge_forces_psd" ];
+       coverage_support := [ "master_tsirelson_conditional"; "master_trace_column_contractive_iff_npa_model"; "master_trace_npa_model_unfolds"; "master_trace_quantum_bridge_forces_psd" ];
        coverage_note := "Trace-level bridge claims are explicit and scope-limited." |};
     {| coverage_area := AreaNoFreeInsight;
        coverage_support :=
@@ -1485,14 +1493,14 @@ Definition kernel_story_coverage_ledger : list kernel_story_coverage_entry :=
        coverage_support := [ "master_summary_assumptions"; "master_summary_declares_no_hidden_project_assumptions" ];
        coverage_note := "Assumption recording is explicit, but exact dependency extraction is bounded separately." |};
     {| coverage_area := AreaSemanticBoundary;
-       coverage_support := [ "chsh_trace_semantic_boundary"; "verification_semantic_boundary"; "trace_quantum_model_semantic_boundary"; "thermo_einstein_semantic_boundary" ];
+       coverage_support := [ "chsh_trace_semantic_boundary"; "verification_semantic_boundary"; "trace_npa_model_semantic_boundary"; "thermo_einstein_semantic_boundary" ];
        coverage_note := "Semantic boundaries are explicit in the summary file, including the conditional thermo-to-Einstein corridor." |};
     {| coverage_area := AreaPhysicsBoundary;
        coverage_support :=
          [ "master_nofi_to_discrete_einstein";
            "master_nofi_to_discrete_einstein_from_bekenstein_calibration";
            "master_physics_reading_inventory";
-           "master_remaining_open_obligations";
+           "master_remaining_project_local_admits";
            "master_permanent_flip_heat" ];
        coverage_note := "Physics claims, discrete-Einstein entry theorems, and nonclaims are partitioned explicitly." |} ].
 
@@ -1530,7 +1538,7 @@ Qed.
 
 Definition master_inquisitor_assumption_artifact : external_artifact_reference :=
   {| artifact_path := "coq/INQUISITOR_ASSUMPTIONS.json";
-     artifact_sha256 := "192c3a8b5bb33ae9ddb15c8d1a278105ea2f17309559e0f6dc47061c309c945a";
+     artifact_sha256 := "1227dfd0c4127b4a32940acd85f251b39e8223a4ee446e39a85fb43ace51cf70";
      artifact_role := "machine-generated Inquisitor assumption-surface artifact" |}.
 
 Definition master_assumption_manifest_boundary : list manifest_boundary_entry :=
@@ -1554,7 +1562,7 @@ Definition master_assumption_manifest_boundary : list manifest_boundary_entry :=
 Definition master_assumption_artifact_pinned : Prop :=
   artifact_path master_inquisitor_assumption_artifact = "coq/INQUISITOR_ASSUMPTIONS.json" /\
   artifact_sha256 master_inquisitor_assumption_artifact =
-    "192c3a8b5bb33ae9ddb15c8d1a278105ea2f17309559e0f6dc47061c309c945a".
+    "1227dfd0c4127b4a32940acd85f251b39e8223a4ee446e39a85fb43ace51cf70".
 
 Lemma master_assumption_artifact_path_pinned :
   artifact_path master_inquisitor_assumption_artifact = "coq/INQUISITOR_ASSUMPTIONS.json".
@@ -1564,7 +1572,7 @@ Qed.
 
 Lemma master_assumption_artifact_sha256_pinned :
   artifact_sha256 master_inquisitor_assumption_artifact =
-    "192c3a8b5bb33ae9ddb15c8d1a278105ea2f17309559e0f6dc47061c309c945a".
+    "1227dfd0c4127b4a32940acd85f251b39e8223a4ee446e39a85fb43ace51cf70".
 Proof.
   reflexivity.
 Qed.
@@ -1575,7 +1583,7 @@ Proof.
   change
     (artifact_path master_inquisitor_assumption_artifact = "coq/INQUISITOR_ASSUMPTIONS.json" /\
      artifact_sha256 master_inquisitor_assumption_artifact =
-       "192c3a8b5bb33ae9ddb15c8d1a278105ea2f17309559e0f6dc47061c309c945a").
+       "1227dfd0c4127b4a32940acd85f251b39e8223a4ee446e39a85fb43ace51cf70").
   split.
   - exact master_assumption_artifact_path_pinned.
   - exact master_assumption_artifact_sha256_pinned.
@@ -1696,18 +1704,21 @@ Lemma hardware_chain_connectivity_check :
   1 <> 0.
 Proof. discriminate. Qed.
 
-(* SAFE: Zero remaining obligations is the correct final state; all Admitted
-   have been closed across the entire coq/ tree. *)
-Definition master_remaining_open_obligations : list open_obligation_entry := [].
+(* This list records project-local proof holes in the selected summary claim
+   set. It says nothing about research conjectures or about modules outside
+   this ledger. All Admitted declarations in the Coq tree are checked by
+   separate repository gates. *)
+(* SAFE: the empty list is the correct content; there are no such holes. *)
+Definition master_remaining_project_local_admits : list open_obligation_entry := [].
 
-Theorem master_open_obligations_are_explicit :
-  List.length master_remaining_open_obligations = 0%nat.
+Theorem master_project_local_admits_are_explicit :
+  List.length master_remaining_project_local_admits = 0%nat.
 Proof.
   reflexivity.
 Qed.
 
 Definition master_nonclaim_inventory_statement : Prop :=
-  master_remaining_open_obligations = [] /\
+  master_remaining_project_local_admits = [] /\
   List.length verification_nonclaims_list = 3%nat.
 
 (* [master_nonclaim_inventory_statement] reduces by [unfold; simpl; split;
@@ -1805,7 +1816,7 @@ Proof.
              conjuncts of [master_nonclaim_inventory_statement] reduce to
              literal equalities on the inventory definitions. *)
           unfold master_nonclaim_inventory_statement,
-                 master_remaining_open_obligations.
+                 master_remaining_project_local_admits.
           simpl.
           split; reflexivity. }
 Qed.
@@ -2075,7 +2086,7 @@ Qed.
 
     What this proves:
     - valid Born rules on [-1,1] agree with the imported standard Born rule
-    - under trace_quantum_bridge_coherent, the trace satisfies trace_quantum_model
+    - under trace_quantum_bridge_coherent, the trace satisfies trace_npa_model
       and obeys |CHSH| ≤ 2√2
 
     What this does not prove:
@@ -2086,7 +2097,7 @@ Qed.
    theorem: master_tsirelson_conditional
    status: conditional
    kind: new-composition
-   depends_on: BornRuleLinearity.born_rule_unique; TsirelsonQuantumModel.trace_quantum_model_connection_closed
+   depends_on: BornRuleLinearity.born_rule_unique; TsirelsonQuantumModel.trace_npa_model_connection_closed
    premise_kinds: structural; semantic; physical; standard-library
    new_content_here: composition of two independent exports
    semantic_layer: formal theorem layer -> executable semantics layer
@@ -2098,7 +2109,7 @@ Theorem master_tsirelson_conditional :
     forall (z : R), (-1 <= z <= 1)%R -> P z = born_probability z) /\
   (forall fuel trace s_init,
       trace_quantum_bridge_coherent fuel trace s_init ->
-      trace_quantum_model fuel trace s_init /\
+      trace_npa_model fuel trace s_init /\
       (Rabs (CHSH
         (trace_e00 fuel trace s_init)
         (trace_e01 fuel trace s_init)
@@ -2109,7 +2120,7 @@ Proof.
   - intros P Hvalid z Hz.
     apply born_rule_unique; assumption.
   - intros fuel trace s_init Hcoh.
-    apply trace_quantum_model_connection_closed.
+    apply trace_npa_model_connection_closed.
     exact Hcoh.
 Qed.
 
@@ -2126,7 +2137,7 @@ Qed.
     Each direction is extracted directly via test-vector instantiation of PSD5,
     using quadratic_nonneg_discriminant for the determinant condition.
 
-    In this formalization, zero-marginal quantum realizability is equivalent to
+    In this formalization, PSD of the zero-marginal NPA matrix is equivalent to
     column contractivity. The VM can check that algebraic condition from the
     recorded CHSH_TRIAL outcomes; no extra project-local physics axiom is added here.
 *)
@@ -2165,32 +2176,32 @@ Qed.
   - export of the trace-level biconditional
 
   What this proves:
-  - trace_column_contractive and trace_quantum_model are equivalent at the trace level
+  - trace_column_contractive and trace_npa_model are equivalent at the trace level
 
   What this does not prove:
   - that any given trace satisfies either side of the equivalence
 *)
 (* AUDIT:
-   theorem: master_trace_column_contractive_iff_quantum_model
+   theorem: master_trace_column_contractive_iff_npa_model
    status: unconditional
    kind: export-only
-   depends_on: QuantumPartitionPSD.trace_column_contractive_iff_trace_quantum_model
+   depends_on: QuantumPartitionPSD.trace_column_contractive_iff_trace_npa_model
    premise_kinds: semantic
    new_content_here: none
    semantic_layer: executable semantics layer
    external_interpretation: does not imply the trace came from a physical quantum device
 *)
-Theorem master_trace_column_contractive_iff_quantum_model :
+Theorem master_trace_column_contractive_iff_npa_model :
   forall fuel trace s_init,
     trace_column_contractive fuel trace s_init <->
-    trace_quantum_model fuel trace s_init.
+    trace_npa_model fuel trace s_init.
 Proof.
   intros fuel trace s_init.
-  unfold trace_quantum_model.
-  apply trace_column_contractive_iff_trace_quantum_model.
+  unfold trace_npa_model.
+  apply trace_column_contractive_iff_trace_npa_model.
 Qed.
 
-(** Theorem 6c: Explicit unfolding of trace_quantum_model.
+(** Theorem 6c: Explicit unfolding of trace_npa_model.
 
   Classification:
   - definitional
@@ -2198,29 +2209,29 @@ Qed.
   - restatement by unfolding imported definitions
 
   What this proves:
-  - trace_quantum_model means symmetry plus PSD of the induced 5x5 moment matrix
+  - trace_npa_model means symmetry plus PSD of the induced 5x5 moment matrix
 
   What this does not prove:
   - that any particular trace satisfies the predicate
 *)
 (* AUDIT:
-   theorem: master_trace_quantum_model_unfolds
+   theorem: master_trace_npa_model_unfolds
    status: definitional
    kind: definitional-restatement
-   depends_on: TsirelsonQuantumModel.trace_quantum_model; NPAMomentMatrix.quantum_realizable
+   depends_on: TsirelsonQuantumModel.trace_npa_model; NPAMomentMatrix.npa_psd
    premise_kinds: syntactic; semantic
    new_content_here: none beyond unfolding imported definitions
    semantic_layer: executable semantics layer
    external_interpretation: exposes the predicate meaning without proving it holds
 *)
-Theorem master_trace_quantum_model_unfolds :
+Theorem master_trace_npa_model_unfolds :
   forall fuel trace s_init,
-    trace_quantum_model fuel trace s_init <->
+    trace_npa_model fuel trace s_init <->
     let M := nat_matrix_to_fin5 (npa_to_matrix (trace_zero_marginal_npa fuel trace s_init)) in
     symmetric5 M /\ PSD5 M.
 Proof.
   intros fuel trace s_init.
-  unfold trace_quantum_model, quantum_realizable.
+  unfold trace_npa_model, npa_psd.
   tauto.
 Qed.
 
@@ -2242,9 +2253,9 @@ Qed.
    theorem: master_trace_quantum_bridge_forces_psd
    status: conditional
    kind: new-composition
-   depends_on: TsirelsonQuantumModel.trace_quantum_bridge_coherent_implies_quantum_model
+   depends_on: TsirelsonQuantumModel.trace_quantum_bridge_coherent_implies_npa_model
    premise_kinds: semantic; physical
-   new_content_here: projection from quantum_realizable to its PSD component
+   new_content_here: projection from npa_psd to its PSD component
    semantic_layer: executable semantics layer
    external_interpretation: does not turn a semantic certificate into an empirical one
 *)
@@ -2254,8 +2265,8 @@ Theorem master_trace_quantum_bridge_forces_psd :
     PSD5 (nat_matrix_to_fin5 (npa_to_matrix (trace_zero_marginal_npa fuel trace s_init))).
 Proof.
   intros fuel trace s_init Hcoh.
-  pose proof (trace_quantum_bridge_coherent_implies_quantum_model fuel trace s_init Hcoh) as Hmodel.
-  unfold trace_quantum_model, quantum_realizable in Hmodel.
+  pose proof (trace_quantum_bridge_coherent_implies_npa_model fuel trace s_init Hcoh) as Hmodel.
+  unfold trace_npa_model, npa_psd in Hmodel.
   destruct Hmodel as [_ Hpsd].
   exact Hpsd.
 Qed.
@@ -2868,8 +2879,8 @@ Qed.
     | master_non_circularity                            | unconditional        | non-circularity certificate                     | repository-global dependency acyclicity |
     | master_tsirelson_conditional                      | conditional          | coherence / PSD / NPA bridge premise            | derivation of the coherence premise or an unconditional physical Tsirelson theorem |
     | master_psd_iff_column_contractive                 | unconditional        | algebraic PSD lemmas                            | runtime coherence for arbitrary traces |
-    | master_trace_column_contractive_iff_quantum_model | executable bridge    | trace correlator extraction                     | that the trace came from a physical source |
-    | master_trace_quantum_model_unfolds                | definitional         | imported predicate definitions                  | that any trace satisfies the predicate |
+    | master_trace_column_contractive_iff_npa_model | executable bridge    | trace correlator extraction                     | that the trace came from a physical source |
+    | master_trace_npa_model_unfolds                | definitional         | imported predicate definitions                  | that any trace satisfies the predicate |
     | master_trace_quantum_bridge_forces_psd            | conditional          | coherence bridge theorem                        | generic coherence or empirical quantum-source certification |
     | master_honest_nofi_structure_requirement          | unconditional        | certified information-reduction theorem         | coverage of every inference notion outside the imported framework |
     | master_honest_nofi_trace_separation               | unconditional        | trace-level cert-setter separation bound        | a per-run log2 lower bound without the additional local-premise theorem |

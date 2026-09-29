@@ -24,13 +24,13 @@ machinery. Reaches the quantum boundary by polynomial certificate over ℚ.
 | `TsirelsonFromAlgebra.v` | Bridge from algebraic to general form |
 | `TsirelsonUpperBound.v` | μ=0 fragment characterization, classical bound = 2 |
 | `TsirelsonUniqueness.v` | Jan 2026 corrected understanding (μ=0 ⇒ S≤4 algebraically) |
-| `TsirelsonQuantumModel.v` | Quantum-realizable model layer |
+| `TsirelsonQuantumModel.v` | NPA PSD model layer |
 
 ### NPA-PSD bridge
 
 | File | Purpose |
 |---|---|
-| `QuantumPartitionPSD.v` | **`column_contractive_iff_quantum_realizable`** — biconditional |
+| `QuantumPartitionPSD.v` | **`column_contractive_iff_npa_psd`**: biconditional |
 | `NPAMomentMatrix.v` | NPA moment-matrix definitions |
 | `SemidefiniteProgramming.v` | PSD primitives |
 | `ConstructivePSD.v` | Quadratic-form PSD certificate over ℚ |
@@ -59,9 +59,9 @@ machinery. Reaches the quantum boundary by polynomial certificate over ℚ.
 
 ## Load-bearing exports cited from the README
 
-- `column_contractive_iff_quantum_realizable` — chain claim
+- `column_contractive_iff_npa_psd`: chain claim
 - `algebraically_coherent_tsirelson_general` (lives in [`category/`](../category/))
-- `tsirelson_from_row_bounds`, `tsirelson_bound_tight`, `master_tsirelson_conditional`
+- `tsirelson_from_row_bounds`, `tsirelson_rational_lower_witness`, `master_tsirelson_conditional`
 
 ## Imports
 

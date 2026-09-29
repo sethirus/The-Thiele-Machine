@@ -1,27 +1,25 @@
-(** MuComplexity: predicates classifying problems by their mu-budget envelope.
+(** MuComplexity: trace-budget predicates and program-cost arithmetic.
 
     The Thiele Machine adds a third axis to computational complexity: mu-cost,
     the price of certified structural knowledge. Classical complexity theory
     measures time (steps) and space (memory). The Thiele Machine also measures
     mu: how much the machine paid for the certified structural insights it used.
 
-    This file defines two predicates that classify decision problems by their
-    polynomial mu-budget envelope:
+    This file does not classify problems along that axis. It defines two
+    budget predicates and proves cost arithmetic.
 
-      [mu_budget_decidable P size p_fuel p_mu]
-        a solver exists, running within p_fuel steps and using at most
-        p_mu units of mu, on every input
+    [error_free_preservation_budget] supplies an error-free trace for each
+    input, with bounded length and mu, preserving a Boolean state predicate
+    when mu increases. It has no returned-answer requirement and no uniform
+    program shared by all inputs.
 
-      [mu_budget_verifiable P size p_fuel p_mu]
-        for every positive instance, a certificate exists that can be
-        verified within p_fuel steps and at most p_mu units of mu
+    [positive_input_certification_budget] supplies a bounded certifying
+    trace for each input satisfying a Boolean predicate. It imposes no
+    rejection requirement on negative inputs.
 
-    These are deliberately NOT named in_muP / in_muNP. The previous names
-    evoked the classical P vs NP question, which this file does not address.
-    The definitions deliver only inclusion (every decidable problem is
-    verifiable, by re-running the solver). Separating the two classes, or
-    finding a concrete witness in the verifiable class but not in the
-    decidable class under matching budgets, is open research. *)
+    Neither predicate expresses decision or verification complexity.
+    Their numeric bounds may be arbitrary functions. The SAT section
+    proves arithmetic for specified cost formulas. *)
 
 From Coq Require Import List Arith.PeanoNat Lia.
 Import ListNotations.
@@ -40,46 +38,32 @@ Definition trace_mu_cost (fuel : nat) (trace : Trace) (s : VMState) : nat :=
 (** A decision problem is a function from input states to bool (accept/reject). *)
 Definition DecisionProblem := VMState -> bool.
 
-(** ** [mu_budget_decidable]: a solver exists within polynomial mu and fuel budgets.
+(** Numeric bounds have no polynomiality requirement. *)
+Definition BudgetBound := nat -> nat.
 
-    A problem P is mu_budget_decidable if there exist polynomial bounds p_fuel
-    and p_mu such that for every input of "size" n, the machine solves P in at
-    most p_fuel(n) steps using at most p_mu(n) units of mu-cost. We
-    parameterize over a "size" function that maps VMState to nat. *)
-
-(** A polynomial bound is just a nat → nat function (no specific polynomial
-    structure required for the definition; the interesting cases are actual
-    polynomials). *)
-Definition PolyBound := nat -> nat.
-
-Definition mu_budget_decidable
+Definition error_free_preservation_budget
     (P : DecisionProblem)
     (size : VMState -> nat)
-    (p_fuel : PolyBound)
-    (p_mu : PolyBound) : Prop :=
+    (p_fuel : BudgetBound)
+    (p_mu : BudgetBound) : Prop :=
   forall (s : VMState),
   exists (trace : Trace),
     (* The trace is short enough *)
     length trace <= p_fuel (size s) /\
     (* The mu-cost is bounded *)
     trace_mu_cost (p_fuel (size s)) trace s <= p_mu (size s) /\
-    (* The trace correctly decides the problem *)
+    (* Error freedom and conditional preservation of the state predicate. *)
     (run_vm (p_fuel (size s)) trace s).(vm_err) = false /\
     ((run_vm (p_fuel (size s)) trace s).(vm_mu) > s.(vm_mu) ->
      P (run_vm (p_fuel (size s)) trace s) = P s).
 
-(** ** [mu_budget_verifiable]: a certificate-checking verifier exists within
-    polynomial mu and fuel budgets.
+(** Every positive input has some bounded trace ending certified. *)
 
-    A problem P is mu_budget_verifiable if for every positive instance there
-    is a certificate trace the machine can verify within p_fuel steps and
-    p_mu mu-cost. *)
-
-Definition mu_budget_verifiable
+Definition positive_input_certification_budget
     (P : DecisionProblem)
     (size : VMState -> nat)
-    (p_fuel : PolyBound)
-    (p_mu : PolyBound) : Prop :=
+    (p_fuel : BudgetBound)
+    (p_mu : BudgetBound) : Prop :=
   forall (s : VMState),
     P s = true ->
     exists (cert : Trace),
@@ -87,37 +71,27 @@ Definition mu_budget_verifiable
       trace_mu_cost (p_fuel (size s)) cert s <= p_mu (size s) /\
       (run_vm (p_fuel (size s)) cert s).(vm_certified) = true.
 
-(** ** Basic inclusions *)
+(** A named implication between the predicates; no proof is supplied here. *)
 
-(** Structural note: any mu_budget_decidable problem is mu_budget_verifiable
-    conceptually because the solving program is itself the certificate. The
-    formal theorem requires showing that appending CERTIFY to the trace sets
-    vm_certified = true in the bounded run. This is provable but requires the
-    full multi-step simulation lemma over list-based traces, which is in
-    SimulationProof.v. The inclusion is left as an explicit implication rather
-    than a Coq theorem to avoid circular imports. The direction: if a solver
-    runs within budget, the same trace plus CERTIFY also verifies within
-    budget. *)
-
-Definition decidable_implies_verifiable_premise
+Definition preservation_to_certification_premise
     (P : DecisionProblem) (size : VMState -> nat)
-    (p_fuel p_mu : PolyBound) : Prop :=
-  mu_budget_decidable P size p_fuel p_mu ->
-  exists p_fuel' p_mu', mu_budget_verifiable P size p_fuel' p_mu'.
+    (p_fuel p_mu : BudgetBound) : Prop :=
+  error_free_preservation_budget P size p_fuel p_mu ->
+  exists p_fuel' p_mu', positive_input_certification_budget P size p_fuel' p_mu'.
 
-(** Zero-mu programs are mu_budget_decidable trivially (they pay nothing for
-    certified structure). *)
+(** Zero mu cost. *)
 Definition zero_mu_program (fuel : nat) (trace : Trace) (s : VMState) : Prop :=
   trace_mu_cost fuel trace s = 0.
 
-(** Any classical (zero-mu) program is mu_budget_decidable with mu-bound = 0. *)
-Theorem classical_mu_budget_decidable :
+(** Zero-mu error-free witnesses satisfy the preservation budget for every
+    Boolean predicate because the positive-mu antecedent never holds. *)
+Theorem zero_mu_traces_satisfy_preservation_budget :
   forall P size p_fuel,
     (forall s, exists trace,
       length trace <= p_fuel (size s) /\
       zero_mu_program (p_fuel (size s)) trace s /\
       (run_vm (p_fuel (size s)) trace s).(vm_err) = false) ->
-    mu_budget_decidable P size p_fuel (fun _ => 0).
+    error_free_preservation_budget P size p_fuel (fun _ => 0).
 Proof.
   intros P size p_fuel H s.
   destruct (H s) as [trace [Hlen [Hmu Herr]]].

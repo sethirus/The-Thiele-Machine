@@ -60,10 +60,10 @@ Print Assumptions KamiHW.GraphReconstructionBridge.driven_trace_commutes.
 Require Import Kernel.CHSH Kernel.QuantumPartitionPSD Kernel.CategoryLaws Kernel.DiscreteGaussBonnet.
 Check Kernel.CHSH.KernelCHSH.local_strategy_chsh_between_neg2_2.
 Print Assumptions Kernel.CHSH.KernelCHSH.local_strategy_chsh_between_neg2_2.
-Check Kernel.QuantumPartitionPSD.column_contractive_iff_quantum_realizable.
-Print Assumptions Kernel.QuantumPartitionPSD.column_contractive_iff_quantum_realizable.
-Check Kernel.QuantumPartitionPSD.chsh_lassert_no_trap_implies_quantum_realizable.
-Print Assumptions Kernel.QuantumPartitionPSD.chsh_lassert_no_trap_implies_quantum_realizable.
+Check Kernel.QuantumPartitionPSD.column_contractive_iff_npa_psd.
+Print Assumptions Kernel.QuantumPartitionPSD.column_contractive_iff_npa_psd.
+Check Kernel.QuantumPartitionPSD.chsh_lassert_no_trap_implies_npa_psd.
+Print Assumptions Kernel.QuantumPartitionPSD.chsh_lassert_no_trap_implies_npa_psd.
 Check Kernel.CategoryLaws.relational_compose_assoc.
 Print Assumptions Kernel.CategoryLaws.relational_compose_assoc.
 Check Kernel.MuHierarchyTheorem.mu_hierarchy_theorem.

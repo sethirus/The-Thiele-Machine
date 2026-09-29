@@ -269,7 +269,7 @@ def _coq_flags_from_project(coqproject: Path) -> list[str]:
 
 def run_probe(probe_path: Path, coq_flags: list[str], timeout: int = 30) -> ProbeRun:
     """Run `coqc` on *probe_path* and report whether it accepted the proof."""
-    cmd = ["coqc", *coq_flags, str(probe_path)]
+    cmd = ["coqc", "-time", *coq_flags, str(probe_path)]
     try:
         proc = subprocess.run(
             cmd,
@@ -456,7 +456,7 @@ def run_batched_target(
     under that probe). Indices/probes absent from the result (batch aborted
     early, or timed out) are left for the caller's per-theorem fallback.
     """
-    cmd = ["coqc", *coq_flags, str(probe_path)]
+    cmd = ["coqc", "-time", *coq_flags, str(probe_path)]
     try:
         proc = subprocess.run(
             cmd, cwd=str(REPO_ROOT), capture_output=True, text=True, timeout=timeout

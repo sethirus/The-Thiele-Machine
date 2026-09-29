@@ -1,112 +1,212 @@
-DIGEST baa3fb4b1144d1ab4ed14ff8e91a8211
+DIGEST 4a5b1af6a7cbf5e96cca35b0d689c411
 FVerifierEscape_Hardness
-R880:883 Coq.Lists.List <> <> lib
-R885:898 Coq.Arith.PeanoNat <> <> lib
-R908:920 Coq.Lists.List ListNotations <> mod
-R951:957 Kernel.VMState <> <> lib
-R975:993 NecessityOfMuLedger <> <> lib
-R1011:1023 VerifierModel <> <> lib
-R1041:1061 VerifierImpossibility <> <> lib
-def 1524:1541 <> HardnessTranscript
-R1567:1569 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R1553:1566 VerifierModel <> BareTranscript def
-R1570:1573 Coq.Init.Datatypes <> bool ind
-def 1588:1600 <> ht_commitment
-R1607:1624 VerifierEscape_Hardness <> HardnessTranscript def
-binder 1603:1603 <> t:1
-R1629:1632 Coq.Init.Datatypes <> bool ind
-R1637:1639 Coq.Init.Datatypes <> snd def
-R1641:1641 VerifierEscape_Hardness <> t:1 var
-rec 2142:2159 <> HardnessHypothesis
-proj 2181:2194 <> hh_unforgeable
-R2214:2231 VerifierEscape_Hardness <> HardnessTranscript def
-binder 2210:2210 <> t:3
-R2263:2272 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2256:2258 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2241:2253 VerifierEscape_Hardness <> ht_commitment def
-R2255:2255 VerifierEscape_Hardness <> t:3 var
-R2259:2262 Coq.Init.Datatypes <> true constr
-R2273:2279 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2291:2292 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2284:2290 Kernel.VMState <> VMState rec
-binder 2280:2280 <> s:4
-R2302:2304 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2296:2300 Kernel.VMState <> vm_mu proj
-R2293:2293 VerifierEscape_Hardness <> s:4 var
-def 2542:2556 <> hardness_decide
-R2563:2580 VerifierEscape_Hardness <> HardnessTranscript def
-binder 2559:2559 <> t:6
-R2585:2588 Coq.Init.Datatypes <> bool ind
-R2593:2605 VerifierEscape_Hardness <> ht_commitment def
-R2607:2607 VerifierEscape_Hardness <> t:6 var
-def 2622:2634 <> hardness_cost
-R2641:2658 VerifierEscape_Hardness <> HardnessTranscript def
-binder 2637:2637 <> t:7
-R2663:2665 Coq.Init.Datatypes <> nat ind
-prf 3197:3224 <> hardness_verifier_weak_sound
-R3242:3259 VerifierEscape_Hardness <> HardnessHypothesis rec
-binder 3238:3238 <> H:8
-R3267:3284 VerifierEscape_Hardness <> HardnessTranscript def
-binder 3263:3263 <> t:9
-R3316:3323 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3309:3311 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3292:3306 VerifierEscape_Hardness <> hardness_decide def
-R3308:3308 VerifierEscape_Hardness <> t:9 var
-R3312:3315 Coq.Init.Datatypes <> true constr
-R3324:3330 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3342:3343 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3335:3341 Kernel.VMState <> VMState rec
-binder 3331:3331 <> s:10
-R3353:3355 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3347:3351 Kernel.VMState <> vm_mu proj
-R3344:3344 VerifierEscape_Hardness <> s:10 var
-R3394:3407 VerifierEscape_Hardness <> hh_unforgeable proj
-R3394:3407 VerifierEscape_Hardness <> hh_unforgeable proj
-prf 3538:3560 <> hardness_verifier_cheap
-R3577:3594 VerifierEscape_Hardness <> HardnessTranscript def
-binder 3573:3573 <> t:11
-R3612:3614 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3597:3609 VerifierEscape_Hardness <> hardness_cost def
-R3611:3611 VerifierEscape_Hardness <> t:11 var
-prf 3836:3859 <> hardness_escape_succeeds
-R3876:3893 VerifierEscape_Hardness <> HardnessHypothesis rec
-binder 3872:3872 <> H:12
-R3898:3905 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3987:3993 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3933:3936 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3915:3932 VerifierEscape_Hardness <> HardnessTranscript def
-R3937:3940 Coq.Init.Datatypes <> bool ind
-binder 3906:3911 <> decide:13
-R3980:3983 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3962:3979 VerifierEscape_Hardness <> HardnessTranscript def
-R3984:3986 Coq.Init.Datatypes <> nat ind
-binder 3953:3956 <> cost:14
-R3994:3994 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4064:4073 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4094:4094 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 4002:4002 <> t:15
-R4020:4030 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4013:4015 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4005:4010 VerifierEscape_Hardness <> decide:13 var
-R4012:4012 VerifierEscape_Hardness <> t:15 var
-R4016:4019 Coq.Init.Datatypes <> true constr
-R4031:4037 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4049:4050 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4042:4048 Kernel.VMState <> VMState rec
-binder 4038:4038 <> s:16
-R4060:4062 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4054:4058 Kernel.VMState <> vm_mu proj
-R4051:4051 VerifierEscape_Hardness <> s:16 var
-binder 4081:4081 <> t:17
-R4090:4092 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4084:4087 VerifierEscape_Hardness <> cost:14 var
-R4089:4089 VerifierEscape_Hardness <> t:17 var
-R4124:4138 VerifierEscape_Hardness <> hardness_decide def
-R4141:4153 VerifierEscape_Hardness <> hardness_cost def
-R4124:4138 VerifierEscape_Hardness <> hardness_decide def
-R4141:4153 VerifierEscape_Hardness <> hardness_cost def
-R4191:4218 VerifierEscape_Hardness <> hardness_verifier_weak_sound thm
-R4191:4218 VerifierEscape_Hardness <> hardness_verifier_weak_sound thm
-R4241:4263 VerifierEscape_Hardness <> hardness_verifier_cheap thm
-R4241:4263 VerifierEscape_Hardness <> hardness_verifier_cheap thm
-R4290:4313 VerifierEscape_Hardness <> hardness_escape_succeeds thm
+R2029:2032 Coq.Lists.List <> <> lib
+R2034:2047 Coq.Arith.PeanoNat <> <> lib
+R2049:2052 Coq.Bool.Bool <> <> lib
+R2062:2074 Coq.Lists.List ListNotations <> mod
+R2105:2111 Kernel.VMState <> <> lib
+R2129:2147 NecessityOfMuLedger <> <> lib
+R2165:2177 VerifierModel <> <> lib
+R2195:2215 VerifierImpossibility <> <> lib
+def 2463:2482 <> CommitmentTranscript
+R2508:2510 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2494:2507 VerifierModel <> BareTranscript def
+R2511:2514 Coq.Init.Datatypes <> bool ind
+def 2529:2535 <> ct_bare
+R2542:2561 VerifierEscape_Hardness <> CommitmentTranscript def
+binder 2538:2538 <> t:1
+R2566:2579 VerifierModel <> BareTranscript def
+R2584:2586 Coq.Init.Datatypes <> fst def
+R2588:2588 VerifierEscape_Hardness <> t:1 var
+def 2602:2614 <> ct_commitment
+R2621:2640 VerifierEscape_Hardness <> CommitmentTranscript def
+binder 2617:2617 <> t:2
+R2645:2648 Coq.Init.Datatypes <> bool ind
+R2653:2655 Coq.Init.Datatypes <> snd def
+R2657:2657 VerifierEscape_Hardness <> t:2 var
+def 2757:2773 <> commitment_decide
+R2780:2799 VerifierEscape_Hardness <> CommitmentTranscript def
+binder 2776:2776 <> t:3
+R2804:2807 Coq.Init.Datatypes <> bool ind
+R2812:2824 VerifierEscape_Hardness <> ct_commitment def
+R2826:2826 VerifierEscape_Hardness <> t:3 var
+def 2841:2855 <> commitment_cost
+R2862:2881 VerifierEscape_Hardness <> CommitmentTranscript def
+binder 2858:2858 <> t:4
+R2886:2888 Coq.Init.Datatypes <> nat ind
+prf 2905:2942 <> commitment_verifier_abstract_unit_cost
+R2959:2978 VerifierEscape_Hardness <> CommitmentTranscript def
+binder 2955:2955 <> t:5
+R2998:3000 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2981:2995 VerifierEscape_Hardness <> commitment_cost def
+R2997:2997 VerifierEscape_Hardness <> t:5 var
+sec 3038:3055 <> CommitmentContract
+var 3144:3151 CommitmentContract explains
+R3162:3165 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3155:3161 Kernel.VMState <> VMState rec
+R3186:3189 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3166:3185 VerifierEscape_Hardness <> CommitmentTranscript def
+rec 3204:3224 <> CommitmentBitContract
+proj 3246:3255 <> hh_binding
+proj 3334:3342 <> hh_honest
+binder 3270:3270 <> s:8
+binder 3272:3272 <> t:9
+R3287:3290 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3275:3282 VerifierEscape_Hardness <> CommitmentContract.explains var
+R3284:3284 VerifierEscape_Hardness <> s:8 var
+R3286:3286 VerifierEscape_Hardness <> t:9 var
+R3313:3316 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3306:3308 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3291:3303 VerifierEscape_Hardness <> ct_commitment def
+R3305:3305 VerifierEscape_Hardness <> t:9 var
+R3309:3312 Coq.Init.Datatypes <> true constr
+R3326:3328 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3320:3324 Kernel.VMState <> vm_mu proj
+R3317:3317 VerifierEscape_Hardness <> s:8 var
+binder 3357:3357 <> s:11
+binder 3359:3359 <> t:12
+R3374:3377 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3362:3369 VerifierEscape_Hardness <> CommitmentContract.explains var
+R3371:3371 VerifierEscape_Hardness <> s:11 var
+R3373:3373 VerifierEscape_Hardness <> t:12 var
+R3391:3394 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3387:3389 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3381:3385 Kernel.VMState <> vm_mu proj
+R3378:3378 VerifierEscape_Hardness <> s:11 var
+R3410:3412 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3395:3407 VerifierEscape_Hardness <> ct_commitment def
+R3409:3409 VerifierEscape_Hardness <> t:12 var
+R3413:3416 Coq.Init.Datatypes <> true constr
+prf 3519:3546 <> commitment_contract_verifier
+R3573:3578 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3552:3572 VerifierEscape_Hardness <> CommitmentBitContract rec
+R3579:3586 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3672:3678 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3616:3619 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3596:3615 VerifierEscape_Hardness <> CommitmentTranscript def
+R3620:3623 Coq.Init.Datatypes <> bool ind
+binder 3587:3592 <> decide:14
+R3665:3668 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3645:3664 VerifierEscape_Hardness <> CommitmentTranscript def
+R3669:3671 Coq.Init.Datatypes <> nat ind
+binder 3636:3639 <> cost:15
+R3679:3679 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3748:3756 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 3687:3687 <> t:16
+R3705:3708 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3698:3700 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3690:3695 VerifierEscape_Hardness <> decide:14 var
+R3697:3697 VerifierEscape_Hardness <> t:16 var
+R3701:3704 Coq.Init.Datatypes <> true constr
+binder 3716:3716 <> s:17
+R3731:3734 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3719:3726 VerifierEscape_Hardness <> CommitmentContract.explains var
+R3728:3728 VerifierEscape_Hardness <> s:17 var
+R3730:3730 VerifierEscape_Hardness <> t:16 var
+R3744:3746 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3738:3742 Kernel.VMState <> vm_mu proj
+R3735:3735 VerifierEscape_Hardness <> s:17 var
+R3757:3757 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3818:3827 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3848:3848 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 3765:3765 <> s:18
+binder 3767:3767 <> t:19
+R3783:3786 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3779:3781 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3773:3777 Kernel.VMState <> vm_mu proj
+R3770:3770 VerifierEscape_Hardness <> s:18 var
+R3799:3802 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3787:3794 VerifierEscape_Hardness <> CommitmentContract.explains var
+R3796:3796 VerifierEscape_Hardness <> s:18 var
+R3798:3798 VerifierEscape_Hardness <> t:19 var
+R3811:3813 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3803:3808 VerifierEscape_Hardness <> decide:14 var
+R3810:3810 VerifierEscape_Hardness <> t:19 var
+R3814:3817 Coq.Init.Datatypes <> true constr
+binder 3835:3835 <> t:20
+R3844:3846 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3838:3841 VerifierEscape_Hardness <> cost:15 var
+R3843:3843 VerifierEscape_Hardness <> t:20 var
+R3876:3892 VerifierEscape_Hardness <> commitment_decide def
+R3895:3909 VerifierEscape_Hardness <> commitment_cost def
+R3876:3892 VerifierEscape_Hardness <> commitment_decide def
+R3895:3909 VerifierEscape_Hardness <> commitment_cost def
+R3953:3962 VerifierEscape_Hardness <> hh_binding proj
+R3953:3962 VerifierEscape_Hardness <> hh_binding proj
+R4025:4033 VerifierEscape_Hardness <> hh_honest proj
+R4025:4033 VerifierEscape_Hardness <> hh_honest proj
+R4063:4100 VerifierEscape_Hardness <> commitment_verifier_abstract_unit_cost thm
+R4063:4100 VerifierEscape_Hardness <> commitment_verifier_abstract_unit_cost thm
+R4113:4130 VerifierEscape_Hardness CommitmentContract <> sec
+def 4294:4319 <> honest_commitment_explains
+R4330:4336 Kernel.VMState <> VMState rec
+binder 4326:4326 <> s:21
+R4344:4363 VerifierEscape_Hardness <> CommitmentTranscript def
+binder 4340:4340 <> t:22
+R4413:4416 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4378:4398 VerifierImpossibility <> mu_collision_explains def
+R4400:4400 VerifierEscape_Hardness <> s:21 var
+R4403:4409 VerifierEscape_Hardness <> ct_bare def
+R4411:4411 VerifierEscape_Hardness <> t:22 var
+R4432:4434 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4417:4429 VerifierEscape_Hardness <> ct_commitment def
+R4431:4431 VerifierEscape_Hardness <> t:22 var
+R4435:4441 Coq.Arith.PeanoNat Nat eqb def
+R4446:4450 Kernel.VMState <> vm_mu proj
+R4443:4443 VerifierEscape_Hardness <> s:21 var
+prf 4465:4499 <> honest_commitments_satisfy_contract
+R4505:4525 VerifierEscape_Hardness <> CommitmentBitContract rec
+R4527:4552 VerifierEscape_Hardness <> honest_commitment_explains def
+R4629:4638 Coq.Arith.PeanoNat Nat eqb_eq thm
+R4629:4638 Coq.Arith.PeanoNat Nat eqb_eq thm
+def 4922:4943 <> unchecked_bit_explains
+R4954:4960 Kernel.VMState <> VMState rec
+binder 4950:4950 <> s:23
+R4968:4987 VerifierEscape_Hardness <> CommitmentTranscript def
+binder 4964:4964 <> t:24
+R5002:5022 VerifierImpossibility <> mu_collision_explains def
+R5024:5024 VerifierEscape_Hardness <> s:23 var
+R5027:5033 VerifierEscape_Hardness <> ct_bare def
+R5035:5035 VerifierEscape_Hardness <> t:24 var
+prf 5048:5078 <> unchecked_bit_violates_contract
+R5084:5085 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5086:5106 VerifierEscape_Hardness <> CommitmentBitContract rec
+R5108:5129 VerifierEscape_Hardness <> unchecked_bit_explains def
+R5167:5190 VerifierImpossibility <> witness_B_violates_claim thm
+R5167:5190 VerifierImpossibility <> witness_B_violates_claim thm
+R5208:5218 NecessityOfMuLedger <> po1_state_B def
+R5220:5220 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5239:5240 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5245:5245 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5221:5238 NecessityOfMuLedger <> po1_strict_trace_A def
+R5241:5244 Coq.Init.Datatypes <> true constr
+R5208:5218 NecessityOfMuLedger <> po1_state_B def
+R5220:5220 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5239:5240 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5245:5245 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5221:5238 NecessityOfMuLedger <> po1_strict_trace_A def
+R5241:5244 Coq.Init.Datatypes <> true constr
+R5275:5296 VerifierEscape_Hardness <> unchecked_bit_explains def
+R5299:5319 VerifierImpossibility <> mu_collision_explains def
+R5322:5328 VerifierEscape_Hardness <> ct_bare def
+prf 5603:5633 <> honest_lift_separates_collision
+R5704:5709 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5639:5664 VerifierEscape_Hardness <> honest_commitment_explains def
+R5666:5676 NecessityOfMuLedger <> po1_state_A def
+R5678:5678 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5697:5698 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5703:5703 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5679:5696 NecessityOfMuLedger <> po1_strict_trace_A def
+R5699:5702 Coq.Init.Datatypes <> true constr
+R5710:5735 VerifierEscape_Hardness <> honest_commitment_explains def
+R5737:5747 NecessityOfMuLedger <> po1_state_B def
+R5749:5749 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5768:5769 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5775:5775 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5750:5767 NecessityOfMuLedger <> po1_strict_trace_A def
+R5770:5774 Coq.Init.Datatypes <> false constr
+R5794:5819 VerifierEscape_Hardness <> honest_commitment_explains def
+R5822:5842 VerifierImpossibility <> mu_collision_explains def
+R5845:5851 VerifierEscape_Hardness <> ct_bare def
+R5854:5866 VerifierEscape_Hardness <> ct_commitment def
+R6045:6072 VerifierEscape_Hardness <> commitment_contract_verifier thm

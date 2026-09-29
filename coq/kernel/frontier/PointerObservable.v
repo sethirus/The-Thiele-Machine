@@ -1,12 +1,16 @@
 (** The pointer-observable criterion, formalized: definitions, the
     conjecture schema, and a non-vacuity witness.
 
-  Section 25 of the monograph names the successor to the open question
-  "is certification the event a step rule is forced to price?": the
-  conjecture that certification is singled out among meterable events by
-  REDUNDANT RECORD PROLIFERATION -- its records are copied, checked, and
-  stored across independent substrates that do not otherwise share state,
-  while rival meterable events leave no such trail.
+  The monograph's pointer-observable section names the successor to the
+  open question "is certification the event a step rule is forced to
+  price?": the conjecture that certification is singled out among meterable
+  events by REDUNDANT RECORD PROLIFERATION -- its records are copied,
+  checked, and stored across independent substrates that do not otherwise
+  share state, while rival meterable events leave no such trail.
+
+  None of that world is in the formal objects below. They have indexed
+  Boolean observers and nothing else: no deployment, no independence
+  predicate, no cost law, no protocol.
 
   This file gives that criterion a formal skeleton, so the conjecture is a
   statement with a shape instead of a paragraph with a mood. Three layers,
@@ -22,12 +26,13 @@
   2. THE CONJECTURE SCHEMA. The monograph's conjecture quantifies over
      deployed, independently evolved metering disciplines -- an empirical
      class, not a formal one. What is formalizable today is the schema:
-     given a class [C] of ecosystems (the faithful models of metering
-     disciplines) with a designated metered event and designated rivals,
-     the criterion holds for [C] when every metered event proliferates and
-     no rival does ([pointer_criterion_holds]). Producing the faithful
-     models of the five Section-15 disciplines and proving the two
-     conjuncts for them is the successor project, named and not claimed.
+     given a class [C] of ecosystems with a designated metered event and
+     designated rivals, the criterion holds for [C] when every metered
+     event proliferates and no rival does ([pointer_criterion_holds]).
+     Membership in [C] and the choice of events are inputs; the definition
+     does not justify them. Building models faithful to real metering
+     disciplines and proving the two conjuncts for them is the successor
+     project, named and not claimed.
 
   3. NON-VACUITY. A toy replicated-ledger ecosystem: state carries a
      certification bit and a work counter; each of the observers stores a
@@ -49,9 +54,9 @@
 (* SCOPE NOTE: standalone proof scope. This file is about
    ecosystems and record proliferation, not VM semantics. No definition or
    theorem here mentions VMState, vm_step, vm_mu, MuCostModel or
-   instruction_cost; the criterion it formalizes is deliberately stated over
-   an abstract state type so that deployed disciplines owing nothing to this
-   development can instantiate it.
+   instruction_cost; the criterion is deliberately stated over an abstract
+   state type, so that a discipline owing nothing to this development could
+   instantiate it.
 
    The audit is waived rather than satisfied: importing the kernel without
    using it would assert a bridge that isn't here. The connection to the
@@ -63,10 +68,11 @@ Import ListNotations.
 
 (** * Ecosystems, records, proliferation *)
 
-(** A state space observed by [eco_observers] independent parties, each
-    holding one boolean fragment. Independence is structural: an
-    observer's fragment is a function of the global state only through its
-    own projection, and nothing here lets fragments read each other. *)
+(** A state space observed by [eco_observers] parties, each holding one
+    boolean fragment. Nothing here lets fragments read each other. Nothing
+    here makes the parties independent either: each fragment is a function
+    of the whole state, and the record has no predicate saying two
+    observers draw on separate parts of it. *)
 Record Ecosystem := {
   eco_state : Type;
   eco_observers : nat;
@@ -104,10 +110,11 @@ Definition unique_pointer_among
     metered event for each member, and its designated rival events. The
     criterion holds for the class when every member's metered event is the
     unique pointer among its rivals. The monograph's conjecture is this
-    schema instantiated at faithful models of the deployed disciplines
-    (proof-of-stake finality, gas metering, TEE attestation, certificate
-    transparency, proof-carrying verification); constructing those models
-    is the successor project. *)
+    schema instantiated at models of real disciplines (proof-of-stake
+    finality, gas metering, TEE attestation, certificate transparency,
+    proof-carrying verification). Those models do not exist yet;
+    constructing them is the successor project. The word "metered" is a
+    label here: the definition contains no metering semantics. *)
 Definition pointer_criterion_holds
   (C : Ecosystem -> Prop)
   (metered : forall eco, C eco -> (eco_state eco -> Prop))

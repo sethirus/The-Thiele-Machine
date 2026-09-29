@@ -5903,14 +5903,20 @@ Definition classical_achieving_trace : list vm_instruction := [
   instr_chsh_trial 1 1 0 0 0
 ].
 
+(** Run from the initial state, the trace records one "same" outcome for
+    each setting pair and no "different" outcome, so every correlator is 1
+    and the CHSH value of the tally is 1 + 1 + 1 - 1 = 2. *)
 Theorem classical_bound_achieved :
   exists (trace : list vm_instruction),
     trace = classical_achieving_trace /\
-    trace_mu_cost trace = 0%nat.
+    trace_mu_cost trace = 0%nat /\
+    let w := vm_witness (fold_left vm_apply trace init_state) in
+    wc_same_00 w = 1 /\ wc_same_01 w = 1 /\ wc_same_10 w = 1 /\ wc_same_11 w = 1 /\
+    wc_diff_00 w = 0 /\ wc_diff_01 w = 0 /\ wc_diff_10 w = 0 /\ wc_diff_11 w = 0.
 Proof.
-  exists classical_achieving_trace. split.
-  - reflexivity.
-  - reflexivity.
+  exists classical_achieving_trace. split; [reflexivity |].
+  split; [reflexivity |].
+  vm_compute. repeat split.
 Qed.
 
 (** =========================================================================
@@ -6165,8 +6171,8 @@ Definition respects_info_conservation (E : Evolution) : Prop :=
     state_info x y z - state_info (evo_x E x y z) (evo_y E x y z) (evo_z E x y z) <=
     evo_mu E.
 
-(** Unitary: purity exactly preserved *)
-Definition is_unitary (E : Evolution) : Prop :=
+(** Squared Bloch radius is preserved on the unit ball. *)
+Definition radius_preserving (E : Evolution) : Prop :=
   forall x y z,
     state_info x y z <= 1 ->
     state_info (evo_x E x y z) (evo_y E x y z) (evo_z E x y z) = state_info x y z.
@@ -6181,16 +6187,16 @@ Proof.
   pose proof (Hcons x y z Hvalid) as H. rewrite Hmu in H. lra.
 Qed.
 
-(** KEY THEOREM: zero cost implies unitary (sandwich argument)
+(** Zero cost preserves radius under both bounds.
     Lower bound: conservation + mu=0 → r^2_out >= r^2_in
     Upper bound: purity_nonincreasing + mu=0 → r^2_out <= r^2_in
     Therefore: r^2_out = r^2_in *)
-Theorem zero_cost_implies_unitary :
+Theorem zero_cost_preserves_radius :
   forall E,
     respects_info_conservation E ->
     purity_nonincreasing E ->
     evo_mu E = 0 ->
-    is_unitary E.
+    radius_preserving E.
 Proof.
   intros E Hcons Hpni Hmu x y z Hvalid.
   pose proof (zero_cost_preserves_purity E Hcons Hmu x y z Hvalid) as Hlower.
@@ -11750,7 +11756,7 @@ Print Assumptions tsirelson_from_row_bounds.
 Print Assumptions tsirelson_bound_abs.
 
 (* Quantum foundations *)
-Print Assumptions zero_cost_implies_unitary.
+Print Assumptions zero_cost_preserves_radius.
 Print Assumptions no_cloning_from_conservation.
 Print Assumptions born_rule_from_mixture_compatibility.
 
@@ -15369,7 +15375,7 @@ Qed.
         real correlators satisfying the stated row bounds. The theorem does
         not establish quantum representability.
 
-    11. zero_cost_implies_unitary: the stated finite channel premises imply
+    11. zero_cost_preserves_radius: the stated scalar premises imply
         the selected purity equality. The theorem is not a general physical
         unitarity theorem.
 

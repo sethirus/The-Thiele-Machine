@@ -179,8 +179,8 @@ Proof.
   simpl; exact Hb.
 Qed.
 
-(** Legacy "quantum tier" name: zero IC communication transports to zero μ-cost. *)
-Lemma zero_cost_is_quantum :
+(** Zero IC communication transports to zero μ-cost. *)
+Lemma zero_communication_zero_cost :
   forall ic mu,
     ic_mu_equivalent ic mu ->
     ic.(ic_m_communication) = 0 ->

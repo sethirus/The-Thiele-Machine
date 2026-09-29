@@ -17,8 +17,10 @@
     [ReceiptTheorem] into the verifier setting. The three escape files
     ([VerifierEscape_Substrate.v], [VerifierEscape_Hardness.v],
     [VerifierEscape_Interaction.v]) extend [BareTranscript] with extra
-    structure and exhibit cheap sound verifiers. [VerifierExhaustiveness.v]
-    closes the trichotomy at the bottom.
+    structure and exhibit verifiers under distinct explicit contracts.
+    [VerifierExhaustiveness.v] proves a conditional factorisation obstruction
+    from supplied colliding transcripts. These constructions are sufficient
+    interfaces, not an exhaustive trichotomy.
 
     No axioms or hypotheses: every export is a [Record] / [Definition] /
     [Theorem] closed under the global context.

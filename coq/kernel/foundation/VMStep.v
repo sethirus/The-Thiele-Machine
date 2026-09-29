@@ -613,7 +613,7 @@ Definition graph_hw_pmerge (g : PartitionGraph) (m1 m2 : nat) : PartitionGraph :
     into the step relation) is:
         column_contractive_check_witness wc = true
           -> zero_marginal_column_contractive (E_00 wc) (E_01 wc) (E_10 wc) (E_11 wc)
-    which combined with [column_contractive_iff_quantum_realizable]
+    which combined with [column_contractive_iff_npa_psd]
     (QuantumPartitionPSD.v) gives NPA-PSD on the witness-derived correlators
     whenever the check passes.
 *)

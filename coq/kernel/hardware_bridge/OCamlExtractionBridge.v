@@ -198,20 +198,19 @@ Qed.
 *)
 Section ExtractionBisimulationHypothesis.
 
-(** ocaml_runner_agrees: The exact cross-language bisimulation claim.
+(** ocaml_runner_observable_defined: the observable the parity tests compare.
 
-    For every VMState s and vm_instruction i, the extracted OCaml runner
-    (build/extracted_vm_runner) produces an ExtractionObservable equal to
-    shadow_to_eo (vm_apply s i).
+    This lemma is not the cross-language claim. It only says that the Coq
+    side has a defined observable for every state and instruction, which is
+    true of any Coq function. The claim that the built OCaml binary returns
+    this observable on every input is checked by the parity suite, not
+    proved here. Coq cannot prove it without a formal semantics of OCaml.
 
-    This is the exact claim that CI validates empirically and that Coq
-    cannot prove without a formalization of OCaml evaluation.
-
-    TRUST BASIS:
+    What the parity claim rests on:
     (a) Letouzey (2004): Coq extraction is type-preserving.
-    (b) CI parity suite: 59 tests × 47 opcode arms, all 12 fields verified.
-    (c) Coq extraction is deterministic and mechanical. *)
-Lemma ocaml_runner_agrees :
+    (b) the CI parity suite compares the binary with this observable.
+    (c) extraction is deterministic and mechanical. *)
+Lemma ocaml_runner_observable_defined :
   forall (s : VMState) (i : vm_instruction),
     exists (obs : ExtractionObservable),
       obs = shadow_to_eo (vm_apply s i).
@@ -224,8 +223,7 @@ Qed.
     The extracted OCaml runner cannot set eo_certified from false to true
     without paying at least 1 unit of mu-cost.  This is NoFI in the OCaml
     execution domain.
- The proof uses only Coq semantics — the hypothesis ocaml_runner_agrees
-    is not needed for this theorem.  NoFI transfers through extraction by the
+    The proof uses only Coq semantics.  NoFI transfers through extraction by the
     type-preservation guarantee of Coq's extraction mechanism. *)
 Theorem ocaml_nfi_transfers :
   forall (s : VMState) (i : vm_instruction),
@@ -248,30 +246,21 @@ Proof.
   intros s i. exact (eo_mu_nondecreasing s i).
 Qed.
 
-(** ocaml_bisimulation_closure: Complete summary of what formally transfers
-    to the OCaml extracted runner.
-
-    These three kernel theorems — NoFI, mu-monotone, totality — have direct
-    operational significance and transfer through Coq's extraction guarantee.
-    They do not depend on ocaml_runner_agrees; they are proven from Coq semantics
-    alone and hold for the extracted code by type-preservation. *)
-Theorem ocaml_bisimulation_closure :
-  (** (1) NoFI: OCaml runner cannot certify without paying mu-cost *)
+(** ocaml_observable_nofi_and_monotone: what the Coq side proves about the
+    observable the OCaml runner is tested against. NoFI holds on it, and mu
+    never decreases on it. These are facts about the Coq function. That the
+    built binary computes the same function is the tested edge above. *)
+Theorem ocaml_observable_nofi_and_monotone :
   (forall (s : VMState) (i : vm_instruction),
      s.(vm_certified) = false ->
      (shadow_to_eo (vm_apply s i)).(eo_certified) = true ->
      (shadow_to_eo (vm_apply s i)).(eo_mu) >= s.(vm_mu) + 1) /\
-  (** (2) mu-monotone: OCaml runner never decreases mu *)
   (forall (s : VMState) (i : vm_instruction),
-     s.(vm_mu) <= (shadow_to_eo (vm_apply s i)).(eo_mu)) /\
-  (** (3) totality: OCaml runner always returns a defined result *)
-  (forall (s : VMState) (i : vm_instruction),
-     exists obs, obs = shadow_to_eo (vm_apply s i)).
+     s.(vm_mu) <= (shadow_to_eo (vm_apply s i)).(eo_mu)).
 Proof.
-  refine (conj _ (conj _ _)).
+  split.
   - exact ocaml_nfi_transfers.
   - exact ocaml_extraction_mu_nondecreasing.
-  - intros s i. exists (shadow_to_eo (vm_apply s i)). reflexivity.
 Qed.
 
 End ExtractionBisimulationHypothesis.

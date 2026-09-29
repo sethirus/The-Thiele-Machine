@@ -13,7 +13,7 @@ bounds.
 | File | Purpose |
 |---|---|
 | `MuInitiality.v` | **`mu_initiality`** — the initiality theorem. Universal property of `vm_mu` |
-| `MuCostDerivation.v` | `cost_uniqueness`, `cost_necessity` — LASSERT cost forced by Shannon entropy + description complexity |
+| `MuCostDerivation.v` | `lassert_cost_is_its_formula`, `lassert_cost_from_component_floors`: a cost meeting the state-term and description-term premises is at least the LASSERT formula |
 | `MuShannonBridge.v` | Connects feasible-set narrowing to log-cardinality reduction |
 | `MuShannonQuantitative.v` | Numerical Shannon-bound instances |
 | `MuInformation.v` | Reusable Δμ accounting interface |
@@ -29,7 +29,7 @@ bounds.
 
 - `mu_initiality` — claim 2 of the five formal claims
 - `mu_hierarchy_theorem`, `mu_hierarchy_no_upper_bound` — chain link
-- `cost_uniqueness`, `cost_necessity` — substantive lower bounds (Layer 3)
+- `lassert_cost_is_its_formula`, `lassert_cost_from_component_floors`: lower bounds relative to their premises (Layer 3); `KnowledgeNarrowing.v` shows merge pricing does not force the state-term premise
 - `sat_separation_ratio_unbounded` — chain link
 - `mu_accumulates_trace_cost` — used throughout
 

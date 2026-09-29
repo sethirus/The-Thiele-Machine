@@ -56,10 +56,10 @@ if problems:
 
 # Incremental vendor builds must run even when Kami.vo already exists: it may
 # be stale after a vendor change. Every build error blocks the commit.
-run make -C vendor/bbv -j4
+run make -C vendor/bbv -j1
 run bash scripts/fix_kami_coq18.sh
-run make -C vendor/kami -j4
-run sh -c 'cd coq && coq_makefile -f _CoqProject -o Makefile && make -j4'
+run make -C vendor/kami -j1
+run sh -c 'cd coq && coq_makefile -f _CoqProject -o Makefile && make -j1'
 # Extraction is a compiler side effect. A cached .vo alone cannot guarantee
 # that its generated .ml still exists or matches; explicitly rerun entrypoints.
 # Some entrypoints share Target output paths; serialize their side effects.
@@ -113,7 +113,7 @@ else:
         args.append("--merge")
 if args:
     subprocess.run(["python3", "scripts/vacuity_gate.py", *args,
-                    "--output", "artifacts/vacuity_audit.json"], check=True)
+                    "--jobs", "1", "--output", "artifacts/vacuity_audit.json"], check=True)
 summary = json.loads(Path("artifacts/vacuity_audit.json").read_text())["summary"]
 if any(summary[key] for key in ("vacuous_true", "vacuous_hyp", "error")):
     raise SystemExit("[pre-commit] FAIL: vacuity audit: " + str(summary))

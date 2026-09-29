@@ -122,8 +122,8 @@ Print Assumptions region_equiv_class_infinite.
 
 (** The key algebraic closure theorem: PSD of the NPA moment matrix is
     equivalent to column contractivity ([zero_marginal_column_contractive]).
-    This closes the bidirectional bridge between quantum realizability
-    and the algebraic Tsirelson bound. *)
+    This closes the bidirectional bridge between NPA PSD and the algebraic
+    Tsirelson bound. *)
 
 (* Theorem: NPA PSD → column contractive (reverse direction) *)
 Print Assumptions npa_psd_implies_column_contractive.
@@ -131,11 +131,11 @@ Print Assumptions npa_psd_implies_column_contractive.
 (* Theorem: NPA PSD ↔ column contractive (biconditional) *)
 Print Assumptions npa_psd_iff_column_contractive.
 
-(* Corollary: column contractive ↔ quantum realizable *)
-Print Assumptions column_contractive_iff_quantum_realizable.
+(* Corollary: column contractive ↔ NPA PSD *)
+Print Assumptions column_contractive_iff_npa_psd.
 
 (* Theorem: trace column contractive ↔ trace quantum model *)
-Print Assumptions trace_column_contractive_iff_trace_quantum_model.
+Print Assumptions trace_column_contractive_iff_trace_npa_model.
 
 (* Summary export: PSD ↔ column contractive in the master theorem index *)
 Print Assumptions master_psd_iff_column_contractive.
@@ -156,8 +156,8 @@ Print Assumptions q1ab_moment_matrix_symmetric.
 (* Theorem: PSD9 ↔ column_contractive at level 1+AB (full biconditional). *)
 Print Assumptions q1ab_psd_iff_column_contractive.
 
-(* Corollary: column_contractive_q1ab ↔ quantum_realizable_q1ab. *)
-Print Assumptions column_contractive_q1ab_iff_quantum_realizable.
+(* Corollary: column_contractive_q1ab ↔ npa_psd_q1ab. *)
+Print Assumptions column_contractive_q1ab_iff_npa_psd.
 
 (* Theorem: integer-arithmetic check at γ = 0 implies the real-valued predicate. *)
 Print Assumptions column_contractive_check_q1ab_sound_at_g_zero.
@@ -165,8 +165,8 @@ Print Assumptions column_contractive_check_q1ab_sound_at_g_zero.
 (* Theorem: kernel bridge from CHSH_LASSERT + sum_E check to Q_{1+AB} PSD. *)
 Print Assumptions chsh_lassert_no_trap_with_sum_E_check_implies_q1ab_psd.
 
-(* Theorem: kernel bridge wraps to quantum_realizable_q1ab. *)
-Print Assumptions chsh_lassert_no_trap_with_sum_E_check_implies_quantum_realizable_q1ab.
+(* Theorem: kernel bridge wraps to npa_psd_q1ab. *)
+Print Assumptions chsh_lassert_no_trap_with_sum_E_check_implies_npa_psd_q1ab.
 
 (* Diagnostic: γ = 0 check forces correlators inside the unit ball
    (strictly stronger than the classical bound |S| ≤ 2). *)
@@ -181,8 +181,8 @@ Print Assumptions q1ab_caller_supplied_gamma_real_check_implies_psd9.
 (* New ISA opcode bridge: instr_chsh_lassert_1ab no-trap ⟹ PSD9 (γ=0). *)
 Print Assumptions chsh_lassert_1ab_no_trap_implies_q1ab_psd.
 
-(* New ISA opcode bridge wrapped as quantum_realizable_q1ab. *)
-Print Assumptions chsh_lassert_1ab_no_trap_implies_quantum_realizable_q1ab.
+(* New ISA opcode bridge wrapped as npa_psd_q1ab. *)
+Print Assumptions chsh_lassert_1ab_no_trap_implies_npa_psd_q1ab.
 
 (** ** A2 load-bearing separation *)
 

@@ -177,11 +177,12 @@ Definition npa_to_matrix (npa : NPAMomentMatrix) : Matrix 5 :=
     | _, _ => 0
     end.
 
-(** Quantum Realizability *)
+(** NPA PSD *)
 
-(** A moment matrix is quantum realizable if it's PSD and symmetric *)
-(** A moment matrix is quantum realizable if it's PSD and symmetric *)
-Definition quantum_realizable (npa : NPAMomentMatrix) : Prop :=
+(** The moment matrix is symmetric and positive semidefinite. This is
+    NPA's level-1 test. It is necessary for quantum realizability, not
+    sufficient in general, and nothing here builds a quantum state. *)
+Definition npa_psd (npa : NPAMomentMatrix) : Prop :=
   let M := nat_matrix_to_fin5 (npa_to_matrix npa) in
   symmetric5 M /\ PSD5 M.
 
@@ -222,14 +223,14 @@ Definition npa_to_chsh (npa : NPAMomentMatrix) : CHSHCorrelations := {|
 
 (** Key Theorems *)
 
-(** SCOPE NOTE: The following lemma relates quantum realizability to
+(** SCOPE NOTE: The following lemma relates NPA PSD to
     correlation bounds. This follows from PSD matrix properties 
     proven in ConstructivePSD.v. *)
 
-(** If a moment matrix is quantum realizable, its CHSH correlators
+(** If a moment matrix is symmetric and PSD, its CHSH correlators
     satisfy certain bounds. *)
 
-(** Quantum realizability implies normalized correlators.
+(** NPA PSD implies normalized correlators.
     Each CHSH correlator E_xy appears as an off-diagonal element M[i,j]
     of the moment matrix with M[i,i] = M[j,j] = 1 (diagonal normalization).
     PSD property + PSD5_off_diagonal_bound → |E_xy| ≤ 1. *)
@@ -299,8 +300,8 @@ Proof.
   simpl. reflexivity.
 Qed.
 
-Lemma quantum_realizable_implies_normalized : forall (npa : NPAMomentMatrix),
-  quantum_realizable npa ->
+Lemma npa_psd_implies_normalized : forall (npa : NPAMomentMatrix),
+  npa_psd npa ->
   Rabs (npa.(npa_E00)) <= 1 /\
   Rabs (npa.(npa_E01)) <= 1 /\
   Rabs (npa.(npa_E10)) <= 1 /\
@@ -353,8 +354,8 @@ Qed.
     ✓ NPA operator sequence defined (5 operators for CHSH)
     ✓ Moment matrix structure formalized (5×5 symmetric matrix)
     ✓ CHSH correlations embedded in moment matrix
-    ✓ Quantum realizability defined (PSD + symmetric)
-    ✓ Bounds: Quantum realizable → correlators normalized
+    ✓ NPA PSD defined (PSD + symmetric)
+    ✓ Bounds: NPA PSD → correlators normalized
 
     COMPLETED (via alternate route):
     Tsirelson bound proved in TsirelsonGeneral.v / TsirelsonFromAlgebra.v

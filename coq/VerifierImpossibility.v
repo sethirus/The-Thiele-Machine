@@ -19,11 +19,13 @@
     that makes [vm_mu] non-recoverable from the classical shadow also
     makes [vm_mu]-sensitive claims unverifiable in the bare setting.
 
-    The escape files [VerifierEscape_Substrate.v],
-    [VerifierEscape_Hardness.v], and [VerifierEscape_Interaction.v]
-    exhibit cheap sound verifiers under three structurally distinct
-    transcript augmentations; [VerifierExhaustiveness.v] closes the
-    trichotomy with the factorisation impossibility.
+    The files [VerifierEscape_Substrate.v],
+    [VerifierEscape_Hardness.v] (a historical filename), and
+    [VerifierEscape_Interaction.v] give three sufficient interfaces under
+    different explicit contracts. [VerifierExhaustiveness.v] proves a
+    conditional factorisation obstruction when supplied transcripts retain
+    this file's projection collision. It does not close an exhaustive
+    trichotomy, and the commitment-bit interface proves no hardness result.
 *)
 
 From Coq Require Import List.

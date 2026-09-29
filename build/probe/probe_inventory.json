@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 426,
-  "total_addressable": 12933,
+  "files_probed": 433,
+  "total_addressable": 13027,
   "total_unaddressable": 4,
   "extras_addressable_via_instantiation": [
     {
@@ -1351,9 +1351,9 @@
           "full_name": "ThieleMachineComplete.zero_cost_preserves_purity"
         },
         {
-          "local_name": "zero_cost_implies_unitary",
+          "local_name": "zero_cost_preserves_radius",
           "kind": "Theorem",
-          "full_name": "ThieleMachineComplete.zero_cost_implies_unitary"
+          "full_name": "ThieleMachineComplete.zero_cost_preserves_radius"
         },
         {
           "local_name": "no_cloning_from_conservation",
@@ -2601,23 +2601,33 @@
     {
       "file": "coq/VerifierEscape_Hardness.v",
       "qualified_module": "VerifierEscape_Hardness",
-      "addressable_count": 3,
+      "addressable_count": 5,
       "unaddressable_count": 0,
       "addressable": [
         {
-          "local_name": "hardness_verifier_weak_sound",
+          "local_name": "commitment_verifier_abstract_unit_cost",
           "kind": "Theorem",
-          "full_name": "VerifierEscape_Hardness.hardness_verifier_weak_sound"
+          "full_name": "VerifierEscape_Hardness.commitment_verifier_abstract_unit_cost"
         },
         {
-          "local_name": "hardness_verifier_cheap",
+          "local_name": "commitment_contract_verifier",
           "kind": "Theorem",
-          "full_name": "VerifierEscape_Hardness.hardness_verifier_cheap"
+          "full_name": "VerifierEscape_Hardness.commitment_contract_verifier"
         },
         {
-          "local_name": "hardness_escape_succeeds",
+          "local_name": "honest_commitments_satisfy_contract",
           "kind": "Theorem",
-          "full_name": "VerifierEscape_Hardness.hardness_escape_succeeds"
+          "full_name": "VerifierEscape_Hardness.honest_commitments_satisfy_contract"
+        },
+        {
+          "local_name": "unchecked_bit_violates_contract",
+          "kind": "Theorem",
+          "full_name": "VerifierEscape_Hardness.unchecked_bit_violates_contract"
+        },
+        {
+          "local_name": "honest_lift_separates_collision",
+          "kind": "Theorem",
+          "full_name": "VerifierEscape_Hardness.honest_lift_separates_collision"
         }
       ],
       "unaddressable": []
@@ -2949,9 +2959,9 @@
           "full_name": "KamiHW.Abstraction.lassert_ljoin_abstraction_sound"
         },
         {
-          "local_name": "kami_refines_vm_step",
+          "local_name": "kami_register_write_matches_vm",
           "kind": "Theorem",
-          "full_name": "KamiHW.Abstraction.kami_refines_vm_step"
+          "full_name": "KamiHW.Abstraction.kami_register_write_matches_vm"
         },
         {
           "local_name": "filtermap_ext_in",
@@ -33888,14 +33898,14 @@
       "unaddressable_count": 0,
       "addressable": [
         {
-          "local_name": "rtl_gap_count",
+          "local_name": "rtl_gap_registry_empty",
           "kind": "Theorem",
-          "full_name": "KamiHW.RTLGapRegistry.rtl_gap_count"
+          "full_name": "KamiHW.RTLGapRegistry.rtl_gap_registry_empty"
         },
         {
-          "local_name": "rtl_coverage_partition",
+          "local_name": "rtl_inventory_arithmetic",
           "kind": "Theorem",
-          "full_name": "KamiHW.RTLGapRegistry.rtl_coverage_partition"
+          "full_name": "KamiHW.RTLGapRegistry.rtl_inventory_arithmetic"
         }
       ],
       "unaddressable": []
@@ -47624,9 +47634,9 @@
           "full_name": "Kernel.MasterSummary.hardware_chain_connectivity_check"
         },
         {
-          "local_name": "master_open_obligations_are_explicit",
+          "local_name": "master_project_local_admits_are_explicit",
           "kind": "Theorem",
-          "full_name": "Kernel.MasterSummary.master_open_obligations_are_explicit"
+          "full_name": "Kernel.MasterSummary.master_project_local_admits_are_explicit"
         },
         {
           "local_name": "kernel_story_coverage_ledger_is_semantically_sufficient",
@@ -47684,14 +47694,14 @@
           "full_name": "Kernel.MasterSummary.master_psd_iff_column_contractive"
         },
         {
-          "local_name": "master_trace_column_contractive_iff_quantum_model",
+          "local_name": "master_trace_column_contractive_iff_npa_model",
           "kind": "Theorem",
-          "full_name": "Kernel.MasterSummary.master_trace_column_contractive_iff_quantum_model"
+          "full_name": "Kernel.MasterSummary.master_trace_column_contractive_iff_npa_model"
         },
         {
-          "local_name": "master_trace_quantum_model_unfolds",
+          "local_name": "master_trace_npa_model_unfolds",
           "kind": "Theorem",
-          "full_name": "Kernel.MasterSummary.master_trace_quantum_model_unfolds"
+          "full_name": "Kernel.MasterSummary.master_trace_npa_model_unfolds"
         },
         {
           "local_name": "master_trace_quantum_bridge_forces_psd",
@@ -48101,9 +48111,9 @@
           "full_name": "Kernel.AlgebraicCoherence.tsirelson_achieving_value"
         },
         {
-          "local_name": "tsirelson_bound_tight",
+          "local_name": "tsirelson_rational_lower_witness",
           "kind": "Theorem",
-          "full_name": "Kernel.AlgebraicCoherence.tsirelson_bound_tight"
+          "full_name": "Kernel.AlgebraicCoherence.tsirelson_rational_lower_witness"
         },
         {
           "local_name": "algebraically_coherent_tsirelson_general",
@@ -51567,13 +51577,18 @@
     {
       "file": "coq/kernel/foundation/ClassicalBound.v",
       "qualified_module": "Kernel.ClassicalBound",
-      "addressable_count": 2,
+      "addressable_count": 3,
       "unaddressable_count": 0,
       "addressable": [
         {
           "local_name": "classical_program_mu_zero",
           "kind": "Lemma",
           "full_name": "Kernel.ClassicalBound.classical_program_mu_zero"
+        },
+        {
+          "local_name": "classical_trace_tally",
+          "kind": "Lemma",
+          "full_name": "Kernel.ClassicalBound.classical_trace_tally"
         },
         {
           "local_name": "classical_bound_achieved",
@@ -51837,6 +51852,245 @@
       "addressable_count": 0,
       "unaddressable_count": 0,
       "addressable": [],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/LRecursion.v",
+      "qualified_module": "Kernel.LRecursion",
+      "addressable_count": 46,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "bound_mono",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.bound_mono"
+        },
+        {
+          "local_name": "subst_bound",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.subst_bound"
+        },
+        {
+          "local_name": "subst_closed",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.subst_closed"
+        },
+        {
+          "local_name": "bound_subst",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.bound_subst"
+        },
+        {
+          "local_name": "value_no_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.value_no_step"
+        },
+        {
+          "local_name": "step_deterministic",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.step_deterministic"
+        },
+        {
+          "local_name": "star_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.star_one"
+        },
+        {
+          "local_name": "star_trans",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.star_trans"
+        },
+        {
+          "local_name": "star_appL",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.star_appL"
+        },
+        {
+          "local_name": "star_appR",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.star_appR"
+        },
+        {
+          "local_name": "star_app",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.star_app"
+        },
+        {
+          "local_name": "star_value_confluent",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.star_value_confluent"
+        },
+        {
+          "local_name": "equiv_sym",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.equiv_sym"
+        },
+        {
+          "local_name": "equiv_trans",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.equiv_trans"
+        },
+        {
+          "local_name": "star_equiv",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.star_equiv"
+        },
+        {
+          "local_name": "encn_closed",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.encn_closed"
+        },
+        {
+          "local_name": "enc_closed",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.enc_closed"
+        },
+        {
+          "local_name": "encn_value",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.encn_value"
+        },
+        {
+          "local_name": "enc_value",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.enc_value"
+        },
+        {
+          "local_name": "mk_lam_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.mk_lam_spec"
+        },
+        {
+          "local_name": "mk_var_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.mk_var_spec"
+        },
+        {
+          "local_name": "mk_app_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.mk_app_spec"
+        },
+        {
+          "local_name": "mk_app_enc",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.mk_app_enc"
+        },
+        {
+          "local_name": "mk_lam_eval",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.mk_lam_eval"
+        },
+        {
+          "local_name": "mk_app_eval",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.mk_app_eval"
+        },
+        {
+          "local_name": "W_closed",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.W_closed"
+        },
+        {
+          "local_name": "rec_closed",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.rec_closed"
+        },
+        {
+          "local_name": "rec_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.rec_spec"
+        },
+        {
+          "local_name": "Fn_closed",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.Fn_closed"
+        },
+        {
+          "local_name": "Qn_closed",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.Qn_closed"
+        },
+        {
+          "local_name": "Qn_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.Qn_spec"
+        },
+        {
+          "local_name": "Fq_closed",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.Fq_closed"
+        },
+        {
+          "local_name": "Q_closed",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.Q_closed"
+        },
+        {
+          "local_name": "EV_closed",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.EV_closed"
+        },
+        {
+          "local_name": "Q_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.Q_spec"
+        },
+        {
+          "local_name": "second_recursion",
+          "kind": "Theorem",
+          "full_name": "Kernel.LRecursion.second_recursion"
+        },
+        {
+          "local_name": "L_recursion_theorem",
+          "kind": "Theorem",
+          "full_name": "Kernel.LRecursion.L_recursion_theorem"
+        },
+        {
+          "local_name": "flip_term_closed",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.flip_term_closed"
+        },
+        {
+          "local_name": "flip_true",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.flip_true"
+        },
+        {
+          "local_name": "flip_false",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.flip_false"
+        },
+        {
+          "local_name": "L_rice",
+          "kind": "Theorem",
+          "full_name": "Kernel.LRecursion.L_rice"
+        },
+        {
+          "local_name": "L_structural_shortcut_undecidable",
+          "kind": "Theorem",
+          "full_name": "Kernel.LRecursion.L_structural_shortcut_undecidable"
+        },
+        {
+          "local_name": "Omega_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.Omega_step"
+        },
+        {
+          "local_name": "Omega_diverges",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.Omega_diverges"
+        },
+        {
+          "local_name": "halts_extensional",
+          "kind": "Lemma",
+          "full_name": "Kernel.LRecursion.halts_extensional"
+        },
+        {
+          "local_name": "L_halting_undecidable",
+          "kind": "Theorem",
+          "full_name": "Kernel.LRecursion.L_halting_undecidable"
+        }
+      ],
       "unaddressable": []
     },
     {
@@ -52522,6 +52776,73 @@
           "full_name": "Kernel.StateSpaceCounting.StateSpaceCounting.lassert_honest_mu_cost"
         }
       ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralCore.v",
+      "qualified_module": "Kernel.StructuralCore",
+      "addressable_count": 10,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "run_vm_u_stopped",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralCore.run_vm_u_stopped"
+        },
+        {
+          "local_name": "run_vm_u_succ",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralCore.run_vm_u_succ"
+        },
+        {
+          "local_name": "thiele_core_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralCore.thiele_core_run"
+        },
+        {
+          "local_name": "thiele_step_mu",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralCore.thiele_step_mu"
+        },
+        {
+          "local_name": "thiele_core_ledger",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralCore.thiele_core_ledger"
+        },
+        {
+          "local_name": "thiele_core_a2",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralCore.thiele_core_a2"
+        },
+        {
+          "local_name": "thiele_core_carries_record",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralCore.thiele_core_carries_record"
+        },
+        {
+          "local_name": "thiele_core_halting_problem_coverage",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralCore.thiele_core_halting_problem_coverage"
+        },
+        {
+          "local_name": "thiele_core_adequate",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralCore.thiele_core_adequate"
+        },
+        {
+          "local_name": "history_core_equiv_thiele",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralCore.history_core_equiv_thiele"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralCoreRound2.v",
+      "qualified_module": "Kernel.StructuralCoreRound2",
+      "addressable_count": 0,
+      "unaddressable_count": 0,
+      "addressable": [],
       "unaddressable": []
     },
     {
@@ -55766,6 +56087,35 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/VMUnboundedLedger.v",
+      "qualified_module": "Kernel.VMUnboundedLedger",
+      "addressable_count": 4,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "vm_apply_u_mu",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMUnboundedLedger.vm_apply_u_mu"
+        },
+        {
+          "local_name": "vm_apply_u_certified",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMUnboundedLedger.vm_apply_u_certified"
+        },
+        {
+          "local_name": "vm_apply_u_certified_permanent",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMUnboundedLedger.vm_apply_u_certified_permanent"
+        },
+        {
+          "local_name": "vm_apply_u_no_free_certification",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMUnboundedLedger.vm_apply_u_no_free_certification"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/VMUnboundedMinskyCorrectness.v",
       "qualified_module": "Kernel.VMUnboundedMinskyCorrectness",
       "addressable_count": 32,
@@ -56905,14 +57255,14 @@
           "full_name": "Kernel.F3_PartitionTopologyCrossLink.F3_partition_topology_mu_cross_link"
         },
         {
-          "local_name": "F3_drop_calibration_breaks_prediction",
+          "local_name": "unit_residual_is_nonzero",
           "kind": "Theorem",
-          "full_name": "Kernel.F3_PartitionTopologyCrossLink.F3_drop_calibration_breaks_prediction"
+          "full_name": "Kernel.F3_PartitionTopologyCrossLink.unit_residual_is_nonzero"
         },
         {
-          "local_name": "F3_drop_sum_zero_breaks_prediction",
+          "local_name": "pi_times_unit_is_nonzero",
           "kind": "Theorem",
-          "full_name": "Kernel.F3_PartitionTopologyCrossLink.F3_drop_sum_zero_breaks_prediction"
+          "full_name": "Kernel.F3_PartitionTopologyCrossLink.pi_times_unit_is_nonzero"
         }
       ],
       "unaddressable": []
@@ -57085,29 +57435,29 @@
           "full_name": "Kernel.PointerObservableCounterexamples.blind_observer_blocks_proliferation"
         },
         {
-          "local_name": "DeniableAuthentication.deniable_verifier_records",
+          "local_name": "DeniableAuthentication.deniable_model_observer_zero_records",
           "kind": "Lemma",
-          "full_name": "Kernel.PointerObservableCounterexamples.DeniableAuthentication.deniable_verifier_records"
+          "full_name": "Kernel.PointerObservableCounterexamples.DeniableAuthentication.deniable_model_observer_zero_records"
         },
         {
-          "local_name": "DeniableAuthentication.deniable_authentication_refutes_strong_criterion",
+          "local_name": "DeniableAuthentication.deniable_authentication_model_not_proliferating",
           "kind": "Theorem",
-          "full_name": "Kernel.PointerObservableCounterexamples.DeniableAuthentication.deniable_authentication_refutes_strong_criterion"
+          "full_name": "Kernel.PointerObservableCounterexamples.DeniableAuthentication.deniable_authentication_model_not_proliferating"
         },
         {
-          "local_name": "SymmetricMAC.mac_refutes_strong_criterion",
+          "local_name": "SymmetricMAC.mac_model_not_proliferating",
           "kind": "Theorem",
-          "full_name": "Kernel.PointerObservableCounterexamples.SymmetricMAC.mac_refutes_strong_criterion"
+          "full_name": "Kernel.PointerObservableCounterexamples.SymmetricMAC.mac_model_not_proliferating"
         },
         {
-          "local_name": "ObjectCapability.capability_refutes_strong_criterion",
+          "local_name": "ObjectCapability.capability_model_not_proliferating",
           "kind": "Theorem",
-          "full_name": "Kernel.PointerObservableCounterexamples.ObjectCapability.capability_refutes_strong_criterion"
+          "full_name": "Kernel.PointerObservableCounterexamples.ObjectCapability.capability_model_not_proliferating"
         },
         {
-          "local_name": "PublicLog.public_log_confirms",
+          "local_name": "PublicLog.public_log_model_proliferating",
           "kind": "Theorem",
-          "full_name": "Kernel.PointerObservableCounterexamples.PublicLog.public_log_confirms"
+          "full_name": "Kernel.PointerObservableCounterexamples.PublicLog.public_log_model_proliferating"
         },
         {
           "local_name": "PublicLog.public_log_effort_not_proliferating",
@@ -57115,14 +57465,14 @@
           "full_name": "Kernel.PointerObservableCounterexamples.PublicLog.public_log_effort_not_proliferating"
         },
         {
-          "local_name": "DigitalSignature.signature_confirms_proliferation",
+          "local_name": "DigitalSignature.signature_model_proliferating",
           "kind": "Theorem",
-          "full_name": "Kernel.PointerObservableCounterexamples.DigitalSignature.signature_confirms_proliferation"
+          "full_name": "Kernel.PointerObservableCounterexamples.DigitalSignature.signature_model_proliferating"
         },
         {
-          "local_name": "adversarial_search_verdicts",
+          "local_name": "labeled_model_verdicts",
           "kind": "Theorem",
-          "full_name": "Kernel.PointerObservableCounterexamples.adversarial_search_verdicts"
+          "full_name": "Kernel.PointerObservableCounterexamples.labeled_model_verdicts"
         }
       ],
       "unaddressable": []
@@ -57144,34 +57494,34 @@
           "full_name": "Kernel.PointerObservableReductions.mirror_unique_pointer"
         },
         {
-          "local_name": "PoS_unique_pointer",
+          "local_name": "PoS_model_unique_pointer",
           "kind": "Theorem",
-          "full_name": "Kernel.PointerObservableReductions.PoS_unique_pointer"
+          "full_name": "Kernel.PointerObservableReductions.PoS_model_unique_pointer"
         },
         {
-          "local_name": "Gas_unique_pointer",
+          "local_name": "Gas_model_unique_pointer",
           "kind": "Theorem",
-          "full_name": "Kernel.PointerObservableReductions.Gas_unique_pointer"
+          "full_name": "Kernel.PointerObservableReductions.Gas_model_unique_pointer"
         },
         {
-          "local_name": "TEE_unique_pointer",
+          "local_name": "TEE_model_unique_pointer",
           "kind": "Theorem",
-          "full_name": "Kernel.PointerObservableReductions.TEE_unique_pointer"
+          "full_name": "Kernel.PointerObservableReductions.TEE_model_unique_pointer"
         },
         {
-          "local_name": "CT_unique_pointer",
+          "local_name": "CT_model_unique_pointer",
           "kind": "Theorem",
-          "full_name": "Kernel.PointerObservableReductions.CT_unique_pointer"
+          "full_name": "Kernel.PointerObservableReductions.CT_model_unique_pointer"
         },
         {
-          "local_name": "PCC_unique_pointer",
+          "local_name": "PCC_model_unique_pointer",
           "kind": "Theorem",
-          "full_name": "Kernel.PointerObservableReductions.PCC_unique_pointer"
+          "full_name": "Kernel.PointerObservableReductions.PCC_model_unique_pointer"
         },
         {
-          "local_name": "five_disciplines_are_pointers",
+          "local_name": "five_labeled_models_have_selected_pointer",
           "kind": "Theorem",
-          "full_name": "Kernel.PointerObservableReductions.five_disciplines_are_pointers"
+          "full_name": "Kernel.PointerObservableReductions.five_labeled_models_have_selected_pointer"
         }
       ],
       "unaddressable": []
@@ -57341,9 +57691,9 @@
           "full_name": "Kernel.OCamlExtractionBridge.extraction_trust_boundary"
         },
         {
-          "local_name": "ocaml_runner_agrees",
+          "local_name": "ocaml_runner_observable_defined",
           "kind": "Lemma",
-          "full_name": "Kernel.OCamlExtractionBridge.ocaml_runner_agrees"
+          "full_name": "Kernel.OCamlExtractionBridge.ocaml_runner_observable_defined"
         },
         {
           "local_name": "ocaml_nfi_transfers",
@@ -57356,9 +57706,9 @@
           "full_name": "Kernel.OCamlExtractionBridge.ocaml_extraction_mu_nondecreasing"
         },
         {
-          "local_name": "ocaml_bisimulation_closure",
+          "local_name": "ocaml_observable_nofi_and_monotone",
           "kind": "Theorem",
-          "full_name": "Kernel.OCamlExtractionBridge.ocaml_bisimulation_closure"
+          "full_name": "Kernel.OCamlExtractionBridge.ocaml_observable_nofi_and_monotone"
         }
       ],
       "unaddressable": []
@@ -57777,9 +58127,9 @@
       "unaddressable_count": 0,
       "addressable": [
         {
-          "local_name": "classical_mu_budget_decidable",
+          "local_name": "zero_mu_traces_satisfy_preservation_budget",
           "kind": "Theorem",
-          "full_name": "Kernel.MuComplexity.classical_mu_budget_decidable"
+          "full_name": "Kernel.MuComplexity.zero_mu_traces_satisfy_preservation_budget"
         },
         {
           "local_name": "mu_time_tradeoff_witness",
@@ -57841,9 +58191,9 @@
           "full_name": "Kernel.MuCostDerivation.log2_subtraction_valid"
         },
         {
-          "local_name": "partition_ops_cannot_cost",
+          "local_name": "positive_cost_exceeds_equal_size_erasure",
           "kind": "Theorem",
-          "full_name": "Kernel.MuCostDerivation.partition_ops_cannot_cost"
+          "full_name": "Kernel.MuCostDerivation.positive_cost_exceeds_equal_size_erasure"
         },
         {
           "local_name": "mu_cost_thermodynamic_bound",
@@ -57851,24 +58201,24 @@
           "full_name": "Kernel.MuCostDerivation.mu_cost_thermodynamic_bound"
         },
         {
-          "local_name": "cost_function_unique",
+          "local_name": "supplied_delta_schedule_consistent",
           "kind": "Theorem",
-          "full_name": "Kernel.MuCostDerivation.cost_function_unique"
+          "full_name": "Kernel.MuCostDerivation.supplied_delta_schedule_consistent"
         },
         {
-          "local_name": "cost_necessity",
+          "local_name": "lassert_cost_from_component_floors",
           "kind": "Theorem",
-          "full_name": "Kernel.MuCostDerivation.cost_necessity"
+          "full_name": "Kernel.MuCostDerivation.lassert_cost_from_component_floors"
         },
         {
-          "local_name": "cost_forcing_lower_bound",
+          "local_name": "lassert_cost_formula_lower_bound",
           "kind": "Theorem",
-          "full_name": "Kernel.MuCostDerivation.cost_forcing_lower_bound"
+          "full_name": "Kernel.MuCostDerivation.lassert_cost_formula_lower_bound"
         },
         {
-          "local_name": "cost_uniqueness",
+          "local_name": "lassert_cost_is_its_formula",
           "kind": "Theorem",
-          "full_name": "Kernel.MuCostDerivation.cost_uniqueness"
+          "full_name": "Kernel.MuCostDerivation.lassert_cost_is_its_formula"
         }
       ],
       "unaddressable": []
@@ -59087,6 +59437,55 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/nfi/CostSemanticsComparison.v",
+      "qualified_module": "Kernel.CostSemanticsComparison",
+      "addressable_count": 8,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "bind_ret_l",
+          "kind": "Lemma",
+          "full_name": "Kernel.CostSemanticsComparison.bind_ret_l"
+        },
+        {
+          "local_name": "bind_ret_r",
+          "kind": "Lemma",
+          "full_name": "Kernel.CostSemanticsComparison.bind_ret_r"
+        },
+        {
+          "local_name": "bind_assoc",
+          "kind": "Lemma",
+          "full_name": "Kernel.CostSemanticsComparison.bind_assoc"
+        },
+        {
+          "local_name": "run_writer_is_run_and_cost",
+          "kind": "Theorem",
+          "full_name": "Kernel.CostSemanticsComparison.run_writer_is_run_and_cost"
+        },
+        {
+          "local_name": "a2_iff_nonnegative_amortized_cost",
+          "kind": "Theorem",
+          "full_name": "Kernel.CostSemanticsComparison.a2_iff_nonnegative_amortized_cost"
+        },
+        {
+          "local_name": "potential_telescoping",
+          "kind": "Theorem",
+          "full_name": "Kernel.CostSemanticsComparison.potential_telescoping"
+        },
+        {
+          "local_name": "nfi_by_potential",
+          "kind": "Theorem",
+          "full_name": "Kernel.CostSemanticsComparison.nfi_by_potential"
+        },
+        {
+          "local_name": "certification_system_is_potential_method",
+          "kind": "Corollary",
+          "full_name": "Kernel.CostSemanticsComparison.certification_system_is_potential_method"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/nfi/FiniteCertMachine.v",
       "qualified_module": "Kernel.FiniteCertMachine",
       "addressable_count": 23,
@@ -59540,6 +59939,100 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/nfi/KnowledgeNarrowing.v",
+      "qualified_module": "Kernel.KnowledgeNarrowing",
+      "addressable_count": 17,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "run_image_nodup",
+          "kind": "Lemma",
+          "full_name": "Kernel.KnowledgeNarrowing.run_image_nodup"
+        },
+        {
+          "local_name": "run_image_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.KnowledgeNarrowing.run_image_spec"
+        },
+        {
+          "local_name": "run_image_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.KnowledgeNarrowing.run_image_step"
+        },
+        {
+          "local_name": "run_narrowing_priced",
+          "kind": "Theorem",
+          "full_name": "Kernel.KnowledgeNarrowing.run_narrowing_priced"
+        },
+        {
+          "local_name": "run_narrowing_priced_log",
+          "kind": "Theorem",
+          "full_name": "Kernel.KnowledgeNarrowing.run_narrowing_priced_log"
+        },
+        {
+          "local_name": "knowledge_contains_actual",
+          "kind": "Lemma",
+          "full_name": "Kernel.KnowledgeNarrowing.knowledge_contains_actual"
+        },
+        {
+          "local_name": "knowledge_sublist",
+          "kind": "Lemma",
+          "full_name": "Kernel.KnowledgeNarrowing.knowledge_sublist"
+        },
+        {
+          "local_name": "dstates_finite",
+          "kind": "Lemma",
+          "full_name": "Kernel.KnowledgeNarrowing.dstates_finite"
+        },
+        {
+          "local_name": "measure_forgets_nothing",
+          "kind": "Theorem",
+          "full_name": "Kernel.KnowledgeNarrowing.measure_forgets_nothing"
+        },
+        {
+          "local_name": "wipe_merges",
+          "kind": "Theorem",
+          "full_name": "Kernel.KnowledgeNarrowing.wipe_merges"
+        },
+        {
+          "local_name": "demon_fiber_bound",
+          "kind": "Lemma",
+          "full_name": "Kernel.KnowledgeNarrowing.demon_fiber_bound"
+        },
+        {
+          "local_name": "demon_compression_priced",
+          "kind": "Theorem",
+          "full_name": "Kernel.KnowledgeNarrowing.demon_compression_priced"
+        },
+        {
+          "local_name": "wipe_costs_at_least_one",
+          "kind": "Theorem",
+          "full_name": "Kernel.KnowledgeNarrowing.wipe_costs_at_least_one"
+        },
+        {
+          "local_name": "demon_observer_learns",
+          "kind": "Theorem",
+          "full_name": "Kernel.KnowledgeNarrowing.demon_observer_learns"
+        },
+        {
+          "local_name": "demon_machine_spread_kept",
+          "kind": "Theorem",
+          "full_name": "Kernel.KnowledgeNarrowing.demon_machine_spread_kept"
+        },
+        {
+          "local_name": "observer_narrowing_can_be_free",
+          "kind": "Theorem",
+          "full_name": "Kernel.KnowledgeNarrowing.observer_narrowing_can_be_free"
+        },
+        {
+          "local_name": "vm_observer_narrowing_at_zero_cost",
+          "kind": "Theorem",
+          "full_name": "Kernel.KnowledgeNarrowing.vm_observer_narrowing_at_zero_cost"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/nfi/LandauerDerivation.v",
       "qualified_module": "Kernel.LandauerDerivation",
       "addressable_count": 10,
@@ -59754,14 +60247,14 @@
           "full_name": "Kernel.MuLedgerQuantumBridge.bridge_counterexample_not_column_contractive"
         },
         {
-          "local_name": "bridge_witness_execution_quantum_gram_coherent",
+          "local_name": "bridge_witness_execution_npa_gram_coherent",
           "kind": "Lemma",
-          "full_name": "Kernel.MuLedgerQuantumBridge.bridge_witness_execution_quantum_gram_coherent"
+          "full_name": "Kernel.MuLedgerQuantumBridge.bridge_witness_execution_npa_gram_coherent"
         },
         {
-          "local_name": "bridge_counterexample_not_execution_quantum_gram_coherent",
+          "local_name": "bridge_counterexample_not_execution_npa_gram_coherent",
           "kind": "Lemma",
-          "full_name": "Kernel.MuLedgerQuantumBridge.bridge_counterexample_not_execution_quantum_gram_coherent"
+          "full_name": "Kernel.MuLedgerQuantumBridge.bridge_counterexample_not_execution_npa_gram_coherent"
         },
         {
           "local_name": "bridge_good_and_bad_run_vm_coincide",
@@ -59774,14 +60267,14 @@
           "full_name": "Kernel.MuLedgerQuantumBridge.bridge_good_and_bad_final_tensors_coincide"
         },
         {
-          "local_name": "raw_vm_mu_tensor_cannot_characterize_execution_quantum_gram",
+          "local_name": "raw_vm_mu_tensor_cannot_characterize_execution_npa_gram",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.raw_vm_mu_tensor_cannot_characterize_execution_quantum_gram"
+          "full_name": "Kernel.MuLedgerQuantumBridge.raw_vm_mu_tensor_cannot_characterize_execution_npa_gram"
         },
         {
-          "local_name": "bridge_counterexample_not_final_tensor_quantum_gram",
+          "local_name": "bridge_counterexample_not_final_tensor_npa_gram",
           "kind": "Lemma",
-          "full_name": "Kernel.MuLedgerQuantumBridge.bridge_counterexample_not_final_tensor_quantum_gram"
+          "full_name": "Kernel.MuLedgerQuantumBridge.bridge_counterexample_not_final_tensor_npa_gram"
         },
         {
           "local_name": "mu_ledger_tsirelson_coherent_not_sufficient",
@@ -59834,29 +60327,29 @@
           "full_name": "Kernel.MuLedgerQuantumBridge.zero_marginal_npa_column_contractive_implies_psd"
         },
         {
-          "local_name": "execution_quantum_gram_coherent_implies_final_tensor_quantum_gram",
+          "local_name": "execution_npa_gram_coherent_implies_final_tensor_npa_gram",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.execution_quantum_gram_coherent_implies_final_tensor_quantum_gram"
+          "full_name": "Kernel.MuLedgerQuantumBridge.execution_npa_gram_coherent_implies_final_tensor_npa_gram"
         },
         {
-          "local_name": "mu_ledger_quantum_gram_coherent_implies_final_tensor_quantum_gram",
+          "local_name": "mu_ledger_npa_gram_coherent_implies_final_tensor_npa_gram",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.mu_ledger_quantum_gram_coherent_implies_final_tensor_quantum_gram"
+          "full_name": "Kernel.MuLedgerQuantumBridge.mu_ledger_npa_gram_coherent_implies_final_tensor_npa_gram"
         },
         {
-          "local_name": "final_tensor_quantum_gram_implies_quantum_realizable_of_trace",
+          "local_name": "final_tensor_npa_gram_implies_npa_psd_of_trace",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.final_tensor_quantum_gram_implies_quantum_realizable_of_trace"
+          "full_name": "Kernel.MuLedgerQuantumBridge.final_tensor_npa_gram_implies_npa_psd_of_trace"
         },
         {
-          "local_name": "mu_ledger_psd_coherent_implies_quantum_realizable_of_trace",
+          "local_name": "mu_ledger_psd_coherent_implies_npa_psd_of_trace",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.mu_ledger_psd_coherent_implies_quantum_realizable_of_trace"
+          "full_name": "Kernel.MuLedgerQuantumBridge.mu_ledger_psd_coherent_implies_npa_psd_of_trace"
         },
         {
-          "local_name": "mu_ledger_coherent_implies_quantum_realizable_of_trace",
+          "local_name": "mu_ledger_coherent_implies_npa_psd_of_trace",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.mu_ledger_coherent_implies_quantum_realizable_of_trace"
+          "full_name": "Kernel.MuLedgerQuantumBridge.mu_ledger_coherent_implies_npa_psd_of_trace"
         },
         {
           "local_name": "certified_bridge_counterexample_is_machine_internal_completed",
@@ -59874,24 +60367,24 @@
           "full_name": "Kernel.MuLedgerQuantumBridge.machine_internal_completed_run_not_sufficient_for_trace_column_contractivity"
         },
         {
-          "local_name": "final_tensor_quantum_gram_obligation_implies_quantum_realizable_of_trace",
+          "local_name": "final_tensor_npa_gram_obligation_implies_npa_psd_of_trace",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.final_tensor_quantum_gram_obligation_implies_quantum_realizable_of_trace"
+          "full_name": "Kernel.MuLedgerQuantumBridge.final_tensor_npa_gram_obligation_implies_npa_psd_of_trace"
         },
         {
-          "local_name": "tensor_psd_bridge_implies_quantum_realizable_of_trace",
+          "local_name": "tensor_psd_bridge_implies_npa_psd_of_trace",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.tensor_psd_bridge_implies_quantum_realizable_of_trace"
+          "full_name": "Kernel.MuLedgerQuantumBridge.tensor_psd_bridge_implies_npa_psd_of_trace"
         },
         {
-          "local_name": "final_tensor_quantum_gram_obligation_proved",
+          "local_name": "final_tensor_npa_gram_obligation_proved",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.final_tensor_quantum_gram_obligation_proved"
+          "full_name": "Kernel.MuLedgerQuantumBridge.final_tensor_npa_gram_obligation_proved"
         },
         {
-          "local_name": "weak_final_tensor_quantum_gram_obligation_refuted",
+          "local_name": "weak_final_tensor_npa_gram_obligation_refuted",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.weak_final_tensor_quantum_gram_obligation_refuted"
+          "full_name": "Kernel.MuLedgerQuantumBridge.weak_final_tensor_npa_gram_obligation_refuted"
         },
         {
           "local_name": "soundness_and_completeness_imply_exact_characterization",
@@ -59929,9 +60422,9 @@
           "full_name": "Kernel.MuLedgerQuantumBridge.certified_no_error_positive_mu_not_sufficient_for_state_column_contractivity"
         },
         {
-          "local_name": "state_column_contractive_implies_quantum_gram",
+          "local_name": "state_column_contractive_implies_npa_gram",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.state_column_contractive_implies_quantum_gram"
+          "full_name": "Kernel.MuLedgerQuantumBridge.state_column_contractive_implies_npa_gram"
         },
         {
           "local_name": "kernel_state_bridge_coherent_implies_positive_mu",
@@ -59939,9 +60432,9 @@
           "full_name": "Kernel.MuLedgerQuantumBridge.kernel_state_bridge_coherent_implies_positive_mu"
         },
         {
-          "local_name": "kernel_state_bridge_coherent_implies_quantum_realizable",
+          "local_name": "kernel_state_bridge_coherent_implies_npa_psd",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.kernel_state_bridge_coherent_implies_quantum_realizable"
+          "full_name": "Kernel.MuLedgerQuantumBridge.kernel_state_bridge_coherent_implies_npa_psd"
         },
         {
           "local_name": "kernel_final_state_determines_quantum_object",
@@ -59949,19 +60442,19 @@
           "full_name": "Kernel.MuLedgerQuantumBridge.kernel_final_state_determines_quantum_object"
         },
         {
-          "local_name": "quantum_realizable_zero_marginal_implies_row_bounds",
+          "local_name": "npa_psd_zero_marginal_implies_row_bounds",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.quantum_realizable_zero_marginal_implies_row_bounds"
+          "full_name": "Kernel.MuLedgerQuantumBridge.npa_psd_zero_marginal_implies_row_bounds"
         },
         {
-          "local_name": "execution_quantum_gram_coherent_implies_mu_ledger_tsirelson_coherent",
+          "local_name": "execution_npa_gram_coherent_implies_mu_ledger_tsirelson_coherent",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.execution_quantum_gram_coherent_implies_mu_ledger_tsirelson_coherent"
+          "full_name": "Kernel.MuLedgerQuantumBridge.execution_npa_gram_coherent_implies_mu_ledger_tsirelson_coherent"
         },
         {
-          "local_name": "execution_quantum_gram_coherent_implies_mu_ledger_coherent",
+          "local_name": "execution_npa_gram_coherent_implies_mu_ledger_coherent",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.execution_quantum_gram_coherent_implies_mu_ledger_coherent"
+          "full_name": "Kernel.MuLedgerQuantumBridge.execution_npa_gram_coherent_implies_mu_ledger_coherent"
         },
         {
           "local_name": "bridge_ready_completed_run_implies_mu_ledger_coherent",
@@ -59969,9 +60462,9 @@
           "full_name": "Kernel.MuLedgerQuantumBridge.bridge_ready_completed_run_implies_mu_ledger_coherent"
         },
         {
-          "local_name": "bridge_ready_completed_run_implies_quantum_realizable_of_trace",
+          "local_name": "bridge_ready_completed_run_implies_npa_psd_of_trace",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.bridge_ready_completed_run_implies_quantum_realizable_of_trace"
+          "full_name": "Kernel.MuLedgerQuantumBridge.bridge_ready_completed_run_implies_npa_psd_of_trace"
         },
         {
           "local_name": "bridge_ready_completed_run_implies_tsirelson_bound_abs",
@@ -59979,14 +60472,14 @@
           "full_name": "Kernel.MuLedgerQuantumBridge.bridge_ready_completed_run_implies_tsirelson_bound_abs"
         },
         {
-          "local_name": "quantum_realizable_implies_tsirelson_bound",
+          "local_name": "npa_psd_implies_tsirelson_bound",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.quantum_realizable_implies_tsirelson_bound"
+          "full_name": "Kernel.MuLedgerQuantumBridge.npa_psd_implies_tsirelson_bound"
         },
         {
-          "local_name": "quantum_realizable_implies_tsirelson_bound_abs",
+          "local_name": "npa_psd_implies_tsirelson_bound_abs",
           "kind": "Theorem",
-          "full_name": "Kernel.MuLedgerQuantumBridge.quantum_realizable_implies_tsirelson_bound_abs"
+          "full_name": "Kernel.MuLedgerQuantumBridge.npa_psd_implies_tsirelson_bound_abs"
         },
         {
           "local_name": "state_column_contractive_implies_tsirelson",
@@ -63189,9 +63682,9 @@
           "full_name": "Kernel.GenRealizability.symmetric_n_unfold_9"
         },
         {
-          "local_name": "q1ab_claim_is_quantum_realizable_q1ab",
+          "local_name": "q1ab_claim_is_npa_psd_q1ab",
           "kind": "Theorem",
-          "full_name": "Kernel.GenRealizability.q1ab_claim_is_quantum_realizable_q1ab"
+          "full_name": "Kernel.GenRealizability.q1ab_claim_is_npa_psd_q1ab"
         },
         {
           "local_name": "column_contractive_q1ab_iff_general_realizable",
@@ -63474,9 +63967,9 @@
           "full_name": "Kernel.InformationCausality.ic_equiv_cost_preservation"
         },
         {
-          "local_name": "zero_cost_is_quantum",
+          "local_name": "zero_communication_zero_cost",
           "kind": "Lemma",
-          "full_name": "Kernel.InformationCausality.zero_cost_is_quantum"
+          "full_name": "Kernel.InformationCausality.zero_communication_zero_cost"
         },
         {
           "local_name": "ic_cost_optimal",
@@ -63617,9 +64110,9 @@
           "full_name": "Kernel.NPAMomentMatrix.npa_rho_AA_position"
         },
         {
-          "local_name": "quantum_realizable_implies_normalized",
+          "local_name": "npa_psd_implies_normalized",
           "kind": "Lemma",
-          "full_name": "Kernel.NPAMomentMatrix.quantum_realizable_implies_normalized"
+          "full_name": "Kernel.NPAMomentMatrix.npa_psd_implies_normalized"
         },
         {
           "local_name": "npa_to_matrix_symmetric",
@@ -63979,34 +64472,34 @@
           "full_name": "Kernel.QuantumPartitionPSD.npa_psd_iff_column_contractive"
         },
         {
-          "local_name": "column_contractive_iff_quantum_realizable",
+          "local_name": "column_contractive_iff_npa_psd",
           "kind": "Corollary",
-          "full_name": "Kernel.QuantumPartitionPSD.column_contractive_iff_quantum_realizable"
+          "full_name": "Kernel.QuantumPartitionPSD.column_contractive_iff_npa_psd"
         },
         {
-          "local_name": "trace_column_contractive_iff_trace_quantum_model",
+          "local_name": "trace_column_contractive_iff_trace_npa_model",
           "kind": "Theorem",
-          "full_name": "Kernel.QuantumPartitionPSD.trace_column_contractive_iff_trace_quantum_model"
+          "full_name": "Kernel.QuantumPartitionPSD.trace_column_contractive_iff_trace_npa_model"
         },
         {
-          "local_name": "psplit_quantum_implementation_implies_column_contractive",
+          "local_name": "trace_npa_matrix_psd_implies_column_contractive",
           "kind": "Theorem",
-          "full_name": "Kernel.QuantumPartitionPSD.psplit_quantum_implementation_implies_column_contractive"
+          "full_name": "Kernel.QuantumPartitionPSD.trace_npa_matrix_psd_implies_column_contractive"
         },
         {
-          "local_name": "psplit_quantum_state_implies_tsirelson",
+          "local_name": "trace_npa_matrix_psd_implies_tsirelson",
           "kind": "Corollary",
-          "full_name": "Kernel.QuantumPartitionPSD.psplit_quantum_state_implies_tsirelson"
+          "full_name": "Kernel.QuantumPartitionPSD.trace_npa_matrix_psd_implies_tsirelson"
         },
         {
-          "local_name": "chsh_lassert_check_implies_quantum_realizable",
+          "local_name": "chsh_lassert_check_implies_npa_psd",
           "kind": "Theorem",
-          "full_name": "Kernel.QuantumPartitionPSD.chsh_lassert_check_implies_quantum_realizable"
+          "full_name": "Kernel.QuantumPartitionPSD.chsh_lassert_check_implies_npa_psd"
         },
         {
-          "local_name": "chsh_lassert_no_trap_implies_quantum_realizable",
+          "local_name": "chsh_lassert_no_trap_implies_npa_psd",
           "kind": "Theorem",
-          "full_name": "Kernel.QuantumPartitionPSD.chsh_lassert_no_trap_implies_quantum_realizable"
+          "full_name": "Kernel.QuantumPartitionPSD.chsh_lassert_no_trap_implies_npa_psd"
         }
       ],
       "unaddressable": []
@@ -64058,9 +64551,9 @@
           "full_name": "Kernel.QuantumPartitionPSD_1AB.q1ab_psd_iff_column_contractive"
         },
         {
-          "local_name": "column_contractive_q1ab_iff_quantum_realizable",
+          "local_name": "column_contractive_q1ab_iff_npa_psd",
           "kind": "Corollary",
-          "full_name": "Kernel.QuantumPartitionPSD_1AB.column_contractive_q1ab_iff_quantum_realizable"
+          "full_name": "Kernel.QuantumPartitionPSD_1AB.column_contractive_q1ab_iff_npa_psd"
         },
         {
           "local_name": "q1ab_residual_g_zero_decomp",
@@ -64088,9 +64581,9 @@
           "full_name": "Kernel.QuantumPartitionPSD_1AB.chsh_lassert_no_trap_with_sum_E_check_implies_q1ab_psd"
         },
         {
-          "local_name": "chsh_lassert_no_trap_with_sum_E_check_implies_quantum_realizable_q1ab",
+          "local_name": "chsh_lassert_no_trap_with_sum_E_check_implies_npa_psd_q1ab",
           "kind": "Theorem",
-          "full_name": "Kernel.QuantumPartitionPSD_1AB.chsh_lassert_no_trap_with_sum_E_check_implies_quantum_realizable_q1ab"
+          "full_name": "Kernel.QuantumPartitionPSD_1AB.chsh_lassert_no_trap_with_sum_E_check_implies_npa_psd_q1ab"
         },
         {
           "local_name": "q1ab_check_at_gzero_forces_unit_ball",
@@ -64113,9 +64606,9 @@
           "full_name": "Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_no_trap_implies_q1ab_psd"
         },
         {
-          "local_name": "chsh_lassert_1ab_no_trap_implies_quantum_realizable_q1ab",
+          "local_name": "chsh_lassert_1ab_no_trap_implies_npa_psd_q1ab",
           "kind": "Theorem",
-          "full_name": "Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_no_trap_implies_quantum_realizable_q1ab"
+          "full_name": "Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_no_trap_implies_npa_psd_q1ab"
         },
         {
           "local_name": "q1ab_residual_g5_only_decomp",
@@ -64703,19 +65196,19 @@
           "full_name": "Kernel.QuantumPartitionPSD_1AB.q1ab_g12345_caller_witness_z_abs_implies_psd9"
         },
         {
-          "local_name": "chsh_lassert_1ab_g5_no_trap_implies_quantum_realizable_q1ab",
+          "local_name": "chsh_lassert_1ab_g5_no_trap_implies_npa_psd_q1ab",
           "kind": "Theorem",
-          "full_name": "Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_g5_no_trap_implies_quantum_realizable_q1ab"
+          "full_name": "Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_g5_no_trap_implies_npa_psd_q1ab"
         },
         {
-          "local_name": "chsh_lassert_1ab_g345_no_trap_implies_quantum_realizable_q1ab",
+          "local_name": "chsh_lassert_1ab_g345_no_trap_implies_npa_psd_q1ab",
           "kind": "Theorem",
-          "full_name": "Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_g345_no_trap_implies_quantum_realizable_q1ab"
+          "full_name": "Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_g345_no_trap_implies_npa_psd_q1ab"
         },
         {
-          "local_name": "chsh_lassert_1ab_g12345_no_trap_implies_quantum_realizable_q1ab",
+          "local_name": "chsh_lassert_1ab_g12345_no_trap_implies_npa_psd_q1ab",
           "kind": "Theorem",
-          "full_name": "Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_g12345_no_trap_implies_quantum_realizable_q1ab"
+          "full_name": "Kernel.QuantumPartitionPSD_1AB.chsh_lassert_1ab_g12345_no_trap_implies_npa_psd_q1ab"
         }
       ],
       "unaddressable": []
@@ -64962,9 +65455,9 @@
           "full_name": "Kernel.TsirelsonQuantumModel.trace_run_vm_correlators_invariant_at_stuck"
         },
         {
-          "local_name": "trace_quantum_model_invariant",
+          "local_name": "trace_npa_model_invariant",
           "kind": "Lemma",
-          "full_name": "Kernel.TsirelsonQuantumModel.trace_quantum_model_invariant"
+          "full_name": "Kernel.TsirelsonQuantumModel.trace_npa_model_invariant"
         },
         {
           "local_name": "trace_quantum_bridge_coherent_invariant",
@@ -64972,9 +65465,9 @@
           "full_name": "Kernel.TsirelsonQuantumModel.trace_quantum_bridge_coherent_invariant"
         },
         {
-          "local_name": "trace_quantum_bridge_coherent_implies_quantum_model",
+          "local_name": "trace_quantum_bridge_coherent_implies_npa_model",
           "kind": "Theorem",
-          "full_name": "Kernel.TsirelsonQuantumModel.trace_quantum_bridge_coherent_implies_quantum_model"
+          "full_name": "Kernel.TsirelsonQuantumModel.trace_quantum_bridge_coherent_implies_npa_model"
         },
         {
           "local_name": "trace_quantum_bridge_coherent_implies_tsirelson_squared",
@@ -64987,29 +65480,29 @@
           "full_name": "Kernel.TsirelsonQuantumModel.trace_quantum_bridge_coherent_implies_tsirelson_abs"
         },
         {
-          "local_name": "trace_quantum_model_connection_closed",
+          "local_name": "trace_npa_model_connection_closed",
           "kind": "Theorem",
-          "full_name": "Kernel.TsirelsonQuantumModel.trace_quantum_model_connection_closed"
+          "full_name": "Kernel.TsirelsonQuantumModel.trace_npa_model_connection_closed"
         },
         {
-          "local_name": "c4_direct_tsirelson_from_quantum_realizable",
+          "local_name": "c4_direct_tsirelson_from_npa_psd",
           "kind": "Theorem",
-          "full_name": "Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_from_quantum_realizable"
+          "full_name": "Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_from_npa_psd"
         },
         {
-          "local_name": "c4_direct_tsirelson_abs_from_quantum_realizable",
+          "local_name": "c4_direct_tsirelson_abs_from_npa_psd",
           "kind": "Theorem",
-          "full_name": "Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_abs_from_quantum_realizable"
+          "full_name": "Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_abs_from_npa_psd"
         },
         {
-          "local_name": "c4_direct_tsirelson_from_quantum_realizable_invariant",
+          "local_name": "c4_direct_tsirelson_from_npa_psd_invariant",
           "kind": "Lemma",
-          "full_name": "Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_from_quantum_realizable_invariant"
+          "full_name": "Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_from_npa_psd_invariant"
         },
         {
-          "local_name": "c4_direct_tsirelson_abs_from_quantum_realizable_invariant",
+          "local_name": "c4_direct_tsirelson_abs_from_npa_psd_invariant",
           "kind": "Lemma",
-          "full_name": "Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_abs_from_quantum_realizable_invariant"
+          "full_name": "Kernel.TsirelsonQuantumModel.c4_direct_tsirelson_abs_from_npa_psd_invariant"
         }
       ],
       "unaddressable": []
@@ -65129,14 +65622,14 @@
       "unaddressable_count": 0,
       "addressable": [
         {
-          "local_name": "unitary_preserves_trace",
+          "local_name": "radius_preserving_trace",
           "kind": "Corollary",
-          "full_name": "Kernel.Unitarity.unitary_preserves_trace"
+          "full_name": "Kernel.Unitarity.radius_preserving_trace"
         },
         {
-          "local_name": "unitary_preserves_positivity",
+          "local_name": "radius_preserving_positivity",
           "kind": "Theorem",
-          "full_name": "Kernel.Unitarity.unitary_preserves_positivity"
+          "full_name": "Kernel.Unitarity.radius_preserving_positivity"
         },
         {
           "local_name": "nonunitary_requires_mu",
@@ -65144,9 +65637,9 @@
           "full_name": "Kernel.Unitarity.nonunitary_requires_mu"
         },
         {
-          "local_name": "physical_evolution_is_CPTP",
+          "local_name": "ball_trace_contract_from_premises",
           "kind": "Theorem",
-          "full_name": "Kernel.Unitarity.physical_evolution_is_CPTP"
+          "full_name": "Kernel.Unitarity.ball_trace_contract_from_premises"
         },
         {
           "local_name": "lindblad_requires_mu",
@@ -65159,14 +65652,14 @@
           "full_name": "Kernel.Unitarity.zero_cost_preserves_purity"
         },
         {
-          "local_name": "zero_cost_implies_unitary",
+          "local_name": "zero_cost_preserves_radius",
           "kind": "Theorem",
-          "full_name": "Kernel.Unitarity.zero_cost_implies_unitary"
+          "full_name": "Kernel.Unitarity.zero_cost_preserves_radius"
         },
         {
-          "local_name": "reversible_zero_cost_is_unitary",
+          "local_name": "reversible_zero_cost_preserves_radius",
           "kind": "Corollary",
-          "full_name": "Kernel.Unitarity.reversible_zero_cost_is_unitary"
+          "full_name": "Kernel.Unitarity.reversible_zero_cost_preserves_radius"
         }
       ],
       "unaddressable": []
@@ -65427,9 +65920,43 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/reductions/TPMQuoteGap.v",
+      "qualified_module": "Kernel.TPMQuoteGap",
+      "addressable_count": 5,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "quote_collision",
+          "kind": "Lemma",
+          "full_name": "Kernel.TPMQuoteGap.quote_collision"
+        },
+        {
+          "local_name": "quote_cannot_attest_unmeasured_state",
+          "kind": "Theorem",
+          "full_name": "Kernel.TPMQuoteGap.quote_cannot_attest_unmeasured_state"
+        },
+        {
+          "local_name": "quote_decides_measured_claims",
+          "kind": "Theorem",
+          "full_name": "Kernel.TPMQuoteGap.quote_decides_measured_claims"
+        },
+        {
+          "local_name": "quote_projection_faithful",
+          "kind": "Lemma",
+          "full_name": "Kernel.TPMQuoteGap.quote_projection_faithful"
+        },
+        {
+          "local_name": "quote_runtime_verifier_separation",
+          "kind": "Theorem",
+          "full_name": "Kernel.TPMQuoteGap.quote_runtime_verifier_separation"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/reductions/TransparencyLog.v",
       "qualified_module": "Kernel.TransparencyLog",
-      "addressable_count": 9,
+      "addressable_count": 10,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -65443,39 +65970,44 @@
           "full_name": "Kernel.TransparencyLog.lbt_roundtrip"
         },
         {
-          "local_name": "hardness_roundtrip",
+          "local_name": "commitment_roundtrip",
           "kind": "Lemma",
-          "full_name": "Kernel.TransparencyLog.hardness_roundtrip"
+          "full_name": "Kernel.TransparencyLog.commitment_roundtrip"
         },
         {
-          "local_name": "log_audit_is_hardness_decide",
+          "local_name": "log_audit_is_commitment_decide",
           "kind": "Lemma",
-          "full_name": "Kernel.TransparencyLog.log_audit_is_hardness_decide"
+          "full_name": "Kernel.TransparencyLog.log_audit_is_commitment_decide"
         },
         {
-          "local_name": "log_audit_weak_sound",
+          "local_name": "log_audit_sound",
           "kind": "Lemma",
-          "full_name": "Kernel.TransparencyLog.log_audit_weak_sound"
+          "full_name": "Kernel.TransparencyLog.log_audit_sound"
         },
         {
-          "local_name": "transparency_log_escape",
+          "local_name": "log_audit_complete",
+          "kind": "Lemma",
+          "full_name": "Kernel.TransparencyLog.log_audit_complete"
+        },
+        {
+          "local_name": "abstract_log_bit_verifier",
           "kind": "Theorem",
-          "full_name": "Kernel.TransparencyLog.transparency_log_escape"
+          "full_name": "Kernel.TransparencyLog.abstract_log_bit_verifier"
         },
         {
-          "local_name": "log_free_verifier_impossible",
+          "local_name": "abstract_bare_verifier_impossible",
           "kind": "Theorem",
-          "full_name": "Kernel.TransparencyLog.log_free_verifier_impossible"
+          "full_name": "Kernel.TransparencyLog.abstract_bare_verifier_impossible"
         },
         {
-          "local_name": "split_view_witness",
+          "local_name": "abstract_mu_collision_witness",
           "kind": "Theorem",
-          "full_name": "Kernel.TransparencyLog.split_view_witness"
+          "full_name": "Kernel.TransparencyLog.abstract_mu_collision_witness"
         },
         {
-          "local_name": "split_view_same_verdict",
+          "local_name": "abstract_mu_collision_same_verdict",
           "kind": "Corollary",
-          "full_name": "Kernel.TransparencyLog.split_view_same_verdict"
+          "full_name": "Kernel.TransparencyLog.abstract_mu_collision_same_verdict"
         }
       ],
       "unaddressable": []

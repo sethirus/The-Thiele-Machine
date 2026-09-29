@@ -63,6 +63,10 @@ kernel/foundation/VMInstructionEncoding.v
 kernel/foundation/VMSubstrateInstance.v
 kernel/nfi/StructuralUndecidability.v
 kernel/foundation/NatSubstrateInstance.v
+kernel/foundation/LRecursion.v
+kernel/foundation/VMUnboundedLedger.v
+kernel/foundation/StructuralCore.v
+kernel/foundation/StructuralCoreRound2.v
 
 kernel/quantum/CHSH.v
 kernel/quantum/CHSHExtraction.v
@@ -310,6 +314,8 @@ kernel/nfi/PermanentCertification.v
 kernel/nfi/PermanentRecordPricing.v
 kernel/nfi/ShadowPricing.v
 kernel/nfi/FiniteCertMachine.v
+kernel/nfi/KnowledgeNarrowing.v
+kernel/nfi/CostSemanticsComparison.v
 kernel/nfi/PermanentCertificationEntropy.v
 kernel/nfi/CommitmentPredicateAdequacy.v
 kernel/nfi/CommitmentCostDecomposition.v
@@ -359,10 +365,11 @@ kernel/foundation/VMUnboundedMinskyCorrectness.v
 kernel/witness/InformationTopology.v
 kami_hw/RTLGapRegistry.v
 
-# Reductions: real-world systems instantiated against the kernel's abstract records
+# Domain-inspired abstract wrappers; TPMQuoteGap is a separately scoped spec-derived abstraction
 kernel/reductions/PoSFinality.v
 kernel/reductions/GasMetering.v
 kernel/reductions/TEEAttestation.v
+kernel/reductions/TPMQuoteGap.v
 kernel/reductions/TransparencyLog.v
 kernel/reductions/ProofCarryingVerifier.v
 

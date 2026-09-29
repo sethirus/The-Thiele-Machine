@@ -4,19 +4,29 @@
     step is charged or it isn't, and the schedule is trusted to charge
     exactly where it says it charges. This file instantiates
     [LocalPredicatePricedSystem] with charge predicate "this instruction
-    commits state" (state-root finalization as the certification event).
+    commits state" (state-root finalization, in the reading, as the
+    certification event).
+
+    Formally it is a domain-inspired abstract wrapper around
+    [LocalPredicatePricedSystem]. It does not formalize EVM or KEVM state,
+    opcodes, gas tables, exceptional halting, refunds, transaction
+    execution, or consensus finality. The certification event is an
+    abstract Boolean false-to-true transition; the state root is the
+    reading.
 
     Main theorem [gas_schedule_exactness]: any schedule satisfying the two
-    conditions an honest fee market wants —
+    conditions an honest fee market wants --
       floor:        no state-certifying step is free, and
-      no-overcharge: nothing else is billed as a commitment —
+      no-overcharge: nothing else is billed as a commitment --
     is extensionally the cert-flip schedule with exact unit pricing. This is
     [exact_commitment_pricing_characterization] wearing EVM vocabulary.
 
     Corollaries: an undercharged committing opcode admits a zero-cost
-    certifying trace (the historical 2016 underpriced-opcode DoS episodes
-    are this corollary executed against mainnet); charging a non-committing
-    step breaks exactness in the other direction.
+    certifying trace; charging a non-committing step breaks exactness in the
+    other direction. The 2016 underpriced-opcode DoS episodes are the kind
+    of mispricing the first corollary pictures. They were underpriced I/O,
+    not free certification, and no correspondence to a deployed gas schedule
+    is established here.
 
     The exactness boundary is the pair of stated schedule premises. A conforming
     schedule with a different charge predicate on a reachable step would be a
@@ -38,23 +48,26 @@ From Kernel Require Import VMState VMStep SimulationProof AbstractNoFI.
 (** * Vocabulary
 
     Three words of EVM jargon, glossed once so the rest reads plainly.
+    The glosses are the reading; they do not identify the record below
+    with an EVM execution semantics.
 
     GAS.  The per-step execution fee. In the kernel's terms this is
     [lps_cost]: a state-dependent nat charged when a step runs. "Out of
     gas" and refund mechanics are out of scope; we price steps, not
     budgets.
 
-    OPCODE.  One instruction of the execution layer — [lps_instr]. An
+    OPCODE.  One instruction of the execution layer: [lps_instr]. An
     opcode's fee may depend on the state it executes in (EVM does this
     too: SSTORE on a fresh slot vs. a warm one), which is why [lps_cost]
     takes the state as an argument.
 
-    COMMITMENT.  The certification event: the step after which the state
-    root is finalized — externally checkable, no longer revisable. The
-    kernel's [lps_cert] is the "is this state committed?" flag, and
-    [cert_flip_local] is the predicate "this step takes an uncommitted
-    state to a committed one." That flip is the A2 event wearing a
-    blockchain costume.
+    COMMITMENT.  The certification event: in the reading, the step after
+    which the state root is finalized, externally checkable, no longer
+    revisable. The kernel's [lps_cert] is the "is this state committed?"
+    flag, and [cert_flip_local] is the predicate "this step takes an
+    uncommitted state to a committed one." That flip is the A2 event
+    wearing a blockchain costume. Nothing in the record supplies a state
+    root or external finality beyond that Boolean predicate.
 
     A gas schedule is then exactly a [LocalPredicatePricedSystem]: it
     picks a charging predicate [lps_charge] ("which steps cost gas?")
@@ -67,7 +80,7 @@ Definition GasSchedule := LocalPredicatePricedSystem.
 (** * Main 1: the exactness characterization, in gas vocabulary.
 
     [gas_schedule_exactness]: a gas schedule satisfies the two
-    conditions an honest fee market wants —
+    conditions an honest fee market wants --
 
       floor:         total gas collected on any trace is at least the
                      number of commitment events in it
@@ -179,14 +192,15 @@ Qed.
     Mains 1-3 would be vacuously true of an empty class. So here is the
     smallest gas-metered machine that earns the characterization:
 
-    State:  one bit — "has the state root been committed?"
+    State:  one bit: "has the state root been committed?" (in the reading)
     Opcodes:
       [OpCompute] — pure computation; never touches the committed flag.
       [OpCommit]  — finalizes; sets the committed flag.
     Cert:   the flag itself.
     Charge: the canonical predicate — charge exactly when the commit
             flips the flag (committing an already-committed state is a
-            no-op and free, like a warm SSTORE writing the same value).
+            no-op and free here; the nearest EVM case, a warm SSTORE
+            writing the same value, is cheap there, not free).
     Cost:   one unit per charged step, zero otherwise. *)
 
 Inductive toy_op : Type :=
@@ -263,7 +277,7 @@ Qed.
 (** The toy schedule satisfies both honest-fee-market conditions, by
     the right-to-left direction of Main 1. So the class Main 1
     characterizes is inhabited, and the mains above are statements
-    about real schedules, not about an empty set. *)
+    about an inhabited class of schedules, not about an empty set. *)
 Theorem toy_gas_schedule_is_exact :
   quantitative_certification_floor toy_gas_schedule /\
   no_overcharge_for_commitments toy_gas_schedule.

@@ -2,7 +2,7 @@
 
     GOAL (sketch-literal):
        forall H : HonestMeasurementSystem,
-         quantum_realizable (correlation_of H).
+         npa_psd (correlation_of H).
 
     Read: any HonestMeasurementSystem produces a 2-player binary
     correlation that satisfies the zero-marginal NPA conditions (PSD
@@ -100,7 +100,7 @@ Qed.
 Definition full_honest_implies_npa_status : Prop :=
   (* This is the goal we want, written as a Prop. It is NOT proved. *)
   forall (H : HonestMeasurementSystem),
-    quantum_realizable (correlation_of H).
+    npa_psd (correlation_of H).
 
 (** The above [Definition] just states the proposition. A proof would be:
     [Theorem honest_measurement_implies_npa : full_honest_implies_npa_status.]

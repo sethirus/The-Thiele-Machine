@@ -518,21 +518,21 @@ Proof.
   - apply column_contractive_q1ab_implies_psd9.
 Qed.
 
-(** Packaging: quantum-realizable at Q_{1+AB}, in the same style as the
-    Q_1 [quantum_realizable] predicate. *)
-Definition quantum_realizable_q1ab
+(** Packaging: symmetric and PSD at Q_{1+AB}, in the same style as the
+    Q_1 [npa_psd] predicate. *)
+Definition npa_psd_q1ab
   (e00 e01 e10 e11 g1 g2 g3 g4 g5 : RealNumber) : Prop :=
   symmetric9 (q1ab_moment_matrix e00 e01 e10 e11 g1 g2 g3 g4 g5)
   /\ PSD9 (q1ab_moment_matrix e00 e01 e10 e11 g1 g2 g3 g4 g5).
 
-Corollary column_contractive_q1ab_iff_quantum_realizable :
+Corollary column_contractive_q1ab_iff_npa_psd :
   forall e00 e01 e10 e11 g1 g2 g3 g4 g5 : RealNumber,
     column_contractive_q1ab e00 e01 e10 e11 g1 g2 g3 g4 g5
     <->
-    quantum_realizable_q1ab e00 e01 e10 e11 g1 g2 g3 g4 g5.
+    npa_psd_q1ab e00 e01 e10 e11 g1 g2 g3 g4 g5.
 Proof.
   intros e00 e01 e10 e11 g1 g2 g3 g4 g5.
-  unfold quantum_realizable_q1ab.
+  unfold npa_psd_q1ab.
   split.
   - intros Hcc. split.
     + apply q1ab_moment_matrix_symmetric.
@@ -892,21 +892,21 @@ Proof.
   unfold state_e00, state_e01, state_e10, state_e11. exact Hccq.
 Qed.
 
-(** Wrapper packaging the bridge result as a [quantum_realizable_q1ab]
+(** Wrapper packaging the bridge result as a [npa_psd_q1ab]
     statement at γ = 0. *)
-Theorem chsh_lassert_no_trap_with_sum_E_check_implies_quantum_realizable_q1ab :
+Theorem chsh_lassert_no_trap_with_sum_E_check_implies_npa_psd_q1ab :
   forall s mu_delta,
     let s' := vm_apply s (instr_chsh_lassert mu_delta) in
     s'.(vm_pc) = S s.(vm_pc) ->
     s'.(vm_err) = s.(vm_err) ->
     s.(vm_err) = false ->
     sum_E_sq_check_witness s.(vm_witness) = true ->
-    quantum_realizable_q1ab
+    npa_psd_q1ab
       (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s)
       0 0 0 0 0.
 Proof.
   intros s mu_delta s' Hpc Herr Herr0 HsumE.
-  unfold quantum_realizable_q1ab.
+  unfold npa_psd_q1ab.
   split.
   - apply q1ab_moment_matrix_symmetric.
   - apply (chsh_lassert_no_trap_with_sum_E_check_implies_q1ab_psd
@@ -1050,20 +1050,20 @@ Proof.
   unfold state_e00, state_e01, state_e10, state_e11. exact Hccq.
 Qed.
 
-(** Wrapper: same bridge packaged as a [quantum_realizable_q1ab]
+(** Wrapper: same bridge packaged as a [npa_psd_q1ab]
     (= symmetric9 + PSD9) conclusion. *)
-Theorem chsh_lassert_1ab_no_trap_implies_quantum_realizable_q1ab :
+Theorem chsh_lassert_1ab_no_trap_implies_npa_psd_q1ab :
   forall (s : VMState) (mu_delta : nat),
     let s' := vm_apply s (instr_chsh_lassert_1ab mu_delta) in
     s'.(vm_pc) = S s.(vm_pc) ->
     s'.(vm_err) = s.(vm_err) ->
     s.(vm_err) = false ->
-    quantum_realizable_q1ab
+    npa_psd_q1ab
       (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s)
       0 0 0 0 0.
 Proof.
   intros s mu_delta s' Hpc Herr Herr0.
-  unfold quantum_realizable_q1ab.
+  unfold npa_psd_q1ab.
   split.
   - apply q1ab_moment_matrix_symmetric.
   - apply (chsh_lassert_1ab_no_trap_implies_q1ab_psd
@@ -5068,19 +5068,19 @@ Qed.
 
 (** Headline wrappers, one per slice (gamma = 0 above; gamma_5, gamma_345,
     gamma_12345 below): a non-trapping step of the matching cert-opcode
-    implies [quantum_realizable_q1ab], defined as symmetric9 /\ PSD9 of the
+    implies [npa_psd_q1ab], defined as symmetric9 /\ PSD9 of the
     9x9 moment matrix, at the witness- and bucket-derived rationals. *)
 
 (** Slice B (γ_5).  Direct application of [q1ab_g5_full_integer_check_sound],
     which already concludes PSD9 at [state_bucket_correlation]-based
     correlators — no IZR-bridge step needed. *)
-Theorem chsh_lassert_1ab_g5_no_trap_implies_quantum_realizable_q1ab :
+Theorem chsh_lassert_1ab_g5_no_trap_implies_npa_psd_q1ab :
   forall (s : VMState) (mu_delta same_g5 diff_g5 : nat),
     let s' := vm_apply s (instr_chsh_lassert_1ab_g5 mu_delta same_g5 diff_g5) in
     s'.(vm_pc) = S s.(vm_pc) ->
     s'.(vm_err) = s.(vm_err) ->
     s.(vm_err) = false ->
-    quantum_realizable_q1ab
+    npa_psd_q1ab
       (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s)
       0 0 0 0
       (IZR (chsh_d_z same_g5 diff_g5) / IZR (chsh_n_z same_g5 diff_g5)).
@@ -5091,7 +5091,7 @@ Proof.
     destruct (q1ab_g5_full_integer_check_kernel s.(vm_witness) sg5 dg5) eqn:Echk.
     - reflexivity.
     - simpl in Herr. rewrite Herr0 in Herr. discriminate. }
-  unfold quantum_realizable_q1ab. split.
+  unfold npa_psd_q1ab. split.
   - apply q1ab_moment_matrix_symmetric.
   - unfold state_e00, state_e01, state_e10, state_e11.
     apply (q1ab_g5_full_integer_check_sound
@@ -5102,7 +5102,7 @@ Qed.
 (** Slice C (γ_345).  The bool decider's positivity-of-N conjuncts are
     extracted to bridge [state_bucket_correlation] to [IZR D / IZR N] before
     invoking [q1ab_g345_caller_witness_z_abs_implies_psd9]. *)
-Theorem chsh_lassert_1ab_g345_no_trap_implies_quantum_realizable_q1ab :
+Theorem chsh_lassert_1ab_g345_no_trap_implies_npa_psd_q1ab :
   forall (s : VMState)
          (mu_delta same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 : nat),
     let s' := vm_apply s (instr_chsh_lassert_1ab_g345 mu_delta
@@ -5110,7 +5110,7 @@ Theorem chsh_lassert_1ab_g345_no_trap_implies_quantum_realizable_q1ab :
     s'.(vm_pc) = S s.(vm_pc) ->
     s'.(vm_err) = s.(vm_err) ->
     s.(vm_err) = false ->
-    quantum_realizable_q1ab
+    npa_psd_q1ab
       (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s)
       0 0
       (IZR (chsh_d_z same_g3 diff_g3) / IZR (chsh_n_z same_g3 diff_g3))
@@ -5139,7 +5139,7 @@ Proof.
         _HAposZ] _HCMposZ] _HdetMposZ]
        _Hd1Z] _Hd2Z] _Hd3Z] _Hd4Z].
   apply Z.ltb_lt in HN00b, HN01b, HN10b, HN11b.
-  unfold quantum_realizable_q1ab. split.
+  unfold npa_psd_q1ab. split.
   - apply q1ab_moment_matrix_symmetric.
   - unfold state_e00, state_e01, state_e10, state_e11.
     rewrite (state_bucket_correlation_to_IZR _ _ HN00b).
@@ -5154,7 +5154,7 @@ Qed.
     has nine positivity-of-N/Dg conjuncts which the headline corollary
     [q1ab_g12345_caller_witness_z_abs_implies_psd9] expects as explicit
     hypotheses — extract them from the bool check, then apply. *)
-Theorem chsh_lassert_1ab_g12345_no_trap_implies_quantum_realizable_q1ab :
+Theorem chsh_lassert_1ab_g12345_no_trap_implies_npa_psd_q1ab :
   forall (s : VMState)
          (mu_delta same_g1 diff_g1 same_g2 diff_g2
           same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 : nat),
@@ -5164,7 +5164,7 @@ Theorem chsh_lassert_1ab_g12345_no_trap_implies_quantum_realizable_q1ab :
     s'.(vm_pc) = S s.(vm_pc) ->
     s'.(vm_err) = s.(vm_err) ->
     s.(vm_err) = false ->
-    quantum_realizable_q1ab
+    npa_psd_q1ab
       (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s)
       (IZR (chsh_d_z same_g1 diff_g1) / IZR (chsh_n_z same_g1 diff_g1))
       (IZR (chsh_d_z same_g2 diff_g2) / IZR (chsh_n_z same_g2 diff_g2))
@@ -5196,7 +5196,7 @@ Proof.
       _HH11pos] _HS6_22pos] _Hd1] _Hd2] _Hd3] _Hd4].
   apply Z.ltb_lt in HN00b, HN01b, HN10b, HN11b,
                     HDg1b, HDg2b, HDg3b, HDg4b, HDg5b.
-  unfold quantum_realizable_q1ab. split.
+  unfold npa_psd_q1ab. split.
   - apply q1ab_moment_matrix_symmetric.
   - unfold state_e00, state_e01, state_e10, state_e11.
     rewrite (state_bucket_correlation_to_IZR _ _ HN00b).

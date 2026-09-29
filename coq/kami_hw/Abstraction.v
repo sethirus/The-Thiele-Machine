@@ -2856,15 +2856,14 @@ Proof.
   intros. reflexivity.
 Qed.
 
-(** kami_refines_vm_step (abstraction commutation)
+(** kami_register_write_matches_vm (abstraction commutation)
 
-    The abs_phase1 abstraction commutes with register updates:
-    writing register dst with value v in the snapshot produces the
-    same register list as write_reg on the abstracted VMState.
-
-    This is the core commutation property that establishes the
-    hardware implements VM semantics under the abstraction map. *)
-Theorem kami_refines_vm_step :
+    The abs_phase1 abstraction commutes with register updates: writing
+    register dst with value v in the snapshot produces the same register
+    list as write_reg on the abstracted VMState. This is one lemma about
+    register writes. The step-level correspondence is
+    [GraphReconstructionBridge.driven_step_wf], under its precondition. *)
+Theorem kami_register_write_matches_vm :
     forall (s : KamiSnapshot) (dst v : nat),
       dst < RegCount ->
       snapshot_regs_to_list (fun j => if Nat.eqb j dst then word64 v else snap_regs s j) =

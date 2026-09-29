@@ -295,14 +295,14 @@ Definition cloning_from_evolution (E : Evolution) (x y z : R) : CloningOperation
   |}.
 
 (** The theorem below rules out a specific formal conjunction of output equalities and a conservation inequality. *)
-(* SCOPE NOTE: bridges Unitarity.zero_cost_implies_unitary to
+(* SCOPE NOTE: bridges Unitarity.zero_cost_preserves_radius to
    NoCloning.no_cloning_from_conservation — closes C2 gap. *)
 (** The theorem derives radius preservation from the supplied zero-cost and dual-conservation hypotheses. *)
 
 (** It then uses that equality in the formal arithmetic contradiction. *)
 
 (** The statement should not be read as a theorem about every physical unitary operator. *)
-(* SCOPE NOTE: bridges Unitarity.zero_cost_implies_unitary to
+(* SCOPE NOTE: bridges Unitarity.zero_cost_preserves_radius to
    NoCloning.no_cloning_from_conservation — closes C2 gap. *)
 Theorem unitary_cannot_clone :
   forall (E : Evolution) (x y z : R),
@@ -323,9 +323,9 @@ Theorem unitary_cannot_clone :
        state_info x y z + E.(evo_mu)).
 Proof.
   intros E x y z Hcons Hpni Hmu0 Hvalid Hpos [Hout1 [Hout2 Hbudget]].
-  (* From zero_cost_implies_unitary: evolution is unitary, r²_out = r²_in *)
-  pose proof (zero_cost_implies_unitary E Hcons Hpni Hmu0) as Huni.
-  unfold is_unitary in Huni. specialize (Huni x y z Hvalid).
+  (* Zero cost with both bounds gives r²_out = r²_in. *)
+  pose proof (zero_cost_preserves_radius E Hcons Hpni Hmu0) as Huni.
+  unfold radius_preserving in Huni. specialize (Huni x y z Hvalid).
   (* Huni: r²_out = r²_in (i.e., state_info(evo...) = state_info(x,y,z)) *)
   unfold state_info in *.
   (* Hbudget: 2 * r²_in ≤ r²_in + 0 *)
