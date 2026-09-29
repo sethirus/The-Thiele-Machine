@@ -204,6 +204,8 @@ Require Kernel.SimulationProof.
 Require Kernel.StateSpaceCounting.
 Require Kernel.StructuralCore.
 Require Kernel.StructuralCoreRound2.
+Require Kernel.StructuralCoreRound3.
+Require Kernel.StructuralUniqueness.
 Require Kernel.Substrate.
 Require Kernel.Subsumption.
 Require Kernel.TuringClassicalEmbedding.
@@ -10835,6 +10837,24 @@ Print Assumptions Kernel.StructuralCore.thiele_core_carries_record.
 Print Assumptions Kernel.StructuralCore.thiele_core_halting_problem_coverage.
 Print Assumptions Kernel.StructuralCore.thiele_core_adequate.
 Print Assumptions Kernel.StructuralCore.history_core_equiv_thiele.
+(* === Kernel.StructuralUniqueness : 17 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.StructuralUniqueness.billed_run.
+Print Assumptions Kernel.StructuralUniqueness.billed_step_cost.
+Print Assumptions Kernel.StructuralUniqueness.billed_step_cost_pos.
+Print Assumptions Kernel.StructuralUniqueness.billed_core_ledger.
+Print Assumptions Kernel.StructuralUniqueness.billed_core_a2.
+Print Assumptions Kernel.StructuralUniqueness.billed_core_carries_record.
+Print Assumptions Kernel.StructuralUniqueness.billed_core_halting_problem_coverage.
+Print Assumptions Kernel.StructuralUniqueness.billed_core_adequate.
+Print Assumptions Kernel.StructuralUniqueness.empty_program_stuck.
+Print Assumptions Kernel.StructuralUniqueness.empty_program_free.
+Print Assumptions Kernel.StructuralUniqueness.billed_core_not_equiv.
+Print Assumptions Kernel.StructuralUniqueness.uniqueness_round1_refuted.
+Print Assumptions Kernel.StructuralUniqueness.billed_core_record_permanent.
+Print Assumptions Kernel.StructuralUniqueness.billed_core_reachable_record_write.
+Print Assumptions Kernel.StructuralUniqueness.billed_core_honest_extension.
+Print Assumptions Kernel.StructuralUniqueness.billed_core_not_equiv_round2.
+Print Assumptions Kernel.StructuralUniqueness.uniqueness_round2_refuted.
 (* === Kernel.Substrate : 3 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.Substrate.prog_equiv_sym.
 Print Assumptions Kernel.Substrate.prog_equiv_trans.

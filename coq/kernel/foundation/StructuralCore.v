@@ -1,20 +1,13 @@
 (** StructuralCore: record-carrying machines, adequacy, and core equivalence.
 
-    ROUND 1, fixed 2026-09-29 before any test against it. It is the weak
-    comparison round.
-
     The monograph asks whether every adequate record-carrying machine has
-    the same structural core as the Thiele Machine. That question needs three
-    definitions fixed in advance: what a record-carrying machine is, when one
-    is adequate, and when two cores are the same. This file fixes them. It
-    proves only what the definitions need to be well posed: the Thiele core
-    is itself adequate, and a machine that keeps its whole history is
-    equivalent to the Thiele core, so retained history is quotiented out.
-
-    The definitions are not revised to fit a later result. A revision starts
-    a new dated round in a new file, and the old round stays.
-
-    Round 1.
+    the same structural core as the Thiele Machine. That question needs
+    three definitions: what a record-carrying machine is, when one is
+    adequate, and when two cores are the same. This file gives them in their
+    weak form. It proves only what the definitions need to be well posed:
+    the Thiele core is itself adequate, and a machine that keeps its whole
+    history is equivalent to the Thiele core, so retained history is
+    quotiented out.
 
     - A record-carrying machine is a deterministic machine with a set of
       starting states, a yes/no record reading, a ledger carried in the
@@ -40,8 +33,9 @@
       register 9 equal to one, the two-counter interpreter's success
       convention.
 
-    The conjecture, stated here and tested in [StructuralUniqueness]:
-    every adequate machine has a core equivalent to the Thiele core. *)
+    The conjecture stated here: every adequate machine has a core equivalent
+    to the Thiele core. It is false; [StructuralUniqueness] gives the
+    counterexample. *)
 
 From Coq Require Import List Arith.PeanoNat Lia.
 Import ListNotations.
@@ -50,7 +44,7 @@ From Kernel Require Import VMState VMStep VMUnboundedStep VMUnboundedLedger.
 From Kernel Require Import VMUnboundedCM2Interpreter VMUnboundedCM2Bridge.
 From Kernel Require Import MuInitiality.
 
-(** * Round 1 definitions *)
+(** * Definitions *)
 
 Record RCM : Type := {
   rc_state : Type;
@@ -111,7 +105,7 @@ Definition ThieleCore : RCM := {|
     (snd ps).(vm_pc) = length (fst ps) /\ read_reg (snd ps) 9 = 1
 |}.
 
-(** The uniqueness conjecture, round 1. *)
+(** The uniqueness conjecture, weak form. *)
 Definition uniqueness_round1 : Prop :=
   forall M, Adequate M -> core_equiv M ThieleCore.
 

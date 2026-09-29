@@ -69,7 +69,11 @@ An explicitly qualified citation keeps its own module identity.
 - `injective_flip_revokes`: On a finite state space, an injective instruction that switches a reading on somewhere also switches it off somewhere.
 - `permanent_record_write_is_forced_priced`: An instruction that never switches the reading off and switches it on somewhere is charged by every merge-pricing cost.
 - `forced_price_without_permanent_record`: A three-state instruction is charged by every merge-pricing cost and still revokes the reading, so forced pricing does not imply a permanent record.
-- `history_core_equiv_thiele`: Under the dated Round 1 relation, the history-carrying core and the Thiele core cover each other's initial states and agree after every related step on certification, next-step cost, and the relation obtained by forgetting retained history.
+- `history_core_equiv_thiele`: Under `core_equiv`, the history-carrying core and the Thiele core cover each other's initial states and agree after every related step on certification, next-step cost, and the relation obtained by forgetting retained history.
+- `billed_core_adequate`: The CPU-billed Thiele core, whose ledger is the VM ledger plus a step counter so every step costs one more, meets all four conditions of `Adequate`.
+- `billed_core_honest_extension`: The same billed core meets the conditions of `HonestVMExtension`, with dropping the counter as the computational cover.
+- `uniqueness_round1_refuted`: The conjecture `uniqueness_round1` is false: the billed core is adequate but its core is not `core_equiv` to the Thiele core, because a Thiele state with an empty program prices every step at zero and every billed step costs at least one.
+- `uniqueness_round2_refuted`: The conjecture `uniqueness_round2` is false for the same reason: the billed core is an honest VM extension whose core is not `core_equiv_round2` to the Thiele core.
 - `shadow_cannot_price_exactly`: If two steps share their observed before and after and only one switches certification on, no price computed from the observation both meets the floor and never overcharges.
 - `shadow_floor_overcharges`: Under that collision, a window-computed price that meets the floor charges some non-certifying step at least one.
 - `window_showing_reading_has_no_collision`: If certification is a function of the window, no such collision exists.

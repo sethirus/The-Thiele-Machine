@@ -1,7 +1,7 @@
 (** StructuralCoreRound2: computational covers and record observations.
 
-    ROUND 2, definitions fixed 2026-09-29 before the uniqueness and
-    discrimination tests for this round. Round 1 remains in StructuralCore.
+    The strong form of the definitions in [StructuralCore], for machines
+    that run the VM underneath.
 
     The reference computation is the unbounded VM of ThieleCore. A cover
     projects every source step to one reference step, preserves halting,
@@ -21,10 +21,10 @@
     history. Ledger units and the starting balance are part of the
     observation; no rescaling or stuttering is implicit.
 
-    This is a class of extensions of a specified computational model.
-    Its uniqueness conjecture is below. The definition supplies no
-    conclusion about uniqueness, and it does not require exact pricing:
-    A2 is a lower bound. *)
+    This is a class of extensions of a specified computational model. Its
+    uniqueness conjecture is below. It does not require exact pricing, since
+    A2 is a lower bound, and the conjecture is false; [StructuralUniqueness]
+    gives the counterexample. *)
 
 From Coq Require Import Arith.PeanoNat.
 From Kernel Require Import StructuralCore.

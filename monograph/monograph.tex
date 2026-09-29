@@ -548,20 +548,36 @@ The second is about the core.
 Strip every A2-respecting system down to what the theorems actually use.
 Do they all turn out to be the same object, under the right idea of ``the same''?
 That's the strongest reading of ``only one substrate.''
-It isn't a theorem here.
-It's a conjecture, written down so it can be attacked.
-Round 1 calls a record-carrying machine \emph{adequate} when its natural-valued ledger is monotone, its certification reading satisfies A2, some run from an initial state is certified, and each two-counter halting problem has an initial state whose observed halt agrees with that problem. The last clause is an existential halting correspondence, not a two-way effective simulation theorem. Written formally, its conjecture is
-\[
-\mathrm{Adequate}(M) \;\Longrightarrow\; \mathrm{StructuralCore}(M) \;\simeq\; \mathrm{ThieleCore},
-\]
-Here $M$ is already the six-field structural record, and $\simeq$ is the relation \code{core\_equiv}: a bisimulation that covers starting states in both directions and observes certification and next-step ledger cost. It ignores absolute ledger balance and halting. Round 2 fixes a stronger extension criterion and equivalence below. Neither relation is literal sameness of opcodes, storage layout, implementation language, or clock cycles.
+In the form the words suggest, it is false.
 
-One construction shows why the equivalence has to say explicitly what it observes.
+Asking it precisely takes three definitions: what a record-carrying machine is, when one is adequate, and when two are the same. \texttt{StructuralCore.v} fixes them. A record-carrying machine is a deterministic machine with starting states, a yes/no record reading, a ledger carried in the state, and a halting observation. It is \emph{adequate} when its ledger never goes down, its record satisfies A2, some run from a starting state is certified, and each two-counter halting problem has a starting state whose observed halt agrees with it. That last clause is an existential halting correspondence, not a two-way simulation. Two machines are the same (\code{core\_equiv}) when a relation covers their starting states in both directions, and related states agree on the record and on the price of the next step, and step to related states. The relation need not be a function, so extra state one machine keeps can be ignored. None of this is literal sameness of opcodes, storage layout, implementation language, or clock cycles.
+
+\texttt{StructuralCoreRound2.v} gives a stronger form, for machines that run the VM underneath. An explicit projection onto the VM commutes with every step, preserves halting, and reaches every VM starting state. The record is permanent, and some reachable step writes it. Sameness also watches the absolute ledger balance and halting.
+
 Section~\ref{sec:projection-nonexistence} builds a target (the Coq witness is \code{certification\_agreement\_does\_not\_imply\_descent}) that keeps the VM's whole instruction history, charges the same schedule, and reads certification the way the VM does.
 It agrees with the VM on every certification and every charge.
 It still tells the empty trace apart from \texttt{JUMP 0 0}, two traces the VM treats as the same, because it kept the history and the VM didn't.
 A2 and matching certification don't make that extra history fall away.
-Round 1's relational bisimulation says why the kept history does not count, and \code{history\_core\_equiv\_thiele} proves that quotient. This is a sanity result for the definition, not evidence that every adequate machine is equivalent.
+The relational sameness above is what lets it fall away: \code{history\_core\_equiv\_thiele} proves the history-keeping machine is the same as the Thiele core.
+
+The conjecture, in either form, is that every adequate machine is the same as the Thiele core (\code{uniqueness\_round1}, \code{uniqueness\_round2}). Both forms are false (\code{uniqueness\_round1\_refuted}, \code{uniqueness\_round2\_refuted}), with no axioms of any kind.
+The counterexample is a machine that bills CPU time.
+Take the Thiele core and add a step counter to the state. Let the ledger be the VM's ledger plus the counter.
+Every step costs one unit more than the same step of the Thiele core.
+It is adequate (\code{billed\_core\_adequate}), because A2 is a floor and a surcharge only raises the price. It runs the VM underneath, with dropping the counter as the projection (\code{billed\_core\_honest\_extension}).
+It still isn't the same.
+A Thiele state with an empty program never moves and pays nothing per step. Every step of the billed machine costs at least one.
+
+\begin{plainreading}
+Adequacy puts a floor on the price of certifying. It never forbids charging for other things. A machine that charges for time is adequate, and it isn't the same machine.
+\end{plainreading}
+
+The billed machine isn't a different structure, though. It is the same machine with a different price list.
+So the claim worth keeping is uniqueness up to the price schedule: every honest record-carrying machine is the Thiele core plus some price schedule that satisfies A2.
+\texttt{StructuralCoreRound3.v} states it for machines that run the VM underneath. Charges are not compared, every machine in play carries a monotone ledger that satisfies A2, and sameness is read through the machine's own projection onto the VM. It comes in two strengths. In one, the record only has to be a reading of the computation (\code{uniqueness\_round3a}). In the other, the record is the VM's own certification reading (\code{uniqueness\_round3b}).
+Both are open.
+Both take the VM's structure as given, since every machine they admit runs the VM.
+Whether the structure itself is forced, for machines that don't run the VM, is a question about record-carrying simulations between different machines.
 
 The third is about this exact machine.
 Is this particular VM state space the only one, up to renaming?
@@ -570,13 +586,7 @@ No theorem needs it.
 The separating witnesses (Section~\ref{sec:categorical}'s graph pair and the irrecoverability theorems above) stand on their own however the second question comes out.
 They don't need it, and it doesn't need them.
 
-So the first is proved, for a fixed schedule. The third isn't claimed. The second is open, written as two dated conjectures with different premises and observations. Each is a statement to test, not a theorem, and each has a test case it has to survive.
-
-\paragraph{Dated comparison definitions.}
-Two rounds are fixed on 29 September 2026.
-Round 1 in \texttt{StructuralCore.v} observes certification and next-step cost through a bisimulation covering initial states in both directions. It discards retained history, absolute ledger balances, and halting observations. Its adequacy condition requires a monotone ledger, A2, some reachable certified state, and an existential correspondence with two-counter-machine halting. The last condition supplies neither an effective input encoding nor a two-way computability theorem. Initial certification already satisfies the record condition.
-
-Round 2 in \texttt{StructuralCoreRound2.v} concerns extensions of the specified unbounded VM. An explicit projection commutes with steps, preserves halting, and covers every reference initial state. The ledger is monotone; certification is permanent and has a reachable false-to-true write satisfying A2. Its bisimulation observes certification, absolute ledger balance, halting, and step cost. Its relational form permits extra history to be ignored, but no Round 2 history-equivalence theorem is claimed at this checkpoint. Neither cost rescaling nor stuttering is implicit. These definitions do not supply a uniqueness theorem. The rounds remain separate so a later outcome cannot change the question that was tested.
+So the first is proved, for a fixed schedule. The third isn't claimed. The second, in the form the words suggest, is false. Up to the price schedule it is open.
 
 \textbf{What this project is not.}
 It is not a claim that I solved P vs NP.
@@ -4329,7 +4339,7 @@ Run the Inquisitor on the repository and read what it says. It fails on HIGH or 
 
 \medskip
 \noindent\textbf{Falsify the axiom audit.}\\
-If running \texttt{Print Assumptions} (Section~\ref{sec:vocab}: the Coq command that reports global proof dependencies) on any named theorem in the kernel tier shows a project-local \texttt{Axiom} or \texttt{Parameter} in the dependency tree, the audit has degraded. The current full-corpus probe covers 13,028 named theorems across 433 files: 5,692 close under the global Coq context outright, and 7,336 use only Coq standard-library assumptions. The receipt names five such constants: dependent functional extensionality, \texttt{Eqdep.Eq\_rect\_eq.eq\_rect\_eq}, \texttt{ClassicalDedekindReals.sig\_not\_dec}, \texttt{ClassicalDedekindReals.sig\_forall\_dec}, and \texttt{Classical\_Prop.classic}. Zero project-local axioms appear in any of the 13,028 dependency trees. This audits where global dependencies come from. It doesn't prove that a theorem's own Section-generalized premises hold for the instance you care about; those premises stay visible in the theorem types and get checked separately. Any project-local axiom or parameter appearing in a global dependency tree is a bug.
+If running \texttt{Print Assumptions} (Section~\ref{sec:vocab}: the Coq command that reports global proof dependencies) on any named theorem in the kernel tier shows a project-local \texttt{Axiom} or \texttt{Parameter} in the dependency tree, the audit has degraded. The current full-corpus probe covers 13,045 named theorems across 435 files: 5,709 close under the global Coq context outright, and 7,336 use only Coq standard-library assumptions. The receipt names five such constants: dependent functional extensionality, \texttt{Eqdep.Eq\_rect\_eq.eq\_rect\_eq}, \texttt{ClassicalDedekindReals.sig\_not\_dec}, \texttt{ClassicalDedekindReals.sig\_forall\_dec}, and \texttt{Classical\_Prop.classic}. Zero project-local axioms appear in any of the 13,045 dependency trees. This audits where global dependencies come from. It doesn't prove that a theorem's own Section-generalized premises hold for the instance you care about; those premises stay visible in the theorem types and get checked separately. Any project-local axiom or parameter appearing in a global dependency tree is a bug.
 
 \medskip
 \noindent\textbf{Falsify the hardware bisimulation.}\\

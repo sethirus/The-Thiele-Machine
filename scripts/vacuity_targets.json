@@ -1,6 +1,6 @@
 {
   "schema": "vacuity_targets.v1",
-  "description": "Production manifest of Coq files the kernel-conversion vacuity gate runs over on every commit. Phase 1/2/3/4 of the \u03bc-axis research program append new files as they land. Each target compiles to a Coq module; the gate runs probe (a) and (b) against every Theorem/Lemma/Corollary in the file.",
+  "description": "Production manifest of Coq files the kernel-conversion vacuity gate runs over on every commit. Phase 1/2/3/4 of the μ-axis research program append new files as they land. Each target compiles to a Coq module; the gate runs probe (a) and (b) against every Theorem/Lemma/Corollary in the file.",
   "targets": [
     {
       "path": "coq/VerifierModel.v",
@@ -347,6 +347,12 @@
     {
       "path": "coq/kernel/reductions/TPMQuoteGap.v",
       "logical": "Kernel.TPMQuoteGap",
+      "added": "2026-09-29",
+      "phase": "research protocol"
+    },
+    {
+      "path": "coq/kernel/foundation/StructuralUniqueness.v",
+      "logical": "Kernel.StructuralUniqueness",
       "added": "2026-09-29",
       "phase": "research protocol"
     }
