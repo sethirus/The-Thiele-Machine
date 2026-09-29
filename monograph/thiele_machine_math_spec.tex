@@ -566,9 +566,9 @@ The increment is determined entirely by the instruction sequence, independent of
 \begin{theorem}[Partition Ops Are Free {\normalfont (kernel/PartitionRefinementNoFI.v)}, \textbf{(S)}]
 PNEW, PSPLIT, and PMERGE are not cert-setters and can carry $\Delta\mu = 0$:
 \begin{itemize}
-    \item \texttt{partition\_\allowbreak{}structural\_\allowbreak{}ops\_\allowbreak{}not\_\allowbreak{}cert\_\allowbreak{}setters}: None of the three partition operations touch \texttt{csr\_\allowbreak{}cert\_\allowbreak{}addr} or \texttt{vm\_\allowbreak{}certified}.
+    \item \texttt{partition\_\allowbreak{}structural\_\allowbreak{}ops\_\allowbreak{}not\_\allowbreak{}cert\_\allowbreak{}setters}: All three are outside the certificate-address setter class, which excludes them by definition.
     \item \texttt{partition\_\allowbreak{}structural\_\allowbreak{}ops\_\allowbreak{}can\_\allowbreak{}be\_\allowbreak{}free}: All three can execute with $\Delta\mu = 0$.
-    \item \texttt{partition\_\allowbreak{}structural\_\allowbreak{}trace\_\allowbreak{}cannot\_\allowbreak{}certify}: A trace containing only PNEW, PSPLIT, and PMERGE (all at $\Delta\mu = 0$) cannot reach a certified state from an uncertified start.
+    \item \texttt{partition\_\allowbreak{}structural\_\allowbreak{}trace\_\allowbreak{}cannot\_\allowbreak{}certify}: A trace containing only PNEW, PSPLIT, and PMERGE, at any costs, leaves \texttt{csr\_\allowbreak{}cert\_\allowbreak{}addr} where it started.
 \end{itemize}
 Building partition structure costs nothing by itself. Certifying structural claims about that partition is what costs.
 \end{theorem}
@@ -950,7 +950,7 @@ The algebraic derivation (\texttt{TsirelsonFromAlgebra.v}) proves $S^2 \le 8$ fo
 \begin{theorem}[CHSH Trial Is Tier 0 {\normalfont (kernel/WitnessInsightGeneral.v)}, \textbf{(S)}]
 \texttt{chsh\_\allowbreak{}trial\_\allowbreak{}is\_\allowbreak{}tier0}: The CHSH\_\allowbreak{}TRIAL instruction never touches either certification channel:
 \begin{itemize}
-    \item \texttt{chsh\_\allowbreak{}trial\_\allowbreak{}not\_\allowbreak{}cert\_\allowbreak{}addr\_\allowbreak{}setter}: CHSH\_\allowbreak{}TRIAL does not change \texttt{csr\_\allowbreak{}cert\_\allowbreak{}addr}.
+    \item \texttt{chsh\_\allowbreak{}trial\_\allowbreak{}preserves\_\allowbreak{}cert\_\allowbreak{}addr}: CHSH\_\allowbreak{}TRIAL does not change \texttt{csr\_\allowbreak{}cert\_\allowbreak{}addr}.
     \item \texttt{chsh\_\allowbreak{}trial\_\allowbreak{}preserves\_\allowbreak{}vm\_\allowbreak{}certified}: CHSH\_\allowbreak{}TRIAL does not change \texttt{vm\_\allowbreak{}certified}.
 \end{itemize}
 Recording CHSH trial outcomes activates no certification channel, so No Free Insight puts no floor under it. The counters go up; the cert channels are untouched. Its charge is its own $\mu$-delta operand, which may be 0. Zero Admitted.
@@ -1865,7 +1865,7 @@ unconditional claim that every current Python and RTL artifact is universally
 equal to Coq in all CI environments.
 \end{theorem}
 
-\section{RTL Coverage: Zero Gaps}
+\section{RTL Gap Registry and Inventory}
 
 \begin{theorem}[RTL gap registry and inventory {\normalfont (kami\_\allowbreak{}hw/RTLGapRegistry.v)}, \textbf{(S)}]
 \texttt{rtl\_\allowbreak{}gap\_\allowbreak{}registry\_\allowbreak{}empty}: the hand-written RTL gap list is empty. \texttt{rtl\_\allowbreak{}inventory\_\allowbreak{}arithmetic}: $37 + 10 + 0 = 47$, the count of unconditional cases, cases under the joint representation invariant, and registered gaps among the 47 synthesized opcodes. Both are records, not coverage proofs: the first says what a list holds, and the second is arithmetic that mentions no opcode. The coverage evidence is the per-opcode theorems in the remark below and the step-level correspondence \texttt{driven\_\allowbreak{}step\_\allowbreak{}wf} under \texttt{WFDrivenPrecondition}.

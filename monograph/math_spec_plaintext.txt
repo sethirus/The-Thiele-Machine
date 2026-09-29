@@ -175,8 +175,8 @@ quantum axiom).
    22.1 Self-Reference Escalation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 55
    22.2 The Thiele Manifold . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 55
 
-23 Three-Layer Observable Agreement                                                           57
-   23.1 RTL Coverage: Zero Gaps . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 57
+23 Three-Layer Observable Agreement                                                          57
+   23.1 RTL Gap Registry and Inventory . . . . . . . . . . . . . . . . . . . . . . . . . . . 57
    23.2 Named Trust Boundaries . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 58
 
 24 Categorical Structure                                                                             59
@@ -792,14 +792,13 @@ specified projection.
 Theorem 6.6 (Partition Ops Are Free (kernel/PartitionRefinementNoFI.v), (S)). PNEW,
 PSPLIT, and PMERGE are not cert-setters and can carry ∆µ = 0:
 
-   • partition_structural_ops_not_cert_setters: None of the three partition operations
-     touch csr_cert_addr or vm_certified.
+   • partition_structural_ops_not_cert_setters: All three are outside the certificate-
+     address setter class, which excludes them by definition.
 
    • partition_structural_ops_can_be_free: All three can execute with ∆µ = 0.
 
    • partition_structural_trace_cannot_certify: A trace containing only PNEW,
-     PSPLIT, and PMERGE (all at ∆µ = 0) cannot reach a certified state from an uncertified
-     start.
+     PSPLIT, and PMERGE, at any costs, leaves csr_cert_addr where it started.
 
 Building partition structure costs nothing by itself. Certifying structural claims about that
 partition is what costs.
@@ -1334,7 +1333,7 @@ Witness Insight Taxonomy
 Theorem 16.1 (CHSH Trial Is Tier 0 (kernel/WitnessInsightGeneral.v), (S)). chsh_trial_
 is_tier0: The CHSH_TRIAL instruction never touches either certification channel:
 
-   • chsh_trial_not_cert_addr_setter: CHSH_TRIAL does not change csr_cert_addr.
+   • chsh_trial_preserves_cert_addr: CHSH_TRIAL does not change csr_cert_addr.
 
    • chsh_trial_preserves_vm_certified: CHSH_TRIAL does not change vm_certified.
 
@@ -2507,7 +2506,7 @@ This is a contract theorem over explicit observable projections, not an uncondit
 every current Python and RTL artifact is universally equal to Coq in all CI environments.
 
 
-23.1     RTL Coverage: Zero Gaps
+23.1     RTL Gap Registry and Inventory
 Theorem 23.2 (RTL gap registry and inventory (kami_hw/RTLGapRegistry.v), (S)). rtl_
 gap_registry_empty: the hand-written RTL gap list is empty. rtl_inventory_arithmetic:
 37 + 10 + 0 = 47, the count of unconditional cases, cases under the joint representation invariant,

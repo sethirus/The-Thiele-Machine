@@ -66,8 +66,9 @@ Proof.
   intros. apply thiele_non_cert_addr_setter_preserves. simpl. reflexivity.
 Qed.
 
-(** Unified statement: none of the three partition structural opcodes are
-    cert-setters. This is the formal basis for the "exploration is free" claim. *)
+(** Unified statement: none of the three partition structural opcodes is a
+    cert-setter. The setter class excludes them by definition; that they
+    leave csr_cert_addr unchanged is [partition_structural_trace_cannot_certify]. *)
 Theorem partition_structural_ops_not_cert_setters :
   (forall (region : list nat) (cost : nat),
      cert_addr_setterb (instr_pnew region cost) = false) /\

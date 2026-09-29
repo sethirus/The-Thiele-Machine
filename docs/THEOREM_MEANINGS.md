@@ -407,7 +407,7 @@ An explicitly qualified citation keeps its own module identity.
 - `partition_structural_trace_cannot_certify`: An instruction list made only of partition-structural instructions preserves the certificate address.
 - `partition_refinement_nonfree`: A trace from certificate address zero to nonzero contains a certificate setter costing at least one and raises mu by at least one; no partition-refinement premise is required.
 - `partition_free_but_certification_nonfree`: Zero-cost partition-structural instructions exist and are not certificate setters, while every trace changing certificate address zero to nonzero raises mu by at least one.
-- `chsh_trial_not_cert_addr_setter`: Every CHSH_TRIAL instruction is outside the certificate-address setter class.
+- `chsh_trial_preserves_cert_addr`: Every CHSH_TRIAL step leaves the certificate-address register unchanged.
 - `chsh_trial_preserves_vm_certified`: Every CHSH_TRIAL step preserves the VM certification flag.
 - `certified_witness_insight_nonfree`: A step satisfying the defined witness-insight event costs at least one and raises mu by at least one.
 - `nonlocal_witness_insight_nonfree`: A step from an uncertified state to a state with a certified nonlocal witness costs at least one and raises mu by at least one.
