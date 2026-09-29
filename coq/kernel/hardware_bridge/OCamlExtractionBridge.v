@@ -80,15 +80,6 @@ Proof.
   unfold apply_cost, instruction_cost. lia.
 Qed.
 
-(** eo_vm_apply_total: vm_apply is always defined — it is a total function.
-    There is no instruction that causes an undefined result. *)
-Theorem eo_vm_apply_total :
-  forall (s : VMState) (i : vm_instruction),
-    exists s', vm_apply s i = s'.
-Proof.
-  intros s i. eexists. reflexivity.
-Qed.
-
 (** eo_mu_trace_nondecreasing: mu is nondecreasing over arbitrarily long traces.
     No sequence of instructions can reduce the accumulated mu-cost. *)
 Theorem eo_mu_trace_nondecreasing :
@@ -105,72 +96,42 @@ Qed.
 
 (**
 
-    ocaml_extraction_faithful: the extraction faithfulness axiom.
+    The cross-language claim, stated and not proved: for every VMState s and
+    vm_instruction i, the extracted OCaml function in build/thiele_core.ml
+    produces the same ExtractionObservable as the Coq vm_apply.
 
-    CLAIM: For every VMState s and vm_instruction i, the extracted OCaml
-    function (in build/thiele_core.ml) produces the same ExtractionObservable
-    as the Coq vm_apply.
-
-    TRUST BASIS:
+    OCaml's semantics are not formalized in Coq, so this is a trust
+    boundary, checked by tests rather than proved. It rests on three things:
     (a) Letouzey (2004): Coq extraction is type-preserving.
-    (b) CI empirical validation: scripts/parity_extracted_only.sh verifies
-        OCaml runner ↔ Python VM agreement on all 32 opcodes × test corpus.
+    (b) The parity tests: tests/test_ocaml_extraction_parity_46.py runs the
+        extracted runner on all 47 synthesized opcodes and checks the
+        mu-cost invariant, and scripts/parity_extracted_only.sh runs the
+        completeness gate's OCaml layer, the cross-layer bisimulation tests,
+        and the adversarial cross-layer fuzz.
     (c) Coq extraction is deterministic and mechanical.
 
-    This is an explicit trust-boundary premise because OCaml semantics are not
-    formalized in Coq. The TCB therefore includes the extraction mechanism and
-    the separate parity tests.
-    The kernel theorems do NOT import this file and remain axiom-free.
-
-    Placed in Section ExtractionTrustBoundary to satisfy the project axiom
-    hygiene policy (no bare Axiom outside a Section in kernel/).
-*)
-Section ExtractionTrustBoundary.
-
-(* SCOPE NOTE: the Coq statement below reduces to X = X (a
-   tautology) and is therefore provable by reflexivity. The real
-   trust-boundary content lives in the CI bisimulation test suite:
-   [scripts/parity_extracted_only.sh] verifies that all 12
-   ExtractionObservable fields (eo_pc, eo_mu, eo_err, eo_certified,
-   eo_mu_tensor, eo_regs, eo_mem, eo_graph, eo_csrs, eo_logic_acc,
-   eo_mstatus, eo_witness) match between Coq spec and OCaml runner.
-   Naming this theorem makes the trust boundary explicit and
-   auditable. *)
-Theorem ocaml_extraction_faithful :
-  forall (s : VMState) (i : vm_instruction),
-    shadow_to_eo (vm_apply s i) = shadow_to_eo (vm_apply s i).
-Proof. intros; reflexivity. Qed.
-
-End ExtractionTrustBoundary.
+    The kernel theorems do not import this file. *)
 
 (**
 
-    extraction_trust_boundary: a theorem summarizing what is formally
-    proven vs. what is empirically validated through the CI test suite.
-
-    This is the DONE-MEANS-DONE artifact for HARDENING_TRACKER.md item:
-    "Extraction and implementation preserve theorem-sensitive observables"
-*)
+    extraction_trust_boundary: what is proved about the observable the
+    extracted runner is tested against. *)
 Theorem extraction_trust_boundary :
   (** (1) FORMAL: mu-cost is exactly apply_cost(s, i). *)
   (forall (s : VMState) (i : vm_instruction),
      (shadow_to_eo (vm_apply s i)).(eo_mu) = apply_cost s i) /\
-  (** (2) FORMAL: mu is nondecreasing — instructions never reduce cost. *)
+  (** (2) FORMAL: mu is nondecreasing; instructions never reduce cost. *)
   (forall (s : VMState) (i : vm_instruction),
-     s.(vm_mu) <= (vm_apply s i).(vm_mu)) /\
-  (** (3) FORMAL: vm_apply is always defined (total function). *)
-  (forall (s : VMState) (i : vm_instruction),
-     exists s', vm_apply s i = s').
+     s.(vm_mu) <= (vm_apply s i).(vm_mu)).
 (** NOTE: err-latching, exact register/memory/graph values, CERTIFY flag
     behavior, and CHSH witness counts are empirically validated by the
     CI bisimulation tests (scripts/parity_extracted_only.sh) but are
     NOT proven here in Coq.  The trust boundary for these is the
-    ocaml_extraction_faithful axiom above. *)
+    cross-language claim stated above. *)
 Proof.
-  refine (conj _ (conj _ _)).
+  split.
   - exact (fun s i => eo_mu_is_apply_cost s i).
   - exact (fun s i => eo_mu_nondecreasing s i).
-  - exact (fun s i => eo_vm_apply_total s i).
 Qed.
 
 (**
@@ -184,15 +145,8 @@ Qed.
       research problem, analogous to the CompCert C compiler verification).
     - This is the standard trust boundary for ALL Coq extraction projects.
 
-    CLOSURE APPROACH:
-    We state the claim as a named Section Hypothesis — making the trust
-    boundary explicit and auditable.  Any theorem that depends on this
-    hypothesis is clearly labeled via Coq's Section mechanism.  This is
-    the maximum achievable closure within Coq's scope.
-
-    scripts/parity_extracted_only.sh verifies the extracted OCaml runner
-    against the Coq spec on all 47 opcode arms, all 12 ExtractionObservable
-    fields, and 59 named test cases from the corpus.
+    The claim is therefore stated in prose above and checked by the
+    parity tests named there. No Coq hypothesis stands in for it.
 
     Cannot be formally proved in Coq without a formalization of OCaml.
 *)

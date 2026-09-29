@@ -1,4 +1,4 @@
-DIGEST 26c0cb8fefa6cab6319dd605d301307a
+DIGEST 25c1573733e0b0710f400a94565ca7b7
 FKernel.OCamlExtractionBridge
 R691:694 Coq.Lists.List <> <> lib
 R696:699 Coq.Bool.Bool <> <> lib
@@ -125,243 +125,186 @@ R3046:3056 Kernel.MuLedgerConservation <> vm_apply_mu thm
 R3046:3056 Kernel.MuLedgerConservation <> vm_apply_mu thm
 R3068:3077 Kernel.VMStep VMStep apply_cost def
 R3080:3095 Kernel.VMStep VMStep instruction_cost def
-prf 3259:3275 <> eo_vm_apply_total
-R3293:3299 Kernel.VMState <> VMState rec
-binder 3289:3289 <> s:19
-R3307:3320 Kernel.VMStep VMStep vm_instruction ind
-binder 3303:3303 <> i:20
-R3328:3334 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3337:3338 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3335:3336 <> s':21
-R3351:3353 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3339:3346 Kernel.SimulationProof <> vm_apply def
-R3348:3348 Kernel.OCamlExtractionBridge <> s:19 var
-R3350:3350 Kernel.OCamlExtractionBridge <> i:20 var
-R3354:3355 Kernel.OCamlExtractionBridge <> s':21 var
-prf 3567:3591 <> eo_mu_trace_nondecreasing
-R3613:3616 Coq.Init.Datatypes <> list ind
-R3618:3631 Kernel.VMStep VMStep vm_instruction ind
-binder 3605:3609 <> trace:22
-R3640:3646 Kernel.VMState <> VMState rec
-binder 3635:3636 <> s0:23
-R3664:3667 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3658:3662 Kernel.VMState <> vm_mu proj
-R3654:3655 Kernel.OCamlExtractionBridge <> s0:23 var
-R3708:3712 Kernel.VMState <> vm_mu proj
-R3669:3675 Kernel.AbstractNoFI <> acm_run def
-R3703:3704 Kernel.OCamlExtractionBridge <> s0:23 var
-R3697:3701 Kernel.OCamlExtractionBridge <> trace:22 var
-R3677:3695 Kernel.AbstractNoFI <> thiele_cert_machine def
-R3831:3835 Kernel.VMState <> vm_mu proj
-R3815:3822 Kernel.SimulationProof <> vm_apply def
-R3831:3835 Kernel.VMState <> vm_mu proj
-R3815:3822 Kernel.SimulationProof <> vm_apply def
-R3852:3870 Kernel.OCamlExtractionBridge <> eo_mu_nondecreasing thm
-R3852:3870 Kernel.OCamlExtractionBridge <> eo_mu_nondecreasing thm
-R3896:3903 Kernel.SimulationProof <> vm_apply def
-R3896:3903 Kernel.SimulationProof <> vm_apply def
-sec 4868:4890 <> ExtractionTrustBoundary
-prf 5433:5457 <> ocaml_extraction_faithful
-R5475:5481 Kernel.VMState <> VMState rec
-binder 5471:5471 <> s:24
-R5489:5502 Kernel.VMStep VMStep vm_instruction ind
-binder 5485:5485 <> i:25
-R5537:5539 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5510:5521 Kernel.OCamlExtractionBridge <> shadow_to_eo def
-R5524:5531 Kernel.SimulationProof <> vm_apply def
-R5533:5533 Kernel.OCamlExtractionBridge <> s:24 var
-R5535:5535 Kernel.OCamlExtractionBridge <> i:25 var
-R5540:5551 Kernel.OCamlExtractionBridge <> shadow_to_eo def
-R5554:5561 Kernel.SimulationProof <> vm_apply def
-R5563:5563 Kernel.OCamlExtractionBridge <> s:24 var
-R5565:5565 Kernel.OCamlExtractionBridge <> i:25 var
-R5607:5629 Kernel.OCamlExtractionBridge ExtractionTrustBoundary <> sec
-prf 5939:5963 <> extraction_trust_boundary
-R6027:6027 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6130:6213 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6040:6046 Kernel.VMState <> VMState rec
-binder 6036:6036 <> s:26
-R6054:6067 Kernel.VMStep VMStep vm_instruction ind
-binder 6050:6050 <> i:27
-R6113:6115 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6107:6111 Kernel.OCamlExtractionBridge <> eo_mu proj
-R6077:6088 Kernel.OCamlExtractionBridge <> shadow_to_eo def
-R6091:6098 Kernel.SimulationProof <> vm_apply def
-R6100:6100 Kernel.OCamlExtractionBridge <> s:26 var
-R6102:6102 Kernel.OCamlExtractionBridge <> i:27 var
-R6116:6125 Kernel.VMStep VMStep apply_cost def
-R6127:6127 Kernel.OCamlExtractionBridge <> s:26 var
-R6129:6129 Kernel.OCamlExtractionBridge <> i:27 var
-R6214:6214 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6298:6371 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6448:6448 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6227:6233 Kernel.VMState <> VMState rec
-binder 6223:6223 <> s:28
-R6241:6254 Kernel.VMStep VMStep vm_instruction ind
-binder 6237:6237 <> i:29
-R6272:6275 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6266:6270 Kernel.VMState <> vm_mu proj
-R6263:6263 Kernel.OCamlExtractionBridge <> s:28 var
-R6292:6296 Kernel.VMState <> vm_mu proj
-R6277:6284 Kernel.SimulationProof <> vm_apply def
-R6286:6286 Kernel.OCamlExtractionBridge <> s:28 var
-R6288:6288 Kernel.OCamlExtractionBridge <> i:29 var
-R6384:6390 Kernel.VMState <> VMState rec
-binder 6380:6380 <> s:30
-R6398:6411 Kernel.VMStep VMStep vm_instruction ind
-binder 6394:6394 <> i:31
-R6420:6426 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6429:6430 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 6427:6428 <> s':32
-R6443:6445 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6431:6438 Kernel.SimulationProof <> vm_apply def
-R6440:6440 Kernel.OCamlExtractionBridge <> s:30 var
-R6442:6442 Kernel.OCamlExtractionBridge <> i:31 var
-R6446:6447 Kernel.OCamlExtractionBridge <> s':32 var
-R6792:6795 Coq.Init.Logic <> conj constr
-R6800:6803 Coq.Init.Logic <> conj constr
-R6792:6795 Coq.Init.Logic <> conj constr
-R6800:6803 Coq.Init.Logic <> conj constr
-binder 6827:6827 <> s:33
-binder 6829:6829 <> i:34
-R6834:6852 Kernel.OCamlExtractionBridge <> eo_mu_is_apply_cost thm
-R6854:6854 Kernel.OCamlExtractionBridge <> s:33 var
-R6856:6856 Kernel.OCamlExtractionBridge <> i:34 var
-binder 6827:6827 <> s:35
-binder 6829:6829 <> i:36
-R6834:6852 Kernel.OCamlExtractionBridge <> eo_mu_is_apply_cost thm
-R6854:6854 Kernel.OCamlExtractionBridge <> s:35 var
-R6856:6856 Kernel.OCamlExtractionBridge <> i:36 var
-binder 6875:6875 <> s:37
-binder 6877:6877 <> i:38
-R6882:6900 Kernel.OCamlExtractionBridge <> eo_mu_nondecreasing thm
-R6902:6902 Kernel.OCamlExtractionBridge <> s:37 var
-R6904:6904 Kernel.OCamlExtractionBridge <> i:38 var
-binder 6875:6875 <> s:39
-binder 6877:6877 <> i:40
-R6882:6900 Kernel.OCamlExtractionBridge <> eo_mu_nondecreasing thm
-R6902:6902 Kernel.OCamlExtractionBridge <> s:39 var
-R6904:6904 Kernel.OCamlExtractionBridge <> i:40 var
-binder 6923:6923 <> s:41
-binder 6925:6925 <> i:42
-R6930:6946 Kernel.OCamlExtractionBridge <> eo_vm_apply_total thm
-R6948:6948 Kernel.OCamlExtractionBridge <> s:41 var
-R6950:6950 Kernel.OCamlExtractionBridge <> i:42 var
-binder 6923:6923 <> s:43
-binder 6925:6925 <> i:44
-R6930:6946 Kernel.OCamlExtractionBridge <> eo_vm_apply_total thm
-R6948:6948 Kernel.OCamlExtractionBridge <> s:43 var
-R6950:6950 Kernel.OCamlExtractionBridge <> i:44 var
-sec 8045:8076 <> ExtractionBisimulationHypothesis
-prf 8758:8788 <> ocaml_runner_observable_defined
-R8806:8812 Kernel.VMState <> VMState rec
-binder 8802:8802 <> s:45
-R8820:8833 Kernel.VMStep VMStep vm_instruction ind
-binder 8816:8816 <> i:46
-R8841:8848 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R8875:8883 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R8855:8874 Kernel.OCamlExtractionBridge <> ExtractionObservable rec
-binder 8849:8851 <> obs:47
-R8887:8889 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8884:8886 Kernel.OCamlExtractionBridge <> obs:47 var
-R8890:8901 Kernel.OCamlExtractionBridge <> shadow_to_eo def
-R8904:8911 Kernel.SimulationProof <> vm_apply def
-R8913:8913 Kernel.OCamlExtractionBridge <> s:45 var
-R8915:8915 Kernel.OCamlExtractionBridge <> i:46 var
-R8948:8959 Kernel.OCamlExtractionBridge <> shadow_to_eo def
-R8962:8969 Kernel.SimulationProof <> vm_apply def
-R8948:8959 Kernel.OCamlExtractionBridge <> shadow_to_eo def
-R8962:8969 Kernel.SimulationProof <> vm_apply def
-prf 9402:9420 <> ocaml_nfi_transfers
-R9438:9444 Kernel.VMState <> VMState rec
-binder 9434:9434 <> s:48
-R9452:9465 Kernel.VMStep VMStep vm_instruction ind
-binder 9448:9448 <> i:49
-R9497:9504 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9489:9491 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9476:9487 Kernel.VMState <> vm_certified proj
-R9473:9473 Kernel.OCamlExtractionBridge <> s:48 var
-R9492:9496 Coq.Init.Datatypes <> false constr
-R9556:9563 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9549:9551 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9536:9547 Kernel.OCamlExtractionBridge <> eo_certified proj
-R9506:9517 Kernel.OCamlExtractionBridge <> shadow_to_eo def
-R9520:9527 Kernel.SimulationProof <> vm_apply def
-R9529:9529 Kernel.OCamlExtractionBridge <> s:48 var
-R9531:9531 Kernel.OCamlExtractionBridge <> i:49 var
-R9552:9555 Coq.Init.Datatypes <> true constr
-R9601:9604 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R9595:9599 Kernel.OCamlExtractionBridge <> eo_mu proj
-R9565:9576 Kernel.OCamlExtractionBridge <> shadow_to_eo def
-R9579:9586 Kernel.SimulationProof <> vm_apply def
-R9588:9588 Kernel.OCamlExtractionBridge <> s:48 var
-R9590:9590 Kernel.OCamlExtractionBridge <> i:49 var
-R9614:9616 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9608:9612 Kernel.VMState <> vm_mu proj
-R9605:9605 Kernel.OCamlExtractionBridge <> s:48 var
-R9661:9672 Kernel.OCamlExtractionBridge <> shadow_to_eo def
-R9709:9720 Kernel.OCamlExtractionBridge <> shadow_to_eo def
-R9739:9772 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm
-R9739:9772 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm
-prf 9951:9983 <> ocaml_extraction_mu_nondecreasing
-R10001:10007 Kernel.VMState <> VMState rec
-binder 9997:9997 <> s:50
-R10015:10028 Kernel.VMStep VMStep vm_instruction ind
-binder 10011:10011 <> i:51
-R10045:10048 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R10039:10043 Kernel.VMState <> vm_mu proj
-R10036:10036 Kernel.OCamlExtractionBridge <> s:50 var
-R10080:10084 Kernel.OCamlExtractionBridge <> eo_mu proj
-R10050:10061 Kernel.OCamlExtractionBridge <> shadow_to_eo def
-R10064:10071 Kernel.SimulationProof <> vm_apply def
-R10073:10073 Kernel.OCamlExtractionBridge <> s:50 var
-R10075:10075 Kernel.OCamlExtractionBridge <> i:51 var
-R10116:10134 Kernel.OCamlExtractionBridge <> eo_mu_nondecreasing thm
-R10116:10134 Kernel.OCamlExtractionBridge <> eo_mu_nondecreasing thm
-prf 10456:10489 <> ocaml_observable_nofi_and_monotone
-R10495:10495 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10691:10698 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10797:10797 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10508:10514 Kernel.VMState <> VMState rec
-binder 10504:10504 <> s:52
-R10522:10535 Kernel.VMStep VMStep vm_instruction ind
-binder 10518:10518 <> i:53
-R10568:10576 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10560:10562 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10547:10558 Kernel.VMState <> vm_certified proj
-R10544:10544 Kernel.OCamlExtractionBridge <> s:52 var
-R10563:10567 Coq.Init.Datatypes <> false constr
-R10628:10636 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10621:10623 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10608:10619 Kernel.OCamlExtractionBridge <> eo_certified proj
-R10578:10589 Kernel.OCamlExtractionBridge <> shadow_to_eo def
-R10592:10599 Kernel.SimulationProof <> vm_apply def
-R10601:10601 Kernel.OCamlExtractionBridge <> s:52 var
-R10603:10603 Kernel.OCamlExtractionBridge <> i:53 var
-R10624:10627 Coq.Init.Datatypes <> true constr
-R10674:10677 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R10668:10672 Kernel.OCamlExtractionBridge <> eo_mu proj
-R10638:10649 Kernel.OCamlExtractionBridge <> shadow_to_eo def
-R10652:10659 Kernel.SimulationProof <> vm_apply def
-R10661:10661 Kernel.OCamlExtractionBridge <> s:52 var
-R10663:10663 Kernel.OCamlExtractionBridge <> i:53 var
-R10687:10689 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R10681:10685 Kernel.VMState <> vm_mu proj
-R10678:10678 Kernel.OCamlExtractionBridge <> s:52 var
-R10711:10717 Kernel.VMState <> VMState rec
-binder 10707:10707 <> s:54
-R10725:10738 Kernel.VMStep VMStep vm_instruction ind
-binder 10721:10721 <> i:55
-R10756:10759 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R10750:10754 Kernel.VMState <> vm_mu proj
-R10747:10747 Kernel.OCamlExtractionBridge <> s:54 var
-R10791:10795 Kernel.OCamlExtractionBridge <> eo_mu proj
-R10761:10772 Kernel.OCamlExtractionBridge <> shadow_to_eo def
-R10775:10782 Kernel.SimulationProof <> vm_apply def
-R10784:10784 Kernel.OCamlExtractionBridge <> s:54 var
-R10786:10786 Kernel.OCamlExtractionBridge <> i:55 var
-R10826:10844 Kernel.OCamlExtractionBridge <> ocaml_nfi_transfers thm
-R10826:10844 Kernel.OCamlExtractionBridge <> ocaml_nfi_transfers thm
-R10857:10889 Kernel.OCamlExtractionBridge <> ocaml_extraction_mu_nondecreasing thm
-R10857:10889 Kernel.OCamlExtractionBridge <> ocaml_extraction_mu_nondecreasing thm
-R10902:10933 Kernel.OCamlExtractionBridge ExtractionBisimulationHypothesis <> sec
+prf 3269:3293 <> eo_mu_trace_nondecreasing
+R3315:3318 Coq.Init.Datatypes <> list ind
+R3320:3333 Kernel.VMStep VMStep vm_instruction ind
+binder 3307:3311 <> trace:19
+R3342:3348 Kernel.VMState <> VMState rec
+binder 3337:3338 <> s0:20
+R3366:3369 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3360:3364 Kernel.VMState <> vm_mu proj
+R3356:3357 Kernel.OCamlExtractionBridge <> s0:20 var
+R3410:3414 Kernel.VMState <> vm_mu proj
+R3371:3377 Kernel.AbstractNoFI <> acm_run def
+R3405:3406 Kernel.OCamlExtractionBridge <> s0:20 var
+R3399:3403 Kernel.OCamlExtractionBridge <> trace:19 var
+R3379:3397 Kernel.AbstractNoFI <> thiele_cert_machine def
+R3533:3537 Kernel.VMState <> vm_mu proj
+R3517:3524 Kernel.SimulationProof <> vm_apply def
+R3533:3537 Kernel.VMState <> vm_mu proj
+R3517:3524 Kernel.SimulationProof <> vm_apply def
+R3554:3572 Kernel.OCamlExtractionBridge <> eo_mu_nondecreasing thm
+R3554:3572 Kernel.OCamlExtractionBridge <> eo_mu_nondecreasing thm
+R3598:3605 Kernel.SimulationProof <> vm_apply def
+R3598:3605 Kernel.SimulationProof <> vm_apply def
+prf 4627:4651 <> extraction_trust_boundary
+R4715:4715 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4818:4899 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4983:4983 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4728:4734 Kernel.VMState <> VMState rec
+binder 4724:4724 <> s:21
+R4742:4755 Kernel.VMStep VMStep vm_instruction ind
+binder 4738:4738 <> i:22
+R4801:4803 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4795:4799 Kernel.OCamlExtractionBridge <> eo_mu proj
+R4765:4776 Kernel.OCamlExtractionBridge <> shadow_to_eo def
+R4779:4786 Kernel.SimulationProof <> vm_apply def
+R4788:4788 Kernel.OCamlExtractionBridge <> s:21 var
+R4790:4790 Kernel.OCamlExtractionBridge <> i:22 var
+R4804:4813 Kernel.VMStep VMStep apply_cost def
+R4815:4815 Kernel.OCamlExtractionBridge <> s:21 var
+R4817:4817 Kernel.OCamlExtractionBridge <> i:22 var
+R4912:4918 Kernel.VMState <> VMState rec
+binder 4908:4908 <> s:23
+R4926:4939 Kernel.VMStep VMStep vm_instruction ind
+binder 4922:4922 <> i:24
+R4957:4960 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4951:4955 Kernel.VMState <> vm_mu proj
+R4948:4948 Kernel.OCamlExtractionBridge <> s:23 var
+R4977:4981 Kernel.VMState <> vm_mu proj
+R4962:4969 Kernel.SimulationProof <> vm_apply def
+R4971:4971 Kernel.OCamlExtractionBridge <> s:23 var
+R4973:4973 Kernel.OCamlExtractionBridge <> i:24 var
+binder 5337:5337 <> s:25
+binder 5339:5339 <> i:26
+R5344:5362 Kernel.OCamlExtractionBridge <> eo_mu_is_apply_cost thm
+R5364:5364 Kernel.OCamlExtractionBridge <> s:25 var
+R5366:5366 Kernel.OCamlExtractionBridge <> i:26 var
+binder 5337:5337 <> s:27
+binder 5339:5339 <> i:28
+R5344:5362 Kernel.OCamlExtractionBridge <> eo_mu_is_apply_cost thm
+R5364:5364 Kernel.OCamlExtractionBridge <> s:27 var
+R5366:5366 Kernel.OCamlExtractionBridge <> i:28 var
+binder 5385:5385 <> s:29
+binder 5387:5387 <> i:30
+R5392:5410 Kernel.OCamlExtractionBridge <> eo_mu_nondecreasing thm
+R5412:5412 Kernel.OCamlExtractionBridge <> s:29 var
+R5414:5414 Kernel.OCamlExtractionBridge <> i:30 var
+binder 5385:5385 <> s:31
+binder 5387:5387 <> i:32
+R5392:5410 Kernel.OCamlExtractionBridge <> eo_mu_nondecreasing thm
+R5412:5412 Kernel.OCamlExtractionBridge <> s:31 var
+R5414:5414 Kernel.OCamlExtractionBridge <> i:32 var
+sec 6146:6177 <> ExtractionBisimulationHypothesis
+prf 6859:6889 <> ocaml_runner_observable_defined
+R6907:6913 Kernel.VMState <> VMState rec
+binder 6903:6903 <> s:33
+R6921:6934 Kernel.VMStep VMStep vm_instruction ind
+binder 6917:6917 <> i:34
+R6942:6949 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6976:6984 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6956:6975 Kernel.OCamlExtractionBridge <> ExtractionObservable rec
+binder 6950:6952 <> obs:35
+R6988:6990 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6985:6987 Kernel.OCamlExtractionBridge <> obs:35 var
+R6991:7002 Kernel.OCamlExtractionBridge <> shadow_to_eo def
+R7005:7012 Kernel.SimulationProof <> vm_apply def
+R7014:7014 Kernel.OCamlExtractionBridge <> s:33 var
+R7016:7016 Kernel.OCamlExtractionBridge <> i:34 var
+R7049:7060 Kernel.OCamlExtractionBridge <> shadow_to_eo def
+R7063:7070 Kernel.SimulationProof <> vm_apply def
+R7049:7060 Kernel.OCamlExtractionBridge <> shadow_to_eo def
+R7063:7070 Kernel.SimulationProof <> vm_apply def
+prf 7503:7521 <> ocaml_nfi_transfers
+R7539:7545 Kernel.VMState <> VMState rec
+binder 7535:7535 <> s:36
+R7553:7566 Kernel.VMStep VMStep vm_instruction ind
+binder 7549:7549 <> i:37
+R7598:7605 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7590:7592 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7577:7588 Kernel.VMState <> vm_certified proj
+R7574:7574 Kernel.OCamlExtractionBridge <> s:36 var
+R7593:7597 Coq.Init.Datatypes <> false constr
+R7657:7664 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7650:7652 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7637:7648 Kernel.OCamlExtractionBridge <> eo_certified proj
+R7607:7618 Kernel.OCamlExtractionBridge <> shadow_to_eo def
+R7621:7628 Kernel.SimulationProof <> vm_apply def
+R7630:7630 Kernel.OCamlExtractionBridge <> s:36 var
+R7632:7632 Kernel.OCamlExtractionBridge <> i:37 var
+R7653:7656 Coq.Init.Datatypes <> true constr
+R7702:7705 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7696:7700 Kernel.OCamlExtractionBridge <> eo_mu proj
+R7666:7677 Kernel.OCamlExtractionBridge <> shadow_to_eo def
+R7680:7687 Kernel.SimulationProof <> vm_apply def
+R7689:7689 Kernel.OCamlExtractionBridge <> s:36 var
+R7691:7691 Kernel.OCamlExtractionBridge <> i:37 var
+R7715:7717 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7709:7713 Kernel.VMState <> vm_mu proj
+R7706:7706 Kernel.OCamlExtractionBridge <> s:36 var
+R7762:7773 Kernel.OCamlExtractionBridge <> shadow_to_eo def
+R7810:7821 Kernel.OCamlExtractionBridge <> shadow_to_eo def
+R7840:7873 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm
+R7840:7873 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm
+prf 8052:8084 <> ocaml_extraction_mu_nondecreasing
+R8102:8108 Kernel.VMState <> VMState rec
+binder 8098:8098 <> s:38
+R8116:8129 Kernel.VMStep VMStep vm_instruction ind
+binder 8112:8112 <> i:39
+R8146:8149 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8140:8144 Kernel.VMState <> vm_mu proj
+R8137:8137 Kernel.OCamlExtractionBridge <> s:38 var
+R8181:8185 Kernel.OCamlExtractionBridge <> eo_mu proj
+R8151:8162 Kernel.OCamlExtractionBridge <> shadow_to_eo def
+R8165:8172 Kernel.SimulationProof <> vm_apply def
+R8174:8174 Kernel.OCamlExtractionBridge <> s:38 var
+R8176:8176 Kernel.OCamlExtractionBridge <> i:39 var
+R8217:8235 Kernel.OCamlExtractionBridge <> eo_mu_nondecreasing thm
+R8217:8235 Kernel.OCamlExtractionBridge <> eo_mu_nondecreasing thm
+prf 8557:8590 <> ocaml_observable_nofi_and_monotone
+R8596:8596 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8792:8799 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8898:8898 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8609:8615 Kernel.VMState <> VMState rec
+binder 8605:8605 <> s:40
+R8623:8636 Kernel.VMStep VMStep vm_instruction ind
+binder 8619:8619 <> i:41
+R8669:8677 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8661:8663 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8648:8659 Kernel.VMState <> vm_certified proj
+R8645:8645 Kernel.OCamlExtractionBridge <> s:40 var
+R8664:8668 Coq.Init.Datatypes <> false constr
+R8729:8737 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8722:8724 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8709:8720 Kernel.OCamlExtractionBridge <> eo_certified proj
+R8679:8690 Kernel.OCamlExtractionBridge <> shadow_to_eo def
+R8693:8700 Kernel.SimulationProof <> vm_apply def
+R8702:8702 Kernel.OCamlExtractionBridge <> s:40 var
+R8704:8704 Kernel.OCamlExtractionBridge <> i:41 var
+R8725:8728 Coq.Init.Datatypes <> true constr
+R8775:8778 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8769:8773 Kernel.OCamlExtractionBridge <> eo_mu proj
+R8739:8750 Kernel.OCamlExtractionBridge <> shadow_to_eo def
+R8753:8760 Kernel.SimulationProof <> vm_apply def
+R8762:8762 Kernel.OCamlExtractionBridge <> s:40 var
+R8764:8764 Kernel.OCamlExtractionBridge <> i:41 var
+R8788:8790 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8782:8786 Kernel.VMState <> vm_mu proj
+R8779:8779 Kernel.OCamlExtractionBridge <> s:40 var
+R8812:8818 Kernel.VMState <> VMState rec
+binder 8808:8808 <> s:42
+R8826:8839 Kernel.VMStep VMStep vm_instruction ind
+binder 8822:8822 <> i:43
+R8857:8860 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8851:8855 Kernel.VMState <> vm_mu proj
+R8848:8848 Kernel.OCamlExtractionBridge <> s:42 var
+R8892:8896 Kernel.OCamlExtractionBridge <> eo_mu proj
+R8862:8873 Kernel.OCamlExtractionBridge <> shadow_to_eo def
+R8876:8883 Kernel.SimulationProof <> vm_apply def
+R8885:8885 Kernel.OCamlExtractionBridge <> s:42 var
+R8887:8887 Kernel.OCamlExtractionBridge <> i:43 var
+R8927:8945 Kernel.OCamlExtractionBridge <> ocaml_nfi_transfers thm
+R8927:8945 Kernel.OCamlExtractionBridge <> ocaml_nfi_transfers thm
+R8958:8990 Kernel.OCamlExtractionBridge <> ocaml_extraction_mu_nondecreasing thm
+R8958:8990 Kernel.OCamlExtractionBridge <> ocaml_extraction_mu_nondecreasing thm
+R9003:9034 Kernel.OCamlExtractionBridge ExtractionBisimulationHypothesis <> sec

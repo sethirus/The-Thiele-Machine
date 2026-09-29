@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 441,
-  "total_addressable": 13077,
+  "files_probed": 445,
+  "total_addressable": 13099,
   "total_unaddressable": 4,
   "extras_addressable_via_instantiation": [
     {
@@ -52536,6 +52536,35 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/RecordAxisDiscrimination.v",
+      "qualified_module": "Kernel.RecordAxisDiscrimination",
+      "addressable_count": 4,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "latch_core_honest",
+          "kind": "Theorem",
+          "full_name": "Kernel.RecordAxisDiscrimination.latch_core_honest"
+        },
+        {
+          "local_name": "history_latch_injective",
+          "kind": "Theorem",
+          "full_name": "Kernel.RecordAxisDiscrimination.history_latch_injective"
+        },
+        {
+          "local_name": "history_latch_honest",
+          "kind": "Theorem",
+          "full_name": "Kernel.RecordAxisDiscrimination.history_latch_honest"
+        },
+        {
+          "local_name": "finite_reversible_cannot_write",
+          "kind": "Theorem",
+          "full_name": "Kernel.RecordAxisDiscrimination.finite_reversible_cannot_write"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/SimulationProof.v",
       "qualified_module": "Kernel.SimulationProof",
       "addressable_count": 35,
@@ -52859,6 +52888,50 @@
       "addressable_count": 0,
       "unaddressable_count": 0,
       "addressable": [],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralRecordAxis.v",
+      "qualified_module": "Kernel.StructuralRecordAxis",
+      "addressable_count": 7,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "uniqueness_round4_holds",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralRecordAxis.uniqueness_round4_holds"
+        },
+        {
+          "local_name": "uniqueness_round4_pair_holds",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralRecordAxis.uniqueness_round4_pair_holds"
+        },
+        {
+          "local_name": "toggle_computation_driven",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralRecordAxis.toggle_computation_driven"
+        },
+        {
+          "local_name": "toggle_not_permanent",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralRecordAxis.toggle_not_permanent"
+        },
+        {
+          "local_name": "toggle_not_latch",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralRecordAxis.toggle_not_latch"
+        },
+        {
+          "local_name": "clock_record_permanent",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralRecordAxis.clock_record_permanent"
+        },
+        {
+          "local_name": "clock_record_not_driven",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralRecordAxis.clock_record_not_driven"
+        }
+      ],
       "unaddressable": []
     },
     {
@@ -57826,7 +57899,7 @@
     {
       "file": "coq/kernel/hardware_bridge/OCamlExtractionBridge.v",
       "qualified_module": "Kernel.OCamlExtractionBridge",
-      "addressable_count": 10,
+      "addressable_count": 8,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -57840,19 +57913,9 @@
           "full_name": "Kernel.OCamlExtractionBridge.eo_mu_nondecreasing"
         },
         {
-          "local_name": "eo_vm_apply_total",
-          "kind": "Theorem",
-          "full_name": "Kernel.OCamlExtractionBridge.eo_vm_apply_total"
-        },
-        {
           "local_name": "eo_mu_trace_nondecreasing",
           "kind": "Theorem",
           "full_name": "Kernel.OCamlExtractionBridge.eo_mu_trace_nondecreasing"
-        },
-        {
-          "local_name": "ocaml_extraction_faithful",
-          "kind": "Theorem",
-          "full_name": "Kernel.OCamlExtractionBridge.ocaml_extraction_faithful"
         },
         {
           "local_name": "extraction_trust_boundary",
@@ -59606,6 +59669,30 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/nfi/CostFrameworks.v",
+      "qualified_module": "Kernel.CostFrameworks",
+      "addressable_count": 3,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "run_graded_is_run",
+          "kind": "Theorem",
+          "full_name": "Kernel.CostFrameworks.run_graded_is_run"
+        },
+        {
+          "local_name": "a2_and_aara_iff_exact",
+          "kind": "Theorem",
+          "full_name": "Kernel.CostFrameworks.a2_and_aara_iff_exact"
+        },
+        {
+          "local_name": "flips_le_cost",
+          "kind": "Theorem",
+          "full_name": "Kernel.CostFrameworks.flips_le_cost"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/nfi/CostSemanticsComparison.v",
       "qualified_module": "Kernel.CostSemanticsComparison",
       "addressable_count": 8,
@@ -60207,6 +60294,65 @@
       "addressable_count": 0,
       "unaddressable_count": 0,
       "addressable": [],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v",
+      "qualified_module": "Kernel.KnowledgeNarrowingMinimal",
+      "addressable_count": 10,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "demon_refutes_incremental",
+          "kind": "Theorem",
+          "full_name": "Kernel.KnowledgeNarrowingMinimal.demon_refutes_incremental"
+        },
+        {
+          "local_name": "tri3_finite",
+          "kind": "Lemma",
+          "full_name": "Kernel.KnowledgeNarrowingMinimal.tri3_finite"
+        },
+        {
+          "local_name": "tri3_step_injective",
+          "kind": "Lemma",
+          "full_name": "Kernel.KnowledgeNarrowingMinimal.tri3_step_injective"
+        },
+        {
+          "local_name": "tri3_compression_priced",
+          "kind": "Lemma",
+          "full_name": "Kernel.KnowledgeNarrowingMinimal.tri3_compression_priced"
+        },
+        {
+          "local_name": "free_incremental_narrowing_with_three",
+          "kind": "Theorem",
+          "full_name": "Kernel.KnowledgeNarrowingMinimal.free_incremental_narrowing_with_three"
+        },
+        {
+          "local_name": "states_along_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.KnowledgeNarrowingMinimal.states_along_length"
+        },
+        {
+          "local_name": "map_constant",
+          "kind": "Lemma",
+          "full_name": "Kernel.KnowledgeNarrowingMinimal.map_constant"
+        },
+        {
+          "local_name": "knowledge_constant_window",
+          "kind": "Lemma",
+          "full_name": "Kernel.KnowledgeNarrowingMinimal.knowledge_constant_window"
+        },
+        {
+          "local_name": "initial_knowledge_same_window",
+          "kind": "Lemma",
+          "full_name": "Kernel.KnowledgeNarrowingMinimal.initial_knowledge_same_window"
+        },
+        {
+          "local_name": "no_free_incremental_narrowing_below_three",
+          "kind": "Theorem",
+          "full_name": "Kernel.KnowledgeNarrowingMinimal.no_free_incremental_narrowing_below_three"
+        }
+      ],
       "unaddressable": []
     },
     {

@@ -591,7 +591,23 @@ One structure, two free choices. The price list is one. Which permanent reading 
 
 The second choice is the pointer-observable question of Section~\ref{sec:pointer}: what makes certification the event to record.
 Both strengths take the VM's structure as given, since every machine they admit runs the VM.
-Whether the structure itself is forced, for machines that don't run the VM, is a question about record-carrying simulations between different machines. It is open.
+
+\texttt{StructuralCoreRound4.v} drops the VM. A base is any deterministic machine without a record: a Turing machine, a RAM, a reversible machine, the VM itself. A machine extends a base when it runs the base step for step through a map down to it, carrying whatever hidden state it likes. Give it a record that never switches off, that some paid step writes, that satisfies A2, and whose next value depends only on the base state and on itself.
+Then the base state and the record move exactly as a latch: the record switches on the first time the base passes a state where some event $h$ holds, and it never switches off (\code{uniqueness\_round4\_holds}).
+Everything else the machine carries shows up only in its ledger.
+Two such records move as two latches, each of whose events may read the other record (\code{uniqueness\_round4\_pair\_holds}), so two records are one axis.
+
+Both conditions on the record do work.
+A record that can switch back off is not a latch of any event (\code{toggle\_not\_latch}).
+A record switched on by a hidden clock never switches off, and it still isn't driven by the computation (\code{clock\_record\_not\_driven}).
+Every base carries the axis: for any event the base reaches, the latch of that event, priced one unit per write, is an honest extension (\code{latch\_core\_honest}). So a RAM with a record driven by its computation is a RAM plus a latch. A reversible machine with unbounded memory can carry one and stay reversible, by keeping every earlier record value (\code{history\_latch\_injective}, \code{history\_latch\_honest}). With finite memory it can't: a step that writes a permanent record there is not injective (\code{finite\_reversible\_cannot\_write}, from Section~\ref{sec:permanent-certification}).
+Machines on different bases are not compared: a machine that multiplies unbounded numbers in one step and a Turing machine differ in cost, not in records.
+
+\begin{plainreading}
+The base is free. Over any base, the record axis has one form: a latch on an event. Which event is the pointer question.
+\end{plainreading}
+
+The proof of the factorization is short. Its content is in what the entry asks for: hidden state is allowed, and only a record that never switches off and is driven by the computation is required. The latch form follows from those two; it is not assumed.
 
 The third is about this exact machine.
 Is this particular VM state space the only one, up to renaming?
@@ -600,7 +616,7 @@ No theorem needs it.
 The separating witnesses (Section~\ref{sec:categorical}'s graph pair and the irrecoverability theorems above) stand on their own however the second question comes out.
 They don't need it, and it doesn't need them.
 
-So the first is proved, for a fixed schedule. The third isn't claimed. The second, in the form the words suggest, is false. Up to the price schedule it holds for machines that run the VM and record certification, and which reading counts as the record is a second free choice. For machines that don't run the VM it is open.
+So the first is proved, for a fixed schedule. The third isn't claimed. The second, in the form the words suggest, is false. Up to the price schedule it holds for machines that run the VM and record certification, and which reading counts as the record is a second free choice. Over any base, a record driven by the computation that never switches off is a latch on one event.
 
 \textbf{What this project is not.}
 It is not a claim that I solved P vs NP.
@@ -810,7 +826,7 @@ An implementation in Coq is not, by itself, a priority claim for the mathematics
 \textbf{Prior work} & \textbf{What this development contributes} \\
 \hline
 \endhead
-\href{https://www.tac.mta.ca/tac/reprints/articles/15/tr15abs.html}{Lawvere (1969)} &
+\href{https://tac.mta.ca/tac/reprints/articles/15/tr15abs.html}{Lawvere (1969)} &
 The diagonal is inherited. The development supplies an explicit weak call-by-value calculus, quotation, a proved recursion theorem, and its undecidability applications. It does not instantiate that calculus as the VM's total-run interface. \\[4pt]
 \href{https://doi.org/10.1007/BF00417500}{Tsirelson (1980)}; \href{https://doi.org/10.1007/BF00732549}{Landau (1988)} &
 The correlation bounds are prior mathematics. The contribution here is the checked algebra for specified matrix slices and the connection from integer VM checks to those conditions. No general quantum-realizability claim follows from the fixed-slice test. \\[4pt]
@@ -2043,9 +2059,9 @@ This is the VM-level version. The kernel proves the two concrete cert channels c
 \subsection{The law is the potential method}
 \label{sec:potential}
 
-Cost reasoning has old tools, and I checked the law against two of them.
+Cost reasoning has old tools, and I checked the law against four of them.
 
-The first is cost semantics. Danner and Licata use a monadic translation to carry cost with a program's result; graded monads (Katsumata; Orchard, Liepelt, and Eades) track effects through grades. Running a trace in the writer monad over the natural numbers returns the final state and the trace's total cost (\code{run\_writer\_is\_run\_and\_cost}). This identifies the trace ledger with a writer cost. It does not embed those authors' full semantics or type systems.
+The first is cost semantics. Danner and Licata use a monadic translation to carry cost with a program's result; graded monads (Katsumata; Orchard, Liepelt, and Eades) track effects through grades. Running a trace in the writer monad over the natural numbers returns the final state and the trace's total cost (\code{run\_writer\_is\_run\_and\_cost}). This identifies the trace ledger with a writer cost. With costs set per instruction, the cost of a run is also its grade, fixed before the run in the type of the computation (\code{run\_graded\_is\_run}), which is what a graded monad asks. None of this embeds those authors' full semantics or type systems.
 
 The second is a lower-bound potential argument. Give every state a potential. If every step's cost plus the change in potential is never negative, then any run costs at least the drop in potential. Now pick the potential that is one on an uncertified state and zero on a certified one. Standard upper-bound AARA uses the opposite inequality: initial potential covers cost plus final potential. The result here is not an equivalence to its affine type system.
 
@@ -2054,6 +2070,10 @@ For any step function, cost, and yes/no reading, A2 holds exactly when every ste
 \end{theorem}
 
 No Free Insight is then the potential method's own bound: a run from uncertified to certified drops the potential by one, so it costs at least one (\code{nfi\_by\_potential}). Every \code{CertificationSystem} is an instance (\code{certification\_system\_is\_potential\_method}).
+
+The upper-bound direction says something too. Take AARA's condition with the same potential: the potential before a step pays for its cost and the potential after. A2 and that condition hold together exactly when every certifying step costs one, every other step costs zero, and nothing ever loses its certificate (\code{a2\_and\_aara\_iff\_exact}). So the upper bound adds exact pricing and permanence to the floor.
+
+The last is linear logic's reading, where a resource is used once. Under A2 a trace certifies at most as many times as its total cost (\code{flips\_le\_cost}). Each certification uses up a unit, and a unit is not used twice.
 
 So the law isn't a new kind of cost reasoning, and I'm glad to say so. It is a lower-bound potential argument, pointed at the certification reading. What the rest of this book adds is about that reading, not the method: Section~\ref{sec:shadow-pricing} shows that on the VM's two named windows no price computed from the observed transition prices certification exactly, and a potential read off the window gives a price of that kind. This observation does not establish a separation from the cited frameworks.
 
@@ -2364,6 +2384,10 @@ In the same machine, $\mathtt{Wipe}$ blanks the display. Every cost that meets t
 \end{theorem}
 
 The VM does the same thing. \texttt{XOR\_ADD 2 1 0} adds register 1 into a blank register 2 at zero cost. An observer watching register 2 goes from two candidate states to one, and the ledger stays at zero (\code{vm\_observer\_narrowing\_at\_zero\_cost}).
+
+What the run itself teaches is the fairer measure. The observer's first look already crosses off the starting states whose window differs, before any step runs. So compare what it knows after that first look with what it knows at the end. The measurement is still free (\code{demon\_refutes\_incremental}).
+The smallest machine that teaches for free has three states (\code{free\_incremental\_narrowing\_with\_three}). Cycle through them, seen as false, false, true; the two states that look alike at the start come apart after one step, and a cycle forgets nothing.
+Two states are not enough (\code{no\_free\_incremental\_narrowing\_below\_three}). Two starting states that look alike at the start are then every state there is, so the window shows the same thing everywhere and never teaches anything.
 
 None of this is new physics. It is Bennett's answer to Maxwell's demon (\href{https://doi.org/10.1007/BF02084158}{``The thermodynamics of computation, a review''}, 1982), stated on the logic and checked in Coq. Measuring can be done without merging. What costs is making room again.
 
@@ -4386,7 +4410,7 @@ Run the Inquisitor on the repository and read what it says. It fails on HIGH or 
 
 \medskip
 \noindent\textbf{Falsify the axiom audit.}\\
-If running \texttt{Print Assumptions} (Section~\ref{sec:vocab}: the Coq command that reports global proof dependencies) on any named theorem in the kernel tier shows a project-local \texttt{Axiom} or \texttt{Parameter} in the dependency tree, the audit has degraded. The current full-corpus probe covers 13,078 named theorems across 441 files: 5,734 close under the global Coq context outright, and 7,344 use only Coq standard-library assumptions. The receipt names five such constants: dependent functional extensionality, \texttt{Eqdep.Eq\_rect\_eq.eq\_rect\_eq}, \texttt{ClassicalDedekindReals.sig\_not\_dec}, \texttt{ClassicalDedekindReals.sig\_forall\_dec}, and \texttt{Classical\_Prop.classic}. Zero project-local axioms appear in any of the 13,078 dependency trees. This audits where global dependencies come from. It doesn't prove that a theorem's own Section-generalized premises hold for the instance you care about; those premises stay visible in the theorem types and get checked separately. Any project-local axiom or parameter appearing in a global dependency tree is a bug.
+If running \texttt{Print Assumptions} (Section~\ref{sec:vocab}: the Coq command that reports global proof dependencies) on any named theorem in the kernel tier shows a project-local \texttt{Axiom} or \texttt{Parameter} in the dependency tree, the audit has degraded. The current full-corpus probe covers 13,100 named theorems across 445 files: 5,756 close under the global Coq context outright, and 7,344 use only Coq standard-library assumptions. The receipt names five such constants: dependent functional extensionality, \texttt{Eqdep.Eq\_rect\_eq.eq\_rect\_eq}, \texttt{ClassicalDedekindReals.sig\_not\_dec}, \texttt{ClassicalDedekindReals.sig\_forall\_dec}, and \texttt{Classical\_Prop.classic}. Zero project-local axioms appear in any of the 13,100 dependency trees. This audits where global dependencies come from. It doesn't prove that a theorem's own Section-generalized premises hold for the instance you care about; those premises stay visible in the theorem types and get checked separately. Any project-local axiom or parameter appearing in a global dependency tree is a bug.
 
 \medskip
 \noindent\textbf{Falsify the hardware bisimulation.}\\
@@ -4641,6 +4665,25 @@ Those are the edges of the individual results. Every structural, conditional, an
 \textbf{Trace initiality and foundational interpretation.} The universal property is about evaluating instruction lists (Section~\ref{sec:projection-nonexistence}). Ledger uniqueness assumes a schedule. Exact pricing assumes an event, and a reference count that says what overcharging means. Those theorems make the construction precise. They don't show that its chosen category, or its chosen event, is physically necessary.
 
 \textbf{The broader research question.} Certification is one worked example. A family of observations might turn up other useful structural laws, but each would need its events, its evidence, and its cost rules justified on their own. The separation and oracle results are about what specific maps keep. They don't show infinitely many independent dimensions, zero mutual information, or a cost for changing coordinates.
+
+\textbf{Where each result lives.} Some results hold for every machine that carries a record the way this book asks. Others hold for the machine I built. The split matters, because the structural question came out as one record axis over a free base.
+\begin{itemize}
+\item Every system that follows A2, whatever its states and instructions: the certification floor (\code{universal\_nfi\_any\_substrate}), at most as many certifications as total cost (\code{flips\_le\_cost}), and A2 as a lower-bound potential argument (\code{a2\_iff\_nonnegative\_amortized\_cost}).
+\item Every finite machine whose price covers merges: A2 for records that never switch off (\code{a2\_from\_merging\_price\_and\_permanence}), which instructions every such price must charge (\code{forced\_priced\_iff\_merges}), and the machine's own narrowing (\code{run\_narrowing\_priced\_log}).
+\item Every machine that runs a base, with a record driven by its computation that never switches off: the latch form (\code{uniqueness\_round4\_holds}).
+\item Every window through which a certifying step and a non-certifying one look alike: no price read off the window is exact (\code{shadow\_cannot\_price\_exactly}).
+\item The Thiele build only: the VM's cost schedule and its numbers, the collisions of the VM's own windows, the CHSH gate and its NPA bridge, the Kami hardware correspondence, the 51-opcode instruction set, and the finite VM instance.
+\end{itemize}
+
+\textbf{Further extensions.} Each is its own question, to be fixed before it is tested.
+\begin{itemize}
+\item A record with many values that only grows. The pair result points at one axis, a set that only grows. The general finite case needs its own proof.
+\item A record that can be revoked at a price, the way Casper's can. That is a second way to hold a record in place, priced from the other side, and it needs its own entry test and its own sameness.
+\item Machines on different bases, compared by simulations that respect cost. That is complexity theory's question. The record axis does not answer it.
+\item Whether permanence is always paid for at some level, economic, cryptographic, or physical (Section~\ref{sec:spec-records}).
+\item A physical calibration of the ledger, with Landauer's principle measured rather than named.
+\item Machines that choose at random, with a distribution over latches in place of one latch.
+\end{itemize}
 
 %===========================================================================
 

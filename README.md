@@ -80,9 +80,9 @@ python3 minimal/nofi_demo.py   # exhaustive sweeps + measured algorithms against
 python3 -c "import json; d=json.load(open('artifacts/print_assumptions_all_proofs.json')); print(d['summary'])"
 ```
 
-The second command prints the committed assumption receipt: 13,078 theorems probed, zero *project-local* axiom findings.
+The second command prints the committed assumption receipt: 13,100 theorems probed, zero *project-local* axiom findings.
 The badge says project-local, and that is the precise claim: it is not "zero axioms".
-5,734 of those theorems are closed under the global context outright; the remaining 7,344 use only Coq standard-library assumptions: dependent functional extensionality, `Eqdep.Eq_rect_eq.eq_rect_eq`, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
+5,756 of those theorems are closed under the global context outright; the remaining 7,344 use only Coq standard-library assumptions: dependent functional extensionality, `Eqdep.Eq_rect_eq.eq_rect_eq`, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
 Those library assumptions are disclosed in the receipt; what is zero is axioms this project added.
 Validate the committed receipt quickly with `make assumption-receipt-check`.
 That path reuses the exact theorem/axiom results when the semantic fingerprint is unchanged and performs the full corpus derivation only after proof-relevant inputs drift.
@@ -264,7 +264,7 @@ Coq closes the contradiction by `congruence`.
 Closed under the global context
 ```
 
-The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 13,078 addressable theorems probed across 441 files and no user/project-local axiom findings in the committed assumption scan.
+The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 13,100 addressable theorems probed across 445 files and no user/project-local axiom findings in the committed assumption scan.
 
 ## Beyond the minimal witness
 
@@ -328,9 +328,9 @@ Its generated closure receipt is [artifacts/master_summary_open_obligations.json
 | Irrecoverability and verifier separation | For projections/transcripts that identify witnesses disagreeing on the queried property. |
 | Quantum certificate soundness | Specified slice or completion PSD conditions; not physical entanglement generation. |
 | Hardware trace commutation | The Coq hardware model under `WFDrivenRun`; downstream compiler/RTL trust remains explicit. |
-| Which narrowing is priced | On a finite machine that prices merges, the machine's own spread of possible states can't shrink for free (`run_narrowing_priced_log`). Observer knowledge need not be charged: `observer_narrowing_can_be_free` exhibits one admissible merge-priced cost assigning zero to an injective measurement, while wiping the record costs at least one (`wipe_costs_at_least_one`). Merge pricing is a lower bound and may overcharge injective steps. The insight No Free Insight prices is certified insight. |
+| Which narrowing is priced | On a finite machine that prices merges, the machine's own spread of possible states can't shrink for free (`run_narrowing_priced_log`). Observer knowledge need not be charged: `observer_narrowing_can_be_free` exhibits one admissible merge-priced cost assigning zero to an injective measurement, while wiping the record costs at least one (`wipe_costs_at_least_one`). Merge pricing is a lower bound and may overcharge injective steps. The insight No Free Insight prices is certified insight. What the run itself teaches, from the first look to the end, is also free (`demon_refutes_incremental`); the smallest machine that teaches for free has three states (`free_incremental_narrowing_with_three`, `no_free_incremental_narrowing_below_three`). |
 | Recursion theorem | Proved for L, a Turing-complete lambda calculus, from its reduction rules (`second_recursion`), with Rice's theorem and halting as corollaries (`L_rice`, `L_halting_undecidable`). The 51-opcode VM's recursion theorem is still a premise. |
-| Structural uniqueness | False in the form the words suggest: a Thiele core that bills CPU time is adequate and runs the VM underneath, and it is not the same machine (`uniqueness_round1_refuted`, `uniqueness_round2_refuted`). Up to the price schedule it holds for machines that run the VM and record certification (`uniqueness_round3b_holds`); any state-dependent bill is just a schedule (`surcharged_core_equiv_mod_schedule`). Which permanent reading counts as the record is a second free choice (`uniqueness_round3a_refuted`). For machines that don't run the VM it is open. |
+| Structural uniqueness | False in the form the words suggest: a Thiele core that bills CPU time is adequate and runs the VM underneath, and it is not the same machine (`uniqueness_round1_refuted`, `uniqueness_round2_refuted`). Up to the price schedule it holds for machines that run the VM and record certification (`uniqueness_round3b_holds`); any state-dependent bill is just a schedule (`surcharged_core_equiv_mod_schedule`). Which permanent reading counts as the record is a second free choice (`uniqueness_round3a_refuted`). Over any base, a record driven by the computation that never switches off is a latch on one event (`uniqueness_round4_holds`); a revocable record is not (`toggle_not_latch`). |
 | Physical interpretation | Open. `F1_physical_premises_incompatible` proves the current full-ISA F1 premise pair has no instance. |
 
 The classical embedding results describe the formal fragments and simulation contracts in their cited files.
@@ -509,8 +509,8 @@ Two independent receipts track proof assumptions.
 - [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records Coq `Print Assumptions` over the audited theorem set.
 
 The selected theorem ledger is [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v).
-The current committed assumption receipt reports 13,078 addressable theorems probed across 441 files and no user/project-local axiom findings.
-The split: 5,734 close under the global context outright, and the remaining 7,344 lean only on Coq-stdlib axiom families.
+The current committed assumption receipt reports 13,100 addressable theorems probed across 445 files and no user/project-local axiom findings.
+The split: 5,756 close under the global context outright, and the remaining 7,344 lean only on Coq-stdlib axiom families.
 Those families are `functional_extensionality_dep` (7,041), `eq_rect_eq` (3,849), the classical-reals pair `sig_forall_dec` (1,054) and `sig_not_dec` (300), and `classic` (98).
 Those families enter through the real-number and physics layers; the minimal core uses none of them.
 "Zero axioms" here means zero project-local axioms, the same convention the monograph uses.

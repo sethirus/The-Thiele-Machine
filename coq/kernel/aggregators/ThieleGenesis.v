@@ -378,7 +378,7 @@ Check thermodynamic_einstein_full_chain_4d.
         agree on all observables after arbitrary traces.
 *)
 
-(** 8a. Extraction trust boundary: mu-exact + monotone + total. *)
+(** 8a. Extraction trust boundary: mu-exact + monotone. *)
 Check extraction_trust_boundary.
 
 (** 8b. Python full-state refinement over multi-step execution. *)
@@ -441,7 +441,7 @@ Check driven_trace_commutes.
                                        Generalized to both cert channels.
      5. universal_nfi_any_substrate    Any substrate satisfies NoFI.
      6. mu_initiality                  Mu is the unique cost function.
-     7. inc_via_vm_apply               The machine is Turing-complete.
+     7. inc_via_vm_apply               Two VM steps increment a counter register.
      8. Physics_Closure                Locality + conservation + causality.
      9. extraction_trust_boundary      Coq spec -> OCaml runner.
     10. full_embed_step_compute        Kami hardware -> vm_apply.
@@ -514,9 +514,7 @@ Record ThieleGenesis := {
     (forall s i,
        (shadow_to_eo (vm_apply s i)).(eo_mu) = apply_cost s i) /\
     (forall s i,
-       s.(vm_mu) <= (vm_apply s i).(vm_mu)) /\
-    (forall s i,
-       exists s', vm_apply s i = s');
+       s.(vm_mu) <= (vm_apply s i).(vm_mu));
 
   (** Chapter 9 Layer 2: Full-state hardware commutation *)
   tg_hardware_commutation :

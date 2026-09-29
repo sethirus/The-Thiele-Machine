@@ -2,8 +2,8 @@
   "schema": "vacuity_audit.v1",
   "summary": {
     "error": 0,
-    "ok": 748,
-    "total": 748,
+    "ok": 772,
+    "total": 772,
     "vacuous_hyp": 0,
     "vacuous_true": 0
   },
@@ -14076,6 +14076,486 @@
         "succeeded": false
       },
       "statement": "current (run_stores fresh_slot [1; 0]) = 0 /\\ net (run_stores fresh_slot [1; 0]) = 2300 /\\ net (run_stores fresh_slot [1]) = 22100",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralRecordAxis.v",
+      "kind": "Theorem",
+      "line": 23,
+      "name": "uniqueness_round4_holds",
+      "probe_a": {
+        "coq_stderr_tail": "dpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralRecordAxis__uniqueness_round4_holds__a.v\", line 3, characters 51-68:\nError: The reference uniqueness_round4 was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Str...] 0.42 secs (0.263u,0.156s)\nChars 114 - 183 [Theorem~_vacuity_probe_a_uniqu...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralRecordAxis__uniqueness_round4_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "path,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralRecordAxis__uniqueness_round4_holds__b.v\", line 3, characters 51-68:\nError: The reference uniqueness_round4 was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Str...] 0.429 secs (0.273u,0.149s)\nChars 114 - 183 [Theorem~_vacuity_probe_b_uniqu...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralRecordAxis__uniqueness_round4_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "uniqueness_round4",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralRecordAxis.v",
+      "kind": "Theorem",
+      "line": 36,
+      "name": "uniqueness_round4_pair_holds",
+      "probe_a": {
+        "coq_stderr_tail": "ystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralRecordAxis__uniqueness_round4_pair_holds__a.v\", line 3, characters 56-78:\nError: The reference uniqueness_round4_pair was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Str...] 0.413 secs (0.271u,0.142s)\nChars 114 - 193 [Theorem~_vacuity_probe_a_uniqu...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralRecordAxis__uniqueness_round4_pair_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralRecordAxis__uniqueness_round4_pair_holds__b.v\", line 3, characters 56-78:\nError: The reference uniqueness_round4_pair was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Str...] 0.424 secs (0.278u,0.146s)\nChars 114 - 193 [Theorem~_vacuity_probe_b_uniqu...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralRecordAxis__uniqueness_round4_pair_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "uniqueness_round4_pair",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralRecordAxis.v",
+      "kind": "Theorem",
+      "line": 79,
+      "name": "toggle_computation_driven",
+      "probe_a": {
+        "coq_stderr_tail": "h,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralRecordAxis__toggle_computation_driven__a.v\", line 3, characters 53-71:\nError: The reference computation_driven was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Str...] 0.405 secs (0.241u,0.163s)\nChars 114 - 223 [Theorem~_vacuity_probe_a_toggl...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralRecordAxis__toggle_computation_driven__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "th,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralRecordAxis__toggle_computation_driven__b.v\", line 3, characters 53-71:\nError: The reference computation_driven was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Str...] 0.421 secs (0.27u,0.147s)\nChars 114 - 223 [Theorem~_vacuity_probe_b_toggl...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralRecordAxis__toggle_computation_driven__b.v",
+        "succeeded": false
+      },
+      "statement": "computation_driven ToggleCore counter_base toggle_cover",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralRecordAxis.v",
+      "kind": "Theorem",
+      "line": 83,
+      "name": "toggle_not_permanent",
+      "probe_a": {
+        "coq_stderr_tail": "l-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralRecordAxis__toggle_not_permanent__a.v\", line 3, characters 50-66:\nError: The reference record_permanent was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Str...] 0.42 secs (0.258u,0.16s)\nChars 114 - 192 [Theorem~_vacuity_probe_a_toggl...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralRecordAxis__toggle_not_permanent__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralRecordAxis__toggle_not_permanent__b.v\", line 3, characters 50-66:\nError: The reference record_permanent was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Str...] 0.44 secs (0.267u,0.165s)\nChars 114 - 192 [Theorem~_vacuity_probe_b_toggl...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralRecordAxis__toggle_not_permanent__b.v",
+        "succeeded": false
+      },
+      "statement": "~ record_permanent ToggleCore",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralRecordAxis.v",
+      "kind": "Theorem",
+      "line": 86,
+      "name": "toggle_not_latch",
+      "probe_a": {
+        "coq_stderr_tail": "l-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralRecordAxis__toggle_not_latch__a.v\", line 3, characters 56-75:\nError: The reference latch_factorization was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Str...] 0.406 secs (0.274u,0.13s)\nChars 114 - 229 [Theorem~_vacuity_probe_a_toggl...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralRecordAxis__toggle_not_latch__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralRecordAxis__toggle_not_latch__b.v\", line 3, characters 56-75:\nError: The reference latch_factorization was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Str...] 0.401 secs (0.261u,0.139s)\nChars 114 - 229 [Theorem~_vacuity_probe_b_toggl...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralRecordAxis__toggle_not_latch__b.v",
+        "succeeded": false
+      },
+      "statement": "~ exists h, latch_factorization ToggleCore counter_base toggle_cover h",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralRecordAxis.v",
+      "kind": "Theorem",
+      "line": 116,
+      "name": "clock_record_permanent",
+      "probe_a": {
+        "coq_stderr_tail": "adpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralRecordAxis__clock_record_permanent__a.v\", line 3, characters 50-66:\nError: The reference record_permanent was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Str...] 0.424 secs (0.278u,0.145s)\nChars 114 - 191 [Theorem~_vacuity_probe_a_clock...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralRecordAxis__clock_record_permanent__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "oadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralRecordAxis__clock_record_permanent__b.v\", line 3, characters 50-66:\nError: The reference record_permanent was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Str...] 0.44 secs (0.281u,0.154s)\nChars 114 - 191 [Theorem~_vacuity_probe_b_clock...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralRecordAxis__clock_record_permanent__b.v",
+        "succeeded": false
+      },
+      "statement": "record_permanent ClockCore",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralRecordAxis.v",
+      "kind": "Theorem",
+      "line": 119,
+      "name": "clock_record_not_driven",
+      "probe_a": {
+        "coq_stderr_tail": "ath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralRecordAxis__clock_record_not_driven__a.v\", line 3, characters 53-71:\nError: The reference computation_driven was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Str...] 0.462 secs (0.266u,0.172s)\nChars 114 - 221 [Theorem~_vacuity_probe_a_clock...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralRecordAxis__clock_record_not_driven__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralRecordAxis__clock_record_not_driven__b.v\", line 3, characters 53-71:\nError: The reference computation_driven was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Str...] 0.397 secs (0.251u,0.145s)\nChars 114 - 221 [Theorem~_vacuity_probe_b_clock...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralRecordAxis__clock_record_not_driven__b.v",
+        "succeeded": false
+      },
+      "statement": "~ computation_driven ClockCore counter_base clock_cover",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RecordAxisDiscrimination.v",
+      "kind": "Theorem",
+      "line": 56,
+      "name": "latch_core_honest",
+      "probe_a": {
+        "coq_stderr_tail": "g-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RecordAxisDiscrimination__latch_core_honest__a.v\", line 3, characters 59-65:\nError: The reference b_init was not found in the current environment.\n\nChars 65 - 117 [From~Kernel~Require~Import~Rec...] 0.427 secs (0.276u,0.15s)\nChars 118 - 316 [Theorem~_vacuity_probe_a_latch...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RecordAxisDiscrimination__latch_core_honest__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "g-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RecordAxisDiscrimination__latch_core_honest__b.v\", line 3, characters 59-65:\nError: The reference b_init was not found in the current environment.\n\nChars 65 - 117 [From~Kernel~Require~Import~Rec...] 0.45 secs (0.294u,0.147s)\nChars 118 - 316 [Theorem~_vacuity_probe_b_latch...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RecordAxisDiscrimination__latch_core_honest__b.v",
+        "succeeded": false
+      },
+      "statement": "(exists b0 n, b_init B b0 /\\ let '(b, r, _) := rc_run LatchCore n (b0, false, 0) in r = false /\\ h b = true) -> HonestExtension4 LatchCore B latch_cover",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RecordAxisDiscrimination.v",
+      "kind": "Theorem",
+      "line": 96,
+      "name": "history_latch_injective",
+      "probe_a": {
+        "coq_stderr_tail": "al-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RecordAxisDiscrimination__history_latch_injective__a.v\", line 3, characters 64-70:\nError: The reference b_next was not found in the current environment.\n\nChars 65 - 117 [From~Kernel~Require~Import~Rec...] 0.498 secs (0.309u,0.173s)\nChars 118 - 288 [Theorem~_vacuity_probe_a_histo...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RecordAxisDiscrimination__history_latch_injective__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "al-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RecordAxisDiscrimination__history_latch_injective__b.v\", line 3, characters 64-70:\nError: The reference b_next was not found in the current environment.\n\nChars 65 - 117 [From~Kernel~Require~Import~Rec...] 0.464 secs (0.287u,0.162s)\nChars 118 - 288 [Theorem~_vacuity_probe_b_histo...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RecordAxisDiscrimination__history_latch_injective__b.v",
+        "succeeded": false
+      },
+      "statement": "(forall a b, b_next B a = b_next B b -> a = b) -> forall x y, rc_next HistoryLatch x = rc_next HistoryLatch y -> x = y",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RecordAxisDiscrimination.v",
+      "kind": "Theorem",
+      "line": 117,
+      "name": "history_latch_honest",
+      "probe_a": {
+        "coq_stderr_tail": "ound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RecordAxisDiscrimination__history_latch_honest__a.v\", line 3, characters 132-134:\nError: Syntax error: [term level 200] expected after ',' (in [term]).\n\nChars 65 - 117 [From~Kernel~Require~Import~Rec...] 0.428 secs (0.262u,0.165s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RecordAxisDiscrimination__history_latch_honest__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RecordAxisDiscrimination__history_latch_honest__b.v\", line 3, characters 132-134:\nError: Syntax error: [term level 200] expected after ',' (in [term]).\n\nChars 65 - 117 [From~Kernel~Require~Import~Rec...] 0.398 secs (0.259u,0.138s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RecordAxisDiscrimination__history_latch_honest__b.v",
+        "succeeded": false
+      },
+      "statement": "(exists b0 n, b_init B b0 /\\ let '(b, r, _, _) := rc_run HistoryLatch n (b0, false, [], 0) in r = false /\\ h b = true) -> HonestExtension4 HistoryLatch B history_cover",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RecordAxisDiscrimination.v",
+      "kind": "Theorem",
+      "line": 143,
+      "name": "finite_reversible_cannot_write",
+      "probe_a": {
+        "coq_stderr_tail": "system,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RecordAxisDiscrimination__finite_reversible_cannot_write__a.v\", line 3, characters 137-150:\nError: The reference finite_states was not found in the current environment.\n\nChars 65 - 117 [From~Kernel~Require~Import~Rec...] 0.406 secs (0.264u,0.141s)\nChars 118 - 371 [Theorem~_vacuity_probe_a_finit...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RecordAxisDiscrimination__finite_reversible_cannot_write__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "system,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RecordAxisDiscrimination__finite_reversible_cannot_write__b.v\", line 3, characters 137-150:\nError: The reference finite_states was not found in the current environment.\n\nChars 65 - 117 [From~Kernel~Require~Import~Rec...] 0.423 secs (0.272u,0.147s)\nChars 118 - 371 [Theorem~_vacuity_probe_b_finit...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RecordAxisDiscrimination__finite_reversible_cannot_write__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (S : Type) (step : S -> unit -> S) (cert : S -> bool) (all : list S) s, finite_states all -> permanent step cert -> step_injective step tt -> ~ (cert s = false /\\ cert (step s tt) = true)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v",
+      "kind": "Theorem",
+      "line": 30,
+      "name": "demon_refutes_incremental",
+      "probe_a": {
+        "coq_stderr_tail": "ile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__demon_refutes_incremental__a.v\", line 3, characters 55-92:\nError: The reference incremental_observer_narrowing_priced was not found\nin the current environment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.412 secs (0.262u,0.15s)\nChars 119 - 246 [Theorem~_vacuity_probe_a_demon...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__demon_refutes_incremental__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "le \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__demon_refutes_incremental__b.v\", line 3, characters 55-92:\nError: The reference incremental_observer_narrowing_priced was not found\nin the current environment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.469 secs (0.288u,0.159s)\nChars 119 - 246 [Theorem~_vacuity_probe_b_demon...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__demon_refutes_incremental__b.v",
+        "succeeded": false
+      },
+      "statement": "~ incremental_observer_narrowing_priced dstep dcost display Bool.bool_dec",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v",
+      "kind": "Lemma",
+      "line": 53,
+      "name": "tri3_finite",
+      "probe_a": {
+        "coq_stderr_tail": "reviously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__tri3_finite__a.v\", line 3, characters 53-56:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.428 secs (0.277u,0.151s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__tri3_finite__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "reviously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__tri3_finite__b.v\", line 3, characters 53-56:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.399 secs (0.252u,0.147s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__tri3_finite__b.v",
+        "succeeded": false
+      },
+      "statement": "finite_states [U3; V3; W3]",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v",
+      "kind": "Lemma",
+      "line": 59,
+      "name": "tri3_step_injective",
+      "probe_a": {
+        "coq_stderr_tail": "al-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__tri3_step_injective__a.v\", line 3, characters 57-66:\nError: The reference Injective was not found in the current environment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.427 secs (0.262u,0.164s)\nChars 119 - 211 [Theorem~_vacuity_probe_a_tri3_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__tri3_step_injective__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "cal-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__tri3_step_injective__b.v\", line 3, characters 57-66:\nError: The reference Injective was not found in the current environment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.403 secs (0.25u,0.152s)\nChars 119 - 211 [Theorem~_vacuity_probe_b_tri3_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__tri3_step_injective__b.v",
+        "succeeded": false
+      },
+      "statement": "forall i, Injective (fun x => tri3_step x i)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v",
+      "kind": "Lemma",
+      "line": 62,
+      "name": "tri3_compression_priced",
+      "probe_a": {
+        "coq_stderr_tail": "ilesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__tri3_compression_priced__a.v\", line 3, characters 51-69:\nError: The reference compression_priced was not found in the current\nenvironment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.396 secs (0.259u,0.136s)\nChars 119 - 224 [Theorem~_vacuity_probe_a_tri3_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__tri3_compression_priced__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__tri3_compression_priced__b.v\", line 3, characters 51-69:\nError: The reference compression_priced was not found in the current\nenvironment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.404 secs (0.26u,0.143s)\nChars 119 - 224 [Theorem~_vacuity_probe_b_tri3_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__tri3_compression_priced__b.v",
+        "succeeded": false
+      },
+      "statement": "compression_priced tri3_step (fun _ => 0) tri3_eq_dec",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v",
+      "kind": "Theorem",
+      "line": 71,
+      "name": "free_incremental_narrowing_with_three",
+      "probe_a": {
+        "coq_stderr_tail": "orkspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__free_incremental_narrowing_with_three__a.v\", line 3, characters 65-96:\nError: The reference free_incremental_narrowing_with was not found\nin the current environment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.427 secs (0.278u,0.141s)\nChars 119 - 218 [Theorem~_vacuity_probe_a_free_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__free_incremental_narrowing_with_three__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "\"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__free_incremental_narrowing_with_three__b.v\", line 3, characters 65-96:\nError: The reference free_incremental_narrowing_with was not found\nin the current environment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.4 secs (0.27u,0.13s)\nChars 119 - 218 [Theorem~_vacuity_probe_b_free_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__free_incremental_narrowing_with_three__b.v",
+        "succeeded": false
+      },
+      "statement": "free_incremental_narrowing_with 3",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v",
+      "kind": "Lemma",
+      "line": 93,
+      "name": "states_along_length",
+      "probe_a": {
+        "coq_stderr_tail": "-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__states_along_length__a.v\", line 3, characters 67-79:\nError: The reference states_along was not found in the current environment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.414 secs (0.27u,0.143s)\nChars 119 - 230 [Theorem~_vacuity_probe_a_state...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__states_along_length__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__states_along_length__b.v\", line 3, characters 67-79:\nError: The reference states_along was not found in the current environment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.41 secs (0.254u,0.153s)\nChars 119 - 230 [Theorem~_vacuity_probe_b_state...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__states_along_length__b.v",
+        "succeeded": false
+      },
+      "statement": "forall t s, length (states_along St It step s t) = S (length t)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v",
+      "kind": "Lemma",
+      "line": 97,
+      "name": "map_constant",
+      "probe_a": {
+        "coq_stderr_tail": "erriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__map_constant__a.v\", line 3, characters 52-54:\nError: The reference Ot was not found in the current environment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.445 secs (0.288u,0.148s)\nChars 119 - 247 [Theorem~_vacuity_probe_a_map_c...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__map_constant__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "erriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__map_constant__b.v\", line 3, characters 52-54:\nError: The reference Ot was not found in the current environment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.404 secs (0.258u,0.146s)\nChars 119 - 247 [Theorem~_vacuity_probe_b_map_c...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__map_constant__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (c : Ot) (l : list St), (forall s, obs s = c) -> map obs l = repeat c (length l)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v",
+      "kind": "Lemma",
+      "line": 105,
+      "name": "knowledge_constant_window",
+      "probe_a": {
+        "coq_stderr_tail": "al-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__knowledge_constant_window__a.v\", line 3, characters 83-86:\nError: The reference obs was not found in the current environment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.432 secs (0.274u,0.156s)\nChars 119 - 270 [Theorem~_vacuity_probe_a_knowl...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__knowledge_constant_window__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "al-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__knowledge_constant_window__b.v\", line 3, characters 83-86:\nError: The reference obs was not found in the current environment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.429 secs (0.286u,0.141s)\nChars 119 - 270 [Theorem~_vacuity_probe_b_knowl...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__knowledge_constant_window__b.v",
+        "succeeded": false
+      },
+      "statement": "forall Omega t s0, (forall s, obs s = obs s0) -> knowledge step obs obs_eq_dec Omega t s0 = Omega",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v",
+      "kind": "Lemma",
+      "line": 120,
+      "name": "initial_knowledge_same_window",
+      "probe_a": {
+        "coq_stderr_tail": "tures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__initial_knowledge_same_window__a.v\", line 3, characters 120-122:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.429 secs (0.258u,0.17s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__initial_knowledge_same_window__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__initial_knowledge_same_window__b.v\", line 3, characters 120-122:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.427 secs (0.245u,0.181s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__initial_knowledge_same_window__b.v",
+        "succeeded": false
+      },
+      "statement": "forall Omega s0 s1, In s1 (knowledge step obs obs_eq_dec Omega [] s0) -> obs s1 = obs s0",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v",
+      "kind": "Theorem",
+      "line": 131,
+      "name": "no_free_incremental_narrowing_below_three",
+      "probe_a": {
+        "coq_stderr_tail": "aces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__no_free_incremental_narrowing_below_three__a.v\", line 3, characters 91-122:\nError: The reference free_incremental_narrowing_with was not found\nin the current environment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.434 secs (0.281u,0.152s)\nChars 119 - 244 [Theorem~_vacuity_probe_a_no_fr...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__no_free_incremental_narrowing_below_three__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "paces/The-Thiele-Machine/build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__no_free_incremental_narrowing_below_three__b.v\", line 3, characters 91-122:\nError: The reference free_incremental_narrowing_with was not found\nin the current environment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Kno...] 0.436 secs (0.28u,0.155s)\nChars 119 - 244 [Theorem~_vacuity_probe_b_no_fr...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__KnowledgeNarrowingMinimal__no_free_incremental_narrowing_below_three__b.v",
+        "succeeded": false
+      },
+      "statement": "forall n, n <= 2 -> ~ free_incremental_narrowing_with n",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/CostFrameworks.v",
+      "kind": "Theorem",
+      "line": 60,
+      "name": "run_graded_is_run",
+      "probe_a": {
+        "coq_stderr_tail": "t\nt : Type\ns : Type\nThe term \"run t s\" has type \"(t -> s -> t) -> list s -> t -> t\"\nwhile it is expected to have type\n \"(t -> s -> t) ->\n  forall (cost : s -> nat) (t0 : list s), t -> GW (total s cost t0) t\"\n(cannot unify \"s -> nat\" and \"list s\").\n\nChars 65 - 107 [From~Kernel~Require~Import~Cos...] 0.274 secs (0.172u,0.096s)\nChars 108 - 190 [Theorem~_vacuity_probe_a_run_g...] 0.001 secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CostFrameworks__run_graded_is_run__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ": Type\ns : Type\nThe term \"run t s\" has type \"(t -> s -> t) -> list s -> t -> t\"\nwhile it is expected to have type\n \"(t -> s -> t) ->\n  forall (cost : s -> nat) (t0 : list s), t -> GW (total s cost t0) t\"\n(cannot unify \"s -> nat\" and \"list s\").\n\nChars 65 - 107 [From~Kernel~Require~Import~Cos...] 0.265 secs (0.156u,0.108s)\nChars 108 - 190 [Theorem~_vacuity_probe_b_run_g...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CostFrameworks__run_graded_is_run__b.v",
+        "succeeded": false
+      },
+      "statement": "forall t s, run_graded t s = run t s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/CostFrameworks.v",
+      "kind": "Theorem",
+      "line": 91,
+      "name": "a2_and_aara_iff_exact",
+      "probe_a": {
+        "coq_stderr_tail": "/build/vacuity_probes/Kernel__CostFrameworks__a2_and_aara_iff_exact__a.v\", line 3, characters 49-51:\nError:\nThe term \"a2\" has type\n \"forall S I : Type, (S -> I -> S) -> (S -> I -> nat) -> (S -> bool) -> Prop\"\nwhile it is expected to have type \"Prop\".\n\nChars 65 - 107 [From~Kernel~Require~Import~Cos...] 0.265 secs (0.168u,0.096s)\nChars 108 - 198 [Theorem~_vacuity_probe_a_a2_an...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CostFrameworks__a2_and_aara_iff_exact__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "/build/vacuity_probes/Kernel__CostFrameworks__a2_and_aara_iff_exact__b.v\", line 3, characters 49-51:\nError:\nThe term \"a2\" has type\n \"forall S I : Type, (S -> I -> S) -> (S -> I -> nat) -> (S -> bool) -> Prop\"\nwhile it is expected to have type \"Prop\".\n\nChars 65 - 107 [From~Kernel~Require~Import~Cos...] 0.266 secs (0.177u,0.088s)\nChars 108 - 198 [Theorem~_vacuity_probe_b_a2_an...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CostFrameworks__a2_and_aara_iff_exact__b.v",
+        "succeeded": false
+      },
+      "statement": "a2 /\\ aara_upper <-> exact_and_permanent",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/CostFrameworks.v",
+      "kind": "Theorem",
+      "line": 126,
+      "name": "flips_le_cost",
+      "probe_a": {
+        "coq_stderr_tail": "he-Thiele-Machine/build/vacuity_probes/Kernel__CostFrameworks__flips_le_cost__a.v\", line 3, characters 41-43:\nError: The term \"a2\" has type\n\"forall S I : Type, (S -> I -> S) -> (S -> I -> nat) -> (S -> bool) -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 107 [From~Kernel~Require~Import~Cos...] 0.26 secs (0.166u,0.094s)\nChars 108 - 200 [Theorem~_vacuity_probe_a_flips...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CostFrameworks__flips_le_cost__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "he-Thiele-Machine/build/vacuity_probes/Kernel__CostFrameworks__flips_le_cost__b.v\", line 3, characters 41-43:\nError: The term \"a2\" has type\n\"forall S I : Type, (S -> I -> S) -> (S -> I -> nat) -> (S -> bool) -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 107 [From~Kernel~Require~Import~Cos...] 0.27 secs (0.161u,0.108s)\nChars 108 - 200 [Theorem~_vacuity_probe_b_flips...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CostFrameworks__flips_le_cost__b.v",
+        "succeeded": false
+      },
+      "statement": "a2 -> forall t s, flip_count t s <= trace_cost t s",
       "status": "ok"
     }
   ]

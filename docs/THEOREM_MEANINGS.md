@@ -78,6 +78,14 @@ An explicitly qualified citation keeps its own module identity.
 - `billed_core_equiv_mod_schedule`: The CPU-billed Thiele core is the same machine as the Thiele core modulo its price schedule, through the cover that drops its step counter.
 - `surcharged_core_equiv_mod_schedule`: For every surcharge function on Thiele states, the Thiele core that adds that surcharge to its ledger at each step is the same machine as the Thiele core modulo its price schedule.
 - `uniqueness_round3a_refuted`: Requiring only that the record be some reading of the computation is not enough: the Thiele core whose record is "the meter has passed one" meets that condition and disagrees with the certification light at a starting state with a positive meter and no certificate.
+- `uniqueness_round4_holds`: For any base machine and any record-carrying machine that covers it step for step, whose record never switches off, satisfies A2 with a monotone ledger, is written by some reachable step, and has its next value determined by the base state and its current value, there is a base event h such that the base state and record evolve exactly as the latch "switch on where h holds, never switch off."
+- `uniqueness_round4_pair_holds`: Under the same conditions for two records, the pair evolves as two latches whose events may each read the other record.
+- `toggle_not_latch`: A record on a counter base that flips at every step is driven by the computation and is not the latch of any event.
+- `clock_record_not_driven`: A record switched on by a hidden clock at its fifth tick never switches off and is not driven by the computation.
+- `latch_core_honest`: For any base and any event it reaches from a starting state, the machine that latches that event and charges one unit per write is an honest extension of the base.
+- `history_latch_injective`: If the base step is injective, the latch that also keeps every earlier record value has an injective step.
+- `history_latch_honest`: That history-keeping latch is an honest extension of its base whenever the base reaches the event.
+- `finite_reversible_cannot_write`: On a finite state space with a permanent reading, an injective step never switches the reading from false to true.
 - `shadow_cannot_price_exactly`: If two steps share their observed before and after and only one switches certification on, no price computed from the observation both meets the floor and never overcharges.
 - `shadow_floor_overcharges`: Under that collision, a window-computed price that meets the floor charges some non-certifying step at least one.
 - `window_showing_reading_has_no_collision`: If certification is a function of the window, no such collision exists.
@@ -128,6 +136,9 @@ An explicitly qualified citation keeps its own module identity.
 - `wipe_costs_at_least_one`: In the two-bit measuring machine, every cost that meets the squeeze price charges the display wipe at least one.
 - `vm_observer_narrowing_at_zero_cost`: Two reachable VM states that differ only in register 1 show the same register 2; after `XOR_ADD 2 1 0` at cost zero they show different register 2 values, and mu stays zero.
 - `observer_narrowing_can_be_free`: A particular squeeze-priced cost assigns zero to the injective measuring step of a two-bit machine even though an observer's candidates shrink; the lower-bound pricing rule does not prevent another admissible cost from overcharging that step.
+- `demon_refutes_incremental`: In the two-bit measuring machine, the drop in the rounded logarithm of the observer's candidate list from the empty trace to the one-step measuring trace exceeds the trace cost, which is zero.
+- `free_incremental_narrowing_with_three`: A three-state cyclic machine with zero costs meets the squeeze price, and a zero-cost trace strictly shrinks the observer's candidate list relative to the empty trace.
+- `no_free_incremental_narrowing_below_three`: For every n at most two, no finite machine with exactly n states, squeeze-priced and running a zero-cost trace, leaves the observer with strictly fewer candidates than after the empty trace; with two states or fewer the window is constant on every state once two starting states look alike.
 - `structural_entitlement_representation`: Given a strict narrowing of a finite prior list, a distinguishing observation, an uncertified start, a certified posterior, a decision tree whose depth the trace's cert-setter count bounds, a nonempty posterior, and a representative reduction, the posterior predicate is strictly stronger, the trace contains a structure-addition event, and the drop in rounded list size is at most the trace's mu increase.
 - `every_sound_structural_shortcut_lands_here`: Every `SoundStructuralShortcut` record yields those three conclusions.
 - `sound_shortcut_from_components`: The same premises assemble a `SoundStructuralShortcut` record.
@@ -146,6 +157,9 @@ An explicitly qualified citation keeps its own module identity.
 - `a2_iff_nonnegative_amortized_cost`: For any step function, cost, and yes/no reading, A2 holds exactly when every step's cost plus the change in the potential "one if uncertified, zero otherwise" is non-negative.
 - `nfi_by_potential`: Under A2, a trace from an uncertified state to a certified one costs at least one, by the potential method's telescoping bound.
 - `certification_system_is_potential_method`: Every `CertificationSystem` has non-negative amortized cost under the certification potential.
+- `run_graded_is_run`: With costs indexed by instruction, running a trace as a computation graded by the trace's total cost gives the same final state as running it.
+- `a2_and_aara_iff_exact`: For any step function, state-dependent cost, and yes/no reading, A2 together with the AARA inequality for the potential "one if uncertified, zero otherwise" holds exactly when certifying steps cost one, all other steps cost zero, and no step switches the reading off.
+- `flips_le_cost`: Under A2, the number of false-to-true switches of the reading along any trace is at most the trace's total cost.
 
 - `vm_apply_mu` (`Kernel.MuLedgerConservation.vm_apply_mu`): One VM step raises `vm_mu` by exactly the instruction's cost.
 - `mu_is_initial_monotone` (`Kernel.MuInitiality.mu_is_initial_monotone`): A measure that is zero at the initial state and rises by the kernel's instruction cost on every step equals `vm_mu` on every reachable state.

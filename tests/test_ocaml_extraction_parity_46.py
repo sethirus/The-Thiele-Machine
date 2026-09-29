@@ -15,8 +15,9 @@ WHAT THIS DOES NOT TEST:
   test_cross_layer_bisimulation.py and test_cross_layer_adversarial_fuzz.py.
 
 TRUST BOUNDARY CONNECTION:
-  This test provides the empirical content for the `ocaml_extraction_faithful`
-  named axiom in coq/kernel/hardware_bridge/OCamlExtractionBridge.v:
+  This test provides empirical content for the cross-language claim that
+  coq/kernel/hardware_bridge/OCamlExtractionBridge.v states and does not
+  prove:
     - Every opcode arm in build/thiele_core.ml is reachable.
     - μ-cost theorem (eo_mu_is_apply_cost) is validated for each opcode.
     - No opcode causes an undefined/missing-arm failure.
@@ -27,7 +28,7 @@ All 47 synth-realised opcodes:
   Arithmetic: ADD SUB AND OR SHL SHR MUL LUI
   Control:    JUMP JNEZ CALL RET HALT
   XOR-layer:  XOR_LOAD XOR_ADD XOR_SWAP XOR_RANK
-  Quantum:    CHSH_TRIAL EMIT REVEAL
+  Quantum:    CHSH_TRIAL EMIT REVEAL CHSH_LASSERT
   Cert:       CERTIFY
   Memory ext: CHECKPOINT READ_PORT WRITE_PORT HEAP_LOAD HEAP_STORE
   Boolean:    AND OR SHL SHR MUL LUI (covered above)

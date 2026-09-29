@@ -200,12 +200,14 @@ Require Kernel.NatSubstrateInstance.
 Require Kernel.PartitionSeparation.
 Require Kernel.Persistence.
 Require Kernel.ProperSubsumption.
+Require Kernel.RecordAxisDiscrimination.
 Require Kernel.SimulationProof.
 Require Kernel.StateSpaceCounting.
 Require Kernel.StructuralCore.
 Require Kernel.StructuralCoreRound2.
 Require Kernel.StructuralCoreRound3.
 Require Kernel.StructuralCoreRound4.
+Require Kernel.StructuralRecordAxis.
 Require Kernel.StructuralScheduleUniqueness.
 Require Kernel.StructuralUniqueness.
 Require Kernel.Substrate.
@@ -301,6 +303,7 @@ Require Kernel.Certification.
 Require Kernel.CommitmentCostDecomposition.
 Require Kernel.CommitmentPredicateAdequacy.
 Require Kernel.CommitmentVsErasure.
+Require Kernel.CostFrameworks.
 Require Kernel.CostSemanticsComparison.
 Require Kernel.FiniteCertMachine.
 Require Kernel.HonestCostTracking.
@@ -311,6 +314,7 @@ Require Kernel.InformationGainToStrengthening.
 Require Kernel.InsightTaxonomy.
 Require Kernel.KnowledgeNarrowing.
 Require Kernel.KnowledgeNarrowingIncremental.
+Require Kernel.KnowledgeNarrowingMinimal.
 Require Kernel.LandauerDerivation.
 Require Kernel.MeasurementExtraction.
 Require Kernel.MuLedgerQuantumBridge.
@@ -10785,6 +10789,11 @@ Print Assumptions Kernel.ProperSubsumption.ProperSubsumption.turing_computable_i
 Print Assumptions Kernel.ProperSubsumption.ProperSubsumption.thiele_run_mu_bound.
 Print Assumptions Kernel.ProperSubsumption.ProperSubsumption.cost_certificate_valid.
 Print Assumptions Kernel.ProperSubsumption.ProperSubsumption.thiele_strictly_extends_turing.
+(* === Kernel.RecordAxisDiscrimination : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.RecordAxisDiscrimination.latch_core_honest.
+Print Assumptions Kernel.RecordAxisDiscrimination.history_latch_injective.
+Print Assumptions Kernel.RecordAxisDiscrimination.history_latch_honest.
+Print Assumptions Kernel.RecordAxisDiscrimination.finite_reversible_cannot_write.
 (* === Kernel.SimulationProof : 35 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.SimulationProof.encoding_implies_states_related.
 Print Assumptions Kernel.SimulationProof.firstn_succ_nth_error_Some.
@@ -10843,6 +10852,14 @@ Print Assumptions Kernel.StructuralCore.thiele_core_carries_record.
 Print Assumptions Kernel.StructuralCore.thiele_core_halting_problem_coverage.
 Print Assumptions Kernel.StructuralCore.thiele_core_adequate.
 Print Assumptions Kernel.StructuralCore.history_core_equiv_thiele.
+(* === Kernel.StructuralRecordAxis : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.StructuralRecordAxis.uniqueness_round4_holds.
+Print Assumptions Kernel.StructuralRecordAxis.uniqueness_round4_pair_holds.
+Print Assumptions Kernel.StructuralRecordAxis.toggle_computation_driven.
+Print Assumptions Kernel.StructuralRecordAxis.toggle_not_permanent.
+Print Assumptions Kernel.StructuralRecordAxis.toggle_not_latch.
+Print Assumptions Kernel.StructuralRecordAxis.clock_record_permanent.
+Print Assumptions Kernel.StructuralRecordAxis.clock_record_not_driven.
 (* === Kernel.StructuralScheduleUniqueness : 10 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.StructuralScheduleUniqueness.thiele_core_priced.
 Print Assumptions Kernel.StructuralScheduleUniqueness.uniqueness_round3b_holds.
@@ -11781,12 +11798,10 @@ Print Assumptions Kernel.HardwareBisimulation.q16_add_assoc.
 Print Assumptions Kernel.HardwareBisimulation.q16_add_comm.
 Print Assumptions Kernel.HardwareBisimulation.mu_accumulation_monotonic.
 Print Assumptions Kernel.HardwareBisimulation.hardware_synthesis_correctness.
-(* === Kernel.OCamlExtractionBridge : 10 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.OCamlExtractionBridge : 8 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.OCamlExtractionBridge.eo_mu_is_apply_cost.
 Print Assumptions Kernel.OCamlExtractionBridge.eo_mu_nondecreasing.
-Print Assumptions Kernel.OCamlExtractionBridge.eo_vm_apply_total.
 Print Assumptions Kernel.OCamlExtractionBridge.eo_mu_trace_nondecreasing.
-Print Assumptions Kernel.OCamlExtractionBridge.ocaml_extraction_faithful.
 Print Assumptions Kernel.OCamlExtractionBridge.extraction_trust_boundary.
 Print Assumptions Kernel.OCamlExtractionBridge.ocaml_runner_observable_defined.
 Print Assumptions Kernel.OCamlExtractionBridge.ocaml_nfi_transfers.
@@ -12115,6 +12130,10 @@ Print Assumptions Kernel.CommitmentVsErasure.erasure_branch_unreachable.
 Print Assumptions Kernel.CommitmentVsErasure.trusted_erasure_system_certifies_without_erasure.
 Print Assumptions Kernel.CommitmentVsErasure.trusted_a2_system_certification_cost_floor.
 Print Assumptions Kernel.CommitmentVsErasure.commitment_cost_not_reducible_to_erasure_cost.
+(* === Kernel.CostFrameworks : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CostFrameworks.run_graded_is_run.
+Print Assumptions Kernel.CostFrameworks.a2_and_aara_iff_exact.
+Print Assumptions Kernel.CostFrameworks.flips_le_cost.
 (* === Kernel.CostSemanticsComparison : 8 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.CostSemanticsComparison.bind_ret_l.
 Print Assumptions Kernel.CostSemanticsComparison.bind_ret_r.
@@ -12227,6 +12246,17 @@ Print Assumptions Kernel.KnowledgeNarrowing.demon_observer_learns.
 Print Assumptions Kernel.KnowledgeNarrowing.demon_machine_spread_kept.
 Print Assumptions Kernel.KnowledgeNarrowing.observer_narrowing_can_be_free.
 Print Assumptions Kernel.KnowledgeNarrowing.vm_observer_narrowing_at_zero_cost.
+(* === Kernel.KnowledgeNarrowingMinimal : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.KnowledgeNarrowingMinimal.demon_refutes_incremental.
+Print Assumptions Kernel.KnowledgeNarrowingMinimal.tri3_finite.
+Print Assumptions Kernel.KnowledgeNarrowingMinimal.tri3_step_injective.
+Print Assumptions Kernel.KnowledgeNarrowingMinimal.tri3_compression_priced.
+Print Assumptions Kernel.KnowledgeNarrowingMinimal.free_incremental_narrowing_with_three.
+Print Assumptions Kernel.KnowledgeNarrowingMinimal.states_along_length.
+Print Assumptions Kernel.KnowledgeNarrowingMinimal.map_constant.
+Print Assumptions Kernel.KnowledgeNarrowingMinimal.knowledge_constant_window.
+Print Assumptions Kernel.KnowledgeNarrowingMinimal.initial_knowledge_same_window.
+Print Assumptions Kernel.KnowledgeNarrowingMinimal.no_free_incremental_narrowing_below_three.
 (* === Kernel.LandauerDerivation : 10 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.LandauerDerivation.vm_apply_preserves_certified_non_certify.
 Print Assumptions Kernel.LandauerDerivation.vm_apply_certify_sets_true.

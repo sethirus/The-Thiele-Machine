@@ -149,7 +149,7 @@ def verified_claims() -> tuple[list[str], bool]:
         ("five_labeled_models_have_selected_pointer", "coq/kernel/frontier/PointerObservableReductions.v",
          "Pointer observables: five synthetic labelled mirror models satisfy their stipulated selected-flag predicates, with no deployed correspondence claim (five_labeled_models_have_selected_pointer, PointerObservableReductions.v)"),
         (None, None,
-         "Hardware Parity: all 46 opcodes agree across Coq/Python/OCaml (test suite)"),
+         "Hardware parity: the extracted OCaml runner handles all 47 synthesized opcodes, and the Python/OCaml VM agrees with RTL co-simulation on the 46 opcodes of the isomorphism map, every synthesized opcode but CHSH_LASSERT (test suite)"),
     ]
 
     ok = receipt["summary"]["user_or_third_party_axiom_findings"] == 0
