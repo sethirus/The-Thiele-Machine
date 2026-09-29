@@ -13,6 +13,12 @@ for rel in vendor/kami/Kami/Ex/Multiplier32.v vendor/kami/Kami/Ex/Multiplier64.v
     continue
   fi
 
+  # Rewrite only files that still need it: an untouched file keeps its
+  # timestamp, so make does not recompile it.
+  if ! grep -qE "Notation \"w ~ (0|'P'|'N')\" := \(BWS B(Zero|Plus|Minus) w\): bword_scope\." "$f"; then
+    echo "[fix-kami-coq18] notation levels already patched: $rel"
+    continue
+  fi
   perl -0pi -e "s/Notation \"w ~ 0\" := \(BWS BZero w\): bword_scope\./Notation \"w ~ 0\" := \(BWS BZero w\) \(at level 7, left associativity\): bword_scope\./g" "$f"
   perl -0pi -e "s/Notation \"w ~ 'P'\" := \(BWS BPlus w\): bword_scope\./Notation \"w ~ 'P'\" := \(BWS BPlus w\) \(at level 7, left associativity\): bword_scope\./g" "$f"
   perl -0pi -e "s/Notation \"w ~ 'N'\" := \(BWS BMinus w\): bword_scope\./Notation \"w ~ 'N'\" := \(BWS BMinus w\) \(at level 7, left associativity\): bword_scope\./g" "$f"

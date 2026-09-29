@@ -1,4 +1,4 @@
-"""Protect the full receipt against omitted queries and hidden Coq errors."""
+"""Protect the full receipt against omitted queries, hidden Coq errors, and stale answers."""
 from pathlib import Path
 import importlib.util
 import subprocess
@@ -23,7 +23,7 @@ def test_unexpected_command_cannot_silently_disappear():
         MODULE.split_probe("Print Assumptions Nat.add_0_r.\nRequire MissingLibrary.\n")
 
 
-def test_missing_result_rejects_the_batch():
+def test_missing_result_rejects_the_group():
     with pytest.raises(ValueError):
         MODULE.validate_output("Closed under the global context\n", "", 2)
 
@@ -41,105 +41,132 @@ def test_real_coq_output_checks_both_closed_and_axiomatic_results():
     assert "Axioms:" in output and "classic" in output
 
 
-def _save_batch(directory: Path, source: str, output: str) -> None:
-    MODULE.publish_completed_batch(directory, 0, 1, source, output, "")
+# --- grouping by owning library -------------------------------------------
 
-
-def test_saved_batch_is_reused_only_for_the_same_queries(tmp_path):
-    source = "Require Arith.\nPrint Assumptions Nat.add_0_r.\nQuit.\n"
-    _save_batch(tmp_path, source, "Closed under the global context\n")
-    assert MODULE.load_saved_batch(tmp_path, 0, 1, source) == (0, "Closed under the global context\n", "")
-    changed = "Require Arith.\nPrint Assumptions Nat.add_0_l.\nQuit.\n"
-    assert MODULE.load_saved_batch(tmp_path, 0, 1, changed) is None
-
-
-def test_saved_batch_without_its_source_is_not_reused(tmp_path):
-    source = "Require Arith.\nPrint Assumptions Nat.add_0_r.\nQuit.\n"
-    _save_batch(tmp_path, source, "Closed under the global context\n")
-    (tmp_path / "1-1.v").unlink()
-    assert MODULE.load_saved_batch(tmp_path, 0, 1, source) is None
-
-
-@pytest.mark.parametrize("new_source,new_objects", [("source-b", "objects-a"), ("source-a", "objects-b")])
-def test_same_queries_cannot_reuse_answers_from_different_proofs(tmp_path, new_source, new_objects):
-    query = "Require Arith.\nPrint Assumptions Nat.add_0_r.\nQuit.\n"
-    old = MODULE.bind_corpus(query, "source-a", "objects-a")
-    _save_batch(tmp_path, old, "Closed under the global context\n")
-    assert MODULE.load_saved_batch(tmp_path, 0, 1, old) is not None
-    changed = MODULE.bind_corpus(query, new_source, new_objects)
-    assert MODULE.load_saved_batch(tmp_path, 0, 1, changed) is None
-
-
-def test_compiled_fingerprint_tracks_proof_objects(tmp_path):
-    coq = tmp_path / "coq"
-    coq.mkdir()
-    (coq / "_CoqProject").write_text("Proof.v\n")
-    (coq / "Proof.v").write_text("Lemma proof : True. Proof. exact I. Qed.\n")
-    obj = coq / "Proof.vo"
-    obj.write_bytes(b"first compiled proof")
-    first = MODULE.compiled_digest(tmp_path)
-    obj.write_bytes(b"different compiled proof")
-    assert MODULE.compiled_digest(tmp_path) != first
-
-
-def test_interrupted_replacement_cannot_relabel_old_answers(tmp_path):
-    old = MODULE.bind_corpus("Print Assumptions old.\n", "old-source", "old-objects")
-    new = MODULE.bind_corpus("Print Assumptions new.\n", "new-source", "new-objects")
-    _save_batch(tmp_path, old, "Closed under the global context\n")
-    # The runner writes the new source before invoking Coq. An interruption
-    # leaves the previous answers on disk beside this different source.
-    (tmp_path / "1-1.v").write_text(new)
-    assert MODULE.load_saved_batch(tmp_path, 0, 1, new) is None
-
-
-def test_legacy_batch_without_completion_record_is_not_reused(tmp_path):
-    source = "Print Assumptions Nat.add_0_r.\n"
-    (tmp_path / "1-1.v").write_text(source)
-    (tmp_path / "1-1.output.txt").write_text("Closed under the global context\n")
-    (tmp_path / "1-1.errors.txt").write_text("")
-    assert MODULE.load_saved_batch(tmp_path, 0, 1, source) is None
-
-
-@pytest.mark.parametrize("suffix,value", [
-    ("output.txt", "Axioms:\nforged : False\n"),
-    ("errors.txt", "different diagnostics\n"),
-    ("complete.json", "not JSON"),
-])
-def test_modified_batch_payload_is_not_reused(tmp_path, suffix, value):
-    source = "Print Assumptions Nat.add_0_r.\n"
-    _save_batch(tmp_path, source, "Closed under the global context\n")
-    (tmp_path / f"1-1.{suffix}").write_text(value)
-    assert MODULE.load_saved_batch(tmp_path, 0, 1, source) is None
-
-
-def test_failed_batch_cannot_publish_completion(tmp_path):
-    with pytest.raises(ValueError):
-        MODULE.publish_completed_batch(tmp_path, 0, 1, "source", "", "Error: failed")
-    assert not (tmp_path / "1-1.complete.json").exists()
-
-
-def test_batch_imports_follow_qualified_library_boundaries():
+def test_queries_group_by_owning_library_in_probe_order():
     prefix = "(* generated *)\nRequire Kernel.One.\nRequire Kernel.OneMore.\nRequire Other.\n"
-    queries = ["Print Assumptions Kernel.One.Nested.result."]
-    assert MODULE.batch_prefix(prefix, queries) == "Require Kernel.One.\n"
+    queries = ["Print Assumptions Kernel.One.a.", "Print Assumptions Kernel.One.Nested.b.",
+               "Print Assumptions Kernel.OneMore.c.", "Print Assumptions Other.d."]
+    assert MODULE.group_queries(prefix, queries) == [
+        ("Kernel.One", queries[:2]), ("Kernel.OneMore", [queries[2]]), ("Other", [queries[3]])]
 
 
-@pytest.mark.parametrize("prefix,query", [
-    ("Require Kernel.One.\n", "Print Assumptions Unmapped.result."),
-    ("Require Kernel.One.\nSet Printing All.\n", "Print Assumptions Kernel.One.result."),
-])
-def test_unrecognized_import_context_keeps_the_full_prefix(prefix, query):
-    assert MODULE.batch_prefix(prefix, [query]) == prefix
+def test_unowned_query_gets_no_library():
+    groups = MODULE.group_queries("Require Kernel.One.\n", ["Print Assumptions Unmapped.x."])
+    assert groups == [(None, ["Print Assumptions Unmapped.x."])]
 
 
-def test_selective_imports_preserve_real_assumption_results():
+def test_unrecognized_import_context_owns_nothing():
+    prefix = "Require Kernel.One.\nSet Printing All.\n"
+    assert MODULE.group_queries(prefix, ["Print Assumptions Kernel.One.x."]) == [
+        (None, ["Print Assumptions Kernel.One.x."])]
+
+
+# --- resolving the compiled library ----------------------------------------
+
+def _touch(path: Path) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(b"compiled")
+    return path
+
+
+def test_library_resolves_through_load_path_and_root(tmp_path):
+    lib = _touch(tmp_path / "kernel/foundation/Step.vo")
+    root = _touch(tmp_path / "Top.vo")
+    pairs = MODULE.load_path(["-R", "kernel/foundation", "Kernel", "-R", "kernel/nfi", "Kernel"])
+    assert MODULE.resolve_library("Kernel.Step", tmp_path, pairs) == lib.resolve()
+    assert MODULE.resolve_library("Top", tmp_path, pairs) == root.resolve()
+
+
+def test_ambiguous_or_missing_library_is_not_resolved(tmp_path):
+    _touch(tmp_path / "kernel/foundation/Step.vo")
+    _touch(tmp_path / "kernel/nfi/Step.vo")
+    pairs = MODULE.load_path(["-R", "kernel/foundation", "Kernel", "-R", "kernel/nfi", "Kernel"])
+    assert MODULE.resolve_library("Kernel.Step", tmp_path, pairs) is None
+    assert MODULE.resolve_library("Kernel.Missing", tmp_path, pairs) is None
+
+
+# --- the answer cache -------------------------------------------------------
+
+QUERIES = ["Print Assumptions Kernel.One.a."]
+CLOSED = "Closed under the global context\n"
+
+
+def test_cache_key_changes_with_every_input():
+    base = MODULE.cache_key("Kernel.One", "lib-a", QUERIES, "coq-1", ["-R", "k", "Kernel"])
+    assert base != MODULE.cache_key("Kernel.One", "lib-b", QUERIES, "coq-1", ["-R", "k", "Kernel"])
+    assert base != MODULE.cache_key("Kernel.One", "lib-a", QUERIES + QUERIES, "coq-1", ["-R", "k", "Kernel"])
+    assert base != MODULE.cache_key("Kernel.One", "lib-a", QUERIES, "coq-2", ["-R", "k", "Kernel"])
+    assert base != MODULE.cache_key("Kernel.One", "lib-a", QUERIES, "coq-1", ["-Q", "k", "Kernel"])
+    assert base != MODULE.cache_key("Kernel.Two", "lib-a", QUERIES, "coq-1", ["-R", "k", "Kernel"])
+
+
+def test_saved_answer_is_reused_only_for_its_key_module_and_queries(tmp_path):
+    MODULE.save_cached(tmp_path, "k1", "Kernel.One", QUERIES, CLOSED, "")
+    assert MODULE.load_cached(tmp_path, "k1", "Kernel.One", QUERIES) == (CLOSED, "")
+    assert MODULE.load_cached(tmp_path, "k2", "Kernel.One", QUERIES) is None
+    assert MODULE.load_cached(tmp_path, "k1", "Kernel.Two", QUERIES) is None
+    assert MODULE.load_cached(tmp_path, "k1", "Kernel.One", ["Print Assumptions Kernel.One.b."]) is None
+
+
+@pytest.mark.parametrize("field,value", [("stdout", "Axioms:\nforged : False\nAxioms:\n"),
+                                         ("stderr", "Error: stale"), ("key", "other")])
+def test_modified_saved_answer_is_not_reused(tmp_path, field, value):
+    import json
+    MODULE.save_cached(tmp_path, "k1", "Kernel.One", QUERIES, CLOSED, "")
+    path = tmp_path / "k1.json"
+    record = json.loads(path.read_text())
+    record[field] = value
+    path.write_text(json.dumps(record))
+    assert MODULE.load_cached(tmp_path, "k1", "Kernel.One", QUERIES) is None
+
+
+def test_incomplete_write_is_not_reused(tmp_path):
+    MODULE.save_cached(tmp_path, "k1", "Kernel.One", QUERIES, CLOSED, "")
+    (tmp_path / "k1.json").rename(tmp_path / "k1.pending")
+    assert MODULE.load_cached(tmp_path, "k1", "Kernel.One", QUERIES) is None
+
+
+def test_failed_answer_cannot_be_saved(tmp_path):
+    with pytest.raises(ValueError):
+        MODULE.save_cached(tmp_path, "k1", "Kernel.One", QUERIES, "", "Error: failed")
+    assert not (tmp_path / "k1.json").exists()
+
+
+# --- the facts the cache relies on, checked on real Coq ---------------------
+
+def _coqc(directory: Path, name: str) -> Path:
+    subprocess.run(["coqc", "-R", ".", "T", f"{name}.v"], cwd=directory, check=True,
+                   capture_output=True, text=True)
+    return directory / f"{name}.vo"
+
+
+def test_compiled_library_changes_when_a_dependency_changes(tmp_path):
+    (tmp_path / "A.v").write_text("Definition base := 1.\n")
+    (tmp_path / "B.v").write_text("Require T.A.\nLemma uses : True. Proof. exact I. Qed.\n")
+    _coqc(tmp_path, "A")
+    first = MODULE.file_sha256(_coqc(tmp_path, "B"))
+    (tmp_path / "A.v").write_text("Definition base := 2.\n")
+    _coqc(tmp_path, "A")
+    assert MODULE.file_sha256(_coqc(tmp_path, "B")) != first
+
+
+def test_answer_with_only_its_library_loaded_matches_the_full_prefix():
     prefix = "Require Coq.Arith.PeanoNat.\nRequire Coq.Logic.Classical_Prop.\n"
-    query = "Print Assumptions Coq.Arith.PeanoNat.Nat.add_0_r."
-    reduced = MODULE.batch_prefix(prefix, [query])
-    assert "Classical_Prop" not in reduced
+    query = "Print Assumptions Coq.Logic.Classical_Prop.NNPP."
+    (module, _), = MODULE.group_queries(prefix, [query])
     answers = []
-    for imports in (prefix, reduced):
+    for imports in (prefix, f"Require {module}.\n"):
         result = subprocess.run(["coqtop", "-quiet"], input=imports + query + "\nQuit.\n",
                                 text=True, capture_output=True, check=True)
         answers.append(MODULE.validate_output(result.stdout, result.stderr, 1))
     assert answers[0] == answers[1]
+
+
+def test_shared_session_output_is_cut_back_by_library():
+    output = "Closed under the global context\nAxioms:\nclassic : forall P, P \\/ ~ P\nClosed under the global context\n"
+    pieces = MODULE.split_answers(output, [1, 2])
+    assert pieces == ["Closed under the global context\n",
+                      "Axioms:\nclassic : forall P, P \\/ ~ P\nClosed under the global context\n"]
+    with pytest.raises(ValueError):
+        MODULE.split_answers(output, [1, 1])

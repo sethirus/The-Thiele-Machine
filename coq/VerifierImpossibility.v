@@ -20,7 +20,7 @@
     makes [vm_mu]-sensitive claims unverifiable in the bare setting.
 
     The files [VerifierEscape_Substrate.v],
-    [VerifierEscape_Hardness.v] (a historical filename), and
+    [VerifierEscape_Hardness.v], and
     [VerifierEscape_Interaction.v] give three sufficient interfaces under
     different explicit contracts. [VerifierExhaustiveness.v] proves a
     conditional factorisation obstruction when supplied transcripts retain

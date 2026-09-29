@@ -1,120 +1,120 @@
-DIGEST 0963ea70224a0a4e08d5e85d5add6c51
+DIGEST ee91a1099004e170b79a9c798277945e
 FVerifierImpossibility
-R1589:1592 Coq.Lists.List <> <> lib
-R1602:1614 Coq.Lists.List ListNotations <> mod
-R1645:1651 Kernel.VMState <> <> lib
-R1669:1687 NecessityOfMuLedger <> <> lib
-R1705:1717 VerifierModel <> <> lib
-def 2317:2331 <> mu_eq_one_claim
-R2338:2344 Kernel.VMState <> VMState rec
-binder 2334:2334 <> s:1
-R2366:2368 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2360:2364 Kernel.VMState <> vm_mu proj
-R2357:2357 VerifierImpossibility <> s:1 var
-def 2384:2404 <> mu_collision_explains
-R2411:2417 Kernel.VMState <> VMState rec
-binder 2407:2407 <> s:2
-R2425:2438 VerifierModel <> BareTranscript def
-binder 2421:2421 <> t:3
-R2475:2479 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2514:2514 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2454:2456 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2453:2453 VerifierImpossibility <> t:3 var
-R2457:2474 NecessityOfMuLedger <> po1_strict_trace_A def
-R2495:2498 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R2481:2483 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2480:2480 VerifierImpossibility <> s:2 var
-R2484:2494 NecessityOfMuLedger <> po1_state_A def
-R2500:2502 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2499:2499 VerifierImpossibility <> s:2 var
-R2503:2513 NecessityOfMuLedger <> po1_state_B def
-def 2529:2545 <> mu_eq_one_problem
-R2549:2571 VerifierModel <> BareVerificationProblem rec
-R2578:2583 VerifierModel <> mk_bvp constr
-R2589:2603 VerifierImpossibility <> mu_eq_one_claim def
-R2609:2629 VerifierImpossibility <> mu_collision_explains def
-prf 3064:3088 <> witness_A_satisfies_claim
-R3094:3108 VerifierImpossibility <> mu_eq_one_claim def
-R3110:3120 NecessityOfMuLedger <> po1_state_A def
-R3139:3153 VerifierImpossibility <> mu_eq_one_claim def
-R3164:3188 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
-R3164:3188 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
-prf 3203:3226 <> witness_B_violates_claim
-R3232:3233 Coq.Init.Logic <> ::type_scope:'~'_x not
-R3234:3248 VerifierImpossibility <> mu_eq_one_claim def
-R3250:3260 NecessityOfMuLedger <> po1_state_B def
-R3279:3293 VerifierImpossibility <> mu_eq_one_claim def
-R3320:3344 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
-R3320:3344 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
-R3320:3344 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
-prf 3386:3410 <> witness_A_explains_shared
-R3416:3436 VerifierImpossibility <> mu_collision_explains def
-R3438:3448 NecessityOfMuLedger <> po1_state_A def
-R3450:3467 NecessityOfMuLedger <> po1_strict_trace_A def
-prf 3538:3562 <> witness_B_explains_shared
-R3568:3588 VerifierImpossibility <> mu_collision_explains def
-R3590:3600 NecessityOfMuLedger <> po1_state_B def
-R3602:3619 NecessityOfMuLedger <> po1_strict_trace_A def
-prf 4288:4326 <> bare_setting_no_sound_complete_verifier
-R4332:4333 Coq.Init.Logic <> ::type_scope:'~'_x not
-R4334:4340 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4357:4364 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4345:4356 VerifierModel <> BareVerifier rec
-binder 4341:4341 <> V:4
-R4395:4404 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4365:4374 VerifierModel <> bare_sound def
-R4376:4392 VerifierImpossibility <> mu_eq_one_problem def
-R4394:4394 VerifierImpossibility <> V:4 var
-R4405:4417 VerifierModel <> bare_complete def
-R4419:4435 VerifierImpossibility <> mu_eq_one_problem def
-R4437:4437 VerifierImpossibility <> V:4 var
-R4666:4668 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4636:4644 VerifierModel <> bv_decide proj
-R4648:4665 NecessityOfMuLedger <> po1_strict_trace_A def
-R4669:4672 Coq.Init.Datatypes <> true constr
-R4666:4668 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4636:4644 VerifierModel <> bv_decide proj
-R4648:4665 NecessityOfMuLedger <> po1_strict_trace_A def
-R4669:4672 Coq.Init.Datatypes <> true constr
-R4697:4707 NecessityOfMuLedger <> po1_state_A def
-R4709:4726 NecessityOfMuLedger <> po1_strict_trace_A def
-R4697:4707 NecessityOfMuLedger <> po1_state_A def
-R4709:4726 NecessityOfMuLedger <> po1_strict_trace_A def
-R4742:4766 VerifierImpossibility <> witness_A_satisfies_claim thm
-R4742:4766 VerifierImpossibility <> witness_A_satisfies_claim thm
-R4781:4805 VerifierImpossibility <> witness_A_explains_shared thm
-R4781:4805 VerifierImpossibility <> witness_A_explains_shared thm
-R4941:4958 NecessityOfMuLedger <> po1_strict_trace_A def
-R4969:4979 NecessityOfMuLedger <> po1_state_B def
-R5002:5026 VerifierImpossibility <> witness_B_explains_shared thm
-R4941:4958 NecessityOfMuLedger <> po1_strict_trace_A def
-R4969:4979 NecessityOfMuLedger <> po1_state_B def
-R5002:5026 VerifierImpossibility <> witness_B_explains_shared thm
-R5087:5110 VerifierImpossibility <> witness_B_violates_claim thm
-R5087:5110 VerifierImpossibility <> witness_B_violates_claim thm
-R5153:5191 VerifierImpossibility <> bare_setting_no_sound_complete_verifier thm
-prf 5639:5673 <> bare_sound_blocks_honest_acceptance
-R5690:5701 VerifierModel <> BareVerifier rec
-binder 5686:5686 <> V:5
-R5738:5745 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5708:5717 VerifierModel <> bare_sound def
-R5719:5735 VerifierImpossibility <> mu_eq_one_problem def
-R5737:5737 VerifierImpossibility <> V:5 var
-R5776:5778 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5746:5754 VerifierModel <> bv_decide proj
-R5756:5756 VerifierImpossibility <> V:5 var
-R5758:5775 NecessityOfMuLedger <> po1_strict_trace_A def
-R5779:5783 Coq.Init.Datatypes <> false constr
-R5824:5832 VerifierModel <> bv_decide proj
-R5836:5853 NecessityOfMuLedger <> po1_strict_trace_A def
-R5824:5832 VerifierModel <> bv_decide proj
-R5836:5853 NecessityOfMuLedger <> po1_strict_trace_A def
-R5962:5985 VerifierImpossibility <> witness_B_violates_claim thm
-R5962:5985 VerifierImpossibility <> witness_B_violates_claim thm
-R6006:6023 NecessityOfMuLedger <> po1_strict_trace_A def
-R6030:6040 NecessityOfMuLedger <> po1_state_B def
-R6060:6084 VerifierImpossibility <> witness_B_explains_shared thm
-R6006:6023 NecessityOfMuLedger <> po1_strict_trace_A def
-R6030:6040 NecessityOfMuLedger <> po1_state_B def
-R6060:6084 VerifierImpossibility <> witness_B_explains_shared thm
-R6129:6163 VerifierImpossibility <> bare_sound_blocks_honest_acceptance thm
+R1565:1568 Coq.Lists.List <> <> lib
+R1578:1590 Coq.Lists.List ListNotations <> mod
+R1621:1627 Kernel.VMState <> <> lib
+R1645:1663 NecessityOfMuLedger <> <> lib
+R1681:1693 VerifierModel <> <> lib
+def 2293:2307 <> mu_eq_one_claim
+R2314:2320 Kernel.VMState <> VMState rec
+binder 2310:2310 <> s:1
+R2342:2344 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2336:2340 Kernel.VMState <> vm_mu proj
+R2333:2333 VerifierImpossibility <> s:1 var
+def 2360:2380 <> mu_collision_explains
+R2387:2393 Kernel.VMState <> VMState rec
+binder 2383:2383 <> s:2
+R2401:2414 VerifierModel <> BareTranscript def
+binder 2397:2397 <> t:3
+R2451:2455 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2490:2490 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2430:2432 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2429:2429 VerifierImpossibility <> t:3 var
+R2433:2450 NecessityOfMuLedger <> po1_strict_trace_A def
+R2471:2474 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R2457:2459 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2456:2456 VerifierImpossibility <> s:2 var
+R2460:2470 NecessityOfMuLedger <> po1_state_A def
+R2476:2478 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2475:2475 VerifierImpossibility <> s:2 var
+R2479:2489 NecessityOfMuLedger <> po1_state_B def
+def 2505:2521 <> mu_eq_one_problem
+R2525:2547 VerifierModel <> BareVerificationProblem rec
+R2554:2559 VerifierModel <> mk_bvp constr
+R2565:2579 VerifierImpossibility <> mu_eq_one_claim def
+R2585:2605 VerifierImpossibility <> mu_collision_explains def
+prf 3040:3064 <> witness_A_satisfies_claim
+R3070:3084 VerifierImpossibility <> mu_eq_one_claim def
+R3086:3096 NecessityOfMuLedger <> po1_state_A def
+R3115:3129 VerifierImpossibility <> mu_eq_one_claim def
+R3140:3164 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+R3140:3164 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+prf 3179:3202 <> witness_B_violates_claim
+R3208:3209 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3210:3224 VerifierImpossibility <> mu_eq_one_claim def
+R3226:3236 NecessityOfMuLedger <> po1_state_B def
+R3255:3269 VerifierImpossibility <> mu_eq_one_claim def
+R3296:3320 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R3296:3320 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R3296:3320 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+prf 3362:3386 <> witness_A_explains_shared
+R3392:3412 VerifierImpossibility <> mu_collision_explains def
+R3414:3424 NecessityOfMuLedger <> po1_state_A def
+R3426:3443 NecessityOfMuLedger <> po1_strict_trace_A def
+prf 3514:3538 <> witness_B_explains_shared
+R3544:3564 VerifierImpossibility <> mu_collision_explains def
+R3566:3576 NecessityOfMuLedger <> po1_state_B def
+R3578:3595 NecessityOfMuLedger <> po1_strict_trace_A def
+prf 4264:4302 <> bare_setting_no_sound_complete_verifier
+R4308:4309 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4310:4316 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4333:4340 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4321:4332 VerifierModel <> BareVerifier rec
+binder 4317:4317 <> V:4
+R4371:4380 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4341:4350 VerifierModel <> bare_sound def
+R4352:4368 VerifierImpossibility <> mu_eq_one_problem def
+R4370:4370 VerifierImpossibility <> V:4 var
+R4381:4393 VerifierModel <> bare_complete def
+R4395:4411 VerifierImpossibility <> mu_eq_one_problem def
+R4413:4413 VerifierImpossibility <> V:4 var
+R4642:4644 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4612:4620 VerifierModel <> bv_decide proj
+R4624:4641 NecessityOfMuLedger <> po1_strict_trace_A def
+R4645:4648 Coq.Init.Datatypes <> true constr
+R4642:4644 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4612:4620 VerifierModel <> bv_decide proj
+R4624:4641 NecessityOfMuLedger <> po1_strict_trace_A def
+R4645:4648 Coq.Init.Datatypes <> true constr
+R4673:4683 NecessityOfMuLedger <> po1_state_A def
+R4685:4702 NecessityOfMuLedger <> po1_strict_trace_A def
+R4673:4683 NecessityOfMuLedger <> po1_state_A def
+R4685:4702 NecessityOfMuLedger <> po1_strict_trace_A def
+R4718:4742 VerifierImpossibility <> witness_A_satisfies_claim thm
+R4718:4742 VerifierImpossibility <> witness_A_satisfies_claim thm
+R4757:4781 VerifierImpossibility <> witness_A_explains_shared thm
+R4757:4781 VerifierImpossibility <> witness_A_explains_shared thm
+R4917:4934 NecessityOfMuLedger <> po1_strict_trace_A def
+R4945:4955 NecessityOfMuLedger <> po1_state_B def
+R4978:5002 VerifierImpossibility <> witness_B_explains_shared thm
+R4917:4934 NecessityOfMuLedger <> po1_strict_trace_A def
+R4945:4955 NecessityOfMuLedger <> po1_state_B def
+R4978:5002 VerifierImpossibility <> witness_B_explains_shared thm
+R5063:5086 VerifierImpossibility <> witness_B_violates_claim thm
+R5063:5086 VerifierImpossibility <> witness_B_violates_claim thm
+R5129:5167 VerifierImpossibility <> bare_setting_no_sound_complete_verifier thm
+prf 5615:5649 <> bare_sound_blocks_honest_acceptance
+R5666:5677 VerifierModel <> BareVerifier rec
+binder 5662:5662 <> V:5
+R5714:5721 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5684:5693 VerifierModel <> bare_sound def
+R5695:5711 VerifierImpossibility <> mu_eq_one_problem def
+R5713:5713 VerifierImpossibility <> V:5 var
+R5752:5754 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5722:5730 VerifierModel <> bv_decide proj
+R5732:5732 VerifierImpossibility <> V:5 var
+R5734:5751 NecessityOfMuLedger <> po1_strict_trace_A def
+R5755:5759 Coq.Init.Datatypes <> false constr
+R5800:5808 VerifierModel <> bv_decide proj
+R5812:5829 NecessityOfMuLedger <> po1_strict_trace_A def
+R5800:5808 VerifierModel <> bv_decide proj
+R5812:5829 NecessityOfMuLedger <> po1_strict_trace_A def
+R5938:5961 VerifierImpossibility <> witness_B_violates_claim thm
+R5938:5961 VerifierImpossibility <> witness_B_violates_claim thm
+R5982:5999 NecessityOfMuLedger <> po1_strict_trace_A def
+R6006:6016 NecessityOfMuLedger <> po1_state_B def
+R6036:6060 VerifierImpossibility <> witness_B_explains_shared thm
+R5982:5999 NecessityOfMuLedger <> po1_strict_trace_A def
+R6006:6016 NecessityOfMuLedger <> po1_state_B def
+R6036:6060 VerifierImpossibility <> witness_B_explains_shared thm
+R6105:6139 VerifierImpossibility <> bare_sound_blocks_honest_acceptance thm

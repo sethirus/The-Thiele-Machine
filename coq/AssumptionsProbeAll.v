@@ -205,6 +205,8 @@ Require Kernel.StateSpaceCounting.
 Require Kernel.StructuralCore.
 Require Kernel.StructuralCoreRound2.
 Require Kernel.StructuralCoreRound3.
+Require Kernel.StructuralCoreRound4.
+Require Kernel.StructuralScheduleUniqueness.
 Require Kernel.StructuralUniqueness.
 Require Kernel.Substrate.
 Require Kernel.Subsumption.
@@ -308,6 +310,7 @@ Require Kernel.HonestNoFI_TheoremsWithoutAssumptions.
 Require Kernel.InformationGainToStrengthening.
 Require Kernel.InsightTaxonomy.
 Require Kernel.KnowledgeNarrowing.
+Require Kernel.KnowledgeNarrowingIncremental.
 Require Kernel.LandauerDerivation.
 Require Kernel.MeasurementExtraction.
 Require Kernel.MuLedgerQuantumBridge.
@@ -376,6 +379,9 @@ Require Kernel.TsirelsonUniqueness.
 Require Kernel.TsirelsonUpperBound.
 Require Kernel.Unitarity.
 Require Kernel.ValidCorrelation.
+Require Kernel.CasperFFG.
+Require Kernel.CasperRecordReading.
+Require Kernel.EVMStorageGas.
 Require Kernel.GasMetering.
 Require Kernel.PoSFinality.
 Require Kernel.ProofCarryingVerifier.
@@ -10837,6 +10843,17 @@ Print Assumptions Kernel.StructuralCore.thiele_core_carries_record.
 Print Assumptions Kernel.StructuralCore.thiele_core_halting_problem_coverage.
 Print Assumptions Kernel.StructuralCore.thiele_core_adequate.
 Print Assumptions Kernel.StructuralCore.history_core_equiv_thiele.
+(* === Kernel.StructuralScheduleUniqueness : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.StructuralScheduleUniqueness.thiele_core_priced.
+Print Assumptions Kernel.StructuralScheduleUniqueness.uniqueness_round3b_holds.
+Print Assumptions Kernel.StructuralScheduleUniqueness.billed_core_honest3b.
+Print Assumptions Kernel.StructuralScheduleUniqueness.billed_core_equiv_mod_schedule.
+Print Assumptions Kernel.StructuralScheduleUniqueness.surcharged_core_honest3b.
+Print Assumptions Kernel.StructuralScheduleUniqueness.surcharged_core_equiv_mod_schedule.
+Print Assumptions Kernel.StructuralScheduleUniqueness.meter_step_mu.
+Print Assumptions Kernel.StructuralScheduleUniqueness.meter_core_honest3a.
+Print Assumptions Kernel.StructuralScheduleUniqueness.meter_core_not_equiv_mod_schedule.
+Print Assumptions Kernel.StructuralScheduleUniqueness.uniqueness_round3a_refuted.
 (* === Kernel.StructuralUniqueness : 17 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.StructuralUniqueness.billed_run.
 Print Assumptions Kernel.StructuralUniqueness.billed_step_cost.
@@ -13284,6 +13301,32 @@ Print Assumptions Kernel.Unitarity.zero_cost_preserves_radius.
 Print Assumptions Kernel.Unitarity.reversible_zero_cost_preserves_radius.
 (* === Kernel.ValidCorrelation : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.ValidCorrelation.bell_math_deterministic.
+(* === Kernel.CasperFFG : 18 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CasperFFG.hash_ancestor_base.
+Print Assumptions Kernel.CasperFFG.hash_ancestor_concat.
+Print Assumptions Kernel.CasperFFG.hash_ancestor_other.
+Print Assumptions Kernel.CasperFFG.nth_ancestor_ancestor.
+Print Assumptions Kernel.CasperFFG.justified_means_ancestor.
+Print Assumptions Kernel.CasperFFG.link_epochs.
+Print Assumptions Kernel.CasperFFG.both_votes.
+Print Assumptions Kernel.CasperFFG.dbl_vote_case.
+Print Assumptions Kernel.CasperFFG.surround_case.
+Print Assumptions Kernel.CasperFFG.crossing_link_slashes.
+Print Assumptions Kernel.CasperFFG.same_epoch_same_block.
+Print Assumptions Kernel.CasperFFG.distinct_justified_epochs.
+Print Assumptions Kernel.CasperFFG.finalized_epoch_distinct.
+Print Assumptions Kernel.CasperFFG.non_equal_case_ind.
+Print Assumptions Kernel.CasperFFG.non_equal_case.
+Print Assumptions Kernel.CasperFFG.equal_case.
+Print Assumptions Kernel.CasperFFG.safety'.
+Print Assumptions Kernel.CasperFFG.accountable_safety.
+(* === Kernel.CasperRecordReading : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CasperRecordReading.conflicting_records_are_priced.
+Print Assumptions Kernel.CasperRecordReading.finalization_without_slashing.
+(* === Kernel.EVMStorageGas : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.EVMStorageGas.empty_slot_invariant.
+Print Assumptions Kernel.EVMStorageGas.persistent_write_priced.
+Print Assumptions Kernel.EVMStorageGas.revoked_write_nearly_free.
 (* === Kernel.GasMetering : 15 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.GasMetering.gas_schedule_exactness.
 Print Assumptions Kernel.GasMetering.undercharged_opcode_admits_free_commitment.

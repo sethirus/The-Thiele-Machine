@@ -1,21 +1,29 @@
 #!/usr/bin/env python3
-"""Run a generated Print Assumptions probe in bounded, validated batches.
+"""Run a generated Print Assumptions probe module by module, with a cache.
 
-Every query is checked against the current source and compiled corpus. Publish
-combined output only after every batch succeeds, contains one result per query,
-and reports no Coq error. The existing
-aggregator remains responsible for classifying the resulting assumptions.
+The probe lists every query grouped by the library that defines it. A
+compiled Coq library records the digests of every library it depends on, so
+the digest of its own .vo file stands for its whole dependency closure. Each
+library's answers are cached under a key made of that digest, the exact
+queries, the Coq version, and the load-path flags. A later run reuses every
+answer whose key still matches and reruns only the rest. Libraries that do
+run are checked several to a coqtop session, up to the batch size, so shared
+dependencies load once; each library's answers are cut back out by count.
+
+Queries whose library cannot be resolved to exactly one compiled file run
+with the full probe prefix and are never cached. Combined output is
+published only after every group succeeds, returns one result per query, and
+reports no Coq error. The aggregator still classifies the assumptions.
 """
 from __future__ import annotations
 
 import argparse
 from concurrent.futures import ThreadPoolExecutor
-import json
 import hashlib
+import json
 from pathlib import Path
 import re
 import subprocess
-import tempfile
 import sys
 import time
 
@@ -23,9 +31,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from coq_proof_scope import FULL_ASSUMPTION_PROBE
 from assumption_receipt_fingerprint import corpus_digest, _coq_source_paths
 
+CACHE_SCHEMA = "assumption-module-cache.v1"
+BLOCK = re.compile(r"^(?:Closed under the global context|Axioms:)$", re.MULTILINE)
+ERROR = re.compile(r"^\s*(?:Error:|Anomaly:|Fatal error:)", re.MULTILINE)
+QUERY = re.compile(r"Print Assumptions ([\w.']+)\.")
+
 
 def compiled_digest(root: Path) -> str:
-    """Bind saved answers to the compiled libraries Coq actually loads."""
+    """Digest of every compiled library in the corpus, recorded for reference."""
     hasher = hashlib.sha256()
     for source in _coq_source_paths(root):
         obj = source.with_suffix(".vo")
@@ -39,13 +52,6 @@ def compiled_digest(root: Path) -> str:
     return hasher.hexdigest()
 
 
-def bind_corpus(source: str, source_digest: str, objects_digest: str) -> str:
-    return f"(* Receipt inputs: {source_digest} {objects_digest} *)\n" + source
-
-BLOCK = re.compile(r"^(?:Closed under the global context|Axioms:)$", re.MULTILINE)
-ERROR = re.compile(r"^\s*(?:Error:|Anomaly:|Fatal error:)", re.MULTILINE)
-
-
 def split_probe(source: str) -> tuple[str, list[str]]:
     match = re.search(r"^Print Assumptions ", source, re.MULTILINE)
     if match is None:
@@ -54,36 +60,91 @@ def split_probe(source: str) -> tuple[str, list[str]]:
     prefix, body = source[:first], source[first:]
     body = re.sub(r"\(\*.*?\*\)", "", body, flags=re.DOTALL)
     queries = [line.strip() for line in body.splitlines() if line.strip()]
-    if not queries or any(not re.fullmatch(r"Print Assumptions [\w.']+\.", q) for q in queries):
+    if not queries or any(not QUERY.fullmatch(q) for q in queries):
         raise ValueError("Unexpected command in generated assumption-query section")
     return prefix, queries
 
 
-def batch_prefix(prefix: str, queries: list[str]) -> str:
-    """Load the libraries named by this batch; Coq loads their dependencies.
-
-    The generator emits only plain Require commands. Any unfamiliar command
-    or unmatched query keeps the entire prefix, so this optimization cannot
-    silently discard an import context it does not understand.
-    """
+def probe_modules(prefix: str) -> list[str] | None:
+    """The libraries the probe requires, or None if the prefix holds anything else."""
     clean = re.sub(r"\(\*.*?\*\)", "", prefix, flags=re.DOTALL)
-    lines = [line.strip() for line in clean.splitlines() if line.strip()]
     modules = []
-    for line in lines:
+    for line in (line.strip() for line in clean.splitlines()):
+        if not line:
+            continue
         match = re.fullmatch(r"Require ([\w.']+)\.", line)
         if match is None:
-            return prefix
+            return None
         modules.append(match.group(1))
-    needed = set()
+    return modules
+
+
+def owner(modules: list[str], query: str) -> str | None:
+    match = QUERY.fullmatch(query)
+    if match is None:
+        return None
+    owners = [module for module in modules if match.group(1).startswith(module + ".")]
+    return max(owners, key=len) if owners else None
+
+
+def group_queries(prefix: str, queries: list[str]) -> list[tuple[str | None, list[str]]]:
+    """Consecutive runs of queries with the same owning library, in probe order.
+
+    A query with no owning library, or any query at all when the prefix holds
+    a command other than a plain Require, gets owner None.
+    """
+    modules = probe_modules(prefix)
+    groups: list[tuple[str | None, list[str]]] = []
     for query in queries:
-        match = re.fullmatch(r"Print Assumptions ([\w.']+)\.", query)
-        if match is None:
-            return prefix
-        owners = [module for module in modules if match.group(1).startswith(module + ".")]
-        if not owners:
-            return prefix
-        needed.add(max(owners, key=len))
-    return "".join(f"Require {module}.\n" for module in modules if module in needed)
+        who = owner(modules, query) if modules is not None else None
+        if groups and groups[-1][0] == who:
+            groups[-1][1].append(query)
+        else:
+            groups.append((who, [query]))
+    return groups
+
+
+def load_path(coq_args: list[str]) -> list[tuple[Path, str]]:
+    """(directory, logical prefix) pairs from -R/-Q flags, relative to coq/."""
+    pairs = []
+    i = 0
+    while i < len(coq_args):
+        if coq_args[i] in ("-R", "-Q") and i + 2 < len(coq_args):
+            pairs.append((Path(coq_args[i + 1]), coq_args[i + 2]))
+            i += 3
+        else:
+            i += 1
+    return pairs
+
+
+def resolve_library(module: str, coq_dir: Path, pairs: list[tuple[Path, str]]) -> Path | None:
+    """The compiled file a Require of `module` loads, if exactly one candidate exists."""
+    candidates = set()
+    for directory, logical in pairs:
+        if module.startswith(logical + "."):
+            rest = module[len(logical) + 1:]
+            candidates.add((coq_dir / directory / (rest.replace(".", "/") + ".vo")).resolve())
+    if "." not in module:
+        candidates.add((coq_dir / (module + ".vo")).resolve())
+    found = [path for path in candidates if path.is_file()]
+    return found[0] if len(found) == 1 else None
+
+
+def file_sha256(path: Path) -> str:
+    hasher = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            hasher.update(block)
+    return hasher.hexdigest()
+
+
+def cache_key(module: str, library_sha256: str, queries: list[str],
+              coq_version: str, coq_args: list[str]) -> str:
+    material = json.dumps({
+        "schema": CACHE_SCHEMA, "module": module, "library": library_sha256,
+        "queries": queries, "coq": coq_version, "args": coq_args,
+    }, sort_keys=True)
+    return hashlib.sha256(material.encode()).hexdigest()
 
 
 def validate_output(stdout: str, stderr: str, expected: int) -> str:
@@ -95,77 +156,67 @@ def validate_output(stdout: str, stderr: str, expected: int) -> str:
     return stdout[blocks[0].start():]
 
 
-def batch_completion(source: str, stdout: str, stderr: str, expected: int) -> dict:
-    return {
-        "schema": "assumption-batch-completion.v1",
-        "queries": expected,
-        "source_sha256": hashlib.sha256(source.encode()).hexdigest(),
-        "stdout_sha256": hashlib.sha256(stdout.encode()).hexdigest(),
-        "stderr_sha256": hashlib.sha256(stderr.encode()).hexdigest(),
-    }
+def split_answers(output: str, counts: list[int]) -> list[str]:
+    """Cut validated output into consecutive pieces of the given result counts."""
+    starts = [match.start() for match in BLOCK.finditer(output)]
+    if len(starts) != sum(counts):
+        raise ValueError(f"Expected {sum(counts)} assumption results, received {len(starts)}")
+    bounds = starts + [len(output)]
+    pieces, index = [], 0
+    for count in counts:
+        pieces.append(output[bounds[index]:bounds[index + count]])
+        index += count
+    return pieces
 
 
-def publish_completed_batch(directory: Path, lo: int, hi: int,
-                            source: str, stdout: str, stderr: str) -> None:
-    """Publish a validated batch, with the completion record written last."""
-    validate_output(stdout, stderr, hi - lo)
-    stem = directory / f"{lo + 1}-{hi}"
-    marker = stem.with_suffix(".complete.json")
-    marker.unlink(missing_ok=True)
-    stem.with_suffix(".v").write_text(source)
-    stem.with_suffix(".output.txt").write_text(stdout)
-    stem.with_suffix(".errors.txt").write_text(stderr)
-    pending = stem.with_suffix(".complete.pending")
-    pending.write_text(json.dumps(batch_completion(source, stdout, stderr, hi - lo)))
-    pending.replace(marker)
+def save_cached(directory: Path, key: str, module: str, queries: list[str],
+                stdout: str, stderr: str) -> None:
+    """Record a validated answer; the file appears only once it is complete."""
+    validate_output(stdout, stderr, len(queries))
+    directory.mkdir(parents=True, exist_ok=True)
+    record = {"schema": CACHE_SCHEMA, "key": key, "module": module,
+              "queries": queries, "stdout": stdout, "stderr": stderr}
+    pending = directory / f"{key}.pending"
+    pending.write_text(json.dumps(record))
+    pending.replace(directory / f"{key}.json")
 
 
-def load_saved_batch(directory: Path, lo: int, hi: int, source: str) -> tuple[int, str, str] | None:
-    """Return a completed batch's result from a work directory, or None.
-
-    A saved result is reused only when the batch ran exactly `source` and its
-    output still validates with no Coq error. A result count alone cannot tell
-    two probes apart, and a truncated write from an external kill can never be
-    mistaken for a completed batch.
-    """
-    stem = directory / f"{lo + 1}-{hi}"
-    out_file, err_file = stem.with_suffix(".output.txt"), stem.with_suffix(".errors.txt")
-    source_file = stem.with_suffix(".v")
+def load_cached(directory: Path, key: str, module: str,
+                queries: list[str]) -> tuple[str, str] | None:
+    """A saved answer for exactly this key, module, and query list, or None."""
     try:
-        marker = json.loads(stem.with_suffix(".complete.json").read_text())
-        if source_file.read_text() != source:
+        record = json.loads((directory / f"{key}.json").read_text())
+        if (record.get("schema") != CACHE_SCHEMA or record.get("key") != key
+                or record.get("module") != module or record.get("queries") != queries):
             return None
-        stdout = out_file.read_text()
-        stderr = err_file.read_text()
-        if marker != batch_completion(source, stdout, stderr, hi - lo):
-            return None
-        output = validate_output(stdout, stderr, hi - lo)
-    except (OSError, ValueError):
+        stdout, stderr = record["stdout"], record["stderr"]
+        output = validate_output(stdout, stderr, len(queries))
+    except (OSError, ValueError, KeyError, TypeError):
         return None
-    return lo, output, stderr
+    return output, stderr
+
+
+def coq_version() -> str:
+    try:
+        return subprocess.check_output(["coqtop", "--version"], text=True).strip()
+    except (OSError, subprocess.CalledProcessError):
+        return "coqtop-unavailable"
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--jobs", type=int, default=2)
-    # Loading the complete compiled corpus dominates each coqtop invocation.
-    # A 2,000-query batch keeps the process count small while retaining bounded
-    # output and restartable work units.
+    # Only queries without a resolvable owning library are batched; each
+    # batch runs with the full probe prefix.
     parser.add_argument("--batch-size", type=int, default=2000)
     parser.add_argument("--timeout", type=int, default=900)
-    # A batch killed by an external signal (this sandbox SIGTERMs long-running
-    # processes) is retried in place. This is deliberately narrow: it must never
-    # turn a real Coq error into a pass. Only death-by-signal -- a negative
-    # return code, which CPython reports as -N for signal N -- is retried, and a
-    # batch that keeps dying is re-run rather than silently dropped. A non-zero
-    # exit from Coq itself, or any Error:/Anomaly: in its output, still fails
-    # the run immediately via validate_output.
+    # A run killed by an external signal is retried in place. Only
+    # death-by-signal (a negative return code) is retried; a Coq error still
+    # fails the run immediately through validate_output.
     parser.add_argument("--retries", type=int, default=30,
-                        help="retries per batch if the Coq process is killed by a signal")
+                        help="retries per group if the Coq process is killed by a signal")
     parser.add_argument("--work-dir", default=None,
-                        help="reuse an existing batch directory, completing only "
-                             "batches without a valid saved result (for resuming "
-                             "a run interrupted by an external signal)")
+                        help="answer cache directory (default: build/probe/assumption-cache)")
     parser.add_argument("coq_args", nargs=argparse.REMAINDER)
     args = parser.parse_args()
     if min(args.jobs, args.batch_size, args.timeout) < 1:
@@ -174,95 +225,116 @@ def main() -> None:
         parser.error("retries must not be negative")
     coq_args = args.coq_args[1:] if args.coq_args[:1] == ["--"] else args.coq_args
     root = Path(__file__).resolve().parents[1]
+    coq_dir = root / "coq"
     build = root / "build/probe"
+    cache = Path(args.work_dir) if args.work_dir else build / "assumption-cache"
+    if not cache.is_absolute():
+        cache = root / cache
     prefix, queries = split_probe((root / FULL_ASSUMPTION_PROBE).read_text())
     source_digest = corpus_digest(root)
     objects_digest = compiled_digest(root)
-    reused_batches: list[tuple[int, int]] = []
-    batches = [(lo, min(lo + args.batch_size, len(queries)))
-               for lo in range(0, len(queries), args.batch_size)]
-    if args.work_dir:
-        directory = Path(args.work_dir)
-        if not directory.is_absolute():
-            directory = root / directory
-        if not directory.is_dir():
-            raise SystemExit(f"--work-dir is not a directory: {directory}")
-    else:
-        directory = Path(tempfile.mkdtemp(prefix="assumption-batches-", dir=build))
+    version = coq_version()
+    pairs = load_path(coq_args)
 
-    def batch_source(lo: int, hi: int) -> str:
-        imports = batch_prefix(prefix, queries[lo:hi])
-        return bind_corpus(imports + "\n".join(queries[lo:hi]) + "\nQuit.\n",
-                           source_digest, objects_digest)
+    units: list[dict] = []
+    position = 0
+    for module, group in group_queries(prefix, queries):
+        library = resolve_library(module, coq_dir, pairs) if module else None
+        if library is None:
+            for lo in range(0, len(group), args.batch_size):
+                chunk = group[lo:lo + args.batch_size]
+                units.append({"module": module, "queries": chunk, "first": position + lo,
+                              "imports": prefix, "key": None, "library": None})
+        else:
+            digest = file_sha256(library)
+            units.append({"module": module, "queries": group, "first": position,
+                          "imports": f"Require {module}.\n", "library": (library, digest),
+                          "key": cache_key(module, digest, group, version, coq_args)})
+        position += len(group)
 
-    def saved(bounds: tuple[int, int]) -> tuple[int, str, str] | None:
-        lo, hi = bounds
-        return load_saved_batch(directory, lo, hi, batch_source(lo, hi))
+    reused: list[str] = []
+    executed: list[str] = []
+    answers: dict[int, tuple[str, str]] = {}
+    pending: list[dict] = []
+    for index, unit in enumerate(units):
+        unit["index"] = index
+        saved = (load_cached(cache, unit["key"], unit["module"], unit["queries"])
+                 if unit["key"] is not None else None)
+        if saved is None:
+            pending.append(unit)
+        else:
+            answers[index] = saved
+            reused.append(unit["module"])
+            print(f"[assumption-batch] reused {unit['module']}", flush=True)
 
-    def once(bounds: tuple[int, int]) -> tuple[int, str, str]:
-        lo, hi = bounds
-        source = batch_source(lo, hi)
-        stem = directory / f"{lo + 1}-{hi}"
-        # Invalidate before changing any member of a previous saved batch.
-        stem.with_suffix(".complete.json").unlink(missing_ok=True)
-        stem.with_suffix(".v").write_text(source)
-        result = subprocess.run(["coqtop", "-quiet", *coq_args], cwd=root / "coq",
-                                input=source, text=True, capture_output=True,
-                                timeout=args.timeout, check=False)
-        stem.with_suffix(".output.txt").write_text(result.stdout)
-        stem.with_suffix(".errors.txt").write_text(result.stderr)
-        if result.returncode:
-            raise RuntimeError(f"Coq exited {result.returncode} for queries {lo + 1}..{hi}: {stem}")
-        output = validate_output(result.stdout, result.stderr, hi - lo)
-        publish_completed_batch(directory, lo, hi, source, result.stdout, result.stderr)
-        return lo, output, result.stderr
+    # Cached libraries share sessions up to the batch size; queries without a
+    # resolvable library keep the full prefix and run alone.
+    chunks: list[list[dict]] = []
+    for unit in pending:
+        if (unit["key"] is not None and chunks and chunks[-1][0]["key"] is not None
+                and sum(len(u["queries"]) for u in chunks[-1]) + len(unit["queries"])
+                <= args.batch_size):
+            chunks[-1].append(unit)
+        else:
+            chunks.append([unit])
 
-    def run(bounds: tuple[int, int]) -> tuple[int, str, str]:
-        lo, hi = bounds
-        if args.work_dir:
-            resumed = saved(bounds)
-            if resumed is not None:
-                reused_batches.append(bounds)
-                print(f"[assumption-batch] reused {lo + 1}..{hi}", flush=True)
-                return resumed
+    def execute(chunk: list[dict]) -> None:
+        imports = chunk[0]["imports"] if chunk[0]["key"] is None else "".join(
+            unit["imports"] for unit in chunk)
+        chunk_queries = [query for unit in chunk for query in unit["queries"]]
+        source = imports + "\n".join(chunk_queries) + "\nQuit.\n"
+        label = ", ".join(str(unit["module"]) for unit in chunk)
         for attempt in range(args.retries + 1):
-            try:
-                out = once(bounds)
-            except subprocess.TimeoutExpired:
-                # A hung batch is a real problem, not external interference.
-                raise
-            except RuntimeError as error:
-                message = str(error)
-                killed = re.search(r"exited -(\d+)", message)
-                if killed is None or attempt == args.retries:
-                    raise
-                print(f"[assumption-batch] queries {lo + 1}..{hi} killed by "
-                      f"signal {killed.group(1)} (attempt {attempt + 1}), retrying",
-                      flush=True)
+            result = subprocess.run(["coqtop", "-quiet", *coq_args], cwd=coq_dir,
+                                    input=source, text=True, capture_output=True,
+                                    timeout=args.timeout, check=False)
+            if result.returncode < 0 and attempt < args.retries:
+                print(f"[assumption-batch] {label} killed by signal "
+                      f"{-result.returncode} (attempt {attempt + 1}), retrying", flush=True)
                 time.sleep(min(2 ** attempt, 30))
                 continue
-            print(f"[assumption-batch] checked {lo + 1}..{hi}", flush=True)
-            return out
-        raise RuntimeError(f"unreachable: queries {lo + 1}..{hi}")
+            if result.returncode:
+                raise RuntimeError(f"Coq exited {result.returncode} for {label}")
+            output = validate_output(result.stdout, result.stderr, len(chunk_queries))
+            pieces = split_answers(output, [len(unit["queries"]) for unit in chunk])
+            for position, (unit, piece) in enumerate(zip(chunk, pieces)):
+                # The session's diagnostics are kept once, with its first library.
+                stderr = result.stderr if position == 0 else ""
+                if unit["key"] is not None:
+                    save_cached(cache, unit["key"], unit["module"], unit["queries"],
+                                piece, stderr)
+                answers[unit["index"]] = (piece, stderr)
+                executed.append(str(unit["module"]))
+            print(f"[assumption-batch] checked {label} ({len(chunk_queries)} queries)",
+                  flush=True)
+            return
+        raise RuntimeError(f"unreachable: {label}")
 
     with ThreadPoolExecutor(max_workers=args.jobs) as pool:
-        results = sorted(pool.map(run, batches))
-    if corpus_digest(root) != source_digest or compiled_digest(root) != objects_digest:
+        list(pool.map(execute, chunks))
+    results = [(unit["first"],) + answers[unit["index"]] for unit in units]
+    changed = [unit["module"] for unit in units if unit["library"] is not None
+               and file_sha256(unit["library"][0]) != unit["library"][1]]
+    if corpus_digest(root) != source_digest or changed:
         raise RuntimeError("Proof inputs changed during the receipt run; no combined result published")
     combined = "".join(output for _, output, _ in results)
     errors = "".join(stderr for _, _, stderr in results)
     validate_output(combined, errors, len(queries))
     (build / "probe_all_output.txt").write_text(combined)
     (build / "probe_all_err.txt").write_text(errors)
+    try:
+        cache_label = cache.relative_to(root).as_posix()
+    except ValueError:
+        cache_label = str(cache)
     (build / "probe_batches.json").write_text(json.dumps({
         "queries": len(queries), "jobs": args.jobs, "batch_size": args.batch_size,
         "source_digest": source_digest, "compiled_digest": objects_digest,
-        "all_queries_reexecuted": not reused_batches, "alignment_ok": True,
-        "reused_batches": [{"first": lo + 1, "last": hi} for lo, hi in sorted(reused_batches)],
-        "batch_directory": str(directory.relative_to(root)),
-        "batches": [{"first": lo + 1, "last": hi} for lo, hi in batches],
+        "all_queries_reexecuted": not reused, "alignment_ok": True,
+        "groups": len(units), "reused_groups": len(reused), "executed_groups": len(executed),
+        "cache_directory": cache_label,
     }, indent=2) + "\n")
-    print(f"[assumption-batch] all {len(queries)} queries checked and combined in order", flush=True)
+    print(f"[assumption-batch] all {len(queries)} queries checked and combined in order "
+          f"({len(executed)} groups run, {len(reused)} reused)", flush=True)
 
 
 if __name__ == "__main__":

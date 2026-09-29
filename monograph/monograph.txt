@@ -190,7 +190,7 @@ I   The argument                                                                
 
 1   Let me be straight with you                                                             9
 
-2   How I got here                                                                         19
+2   How I got here                                                                         20
 
 3 The structural axis: the projection classical models drop                                24
   3.1 Substrate-independence: the abstract setup . . . . . . . . . . . . . . . .           25
@@ -199,7 +199,7 @@ I   The argument                                                                
   3.4 The observation boundary . . . . . . . . . . . . . . . . . . . . . . . . . .         28
   3.5 Structural cost and other resource measures . . . . . . . . . . . . . . . .          28
   3.6 The subsumption theorems, in full . . . . . . . . . . . . . . . . . . . . .          28
-  3.7 What the projection cannot reverse: three non-existence theorems . . .               31
+  3.7 What the projection cannot reverse: three non-existence theorems . . .               32
   3.8 What the projection cannot verify: the verifier corollary . . . . . . . . .          36
 
 4 What structure is                                                                        39
@@ -295,70 +295,72 @@ II    Building it                                                               
    17.4 Certificate transparency . . . . . . . . . . . . . . . . . . . . . . . . . . .      125
    17.5 Proof-carrying verification . . . . . . . . . . . . . . . . . . . . . . . . . .     126
    17.6 The same table, five ways . . . . . . . . . . . . . . . . . . . . . . . . . .       126
+   17.7 Five specifications, read through the record axis . . . . . . . . . . . . .         126
 
-18 Binary Game Statistics: where a Priced Check Meets the NPA Boundary                      126
-   18.1 The Bell test setup, from scratch . . . . . . . . . . . . . . . . . . . . . . .     128
-   18.2 The CHSH inequality: where it comes from . . . . . . . . . . . . . . . .            130
+18 Binary Game Statistics: where a Priced Check Meets the NPA Boundary                      128
+   18.1 The Bell test setup, from scratch . . . . . . . . . . . . . . . . . . . . . . .     129
+   18.2 The CHSH inequality: where it comes from . . . . . . . . . . . . . . . .            131
                                        √
-   18.3 The quantum bound: why 2 2? . . . . . . . . . . . . . . . . . . . . . .             131
-   18.4 What the algebra proves . . . . . . . . . . . . . . . . . . . . . . . . . . .       131
-   18.5 The bit-commitment requirement . . . . . . . . . . . . . . . . . . . . . .          135
-   18.6 Algebraic characterization of the CHSH gate condition . . . . . . . . .             136
-        18.6.1 The matrix, written out . . . . . . . . . . . . . . . . . . . . . . .        137
-        18.6.2 Where the three conditions come from . . . . . . . . . . . . . . .           137
-   18.7 Lifting the bridge to level 1+AB: the four-slice Schur cascade . . . . . .          146
-        18.7.1 The 9 × 9 moment matrix and its five γ parameters . . . . . . .              147
-        18.7.2 Why four slices . . . . . . . . . . . . . . . . . . . . . . . . . . . .      147
-        18.7.3 The compositional Schur cascade (Slice D) . . . . . . . . . . . .            148
-        18.7.4 What this delivers and what it does not . . . . . . . . . . . . . .          149
-   18.8 The full correlator set: the elliptope completion . . . . . . . . . . . . . .       150
+   18.3 The quantum bound: why 2 2? . . . . . . . . . . . . . . . . . . . . . .             132
+   18.4 What the algebra proves . . . . . . . . . . . . . . . . . . . . . . . . . . .       133
+   18.5 The bit-commitment requirement . . . . . . . . . . . . . . . . . . . . . .          136
+   18.6 Algebraic characterization of the CHSH gate condition . . . . . . . . .             137
+        18.6.1 The matrix, written out . . . . . . . . . . . . . . . . . . . . . . .        138
+        18.6.2 Where the three conditions come from . . . . . . . . . . . . . . .           139
+   18.7 Lifting the bridge to level 1+AB: the four-slice Schur cascade . . . . . .          147
+        18.7.1 The 9 × 9 moment matrix and its five γ parameters . . . . . . .              148
+        18.7.2 Why four slices . . . . . . . . . . . . . . . . . . . . . . . . . . . .      148
+        18.7.3 The compositional Schur cascade (Slice D) . . . . . . . . . . . .            149
+        18.7.4 What this delivers and what it does not . . . . . . . . . . . . . .          151
+   18.8 The full correlator set: the elliptope completion . . . . . . . . . . . . . .       151
 
-19 Irreversibility accounting and the µ-hierarchy                                       153
-   19.1 The Landauer association is motivation only . . . . . . . . . . . . . . . 153
-   19.2 The µ-hierarchy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 155
+19 Irreversibility accounting and the µ-hierarchy                                       154
+   19.1 The Landauer association is motivation only . . . . . . . . . . . . . . . 154
+   19.2 The µ-hierarchy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 156
 
-20 Discrete Geometry over Partition Graphs                                             156
-   20.1 Discrete triangulation of the partition graph . . . . . . . . . . . . . . . . 156
-   20.2 The restricted angle-defect identity . . . . . . . . . . . . . . . . . . . . . 157
+20 Discrete Geometry over Partition Graphs                                             158
+   20.1 Discrete triangulation of the partition graph . . . . . . . . . . . . . . . . 158
+   20.2 The restricted angle-defect identity . . . . . . . . . . . . . . . . . . . . . 158
 
 
-III     Checking it                                                                         158
+III     Checking it                                                                         159
 
-21 What Coq is, and why I used it                                                        158
-   21.1 Reproducing the source and proof contracts . . . . . . . . . . . . . . . . 159
-   21.2 The Inquisitor . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 160
+21 What Coq is, and why I used it                                                        160
+   21.1 Reproducing the source and proof contracts . . . . . . . . . . . . . . . . 160
+   21.2 The Inquisitor . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 161
 
-22 Zero Admitted: what it actually means                                                    161
+22 Zero Admitted: what it actually means                                                    162
 
-23 How to break this                                                              162
-   23.1 Contribution and attribution boundary . . . . . . . . . . . . . . . . . . 168
+23 How to break this                                                                        163
 
 
                                               7
 The Thiele Machine                                           Devon Thiele • September 2026
 
 
-24 The full claim ledger                                                             169
-   24.1 Main-result contract crosswalk . . . . . . . . . . . . . . . . . . . . . . . 176
+     23.1 Contribution and attribution boundary . . . . . . . . . . . . . . . . . . 169
+
+24 The full claim ledger                                                             170
+   24.1 Main-result contract crosswalk . . . . . . . . . . . . . . . . . . . . . . . 177
 
 
-IV    What is still open                                                               179
+IV    What is still open                                                               181
 
-25 Scope of the claim: what is established, what is not                                180
+25 Scope of the claim: what is established, what is not                                181
 
-26 The pointer-observable conjecture                                                   181
+26 The pointer-observable conjecture                                                   182
 
-27 Conclusion                                                                          183
+27 Conclusion                                                                          185
 
-A Things I had to learn first                                                          185
-  A.1 Bits, bytes, and what a CPU sees . . . . . . . . . . . . . . . . . . . . . .     185
-  A.2 The notation the formal parts use . . . . . . . . . . . . . . . . . . . . . .    187
-  A.3 Coq, in just enough detail . . . . . . . . . . . . . . . . . . . . . . . . . .   188
-  A.4 Category theory: the part I needed beyond Section 13 . . . . . . . . . .         189
-  A.5 Bell-test vocabulary you will meet in Section 18 . . . . . . . . . . . . . .     190
-  A.6 Hardware and synthesis vocabulary . . . . . . . . . . . . . . . . . . . .        191
-  A.7 Other terms I use without rebuilding . . . . . . . . . . . . . . . . . . . .     193
-  A.8 The axioms (A1 through A6) . . . . . . . . . . . . . . . . . . . . . . . . .     195
+A Things I had to learn first                                                          186
+  A.1 Bits, bytes, and what a CPU sees . . . . . . . . . . . . . . . . . . . . . .     186
+  A.2 The notation the formal parts use . . . . . . . . . . . . . . . . . . . . . .    188
+  A.3 Coq, in just enough detail . . . . . . . . . . . . . . . . . . . . . . . . . .   189
+  A.4 Category theory: the part I needed beyond Section 13 . . . . . . . . . .         190
+  A.5 Bell-test vocabulary you will meet in Section 18 . . . . . . . . . . . . . .     192
+  A.6 Hardware and synthesis vocabulary . . . . . . . . . . . . . . . . . . . .        193
+  A.7 Other terms I use without rebuilding . . . . . . . . . . . . . . . . . . . .     194
+  A.8 The axioms (A1 through A6) . . . . . . . . . . . . . . . . . . . . . . . . .     196
 
 
 
@@ -567,7 +569,7 @@ Section 3.7 builds a target (the Coq witness is certification_agreement_does
 _not_imply_descent) that keeps the VM’s whole instruction history, charges the
 
                                             12
-The Thiele Machine                                           Devon Thiele • September 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
 same schedule, and reads certification the way the VM does. It agrees with the VM on
@@ -599,12 +601,35 @@ every honest record-carrying machine is the Thiele core plus some price schedule
 that satisfies A2. StructuralCoreRound3.v states it for machines that run the VM
 underneath. Charges are not compared, every machine in play carries a monotone
 ledger that satisfies A2, and sameness is read through the machine’s own projection
-onto the VM. It comes in two strengths. In one, the record only has to be a reading of
-the computation (uniqueness_round3a). In the other, the record is the VM’s own
-certification reading (uniqueness_round3b). Both are open. Both take the VM’s
-structure as given, since every machine they admit runs the VM. Whether the structure
-itself is forced, for machines that don’t run the VM, is a question about record-carrying
-simulations between different machines.
+onto the VM. It comes in two strengths.
+
+When the record is the VM’s own certification reading, uniqueness holds (uniquen
+ess_round3b_holds). Relate each state to the VM state its projection assigns, and
+everything lines up. The billing machine is an example, not a counterexample: it is the
+Thiele core with a price of one extra unit per step (billed_core_equiv_mod_sch
+edule). So is the Thiele core with any bill that depends on the current state, per step,
+per instruction, or per millisecond (surcharged_core_equiv_mod_schedule).
+
+When the record only has to be some reading of the computation, uniqueness fails (un
+iqueness_round3a_refuted). Take the Thiele core and let its record be “the meter
+has passed one.” That reading never switches off, a paid step switches it on, and A2
+holds for it. At a state with a positive meter and no certificate, the two record lights
+disagree.
+
+
+
+                                          13
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
+   Plain reading. One structure, two free choices. The price list is one. Which perma-
+   nent reading counts as the record is the other.
+
+The second choice is the pointer-observable question of Section 26: what makes cer-
+tification the event to record. Both strengths take the VM’s structure as given, since
+every machine they admit runs the VM. Whether the structure itself is forced, for ma-
+chines that don’t run the VM, is a question about record-carrying simulations between
+different machines. It is open.
 
 The third is about this exact machine. Is this particular VM state space the only one,
 up to renaming? I don’t claim that anywhere. No theorem needs it. The separating
@@ -612,13 +637,10 @@ witnesses (Section 14’s graph pair and the irrecoverability theorems above) st
 their own however the second question comes out. They don’t need it, and it doesn’t
 need them.
 
-So the first is proved, for a fixed schedule. The third isn’t claimed. The second, in the
-form the words suggest, is false. Up to the price schedule it is open.
-
-
-                                           13
-The Thiele Machine                                            Devon Thiele • September 2026
-
+So the first is proved, for a fixed schedule. The third isn’t claimed. The second, in
+the form the words suggest, is false. Up to the price schedule it holds for machines
+that run the VM and record certification, and which reading counts as the record is a
+second free choice. For machines that don’t run the VM it is open.
 
 What this project is not. It is not a claim that I solved P vs NP. It is not a theory of
 everything. It is not a claim that computation is physics or that physics is computation.
@@ -645,6 +667,12 @@ certification is the only event worth pricing, either. The two sources I lean on
 are Landauer, “Irreversibility and Heat Generation in the Computing Process” (1961),
 and Wolpert–Macready, “No Free Lunch Theorems for Optimization” (1997).
 
+
+
+                                            14
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
 Here are the labels I went and looked into. Each entry says what I understood the
 label to mean and why I do not think Thiele reduces to it. Each is a claim inviting
 correction. If the comparison is wrong, tell me.
@@ -663,12 +691,6 @@ correction. If the comparison is wrong, tell me.
      them. Foundational PCC (Appel) is closer in spirit: proofs about a small trusted
      base, not certificates bundled with the program. I haven’t read enough Appel to
      say more.
-
-
-                                            14
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
    • Session types (Honda). What I read: type systems that constrain how two or
      more concurrent programs talk to each other so the conversation cannot go off-
      script. My reading: Thiele tracks structural facts a single computation has paid
@@ -692,7 +714,14 @@ correction. If the comparison is wrong, tell me.
      argument. In Thiele the structural side, the substrate tracking each positive-cost
      transition via µ, is proved. The conversion to joules is a named hypothesis (see
      Section 19). I treat Landauer’s claim as motivation, not as something the proofs
-     rest on. Motivation pays no bills in Coq.
+
+
+
+                                           15
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
+      rest on. Motivation pays no bills in Coq.
    • No Free Lunch (Wolpert and Macready, 1997). What I read: averaged over
      every possible problem, no search method beats blind guessing. Whatever an
      algorithm wins on one set of problems it gives back on another. My reading: this
@@ -710,20 +739,14 @@ correction. If the comparison is wrong, tell me.
      commits to a certificate. Same family. Different shape: a property of a string, not
      a law of a step.
    • Cook-Levin and P vs NP (Cook 1971, Levin 1973). What I read: checking a
-
-
-                                           15
-The Thiele Machine                                         Devon Thiele • September 2026
-
-
-      solution can be cheap while finding one looks expensive. Whether finding is
-      genuinely harder than checking is the open P-vs-NP question. Cook-Levin is the
-      theorem that SAT is NP-complete, not a proof that search is hard. My reading:
-      same find-versus-check intuition, but it is an asymptotic, worst-case, still-open
-      statement about how difficulty grows with problem size. A2 charges a constant
-      on the one commitment step in a concrete run, whether finding it was easy or
-      hard. Same family. Different shape: an open scaling gap, not a per-step floor. I
-      am not claiming anything about P vs NP; see “What this project is not.”
+     solution can be cheap while finding one looks expensive. Whether finding is
+     genuinely harder than checking is the open P-vs-NP question. Cook-Levin is the
+     theorem that SAT is NP-complete, not a proof that search is hard. My reading:
+     same find-versus-check intuition, but it is an asymptotic, worst-case, still-open
+     statement about how difficulty grows with problem size. A2 charges a constant
+     on the one commitment step in a concrete run, whether finding it was easy or
+     hard. Same family. Different shape: an open scaling gap, not a per-step floor. I
+     am not claiming anything about P vs NP; see “What this project is not.”
    • Rovelli’s cost of choosing (Rovelli 2024, The Thermodynamic Cost of Choosing).
      What I read: committing to one branch of a binary choice at temperature T
      dissipates at least kT ln 2. That is the same floor Landauer found for erasure,
@@ -739,8 +762,14 @@ correction. If the comparison is wrong, tell me.
      serves those annotations all the way down to machine code. My reading:
      CerCo’s cost lives as decoration on the source code that survives compilation.
      Thiele’s cost lives in the step rule of the abstract machine. The path down to
-     hardware is proved as far as the Kami model, under stated premises, and tested
-     past it. Different mechanism. Different layer.
+
+
+                                           16
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
+      hardware is proved as far as the Kami model, under stated premises, and tested
+      past it. Different mechanism. Different layer.
    • Kami-RISC-V. What I read: a verified processor design written in Coq using
      the Kami framework that targets the RISC-V instruction set. RISC-V is an open-
      source CPU architecture, a published list of instructions any chip designer can
@@ -757,15 +786,9 @@ correction. If the comparison is wrong, tell me.
      the integer check CHSH_LASSERT runs passes, the specified zero-marginal Q1
      NPA matrix is PSD (Section 18). That direction is the one proved. The matrix
      condition itself is proved equivalent to three polynomial inequalities. A second
-
-
-                                          16
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
-      chain carries it one level up, to Q1+AB , once for each of the four opcodes in that
-      family. That is two levels of NPA. The tower goes higher. The machine enforces
-      the bound at the step itself. Nobody has to check it afterward from the outside.
+     chain carries it one level up, to Q1+AB , once for each of the four opcodes in that
+     family. That is two levels of NPA. The tower goes higher. The machine enforces
+     the bound at the step itself. Nobody has to check it afterward from the outside.
    • Lawvere’s fixed-point theorem (1969). What I read: in a cartesian closed category,
      if a map from A onto the functions A → Y hits every function, then every map
      from Y to itself has a fixed point. Cantor, Gödel, Tarski, and Turing’s halting
@@ -787,7 +810,13 @@ correction. If the comparison is wrong, tell me.
      make room. My reading: Section 9.7 checks exactly that on the logic, and the
      permanent-certificate theorem is the certificate-specific version of it. Same idea.
      Mine is stated for every implementation of a certificate that lasts, and machine-
-     checked.
+
+
+                                          17
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
+      checked.
    • Maroney (2009) and Sagawa and Ueda (2008 onward). What I read: logical irre-
      versibility and thermodynamic cost come apart; the heat Landauer’s principle
      demands depends on the actual distribution over states. For a state already
@@ -805,12 +834,6 @@ correction. If the comparison is wrong, tell me.
      work checks a witness against a difficulty target; that check does not measure
      the effort spent on a particular successful attempt. A2 charges one ledger unit at
      the step that certifies and verifies nothing about effort.
-
-
-                                           17
-The Thiele Machine                                            Devon Thiele • September 2026
-
-
    • Quantitative information flow (Smith 2009). What I read: measure how much an
      observer learns about a secret from what it sees, in bits of min-entropy. My read-
      ing: the irrecoverability theorems rule out exact decoding from named windows.
@@ -834,6 +857,12 @@ monotone proves that on every state the machine can reach. One local rule, that 
 certification flip costs at least one, forces a cost onto every run that ends certified, on
 any abstract certification system at all. That is universal_nfi_any_substrate.
 Two states can agree on every classical field and still have different graphs (Section 14).
+
+
+                                            18
+The Thiele Machine                                        Devon Thiele • September 2026
+
+
 The classical view cannot see that difference. A passing CHSH gate implies positive-
 semidefiniteness of the specified NPA matrix, and the algebra gets there without any
 quantum input. The argument is the part I can defend. The proof corpus is where I
@@ -844,54 +873,54 @@ Prior-work map
 This table separates the inherited idea from the result checked here. An implementa-
 tion in Coq is not, by itself, a priority claim for the mathematics.
 
-  Prior work                 What this development contributes
-  Lawvere (1969)             The diagonal is inherited. The development supplies an
-                             explicit weak call-by-value calculus, quotation, a proved
-                             recursion theorem, and its undecidability applications.
-                             It does not instantiate that calculus as the VM’s total-run
-                             interface.
-
-
-
-
-                                            18
-The Thiele Machine                                         Devon Thiele • September 2026
-
-
   Prior work                What this development contributes
+  Lawvere (1969)         The diagonal is inherited. The development supplies an
+                         explicit weak call-by-value calculus, quotation, a proved
+                         recursion theorem, and its undecidability applications.
+                         It does not instantiate that calculus as the VM’s total-run
+                         interface.
   Tsirelson (1980); Lan- The correlation bounds are prior mathematics. The con-
-  dau (1988)               tribution here is the checked algebra for specified ma-
-                           trix slices and the connection from integer VM checks
-                           to those conditions. No general quantum-realizability
-                           claim follows from the fixed-slice test.
-  Bennett (1982)           Reversible measurement supplies the conceptual bound-
-                           ary. The development exhibits zero-cost observer nar-
-                           rowing and proves conditional bounds on state-space
-                           compression. Permanent certification is linked to merg-
-                           ing on finite state spaces.
+  dau (1988)             tribution here is the checked algebra for specified ma-
+                         trix slices and the connection from integer VM checks
+                         to those conditions. No general quantum-realizability
+                         claim follows from the fixed-slice test.
+  Bennett (1982)         Reversible measurement supplies the conceptual bound-
+                         ary. The development exhibits zero-cost observer nar-
+                         rowing and proves conditional bounds on state-space
+                         compression. Permanent certification is linked to merg-
+                         ing on finite state spaces.
   Maroney;       Sagawa– Distribution-sensitive thermodynamic bounds are in-
-  Ueda                     herited. The certificate-specific entropy calculation ex-
-                           poses its support and permanence premises. Heat still
-                           requires the named Landauer premise; no additional
-                           physical law is proved.
-  Zurek (2009)             Redundant environmental records motivate an analogy.
-                           The computational pointer conjecture is not a derivation
-                           of quantum Darwinism and supplies no new quantum
-                           prediction.
-  Dwork–Naor;       Hash- Computational pricing motivates a comparison, not an
-  cash                     identification. A2 meters designated certification events.
-                           It supplies neither a hash-search lower bound nor proof
-                           of a prover’s elapsed effort.
-  Smith (2009)             Observation classes connect to information flow. The
-                           checked collisions rule out exact decoding of designated
-                           claims. They do not imply zero leakage, and the cost
-                           premises add an accounting question rather than a new
-                           leakage measure.
-  Katsumata        (2014); Compositional grades are inherited. The trace ledger is
-  graded types             identified with an additive writer cost. The certificate
-                           reading and its observation boundaries are additional
-                           data, not a proof that graded semantics cannot represent
-                           them.
+  Ueda                   herited. The certificate-specific entropy calculation ex-
+                         poses its support and permanence premises. Heat still
+                         requires the named Landauer premise; no additional
+                         physical law is proved.
+  Zurek (2009)           Redundant environmental records motivate an analogy.
+                         The computational pointer conjecture is not a derivation
+                         of quantum Darwinism and supplies no new quantum
+                         prediction.
+  Dwork–Naor;      Hash- Computational pricing motivates a comparison, not an
+  cash                   identification. A2 meters designated certification events.
+                         It supplies neither a hash-search lower bound nor proof
+                         of a prover’s elapsed effort.
+
+
+
+
+                                         19
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
+  Prior work                 What this development contributes
+  Smith (2009)               Observation classes connect to information flow. The
+                             checked collisions rule out exact decoding of designated
+                             claims. They do not imply zero leakage, and the cost
+                             premises add an accounting question rather than a new
+                             leakage measure.
+  Katsumata          (2014); Compositional grades are inherited. The trace ledger is
+  graded types               identified with an additive writer cost. The certificate
+                             reading and its observation boundaries are additional
+                             data, not a proof that graded semantics cannot represent
+                             them.
 
 
 2 How I got here
@@ -901,12 +930,6 @@ I pick a thing up and cannot set it down until I have turned it over enough time
 see how it holds together, and this time it did not let go.
 
 I am not a programmer and I was never formally taught any of this.
-
-
-
-                                          19
-The Thiele Machine                                           Devon Thiele • September 2026
-
 
 I was not trying to build a formally verified CPU.
 
@@ -934,6 +957,11 @@ those intuitions, by feel, throwing out pieces that did not sit right even when 
 not have told you the rule they were breaking. And then, the way I always do, I went
 looking for what I was actually doing, and found out it already had a name. An old
 one. A deep one. What I had been reaching for in the dark was composition. It was
+
+                                           20
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
 category theory, a whole field I had never once heard of, sitting there describing the
 exact shapes I had been shoving around. The moment that landed, the rendering
 pipeline stopped being a rendering pipeline and started turning into a categorical
@@ -954,12 +982,6 @@ writing my own around it, with Z3 (a constraint solver out of Microsoft Research
 wired into the middle.
 
 Then within weeks I found out the engine I had built to draw pictures was general
-
-
-                                           20
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
 enough to run a physics simulation on the exact same primitives, without my rewriting
 any of it. I wrote Newton’s laws as a program in it, half expecting nothing, and it
 ran. I want to be careful about what that was and what it was not, because this is
@@ -984,6 +1006,12 @@ Then I hit a wall, and it is the wall this whole document is about. Z3 could set
 the small questions and fell over on the exact ones I needed answered, which left me
 staring down an infinite hallway of guess-and-test with no proof waiting at the end of
 it, ever. One night, not even working, I was watching a video about Flatland, the old
+
+
+                                           21
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
 story about a creature living in two dimensions who cannot so much as picture a third.
 And it landed on me sideways, all at once, the way the real ones always do. I said
 it out loud: I get it now. There is another axis. Classical computation only ever sees
@@ -1004,12 +1032,6 @@ for a state, a step, a ledger, and a window, and category theory appears nowhere
 that list. It lives on in the build. The Category structure that came together in that
 first week and first ran morphisms correctly at two in the morning on January 22 is, in
 different words and different syntax, the same object vm_graph is in the 51-opcode
-
-
-                                           21
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
 realisation. Finding the different words took fifteen months. I did not write that code,
 not then and not now. I directed the models and refused everything they handed me
 until the morphisms composed the way the shape said they had to. The morphisms in
@@ -1034,6 +1056,12 @@ always came first. The learning came after, dragged along behind the needing bec
 it had no say in the matter.
 
 Large language models were my hands the whole way through, and I want the divi-
+
+
+                                           22
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
 sion of labor exact, because it is the thing people most want to get wrong about work
 like this. The hands had nothing like this to draw on: no reference implementation, no
 prior project to point at. The ideas, the architecture, the direction, the demand that the
@@ -1054,12 +1082,6 @@ under everything after it. I do not write code or math by hand. I do not pick co
 I do not grind through derivations. I have never written a line of code on paper or in
 a notepad in my life. What I do is see, and direct, and refuse. When I take hold of an
 idea it does not stay a point. It opens up. It becomes a shape I can blow up and turn
-
-
-                                           22
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
 over and take apart, lay across another shape to find where the two of them touch,
 run forward and then back to where it started, zoom into until it is the only thing in
 the world and pull back until it is one dot in a field of other dots, and the whole time
@@ -1084,6 +1106,12 @@ not believe it, and that goes double for my own, because my own are the ones I m
 want to wave through. It is how I am built. It is the only way I know to hold a thing
 and actually trust that I am holding it.
 
+
+
+                                           23
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
 So everything in here gets built from the ground up, and not as a courtesy to you. I
 build it because I do not believe I understand a thing until I have built it with my
 own hands, watched it stand up on its own, and tried to knock it over. I built this
@@ -1104,12 +1132,6 @@ most meta move available, for a machine that runs on meta-level reasoning, was t
 put my own name on the cover and take the word back. That’s the whole of it, a meta
 move on a meta machine. It happens to be my dad’s name too, and my wife’s now. So
 I asked them before I did it. They said go ahead.
-
-
-                                           23
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
 
 3 The structural axis: the projection classical models drop
 Why this section exists. This section exists because a renderer I was building in
@@ -1134,6 +1156,11 @@ wrote it down in 1945; every laptop and phone and server you have ever touched i
 one.) It had been faithfully shuffling the bytes my modules and morphisms happened
 to be spelled out in, faithful the way a printing press is faithful to a poem it cannot
 read. When I brought in Z3 to verify the morphism chains the engine was reasoning
+
+                                           24
+The Thiele Machine                                             Devon Thiele • September 2026
+
+
 with, I met the same blindness in different clothes: Z3 saw formulas, true ones, that
 happened to refer to the shapes, and it never once saw a shape. For a long stretch I
 took this for a Z3 problem, a tooling problem, the kind you solve by getting cleverer
@@ -1154,13 +1181,6 @@ this point is that substrate’s correctness conditions, laid out in English you
 and check yourself, with a Coq proof standing next to each one. The Coq is not what
 makes any of it true. It is there because my own eye slides straight over the gaps in
 an argument I am hoping is right, and I wanted a reader that would not let me. This
-
-
-
-                                           24
-The Thiele Machine                                             Devon Thiele • September 2026
-
-
 section is the long-form answer to a question a stuck renderer put to me and would
 not drop until I quit trying to out-clever it and went looking for what was actually
 missing.
@@ -1185,6 +1205,12 @@ pieces and refuses to ask for a sixth. A set of states, and a state can be whate
 you: bits on a tape, words in a register file, cells in memory, it makes no difference to
 the theorem. A set of instructions, the moves the thing can make. A step rule, which
 takes a state and an instruction and hands back the next state. A cost function, which
+
+
+                                             25
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 pins a non-negative integer to each instruction. And a certification predicate, a plain
 yes-or-no on states that says whether a given state counts as certified. That is the entire
 list. The reason I keep leaning on how short it is: any objection that begins “sure, but
@@ -1206,12 +1232,6 @@ does not check your computational class at the door, because it was never about 
 you can compute. It is about what your step is allowed to do for free.
 
 The categorical-separation result in Section 14 is about one specific observable tuple.
-
-
-                                             25
-The Thiele Machine                                                Devon Thiele • September 2026
-
-
 Two states can agree on it and still have different graphs. A full conventional encoding
 could keep the graph, and a decoder could read it back. What the theorem pins down
 is what this particular window throws away.
@@ -1219,35 +1239,6 @@ is what this particular window throws away.
 The abstract theorem needs a designated predicate and the A2 premise. A Turing-
 machine trace isn’t an instance just because it’s a computation. It becomes one when
 somebody supplies the state reading, the step function, the cost, and the proof.
-
-
-            CERTIFY 0             JUMP 1 0               JUMP 1 3
-           (mem, regs, pc)      (mem, regs, pc)        (mem, regs, pc)
-           µ = 1, cert = T      µ = 0, cert = F        µ = 3, cert = F
-
-
-
-
-                                                                           no recovery of
-                                                                            original state
-
-                      bare_observable
-
-
-
-
-                                (mem, regs, pc)
-
-
-
-Figure 2: Different states, same view. Three one-step runs from the same clean start.
-The window shows memory, registers, and the program counter, and all three look
-identical through it; the graph is identical too. What each run established and what
-it paid are not. When more than one state sits behind a view, no function of the view
-gets every original back. You can pick default values to fill the gaps. The defaults
-don’t recover what was really there. The first two are the Coq witness pair abs_A_st
-rict and abs_B_strict_g. The third is abs_B_cost_g, the same jump charged
-3.
 
 3.2 What is canonical, and under which conditions
 Three results, kept apart. universal_nfi_any_substrate puts a floor under
@@ -1265,12 +1256,43 @@ A fixed machine can enforce an invariant just by which transitions it allows. A 
 ulator keeps that invariant when its correctness contract ties the two together. One
 broken simulator doesn’t show that every simulator, or every conventional machine,
 fails to enforce it. And a law protected inside a machine doesn’t automatically vouch
+
+
+
+                                            26
+The Thiele Machine                                                 Devon Thiele • September 2026
+
+
+
+            CERTIFY 0              JUMP 1 0               JUMP 1 3
+           (mem, regs, pc)       (mem, regs, pc)        (mem, regs, pc)
+           µ = 1, cert = T       µ = 0, cert = F        µ = 3, cert = F
+
+
+
+
+                                                                            no recovery of
+                                                                             original state
+
+                      bare_observable
+
+
+
+
+                                 (mem, regs, pc)
+
+
+
+Figure 2: Different states, same view. Three one-step runs from the same clean start.
+The window shows memory, registers, and the program counter, and all three look
+identical through it; the graph is identical too. What each run established and what
+it paid are not. When more than one state sits behind a view, no function of the view
+gets every original back. You can pick default values to fill the gaps. The defaults
+don’t recover what was really there. The first two are the Coq witness pair abs_A_st
+rict and abs_B_strict_g. The third is abs_B_cost_g, the same jump charged
+3.
+
 for a transcript somebody else hands you.
-
-
-                                                  26
-The Thiele Machine                                               Devon Thiele • September 2026
-
 
 Certification is one instance of all this. Any other family of observables, αi : S →
 Xi , needs its own explicit events and cost laws for each guarantee it claims. Piling
@@ -1294,6 +1316,11 @@ intuitive notion of “algorithm.” The machine, as I understand it, is this:
    • A transition table. Given the current state and the symbol under the head, it
      says: write this, move left or right, enter that state.
 
+
+                                                   27
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 That is the entire machine. Nothing else.
 
 Here is what I read as the remarkable thing about this simple machine: it can compute
@@ -1314,13 +1341,6 @@ Your laptop, your phone, every server in every data center: in the usual computa
 sense, they compute no more functions than a Turing machine computes. The dif-
 ferences I found are resource differences. Speed. Space. Energy. Cost. The class of
 computable functions stays the same.
-
-
-
-
-                                              27
-The Thiele Machine                                           Devon Thiele • September 2026
-
 
 3.4 The observation boundary
 A Turing machine’s step only reads the symbol under its head and its control state.
@@ -1346,6 +1366,11 @@ accounting results, each with its conditions stated in its theorem.
 Section 1 framed classical computation as the degenerate fragment of the Thiele sub-
 strate, the corner where the structural axis lies dormant and nothing ever lights it
 up. That picture is four theorems in the kernel. Each one below starts with the plain
+
+                                            28
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
 reading, then gives the formal statement and proof sketch as the models wrote them
 and Coq checked them. Hold the picture up against the proofs and decide for yourself,
 without taking my word for either one and without leaving this page.
@@ -1366,11 +1391,6 @@ sn .vm_certified = s0 .vm_certified.
 Proof. Part (a) unfolds shadow_proj: by definition it extracts exactly those six fields,
 and reflexivity closes it. Part (b) is D3 conservativity (next theorem) iterated over the
 program.
-
-
-                                           28
-The Thiele Machine                                         Devon Thiele • September 2026
-
 
    Plain reading. The classical opcodes are defined by what they don’t touch. They
    may change the projected working fields, including the ledger charge assigned
@@ -1396,6 +1416,11 @@ the cert-address channel on success; CERTIFY writes the top-level certification
 flag; CHSH_TRIAL mutates the witness counters. LASSERT, LJOIN, EMIT, REVEAL,
 PDISCOVER, CHSH_LASSERT, and the four Q1+AB CHSH_LASSERT variants are also
 outside the classical fragment because they carry validation, revelation, discovery,
+
+                                           29
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
 tensor-charge, or mandatory-floor semantics. The D3 proof only needs the forward di-
 rection: for each opcode that is_classical_opcode admits, direct inspection of the
 apply rule leaves vm_graph, csr_cert_addr, and vm_certified fixed. Iterating
@@ -1416,13 +1441,6 @@ over the program list by induction closes the trace-level preservation.
 
 Theorem 3.3 (Thiele simulates Turing). Lift a Turing configuration by keeping the TM
 part and setting µ to zero: lift_config(c) := { th_tm_config = c; th_mu = 0 }.
-
-
-
-                                          29
-The Thiele Machine                                             Devon Thiele • September 2026
-
-
 Then for every fuel n ∈ N, transition table δ, and TM configuration c:
 
       (thiele_run n δ (lift_config c)).th_tm_config = tm_run n δ c.
@@ -1448,7 +1466,13 @@ the induction hypothesis to the next n steps from lift_config(c′ ).
    Fourth, the window really does lose something: some VM states look identical
    from the classical side and differ on the structural axis. Put together, the classical
    shadow is a real quotient of the VM state, the classical fragment respects it once the
-   hidden fields it reads are pinned down, and going down drops real information.
+
+
+                                           30
+The Thiele Machine                                                Devon Thiele • September 2026
+
+
+    hidden fields it reads are pinned down, and going down drops real information.
 
 
 Theorem 3.4 (Degenerate projection theorem (four-part)). The following four proposi-
@@ -1461,18 +1485,13 @@ tions hold simultaneously:
    2. shadow_proj is the quotient map. For all VM states s1 , s2 :
 
         shadow_proj(s1 ) = shadow_proj(s2 )
-                                           ⇐⇒ eq_on_classical_shadow(s1 , s2 ).
+                                             ⇐⇒ eq_on_classical_shadow(s1 , s2 ).
 
    3. Classical traces respect the compatibility relation. For every classical program prog
       and every two VM states s1 , s2 with shadow_proj(s1 ) = shadow_proj(s2 ) and
       s1 .vm_graph = s2 .vm_graph and s1 .vm_csrs = s2 .vm_csrs:
 
              shadow_proj(run(prog, s1 )) = shadow_proj(run(prog, s2 )).
-
-
-                                             30
-The Thiele Machine                                                Devon Thiele • September 2026
-
 
       Shadow agreement alone is not a strong enough hypothesis.                   TENSOR_GET
       and MORPH_GET, both classical opcodes, read vm_graph into a visible register;
@@ -1496,7 +1515,14 @@ Proof. The theorem is four lemmas stitched into one conjunction.
      MORPH_GET/TENSOR_GET and heap operations can read those hidden fields.
      Under that compatibility relation, the two output shadows agree. This is preser-
      vation of a specified relation, not a claim that shadow equality alone commutes
-     with execution.
+
+
+
+                                              31
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
+      with execution.
    • Part (4) is shadow_strictly_lossy. The Categorical Separation construction
      gives the witness: s1 has one identity morphism in pg_morphisms; s2 has none.
      The six projected fields agree. The morphism lists do not.
@@ -1516,13 +1542,7 @@ proved with zero axioms and no admits, fully constructively.
 The projection in this subsection is the four-field map forget : VMState →
 TMSnapshot, keeping (pc, µ, regs, mem). It is already forgetful, but it still retains µ.
 For the cost-ledger separation, the stricter three-field projection bare_observable
-
-
-                                              31
-The Thiele Machine                                          Devon Thiele • September 2026
-
-
-drops µ as well, keeping only (pc, regs, mem):          the observable the standard
+drops µ as well, keeping only (pc, regs, mem): the observable the standard
 complexity-theory cost model sees.
 
 This document uses several distinct execution models and several distinct projections.
@@ -1534,7 +1554,7 @@ shadow,” or “simulation”; the domain is not always the same one.
 
 
 
-                                          32
+                                            32
 The Thiele Machine                                             Devon Thiele • September 2026
 
 
@@ -6125,11 +6145,11 @@ flips happen. A2 itself allows larger charges. And neither one vouches for a rec
 from outside without some evidence to back it.
 
 17 Five minimal models inspired by other disciplines
-Same law, five other places it shows up. The abstract records leave the kind of state
-and instruction open, so you can drop in something that looks nothing like this VM.
-Here are five small models, each borrowed from a field that got to the idea on its own.
-Coq checks each model and what follows from it. Whether a real deployed protocol
-behaves like its model is a separate claim, and it needs its own evidence.
+Five other fields need a commitment to stick. The abstract records leave the kind of
+state and instruction open, so you can drop in something that looks nothing like this
+VM. Here are five small models, each borrowed from one of those fields. Coq checks
+each model and what follows from it. Whether a real deployed protocol behaves like
+its model is a separate claim, and it needs its own evidence.
 
 
 
@@ -6139,12 +6159,14 @@ behaves like its model is a separate claim, and it needs its own evidence.
 
 Ordinary machines can do all of this. That is the point of the section. Blockchains, gas
 meters, attestation, transparency logs, and proof-carrying code all run on conventional
-hardware, and each one puts a cost or a required piece of evidence on a commitment.
-Each field got there separately, in its own vocabulary, and built the rule on top of a
-machine whose account of computation had no place for it. The claim of this book is
-about that account. It says the account of computation should carry a priced commit-
-ment, so the next field doesn’t have to build it again. It does not say a machine can’t
-carry one.
+hardware. Four of them keep records that are meant to last; proof-carrying code does
+not. What the four share is permanence, not a price on the write. Read against their
+actual specifications (Section 17.7), only one prices writing its record, and it refunds
+the write when the record is taken back before it settles. The others hold their records
+in place by pricing reversal or by building them so they can’t be undone. The claim of
+this book is about the account of computation: it should carry the record and its price,
+so the next field doesn’t have to build them again. It does not say every field already
+prices the write, and it does not say a machine can’t carry one.
 
 17.1 Proof-of-stake finality
 Stake it or it doesn’t count. The model has a yes/no finalized flag, and finalizing
@@ -6179,13 +6201,14 @@ itment concerns a committing step charged zero. overcharge_breaks_exact
 ness concerns the no-overcharge condition. The VM has an exact state-dependent
 commitment pricer, thiele_vm_commit_pricing_is_exact, bounded above by
 its full ledger schedule via thiele_unit_price_lower_bounds_mu. Repeated
-CERTIFY instructions illustrate the distinction: each pays the instruction floor, while
-only a false-to-true transition contributes to the flip counter.
 
 
                                           124
 The Thiele Machine                                          Devon Thiele • September 2026
 
+
+CERTIFY instructions illustrate the distinction: each pays the instruction floor, while
+only a false-to-true transition contributes to the flip counter.
 
 Falsifier: a schedule satisfying floor and no-overcharge whose charging predicate
 differs from the commitment predicate on some reachable step.
@@ -6229,14 +6252,15 @@ contract. abstract_bare_verifier_impossible rules out the bare verifier for
 the VM claim, and abstract_mu_collision_witness is the colliding pair. The
 pair has a split view’s shape; an RFC split view is two inconsistent log histories, and
 that is not what the pair is. Saying these fields are a real certificate-transparency
-deployment would take its own implementation and security argument.
-
-Falsifier: a sound and complete log-free verifier with the same soundness target.
 
 
                                           125
 The Thiele Machine                                          Devon Thiele • September 2026
 
+
+deployment would take its own implementation and security argument.
+
+Falsifier: a sound and complete log-free verifier with the same soundness target.
 
 17.5 Proof-carrying verification
 Carry the proof along. The proof-carrying model puts evidence in a transcript field
@@ -6278,18 +6302,80 @@ Each of the five proves what its own record says. Reading any of them as a claim
 about a deployed system takes evidence from that system. And none of them shows
 certification is the one event every model has to price. That question is still open.
 
+17.7 Five specifications, read through the record axis
+The models above are mine. Here are the specifications themselves, read with three
+questions: what is the record, what keeps it permanent, and where does a price sit. A
+
+
+                                           126
+The Thiele Machine                                             Devon Thiele • September 2026
+
+
+price can sit at three levels. It can be economic, a fee or a deposit the protocol takes. It
+can be cryptographic, a reversal made infeasible by a hardness assumption. Or it can
+be physical, energy spent under Landauer’s principle.
+
+
+ Specification       Record           What keeps it   Where a price sits, and Checked in Coq
+                                                      its level
+ Ethereum,           a     nonzero    persistence     writing a slot that stays persistent_wri
+ Prague execu-       storage slot     across transac- set costs at least 20000 te_priced, revo
+ tion spec                            tions           gas; set and cleared ked_write_near
+                                                      in one transaction costs ly_free
+                                                      2300; economic
+ Casper FFG          a    finalized   slashing        reversal:     conflicting accountable_sa
+                     block                            finalizations slash a fety, conflicti
+                                                      “1/3” set, and finalizing ng_records_are
+                                                      slashes nobody; eco- _priced, finali
+                                                      nomic                     zation_without
+                                                                                _slashing
+ TPM 2.0, Li- an extended             hash chaining   none in the specifica- quote_cannot_a
+ brary Version PCR                                    tion; reversal is crypto- ttest_unmeasur
+ 185                                                  graphically infeasible    ed_state
+ Certificate    a logged cer-         an     append- none in the specifica- none
+ Transparency,  tificate              only, audited tion; reversal is crypto-
+ RFC 9162                             log             graphically infeasible
+ Proof-carrying a      checked        nothing         none                      none
+ code (Necula)  proof
+
+Ethereum is the one that prices the write. Even there the price holds only for a record
+that outlives the transaction. Write a slot and clear it before the transaction ends, and
+the refund gives nearly all of it back. That is the finite-hardware result’s shape again:
+the write that can be revoked is the one that goes free.
+
+Casper prices the other side. Finalizing a block slashes nobody. Reversing it does: two
+finalized blocks on different branches mean a “1/3” set of validators broke a slashing
+rule. That is accountable safety, ported here from the Casper verification team’s Coq
+proof. It protects what A2 protects, permanence, from the opposite end. It is not an
+instance of A2, and it is not a counterexample to it. It is a second way to hold a record
+in place.
+
+TPM and CT price nothing in their specifications. A hash chain or an append-only log
+stays put because undoing it is infeasible, which is a cryptographic guarantee, not an
+exact one. There is a physical cost underneath: a register that exactly kept a permanent
+record on finite hardware would have to merge states (Section 9.1). The specifications
+don’t price it.
+
+Proof-carrying code keeps no permanent record and prices nothing. It is outside the
+family.
+
+
+
+                                              127
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
+   Plain reading. All five need their commitments to count. Four keep permanent
+   records, and they hold them in place three ways: a price on the write, a price on
+   reversal, or a structure that can’t be undone. Only one matches A2’s exact form.
+
+Whether permanence is always paid for at some level is a separate question. It is open.
+
 18 Binary Game Statistics: where a Priced Check Meets the NPA Boundary
 This section is about one build and one bound. The abstract model has no CHSH step;
 the VM has one, realised with two opcodes, and it is here as a stress test of the cost
 law against a boundary I did not write. CHSH_TRIAL records outcomes of a 2-player
 binary game into hardware witness counters. CHSH_LASSERT refuses to advance
-
-
-
-                                           126
-The Thiele Machine                                          Devon Thiele • September 2026
-
-
 normally unless those counters satisfy a Z-arithmetic check.
 
 The enforcement doesn’t care who built the wall. CHSH_LASSERT refuses any tally
@@ -6323,6 +6409,12 @@ PSD of the specified zero-marginal, zero-within-party-moment matrix by column_c
 ontractive_iff_npa_psd. End-to-end: a successful CHSH_LASSERT step entails
 PSD of that specified matrix on the witness-derived correlators, by chsh_lassert
 _no_trap_implies_npa_psd. No quantum-mechanical premises live in the Coq
+
+
+                                          128
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 dependency tree: no Hilbert space, no operators, no observables. The identification of
 that PSD condition with quantum-realizable correlations lives in the NPA framework
 itself (Navascués–Pironio–Acín 2007, 2008). I cite it. I do not derive it. The kernel’s
@@ -6335,11 +6427,6 @@ pass stays on the machine’s side and never mentions NPA: the CHSH_TRIAL opcode
 what its witness counters cost, the integer check column_contractive_check_w
 itness that CHSH_LASSERT runs on those counters, and the proof that the integer
 check is sound for its real-number version. What the step checks at CHSH_LASSERT
-
-                                          127
-The Thiele Machine                                            Devon Thiele • September 2026
-
-
 comes down to three polynomial inequalities on cleared integer ratios of the counters.
 The ledger charges for running that check; it does not produce the check. The test is
 defined inside the step rule and checked by the kernel without looking anything up in
@@ -6372,46 +6459,33 @@ Why 75% is the classical ceiling. Before the game, Alice and Bob can agree on an
 deterministic strategy: a function a( x, λ) for Alice and b(y, λ) for Bob, where λ is any
 shared randomness they agree on in advance. Once the game starts, no communica-
 tion. One assumption, said out loud: the referee asks the four question pairs equally
-often. That is where the 75% comes from. Drop it and the exact statement is only that
-every deterministic strategy loses at least one of the four pairs.
 
-Fix any deterministic strategy and freeze λ. Then Alice has two predetermined an-
-swers, a0 and a1 , and Bob has two predetermined answers, b0 and b1 . Winning all four
-question combinations would require:
-
-
-                a0 ⊕ b0 = 0,   a0 ⊕ b1 = 0,   a1 ⊕ b0 = 0,    a1 ⊕ b1 = 1.
-
-Now XOR the four left sides. Every variable appears twice, so the total is 0. XOR
-the four right sides and the total is 1. That is impossible. So every deterministic local
-
-
-                                           128
-The Thiele Machine                                                                 Devon Thiele • September 2026
+                                           129
+The Thiele Machine                                                                  Devon Thiele • September 2026
 
 
 
-                                       x            Referee                se
-                                                                              tt
-                                  ng                                               in
-                               tti                                                      gy
+                                       x             Referee                se
+                                                                               tt
+                                  ng                                                in
+                               tti                                                       gy
                              se
 
 
 
 
-                     Alice                                                                   Bob
-                                                    shared λ
-                 separated room                                                    separated room
+                     Alice                                                                    Bob
+                                                     shared λ
+                 separated room                                                     separated room
 
 
 
 
-             outcome a ∈ {0, 1}                                           outcome b ∈ {0, 1}
-                                                 no communication
-                                                  during the game
+             outcome a ∈ {0, 1}                                            outcome b ∈ {0, 1}
+                                                  no communication
+                                                   during the game
 
-                                           Win condition: a ⊕ b = x ∧ y
+                                            Win condition: a ⊕ b = x ∧ y
 
 
 Figure 7: The CHSH setup. The referee distributes settings x, y; Alice and Bob each
@@ -6422,6 +6496,18 @@ wire, recoded as ±1 for the correlators). The four correlators Exy = ⟨ ab⟩,
 column-contractivity / NPA condition.
 
 
+often. That is where the 75% comes from. Drop it and the exact statement is only that
+every deterministic strategy loses at least one of the four pairs.
+
+Fix any deterministic strategy and freeze λ. Then Alice has two predetermined an-
+swers, a0 and a1 , and Bob has two predetermined answers, b0 and b1 . Winning all four
+question combinations would require:
+
+
+                a0 ⊕ b0 = 0,               a0 ⊕ b1 = 0,    a1 ⊕ b0 = 0,         a1 ⊕ b1 = 1.
+
+Now XOR the four left sides. Every variable appears twice, so the total is 0. XOR
+the four right sides and the total is 1. That is impossible. So every deterministic local
 strategy loses at least one of the four cases, and the best deterministic strategy wins at
 most 3 out of 4 question combinations.
 
@@ -6435,6 +6521,12 @@ building, quietly closing the last door.
 So under that uniform-setting contract the classical ceiling is 3/4, seventy-five percent,
 and not a hair more. And I do not want you to take that on the strength of an XOR trick
 on a page; the reference kernel pins it down both ways and leaves nothing Admitted.
+
+
+                                                        130
+The Thiele Machine                                                  Devon Thiele • September 2026
+
+
 One executable trace, built from nothing but PNEW, PSPLIT, and CHSH_TRIAL and
 never spending a cent of the cost ledger (µ = 0), walks right up to 75% and touches it.
 Then local_box_CHSH_bound closes the lid from the other side: no local strategy,
@@ -6444,13 +6536,6 @@ tallies it likes into the counters at µ = 0, the way anyone can write a fake sc
 the theorem is about what local play can earn, and the certification step that would
 stand behind a scoreboard is the priced one. The achievable and the unbeatable land
 on the same number, which is the only kind of ceiling I trust.
-
-
-
-
-                                                       129
-The Thiele Machine                                                  Devon Thiele • September 2026
-
 
 18.2 The CHSH inequality: where it comes from
 Now here is what took me a while to understand: why is there a specific algebraic
@@ -6488,6 +6573,12 @@ the whole thing below 2. The inequality |S| ≤ 2 is a pure algebraic consequenc
 outputs being ±1 and being determined locally.
 
 None of that lives only in my head. The argument I just walked you through is the
+
+
+                                               131
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
 English proof; the formal check that I did not fool myself anywhere is local_box_CH
 SH_bound, which says the plain thing in symbols: for any factorizable box B, |S( B)| ≤
 2, with nothing left Admitted. And a bound from above is only half an honest claim.
@@ -6495,15 +6586,7 @@ classical_bound_achieved hands over the other half, a constructive witness,
 an executable trace at µ = 0 that actually reaches |S| = 2 rather than just respecting
 it. Put the two together and the ceiling is not loose: max{|S| : B factorizable} = 2,
 exactly, no slack to argue about, and a µ = 0 trace reaches it.
-
-
-
-
-                                               130
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
-                             √
+                                    √
 18.3 The quantum bound: why 2 2?
 Now hand the same game to quantum mechanics and the ceiling lifts. Not to anything
                                                              √
@@ -6543,10 +6626,16 @@ the shape of the check. What no physics does is prove the bound; algebra does th
 
 A note on the rational approximation in the kernel. The kernel names the ratio-
 nal threshold 5657/2000 ≈ 2.8285 for exact rational comparisons (you can verify
-                                                               √      √
+                                                         √       √
 (5657/2000)2 = 32,001,649/4,000,000 > 8, so 5657/2000 > 8 = 2 2). The real-
-                                       √
+                                  √
 valued quantum-model bridge uses 8 directly. Those are two different proof sur-
+
+
+                                           132
+The Thiele Machine                                                  Devon Thiele • September 2026
+
+
 faces, and I keep them apart on purpose: the rational one so a machine can check it in
 exact arithmetic, the real one so the quantum bridge has something to bite on.
 
@@ -6555,13 +6644,7 @@ exact arithmetic, the real one so the quantum bridge has something to bite on.
    Plain reading. Factor the expression. Two terms. One has B0 + B1 , the other has
    B0 − B1 . With B0 , B1 ∈ {±1}, only one can be nonzero at a time, and the nonzero
    one is ±2. Multiply by | A| ≤ 1. The whole expression caps at 2. Average over λ,
-
-
-                                           131
-The Thiele Machine                                                  Devon Thiele • September 2026
-
-
-    you get |S| ≤ 2. To make it 2, just have both players always answer 1.
+   you get |S| ≤ 2. To make it 2, just have both players always answer 1.
 
 
 Theorem 18.1 (Classical CHSH Bound). For population correlations with a setting-
@@ -6598,6 +6681,13 @@ population-level correlation of any local hidden variable model (the term is bui
 a classical-physics-style theory where outcomes come from shared randomness λ plus local
 settings). This is a claim about the idealized correlator, the value an unbounded run of trials at
 each setting converges to. It is not yet a claim about any one finite tally of recorded trials; that
+
+
+
+                                                133
+The Thiele Machine                                             Devon Thiele • September 2026
+
+
 distinction is spelled out below.
 
 Proof. Contrapositive of the Classical CHSH Bound. Any LHV model produces a
@@ -6605,11 +6695,6 @@ locally factorizable correlation by definition: each player’s outcome is a fun
 their setting and the shared λ. The theorem above says all such correlations satisfy
 |S| ≤ 2. So an idealized correlation with S > 2 cannot have arisen from any LHV
 model.
-
-
-
-                                                132
-The Thiele Machine                                             Devon Thiele • September 2026
 
 
 Remark 18.1. A finite scoreboard is not the population correlation.                      A
@@ -6650,6 +6735,12 @@ PSD of the specified zero-marginal, zero-within-party-moment completion, their C
                √        √
 satisfies |S| ≤ 8 = 2 2.
 
+
+
+                                            134
+The Thiele Machine                                              Devon Thiele • September 2026
+
+
 Proof. The fixed-matrix biconditional gives column contractivity. It bounds each row
 norm of E by one. Apply Cauchy–Schwarz to S = ( E00 + E01 ) + ( E10 − E11 ): each
                                       √                                       √
@@ -6658,17 +6749,11 @@ proof uses the specified matrix, without an identification with arbitrary zero-m
 operator models.
 
    Plain reading. Two row inequalities, one six-square identity, done. That is the
-                                                        √
+                                                           √
    whole proof. No hidden parameters. No physics. The 2 2 falls out of the algebra;
-
-
-                                            133
-The Thiele Machine                                              Devon Thiele • September 2026
-
-
-    nobody put it in. What the theorem covers is four real numbers under two row
-    constraints. Whether some experiment’s correlators satisfy those constraints is a
-    different question, and this theorem does not touch it.
+   nobody put it in. What the theorem covers is four real numbers under two row
+   constraints. Whether some experiment’s correlators satisfy those constraints is a
+   different question, and this theorem does not touch it.
 
 
 Theorem 18.4 (General algebraic Tsirelson bound). For every real quadruple satisfying the
@@ -6690,8 +6775,8 @@ without floating-point. No physics premises. Pure polynomial arithmetic. The Tsi
 Proof. The proof has two rows, not four unspecified 3 × 3-minor constraints. First add
                                      2 + E2 + E2 + E2 ≤ 2. Then cauchy_schwar
 the two row inequalities to obtain E00     01    10     11
-                                        2      2
-z_chsh gives the explicit identity 4 ∑ Exy − S ≥ 0, a sum of six squares. Combining
+                                        2 − S2 ≥ 0, a sum of six squares. Combining
+z_chsh gives the explicit identity 4 ∑ Exy
 the two facts yields S2 ≤ 8. No parameters t, s occur in this theorem or its proof.
                                                                    √
 The rational approximation corollary uses 5657/2000 in place of 8 to keep the com-
@@ -6709,6 +6794,12 @@ consistent locally deterministic strategy here is an honest, almost insultingly 
 thing: four bits, Alice’s answer for each of her two settings and Bob’s for each of his,
 fixed in advance with no peeking. Pin that down and you get a separable coupling,
 by which I mean one that hands each setting exactly one outcome type, no hedging,
+
+
+                                             135
+The Thiele Machine                                             Devon Thiele • September 2026
+
+
 no mixing. The predicate WCLocallyConsistent additionally requires every one
 of the four setting buckets to be nonempty, and under that premise the kernel proves
 |S| ≤ 2. So read it the other way, which is the way that bites: if a finite tally has S > 2,
@@ -6717,12 +6808,6 @@ that explains that tally. It does not rule out a randomized local model that red
 hidden variable every trial; the finite-score remark above shows one landing past 2
 by luck. The wall is not a fact about statistics that we then dress up in structure; it is
 already there in the structure, and the statistics are just where you happen to bump
-
-
-                                             134
-The Thiele Machine                                             Devon Thiele • September 2026
-
-
 into it first. Going from one finite tally to a claim about the population takes a separate
 sampling argument.
 
@@ -6759,6 +6844,11 @@ few lines walk through exactly where it gets forced.
 So here is where that gets concrete. A single CHSH_TRIAL drops a few setting bits
 and outcome bits into the witness counters, and the cross-correlations ⟨ A x By ⟩ are
 nothing but those tallies divided through. They are a record of what happened, and
+
+                                            136
+The Thiele Machine                                             Devon Thiele • September 2026
+
+
 the ledger has no opinion about a record. The accounting only wakes up when you
 point at one of those numbers and say it backs a particular claim. That is not a count
 any more. It is a stance, and a stance is the one thing the ledger knows how to charge
@@ -6767,12 +6857,6 @@ underneath it.
 
 And this part is not a hope, it is settled. There is exactly one instruction in the reference
 kernel that can push csr_cert_addr off zero, and that is MORPH_ASSERT, and
-
-
-                                            135
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
 even then only when the morphism genuinely exists and the property string it carries
 is more than an empty NUL byte. So the door to attestation has a single key. Run that
 backward and it pins the trace: anything ending in supra_cert had to have walked
@@ -6811,6 +6895,11 @@ the determinant (Section A) is non-negative. For larger matrices, the PSD condit
 generalises: every principal submatrix (every square subblock you get by picking
 some rows-and-columns at the same indices, see Section A) must also be PSD.
 
+
+                                            137
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
 Why PSD? In the NPA picture, PSD is the condition for a matrix to be a table of genuine
 inner products, which is what correlations from a quantum state are. NPA uses PSD
 of a specific 5 × 5 matrix, built from the four CHSH correlators, as its level-1 condition
@@ -6818,12 +6907,6 @@ for quantum realizability. That is the physics reading, and it comes from the NP
 papers. The proofs here don’t supply it. What Coq checks is the matrix: its inequalities
 and what follows from them. No Hilbert space, no state, no observables. Two scope
 words are load-bearing. For this pinned zero-marginal matrix the PSD test is exact for
-
-
-                                           136
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
 its slice. The general level-1 NPA test, marginals free, is a looser relaxation, and the
 hierarchy tightens it at higher levels (Section 18.7).
 
@@ -6848,7 +6931,7 @@ expected value of Oi O j . In Coq they are just positions in a real matrix. Zero
 means the four one-party slots and the two within-party slots are set to zero, which
 leaves the CHSH correlators in the cross positions.
 
-                                                 
+                                                 
                                 1 0    0   0   0
                               0 1     0 E00 E01 
                                                  
@@ -6869,18 +6952,9 @@ diagonal entries Exy are the CHSH correlators with Alice’s setting x and Bob�
 (Section A). Everything else is zero because this is the zero-marginal, zero-within-party
 slice.
 
-18.6.2 Where the three conditions come from
-The three column-contractivity conditions come directly from PSD of this matrix. Here
-is the derivation.
-
-                  2 − E2 ≥ 0
-Condition 1: 1 − E00   10
-
-Take the 3 × 3 submatrix from rows and columns {1, 2, 3} of the 5 × 5 moment matrix
 
 
-
-                                           137
+                                           138
 The Thiele Machine                                                                                Devon Thiele • September 2026
 
 
@@ -6913,6 +6987,14 @@ constrains rather than the exact cells; panels 1 and 3 are contiguous and highli
 exactly.
 
 
+18.6.2 Where the three conditions come from
+The three column-contractivity conditions come directly from PSD of this matrix. Here
+is the derivation.
+
+                  2 − E2 ≥ 0
+Condition 1: 1 − E00   10
+
+Take the 3 × 3 submatrix from rows and columns {1, 2, 3} of the 5 × 5 moment matrix
 (the rows and columns indexed by A0 , A1 , B0 ):
                                                                  
                                                         1   0 E00
@@ -6935,13 +7017,20 @@ condition 1.
                   2 − E2 ≥ 0
 Condition 2: 1 − E01   11
 
-Take the 3×3 submatrix from rows and columns {1, 2, 4} (the A0 , A1 , B1 block):
-                                                                 
-                                                        1   0 E01
-                                                      0    1 E11 
-                                                                 
 
-                                                       E01 E11 1
+
+
+                                                                   139
+The Thiele Machine                                                      Devon Thiele • September 2026
+
+
+Take the 3×3 submatrix from rows and columns {1, 2, 4} (the A0 , A1 , B1 block):
+                                               
+                                      1   0 E01
+                                    0    1 E11 
+                                               
+
+                                     E01 E11 1
 
                                      2 − E2 ≥ 0. That is condition 2.
 Same calculation: determinant = 1 − E01   11
@@ -6950,11 +7039,6 @@ Same calculation: determinant = 1 − E01   11
 Condition 3: (1 − E00   10       01   11       00 01 10 11
 
 This comes from the 4 × 4 submatrix at rows and columns {1, 2, 3, 4}. That submatrix
-
-                                                                   138
-The Thiele Machine                                                      Devon Thiele • September 2026
-
-
 has a block structure (an arrangement where the entries are themselves 2 × 2 matrices):
                                                             !
                                              I2        E
@@ -7001,6 +7085,12 @@ conditions 1 and 2 again) and the determinant must be non-negative, AC − B2 �
 That last inequality is condition 3.
 
 That is where the three conditions come from: two from 3×3 submatrices, one from the
+
+
+                                                 140
+The Thiele Machine                                               Devon Thiele • September 2026
+
+
 Schur complement of the 4×4 block, each one a principal minor forced non-negative by
 M being PSD. That derivation runs necessity, PSD of M implies the three conditions.
 It is not yet sufficiency, and checking these particular minors does not by itself certify
@@ -7011,14 +7101,6 @@ The forward direction, directly. Write M in block form as 1 ⊕                 
                                                                   E T I2
 entry is 1, the rest of row and column 0 are 0 because the marginals vanish, and the
 remaining 4 × 4 block is exactly the one just computed. For v = (v0 , x, y) with v0 ∈ R
-
-
-
-
-                                                 139
-The Thiele Machine                                               Devon Thiele • September 2026
-
-
 and x, y ∈ R2 ,
 
      v T Mv = v20 + x T x + 2x T Ey + y T y = v20 + ∥ x + Ey∥2 + y T ( I2 − E T E)y,
@@ -7054,6 +7136,11 @@ specified zero-marginal, zero-within-party-moment completion. Exactly. Not appro
 mately. Not “a complete test for physical quantum behavior.” The name describes the
 test: membership in the fixed algebraic completion used by zero_marginal_npa.
 Four ratios can satisfy that test whether their counters came from trials or were written
+
+                                             141
+The Thiele Machine                                                Devon Thiele • September 2026
+
+
 directly. A passing gate earns the algebraic membership claim. It does not establish
 the history of those counters. Nor does it build a quantum state and observables
 for the tuple. The biconditional is pure polynomial arithmetic with no project-local
@@ -7062,12 +7149,6 @@ only Coq’s standard classical-reals and functional-extensionality stdlib axiom
 sig_not_dec, sig_forall_dec, and functional_extensionality_dep, the
 same stdlib families Section 18.7 discloses for the Q1+AB theorems; “zero axioms” in
 this section means zero project-local, in the sense of Section 23):
-
-
-
-                                             140
-The Thiele Machine                                                Devon Thiele • September 2026
-
 
    Plain reading. Both directions are pure algebra on the 5 × 5 matrix. Forward: each
    of the three column-contractivity conditions is a principal-submatrix or Schur-
@@ -7105,9 +7186,15 @@ Specialize v T Mv ≥ 0 at the vector
              v(y0 , y1 ) := 0, −( E00 y0 + E01 y1 ), −( E10 y0 + E11 y1 ), y0 , y1
 
 for free y0 , y1 ∈ R. Computing v T Mv using the explicit moment-matrix entries and
+
+
+                                              142
+The Thiele Machine                                               Devon Thiele • September 2026
+
+
 collecting terms gives the quadratic form
 
-                      Ay20 − 2By0 y1 + Cy21 ≥ 0       for all y0 , y1 ∈ R,
+                      Ay20 − 2By0 y1 + Cy21 ≥ 0      for all y0 , y1 ∈ R,
 
 where A = 1 − E002 − E2 , B = E E + E E , C = 1 − E2 − E2 . By the quadratic-
                        10       00 01      10 11               01    11
@@ -7115,13 +7202,6 @@ non-negative-discriminant lemma (quadratic_nonneg_discriminant), this is
 equivalent to: A ≥ 0, C ≥ 0, and B2 ≤ AC. The three conditions are exactly the three
 column-contractivity conditions. Specializing further at (y0 , y1 ) = (1, 0) and (0, 1)
 recovers conditions 1 and 2 directly; the general (y0 , y1 ) case yields condition 3. The
-
-
-
-                                              141
-The Thiele Machine                                               Devon Thiele • September 2026
-
-
 Coq witness is npa_psd_implies_column_contractive.
 
 The left side is three polynomial inequalities (column contractivity of the specified
@@ -7160,10 +7240,16 @@ What this means for the hierarchy of correlations:
    • Classical local hidden variables: |S| ≤ 2.
    • Slice-coherent = realizable by the specified zero-marginal, zero-within-party-
      moment completion (biconditional, both directions, no project-local axioms).
-                                                         √
+                                                       √
      Every slice-coherent correlation satisfies |S| ≤ 2 2, but NOT every correlation
-                 √
-     with |S| ≤ 2 2 is slice-coherent: (1, 0, 1, 0) has |S| = 2 but fails condition 1.
+
+
+                                             143
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
+                  √
+      with |S| ≤ 2 2 is slice-coherent: (1, 0, 1, 0) has |S| = 2 but fails condition 1.
    • No-signaling: no constraint beyond | Eab | ≤ 1.
                                                                     2 − E2 =
    • PR box (E00 = E01 = E10 = 1, E11 = −1): condition 1 gives 1 − E00   10
@@ -7173,15 +7259,9 @@ What this means for the hierarchy of correlations:
      proves slice-coherent ⇒ |S|2 ≤ 8 (i.e., |S| ≤ 2 2) directly from column-
      contractivity. The chain factors through PSD: column-contractive ⇒ NPA-PSD
      ⇒ row bounds ⇒ Tsirelson, and the row-bounds step is tsirelson_from
-
-
-                                             142
-The Thiele Machine                                            Devon Thiele • September 2026
-
-
-                                                   √
-      _row_bounds. The contrapositive (|S| > 2 2 ⇒ not slice-coherent) follows
-      immediately. The converse is false and not proved.
+                                                  √
+     _row_bounds. The contrapositive (|S| > 2 2 ⇒ not slice-coherent) follows
+     immediately. The converse is false and not proved.
 
 The gate checks membership in a specified algebraic set. That is the claim it has to earn.
 Run the sixteen deterministic local strategies through it: every one of them has all
@@ -7214,6 +7294,12 @@ certification bit: by itself it is just a bit. A generic CERTIFY can set vm_cert
 := true and never once glance at the witness counters that are supposed to earn
 it. That is a rubber stamp with the ink already on it, and a rubber stamp is exactly
 what the whole discipline is built to forbid. So the certification channel cannot lean
+
+
+                                           144
+The Thiele Machine                                                Devon Thiele • September 2026
+
+
 on CERTIFY for this discipline; it needs an opcode that does the looking, that reads
 the evidence before it is allowed to say the word. That opcode is CHSH_LASSERT, and
 it ties slice coherence as column-contractivity to the certification channel by refusing
@@ -7223,12 +7309,6 @@ arithmetic conditions column_contractive_check_witness in Z-arithmetic, no
 real and no rational ever evaluated at runtime, because the moment you let floating
 point near a soundness check you have smuggled in a place for the answer to drift.
 If the counts satisfy the three conditions, the program counter advances and the run
-
-
-                                           143
-The Thiele Machine                                                Devon Thiele • September 2026
-
-
 goes on. If they do not, there is no negotiating: the step traps to LASSERT_TRAP_PC
 and latches vm_err, and the incoherent certification never happens. Two theorems
 close the chain to NPA-PSD; both are stated and proved below.
@@ -7265,6 +7345,12 @@ plays no role here, because a passing check already guarantees no setting pair i
 
 Proof. The four positivity conjuncts are checked first, independently of the three poly-
 nomial conditions: the boolean function returns false the moment any Nxy = 0,
+
+
+                                              145
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
 before the polynomial terms are even compared. A true result therefore rules out ev-
 ery empty setting pair by construction. Take the record wc_same00 = wc_same01 = 1
 with the other six counters zero: N10 = N11 = 0, so the positivity conjuncts for settings
@@ -7276,17 +7362,9 @@ gives polynomial inequalities in the non-negative integer counts:
 
                        2 − E2 ≥ 0) becomes the inequality N 2 · N 2 − (wc_same −
    • Condition 1 (1 − E00   10                             00    10           00
-
-
-
-                                              144
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
-      wc_diff00 )2 N10
-                     2 − (wc_same − wc_diff )2 N 2 ≥ 0 after substituting E
-                                 10        10   00                          xy
-      and clearing denominators.
+                 2  2                              2 2
+     wc_diff00 ) N10 − (wc_same10 − wc_diff10 ) N00 ≥ 0 after substituting Exy
+     and clearing denominators.
    • Condition 2 is the analogous inequality with the E01 , E11 correlators.
    • Condition 3 (AC ≥ B2 in the notation of Section 18) becomes a polynomial in-
      equality of degree 8 in the integer counts: A’s numerator and C’s numerator are
@@ -7322,6 +7400,11 @@ matrix M built from the witness-derived correlators Exy of s.vm_witness is posit
 definite.
 
 Proof. By the apply rule for instr_chsh_lassert: the step branches on column_
+
+                                           146
+The Thiele Machine                                               Devon Thiele • September 2026
+
+
 contractive_check_witness run on s.vm_witness. If the check returns false,
 the step traps to LASSERT_TRAP_PC and sets vm_err = true. If the check returns
 true, the step advances PC by 1 and leaves vm_err = false. By hypothesis, s′
@@ -7332,12 +7415,6 @@ derived from s.vm_witness satisfy the three real-valued column-contractivity con
 tions.
 
 Compose with the forward direction of column_contractive_iff_npa_psd (the
-
-
-                                           145
-The Thiele Machine                                               Devon Thiele • September 2026
-
-
 biconditional proved in Section 18): column-contractivity implies the NPA moment
 matrix M is positive semidefinite.
 
@@ -7372,6 +7449,13 @@ ments. This fixed slice excludes some classical correlators. Allowing the within
 party moments to vary gives the full correlator elliptope developed in Section 18.8.
 The Q1+AB checks instead validate a specified 9 × 9 moment matrix on the ba-
 sis { I, A0 , A1 , B0 , B1 , A0 B0 , A0 B1 , A1 B0 , A1 B1 } with supplied higher moments. Their
+
+
+
+                                             147
+The Thiele Machine                                             Devon Thiele • September 2026
+
+
 soundness theorem establishes PSD for that matrix. For complete behaviors, in-
 cluding marginals, finite-level NPA feasibility is a relaxation: Chaturvedi (2026,
 arXiv:2607.14569) proves that no fixed finite level describes the whole quantum behav-
@@ -7382,12 +7466,6 @@ one dimension-polymorphic PSD predicate evaluated at two sizes: top index 4 for
 the 5 × 5, top index 8 for the 9 × 9, the same fold either way. The level-1 CHSH
 biconditional from Section 18 is the dimension-5 instance of it, recovered as a corollary
 that imports the original 5 × 5 result as a black box and adds no axioms over it (colum
-
-
-                                             146
-The Thiele Machine                                             Devon Thiele • September 2026
-
-
 n_contractive_iff_general_realizable). So the lift in this subsection is not
 a 9-shaped coincidence dressed up as a method: it is the same realizability projection
 run one dimension up, and the dimension-5 corollary reproducing the bridge you
@@ -7423,6 +7501,11 @@ physical quantum cone. Any inclusion claim below is about the formal domains onl
 and would need its own zero-extension and certificate-translation proof.
 
 The substrate certifies four γ-slices, each via its own cert-opcode and its own integer-
+
+                                            148
+The Thiele Machine                                                 Devon Thiele • September 2026
+
+
 arithmetic check:
 
    • Slice A (γ = 0, tag 0x2F): all five γk pinned to zero. The bool decider checks Q1
@@ -7433,15 +7516,9 @@ arithmetic check:
    • Slice B (γ5 free, tag 0x30): the four-body moment γ5 is admitted as a bucket-pair
      argument; the other four γ are zero. The check adds a weighted 4-D Cauchy-
      Schwarz identity that handles the 2γ5 (v11 v22 − v12 v21 ) cross term arising in the
-
-
-                                            147
-The Thiele Machine                                                 Devon Thiele • September 2026
-
-
-      residual (the vij are the coordinates of the paired 4-D vectors the identity runs
-      over) (the relative minus is the conjugate-cell sign above: γ5 on the v11 v22 pairing,
-      −γ5 on the v12 v21 pairing).
+     residual (the vij are the coordinates of the paired 4-D vectors the identity runs
+     over) (the relative minus is the conjugate-cell sign above: γ5 on the v11 v22 pairing,
+     −γ5 on the v12 v21 pairing).
    • Slice C (γ3 , γ4 , γ5 free, tag 0x31): the two A-B-B moments and the four-body
      moment are admitted; γ1 = γ2 = 0. The check is a 4 × 4 Sylvester PD test on
      a difference matrix Hγ345 = det M · M M − M N , where M M and M N are the two
@@ -7473,41 +7550,31 @@ The mathematical core of Slice D is the chain
 where M6×6 is what the 9 × 9 collapses to once the Q1+AB subsumption identities pin
 its dependent entries: the projection onto the basis {v B1 , v B2 , v11 , v12 , v21 , v22 }, after
 which the 9 × 9 lands in the PSD cone whenever the 6 × 6 residual does. From there it
-is Schur complements all the way down, and it is the same move you already watched
-at level 1, run on a bigger matrix. The Schur-complement criterion (Section A), the one
-the level-1 bridge used on its 4 × 4 block, turns a positive-definiteness question about
-the 6 × 6 into one about a 5 × 5 Schur complement; run it again and the 5 × 5 becomes
-a 4 × 4; and the 4 × 4 closes by Sylvester’s criterion, all four leading principal minors
-positive. That is the whole soundness argument: a base case and three reductions,
-each one a Schur step you can carry out by hand, stacked from the 4 × 4 back up to
-PSD9.
 
-
-
-                                               148
-The Thiele Machine                                                       Devon Thiele • September 2026
+                                               149
+The Thiele Machine                                                     Devon Thiele • September 2026
 
 
 
                                    PSD9 ( M)      the goal
 
-                                                 21 H bridges
-                                                 (lift cleared integers → reals)
+                                               21 H bridges
+                                               (lift cleared integers → reals)
 
 
                            sym6 PD-interior 21 entries of M6×6
 
-                                                 15 S6 bridges
+                                               15 S6 bridges
 
 
                       sym5 PD-interior 5×5 Schur complement of row 1
 
-                                                 10 S5 bridges
+                                               10 S5 bridges
 
 
                       sym4 PD-interior 4×4 Schur complement of row 2
 
-                                                 4 sym4 leading-minor bridges
+                                               4 sym4 leading-minor bridges
 
 
                          Slice C lemma sym4 PD-interior, base case
@@ -7518,6 +7585,15 @@ way up to PSD9 ( M ). Each arrow is one Schur-complement reduction, a polynomial
 identity in the correlators and moments. The counts beside each arrow are how many
 such identities the integer check grinds through at that step, one per matrix entry.
 
+
+is Schur complements all the way down, and it is the same move you already watched
+at level 1, run on a bigger matrix. The Schur-complement criterion (Section A), the one
+the level-1 bridge used on its 4 × 4 block, turns a positive-definiteness question about
+the 6 × 6 into one about a 5 × 5 Schur complement; run it again and the 5 × 5 becomes
+a 4 × 4; and the 4 × 4 closes by Sylvester’s criterion, all four leading principal minors
+positive. That is the whole soundness argument: a base case and three reductions,
+each one a Schur step you can carry out by hand, stacked from the 4 × 4 back up to
+PSD9.
 
 Every reduction is a single polynomial identity in the correlators Eij and the moments
 γk . To keep the opcode’s check decidable and integer-only, each identity is multiplied
@@ -7532,6 +7608,12 @@ Schur reduction above, and a reader who wants to break it breaks the reduction, 
 the fifty identities. A passing integer check is those reductions holding, and those
 reductions holding is M in the PSD cone. The check leans on nothing past the two
 background facts level 1 already leaned on: the decidability of the reals and functional
+
+
+                                            150
+The Thiele Machine                                                   Devon Thiele • September 2026
+
+
 extensionality.
 
 18.7.4 What this delivers and what it does not
@@ -7540,12 +7622,6 @@ tion in its theorem implies symmetry and positive semidefiniteness of the specif
 9 × 9 moment matrix at the witness-derived correlators and supplied γ values. This is
 an arithmetic certificate about those entries. The theorem does not construct a physical
 experiment.
-
-
-
-                                            149
-The Thiele Machine                                                   Devon Thiele • September 2026
-
 
 Scope. These theorems establish the four integer-check soundness implications and
 the associated matrix identities. Physical realization, completeness of the checks, and
@@ -7583,6 +7659,13 @@ matrix, marginals still zero, but stop pinning the two cross moments: let x stan
 realizable when some completion ( x, y) makes the matrix PSD (elliptope_realiza
 ble, defined in ElliptopeCompletion.v). The existential over ( x, y) is the entire
 difference between the slice and the set: the slice asks whether the point is coherent
+
+
+
+                                                151
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
 with one fixed completion, the zero one; the set asks whether any completion works.
 
 Five theorems pin the characterization down, all mechanised, all with Print
@@ -7592,18 +7675,12 @@ axioms):
 
    • deterministic_strategy_elliptope: every deterministic local strategy
      is in the set. The witness is the honest one, x = a0 a1 and y = b0 b1 , the cross
-
-
-                                                150
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
-      moments the strategy actually has, and the completed matrix becomes an explicit
-      Gram matrix whose quadratic form is a sum of two squares. All sixteen sign
-      patterns are instances of one parametric theorem. classical_tightness_
-      witness_elliptope names the sharpest instance: the all-ones strategy, the
-      µ = 0 witness of classical_bound_achieved that the slice gate traps, is
-      elliptope-realizable.
+     moments the strategy actually has, and the completed matrix becomes an explicit
+     Gram matrix whose quadratic form is a sum of two squares. All sixteen sign
+     patterns are instances of one parametric theorem. classical_tightness_
+     witness_elliptope names the sharpest instance: the all-ones strategy, the
+     µ = 0 witness of classical_bound_achieved that the slice gate traps, is
+     elliptope-realizable.
    • turing_point_elliptope: (1, 0, 1, 0), this document’s running example of
      a classically reachable point the slice rejects, is in the set, witnessed by x = 1,
      y = 0 and the sum-of-squares decomposition v20 + (v1 + v2 + v3 )2 + v24 of its
@@ -7633,6 +7710,12 @@ axioms):
      completion, their product is at most 4, and S2 ≤ 8 falls out of that coupling. The
      bound holds at every point of the set, not because each row is short, but because
      the completion cannot make both budgets long at once.
+
+
+                                          152
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
    • pr_box_not_elliptope: the PR box has no completion; its S is 4 and the
      Tsirelson theorem refuses it. And beyond_classical_elliptope exhibits a
      rational point with S = 12/5 > 2 inside the set, so the containment of the classi-
@@ -7641,13 +7724,6 @@ axioms):
 
 The correlator geometry has three distinct sets: the classical polytope and the zero-
 marginal slice intersect without containment, and both sit inside the elliptope, which
-
-
-
-                                          151
-The Thiele Machine                                            Devon Thiele • September 2026
-
-
 admits every honest classical point the slice refuses while still refusing everything
       √
 past 2 2.
@@ -7685,6 +7761,11 @@ ness and the accepted examples don’t show the gate accepts every elliptope poi
 they don’t rule out other exact certificate formats.
 
 The runtime CHSH_LASSERT opcode checks the fixed orthogonal slice. The ellip-
+
+                                           153
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
 tope gate isn’t wired to an opcode yet. That would take instruction semantics, a cost
 rule, and a hardware implementation. The completion results are about correlators.
 They don’t pin down the full set of behaviors once marginals come in. Calling the
@@ -7692,13 +7773,6 @@ completion model physical quantum correlations leans on outside mathematics, and
 producing entanglement in hardware would take physical evidence. The direct math-
 ematical challenges are concrete: a deterministic sign pattern whose completed Gram
 matrix has a negative quadratic form would kill deterministic_strategy_elli
-
-
-
-                                           152
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
 ptope; an elliptope-realizable tuple with S2 > 8 would kill elliptope_tsirelson;
 a PSD completion for the PR box would kill pr_box_not_elliptope and Tsirelson
 with it.
@@ -7737,19 +7811,17 @@ The Coq witness is total_irreversible_bits_le_cost.
 Proof. Per-instruction inequality: for every i,         irreversible_bits(i )          ≤
 instruction_cost(i ). Two cases.
 
+
+                                          154
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 Case instruction_cost(i ) = 0. Then irreversible_bits(i ) = 0 by definition,
 and 0 ≤ 0 holds.
 
 Case instruction_cost(i ) > 0. Then irreversible_bits(i ) = 1, and the cost
 schedule (Section 7) gives instruction_cost(i ) ≥ S(δ) ≥ 1 for cert-setters or
 instruction_cost(i ) ≥ δ ≥ 1 otherwise. So 1 ≤ instruction_cost(i ).
-
-
-
-
-                                          153
-The Thiele Machine                                            Devon Thiele • September 2026
-
 
 Summing the per-instruction inequality over the trace:
 
@@ -7790,18 +7862,18 @@ alone doesn’t. There isn’t one. The smallest case, one certified state and o
 in, is setting a bit to one whatever it held. That is the bit reset Landauer described, and
 Bérut and colleagues measured its heat approaching k B T ln 2 in a colloidal double-well
 experiment (Nature 483, 2012). The general bound, k B T ln((m + k )/m) for squeezing
+
+
+                                            155
+The Thiele Machine                                                  Devon Thiele • September 2026
+
+
 m + k equally likely states into m, is Landauer’s formula for that squeeze. The split
 between a known state, which owes nothing, and an uncertain one, which owes heat,
 is Maroney’s and Sagawa’s. So the physics content is exactly Landauer’s principle
 plus one bridge: on finite memory, a certificate that lasts can only be switched on by a
 squeeze. The bridge formalized here is checked. The heat is Landauer’s, and Bérut’s
 experiment already measured it for the smallest case. A test of the bridge itself would
-
-
-                                            154
-The Thiele Machine                                                  Devon Thiele • September 2026
-
-
 need a device that stores a certificate with no step able to revoke it and a way to meter
 the certifying step alone, and I don’t know of one.
 
@@ -7840,6 +7912,12 @@ definition, sets vm_certified to true, and is the whole bill. Total cost exactly
 Part (2): cost lower bound. The level-k hypothesis hands over an executed CERTIFY
 with S(δ) ≥ k; the kernel proof finds it by scanning the executed-instruction log. That
 one step charged at least k to the ledger, every other step charged at least 0, and by
+
+
+                                                156
+The Thiele Machine                                              Devon Thiele • September 2026
+
+
 Latent µ the total cost is the sum of the step charges, so the total is at least k. The scan
 earns the floor from the certifying step itself.
 
@@ -7847,12 +7925,7 @@ Each level k ≥ 1 is therefore realizable at cost exactly k, and no trace certi
 for less.
 
    Plain reading. For any budget you propose, the hierarchy theorem produces a
-
-                                                155
-The Thiele Machine                                              Devon Thiele • September 2026
-
-
-    certified trace that exceeds it by 1. So no finite budget caps all certifications.
+   certified trace that exceeds it by 1. So no finite budget caps all certifications.
 
 
 Corollary 19.3 (mu_hierarchy_no_upper_bound). No fixed µ-budget suffices for all
@@ -7891,17 +7964,18 @@ A direct counterexample would be a k ≥ 1 trace reaching vm_certified = true
 and vm_mu ≥ k with total trace cost < k. Under the theorem’s premises that cannot
 happen; if it does, the cost accounting or the proof is wrong.
 
+
+                                             157
+The Thiele Machine                                             Devon Thiele • September 2026
+
+
+
 20 Discrete Geometry over Partition Graphs
 
 20.1 Discrete triangulation of the partition graph
 A partition graph is not only a bookkeeping structure. You can also read it as a shape,
 a discrete geometric object, and put geometric questions to it. The honesty of the
 framing matters here, so I will be plain about what is and is not being claimed. The
-
-                                             156
-The Thiele Machine                                             Devon Thiele • September 2026
-
-
 result below reads the partition graph as a triangulated combinatorial object, a graph
 cut into triangular pieces, and sets it in an equilateral angle model: every corner of
 every triangle contributes π/3 radians, which is 60 degrees, because the three angles
@@ -7940,18 +8014,19 @@ disk.
 
    Plain reading. The 5π comes from two places: how D is defined, and the extra
    boundary-count rule B = 3χ. Coq checks what follows from them. It doesn’t show
-   that rule is forced by computation, by topology in general, or by nature. Take
-   B = 3χ away and what’s left is D = 2πχ + πB under the incidence equations.
-   There’s no universal 5πχ law.
+
+
+                                            158
+The Thiele Machine                                               Devon Thiele • September 2026
+
+
+    that rule is forced by computation, by topology in general, or by nature. Take
+    B = 3χ away and what’s left is D = 2πχ + πB under the incidence equations.
+    There’s no universal 5πχ law.
 
 
 Theorem 20.1 (Restricted angle-defect identity (discrete_gauss_bonnet)). Let g
 be a partition graph satisfying well_formed_triangulated. In addition to its graph
-
-                                            157
-The Thiele Machine                                               Devon Thiele • September 2026
-
-
 and triangle conditions, this predicate requires 3F = 2I + B, the triangle-incidence degree sum
 ∑v deg(v) = 3F, and B = 3χ, with χ = V − E + F. The edge definitions give E = I + B.
 Assign angle π/3 to every triangle corner and define
@@ -7989,6 +8064,11 @@ evidence for a new physical constant, and it doesn’t derive angles from µ cos
 
 
 
+
+                                             159
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
 Part III
 
 Checking it
@@ -7997,13 +8077,6 @@ Checking it
 Coq is a proof assistant, which is a phrase I had to go look up. Underneath the phrase
 it is a programming language, but one whose type system is strict enough to do a
 thing ordinary languages cannot: you write a proof down as a program, and the
-
-
-
-                                             158
-The Thiele Machine                                          Devon Thiele • September 2026
-
-
 compiler refuses it unless the program genuinely matches the statement you claimed.
 You cannot talk it into a maybe.
 
@@ -8040,6 +8113,11 @@ Use the native toolchain required by the repository, then run the following comm
 from the repository root:
 
 python3 scripts/reproduce_coq.py --jobs 1
+
+                                          160
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
 python3 scripts/check_coq_probe.py
 bash monograph/build_monograph.sh
 
@@ -8050,12 +8128,6 @@ the publication outputs from the TeX sources. The reproduction records it writes
 evidence for that one run. They aren’t source files.
 
 RTL generation is a separate command, bash scripts/kami_extract.sh, requir-
-
-
-                                          159
-The Thiele Machine                                          Devon Thiele • September 2026
-
-
 ing the Bluespec compiler and its standard library in addition to the Coq/OCaml
 toolchain. Its logs, generated Verilog, synthesis report, and any bitstream have to
 name the source they were actually built from. A passing Coq build doesn’t give you
@@ -8089,6 +8161,11 @@ codes. The main categories:
      or research-side files. Theorem connectivity: every file in the active proof tree
      must reach the cost or semantics foundation through its import chain. If a file is
      disconnected, it does not get to claim the kernel’s pedigree.
+
+                                          161
+The Thiele Machine                                         Devon Thiele • September 2026
+
+
    • Comment hygiene. The maintained source and documentation comments con-
      tain no unfinished or historical review markers; the repository checks this with
      scripts/comment_hygiene.py alongside the Coq proof audit.
@@ -8097,12 +8174,6 @@ The proof-audit output records the source state it was generated from, so regene
 it whenever the source changes. Its rules are heuristics. They point at places to look.
 They don’t prove a theorem means what it should, and they can’t promise every empty
 premise got caught.
-
-
-                                          160
-The Thiele Machine                                         Devon Thiele • September 2026
-
-
 
 22 Zero Admitted: what it actually means
 “Zero Admitted” is literal. Nowhere in the proof tree did I write “trust me” and walk
@@ -8138,20 +8209,19 @@ This is what it does NOT mean:
      has verified the CompCert C compiler and the Four Color Theorem (Gonthier
      2005, a landmark fully machine-checked proof of a major mathematical theorem,
      one first settled on paper-plus-computer in 1976), among other artifacts. That
-     prior use is evidence about the foundation’s track record in practice. It is not a
-     proof of logical consistency, and a successful large-scale application would not
-     necessarily surface every possible inconsistency; an inconsistent system only
-     breaks visibly if some proof actually exploits the inconsistency, and nothing
-     here rules that out. I am relaying what I read. I have not personally audited
-     CompCert or Gonthier’s proof. “Zero Admitted” means every theorem follows
-     from those axioms. It does not mean those axioms are themselves in-system
-     guaranteed. It means they are the same axioms a substantial body of verified
 
-
-                                         161
+                                         162
 The Thiele Machine                                           Devon Thiele • September 2026
 
 
+      prior use is evidence about the foundation’s track record in practice. It is not a
+      proof of logical consistency, and a successful large-scale application would not
+      necessarily surface every possible inconsistency; an inconsistent system only
+      breaks visibly if some proof actually exploits the inconsistency, and nothing
+      here rules that out. I am relaying what I read. I have not personally audited
+      CompCert or Gonthier’s proof. “Zero Admitted” means every theorem follows
+      from those axioms. It does not mean those axioms are themselves in-system
+      guaranteed. It means they are the same axioms a substantial body of verified
       software has relied on without breaking, which is track record, not a consistency
       proof.
    • Hardware correspondence is conditional on its model and representation
@@ -8186,6 +8256,12 @@ kill it. I went to the trouble on purpose. A claim you can’t break is a claim 
 saying anything, and I would rather hand you a loaded gun pointed at my own work
 than a sentence too vague to aim at. So the ones below are written as instructions,
 not as boasts: here is the trace to find, here is the object to build, here is the theorem
+
+
+                                           163
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
 to exhibit. Build one and the proof tree falls, and I mean that as the better outcome
 of the two, because a break tells me something I didn’t know and a year of nobody
 finding one only tells me people got tired of looking. If you build any of these, that is
@@ -8193,13 +8269,6 @@ the message I want in my inbox.
 
 Falsify No Free Insight.
 Find a VM trace that:
-
-
-
-
-                                           162
-The Thiele Machine                                           Devon Thiele • September 2026
-
 
    • starts with vm_certified = false and vm_mu = 0
    • ends with vm_certified = true
@@ -8237,18 +8306,15 @@ the concrete witness pair the theorem exhibits. shadow_strictly_lossy falls. Or
 produce a strict feasible-set subset with a distinguishing observation that does not
 yield stronger membership predicates. The feasible-subset theorem falls with it.
 
+                                          164
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
 Falsify universal certification cost.
 Build a CertificationSystem satisfying the one-step rule cs_cert_costs, then
 give a trace from uncertified to certified with total cost 0. universal_nfi_any_sub
 strate falls. If you instead drop the one-step rule, you have found a free-certification
 system, not a counterexample.
-
-
-
-
-                                          163
-The Thiele Machine                                             Devon Thiele • September 2026
-
 
 Falsify substrate-level structural-axis undecidability.
 Three routes (Section 10 expands).
@@ -8289,17 +8355,16 @@ ies_tsirelson falls. The PR box and the Turing-classical point (1, 0, 1, 0) are 
 counterexamples: both fail column contractivity by direct arithmetic, which is what
 the theorem requires, not what would break it.
 
+
+                                          165
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 Falsify the elliptope completion.
 Three targets, one per load-bearing theorem of Section 18.8. Exhibit signs a0 , a1 , b0 , b1
 with squares 1 and a vector on which the completed Gram form goes negative; dete
 rministic_strategy_elliptope falls. Exhibit an elliptope-realizable correlator
 tuple with S2 > 8; elliptope_tsirelson falls, and with it the claim that the
-
-
-                                            164
-The Thiele Machine                                          Devon Thiele • September 2026
-
-
 completion cannot stretch both Cauchy–Schwarz budgets at once. Exhibit real x, y
 making the PR box’s completed 5 × 5 matrix PSD; pr_box_not_elliptope falls.
 The µ = 0 all-ones witness and (1, 0, 1, 0) are not counterexamples here either, in the
@@ -8331,23 +8396,23 @@ Falsify the axiom audit.
 If running Print Assumptions (Section A: the Coq command that reports global
 proof dependencies) on any named theorem in the kernel tier shows a project-local
 Axiom or Parameter in the dependency tree, the audit has degraded. The current
-full-corpus probe covers 13,045 named theorems across 435 files: 5,709 close under
-the global Coq context outright, and 7,336 use only Coq standard-library assump-
+full-corpus probe covers 13,078 named theorems across 441 files: 5,734 close under
+the global Coq context outright, and 7,344 use only Coq standard-library assump-
 tions. The receipt names five such constants: dependent functional extensionality,
 Eqdep.Eq_rect_eq.eq_rect_eq, ClassicalDedekindReals.sig_not_dec,
-ClassicalDedekindReals.sig_forall_dec,                                            and
+ClassicalDedekindReals.sig_forall_dec,                                         and
 Classical_Prop.classic. Zero project-local axioms appear in any of the
-13,045 dependency trees. This audits where global dependencies come from. It
+13,078 dependency trees. This audits where global dependencies come from. It
+
+
+                                            166
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
 doesn’t prove that a theorem’s own Section-generalized premises hold for the instance
 you care about; those premises stay visible in the theorem types and get checked
 separately. Any project-local axiom or parameter appearing in a global dependency
 tree is a bug.
-
-
-
-                                          165
-The Thiele Machine                                          Devon Thiele • September 2026
-
 
 Falsify the hardware bisimulation.
 A counterexample to driven_step_wf has to satisfy WFDrivenPrecondition and
@@ -8388,16 +8453,15 @@ charging predicate differs from the commitment predicate on some reachable step.
 s_schedule_exactness falls, and the kernel’s exact_commitment_pricing_c
 haracterization with it.
 
+
+                                          167
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 Falsify the attestation reduction.
 Build a sound and complete attestation verifier for the µ-dependent claim that reads
 only the bare classical transcript, a function of the report’s log field alone. attes
 tation_cannot_factor_through_bare_transcript falls, and behind it the
-
-
-                                          166
-The Thiele Machine                                            Devon Thiele • September 2026
-
-
 verifier-factorisation theorem.
 
 Falsify the transparency-log reduction.
@@ -8437,15 +8501,15 @@ py_ceiling falls. A heat measurement below k B T ln((m + k )/m) does not falsify
 theorem. It falsifies the premise landauer_heat for that device, which is Landauer’s
 principle. For the general version, exhibit a deterministic step and a distribution under
 which two different states of positive probability land together while the entropy does
+
+
+                                           168
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
 not drop; entropy_drop_pos_of_support_merge falls. A certifying step from a
 known state that dissipates no heat is not a counterexample; known_state_flip_f
 orces_no_heat says that case owes none.
-
-
-
-                                           167
-The Thiele Machine                                          Devon Thiele • September 2026
-
 
 Falsify the finite VM instance.
 Exhibit a VM state and one of CERTIFY 0, JUMP a 2, CHECKPOINT "" 0 whose
@@ -8486,16 +8550,16 @@ the actual distribution, so a known state can be reset for free, is the generali
 of Maroney (2009) and Sagawa (2014). None of it is mine.
 Formal reconstructions.
 The Coq development defines the state types, transition systems, fixed real-matrix
+
+
+                                          169
+The Thiele Machine                                               Devon Thiele • September 2026
+
+
 predicates, encodings and proof terms this monograph uses. When I say a theorem is
 checked in Coq, I mean the stated proposition has a kernel-checked proof under its
 printed premises. That does not make the underlying idea mine, and it does not make
 it new.
-
-
-                                          168
-The Thiele Machine                                                 Devon Thiele • September 2026
-
-
 Results this project proved.
 Inside the stated interfaces, the repository proves the abstract A2 certification floor,
 the fixed-schedule ledger identity and uniqueness, the named projection-separation
@@ -8533,16 +8597,17 @@ declaration.
 
    1. no_free_certification: csr_cert_addr going 0 → nonzero in one step requires cost ≥ 1.
    2. no_free_certification_mu: same, with µ increment ≥ 1.
+
+
+
+                                             170
+The Thiele Machine                                                   Devon Thiele • September 2026
+
+
    3. no_free_certification_trace_mu: trace-level version.
    4. no_free_certification_certified: vm_certified going false→true requires cost ≥ 1.
    5. certification_requires_positive_mu: both channels covered.
    6. universal_nfi_any_substrate: any abstract certification system satisfying the one-step cost
-
-
-                                               169
-The Thiele Machine                                                   Devon Thiele • September 2026
-
-
       rule has trace-level non-free certification.
    7. thiele_universal_nfi_cert_addr: universal theorem instantiated for Thiele’s
       csr_cert_addr channel.
@@ -8580,16 +8645,16 @@ declaration.
   25. info_priced_cert_executions_bound: executed cert-setting events are bounded by ∆µ.
   26. observation_partition_reduction_implies_posterior_representative_reduction: observation
       classes package into the posterior-representative witness for structural entitlement.
+
+
+                                                171
+The Thiele Machine                                                  Devon Thiele • September 2026
+
+
   27. info_priced_arbitrary_feasible_reduction_bound: with a decision-tree/representative
       witness, feasible-set compression is bounded by ∆µ.
   28. info_priced_weighted_feasible_reduction_bound: the ∆µ lower bound extends to
       nat-weighted feasible sets.
-
-
-                                                170
-The Thiele Machine                                                  Devon Thiele • September 2026
-
-
   29. structural_entitlement_representation: strict narrowing plus distinguishability, certified
       posterior admissibility, and an explicit posterior-representative reduction imply a
       strictly stronger predicate, a structure-addition event, and a ∆µ lower bound.
@@ -8628,16 +8693,15 @@ declaration.
       csr_cert_addr.
   46. partition_refinement_nonfree: certified partition knowledge cannot be free.
   47. partition_free_but_certification_nonfree: partition structure can be built at δ = 0, but
-      certified partition knowledge cannot be acquired for free.
-  48. witness_insight_nonfree_general: certified non-local witness insight requires µ ≥ 1.
-  49. witness_insight_complete_taxonomy: full three-tier taxonomy proven.
 
 
-
-                                               171
+                                               172
 The Thiele Machine                                                   Devon Thiele • September 2026
 
 
+      certified partition knowledge cannot be acquired for free.
+  48. witness_insight_nonfree_general: certified non-local witness insight requires µ ≥ 1.
+  49. witness_insight_complete_taxonomy: full three-tier taxonomy proven.
   50. separable_coupling / non_separable_coupling: Functional (separable) and non-functional
       (non-separable) coupling predicates with concrete witnesses.
   51. CHSH coupling bridge: Bell’s theorem in morphism coupling language. A locally
@@ -8684,18 +8748,20 @@ declaration.
       and is not claimed.
   59. Concrete falsifications by direct arithmetic. The PR box (E00 = E01 = E10 = 1, E11 = −1)
       fails the first column-contractivity condition: 1 − E00 2 − E2 = 1 − 1 − 1 = −1 < 0. Any
-                                        √                            10
+                                                                    10
+
+
+
+
+                                                173
+The Thiele Machine                                                Devon Thiele • September 2026
+
+
+                                     √
       super-quantum value |S| > 2 2 falls outside the slice-coherent set by the
       contrapositive of state_column_contractive_implies_tsirelson. The
       Turing-classical correlation (1, 0, 1, 0) also fails condition 1. These are direct
       consequences by lra once the biconditional is destructed.
-
-
-
-                                                172
-The Thiele Machine                                                Devon Thiele • September 2026
-
-
   60. Elliptope completion (Section 18.8). elliptope_realizable: correlator membership in
       the full elliptope as existential completion of the cross moments; deterministic_st
       rategy_elliptope, elliptope_convex, elliptope_finite_mixture, and lh
@@ -8738,17 +8804,17 @@ declaration.
       end-to-end RTL/bitstream bisimulation is claimed.
   65. nothing_at_stake_is_free_forgery: a finality gadget whose finalize step carries zero
       stake-at-risk admits no A2 field. Nothing-at-stake is the kernel’s free forgery, stated in
+
+
+
+                                              174
+The Thiele Machine                                                  Devon Thiele • September 2026
+
+
       proof-of-stake vocabulary (Section 17).
   66. slashing_finality_floor: for any supplied slashing gadget whose certification predicate
       starts false and whose false-to-true transitions satisfy the stated positive-cost premise,
       every run from unfinalized to finalized carries total stake-at-risk ≥ 1; universal_nfi
-
-
-
-                                              173
-The Thiele Machine                                                  Devon Thiele • September 2026
-
-
       _any_substrate instantiated at the slashing gadget.
   67. gas_schedule_exactness: a gas schedule satisfies the commitment floor and no-overcharge
       exactly when its charging predicate is the commitment predicate with unit pricing; the
@@ -8788,17 +8854,17 @@ declaration.
       prices exactly.
   79. vm_bare_shadow_cannot_price_exactly / vm_forget_shadow_cannot_price_exactly: the VM
       has such a pair for bare_observable and for forget, from the clean start.
+
+
+
+                                               175
+The Thiele Machine                                                 Devon Thiele • September 2026
+
+
   80. permanent_step_entropy_ceiling / permanent_flip_uniform_entropy_drop: after a permanent
       step, a distribution on the m certified states and the k flipping ones has Shannon
       entropy at most log2 m; from the uniform distribution the step removes at least
       log2 ((m + k)/m) bits.
-
-
-
-                                               174
-The Thiele Machine                                                 Devon Thiele • September 2026
-
-
   81. a2_from_entropy_price_and_permanence / entropy_priced_trace_floor: a whole-unit price
       that covers the bits each instruction removes satisfies A2 on a finite machine with a
       permanent certificate, with the trace floor through universal_nfi_any_substrat
@@ -8839,17 +8905,17 @@ trust boundaries):
    • Structural advantage: the kernel proves exact µ costs and the arithmetic time-tax
      facts for the factored-search witness; executable tests check the measured VM
      behavior.
+
+
+                                               176
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
    • LASSERT cost formula: lassert_cost_from_component_floors and
      lassert_cost_is_its_formula. A cost meeting the state-term and
      description-term premises is at least the formula. That is addition over premises.
      Merge pricing does not force the state term (observer_narrowing_can_be_
-
-
-                                               175
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
-      free), and a physical reading also needs Landauer-Unruh calibration.
+     free), and a physical reading also needs Landauer-Unruh calibration.
 
 24.1 Main-result contract crosswalk
 Each row identifies the result’s domain, conclusion, load-bearing premises, and
@@ -8892,18 +8958,17 @@ complete mathematical contract.
  tructuralUndecidabilit has a representable flip when the record supplies its fixed
  y.structural_shortcut_ point and distinct yes/no witnesses. The conclusion is
  undecidable                  relative to that class.
- Nat family Kernel.NatSubs For every candidate d, d fails on nat_admits d in the
- trateInstance.nat_self instance constructed from d. The family is proved. A
- _undecidable                 fixed effective undecidable problem is not supplied by
-                              changing this quantifier order.
 
-
-                                          176
+                                          177
 The Thiele Machine                                            Devon Thiele • September 2026
 
 
  Prose label and formal sym-     Domain, conclusion, premises, and status
  bol
+ Nat family Kernel.NatSubs       For every candidate d, d fails on nat_admits d in the
+ trateInstance.nat_self          instance constructed from d. The family is proved. A
+ _undecidable                    fixed effective undecidable problem is not supplied by
+                                 changing this quantifier order.
  Encoded VM diagonal Kerne       Bounded vm_run outcomes. The code round trip is
  l.VMSubstrateEncoded.v          proved; representability and bounded recurrence remain
  m_structural_shortcut_          premises. An applicable unbounded interpreter is not
@@ -8941,69 +9006,7 @@ complete mathematical contract.
                                checked. Separate contracts cover malformed words and
                                live divergence. Guest structural fields remain ambient
                                and unchanged.
- Rice reduction (B4) Kernel.V Over the B3 guest model, extensional predicates sepa-
- MSelfRiceUndec.self_ri rating the divergent program from a well-formed pro-
- ce                            gram are undecidable. Guest-program deciders and
-                               the named halting-on-zero/returning-zero predicates
-                               are covered. This closes the alternative-construction con-
-                               tract, without an internal recursion theorem or discharge
-                               of bounded recurrence.
 
-
-
-
-                                           177
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
-  Prose label and formal sym-    Domain, conclusion, premises, and status
-  bol
-  Reachable CSR collision Ker    Reachable VM states and four-field forget. No decoder
-  nel.StructuralAxisOrth         recovers the CSR predicate from that observation. This
-  ogonality.structural_s         state predicate differs from bounded program-outcome
-  hortcut_not_function_o         equality.
-  f_classical
-  Shadow-local execution Kern The source predicate restricts the instruction fragment
-  el.TuringClassicalEmbe      and its six-field observation. Graph preservation alone is
-  dding.D2_classical_sha      insufficient when hidden graph or CSR data can be read
-  dow_preserved               into visible fields.
-  Elliptope gate soundness KerWitness counters and the supplied comple-
-  nel.ElliptopeGate.elli      tion/certificate data. Passing the actual gate implies
-  ptope_check_full_sound      the defined elliptope membership.          Rejection and
-                              completeness are outside this one-way conclusion.
- Charge levels Kernel.MuHie Executed traces from the specified initial state containing
- rarchyTheorem.level_k_ an instruction certified at level k. The ledger meets the
- certification_cost_flo charge floor. This differs from k certification events and
- or                           from a complexity-class separation.
- One-step model correspon- Gallina KamiSnapshot and VMState through the stated
- dence KamiHW.GraphRecon abstraction. Exact equality requires WFDrivenPrecon-
- structionBridge.driven dition. Physical RTL retirement, range, and toolchain
- _step_wf                     obligations are separate.
- Executed-run correspondence PC-indexed fuelled runs. WFDrivenRun checks the in-
- KamiHW.GraphReconstruc struction premise at each visited snapshot. This proves
- tionBridge.driven_trac the intermediate trace equality, with no claim about un-
- e_commutes                   bounded finite-hardware capacity.
- Local fixed-bit CHSH Kerne Four Boolean local response bits imply the integer bound
- l.CHSH.KernelCHSH.loca between -2 and 2. The population mixture argument in
- l_strategy_chsh_betwee the text additionally uses a setting-independent shared-
- n_neg2_2                     variable distribution. Finite empirical samples have a
-                              different domain.
- Fixed-completion PSD Kern Four real correlators and the specified fixed matrix. PSD
- el.QuantumPartitionPSD is equivalent to the three column-contractivity inequal-
- .column_contractive_if ities. This is an algebraic biconditional, with the real-
- f_npa_psd                    library assumptions shown by the probe.
- Integer gate Kernel.Quantu A CHSH assertion step that advances without error
- mPartitionPSD.chsh_las yields the fixed-matrix predicate. The actual integer
- sert_no_trap_implies_n check supplies the premise; A2 alone does not select or
- pa_psd                       imply its polynomial guard.
- Relational category laws Ker Coupling relations modulo membership equivalence.
- nel.CategoryLaws.relat Composition is associative; diagonal identities require
- ional_compose_assoc          the source theorem’s region bounds. Allocation IDs, la-
-                              bels, and list equality are separate runtime observations.
- Unbounded charge levels Ker Positive k has a single CERTIFY(k-1) witness with ex-
- nel.MuHierarchyTheorem. act cost k and the stated lower bound. This proves un-
- mu_hierarchy_theorem         bounded instruction-charge levels, with the source ini-
-                              tialization and execution premises.
 
 
 
@@ -9011,11 +9014,75 @@ complete mathematical contract.
 The Thiele Machine                                            Devon Thiele • September 2026
 
 
+  Prose label and formal sym-    Domain, conclusion, premises, and status
+  bol
+  Rice reduction (B4) Kernel.V   Over the B3 guest model, extensional predicates sepa-
+  MSelfRiceUndec.self_ri         rating the divergent program from a well-formed pro-
+  ce                             gram are undecidable. Guest-program deciders and
+                                 the named halting-on-zero/returning-zero predicates
+                                 are covered. This closes the alternative-construction con-
+                                 tract, without an internal recursion theorem or discharge
+                                 of bounded recurrence.
+  Reachable CSR collision Ker    Reachable VM states and four-field forget. No decoder
+  nel.StructuralAxisOrth         recovers the CSR predicate from that observation. This
+  ogonality.structural_s         state predicate differs from bounded program-outcome
+  hortcut_not_function_o         equality.
+  f_classical
+  Shadow-local execution KernThe source predicate restricts the instruction fragment
+  el.TuringClassicalEmbe     and its six-field observation. Graph preservation alone is
+  dding.D2_classical_sha     insufficient when hidden graph or CSR data can be read
+  dow_preserved              into visible fields.
+                             Witness counters and the supplied comple-
+  Elliptope gate soundness Ker
+  nel.ElliptopeGate.elli     tion/certificate data. Passing the actual gate implies
+  ptope_check_full_sound     the defined elliptope membership.          Rejection and
+                             completeness are outside this one-way conclusion.
+ Charge levels Kernel.MuHie Executed traces from the specified initial state containing
+ rarchyTheorem.level_k_ an instruction certified at level k. The ledger meets the
+ certification_cost_flo charge floor. This differs from k certification events and
+ or                          from a complexity-class separation.
+ One-step model correspon- Gallina KamiSnapshot and VMState through the stated
+ dence KamiHW.GraphRecon abstraction. Exact equality requires WFDrivenPrecon-
+ structionBridge.driven dition. Physical RTL retirement, range, and toolchain
+ _step_wf                    obligations are separate.
+ Executed-run correspondence PC-indexed fuelled runs. WFDrivenRun checks the in-
+ KamiHW.GraphReconstruc struction premise at each visited snapshot. This proves
+ tionBridge.driven_trac the intermediate trace equality, with no claim about un-
+ e_commutes                  bounded finite-hardware capacity.
+ Local fixed-bit CHSH Kerne Four Boolean local response bits imply the integer bound
+ l.CHSH.KernelCHSH.loca between -2 and 2. The population mixture argument in
+ l_strategy_chsh_betwee the text additionally uses a setting-independent shared-
+ n_neg2_2                    variable distribution. Finite empirical samples have a
+                             different domain.
+ Fixed-completion PSD Kern Four real correlators and the specified fixed matrix. PSD
+ el.QuantumPartitionPSD is equivalent to the three column-contractivity inequal-
+ .column_contractive_if ities. This is an algebraic biconditional, with the real-
+ f_npa_psd                   library assumptions shown by the probe.
+ Integer gate Kernel.Quantu A CHSH assertion step that advances without error
+ mPartitionPSD.chsh_las yields the fixed-matrix predicate. The actual integer
+ sert_no_trap_implies_n check supplies the premise; A2 alone does not select or
+ pa_psd                      imply its polynomial guard.
+
+
+
+
+                                          179
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
   Prose label and formal sym-     Domain, conclusion, premises, and status
   bol
-  Restricted geometry Kernel.  Graphs satisfying the expanded well-formed triangula-
-  DiscreteGaussBonnet.di       tion predicate, including B=3 chi and the incidence iden-
-  screte_gauss_bonnet          tities. The defined angle sum is 5 pi chi. This restricted
+  Relational category laws Ker Coupling relations modulo membership equivalence.
+  nel.CategoryLaws.relat       Composition is associative; diagonal identities require
+  ional_compose_assoc          the source theorem’s region bounds. Allocation IDs, la-
+                               bels, and list equality are separate runtime observations.
+ Unbounded charge levels Ker Positive k has a single CERTIFY(k-1) witness with ex-
+ nel.MuHierarchyTheorem. act cost k and the stated lower bound. This proves un-
+ mu_hierarchy_theorem          bounded instruction-charge levels, with the source ini-
+                               tialization and execution premises.
+ Restricted geometry Kernel. Graphs satisfying the expanded well-formed triangula-
+ DiscreteGaussBonnet.di tion predicate, including B=3 chi and the incidence iden-
+ screte_gauss_bonnet           tities. The defined angle sum is 5 pi chi. This restricted
                                identity does not derive its premises from arbitrary topol-
                                ogy.
  Permanent certificate Kernel. Any state type with a duplicate-free enumeration, any
@@ -9048,21 +9115,27 @@ complete mathematical contract.
  ropy_drop                     zero from a known state. Heat follows only through the
                                named premise landauer_heat. Uses Coq’s standard
                                real-number axioms.
- A finite VM instance Kernel. The eight-state machine and the VM fragment CERTIFY
- FiniteCertMachine.vm_r 0, JUMP a 2, CHECKPOINT "" 0, read through pro-
- uns_finite_trace              gram counter modulo four and the flag. The JUMP price
-                               is a program’s choice the VM allows.
- What the full VM prices Kern The full VM and its schedule. Every step that switches
- el.FiniteCertMachine.v the certification flag on merges two states and costs at
- m_prices_certifying_me least one; JUMP 0 0 merges at cost zero; so the merging-
- rge_leaves_others_free price premise fails for the full VM, by design, while A2
-                               holds.
 
 
 
 
-                                           179
-The Thiele Machine                                            Devon Thiele • September 2026
+                                           180
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
+  Prose label and formal sym-    Domain, conclusion, premises, and status
+  bol
+  A finite VM instance Kernel.   The eight-state machine and the VM fragment CERTIFY
+  FiniteCertMachine.vm_r         0, JUMP a 2, CHECKPOINT "" 0, read through pro-
+  uns_finite_trace               gram counter modulo four and the flag. The JUMP price
+                                 is a program’s choice the VM allows.
+  What the full VM prices Kern   The full VM and its schedule. Every step that switches
+  el.FiniteCertMachine.v         the certification flag on merges two states and costs at
+  m_prices_certifying_me         least one; JUMP 0 0 merges at cost zero; so the merging-
+  rge_leaves_others_free         price premise fails for the full VM, by design, while A2
+                                 holds.
+
+
 
 
 Part IV
@@ -9095,6 +9168,12 @@ or from the charge levels climbing without bound.
 Program predicates and state observations. The state-level CSR collision and the
 program-level diagonal live in different domains. Linking them would take a theorem
 of its own. The nat family and the bounded VM theorem keep their explicit quantifiers
+
+
+                                          181
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 and representability premises.
 
 Feasible-set cost bounds. The representation theorem is handed its tree and its repre-
@@ -9109,12 +9188,6 @@ and actual operator realizations, need more identifications than that. A sound r
 check doesn’t make it complete for those bigger sets.
 
 Those are the edges of the individual results. Every structural, conditional, and con-
-
-
-                                            180
-The Thiele Machine                                          Devon Thiele • September 2026
-
-
 sistency result keeps its hypotheses attached. What I’m proposing reaches further
 than certification, but no theorem here puts an unavoidable physical price on every
 observable change.
@@ -9146,6 +9219,12 @@ Here is the criterion, stated as a conjecture and nothing more.
       checked, and stored across independent substrates that do not otherwise
       share state, while rival meterable events leave no such redundant trail.
       The event a substrate discipline is forced to price is the one whose records
+
+
+                                            182
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
       proliferate.
 
 The name is borrowed deliberately. In the decoherence literature, a pointer observable
@@ -9160,12 +9239,6 @@ it.
 
 Section 17 gives the idea five concrete settings: proof-of-stake finality, gas metering,
 trusted-execution attestation, certificate transparency, and proof-carrying verification.
-
-
-                                          181
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
 These disciplines supply the motivation. I supply the formal models, including what
 each observer sees and which events compete for the meter. That choice is part of the
 argument. The proofs cannot make it for me. A public certificate may be checkable
@@ -9197,6 +9270,12 @@ would.
 PointerObservable.v defines the objects: an Ecosystem of observers each hold-
 ing a boolean fragment of the state; records, one observer’s fragment deciding an
 event; redundantly_proliferating, every observer recording it; and unique_
+
+
+                                          183
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
 pointer_among, proliferating while no named rival event does, with uniqueness
 deliberately relative to the rival family because absolute uniqueness is false for free
 (an event’s complement proliferates whenever it does). The record has no predicate
@@ -9210,11 +9289,6 @@ proves five_labeled_models_have_selected_pointer. The choice of observ-
 able fragments, metered events, and rival families is explicit. All five are one construc-
 tion with the fields renamed. These are five formal instances, not five independent
 empirical validations of the criterion.
-
-
-                                           182
-The Thiele Machine                                           Devon Thiele • September 2026
-
 
 The five proofs establish the criterion inside those five models. To use them as an
 argument about deployed systems, I owe the correspondence: why those fragments
@@ -9247,6 +9321,14 @@ The conjecture asks which events deserve a cost law. The accounting theorems tel
 what follows once that law is specified. I want both parts of the argument on the table,
 with neither borrowing a proof from the other.
 
+
+
+
+                                           184
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
+
 27 Conclusion
 The Thiele Machine is an abstract model of computation, and this book has been an
 argument made with it. The argument is that the usual account of a computation,
@@ -9260,13 +9342,6 @@ And on finite hardware with certificates that last, A2 itself follows from Landa
 principle: proved, with that principle as the named premise, in counted states and
 in bits. A finite piece of the VM is such a machine, and the VM runs it at exactly
 that price. The full VM prices the certifying merge and leaves other merges free, by
-
-
-
-                                           183
-The Thiele Machine                                            Devon Thiele • September 2026
-
-
 design. Leaning on a fact takes a paid history: defined, with the cost floor proved for
 shortcuts that hand over their receipts. The axis belongs in the step: proposed, and still
 mine to earn. Two parts of it are proved. An account that prices certification exactly
@@ -9298,6 +9373,12 @@ ever its flip can be expressed inside the substrate and the instance supplies th
 point. The nat construction proves a family result: every candidate d gets its own in-
 stance, and d fails on that instance’s predicate Pd . The VM version keeps its bounded
 recurrence and representability premises. In L, a Turing-complete lambda calculus,
+
+
+                                           185
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 the recursion theorem is proved from the reduction rules, and the same diagonal is
 Rice’s theorem (Section 10.4). Separately, the reachable-state collision shows the CSR
 predicate is lost through forget. These are different claims. Sharing a vocabulary, or
@@ -9312,12 +9393,6 @@ is still part of the argument.
 Each of these results carries an explicit falsification condition, and they are gathered in
 one place (Section 23): a zero-µ trace from uncertified to certified, a column-contractive
 correlator with a non-PSD NPA matrix, a cost-rule-respecting CertificationSys
-
-
-                                           184
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
 tem that certifies at total cost zero, a nat function that decides nat_admits for its
 own substrate. Any one of them collapses the matching theorem. You can hunt for
 any of them with a pencil, and the mechanised ones would stop the checker dead on
@@ -9349,6 +9424,11 @@ know one of these subsections, skip it.
 A.1 Bits, bytes, and what a CPU sees
 A bit is one digit that is either zero or one, the smallest fact a machine can hold.
 Everything else is bits stacked up. Eight of them stacked make a byte, which lands
+
+                                           186
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
 you any number from 0 to 255, and the first thing that genuinely surprised me is that
 the same byte is also a letter: a convention called ASCII (American Standard Code
 for Information Interchange) simply agrees to call 65 the letter A, 48 the digit 0, 32 a
@@ -9362,12 +9442,6 @@ A word is a chunk of bits the CPU treats as one unit. The kernel math uses 64-bi
 words (each word can hold any number from 0 to 264 − 1, about 18 quintillion). The
 synthesised hardware uses 32-bit words (each word holds 0 to 232 − 1, about 4 billion).
 A word is just a sequence of bits with a fixed width. The substrate does not care which
-
-
-                                          185
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
 width.
 
 A register is a single named storage slot inside the CPU that holds one word. The
@@ -9401,6 +9475,11 @@ number. Bitwise AND of two bits is 1 only when both bits are 1. Bitwise OR is 1 
 either is 1. Bitwise XOR (exclusive or, sometimes written ⊕) is 1 exactly when the two
 bits differ. The bitwise version of these does the operation in parallel for every bit
 position. Bitwise-AND of two 64-bit words gives a 64-bit word. Bit i of the result is
+
+                                          187
+The Thiele Machine                                              Devon Thiele • September 2026
+
+
 the AND of bit i of each input. The bits do not consult each other. The substrate does
 not see bits.
 
@@ -9415,11 +9494,6 @@ Hexadecimal is base 16. Each “digit” is one of 0 through 9 or A through F, w
 A means 10 and F means 15. Hex is convenient for working with bytes because
 every two hex digits make one byte. Numbers prefixed with 0x are hex: 0xFF is 255,
 0xCAFEEACE is the constant unlock key in the Logic Engine accumulator (the Logic
-
-                                           186
-The Thiele Machine                                                 Devon Thiele • September 2026
-
-
 Engine is the machine’s on-chip formula checker; Section 5 builds it). It had to be
 something.
 
@@ -9455,6 +9529,11 @@ everything in A that is not in B.
 × between two sets is the Cartesian product: A × B is the set of all ( a, b) pairs with
 a ∈ A and b ∈ B. Functions from a set A to a set B are written A → B.
 
+
+                                             188
+The Thiele Machine                                                 Devon Thiele • September 2026
+
+
 For a finite set S, |S| means the number of elements in S. For a real number x, | x |
 means the absolute value of x (its distance from zero).
 
@@ -9469,11 +9548,6 @@ biconditional, also called “if and only if.” P ⇐⇒ Q means both P ⇒ Q a
 
 ∀ is “for every.” ∃ is “there exists.” ∀ x. P( x ) reads “for every x, P( x ) is true.” ∃ x. P( x )
 reads “there is some x that makes P( x ) true.”
-
-
-                                               187
-The Thiele Machine                                              Devon Thiele • September 2026
-
 
 ⟨ X ⟩ around a random variable X means the expected value, the long-run average
 value of X. I picked up this notation reading physics papers about Bell tests.
@@ -9507,6 +9581,12 @@ A tactic is a step inside a Coq proof. The tactics that appear in this document 
 induction (prove the base case, then prove that if the statement holds at step n it holds
 at step n + 1), destruct (split a hypothesis into its cases), exact (provide the literal proof
 term), reflexivity (prove x = x), simpl (simplify the goal by computing), lra (linear
+
+
+                                               189
+The Thiele Machine                                               Devon Thiele • September 2026
+
+
 real arithmetic; closes goals that are linear inequalities over the reals), nra (nonlinear
 real arithmetic; handles polynomial inequalities), and psatz (uses Positivstellensatz
 certificates; it shows a polynomial is non-negative by writing it as a sum of squares). I
@@ -9521,12 +9601,6 @@ bug. Section 22 explains what zero Admitted means. And what it does not.
 
 A Hypothesis (a Coq keyword inside a Section) is a named premise: a statement taken
 as given without proof. Hypotheses surface as ∀-quantified premises in the conclusion.
-
-
-                                             188
-The Thiele Machine                                               Devon Thiele • September 2026
-
-
 Hypothesis only appears at named bridge points (the physical-units calibration in Sec-
 tion 19 is the load-bearing example). An Axiom is the global version: a top-level claim
 accepted without proof. The kernel tier has zero project-local Axiom declarations. The
@@ -9559,6 +9633,12 @@ A functor is a structure-preserving map from one category to another. Given two
 categories C and D , a functor F from C to D sends each object of C to an object of
 D . It sends each arrow f : A → B in C to an arrow F ( f ) : F ( A) → F ( B) in D . It
 respects composition (F ( g ◦ f ) = F ( g) ◦ F ( f )) and identity (F (id A ) = idF( A) ). Think
+
+
+                                              190
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 of a functor as a translation rule between two categorical worlds that keeps the laws
 intact.
 
@@ -9572,13 +9652,6 @@ them, their uniqueness on reachable states is a separate theorem.
 An embedding is a functor that throws nothing away. That is the whole point of
 putting the word here: the classical projection of a VM state loses things on the way
 out, and an embedding is the move that does not. Faithful is the precise version of
-
-
-
-                                              189
-The Thiele Machine                                            Devon Thiele • September 2026
-
-
 “loses nothing on arrows”: if two arrows between the same pair of objects in C land
 on the same arrow under F, they were already the same arrow, so F never quietly
 fuses two distinct things into one. That is injectivity on each hom-set, checked one
@@ -9611,6 +9684,11 @@ stopped borrowing other people’s runtimes. Nothing in the formal development u
 it. It doesn’t show up in any theorem’s dependencies. The checked results rest on the
 category, morphism, and composition structures defined in the repository.
 
+
+                                           191
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
 A.5 Bell-test vocabulary you will meet in Section 18
 Section 18 builds the CHSH game from scratch. A few foundational terms thread
 through that section that I will not rebuild each time.
@@ -9624,11 +9702,6 @@ Bob’s setting is 0.
 
 The marginal of a joint distribution on ( a, b) is the distribution on a alone, with b
 averaged out. Zero-marginal means Alice’s marginal gives ⟨ a⟩ = 0 and Bob’s gives
-
-                                           190
-The Thiele Machine                                          Devon Thiele • September 2026
-
-
 ⟨b⟩ = 0. Each outcome is +1 or −1 equally often, on average. The Section 18 derivation
 works in this symmetric slice.
 
@@ -9659,9 +9732,15 @@ terexample to the false claim “any no-signaling correlation is quantum-realiza
 The Cauchy-Schwarz inequality is the basic inner-product inequality |⟨ x, y⟩| ≤ ∥ x ∥ ·
 ∥y∥. It reads: the inner product of two vectors is bounded by the product of their
 lengths. It is one of the workhorse algebraic moves in the Section 18 derivation.
-                                      √
+                                    √
 The Tsirelson bound is the value 2 2 ≈ 2.828, the largest CHSH score |S| that any
 quantum-mechanical strategy can achieve. The classical bound is 2. The PR-box bound
+
+
+                                          192
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 is 4. Tsirelson sits strictly between classical and PR-box. Nature picked one of these
 three.
 
@@ -9675,12 +9754,6 @@ and a fixed completion.
 A.6 Hardware and synthesis vocabulary
 Section 16 builds the scaffolding stack (Coq kernel, OCaml runner, Kami RTL) carefully.
 Here is the synthesis-tooling vocabulary that Section 16’s third subsection uses without
-
-
-                                          191
-The Thiele Machine                                            Devon Thiele • September 2026
-
-
 expanding each tool.
 
 A hardware description language (HDL) is a programming language for describing
@@ -9713,6 +9786,12 @@ the chip. DSP slices are specialised hardware for digital-signal-processing arit
 The synthesised K325T design uses none of them. yosys runs with -nodsp, so the
 multiplier in the multi-cycle witness checker (Section 16) is built out of LUTs. Put on
 DSP slices instead, the same multiplier couldn’t get through the open-source place-
+
+
+                                           193
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 and-route in time. It computes the same thing either way. The choice is about what
 the toolchain can place and route, not about correctness.
 
@@ -9726,12 +9805,6 @@ A bisimulation is a precise notion of “two systems behave the same.” You pic
 relation between the states of one system and the states of the other. Related states
 have to agree on whatever you chose to observe, and whenever one of them takes a
 step, the other has a matching step that lands in related states again. That is looser than
-
-
-                                           192
-The Thiele Machine                                            Devon Thiele • September 2026
-
-
 “same output state, field by field.” Field-by-field equality is one particular, stronger
 contract. Section 16 says exactly which observations and transitions the hardware
 relation covers. A parity test is the empirical cousin: run two implementations on
@@ -9764,6 +9837,11 @@ and the program counter. That is the exact list. The three it keeps are the thre
 Turing machine already has, which is the whole reason the projection lands you back
 in ordinary computation. The three it drops are the three that were doing the new
 work. Nothing about the projection is wrong; it is a perfectly good function. It just
+
+                                           194
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 costs you everything that made the state more than a tape.
 
 Quotient, in mathematics, is the operation of declaring two things the same when they
@@ -9777,11 +9855,6 @@ sense in which it loses information, and it is comforting that the math already 
 word sitting there waiting.
 
 A kernel of a map is context-dependent. For a group or module homomorphism it
-
-                                           193
-The Thiele Machine                                            Devon Thiele • September 2026
-
-
 is the inverse image of the identity element; for the quotient induced by a projection
 π, the relevant equivalence relation is s ∼ t exactly when π (s) = π (t). The classical
 projection in this document uses that second quotient reading. “Kernel” wears three
@@ -9814,6 +9887,12 @@ correct. The famous P-vs-NP question asks whether finding is fundamentally harde
 than checking. Nobody has proved either direction. The predicates error_free_pr
 eservation_budget and positive_input_certification_budget only con-
 strain traces chosen separately for each input. They do not express these complexity
+
+
+                                           195
+The Thiele Machine                                             Devon Thiele • September 2026
+
+
 classes.
 
 Determinant: a number computed from a square matrix that says whether the matrix
@@ -9827,15 +9906,7 @@ submatrix you get by deleting that entry’s row and column (with alternating si
 multiply by the entry, and sum. The recursion bottoms out at the 2 × 2 case above.
 Section 18 walks the explicit calculations for the 3 × 3 cases the argument needs.
 
-Schur complement: a way of turning a question about a block matrix into a question
-
-
-
-
-                                           194
-The Thiele Machine                                             Devon Thiele • September 2026
-
-                                    !
+Schur complement: a way of turning  ! a question about a block matrix into a question
                               A B
 about a smaller matrix. If             is a block matrix where A is invertible, the Schur
                               C D
@@ -9870,6 +9941,12 @@ result from ≥ 1 to ≥ K for an arbitrary threshold K. The two numbering syste
 on the cost-on-certification semantic content; they disagree on which axiom carries that
 content (A4 in the AbstractCertMachine list, A2 in the consolidated CertificationSys-
 tem list). When the rest of this document says “A2,” it means the cost-on-certification
+
+
+                                            196
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 rule, in the consolidated CertificationSystem sense.
 
 A1 (state includes a certification indicator).
@@ -9879,14 +9956,6 @@ ment that this indicator exists at all. In Coq, A1 is enforced by the record typ
 There is no way to hand Coq an AbstractCertMachine value with acm_cert left
 blank; it reads the field as missing and declines to build the record, the way a clerk
 declines a form with an empty box. A1 is discharged at type-check time.
-
-
-
-
-                                            195
-The Thiele Machine                                            Devon Thiele • September 2026
-
-
 A2 (cost-on-certification).
 In the consolidated CertificationSystem record, Coq field cs_cert_costs.
 Statement: for every state s and instruction i, if cs_cert s = false and cs_cert
@@ -9918,6 +9987,14 @@ of A3. It is also idle: the ≥ K floor telescopes through A3, A5, and A6 alone 
 touches A4. The field is kept so downstream consumers that want witness monotonic-
 ity in hand have it without re-deriving it; the consolidated QuantitativeCertifi
 cationSystem record drops A4 entirely, carrying only A3 and A5.
+
+
+
+
+                                           197
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
 A5 (certification requires witness).
 Coq field qcs_cert_threshold_witness on QuantitativeCertificationSy
 stem. Statement: cs_cert s = true → qcs_witness s ≥ qcs_threshold.
@@ -9928,11 +10005,6 @@ A6 (witness initial zero).
 The hypothesis that the run starts with zero witness, stated as a precondition on the
 quantitative theorem rather than a record field. Without A6 the telescoping bound
 becomes K − initial witness instead of K. Zero is a clean place to start.
-
-
-                                           196
-The Thiele Machine                                          Devon Thiele • September 2026
-
 
 A1 through A6, as the consolidated records state them, are independent of any specific
 instruction set; the AbstractCertMachine variant is the one exception, typing its step
@@ -9955,5 +10027,5 @@ them.
 
 
 
-                                          197
+                                          198
 

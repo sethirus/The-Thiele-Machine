@@ -93,8 +93,9 @@ fi
 # Always check receipt/probe coherence; it is fast and needs no Coq.
 run python3 scripts/check_assumption_consistency.py
 
-# Re-probe staged target files; changing the target list or gate invalidates
-# every verdict. CI (Full) also checks cross-file changes with a full sweep.
+# Re-probe staged target files and targets added to the list. Changing the
+# gate, or changing or removing an existing entry, invalidates every verdict.
+# CI (Full) also checks cross-file changes with a full sweep.
 run python3 -c '
 import json, subprocess
 from pathlib import Path
@@ -102,12 +103,25 @@ staged = set(subprocess.check_output([
     "git", "diff", "--cached", "--name-only", "-z"
 ]).decode().split("\0"))
 manifest = json.loads(Path("scripts/vacuity_targets.json").read_text())
+full = "scripts/vacuity_gate.py" in staged
+added = []
+if not full and "scripts/vacuity_targets.json" in staged:
+    try:
+        old = json.loads(subprocess.check_output(
+            ["git", "show", "HEAD:scripts/vacuity_targets.json"],
+            stderr=subprocess.DEVNULL))["targets"]
+    except (subprocess.CalledProcessError, ValueError, KeyError):
+        old = None
+    if old is None or any(target not in manifest["targets"] for target in old):
+        full = True
+    else:
+        added = [target for target in manifest["targets"] if target not in old]
 args = []
-if staged & {"scripts/vacuity_targets.json", "scripts/vacuity_gate.py"}:
+if full:
     args = ["--manifest", "scripts/vacuity_targets.json"]
 else:
     for target in manifest["targets"]:
-        if target["path"] in staged:
+        if target in added or target["path"] in staged:
             args += ["--target", target["path"], "--logical", target["logical"]]
     if args:
         args.append("--merge")

@@ -574,10 +574,24 @@ Adequacy puts a floor on the price of certifying. It never forbids charging for 
 
 The billed machine isn't a different structure, though. It is the same machine with a different price list.
 So the claim worth keeping is uniqueness up to the price schedule: every honest record-carrying machine is the Thiele core plus some price schedule that satisfies A2.
-\texttt{StructuralCoreRound3.v} states it for machines that run the VM underneath. Charges are not compared, every machine in play carries a monotone ledger that satisfies A2, and sameness is read through the machine's own projection onto the VM. It comes in two strengths. In one, the record only has to be a reading of the computation (\code{uniqueness\_round3a}). In the other, the record is the VM's own certification reading (\code{uniqueness\_round3b}).
-Both are open.
-Both take the VM's structure as given, since every machine they admit runs the VM.
-Whether the structure itself is forced, for machines that don't run the VM, is a question about record-carrying simulations between different machines.
+\texttt{StructuralCoreRound3.v} states it for machines that run the VM underneath. Charges are not compared, every machine in play carries a monotone ledger that satisfies A2, and sameness is read through the machine's own projection onto the VM. It comes in two strengths.
+
+When the record is the VM's own certification reading, uniqueness holds (\code{uniqueness\_round3b\_holds}). Relate each state to the VM state its projection assigns, and everything lines up.
+The billing machine is an example, not a counterexample: it is the Thiele core with a price of one extra unit per step (\code{billed\_core\_equiv\_mod\_schedule}).
+So is the Thiele core with any bill that depends on the current state, per step, per instruction, or per millisecond (\code{surcharged\_core\_equiv\_mod\_schedule}).
+
+When the record only has to be some reading of the computation, uniqueness fails (\code{uniqueness\_round3a\_refuted}).
+Take the Thiele core and let its record be ``the meter has passed one.''
+That reading never switches off, a paid step switches it on, and A2 holds for it.
+At a state with a positive meter and no certificate, the two record lights disagree.
+
+\begin{plainreading}
+One structure, two free choices. The price list is one. Which permanent reading counts as the record is the other.
+\end{plainreading}
+
+The second choice is the pointer-observable question of Section~\ref{sec:pointer}: what makes certification the event to record.
+Both strengths take the VM's structure as given, since every machine they admit runs the VM.
+Whether the structure itself is forced, for machines that don't run the VM, is a question about record-carrying simulations between different machines. It is open.
 
 The third is about this exact machine.
 Is this particular VM state space the only one, up to renaming?
@@ -586,7 +600,7 @@ No theorem needs it.
 The separating witnesses (Section~\ref{sec:categorical}'s graph pair and the irrecoverability theorems above) stand on their own however the second question comes out.
 They don't need it, and it doesn't need them.
 
-So the first is proved, for a fixed schedule. The third isn't claimed. The second, in the form the words suggest, is false. Up to the price schedule it is open.
+So the first is proved, for a fixed schedule. The third isn't claimed. The second, in the form the words suggest, is false. Up to the price schedule it holds for machines that run the VM and record certification, and which reading counts as the record is a second free choice. For machines that don't run the VM it is open.
 
 \textbf{What this project is not.}
 It is not a claim that I solved P vs NP.
@@ -3373,9 +3387,9 @@ Enforcing the law, representing it, and seeing it are separate questions, and I 
 \label{sec:reductions}
 %===========================================================================
 
-Same law, five other places it shows up. The abstract records leave the kind of state and instruction open, so you can drop in something that looks nothing like this VM. Here are five small models, each borrowed from a field that got to the idea on its own. Coq checks each model and what follows from it. Whether a real deployed protocol behaves like its model is a separate claim, and it needs its own evidence.
+Five other fields need a commitment to stick. The abstract records leave the kind of state and instruction open, so you can drop in something that looks nothing like this VM. Here are five small models, each borrowed from one of those fields. Coq checks each model and what follows from it. Whether a real deployed protocol behaves like its model is a separate claim, and it needs its own evidence.
 
-Ordinary machines can do all of this. That is the point of the section. Blockchains, gas meters, attestation, transparency logs, and proof-carrying code all run on conventional hardware, and each one puts a cost or a required piece of evidence on a commitment. Each field got there separately, in its own vocabulary, and built the rule on top of a machine whose account of computation had no place for it. The claim of this book is about that account. It says the account of computation should carry a priced commitment, so the next field doesn't have to build it again. It does not say a machine can't carry one.
+Ordinary machines can do all of this. That is the point of the section. Blockchains, gas meters, attestation, transparency logs, and proof-carrying code all run on conventional hardware. Four of them keep records that are meant to last; proof-carrying code does not. What the four share is permanence, not a price on the write. Read against their actual specifications (Section~\ref{sec:spec-records}), only one prices writing its record, and it refunds the write when the record is taken back before it settles. The others hold their records in place by pricing reversal or by building them so they can't be undone. The claim of this book is about the account of computation: it should carry the record and its price, so the next field doesn't have to build them again. It does not say every field already prices the write, and it does not say a machine can't carry one.
 
 \subsection{Proof-of-stake finality}
 
@@ -3432,6 +3446,39 @@ Proof-carrying & interaction & \code{interactive\_escape\_succeeds}, \code{level
 \end{center}
 
 Each of the five proves what its own record says. Reading any of them as a claim about a deployed system takes evidence from that system. And none of them shows certification is the one event every model has to price. That question is still open.
+
+\subsection{Five specifications, read through the record axis}
+\label{sec:spec-records}
+
+The models above are mine. Here are the specifications themselves, read with three questions: what is the record, what keeps it permanent, and where does a price sit. A price can sit at three levels. It can be economic, a fee or a deposit the protocol takes. It can be cryptographic, a reversal made infeasible by a hardness assumption. Or it can be physical, energy spent under Landauer's principle.
+
+\begin{center}
+{\small
+\begin{tabular}{p{6.5em} p{6.2em} p{6.5em} p{10.5em} p{8.5em}}
+\textbf{Specification} & \textbf{Record} & \textbf{What keeps it} & \textbf{Where a price sits, and its level} & \textbf{Checked in Coq} \\
+\hline
+Ethereum, Prague execution spec & a nonzero storage slot & persistence across transactions & writing a slot that stays set costs at least 20000 gas; set and cleared in one transaction costs 2300; economic & \code{persistent\_write\_priced}, \code{revoked\_write\_nearly\_free} \\
+Casper FFG & a finalized block & slashing & reversal: conflicting finalizations slash a ``1/3'' set, and finalizing slashes nobody; economic & \code{accountable\_safety}, \code{conflicting\_records\_are\_priced}, \code{finalization\_without\_slashing} \\
+TPM 2.0, Library Version 185 & an extended PCR & hash chaining & none in the specification; reversal is cryptographically infeasible & \code{quote\_cannot\_attest\_unmeasured\_state} \\
+Certificate Transparency, RFC 9162 & a logged certificate & an append-only, audited log & none in the specification; reversal is cryptographically infeasible & none \\
+Proof-carrying code (Necula) & a checked proof & nothing & none & none \\
+\end{tabular}
+}
+\end{center}
+
+Ethereum is the one that prices the write. Even there the price holds only for a record that outlives the transaction. Write a slot and clear it before the transaction ends, and the refund gives nearly all of it back. That is the finite-hardware result's shape again: the write that can be revoked is the one that goes free.
+
+Casper prices the other side. Finalizing a block slashes nobody. Reversing it does: two finalized blocks on different branches mean a ``1/3'' set of validators broke a slashing rule. That is accountable safety, ported here from the Casper verification team's Coq proof. It protects what A2 protects, permanence, from the opposite end. It is not an instance of A2, and it is not a counterexample to it. It is a second way to hold a record in place.
+
+TPM and CT price nothing in their specifications. A hash chain or an append-only log stays put because undoing it is infeasible, which is a cryptographic guarantee, not an exact one. There is a physical cost underneath: a register that exactly kept a permanent record on finite hardware would have to merge states (Section~\ref{sec:permanent-certification}). The specifications don't price it.
+
+Proof-carrying code keeps no permanent record and prices nothing. It is outside the family.
+
+\begin{plainreading}
+All five need their commitments to count. Four keep permanent records, and they hold them in place three ways: a price on the write, a price on reversal, or a structure that can't be undone. Only one matches A2's exact form.
+\end{plainreading}
+
+Whether permanence is always paid for at some level is a separate question. It is open.
 
 %===========================================================================
 \section{Binary Game Statistics: where a Priced Check Meets the NPA Boundary}
@@ -4339,7 +4386,7 @@ Run the Inquisitor on the repository and read what it says. It fails on HIGH or 
 
 \medskip
 \noindent\textbf{Falsify the axiom audit.}\\
-If running \texttt{Print Assumptions} (Section~\ref{sec:vocab}: the Coq command that reports global proof dependencies) on any named theorem in the kernel tier shows a project-local \texttt{Axiom} or \texttt{Parameter} in the dependency tree, the audit has degraded. The current full-corpus probe covers 13,045 named theorems across 435 files: 5,709 close under the global Coq context outright, and 7,336 use only Coq standard-library assumptions. The receipt names five such constants: dependent functional extensionality, \texttt{Eqdep.Eq\_rect\_eq.eq\_rect\_eq}, \texttt{ClassicalDedekindReals.sig\_not\_dec}, \texttt{ClassicalDedekindReals.sig\_forall\_dec}, and \texttt{Classical\_Prop.classic}. Zero project-local axioms appear in any of the 13,045 dependency trees. This audits where global dependencies come from. It doesn't prove that a theorem's own Section-generalized premises hold for the instance you care about; those premises stay visible in the theorem types and get checked separately. Any project-local axiom or parameter appearing in a global dependency tree is a bug.
+If running \texttt{Print Assumptions} (Section~\ref{sec:vocab}: the Coq command that reports global proof dependencies) on any named theorem in the kernel tier shows a project-local \texttt{Axiom} or \texttt{Parameter} in the dependency tree, the audit has degraded. The current full-corpus probe covers 13,078 named theorems across 441 files: 5,734 close under the global Coq context outright, and 7,344 use only Coq standard-library assumptions. The receipt names five such constants: dependent functional extensionality, \texttt{Eqdep.Eq\_rect\_eq.eq\_rect\_eq}, \texttt{ClassicalDedekindReals.sig\_not\_dec}, \texttt{ClassicalDedekindReals.sig\_forall\_dec}, and \texttt{Classical\_Prop.classic}. Zero project-local axioms appear in any of the 13,078 dependency trees. This audits where global dependencies come from. It doesn't prove that a theorem's own Section-generalized premises hold for the instance you care about; those premises stay visible in the theorem types and get checked separately. Any project-local axiom or parameter appearing in a global dependency tree is a bug.
 
 \medskip
 \noindent\textbf{Falsify the hardware bisimulation.}\\

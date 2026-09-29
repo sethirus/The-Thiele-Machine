@@ -2,8 +2,8 @@
   "schema": "vacuity_audit.v1",
   "summary": {
     "error": 0,
-    "ok": 715,
-    "total": 715,
+    "ok": 748,
+    "total": 748,
     "vacuous_hyp": 0,
     "vacuous_true": 0
   },
@@ -26,126 +26,6 @@
       "probe_a": null,
       "probe_b": null,
       "statement": "forall (P : BareVerificationProblem) (V : BareVerifier), bare_sound P V -> forall t s, bare_explains P s t -> ~ bare_honest_claim P s -> bv_decide V t = false",
-      "status": "ok"
-    },
-    {
-      "file": "coq/VerifierImpossibility.v",
-      "kind": "Lemma",
-      "line": 72,
-      "name": "witness_A_satisfies_claim",
-      "probe_a": {
-        "coq_stderr_tail": "ogical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__a.v\", line 3, characters 69-80:\nError: The reference po1_state_A was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.385 secs (0.241u,0.144s)\nChars 103 - 184 [Theorem~_vacuity_probe_a_witne...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "ogical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__b.v\", line 3, characters 69-80:\nError: The reference po1_state_A was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.389 secs (0.249u,0.139s)\nChars 103 - 184 [Theorem~_vacuity_probe_b_witne...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__b.v",
-        "succeeded": false
-      },
-      "statement": "mu_eq_one_claim po1_state_A",
-      "status": "ok"
-    },
-    {
-      "file": "coq/VerifierImpossibility.v",
-      "kind": "Lemma",
-      "line": 79,
-      "name": "witness_B_violates_claim",
-      "probe_a": {
-        "coq_stderr_tail": "logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__a.v\", line 3, characters 70-81:\nError: The reference po1_state_B was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.377 secs (0.245u,0.132s)\nChars 103 - 185 [Theorem~_vacuity_probe_a_witne...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__b.v\", line 3, characters 70-81:\nError: The reference po1_state_B was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.369 secs (0.226u,0.143s)\nChars 103 - 185 [Theorem~_vacuity_probe_b_witne...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__b.v",
-        "succeeded": false
-      },
-      "statement": "~ mu_eq_one_claim po1_state_B",
-      "status": "ok"
-    },
-    {
-      "file": "coq/VerifierImpossibility.v",
-      "kind": "Lemma",
-      "line": 88,
-      "name": "witness_A_explains_shared",
-      "probe_a": {
-        "coq_stderr_tail": "logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__a.v\", line 3, characters 75-86:\nError: The reference po1_state_A was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.381 secs (0.24u,0.141s)\nChars 103 - 209 [Theorem~_vacuity_probe_a_witne...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__b.v\", line 3, characters 75-86:\nError: The reference po1_state_A was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.387 secs (0.247u,0.14s)\nChars 103 - 209 [Theorem~_vacuity_probe_b_witne...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__b.v",
-        "succeeded": false
-      },
-      "statement": "mu_collision_explains po1_state_A po1_strict_trace_A",
-      "status": "ok"
-    },
-    {
-      "file": "coq/VerifierImpossibility.v",
-      "kind": "Lemma",
-      "line": 96,
-      "name": "witness_B_explains_shared",
-      "probe_a": {
-        "coq_stderr_tail": "ogical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__a.v\", line 3, characters 75-86:\nError: The reference po1_state_B was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.406 secs (0.272u,0.134s)\nChars 103 - 209 [Theorem~_vacuity_probe_a_witne...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__b.v\", line 3, characters 75-86:\nError: The reference po1_state_B was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.371 secs (0.23u,0.141s)\nChars 103 - 209 [Theorem~_vacuity_probe_b_witne...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__b.v",
-        "succeeded": false
-      },
-      "statement": "mu_collision_explains po1_state_B po1_strict_trace_A",
-      "status": "ok"
-    },
-    {
-      "file": "coq/VerifierImpossibility.v",
-      "kind": "Theorem",
-      "line": 117,
-      "name": "bare_setting_no_sound_complete_verifier",
-      "probe_a": {
-        "coq_stderr_tail": "h,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__a.v\", line 3, characters 80-92:\nError: The reference BareVerifier was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.384 secs (0.234u,0.15s)\nChars 103 - 265 [Theorem~_vacuity_probe_a_bare_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "h,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__b.v\", line 3, characters 80-92:\nError: The reference BareVerifier was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.385 secs (0.254u,0.13s)\nChars 103 - 265 [Theorem~_vacuity_probe_b_bare_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__b.v",
-        "succeeded": false
-      },
-      "statement": "~ exists V : BareVerifier, bare_sound mu_eq_one_problem V /\\ bare_complete mu_eq_one_problem V",
-      "status": "ok"
-    },
-    {
-      "file": "coq/VerifierImpossibility.v",
-      "kind": "Corollary",
-      "line": 149,
-      "name": "bare_sound_blocks_honest_acceptance",
-      "probe_a": {
-        "coq_stderr_tail": "dpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__a.v\", line 3, characters 74-86:\nError: The reference BareVerifier was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.404 secs (0.25u,0.153s)\nChars 103 - 264 [Theorem~_vacuity_probe_a_bare_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "path,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__b.v\", line 3, characters 74-86:\nError: The reference BareVerifier was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.391 secs (0.253u,0.137s)\nChars 103 - 264 [Theorem~_vacuity_probe_b_bare_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__b.v",
-        "succeeded": false
-      },
-      "statement": "forall V : BareVerifier, bare_sound mu_eq_one_problem V -> bv_decide V po1_strict_trace_A = false",
       "status": "ok"
     },
     {
@@ -286,96 +166,6 @@
         "succeeded": false
       },
       "statement": "exists (decide : SubstrateTranscript -> bool) (cost : SubstrateTranscript -> nat), (forall t, decide t = true -> forall s, substrate_explains s t -> s.(vm_mu) = 1) /\\ (forall s t, s.(vm_mu) = 1 -> substrate_explains s t -> decide t = true) /\\ (forall t, cost t = 1)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/VerifierEscape_Hardness.v",
-      "kind": "Theorem",
-      "line": 60,
-      "name": "commitment_verifier_abstract_unit_cost",
-      "probe_a": null,
-      "probe_b": null,
-      "statement": "forall t : CommitmentTranscript, commitment_cost t = 1",
-      "status": "ok"
-    },
-    {
-      "file": "coq/VerifierEscape_Hardness.v",
-      "kind": "Theorem",
-      "line": 78,
-      "name": "commitment_contract_verifier",
-      "probe_a": {
-        "coq_stderr_tail": "al-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Hardness__commitment_contract_verifier__a.v\", line 3, characters 206-214:\nError: The reference explains was not found in the current environment.\n\nChars 65 - 104 [Require~Import~VerifierEscape_...] 0.398 secs (0.256u,0.141s)\nChars 105 - 434 [Theorem~_vacuity_probe_a_commi...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__commitment_contract_verifier__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "al-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Hardness__commitment_contract_verifier__b.v\", line 3, characters 206-214:\nError: The reference explains was not found in the current environment.\n\nChars 65 - 104 [Require~Import~VerifierEscape_...] 0.398 secs (0.236u,0.161s)\nChars 105 - 434 [Theorem~_vacuity_probe_b_commi...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__commitment_contract_verifier__b.v",
-        "succeeded": false
-      },
-      "statement": "CommitmentBitContract -> exists (decide : CommitmentTranscript -> bool) (cost : CommitmentTranscript -> nat), (forall t, decide t = true -> forall s, explains s t -> s.(vm_mu) = 1) /\\ (forall s t, s.(vm_mu) = 1 -> explains s t -> decide t = true) /\\ (forall t, cost t = 1)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/VerifierEscape_Hardness.v",
-      "kind": "Theorem",
-      "line": 104,
-      "name": "honest_commitments_satisfy_contract",
-      "probe_a": {
-        "coq_stderr_tail": "| S m' => eqb n' m'\n                  end\n        end) (let (_, _, _, _, _, vm_mu, _, _, _, _, _, _) := s in vm_mu) 1)\".\n\nChars 65 - 104 [Require~Import~VerifierEscape_...] 0.429 secs (0.275u,0.151s)\nChars 105 - 217 [Theorem~_vacuity_probe_a_hones...] 0. secs (0.u,0.s)\nChars 218 - 224 [Proof.] 0. secs (0.u,0.s)\nChars 225 - 247 [(intros;~lazy;~exact~I).] 0.01 secs (0.003u,0.006s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__honest_commitments_satisfy_contract__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "uity_probes/VerifierEscape_Hardness__honest_commitments_satisfy_contract__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 104 [Require~Import~VerifierEscape_...] 0.386 secs (0.238u,0.147s)\nChars 105 - 217 [Theorem~_vacuity_probe_b_hones...] 0. secs (0.u,0.s)\nChars 218 - 224 [Proof.] 0. secs (0.u,0.s)\nChars 225 - 255 [(intros;~lazy~in~*;~assumption).] 0.001 secs (0.u,0.001s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__honest_commitments_satisfy_contract__b.v",
-        "succeeded": false
-      },
-      "statement": "CommitmentBitContract honest_commitment_explains",
-      "status": "ok"
-    },
-    {
-      "file": "coq/VerifierEscape_Hardness.v",
-      "kind": "Theorem",
-      "line": 121,
-      "name": "unchecked_bit_violates_contract",
-      "probe_a": {
-        "coq_stderr_tail": "VMState.wc_same_11 := 0;\n            VMState.wc_diff_11 := 0\n          |};\n        VMState.vm_certified := false\n      |})) -> False\".\n\nChars 65 - 104 [Require~Import~VerifierEscape_...] 0.386 secs (0.247u,0.138s)\nChars 105 - 211 [Theorem~_vacuity_probe_a_unche...] 0. secs (0.u,0.s)\nChars 212 - 218 [Proof.] 0. secs (0.u,0.s)\nChars 219 - 241 [(intros;~lazy;~exact~I).] 0.009 secs (0.004u,0.005s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__unchecked_bit_violates_contract__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "/build/vacuity_probes/VerifierEscape_Hardness__unchecked_bit_violates_contract__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 104 [Require~Import~VerifierEscape_...] 0.381 secs (0.235u,0.145s)\nChars 105 - 211 [Theorem~_vacuity_probe_b_unche...] 0. secs (0.u,0.s)\nChars 212 - 218 [Proof.] 0. secs (0.u,0.s)\nChars 219 - 249 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__unchecked_bit_violates_contract__b.v",
-        "succeeded": false
-      },
-      "statement": "~ CommitmentBitContract unchecked_bit_explains",
-      "status": "ok"
-    },
-    {
-      "file": "coq/VerifierEscape_Hardness.v",
-      "kind": "Theorem",
-      "line": 134,
-      "name": "honest_lift_separates_collision",
-      "probe_a": {
-        "coq_stderr_tail": "oadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Hardness__honest_lift_separates_collision__a.v\", line 3, characters 86-97:\nError: The reference po1_state_A was not found in the current environment.\n\nChars 65 - 104 [Require~Import~VerifierEscape_...] 0.378 secs (0.254u,0.124s)\nChars 105 - 300 [Theorem~_vacuity_probe_a_hones...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__honest_lift_separates_collision__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Hardness__honest_lift_separates_collision__b.v\", line 3, characters 86-97:\nError: The reference po1_state_A was not found in the current environment.\n\nChars 65 - 104 [Require~Import~VerifierEscape_...] 0.373 secs (0.26u,0.112s)\nChars 105 - 300 [Theorem~_vacuity_probe_b_hones...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__honest_lift_separates_collision__b.v",
-        "succeeded": false
-      },
-      "statement": "honest_commitment_explains po1_state_A (po1_strict_trace_A, true) /\\ honest_commitment_explains po1_state_B (po1_strict_trace_A, false)",
       "status": "ok"
     },
     {
@@ -13416,6 +13206,876 @@
         "succeeded": false
       },
       "statement": "~ uniqueness_round2",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Lemma",
+      "line": 72,
+      "name": "witness_A_satisfies_claim",
+      "probe_a": {
+        "coq_stderr_tail": "ogical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__a.v\", line 3, characters 69-80:\nError: The reference po1_state_A was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.434 secs (0.272u,0.159s)\nChars 103 - 184 [Theorem~_vacuity_probe_a_witne...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ogical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__b.v\", line 3, characters 69-80:\nError: The reference po1_state_A was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.405 secs (0.276u,0.127s)\nChars 103 - 184 [Theorem~_vacuity_probe_b_witne...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__b.v",
+        "succeeded": false
+      },
+      "statement": "mu_eq_one_claim po1_state_A",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Lemma",
+      "line": 79,
+      "name": "witness_B_violates_claim",
+      "probe_a": {
+        "coq_stderr_tail": "-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__a.v\", line 3, characters 70-81:\nError: The reference po1_state_B was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.395 secs (0.255u,0.14s)\nChars 103 - 185 [Theorem~_vacuity_probe_a_witne...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__b.v\", line 3, characters 70-81:\nError: The reference po1_state_B was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.396 secs (0.257u,0.139s)\nChars 103 - 185 [Theorem~_vacuity_probe_b_witne...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__b.v",
+        "succeeded": false
+      },
+      "statement": "~ mu_eq_one_claim po1_state_B",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Lemma",
+      "line": 88,
+      "name": "witness_A_explains_shared",
+      "probe_a": {
+        "coq_stderr_tail": "logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__a.v\", line 3, characters 75-86:\nError: The reference po1_state_A was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.387 secs (0.25u,0.136s)\nChars 103 - 209 [Theorem~_vacuity_probe_a_witne...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ogical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__b.v\", line 3, characters 75-86:\nError: The reference po1_state_A was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.405 secs (0.256u,0.148s)\nChars 103 - 209 [Theorem~_vacuity_probe_b_witne...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__b.v",
+        "succeeded": false
+      },
+      "statement": "mu_collision_explains po1_state_A po1_strict_trace_A",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Lemma",
+      "line": 96,
+      "name": "witness_B_explains_shared",
+      "probe_a": {
+        "coq_stderr_tail": "logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__a.v\", line 3, characters 75-86:\nError: The reference po1_state_B was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.404 secs (0.26u,0.143s)\nChars 103 - 209 [Theorem~_vacuity_probe_a_witne...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ogical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__b.v\", line 3, characters 75-86:\nError: The reference po1_state_B was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.402 secs (0.267u,0.135s)\nChars 103 - 209 [Theorem~_vacuity_probe_b_witne...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__b.v",
+        "succeeded": false
+      },
+      "statement": "mu_collision_explains po1_state_B po1_strict_trace_A",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Theorem",
+      "line": 117,
+      "name": "bare_setting_no_sound_complete_verifier",
+      "probe_a": {
+        "coq_stderr_tail": ",filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__a.v\", line 3, characters 80-92:\nError: The reference BareVerifier was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.392 secs (0.258u,0.133s)\nChars 103 - 265 [Theorem~_vacuity_probe_a_bare_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__b.v\", line 3, characters 80-92:\nError: The reference BareVerifier was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.396 secs (0.251u,0.145s)\nChars 103 - 265 [Theorem~_vacuity_probe_b_bare_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__b.v",
+        "succeeded": false
+      },
+      "statement": "~ exists V : BareVerifier, bare_sound mu_eq_one_problem V /\\ bare_complete mu_eq_one_problem V",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Corollary",
+      "line": 149,
+      "name": "bare_sound_blocks_honest_acceptance",
+      "probe_a": {
+        "coq_stderr_tail": "path,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__a.v\", line 3, characters 74-86:\nError: The reference BareVerifier was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.391 secs (0.251u,0.139s)\nChars 103 - 264 [Theorem~_vacuity_probe_a_bare_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "dpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__b.v\", line 3, characters 74-86:\nError: The reference BareVerifier was not found in the current environment.\n\nChars 65 - 102 [Require~Import~VerifierImpossi...] 0.398 secs (0.248u,0.15s)\nChars 103 - 264 [Theorem~_vacuity_probe_b_bare_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__b.v",
+        "succeeded": false
+      },
+      "statement": "forall V : BareVerifier, bare_sound mu_eq_one_problem V -> bv_decide V po1_strict_trace_A = false",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Hardness.v",
+      "kind": "Theorem",
+      "line": 61,
+      "name": "commitment_verifier_abstract_unit_cost",
+      "probe_a": null,
+      "probe_b": null,
+      "statement": "forall t : CommitmentTranscript, commitment_cost t = 1",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Hardness.v",
+      "kind": "Theorem",
+      "line": 79,
+      "name": "commitment_contract_verifier",
+      "probe_a": {
+        "coq_stderr_tail": "cal-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Hardness__commitment_contract_verifier__a.v\", line 3, characters 206-214:\nError: The reference explains was not found in the current environment.\n\nChars 65 - 104 [Require~Import~VerifierEscape_...] 0.407 secs (0.257u,0.15s)\nChars 105 - 434 [Theorem~_vacuity_probe_a_commi...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__commitment_contract_verifier__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "al-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Hardness__commitment_contract_verifier__b.v\", line 3, characters 206-214:\nError: The reference explains was not found in the current environment.\n\nChars 65 - 104 [Require~Import~VerifierEscape_...] 0.419 secs (0.275u,0.142s)\nChars 105 - 434 [Theorem~_vacuity_probe_b_commi...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__commitment_contract_verifier__b.v",
+        "succeeded": false
+      },
+      "statement": "CommitmentBitContract -> exists (decide : CommitmentTranscript -> bool) (cost : CommitmentTranscript -> nat), (forall t, decide t = true -> forall s, explains s t -> s.(vm_mu) = 1) /\\ (forall s t, s.(vm_mu) = 1 -> explains s t -> decide t = true) /\\ (forall t, cost t = 1)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Hardness.v",
+      "kind": "Theorem",
+      "line": 105,
+      "name": "honest_commitments_satisfy_contract",
+      "probe_a": {
+        "coq_stderr_tail": "| S m' => eqb n' m'\n                  end\n        end) (let (_, _, _, _, _, vm_mu, _, _, _, _, _, _) := s in vm_mu) 1)\".\n\nChars 65 - 104 [Require~Import~VerifierEscape_...] 0.388 secs (0.248u,0.139s)\nChars 105 - 217 [Theorem~_vacuity_probe_a_hones...] 0. secs (0.u,0.s)\nChars 218 - 224 [Proof.] 0. secs (0.u,0.s)\nChars 225 - 247 [(intros;~lazy;~exact~I).] 0.01 secs (0.003u,0.006s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__honest_commitments_satisfy_contract__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "uity_probes/VerifierEscape_Hardness__honest_commitments_satisfy_contract__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 104 [Require~Import~VerifierEscape_...] 0.413 secs (0.282u,0.129s)\nChars 105 - 217 [Theorem~_vacuity_probe_b_hones...] 0. secs (0.u,0.s)\nChars 218 - 224 [Proof.] 0. secs (0.u,0.s)\nChars 225 - 255 [(intros;~lazy~in~*;~assumption).] 0.001 secs (0.001u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__honest_commitments_satisfy_contract__b.v",
+        "succeeded": false
+      },
+      "statement": "CommitmentBitContract honest_commitment_explains",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Hardness.v",
+      "kind": "Theorem",
+      "line": 122,
+      "name": "unchecked_bit_violates_contract",
+      "probe_a": {
+        "coq_stderr_tail": "VMState.wc_same_11 := 0;\n            VMState.wc_diff_11 := 0\n          |};\n        VMState.vm_certified := false\n      |})) -> False\".\n\nChars 65 - 104 [Require~Import~VerifierEscape_...] 0.41 secs (0.252u,0.158s)\nChars 105 - 211 [Theorem~_vacuity_probe_a_unche...] 0. secs (0.u,0.s)\nChars 212 - 218 [Proof.] 0. secs (0.u,0.s)\nChars 219 - 241 [(intros;~lazy;~exact~I).] 0.012 secs (0.005u,0.006s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__unchecked_bit_violates_contract__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "e/build/vacuity_probes/VerifierEscape_Hardness__unchecked_bit_violates_contract__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 104 [Require~Import~VerifierEscape_...] 0.39 secs (0.252u,0.138s)\nChars 105 - 211 [Theorem~_vacuity_probe_b_unche...] 0. secs (0.u,0.s)\nChars 212 - 218 [Proof.] 0. secs (0.u,0.s)\nChars 219 - 249 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__unchecked_bit_violates_contract__b.v",
+        "succeeded": false
+      },
+      "statement": "~ CommitmentBitContract unchecked_bit_explains",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Hardness.v",
+      "kind": "Theorem",
+      "line": 135,
+      "name": "honest_lift_separates_collision",
+      "probe_a": {
+        "coq_stderr_tail": "oadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Hardness__honest_lift_separates_collision__a.v\", line 3, characters 86-97:\nError: The reference po1_state_A was not found in the current environment.\n\nChars 65 - 104 [Require~Import~VerifierEscape_...] 0.418 secs (0.251u,0.162s)\nChars 105 - 300 [Theorem~_vacuity_probe_a_hones...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__honest_lift_separates_collision__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "oadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Hardness__honest_lift_separates_collision__b.v\", line 3, characters 86-97:\nError: The reference po1_state_A was not found in the current environment.\n\nChars 65 - 104 [Require~Import~VerifierEscape_...] 0.398 secs (0.263u,0.134s)\nChars 105 - 300 [Theorem~_vacuity_probe_b_hones...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__honest_lift_separates_collision__b.v",
+        "succeeded": false
+      },
+      "statement": "honest_commitment_explains po1_state_A (po1_strict_trace_A, true) /\\ honest_commitment_explains po1_state_B (po1_strict_trace_A, false)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralScheduleUniqueness.v",
+      "kind": "Theorem",
+      "line": 32,
+      "name": "thiele_core_priced",
+      "probe_a": {
+        "coq_stderr_tail": "cal-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__thiele_core_priced__a.v\", line 3, characters 46-52:\nError: The reference priced was not found in the current environment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.395 secs (0.258u,0.137s)\nChars 122 - 186 [Theorem~_vacuity_probe_a_thiel...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__thiele_core_priced__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "cal-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__thiele_core_priced__b.v\", line 3, characters 46-52:\nError: The reference priced was not found in the current environment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.424 secs (0.266u,0.157s)\nChars 122 - 186 [Theorem~_vacuity_probe_b_thiel...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__thiele_core_priced__b.v",
+        "succeeded": false
+      },
+      "statement": "priced ThieleCore",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralScheduleUniqueness.v",
+      "kind": "Theorem",
+      "line": 35,
+      "name": "uniqueness_round3b_holds",
+      "probe_a": {
+        "coq_stderr_tail": "esystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__uniqueness_round3b_holds__a.v\", line 3, characters 52-70:\nError: The reference uniqueness_round3b was not found in the current\nenvironment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.42 secs (0.27u,0.149s)\nChars 122 - 193 [Theorem~_vacuity_probe_a_uniqu...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__uniqueness_round3b_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__uniqueness_round3b_holds__b.v\", line 3, characters 52-70:\nError: The reference uniqueness_round3b was not found in the current\nenvironment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.406 secs (0.264u,0.142s)\nChars 122 - 193 [Theorem~_vacuity_probe_b_uniqu...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__uniqueness_round3b_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "uniqueness_round3b",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralScheduleUniqueness.v",
+      "kind": "Theorem",
+      "line": 56,
+      "name": "billed_core_honest3b",
+      "probe_a": {
+        "coq_stderr_tail": "filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__billed_core_honest3b__a.v\", line 3, characters 48-65:\nError: The reference HonestExtension3b was not found in the current\nenvironment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.407 secs (0.261u,0.144s)\nChars 122 - 212 [Theorem~_vacuity_probe_a_bille...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__billed_core_honest3b__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__billed_core_honest3b__b.v\", line 3, characters 48-65:\nError: The reference HonestExtension3b was not found in the current\nenvironment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.415 secs (0.277u,0.137s)\nChars 122 - 212 [Theorem~_vacuity_probe_b_bille...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__billed_core_honest3b__b.v",
+        "succeeded": false
+      },
+      "statement": "HonestExtension3b BilledCore billed_cover",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralScheduleUniqueness.v",
+      "kind": "Theorem",
+      "line": 64,
+      "name": "billed_core_equiv_mod_schedule",
+      "probe_a": {
+        "coq_stderr_tail": "ult]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__billed_core_equiv_mod_schedule__a.v\", line 3, characters 58-80:\nError: The reference equiv_mod_schedule_via was not found in the current\nenvironment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.415 secs (0.262u,0.152s)\nChars 122 - 227 [Theorem~_vacuity_probe_a_bille...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__billed_core_equiv_mod_schedule__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ult]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__billed_core_equiv_mod_schedule__b.v\", line 3, characters 58-80:\nError: The reference equiv_mod_schedule_via was not found in the current\nenvironment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.405 secs (0.259u,0.144s)\nChars 122 - 227 [Theorem~_vacuity_probe_b_bille...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__billed_core_equiv_mod_schedule__b.v",
+        "succeeded": false
+      },
+      "statement": "equiv_mod_schedule_via BilledCore billed_cover",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralScheduleUniqueness.v",
+      "kind": "Theorem",
+      "line": 98,
+      "name": "surcharged_core_honest3b",
+      "probe_a": {
+        "coq_stderr_tail": "system,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__surcharged_core_honest3b__a.v\", line 3, characters 66-83:\nError: The reference HonestExtension3b was not found in the current\nenvironment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.401 secs (0.258u,0.142s)\nChars 122 - 254 [Theorem~_vacuity_probe_a_surch...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__surcharged_core_honest3b__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "system,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__surcharged_core_honest3b__b.v\", line 3, characters 66-83:\nError: The reference HonestExtension3b was not found in the current\nenvironment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.409 secs (0.264u,0.144s)\nChars 122 - 254 [Theorem~_vacuity_probe_b_surch...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__surcharged_core_honest3b__b.v",
+        "succeeded": false
+      },
+      "statement": "forall extra, HonestExtension3b (SurchargedCore extra) (surcharged_cover extra)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralScheduleUniqueness.v",
+      "kind": "Theorem",
+      "line": 124,
+      "name": "surcharged_core_equiv_mod_schedule",
+      "probe_a": {
+        "coq_stderr_tail": "]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__surcharged_core_equiv_mod_schedule__a.v\", line 3, characters 76-98:\nError: The reference equiv_mod_schedule_via was not found in the current\nenvironment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.41 secs (0.271u,0.139s)\nChars 122 - 269 [Theorem~_vacuity_probe_a_surch...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__surcharged_core_equiv_mod_schedule__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__surcharged_core_equiv_mod_schedule__b.v\", line 3, characters 76-98:\nError: The reference equiv_mod_schedule_via was not found in the current\nenvironment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.405 secs (0.258u,0.146s)\nChars 122 - 269 [Theorem~_vacuity_probe_b_surch...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__surcharged_core_equiv_mod_schedule__b.v",
+        "succeeded": false
+      },
+      "statement": "forall extra, equiv_mod_schedule_via (SurchargedCore extra) (surcharged_cover extra)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralScheduleUniqueness.v",
+      "kind": "Lemma",
+      "line": 153,
+      "name": "meter_step_mu",
+      "probe_a": {
+        "coq_stderr_tail": "g-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__meter_step_mu__a.v\", line 3, characters 53-58:\nError: The reference vm_mu was not found in the current environment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.414 secs (0.273u,0.141s)\nChars 122 - 209 [Theorem~_vacuity_probe_a_meter...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__meter_step_mu__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "g-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__meter_step_mu__b.v\", line 3, characters 53-58:\nError: The reference vm_mu was not found in the current environment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.406 secs (0.257u,0.148s)\nChars 122 - 209 [Theorem~_vacuity_probe_b_meter...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__meter_step_mu__b.v",
+        "succeeded": false
+      },
+      "statement": "forall p s, vm_mu s <= vm_mu (run_vm_u 1 p s)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralScheduleUniqueness.v",
+      "kind": "Theorem",
+      "line": 156,
+      "name": "meter_core_honest3a",
+      "probe_a": {
+        "coq_stderr_tail": "h,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__meter_core_honest3a__a.v\", line 3, characters 47-64:\nError: The reference HonestExtension3a was not found in the current\nenvironment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.426 secs (0.262u,0.16s)\nChars 122 - 209 [Theorem~_vacuity_probe_a_meter...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__meter_core_honest3a__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "h,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__meter_core_honest3a__b.v\", line 3, characters 47-64:\nError: The reference HonestExtension3a was not found in the current\nenvironment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.413 secs (0.272u,0.14s)\nChars 122 - 209 [Theorem~_vacuity_probe_b_meter...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__meter_core_honest3a__b.v",
+        "succeeded": false
+      },
+      "statement": "HonestExtension3a MeterCore meter_cover",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralScheduleUniqueness.v",
+      "kind": "Theorem",
+      "line": 193,
+      "name": "meter_core_not_equiv_mod_schedule",
+      "probe_a": {
+        "coq_stderr_tail": "]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__meter_core_not_equiv_mod_schedule__a.v\", line 3, characters 63-85:\nError: The reference equiv_mod_schedule_via was not found in the current\nenvironment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.407 secs (0.255u,0.152s)\nChars 122 - 230 [Theorem~_vacuity_probe_a_meter...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__meter_core_not_equiv_mod_schedule__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__meter_core_not_equiv_mod_schedule__b.v\", line 3, characters 63-85:\nError: The reference equiv_mod_schedule_via was not found in the current\nenvironment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.406 secs (0.278u,0.127s)\nChars 122 - 230 [Theorem~_vacuity_probe_b_meter...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__meter_core_not_equiv_mod_schedule__b.v",
+        "succeeded": false
+      },
+      "statement": "~ equiv_mod_schedule_via MeterCore meter_cover",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralScheduleUniqueness.v",
+      "kind": "Theorem",
+      "line": 203,
+      "name": "uniqueness_round3a_refuted",
+      "probe_a": {
+        "coq_stderr_tail": "tem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__uniqueness_round3a_refuted__a.v\", line 3, characters 56-74:\nError: The reference uniqueness_round3a was not found in the current\nenvironment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.399 secs (0.257u,0.141s)\nChars 122 - 197 [Theorem~_vacuity_probe_a_uniqu...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__uniqueness_round3a_refuted__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "tem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralScheduleUniqueness__uniqueness_round3a_refuted__b.v\", line 3, characters 56-74:\nError: The reference uniqueness_round3a was not found in the current\nenvironment.\n\nChars 65 - 121 [From~Kernel~Require~Import~Str...] 0.407 secs (0.264u,0.143s)\nChars 122 - 197 [Theorem~_vacuity_probe_b_uniqu...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralScheduleUniqueness__uniqueness_round3a_refuted__b.v",
+        "succeeded": false
+      },
+      "statement": "~ uniqueness_round3a",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Lemma",
+      "line": 87,
+      "name": "hash_ancestor_base",
+      "probe_a": {
+        "coq_stderr_tail": "ixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CasperFFG__hash_ancestor_base__a.v\", line 3, characters 72-73:\nError: The reference C was not found in the current environment.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.261 secs (0.178u,0.083s)\nChars 103 - 206 [Theorem~_vacuity_probe_a_hash_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__hash_ancestor_base__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CasperFFG__hash_ancestor_base__b.v\", line 3, characters 72-73:\nError: The reference C was not found in the current environment.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.286 secs (0.183u,0.101s)\nChars 103 - 206 [Theorem~_vacuity_probe_b_hash_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__hash_ancestor_base__b.v",
+        "succeeded": false
+      },
+      "statement": "forall h1 h2, hash_parent C h1 h2 -> hash_ancestor h1 h2",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Lemma",
+      "line": 90,
+      "name": "hash_ancestor_concat",
+      "probe_a": {
+        "coq_stderr_tail": "e/build/vacuity_probes/Kernel__CasperFFG__hash_ancestor_concat__a.v\", line 3, characters 65-84:\nError: In environment\nh1 : ?T\nh2 : CasperSetting\nh3 : Hash h2\nThe term \"hash_ancestor h2 h3\" has type \"Hash h2 -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.264 secs (0.172u,0.091s)\nChars 103 - 234 [Theorem~_vacuity_probe_a_hash_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__hash_ancestor_concat__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ne/build/vacuity_probes/Kernel__CasperFFG__hash_ancestor_concat__b.v\", line 3, characters 65-84:\nError: In environment\nh1 : ?T\nh2 : CasperSetting\nh3 : Hash h2\nThe term \"hash_ancestor h2 h3\" has type \"Hash h2 -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.269 secs (0.17u,0.098s)\nChars 103 - 234 [Theorem~_vacuity_probe_b_hash_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__hash_ancestor_concat__b.v",
+        "succeeded": false
+      },
+      "statement": "forall h1 h2 h3, hash_ancestor h2 h3 -> hash_ancestor h1 h2 -> hash_ancestor h1 h3",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Lemma",
+      "line": 97,
+      "name": "hash_ancestor_other",
+      "probe_a": {
+        "coq_stderr_tail": "ild/vacuity_probes/Kernel__CasperFFG__hash_ancestor_other__a.v\", line 3, characters 63-82:\nError: In environment\nh1 : CasperSetting\nh2 : Hash h1\np : ?T\nThe term \"hash_ancestor h1 h2\" has type \"Hash h1 -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.278 secs (0.174u,0.102s)\nChars 103 - 234 [Theorem~_vacuity_probe_a_hash_...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__hash_ancestor_other__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ine/build/vacuity_probes/Kernel__CasperFFG__hash_ancestor_other__b.v\", line 3, characters 63-82:\nError: In environment\nh1 : CasperSetting\nh2 : Hash h1\np : ?T\nThe term \"hash_ancestor h1 h2\" has type \"Hash h1 -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.278 secs (0.174u,0.104s)\nChars 103 - 234 [Theorem~_vacuity_probe_b_hash_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__hash_ancestor_other__b.v",
+        "succeeded": false
+      },
+      "statement": "forall h1 h2 p, hash_ancestor h1 h2 -> ~ hash_ancestor p h2 -> ~ hash_ancestor p h1",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Lemma",
+      "line": 107,
+      "name": "nth_ancestor_ancestor",
+      "probe_a": {
+        "coq_stderr_tail": "e/build/vacuity_probes/Kernel__CasperFFG__nth_ancestor_ancestor__a.v\", line 3, characters 65-85:\nError: In environment\nn : CasperSetting\nh1 : nat\nh2 : Hash n\nThe term \"nth_ancestor n h1 h2\" has type \"Hash n -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.287 secs (0.173u,0.114s)\nChars 103 - 212 [Theorem~_vacuity_probe_a_nth_a...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__nth_ancestor_ancestor__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ld/vacuity_probes/Kernel__CasperFFG__nth_ancestor_ancestor__b.v\", line 3, characters 65-85:\nError: In environment\nn : CasperSetting\nh1 : nat\nh2 : Hash n\nThe term \"nth_ancestor n h1 h2\" has type \"Hash n -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.271 secs (0.17u,0.101s)\nChars 103 - 212 [Theorem~_vacuity_probe_b_nth_a...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__nth_ancestor_ancestor__b.v",
+        "succeeded": false
+      },
+      "statement": "forall n h1 h2, nth_ancestor n h1 h2 -> hash_ancestor h1 h2",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Lemma",
+      "line": 121,
+      "name": "justified_means_ancestor",
+      "probe_a": {
+        "coq_stderr_tail": "characters 83-120:\nError:\nIn environment\ns : CasperSetting\nq : State s\nparent : Validator s -> Prop\npre : Hash s\nnew : nat\nnow : Hash s\nThe term \"justified_link s q parent pre new now\" has type \n\"nat -> Prop\" which should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.278 secs (0.169u,0.108s)\nChars 103 - 252 [Theorem~_vacuity_probe_a_justi...] 0.001 secs (0.u,0.001s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__justified_means_ancestor__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ", characters 83-120:\nError:\nIn environment\ns : CasperSetting\nq : State s\nparent : Validator s -> Prop\npre : Hash s\nnew : nat\nnow : Hash s\nThe term \"justified_link s q parent pre new now\" has type \n\"nat -> Prop\" which should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.267 secs (0.176u,0.09s)\nChars 103 - 252 [Theorem~_vacuity_probe_b_justi...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__justified_means_ancestor__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s q parent pre new now, justified_link s q parent pre new now -> hash_ancestor parent new",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Lemma",
+      "line": 166,
+      "name": "link_epochs",
+      "probe_a": {
+        "coq_stderr_tail": "__a.v\", line 3, characters 63-93:\nError:\nIn environment\ns : CasperSetting\nq : State s\nh2 : Validator s -> Prop\nv2 : Hash s\nh1 : nat\nv1 : Hash s\nThe term \"justified_link s q h2 v2 h1 v1\" has type \n\"nat -> Prop\" which should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.264 secs (0.156u,0.107s)\nChars 103 - 208 [Theorem~_vacuity_probe_a_link_...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__link_epochs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "__b.v\", line 3, characters 63-93:\nError:\nIn environment\ns : CasperSetting\nq : State s\nh2 : Validator s -> Prop\nv2 : Hash s\nh1 : nat\nv1 : Hash s\nThe term \"justified_link s q h2 v2 h1 v1\" has type \n\"nat -> Prop\" which should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.279 secs (0.193u,0.086s)\nChars 103 - 208 [Theorem~_vacuity_probe_b_link_...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__link_epochs__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s q h2 v2 h1 v1, justified_link s q h2 v2 h1 v1 -> v1 > v2",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Lemma",
+      "line": 172,
+      "name": "both_votes",
+      "probe_a": {
+        "coq_stderr_tail": "to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CasperFFG__both_votes__a.v\", line 3, characters 64-65:\nError: The reference C was not found in the current environment.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.265 secs (0.159u,0.106s)\nChars 103 - 355 [Theorem~_vacuity_probe_a_both_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__both_votes__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CasperFFG__both_votes__b.v\", line 3, characters 64-65:\nError: The reference C was not found in the current environment.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.278 secs (0.188u,0.089s)\nChars 103 - 355 [Theorem~_vacuity_probe_b_both_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__both_votes__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (q1 q2 : Validator C -> Prop) (P1 P2 : Validator C -> Prop), quorum_1 C q1 -> quorum_1 C q2 -> (forall n, q1 n -> P1 n) -> (forall n, q2 n -> P2 n) -> exists q, quorum_2 C q /\\ forall n, q n -> P1 n /\\ P2 n",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Lemma",
+      "line": 184,
+      "name": "dbl_vote_case",
+      "probe_a": {
+        "coq_stderr_tail": "case__a.v\", line 3, characters 105-109:\nError:\nIn environment\ns : CasperSetting\nq1 : State s\nq2 : ?T\nh2 : Validator s -> Prop\nv2 : Hash s\nh1 : nat\nh3 : ?T0\nv3 : nat\nc3 : ?T1\nThe term \"S v3\" has type \"nat\" while it is expected to have type \"Hash s\".\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.27 secs (0.171u,0.099s)\nChars 103 - 286 [Theorem~_vacuity_probe_a_dbl_v...] 0.001 secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__dbl_vote_case__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "__b.v\", line 3, characters 105-109:\nError:\nIn environment\ns : CasperSetting\nq1 : State s\nq2 : ?T\nh2 : Validator s -> Prop\nv2 : Hash s\nh1 : nat\nh3 : ?T0\nv3 : nat\nc3 : ?T1\nThe term \"S v3\" has type \"nat\" while it is expected to have type \"Hash s\".\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.269 secs (0.171u,0.097s)\nChars 103 - 286 [Theorem~_vacuity_probe_b_dbl_v...] 0.001 secs (0.u,0.001s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__dbl_vote_case__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s q1 q2 h2 v2 h1 h3 v3 c3, justified_link s q1 h2 v2 h1 (S v3) -> finalized s q2 h3 v3 c3 -> ~ hash_ancestor h3 h1 -> quorum_slashed s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Lemma",
+      "line": 201,
+      "name": "surround_case",
+      "probe_a": {
+        "coq_stderr_tail": "ror:\nIn environment\ns : CasperSetting\nq1 : State s\nq2 : ?T\nh2 : Validator s -> Prop\nv2 : Hash s\nh1 : nat\nv1 : Hash s\nh3 : ?T0\nv3 : ?T1\nc3 : ?T2\nThe term \"justified_link s q1 h2 v2 h1 v1\" has type \n\"nat -> Prop\" which should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.31 secs (0.185u,0.106s)\nChars 103 - 284 [Theorem~_vacuity_probe_a_surro...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__surround_case__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "or:\nIn environment\ns : CasperSetting\nq1 : State s\nq2 : ?T\nh2 : Validator s -> Prop\nv2 : Hash s\nh1 : nat\nv1 : Hash s\nh3 : ?T0\nv3 : ?T1\nc3 : ?T2\nThe term \"justified_link s q1 h2 v2 h1 v1\" has type \n\"nat -> Prop\" which should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.277 secs (0.181u,0.095s)\nChars 103 - 284 [Theorem~_vacuity_probe_b_surro...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__surround_case__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s q1 q2 h2 v2 h1 v1 h3 v3 c3, justified_link s q1 h2 v2 h1 v1 -> finalized s q2 h3 v3 c3 -> S v3 < v1 -> v2 < v3 -> quorum_slashed s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Lemma",
+      "line": 214,
+      "name": "crossing_link_slashes",
+      "probe_a": {
+        "coq_stderr_tail": "or:\nIn environment\ns : CasperSetting\nq1 : State s\nq2 : ?T\nh2 : Validator s -> Prop\nv2 : Hash s\nh1 : nat\nh3 : ?T0\nv1 : Hash s\nv3 : ?T1\nc3 : ?T2\nThe term \"justified_link s q1 h2 v2 h1 v1\" has type \n\"nat -> Prop\" which should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.273 secs (0.172u,0.101s)\nChars 103 - 315 [Theorem~_vacuity_probe_a_cross...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__crossing_link_slashes__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Error:\nIn environment\ns : CasperSetting\nq1 : State s\nq2 : ?T\nh2 : Validator s -> Prop\nv2 : Hash s\nh1 : nat\nh3 : ?T0\nv1 : Hash s\nv3 : ?T1\nc3 : ?T2\nThe term \"justified_link s q1 h2 v2 h1 v1\" has type \n\"nat -> Prop\" which should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.263 secs (0.164u,0.099s)\nChars 103 - 315 [Theorem~_vacuity_probe_b_cross...] 0.001 secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__crossing_link_slashes__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s q1 q2 h2 v2 h1 h3 v1 v3 c3, justified_link s q1 h2 v2 h1 v1 -> finalized s q2 h3 v3 c3 -> v1 > v3 -> ~ hash_ancestor h3 h1 -> v2 < v3 -> quorum_slashed s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Lemma",
+      "line": 230,
+      "name": "same_epoch_same_block",
+      "probe_a": {
+        "coq_stderr_tail": "sperSetting\nq : State s\nq1 : ?T\nparent1 : ?T0\npre1 : ?T1\nh1 : ?T2\nv1 : ?T3\nparent : Validator s -> Prop\npre : Hash s\nnew : nat\nnow : Hash s\nThe term \"justified_link s q parent pre new now\" has type \n\"nat -> Prop\" which should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.267 secs (0.163u,0.104s)\nChars 103 - 331 [Theorem~_vacuity_probe_a_same_...] 0.001 secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__same_epoch_same_block__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "rSetting\nq : State s\nq1 : ?T\nparent1 : ?T0\npre1 : ?T1\nh1 : ?T2\nv1 : ?T3\nparent : Validator s -> Prop\npre : Hash s\nnew : nat\nnow : Hash s\nThe term \"justified_link s q parent pre new now\" has type \n\"nat -> Prop\" which should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.271 secs (0.179u,0.091s)\nChars 103 - 331 [Theorem~_vacuity_probe_b_same_...] 0.001 secs (0.u,0.001s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__same_epoch_same_block__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s q q1 parent1 pre1 h1 v1 parent pre new now, justified_link s q parent pre new now -> justified_link s q1 parent1 pre1 h1 v1 -> ~ quorum_slashed s -> now = v1 -> h1 = new",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Lemma",
+      "line": 247,
+      "name": "distinct_justified_epochs",
+      "probe_a": {
+        "coq_stderr_tail": "ernel__CasperFFG__distinct_justified_epochs__a.v\", line 3, characters 75-92:\nError:\nIn environment\ns : CasperSetting\nh1 : ?T\nv1 : ?T0\nh2 : State s\nv2 : Hash s\nThe term \"justified s h2 v2\" has type \"nat -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.269 secs (0.178u,0.09s)\nChars 103 - 263 [Theorem~_vacuity_probe_a_disti...] 0.001 secs (0.u,0.001s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__distinct_justified_epochs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "rnel__CasperFFG__distinct_justified_epochs__b.v\", line 3, characters 75-92:\nError:\nIn environment\ns : CasperSetting\nh1 : ?T\nv1 : ?T0\nh2 : State s\nv2 : Hash s\nThe term \"justified s h2 v2\" has type \"nat -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.273 secs (0.189u,0.084s)\nChars 103 - 263 [Theorem~_vacuity_probe_b_disti...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__distinct_justified_epochs__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s h1 v1 h2 v2, justified s h2 v2 -> justified s h1 v1 -> ~ quorum_slashed s -> h1 <> h2 -> v2 <> v1",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Lemma",
+      "line": 263,
+      "name": "finalized_epoch_distinct",
+      "probe_a": {
+        "coq_stderr_tail": "line 3, characters 85-108:\nError:\nIn environment\ns : CasperSetting\nq2 : State s\nh2 : Validator s -> Prop\nv2 : Hash s\nxa : nat\nparent : ?T\npre : ?T0\nThe term \"finalized s q2 h2 v2 xa\" has type \"Hash s -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.262 secs (0.174u,0.087s)\nChars 103 - 289 [Theorem~_vacuity_probe_a_final...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__finalized_epoch_distinct__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "line 3, characters 85-108:\nError:\nIn environment\ns : CasperSetting\nq2 : State s\nh2 : Validator s -> Prop\nv2 : Hash s\nxa : nat\nparent : ?T\npre : ?T0\nThe term \"finalized s q2 h2 v2 xa\" has type \"Hash s -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.266 secs (0.167u,0.098s)\nChars 103 - 289 [Theorem~_vacuity_probe_b_final...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__finalized_epoch_distinct__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s q2 h2 v2 xa parent pre, finalized s q2 h2 v2 xa -> ~ quorum_slashed s -> justified s parent pre -> parent <> h2 -> v2 <> pre",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Lemma",
+      "line": 276,
+      "name": "non_equal_case_ind",
+      "probe_a": {
+        "coq_stderr_tail": "__non_equal_case_ind__a.v\", line 3, characters 68-91:\nError:\nIn environment\ns : CasperSetting\nq2 : State s\nh2 : Validator s -> Prop\nv2 : Hash s\nxa : nat\nThe term \"finalized s q2 h2 v2 xa\" has type \"Hash s -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.277 secs (0.17u,0.107s)\nChars 103 - 315 [Theorem~_vacuity_probe_a_non_e...] 0.001 secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__non_equal_case_ind__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "on_equal_case_ind__b.v\", line 3, characters 68-91:\nError:\nIn environment\ns : CasperSetting\nq2 : State s\nh2 : Validator s -> Prop\nv2 : Hash s\nxa : nat\nThe term \"finalized s q2 h2 v2 xa\" has type \"Hash s -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.277 secs (0.18u,0.096s)\nChars 103 - 315 [Theorem~_vacuity_probe_b_non_e...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__non_equal_case_ind__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s q2 h2 v2 xa, finalized s q2 h2 v2 xa -> forall k v1 h1, v1 - v2 = k -> justified s h1 v1 -> ~ hash_ancestor h2 h1 -> h1 <> h2 -> v1 > v2 -> quorum_slashed s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Lemma",
+      "line": 300,
+      "name": "non_equal_case",
+      "probe_a": {
+        "coq_stderr_tail": "3, characters 75-97:\nError:\nIn environment\ns : CasperSetting\nq1 : State s\nq2 : ?T\nh1 : Validator s -> Prop\nv1 : Hash s\nx : nat\nh2 : ?T0\nv2 : ?T1\nxa : ?T2\nThe term \"finalized s q1 h1 v1 x\" has type \"Hash s -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.27 secs (0.163u,0.106s)\nChars 103 - 296 [Theorem~_vacuity_probe_a_non_e...] 0.001 secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__non_equal_case__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "characters 75-97:\nError:\nIn environment\ns : CasperSetting\nq1 : State s\nq2 : ?T\nh1 : Validator s -> Prop\nv1 : Hash s\nx : nat\nh2 : ?T0\nv2 : ?T1\nxa : ?T2\nThe term \"finalized s q1 h1 v1 x\" has type \"Hash s -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.288 secs (0.194u,0.09s)\nChars 103 - 296 [Theorem~_vacuity_probe_b_non_e...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__non_equal_case__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s q1 q2 h1 v1 x h2 v2 xa, finalized s q1 h1 v1 x -> finalized s q2 h2 v2 xa -> ~ hash_ancestor h2 h1 -> h1 <> h2 -> v1 > v2 -> quorum_slashed s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Lemma",
+      "line": 312,
+      "name": "equal_case",
+      "probe_a": {
+        "coq_stderr_tail": "line 3, characters 68-90:\nError:\nIn environment\ns : CasperSetting\nq1 : State s\nh1 : Validator s -> Prop\nv1 : Hash s\nx : nat\nq2 : ?T\nh2 : ?T0\nxa : ?T1\nThe term \"finalized s q1 h1 v1 x\" has type \"Hash s -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.281 secs (0.172u,0.108s)\nChars 103 - 253 [Theorem~_vacuity_probe_a_equal...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__equal_case__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "line 3, characters 68-90:\nError:\nIn environment\ns : CasperSetting\nq1 : State s\nh1 : Validator s -> Prop\nv1 : Hash s\nx : nat\nq2 : ?T\nh2 : ?T0\nxa : ?T1\nThe term \"finalized s q1 h1 v1 x\" has type \"Hash s -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.275 secs (0.154u,0.121s)\nChars 103 - 253 [Theorem~_vacuity_probe_b_equal...] 0.001 secs (0.u,0.001s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__equal_case__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s q1 h1 v1 x q2 h2 xa, finalized s q1 h1 v1 x -> finalized s q2 h2 v1 xa -> h1 <> h2 -> quorum_slashed s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Lemma",
+      "line": 327,
+      "name": "safety'",
+      "probe_a": {
+        "coq_stderr_tail": "characters 69-91:\nError:\nIn environment\ns : CasperSetting\nq1 : State s\nh1 : Validator s -> Prop\nv1 : Hash s\nx : nat\nq2 : ?T\nh2 : ?T0\nv2 : ?T1\nxa : ?T2\nThe term \"finalized s q1 h1 v1 x\" has type \"Hash s -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.28 secs (0.168u,0.102s)\nChars 103 - 304 [Theorem~_vacuity_probe_a_safet...] 0.001 secs (0.u,0.001s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__safety_q__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ", characters 69-91:\nError:\nIn environment\ns : CasperSetting\nq1 : State s\nh1 : Validator s -> Prop\nv1 : Hash s\nx : nat\nq2 : ?T\nh2 : ?T0\nv2 : ?T1\nxa : ?T2\nThe term \"finalized s q1 h1 v1 x\" has type \"Hash s -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.275 secs (0.178u,0.097s)\nChars 103 - 304 [Theorem~_vacuity_probe_b_safet...] 0.001 secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__safety_q__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s q1 h1 v1 x q2 h2 v2 xa, finalized s q1 h1 v1 x -> finalized s q2 h2 v2 xa -> ~ hash_ancestor h2 h1 -> ~ hash_ancestor h1 h2 -> h1 <> h2 -> quorum_slashed s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "kind": "Theorem",
+      "line": 342,
+      "name": "accountable_safety",
+      "probe_a": {
+        "coq_stderr_tail": "spaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CasperFFG__accountable_safety__a.v\", line 3, characters 56-75:\nError: In environment\ns : CasperSetting\nThe term \"finalization_fork s\" has type \"State s -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.263 secs (0.174u,0.089s)\nChars 103 - 199 [Theorem~_vacuity_probe_a_accou...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__accountable_safety__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "rkspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CasperFFG__accountable_safety__b.v\", line 3, characters 56-75:\nError: In environment\ns : CasperSetting\nThe term \"finalization_fork s\" has type \"State s -> Prop\"\nwhich should be Set, Prop or Type.\n\nChars 65 - 102 [From~Kernel~Require~Import~Cas...] 0.304 secs (0.191u,0.1s)\nChars 103 - 199 [Theorem~_vacuity_probe_b_accou...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperFFG__accountable_safety__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s, finalization_fork s -> quorum_slashed s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperRecordReading.v",
+      "kind": "Theorem",
+      "line": 32,
+      "name": "conflicting_records_are_priced",
+      "probe_a": {
+        "coq_stderr_tail": "th,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CasperRecordReading__conflicting_records_are_priced__a.v\", line 3, characters 126-139:\nError: The reference hash_ancestor was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Cas...] 0.264 secs (0.164u,0.1s)\nChars 113 - 322 [Theorem~_vacuity_probe_a_confl...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperRecordReading__conflicting_records_are_priced__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "h,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CasperRecordReading__conflicting_records_are_priced__b.v\", line 3, characters 126-139:\nError: The reference hash_ancestor was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Cas...] 0.263 secs (0.171u,0.09s)\nChars 113 - 322 [Theorem~_vacuity_probe_b_confl...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperRecordReading__conflicting_records_are_priced__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s h1 h2, finalized_record s h1 -> finalized_record s h2 -> ~ hash_ancestor C h2 h1 -> ~ hash_ancestor C h1 h2 -> h1 <> h2 -> quorum_slashed C s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/CasperRecordReading.v",
+      "kind": "Theorem",
+      "line": 50,
+      "name": "finalization_without_slashing",
+      "probe_a": {
+        "coq_stderr_tail": "ath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CasperRecordReading__finalization_without_slashing__a.v\", line 3, characters 74-87:\nError: The reference chain_setting was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Cas...] 0.266 secs (0.159u,0.107s)\nChars 113 - 260 [Theorem~_vacuity_probe_a_final...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CasperRecordReading__finalization_without_slashing__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "path,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CasperRecordReading__finalization_without_slashing__b.v\", line 3, characters 74-87:\nError: The reference chain_setting was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Cas...] 0.293 secs (0.19u,0.101s)\nChars 113 - 260 [Theorem~_vacuity_probe_b_final...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CasperRecordReading__finalization_without_slashing__b.v",
+        "succeeded": false
+      },
+      "statement": "finalized_record chain_setting one_vote 0 /\\ forall n, ~ slashed chain_setting one_vote n",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/EVMStorageGas.v",
+      "kind": "Lemma",
+      "line": 96,
+      "name": "empty_slot_invariant",
+      "probe_a": {
+        "coq_stderr_tail": "ures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EVMStorageGas__empty_slot_invariant__a.v\", line 3, characters 105-106:\nError: Syntax error: [term] expected after '=' (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~EVM...] 0.316 secs (0.209u,0.106s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__EVMStorageGas__empty_slot_invariant__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EVMStorageGas__empty_slot_invariant__b.v\", line 3, characters 105-106:\nError: Syntax error: [term] expected after '=' (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~EVM...] 0.288 secs (0.186u,0.101s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__EVMStorageGas__empty_slot_invariant__b.v",
+        "succeeded": false
+      },
+      "statement": "forall news r, original r = 0 -> net r >= (if current r =? 0 then 0 else STORAGE_SET) -> net (run_stores r news) >= (if current (run_stores r news) =? 0 then 0 else STORAGE_SET)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/EVMStorageGas.v",
+      "kind": "Theorem",
+      "line": 114,
+      "name": "persistent_write_priced",
+      "probe_a": {
+        "coq_stderr_tail": "paces/The-Thiele-Machine/build/vacuity_probes/Kernel__EVMStorageGas__persistent_write_priced__a.v\", line 3, characters 104-105:\nError:\nIn environment\nnews : list BinNums.Z\nThe term \"0\" has type \"nat\" while it is expected to have type \"BinNums.Z\".\n\nChars 65 - 106 [From~Kernel~Require~Import~EVM...] 0.287 secs (0.2u,0.087s)\nChars 107 - 264 [Theorem~_vacuity_probe_a_persi...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__EVMStorageGas__persistent_write_priced__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ces/The-Thiele-Machine/build/vacuity_probes/Kernel__EVMStorageGas__persistent_write_priced__b.v\", line 3, characters 104-105:\nError:\nIn environment\nnews : list BinNums.Z\nThe term \"0\" has type \"nat\" while it is expected to have type \"BinNums.Z\".\n\nChars 65 - 106 [From~Kernel~Require~Import~EVM...] 0.288 secs (0.196u,0.091s)\nChars 107 - 264 [Theorem~_vacuity_probe_b_persi...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__EVMStorageGas__persistent_write_priced__b.v",
+        "succeeded": false
+      },
+      "statement": "forall news, current (run_stores fresh_slot news) <> 0 -> net (run_stores fresh_slot news) >= STORAGE_SET",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/EVMStorageGas.v",
+      "kind": "Theorem",
+      "line": 126,
+      "name": "revoked_write_nearly_free",
+      "probe_a": {
+        "coq_stderr_tail": "bound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EVMStorageGas__revoked_write_nearly_free__a.v\", line 3, characters 84-86:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~EVM...] 0.298 secs (0.188u,0.109s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__EVMStorageGas__revoked_write_nearly_free__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "bound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EVMStorageGas__revoked_write_nearly_free__b.v\", line 3, characters 84-86:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~EVM...] 0.308 secs (0.189u,0.119s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__EVMStorageGas__revoked_write_nearly_free__b.v",
+        "succeeded": false
+      },
+      "statement": "current (run_stores fresh_slot [1; 0]) = 0 /\\ net (run_stores fresh_slot [1; 0]) = 2300 /\\ net (run_stores fresh_slot [1]) = 22100",
       "status": "ok"
     }
   ]

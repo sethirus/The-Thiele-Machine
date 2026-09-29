@@ -1,7 +1,8 @@
-(** * VerifierEscape_Hardness.v: the commitment-contract interface.
+(** * VerifierEscape_Hardness.v: the hardness route, as a commitment contract.
 
-    The historical filename calls this the hardness escape. The formal model
-    contains no computational hardness assumption. The bare-setting
+    The formal model contains no computational hardness assumption; what a
+    deployed system would get from hardness is stated as an exact contract.
+    The bare-setting
     impossibility rules out an abstract unit-cost verifier that is both
     sound and complete for a mu-sensitive claim when its transcript carries
     only the classical projection of a run. The hardness escape adds one

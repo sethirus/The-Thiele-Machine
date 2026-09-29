@@ -351,3 +351,51 @@ def test_guard_allows_only_reproducible_kami_compatibility_patch(repo, tmp_path)
     result = command(repo, sys.executable, "scripts/check_hook_worktree.py")
     assert result.returncode != 0
     assert "vendor/kami/Kami/Ex/Multiplier32.v" in result.stderr
+
+
+def _vacuity_calls(repo):
+    calls = [json.loads(line) for line in (repo / ".git/tool-log").read_text().splitlines()]
+    return [call[1] for call in calls if call[1][:1] == ["scripts/vacuity_gate.py"]]
+
+
+def test_hook_checks_only_added_vacuity_targets(pipeline):
+    repo, _ = pipeline
+    target = {"path": "coq/New.v", "logical": "Kernel.New"}
+    (repo / "scripts/vacuity_targets.json").write_text(json.dumps({"targets": [target]}))
+    git(repo, "add", "scripts/vacuity_targets.json")
+    result = run_hook(pipeline)
+    assert result.returncode == 0, result.stdout + result.stderr
+    (args,) = _vacuity_calls(repo)
+    assert "--manifest" not in args
+    assert args[args.index("--target") + 1] == "coq/New.v" and "--merge" in args
+
+
+def test_hook_sweeps_every_target_when_an_entry_changes(pipeline):
+    repo, _ = pipeline
+    manifest = repo / "scripts/vacuity_targets.json"
+    manifest.write_text(json.dumps({"targets": [{"path": "coq/Old.v", "logical": "Kernel.Old"}]}))
+    git(repo, "add", str(manifest))
+    git(repo, "-c", "core.hooksPath=/dev/null", "commit", "-qm", "one target")
+    manifest.write_text(json.dumps({"targets": [{"path": "coq/Old.v", "logical": "Kernel.Renamed"}]}))
+    git(repo, "add", str(manifest))
+    result = run_hook(pipeline)
+    assert result.returncode == 0, result.stdout + result.stderr
+    (args,) = _vacuity_calls(repo)
+    assert args[args.index("--manifest") + 1] == "scripts/vacuity_targets.json"
+
+
+def test_kami_patch_leaves_already_patched_files_untouched(tmp_path):
+    (tmp_path / "scripts").mkdir()
+    script = tmp_path / "scripts/fix_kami_coq18.sh"
+    script.write_bytes((ROOT / "scripts/fix_kami_coq18.sh").read_bytes())
+    paths = []
+    for width in (32, 64):
+        path = tmp_path / f"vendor/kami/Kami/Ex/Multiplier{width}.v"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text('Notation "w ~ 0" := (BWS BZero w): bword_scope.\n')
+        paths.append(path)
+    subprocess.run(["bash", str(script)], check=True, capture_output=True)
+    assert all("at level 7" in path.read_text() for path in paths)
+    before = [path.stat().st_mtime_ns for path in paths]
+    subprocess.run(["bash", str(script)], check=True, capture_output=True)
+    assert [path.stat().st_mtime_ns for path in paths] == before

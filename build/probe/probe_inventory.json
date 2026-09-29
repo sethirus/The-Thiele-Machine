@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 435,
-  "total_addressable": 13044,
+  "files_probed": 441,
+  "total_addressable": 13077,
   "total_unaddressable": 4,
   "extras_addressable_via_instantiation": [
     {
@@ -52854,6 +52854,73 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/StructuralCoreRound4.v",
+      "qualified_module": "Kernel.StructuralCoreRound4",
+      "addressable_count": 0,
+      "unaddressable_count": 0,
+      "addressable": [],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/StructuralScheduleUniqueness.v",
+      "qualified_module": "Kernel.StructuralScheduleUniqueness",
+      "addressable_count": 10,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "thiele_core_priced",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralScheduleUniqueness.thiele_core_priced"
+        },
+        {
+          "local_name": "uniqueness_round3b_holds",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralScheduleUniqueness.uniqueness_round3b_holds"
+        },
+        {
+          "local_name": "billed_core_honest3b",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralScheduleUniqueness.billed_core_honest3b"
+        },
+        {
+          "local_name": "billed_core_equiv_mod_schedule",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralScheduleUniqueness.billed_core_equiv_mod_schedule"
+        },
+        {
+          "local_name": "surcharged_core_honest3b",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralScheduleUniqueness.surcharged_core_honest3b"
+        },
+        {
+          "local_name": "surcharged_core_equiv_mod_schedule",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralScheduleUniqueness.surcharged_core_equiv_mod_schedule"
+        },
+        {
+          "local_name": "meter_step_mu",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralScheduleUniqueness.meter_step_mu"
+        },
+        {
+          "local_name": "meter_core_honest3a",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralScheduleUniqueness.meter_core_honest3a"
+        },
+        {
+          "local_name": "meter_core_not_equiv_mod_schedule",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralScheduleUniqueness.meter_core_not_equiv_mod_schedule"
+        },
+        {
+          "local_name": "uniqueness_round3a_refuted",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralScheduleUniqueness.uniqueness_round3a_refuted"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/StructuralUniqueness.v",
       "qualified_module": "Kernel.StructuralUniqueness",
       "addressable_count": 17,
@@ -60135,6 +60202,14 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/nfi/KnowledgeNarrowingIncremental.v",
+      "qualified_module": "Kernel.KnowledgeNarrowingIncremental",
+      "addressable_count": 0,
+      "unaddressable_count": 0,
+      "addressable": [],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/nfi/LandauerDerivation.v",
       "qualified_module": "Kernel.LandauerDerivation",
       "addressable_count": 10,
@@ -65776,6 +65851,148 @@
           "local_name": "bell_math_deterministic",
           "kind": "Theorem",
           "full_name": "Kernel.ValidCorrelation.bell_math_deterministic"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/reductions/CasperFFG.v",
+      "qualified_module": "Kernel.CasperFFG",
+      "addressable_count": 18,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "hash_ancestor_base",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.hash_ancestor_base"
+        },
+        {
+          "local_name": "hash_ancestor_concat",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.hash_ancestor_concat"
+        },
+        {
+          "local_name": "hash_ancestor_other",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.hash_ancestor_other"
+        },
+        {
+          "local_name": "nth_ancestor_ancestor",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.nth_ancestor_ancestor"
+        },
+        {
+          "local_name": "justified_means_ancestor",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.justified_means_ancestor"
+        },
+        {
+          "local_name": "link_epochs",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.link_epochs"
+        },
+        {
+          "local_name": "both_votes",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.both_votes"
+        },
+        {
+          "local_name": "dbl_vote_case",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.dbl_vote_case"
+        },
+        {
+          "local_name": "surround_case",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.surround_case"
+        },
+        {
+          "local_name": "crossing_link_slashes",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.crossing_link_slashes"
+        },
+        {
+          "local_name": "same_epoch_same_block",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.same_epoch_same_block"
+        },
+        {
+          "local_name": "distinct_justified_epochs",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.distinct_justified_epochs"
+        },
+        {
+          "local_name": "finalized_epoch_distinct",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.finalized_epoch_distinct"
+        },
+        {
+          "local_name": "non_equal_case_ind",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.non_equal_case_ind"
+        },
+        {
+          "local_name": "non_equal_case",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.non_equal_case"
+        },
+        {
+          "local_name": "equal_case",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.equal_case"
+        },
+        {
+          "local_name": "safety'",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.safety'"
+        },
+        {
+          "local_name": "accountable_safety",
+          "kind": "Theorem",
+          "full_name": "Kernel.CasperFFG.accountable_safety"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/reductions/CasperRecordReading.v",
+      "qualified_module": "Kernel.CasperRecordReading",
+      "addressable_count": 2,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "conflicting_records_are_priced",
+          "kind": "Theorem",
+          "full_name": "Kernel.CasperRecordReading.conflicting_records_are_priced"
+        },
+        {
+          "local_name": "finalization_without_slashing",
+          "kind": "Theorem",
+          "full_name": "Kernel.CasperRecordReading.finalization_without_slashing"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/reductions/EVMStorageGas.v",
+      "qualified_module": "Kernel.EVMStorageGas",
+      "addressable_count": 3,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "empty_slot_invariant",
+          "kind": "Lemma",
+          "full_name": "Kernel.EVMStorageGas.empty_slot_invariant"
+        },
+        {
+          "local_name": "persistent_write_priced",
+          "kind": "Theorem",
+          "full_name": "Kernel.EVMStorageGas.persistent_write_priced"
+        },
+        {
+          "local_name": "revoked_write_nearly_free",
+          "kind": "Theorem",
+          "full_name": "Kernel.EVMStorageGas.revoked_write_nearly_free"
         }
       ],
       "unaddressable": []

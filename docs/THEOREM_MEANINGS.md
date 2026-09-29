@@ -74,6 +74,10 @@ An explicitly qualified citation keeps its own module identity.
 - `billed_core_honest_extension`: The same billed core meets the conditions of `HonestVMExtension`, with dropping the counter as the computational cover.
 - `uniqueness_round1_refuted`: The conjecture `uniqueness_round1` is false: the billed core is adequate but its core is not `core_equiv` to the Thiele core, because a Thiele state with an empty program prices every step at zero and every billed step costs at least one.
 - `uniqueness_round2_refuted`: The conjecture `uniqueness_round2` is false for the same reason: the billed core is an honest VM extension whose core is not `core_equiv_round2` to the Thiele core.
+- `uniqueness_round3b_holds`: Every machine with a cover onto the Thiele core, whose record is the Thiele certification reading through that cover and whose ledger is monotone and satisfies A2, is related to the Thiele core, through that cover, by a relation that preserves the record light and halting and steps to related states; charges are not compared.
+- `billed_core_equiv_mod_schedule`: The CPU-billed Thiele core is the same machine as the Thiele core modulo its price schedule, through the cover that drops its step counter.
+- `surcharged_core_equiv_mod_schedule`: For every surcharge function on Thiele states, the Thiele core that adds that surcharge to its ledger at each step is the same machine as the Thiele core modulo its price schedule.
+- `uniqueness_round3a_refuted`: Requiring only that the record be some reading of the computation is not enough: the Thiele core whose record is "the meter has passed one" meets that condition and disagrees with the certification light at a starting state with a positive meter and no certificate.
 - `shadow_cannot_price_exactly`: If two steps share their observed before and after and only one switches certification on, no price computed from the observation both meets the floor and never overcharges.
 - `shadow_floor_overcharges`: Under that collision, a window-computed price that meets the floor charges some non-certifying step at least one.
 - `window_showing_reading_has_no_collision`: If certification is a function of the window, no such collision exists.
@@ -262,15 +266,15 @@ An explicitly qualified citation keeps its own module identity.
 - `tsirelson_from_row_bounds` (`Kernel.TsirelsonGeneral.tsirelson_from_row_bounds`): If `E00^2 + E01^2 <= 1` and `E10^2 + E11^2 <= 1`, the CHSH value squared is at most 8.
 - `algebraically_coherent_tsirelson_general`: Algebraically coherent rational correlators have CHSH value squared at most 8.
 - `quadratic_nonneg_discriminant`: If `a + 2bt + ct^2 >= 0` for every real `t`, then `b^2 <= ac`.
-- `column_contractive_iff_npa_psd`: Four correlators are column-contractive exactly when their zero-marginal NPA moment matrix is symmetric and PSD. (Renamed from `..._quantum_realizable`: PSD of this matrix is NPA's level-1 test, not quantum realizability.)
+- `column_contractive_iff_npa_psd`: Four correlators are column-contractive exactly when their zero-marginal NPA moment matrix is symmetric and PSD. PSD of this matrix is NPA's level-1 test, not quantum realizability.
 - `zero_marginal_npa_column_contractive_implies_psd`: The three column-contractivity inequalities imply the zero-marginal NPA matrix is PSD.
 - `npa_psd_implies_column_contractive`: PSD of the zero-marginal NPA matrix implies column contractivity.
 - `column_contractive_iff_general_realizable`: Column contractivity is equivalent to the dimension-generic PSD predicate at size five.
 - `npa_psd_implies_tsirelson_bound`: If the zero-marginal NPA matrix is symmetric and PSD, the CHSH value squared is at most 8.
 - `column_contractive_check_witness_sound`: If the integer witness check passes, the witness-derived correlators are column-contractive.
-- `chsh_lassert_no_trap_implies_npa_psd`: A `CHSH_LASSERT` step that advances without setting the error flag implies the witness-derived zero-marginal NPA matrix is symmetric and PSD. (Renamed from `..._quantum_realizable`.)
-- `chsh_lassert_1ab_no_trap_implies_npa_psd_q1ab`: A `CHSH_LASSERT_1AB` step that advances without error implies the 9 by 9 level-1+AB matrix at the witness correlators and zero higher moments is symmetric and PSD. (Renamed.)
-- `state_column_contractive_implies_npa_gram`: A state whose correlators are column-contractive has a symmetric PSD zero-marginal NPA matrix. (Renamed from `..._quantum_gram`.)
+- `chsh_lassert_no_trap_implies_npa_psd`: A `CHSH_LASSERT` step that advances without setting the error flag implies the witness-derived zero-marginal NPA matrix is symmetric and PSD.
+- `chsh_lassert_1ab_no_trap_implies_npa_psd_q1ab`: A `CHSH_LASSERT_1AB` step that advances without error implies the 9 by 9 level-1+AB matrix at the witness correlators and zero higher moments is symmetric and PSD.
+- `state_column_contractive_implies_npa_gram`: A state whose correlators are column-contractive has a symmetric PSD zero-marginal NPA matrix.
 - `state_column_contractive_implies_tsirelson`: A state whose correlators are column-contractive has CHSH value squared at most 8.
 - `sym4_qf_nonneg_from_pd`: If the four leading minors of a symmetric 4 by 4 matrix are positive, its quadratic form is non-negative.
 - `psd_cauchy_schwarz`: For a symmetric PSD 5 by 5 matrix, the square of the bilinear form is at most the product of the two quadratic forms.
@@ -301,16 +305,16 @@ An explicitly qualified citation keeps its own module identity.
 - `driven_step_wf`: One Kami model step, read through the abstraction, equals `vm_apply` on the abstracted state whenever `WFDrivenPrecondition` holds.
 - `driven_trace_commutes`: A fuel-bounded driven Kami run, read through the abstraction, equals the VM run whenever `WFDrivenRun` holds at every visited state.
 - `driven_step_compose`: Under the extended hardware invariant, one Kami `COMPOSE` step equals the VM's `COMPOSE` step through the abstraction.
-- `kami_register_write_matches_vm`: Writing a register in a Kami snapshot gives the same register list as `write_reg` on the abstracted state. (Renamed from `kami_refines_vm_step`: this is one register-write lemma, not step refinement.)
+- `kami_register_write_matches_vm`: Writing a register in a Kami snapshot gives the same register list as `write_reg` on the abstracted state. This is one register-write lemma, not step refinement.
 - `morph_table_wf_kami_step_preserved`: Every Kami step preserves morph-table well-formedness.
 - `coupling_desc_safe_kami_step_preserved`: Every Kami step preserves coupling-descriptor safety.
 - `coupling_wf_kami_step_preserved`: Every Kami step preserves coupling well-formedness, given coupling-descriptor safety.
 - `fsm_retirement_refinement`: From a reset boundary state, every admitted run keeps the table invariants, ends at the snapshot the Kami run list computes, and is an actual multistep execution of the CPU core.
 - `admitted_run_progress`: An admitted run from a boundary state reaches its end boundary in some number of rule runs, matches the Kami run list, and is an actual multistep execution.
-- `rtl_inventory_arithmetic`: `37 + 10 + 0 = 47`. It records the synthesized-opcode count and checks no opcode. (Renamed from `rtl_coverage_partition`.)
-- `rtl_gap_registry_empty`: The hand-written RTL gap list is empty. (Renamed from `rtl_gap_count`.)
-- `ocaml_observable_nofi_and_monotone`: On the Coq-side observable the OCaml runner is tested against, certification costs at least one and mu never decreases. (Renamed from `ocaml_bisimulation_closure`, whose third part, totality, holds for any Coq function.)
-- `ocaml_runner_observable_defined`: For every state and instruction, the Coq-side observable is defined. This is true of any Coq function; the binary's agreement is tested, not proved. (Renamed from `ocaml_runner_agrees`.)
+- `rtl_inventory_arithmetic`: `37 + 10 + 0 = 47`. It records the synthesized-opcode count and checks no opcode.
+- `rtl_gap_registry_empty`: The hand-written RTL gap list is empty.
+- `ocaml_observable_nofi_and_monotone`: On the Coq-side observable the OCaml runner is tested against, certification costs at least one and mu never decreases.
+- `ocaml_runner_observable_defined`: For every state and instruction, the Coq-side observable is defined. This is true of any Coq function; the binary's agreement is tested, not proved.
 - `receipt_encoding_roundtrip`: Unpacking a packed receipt returns its mu, certification bit, and memory.
 
 ## Physics files
@@ -323,6 +327,11 @@ An explicitly qualified citation keeps its own module identity.
 - `quote_decides_measured_claims`: In the same model, every supplied Boolean function of the retained selected-PCR digest is computed by some Boolean function of the quote.
 - `quote_projection_faithful`: Two modeled quotes have equal classical-transcript encodings exactly when their nonce and retained selected-PCR digest agree.
 - `quote_runtime_verifier_separation`: Any Boolean verifier that returns the modeled runtime claim on every full platform state fails to factor through the lossless encoding of its quote, by the named verifier corollary and an explicit truth-label adapter.
+- `persistent_write_priced`: In the transcribed Prague `sstore` gas and refund arithmetic, for one storage slot that is empty at the start of a transaction, any sequence of stores that leaves it nonzero has gas charged minus refund counter of at least 20000; the EIP-3529 refund cap is outside the model.
+- `revoked_write_nearly_free`: In the same model, setting a cold empty slot to one and clearing it again costs 2300 net, while setting it and leaving it set costs 22100.
+- `accountable_safety` (`Kernel.CasperFFG.accountable_safety`): In the ported Casper FFG model, under the setting's quorum-intersection and single-parent premises, two finalized blocks on different branches imply that some set in the second quorum class consists of slashed validators.
+- `conflicting_records_are_priced`: Reading finalization as the record, two finalized blocks on different branches imply a slashed set in the second quorum class; this restates accountable safety.
+- `finalization_without_slashing`: In the one-validator chain setting, a single vote finalizes the genesis block and no validator is slashed.
 
 ## Trace and projection contracts
 
