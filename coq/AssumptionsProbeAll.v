@@ -191,6 +191,7 @@ Require Kernel.Definitions.
 Require Kernel.EventGeneralization.
 Require Kernel.EventGeneralizationTargets.
 Require Kernel.EventSwapCore.
+Require Kernel.EventSwapTheorem.
 Require Kernel.Kernel.
 Require Kernel.KernelTM.
 Require Kernel.KernelThiele.
@@ -10797,6 +10798,14 @@ Print Assumptions Kernel.EventGeneralization.item1_2_result_52.
 Print Assumptions Kernel.EventGeneralization.item1_2_result_53.
 Print Assumptions Kernel.EventGeneralization.item1_2_result_54.
 Print Assumptions Kernel.EventGeneralization.item1_2_result_55.
+(* === Kernel.EventSwapTheorem : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.EventSwapTheorem.item1_3_init_register_width.
+Print Assumptions Kernel.EventSwapTheorem.item1_3_graph_latchable_fixed.
+Print Assumptions Kernel.EventSwapTheorem.item1_3_swap_refuted.
+Print Assumptions Kernel.EventSwapTheorem.item1_3_certification_permanent.
+Print Assumptions Kernel.EventSwapTheorem.item1_3_certification_written.
+Print Assumptions Kernel.EventSwapTheorem.item1_3_certification_hidden_from_bare.
+Print Assumptions Kernel.EventSwapTheorem.item1_3_certification_sanity.
 (* === Kernel.KernelTM : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.KernelTM.tm_is_turing_complete.
 (* === Kernel.LRecursion : 46 addressable theorems (unaddressable: 0) === *)

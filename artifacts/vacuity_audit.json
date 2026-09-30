@@ -2,8 +2,8 @@
   "schema": "vacuity_audit.v1",
   "summary": {
     "error": 0,
-    "ok": 986,
-    "total": 986,
+    "ok": 993,
+    "total": 993,
     "vacuous_hyp": 0,
     "vacuous_true": 0
   },
@@ -18836,6 +18836,146 @@
         "succeeded": false
       },
       "statement": "generalized_certified_spec",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/EventSwapTheorem.v",
+      "kind": "Lemma",
+      "line": 13,
+      "name": "item1_3_init_register_width",
+      "probe_a": {
+        "coq_stderr_tail": "gical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_init_register_width__a.v\", line 3, characters 63-70:\nError: The reference vm_regs was not found in the current environment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Eve...] 0.424 secs (0.259u,0.164s)\nChars 110 - 205 [Theorem~_vacuity_probe_a_item1...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_init_register_width__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "gical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_init_register_width__b.v\", line 3, characters 63-70:\nError: The reference vm_regs was not found in the current environment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Eve...] 0.407 secs (0.252u,0.154s)\nChars 110 - 205 [Theorem~_vacuity_probe_b_item1...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_init_register_width__b.v",
+        "succeeded": false
+      },
+      "statement": "length (vm_regs init_state) = REG_COUNT",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/EventSwapTheorem.v",
+      "kind": "Lemma",
+      "line": 17,
+      "name": "item1_3_graph_latchable_fixed",
+      "probe_a": {
+        "coq_stderr_tail": "l-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_graph_latchable_fixed__a.v\", line 3, characters 57-66:\nError: The reference latchable was not found in the current environment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Eve...] 0.424 secs (0.263u,0.161s)\nChars 110 - 194 [Theorem~_vacuity_probe_a_item1...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_graph_latchable_fixed__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "l-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_graph_latchable_fixed__b.v\", line 3, characters 57-66:\nError: The reference latchable was not found in the current environment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Eve...] 0.418 secs (0.268u,0.149s)\nChars 110 - 194 [Theorem~_vacuity_probe_b_item1...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_graph_latchable_fixed__b.v",
+        "succeeded": false
+      },
+      "statement": "latchable eg_graph_reading",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/EventSwapTheorem.v",
+      "kind": "Theorem",
+      "line": 24,
+      "name": "item1_3_swap_refuted",
+      "probe_a": {
+        "coq_stderr_tail": "h,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_swap_refuted__a.v\", line 3, characters 50-77:\nError: The reference swap_preserves_main_results was not found in the current\nenvironment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Eve...] 0.413 secs (0.259u,0.154s)\nChars 110 - 188 [Theorem~_vacuity_probe_a_item1...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_swap_refuted__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "h,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_swap_refuted__b.v\", line 3, characters 50-77:\nError: The reference swap_preserves_main_results was not found in the current\nenvironment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Eve...] 0.411 secs (0.262u,0.148s)\nChars 110 - 188 [Theorem~_vacuity_probe_b_item1...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_swap_refuted__b.v",
+        "succeeded": false
+      },
+      "statement": "~ swap_preserves_main_results",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/EventSwapTheorem.v",
+      "kind": "Lemma",
+      "line": 33,
+      "name": "item1_3_certification_permanent",
+      "probe_a": {
+        "coq_stderr_tail": "h,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_certification_permanent__a.v\", line 3, characters 59-76:\nError: The reference permanent_reading was not found in the current\nenvironment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Eve...] 0.429 secs (0.28u,0.148s)\nChars 110 - 209 [Theorem~_vacuity_probe_a_item1...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_certification_permanent__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_certification_permanent__b.v\", line 3, characters 59-76:\nError: The reference permanent_reading was not found in the current\nenvironment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Eve...] 0.421 secs (0.264u,0.156s)\nChars 110 - 209 [Theorem~_vacuity_probe_b_item1...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_certification_permanent__b.v",
+        "succeeded": false
+      },
+      "statement": "permanent_reading certification_reading",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/EventSwapTheorem.v",
+      "kind": "Lemma",
+      "line": 42,
+      "name": "item1_3_certification_written",
+      "probe_a": {
+        "coq_stderr_tail": "cal-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_certification_written__a.v\", line 3, characters 57-64:\nError: The reference written was not found in the current environment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Eve...] 0.445 secs (0.274u,0.169s)\nChars 110 - 197 [Theorem~_vacuity_probe_a_item1...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_certification_written__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "cal-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_certification_written__b.v\", line 3, characters 57-64:\nError: The reference written was not found in the current environment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Eve...] 0.432 secs (0.272u,0.153s)\nChars 110 - 197 [Theorem~_vacuity_probe_b_item1...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_certification_written__b.v",
+        "succeeded": false
+      },
+      "statement": "written certification_reading",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/EventSwapTheorem.v",
+      "kind": "Lemma",
+      "line": 47,
+      "name": "item1_3_certification_hidden_from_bare",
+      "probe_a": {
+        "coq_stderr_tail": "ystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_certification_hidden_from_bare__a.v\", line 3, characters 66-82:\nError: The reference hidden_from_bare was not found in the current\nenvironment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Eve...] 0.413 secs (0.272u,0.141s)\nChars 110 - 215 [Theorem~_vacuity_probe_a_item1...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_certification_hidden_from_bare__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_certification_hidden_from_bare__b.v\", line 3, characters 66-82:\nError: The reference hidden_from_bare was not found in the current\nenvironment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Eve...] 0.412 secs (0.268u,0.143s)\nChars 110 - 215 [Theorem~_vacuity_probe_b_item1...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_certification_hidden_from_bare__b.v",
+        "succeeded": false
+      },
+      "statement": "hidden_from_bare certification_reading",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/EventSwapTheorem.v",
+      "kind": "Theorem",
+      "line": 60,
+      "name": "item1_3_certification_sanity",
+      "probe_a": {
+        "coq_stderr_tail": "ystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_certification_sanity__a.v\", line 3, characters 56-82:\nError: The reference certification_main_results was not found in the current\nenvironment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Eve...] 0.418 secs (0.272u,0.146s)\nChars 110 - 193 [Theorem~_vacuity_probe_a_item1...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_certification_sanity__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_certification_sanity__b.v\", line 3, characters 56-82:\nError: The reference certification_main_results was not found in the current\nenvironment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Eve...] 0.419 secs (0.263u,0.156s)\nChars 110 - 193 [Theorem~_vacuity_probe_b_item1...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__EventSwapTheorem__item1_3_certification_sanity__b.v",
+        "succeeded": false
+      },
+      "statement": "certification_main_results",
       "status": "ok"
     }
   ]
