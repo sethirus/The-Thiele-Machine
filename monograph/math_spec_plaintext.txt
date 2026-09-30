@@ -2309,8 +2309,8 @@ as_point_sum), each term is nonnegative (entropy_drop_nonneg), and the sum is po
 when x ̸= x′ , f x = f x′ , p(x) > 0, p(x′ ) > 0 (entropy_drop_pos_of_support_merge). Hence
 a permanent flip removes entropy for every p positive on the certified states and the flipping
 state (permanent_flip_full_support_entropy_drop_positive), with positive heat under the
-premise (permanent_flip_full_support_heat_positive). For a point mass the drop is 0
-and the premise reduces to heat ≥ 0 (known_state_step_removes_no_entropy, known_state_
+premise (permanent_flip_full_support_heat_positive). For a point mass the drop is 0 and
+the premise is equivalent to heat ≥ 0 (known_state_step_removes_no_entropy, known_state_
 flip_forces_no_heat): the forced heat is a worst-case statement over the state distribution, as
 in the generalized Landauer bound. The file works over Coq’s real numbers; its results depend on
 the standard-library constants sig_forall_dec, sig_not_dec, functional_extensionality_

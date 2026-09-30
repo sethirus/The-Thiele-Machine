@@ -238,18 +238,33 @@ def extract_citations_with_prose(tex_path: Path):
     """Yield (token, line_no, prose_window) for each \\texttt{...} or
     \\code{...} citation (the monograph's identifier macro expands to
     \\texttt, so both spellings are the same citation)."""
-    text = tex_path.read_text(errors="replace")
+    # Line-break hints inside wrapped identifiers carry no text; removing them
+    # keeps every line number.
+    text = tex_path.read_text(errors="replace").replace("\\allowbreak{}", "")
     if tex_path.suffix == ".md":
         cite_re = re.compile(r"`([A-Za-z_][A-Za-z0-9_']*)`")
     else:
         cite_re = re.compile(r"\\(?:texttt|code)\{([^{}]*)\}")
+    # The window stays inside the citation's section: text past a heading
+    # belongs to another argument.
+    if tex_path.suffix == ".md":
+        heading_re = re.compile(r"^#{1,6}\s", re.M)
+    else:
+        heading_re = re.compile(r"\\(?:part|section|subsection|subsubsection)\*?\{")
+    headings = [h.start() for h in heading_re.finditer(text)]
     for m in cite_re.finditer(text):
         raw = m.group(1)
         token = raw.replace("\\_", "_").replace("\\%", "%").replace("\\&", "&").strip()
         if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_']*", token):
             continue
-        lo = max(0, m.start() - PROSE_WINDOW)
-        hi = min(len(text), m.end() + PROSE_WINDOW)
+        lo = max([0, m.start() - PROSE_WINDOW] + [h for h in headings if h <= m.start()])
+        hi = min([len(text), m.end() + PROSE_WINDOW] + [h for h in headings if h >= m.end()])
+        # A Markdown table row is one claim; its neighbours are other claims.
+        row_start = text.rfind("\n", 0, m.start()) + 1
+        row_end = text.find("\n", m.end())
+        row_end = len(text) if row_end < 0 else row_end
+        if tex_path.suffix == ".md" and text[row_start:row_end].lstrip().startswith("|"):
+            lo, hi = row_start, row_end
         prose = clean_latex_for_prose(text[lo:hi])
         line = text.count("\n", 0, m.start()) + 1
         yield token, line, prose
@@ -421,6 +436,9 @@ def render(tex_path: Path, theorems: dict[str, list[CoqTheorem]]):
 def main():
     targets = [Path(p).resolve() for p in sys.argv[1:]] if len(sys.argv) > 1 else [
         REPO / "monograph" / "monograph.tex",
+        REPO / "monograph" / "thiele_machine_math_spec.tex",
+        REPO / "README.md",
+        REPO / "TECHNICAL_DISCLOSURE.md",
     ]
     print(f"Indexing Coq theorems under {COQ}...")
     theorems = index_coq_theorems(COQ)

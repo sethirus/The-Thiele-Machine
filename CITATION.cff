@@ -49,6 +49,13 @@ abstract: >-
   prices only the merge that certifies. An exact price for
   certification cannot be computed from a window in which a certifying
   step and a non-certifying one look alike, and the VM has such a pair.
+  Three results carry the weight of the structural question: every
+  deterministic machine can carry the record axis, as itself plus a latch
+  on an event it reaches; on the VM the record cannot be recovered from
+  the named windows; and on finite hardware a step that writes a permanent
+  record merges states, so pricing merges prices the write. That a
+  permanent record is a latch on one event is close to definitional. Which
+  event is latched, the pointer question, is open.
   Those are mathematical answers with
   explicit premises. The repository contains the Coq kernel, an extracted
   OCaml runner, a Kami/Bluespec/Verilog hardware development, the monograph,

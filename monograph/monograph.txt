@@ -139,6 +139,24 @@ could be done in public, with something firmer than my confidence to argue over.
       window prices certification exactly, and the VM has such a pair for both windows
       I name. The cost theorem built on A2 doesn’t care what the states or instructions
       are. Any system that follows A2 is covered.
+          Three results carry the weight of the structural question. Every deterministic
+      machine can carry the record axis: the machine plus a latch on an event it reaches,
+      charging one unit when the latch sets, is an honest extension of it (latch_core_
+      honest). On the VM the record can’t be read back off the shadow: no function
+      of the named windows returns certification or µ (cert_not_function_of_f
+      orget, mu_not_function_of_bare_observable). And on finite hardware
+      a step that writes a permanent record merges two states (permanent_flip_i
+      s_not_injective), so an account that prices merges already prices the write.
+      That a permanent record, driven by the computation, is a latch on one event (u
+      niqueness_round4_holds) is close to definitional; it follows from those two
+
+
+                                                3
+The Thiele Machine                                                Devon Thiele • September 2026
+
+
+      conditions in a few lines. Which event gets latched is the pointer question, and it
+      is open.
           The formal results go further than that one floor. They pin down exact unit
       pricing relative to how many certification flips happen, show the ledger is unique
       once the schedule is fixed, exhibit states that a specified window can’t tell apart,
@@ -149,12 +167,6 @@ could be done in public, with something firmer than my confidence to argue over.
       Truth needs a checker whose soundness is proved.
           Two questions stay open: what the ledger means physically, and which events
       every account of computation has to price. For the full instruction set, the F1
-
-
-                                                3
-The Thiele Machine                                                Devon Thiele • September 2026
-
-
       physical premise pair can’t coexist with free jumps, and F1_physical_premis
       es_incompatible proves it. A narrower pair does hold together. On a machine
       with finite memory and a certificate that can never be revoked, the step that
@@ -4210,26 +4222,28 @@ tical to the one the physical bridges use for their named constants: the paramet
 are not global axioms; closing the surrounding Section discharges them as explicit
 forall premises on every consumer. The encoding is a Section parameter too,
 though not a live one: the kernel’s closed round-trip lemma (program_to_nat,
-nat_to_program, no Hypothesis) discharges it, which is exactly what vm_structu
-ral_shortcut_undecidable_encoded does. The VM’s internal-representability
-predicate and bounded recurrence premise remain explicit parameters of the encoded
-theorem. The generic theorem is independent of this particular VM instance, but still
-requires its own interface premises. The separate family nat_substrate d supplies
-those premises only for its d-dependent semantics and representability class; it does
-not discharge the VM premise.
+nat_to_program, no Hypothesis) discharges it, which is exactly what vm_stru
+ctural_shortcut_undecidable_encoded does. Its conclusion rules out a de-
+cider whose answer is true if and only if the program admits the shortcut, whenever
+that decider’s flip is representable. The VM’s internal-representability predicate and
+bounded recurrence premise remain explicit parameters of the encoded theorem. The
+generic theorem is independent of this particular VM instance, but still requires its own
+interface premises. The separate family nat_substrate d supplies those premises
+only for its d-dependent semantics and representability class; it does not discharge the
+VM premise.
 
 The VM-side AdmitsShortcut is the extensional predicate “this VM program’s
 bounded run from init_state coincides with the bounded run of simple_mor
 ph_trace.” yes_program is simple_morph_trace itself; no_program is the
 empty trace (which produces init_state, demonstrably distinct from simple_m
 orph_final, since the latter has fired the supra-cert channel and the former has
-not). The extensionality field is the standard “equal run on every state implies the
-predicates agree.” The instantiation that assembles these into the WithShortcutPre
 
-                                          85
+                                           85
 The Thiele Machine                                            Devon Thiele • September 2026
 
 
+not). The extensionality field is the standard “equal run on every state implies the
+predicates agree.” The instantiation that assembles these into the WithShortcutPre
 dicate interface lives in the kernel.
 
 10.3 The substrate-level limitative theorem
@@ -4275,16 +4289,16 @@ latter is true (typeclass field yes_program_admits). Contradiction.
 Both cases close. No such decide exists. PrintAssumptionsstructural_short
 cut_undecidable returns Closed under the global context.
 
-   Plain reading. For each candidate d, the construction builds an instance and proves
-   that d fails on that instance’s predicate Pd . The instance itself depends on d. This
 
 
                                             86
 The Thiele Machine                                                Devon Thiele • September 2026
 
 
-    is a family theorem. It doesn’t hand you one fixed effective predicate that beats
-    every effective decider.
+   Plain reading. For each candidate d, the construction builds an instance and proves
+   that d fails on that instance’s predicate Pd . The instance itself depends on d. This
+   is a family theorem. It doesn’t hand you one fixed effective predicate that beats
+   every effective decider.
 
 
 Theorem 10.2 (Structural-axis undecidability for the nat-coded substrate). For every
@@ -4325,8 +4339,6 @@ vm_admits_shortcut_extensionalp.
 
 Proof. Instantiate the substrate-level theorem at vm_substrate. The Gödel encoding
 piece (vm_encode, vm_decode_safe, the round-trip) enters as Section parameters
-and is then discharged by the kernel’s closed round-trip lemma (program_to_nat,
-nat_to_program, no Hypothesis) in vm_structural_shortcut_undecidable
 
 
 
@@ -4334,6 +4346,8 @@ nat_to_program, no Hypothesis) in vm_structural_shortcut_undecidable
 The Thiele Machine                                          Devon Thiele • September 2026
 
 
+and is then discharged by the kernel’s closed round-trip lemma (program_to_nat,
+nat_to_program, no Hypothesis) in vm_structural_shortcut_undecidable
 _encoded. The VM’s internal-representability predicate vm_representable and
 the VM’s internal recursion theorem restricted to representable transformers are the
 Section parameters that stay live; closing the surrounding Coq Section discharges
@@ -6393,13 +6407,13 @@ be physical, energy spent under Landauer’s principle.
                                                       slashes nobody; eco- _priced, finali
                                                       nomic                     zation_without
                                                                                 _slashing
- TPM 2.0, Li- an extended             hash chaining   none in the specifica- quote_cannot_a
- brary Version PCR                                    tion; reversal is crypto- ttest_unmeasur
- 185                                                  graphically infeasible    ed_state
+ TPM 2.0, Li- an extended             hash chaining, none in the specifica- quote_cannot_a
+ brary Version PCR                    until the next tion; reversal is infeasi- ttest_unmeasur
+ 185                                  reset           ble; cryptographic        ed_state
  Certificate    a logged cer-         an     append- none in the specifica- none
- Transparency,  tificate              only, audited tion; reversal is crypto-
- RFC 9162                             log             graphically infeasible
- Proof-carrying a      checked        nothing         none                      none
+ Transparency,  tificate              only, audited tion; reversal is infeasi-
+ RFC 9162                             log             ble; cryptographic
+ Proof-carrying a      checked        nothing         none, at any level        none
  code (Necula)  proof
 
 Ethereum is the one that prices the write. Even there the price holds only for a record
@@ -6416,14 +6430,13 @@ in place.
 
 TPM and CT price nothing in their specifications. A hash chain or an append-only log
 stays put because undoing it is infeasible, which is a cryptographic guarantee, not an
-exact one. There is a physical cost underneath: a register that exactly kept a permanent
+exact one. A PCR’s record lasts until the platform resets it, so its permanence is per
+boot. There is a physical cost underneath: a register that exactly kept a permanent
 record on finite hardware would have to merge states (Section 9.1). The specifications
 don’t price it.
 
 Proof-carrying code keeps no permanent record and prices nothing. It is outside the
 family.
-
-
 
                                               129
 The Thiele Machine                                          Devon Thiele • September 2026
@@ -8588,8 +8601,9 @@ cost; vm_certifying_step_is_priced_merge falls.
 Falsify the proof-carrying reduction.
 Construct a level-k certified proof script with total µ below k, or a sound and complete
 zero-round bare verifier. level_k_certification_cost_floor (restated for this
-model as level_k_verification_floor) or bare_pcc_impossible falls, and
-the µ-hierarchy or the bare-setting impossibility behind them.
+model as level_k_verification_floor, an alias whose proof is that theorem) or
+bare_pcc_impossible falls, and the µ-hierarchy or the bare-setting impossibility
+behind them.
 
 23.1 Contribution and attribution boundary
 This section says what is mine and what is not. It is not a claim to have been first. I
@@ -8612,14 +8626,16 @@ pigeonhole principle. Entropy is at most the logarithm of the support size, and 
 ministic step never raises it; both are Shannon’s. That Landauer’s bound depends on
 the actual distribution, so a known state can be reset for free, is the generalized form
 of Maroney (2009) and Sagawa (2014). None of it is mine.
-Formal reconstructions.
-The Coq development defines the state types, transition systems, fixed real-matrix
+
+
 
 
                                           171
 The Thiele Machine                                               Devon Thiele • September 2026
 
 
+Formal reconstructions.
+The Coq development defines the state types, transition systems, fixed real-matrix
 predicates, encodings and proof terms this monograph uses. When I say a theorem is
 checked in Coq, I mean the stated proposition has a kernel-checked proof under its
 printed premises. That does not make the underlying idea mine, and it does not make
@@ -8660,14 +8676,13 @@ where its instances stop. For the full quantified statement, go to the named sou
 declaration.
 
    1. no_free_certification: csr_cert_addr going 0 → nonzero in one step requires cost ≥ 1.
-   2. no_free_certification_mu: same, with µ increment ≥ 1.
-
 
 
                                              172
 The Thiele Machine                                                   Devon Thiele • September 2026
 
 
+   2. no_free_certification_mu: same, with µ increment ≥ 1.
    3. no_free_certification_trace_mu: trace-level version.
    4. no_free_certification_certified: vm_certified going false→true requires cost ≥ 1.
    5. certification_requires_positive_mu: both channels covered.
@@ -8708,13 +8723,13 @@ declaration.
       strict-predicate premise used by NoFI.
   25. info_priced_cert_executions_bound: executed cert-setting events are bounded by ∆µ.
   26. observation_partition_reduction_implies_posterior_representative_reduction: observation
-      classes package into the posterior-representative witness for structural entitlement.
 
 
                                                 173
 The Thiele Machine                                                  Devon Thiele • September 2026
 
 
+      classes package into the posterior-representative witness for structural entitlement.
   27. info_priced_arbitrary_feasible_reduction_bound: with a decision-tree/representative
       witness, feasible-set compression is bounded by ∆µ.
   28. info_priced_weighted_feasible_reduction_bound: the ∆µ lower bound extends to
@@ -8756,13 +8771,13 @@ declaration.
   45. structural_trace_preserves_cert_addr: traces with no cert-address setter preserve
       csr_cert_addr.
   46. partition_refinement_nonfree: certified partition knowledge cannot be free.
-  47. partition_free_but_certification_nonfree: partition structure can be built at δ = 0, but
 
 
                                                174
 The Thiele Machine                                                   Devon Thiele • September 2026
 
 
+  47. partition_free_but_certification_nonfree: partition structure can be built at δ = 0, but
       certified partition knowledge cannot be acquired for free.
   48. witness_insight_nonfree_general: certified non-local witness insight requires µ ≥ 1.
   49. witness_insight_complete_taxonomy: full three-tier taxonomy proven.
@@ -8811,9 +8826,6 @@ declaration.
       slice-coherent) follows immediately. The converse (|S| ≤ 2 2 ⇒ slice-coherent) is false
       and is not claimed.
   59. Concrete falsifications by direct arithmetic. The PR box (E00 = E01 = E10 = 1, E11 = −1)
-      fails the first column-contractivity condition: 1 − E00 2 − E2 = 1 − 1 − 1 = −1 < 0. Any
-                                                                    10
-
 
 
 
@@ -8821,7 +8833,8 @@ declaration.
 The Thiele Machine                                                Devon Thiele • September 2026
 
 
-                                     √
+      fails the first column-contractivity condition: 1 − E00 2 − E2 = 1 − 1 − 1 = −1 < 0. Any
+                                     √                               10
       super-quantum value |S| > 2 2 falls outside the slice-coherent set by the
       contrapositive of state_column_contractive_implies_tsirelson. The
       Turing-classical correlation (1, 0, 1, 0) also fails condition 1. These are direct
@@ -8867,7 +8880,6 @@ declaration.
       rusted names the BSC/compiler and printer trust boundary. No unconditional
       end-to-end RTL/bitstream bisimulation is claimed.
   65. nothing_at_stake_is_free_forgery: a finality gadget whose finalize step carries zero
-      stake-at-risk admits no A2 field. Nothing-at-stake is the kernel’s free forgery, stated in
 
 
 
@@ -8875,6 +8887,7 @@ declaration.
 The Thiele Machine                                                  Devon Thiele • September 2026
 
 
+      stake-at-risk admits no A2 field. Nothing-at-stake is the kernel’s free forgery, stated in
       proof-of-stake vocabulary (Section 17).
   66. slashing_finality_floor: for any supplied slashing gadget whose certification predicate
       starts false and whose false-to-true transitions satisfy the stated positive-cost premise,
@@ -8918,7 +8931,6 @@ declaration.
       prices exactly.
   79. vm_bare_shadow_cannot_price_exactly / vm_forget_shadow_cannot_price_exactly: the VM
       has such a pair for bare_observable and for forget, from the clean start.
-
 
 
                                                177

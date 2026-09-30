@@ -16,6 +16,7 @@ What this is: an argument, made with that model, about what an account of comput
   3. Leaning on a fact takes a paid history. Defined; the cost floor is proved for shortcuts that hand over their receipts. (Section 10.)
   4. So the axis belongs in the step. Proposed. This is what the proofs are there to test. Part of it is proved. An exact price for certification can't be computed from the window, because a certifying step and a non-certifying one can look the same through it, and the VM has such a pair (ShadowPricing.v). And on finite memory, an account that prices merges the way Landauer's principle does already charges every permanent-record write, at least the logarithm of the squeeze, in counted states or in bits (PermanentRecordPricing.v, PermanentCertificationEntropy.v).
   5. Which events every account has to price. Certification is the one I pinned down. On finite hardware the must-price events are the merges; every permanent-record write is one, and a flip escapes the price only by being revocable. "Exactly the permanent records" is false (three-state counterexample). The rest is open.
+  6. What carries the weight. Every machine can carry the record axis, as itself plus a latch on an event it reaches. On the VM the record can't be read back off the shadow. On finite hardware, writing a permanent record merges states, so pricing merges prices the write. Proved. That a permanent record is a latch on one event is close to definitional. Which event gets latched is the pointer question, and it is open. (Section 12.)
 
 A computation gives you an answer. I want to know what it had to establish to get there, which distinctions it kept along the way, and what keeping them cost. Certification is the one place I could pin that down hard. The idea reaches further than that one place. The proofs don't. They cover the events, views, and machines their statements name, and nothing past them.
 
@@ -212,7 +213,24 @@ So name the VM's schedule and the payload-pricing contracts out loud. A rising m
 To compare speed you have to fix the same task, the same representation, the same primitive instructions, and the same cost meter on both sides. Comparing two different meters doesn't give you a speed difference.
 
 
-12. HOW TO CHECK THE CLAIMS
+12. THE RECORD AXIS
+
+Take any deterministic machine that keeps no record: a Turing machine, a RAM, a reversible machine, the VM. Call it the base. A machine extends the base when it runs the base step for step through a map down to it, carrying whatever hidden state it likes.
+
+Three results carry the weight.
+
+  Every base can carry the axis. For any event the base reaches, the base plus a latch on that event, charging one unit when the latch sets, is an honest extension of it (`latch_core_honest`). A reversible base with unbounded memory can carry one and stay reversible, by keeping every earlier record value (`history_latch_honest`). With finite memory it can't: there, a step that writes a permanent record is not injective (`finite_reversible_cannot_write`).
+
+  The record isn't in the shadow. On the VM, no function of the named windows returns certification or mu (`cert_not_function_of_forget`, `mu_not_function_of_bare_observable`; Sections 4, 6, 9).
+
+  On finite hardware, writing a permanent record merges two states (`permanent_flip_is_not_injective`). So an account that prices merges already prices the write (`a2_from_merging_price_and_permanence`).
+
+One more result is close to definitional. Give the extension a record that never switches off, that some paid step writes, that follows A2, and whose next value depends only on the base state and on itself. Then the base and the record move as a latch on one event (`uniqueness_round4_holds`). That follows from the two conditions in a few lines. Both conditions do work: a record that can switch back off isn't a latch (`toggle_not_latch`), and a record switched on by a hidden clock isn't driven by the computation (`clock_record_not_driven`).
+
+So the picture is one structure with many price lists. The Turing machine is what's left when you drop the latch. What stays free is which event, the price list, and the base. Machines on different bases aren't compared here; that's complexity theory's question. Which event gets latched is the pointer question. It is open.
+
+
+13. HOW TO CHECK THE CLAIMS
 
 Read the definitions before the theorem names. An implication can check out in Coq while the sentence describing it reaches past what its premises allow. That gap is where I'd look.
 
