@@ -131,6 +131,7 @@ def pipeline(repo, tmp_path):
         "artifacts/proof_dependency_file_graph.mmd", "artifacts/PROOF_FOUNDATION_AUDIT.md",
         "artifacts/final_claim_audit/example.json", "artifacts/rtl_pipeline_manifest.json",
         "artifacts/rtl_text_transform_audit.json", "INQUISITOR_REPORT.md",
+        "README.md",
     ]
     for name in outputs:
         path = repo / name
@@ -181,7 +182,8 @@ if name == "python3":
         path.write_text(fresh)
 elif name == "bash" and args == ["scripts/generate_assumption_receipt.sh"]:
     for name in (os.environ["HOOK_TEST_ASSUMPTION_PROBE"], "artifacts/print_assumptions_all_proofs.json",
-                 "artifacts/print_assumptions_all_proofs.txt", "build/probe/probe_inventory.json",
+                 "artifacts/print_assumptions_all_proofs.txt", "artifacts/print_assumptions_all_proofs.csv",
+                 "build/probe/probe_inventory.json",
                  "build/probe/probe_all_output.txt", "build/probe/probe_all_err.txt",
                  "build/probe/probe_batches.json"):
         path = pathlib.Path(name)
@@ -261,24 +263,27 @@ def test_hook_refuses_partial_staging_before_running_generators(pipeline):
     assert git(repo, "write-tree") == before
 
 
-def test_hook_regenerates_probe_but_defers_receipt_to_ci(pipeline):
-    """A proof change refreshes the probe locally; the receipt is CI's job.
-
-    Re-deriving the receipt means executing every Print Assumptions query in the
-    corpus (~12k over 421 modules), which is CPU-bound and does not belong in
-    the local pre-commit hook. The hook regenerates the probe and checks
-    receipt/probe coherence; CI's `make assumption-receipt-check` performs the
-    full semantic derivation when proof-relevant inputs changed.
-    """
+def test_hook_regenerates_and_stages_receipt_before_consistency_check(pipeline):
+    """A proof change refreshes the receipt before checking its coherence."""
     repo, _ = pipeline
     (repo / "coq/Proof.v").write_text("proof change\n")
     git(repo, "add", "coq/Proof.v")
     result = run_hook(pipeline)
     assert result.returncode == 0, result.stdout + result.stderr
     calls = [json.loads(line) for line in (repo / ".git/tool-log").read_text().splitlines()]
-    assert not any("generate_assumption_receipt.sh" in call[1] for call in calls), (
-        "the hook must not re-derive the receipt; CI owns that step"
-    )
+    receipt = next(i for i, call in enumerate(calls)
+                   if "scripts/generate_assumption_receipt.sh" in call[1])
+    consistency = next(i for i, call in enumerate(calls)
+                       if "scripts/check_assumption_consistency.py" in call[1])
+    assert receipt < consistency
+    for name in (
+        "artifacts/print_assumptions_all_proofs.json",
+        "artifacts/print_assumptions_all_proofs.txt",
+        "build/probe/probe_all_output.txt",
+        "build/probe/probe_all_err.txt",
+        "build/probe/probe_batches.json",
+    ):
+        assert git(repo, "show", f":{name}") == "fresh receipt\n"
 
 
 def test_hook_runs_assumption_consistency_check(pipeline):

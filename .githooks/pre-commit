@@ -70,24 +70,25 @@ stage build/kami_hw/Target.ml build/kami_hw/Target.mli \
     build/thiele_core.ml build/thiele_core.mli \
     build/thiele_core_complete.ml build/thiele_core_complete.mli
 
-# Regenerate the probe itself when the corpus or its generator changes. This is
-# cheap (a source scan, no Coq) and keeps the committed probe in step with the
-# committed corpus.
-#
-# The receipt is deliberately NOT re-derived here. A semantic fingerprint
-# check is fast and is enough for unchanged proof inputs; a proof-relevant
-# change makes `make assumption-receipt-check` re-derive the full corpus in CI.
-# That CI check is the authority behind the "0 project-local axioms" badge.
-#
-# Locally we do the part that fits in a pre-commit hook: verify that the
-# committed receipt is a coherent snapshot of the committed probe (names, raw
-# output hash, internal counts, alignment, probe/receipt coverage). A stale or
-# partial receipt cannot be committed silently, and any genuine proof drift is
-# caught in CI.
+# Refresh the full receipt when a proof-relevant input changes. The batch
+# runner reuses unchanged module results, so this normally executes only the
+# affected queries. Refreshing before the coherence check avoids the
+# predictable fail-regenerate-retry cycle for every new theorem. The receipt
+# is still derived by Coq, checked for alignment and project-local axioms, and
+# re-derived independently by CI.
 if ! git diff --cached --quiet -- coq vendor scripts/coq_proof_scope.py \
         build/probe/build_full_probe.py; then
-    run python3 build/probe/build_full_probe.py
-    stage coq/AssumptionsProbeAll.v build/probe/probe_inventory.json
+    run bash scripts/generate_assumption_receipt.sh
+    stage coq/AssumptionsProbeAll.v \
+        build/probe/probe_inventory.json \
+        build/probe/probe_all_output.txt \
+        build/probe/probe_all_err.txt \
+        build/probe/probe_batches.json \
+        artifacts/print_assumptions_all_proofs.csv \
+        artifacts/print_assumptions_all_proofs.json \
+        artifacts/print_assumptions_all_proofs.txt
+    run python3 scripts/sync_assumption_receipt_readme.py
+    stage README.md
 fi
 
 # Always check receipt/probe coherence; it is fast and needs no Coq.
