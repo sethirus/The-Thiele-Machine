@@ -2,10 +2,12 @@
 
 from hashlib import sha256
 from pathlib import Path
+import subprocess
 
 
 ROOT = Path(__file__).resolve().parents[1]
 FREEZE = ROOT / "research/rounds/2026-09-30-part1-item1.5-round1-freeze.md"
+FROZEN_REF = "4888677e^"
 INPUTS = {
     "monograph/monograph.tex": "045541ffafb66b8c0a54ff5914f9177d0705bbc0be4914eb84c21bec9f1c1428",
     "README.md": "1b4bdb6ecba6b39fe82de7aef7bb89fd271ba530eba0e1349386518e2f327fe9",
@@ -19,7 +21,10 @@ def test_item15_freeze_exists_and_pins_exact_inputs() -> None:
     assert FREEZE.exists()
     text = FREEZE.read_text()
     for relative, expected in INPUTS.items():
-        actual = sha256((ROOT / relative).read_bytes()).hexdigest()
+        frozen = subprocess.check_output(
+            ["git", "show", f"{FROZEN_REF}:{relative}"], cwd=ROOT
+        )
+        actual = sha256(frozen).hexdigest()
         assert actual == expected
         assert f"`{relative}` | `{expected}`" in text
 

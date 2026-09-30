@@ -597,7 +597,7 @@ A submission that names a theorem gets, within 14 days, one of exactly two repli
 
 The kernel's machine semantics are feature-frozen at v3.0: no new opcodes, no step-relation changes, and no cost-law changes.
 Accepted changes are refutation fixes, hygiene, toolchain compatibility, and machine-untouched characterization tiers over the frozen semantics.
-The v3.1.0 elliptope gate and pointer-observable criterion are this kind: correlator-level and frontier-criterion theorems that leave the step relation and cost law untouched.
+The v3.1.0 elliptope gate and the formal pointer-observable definitions and selected model instances are this kind: correlator-level and frontier theorems that leave the step relation and cost law untouched. The general criterion remains a conjecture.
 New machine features belong in new repositories citing this one.
 
 ## License
