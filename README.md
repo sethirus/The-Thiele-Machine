@@ -265,7 +265,7 @@ Coq closes the contradiction by `congruence`.
 Closed under the global context
 ```
 
-The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 13,100 addressable theorems probed across 445 files and no user/project-local axiom findings in the committed assumption scan.
+The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 13,100 addressable theorems probed across 446 files and no user/project-local axiom findings in the committed assumption scan.
 
 ## Beyond the minimal witness
 
@@ -510,7 +510,7 @@ Two independent receipts track proof assumptions.
 - [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records Coq `Print Assumptions` over the audited theorem set.
 
 The selected theorem ledger is [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v).
-The current committed assumption receipt reports 13,100 addressable theorems probed across 445 files and no user/project-local axiom findings.
+The current committed assumption receipt reports 13,100 addressable theorems probed across 446 files and no user/project-local axiom findings.
 The split: 5,756 close under the global context outright, and the remaining 7,344 lean only on Coq-stdlib axiom families.
 Those families are `functional_extensionality_dep` (7,041), `eq_rect_eq` (3,849), the classical-reals pair `sig_forall_dec` (1,054) and `sig_not_dec` (300), and `classic` (98).
 Those families enter through the real-number and physics layers; the minimal core uses none of them.
