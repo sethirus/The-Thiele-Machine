@@ -4,9 +4,9 @@
 
 ## Structure
 
-- `LandauerDerived.v` - Landauer Derived - Defines: Erasure, PhysicalErasure; Key results: num_states_pos, info_bits_correct, fan_in_pos (+15 more)
+- `LandauerDerived.v` - Landauer Derived - Defines: Erasure, PhysicalErasure; Key results: num_states_pos, fan_in_pos (+15 more)
 - `LandauerJoules.v` - Physical-unit calibration boundary for Landauer-style costs
-- `ThermodynamicBridge.v` - Thermodynamic Bridge - Defines: MuState, Operation; Key results: mu_nonnegative, mu_additive, single_op_mu (+13 more)
+- `ThermodynamicBridge.v` - Thermodynamic Bridge - Defines: MuState, Operation; Key results: mu_nonnegative, mu_additive (+12 more)
 
 ## Verification Status
 
