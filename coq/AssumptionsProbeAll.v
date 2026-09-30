@@ -188,6 +188,7 @@ Require Kernel.ClassicalBound.
 Require Kernel.ClassicalConservativity.
 Require Kernel.DagRestriction.
 Require Kernel.Definitions.
+Require Kernel.EventGeneralizationTargets.
 Require Kernel.EventSwapCore.
 Require Kernel.Kernel.
 Require Kernel.KernelTM.
