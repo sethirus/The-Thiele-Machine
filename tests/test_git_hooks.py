@@ -132,6 +132,9 @@ def pipeline(repo, tmp_path):
         "artifacts/final_claim_audit/example.json", "artifacts/rtl_pipeline_manifest.json",
         "artifacts/rtl_text_transform_audit.json", "INQUISITOR_REPORT.md",
         "README.md",
+        "CITATION.cff", "THIELE_MACHINE.txt", "monograph/monograph.tex",
+        "monograph/monograph.pdf", "monograph/monograph.txt",
+        "monograph/thiele_machine_math_spec.pdf", "monograph/math_spec_plaintext.txt",
     ]
     for name in outputs:
         path = repo / name

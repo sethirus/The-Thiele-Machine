@@ -1,12 +1,12 @@
-        The Thiele Machine
-    A Complete Mathematical Specification
-Derived from the Fully Machine-Checked Coq Corpus
+     The Thiele Machine
+        A Mathematical Reference
+Derived from the Machine-Checked Coq Corpus
 
 
 
-                  Devon Thiele
+               Devon Thiele
 
-                September 2026
+             September 2026
 Before the specification. I don’t do math by hand. I think in shapes, directions, and
 connections, and my part of this work was to see where things had to fit, to direct, and to refuse
 what didn’t fit. This document is the translation. Language models wrote the formal statements
@@ -16,10 +16,10 @@ statements, exact premises, and where each one lives. If you want the pictures, 
 starts with them. If you want to know exactly what is claimed, it’s here.
 The Thiele Machine is an abstract model of computation, and an argument made
 with it about what an account of computation should preserve.
-    It is a machine in the sense a Turing machine is one: a mathematical object, not a device.
-The 51-opcode VM specified in the chapters below is one build of that model, specified in full so
-it can be checked. It is not the model. The model is the abstract CertificationSystem and
-Substrate interfaces; the VM is one instance of each.
+    It is a machine in the sense a Turing machine is one: a mathematical object, not a device. The
+51-opcode VM summarized in the chapters below is one build of that model; its complete checked
+definition is the Coq source. It is not the model. The model is the abstract CertificationSystem
+and Substrate interfaces; the VM is one instance of each.
     Certification is one concrete witness of a broader investigation of structural state, observation,
 and cost. The abstract laws, theorems, and executable realizations belong to that investigation.
 Selected projections lose distinctions that the richer state can express; cost laws constrain
@@ -36,10 +36,11 @@ The status of each result is stated below.
                                                   1
                                              Abstract
 
-This is the complete mathematical specification of the Thiele Machine: a formal model of
-computation where structural information carries an explicit, monotone cost µ that starts at
-zero and never decreases. Everything here is built from the machine-checked Coq corpus. You
-can reconstruct the machine from what’s in this document alone.
+This is a mathematical reference for the Thiele Machine: a formal model of computation
+where structural information carries an explicit, monotone cost µ that starts at zero and never
+decreases. It presents the abstract interfaces, the main theorems, and selected semantics from
+the machine-checked Coq corpus. The complete 51-opcode operational definition is the Coq
+source; this document alone does not enumerate enough semantics to reconstruct it.
     Coq establishes that conclusions follow from axioms. It does not establish that axioms model
 physical reality. That distinction is kept explicit throughout. Every result is tagged as one of three
 types: (S) structural theorems about the machine as a mathematical object, (C) conditional
@@ -718,8 +719,7 @@ are decoding_requires_fiber_constancy and selected_representatives_give_decoder.
 Theorem 6.4 (µ-Ledger Necessity and Complete Independence Classification (NecessityOf-
 MuLedger.v, kernel/NecessityAbstract.v), (S)). Five independence results are formally proven,
 zero Admitted:
-
-   1. µ ⊥ (mem, regs, pc): no strict-classical oracle recovers µ    turing_ram_mu_necessity
+   1. µ ⊥ (mem, regs, pc): no strict-classical oracle recovers µ      turing_ram_mu_necessity
 
    2. certified ⊥ (mem, regs, pc): no strict-classical oracle recovers certification turing_ram_
       cert_necessity
@@ -732,13 +732,14 @@ zero Admitted:
 
    5. vm_graph ⊥ (mem, regs, pc, µ, certified): the categorical layer is independent of the full
       µ-ledger shadow                                 graph_not_recoverable_from_P_full
-
 Three-component independence (thiele_state_three_component_independence): µ, vm_
 certified, and vm_graph are the three provably independent non-classical state components.
 Each is irrecoverable from any combination of the others plus (mem, regs, pc).
-    Minimality (P_full_complete_neither_mu_nor_cert_droppable): (mem, regs, pc, µ, certified)
-is the minimal complete extension of classical state for µ and certification. Graph structure is a
-third independent axis.
+    Non-droppability, not representation minimality (P_full_complete_neither_mu_
+nor_cert_droppable): (mem, regs, pc, µ, certified) is complete for returning µ and certifi-
+cation, and neither named coordinate can be dropped from this projection while retaining its
+corresponding answer. No ordering over arbitrary encodings is defined, so this is not a smallest-
+representation theorem. Graph structure is a third independent axis.
     Universality (mu_ledger_necessity_universal): The separation holds from every VM-
 State, not only from crafted zero-state witnesses. From any reachable state, CERTIFY 0 and PNEW
 [] 0 produce identical strict classical shadows but different µ. Certification also differs when the
@@ -746,7 +747,6 @@ source state is uncertified.
     Trace closure (po1_trace_necessity): For any common prefix program of any length, the
 two witness extensions maintain equal strict shadows but strictly different µ. No accumulation
 of classical computation closes the gap.
-
 Proof Sketch. Each separation uses explicit witnesses where equal projected inputs force equal
 oracle outputs, while the witness states require unequal outputs, a contradiction. Strict shadow
 equality: both CERTIFY 0 and PNEW [] 0 advance pc by 1 and preserve mem/regs. µ divergence:
@@ -763,14 +763,12 @@ tracking system. Four results, all zero Admitted:
 
                       (run_instrs s prog).µ = s.µ + trace_total_cost(prog)
 
-     The increment is determined entirely by the instruction sequence, independent of vm_graph,
-     vm_regs, vm_mem, vm_certified, and the starting µ.
+      The increment is determined entirely by the instruction sequence, independent of vm_graph,
+      vm_regs, vm_mem, vm_certified, and the starting µ.
 
    2. shadow_mu_delta_universal: Two machines running the same program from any two
       starting states accumulate the same additional µ. The cost is written in the program before
       execution begins.
-
-
 
                                                 17
    3. shadow_mu_unique_accounting: Any instruction-consistent accounting system M satisfy-
@@ -1582,9 +1580,9 @@ and (C3) its commitment event must fail redundantly_proliferating.
 in prose. The Coq half fixes an observer map and computes (C3) for it. The file contains no
 definition of forgery resistance, EUF-CMA security, deniability, memory safety, metering, or
 deployment, so the Coq results alone neither refute nor confirm a security claim.
-    (PO-STRONG) is false, on that two-part argument. Three candidates refute it; for each,
-the non-proliferating observer map is checked in Coq and its faithfulness to the design is argued
-in prose:
+    Three candidates argue against (PO-STRONG), using a two-part argument rather
+than an unconditional machine theorem. For each, the non-proliferating observer map is checked
+in Coq and its faithfulness to the design is argued in prose:
    • Deniable (designated-verifier) authentication (deniable_authentication_model_
      not_proliferating). The scheme is engineered so a third party cannot be convinced
      even given the whole transcript, because the designated verifier could have produced it.
@@ -1599,14 +1597,14 @@ A public-log control (public_log_model_proliferating) checks that the search can
 confirms and is not an instrument that only reports refutations; its rival effort event still fails
 to proliferate (public_log_effort_not_proliferating), so the control discriminates rather
 than accepting everything.
-    The boundary these trace is sharp, and it is not the one (PO-STRONG) guessed at. A
-MAC and a digital signature both resist forgery; only the signature proliferates. Deniable
-authentication and certificate transparency both resist forgery; deniability actively prevents
-third-party conviction while transparency actively requires it. Object capabilities and proof-
-carrying code both make unearned authority impossible; the capability confines it to the holder
-while the proof travels to every consumer. In each pair the proliferating member is the one
-whose commitment must convince parties who were not present. The criterion that survives is
-therefore:
+    If those prose correspondences are accepted, the boundary they trace is not the one (PO-
+STRONG) guessed at. A MAC and a digital signature both resist forgery; only the signature
+proliferates. Deniable authentication and certificate transparency both resist forgery; deniability
+actively prevents third-party conviction while transparency actively requires it. Object capabili-
+ties and proof-carrying code both make unearned authority impossible; the capability confines it
+to the holder while the proof travels to every consumer. In each pair the proliferating member is
+the one whose commitment must convince parties who were not present. The surviving candidate
+criterion is therefore:
      (PO-PUBLIC) A system whose commitment must convince third parties who did
      not witness its creation will proliferate records of the commitment event.
 The signature observer model makes the commitment visible in each observer fragment and
@@ -2337,9 +2335,9 @@ merges). Every s, i with vm_certified(s) = false and vm_certified(vm_apply(s, i)
 has vm_apply(·, i) non-injective and instruction_cost(i) ≥ 1 (vm_certifying_step_
 is_priced_merge). vm_apply(·, JUMP 0 0) is not injective and costs 0 (vm_jump_is_
 free_merge). Hence ¬ merging_steps_priced(vm_apply, instruction_cost) (vm_prices_
-certifying_merge_leaves_others_free). The schedule prices the certifying merge and leaves
-other merges free by design; A2 holds for the VM independently (no_free_certification_
-certified).
+certifying_merge_leaves_others_free). Thus every certification flip is a priced merge and
+at least one other merge is free; the theorem does not classify every non-certifying merge. A2
+holds for the VM independently (no_free_certification_certified).
 
 
 21.4      Exact Pricing Cannot Be Computed From a Window
@@ -2761,11 +2759,12 @@ Non-Free
 classification)                     NecessityAbstract.v
 Trace Cost for a Fixed Schedule     coq/NecessityOfMuLedger.v: shadow_mu_is_computation_
                                     intrinsic
-µ Cost Universal Across Machines    coq/NecessityOfMuLedger.v: shadow_mu_delta_universal
-µ Cost Unique Across Accounting     coq/NecessityOfMuLedger.v: shadow_mu_unique_
-Systems                             accounting
-Positive-Cost Trace Accumulation    coq/NecessityOfMuLedger.v: shadow_mu_inevitable
-µ-budget predicates + zero-µ        coq/kernel/mu_calculus/MuComplexity.v
+µ Cost Difference Independent of    coq/NecessityOfMuLedger.v: shadow_mu_delta_universal
+Starting State
+µ Cost Unique Across Accounting         coq/NecessityOfMuLedger.v: shadow_mu_unique_
+Systems                                 accounting
+Positive-Cost Trace Accumulation        coq/NecessityOfMuLedger.v: shadow_mu_inevitable
+µ-budget predicates + zero-µ            coq/kernel/mu_calculus/MuComplexity.v
 inclusion
   Categorical and shadow-projection layer
 Categorical Separation / Category       coq/kernel/category/CategoryLaws.v, coq/kernel/
@@ -2777,73 +2776,74 @@ CHSH Coupling Bridge (S ≤ 2 from        coq/kernel/quantum/CHSHCouplingBridge.
 local coupling, S > 2 rules it out)
 Witness Insight Three-Tier              coq/kernel/witness/WitnessInsightGeneral.v
 Taxonomy
-  Quantum / CHSH algebra (no project-local axioms)
 
 
 
-                                              63
-Slice-coherent ⇐⇒ NPA realizable        coq/kernel/quantum/QuantumPartitionPSD.v: column_
-(biconditional)                         contractive_iff_npa_psd
-Forward: column-contractive ⇒ NPA       coq/kernel/nfi/MuLedgerQuantumBridge.v: zero_
-PSD                                     marginal_npa_column_contractive_implies_psd
-Reverse: NPA PSD ⇒                      coq/kernel/quantum/QuantumPartitionPSD.v: npa_psd_
-column-contractive                      implies_column_contractive
-Quadratic-form discriminant lemma       coq/kernel/quantum/ConstructivePSD.v: quadratic_
-                                        nonneg_discriminant
+                                             63
+  Quantum / CHSH algebra (no project-local axioms)
+Slice-coherent ⇐⇒ NPA realizable         coq/kernel/quantum/QuantumPartitionPSD.v: column_
+(biconditional)                          contractive_iff_npa_psd
+Forward: column-contractive ⇒ NPA coq/kernel/nfi/MuLedgerQuantumBridge.v: zero_
+PSD                                      marginal_npa_column_contractive_implies_psd
+Reverse: NPA PSD ⇒                       coq/kernel/quantum/QuantumPartitionPSD.v: npa_psd_
+column-contractive                       implies_column_contractive
+Quadratic-form discriminant lemma        coq/kernel/quantum/ConstructivePSD.v: quadratic_
+                                         nonneg_discriminant
 Tsirelson
-        √ from column contractivity     coq/kernel/nfi/MuLedgerQuantumBridge.v: state_column_
-(|S| ≤ 2 2)                             contractive_implies_tsirelson (tsirelson_from_row_
-                                        bounds in TsirelsonGeneral.v is the inner Cauchy–Schwarz
-                                        step)
-Tsirelson rational lower witness        coq/kernel/category/AlgebraicCoherence.v: tsirelson_
-                                        rational_lower_witness
-Tsirelson (algebraic from coherence)    coq/kernel/quantum/TsirelsonFromAlgebra.v
-General Algebraic Tsirelson (S 2 ≤ 8)   coq/kernel/category/AlgebraicCoherence.v:
-                                        algebraically_coherent_tsirelson_general
-Elliptope realizability (existential    coq/kernel/quantum/ElliptopeCompletion.v: elliptope_
-completion)                             realizable (definition); deterministic_strategy_
-                                        elliptope, lhv_mixture_elliptope (every LHV correlator
-                                        inside)
-Tsirelson for the full elliptope        coq/kernel/quantum/ElliptopeCompletion.v: elliptope_
-(S 2 ≤ 8)                               tsirelson (inner step psd_cauchy_schwarz)
-PR box excluded; classical ⊂            coq/kernel/quantum/ElliptopeCompletion.v: pr_box_not_
-elliptope strict                        elliptope, beyond_classical_elliptope
-Decidable elliptope gate (soundness)    coq/kernel/quantum/ElliptopeGate.v: elliptope_check_
-                                        full_sound; boundary acceptance gate_accepts_
-                                        pythagorean_boundary; universal refusal elliptope_full_
-                                        gate_never_accepts_pr_box
- Frontier: pointer-observable criterion
+        √ from column contractivity      coq/kernel/nfi/MuLedgerQuantumBridge.v: state_column_
+(|S| ≤ 2 2)                              contractive_implies_tsirelson (tsirelson_from_row_
+                                         bounds in TsirelsonGeneral.v is the inner Cauchy–Schwarz
+                                         step)
+Tsirelson rational lower witness         coq/kernel/category/AlgebraicCoherence.v: tsirelson_
+                                         rational_lower_witness
+Tsirelson (algebraic from coherence)     coq/kernel/quantum/TsirelsonFromAlgebra.v
+General Algebraic Tsirelson (S 2 ≤ 8) coq/kernel/category/AlgebraicCoherence.v:
+                                         algebraically_coherent_tsirelson_general
+Elliptope realizability (existential     coq/kernel/quantum/ElliptopeCompletion.v: elliptope_
+completion)                              realizable (definition); deterministic_strategy_
+                                         elliptope, lhv_mixture_elliptope (every LHV correlator
+                                         inside)
+Tsirelson for the full elliptope         coq/kernel/quantum/ElliptopeCompletion.v: elliptope_
+(S 2 ≤ 8)                                tsirelson (inner step psd_cauchy_schwarz)
+PR box excluded; classical ⊂             coq/kernel/quantum/ElliptopeCompletion.v: pr_box_not_
+elliptope strict                         elliptope, beyond_classical_elliptope
+Decidable elliptope gate (soundness)     coq/kernel/quantum/ElliptopeGate.v: elliptope_check_
+                                         full_sound; boundary acceptance gate_accepts_
+                                         pythagorean_boundary; universal refusal elliptope_full_
+                                         gate_never_accepts_pr_box
+  Frontier: pointer-observable criterion
 Proliferation / unique-pointer schema coq/kernel/frontier/PointerObservable.v: redundantly_
-                                        proliferating, unique_pointer_among (definitions); toy_
-                                        cert_unique_pointer (sanity instance)
-Models of the five disciplines are      coq/kernel/frontier/PointerObservableReductions.v:
-unique pointers                         PoS_model_unique_pointer, Gas_model_unique_pointer,
-                                        TEE_model_unique_pointer, CT_model_unique_pointer,
-                                        PCC_model_unique_pointer; conjunction five_labeled_
-                                        models_have_selected_pointer (closed under the global
-                                        context). Correspondence to the deployed disciplines is argued
-                                        in prose, not proved
-Adversarial search: forgery-resistant   coq/kernel/frontier/
-systems that do not proliferate         PointerObservableCounterexamples.v: deniable_
-                                        authentication_model_not_proliferating, mac_model_
-                                        not_proliferating, capability_model_not_proliferating;
-                                        control public_log_model_proliferating. The Coq results
-                                        fix the observer maps; (C1) and (C2) are argued in prose
- Conditional physics derivations (under named axioms; (C) tier)
-Born Rule                               coq/kernel/quantum/BornRule.v
-Unitarity                               coq/kernel/quantum/Unitarity.v
-Purification                            coq/kernel/quantum/Purification.v
-No-Cloning                              coq/kernel/quantum/NoCloning.v
-Information Causality                   coq/kernel/quantum/InformationCausality.v
-Landauer derivation                     coq/thermodynamic/LandauerDerived.v
+                                         proliferating, unique_pointer_among (definitions); toy_
+                                         cert_unique_pointer (sanity instance)
+Models of the five disciplines are       coq/kernel/frontier/PointerObservableReductions.v:
+unique pointers                          PoS_model_unique_pointer, Gas_model_unique_pointer,
+                                         TEE_model_unique_pointer, CT_model_unique_pointer,
+                                         PCC_model_unique_pointer; conjunction five_labeled_
+                                         models_have_selected_pointer (closed under the global
+                                         context). Correspondence to the deployed disciplines is argued
+                                         in prose, not proved
+Adversarial search: forgery-resistant    coq/kernel/frontier/
+systems that do not proliferate          PointerObservableCounterexamples.v: deniable_
+                                         authentication_model_not_proliferating, mac_model_
+                                         not_proliferating, capability_model_not_proliferating;
+                                         control public_log_model_proliferating. The Coq results
+                                         fix the observer maps; (C1) and (C2) are argued in prose
+  Conditional physics derivations (under named axioms; (C) tier)
+Born Rule                                coq/kernel/quantum/BornRule.v
+Unitarity                                coq/kernel/quantum/Unitarity.v
+Purification                             coq/kernel/quantum/Purification.v
+No-Cloning                               coq/kernel/quantum/NoCloning.v
+Information Causality                    coq/kernel/quantum/InformationCausality.v
+Landauer derivation                      coq/thermodynamic/LandauerDerived.v
 Affine Off-Diagonal Ricci Zero (vertex coq/kernel/curvature/AffineEFEClosure.v
 1)
-Full Tensor EFE at Vertex 1             coq/kernel/curvature/AffineEFEClosure.v
-(G = 3T )
+
 
 
                                                   64
-Outer Vertex Characterization (Ricci coq/kernel/curvature/AffineEFEClosure.v
+Full Tensor EFE at Vertex 1                 coq/kernel/curvature/AffineEFEClosure.v
+(G = 3T )
+Outer Vertex Characterization (Ricci coq/kernel/curvature/AffineEFEClosure.v
 = 3/32)
 Spacetime Emergence (consistency            coq/kernel/curvature/SpacetimeEmergence.v
 check)
@@ -2985,10 +2985,10 @@ Sound
 Five Disciplines’ Models Are     (S)   Closed under the global context; model structure only.
 Unique Pointers                        Evidence for (PO-PUBLIC) only through the prose
                                        correspondence; see Section 18.3.1
-Strong Pointer Criterion         (S)   Coq checks the three observer maps (deniable
-(PO-STRONG) Is False                   authentication, symmetric MAC, object capabilities);
-                                       their faithfulness to the real designs, and so the
-                                       refutation, is argued in prose
+Three Candidate                  (R)   Coq checks the three observer maps (deniable
+Counterexamples to                     authentication, symmetric MAC, object capabilities);
+PO-STRONG                              their faithfulness to the real designs, and so the
+                                       refutation, remains a prose modeling judgment
 Tsirelson Is Thiele Boundary     (S)   From column contractivity; converse not claimed
 (forward + contrapositive)
 Zero-µ traces satisfy the        (S)   Error-free traces; no returned-answer or uniform-solver
@@ -3003,8 +3003,8 @@ flip                                            entropy over Coq reals; standard
 Finite VM instance                (S)           Eight-state machine; VM fragment CERTIFY 0, JUMP a
                                                 2, CHECKPOINT through the window
                                                 (pc mod 4, certified)
-Full VM prices only the           (S)           Every certification flip is a priced merge; JUMP 0 0 is a
-certifying merge                                free merge; by design
+Full VM does not price every      (S)           Every certification flip is a priced merge; JUMP 0 0 is a
+merge                                           free merge; other merges are not classified
 No exact shadow price             (S)           Any window with a collision; VM collisions for bare_
                                                 observable and forget
  Conditional derivations (valid given stated axioms)

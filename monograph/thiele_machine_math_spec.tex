@@ -16,7 +16,7 @@
 
 \DeclareUnicodeCharacter{2014}{, }
 
-\title{\textbf{The Thiele Machine}\\ \large A Complete Mathematical Specification\\[6pt] \normalsize Derived from the Fully Machine-Checked Coq Corpus}
+\title{\textbf{The Thiele Machine}\\ \large A Mathematical Reference\\[6pt] \normalsize Derived from the Machine-Checked Coq Corpus}
 \author{Devon Thiele}
 \date{September 2026}
 
@@ -57,14 +57,14 @@
 
 \noindent\textbf{The Thiele Machine is an abstract model of computation, and an argument made with it about what an account of computation should preserve.}
 
-It is a machine in the sense a Turing machine is one: a mathematical object, not a device. The 51-opcode VM specified in the chapters below is one build of that model, specified in full so it can be checked. It is not the model. The model is the abstract \texttt{CertificationSystem} and \texttt{Substrate} interfaces; the VM is one instance of each.
+It is a machine in the sense a Turing machine is one: a mathematical object, not a device. The 51-opcode VM summarized in the chapters below is one build of that model; its complete checked definition is the Coq source. It is not the model. The model is the abstract \texttt{CertificationSystem} and \texttt{Substrate} interfaces; the VM is one instance of each.
 
 Certification is one concrete witness of a broader investigation of structural state, observation, and cost. The abstract laws, theorems, and executable realizations belong to that investigation. Selected projections lose distinctions that the richer state can express; cost laws constrain specified events under explicit hypotheses.
 
 A conventional encoding can preserve those distinctions. A projection that discards them cannot recover them in general. The stronger proposal that these distinctions belong in a necessary foundation of computation remains a research claim. Neither a physical cost metric nor infinitely many independent geometric dimensions follows from the existence of many observables. The status of each result is stated below.
 
 \begin{abstract}
-This is the complete mathematical specification of the Thiele Machine: a formal model of computation where structural information carries an explicit, monotone cost $\mu$ that starts at zero and never decreases. Everything here is built from the machine-checked Coq corpus. You can reconstruct the machine from what's in this document alone.
+This is a mathematical reference for the Thiele Machine: a formal model of computation where structural information carries an explicit, monotone cost $\mu$ that starts at zero and never decreases. It presents the abstract interfaces, the main theorems, and selected semantics from the machine-checked Coq corpus. The complete 51-opcode operational definition is the Coq source; this document alone does not enumerate enough semantics to reconstruct it.
 
 Coq establishes that conclusions follow from axioms. It does \emph{not} establish that axioms model physical reality. That distinction is kept explicit throughout. Every result is tagged as one of three types: \textbf{(S)}~structural theorems about the machine as a mathematical object, \textbf{(C)}~conditional derivations where a physics conclusion follows from a stated axiom, and \textbf{(R)}~consistency relations that check internal coherence but are not independent predictions.
 
@@ -529,7 +529,7 @@ Five independence results are formally proven, zero Admitted:
 \end{enumerate}
 \textbf{Three-component independence} (\texttt{thiele\_\allowbreak{}state\_\allowbreak{}three\_\allowbreak{}component\_\allowbreak{}independence}): $\mu$, \texttt{vm\_\allowbreak{}certified}, and \texttt{vm\_\allowbreak{}graph} are the three provably independent non-classical state components. Each is irrecoverable from any combination of the others plus $(\texttt{mem}, \texttt{regs}, \texttt{pc})$.
 
-\textbf{Minimality} (\texttt{P\_\allowbreak{}full\_\allowbreak{}complete\_\allowbreak{}neither\_\allowbreak{}mu\_\allowbreak{}nor\_\allowbreak{}cert\_\allowbreak{}droppable}): $(\texttt{mem}, \texttt{regs}, \texttt{pc}, \mu, \texttt{certified})$ is the minimal complete extension of classical state for $\mu$ and certification. Graph structure is a third independent axis.
+\textbf{Non-droppability, not representation minimality} (\texttt{P\_\allowbreak{}full\_\allowbreak{}complete\_\allowbreak{}neither\_\allowbreak{}mu\_\allowbreak{}nor\_\allowbreak{}cert\_\allowbreak{}droppable}): $(\texttt{mem}, \texttt{regs}, \texttt{pc}, \mu, \texttt{certified})$ is complete for returning $\mu$ and certification, and neither named coordinate can be dropped from this projection while retaining its corresponding answer. No ordering over arbitrary encodings is defined, so this is not a smallest-representation theorem. Graph structure is a third independent axis.
 
 \textbf{Universality} (\texttt{mu\_\allowbreak{}ledger\_\allowbreak{}necessity\_\allowbreak{}universal}): The separation holds from \emph{every} VMState, not only from crafted zero-state witnesses. From any reachable state, \texttt{CERTIFY 0} and \texttt{PNEW [] 0} produce identical strict classical shadows but different $\mu$. Certification also differs when the source state is uncertified.
 
@@ -1106,7 +1106,7 @@ A counterexample must satisfy three conditions fixed in advance: (C1) it must re
 
 Each candidate has two halves. (C1) and (C2) are facts about a real design and are argued in prose. The Coq half fixes an observer map and computes (C3) for it. The file contains no definition of forgery resistance, EUF-CMA security, deniability, memory safety, metering, or deployment, so the Coq results alone neither refute nor confirm a security claim.
 
-\textbf{(PO-STRONG) is false}, on that two-part argument. Three candidates refute it; for each, the non-proliferating observer map is checked in Coq and its faithfulness to the design is argued in prose:
+\textbf{Three candidates argue against (PO-STRONG)}, using a two-part argument rather than an unconditional machine theorem. For each, the non-proliferating observer map is checked in Coq and its faithfulness to the design is argued in prose:
 \begin{itemize}
     \item \textbf{Deniable (designated-verifier) authentication} (\texttt{deniable\_\allowbreak{}authentication\_\allowbreak{}model\_\allowbreak{}not\_\allowbreak{}proliferating}). The scheme is engineered so a third party cannot be convinced even given the whole transcript, because the designated verifier could have produced it. Non-transferability is the product requirement.
     \item \textbf{Symmetric-key authentication} (\texttt{mac\_\allowbreak{}model\_\allowbreak{}not\_\allowbreak{}proliferating}). Existential unforgeability is the defining security notion of a MAC, and verification requires the shared secret, so no record reaches anyone else.
@@ -1114,7 +1114,7 @@ Each candidate has two halves. (C1) and (C2) are facts about a real design and a
 \end{itemize}
 A public-log control (\texttt{public\_\allowbreak{}log\_\allowbreak{}model\_\allowbreak{}proliferating}) checks that the search can return \emph{confirms} and is not an instrument that only reports refutations; its rival effort event still fails to proliferate (\texttt{public\_\allowbreak{}log\_\allowbreak{}effort\_\allowbreak{}not\_\allowbreak{}proliferating}), so the control discriminates rather than accepting everything.
 
-The boundary these trace is sharp, and it is not the one (PO-STRONG) guessed at. A MAC and a digital signature both resist forgery; only the signature proliferates. Deniable authentication and certificate transparency both resist forgery; deniability actively prevents third-party conviction while transparency actively requires it. Object capabilities and proof-carrying code both make unearned authority impossible; the capability confines it to the holder while the proof travels to every consumer. In each pair the proliferating member is the one whose commitment must convince parties who were not present. The criterion that survives is therefore:
+If those prose correspondences are accepted, the boundary they trace is not the one (PO-STRONG) guessed at. A MAC and a digital signature both resist forgery; only the signature proliferates. Deniable authentication and certificate transparency both resist forgery; deniability actively prevents third-party conviction while transparency actively requires it. Object capabilities and proof-carrying code both make unearned authority impossible; the capability confines it to the holder while the proof travels to every consumer. In each pair the proliferating member is the one whose commitment must convince parties who were not present. The surviving candidate criterion is therefore:
 \begin{quote}
 \textbf{(PO-PUBLIC)} A system whose commitment must convince third parties who did not witness its creation will proliferate records of the commitment event.
 \end{quote}
@@ -1719,7 +1719,7 @@ Let $\mathrm{FState} = \{L_0,L_1,L_2,L_3\} \times \mathrm{bool}$ and $\mathrm{FI
 \end{theorem}
 
 \begin{theorem}[What the full VM prices {\normalfont (\texttt{FiniteCertMachine.v})}, \textbf{(S)}]
-$\mathrm{vm\_apply}(\cdot, \texttt{CERTIFY}\ d)$ is not injective: states differing only in \texttt{vm\_certified} have the same image (\texttt{vm\_\allowbreak{}certify\_\allowbreak{}merges}). Every $s, i$ with $\texttt{vm\_certified}(s) = \mathrm{false}$ and $\texttt{vm\_certified}(\mathrm{vm\_apply}(s,i)) = \mathrm{true}$ has $\mathrm{vm\_apply}(\cdot, i)$ non-injective and $\mathrm{instruction\_cost}(i) \geq 1$ (\texttt{vm\_\allowbreak{}certifying\_\allowbreak{}step\_\allowbreak{}is\_\allowbreak{}priced\_\allowbreak{}merge}). $\mathrm{vm\_apply}(\cdot, \texttt{JUMP 0 0})$ is not injective and costs $0$ (\texttt{vm\_\allowbreak{}jump\_\allowbreak{}is\_\allowbreak{}free\_\allowbreak{}merge}). Hence $\neg\,\texttt{merging\_\allowbreak{}steps\_\allowbreak{}priced}(\mathrm{vm\_apply}, \mathrm{instruction\_cost})$ (\texttt{vm\_\allowbreak{}prices\_\allowbreak{}certifying\_\allowbreak{}merge\_\allowbreak{}leaves\_\allowbreak{}others\_\allowbreak{}free}). The schedule prices the certifying merge and leaves other merges free by design; A2 holds for the VM independently (\texttt{no\_\allowbreak{}free\_\allowbreak{}certification\_\allowbreak{}certified}).
+$\mathrm{vm\_apply}(\cdot, \texttt{CERTIFY}\ d)$ is not injective: states differing only in \texttt{vm\_certified} have the same image (\texttt{vm\_\allowbreak{}certify\_\allowbreak{}merges}). Every $s, i$ with $\texttt{vm\_certified}(s) = \mathrm{false}$ and $\texttt{vm\_certified}(\mathrm{vm\_apply}(s,i)) = \mathrm{true}$ has $\mathrm{vm\_apply}(\cdot, i)$ non-injective and $\mathrm{instruction\_cost}(i) \geq 1$ (\texttt{vm\_\allowbreak{}certifying\_\allowbreak{}step\_\allowbreak{}is\_\allowbreak{}priced\_\allowbreak{}merge}). $\mathrm{vm\_apply}(\cdot, \texttt{JUMP 0 0})$ is not injective and costs $0$ (\texttt{vm\_\allowbreak{}jump\_\allowbreak{}is\_\allowbreak{}free\_\allowbreak{}merge}). Hence $\neg\,\texttt{merging\_\allowbreak{}steps\_\allowbreak{}priced}(\mathrm{vm\_apply}, \mathrm{instruction\_cost})$ (\texttt{vm\_\allowbreak{}prices\_\allowbreak{}certifying\_\allowbreak{}merge\_\allowbreak{}leaves\_\allowbreak{}others\_\allowbreak{}free}). Thus every certification flip is a priced merge and at least one other merge is free; the theorem does not classify every non-certifying merge. A2 holds for the VM independently (\texttt{no\_\allowbreak{}free\_\allowbreak{}certification\_\allowbreak{}certified}).
 \end{theorem}
 
 \section{Exact Pricing Cannot Be Computed From a Window}
@@ -2018,7 +2018,7 @@ $\mu$-Hierarchy & \texttt{coq/\allowbreak{}kernel/\allowbreak{}mu\_\allowbreak{}
 Partition Ops Free, Certification Non-Free & \texttt{coq/\allowbreak{}kernel/\allowbreak{}nfi/\allowbreak{}PartitionRefinementNoFI.v} \\
 $\mu$-Ledger Necessity (5-way classification) & \texttt{coq/\allowbreak{}NecessityOfMuLedger.v}, \texttt{coq/\allowbreak{}kernel/\allowbreak{}nfi/\allowbreak{}NecessityAbstract.v} \\
 Trace Cost for a Fixed Schedule & \texttt{coq/\allowbreak{}NecessityOfMuLedger.v}: \texttt{shadow\_\allowbreak{}mu\_\allowbreak{}is\_\allowbreak{}computation\_\allowbreak{}intrinsic} \\
-$\mu$ Cost Universal Across Machines & \texttt{coq/\allowbreak{}NecessityOfMuLedger.v}: \texttt{shadow\_\allowbreak{}mu\_\allowbreak{}delta\_\allowbreak{}universal} \\
+$\mu$ Cost Difference Independent of Starting State & \texttt{coq/\allowbreak{}NecessityOfMuLedger.v}: \texttt{shadow\_\allowbreak{}mu\_\allowbreak{}delta\_\allowbreak{}universal} \\
 $\mu$ Cost Unique Across Accounting Systems & \texttt{coq/\allowbreak{}NecessityOfMuLedger.v}: \texttt{shadow\_\allowbreak{}mu\_\allowbreak{}unique\_\allowbreak{}accounting} \\
 Positive-Cost Trace Accumulation & \texttt{coq/\allowbreak{}NecessityOfMuLedger.v}: \texttt{shadow\_\allowbreak{}mu\_\allowbreak{}inevitable} \\
 $\mu$-budget predicates + zero-$\mu$ inclusion & \texttt{coq/\allowbreak{}kernel/\allowbreak{}mu\_\allowbreak{}calculus/\allowbreak{}MuComplexity.v} \\
@@ -2162,13 +2162,13 @@ PR Box Not Slice-Coherent & \textbf{(S)} & Direct arithmetic on condition 1 \\
 Elliptope Realizability (full correlator set) & \textbf{(S)} & Existential completion; stdlib reals only \\
 Decidable Elliptope Gate Sound & \textbf{(S)} & Fraction-free $\mathbb{Z}$ arithmetic, two branches \\
 Five Disciplines' Models Are Unique Pointers & \textbf{(S)} & Closed under the global context; model structure only. Evidence for (PO-PUBLIC) only through the prose correspondence; see Section~\ref{sec:pointer_counterexamples} \\
-Strong Pointer Criterion (PO-STRONG) Is False & \textbf{(S)} & Coq checks the three observer maps (deniable authentication, symmetric MAC, object capabilities); their faithfulness to the real designs, and so the refutation, is argued in prose \\
+Three Candidate Counterexamples to PO-STRONG & \textbf{(R)} & Coq checks the three observer maps (deniable authentication, symmetric MAC, object capabilities); their faithfulness to the real designs, and so the refutation, remains a prose modeling judgment \\
 Tsirelson Is Thiele Boundary (forward + contrapositive) & \textbf{(S)} & From column contractivity; converse not claimed \\
 Zero-$\mu$ traces satisfy the preservation budget & \textbf{(S)} & Error-free traces; no returned-answer or uniform-solver requirement \\
 Forced price is merging; merge or revoke & \textbf{(S)} & Finite enumeration; decidable instruction equality for the iff; converse to permanence fails on three states \\
 Entropy drop of a permanent flip & \textbf{(S)} & Finite enumeration, permanent certificate; Shannon entropy over Coq reals; standard real-number axioms only \\
 Finite VM instance & \textbf{(S)} & Eight-state machine; VM fragment \texttt{CERTIFY 0}, \texttt{JUMP a 2}, \texttt{CHECKPOINT} through the window $(\texttt{pc} \bmod 4, \texttt{certified})$ \\
-Full VM prices only the certifying merge & \textbf{(S)} & Every certification flip is a priced merge; \texttt{JUMP 0 0} is a free merge; by design \\
+Full VM does not price every merge & \textbf{(S)} & Every certification flip is a priced merge; \texttt{JUMP 0 0} is a free merge; other merges are not classified \\
 No exact shadow price & \textbf{(S)} & Any window with a collision; VM collisions for \texttt{bare\_\allowbreak{}observable} and \texttt{forget} \\
 \hline
 \multicolumn{3}{l}{\emph{Conditional derivations (valid given stated axioms)}} \\

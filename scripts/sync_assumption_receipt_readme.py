@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Synchronize README proof-hygiene counters with the assumption receipt."""
+"""Synchronize published proof-hygiene counters with the assumption receipt."""
 
 from __future__ import annotations
 
@@ -17,12 +17,14 @@ def replace_exact(text: str, pattern: str, replacement: str, count: int) -> str:
     updated, actual = re.subn(pattern, replacement, text)
     if actual != count:
         raise ValueError(
-            f"README receipt pattern matched {actual} times, expected {count}: {pattern}"
+            f"receipt pattern matched {actual} times, expected {count}: {pattern}"
         )
     return updated
 
 
-def synchronize(readme: Path, receipt: Path) -> None:
+def synchronize(readme: Path, receipt: Path, monograph: Path | None = None,
+                distillation: Path | None = None,
+                citation: Path | None = None) -> None:
     summary = json.loads(receipt.read_text(encoding="utf-8"))["summary"]
     axioms = summary["unique_axioms_used"]
     theorem_count = formatted(summary["theorems_probed"])
@@ -84,6 +86,51 @@ def synchronize(readme: Path, receipt: Path) -> None:
 
     readme.write_text(text, encoding="utf-8")
 
+    if monograph is not None:
+        text = monograph.read_text(encoding="utf-8")
+        text = replace_exact(
+            text,
+            r"current full-corpus probe covers [\d,]+ named theorems across [\d,]+ files: "
+            r"[\d,]+ close under the global Coq context outright, and [\d,]+ use only "
+            r"Coq standard-library assumptions",
+            f"current full-corpus probe covers {theorem_count} named theorems across "
+            f"{file_count} files: {closed} close under the global Coq context outright, "
+            f"and {dependent} use only Coq standard-library assumptions",
+            1,
+        )
+        text = replace_exact(
+            text,
+            r"Zero project-local axioms appear in any of the [\d,]+ dependency trees",
+            f"Zero project-local axioms appear in any of the {theorem_count} dependency trees",
+            1,
+        )
+        monograph.write_text(text, encoding="utf-8")
+
+    if distillation is not None:
+        text = distillation.read_text(encoding="utf-8")
+        text = replace_exact(
+            text,
+            r"receipt committed with this tree covers [\d,]+ statements across [\d,]+ files: "
+            r"[\d,]+ closed and [\d,]+ depending on standard-library assumptions",
+            f"receipt committed with this tree covers {theorem_count} statements across "
+            f"{file_count} files: {closed} closed and {dependent} depending on "
+            f"standard-library assumptions",
+            1,
+        )
+        distillation.write_text(text, encoding="utf-8")
+
+    if citation is not None:
+        text = citation.read_text(encoding="utf-8")
+        text = replace_exact(
+            text,
+            r"assumption receipt covers [\d,]+\n\s+statements across [\d,]+ files: "
+            r"[\d,]+ are closed under the global context, [\d,]+ depend on",
+            f"assumption receipt covers {theorem_count}\n  statements across {file_count} "
+            f"files: {closed} are closed under the global context, {dependent} depend on",
+            1,
+        )
+        citation.write_text(text, encoding="utf-8")
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -93,8 +140,12 @@ def main() -> None:
         default=Path("artifacts/print_assumptions_all_proofs.json"),
     )
     parser.add_argument("--readme", type=Path, default=Path("README.md"))
+    parser.add_argument("--monograph", type=Path, default=Path("monograph/monograph.tex"))
+    parser.add_argument("--distillation", type=Path, default=Path("THIELE_MACHINE.txt"))
+    parser.add_argument("--citation", type=Path, default=Path("CITATION.cff"))
     args = parser.parse_args()
-    synchronize(args.readme, args.receipt)
+    synchronize(args.readme, args.receipt, args.monograph,
+                args.distillation, args.citation)
 
 
 if __name__ == "__main__":

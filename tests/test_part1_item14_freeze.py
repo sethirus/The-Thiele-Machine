@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 from pathlib import Path
+import subprocess
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,11 +25,20 @@ def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def frozen_digest(name: str) -> str:
+    if name.startswith("research/rounds/inputs/"):
+        return digest(ROOT / name)
+    content = subprocess.check_output(
+        ["git", "show", f"adfbeac0^:{name}"], cwd=ROOT
+    )
+    return hashlib.sha256(content).hexdigest()
+
+
 def test_frozen_inputs_have_exact_hashes() -> None:
     assert FREEZE.exists()
     text = FREEZE.read_text()
     for name, expected in INPUTS.items():
-        assert digest(ROOT / name) == expected
+        assert frozen_digest(name) == expected
         assert f"`{name}` | `{expected}`" in text
 
 

@@ -36,12 +36,32 @@ def test_sync_rewrites_every_published_receipt_counter(tmp_path: Path) -> None:
             "Classical_Prop.classic": 107,
         },
     }}))
+    monograph = tmp_path / "monograph.tex"
+    monograph.write_text(
+        "The current full-corpus probe covers 1 named theorems across 1 files: "
+        "1 close under the global Coq context outright, and 2 use only Coq "
+        "standard-library assumptions. Zero project-local axioms appear in "
+        "any of the 1 dependency trees.\n"
+    )
+    distillation = tmp_path / "THIELE_MACHINE.txt"
+    distillation.write_text(
+        "The receipt committed with this tree covers 1 statements across 1 files: "
+        "1 closed and 2 depending on standard-library assumptions.\n"
+    )
+    citation = tmp_path / "CITATION.cff"
+    citation.write_text(
+        "  and the mathematical specification. The assumption receipt covers 1\n"
+        "  statements across 1 files: 1 are closed under the global context, 2 depend on\n"
+    )
 
     subprocess.run([
         sys.executable,
         str(ROOT / "scripts/sync_assumption_receipt_readme.py"),
         "--receipt", str(receipt),
         "--readme", str(readme),
+        "--monograph", str(monograph),
+        "--distillation", str(distillation),
+        "--citation", str(citation),
     ], check=True)
 
     text = readme.read_text()
@@ -54,3 +74,10 @@ def test_sync_rewrites_every_published_receipt_counter(tmp_path: Path) -> None:
     assert "`sig_forall_dec` (1,063)" in text
     assert "`sig_not_dec` (309)" in text
     assert "`classic` (107)" in text
+    assert "13,318 named theorems across 450 files" in monograph.read_text()
+    assert "5,965 close under the global Coq context" in monograph.read_text()
+    assert "any of the 13,318 dependency trees" in monograph.read_text()
+    assert "13,318 statements across 450 files" in distillation.read_text()
+    assert "5,965 closed and 7,353" in distillation.read_text()
+    assert "covers 13,318" in citation.read_text()
+    assert "statements across 450 files: 5,965" in citation.read_text()

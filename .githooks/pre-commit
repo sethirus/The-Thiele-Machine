@@ -88,7 +88,10 @@ if ! git diff --cached --quiet -- coq vendor scripts/coq_proof_scope.py \
         artifacts/print_assumptions_all_proofs.json \
         artifacts/print_assumptions_all_proofs.txt
     run python3 scripts/sync_assumption_receipt_readme.py
-    stage README.md
+    stage README.md monograph/monograph.tex THIELE_MACHINE.txt CITATION.cff
+    run bash monograph/build_monograph.sh
+    stage monograph/monograph.pdf monograph/monograph.txt \
+        monograph/thiele_machine_math_spec.pdf monograph/math_spec_plaintext.txt
 fi
 
 # Always check receipt/probe coherence; it is fast and needs no Coq.
