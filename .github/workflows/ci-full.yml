@@ -124,6 +124,10 @@ jobs:
           coq_makefile -f _CoqProject -o Makefile
           make -j4 pre-all
           make -j4 Extraction.vo kami_hw/SystemExtraction.vo
+          # The extraction files write build/kami_hw as a side effect; a
+          # restored build may hold them current without that output.
+          make -j1 -W kami_hw/KamiExtraction.v -W kami_hw/SystemExtraction.v \
+            kami_hw/KamiExtraction.vo kami_hw/SystemExtraction.vo
 
       - name: Set up the Bluespec compiler
         id: bsc

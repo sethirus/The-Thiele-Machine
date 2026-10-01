@@ -133,8 +133,9 @@ jobs:
           make -j4
           # Extraction writes build/kami_hw and build/thiele_core.* as side
           # effects; an incremental build may not recompile those files.
-          make -j1 -W kami_hw/KamiExtraction.v -W Extraction.v -W ThieleMachineComplete.v \
-            kami_hw/KamiExtraction.vo Extraction.vo ThieleMachineComplete.vo
+          make -j1 -W kami_hw/KamiExtraction.v -W kami_hw/SystemExtraction.v -W Extraction.v \
+            -W ThieleMachineComplete.v kami_hw/KamiExtraction.vo kami_hw/SystemExtraction.vo \
+            Extraction.vo ThieleMachineComplete.vo
           cd ..
           git checkout -- vendor/coq-undecidability/theories/Makefile.coq \
             vendor/coq-undecidability/theories/Makefile.coq.conf \
