@@ -85,6 +85,8 @@ An explicitly qualified citation keeps its own module identity.
 - `round4_vm_holds`: Round 4 holds on the unbounded VM base for every program.
 - `round4_ram_holds`: Round 4 holds on the Cook-Reckhow RAM base (unbounded natural-number registers, indirect load and store, conditional jumps) for every program.
 - `round4_l_holds`: Round 4 holds on the L base, whose next function is L's weak call-by-value step on reducible terms and stutters on irreducible ones.
+- `l_step_fun_correct`: For all L terms `s` and `t`, `s` takes one weak call-by-value step to `t` exactly when the structural step function `l_step_fun` returns `Some t` on `s`.
+- `star_is_l_base_run`: Every L reduction sequence from `s` to `t` is reached by running the L base machine some number of steps from `s`.
 - `permanent_write_has_logical_payment`: On a finite state space, if instruction `i` keeps the record on wherever it is on, and some state goes from record off to record on under `i`, then `i` is not injective.
 - `uniqueness_round4_pair_holds`: Under the same conditions for two records, the pair evolves as two latches whose events may each read the other record.
 - `toggle_not_latch`: A record on a counter base that flips at every step is driven by the computation and is not the latch of any event.

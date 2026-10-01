@@ -12,7 +12,8 @@ records that hash after commit creation.
 
 R6 columns are D (definitional), B (built in), V (vacuity/instance), S (swap),
 and A (independent adversarial read). `pass/scope` means the theorem is valid
-but the report explicitly limits a structurally built-in or definitional fact.
+but the report explicitly limits a structurally built-in or definitional fact. `fail` marks a check the item's own results record as failed
+(2.1's threshold decomposition is true by definition).
 
 | Item | Outcome | Exact result or obstacle | D | B | V | S | A |
 |---|---|---|---|---|---|---|---|
