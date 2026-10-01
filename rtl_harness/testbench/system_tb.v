@@ -32,15 +32,15 @@ module system_tb;
   reg [7:0] stream [0:4095];
   reg [7:0] report [0:14];
   reg [1023:0] bytes_path;
-  integer n_bytes, i, k, max_cycles;
+  integer n_bytes, i, j, ks, kr, max_cycles;
   reg [7:0] v;
 
   task send_byte(input [7:0] value);
     begin
       rx = 1'b0;
       repeat (CPB) @(posedge clk);
-      for (k = 0; k < 8; k = k + 1) begin
-        rx = value[k];
+      for (ks = 0; ks < 8; ks = ks + 1) begin
+        rx = value[ks];
         repeat (CPB) @(posedge clk);
       end
       rx = 1'b1;
@@ -52,9 +52,9 @@ module system_tb;
     begin
       @(negedge tx);
       repeat (CPB / 2) @(posedge clk);
-      for (k = 0; k < 8; k = k + 1) begin
+      for (kr = 0; kr < 8; kr = kr + 1) begin
         repeat (CPB) @(posedge clk);
-        value[k] = tx;
+        value[kr] = tx;
       end
       repeat (CPB) @(posedge clk);
     end
@@ -78,11 +78,16 @@ module system_tb;
     rst_n = 1'b1;
     // Let the CPU clear its memories before the first frame.
     repeat (2000) @(posedge clk);
-    for (i = 0; i < n_bytes; i = i + 1) send_byte(stream[i]);
-    for (i = 0; i < 15; i = i + 1) begin
-      recv_byte(v);
-      report[i] = v;
-    end
+    // The receiver listens while the program is sent, as a host's does: a
+    // short program halts and starts its report before the last stop bit
+    // has ended.
+    fork
+      for (i = 0; i < n_bytes; i = i + 1) send_byte(stream[i]);
+      for (j = 0; j < 15; j = j + 1) begin
+        recv_byte(v);
+        report[j] = v;
+      end
+    join
     $display("{\"sync\": %0d, \"status\": %0d, \"pc\": %0d, \"mu\": %0d, \"error_code\": %0d, \"end\": %0d, \"leds\": %0d}",
              report[0], report[1],
              {report[5], report[4], report[3], report[2]},

@@ -182,7 +182,7 @@ Definition feasible_reduction_implies_strict_predicates :
 Proof.
   intros fuel trace s_init s_final omega_prior omega_posterior
          Hfinal Hin_prior Hreduce Hcard.
-  (* Trivial construction: constant true / false predicates *)
+  (* DEPRECATED: constant true / false predicates *)
   exists (fun _ => true), (fun _ => false).
   unfold NoFreeInsight.strictly_stronger.
   constructor.

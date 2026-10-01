@@ -147,9 +147,9 @@ Proof.
   exact (driven_step_wf ks i Hwf).
 Qed.
 
-(* SCOPE NOTE: alias for the trace-level statement. The proved
-   theorem is [driven_trace_commutes]; this exports it under the RTL
-   correctness name. *)
+(* The proved theorem is [driven_trace_commutes]; this exports it under
+   the RTL correctness name.
+   SCOPE NOTE: alias for the trace-level statement. *)
 Theorem coq_kami_model_trace_correct_wf :
   forall fuel trace ks,
     WFDrivenRun fuel trace ks ->
