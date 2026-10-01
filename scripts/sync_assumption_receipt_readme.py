@@ -113,10 +113,11 @@ def synchronize(readme: Path, receipt: Path, monograph: Path | None = None,
         text = replace_exact(
             text,
             r"[Aa]ssumption receipt covers [\d,]+ statements across [\d,]+ files: "
-            r"[\d,]+ closed and [\d,]+ depending on standard-library assumptions",
+            r"[\d,]+ closed under the global context and [\d,]+ depending on "
+            r"standard-library assumptions",
             f"assumption receipt covers {theorem_count} statements across "
-            f"{file_count} files: {closed} closed and {dependent} depending on "
-            f"standard-library assumptions",
+            f"{file_count} files: {closed} closed under the global context and "
+            f"{dependent} depending on standard-library assumptions",
             1,
         )
         distillation.write_text(text, encoding="utf-8")

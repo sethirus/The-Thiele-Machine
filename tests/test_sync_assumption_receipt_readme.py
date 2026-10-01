@@ -47,7 +47,7 @@ def test_sync_rewrites_every_published_receipt_counter(tmp_path: Path) -> None:
     distillation = tmp_path / "THIELE_MACHINE.txt"
     distillation.write_text(
         "The assumption receipt covers 1 statements across 1 files: "
-        "1 closed and 2 depending on standard-library assumptions.\n"
+        "1 closed under the global context and 2 depending on standard-library assumptions.\n"
     )
     citation = tmp_path / "CITATION.cff"
     citation.write_text(
@@ -89,7 +89,7 @@ def test_sync_rewrites_every_published_receipt_counter(tmp_path: Path) -> None:
     assert "5,965 close under the global Coq context" in monograph.read_text()
     assert "any of the 13,318 dependency trees" in monograph.read_text()
     assert "13,318 statements across 450 files" in distillation.read_text()
-    assert "5,965 closed and 7,353" in distillation.read_text()
+    assert "5,965 closed under the global context and 7,353" in distillation.read_text()
     assert "covers 13,318" in citation.read_text()
     assert "statements across 450 files: 5,965" in citation.read_text()
     assert corrections.read_bytes() == frozen_corrections
