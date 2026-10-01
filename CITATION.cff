@@ -62,8 +62,8 @@ abstract: >-
   decomposition is false. Scoped RFC 9162, PCC, addressed-RAM,
   reversible-update, and TPM-interface results delimit the real-system claims.
   The VM guest Rice reduction, numeric decoding, verified dispatch, and semantic
-  s-m-n specialization are proved, but the evaluator and numeric specializer are
-  not guest-callable programs and do not establish an internal VM recursion theorem;
+  s-m-n specialization are proved, and so is the guest's internal recursion
+  theorem, with the evaluator running as guest code;
   the local cost-semantics correspondences are not
   full cost-framework embeddings. The two-state calorimeter protocol computes
   exact heat while proving that its population dynamics do not determine the

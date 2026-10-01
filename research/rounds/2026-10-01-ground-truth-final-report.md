@@ -27,25 +27,25 @@ but the report explicitly limits a structurally built-in or definitional fact.
 | 2.2 | PROVED and REFUTED | actual revocation lies outside permanence; price-transfer claim refuted | pass | pass | pass | pass | pass |
 | 2.3 | REFUTED | probabilistic uniqueness up to schedule fails | pass | pass | pass | pass | pass |
 | 2.4 | PROVED | frozen equivalence laws and all four adapters (TM, VM, Cook-Reckhow RAM, L) proved | scope | pass | pass | pass | pass |
-| 3.1 | BLOCKED; Rice PROVED | three recursion strategies fail at runtime evaluation of computed guest code; concrete `rice_prog` reduction closes | pass | pass | pass | pass | pass |
+| 3.1 | PROVED; Rice PROVED | vm_guest_recursion_theorem_closed: the evaluator relation is extracted to L, compiled to a Minsky machine, run by guest code through the MMA pipeline; the diagonal program is g_pair_specialize e (guest_program_code e); closed under the global context | pass | pass | pass | pass | pass |
 | 4.1 | PROVED BUT KNOWN | under exact forced-price class, no price is forced beyond merges | pass | scope | pass | pass | pass |
-| 4.2 | PARTIAL | permanent finite write implies logical noninjectivity, not universal economic, cryptographic, or heat payment | pass | pass | pass | pass | pass |
-| 4.3 | PARTIAL | mu has no intrinsic joule value; Landauer conversion is conditional | pass | pass | pass | pass | pass |
+| 4.2 | PROVED at the logical level; BOUNDARY beyond it | permanent finite write implies logical noninjectivity (permanent_write_has_logical_payment); economic, cryptographic, and heat payment each need a premise about that level | pass | pass | pass | pass | pass |
+| 4.3 | REFUTED intrinsic scale; calibration BOUNDARY | mu has no intrinsic joule value (mu_has_no_intrinsic_joule_value); the protocol's one mu is the VM's minimal certification charge; joule calibration needs thermal and device premises | pass | pass | pass | pass | pass |
 | 4.4 | PROVED BUT KNOWN | conditional finite-state logarithmic heat floor and entropy permutation invariance | pass | pass | pass | pass | pass |
-| 5.1 | PARTIAL | RFC 9162 iterative verifier boundary checks close; examples execute; collision resistance and STH authenticity absent; example round was late-frozen | pass | scope | pass | pass | pass |
-| 5.2 | PARTIAL | toy address-policy checker equivalence and typed-certificate implication close; no SAL/LF/full PCC model | pass | scope | pass | pass | pass |
+| 5.1 | PROVED boundary checks; BOUNDARY cryptographic premises | RFC 9162 iterative verifier boundary checks close; collision resistance and STH authenticity are cryptographic premises; the full binding statement formalizes RFC 9162 itself and is not pursued | pass | scope | pass | pass | pass |
+| 5.2 | PROVED BUT KNOWN toy fragment; full PCC not pursued | toy address-policy checker equivalence and typed-certificate implication close; a full SAL/LF/PCC model formalizes another system and is not pursued | pass | scope | pass | pass | pass |
 | 5.3 | PARTIAL | addressed RAM tied/untied steps and bounded/unbounded reversible-update cores close; full Round 4 adapters absent | scope | scope | pass | pass | pass |
-| 5.4 | PARTIAL | unconstrained sign/verify interface does not entail quote authenticity | pass | pass | pass | pass | pass |
-| 5.5 | BLOCKED | no full embedding of the four named calculi after three recorded strategies | pass | pass | pass | pass | pass |
+| 5.4 | REFUTED unconditional authenticity; BOUNDARY trust premise | an unconstrained sign/verify interface does not entail quote authenticity; authenticity needs a trusted-key premise | pass | pass | pass | pass | pass |
+| 5.5 | NOT PURSUED | a full embedding of the four named calculi formalizes other systems; the earlier BLOCKED label had no genuine strategies | pass | pass | pass | pass | pass |
 | 6.1 | PROVED BUT KNOWN | binary redundant-proliferation measure already formalized | scope | scope | pass | pass | pass |
 | 6.2 | PROVED | twelve frozen candidate measurements match predictions | pass | scope | pass | pass | pass |
-| 6.3 | MODEL COUNTEREXAMPLE PROVED; real conclusion MODEL-DEPENDENT | the MAC-labelled event is non-proliferating in the frozen observer map; forgery relevance is a prose premise | pass | pass | pass | pass | pass |
+| 6.3 | MODEL COUNTEREXAMPLE PROVED; real conclusion BOUNDARY | the MAC-labelled event is non-proliferating in the frozen observer map; forgery relevance is a prose premise | pass | pass | pass | pass | pass |
 | 6.4 | PROVED | swapped observer map selects the newly proliferating event | pass | scope | pass | pass | pass |
 | 7.1 | PROVED operationally | eight fields surveyed | pass | pass | pass | pass | pass |
 | 7.2 | PROVED operationally | ten real design questions linked to primary sources | pass | pass | pass | pass | pass |
 | 7.3 | PROVED operationally | ten candidates ranked by directness | pass | pass | pass | pass | pass |
 | 7.4 | PROVED operationally | top five exact targets frozen with users and literature outcomes | pass | pass | pass | pass | pass |
-| 7.5 | five PROVED BUT KNOWN; five BLOCKED | top-five narrow countermodels close but fail criteria (a) and (c); remaining real-spec targets lack required semantics | pass | scope | pass | pass | pass |
+| 7.5 | five PROVED BUT KNOWN; four BOUNDARY; one not pursued | top-five narrow countermodels close but are known; ranks 6 to 9 need protocol or hardware semantics the specs do not give; rank 10 formalizes full PCC and is not pursued | pass | scope | pass | pass | pass |
 | 7.6 | NOT APPLICABLE | no result passed all four acceptance criteria | pass | pass | pass | pass | pass |
 | 7.7 | PROVED operationally | next five received three strategies each; ranked list exhausted | pass | pass | pass | pass | pass |
 | 8.1 | PROVED operationally | six public documents reconciled to Parts 1--7 outcomes | pass | pass | pass | pass | pass |
