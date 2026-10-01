@@ -7,10 +7,13 @@ runs:
   using: composite
   steps:
     - name: Install MetaCoq build dependencies
+      uses: ./.github/actions/apt-install
+      with:
+        packages: libcoq-core-ocaml-dev libcoq-equations libstdlib-shims-ocaml-dev
+
+    - name: Record the Coq version for the MetaCoq cache key
       shell: bash
       run: |
-        sudo apt-get install -y --no-install-recommends \
-          libcoq-core-ocaml-dev libcoq-equations libstdlib-shims-ocaml-dev
         echo "METACOQ_COQ=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')" >> "$GITHUB_ENV"
 
     - name: Mark tracked vendored Coq outputs current

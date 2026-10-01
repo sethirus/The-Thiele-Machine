@@ -1,0 +1,45 @@
+name: Install apt packages through a download cache
+description: >
+  Install Ubuntu packages, keeping the downloaded .deb files in the Actions
+  cache keyed by runner image and package list. A slow or throttled package
+  mirror then costs nothing on a cache hit; apt still installs what the
+  package index names and downloads only what the cache lacks.
+inputs:
+  packages:
+    description: Space- or newline-separated package names.
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Compute the package cache key
+      id: key
+      shell: bash
+      env:
+        PACKAGES: ${{ inputs.packages }}
+      run: |
+        list=$(printf '%s\n' $PACKAGES | sort -u | tr '\n' ' ')
+        echo "list=${list}" >> "$GITHUB_OUTPUT"
+        echo "hash=$(printf '%s' "$list" | sha256sum | cut -c1-16)" >> "$GITHUB_OUTPUT"
+        echo "image=${ImageOS:-unknown}-${ImageVersion:-unknown}" >> "$GITHUB_OUTPUT"
+        echo "os=${ImageOS:-unknown}" >> "$GITHUB_OUTPUT"
+        mkdir -p "$HOME/.apt-archives/partial"
+
+    - name: Restore downloaded packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.apt-archives/*.deb
+        key: apt-v1-${{ runner.os }}-${{ steps.key.outputs.image }}-${{ steps.key.outputs.hash }}
+        restore-keys: |
+          apt-v1-${{ runner.os }}-${{ steps.key.outputs.os }}-
+
+    - name: Install packages
+      shell: bash
+      env:
+        PACKAGES: ${{ steps.key.outputs.list }}
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends \
+          -o Dir::Cache::Archives="$HOME/.apt-archives" \
+          -o APT::Keep-Downloaded-Packages=true \
+          $PACKAGES
+        sudo chown -R "$(id -u):$(id -g)" "$HOME/.apt-archives"

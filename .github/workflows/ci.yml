@@ -38,10 +38,9 @@ jobs:
           submodules: recursive
 
       - name: Install Coq + OCaml
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            coq coinor-csdp ocaml ocaml-findlib
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp ocaml ocaml-findlib
 
       - name: Set up MetaCoq Template
         uses: ./.github/actions/setup-metacoq
@@ -154,10 +153,9 @@ jobs:
           submodules: recursive
 
       - name: Install Coq + OCaml
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            coq coinor-csdp ocaml ocaml-findlib
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp ocaml ocaml-findlib
 
       - name: Set up MetaCoq Template
         uses: ./.github/actions/setup-metacoq
@@ -289,10 +287,9 @@ jobs:
           submodules: recursive
 
       - name: Install Coq + OCaml
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            coq coinor-csdp ocaml ocaml-findlib
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp ocaml ocaml-findlib
 
       - name: Set up MetaCoq Template
         uses: ./.github/actions/setup-metacoq
@@ -343,10 +340,9 @@ jobs:
           submodules: recursive
 
       - name: Install Coq + OCaml
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            coq coinor-csdp ocaml ocaml-findlib
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp ocaml ocaml-findlib
 
       - name: Set up MetaCoq Template
         uses: ./.github/actions/setup-metacoq
@@ -440,12 +436,9 @@ jobs:
         #   iverilog + verilator + yosys → strict_rtl-marked cross-layer
         #                                  bisimulation, RTL structural
         #                                  coverage, hypothesis cross-layer
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            coq coinor-csdp \
-            ocaml ocaml-findlib \
-            iverilog verilator yosys
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp ocaml ocaml-findlib iverilog verilator yosys
 
       - name: Set up MetaCoq Template
         uses: ./.github/actions/setup-metacoq
@@ -644,9 +637,9 @@ jobs:
           node-version: "24"
 
       - name: Install runtime toolchain for verifier matrix
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends ocaml ocaml-findlib
+        uses: ./.github/actions/apt-install
+        with:
+          packages: ocaml ocaml-findlib
 
       - name: Install dependencies
         run: |

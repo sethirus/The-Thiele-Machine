@@ -33,11 +33,9 @@ jobs:
           submodules: recursive
 
       - name: Install synthesis tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            coq coinor-csdp ocaml ocaml-findlib \
-            iverilog verilator yosys
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp ocaml ocaml-findlib iverilog verilator yosys
 
       - name: Set up MetaCoq Template
         uses: ./.github/actions/setup-metacoq
@@ -220,10 +218,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install yosys + build deps
+        uses: ./.github/actions/apt-install
+        with:
+          packages: yosys cmake g++ python3-pip libboost-all-dev libeigen3-dev libgflags-dev libyaml-cpp-dev
+
+      - name: Install FPGA bitstream Python tools
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            yosys cmake g++ python3-pip libboost-all-dev libeigen3-dev libgflags-dev libyaml-cpp-dev
           # fasm pypi only ships 0.0.2.post* (no clean 0.0.2). The .post
           # wheels print a noisy "circular import" RuntimeWarning under
           # Python 3.12 and fall back to the slower textX parser — this
@@ -340,10 +340,9 @@ jobs:
           submodules: recursive
 
       - name: Install Coq + OCaml
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            coq coinor-csdp ocaml ocaml-findlib
+        uses: ./.github/actions/apt-install
+        with:
+          packages: coq coinor-csdp ocaml ocaml-findlib
 
       - name: Set up MetaCoq Template
         uses: ./.github/actions/setup-metacoq
