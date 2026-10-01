@@ -155,7 +155,7 @@ jobs:
           make -j4
 
       - name: Build Coq targets the cache did not cover
-        # Builds vendored modules that are not yet tracked (the L extraction
+        # Builds any vendored modules left untracked (the L extraction
         # chain) and anything else missing, in parallel, before the outputs
         # are staged and the hook's serial build runs.
         run: make -C coq -j4
