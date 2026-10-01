@@ -240,7 +240,17 @@ jobs:
             msg="$msg (pre-commit tests failed; see CI)"
           fi
           git commit -q -m "$msg"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+          # Commits pushed while this job ran do not touch generated outputs
+          # in the normal case; replay this commit on top of them. A conflict
+          # fails the job rather than overwriting newer work.
+          for attempt in 1 2 3; do
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              break
+            fi
+            [[ $attempt -lt 3 ]] || exit 1
+            git fetch origin "${GITHUB_REF_NAME}"
+            git rebase "origin/${GITHUB_REF_NAME}"
+          done
           echo "pushed=true" >> "$GITHUB_OUTPUT"
 
       - name: Run CI on the regenerated commit
