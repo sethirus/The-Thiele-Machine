@@ -15,10 +15,27 @@ extraction-output-dirs:
 Extraction.vo: kami_hw/KamiExtraction.vo
 Extraction.vo ThieleMachineComplete.vo kami_hw/KamiExtraction.vo: | extraction-output-dirs
 
-# Build the pinned CM2 library dependency closure with its own project flags.
+# Build the pinned undecidability library modules that coq/ imports, with the
+# library's own project flags. Every imported module is listed, so the vendor
+# make sees the whole closure and rebuilds stale dependents consistently.
 # Grouping prevents parallel bridge imports from rebuilding the same objects.
 # The targets go to Makefile.coq in one call: the vendor Makefile's pattern rule
 # would start one sub-make per target, each regenerating the dependency file.
-../vendor/coq-undecidability/theories/TM/SBTM.vo ../vendor/coq-undecidability/theories/MinskyMachines/MM2.vo ../vendor/coq-undecidability/theories/MinskyMachines/MM2_undec.vo ../vendor/coq-undecidability/theories/Synthetic/Undecidability.vo ../vendor/coq-undecidability/theories/Synthetic/ReducibilityFacts.vo ../vendor/coq-undecidability/theories/PCP/PCP.vo ../vendor/coq-undecidability/theories/PCP/PCP_undec.vo ../vendor/coq-undecidability/theories/PCP/Reductions/PCPb_iff_iPCPb.vo ../vendor/coq-undecidability/theories/StackMachines/BSM.vo ../vendor/coq-undecidability/theories/StackMachines/Reductions/iPCPb_to_BSM_HALTING.vo ../vendor/coq-undecidability/theories/MinskyMachines/MM.vo ../vendor/coq-undecidability/theories/MinskyMachines/MMA.vo ../vendor/coq-undecidability/theories/MinskyMachines/Reductions/BSM_MM.vo ../vendor/coq-undecidability/theories/MinskyMachines/Reductions/MMA2_to_MM2.vo ../vendor/coq-undecidability/theories/FRACTRAN/FRACTRAN.vo ../vendor/coq-undecidability/theories/FRACTRAN/Reductions/MM_FRACTRAN.vo ../vendor/coq-undecidability/theories/MinskyMachines/Reductions/FRACTRAN_to_MMA2.vo ../vendor/coq-undecidability/theories/L/L.vo ../vendor/coq-undecidability/theories/L/Util/L_facts.vo ../vendor/coq-undecidability/theories/L/Util/ClosedLAdmissible.vo ../vendor/coq-undecidability/theories/L/Computability/MuRec.vo ../vendor/coq-undecidability/theories/L/Tactics/GenEncode.vo ../vendor/coq-undecidability/theories/L/Tactics/LTactics.vo ../vendor/coq-undecidability/theories/L/Datatypes/LBool.vo ../vendor/coq-undecidability/theories/L/Datatypes/LNat.vo ../vendor/coq-undecidability/theories/L/Datatypes/LOptions.vo ../vendor/coq-undecidability/theories/L/Datatypes/LProd.vo ../vendor/coq-undecidability/theories/L/Datatypes/Lists.vo ../vendor/coq-undecidability/theories/MinskyMachines/Reductions/L_computable_to_MMA_computable.vo &: $(shell find ../vendor/coq-undecidability/theories -name '*.v') ../vendor/coq-undecidability/theories/_CoqProject
-	$(MAKE) -C ../vendor/coq-undecidability/theories Makefile.coq
-	$(MAKE) -C ../vendor/coq-undecidability/theories -f Makefile.coq MinskyMachines/MM2_undec.vo L/L.vo L/Util/L_facts.vo L/Util/ClosedLAdmissible.vo L/Computability/MuRec.vo L/Tactics/GenEncode.vo L/Tactics/LTactics.vo L/Datatypes/LBool.vo L/Datatypes/LNat.vo L/Datatypes/LOptions.vo L/Datatypes/LProd.vo L/Datatypes/Lists.vo MinskyMachines/Reductions/L_computable_to_MMA_computable.vo
+UNDEC_DIR := ../vendor/coq-undecidability/theories
+UNDEC_MODULES := \
+  FRACTRAN/FRACTRAN.vo FRACTRAN/Reductions/MM_FRACTRAN.vo \
+  L/Computability/MuRec.vo L/Datatypes/LBool.vo L/Datatypes/LNat.vo L/Datatypes/LOptions.vo \
+  L/Datatypes/LProd.vo L/Datatypes/Lists.vo L/L.vo L/Tactics/GenEncode.vo L/Tactics/LTactics.vo \
+  L/Util/ClosedLAdmissible.vo L/Util/L_facts.vo \
+  MinskyMachines/MM.vo MinskyMachines/MM2.vo MinskyMachines/MM2_undec.vo MinskyMachines/MMA.vo \
+  MinskyMachines/MMA/mma3_mma2_compiler.vo MinskyMachines/MMA/mma_defs.vo \
+  MinskyMachines/Reductions/BSM_MM.vo MinskyMachines/Reductions/FRACTRAN_to_MMA2.vo \
+  MinskyMachines/Reductions/L_computable_to_MMA_computable.vo MinskyMachines/Reductions/MMA2_to_MM2.vo \
+  PCP/PCP.vo PCP/PCP_undec.vo PCP/Reductions/PCPb_iff_iPCPb.vo \
+  Shared/Libs/DLW/Code/compiler_correction.vo Shared/Libs/DLW/Code/sss.vo Shared/Libs/DLW/Code/subcode.vo \
+  Shared/Libs/DLW/Utils/godel_coding.vo Shared/Libs/DLW/Vec/pos.vo Shared/Libs/DLW/Vec/vec.vo \
+  StackMachines/BSM.vo StackMachines/Reductions/iPCPb_to_BSM_HALTING.vo \
+  Synthetic/ReducibilityFacts.vo Synthetic/Undecidability.vo TM/SBTM.vo
+$(addprefix $(UNDEC_DIR)/,$(UNDEC_MODULES)) &: $(shell find $(UNDEC_DIR) -name '*.v') $(UNDEC_DIR)/_CoqProject
+	$(MAKE) -C $(UNDEC_DIR) Makefile.coq
+	$(MAKE) -C $(UNDEC_DIR) -f Makefile.coq $(UNDEC_MODULES)
