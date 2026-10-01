@@ -100,6 +100,24 @@ jobs:
             | sort -z | xargs -0 sha256sum 2>/dev/null | sha256sum | cut -c1-16)
           echo "digest=${digest}" >> "$GITHUB_OUTPUT"
 
+      - name: Rebuild the vendored undecidability subset consistently
+        # The vendored library's compiled outputs are tracked. Rebuilding the
+        # whole subset (the tracked modules plus the L extraction chain) from
+        # clean sources in one serial make keeps every output consistent with
+        # every other; the outputs are staged and committed with the rest.
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          U=vendor/coq-undecidability/theories
+          mapfile -t TRACKED < <(git ls-files "$U/*.vo" | sed "s#^$U/##")
+          EXTRA=(L/L.vo L/Util/L_facts.vo L/Util/ClosedLAdmissible.vo L/Computability/MuRec.vo
+                 L/Tactics/GenEncode.vo L/Tactics/LTactics.vo L/Datatypes/LBool.vo L/Datatypes/LNat.vo
+                 L/Datatypes/LOptions.vo L/Datatypes/LProd.vo L/Datatypes/Lists.vo
+                 MinskyMachines/Reductions/L_computable_to_MMA_computable.vo)
+          find "$U" \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          make -C "$U" -j1 "${TRACKED[@]}" "${EXTRA[@]}"
+          git checkout -- "$U/Makefile.coq" "$U/Makefile.coq.conf" "$U/.Makefile.coq.d"
+
       - name: Purge stale tracked Coq .vo files
         run: make coq-clean
 
@@ -202,6 +220,7 @@ jobs:
         # those too, so stage untracked compiler outputs under coq/ as well.
         run: |
           git ls-files -z --others --exclude-standard -- 'coq/*.vo' 'coq/*.glob'             'vendor/coq-undecidability/*.vo' 'vendor/coq-undecidability/*.glob'             | xargs -0 -r git add --
+          git add -u -- 'vendor/coq-undecidability/*.vo' 'vendor/coq-undecidability/*.glob'
           python3 scripts/check_hook_worktree.py --stage-generated
 
       - name: Run the pre-commit hook
