@@ -2,8 +2,8 @@
   "schema": "vacuity_audit.v1",
   "summary": {
     "error": 0,
-    "ok": 993,
-    "total": 993,
+    "ok": 1007,
+    "total": 1007,
     "vacuous_hyp": 0,
     "vacuous_true": 0
   },
@@ -18976,6 +18976,286 @@
         "succeeded": false
       },
       "statement": "certification_main_results",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/GrowingRecord.v",
+      "kind": "Theorem",
+      "line": 8,
+      "name": "growing_record_decomposes_holds",
+      "probe_a": {
+        "coq_stderr_tail": "system,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__growing_record_decomposes_holds__a.v\", line 3, characters 59-84:\nError: The reference growing_record_decomposes was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.383 secs (0.246u,0.137s)\nChars 107 - 192 [Theorem~_vacuity_probe_a_growi...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__growing_record_decomposes_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "system,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__growing_record_decomposes_holds__b.v\", line 3, characters 59-84:\nError: The reference growing_record_decomposes was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.402 secs (0.253u,0.148s)\nChars 107 - 192 [Theorem~_vacuity_probe_b_growi...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__growing_record_decomposes_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "growing_record_decomposes",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/GrowingRecord.v",
+      "kind": "Theorem",
+      "line": 26,
+      "name": "thresholds_determine_record_holds",
+      "probe_a": {
+        "coq_stderr_tail": "em,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__thresholds_determine_record_holds__a.v\", line 3, characters 61-88:\nError: The reference thresholds_determine_record was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.386 secs (0.242u,0.144s)\nChars 107 - 196 [Theorem~_vacuity_probe_a_thres...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__thresholds_determine_record_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "tem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__thresholds_determine_record_holds__b.v\", line 3, characters 61-88:\nError: The reference thresholds_determine_record was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.39 secs (0.248u,0.141s)\nChars 107 - 196 [Theorem~_vacuity_probe_b_thres...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__thresholds_determine_record_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "thresholds_determine_record",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/GrowingRecord.v",
+      "kind": "Theorem",
+      "line": 34,
+      "name": "record_price_iff_threshold_price_holds",
+      "probe_a": {
+        "coq_stderr_tail": "]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__record_price_iff_threshold_price_holds__a.v\", line 3, characters 66-98:\nError: The reference record_price_iff_threshold_price was not found\nin the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.393 secs (0.229u,0.163s)\nChars 107 - 206 [Theorem~_vacuity_probe_a_recor...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__record_price_iff_threshold_price_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "t]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__record_price_iff_threshold_price_holds__b.v\", line 3, characters 66-98:\nError: The reference record_price_iff_threshold_price was not found\nin the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.394 secs (0.25u,0.143s)\nChars 107 - 206 [Theorem~_vacuity_probe_b_recor...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__record_price_iff_threshold_price_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "record_price_iff_threshold_price",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/GrowingRecord.v",
+      "kind": "Lemma",
+      "line": 101,
+      "name": "three_honest",
+      "probe_a": {
+        "coq_stderr_tail": "g-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__three_honest__a.v\", line 3, characters 40-62:\nError: The reference HonestGrowingExtension was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.38 secs (0.237u,0.142s)\nChars 107 - 226 [Theorem~_vacuity_probe_a_three...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__three_honest__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__three_honest__b.v\", line 3, characters 40-62:\nError: The reference HonestGrowingExtension was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.394 secs (0.237u,0.156s)\nChars 107 - 226 [Theorem~_vacuity_probe_b_three...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__three_honest__b.v",
+        "succeeded": false
+      },
+      "statement": "HonestGrowingExtension ThreeMachine OneBase ThreeCover ThreeOrder (fun x => x)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/GrowingRecord.v",
+      "kind": "Theorem",
+      "line": 115,
+      "name": "one_latch_refuted",
+      "probe_a": {
+        "coq_stderr_tail": "logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__one_latch_refuted__a.v\", line 3, characters 47-65:\nError: The reference one_latch_suffices was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.409 secs (0.254u,0.153s)\nChars 107 - 173 [Theorem~_vacuity_probe_a_one_l...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__one_latch_refuted__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__one_latch_refuted__b.v\", line 3, characters 47-65:\nError: The reference one_latch_suffices was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.389 secs (0.249u,0.14s)\nChars 107 - 173 [Theorem~_vacuity_probe_b_one_l...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__one_latch_refuted__b.v",
+        "succeeded": false
+      },
+      "statement": "~ one_latch_suffices",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/GrowingRecord.v",
+      "kind": "Lemma",
+      "line": 131,
+      "name": "bits_le_trans",
+      "probe_a": {
+        "coq_stderr_tail": "es\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__bits_le_trans__a.v\", line 3, characters 55-62:\nError: The reference bits_le was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.384 secs (0.242u,0.141s)\nChars 107 - 204 [Theorem~_vacuity_probe_a_bits_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__bits_le_trans__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "res\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__bits_le_trans__b.v\", line 3, characters 55-62:\nError: The reference bits_le was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.38 secs (0.236u,0.144s)\nChars 107 - 204 [Theorem~_vacuity_probe_b_bits_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__bits_le_trans__b.v",
+        "succeeded": false
+      },
+      "statement": "forall u v w, bits_le u v -> bits_le v w -> bits_le u w",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/GrowingRecord.v",
+      "kind": "Lemma",
+      "line": 138,
+      "name": "bits_le_tails",
+      "probe_a": {
+        "coq_stderr_tail": "es\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__bits_le_tails__a.v\", line 3, characters 57-64:\nError: The reference bits_le was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.395 secs (0.253u,0.141s)\nChars 107 - 205 [Theorem~_vacuity_probe_a_bits_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__bits_le_tails__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "es\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__bits_le_tails__b.v\", line 3, characters 57-64:\nError: The reference bits_le was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.382 secs (0.242u,0.139s)\nChars 107 - 205 [Theorem~_vacuity_probe_b_bits_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__bits_le_tails__b.v",
+        "succeeded": false
+      },
+      "statement": "forall a u b v, bits_le (a :: u) (b :: v) -> bits_le u v",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/GrowingRecord.v",
+      "kind": "Lemma",
+      "line": 145,
+      "name": "bits_le_count_le",
+      "probe_a": {
+        "coq_stderr_tail": "[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__bits_le_count_le__a.v\", line 3, characters 56-63:\nError: The reference bits_le was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.393 secs (0.26u,0.133s)\nChars 107 - 205 [Theorem~_vacuity_probe_a_bits_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__bits_le_count_le__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__bits_le_count_le__b.v\", line 3, characters 56-63:\nError: The reference bits_le was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.398 secs (0.245u,0.153s)\nChars 107 - 205 [Theorem~_vacuity_probe_b_bits_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__bits_le_count_le__b.v",
+        "succeeded": false
+      },
+      "statement": "forall u v, bits_le u v -> bit_count u <= bit_count v",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/GrowingRecord.v",
+      "kind": "Lemma",
+      "line": 159,
+      "name": "bits_le_count_eq",
+      "probe_a": {
+        "coq_stderr_tail": "[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__bits_le_count_eq__a.v\", line 3, characters 56-63:\nError: The reference bits_le was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.388 secs (0.236u,0.151s)\nChars 107 - 213 [Theorem~_vacuity_probe_a_bits_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__bits_le_count_eq__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__bits_le_count_eq__b.v\", line 3, characters 56-63:\nError: The reference bits_le was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.382 secs (0.243u,0.138s)\nChars 107 - 213 [Theorem~_vacuity_probe_b_bits_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__bits_le_count_eq__b.v",
+        "succeeded": false
+      },
+      "statement": "forall u v, bits_le u v -> bit_count u = bit_count v -> u = v",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/GrowingRecord.v",
+      "kind": "Lemma",
+      "line": 184,
+      "name": "bits_chain_head",
+      "probe_a": {
+        "coq_stderr_tail": "overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__bits_chain_head__a.v\", line 3, characters 60-70:\nError: The reference bits_chain was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.38 secs (0.242u,0.137s)\nChars 107 - 218 [Theorem~_vacuity_probe_a_bits_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__bits_chain_head__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "verriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__bits_chain_head__b.v\", line 3, characters 60-70:\nError: The reference bits_chain was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.391 secs (0.237u,0.154s)\nChars 107 - 218 [Theorem~_vacuity_probe_b_bits_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__bits_chain_head__b.v",
+        "succeeded": false
+      },
+      "statement": "forall u rest v, bits_chain (u :: rest) -> In v rest -> bits_le u v",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/GrowingRecord.v",
+      "kind": "Lemma",
+      "line": 197,
+      "name": "bits_chain_tail",
+      "probe_a": {
+        "coq_stderr_tail": "verriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__bits_chain_tail__a.v\", line 3, characters 58-68:\nError: The reference bits_chain was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.399 secs (0.276u,0.122s)\nChars 107 - 207 [Theorem~_vacuity_probe_a_bits_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__bits_chain_tail__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "verriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__bits_chain_tail__b.v\", line 3, characters 58-68:\nError: The reference bits_chain was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.391 secs (0.253u,0.137s)\nChars 107 - 207 [Theorem~_vacuity_probe_b_bits_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__bits_chain_tail__b.v",
+        "succeeded": false
+      },
+      "statement": "forall u rest, bits_chain (u :: rest) -> bits_chain rest",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/GrowingRecord.v",
+      "kind": "Lemma",
+      "line": 204,
+      "name": "bits_chain_counts_nodup",
+      "probe_a": {
+        "coq_stderr_tail": "g-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__bits_chain_counts_nodup__a.v\", line 3, characters 62-72:\nError: The reference bits_chain was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.386 secs (0.238u,0.146s)\nChars 107 - 223 [Theorem~_vacuity_probe_a_bits_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__bits_chain_counts_nodup__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "g-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__bits_chain_counts_nodup__b.v\", line 3, characters 62-72:\nError: The reference bits_chain was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.384 secs (0.249u,0.135s)\nChars 107 - 223 [Theorem~_vacuity_probe_b_bits_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__bits_chain_counts_nodup__b.v",
+        "succeeded": false
+      },
+      "statement": "forall vs, bits_chain vs -> NoDup vs -> NoDup (map bit_count vs)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/GrowingRecord.v",
+      "kind": "Lemma",
+      "line": 220,
+      "name": "bit_count_le_length",
+      "probe_a": {
+        "coq_stderr_tail": "end) u true <=\n  (fix length (l : list bool) : nat :=\n     match l with\n     | nil => 0\n     | (_ :: l')%list => S (length l')\n     end) u\".\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.397 secs (0.248u,0.149s)\nChars 107 - 188 [Theorem~_vacuity_probe_a_bit_c...] 0. secs (0.u,0.s)\nChars 189 - 195 [Proof.] 0. secs (0.u,0.s)\nChars 196 - 218 [(intros;~lazy;~exact~I).] 0.002 secs (0.001u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__bit_count_le_length__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__bit_count_le_length__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.385 secs (0.23u,0.155s)\nChars 107 - 188 [Theorem~_vacuity_probe_b_bit_c...] 0. secs (0.u,0.s)\nChars 189 - 195 [Proof.] 0. secs (0.u,0.s)\nChars 196 - 226 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__bit_count_le_length__b.v",
+        "succeeded": false
+      },
+      "statement": "forall u, bit_count u <= length u",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/GrowingRecord.v",
+      "kind": "Theorem",
+      "line": 227,
+      "name": "chain_needs_bits_holds",
+      "probe_a": {
+        "coq_stderr_tail": "ical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__chain_needs_bits_holds__a.v\", line 3, characters 50-66:\nError: The reference chain_needs_bits was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.413 secs (0.258u,0.153s)\nChars 107 - 174 [Theorem~_vacuity_probe_a_chain...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__chain_needs_bits_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "gical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__GrowingRecord__chain_needs_bits_holds__b.v\", line 3, characters 50-66:\nError: The reference chain_needs_bits was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~Gro...] 0.484 secs (0.31u,0.167s)\nChars 107 - 174 [Theorem~_vacuity_probe_b_chain...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__GrowingRecord__chain_needs_bits_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "chain_needs_bits",
       "status": "ok"
     }
   ]

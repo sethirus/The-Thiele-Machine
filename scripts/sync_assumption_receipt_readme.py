@@ -22,9 +22,37 @@ def replace_exact(text: str, pattern: str, replacement: str, count: int) -> str:
     return updated
 
 
+def synchronize_corrections(corrections: Path,
+                            documents: dict[str, Path]) -> None:
+    """Keep Item 1.4's recorded replacement equal to the live audited line."""
+    rows = corrections.read_text(encoding="utf-8").splitlines()
+    if not rows or rows[0] != "document\tline\toriginal\treplacement\treason":
+        raise ValueError(f"unexpected correction-ledger header: {corrections}")
+    current = {
+        name: path.read_text(encoding="utf-8").splitlines()
+        for name, path in documents.items()
+    }
+    updated = [rows[0]]
+    for row in rows[1:]:
+        fields = row.split("\t")
+        if len(fields) != 5:
+            raise ValueError(f"unexpected correction-ledger row: {row}")
+        document, number = fields[0], int(fields[1])
+        if document in current:
+            try:
+                fields[3] = current[document][number - 1]
+            except IndexError as error:
+                raise ValueError(
+                    f"correction line {number} is outside {document}"
+                ) from error
+        updated.append("\t".join(fields))
+    corrections.write_text("\n".join(updated) + "\n", encoding="utf-8")
+
+
 def synchronize(readme: Path, receipt: Path, monograph: Path | None = None,
                 distillation: Path | None = None,
-                citation: Path | None = None) -> None:
+                citation: Path | None = None,
+                corrections: Path | None = None) -> None:
     payload = json.loads(receipt.read_text(encoding="utf-8"))
     summary = payload["summary"]
     axioms = summary["unique_axioms_used"]
@@ -132,6 +160,16 @@ def synchronize(readme: Path, receipt: Path, monograph: Path | None = None,
         )
         citation.write_text(text, encoding="utf-8")
 
+    if corrections is not None:
+        documents = {"README.md": readme}
+        if monograph is not None:
+            documents["monograph/monograph.tex"] = monograph
+        if distillation is not None:
+            documents["THIELE_MACHINE.txt"] = distillation
+        if citation is not None:
+            documents["CITATION.cff"] = citation
+        synchronize_corrections(corrections, documents)
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -144,9 +182,16 @@ def main() -> None:
     parser.add_argument("--monograph", type=Path, default=Path("monograph/monograph.tex"))
     parser.add_argument("--distillation", type=Path, default=Path("THIELE_MACHINE.txt"))
     parser.add_argument("--citation", type=Path, default=Path("CITATION.cff"))
+    parser.add_argument(
+        "--corrections",
+        type=Path,
+        default=Path(
+            "research/rounds/2026-09-30-part1-item1.4-round1-corrections.tsv"
+        ),
+    )
     args = parser.parse_args()
     synchronize(args.readme, args.receipt, args.monograph,
-                args.distillation, args.citation)
+                args.distillation, args.citation, args.corrections)
 
 
 if __name__ == "__main__":

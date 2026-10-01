@@ -192,6 +192,7 @@ Require Kernel.EventGeneralization.
 Require Kernel.EventGeneralizationTargets.
 Require Kernel.EventSwapCore.
 Require Kernel.EventSwapTheorem.
+Require Kernel.GrowingRecord.
 Require Kernel.GrowingRecordCore.
 Require Kernel.Kernel.
 Require Kernel.KernelTM.
@@ -10807,6 +10808,21 @@ Print Assumptions Kernel.EventSwapTheorem.item1_3_certification_permanent.
 Print Assumptions Kernel.EventSwapTheorem.item1_3_certification_written.
 Print Assumptions Kernel.EventSwapTheorem.item1_3_certification_hidden_from_bare.
 Print Assumptions Kernel.EventSwapTheorem.item1_3_certification_sanity.
+(* === Kernel.GrowingRecord : 14 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.GrowingRecord.growing_record_decomposes_holds.
+Print Assumptions Kernel.GrowingRecord.thresholds_determine_record_holds.
+Print Assumptions Kernel.GrowingRecord.record_price_iff_threshold_price_holds.
+Print Assumptions Kernel.GrowingRecord.three_honest.
+Print Assumptions Kernel.GrowingRecord.one_latch_refuted.
+Print Assumptions Kernel.GrowingRecord.bits_le_trans.
+Print Assumptions Kernel.GrowingRecord.bits_le_tails.
+Print Assumptions Kernel.GrowingRecord.bits_le_count_le.
+Print Assumptions Kernel.GrowingRecord.bits_le_count_eq.
+Print Assumptions Kernel.GrowingRecord.bits_chain_head.
+Print Assumptions Kernel.GrowingRecord.bits_chain_tail.
+Print Assumptions Kernel.GrowingRecord.bits_chain_counts_nodup.
+Print Assumptions Kernel.GrowingRecord.bit_count_le_length.
+Print Assumptions Kernel.GrowingRecord.chain_needs_bits_holds.
 (* === Kernel.KernelTM : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.KernelTM.tm_is_turing_complete.
 (* === Kernel.LRecursion : 46 addressable theorems (unaddressable: 0) === *)
