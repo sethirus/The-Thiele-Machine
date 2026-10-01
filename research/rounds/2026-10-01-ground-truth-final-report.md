@@ -25,7 +25,7 @@ but the report explicitly limits a structurally built-in or definitional fact. `
 | 1.4 | PROVED | 8,156-line publication audit and 41 corrections | pass | pass | pass | pass | pass |
 | 1.5 | REFUTED then PROVED | Round 1 found a README overclaim; Round 2 corrected all 40 frozen occurrences | pass | pass | pass | pass | pass |
 | 2.1 | PROVED and REFUTED | threshold decomposition proved; single-latch decomposition refuted | fail | scope | pass | pass | pass |
-| 2.2 | PROVED and REFUTED | actual revocation lies outside permanence; price-transfer claim refuted | scope | pass | scope | pass | pass |
+| 2.2 | PROVED and REFUTED | actual revocation lies outside permanence; price-transfer claim refuted; a concrete three-validator fork satisfies the accountable-safety premises (casper_fork_exists, casper_fork_slashable) | scope | pass | pass | pass | pass |
 | 2.3 | REFUTED | probabilistic uniqueness up to schedule fails | pass | pass | pass | pass | pass |
 | 2.4 | PROVED | frozen equivalence laws and all four adapters (TM, VM, Cook-Reckhow RAM, L) proved | scope | pass | pass | scope | pass |
 | 3.1 | PROVED; Rice PROVED | vm_guest_recursion_theorem_closed: the evaluator relation is extracted to L, compiled to a Minsky machine, run by guest code through the MMA pipeline; the diagonal program is g_pair_specialize e (guest_program_code e); closed under the global context | pass | pass | pass | pass | pass |

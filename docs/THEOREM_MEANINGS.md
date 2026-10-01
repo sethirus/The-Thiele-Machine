@@ -555,3 +555,8 @@ An explicitly qualified citation keeps its own module identity.
 - `self_reference_requires_metalevel`: For every `System` (a dimension number and a map on propositions) that contains a self-reference (some proposition `P` with `sentences S P` and `P` true), there is a `System` `Meta_S` that can reason about it (every proposition `S` expresses, `Meta_S` expresses), has strictly greater dimension, and itself contains a self-reference.
 - `embed_step_compute`: For instructions outside the sixteen explicitly excluded structural, call/return, witness, tensor, and morphism opcode cases, abstracting the intermediate Kami step equals applying the VM step to the abstraction.
 - `five_labeled_models_have_selected_pointer`: In the five synthetic labelled mirror models, each selected flag is returned by every stipulated observer and its named rival is not.
+
+- `F3_calibration_forces_flat_faces`: If every region of the partition graph is a normalized triangle and calibration holds at every module, then at every module the mu-Laplacian is zero, the angle-defect curvature is zero, and the angles of its triangles sum to 2*PI.
+- `F3_calibration_forces_five_triangles`: Under the same hypotheses every module lies in at least five triangles.
+- `F3_calibration_obstruction_closed`: A well-formed triangulated partition graph with distinct module identifiers and no boundary edges cannot be calibrated at every module.
+- `F3_calibration_obstruction_min_degree4`: A well-formed triangulated partition graph with distinct module identifiers in which every vertex lies in at least four faces cannot be calibrated at every module.
