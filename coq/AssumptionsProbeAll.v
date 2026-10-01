@@ -342,6 +342,8 @@ Require Kernel.PartitionRefinementNoFI.
 Require Kernel.PermanentCertification.
 Require Kernel.PermanentCertificationEntropy.
 Require Kernel.PermanentRecordPricing.
+Require Kernel.PricingPhysicsAudit.
+Require Kernel.PricingPhysicsTarget.
 Require Kernel.PrimeAxiom.
 Require Kernel.ReceiptCore.
 Require Kernel.ReceiptIntegrity.
@@ -12822,6 +12824,13 @@ Print Assumptions Kernel.PermanentRecordPricing.injective_flip_revokes.
 Print Assumptions Kernel.PermanentRecordPricing.forced_priced_iff_merges.
 Print Assumptions Kernel.PermanentRecordPricing.permanent_record_write_is_forced_priced.
 Print Assumptions Kernel.PermanentRecordPricing.forced_price_without_permanent_record.
+(* === Kernel.PricingPhysicsAudit : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.PricingPhysicsAudit.no_forced_price_beyond_merges.
+Print Assumptions Kernel.PricingPhysicsAudit.permanent_write_has_logical_payment.
+Print Assumptions Kernel.PricingPhysicsAudit.mu_has_no_intrinsic_joule_value.
+Print Assumptions Kernel.PricingPhysicsAudit.calibrated_mu_landauer_energy.
+Print Assumptions Kernel.PricingPhysicsAudit.semantics_entropy_permutation_invariant.
+Print Assumptions Kernel.PricingPhysicsAudit.permanence_heat_floor_uses_landauer.
 (* === Kernel.PrimeAxiom : 6 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.PrimeAxiom.vm_apply_certified.
 Print Assumptions Kernel.PrimeAxiom.vm_apply_mu_nondecreasing.

@@ -1,34 +1,34 @@
 {
   "schema": "thiele-print-assumptions-full-probe-v3",
-  "generated": "2026-10-01T01:54:27.166078+00:00",
+  "generated": "2026-10-01T02:23:07.591429+00:00",
   "coq_version": "8.18.0",
-  "corpus_digest": "1576dc753a266c9596e9bf6b64de419f15af02c01f502dc64c4ff926e4541ea1",
-  "probe_digest": "2547d75d8981e77581e51192969b33efcf9236abc2d7f05abf6c34c82be0636c",
+  "corpus_digest": "8f2a44c1aa08678a817fb2fab438dca38e7000d5233f19c97b20aacac7e10e8a",
+  "probe_digest": "3bef636c596c7e4a96a27d0a15b9a1c5736b62bd9fe5fcaace37850f27a82cb7",
   "probe_file": "coq/AssumptionsProbeAll.v",
   "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
-  "raw_output_sha256": "58f59aad33ae6ccd6b8182fc8bb1528644e7c0e8f26ace7f7d4db730ca462d2b",
-  "files_probed": 461,
-  "addressable_theorems_probed": 13353,
-  "blocks_parsed": 13353,
+  "raw_output_sha256": "c545e6d83b95f88e34986764593bc986c392fd7d6f135d4dad7bd0a00dda976d",
+  "files_probed": 463,
+  "addressable_theorems_probed": 13359,
+  "blocks_parsed": 13359,
   "alignment_ok": true,
   "stderr_nonempty": true,
   "stderr_excerpt": "\nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq <",
   "unexpected_lines_in_output": 0,
   "first_unexpected_lines": [],
   "summary": {
-    "theorems_probed": 13353,
-    "closed_under_global_context": 5999,
-    "depend_on_axioms": 7354,
+    "theorems_probed": 13359,
+    "closed_under_global_context": 6001,
+    "depend_on_axioms": 7358,
     "user_or_third_party_axiom_findings": 0,
-    "excluded_middle_users": 108,
-    "functional_extensionality_users": 7050,
-    "real_completeness_axiom_users": 1063,
+    "excluded_middle_users": 111,
+    "functional_extensionality_users": 7054,
+    "real_completeness_axiom_users": 1067,
     "unique_axioms_used": {
-      "FunctionalExtensionality.functional_extensionality_dep": 7050,
+      "FunctionalExtensionality.functional_extensionality_dep": 7054,
       "Eqdep.Eq_rect_eq.eq_rect_eq": 3849,
-      "ClassicalDedekindReals.sig_forall_dec": 1063,
-      "ClassicalDedekindReals.sig_not_dec": 309,
-      "Classical_Prop.classic": 108
+      "ClassicalDedekindReals.sig_forall_dec": 1067,
+      "ClassicalDedekindReals.sig_not_dec": 312,
+      "Classical_Prop.classic": 111
     }
   },
   "user_or_third_party_axiom_findings": [],
@@ -90,6 +90,9 @@
     "Kernel.PermanentCertificationEntropy.permanent_flip_full_support_heat_positive",
     "Kernel.PermanentCertificationEntropy.known_state_flip_forces_no_heat",
     "Kernel.PermanentCertificationEntropy.entropy_priced_trace_floor",
+    "Kernel.PricingPhysicsAudit.calibrated_mu_landauer_energy",
+    "Kernel.PricingPhysicsAudit.semantics_entropy_permutation_invariant",
+    "Kernel.PricingPhysicsAudit.permanence_heat_floor_uses_landauer",
     "Kernel.HolevoGeneralD.ln_le_x_minus_1'",
     "Kernel.HolevoGeneralD.one_minus_inv_le_ln'",
     "Kernel.HolevoGeneralD.lambda_ln_d_lambda_split",
@@ -215,9 +218,9 @@
       ]
     },
     "Kernel": {
-      "theorems": 3763,
-      "closed": 2783,
-      "with_axioms": 980,
+      "theorems": 3769,
+      "closed": 2785,
+      "with_axioms": 984,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
@@ -2695,6 +2698,17 @@
       "closed": 18,
       "with_axioms": 0,
       "axiom_set": []
+    },
+    "coq/kernel/nfi/PricingPhysicsAudit.v": {
+      "theorems": 6,
+      "closed": 2,
+      "with_axioms": 4,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
     },
     "coq/kernel/nfi/PrimeAxiom.v": {
       "theorems": 6,

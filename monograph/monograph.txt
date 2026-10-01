@@ -8474,13 +8474,13 @@ Falsify the axiom audit.
 If running Print Assumptions (Section A: the Coq command that reports global
 proof dependencies) on any named theorem in the kernel tier shows a project-local
 Axiom or Parameter in the dependency tree, the audit has degraded. The current
-full-corpus probe covers 13,353 named theorems across 461 files: 5,999 close under
-the global Coq context outright, and 7,354 use only Coq standard-library assump-
+full-corpus probe covers 13,359 named theorems across 463 files: 6,001 close under
+the global Coq context outright, and 7,358 use only Coq standard-library assump-
 tions. The receipt names five such constants: dependent functional extensionality,
 Eqdep.Eq_rect_eq.eq_rect_eq, ClassicalDedekindReals.sig_not_dec,
 ClassicalDedekindReals.sig_forall_dec,                                         and
 Classical_Prop.classic. Zero project-local axioms appear in any of the
-13,353 dependency trees. This audits where global dependencies come from. It
+13,359 dependency trees. This audits where global dependencies come from. It
 
 
                                             168

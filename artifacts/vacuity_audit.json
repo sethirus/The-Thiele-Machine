@@ -2,8 +2,8 @@
   "schema": "vacuity_audit.v1",
   "summary": {
     "error": 0,
-    "ok": 1028,
-    "total": 1028,
+    "ok": 1034,
+    "total": 1034,
     "vacuous_hyp": 0,
     "vacuous_true": 0
   },
@@ -19676,6 +19676,126 @@
         "succeeded": false
       },
       "statement": "g_represents_transformer [] (fun p => p)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/PricingPhysicsAudit.v",
+      "kind": "Theorem",
+      "line": 13,
+      "name": "no_forced_price_beyond_merges",
+      "probe_a": {
+        "coq_stderr_tail": "ault]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricingPhysicsAudit__no_forced_price_beyond_merges__a.v\", line 3, characters 151-180:\nError: The reference item41_no_price_beyond_merges was not found\nin the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pri...] 0.403 secs (0.252u,0.151s)\nChars 113 - 312 [Theorem~_vacuity_probe_a_no_fo...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__PricingPhysicsAudit__no_forced_price_beyond_merges__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ault]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricingPhysicsAudit__no_forced_price_beyond_merges__b.v\", line 3, characters 151-180:\nError: The reference item41_no_price_beyond_merges was not found\nin the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pri...] 0.382 secs (0.256u,0.126s)\nChars 113 - 312 [Theorem~_vacuity_probe_b_no_fo...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__PricingPhysicsAudit__no_forced_price_beyond_merges__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (S I : Type) (step : S -> I -> S) (instr_eq_dec : forall a b : I, {a = b} + {a <> b}), item41_no_price_beyond_merges step instr_eq_dec",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/PricingPhysicsAudit.v",
+      "kind": "Theorem",
+      "line": 23,
+      "name": "permanent_write_has_logical_payment",
+      "probe_a": {
+        "coq_stderr_tail": "fault]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricingPhysicsAudit__permanent_write_has_logical_payment__a.v\", line 3, characters 124-146:\nError: The reference item42_logical_payment was not found in the current\nenvironment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pri...] 0.374 secs (0.229u,0.144s)\nChars 113 - 270 [Theorem~_vacuity_probe_a_perma...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__PricingPhysicsAudit__permanent_write_has_logical_payment__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "efault]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricingPhysicsAudit__permanent_write_has_logical_payment__b.v\", line 3, characters 124-146:\nError: The reference item42_logical_payment was not found in the current\nenvironment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pri...] 0.403 secs (0.27u,0.132s)\nChars 113 - 270 [Theorem~_vacuity_probe_b_perma...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__PricingPhysicsAudit__permanent_write_has_logical_payment__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (S I : Type) (step : S -> I -> S) (cert : S -> bool), item42_logical_payment step cert",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/PricingPhysicsAudit.v",
+      "kind": "Theorem",
+      "line": 31,
+      "name": "mu_has_no_intrinsic_joule_value",
+      "probe_a": {
+        "coq_stderr_tail": "lt]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricingPhysicsAudit__mu_has_no_intrinsic_joule_value__a.v\", line 3, characters 59-90:\nError: The reference item43_no_intrinsic_joule_scale was not found\nin the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pri...] 0.381 secs (0.238u,0.142s)\nChars 113 - 204 [Theorem~_vacuity_probe_a_mu_ha...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__PricingPhysicsAudit__mu_has_no_intrinsic_joule_value__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lt]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricingPhysicsAudit__mu_has_no_intrinsic_joule_value__b.v\", line 3, characters 59-90:\nError: The reference item43_no_intrinsic_joule_scale was not found\nin the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pri...] 0.379 secs (0.238u,0.141s)\nChars 113 - 204 [Theorem~_vacuity_probe_b_mu_ha...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__PricingPhysicsAudit__mu_has_no_intrinsic_joule_value__b.v",
+        "succeeded": false
+      },
+      "statement": "item43_no_intrinsic_joule_scale",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/PricingPhysicsAudit.v",
+      "kind": "Theorem",
+      "line": 38,
+      "name": "calibrated_mu_landauer_energy",
+      "probe_a": {
+        "coq_stderr_tail": "ogical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricingPhysicsAudit__calibrated_mu_landauer_energy__a.v\", line 3, characters 72-73:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pri...] 0.378 secs (0.236u,0.141s)\nChars 113 - 222 [Theorem~_vacuity_probe_a_calib...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__PricingPhysicsAudit__calibrated_mu_landauer_energy__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ogical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricingPhysicsAudit__calibrated_mu_landauer_energy__b.v\", line 3, characters 72-73:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pri...] 0.384 secs (0.244u,0.139s)\nChars 113 - 222 [Theorem~_vacuity_probe_b_calib...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__PricingPhysicsAudit__calibrated_mu_landauer_energy__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k_B T : R, item43_landauer_calibration k_B T",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/PricingPhysicsAudit.v",
+      "kind": "Theorem",
+      "line": 48,
+      "name": "semantics_entropy_permutation_invariant",
+      "probe_a": {
+        "coq_stderr_tail": "ath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricingPhysicsAudit__semantics_entropy_permutation_invariant__a.v\", line 3, characters 115-116:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pri...] 0.379 secs (0.233u,0.146s)\nChars 113 - 287 [Theorem~_vacuity_probe_a_seman...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__PricingPhysicsAudit__semantics_entropy_permutation_invariant__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricingPhysicsAudit__semantics_entropy_permutation_invariant__b.v\", line 3, characters 115-116:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pri...] 0.381 secs (0.251u,0.129s)\nChars 113 - 287 [Theorem~_vacuity_probe_b_seman...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__PricingPhysicsAudit__semantics_entropy_permutation_invariant__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (S : Type) (all all' : list S) (p : S -> R), Permutation all all' -> entropy all p = entropy all' p",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/PricingPhysicsAudit.v",
+      "kind": "Theorem",
+      "line": 58,
+      "name": "permanence_heat_floor_uses_landauer",
+      "probe_a": {
+        "coq_stderr_tail": "lt]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricingPhysicsAudit__permanence_heat_floor_uses_landauer__a.v\", line 3, characters 63-90:\nError: The reference item44_landauer_is_required was not found in the current\nenvironment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pri...] 0.389 secs (0.245u,0.143s)\nChars 113 - 204 [Theorem~_vacuity_probe_a_perma...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__PricingPhysicsAudit__permanence_heat_floor_uses_landauer__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lt]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricingPhysicsAudit__permanence_heat_floor_uses_landauer__b.v\", line 3, characters 63-90:\nError: The reference item44_landauer_is_required was not found in the current\nenvironment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pri...] 0.398 secs (0.242u,0.156s)\nChars 113 - 204 [Theorem~_vacuity_probe_b_perma...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__PricingPhysicsAudit__permanence_heat_floor_uses_landauer__b.v",
+        "succeeded": false
+      },
+      "statement": "item44_landauer_is_required",
       "status": "ok"
     }
   ]
