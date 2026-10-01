@@ -233,18 +233,13 @@ Qed.
     (graph-structural cancellation) on the same partition graph.
 *)
 
-(** ** Non-vacuity: a calibrated VMState witness exists.
+(** ** Premise inhabitation.
 
-    The headline above is conditional on a state where calibration holds
-    at every listed module; it would be vacuous if no such state existed.
-    [F3_CalibratedWitness] removes that vacuity by constructing an
-    explicit finite VMState (a 17-module star [K_{1,16}]) on which
-    [calibration_residual = 0%R] at every module, and on which the
-    centre module has 120 non-trivial triangle-pairs. The witness shows that
-    the premise is inhabited in this finite VM model.
-
-    See [Kernel.F3_CalibratedWitness.F3_calibrated_witness_exists] and
-    [Kernel.F3_CalibratedWitness.F3_witness_zero_total_geometric_defect]. *)
+    The headline above is conditional on a state where calibration holds at
+    every listed module. This development supplies no finite [VMState] on a
+    partition graph with an actual triangle that satisfies that premise, so
+    the headline is stated as a conditional and is not claimed to be
+    inhabited. *)
 
 (** ** Print Assumptions sanity.
 
