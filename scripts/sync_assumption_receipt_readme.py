@@ -25,10 +25,11 @@ def replace_exact(text: str, pattern: str, replacement: str, count: int) -> str:
 def synchronize(readme: Path, receipt: Path, monograph: Path | None = None,
                 distillation: Path | None = None,
                 citation: Path | None = None) -> None:
-    summary = json.loads(receipt.read_text(encoding="utf-8"))["summary"]
+    payload = json.loads(receipt.read_text(encoding="utf-8"))
+    summary = payload["summary"]
     axioms = summary["unique_axioms_used"]
     theorem_count = formatted(summary["theorems_probed"])
-    file_count = formatted(summary["files_probed"])
+    file_count = formatted(payload["files_probed"])
     closed = formatted(summary["closed_under_global_context"])
     dependent = formatted(summary["depend_on_axioms"])
 

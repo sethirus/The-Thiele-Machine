@@ -45,7 +45,9 @@ def repo(tmp_path):
         destination.write_bytes((ROOT / name).read_bytes())
         destination.chmod((ROOT / name).stat().st_mode & 0o777)
     (tmp_path / "source with spaces.v").write_text("original\n")
-    (tmp_path / ".gitignore").write_text("*.vo\n__pycache__/\n")
+    (tmp_path / ".gitignore").write_text(
+        "*.vo\n__pycache__/\nartifacts/print_assumptions_all_proofs.csv\n"
+    )
     git(tmp_path, "add", ".")
     git(tmp_path, "-c", "core.hooksPath=/dev/null", "commit", "-qm", "fixture")
     return tmp_path

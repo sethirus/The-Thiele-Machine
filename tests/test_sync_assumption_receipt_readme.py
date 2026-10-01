@@ -23,8 +23,9 @@ def test_sync_rewrites_every_published_receipt_counter(tmp_path: Path) -> None:
         """
     )
     receipt = tmp_path / "receipt.json"
-    receipt.write_text(json.dumps({"summary": {
+    receipt.write_text(json.dumps({
         "files_probed": 450,
+        "summary": {
         "theorems_probed": 13318,
         "closed_under_global_context": 5965,
         "depend_on_axioms": 7353,

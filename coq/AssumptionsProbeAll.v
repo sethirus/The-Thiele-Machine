@@ -192,6 +192,7 @@ Require Kernel.EventGeneralization.
 Require Kernel.EventGeneralizationTargets.
 Require Kernel.EventSwapCore.
 Require Kernel.EventSwapTheorem.
+Require Kernel.GrowingRecordCore.
 Require Kernel.Kernel.
 Require Kernel.KernelTM.
 Require Kernel.KernelThiele.

@@ -1,0 +1,555 @@
+DIGEST 6d130ce9101351f6f7f6f14fd6dde906
+FKernel.GrowingRecordCore
+R500:503 Coq.Lists.List <> <> lib
+R505:508 Coq.Bool.Bool <> <> lib
+R510:523 Coq.Arith.PeanoNat <> <> lib
+R533:545 Coq.Lists.List ListNotations <> mod
+R576:589 Kernel.StructuralCore <> <> lib
+R591:610 Kernel.StructuralCoreRound4 <> <> lib
+rec 653:668 <> BoolPartialOrder
+proj 695:700 <> gr_leq
+proj 722:732 <> gr_leq_refl
+proj 767:780 <> gr_leq_antisym
+proj 851:862 <> gr_leq_trans
+binder 671:671 <> A:1
+R705:708 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R704:704 Kernel.GrowingRecordCore <> A:1 var
+R710:713 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R709:709 Kernel.GrowingRecordCore <> A:1 var
+R714:717 Coq.Init.Datatypes <> bool ind
+binder 743:743 <> x:4
+R756:758 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R746:751 Kernel.GrowingRecordCore <> gr_leq:3 meth
+R755:755 Kernel.GrowingRecordCore <> x:4 var
+R753:753 Kernel.GrowingRecordCore <> x:4 var
+R759:762 Coq.Init.Datatypes <> true constr
+binder 791:791 <> x:6
+binder 793:793 <> y:7
+R817:820 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R810:812 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R800:805 Kernel.GrowingRecordCore <> gr_leq:3 meth
+R809:809 Kernel.GrowingRecordCore <> y:7 var
+R807:807 Kernel.GrowingRecordCore <> x:6 var
+R813:816 Coq.Init.Datatypes <> true constr
+R838:841 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R831:833 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R821:826 Kernel.GrowingRecordCore <> gr_leq:3 meth
+R830:830 Kernel.GrowingRecordCore <> x:6 var
+R828:828 Kernel.GrowingRecordCore <> y:7 var
+R834:837 Coq.Init.Datatypes <> true constr
+R843:845 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R842:842 Kernel.GrowingRecordCore <> x:6 var
+R846:846 Kernel.GrowingRecordCore <> y:7 var
+binder 873:873 <> x:9
+binder 875:875 <> y:10
+binder 877:877 <> z:11
+R901:904 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R894:896 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R884:889 Kernel.GrowingRecordCore <> gr_leq:3 meth
+R893:893 Kernel.GrowingRecordCore <> y:10 var
+R891:891 Kernel.GrowingRecordCore <> x:9 var
+R897:900 Coq.Init.Datatypes <> true constr
+R922:925 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R915:917 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R905:910 Kernel.GrowingRecordCore <> gr_leq:3 meth
+R914:914 Kernel.GrowingRecordCore <> z:11 var
+R912:912 Kernel.GrowingRecordCore <> y:10 var
+R918:921 Coq.Init.Datatypes <> true constr
+R936:938 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R926:931 Kernel.GrowingRecordCore <> gr_leq:3 meth
+R935:935 Kernel.GrowingRecordCore <> z:11 var
+R933:933 Kernel.GrowingRecordCore <> x:9 var
+R939:942 Coq.Init.Datatypes <> true constr
+R958:963 Kernel.GrowingRecordCore <> gr_leq proj
+R958:963 Kernel.GrowingRecordCore <> gr_leq proj
+def 988:999 <> record_grows
+R1006:1008 Kernel.StructuralCore <> RCM rec
+binder 1002:1002 <> M:13
+binder 1012:1012 <> A:14
+R1027:1042 Kernel.GrowingRecordCore <> BoolPartialOrder rec
+R1044:1044 Kernel.GrowingRecordCore <> A:14 var
+binder 1023:1023 <> P:15
+R1068:1071 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1058:1065 Kernel.StructuralCore <> rc_state proj
+R1067:1067 Kernel.GrowingRecordCore <> M:13 var
+R1072:1072 Kernel.GrowingRecordCore <> A:14 var
+binder 1052:1054 <> rec:16
+binder 1094:1094 <> m:17
+R1133:1135 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1097:1102 Kernel.GrowingRecordCore <> gr_leq proj
+R1115:1117 Kernel.GrowingRecordCore <> rec:16 var
+R1120:1126 Kernel.StructuralCore <> rc_next proj
+R1128:1128 Kernel.GrowingRecordCore <> M:13 var
+R1130:1130 Kernel.GrowingRecordCore <> m:17 var
+R1107:1109 Kernel.GrowingRecordCore <> rec:16 var
+R1111:1111 Kernel.GrowingRecordCore <> m:17 var
+R1104:1104 Kernel.GrowingRecordCore <> P:15 var
+R1136:1139 Coq.Init.Datatypes <> true constr
+def 1154:1166 <> record_driven
+R1173:1175 Kernel.StructuralCore <> RCM rec
+binder 1169:1169 <> M:18
+R1183:1193 Kernel.StructuralCoreRound4 <> BaseMachine rec
+binder 1179:1179 <> B:19
+R1201:1209 Kernel.StructuralCoreRound4 <> BaseCover rec
+R1211:1211 Kernel.GrowingRecordCore <> M:18 var
+R1213:1213 Kernel.GrowingRecordCore <> B:19 var
+binder 1197:1197 <> C:20
+binder 1221:1221 <> A:21
+R1248:1251 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1238:1245 Kernel.StructuralCore <> rc_state proj
+R1247:1247 Kernel.GrowingRecordCore <> M:18 var
+R1252:1252 Kernel.GrowingRecordCore <> A:21 var
+binder 1232:1234 <> rec:22
+R1267:1273 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1297:1302 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1287:1290 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1278:1284 Kernel.StructuralCoreRound4 <> b_state proj
+R1286:1286 Kernel.GrowingRecordCore <> B:19 var
+R1292:1295 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1291:1291 Kernel.GrowingRecordCore <> A:21 var
+R1296:1296 Kernel.GrowingRecordCore <> A:21 var
+binder 1274:1274 <> f:23
+binder 1310:1310 <> m:24
+R1330:1332 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1313:1315 Kernel.GrowingRecordCore <> rec:22 var
+R1318:1324 Kernel.StructuralCore <> rc_next proj
+R1326:1326 Kernel.GrowingRecordCore <> M:18 var
+R1328:1328 Kernel.GrowingRecordCore <> m:24 var
+R1333:1333 Kernel.GrowingRecordCore <> f:23 var
+R1357:1359 Kernel.GrowingRecordCore <> rec:22 var
+R1361:1361 Kernel.GrowingRecordCore <> m:24 var
+R1336:1345 Kernel.StructuralCoreRound4 <> base_state proj
+R1347:1347 Kernel.GrowingRecordCore <> M:18 var
+R1349:1349 Kernel.GrowingRecordCore <> B:19 var
+R1351:1351 Kernel.GrowingRecordCore <> C:20 var
+R1353:1353 Kernel.GrowingRecordCore <> m:24 var
+def 1377:1405 <> reachable_strict_record_write
+R1412:1414 Kernel.StructuralCore <> RCM rec
+binder 1408:1408 <> M:25
+binder 1418:1418 <> A:26
+R1449:1452 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1439:1446 Kernel.StructuralCore <> rc_state proj
+R1448:1448 Kernel.GrowingRecordCore <> M:25 var
+R1453:1453 Kernel.GrowingRecordCore <> A:26 var
+binder 1433:1435 <> rec:27
+R1468:1474 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1478:1479 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1475:1475 <> m:28
+binder 1477:1477 <> n:29
+R1491:1498 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1480:1486 Kernel.StructuralCore <> rc_init proj
+R1488:1488 Kernel.GrowingRecordCore <> M:25 var
+R1490:1490 Kernel.GrowingRecordCore <> m:28 var
+R1517:1520 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R1499:1501 Kernel.GrowingRecordCore <> rec:27 var
+R1504:1509 Kernel.StructuralCore <> rc_run def
+R1511:1511 Kernel.GrowingRecordCore <> M:25 var
+R1513:1513 Kernel.GrowingRecordCore <> n:29 var
+R1515:1515 Kernel.GrowingRecordCore <> m:28 var
+R1521:1523 Kernel.GrowingRecordCore <> rec:27 var
+R1526:1532 Kernel.StructuralCore <> rc_next proj
+R1534:1534 Kernel.GrowingRecordCore <> M:25 var
+R1537:1542 Kernel.StructuralCore <> rc_run def
+R1544:1544 Kernel.GrowingRecordCore <> M:25 var
+R1546:1546 Kernel.GrowingRecordCore <> n:29 var
+R1548:1548 Kernel.GrowingRecordCore <> m:28 var
+def 1593:1621 <> threshold_latch_factorization
+R1632:1634 Kernel.StructuralCore <> RCM rec
+binder 1628:1628 <> M:30
+R1642:1652 Kernel.StructuralCoreRound4 <> BaseMachine rec
+binder 1638:1638 <> B:31
+R1660:1668 Kernel.StructuralCoreRound4 <> BaseCover rec
+R1670:1670 Kernel.GrowingRecordCore <> M:30 var
+R1672:1672 Kernel.GrowingRecordCore <> B:31 var
+binder 1656:1656 <> C:32
+binder 1680:1680 <> A:33
+R1695:1710 Kernel.GrowingRecordCore <> BoolPartialOrder rec
+R1712:1712 Kernel.GrowingRecordCore <> A:33 var
+binder 1691:1691 <> P:34
+R1732:1735 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1722:1729 Kernel.StructuralCore <> rc_state proj
+R1731:1731 Kernel.GrowingRecordCore <> M:30 var
+R1736:1736 Kernel.GrowingRecordCore <> A:33 var
+binder 1716:1718 <> rec:35
+R1749:1752 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1748:1748 Kernel.GrowingRecordCore <> A:33 var
+R1762:1765 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1753:1759 Kernel.StructuralCoreRound4 <> b_state proj
+R1761:1761 Kernel.GrowingRecordCore <> B:31 var
+R1767:1770 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1766:1766 Kernel.GrowingRecordCore <> A:33 var
+R1771:1774 Coq.Init.Datatypes <> bool ind
+binder 1744:1744 <> h:36
+binder 1796:1796 <> m:37
+binder 1798:1798 <> a:38
+R1835:1841 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1805:1810 Kernel.GrowingRecordCore <> gr_leq proj
+R1817:1819 Kernel.GrowingRecordCore <> rec:35 var
+R1822:1828 Kernel.StructuralCore <> rc_next proj
+R1830:1830 Kernel.GrowingRecordCore <> M:30 var
+R1832:1832 Kernel.GrowingRecordCore <> m:37 var
+R1814:1814 Kernel.GrowingRecordCore <> a:38 var
+R1812:1812 Kernel.GrowingRecordCore <> P:34 var
+R1842:1844 Coq.Init.Datatypes <> orb def
+R1876:1876 Kernel.GrowingRecordCore <> h:36 var
+R1902:1904 Kernel.GrowingRecordCore <> rec:35 var
+R1906:1906 Kernel.GrowingRecordCore <> m:37 var
+R1881:1890 Kernel.StructuralCoreRound4 <> base_state proj
+R1892:1892 Kernel.GrowingRecordCore <> M:30 var
+R1894:1894 Kernel.GrowingRecordCore <> B:31 var
+R1896:1896 Kernel.GrowingRecordCore <> C:32 var
+R1898:1898 Kernel.GrowingRecordCore <> m:37 var
+R1878:1878 Kernel.GrowingRecordCore <> a:38 var
+R1847:1852 Kernel.GrowingRecordCore <> gr_leq proj
+R1859:1861 Kernel.GrowingRecordCore <> rec:35 var
+R1863:1863 Kernel.GrowingRecordCore <> m:37 var
+R1856:1856 Kernel.GrowingRecordCore <> a:38 var
+R1854:1854 Kernel.GrowingRecordCore <> P:34 var
+def 1999:2020 <> record_schedule_priced
+R2027:2029 Kernel.StructuralCore <> RCM rec
+binder 2023:2023 <> M:39
+binder 2033:2033 <> A:40
+R2064:2067 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2054:2061 Kernel.StructuralCore <> rc_state proj
+R2063:2063 Kernel.GrowingRecordCore <> M:39 var
+R2068:2068 Kernel.GrowingRecordCore <> A:40 var
+binder 2048:2050 <> rec:41
+R2099:2104 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2083:2096 Kernel.StructuralCore <> ledger_carried def
+R2098:2098 Kernel.GrowingRecordCore <> M:39 var
+binder 2112:2112 <> m:42
+R2141:2144 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2120:2123 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2115:2117 Kernel.GrowingRecordCore <> rec:41 var
+R2119:2119 Kernel.GrowingRecordCore <> m:42 var
+R2124:2126 Kernel.GrowingRecordCore <> rec:41 var
+R2129:2135 Kernel.StructuralCore <> rc_next proj
+R2137:2137 Kernel.GrowingRecordCore <> M:39 var
+R2139:2139 Kernel.GrowingRecordCore <> m:42 var
+R2158:2161 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2145:2153 Kernel.StructuralCore <> step_cost def
+R2155:2155 Kernel.GrowingRecordCore <> M:39 var
+R2157:2157 Kernel.GrowingRecordCore <> m:42 var
+def 2254:2278 <> threshold_schedule_priced
+R2285:2287 Kernel.StructuralCore <> RCM rec
+binder 2281:2281 <> M:43
+binder 2291:2291 <> A:44
+R2310:2325 Kernel.GrowingRecordCore <> BoolPartialOrder rec
+R2327:2327 Kernel.GrowingRecordCore <> A:44 var
+binder 2306:2306 <> P:45
+R2347:2350 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2337:2344 Kernel.StructuralCore <> rc_state proj
+R2346:2346 Kernel.GrowingRecordCore <> M:43 var
+R2351:2351 Kernel.GrowingRecordCore <> A:44 var
+binder 2331:2333 <> rec:46
+R2382:2387 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2366:2379 Kernel.StructuralCore <> ledger_carried def
+R2381:2381 Kernel.GrowingRecordCore <> M:43 var
+binder 2395:2395 <> m:47
+binder 2397:2397 <> a:48
+R2430:2437 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2422:2424 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2404:2409 Kernel.GrowingRecordCore <> gr_leq proj
+R2416:2418 Kernel.GrowingRecordCore <> rec:46 var
+R2420:2420 Kernel.GrowingRecordCore <> m:47 var
+R2413:2413 Kernel.GrowingRecordCore <> a:48 var
+R2411:2411 Kernel.GrowingRecordCore <> P:45 var
+R2425:2429 Coq.Init.Datatypes <> false constr
+R2475:2482 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2468:2470 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2438:2443 Kernel.GrowingRecordCore <> gr_leq proj
+R2450:2452 Kernel.GrowingRecordCore <> rec:46 var
+R2455:2461 Kernel.StructuralCore <> rc_next proj
+R2463:2463 Kernel.GrowingRecordCore <> M:43 var
+R2465:2465 Kernel.GrowingRecordCore <> m:47 var
+R2447:2447 Kernel.GrowingRecordCore <> a:48 var
+R2445:2445 Kernel.GrowingRecordCore <> P:45 var
+R2471:2474 Coq.Init.Datatypes <> true constr
+R2496:2499 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2483:2491 Kernel.StructuralCore <> step_cost def
+R2493:2493 Kernel.GrowingRecordCore <> M:43 var
+R2495:2495 Kernel.GrowingRecordCore <> m:47 var
+def 2515:2536 <> HonestGrowingExtension
+R2547:2549 Kernel.StructuralCore <> RCM rec
+binder 2543:2543 <> M:49
+R2557:2567 Kernel.StructuralCoreRound4 <> BaseMachine rec
+binder 2553:2553 <> B:50
+R2575:2583 Kernel.StructuralCoreRound4 <> BaseCover rec
+R2585:2585 Kernel.GrowingRecordCore <> M:49 var
+R2587:2587 Kernel.GrowingRecordCore <> B:50 var
+binder 2571:2571 <> C:51
+binder 2595:2595 <> A:52
+R2610:2625 Kernel.GrowingRecordCore <> BoolPartialOrder rec
+R2627:2627 Kernel.GrowingRecordCore <> A:52 var
+binder 2606:2606 <> P:53
+R2647:2650 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2637:2644 Kernel.StructuralCore <> rc_state proj
+R2646:2646 Kernel.GrowingRecordCore <> M:49 var
+R2651:2651 Kernel.GrowingRecordCore <> A:52 var
+binder 2631:2633 <> rec:54
+R2689:2694 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2666:2678 Kernel.GrowingRecordCore <> record_driven def
+R2686:2688 Kernel.GrowingRecordCore <> rec:54 var
+R2684:2684 Kernel.GrowingRecordCore <> C:51 var
+R2682:2682 Kernel.GrowingRecordCore <> B:50 var
+R2680:2680 Kernel.GrowingRecordCore <> M:49 var
+R2715:2720 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2695:2706 Kernel.GrowingRecordCore <> record_grows def
+R2712:2714 Kernel.GrowingRecordCore <> rec:54 var
+R2710:2710 Kernel.GrowingRecordCore <> P:53 var
+R2708:2708 Kernel.GrowingRecordCore <> M:49 var
+R2749:2754 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2721:2742 Kernel.GrowingRecordCore <> record_schedule_priced def
+R2746:2748 Kernel.GrowingRecordCore <> rec:54 var
+R2744:2744 Kernel.GrowingRecordCore <> M:49 var
+R2755:2783 Kernel.GrowingRecordCore <> reachable_strict_record_write def
+R2787:2789 Kernel.GrowingRecordCore <> rec:54 var
+R2785:2785 Kernel.GrowingRecordCore <> M:49 var
+def 2885:2909 <> growing_record_decomposes
+R2935:2937 Kernel.StructuralCore <> RCM rec
+binder 2931:2931 <> M:55
+R2945:2955 Kernel.StructuralCoreRound4 <> BaseMachine rec
+binder 2941:2941 <> B:56
+R2963:2971 Kernel.StructuralCoreRound4 <> BaseCover rec
+R2973:2973 Kernel.GrowingRecordCore <> M:55 var
+R2975:2975 Kernel.GrowingRecordCore <> B:56 var
+binder 2959:2959 <> C:57
+binder 2988:2988 <> A:58
+R3003:3018 Kernel.GrowingRecordCore <> BoolPartialOrder rec
+R3020:3020 Kernel.GrowingRecordCore <> A:58 var
+binder 2999:2999 <> P:59
+R3040:3043 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3030:3037 Kernel.StructuralCore <> rc_state proj
+R3039:3039 Kernel.GrowingRecordCore <> M:55 var
+R3044:3044 Kernel.GrowingRecordCore <> A:58 var
+binder 3024:3026 <> rec:60
+R3086:3093 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3052:3073 Kernel.GrowingRecordCore <> HonestGrowingExtension def
+R3083:3085 Kernel.GrowingRecordCore <> rec:60 var
+R3081:3081 Kernel.GrowingRecordCore <> P:59 var
+R3079:3079 Kernel.GrowingRecordCore <> C:57 var
+R3077:3077 Kernel.GrowingRecordCore <> B:56 var
+R3075:3075 Kernel.GrowingRecordCore <> M:55 var
+R3094:3100 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3102:3109 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3101:3101 <> h:61
+R3153:3162 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3110:3138 Kernel.GrowingRecordCore <> threshold_latch_factorization def
+R3152:3152 Kernel.GrowingRecordCore <> h:61 var
+R3148:3150 Kernel.GrowingRecordCore <> rec:60 var
+R3146:3146 Kernel.GrowingRecordCore <> P:59 var
+R3144:3144 Kernel.GrowingRecordCore <> C:57 var
+R3142:3142 Kernel.GrowingRecordCore <> B:56 var
+R3140:3140 Kernel.GrowingRecordCore <> M:55 var
+R3163:3184 Kernel.GrowingRecordCore <> record_schedule_priced def
+R3188:3190 Kernel.GrowingRecordCore <> rec:60 var
+R3186:3186 Kernel.GrowingRecordCore <> M:55 var
+def 3283:3309 <> thresholds_determine_record
+binder 3331:3331 <> A:62
+R3346:3361 Kernel.GrowingRecordCore <> BoolPartialOrder rec
+R3363:3363 Kernel.GrowingRecordCore <> A:62 var
+binder 3342:3342 <> P:63
+R3373:3373 Kernel.GrowingRecordCore <> A:62 var
+binder 3367:3367 <> x:64
+binder 3369:3369 <> y:65
+R3381:3381 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3419:3423 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 3389:3389 <> a:66
+R3404:3406 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3392:3397 Kernel.GrowingRecordCore <> gr_leq proj
+R3403:3403 Kernel.GrowingRecordCore <> x:64 var
+R3401:3401 Kernel.GrowingRecordCore <> a:66 var
+R3399:3399 Kernel.GrowingRecordCore <> P:63 var
+R3407:3412 Kernel.GrowingRecordCore <> gr_leq proj
+R3418:3418 Kernel.GrowingRecordCore <> y:65 var
+R3416:3416 Kernel.GrowingRecordCore <> a:66 var
+R3414:3414 Kernel.GrowingRecordCore <> P:63 var
+R3425:3427 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3424:3424 Kernel.GrowingRecordCore <> x:64 var
+R3428:3428 Kernel.GrowingRecordCore <> y:65 var
+def 3521:3552 <> record_price_iff_threshold_price
+R3578:3580 Kernel.StructuralCore <> RCM rec
+binder 3574:3574 <> M:67
+binder 3584:3584 <> A:68
+R3599:3614 Kernel.GrowingRecordCore <> BoolPartialOrder rec
+R3616:3616 Kernel.GrowingRecordCore <> A:68 var
+binder 3595:3595 <> P:69
+R3645:3648 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3635:3642 Kernel.StructuralCore <> rc_state proj
+R3644:3644 Kernel.GrowingRecordCore <> M:67 var
+R3649:3649 Kernel.GrowingRecordCore <> A:68 var
+binder 3629:3631 <> rec:70
+R3677:3685 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3757:3757 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3657:3668 Kernel.GrowingRecordCore <> record_grows def
+R3674:3676 Kernel.GrowingRecordCore <> rec:70 var
+R3672:3672 Kernel.GrowingRecordCore <> P:69 var
+R3670:3670 Kernel.GrowingRecordCore <> M:67 var
+R3714:3723 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3686:3707 Kernel.GrowingRecordCore <> record_schedule_priced def
+R3711:3713 Kernel.GrowingRecordCore <> rec:70 var
+R3709:3709 Kernel.GrowingRecordCore <> M:67 var
+R3724:3748 Kernel.GrowingRecordCore <> threshold_schedule_priced def
+R3754:3756 Kernel.GrowingRecordCore <> rec:70 var
+R3752:3752 Kernel.GrowingRecordCore <> P:69 var
+R3750:3750 Kernel.GrowingRecordCore <> M:67 var
+def 3814:3833 <> single_latch_carries
+R3844:3846 Kernel.StructuralCore <> RCM rec
+binder 3840:3840 <> M:71
+R3854:3864 Kernel.StructuralCoreRound4 <> BaseMachine rec
+binder 3850:3850 <> B:72
+R3872:3880 Kernel.StructuralCoreRound4 <> BaseCover rec
+R3882:3882 Kernel.GrowingRecordCore <> M:71 var
+R3884:3884 Kernel.GrowingRecordCore <> B:72 var
+binder 3868:3868 <> C:73
+binder 3892:3892 <> A:74
+R3919:3922 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3909:3916 Kernel.StructuralCore <> rc_state proj
+R3918:3918 Kernel.GrowingRecordCore <> M:71 var
+R3923:3923 Kernel.GrowingRecordCore <> A:74 var
+binder 3903:3905 <> rec:75
+R3938:3945 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4039:4045 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3959:3962 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3950:3956 Kernel.StructuralCoreRound4 <> b_state proj
+R3958:3958 Kernel.GrowingRecordCore <> B:72 var
+R3963:3966 Coq.Init.Datatypes <> bool ind
+binder 3946:3946 <> h:76
+R3988:3991 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3978:3985 Kernel.StructuralCore <> rc_state proj
+R3987:3987 Kernel.GrowingRecordCore <> M:71 var
+R3992:3995 Coq.Init.Datatypes <> bool ind
+binder 3970:3974 <> latch:77
+R4026:4029 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4017:4023 Kernel.StructuralCoreRound4 <> b_state proj
+R4025:4025 Kernel.GrowingRecordCore <> B:72 var
+R4034:4037 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4030:4033 Coq.Init.Datatypes <> bool ind
+R4038:4038 Kernel.GrowingRecordCore <> A:74 var
+binder 4008:4013 <> decode:78
+R4046:4046 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4129:4138 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4194:4194 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 4054:4054 <> m:79
+R4082:4090 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4063:4067 Kernel.GrowingRecordCore <> latch:77 var
+R4070:4076 Kernel.StructuralCore <> rc_next proj
+R4078:4078 Kernel.GrowingRecordCore <> M:71 var
+R4080:4080 Kernel.GrowingRecordCore <> m:79 var
+R4091:4093 Coq.Init.Datatypes <> orb def
+R4106:4106 Kernel.GrowingRecordCore <> h:76 var
+R4109:4118 Kernel.StructuralCoreRound4 <> base_state proj
+R4120:4120 Kernel.GrowingRecordCore <> M:71 var
+R4122:4122 Kernel.GrowingRecordCore <> B:72 var
+R4124:4124 Kernel.GrowingRecordCore <> C:73 var
+R4126:4126 Kernel.GrowingRecordCore <> m:79 var
+R4096:4100 Kernel.GrowingRecordCore <> latch:77 var
+R4102:4102 Kernel.GrowingRecordCore <> m:79 var
+binder 4146:4146 <> m:80
+R4154:4156 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4149:4151 Kernel.GrowingRecordCore <> rec:75 var
+R4153:4153 Kernel.GrowingRecordCore <> m:80 var
+R4157:4162 Kernel.GrowingRecordCore <> decode:78 var
+R4186:4190 Kernel.GrowingRecordCore <> latch:77 var
+R4192:4192 Kernel.GrowingRecordCore <> m:80 var
+R4165:4174 Kernel.StructuralCoreRound4 <> base_state proj
+R4176:4176 Kernel.GrowingRecordCore <> M:71 var
+R4178:4178 Kernel.GrowingRecordCore <> B:72 var
+R4180:4180 Kernel.GrowingRecordCore <> C:73 var
+R4182:4182 Kernel.GrowingRecordCore <> m:80 var
+def 4209:4226 <> one_latch_suffices
+R4252:4254 Kernel.StructuralCore <> RCM rec
+binder 4248:4248 <> M:81
+R4262:4272 Kernel.StructuralCoreRound4 <> BaseMachine rec
+binder 4258:4258 <> B:82
+R4280:4288 Kernel.StructuralCoreRound4 <> BaseCover rec
+R4290:4290 Kernel.GrowingRecordCore <> M:81 var
+R4292:4292 Kernel.GrowingRecordCore <> B:82 var
+binder 4276:4276 <> C:83
+binder 4305:4305 <> A:84
+R4320:4335 Kernel.GrowingRecordCore <> BoolPartialOrder rec
+R4337:4337 Kernel.GrowingRecordCore <> A:84 var
+binder 4316:4316 <> P:85
+R4357:4360 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4347:4354 Kernel.StructuralCore <> rc_state proj
+R4356:4356 Kernel.GrowingRecordCore <> M:81 var
+R4361:4361 Kernel.GrowingRecordCore <> A:84 var
+binder 4341:4343 <> rec:86
+R4403:4410 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4369:4390 Kernel.GrowingRecordCore <> HonestGrowingExtension def
+R4400:4402 Kernel.GrowingRecordCore <> rec:86 var
+R4398:4398 Kernel.GrowingRecordCore <> P:85 var
+R4396:4396 Kernel.GrowingRecordCore <> C:83 var
+R4394:4394 Kernel.GrowingRecordCore <> B:82 var
+R4392:4392 Kernel.GrowingRecordCore <> M:81 var
+R4411:4430 Kernel.GrowingRecordCore <> single_latch_carries def
+R4438:4440 Kernel.GrowingRecordCore <> rec:86 var
+R4436:4436 Kernel.GrowingRecordCore <> C:83 var
+R4434:4434 Kernel.GrowingRecordCore <> B:82 var
+R4432:4432 Kernel.GrowingRecordCore <> M:81 var
+def 4492:4498 <> bits_le
+R4507:4510 Coq.Init.Datatypes <> list ind
+R4512:4515 Coq.Init.Datatypes <> bool ind
+binder 4501:4501 <> u:87
+binder 4503:4503 <> v:88
+R4549:4554 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4538:4540 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4530:4535 Coq.Init.Datatypes <> length def
+R4537:4537 Kernel.GrowingRecordCore <> u:87 var
+R4541:4546 Coq.Init.Datatypes <> length def
+R4548:4548 Kernel.GrowingRecordCore <> v:88 var
+binder 4562:4562 <> n:89
+R4585:4588 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4578:4580 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4565:4567 Coq.Lists.List <> nth def
+R4573:4577 Coq.Init.Datatypes <> false constr
+R4571:4571 Kernel.GrowingRecordCore <> u:87 var
+R4569:4569 Kernel.GrowingRecordCore <> n:89 var
+R4581:4584 Coq.Init.Datatypes <> true constr
+R4602:4604 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4589:4591 Coq.Lists.List <> nth def
+R4597:4601 Coq.Init.Datatypes <> false constr
+R4595:4595 Kernel.GrowingRecordCore <> v:88 var
+R4593:4593 Kernel.GrowingRecordCore <> n:89 var
+R4605:4608 Coq.Init.Datatypes <> true constr
+def 4621:4630 <> bits_chain
+R4638:4641 Coq.Init.Datatypes <> list ind
+R4644:4647 Coq.Init.Datatypes <> list ind
+R4649:4652 Coq.Init.Datatypes <> bool ind
+binder 4633:4634 <> vs:90
+R4674:4675 Kernel.GrowingRecordCore <> vs:90 var
+R4686:4687 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4692:4695 Coq.Init.Logic <> True ind
+R4702:4705 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4744:4745 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4750:4753 Coq.Init.Logic <> True ind
+R4764:4767 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4784:4787 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4773:4779 Kernel.GrowingRecordCore <> bits_le def
+R4788:4797 Kernel.GrowingRecordCore <> bits_chain:91 def
+def 4833:4848 <> chain_needs_bits
+R4874:4876 Coq.Init.Datatypes <> nat ind
+binder 4870:4870 <> k:94
+R4885:4888 Coq.Init.Datatypes <> list ind
+R4891:4894 Coq.Init.Datatypes <> list ind
+R4896:4899 Coq.Init.Datatypes <> bool ind
+binder 4880:4881 <> vs:95
+R4941:4948 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4908:4913 Coq.Lists.List <> Forall ind
+R4939:4940 Kernel.GrowingRecordCore <> vs:95 var
+binder 4920:4920 <> v:96
+R4933:4935 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4925:4930 Coq.Init.Datatypes <> length def
+R4932:4932 Kernel.GrowingRecordCore <> v:96 var
+R4936:4936 Kernel.GrowingRecordCore <> k:94 var
+R4962:4965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4949:4958 Kernel.GrowingRecordCore <> bits_chain def
+R4960:4961 Kernel.GrowingRecordCore <> vs:95 var
+R4974:4981 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4966:4970 Coq.Lists.List <> NoDup ind
+R4972:4973 Kernel.GrowingRecordCore <> vs:95 var
+R4991:4994 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4982:4987 Coq.Init.Datatypes <> length def
+R4989:4990 Kernel.GrowingRecordCore <> vs:95 var
+R4995:4995 Coq.Init.Datatypes <> S constr
+R4997:4997 Kernel.GrowingRecordCore <> k:94 var
