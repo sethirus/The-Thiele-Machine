@@ -234,6 +234,8 @@ Require Kernel.VMCounterBranch.
 Require Kernel.VMEncodedInputAccess.
 Require Kernel.VMEncoding.
 Require Kernel.VMInstructionEncoding.
+Require Kernel.VMRecursionAudit.
+Require Kernel.VMRecursionTarget.
 Require Kernel.VMSelfCorrect.
 Require Kernel.VMSelfGuest.
 Require Kernel.VMSelfLimitative.
@@ -11213,6 +11215,10 @@ Print Assumptions Kernel.VMInstructionEncoding.nat_to_bools_to_nat.
 Print Assumptions Kernel.VMInstructionEncoding.nat_to_program_program_to_nat.
 Print Assumptions Kernel.VMInstructionEncoding.program_to_nat_injective.
 Print Assumptions Kernel.VMInstructionEncoding.program_to_nat_preserves_instruction_cost.
+(* === Kernel.VMRecursionAudit : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.VMRecursionAudit.vm_guest_execution_is_actual.
+Print Assumptions Kernel.VMRecursionAudit.vm_guest_rice_holds.
+Print Assumptions Kernel.VMRecursionAudit.identity_transformer_representable.
 (* === Kernel.VMSelfCorrect : 6 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.VMSelfCorrect.g4_get.
 Print Assumptions Kernel.VMSelfCorrect.h_prefix_run.
