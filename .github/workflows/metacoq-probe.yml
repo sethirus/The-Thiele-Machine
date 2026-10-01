@@ -1,6 +1,6 @@
 name: MetaCoq probe
 
-# One-off feasibility check: build MetaCoq 1.3.1+8.18 Template from pinned
+# One-off feasibility check: build MetaCoq 1.2.1+8.18 Template from pinned
 # source against Ubuntu's Coq 8.18, then compile the vendored L extraction
 # tactics and the L -> MMA chain, and extract a function.
 # Runs only on pushes whose head commit message contains [metacoq-probe].
@@ -11,8 +11,8 @@ on:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-  METACOQ_TAG: v1.3.1-8.18
-  METACOQ_SHA256: 7376dacb3172639c985ed8132b1f6904d245de44048c74162d15077149ad4de3
+  METACOQ_TAG: v1.2.1-8.18
+  METACOQ_SHA256: 2b5057265344e661371591eaa5d94da9cb45ce4e88867a6cce517f478395a9fe
 
 jobs:
   probe:
