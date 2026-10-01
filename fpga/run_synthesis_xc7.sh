@@ -157,6 +157,17 @@ echo "=== [3/5] nextpnr-xilinx place-and-route (${PART}) ==="
     --no-tmdriv \
     --timing-allow-fail \
     2>&1 | tee "${BUILD_DIR}/nextpnr_xc7.log"
+# --timing-allow-fail lets routing finish so the report exists; the bitstream
+# counts only when every constrained clock meets its target.
+if ! grep -q "Max frequency for clock" "${BUILD_DIR}/nextpnr_xc7.log"; then
+    echo "ERROR: nextpnr reported no clock timing" >&2
+    exit 1
+fi
+if grep "Max frequency for clock" "${BUILD_DIR}/nextpnr_xc7.log" | grep -v "(PASS at"; then
+    echo "ERROR: a constrained clock misses its timing target" >&2
+    exit 1
+fi
+grep "Max frequency for clock" "${BUILD_DIR}/nextpnr_xc7.log"
 echo "    fasm:   ${FASM}"
 
 echo "=== [4/5] fasm2frames (Project X-Ray, kintex7) ==="
