@@ -99,6 +99,7 @@ jobs:
             coq/Makefile
             coq/Makefile.conf
             coq/.Makefile.d
+            build/coq-build-manifest.json
           key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
 
       - name: Install Python dependencies
@@ -395,7 +396,12 @@ jobs:
             coq/Makefile
             coq/Makefile.conf
             coq/.Makefile.d
+            build/coq-build-manifest.json
           key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          # An earlier build of any source tree is a starting point; the
+          # build step rebuilds what changed (scripts/coq_build_manifest.py).
+          restore-keys: |
+            coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
 
       - name: Refresh Coq artefact mtimes
         run: |
@@ -415,9 +421,17 @@ jobs:
           set -Eeuo pipefail
           cd coq
           rm -f Makefile Makefile.conf .Makefile.d
-          find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          # A partial cache restore (an earlier build) rebuilds exactly the
+          # sources whose content changed and their dependents; otherwise
+          # build from clean outputs.
+          if python3 ../scripts/coq_build_manifest.py apply; then
+            echo "Incremental build from an earlier cached build"
+          else
+            find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          fi
           coq_makefile -f _CoqProject -o Makefile
           make V=1 -j4
+          python3 ../scripts/coq_build_manifest.py write
 
       - name: Run full vacuity sweep
         run: make vacuity-audit

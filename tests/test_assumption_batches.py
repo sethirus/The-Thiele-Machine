@@ -127,6 +127,15 @@ def test_incomplete_write_is_not_reused(tmp_path):
     assert MODULE.load_cached(tmp_path, "k1", "Kernel.One", QUERIES) is None
 
 
+def test_prune_keeps_only_the_answers_in_use(tmp_path):
+    MODULE.save_cached(tmp_path, "k1", "Kernel.One", QUERIES, CLOSED, "")
+    MODULE.save_cached(tmp_path, "k2", "Kernel.One", QUERIES, CLOSED, "")
+    (tmp_path / "k3.pending").write_text("{}")
+    MODULE.prune_cache(tmp_path, {"k1"})
+    assert sorted(p.name for p in tmp_path.iterdir()) == ["k1.json"]
+    assert MODULE.load_cached(tmp_path, "k1", "Kernel.One", QUERIES) == (CLOSED, "")
+
+
 def test_failed_answer_cannot_be_saved(tmp_path):
     with pytest.raises(ValueError):
         MODULE.save_cached(tmp_path, "k1", "Kernel.One", QUERIES, "", "Error: failed")

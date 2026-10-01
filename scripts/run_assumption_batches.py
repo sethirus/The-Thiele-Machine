@@ -196,6 +196,14 @@ def load_cached(directory: Path, key: str, module: str,
     return output, stderr
 
 
+def prune_cache(directory: Path, keep: set[str]) -> None:
+    """Drop every saved answer this receipt did not use, so a cache carried
+    between runs does not grow without bound."""
+    for entry in directory.glob("*"):
+        if entry.is_file() and entry.stem not in keep:
+            entry.unlink()
+
+
 def coq_version() -> str:
     try:
         return subprocess.check_output(["coqtop", "--version"], text=True).strip()
@@ -333,6 +341,7 @@ def main() -> None:
         "groups": len(units), "reused_groups": len(reused), "executed_groups": len(executed),
         "cache_directory": cache_label,
     }, indent=2) + "\n")
+    prune_cache(cache, {unit["key"] for unit in units if unit["key"] is not None})
     print(f"[assumption-batch] all {len(queries)} queries checked and combined in order "
           f"({len(executed)} groups run, {len(reused)} reused)", flush=True)
 

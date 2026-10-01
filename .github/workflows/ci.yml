@@ -111,7 +111,12 @@ jobs:
             coq/Makefile
             coq/Makefile.conf
             coq/.Makefile.d
+            build/coq-build-manifest.json
           key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          # An earlier build of any source tree is a starting point; the
+          # build step rebuilds what changed (scripts/coq_build_manifest.py).
+          restore-keys: |
+            coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
 
       - name: Build Coq proof tree
         if: steps.cache-coq.outputs.cache-hit != 'true'
@@ -120,12 +125,20 @@ jobs:
           set -Eeuo pipefail
           cd coq
           rm -f Makefile Makefile.conf .Makefile.d
-          find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          # A partial cache restore (an earlier build) rebuilds exactly the
+          # sources whose content changed and their dependents; otherwise
+          # build from clean outputs.
+          if python3 ../scripts/coq_build_manifest.py apply; then
+            echo "Incremental build from an earlier cached build"
+          else
+            find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          fi
           coq_makefile -f _CoqProject -o Makefile
           # The clean serial path has been validated by the reproducibility
           # gate; use parallelism here so the shared cache primer completes
           # within the job budget.
           make V=1 -j4
+          python3 ../scripts/coq_build_manifest.py write
 
   # Phase 1a: proof verification on top of the shared Coq build.
   # No Coq rebuild here — restores the cache populated by build-coq.
@@ -178,6 +191,7 @@ jobs:
             coq/Makefile
             coq/Makefile.conf
             coq/.Makefile.d
+            build/coq-build-manifest.json
           key: coq-v2-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
 
       - name: Refresh Coq artefact mtimes
@@ -366,6 +380,7 @@ jobs:
             coq/Makefile
             coq/Makefile.conf
             coq/.Makefile.d
+            build/coq-build-manifest.json
           key: coq-v2-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
 
       - name: Refresh Coq artefact mtimes
@@ -503,7 +518,12 @@ jobs:
             coq/Makefile
             coq/Makefile.conf
             coq/.Makefile.d
+            build/coq-build-manifest.json
           key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          # An earlier build of any source tree is a starting point; the
+          # build step rebuilds what changed (scripts/coq_build_manifest.py).
+          restore-keys: |
+            coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
 
       - name: Refresh Coq artefact mtimes
         # The cache key pins source, toolchain, and vendor build digests.
@@ -524,9 +544,17 @@ jobs:
           set -Eeuo pipefail
           cd coq
           rm -f Makefile Makefile.conf .Makefile.d
-          find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          # A partial cache restore (an earlier build) rebuilds exactly the
+          # sources whose content changed and their dependents; otherwise
+          # build from clean outputs.
+          if python3 ../scripts/coq_build_manifest.py apply; then
+            echo "Incremental build from an earlier cached build"
+          else
+            find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          fi
           coq_makefile -f _CoqProject -o Makefile
           make V=1 -j4
+          python3 ../scripts/coq_build_manifest.py write
 
       - name: Verify extraction against committed artifacts
         run: python3 scripts/check_extraction.py --reference HEAD
