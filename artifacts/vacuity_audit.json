@@ -2,8 +2,8 @@
   "schema": "vacuity_audit.v1",
   "summary": {
     "error": 0,
-    "ok": 1066,
-    "total": 1066,
+    "ok": 1097,
+    "total": 1097,
     "vacuous_hyp": 0,
     "vacuous_true": 0
   },
@@ -20436,6 +20436,626 @@
         "succeeded": false
       },
       "statement": "current_local_log_cannot_decide_history",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Lemma",
+      "line": 98,
+      "name": "ram_base_step_projection",
+      "probe_a": {
+        "coq_stderr_tail": "default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__ram_base_step_projection__a.v\", line 3, characters 65-79:\nError: The reference ram_projection was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.224 secs (0.178u,0.046s)\nChars 107 - 277 [Theorem~_vacuity_probe_a_ram_b...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__ram_base_step_projection__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__ram_base_step_projection__b.v\", line 3, characters 65-79:\nError: The reference ram_projection was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.223 secs (0.174u,0.049s)\nChars 107 - 277 [Theorem~_vacuity_probe_b_ram_b...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__ram_base_step_projection__b.v",
+        "succeeded": false
+      },
+      "statement": "forall op s, ram_projection (ram_base_step op s) = ram_projection (ram_base_step op (ram_base_of (ram_projection s)))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Lemma",
+      "line": 106,
+      "name": "prog_untied_projection",
+      "probe_a": {
+        "coq_stderr_tail": "m,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__prog_untied_projection__a.v\", line 3, characters 65-79:\nError: The reference ram_projection was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.225 secs (0.172u,0.053s)\nChars 107 - 254 [Theorem~_vacuity_probe_a_prog_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__prog_untied_projection__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "m,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__prog_untied_projection__b.v\", line 3, characters 65-79:\nError: The reference ram_projection was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.227 secs (0.185u,0.042s)\nChars 107 - 254 [Theorem~_vacuity_probe_b_prog_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__prog_untied_projection__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog s, ram_projection (prog_untied_next prog s) = prog_base_next prog (ram_projection s)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Lemma",
+      "line": 115,
+      "name": "prog_tied_projection",
+      "probe_a": {
+        "coq_stderr_tail": "tem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__prog_tied_projection__a.v\", line 3, characters 63-77:\nError: The reference ram_projection was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.225 secs (0.181u,0.044s)\nChars 107 - 250 [Theorem~_vacuity_probe_a_prog_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__prog_tied_projection__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "tem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__prog_tied_projection__b.v\", line 3, characters 63-77:\nError: The reference ram_projection was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.224 secs (0.176u,0.047s)\nChars 107 - 250 [Theorem~_vacuity_probe_b_prog_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__prog_tied_projection__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog s, ram_projection (prog_tied_next prog s) = prog_base_next prog (ram_projection s)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Lemma",
+      "line": 125,
+      "name": "ram_init_surjective",
+      "probe_a": {
+        "coq_stderr_tail": "d to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__ram_init_surjective__a.v\", line 3, characters 129-131:\nError: Syntax error: [term] expected after '=' (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.225 secs (0.181u,0.044s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__ram_init_surjective__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "d to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__ram_init_surjective__b.v\", line 3, characters 129-131:\nError: Syntax error: [term] expected after '=' (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.222 secs (0.169u,0.052s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__ram_init_surjective__b.v",
+        "succeeded": false
+      },
+      "statement": "forall b : list nat * nat, snd b = 0 -> exists s, (ram_pc s = 0 /\\ ram_record s = []) /\\ ram_projection s = b",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Lemma",
+      "line": 151,
+      "name": "cover_run",
+      "probe_a": {
+        "coq_stderr_tail": "ogical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__cover_run__a.v\", line 3, characters 49-52:\nError: The reference RCM was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.226 secs (0.175u,0.05s)\nChars 107 - 281 [Theorem~_vacuity_probe_a_cover...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__cover_run__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "gical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__cover_run__b.v\", line 3, characters 49-52:\nError: The reference RCM was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.225 secs (0.172u,0.053s)\nChars 107 - 281 [Theorem~_vacuity_probe_b_cover...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__cover_run__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (M : RCM) (B : BaseMachine) (C : BaseCover M B) n m, base_state M B C (rc_run M n m) = Nat.iter n (b_next B) (base_state M B C m)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Lemma",
+      "line": 169,
+      "name": "prefixb_spec",
+      "probe_a": {
+        "coq_stderr_tail": "verriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__prefixb_spec__a.v\", line 3, characters 89-95:\nError: Unknown interpretation for notation \"_ ++ _\".\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.222 secs (0.182u,0.04s)\nChars 107 - 203 [Theorem~_vacuity_probe_a_prefi...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__prefixb_spec__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "erriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__prefixb_spec__b.v\", line 3, characters 89-95:\nError: Unknown interpretation for notation \"_ ++ _\".\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.222 secs (0.173u,0.048s)\nChars 107 - 203 [Theorem~_vacuity_probe_b_prefi...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__prefixb_spec__b.v",
+        "succeeded": false
+      },
+      "statement": "forall u v, prefixb u v = true <-> exists w, v = u ++ w",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Lemma",
+      "line": 180,
+      "name": "prefixb_app",
+      "probe_a": {
+        "coq_stderr_tail": "l} : list (nat * nat) :=\n        match l with\n        | nil => m\n        | (a :: l1)%list => (a :: app l1 m)%list\n        end) u w) = true\".\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.223 secs (0.175u,0.047s)\nChars 107 - 184 [Theorem~_vacuity_probe_a_prefi...] 0. secs (0.u,0.s)\nChars 185 - 191 [Proof.] 0. secs (0.u,0.s)\nChars 192 - 214 [(intros;~lazy;~exact~I).] 0.001 secs (0.001u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__prefixb_app__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__prefixb_app__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.222 secs (0.177u,0.044s)\nChars 107 - 184 [Theorem~_vacuity_probe_b_prefi...] 0. secs (0.u,0.s)\nChars 185 - 191 [Proof.] 0. secs (0.u,0.s)\nChars 192 - 222 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__prefixb_app__b.v",
+        "succeeded": false
+      },
+      "statement": "forall u w, prefixb u (u ++ w) = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 211,
+      "name": "tied_next_record",
+      "probe_a": {
+        "coq_stderr_tail": "h,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_next_record__a.v\", line 3, characters 59-69:\nError: The reference ram_record was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.222 secs (0.18u,0.042s)\nChars 107 - 255 [Theorem~_vacuity_probe_a_tied_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_next_record__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_next_record__b.v\", line 3, characters 59-69:\nError: The reference ram_record was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.224 secs (0.169u,0.054s)\nChars 107 - 255 [Theorem~_vacuity_probe_b_tied_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_next_record__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog s, ram_record (rc_next (TiedRAM prog) s) = ram_record s ++ tied_log prog (ram_projection s)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 226,
+      "name": "tied_program_records_overwrite",
+      "probe_a": {
+        "coq_stderr_tail": "t is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_program_records_overwrite__a.v\", line 3, characters 215-217:\nError: Syntax error: [term level 60] expected after '++' (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.228 secs (0.179u,0.048s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_program_records_overwrite__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "t is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_program_records_overwrite__b.v\", line 3, characters 215-217:\nError: Syntax error: [term level 60] expected after '++' (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.225 secs (0.181u,0.044s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_program_records_overwrite__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog s op old, nth_error prog (ram_pc s) = Some op -> cell_at (op_address op) s = Some old -> ram_record (rc_next (TiedRAM prog) s) = ram_record s ++ [(op_address op, old)]",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 237,
+      "name": "tied_record_grows",
+      "probe_a": {
+        "coq_stderr_tail": "lesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_record_grows__a.v\", line 3, characters 58-70:\nError: The reference record_grows was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.225 secs (0.183u,0.042s)\nChars 107 - 216 [Theorem~_vacuity_probe_a_tied_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_record_grows__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_record_grows__b.v\", line 3, characters 58-70:\nError: The reference record_grows was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.228 secs (0.183u,0.045s)\nChars 107 - 216 [Theorem~_vacuity_probe_b_tied_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_record_grows__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog, record_grows (TiedRAM prog) PrefixOrder ram_record",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 245,
+      "name": "tied_record_driven",
+      "probe_a": {
+        "coq_stderr_tail": "esystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_record_driven__a.v\", line 3, characters 59-72:\nError: The reference record_driven was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.227 secs (0.176u,0.05s)\nChars 107 - 238 [Theorem~_vacuity_probe_a_tied_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_record_driven__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "system,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_record_driven__b.v\", line 3, characters 59-72:\nError: The reference record_driven was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.227 secs (0.184u,0.043s)\nChars 107 - 238 [Theorem~_vacuity_probe_b_tied_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_record_driven__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog, record_driven (TiedRAM prog) (RAMBase prog) (TiedCover prog) ram_record",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 253,
+      "name": "tied_run_prefix",
+      "probe_a": {
+        "coq_stderr_tail": "h,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_run_prefix__a.v\", line 3, characters 71-81:\nError: The reference ram_record was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.229 secs (0.191u,0.037s)\nChars 107 - 272 [Theorem~_vacuity_probe_a_tied_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_run_prefix__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "th,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_run_prefix__b.v\", line 3, characters 71-81:\nError: The reference ram_record was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.23 secs (0.185u,0.044s)\nChars 107 - 272 [Theorem~_vacuity_probe_b_tied_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_run_prefix__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog n k s, prefixb (ram_record (rc_run (TiedRAM prog) n s)) (ram_record (rc_run (TiedRAM prog) (k + n) s)) = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Lemma",
+      "line": 269,
+      "name": "tied_step_cost",
+      "probe_a": {
+        "coq_stderr_tail": "ath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_step_cost__a.v\", line 3, characters 57-66:\nError: The reference step_cost was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.228 secs (0.178u,0.049s)\nChars 107 - 235 [Theorem~_vacuity_probe_a_tied_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_step_cost__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_step_cost__b.v\", line 3, characters 57-66:\nError: The reference step_cost was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.226 secs (0.184u,0.041s)\nChars 107 - 235 [Theorem~_vacuity_probe_b_tied_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_step_cost__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog m, step_cost (TiedRAM prog) m = length (tied_log prog (ram_projection m))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Lemma",
+      "line": 278,
+      "name": "record_nonempty_app",
+      "probe_a": {
+        "coq_stderr_tail": "se\n      | (_ :: _)%list => true\n      end\n   then true\n   else match v with\n        | nil => false\n        | (_ :: _)%list => true\n        end)\".\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.229 secs (0.186u,0.043s)\nChars 107 - 237 [Theorem~_vacuity_probe_a_recor...] 0. secs (0.u,0.s)\nChars 238 - 244 [Proof.] 0. secs (0.u,0.s)\nChars 245 - 267 [(intros;~lazy;~exact~I).] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__record_nonempty_app__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__record_nonempty_app__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.224 secs (0.176u,0.048s)\nChars 107 - 237 [Theorem~_vacuity_probe_b_recor...] 0. secs (0.u,0.s)\nChars 238 - 244 [Proof.] 0. secs (0.u,0.s)\nChars 245 - 275 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__record_nonempty_app__b.v",
+        "succeeded": false
+      },
+      "statement": "forall u v, record_nonempty (u ++ v) = orb (record_nonempty u) (record_nonempty v)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Lemma",
+      "line": 282,
+      "name": "nth_error_repeat_zero",
+      "probe_a": {
+        "coq_stderr_tail": "esystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__nth_error_repeat_zero__a.v\", line 3, characters 59-68:\nError: The reference nth_error was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.226 secs (0.174u,0.051s)\nChars 107 - 204 [Theorem~_vacuity_probe_a_nth_e...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__nth_error_repeat_zero__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__nth_error_repeat_zero__b.v\", line 3, characters 59-68:\nError: The reference nth_error was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.222 secs (0.18u,0.042s)\nChars 107 - 204 [Theorem~_vacuity_probe_b_nth_e...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__nth_error_repeat_zero__b.v",
+        "succeeded": false
+      },
+      "statement": "forall a, nth_error (repeat 0 (S a)) a = Some 0",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Lemma",
+      "line": 289,
+      "name": "first_write_log",
+      "probe_a": {
+        "coq_stderr_tail": "bound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__first_write_log__a.v\", line 3, characters 123-125:\nError: Syntax error: [term] expected after '=' (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.223 secs (0.173u,0.05s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__first_write_log__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "bound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__first_write_log__b.v\", line 3, characters 123-125:\nError: Syntax error: [term] expected after '=' (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.229 secs (0.183u,0.045s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__first_write_log__b.v",
+        "succeeded": false
+      },
+      "statement": "forall op rest, tied_log (op :: rest) (ram_projection (first_write_start op)) = [(op_address op, 0)]",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 301,
+      "name": "tied_honest_growing",
+      "probe_a": {
+        "coq_stderr_tail": "nd to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_honest_growing__a.v\", line 3, characters 68-70:\nError: Syntax error: [term] expected after '<>' (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.223 secs (0.171u,0.051s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_honest_growing__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "nd to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_honest_growing__b.v\", line 3, characters 68-70:\nError: Syntax error: [term] expected after '<>' (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.226 secs (0.183u,0.043s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_honest_growing__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog, prog <> [] -> HonestGrowingExtension (TiedRAM prog) (RAMBase prog) (TiedCover prog) PrefixOrder ram_record",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 322,
+      "name": "tied_threshold_decomposition",
+      "probe_a": {
+        "coq_stderr_tail": "t_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_threshold_decomposition__a.v\", line 3, characters 77-79:\nError: Syntax error: [term] expected after '<>' (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.224 secs (0.178u,0.046s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_threshold_decomposition__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "t_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_threshold_decomposition__b.v\", line 3, characters 77-79:\nError: Syntax error: [term] expected after '<>' (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.223 secs (0.182u,0.041s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_threshold_decomposition__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog, prog <> [] -> exists h, threshold_latch_factorization (TiedRAM prog) (RAMBase prog) (TiedCover prog) PrefixOrder ram_record h /\\ record_schedule_priced (TiedRAM prog) ram_record",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Lemma",
+      "line": 336,
+      "name": "tied_next_cert",
+      "probe_a": {
+        "coq_stderr_tail": "dpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_next_cert__a.v\", line 3, characters 57-64:\nError: The reference rc_cert was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.224 secs (0.172u,0.052s)\nChars 107 - 284 [Theorem~_vacuity_probe_a_tied_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_next_cert__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "dpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_next_cert__b.v\", line 3, characters 57-64:\nError: The reference rc_cert was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.224 secs (0.175u,0.049s)\nChars 107 - 284 [Theorem~_vacuity_probe_b_tied_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_next_cert__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog m, rc_cert (TiedRAM prog) (rc_next (TiedRAM prog) m) = orb (rc_cert (TiedRAM prog) m) (tied_event prog (ram_projection m))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 346,
+      "name": "tied_latch_factorization",
+      "probe_a": {
+        "coq_stderr_tail": "ult]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_latch_factorization__a.v\", line 3, characters 65-84:\nError: The reference latch_factorization was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.222 secs (0.18u,0.042s)\nChars 107 - 257 [Theorem~_vacuity_probe_a_tied_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_latch_factorization__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lt]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_latch_factorization__b.v\", line 3, characters 65-84:\nError: The reference latch_factorization was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.224 secs (0.178u,0.046s)\nChars 107 - 257 [Theorem~_vacuity_probe_b_tied_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_latch_factorization__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog, latch_factorization (TiedRAM prog) (RAMBase prog) (TiedCover prog) (tied_event prog)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 354,
+      "name": "tied_honest_round4",
+      "probe_a": {
+        "coq_stderr_tail": "und to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_honest_round4__a.v\", line 3, characters 67-69:\nError: Syntax error: [term] expected after '<>' (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.223 secs (0.177u,0.046s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_honest_round4__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "und to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_honest_round4__b.v\", line 3, characters 67-69:\nError: Syntax error: [term] expected after '<>' (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.224 secs (0.171u,0.052s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_honest_round4__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog, prog <> [] -> HonestExtension4 (TiedRAM prog) (RAMBase prog) (TiedCover prog)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 377,
+      "name": "untied_next_record",
+      "probe_a": {
+        "coq_stderr_tail": "ilesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__untied_next_record__a.v\", line 3, characters 61-71:\nError: The reference ram_record was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.225 secs (0.181u,0.043s)\nChars 107 - 223 [Theorem~_vacuity_probe_a_untie...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__untied_next_record__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ilesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__untied_next_record__b.v\", line 3, characters 61-71:\nError: The reference ram_record was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.224 secs (0.192u,0.031s)\nChars 107 - 223 [Theorem~_vacuity_probe_b_untie...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__untied_next_record__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog s, ram_record (rc_next (UntiedRAM prog) s) = ram_record s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 385,
+      "name": "untied_run_record_constant",
+      "probe_a": {
+        "coq_stderr_tail": "m,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__untied_run_record_constant__a.v\", line 3, characters 71-81:\nError: The reference ram_record was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.223 secs (0.187u,0.036s)\nChars 107 - 234 [Theorem~_vacuity_probe_a_untie...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__untied_run_record_constant__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "em,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__untied_run_record_constant__b.v\", line 3, characters 71-81:\nError: The reference ram_record was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.223 secs (0.172u,0.05s)\nChars 107 - 234 [Theorem~_vacuity_probe_b_untie...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__untied_run_record_constant__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog n s, ram_record (rc_run (UntiedRAM prog) n s) = ram_record s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 394,
+      "name": "untied_no_strict_record_write",
+      "probe_a": {
+        "coq_stderr_tail": "runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__untied_no_strict_record_write__a.v\", line 3, characters 72-101:\nError: The reference reachable_strict_record_write was not found\nin the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.225 secs (0.183u,0.041s)\nChars 107 - 237 [Theorem~_vacuity_probe_a_untie...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__untied_no_strict_record_write__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__untied_no_strict_record_write__b.v\", line 3, characters 72-101:\nError: The reference reachable_strict_record_write was not found\nin the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.224 secs (0.179u,0.045s)\nChars 107 - 237 [Theorem~_vacuity_probe_b_untie...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__untied_no_strict_record_write__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog, ~ reachable_strict_record_write (UntiedRAM prog) ram_record",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 400,
+      "name": "untied_no_record_write",
+      "probe_a": {
+        "coq_stderr_tail": "t]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__untied_no_record_write__a.v\", line 3, characters 65-87:\nError: The reference reachable_record_write was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.224 secs (0.176u,0.047s)\nChars 107 - 212 [Theorem~_vacuity_probe_a_untie...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__untied_no_record_write__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lt]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__untied_no_record_write__b.v\", line 3, characters 65-87:\nError: The reference reachable_record_write was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.225 secs (0.174u,0.05s)\nChars 107 - 212 [Theorem~_vacuity_probe_b_untie...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__untied_no_record_write__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog, ~ reachable_record_write (UntiedRAM prog)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 410,
+      "name": "untied_not_honest_growing",
+      "probe_a": {
+        "coq_stderr_tail": "ault]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__untied_not_honest_growing__a.v\", line 3, characters 70-86:\nError: The reference BoolPartialOrder was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.224 secs (0.178u,0.045s)\nChars 107 - 304 [Theorem~_vacuity_probe_a_untie...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__untied_not_honest_growing__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ault]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__untied_not_honest_growing__b.v\", line 3, characters 70-86:\nError: The reference BoolPartialOrder was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.222 secs (0.175u,0.046s)\nChars 107 - 304 [Theorem~_vacuity_probe_b_untie...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__untied_not_honest_growing__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog (P : BoolPartialOrder (list (nat * nat))), ~ HonestGrowingExtension (UntiedRAM prog) (RAMBase prog) (UntiedCover prog) P ram_record",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 418,
+      "name": "untied_not_honest_round4",
+      "probe_a": {
+        "coq_stderr_tail": "fault]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__untied_not_honest_round4__a.v\", line 3, characters 67-83:\nError: The reference HonestExtension4 was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.226 secs (0.176u,0.049s)\nChars 107 - 242 [Theorem~_vacuity_probe_a_untie...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__untied_not_honest_round4__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "fault]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__untied_not_honest_round4__b.v\", line 3, characters 67-83:\nError: The reference HonestExtension4 was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.222 secs (0.176u,0.045s)\nChars 107 - 242 [Theorem~_vacuity_probe_b_untie...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__untied_not_honest_round4__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog, ~ HonestExtension4 (UntiedRAM prog) (RAMBase prog) (UntiedCover prog)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 425,
+      "name": "untied_trivial_latch",
+      "probe_a": {
+        "coq_stderr_tail": "efault]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__untied_trivial_latch__a.v\", line 3, characters 61-80:\nError: The reference latch_factorization was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.226 secs (0.186u,0.039s)\nChars 107 - 256 [Theorem~_vacuity_probe_a_untie...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__untied_trivial_latch__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "efault]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__untied_trivial_latch__b.v\", line 3, characters 61-80:\nError: The reference latch_factorization was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.225 secs (0.183u,0.041s)\nChars 107 - 256 [Theorem~_vacuity_probe_b_untie...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__untied_trivial_latch__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog, latch_factorization (UntiedRAM prog) (RAMBase prog) (UntiedCover prog) (fun _ => false)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 438,
+      "name": "tied_untied_same_base_run",
+      "probe_a": {
+        "coq_stderr_tail": "default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_untied_same_base_run__a.v\", line 3, characters 73-87:\nError: The reference ram_projection was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.23 secs (0.185u,0.044s)\nChars 107 - 311 [Theorem~_vacuity_probe_a_tied_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_untied_same_base_run__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__tied_untied_same_base_run__b.v\", line 3, characters 73-87:\nError: The reference ram_projection was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.227 secs (0.18u,0.046s)\nChars 107 - 311 [Theorem~_vacuity_probe_b_tied_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__tied_untied_same_base_run__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog n s s', ram_projection s = ram_projection s' -> ram_projection (rc_run (TiedRAM prog) n s) = ram_projection (rc_run (UntiedRAM prog) n s')",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 451,
+      "name": "ram_record_axis_classification",
+      "probe_a": {
+        "coq_stderr_tail": "_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__ram_record_axis_classification__a.v\", line 3, characters 79-81:\nError: Syntax error: [term] expected after '<>' (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.223 secs (0.183u,0.04s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__ram_record_axis_classification__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__ram_record_axis_classification__b.v\", line 3, characters 79-81:\nError: Syntax error: [term] expected after '<>' (in [term]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.225 secs (0.184u,0.04s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__ram_record_axis_classification__b.v",
+        "succeeded": false
+      },
+      "statement": "forall prog, prog <> [] -> HonestGrowingExtension (TiedRAM prog) (RAMBase prog) (TiedCover prog) PrefixOrder ram_record /\\ HonestExtension4 (TiedRAM prog) (RAMBase prog) (TiedCover prog) /\\ latch_factorization (TiedRAM prog) (RAMBase prog) (TiedCover prog) (tied_event prog) /\\ (forall P, ~ HonestGrowingExtension (UntiedRAM prog) (RAMBase prog) (UntiedCover prog) P ram_record) /\\ ~ HonestExtension4 (UntiedRAM prog) (RAMBase prog) (UntiedCover prog) /\\ (forall n s, ram_projection (rc_run (TiedRAM prog) n s) = ram_projection (rc_run (UntiedRAM prog) n s))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "kind": "Theorem",
+      "line": 486,
+      "name": "record_axis_separates_ram",
+      "probe_a": {
+        "coq_stderr_tail": "ystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__record_axis_separates_ram__a.v\", line 3, characters 70-77:\nError: The reference rc_init was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.224 secs (0.178u,0.046s)\nChars 107 - 423 [Theorem~_vacuity_probe_a_recor...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__record_axis_separates_ram__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__RAMRecordAxis__record_axis_separates_ram__b.v\", line 3, characters 70-77:\nError: The reference rc_init was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RAM...] 0.225 secs (0.179u,0.046s)\nChars 107 - 423 [Theorem~_vacuity_probe_b_recor...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RAMRecordAxis__record_axis_separates_ram__b.v",
+        "succeeded": false
+      },
+      "statement": "exists prog s n, rc_init (TiedRAM prog) s /\\ rc_init (UntiedRAM prog) s /\\ (forall k, ram_projection (rc_run (TiedRAM prog) k s) = ram_projection (rc_run (UntiedRAM prog) k s)) /\\ ram_record (rc_run (TiedRAM prog) n s) <> ram_record (rc_run (UntiedRAM prog) n s)",
       "status": "ok"
     }
   ]
