@@ -26,7 +26,7 @@ but the report explicitly limits a structurally built-in or definitional fact.
 | 2.1 | PROVED and REFUTED | threshold decomposition proved; single-latch decomposition refuted | pass | scope | pass | pass | pass |
 | 2.2 | PROVED and REFUTED | actual revocation lies outside permanence; price-transfer claim refuted | pass | pass | pass | pass | pass |
 | 2.3 | REFUTED | probabilistic uniqueness up to schedule fails | pass | pass | pass | pass | pass |
-| 2.4 | PROVED weak laws and L adapter; RAM adapter CLOSABLE | frozen equivalence laws and the decidable L step adapter proved; RAM adapter in progress | scope | pass | pass | pass | pass |
+| 2.4 | PROVED | frozen equivalence laws and all four adapters (TM, VM, Cook-Reckhow RAM, L) proved | scope | pass | pass | pass | pass |
 | 3.1 | BLOCKED; Rice PROVED | three recursion strategies fail at runtime evaluation of computed guest code; concrete `rice_prog` reduction closes | pass | pass | pass | pass | pass |
 | 4.1 | PROVED BUT KNOWN | under exact forced-price class, no price is forced beyond merges | pass | scope | pass | pass | pass |
 | 4.2 | PARTIAL | permanent finite write implies logical noninjectivity, not universal economic, cryptographic, or heat payment | pass | pass | pass | pass | pass |

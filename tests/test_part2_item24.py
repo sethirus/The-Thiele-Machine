@@ -35,7 +35,7 @@ def test_item24_reports_named_scope_without_fake_adapters() -> None:
     text = RESULT.read_text()
     assert "TM adapter | PROVED" in text
     assert "VM adapter | PROVED" in text
-    assert "RAM adapter | BLOCKED" in text
+    assert "RAM adapter | PROVED" in text
     assert "L adapter | PROVED" in text
     assert "no prose adapter was substituted" in text
     assert "Adversarial read: PASS" in text
@@ -52,4 +52,19 @@ def test_item24_l_adapter_closes() -> None:
     ):
         assert f"Theorem {name}" in text
         assert f"Print Assumptions {name}." in text
+    assert "Admitted." not in text and "Axiom " not in text
+
+
+def test_item24_ram_adapter_closes() -> None:
+    text = (ROOT / "coq/kernel/foundation/CrossBaseGranularityRAM.v").read_text()
+    for name in (
+        "ram_store_then_load",
+        "ram_jump_pos_taken",
+        "ram_halted_stutters",
+        "ram_base_has_initial",
+        "round4_ram_holds",
+    ):
+        assert f"Theorem {name}" in text
+        assert f"Print Assumptions {name}." in text
+    assert "RLoadInd" in text and "RStoreInd" in text and "RJumpPos" in text
     assert "Admitted." not in text and "Axiom " not in text
