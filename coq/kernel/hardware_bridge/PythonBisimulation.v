@@ -6,7 +6,7 @@
     shared PC and mu behavior, plus a simple correspondence surface that also
     tracks error and module count.
 
-    The executable Python runner is still important because that is what the
+    The executable Python runner is important because that is what the
     repo actually runs. But the formal content here is the abstract bisimulation
     invariant, not the test harness. *)
 
@@ -153,7 +153,7 @@ Qed.
 
     The abstract PC/μ model above is intentionally small.  For full-state
     refinement work we also expose a Python-facing mirror of the VM state
-    surface.  This mirror is still pure Coq: it is the proof-facing model
+    surface.  This mirror is pure Coq: it is the proof-facing model
     corresponding to the richer runtime protocol layer used by the generated
     Python wrapper.
 *)

@@ -91,13 +91,10 @@ Definition separation_program : list vm_instruction := [
 
 (** 5. Properties of the Separation Program *)
 
-(** The empty initial graph has module count zero by unfolding its definition. The fact is inlined below because this standalone lemma had no downstream callers. *)
 (* [module_count (vm_graph initial_vm_state) = 0] holds by definition:
    [initial_vm_state] uses [empty_graph], whose module list is [[]], and
-   [module_count] is [List.length] of that list. The standalone lemma
-   [initial_module_count] had no callers and reflected this transparency
-   only; any consumer can [unfold module_count, initial_vm_state,
-   empty_graph; simpl; reflexivity] inline. *)
+   [module_count] is [List.length] of that list; [unfold module_count,
+   initial_vm_state, empty_graph; simpl; reflexivity] discharges it. *)
 
 (** Adding a module conses one entry onto the graph's module list, so [module_count] increases by one. *)
 Lemma graph_add_module_increases_count : forall g region axioms g' mid,
@@ -205,7 +202,7 @@ Qed.
     flag, certification status) — yet categorically distinct, differing in
     their morphism graph structure.
 
-    This is the formal content of plan item 47: the categorical morphism layer
+    This is the formal content of the claim that the categorical morphism layer
     (MORPH opcodes 0x27–0x2D) adds genuine semantic content beyond Turing
     computation. Morphism structure is first-class in the instruction set, not
     merely an encoding on tape or in registers.

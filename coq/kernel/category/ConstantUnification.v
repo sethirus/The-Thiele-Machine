@@ -87,10 +87,9 @@ Definition T : R := 1.           (* Temperature (normalized) *)
     the definitions are supposed to mean anything physical. The proofs are the
     obvious real-arithmetic ones.
 *)
-(* tau_mu_pos / d_mu_pos / T_pos removed: each was a definitional unfold-and-lra
-   shim over a normalized constant (= 1). Every former use site now inlines the
-   one-line proof [unfold X; lra]. k_B_pos is kept because k_B = / 100 needs
-   Rinv_0_lt_compat, so it is non-definitional. *)
+(* Positivity of tau_mu, d_mu and T is the one-line proof [unfold X; lra],
+   since each is a normalized constant (= 1). k_B_pos is stated separately
+   because k_B = / 100 needs Rinv_0_lt_compat, so it is non-definitional. *)
 
 Lemma k_B_pos : k_B > 0.
 Proof. unfold k_B. apply Rinv_0_lt_compat. lra. Qed.

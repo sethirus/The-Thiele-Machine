@@ -1,15 +1,15 @@
-"""Complexity frontier: pushing past what test_structural_advantage.py established.
+"""Complexity frontier: extending test_structural_advantage.py.
 
-WHAT WAS PROVEN THERE
----------------------
+ESTABLISHED IN test_structural_advantage.py
+-------------------------------------------
 For k=2 factored search (N×N grid):
   blind:   N² steps, 0 μ
   sighted: 2N steps, 18 μ
   ratio:   N/2  (grows without bound)
   μ cost:  18   (constant in N)
 
-THREE OPEN QUESTIONS THIS FILE PROBES
---------------------------------------
+THREE QUESTIONS THIS FILE PROBES
+--------------------------------
 1. k-FACTOR GENERALIZATION
    Does k-factor decomposition generalize? For k dimensions each of size N:
      blind:   N^k steps,  0 μ

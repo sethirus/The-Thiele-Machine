@@ -428,7 +428,7 @@ Qed.
     The classical bound S ≤ 2 follows from factorizability → minor constraints.
     The quantum Tsirelson bound S ≤ 2√2 requires μ>0 operations (non-factorizable).
 
-    We now state the correct theorem for the algebraic bound.
+    The correct theorem for the algebraic bound follows.
 *)
 
 (** HELPER: Base case property *)

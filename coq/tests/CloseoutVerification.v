@@ -8,7 +8,7 @@
     losing a [Qed] proof) shows up immediately as a build failure of
     this file.
 
-    The opcode coverage state at the time these checkpoints were written:
+    The opcode coverage state:
 
       - 36 opcodes unconditional ([SupportedOpcode] + CALL + RET +
         CHSH_TRIAL + TENSOR_SET + TENSOR_GET + LASSERT).
@@ -31,7 +31,7 @@ From KamiHW Require Import RTLGapRegistry.
 (** Checkpoint 1: zero gaps in the RTL registry.
 
     The [rtl_gap_registry] from [KamiHW.RTLGapRegistry] tracks any
-    opcode whose RTL/Kami refinement is still incomplete. The registry
+    opcode whose RTL/Kami refinement is incomplete. The registry
     is empty; this lemma certifies that fact and fails to build if a gap is
     introduced. *)
 Theorem closeout_zero_gaps :

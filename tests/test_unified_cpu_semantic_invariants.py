@@ -62,7 +62,7 @@ def test_receipt_checker_wiring_is_receipt_driven() -> None:
     """Kami RTL must not contain a receipt_integrity_checker wired to instr_valid.
 
     In the Kami-extracted CPU, receipt semantics are handled by the Coq proof layer
-    (Abstraction.v). The RTL must not contain the old unified-CPU wiring anti-pattern.
+    (Abstraction.v). The RTL must not contain the unified-CPU wiring anti-pattern.
     """
     text = RTL_FILE.read_text(encoding="utf-8")
     assert ".receipt_valid(instr_valid)" not in text, (

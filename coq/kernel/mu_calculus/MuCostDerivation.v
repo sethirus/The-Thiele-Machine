@@ -360,7 +360,7 @@ Qed.
 (**
 
     BRIDGE CLOSURE:
-    [supplied_delta_schedule_consistent] (Part 5) is a consistency check: if
+    [supplied_delta_schedule_consistent] is a consistency check: if
     delta equals the information expression, then [proposed_selected_cost]
     returns the stated syntactic value. The remaining bridge question is
     whether the costs are physically necessary or merely consistent with

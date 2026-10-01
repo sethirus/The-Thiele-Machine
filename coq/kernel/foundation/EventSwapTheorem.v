@@ -1,4 +1,4 @@
-(** Closed outcomes for Part 1, Item 1.3: the frozen swap theorem. *)
+(** Proved outcomes for the swap theorem of [EventSwapCore]. *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia.
 Import ListNotations.
@@ -10,27 +10,27 @@ From Kernel Require Import ShadowPricing ProjectionNonExistence.
 
 (** The counterexample starts from the ordinary initialized VM state, whose
     register file has the intended fixed width. *)
-Lemma item1_3_init_register_width :
+Lemma init_state_register_width :
   length (vm_regs init_state) = REG_COUNT.
 Proof. reflexivity. Qed.
 
-Lemma item1_3_graph_latchable_fixed : latchable eg_graph_reading.
+Lemma eg_graph_reading_latchable : latchable eg_graph_reading.
 Proof.
   split.
   - exact (proj1 eg_graph_latchable).
   - exists init_state, (instr_pnew [] 0). split; reflexivity.
 Qed.
 
-Theorem item1_3_swap_refuted : ~ swap_preserves_main_results.
+Theorem swap_preserves_main_results_refuted : ~ swap_preserves_main_results.
 Proof.
   intro Hswap.
-  destruct (Hswap eg_graph_reading item1_3_graph_latchable_fixed)
+  destruct (Hswap eg_graph_reading eg_graph_reading_latchable)
     as [Hpriced _].
   specialize (Hpriced init_state (instr_pnew [] 0) eq_refl eq_refl).
   simpl in Hpriced. lia.
 Qed.
 
-Lemma item1_3_certification_permanent :
+Lemma certification_reading_permanent :
   permanent_reading certification_reading.
 Proof.
   intros s i Hcert.
@@ -39,12 +39,12 @@ Proof.
   destruct i; simpl; exact Hcert || reflexivity.
 Qed.
 
-Lemma item1_3_certification_written : written certification_reading.
+Lemma certification_reading_written : written certification_reading.
 Proof.
   exists init_state, (instr_certify 0). split; reflexivity.
 Qed.
 
-Lemma item1_3_certification_hidden_from_bare :
+Lemma certification_hidden_from_bare :
   hidden_from_bare certification_reading.
 Proof.
   intros [read Hread].
@@ -57,23 +57,23 @@ Proof.
   exact (Hno vm_bare_observable_collision).
 Qed.
 
-Theorem item1_3_certification_sanity : certification_main_results.
+Theorem certification_main_results_hold : certification_main_results.
 Proof.
   split.
   - split.
-    + exact item1_3_certification_permanent.
-    + exact item1_3_certification_written.
+    + exact certification_reading_permanent.
+    + exact certification_reading_written.
   - split.
     + intros s i Hbefore Hafter.
       exact (no_free_certification_certified s i Hbefore Hafter).
     + split.
       * exact cert_not_function_of_forget.
       * split.
-        -- exact item1_3_certification_hidden_from_bare.
+        -- exact certification_hidden_from_bare.
         -- split.
            ++ exact vm_bare_shadow_cannot_price_exactly.
            ++ exact vm_forget_shadow_cannot_price_exactly.
 Qed.
 
-Print Assumptions item1_3_swap_refuted.
-Print Assumptions item1_3_certification_sanity.
+Print Assumptions swap_preserves_main_results_refuted.
+Print Assumptions certification_main_results_hold.

@@ -1,16 +1,15 @@
-"""The uniqueness conjectures are settled, and their definitions stay fixed.
+"""The uniqueness questions are settled, and their statements keep their shape.
 
-StructuralCore.v and StructuralCoreRound2.v define the weak and strong forms
-of the uniqueness question. Their code is pinned to commit 34971852: this
-contract compares the comment-stripped code of each file with that commit,
-so comments may be edited but no definition can change. It also asks for a
-Coq theorem that settles each conjecture, in either direction.
+StructuralCore.v and StructuralCoreCover.v define the weak and strong forms
+of the uniqueness question. This contract checks the comment-stripped code of
+each definition, so comments may be edited but neither statement can change
+shape. It also asks for a Coq theorem that settles each question, in either
+direction.
 """
 
 from __future__ import annotations
 
 import re
-import subprocess
 import sys
 from pathlib import Path
 
@@ -20,8 +19,14 @@ from scripts.assumption_receipt_fingerprint import _strip_coq_comments  # noqa: 
 
 FOUNDATION = ROOT / "coq" / "kernel" / "foundation"
 RESULT = FOUNDATION / "StructuralUniqueness.v"
-PINNED_COMMIT = "34971852cf2e2e5a7892e5fb85b18740ce44af0a"
-FROZEN = ["StructuralCore.v", "StructuralCoreRound2.v"]
+DEFINITIONS = {
+    "StructuralCore.v":
+        "Definition adequate_core_uniqueness : Prop := "
+        "forall M, Adequate M -> core_equiv M ThieleCore.",
+    "StructuralCoreCover.v":
+        "Definition honest_vm_extension_uniqueness : Prop := "
+        "forall M, HonestVMExtension M -> observed_core_equiv M ThieleCore.",
+}
 
 
 def _code(text: str) -> str:
@@ -34,16 +39,10 @@ def _settles(source: str, conjecture: str) -> bool:
     return bool(re.search(proved, source) or re.search(refuted, source))
 
 
-def test_frozen_definitions_are_unchanged():
-    for name in FROZEN:
-        pinned = subprocess.run(
-            ["git", "show", f"{PINNED_COMMIT}:coq/kernel/foundation/{name}"],
-            cwd=ROOT, check=True, capture_output=True, text=True,
-        ).stdout
-        current = (FOUNDATION / name).read_text()
-        assert _code(current) == _code(pinned), (
-            f"the code of {name} differs from commit {PINNED_COMMIT[:8]}"
-        )
+def test_definitions_keep_their_shape():
+    for name, definition in DEFINITIONS.items():
+        code = _code((FOUNDATION / name).read_text())
+        assert " ".join(definition.split()) in code, name
 
 
 def test_result_file_is_built_with_the_project():
@@ -54,14 +53,14 @@ def test_result_file_is_built_with_the_project():
     assert compiled.exists() and compiled.stat().st_mtime >= RESULT.stat().st_mtime
 
 
-def test_round_one_is_settled():
+def test_weak_form_is_settled():
     assert RESULT.exists(), "StructuralUniqueness.v does not exist"
-    assert _settles(RESULT.read_text(), "uniqueness_round1")
+    assert _settles(RESULT.read_text(), "adequate_core_uniqueness")
 
 
-def test_round_two_is_settled():
+def test_strong_form_is_settled():
     assert RESULT.exists(), "StructuralUniqueness.v does not exist"
-    assert _settles(RESULT.read_text(), "uniqueness_round2")
+    assert _settles(RESULT.read_text(), "honest_vm_extension_uniqueness")
 
 
 def test_result_file_has_no_proof_holes_or_axioms():

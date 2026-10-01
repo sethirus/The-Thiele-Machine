@@ -27,7 +27,7 @@
     completion, the self-interpreter and Rice reduction, the pointer
     observable models, and the five reductions live in coq/kernel.
     coq/kernel/aggregators/MasterSummary.v is the audit-facing index. The
-    Kami snapshot model in Section 6H is an earlier, snapshot-level
+    Kami snapshot model in Section 6H is a snapshot-level
     refinement; the current hardware bridge is coq/kami_hw
     (driven_step_wf, driven_trace_commutes, fsm_retirement_refinement).
 
@@ -867,7 +867,7 @@ Open Scope list_scope.
        operations (bad addresses, trap PC from failed LASSERT, etc.).
 
    10. PROTOTYPE FIELDS (vm_logic_acc, vm_mstatus): Logic accumulator and
-       machine-status register. Currently initialized to zero and not
+       machine-status register. Initialized to zero and not
        modified by any instruction — reserved for future XOR-rank and
        privileged-mode extensions. No corresponding hardware fields in
        KamiSnapshot yet (noted as prototype gaps in abs_phase1).
@@ -4284,13 +4284,6 @@ Proof.
   rewrite Heq. reflexivity.
 Qed.
 
-(** The four [advance_state_*_eq] field-projection helpers used to live here.
-    Each had a single bundle-internal caller (the matching [vm_apply_pnew_*]
-    lemma below), so the proof of [advance_state] preservation has been
-    inlined directly into that caller — the helper added no proof content
-    beyond [unfold advance_state; simpl; reflexivity]. The canonical
-    statements still live in [coq/NecessityOfMuLedger.v]. *)
-
 Lemma vm_apply_pnew_mem_preserved :
   forall s r c, (vm_apply s (instr_pnew r c)).(vm_mem) = s.(vm_mem).
 Proof.
@@ -5125,13 +5118,6 @@ Proof.
   - unfold set_cert, abs_zero, po1_init. simpl. discriminate.
 Qed.
 
-(** The four projection-forgetfulness witnesses [P_strict_forgets_mu],
-    [P_strict_forgets_cert], [P_cost_forgets_cert], [P_cert_forgets_mu]
-    used to live here. Each had exactly one bundle-internal caller (the
-    corresponding bullet of [mu_ledger_minimality] below); the field-erasure
-    fact is now supplied inline at that bullet. The canonical statements
-    remain in [coq/kernel/nfi/NecessityAbstract.v]. *)
-
 Record FullMuLedgerShadow := mk_full_mu_ledger {
   fml_mem       : list nat;
   fml_regs      : list nat;
@@ -5720,13 +5706,6 @@ Lemma partition_ops_mu_free :
 Proof.
   intros. split; [reflexivity | split; intros; subst; reflexivity].
 Qed.
-
-(** The standalone helper [reveal_cost_positive] used to live here. It had
-    no bundle-internal callers and only restated the definitional fact that
-    [mu_cost_of_instr (instr_reveal _ _ _ _) = 1 + bits]; users that need
-    the bound unfold [mu_cost_of_instr] directly. The canonical entry point
-    for cost-positivity reasoning lives in
-    [coq/kernel/foundation/MuCostModel.v]. *)
 
 (** Observables and equivalence *)
 Definition Observable (s : VMState) (mid : nat) : option (list nat * nat) :=
@@ -6337,12 +6316,6 @@ Qed.
 
 Lemma born_probability_range : forall z, -1 <= z <= 1 -> 0 <= born_probability z <= 1.
 Proof. intros z Hz. unfold born_probability. lra. Qed.
-
-(** The [born_probability_complement] identity (P(z) + P(-z) = 1) used to
-    live here with no bundle-internal callers. Its content collapses to a
-    one-line [lra] after [unfold born_probability]; any consumer can derive
-    it on the spot. The canonical statement is registered under the
-    Born-rule linearity module in [coq/kernel/quantum/]. *)
 
 Theorem born_rule_unique :
   forall P : ProbabilityRule,
@@ -7592,7 +7565,7 @@ Definition python_step_projection (py_s : PythonState) (instr : vm_instruction) 
      py_mu := (vm_apply coq_s instr).(vm_mu);
      py_error := (vm_apply coq_s instr).(vm_err) |}.
 
-(** Backward-compat alias. *)
+(** Alias for [python_step_projection]. *)
 Definition python_step := python_step_projection.
 
 (** μ grows on every step — Coq side always matches Python.
@@ -7608,7 +7581,7 @@ Proof.
   pose proof (vm_apply_mu coq_s instr). lia.
 Qed.
 
-(** Backward-compat alias. *)
+(** Alias for [python_projection_mu_invariant]. *)
 Definition python_bisimulation_mu_invariant := python_projection_mu_invariant.
 
 (** -- Hardware Projection -- *)
@@ -7638,7 +7611,7 @@ Proof.
   pose proof (vm_apply_mu coq_s instr). lia.
 Qed.
 
-(** Backward-compat alias. *)
+(** Alias for [hw_projection_mu_commutation]. *)
 Definition hw_bisimulation_mu_commutation := hw_projection_mu_commutation.
 
 (** Three-layer μ-monotonicity: one step, three witnesses, one receipt.
@@ -7661,7 +7634,7 @@ Proof.
   repeat split; lia.
 Qed.
 
-(** Backward-compat alias. *)
+(** Alias for [three_layer_mu_projection]. *)
 Definition three_layer_isomorphism := three_layer_mu_projection.
 
 (** =========================================================================
@@ -7847,7 +7820,7 @@ Section ThieleCPU.
     UpdateVector memv addr val.
 
   (** The complete Kami MODULE definition for the Thiele CPU.
-      In this standalone file it is an earlier prototype of the hardware
+      In this standalone file it is a prototype of the hardware
       definition. The hardware that is extracted and synthesized is
       coq/kami_hw's canonical_cpu_module, not this module.
       ~985 lines of Kami DSL covering the 47 synthesized opcodes for
@@ -8692,7 +8665,7 @@ Definition abs_phase1 (s : KamiSnapshot) : VMState :=
      vm_certified := snap_certified s
   |}.
 
-(** Backwards-compat alias *)
+(** Alias for [abs_phase1] *)
 Definition abs_snapshot := abs_phase1.
 
 (** Default CSRs — matches abs_phase1 zeroed CSRs *)
@@ -8706,11 +8679,6 @@ Definition kami_sim_rel (ks : KamiSnapshot) (vs : VMState) : Prop :=
 (** Stack-pointer register index: r(RegCount-1) = r15 by convention,
     matching coq/kami_hw/Abstraction.v's parametric definition. *)
 Definition kami_sp_reg : nat := RegCount - 1.
-
-(** The standalone bound [kami_sp_reg < RegCount] used to live here with
-    no bundle-internal callers — the value [RegCount - 1] makes the bound
-    a definitional consequence of [RegCount > 0]. The canonical statement
-    lives in [coq/kami_hw/Abstraction.v]. *)
 
 (** Default hardware advance: increment PC by 1, add cost to mu. *)
 Definition snap_advance_default (hs : KamiSnapshot) (cost : nat) : KamiSnapshot :=
@@ -9754,7 +9722,7 @@ Proof.
   intros instr ks. apply kami_step_mu_cost.
 Qed.
 
-(** Backward-compat aliases for older proof references.
+(** Aliases of the μ-simulation theorems.
     These aliases refer to μ-simulation only. *)
 Definition per_opcode_simulation := per_opcode_mu_simulation.
 Definition all_instructions_simulate := all_instructions_mu_simulate.
@@ -10284,7 +10252,7 @@ Definition discrete_derivative_scalar (s : VMState) (sc : SimplicialComplex4D)
   | w :: _ => (f w - f v)%R
   end.
 
-(* Backward-compatible alias used throughout this file. *)
+(* Alias of discrete_derivative_scalar used throughout this file. *)
 Definition discrete_derivative_local := discrete_derivative_scalar.
 
 Lemma discrete_derivative_position_independent : forall s sc f μ v,
@@ -10948,7 +10916,7 @@ Qed.
     SECTION 6I-B-II-A: STAR COMPLEX AND DIRECTION-AWARE ZERO DERIVATIVE
     =========================================================================
 
-    Ported from kernel/EinsteinEquationsFull.v. Zero Admitted.
+    Mirrors kernel/EinsteinEquationsFull.v. Zero Admitted.
 
     STAR COMPLEX: a DirectedSimplicialComplex4D with center vertex v and
     four neighbors w0..w3, one per coordinate direction. Each direction μ
@@ -11436,7 +11404,7 @@ Qed.
 (* SCOPE NOTE: alias for gravitational_coupling_unit_convention under the
    summary name used locally in this standalone file. *)
 (** Corollary: the Einstein coupling factor equals 1 in computational units. *)
-(* SAFE: alias for gravitational_coupling_unit_convention — backward-compat export in standalone summary file, see SCOPE NOTE above *)
+(* SAFE: alias for gravitational_coupling_unit_convention under the summary name used in this standalone file, see SCOPE NOTE above *)
 Corollary einstein_coupling_one :
   (8 * PI * gravitational_constant)%R = 1%R.
 Proof.
@@ -11447,7 +11415,7 @@ Qed.
     SECTION 6J-A: DIRECTION-AWARE FINITE DIFFERENCES
     =========================================================================
 
-    The earlier scalar finite difference uses one neighbor relation.
+    The scalar finite difference uses one neighbor relation.
     This record instead stores a separate edge list for each direction index.
     The resulting definitions can distinguish direction-indexed differences
     when the supplied edge lists differ.
@@ -11599,7 +11567,7 @@ Qed.
     SECTION 6J-B: STAR COMPLEX AND DIRECTION-AWARE ZERO DERIVATIVE
     =========================================================================
 
-    Ported from kernel/EinsteinEquationsFull.v.
+    Mirrors kernel/EinsteinEquationsFull.v.
     Placed here because directional_derivative (Section 6J-A) must be defined
     first. Zero Admitted.
 
@@ -12131,13 +12099,6 @@ Lemma minsky_vm_apply_add_tc :
       (write_reg s dst (word64_add (read_reg s rs1) (read_reg s rs2)))
       s.(vm_mem) s.(vm_err).
 Proof. intros. unfold vm_apply. reflexivity. Qed.
-
-(** The [minsky_vm_apply_sub_tc] dispatch helper used to live here with a
-    single bundle-internal caller (the third bullet of
-    [thiele_isa_turing_complete_via_minsky_tc] below). Its content — that
-    [vm_apply s (instr_sub …)] reduces to the [advance_state_rm] form — is
-    a single [unfold vm_apply; reflexivity], inlined directly at the
-    caller. *)
 
 (** vm_apply dispatches correctly for jnez (register nonzero → jump to tgt) *)
 Lemma minsky_vm_apply_jnez_nz_tc :
@@ -13178,7 +13139,7 @@ Qed.
     SECTION 15A: ISA-LEVEL TM STEP COMPILATION
     =========================================================================
 
-    This section closes the distinction between the earlier encoding-level
+    This section closes the distinction between an encoding-level
     simulation and a program that actually executes VM instructions. The
     staged compiler emits a finite sequence of classical [vm_instruction]
     values, and [run_vm] applies that sequence to the encoded configuration.
@@ -14321,7 +14282,7 @@ Fixpoint acm_run_tc {S : Type} (M : AbstractCertMachine_tc S)
   end.
 
 (** =========================================================================
-    PART 1: THE UNIVERSALITY THEOREM
+    THE UNIVERSALITY THEOREM
     ========================================================================= *)
 
 (** abstract_nfi_tc: any A3 machine starting uncertified and ending
@@ -14360,7 +14321,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    PART 2: COST BOUND — CERT-ADDR SETTERS COST ≥ 1
+    COST BOUND — CERT-ADDR SETTERS COST ≥ 1
     ========================================================================= *)
 
 Lemma cert_addr_setter_cost_pos_nfi_tc :
@@ -14372,7 +14333,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    PART 3: THE THIELE VM IS AN INSTANCE OF AbstractCertMachine_tc
+    THE THIELE VM IS AN INSTANCE OF AbstractCertMachine_tc
     ========================================================================= *)
 
 (** thiele_non_cert_addr_setter_preserves_nfi_tc:
@@ -14452,7 +14413,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    PART 4: THIELE VM CONSEQUENCES
+    THIELE VM CONSEQUENCES
     ========================================================================= *)
 
 Theorem thiele_abstract_nfi_tc :
@@ -14495,7 +14456,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    PART 5: STRUCTURAL LOWER BOUND (no_free_certification)
+    STRUCTURAL LOWER BOUND (no_free_certification)
     =========================================================================
 
     The lower bound follows from the named transition observation:
@@ -14531,7 +14492,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    PART 6: TRACE-LEVEL LOWER BOUND — THE KEY GAP CLOSURE
+    TRACE-LEVEL LOWER BOUND — THE KEY GAP CLOSURE
     =========================================================================
 
     No finite sequence of zero-cost instructions can produce cert_addr ≠ 0.
@@ -14582,7 +14543,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    PART 7: THE vm_certified CHANNEL
+    THE vm_certified CHANNEL
     ========================================================================= *)
 
 (** no_free_certification_certified_nfi_tc: structural lower bound for
@@ -14613,7 +14574,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    PART 8: MASTER THEOREM — BOTH CERTIFICATION CHANNELS
+    MASTER THEOREM — BOTH CERTIFICATION CHANNELS
     =========================================================================
 
     [certification_requires_positive_mu_nfi_tc] combines the two VM-local

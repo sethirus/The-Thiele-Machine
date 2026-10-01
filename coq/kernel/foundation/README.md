@@ -78,7 +78,7 @@ imports something here.
 | `VMDynamicEvalTarget.v` | Decoder, fuel-bounded evaluator, and specialization constructor for the self-interpreted guest fragment (definitions) |
 | `VMDynamicEval.v` | Verified numeric dispatch and semantic s-m-n for the self-interpreted guest fragment |
 | `VMRecursionTarget.v` | Exact recursion-theorem and Rice targets for the self-interpreted guest; `vm_guest_recursion_theorem` is a `Prop` definition here |
-| `VMRecursionAudit.v` | Closed execution and Rice outcomes adjacent to the recursion-theorem target |
+| `VMRecursionAudit.v` | Execution and Rice outcomes adjacent to the recursion-theorem target |
 | `VMMMAReduction.v` | Repeated output-preserving reduction of alternate Minsky machines to three counters |
 | `MMAOutputEpilogue.v` | Redirects every exit of an alternate Minsky program through an epilogue that moves counter zero into a fresh final counter |
 | `VMMMA3GuestCompiler.v` | Direct compiler from three-counter alternate Minsky machines to the four-register guest |
@@ -91,29 +91,29 @@ imports something here.
 | `VMGuestRecursion.v` | The guest's internal recursion theorem, closed: `vm_guest_recursion_theorem_closed` |
 | `LRecursion.v` | Kleene's second recursion theorem and Rice's theorem for the lambda calculus L |
 | `StructuralCore.v` | Record-carrying machines, adequacy, and core equivalence (weak form) |
-| `StructuralCoreRound2.v` | Computational covers and record observations: the strong form of the structural definitions, for machines that run the VM underneath |
-| `StructuralUniqueness.v` | The uniqueness conjectures of `StructuralCore` and `StructuralCoreRound2` are false: a machine that bills CPU time is adequate and not the same |
-| `StructuralCoreRound3.v` | Uniqueness up to the price schedule (definitions) |
-| `StructuralScheduleUniqueness.v` | Uniqueness up to the price schedule, in both strengths (`uniqueness_round3b_holds`) |
-| `StructuralCoreRound4.v` | The record axis over any base: honest extension and latch factorization (definitions) |
-| `StructuralRecordAxis.v` | The record axis over any base is a latch (`uniqueness_round4_holds`) |
+| `StructuralCoreCover.v` | Computational covers and record observations: the strong form of the structural definitions, for machines that run the VM underneath |
+| `StructuralUniqueness.v` | The uniqueness conjectures of `StructuralCore` and `StructuralCoreCover` are false: a machine that bills CPU time is adequate and not the same |
+| `StructuralCoreSchedule.v` | Uniqueness up to the price schedule (definitions) |
+| `StructuralScheduleUniqueness.v` | Uniqueness up to the price schedule, in both strengths (`cert_record_schedule_uniqueness_holds`) |
+| `StructuralCoreAnyBase.v` | The record axis over any base: honest extension and latch factorization (definitions) |
+| `StructuralRecordAxis.v` | The record axis over any base is a latch (`record_axis_is_latch_holds`) |
 | `RecordAxisDiscrimination.v` | Which machines carry the record axis: every base does; a reversible base with unbounded memory does; a reversible machine with finite memory does not |
 | `RAMRecordAxis.v` | Tied and untied list-memory RAMs on the record axis; the tied RAM is an honest extension whose Boolean record factors as a latch, the untied RAM is not |
 | `CrossBaseGranularityCore.v` | Cross-base equivalence that permits instruction stuttering (definitions) |
-| `CrossBaseGranularityRound2Core.v` | Adds the transitivity obligation to the cross-base equivalence |
-| `CrossBaseGranularity.v` | Closed generic and available-adapter outcomes for cross-base granularity |
+| `CrossBaseGranularityTransCore.v` | Transitivity of the weak cross-base equivalence |
+| `CrossBaseGranularity.v` | Generic and available-adapter outcomes for cross-base granularity |
 | `CrossBaseGranularityL.v` | An executable L base for the cross-base comparison: L's weak call-by-value step as a total function, stuttering on terms that do not step |
 | `CrossBaseGranularityRAM.v` | A unit-cost random-access machine base (Cook and Reckhow) for the cross-base comparison |
 | `EventSwapCore.v` | The VM's main results restated for an arbitrary latchable reading in place of certification (definitions) |
-| `EventSwapTheorem.v` | `swap_preserves_main_results` is refuted (`item1_3_swap_refuted`); the five results hold for certification (`certification_main_results`) |
+| `EventSwapTheorem.v` | `swap_preserves_main_results` is refuted (`swap_preserves_main_results_refuted`); the five results hold for certification (`certification_main_results`) |
 | `EventGeneralizationTargets.v` | Propositions for replacing the certification reading by an arbitrary latchable reading (definitions only) |
-| `EventGeneralization.v` | Closed proofs and counterexamples for the propositions of `EventGeneralizationTargets.v` |
+| `EventGeneralization.v` | Proofs and counterexamples for the propositions of `EventGeneralizationTargets.v` |
 | `GrowingRecordCore.v` | Targets for monotone multi-valued records (threshold latches plus a price schedule); definitions and propositions only |
-| `GrowingRecord.v` | Closed outcomes for the `GrowingRecordCore.v` targets, including `one_latch_refuted` |
+| `GrowingRecord.v` | Proved outcomes for the `GrowingRecordCore.v` targets, including `one_latch_refuted` |
 | `PricedRevocationCore.v` | Targets for classifying records that are revocable at a price |
-| `PricedRevocation.v` | Closed outcomes for the priced-revocation targets (`actual_revocation_excludes_permanence_holds`, `revocation_price_does_not_price_writes_refuted`) |
+| `PricedRevocation.v` | Proved outcomes for the priced-revocation targets (`actual_revocation_excludes_permanence_holds`, `revocation_price_does_not_price_writes_refuted`) |
 | `ProbabilisticRecordCore.v` | Targets for probabilistic record machines with finite weights |
-| `ProbabilisticRecord.v` | Closed outcomes for the finite-weight probabilistic targets (`deterministic_latch_handles_branching_refuted`, `schedule_determines_probabilities_refuted`) |
+| `ProbabilisticRecord.v` | Proved outcomes for the finite-weight probabilistic targets (`deterministic_latch_handles_branching_refuted`, `schedule_determines_probabilities_refuted`) |
 
 ## Load-bearing exports cited from the README
 

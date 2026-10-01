@@ -16,8 +16,8 @@
     the computed value exactly, and with every word64_* arithmetic helper
     replaced by an unmasked counterpart (u_add, u_sub, u_mul, u_and, u_or,
     u_xor, u_shl, u_shr, u_popcount). Nothing here touches VMState.v,
-    VMStep.v, SimulationProof.v, coq/kami_hw, or the physical ISA; it is an
-    entirely new, additional set of definitions living beside them.
+    VMStep.v, SimulationProof.v, coq/kami_hw, or the physical ISA; it is a
+    separate, additional set of definitions living beside them.
 
     Design choice, stated plainly: u_sub is Nat.sub (saturates at 0), not a
     two's-complement wraparound like word64_sub. Wraparound is meaningful

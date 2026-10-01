@@ -345,14 +345,14 @@ def insert_array_declarations(text: str) -> str:
 # ---------------------------------------------------------------------------
 
 def remove_array_wire_decls(text: str) -> str:
-    """Keep D_IN/EN wire declarations — they are still used by assigns.
+    """Keep D_IN/EN wire declarations — they are used by assigns.
 
-    Previously this removed them, causing 'implicitly declared' warnings.
+    Removing them causes 'implicitly declared' warnings.
     The wire names (mem0$D_IN, reg0$D_IN, etc.) stay as-is since the
     assigns that compute them and the sequential block that consumes them
     still reference the original BSC wire names.
     """
-    # Intentionally a no-op now. Wire declarations are valid and needed.
+    # Intentionally a no-op. Wire declarations are valid and needed.
     return text
 
 

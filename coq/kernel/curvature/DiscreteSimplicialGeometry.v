@@ -3,9 +3,8 @@
     Defines the [combinatorially_orthogonal] predicate and connects it to the
     [off_diagonal_ricci_zero] premise from EinsteinEquationsFull.v.
 
-    PURPOSE: Item 1 of CLOSURE_ROADMAP.md.
-    [off_diagonal_ricci_zero] is a Section Variable in the
-    [FullTensorEFEConditional] section of EinsteinEquationsFull.v.
+    PURPOSE: [off_diagonal_ricci_zero] is a named premise of the full
+    tensor Einstein field equation in EinsteinEquationsFull.v.
     This file defines a combinatorial predicate that, when satisfied,
     implies [off_diagonal_ricci_zero], and exhibits a specific curved
     simplicial complex (the boundary of a 4-simplex) that satisfies it.
@@ -33,8 +32,8 @@
       non-uniform isotropic assignment.
 
     CONSEQUENCE:
-    - there is no remaining Item 1 proof gap in this file.
-    - obtaining a stronger theorem now requires changing the discrete
+    - there is no remaining proof gap in this file.
+    - obtaining a stronger theorem requires changing the discrete
       derivative / curvature operator and reproving the pipeline.
 *)
 
@@ -543,9 +542,7 @@ Qed.
 
 (** ** Proven diagonal-uniform closure for boundary_4simplex
 
-    The old section-variable boundary quantified over arbitrary VM states. That
-    was stronger than the diagonal proof lane the closure guide actually needs.
-    The honest closed theorem here is the uniform diagonal regime: the same
+    The theorem here covers the uniform diagonal regime: the same
     diagonal metric appears at each of the five boundary vertices.
 
     In that regime all discrete metric derivatives are zero, so Christoffel,

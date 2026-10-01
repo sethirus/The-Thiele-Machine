@@ -18,13 +18,13 @@
       of [BAction], NOT Kami's full type-theoretic semantics from
       [Kami.Semantics.SemAction]. Lifting to full Kami semantics
       requires handling Kami's typed expression world, which is
-      substantial additional work — not done in this session.
+      substantial additional work that is not provided here.
     - The semantic-equivalence theorems below cover concrete BAction
       patterns ([BWriteReg], [BReadReg], [BAssert], [BReturn], [BLet],
       and their compositions) over the simple state model. This is
       genuine semantic correspondence at the simple-evaluator level.
-    - For Tsirelson's BSC-trust-boundary closure, this still leaves
-      residual work: extending to Kami's full semantics, then showing
+    - For Tsirelson's BSC-trust-boundary closure, the open work is
+      extending to Kami's full semantics, then showing
       the actual generated [thiele_cpu_kami.v] semantics agree with the
       translated VerilogAST evaluation. Bounded, not new theory.
 *)
@@ -415,7 +415,6 @@ Proof. cbn. unfold state_set; simpl. reflexivity. Qed.
     All theorems above close under the global context. The translation
     correspondences are proven by structural induction on [BExpr] /
     [BAction] plus computation. No bypass markers, no project-local
-    axioms. F4 deepening: the BModule→Verilog translation is now not
-    just structurally faithful but also semantically faithful (under
-    the simple-evaluator semantics on a string-to-nat state model)
-    for the supported BAction constructors. *)
+    axioms. The BModule→Verilog translation is structurally and
+    semantically faithful (under the simple-evaluator semantics on a
+    string-to-nat state model) for the supported BAction constructors. *)

@@ -1,23 +1,26 @@
-// thiele_cpu_top_genesys2.v — Genesys 2 (xc7k325t-ffg900-2) deployment wrapper.
+// thiele_cpu_top_genesys2.v: Genesys 2 (xc7k325t-ffg900-2) board wrapper.
 //
-// The canonical top wrapper `thiele_cpu_top` (in thiele_cpu_top_min.v) takes a
-// single-ended CLK input. Genesys 2's only on-board clock source is a 200MHz
-// LVDS pair on FPGA pins AD12/AD11. This wrapper converts that pair to
-// single-ended via `IBUFDS`, and an MMCM divides it down to the 20MHz clock
-// the CPU runs on. The design closes timing above 40MHz, so it can't take
-// the 200MHz oscillator directly. The CPU clock buffer is enabled only once
-// the MMCM reports lock.
+// Everything the design computes is mkThieleSystem, extracted from the Coq
+// model (coq/kami_hw/ThieleSystem.v): the CPU, the serial program loader,
+// the status report, and the input synchronizer. This file holds only what
+// cannot be extracted because it is a cell of this particular chip:
 //
-// The wrapper layer is board-specific glue and sits OUTSIDE the Coq↔OCaml↔
-// Kami↔BSC↔Verilog isomorphism chain — it just connects external pins to the
-// canonical CPU top. The CPU itself (mkModule1) is unchanged.
+//   IBUFDS       converts the board's 200 MHz LVDS clock pair to one signal.
+//   MMCME2_BASE  divides it to the 20 MHz CPU clock (200 * 5 / 50).
+//   BUFGCE       passes that clock on only once the MMCM reports lock.
+//
+// The loader's bit time (ClksPerBit = 174 in ThieleLoader.v) is set for this
+// 20 MHz clock: 115200 baud on the board's USB-UART bridge.
 module thiele_cpu_top_genesys2 (
     input  clk_p,
     input  clk_n,
     input  cpu_reset_n,
+    input  uart_rx,
+    output uart_tx,
     output LED_HALTED,
     output LED_ERR,
-    output LED_BIANCHI
+    output LED_BIANCHI,
+    output LED_LOADING
 );
     wire sysclk_200;
     IBUFDS #(
@@ -30,7 +33,6 @@ module thiele_cpu_top_genesys2 (
         .O (sysclk_200)
     );
 
-    // 200MHz in, VCO = 200 * 5 / 1 = 1000MHz, CPU clock = 1000 / 50 = 20MHz.
     wire clkfb, clk_20_unbuf, cpu_clk, mmcm_locked;
     MMCME2_BASE #(
         .CLKIN1_PERIOD   (5.000),
@@ -46,15 +48,25 @@ module thiele_cpu_top_genesys2 (
         .PWRDWN  (1'b0),
         .RST     (1'b0)
     );
-    // The clock buffer stays off until the MMCM locks, so the CPU sees no
-    // clock edges until the 20MHz clock is stable.
     BUFGCE bufg_cpu (.I(clk_20_unbuf), .CE(mmcm_locked), .O(cpu_clk));
 
-    thiele_cpu_top inner (
-        .CLK        (cpu_clk),
-        .RST_N      (cpu_reset_n),
-        .LED_HALTED (LED_HALTED),
-        .LED_ERR    (LED_ERR),
-        .LED_BIANCHI(LED_BIANCHI)
+    wire [3:0] leds;
+    assign LED_HALTED  = leds[0];
+    assign LED_ERR     = leds[1];
+    assign LED_BIANCHI = leds[2];
+    assign LED_LOADING = leds[3];
+
+    mkThieleSystem system (
+        .CLK          (cpu_clk),
+        .RST_N        (cpu_reset_n),
+        .rxSample_x_0 (uart_rx),
+        .EN_rxSample  (1'b1),
+        .RDY_rxSample (),
+        .EN_getTx     (1'b1),
+        .getTx        (uart_tx),
+        .RDY_getTx    (),
+        .EN_getLeds   (1'b1),
+        .getLeds      (leds),
+        .RDY_getLeds  ()
     );
 endmodule

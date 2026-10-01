@@ -1,15 +1,15 @@
-"""Phase A2 (Phase C tightening): symbolic search for a non-degenerate
-calibrated VMState witness on actually-triangulated graphs, under the
-TIGHTENED [module_triangles] definition.
+"""Symbolic search for a non-degenerate calibrated VMState witness on
+actually-triangulated graphs, under the kernel's [module_triangles]
+definition.
 
-Difference from `tools/calibrated_witness_search.py` (which uses the
-broken pre-tightening definition):
+Difference from `tools/calibrated_witness_search.py` (which omits the
+mutual-adjacency requirement):
 
-    OLD: module_triangles(m) = { (n1, n2) : n1 < n2, both adjacent to m }
-    NEW: module_triangles(m) = { (n1, n2) : n1 < n2, both adjacent to m,
-                                  AND n1 ~ n2 }       <-- mutual adjacency
+    search.py: module_triangles(m) = { (n1, n2) : n1 < n2, both adjacent to m }
+    kernel:    module_triangles(m) = { (n1, n2) : n1 < n2, both adjacent to m,
+                                       AND n1 ~ n2 }       <-- mutual adjacency
 
-The new requirement matches `coq/kernel/curvature/MuGravity.v` Phase C1.
+The mutual-adjacency requirement matches `coq/kernel/curvature/MuGravity.v`.
 
 Calibration at every module:
     angle_defect_curvature(m) = pi * mu_laplacian(m)

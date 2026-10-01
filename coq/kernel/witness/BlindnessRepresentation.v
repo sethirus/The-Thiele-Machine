@@ -293,9 +293,3 @@ Proof.
   - exact forget_surjective.
 Qed.
 
-(** Note: the previous bookkeeping lemma [shadow_proj_and_forget_agree]
-    (which stated that [forget] and the four shared fields of
-    [shadow_proj] yield the same [TMSnapshot] record) was deleted: both
-    sides reduce to the same record by [unfold forget, shadow_proj;
-    reflexivity], it had no proof callers, and the equality can be
-    re-established inline by any future reviewer who asks. *)

@@ -1,6 +1,6 @@
-"""Phase A asymmetric search. The earlier search assumed sorted masses (WLOG
-under graph symmetry), but for asymmetric configurations or non-vertex-
-transitive graphs we should be more general.
+"""Asymmetric search. calibrated_witness_search.py assumes sorted masses (WLOG
+under graph symmetry); this search is general for asymmetric configurations
+and non-vertex-transitive graphs.
 
 Approach: for each graph, try all integer mass tuples with each entry in
 [0, max_mass]. Look for total_S = 2N in particular.

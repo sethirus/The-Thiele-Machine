@@ -3,8 +3,7 @@
     The kernel's verifier corollary says a verifier that sees only a view
     cannot decide a claim that differs between two states with the same
     view. This file uses a deliberately scoped abstraction of TPM quote fields,
-    guided by the TPM 2.0 Library specification, Version 185, published
-    12 March 2026: Part 3
+    guided by the TPM 2.0 Library specification, Version 185: Part 3
     (Commands), sections 18.4 (TPM2_Quote) and 22.2 (TPM2_PCR_Extend),
     and Part 2 (Structures), sections 10.11.4 and 10.11.12:
     https://trustedcomputinggroup.org/wp-content/uploads/Trusted-Platform-Module-2.0-Library-Part-3-Commands_Version-185_pub.pdf

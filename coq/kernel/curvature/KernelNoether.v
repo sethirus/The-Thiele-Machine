@@ -78,13 +78,8 @@ Definition z_gauge_shift (delta : Z) (s : VMState) : VMState :=
   vm_witness := s.(vm_witness);
   vm_certified := s.(vm_certified) |}.
 
-(** The per-field projection lemmas
-    z_gauge_shift_{mem,regs,graph} were inlined-and-deleted here.
-    Each was a one-line unfold + reflexivity of [z_gauge_shift], with no
-    callers anywhere in the kernel proof tree; they were Record-field
-    invariance restatements rather than mathematical content. The
-    structural fact they witnessed (z_gauge_shift only touches vm_mu) is
-    now used directly by reflexivity inside [z_gauge_invariance] below. *)
+(** [z_gauge_shift] only touches vm_mu; [z_gauge_invariance] below uses
+    that structural fact directly by reflexivity. *)
 
 (** Helper: z_gauge_shift preserves read_reg (depends only on vm_regs) *)
 Lemma z_gauge_shift_read_reg : forall delta s r,
@@ -283,14 +278,6 @@ Qed.
   DEPENDENCIES: Requires z_gauge_shift (preserves graph), Observable_partition (extracts graph).
 
 *)
-(** The named theorem [z_gauge_invariance] was inlined-and-deleted
-    here. Its only consumer was [noether_backward] below, which now
-    discharges the partition-observable equality directly by unfolding
-    [Observable_partition] and [z_gauge_shift] (the two operations
-    [Observable_partition] reads — extracting [pg_modules] from
-    [vm_graph] — are untouched by [z_gauge_shift], which only modifies
-    [vm_mu]). Carrying it as a separately named theorem was a
-    documentation aid, not mathematical content. *)
 
 (** μ-ledger projection and monotonicity. *)
 
@@ -633,7 +620,7 @@ Proof.
   all: try (eapply step_tensor_set; [eassumption | eassumption | reflexivity]).
   all: try (eapply step_tensor_get; [eassumption | eassumption | reflexivity | reflexivity]).
   (* Morph instruction cases: z_gauge_shift only changes vm_mu, not vm_graph/vm_csrs/etc.
-     Each morph op now has _ok and _bad constructors. *)
+     Each morph op has _ok and _bad constructors. *)
   all: try (eapply step_morph_ok; eassumption).
   all: try (eapply step_morph_bad_src; eassumption).
   all: try (eapply step_morph_bad_dst; eassumption).
@@ -732,12 +719,8 @@ Qed.
     by [unfold Observable_partition, z_gauge_shift; simpl; reflexivity]
     inline.
 
-    The earlier standalone lemma [noether_backward] dressed this fact in a
-    phantom μ-monotonicity premise that the proof did not use. That was
-    structurally dishonest — the hypothesis was "accepted for API shape
-    but unused" per its own docstring — and is removed. The structural
-    claim is captured by the definitions themselves and the inline
-    discharge above; any consumer that needs the equation can apply
+    The structural claim is captured by the definitions themselves and the
+    inline discharge above; any consumer that needs the equation can apply
     that one-line unfold without a named lemma. *)
 
 (** Summary of the proved scope.

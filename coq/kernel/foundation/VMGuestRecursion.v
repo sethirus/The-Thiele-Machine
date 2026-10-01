@@ -1,6 +1,6 @@
 (** Internal foundations for Kleene recursion in the four-register guest.
 
-    The earlier [g_specialize] overwrites the external input.  The prefix
+    [g_specialize] overwrites the external input.  The prefix
     below implements genuine binary specialization: a program expecting
     [pair x y] receives the fixed first argument [x] and retains its runtime
     argument [y].  All instructions use registers 0 through 2 and cost zero. *)

@@ -1,7 +1,7 @@
 (** UniversalCertificationCost: any sound certification mechanism costs.
 
     This file pushes No Free Insight one layer more abstract. AbstractNoFI.v is
-    still tied to the Thiele instruction vocabulary. Here the state type and the
+    tied to the Thiele instruction vocabulary. Here the state type and the
     instruction type are both left abstract, and the theorem only asks for one
     premise: if a single step changes the system from uncertified to certified,
     that step has to cost at least 1.
@@ -287,9 +287,9 @@ Theorem thiele_represents_simulating_cert_system :
 Proof.
   intros SCS s0 trace Hpre Hpost.
   split.
-  - (* Part 1: universal_nfi_any_substrate *)
+  - (* universal_nfi_any_substrate *)
     exact (universal_nfi_any_substrate SCS.(scs_base) trace s0 Hpre Hpost).
-  - (* Part 2: embedded execution certifies *)
+  - (* embedded execution certifies *)
     rewrite <- scs_run_embed.
     rewrite <- SCS.(scs_cert_reflects).
     exact Hpost.

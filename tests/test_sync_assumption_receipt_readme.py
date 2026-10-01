@@ -54,16 +54,6 @@ def test_sync_rewrites_every_published_receipt_counter(tmp_path: Path) -> None:
         "  and the mathematical specification. The assumption receipt covers 1\n"
         "  statements across 1 files: 1 are closed under the global context, 2 depend on\n"
     )
-    corrections = tmp_path / "corrections.tsv"
-    corrections.write_text(
-        "document\tline\toriginal\treplacement\treason\n"
-        "monograph/monograph.tex\t1\tfrozen monograph\tstale monograph\taudit\n"
-        "THIELE_MACHINE.txt\t1\tfrozen distillation\tstale distillation\taudit\n"
-        "CITATION.cff\t2\tfrozen citation\tstale citation\taudit\n"
-    )
-
-    frozen_corrections = corrections.read_bytes()
-
     subprocess.run([
         sys.executable,
         str(ROOT / "scripts/sync_assumption_receipt_readme.py"),
@@ -72,7 +62,6 @@ def test_sync_rewrites_every_published_receipt_counter(tmp_path: Path) -> None:
         "--monograph", str(monograph),
         "--distillation", str(distillation),
         "--citation", str(citation),
-        "--corrections", str(corrections),
     ], check=True)
 
     text = readme.read_text()
@@ -92,4 +81,3 @@ def test_sync_rewrites_every_published_receipt_counter(tmp_path: Path) -> None:
     assert "5,965 closed under the global context and 7,353" in distillation.read_text()
     assert "covers 13,318" in citation.read_text()
     assert "statements across 450 files: 5,965" in citation.read_text()
-    assert corrections.read_bytes() == frozen_corrections

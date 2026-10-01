@@ -36,11 +36,10 @@
     rational LDL^T without pivoting, so this branch accepts EVERY point with
     a rational PSD completion -- interior, classical (singular), or exactly
     on the quantum boundary. It subsumes the strict PD branch, and it
-    subsumes what an LHV-weight decomposition could reach; an earlier draft
-    carried a separate sixteen-weight LHV branch, now removed as redundant
-    (every finite mixture of deterministic strategies has a rational PSD
-    completion the LDL branch certifies) and as the file's only performance
-    liability.
+    subsumes what an LHV-weight decomposition could reach; no separate
+    sixteen-weight LHV branch is needed, since every finite mixture of
+    deterministic strategies has a rational PSD completion the LDL branch
+    certifies.
 
   What no exact integer check can ever accept, said out loud: tuples whose
   EVERY PSD completion is irrational, since a rational certificate for such

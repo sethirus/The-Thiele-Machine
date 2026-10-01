@@ -8,7 +8,7 @@
     when the program counter leaves the program. *)
 
 From Coq Require Import List Arith.PeanoNat.
-From Kernel Require Import StructuralCoreRound4 StructuralRecordAxis CrossBaseGranularityCore.
+From Kernel Require Import StructuralCoreAnyBase StructuralRecordAxis CrossBaseGranularityCore.
 Import ListNotations.
 
 (** * Machine *)
@@ -196,12 +196,12 @@ Proof.
   intro p. exists {| ram_regs := fun _ => 0; ram_pc := 0 |}. reflexivity.
 Qed.
 
-(** Round 4 on every RAM base, by the base-parametric theorem used for the
-    TM, VM, and L bases. *)
-Theorem round4_ram_holds : forall p, round4_property (ram_base p).
+(** The record axis is a latch on every RAM base, by the base-parametric
+    theorem used for the TM, VM, and L bases. *)
+Theorem record_axis_is_latch_on_ram_holds : forall p, record_axis_is_latch_on (ram_base p).
 Proof.
   intros p M C Hhonest.
-  exact (uniqueness_round4_holds M _ C Hhonest).
+  exact (record_axis_is_latch_holds M _ C Hhonest).
 Qed.
 
 Print Assumptions ram_store_then_load.
@@ -209,4 +209,4 @@ Print Assumptions ram_jump_pos_taken.
 Print Assumptions ram_halted_stutters.
 Print Assumptions ram_pointer_demo_runs.
 Print Assumptions ram_base_has_initial.
-Print Assumptions round4_ram_holds.
+Print Assumptions record_axis_is_latch_on_ram_holds.

@@ -71,7 +71,17 @@ Proof.
   split; [exact Hc|]. apply word0.
 Qed.
 
-Definition dispatch_reset_state : RegsT := initRegs (getRegInits thieleCore).
+(** The registers the hardware holds at reset. The CPU is halted there, so a
+    program can be loaded before anything executes. *)
+Definition hardware_reset_state : RegsT := initRegs (getRegInits thieleCore).
+
+(** The registers once the start method has run on the reset state: not
+    halted, program counter zero, everything else as at reset. Execution
+    begins here. *)
+Definition dispatch_reset_state : RegsT :=
+  M.add "pc" (existT (fullType type) (SyntaxKind (Bit WordSz)) (natToWord WordSz 0))
+    (M.add "halted" (existT (fullType type) (SyntaxKind Bool) false)
+       hardware_reset_state).
 
 Example dispatch_reset_enabled :
   (match eval_dispatch dispatch_reset_state with Some _ => true | None => false end) = true.

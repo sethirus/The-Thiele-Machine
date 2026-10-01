@@ -1,4 +1,4 @@
-(** Frozen target for the coordinator-free ecosystem game. *)
+(** Target for the coordinator-free ecosystem game. *)
 
 From Coq Require Import Arith Bool.
 

@@ -218,8 +218,8 @@ Qed.
     vertices is 0, so all directional derivatives collapse to the same value
     at the center vertex, making off-diagonal Ricci = 2c(1+c) for coupling c.
 
-    The conditional full tensor EFE (depending on off_diagonal_ricci_zero
-    as a section Variable) was removed. Section Variables are hidden
+    No conditional full tensor EFE depends on off_diagonal_ricci_zero
+    as a section Variable. Section Variables are hidden
     axioms. Off_diagonal_ricci_zero is formally refuted for non-uniform
     diagonal metrics under the current operator
     (DiscreteSimplicialGeometry.v: boundary_4simplex_nonuniform_diagonal_refuted_at_1).
@@ -319,7 +319,7 @@ Qed.
     Ricci = 0 as explicit forall premises and produces the full tensor EFE.
     Any complex that proves those three conditions gets the full result.
 
-    The conditional section (full_tensor_efe_conditional with Section
-    Variables) was removed. Section Variables are axioms, not proofs.
+    No conditional section (full_tensor_efe_conditional with Section
+    Variables) is used. Section Variables are axioms, not proofs.
     off_diagonal_ricci_zero is formally refuted in the general case
     (DiscreteSimplicialGeometry.v). No theorem here assumes it. *)

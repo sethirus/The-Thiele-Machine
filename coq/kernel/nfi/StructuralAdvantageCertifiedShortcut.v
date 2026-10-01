@@ -292,13 +292,9 @@ Qed.
 
 (** ** Closed [SoundStructuralShortcut] term for the n=1 factored search.
 
-    Until now no file in the corpus produced a closed inhabitant of the
-    [SoundStructuralShortcut] class. Section 4.2 of the thesis explicitly
-    flagged this as the open piece: the eight component witnesses existed,
-    [sound_shortcut_from_components] existed, but the wired-up record term
-    did not.
-
-    Below is the wired-up term. All eight components are existing lemmas
+    This is a closed inhabitant of the [SoundStructuralShortcut] class:
+    the eight component witnesses and [sound_shortcut_from_components] are
+    lemmas, and the wired-up record term is below. All eight components are lemmas
     proven in this file (or [receipt_list_eqb_spec] from
     [StructuralAdvantageObservedShortcut.v]). The construction goes through
     [sound_shortcut_from_components] with no new mathematical content;

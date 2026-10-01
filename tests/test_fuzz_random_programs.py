@@ -8,7 +8,6 @@ and checks that all architectural invariants hold:
   - No memory corruption (registers/memory consistent)
   - Correct halting behavior
 
-This is Phase 4, Task 4.1 from the roadmap.
 """
 
 from __future__ import annotations
@@ -373,15 +372,15 @@ class TestEdgeCases:
     def test_chsh_trial_charges_declared_cost(self):
         """CHSH_TRIAL charges only its declared cost; operands are not validated.
 
-        The CPU used to reject a packed operand > 1 (op_a > 1, the
-        supra-quantum x=1 setting) and charge a +256 surcharge when the
-        mu_tensor total was zero. `kami_step` does neither, so Devon's
-        2026-09-14 decision removed both (C2_DIVERGENCE_LEDGER.md,
-        "CHSH_TRIAL x=1"). A packed operand of 2 must therefore execute
+        The CPU does not reject a packed operand > 1 (op_a > 1, the
+        supra-quantum x=1 setting) and charges no +256 surcharge when the
+        mu_tensor total is zero, matching `kami_step`
+        (C2_DIVERGENCE_LEDGER.md, "CHSH_TRIAL x=1"). A packed operand of 2
+        must therefore execute
         cleanly and charge the declared 5.
         """
         instrs = [
-            "CHSH_TRIAL 2 0 5",  # op_a=2; no longer invalid
+            "CHSH_TRIAL 2 0 5",  # op_a=2 is valid
             "HALT"
         ]
         result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "chsh-trial-cost case")
@@ -405,7 +404,7 @@ class TestEdgeCases:
         """Just HALT should work cleanly.
 
         HALT advances pc, matching `kami_step` (C2_DIVERGENCE_LEDGER.md,
-        "HALT pc": the CPU used to hold pc, now it advances).
+        "HALT pc").
         """
         result = _require_simulation_result(run_verilog("HALT", timeout=30), "empty-program case")
         assert result["mu"] == 0

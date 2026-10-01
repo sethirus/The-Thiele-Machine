@@ -2,16 +2,17 @@
 
     A value grows in an arbitrary Boolean-decidable partial order.  Each
     possible threshold [a <= value] is a Boolean observation.  The proposed
-    extension of Round 4 is a family of threshold latches plus a price
-    schedule, not necessarily one Boolean latch.
+    extension of the record axis over any base ([StructuralCoreAnyBase]) is
+    a family of threshold latches plus a price schedule, not necessarily one
+    Boolean latch.
 
-    This file freezes definitions and propositions only.  Their outcomes are
-    established separately after the freeze commit. *)
+    This file states definitions and propositions only.  Their outcomes are
+    in [GrowingRecord]. *)
 
 From Coq Require Import List Bool Arith.PeanoNat.
 Import ListNotations.
 
-From Kernel Require Import StructuralCore StructuralCoreRound4.
+From Kernel Require Import StructuralCore StructuralCoreAnyBase.
 
 (** * Ordered record values *)
 

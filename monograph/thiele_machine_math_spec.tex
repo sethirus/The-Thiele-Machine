@@ -1115,7 +1115,7 @@ deployed system occurs in the theorem statement; the real-system reading is
 therefore model-dependent.
 
 The proposed route from distributed agreement to permanence is refuted in
-\texttt{EcosystemGame.v}. The frozen predicate
+\texttt{EcosystemGame.v}. The predicate
 \texttt{strong\_pointer\_necessity} assumes at least one observer, agreement,
 Boolean soundness and completeness of every view, and a common local update
 function with no observer index or coordinator state. In
@@ -2012,8 +2012,8 @@ Find $k \geq 1$ and a trace from \texttt{init\_\allowbreak{}state} that is \text
 \item \textbf{Cross-base equivalence} (\texttt{coq/\allowbreak{}kernel/\allowbreak{}foundation/\allowbreak{}CrossBaseGranularity*.v}): Base adapters for the Turing machine
 (\texttt{tm\_\allowbreak{}base}), the VM (\texttt{vm\_\allowbreak{}base}), a Cook--Reckhow unit-cost
 RAM (\texttt{ram\_\allowbreak{}base}), and L (\texttt{l\_\allowbreak{}base}) exist, and each satisfies
-\texttt{round4\_\allowbreak{}property} (\texttt{round4\_\allowbreak{}tm\_\allowbreak{}holds}, \texttt{round4\_\allowbreak{}vm\_\allowbreak{}holds},
-\texttt{round4\_\allowbreak{}ram\_\allowbreak{}holds}, \texttt{round4\_\allowbreak{}l\_\allowbreak{}holds}); \texttt{round4\_\allowbreak{}property} holds for every base, so these instances do not distinguish the bases. The substantive adapter facts are that the L and RAM bases are faithful (\texttt{l\_\allowbreak{}step\_\allowbreak{}fun\_\allowbreak{}correct}, \texttt{star\_\allowbreak{}is\_\allowbreak{}l\_\allowbreak{}base\_\allowbreak{}run}). The relation
+\texttt{record\_\allowbreak{}axis\_\allowbreak{}is\_\allowbreak{}latch\_\allowbreak{}on} (\texttt{record\_\allowbreak{}axis\_\allowbreak{}is\_\allowbreak{}latch\_\allowbreak{}on\_\allowbreak{}tm\_\allowbreak{}holds}, \texttt{record\_\allowbreak{}axis\_\allowbreak{}is\_\allowbreak{}latch\_\allowbreak{}on\_\allowbreak{}vm\_\allowbreak{}holds},
+\texttt{record\_\allowbreak{}axis\_\allowbreak{}is\_\allowbreak{}latch\_\allowbreak{}on\_\allowbreak{}ram\_\allowbreak{}holds}, \texttt{record\_\allowbreak{}axis\_\allowbreak{}is\_\allowbreak{}latch\_\allowbreak{}on\_\allowbreak{}l\_\allowbreak{}holds}); \texttt{record\_\allowbreak{}axis\_\allowbreak{}is\_\allowbreak{}latch\_\allowbreak{}on} holds for every base, so these instances do not distinguish the bases. The substantive adapter facts are that the L and RAM bases are faithful (\texttt{l\_\allowbreak{}step\_\allowbreak{}fun\_\allowbreak{}correct}, \texttt{star\_\allowbreak{}is\_\allowbreak{}l\_\allowbreak{}base\_\allowbreak{}run}). The relation
 \texttt{weak\_\allowbreak{}base\_\allowbreak{}equiv} is reflexive, symmetric, and transitive, and it carries no
 cost. Cost-respecting simulations between different bases are not constructed,
 and no \texttt{weak\_\allowbreak{}base\_\allowbreak{}equiv} between two different bases is proved.

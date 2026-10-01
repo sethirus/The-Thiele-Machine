@@ -242,9 +242,8 @@ Definition bridge_bad_psd_witness (i : Fin.t 5) : RealNumber :=
 
 (** The exact sufficient invariant package is the final-state symmetry together
     with an execution certificate for the column-contractivity conditions that
-    imply PSD of the extracted zero-marginal NPA matrix. This is strictly
-    stronger than the old Tsirelson-sufficient layer and no longer depends on
-    that refuted implication. *)
+    imply PSD of the extracted zero-marginal NPA matrix. This does not
+    depend on the refuted implication from Tsirelson-sufficiency. *)
 Definition execution_column_contractivity_certificate
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
   trace_column_contractive fuel trace s_init.
@@ -1361,7 +1360,7 @@ Proof.
 Qed.
 
 (** State-based C4: column contractivity → PSD → row bounds → Tsirelson.
-    This shows the row bounds were always derivable from column contractivity. *)
+    This shows the row bounds are derivable from column contractivity. *)
 Theorem state_column_contractive_implies_tsirelson :
   forall s : VMState,
     state_column_contractive s ->

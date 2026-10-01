@@ -399,7 +399,7 @@ Proof.
   - (* Valid partition case *)
     destruct (partition_valid _ _ _) eqn:Hvalid.
     2: discriminate.
-    (* graph_psplit now uses cascade delete before graph_remove *)
+    (* graph_psplit uses cascade delete before graph_remove *)
     set (g_cascaded := graph_cascade_delete_morphisms g mid_split) in *.
     destruct (graph_remove g_cascaded mid_split) eqn:Hremove.
     2: discriminate.
@@ -476,7 +476,7 @@ Proof.
   unfold graph_pmerge in Hpmerge.
   destruct (Nat.eqb m1 m2) eqn:Heq_m1_m2.
   - discriminate.
-  - (* graph_pmerge now uses cascade delete before graph_remove *)
+  - (* graph_pmerge uses cascade delete before graph_remove *)
     set (g1_cascaded := graph_cascade_delete_morphisms g m1) in *.
     set (g2_cascaded := graph_cascade_delete_morphisms g1_cascaded m2) in *.
     (* Cascade delete preserves lookups *)

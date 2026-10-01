@@ -1,4 +1,4 @@
-(** VMSelfProgram.v: B3, part 2: the fixed host program U of the uniform
+(** VMSelfProgram.v: the fixed host program U of the uniform
     self-interpreter, and its phase lemmas under actual [run_vm_u].
 
     Host register roles:

@@ -1,4 +1,4 @@
-(** VMUnboundedInterpreterCode.v — Phase 2 of B3: the actual host
+(** VMUnboundedInterpreterCode.v — the actual host
     instruction sequences that compute get_slot/set_slot
     (VMUnboundedInterpreterSlots.v) under real vm_apply_u execution, and
     their correctness proofs against that spec.

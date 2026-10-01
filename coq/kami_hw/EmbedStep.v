@@ -241,7 +241,7 @@ Proof.
   (* Convert the outer firstn/skipn write (at b mod 16) to a map *)
   set (g := fun j => if Nat.eqb j am then f (b mod 16) else f j).
   rewrite <- (map_update_at_seq 16 (b mod 16) (f am) g Hbm).
-  (* Both sides are now (map _ (seq 0 16)); prove pointwise equality *)
+  (* Both sides are (map _ (seq 0 16)); prove pointwise equality *)
   apply List.map_ext; intro j.
   unfold g.
   destruct (Nat.eqb j am) eqn:Hja; destruct (Nat.eqb j (b mod 16)) eqn:Hjb.
@@ -416,7 +416,7 @@ Proof.
   all: try (rewrite abs_phase1_read_reg;
             match goal with |- context [Nat.eqb ?x 0] =>
               destruct (Nat.eqb x 0); f_equal; reflexivity end).
-  (* HEAP_LOAD/HEAP_STORE: heap_base now read from snapshot *)
+  (* HEAP_LOAD/HEAP_STORE: heap_base read from snapshot *)
   all: try (rewrite abs_phase1_read_reg, abs_phase1_read_mem;
             rewrite abs_phase1_kami_reg_write;
             f_equal; reflexivity).
@@ -661,9 +661,9 @@ Qed.
 
 (** --- MORPH_DELETE --- *)
 (** --- MORPH_DELETE --- *)
-(** NOTE: Morph/tensor instructions now have divergent semantics between
+(** NOTE: Morph/tensor instructions have different semantics in
     kami_step (rich-state bounded tables) and vm_apply (partition graph).
-    The abs_phase1 embedding no longer holds unconditionally for these
+    The abs_phase1 embedding does not hold unconditionally for these
     instructions.  Full equivalence is established via FullAbstraction.v
     using the full-state abstraction function (abs_full_snapshot). *)
 
@@ -672,9 +672,10 @@ Qed.
     uses graph_update_module_tensor with tensor_indices_ok validation. *)
 
 (** --- MORPH/COMPOSE/MORPH_ID/MORPH_TENSOR/MORPH_GET/TENSOR_GET --- *)
-(** See NOTE above for MORPH_DELETE.  All morph and tensor instructions now
+(** See NOTE above for MORPH_DELETE.  All morph and tensor instructions
     use rich-state tables in kami_step and partition graph operations in
-    vm_apply, so the abs_phase1 embedding is superseded by FullAbstraction. *)
+    vm_apply, so FullAbstraction states their equivalence instead of the
+    abs_phase1 embedding. *)
 
 (** --- REVEAL --- *)
 Theorem embed_step_reveal :
@@ -881,8 +882,8 @@ Proof.
   rewrite Hc. cbv zeta. reflexivity.
 Qed.
 
-(** LASSERT embed_step: now that hardware computes the full formula check
-    and charges flen*8+S(cost) matching the kernel, the success path yields
+(** LASSERT embed_step: hardware computes the full formula check
+    and charges flen*8+S(cost) matching the kernel, so the success path yields
     full field-by-field equality. *)
 Theorem embed_step_lassert :
   forall (ks : KamiSnapshot) (freg creg : nat) (kind : bool) (flen cost : nat),

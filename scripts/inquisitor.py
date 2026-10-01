@@ -492,7 +492,7 @@ def iter_all_coq_files(repo_root: Path) -> Iterator[Path]:
     - Active sources are the files declared in `coq/_CoqProject`, minus the
       explicit NON_PROOF_BEARING_FILES set. Files merely present on disk are
       handled by the proof-scope drift gate instead of being audited as proofs.
-    - `artifacts/` contains archived reproduction snapshots and evidence
+    - `artifacts/` contains reproduction snapshots and evidence
       copies. It is not an active proof corpus and must never multiply findings.
     - Files under `build/**/*.v` are auto-generated artifacts (vacuity probes,
       OCaml extraction by-products, Coq-derived RTL inputs) — not proof
@@ -560,10 +560,9 @@ def _check_coq_compilation_coverage(repo_root: Path) -> list[Finding]:
     2. PROOF_SCOPE_DRIFT — a file declared out-of-scope leaked into
        _CoqProject, or a disk .v file is in neither set. Enforced
        structurally so that no stale local .vo can mask a divergence
-       between the inquisitor and the canonical build (the prior failure
-       mode was: probe .v files were not in _CoqProject, but local stale
-       .vo artifacts left the inquisitor satisfied while a clean CI
-       checkout failed).
+       between the inquisitor and the canonical build (for example, probe .v
+       files outside _CoqProject with stale local .vo artifacts would leave
+       the inquisitor satisfied while a clean CI checkout failed).
     """
 
     findings: list[Finding] = []
@@ -925,9 +924,8 @@ def scan_definitional_invariance(path: Path) -> list[Finding]:
     normalization HEAD but their argument references an introduced name.
     Those are treated as engagement.
 
-    No comment-marker bypass is honoured. The previous
-    [DEFINITIONAL_LABEL_RE] escape via `(* definitional lemma: ... *)`
-    is removed: a marker comment cannot silence a real vacuity finding.
+    No comment-marker bypass is honoured: a marker comment such as
+    `(* definitional lemma: ... *)` cannot silence a real vacuity finding.
 
     Special case: lemma whose statement is `: True` or `-> True` remains
     flagged unconditionally (the conclusion is trivially provable).
@@ -4847,7 +4845,6 @@ def scan_mugravity_completion_gate(path: Path) -> list[Finding]:
     findings: list[Finding] = []
 
     targets = [
-        # Removed: einstein_equation_after_scheduler_emergence (vacuous theorem deleted)
         "full_gravity_path_scheduler_contract",
     ]
     forbidden = [
@@ -5051,7 +5048,6 @@ def scan_mugravity_one_step_literal(path: Path) -> list[Finding]:
     findings: list[Finding] = []
 
     targets = [
-        # Removed: einstein_equation_after_scheduler_emergence (vacuous theorem deleted)
         "full_gravity_path_scheduler_contract",
     ]
 
@@ -5295,7 +5291,7 @@ def scan_mugravity_derivation_completeness(path: Path) -> list[Finding]:
     has_fresh_pnew_gap_window_discharge = False  # Track if semantic_gap_window_certificate is properly discharged
 
     # NO AXIOMS ALLOWED - discharge_targets will never be satisfied by axioms
-    # Axioms are forbidden, so discharge checks are removed
+    # Axioms are forbidden, so there are no discharge checks
     # discharge_targets remains all False
 
     for m in theorem_re.finditer(text):
@@ -5361,7 +5357,7 @@ def scan_mugravity_derivation_completeness(path: Path) -> list[Finding]:
             )
 
         # NOTE: Disabled - explicit hypotheses with semantic window conditions are acceptable
-        # The goal was to eliminate hidden axioms/admits, which is achieved.
+        # The goal is to eliminate hidden axioms/admits.
         # Theorems that take calibration_gap/calibration_gap_delta as EXPLICIT hypotheses
         # are proving from first principles with assumptions made transparent.
         # if any(re.search(pat, premises_text) for pat in semantic_window_patterns) and not tname.endswith("_from_delta"):
@@ -5564,7 +5560,7 @@ def scan_mugravity_derivation_completeness(path: Path) -> list[Finding]:
         forbidden_surface_pats = [rf"\b{re.escape(tok)}\b" for tok in unresolved_surface_tokens]
 
         # NO AXIOMS ALLOWED - only check for theorem-based discharge
-        # (removed has_fundamental_axiom_for checks - axioms are forbidden)
+        # (no has_fundamental_axiom_for checks - axioms are forbidden)
 
         has_geom_unconditional = has_unconditional_discharge(
             conclusion_pat=r"angle_defect_curvature\s+s\s+m\s*=\s*\(curvature_coupling\s*\*\s*mu_laplacian\s+s\s+m\)%R",
@@ -5654,7 +5650,7 @@ def scan_mugravity_derivation_completeness(path: Path) -> list[Finding]:
                     )
                 )
 
-        # NOTE: Disabled - semantic_gap_window predicates were intentionally replaced with inline conditions
+        # NOTE: Disabled - semantic_gap_window predicates are inline conditions
         # if not has_pnew_gap_window_discharge:
         #     findings.append(
         #         Finding(
@@ -5675,8 +5671,8 @@ def scan_mugravity_derivation_completeness(path: Path) -> list[Finding]:
         # Skip discharge checks if file explicitly marks missing theorems as intentional
         has_intentional_cleanup_marker = bool(_GRAVITY_SCOPE_MARKER_RE.search(raw))
 
-        # NOTE: Disabled - these checks were for hidden axioms/predicates which are now eliminated
-        # Certificates like semantic_gap_window_certificate have been replaced with explicit inline conditions
+        # NOTE: Disabled - the hidden axioms/predicates these checks targeted do not exist
+        # Certificates like semantic_gap_window_certificate are explicit inline conditions
         # if not has_intentional_cleanup_marker:
         #     for target, discharged in discharge_targets.items():
         #         if discharged:
@@ -5695,9 +5691,9 @@ def scan_mugravity_derivation_completeness(path: Path) -> list[Finding]:
         #             )
         #         )
 
-        # NOTE: Disabled - semantic_gap_window_certificate was intentionally deleted
-        # It was replaced with explicit inline conditions in theorem hypotheses
-        # This is an improvement (explicit vs hidden assumptions), not a problem
+        # NOTE: Disabled - semantic_gap_window_certificate does not exist
+        # Theorem hypotheses state explicit inline conditions
+        # (explicit vs hidden assumptions), so this is not a problem
         # if not has_fresh_pnew_gap_window_discharge:
         #     findings.append(
         #         Finding(
@@ -6083,7 +6079,7 @@ def _scan_kernel_convertibility_vacuity(repo_root: Path) -> list[Finding]:
     and emit a HIGH finding for every theorem whose conclusion is kernel-convertible
     to either `True` or one of its hypotheses.
 
-    This is the (V) tag of the μ-axis research program's Phase-0 discipline: a
+    This is the (V) tag of the μ-axis research program's vacuity discipline: a
     theorem flagged here is *definitionally* vacuous — Coq's kernel itself
     accepted a trivial proof of the conclusion.
 
@@ -6471,8 +6467,8 @@ def _run_cross_layer_foundation_checks(repo_root: Path) -> list[Finding]:
     # 1) Foundation proof files must exist. Search recursively under
     # coq/kernel/ since the foundation files live in coq/kernel/foundation/,
     # coq/kernel/mu_calculus/, coq/kernel/nfi/, etc. (see _CoqProject for the
-    # canonical locations). The previous flat-path expectation
-    # `coq/kernel/{mod}.v` is preserved as a fallback for legacy layouts.
+    # canonical locations). The flat path
+    # `coq/kernel/{mod}.v` is a fallback for legacy layouts.
     missing_foundations: list[str] = []
     kernel_root = repo_root / "coq" / "kernel"
     for mod in _GLOBAL_FOUNDATION_MODULES:
@@ -6718,10 +6714,9 @@ def _run_proof_body_foundation_audit(repo_root: Path) -> list[Finding]:
         # `SCOPE NOTE` mentioning `proof-connect`/`proof connect`)
         # somewhere in the file. The same set of files
         # (CloseoutVerification.v, RTLGapRegistry.v,
-        # F4_BModulesTranslation.v) was passing under that rule before
-        # the body-graph check was introduced; without this exemption,
-        # the body-graph rule re-flags the same files for the same
-        # reason.
+        # F4_BModulesTranslation.v) passes under that rule; without this
+        # exemption, the body-graph rule would flag the same files for the
+        # same reason.
         try:
             raw = file_path.read_text(encoding="utf-8", errors="replace")
             if _PROOF_CONNECTIVITY_NOTE_RE.search(raw):
@@ -7078,8 +7073,8 @@ def _scan_opcode_parity(repo_root: Path) -> list[Finding]:
     findings: list[Finding] = []
 
     # 1. Extract opcode names from Coq kernel. The foundation files live under
-    # coq/kernel/foundation/ in the current layout; the flat coq/kernel/*.v
-    # paths are kept as a fallback so this scan still works on legacy trees.
+    # coq/kernel/foundation/; the flat coq/kernel/*.v paths are a fallback
+    # for flat layouts.
     kernel_root = repo_root / "coq" / "kernel"
     candidates: list[Path] = []
     for name in ("VMStep.v", "VMState.v"):
@@ -7907,7 +7902,7 @@ def main(argv: list[str]) -> int:
             for root in coq_roots:
                 all_findings.extend(_scan_symmetry_contracts(root, manifest))
 
-    # μ-axis Phase-0 vacuity discipline: consume artifacts/vacuity_audit.json
+    # μ-axis vacuity discipline: consume artifacts/vacuity_audit.json
     # if present and surface kernel-convertibility findings as HIGH.
     all_findings.extend(_scan_kernel_convertibility_vacuity(repo_root))
 

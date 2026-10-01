@@ -12,10 +12,10 @@ From Kernel Require Import EntropyImpossibility.
     This is the central claim of the Thiele Machine. Starting from
     csr_cert_addr = 0, if a bounded execution ends with has_supra_cert, then
   the trace crosses a positive-cost certification boundary. The broad
-  structural envelope exported from RevelationRequirement.v still lists the
+  structural envelope exported from RevelationRequirement.v lists the
   revelation/certification instruction forms REVEAL, EMIT, LJOIN, LASSERT,
-  and MORPH_ASSERT. The sharper current-semantics shortcut frontier is now
-  explicit too: the actual bridge pattern for the csr_cert_addr channel is an
+  and MORPH_ASSERT. The sharper current-semantics shortcut frontier is
+  also explicit: the actual bridge pattern for the csr_cert_addr channel is an
   executed nonzero MORPH_ASSERT step, and traces with no such bridge remain
   observation-only. No execution moves from "no supra certificate" to "supra
   certificate" through ordinary register arithmetic or a graph-only op.
@@ -305,7 +305,7 @@ Qed.
 
     The bridge hypothesis captures the domain-specific argument needed to turn
     observation-level certification into supra-certification in a given channel.
-    This theorem itself is now structurally dependent on [strictly_stronger].
+    This theorem itself is structurally dependent on [strictly_stronger].
 *)
 Theorem strengthening_obs_requires_structure_addition :
   forall (A : Type)

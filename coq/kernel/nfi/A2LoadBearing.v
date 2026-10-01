@@ -70,8 +70,8 @@ Require Import NecessityOfMuLedger.
     [po1_cond4_trace_A_mu_paid] uses [vm_apply_certify_mu_charged]
     to assert [(vm_apply s (instr_certify 0)).vm_mu = s.vm_mu + 1].
     That step reads the cost rule for [instr_certify] directly from
-    the schedule. If we replace it with A2, the same conclusion
-    holds, but the proof now goes through the cert-flip cost-floor
+    the schedule. Replacing it with A2 gives the same conclusion,
+    and the proof goes through the cert-flip cost-floor
     axiom rather than a definitional unfold. A counterfactual model
     where A2 fails (cert-flipping at cost 0) would still admit a
     schedule, but the A2-routed lower bound would collapse. *)
@@ -97,7 +97,7 @@ Proof.
   assert (Hinit_mu : po1_init.(vm_mu) = 0).
   { unfold po1_init. simpl. reflexivity. }
   rewrite Hinit_mu in HA2.
-  (* HA2 now reads:
+  (* HA2 reads:
        (vm_apply po1_init (instr_certify 0)).(vm_mu) >= 0 + 1 *)
   lia.
 Qed.

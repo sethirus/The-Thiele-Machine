@@ -124,13 +124,6 @@ Definition euler_characteristic (g : PartitionGraph) : Z :=
 (** I do not introduce χ notation here because the unicode notation caused
     parsing trouble in Coq scripts. Use euler_characteristic directly. *)
 
-(** Basic topological checks: the empty-graph Euler computation and the
-    four V/E/F non-negativity sanity statements were inlined-and-deleted
-    here. They were definitional unfoldings of nat-valued list lengths
-    (length L : nat is always >= 0), with no callers in the proof tree;
-    keeping them as named lemmas would be circular bookkeeping rather
-    than mathematical content. *)
-
 (** Face count is module count because faces are modules in this model. *)
 Lemma F_equals_module_count : forall g,
   F g = length (pg_modules g).

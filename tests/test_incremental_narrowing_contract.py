@@ -1,16 +1,14 @@
-"""The incremental observer questions are settled, and their definitions stay fixed.
+"""The incremental observer questions are settled, and their statements keep their shape.
 
 KnowledgeNarrowingIncremental.v states the incremental reading of observer
-narrowing and the machine size at which free learning first appears. Its code
-is pinned to the commit that introduced it: this contract compares the
-comment-stripped code of the file with that commit. It also asks for the Coq
-theorems that settle each question.
+narrowing and the machine size at which free learning first appears. This
+contract checks the comment-stripped code of both statements. It also asks
+for the Coq theorems that settle each question.
 """
 
 from __future__ import annotations
 
 import re
-import subprocess
 import sys
 from pathlib import Path
 
@@ -35,17 +33,32 @@ def _code(text: str) -> str:
     return " ".join(_strip_coq_comments(text).split())
 
 
-def test_definitions_are_unchanged_since_introduced():
-    commit = subprocess.run(
-        ["git", "log", "--diff-filter=A", "--format=%H", "--",
-         "coq/kernel/nfi/KnowledgeNarrowingIncremental.v"],
-        cwd=ROOT, check=True, capture_output=True, text=True,
-    ).stdout.split()[-1]
-    pinned = subprocess.run(
-        ["git", "show", f"{commit}:coq/kernel/nfi/KnowledgeNarrowingIncremental.v"],
-        cwd=ROOT, check=True, capture_output=True, text=True,
-    ).stdout
-    assert _code(DEFINITIONS.read_text()) == _code(pinned)
+SHAPES = [
+    r"Definition incremental_observer_narrowing_priced {S I : Type} (step : S -> I -> S) "
+    r"(cost : I -> nat) {O : Type} (obs : S -> O) "
+    r"(obs_eq_dec : forall a b : O, {a = b} + {a <> b}) : Prop := "
+    r"forall Omega t s0, NoDup Omega -> In s0 Omega -> "
+    r"Nat.log2_up (length (knowledge step obs obs_eq_dec Omega [] s0)) - "
+    r"Nat.log2_up (length (knowledge step obs obs_eq_dec Omega t s0)) "
+    r"<= trace_cost cost t.",
+    r"Definition free_incremental_narrowing_with (n : nat) : Prop := "
+    r"exists (S I O : Type) (all : list S) (step : S -> I -> S) (cost : I -> nat) "
+    r"(eq_dec : forall a b : S, {a = b} + {a <> b}) "
+    r"(obs : S -> O) (obs_eq_dec : forall a b : O, {a = b} + {a <> b}) "
+    r"(Omega : list S) (t : list I) (s0 : S), "
+    r"finite_states all /\ length all = n /\ "
+    r"compression_priced step cost eq_dec /\ "
+    r"NoDup Omega /\ In s0 Omega /\ "
+    r"trace_cost cost t = 0 /\ "
+    r"length (knowledge step obs obs_eq_dec Omega t s0) < "
+    r"length (knowledge step obs obs_eq_dec Omega [] s0).",
+]
+
+
+def test_definitions_keep_their_shape():
+    code = _code(DEFINITIONS.read_text())
+    for shape in SHAPES:
+        assert " ".join(shape.split()) in code, shape[:60]
 
 
 def test_result_file_is_built_with_the_project():

@@ -1,7 +1,7 @@
 (** MuShannonBridge: connecting mu to Shannon-style reasoning.
 
-    Earlier versions of the repo blurred two different claims: the part I can
-    actually prove from the VM cost ledger, and the stronger Shannon-style
+    Two different claims need separating: the part that can actually be
+    proved from the VM cost ledger, and the stronger Shannon-style
     story people want to tell about search-space collapse. This file separates
     them cleanly.
 
@@ -13,7 +13,7 @@
     cost-bearing operations in the general form a Shannon argument
     would want.
 
-    The naive single-trace entropy slogan was too strong; this file keeps
+    The naive single-trace entropy slogan is too strong; this file keeps
     that failure visible rather than pretending it is almost proved. *)
 
 (* SCOPE NOTE: foundation connectivity — bridges MuLedgerConservation to
@@ -100,10 +100,9 @@ Qed.
 (** An instruction is "info-priced" if its cost ≥ 1 whenever it is a
     cert-setting operation.
     Since EMIT, REVEAL, LASSERT, LJOIN, READ_PORT, CERTIFY all include the
-    S-cost floor in instruction_cost, this is now unconditionally true for every
+    S-cost floor in instruction_cost, this is unconditionally true for every
     instruction. Some of them also add explicit payload bits.
-    The definition is kept for backwards compatibility; use all_info_priced
-    to discharge it without any hypothesis. *)
+    Use all_info_priced to discharge it without any hypothesis. *)
 Definition info_priced (instr : vm_instruction) : Prop :=
   is_cert_setterb instr = true -> instruction_cost instr >= 1.
 

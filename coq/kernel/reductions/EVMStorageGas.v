@@ -91,7 +91,7 @@ Definition fresh_slot : SlotRun :=
 
 Definition net (r : SlotRun) : Z := gas r - refund r.
 
-(** The invariant: while the slot is originally empty, the net charge is at
+(** The invariant: while the slot is empty at the start of the transaction, the net charge is at
     least STORAGE_SET whenever the slot is nonzero, and never negative. *)
 Lemma empty_slot_invariant : forall news r,
   original r = 0 ->

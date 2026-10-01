@@ -22,9 +22,9 @@ From Kernel Require Import MuShannonBridge.
 
 Import RevelationProof.
 
-(** Legacy-shaped wrapper around NoFreeInsight.
+(** Wrapper around NoFreeInsight.
 
-  The theorem records the intended reduction context, but it still consumes
+  The theorem records the intended reduction context, but it consumes
   [strictly_stronger] and [Certified] as inputs. It is a wrapper around the
   core theorem, exposing the additional context fields so callers carrying
   feasible-set evidence can bridge into the core statement; the wrapper
@@ -183,7 +183,7 @@ Qed.
 
 (** SCOPE NOTE: observation-level structural entitlement is the honest
     core for shortcuts whose receipts certify posterior admissibility without
-    yet proving that the cert_addr channel fired. This is the layer that still
+    yet proving that the cert_addr channel fired. This is the layer that
     supports strict predicate strengthening and the quantitative delta-mu bound
   for EMIT-style witnesses or any other receipt discipline that has not been
   bridged into has_supra_cert. As above, the distinguishing predicate witness
@@ -376,7 +376,7 @@ Proof.
     exact Hsupra.
 Qed.
 
-(** SCOPE NOTE: the full observed-shortcut upgrade now has an exact
+(** SCOPE NOTE: the full observed-shortcut upgrade has an exact
     current-semantics frontier. To move from [CertifiedObs] to the full
     theorem boundary, the run needs two things:
     - the final state still has [has_supra_cert]; and
@@ -433,7 +433,7 @@ Qed.
 (** SCOPE NOTE: this theorem isolates the last upgrade step. Once an
     observed shortcut has a domain-specific bridge from CertifiedObs into the
     cert_addr channel, the full structure-addition theorem closes. The remaining
-    gap is no longer vague: it is exactly the bridge hypothesis below. *)
+    gap is exactly the bridge hypothesis below. *)
 Theorem every_bridged_observed_structural_shortcut_lands_here :
   forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState)
          (shortcut : ObservedStructuralShortcut fuel trace s_init),

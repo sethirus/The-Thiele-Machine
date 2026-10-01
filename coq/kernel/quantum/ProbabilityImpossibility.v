@@ -83,7 +83,7 @@ Theorem Born_Rule_Unique_Fails_Without_More_Structure :
     weight_compositional w2 /\
     (exists t, w1 t <> w2 t).
 Proof.
-  (* === PART 1: Exhibit the two weight functions === *)
+  (* === Exhibit the two weight functions === *)
   exists w_len, w_len2.
 
   split.
@@ -94,7 +94,7 @@ Proof.
     + (* w_len2 is compositional (proven above) *)
       exact w_len2_compositional.
 
-    + (* === PART 2: Show they differ on some trace === *)
+    + (* === Show they differ on some trace === *)
       (* Witness: single halt instruction *)
       exists [instr_halt 0].
 

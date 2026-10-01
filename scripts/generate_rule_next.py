@@ -69,7 +69,10 @@ def generate():
     t += ''.join(f'  name <> "{n}" ->\n' for n, _ in fs)
     t += '  cpu_register_kind name = None.\nProof.\n'
     t += f'  intros name {others}.\n'
-    t += '  unfold cpu_register_kind, register_kind, dispatch_reset_state, initRegs.\n'
+    t += '  unfold cpu_register_kind, register_kind, dispatch_reset_state.\n'
+    t += '  rewrite M.find_add_2 by exact N_pc.\n'
+    t += '  rewrite M.find_add_2 by exact N_halted.\n'
+    t += '  unfold hardware_reset_state, initRegs.\n'
     t += '  assert (Habs : ~ List.In name (namesOf (rawInitRegs (getRegInits thieleCore)))).\n'
     t += '  { rewrite <- rawInitRegs_namesOf. rewrite cpu_register_names. cbn. intro Hin.\n'
     for n, _ in fs:

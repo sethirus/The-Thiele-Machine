@@ -57,7 +57,7 @@ Definition lift_safety
     (phi     : nat -> nat)
     (new_sz  : nat) : StateSpace :=
   {| ss_size      := new_sz;
-     ss_partition := A.(ss_partition);   (* partition graph unchanged for now *)
+     ss_partition := A.(ss_partition);   (* partition graph unchanged *)
      ss_safe      := fun s =>
                        exists t, t < A.(ss_size) /\ phi t = s /\ A.(ss_safe) t |}.
 
@@ -84,13 +84,6 @@ Proof.
   exists s.
   repeat split; assumption.
 Qed.
-
-(** Note: the safety-functor completeness statement (anything accepted
-    by the lift came from a safe predecessor state) was removed: the
-    `(lift_safety A phi new_sz).(ss_safe) t` hypothesis is definitionally
-    the same existential as the conclusion, so the lemma had no proof
-    content. Any future call site can inline `simpl` or `cbv` and use the
-    hypothesis directly. *)
 
 (* *)
 (** ** Step 2 — μ-Conservation of Trust

@@ -135,12 +135,12 @@ def test_chsh_classical_pattern_no_error() -> None:
 
 
 def test_chsh_does_not_require_logic_acc_priming() -> None:
-    """CHSH_TRIAL needs no logic_acc priming; the policy gate was removed.
+    """CHSH_TRIAL needs no logic_acc priming; there is no policy gate.
 
-    The CPU used to require logic_acc == 0xCAFEEACE and otherwise trip
-    policy gate C43471A1. `kami_step` has no such lock, so Devon's
-    2026-09-14 decision removed it (C2_DIVERGENCE_LEDGER.md, "Logic-gate
-    lock"): logic_acc and mstatus never change and no lock remains.
+    The CPU does not require logic_acc == 0xCAFEEACE and never trips
+    policy gate C43471A1. `kami_step` has no such lock
+    (C2_DIVERGENCE_LEDGER.md, "Logic-gate
+    lock"): logic_acc and mstatus never change.
     """
     from thielecpu.hardware.cosim import run_verilog
 
@@ -156,11 +156,11 @@ def test_chsh_does_not_require_logic_acc_priming() -> None:
 
 
 def test_static_contract_receipt_checker_uses_receipt_valid() -> None:
-    """Kami RTL must not contain the old unified-CPU receipt_valid anti-pattern."""
+    """Kami RTL must not contain the unified-CPU receipt_valid anti-pattern."""
     txt = RTL.read_text(encoding="utf-8")
     # The Kami RTL uses halted/err gating, not a receipt_valid wire.
-    # The old unified CPU had a receipt_integrity_checker submodule with a
-    # receipt_valid port — that pattern must not appear in the Kami file.
+    # A unified CPU with a receipt_integrity_checker submodule and a
+    # receipt_valid port is the anti-pattern — it must not appear in the Kami file.
     assert ".receipt_valid(instr_valid)" not in txt, (
         "receipt_integrity_checker still wired to instr_valid"
     )

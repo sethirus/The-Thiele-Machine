@@ -294,19 +294,19 @@ Definition Thiele_computes_with_cost (delta : TM_Delta) (c_init : Thiele_Config)
 
 (** Main theorem: Thiele strictly extends Turing *)
 Theorem thiele_strictly_extends_turing :
-  (** Part 1: Every Turing computation has a Thiele simulation *)
+  (** Simulation: every Turing computation has a Thiele simulation *)
   (forall delta c_init c_final,
     TM_computes delta c_init c_final ->
     exists c_th_final cost,
       Thiele_computes_with_cost delta (lift_config c_init) c_th_final cost /\
       c_th_final.(th_tm_config) = c_final) /\
-  (** Part 2: Thiele provides cost certificates with proven bounds *)
+  (** Cost certificates: Thiele provides certificates with proven bounds *)
   (forall fuel delta c,
     let cert := thiele_cost_certificate fuel delta c in
     cert.(cc_witness) <= cert.(cc_bound)).
 Proof.
   split.
-  - (* Part 1 *)
+  - (* simulation *)
     intros delta c_init c_final [fuel Hrun].
     exists (thiele_run fuel delta (lift_config c_init)).
     exists ((thiele_run fuel delta (lift_config c_init)).(th_mu)).
@@ -315,7 +315,7 @@ Proof.
       * reflexivity.
       * simpl. lia.
     + rewrite thiele_simulates_turing. exact Hrun.
-  - (* Part 2 *)
+  - (* cost certificates *)
     intros fuel delta c. apply cost_certificate_valid.
 Qed.
 

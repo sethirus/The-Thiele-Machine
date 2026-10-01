@@ -201,7 +201,7 @@ Proof.
   simpl in H00, H01, H10, H11;
   (* In each finite case, consistency sets one bucket to zero for every setting. *)
   unfold chsh_stat_from_wc;
-  (* Each correlator now has one zero bucket. *)
+  (* Each correlator has one zero bucket. *)
   rewrite ?H00, ?H01, ?H10, ?H11;
   (* Rewrite the remaining correlators with the helper lemmas. *)
   repeat match goal with

@@ -107,7 +107,7 @@ Proof.
   split; intro H; exact H.
 Qed.
 
-(** C4 bridge (part 1): coherence gives a concrete quantum model. *)
+(** C4 bridge: coherence gives a concrete quantum model. *)
 (* definitional lemma *)
 Theorem trace_quantum_bridge_coherent_implies_npa_model :
   forall fuel trace s_init,
@@ -121,7 +121,7 @@ Proof.
   exact Hcoh.
 Qed.
 
-(** C4 bridge (part 2): the same coherent model yields Tsirelson bound S^2 <= 8. *)
+(** C4 bridge: the same coherent model yields Tsirelson bound S^2 <= 8. *)
 (* definitional lemma *)
 Theorem trace_quantum_bridge_coherent_implies_tsirelson_squared :
   forall fuel trace s_init,
@@ -138,7 +138,7 @@ Proof.
   exact Hcoh.
 Qed.
 
-(** C4 bridge (part 3): absolute-value form |S| <= sqrt(8) = 2*sqrt(2). *)
+(** C4 bridge: absolute-value form |S| <= sqrt(8) = 2*sqrt(2). *)
 (* definitional lemma *)
 Theorem trace_quantum_bridge_coherent_implies_tsirelson_abs :
   forall fuel trace s_init,
@@ -271,7 +271,7 @@ Qed.
 
 (** C4 closure summary: the complete derivation chain.
 
-    WHAT IS NOW PROVEN (no admits, no assumed row bounds):
+    WHAT IS PROVEN (no admits, no assumed row bounds):
     1. npa_psd (PSD + symmetric) of zero-marginal NPA matrix
        → row bounds E00²+E01² ≤ 1, E10²+E11² ≤ 1
        (npa_psd_zero_marginal_implies_row_bounds, PROVEN)
@@ -285,6 +285,6 @@ Qed.
         → row_bounds [DERIVED, not assumed]
         → |S| ≤ 2√2 (Tsirelson bound)
 
-    This eliminates the redundant row-bound assumptions from
-    mu_ledger_tsirelson_coherent. The row bounds are now a THEOREM,
+    mu_ledger_tsirelson_coherent carries no row-bound assumptions. The row
+    bounds are a THEOREM,
     not a hypothesis. *)

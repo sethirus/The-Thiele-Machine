@@ -150,7 +150,7 @@ Qed.
     §4.  Bridge to the undecidable predicate of [StructuralUndecidability.v].
 
     The keystone above is about the state-level reading [csr_cert_addr ≠ 0].
-    The undecidable predicate from Part 1 is the program-level
+    The undecidable predicate from [StructuralUndecidability.v] is the program-level
     [vm_admits_shortcut_extensional p] (p's bounded run from [init_state]
     coincides with [simple_morph_trace]'s). The two meet at the cert channel:
     any program that admits the extensional shortcut runs to a state the
@@ -182,7 +182,7 @@ Proof.
   vm_compute. reflexivity.
 Qed.
 
-(** The canonical "yes" program of Part 1 ([simple_morph_trace]) is detected
+(** The canonical "yes" program of [StructuralUndecidability.v] ([simple_morph_trace]) is detected
     through the very channel §3 shows is invisible to [forget]. *)
 Lemma yes_program_detected_through_cert_addr :
   admits_structural_shortcut_bool

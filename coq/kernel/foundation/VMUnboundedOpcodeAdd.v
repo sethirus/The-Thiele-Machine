@@ -17,8 +17,8 @@
     The single 36-step simulation is proved as four phase lemmas (glue1+
     call1, glue2+call2, glue3+call3, glue4), each closed by its own [Qed],
     rather than as one monolithic proof term. A single-Qed version of this
-    proof was tried first: every individual tactic completed in well under
-    a second, but [Qed] itself then ran past 30 minutes on a 2-core
+    proof is impractical: every individual tactic completes in well under
+    a second, but [Qed] itself runs past 30 minutes on a 2-core
     machine, because the kernel must convertibility-check the whole chain
     of ~40 [set]/[fold]/[change] steps in one pass. Splitting the same
     tactics into four independently-checked lemmas keeps each [Qed] fast. *)

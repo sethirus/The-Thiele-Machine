@@ -1,15 +1,15 @@
 (** StructuralScheduleUniqueness: uniqueness up to the price schedule, both
-    strengths of [StructuralCoreRound3].
+    strengths of [StructuralCoreSchedule].
 
     - With the record fixed to the certification reading, uniqueness holds
-      ([uniqueness_round3b_holds]). Each state is related to the Thiele state
+      ([cert_record_schedule_uniqueness_holds]). Each state is related to the Thiele state
       its cover assigns. The CPU-billed machine of [StructuralUniqueness] is
-      an instance ([billed_core_honest3b]) and is the same machine modulo its
+      an instance ([billed_core_honest_cert]) and is the same machine modulo its
       schedule ([billed_core_equiv_mod_schedule]). So is the Thiele core
       with any surcharge that depends on the current state, per step, per
       instruction, or per millisecond ([surcharged_core_equiv_mod_schedule]).
     - With the record only required to be some reading of the computation,
-      uniqueness fails ([uniqueness_round3a_refuted]). [MeterCore] is the
+      uniqueness fails ([tied_record_schedule_uniqueness_refuted]). [MeterCore] is the
       Thiele core whose record is "the meter has passed one." That reading
       is permanent, a paid step writes it, and A2 holds for it, but at a
       state with a positive meter and no certificate the two lights
@@ -24,7 +24,7 @@ From Coq Require Import List Arith.PeanoNat Lia.
 Import ListNotations.
 From Kernel Require Import VMState VMStep VMUnboundedStep VMUnboundedLedger.
 From Kernel Require Import MuInitiality.
-From Kernel Require Import StructuralCore StructuralCoreRound2 StructuralCoreRound3.
+From Kernel Require Import StructuralCore StructuralCoreCover StructuralCoreSchedule.
 From Kernel Require Import StructuralUniqueness.
 
 (** * The certification strength holds *)
@@ -32,7 +32,7 @@ From Kernel Require Import StructuralUniqueness.
 Theorem thiele_core_priced : priced ThieleCore.
 Proof. split; [exact thiele_core_ledger | exact thiele_core_a2]. Qed.
 
-Theorem uniqueness_round3b_holds : uniqueness_round3b.
+Theorem cert_record_schedule_uniqueness_holds : cert_record_schedule_uniqueness.
 Proof.
   intros M C [Hrec [Hpriced _]].
   split; [exact Hpriced |]. split; [exact thiele_core_priced |].
@@ -53,7 +53,7 @@ Qed.
 
 (** The CPU-billed machine is an instance, and the same machine modulo its
     schedule. *)
-Theorem billed_core_honest3b : HonestExtension3b BilledCore billed_cover.
+Theorem billed_core_honest_cert : HonestCertExtension BilledCore billed_cover.
 Proof.
   split; [intros [[p s] k]; reflexivity |].
   split; [split; [exact billed_core_ledger | exact billed_core_a2] |].
@@ -63,7 +63,7 @@ Qed.
 
 Theorem billed_core_equiv_mod_schedule :
   equiv_mod_schedule_via BilledCore billed_cover.
-Proof. exact (uniqueness_round3b_holds BilledCore billed_cover billed_core_honest3b). Qed.
+Proof. exact (cert_record_schedule_uniqueness_holds BilledCore billed_cover billed_core_honest_cert). Qed.
 
 (** Any time-based bill is a schedule. [SurchargedCore extra] runs the
     Thiele core and adds [extra] of the current state to its ledger at each
@@ -95,8 +95,8 @@ Proof.
   - intros [[p s] a]. simpl. tauto.
 Defined.
 
-Theorem surcharged_core_honest3b : forall extra,
-  HonestExtension3b (SurchargedCore extra) (surcharged_cover extra).
+Theorem surcharged_core_honest_cert : forall extra,
+  HonestCertExtension (SurchargedCore extra) (surcharged_cover extra).
 Proof.
   intro extra.
   split; [intros [[p s] a]; reflexivity |].
@@ -125,7 +125,7 @@ Theorem surcharged_core_equiv_mod_schedule : forall extra,
   equiv_mod_schedule_via (SurchargedCore extra) (surcharged_cover extra).
 Proof.
   intro extra.
-  exact (uniqueness_round3b_holds _ _ (surcharged_core_honest3b extra)).
+  exact (cert_record_schedule_uniqueness_holds _ _ (surcharged_core_honest_cert extra)).
 Qed.
 
 (** * The computation-reading strength fails *)
@@ -153,7 +153,7 @@ Defined.
 Lemma meter_step_mu : forall p s, vm_mu s <= vm_mu (run_vm_u 1 p s).
 Proof. intros p s. rewrite thiele_step_mu. lia. Qed.
 
-Theorem meter_core_honest3a : HonestExtension3a MeterCore meter_cover.
+Theorem meter_core_honest_tied : HonestTiedExtension MeterCore meter_cover.
 Proof.
   split; [exists (fun t => Nat.leb 1 (snd t).(vm_mu)); intro m; reflexivity |].
   split.
@@ -200,14 +200,14 @@ Proof.
   vm_compute in Hcert. discriminate.
 Qed.
 
-Theorem uniqueness_round3a_refuted : ~ uniqueness_round3a.
+Theorem tied_record_schedule_uniqueness_refuted : ~ tied_record_schedule_uniqueness.
 Proof.
   intro H.
   exact (meter_core_not_equiv_mod_schedule
-           (H MeterCore meter_cover meter_core_honest3a)).
+           (H MeterCore meter_cover meter_core_honest_tied)).
 Qed.
 
-Print Assumptions uniqueness_round3b_holds.
-Print Assumptions uniqueness_round3a_refuted.
+Print Assumptions cert_record_schedule_uniqueness_holds.
+Print Assumptions tied_record_schedule_uniqueness_refuted.
 Print Assumptions billed_core_equiv_mod_schedule.
 Print Assumptions surcharged_core_equiv_mod_schedule.

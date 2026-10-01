@@ -65,7 +65,7 @@ def test_extraction_requires_present() -> None:
 
 
 def test_kernel_contract_declarations_present() -> None:
-    """Key kernel definitions exist (bridge/ and catnet/ were archived as disconnected)."""
+    """Key kernel definitions exist."""
     vmstep = _read("coq/kernel/foundation/VMStep.v")
     simproof = _read("coq/kernel/foundation/SimulationProof.v")
     assert require_VMStep(vmstep)

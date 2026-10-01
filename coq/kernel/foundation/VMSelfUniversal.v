@@ -1,4 +1,4 @@
-(** VMSelfUniversal.v: B3, part 5: the stated guest fragment is universal.
+(** VMSelfUniversal.v: the stated guest fragment is universal.
 
     [cm2_compile] translates every CM2 program into a guest program of the
     fragment, five guest instructions per CM2 instruction.  Counter 0 is

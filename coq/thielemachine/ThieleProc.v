@@ -228,14 +228,6 @@ Qed.
 Definition obs_equiv (P Q : Prog) : Prop :=
   snd (run_closed P) = snd (run_closed Q).
 
-(** Note: reflexivity of [obs_equiv] used to be exposed as a named
-    [obs_equiv_refl] lemma; it had no callers in this file or
-    downstream (the other [obs_equiv_refl] occurrences are over
-    different, locally defined [obs_equiv] relations in
-    [ThieleMachineComplete.v] and [ThieleManifoldBridge.v]). The
-    underlying [eq] is reflexive without help, so any future caller can
-    close [obs_equiv P P] with [reflexivity] in place. *)
-
 (** Symmetry. *)
 (* definitional lemma: equality is symmetric. *)
 Lemma obs_equiv_sym : forall P Q, obs_equiv P Q -> obs_equiv Q P.
@@ -426,7 +418,5 @@ Definition psplit_recompose_morphism (f : SplitMorphism) : Prog :=
 (** Note: the round-trip sanity check
     [psplit_decompose_morphism (psplit_recompose_morphism
       (tensor_morphism left right)) left right]
-    holds by [unfold ...; reflexivity] from the three definitions above.
-    It used to be exposed as the named lemma
-    [psplit_recompose_tensor_spec] but had no proof callers and is left
-    to reduce inline. *)
+    holds by [unfold ...; reflexivity] from the three definitions above,
+    so it is left to reduce inline. *)

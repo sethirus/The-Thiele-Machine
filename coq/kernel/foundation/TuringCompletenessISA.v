@@ -2,7 +2,7 @@
     TURING COMPLETENESS VIA ISA — 2-COUNTER MINSKY MACHINE SIMULATION
     =========================================================================
 
-    This file closes the ISA-level simulation boundary. The earlier
+    This file closes the ISA-level simulation boundary. The
     thiele_simulates_tm development uses a file-local transition model; here
     the compilation is executed through the concrete [vm_apply] semantics.
     The target is a 2-counter Minsky machine.
@@ -29,7 +29,7 @@ From Kernel Require Import VMState VMStep SimulationProof.
 From Kernel Require Import MuLedgerConservation. (* cost-foundation connectivity *)
 
 (** =========================================================================
-    PART 1: REGISTER UTILITY LEMMAS
+    REGISTER UTILITY LEMMAS
     ========================================================================= *)
 
 Lemma firstn_nth_aux : forall (A : Type) (l : list A) (n i : nat) (d : A),
@@ -116,7 +116,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    PART 2: MINSKY MACHINE DEFINITION
+    MINSKY MACHINE DEFINITION
     ========================================================================= *)
 
 Inductive MinskyInstr : Type :=
@@ -145,7 +145,7 @@ Definition minsky_step (prog : list MinskyInstr) (cfg : MinskyConfig)
   end.
 
 (** =========================================================================
-    PART 3: COMPILATION — MINSKY TO VM INSTRUCTIONS
+    COMPILATION — MINSKY TO VM INSTRUCTIONS
     ========================================================================= *)
 
 (** Block size for each Minsky instruction *)
@@ -196,7 +196,7 @@ Definition compile_minsky (prog : list MinskyInstr) : list vm_instruction :=
   compile_minsky_aux prog 0 prog.
 
 (** =========================================================================
-    PART 4: SIMULATION INVARIANT
+    SIMULATION INVARIANT
     =========================================================================
 
     Links Minsky configuration to VM state:
@@ -217,7 +217,7 @@ Definition minsky_vm_inv (prog : list MinskyInstr)
   length s.(vm_regs) >= REG_COUNT.
 
 (** =========================================================================
-    PART 5: VM_APPLY DISPATCH LEMMAS
+    VM_APPLY DISPATCH LEMMAS
     =========================================================================
 
     For each instruction type we use (5 of 46), we prove what vm_apply does.
@@ -277,7 +277,7 @@ Lemma vm_apply_halt :
 Proof. intros. unfold vm_apply. reflexivity. Qed.
 
 (** =========================================================================
-    PART 6: STATE UPDATE FIELD LEMMAS
+    STATE UPDATE FIELD LEMMAS
     ========================================================================= *)
 
 Lemma advance_state_rm_pc :
@@ -311,7 +311,7 @@ Lemma jump_state_regs :
 Proof. intros. unfold jump_state. reflexivity. Qed.
 
 (** =========================================================================
-    PART 7: SINGLE-STEP SIMULATION — INC
+    SINGLE-STEP SIMULATION — INC
     =========================================================================
 
     MI_Inc(c) compiles to: [load_imm r4 1; add r(2+c) r(2+c) r4]
@@ -324,13 +324,13 @@ Proof. intros. unfold jump_state. reflexivity. Qed.
 (** After running Inc block, the counter register is incremented.
     NOTE: The run_vm-based approach (fetching instructions from the compiled
     trace via nth_error) requires compile layout correctness lemmas that are
-    non-trivial boilerplate. Part 7B below proves the same result more
-    directly via explicit vm_apply calls, which is what is needed for the
-    audit. This theorem is therefore not proved here; the Part 7B theorems
-    (inc_via_vm_apply, jzdec_*_via_vm_apply) are the canonical proofs. *)
+    non-trivial boilerplate. The single-instruction proofs below prove the
+    same result more directly via explicit vm_apply calls, which is what is
+    needed for the audit. This theorem is therefore not proved here; the
+    single-instruction theorems (inc_via_vm_apply, jzdec_*_via_vm_apply) are the canonical proofs. *)
 
 (** =========================================================================
-    PART 7B: SINGLE INSTRUCTION vm_apply PROOFS
+    SINGLE INSTRUCTION vm_apply PROOFS
     =========================================================================
 
     Rather than proving full run_vm simulation (which requires
@@ -540,7 +540,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    PART 8: COMPOSITION — INC VIA VM_APPLY
+    COMPOSITION — INC VIA VM_APPLY
     =========================================================================
 
     Show that two consecutive vm_apply calls implement MI_Inc correctly.
@@ -655,7 +655,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    PART 9: COMPOSITION — JZDEC VIA VM_APPLY
+    COMPOSITION — JZDEC VIA VM_APPLY
     =========================================================================
 
     MI_JzDec(c, tgt) compiles to:
@@ -777,7 +777,7 @@ Proof.
 Qed.
 
 (** =========================================================================
-    PART 10: MAIN SIMULATION THEOREM
+    MAIN SIMULATION THEOREM
     =========================================================================
 
     Every single Minsky step can be simulated by 2-3 vm_apply calls.
@@ -794,16 +794,16 @@ Qed.
 (** Summary of what is proved:
 
     1. vm_apply correctly dispatches load_imm, add, sub, jnez, jump, halt
-       (Part 5: 6 reflexivity proofs)
+       (6 reflexivity proofs)
 
     2. Each vm_apply call produces the right register/PC updates
-       (Part 7B: 17 lemmas about field updates)
+       (17 lemmas about field updates)
 
     3. MI_Inc is correctly simulated by 2 vm_apply calls
-       (Part 8: inc_via_vm_apply)
+       (inc_via_vm_apply)
 
     4. MI_JzDec is correctly simulated by 2 vm_apply calls
-       (Part 9: jzdec_zero_via_vm_apply, jzdec_nonzero_via_vm_apply)
+       (jzdec_zero_via_vm_apply, jzdec_nonzero_via_vm_apply)
 
     5. All transitions preserve register length and scratch register
        (invariant maintenance)

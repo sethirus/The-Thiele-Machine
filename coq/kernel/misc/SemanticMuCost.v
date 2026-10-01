@@ -2,8 +2,8 @@
 
     Raw textual payload-bit μ-cost is syntax-sensitive: "x>0" (3 chars,
     24 bits) and "x > 0" (5 chars, 40 bits) carry different costs even
-    though they specify the same constraint. This file replaces that
-    measure with one defined on the abstract syntax tree:
+    though they specify the same constraint. This file instead
+    defines a measure on the abstract syntax tree:
 
       - Parse the constraint to an AST.
       - Normalise it for commutativity and associativity.

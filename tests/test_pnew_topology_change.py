@@ -1,13 +1,12 @@
 """
 Test that PNEW operations change Euler characteristic χ = V - E + F.
 
-This empirically validates Phase 3 of the gravity proof:
+This empirically validates the topology-change step of the gravity proof:
 - PNEW with fresh region → changes V, E, F
 - Changes in V, E, F → changes in χ
 - Changes in χ → changes in curvature (via Gauss-Bonnet)
 
 REF: coq/kernel/curvature/PNEWTopologyChange.v
-     GRAVITY_PROOF_PLAN.md Phase 3
 """
 
 import pytest

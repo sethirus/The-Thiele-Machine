@@ -8,8 +8,8 @@ source next to the cached outputs (`write`), and on restore (`apply`) sets
 times from content: every unchanged source is older than every restored
 output, and every source whose digest differs from the record is newer. Make
 then rebuilds the changed files and, through coqdep, everything that depends
-on them. A compiled file whose source no longer exists is deleted, so a
-removed module can never satisfy a Require. Sources are grouped in two
+on them. A compiled file whose source is absent is deleted, so a
+module without a source can never satisfy a Require. Sources are grouped in two
 scopes, coq/ and the vendored undecidability library. If a scope's project
 files or the compiled libraries below it differ from the recorded build,
 every source in that scope counts as changed.

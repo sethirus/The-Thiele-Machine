@@ -214,7 +214,7 @@ CONSTRUCTOR_FIELD_MAP: dict[str, list[tuple[str, str]]] = {
                            ("value", "value"), ("mu_delta", "mu_delta")],
     "Instr_tensor_get":   [("dst", "dst"), ("module0", "module"), ("i", "i"),
                            ("j", "j"), ("mu_delta", "mu_delta")],
-    # Categorical morphism extension (7 new opcodes — Phase 5)
+    # Categorical morphism extension (7 opcodes)
     "Instr_morph":        [("dst", "dst"), ("src_mod", "src_mod"),
                            ("dst_mod", "dst_mod"), ("coupling_idx", "coupling_idx"),
                            ("mu_delta", "mu_delta")],
@@ -591,7 +591,7 @@ def generate_text_parser() -> str:
         "morph_assert", "morph_tensor", "morph_get",
     })
     # Python-safe op name overrides (avoids conflict with Python builtins)
-    OP_NAME_OVERRIDE: dict[str, str] = {}  # and/or now use bare names ("and","or") matching instr_dict_to_text
+    OP_NAME_OVERRIDE: dict[str, str] = {}  # and/or use bare names ("and","or") matching instr_dict_to_text
 
     # Special case opcodes handled below the main loop (text format differs from CONSTRUCTOR_FIELD_MAP order)
     SPECIAL_PARSE_OPS = frozenset({"reveal", "certify"})

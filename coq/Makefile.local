@@ -8,12 +8,12 @@ COQLIBS := $(subst -R . Top,,$(COQLIBS))
 
 .PHONY: extraction-output-dirs
 extraction-output-dirs:
-	mkdir -p ../build/kami_hw
+	mkdir -p ../build/kami_hw ../build/kami_hw/system
 
 # Both roots write Target.ml/Target.mli, but their extraction contexts differ.
 # Canonical full extraction must run last, including in incremental -j builds.
 Extraction.vo: kami_hw/KamiExtraction.vo
-Extraction.vo ThieleMachineComplete.vo kami_hw/KamiExtraction.vo: | extraction-output-dirs
+Extraction.vo ThieleMachineComplete.vo kami_hw/KamiExtraction.vo kami_hw/SystemExtraction.vo: | extraction-output-dirs
 
 # Build the pinned undecidability library modules that coq/ imports, with the
 # library's own project flags. Every imported module is listed, so the vendor

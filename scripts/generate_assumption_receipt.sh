@@ -31,9 +31,9 @@ mapfile -t COQ_ARGS < <(
     python3 - <<'PY'
 import pathlib, shlex, sys
 coqroot = pathlib.Path("coq").resolve()
-# coq/Makefile includes Makefile.conf -- NOT Makefile.coq.conf, which is a
+# coq/Makefile includes Makefile.conf -- NOT Makefile.coq.conf, which can be a
 # stale leftover from an older coq_makefile invocation and is missing at least
-# `-R kernel/reductions Kernel`. Reading the wrong one made coqtop fail on
+# `-R kernel/reductions Kernel`. Reading the wrong one makes coqtop fail on
 # Kernel.GasMetering and Kernel.PoSFinality. Read what the build reads.
 conf = coqroot / "Makefile.conf"
 libs = None

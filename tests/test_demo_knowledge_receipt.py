@@ -1,12 +1,10 @@
 """Keep the README's headline demo from rotting.
 
 examples/demo_knowledge_receipt.py is the first thing the README links under
-"See it in code", so it's the first code a stranger runs. It drives the live
+"See it in code", so it is the first code a stranger runs. It drives the live
 VM through the Coq-extracted OCaml runner across four acts and checks every
-act with `assert`. Nothing else in the suite touched it, which is exactly how
-it drifted out of sync with the VM's data model (graph.pg_modules) and the
-morphism-id convention (1-based, like module ids) while CI never said a word.
-That bit me once. Now this test pins it.
+act with `assert`. This test pins the demo to the VM's data model
+(graph.pg_modules) and the morphism-id convention (1-based, like module ids).
 
 It runs the demo end-to-end as a subprocess and wants exit 0 plus every act's
 headline receipt in the output. Marked `strict_extracted`: it skips when

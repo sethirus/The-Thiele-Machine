@@ -422,20 +422,10 @@ Qed.
 
 (** morph_assert_cost_correct: specification for the intended MORPH_ASSERT
     extension. When graph_certify_morphism is applied, morph_cert_cost becomes
-    S(cost). Currently MORPH_ASSERT does not call graph_certify_morphism (to
+    S(cost). MORPH_ASSERT does not call graph_certify_morphism (to
     avoid RTL cascade), so all morphisms have morph_cert_cost = 0 by default.
     This theorem states the extension contract for clients that add fields
     while preserving the VM state's existing observations. *)
-
-(** Removed: morph_assert_cost_correct.
-
-    Claim was: the [pg_morphisms] field of [graph_certify_morphism g morph_id (S cost)]
-    equals the [List.map] that rewrites the matching morphism's [morph_cert_cost]
-    to [S cost].  [graph_certify_morphism] is defined as exactly that record
-    update, so the equation reduces by [unfold graph_certify_morphism; reflexivity]
-    and the [graph_lookup_morphism g morph_id = Some ms] hypothesis was unused.
-    No caller depended on the contract restatement; it remains true by
-    construction of [graph_certify_morphism]. *)
 
 (** graph_add_identity: Create an identity morphism for a module.
     Coupling is empty_coupling_data — identity is structural
@@ -1943,7 +1933,7 @@ Record VMState := {
   vm_certified : bool         (* state-based certification flag *)
 }.
 
-(** Default empty μ-tensor (16 zeros) for backward-compatible state builds. *)
+(** Default empty μ-tensor (16 zeros) for state builds. *)
 Definition vm_mu_tensor_default : list nat := repeat 0 16.
 
 (** Logic gate key: 0xCAFEEACE as a natural number.

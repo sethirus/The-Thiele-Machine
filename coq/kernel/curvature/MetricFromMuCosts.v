@@ -32,7 +32,6 @@ From Kernel Require Import MuGravity.
 
     DERIVATION:
     mu-tensor(i,j) = (i,j) component of the metric tensor
-    This replaces the old scalar module_structural_mass approach.
 *)
 
 (** Read (i,j) entry of vm_mu_tensor as a real number *)
@@ -304,7 +303,7 @@ Fixpoint sum_angle_defects_4d (s : VMState) (sc : SimplicialComplex4D)
   the global theorem.
 
   The repo already gets a 2D discrete Einstein-style bridge out of that. A
-  full 4D formalization is a separate project and is still not finished here.
+  full 4D formalization is a separate project and is not part of this file.
 *)
 
 (**
@@ -529,7 +528,7 @@ Proof.
 Qed.
 
 (** Determinant of diagonal metric = product of diagonal entries. *)
-(** Backward compatibility: when the per-module tensor is an isotropic diagonal
+(** When the per-module tensor is an isotropic diagonal
     with entries matching the structural mass, full_metric_at_vertex agrees
     with metric_at_vertex (the scalar-diagonal metric from MuGravity). *)
 Lemma full_metric_compat_diagonal : forall s v μ ν,

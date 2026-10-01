@@ -5,7 +5,7 @@
   formula and certificate strings, so PC, μ, and error behavior can be
   related directly to the checker outcomes.
 
-  LASSERT now uses the same execution guard on both sides: the encoded flen
+  LASSERT uses the same execution guard on both sides: the encoded flen
   must match the in-memory formula header and the witness check must pass.
   If either condition fails, both semantics trap and latch error.
 *)
@@ -124,7 +124,7 @@ Proof.
   subst vs. rewrite Hpc_hw, Hcheck, Hpc_vm, Hcheck. reflexivity.
 Qed.
 
-(** Mu agreement: hardware now charges flen * 8 + S cost matching the kernel.
+(** Mu agreement: hardware charges flen * 8 + S cost matching the kernel.
     The gap is zero. *)
 Theorem lassert_mu_gap :
   forall (hs : KamiSnapshot) (vs vs' : VMState) (freg creg : nat)

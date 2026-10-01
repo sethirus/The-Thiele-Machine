@@ -5,8 +5,8 @@
     VM semantic anchor is used and no bridge to VM semantics is claimed.
 
     The single-step propositions of [ConcreteRAMTarget] are proved in
-    [ConcreteRAM].  This file supplies the Round 4 adapters for the RAM: a
-    [BaseMachine], a [BaseCover], a [HonestExtension4], and a
+    [ConcreteRAM].  This file supplies the record-axis adapters for the RAM: a
+    [BaseMachine], a [BaseCover], a [HonestBaseExtension], and a
     [latch_factorization].
 
     - A program is a list of [RAMOp] indexed by the program counter.  A state
@@ -23,7 +23,7 @@
     Results.  TIED appends exactly the overwrite entry on every step, so its
     record grows in prefix order and is driven by the computation.  For every
     nonempty program it is an honest growing extension, it is an honest
-    Round 4 extension, and its Boolean reading factors as the latch of the
+    base extension, and its Boolean reading factors as the latch of the
     event "the current instruction addresses an existing cell".  UNTIED never
     writes its record, so it fails the reachable-write clause of both honesty
     notions.  The two machines have identical base projections along every
@@ -33,7 +33,7 @@
 From Coq Require Import List Bool Arith.PeanoNat Lia.
 Import ListNotations.
 
-From Kernel Require Import StructuralCore StructuralCoreRound2 StructuralCoreRound4.
+From Kernel Require Import StructuralCore StructuralCoreCover StructuralCoreAnyBase.
 From Kernel Require Import GrowingRecordCore GrowingRecord.
 From Kernel Require Import ConcreteRAMTarget ConcreteRAM.
 
@@ -222,7 +222,7 @@ Proof.
   unfold ram_base_step, cell_at. rewrite H. simpl. rewrite app_nil_r. reflexivity.
 Qed.
 
-(** The frozen overwrite equation, lifted to a program step. *)
+(** The overwrite equation of [ConcreteRAMTarget], lifted to a program step. *)
 Theorem tied_program_records_overwrite : forall prog s op old,
   nth_error prog (ram_pc s) = Some op ->
   cell_at (op_address op) s = Some old ->
@@ -329,7 +329,7 @@ Proof.
   exact (growing_record_decomposes_holds _ _ _ _ _ _ (tied_honest_growing prog Hne)).
 Qed.
 
-(** The Round 4 event: the current instruction addresses an existing cell. *)
+(** The latch event: the current instruction addresses an existing cell. *)
 Definition tied_event (prog : list RAMOp) (b : list nat * nat) : bool :=
   record_nonempty (tied_log prog b).
 
@@ -351,8 +351,8 @@ Proof.
   rewrite tied_next_cert. f_equal. apply prog_tied_projection.
 Qed.
 
-Theorem tied_honest_round4 : forall prog, prog <> [] ->
-  HonestExtension4 (TiedRAM prog) (RAMBase prog) (TiedCover prog).
+Theorem tied_honest_base_extension : forall prog, prog <> [] ->
+  HonestBaseExtension (TiedRAM prog) (RAMBase prog) (TiedCover prog).
 Proof.
   intros prog Hne. split.
   { exists (fun b c => orb c (tied_event prog b)). apply tied_next_cert. }
@@ -415,8 +415,8 @@ Proof.
   intros prog P [_ [_ [_ Hw]]]. exact (untied_no_strict_record_write prog Hw).
 Qed.
 
-Theorem untied_not_honest_round4 : forall prog,
-  ~ HonestExtension4 (UntiedRAM prog) (RAMBase prog) (UntiedCover prog).
+Theorem untied_not_honest_base_extension : forall prog,
+  ~ HonestBaseExtension (UntiedRAM prog) (RAMBase prog) (UntiedCover prog).
 Proof.
   intros prog [_ [_ [_ [_ Hw]]]]. exact (untied_no_record_write prog Hw).
 Qed.
@@ -451,21 +451,21 @@ Qed.
 Theorem ram_record_axis_classification : forall prog, prog <> [] ->
   HonestGrowingExtension (TiedRAM prog) (RAMBase prog) (TiedCover prog)
     PrefixOrder ram_record /\
-  HonestExtension4 (TiedRAM prog) (RAMBase prog) (TiedCover prog) /\
+  HonestBaseExtension (TiedRAM prog) (RAMBase prog) (TiedCover prog) /\
   latch_factorization (TiedRAM prog) (RAMBase prog) (TiedCover prog)
     (tied_event prog) /\
   (forall P, ~ HonestGrowingExtension (UntiedRAM prog) (RAMBase prog)
                  (UntiedCover prog) P ram_record) /\
-  ~ HonestExtension4 (UntiedRAM prog) (RAMBase prog) (UntiedCover prog) /\
+  ~ HonestBaseExtension (UntiedRAM prog) (RAMBase prog) (UntiedCover prog) /\
   (forall n s, ram_projection (rc_run (TiedRAM prog) n s) =
                ram_projection (rc_run (UntiedRAM prog) n s)).
 Proof.
   intros prog Hne.
   split; [exact (tied_honest_growing prog Hne) |].
-  split; [exact (tied_honest_round4 prog Hne) |].
+  split; [exact (tied_honest_base_extension prog Hne) |].
   split; [apply tied_latch_factorization |].
   split; [intros P; exact (untied_not_honest_growing prog P) |].
-  split; [apply untied_not_honest_round4 |].
+  split; [apply untied_not_honest_base_extension |].
   intros n s. apply tied_untied_same_base_run. reflexivity.
 Qed.
 
@@ -505,11 +505,11 @@ Print Assumptions tied_run_prefix.
 Print Assumptions tied_honest_growing.
 Print Assumptions tied_threshold_decomposition.
 Print Assumptions tied_latch_factorization.
-Print Assumptions tied_honest_round4.
+Print Assumptions tied_honest_base_extension.
 Print Assumptions untied_next_record.
 Print Assumptions untied_run_record_constant.
 Print Assumptions untied_not_honest_growing.
-Print Assumptions untied_not_honest_round4.
+Print Assumptions untied_not_honest_base_extension.
 Print Assumptions untied_trivial_latch.
 Print Assumptions tied_untied_same_base_run.
 Print Assumptions ram_record_axis_classification.

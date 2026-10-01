@@ -73,7 +73,7 @@ point into this directory.
 | `CostSemanticsComparison.v` | Writer identities and a lower-bound potential argument, placing the certification law among existing cost frameworks |
 | `CostFrameworks.v` | The certification law against four cost frameworks: graded monads, cost semantics, amortized resource analysis (`a2_and_aara_iff_exact`), linear resources (`flips_le_cost`) |
 | `PricingPhysicsTarget.v` | Statement vocabulary for the pricing-and-physics results: no price beyond merges, logical payment, no intrinsic joule scale, Landauer calibration (definitions) |
-| `PricingPhysicsAudit.v` | Closed outcomes for those statements (`no_forced_price_beyond_merges`, `permanent_write_has_logical_payment`, `mu_has_no_intrinsic_joule_value`, `calibrated_mu_landauer_energy`, `permanence_heat_floor_uses_landauer`) |
+| `PricingPhysicsAudit.v` | Proved outcomes for those statements (`no_forced_price_beyond_merges`, `permanent_write_has_logical_payment`, `mu_has_no_intrinsic_joule_value`, `calibrated_mu_landauer_energy`, `permanence_heat_floor_uses_landauer`) |
 
 ### Structural undecidability and orthogonality
 

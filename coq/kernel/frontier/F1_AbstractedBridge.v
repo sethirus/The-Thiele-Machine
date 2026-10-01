@@ -21,7 +21,7 @@
 
     What this file is NOT:
 
-      - F1 strong-form closure. The bridge body still has cost-floor
+      - F1 strong-form closure. The bridge body has cost-floor
         shape ([phys_cost i >= mu_bit]); the abstraction shifts that
         shape from a specific cost to an arbitrary cost, but does not
         eliminate it. The strong form of F1 would require the bridge
@@ -119,7 +119,7 @@ Qed.
     [Parameter], or [Hypothesis]. The kernel's zero-project-local-
     axioms invariant is preserved.
 
-    F1 strong-form residual: the bridge body still has cost-floor
+    F1 strong-form residual: the bridge body has cost-floor
     shape ([phys_cost i >= mu_bit]). Closing F1's strong form would
     require restating the bridge in operationally-defined physical
     vocabulary (e.g., real-valued dissipation in joules, or

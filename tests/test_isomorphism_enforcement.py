@@ -220,7 +220,7 @@ class TestVerilogRefinementCoverage:
         assert vo.exists(), f"VerilogRefinement.vo missing — run make -C coq"
 
     def test_certify_theorem_present(self):
-        """Regression test: CERTIFY was missing from VerilogRefinement.v until 2026-03-10."""
+        """Regression test: the CERTIFY refinement theorem must be present in VerilogRefinement.v."""
         text = _read(COQ / "kami_hw" / "VerilogRefinement.v")
         assert "verilog_simulates_vm_step_certify" in text, (
             "CERTIFY refinement theorem missing from VerilogRefinement.v"

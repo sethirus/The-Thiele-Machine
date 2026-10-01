@@ -16,7 +16,7 @@
     relation needs: a guard stated over the concrete instruction word, not
     over already-split bit variables.
 
-    Still open: the same argument for the other nine guard-class opcodes
+    Open: the same argument for the other nine guard-class opcodes
     (STORE, HEAP_LOAD, HEAP_STORE, CALL, RET, PNEW, PSPLIT, PMERGE,
     PDISCOVER), and the rich-format guard, which needs the same lane
     identity for the other five encodings (BRANCH_EXT, TENSOR_EXT,

@@ -42,6 +42,9 @@ module thiele_cpu_kami_tb;
     .loadInstr_x_0(load_data),
     .EN_loadInstr(load_en),
     .RDY_loadInstr(rdy_load),
+    // The testbench sets halted itself, so start is never called.
+    .EN_start(1'b0),
+    .RDY_start(),
     .EN_getPC(1'b1), .getPC(pc_out), .RDY_getPC(),
     .EN_getMu(1'b1), .getMu(mu_out), .RDY_getMu(),
     .EN_getErr(1'b1), .getErr(err_out), .RDY_getErr(),

@@ -186,6 +186,17 @@ jobs:
           python3 scripts/bsv_regfile_transform.py \
             build/kami_hw/thiele_hw_clean.bsv build/kami_hw/thiele_hw_clean.bsv
 
+      - name: Set up the Bluespec compiler
+        id: bsc
+        uses: ./.github/actions/setup-bsc
+
+      - name: Extract the CPU Verilog from the Coq model
+        # Coq -> Kami -> OCaml printer -> Bluespec -> bsc -> synthesis
+        # transform. The tracked Verilog is this output and nothing else.
+        env:
+          BLUESPECDIR: ${{ steps.bsc.outputs.bluespecdir }}
+        run: bash scripts/kami_extract.sh --skip-coq
+
       - name: Stage the pushed changes as one pending commit
         id: stage
         shell: bash
@@ -217,6 +228,7 @@ jobs:
         run: |
           git ls-files -z --others --exclude-standard -- 'coq/*.vo' 'coq/*.glob'             'vendor/coq-undecidability/*.vo' 'vendor/coq-undecidability/*.glob'             | xargs -0 -r git add --
           git add -u -- 'vendor/coq-undecidability/*.vo' 'vendor/coq-undecidability/*.glob'
+          git add -- thielecpu/hardware/rtl/thiele_cpu_kami.v thielecpu/hardware/rtl/thiele_system.v
           python3 scripts/check_hook_worktree.py --stage-generated
 
       - name: Restore the Print Assumptions answer cache

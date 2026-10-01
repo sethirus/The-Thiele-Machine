@@ -3,7 +3,7 @@
     This file exists to name the physics gap instead of hand-waving past it. If
     you assume a Bekenstein-style saturation relation and then plug in the
     Landauer entropy per bit, the algebra tells you what energy per mu-unit
-    would have to look like. But that still does not identify the VM cost unit
+    would have to look like. But that does not identify the VM cost unit
     with physical energy by magic.
 
     So the missing step is made explicit as a named hypothesis. That is the
@@ -387,7 +387,7 @@ Qed.
     6. Therefore: E per μ unit = T_Unruh × k_B × ln 2  [Landauer energy]
 
     Steps 1-6 are the calculation. The identification of VM energy with
-    physical energy is still the named hypothesis [mu_energy_unit_is_landauer].
+    physical energy is the named hypothesis [mu_energy_unit_is_landauer].
     The calculation gives a ratio, not a free calibration of VM units. *)
 Definition bekenstein_rindler_ratio_justified := bekenstein_rindler_energy_per_bit.
 

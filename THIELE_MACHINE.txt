@@ -1,7 +1,7 @@
 THE THIELE MACHINE
 A distillation: state, accounting, and what the proofs establish
 
-Devon Thiele -- September 2026, v3.3.0
+Devon Thiele
 
 I didn't invent a machine. I found one.
 
@@ -225,7 +225,7 @@ Three results carry the weight.
 
   On finite hardware, writing a permanent record merges two states (`permanent_flip_is_not_injective`). So an account that prices merges already prices the write (`a2_from_merging_price_and_permanence`).
 
-One more result is close to definitional. Give the extension a record that never switches off, that some paid step writes, that follows A2, and whose next value depends only on the base state and on itself. Then the base and the record move as a latch on one event (`uniqueness_round4_holds`). That follows from the two conditions in a few lines. Both conditions do work: a record that can switch back off isn't a latch (`toggle_not_latch`), and a record switched on by a hidden clock isn't driven by the computation (`clock_record_not_driven`).
+One more result is close to definitional. Give the extension a record that never switches off, that some paid step writes, that follows A2, and whose next value depends only on the base state and on itself. Then the base and the record move as a latch on one event (`record_axis_is_latch_holds`). That follows from the two conditions in a few lines. Both conditions do work: a record that can switch back off isn't a latch (`toggle_not_latch`), and a record switched on by a hidden clock isn't driven by the computation (`clock_record_not_driven`).
 
 So the picture is one structure with many price lists. The Turing machine is what's left when you drop the latch. What stays free is which event, the price list, and the base. Machines on different bases aren't compared here; that's complexity theory's question. The pointer question asks which event gets latched; the criterion offered here is conjectural.
 

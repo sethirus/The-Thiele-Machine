@@ -24,7 +24,7 @@ Definition dispatch_fetch_action : Action Void :=
         Assert (#lassert_phase_v == $0);
 
         (* Morphism-coupling FSM (M5): step rule also inhibited while a
-           MORPH/COMPOSE coupling computation is in flight,
+           MORPH/COMPOSE coupling computation is in progress,
            same pattern as the LASSERT and CHSH_LASSERT FSMs. *)
         Read mc_phase_v : Bit 4 <- "mc_phase";
         Assert (#mc_phase_v == $0);

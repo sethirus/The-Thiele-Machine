@@ -6,7 +6,7 @@ Python VM (backed by OCaml runner) and RTL co-simulation produce identical
 observable results for each of them. This is the
 definitive isomorphism test: same program, same input state, same output.
 
-Categories C1, C2, D2, D3, E1, E2, E3, F3 from TDD_COMPLETION_PLAN.md.
+Categories: C1, C2, D2, D3, E1, E2, E3, F3.
 """
 from __future__ import annotations
 

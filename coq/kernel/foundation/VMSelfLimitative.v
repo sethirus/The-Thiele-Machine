@@ -1,4 +1,4 @@
-(** VMSelfLimitative.v: B3, part 6: applicability of the self-interpreter.
+(** VMSelfLimitative.v: applicability of the self-interpreter.
 
     Composition: pinned MM2 halting -> CM2 guest -> guest fragment program
     [cm2_compile] -> the fixed host program [U].  The host input is data

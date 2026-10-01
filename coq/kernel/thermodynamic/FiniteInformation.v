@@ -447,8 +447,7 @@ Definition mu_after : nat := mu + info_destroyed.
     [info_destroyed : nat]. The non-trivial content lives in
     [info_nonincreasing] above (the pigeonhole argument), which is what
     makes [info_destroyed] well-defined in the first place. The
-    monotonicity wrapper was a [lia] one-liner with no proof callers
-    and remains inlined at the call sites that need this monotonicity fact. *)
+    monotonicity fact is a [lia] one-liner at the call sites that need it. *)
 
 (**
     CONCLUSION

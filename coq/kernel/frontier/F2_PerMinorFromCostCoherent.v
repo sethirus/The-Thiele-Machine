@@ -23,14 +23,15 @@
     is non-negative.
 
     OP-QM scope refinement:
-    - cost-axioms alone do NOT entail algebraically_coherent (F2 R1).
+    - cost-axioms alone do NOT entail algebraically_coherent
+      ([F2_MinorIndependence.v]).
     - cost-axioms + per-minor existence form (this file) is
       derivable but strictly weaker than algebraic-coherence.
     - cost-axioms + witness-locality DO entail algebraically_coherent
-      (F2 R2). Witness-locality is the precise strengthening that
+      ([F2_MinorFromWitnessLocality.v]). Witness-locality is the precise strengthening that
       promotes per-minor existence to shared-witness existence.
 
-    The F2 closure now has THREE rungs of precision: cost-axioms (no
+    The F2 results have THREE rungs of precision: cost-axioms (no
     minors), cost-axioms + per-minor (each minor satisfiable), and
     cost-axioms + witness-locality (algebraic-coherence proper). *)
 
@@ -107,7 +108,7 @@ Proof.
   nra.
 Qed.
 
-(** ** F2 R3 HEADLINE.
+(** ** HEADLINE.
 
     Each of the four NPA-1 minor inequalities is individually
     satisfiable for any cost-coherent correlator c. Each minor uses
@@ -187,6 +188,6 @@ Qed.
     All theorems above close under the global context. The per-minor
     derivation uses pure rational arithmetic (ring + lra/nra) plus the
     cost_coherent definition from F2_MinorIndependence. No bypass
-    markers. F2 R3 establishes the strictly-weaker positive result;
+    markers. This file establishes the strictly-weaker positive result;
     closing OP-QM at the FULL algebraic-coherence level still requires
-    the witness-locality strengthening (F2 R2). *)
+    the witness-locality strengthening ([F2_MinorFromWitnessLocality.v]). *)

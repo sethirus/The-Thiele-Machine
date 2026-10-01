@@ -24,8 +24,7 @@ From Kernel Require Import ClassicalBound TsirelsonUpperBound.
     interface. The point of the audit is that none of those layers mentions the
     Tsirelson constant or hidden quantum structure directly.
 
-    The January 2026 correction remains important: μ=0 programs achieve the
-    classical bound S = 2, not 2√2. The stronger bound only appears once the
+    μ=0 programs achieve the classical bound S = 2, not 2√2. The stronger bound only appears once the
     positive-cost bridge machinery is added.
 *)
 
@@ -61,14 +60,12 @@ Qed.
     operations alone — no μ-cost, no quantum, no Tsirelson reference. That
     audit observation is structural: it is visible at a glance in the
     definitions of [classical_chsh_value] and [chsh_value], whose bodies
-    contain only [+], [-], and rational literals over [Q]. The earlier
-    encoding [chsh_formula_is_algebraic := forall x y z w, x = x] dressed
-    this observation as a Coq lemma, but [forall x y z w, x = x] is
-    [eq_refl] for each instance and adds no proof content beyond the
-    Q-arithmetic refl that the definitions already give. The Prop and the
-    matching [chsh_formula_physics_free] theorem have been removed; the
+    contain only [+], [-], and rational literals over [Q]. A statement such
+    as [forall x y z w, x = x] would dress this observation as a Coq lemma,
+    but it is [eq_refl] for each instance and adds no proof content beyond
+    the Q-arithmetic refl that the definitions already give. The
     [non_circularity_certificate] conjunction below carries the
-    audit-relevant claims that do have proof content. *)
+    audit-relevant claims that have proof content. *)
 
 (** ** Audit 3: Where Does 2√2 Appear? *)
 
@@ -302,7 +299,7 @@ Definition non_circularity_certificate : Prop :=
   (rule_references_chsh rule_pnew = false /\
    rule_references_quantum rule_pnew = false /\
    rule_references_tsirelson rule_pnew = false) /\
-  (* Part B (renamed): Classical bound 2 appears as achieved value (μ=0) *)
+  (* Part B: Classical bound 2 appears as achieved value (μ=0) *)
   classical_bound_appears_as_achievable /\
   (* Part C: μ=0 class has LOCC-like properties *)
   mu_zero_locc_correspondence.

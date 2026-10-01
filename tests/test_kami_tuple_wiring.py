@@ -34,7 +34,7 @@ def test_kami_tuple_observation_ports_present() -> None:
 
 def test_logic_onchip_fsm_signals_present() -> None:
     txt = _rtl_text()
-    # On-chip LASSERT FSM signals (replaced the old external coprocessor interface).
+    # On-chip LASSERT FSM signals (there is no external coprocessor interface).
     expected = [
         "lassert_phase",
         "lassert_fbase",
@@ -49,11 +49,11 @@ def test_logic_related_opcodes_defined_in_coq_and_present_in_rtl_paths() -> None
     coq_types = (Path(__file__).resolve().parents[1] / "coq" / "kami_hw" / "ThieleTypes.v").read_text(encoding="utf-8")
     assert "OP_LASSERT" in coq_types
     assert "OP_LJOIN" in coq_types
-    # OP_ORACLE_HALTS was removed (0x10 reserved); legacy cost constant remains
+    # OP_ORACLE_HALTS is absent (0x10 reserved); the legacy cost constant remains
     assert "ORACLE_HALTS_HW_COST" in coq_types
 
     txt = _rtl_text()
     # LASSERT appears as explicit opcode literal in the extracted RTL.
     # LJOIN may be optimized into shared/default datapaths in generated output.
-    # ORACLE_HALTS (0x10) removed from RTL — no longer checked here.
+    # ORACLE_HALTS (0x10) is absent from the RTL and is not checked here.
     assert "8'h03" in txt

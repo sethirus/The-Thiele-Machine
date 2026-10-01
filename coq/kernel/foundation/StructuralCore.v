@@ -106,7 +106,7 @@ Definition ThieleCore : RCM := {|
 |}.
 
 (** The uniqueness conjecture, weak form. *)
-Definition uniqueness_round1 : Prop :=
+Definition adequate_core_uniqueness : Prop :=
   forall M, Adequate M -> core_equiv M ThieleCore.
 
 (** * The definitions are well posed: the Thiele core is adequate *)

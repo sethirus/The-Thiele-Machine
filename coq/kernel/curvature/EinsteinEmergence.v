@@ -11,7 +11,7 @@
   StressEnergyDynamics.v supplies the source-side language.
 
   So the algebraic shape looks like source implies curvature, but the object
-  here is still a 2D topological identity with coupling 5PI. It is an
+  here is a 2D topological identity with coupling 5PI. It is an
   analogy to Einstein, not a proof that the full Einstein field equation has
   been recovered in this file.
 
@@ -92,7 +92,7 @@ Definition local_stress_energy (s : VMState) (m : ModuleID) : R :=
   The source term does not directly turn into a Ricci tensor here. The path
   is more concrete: stress-energy marks the trigger, PNEW changes the graph,
   graph change can change chi, and Gauss-Bonnet turns delta-chi into
-  delta-curvature. Same overall shape as source to curvature, but still on a
+  delta-curvature. Same overall shape as source to curvature, but on a
   2D triangulated object rather than 4D spacetime. *)
 
 Theorem information_creates_curvature : forall s s' m region cost threshold,
@@ -243,7 +243,7 @@ Qed.
   curvature difference follows delta-K = 5PI * delta-chi.
 
   That has the same source-to-curvature shape as Einstein-style reasoning,
-  but the object here is still a discrete 2D topological curvature budget.
+  but the object here is a discrete 2D topological curvature budget.
   It is not a recovered 4D field equation, and this file says so explicitly. *)
 
 (** Classical GR: G_μν = (8πG/c⁴) T_μν.

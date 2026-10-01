@@ -123,7 +123,7 @@ jobs:
           rm -f Makefile Makefile.conf .Makefile.d
           coq_makefile -f _CoqProject -o Makefile
           make -j4 pre-all
-          make -j4 Extraction.vo
+          make -j4 Extraction.vo kami_hw/SystemExtraction.vo
 
       - name: Set up the Bluespec compiler
         id: bsc
@@ -138,7 +138,8 @@ jobs:
           BLUESPECDIR: ${{ steps.bsc.outputs.bluespecdir }}
         run: |
           bash scripts/kami_extract.sh --skip-coq
-          git diff --exit-code --stat -- thielecpu/hardware/rtl/thiele_cpu_kami.v
+          git diff --exit-code --stat -- thielecpu/hardware/rtl/thiele_cpu_kami.v \
+            thielecpu/hardware/rtl/thiele_system.v
 
       - name: Run hardware forge pipeline
         run: bash scripts/forge_artifact.sh
@@ -147,8 +148,9 @@ jobs:
         run: |
           mkdir -p build
           yosys -p "
-            read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/RegFile.v thielecpu/hardware/rtl/thiele_cpu_kami.v thielecpu/hardware/rtl/thiele_cpu_top_min.v;
-            prep -top thiele_cpu_top;
+            read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/RegFile.v thielecpu/hardware/rtl/thiele_cpu_kami.v \
+            thielecpu/hardware/rtl/thiele_system.v;
+            prep -top mkThieleSystem;
             check;
             stat;
             write_json build/netlist.json;
@@ -195,6 +197,12 @@ jobs:
           vcd_bytes=$(wc -c < build/thiele_cpu_tb.vcd)
           echo "✓ Simulation successful (VCD: ${vcd_bytes} bytes)"
 
+      - name: Load programs over the serial pin, in Verilog and in gates
+        # Each program goes in as serial frames to the extracted system and
+        # its report must equal the CPU's own result, both in the extracted
+        # Verilog and in a gate netlist synthesized from it.
+        run: python3 scripts/system_sim.py --gates
+
       - name: Reproducible synthesis gate
         run: bash scripts/synthesis_repro_gate.sh
 
@@ -237,7 +245,7 @@ jobs:
     # time-shares one 67×67 multiplier across the phases, so only one
     # multiply is live per cycle; each FSM register is sized to the largest
     # value 32-bit counters can put there, and the two 134×134 products are
-    # each summed from four 67×67 partial products. The Coq spec is still
+    # each summed from four 67×67 partial products. The Coq spec is
     # single-step; multi-cycle execution is a Kami-implementation detail
     # invisible to the spec, same pattern as instr_lassert. synth_xc7.ys
     # builds the multiplier from LUTs (`-nodsp`) and the module tensor store

@@ -3,7 +3,7 @@
   This file is here to make the repository harder to misread. It re-exports
   a selected stable claim set, but it also labels what kind of result each is:
   definitional restatement, direct algebraic theorem, conditional bridge,
-  wrapper around an earlier theorem, or verification-transfer claim.
+  wrapper around another theorem, or verification-transfer claim.
 
   The point is not to sound impressive. The point is to keep the audit trail
   explicit about what has actually been proved, what depends on extra
@@ -822,7 +822,7 @@ Definition master_claim_ledger : list HonestClaim :=
     audit_master_permanent_flip_heat ].
 
 (**
-    PART 0a: MECHANISM FILE MAP
+    MECHANISM FILE MAP
 
     If a reader wants the machine "all the way down", the load-bearing files
     are not only theorem bundles. They also include the operational semantics,
@@ -890,13 +890,13 @@ Proof.
 Qed.
 
 (**
-    PART 0b: THEOREM STATEMENT EXPOSURE
+    THEOREM STATEMENT EXPOSURE
 
     This section exposes the mathematical content of the load-bearing imported
     theorems that the rest of this summary relies on. The goal is not to inline
     their proofs, but to restate their content in this file's own vocabulary so
     their premises and consequences are explicit at the statement level.
-    Proof spines still remain external unless separately inlined.
+    Proof spines remain external unless separately inlined.
 *)
 
 Definition exposed_zero_marginal_psd_contractivity_spine : Prop :=
@@ -949,11 +949,6 @@ Proof.
       * exact Hbound.
 Qed.
 
-(** The earlier [chsh_formula_is_algebraic] conjunct (a vacuous [forall x
-    y z w, x = x] dressed as a Prop) has been removed: its proof was a
-    single [reflexivity] and it added no audit content beyond what the
-    Q-arithmetic definitions of [classical_chsh_value] and [chsh_value]
-    already make structurally visible. *)
 Definition exposed_non_circularity_spine : Prop :=
   non_circularity_certificate /\
   (forall r : mu_cost_rule,
@@ -1289,7 +1284,7 @@ Definition exposed_import_spine : list string :=
     "NoFIToEinstein.nfi_to_discrete_einstein_from_psplit_bekenstein_calibration -> exposed_nofi_to_discrete_einstein_from_psplit_bekenstein_calibration_content" ].
 
 (**
-    PART 0c: METADATA COMPLETENESS AND KERNEL-STORY COVERAGE
+    METADATA COMPLETENESS AND KERNEL-STORY COVERAGE
     *)
 
 (** This first ledger covers the master-claim theorem family only.
@@ -1533,7 +1528,7 @@ Proof.
 Qed.
 
 (**
-    PART 0d: ASSUMPTION CERTIFICATE BOUNDARY
+    ASSUMPTION CERTIFICATE BOUNDARY
     *)
 
 Definition master_inquisitor_assumption_artifact : external_artifact_reference :=
@@ -1606,7 +1601,7 @@ Proof.
 Qed.
 
 (**
-    PART 0e: VERIFICATION SCOPE DECISION
+    VERIFICATION SCOPE DECISION
     *)
 
 Definition verification_nonclaims_list : list string :=
@@ -1648,7 +1643,7 @@ Proof.
 Qed.
 
 (**
-    PART 0f: PHYSICS READING INVENTORY AND OPEN OBLIGATIONS
+    PHYSICS READING INVENTORY AND OPEN OBLIGATIONS
     *)
 
 Definition master_physics_reading_inventory : list physical_reading_entry :=
@@ -1723,10 +1718,9 @@ Definition master_nonclaim_inventory_statement : Prop :=
 
 (* [master_nonclaim_inventory_statement] reduces by [unfold; simpl; split;
    reflexivity] — both conjuncts are direct length/equality checks on
-   transparently-defined constants ([] and a fixed three-element list). The
-   former theorem [master_nonclaim_inventory_is_explicit] carried no proof
-   content beyond [Definition] transparency, so it has been inlined at its
-   sole caller [kernel_story_coverage_ledger_is_semantically_sufficient]. *)
+   transparently-defined constants ([] and a fixed three-element list), so
+   [kernel_story_coverage_ledger_is_semantically_sufficient] discharges it
+   inline. *)
 
 Definition kernel_story_semantic_sufficiency_statement : Prop :=
   (exists fuel trace, mu_cost_of_trace fuel trace 0 = 0%nat) /\
@@ -1812,7 +1806,7 @@ Proof.
         { exact master_assumption_boundary_explicit. }
         split.
         { exact master_verification_scope_is_explicit. }
-        { (* Inlined former [master_nonclaim_inventory_is_explicit]: both
+        { (* Both
              conjuncts of [master_nonclaim_inventory_statement] reduce to
              literal equalities on the inventory definitions. *)
           unfold master_nonclaim_inventory_statement,
@@ -1842,7 +1836,7 @@ Proof.
 Qed.
 
 (**
-    PART I: CORE THEOREMS
+    CORE THEOREMS
     *)
 
 (* AUDIT:
@@ -2512,7 +2506,7 @@ Proof.
 Qed.
 
 (**
-    PART II: VERIFICATION CHAIN
+    VERIFICATION CHAIN
     *)
 
 (** Verification-chain semantic boundary.
@@ -2626,7 +2620,7 @@ Proof.
 Qed.
 
 (**
-  PART IIb: NON-CIRCULARITY DECOMPOSITION
+  NON-CIRCULARITY DECOMPOSITION
 
   This section exposes the specific sub-certificates that support the
   exported non-circularity certificate.
@@ -2653,11 +2647,8 @@ Proof.
   destruct r; repeat split; reflexivity.
 Qed.
 
-(** The previous theorem [master_non_circular_chsh_formula] re-exported
-    the vacuous [chsh_formula_is_algebraic] Prop. With that Prop removed,
-    this re-export has no content to re-export. The audit-relevant
-    structural fact (CHSH is Q-arithmetic) is captured by the Q-typed
-    definitions of [classical_chsh_value] and [chsh_value] in
+(** The audit-relevant structural fact (CHSH is Q-arithmetic) is captured by
+    the Q-typed definitions of [classical_chsh_value] and [chsh_value] in
     [NonCircularityAudit.v] rather than by a one-line reflexivity
     theorem. *)
 
@@ -2703,7 +2694,7 @@ Definition non_circularity_nonclaims : list string :=
     "It does not claim every external interpretation of LOCC is captured without remainder." ].
 
 (**
-    PART IIc: STRONGER REPOSITORY-LEVEL RESULTS ELSEWHERE
+    STRONGER REPOSITORY-LEVEL RESULTS ELSEWHERE
 
     This summary exports the kernel-story surface used in the main audit path.
     Some stronger results exist elsewhere in the repository and should not be
@@ -2717,7 +2708,7 @@ Definition non_circularity_nonclaims : list string :=
     - [coq/kami_hw/VerilogRefinement.v] proves per-instruction simulation
       theorems that are materially stronger than the abstract PC/μ surface
       exported here from [HardwareBisimulation.v].
-    - [archive/coq_unused/thielemachine/verification/FullIsomorphism.v (archived)] records a stronger
+    - [archive/coq_unused/thielemachine/verification/FullIsomorphism.v] records a stronger
       three-layer observable-alignment story for Coq, Python, and Verilog.
     - [artifacts/proof_dependency_connectivity.json] records repository-wide
       foundation connectivity evidence with zero disconnected files.
@@ -2741,7 +2732,7 @@ Proof.
 Qed.
 
 (**
-    PART IId: CURVED SPACETIME PIPELINE
+    CURVED SPACETIME PIPELINE
 
     The curved tensor pipeline (CurvedTensorPipeline.v) provides:
     1. Per-module 4×4 metric tensor (stored in ModuleState.module_mu_tensor)
@@ -2836,11 +2827,9 @@ Proof.
   - exact master_verification_chain.
 Qed.
 
-(** Backward-compatibility alias only.
-
-    This older name is kept so downstream files do not break, but the preferred
-    audit-facing name is [thiele_machine_core_summary_holds]. It should not be
-    read as a stronger repository-global completeness claim.
+(** Alias of [thiele_machine_core_summary_holds], which is the preferred
+    audit-facing name. It should not be read as a stronger repository-global
+    completeness claim.
 *)
 Definition thiele_machine_complete : Prop := thiele_machine_core_summary_holds.
 

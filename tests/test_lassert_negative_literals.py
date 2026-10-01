@@ -1,26 +1,25 @@
 """Regression test: LASSERT must accept clauses containing negative literals.
 
-Background: the OCaml runner extracted from coq/kernel/nfi/CertCheck.v was
-routing word32_to_signed through Z.of_nat, which in turn called
+Background: the OCaml runner extracted from coq/kernel/nfi/CertCheck.v
+would route word32_to_signed through Z.of_nat, which in turn calls
 Pos.of_succ_nat — a Peano successor chain. For literal words like
 0xFFFFFFFF (= 2^32 - 1 = the wrap-around encoding of DIMACS literal -1),
-that chain has roughly 2^32 steps and overflowed the OCaml stack the moment
-LASSERT's SAT-checker scanned the first negative literal in a formula.
+that chain has roughly 2^32 steps and overflows the OCaml stack the moment
+LASSERT's SAT-checker scans the first negative literal in a formula.
 
-Symptom: any formula with a negative literal in a clause caused
-`extracted_vm_runner failed (exit 3): Stack overflow during execution`.
-The bug was invisible to the existing test suite because every other
-LASSERT test in the repo uses positive-literal formulas only (a quick
-audit of grep 'p_cnf' across tests/ confirms this).
+Symptom without the guard: any formula with a negative literal in a clause
+causes `extracted_vm_runner failed (exit 3): Stack overflow during execution`.
+Every other LASSERT test in the repo uses positive-literal formulas only, so
+this test covers negative literals.
 
-The fix: an Extract Constant directive in coq/Extraction.v that gives
+The guard: an Extract Constant directive in coq/Extraction.v gives
 CertCheck.word32_to_signed a direct int-level implementation. The Coq
-definition (and proofs about it) are unchanged; the extraction surface
-is what was wrong. Both nat and Z extract to plain OCaml int in this
+definition (and proofs about it) are unchanged; only the extraction surface
+differs. Both nat and Z extract to plain OCaml int in this
 build, so the bypass is semantically identical.
 
-Discovered by: the µ-MDL learner M1 sanity check
-(learner/m1_sanity.py) on 2026-05-11. Periodicity claims emit clauses
+Found by the µ-MDL learner M1 sanity check
+(learner/m1_sanity.py). Periodicity claims emit clauses
 like (-x_i v x_{i+k}), which are the smallest natural formulas that
 require negative literals.
 """

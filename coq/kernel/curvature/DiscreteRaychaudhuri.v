@@ -306,6 +306,6 @@ Qed.
 
    The open interface remains the same: lorentzian_coupling_positive. The
    current specialized discharge lives in LorentzianTensorPipeline.v for the
-   isotropic mass-gradient case. What is still missing is a broader discharge
-   that does not rely on that narrow setup. *)
+   isotropic mass-gradient case. A broader discharge that does not rely on
+   that narrow setup is not provided. *)
 Definition raychaudhuri_open_obligation := lorentzian_coupling_positive.

@@ -200,7 +200,7 @@ Section StructuralAxisUndecidability.
       moment they supply a Substrate + WithShortcutPredicate instance.
 
       What this closes. The "open structural-translation" question raised
-      in the monograph's earlier "What I don't know" section was: "is
+      in the monograph's "What I don't know" section was: "is
       there a uniform translation from informal structural arguments into
       SoundStructuralShortcut witnesses?" The answer, given the present
       theorem, is no: no total uniform decision procedure for shortcut

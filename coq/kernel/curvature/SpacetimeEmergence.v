@@ -260,10 +260,10 @@ Proof.
   - exact Hwf.
 Qed.
 
-(* vm_step_preserves_wf removed: graph_hw_psplit/pmerge no longer cascade-delete
-   morphisms, so full well_formed_graph preservation is not provable in the general
-   case. The trace theorem (exec_trace_no_signaling_outside_cone) is restructured
-   to use step_no_signaling_light which only needs mid < pg_next_id. *)
+(* graph_hw_psplit/pmerge do not cascade-delete morphisms, so full
+   well_formed_graph preservation is not provable in the general case. The
+   trace theorem (exec_trace_no_signaling_outside_cone) uses
+   step_no_signaling_light, which only needs mid < pg_next_id. *)
 
 Lemma graph_pnew_next_id_monotone : forall g region,
   pg_next_id g <= pg_next_id (fst (graph_pnew g region)).

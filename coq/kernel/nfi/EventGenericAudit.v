@@ -1,4 +1,5 @@
-(** EventGenericAudit: exact Item 1.1 specializations at non-certification events.
+(** EventGenericAudit: exact specializations of the certification theorems at
+    non-certification events.
 
     The main witness is a door whose permanent record says whether it has
     opened.  [Open] sets the record and [Wait] leaves it unchanged.  Additional
@@ -262,7 +263,7 @@ Qed.
 Definition door_vm_event : F1_LogicalErasure.bool_macro_property :=
   fun s => Nat.eqb s.(vm_pc) 1.
 
-(** Exact theorem applications for the 49 frozen G identities. *)
+(** Exact theorem applications for the 49 cited theorems. *)
 
 Definition audit_a2_equal_trust_substitution_payoff :=
   (proj1 (proj2 a2_equal_trust_substitution_payoff)) door_local_pricing.
@@ -443,18 +444,18 @@ Definition audit_finite_reversible_cannot_write :=
       door_finite door_unit_permanent (proj1 H) (proj2 H).
 
 (** A base whose always-enabled event opens a generic record latch. *)
-Definition door_base : StructuralCoreRound4.BaseMachine :=
-  {| StructuralCoreRound4.b_state := unit;
-     StructuralCoreRound4.b_next := fun _ => tt;
-     StructuralCoreRound4.b_init := fun _ => True;
-     StructuralCoreRound4.b_halted := fun _ => False |}.
+Definition door_base : StructuralCoreAnyBase.BaseMachine :=
+  {| StructuralCoreAnyBase.b_state := unit;
+     StructuralCoreAnyBase.b_next := fun _ => tt;
+     StructuralCoreAnyBase.b_init := fun _ => True;
+     StructuralCoreAnyBase.b_halted := fun _ => False |}.
 
-Definition door_base_event (_ : StructuralCoreRound4.b_state door_base) : bool :=
+Definition door_base_event (_ : StructuralCoreAnyBase.b_state door_base) : bool :=
   negb false.
 
 Lemma door_latch_reachable_event :
   exists b0 n,
-    StructuralCoreRound4.b_init door_base b0 /\
+    StructuralCoreAnyBase.b_init door_base b0 /\
     (let '(b, r, _) :=
        StructuralCore.rc_run (LatchCore door_base door_base_event) n
          (b0, false, 0) in
@@ -463,7 +464,7 @@ Proof. exists tt, 0. repeat split. Qed.
 
 Lemma door_history_reachable_event :
   exists b0 n,
-    StructuralCoreRound4.b_init door_base b0 /\
+    StructuralCoreAnyBase.b_init door_base b0 /\
     (let '(b, r, _, _) :=
        StructuralCore.rc_run (HistoryLatch door_base door_base_event) n
          (b0, false, [], 0) in
@@ -477,7 +478,7 @@ Definition audit_history_latch_honest :=
   history_latch_honest door_base door_base_event door_history_reachable_event.
 
 Lemma door_latch_pair_honest :
-  StructuralCoreRound4.HonestPairExtension4
+  StructuralCoreAnyBase.HonestBasePairExtension
     (LatchCore door_base door_base_event) door_base
     (latch_cover door_base door_base_event)
     (StructuralCore.rc_cert (LatchCore door_base door_base_event))
@@ -495,13 +496,13 @@ Proof.
   - exact Hperm.
 Qed.
 
-Definition audit_uniqueness_round4_holds :=
-  uniqueness_round4_holds
+Definition audit_record_axis_is_latch_holds :=
+  record_axis_is_latch_holds
     (LatchCore door_base door_base_event) door_base
     (latch_cover door_base door_base_event) audit_latch_core_honest.
 
-Definition audit_uniqueness_round4_pair_holds :=
-  uniqueness_round4_pair_holds
+Definition audit_record_pair_is_two_latches_holds :=
+  record_pair_is_two_latches_holds
     (LatchCore door_base door_base_event) door_base
     (latch_cover door_base door_base_event)
     (StructuralCore.rc_cert (LatchCore door_base door_base_event))
@@ -585,7 +586,7 @@ Module DoorNoFreeInsight := NoFreeInsight DoorNoFreeInsightSystem.
 
 Definition audit_no_free_insight := DoorNoFreeInsight.no_free_insight.
 
-(** Proof declarations used by the frozen semantic evidence table.  Each type
+(** One opaque proof declaration per audit application.  Each type
     is inferred from the corresponding exact application above, then checked
     again as an opaque proof constant. *)
 Lemma evidence_a2_equal_trust_substitution_payoff :
@@ -748,13 +749,13 @@ Lemma evidence_history_latch_honest :
   ltac:(let T := type of audit_history_latch_honest in exact T).
 Proof. exact audit_history_latch_honest. Qed.
 
-Lemma evidence_uniqueness_round4_holds :
-  ltac:(let T := type of audit_uniqueness_round4_holds in exact T).
-Proof. exact audit_uniqueness_round4_holds. Qed.
+Lemma evidence_record_axis_is_latch_holds :
+  ltac:(let T := type of audit_record_axis_is_latch_holds in exact T).
+Proof. exact audit_record_axis_is_latch_holds. Qed.
 
-Lemma evidence_uniqueness_round4_pair_holds :
-  ltac:(let T := type of audit_uniqueness_round4_pair_holds in exact T).
-Proof. exact audit_uniqueness_round4_pair_holds. Qed.
+Lemma evidence_record_pair_is_two_latches_holds :
+  ltac:(let T := type of audit_record_pair_is_two_latches_holds in exact T).
+Proof. exact audit_record_pair_is_two_latches_holds. Qed.
 
 Lemma evidence_shadow_cannot_price_exactly :
   ltac:(let T := type of audit_shadow_cannot_price_exactly in exact T).

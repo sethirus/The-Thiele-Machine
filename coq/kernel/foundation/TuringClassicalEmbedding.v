@@ -526,13 +526,13 @@ Theorem degenerate_projection_theorem :
     shadow_proj s1 = shadow_proj s2 /\ s1 <> s2).
 Proof.
   refine (conj _ (conj _ (conj _ _))).
-  - (* Part 1: thiele_simulates_turing from ProperSubsumption *)
+  - (* (1) thiele_simulates_turing from ProperSubsumption *)
     exact ProperSubsumption.thiele_simulates_turing.
-  - (* Part 2: shadow_proj kernel = eq_on_classical_shadow *)
+  - (* (2) shadow_proj kernel = eq_on_classical_shadow *)
     exact shadow_proj_kernel_is_eq_on_classical_shadow.
-  - (* Part 3: D2_classical_shadow_preserved *)
+  - (* (3) D2_classical_shadow_preserved *)
     exact D2_classical_shadow_preserved.
-  - (* Part 4: shadow_strictly_lossy provides the witness pair *)
+  - (* (4) shadow_strictly_lossy provides the witness pair *)
     destruct shadow_strictly_lossy as [s1 [s2 [Heq [Hdiff _]]]].
     exists s1, s2.
     split.
@@ -545,15 +545,15 @@ Qed.
 
 (**
 
-    Converse of Part 3: if two states have different shadow projections,
+    Converse of conjunct (3) above: if two states have different shadow projections,
     some classical program can distinguish them.
 
     The witness is trivial — the empty program [].  Since
     [acm_run thiele_cert_machine [] s = s], the initial shadow difference
     is preserved verbatim.  This confirms that shadow_proj is exactly the
     distinguishability quotient: shadow-equivalent states are indistinguishable
-    by classical programs (Part 3), and shadow-inequivalent states are
-    immediately distinguishable (Part 5). *)
+    by classical programs (conjunct 3), and shadow-inequivalent states are
+    immediately distinguishable (this theorem). *)
 
 Theorem shadow_inequivalent_states_distinguishable :
   forall (s1 s2 : VMState),

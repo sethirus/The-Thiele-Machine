@@ -179,7 +179,7 @@ Qed.
 
 (** ** Explicit bedrock statement.
 
-    The following is the honest, irreducible bedrock for Item 2:
+    The following is the honest, irreducible bedrock for this setting:
 
     > *Given a physical substrate that obeys Landauer's principle
     >  (ps_landauer_calibrated) with constants that are strictly positive,

@@ -93,8 +93,8 @@ phase VERIFY "synthesizability check (yosys)"
 command -v yosys >/dev/null || die "yosys not found on PATH"
 
 cat > "$ROOT/synth_cpu.ys" << EOF
-read_verilog -sv -DSYNTHESIS $ROOT/thielecpu/hardware/rtl/RegFile.v $ROOT/thielecpu/hardware/rtl/thiele_cpu_kami.v $ROOT/thielecpu/hardware/rtl/thiele_cpu_top.v
-prep -top mkModule1
+read_verilog -sv -DSYNTHESIS $ROOT/thielecpu/hardware/rtl/RegFile.v $ROOT/thielecpu/hardware/rtl/thiele_cpu_kami.v $ROOT/thielecpu/hardware/rtl/thiele_system.v
+prep -top mkThieleSystem
 check
 stat
 EOF

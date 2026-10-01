@@ -634,7 +634,7 @@ Qed.
 
 (** For all instructions, exact mu agreement between
     abs_phase1 ∘ kami_step and vm_step ∘ abs_phase1.
-    Since hardware now charges flen * 8 + S cost for LASSERT (matching software),
+    Since hardware charges flen * 8 + S cost for LASSERT (matching software),
     no exclusions are needed. *)
 Theorem kami_vm_mu_diamond :
   forall (hs : KamiSnapshot) (i : vm_instruction) (vs' : VMState),
@@ -656,7 +656,7 @@ Proof.
 Qed.
 
 (** Hardware μ is at least software μ for every instruction whose cost fits
-    under the cost ceiling. LASSERT now matches the kernel cost
+    under the cost ceiling. LASSERT matches the kernel cost
     table exactly; this theorem is the conservative wrapper used downstream. *)
 Theorem kami_vm_mu_conservative :
   forall (hs : KamiSnapshot) (i : vm_instruction) (vs' : VMState),
@@ -669,7 +669,7 @@ Proof.
   apply Nat.le_refl.
 Qed.
 
-(** Since hardware now charges flen * 8 + S cost for LASSERT (matching
+(** Since hardware charges flen * 8 + S cost for LASSERT (matching
     the kernel exactly), the LASSERT gap is zero: exact mu agreement. *)
 Theorem kami_vm_mu_lassert_gap :
   forall (hs : KamiSnapshot) (freg creg : nat) (kind : bool) (flen cost : nat) (vs' : VMState),

@@ -38,8 +38,7 @@
     DIFFERENT conclusion: that the four polynomial minor inequalities
     (the NPA-1 PSD conditions) hold. The two conclusions are related
     (classical → algebraic-coherent → Tsirelson), but the minor
-    inequalities are a separate object — they were the stated F2
-    deliverable, and they are derived here.
+    inequalities are a separate object, and they are derived here.
 
     Honest scope. The hypothesis [WCLocallyConsistent] is strictly
     stronger than the kernel's bare cost axioms (A2, monotonicity,

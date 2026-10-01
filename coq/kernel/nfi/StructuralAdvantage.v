@@ -357,7 +357,7 @@ Definition terminates_at (fuel : nat)
     These are operationally validated by tests/test_structural_advantage.py
     (OCaml VM measures exact r15=N², vm_mu=0 for blind; r15=2N, vm_mu=18 for
     sighted, for N∈{4,8,16,32}). Formal Coq proofs via loop invariant
-    induction are given in Parts 16-17 below.
+    induction are given below.
 
     The time_tax_theorem_conditional below is stated conditionally on these
     facts, making the dependency structure explicit. *)
@@ -414,7 +414,7 @@ Qed.
 (**
     (Formalizes results from tests/test_complexity_frontier.py)
 
-    The k=2 case is covered in Parts 2-7. Here we state the general
+    The k=2 case is covered earlier in this file. Here we state the general
     arithmetic for k dimensions each of size N.
 
     MEASURED ON REAL OCaml VM:
@@ -634,7 +634,7 @@ Qed.
 
 
 (**
-    CLOSED RESULTS AND SCOPE BOUNDARY:
+    RESULTS AND SCOPE BOUNDARY:
     For k independent dimensions each of size N:
       blind: N^k steps, sighted: k*N steps, μ=k.
       Ratio = N^(k-1)/k. For k=log₂(N): ratio = N/log₂(N) × N^(log₂(N)-2).
@@ -888,10 +888,10 @@ Qed.
 
 
 (**
-    ALL THREE OPEN QUESTIONS ARE NOW RESOLVED:
-    -------------------------------------------
+    RESULTS FOR THREE QUESTIONS:
+    ----------------------------
 
-    OPEN QUESTION 1 (super-polynomial ratio at k=log₂N): RESOLVED.
+    QUESTION 1 (super-polynomial ratio at k=log₂N): settled.
     The ratio N^(k-1)/k at k=log₂N grows faster than any polynomial in N.
     Proven: ratio exceeds N at k=3 (N≥4), exceeds N^2 at k=4 (N≥8).
     The effective exponent grows with k, confirming super-polynomial growth.
@@ -899,20 +899,20 @@ Qed.
     Theorems: diagonal_ratio_exceeds_n_at_k3, diagonal_ratio_exceeds_n_sq_at_k4,
               diagonal_ratio_grows_with_k, log_diagonal_mu_is_sublinear.
 
-    OPEN QUESTION 2 (MuP(O(log n)) ≠ P): RESOLVED at the witness level.
+    QUESTION 2 (MuP(O(log n)) ≠ P): settled at the witness level.
     The concrete witness (k-dimensional search at k=log₂N) shows:
       MuP(log₂N) cost: k·N = O(N log N) steps
       P (0 μ) cost:    N^k = N^(log₂N) steps (super-polynomial in N)
       Ratio:           > N for k≥3, N≥4 (and grows to 1024 at N=16, k=4)
     The separation exists and grows by theorem, not only by measurement.
     Whether it constitutes a formal complexity-class separation
-    MuP(O(log n)) ≠ P still requires formalizing P as a complexity class over
+    MuP(O(log n)) ≠ P requires formalizing P as a complexity class over
     the Thiele VM model.
     Theorems: mup_step_cost_is_polynomial, p_mode_step_cost_is_superpolynomial,
               mup_separation_ratio_exceeds_n_at_k3,
               mup_separation_ratio_exceeds_n_sq_at_k4.
 
-    OPEN QUESTION 3 (LASSERT strength): RESOLVED.
+    QUESTION 3 (LASSERT strength): settled.
     LASSERT does NOT unlock faster programs than EMIT.
     The step count is determined by search structure, not certificate type.
     LASSERT's extra cost buys verifiability, not speed.

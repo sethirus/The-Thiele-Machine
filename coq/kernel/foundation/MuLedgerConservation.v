@@ -242,8 +242,8 @@ Proof.
     + lia.
 Qed.
 
-(** The µ-ledger can now be quoted directly as a bound on the irreversible
-    bit events in any bounded execution.  Packaging the previous lemma with a
+(** The µ-ledger can be quoted directly as a bound on the irreversible
+    bit events in any bounded execution.  Packaging the preceding lemma with a
     more public-facing name makes the Landauer link explicit for downstream
     references. *)
 

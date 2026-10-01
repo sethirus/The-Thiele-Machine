@@ -8,7 +8,7 @@ mathematical specification, the technical disclosure, and
 Coq statement asserts, premises included.
 
 `tests/test_theorem_meanings.py` fails when a document cites a theorem that
-has no entry here, or when an entry names a theorem that no longer exists.
+has no entry here, or when an entry names a theorem that does not exist.
 The entries describe the current statements. Their accuracy requires reading
 the quantified premises and conclusion; the gate checks coverage and names.
 Where several modules use the same short name, the parenthesized qualified
@@ -74,21 +74,21 @@ An explicitly qualified citation keeps its own module identity.
 - `history_core_equiv_thiele`: Under `core_equiv`, the history-carrying core and the Thiele core cover each other's initial states and agree after every related step on certification, next-step cost, and the relation obtained by forgetting retained history.
 - `billed_core_adequate`: The CPU-billed Thiele core, whose ledger is the VM ledger plus a step counter so every step costs one more, meets all four conditions of `Adequate`.
 - `billed_core_honest_extension`: The same billed core meets the conditions of `HonestVMExtension`, with dropping the counter as the computational cover.
-- `uniqueness_round1_refuted`: The conjecture `uniqueness_round1` is false: the billed core is adequate but its core is not `core_equiv` to the Thiele core, because a Thiele state with an empty program prices every step at zero and every billed step costs at least one.
-- `uniqueness_round2_refuted`: The conjecture `uniqueness_round2` is false for the same reason: the billed core is an honest VM extension whose core is not `core_equiv_round2` to the Thiele core.
-- `uniqueness_round3b_holds`: Every machine with a cover onto the Thiele core, whose record is the Thiele certification reading through that cover and whose ledger is monotone and satisfies A2, is related to the Thiele core, through that cover, by a relation that preserves the record light and halting and steps to related states; charges are not compared.
+- `adequate_core_uniqueness_refuted`: The conjecture `adequate_core_uniqueness` is false: the billed core is adequate but its core is not `core_equiv` to the Thiele core, because a Thiele state with an empty program prices every step at zero and every billed step costs at least one.
+- `honest_vm_extension_uniqueness_refuted`: The conjecture `honest_vm_extension_uniqueness` is false for the same reason: the billed core is an honest VM extension whose core is not `observed_core_equiv` to the Thiele core.
+- `cert_record_schedule_uniqueness_holds`: Every machine with a cover onto the Thiele core, whose record is the Thiele certification reading through that cover and whose ledger is monotone and satisfies A2, is related to the Thiele core, through that cover, by a relation that preserves the record light and halting and steps to related states; charges are not compared.
 - `billed_core_equiv_mod_schedule`: The CPU-billed Thiele core is the same machine as the Thiele core modulo its price schedule, through the cover that drops its step counter.
 - `surcharged_core_equiv_mod_schedule`: For every surcharge function on Thiele states, the Thiele core that adds that surcharge to its ledger at each step is the same machine as the Thiele core modulo its price schedule.
-- `uniqueness_round3a_refuted`: Requiring only that the record be some reading of the computation is not enough: the Thiele core whose record is "the meter has passed one" meets that condition and disagrees with the certification light at a starting state with a positive meter and no certificate.
-- `uniqueness_round4_holds`: For any base machine and any record-carrying machine that covers it step for step, whose record never switches off, satisfies A2 with a monotone ledger, is written by some reachable step, and has its next value determined by the base state and its current value, there is a base event h such that the base state and record evolve exactly as the latch "switch on where h holds, never switch off."
-- `round4_tm_holds`: Round 4 holds on the executable toy Turing-machine base for every program.
-- `round4_vm_holds`: Round 4 holds on the unbounded VM base for every program.
-- `round4_ram_holds`: Round 4 holds on the Cook-Reckhow RAM base (unbounded natural-number registers, indirect load and store, conditional jumps) for every program.
-- `round4_l_holds`: Round 4 holds on the L base, whose next function is L's weak call-by-value step on reducible terms and stutters on irreducible ones.
+- `tied_record_schedule_uniqueness_refuted`: Requiring only that the record be some reading of the computation is not enough: the Thiele core whose record is "the meter has passed one" meets that condition and disagrees with the certification light at a starting state with a positive meter and no certificate.
+- `record_axis_is_latch_holds`: For any base machine and any record-carrying machine that covers it step for step, whose record never switches off, satisfies A2 with a monotone ledger, is written by some reachable step, and has its next value determined by the base state and its current value, there is a base event h such that the base state and record evolve exactly as the latch "switch on where h holds, never switch off."
+- `record_axis_is_latch_on_tm_holds`: The record axis is a latch on the executable toy Turing-machine base for every program.
+- `record_axis_is_latch_on_vm_holds`: The record axis is a latch on the unbounded VM base for every program.
+- `record_axis_is_latch_on_ram_holds`: The record axis is a latch on the Cook-Reckhow RAM base (unbounded natural-number registers, indirect load and store, conditional jumps) for every program.
+- `record_axis_is_latch_on_l_holds`: The record axis is a latch on the L base, whose next function is L's weak call-by-value step on reducible terms and stutters on irreducible ones.
 - `l_step_fun_correct`: For all L terms `s` and `t`, `s` takes one weak call-by-value step to `t` exactly when the structural step function `l_step_fun` returns `Some t` on `s`.
 - `star_is_l_base_run`: Every L reduction sequence from `s` to `t` is reached by running the L base machine some number of steps from `s`.
 - `permanent_write_has_logical_payment`: On a finite state space, if instruction `i` keeps the record on wherever it is on, and some state goes from record off to record on under `i`, then `i` is not injective.
-- `uniqueness_round4_pair_holds`: Under the same conditions for two records, the pair evolves as two latches whose events may each read the other record.
+- `record_pair_is_two_latches_holds`: Under the same conditions for two records, the pair evolves as two latches whose events may each read the other record.
 - `toggle_not_latch`: A record on a counter base that flips at every step is driven by the computation and is not the latch of any event.
 - `clock_record_not_driven`: A record switched on by a hidden clock at its fifth tick never switches off and is not driven by the computation.
 - `latch_core_honest`: For any base and any event it reaches from a starting state, the machine that latches that event and charges one unit per write is an honest extension of the base.

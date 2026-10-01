@@ -65,7 +65,7 @@ Proof.
   apply nat_to_program_program_to_nat.
 Qed.
 
-(** The VM-scoped structural undecidability, with the Goedel encoding now
+(** The VM-scoped structural undecidability, with the Goedel encoding
     PROVEN (not assumed). The only surviving hypotheses are [rep] and [Hrec] —
     the VM's internal recursion theorem. Everything the encoding contributed is
     discharged by [vm_encode_decode_concrete]. *)

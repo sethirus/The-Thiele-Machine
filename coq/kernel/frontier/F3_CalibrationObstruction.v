@@ -104,7 +104,7 @@ From Coq Require String.
 Import ListNotations.
 From Kernel Require Import VMState VMStep DiscreteTopology MuGravity F3_MuLaplacianSum.
 
-(** * Part 0. Finite sums over lists. *)
+(** * Finite sums over lists. *)
 
 Definition lsum {A : Type} (l : list A) (f : A -> R) : R :=
   fold_right Rplus 0%R (map f l).
@@ -258,7 +258,7 @@ Definition ind (b : bool) : R := if b then 1%R else 0%R.
 Lemma ind_nonneg : forall b, (0 <= ind b)%R.
 Proof. destruct b; simpl; lra. Qed.
 
-(** * Part 1. Regions of three nodes and the mu-Laplacian in 8Z. *)
+(** * Regions of three nodes and the mu-Laplacian in 8Z. *)
 
 Definition regions_are_triples (g : PartitionGraph) : Prop :=
   forall mid m, In (mid, m) (pg_modules g) -> List.length (module_region m) = 3%nat.
@@ -389,7 +389,7 @@ Proof.
   exists z. unfold mu_laplacian, mu_laplacian_w. rewrite Hz. lra.
 Qed.
 
-(** * Part 2. Angles. *)
+(** * Angles. *)
 
 Lemma triangle_angle_nonneg : forall s a b c, (0 <= triangle_angle s a b c)%R.
 Proof.
@@ -551,7 +551,7 @@ Proof.
     lra.
 Qed.
 
-(** * Part 3. Triple sums over module identifiers. *)
+(** * Triple sums over module identifiers. *)
 
 Definition tsum (l : list nat) (f : nat -> nat -> nat -> R) : R :=
   lsum l (fun a => lsum l (fun b => lsum l (fun c => f a b c))).
@@ -807,7 +807,7 @@ Proof.
   lra.
 Qed.
 
-(** * Part 4. The window 2F < T <= (44/21) F. *)
+(** * The window 2F < T <= (44/21) F. *)
 
 Lemma mass_ge3 : forall s a ms,
   regions_are_triples (vm_graph s) ->
@@ -1042,7 +1042,7 @@ Proof.
   repeat split; lia.
 Qed.
 
-(** * Part 5. Faces through a common vertex form face-graph triangles. *)
+(** * Faces through a common vertex form face-graph triangles. *)
 
 Definition cont (s : VMState) (v : nat) (a : ModuleID) : bool :=
   match graph_lookup (vm_graph s) a with
@@ -1377,7 +1377,7 @@ Proof.
       destruct (dist3 a b c), (cont s v a), (cont s v b), (cont s v c); reflexivity.
 Qed.
 
-(** * Part 6. Consequences. *)
+(** * Consequences. *)
 
 (** Everything calibration everywhere forces on a well-formed triangulated
     state with distinct module IDs. *)
@@ -1473,7 +1473,7 @@ Proof.
   lia.
 Qed.
 
-(** * Part 7. The degree inequality alone does not finish the argument. *)
+(** * The degree inequality alone does not finish the argument. *)
 
 Lemma triangles_check : forall g,
   forallb (fun p => is_triangle (module_region (snd p))) (pg_modules g) = true ->
@@ -1642,7 +1642,7 @@ Qed.
 
 From Coq Require Import Permutation Relations.
 
-(** * Part 8. Finite sums of naturals, breadth-first growth, edge counts. *)
+(** * Finite sums of naturals, breadth-first growth, edge counts. *)
 
 Lemma nsum_cons : forall (A : Type) (x : A) (l : list A) (f : A -> nat),
   nsum (x :: l) f = (f x + nsum l f)%nat.
@@ -2025,7 +2025,7 @@ Proof.
     exact Hcl'.
 Qed.
 
-(** * Part 9. Vertex, edge and face incidences of a module list. *)
+(** * Vertex, edge and face incidences of a module list. *)
 
 (** Every region is a duplicate-free list of three nodes. *)
 Definition tri_ok (g : PartitionGraph) : Prop :=
@@ -2284,7 +2284,7 @@ Proof.
   - intros e He. exact (Hman e He).
 Qed.
 
-(** * Part 10. Euler characteristic of an edge-connected component. *)
+(** * Euler characteristic of an edge-connected component. *)
 
 (** The normalized edge e lies in the face with ID a. *)
 Definition ein (s : VMState) (e : nat * nat) (a : ModuleID) : bool :=
@@ -2699,7 +2699,7 @@ Proof.
   rewrite HDC' in Hodd. congruence.
 Qed.
 
-(** * Part 11. Restriction of a state to a set of modules. *)
+(** * Restriction of a state to a set of modules. *)
 
 Definition restrict_graph (g : PartitionGraph) (p : ModuleID -> bool) : PartitionGraph :=
   {| pg_next_id := pg_next_id g;
@@ -2812,7 +2812,7 @@ Proof.
   simpl in *. lia.
 Qed.
 
-(** * Part 12. Calibration is local to a set of modules closed under
+(** * Calibration is local to a set of modules closed under
     adjacency. *)
 
 Section Closed.
@@ -2963,7 +2963,7 @@ Qed.
 
 End Closed.
 
-(** * Part 13. Connected vertex links. *)
+(** * Connected vertex links. *)
 
 (** w is a vertex of the link of v: some face contains both. *)
 Definition link_vertex (g : PartitionGraph) (v w : nat) : Prop :=
@@ -3076,7 +3076,7 @@ Proof.
   - intros a' b' Ha' Hb' Hva' Hvb'. apply (Hcl v a' b'); assumption.
 Qed.
 
-(** * Part 14. Each calibrated component pays more boundary than 3 chi. *)
+(** * Each calibrated component pays more boundary than 3 chi. *)
 
 Lemma window_nat : forall s,
   all_modules_are_triangles_list (vm_graph s) ->
@@ -3172,7 +3172,7 @@ Proof.
   - specialize (Heu2 ltac:(lia)). lia.
 Qed.
 
-(** * Part 15. Summing over the components. *)
+(** * Summing over the components. *)
 
 Lemma restrict_graph_ext_in : forall g p p',
   (forall x, In x (pg_modules g) -> p (fst x) = p' (fst x)) ->
@@ -3420,7 +3420,7 @@ Proof.
       * rewrite andb_true_r. reflexivity.
 Qed.
 
-(** * Part 16. The full obstruction. *)
+(** * The full obstruction. *)
 
 (** A well-formed triangulated state with distinct module IDs and
     connected vertex links cannot be calibrated at every module. *)
@@ -3443,7 +3443,7 @@ Proof.
   unfold DiscreteTopology.V in *. lia.
 Qed.
 
-(** * Part 17. The hypotheses of the full obstruction are satisfiable. *)
+(** * The hypotheses of the full obstruction are satisfiable. *)
 
 (** A boolean check of connected links, sound for links_connected. *)
 Definition link_edge_b (g : PartitionGraph) (v w1 w2 : nat) : bool :=
@@ -3518,7 +3518,7 @@ Qed.
 Lemma om_links_connected : links_connected om_state.
 Proof. apply (links_connected_check om_state 4). vm_compute. reflexivity. Qed.
 
-(** The octahedron next to the 9-gon of Part 7 meets every hypothesis of
+(** The octahedron next to the 9-gon of the degree-inequality section meets every hypothesis of
     F3_calibration_obstruction, so those hypotheses are consistent. *)
 Corollary F3_obstruction_hypotheses_satisfiable :
   well_formed_triangulated (vm_graph om_state) /\ links_connected om_state /\

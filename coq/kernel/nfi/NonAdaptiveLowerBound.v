@@ -19,8 +19,7 @@
 
     Specialised to factored 2k-bit SAT, this gives the
     [4^k = 2^(2k)] lower bound that [blind_sat_steps k] declares. The
-    constant is no longer a declared cost; it is a worst-case
-    theorem.
+    constant is a worst-case theorem, not a declared cost.
 
     What is NOT proven here
     -----------------------
@@ -43,8 +42,7 @@ Require Import Coq.micromega.Lia.
 Import ListNotations.
 
 (** The cost-foundation connection: this file's lower bounds match the
-    `blind_sat_steps` constant declared in [MuComplexity.v].  Until this
-    file, that constant was a chosen number; now it is the worst-case
+    `blind_sat_steps` constant declared in [MuComplexity.v]: it is the worst-case
     trace length any non-adaptive solver must pay. *)
 
 (** A Boolean predicate on the n-bit assignment space, encoded as a
@@ -220,12 +218,10 @@ Qed.
 
 (** ** Bridge to the cost foundation: [blind_sat_steps] from [MuComplexity.v].
 
-    The constant [MuComplexity.blind_sat_steps k = 4^k] declared the cost of
-    truth-table enumeration on factored 2k-bit SAT.  Until this file, that
-    constant was a chosen cost.  This corollary proves it is in fact the
-    worst-case probe-list length any non-adaptive solver must reach — a
-    formal lower bound, not a chosen cost.  This closes the M4a half of
-    the structural-advantage scope-up gap. *)
+    The constant [MuComplexity.blind_sat_steps k = 4^k] is the declared cost of
+    truth-table enumeration on factored 2k-bit SAT.  This corollary proves it
+    is the worst-case probe-list length any non-adaptive solver must reach: a
+    formal lower bound, not a chosen cost. *)
 Corollary non_adaptive_matches_blind_sat_steps :
   forall (k : nat) (D : NonAdaptiveDecider),
     nad_correct (2 * k) D ->

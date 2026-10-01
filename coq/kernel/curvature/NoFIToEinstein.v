@@ -276,7 +276,7 @@ Qed.
     but not used, because 2D Gauss-Bonnet (einstein_emerges) does not require
     them.  The substantive 4D proof where Clausius IS structurally load-bearing
     is clausius_load_bearing_einstein_4d in ThermoEinsteinBridge.v.  This alias
-    is retained here for backward compatibility with the chain summary record.
+    serves the chain summary record.
 
     CONSEQUENCE: the Jacobson-side Raychaudhuri discharge is closed. The
     stronger entry theorem [nfi_to_discrete_einstein_from_bekenstein_calibration]

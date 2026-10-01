@@ -1,600 +1,402 @@
 {
   "schema": "vacuity_targets.v1",
-  "description": "Production manifest of Coq files the kernel-conversion vacuity gate runs over on every commit. Phase 1/2/3/4 of the μ-axis research program append new files as they land. Each target compiles to a Coq module; the gate runs probe (a) and (b) against every Theorem/Lemma/Corollary in the file.",
+  "description": "Production manifest of Coq files the kernel-conversion vacuity gate runs over. Each target compiles to a Coq module; the gate runs probe (a) and (b) against every Theorem/Lemma/Corollary in the file.",
   "targets": [
     {
       "path": "coq/VerifierModel.v",
-      "logical": "VerifierModel",
-      "added": "2026-05-25",
-      "phase": "1.a"
+      "logical": "VerifierModel"
     },
     {
       "path": "coq/VerifierImpossibility.v",
-      "logical": "VerifierImpossibility",
-      "added": "2026-05-25",
-      "phase": "1.b"
+      "logical": "VerifierImpossibility"
     },
     {
       "path": "coq/VerifierEscape_Substrate.v",
-      "logical": "VerifierEscape_Substrate",
-      "added": "2026-05-25",
-      "phase": "1.c (T)"
+      "logical": "VerifierEscape_Substrate"
     },
     {
       "path": "coq/VerifierEscape_Hardness.v",
-      "logical": "VerifierEscape_Hardness",
-      "added": "2026-05-25",
-      "phase": "1.c (H)"
+      "logical": "VerifierEscape_Hardness"
     },
     {
       "path": "coq/VerifierEscape_Interaction.v",
-      "logical": "VerifierEscape_Interaction",
-      "added": "2026-05-25",
-      "phase": "1.c (I)"
+      "logical": "VerifierEscape_Interaction"
     },
     {
       "path": "coq/VerifierExhaustiveness.v",
-      "logical": "VerifierExhaustiveness",
-      "added": "2026-05-25",
-      "phase": "1.d"
+      "logical": "VerifierExhaustiveness"
     },
     {
       "path": "coq/MuCodingTheorem.v",
-      "logical": "MuCodingTheorem",
-      "added": "2026-05-25",
-      "phase": "2"
+      "logical": "MuCodingTheorem"
     },
     {
       "path": "coq/IntrinsicLevelHierarchy.v",
-      "logical": "IntrinsicLevelHierarchy",
-      "added": "2026-05-25",
-      "phase": "3"
+      "logical": "IntrinsicLevelHierarchy"
     },
     {
       "path": "coq/MuDirectSum.v",
-      "logical": "MuDirectSum",
-      "added": "2026-05-25",
-      "phase": "4"
+      "logical": "MuDirectSum"
     },
     {
       "path": "coq/ReceiptTheorem.v",
-      "logical": "ReceiptTheorem",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "ReceiptTheorem"
     },
     {
       "path": "coq/NecessityOfMuLedger.v",
-      "logical": "NecessityOfMuLedger",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "NecessityOfMuLedger"
     },
     {
       "path": "coq/PhysicsConditionalClosure.v",
-      "logical": "PhysicsConditionalClosure",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "PhysicsConditionalClosure"
     },
     {
       "path": "coq/kernel/nfi/AbstractNoFI.v",
-      "logical": "Kernel.AbstractNoFI",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.AbstractNoFI"
     },
     {
       "path": "coq/kernel/nfi/NoFreeInsight.v",
-      "logical": "Kernel.NoFreeInsight",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.NoFreeInsight"
     },
     {
       "path": "coq/kernel/nfi/UniversalCertificationCost.v",
-      "logical": "Kernel.UniversalCertificationCost",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.UniversalCertificationCost"
     },
     {
       "path": "coq/kernel/mu_calculus/MuInitiality.v",
-      "logical": "Kernel.MuInitiality",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.MuInitiality"
     },
     {
       "path": "coq/kernel/nfi/HonestCostTracking.v",
-      "logical": "Kernel.HonestCostTracking",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.HonestCostTracking"
     },
     {
       "path": "coq/kernel/nfi/VerificationCostSeparation.v",
-      "logical": "Kernel.VerificationCostSeparation",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.VerificationCostSeparation"
     },
     {
       "path": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
-      "logical": "Kernel.MuHierarchyTheorem",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.MuHierarchyTheorem"
     },
     {
       "path": "coq/kernel/nfi/NonAdaptiveLowerBound.v",
-      "logical": "Kernel.NonAdaptiveLowerBound",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.NonAdaptiveLowerBound"
     },
     {
       "path": "coq/kernel/nfi/ThermodynamicStructuralAdvantage.v",
-      "logical": "Kernel.ThermodynamicStructuralAdvantage",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.ThermodynamicStructuralAdvantage"
     },
     {
       "path": "coq/kernel/category/AlgebraicCoherence.v",
-      "logical": "Kernel.AlgebraicCoherence",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.AlgebraicCoherence"
     },
     {
       "path": "coq/kernel/quantum/QuantumPartitionPSD.v",
-      "logical": "Kernel.QuantumPartitionPSD",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.QuantumPartitionPSD"
     },
     {
       "path": "coq/kernel/curvature/PhysicsClosure.v",
-      "logical": "Kernel.PhysicsClosure",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.PhysicsClosure"
     },
     {
       "path": "coq/kernel/curvature/EinsteinEmergence.v",
-      "logical": "Kernel.EinsteinEmergence",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.EinsteinEmergence"
     },
     {
       "path": "coq/kernel/curvature/EinsteinEquationsFull.v",
-      "logical": "Kernel.EinsteinEquationsFull",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.EinsteinEquationsFull"
     },
     {
       "path": "coq/kami_hw/RTLGapRegistry.v",
-      "logical": "KamiHW.RTLGapRegistry",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "KamiHW.RTLGapRegistry"
     },
     {
       "path": "coq/kernel/nfi/MuLedgerQuantumBridge.v",
-      "logical": "Kernel.MuLedgerQuantumBridge",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.MuLedgerQuantumBridge"
     },
     {
       "path": "coq/kernel/nfi/NecessityAbstract.v",
-      "logical": "Kernel.NecessityAbstract",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.NecessityAbstract"
     },
     {
       "path": "coq/kernel/nfi/MuRunIncompleteness.v",
-      "logical": "Kernel.MuRunIncompleteness",
-      "added": "2026-06-14",
-      "phase": "over-runs complement to three-component independence"
+      "logical": "Kernel.MuRunIncompleteness"
     },
     {
       "path": "coq/kernel/nfi/StructuralAxisOrthogonality.v",
-      "logical": "Kernel.StructuralAxisOrthogonality",
-      "added": "2026-06-15",
-      "phase": "second-axis keystone: structural-shortcut detection not a function of the Turing configuration"
+      "logical": "Kernel.StructuralAxisOrthogonality"
     },
     {
       "path": "coq/kernel/nfi/StructuralUndecidability.v",
-      "logical": "Kernel.StructuralUndecidability",
-      "added": "2026-06-15",
-      "phase": "VM structural-shortcut undecidability (second-axis halting analog)"
+      "logical": "Kernel.StructuralUndecidability"
     },
     {
       "path": "coq/kernel/nfi/StructuralAxisRelativization.v",
-      "logical": "Kernel.StructuralAxisRelativization",
-      "added": "2026-06-15",
-      "phase": "Rung B (survives any classical oracle) + Rung C (mutual information-theoretic independence; degree-guard)"
+      "logical": "Kernel.StructuralAxisRelativization"
     },
     {
       "path": "coq/kernel/nfi/VMSubstrateEncoded.v",
-      "logical": "Kernel.VMSubstrateEncoded",
-      "added": "2026-06-16",
-      "phase": "Goedel encoding discharged concretely; VM undecidability conditional on the recursion theorem alone"
+      "logical": "Kernel.VMSubstrateEncoded"
     },
     {
       "path": "coq/kernel/nfi/CommitmentPredicateAdequacy.v",
-      "logical": "Kernel.CommitmentPredicateAdequacy",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.CommitmentPredicateAdequacy"
     },
     {
       "path": "coq/kernel/quantum/BornRuleLinearity.v",
-      "logical": "Kernel.BornRuleLinearity",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.BornRuleLinearity"
     },
     {
       "path": "coq/kernel/foundation/ClassicalBound.v",
-      "logical": "Kernel.ClassicalBound",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.ClassicalBound"
     },
     {
       "path": "coq/kernel/hardware_bridge/HardwareBisimulation.v",
-      "logical": "Kernel.HardwareBisimulation",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.HardwareBisimulation"
     },
     {
       "path": "coq/kernel/nfi/HonestNoFI.v",
-      "logical": "Kernel.HonestNoFI",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.HonestNoFI"
     },
     {
       "path": "coq/kernel/nfi/HonestNoFI_TheoremsWithoutAssumptions.v",
-      "logical": "Kernel.HonestNoFI_TheoremsWithoutAssumptions",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.HonestNoFI_TheoremsWithoutAssumptions"
     },
     {
       "path": "coq/kernel/quantum/MinorConstraints.v",
-      "logical": "Kernel.MinorConstraints",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.MinorConstraints"
     },
     {
       "path": "coq/kernel/quantum/NPAMomentMatrix.v",
-      "logical": "Kernel.NPAMomentMatrix",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.NPAMomentMatrix"
     },
     {
       "path": "coq/kernel/curvature/NoFIToEinstein.v",
-      "logical": "Kernel.NoFIToEinstein",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.NoFIToEinstein"
     },
     {
       "path": "coq/kernel/aggregators/NonCircularityAudit.v",
-      "logical": "Kernel.NonCircularityAudit",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.NonCircularityAudit"
     },
     {
       "path": "coq/kernel/quantum/QuantumEquivalence.v",
-      "logical": "Kernel.QuantumEquivalence",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.QuantumEquivalence"
     },
     {
       "path": "coq/kernel/quantum/TsirelsonQuantumModel.v",
-      "logical": "Kernel.TsirelsonQuantumModel",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.TsirelsonQuantumModel"
     },
     {
       "path": "coq/kernel/quantum/TsirelsonUniqueness.v",
-      "logical": "Kernel.TsirelsonUniqueness",
-      "added": "2026-06-11",
-      "phase": "README-cited + claim-ledger sources"
+      "logical": "Kernel.TsirelsonUniqueness"
     },
     {
       "path": "coq/kernel/reductions/PoSFinality.v",
-      "logical": "Kernel.PoSFinality",
-      "added": "2026-06-11",
-      "phase": "reductions tier"
+      "logical": "Kernel.PoSFinality"
     },
     {
       "path": "coq/kernel/reductions/GasMetering.v",
-      "logical": "Kernel.GasMetering",
-      "added": "2026-06-11",
-      "phase": "reductions tier"
+      "logical": "Kernel.GasMetering"
     },
     {
       "path": "coq/kernel/reductions/TEEAttestation.v",
-      "logical": "Kernel.TEEAttestation",
-      "added": "2026-06-11",
-      "phase": "reductions tier"
+      "logical": "Kernel.TEEAttestation"
     },
     {
       "path": "coq/kernel/reductions/TransparencyLog.v",
-      "logical": "Kernel.TransparencyLog",
-      "added": "2026-06-11",
-      "phase": "reductions tier"
+      "logical": "Kernel.TransparencyLog"
     },
     {
       "path": "coq/kernel/reductions/ProofCarryingVerifier.v",
-      "logical": "Kernel.ProofCarryingVerifier",
-      "added": "2026-06-11",
-      "phase": "reductions tier"
+      "logical": "Kernel.ProofCarryingVerifier"
     },
     {
       "path": "coq/kernel/foundation/LRecursion.v",
-      "logical": "Kernel.LRecursion",
-      "added": "2026-09-29",
-      "phase": "research recursion"
+      "logical": "Kernel.LRecursion"
     },
     {
       "path": "coq/kernel/foundation/StructuralCore.v",
-      "logical": "Kernel.StructuralCore",
-      "added": "2026-09-29",
-      "phase": "research core definitions"
+      "logical": "Kernel.StructuralCore"
     },
     {
       "path": "coq/kernel/foundation/VMUnboundedLedger.v",
-      "logical": "Kernel.VMUnboundedLedger",
-      "added": "2026-09-29",
-      "phase": "research ledger"
+      "logical": "Kernel.VMUnboundedLedger"
     },
     {
       "path": "coq/kernel/nfi/KnowledgeNarrowing.v",
-      "logical": "Kernel.KnowledgeNarrowing",
-      "added": "2026-09-29",
-      "phase": "research narrowing"
+      "logical": "Kernel.KnowledgeNarrowing"
     },
     {
       "path": "coq/kernel/nfi/CostSemanticsComparison.v",
-      "logical": "Kernel.CostSemanticsComparison",
-      "added": "2026-09-29",
-      "phase": "research cost comparison"
+      "logical": "Kernel.CostSemanticsComparison"
     },
     {
       "path": "coq/kernel/reductions/TPMQuoteGap.v",
-      "logical": "Kernel.TPMQuoteGap",
-      "added": "2026-09-29",
-      "phase": "research protocol"
+      "logical": "Kernel.TPMQuoteGap"
     },
     {
       "path": "coq/kernel/foundation/StructuralUniqueness.v",
-      "logical": "Kernel.StructuralUniqueness",
-      "added": "2026-09-29",
-      "phase": "research protocol"
+      "logical": "Kernel.StructuralUniqueness"
     },
     {
       "path": "coq/kernel/foundation/StructuralScheduleUniqueness.v",
-      "logical": "Kernel.StructuralScheduleUniqueness",
-      "added": "2026-09-29",
-      "phase": "research protocol"
+      "logical": "Kernel.StructuralScheduleUniqueness"
     },
     {
       "path": "coq/kernel/reductions/CasperFFG.v",
-      "logical": "Kernel.CasperFFG",
-      "added": "2026-09-29",
-      "phase": "research protocol"
+      "logical": "Kernel.CasperFFG"
     },
     {
       "path": "coq/kernel/reductions/CasperRecordReading.v",
-      "logical": "Kernel.CasperRecordReading",
-      "added": "2026-09-29",
-      "phase": "research protocol"
+      "logical": "Kernel.CasperRecordReading"
     },
     {
       "path": "coq/kernel/reductions/EVMStorageGas.v",
-      "logical": "Kernel.EVMStorageGas",
-      "added": "2026-09-29",
-      "phase": "research protocol"
+      "logical": "Kernel.EVMStorageGas"
     },
     {
       "path": "coq/kernel/foundation/StructuralRecordAxis.v",
-      "logical": "Kernel.StructuralRecordAxis",
-      "added": "2026-09-29",
-      "phase": "research protocol"
+      "logical": "Kernel.StructuralRecordAxis"
     },
     {
       "path": "coq/kernel/foundation/RecordAxisDiscrimination.v",
-      "logical": "Kernel.RecordAxisDiscrimination",
-      "added": "2026-09-29",
-      "phase": "research protocol"
+      "logical": "Kernel.RecordAxisDiscrimination"
     },
     {
       "path": "coq/kernel/nfi/KnowledgeNarrowingMinimal.v",
-      "logical": "Kernel.KnowledgeNarrowingMinimal",
-      "added": "2026-09-29",
-      "phase": "research protocol"
+      "logical": "Kernel.KnowledgeNarrowingMinimal"
     },
     {
       "path": "coq/kernel/nfi/CostFrameworks.v",
-      "logical": "Kernel.CostFrameworks",
-      "added": "2026-09-29",
-      "phase": "research protocol"
+      "logical": "Kernel.CostFrameworks"
     },
     {
       "path": "coq/kernel/nfi/EventGenericAudit.v",
-      "logical": "Kernel.EventGenericAudit",
-      "added": "2026-09-30",
-      "phase": "Part 1 Item 1.1 Round 2 event-generic audit"
+      "logical": "Kernel.EventGenericAudit"
     },
     {
       "path": "coq/kernel/foundation/EventGeneralization.v",
-      "logical": "Kernel.EventGeneralization",
-      "added": "2026-09-30",
-      "phase": "Part 1 Item 1.2 Round 1 event generalization outcomes"
+      "logical": "Kernel.EventGeneralization"
     },
     {
       "path": "coq/kernel/foundation/EventSwapTheorem.v",
-      "logical": "Kernel.EventSwapTheorem",
-      "added": "2026-09-30",
-      "phase": "Part 1 Item 1.3 Round 1 swap theorem outcomes"
+      "logical": "Kernel.EventSwapTheorem"
     },
     {
       "path": "coq/kernel/foundation/GrowingRecord.v",
-      "logical": "Kernel.GrowingRecord",
-      "added": "2026-10-01",
-      "phase": "Part 2 Item 2.1 Round 1 growing record outcomes"
+      "logical": "Kernel.GrowingRecord"
     },
     {
       "path": "coq/kernel/foundation/PricedRevocation.v",
-      "logical": "Kernel.PricedRevocation",
-      "added": "2026-10-01",
-      "phase": "Part 2 Item 2.2 Round 1 priced revocation outcomes"
+      "logical": "Kernel.PricedRevocation"
     },
     {
       "path": "coq/kernel/foundation/ProbabilisticRecord.v",
-      "logical": "Kernel.ProbabilisticRecord",
-      "added": "2026-10-01",
-      "phase": "Part 2 Item 2.3 Round 1 probabilistic record outcomes"
+      "logical": "Kernel.ProbabilisticRecord"
     },
     {
       "path": "coq/kernel/foundation/CrossBaseGranularity.v",
-      "logical": "Kernel.CrossBaseGranularity",
-      "added": "2026-10-01",
-      "phase": "Part 2 Item 2.4 cross-base granularity outcomes"
+      "logical": "Kernel.CrossBaseGranularity"
     },
     {
       "path": "coq/kernel/foundation/VMRecursionAudit.v",
-      "logical": "Kernel.VMRecursionAudit",
-      "added": "2026-10-01",
-      "phase": "Part 3 Item 3.1 VM recursion and Rice audit"
+      "logical": "Kernel.VMRecursionAudit"
     },
     {
       "path": "coq/kernel/nfi/PricingPhysicsAudit.v",
-      "logical": "Kernel.PricingPhysicsAudit",
-      "added": "2026-10-01",
-      "phase": "Part 4 pricing and physics outcomes"
+      "logical": "Kernel.PricingPhysicsAudit"
     },
     {
       "path": "coq/kernel/reductions/RFC9162Merkle.v",
-      "logical": "Kernel.RFC9162Merkle",
-      "added": "2026-10-01",
-      "phase": "Part 5 Item 5.1 RFC 9162 verifier outcomes"
+      "logical": "Kernel.RFC9162Merkle"
     },
     {
       "path": "coq/kernel/reductions/NeculaPCC.v",
-      "logical": "Kernel.NeculaPCC",
-      "added": "2026-10-01",
-      "phase": "Part 5 Item 5.2 PCC fragment outcomes"
+      "logical": "Kernel.NeculaPCC"
     },
     {
       "path": "coq/kernel/reductions/ConcreteRecordMachines.v",
-      "logical": "Kernel.ConcreteRecordMachines",
-      "added": "2026-10-01",
-      "phase": "Part 5 Item 5.3 concrete machine outcomes"
+      "logical": "Kernel.ConcreteRecordMachines"
     },
     {
       "path": "coq/kernel/reductions/ConcreteRAM.v",
-      "logical": "Kernel.ConcreteRAM",
-      "added": "2026-10-01",
-      "phase": "Part 5 Item 5.3 list-memory RAM correction"
+      "logical": "Kernel.ConcreteRAM"
     },
     {
       "path": "coq/kernel/reductions/TPMQuoteAuthenticity.v",
-      "logical": "Kernel.TPMQuoteAuthenticity",
-      "added": "2026-10-01",
-      "phase": "Part 5 Item 5.4 TPM authenticity boundary"
+      "logical": "Kernel.TPMQuoteAuthenticity"
     },
     {
       "path": "coq/kernel/frontier/RecordProliferationSurvey.v",
-      "logical": "Kernel.RecordProliferationSurvey",
-      "added": "2026-10-01",
-      "phase": "Part 6 twelve-event proliferation survey"
+      "logical": "Kernel.RecordProliferationSurvey"
     },
     {
       "path": "coq/kernel/reductions/RealSystemConsequences.v",
-      "logical": "Kernel.RealSystemConsequences",
-      "added": "2026-10-01",
-      "phase": "Part 7 top-five real-system consequences"
+      "logical": "Kernel.RealSystemConsequences"
     },
     {
       "path": "coq/kernel/foundation/VMDynamicEval.v",
-      "logical": "Kernel.VMDynamicEval",
-      "added": "2026-10-01",
-      "phase": "Part 3 Item 3.1 Round 2 dynamic evaluator and s-m-n"
+      "logical": "Kernel.VMDynamicEval"
     },
     {
       "path": "coq/kernel/frontier/EcosystemGame.v",
-      "logical": "Kernel.EcosystemGame",
-      "added": "2026-10-01",
-      "phase": "Part 6 Round 2 ecosystem-game counterexample"
+      "logical": "Kernel.EcosystemGame"
     },
     {
       "path": "coq/kernel/thermodynamic/CalorimeterProtocol.v",
-      "logical": "Kernel.CalorimeterProtocol",
-      "added": "2026-10-01",
-      "phase": "Part 4 Round 5 two-state calorimeter protocol"
+      "logical": "Kernel.CalorimeterProtocol"
     },
     {
       "path": "coq/kernel/foundation/CrossBaseGranularityL.v",
-      "logical": "Kernel.CrossBaseGranularityL",
-      "added": "2026-10-01",
-      "phase": "2.4"
+      "logical": "Kernel.CrossBaseGranularityL"
     },
     {
       "path": "coq/kernel/foundation/CrossBaseGranularityRAM.v",
-      "logical": "Kernel.CrossBaseGranularityRAM",
-      "added": "2026-10-01",
-      "phase": "2.4"
+      "logical": "Kernel.CrossBaseGranularityRAM"
     },
     {
       "path": "coq/nofi/MuChaitinTheory_TraceLocal.v",
-      "logical": "NoFI.MuChaitinTheory_TraceLocal",
-      "added": "2026-10-01",
-      "phase": "1.1"
+      "logical": "NoFI.MuChaitinTheory_TraceLocal"
     },
     {
       "path": "coq/kernel/foundation/VMGuestEvalNat.v",
-      "logical": "Kernel.VMGuestEvalNat",
-      "added": "2026-10-01",
-      "phase": "3.1"
+      "logical": "Kernel.VMGuestEvalNat"
     },
     {
       "path": "coq/kernel/foundation/VMGuestEvalTuple.v",
-      "logical": "Kernel.VMGuestEvalTuple",
-      "added": "2026-10-01",
-      "phase": "3.1"
+      "logical": "Kernel.VMGuestEvalTuple"
     },
     {
       "path": "coq/kernel/foundation/VMGuestMMAInit.v",
-      "logical": "Kernel.VMGuestMMAInit",
-      "added": "2026-10-01",
-      "phase": "3.1"
+      "logical": "Kernel.VMGuestMMAInit"
     },
     {
       "path": "coq/kernel/foundation/VMGuestExactEpilogue.v",
-      "logical": "Kernel.VMGuestExactEpilogue",
-      "added": "2026-10-01",
-      "phase": "3.1"
+      "logical": "Kernel.VMGuestExactEpilogue"
     },
     {
       "path": "coq/kernel/foundation/VMGuestMMAPipeline.v",
-      "logical": "Kernel.VMGuestMMAPipeline",
-      "added": "2026-10-01",
-      "phase": "3.1"
+      "logical": "Kernel.VMGuestMMAPipeline"
     },
     {
       "path": "coq/kernel/foundation/VMGuestEvalL.v",
-      "logical": "Kernel.VMGuestEvalL",
-      "added": "2026-10-01",
-      "phase": "3.1"
+      "logical": "Kernel.VMGuestEvalL"
     },
     {
       "path": "coq/kernel/foundation/VMGuestRecursion.v",
-      "logical": "Kernel.VMGuestRecursion",
-      "added": "2026-10-01",
-      "phase": "3.1"
+      "logical": "Kernel.VMGuestRecursion"
     },
     {
       "path": "coq/kernel/foundation/RAMRecordAxis.v",
-      "logical": "Kernel.RAMRecordAxis",
-      "added": "2026-10-01",
-      "phase": "5.3"
+      "logical": "Kernel.RAMRecordAxis"
     },
     {
       "path": "coq/kernel/reductions/CasperForkWitness.v",
-      "logical": "Kernel.CasperForkWitness",
-      "added": "2026-10-01",
-      "phase": "2.2"
+      "logical": "Kernel.CasperForkWitness"
     },
     {
       "path": "coq/kernel/frontier/F3_CalibrationObstruction.v",
-      "logical": "Kernel.F3_CalibrationObstruction",
-      "added": "2026-10-01",
-      "phase": "F3"
+      "logical": "Kernel.F3_CalibrationObstruction"
     }
   ]
 }

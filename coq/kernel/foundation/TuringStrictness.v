@@ -93,21 +93,15 @@ Definition d4_base : VMState := {|
 |}.
 
 
-(** D4_thiele_creates_morphism: After instr_morph_id 0 0 0 from d4_base,
-    the graph still has a morphism present.
+(** The structural step is PNEW (creates a new module). MORPH_ID is
+    hardware-aligned: it writes 0 to the dst register and does not mutate
+    the graph, and d4_base has pg_morphisms = [] and pg_next_morph_id = 0,
+    so MORPH_ID creates no morphism there.
 
-    Proof: By computation.
-    - vm_apply d4_base d4_thiele_step preserves d4_base.(vm_graph) (MORPH_ID
-      is hardware-aligned: writes 0 to dst register, no graph mutation)
-    - d4_base already has a morphism at pg_morphisms
-    Wait — d4_base has pg_morphisms = [] and pg_next_morph_id = 0.
-    With hardware-aligned MORPH_ID, no morphism is created.
-
-    New approach: Use PNEW as the structural step (creates a new module).
     Classical programs preserve vm_graph (D3). Thiele with PNEW changes it.
     The probe is simply checking pg_next_id. *)
 
-(** Updated Thiele structural step: PNEW with region [0] *)
+(** Thiele structural step: PNEW with region [0] *)
 Definition d4_thiele_step : vm_instruction := instr_pnew [0] 0.
 
 (** D4_thiele_changes_graph: After PNEW from d4_base, pg_next_id increases. *)

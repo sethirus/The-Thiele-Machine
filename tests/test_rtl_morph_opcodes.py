@@ -1,4 +1,4 @@
-"""RTL-level tests for categorical MORPH opcodes (plan item 44).
+"""RTL-level tests for categorical MORPH opcodes.
 
 These tests validate that the 7 MORPH categorical opcodes execute correctly
 through the Kami-generated Verilog RTL (thiele_cpu_kami.v), exercising:

@@ -176,7 +176,7 @@ Qed.
 (* *)
 (** ** 8. Scale invariance: safety holds at every depth *)
 
-(** THE SCALE INVARIANCE No matter how long the chain Src ↪ A₁ ↪ … ↪ Tgt, Src's originally
+(** THE SCALE INVARIANCE No matter how long the chain Src ↪ A₁ ↪ … ↪ Tgt, Src's own
     certified states remain faithfully embedded in Tgt.
     Safety is NEVER weakened by recursive self-improvement. *)
 Theorem scale_invariance :

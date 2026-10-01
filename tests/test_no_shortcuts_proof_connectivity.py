@@ -165,8 +165,8 @@ def _reaches_any_anchor(start: Path, graph: dict[Path, set[Path]], anchors: set[
 def test_extraction_exports_core_vm_semantics() -> None:
     assert EXTRACTION_V.exists(), f"Missing extraction file: {EXTRACTION_V}"
     txt = EXTRACTION_V.read_text(encoding="utf-8")
-    # Extraction now targets canonical kernel/kami_hw modules directly
-    # (no longer routes through the monolithic ThieleMachineComplete).
+    # Extraction targets canonical kernel/kami_hw modules directly
+    # (it does not route through the monolithic ThieleMachineComplete).
     assert "SimulationProof.vm_apply" in txt
     assert "VMState.VMState" in txt
     assert "VMStep.vm_instruction" in txt
@@ -178,7 +178,7 @@ def test_extraction_exports_core_vm_semantics() -> None:
 # PROOF_CONNECTIVITY_GAP, so the exemption lives next to the code it describes
 # and cannot drift out of sync with a list kept here.
 #
-# The alternative is what these files used to do: import VMState/VMStep and
+# The alternative is to import VMState/VMStep and
 # never use them, which satisfies a reachability check while telling the
 # reader nothing. A scope marker states the truth next to the code it
 # describes.

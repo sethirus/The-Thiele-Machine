@@ -233,10 +233,9 @@ Definition bool_oracle (safe : nat -> bool) : SafetyOracle :=
   fun _ t => safe t.
 
 (** A bool_oracle decider is safe for any boolean safety function.
-    The previous [bool_oracle_sound] helper has been inlined here: the
-    oracle-soundness obligation for [bool_oracle safe] reduces (after
+    The oracle-soundness obligation for [bool_oracle safe] reduces (after
     unfolding [bool_oracle]) to projecting the oracle hypothesis, which
-    we supply directly. *)
+    is supplied directly. *)
 Theorem bool_decider_safe :
   forall (ts : TransitionSystem) (safe : nat -> bool) (util n : nat)
          (s0 : DeciderState),

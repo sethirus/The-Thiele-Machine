@@ -1017,7 +1017,10 @@ Proof.
     rewrite M.find_empty.
     specialize (H name). unfold register_kind in H.
     assert (Hnone : cpu_register_kind name = None).
-    { unfold cpu_register_kind, register_kind, dispatch_reset_state, initRegs.
+    { unfold cpu_register_kind, register_kind, dispatch_reset_state.
+      rewrite M.find_add_2 by exact N_pc.
+      rewrite M.find_add_2 by exact N_halted.
+      unfold hardware_reset_state, initRegs.
       assert (Habs : ~ List.In name (namesOf (rawInitRegs (getRegInits thieleCore)))).
       { rewrite <- rawInitRegs_namesOf.
         rewrite cpu_register_names.

@@ -5,7 +5,9 @@
 # Clock: 200MHz LVDS sysclk on AD12 (P) / AD11 (N) — converted to single-ended
 #        via IBUFDS in thiele_cpu_top_genesys2.v.
 # Reset: CPU_RESETN button (R19), active-low with on-board pull-up.
-# LEDs:  LD0..LD2 on T28 / V19 / U30 (active-high).
+# LEDs:  LD0..LD3 on T28 / V19 / U30 / U29 (active-high).
+# UART:  the on-board USB-UART bridge. The FPGA receives on Y20 (the bridge's
+#        uart_tx_in) and transmits on Y23 (the bridge's uart_rx_out).
 # =============================================================================
 
 # 200MHz LVDS system clock
@@ -26,3 +28,11 @@ set_property PACKAGE_PIN V19      [get_ports LED_ERR]
 set_property IOSTANDARD  LVCMOS33 [get_ports LED_ERR]
 set_property PACKAGE_PIN U30      [get_ports LED_BIANCHI]
 set_property IOSTANDARD  LVCMOS33 [get_ports LED_BIANCHI]
+set_property PACKAGE_PIN U29      [get_ports LED_LOADING]
+set_property IOSTANDARD  LVCMOS33 [get_ports LED_LOADING]
+
+# USB-UART bridge (115200 baud, 8N1)
+set_property PACKAGE_PIN Y20      [get_ports uart_rx]
+set_property IOSTANDARD  LVCMOS33 [get_ports uart_rx]
+set_property PACKAGE_PIN Y23      [get_ports uart_tx]
+set_property IOSTANDARD  LVCMOS33 [get_ports uart_tx]

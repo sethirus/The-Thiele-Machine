@@ -463,8 +463,8 @@ Qed.
     RESULT: total CHSH_TRIAL count ≥ 1 to transition from uncertified to
     certified (i.e., at least one valid trial has been run).
 
-    NEXT ITERATION: Lift threshold from 1 to N_min for Tsirelson violation
-    detection, by proving A5 with threshold = N_min.
+    EXTENSION: lifting the threshold from 1 to N_min for Tsirelson violation
+    detection requires proving A5 with threshold = N_min.
 
 *)
 

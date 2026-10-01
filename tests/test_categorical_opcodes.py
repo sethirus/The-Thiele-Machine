@@ -1,4 +1,4 @@
-"""Integration tests for the 7 categorical morphism opcodes (Phase 4–6).
+"""Integration tests for the 7 categorical morphism opcodes.
 
 Tests the MORPH, COMPOSE, MORPH_ID, MORPH_DELETE, MORPH_ASSERT, MORPH_TENSOR,
 and MORPH_GET instructions end-to-end through the Coq-extracted OCaml runner.

@@ -1,9 +1,9 @@
-(** Frozen propositions for Part 1, Item 1.2.
+(** Event-generic propositions.
 
-    This file contains definitions only.  It fixes the exact propositions
-    tested when the certification reading in the Item 1.1 class-C ledger is
+    This file contains definitions only.  It states the exact propositions
+    obtained when the certification reading in the certification theorems is
     replaced by an arbitrary latchable reading.  Proofs and counterexamples
-    belong in EventGeneralization.v after the freeze commit. *)
+    are in EventGeneralization.v. *)
 
 From Coq Require Import List Bool Arith.PeanoNat.
 Import ListNotations.
@@ -14,8 +14,8 @@ From Kernel Require Import PermanentCertification FiniteCertMachine.
 From Kernel Require Import BlindnessRepresentation ProjectionNonExistence.
 From Kernel Require Import ShadowPricing EventSwapCore NecessityAbstract.
 From Kernel Require Import AbstractNoFI CHSHStatisticalBridge.
-From Kernel Require Import StructuralCore StructuralCoreRound2.
-From Kernel Require Import StructuralCoreRound3 StructuralUniqueness.
+From Kernel Require Import StructuralCore StructuralCoreCover.
+From Kernel Require Import StructuralCoreSchedule StructuralUniqueness.
 From Kernel Require Import StructuralScheduleUniqueness.
 From Kernel Require Import UniversalCertificationCost TraceStateDescent.
 From Kernel Require Import WitnessPreservationImpossibility.
@@ -276,13 +276,13 @@ Definition generalized_billed_core_honest_extension : Prop :=
   forall E, rcm_latchable ThieleCore E ->
     HonestVMExtension (billed_event_core E).
 
-Definition generalized_uniqueness_round1_refutation : Prop :=
+Definition generalized_billed_not_core_equiv : Prop :=
   forall E, rcm_latchable ThieleCore E ->
     ~ core_equiv (billed_event_core E) (thiele_event_core E).
 
-Definition generalized_uniqueness_round2_refutation : Prop :=
+Definition generalized_billed_not_observed_equiv : Prop :=
   forall E, rcm_latchable ThieleCore E ->
-    ~ core_equiv_round2 (billed_event_core E) (thiele_event_core E).
+    ~ observed_core_equiv (billed_event_core E) (thiele_event_core E).
 
 Definition schedule_priced (M : RCM) : Prop :=
   ledger_carried M /\ rc_a2 M.

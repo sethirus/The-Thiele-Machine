@@ -207,9 +207,9 @@ Qed.
 Lemma spacetime_meta_dimensional_gap : dimension spacetime_system = 4.
 Proof. reflexivity. Qed.
 
-(** Note: the sanity check that [dimension spacetime_meta > 4] (i.e., the
-    meta-level adds a dimension on top of 4D spacetime) was a [lia]
-    one-liner with no proof callers. The fact is immediate from
+(** The sanity check that [dimension spacetime_meta > 4] (i.e., the
+    meta-level adds a dimension on top of 4D spacetime) is a [lia]
+    one-liner. The fact is immediate from
     [spacetime_meta_dimensional_gap] above plus [meta_system_richer]. *)
 
 (** ** Locality and the global gap

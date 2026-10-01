@@ -7,7 +7,7 @@
   be transported back and forth.
 
   That is bookkeeping, not physics. The physical interpretation has to come
-  from stronger semantics somewhere else. The theorem names in this file now
+  from stronger semantics somewhere else. The theorem names in this file
   say exactly what the proofs establish. *)
 
 (* SCOPE NOTE: standalone proof scope. This file stands on its own

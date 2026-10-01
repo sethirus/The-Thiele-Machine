@@ -1,4 +1,4 @@
-(** Exact energy bookkeeping and its dimensional boundary for the frozen
+(** Exact energy bookkeeping and its dimensional boundary for the
     two-state calorimeter protocol. *)
 
 From Coq Require Import Reals Lra Lia.

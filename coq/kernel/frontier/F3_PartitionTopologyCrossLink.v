@@ -5,15 +5,15 @@
     component (combinatorial Gauss-Bonnet, distance-weighted geometric
     defect, μ-Laplacian) carries the load alone.
 
-    ** Why the headline below avoids an earlier sum-form calibration
+    ** Why the headline below avoids a sum-form calibration
 
-    An earlier headline took as a hypothesis a sum-form calibration
+    A sum-form headline would take as a hypothesis a sum-form calibration
 
         total_angle_defect (vm_graph s) = π · sum_mu_laplacian
 
-    and concluded [sum_mu_laplacian = 5 · χ] via
-    [discrete_gauss_bonnet]. The sum-form hypothesis silently
-    identified two distinct angle-defect quantities:
+    and conclude [sum_mu_laplacian = 5 · χ] via
+    [discrete_gauss_bonnet]. The sum-form hypothesis would silently
+    identify two distinct angle-defect quantities:
 
     - [DiscreteGaussBonnet.total_angle_defect] is built from the
       *equilateral* triangle interior angle [PI / 3]; it is purely
@@ -32,9 +32,9 @@
     finite d. The strong bridge is not derivable from kernel
     definitions.
 
-    *** Load-bearing F3 statement (this file, post-audit).
+    *** Load-bearing F3 statement (this file).
 
-    The cross-link is now stated entirely in MuGravity vocabulary. It
+    The cross-link is stated entirely in MuGravity vocabulary. It
     composes
     - [calibration_residual_zero_iff] (geometry↔μ-ledger): at zero
       residual, [angle_defect_curvature s m = PI * mu_laplacian s m].
@@ -58,7 +58,7 @@
     - It does NOT predict a topological invariant (no χ in the
       conclusion). The [5πχ] reading depended on identifying the two
       angle-defect conventions, which is false in general. The
-      discrete Gauss-Bonnet identity is still a kernel theorem; it is
+      discrete Gauss-Bonnet identity is a kernel theorem; it is
       simply not load-bearing for *this* cross-link.
     - It does NOT impose an asymptotic regime. The investigation below
       shows that a clean asymptotic bridge to Gauss-Bonnet exists only
@@ -134,7 +134,7 @@ Proof.
   lra.
 Qed.
 
-(** ** Headline F3 cross-link (post-audit form).
+(** ** Headline F3 cross-link.
 
     Conclusion is in MuGravity's own angle-defect vocabulary. The
     graph-structural sum-zero identity is what eliminates the

@@ -32,10 +32,9 @@ INV-3  Every active disk .v file (after stripping ARCHIVE_OR_VENDOR
        NON_PROOF_BEARING_FILES — never neither, never both.
 
 Together these invariants make scope drift between gates structurally
-impossible. The cause of the prior CI/local divergence (a stale local
-.vo masking a coverage gap that only surfaced on a clean checkout) is
-eliminated because the inquisitor's coverage check now derives its
-"in-scope" set from _CoqProject ∩ NON_PROOF_BEARING_FILES, not from the
+impossible. A stale local .vo cannot mask a coverage gap that only
+surfaces on a clean checkout, because the inquisitor's coverage check
+derives its "in-scope" set from _CoqProject ∩ NON_PROOF_BEARING_FILES, not from the
 presence of stray .vo files on disk.
 """
 
@@ -83,7 +82,7 @@ DISK_SCAN_EXCLUDED_DIRS: FrozenSet[str] = frozenset({
     "patches",     # Kami patch tree, applied to vendor/ at build time.
     "test_vscoq",  # IDE smoke files, not part of the canonical build.
     "_build",      # transient Coq build artefacts.
-    "archive",     # archived/old proofs, kept for posterity only.
+    "archive",     # archived proofs, outside the canonical build.
 })
 
 

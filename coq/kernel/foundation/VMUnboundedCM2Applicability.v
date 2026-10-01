@@ -1,5 +1,5 @@
 (** A nonterminating CM2 instance and a terminating instance. The same
-    increment/zero-branch-decrement pair in the earlier guest terminates;
+    increment/zero-branch-decrement pair in the zero-branch guest terminates;
     this regression makes the control-convention distinction explicit. *)
 From Coq Require Import Arith Lia List.
 Import ListNotations.

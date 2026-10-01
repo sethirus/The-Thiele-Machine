@@ -210,10 +210,9 @@ Proof.
 Qed.
 
 (**
-    Legacy abstract trace theorem.
-
-    Kept for downstream files that still consume the generic [embed_step]
-    shape rather than the concrete 46-opcode [WFDrivenPrecondition] bridge. *)
+    Abstract trace theorem over a generic [embed_step], for files that use
+    that shape rather than the concrete 46-opcode [WFDrivenPrecondition]
+    bridge. *)
 Theorem thiele_trace_compat_under_embed_step :
   forall (embed_step : forall (ks : KamiSnapshot) (i : vm_instruction),
                          abs_phase1 (kami_step ks i) = vm_apply (abs_phase1 ks) i)

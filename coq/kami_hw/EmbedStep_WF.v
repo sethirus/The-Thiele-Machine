@@ -192,7 +192,7 @@ Proof.
   intros ks x y a b cost Hbits.
   unfold vm_apply.
   rewrite Hbits.
-  (* Both sides are now concrete record constructors.
+  (* Both sides are concrete record constructors.
      Hardware: abs_phase1 of the kami_step snapshot.
      Kernel: explicit record with record_trial for vm_witness. *)
   unfold abs_phase1, kami_step, record_trial.
@@ -299,8 +299,8 @@ Proof.
 Qed.
 
 (** LASSERT embed_step on the success path:
-    Now that hardware computes the full formula check and charges
-    flen*8+S(cost) matching the kernel, the success path yields
+    Hardware computes the full formula check and charges
+    flen*8+S(cost) matching the kernel, so the success path yields
     full field-by-field equality including vm_mu. *)
 Theorem embed_step_lassert :
   forall (ks : KamiSnapshot) (freg creg : nat) (kind : bool) (flen cost : nat),

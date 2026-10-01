@@ -6,7 +6,7 @@ ART_DIR="$ROOT/artifacts/synthesis_gate"
 mkdir -p "$ART_DIR"
 cd "$ROOT"
 
-YOSYS_CMD='read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/RegFile.v thielecpu/hardware/rtl/thiele_cpu_kami.v thielecpu/hardware/rtl/thiele_cpu_top.v; prep -top mkModule1; check; stat'
+YOSYS_CMD='read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/RegFile.v thielecpu/hardware/rtl/thiele_cpu_kami.v thielecpu/hardware/rtl/thiele_system.v; prep -top mkThieleSystem; check; stat'
 
 echo "[repro] regenerating instruction-surface artifacts twice"
 python3 scripts/forge.py --input build/thiele_core.ml --out-python "$ART_DIR/generated_core_run1.py" --out-verilog "$ART_DIR/generated_opcodes_run1.vh"

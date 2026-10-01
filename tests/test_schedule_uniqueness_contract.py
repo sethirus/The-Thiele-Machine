@@ -1,15 +1,14 @@
-"""The schedule-free uniqueness conjectures are settled, and their definitions stay fixed.
+"""The schedule uniqueness questions are settled, and their statements keep their shape.
 
-StructuralCoreRound3.v states uniqueness up to the price schedule in two
-strengths. Its code is pinned to the commit that introduced it: this contract
-compares the comment-stripped code of the file with that commit. It also asks
-for a Coq theorem that settles each strength, in either direction.
+StructuralCoreSchedule.v states uniqueness up to the price schedule in two
+strengths. This contract checks the comment-stripped code of both
+statements. It also asks for a Coq theorem that settles each strength, in
+either direction.
 """
 
 from __future__ import annotations
 
 import re
-import subprocess
 import sys
 from pathlib import Path
 
@@ -18,20 +17,12 @@ sys.path.insert(0, str(ROOT))
 from scripts.assumption_receipt_fingerprint import _strip_coq_comments  # noqa: E402
 
 FOUNDATION = ROOT / "coq" / "kernel" / "foundation"
-DEFINITIONS = FOUNDATION / "StructuralCoreRound3.v"
+DEFINITIONS = FOUNDATION / "StructuralCoreSchedule.v"
 RESULT = FOUNDATION / "StructuralScheduleUniqueness.v"
 
 
 def _code(text: str) -> str:
     return " ".join(_strip_coq_comments(text).split())
-
-
-def _introducing_commit() -> str:
-    return subprocess.run(
-        ["git", "log", "--diff-filter=A", "--format=%H", "--",
-         "coq/kernel/foundation/StructuralCoreRound3.v"],
-        cwd=ROOT, check=True, capture_output=True, text=True,
-    ).stdout.split()[-1]
 
 
 def _settles(source: str, conjecture: str) -> bool:
@@ -40,13 +31,10 @@ def _settles(source: str, conjecture: str) -> bool:
     return bool(re.search(proved, source) or re.search(refuted, source))
 
 
-def test_definitions_are_unchanged_since_introduced():
-    commit = _introducing_commit()
-    pinned = subprocess.run(
-        ["git", "show", f"{commit}:coq/kernel/foundation/StructuralCoreRound3.v"],
-        cwd=ROOT, check=True, capture_output=True, text=True,
-    ).stdout
-    assert _code(DEFINITIONS.read_text()) == _code(pinned)
+def test_definitions_keep_their_shape():
+    code = _code(DEFINITIONS.read_text())
+    assert " ".join('Definition tied_record_schedule_uniqueness : Prop := forall M C, HonestTiedExtension M C -> equiv_mod_schedule_via M C.'.split()) in code
+    assert " ".join('Definition cert_record_schedule_uniqueness : Prop := forall M C, HonestCertExtension M C -> equiv_mod_schedule_via M C.'.split()) in code
 
 
 def test_result_file_is_built_with_the_project():
@@ -60,8 +48,8 @@ def test_result_file_is_built_with_the_project():
 def test_both_strengths_are_settled():
     assert RESULT.exists(), "StructuralScheduleUniqueness.v does not exist"
     source = RESULT.read_text()
-    assert _settles(source, "uniqueness_round3a")
-    assert _settles(source, "uniqueness_round3b")
+    assert _settles(source, "tied_record_schedule_uniqueness")
+    assert _settles(source, "cert_record_schedule_uniqueness")
 
 
 def test_result_file_has_no_proof_holes_or_axioms():

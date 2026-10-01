@@ -711,7 +711,7 @@ Qed.
     - CSR: fixed size, starts after graph
 *)
 
-(** Layout constants - updated for new encoding order *)
+(** Layout constants for the encoding order *)
 Definition pc_offset : nat := Nat.sub 1 1.    (* pc starts at position 0 *)
 Definition mu_offset_min : nat := 1. (* mu starts after at least 1 bit for pc *)
 Definition err_offset_min : nat := 2. (* err starts after at least 2 bits *)

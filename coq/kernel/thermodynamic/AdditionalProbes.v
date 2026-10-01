@@ -227,8 +227,8 @@ End AreaLawBekensteinHawking.
     premises after section closure. No bound contains a stipulated
     composite constant; each piece is named separately.
 
-    The meta-pattern (from [UnificationProbePattern.v]) now survives
-    seven probes total, not five, with substrate constants of
+    The meta-pattern (from [UnificationProbePattern.v]) survives
+    seven probes, with substrate constants of
     different physical types (Boltzmann, Planck, Newton, Unruh
     geometry, operator-norm). The factoring claim is robust to
     physical-domain variation. *)

@@ -69,8 +69,7 @@ Definition stutter (region : list nat) (cost : nat) (t : list vm_instruction)
 
 (* The fact that [causal_cone (stutter region cost t) = causal_cone t] holds
    by [unfold stutter; simpl; reflexivity] — [instr_pnew] is matched-skipped
-   inside [causal_cone] by definition. The former lemma
-   [causal_cone_stutter] is inlined at its sole caller below. *)
+   inside [causal_cone] by definition. The caller below uses it inline. *)
 
 (** Witness that the kernel's cone notion admits a strictly nontrivial
     reparametrization: the [stutter] map inserts an [instr_pnew] no-op without
@@ -85,7 +84,7 @@ Proof.
   exists (fun t => stutter [] 0 t).
   split.
   - intro t.
-    (* Inlined former [causal_cone_stutter]: [stutter] prepends [instr_pnew],
+    (* [stutter] prepends [instr_pnew],
        which [causal_cone] skips by definition. *)
     unfold stutter. simpl. reflexivity.
   - exists [], 0, []. reflexivity.

@@ -362,9 +362,9 @@ Qed.
 
 (** Final kernel-level bridge theorem: a no-trap, no-err-flip execution of
     [instr_chsh_lassert] entails NPA-realizability of the witness-derived
-    correlators. This is the operational closure of the gap that was
-    established by the counterexample lemmas in MuLedgerQuantumBridge.v;
-    the new opcode introduces a kernel mechanism that decidably enforces
+    correlators. This is the operational closure of the gap shown
+    by the counterexample lemmas in MuLedgerQuantumBridge.v;
+    the opcode is a kernel mechanism that decidably enforces
     column-contractivity at certification time. *)
 Theorem chsh_lassert_no_trap_implies_npa_psd :
   forall s mu_delta,

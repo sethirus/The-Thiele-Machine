@@ -1643,7 +1643,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
      latch vm_err.
     μ-cost is always charged regardless of outcome. You pay to check, even to fail.
  UNSAT proof checking (kind=false) is NOT implemented. It always fails.
-    This is documented in the file header. The SAT path now certifies only
+    This is documented in the file header. The SAT path certifies only
     non-trivial constraints: formulas with both a model and a countermodel.
     That is the minimum kernel-level guard against tautology inflation. *)
 | step_lassert : forall s freg creg kind flen cost,
@@ -2328,8 +2328,8 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     But it raises a question: does the μ-cost depend on what the environment returns?
 
     It doesn't. The three theorems below prove it. Cost = bits + S mu_delta,
-    regardless of which environment produced the value. This is what closes the
-    "I/O port oracle" gap in the hardening tracker.
+    regardless of which environment produced the value. This closes the
+    "I/O port oracle" gap.
 
     IOEnvironment: maps channel indices to the values they supply. *)
 Definition IOEnvironment := nat -> nat.

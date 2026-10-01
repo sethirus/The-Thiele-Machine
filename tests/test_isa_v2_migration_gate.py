@@ -1,6 +1,6 @@
-"""ISA v2 Migration Gate Tests (M7)
+"""ISA v2 Gate Tests
 
-Validates the 32-bit → 128-bit ISA v2 migration is mechanically complete:
+Validates the 128-bit ISA v2 encoding:
 
 1. Encoding width: all instructions encode to 128-bit (32 hex chars)
 2. Upper-lane fields: format_id, flags, ext0, ext1 validated
@@ -8,8 +8,8 @@ Validates the 32-bit → 128-bit ISA v2 migration is mechanically complete:
 4. Generated-artifact freshness: ISA v2 markers present in all generated files
 5. Encoding width gate in completeness/alignment context
 
-Acceptance criteria (from M7 checklist):
-- Test suite rejects a stale 32-bit bridge implementation
+Acceptance criteria:
+- Test suite rejects a 32-bit bridge implementation
 - Test suite rejects a fake 128-bit impl that ignores upper lanes
 """
 from __future__ import annotations
@@ -203,8 +203,8 @@ class TestUpperLaneFields:
 class TestNoBridgeZeros:
     """_EXT morph/tensor ops return real hardware values, not placeholder zeros.
 
-    These tests are the antithesis of the old bridge-zero pattern where
-    legacy MORPH ops wrote 0 to dst. With ISA v2 _EXT ops driving real
+    These tests reject the bridge-zero pattern where
+    MORPH ops write 0 to dst. With ISA v2 _EXT ops driving real
     hardware morph/tensor tables, results must be non-trivial.
     """
 
@@ -282,17 +282,17 @@ HALT
         assert state["cert_addr"] != 0, "cert_addr should not be zero (bridge zero)"
 
     def test_legacy_morph_also_uses_hardware_tables(self):
-        """Legacy low-lane MORPH now uses real hardware tables (not bridge zeros).
+        """Legacy low-lane MORPH uses real hardware tables (not bridge zeros).
 
-        After the ISA v2 migration, ALL morph paths (legacy and _EXT) route
+        ALL morph paths (legacy and _EXT) route
         through hardware morph tables. Legacy MORPH writes a real morph_id
         to dst, not a placeholder zero.
         """
         state = _run_cosim("PNEW {1} 1\nPNEW {2} 1\nMORPH 10 1 2 2\nHALT")
         assert not state["err"], f"error: {state.get('error_code')}"
-        # After ISA v2 migration, legacy MORPH also creates a real morphism
+        # Legacy MORPH also creates a real morphism
         # (hardware-resident morph table). The result may be morph_id or
-        # could still be 0 depending on legacy path — the key is no error.
+        # 0 depending on the legacy path — the key is no error.
         assert state["mu"] >= 4, f"expected mu>=4, got {state['mu']}"
 
 
@@ -333,10 +333,10 @@ HALT
         any two regions share address 0. The kernel's `graph_tensor_morphisms`
         requires disjoint source and target regions and so never succeeds on a
         reconstructed graph; `kami_step` always records ERR_MORPH_NOT_FOUND.
-        Devon chose on 2026-09-15 to make the CPU fault the same way
-        (C2_DIVERGENCE_LEDGER.md, "MORPH_TENSOR"): MORPH_TENSOR now always
+        The CPU faults the same way
+        (C2_DIVERGENCE_LEDGER.md, "MORPH_TENSOR"): MORPH_TENSOR always
         latches err with ERR_MORPH_NOT_FOUND, charges its cost and advances pc.
-        It no longer allocates or writes a destination register.
+        It allocates nothing and writes no destination register.
         """
         state = _run_cosim("""\
 PNEW {1} 1
@@ -360,7 +360,7 @@ HALT
 class TestISAV2ArtifactFreshness:
     """Generated artifacts must contain ISA v2 markers.
 
-    A stale 32-bit artifact that survived regeneration would lack these.
+    A 32-bit artifact would lack these.
     """
 
     def test_cosim_has_isa_v2_constants(self):

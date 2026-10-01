@@ -13,7 +13,7 @@
 
     Preservation across [Retire] (needed to carry the invariants along any
     admitted instruction sequence, C1/C2's "reachable-state invariants from
-    reset" obligation) is NOT done here. Scope for the next session:
+    reset" obligation) is NOT done here. Scope of that obligation:
     [RetireMaster.admitted] has 55 constructors (one per retirement theorem,
     covering 47 opcodes; a few opcodes have more than one constructor for a
     legacy/extended encoding or a success/fault branch). 47 leave every

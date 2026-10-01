@@ -3,10 +3,10 @@
 Core structural-constraint proofs, optimization bounds, and bisimulation
 results for the Thiele Machine kernel. **322 files, zero admits.**
 
-The `Kernel` namespace is preserved across the topical subdirectories via
+The `Kernel` namespace spans the topical subdirectories via
 multi-line
 `-R kernel/<subdir> Kernel` mappings in [`_CoqProject`](../_CoqProject), so
-existing imports `From Kernel Require Import VMState` still work unchanged.
+imports like `From Kernel Require Import VMState` resolve from any subdirectory.
 
 ## Subdirectory map
 

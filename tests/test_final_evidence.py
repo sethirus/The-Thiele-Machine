@@ -61,7 +61,7 @@ def test_evidence_locality_theft_trace() -> None:
 def test_evidence_logic_paradox_trace() -> None:
     """Evidence trace: on-chip LASSERT FSM activates when logic assertion runs.
 
-    In the on-chip model (replacing the old coprocessor bridge), LASSERT reads
+    In the on-chip model, LASSERT reads
     formula and dual witness blocks from vm_mem via register-indexed addressing.
     This test records a VCD trace and verifies the lassert_phase FSM register
     was exercised during LASSERT execution.

@@ -357,8 +357,6 @@ Qed.
     ✓ NPA PSD defined (PSD + symmetric)
     ✓ Bounds: NPA PSD → correlators normalized
 
-    COMPLETED (via alternate route):
-    Tsirelson bound proved in TsirelsonGeneral.v / TsirelsonFromAlgebra.v
-    via pure algebra, not NPA optimization. The NPA→Tsirelson path was
-    superseded.
+    Tsirelson bound: proved in TsirelsonGeneral.v / TsirelsonFromAlgebra.v
+    via pure algebra, not NPA optimization.
     *)

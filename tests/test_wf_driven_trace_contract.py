@@ -2,7 +2,7 @@
 """Representative executable witnesses for the WF-driven RTL contract.
 
 These tests do not try to re-prove the Coq theorems in Python. They provide
-one focused executable surface for the stronger Item 3 theorem lane added in:
+one focused executable surface for the stronger theorem lane in:
 
 - GraphReconstructionBridge.v: driven_step_wf, driven_trace_commutes
 - VerilogSemantics.v: coq_kami_model_satisfies_rtl_step_correct_wf,
@@ -11,7 +11,7 @@ one focused executable surface for the stronger Item 3 theorem lane added in:
 - ThieleCanonicality.v: thiele_trace_compat_wf_driven
 
 The repository already has broad opcode smoke, fuzz, and cross-layer tests.
-What was missing was one named strict-RTL gate that bundles representative
+This file is the one named strict-RTL gate that bundles representative
 valid traces for the conditional opcode families behind WFDrivenPrecondition.
 If one of these traces regresses, the strengthened theorem surface has lost
 its nearest executable witness on the generated RTL path.
@@ -113,10 +113,10 @@ class TestWFDrivenTraceContract:
     def test_tensor_family_trace_executes_cleanly(self) -> None:
         # TENSOR_SET mid i j value cost / TENSOR_GET rd mid i j cost: the
         # module index and the (i, j) cell are separate operands here, so a
-        # round trip must name the same cell on both sides. The old form
-        # (TENSOR_SET 3 2 50) predates that split: it packed "2" as mid and
-        # wrote cell (0, 0), so its paired TENSOR_GET read a different cell and
-        # the value never came back. mu = LOAD_IMM 50 + TENSOR_SET 1 +
+        # round trip must name the same cell on both sides. A packed form
+        # (TENSOR_SET 3 2 50) would take "2" as mid and
+        # write cell (0, 0), so its paired TENSOR_GET would read a different cell and
+        # the value would never come back. mu = LOAD_IMM 50 + TENSOR_SET 1 +
         # TENSOR_GET 1.
         state = _run([
             "LOAD_IMM 2 42 50",

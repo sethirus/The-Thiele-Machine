@@ -1,4 +1,4 @@
-(** Frozen two-state calorimeter definitions. *)
+(** Two-state calorimeter definitions. *)
 
 From Coq Require Import Reals.
 Local Open Scope R_scope.

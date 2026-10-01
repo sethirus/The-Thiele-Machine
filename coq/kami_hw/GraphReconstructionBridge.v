@@ -116,7 +116,7 @@ Proof.
 Qed.
 
 (** snap_full_graph_pnew_minimal: same as snap_full_graph_pnew but without
-    the vestigial preconditions id >= 1, id < PTableSz, and snap_pt_sizes ks id = 0. *)
+    the preconditions id >= 1, id < PTableSz, and snap_pt_sizes ks id = 0. *)
 Lemma snap_full_graph_pnew_minimal :
   forall (ks : KamiSnapshot) (region : list nat) (cost : nat),
     let id := snap_pt_next_id ks in
@@ -179,7 +179,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** driven_step_pnew_full: unconditional version — drops the vestigial preconditions
+(** driven_step_pnew_full: unconditional version — omits the preconditions
     pt_well_formed and snap_pt_sizes=0. Only sz>0 and zero tensors are required. *)
 Theorem driven_step_pnew_full :
   forall ks region cost,
@@ -851,8 +851,8 @@ Definition coupling_pairs_fully_populated (rs : RichSnapshotState) : Prop :=
     rs.(rich_coupling_pair_table) (coupling_desc_base desc + ofs) <> None.
 
 (** Combined well-formedness predicate for the coupling tables.
-    Replaces coupling_desc_all_zero — this predicate IS preserved by all 46
-    kami_step operations including COMPOSE and MORPH_TENSOR. *)
+    This predicate is preserved by all 46 kami_step operations including
+    COMPOSE and MORPH_TENSOR. *)
 Definition coupling_wf (rs : RichSnapshotState) : Prop :=
   coupling_desc_bounded rs /\
   coupling_pairs_in_range rs /\
@@ -1069,15 +1069,6 @@ Proof.
   apply Hwf. exact Hi.
 Qed.
 
-(** A standalone [morph_table_wf_preserved_add_coupling] used to live
-    here, asserting that [rich_state_add_coupling_data] preserves
-    [morph_table_wf].  The fact is purely definitional —
-    [rich_state_add_coupling_data] does not touch [rich_morph_table] or
-    [rich_next_morph_id], so the goal reduces to the hypothesis after
-    [unfold rich_state_add_coupling_data, morph_table_wf; simpl] — and
-    the lemma had a single caller ([morph_table_wf_preserved_add_with_coupling],
-    below), which now performs that unfold inline. *)
-
 (** rich_state_add_morph_with_coupling = add_coupling then add_morph;
     both steps preserve morph_table_wf. *)
 Lemma morph_table_wf_preserved_add_with_coupling :
@@ -1154,7 +1145,7 @@ Proof.
     try (unfold kami_advance_err; simpl snap_rich_state; exact Hwf).
     destruct (Nat.eqb (morph_entry_target e1) (morph_entry_source e2)) eqn:Heq;
     [| unfold kami_advance_err; simpl snap_rich_state; exact Hwf].
-    (* Composed coupling is now a 3-way branch on the identity flags
+    (* Composed coupling is a 3-way branch on the identity flags
        (id;f = f, f;id = f, else relational_compose); morph_table_wf is
        preserved by add_with_coupling for ANY coupling, so capture the actual
        arguments generically rather than pinning the relational_compose form. *)
@@ -1367,7 +1358,7 @@ Proof.
   - unfold kami_step, kami_advance_err.
     destruct (tensor_indices_ok i j);
       simpl snap_rich_state; simpl rich_next_coupling_desc_id; exact Hsafe.
-  (* instr_morph: success now uses rich_state_add_morph_with_coupling (M5) —
+  (* instr_morph: success uses rich_state_add_morph_with_coupling (M5) —
      the counter increases by one rather than staying fixed, same as
      COMPOSE/MORPH_TENSOR below; add_with_coupling_next_desc_id_pos gives
      positivity directly from the Eram equation alone. *)
@@ -1468,7 +1459,7 @@ Proof.
   (* instr_tensor_get *)
   - unfold kami_step, kami_advance_err.
     destruct (tensor_indices_ok i j); simpl snap_rich_state; exact Hcze.
-  (* instr_morph: now uses rich_state_add_morph_with_coupling (M5); the
+  (* instr_morph: uses rich_state_add_morph_with_coupling (M5); the
      descriptor table does change, but add_with_coupling_preserves_coupling_zero_empty
      covers exactly this, from Hsafe and Hcze on the pre-state. *)
   - unfold kami_step.
@@ -1703,7 +1694,7 @@ Proof.
   (* instr_tensor_get *)
   - unfold kami_step, kami_advance_err.
     destruct (tensor_indices_ok i j); simpl snap_rich_state; exact Hwcf.
-  (* instr_morph: now uses rich_state_add_morph_with_coupling (M5), same
+  (* instr_morph: uses rich_state_add_morph_with_coupling (M5), same
      shape as COMPOSE/MORPH_TENSOR below. *)
   - unfold kami_step.
     destruct (negb (Nat.eqb (snap_pt_sizes ks src_mod) 0) &&
@@ -2601,11 +2592,10 @@ Proof.
 reflexivity.
 Qed.
 
-(** driven_step_morph_full: kept as a named corollary for existing callers
-    (e.g. the assumptions probe); now requires the same extended_hw_invariant
+(** driven_step_morph_full: named corollary for callers such as the
+    assumptions probe; requires the same extended_hw_invariant
     driven_step_morph does, since M5's real coupling decode genuinely needs
-    coupling_wf and coupling_desc_safe, not just coupling_zero_empty as the
-    empty-coupling-only version once did. *)
+    coupling_wf and coupling_desc_safe, not just coupling_zero_empty. *)
 Theorem driven_step_morph_full :
   forall ks dst src_mod dst_mod coupling_idx cost,
     extended_hw_invariant ks ->
@@ -2880,8 +2870,8 @@ Proof.
   reflexivity.
 Qed.
 
-(** driven_step_psplit_full: drops the vestigial morph_table_wf precondition
-    which was introduced but never used in the proof of driven_step_psplit. *)
+(** driven_step_psplit_full: omits the morph_table_wf precondition,
+    which the proof of driven_step_psplit never uses. *)
 Theorem driven_step_psplit_full :
   forall ks module left_region right_region cost,
     pt_well_formed ks ->
@@ -3134,8 +3124,8 @@ Proof.
   reflexivity.
 Qed.
 
-(** driven_step_pmerge_full: drops the vestigial morph_table_wf precondition
-    which was introduced but never used in the proof of driven_step_pmerge. *)
+(** driven_step_pmerge_full: omits the morph_table_wf precondition,
+    which the proof of driven_step_pmerge never uses. *)
 Theorem driven_step_pmerge_full :
   forall ks m1 m2 cost,
     pt_well_formed ks ->
@@ -3165,7 +3155,7 @@ Qed.
 
 (* ======================================================================
    §16  COMPOSE, MORPH_TENSOR: field-by-field with coupling gap
-   (MORPH_ID is now fully proven — see driven_step_morph_id below)
+   (MORPH_ID is fully proven — see driven_step_morph_id below)
    *)
 
 (** MORPH_ID: full VMState equality (including vm_graph).
@@ -3243,8 +3233,8 @@ Proof.
   reflexivity.
 Qed.
 
-(** driven_step_morph_id_full: reduced precondition — replaces extended_hw_invariant
-    with just coupling_zero_empty.  The proof of driven_step_morph_id only uses
+(** driven_step_morph_id_full: reduced precondition: coupling_zero_empty
+    alone instead of extended_hw_invariant.  The proof of driven_step_morph_id only uses
     Hcze from the full invariant; Hwf, Hcdaz, Hpt, and coupling_desc_safe are
     destructured but never referenced in the proof body. *)
 Theorem driven_step_morph_id_full :
@@ -3356,7 +3346,7 @@ Proof.
       (* Correspondence: graph morphism fields match rich table entries *)
       pose proof (graph_lookup_morphism_corresponds ks m1_id e1 f Hwf Em1 Ef) as ->.
       pose proof (graph_lookup_morphism_corresponds ks m2_id e2 h Hwf Em2 Eh) as ->.
-      (* Endpoint check is now identical on both sides *)
+      (* Endpoint check is identical on both sides *)
       unfold graph_compose_morphisms. rewrite Ef, Eh.
       simpl morph_target. simpl morph_source.
       destruct (Nat.eqb (morph_entry_target e1) (morph_entry_source e2)) eqn:Hep.
@@ -3815,16 +3805,16 @@ Qed.
     - MORPH_GET, COMPOSE, MORPH_TENSOR: extended_hw_invariant (necessary)
     - MORPH: extended_hw_invariant + module bounds
     - MORPH_ID: coupling_zero_empty + module bounds
-    - PNEW: sz>0 + tensors=0 (vestigial pt_well_formed + fresh-slot dropped by _full)
-    - PSPLIT: pt_well_formed + arithmetic (vestigial morph_table_wf dropped by _full)
-    - PMERGE: pt_well_formed + arithmetic (vestigial morph_table_wf dropped by _full)
+    - PNEW: sz>0 + tensors=0 (_full needs neither pt_well_formed nor fresh-slot)
+    - PSPLIT: pt_well_formed + arithmetic (_full does not need morph_table_wf)
+    - PMERGE: pt_well_formed + arithmetic (_full does not need morph_table_wf)
 
     Opcodes with CLASSIFIED GAPS (separate field-by-field or driver-patched theorems):
     - TENSOR_SET/GET: driver-patched (§6, driven_step_tensor_set/get)
 
-    The stale field-only lemmas for COMPOSE and MORPH_TENSOR remain in §16 for
-    comparison, but exact VMState equality is now discharged by
-    [driven_step_compose] and [driven_step_morph_tensor]. *)
+    The field-only lemmas for COMPOSE and MORPH_TENSOR in §16 are weaker;
+    exact VMState equality is discharged by [driven_step_compose] and
+    [driven_step_morph_tensor]. *)
 Definition WFDrivenPrecondition (ks : KamiSnapshot) (i : vm_instruction) : Prop :=
   match i with
   | instr_pnew region _ =>

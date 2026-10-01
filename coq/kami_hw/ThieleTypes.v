@@ -9,10 +9,10 @@ Set Asymmetric Patterns.
 (** Register and memory dimensions — must match VMState.v.
 
     The kernel proofs are parametric in these constants. The values below
-    are the silicon-side bounds of the synthesized RTL (originally chosen
-    to fit early Arty A7-35T fits; kept on the current Kintex-7
+    are the silicon-side bounds of the synthesized RTL for the Kintex-7
     xc7k325tffg900-2 / Digilent Genesys 2 target through the open-source
-    yosys + openXC7 toolchain to preserve test/cosim parity). The same
+    yosys + openXC7 toolchain, and they match the test/cosim parity
+    checks. The same
     Coq development scales up linearly when bound to larger values for a
     different device or for pure simulation. *)
 Definition RegCount := 16.
@@ -159,7 +159,7 @@ Definition MSTATUS_TURING : word WordSz :=
 Definition MSTATUS_THIELE : word WordSz :=
   WO~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1.
 
-(** ORACLE_HALTS_HW_COST: legacy cost ceiling constant. No opcode uses it now;
+(** ORACLE_HALTS_HW_COST: legacy cost ceiling constant. No opcode uses it;
     kept for conservative cost-cap lemmas in Abstraction.v. *)
 Definition ORACLE_HALTS_HW_COST : nat := 1000000.
 

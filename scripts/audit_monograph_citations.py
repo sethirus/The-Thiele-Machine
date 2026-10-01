@@ -177,9 +177,9 @@ def find_top_level_decls(coq_roots):
     record_comment_re = re.compile(r"\(\*.*?\*\)", re.DOTALL)
     record_field_re = re.compile(r"^\s*([a-z_][A-Za-z0-9_']*)\s*:")
     # Inductive header (starts a block whose body we scan linearly until the
-    # next top-level keyword). The previous regex tried `[^.]+?\.` to bound
-    # the body, but real Inductive bodies routinely contain dots inside
-    # subterms like `s.(vm_graph)`, so it terminated early and missed most
+    # next top-level keyword). A regex using `[^.]+?\.` to bound the body
+    # would terminate early, because real Inductive bodies routinely contain
+    # dots inside subterms like `s.(vm_graph)`, and would miss most
     # constructors of large inductive types like `vm_step`.
     inductive_header_re = re.compile(
         r"^\s*(?:CoInductive|Inductive)\s+([A-Za-z_][A-Za-z0-9_']*)",

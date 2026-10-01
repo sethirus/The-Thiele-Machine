@@ -302,7 +302,7 @@ Proof. intros. simpl. reflexivity. Qed.
     were removed from this file, the type [BExpr] / [BAction] /
     [BModule] would not resolve and this file would not compile. The
     translation therefore genuinely connects an external (vendored)
-    artifact to a local destination AST, not two same-session ASTs. *)
+    artifact to a local destination AST, not two locally defined ASTs. *)
 
 Definition adversarial_source_persistence_test_BExpr : BExpr -> VExpr :=
   bexpr_to_vexpr.

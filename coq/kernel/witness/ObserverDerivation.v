@@ -163,11 +163,9 @@ Qed.
     projection reads [vm_graph] while the shift changes [vm_mu]. This is a
     field-dependency fact about the two definitions. It does not make μ a
     physical gauge quantity or say that only changes in μ are observable. *)
-(** Note: the previous standalone [observer_region_gauge_invariant]
-    lemma was inlined into [Observer_Minimality] below — the gauge-
-    invariance equality is the definitional projection of
-    [ObserverObservableRegion]'s [observe] field against [mu_gauge_shift],
-    so we close it on demand at the one call site. *)
+(** The gauge-invariance equality used by [Observer_Minimality] below is the
+    definitional projection of [ObserverObservableRegion]'s [observe] field
+    against [mu_gauge_shift], so it is closed on demand at the call site. *)
 
 (** Observational_Locality_Iff_Physics: under the stated graph-validity,
     module-range, and step premises, a changed [ObservableRegion] implies that

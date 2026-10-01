@@ -5,7 +5,7 @@
     constraints in [Definitions.v] while still satisfying the abstract
     interface there. If any such construction went through, the
     necessity claim would fail. If every attempt breaks one of the
-    required laws, the claim survives this round of testing.
+    required laws, the claim survives these attacks.
 
     Three attacks are tried below:
 

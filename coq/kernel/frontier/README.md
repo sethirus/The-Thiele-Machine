@@ -50,7 +50,7 @@ Single-conclusion Coq inequalities that compose multiple chain constants.
 | `RecordProliferationSurveyTarget.v` | Twelve candidate events and a swapped winner, stated over standalone observer maps (definitions) |
 | `RecordProliferationSurvey.v` | Checked measurements for the twelve candidate events and the swapped event (`twelve_candidate_measurements_checked`, `swapped_event_is_pointer_checked`) |
 | `EcosystemGameTarget.v` | The coordinator-free ecosystem game: an abstract distributed observation game with consensus, authenticity, and coordinator-free update (definitions) |
-| `EcosystemGame.v` | Closed outcomes for the ecosystem game: a toggle game with consensus, authenticity, and coordinator-free updates whose event is revoked (`toggle_game_refutes_strong_pointer_necessity`); a positive observer count, authenticity, and durable views imply the event is permanent (`durable_consensus_implies_permanence`); the VM certification game has a permanent event for every positive observer count (`vm_certification_is_permanent_consensus`) |
+| `EcosystemGame.v` | Proved outcomes for the ecosystem game: a toggle game with consensus, authenticity, and coordinator-free updates whose event is revoked (`toggle_game_refutes_strong_pointer_necessity`); a positive observer count, authenticity, and durable views imply the event is permanent (`durable_consensus_implies_permanence`); the VM certification game has a permanent event for every positive observer count (`vm_certification_is_permanent_consensus`) |
 
 ## Load-bearing exports
 

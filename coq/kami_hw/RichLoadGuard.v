@@ -16,10 +16,10 @@
     the only encoding fact the proof actually needs is the opcode decode --
     [RichWordDecode.rw_op_correct] in place of [LegacyWordDecode.dd_op_correct].
     This is what makes the same nine-line tactic script carry over verbatim
-    to the other nine guard-class opcodes via a generator, exactly as it did
-    for the legacy files.
+    to the other nine guard-class opcodes via a generator, exactly as in
+    the legacy files.
 
-    Still open: the same argument for the other nine guard-class opcodes
+    Open: the same argument for the other nine guard-class opcodes
     (STORE, HEAP_LOAD, HEAP_STORE, CALL, RET, PNEW, PSPLIT, PMERGE,
     PDISCOVER), then assembling all ten opcodes across both [legacy_word] and
     [rich_word] into [OutsideDomain.v]'s master statement. *)

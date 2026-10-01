@@ -1,4 +1,4 @@
-(** VMSelfGuest.v: B3, part 1: the guest language of the uniform
+(** VMSelfGuest.v: the guest language of the uniform
     self-interpreter, and its executable data encoding.
 
     The guest of this interpreter is the unbounded VM itself, restricted to

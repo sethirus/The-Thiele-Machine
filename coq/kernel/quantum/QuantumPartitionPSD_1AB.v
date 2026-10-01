@@ -851,9 +851,9 @@ Qed.
     — does not require modifying the VMStep ISA. The bridge theorem
     below uses the *existing* [instr_chsh_lassert] opcode and adds an
     explicit extra hypothesis [sum_E_sq_check_witness s.(vm_witness) = true]
-    for the Q_{1+AB} upgrade. A future revision can promote this extra
-    check into a kernel-side opcode (sketched as [instr_chsh_lassert_1ab]
-    in the design discussion) by adding one constructor to
+    for the Q_{1+AB} upgrade. This extra check can be promoted
+    into a kernel-side opcode (for example [instr_chsh_lassert_1ab])
+    by adding one constructor to
     [vm_instruction] plus the corresponding ten or so pattern-match cases
     spread across the foundation files; the proof obligation collapses to
     the case-analysis-only conjunction of the two integer-check booleans.
@@ -1337,9 +1337,8 @@ Qed.
 
     Composed with the existing [column_contractive_check_witness] from
     VMStep.v, the integer-witnessed check certifies PSD9 of the γ_5-
-    extended 9×9 NPA matrix at the witness-derived correlators. No new
-    opcode is wired up in this iteration; the check sits at the kernel-
-    real layer ready for opcode plumbing in a subsequent iteration. *)
+    extended 9×9 NPA matrix at the witness-derived correlators. No
+    opcode is wired up to this check; it sits at the kernel-real layer. *)
 
 (** Bridge lemma: state_bucket_correlation = IZR D / IZR N when N > 0
     (where D = same − diff, N = same + diff, both lifted to Z). *)
@@ -2473,9 +2472,8 @@ Qed.
 (** Scaling property of sym4_d_k: scaling all matrix entries by c scales
     the k-th leading principal minor by c^k (determinant of c·M = c^n·det(M)). *)
 
-(* sym4_d1_scale removed: had one caller; sym4_d1 is the identity projection
-   onto h11, so the scaling identity holds by [unfold sym4_d1] which is now
-   performed at the sole use site. *)
+(* sym4_d1 is the identity projection onto h11, so the scaling identity
+   holds by [unfold sym4_d1] at its use site. *)
 
 Lemma sym4_d2_scale :
   forall c h11 h12 h13 h14 h22 h23 h24 h33 h34 h44 : RealNumber,
@@ -2851,8 +2849,8 @@ Qed.
 
     Closes the full multi-γ slice by lifting γ_1, γ_2 (the 3-body A-A-B
     moments ⟨A_1A_2B_1⟩, ⟨A_1A_2B_2⟩) into the caller-witness check. With
-    γ_1, γ_2 free, Section 14's augmented Schur trick no longer applies —
-    the b-block is no longer a pure quadratic in b with linear-in-v part,
+    γ_1, γ_2 free, Section 14's augmented Schur trick does not apply —
+    the b-block is not a pure quadratic in b with linear-in-v part,
     because γ_1, γ_2 inject bilinear-in-(b, v) cross terms that interleave
     with the existing −e_{ij}·b structure.
 

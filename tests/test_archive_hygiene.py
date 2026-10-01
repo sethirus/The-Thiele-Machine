@@ -1,9 +1,8 @@
 """Archive hygiene gate.
 
 Checks:
-  1. Root markdown surface — no stale working-doc or handoff files that
-     should have been deleted or integrated before closeout.
-  2. Required root files exist for the current closeout surface.
+  1. Root markdown surface — no working-doc or handoff files.
+  2. Required root files exist.
   3. Key build artefacts exist (verification_receipt.json, isomorphism_map.json).
   4. If a local INQUISITOR report exists, it must not record a fail verdict.
 """
@@ -16,8 +15,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 
-# Patterns in root-level filenames that indicate stale working docs.
-# These should be cleaned up before closeout.
+# Patterns in root-level filenames that indicate working docs.
 STALE_PATTERNS = [
     "*_HANDOFF.md",
     "*_WORKING_PLAN.md",

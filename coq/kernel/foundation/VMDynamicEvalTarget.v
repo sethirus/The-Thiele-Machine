@@ -1,4 +1,4 @@
-(** Frozen decoder, fuel-bounded evaluator, and specialization constructor. *)
+(** Decoder, fuel-bounded evaluator, and specialization constructor. *)
 
 From Coq Require Import List.
 Import ListNotations.

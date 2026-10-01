@@ -1,4 +1,4 @@
-(** VMSelfRun.v: B3, part 4: whole-run correctness of the self-interpreter.
+(** VMSelfRun.v: whole-run correctness of the self-interpreter.
 
     Guest semantics.  A guest configuration is (pc, ledger, registers 0..3).
     [g_run] iterates [g_next] on the instruction at pc and stops once pc is

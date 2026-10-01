@@ -23,20 +23,20 @@ From Kernel Require Import PrimeAxiom AbstractNoFI.
 From Kernel Require Import UniversalCertificationCost.
 From Kernel Require Import F1_LogicalErasure.
 
-(** ** Trace-level extension of F1 R1's A2 derivation.
+(** ** Trace-level extension of the single-step A2 derivation.
 
-    Given the same Landauer bridge premise as F1 R1, A2 lifts from
+    Given the same Landauer bridge premise as the single-step result, A2 lifts from
     single-step to multi-step. For any Thiele trace from an
     uncertified state to a certified final state, total instruction
     cost ≥ 1.
 
-    The composition is: F1 R1's `A2_from_physical_reversibility_real`
+    The composition is: the single-step `A2_from_physical_reversibility_real`
     discharges the cs_cert_costs field of a CertificationSystem
     instance for the Thiele VM (cert channel = vm_certified). Then
     universal_nfi_any_substrate's induction gives the trace-level
     cost ≥ 1. *)
 
-(** Build a [CertificationSystem] from the F1 R1 hypotheses. *)
+(** Build a [CertificationSystem] from the single-step F1 hypotheses. *)
 Definition thiele_cert_system_from_F1
   (mu_per_landauer_bit : nat)
   (Hcal : mu_per_landauer_bit >= 1)
@@ -55,13 +55,13 @@ Definition thiele_cert_system_from_F1
         mu_per_landauer_bit Hcal HLandauer
   |}.
 
-(** ** F1 R3 HEADLINE.
+(** ** HEADLINE.
 
     Trace-level A2: given the Landauer bridge, any Thiele trace from
     an uncertified state s0 to a certified final state has total
     instruction cost ≥ 1.
 
-    Proof composes F1 R1 (single-step) with
+    Proof composes the single-step result with
     universal_nfi_any_substrate (induction over the trace). No new
     bridges, no new axioms. *)
 
@@ -86,7 +86,7 @@ Proof.
 Qed.
 
 (** ** Per-step variant: any single-instruction trace [[i]] to a
-       certified state pays ≥ 1. (Same as F1 R1 in a different
+       certified state pays ≥ 1. (Same as the single-step result in a different
        packaging.) *)
 
 Theorem F1_singleton_trace_A2 :
@@ -124,10 +124,9 @@ Qed.
 (** ** Print Assumptions sanity.
 
     All theorems in this file close under the global context. They
-    compose F1 R1 (A2_from_physical_reversibility_real), the Thiele
+    compose the single-step A2_from_physical_reversibility_real, the Thiele
     cost system construction (thiele_certified_system), and
     universal_nfi_any_substrate. No new bridges, no new axioms.
 
-    F1 R3 deepening: A2 derivation extends from single-step to
-    multi-step traces via existing kernel induction, with no new
-    project-local content. *)
+    The A2 derivation extends from single-step to multi-step traces via
+    kernel induction, with no project-local content beyond that. *)

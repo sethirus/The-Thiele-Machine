@@ -92,14 +92,13 @@ Definition curved_energy_density (s : VMState) (v : ModuleID) : R :=
 Definition curved_pressure (s : VMState) (v : ModuleID) (i : nat) : R :=
   full_metric_at_vertex s v i i.
 
-(** Deprecated geometric source alias (T := g), retained for backward
-    compatibility. Use mass_stress_energy when a source built from structural
+(** Geometric source alias (T := g). Use mass_stress_energy when a source built from structural
     mass is required. *)
 Definition curved_stress_energy_geometric (s : VMState) (sc : SimplicialComplex4D)
     (μ ν : nat) (v : ModuleID) : R :=
   full_metric_at_vertex s v μ ν.
 
-(** Backward-compat alias *)
+(** Alias of [curved_stress_energy_geometric] *)
 Definition curved_stress_energy := curved_stress_energy_geometric.
 
 (** Non-circular stress-energy tensor from structural mass.
@@ -656,13 +655,6 @@ Qed.
 
 (** ** Stress-energy uniformity *)
 
-(** The named theorem [curved_stress_energy_uniform] (vertex-independence
-    of [curved_stress_energy] under a uniform-metric hypothesis) was
-    inlined-and-deleted here. It was a single [apply Huniform] after
-    unfolding the geometric-form alias, with no downstream callers; the
-    fact it stated is now visible by inspection of the definition of
-    [curved_stress_energy] alone. *)
-
 (** The einstein_equation_uniform_coupling theorem already provides the
     main deliverable. Here we show that the coupling structure is
     genuinely non-trivial: it connects Einstein and stress-energy tensors
@@ -837,14 +829,14 @@ Proof.
   lra.
 Qed.
 
-(** ** Backward Compatibility: local_* are special cases of curved_* *)
+(** ** local_* are special cases of curved_* *)
 
-(** The old local_christoffel (from EinsteinEquations4D.v) used
+(** The local_christoffel (from EinsteinEquations4D.v) used
     metric_at_vertex (scalar diagonal metric from structural mass)
     and did NOT include the g^{ρσ} contraction (effectively treating
     g^{ρσ} = δ^{ρσ}).
 
-    The new curved_christoffel uses full_metric_at_vertex with
+    The curved_christoffel uses full_metric_at_vertex with
     proper inverse metric contraction.
 
     When the per-module tensor equals an isotropic diagonal with
@@ -852,7 +844,7 @@ Qed.
     the identity (mass = 1 at vertex v), the curved Christoffel
     reduces to the local Christoffel. *)
 
-(** Backward-compat: When full_metric = metric_at_vertex and g^{-1} = I,
+(** When full_metric = metric_at_vertex and g^{-1} = I,
     the curved pipeline's Christoffel connection terms match the local pipeline *)
 Lemma curved_christoffel_compat_flat : forall s sc v ρ μ ν,
   (ρ < 4)%nat ->
@@ -885,7 +877,7 @@ Proof.
   destruct ρ as [|[|[|[|ρ']]]]; try lia; simpl; ring.
 Qed.
 
-(** Backward-compat: the curved pipeline generalizes the local pipeline.
+(** The curved pipeline generalizes the local pipeline.
     curved_christoffel_compat_flat above proves the Christoffel connection.
     For the full Einstein tensor:
     - curved uses g^{ρσ} contraction; local uses δ^{ρσ}
@@ -1221,9 +1213,8 @@ Qed.
 
 (* Independence of [mass_stress_energy] from [module_mu_tensor] is read off
    the [Definition] body: the function never inspects the tensor argument.
-   The former alias-lemma [mass_stress_energy_independent_of_tensor] had no
-   callers, so the unfolded equation is left available via [unfold
-   mass_stress_energy] at any use site. *)
+   The equation is available via [unfold mass_stress_energy] at any use
+   site. *)
 
 (** Explicit field equation: G_{dd} = 8πG · κ · T_{dd}.
 
@@ -1531,7 +1522,7 @@ Qed.
     [nat_chain_sc n] is the well-formed chain 0--1--...--n with vertex order
     [n; ...; 0].  The derivative semantics theorem in EinsteinEquations4D.v
     proves that this concrete constructor satisfies the successor contract, so
-    A3 no longer rests on a schematic chain hypothesis. *)
+    A3 does not rest on a schematic chain hypothesis. *)
 Theorem local_einstein_field_equation_nat_chain_4d :
   forall s n v d,
     (d < 4)%nat ->

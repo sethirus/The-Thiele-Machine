@@ -1,5 +1,5 @@
 (** StructuralUniqueness: the uniqueness conjectures of [StructuralCore]
-    and [StructuralCoreRound2] are false.
+    and [StructuralCoreCover] are false.
 
     The counterexample is a machine that bills CPU time. [BilledCore] runs
     the Thiele core and carries a step counter, and its ledger is the Thiele
@@ -13,7 +13,7 @@
       it commutes with the step, keeps halting, and hits every starting
       state of the Thiele core.
     - Its core is not equivalent to the Thiele core in either sense
-      ([billed_core_not_equiv], [billed_core_not_equiv_round2]). A Thiele
+      ([billed_core_not_equiv], [billed_core_not_observed_equiv]). A Thiele
       state with an empty program never moves and prices every step at
       zero. Any state related to it must price its next step the same, and
       every step of [BilledCore] costs at least one.
@@ -21,13 +21,13 @@
     What fails is the pricing half of adequacy. Both forms ask for a floor
     (A2) and neither forbids overcharging, so a machine that charges for
     something besides certification is adequate and not the same.
-    [StructuralCoreRound3] states uniqueness up to the price schedule. *)
+    [StructuralCoreSchedule] states uniqueness up to the price schedule. *)
 
 From Coq Require Import List Arith.PeanoNat Lia.
 Import ListNotations.
 From Kernel Require Import VMState VMStep VMUnboundedStep VMUnboundedLedger.
 From Kernel Require Import MuInitiality.
-From Kernel Require Import StructuralCore StructuralCoreRound2.
+From Kernel Require Import StructuralCore StructuralCoreCover.
 
 (** * The CPU-billed Thiele core *)
 
@@ -129,7 +129,7 @@ Proof.
   rewrite Hcost, empty_program_free in Hpos. lia.
 Qed.
 
-Theorem uniqueness_round1_refuted : ~ uniqueness_round1.
+Theorem adequate_core_uniqueness_refuted : ~ adequate_core_uniqueness.
 Proof.
   intro H. exact (billed_core_not_equiv (H BilledCore billed_core_adequate)).
 Qed.
@@ -177,8 +177,8 @@ Qed.
 
 (** * The strong form is false *)
 
-Theorem billed_core_not_equiv_round2 :
-  ~ core_equiv_round2 BilledCore ThieleCore.
+Theorem billed_core_not_observed_equiv :
+  ~ observed_core_equiv BilledCore ThieleCore.
 Proof.
   intros [R [_ [Hback Hstep]]].
   destruct (Hback ([], init_state) I) as [m [_ Hr]].
@@ -187,11 +187,11 @@ Proof.
   rewrite Hcost, empty_program_free in Hpos. lia.
 Qed.
 
-Theorem uniqueness_round2_refuted : ~ uniqueness_round2.
+Theorem honest_vm_extension_uniqueness_refuted : ~ honest_vm_extension_uniqueness.
 Proof.
   intro H.
-  exact (billed_core_not_equiv_round2 (H BilledCore billed_core_honest_extension)).
+  exact (billed_core_not_observed_equiv (H BilledCore billed_core_honest_extension)).
 Qed.
 
-Print Assumptions uniqueness_round1_refuted.
-Print Assumptions uniqueness_round2_refuted.
+Print Assumptions adequate_core_uniqueness_refuted.
+Print Assumptions honest_vm_extension_uniqueness_refuted.

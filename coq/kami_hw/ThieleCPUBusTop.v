@@ -1,16 +1,16 @@
 (** ThieleCPUBusTop.v
 
-    Stage-1 wrapper boundary for host/bus integration.
+    Wrapper boundary for host/bus integration.
 
     Purpose:
-    - Introduce a stable top-level wrapper symbol that downstream extraction and
-      synthesis can target.
-    - Keep semantics identical to [thieleCoreB] while we incrementally add
-      protocol-facing methods (AXI/APB/MMIO) in source Coq/Kami.
+    - A stable top-level wrapper symbol that downstream extraction and
+      synthesis target.
+    - Semantics identical to [thieleCoreB]; protocol-facing methods
+      (AXI/APB/MMIO) are added in source Coq/Kami.
 
     Important:
     - Generated RTL is not edited by hand.
-    - This wrapper is the source-level integration seam for future bus work.
+    - This wrapper is the source-level integration seam for bus work.
 *)
 
 From KamiHW Require Import ThieleCPUCore.
@@ -21,9 +21,8 @@ Require Import Coq.Bool.Bool.
 From Kernel Require Import VMStep.
 From Kernel Require Import MuCostModel.
 
-(** Stage-2 contract work (no behavior change yet):
-    define an explicit MMIO register map and decode function in Coq so future
-    bus methods can be added against a stable, proof-visible interface. *)
+(** An explicit MMIO register map and decode function in Coq, so bus methods
+    are added against a stable, proof-visible interface. *)
 Inductive BusReg : Type :=
 | BusRegPc
 | BusRegMu
@@ -142,10 +141,10 @@ Proof.
   repeat split; reflexivity.
 Qed.
 
-(** Bus wrapper stage model.
+(** Bus wrapper model.
 
     This is a proof-level operational contract for the wrapper boundary.  It
-    keeps the core state immutable for bus writes in stage-1/2 while command
+    keeps the core state immutable for bus writes while command
     registers are latched into a shadow structure.  Read semantics are defined
     over a core observation record that mirrors getter methods. *)
 
@@ -351,16 +350,6 @@ Definition coreViewOfSnapshot (s : KamiSnapshot) : BusCoreView :=
      view_pt_next_id := snap_pt_next_id s;
      view_pt_size := snap_pt_sizes s |}.
 
-(** Bus-address-decode checks for pc / mu / partition_ops registers
-    formerly lived here as three single-line [reflexivity] lemmas
-    ([busRead_snapshot_pc], [busRead_snapshot_mu],
-    [busRead_snapshot_partition_ops]).  They had no callers in the tree
-    and the equalities they witnessed hold definitionally once
-    [busRead] and the [busAddr*] constants are unfolded, so any caller
-    can discharge them inline with [unfold busRead, busAddrPc; reflexivity]
-    (resp. [busAddrMu], [busAddrPartitionOps]).  The lemmas have been
-    removed. *)
-
 Lemma busWrite_stage12_abs_phase1_preserved :
   forall st addr data,
     abs_phase1 (bw_core (busWrite st addr data)) = abs_phase1 (bw_core st).
@@ -409,18 +398,9 @@ Proof.
   reflexivity.
 Qed.
 
-(** Current stage: the bus-top wrapper is semantically identical to the core. *)
+(** The bus-top wrapper is semantically identical to the core. *)
 Definition thieleBusTopB := thieleCoreB.
 Definition thieleBusTopS := thieleCoreS.
-
-(** A stage-1 identity [thieleBusTopB = thieleCoreB] was formerly
-    proved here for the canonical-extraction equality in
-    [kami_hw/CanonicalCPUProof.v].  Because [thieleBusTopB] is presently
-    defined as [thieleCoreB] the equality holds by [reflexivity] and any
-    consumer discharges it inline via
-    [unfold thieleBusTopB, thieleBusTopS; reflexivity].  Once the
-    bus-top wrapper diverges from the core a real refinement lemma will
-    replace this note. *)
 
 (** Bridge: bus_step preserves core state; therefore instruction_cost
     accounting from VMStep is unaffected by bus protocol operations. *)

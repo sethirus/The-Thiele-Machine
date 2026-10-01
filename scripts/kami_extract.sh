@@ -228,6 +228,56 @@ else
     echo "  Published mkModule1_synth.v -> $TRACKED_RTL"
 fi
 
+echo "=== Phase 5d: The composed CPU and loader ==="
+# coq/kami_hw/SystemExtraction.v extracts the composition to
+# build/kami_hw/system/Target.ml. The printer, the pin-interface script, the
+# same Bluespec transforms as above, and bsc turn it into the system Verilog.
+# The CPU module inside it must compile to the same Verilog as the CPU alone.
+SYSTEM_DIR="$BUILD_DIR/system"
+TRACKED_SYSTEM_RTL="$ROOT/thielecpu/hardware/rtl/thiele_system.v"
+if [ "$BSC_AVAILABLE" = "0" ]; then
+    echo "  SKIPPED: bsc not available."
+elif [ ! -f "$SYSTEM_DIR/Target.ml" ]; then
+    echo "  ERROR: $SYSTEM_DIR/Target.ml not found; build coq/kami_hw/SystemExtraction.vo first."
+    exit 1
+else
+    (
+    set -euo pipefail
+    cd "$SYSTEM_DIR"
+    find . -maxdepth 1 -type f \( -name '*.bsv' -o -name '*.v' -o -name '*.bo' -o -name 'kami_to_bsv*' -o -name 'PP.*' -o -name 'Main.*' \) -delete
+    cp "$VENDOR_KAMI/Kami/Ext/Ocaml/PP.ml" .
+    cp "$VENDOR_KAMI/Kami/Ext/Ocaml/Main.ml" .
+    cp "$ROOT/scripts/Header.bsv" Header.bsv
+    if grep -q "| Nil1$" Target.ml 2>/dev/null; then
+        perl -0777 -pe 's/\bNil\b/Nil1/g' -i PP.ml
+    fi
+    ocamlfind ocamlopt -package str -linkpkg Target.mli Target.ml PP.ml Main.ml -o kami_to_bsv
+    ./kami_to_bsv -top ThieleSystem thiele_system.bsv
+    python3 "$ROOT/scripts/kami_system_top.py" ThieleSystem thiele_system.bsv thiele_system_top.bsv
+    python3 - <<'PY'
+import re
+p = 'thiele_system_top.bsv'
+s = open(p).read()
+s = re.sub(r'vec\(([^()]*)\)', r'unpack({\1})', s)
+open(p, 'w', newline='\n').write('import Vector::*;\n' + s)
+PY
+    python3 "$ROOT/scripts/bsv_regfile_transform.py" thiele_system_top.bsv thiele_system_top.bsv
+    for pkg in RegFileZero MulDiv; do
+        "$BSC" -verilog -bdir . -p "$BLUESPECDIR/Libraries:." "$VENDOR_KAMI/Kami/Ext/BluespecFrontEnd/verilog/${pkg}.bsv"
+    done
+    "$BSC" +RTS -K64M -RTS -verilog -g mkThieleSystem \
+        -p ".:$BLUESPECDIR/Libraries:$VENDOR_KAMI/Kami/Ext/BluespecFrontEnd/verilog" \
+        thiele_system_top.bsv
+    if ! cmp -s mkModule1.v "$BUILD_DIR/mkModule1.v"; then
+        echo "  ERROR: the CPU inside the system differs from the CPU alone:"
+        diff mkModule1.v "$BUILD_DIR/mkModule1.v" | head -40
+        exit 1
+    fi
+    install -m 0644 mkThieleSystem.v "$TRACKED_SYSTEM_RTL"
+    echo "  Published mkThieleSystem.v -> $TRACKED_SYSTEM_RTL"
+    )
+fi
+
 if [ "${SKIP_YOSYS:-0}" = "1" ] || [ "$BSC_AVAILABLE" = "0" ]; then
     if [ "$BSC_AVAILABLE" = "0" ]; then
         echo "=== Phase 6: Verifying with Yosys (skipped: bsc not available) ==="

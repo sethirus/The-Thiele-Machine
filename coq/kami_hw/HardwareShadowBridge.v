@@ -8,12 +8,12 @@
         (rtl_shadow_trace_compat_extended in ShadowDeviceTrace.v),
         34/46 with preconditions (adding CALL, RET, CHSH_TRIAL, TENSOR_SET/GET,
         LJOIN from EmbedStep_WF.v + ShadowEmbedStep.v).
-      Full 46-opcode, PC-driven trace correctness is now also exported under
+      Full 46-opcode, PC-driven trace correctness is also exported under
         explicit [WFDrivenPrecondition] through
         [rtl_shadow_trace_compat_wf] in ShadowDeviceTrace.v.
         This uses the stronger abs_full_snapshot/GraphReconstructionBridge path.
 
-      LASSERT is now covered through the checked EmbedStep/LogicEngine path:
+      LASSERT is covered through the checked EmbedStep/LogicEngine path:
       its formula-length μ charge and dual-witness guard are aligned with
       the kernel semantics.
 
@@ -59,12 +59,6 @@ Proof.
   unfold rtl_classical_obs, shadow_proj, abs_phase1.
   reflexivity.
 Qed.
-
-(* The full-snapshot variant [rtl_classical_obs ks = shadow_proj
-   (abs_full_snapshot (full_snapshot_of_snapshot ks))] is definitional once
-   the record bridges are unfolded; it carried no proof content beyond
-   [hardware_shadow_compat], so it has been inlined at its sole caller in
-   [ShadowDeviceTrace.rtl_shadow_trace_compat_wf]. *)
 
 (** Simulation-relation form
 

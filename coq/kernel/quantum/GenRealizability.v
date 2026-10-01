@@ -466,7 +466,7 @@ Qed.
     trap --- it advances the program counter by one, leaves the error flag as it
     found it, and started from a clean state --- then the correlators the VM
     derived from its own witness land inside the general realizable set. It is
-    the same realizability projection run at dimension five, now stated over the
+    the same realizability projection run at dimension five, stated over the
     actual machine state [s], so GenRealizable connects to vm_apply / VMState
     instead of standing apart from the kernel it generalizes. Composition only:
     the VM bridge supplies npa_psd of the witness-derived NPA matrix,

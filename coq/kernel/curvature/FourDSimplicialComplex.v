@@ -150,7 +150,7 @@ Definition euler_characteristic_4d (sc : SimplicialComplex4D) : Z :=
 (** VMState uses a PartitionGraph with modules. Here, overlapping module
     regions are treated as adjacency data for candidate simplices.
 
-    - Each module region still represents a set of computational vertices
+    - Each module region represents a set of computational vertices
     - Pairs with overlap become edges
     - Larger pairwise-overlap cliques become faces, cells, and 4-simplices
 
@@ -302,12 +302,6 @@ Definition build_4d_complex_from_graph (g : PartitionGraph) : SimplicialComplex4
      sc4d_cells := cells;
      sc4d_4simplices := simplices
   |}.
-
-(** The two boundary-case Euler sanity lemmas (empty 4-complex => χ = 0,
-    single-vertex 4-complex => χ = 1) lived here but were never used in
-    any downstream proof. They computed by [simpl] on a fully-explicit
-    record, so they carried no mathematical content beyond unfolding
-    [euler_characteristic_4d] on a literal. Removed. *)
 
 (** Arity theorems for the extraction functions. *)
 
@@ -477,7 +471,7 @@ Proof.
 Qed.
 
 (** OPEN (4D extension):
-    Well-formedness proofs (item 1) are complete above.
+    Well-formedness proofs are complete above.
     Remaining: Christoffel symbols, Riemann tensor, and 4D Gauss-Bonnet-Chern.
     The current gravity pipeline uses 2D Gauss-Bonnet (DiscreteGaussBonnet.v).
 *)

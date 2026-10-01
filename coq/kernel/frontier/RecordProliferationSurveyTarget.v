@@ -1,7 +1,7 @@
 (** SCOPE NOTE: standalone proof scope. The survey composes standalone observer
     maps; their real-system correspondence is a prose modeling judgment.
 
-    Frozen Part 6 target: twelve candidate events and a swapped winner. *)
+    Target: twelve candidate events and a swapped winner. *)
 
 From Coq Require Import List Bool Arith.PeanoNat.
 Import ListNotations.

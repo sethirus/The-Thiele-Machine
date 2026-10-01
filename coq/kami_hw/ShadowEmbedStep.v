@@ -309,13 +309,13 @@ Qed.
     - LJOIN:          when cert strings differ, kernel sets err=true,
                       hw preserves err.  Shadow eq when strings match.
     - CHSH_TRIAL:     when chsh_bits_ok = false, kernel sets err=true,
- 
-    LASSERT is no longer in this list: the formula-length μ charge and
-    dual-witness success condition are aligned through the EmbedStep bridge.
                       hw preserves err.  Shadow eq when bits OK.
     - TENSOR_SET:     when i >= 4 or j >= 4, kernel sets err=true,
                       hw preserves err.  Shadow eq when bounds OK.
     - TENSOR_GET:     same as TENSOR_SET.
+
+    LASSERT is not in this list: the formula-length μ charge and
+    dual-witness success condition are aligned through the EmbedStep bridge.
 *)
 
 (* ======================================================================

@@ -558,5 +558,5 @@ Print Assumptions DigitalSignature.signature_model_proliferating.
          (PO-STRONG), and they should be cited that way.
 
     The honest summary: the search was run, it found counterexamples, the
-    strong claim did not survive, and the weaker one that did is now stated
+    strong claim did not survive, and the weaker one that did is stated
     where it can be attacked in turn. *)

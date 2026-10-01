@@ -621,8 +621,8 @@ class TestCrossLayerConsistency:
         # ThieleTypes.v defines OP_X for each opcode
         coq_hw_ops = {name.lower() for name in re.findall(r"Definition\s+OP_([A-Z0-9_]+)", types_v.read_text())}
 
-        # Phase 6 is complete: all 47 synth-realised opcodes (including the 7 categorical
-        # morphism opcodes) are now encoded in ThieleTypes.v RTL (OP_MORPH=0x27 … OP_MORPH_GET=0x2D).
+        # All 47 synth-realised opcodes (including the 7 categorical
+        # morphism opcodes) are encoded in ThieleTypes.v RTL (OP_MORPH=0x27 … OP_MORPH_GET=0x2D).
         # Positive check: CANONICAL_MORPH_7 must be present in RTL.
         missing_morph = CANONICAL_MORPH_7 - coq_hw_ops
         assert missing_morph == frozenset(), (

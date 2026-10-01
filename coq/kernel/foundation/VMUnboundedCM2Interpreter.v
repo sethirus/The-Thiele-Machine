@@ -1,6 +1,6 @@
 (** CM2 variant: jump on successful decrement; zero falls through.
     This is the control convention of Dudenhefner, FSCD 2022, Definition 2.
-    The earlier zero-branch Minsky modules are preserved with their own scope.
+    The zero-branch Minsky modules keep their own scope.
     https://doi.org/10.4230/LIPIcs.FSCD.2022.16 *)
 (** A fixed, data-driven interpreter for a two-counter CM2 guest.
 

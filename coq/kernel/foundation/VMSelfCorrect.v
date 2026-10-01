@@ -1,4 +1,4 @@
-(** VMSelfCorrect.v: B3, part 3: one guest step of the self-interpreter.
+(** VMSelfCorrect.v: one guest step of the self-interpreter.
 
     Boundary relation.  At every interpreter boundary the host is at address
     0 with the guest registers in R0..R3, status R9 = 0, the guest ledger in

@@ -190,7 +190,7 @@ Require Kernel.CrossBaseGranularity.
 Require Kernel.CrossBaseGranularityCore.
 Require Kernel.CrossBaseGranularityL.
 Require Kernel.CrossBaseGranularityRAM.
-Require Kernel.CrossBaseGranularityRound2Core.
+Require Kernel.CrossBaseGranularityTransCore.
 Require Kernel.DagRestriction.
 Require Kernel.Definitions.
 Require Kernel.EventGeneralization.
@@ -221,9 +221,9 @@ Require Kernel.RecordAxisDiscrimination.
 Require Kernel.SimulationProof.
 Require Kernel.StateSpaceCounting.
 Require Kernel.StructuralCore.
-Require Kernel.StructuralCoreRound2.
-Require Kernel.StructuralCoreRound3.
-Require Kernel.StructuralCoreRound4.
+Require Kernel.StructuralCoreCover.
+Require Kernel.StructuralCoreSchedule.
+Require Kernel.StructuralCoreAnyBase.
 Require Kernel.StructuralRecordAxis.
 Require Kernel.StructuralScheduleUniqueness.
 Require Kernel.StructuralUniqueness.
@@ -10686,9 +10686,9 @@ Print Assumptions Kernel.CrossBaseGranularity.weak_base_equiv_sym_holds.
 Print Assumptions Kernel.CrossBaseGranularity.weak_match_left_runs.
 Print Assumptions Kernel.CrossBaseGranularity.weak_match_right_runs.
 Print Assumptions Kernel.CrossBaseGranularity.weak_base_equiv_trans_holds.
-Print Assumptions Kernel.CrossBaseGranularity.weak_equiv_preserves_round4_holds.
-Print Assumptions Kernel.CrossBaseGranularity.round4_tm_holds.
-Print Assumptions Kernel.CrossBaseGranularity.round4_vm_holds.
+Print Assumptions Kernel.CrossBaseGranularity.weak_equiv_preserves_record_latch_holds.
+Print Assumptions Kernel.CrossBaseGranularity.record_axis_is_latch_on_tm_holds.
+Print Assumptions Kernel.CrossBaseGranularity.record_axis_is_latch_on_vm_holds.
 (* === Kernel.CrossBaseGranularityL : 10 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.CrossBaseGranularityL.l_step_fun_value.
 Print Assumptions Kernel.CrossBaseGranularityL.l_step_fun_sound.
@@ -10699,7 +10699,7 @@ Print Assumptions Kernel.CrossBaseGranularityL.l_base_halted_iff_irreducible.
 Print Assumptions Kernel.CrossBaseGranularityL.l_base_next_cases.
 Print Assumptions Kernel.CrossBaseGranularityL.l_base_run_is_star.
 Print Assumptions Kernel.CrossBaseGranularityL.star_is_l_base_run.
-Print Assumptions Kernel.CrossBaseGranularityL.round4_l_holds.
+Print Assumptions Kernel.CrossBaseGranularityL.record_axis_is_latch_on_l_holds.
 (* === Kernel.CrossBaseGranularityRAM : 13 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.CrossBaseGranularityRAM.set_reg_same.
 Print Assumptions Kernel.CrossBaseGranularityRAM.set_reg_other.
@@ -10713,7 +10713,7 @@ Print Assumptions Kernel.CrossBaseGranularityRAM.ram_halted_stutters.
 Print Assumptions Kernel.CrossBaseGranularityRAM.ram_base_halted_stutters.
 Print Assumptions Kernel.CrossBaseGranularityRAM.ram_base_run_is_ram_run.
 Print Assumptions Kernel.CrossBaseGranularityRAM.ram_base_has_initial.
-Print Assumptions Kernel.CrossBaseGranularityRAM.round4_ram_holds.
+Print Assumptions Kernel.CrossBaseGranularityRAM.record_axis_is_latch_on_ram_holds.
 (* === Kernel.DagRestriction : 31 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.DagRestriction.advance_state_pc_S.
 Print Assumptions Kernel.DagRestriction.advance_state_rm_pc_S.
@@ -10811,8 +10811,8 @@ Print Assumptions Kernel.EventGeneralization.eg_proves_generalized_billed_core_a
 Print Assumptions Kernel.EventGeneralization.eg_billed_event_permanent.
 Print Assumptions Kernel.EventGeneralization.eg_billed_event_write.
 Print Assumptions Kernel.EventGeneralization.eg_proves_generalized_billed_core_honest_extension.
-Print Assumptions Kernel.EventGeneralization.eg_proves_generalized_uniqueness_round1_refutation.
-Print Assumptions Kernel.EventGeneralization.eg_proves_generalized_uniqueness_round2_refutation.
+Print Assumptions Kernel.EventGeneralization.eg_proves_generalized_billed_not_core_equiv.
+Print Assumptions Kernel.EventGeneralization.eg_proves_generalized_billed_not_observed_equiv.
 Print Assumptions Kernel.EventGeneralization.eg_proves_generalized_schedule_uniqueness.
 Print Assumptions Kernel.EventGeneralization.eg_vm_apply_u_graph.
 Print Assumptions Kernel.EventGeneralization.eg_core_graph_event_latchable.
@@ -10826,69 +10826,69 @@ Print Assumptions Kernel.EventGeneralization.eg_proves_generalized_reachable_sim
 Print Assumptions Kernel.EventGeneralization.eg_proves_generalized_agreement_does_not_imply_descent.
 Print Assumptions Kernel.EventGeneralization.eg_escs_run_embed.
 Print Assumptions Kernel.EventGeneralization.eg_proves_generalized_simulating_system_representation.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_01.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_02.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_03.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_04.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_05.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_06.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_07.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_08.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_09.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_10.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_11.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_12.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_13.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_14.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_15.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_16.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_17.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_18.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_19.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_20.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_21.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_22.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_23.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_24.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_25.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_26.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_27.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_28.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_29.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_30.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_31.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_32.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_33.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_34.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_35.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_36.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_37.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_38.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_39.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_40.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_41.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_42.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_43.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_44.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_45.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_46.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_47.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_48.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_49.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_50.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_51.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_52.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_53.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_54.
-Print Assumptions Kernel.EventGeneralization.item1_2_result_55.
+Print Assumptions Kernel.EventGeneralization.cert_positive_mu_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.no_free_certification_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.no_free_cert_certified_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.no_free_cert_mu_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.no_free_cert_trace_mu_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.nfi_pc_indexed_event_generic.
+Print Assumptions Kernel.EventGeneralization.certification_is_lost_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.fcertify_merges_event_generic.
+Print Assumptions Kernel.EventGeneralization.fin_a2_from_compression_event_generic.
+Print Assumptions Kernel.EventGeneralization.fin_a2_from_merging_event_generic.
+Print Assumptions Kernel.EventGeneralization.fin_permanent_event_generic.
+Print Assumptions Kernel.EventGeneralization.vm_certify_merges_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.vm_priced_merge_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.vm_fragment_paid_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.vm_merge_others_free_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.unit_price_bounds_mu_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.commit_pricing_exact_event_generic.
+Print Assumptions Kernel.EventGeneralization.p_full_irredundant_event_generic.
+Print Assumptions Kernel.EventGeneralization.cost_model_necessity_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.mu_ledger_minimality_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.mutual_independence_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.three_component_indep_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.turing_ram_necessity_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.partition_free_cert_nonfree_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.partition_refinement_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.revocable_escapes_event_generic.
+Print Assumptions Kernel.EventGeneralization.kernel_cert_positive_mu_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.cert_addr_forget_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.cert_forget_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.classical_a2_predicate_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.classical_addr_predicate_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.bare_shadow_price_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.forget_shadow_price_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.billed_schedule_equiv_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.surcharged_schedule_equiv_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.schedule_uniqueness_event_generic.
+Print Assumptions Kernel.EventGeneralization.billed_core_adequate_event_generic.
+Print Assumptions Kernel.EventGeneralization.billed_core_honest_event_generic.
+Print Assumptions Kernel.EventGeneralization.adequate_uniqueness_refuted_event_generic.
+Print Assumptions Kernel.EventGeneralization.vm_extension_uniqueness_refuted_event_generic.
+Print Assumptions Kernel.EventGeneralization.agreement_not_descent_event_generic.
+Print Assumptions Kernel.EventGeneralization.reachable_sim_exists_event_generic.
+Print Assumptions Kernel.EventGeneralization.reachable_sim_unique_event_generic.
+Print Assumptions Kernel.EventGeneralization.simulating_system_repr_event_generic.
+Print Assumptions Kernel.EventGeneralization.universal_nfi_cert_addr_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.universal_nfi_certified_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.witness_insight_nonfree_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.certified_trace_mu_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.nonlocal_witness_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.witness_insight_general_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.classical_decider_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.mu_ledger_necessity_event_generic.
+Print Assumptions Kernel.EventGeneralization.ledger_necessity_universal_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.vm_cert_nonclassical_not_event_generic.
+Print Assumptions Kernel.EventGeneralization.certified_spec_event_generic.
 (* === Kernel.EventSwapTheorem : 7 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.EventSwapTheorem.item1_3_init_register_width.
-Print Assumptions Kernel.EventSwapTheorem.item1_3_graph_latchable_fixed.
-Print Assumptions Kernel.EventSwapTheorem.item1_3_swap_refuted.
-Print Assumptions Kernel.EventSwapTheorem.item1_3_certification_permanent.
-Print Assumptions Kernel.EventSwapTheorem.item1_3_certification_written.
-Print Assumptions Kernel.EventSwapTheorem.item1_3_certification_hidden_from_bare.
-Print Assumptions Kernel.EventSwapTheorem.item1_3_certification_sanity.
+Print Assumptions Kernel.EventSwapTheorem.init_state_register_width.
+Print Assumptions Kernel.EventSwapTheorem.eg_graph_reading_latchable.
+Print Assumptions Kernel.EventSwapTheorem.swap_preserves_main_results_refuted.
+Print Assumptions Kernel.EventSwapTheorem.certification_reading_permanent.
+Print Assumptions Kernel.EventSwapTheorem.certification_reading_written.
+Print Assumptions Kernel.EventSwapTheorem.certification_hidden_from_bare.
+Print Assumptions Kernel.EventSwapTheorem.certification_main_results_hold.
 (* === Kernel.GrowingRecord : 14 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.GrowingRecord.growing_record_decomposes_holds.
 Print Assumptions Kernel.GrowingRecord.thresholds_determine_record_holds.
@@ -11103,13 +11103,13 @@ Print Assumptions Kernel.RAMRecordAxis.tied_honest_growing.
 Print Assumptions Kernel.RAMRecordAxis.tied_threshold_decomposition.
 Print Assumptions Kernel.RAMRecordAxis.tied_next_cert.
 Print Assumptions Kernel.RAMRecordAxis.tied_latch_factorization.
-Print Assumptions Kernel.RAMRecordAxis.tied_honest_round4.
+Print Assumptions Kernel.RAMRecordAxis.tied_honest_base_extension.
 Print Assumptions Kernel.RAMRecordAxis.untied_next_record.
 Print Assumptions Kernel.RAMRecordAxis.untied_run_record_constant.
 Print Assumptions Kernel.RAMRecordAxis.untied_no_strict_record_write.
 Print Assumptions Kernel.RAMRecordAxis.untied_no_record_write.
 Print Assumptions Kernel.RAMRecordAxis.untied_not_honest_growing.
-Print Assumptions Kernel.RAMRecordAxis.untied_not_honest_round4.
+Print Assumptions Kernel.RAMRecordAxis.untied_not_honest_base_extension.
 Print Assumptions Kernel.RAMRecordAxis.untied_trivial_latch.
 Print Assumptions Kernel.RAMRecordAxis.tied_untied_same_base_run.
 Print Assumptions Kernel.RAMRecordAxis.ram_record_axis_classification.
@@ -11178,8 +11178,8 @@ Print Assumptions Kernel.StructuralCore.thiele_core_halting_problem_coverage.
 Print Assumptions Kernel.StructuralCore.thiele_core_adequate.
 Print Assumptions Kernel.StructuralCore.history_core_equiv_thiele.
 (* === Kernel.StructuralRecordAxis : 7 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.StructuralRecordAxis.uniqueness_round4_holds.
-Print Assumptions Kernel.StructuralRecordAxis.uniqueness_round4_pair_holds.
+Print Assumptions Kernel.StructuralRecordAxis.record_axis_is_latch_holds.
+Print Assumptions Kernel.StructuralRecordAxis.record_pair_is_two_latches_holds.
 Print Assumptions Kernel.StructuralRecordAxis.toggle_computation_driven.
 Print Assumptions Kernel.StructuralRecordAxis.toggle_not_permanent.
 Print Assumptions Kernel.StructuralRecordAxis.toggle_not_latch.
@@ -11187,15 +11187,15 @@ Print Assumptions Kernel.StructuralRecordAxis.clock_record_permanent.
 Print Assumptions Kernel.StructuralRecordAxis.clock_record_not_driven.
 (* === Kernel.StructuralScheduleUniqueness : 10 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.StructuralScheduleUniqueness.thiele_core_priced.
-Print Assumptions Kernel.StructuralScheduleUniqueness.uniqueness_round3b_holds.
-Print Assumptions Kernel.StructuralScheduleUniqueness.billed_core_honest3b.
+Print Assumptions Kernel.StructuralScheduleUniqueness.cert_record_schedule_uniqueness_holds.
+Print Assumptions Kernel.StructuralScheduleUniqueness.billed_core_honest_cert.
 Print Assumptions Kernel.StructuralScheduleUniqueness.billed_core_equiv_mod_schedule.
-Print Assumptions Kernel.StructuralScheduleUniqueness.surcharged_core_honest3b.
+Print Assumptions Kernel.StructuralScheduleUniqueness.surcharged_core_honest_cert.
 Print Assumptions Kernel.StructuralScheduleUniqueness.surcharged_core_equiv_mod_schedule.
 Print Assumptions Kernel.StructuralScheduleUniqueness.meter_step_mu.
-Print Assumptions Kernel.StructuralScheduleUniqueness.meter_core_honest3a.
+Print Assumptions Kernel.StructuralScheduleUniqueness.meter_core_honest_tied.
 Print Assumptions Kernel.StructuralScheduleUniqueness.meter_core_not_equiv_mod_schedule.
-Print Assumptions Kernel.StructuralScheduleUniqueness.uniqueness_round3a_refuted.
+Print Assumptions Kernel.StructuralScheduleUniqueness.tied_record_schedule_uniqueness_refuted.
 (* === Kernel.StructuralUniqueness : 17 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.StructuralUniqueness.billed_run.
 Print Assumptions Kernel.StructuralUniqueness.billed_step_cost.
@@ -11208,12 +11208,12 @@ Print Assumptions Kernel.StructuralUniqueness.billed_core_adequate.
 Print Assumptions Kernel.StructuralUniqueness.empty_program_stuck.
 Print Assumptions Kernel.StructuralUniqueness.empty_program_free.
 Print Assumptions Kernel.StructuralUniqueness.billed_core_not_equiv.
-Print Assumptions Kernel.StructuralUniqueness.uniqueness_round1_refuted.
+Print Assumptions Kernel.StructuralUniqueness.adequate_core_uniqueness_refuted.
 Print Assumptions Kernel.StructuralUniqueness.billed_core_record_permanent.
 Print Assumptions Kernel.StructuralUniqueness.billed_core_reachable_record_write.
 Print Assumptions Kernel.StructuralUniqueness.billed_core_honest_extension.
-Print Assumptions Kernel.StructuralUniqueness.billed_core_not_equiv_round2.
-Print Assumptions Kernel.StructuralUniqueness.uniqueness_round2_refuted.
+Print Assumptions Kernel.StructuralUniqueness.billed_core_not_observed_equiv.
+Print Assumptions Kernel.StructuralUniqueness.honest_vm_extension_uniqueness_refuted.
 (* === Kernel.Substrate : 3 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.Substrate.prog_equiv_sym.
 Print Assumptions Kernel.Substrate.prog_equiv_trans.
@@ -13040,8 +13040,8 @@ Print Assumptions Kernel.EventGenericAudit.evidence_permanent_record_write_is_fo
 Print Assumptions Kernel.EventGenericAudit.evidence_finite_reversible_cannot_write.
 Print Assumptions Kernel.EventGenericAudit.evidence_latch_core_honest.
 Print Assumptions Kernel.EventGenericAudit.evidence_history_latch_honest.
-Print Assumptions Kernel.EventGenericAudit.evidence_uniqueness_round4_holds.
-Print Assumptions Kernel.EventGenericAudit.evidence_uniqueness_round4_pair_holds.
+Print Assumptions Kernel.EventGenericAudit.evidence_record_axis_is_latch_holds.
+Print Assumptions Kernel.EventGenericAudit.evidence_record_pair_is_two_latches_holds.
 Print Assumptions Kernel.EventGenericAudit.evidence_shadow_cannot_price_exactly.
 Print Assumptions Kernel.EventGenericAudit.evidence_shadow_floor_overcharges.
 Print Assumptions Kernel.EventGenericAudit.evidence_step_price_is_exact.

@@ -214,9 +214,8 @@ tests.append(("RET", LOCALITY_PREAMBLE + "CALL 3 1\nLOAD_IMM 2 55 1\nHALT\nLOAD_
 # 26. HALT
 tests.append(("HALT", "HALT", {
     "sets_halted_flag": lambda r: r["status"] == 2,
-    # HALT advances pc (C2_DIVERGENCE_LEDGER.md: "HALT pc: pc held -> pc
-    # advances -> CPU advances pc"), so the pc that retires HALT was 0 and the
-    # reported pc is 1.
+    # HALT advances pc (C2_DIVERGENCE_LEDGER.md: "HALT pc"), so the pc that
+    # retires HALT is 0 and the reported pc is 1.
     "stops_at_halt": lambda r: r["pc"] == 1,
 }))
 

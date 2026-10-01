@@ -1,4 +1,4 @@
-(** Closed outcomes for the coordinator-free ecosystem game. *)
+(** Proved outcomes for the coordinator-free ecosystem game. *)
 
 From Coq Require Import Arith Bool Lia.
 From Kernel Require Import EcosystemGameTarget.

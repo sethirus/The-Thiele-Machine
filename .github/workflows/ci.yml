@@ -3,7 +3,7 @@ name: CI
 on:
   # Trigger on push to ANY branch — feature branches need the same gate as
   # main, otherwise a "green locally + green PR" assumption gets to develop
-  # silently. workflow_dispatch is still here for manual re-runs, and
+  # silently. workflow_dispatch allows manual re-runs, and
   # workflow_call is used by ci-full.yml.
   push:
   pull_request:
@@ -28,9 +28,9 @@ concurrency:
 
 jobs:
   # Phase 0: build Coq + Kami once, publish the cache, expose its keys as
-  # job outputs. Both proof-check and extraction depend on this — they used
-  # to each compile Coq themselves (~7m + ~7m sequential), now they share
-  # one build and run in parallel on top of it. proof-repro-gate is its
+  # job outputs. Both proof-check and extraction depend on this, so they
+  # share one build and run in parallel on top of it instead of each
+  # compiling Coq (~7m + ~7m sequential). proof-repro-gate is its
   # own parallel branch because it requires an intentional clean rebuild
   # and can't share the cache.
   build-coq:
@@ -140,7 +140,7 @@ jobs:
             find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
           fi
           coq_makefile -f _CoqProject -o Makefile
-          # The clean serial path has been validated by the reproducibility
+          # The clean serial path is validated by the reproducibility
           # gate; use parallelism here so the shared cache primer completes
           # within the job budget.
           make V=1 -j4
@@ -429,7 +429,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
-          # Frozen-input tests read earlier commits with git show.
+          # Some tests read earlier commits with git show, so fetch full history.
           fetch-depth: 0
 
       - name: Install runtime toolchain for Python tests
@@ -734,7 +734,7 @@ jobs:
       - name: Fail if any check failed
         # Every needed job must come back 'success'. Checking for explicit
         # 'failure' on a hand-kept list has two holes: a job missing from
-        # the list (build-coq and proof-repro-gate were missing here), and
+        # the list, and
         # the 'skipped' result a job gets when its `needs` failed upstream
         # — neither matched '== failure', so this step stayed green.
         if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped')

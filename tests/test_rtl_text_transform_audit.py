@@ -48,10 +48,9 @@ def test_transform_audit_manifest_is_fresh(tmp_path: Path) -> None:
     """Regenerate the audit manifest into a temp dir and assert the committed
     copy matches it byte for byte.
 
-    This gate must be able to fail. An earlier version copied the fresh file
-    over the committed one and emitted a warning instead of asserting, which
-    meant a corrupt or hand-edited committed manifest was silently repaired
-    by the very test that was supposed to detect it. Locally the fixture
+    This gate must be able to fail: it asserts instead of copying the fresh
+    file over the committed one with a warning, since that would silently
+    repair a corrupt or hand-edited committed manifest. Locally the fixture
     below regenerates in place first, so routine source edits don't bounce
     the suite; in CI nothing is regenerated and drift is a hard failure.
     """

@@ -8,7 +8,7 @@ This test verifies that the Python OPCODES dict (used by the cosimulation
 harness) matches the canonical opcode definitions in
 coq/kami_hw/ThieleTypes.v (the Kami hardware type source of truth).
 
-RTL is now generated via the Kami extraction chain, so there is no separate
+RTL is generated via the Kami extraction chain, so there is no separate
 generated_opcodes.vh file.  Opcode alignment is checked directly against
 the Coq Kami definitions.
 """

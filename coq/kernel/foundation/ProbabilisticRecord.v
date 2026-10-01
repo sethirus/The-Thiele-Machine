@@ -1,4 +1,4 @@
-(** Closed outcomes for the frozen finite-weight probabilistic targets. *)
+(** Proved outcomes for the finite-weight probabilistic targets. *)
 
 (* SCOPE NOTE: standalone proof scope. These finite-weight counterexamples
    are independent of the Thiele VM execution semantics. *)

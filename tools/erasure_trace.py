@@ -151,11 +151,11 @@ def analyze(netlist_path: Path, json_out: Path | None = None) -> dict:
         data = json.load(f)
 
     modules = data.get("modules", {})
-    if "thiele_cpu_top" not in modules:
-        print("ERROR: thiele_cpu_top module not found in netlist", file=sys.stderr)
+    if "mkThieleSystem" not in modules:
+        print("ERROR: mkThieleSystem module not found in netlist", file=sys.stderr)
         sys.exit(1)
 
-    top = modules["thiele_cpu_top"]
+    top = modules["mkThieleSystem"]
     cells = top.get("cells", {})
     netnames = top.get("netnames", {})
 
@@ -204,7 +204,7 @@ def analyze(netlist_path: Path, json_out: Path | None = None) -> dict:
     # Build report
     report = {
         "netlist_path": str(netlist_path),
-        "top_module": "thiele_cpu_top",
+        "top_module": "mkThieleSystem",
         "total_cells": len(cells),
         "total_lassert_path_cells": len(lassert_cells),
         "total_per_cycle_erasure_bits": erasure_total,
@@ -218,7 +218,7 @@ def analyze(netlist_path: Path, json_out: Path | None = None) -> dict:
 
     # Pretty-print.
     print()
-    print("=== Gate-level erasure analysis: thiele_cpu_top ===")
+    print("=== Gate-level erasure analysis: mkThieleSystem ===")
     print(f"Total cells:                      {report['total_cells']:>10,}")
     print(f"LASSERT-path cells:               {report['total_lassert_path_cells']:>10,}")
     print(f"Total per-cycle bit-erasures:     {report['total_per_cycle_erasure_bits']:>10,}")

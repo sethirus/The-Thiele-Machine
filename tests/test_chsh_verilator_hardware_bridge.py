@@ -2,7 +2,7 @@
 
 These checks pin down the quantum-verification path in RTL:
 - CHSH_TRIAL charges its declared cost and does NOT require a logic key.
-- The x=1 surcharge and the zero-tensor gate were removed.
+- There is no x=1 surcharge or zero-tensor gate.
 
 The logic-gate lock, the x=1 +256 surcharge, and the zero-tensor fault are not
 part of the current CPU contract. The implementation matches `kami_step`, so
@@ -20,7 +20,7 @@ from thielecpu.hardware.cosim import run_verilog
 
 @pytest.mark.hardware
 def test_chsh_without_logic_gate_key_is_accepted() -> None:
-    """CHSH_TRIAL no longer requires a logic-gate key."""
+    """CHSH_TRIAL requires no logic-gate key."""
     result = run_verilog(
         "\n".join(
             [
@@ -41,7 +41,7 @@ def test_chsh_without_logic_gate_key_is_accepted() -> None:
 
 @pytest.mark.hardware
 def test_chsh_x1_without_reveal_certificate_is_accepted() -> None:
-    """x=1 CHSH trial no longer needs tensor evidence, and takes no surcharge."""
+    """x=1 CHSH trial needs no tensor evidence, and takes no surcharge."""
     result = run_verilog(
         "\n".join(
             [

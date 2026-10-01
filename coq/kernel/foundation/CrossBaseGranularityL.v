@@ -6,7 +6,7 @@
     stuttering on terms that do not step. No choice principle is used. *)
 
 From Coq Require Import Arith.PeanoNat.
-From Kernel Require Import StructuralCoreRound4 StructuralRecordAxis CrossBaseGranularityCore LRecursion.
+From Kernel Require Import StructuralCoreAnyBase StructuralRecordAxis CrossBaseGranularityCore LRecursion.
 
 (** * The step relation as a function *)
 
@@ -134,16 +134,16 @@ Proof.
     rewrite (l_base_next_is_step _ _ Hst). exact Hn.
 Qed.
 
-(** Round 4 on the L base, by the same base-parametric theorem used for the
-    TM and VM bases. *)
-Theorem round4_l_holds : round4_property l_base.
+(** The record axis is a latch on the L base, by the same base-parametric
+    theorem used for the TM and VM bases. *)
+Theorem record_axis_is_latch_on_l_holds : record_axis_is_latch_on l_base.
 Proof.
   intros M C Hhonest.
-  exact (uniqueness_round4_holds M _ C Hhonest).
+  exact (record_axis_is_latch_holds M _ C Hhonest).
 Qed.
 
 Print Assumptions l_step_fun_correct.
 Print Assumptions l_base_halted_iff_irreducible.
 Print Assumptions l_base_run_is_star.
 Print Assumptions star_is_l_base_run.
-Print Assumptions round4_l_holds.
+Print Assumptions record_axis_is_latch_on_l_holds.

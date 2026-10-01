@@ -316,7 +316,7 @@ Definition embedded_case_studies : list EmbeddingCaseStudy :=
     "a faithful VM embedding of DP exists"; the [True] only says we ask for
     nothing beyond that contract. The three definitions below are open
     conjectures (stated, not proven here); concrete witnesses for the case
-    studies live in the archived embedding modules. *)
+    studies live in separate embedding modules. *)
 Definition embeddable (DP : DiscretePhysics) : Prop :=
   exists (E : ThieleEmbedding DP), True.
 

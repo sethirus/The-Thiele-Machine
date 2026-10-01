@@ -12,8 +12,8 @@
 #   - python3 with: simplejson, intervaltree, fasm
 #
 # Inputs:
-#   - thielecpu/hardware/rtl/{RegFile.v, thiele_cpu_kami.v,
-#                             thiele_cpu_top_min.v, thiele_cpu_top_genesys2.v}
+#   - thielecpu/hardware/rtl/{RegFile.v, thiele_cpu_kami.v, thiele_system.v,
+#                             thiele_cpu_top_genesys2.v}
 #   - thielecpu/hardware/rtl/synth_xc7.ys
 #   - fpga/thiele_genesys2.xdc
 #
@@ -29,7 +29,7 @@
 #       multiply is live per cycle. Each FSM register is sized to the largest
 #       value 32-bit counters can put there (67, 134 and 268 bits), and the
 #       two 134×134 products are each summed from four 67×67 partial
-#       products. The Coq spec is still single-step; multi-cycle execution is
+#       products. The Coq spec is single-step; multi-cycle execution is
 #       a Kami-implementation detail invisible to the spec, the same pattern
 #       as instr_lassert.
 #   (2) DSP inference is disabled in synth_xc7.ys (`-nodsp`), so the
@@ -104,6 +104,7 @@ preflight_missing=0
 for chk in \
     "${RTL_DIR}/synth_xc7.ys                       (yosys synth script)" \
     "${RTL_DIR}/thiele_cpu_kami.v                  (post-Bluespec Kami CPU RTL)" \
+    "${RTL_DIR}/thiele_system.v                   (CPU and serial loader, extracted)" \
     "${RTL_DIR}/thiele_cpu_top_genesys2.v          (Genesys 2 top wrapper)" \
     "${XDC}                                          (Genesys 2 XDC pin constraints)" \
     "${NEXTPNR_DIR}/xilinx/python/bbaexport.py     (chipdb generator)" \
@@ -158,16 +159,27 @@ echo "=== [3/5] nextpnr-xilinx place-and-route (${PART}) ==="
     --timing-allow-fail \
     2>&1 | tee "${BUILD_DIR}/nextpnr_xc7.log"
 # --timing-allow-fail lets routing finish so the report exists; the bitstream
-# counts only when every constrained clock meets its target.
-if ! grep -q "Max frequency for clock" "${BUILD_DIR}/nextpnr_xc7.log"; then
-    echo "ERROR: nextpnr reported no clock timing" >&2
-    exit 1
-fi
-if grep "Max frequency for clock" "${BUILD_DIR}/nextpnr_xc7.log" | grep -v "(PASS at"; then
-    echo "ERROR: a constrained clock misses its timing target" >&2
-    exit 1
-fi
-grep "Max frequency for clock" "${BUILD_DIR}/nextpnr_xc7.log"
+# counts only when the CPU clock meets the frequency the board wrapper's MMCM
+# actually produces (input frequency x CLKFBOUT_MULT_F / DIVCLK_DIVIDE /
+# CLKOUT0_DIVIDE_F, read from thiele_cpu_top_genesys2.v).
+python3 - "${RTL_DIR}/thiele_cpu_top_genesys2.v" "${BUILD_DIR}/nextpnr_xc7.log" <<'PY'
+import re, sys
+wrapper, log = open(sys.argv[1]).read(), open(sys.argv[2]).read()
+def param(name):
+    m = re.search(r"\." + name + r"\s*\(\s*([0-9.]+)\s*\)", wrapper)
+    if not m:
+        sys.exit(f"ERROR: {name} not found in the board wrapper")
+    return float(m.group(1))
+target = 1000.0 / param("CLKIN1_PERIOD") * param("CLKFBOUT_MULT_F") \
+    / param("DIVCLK_DIVIDE") / param("CLKOUT0_DIVIDE_F")
+reports = [float(x) for x in re.findall(r"Max frequency for clock 'cpu_clk': ([0-9.]+) MHz", log)]
+if not reports:
+    sys.exit("ERROR: nextpnr reported no timing for cpu_clk")
+achieved = reports[-1]
+print(f"    cpu_clk: {achieved:.2f} MHz achieved, {target:.2f} MHz required")
+if achieved < target:
+    sys.exit("ERROR: the CPU clock misses the frequency the MMCM produces")
+PY
 echo "    fasm:   ${FASM}"
 
 echo "=== [4/5] fasm2frames (Project X-Ray, kintex7) ==="

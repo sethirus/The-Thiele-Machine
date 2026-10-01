@@ -198,7 +198,7 @@ Qed.
 (** This compatibility alias is not a physical derivation. Its hypothesis
     already has the type [mixture_compatible], so the definition returns that
     hypothesis unchanged. The substantive Hardy-style bridge is
-    [hardy_born_rule_bridge]; this alias remains for the older interface. *)
+    [hardy_born_rule_bridge]; this alias is the definitional form. *)
 (* Deprecated definitional bridge; use hardy_born_rule_bridge for named assumptions. *)
 Definition no_signaling_constraint_implies_mixture_compatibility :
   forall (P : ProbabilityRule),
@@ -211,8 +211,7 @@ Definition no_signaling_constraint_implies_mixture_compatibility :
     mixture_compatible P :=
   fun P Hns => Hns.
 
-(* Deprecated alias retained for compatibility with existing references.
-   See no_signaling_constraint_implies_mixture_compatibility above. *)
+(* Deprecated alias. See no_signaling_constraint_implies_mixture_compatibility above. *)
 Definition no_signaling_forces_mixture_compatibility :=
   no_signaling_constraint_implies_mixture_compatibility.
 
@@ -318,7 +317,7 @@ Qed.
       → Born rule coefficients (BornRule.v, existing)
 
     The algebraic layer removes [is_linear_in_z] once [mixture_compatible] is
-    supplied. The physical source of mixture compatibility is still the bridge
+    supplied. The physical source of mixture compatibility is the bridge
     assumption. *)
 
 (** VM-grounded Born probability from CHSH witness counts. *)
@@ -378,12 +377,6 @@ Definition bloch_z_encoded (s : VMState) (r : nat) (z : R) : Prop :=
 Definition preparation_equivalent
   (pmp : PrepMeasProtocol) (s1 s2 : VMState) : Prop :=
   ObservableRegion s1 (pm_meas_mid pmp) = ObservableRegion s2 (pm_meas_mid pmp).
-
-(** Reflexivity of [preparation_equivalent] unfolds to reflexivity of
-    [eq] on [ObservableRegion] values. No internal caller uses it as a
-    standalone lemma; the AssumptionsProbeAll enumeration line was
-    bookkeeping over a definitional restatement. Removed to keep the
-    development free of trivially-unfolding helpers. *)
 
 (** Symmetry of preparation_equivalent unfolds to symmetry of [eq] on
     ObservableRegion values; no caller in the development uses it as a
@@ -706,7 +699,7 @@ Qed.
     relying on that additional encoding premise. *)
 
 (** Capstone: born_probability is the unique valid Born rule.
-    No Hardy bridge hypotheses. The theorem still assumes [valid_born_rule P]. *)
+    No Hardy bridge hypotheses. The theorem assumes [valid_born_rule P]. *)
 (* SCOPE NOTE: alias for born_rule_unique, capstone re-export for the summary. *)
 Theorem born_rule_capstone :
   forall (P : ProbabilityRule),

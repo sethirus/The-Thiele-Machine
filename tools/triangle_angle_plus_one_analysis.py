@@ -1,4 +1,4 @@
-"""Phase 2 symbolic analysis of the +1 in triangle_angle's denominator.
+"""Symbolic analysis of the +1 in triangle_angle's denominator.
 
 triangle_angle s a b c
   = if dab=0 or dac=0 then 0

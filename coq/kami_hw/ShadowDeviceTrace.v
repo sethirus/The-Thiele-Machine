@@ -125,8 +125,8 @@ Qed.
 
 (** Unconditional trace-level shadow compatibility for supported traces
 
-    Replaces [rtl_shadow_trace_compat] (which requires the full 46-opcode
-    [embed_step] as an unproved hypothesis) with a theorem that is
+    Unlike [rtl_shadow_trace_compat] (which requires the full 46-opcode
+    [embed_step] as an unproved hypothesis), this theorem is
     unconditionally true for any trace whose instructions satisfy
     [SupportedOpcode].
 
@@ -184,7 +184,7 @@ Theorem rtl_shadow_trace_compat_wf :
     shadow_proj (run_vm fuel trace (abs_full_snapshot (full_snapshot_of_snapshot ks))).
 Proof.
   intros fuel trace ks Hpre.
-  (* Bridge step (formerly [hardware_shadow_compat_full]): the RTL observation
+  (* Bridge step: the RTL observation
      of any KamiSnapshot agrees with [shadow_proj] applied to its full
      abstraction, by record-projection unfolding. *)
   assert (Hbridge :

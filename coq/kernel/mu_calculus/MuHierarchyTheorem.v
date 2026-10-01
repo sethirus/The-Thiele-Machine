@@ -177,8 +177,8 @@ Qed.
 
 (** Any trace-side level-k certification entitlement forces at least k μ.
 
-    This replaces the trivial [mu_cert_lower_bound] (which collapsed to
-    [vm_mu_final - 0 >= k]). The new statement says something semantic:
+    This is stronger than the trivial bound [vm_mu_final - 0 >= k]. The
+    statement is semantic:
     a trace that ACTUALLY EXECUTED a level-k CERTIFY and ended certified
     must have paid ≥ k μ. The proof walks the executed-instruction log
     and shows the CERTIFY instruction's cost appears in the ledger. *)
@@ -228,11 +228,11 @@ Qed.
     The levels classify executed certification events by their declared cost. *)
 Theorem mu_hierarchy_theorem :
   forall k, k >= 1 ->
-    (* Part 1: Achievability — existence of a k-cost certifying trace *)
+    (* Achievability — existence of a k-cost certifying trace *)
     (exists fuel trace,
       trace_mu_cost fuel trace init_state = k /\
       level_k_certified k fuel trace) /\
-    (* Part 2: Lower bound — cost ≥ k is necessary for level-k certification *)
+    (* Lower bound — cost ≥ k is necessary for level-k certification *)
     (forall fuel trace,
       level_k_certified k fuel trace ->
       trace_mu_cost fuel trace init_state >= k).

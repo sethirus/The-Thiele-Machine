@@ -1,4 +1,4 @@
-"""Phase A: symbolic search for a finite calibrated VMState witness.
+"""Symbolic search for a finite calibrated VMState witness.
 
 Setup. Given a partition graph topology G = (V, E) on N = |V| modules:
   - structural mass M_i in N (per module),

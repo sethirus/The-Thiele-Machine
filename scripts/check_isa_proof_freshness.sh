@@ -99,7 +99,7 @@ fi
 echo "ISA proof freshness check: OK (all critical .vo files are fresh)"
 
 # ============================================================================
-# PART 2: EXTRACTION FRESHNESS CHECK (E3)
+# EXTRACTION FRESHNESS CHECK (E3)
 # ============================================================================
 # build/thiele_core.ml is the Coq-extracted OCaml VM implementation.
 # It must be newer than its source files: coq/Extraction.v and VMStep.v.

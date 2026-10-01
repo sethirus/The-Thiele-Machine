@@ -17,7 +17,7 @@ From Kernel Require Import VMState MuGravity.
     triangular template; out-of-bounds entries are filtered by
     [in_bounds]. *)
 
-(** Local copy of div_mul_add_small (was in modular_proofs/EncodingBounds.v). *)
+(** Local copy of div_mul_add_small. *)
 Lemma div_mul_add_small :
   forall k a c,
     0 < k ->

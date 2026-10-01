@@ -17,7 +17,6 @@
       C2: shadow_proj is lossy — different states can have the same shadow
           (specifically: different morphism graphs map to the same shadow)
       C3: shadow_proj s1 = shadow_proj s2 but probe distinguishes them
-          (upgraded from demo to formal theorem)
       C4: the distinguishing probe (MORPH_DELETE) is semantically legitimate
           — it depends on real retained structure, not metadata
       C5: shadow_proj is strictly lossy — the image does not capture morphism state
@@ -204,7 +203,7 @@ Qed.
 
 (**
 
-    Upgrades the demo (Act 4 in demo_knowledge_receipt.py) to a formal theorem:
+    Formal version of the demo (Act 4 in demo_knowledge_receipt.py):
     There exist two states with the same classical shadow that are separated
     by a semantically legitimate probe.
 

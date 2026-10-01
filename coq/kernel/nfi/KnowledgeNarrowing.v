@@ -25,7 +25,7 @@
       zero, yet the observer goes from two candidates to one
       ([observer_narrowing_can_be_free]). The machine's own spread does not
       shrink at all: both starting states are still possible states of the
-      machine, now with different displays.
+      machine, with different displays.
 
     That is Bennett's resolution of Maxwell's demon, stated on the logic.
     Measuring can be done without merging. What costs is making room again:

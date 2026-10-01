@@ -1,9 +1,9 @@
 (**
   Tsirelson bound: non-circular bridge.
 
-  This file exists because the old archived derivation baked the target bound
-  into the definition and therefore could not justify it. The replacement
-  route is to import the standalone algebraic derivation from
+  This file exists because a derivation that bakes the target bound into the
+  definition cannot justify it. The route here is to import the standalone
+  algebraic derivation from
   TsirelsonGeneral.v and then connect that result back into the mu-cost
   framework.
 
@@ -140,9 +140,8 @@ Qed.
     - Factor 2: from two row bounds, each ≤ 1
 
     Neither 2√2 nor √8 is a magic number. It's 4 × 2 = 8 under a
-    square root. This is why the approach in TsirelsonDerivation.v
-    (archived) of putting 2√2 in the definition was circular — it
-    assumed the answer. *)
+    square root. This is why putting 2√2 in a definition is
+    circular — it assumes the answer. *)
 
 (** √8 = 2√2: explicit computation *)
 Lemma sqrt8_eq_2sqrt2 : sqrt 8 = 2 * sqrt 2.
@@ -236,11 +235,10 @@ Qed.
     1. VMState.v, VMStep.v           -> Machine primitives (no physics)
     2. ClassicalBound.v              -> μ=0 gives |S| ≤ 2 (16 cases)
     3. TsirelsonGeneral.v (this tie) -> Pure algebra gives S² ≤ 8
-    4. HardMathFactsProven.v (archived) -> Q-arithmetic mechanization
+    4. Q-arithmetic mechanization (rational bound below)
     5. NonCircularityAudit.v         -> Formal defense against circularity
 
     The bound 2√2 is COMPUTED from algebraic constraints, not assumed.
-    TsirelsonDerivation.v's (archived) circular definition is superseded by this chain.
 *)
 
 (**
@@ -276,7 +274,6 @@ Qed.
     2. TIGHTNESS: The bound √8 = 2√2 is exactly achieved by e = ±1/√2.
 
     3. NON-CIRCULARITY: The bound is COMPUTED from algebra, not defined.
-       TsirelsonDerivation.v's (archived) circular approach is superseded.
 
     4. HARDWARE LINK: Rational bound 5657/2000 > 2√2 verified for Q16.16.
     The Tsirelson bound 2√2 is not a property of quantum mechanics.

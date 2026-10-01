@@ -1632,7 +1632,9 @@ Section ThieleCPU.
       Register "pc"     : Bit WordSz <- Default
       with Register "mu"     : Bit WordSz <- Default
       with Register "err"    : Bool <- false
-      with Register "halted" : Bool <- false
+      (* The CPU comes out of reset halted, so a program can be loaded
+         before anything executes; the start method begins execution. *)
+      with Register "halted" : Bool <- true
       with Register "regs"  : Vector (Bit WordSz) RegIdxSz <- Default
       with Register "mem"   : Vector (Bit WordSz) MemAddrSz <- Default
       with Register "imem"   : Vector (Bit InstrSz) MemAddrSz <- Default (* 2^MemAddrSz=128 instrs *)
@@ -2521,6 +2523,12 @@ Section ThieleCPU.
         LET addr_v <- #arg!LoadInstrPort@."addr";
         LET data_v <- #arg!LoadInstrPort@."data";
         Write "imem" <- #imem_v@[#addr_v <- #data_v];
+        Retv
+
+      (** Method to begin execution at address zero once a program is loaded. *)
+      with Method "start" () : Void :=
+        Write "halted" <- $$false;
+        Write "pc" <- $$(natToWord WordSz 0);
         Retv
 
       (** Output methods — create proper Verilog output ports for state observation *)

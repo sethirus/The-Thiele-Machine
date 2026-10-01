@@ -18,7 +18,7 @@
        IF cert_setter_executions(fuel, trace, s) >= log2(n) (the decision
        tree hypothesis), THEN delta_mu(s) >= log2(n).
 
-    The earlier unit-cost argument is not used here. [cert_addr] is set to the
+    A unit-cost argument is not used here. [cert_addr] is set to the
     checksum carried by the selected instruction, while the current [EMIT]
     schedule charges payload bits plus its floor. This file therefore proves
     the trace-level and decision-tree-conditional bounds below, not an
@@ -56,7 +56,7 @@ Definition cert_addr_value_of (i : vm_instruction) : option nat :=
   | instr_emit _ payload _                           => Some (ascii_checksum payload)
   | instr_reveal _ _ cert _                          => Some (ascii_checksum cert)
   | instr_ljoin _ _ _                                =>
-      None  (* cert strings are now in memory; static value unavailable *)
+      None  (* cert strings are in memory; static value unavailable *)
   | instr_lassert _ _ _ _ _                          => None
   | instr_morph_assert _ property _ _               => Some (ascii_checksum property)
   | _                                                => None

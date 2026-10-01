@@ -53,11 +53,10 @@ Definition ORACLE_HALTS_HW_COST : nat := 1000000.
 
 (** Rich-state snapshot payload
 
-    M3 begins carrying bounded hardware-resident rich-state tables through the
-    snapshot interface.  The legacy [abs_phase1] proof spine still uses the
-    module-only [snap_pt_to_graph] projection so existing weak-refinement
-    lemmas remain stable, while the stronger full-snapshot path can consume the
-    richer graph reconstruction below. *)
+    The snapshot interface carries bounded hardware-resident rich-state
+    tables.  The [abs_phase1] proof spine uses the module-only
+    [snap_pt_to_graph] projection, while the stronger full-snapshot path
+    consumes the richer graph reconstruction below. *)
 
 Record MorphTableEntry := {
   morph_entry_source : nat;
@@ -449,11 +448,11 @@ Definition default_csrs : CSRState :=
                                        pg_next_morph_id := g.pg_next_morph_id;
                                        pg_morphisms := g.pg_morphisms}
 
-    NOTE: [snap_pt_to_graph] is intentionally module-only.  It remains the
-    legacy projection used by the weaker [abs_phase1] proof story, so it still
-    exposes empty morphism state.  M3 adds richer bounded morph/coupling state
-    through [snap_rich_state] and [snap_full_graph] without disturbing the
-    existing module-table lemmas built over this definition.
+    NOTE: [snap_pt_to_graph] is intentionally module-only.  It is the
+    projection used by the weaker [abs_phase1] proof story, so it exposes
+    empty morphism state.  Richer bounded morph/coupling state is carried by
+    [snap_rich_state] and [snap_full_graph], which leave the module-table
+    lemmas built over this definition unchanged.
 
     This ordering invariant is what lets snap_pt_to_graph_pnew hold as a
     structural equality (not just observational equivalence).
@@ -534,11 +533,6 @@ Definition abs_full := abs_phase1.
 (** Stack-pointer register index — mirrors SP_IDX in ThieleCPUCore.v.
     RegIdxSz bits → max register index RegCount-1 is kami_sp_reg. *)
 Definition kami_sp_reg : nat := RegCount - 1.
-
-(** A standalone [kami_sp_reg < RegCount] lemma was formerly proved
-    here.  Because [kami_sp_reg = RegCount - 1] and [RegCount > 0], the
-    inequality is discharged by [unfold kami_sp_reg, RegCount; lia] at
-    any call site; it had no callers in the tree and has been removed. *)
 
 (** Default hardware advance: increment PC by 1, add cost to mu.
     All other KamiSnapshot fields are preserved unchanged. *)
@@ -2365,7 +2359,7 @@ Proof.
 Qed.
 
 (** For non-CERTIFY instructions,
-    kami cost equals vm cost. LASSERT gap is now closed. *)
+    kami cost equals vm cost. This includes LASSERT. *)
 Lemma kami_cost_eq_instruction_cost : forall i,
     is_certify i = false ->
     kami_instruction_cost i = instruction_cost i.
@@ -2495,13 +2489,6 @@ Proof.
     + apply IHxs. intros i Hi. apply Hext. right. exact Hi.
 Qed.
 
-(** A standalone equality [snap_pt_to_graph 1 (fun _ => 0) = empty_graph]
-    was formerly proved here.  When [next_id = 1] and every partition
-    size is zero, [snap_pt_to_graph] reduces to [empty_graph] by [simpl]
-    alone, so any caller can discharge the equality inline with
-    [unfold snap_pt_to_graph, empty_graph; simpl; reflexivity].  The
-    lemma had no callers and has been removed. *)
-
 (** snap_pt_to_graph_wf:
     The graph reconstructed from any hardware snapshot is well-formed:
     all module IDs are strictly less than pg_next_id. *)
@@ -2587,8 +2574,8 @@ Proof.
 Qed.
 
 (** snap_pt_to_graph_pnew_minimal: same as snap_pt_to_graph_pnew but without
-    the vestigial preconditions next_id >= 1, next_id < PTableSz, and sizes next_id = 0.
-    The proof never uses those hypotheses; they were added conservatively. *)
+    the preconditions next_id >= 1, next_id < PTableSz, and sizes next_id = 0.
+    The proof never uses those hypotheses. *)
 Theorem snap_pt_to_graph_pnew_minimal :
     forall (next_id region_size : nat) (sizes : nat -> nat),
       region_size > 0 ->
@@ -2771,14 +2758,6 @@ Qed.
 (* ====================================================================
    Architectural invariant theorems
    *)
-
-(** μ-monotonicity at the abstraction boundary
-    ([(abs_phase1 s).(vm_mu) + cost >= (abs_phase1 s).(vm_mu)]) was
-    formerly proved here as [hw_step_preserves_invariants].  The single
-    caller — [verilog_mu_non_decreasing_on_charge] in
-    [kami_hw/VerilogRefinement.v] — now discharges the obligation
-    in-place via [unfold abs_phase1; simpl; lia], so the lemma has been
-    removed. *)
 
 (** hw_step_preserves_bianchi
 

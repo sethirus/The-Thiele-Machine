@@ -201,7 +201,7 @@ Definition intrinsic_payload_at_least_priced
     MuChaitin.cert_payload_size instr >= k.
 
 (* -------------------------------------------------------------------- *)
-(** ** The Phase 2 coding theorem.
+(** ** The coding theorem.
 
     For each k ≥ 1, the canonical claim "vm_mu = k" has a tight
     intrinsic cert-payload size of [k - 1], measured among cert_priced_eq

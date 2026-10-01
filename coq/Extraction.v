@@ -1,6 +1,6 @@
 (** Extraction: keep the extracted runner limited to the core VM surface
 
-  Full extraction of the entire proof stack currently blows the OCaml runtime
+  Full extraction of the entire proof stack blows the OCaml runtime
   stack during garbage collection. This file therefore extracts only the VM
   semantics and the small set of definitions the executable runner actually
   needs. The broader proof development remains checked in Coq, but it is not

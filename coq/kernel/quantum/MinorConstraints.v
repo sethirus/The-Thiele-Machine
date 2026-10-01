@@ -102,7 +102,7 @@ Definition satisfies_minor_constraints (E : nat -> nat -> nat -> nat -> R) : Pro
     0 <= minor_3x3_det A B p lambda_max.
 
 (**
-    PART 4A: SUMMATION LEMMAS (convex combinations)
+    SUMMATION LEMMAS (convex combinations)
     *)
 
 (** sum_n_le: Pointwise inequality implies sum inequality

@@ -133,7 +133,8 @@ Qed.
     driver/well-formedness precondition exported by GraphReconstructionBridge.
 
     This is the strongest proof surface currently available inside Coq for
-    Item 3: every instruction in the ISA is covered by a Qed theorem, with the
+    the RTL step-correctness statement: every instruction in the ISA is
+    covered by a Qed theorem, with the
     exact side conditions made explicit rather than hidden in tests. *)
 Theorem coq_kami_model_satisfies_rtl_step_correct_wf :
   forall (ks : KamiSnapshot) (i : vm_instruction),
@@ -146,8 +147,9 @@ Proof.
   exact (driven_step_wf ks i Hwf).
 Qed.
 
-(* SCOPE NOTE: alias for the closure-roadmap trace surface. The proved
-   theorem is [driven_trace_commutes]; this exports it under the Item 3 name. *)
+(* SCOPE NOTE: alias for the trace-level statement. The proved
+   theorem is [driven_trace_commutes]; this exports it under the RTL
+   correctness name. *)
 Theorem coq_kami_model_trace_correct_wf :
   forall fuel trace ks,
     WFDrivenRun fuel trace ks ->
@@ -159,7 +161,7 @@ Proof.
   exact driven_trace_commutes.
 Qed.
 
-(** ** Status summary for CLOSURE_ROADMAP.md Item 3.
+(** ** Status summary for RTL step correctness.
 
     CLOSED (0 Admitted, 0 Section Variables, 0 global Axioms):
     - coq_kami_model_satisfies_rtl_step_correct (Qed)

@@ -36,7 +36,7 @@ def _rtl_lassert_sat_program(cost: int) -> list[str]:
 
 
 # ---------------------------------------------------------------------------
-# M6.1: LASSERT SAT -- DIMACS formula with valid model
+# LASSERT SAT -- DIMACS formula with valid model
 # ---------------------------------------------------------------------------
 
 class TestLassertSatDimacsToRtl:
@@ -113,7 +113,7 @@ class TestLassertSatDimacsToRtl:
 
 
 # ---------------------------------------------------------------------------
-# M6.2: LASSERT UNSAT -- always latches error per Coq spec
+# LASSERT UNSAT -- always latches error per Coq spec
 # ---------------------------------------------------------------------------
 
 class TestLassertUnsatDimacsToRtl:
@@ -152,7 +152,7 @@ class TestLassertUnsatDimacsToRtl:
 
 
 # ---------------------------------------------------------------------------
-# M6.3: Logic gate key unlock -- LASSERT success enables REVEAL
+# Logic gate key unlock -- LASSERT success enables REVEAL
 # ---------------------------------------------------------------------------
 
 class TestLogicGateUnlockFullPipeline:
@@ -185,9 +185,9 @@ class TestLogicGateUnlockFullPipeline:
     def test_rtl_reveal_without_key_charges_declared_cost(self):
         """RTL: REVEAL needs no logic-gate key; it charges bits + cost + 1.
 
-        The CPU used to latch err and halt while logic_acc differed from
-        0xCAFEEACE. `kami_step` has no lock, so Devon's 2026-09-14 decision
-        removed it (C2_DIVERGENCE_LEDGER.md, "Logic-gate lock").
+        The CPU has no logic-gate lock, matching `kami_step`: it does not
+        latch err or halt while logic_acc differs from 0xCAFEEACE
+        (C2_DIVERGENCE_LEDGER.md, "Logic-gate lock").
         coq/kernel/foundation/VMStep.v:290 fixes the REVEAL charge at
         bits + S(cost), so REVEAL 0 1 0 costs 1 bit + S(0) = 2.
         """

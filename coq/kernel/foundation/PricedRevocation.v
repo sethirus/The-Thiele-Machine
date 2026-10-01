@@ -1,4 +1,4 @@
-(** Closed outcomes for the frozen priced-revocation targets. *)
+(** Proved outcomes for the priced-revocation targets. *)
 
 (* SCOPE NOTE: standalone proof scope. These outcomes concern the generic
    transition model and the separately specified Casper FFG model. *)

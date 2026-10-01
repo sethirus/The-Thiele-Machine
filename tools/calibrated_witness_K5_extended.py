@@ -1,4 +1,4 @@
-"""Phase A extended search: K_5 with much larger structural masses,
+"""Extended search: K_5 with much larger structural masses,
 and asymmetric mass distributions, in case the uniform analysis missed
 something."""
 

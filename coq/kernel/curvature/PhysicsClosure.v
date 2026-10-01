@@ -27,7 +27,7 @@ Import ListNotations.
     theory. Such an interpretation would require additional calibration and
     implementation premises. *)
 Theorem Physics_Closure :
-  (* Part 1: Locality - single step doesn't affect non-targets *)
+  (* Locality - single step doesn't affect non-targets *)
   (forall s s' instr mid,
       well_formed_graph s.(vm_graph) ->
       mid < pg_next_id s.(vm_graph) ->
@@ -35,12 +35,12 @@ Theorem Physics_Closure :
       ~ In mid (instr_targets instr) ->
       ObservableRegion s mid = ObservableRegion s' mid)
   /\
-  (* Part 2: Conservation - μ never decreases *)
+  (* Conservation - μ never decreases *)
   (forall s s' instr,
       vm_step s instr s' ->
       s'.(vm_mu) >= s.(vm_mu))
   /\
-  (* Part 3: Causality - effects constrained by causal cone *)
+  (* Causality - effects constrained by causal cone *)
   (forall s trace s' mid,
       exec_trace s trace s' ->
       well_formed_graph s.(vm_graph) ->

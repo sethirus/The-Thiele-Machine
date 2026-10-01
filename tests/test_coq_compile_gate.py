@@ -39,14 +39,13 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 COQ_DIR = REPO_ROOT / "coq"
 COQ_PROJECT = COQ_DIR / "_CoqProject"
 
-# Phase-A physics files and MinimalExtraction.v have been archived.
 # Extraction.v is the sole active top-level file.
 REQUIRED_KERNEL_PHYSICS_FILES: list[str] = []
 
 # Production kernel files where bare (non-Section) Axiom/Parameter are forbidden.
 # Derived from the canonical in-scope set (coq/_CoqProject minus probes) filtered
-# to kernel/, so it spans every kernel subdirectory recursively. The previous
-# non-recursive ``glob("*.v")`` matched zero files (kernel/ has no top-level .v),
+# to kernel/, so it spans every kernel subdirectory recursively. A
+# non-recursive ``glob("*.v")`` would match zero files (kernel/ has no top-level .v),
 # silently turning this gate into a no-op.
 import sys as _sys
 _sys.path.insert(0, str(REPO_ROOT / "scripts"))

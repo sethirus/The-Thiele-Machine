@@ -179,9 +179,7 @@ Section NatShortcut.
   Definition nat_admits (p : nat) : Prop :=
     nat_run d p 0 = Some 1.
 
-  (* nat_yes_admits inlined into nat_with_shortcut below (single caller). *)
-
-  Lemma nat_no_refuses : ~ nat_admits 1.
+    Lemma nat_no_refuses : ~ nat_admits 1.
   Proof. unfold nat_admits, nat_run. discriminate. Qed.
 
   Lemma nat_admits_extensional :

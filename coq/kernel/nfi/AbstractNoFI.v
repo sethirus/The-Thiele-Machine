@@ -275,7 +275,7 @@ Definition thiele_cert_machine : AbstractCertMachine VMState :=
 
 (** Consequences For The Thiele VM
 
-    We now derive the NoFI consequences for the Thiele VM specifically.
+    The NoFI consequences for the Thiele VM specifically follow.
     These connect the abstract universality theorem to the concrete VM.
 *)
 
@@ -624,11 +624,11 @@ Qed.
 *)
 Theorem certification_requires_positive_mu :
   forall (s : VMState) (i : vm_instruction),
-    (** Channel A absent: csr_cert_addr was 0 and is now nonzero *)
+    (** Channel A absent: csr_cert_addr is 0 before and nonzero after *)
     (s.(vm_csrs).(csr_cert_addr) = 0 /\
      (vm_apply s i).(vm_csrs).(csr_cert_addr) <> 0)
     \/
-    (** Channel B absent: vm_certified was false and is now true *)
+    (** Channel B absent: vm_certified is false before and true after *)
     (s.(vm_certified) = false /\
      (vm_apply s i).(vm_certified) = true)
     ->

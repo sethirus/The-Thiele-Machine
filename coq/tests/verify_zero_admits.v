@@ -44,9 +44,6 @@ Print Assumptions observational_no_signaling.
 
 (** Gauge-symmetry checks. *)
 
-(* The former probe [kernel_conservation_mu_gauge] was inlined; its
-   transparency is captured at use sites. *)
-
 (* Theorem: Gauge actions compose correctly *)
 Print Assumptions nat_action_composition.
 
@@ -319,6 +316,6 @@ Qed.
     [propositional_extensionality]), then:
 
       - No [Admitted] proofs are reachable from the cited theorems.
-      - No project-local axioms have been introduced.
+      - No project-local axioms are used.
       - The standard-library reach is explicit rather than implicit.
       - Every paper theorem is fully machine-checked. *)

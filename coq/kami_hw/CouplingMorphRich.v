@@ -1,7 +1,7 @@
 (** CouplingMorphRich.v: the rich observation after a coupling commit.
     [rich_after_morph_commit]: when the morph, descriptor and pair tables of a
     boundary are the step's allocation followed by the FSM's commit, its rich
-    observation is [rich_state_add_morph_with_coupling] of the earlier one. *)
+    observation is [rich_state_add_morph_with_coupling] of the rich observation before the step. *)
 Require Import Kami.Kami Kami.Semantics Kami.Lib.NatLib.
 From Coq Require Import String List Arith Lia Bool FunctionalExtensionality.
 Import ListNotations.

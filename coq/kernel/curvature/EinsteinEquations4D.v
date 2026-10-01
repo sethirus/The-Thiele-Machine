@@ -36,12 +36,11 @@ Definition computational_scale : R := 1%R.
   formulas are readable. Nothing in this file claims that numerical value in
   physical units or derives it from mu-cost dynamics. *)
 Definition gravitational_constant : R := (/ (8 * PI))%R.
-(** Alias for backwards compatibility *)
+(** Alias of [gravitational_constant] *)
 Definition newtons_constant : R := gravitational_constant.
 
 (* [computational_scale] is defined as [1%R]; positivity is immediate by
-   [unfold; lra]. The standalone lemma had no callers and has been removed —
-   sites that need the bound can inline the unfold directly. *)
+   [unfold; lra]. *)
 
 (** Stress-energy tensor from μ-costs.
 
@@ -85,7 +84,7 @@ Definition diagonal_metric_at (s : VMState) (v : ModuleID) : Prop :=
   RiemannTensor4D.metric_component s i j v = 0%R.
 
 (** T_ij = 0 for i ≠ j follows from isotropy (diagonal metric), not
-    from the definition.  This is the key theorem of Prompt 3. *)
+    from the definition.  This is the key theorem of this section. *)
 Lemma stress_off_diagonal_zero_isotropic : forall s sc v i j,
   diagonal_metric_at s v ->
   i <> j ->
@@ -113,17 +112,17 @@ Definition stress_energy_tensor (s : VMState) (sc : SimplicialComplex4D)
     G_μν = 8πG T_μν
 
     HONEST SCOPE: This file proves the ISOTROPIC VACUUM case. Both sides
-    independently equal 0.  The two former structural gaps are now closed:
+    independently equal 0.  Two structural properties hold:
 
-    CLOSED: Position-independent metric (was Structural Gap 1):
-    metric_component now reads full_metric_at_vertex s v μ ν (per-vertex).
+    Position-dependent metric:
+    metric_component reads full_metric_at_vertex s v μ ν (per-vertex).
     Christoffel symbols are zero only under uniform_module_tensor s (all
     modules carry the same tensor).  For non-uniform tensors the metric
     varies across the graph and curvature is non-trivial; see the curved
     spacetime section below and CurvedTensorPipeline.v.
 
-    CLOSED: Coordinate direction collapse (was Structural Gap 2):
-    discrete_derivative now filters neighbors by e1d_direction, so partial
+    Coordinate directions are distinguished:
+    discrete_derivative filters neighbors by e1d_direction, so partial
     derivatives in different coordinate directions can differ when edges are
     labeled with direction tags (e1d_direction = Some d).  Undirected edges
     (None) remain backward-compatible.
@@ -167,7 +166,7 @@ Definition stress_energy_tensor (s : VMState) (sc : SimplicialComplex4D)
 
 From Coq Require Import Classical_Prop.
 
-(** The metric tensor g_μν(v) is now POSITION-DEPENDENT: it reads from the
+(** The metric tensor g_μν(v) is POSITION-DEPENDENT: it reads from the
     per-module tensor of vertex v (module_tensor_entry s v ...).  Different
     vertices carry different metrics, so Christoffel symbols are non-trivial
     whenever neighbouring modules have different tensors.
@@ -190,9 +189,8 @@ Proof.
   reflexivity.
 Qed.
 
-(* metric_component_vertex_independent is DELETED.
-   The metric is now genuinely position-dependent; different vertices can
-   carry different metric values. *)
+(* The metric is position-dependent; different vertices can carry
+   different metric values. *)
 
 (* The metric is position-independent when tensors are uniform. *)
 Lemma metric_component_uniform_flat : forall s mu nu w1 w2,
@@ -216,9 +214,9 @@ Proof.
   - simpl. ring.
 Qed.
 
-(* metric_component_position_independent_uniform is DELETED.
-   It was an artefact of the old global-metric definition.
-   Use metric_component_uniform_flat with uniform_module_tensor instead. *)
+(* The metric is not position-independent in general; use
+   metric_component_uniform_flat with uniform_module_tensor for the
+   uniform case. *)
 
 (* A position-independent function has zero discrete derivative. *)
 Lemma discrete_derivative_position_independent : forall s sc f mu v,
@@ -702,10 +700,10 @@ Qed.
           external calibration or cross-file bridge identifying it with a
           physically scaled constant such as MuGravity.gravitational_constant.
       (d) Lorentz signature: extending to Minkowski metric (-,+,+,+).
-      (e) Continuum limit: still requires an explicit family of graph/state
+      (e) Continuum limit: requires an explicit family of graph/state
           refinements, a notion of embedding / edge-length convergence, and a
           theorem linking local_einstein_tensor to a smooth Einstein tensor.
-      (f) Newtonian limit: still requires an explicit weak-field potential,
+      (f) Newtonian limit: requires an explicit weak-field potential,
           a static low-velocity regime, a discrete Laplacian for that
           potential, and a source-normalization bridge to Poisson's equation.
 *)
@@ -735,8 +733,8 @@ Proof.
   apply (stress_energy_conserved_non_pmerge s sc mu nu v). exact H_vacuum.
 Qed.
 
-(* SCOPE NOTE: alias for einstein_equation_isotropic_vacuum:
-   kept for backward-compatibility with callers using the shorter name. *)
+(* SCOPE NOTE: alias for einstein_equation_isotropic_vacuum under the
+   shorter name. *)
 Theorem einstein_equation : forall (s : VMState) (sc : SimplicialComplex4D) (mu nu v : ModuleID),
   (forall w, module_structural_mass s w = 0%nat) ->
   uniform_module_tensor s ->
@@ -834,11 +832,10 @@ Definition einstein_tensor_divergence (s : VMState) (sc : SimplicialComplex4D)
     (acc + discrete_derivative s sc (fun w => einstein_tensor s sc μ ν w) μ v)%R
   ) (sc4d_vertices sc) 0%R.
 
-(* metric_unconditionally_position_independent is DELETED.
-   It was based on the old global-metric definition (same at every vertex).
-   After Prompt 2, metric_component reads full_metric_at_vertex, which is
-   genuinely position-dependent.  Use metric_component_uniform_flat with
-   the uniform_module_tensor s hypothesis instead. *)
+(* metric_component reads full_metric_at_vertex, which is genuinely
+   position-dependent, so the metric is not position-independent in general.
+   Use metric_component_uniform_flat with the uniform_module_tensor s
+   hypothesis instead. *)
 
 (** Lemma: Christoffel symbols vanish when all modules share the same tensor.
     All three discrete metric derivatives are zero (position-independent metric). *)
@@ -2813,7 +2810,7 @@ Qed.
 Definition filter_false_anchor := @filter_false.
 
 (**
-    The gravitational constant here is still just a unit convention. The file
+    The gravitational constant here is a unit convention. The file
     proves consequences of choosing 8PI G = 1 in computational units. It does
     not prove that physical gravity must take that numerical value.
   *)
@@ -3115,7 +3112,7 @@ Definition lorentz_stress_energy_tensor (s : VMState) (sc : SimplicialComplex4D)
 
 (** Lorentzian Einstein field equations: G_μν = 8πG T_μν in Lorentz signature.
 
-    This closes OP-4: the Einstein equations now hold in fully general Lorentz
+    This closes OP-4: the Einstein equations hold in fully general Lorentz
     signature (-,+,+,+) beyond the specialized Euclidean bridges.
 *)
 Theorem einstein_equation_lorentz_general :

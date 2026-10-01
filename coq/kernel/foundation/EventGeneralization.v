@@ -1,4 +1,5 @@
-(** Closed evidence for the frozen Part 1, Item 1.2 propositions. *)
+(** Proved outcomes for the event-generic propositions of
+    [EventGeneralizationTargets]. *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia NArith.
 Import ListNotations.
@@ -14,8 +15,8 @@ From Kernel Require Import ThieleTraceProjection WitnessPreservationImpossibilit
 From Kernel Require Import CHSHStatisticalBridge.
 From Kernel Require Import SpacetimeEmergence VMWord64BoundednessObstruction.
 From Kernel Require Import MuLedgerConservation.
-From Kernel Require Import StructuralCore StructuralCoreRound2.
-From Kernel Require Import StructuralCoreRound3 StructuralUniqueness.
+From Kernel Require Import StructuralCore StructuralCoreCover.
+From Kernel Require Import StructuralCoreSchedule StructuralUniqueness.
 From Kernel Require Import StructuralScheduleUniqueness.
 From Kernel Require Import UniversalCertificationCost TraceStateDescent.
 
@@ -640,8 +641,8 @@ Proof.
   - exact (eg_billed_event_write E HL).
 Qed.
 
-Theorem eg_proves_generalized_uniqueness_round1_refutation :
-  generalized_uniqueness_round1_refutation.
+Theorem eg_proves_generalized_billed_not_core_equiv :
+  generalized_billed_not_core_equiv.
 Proof.
   intros E _ [R [_ [Hback Hstep]]].
   destruct (Hback ([], init_state) I) as [m [_ Hr]].
@@ -653,8 +654,8 @@ Proof.
   rewrite empty_program_free in Hpos. lia.
 Qed.
 
-Theorem eg_proves_generalized_uniqueness_round2_refutation :
-  generalized_uniqueness_round2_refutation.
+Theorem eg_proves_generalized_billed_not_observed_equiv :
+  generalized_billed_not_observed_equiv.
 Proof.
   intros E _ [R [_ [Hback Hstep]]].
   destruct (Hback ([], init_state) I) as [m [_ Hr]].
@@ -846,170 +847,170 @@ Proof.
     rewrite <- (escs_event_reflects E SCS). exact Hpost.
 Qed.
 
-(** One closed result theorem is exposed for each frozen logical identity. *)
-Theorem item1_2_result_01 : ~ generalized_step_mu.
+(** One result theorem is exposed for each source theorem. *)
+Theorem cert_positive_mu_not_event_generic : ~ generalized_step_mu.
 Proof. exact eg_refutes_generalized_step_mu. Qed.
-Theorem item1_2_result_02 : ~ generalized_step_price.
+Theorem no_free_certification_not_event_generic : ~ generalized_step_price.
 Proof. exact eg_refutes_generalized_step_price. Qed.
-Theorem item1_2_result_03 : ~ generalized_step_price.
+Theorem no_free_cert_certified_not_event_generic : ~ generalized_step_price.
 Proof. exact eg_refutes_generalized_step_price. Qed.
-Theorem item1_2_result_04 : ~ generalized_step_mu.
+Theorem no_free_cert_mu_not_event_generic : ~ generalized_step_mu.
 Proof. exact eg_refutes_generalized_step_mu. Qed.
-Theorem item1_2_result_05 : ~ generalized_trace_mu.
+Theorem no_free_cert_trace_mu_not_event_generic : ~ generalized_trace_mu.
 Proof. exact eg_refutes_generalized_trace_mu. Qed.
-Theorem item1_2_result_06 : generalized_trace_writer.
+Theorem nfi_pc_indexed_event_generic : generalized_trace_writer.
 Proof. exact eg_proves_generalized_trace_writer. Qed.
-Theorem item1_2_result_07 : ~ generalized_forget_hidden.
+Theorem certification_is_lost_not_event_generic : ~ generalized_forget_hidden.
 Proof. exact eg_refutes_generalized_forget_hidden. Qed.
-Theorem item1_2_result_08 : generalized_finite_writer_merge.
+Theorem fcertify_merges_event_generic : generalized_finite_writer_merge.
 Proof. exact eg_proves_generalized_finite_writer_merge. Qed.
-Theorem item1_2_result_09 : generalized_finite_a2_from_compression_price.
+Theorem fin_a2_from_compression_event_generic : generalized_finite_a2_from_compression_price.
 Proof. exact eg_proves_generalized_finite_a2_from_compression_price. Qed.
-Theorem item1_2_result_10 : generalized_finite_a2_from_merging_price.
+Theorem fin_a2_from_merging_event_generic : generalized_finite_a2_from_merging_price.
 Proof. exact eg_proves_generalized_finite_a2_from_merging_price. Qed.
-Theorem item1_2_result_11 : generalized_finite_permanent.
+Theorem fin_permanent_event_generic : generalized_finite_permanent.
 Proof. exact eg_proves_generalized_finite_permanent. Qed.
-Theorem item1_2_result_12 : ~ generalized_vm_writer_merge.
+Theorem vm_certify_merges_not_event_generic : ~ generalized_vm_writer_merge.
 Proof. exact eg_refutes_generalized_vm_writer_merge. Qed.
-Theorem item1_2_result_13 : ~ generalized_vm_priced_merge_bundle.
+Theorem vm_priced_merge_not_event_generic : ~ generalized_vm_priced_merge_bundle.
 Proof. exact eg_refutes_generalized_vm_priced_merge_bundle. Qed.
-Theorem item1_2_result_14 : ~ generalized_trace_mu.
+Theorem vm_fragment_paid_not_event_generic : ~ generalized_trace_mu.
 Proof. exact eg_refutes_generalized_trace_mu. Qed.
-Theorem item1_2_result_15 : ~ generalized_vm_priced_merge_bundle.
+Theorem vm_merge_others_free_not_event_generic : ~ generalized_vm_priced_merge_bundle.
 Proof. exact eg_refutes_generalized_vm_priced_merge_bundle. Qed.
-Theorem item1_2_result_16 : ~ generalized_event_unit_price_lower_bounds_mu.
+Theorem unit_price_bounds_mu_not_event_generic : ~ generalized_event_unit_price_lower_bounds_mu.
 Proof. exact eg_refutes_generalized_event_unit_price_lower_bounds_mu. Qed.
-Theorem item1_2_result_17 : generalized_event_unit_pricing_exact.
+Theorem commit_pricing_exact_event_generic : generalized_event_unit_pricing_exact.
 Proof. exact eg_proves_generalized_event_unit_pricing_exact. Qed.
-Theorem item1_2_result_18 : generalized_projection_irredundancy.
+Theorem p_full_irredundant_event_generic : generalized_projection_irredundancy.
 Proof. exact eg_proves_generalized_projection_irredundancy. Qed.
-Theorem item1_2_result_19 : ~ generalized_cost_projection_necessity.
+Theorem cost_model_necessity_not_event_generic : ~ generalized_cost_projection_necessity.
 Proof. exact eg_refutes_generalized_cost_projection_necessity. Qed.
-Theorem item1_2_result_20 : ~ generalized_projection_classification.
+Theorem mu_ledger_minimality_not_event_generic : ~ generalized_projection_classification.
 Proof. exact eg_refutes_generalized_projection_classification. Qed.
-Theorem item1_2_result_21 : ~ generalized_mutual_independence.
+Theorem mutual_independence_not_event_generic : ~ generalized_mutual_independence.
 Proof. exact eg_refutes_generalized_mutual_independence. Qed.
-Theorem item1_2_result_22 : ~ generalized_three_component_independence.
+Theorem three_component_indep_not_event_generic : ~ generalized_three_component_independence.
 Proof. exact eg_refutes_generalized_three_component_independence. Qed.
-Theorem item1_2_result_23 : ~ generalized_strict_projection_necessity.
+Theorem turing_ram_necessity_not_event_generic : ~ generalized_strict_projection_necessity.
 Proof. exact eg_refutes_generalized_strict_projection_necessity. Qed.
-Theorem item1_2_result_24 : ~ generalized_partition_free_but_event_nonfree.
+Theorem partition_free_cert_nonfree_not_event_generic : ~ generalized_partition_free_but_event_nonfree.
 Proof. exact eg_refutes_generalized_partition_free_but_event_nonfree. Qed.
-Theorem item1_2_result_25 : ~ generalized_partition_refinement_nonfree.
+Theorem partition_refinement_not_event_generic : ~ generalized_partition_refinement_nonfree.
 Proof. exact eg_refutes_generalized_partition_refinement_nonfree. Qed.
-Theorem item1_2_result_26 : generalized_revocation_boundary.
+Theorem revocable_escapes_event_generic : generalized_revocation_boundary.
 Proof. exact eg_proves_generalized_revocation_boundary. Qed.
-Theorem item1_2_result_27 : ~ generalized_bounded_run_mu.
+Theorem kernel_cert_positive_mu_not_event_generic : ~ generalized_bounded_run_mu.
 Proof. exact eg_refutes_generalized_bounded_run_mu. Qed.
-Theorem item1_2_result_28 : ~ generalized_forget_hidden.
+Theorem cert_addr_forget_not_event_generic : ~ generalized_forget_hidden.
 Proof. exact eg_refutes_generalized_forget_hidden. Qed.
-Theorem item1_2_result_29 : ~ generalized_forget_hidden.
+Theorem cert_forget_not_event_generic : ~ generalized_forget_hidden.
 Proof. exact eg_refutes_generalized_forget_hidden. Qed.
-Theorem item1_2_result_30 : ~ generalized_forget_hidden.
+Theorem classical_a2_predicate_not_event_generic : ~ generalized_forget_hidden.
 Proof. exact eg_refutes_generalized_forget_hidden. Qed.
-Theorem item1_2_result_31 : ~ generalized_forget_hidden.
+Theorem classical_addr_predicate_not_event_generic : ~ generalized_forget_hidden.
 Proof. exact eg_refutes_generalized_forget_hidden. Qed.
-Theorem item1_2_result_32 : ~ generalized_bare_price_inexact.
+Theorem bare_shadow_price_not_event_generic : ~ generalized_bare_price_inexact.
 Proof. exact eg_refutes_generalized_bare_price_inexact. Qed.
-Theorem item1_2_result_33 : ~ generalized_forget_price_inexact.
+Theorem forget_shadow_price_not_event_generic : ~ generalized_forget_price_inexact.
 Proof. exact eg_refutes_generalized_forget_price_inexact. Qed.
-Theorem item1_2_result_34 : ~ generalized_billed_schedule_equivalence.
+Theorem billed_schedule_equiv_not_event_generic : ~ generalized_billed_schedule_equivalence.
 Proof. exact eg_refutes_generalized_billed_schedule_equivalence. Qed.
-Theorem item1_2_result_35 : ~ generalized_surcharged_schedule_equivalence.
+Theorem surcharged_schedule_equiv_not_event_generic : ~ generalized_surcharged_schedule_equivalence.
 Proof. exact eg_refutes_generalized_surcharged_schedule_equivalence. Qed.
-Theorem item1_2_result_36 : generalized_schedule_uniqueness.
+Theorem schedule_uniqueness_event_generic : generalized_schedule_uniqueness.
 Proof. exact eg_proves_generalized_schedule_uniqueness. Qed.
-Theorem item1_2_result_37 : generalized_billed_core_adequate.
+Theorem billed_core_adequate_event_generic : generalized_billed_core_adequate.
 Proof. exact eg_proves_generalized_billed_core_adequate. Qed.
-Theorem item1_2_result_38 : generalized_billed_core_honest_extension.
+Theorem billed_core_honest_event_generic : generalized_billed_core_honest_extension.
 Proof. exact eg_proves_generalized_billed_core_honest_extension. Qed.
-Theorem item1_2_result_39 : generalized_uniqueness_round1_refutation.
-Proof. exact eg_proves_generalized_uniqueness_round1_refutation. Qed.
-Theorem item1_2_result_40 : generalized_uniqueness_round2_refutation.
-Proof. exact eg_proves_generalized_uniqueness_round2_refutation. Qed.
-Theorem item1_2_result_41 : generalized_agreement_does_not_imply_descent.
+Theorem adequate_uniqueness_refuted_event_generic : generalized_billed_not_core_equiv.
+Proof. exact eg_proves_generalized_billed_not_core_equiv. Qed.
+Theorem vm_extension_uniqueness_refuted_event_generic : generalized_billed_not_observed_equiv.
+Proof. exact eg_proves_generalized_billed_not_observed_equiv. Qed.
+Theorem agreement_not_descent_event_generic : generalized_agreement_does_not_imply_descent.
 Proof. exact eg_proves_generalized_agreement_does_not_imply_descent. Qed.
-Theorem item1_2_result_42 : generalized_reachable_simulation_exists.
+Theorem reachable_sim_exists_event_generic : generalized_reachable_simulation_exists.
 Proof. exact eg_proves_generalized_reachable_simulation_exists. Qed.
-Theorem item1_2_result_43 : generalized_reachable_simulation_unique.
+Theorem reachable_sim_unique_event_generic : generalized_reachable_simulation_unique.
 Proof. exact eg_proves_generalized_reachable_simulation_unique. Qed.
-Theorem item1_2_result_44 : generalized_simulating_system_representation.
+Theorem simulating_system_repr_event_generic : generalized_simulating_system_representation.
 Proof. exact eg_proves_generalized_simulating_system_representation. Qed.
-Theorem item1_2_result_45 : ~ generalized_trace_cost.
+Theorem universal_nfi_cert_addr_not_event_generic : ~ generalized_trace_cost.
 Proof. exact eg_refutes_generalized_trace_cost. Qed.
-Theorem item1_2_result_46 : ~ generalized_trace_cost.
+Theorem universal_nfi_certified_not_event_generic : ~ generalized_trace_cost.
 Proof. exact eg_refutes_generalized_trace_cost. Qed.
-Theorem item1_2_result_47 : ~ generalized_step_price_and_mu.
+Theorem witness_insight_nonfree_not_event_generic : ~ generalized_step_price_and_mu.
 Proof. exact eg_refutes_generalized_step_price_and_mu. Qed.
-Theorem item1_2_result_48 : ~ generalized_trace_mu.
+Theorem certified_trace_mu_not_event_generic : ~ generalized_trace_mu.
 Proof. exact eg_refutes_generalized_trace_mu. Qed.
-Theorem item1_2_result_49 : ~ generalized_nonlocal_witness_step.
+Theorem nonlocal_witness_not_event_generic : ~ generalized_nonlocal_witness_step.
 Proof. exact eg_refutes_generalized_nonlocal_witness_step. Qed.
-Theorem item1_2_result_50 : ~ generalized_nonlocal_witness_trace.
+Theorem witness_insight_general_not_event_generic : ~ generalized_nonlocal_witness_trace.
 Proof. exact eg_refutes_generalized_nonlocal_witness_trace. Qed.
-Theorem item1_2_result_51 : ~ generalized_no_classical_event_decider.
+Theorem classical_decider_not_event_generic : ~ generalized_no_classical_event_decider.
 Proof. exact eg_refutes_generalized_no_classical_event_decider. Qed.
-Theorem item1_2_result_52 : generalized_joint_ledger_necessity.
+Theorem mu_ledger_necessity_event_generic : generalized_joint_ledger_necessity.
 Proof. exact eg_proves_generalized_joint_ledger_necessity. Qed.
-Theorem item1_2_result_53 : ~ generalized_certify_pnew_separation.
+Theorem ledger_necessity_universal_not_event_generic : ~ generalized_certify_pnew_separation.
 Proof. exact eg_refutes_generalized_certify_pnew_separation. Qed.
-Theorem item1_2_result_54 : ~ generalized_strict_projection_necessity.
+Theorem vm_cert_nonclassical_not_event_generic : ~ generalized_strict_projection_necessity.
 Proof. exact eg_refutes_generalized_strict_projection_necessity. Qed.
-Theorem item1_2_result_55 : generalized_certified_spec.
+Theorem certified_spec_event_generic : generalized_certified_spec.
 Proof. exact eg_proves_generalized_certified_spec. Qed.
 
-Print Assumptions item1_2_result_01.
-Print Assumptions item1_2_result_02.
-Print Assumptions item1_2_result_03.
-Print Assumptions item1_2_result_04.
-Print Assumptions item1_2_result_05.
-Print Assumptions item1_2_result_06.
-Print Assumptions item1_2_result_07.
-Print Assumptions item1_2_result_08.
-Print Assumptions item1_2_result_09.
-Print Assumptions item1_2_result_10.
-Print Assumptions item1_2_result_11.
-Print Assumptions item1_2_result_12.
-Print Assumptions item1_2_result_13.
-Print Assumptions item1_2_result_14.
-Print Assumptions item1_2_result_15.
-Print Assumptions item1_2_result_16.
-Print Assumptions item1_2_result_17.
-Print Assumptions item1_2_result_18.
-Print Assumptions item1_2_result_19.
-Print Assumptions item1_2_result_20.
-Print Assumptions item1_2_result_21.
-Print Assumptions item1_2_result_22.
-Print Assumptions item1_2_result_23.
-Print Assumptions item1_2_result_24.
-Print Assumptions item1_2_result_25.
-Print Assumptions item1_2_result_26.
-Print Assumptions item1_2_result_27.
-Print Assumptions item1_2_result_28.
-Print Assumptions item1_2_result_29.
-Print Assumptions item1_2_result_30.
-Print Assumptions item1_2_result_31.
-Print Assumptions item1_2_result_32.
-Print Assumptions item1_2_result_33.
-Print Assumptions item1_2_result_34.
-Print Assumptions item1_2_result_35.
-Print Assumptions item1_2_result_36.
-Print Assumptions item1_2_result_37.
-Print Assumptions item1_2_result_38.
-Print Assumptions item1_2_result_39.
-Print Assumptions item1_2_result_40.
-Print Assumptions item1_2_result_41.
-Print Assumptions item1_2_result_42.
-Print Assumptions item1_2_result_43.
-Print Assumptions item1_2_result_44.
-Print Assumptions item1_2_result_45.
-Print Assumptions item1_2_result_46.
-Print Assumptions item1_2_result_47.
-Print Assumptions item1_2_result_48.
-Print Assumptions item1_2_result_49.
-Print Assumptions item1_2_result_50.
-Print Assumptions item1_2_result_51.
-Print Assumptions item1_2_result_52.
-Print Assumptions item1_2_result_53.
-Print Assumptions item1_2_result_54.
-Print Assumptions item1_2_result_55.
+Print Assumptions cert_positive_mu_not_event_generic.
+Print Assumptions no_free_certification_not_event_generic.
+Print Assumptions no_free_cert_certified_not_event_generic.
+Print Assumptions no_free_cert_mu_not_event_generic.
+Print Assumptions no_free_cert_trace_mu_not_event_generic.
+Print Assumptions nfi_pc_indexed_event_generic.
+Print Assumptions certification_is_lost_not_event_generic.
+Print Assumptions fcertify_merges_event_generic.
+Print Assumptions fin_a2_from_compression_event_generic.
+Print Assumptions fin_a2_from_merging_event_generic.
+Print Assumptions fin_permanent_event_generic.
+Print Assumptions vm_certify_merges_not_event_generic.
+Print Assumptions vm_priced_merge_not_event_generic.
+Print Assumptions vm_fragment_paid_not_event_generic.
+Print Assumptions vm_merge_others_free_not_event_generic.
+Print Assumptions unit_price_bounds_mu_not_event_generic.
+Print Assumptions commit_pricing_exact_event_generic.
+Print Assumptions p_full_irredundant_event_generic.
+Print Assumptions cost_model_necessity_not_event_generic.
+Print Assumptions mu_ledger_minimality_not_event_generic.
+Print Assumptions mutual_independence_not_event_generic.
+Print Assumptions three_component_indep_not_event_generic.
+Print Assumptions turing_ram_necessity_not_event_generic.
+Print Assumptions partition_free_cert_nonfree_not_event_generic.
+Print Assumptions partition_refinement_not_event_generic.
+Print Assumptions revocable_escapes_event_generic.
+Print Assumptions kernel_cert_positive_mu_not_event_generic.
+Print Assumptions cert_addr_forget_not_event_generic.
+Print Assumptions cert_forget_not_event_generic.
+Print Assumptions classical_a2_predicate_not_event_generic.
+Print Assumptions classical_addr_predicate_not_event_generic.
+Print Assumptions bare_shadow_price_not_event_generic.
+Print Assumptions forget_shadow_price_not_event_generic.
+Print Assumptions billed_schedule_equiv_not_event_generic.
+Print Assumptions surcharged_schedule_equiv_not_event_generic.
+Print Assumptions schedule_uniqueness_event_generic.
+Print Assumptions billed_core_adequate_event_generic.
+Print Assumptions billed_core_honest_event_generic.
+Print Assumptions adequate_uniqueness_refuted_event_generic.
+Print Assumptions vm_extension_uniqueness_refuted_event_generic.
+Print Assumptions agreement_not_descent_event_generic.
+Print Assumptions reachable_sim_exists_event_generic.
+Print Assumptions reachable_sim_unique_event_generic.
+Print Assumptions simulating_system_repr_event_generic.
+Print Assumptions universal_nfi_cert_addr_not_event_generic.
+Print Assumptions universal_nfi_certified_not_event_generic.
+Print Assumptions witness_insight_nonfree_not_event_generic.
+Print Assumptions certified_trace_mu_not_event_generic.
+Print Assumptions nonlocal_witness_not_event_generic.
+Print Assumptions witness_insight_general_not_event_generic.
+Print Assumptions classical_decider_not_event_generic.
+Print Assumptions mu_ledger_necessity_event_generic.
+Print Assumptions ledger_necessity_universal_not_event_generic.
+Print Assumptions vm_cert_nonclassical_not_event_generic.
+Print Assumptions certified_spec_event_generic.

@@ -39,15 +39,15 @@ From Kernel Require Import NoFreeInsight InformationGainToStrengthening.
 
     Under an "info-pricing" policy, Δμ ≥ cert_setter_execution_count. Any
     information-gaining computation requires cost-bearing instructions. The repo
-    now exports: a general whole-tree feasible-set reduction theorem, a fibered
+    exports: a general whole-tree feasible-set reduction theorem, a fibered
     semantics lift where a structured fiber witness derives the whole-tree cover
     premise, and a posterior-representative lift tying those fibers to an
-    observation-equivalence construction. What is still missing is an
+    observation-equivalence construction. An
     unconditional probabilistic feasible-set-ratio theorem with no explicit
-    whole-tree premise. The quantitative story splits across MuShannonBridge.v
+    whole-tree premise is not provided. The quantitative story splits across MuShannonBridge.v
     (general bounds), MuShannonQuantitative.v (trace-level and conditional
     individual bounds), and StateSpaceCounting.v (conservative wrappers).
-    Removing the explicit tree-cover premise still requires the
+    Removing the explicit tree-cover premise requires the
     probabilistic/distributional lift discussed below.
 
     Reference: Cover & Thomas Theorem 2.5.1 (data processing inequality).
@@ -229,14 +229,14 @@ Qed.
     Proving P ≠ NP requires overcoming algebrization and natural proofs barriers
     (Aaronson-Wigderson, Razborov-Rudich), which this framework doesn't bypass.
     What I DO claim: in the mu-cost model, search verification is exponentially
-    cheaper than search (archived: ComplexityOracle.v). Interesting for
+    cheaper than search (see ComplexityOracle.v). Interesting for
     understanding hardness, but it doesn't settle P ≠ NP. *)
 
 (** NOT CLAIMED: Physics emerges from computation. The physics connections are
     conditional (on Landauer) or formal (analogy). I do not derive physics from
     λ-calculus or VM semantics. All physics claims have explicit scope. *)
 
-(** NOT CLAIMED: Particle masses derived from μ. AlphaDerivation.v (archived)
+(** NOT CLAIMED: Particle masses derived from μ. AlphaDerivation.v
     correlates particle spectra to partition count (1.5% error). Interesting,
     but it is a numerical coincidence worthy of investigation, not a physics proof. *)
 
