@@ -11,7 +11,8 @@ slogan.
 | `ShadowProjection.v` | `shadow_proj`, `strict_shadow`, **`shadow_strictly_lossy`** |
 | `ThieleTraceProjection.v` | Forgetful map `VMState → ClassicalState` and the three shadow-projection theorems |
 | `BlindnessRepresentation.v` | Forgetful map characterized as Turing-style blindness |
-| `WitnessPreservationImpossibility.v` | No classical function can decide certification |
+| `WitnessPreservationImpossibility.v` | No function of the named classical trace projection `project_trace` decides certification (`no_classical_certification_decider`) |
+| `ProjectionNonExistence.v` | No function of the bare classical projection recovers the dropped structural fields (`vm_certified`, `vm_witness`, `vm_csrs`) |
 | `WitnessInsightGeneral.v` | Three-tier witness insight taxonomy; **`witness_insight_nonfree_general`** |
 | `ObserverDerivation.v` | Physics-from-observational-equivalence support construction |
 | `DerivedTime.v` | Time as a derived equivalence-class quantity |
@@ -20,11 +21,11 @@ slogan.
 ## Load-bearing exports cited from the README
 
 - `shadow_strictly_lossy`
-- `strict_shadow` projection — used by `vm_mu_not_classically_determined` in [coq/NecessityOfMuLedger.v](../../NecessityOfMuLedger.v)
+- `strict_shadow` projection, used by `vm_mu_not_classically_determined` in [coq/NecessityOfMuLedger.v](../../NecessityOfMuLedger.v)
 
 ## Imports
 
-`foundation/` only. This is a thin layer right above the VM model.
+`foundation/`, plus `mu_calculus/`, `nfi/`, `curvature/`, `quantum/`, and `hardware_bridge/` for individual files.
 
 `DerivedTime.v` and [`ObserverDerivation.v`](ObserverDerivation.v) provide
 explanatory witness constructions alongside the load-bearing projection

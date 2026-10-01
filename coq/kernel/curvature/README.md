@@ -7,9 +7,11 @@ subdirectory (30 files).
 **Scope honesty:** these files prove discrete identities about the partition
 graph and a metric reading derived from μ-tensor data. They do not derive
 physical general relativity. The named bridge premise
-`mu_landauer_unruh_calibrated` (in [`PhysicalSubstrate.v`](PhysicalSubstrate.v))
-is what hooks numerical units to a physical reading; see README §"What is and
-isn't forced".
+`mu_landauer_unruh_calibrated` (a `Prop`-valued definition in
+[`NoFIToEinstein.v`](NoFIToEinstein.v), taken as a hypothesis by the theorems
+that use it) is what hooks numerical units to a physical reading; see the
+top-level README's [Scope](../../../README.md#scope) table (row "Physical
+interpretation").
 
 The angle-defect identity uses `2π` minus the incident angle sum at every
 vertex, including boundary vertices. With the required incidence equations,
@@ -28,7 +30,7 @@ which uses `π` at boundary vertices under the appropriate surface conditions.
 | `FourDSimplicialComplex.v` | 4-simplex / clique-style cell bookkeeping |
 | `DiscreteSimplicialGeometry.v` | `combinatorially_orthogonal` predicate; closes off-diagonal Ricci section variable |
 | `DiscreteTopology.v` | Triangle/edge definitions; required incidence 3F = 2I + B and additional restriction B = 3χ |
-| `PhysicalSubstrate.v` | Typeclass for (k_B, ℏ, c) with `mu_landauer_unruh_calibrated` bridge premise |
+| `PhysicalSubstrate.v` | Typeclass for (k_B, ℏ, c) with positivity conditions and the Landauer-Unruh calibration relation; imports `NoFIToEinstein.v` |
 | `KernelPhysics.v` | Causal-cone semantics; structural physics primitives |
 
 ### Metric / connection
@@ -49,8 +51,8 @@ which uses `π` at boundary vertices under the appropriate surface conditions.
 | `EinsteinEquationsFull.v` | Full-tensor EFE = diagonal EFE + off-diagonal Ricci = 0 |
 | `AffineEFEClosure.v` | Closes off-diagonal Ricci gap via affine metric-scaled symmetric operator |
 | `CurvedTensorPipeline.v` | Curved (non-vacuum) diagonal EFE pipeline |
-| `EinsteinEmergence.v` | **`einstein_emerges`** — restricted angle-defect identity ΔK = 5π·Δχ under the stated triangulation predicates |
-| `NoFIToEinstein.v` | NFI → EFE bridge under Bekenstein calibration |
+| `EinsteinEmergence.v` | **`einstein_emerges`**: restricted angle-defect identity ΔK = 5π·Δχ under the stated triangulation predicates |
+| `NoFIToEinstein.v` | NFI → EFE bridge under Bekenstein calibration; defines `mu_landauer_unruh_calibrated` |
 
 ### Lorentzian signature
 
@@ -73,13 +75,13 @@ which uses `π` at boundary vertices under the appropriate surface conditions.
 | `JacobsonBridgeComponents.v` | Named bridge premises for the Jacobson construction |
 | `DiscreteGaussBonnet.v` | Restricted angle-defect identity ΔK = 5π·Δχ under the stated triangulation predicates |
 | `KernelNoether.v` | Z-indexed shifts of the μ-ledger (analogy and bookkeeping symmetry) |
-| `PhysicsClosure.v` | **`Physics_Closure`** — locality + μ-conservation + causality from `vm_step` alone |
+| `PhysicsClosure.v` | **`Physics_Closure`**: locality + μ-conservation + causality from `vm_step` alone |
 
 ## Load-bearing exports cited from the README
 
 - `Physics_Closure`
-- `einstein_emerges` — discrete Gauss-Bonnet identity
-- `mu_landauer_unruh_calibrated` — the named bridge premise (axiom-not-axiom: explicit hypothesis)
+- `einstein_emerges`: discrete Gauss-Bonnet identity
+- `mu_landauer_unruh_calibrated`: the named bridge premise (a `Prop`-valued definition used as an explicit hypothesis)
 - `nfi_to_discrete_einstein_from_pnew_bekenstein_calibration`,
   `nfi_to_discrete_einstein_from_psplit_bekenstein_calibration`
 

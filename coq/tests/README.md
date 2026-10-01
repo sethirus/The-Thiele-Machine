@@ -8,9 +8,9 @@
 - `verify_nofi_load_bearing.v` - Verify NoFI load-bearing obligations
 - `verify_zero_admits.v` - verify zero admits
 - `CloseoutVerification.v` - End-to-end closeout: every named claim resolves to a closed Coq proof or an explicit non-claim
-- `VacuitySmoke.v` - Smoke fixture for `scripts/vacuity_gate.py`: deliberately vacuous theorems the gate must flag, real ones it must clear
 - `ClaimBoundaryRegression.v` - Claim-boundary regression targets
 - `WFDrivenRunRegression.v` - Well-formed driven-run regression targets
+- `SemanticContractRegression.v` - Inhabited execution contracts and correlator boundary cases
 
 ## Verification Status
 
@@ -20,6 +20,10 @@
 | `verify_nofi_load_bearing.v` | 0 | ✅ |
 | `verify_zero_admits.v` | 0 | ✅ |
 | `CloseoutVerification.v` | 0 | ✅ |
-| `VacuitySmoke.v` | 0 | ✅ (fixture; pytest `tests/test_vacuity_gate.py` enforces) |
+| `ClaimBoundaryRegression.v` | 0 | ✅ |
+| `WFDrivenRunRegression.v` | 0 | ✅ |
+| `SemanticContractRegression.v` | 0 | ✅ |
 
 **Result:** All 7 active `.v` files are verified with 0 admits.
+
+The vacuity-gate fixture `VacuitySmoke.v` is in `coq/test_fixtures/`; pytest `tests/test_vacuity_gate.py` enforces it.
