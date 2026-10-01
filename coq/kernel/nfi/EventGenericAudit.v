@@ -936,6 +936,14 @@ Proof.
       destruct (bool_dec a b); try discriminate end; lra.
 Qed.
 
+(** The [Wait] step leaves the entropy of every distribution invariant. *)
+Lemma step_wait_entropy_invariant : forall p,
+  entropy door_all (push bool_dec door_all (fun s => door_step s Wait) p) = entropy door_all p.
+Proof.
+  intro p. unfold entropy, rsum, door_all. cbn [fold_right].
+  rewrite !door_wait_push_same. reflexivity.
+Qed.
+
 Lemma door_entropy_priced : entropy_priced door_step bool_dec door_all door_cost.
 Proof.
   intros [|] p Hp.
@@ -945,11 +953,7 @@ Proof.
     assert (Hl : log2 (INR (List.length door_all)) = 1) by exact door_log2_two.
     rewrite Hl in Hle.
     unfold door_cost. simpl INR. lra.
-  - assert (Heq : entropy door_all (push bool_dec door_all (fun s => door_step s Wait) p)
-                  = entropy door_all p).
-    { unfold entropy, rsum, door_all. cbn [fold_right].
-      rewrite !door_wait_push_same. reflexivity. }
-    rewrite Heq. unfold door_cost. simpl INR. lra.
+  - rewrite step_wait_entropy_invariant. unfold door_cost. simpl INR. lra.
 Qed.
 
 Lemma door_bool_nodup_length : forall D : list bool, NoDup D -> (List.length D <= 2)%nat.
@@ -1049,6 +1053,7 @@ Proof.
   intros s i _. unfold shadow_cost. lia.
 Qed.
 
+Print Assumptions step_wait_entropy_invariant.
 Print Assumptions closed_permanent_step_entropy_ceiling.
 Print Assumptions closed_permanent_step_entropy_drop.
 Print Assumptions closed_permanent_flip_full_support_entropy_drop_positive.
