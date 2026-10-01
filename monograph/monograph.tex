@@ -2584,8 +2584,8 @@ That number has a checked way back into the guest syntax
 (\code{g\_decode\_guest\_code\_roundtrip}), and running the decoded program
 for a stated amount of fuel agrees with the VM run
 (\code{g\_eval\_is\_actual\_vm\_execution}). A constant first input can also
-be compiled into a relocated program without changing its behavior
-(\code{g\_smn}). This is the s-m-n step. It is a construction in Coq, not a
+be compiled into a relocated program, and running that program on any input
+is equivalent to running the original on the constant (\code{g\_smn}). This is the s-m-n step. It is a construction in Coq, not a
 guest instruction: the four-register language contains no program that takes
 one of these numbers and performs that dispatch or emits the specialized code.
 That distinction is exactly why these theorems do not imply Kleene's recursion

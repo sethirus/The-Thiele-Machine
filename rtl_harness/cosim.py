@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import fcntl
 import json
 import os
 import re
@@ -633,6 +632,8 @@ def _ensure_verilator_current() -> Path:
     # Keep the compile lock outside the output directory; the rebuild path
     # deletes `build/verilator/` wholesale when sources change.
     lock_path = CACHED_VERILATOR_BIN.parent.parent / "verilator.lock"
+    import fcntl  # POSIX-only; Verilator co-simulation runs on Linux.
+
     with open(lock_path, "w") as lf:
         fcntl.flock(lf, fcntl.LOCK_EX)
         needs_compile = (

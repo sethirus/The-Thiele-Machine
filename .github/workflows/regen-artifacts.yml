@@ -1,0 +1,237 @@
+name: Regenerate artifacts
+
+# Runs the repository pre-commit hook on Linux for commits made on a machine
+# that cannot run it, then pushes the regenerated receipts, extraction,
+# manifests, PDFs, and Coq outputs as one follow-up commit.
+#
+# Trigger: a push whose head commit message contains [regen], or a manual run.
+# The hook sees exactly the pushed changes as staged, the same as a local
+# commit on Linux. CI is dispatched again on the regenerated commit, because
+# pushes made with GITHUB_TOKEN do not start workflows by themselves.
+
+on:
+  push:
+    branches-ignore: [main]
+  workflow_dispatch:
+    inputs:
+      base:
+        description: "Commit or ref the regenerated changes are measured from (default: merge base with origin/main)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: regen-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  regen:
+    name: Run pre-commit hook on Linux and push outputs
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[regen]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Install toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            coq coinor-csdp ocaml ocaml-findlib \
+            iverilog verilator yosys \
+            texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+            texlive-fonts-recommended texlive-pictures texlive-science \
+            lmodern poppler-utils
+
+      - name: Capture toolchain version
+        id: toolchain
+        run: |
+          coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
+          echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+          pip install --quiet -e . --no-deps
+
+      - name: Cache vendor builds (bbv + kami)
+        id: cache-vendor
+        uses: actions/cache@v4
+        with:
+          path: |
+            vendor/bbv
+            vendor/kami
+          key: vendor-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
+
+      - name: Build vendored deps (bbv + kami)
+        if: steps.cache-vendor.outputs.cache-hit != 'true'
+        run: |
+          cd vendor/bbv && make -j4
+          cd ../..
+          bash scripts/fix_kami_coq18.sh
+          cd vendor/kami && make -j4
+
+      - name: Compute vendor build digest
+        id: vendor-digest
+        run: |
+          digest=$(find vendor -type f \( -name '*.vo' -o -name '*.vok' \) -print0 \
+            | sort -z | xargs -0 sha256sum 2>/dev/null | sha256sum | cut -c1-16)
+          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
+
+      - name: Purge stale tracked Coq .vo files
+        run: make coq-clean
+
+      - name: Cache Coq build
+        id: cache-coq
+        uses: actions/cache@v4
+        with:
+          path: |
+            coq/**/*.vo
+            coq/**/*.vok
+            coq/**/*.vos
+            coq/**/*.glob
+            coq/Makefile
+            coq/Makefile.conf
+            coq/.Makefile.d
+          key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+
+      - name: Refresh Coq artefact mtimes
+        if: steps.cache-coq.outputs.cache-hit == 'true'
+        run: |
+          find coq \( -name '*.vo' -o -name '*.vok' -o -name '*.vos' -o -name '*.glob' \) -exec touch {} +
+
+      - name: Build Coq proof tree
+        if: steps.cache-coq.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          cd coq
+          rm -f Makefile Makefile.conf .Makefile.d
+          coq_makefile -f _CoqProject -o Makefile
+          make -j4
+
+      - name: Generate Kami BSV inputs for the RTL manifests
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          cp scripts/Header.bsv build/kami_hw/Header.bsv
+          (
+            cd build/kami_hw
+            ocamlfind ocamlopt -package str -linkpkg \
+              Target.mli Target.ml PP.ml Main.ml -o kami_to_bsv
+            ./kami_to_bsv -top ThieleCPU thiele_hw.bsv
+          )
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          source = Path("build/kami_hw/thiele_hw.bsv")
+          target = Path("build/kami_hw/thiele_hw_clean.bsv")
+          clean, skip = [], False
+          for line in source.read_text(encoding="utf-8").splitlines():
+              if line.startswith(("module mkThieleCPU", "module mkTop")):
+                  skip = True
+              if not skip:
+                  clean.append(line)
+              if skip and line.strip() == "endmodule":
+                  skip = False
+          text = "import Vector::*;\n" + "\n".join(clean) + "\n"
+          target.write_text(re.sub(r"vec\(([^()]*)\)", r"unpack({\1})", text), encoding="utf-8")
+          PY
+          python3 scripts/bsv_regfile_transform.py \
+            build/kami_hw/thiele_hw_clean.bsv build/kami_hw/thiele_hw_clean.bsv
+
+      - name: Stage the pushed changes as one pending commit
+        id: stage
+        shell: bash
+        env:
+          BEFORE: ${{ github.event.before }}
+          INPUT_BASE: ${{ github.event.inputs.base }}
+        run: |
+          set -Eeuo pipefail
+          after=$(git rev-parse HEAD)
+          base=""
+          if [[ -n "${INPUT_BASE:-}" ]]; then
+            base=$(git rev-parse "$INPUT_BASE")
+          elif [[ -n "${BEFORE:-}" && ! "$BEFORE" =~ ^0+$ ]] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            base=$BEFORE
+          else
+            base=$(git merge-base HEAD origin/main)
+          fi
+          echo "after=$after" >> "$GITHUB_OUTPUT"
+          echo "Measuring changes from $base to $after"
+          git reset --soft "$base"
+          git diff --cached --stat | tail -1
+
+      - name: Stage the rebuilt tracked Coq outputs
+        # The cache restore or rebuild above rewrote tracked .vo/.glob files.
+        # Stage them with the hook's own rule, so its opening worktree check
+        # sees only the proposed commit.
+        run: python3 scripts/check_hook_worktree.py --stage-generated
+
+      - name: Run the pre-commit hook
+        id: hook
+        # Generation precedes the test suite in the hook. A failure in the
+        # pytest step still pushes the regenerated outputs; the CI run
+        # dispatched below reports the failing tests. Any other failure
+        # stops here with nothing pushed.
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          set +e
+          sh .githooks/pre-commit 2>&1 | tee "$RUNNER_TEMP/hook.log"
+          rc=${PIPESTATUS[0]}
+          set -e
+          if [[ $rc -eq 0 ]]; then
+            echo "tests=passed" >> "$GITHUB_OUTPUT"
+          elif grep -q '^\[pre-commit\] FAIL: python3 -m pytest' "$RUNNER_TEMP/hook.log"; then
+            echo "::warning::pre-commit tests failed; pushing regenerated outputs for CI to report"
+            echo "tests=failed" >> "$GITHUB_OUTPUT"
+          else
+            exit "$rc"
+          fi
+
+      - name: Commit and push regenerated outputs
+        id: push
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          git reset --soft "${{ steps.stage.outputs.after }}"
+          if git diff --cached --quiet; then
+            echo "Nothing to regenerate."
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git diff --cached --stat | tail -1
+          msg="regenerate artifacts on Linux"
+          if [[ "${{ steps.hook.outputs.tests }}" == "failed" ]]; then
+            msg="$msg (pre-commit tests failed; see CI)"
+          fi
+          git commit -q -m "$msg"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Run CI on the regenerated commit
+        if: steps.push.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run ci.yml --ref "${GITHUB_REF_NAME}"

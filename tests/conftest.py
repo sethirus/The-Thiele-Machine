@@ -215,15 +215,17 @@ def pytest_runtest_setup(item):
                 pytest.fail(msg)
             pytest.skip(msg)
 
-    timeout = _get_timeout(item)
-    # SIGALRM is available on Unix and is reliable for per-test timeouts
-    signal.signal(signal.SIGALRM, _alarm_handler)
-    signal.alarm(timeout)
+    # SIGALRM is available on Unix and is reliable for per-test timeouts.
+    # Windows has no SIGALRM; there the caller's outer timeout applies.
+    if hasattr(signal, "SIGALRM"):
+        signal.signal(signal.SIGALRM, _alarm_handler)
+        signal.alarm(_get_timeout(item))
 
 
 def pytest_runtest_teardown(item, nextitem):
     # Cancel any pending alarm
-    signal.alarm(0)
+    if hasattr(signal, "alarm"):
+        signal.alarm(0)
 
 
 # Hypothesis: relax per-test deadlines on slower/dev Windows machines so

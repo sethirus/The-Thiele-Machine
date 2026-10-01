@@ -383,6 +383,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
+          # Frozen-input tests read earlier commits with git show.
+          fetch-depth: 0
 
       - name: Install runtime toolchain for Python tests
         # Full toolchain so EVERY test pytest collects can actually run —

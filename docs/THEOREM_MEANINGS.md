@@ -445,6 +445,8 @@ An explicitly qualified citation keeps its own module identity.
 - `canonical_reset_heat_exact`: In the frozen two-state reset protocol, the bath heat for an energy gap `Delta` is exactly `Delta / 2`.
 - `selected_gap_gives_landauer_heat`: Choosing the two-state energy gap to be `2 * k_B * T * ln 2` makes the frozen reset protocol's bath heat exactly `k_B * T * ln 2`.
 - `master_equation_does_not_fix_heat_scale`: Two distinct energy gaps obey the same frozen population master equation but transfer different heat, so those population dynamics alone do not determine an energy scale.
+- `canonical_reset_satisfies_master_equation`: One step of the discrete two-state master equation, with the protocol's fixed time step and transition rates, carries the frozen initial populations exactly to the frozen final populations.
+- `smaller_gap_refutes_unconditional_landauer_floor`: For positive `k_B` and `T`, the frozen reset protocol with energy gap `k_B * T * ln 2` transfers bath heat strictly less than `k_B * T * ln 2`, so the protocol by itself does not enforce a Landauer floor.
 
 - `zero_mu_traces_satisfy_preservation_budget`: If each input has a bounded error-free zero-mu trace, every Boolean state predicate satisfies `error_free_preservation_budget` with mu bound zero because its positive-mu antecedent is false.
 - `tsirelson_rational_lower_witness`: Some correlator satisfying the selected rational coherence predicate has CHSH at least 28284/10000.
