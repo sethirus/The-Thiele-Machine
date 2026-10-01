@@ -85,9 +85,11 @@ jobs:
       - name: Purge stale tracked Coq .vo files
         run: make coq-clean
 
-      - name: Cache Coq build
+      - name: Restore the latest Coq build
+        # Restore only: this job builds just the extraction closure, so it
+        # must never save under the key a complete build owns.
         id: cache-coq
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: |
             coq/**/*.vo
@@ -99,12 +101,29 @@ jobs:
             coq/.Makefile.d
             build/coq-build-manifest.json
           key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          restore-keys: |
+            coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
 
       - name: Install Python dependencies
         run: |
           python -m pip install --quiet --upgrade pip
           pip install --quiet -r requirements.txt
           pip install --quiet -e . --no-deps
+
+      - name: Build the extraction closure
+        # Rebuild exactly what changed since the restored build, in parallel,
+        # so the forge pipeline's serial make finds Extraction.vo current.
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          cd coq
+          if ! python3 ../scripts/coq_build_manifest.py apply; then
+            find . -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+          fi
+          rm -f Makefile Makefile.conf .Makefile.d
+          coq_makefile -f _CoqProject -o Makefile
+          make -j4 pre-all
+          make -j4 Extraction.vo
 
       - name: Run hardware forge pipeline
         run: bash scripts/forge_artifact.sh
