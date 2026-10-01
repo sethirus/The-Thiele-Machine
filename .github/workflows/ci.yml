@@ -188,6 +188,14 @@ jobs:
           find coq -name '*.vos' -exec touch {} + 2>/dev/null || true
           find coq -name '*.glob' -exec touch {} + 2>/dev/null || true
 
+      - name: Build Coq targets the cache did not cover
+        # Inquisitor compiles with make -j1 under a 30-minute stage limit.
+        # When the restored cache leaves part of the tree to rebuild, that
+        # serial build can exceed the limit on a slow runner. Building in
+        # parallel here first makes Inquisitor's make a no-op; any
+        # compilation error still fails this job.
+        run: make -C coq -j4
+
       - name: Guard against Kami cheat axiom usage
         run: |
           if grep -r --include='*.v' -n -e 'apply cheat' -e 'exact cheat' coq/ | grep -v vendor/ | grep .; then

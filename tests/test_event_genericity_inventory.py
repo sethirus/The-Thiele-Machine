@@ -7,8 +7,11 @@ not test the semantic event-genericity predictions or their Coq evidence.
 from __future__ import annotations
 
 import importlib.util
+import subprocess
 import sys
 from pathlib import Path
+
+import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -53,9 +56,33 @@ def test_latex_theorem_label_is_seen(tmp_path: Path) -> None:
     ]
 
 
-def test_frozen_claim_surface_and_universe_are_exhaustive() -> None:
+# Commit that froze the Item 1.1 Round 2 claim surface. The counts below
+# describe that surface, so they are checked against its tree, not against
+# documents edited after the freeze.
+FROZEN_SURFACE_COMMIT = "e486c49eb275c9e7d49d8f257d8afe845d9c770e"
+
+
+@pytest.fixture
+def frozen_tree(tmp_path: Path):
+    tree = tmp_path / "frozen"
+    subprocess.run(
+        ["git", "-C", str(ROOT), "worktree", "add", "--detach", "--quiet",
+         str(tree), FROZEN_SURFACE_COMMIT],
+        check=True,
+    )
+    try:
+        yield tree
+    finally:
+        subprocess.run(
+            ["git", "-C", str(ROOT), "worktree", "remove", "--force", str(tree)],
+            check=False,
+        )
+        subprocess.run(["git", "-C", str(ROOT), "worktree", "prune"], check=False)
+
+
+def test_frozen_claim_surface_and_universe_are_exhaustive(frozen_tree: Path) -> None:
     typed, declarations, errors = inventory.type_occurrences(
-        ROOT, inventory.DEFAULT_BINDINGS
+        frozen_tree, inventory.DEFAULT_BINDINGS
     )
     assert errors == []
     proof_rows = [row for row in typed if row.occurrence_kind == "proof"]
@@ -66,7 +93,7 @@ def test_frozen_claim_surface_and_universe_are_exhaustive() -> None:
         for identity in universe
         if declarations[identity].addressability != "addressable"
     }
-    assert len(inventory.discover_sources(ROOT)) == 39
+    assert len(inventory.discover_sources(frozen_tree)) == 39
     assert len(proof_rows) == 1143
     assert len(nonproof_rows) == 4066
     assert len(universe) == 472
