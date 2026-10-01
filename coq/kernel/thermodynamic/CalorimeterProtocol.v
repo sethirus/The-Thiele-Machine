@@ -1,8 +1,9 @@
 (** Exact energy bookkeeping and its dimensional boundary for the frozen
     two-state calorimeter protocol. *)
 
-From Coq Require Import Reals Lra.
+From Coq Require Import Reals Lra Lia.
 From Kernel Require Import CalorimeterProtocolTarget.
+From Kernel Require Import VMState VMStep VMUnboundedStep VMUnboundedLedger NecessityAbstract.
 
 Local Open Scope R_scope.
 
@@ -75,8 +76,38 @@ Qed.
 Lemma canonical_reset_is_one_mu : canonical_reset_mu = 1%nat.
 Proof. reflexivity. Qed.
 
+(** * The protocol's μ is the VM's
+
+    The protocol counts one logical μ event. On the VM ledger that is exactly
+    the charge for the cheapest step that switches the certification record
+    on: from the clean state, CERTIFY with no extra payment certifies and
+    raises [vm_mu] by [canonical_reset_mu]. *)
+Theorem vm_minimal_certification_charges_canonical_reset_mu :
+  abs_zero.(vm_certified) = false /\
+  (vm_apply_u abs_zero (instr_certify 0)).(vm_certified) = true /\
+  (vm_apply_u abs_zero (instr_certify 0)).(vm_mu) =
+    (abs_zero.(vm_mu) + canonical_reset_mu)%nat.
+Proof.
+  split; [reflexivity |]. split.
+  - rewrite vm_apply_u_certified. reflexivity.
+  - rewrite vm_apply_u_mu. reflexivity.
+Qed.
+
+(** No VM step switches the record on for less. *)
+Theorem vm_certification_charges_at_least_canonical_reset_mu : forall s i,
+  s.(vm_certified) = false ->
+  (vm_apply_u s i).(vm_certified) = true ->
+  (s.(vm_mu) + canonical_reset_mu <= (vm_apply_u s i).(vm_mu))%nat.
+Proof.
+  intros s i H0 H1.
+  pose proof (vm_apply_u_no_free_certification s i H0 H1) as Hcost.
+  rewrite vm_apply_u_mu. unfold canonical_reset_mu. lia.
+Qed.
+
 Print Assumptions canonical_reset_satisfies_master_equation.
 Print Assumptions canonical_reset_heat_exact.
 Print Assumptions selected_gap_gives_landauer_heat.
 Print Assumptions smaller_gap_refutes_unconditional_landauer_floor.
 Print Assumptions master_equation_does_not_fix_heat_scale.
+Print Assumptions vm_minimal_certification_charges_canonical_reset_mu.
+Print Assumptions vm_certification_charges_at_least_canonical_reset_mu.

@@ -1,5 +1,10 @@
 (** Redirect every exit of an alternate Minsky program through a constructive
-    epilogue that moves counter zero into a fresh final counter. *)
+    epilogue that moves counter zero into a fresh final counter.
+
+    SCOPE NOTE: standalone proof scope. This file is about alternate Minsky
+    machines only. Its VM meaning is supplied by [VMMMAReduction.v], whose
+    [mma_output_to_guest_r0] carries the epilogue's output theorem into guest
+    register zero of the VM. *)
 
 From Coq Require Import Arith Lia List.
 Import ListNotations.
