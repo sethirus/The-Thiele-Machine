@@ -137,6 +137,8 @@ def pipeline(repo, tmp_path):
         "CITATION.cff", "THIELE_MACHINE.txt", "monograph/monograph.tex",
         "monograph/monograph.pdf", "monograph/monograph.txt",
         "monograph/thiele_machine_math_spec.pdf", "monograph/math_spec_plaintext.txt",
+        "monograph/monograph.toc", "monograph/monograph.out",
+        "monograph/thiele_machine_math_spec.toc", "monograph/thiele_machine_math_spec.out",
     ]
     for name in outputs:
         path = repo / name

@@ -39,3 +39,14 @@ UNDEC_MODULES := \
 $(addprefix $(UNDEC_DIR)/,$(UNDEC_MODULES)) &: $(shell find $(UNDEC_DIR) -name '*.v') $(UNDEC_DIR)/_CoqProject
 	$(MAKE) -C $(UNDEC_DIR) Makefile.coq
 	$(MAKE) -C $(UNDEC_DIR) -f Makefile.coq $(UNDEC_MODULES)
+
+# A full build compiles the vendored library completely before any coq/ file.
+# Some of its intermediate libraries are untracked, so a fresh checkout
+# rebuilds them and then their tracked dependents (MinskyMachines/MM.vo, for
+# one). The rule above sees only the vendor sources and would let a coq/ file
+# compile against the old tracked object first, which Coq then rejects as an
+# inconsistent assumption. coq_makefile runs pre-all as its own make before
+# real-all, so real-all sees the final vendor objects.
+pre-all::
+	$(MAKE) -C $(UNDEC_DIR) Makefile.coq
+	$(MAKE) -C $(UNDEC_DIR) -f Makefile.coq $(UNDEC_MODULES)
