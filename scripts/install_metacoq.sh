@@ -21,14 +21,14 @@ if [[ ! -f "$SRC/template-coq/theories/All.vo" ]]; then
   echo "${SHA256}  $WORK/metacoq.tar.gz" | sha256sum -c -
   tar -xzf "$WORK/metacoq.tar.gz" -C "$WORK"
   (cd "$SRC" && ./configure.sh)
-  for part in utils common template-coq; do
-    make -C "$SRC/$part" -j"${JOBS:-4}"
-  done
 fi
 
 SUDO=""
 [[ $(id -u) -eq 0 ]] || SUDO=sudo
+# Each part compiles against the installed previous parts, so build and
+# install in order. On a rebuild with outputs present, make only installs.
 for part in utils common template-coq; do
+  make -C "$SRC/$part" -j"${JOBS:-4}"
   $SUDO make -C "$SRC/$part" install
 done
 echo "install_metacoq: MetaCoq Template ${TAG} installed"
