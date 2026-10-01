@@ -324,7 +324,67 @@ Proof.
   - apply g_pair_prefix_run.
 Qed.
 
-(* The final theorem is added only after the internal numeric specializer and
-   evaluator have guest execution theorems. *)
+(** * The internal recursion theorem
+
+    The diagonal program is [g_pair_specialize e (guest_program_code e)] where
+    [e] is the guest pipeline for the Minsky machine of the evaluator
+    relation [RD D]. On input [y] it pairs its own code with [y], runs the
+    evaluator inside the guest, and ends with the registers and ledger of
+    [F] applied to itself on [y], or never halts when that program never
+    halts. *)
+
+From Coq Require Import Lia.
+From Undecidability.MinskyMachines Require Import MMA.
+From Undecidability.Shared.Libs.DLW.Vec Require Import pos vec.
+From Undecidability.Shared.Libs.DLW.Code Require Import sss.
+From Kernel Require Import VMGuestEvalNat VMGuestEvalTuple VMGuestExactEpilogue.
+From Kernel Require Import VMGuestMMAInit VMGuestMMAPipeline VMGuestEvalL.
+
+Lemma g_pair_npair : forall x y, g_pair x y = npair x y.
+Proof. intros x y. unfold g_pair, npair. rewrite VMGuestEvalNat.pow2_spec. reflexivity. Qed.
+
+Lemma sp_g_pair_specialize : forall p x, sp p x = g_pair_specialize p x.
+Proof. reflexivity. Qed.
+
+Theorem vm_guest_recursion_theorem_closed : vm_guest_recursion_theorem.
+Proof.
+  intros F D HF HD.
+  destruct (RD_MMA D) as (n & P & HP).
+  set (e := g_pipeline n P).
+  assert (He : g_wf_program e) by apply g_pipeline_wf.
+  set (c := guest_program_code e).
+  exists (g_pair_specialize e c). split.
+  - apply g_pair_specialize_wf. exact He.
+  - intros y g mu. rewrite g_pair_smn.
+    set (z := g_pair c y).
+    assert (Hz : z = npair (genc e) y) by (subst z c; rewrite g_pair_npair, genc_code; reflexivity).
+    (* the Minsky program's outputs on z are exactly the values of RD D at [z] *)
+    assert (Hout : forall m, RD D (Vector.cons nat z 0 (Vector.nil nat)) m <->
+              exists pc final,
+                sss_output (@mma_sss (S (S n))) (1, P) (1, mma_init_start z n) (pc, final) /\
+                vec_pos final pos0 = m).
+    { intro m. rewrite (HP (Vector.cons nat z 0 (Vector.nil nat)) m). split.
+      - intros (pc & v' & Hrun). exists pc, (Vector.cons nat m _ v'). split; [exact Hrun | reflexivity].
+      - intros (pc & final & Hrun & Hm). exists pc, (Vector.tl final).
+        revert Hrun Hm. apply (Vector.caseS' final). intros h t Hrun Hm.
+        cbn in Hm. subst m. exact Hrun. }
+    (* RD D at [z] is the evaluator relation *)
+    assert (Hsem : forall m, RD D (Vector.cons nat z 0 (Vector.nil nat)) m <->
+              exists g' mu', m = g_out_pack g' mu' /\ g_beh (F (sp e (genc e))) y g' mu').
+    { intro m. unfold RD. cbn [Vector.hd]. rewrite <- (@hfun_sem g_out_pack D F e y m HD He).
+      rewrite Hz. split; intros [k Hk]; exists k; [rewrite <- thfun_spec | rewrite thfun_spec]; exact Hk. }
+    unfold e at 1. rewrite (@g_pipeline_beh_pack n P z g mu).
+    + rewrite <- (Hout (g_out_pack g mu)), Hsem.
+      rewrite genc_code. fold c. rewrite sp_g_pair_specialize. split.
+      * intros (g' & mu' & Hpack & Hb).
+        destruct (@g_out_pack_inj _ _ _ _ Hpack) as [-> ->]. exact Hb.
+      * intro Hb. exists g, mu. split; [reflexivity | exact Hb].
+    + intros pc final Hrun.
+      assert (Hr : RD D (Vector.cons nat z 0 (Vector.nil nat)) (vec_pos final pos0))
+        by (apply Hout; exists pc, final; split; [exact Hrun | reflexivity]).
+      apply Hsem in Hr. destruct Hr as (g' & mu' & Hm & _). exists g', mu'. exact Hm.
+Qed.
+
 
 Print Assumptions g_pair_smn.
+Print Assumptions vm_guest_recursion_theorem_closed.

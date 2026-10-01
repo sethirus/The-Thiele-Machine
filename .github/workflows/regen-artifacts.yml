@@ -52,6 +52,9 @@ jobs:
             texlive-fonts-recommended texlive-pictures texlive-science \
             lmodern poppler-utils
 
+      - name: Set up MetaCoq Template
+        uses: ./.github/actions/setup-metacoq
+
       - name: Capture toolchain version
         id: toolchain
         run: |
@@ -133,6 +136,12 @@ jobs:
           coq_makefile -f _CoqProject -o Makefile
           make -j4
 
+      - name: Build Coq targets the cache did not cover
+        # Builds vendored modules that are not yet tracked (the L extraction
+        # chain) and anything else missing, in parallel, before the outputs
+        # are staged and the hook's serial build runs.
+        run: make -C coq -j4
+
       - name: Generate Kami BSV inputs for the RTL manifests
         shell: bash
         run: |
@@ -192,7 +201,7 @@ jobs:
         # New .v files produce new .vo/.glob files; the repository tracks
         # those too, so stage untracked compiler outputs under coq/ as well.
         run: |
-          git ls-files -z --others --exclude-standard -- 'coq/*.vo' 'coq/*.glob'             | xargs -0 -r git add --
+          git ls-files -z --others --exclude-standard -- 'coq/*.vo' 'coq/*.glob'             'vendor/coq-undecidability/*.vo' 'vendor/coq-undecidability/*.glob'             | xargs -0 -r git add --
           python3 scripts/check_hook_worktree.py --stage-generated
 
       - name: Run the pre-commit hook

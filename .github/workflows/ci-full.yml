@@ -39,6 +39,9 @@ jobs:
             coq coinor-csdp ocaml ocaml-findlib \
             iverilog verilator yosys
 
+      - name: Set up MetaCoq Template
+        uses: ./.github/actions/setup-metacoq
+
       - name: Capture toolchain version
         id: toolchain
         run: |
@@ -340,6 +343,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             coq coinor-csdp ocaml ocaml-findlib
+
+      - name: Set up MetaCoq Template
+        uses: ./.github/actions/setup-metacoq
 
       - name: Capture toolchain version
         id: toolchain

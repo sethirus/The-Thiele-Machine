@@ -43,6 +43,9 @@ jobs:
           sudo apt-get install -y --no-install-recommends \
             coq coinor-csdp ocaml ocaml-findlib
 
+      - name: Set up MetaCoq Template
+        uses: ./.github/actions/setup-metacoq
+
       - name: Capture toolchain version
         # Coq updates from apt can silently produce .vo files incompatible
         # with cached ones. Including the exact coqc version in
@@ -142,6 +145,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             coq coinor-csdp ocaml ocaml-findlib
+
+      - name: Set up MetaCoq Template
+        uses: ./.github/actions/setup-metacoq
 
       - name: Restore vendor cache (built by build-coq)
         uses: actions/cache@v4
@@ -274,6 +280,9 @@ jobs:
           sudo apt-get install -y --no-install-recommends \
             coq coinor-csdp ocaml ocaml-findlib
 
+      - name: Set up MetaCoq Template
+        uses: ./.github/actions/setup-metacoq
+
       - name: Capture toolchain version
         id: toolchain
         run: |
@@ -324,6 +333,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             coq coinor-csdp ocaml ocaml-findlib
+
+      - name: Set up MetaCoq Template
+        uses: ./.github/actions/setup-metacoq
 
       - name: Restore vendor cache (built by build-coq)
         uses: actions/cache@v4
@@ -419,6 +431,9 @@ jobs:
             coq coinor-csdp \
             ocaml ocaml-findlib \
             iverilog verilator yosys
+
+      - name: Set up MetaCoq Template
+        uses: ./.github/actions/setup-metacoq
 
       - name: Capture toolchain version
         # Match the cache-key construction used by proof-check / extraction

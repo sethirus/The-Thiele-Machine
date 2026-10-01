@@ -1,0 +1,48 @@
+name: Set up MetaCoq Template
+description: >
+  Build MetaCoq 1.2.1+8.18 (utils, common, template-coq) from pinned, checksum-verified
+  source against the system Coq 8.18 and install it. The vendored L extraction tactics
+  (Undecidability.L.Tactics) need it; extracted terms and proofs are checked by the Coq kernel.
+runs:
+  using: composite
+  steps:
+    - name: Install MetaCoq build dependencies
+      shell: bash
+      run: |
+        sudo apt-get install -y --no-install-recommends \
+          libcoq-core-ocaml-dev libcoq-equations libstdlib-shims-ocaml-dev
+        echo "METACOQ_COQ=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')" >> "$GITHUB_ENV"
+
+    - name: Cache MetaCoq build
+      id: cache-metacoq
+      uses: actions/cache@v4
+      with:
+        path: ${{ runner.temp }}/metarocq-1.2.1-8.18
+        key: metacoq-v1.2.1-8.18-${{ runner.os }}-${{ env.METACOQ_COQ }}
+
+    - name: Build MetaCoq Template from pinned source
+      if: steps.cache-metacoq.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        set -Eeuo pipefail
+        cd "$RUNNER_TEMP"
+        curl -sSL -o metacoq.tar.gz \
+          "https://github.com/MetaRocq/metarocq/archive/refs/tags/v1.2.1-8.18.tar.gz"
+        echo "2b5057265344e661371591eaa5d94da9cb45ce4e88867a6cce517f478395a9fe  metacoq.tar.gz" | sha256sum -c -
+        tar -xzf metacoq.tar.gz
+        cd metarocq-1.2.1-8.18
+        ./configure.sh
+        for part in utils common template-coq; do
+          make -C "$part" -j4
+          sudo make -C "$part" install
+        done
+
+    - name: Install MetaCoq Template
+      if: steps.cache-metacoq.outputs.cache-hit == 'true'
+      shell: bash
+      run: |
+        set -Eeuo pipefail
+        cd "$RUNNER_TEMP/metarocq-1.2.1-8.18"
+        for part in utils common template-coq; do
+          sudo make -C "$part" install
+        done
