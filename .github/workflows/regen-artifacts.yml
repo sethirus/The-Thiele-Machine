@@ -185,7 +185,11 @@ jobs:
         # The cache restore or rebuild above rewrote tracked .vo/.glob files.
         # Stage them with the hook's own rule, so its opening worktree check
         # sees only the proposed commit.
-        run: python3 scripts/check_hook_worktree.py --stage-generated
+        # New .v files produce new .vo/.glob files; the repository tracks
+        # those too, so stage untracked compiler outputs under coq/ as well.
+        run: |
+          git ls-files -z --others --exclude-standard -- 'coq/*.vo' 'coq/*.glob'             | xargs -0 -r git add --
+          python3 scripts/check_hook_worktree.py --stage-generated
 
       - name: Run the pre-commit hook
         id: hook

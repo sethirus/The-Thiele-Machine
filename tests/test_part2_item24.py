@@ -36,6 +36,20 @@ def test_item24_reports_named_scope_without_fake_adapters() -> None:
     assert "TM adapter | PROVED" in text
     assert "VM adapter | PROVED" in text
     assert "RAM adapter | BLOCKED" in text
-    assert "L adapter | BLOCKED" in text
+    assert "L adapter | PROVED" in text
     assert "no prose adapter was substituted" in text
     assert "Adversarial read: PASS" in text
+
+
+def test_item24_l_adapter_closes() -> None:
+    text = (ROOT / "coq/kernel/foundation/CrossBaseGranularityL.v").read_text()
+    for name in (
+        "l_step_fun_correct",
+        "l_base_halted_iff_irreducible",
+        "l_base_run_is_star",
+        "star_is_l_base_run",
+        "round4_l_holds",
+    ):
+        assert f"Theorem {name}" in text
+        assert f"Print Assumptions {name}." in text
+    assert "Admitted." not in text and "Axiom " not in text
