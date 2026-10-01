@@ -86,37 +86,47 @@ Definition rx_frame (v : word 8) : list bool :=
 (** The line held high long enough for the receiver to settle at idle. *)
 Definition rx_settle : list bool := repeat true 4.
 
-Definition rx_frame_ok (v : word 8) : bool :=
-  let '(r, out) := rx_run rx_idle (rx_frame v ++ rx_settle) in
+(** What the receiver should end with after one frame of [v]: the single
+    byte [v] and an idle receiver. [frame_good] checks it on a result. *)
+Definition frame_good (v : word 8) (p : RxState * list (word 8)) : bool :=
+  let '(r, out) := p in
   match out with
   | w :: nil => weqb w v && weqb (rx_state r) (natToWord 2 0)
            && Bool.eqb (rx_sync1 r) true && Bool.eqb (rx_sync2 r) true
   | _ => false
   end.
 
-Definition all_bytes_ok : bool :=
-  forallb (fun n => rx_frame_ok (natToWord 8 n)) (seq 0 256).
+Lemma frame_good_spec : forall v p, frame_good v p = true ->
+  let '(r, out) := p in
+  out = v :: nil /\ rx_state r = natToWord 2 0 /\ rx_sync1 r = true /\ rx_sync2 r = true.
+Proof.
+  intros v [r out] Hv. unfold frame_good in Hv.
+  destruct out as [|w [|w' rest]]; try discriminate.
+  repeat rewrite Bool.andb_true_iff in Hv.
+  destruct Hv as [[[Hw Hs] H1] H2].
+  unfold weqb in Hw, Hs.
+  destruct (weq w v); try discriminate.
+  destruct (weq (rx_state r) (natToWord 2 0)); try discriminate.
+  apply Bool.eqb_prop in H1. apply Bool.eqb_prop in H2.
+  subst. repeat split; auto.
+Qed.
 
-Lemma all_bytes_ok_true : all_bytes_ok = true.
+(** The receiver run on every one of the 256 frames passes the check. The
+    statement names the run itself: the kernel evaluates it once, in the
+    virtual machine, and never has to unfold a name for it. *)
+Lemma all_bytes_ok :
+  forallb (fun n => frame_good (natToWord 8 n)
+                      (rx_run rx_idle (rx_frame (natToWord 8 n) ++ rx_settle)))
+          (seq 0 256) = true.
 Proof. vm_compute. reflexivity. Qed.
 
 Theorem rx_one_frame : forall v : word 8,
   let '(r, out) := rx_run rx_idle (rx_frame v ++ rx_settle) in
   out = v :: nil /\ rx_state r = natToWord 2 0 /\ rx_sync1 r = true /\ rx_sync2 r = true.
 Proof.
-  intro v.
-  assert (Hv : rx_frame_ok v = true).
-  { pose proof all_bytes_ok_true as H. unfold all_bytes_ok in H.
-    rewrite forallb_forall in H.
-    rewrite <- (natToWord_wordToNat v).
-    apply H. apply in_seq. pose proof (wordToNat_bound v) as Hb.
-    cbn in Hb. split; [apply Nat.le_0_l|]. cbn. lia. }
-  unfold rx_frame_ok in Hv.
-  destruct (rx_run rx_idle (rx_frame v ++ rx_settle)) as [r out].
-  destruct out as [|w [|w' rest]]; try discriminate.
-  repeat rewrite Bool.andb_true_iff in Hv.
-  destruct Hv as [[[Hw Hs] H1] H2].
-  unfold weqb in Hw, Hs. destruct (weq w v); try discriminate. destruct (weq (rx_state r) (natToWord 2 0)); try discriminate.
-  apply Bool.eqb_prop in H1. apply Bool.eqb_prop in H2.
-  subst. repeat split; auto.
+  intro v. apply frame_good_spec.
+  pose proof all_bytes_ok as H. rewrite forallb_forall in H.
+  rewrite <- (natToWord_wordToNat v).
+  apply H. apply in_seq. pose proof (wordToNat_bound v) as Hb.
+  cbn in Hb. split; [apply Nat.le_0_l|]. cbn. lia.
 Qed.
