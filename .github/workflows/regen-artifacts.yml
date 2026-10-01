@@ -311,3 +311,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run ci.yml --ref "${GITHUB_REF_NAME}"
+
+      - name: Fail the run when the hook's tests failed
+        # The regenerated outputs are pushed so CI can report the failing
+        # tests, but this run must not show green while they fail.
+        if: steps.hook.outputs.tests == 'failed'
+        run: |
+          echo "::error::the pre-commit test suite failed; the regenerated outputs were pushed for CI to report"
+          exit 1

@@ -19,6 +19,12 @@ env:
   # behavior, e.g. upload-artifact@v5 makes artifacts immutable).
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
+# A newer commit on a working branch supersedes the run for an older one.
+# Every run on main completes.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
 jobs:
   # Phase 0: build Coq + Kami once, publish the cache, expose its keys as
   # job outputs. Both proof-check and extraction depend on this — they used

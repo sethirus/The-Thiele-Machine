@@ -4,10 +4,10 @@
     The RAM of [ConcreteRAMTarget] is an independent comparison model, so no
     VM semantic anchor is used and no bridge to VM semantics is claimed.
 
-    Part 5.3 round 2 proved the four frozen single-step propositions of
-    [ConcreteRAMTarget] (in [ConcreteRAM]) and left the Round 4 adapters
-    BLOCKED: no [BaseMachine], no [BaseCover], no [HonestExtension4], no
-    [latch_factorization] for the RAM.  This file supplies those adapters.
+    The single-step propositions of [ConcreteRAMTarget] are proved in
+    [ConcreteRAM].  This file supplies the Round 4 adapters for the RAM: a
+    [BaseMachine], a [BaseCover], a [HonestExtension4], and a
+    [latch_factorization].
 
     - A program is a list of [RAMOp] indexed by the program counter.  A state
       whose program counter has no instruction is halted and stays put.
