@@ -560,3 +560,6 @@ An explicitly qualified citation keeps its own module identity.
 - `F3_calibration_forces_five_triangles`: Under the same hypotheses every module lies in at least five triangles.
 - `F3_calibration_obstruction_closed`: A well-formed triangulated partition graph with distinct module identifiers and no boundary edges cannot be calibrated at every module.
 - `F3_calibration_obstruction_min_degree4`: A well-formed triangulated partition graph with distinct module identifiers in which every vertex lies in at least four faces cannot be calibrated at every module.
+- `F3_calibration_obstruction`: No VM state whose partition graph is well-formed triangulated, has connected vertex links, and has distinct module identifiers is calibrated at every module.
+- `F3_obstruction_hypotheses_satisfiable`: A concrete VM state (an octahedron next to a zigzag 9-gon) satisfies every hypothesis of `F3_calibration_obstruction`.
+- `euler_component`: For a partition graph with distinct module identifiers, triangular regions, and every edge in one or two faces, whose modules are exactly those reachable from one module through shared edges, `V + F <= E + 2`, and `V + F <= E + 1` when some edge is on the boundary.

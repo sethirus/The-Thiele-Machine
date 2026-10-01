@@ -238,8 +238,9 @@ Qed.
     The headline above is conditional on a state where calibration holds at
     every listed module. This development supplies no finite [VMState] on a
     partition graph with an actual triangle that satisfies that premise, so
-    the headline is stated as a conditional and is not claimed to be
-    inhabited. *)
+    the headline is stated as a conditional. On well-formed triangulated
+    graphs with connected vertex links and distinct module identifiers the
+    premise is uninhabited: [F3_CalibrationObstruction.F3_calibration_obstruction]. *)
 
 (** ** Print Assumptions sanity.
 
