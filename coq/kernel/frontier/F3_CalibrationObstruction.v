@@ -1777,7 +1777,7 @@ Qed.
 
 Lemma grown_reach : forall R x0 l (P : nat -> Prop), grown R x0 l -> P x0 ->
   (forall x y, In x l -> In y l -> P x -> R x y = true -> P y) ->
-  forall x, In x l -> P x.
+  forall z, In z l -> P z.
 Proof.
   intros R x0 l P H. induction H as [|x l H IH [y [Hy Ryx]]]; intros H0 Hcl z Hz.
   - destruct Hz as [Hz|[]]. subst. exact H0.

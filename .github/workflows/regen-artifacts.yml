@@ -251,6 +251,14 @@ jobs:
             exit "$rc"
           fi
 
+      - name: Upload Inquisitor report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: regen-inquisitor-report
+          path: INQUISITOR_REPORT.md
+          if-no-files-found: ignore
+
       - name: Commit and push regenerated outputs
         id: push
         shell: bash
