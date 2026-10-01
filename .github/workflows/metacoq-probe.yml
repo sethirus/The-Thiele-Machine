@@ -26,7 +26,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
-            coq libcoq-core-ocaml-dev ocaml ocaml-findlib libstdlib-shims-ocaml-dev
+            coq libcoq-core-ocaml-dev libcoq-equations ocaml ocaml-findlib libstdlib-shims-ocaml-dev
           coqc --version
           ocamlfind list 2>/dev/null | grep -E "^coq-core|stdlib-shims" | head
 
