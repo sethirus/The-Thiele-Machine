@@ -240,6 +240,8 @@ jobs:
           git ls-files -z --others --exclude-standard -- 'coq/*.vo' 'coq/*.glob'             'vendor/coq-undecidability/*.vo' 'vendor/coq-undecidability/*.glob'             | xargs -0 -r git add --
           git add -u -- 'vendor/coq-undecidability/*.vo' 'vendor/coq-undecidability/*.glob'
           git add -- thielecpu/hardware/rtl/thiele_cpu_kami.v thielecpu/hardware/rtl/thiele_system.v
+          # The extraction stages the RTL manifest hashes are tracked too.
+          git add -u -- build/kami_hw
           python3 scripts/check_hook_worktree.py --stage-generated
 
       - name: Restore the Print Assumptions answer cache
