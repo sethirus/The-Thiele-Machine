@@ -90,7 +90,9 @@ if ! git diff --cached --quiet -- coq vendor scripts/coq_proof_scope.py \
     stage README.md monograph/monograph.tex THIELE_MACHINE.txt CITATION.cff
     run bash monograph/build_monograph.sh
     stage monograph/monograph.pdf monograph/monograph.txt \
-        monograph/thiele_machine_math_spec.pdf monograph/math_spec_plaintext.txt
+        monograph/thiele_machine_math_spec.pdf monograph/math_spec_plaintext.txt \
+        monograph/monograph.toc monograph/monograph.out \
+        monograph/thiele_machine_math_spec.toc monograph/thiele_machine_math_spec.out
 fi
 
 # Always check receipt/probe coherence; it is fast and needs no Coq.
