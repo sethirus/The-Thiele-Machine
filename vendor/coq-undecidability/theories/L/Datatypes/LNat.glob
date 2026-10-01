@@ -1,0 +1,146 @@
+DIGEST ff01a9e8ea9be519274e4128e689aea6
+FUndecidability.L.Datatypes.LNat
+R37:48 Undecidability.L.Util.L_facts <> <> lib
+R96:103 Undecidability.L.Tactics.LTactics <> <> lib
+R105:113 Undecidability.L.Tactics.GenEncode <> <> lib
+R131:168 Undecidability.Shared.Libs.PSL.Numbers <> <> lib
+R187:189 Coq.Init.Nat <> <> lib
+R229:243 Undecidability.L.Datatypes.LBool <> <> lib
+R245:260 Undecidability.L.Functions.EqBool <> <> lib
+R262:276 Undecidability.L.Datatypes.LProd <> <> lib
+R287:295 Undecidability.L.Tactics.GenEncode <> <> mod
+R305:307 Coq.Arith.PeanoNat Nat <> mod
+R361:374 Undecidability.L.Tactics.GenEncode <> tmGenEncodeInj def
+R386:388 Coq.Init.Datatypes <> nat ind
+inst 463:469 <> termT_S
+R473:482 Undecidability.L.Tactics.Computable <> computable class
+R484:484 Coq.Init.Datatypes <> S constr
+inst 542:551 <> termT_pred
+R555:564 Undecidability.L.Tactics.Computable <> computable class
+R566:569 Coq.Arith.PeanoNat Nat pred def
+inst 615:625 <> termT_plus'
+R629:638 Undecidability.L.Tactics.Computable <> computable class
+R640:642 Coq.Arith.PeanoNat Nat add def
+inst 688:697 <> termT_mult
+R701:710 Undecidability.L.Tactics.Computable <> computable class
+R712:715 Coq.Init.Peano <> mult abbrev
+inst 761:768 <> term_sub
+R772:781 Undecidability.L.Tactics.Computable <> computable class
+R783:789 Coq.Arith.PeanoNat Nat sub def
+inst 835:843 <> termT_leb
+R847:856 Undecidability.L.Tactics.Computable <> computable class
+R858:860 Coq.Arith.PeanoNat Nat leb def
+inst 906:913 <> term_ltb
+R917:926 Undecidability.L.Tactics.Computable <> computable class
+R928:934 Coq.Arith.PeanoNat Nat ltb def
+inst 982:992 <> eqbNat_inst
+R996:1003 Undecidability.L.Functions.EqBool <> eqbClass class
+R1005:1011 Coq.Arith.PeanoNat Nat eqb def
+R1029:1040 Coq.Arith.PeanoNat Nat eqb_spec thm
+R1029:1040 Coq.Arith.PeanoNat Nat eqb_spec thm
+inst 1069:1079 <> eqbComp_nat
+R1083:1089 Undecidability.L.Functions.EqBool <> eqbComp class
+R1091:1093 Coq.Init.Datatypes <> nat ind
+R1125:1131 Coq.Arith.PeanoNat Nat eqb def
+inst 1170:1182 <> termT_nat_min
+R1186:1195 Undecidability.L.Tactics.Computable <> computable class
+R1197:1203 Coq.Arith.PeanoNat Nat min def
+inst 1250:1262 <> termT_nat_max
+R1266:1275 Undecidability.L.Tactics.Computable <> computable class
+R1277:1283 Coq.Arith.PeanoNat Nat max def
+inst 1331:1339 <> termT_pow
+R1344:1353 Undecidability.L.Tactics.Computable <> computable class
+R1355:1366 Coq.Init.Nat <> pow def
+inst 1413:1424 <> termT_divmod
+R1431:1440 Undecidability.L.Tactics.Computable <> computable class
+R1442:1447 Coq.Arith.PeanoNat Nat divmod def
+inst 1496:1507 <> termT_modulo
+R1514:1523 Undecidability.L.Tactics.Computable <> computable class
+R1525:1539 Coq.Init.Nat <> modulo def
+def 1626:1634 <> nat_unenc
+R1641:1644 Undecidability.L.L <> term ind
+binder 1637:1637 <> s:1
+R1658:1658 Undecidability.L.Datatypes.LNat <> s:1 var
+R1669:1671 Undecidability.L.L <> lam constr
+R1674:1676 Undecidability.L.L <> lam constr
+R1678:1678 Undecidability.L.Util.L_facts <> :::'#'_x not
+R1685:1688 Coq.Init.Datatypes <> Some constr
+R1696:1698 Undecidability.L.L <> lam constr
+R1701:1703 Undecidability.L.L <> lam constr
+R1706:1708 Undecidability.L.L <> app constr
+R1710:1710 Undecidability.L.Util.L_facts <> :::'#'_x not
+R1726:1734 Undecidability.L.Datatypes.LNat <> nat_unenc:2 def
+R1736:1736 Undecidability.L.Datatypes.LNat <> s:1 var
+R1743:1746 Coq.Init.Datatypes <> Some constr
+R1753:1756 Coq.Init.Datatypes <> Some constr
+R1759:1759 Coq.Init.Datatypes <> S constr
+R1784:1787 Coq.Init.Datatypes <> None constr
+prf 1803:1815 <> unenc_correct
+binder 1817:1817 <> m:4
+R1821:1821 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1843:1846 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1822:1830 Undecidability.L.Datatypes.LNat <> nat_unenc def
+R1833:1839 Undecidability.L.L <> nat_enc def
+R1841:1841 Undecidability.L.Datatypes.LNat <> m:4 var
+R1847:1850 Coq.Init.Datatypes <> Some constr
+R1852:1852 Undecidability.L.Datatypes.LNat <> m:4 var
+prf 1917:1930 <> unenc_correct2
+binder 1932:1932 <> t:5
+binder 1934:1934 <> n:6
+R1958:1961 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1949:1951 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1938:1946 Undecidability.L.Datatypes.LNat <> nat_unenc def
+R1948:1948 Undecidability.L.Datatypes.LNat <> t:5 var
+R1952:1955 Coq.Init.Datatypes <> Some constr
+R1957:1957 Undecidability.L.Datatypes.LNat <> n:6 var
+R1971:1973 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1962:1968 Undecidability.L.L <> nat_enc def
+R1970:1970 Undecidability.L.Datatypes.LNat <> n:6 var
+R1974:1974 Undecidability.L.Datatypes.LNat <> t:5 var
+R2043:2056 Undecidability.Shared.Libs.PSL.Numbers <> size_induction thm
+binder 2081:2081 <> t:7
+binder 2093:2093 <> n:8
+R2116:2119 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2107:2109 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2096:2104 Undecidability.L.Datatypes.LNat <> nat_unenc def
+R2106:2106 Undecidability.L.Datatypes.LNat <> t:7 var
+R2110:2113 Coq.Init.Datatypes <> Some constr
+R2115:2115 Undecidability.L.Datatypes.LNat <> n:8 var
+R2129:2131 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2120:2126 Undecidability.L.L <> nat_enc def
+R2128:2128 Undecidability.L.Datatypes.LNat <> n:8 var
+R2132:2132 Undecidability.L.Datatypes.LNat <> t:7 var
+R2064:2067 Undecidability.L.Util.L_facts <> size def
+R2043:2056 Undecidability.Shared.Libs.PSL.Numbers <> size_induction thm
+binder 2081:2081 <> t:9
+binder 2093:2093 <> n:10
+R2116:2119 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2107:2109 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2096:2104 Undecidability.L.Datatypes.LNat <> nat_unenc def
+R2106:2106 Undecidability.L.Datatypes.LNat <> t:9 var
+R2110:2113 Coq.Init.Datatypes <> Some constr
+R2115:2115 Undecidability.L.Datatypes.LNat <> n:10 var
+R2129:2131 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2120:2126 Undecidability.L.L <> nat_enc def
+R2128:2128 Undecidability.L.Datatypes.LNat <> n:10 var
+R2132:2132 Undecidability.L.Datatypes.LNat <> t:9 var
+R2064:2067 Undecidability.L.Util.L_facts <> size def
+R2388:2396 Undecidability.L.Datatypes.LNat <> nat_unenc def
+R2388:2396 Undecidability.L.Datatypes.LNat <> nat_unenc def
+prf 2509:2515 <> dec_enc
+binder 2517:2517 <> t:11
+R2521:2523 Undecidability.Shared.Libs.PSL.EqDecDef <> dec class
+R2526:2532 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2534:2535 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2533:2533 <> n:12
+R2537:2539 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2536:2536 Undecidability.L.Datatypes.LNat <> t:11 var
+R2540:2546 Undecidability.L.L <> nat_enc def
+R2548:2548 Undecidability.L.Datatypes.LNat <> n:12 var
+R2571:2579 Undecidability.L.Datatypes.LNat <> nat_unenc def
+R2571:2579 Undecidability.L.Datatypes.LNat <> nat_unenc def
+R2622:2635 Undecidability.L.Datatypes.LNat <> unenc_correct2 thm
+R2622:2635 Undecidability.L.Datatypes.LNat <> unenc_correct2 thm
+R2692:2704 Undecidability.L.Datatypes.LNat <> unenc_correct thm
+R2692:2704 Undecidability.L.Datatypes.LNat <> unenc_correct thm
+R2692:2704 Undecidability.L.Datatypes.LNat <> unenc_correct thm

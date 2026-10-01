@@ -1,8 +1,8 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 477,
-  "total_addressable": 13390,
-  "total_unaddressable": 7,
+  "files_probed": 499,
+  "total_addressable": 14023,
+  "total_unaddressable": 8,
   "extras_addressable_via_instantiation": [
     {
       "full_name": "NoFI.Instance_Kernel.KernelNoFI_Theorem.no_free_insight",
@@ -51710,6 +51710,139 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/CrossBaseGranularityL.v",
+      "qualified_module": "Kernel.CrossBaseGranularityL",
+      "addressable_count": 10,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "l_step_fun_value",
+          "kind": "Lemma",
+          "full_name": "Kernel.CrossBaseGranularityL.l_step_fun_value"
+        },
+        {
+          "local_name": "l_step_fun_sound",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityL.l_step_fun_sound"
+        },
+        {
+          "local_name": "l_step_fun_complete",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityL.l_step_fun_complete"
+        },
+        {
+          "local_name": "l_step_fun_correct",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityL.l_step_fun_correct"
+        },
+        {
+          "local_name": "l_base_next_is_step",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityL.l_base_next_is_step"
+        },
+        {
+          "local_name": "l_base_halted_iff_irreducible",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityL.l_base_halted_iff_irreducible"
+        },
+        {
+          "local_name": "l_base_next_cases",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityL.l_base_next_cases"
+        },
+        {
+          "local_name": "l_base_run_is_star",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityL.l_base_run_is_star"
+        },
+        {
+          "local_name": "star_is_l_base_run",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityL.star_is_l_base_run"
+        },
+        {
+          "local_name": "round4_l_holds",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityL.round4_l_holds"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularityRAM.v",
+      "qualified_module": "Kernel.CrossBaseGranularityRAM",
+      "addressable_count": 13,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "set_reg_same",
+          "kind": "Lemma",
+          "full_name": "Kernel.CrossBaseGranularityRAM.set_reg_same"
+        },
+        {
+          "local_name": "set_reg_other",
+          "kind": "Lemma",
+          "full_name": "Kernel.CrossBaseGranularityRAM.set_reg_other"
+        },
+        {
+          "local_name": "ram_store_indirect_writes",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityRAM.ram_store_indirect_writes"
+        },
+        {
+          "local_name": "ram_load_indirect_reads",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityRAM.ram_load_indirect_reads"
+        },
+        {
+          "local_name": "ram_store_indirect_frame",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityRAM.ram_store_indirect_frame"
+        },
+        {
+          "local_name": "ram_store_then_load",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityRAM.ram_store_then_load"
+        },
+        {
+          "local_name": "ram_jump_pos_taken",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityRAM.ram_jump_pos_taken"
+        },
+        {
+          "local_name": "ram_jump_pos_not_taken",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityRAM.ram_jump_pos_not_taken"
+        },
+        {
+          "local_name": "ram_halted_stutters",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityRAM.ram_halted_stutters"
+        },
+        {
+          "local_name": "ram_base_halted_stutters",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityRAM.ram_base_halted_stutters"
+        },
+        {
+          "local_name": "ram_base_run_is_ram_run",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityRAM.ram_base_run_is_ram_run"
+        },
+        {
+          "local_name": "ram_base_has_initial",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityRAM.ram_base_has_initial"
+        },
+        {
+          "local_name": "round4_ram_holds",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularityRAM.round4_ram_holds"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/CrossBaseGranularityRound2Core.v",
       "qualified_module": "Kernel.CrossBaseGranularityRound2Core",
       "addressable_count": 0,
@@ -53103,6 +53236,185 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/MMAOutputEpilogue.v",
+      "qualified_module": "Kernel.MMAOutputEpilogue",
+      "addressable_count": 34,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "mma_exit_link_inside",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_exit_link_inside"
+        },
+        {
+          "local_name": "mma_exit_link_outside",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_exit_link_outside"
+        },
+        {
+          "local_name": "mma_exit_link_next",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_exit_link_next"
+        },
+        {
+          "local_name": "mma_exit_link_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_exit_link_one"
+        },
+        {
+          "local_name": "mma_extend_vec_old",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_extend_vec_old"
+        },
+        {
+          "local_name": "mma_extend_vec_last",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_extend_vec_last"
+        },
+        {
+          "local_name": "mma_extend_vec_change",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_extend_vec_change"
+        },
+        {
+          "local_name": "mma_lift_instr_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_lift_instr_step"
+        },
+        {
+          "local_name": "mma_output_epilogue_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_output_epilogue_length"
+        },
+        {
+          "local_name": "mma_with_output_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_with_output_length"
+        },
+        {
+          "local_name": "mma_with_output_nth_main",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_with_output_nth_main"
+        },
+        {
+          "local_name": "mma_with_output_nth_epilogue",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_with_output_nth_epilogue"
+        },
+        {
+          "local_name": "mma_source_control_neq",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_source_control_neq"
+        },
+        {
+          "local_name": "mma_source_last_neq",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_source_last_neq"
+        },
+        {
+          "local_name": "mma_control_last_neq",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_control_last_neq"
+        },
+        {
+          "local_name": "mma_epi_change_source",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_epi_change_source"
+        },
+        {
+          "local_name": "mma_epi_change_control",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_epi_change_control"
+        },
+        {
+          "local_name": "mma_epi_change_output",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_epi_change_output"
+        },
+        {
+          "local_name": "sss_step_from_nth",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.sss_step_from_nth"
+        },
+        {
+          "local_name": "mma_epilogue_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_epilogue_step"
+        },
+        {
+          "local_name": "mma_epi_clear_positive",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_epi_clear_positive"
+        },
+        {
+          "local_name": "mma_epi_clear_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_epi_clear_zero"
+        },
+        {
+          "local_name": "mma_epi_enter_check",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_epi_enter_check"
+        },
+        {
+          "local_name": "mma_epi_check_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_epi_check_zero"
+        },
+        {
+          "local_name": "mma_epi_check_positive",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_epi_check_positive"
+        },
+        {
+          "local_name": "mma_epi_increment_output",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_epi_increment_output"
+        },
+        {
+          "local_name": "mma_epi_clear_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_epi_clear_run"
+        },
+        {
+          "local_name": "mma_epi_copy_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_epi_copy_run"
+        },
+        {
+          "local_name": "mma_output_epilogue_run",
+          "kind": "Theorem",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_output_epilogue_run"
+        },
+        {
+          "local_name": "sss_step_fetch",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.sss_step_fetch"
+        },
+        {
+          "local_name": "mma_with_output_main_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_with_output_main_step"
+        },
+        {
+          "local_name": "mma_with_output_main_steps",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_with_output_main_steps"
+        },
+        {
+          "local_name": "mma_with_output_main_compute",
+          "kind": "Lemma",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_with_output_main_compute"
+        },
+        {
+          "local_name": "mma_with_output_correct",
+          "kind": "Theorem",
+          "full_name": "Kernel.MMAOutputEpilogue.mma_with_output_correct"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/MuCostModel.v",
       "qualified_module": "Kernel.MuCostModel",
       "addressable_count": 6,
@@ -53506,6 +53818,170 @@
           "local_name": "ProperSubsumption.thiele_strictly_extends_turing",
           "kind": "Theorem",
           "full_name": "Kernel.ProperSubsumption.ProperSubsumption.thiele_strictly_extends_turing"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/RAMRecordAxis.v",
+      "qualified_module": "Kernel.RAMRecordAxis",
+      "addressable_count": 31,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "ram_base_step_projection",
+          "kind": "Lemma",
+          "full_name": "Kernel.RAMRecordAxis.ram_base_step_projection"
+        },
+        {
+          "local_name": "prog_untied_projection",
+          "kind": "Lemma",
+          "full_name": "Kernel.RAMRecordAxis.prog_untied_projection"
+        },
+        {
+          "local_name": "prog_tied_projection",
+          "kind": "Lemma",
+          "full_name": "Kernel.RAMRecordAxis.prog_tied_projection"
+        },
+        {
+          "local_name": "ram_init_surjective",
+          "kind": "Lemma",
+          "full_name": "Kernel.RAMRecordAxis.ram_init_surjective"
+        },
+        {
+          "local_name": "cover_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.RAMRecordAxis.cover_run"
+        },
+        {
+          "local_name": "prefixb_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.RAMRecordAxis.prefixb_spec"
+        },
+        {
+          "local_name": "prefixb_app",
+          "kind": "Lemma",
+          "full_name": "Kernel.RAMRecordAxis.prefixb_app"
+        },
+        {
+          "local_name": "tied_next_record",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.tied_next_record"
+        },
+        {
+          "local_name": "tied_program_records_overwrite",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.tied_program_records_overwrite"
+        },
+        {
+          "local_name": "tied_record_grows",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.tied_record_grows"
+        },
+        {
+          "local_name": "tied_record_driven",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.tied_record_driven"
+        },
+        {
+          "local_name": "tied_run_prefix",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.tied_run_prefix"
+        },
+        {
+          "local_name": "tied_step_cost",
+          "kind": "Lemma",
+          "full_name": "Kernel.RAMRecordAxis.tied_step_cost"
+        },
+        {
+          "local_name": "record_nonempty_app",
+          "kind": "Lemma",
+          "full_name": "Kernel.RAMRecordAxis.record_nonempty_app"
+        },
+        {
+          "local_name": "nth_error_repeat_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.RAMRecordAxis.nth_error_repeat_zero"
+        },
+        {
+          "local_name": "first_write_log",
+          "kind": "Lemma",
+          "full_name": "Kernel.RAMRecordAxis.first_write_log"
+        },
+        {
+          "local_name": "tied_honest_growing",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.tied_honest_growing"
+        },
+        {
+          "local_name": "tied_threshold_decomposition",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.tied_threshold_decomposition"
+        },
+        {
+          "local_name": "tied_next_cert",
+          "kind": "Lemma",
+          "full_name": "Kernel.RAMRecordAxis.tied_next_cert"
+        },
+        {
+          "local_name": "tied_latch_factorization",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.tied_latch_factorization"
+        },
+        {
+          "local_name": "tied_honest_round4",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.tied_honest_round4"
+        },
+        {
+          "local_name": "untied_next_record",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.untied_next_record"
+        },
+        {
+          "local_name": "untied_run_record_constant",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.untied_run_record_constant"
+        },
+        {
+          "local_name": "untied_no_strict_record_write",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.untied_no_strict_record_write"
+        },
+        {
+          "local_name": "untied_no_record_write",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.untied_no_record_write"
+        },
+        {
+          "local_name": "untied_not_honest_growing",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.untied_not_honest_growing"
+        },
+        {
+          "local_name": "untied_not_honest_round4",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.untied_not_honest_round4"
+        },
+        {
+          "local_name": "untied_trivial_latch",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.untied_trivial_latch"
+        },
+        {
+          "local_name": "tied_untied_same_base_run",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.tied_untied_same_base_run"
+        },
+        {
+          "local_name": "ram_record_axis_classification",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.ram_record_axis_classification"
+        },
+        {
+          "local_name": "record_axis_separates_ram",
+          "kind": "Theorem",
+          "full_name": "Kernel.RAMRecordAxis.record_axis_separates_ram"
         }
       ],
       "unaddressable": []
@@ -54575,6 +55051,78 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/VMDynamicEval.v",
+      "qualified_module": "Kernel.VMDynamicEval",
+      "addressable_count": 11,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "g_reify_denote",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMDynamicEval.g_reify_denote"
+        },
+        {
+          "local_name": "g_reify_guest_program",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMDynamicEval.g_reify_guest_program"
+        },
+        {
+          "local_name": "g_decode_guest_code_roundtrip",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMDynamicEval.g_decode_guest_code_roundtrip"
+        },
+        {
+          "local_name": "g_eval_guest_code",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMDynamicEval.g_eval_guest_code"
+        },
+        {
+          "local_name": "g_eval_is_actual_vm_execution",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMDynamicEval.g_eval_is_actual_vm_execution"
+        },
+        {
+          "local_name": "g_specialize_wf",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMDynamicEval.g_specialize_wf"
+        },
+        {
+          "local_name": "g_specialize_embeds",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMDynamicEval.g_specialize_embeds"
+        },
+        {
+          "local_name": "g_specialize_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMDynamicEval.g_specialize_length"
+        },
+        {
+          "local_name": "g_specialize_prefix",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMDynamicEval.g_specialize_prefix"
+        },
+        {
+          "local_name": "tail_beh_from",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMDynamicEval.tail_beh_from"
+        },
+        {
+          "local_name": "g_smn",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMDynamicEval.g_smn"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/VMDynamicEvalTarget.v",
+      "qualified_module": "Kernel.VMDynamicEvalTarget",
+      "addressable_count": 0,
+      "unaddressable_count": 0,
+      "addressable": [],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/VMEncodedInputAccess.v",
       "qualified_module": "Kernel.VMEncodedInputAccess",
       "addressable_count": 4,
@@ -54708,6 +55256,944 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/VMGuestEvalL.v",
+      "qualified_module": "Kernel.VMGuestEvalL",
+      "addressable_count": 6,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "mu_option_proc",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalL.mu_option_proc"
+        },
+        {
+          "local_name": "mu_option_equiv",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalL.mu_option_equiv"
+        },
+        {
+          "local_name": "f_total",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalL.f_total"
+        },
+        {
+          "local_name": "L_computable_fuel",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestEvalL.L_computable_fuel"
+        },
+        {
+          "local_name": "thfun_mono",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalL.thfun_mono"
+        },
+        {
+          "local_name": "RD_MMA",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalL.RD_MMA"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/VMGuestEvalNat.v",
+      "qualified_module": "Kernel.VMGuestEvalNat",
+      "addressable_count": 42,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "hb_correct",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.hb_correct"
+        },
+        {
+          "local_name": "hb_unique",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.hb_unique"
+        },
+        {
+          "local_name": "hb_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.hb_spec"
+        },
+        {
+          "local_name": "pow2_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.pow2_spec"
+        },
+        {
+          "local_name": "bnat_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.bnat_spec"
+        },
+        {
+          "local_name": "bnat_gt_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.bnat_gt_length"
+        },
+        {
+          "local_name": "bnat_ge_two",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.bnat_ge_two"
+        },
+        {
+          "local_name": "nbits_bnat",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.nbits_bnat"
+        },
+        {
+          "local_name": "encode_nat_shape",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.encode_nat_shape"
+        },
+        {
+          "local_name": "pun_encode",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.pun_encode"
+        },
+        {
+          "local_name": "pun_encode0",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.pun_encode0"
+        },
+        {
+          "local_name": "gibits_denote",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.gibits_denote"
+        },
+        {
+          "local_name": "encode_list_payload_flat",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.encode_list_payload_flat"
+        },
+        {
+          "local_name": "gbits_encode_program",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.gbits_encode_program"
+        },
+        {
+          "local_name": "genc_code",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestEvalNat.genc_code"
+        },
+        {
+          "local_name": "pinstr_gibits",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.pinstr_gibits"
+        },
+        {
+          "local_name": "pinstrs_flat",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.pinstrs_flat"
+        },
+        {
+          "local_name": "dec_genc",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestEvalNat.dec_genc"
+        },
+        {
+          "local_name": "dec_code",
+          "kind": "Corollary",
+          "full_name": "Kernel.VMGuestEvalNat.dec_code"
+        },
+        {
+          "local_name": "N_split",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.N_split"
+        },
+        {
+          "local_name": "N_of_nat_div2",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.N_of_nat_div2"
+        },
+        {
+          "local_name": "N_odd_of_nat",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.N_odd_of_nat"
+        },
+        {
+          "local_name": "N_land_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.N_land_step"
+        },
+        {
+          "local_name": "N_lor_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.N_lor_step"
+        },
+        {
+          "local_name": "nbitw_land",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.nbitw_land"
+        },
+        {
+          "local_name": "nbitw_lor",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.nbitw_lor"
+        },
+        {
+          "local_name": "nand_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.nand_spec"
+        },
+        {
+          "local_name": "nor_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.nor_spec"
+        },
+        {
+          "local_name": "nshl_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.nshl_spec"
+        },
+        {
+          "local_name": "nshr_div",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.nshr_div"
+        },
+        {
+          "local_name": "nshr_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.nshr_spec"
+        },
+        {
+          "local_name": "nnext_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.nnext_spec"
+        },
+        {
+          "local_name": "nstep_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.nstep_spec"
+        },
+        {
+          "local_name": "nrun_spec",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestEvalNat.nrun_spec"
+        },
+        {
+          "local_name": "pow2_gt",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.pow2_gt"
+        },
+        {
+          "local_name": "tz_npair",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.tz_npair"
+        },
+        {
+          "local_name": "unpair_npair",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestEvalNat.unpair_npair"
+        },
+        {
+          "local_name": "sp_wf",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.sp_wf"
+        },
+        {
+          "local_name": "run_stable",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.run_stable"
+        },
+        {
+          "local_name": "hfun_mono",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestEvalNat.hfun_mono"
+        },
+        {
+          "local_name": "run_det",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalNat.run_det"
+        },
+        {
+          "local_name": "hfun_sem",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestEvalNat.hfun_sem"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/VMGuestEvalTuple.v",
+      "qualified_module": "Kernel.VMGuestEvalTuple",
+      "addressable_count": 10,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "tget_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalTuple.tget_spec"
+        },
+        {
+          "local_name": "tset_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalTuple.tset_spec"
+        },
+        {
+          "local_name": "tnext_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalTuple.tnext_spec"
+        },
+        {
+          "local_name": "tstep_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalTuple.tstep_spec"
+        },
+        {
+          "local_name": "trun_spec",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestEvalTuple.trun_spec"
+        },
+        {
+          "local_name": "tinput_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalTuple.tinput_spec"
+        },
+        {
+          "local_name": "tpack_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalTuple.tpack_spec"
+        },
+        {
+          "local_name": "gpay_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalTuple.gpay_spec"
+        },
+        {
+          "local_name": "gencT_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestEvalTuple.gencT_spec"
+        },
+        {
+          "local_name": "thfun_spec",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestEvalTuple.thfun_spec"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/VMGuestExactEpilogue.v",
+      "qualified_module": "Kernel.VMGuestExactEpilogue",
+      "addressable_count": 28,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "pow2_eq",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.pow2_eq"
+        },
+        {
+          "local_name": "u_shr_div",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.u_shr_div"
+        },
+        {
+          "local_name": "u_shl_mul",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.u_shl_mul"
+        },
+        {
+          "local_name": "u_and_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.u_and_one"
+        },
+        {
+          "local_name": "pow2_ne0",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.pow2_ne0"
+        },
+        {
+          "local_name": "div_low",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.div_low"
+        },
+        {
+          "local_name": "tz_odd_mod",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.tz_odd_mod"
+        },
+        {
+          "local_name": "tz_odd_div",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.tz_odd_div"
+        },
+        {
+          "local_name": "tz_even_mod",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.tz_even_mod"
+        },
+        {
+          "local_name": "tz_even_div",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.tz_even_div"
+        },
+        {
+          "local_name": "tz_s0",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.tz_s0"
+        },
+        {
+          "local_name": "tz_s1",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.tz_s1"
+        },
+        {
+          "local_name": "tz_s2",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.tz_s2"
+        },
+        {
+          "local_name": "tz_s3_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.tz_s3_zero"
+        },
+        {
+          "local_name": "tz_s3_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.tz_s3_one"
+        },
+        {
+          "local_name": "tz_s4",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.tz_s4"
+        },
+        {
+          "local_name": "tz_s5",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.tz_s5"
+        },
+        {
+          "local_name": "tz_s6",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.tz_s6"
+        },
+        {
+          "local_name": "tz_s7",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.tz_s7"
+        },
+        {
+          "local_name": "tz_loop",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.tz_loop"
+        },
+        {
+          "local_name": "tz_block_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.tz_block_run"
+        },
+        {
+          "local_name": "g_exact_epilogue_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.g_exact_epilogue_length"
+        },
+        {
+          "local_name": "g_exact_epilogue_wf",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.g_exact_epilogue_wf"
+        },
+        {
+          "local_name": "g_exact_epilogue_emb0",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.g_exact_epilogue_emb0"
+        },
+        {
+          "local_name": "g_exact_epilogue_emb8",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.g_exact_epilogue_emb8"
+        },
+        {
+          "local_name": "g_unpack_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestExactEpilogue.g_unpack_run"
+        },
+        {
+          "local_name": "g_exact_epilogue_run",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestExactEpilogue.g_exact_epilogue_run"
+        },
+        {
+          "local_name": "g_out_pack_inj",
+          "kind": "Corollary",
+          "full_name": "Kernel.VMGuestExactEpilogue.g_out_pack_inj"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/VMGuestMMAInit.v",
+      "qualified_module": "Kernel.VMGuestMMAInit",
+      "addressable_count": 22,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "mma_init_start_cons",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.mma_init_start_cons"
+        },
+        {
+          "local_name": "mma_enc_closed",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.mma_enc_closed"
+        },
+        {
+          "local_name": "mma_enc_step_pos",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.mma_enc_step_pos"
+        },
+        {
+          "local_name": "mma_tower_0",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.mma_tower_0"
+        },
+        {
+          "local_name": "mma_tower_S",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.mma_tower_S"
+        },
+        {
+          "local_name": "mma_iter_shift",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.mma_iter_shift"
+        },
+        {
+          "local_name": "mma_vec_pos_const",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.mma_vec_pos_const"
+        },
+        {
+          "local_name": "mma_shape_start",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.mma_shape_start"
+        },
+        {
+          "local_name": "mma_shape_extend",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.mma_shape_extend"
+        },
+        {
+          "local_name": "mma_shape_cast",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.mma_shape_cast"
+        },
+        {
+          "local_name": "mma_shape_pack",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.mma_shape_pack"
+        },
+        {
+          "local_name": "mma_shape_pack_all",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.mma_shape_pack_all"
+        },
+        {
+          "local_name": "mma_shape_start3",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.mma_shape_start3"
+        },
+        {
+          "local_name": "mma_init_target_closed",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestMMAInit.mma_init_target_closed"
+        },
+        {
+          "local_name": "mma_init_target_tower",
+          "kind": "Corollary",
+          "full_name": "Kernel.VMGuestMMAInit.mma_init_target_tower"
+        },
+        {
+          "local_name": "g_mma_init_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.g_mma_init_length"
+        },
+        {
+          "local_name": "g_mma_init_wf",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.g_mma_init_wf"
+        },
+        {
+          "local_name": "g_mma_init_cost_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.g_mma_init_cost_zero"
+        },
+        {
+          "local_name": "g_mma_init_inner",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.g_mma_init_inner"
+        },
+        {
+          "local_name": "g_mma_init_outer",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAInit.g_mma_init_outer"
+        },
+        {
+          "local_name": "g_mma_init_run",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestMMAInit.g_mma_init_run"
+        },
+        {
+          "local_name": "g_mma_init_run_closed",
+          "kind": "Corollary",
+          "full_name": "Kernel.VMGuestMMAInit.g_mma_init_run_closed"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/VMGuestMMAPipeline.v",
+      "qualified_module": "Kernel.VMGuestMMAPipeline",
+      "addressable_count": 39,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "g_beh_from_input",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_beh_from_input"
+        },
+        {
+          "local_name": "g_beh_from_shift",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_beh_from_shift"
+        },
+        {
+          "local_name": "g_beh_from_terminal",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_beh_from_terminal"
+        },
+        {
+          "local_name": "g_first_terminal",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_first_terminal"
+        },
+        {
+          "local_name": "g_run_prefix",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_run_prefix"
+        },
+        {
+          "local_name": "rconf_terminal",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.rconf_terminal"
+        },
+        {
+          "local_name": "reloc_reach_end",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.reloc_reach_end"
+        },
+        {
+          "local_name": "reloc_live",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.reloc_live"
+        },
+        {
+          "local_name": "reloc_beh_needs",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.reloc_beh_needs"
+        },
+        {
+          "local_name": "reloc_tail_beh",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.reloc_tail_beh"
+        },
+        {
+          "local_name": "g_next_mu",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_next_mu"
+        },
+        {
+          "local_name": "g_run_mu_cost0",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_run_mu_cost0"
+        },
+        {
+          "local_name": "mma3_compile_aux_cost0",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.mma3_compile_aux_cost0"
+        },
+        {
+          "local_name": "mma3_compile_cost0",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.mma3_compile_cost0"
+        },
+        {
+          "local_name": "reloc_cost0",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.reloc_cost0"
+        },
+        {
+          "local_name": "mma_steps_split",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.mma_steps_split"
+        },
+        {
+          "local_name": "mma_back_sim",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.mma_back_sim"
+        },
+        {
+          "local_name": "mma_with_output_term",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.mma_with_output_term"
+        },
+        {
+          "local_name": "mma_cast_term",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.mma_cast_term"
+        },
+        {
+          "local_name": "mma_reduce_all_term",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.mma_reduce_all_term"
+        },
+        {
+          "local_name": "mma3_swap_instr_involutive",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.mma3_swap_instr_involutive"
+        },
+        {
+          "local_name": "mma3_swap_program_involutive",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.mma3_swap_program_involutive"
+        },
+        {
+          "local_name": "mma3_swap_term",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.mma3_swap_term"
+        },
+        {
+          "local_name": "mma3_guest_back",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.mma3_guest_back"
+        },
+        {
+          "local_name": "mma_pipe_reverse",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestMMAPipeline.mma_pipe_reverse"
+        },
+        {
+          "local_name": "mma_pipe_forward",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestMMAPipeline.mma_pipe_forward"
+        },
+        {
+          "local_name": "g_pipeline_wf",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_pipeline_wf"
+        },
+        {
+          "local_name": "g_pipeline_prefix_cost0",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_pipeline_prefix_cost0"
+        },
+        {
+          "local_name": "g_pipeline_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_pipeline_length"
+        },
+        {
+          "local_name": "g_pipeline_embeds_code",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_pipeline_embeds_code"
+        },
+        {
+          "local_name": "g_pipeline_embeds_epi",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_pipeline_embeds_epi"
+        },
+        {
+          "local_name": "g_pipeline_init",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_pipeline_init"
+        },
+        {
+          "local_name": "epi_from_any",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.epi_from_any"
+        },
+        {
+          "local_name": "epi_beh_pack",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.epi_beh_pack"
+        },
+        {
+          "local_name": "g_pipeline_beh_via",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_pipeline_beh_via"
+        },
+        {
+          "local_name": "g_pipeline_beh",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_pipeline_beh"
+        },
+        {
+          "local_name": "g_pipeline_diverges",
+          "kind": "Corollary",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_pipeline_diverges"
+        },
+        {
+          "local_name": "g_pipeline_beh_pack",
+          "kind": "Corollary",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_pipeline_beh_pack"
+        },
+        {
+          "local_name": "g_pipeline_halts_pack",
+          "kind": "Corollary",
+          "full_name": "Kernel.VMGuestMMAPipeline.g_pipeline_halts_pack"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/VMGuestRecursion.v",
+      "qualified_module": "Kernel.VMGuestRecursion",
+      "addressable_count": 28,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "g_zero_instr_wf",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_zero_instr_wf"
+        },
+        {
+          "local_name": "g_zero_program_wf",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_zero_program_wf"
+        },
+        {
+          "local_name": "g_zero_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_zero_step"
+        },
+        {
+          "local_name": "g_zero_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_zero_run"
+        },
+        {
+          "local_name": "g_zero_terminal",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_zero_terminal"
+        },
+        {
+          "local_name": "g_zero_behaviour",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestRecursion.g_zero_behaviour"
+        },
+        {
+          "local_name": "g_pair_prefix_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_prefix_length"
+        },
+        {
+          "local_name": "g_pair_prefix_wf",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_prefix_wf"
+        },
+        {
+          "local_name": "g_pair_specialize_wf",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_specialize_wf"
+        },
+        {
+          "local_name": "g_pair_specialize_nth_prefix",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_specialize_nth_prefix"
+        },
+        {
+          "local_name": "g_pair_step_0",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_step_0"
+        },
+        {
+          "local_name": "g_pair_step_1",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_step_1"
+        },
+        {
+          "local_name": "g_pair_step_2",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_step_2"
+        },
+        {
+          "local_name": "g_pair_step_3",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_step_3"
+        },
+        {
+          "local_name": "g_pair_setup",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_setup"
+        },
+        {
+          "local_name": "g_pair_step_4_nonzero",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_step_4_nonzero"
+        },
+        {
+          "local_name": "g_pair_step_7",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_step_7"
+        },
+        {
+          "local_name": "g_pair_step_8",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_step_8"
+        },
+        {
+          "local_name": "g_pair_step_9",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_step_9"
+        },
+        {
+          "local_name": "g_pair_loop_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_loop_step"
+        },
+        {
+          "local_name": "g_pair_loop",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_loop"
+        },
+        {
+          "local_name": "g_pair_prefix_run",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_prefix_run"
+        },
+        {
+          "local_name": "g_pair_specialize_embeds",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_specialize_embeds"
+        },
+        {
+          "local_name": "g_pair_specialize_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_specialize_length"
+        },
+        {
+          "local_name": "g_pair_smn",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_smn"
+        },
+        {
+          "local_name": "g_pair_npair",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.g_pair_npair"
+        },
+        {
+          "local_name": "sp_g_pair_specialize",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMGuestRecursion.sp_g_pair_specialize"
+        },
+        {
+          "local_name": "vm_guest_recursion_theorem_closed",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMGuestRecursion.vm_guest_recursion_theorem_closed"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/VMInstructionEncoding.v",
       "qualified_module": "Kernel.VMInstructionEncoding",
       "addressable_count": 9,
@@ -54757,6 +56243,254 @@
           "local_name": "program_to_nat_preserves_instruction_cost",
           "kind": "Lemma",
           "full_name": "Kernel.VMInstructionEncoding.program_to_nat_preserves_instruction_cost"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/VMMMA3GuestCompiler.v",
+      "qualified_module": "Kernel.VMMMA3GuestCompiler",
+      "addressable_count": 18,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "mma3_reg_lt",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMA3GuestCompiler.mma3_reg_lt"
+        },
+        {
+          "local_name": "fin3_cases",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMA3GuestCompiler.fin3_cases"
+        },
+        {
+          "local_name": "mma3_reg_pos0",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMA3GuestCompiler.mma3_reg_pos0"
+        },
+        {
+          "local_name": "mma3_reg_pos1",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMA3GuestCompiler.mma3_reg_pos1"
+        },
+        {
+          "local_name": "mma3_reg_pos2",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMA3GuestCompiler.mma3_reg_pos2"
+        },
+        {
+          "local_name": "mma3_block_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMA3GuestCompiler.mma3_block_length"
+        },
+        {
+          "local_name": "mma3_compile_aux_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMA3GuestCompiler.mma3_compile_aux_length"
+        },
+        {
+          "local_name": "mma3_compile_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMA3GuestCompiler.mma3_compile_length"
+        },
+        {
+          "local_name": "mma3_compile_aux_nth",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMA3GuestCompiler.mma3_compile_aux_nth"
+        },
+        {
+          "local_name": "mma3_compile_nth",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMA3GuestCompiler.mma3_compile_nth"
+        },
+        {
+          "local_name": "mma3_compile_aux_wf",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMA3GuestCompiler.mma3_compile_aux_wf"
+        },
+        {
+          "local_name": "mma3_compile_wf",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMMMA3GuestCompiler.mma3_compile_wf"
+        },
+        {
+          "local_name": "mma3_g_step_blk",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMA3GuestCompiler.mma3_g_step_blk"
+        },
+        {
+          "local_name": "mma3_g_run_blk",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMA3GuestCompiler.mma3_g_run_blk"
+        },
+        {
+          "local_name": "mma3_step_sim",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMA3GuestCompiler.mma3_step_sim"
+        },
+        {
+          "local_name": "mma3_sss_step_fetch",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMA3GuestCompiler.mma3_sss_step_fetch"
+        },
+        {
+          "local_name": "mma3_steps_sim",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMA3GuestCompiler.mma3_steps_sim"
+        },
+        {
+          "local_name": "mma3_compile_output",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMMMA3GuestCompiler.mma3_compile_output"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/VMMMAReduction.v",
+      "qualified_module": "Kernel.VMMMAReduction",
+      "addressable_count": 28,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "mma_cast_program_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma_cast_program_length"
+        },
+        {
+          "local_name": "mma_fin_cast_refl",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma_fin_cast_refl"
+        },
+        {
+          "local_name": "mma_cast_vec_pos",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma_cast_vec_pos"
+        },
+        {
+          "local_name": "mma_cast_pos_index",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma_cast_pos_index"
+        },
+        {
+          "local_name": "mma_cast_output",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma_cast_output"
+        },
+        {
+          "local_name": "mma_pack_vec_sim",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma_pack_vec_sim"
+        },
+        {
+          "local_name": "mma_reduce_once_output",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMMMAReduction.mma_reduce_once_output"
+        },
+        {
+          "local_name": "mma_pos_last_index",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma_pos_last_index"
+        },
+        {
+          "local_name": "mma_epilogue_last_index",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma_epilogue_last_index"
+        },
+        {
+          "local_name": "mma_all_last_index",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma_all_last_index"
+        },
+        {
+          "local_name": "mma_cast_epilogue_last",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma_cast_epilogue_last"
+        },
+        {
+          "local_name": "mma_once_last_is_next",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma_once_last_is_next"
+        },
+        {
+          "local_name": "mma_reduce_all_output",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMMMAReduction.mma_reduce_all_output"
+        },
+        {
+          "local_name": "mma_reduce_all_output_canonical",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMMMAReduction.mma_reduce_all_output_canonical"
+        },
+        {
+          "local_name": "mma_output_to_three",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMMMAReduction.mma_output_to_three"
+        },
+        {
+          "local_name": "mma3_guest_start_rel",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma3_guest_start_rel"
+        },
+        {
+          "local_name": "mma_three_to_guest",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMMMAReduction.mma_three_to_guest"
+        },
+        {
+          "local_name": "mma3_swap_pos_values",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma3_swap_pos_values"
+        },
+        {
+          "local_name": "mma3_swap_pos_involutive",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma3_swap_pos_involutive"
+        },
+        {
+          "local_name": "mma3_swap_vec_lookup",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma3_swap_vec_lookup"
+        },
+        {
+          "local_name": "mma3_swap_vec_involutive",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma3_swap_vec_involutive"
+        },
+        {
+          "local_name": "mma3_swap_vec_change",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma3_swap_vec_change"
+        },
+        {
+          "local_name": "mma3_swap_instr_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma3_swap_instr_step"
+        },
+        {
+          "local_name": "mma3_swap_program_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma3_swap_program_step"
+        },
+        {
+          "local_name": "mma3_swap_program_steps",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMMMAReduction.mma3_swap_program_steps"
+        },
+        {
+          "local_name": "mma3_swap_output",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMMMAReduction.mma3_swap_output"
+        },
+        {
+          "local_name": "mma_three_to_guest_r0",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMMMAReduction.mma_three_to_guest_r0"
+        },
+        {
+          "local_name": "mma_output_to_guest_r0",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMMMAReduction.mma_output_to_guest_r0"
         }
       ],
       "unaddressable": []
@@ -58007,6 +59741,78 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/frontier/EcosystemGame.v",
+      "qualified_module": "Kernel.EcosystemGame",
+      "addressable_count": 11,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "toggle_game_positive",
+          "kind": "Lemma",
+          "full_name": "Kernel.EcosystemGame.toggle_game_positive"
+        },
+        {
+          "local_name": "toggle_game_consensus",
+          "kind": "Lemma",
+          "full_name": "Kernel.EcosystemGame.toggle_game_consensus"
+        },
+        {
+          "local_name": "toggle_game_authentic",
+          "kind": "Lemma",
+          "full_name": "Kernel.EcosystemGame.toggle_game_authentic"
+        },
+        {
+          "local_name": "toggle_game_coordinator_free",
+          "kind": "Lemma",
+          "full_name": "Kernel.EcosystemGame.toggle_game_coordinator_free"
+        },
+        {
+          "local_name": "toggle_game_revokes",
+          "kind": "Lemma",
+          "full_name": "Kernel.EcosystemGame.toggle_game_revokes"
+        },
+        {
+          "local_name": "toggle_game_refutes_strong_pointer_necessity",
+          "kind": "Theorem",
+          "full_name": "Kernel.EcosystemGame.toggle_game_refutes_strong_pointer_necessity"
+        },
+        {
+          "local_name": "durable_consensus_implies_permanence",
+          "kind": "Theorem",
+          "full_name": "Kernel.EcosystemGame.durable_consensus_implies_permanence"
+        },
+        {
+          "local_name": "vm_certification_game_consensus",
+          "kind": "Lemma",
+          "full_name": "Kernel.EcosystemGame.vm_certification_game_consensus"
+        },
+        {
+          "local_name": "vm_certification_game_authentic",
+          "kind": "Lemma",
+          "full_name": "Kernel.EcosystemGame.vm_certification_game_authentic"
+        },
+        {
+          "local_name": "vm_certification_game_durable",
+          "kind": "Lemma",
+          "full_name": "Kernel.EcosystemGame.vm_certification_game_durable"
+        },
+        {
+          "local_name": "vm_certification_is_permanent_consensus",
+          "kind": "Theorem",
+          "full_name": "Kernel.EcosystemGame.vm_certification_is_permanent_consensus"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/frontier/EcosystemGameTarget.v",
+      "qualified_module": "Kernel.EcosystemGameTarget",
+      "addressable_count": 0,
+      "unaddressable_count": 0,
+      "addressable": [],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/frontier/F1_AbstractedBridge.v",
       "qualified_module": "Kernel.F1_AbstractedBridge",
       "addressable_count": 2,
@@ -58285,6 +60091,1220 @@
           "local_name": "pr_box_minor_2_fails_at_minor_1_witness",
           "kind": "Lemma",
           "full_name": "Kernel.F2_PerMinorFromCostCoherent.pr_box_minor_2_fails_at_minor_1_witness"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/frontier/F3_CalibrationObstruction.v",
+      "qualified_module": "Kernel.F3_CalibrationObstruction",
+      "addressable_count": 241,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "lsum_nil",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_nil"
+        },
+        {
+          "local_name": "lsum_cons",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_cons"
+        },
+        {
+          "local_name": "lsum_ext_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_ext_in"
+        },
+        {
+          "local_name": "lsum_ext",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_ext"
+        },
+        {
+          "local_name": "lsum_plus",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_plus"
+        },
+        {
+          "local_name": "lsum_scal",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_scal"
+        },
+        {
+          "local_name": "lsum_const",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_const"
+        },
+        {
+          "local_name": "lsum_le_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_le_in"
+        },
+        {
+          "local_name": "lsum_nonneg_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_nonneg_in"
+        },
+        {
+          "local_name": "lsum_pos",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_pos"
+        },
+        {
+          "local_name": "lsum_pos_exists",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_pos_exists"
+        },
+        {
+          "local_name": "lsum_app",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_app"
+        },
+        {
+          "local_name": "lsum_map",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_map"
+        },
+        {
+          "local_name": "lsum_flat_map",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_flat_map"
+        },
+        {
+          "local_name": "lsum_filter",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_filter"
+        },
+        {
+          "local_name": "lsum_swap",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_swap"
+        },
+        {
+          "local_name": "if_lsum",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.if_lsum"
+        },
+        {
+          "local_name": "INR_nsum",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.INR_nsum"
+        },
+        {
+          "local_name": "ind_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.ind_nonneg"
+        },
+        {
+          "local_name": "triangulated_regions_are_triples",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.triangulated_regions_are_triples"
+        },
+        {
+          "local_name": "graph_lookup_modules_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.graph_lookup_modules_In"
+        },
+        {
+          "local_name": "graph_lookup_modules_some",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.graph_lookup_modules_some"
+        },
+        {
+          "local_name": "graph_lookup_modules_nodup",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.graph_lookup_modules_nodup"
+        },
+        {
+          "local_name": "adjacent_lookup_l",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.adjacent_lookup_l"
+        },
+        {
+          "local_name": "adjacent_lookup_r",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.adjacent_lookup_r"
+        },
+        {
+          "local_name": "lookup_region3",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lookup_region3"
+        },
+        {
+          "local_name": "fold_encoding_mult8",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.fold_encoding_mult8"
+        },
+        {
+          "local_name": "density_form",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.density_form"
+        },
+        {
+          "local_name": "lap_fold_mult8",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lap_fold_mult8"
+        },
+        {
+          "local_name": "mu_laplacian_mult8",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.mu_laplacian_mult8"
+        },
+        {
+          "local_name": "triangle_angle_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.triangle_angle_nonneg"
+        },
+        {
+          "local_name": "sum_angles_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.sum_angles_nonneg"
+        },
+        {
+          "local_name": "triangle_angle_lt_half_pi",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.triangle_angle_lt_half_pi"
+        },
+        {
+          "local_name": "sum_angles_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.sum_angles_le"
+        },
+        {
+          "local_name": "sum_angles_lt",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.sum_angles_lt"
+        },
+        {
+          "local_name": "calibrated_lap_nonpos",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.calibrated_lap_nonpos"
+        },
+        {
+          "local_name": "fold_sum_nonpos",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.fold_sum_nonpos"
+        },
+        {
+          "local_name": "fold_sum_nonpos_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.fold_sum_nonpos_zero"
+        },
+        {
+          "local_name": "F3_calibration_forces_flat_faces",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_forces_flat_faces"
+        },
+        {
+          "local_name": "F3_calibration_forces_five_triangles",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_forces_five_triangles"
+        },
+        {
+          "local_name": "tsum_ext_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tsum_ext_in"
+        },
+        {
+          "local_name": "tsum_ext",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tsum_ext"
+        },
+        {
+          "local_name": "tsum_plus",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tsum_plus"
+        },
+        {
+          "local_name": "tsum_scal",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tsum_scal"
+        },
+        {
+          "local_name": "tsum_le_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tsum_le_in"
+        },
+        {
+          "local_name": "tsum_swap23",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tsum_swap23"
+        },
+        {
+          "local_name": "tsum_swap12",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tsum_swap12"
+        },
+        {
+          "local_name": "tsum_rot",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tsum_rot"
+        },
+        {
+          "local_name": "tsum_rot2",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tsum_rot2"
+        },
+        {
+          "local_name": "tsum_swap13",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tsum_swap13"
+        },
+        {
+          "local_name": "face_tri_swap23",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.face_tri_swap23"
+        },
+        {
+          "local_name": "face_tri_rot",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.face_tri_rot"
+        },
+        {
+          "local_name": "face_tri_rot2",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.face_tri_rot2"
+        },
+        {
+          "local_name": "face_tri_swap12",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.face_tri_swap12"
+        },
+        {
+          "local_name": "face_tri_swap13",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.face_tri_swap13"
+        },
+        {
+          "local_name": "face_tri_true",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.face_tri_true"
+        },
+        {
+          "local_name": "tri_perim_rot",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tri_perim_rot"
+        },
+        {
+          "local_name": "tri_perim_rot2",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tri_perim_rot2"
+        },
+        {
+          "local_name": "dist_nonzero",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.dist_nonzero"
+        },
+        {
+          "local_name": "triangle_angle_swap23",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.triangle_angle_swap23"
+        },
+        {
+          "local_name": "triangle_angle_face",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.triangle_angle_face"
+        },
+        {
+          "local_name": "sum_angles_lsum",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.sum_angles_lsum"
+        },
+        {
+          "local_name": "sum_angles_triple",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.sum_angles_triple"
+        },
+        {
+          "local_name": "total_angle_sum_identity",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.total_angle_sum_identity"
+        },
+        {
+          "local_name": "mass_ge3",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.mass_ge3"
+        },
+        {
+          "local_name": "dist_ge7",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.dist_ge7"
+        },
+        {
+          "local_name": "perim_ge21",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.perim_ge21"
+        },
+        {
+          "local_name": "weight_plus_rem",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.weight_plus_rem"
+        },
+        {
+          "local_name": "rem_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.rem_nonneg"
+        },
+        {
+          "local_name": "rem_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.rem_le"
+        },
+        {
+          "local_name": "weight_pos_rem_pos",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.weight_pos_rem_pos"
+        },
+        {
+          "local_name": "tri_weight_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tri_weight_nonneg"
+        },
+        {
+          "local_name": "tsum_pos_of_witness",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tsum_pos_of_witness"
+        },
+        {
+          "local_name": "F3_calibration_window_R",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_window_R"
+        },
+        {
+          "local_name": "INR_if",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.INR_if"
+        },
+        {
+          "local_name": "INR_face_triangle_count",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.INR_face_triangle_count"
+        },
+        {
+          "local_name": "ind_six",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.ind_six"
+        },
+        {
+          "local_name": "ordered_count_six",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.ordered_count_six"
+        },
+        {
+          "local_name": "F3_calibration_window",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_window"
+        },
+        {
+          "local_name": "share_adjacent",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.share_adjacent"
+        },
+        {
+          "local_name": "share_face_tri",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.share_face_tri"
+        },
+        {
+          "local_name": "norm_edge_sym",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.norm_edge_sym"
+        },
+        {
+          "local_name": "region_edges_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.region_edges_In"
+        },
+        {
+          "local_name": "edge_eq_refl",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.edge_eq_refl"
+        },
+        {
+          "local_name": "list_mem_edge_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.list_mem_edge_In"
+        },
+        {
+          "local_name": "dedup_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.dedup_In"
+        },
+        {
+          "local_name": "collect_edges_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.collect_edges_In"
+        },
+        {
+          "local_name": "count_modules_with_edge_filter",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.count_modules_with_edge_filter"
+        },
+        {
+          "local_name": "cont_lookup",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.cont_lookup"
+        },
+        {
+          "local_name": "no_three_faces_on_edge",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.no_three_faces_on_edge"
+        },
+        {
+          "local_name": "lsum_ind_at_most_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_ind_at_most_one"
+        },
+        {
+          "local_name": "vertex_terms_le_face_tri",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.vertex_terms_le_face_tri"
+        },
+        {
+          "local_name": "tsum_lsum_swap",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tsum_lsum_swap"
+        },
+        {
+          "local_name": "tsum_filter3",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tsum_filter3"
+        },
+        {
+          "local_name": "lsum_eqb_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lsum_eqb_one"
+        },
+        {
+          "local_name": "count_distinct3",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.count_distinct3"
+        },
+        {
+          "local_name": "filter_cont_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.filter_cont_length"
+        },
+        {
+          "local_name": "INR_falling3",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.INR_falling3"
+        },
+        {
+          "local_name": "F3_vertex_triangle_bound",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.F3_vertex_triangle_bound"
+        },
+        {
+          "local_name": "F3_calibration_consequences",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_consequences"
+        },
+        {
+          "local_name": "F3_calibration_forces_degree_inequality",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_forces_degree_inequality"
+        },
+        {
+          "local_name": "falling3_ge_6d",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.falling3_ge_6d"
+        },
+        {
+          "local_name": "nsum_falling3_ge",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_falling3_ge"
+        },
+        {
+          "local_name": "F3_calibration_obstruction_min_degree4",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_obstruction_min_degree4"
+        },
+        {
+          "local_name": "triangles_check",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.triangles_check"
+        },
+        {
+          "local_name": "normalized_check",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.normalized_check"
+        },
+        {
+          "local_name": "manifold_check",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.manifold_check"
+        },
+        {
+          "local_name": "nodup_check",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nodup_check"
+        },
+        {
+          "local_name": "om_well_formed",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.om_well_formed"
+        },
+        {
+          "local_name": "om_nodup",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.om_nodup"
+        },
+        {
+          "local_name": "F3_degree_route_insufficient",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.F3_degree_route_insufficient"
+        },
+        {
+          "local_name": "F3_om_not_calibrated",
+          "kind": "Corollary",
+          "full_name": "Kernel.F3_CalibrationObstruction.F3_om_not_calibrated"
+        },
+        {
+          "local_name": "falling3_tangent",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.falling3_tangent"
+        },
+        {
+          "local_name": "nsum_falling3_tangent",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_falling3_tangent"
+        },
+        {
+          "local_name": "F3_calibration_forces_large_boundary",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_forces_large_boundary"
+        },
+        {
+          "local_name": "F3_calibration_obstruction_closed",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_obstruction_closed"
+        },
+        {
+          "local_name": "nsum_cons",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_cons"
+        },
+        {
+          "local_name": "nsum_nil",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_nil"
+        },
+        {
+          "local_name": "nsum_app",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_app"
+        },
+        {
+          "local_name": "nsum_ext_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_ext_in"
+        },
+        {
+          "local_name": "nsum_plus",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_plus"
+        },
+        {
+          "local_name": "nsum_scal",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_scal"
+        },
+        {
+          "local_name": "nsum_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_zero"
+        },
+        {
+          "local_name": "nsum_swap",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_swap"
+        },
+        {
+          "local_name": "nsum_perm",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_perm"
+        },
+        {
+          "local_name": "nsum_filter",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_filter"
+        },
+        {
+          "local_name": "nsum_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_length"
+        },
+        {
+          "local_name": "nsum_const",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_const"
+        },
+        {
+          "local_name": "nsum_indicator_sub",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_indicator_sub"
+        },
+        {
+          "local_name": "length_filter_split",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.length_filter_split"
+        },
+        {
+          "local_name": "length_same_elements",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.length_same_elements"
+        },
+        {
+          "local_name": "double_count",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.double_count"
+        },
+        {
+          "local_name": "grown_root",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.grown_root"
+        },
+        {
+          "local_name": "grown_reach",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.grown_reach"
+        },
+        {
+          "local_name": "bfs_aux",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.bfs_aux"
+        },
+        {
+          "local_name": "bfs",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.bfs"
+        },
+        {
+          "local_name": "norm_edge_inv",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.norm_edge_inv"
+        },
+        {
+          "local_name": "norm_edge_lt",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.norm_edge_lt"
+        },
+        {
+          "local_name": "norm_edge_fst_snd",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.norm_edge_fst_snd"
+        },
+        {
+          "local_name": "norm_edge_swap_fst_snd",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.norm_edge_swap_fst_snd"
+        },
+        {
+          "local_name": "norm_edge_ends",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.norm_edge_ends"
+        },
+        {
+          "local_name": "grown_edges",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.grown_edges"
+        },
+        {
+          "local_name": "edge_eq_true",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.edge_eq_true"
+        },
+        {
+          "local_name": "list_mem_edge_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.list_mem_edge_iff"
+        },
+        {
+          "local_name": "connected_edge_count",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.connected_edge_count"
+        },
+        {
+          "local_name": "cut_or_count",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.cut_or_count"
+        },
+        {
+          "local_name": "tri_ok_of_wf",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tri_ok_of_wf"
+        },
+        {
+          "local_name": "NoDup_app_disj",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.NoDup_app_disj"
+        },
+        {
+          "local_name": "collect_nodes_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.collect_nodes_In"
+        },
+        {
+          "local_name": "vertices_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.vertices_In"
+        },
+        {
+          "local_name": "vertices_NoDup",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.vertices_NoDup"
+        },
+        {
+          "local_name": "region_edges_inv",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.region_edges_inv"
+        },
+        {
+          "local_name": "region_edges_inv_nodup",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.region_edges_inv_nodup"
+        },
+        {
+          "local_name": "norm_edge_In_fst",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.norm_edge_In_fst"
+        },
+        {
+          "local_name": "norm_edge_In_snd",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.norm_edge_In_snd"
+        },
+        {
+          "local_name": "region_edges_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.region_edges_iff"
+        },
+        {
+          "local_name": "map_norm_nodup",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.map_norm_nodup"
+        },
+        {
+          "local_name": "region_edges_nodup",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.region_edges_nodup"
+        },
+        {
+          "local_name": "region_edges_length3",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.region_edges_length3"
+        },
+        {
+          "local_name": "collect_edges_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.collect_edges_iff"
+        },
+        {
+          "local_name": "dedup_In_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.dedup_In_iff"
+        },
+        {
+          "local_name": "dedup_NoDup",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.dedup_NoDup"
+        },
+        {
+          "local_name": "edges_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.edges_In"
+        },
+        {
+          "local_name": "edges_NoDup",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.edges_NoDup"
+        },
+        {
+          "local_name": "count_modules_with_edge_nsum",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.count_modules_with_edge_nsum"
+        },
+        {
+          "local_name": "count_incident_nsum",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.count_incident_nsum"
+        },
+        {
+          "local_name": "sum_degrees_nsum",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.sum_degrees_nsum"
+        },
+        {
+          "local_name": "count_boundary_filter",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.count_boundary_filter"
+        },
+        {
+          "local_name": "module_edges_props",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.module_edges_props"
+        },
+        {
+          "local_name": "degree_sum_general",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.degree_sum_general"
+        },
+        {
+          "local_name": "edge_sum_general",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.edge_sum_general"
+        },
+        {
+          "local_name": "nsum_one_two",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_one_two"
+        },
+        {
+          "local_name": "edges_faces_boundary",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.edges_faces_boundary"
+        },
+        {
+          "local_name": "cont_entry",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.cont_entry"
+        },
+        {
+          "local_name": "cont_true_entry",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.cont_true_entry"
+        },
+        {
+          "local_name": "ein_norm",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.ein_norm"
+        },
+        {
+          "local_name": "ein_entry",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.ein_entry"
+        },
+        {
+          "local_name": "ein_edges",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.ein_edges"
+        },
+        {
+          "local_name": "edges_ein",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.edges_ein"
+        },
+        {
+          "local_name": "ein_count2",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.ein_count2"
+        },
+        {
+          "local_name": "three_faces_ein",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.three_faces_ein"
+        },
+        {
+          "local_name": "share_edge_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.share_edge_spec"
+        },
+        {
+          "local_name": "share_edge_intro",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.share_edge_intro"
+        },
+        {
+          "local_name": "third_vertex",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.third_vertex"
+        },
+        {
+          "local_name": "euler_inv",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.euler_inv"
+        },
+        {
+          "local_name": "nsum_even",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_even"
+        },
+        {
+          "local_name": "nsum_odd_one",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nsum_odd_one"
+        },
+        {
+          "local_name": "cross_three",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.cross_three"
+        },
+        {
+          "local_name": "euler_component",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.euler_component"
+        },
+        {
+          "local_name": "lookup_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.lookup_restrict"
+        },
+        {
+          "local_name": "ids_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.ids_restrict"
+        },
+        {
+          "local_name": "restrict_entry",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.restrict_entry"
+        },
+        {
+          "local_name": "cont_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.cont_restrict"
+        },
+        {
+          "local_name": "share_edge_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.share_edge_restrict"
+        },
+        {
+          "local_name": "tri_ok_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.tri_ok_restrict"
+        },
+        {
+          "local_name": "triangles_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.triangles_restrict"
+        },
+        {
+          "local_name": "normalized_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.normalized_restrict"
+        },
+        {
+          "local_name": "nodup_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nodup_restrict"
+        },
+        {
+          "local_name": "count_edge_filter_le",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.count_edge_filter_le"
+        },
+        {
+          "local_name": "count_edge_pos",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.count_edge_pos"
+        },
+        {
+          "local_name": "manifold_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.manifold_restrict"
+        },
+        {
+          "local_name": "q_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.q_In"
+        },
+        {
+          "local_name": "adj_closed",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.adj_closed"
+        },
+        {
+          "local_name": "adj_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.adj_restrict"
+        },
+        {
+          "local_name": "filter_filter_drop",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.filter_filter_drop"
+        },
+        {
+          "local_name": "neighbors_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.neighbors_restrict"
+        },
+        {
+          "local_name": "neighbors_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.neighbors_in"
+        },
+        {
+          "local_name": "flat_map_ext_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.flat_map_ext_in"
+        },
+        {
+          "local_name": "triangles_restrict_eq",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.triangles_restrict_eq"
+        },
+        {
+          "local_name": "triangles_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.triangles_in"
+        },
+        {
+          "local_name": "mass_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.mass_restrict"
+        },
+        {
+          "local_name": "dist_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.dist_restrict"
+        },
+        {
+          "local_name": "angle_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.angle_restrict"
+        },
+        {
+          "local_name": "sum_angles_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.sum_angles_restrict"
+        },
+        {
+          "local_name": "density_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.density_restrict"
+        },
+        {
+          "local_name": "fold_left_ext_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.fold_left_ext_in"
+        },
+        {
+          "local_name": "laplacian_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.laplacian_restrict"
+        },
+        {
+          "local_name": "residual_restrict",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.residual_restrict"
+        },
+        {
+          "local_name": "link_chain",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.link_chain"
+        },
+        {
+          "local_name": "nat_list_disjoint_false",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.nat_list_disjoint_false"
+        },
+        {
+          "local_name": "adj_common_vertex",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.adj_common_vertex"
+        },
+        {
+          "local_name": "other_vertex",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.other_vertex"
+        },
+        {
+          "local_name": "adj_share_closure",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.adj_share_closure"
+        },
+        {
+          "local_name": "window_nat",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.window_nat"
+        },
+        {
+          "local_name": "component_inequality",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.component_inequality"
+        },
+        {
+          "local_name": "restrict_graph_ext_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.restrict_graph_ext_in"
+        },
+        {
+          "local_name": "restrict_graph_true",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.restrict_graph_true"
+        },
+        {
+          "local_name": "restrict_empty",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.restrict_empty"
+        },
+        {
+          "local_name": "count_edge_union",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.count_edge_union"
+        },
+        {
+          "local_name": "count_edge_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.count_edge_zero"
+        },
+        {
+          "local_name": "length_filter_union",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.length_filter_union"
+        },
+        {
+          "local_name": "restrict_union",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.restrict_union"
+        },
+        {
+          "local_name": "length_filter_and",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.length_filter_and"
+        },
+        {
+          "local_name": "components_sum",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.components_sum"
+        },
+        {
+          "local_name": "F3_calibration_obstruction",
+          "kind": "Theorem",
+          "full_name": "Kernel.F3_CalibrationObstruction.F3_calibration_obstruction"
+        },
+        {
+          "local_name": "link_edge_b_sound",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.link_edge_b_sound"
+        },
+        {
+          "local_name": "link_vertex_b_complete",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.link_vertex_b_complete"
+        },
+        {
+          "local_name": "link_reach_sound",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.link_reach_sound"
+        },
+        {
+          "local_name": "links_connected_check",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.links_connected_check"
+        },
+        {
+          "local_name": "om_links_connected",
+          "kind": "Lemma",
+          "full_name": "Kernel.F3_CalibrationObstruction.om_links_connected"
+        },
+        {
+          "local_name": "F3_obstruction_hypotheses_satisfiable",
+          "kind": "Corollary",
+          "full_name": "Kernel.F3_CalibrationObstruction.F3_obstruction_hypotheses_satisfiable"
         }
       ],
       "unaddressable": []
@@ -60783,7 +63803,7 @@
     {
       "file": "coq/kernel/nfi/EventGenericAudit.v",
       "qualified_module": "Kernel.EventGenericAudit",
-      "addressable_count": 77,
+      "addressable_count": 100,
       "unaddressable_count": 3,
       "addressable": [
         {
@@ -61170,6 +64190,121 @@
           "local_name": "current_schedule_not_globally_cert_priced",
           "kind": "Lemma",
           "full_name": "Kernel.EventGenericAudit.current_schedule_not_globally_cert_priced"
+        },
+        {
+          "local_name": "door_uniform_value",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.door_uniform_value"
+        },
+        {
+          "local_name": "door_uniform_distribution",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.door_uniform_distribution"
+        },
+        {
+          "local_name": "door_uniform_positive",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.door_uniform_positive"
+        },
+        {
+          "local_name": "door_uniform_support",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.door_uniform_support"
+        },
+        {
+          "local_name": "door_log2_two",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.door_log2_two"
+        },
+        {
+          "local_name": "door_open_push_entropy_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.door_open_push_entropy_zero"
+        },
+        {
+          "local_name": "door_wait_push_same",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.door_wait_push_same"
+        },
+        {
+          "local_name": "step_wait_entropy_invariant",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.step_wait_entropy_invariant"
+        },
+        {
+          "local_name": "door_entropy_priced",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.door_entropy_priced"
+        },
+        {
+          "local_name": "door_bool_nodup_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.door_bool_nodup_length"
+        },
+        {
+          "local_name": "door_open_image_size",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.door_open_image_size"
+        },
+        {
+          "local_name": "door_wait_image_size",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.door_wait_image_size"
+        },
+        {
+          "local_name": "door_compression_priced",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.door_compression_priced"
+        },
+        {
+          "local_name": "closed_permanent_step_entropy_ceiling",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.closed_permanent_step_entropy_ceiling"
+        },
+        {
+          "local_name": "closed_permanent_step_entropy_drop",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.closed_permanent_step_entropy_drop"
+        },
+        {
+          "local_name": "closed_permanent_flip_full_support_entropy_drop_positive",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.closed_permanent_flip_full_support_entropy_drop_positive"
+        },
+        {
+          "local_name": "closed_a2_from_entropy_price_and_permanence",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.closed_a2_from_entropy_price_and_permanence"
+        },
+        {
+          "local_name": "closed_entropy_priced_trace_floor",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.closed_entropy_priced_trace_floor"
+        },
+        {
+          "local_name": "closed_a2_from_compression_price_and_permanence",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.closed_a2_from_compression_price_and_permanence"
+        },
+        {
+          "local_name": "closed_compression_priced_trace_floor",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.closed_compression_priced_trace_floor"
+        },
+        {
+          "local_name": "closed_permanent_flips_compression_bound",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.closed_permanent_flips_compression_bound"
+        },
+        {
+          "local_name": "closed_permanent_flips_log_bound",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.closed_permanent_flips_log_bound"
+        },
+        {
+          "local_name": "closed_shadow_floor_overcharges",
+          "kind": "Lemma",
+          "full_name": "Kernel.EventGenericAudit.closed_shadow_floor_overcharges"
         }
       ],
       "unaddressable": [
@@ -67503,7 +70638,7 @@
     {
       "file": "coq/kernel/reductions/CasperFFG.v",
       "qualified_module": "Kernel.CasperFFG",
-      "addressable_count": 18,
+      "addressable_count": 19,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -67557,9 +70692,14 @@
           "full_name": "Kernel.CasperFFG.crossing_link_slashes"
         },
         {
-          "local_name": "same_epoch_same_block",
+          "local_name": "same_epoch_distinct_slashes",
           "kind": "Lemma",
-          "full_name": "Kernel.CasperFFG.same_epoch_same_block"
+          "full_name": "Kernel.CasperFFG.same_epoch_distinct_slashes"
+        },
+        {
+          "local_name": "distinct_justified_same_epoch_slashes",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperFFG.distinct_justified_same_epoch_slashes"
         },
         {
           "local_name": "distinct_justified_epochs",
@@ -67595,6 +70735,115 @@
           "local_name": "accountable_safety",
           "kind": "Theorem",
           "full_name": "Kernel.CasperFFG.accountable_safety"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/reductions/CasperForkWitness.v",
+      "qualified_module": "Kernel.CasperForkWitness",
+      "addressable_count": 20,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "all_validators_complete",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.all_validators_complete"
+        },
+        {
+          "local_name": "weight_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.weight_length"
+        },
+        {
+          "local_name": "nodup_app_disjoint",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.nodup_app_disjoint"
+        },
+        {
+          "local_name": "two_thirds_lists_meet",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.two_thirds_lists_meet"
+        },
+        {
+          "local_name": "fork_quorums_intersection",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.fork_quorums_intersection"
+        },
+        {
+          "local_name": "fork_at_most_one_parent",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.fork_at_most_one_parent"
+        },
+        {
+          "local_name": "ancestors_parent_closed",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.ancestors_parent_closed"
+        },
+        {
+          "local_name": "hash_ancestor_in",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.hash_ancestor_in"
+        },
+        {
+          "local_name": "q_branch_a_quorum",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.q_branch_a_quorum"
+        },
+        {
+          "local_name": "q_branch_b_quorum",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.q_branch_b_quorum"
+        },
+        {
+          "local_name": "one_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.one_step"
+        },
+        {
+          "local_name": "finalized_a",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.finalized_a"
+        },
+        {
+          "local_name": "finalized_b",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.finalized_b"
+        },
+        {
+          "local_name": "b1_not_ancestor_a1",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.b1_not_ancestor_a1"
+        },
+        {
+          "local_name": "a1_not_ancestor_b1",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.a1_not_ancestor_b1"
+        },
+        {
+          "local_name": "casper_fork_exists",
+          "kind": "Theorem",
+          "full_name": "Kernel.CasperForkWitness.casper_fork_exists"
+        },
+        {
+          "local_name": "vote_va",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.vote_va"
+        },
+        {
+          "local_name": "vote_vc",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.vote_vc"
+        },
+        {
+          "local_name": "two_link_voter_not_slashed",
+          "kind": "Lemma",
+          "full_name": "Kernel.CasperForkWitness.two_link_voter_not_slashed"
+        },
+        {
+          "local_name": "casper_fork_slashable",
+          "kind": "Theorem",
+          "full_name": "Kernel.CasperForkWitness.casper_fork_slashable"
         }
       ],
       "unaddressable": []
@@ -68368,6 +71617,68 @@
           "full_name": "Kernel.BekensteinCalibration.natural_units_consistency"
         }
       ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/thermodynamic/CalorimeterProtocol.v",
+      "qualified_module": "Kernel.CalorimeterProtocol",
+      "addressable_count": 9,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "canonical_reset_satisfies_master_equation",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalorimeterProtocol.canonical_reset_satisfies_master_equation"
+        },
+        {
+          "local_name": "canonical_reset_heat_exact",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalorimeterProtocol.canonical_reset_heat_exact"
+        },
+        {
+          "local_name": "selected_gap_gives_landauer_heat",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalorimeterProtocol.selected_gap_gives_landauer_heat"
+        },
+        {
+          "local_name": "ln_two_positive",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalorimeterProtocol.ln_two_positive"
+        },
+        {
+          "local_name": "smaller_gap_refutes_unconditional_landauer_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalorimeterProtocol.smaller_gap_refutes_unconditional_landauer_floor"
+        },
+        {
+          "local_name": "master_equation_does_not_fix_heat_scale",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalorimeterProtocol.master_equation_does_not_fix_heat_scale"
+        },
+        {
+          "local_name": "canonical_reset_is_one_mu",
+          "kind": "Lemma",
+          "full_name": "Kernel.CalorimeterProtocol.canonical_reset_is_one_mu"
+        },
+        {
+          "local_name": "vm_minimal_certification_charges_canonical_reset_mu",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalorimeterProtocol.vm_minimal_certification_charges_canonical_reset_mu"
+        },
+        {
+          "local_name": "vm_certification_charges_at_least_canonical_reset_mu",
+          "kind": "Theorem",
+          "full_name": "Kernel.CalorimeterProtocol.vm_certification_charges_at_least_canonical_reset_mu"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/thermodynamic/CalorimeterProtocolTarget.v",
+      "qualified_module": "Kernel.CalorimeterProtocolTarget",
+      "addressable_count": 0,
+      "unaddressable_count": 0,
+      "addressable": [],
       "unaddressable": []
     },
     {
@@ -69260,6 +72571,62 @@
           "kind": "Theorem",
           "reason": "functor",
           "full_name_unaddressable": "NoFI.MuChaitinTheory_Theorem.MuChaitinTheory.proves_bits_bounded_by_description"
+        }
+      ]
+    },
+    {
+      "file": "coq/nofi/MuChaitinTheory_TraceLocal.v",
+      "qualified_module": "NoFI.MuChaitinTheory_TraceLocal",
+      "addressable_count": 8,
+      "unaddressable_count": 1,
+      "addressable": [
+        {
+          "local_name": "supra_cert_setter_in_trace",
+          "kind": "Lemma",
+          "full_name": "NoFI.MuChaitinTheory_TraceLocal.supra_cert_setter_in_trace"
+        },
+        {
+          "local_name": "supra_cert_paid_payload_trace_local",
+          "kind": "Theorem",
+          "full_name": "NoFI.MuChaitinTheory_TraceLocal.supra_cert_paid_payload_trace_local"
+        },
+        {
+          "local_name": "KernelTraceInstance.clean_start",
+          "kind": "Lemma",
+          "full_name": "NoFI.MuChaitinTheory_TraceLocal.KernelTraceInstance.clean_start"
+        },
+        {
+          "local_name": "KernelTraceInstance.priced_on_traces",
+          "kind": "Lemma",
+          "full_name": "NoFI.MuChaitinTheory_TraceLocal.KernelTraceInstance.priced_on_traces"
+        },
+        {
+          "local_name": "KernelTraceInstance.morph_run",
+          "kind": "Lemma",
+          "full_name": "NoFI.MuChaitinTheory_TraceLocal.KernelTraceInstance.morph_run"
+        },
+        {
+          "local_name": "KernelTraceInstance.proves_bits_witness",
+          "kind": "Lemma",
+          "full_name": "NoFI.MuChaitinTheory_TraceLocal.KernelTraceInstance.proves_bits_witness"
+        },
+        {
+          "local_name": "kernel_trace_instance_bound",
+          "kind": "Theorem",
+          "full_name": "NoFI.MuChaitinTheory_TraceLocal.kernel_trace_instance_bound"
+        },
+        {
+          "local_name": "kernel_trace_instance_inhabited",
+          "kind": "Theorem",
+          "full_name": "NoFI.MuChaitinTheory_TraceLocal.kernel_trace_instance_inhabited"
+        }
+      ],
+      "unaddressable": [
+        {
+          "local_name": "MuChaitinTraceLocal.proves_bits_bounded_by_description_trace_local",
+          "kind": "Theorem",
+          "reason": "functor",
+          "full_name_unaddressable": "NoFI.MuChaitinTheory_TraceLocal.MuChaitinTraceLocal.proves_bits_bounded_by_description_trace_local"
         }
       ]
     },

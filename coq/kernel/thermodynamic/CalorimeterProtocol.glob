@@ -1,152 +1,218 @@
-DIGEST 1407fd5c6af47cd3b85f0fd04348455c
+DIGEST e9af92c830181cc053224c0dfc28c7e9
 FKernel.CalorimeterProtocol
 R137:141 Coq.Reals.Reals <> <> lib
 R143:145 Coq.micromega.Lra <> <> lib
-R175:199 Kernel.CalorimeterProtocolTarget <> <> lib
-prf 238:278 <> canonical_reset_satisfies_master_equation
-R381:383 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R284:294 Kernel.CalorimeterProtocolTarget <> master_next def
-R296:313 Kernel.CalorimeterProtocolTarget <> canonical_reset_dt def
-R315:333 Kernel.CalorimeterProtocolTarget <> canonical_reset_k01 def
-R335:353 Kernel.CalorimeterProtocolTarget <> canonical_reset_k10 def
-R359:380 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
-R384:404 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
-R423:433 Kernel.CalorimeterProtocolTarget <> master_next def
-R436:453 Kernel.CalorimeterProtocolTarget <> canonical_reset_dt def
-R456:474 Kernel.CalorimeterProtocolTarget <> canonical_reset_k01 def
-R481:499 Kernel.CalorimeterProtocolTarget <> canonical_reset_k10 def
-R502:523 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
-R526:546 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
-prf 572:597 <> canonical_reset_heat_exact
-binder 608:612 <> Delta:1
-R699:701 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R617:643 Kernel.CalorimeterProtocolTarget <> bath_heat_fixed_hamiltonian def
-R645:649 Kernel.CalorimeterProtocol <> Delta:1 var
-R651:672 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
-R678:698 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
-R707:709 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R702:706 Kernel.CalorimeterProtocol <> Delta:1 var
-R744:770 Kernel.CalorimeterProtocolTarget <> bath_heat_fixed_hamiltonian def
-R773:792 Kernel.CalorimeterProtocolTarget <> mean_register_energy def
-R799:820 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
-R823:843 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
-prf 869:900 <> selected_gap_gives_landauer_heat
-binder 911:913 <> k_B:2
-binder 915:915 <> T:3
-R1017:1019 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R920:946 Kernel.CalorimeterProtocolTarget <> bath_heat_fixed_hamiltonian def
-R960:962 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R956:958 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R950:952 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R953:955 Kernel.CalorimeterProtocol <> k_B:2 var
-R959:959 Kernel.CalorimeterProtocol <> T:3 var
-R963:964 Coq.Reals.Rpower <> ln def
-R973:994 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
-R996:1016 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
-R1027:1029 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R1023:1025 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R1020:1022 Kernel.CalorimeterProtocol <> k_B:2 var
-R1026:1026 Kernel.CalorimeterProtocol <> T:3 var
-R1030:1031 Coq.Reals.Rpower <> ln def
-R1067:1092 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
-R1067:1092 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
-R1067:1092 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
-prf 1114:1128 <> ln_two_positive
-R1133:1135 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R1136:1137 Coq.Reals.Rpower <> ln def
-R1162:1165 Coq.Reals.Rpower <> ln_1 thm
-R1162:1165 Coq.Reals.Rpower <> ln_1 thm
-R1162:1165 Coq.Reals.Rpower <> ln_1 thm
-R1174:1186 Coq.Reals.Rpower <> ln_increasing thm
-R1174:1186 Coq.Reals.Rpower <> ln_increasing thm
-prf 1208:1255 <> smaller_gap_refutes_unconditional_landauer_floor
-binder 1266:1268 <> k_B:4
-binder 1270:1270 <> T:5
-R1282:1285 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1276:1278 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R1279:1281 Kernel.CalorimeterProtocol <> k_B:4 var
-R1291:1296 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1287:1289 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R1290:1290 Kernel.CalorimeterProtocol <> T:5 var
-R1390:1392 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R1297:1323 Kernel.CalorimeterProtocolTarget <> bath_heat_fixed_hamiltonian def
-R1333:1335 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R1329:1331 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R1326:1328 Kernel.CalorimeterProtocol <> k_B:4 var
-R1332:1332 Kernel.CalorimeterProtocol <> T:5 var
-R1336:1337 Coq.Reals.Rpower <> ln def
-R1346:1367 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
-R1369:1389 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
-R1400:1402 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R1396:1398 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R1393:1395 Kernel.CalorimeterProtocol <> k_B:4 var
-R1399:1399 Kernel.CalorimeterProtocol <> T:5 var
-R1403:1404 Coq.Reals.Rpower <> ln def
-R1448:1473 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
-R1448:1473 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
-R1448:1473 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
-R1496:1498 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R1506:1508 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R1502:1504 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R1509:1510 Coq.Reals.Rpower <> ln def
-R1496:1498 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R1506:1508 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R1502:1504 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R1509:1510 Coq.Reals.Rpower <> ln def
-R1526:1542 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
-R1526:1542 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
-R1557:1573 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
-R1557:1573 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
-R1600:1614 Kernel.CalorimeterProtocol <> ln_two_positive thm
-R1600:1614 Kernel.CalorimeterProtocol <> ln_two_positive thm
-prf 1745:1783 <> master_equation_does_not_fix_heat_scale
-R1789:1795 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1809:1814 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 1796:1801 <> Delta1:6
-binder 1803:1808 <> Delta2:7
-R1831:1838 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1821:1824 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R1815:1820 Kernel.CalorimeterProtocol <> Delta1:6 var
-R1825:1830 Kernel.CalorimeterProtocol <> Delta2:7 var
-R1962:1969 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1938:1940 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1839:1849 Kernel.CalorimeterProtocolTarget <> master_next def
-R1851:1868 Kernel.CalorimeterProtocolTarget <> canonical_reset_dt def
-R1870:1888 Kernel.CalorimeterProtocolTarget <> canonical_reset_k01 def
-R1890:1908 Kernel.CalorimeterProtocolTarget <> canonical_reset_k10 def
-R1916:1937 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
-R1941:1961 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
-R2093:2100 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2069:2071 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1970:1980 Kernel.CalorimeterProtocolTarget <> master_next def
-R1982:1999 Kernel.CalorimeterProtocolTarget <> canonical_reset_dt def
-R2001:2019 Kernel.CalorimeterProtocolTarget <> canonical_reset_k01 def
-R2021:2039 Kernel.CalorimeterProtocolTarget <> canonical_reset_k10 def
-R2047:2068 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
-R2072:2092 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
-R2186:2193 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R2101:2127 Kernel.CalorimeterProtocolTarget <> bath_heat_fixed_hamiltonian def
-R2129:2134 Kernel.CalorimeterProtocol <> Delta1:6 var
-R2136:2157 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
-R2165:2185 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
-R2194:2220 Kernel.CalorimeterProtocolTarget <> bath_heat_fixed_hamiltonian def
-R2222:2227 Kernel.CalorimeterProtocol <> Delta2:7 var
-R2229:2250 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
-R2258:2278 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
-R2336:2376 Kernel.CalorimeterProtocol <> canonical_reset_satisfies_master_equation thm
-R2336:2376 Kernel.CalorimeterProtocol <> canonical_reset_satisfies_master_equation thm
-R2389:2429 Kernel.CalorimeterProtocol <> canonical_reset_satisfies_master_equation thm
-R2389:2429 Kernel.CalorimeterProtocol <> canonical_reset_satisfies_master_equation thm
-R2445:2470 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
-R2445:2470 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
-R2445:2470 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
-R2445:2470 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
-R2445:2470 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
-prf 2490:2514 <> canonical_reset_is_one_mu
-R2536:2538 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2518:2535 Kernel.CalorimeterProtocolTarget <> canonical_reset_mu def
-R2590:2630 Kernel.CalorimeterProtocol <> canonical_reset_satisfies_master_equation thm
-R2651:2676 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
-R2697:2728 Kernel.CalorimeterProtocol <> selected_gap_gives_landauer_heat thm
-R2749:2796 Kernel.CalorimeterProtocol <> smaller_gap_refutes_unconditional_landauer_floor thm
-R2817:2855 Kernel.CalorimeterProtocol <> master_equation_does_not_fix_heat_scale thm
+R147:149 Coq.micromega.Lia <> <> lib
+R179:203 Kernel.CalorimeterProtocolTarget <> <> lib
+R233:239 Kernel.VMState <> <> lib
+R241:246 Kernel.VMStep <> <> lib
+R248:262 Kernel.VMUnboundedStep <> <> lib
+R264:280 Kernel.VMUnboundedLedger <> <> lib
+R282:298 Kernel.NecessityAbstract <> <> lib
+prf 337:377 <> canonical_reset_satisfies_master_equation
+R480:482 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R383:393 Kernel.CalorimeterProtocolTarget <> master_next def
+R395:412 Kernel.CalorimeterProtocolTarget <> canonical_reset_dt def
+R414:432 Kernel.CalorimeterProtocolTarget <> canonical_reset_k01 def
+R434:452 Kernel.CalorimeterProtocolTarget <> canonical_reset_k10 def
+R458:479 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
+R483:503 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
+R522:532 Kernel.CalorimeterProtocolTarget <> master_next def
+R535:552 Kernel.CalorimeterProtocolTarget <> canonical_reset_dt def
+R555:573 Kernel.CalorimeterProtocolTarget <> canonical_reset_k01 def
+R580:598 Kernel.CalorimeterProtocolTarget <> canonical_reset_k10 def
+R601:622 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
+R625:645 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
+prf 671:696 <> canonical_reset_heat_exact
+binder 707:711 <> Delta:1
+R798:800 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R716:742 Kernel.CalorimeterProtocolTarget <> bath_heat_fixed_hamiltonian def
+R744:748 Kernel.CalorimeterProtocol <> Delta:1 var
+R750:771 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
+R777:797 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
+R806:808 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R801:805 Kernel.CalorimeterProtocol <> Delta:1 var
+R843:869 Kernel.CalorimeterProtocolTarget <> bath_heat_fixed_hamiltonian def
+R872:891 Kernel.CalorimeterProtocolTarget <> mean_register_energy def
+R898:919 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
+R922:942 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
+prf 968:999 <> selected_gap_gives_landauer_heat
+binder 1010:1012 <> k_B:2
+binder 1014:1014 <> T:3
+R1116:1118 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1019:1045 Kernel.CalorimeterProtocolTarget <> bath_heat_fixed_hamiltonian def
+R1059:1061 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1055:1057 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1049:1051 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1052:1054 Kernel.CalorimeterProtocol <> k_B:2 var
+R1058:1058 Kernel.CalorimeterProtocol <> T:3 var
+R1062:1063 Coq.Reals.Rpower <> ln def
+R1072:1093 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
+R1095:1115 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
+R1126:1128 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1122:1124 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1119:1121 Kernel.CalorimeterProtocol <> k_B:2 var
+R1125:1125 Kernel.CalorimeterProtocol <> T:3 var
+R1129:1130 Coq.Reals.Rpower <> ln def
+R1166:1191 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
+R1166:1191 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
+R1166:1191 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
+prf 1213:1227 <> ln_two_positive
+R1232:1234 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1235:1236 Coq.Reals.Rpower <> ln def
+R1261:1264 Coq.Reals.Rpower <> ln_1 thm
+R1261:1264 Coq.Reals.Rpower <> ln_1 thm
+R1261:1264 Coq.Reals.Rpower <> ln_1 thm
+R1273:1285 Coq.Reals.Rpower <> ln_increasing thm
+R1273:1285 Coq.Reals.Rpower <> ln_increasing thm
+prf 1307:1354 <> smaller_gap_refutes_unconditional_landauer_floor
+binder 1365:1367 <> k_B:4
+binder 1369:1369 <> T:5
+R1381:1384 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1375:1377 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1378:1380 Kernel.CalorimeterProtocol <> k_B:4 var
+R1390:1395 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1386:1388 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1389:1389 Kernel.CalorimeterProtocol <> T:5 var
+R1489:1491 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1396:1422 Kernel.CalorimeterProtocolTarget <> bath_heat_fixed_hamiltonian def
+R1432:1434 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1428:1430 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1425:1427 Kernel.CalorimeterProtocol <> k_B:4 var
+R1431:1431 Kernel.CalorimeterProtocol <> T:5 var
+R1435:1436 Coq.Reals.Rpower <> ln def
+R1445:1466 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
+R1468:1488 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
+R1499:1501 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1495:1497 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1492:1494 Kernel.CalorimeterProtocol <> k_B:4 var
+R1498:1498 Kernel.CalorimeterProtocol <> T:5 var
+R1502:1503 Coq.Reals.Rpower <> ln def
+R1547:1572 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
+R1547:1572 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
+R1547:1572 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
+R1595:1597 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1605:1607 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1601:1603 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1608:1609 Coq.Reals.Rpower <> ln def
+R1595:1597 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1605:1607 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1601:1603 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1608:1609 Coq.Reals.Rpower <> ln def
+R1625:1641 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R1625:1641 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R1656:1672 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R1656:1672 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R1699:1713 Kernel.CalorimeterProtocol <> ln_two_positive thm
+R1699:1713 Kernel.CalorimeterProtocol <> ln_two_positive thm
+prf 1844:1882 <> master_equation_does_not_fix_heat_scale
+R1888:1894 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1908:1913 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1895:1900 <> Delta1:6
+binder 1902:1907 <> Delta2:7
+R1930:1937 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1920:1923 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R1914:1919 Kernel.CalorimeterProtocol <> Delta1:6 var
+R1924:1929 Kernel.CalorimeterProtocol <> Delta2:7 var
+R2061:2068 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2037:2039 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1938:1948 Kernel.CalorimeterProtocolTarget <> master_next def
+R1950:1967 Kernel.CalorimeterProtocolTarget <> canonical_reset_dt def
+R1969:1987 Kernel.CalorimeterProtocolTarget <> canonical_reset_k01 def
+R1989:2007 Kernel.CalorimeterProtocolTarget <> canonical_reset_k10 def
+R2015:2036 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
+R2040:2060 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
+R2192:2199 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2168:2170 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2069:2079 Kernel.CalorimeterProtocolTarget <> master_next def
+R2081:2098 Kernel.CalorimeterProtocolTarget <> canonical_reset_dt def
+R2100:2118 Kernel.CalorimeterProtocolTarget <> canonical_reset_k01 def
+R2120:2138 Kernel.CalorimeterProtocolTarget <> canonical_reset_k10 def
+R2146:2167 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
+R2171:2191 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
+R2285:2292 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2200:2226 Kernel.CalorimeterProtocolTarget <> bath_heat_fixed_hamiltonian def
+R2228:2233 Kernel.CalorimeterProtocol <> Delta1:6 var
+R2235:2256 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
+R2264:2284 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
+R2293:2319 Kernel.CalorimeterProtocolTarget <> bath_heat_fixed_hamiltonian def
+R2321:2326 Kernel.CalorimeterProtocol <> Delta2:7 var
+R2328:2349 Kernel.CalorimeterProtocolTarget <> canonical_reset_before def
+R2357:2377 Kernel.CalorimeterProtocolTarget <> canonical_reset_after def
+R2435:2475 Kernel.CalorimeterProtocol <> canonical_reset_satisfies_master_equation thm
+R2435:2475 Kernel.CalorimeterProtocol <> canonical_reset_satisfies_master_equation thm
+R2488:2528 Kernel.CalorimeterProtocol <> canonical_reset_satisfies_master_equation thm
+R2488:2528 Kernel.CalorimeterProtocol <> canonical_reset_satisfies_master_equation thm
+R2544:2569 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
+R2544:2569 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
+R2544:2569 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
+R2544:2569 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
+R2544:2569 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
+prf 2589:2613 <> canonical_reset_is_one_mu
+R2635:2637 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2617:2634 Kernel.CalorimeterProtocolTarget <> canonical_reset_mu def
+prf 3069:3119 <> vm_minimal_certification_charges_canonical_reset_mu
+R3156:3161 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3148:3150 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3135:3146 Kernel.VMState <> vm_certified proj
+R3125:3132 Kernel.NecessityAbstract <> abs_zero def
+R3151:3155 Coq.Init.Datatypes <> false constr
+R3223:3228 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3216:3218 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3203:3214 Kernel.VMState <> vm_certified proj
+R3163:3172 Kernel.VMUnboundedStep <> vm_apply_u def
+R3174:3181 Kernel.NecessityAbstract <> abs_zero def
+R3184:3196 Kernel.VMStep VMStep instr_certify constr
+R3219:3222 Coq.Init.Datatypes <> true constr
+R3276:3282 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3270:3274 Kernel.VMState <> vm_mu proj
+R3230:3239 Kernel.VMUnboundedStep <> vm_apply_u def
+R3241:3248 Kernel.NecessityAbstract <> abs_zero def
+R3251:3263 Kernel.VMStep VMStep instr_certify constr
+R3300:3302 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3294:3298 Kernel.VMState <> vm_mu proj
+R3284:3291 Kernel.NecessityAbstract <> abs_zero def
+R3303:3320 Kernel.CalorimeterProtocolTarget <> canonical_reset_mu def
+R3380:3399 Kernel.VMUnboundedLedger <> vm_apply_u_certified thm
+R3380:3399 Kernel.VMUnboundedLedger <> vm_apply_u_certified thm
+R3380:3399 Kernel.VMUnboundedLedger <> vm_apply_u_certified thm
+R3427:3439 Kernel.VMUnboundedLedger <> vm_apply_u_mu thm
+R3427:3439 Kernel.VMUnboundedLedger <> vm_apply_u_mu thm
+R3427:3439 Kernel.VMUnboundedLedger <> vm_apply_u_mu thm
+prf 3520:3571 <> vm_certification_charges_at_least_canonical_reset_mu
+binder 3582:3582 <> s:8
+binder 3584:3584 <> i:9
+R3613:3618 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3605:3607 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3592:3603 Kernel.VMState <> vm_certified proj
+R3589:3589 Kernel.CalorimeterProtocol <> s:8 var
+R3608:3612 Coq.Init.Datatypes <> false constr
+R3657:3662 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3650:3652 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3637:3648 Kernel.VMState <> vm_certified proj
+R3620:3629 Kernel.VMUnboundedStep <> vm_apply_u def
+R3631:3631 Kernel.CalorimeterProtocol <> s:8 var
+R3633:3633 Kernel.CalorimeterProtocol <> i:9 var
+R3653:3656 Coq.Init.Datatypes <> true constr
+R3694:3697 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3673:3675 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3667:3671 Kernel.VMState <> vm_mu proj
+R3664:3664 Kernel.CalorimeterProtocol <> s:8 var
+R3676:3693 Kernel.CalorimeterProtocolTarget <> canonical_reset_mu def
+R3716:3720 Kernel.VMState <> vm_mu proj
+R3699:3708 Kernel.VMUnboundedStep <> vm_apply_u def
+R3710:3710 Kernel.CalorimeterProtocol <> s:8 var
+R3712:3712 Kernel.CalorimeterProtocol <> i:9 var
+R3770:3801 Kernel.VMUnboundedLedger <> vm_apply_u_no_free_certification thm
+R3770:3801 Kernel.VMUnboundedLedger <> vm_apply_u_no_free_certification thm
+R3834:3846 Kernel.VMUnboundedLedger <> vm_apply_u_mu thm
+R3834:3846 Kernel.VMUnboundedLedger <> vm_apply_u_mu thm
+R3834:3846 Kernel.VMUnboundedLedger <> vm_apply_u_mu thm
+R3856:3873 Kernel.CalorimeterProtocolTarget <> canonical_reset_mu def
+R3905:3945 Kernel.CalorimeterProtocol <> canonical_reset_satisfies_master_equation thm
+R3966:3991 Kernel.CalorimeterProtocol <> canonical_reset_heat_exact thm
+R4012:4043 Kernel.CalorimeterProtocol <> selected_gap_gives_landauer_heat thm
+R4064:4111 Kernel.CalorimeterProtocol <> smaller_gap_refutes_unconditional_landauer_floor thm
+R4132:4170 Kernel.CalorimeterProtocol <> master_equation_does_not_fix_heat_scale thm
+R4191:4241 Kernel.CalorimeterProtocol <> vm_minimal_certification_charges_canonical_reset_mu thm
+R4262:4313 Kernel.CalorimeterProtocol <> vm_certification_charges_at_least_canonical_reset_mu thm

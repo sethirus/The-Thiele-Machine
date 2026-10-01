@@ -1,0 +1,110 @@
+DIGEST 2cc56c7f9338820776d997063b9442bb
+FUndecidability.L.Datatypes.List.List_in
+R45:52 Undecidability.L.Tactics.LTactics <> <> lib
+R92:107 Undecidability.L.Functions.EqBool <> <> lib
+R158:170 Undecidability.L.Datatypes.List.List_enc <> <> lib
+sec 182:188 <> list_in
+var 203:203 list_in X
+var 227:229 list_in eqb
+R234:237 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R233:233 Undecidability.L.Datatypes.List.List_in <> list_in.X var
+R239:242 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R238:238 Undecidability.L.Datatypes.List.List_in <> list_in.X var
+R243:246 Coq.Init.Datatypes <> bool ind
+var 262:272 list_in eqb_correct
+binder 283:283 <> a:3
+binder 285:285 <> b:4
+R294:298 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R290:292 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R289:289 Undecidability.L.Datatypes.List.List_in <> a:3 var
+R293:293 Undecidability.L.Datatypes.List.List_in <> b:4 var
+R306:308 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R299:301 Undecidability.L.Datatypes.List.List_in <> list_in.eqb var
+R305:305 Undecidability.L.Datatypes.List.List_in <> b:4 var
+R303:303 Undecidability.L.Datatypes.List.List_in <> a:3 var
+R309:312 Coq.Init.Datatypes <> true constr
+def 331:342 <> list_in_decb
+R360:363 Coq.Init.Datatypes <> list ind
+R365:365 Undecidability.L.Datatypes.List.List_in <> list_in.X var
+binder 356:356 <> l:6
+R373:373 Undecidability.L.Datatypes.List.List_in <> list_in.X var
+binder 369:369 <> x:7
+R378:381 Coq.Init.Datatypes <> bool ind
+R394:394 Undecidability.L.Datatypes.List.List_in <> l:6 var
+R401:402 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R407:411 Coq.Init.Datatypes <> false constr
+R427:430 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R445:448 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R438:440 Undecidability.L.Datatypes.List.List_in <> list_in.eqb var
+R444:444 Undecidability.L.Datatypes.List.List_in <> x:7 var
+R442:442 Undecidability.L.Datatypes.List.List_in <> l:6 var
+R449:451 Undecidability.L.Datatypes.List.List_in <> rec:8 var
+R456:456 Undecidability.L.Datatypes.List.List_in <> x:7 var
+prf 475:490 <> list_in_decb_iff
+R497:500 Coq.Init.Datatypes <> list ind
+R502:502 Undecidability.L.Datatypes.List.List_in <> list_in.X var
+binder 493:493 <> l:10
+binder 514:514 <> x:11
+R540:544 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R533:535 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R517:528 Undecidability.L.Datatypes.List.List_in <> list_in_decb def
+R532:532 Undecidability.L.Datatypes.List.List_in <> x:11 var
+R530:530 Undecidability.L.Datatypes.List.List_in <> l:10 var
+R536:539 Coq.Init.Datatypes <> true constr
+R546:549 Undecidability.Shared.Libs.PSL.Lists.BaseLists <> :::x_'el'_x not
+R545:545 Undecidability.L.Datatypes.List.List_in <> x:11 var
+R550:550 Undecidability.L.Datatypes.List.List_in <> l:10 var
+R672:684 Coq.Bool.Bool <> orb_true_elim thm
+R672:684 Coq.Bool.Bool <> orb_true_elim thm
+R703:713 Undecidability.L.Datatypes.List.List_in <> list_in.eqb_correct var
+R703:713 Undecidability.L.Datatypes.List.List_in <> list_in.eqb_correct var
+R797:810 Coq.Bool.Bool <> orb_true_intro thm
+R829:839 Undecidability.L.Datatypes.List.List_in <> list_in.eqb_correct var
+R797:810 Coq.Bool.Bool <> orb_true_intro thm
+R829:839 Undecidability.L.Datatypes.List.List_in <> list_in.eqb_correct var
+R862:875 Coq.Bool.Bool <> orb_true_intro thm
+R862:875 Coq.Bool.Bool <> orb_true_intro thm
+def 920:933 <> list_incl_decb
+R942:945 Coq.Init.Datatypes <> list ind
+R947:947 Undecidability.L.Datatypes.List.List_in <> list_in.X var
+binder 936:936 <> a:12
+binder 938:938 <> b:13
+R964:964 Undecidability.L.Datatypes.List.List_in <> a:12 var
+R978:979 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R984:987 Coq.Init.Datatypes <> true constr
+R997:998 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1021:1024 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R1005:1016 Undecidability.L.Datatypes.List.List_in <> list_in_decb def
+R1018:1018 Undecidability.L.Datatypes.List.List_in <> b:13 var
+R1025:1038 Undecidability.L.Datatypes.List.List_in <> list_incl_decb:14 def
+R1042:1042 Undecidability.L.Datatypes.List.List_in <> b:13 var
+R1040:1040 Undecidability.L.Datatypes.List.List_in <> a:12 var
+R1060:1066 Undecidability.L.Datatypes.List.List_in list_in <> sec
+sec 1078:1089 <> list_in_time
+var 1104:1104 list_in_time X
+R1130:1138 Undecidability.L.Tactics.Extract <> encodable class
+R1140:1140 Undecidability.L.Datatypes.List.List_in <> list_in_time.X var
+binder 1126:1126 <> H:17
+R1163:1166 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1162:1162 Undecidability.L.Datatypes.List.List_in <> list_in_time.X var
+R1168:1171 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1167:1167 Undecidability.L.Datatypes.List.List_in <> list_in_time.X var
+R1172:1175 Coq.Init.Datatypes <> bool ind
+binder 1155:1158 <> eqbX:18
+R1196:1203 Undecidability.L.Functions.EqBool <> eqbClass class
+R1205:1208 Undecidability.L.Datatypes.List.List_in <> list_in_time.eqbX var
+binder 1190:1192 <> Xeq:19
+R1235:1241 Undecidability.L.Functions.EqBool <> eqbComp class
+R1243:1243 Undecidability.L.Datatypes.List.List_in <> list_in_time.X var
+binder 1224:1231 <> XeqbComp:20
+inst 1266:1282 <> term_list_in_decb
+R1286:1295 Undecidability.L.Tactics.Computable <> computable class
+R1299:1310 Undecidability.L.Datatypes.List.List_in <> list_in_decb def
+R1312:1312 Undecidability.L.Datatypes.List.List_in <> list_in_time.X var
+R1314:1317 Undecidability.L.Datatypes.List.List_in <> list_in_time.eqbX var
+inst 1390:1408 <> term_list_incl_decb
+R1412:1421 Undecidability.L.Tactics.Computable <> computable class
+R1425:1438 Undecidability.L.Datatypes.List.List_in <> list_incl_decb def
+R1440:1440 Undecidability.L.Datatypes.List.List_in <> list_in_time.X var
+R1442:1445 Undecidability.L.Datatypes.List.List_in <> list_in_time.eqbX var
+R1503:1514 Undecidability.L.Datatypes.List.List_in list_in_time <> sec
