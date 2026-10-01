@@ -13,6 +13,8 @@ PRINTED = """interface Module1;
     method Action loadInstr (Struct1 x_0);
     method Action start ();
     method ActionValue#(Bool) getHalted ();
+    method Action setActiveModule (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getPtSize (Bit#(6) x_0);
     method ActionValue#(Bit#(32))
         getMcycleLo ();
 endinterface
@@ -60,6 +62,13 @@ def test_forwards_and_keeps_the_printed_instances():
     assert "m1.getMcycleLo" not in out
     assert out.count("(* synthesize *)") == 2
     assert "(* synthesize *)\nmodule mkModule1" in out
+
+
+def test_arguments_with_parenthesized_types_parse():
+    ifcs = MODULE.interfaces(PRINTED)
+    names = {m["name"]: m for m in ifcs["Module1"]}
+    assert names["setActiveModule"]["args"] == "Bit#(6) x_0"
+    assert names["getPtSize"]["value"] and names["getPtSize"]["args"] == "Bit#(6) x_0"
 
 
 def test_module_bodies_are_untouched():

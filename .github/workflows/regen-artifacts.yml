@@ -197,6 +197,16 @@ jobs:
           BLUESPECDIR: ${{ steps.bsc.outputs.bluespecdir }}
         run: bash scripts/kami_extract.sh --skip-coq
 
+      - name: Upload the printed Bluespec
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: printed-bluespec
+          path: |
+            build/kami_hw/*.bsv
+            build/kami_hw/system/*.bsv
+          if-no-files-found: ignore
+
       - name: Stage the pushed changes as one pending commit
         id: stage
         shell: bash

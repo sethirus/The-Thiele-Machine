@@ -26,7 +26,7 @@ from pathlib import Path
 
 INTERFACE = re.compile(r"^interface\s+(Module\d+)\s*;(.*?)^endinterface", re.S | re.M)
 METHOD = re.compile(
-    r"method\s+(Action(?:Value\s*#\s*\((?P<ret>.*?)\))?)\s+(?P<name>\w+)\s*\((?P<args>[^)]*)\)")
+    r"method\s+(Action(?:Value\s*#\s*\((?P<ret>.*?)\))?)\s+(?P<name>\w+)\s*\((?P<args>.*)\)")
 INSTANCE = re.compile(r"(Module\d+)\s+(m\d+)\s*<-\s*(mkModule\d+)\s*\((.*?)\)\s*;", re.S)
 
 
