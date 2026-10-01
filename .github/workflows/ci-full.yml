@@ -125,6 +125,21 @@ jobs:
           make -j4 pre-all
           make -j4 Extraction.vo
 
+      - name: Set up the Bluespec compiler
+        id: bsc
+        uses: ./.github/actions/setup-bsc
+
+      - name: Regenerate the CPU Verilog from the Coq model
+        # Coq -> Kami -> OCaml printer -> Bluespec -> bsc -> synthesis
+        # transform, from the Target.ml the build above extracted. The
+        # tracked Verilog must come out byte-identical: it is extracted,
+        # never edited by hand.
+        env:
+          BLUESPECDIR: ${{ steps.bsc.outputs.bluespecdir }}
+        run: |
+          bash scripts/kami_extract.sh --skip-coq
+          git diff --exit-code --stat -- thielecpu/hardware/rtl/thiele_cpu_kami.v
+
       - name: Run hardware forge pipeline
         run: bash scripts/forge_artifact.sh
 
@@ -285,8 +300,9 @@ jobs:
           git submodule update --init --recursive
           rm -rf third_party/yosys
           cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF .
-          make -C build -j$(nproc) xc7frames2bit
+          make -C build -j$(nproc) xc7frames2bit bitread
           sudo install -m 0755 build/tools/xc7frames2bit /usr/local/bin/xc7frames2bit
+          sudo install -m 0755 build/tools/bitread /usr/local/bin/bitread
 
       - name: Clone full prjxray-db (kintex7 only)
         # SymbiFlow/prjxray itself has no `database/` submodule, and
@@ -327,6 +343,18 @@ jobs:
           fi
           bytes=$(wc -c < build/thiele_xc7k325t.bit)
           echo "✓ Bitstream generated: build/thiele_xc7k325t.bit (${bytes} bytes)"
+
+      - name: Check the bitstream against the routed design
+        # Decodes the bitstream back to configuration bits and FASM features
+        # and requires both to match what place-and-route produced.
+        run: |
+          python3 fpga/bitstream_roundtrip.py \
+            --bit build/thiele_xc7k325t.bit \
+            --frames build/thiele_xc7k325t.frames \
+            --part xc7k325tffg900-2 \
+            --db-root /opt/prjxray-db/kintex7 \
+            --prjxray /opt/prjxray \
+            --bitread /usr/local/bin/bitread
 
       - name: Upload bitstream
         if: always()
