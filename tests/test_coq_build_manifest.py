@@ -81,19 +81,36 @@ def test_output_without_source_is_removed(tree):
     assert (tree / "coq/kernel/A.vo").exists()
 
 
+COQ_SOURCES = ("coq/kernel/A.v", "coq/kernel/B.v")
+VENDOR_SOURCES = ("vendor/coq-undecidability/theories/L/L.v",)
+
+
 @pytest.mark.parametrize("name", ["coq/_CoqProject", "coq/Makefile.local",
-                                  "vendor/coq-undecidability/theories/_CoqProject",
                                   "vendor/kami/Kami/Syntax.vo",
                                   "vendor/coq-undecidability/theories/L/L.vo"])
-def test_flag_or_library_change_marks_every_source(tree, name):
+def test_coq_flag_or_library_change_marks_coq_sources_only(tree, name):
     manifest = tree / "build/manifest.json"
     MODULE.write(manifest)
     with (tree / name).open("ab") as stream:
         stream.write(b"\n")
     assert MODULE.apply(manifest) == 0
-    for source in ("coq/kernel/A.v", "coq/kernel/B.v",
-                   "vendor/coq-undecidability/theories/L/L.v"):
+    for source in COQ_SOURCES:
         assert mtime(tree, source) > mtime(tree, "coq/kernel/A.vo")
+    # The vendored library is not rebuilt for a change above it.
+    for source in VENDOR_SOURCES:
+        assert mtime(tree, source) < mtime(tree, "vendor/coq-undecidability/theories/L/L.vo")
+
+
+def test_vendor_flag_change_marks_vendor_sources(tree):
+    manifest = tree / "build/manifest.json"
+    MODULE.write(manifest)
+    with (tree / "vendor/coq-undecidability/theories/_CoqProject").open("ab") as stream:
+        stream.write(b"\n")
+    assert MODULE.apply(manifest) == 0
+    for source in VENDOR_SOURCES:
+        assert mtime(tree, source) > mtime(tree, "vendor/coq-undecidability/theories/L/L.vo")
+    for source in COQ_SOURCES:
+        assert mtime(tree, source) < mtime(tree, "coq/kernel/A.vo")
 
 
 @pytest.mark.parametrize("content", [None, "not json", '{"schema": 0}'])
@@ -102,4 +119,24 @@ def test_missing_or_foreign_manifest_asks_for_a_full_build(tree, content):
     if content is not None:
         manifest.parent.mkdir(parents=True, exist_ok=True)
         manifest.write_text(content)
+    assert MODULE.apply(manifest) == 2
+
+
+def test_schema_one_manifest_still_starts_an_incremental_build(tree):
+    import json
+    manifest = tree / "build/manifest.json"
+    manifest.parent.mkdir(parents=True, exist_ok=True)
+    sources = {MODULE.rel(p): MODULE.sha256(p)
+               for scope in MODULE.SCOPES for p in MODULE.sources(scope)}
+    manifest.write_text(json.dumps({"schema": 1, "config": MODULE.legacy_config_digest(),
+                                    "sources": sources}))
+    assert MODULE.apply(manifest) == 0
+    assert mtime(tree, "coq/kernel/A.v") < mtime(tree, "coq/kernel/A.vo")
+
+
+def test_schema_one_manifest_from_other_libraries_asks_for_a_full_build(tree):
+    import json
+    manifest = tree / "build/manifest.json"
+    manifest.parent.mkdir(parents=True, exist_ok=True)
+    manifest.write_text(json.dumps({"schema": 1, "config": "other", "sources": {}}))
     assert MODULE.apply(manifest) == 2
