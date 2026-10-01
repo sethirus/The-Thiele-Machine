@@ -200,6 +200,9 @@ for mod in $(grep -oP 'module (mk\w+)' thiele_hw_clean.bsv | awk '{print $2}'); 
     echo "  Compiling $mod..."
     "$BSC" +RTS -K64M -RTS -verilog -g "$mod" -p ".:$BLUESPECDIR/Libraries:$REGFILE_ZERO_DIR" thiele_hw_clean.bsv 2>&1
 done
+# bsc stamps the compile date into each file; the output must depend on its
+# inputs alone, so the date line is dropped.
+sed -i '/^\/\/ On [A-Z][a-z][a-z] [A-Z][a-z][a-z] /d' ./*.v
 fi
 
 echo "=== Phase 5b: Post-processing for synthesis (flat regs → arrays) ==="
@@ -268,6 +271,7 @@ PY
     "$BSC" +RTS -K64M -RTS -verilog -g mkThieleSystem \
         -p ".:$BLUESPECDIR/Libraries:$VENDOR_KAMI/Kami/Ext/BluespecFrontEnd/verilog" \
         thiele_system_top.bsv
+    sed -i '/^\/\/ On [A-Z][a-z][a-z] [A-Z][a-z][a-z] /d' ./*.v
     if ! cmp -s mkModule1.v "$BUILD_DIR/mkModule1.v"; then
         echo "  ERROR: the CPU inside the system differs from the CPU alone:"
         diff mkModule1.v "$BUILD_DIR/mkModule1.v" | head -40
