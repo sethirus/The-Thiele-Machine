@@ -183,6 +183,10 @@ jobs:
         # as fresh. The cache key already pins source+vendor hashes, so this
         # is mtime-cosmetic, not a correctness gap.
         run: |
+          # Vendored undecidability .vo files are tracked; a fresh checkout can
+          # leave them older than their sources, which would rebuild the library
+          # and everything above it. Refresh them first, then the coq/ outputs.
+          find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
           find coq -name '*.vo' -exec touch {} +
           find coq -name '*.vok' -exec touch {} + 2>/dev/null || true
           find coq -name '*.vos' -exec touch {} + 2>/dev/null || true
@@ -359,6 +363,10 @@ jobs:
         # from scratch on cache hit (~7m of redundant work). Touching the
         # cached files past the .v checkout time lets make see them as fresh.
         run: |
+          # Vendored undecidability .vo files are tracked; a fresh checkout can
+          # leave them older than their sources, which would rebuild the library
+          # and everything above it. Refresh them first, then the coq/ outputs.
+          find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
           find coq -name '*.vo' -exec touch {} +
           find coq -name '*.vok' -exec touch {} + 2>/dev/null || true
           find coq -name '*.vos' -exec touch {} + 2>/dev/null || true
@@ -485,6 +493,10 @@ jobs:
       - name: Refresh Coq artefact mtimes
         # The cache key pins source, toolchain, and vendor build digests.
         run: |
+          # Vendored undecidability .vo files are tracked; a fresh checkout can
+          # leave them older than their sources, which would rebuild the library
+          # and everything above it. Refresh them first, then the coq/ outputs.
+          find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
           find coq -name '*.vo' -exec touch {} +
           find coq -name '*.vok' -exec touch {} + 2>/dev/null || true
           find coq -name '*.vos' -exec touch {} + 2>/dev/null || true

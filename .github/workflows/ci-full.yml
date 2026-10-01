@@ -393,6 +393,10 @@ jobs:
 
       - name: Refresh Coq artefact mtimes
         run: |
+          # Vendored undecidability .vo files are tracked; a fresh checkout can
+          # leave them older than their sources, which would rebuild the library
+          # and everything above it. Refresh them first, then the coq/ outputs.
+          find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
           find coq -name '*.vo' -exec touch {} +
           find coq -name '*.vok' -exec touch {} + 2>/dev/null || true
           find coq -name '*.vos' -exec touch {} + 2>/dev/null || true

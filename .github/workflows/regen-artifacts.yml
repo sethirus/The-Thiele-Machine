@@ -117,6 +117,10 @@ jobs:
       - name: Refresh Coq artefact mtimes
         if: steps.cache-coq.outputs.cache-hit == 'true'
         run: |
+          # Vendored undecidability .vo files are tracked; a fresh checkout can
+          # leave them older than their sources, which would rebuild the library
+          # and everything above it. Refresh them first, then the coq/ outputs.
+          find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
           find coq \( -name '*.vo' -o -name '*.vok' -o -name '*.vos' -o -name '*.glob' \) -exec touch {} +
 
       - name: Build Coq proof tree
@@ -193,6 +197,11 @@ jobs:
 
       - name: Run the pre-commit hook
         id: hook
+        env:
+          # Hosted runners are slower than a Codespace; smaller Print Assumptions
+          # batches with a longer limit, as generate_assumption_receipt.sh advises.
+          THIELE_ASSUMPTION_BATCH_SIZE: "500"
+          THIELE_ASSUMPTION_TIMEOUT: "1800"
         # Generation precedes the test suite in the hook. A failure in the
         # pytest step still pushes the regenerated outputs; the CI run
         # dispatched below reports the failing tests. Any other failure
