@@ -34,7 +34,7 @@ but the report explicitly limits a structurally built-in or definitional fact.
 | 4.4 | PROVED BUT KNOWN | conditional finite-state logarithmic heat floor and entropy permutation invariance | pass | pass | pass | pass | pass |
 | 5.1 | PROVED boundary checks; BOUNDARY cryptographic premises | RFC 9162 iterative verifier boundary checks close; collision resistance and STH authenticity are cryptographic premises; the full binding statement formalizes RFC 9162 itself and is not pursued | pass | scope | pass | pass | pass |
 | 5.2 | PROVED BUT KNOWN toy fragment; full PCC not pursued | toy address-policy checker equivalence and typed-certificate implication close; a full SAL/LF/PCC model formalizes another system and is not pursued | pass | scope | pass | pass | pass |
-| 5.3 | PARTIAL | addressed RAM tied/untied steps and bounded/unbounded reversible-update cores close; full Round 4 adapters absent | scope | scope | pass | pass | pass |
+| 5.3 | PROVED | addressed RAM tied/untied steps and reversible-update cores close; tied and untied RAMs classified on the record axis over one base (RAMRecordAxis.v) | scope | scope | pass | pass | pass |
 | 5.4 | REFUTED unconditional authenticity; BOUNDARY trust premise | an unconstrained sign/verify interface does not entail quote authenticity; authenticity needs a trusted-key premise | pass | pass | pass | pass | pass |
 | 5.5 | NOT PURSUED | a full embedding of the four named calculi formalizes other systems; the earlier BLOCKED label had no genuine strategies | pass | pass | pass | pass | pass |
 | 6.1 | PROVED BUT KNOWN | binary redundant-proliferation measure already formalized | scope | scope | pass | pass | pass |
