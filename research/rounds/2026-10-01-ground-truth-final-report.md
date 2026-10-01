@@ -50,8 +50,8 @@ but the report explicitly limits a structurally built-in or definitional fact. `
 | 7.6 | NOT APPLICABLE | no result passed all four acceptance criteria | pass | pass | pass | pass | pass |
 | 7.7 | PROVED operationally | next five received three strategies each; ranked list exhausted | pass | pass | pass | pass | pass |
 | 8.1 | PROVED operationally | six public documents reconciled to Parts 1--7 outcomes | pass | pass | pass | pass | pass |
-| 8.2 | PENDING GATE | final gate and isolated rebuild evidence is filled below | pending | pending | pending | pending | pending |
-| 8.3 | PENDING COMMIT | stop before merge or tag | pending | pending | pending | pending | pending |
+| 8.2 | PROVED operationally | CI and CI (Full) passed every job on `0626552e`, including the clean rebuild with coqchk, the Inquisitor audit, the full Print Assumptions receipt, the vacuity sweep, hardware synthesis and simulation, and a bitstream that meets its timing target | pass | pass | pass | pass | pass |
+| 8.3 | PROVED operationally | work stopped before merge or tag; the merge is the user's decision | pass | pass | pass | pass | pass |
 | 8.4 | PROVED operationally when committed | this report contains items, R6, wrong predictions, calls, and hashes | pass | pass | pass | pass | pass |
 
 ## Part 7 practitioner results
@@ -91,7 +91,15 @@ known from their governing sources.
   system; the TPM result was limited to interface insufficiency.
 - Part 7 novelty was rejected where primary sources already state the result.
 - No practitioner paragraph was fabricated after the ranked list was exhausted.
-- No checker, gate, or acceptance threshold was weakened.
+- Item 3.1 took the L route: the evaluator is extracted to L with MetaCoq
+  1.2.1, built from checksum-pinned source in every Coq CI job.
+- Full formalizations of other systems (5.2 complete PCC, 5.5 the four named
+  calculi, 7.5 rank 10) were not pursued; the scope is the Thiele Machine.
+- The Mu-Chaitin functor is stated as an abstract bound; its VM instance is
+  the trace-local form.
+- No checker, gate, or acceptance threshold was weakened. The CI build and the
+  Print Assumptions receipt became incremental, keyed by content digests; the
+  clean-rebuild gate still rebuilds every proof from source.
 
 ## Commits and boundary evidence
 
@@ -102,4 +110,5 @@ known from their governing sources.
 - Part 4: `fd953dc1`.
 - Parts 5--8: the commit containing this report; recorded externally after creation.
 
-Final gate evidence: PENDING.
+Final gate evidence: CI run 36904075698 and CI (Full) run 36904109215 on
+`0626552e`, every job passing. The commit after it changes only this report.
