@@ -2,8 +2,8 @@
   "schema": "vacuity_audit.v1",
   "summary": {
     "error": 0,
-    "ok": 1007,
-    "total": 1007,
+    "ok": 1025,
+    "total": 1025,
     "vacuous_hyp": 0,
     "vacuous_true": 0
   },
@@ -19256,6 +19256,366 @@
         "succeeded": false
       },
       "statement": "chain_needs_bits",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/PricedRevocation.v",
+      "kind": "Theorem",
+      "line": 9,
+      "name": "actual_revocation_excludes_permanence_holds",
+      "probe_a": {
+        "coq_stderr_tail": "paces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricedRevocation__actual_revocation_excludes_permanence_holds__a.v\", line 3, characters 71-108:\nError: The reference actual_revocation_excludes_permanence was not found\nin the current environment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Pri...] 0.253 secs (0.157u,0.095s)\nChars 110 - 219 [Theorem~_vacuity_probe_a_actua...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__PricedRevocation__actual_revocation_excludes_permanence_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "kspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricedRevocation__actual_revocation_excludes_permanence_holds__b.v\", line 3, characters 71-108:\nError: The reference actual_revocation_excludes_permanence was not found\nin the current environment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Pri...] 0.261 secs (0.15u,0.11s)\nChars 110 - 219 [Theorem~_vacuity_probe_b_actua...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__PricedRevocation__actual_revocation_excludes_permanence_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "actual_revocation_excludes_permanence",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/PricedRevocation.v",
+      "kind": "Theorem",
+      "line": 18,
+      "name": "revocation_price_does_not_price_writes_refuted",
+      "probe_a": {
+        "coq_stderr_tail": "es/The-Thiele-Machine/build/vacuity_probes/Kernel__PricedRevocation__revocation_price_does_not_price_writes_refuted__a.v\", line 3, characters 76-114:\nError: The reference revocation_price_does_not_price_writes was not found\nin the current environment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Pri...] 0.26 secs (0.174u,0.086s)\nChars 110 - 225 [Theorem~_vacuity_probe_a_revoc...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__PricedRevocation__revocation_price_does_not_price_writes_refuted__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "s/The-Thiele-Machine/build/vacuity_probes/Kernel__PricedRevocation__revocation_price_does_not_price_writes_refuted__b.v\", line 3, characters 76-114:\nError: The reference revocation_price_does_not_price_writes was not found\nin the current environment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Pri...] 0.267 secs (0.162u,0.104s)\nChars 110 - 225 [Theorem~_vacuity_probe_b_revoc...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__PricedRevocation__revocation_price_does_not_price_writes_refuted__b.v",
+        "succeeded": false
+      },
+      "statement": "~ revocation_price_does_not_price_writes",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/PricedRevocation.v",
+      "kind": "Theorem",
+      "line": 29,
+      "name": "casper_conflict_is_accountable_holds",
+      "probe_a": {
+        "coq_stderr_tail": "t]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricedRevocation__casper_conflict_is_accountable_holds__a.v\", line 3, characters 64-94:\nError: The reference casper_conflict_is_accountable was not found\nin the current environment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Pri...] 0.256 secs (0.157u,0.098s)\nChars 110 - 205 [Theorem~_vacuity_probe_a_caspe...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__PricedRevocation__casper_conflict_is_accountable_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "t]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricedRevocation__casper_conflict_is_accountable_holds__b.v\", line 3, characters 64-94:\nError: The reference casper_conflict_is_accountable was not found\nin the current environment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Pri...] 0.257 secs (0.155u,0.102s)\nChars 110 - 205 [Theorem~_vacuity_probe_b_caspe...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__PricedRevocation__casper_conflict_is_accountable_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "casper_conflict_is_accountable",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/PricedRevocation.v",
+      "kind": "Theorem",
+      "line": 36,
+      "name": "casper_write_without_slashing_holds",
+      "probe_a": {
+        "coq_stderr_tail": "ult]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricedRevocation__casper_write_without_slashing_holds__a.v\", line 3, characters 63-92:\nError: The reference casper_write_without_slashing was not found\nin the current environment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Pri...] 0.261 secs (0.159u,0.101s)\nChars 110 - 203 [Theorem~_vacuity_probe_a_caspe...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__PricedRevocation__casper_write_without_slashing_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ult]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PricedRevocation__casper_write_without_slashing_holds__b.v\", line 3, characters 63-92:\nError: The reference casper_write_without_slashing was not found\nin the current environment.\n\nChars 65 - 109 [From~Kernel~Require~Import~Pri...] 0.271 secs (0.168u,0.103s)\nChars 110 - 203 [Theorem~_vacuity_probe_b_caspe...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__PricedRevocation__casper_write_without_slashing_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "casper_write_without_slashing",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/ProbabilisticRecord.v",
+      "kind": "Lemma",
+      "line": 19,
+      "name": "fair_branch_honest",
+      "probe_a": {
+        "coq_stderr_tail": ",filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ProbabilisticRecord__fair_branch_honest__a.v\", line 3, characters 46-73:\nError: The reference honest_probabilistic_record was not found in the current\nenvironment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pro...] 0.257 secs (0.168u,0.088s)\nChars 113 - 226 [Theorem~_vacuity_probe_a_fair_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__ProbabilisticRecord__fair_branch_honest__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ProbabilisticRecord__fair_branch_honest__b.v\", line 3, characters 46-73:\nError: The reference honest_probabilistic_record was not found in the current\nenvironment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pro...] 0.264 secs (0.167u,0.093s)\nChars 113 - 226 [Theorem~_vacuity_probe_b_fair_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__ProbabilisticRecord__fair_branch_honest__b.v",
+        "succeeded": false
+      },
+      "statement": "honest_probabilistic_record fair_branch_kernel branch_write_charge",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/ProbabilisticRecord.v",
+      "kind": "Lemma",
+      "line": 32,
+      "name": "biased_branch_honest",
+      "probe_a": {
+        "coq_stderr_tail": "filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ProbabilisticRecord__biased_branch_honest__a.v\", line 3, characters 48-75:\nError: The reference honest_probabilistic_record was not found in the current\nenvironment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pro...] 0.263 secs (0.16u,0.103s)\nChars 113 - 230 [Theorem~_vacuity_probe_a_biase...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__ProbabilisticRecord__biased_branch_honest__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ilesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ProbabilisticRecord__biased_branch_honest__b.v\", line 3, characters 48-75:\nError: The reference honest_probabilistic_record was not found in the current\nenvironment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pro...] 0.254 secs (0.166u,0.088s)\nChars 113 - 230 [Theorem~_vacuity_probe_b_biase...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__ProbabilisticRecord__biased_branch_honest__b.v",
+        "succeeded": false
+      },
+      "statement": "honest_probabilistic_record biased_branch_kernel branch_write_charge",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/ProbabilisticRecord.v",
+      "kind": "Theorem",
+      "line": 45,
+      "name": "deterministic_latch_handles_branching_refuted",
+      "probe_a": {
+        "coq_stderr_tail": "/The-Thiele-Machine/build/vacuity_probes/Kernel__ProbabilisticRecord__deterministic_latch_handles_branching_refuted__a.v\", line 3, characters 75-112:\nError: The reference deterministic_latch_handles_branching was not found\nin the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pro...] 0.262 secs (0.164u,0.098s)\nChars 113 - 226 [Theorem~_vacuity_probe_a_deter...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__ProbabilisticRecord__deterministic_latch_handles_branching_refuted__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "/The-Thiele-Machine/build/vacuity_probes/Kernel__ProbabilisticRecord__deterministic_latch_handles_branching_refuted__b.v\", line 3, characters 75-112:\nError: The reference deterministic_latch_handles_branching was not found\nin the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pro...] 0.253 secs (0.163u,0.089s)\nChars 113 - 226 [Theorem~_vacuity_probe_b_deter...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__ProbabilisticRecord__deterministic_latch_handles_branching_refuted__b.v",
+        "succeeded": false
+      },
+      "statement": "~ deterministic_latch_handles_branching",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/ProbabilisticRecord.v",
+      "kind": "Lemma",
+      "line": 56,
+      "name": "branch_kernels_same_support",
+      "probe_a": {
+        "coq_stderr_tail": "path,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ProbabilisticRecord__branch_kernels_same_support__a.v\", line 3, characters 68-82:\nError: The reference kernel_support was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pro...] 0.259 secs (0.171u,0.087s)\nChars 113 - 265 [Theorem~_vacuity_probe_a_branc...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__ProbabilisticRecord__branch_kernels_same_support__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "dpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ProbabilisticRecord__branch_kernels_same_support__b.v\", line 3, characters 68-82:\nError: The reference kernel_support was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pro...] 0.263 secs (0.16u,0.101s)\nChars 113 - 265 [Theorem~_vacuity_probe_b_branc...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__ProbabilisticRecord__branch_kernels_same_support__b.v",
+        "succeeded": false
+      },
+      "statement": "forall b b', kernel_support fair_branch_kernel b b' <-> kernel_support biased_branch_kernel b b'",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/ProbabilisticRecord.v",
+      "kind": "Theorem",
+      "line": 72,
+      "name": "schedule_determines_probabilities_refuted",
+      "probe_a": {
+        "coq_stderr_tail": "orkspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ProbabilisticRecord__schedule_determines_probabilities_refuted__a.v\", line 3, characters 71-104:\nError: The reference schedule_determines_probabilities was not found\nin the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pro...] 0.257 secs (0.177u,0.08s)\nChars 113 - 218 [Theorem~_vacuity_probe_a_sched...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__ProbabilisticRecord__schedule_determines_probabilities_refuted__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "rkspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ProbabilisticRecord__schedule_determines_probabilities_refuted__b.v\", line 3, characters 71-104:\nError: The reference schedule_determines_probabilities was not found\nin the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pro...] 0.252 secs (0.155u,0.097s)\nChars 113 - 218 [Theorem~_vacuity_probe_b_sched...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__ProbabilisticRecord__schedule_determines_probabilities_refuted__b.v",
+        "succeeded": false
+      },
+      "statement": "~ schedule_determines_probabilities",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/ProbabilisticRecord.v",
+      "kind": "Theorem",
+      "line": 86,
+      "name": "probability_preserving_equivalence_reflexive_holds",
+      "probe_a": {
+        "coq_stderr_tail": "Machine/build/vacuity_probes/Kernel__ProbabilisticRecord__probability_preserving_equivalence_reflexive_holds__a.v\", line 3, characters 78-122:\nError: The reference probability_preserving_equivalence_reflexive\nwas not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pro...] 0.272 secs (0.179u,0.092s)\nChars 113 - 236 [Theorem~_vacuity_probe_a_proba...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__ProbabilisticRecord__probability_preserving_equivalence_reflexive_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-Machine/build/vacuity_probes/Kernel__ProbabilisticRecord__probability_preserving_equivalence_reflexive_holds__b.v\", line 3, characters 78-122:\nError: The reference probability_preserving_equivalence_reflexive\nwas not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Pro...] 0.254 secs (0.173u,0.08s)\nChars 113 - 236 [Theorem~_vacuity_probe_b_proba...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__ProbabilisticRecord__probability_preserving_equivalence_reflexive_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "probability_preserving_equivalence_reflexive",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
+      "kind": "Theorem",
+      "line": 7,
+      "name": "weak_base_equiv_refl_holds",
+      "probe_a": {
+        "coq_stderr_tail": "ilesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_refl_holds__a.v\", line 3, characters 54-74:\nError: The reference weak_base_equiv_refl was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.387 secs (0.243u,0.143s)\nChars 114 - 189 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_refl_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ilesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_refl_holds__b.v\", line 3, characters 54-74:\nError: The reference weak_base_equiv_refl was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.415 secs (0.275u,0.136s)\nChars 114 - 189 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_refl_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "weak_base_equiv_refl",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
+      "kind": "Theorem",
+      "line": 18,
+      "name": "weak_base_equiv_sym_holds",
+      "probe_a": {
+        "coq_stderr_tail": "h,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_sym_holds__a.v\", line 3, characters 53-72:\nError: The reference weak_base_equiv_sym was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.402 secs (0.24u,0.161s)\nChars 114 - 187 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_sym_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_sym_holds__b.v\", line 3, characters 53-72:\nError: The reference weak_base_equiv_sym was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.388 secs (0.244u,0.143s)\nChars 114 - 187 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_sym_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "weak_base_equiv_sym",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
+      "kind": "Lemma",
+      "line": 30,
+      "name": "weak_match_left_runs",
+      "probe_a": {
+        "coq_stderr_tail": "ical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_left_runs__a.v\", line 3, characters 64-75:\nError: The reference BaseMachine was not found in the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.395 secs (0.249u,0.146s)\nChars 114 - 374 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_left_runs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_left_runs__b.v\", line 3, characters 64-75:\nError: The reference BaseMachine was not found in the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.394 secs (0.254u,0.139s)\nChars 114 - 374 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_left_runs__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (B1 B2 : BaseMachine) (R : b_state B1 -> b_state B2 -> Prop), (forall x y, R x y -> (exists n, R (b_next B1 x) (base_run B2 n y))) -> forall k x y, R x y -> exists n, R (base_run B1 k x) (base_run B2 n y)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
+      "kind": "Lemma",
+      "line": 45,
+      "name": "weak_match_right_runs",
+      "probe_a": {
+        "coq_stderr_tail": "ical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_right_runs__a.v\", line 3, characters 65-76:\nError: The reference BaseMachine was not found in the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.38 secs (0.238u,0.142s)\nChars 114 - 375 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_right_runs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "cal-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_right_runs__b.v\", line 3, characters 65-76:\nError: The reference BaseMachine was not found in the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.411 secs (0.268u,0.142s)\nChars 114 - 375 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_right_runs__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (B1 B2 : BaseMachine) (R : b_state B1 -> b_state B2 -> Prop), (forall x y, R x y -> (exists n, R (base_run B1 n x) (b_next B2 y))) -> forall k x y, R x y -> exists n, R (base_run B1 n x) (base_run B2 k y)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
+      "kind": "Theorem",
+      "line": 60,
+      "name": "weak_base_equiv_trans_holds",
+      "probe_a": {
+        "coq_stderr_tail": "esystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_trans_holds__a.v\", line 3, characters 55-76:\nError: The reference weak_base_equiv_trans was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.386 secs (0.244u,0.141s)\nChars 114 - 191 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_trans_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "esystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_trans_holds__b.v\", line 3, characters 55-76:\nError: The reference weak_base_equiv_trans was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.395 secs (0.236u,0.158s)\nChars 114 - 191 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_trans_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "weak_base_equiv_trans",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
+      "kind": "Theorem",
+      "line": 94,
+      "name": "weak_equiv_preserves_round4_holds",
+      "probe_a": {
+        "coq_stderr_tail": "fault]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_equiv_preserves_round4_holds__a.v\", line 3, characters 61-88:\nError: The reference weak_equiv_preserves_round4 was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.41 secs (0.26u,0.149s)\nChars 114 - 203 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_equiv_preserves_round4_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "fault]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_equiv_preserves_round4_holds__b.v\", line 3, characters 61-88:\nError: The reference weak_equiv_preserves_round4 was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.4 secs (0.264u,0.136s)\nChars 114 - 203 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_equiv_preserves_round4_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "weak_equiv_preserves_round4",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
+      "kind": "Theorem",
+      "line": 100,
+      "name": "round4_tm_holds",
+      "probe_a": {
+        "coq_stderr_tail": "ical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__round4_tm_holds__a.v\", line 3, characters 43-59:\nError: The reference round4_tm_target was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.396 secs (0.261u,0.134s)\nChars 114 - 174 [Theorem~_vacuity_probe_a_round...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__round4_tm_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ogical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__round4_tm_holds__b.v\", line 3, characters 43-59:\nError: The reference round4_tm_target was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.4 secs (0.252u,0.146s)\nChars 114 - 174 [Theorem~_vacuity_probe_b_round...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__round4_tm_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "round4_tm_target",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
+      "kind": "Theorem",
+      "line": 106,
+      "name": "round4_vm_holds",
+      "probe_a": {
+        "coq_stderr_tail": "gical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__round4_vm_holds__a.v\", line 3, characters 43-59:\nError: The reference round4_vm_target was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.389 secs (0.24u,0.149s)\nChars 114 - 174 [Theorem~_vacuity_probe_a_round...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__round4_vm_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "gical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__round4_vm_holds__b.v\", line 3, characters 43-59:\nError: The reference round4_vm_target was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.385 secs (0.23u,0.155s)\nChars 114 - 174 [Theorem~_vacuity_probe_b_round...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__round4_vm_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "round4_vm_target",
       "status": "ok"
     }
   ]

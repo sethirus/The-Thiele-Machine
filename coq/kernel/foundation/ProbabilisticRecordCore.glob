@@ -1,0 +1,232 @@
+DIGEST 30add9ff1af8f3b45ec1b942c262160d
+FKernel.ProbabilisticRecordCore
+R248:251 Coq.Lists.List <> <> lib
+R253:256 Coq.Bool.Bool <> <> lib
+R258:271 Coq.Arith.PeanoNat <> <> lib
+R281:293 Coq.Lists.List ListNotations <> mod
+def 308:322 <> weighted_kernel
+R331:334 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R327:330 Coq.Init.Datatypes <> bool ind
+R335:338 Coq.Init.Datatypes <> list ind
+R344:346 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R341:343 Coq.Init.Datatypes <> nat ind
+R347:350 Coq.Init.Datatypes <> bool ind
+def 365:377 <> branch_charge
+R386:389 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R382:385 Coq.Init.Datatypes <> bool ind
+R394:397 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R390:393 Coq.Init.Datatypes <> bool ind
+R398:400 Coq.Init.Datatypes <> nat ind
+def 415:429 <> positive_kernel
+R436:450 Kernel.ProbabilisticRecordCore <> weighted_kernel def
+binder 432:432 <> k:1
+binder 472:472 <> b:2
+binder 474:474 <> w:3
+binder 476:477 <> b':4
+R496:499 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R480:481 Coq.Lists.List <> In def
+R492:492 Kernel.ProbabilisticRecordCore <> k:1 var
+R494:494 Kernel.ProbabilisticRecordCore <> b:2 var
+R483:483 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R485:486 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R489:489 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R484:484 Kernel.ProbabilisticRecordCore <> w:3 var
+R487:488 Kernel.ProbabilisticRecordCore <> b':4 var
+R501:503 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R500:500 Kernel.ProbabilisticRecordCore <> w:3 var
+def 519:530 <> total_kernel
+R537:551 Kernel.ProbabilisticRecordCore <> weighted_kernel def
+binder 533:533 <> k:5
+binder 573:573 <> b:6
+R579:582 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R576:576 Kernel.ProbabilisticRecordCore <> k:5 var
+R578:578 Kernel.ProbabilisticRecordCore <> b:6 var
+R583:584 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 599:613 <> monotone_kernel
+R620:634 Kernel.ProbabilisticRecordCore <> weighted_kernel def
+binder 616:616 <> k:7
+binder 656:656 <> w:8
+binder 658:659 <> b':9
+R681:684 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R662:663 Coq.Lists.List <> In def
+R674:674 Kernel.ProbabilisticRecordCore <> k:7 var
+R676:679 Coq.Init.Datatypes <> true constr
+R665:665 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R667:668 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R671:671 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R666:666 Kernel.ProbabilisticRecordCore <> w:8 var
+R669:670 Kernel.ProbabilisticRecordCore <> b':9 var
+R687:689 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R685:686 Kernel.ProbabilisticRecordCore <> b':9 var
+R690:693 Coq.Init.Datatypes <> true constr
+def 708:727 <> kernel_writes_priced
+R734:748 Kernel.ProbabilisticRecordCore <> weighted_kernel def
+binder 730:730 <> k:10
+R756:768 Kernel.ProbabilisticRecordCore <> branch_charge def
+binder 752:752 <> c:11
+binder 790:790 <> w:12
+R815:818 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R793:794 Coq.Lists.List <> In def
+R807:807 Kernel.ProbabilisticRecordCore <> k:10 var
+R809:813 Coq.Init.Datatypes <> false constr
+R796:796 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R798:799 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R804:804 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R797:797 Kernel.ProbabilisticRecordCore <> w:12 var
+R800:803 Coq.Init.Datatypes <> true constr
+R831:834 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R819:819 Kernel.ProbabilisticRecordCore <> c:11 var
+R821:825 Coq.Init.Datatypes <> false constr
+R827:830 Coq.Init.Datatypes <> true constr
+def 850:876 <> honest_probabilistic_record
+R887:901 Kernel.ProbabilisticRecordCore <> weighted_kernel def
+binder 883:883 <> k:13
+R909:921 Kernel.ProbabilisticRecordCore <> branch_charge def
+binder 905:905 <> c:14
+R953:956 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R936:950 Kernel.ProbabilisticRecordCore <> positive_kernel def
+R952:952 Kernel.ProbabilisticRecordCore <> k:13 var
+R971:974 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R957:968 Kernel.ProbabilisticRecordCore <> total_kernel def
+R970:970 Kernel.ProbabilisticRecordCore <> k:13 var
+R992:997 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R975:989 Kernel.ProbabilisticRecordCore <> monotone_kernel def
+R991:991 Kernel.ProbabilisticRecordCore <> k:13 var
+R998:1017 Kernel.ProbabilisticRecordCore <> kernel_writes_priced def
+R1019:1019 Kernel.ProbabilisticRecordCore <> k:13 var
+R1021:1021 Kernel.ProbabilisticRecordCore <> c:14 var
+def 1144:1180 <> deterministic_latch_handles_branching
+binder 1201:1201 <> k:15
+binder 1203:1203 <> c:16
+R1237:1244 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1206:1232 Kernel.ProbabilisticRecordCore <> honest_probabilistic_record def
+R1234:1234 Kernel.ProbabilisticRecordCore <> k:15 var
+R1236:1236 Kernel.ProbabilisticRecordCore <> c:16 var
+R1245:1251 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1268:1275 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1260:1263 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1256:1259 Coq.Init.Datatypes <> bool ind
+R1264:1267 Coq.Init.Datatypes <> bool ind
+binder 1252:1252 <> h:17
+binder 1283:1283 <> b:18
+binder 1285:1285 <> w:19
+binder 1287:1288 <> b':20
+R1307:1310 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1291:1292 Coq.Lists.List <> In def
+R1303:1303 Kernel.ProbabilisticRecordCore <> k:15 var
+R1305:1305 Kernel.ProbabilisticRecordCore <> b:18 var
+R1294:1294 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1296:1297 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1300:1300 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1295:1295 Kernel.ProbabilisticRecordCore <> w:19 var
+R1298:1299 Kernel.ProbabilisticRecordCore <> b':20 var
+R1313:1315 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1311:1312 Kernel.ProbabilisticRecordCore <> b':20 var
+R1316:1318 Coq.Init.Datatypes <> orb def
+R1323:1323 Kernel.ProbabilisticRecordCore <> h:17 var
+R1325:1325 Kernel.ProbabilisticRecordCore <> b:18 var
+R1320:1320 Kernel.ProbabilisticRecordCore <> b:18 var
+def 1341:1354 <> kernel_support
+R1361:1375 Kernel.ProbabilisticRecordCore <> weighted_kernel def
+binder 1357:1357 <> k:21
+R1386:1389 Coq.Init.Datatypes <> bool ind
+binder 1379:1379 <> b:22
+binder 1381:1382 <> b':23
+R1404:1410 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1412:1413 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1411:1411 <> w:24
+R1414:1415 Coq.Lists.List <> In def
+R1426:1426 Kernel.ProbabilisticRecordCore <> k:21 var
+R1428:1428 Kernel.ProbabilisticRecordCore <> b:22 var
+R1417:1417 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1419:1420 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1423:1423 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1418:1418 Kernel.ProbabilisticRecordCore <> w:24 var
+R1421:1422 Kernel.ProbabilisticRecordCore <> b':23 var
+def 1509:1535 <> same_probabilistic_schedule
+R1550:1564 Kernel.ProbabilisticRecordCore <> weighted_kernel def
+binder 1542:1543 <> k1:25
+binder 1545:1546 <> k2:26
+R1576:1588 Kernel.ProbabilisticRecordCore <> branch_charge def
+binder 1568:1569 <> c1:27
+binder 1571:1572 <> c2:28
+R1603:1603 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1666:1673 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1704:1704 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 1611:1611 <> b:29
+binder 1613:1614 <> b':30
+R1639:1643 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1617:1630 Kernel.ProbabilisticRecordCore <> kernel_support def
+R1632:1633 Kernel.ProbabilisticRecordCore <> k1:25 var
+R1635:1635 Kernel.ProbabilisticRecordCore <> b:29 var
+R1637:1638 Kernel.ProbabilisticRecordCore <> b':30 var
+R1644:1657 Kernel.ProbabilisticRecordCore <> kernel_support def
+R1659:1660 Kernel.ProbabilisticRecordCore <> k2:26 var
+R1662:1662 Kernel.ProbabilisticRecordCore <> b:29 var
+R1664:1665 Kernel.ProbabilisticRecordCore <> b':30 var
+binder 1681:1681 <> b:31
+binder 1683:1684 <> b':32
+R1694:1696 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1687:1688 Kernel.ProbabilisticRecordCore <> c1:27 var
+R1690:1690 Kernel.ProbabilisticRecordCore <> b:31 var
+R1692:1693 Kernel.ProbabilisticRecordCore <> b':32 var
+R1697:1698 Kernel.ProbabilisticRecordCore <> c2:28 var
+R1700:1700 Kernel.ProbabilisticRecordCore <> b:31 var
+R1702:1703 Kernel.ProbabilisticRecordCore <> b':32 var
+def 1719:1752 <> probability_preserving_equivalence
+R1767:1781 Kernel.ProbabilisticRecordCore <> weighted_kernel def
+binder 1759:1760 <> k1:33
+binder 1762:1763 <> k2:34
+R1793:1805 Kernel.ProbabilisticRecordCore <> branch_charge def
+binder 1785:1786 <> c1:35
+binder 1788:1789 <> c2:36
+R1820:1820 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1842:1847 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1878:1878 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 1828:1828 <> b:37
+R1835:1837 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1831:1832 Kernel.ProbabilisticRecordCore <> k1:33 var
+R1834:1834 Kernel.ProbabilisticRecordCore <> b:37 var
+R1838:1839 Kernel.ProbabilisticRecordCore <> k2:34 var
+R1841:1841 Kernel.ProbabilisticRecordCore <> b:37 var
+binder 1855:1855 <> b:38
+binder 1857:1858 <> b':39
+R1868:1870 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1861:1862 Kernel.ProbabilisticRecordCore <> c1:35 var
+R1864:1864 Kernel.ProbabilisticRecordCore <> b:38 var
+R1866:1867 Kernel.ProbabilisticRecordCore <> b':39 var
+R1871:1872 Kernel.ProbabilisticRecordCore <> c2:36 var
+R1874:1874 Kernel.ProbabilisticRecordCore <> b:38 var
+R1876:1877 Kernel.ProbabilisticRecordCore <> b':39 var
+def 1893:1925 <> schedule_determines_probabilities
+binder 1946:1947 <> k1:40
+binder 1949:1950 <> k2:41
+binder 1952:1953 <> c1:42
+binder 1955:1956 <> c2:43
+R1996:2003 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1963:1989 Kernel.ProbabilisticRecordCore <> honest_probabilistic_record def
+R1991:1992 Kernel.ProbabilisticRecordCore <> k1:40 var
+R1994:1995 Kernel.ProbabilisticRecordCore <> c1:42 var
+R2037:2044 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2004:2030 Kernel.ProbabilisticRecordCore <> honest_probabilistic_record def
+R2032:2033 Kernel.ProbabilisticRecordCore <> k2:41 var
+R2035:2036 Kernel.ProbabilisticRecordCore <> c2:43 var
+R2084:2091 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2045:2071 Kernel.ProbabilisticRecordCore <> same_probabilistic_schedule def
+R2073:2074 Kernel.ProbabilisticRecordCore <> k1:40 var
+R2076:2077 Kernel.ProbabilisticRecordCore <> k2:41 var
+R2079:2080 Kernel.ProbabilisticRecordCore <> c1:42 var
+R2082:2083 Kernel.ProbabilisticRecordCore <> c2:43 var
+R2092:2125 Kernel.ProbabilisticRecordCore <> probability_preserving_equivalence def
+R2127:2128 Kernel.ProbabilisticRecordCore <> k1:40 var
+R2130:2131 Kernel.ProbabilisticRecordCore <> k2:41 var
+R2133:2134 Kernel.ProbabilisticRecordCore <> c1:42 var
+R2136:2137 Kernel.ProbabilisticRecordCore <> c2:43 var
+def 2152:2195 <> probability_preserving_equivalence_reflexive
+binder 2216:2216 <> k:44
+binder 2218:2218 <> c:45
+R2221:2254 Kernel.ProbabilisticRecordCore <> probability_preserving_equivalence def
+R2256:2256 Kernel.ProbabilisticRecordCore <> k:44 var
+R2258:2258 Kernel.ProbabilisticRecordCore <> k:44 var
+R2260:2260 Kernel.ProbabilisticRecordCore <> c:45 var
+R2262:2262 Kernel.ProbabilisticRecordCore <> c:45 var

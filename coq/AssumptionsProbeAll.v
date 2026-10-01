@@ -186,6 +186,9 @@ Require Kernel.SymmetricDerivative4D.
 Require Kernel.TopologyCurvatureBridge.
 Require Kernel.ClassicalBound.
 Require Kernel.ClassicalConservativity.
+Require Kernel.CrossBaseGranularity.
+Require Kernel.CrossBaseGranularityCore.
+Require Kernel.CrossBaseGranularityRound2Core.
 Require Kernel.DagRestriction.
 Require Kernel.Definitions.
 Require Kernel.EventGeneralization.
@@ -205,6 +208,10 @@ Require Kernel.MuLedgerConservation.
 Require Kernel.NatSubstrateInstance.
 Require Kernel.PartitionSeparation.
 Require Kernel.Persistence.
+Require Kernel.PricedRevocation.
+Require Kernel.PricedRevocationCore.
+Require Kernel.ProbabilisticRecord.
+Require Kernel.ProbabilisticRecordCore.
 Require Kernel.ProperSubsumption.
 Require Kernel.RecordAxisDiscrimination.
 Require Kernel.SimulationProof.
@@ -10633,6 +10640,15 @@ Print Assumptions Kernel.ClassicalConservativity.classical_trace_preserves_cert_
 Print Assumptions Kernel.ClassicalConservativity.classical_trace_preserves_certified.
 Print Assumptions Kernel.ClassicalConservativity.D3_conservativity.
 Print Assumptions Kernel.ClassicalConservativity.classical_trace_cannot_certify.
+(* === Kernel.CrossBaseGranularity : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.CrossBaseGranularity.weak_base_equiv_refl_holds.
+Print Assumptions Kernel.CrossBaseGranularity.weak_base_equiv_sym_holds.
+Print Assumptions Kernel.CrossBaseGranularity.weak_match_left_runs.
+Print Assumptions Kernel.CrossBaseGranularity.weak_match_right_runs.
+Print Assumptions Kernel.CrossBaseGranularity.weak_base_equiv_trans_holds.
+Print Assumptions Kernel.CrossBaseGranularity.weak_equiv_preserves_round4_holds.
+Print Assumptions Kernel.CrossBaseGranularity.round4_tm_holds.
+Print Assumptions Kernel.CrossBaseGranularity.round4_vm_holds.
 (* === Kernel.DagRestriction : 31 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.DagRestriction.advance_state_pc_S.
 Print Assumptions Kernel.DagRestriction.advance_state_rm_pc_S.
@@ -10947,6 +10963,18 @@ Print Assumptions Kernel.PartitionSeparation.PartitionSeparation.classical_bool_
 Print Assumptions Kernel.Persistence.Persistence.in_pnew_choices_0.
 Print Assumptions Kernel.Persistence.Persistence.uniform_bet_zero_when_choices_exceed_fuel.
 Print Assumptions Kernel.Persistence.Persistence.Uniform_Strategy_Dies.
+(* === Kernel.PricedRevocation : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.PricedRevocation.actual_revocation_excludes_permanence_holds.
+Print Assumptions Kernel.PricedRevocation.revocation_price_does_not_price_writes_refuted.
+Print Assumptions Kernel.PricedRevocation.casper_conflict_is_accountable_holds.
+Print Assumptions Kernel.PricedRevocation.casper_write_without_slashing_holds.
+(* === Kernel.ProbabilisticRecord : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.ProbabilisticRecord.fair_branch_honest.
+Print Assumptions Kernel.ProbabilisticRecord.biased_branch_honest.
+Print Assumptions Kernel.ProbabilisticRecord.deterministic_latch_handles_branching_refuted.
+Print Assumptions Kernel.ProbabilisticRecord.branch_kernels_same_support.
+Print Assumptions Kernel.ProbabilisticRecord.schedule_determines_probabilities_refuted.
+Print Assumptions Kernel.ProbabilisticRecord.probability_preserving_equivalence_reflexive_holds.
 (* === Kernel.ProperSubsumption : 6 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.ProperSubsumption.ProperSubsumption.thiele_simulates_turing_gen.
 Print Assumptions Kernel.ProperSubsumption.ProperSubsumption.thiele_simulates_turing.

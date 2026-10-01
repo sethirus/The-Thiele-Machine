@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 452,
-  "total_addressable": 13331,
+  "files_probed": 459,
+  "total_addressable": 13349,
   "total_unaddressable": 7,
   "extras_addressable_via_instantiation": [
     {
@@ -51653,6 +51653,71 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
+      "qualified_module": "Kernel.CrossBaseGranularity",
+      "addressable_count": 8,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "weak_base_equiv_refl_holds",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularity.weak_base_equiv_refl_holds"
+        },
+        {
+          "local_name": "weak_base_equiv_sym_holds",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularity.weak_base_equiv_sym_holds"
+        },
+        {
+          "local_name": "weak_match_left_runs",
+          "kind": "Lemma",
+          "full_name": "Kernel.CrossBaseGranularity.weak_match_left_runs"
+        },
+        {
+          "local_name": "weak_match_right_runs",
+          "kind": "Lemma",
+          "full_name": "Kernel.CrossBaseGranularity.weak_match_right_runs"
+        },
+        {
+          "local_name": "weak_base_equiv_trans_holds",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularity.weak_base_equiv_trans_holds"
+        },
+        {
+          "local_name": "weak_equiv_preserves_round4_holds",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularity.weak_equiv_preserves_round4_holds"
+        },
+        {
+          "local_name": "round4_tm_holds",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularity.round4_tm_holds"
+        },
+        {
+          "local_name": "round4_vm_holds",
+          "kind": "Theorem",
+          "full_name": "Kernel.CrossBaseGranularity.round4_vm_holds"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularityCore.v",
+      "qualified_module": "Kernel.CrossBaseGranularityCore",
+      "addressable_count": 0,
+      "unaddressable_count": 0,
+      "addressable": [],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularityRound2Core.v",
+      "qualified_module": "Kernel.CrossBaseGranularityRound2Core",
+      "addressable_count": 0,
+      "unaddressable_count": 0,
+      "addressable": [],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/foundation/DagRestriction.v",
       "qualified_module": "Kernel.DagRestriction",
       "addressable_count": 31,
@@ -53320,6 +53385,90 @@
           "full_name": "Kernel.Persistence.Persistence.Uniform_Strategy_Dies"
         }
       ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/PricedRevocation.v",
+      "qualified_module": "Kernel.PricedRevocation",
+      "addressable_count": 4,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "actual_revocation_excludes_permanence_holds",
+          "kind": "Theorem",
+          "full_name": "Kernel.PricedRevocation.actual_revocation_excludes_permanence_holds"
+        },
+        {
+          "local_name": "revocation_price_does_not_price_writes_refuted",
+          "kind": "Theorem",
+          "full_name": "Kernel.PricedRevocation.revocation_price_does_not_price_writes_refuted"
+        },
+        {
+          "local_name": "casper_conflict_is_accountable_holds",
+          "kind": "Theorem",
+          "full_name": "Kernel.PricedRevocation.casper_conflict_is_accountable_holds"
+        },
+        {
+          "local_name": "casper_write_without_slashing_holds",
+          "kind": "Theorem",
+          "full_name": "Kernel.PricedRevocation.casper_write_without_slashing_holds"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/PricedRevocationCore.v",
+      "qualified_module": "Kernel.PricedRevocationCore",
+      "addressable_count": 0,
+      "unaddressable_count": 0,
+      "addressable": [],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/ProbabilisticRecord.v",
+      "qualified_module": "Kernel.ProbabilisticRecord",
+      "addressable_count": 6,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "fair_branch_honest",
+          "kind": "Lemma",
+          "full_name": "Kernel.ProbabilisticRecord.fair_branch_honest"
+        },
+        {
+          "local_name": "biased_branch_honest",
+          "kind": "Lemma",
+          "full_name": "Kernel.ProbabilisticRecord.biased_branch_honest"
+        },
+        {
+          "local_name": "deterministic_latch_handles_branching_refuted",
+          "kind": "Theorem",
+          "full_name": "Kernel.ProbabilisticRecord.deterministic_latch_handles_branching_refuted"
+        },
+        {
+          "local_name": "branch_kernels_same_support",
+          "kind": "Lemma",
+          "full_name": "Kernel.ProbabilisticRecord.branch_kernels_same_support"
+        },
+        {
+          "local_name": "schedule_determines_probabilities_refuted",
+          "kind": "Theorem",
+          "full_name": "Kernel.ProbabilisticRecord.schedule_determines_probabilities_refuted"
+        },
+        {
+          "local_name": "probability_preserving_equivalence_reflexive_holds",
+          "kind": "Theorem",
+          "full_name": "Kernel.ProbabilisticRecord.probability_preserving_equivalence_reflexive_holds"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/foundation/ProbabilisticRecordCore.v",
+      "qualified_module": "Kernel.ProbabilisticRecordCore",
+      "addressable_count": 0,
+      "unaddressable_count": 0,
+      "addressable": [],
       "unaddressable": []
     },
     {

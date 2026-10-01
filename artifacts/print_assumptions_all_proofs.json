@@ -1,26 +1,26 @@
 {
   "schema": "thiele-print-assumptions-full-probe-v3",
-  "generated": "2026-10-01T01:01:29.425375+00:00",
+  "generated": "2026-10-01T01:26:22.861259+00:00",
   "coq_version": "8.18.0",
-  "corpus_digest": "ee27d44558d9b14fec5489f56bb81ddc3c16da3c27beb803c21f081e708cb72b",
-  "probe_digest": "959b2efb823fc891d0486bb3a467f8b345dabb3972955786f997c209fd9dc4f7",
+  "corpus_digest": "fbba692819438baf865979557d4ff1765ca13c0a0bc486ababe5dd215cdba8c7",
+  "probe_digest": "a6858b381d303cd0c324b25134baeb344bcbba31663906545ab48185dd87cc0a",
   "probe_file": "coq/AssumptionsProbeAll.v",
   "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
-  "raw_output_sha256": "5f36d8254c4ffb63ede1a278489c3ceb617223be3c0ee6927243bb014afceecf",
-  "files_probed": 452,
-  "addressable_theorems_probed": 13332,
-  "blocks_parsed": 13332,
+  "raw_output_sha256": "c6710f2753304e072959aba62c7bd611ad55bcaa6545f168e50700585131083b",
+  "files_probed": 459,
+  "addressable_theorems_probed": 13350,
+  "blocks_parsed": 13350,
   "alignment_ok": true,
   "stderr_nonempty": true,
   "stderr_excerpt": "\nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq <",
   "unexpected_lines_in_output": 0,
   "first_unexpected_lines": [],
   "summary": {
-    "theorems_probed": 13332,
-    "closed_under_global_context": 5979,
-    "depend_on_axioms": 7353,
+    "theorems_probed": 13350,
+    "closed_under_global_context": 5996,
+    "depend_on_axioms": 7354,
     "user_or_third_party_axiom_findings": 0,
-    "excluded_middle_users": 107,
+    "excluded_middle_users": 108,
     "functional_extensionality_users": 7050,
     "real_completeness_axiom_users": 1063,
     "unique_axioms_used": {
@@ -28,7 +28,7 @@
       "Eqdep.Eq_rect_eq.eq_rect_eq": 3849,
       "ClassicalDedekindReals.sig_forall_dec": 1063,
       "ClassicalDedekindReals.sig_not_dec": 309,
-      "Classical_Prop.classic": 107
+      "Classical_Prop.classic": 108
     }
   },
   "user_or_third_party_axiom_findings": [],
@@ -58,6 +58,7 @@
     "Kernel.PhysicalSubstrate.substrate_psplit_implies_discrete_einstein",
     "Kernel.PhysicalSubstrate.substrate_pnew_implies_discrete_einstein",
     "Kernel.PhysicalSubstrate.landauer_metrological_boundary_closed_proof",
+    "Kernel.PricedRevocation.casper_conflict_is_accountable_holds",
     "Kernel.EventGenericAudit.evidence_a2_from_entropy_price_and_permanence",
     "Kernel.EventGenericAudit.evidence_entropy_priced_trace_floor",
     "Kernel.EventGenericAudit.evidence_permanent_flip_full_support_entropy_drop_positive",
@@ -214,9 +215,9 @@
       ]
     },
     "Kernel": {
-      "theorems": 3742,
-      "closed": 2763,
-      "with_axioms": 979,
+      "theorems": 3760,
+      "closed": 2780,
+      "with_axioms": 980,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
@@ -1825,6 +1826,12 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/kernel/foundation/CrossBaseGranularity.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/foundation/DagRestriction.v": {
       "theorems": 31,
       "closed": 31,
@@ -1900,6 +1907,20 @@
     "coq/kernel/foundation/Persistence.v": {
       "theorems": 3,
       "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/PricedRevocation.v": {
+      "theorems": 4,
+      "closed": 3,
+      "with_axioms": 1,
+      "axiom_set": [
+        "Classical_Prop.classic"
+      ]
+    },
+    "coq/kernel/foundation/ProbabilisticRecord.v": {
+      "theorems": 6,
+      "closed": 6,
       "with_axioms": 0,
       "axiom_set": []
     },
