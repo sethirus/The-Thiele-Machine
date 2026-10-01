@@ -331,7 +331,7 @@ Its generated closure receipt is [artifacts/master_summary_open_obligations.json
 | Quantum certificate soundness | Specified slice or completion PSD conditions; not physical entanglement generation. |
 | Hardware trace commutation | The Coq hardware model under `WFDrivenRun`; downstream compiler/RTL trust is explicit. |
 | Which narrowing is priced | On a finite machine that prices merges, the machine's own spread of possible states can't shrink for free (`run_narrowing_priced_log`). Observer knowledge need not be charged: `observer_narrowing_can_be_free` exhibits one admissible merge-priced cost assigning zero to an injective measurement, while wiping the record costs at least one (`wipe_costs_at_least_one`). Merge pricing is a lower bound and may overcharge injective steps. The insight No Free Insight prices is certified insight. What the run itself teaches, from the first look to the end, is also free (`demon_refutes_incremental`); the smallest machine that teaches for free has three states (`free_incremental_narrowing_with_three`, `no_free_incremental_narrowing_below_three`). |
-| Recursion theorem | Proved for L, a Turing-complete lambda calculus, from its reduction rules (`second_recursion`), with Rice's theorem and halting as corollaries (`L_rice`, `L_halting_undecidable`). For the 12-instruction guest fragment, numeric decoding, fuel-bounded dispatch, agreement with actual VM execution, and semantic s-m-n specialization are proved (`g_decode_guest_code_roundtrip`, `g_eval_is_actual_vm_execution`, `g_smn`); the specialized program on any input is equivalent to the original on the fixed input. The evaluator and specialization constructor are host-level functions, not guest programs; an internal VM recursion theorem is outside these statements. |
+| Recursion theorem | Proved for L, a Turing-complete lambda calculus, from its reduction rules (`second_recursion`), with Rice's theorem and halting as corollaries (`L_rice`, `L_halting_undecidable`). For the 12-instruction guest fragment, numeric decoding, fuel-bounded dispatch, agreement with actual VM execution, and semantic s-m-n specialization are proved (`g_decode_guest_code_roundtrip`, `g_eval_is_actual_vm_execution`, `g_smn`); the specialized program on any input is equivalent to the original on the fixed input. The guest also has its own recursion theorem (`vm_guest_recursion_theorem_closed`): every program transformer that a guest program computes on program codes has a fixed point `p` that matches `F p` in all four final registers and in `mu` on every input, and runs forever exactly when `F p` does. The evaluator in that proof runs as guest code: it is extracted to the lambda calculus L, compiled to a Minsky machine, and executed by the guest. |
 | Structural uniqueness | False in the form the words suggest: a Thiele core that bills CPU time is adequate and runs the VM underneath, and it is not the same machine (`uniqueness_round1_refuted`, `uniqueness_round2_refuted`). Up to the price schedule it holds for machines that run the VM and record certification (`uniqueness_round3b_holds`); any state-dependent bill is just a schedule (`surcharged_core_equiv_mod_schedule`). Which permanent reading counts as the record is a second free choice (`uniqueness_round3a_refuted`). Over any base, a record driven by the computation that never switches off is a latch on one event (`uniqueness_round4_holds`); a revocable record is not (`toggle_not_latch`). |
 | Physical interpretation | A closed two-state discrete master-equation protocol computes bath heat as `Delta / 2`. Choosing `Delta = 2 k_B T ln 2` gives the Landauer value, but changing only the gap changes the heat with identical population dynamics (`master_equation_does_not_fix_heat_scale`). The protocol is an exact calorimeter blueprint. Calibration of one μ to joules requires thermal-admissibility and device-correspondence premises. `F1_physical_premises_incompatible` separately proves the full-ISA F1 premise pair has no instance. |
 
@@ -453,6 +453,8 @@ The exact versions are the ones CI earns its badges with: plain apt on `ubuntu-l
 
 ```bash
 sudo apt-get install -y coq coinor-csdp ocaml ocaml-findlib   # proof gates
+sudo apt-get install -y libcoq-core-ocaml-dev libcoq-equations libstdlib-shims-ocaml-dev
+bash scripts/install_metacoq.sh                                # MetaCoq 1.2.1 for the L extraction in VMGuestEvalL.v
 sudo apt-get install -y iverilog verilator yosys              # RTL gates only
 ```
 
@@ -501,7 +503,7 @@ Guest structural fields remain unchanged.
 
 For that model, the checked Rice reduction proves undecidability for extensional predicates separating the divergent program from a well-formed program, including halting on zero and returning zero.
 Guest-program deciders are covered.
-It supplies no internal recursion theorem and does not discharge the conditional bounded VM diagonal.
+The guest's internal recursion theorem is proved separately (`vm_guest_recursion_theorem_closed`). Neither discharges the conditional bounded VM diagonal.
 [VM contracts](docs/VM_CONTRACTS.md) records the assumptions and checked results.
 
 ## Run A Program

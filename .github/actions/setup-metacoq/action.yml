@@ -20,29 +20,6 @@ runs:
         path: ${{ runner.temp }}/metarocq-1.2.1-8.18
         key: metacoq-v1.2.1-8.18-${{ runner.os }}-${{ env.METACOQ_COQ }}
 
-    - name: Build MetaCoq Template from pinned source
-      if: steps.cache-metacoq.outputs.cache-hit != 'true'
+    - name: Build (on a cache miss) and install MetaCoq Template
       shell: bash
-      run: |
-        set -Eeuo pipefail
-        cd "$RUNNER_TEMP"
-        curl -sSL -o metacoq.tar.gz \
-          "https://github.com/MetaRocq/metarocq/archive/refs/tags/v1.2.1-8.18.tar.gz"
-        echo "2b5057265344e661371591eaa5d94da9cb45ce4e88867a6cce517f478395a9fe  metacoq.tar.gz" | sha256sum -c -
-        tar -xzf metacoq.tar.gz
-        cd metarocq-1.2.1-8.18
-        ./configure.sh
-        for part in utils common template-coq; do
-          make -C "$part" -j4
-          sudo make -C "$part" install
-        done
-
-    - name: Install MetaCoq Template
-      if: steps.cache-metacoq.outputs.cache-hit == 'true'
-      shell: bash
-      run: |
-        set -Eeuo pipefail
-        cd "$RUNNER_TEMP/metarocq-1.2.1-8.18"
-        for part in utils common template-coq; do
-          sudo make -C "$part" install
-        done
+      run: JOBS=4 bash scripts/install_metacoq.sh "$RUNNER_TEMP"
