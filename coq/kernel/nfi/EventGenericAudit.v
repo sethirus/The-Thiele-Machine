@@ -863,3 +863,199 @@ End EmptyMuChaitinAudit.
 
 Print Assumptions audit_no_free_insight.
 Print Assumptions audit_honest_erasure_accounting_implies_a2.
+
+(** * Closing the conditional door witnesses
+
+    Fourteen door specializations above keep a premise explicit. Ten of those
+    premises are mathematical, and the door machine satisfies them: the
+    uniform distribution on its two states with full support, compression
+    pricing and entropy pricing of [door_cost], and a blind price that meets
+    the event floor. The closed witnesses below discharge them. The four
+    Landauer rows keep a physical premise, which no machine fact discharges. *)
+
+From Coq Require Import Reals Lra.
+
+Section DoorClosure.
+Local Open Scope R_scope.
+
+Definition door_uniform : bool -> R := uniform_on bool_dec door_all.
+
+Lemma door_uniform_value : forall b, door_uniform b = / 2.
+Proof.
+  intros [|]; unfold door_uniform, uniform_on, in_b;
+    destruct (in_dec bool_dec _ door_all) as [_ | H];
+    [simpl; field | exfalso; apply H; simpl; auto
+    | simpl; field | exfalso; apply H; simpl; auto].
+Qed.
+
+Lemma door_uniform_distribution : distribution door_all door_uniform.
+Proof.
+  split.
+  - intro b. rewrite door_uniform_value. lra.
+  - unfold rsum, door_all. simpl. rewrite !door_uniform_value. field.
+Qed.
+
+Lemma door_uniform_positive : forall b, 0 < door_uniform b.
+Proof. intro b. rewrite door_uniform_value. lra. Qed.
+
+Lemma door_uniform_support :
+  forall x, In x door_all -> 0 < door_uniform x ->
+    In x (certified_states bool door_opened door_all ++ [false]).
+Proof. intros [|] _ _; simpl; auto. Qed.
+
+Lemma door_log2_two : log2 (INR 2) = 1.
+Proof.
+  unfold log2. simpl INR. replace (1 + 1) with 2 by lra.
+  assert (Hln : 0 < ln 2) by (rewrite <- ln_1; apply ln_increasing; lra).
+  field. lra.
+Qed.
+
+(** [Open] sends every state to [true], so the pushed distribution has no
+    entropy. *)
+Lemma door_open_push_entropy_zero : forall p,
+  distribution door_all p ->
+  entropy door_all (push bool_dec door_all (fun s => door_step s Open) p) = 0.
+Proof.
+  intros p [_ Hsum].
+  unfold rsum, door_all in Hsum. simpl in Hsum.
+  unfold entropy, push, rsum, door_all, door_step, surprisal_term. simpl.
+  replace (p false + (p true + 0)) with 1 by lra.
+  replace (0 + (0 + 0)) with 0 by lra.
+  destruct (Rlt_dec 0 0) as [H0 | _]; [lra |].
+  destruct (Rlt_dec 0 1) as [_ | H1]; [| lra].
+  unfold log2. rewrite ln_1. field.
+  rewrite <- ln_1. apply Rgt_not_eq. apply ln_increasing; lra.
+Qed.
+
+(** [Wait] is the identity, so the pushed distribution is the original. *)
+Lemma door_wait_push_same : forall p y,
+  push bool_dec door_all (fun s => door_step s Wait) p y = p y.
+Proof.
+  intros p [|]; unfold push, rsum, door_all, door_step; simpl;
+    repeat match goal with |- context [bool_dec ?a ?b] =>
+      destruct (bool_dec a b); try discriminate end; lra.
+Qed.
+
+Lemma door_entropy_priced : entropy_priced door_step bool_dec door_all door_cost.
+Proof.
+  intros [|] p Hp.
+  - rewrite door_open_push_entropy_zero by exact Hp.
+    pose proof (entropy_le_log_support door_all door_all p
+                  (proj1 door_finite) Hp (fun a Ha _ => Ha) ltac:(simpl; lia)) as Hle.
+    assert (Hl : log2 (INR (List.length door_all)) = 1) by exact door_log2_two.
+    rewrite Hl in Hle.
+    unfold door_cost. simpl INR. lra.
+  - assert (Heq : entropy door_all (push bool_dec door_all (fun s => door_step s Wait) p)
+                  = entropy door_all p).
+    { unfold entropy, rsum, door_all. cbn [fold_right].
+      rewrite !door_wait_push_same. reflexivity. }
+    rewrite Heq. unfold door_cost. simpl INR. lra.
+Qed.
+
+Lemma door_bool_nodup_length : forall D : list bool, NoDup D -> (List.length D <= 2)%nat.
+Proof.
+  intros D HD. change 2%nat with (List.length door_all).
+  apply NoDup_incl_length; [exact HD |]. intros [|] _; simpl; auto.
+Qed.
+
+Lemma door_open_image_size : forall D,
+  D <> [] -> image_size door_step bool_dec Open D = 1%nat.
+Proof.
+  intros D HD. unfold image_size, door_step.
+  destruct D as [| d D]; [contradiction |]. clear HD.
+  induction D as [| e D IH]; [reflexivity |].
+  simpl in *. destruct (in_dec bool_dec true (map (fun _ => true) D)) as [Hin | Hnot].
+  - destruct (in_dec bool_dec true (true :: map (fun _ => true) D)); [exact IH |].
+    exfalso. simpl in *. tauto.
+  - destruct D as [| f D]; [reflexivity | simpl in Hnot; tauto].
+Qed.
+
+Lemma door_wait_image_size : forall D,
+  NoDup D -> image_size door_step bool_dec Wait D = List.length D.
+Proof.
+  intros D HD. unfold image_size, door_step.
+  rewrite map_id. rewrite (nodup_fixed_point bool_dec HD). reflexivity.
+Qed.
+
+Lemma door_compression_priced : compression_priced door_step door_cost bool_dec.
+Proof.
+  intros [|] D HD.
+  - pose proof (door_bool_nodup_length D HD) as Hlen.
+    destruct D as [| d D']; [simpl; lia |].
+    rewrite door_open_image_size by discriminate.
+    unfold door_cost. simpl in *. lia.
+  - rewrite (door_wait_image_size D HD). unfold door_cost. simpl. lia.
+Qed.
+
+End DoorClosure.
+
+Lemma closed_permanent_step_entropy_ceiling :
+  ltac:(let T := type of (audit_permanent_step_entropy_ceiling door_uniform
+                            door_uniform_distribution door_uniform_support) in exact T).
+Proof.
+  exact (audit_permanent_step_entropy_ceiling door_uniform
+           door_uniform_distribution door_uniform_support).
+Qed.
+
+Lemma closed_permanent_step_entropy_drop :
+  ltac:(let T := type of (audit_permanent_step_entropy_drop door_uniform
+                            door_uniform_distribution door_uniform_support) in exact T).
+Proof.
+  exact (audit_permanent_step_entropy_drop door_uniform
+           door_uniform_distribution door_uniform_support).
+Qed.
+
+Lemma closed_permanent_flip_full_support_entropy_drop_positive :
+  ltac:(let T := type of (audit_permanent_flip_full_support_entropy_drop_positive
+                            door_uniform door_uniform_distribution
+                            (fun x _ => door_uniform_positive x)) in exact T).
+Proof.
+  exact (audit_permanent_flip_full_support_entropy_drop_positive door_uniform
+           door_uniform_distribution (fun x _ => door_uniform_positive x)).
+Qed.
+
+Lemma closed_a2_from_entropy_price_and_permanence :
+  a2_holds door_step door_opened door_cost.
+Proof. exact (audit_a2_from_entropy_price_and_permanence door_entropy_priced). Qed.
+
+Lemma closed_entropy_priced_trace_floor :
+  ltac:(let T := type of (audit_entropy_priced_trace_floor door_entropy_priced) in exact T).
+Proof. exact (audit_entropy_priced_trace_floor door_entropy_priced). Qed.
+
+Lemma closed_a2_from_compression_price_and_permanence :
+  a2_holds door_step door_opened door_cost.
+Proof. exact (audit_a2_from_compression_price_and_permanence door_compression_priced). Qed.
+
+Lemma closed_compression_priced_trace_floor :
+  ltac:(let T := type of (audit_compression_priced_trace_floor door_compression_priced) in exact T).
+Proof. exact (audit_compression_priced_trace_floor door_compression_priced). Qed.
+
+Lemma closed_permanent_flips_compression_bound :
+  ltac:(let T := type of (audit_permanent_flips_compression_bound door_compression_priced) in exact T).
+Proof. exact (audit_permanent_flips_compression_bound door_compression_priced). Qed.
+
+Lemma closed_permanent_flips_log_bound :
+  ltac:(let T := type of (audit_permanent_flips_log_bound door_compression_priced) in exact T).
+Proof. exact (audit_permanent_flips_log_bound door_compression_priced). Qed.
+
+(** The constant price one meets the floor, and the blind window then
+    charges a step that does not open the door. *)
+Lemma closed_shadow_floor_overcharges :
+  exists s i,
+    flips door_step door_opened s i = false /\
+    (shadow_cost door_step (fun _ : bool => tt) (fun _ _ => 1%nat) s i >= 1)%nat.
+Proof.
+  apply (audit_shadow_floor_overcharges (fun _ _ => 1%nat)).
+  intros s i _. unfold shadow_cost. lia.
+Qed.
+
+Print Assumptions closed_permanent_step_entropy_ceiling.
+Print Assumptions closed_permanent_step_entropy_drop.
+Print Assumptions closed_permanent_flip_full_support_entropy_drop_positive.
+Print Assumptions closed_a2_from_entropy_price_and_permanence.
+Print Assumptions closed_entropy_priced_trace_floor.
+Print Assumptions closed_a2_from_compression_price_and_permanence.
+Print Assumptions closed_compression_priced_trace_floor.
+Print Assumptions closed_permanent_flips_compression_bound.
+Print Assumptions closed_permanent_flips_log_bound.
+Print Assumptions closed_shadow_floor_overcharges.

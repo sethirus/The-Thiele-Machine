@@ -18,7 +18,7 @@ but the report explicitly limits a structurally built-in or definitional fact.
 |---|---|---|---|---|---|---|---|
 | 0.1 | PROVED operationally | repository baseline committed | pass | pass | pass | pass | pass |
 | 0.2 | PROVED operationally | gates and isolated rebuild passed | pass | pass | pass | pass | pass |
-| 1.1 | PARTIAL | 472 identities classified; 14 generalized witnesses conditional and three Mu-Chaitin bodies lack a concrete instance | pass | scope | pass | pass | pass |
+| 1.1 | PROVED; four rows BOUNDARY; Mu-Chaitin functor REFUTED for the VM, trace-local form PROVED | 472 identities classified; 45 of 49 event-generic witnesses closed, four keep the physical Landauer premise; trace-local Mu-Chaitin instantiated on a VM run | pass | scope | pass | pass | pass |
 | 1.2 | 19 PROVED, 36 REFUTED | every frozen certification-only generalization has a closed wrapper or counterexample | pass | pass | pass | pass | pass |
 | 1.3 | REFUTED | universal event swap fails for zero-cost fixed-width graph allocation; certification sanity bundle proved | pass | pass | pass | pass | pass |
 | 1.4 | PROVED | 8,156-line publication audit and 41 corrections | pass | pass | pass | pass | pass |

@@ -3514,7 +3514,7 @@ Proof-carrying code keeps no permanent record and prices nothing. It is outside 
 All five need their commitments to count. Four keep permanent records, and they hold them in place three ways: a price on the write, a price on reversal, or a structure that can't be undone. Only one matches A2's exact form.
 \end{plainreading}
 
-Whether permanence is always paid for at some level is a separate question. It is open.
+Whether permanence is always paid for depends on the level. At the logical level it always is: on a finite state space, a step that permanently switches a record on cannot be injective (\code{permanent\_write\_has\_logical\_payment}). An economic, cryptographic, or physical payment needs a premise about that level, such as Landauer's principle for heat, and holds exactly where the premise holds.
 
 %===========================================================================
 \section{Binary Game Statistics: where a Priced Check Meets the NPA Boundary}
@@ -4712,7 +4712,7 @@ Those are the edges of the individual results. Every structural, conditional, an
 \begin{itemize}
 \item A finite monotone multi-valued record decomposes into its threshold latches. The stronger claim that it is one Boolean latch is false.
 \item Actual revocation, including revocation priced from the other side as in Casper, lies outside the permanent-record axis. A revocation price alone does not transfer to a price on writing the record.
-\item The cross-base comparison satisfies the elementary equivalence laws, but complete cost-respecting adapters for the Turing machine, RAM, L, and the VM have not been supplied.
+\item The cross-base comparison satisfies the elementary equivalence laws, which ignore instruction granularity by allowing stuttering. The Turing machine, a Cook--Reckhow RAM, L, and the VM each have a closed executable base adapter (\code{round4\_tm\_holds}, \code{round4\_ram\_holds}, \code{round4\_l\_holds}, \code{round4\_vm\_holds}). Round 4 holds on every base, so it does not tell them apart.
 \item Permanence forces logical non-injectivity on finite state spaces. It does not by itself prove that every economic, cryptographic, or physical realization pays one universal kind of cost (Section~\ref{sec:spec-records}).
 \item The two-state calorimeter protocol fixes microscopic populations, a Hamiltonian, a discrete master equation, and exact bath heat. It also proves that the same population dynamics admit different heat when the energy gap changes. Landauer's value follows only after selecting the corresponding gap; calibration to a thermally admissible device requires empirical evidence.
 \item A direct probabilistic analogue of uniqueness up to schedule is false: two machines can agree on their base distribution and disagree on the record distribution.

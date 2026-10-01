@@ -79,6 +79,11 @@ An explicitly qualified citation keeps its own module identity.
 - `surcharged_core_equiv_mod_schedule`: For every surcharge function on Thiele states, the Thiele core that adds that surcharge to its ledger at each step is the same machine as the Thiele core modulo its price schedule.
 - `uniqueness_round3a_refuted`: Requiring only that the record be some reading of the computation is not enough: the Thiele core whose record is "the meter has passed one" meets that condition and disagrees with the certification light at a starting state with a positive meter and no certificate.
 - `uniqueness_round4_holds`: For any base machine and any record-carrying machine that covers it step for step, whose record never switches off, satisfies A2 with a monotone ledger, is written by some reachable step, and has its next value determined by the base state and its current value, there is a base event h such that the base state and record evolve exactly as the latch "switch on where h holds, never switch off."
+- `round4_tm_holds`: Round 4 holds on the executable toy Turing-machine base for every program.
+- `round4_vm_holds`: Round 4 holds on the unbounded VM base for every program.
+- `round4_ram_holds`: Round 4 holds on the Cook-Reckhow RAM base (unbounded natural-number registers, indirect load and store, conditional jumps) for every program.
+- `round4_l_holds`: Round 4 holds on the L base, whose next function is L's weak call-by-value step on reducible terms and stutters on irreducible ones.
+- `permanent_write_has_logical_payment`: On a finite state space, if instruction `i` keeps the record on wherever it is on, and some state goes from record off to record on under `i`, then `i` is not injective.
 - `uniqueness_round4_pair_holds`: Under the same conditions for two records, the pair evolves as two latches whose events may each read the other record.
 - `toggle_not_latch`: A record on a counter base that flips at every step is driven by the computation and is not the latch of any event.
 - `clock_record_not_driven`: A record switched on by a hidden clock at its fifth tick never switches off and is not driven by the computation.
