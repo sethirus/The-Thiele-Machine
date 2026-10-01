@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 499,
-  "total_addressable": 14023,
+  "files_probed": 503,
+  "total_addressable": 14030,
   "total_unaddressable": 8,
   "extras_addressable_via_instantiation": [
     {
@@ -3078,6 +3078,45 @@
           "local_name": "run_boundary_rules_short_trace_disabled",
           "kind": "Theorem",
           "full_name": "KamiHW.BoundaryRun.run_boundary_rules_short_trace_disabled"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kami_hw/CPUStart.v",
+      "qualified_module": "KamiHW.CPUStart",
+      "addressable_count": 6,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "start_method_name",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CPUStart.start_method_name"
+        },
+        {
+          "local_name": "start_method_in",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CPUStart.start_method_in"
+        },
+        {
+          "local_name": "start_action_linear",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CPUStart.start_action_linear"
+        },
+        {
+          "local_name": "start_reset_halted",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CPUStart.start_reset_halted"
+        },
+        {
+          "local_name": "start_from_reset",
+          "kind": "Theorem",
+          "full_name": "KamiHW.CPUStart.start_from_reset"
+        },
+        {
+          "local_name": "start_substep",
+          "kind": "Theorem",
+          "full_name": "KamiHW.CPUStart.start_substep"
         }
       ],
       "unaddressable": []
@@ -46537,6 +46576,14 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kami_hw/SystemExtraction.v",
+      "qualified_module": "KamiHW.SystemExtraction",
+      "addressable_count": 0,
+      "unaddressable_count": 0,
+      "addressable": [],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kami_hw/TableInvariants.v",
       "qualified_module": "KamiHW.TableInvariants",
       "addressable_count": 2,
@@ -47109,6 +47156,28 @@
           "local_name": "thiele_trace_compat_under_embed_step",
           "kind": "Theorem",
           "full_name": "KamiHW.ThieleCanonicality.thiele_trace_compat_under_embed_step"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kami_hw/ThieleLoader.v",
+      "qualified_module": "KamiHW.ThieleLoader",
+      "addressable_count": 0,
+      "unaddressable_count": 0,
+      "addressable": [],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kami_hw/ThieleSystem.v",
+      "qualified_module": "KamiHW.ThieleSystem",
+      "addressable_count": 1,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "thieleSystemS_composes",
+          "kind": "Theorem",
+          "full_name": "KamiHW.ThieleSystem.thieleSystemS_composes"
         }
       ],
       "unaddressable": []
@@ -51684,19 +51753,19 @@
           "full_name": "Kernel.CrossBaseGranularity.weak_base_equiv_trans_holds"
         },
         {
-          "local_name": "weak_equiv_preserves_round4_holds",
+          "local_name": "weak_equiv_preserves_record_latch_holds",
           "kind": "Theorem",
-          "full_name": "Kernel.CrossBaseGranularity.weak_equiv_preserves_round4_holds"
+          "full_name": "Kernel.CrossBaseGranularity.weak_equiv_preserves_record_latch_holds"
         },
         {
-          "local_name": "round4_tm_holds",
+          "local_name": "record_axis_is_latch_on_tm_holds",
           "kind": "Theorem",
-          "full_name": "Kernel.CrossBaseGranularity.round4_tm_holds"
+          "full_name": "Kernel.CrossBaseGranularity.record_axis_is_latch_on_tm_holds"
         },
         {
-          "local_name": "round4_vm_holds",
+          "local_name": "record_axis_is_latch_on_vm_holds",
           "kind": "Theorem",
-          "full_name": "Kernel.CrossBaseGranularity.round4_vm_holds"
+          "full_name": "Kernel.CrossBaseGranularity.record_axis_is_latch_on_vm_holds"
         }
       ],
       "unaddressable": []
@@ -51761,9 +51830,9 @@
           "full_name": "Kernel.CrossBaseGranularityL.star_is_l_base_run"
         },
         {
-          "local_name": "round4_l_holds",
+          "local_name": "record_axis_is_latch_on_l_holds",
           "kind": "Theorem",
-          "full_name": "Kernel.CrossBaseGranularityL.round4_l_holds"
+          "full_name": "Kernel.CrossBaseGranularityL.record_axis_is_latch_on_l_holds"
         }
       ],
       "unaddressable": []
@@ -51835,16 +51904,16 @@
           "full_name": "Kernel.CrossBaseGranularityRAM.ram_base_has_initial"
         },
         {
-          "local_name": "round4_ram_holds",
+          "local_name": "record_axis_is_latch_on_ram_holds",
           "kind": "Theorem",
-          "full_name": "Kernel.CrossBaseGranularityRAM.round4_ram_holds"
+          "full_name": "Kernel.CrossBaseGranularityRAM.record_axis_is_latch_on_ram_holds"
         }
       ],
       "unaddressable": []
     },
     {
-      "file": "coq/kernel/foundation/CrossBaseGranularityRound2Core.v",
-      "qualified_module": "Kernel.CrossBaseGranularityRound2Core",
+      "file": "coq/kernel/foundation/CrossBaseGranularityTransCore.v",
+      "qualified_module": "Kernel.CrossBaseGranularityTransCore",
       "addressable_count": 0,
       "unaddressable_count": 0,
       "addressable": [],
@@ -52349,14 +52418,14 @@
           "full_name": "Kernel.EventGeneralization.eg_proves_generalized_billed_core_honest_extension"
         },
         {
-          "local_name": "eg_proves_generalized_uniqueness_round1_refutation",
+          "local_name": "eg_proves_generalized_billed_not_core_equiv",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.eg_proves_generalized_uniqueness_round1_refutation"
+          "full_name": "Kernel.EventGeneralization.eg_proves_generalized_billed_not_core_equiv"
         },
         {
-          "local_name": "eg_proves_generalized_uniqueness_round2_refutation",
+          "local_name": "eg_proves_generalized_billed_not_observed_equiv",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.eg_proves_generalized_uniqueness_round2_refutation"
+          "full_name": "Kernel.EventGeneralization.eg_proves_generalized_billed_not_observed_equiv"
         },
         {
           "local_name": "eg_proves_generalized_schedule_uniqueness",
@@ -52424,279 +52493,279 @@
           "full_name": "Kernel.EventGeneralization.eg_proves_generalized_simulating_system_representation"
         },
         {
-          "local_name": "item1_2_result_01",
+          "local_name": "cert_positive_mu_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_01"
+          "full_name": "Kernel.EventGeneralization.cert_positive_mu_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_02",
+          "local_name": "no_free_certification_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_02"
+          "full_name": "Kernel.EventGeneralization.no_free_certification_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_03",
+          "local_name": "no_free_cert_certified_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_03"
+          "full_name": "Kernel.EventGeneralization.no_free_cert_certified_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_04",
+          "local_name": "no_free_cert_mu_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_04"
+          "full_name": "Kernel.EventGeneralization.no_free_cert_mu_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_05",
+          "local_name": "no_free_cert_trace_mu_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_05"
+          "full_name": "Kernel.EventGeneralization.no_free_cert_trace_mu_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_06",
+          "local_name": "nfi_pc_indexed_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_06"
+          "full_name": "Kernel.EventGeneralization.nfi_pc_indexed_event_generic"
         },
         {
-          "local_name": "item1_2_result_07",
+          "local_name": "certification_is_lost_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_07"
+          "full_name": "Kernel.EventGeneralization.certification_is_lost_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_08",
+          "local_name": "fcertify_merges_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_08"
+          "full_name": "Kernel.EventGeneralization.fcertify_merges_event_generic"
         },
         {
-          "local_name": "item1_2_result_09",
+          "local_name": "fin_a2_from_compression_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_09"
+          "full_name": "Kernel.EventGeneralization.fin_a2_from_compression_event_generic"
         },
         {
-          "local_name": "item1_2_result_10",
+          "local_name": "fin_a2_from_merging_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_10"
+          "full_name": "Kernel.EventGeneralization.fin_a2_from_merging_event_generic"
         },
         {
-          "local_name": "item1_2_result_11",
+          "local_name": "fin_permanent_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_11"
+          "full_name": "Kernel.EventGeneralization.fin_permanent_event_generic"
         },
         {
-          "local_name": "item1_2_result_12",
+          "local_name": "vm_certify_merges_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_12"
+          "full_name": "Kernel.EventGeneralization.vm_certify_merges_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_13",
+          "local_name": "vm_priced_merge_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_13"
+          "full_name": "Kernel.EventGeneralization.vm_priced_merge_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_14",
+          "local_name": "vm_fragment_paid_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_14"
+          "full_name": "Kernel.EventGeneralization.vm_fragment_paid_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_15",
+          "local_name": "vm_merge_others_free_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_15"
+          "full_name": "Kernel.EventGeneralization.vm_merge_others_free_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_16",
+          "local_name": "unit_price_bounds_mu_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_16"
+          "full_name": "Kernel.EventGeneralization.unit_price_bounds_mu_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_17",
+          "local_name": "commit_pricing_exact_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_17"
+          "full_name": "Kernel.EventGeneralization.commit_pricing_exact_event_generic"
         },
         {
-          "local_name": "item1_2_result_18",
+          "local_name": "p_full_irredundant_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_18"
+          "full_name": "Kernel.EventGeneralization.p_full_irredundant_event_generic"
         },
         {
-          "local_name": "item1_2_result_19",
+          "local_name": "cost_model_necessity_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_19"
+          "full_name": "Kernel.EventGeneralization.cost_model_necessity_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_20",
+          "local_name": "mu_ledger_minimality_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_20"
+          "full_name": "Kernel.EventGeneralization.mu_ledger_minimality_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_21",
+          "local_name": "mutual_independence_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_21"
+          "full_name": "Kernel.EventGeneralization.mutual_independence_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_22",
+          "local_name": "three_component_indep_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_22"
+          "full_name": "Kernel.EventGeneralization.three_component_indep_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_23",
+          "local_name": "turing_ram_necessity_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_23"
+          "full_name": "Kernel.EventGeneralization.turing_ram_necessity_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_24",
+          "local_name": "partition_free_cert_nonfree_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_24"
+          "full_name": "Kernel.EventGeneralization.partition_free_cert_nonfree_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_25",
+          "local_name": "partition_refinement_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_25"
+          "full_name": "Kernel.EventGeneralization.partition_refinement_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_26",
+          "local_name": "revocable_escapes_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_26"
+          "full_name": "Kernel.EventGeneralization.revocable_escapes_event_generic"
         },
         {
-          "local_name": "item1_2_result_27",
+          "local_name": "kernel_cert_positive_mu_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_27"
+          "full_name": "Kernel.EventGeneralization.kernel_cert_positive_mu_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_28",
+          "local_name": "cert_addr_forget_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_28"
+          "full_name": "Kernel.EventGeneralization.cert_addr_forget_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_29",
+          "local_name": "cert_forget_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_29"
+          "full_name": "Kernel.EventGeneralization.cert_forget_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_30",
+          "local_name": "classical_a2_predicate_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_30"
+          "full_name": "Kernel.EventGeneralization.classical_a2_predicate_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_31",
+          "local_name": "classical_addr_predicate_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_31"
+          "full_name": "Kernel.EventGeneralization.classical_addr_predicate_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_32",
+          "local_name": "bare_shadow_price_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_32"
+          "full_name": "Kernel.EventGeneralization.bare_shadow_price_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_33",
+          "local_name": "forget_shadow_price_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_33"
+          "full_name": "Kernel.EventGeneralization.forget_shadow_price_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_34",
+          "local_name": "billed_schedule_equiv_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_34"
+          "full_name": "Kernel.EventGeneralization.billed_schedule_equiv_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_35",
+          "local_name": "surcharged_schedule_equiv_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_35"
+          "full_name": "Kernel.EventGeneralization.surcharged_schedule_equiv_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_36",
+          "local_name": "schedule_uniqueness_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_36"
+          "full_name": "Kernel.EventGeneralization.schedule_uniqueness_event_generic"
         },
         {
-          "local_name": "item1_2_result_37",
+          "local_name": "billed_core_adequate_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_37"
+          "full_name": "Kernel.EventGeneralization.billed_core_adequate_event_generic"
         },
         {
-          "local_name": "item1_2_result_38",
+          "local_name": "billed_core_honest_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_38"
+          "full_name": "Kernel.EventGeneralization.billed_core_honest_event_generic"
         },
         {
-          "local_name": "item1_2_result_39",
+          "local_name": "adequate_uniqueness_refuted_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_39"
+          "full_name": "Kernel.EventGeneralization.adequate_uniqueness_refuted_event_generic"
         },
         {
-          "local_name": "item1_2_result_40",
+          "local_name": "vm_extension_uniqueness_refuted_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_40"
+          "full_name": "Kernel.EventGeneralization.vm_extension_uniqueness_refuted_event_generic"
         },
         {
-          "local_name": "item1_2_result_41",
+          "local_name": "agreement_not_descent_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_41"
+          "full_name": "Kernel.EventGeneralization.agreement_not_descent_event_generic"
         },
         {
-          "local_name": "item1_2_result_42",
+          "local_name": "reachable_sim_exists_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_42"
+          "full_name": "Kernel.EventGeneralization.reachable_sim_exists_event_generic"
         },
         {
-          "local_name": "item1_2_result_43",
+          "local_name": "reachable_sim_unique_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_43"
+          "full_name": "Kernel.EventGeneralization.reachable_sim_unique_event_generic"
         },
         {
-          "local_name": "item1_2_result_44",
+          "local_name": "simulating_system_repr_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_44"
+          "full_name": "Kernel.EventGeneralization.simulating_system_repr_event_generic"
         },
         {
-          "local_name": "item1_2_result_45",
+          "local_name": "universal_nfi_cert_addr_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_45"
+          "full_name": "Kernel.EventGeneralization.universal_nfi_cert_addr_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_46",
+          "local_name": "universal_nfi_certified_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_46"
+          "full_name": "Kernel.EventGeneralization.universal_nfi_certified_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_47",
+          "local_name": "witness_insight_nonfree_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_47"
+          "full_name": "Kernel.EventGeneralization.witness_insight_nonfree_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_48",
+          "local_name": "certified_trace_mu_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_48"
+          "full_name": "Kernel.EventGeneralization.certified_trace_mu_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_49",
+          "local_name": "nonlocal_witness_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_49"
+          "full_name": "Kernel.EventGeneralization.nonlocal_witness_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_50",
+          "local_name": "witness_insight_general_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_50"
+          "full_name": "Kernel.EventGeneralization.witness_insight_general_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_51",
+          "local_name": "classical_decider_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_51"
+          "full_name": "Kernel.EventGeneralization.classical_decider_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_52",
+          "local_name": "mu_ledger_necessity_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_52"
+          "full_name": "Kernel.EventGeneralization.mu_ledger_necessity_event_generic"
         },
         {
-          "local_name": "item1_2_result_53",
+          "local_name": "ledger_necessity_universal_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_53"
+          "full_name": "Kernel.EventGeneralization.ledger_necessity_universal_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_54",
+          "local_name": "vm_cert_nonclassical_not_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_54"
+          "full_name": "Kernel.EventGeneralization.vm_cert_nonclassical_not_event_generic"
         },
         {
-          "local_name": "item1_2_result_55",
+          "local_name": "certified_spec_event_generic",
           "kind": "Theorem",
-          "full_name": "Kernel.EventGeneralization.item1_2_result_55"
+          "full_name": "Kernel.EventGeneralization.certified_spec_event_generic"
         }
       ],
       "unaddressable": []
@@ -52724,39 +52793,39 @@
       "unaddressable_count": 0,
       "addressable": [
         {
-          "local_name": "item1_3_init_register_width",
+          "local_name": "init_state_register_width",
           "kind": "Lemma",
-          "full_name": "Kernel.EventSwapTheorem.item1_3_init_register_width"
+          "full_name": "Kernel.EventSwapTheorem.init_state_register_width"
         },
         {
-          "local_name": "item1_3_graph_latchable_fixed",
+          "local_name": "eg_graph_reading_latchable",
           "kind": "Lemma",
-          "full_name": "Kernel.EventSwapTheorem.item1_3_graph_latchable_fixed"
+          "full_name": "Kernel.EventSwapTheorem.eg_graph_reading_latchable"
         },
         {
-          "local_name": "item1_3_swap_refuted",
+          "local_name": "swap_preserves_main_results_refuted",
           "kind": "Theorem",
-          "full_name": "Kernel.EventSwapTheorem.item1_3_swap_refuted"
+          "full_name": "Kernel.EventSwapTheorem.swap_preserves_main_results_refuted"
         },
         {
-          "local_name": "item1_3_certification_permanent",
+          "local_name": "certification_reading_permanent",
           "kind": "Lemma",
-          "full_name": "Kernel.EventSwapTheorem.item1_3_certification_permanent"
+          "full_name": "Kernel.EventSwapTheorem.certification_reading_permanent"
         },
         {
-          "local_name": "item1_3_certification_written",
+          "local_name": "certification_reading_written",
           "kind": "Lemma",
-          "full_name": "Kernel.EventSwapTheorem.item1_3_certification_written"
+          "full_name": "Kernel.EventSwapTheorem.certification_reading_written"
         },
         {
-          "local_name": "item1_3_certification_hidden_from_bare",
+          "local_name": "certification_hidden_from_bare",
           "kind": "Lemma",
-          "full_name": "Kernel.EventSwapTheorem.item1_3_certification_hidden_from_bare"
+          "full_name": "Kernel.EventSwapTheorem.certification_hidden_from_bare"
         },
         {
-          "local_name": "item1_3_certification_sanity",
+          "local_name": "certification_main_results_hold",
           "kind": "Theorem",
-          "full_name": "Kernel.EventSwapTheorem.item1_3_certification_sanity"
+          "full_name": "Kernel.EventSwapTheorem.certification_main_results_hold"
         }
       ],
       "unaddressable": []
@@ -53929,9 +53998,9 @@
           "full_name": "Kernel.RAMRecordAxis.tied_latch_factorization"
         },
         {
-          "local_name": "tied_honest_round4",
+          "local_name": "tied_honest_base_extension",
           "kind": "Theorem",
-          "full_name": "Kernel.RAMRecordAxis.tied_honest_round4"
+          "full_name": "Kernel.RAMRecordAxis.tied_honest_base_extension"
         },
         {
           "local_name": "untied_next_record",
@@ -53959,9 +54028,9 @@
           "full_name": "Kernel.RAMRecordAxis.untied_not_honest_growing"
         },
         {
-          "local_name": "untied_not_honest_round4",
+          "local_name": "untied_not_honest_base_extension",
           "kind": "Theorem",
-          "full_name": "Kernel.RAMRecordAxis.untied_not_honest_round4"
+          "full_name": "Kernel.RAMRecordAxis.untied_not_honest_base_extension"
         },
         {
           "local_name": "untied_trivial_latch",
@@ -54318,24 +54387,24 @@
       "unaddressable": []
     },
     {
-      "file": "coq/kernel/foundation/StructuralCoreRound2.v",
-      "qualified_module": "Kernel.StructuralCoreRound2",
+      "file": "coq/kernel/foundation/StructuralCoreAnyBase.v",
+      "qualified_module": "Kernel.StructuralCoreAnyBase",
       "addressable_count": 0,
       "unaddressable_count": 0,
       "addressable": [],
       "unaddressable": []
     },
     {
-      "file": "coq/kernel/foundation/StructuralCoreRound3.v",
-      "qualified_module": "Kernel.StructuralCoreRound3",
+      "file": "coq/kernel/foundation/StructuralCoreCover.v",
+      "qualified_module": "Kernel.StructuralCoreCover",
       "addressable_count": 0,
       "unaddressable_count": 0,
       "addressable": [],
       "unaddressable": []
     },
     {
-      "file": "coq/kernel/foundation/StructuralCoreRound4.v",
-      "qualified_module": "Kernel.StructuralCoreRound4",
+      "file": "coq/kernel/foundation/StructuralCoreSchedule.v",
+      "qualified_module": "Kernel.StructuralCoreSchedule",
       "addressable_count": 0,
       "unaddressable_count": 0,
       "addressable": [],
@@ -54348,14 +54417,14 @@
       "unaddressable_count": 0,
       "addressable": [
         {
-          "local_name": "uniqueness_round4_holds",
+          "local_name": "record_axis_is_latch_holds",
           "kind": "Theorem",
-          "full_name": "Kernel.StructuralRecordAxis.uniqueness_round4_holds"
+          "full_name": "Kernel.StructuralRecordAxis.record_axis_is_latch_holds"
         },
         {
-          "local_name": "uniqueness_round4_pair_holds",
+          "local_name": "record_pair_is_two_latches_holds",
           "kind": "Theorem",
-          "full_name": "Kernel.StructuralRecordAxis.uniqueness_round4_pair_holds"
+          "full_name": "Kernel.StructuralRecordAxis.record_pair_is_two_latches_holds"
         },
         {
           "local_name": "toggle_computation_driven",
@@ -54397,14 +54466,14 @@
           "full_name": "Kernel.StructuralScheduleUniqueness.thiele_core_priced"
         },
         {
-          "local_name": "uniqueness_round3b_holds",
+          "local_name": "cert_record_schedule_uniqueness_holds",
           "kind": "Theorem",
-          "full_name": "Kernel.StructuralScheduleUniqueness.uniqueness_round3b_holds"
+          "full_name": "Kernel.StructuralScheduleUniqueness.cert_record_schedule_uniqueness_holds"
         },
         {
-          "local_name": "billed_core_honest3b",
+          "local_name": "billed_core_honest_cert",
           "kind": "Theorem",
-          "full_name": "Kernel.StructuralScheduleUniqueness.billed_core_honest3b"
+          "full_name": "Kernel.StructuralScheduleUniqueness.billed_core_honest_cert"
         },
         {
           "local_name": "billed_core_equiv_mod_schedule",
@@ -54412,9 +54481,9 @@
           "full_name": "Kernel.StructuralScheduleUniqueness.billed_core_equiv_mod_schedule"
         },
         {
-          "local_name": "surcharged_core_honest3b",
+          "local_name": "surcharged_core_honest_cert",
           "kind": "Theorem",
-          "full_name": "Kernel.StructuralScheduleUniqueness.surcharged_core_honest3b"
+          "full_name": "Kernel.StructuralScheduleUniqueness.surcharged_core_honest_cert"
         },
         {
           "local_name": "surcharged_core_equiv_mod_schedule",
@@ -54427,9 +54496,9 @@
           "full_name": "Kernel.StructuralScheduleUniqueness.meter_step_mu"
         },
         {
-          "local_name": "meter_core_honest3a",
+          "local_name": "meter_core_honest_tied",
           "kind": "Theorem",
-          "full_name": "Kernel.StructuralScheduleUniqueness.meter_core_honest3a"
+          "full_name": "Kernel.StructuralScheduleUniqueness.meter_core_honest_tied"
         },
         {
           "local_name": "meter_core_not_equiv_mod_schedule",
@@ -54437,9 +54506,9 @@
           "full_name": "Kernel.StructuralScheduleUniqueness.meter_core_not_equiv_mod_schedule"
         },
         {
-          "local_name": "uniqueness_round3a_refuted",
+          "local_name": "tied_record_schedule_uniqueness_refuted",
           "kind": "Theorem",
-          "full_name": "Kernel.StructuralScheduleUniqueness.uniqueness_round3a_refuted"
+          "full_name": "Kernel.StructuralScheduleUniqueness.tied_record_schedule_uniqueness_refuted"
         }
       ],
       "unaddressable": []
@@ -54506,9 +54575,9 @@
           "full_name": "Kernel.StructuralUniqueness.billed_core_not_equiv"
         },
         {
-          "local_name": "uniqueness_round1_refuted",
+          "local_name": "adequate_core_uniqueness_refuted",
           "kind": "Theorem",
-          "full_name": "Kernel.StructuralUniqueness.uniqueness_round1_refuted"
+          "full_name": "Kernel.StructuralUniqueness.adequate_core_uniqueness_refuted"
         },
         {
           "local_name": "billed_core_record_permanent",
@@ -54526,14 +54595,14 @@
           "full_name": "Kernel.StructuralUniqueness.billed_core_honest_extension"
         },
         {
-          "local_name": "billed_core_not_equiv_round2",
+          "local_name": "billed_core_not_observed_equiv",
           "kind": "Theorem",
-          "full_name": "Kernel.StructuralUniqueness.billed_core_not_equiv_round2"
+          "full_name": "Kernel.StructuralUniqueness.billed_core_not_observed_equiv"
         },
         {
-          "local_name": "uniqueness_round2_refuted",
+          "local_name": "honest_vm_extension_uniqueness_refuted",
           "kind": "Theorem",
-          "full_name": "Kernel.StructuralUniqueness.uniqueness_round2_refuted"
+          "full_name": "Kernel.StructuralUniqueness.honest_vm_extension_uniqueness_refuted"
         }
       ],
       "unaddressable": []
@@ -64142,14 +64211,14 @@
           "full_name": "Kernel.EventGenericAudit.evidence_history_latch_honest"
         },
         {
-          "local_name": "evidence_uniqueness_round4_holds",
+          "local_name": "evidence_record_axis_is_latch_holds",
           "kind": "Lemma",
-          "full_name": "Kernel.EventGenericAudit.evidence_uniqueness_round4_holds"
+          "full_name": "Kernel.EventGenericAudit.evidence_record_axis_is_latch_holds"
         },
         {
-          "local_name": "evidence_uniqueness_round4_pair_holds",
+          "local_name": "evidence_record_pair_is_two_latches_holds",
           "kind": "Lemma",
-          "full_name": "Kernel.EventGenericAudit.evidence_uniqueness_round4_pair_holds"
+          "full_name": "Kernel.EventGenericAudit.evidence_record_pair_is_two_latches_holds"
         },
         {
           "local_name": "evidence_shadow_cannot_price_exactly",

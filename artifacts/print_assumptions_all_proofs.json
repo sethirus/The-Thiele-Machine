@@ -1,31 +1,31 @@
 {
   "schema": "thiele-print-assumptions-full-probe-v3",
-  "generated": "2026-10-01T17:53:58.346945+00:00",
+  "generated": "2026-10-01T21:57:05.331511+00:00",
   "coq_version": "8.18.0",
-  "corpus_digest": "3d9b729e19a2e171a9b19ead401528e04582ba942c8dacafba6b853427ef734d",
-  "probe_digest": "c954d73177a14564eaade90a841e2b61d36082e4059300a43fe8a51091bde25d",
+  "corpus_digest": "cdd8a5ac88ad1a6017bdf77ed112e9ec824f47f8798c7f32f3122575fc3edb53",
+  "probe_digest": "394ad7d5cec1dd7247db18eb754ff33b2c84b1b4c971c4e0977df38df5ac6bc2",
   "probe_file": "coq/AssumptionsProbeAll.v",
   "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
-  "raw_output_sha256": "4a54d84e637c609d6a62da6c785c1d78131f0f8e2930728bbbf6b7c24d121bde",
-  "files_probed": 499,
-  "addressable_theorems_probed": 14024,
-  "blocks_parsed": 14024,
+  "raw_output_sha256": "bf882aaf5efbe6b79899a1b1c3a00ff389762d340fd2cd3498a3b6fcf7b27ba6",
+  "files_probed": 503,
+  "addressable_theorems_probed": 14031,
+  "blocks_parsed": 14031,
   "alignment_ok": true,
   "stderr_nonempty": true,
   "stderr_excerpt": "\nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq <",
   "unexpected_lines_in_output": 0,
   "first_unexpected_lines": [],
   "summary": {
-    "theorems_probed": 14024,
-    "closed_under_global_context": 6572,
-    "depend_on_axioms": 7452,
+    "theorems_probed": 14031,
+    "closed_under_global_context": 6577,
+    "depend_on_axioms": 7454,
     "user_or_third_party_axiom_findings": 0,
     "excluded_middle_users": 114,
-    "functional_extensionality_users": 7147,
+    "functional_extensionality_users": 7149,
     "real_completeness_axiom_users": 1170,
     "unique_axioms_used": {
-      "FunctionalExtensionality.functional_extensionality_dep": 7147,
-      "Eqdep.Eq_rect_eq.eq_rect_eq": 3849,
+      "FunctionalExtensionality.functional_extensionality_dep": 7149,
+      "Eqdep.Eq_rect_eq.eq_rect_eq": 3850,
       "ClassicalDedekindReals.sig_forall_dec": 1170,
       "ClassicalDedekindReals.sig_not_dec": 353,
       "Classical_Prop.classic": 114
@@ -216,9 +216,9 @@
       "axiom_set": []
     },
     "KamiHW": {
-      "theorems": 8718,
-      "closed": 2436,
-      "with_axioms": 6282,
+      "theorems": 8725,
+      "closed": 2441,
+      "with_axioms": 6284,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
@@ -514,6 +514,15 @@
       "theorems": 6,
       "closed": 0,
       "with_axioms": 6,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/CPUStart.v": {
+      "theorems": 6,
+      "closed": 4,
+      "with_axioms": 2,
       "axiom_set": [
         "Eqdep.Eq_rect_eq.eq_rect_eq",
         "FunctionalExtensionality.functional_extensionality_dep"
@@ -1451,6 +1460,12 @@
       "axiom_set": [
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
+    },
+    "coq/kami_hw/ThieleSystem.v": {
+      "theorems": 1,
+      "closed": 1,
+      "with_axioms": 0,
+      "axiom_set": []
     },
     "coq/kami_hw/VerilogRefinement.v": {
       "theorems": 59,

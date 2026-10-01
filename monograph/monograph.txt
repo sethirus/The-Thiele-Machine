@@ -157,8 +157,8 @@ argue over.
       orget, mu_not_function_of_bare_observable). And on finite hardware
       a step that writes a permanent record merges two states (permanent_flip_i
       s_not_injective), so an account that prices merges already prices the write.
-      That a permanent record, driven by the computation, is a latch on one event (u
-      niqueness_round4_holds) is close to definitional; it follows from those two
+      That a permanent record, driven by the computation, is a latch on one event (rec
+      ord_axis_is_latch_holds) is close to definitional; it follows from those two
       conditions in a few lines. The pointer question asks which event gets latched; no
       theorem here selects one uniquely.
            The formal results go further than that one floor. They pin down exact unit
@@ -580,7 +580,7 @@ and on the price of the next step, and step to related states. The relation need
 a function, so extra state one machine keeps can be ignored. None of this is literal
 sameness of opcodes, storage layout, implementation language, or clock cycles.
 
-StructuralCoreRound2.v gives a stronger form, for machines that run the VM
+StructuralCoreCover.v gives a stronger form, for machines that run the VM
 underneath. An explicit projection onto the VM commutes with every step, preserves
 halting, and reaches every VM starting state. The record is permanent, and some
 reachable step writes it. Sameness also watches the absolute ledger balance and
@@ -601,49 +601,50 @@ sameness above is what lets it fall away: history_core_equiv_thiele proves
 that its autonomous counterpart, a machine that keeps every earlier VM state, is the
 same as the Thiele core.
 
-The conjecture, in either form, is that every adequate machine is the same as the Thiele
-core (uniqueness_round1, uniqueness_round2). Both forms are false (unique
-ness_round1_refuted, uniqueness_round2_refuted), with no axioms of any
-kind. The counterexample is a machine that bills CPU time. Take the Thiele core and
-add a step counter to the state. Let the ledger be the VM’s ledger plus the counter.
-Every step costs one unit more than the same step of the Thiele core. It is adequate
-(billed_core_adequate), because A2 is a floor and a surcharge only raises the
-price. It runs the VM underneath, with dropping the counter as the projection (bille
-d_core_honest_extension). It still isn’t the same. A Thiele state with an empty
-program never moves and pays nothing per step. Every step of the billed machine
-costs at least one.
+The conjecture, in either form, is that every adequate machine is the same as the
+Thiele core (adequate_core_uniqueness, honest_vm_extension_uniquene
+ss). Both forms are false (adequate_core_uniqueness_refuted, honest_vm_
+extension_uniqueness_refuted), with no axioms of any kind. The counterex-
+ample is a machine that bills CPU time. Take the Thiele core and add a step counter
+to the state. Let the ledger be the VM’s ledger plus the counter. Every step costs one
+unit more than the same step of the Thiele core. It is adequate (billed_core_ade
+quate), because A2 is a floor and a surcharge only raises the price. It runs the VM
+underneath, with dropping the counter as the projection (billed_core_honest_e
+xtension). It still isn’t the same. A Thiele state with an empty program never moves
+and pays nothing per step. Every step of the billed machine costs at least one.
 
    Plain reading. Adequacy puts a floor on the price of certifying. It never forbids
    charging for other things. A machine that charges for time is adequate, and it isn’t
    the same machine.
 
 The billed machine isn’t a different structure, though. It is the same machine with a
-different price list. So the claim worth keeping is uniqueness up to the price sched-
-ule: every honest record-carrying machine that runs the VM underneath and records
-the VM’s own certification is the Thiele core plus some price schedule that satisfies
-A2. StructuralCoreRound3.v states it for machines that run the VM underneath.
-Charges are not compared, every machine in play carries a monotone ledger that sat-
-isfies A2, and sameness is read through the machine’s own projection onto the VM. It
-comes in two strengths.
+different price list. So the claim worth keeping is uniqueness up to the price schedule:
+every honest record-carrying machine that runs the VM underneath and records the
+VM’s own certification is the Thiele core plus some price schedule that satisfies A2.
+StructuralCoreSchedule.v states it for machines that run the VM underneath.
+Charges are not compared, every machine in play carries a monotone ledger that
+satisfies A2, and sameness is read through the machine’s own projection onto the VM.
+It comes in two strengths.
 
-When the record is the VM’s own certification reading, uniqueness holds (uniquen
-ess_round3b_holds). Relate each state to the VM state its projection assigns, and
-everything lines up. The billing machine is an example, not a counterexample: it is the
-Thiele core with a price of one extra unit per step (billed_core_equiv_mod_sch
-edule). So is the Thiele core with any bill that depends on the current state, per step,
-per instruction, or per millisecond (surcharged_core_equiv_mod_schedule).
+When the record is the VM’s own certification reading, uniqueness holds (cert_
+record_schedule_uniqueness_holds). Relate each state to the VM state its
+projection assigns, and everything lines up. The billing machine is an example, not a
+counterexample: it is the Thiele core with a price of one extra unit per step (billed
+_core_equiv_mod_schedule). So is the Thiele core with any bill that depends on
+the current state, per step, per instruction, or per millisecond (surcharged_core_e
+quiv_mod_schedule).
 
-When the record only has to be some reading of the computation, uniqueness fails (un
-iqueness_round3a_refuted). Take the Thiele core and let its record be “the meter
-has passed one.” That reading never switches off, a paid step switches it on, and A2
+When the record only has to be some reading of the computation, uniqueness fails (t
+ied_record_schedule_uniqueness_refuted). Take the Thiele core and let its
 
 
                                           13
-The Thiele Machine                                          Devon Thiele • September 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
-holds for it. At a state with a positive meter and no certificate, the two record lights
-disagree.
+record be “the meter has passed one.” That reading never switches off, a paid step
+switches it on, and A2 holds for it. At a state with a positive meter and no certificate,
+the two record lights disagree.
 
    Plain reading. One structure, two free choices. The price list is one. Which perma-
    nent reading counts as the record is the other.
@@ -652,45 +653,46 @@ The second choice is the pointer-observable question of Section 26: what makes c
 tification the event to record. Both strengths take the VM’s structure as given, since
 every machine they admit runs the VM.
 
-StructuralCoreRound4.v drops the VM. A base is any deterministic machine
+StructuralCoreAnyBase.v drops the VM. A base is any deterministic machine
 without a record: a Turing machine, a RAM, a reversible machine, the VM itself. A
 machine extends a base when it runs the base step for step through a map down to it,
 carrying whatever hidden state it likes. Give it a record that never switches off, that
 some paid step writes, that satisfies A2, and whose next value depends only on the
-base state and on itself. Then the base state and the record move exactly as a latch:
-the record switches on the first time the base passes a state where some event h holds,
-and it never switches off (uniqueness_round4_holds). The latch form constrains
+base state and on itself. Then the base state and the record move exactly as a latch: the
+record switches on the first time the base passes a state where some event h holds, and
+it never switches off (record_axis_is_latch_holds). The latch form constrains
 nothing else the machine carries; the rest can show up in its ledger. Two such records
-move as two latches, each of whose events may read the other record (uniqueness_
-round4_pair_holds).
+move as two latches, each of whose events may read the other record (record_pair
+_is_two_latches_holds).
 
 Both conditions on the record do work. Over a counter base, a record that flips at
-every step is not a latch of any event (toggle_not_latch). A record switched on
-by a hidden clock never switches off, and it still isn’t driven by the computation (c
-lock_record_not_driven). Every base carries the axis: for any event the base
-reaches, the latch of that event, priced one unit per write, is an honest extension
-(latch_core_honest). So a RAM with a record driven by its computation is a
-RAM plus a latch (round4_ram_holds, for the Cook–Reckhow RAM). A reversible
-machine with unbounded memory can carry one and stay reversible, by keeping
-every earlier record value (history_latch_injective, history_latch_hon
-est). With finite memory it can’t: a step that writes a permanent record there is
-not injective (finite_reversible_cannot_write, from Section 9.1). Bases are
-compared by weak_base_equiv: related states agree on an observation and on
+every step is not a latch of any event (toggle_not_latch). A record switched on by
+a hidden clock never switches off, and it still isn’t driven by the computation (clock
+_record_not_driven). Every base carries the axis: for any event the base reaches,
+the latch of that event, priced one unit per write, is an honest extension (latch_c
+ore_honest). So a RAM with a record driven by its computation is a RAM plus a
+latch (record_axis_is_latch_on_ram_holds, for the Cook–Reckhow RAM). A
+reversible machine with unbounded memory can carry one and stay reversible, by
+keeping every earlier record value (history_latch_injective, history_latc
+h_honest). With finite memory it can’t: a step that writes a permanent record there
+is not injective (finite_reversible_cannot_write, from Section 9.1). Bases
+are compared by weak_base_equiv: related states agree on an observation and on
 halting, and each base matches the other’s steps up to stuttering. It is an equivalence
 relation, and it preserves the latch form, which holds on the Turing machine, the VM,
-the Cook–Reckhow RAM and L (round4_tm_holds, round4_vm_holds, roun
-d4_ram_holds, round4_l_holds). The relation carries no cost: a machine that
-multiplies unbounded numbers in one step and a Turing machine differ in cost, not in
-records.
+the Cook–Reckhow RAM and L (record_axis_is_latch_on_tm_holds, reco
+rd_axis_is_latch_on_vm_holds, record_axis_is_latch_on_ram_holds,
+record_axis_is_latch_on_l_holds). The relation carries no cost: a machine
+that multiplies unbounded numbers in one step and a Turing machine differ in cost,
+not in records.
 
    Plain reading. The base is free. Over any base, the record axis has one form: a latch
-   on an event. Which event is the pointer question.
 
 
-
-                                          14
+                                           14
 The Thiele Machine                                            Devon Thiele • September 2026
 
+
+    on an event. Which event is the pointer question.
 
 The proof of the factorization is short. Its content is in what the entry asks for: hid-
 den state is allowed, and only a record that never switches off and is driven by the
@@ -735,13 +737,13 @@ and Wolpert–Macready, “No Free Lunch Theorems for Optimization” (1997).
 
 Here are the labels I went and looked into. Each entry says what I understood the
 label to mean and why I do not think Thiele reduces to it. Each is a claim inviting
-correction. If the comparison is wrong, tell me.
-
 
 
                                             15
 The Thiele Machine                                           Devon Thiele • September 2026
 
+
+correction. If the comparison is wrong, tell me.
 
    • Linear logic (Girard). What I read: a kind of logic where assumptions are con-
      sumed when you use them, like physical resources. Compiled into modern
@@ -782,14 +784,14 @@ correction. If the comparison is wrong, tell me.
      Section 19). I treat Landauer’s claim as motivation, not as something the proofs
      rest on. Motivation pays no bills in Coq.
    • No Free Lunch (Wolpert and Macready, 1997). What I read: averaged over
-     every possible problem, no search method beats blind guessing. Whatever an
-     algorithm wins on one set of problems it gives back on another. My reading: this
 
 
                                            16
 The Thiele Machine                                            Devon Thiele • September 2026
 
 
+      every possible problem, no search method beats blind guessing. Whatever an
+      algorithm wins on one set of problems it gives back on another. My reading: this
       is the same “structure isn’t free” intuition, but it lives as an average over a whole
       problem space, and the cost is refundable. You buy an edge on your problems by
       spending prior assumptions, and you pay for it somewhere else. A2 charges one
@@ -829,19 +831,19 @@ correction. If the comparison is wrong, tell me.
      Thiele’s cost lives in the step rule of the abstract machine. The path down to
      hardware is proved as far as the Kami model, under stated premises, and tested
      past it. Different mechanism. Different layer.
-   • Kami-RISC-V. What I read: a verified processor design written in Coq using
-     the Kami framework that targets the RISC-V instruction set. RISC-V is an open-
 
 
                                             17
 The Thiele Machine                                          Devon Thiele • September 2026
 
 
-      source CPU architecture, a published list of instructions any chip designer can
-      implement. My reading: I use the same Coq-to-Kami-to-Bluespec pipeline that
-      the Kami-RISC-V work pioneered. The instruction set is mine. The cost disci-
-      pline is mine. The proofs were built for this machine and exist nowhere else. The
-      toolchain is shared. Nothing else is.
+   • Kami-RISC-V. What I read: a verified processor design written in Coq using
+     the Kami framework that targets the RISC-V instruction set. RISC-V is an open-
+     source CPU architecture, a published list of instructions any chip designer can
+     implement. My reading: I use the same Coq-to-Kami-to-Bluespec pipeline that
+     the Kami-RISC-V work pioneered. The instruction set is mine. The cost disci-
+     pline is mine. The proofs were built for this machine and exist nowhere else. The
+     toolchain is shared. Nothing else is.
    • NPA hierarchy (Navascués-Pironio-Acín). What I read: a way of bounding what
      kinds of correlations between two separated experiments are achievable using
      quantum mechanics. The bound takes the form of a sequence of polynomial
@@ -877,14 +879,14 @@ correction. If the comparison is wrong, tell me.
      Mine is stated for every encoding of a permanent certificate on a finite state
      space whose merges are priced, and machine-checked.
    • Maroney (2009) and Sagawa and Ueda (2008 onward). What I read: logical irre-
-     versibility and thermodynamic cost come apart; the heat Landauer’s principle
-     demands depends on the actual distribution over states. For a state already
 
 
                                           18
 The Thiele Machine                                            Devon Thiele • September 2026
 
 
+      versibility and thermodynamic cost come apart; the heat Landauer’s principle
+      demands depends on the actual distribution over states. For a state already
       known, the entropy bound supplies no positive heat floor. My reading: the
       known-state boundary in Section 9.5 is their point, restated for certificates. I am
       not adding physics there. I am adding the link to the certifying step.
@@ -924,8 +926,6 @@ and ends certified, on any abstract certification system at all. That is univers
 nfi_any_substrate. Two states can agree on every classical field and still have
 different graphs (Section 14). The classical view cannot see that difference. A passing
 CHSH gate implies positive-semidefiniteness of the specified NPA matrix, and the
-algebra gets there without any quantum input. The argument is the part I can defend.
-The proof corpus is where I checked I hadn’t fooled myself. The literature placement
 
 
 
@@ -933,6 +933,8 @@ The proof corpus is where I checked I hadn’t fooled myself. The literature pla
 The Thiele Machine                                        Devon Thiele • September 2026
 
 
+algebra gets there without any quantum input. The argument is the part I can defend.
+The proof corpus is where I checked I hadn’t fooled myself. The literature placement
 is the part where I am asking for help.
 
 Prior-work map
@@ -977,7 +979,7 @@ tion in Coq is not, by itself, a priority claim for the mathematics.
 
 
 
-                                          20
+                                         20
 The Thiele Machine                                           Devon Thiele • September 2026
 
 
@@ -7992,9 +7994,9 @@ Shape borrowed, content paid for separately.
    Landauer is the shape: a lower-bound quantity attached to an event. It is not an
    irreversibility theorem. No physics in the proof. No microscopic erasure model.
    No physical entropy. No Boltzmann constant. The conversion of µ counts to joules
-   is a calibration premise (item43_landauer_calibration, used by calibr
-   ated_mu_landauer_energy; Section 25). The separate Unruh–Clausius flux
-   bridge mu_landauer_unruh_calibrated is likewise a premise. No kernel
+   is a calibration premise (mu_landauer_calibration, used by calibrated_
+   mu_landauer_energy; Section 25). The separate Unruh–Clausius flux bridge
+   mu_landauer_unruh_calibrated is likewise a premise. No kernel theorem
 
 
 
@@ -8002,8 +8004,8 @@ Shape borrowed, content paid for separately.
 The Thiele Machine                                           Devon Thiele • September 2026
 
 
-    theorem proves either; theorems in NoFIToEinstein.v take the second as an
-    explicit hypothesis.
+    proves either; theorems in NoFIToEinstein.v take the second as an explicit
+    hypothesis.
 
 
 Theorem 19.1 (µ-Landauer step bound). Let irreversible_bits(i ) be the indi-
@@ -8637,13 +8639,13 @@ Falsify the axiom audit.
 If running Print Assumptions (Section A: the Coq command that reports global
 proof dependencies) on any named theorem in the kernel tier shows a project-local
 Axiom or Parameter in the dependency tree, the audit has degraded. The full-
-corpus probe covers 14,024 named theorems across 499 files: 6,572 close under
-the global Coq context outright, and 7,452 use only Coq standard-library assump-
+corpus probe covers 14,031 named theorems across 503 files: 6,577 close under
+the global Coq context outright, and 7,454 use only Coq standard-library assump-
 tions. The receipt names five such constants: dependent functional extensionality,
 Eqdep.Eq_rect_eq.eq_rect_eq, ClassicalDedekindReals.sig_not_dec,
 ClassicalDedekindReals.sig_forall_dec,                                            and
 Classical_Prop.classic. Zero project-local axioms appear in any of the
-14,024 dependency trees. This audits where global dependencies come from. It
+14,031 dependency trees. This audits where global dependencies come from. It
 doesn’t prove that a theorem’s own Section-generalized premises hold for the instance
 you care about; those premises stay visible in the theorem types and get checked
 separately. Any project-local axiom or parameter appearing in a global dependency
@@ -9481,7 +9483,7 @@ structural result is one record axis over a free base.
    • Every finite machine whose price pays one unit per halving (compression_pr
      iced): the machine’s own narrowing (run_narrowing_priced_log).
    • Every machine that runs a base, with a record driven by its computation that
-     never switches off: the latch form (uniqueness_round4_holds).
+     never switches off: the latch form (record_axis_is_latch_holds).
    • Every window through which a certifying step and a non-certifying one look
      alike: no price read off the window is exact (shadow_cannot_price_exactl
      y).
@@ -9499,8 +9501,10 @@ Extensions and their present boundary.
    • The cross-base comparison satisfies the elementary equivalence laws, which
      ignore instruction granularity by allowing stuttering. The Turing machine, a
      Cook–Reckhow RAM, L, and the VM each have a closed executable base adapter
-     (round4_tm_holds, round4_ram_holds, round4_l_holds, round4_vm_
-     holds). The latch form holds on every base, so it does not tell them apart.
+     (record_axis_is_latch_on_tm_holds, record_axis_is_latch_on_
+     ram_holds, record_axis_is_latch_on_l_holds, record_axis_is_l
+     atch_on_vm_holds). The latch form holds on every base, so it does not tell
+     them apart.
    • Permanence forces logical non-injectivity on finite state spaces. It does not by
      itself prove that every economic, cryptographic, or physical realization pays one
      universal kind of cost (Section 17.7).
@@ -9511,14 +9515,12 @@ Extensions and their present boundary.
      to a thermally admissible device requires empirical evidence.
    • A direct probabilistic analogue of uniqueness up to schedule is false: two ma-
      chines can agree on their base distribution and disagree on the record distribu-
-     tion.
-
-
 
                                          188
 The Thiele Machine                                          Devon Thiele • September 2026
 
 
+      tion.
    • The guest VM supports the concrete Rice reduction of Section 10, numeric de-
      coding, verified fuel-bounded dispatch, semantic s-m-n specialization, and its
      own recursion theorem (vm_guest_recursion_theorem_closed): every
@@ -9562,8 +9564,6 @@ each observer sees and which events compete for the meter. That choice is part o
 argument. The proofs cannot make it for me. A public certificate may be checkable
 without every observer keeping a copy; a paid instruction may have no independently
 stored record. The criterion has to face those cases.
-
-
 
                                           189
 The Thiele Machine                                           Devon Thiele • September 2026

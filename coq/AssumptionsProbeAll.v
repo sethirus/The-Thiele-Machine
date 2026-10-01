@@ -22,6 +22,7 @@ Require KamiHW.ActionEvaluator.
 Require KamiHW.ActionObservation.
 Require KamiHW.BoundaryDecoded.
 Require KamiHW.BoundaryRun.
+Require KamiHW.CPUStart.
 Require KamiHW.CanonicalCPUProof.
 Require KamiHW.ChshArith.
 Require KamiHW.ChshDecoded.
@@ -130,6 +131,7 @@ Require KamiHW.StepRefine.
 Require KamiHW.StepRefineCommon.
 Require KamiHW.StepRefineMorph.
 Require KamiHW.StepWordFacts.
+Require KamiHW.SystemExtraction.
 Require KamiHW.TableInvariants.
 Require KamiHW.TableInvariantsPreserved.
 Require KamiHW.TableInvariantsReachable.
@@ -137,6 +139,8 @@ Require KamiHW.TensorDispatch.
 Require KamiHW.ThieleCPUBusTop.
 Require KamiHW.ThieleCPUCore.
 Require KamiHW.ThieleCanonicality.
+Require KamiHW.ThieleLoader.
+Require KamiHW.ThieleSystem.
 Require KamiHW.ThieleTypes.
 Require KamiHW.VerilogRefinement.
 Require KamiHW.VerilogSemantics.
@@ -221,9 +225,9 @@ Require Kernel.RecordAxisDiscrimination.
 Require Kernel.SimulationProof.
 Require Kernel.StateSpaceCounting.
 Require Kernel.StructuralCore.
+Require Kernel.StructuralCoreAnyBase.
 Require Kernel.StructuralCoreCover.
 Require Kernel.StructuralCoreSchedule.
-Require Kernel.StructuralCoreAnyBase.
 Require Kernel.StructuralRecordAxis.
 Require Kernel.StructuralScheduleUniqueness.
 Require Kernel.StructuralUniqueness.
@@ -1102,6 +1106,13 @@ Print Assumptions KamiHW.BoundaryRun.run_boundary_rules_correct.
 Print Assumptions KamiHW.BoundaryRun.run_boundary_rules_actual.
 Print Assumptions KamiHW.BoundaryRun.run_boundary_rules_firing_bound.
 Print Assumptions KamiHW.BoundaryRun.run_boundary_rules_short_trace_disabled.
+(* === KamiHW.CPUStart : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions KamiHW.CPUStart.start_method_name.
+Print Assumptions KamiHW.CPUStart.start_method_in.
+Print Assumptions KamiHW.CPUStart.start_action_linear.
+Print Assumptions KamiHW.CPUStart.start_reset_halted.
+Print Assumptions KamiHW.CPUStart.start_from_reset.
+Print Assumptions KamiHW.CPUStart.start_substep.
 (* === KamiHW.CanonicalCPUProof : 12 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.CanonicalCPUProof.canonical_cpu_module_from_source.
 Print Assumptions KamiHW.CanonicalCPUProof.canonical_cpu_proof.
@@ -9813,6 +9824,8 @@ Print Assumptions KamiHW.ThieleCanonicality.thiele_trace_compat_supported.
 Print Assumptions KamiHW.ThieleCanonicality.thiele_canonical_model.
 Print Assumptions KamiHW.ThieleCanonicality.thiele_trace_compat_wf_driven.
 Print Assumptions KamiHW.ThieleCanonicality.thiele_trace_compat_under_embed_step.
+(* === KamiHW.ThieleSystem : 1 addressable theorems (unaddressable: 0) === *)
+Print Assumptions KamiHW.ThieleSystem.thieleSystemS_composes.
 (* === KamiHW.VerilogRefinement : 59 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.VerilogRefinement.verilog_refines_register_write.
 Print Assumptions KamiHW.VerilogRefinement.verilog_simulates_vm_step_load_imm.

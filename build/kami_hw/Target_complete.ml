@@ -26682,7 +26682,7 @@ let thieleCore =
     Bool), (makeConst Bool (ConstBool false))))) }), (ConsInModule
     ((MERegister { attrName = ('h'::('a'::('l'::('t'::('e'::('d'::[]))))));
     attrType = (RegInitCustom (ExistT ((SyntaxKind Bool),
-    (makeConst Bool (ConstBool false))))) }), (ConsInModule ((MERegister
+    (makeConst Bool (ConstBool true))))) }), (ConsInModule ((MERegister
     { attrName = ('r'::('e'::('g'::('s'::[])))); attrType = (RegInitDefault
     (SyntaxKind (Vector ((Bit wordSz), regIdxSz)))) }), (ConsInModule
     ((MERegister { attrName = ('m'::('e'::('m'::[]))); attrType =
@@ -30518,18 +30518,25 @@ let thieleCore =
       (vector_find (fieldAccessor ('d'::('a'::('t'::('a'::[])))))
         (Stdlib.Int.succ 0) loadInstrPort))), data_v)))), (Return (Const
     (void, (getDefaultConst void)))))))))))))) }), (ConsInModule ((MEMeth
-    { attrName = ('g'::('e'::('t'::('P'::('C'::[]))))); attrType = (ExistT
-    ({ arg = void; ret = (Bit wordSz) }, (fun _ _ -> ReadReg
-    (('p'::('c'::[])), (SyntaxKind (Bit wordSz)), (fun v -> Return (Var
-    ((SyntaxKind (Bit wordSz)), v))))))) }), (ConsInModule ((MEMeth
-    { attrName = ('g'::('e'::('t'::('M'::('u'::[]))))); attrType = (ExistT
-    ({ arg = void; ret = (Bit wordSz) }, (fun _ _ -> ReadReg
-    (('m'::('u'::[])), (SyntaxKind (Bit wordSz)), (fun v -> Return (Var
-    ((SyntaxKind (Bit wordSz)), v))))))) }), (ConsInModule ((MEMeth
-    { attrName = ('g'::('e'::('t'::('E'::('r'::('r'::[])))))); attrType =
-    (ExistT ({ arg = void; ret = Bool }, (fun _ _ -> ReadReg
-    (('e'::('r'::('r'::[]))), (SyntaxKind Bool), (fun v -> Return (Var
-    ((SyntaxKind Bool), v))))))) }), (ConsInModule ((MEMeth { attrName =
+    { attrName = ('s'::('t'::('a'::('r'::('t'::[]))))); attrType = (ExistT
+    ({ arg = void; ret = void }, (fun _ _ -> WriteReg
+    (('h'::('a'::('l'::('t'::('e'::('d'::[])))))), (SyntaxKind Bool), (Const
+    (Bool, (ConstBool false))), (WriteReg (('p'::('c'::[])), (SyntaxKind (Bit
+    wordSz)), (Const ((Bit wordSz), (ConstBit (wordSz,
+    (natToWord wordSz 0))))), (Return (Const (void,
+    (getDefaultConst void)))))))))) }), (ConsInModule ((MEMeth { attrName =
+    ('g'::('e'::('t'::('P'::('C'::[]))))); attrType = (ExistT ({ arg = void;
+    ret = (Bit wordSz) }, (fun _ _ -> ReadReg (('p'::('c'::[])), (SyntaxKind
+    (Bit wordSz)), (fun v -> Return (Var ((SyntaxKind (Bit wordSz)),
+    v))))))) }), (ConsInModule ((MEMeth { attrName =
+    ('g'::('e'::('t'::('M'::('u'::[]))))); attrType = (ExistT ({ arg = void;
+    ret = (Bit wordSz) }, (fun _ _ -> ReadReg (('m'::('u'::[])), (SyntaxKind
+    (Bit wordSz)), (fun v -> Return (Var ((SyntaxKind (Bit wordSz)),
+    v))))))) }), (ConsInModule ((MEMeth { attrName =
+    ('g'::('e'::('t'::('E'::('r'::('r'::[])))))); attrType = (ExistT ({ arg =
+    void; ret = Bool }, (fun _ _ -> ReadReg (('e'::('r'::('r'::[]))),
+    (SyntaxKind Bool), (fun v -> Return (Var ((SyntaxKind Bool), v))))))) }),
+    (ConsInModule ((MEMeth { attrName =
     ('g'::('e'::('t'::('H'::('a'::('l'::('t'::('e'::('d'::[])))))))));
     attrType = (ExistT ({ arg = void; ret = Bool }, (fun _ _ -> ReadReg
     (('h'::('a'::('l'::('t'::('e'::('d'::[])))))), (SyntaxKind Bool),
@@ -32589,7 +32596,7 @@ let thieleCore =
     (Vector ((Bit wordSz), (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))),
     tbl))))))))) }),
-    NilInModule))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+    NilInModule))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
 (** val thieleCoreS : modulesS **)
 

@@ -1,4 +1,4 @@
-DIGEST d75f2f9f045b5c1a33f17b55f01c6dd3
+DIGEST 9cbced757bf63156971ae74e811d925f
 FKernel.MetricFromMuCosts
 R860:870 Kernel.MuCostModel <> <> lib
 R898:902 Coq.Reals.Reals <> <> lib
@@ -10,979 +10,979 @@ R940:952 Coq.Lists.List ListNotations <> mod
 R1009:1015 Kernel.VMState <> <> lib
 R1045:1066 Kernel.FourDSimplicialComplex <> <> lib
 R1096:1104 Kernel.MuGravity <> <> lib
-def 1571:1589 <> mu_tensor_to_metric
-R1596:1602 Kernel.VMState <> VMState rec
-binder 1592:1592 <> s:1
-R1612:1614 Coq.Init.Datatypes <> nat ind
-binder 1606:1606 <> i:2
-binder 1608:1608 <> j:3
-R1619:1619 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R1626:1628 Coq.Reals.Raxioms <> INR def
-R1631:1648 Kernel.VMState <> vm_mu_tensor_entry def
-R1650:1650 Kernel.MetricFromMuCosts <> s:1 var
-R1652:1652 Kernel.MetricFromMuCosts <> i:2 var
-R1654:1654 Kernel.MetricFromMuCosts <> j:3 var
-prf 1704:1726 <> mu_tensor_metric_nonneg
-binder 1737:1737 <> s:4
-binder 1739:1739 <> i:5
-binder 1741:1741 <> j:6
-R1772:1775 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R1747:1765 Kernel.MetricFromMuCosts <> mu_tensor_to_metric def
-R1767:1767 Kernel.MetricFromMuCosts <> s:4 var
-R1769:1769 Kernel.MetricFromMuCosts <> i:5 var
-R1771:1771 Kernel.MetricFromMuCosts <> j:6 var
-R1814:1832 Kernel.MetricFromMuCosts <> mu_tensor_to_metric def
-R1843:1848 Coq.Reals.RIneq <> Rle_ge thm
-R1851:1857 Coq.Reals.RIneq <> pos_INR thm
-R1843:1848 Coq.Reals.RIneq <> Rle_ge thm
-R1851:1857 Coq.Reals.RIneq <> pos_INR thm
-prf 1915:1943 <> zero_tensor_gives_zero_metric
-binder 1954:1954 <> s:7
-binder 1956:1956 <> i:8
-binder 1958:1958 <> j:9
-R1997:2002 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1979:1981 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1966:1977 Kernel.VMState <> vm_mu_tensor proj
-R1963:1963 Kernel.MetricFromMuCosts <> s:7 var
-R1982:1987 Coq.Lists.List <> repeat def
-R2028:2030 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2003:2021 Kernel.MetricFromMuCosts <> mu_tensor_to_metric def
-R2023:2023 Kernel.MetricFromMuCosts <> s:7 var
-R2025:2025 Kernel.MetricFromMuCosts <> i:8 var
-R2027:2027 Kernel.MetricFromMuCosts <> j:9 var
-R2070:2088 Kernel.MetricFromMuCosts <> mu_tensor_to_metric def
-R2091:2108 Kernel.VMState <> vm_mu_tensor_entry def
-R2136:2151 Coq.Arith.PeanoNat Nat lt_decidable thm
-R2159:2161 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2155:2157 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2136:2151 Coq.Arith.PeanoNat Nat lt_decidable thm
-R2159:2161 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2155:2157 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2197:2206 Coq.Lists.List <> nth_repeat thm
-R2197:2206 Coq.Lists.List <> nth_repeat thm
-R2197:2206 Coq.Lists.List <> nth_repeat thm
-R2241:2252 Coq.Lists.List <> nth_overflow thm
-R2241:2252 Coq.Lists.List <> nth_overflow thm
-R2241:2252 Coq.Lists.List <> nth_overflow thm
-R2241:2252 Coq.Lists.List <> nth_overflow thm
-R2295:2307 Coq.Lists.List <> repeat_length thm
-R2295:2307 Coq.Lists.List <> repeat_length thm
-R2295:2307 Coq.Lists.List <> repeat_length thm
-def 2542:2552 <> edge_length
-R2559:2565 Kernel.VMState <> VMState rec
-binder 2555:2555 <> s:10
-R2577:2584 Kernel.VMState <> ModuleID def
-binder 2569:2570 <> m1:11
-binder 2572:2573 <> m2:12
-R2589:2589 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R2596:2598 Coq.Reals.Raxioms <> INR def
-R2628:2630 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2601:2622 Kernel.MuGravity <> module_structural_mass def
-R2624:2624 Kernel.MetricFromMuCosts <> s:10 var
-R2626:2627 Kernel.MetricFromMuCosts <> m1:11 var
-R2631:2652 Kernel.MuGravity <> module_structural_mass def
-R2654:2654 Kernel.MetricFromMuCosts <> s:10 var
-R2656:2657 Kernel.MetricFromMuCosts <> m2:12 var
-prf 2703:2720 <> edge_length_nonneg
-binder 2731:2731 <> s:13
-binder 2733:2734 <> m1:14
-binder 2736:2737 <> m2:15
-R2762:2765 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R2743:2753 Kernel.MetricFromMuCosts <> edge_length def
-R2755:2755 Kernel.MetricFromMuCosts <> s:13 var
-R2757:2758 Kernel.MetricFromMuCosts <> m1:14 var
-R2760:2761 Kernel.MetricFromMuCosts <> m2:15 var
-R2806:2816 Kernel.MetricFromMuCosts <> edge_length def
-R2827:2832 Coq.Reals.RIneq <> Rle_ge thm
-R2827:2832 Coq.Reals.RIneq <> Rle_ge thm
-R2843:2849 Coq.Reals.RIneq <> pos_INR thm
-R2843:2849 Coq.Reals.RIneq <> pos_INR thm
-prf 2896:2916 <> edge_length_symmetric
-binder 2927:2927 <> s:16
-binder 2929:2930 <> m1:17
-binder 2932:2933 <> m2:18
-R2957:2959 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2938:2948 Kernel.MetricFromMuCosts <> edge_length def
-R2950:2950 Kernel.MetricFromMuCosts <> s:16 var
-R2952:2953 Kernel.MetricFromMuCosts <> m1:17 var
-R2955:2956 Kernel.MetricFromMuCosts <> m2:18 var
-R2960:2970 Kernel.MetricFromMuCosts <> edge_length def
-R2972:2972 Kernel.MetricFromMuCosts <> s:16 var
-R2974:2975 Kernel.MetricFromMuCosts <> m2:18 var
-R2977:2978 Kernel.MetricFromMuCosts <> m1:17 var
-R3015:3025 Kernel.MetricFromMuCosts <> edge_length def
-prf 3121:3140 <> edge_length_identity
-binder 3151:3151 <> s:19
-binder 3153:3153 <> m:20
-R3175:3177 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3158:3168 Kernel.MetricFromMuCosts <> edge_length def
-R3170:3170 Kernel.MetricFromMuCosts <> s:19 var
-R3172:3172 Kernel.MetricFromMuCosts <> m:20 var
-R3174:3174 Kernel.MetricFromMuCosts <> m:20 var
-R3178:3180 Coq.Reals.Raxioms <> INR def
-R3184:3186 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R3187:3208 Kernel.MuGravity <> module_structural_mass def
-R3210:3210 Kernel.MetricFromMuCosts <> s:19 var
-R3212:3212 Kernel.MetricFromMuCosts <> m:20 var
-R3246:3256 Kernel.MetricFromMuCosts <> edge_length def
-prf 3486:3516 <> edge_length_triangle_inequality
-binder 3527:3527 <> s:21
-binder 3529:3530 <> m1:22
-binder 3532:3533 <> m2:23
-binder 3535:3536 <> m3:24
-R3561:3564 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R3542:3552 Kernel.MetricFromMuCosts <> edge_length def
-R3554:3554 Kernel.MetricFromMuCosts <> s:21 var
-R3556:3557 Kernel.MetricFromMuCosts <> m1:22 var
-R3559:3560 Kernel.MetricFromMuCosts <> m3:24 var
-R3584:3586 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R3565:3575 Kernel.MetricFromMuCosts <> edge_length def
-R3577:3577 Kernel.MetricFromMuCosts <> s:21 var
-R3579:3580 Kernel.MetricFromMuCosts <> m1:22 var
-R3582:3583 Kernel.MetricFromMuCosts <> m2:23 var
-R3587:3597 Kernel.MetricFromMuCosts <> edge_length def
-R3599:3599 Kernel.MetricFromMuCosts <> s:21 var
-R3601:3602 Kernel.MetricFromMuCosts <> m2:23 var
-R3604:3605 Kernel.MetricFromMuCosts <> m3:24 var
-R3648:3658 Kernel.MetricFromMuCosts <> edge_length def
-R3718:3725 Coq.Reals.RIneq <> plus_INR thm
-R3718:3725 Coq.Reals.RIneq <> plus_INR thm
-R3718:3725 Coq.Reals.RIneq <> plus_INR thm
-R3718:3725 Coq.Reals.RIneq <> plus_INR thm
-R3718:3725 Coq.Reals.RIneq <> plus_INR thm
-R3718:3725 Coq.Reals.RIneq <> plus_INR thm
-R3718:3725 Coq.Reals.RIneq <> plus_INR thm
-R3718:3725 Coq.Reals.RIneq <> plus_INR thm
-R3853:3870 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3823:3825 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3796:3817 Kernel.MuGravity <> module_structural_mass def
-R3826:3847 Kernel.MuGravity <> module_structural_mass def
-R3928:3945 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4003:4003 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3898:3900 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3871:3892 Kernel.MuGravity <> module_structural_mass def
-R3901:3922 Kernel.MuGravity <> module_structural_mass def
-R3973:3975 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3946:3967 Kernel.MuGravity <> module_structural_mass def
-R3976:3997 Kernel.MuGravity <> module_structural_mass def
-R3853:3870 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3823:3825 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3796:3817 Kernel.MuGravity <> module_structural_mass def
-R3826:3847 Kernel.MuGravity <> module_structural_mass def
-R3928:3945 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4003:4003 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3898:3900 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3871:3892 Kernel.MuGravity <> module_structural_mass def
-R3901:3922 Kernel.MuGravity <> module_structural_mass def
-R3973:3975 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3946:3967 Kernel.MuGravity <> module_structural_mass def
-R3976:3997 Kernel.MuGravity <> module_structural_mass def
-R4031:4036 Coq.Reals.RIneq <> le_INR thm
-R4031:4036 Coq.Reals.RIneq <> le_INR thm
-R4061:4068 Coq.Reals.RIneq <> plus_INR thm
-R4061:4068 Coq.Reals.RIneq <> plus_INR thm
-R4061:4068 Coq.Reals.RIneq <> plus_INR thm
-R4061:4068 Coq.Reals.RIneq <> plus_INR thm
-R4061:4068 Coq.Reals.RIneq <> plus_INR thm
-R4061:4068 Coq.Reals.RIneq <> plus_INR thm
-R4061:4068 Coq.Reals.RIneq <> plus_INR thm
-R4061:4068 Coq.Reals.RIneq <> plus_INR thm
-R4061:4068 Coq.Reals.RIneq <> plus_INR thm
-R4061:4068 Coq.Reals.RIneq <> plus_INR thm
-prf 4184:4204 <> edge_length_is_metric
-binder 4215:4215 <> s:25
-binder 4217:4218 <> m1:26
-binder 4220:4221 <> m2:27
-binder 4223:4224 <> m3:28
-R4253:4258 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4248:4251 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R4229:4239 Kernel.MetricFromMuCosts <> edge_length def
-R4241:4241 Kernel.MetricFromMuCosts <> s:25 var
-R4243:4244 Kernel.MetricFromMuCosts <> m1:26 var
-R4246:4247 Kernel.MetricFromMuCosts <> m2:27 var
-R4300:4305 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4278:4280 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4259:4269 Kernel.MetricFromMuCosts <> edge_length def
-R4271:4271 Kernel.MetricFromMuCosts <> s:25 var
-R4273:4274 Kernel.MetricFromMuCosts <> m1:26 var
-R4276:4277 Kernel.MetricFromMuCosts <> m2:27 var
-R4281:4291 Kernel.MetricFromMuCosts <> edge_length def
-R4293:4293 Kernel.MetricFromMuCosts <> s:25 var
-R4295:4296 Kernel.MetricFromMuCosts <> m2:27 var
-R4298:4299 Kernel.MetricFromMuCosts <> m1:26 var
-R4325:4328 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R4306:4316 Kernel.MetricFromMuCosts <> edge_length def
-R4318:4318 Kernel.MetricFromMuCosts <> s:25 var
-R4320:4321 Kernel.MetricFromMuCosts <> m1:26 var
-R4323:4324 Kernel.MetricFromMuCosts <> m3:28 var
-R4348:4350 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4329:4339 Kernel.MetricFromMuCosts <> edge_length def
-R4341:4341 Kernel.MetricFromMuCosts <> s:25 var
-R4343:4344 Kernel.MetricFromMuCosts <> m1:26 var
-R4346:4347 Kernel.MetricFromMuCosts <> m2:27 var
-R4351:4361 Kernel.MetricFromMuCosts <> edge_length def
-R4363:4363 Kernel.MetricFromMuCosts <> s:25 var
-R4365:4366 Kernel.MetricFromMuCosts <> m2:27 var
-R4368:4369 Kernel.MetricFromMuCosts <> m3:28 var
-R4417:4434 Kernel.MetricFromMuCosts <> edge_length_nonneg thm
-R4417:4434 Kernel.MetricFromMuCosts <> edge_length_nonneg thm
-R4456:4476 Kernel.MetricFromMuCosts <> edge_length_symmetric thm
-R4456:4476 Kernel.MetricFromMuCosts <> edge_length_symmetric thm
-R4491:4521 Kernel.MetricFromMuCosts <> edge_length_triangle_inequality thm
-R4491:4521 Kernel.MetricFromMuCosts <> edge_length_triangle_inequality thm
-def 5003:5017 <> angle_at_vertex
-R5024:5030 Kernel.VMState <> VMState rec
-binder 5020:5020 <> s:29
-R5045:5052 Kernel.VMState <> ModuleID def
-binder 5034:5035 <> v1:30
-binder 5037:5038 <> v2:31
-binder 5040:5041 <> v3:32
-R5057:5057 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5073:5083 Kernel.MetricFromMuCosts <> edge_length def
-R5085:5085 Kernel.MetricFromMuCosts <> s:29 var
-R5087:5088 Kernel.MetricFromMuCosts <> v2:31 var
-R5090:5091 Kernel.MetricFromMuCosts <> v3:32 var
-binder 5068:5068 <> a:33
-R5107:5117 Kernel.MetricFromMuCosts <> edge_length def
-R5119:5119 Kernel.MetricFromMuCosts <> s:29 var
-R5121:5122 Kernel.MetricFromMuCosts <> v1:30 var
-R5124:5125 Kernel.MetricFromMuCosts <> v2:31 var
-binder 5102:5102 <> b:34
-R5141:5151 Kernel.MetricFromMuCosts <> edge_length def
-R5153:5153 Kernel.MetricFromMuCosts <> s:29 var
-R5155:5156 Kernel.MetricFromMuCosts <> v1:30 var
-R5158:5159 Kernel.MetricFromMuCosts <> v3:32 var
-binder 5136:5136 <> c:35
-R5184:5184 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R5206:5210 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R5220:5220 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R5198:5200 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5190:5192 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5186:5188 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5185:5185 Kernel.MetricFromMuCosts <> b:34 var
-R5189:5189 Kernel.MetricFromMuCosts <> b:34 var
-R5194:5196 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5193:5193 Kernel.MetricFromMuCosts <> a:33 var
-R5197:5197 Kernel.MetricFromMuCosts <> a:33 var
-R5202:5204 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5201:5201 Kernel.MetricFromMuCosts <> c:35 var
-R5205:5205 Kernel.MetricFromMuCosts <> c:35 var
-R5216:5218 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5212:5214 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5215:5215 Kernel.MetricFromMuCosts <> a:33 var
-R5219:5219 Kernel.MetricFromMuCosts <> b:34 var
-binder 5170:5178 <> cos_angle:36
-R5230:5233 Coq.Reals.Ratan <> acos def
-R5235:5243 Kernel.MetricFromMuCosts <> cos_angle:36 var
-def 5713:5730 <> triangle_angle_sum
-R5737:5743 Kernel.VMState <> VMState rec
-binder 5733:5733 <> s:37
-R5758:5765 Kernel.VMState <> ModuleID def
-binder 5747:5748 <> v1:38
-binder 5750:5751 <> v2:39
-binder 5753:5754 <> v3:40
-R5770:5770 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5836:5841 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5804:5809 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5778:5792 Kernel.MetricFromMuCosts <> angle_at_vertex def
-R5794:5794 Kernel.MetricFromMuCosts <> s:37 var
-R5796:5797 Kernel.MetricFromMuCosts <> v1:38 var
-R5799:5800 Kernel.MetricFromMuCosts <> v2:39 var
-R5802:5803 Kernel.MetricFromMuCosts <> v3:40 var
-R5810:5824 Kernel.MetricFromMuCosts <> angle_at_vertex def
-R5826:5826 Kernel.MetricFromMuCosts <> s:37 var
-R5828:5829 Kernel.MetricFromMuCosts <> v2:39 var
-R5831:5832 Kernel.MetricFromMuCosts <> v3:40 var
-R5834:5835 Kernel.MetricFromMuCosts <> v1:38 var
-R5842:5856 Kernel.MetricFromMuCosts <> angle_at_vertex def
-R5858:5858 Kernel.MetricFromMuCosts <> s:37 var
-R5860:5861 Kernel.MetricFromMuCosts <> v3:40 var
-R5863:5864 Kernel.MetricFromMuCosts <> v1:38 var
-R5866:5867 Kernel.MetricFromMuCosts <> v2:39 var
-def 5927:5940 <> angular_excess
-R5947:5953 Kernel.VMState <> VMState rec
-binder 5943:5943 <> s:41
-R5968:5975 Kernel.VMState <> ModuleID def
-binder 5957:5958 <> v1:42
-binder 5960:5961 <> v2:43
-binder 5963:5964 <> v3:44
-R5980:5980 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R6017:6019 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5988:6005 Kernel.MetricFromMuCosts <> triangle_angle_sum def
-R6007:6007 Kernel.MetricFromMuCosts <> s:41 var
-R6009:6010 Kernel.MetricFromMuCosts <> v1:42 var
-R6012:6013 Kernel.MetricFromMuCosts <> v2:43 var
-R6015:6016 Kernel.MetricFromMuCosts <> v3:44 var
-R6020:6021 Coq.Reals.Rtrigo1 <> PI def
-def 6597:6609 <> triangle_area
-R6616:6622 Kernel.VMState <> VMState rec
-binder 6612:6612 <> s:45
-R6637:6644 Kernel.VMState <> ModuleID def
-binder 6626:6627 <> v1:46
-binder 6629:6630 <> v2:47
-binder 6632:6633 <> v3:48
-R6649:6649 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R6665:6675 Kernel.MetricFromMuCosts <> edge_length def
-R6677:6677 Kernel.MetricFromMuCosts <> s:45 var
-R6679:6680 Kernel.MetricFromMuCosts <> v2:47 var
-R6682:6683 Kernel.MetricFromMuCosts <> v3:48 var
-binder 6660:6660 <> a:49
-R6699:6709 Kernel.MetricFromMuCosts <> edge_length def
-R6711:6711 Kernel.MetricFromMuCosts <> s:45 var
-R6713:6714 Kernel.MetricFromMuCosts <> v1:46 var
-R6716:6717 Kernel.MetricFromMuCosts <> v2:47 var
-binder 6694:6694 <> b:50
-R6733:6743 Kernel.MetricFromMuCosts <> edge_length def
-R6745:6745 Kernel.MetricFromMuCosts <> s:45 var
-R6747:6748 Kernel.MetricFromMuCosts <> v1:46 var
-R6750:6751 Kernel.MetricFromMuCosts <> v3:48 var
-binder 6728:6728 <> c:51
-R6771:6771 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R6781:6784 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R6777:6779 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6773:6775 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6772:6772 Kernel.MetricFromMuCosts <> a:49 var
-R6776:6776 Kernel.MetricFromMuCosts <> b:50 var
-R6780:6780 Kernel.MetricFromMuCosts <> c:51 var
-binder 6762:6765 <> semi:52
-R6795:6798 Coq.Reals.R_sqrt <> sqrt def
-R6831:6834 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6843:6843 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6818:6821 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6830:6830 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6805:6808 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6817:6817 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6801:6804 Kernel.MetricFromMuCosts <> semi:52 var
-R6813:6815 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R6809:6812 Kernel.MetricFromMuCosts <> semi:52 var
-R6816:6816 Kernel.MetricFromMuCosts <> a:49 var
-R6826:6828 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R6822:6825 Kernel.MetricFromMuCosts <> semi:52 var
-R6829:6829 Kernel.MetricFromMuCosts <> b:50 var
-R6839:6841 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R6835:6838 Kernel.MetricFromMuCosts <> semi:52 var
-R6842:6842 Kernel.MetricFromMuCosts <> c:51 var
-def 7004:7030 <> discrete_gaussian_curvature
-R7037:7043 Kernel.VMState <> VMState rec
-binder 7033:7033 <> s:53
-R7058:7065 Kernel.VMState <> ModuleID def
-binder 7047:7048 <> v1:54
-binder 7050:7051 <> v2:55
-binder 7053:7054 <> v3:56
-R7070:7070 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7089:7101 Kernel.MetricFromMuCosts <> triangle_area def
-R7103:7103 Kernel.MetricFromMuCosts <> s:53 var
-R7105:7106 Kernel.MetricFromMuCosts <> v1:54 var
-R7108:7109 Kernel.MetricFromMuCosts <> v2:55 var
-R7111:7112 Kernel.MetricFromMuCosts <> v3:56 var
-binder 7081:7084 <> area:57
-R7133:7146 Kernel.MetricFromMuCosts <> angular_excess def
-R7148:7148 Kernel.MetricFromMuCosts <> s:53 var
-R7150:7151 Kernel.MetricFromMuCosts <> v1:54 var
-R7153:7154 Kernel.MetricFromMuCosts <> v2:55 var
-R7156:7157 Kernel.MetricFromMuCosts <> v3:56 var
-binder 7123:7128 <> excess:58
-R7171:7173 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R7165:7170 Kernel.MetricFromMuCosts <> excess:58 var
-R7174:7177 Kernel.MetricFromMuCosts <> area:57 var
-prf 7427:7456 <> angle_sum_determines_curvature
-binder 7467:7467 <> s:59
-binder 7469:7470 <> v1:60
-binder 7472:7473 <> v2:61
-binder 7475:7476 <> v3:62
-R7514:7519 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7506:7509 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R7482:7494 Kernel.MetricFromMuCosts <> triangle_area def
-R7496:7496 Kernel.MetricFromMuCosts <> s:59 var
-R7498:7499 Kernel.MetricFromMuCosts <> v1:60 var
-R7501:7502 Kernel.MetricFromMuCosts <> v2:61 var
-R7504:7505 Kernel.MetricFromMuCosts <> v3:62 var
-R7529:7555 Kernel.MetricFromMuCosts <> discrete_gaussian_curvature def
-R7557:7557 Kernel.MetricFromMuCosts <> s:59 var
-R7559:7560 Kernel.MetricFromMuCosts <> v1:60 var
-R7562:7563 Kernel.MetricFromMuCosts <> v2:61 var
-R7565:7566 Kernel.MetricFromMuCosts <> v3:62 var
-binder 7524:7524 <> K:63
-R7582:7594 Kernel.MetricFromMuCosts <> triangle_area def
-R7596:7596 Kernel.MetricFromMuCosts <> s:59 var
-R7598:7599 Kernel.MetricFromMuCosts <> v1:60 var
-R7601:7602 Kernel.MetricFromMuCosts <> v2:61 var
-R7604:7605 Kernel.MetricFromMuCosts <> v3:62 var
-binder 7577:7577 <> A:64
-R7642:7644 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7613:7630 Kernel.MetricFromMuCosts <> triangle_angle_sum def
-R7632:7632 Kernel.MetricFromMuCosts <> s:59 var
-R7634:7635 Kernel.MetricFromMuCosts <> v1:60 var
-R7637:7638 Kernel.MetricFromMuCosts <> v2:61 var
-R7640:7641 Kernel.MetricFromMuCosts <> v3:62 var
-R7647:7649 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7645:7646 Coq.Reals.Rtrigo1 <> PI def
-R7651:7653 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7650:7650 Kernel.MetricFromMuCosts <> K:63 var
-R7654:7654 Kernel.MetricFromMuCosts <> A:64 var
-R7706:7732 Kernel.MetricFromMuCosts <> discrete_gaussian_curvature def
-R7735:7748 Kernel.MetricFromMuCosts <> angular_excess def
-R7751:7768 Kernel.MetricFromMuCosts <> triangle_angle_sum def
-def 8117:8143 <> count_incident_triangles_4d
-R8157:8159 Coq.Init.Datatypes <> nat ind
-binder 8148:8153 <> vertex:65
-R8171:8174 Coq.Init.Datatypes <> list ind
-R8176:8181 Kernel.FourDSimplicialComplex <> Face2D rec
-binder 8163:8167 <> faces:66
-R8186:8188 Coq.Init.Datatypes <> nat ind
-R8201:8205 Kernel.MetricFromMuCosts <> faces:66 var
-R8216:8217 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R8229:8232 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R8250:8261 Kernel.VMState <> nat_list_mem def
+def 1505:1523 <> mu_tensor_to_metric
+R1530:1536 Kernel.VMState <> VMState rec
+binder 1526:1526 <> s:1
+R1546:1548 Coq.Init.Datatypes <> nat ind
+binder 1540:1540 <> i:2
+binder 1542:1542 <> j:3
+R1553:1553 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1560:1562 Coq.Reals.Raxioms <> INR def
+R1565:1582 Kernel.VMState <> vm_mu_tensor_entry def
+R1584:1584 Kernel.MetricFromMuCosts <> s:1 var
+R1586:1586 Kernel.MetricFromMuCosts <> i:2 var
+R1588:1588 Kernel.MetricFromMuCosts <> j:3 var
+prf 1638:1660 <> mu_tensor_metric_nonneg
+binder 1671:1671 <> s:4
+binder 1673:1673 <> i:5
+binder 1675:1675 <> j:6
+R1706:1709 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R1681:1699 Kernel.MetricFromMuCosts <> mu_tensor_to_metric def
+R1701:1701 Kernel.MetricFromMuCosts <> s:4 var
+R1703:1703 Kernel.MetricFromMuCosts <> i:5 var
+R1705:1705 Kernel.MetricFromMuCosts <> j:6 var
+R1748:1766 Kernel.MetricFromMuCosts <> mu_tensor_to_metric def
+R1777:1782 Coq.Reals.RIneq <> Rle_ge thm
+R1785:1791 Coq.Reals.RIneq <> pos_INR thm
+R1777:1782 Coq.Reals.RIneq <> Rle_ge thm
+R1785:1791 Coq.Reals.RIneq <> pos_INR thm
+prf 1849:1877 <> zero_tensor_gives_zero_metric
+binder 1888:1888 <> s:7
+binder 1890:1890 <> i:8
+binder 1892:1892 <> j:9
+R1931:1936 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1913:1915 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1900:1911 Kernel.VMState <> vm_mu_tensor proj
+R1897:1897 Kernel.MetricFromMuCosts <> s:7 var
+R1916:1921 Coq.Lists.List <> repeat def
+R1962:1964 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1937:1955 Kernel.MetricFromMuCosts <> mu_tensor_to_metric def
+R1957:1957 Kernel.MetricFromMuCosts <> s:7 var
+R1959:1959 Kernel.MetricFromMuCosts <> i:8 var
+R1961:1961 Kernel.MetricFromMuCosts <> j:9 var
+R2004:2022 Kernel.MetricFromMuCosts <> mu_tensor_to_metric def
+R2025:2042 Kernel.VMState <> vm_mu_tensor_entry def
+R2070:2085 Coq.Arith.PeanoNat Nat lt_decidable thm
+R2093:2095 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2089:2091 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2070:2085 Coq.Arith.PeanoNat Nat lt_decidable thm
+R2093:2095 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2089:2091 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2131:2140 Coq.Lists.List <> nth_repeat thm
+R2131:2140 Coq.Lists.List <> nth_repeat thm
+R2131:2140 Coq.Lists.List <> nth_repeat thm
+R2175:2186 Coq.Lists.List <> nth_overflow thm
+R2175:2186 Coq.Lists.List <> nth_overflow thm
+R2175:2186 Coq.Lists.List <> nth_overflow thm
+R2175:2186 Coq.Lists.List <> nth_overflow thm
+R2229:2241 Coq.Lists.List <> repeat_length thm
+R2229:2241 Coq.Lists.List <> repeat_length thm
+R2229:2241 Coq.Lists.List <> repeat_length thm
+def 2476:2486 <> edge_length
+R2493:2499 Kernel.VMState <> VMState rec
+binder 2489:2489 <> s:10
+R2511:2518 Kernel.VMState <> ModuleID def
+binder 2503:2504 <> m1:11
+binder 2506:2507 <> m2:12
+R2523:2523 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2530:2532 Coq.Reals.Raxioms <> INR def
+R2562:2564 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2535:2556 Kernel.MuGravity <> module_structural_mass def
+R2558:2558 Kernel.MetricFromMuCosts <> s:10 var
+R2560:2561 Kernel.MetricFromMuCosts <> m1:11 var
+R2565:2586 Kernel.MuGravity <> module_structural_mass def
+R2588:2588 Kernel.MetricFromMuCosts <> s:10 var
+R2590:2591 Kernel.MetricFromMuCosts <> m2:12 var
+prf 2637:2654 <> edge_length_nonneg
+binder 2665:2665 <> s:13
+binder 2667:2668 <> m1:14
+binder 2670:2671 <> m2:15
+R2696:2699 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R2677:2687 Kernel.MetricFromMuCosts <> edge_length def
+R2689:2689 Kernel.MetricFromMuCosts <> s:13 var
+R2691:2692 Kernel.MetricFromMuCosts <> m1:14 var
+R2694:2695 Kernel.MetricFromMuCosts <> m2:15 var
+R2740:2750 Kernel.MetricFromMuCosts <> edge_length def
+R2761:2766 Coq.Reals.RIneq <> Rle_ge thm
+R2761:2766 Coq.Reals.RIneq <> Rle_ge thm
+R2777:2783 Coq.Reals.RIneq <> pos_INR thm
+R2777:2783 Coq.Reals.RIneq <> pos_INR thm
+prf 2830:2850 <> edge_length_symmetric
+binder 2861:2861 <> s:16
+binder 2863:2864 <> m1:17
+binder 2866:2867 <> m2:18
+R2891:2893 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2872:2882 Kernel.MetricFromMuCosts <> edge_length def
+R2884:2884 Kernel.MetricFromMuCosts <> s:16 var
+R2886:2887 Kernel.MetricFromMuCosts <> m1:17 var
+R2889:2890 Kernel.MetricFromMuCosts <> m2:18 var
+R2894:2904 Kernel.MetricFromMuCosts <> edge_length def
+R2906:2906 Kernel.MetricFromMuCosts <> s:16 var
+R2908:2909 Kernel.MetricFromMuCosts <> m2:18 var
+R2911:2912 Kernel.MetricFromMuCosts <> m1:17 var
+R2949:2959 Kernel.MetricFromMuCosts <> edge_length def
+prf 3055:3074 <> edge_length_identity
+binder 3085:3085 <> s:19
+binder 3087:3087 <> m:20
+R3109:3111 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3092:3102 Kernel.MetricFromMuCosts <> edge_length def
+R3104:3104 Kernel.MetricFromMuCosts <> s:19 var
+R3106:3106 Kernel.MetricFromMuCosts <> m:20 var
+R3108:3108 Kernel.MetricFromMuCosts <> m:20 var
+R3112:3114 Coq.Reals.Raxioms <> INR def
+R3118:3120 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R3121:3142 Kernel.MuGravity <> module_structural_mass def
+R3144:3144 Kernel.MetricFromMuCosts <> s:19 var
+R3146:3146 Kernel.MetricFromMuCosts <> m:20 var
+R3180:3190 Kernel.MetricFromMuCosts <> edge_length def
+prf 3420:3450 <> edge_length_triangle_inequality
+binder 3461:3461 <> s:21
+binder 3463:3464 <> m1:22
+binder 3466:3467 <> m2:23
+binder 3469:3470 <> m3:24
+R3495:3498 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3476:3486 Kernel.MetricFromMuCosts <> edge_length def
+R3488:3488 Kernel.MetricFromMuCosts <> s:21 var
+R3490:3491 Kernel.MetricFromMuCosts <> m1:22 var
+R3493:3494 Kernel.MetricFromMuCosts <> m3:24 var
+R3518:3520 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3499:3509 Kernel.MetricFromMuCosts <> edge_length def
+R3511:3511 Kernel.MetricFromMuCosts <> s:21 var
+R3513:3514 Kernel.MetricFromMuCosts <> m1:22 var
+R3516:3517 Kernel.MetricFromMuCosts <> m2:23 var
+R3521:3531 Kernel.MetricFromMuCosts <> edge_length def
+R3533:3533 Kernel.MetricFromMuCosts <> s:21 var
+R3535:3536 Kernel.MetricFromMuCosts <> m2:23 var
+R3538:3539 Kernel.MetricFromMuCosts <> m3:24 var
+R3582:3592 Kernel.MetricFromMuCosts <> edge_length def
+R3652:3659 Coq.Reals.RIneq <> plus_INR thm
+R3652:3659 Coq.Reals.RIneq <> plus_INR thm
+R3652:3659 Coq.Reals.RIneq <> plus_INR thm
+R3652:3659 Coq.Reals.RIneq <> plus_INR thm
+R3652:3659 Coq.Reals.RIneq <> plus_INR thm
+R3652:3659 Coq.Reals.RIneq <> plus_INR thm
+R3652:3659 Coq.Reals.RIneq <> plus_INR thm
+R3652:3659 Coq.Reals.RIneq <> plus_INR thm
+R3787:3804 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3757:3759 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3730:3751 Kernel.MuGravity <> module_structural_mass def
+R3760:3781 Kernel.MuGravity <> module_structural_mass def
+R3862:3879 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3937:3937 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3832:3834 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3805:3826 Kernel.MuGravity <> module_structural_mass def
+R3835:3856 Kernel.MuGravity <> module_structural_mass def
+R3907:3909 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3880:3901 Kernel.MuGravity <> module_structural_mass def
+R3910:3931 Kernel.MuGravity <> module_structural_mass def
+R3787:3804 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3757:3759 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3730:3751 Kernel.MuGravity <> module_structural_mass def
+R3760:3781 Kernel.MuGravity <> module_structural_mass def
+R3862:3879 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3937:3937 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3832:3834 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3805:3826 Kernel.MuGravity <> module_structural_mass def
+R3835:3856 Kernel.MuGravity <> module_structural_mass def
+R3907:3909 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3880:3901 Kernel.MuGravity <> module_structural_mass def
+R3910:3931 Kernel.MuGravity <> module_structural_mass def
+R3965:3970 Coq.Reals.RIneq <> le_INR thm
+R3965:3970 Coq.Reals.RIneq <> le_INR thm
+R3995:4002 Coq.Reals.RIneq <> plus_INR thm
+R3995:4002 Coq.Reals.RIneq <> plus_INR thm
+R3995:4002 Coq.Reals.RIneq <> plus_INR thm
+R3995:4002 Coq.Reals.RIneq <> plus_INR thm
+R3995:4002 Coq.Reals.RIneq <> plus_INR thm
+R3995:4002 Coq.Reals.RIneq <> plus_INR thm
+R3995:4002 Coq.Reals.RIneq <> plus_INR thm
+R3995:4002 Coq.Reals.RIneq <> plus_INR thm
+R3995:4002 Coq.Reals.RIneq <> plus_INR thm
+R3995:4002 Coq.Reals.RIneq <> plus_INR thm
+prf 4118:4138 <> edge_length_is_metric
+binder 4149:4149 <> s:25
+binder 4151:4152 <> m1:26
+binder 4154:4155 <> m2:27
+binder 4157:4158 <> m3:28
+R4187:4192 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4182:4185 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R4163:4173 Kernel.MetricFromMuCosts <> edge_length def
+R4175:4175 Kernel.MetricFromMuCosts <> s:25 var
+R4177:4178 Kernel.MetricFromMuCosts <> m1:26 var
+R4180:4181 Kernel.MetricFromMuCosts <> m2:27 var
+R4234:4239 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4212:4214 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4193:4203 Kernel.MetricFromMuCosts <> edge_length def
+R4205:4205 Kernel.MetricFromMuCosts <> s:25 var
+R4207:4208 Kernel.MetricFromMuCosts <> m1:26 var
+R4210:4211 Kernel.MetricFromMuCosts <> m2:27 var
+R4215:4225 Kernel.MetricFromMuCosts <> edge_length def
+R4227:4227 Kernel.MetricFromMuCosts <> s:25 var
+R4229:4230 Kernel.MetricFromMuCosts <> m2:27 var
+R4232:4233 Kernel.MetricFromMuCosts <> m1:26 var
+R4259:4262 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R4240:4250 Kernel.MetricFromMuCosts <> edge_length def
+R4252:4252 Kernel.MetricFromMuCosts <> s:25 var
+R4254:4255 Kernel.MetricFromMuCosts <> m1:26 var
+R4257:4258 Kernel.MetricFromMuCosts <> m3:28 var
+R4282:4284 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4263:4273 Kernel.MetricFromMuCosts <> edge_length def
+R4275:4275 Kernel.MetricFromMuCosts <> s:25 var
+R4277:4278 Kernel.MetricFromMuCosts <> m1:26 var
+R4280:4281 Kernel.MetricFromMuCosts <> m2:27 var
+R4285:4295 Kernel.MetricFromMuCosts <> edge_length def
+R4297:4297 Kernel.MetricFromMuCosts <> s:25 var
+R4299:4300 Kernel.MetricFromMuCosts <> m2:27 var
+R4302:4303 Kernel.MetricFromMuCosts <> m3:28 var
+R4351:4368 Kernel.MetricFromMuCosts <> edge_length_nonneg thm
+R4351:4368 Kernel.MetricFromMuCosts <> edge_length_nonneg thm
+R4390:4410 Kernel.MetricFromMuCosts <> edge_length_symmetric thm
+R4390:4410 Kernel.MetricFromMuCosts <> edge_length_symmetric thm
+R4425:4455 Kernel.MetricFromMuCosts <> edge_length_triangle_inequality thm
+R4425:4455 Kernel.MetricFromMuCosts <> edge_length_triangle_inequality thm
+def 4937:4951 <> angle_at_vertex
+R4958:4964 Kernel.VMState <> VMState rec
+binder 4954:4954 <> s:29
+R4979:4986 Kernel.VMState <> ModuleID def
+binder 4968:4969 <> v1:30
+binder 4971:4972 <> v2:31
+binder 4974:4975 <> v3:32
+R4991:4991 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5007:5017 Kernel.MetricFromMuCosts <> edge_length def
+R5019:5019 Kernel.MetricFromMuCosts <> s:29 var
+R5021:5022 Kernel.MetricFromMuCosts <> v2:31 var
+R5024:5025 Kernel.MetricFromMuCosts <> v3:32 var
+binder 5002:5002 <> a:33
+R5041:5051 Kernel.MetricFromMuCosts <> edge_length def
+R5053:5053 Kernel.MetricFromMuCosts <> s:29 var
+R5055:5056 Kernel.MetricFromMuCosts <> v1:30 var
+R5058:5059 Kernel.MetricFromMuCosts <> v2:31 var
+binder 5036:5036 <> b:34
+R5075:5085 Kernel.MetricFromMuCosts <> edge_length def
+R5087:5087 Kernel.MetricFromMuCosts <> s:29 var
+R5089:5090 Kernel.MetricFromMuCosts <> v1:30 var
+R5092:5093 Kernel.MetricFromMuCosts <> v3:32 var
+binder 5070:5070 <> c:35
+R5118:5118 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R5140:5144 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R5154:5154 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R5132:5134 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5124:5126 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5120:5122 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5119:5119 Kernel.MetricFromMuCosts <> b:34 var
+R5123:5123 Kernel.MetricFromMuCosts <> b:34 var
+R5128:5130 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5127:5127 Kernel.MetricFromMuCosts <> a:33 var
+R5131:5131 Kernel.MetricFromMuCosts <> a:33 var
+R5136:5138 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5135:5135 Kernel.MetricFromMuCosts <> c:35 var
+R5139:5139 Kernel.MetricFromMuCosts <> c:35 var
+R5150:5152 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5146:5148 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5149:5149 Kernel.MetricFromMuCosts <> a:33 var
+R5153:5153 Kernel.MetricFromMuCosts <> b:34 var
+binder 5104:5112 <> cos_angle:36
+R5164:5167 Coq.Reals.Ratan <> acos def
+R5169:5177 Kernel.MetricFromMuCosts <> cos_angle:36 var
+def 5647:5664 <> triangle_angle_sum
+R5671:5677 Kernel.VMState <> VMState rec
+binder 5667:5667 <> s:37
+R5692:5699 Kernel.VMState <> ModuleID def
+binder 5681:5682 <> v1:38
+binder 5684:5685 <> v2:39
+binder 5687:5688 <> v3:40
+R5704:5704 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5770:5775 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5738:5743 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5712:5726 Kernel.MetricFromMuCosts <> angle_at_vertex def
+R5728:5728 Kernel.MetricFromMuCosts <> s:37 var
+R5730:5731 Kernel.MetricFromMuCosts <> v1:38 var
+R5733:5734 Kernel.MetricFromMuCosts <> v2:39 var
+R5736:5737 Kernel.MetricFromMuCosts <> v3:40 var
+R5744:5758 Kernel.MetricFromMuCosts <> angle_at_vertex def
+R5760:5760 Kernel.MetricFromMuCosts <> s:37 var
+R5762:5763 Kernel.MetricFromMuCosts <> v2:39 var
+R5765:5766 Kernel.MetricFromMuCosts <> v3:40 var
+R5768:5769 Kernel.MetricFromMuCosts <> v1:38 var
+R5776:5790 Kernel.MetricFromMuCosts <> angle_at_vertex def
+R5792:5792 Kernel.MetricFromMuCosts <> s:37 var
+R5794:5795 Kernel.MetricFromMuCosts <> v3:40 var
+R5797:5798 Kernel.MetricFromMuCosts <> v1:38 var
+R5800:5801 Kernel.MetricFromMuCosts <> v2:39 var
+def 5861:5874 <> angular_excess
+R5881:5887 Kernel.VMState <> VMState rec
+binder 5877:5877 <> s:41
+R5902:5909 Kernel.VMState <> ModuleID def
+binder 5891:5892 <> v1:42
+binder 5894:5895 <> v2:43
+binder 5897:5898 <> v3:44
+R5914:5914 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5951:5953 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5922:5939 Kernel.MetricFromMuCosts <> triangle_angle_sum def
+R5941:5941 Kernel.MetricFromMuCosts <> s:41 var
+R5943:5944 Kernel.MetricFromMuCosts <> v1:42 var
+R5946:5947 Kernel.MetricFromMuCosts <> v2:43 var
+R5949:5950 Kernel.MetricFromMuCosts <> v3:44 var
+R5954:5955 Coq.Reals.Rtrigo1 <> PI def
+def 6531:6543 <> triangle_area
+R6550:6556 Kernel.VMState <> VMState rec
+binder 6546:6546 <> s:45
+R6571:6578 Kernel.VMState <> ModuleID def
+binder 6560:6561 <> v1:46
+binder 6563:6564 <> v2:47
+binder 6566:6567 <> v3:48
+R6583:6583 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6599:6609 Kernel.MetricFromMuCosts <> edge_length def
+R6611:6611 Kernel.MetricFromMuCosts <> s:45 var
+R6613:6614 Kernel.MetricFromMuCosts <> v2:47 var
+R6616:6617 Kernel.MetricFromMuCosts <> v3:48 var
+binder 6594:6594 <> a:49
+R6633:6643 Kernel.MetricFromMuCosts <> edge_length def
+R6645:6645 Kernel.MetricFromMuCosts <> s:45 var
+R6647:6648 Kernel.MetricFromMuCosts <> v1:46 var
+R6650:6651 Kernel.MetricFromMuCosts <> v2:47 var
+binder 6628:6628 <> b:50
+R6667:6677 Kernel.MetricFromMuCosts <> edge_length def
+R6679:6679 Kernel.MetricFromMuCosts <> s:45 var
+R6681:6682 Kernel.MetricFromMuCosts <> v1:46 var
+R6684:6685 Kernel.MetricFromMuCosts <> v3:48 var
+binder 6662:6662 <> c:51
+R6705:6705 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6715:6718 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6711:6713 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6707:6709 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6706:6706 Kernel.MetricFromMuCosts <> a:49 var
+R6710:6710 Kernel.MetricFromMuCosts <> b:50 var
+R6714:6714 Kernel.MetricFromMuCosts <> c:51 var
+binder 6696:6699 <> semi:52
+R6729:6732 Coq.Reals.R_sqrt <> sqrt def
+R6765:6768 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6777:6777 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6752:6755 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6764:6764 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6739:6742 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6751:6751 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6735:6738 Kernel.MetricFromMuCosts <> semi:52 var
+R6747:6749 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6743:6746 Kernel.MetricFromMuCosts <> semi:52 var
+R6750:6750 Kernel.MetricFromMuCosts <> a:49 var
+R6760:6762 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6756:6759 Kernel.MetricFromMuCosts <> semi:52 var
+R6763:6763 Kernel.MetricFromMuCosts <> b:50 var
+R6773:6775 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6769:6772 Kernel.MetricFromMuCosts <> semi:52 var
+R6776:6776 Kernel.MetricFromMuCosts <> c:51 var
+def 6938:6964 <> discrete_gaussian_curvature
+R6971:6977 Kernel.VMState <> VMState rec
+binder 6967:6967 <> s:53
+R6992:6999 Kernel.VMState <> ModuleID def
+binder 6981:6982 <> v1:54
+binder 6984:6985 <> v2:55
+binder 6987:6988 <> v3:56
+R7004:7004 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R7023:7035 Kernel.MetricFromMuCosts <> triangle_area def
+R7037:7037 Kernel.MetricFromMuCosts <> s:53 var
+R7039:7040 Kernel.MetricFromMuCosts <> v1:54 var
+R7042:7043 Kernel.MetricFromMuCosts <> v2:55 var
+R7045:7046 Kernel.MetricFromMuCosts <> v3:56 var
+binder 7015:7018 <> area:57
+R7067:7080 Kernel.MetricFromMuCosts <> angular_excess def
+R7082:7082 Kernel.MetricFromMuCosts <> s:53 var
+R7084:7085 Kernel.MetricFromMuCosts <> v1:54 var
+R7087:7088 Kernel.MetricFromMuCosts <> v2:55 var
+R7090:7091 Kernel.MetricFromMuCosts <> v3:56 var
+binder 7057:7062 <> excess:58
+R7105:7107 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R7099:7104 Kernel.MetricFromMuCosts <> excess:58 var
+R7108:7111 Kernel.MetricFromMuCosts <> area:57 var
+prf 7361:7390 <> angle_sum_determines_curvature
+binder 7401:7401 <> s:59
+binder 7403:7404 <> v1:60
+binder 7406:7407 <> v2:61
+binder 7409:7410 <> v3:62
+R7448:7453 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7440:7443 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7416:7428 Kernel.MetricFromMuCosts <> triangle_area def
+R7430:7430 Kernel.MetricFromMuCosts <> s:59 var
+R7432:7433 Kernel.MetricFromMuCosts <> v1:60 var
+R7435:7436 Kernel.MetricFromMuCosts <> v2:61 var
+R7438:7439 Kernel.MetricFromMuCosts <> v3:62 var
+R7463:7489 Kernel.MetricFromMuCosts <> discrete_gaussian_curvature def
+R7491:7491 Kernel.MetricFromMuCosts <> s:59 var
+R7493:7494 Kernel.MetricFromMuCosts <> v1:60 var
+R7496:7497 Kernel.MetricFromMuCosts <> v2:61 var
+R7499:7500 Kernel.MetricFromMuCosts <> v3:62 var
+binder 7458:7458 <> K:63
+R7516:7528 Kernel.MetricFromMuCosts <> triangle_area def
+R7530:7530 Kernel.MetricFromMuCosts <> s:59 var
+R7532:7533 Kernel.MetricFromMuCosts <> v1:60 var
+R7535:7536 Kernel.MetricFromMuCosts <> v2:61 var
+R7538:7539 Kernel.MetricFromMuCosts <> v3:62 var
+binder 7511:7511 <> A:64
+R7576:7578 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7547:7564 Kernel.MetricFromMuCosts <> triangle_angle_sum def
+R7566:7566 Kernel.MetricFromMuCosts <> s:59 var
+R7568:7569 Kernel.MetricFromMuCosts <> v1:60 var
+R7571:7572 Kernel.MetricFromMuCosts <> v2:61 var
+R7574:7575 Kernel.MetricFromMuCosts <> v3:62 var
+R7581:7583 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7579:7580 Coq.Reals.Rtrigo1 <> PI def
+R7585:7587 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7584:7584 Kernel.MetricFromMuCosts <> K:63 var
+R7588:7588 Kernel.MetricFromMuCosts <> A:64 var
+R7640:7666 Kernel.MetricFromMuCosts <> discrete_gaussian_curvature def
+R7669:7682 Kernel.MetricFromMuCosts <> angular_excess def
+R7685:7702 Kernel.MetricFromMuCosts <> triangle_angle_sum def
+def 8051:8077 <> count_incident_triangles_4d
+R8091:8093 Coq.Init.Datatypes <> nat ind
+binder 8082:8087 <> vertex:65
+R8105:8108 Coq.Init.Datatypes <> list ind
+R8110:8115 Kernel.FourDSimplicialComplex <> Face2D rec
+binder 8097:8101 <> faces:66
+R8120:8122 Coq.Init.Datatypes <> nat ind
+R8135:8139 Kernel.MetricFromMuCosts <> faces:66 var
+R8150:8151 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8163:8166 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8184:8195 Kernel.VMState <> nat_list_mem def
+R8197:8202 Kernel.MetricFromMuCosts <> vertex:65 var
+R8205:8216 Kernel.FourDSimplicialComplex <> f2d_vertices proj
+R8287:8313 Kernel.MetricFromMuCosts <> count_incident_triangles_4d:67 def
+R8315:8320 Kernel.MetricFromMuCosts <> vertex:65 var
+R8232:8232 Coq.Init.Datatypes <> S constr
+R8235:8261 Kernel.MetricFromMuCosts <> count_incident_triangles_4d:67 def
 R8263:8268 Kernel.MetricFromMuCosts <> vertex:65 var
-R8271:8282 Kernel.FourDSimplicialComplex <> f2d_vertices proj
-R8353:8379 Kernel.MetricFromMuCosts <> count_incident_triangles_4d:67 def
-R8381:8386 Kernel.MetricFromMuCosts <> vertex:65 var
-R8298:8298 Coq.Init.Datatypes <> S constr
-R8301:8327 Kernel.MetricFromMuCosts <> count_incident_triangles_4d:67 def
-R8329:8334 Kernel.MetricFromMuCosts <> vertex:65 var
-def 8458:8472 <> angle_defect_4d
-R8479:8485 Kernel.VMState <> VMState rec
-binder 8475:8475 <> s:69
-R8494:8512 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
-binder 8489:8490 <> sc:70
-R8520:8522 Coq.Init.Datatypes <> nat ind
-binder 8516:8516 <> v:71
-R8527:8527 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R8606:8611 Coq.Lists.List <> filter def
-R8657:8666 Kernel.FourDSimplicialComplex <> sc4d_faces proj
-R8668:8669 Kernel.MetricFromMuCosts <> sc:70 var
-binder 8618:8618 <> f:72
-R8623:8634 Kernel.VMState <> nat_list_mem def
-R8636:8636 Kernel.MetricFromMuCosts <> v:71 var
-R8639:8650 Kernel.FourDSimplicialComplex <> f2d_vertices proj
-R8652:8652 Kernel.MetricFromMuCosts <> f:72 var
-binder 8588:8601 <> incident_faces:73
-R8694:8702 Coq.Lists.List <> fold_left def
-R9049:9062 Kernel.MetricFromMuCosts <> incident_faces:73 var
-binder 8709:8711 <> acc:74
-binder 8713:8713 <> f:75
-R8728:8739 Kernel.FourDSimplicialComplex <> f2d_vertices proj
-R8741:8741 Kernel.MetricFromMuCosts <> f:75 var
-R8754:8754 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R8757:8758 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R8761:8762 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R8765:8765 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R8781:8787 Coq.Arith.PeanoNat Nat eqb def
-R8789:8789 Kernel.MetricFromMuCosts <> v:71 var
-R8852:8858 Coq.Arith.PeanoNat Nat eqb def
-R8860:8860 Kernel.MetricFromMuCosts <> v:71 var
-R8923:8929 Coq.Arith.PeanoNat Nat eqb def
-R8931:8931 Kernel.MetricFromMuCosts <> v:71 var
-R8991:8993 Kernel.MetricFromMuCosts <> acc:74 var
-R8945:8947 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R8942:8944 Kernel.MetricFromMuCosts <> acc:74 var
-R8948:8962 Kernel.MetricFromMuCosts <> angle_at_vertex def
-R8964:8964 Kernel.MetricFromMuCosts <> s:69 var
-R8874:8876 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R8871:8873 Kernel.MetricFromMuCosts <> acc:74 var
-R8877:8891 Kernel.MetricFromMuCosts <> angle_at_vertex def
-R8893:8893 Kernel.MetricFromMuCosts <> s:69 var
-R8803:8805 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R8800:8802 Kernel.MetricFromMuCosts <> acc:74 var
-R8806:8820 Kernel.MetricFromMuCosts <> angle_at_vertex def
-R8822:8822 Kernel.MetricFromMuCosts <> s:69 var
-R9006:9008 Kernel.MetricFromMuCosts <> acc:74 var
-binder 8681:8689 <> angle_sum:76
-R9080:9082 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R9075:9077 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R9078:9079 Coq.Reals.Rtrigo1 <> PI def
-R9083:9091 Kernel.MetricFromMuCosts <> angle_sum:76 var
-def 9144:9163 <> sum_angle_defects_4d
-R9170:9176 Kernel.VMState <> VMState rec
-binder 9166:9166 <> s:77
-R9185:9203 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
-binder 9180:9181 <> sc:78
-R9220:9223 Coq.Init.Datatypes <> list ind
-R9225:9227 Coq.Init.Datatypes <> nat ind
-binder 9209:9216 <> vertices:79
-R9232:9232 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R9245:9252 Kernel.MetricFromMuCosts <> vertices:79 var
-R9263:9264 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R9278:9281 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R9313:9315 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R9291:9305 Kernel.MetricFromMuCosts <> angle_defect_4d def
-R9307:9307 Kernel.MetricFromMuCosts <> s:77 var
-R9309:9310 Kernel.MetricFromMuCosts <> sc:78 var
-R9316:9335 Kernel.MetricFromMuCosts <> sum_angle_defects_4d:80 def
-R9339:9340 Kernel.MetricFromMuCosts <> sc:78 var
-R9337:9337 Kernel.MetricFromMuCosts <> s:77 var
-def 10979:10994 <> metric_at_vertex
-R11001:11007 Kernel.VMState <> VMState rec
-binder 10997:10997 <> s:82
-R11021:11028 Kernel.VMState <> ModuleID def
-binder 11011:11011 <> v:83
-binder 11013:11014 <> μ:84
-binder 11016:11017 <> ν:85
-R11033:11033 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R11052:11055 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R11046:11050 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R11044:11045 Kernel.MetricFromMuCosts <> μ:84 var
-R11058:11062 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R11056:11057 Kernel.MetricFromMuCosts <> ν:85 var
-R11078:11080 Coq.Reals.Raxioms <> INR def
-R11083:11104 Kernel.MuGravity <> module_structural_mass def
-R11106:11106 Kernel.MetricFromMuCosts <> s:82 var
-R11108:11108 Kernel.MetricFromMuCosts <> v:83 var
-prf 11171:11193 <> metric_at_vertex_nonneg
-binder 11204:11204 <> s:86
-binder 11206:11206 <> v:87
-binder 11208:11209 <> μ:88
-binder 11211:11212 <> ν:89
-R11244:11247 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R11218:11233 Kernel.MetricFromMuCosts <> metric_at_vertex def
-R11235:11235 Kernel.MetricFromMuCosts <> s:86 var
-R11237:11237 Kernel.MetricFromMuCosts <> v:87 var
-R11239:11240 Kernel.MetricFromMuCosts <> μ:88 var
-R11242:11243 Kernel.MetricFromMuCosts <> ν:89 var
-R11290:11305 Kernel.MetricFromMuCosts <> metric_at_vertex def
-R11328:11331 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R11322:11326 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R11334:11338 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R11328:11331 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R11322:11326 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R11334:11338 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R11358:11363 Coq.Reals.RIneq <> Rle_ge thm
-R11358:11363 Coq.Reals.RIneq <> Rle_ge thm
-R11372:11378 Coq.Reals.RIneq <> pos_INR thm
-R11372:11378 Coq.Reals.RIneq <> pos_INR thm
-prf 11448:11471 <> metric_at_vertex_offdiag
-binder 11482:11482 <> s:90
-binder 11484:11484 <> v:91
-binder 11486:11487 <> μ:92
-binder 11489:11490 <> ν:93
-R11530:11535 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11522:11524 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11504:11507 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R11498:11502 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R11496:11497 Kernel.MetricFromMuCosts <> μ:92 var
-R11510:11514 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R11508:11509 Kernel.MetricFromMuCosts <> ν:93 var
-R11525:11529 Coq.Init.Datatypes <> false constr
-R11562:11564 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11536:11551 Kernel.MetricFromMuCosts <> metric_at_vertex def
-R11553:11553 Kernel.MetricFromMuCosts <> s:90 var
-R11555:11555 Kernel.MetricFromMuCosts <> v:91 var
-R11557:11558 Kernel.MetricFromMuCosts <> μ:92 var
-R11560:11561 Kernel.MetricFromMuCosts <> ν:93 var
-R11608:11623 Kernel.MetricFromMuCosts <> metric_at_vertex def
-prf 11715:11735 <> metric_at_vertex_diag
-binder 11746:11746 <> s:94
-binder 11748:11748 <> v:95
-binder 11750:11751 <> μ:96
-R11782:11784 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11756:11771 Kernel.MetricFromMuCosts <> metric_at_vertex def
-R11773:11773 Kernel.MetricFromMuCosts <> s:94 var
-R11775:11775 Kernel.MetricFromMuCosts <> v:95 var
-R11777:11778 Kernel.MetricFromMuCosts <> μ:96 var
-R11780:11781 Kernel.MetricFromMuCosts <> μ:96 var
-R11785:11787 Coq.Reals.Raxioms <> INR def
-R11790:11811 Kernel.MuGravity <> module_structural_mass def
-R11813:11813 Kernel.MetricFromMuCosts <> s:94 var
-R11815:11815 Kernel.MetricFromMuCosts <> v:95 var
-R11852:11867 Kernel.MetricFromMuCosts <> metric_at_vertex def
-R11880:11891 Coq.Arith.PeanoNat Nat eqb_refl thm
-R11880:11891 Coq.Arith.PeanoNat Nat eqb_refl thm
-R11880:11891 Coq.Arith.PeanoNat Nat eqb_refl thm
-prf 12068:12117 <> local_metric_derivative_nonzero_when_masses_differ
-binder 12130:12131 <> m1:97
-binder 12133:12134 <> m2:98
-R12147:12152 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12141:12144 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R12139:12140 Kernel.MetricFromMuCosts <> m1:97 var
-R12145:12146 Kernel.MetricFromMuCosts <> m2:98 var
-R12159:12162 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R12153:12155 Coq.Reals.Raxioms <> INR def
-R12157:12158 Kernel.MetricFromMuCosts <> m1:97 var
-R12163:12165 Coq.Reals.Raxioms <> INR def
-R12167:12168 Kernel.MetricFromMuCosts <> m2:98 var
-R12233:12238 Coq.Reals.RIneq <> INR_eq thm
-R12233:12238 Coq.Reals.RIneq <> INR_eq thm
-prf 12401:12441 <> local_metric_uniform_position_independent
-binder 12452:12452 <> s:99
-binder 12454:12454 <> m:100
-binder 12456:12457 <> μ:101
-binder 12459:12460 <> ν:102
-binder 12462:12462 <> v:103
-binder 12464:12464 <> w:104
-R12469:12469 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12510:12516 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 12477:12477 <> u:105
-R12506:12508 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12480:12501 Kernel.MuGravity <> module_structural_mass def
-R12503:12503 Kernel.MetricFromMuCosts <> s:99 var
-R12505:12505 Kernel.MetricFromMuCosts <> u:105 var
-R12509:12509 Kernel.MetricFromMuCosts <> m:100 var
-R12543:12545 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12517:12532 Kernel.MetricFromMuCosts <> metric_at_vertex def
-R12534:12534 Kernel.MetricFromMuCosts <> s:99 var
-R12536:12536 Kernel.MetricFromMuCosts <> v:103 var
-R12538:12539 Kernel.MetricFromMuCosts <> μ:101 var
-R12541:12542 Kernel.MetricFromMuCosts <> ν:102 var
-R12546:12561 Kernel.MetricFromMuCosts <> metric_at_vertex def
-R12563:12563 Kernel.MetricFromMuCosts <> s:99 var
-R12565:12565 Kernel.MetricFromMuCosts <> w:104 var
-R12567:12568 Kernel.MetricFromMuCosts <> μ:101 var
-R12570:12571 Kernel.MetricFromMuCosts <> ν:102 var
-R12624:12639 Kernel.MetricFromMuCosts <> metric_at_vertex def
-R12662:12665 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R12656:12660 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R12668:12672 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R12662:12665 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R12656:12660 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R12668:12672 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-def 12763:12781 <> metric_deriv_anchor
-R12786:12835 Kernel.MetricFromMuCosts <> local_metric_derivative_nonzero_when_masses_differ thm
-def 13683:13694 <> lorentz_sign
-R13702:13704 Coq.Init.Datatypes <> nat ind
-binder 13697:13698 <> mu:106
-R13709:13709 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R13728:13731 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R13722:13726 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R13720:13721 Kernel.MetricFromMuCosts <> mu:106 var
-prf 13768:13784 <> lorentz_sign_time
-R13806:13808 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13788:13799 Kernel.MetricFromMuCosts <> lorentz_sign def
-prf 13849:13868 <> lorentz_sign_space_1
-R13890:13892 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13872:13883 Kernel.MetricFromMuCosts <> lorentz_sign def
-prf 13930:13949 <> lorentz_sign_space_2
-R13971:13973 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13953:13964 Kernel.MetricFromMuCosts <> lorentz_sign def
-prf 14011:14030 <> lorentz_sign_space_3
-R14052:14054 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14034:14045 Kernel.MetricFromMuCosts <> lorentz_sign def
-def 14190:14213 <> lorentz_metric_at_vertex
-R14220:14226 Kernel.VMState <> VMState rec
-binder 14216:14216 <> s:107
-R14240:14247 Kernel.VMState <> ModuleID def
-binder 14230:14230 <> v:108
-binder 14232:14233 <> μ:109
-binder 14235:14236 <> ν:110
-R14252:14252 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R14271:14274 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R14265:14269 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R14263:14264 Kernel.MetricFromMuCosts <> μ:109 var
-R14277:14281 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R14275:14276 Kernel.MetricFromMuCosts <> ν:110 var
-R14320:14322 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R14297:14308 Kernel.MetricFromMuCosts <> lorentz_sign def
-R14313:14317 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R14311:14312 Kernel.MetricFromMuCosts <> μ:109 var
-R14323:14325 Coq.Reals.Raxioms <> INR def
-R14328:14349 Kernel.MuGravity <> module_structural_mass def
-R14351:14351 Kernel.MetricFromMuCosts <> s:107 var
-R14353:14353 Kernel.MetricFromMuCosts <> v:108 var
-prf 14428:14455 <> lorentz_metric_time_negative
-binder 14466:14466 <> s:111
-binder 14468:14468 <> v:112
-R14509:14514 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14500:14502 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R14474:14495 Kernel.MuGravity <> module_structural_mass def
-R14497:14497 Kernel.MetricFromMuCosts <> s:111 var
-R14499:14499 Kernel.MetricFromMuCosts <> v:112 var
-R14556:14558 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R14516:14539 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
-R14541:14541 Kernel.MetricFromMuCosts <> s:111 var
-R14543:14543 Kernel.MetricFromMuCosts <> v:112 var
-R14598:14621 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
-R14624:14635 Kernel.MetricFromMuCosts <> lorentz_sign def
-R14659:14666 Coq.Reals.RIneq <> lt_0_INR thm
-R14659:14666 Coq.Reals.RIneq <> lt_0_INR thm
-prf 14763:14791 <> lorentz_metric_space_positive
-binder 14802:14802 <> s:113
-binder 14804:14804 <> v:114
-binder 14806:14806 <> k:115
-R14811:14811 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14847:14853 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14821:14824 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R14813:14815 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14812:14812 Kernel.MetricFromMuCosts <> k:115 var
-R14834:14837 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R14826:14828 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14825:14825 Kernel.MetricFromMuCosts <> k:115 var
-R14839:14841 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14838:14838 Kernel.MetricFromMuCosts <> k:115 var
-R14890:14895 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14881:14883 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R14855:14876 Kernel.MuGravity <> module_structural_mass def
-R14878:14878 Kernel.MetricFromMuCosts <> s:113 var
-R14880:14880 Kernel.MetricFromMuCosts <> v:114 var
-R14929:14931 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R14897:14920 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
-R14922:14922 Kernel.MetricFromMuCosts <> s:113 var
-R14924:14924 Kernel.MetricFromMuCosts <> v:114 var
-R14926:14926 Kernel.MetricFromMuCosts <> k:115 var
-R14928:14928 Kernel.MetricFromMuCosts <> k:115 var
-R14976:14999 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
-R15002:15013 Kernel.MetricFromMuCosts <> lorentz_sign def
-R15026:15037 Coq.Arith.PeanoNat Nat eqb_refl thm
-R15026:15037 Coq.Arith.PeanoNat Nat eqb_refl thm
-R15026:15037 Coq.Arith.PeanoNat Nat eqb_refl thm
-R15098:15105 Coq.Reals.RIneq <> lt_0_INR thm
-R15098:15105 Coq.Reals.RIneq <> lt_0_INR thm
-R15098:15105 Coq.Reals.RIneq <> lt_0_INR thm
-R15098:15105 Coq.Reals.RIneq <> lt_0_INR thm
-prf 15173:15194 <> lorentz_metric_offdiag
-binder 15205:15205 <> s:116
-binder 15207:15207 <> v:117
-binder 15209:15210 <> μ:118
-binder 15212:15213 <> ν:119
-R15244:15249 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15227:15230 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R15221:15225 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R15219:15220 Kernel.MetricFromMuCosts <> μ:118 var
-R15233:15237 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R15231:15232 Kernel.MetricFromMuCosts <> ν:119 var
-R15284:15286 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15250:15273 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
-R15275:15275 Kernel.MetricFromMuCosts <> s:116 var
-R15277:15277 Kernel.MetricFromMuCosts <> v:117 var
-R15279:15280 Kernel.MetricFromMuCosts <> μ:118 var
-R15282:15283 Kernel.MetricFromMuCosts <> ν:119 var
-R15330:15353 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
-R15364:15374 Coq.Arith.PeanoNat Nat eqb_neq thm
-R15364:15374 Coq.Arith.PeanoNat Nat eqb_neq thm
-prf 15537:15560 <> lorentz_metric_signature
-binder 15571:15571 <> s:120
-binder 15573:15573 <> v:121
-R15614:15619 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15605:15607 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R15579:15600 Kernel.MuGravity <> module_structural_mass def
-R15602:15602 Kernel.MetricFromMuCosts <> s:120 var
-R15604:15604 Kernel.MetricFromMuCosts <> v:121 var
-R15668:15673 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R15661:15663 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R15621:15644 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
-R15646:15646 Kernel.MetricFromMuCosts <> s:120 var
-R15648:15648 Kernel.MetricFromMuCosts <> v:121 var
-R15722:15727 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R15715:15717 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R15675:15698 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
-R15700:15700 Kernel.MetricFromMuCosts <> s:120 var
-R15702:15702 Kernel.MetricFromMuCosts <> v:121 var
-R15776:15781 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R15769:15771 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R15729:15752 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
-R15754:15754 Kernel.MetricFromMuCosts <> s:120 var
-R15756:15756 Kernel.MetricFromMuCosts <> v:121 var
-R15823:15825 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R15783:15806 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
-R15808:15808 Kernel.MetricFromMuCosts <> s:120 var
-R15810:15810 Kernel.MetricFromMuCosts <> v:121 var
-R15882:15909 Kernel.MetricFromMuCosts <> lorentz_metric_time_negative thm
-R15882:15909 Kernel.MetricFromMuCosts <> lorentz_metric_time_negative thm
-R15932:15960 Kernel.MetricFromMuCosts <> lorentz_metric_space_positive thm
-R15932:15960 Kernel.MetricFromMuCosts <> lorentz_metric_space_positive thm
-R16005:16033 Kernel.MetricFromMuCosts <> lorentz_metric_space_positive thm
-R16005:16033 Kernel.MetricFromMuCosts <> lorentz_metric_space_positive thm
-R16085:16113 Kernel.MetricFromMuCosts <> lorentz_metric_space_positive thm
-R16085:16113 Kernel.MetricFromMuCosts <> lorentz_metric_space_positive thm
-prf 16356:16387 <> lorentz_spatial_agrees_euclidean
-binder 16398:16398 <> s:122
-binder 16400:16400 <> v:123
-binder 16402:16402 <> k:124
-R16407:16407 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16461:16467 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16423:16426 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R16415:16417 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16409:16413 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R16408:16408 Kernel.MetricFromMuCosts <> k:124 var
-R16442:16445 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R16434:16436 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16428:16432 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R16427:16427 Kernel.MetricFromMuCosts <> k:124 var
-R16453:16455 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16447:16451 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R16446:16446 Kernel.MetricFromMuCosts <> k:124 var
-R16500:16502 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16468:16491 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
-R16493:16493 Kernel.MetricFromMuCosts <> s:122 var
-R16495:16495 Kernel.MetricFromMuCosts <> v:123 var
-R16497:16497 Kernel.MetricFromMuCosts <> k:124 var
-R16499:16499 Kernel.MetricFromMuCosts <> k:124 var
-R16503:16518 Kernel.MetricFromMuCosts <> metric_at_vertex def
-R16520:16520 Kernel.MetricFromMuCosts <> s:122 var
-R16522:16522 Kernel.MetricFromMuCosts <> v:123 var
-R16524:16524 Kernel.MetricFromMuCosts <> k:124 var
-R16526:16526 Kernel.MetricFromMuCosts <> k:124 var
-R16564:16587 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
-R16590:16601 Kernel.MetricFromMuCosts <> lorentz_sign def
-R16604:16619 Kernel.MetricFromMuCosts <> metric_at_vertex def
-R16632:16643 Coq.Arith.PeanoNat Nat eqb_refl thm
-R16632:16643 Coq.Arith.PeanoNat Nat eqb_refl thm
-R16632:16643 Coq.Arith.PeanoNat Nat eqb_refl thm
-R17132:17145 Kernel.MatrixAlgebra4 <> <> lib
-def 17243:17263 <> full_metric_at_vertex
-R17270:17276 Kernel.VMState <> VMState rec
-binder 17266:17266 <> s:125
-R17284:17291 Kernel.VMState <> ModuleID def
-binder 17280:17280 <> v:126
-R17303:17305 Coq.Init.Datatypes <> nat ind
-binder 17295:17296 <> μ:127
-binder 17298:17299 <> ν:128
-R17310:17310 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R17317:17319 Coq.Reals.Raxioms <> INR def
-R17322:17340 Kernel.VMState <> module_tensor_entry def
-R17342:17342 Kernel.MetricFromMuCosts <> s:125 var
-R17344:17344 Kernel.MetricFromMuCosts <> v:126 var
-R17349:17353 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R17347:17348 Kernel.MetricFromMuCosts <> μ:127 var
-R17360:17364 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R17358:17359 Kernel.MetricFromMuCosts <> ν:128 var
-def 17452:17472 <> metric_mat4_at_vertex
-R17479:17485 Kernel.VMState <> VMState rec
-binder 17475:17475 <> s:129
-R17493:17500 Kernel.VMState <> ModuleID def
-binder 17489:17489 <> v:130
-R17505:17508 Kernel.MatrixAlgebra4 <> Mat4 def
-binder 17519:17520 <> μ:131
-binder 17522:17523 <> ν:132
-R17528:17548 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
-R17550:17550 Kernel.MetricFromMuCosts <> s:129 var
-R17552:17552 Kernel.MetricFromMuCosts <> v:130 var
-R17554:17555 Kernel.MetricFromMuCosts <> μ:131 var
-R17557:17558 Kernel.MetricFromMuCosts <> ν:132 var
-def 17643:17666 <> inverse_metric_at_vertex
-R17673:17679 Kernel.VMState <> VMState rec
-binder 17669:17669 <> s:133
-R17687:17694 Kernel.VMState <> ModuleID def
-binder 17683:17683 <> v:134
-R17699:17702 Kernel.MatrixAlgebra4 <> Mat4 def
-R17709:17720 Kernel.MatrixAlgebra4 <> mat4_inverse def
-R17723:17743 Kernel.MetricFromMuCosts <> metric_mat4_at_vertex def
-R17745:17745 Kernel.MetricFromMuCosts <> s:133 var
-R17747:17747 Kernel.MetricFromMuCosts <> v:134 var
-def 17803:17822 <> metric_det_at_vertex
-R17829:17835 Kernel.VMState <> VMState rec
-binder 17825:17825 <> s:135
-R17843:17850 Kernel.VMState <> ModuleID def
-binder 17839:17839 <> v:136
-R17855:17855 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R17862:17869 Kernel.MatrixAlgebra4 <> mat4_det def
-R17872:17892 Kernel.MetricFromMuCosts <> metric_mat4_at_vertex def
-R17894:17894 Kernel.MetricFromMuCosts <> s:135 var
-R17896:17896 Kernel.MetricFromMuCosts <> v:136 var
-prf 18001:18018 <> full_metric_nonneg
-binder 18029:18029 <> s:137
-binder 18031:18031 <> v:138
-binder 18033:18034 <> μ:139
-binder 18036:18037 <> ν:140
-R18074:18077 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R18043:18063 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
-R18065:18065 Kernel.MetricFromMuCosts <> s:137 var
-R18067:18067 Kernel.MetricFromMuCosts <> v:138 var
-R18069:18070 Kernel.MetricFromMuCosts <> μ:139 var
-R18072:18073 Kernel.MetricFromMuCosts <> ν:140 var
-R18120:18140 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
-R18151:18156 Coq.Reals.RIneq <> Rle_ge thm
-R18151:18156 Coq.Reals.RIneq <> Rle_ge thm
-R18165:18171 Coq.Reals.RIneq <> pos_INR thm
-R18165:18171 Coq.Reals.RIneq <> pos_INR thm
-prf 18485:18511 <> full_metric_compat_diagonal
-binder 18522:18522 <> s:141
-binder 18524:18524 <> v:142
-binder 18526:18527 <> μ:143
-binder 18529:18530 <> ν:144
-R18547:18550 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18538:18540 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R18536:18537 Kernel.MetricFromMuCosts <> μ:143 var
-R18563:18568 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18554:18556 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R18552:18553 Kernel.MetricFromMuCosts <> ν:144 var
-R18569:18569 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18708:18714 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 18577:18577 <> i:145
-binder 18579:18579 <> j:146
-R18593:18596 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18584:18586 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R18583:18583 Kernel.MetricFromMuCosts <> i:145 var
-R18608:18615 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18599:18601 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R18598:18598 Kernel.MetricFromMuCosts <> j:146 var
-R18643:18649 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18616:18634 Kernel.VMState <> module_tensor_entry def
-R18636:18636 Kernel.MetricFromMuCosts <> s:141 var
-R18638:18638 Kernel.MetricFromMuCosts <> v:142 var
-R18640:18640 Kernel.MetricFromMuCosts <> i:145 var
-R18642:18642 Kernel.MetricFromMuCosts <> j:146 var
-R18655:18658 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R18654:18654 Kernel.MetricFromMuCosts <> i:145 var
-R18659:18659 Kernel.MetricFromMuCosts <> j:146 var
-R18671:18692 Kernel.MuGravity <> module_structural_mass def
-R18694:18694 Kernel.MetricFromMuCosts <> s:141 var
-R18696:18696 Kernel.MetricFromMuCosts <> v:142 var
-R18746:18748 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18715:18735 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
-R18737:18737 Kernel.MetricFromMuCosts <> s:141 var
-R18739:18739 Kernel.MetricFromMuCosts <> v:142 var
-R18741:18742 Kernel.MetricFromMuCosts <> μ:143 var
-R18744:18745 Kernel.MetricFromMuCosts <> ν:144 var
-R18749:18764 Kernel.MetricFromMuCosts <> metric_at_vertex def
-R18766:18766 Kernel.MetricFromMuCosts <> s:141 var
-R18768:18768 Kernel.MetricFromMuCosts <> v:142 var
-R18770:18771 Kernel.MetricFromMuCosts <> μ:143 var
-R18773:18774 Kernel.MetricFromMuCosts <> ν:144 var
-R18829:18849 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
-R18852:18867 Kernel.MetricFromMuCosts <> metric_at_vertex def
-R18881:18893 Coq.Arith.PeanoNat Nat mod_small def
-R18881:18893 Coq.Arith.PeanoNat Nat mod_small def
-R18881:18893 Coq.Arith.PeanoNat Nat mod_small def
-R18881:18893 Coq.Arith.PeanoNat Nat mod_small def
-R18881:18893 Coq.Arith.PeanoNat Nat mod_small def
-R18943:18946 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R18943:18946 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-prf 19024:19051 <> metric_det_positive_diagonal
-binder 19062:19062 <> s:147
-binder 19064:19064 <> v:148
-R19069:19069 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19167:19173 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 19077:19077 <> i:149
-binder 19079:19079 <> j:150
-R19093:19096 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19084:19086 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R19083:19083 Kernel.MetricFromMuCosts <> i:149 var
-R19108:19111 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19099:19101 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R19098:19098 Kernel.MetricFromMuCosts <> j:150 var
-R19124:19131 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19114:19117 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R19113:19113 Kernel.MetricFromMuCosts <> i:149 var
-R19118:19118 Kernel.MetricFromMuCosts <> j:150 var
-R19159:19161 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19132:19150 Kernel.VMState <> module_tensor_entry def
-R19152:19152 Kernel.MetricFromMuCosts <> s:147 var
-R19154:19154 Kernel.MetricFromMuCosts <> v:148 var
-R19156:19156 Kernel.MetricFromMuCosts <> i:149 var
-R19158:19158 Kernel.MetricFromMuCosts <> j:150 var
-R19198:19204 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19174:19193 Kernel.MetricFromMuCosts <> metric_det_at_vertex def
-R19195:19195 Kernel.MetricFromMuCosts <> s:147 var
-R19197:19197 Kernel.MetricFromMuCosts <> v:148 var
-R19333:19340 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19288:19295 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19243:19250 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19206:19226 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
-R19228:19228 Kernel.MetricFromMuCosts <> s:147 var
-R19230:19230 Kernel.MetricFromMuCosts <> v:148 var
-R19251:19271 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
-R19273:19273 Kernel.MetricFromMuCosts <> s:147 var
-R19275:19275 Kernel.MetricFromMuCosts <> v:148 var
-R19296:19316 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
-R19318:19318 Kernel.MetricFromMuCosts <> s:147 var
-R19320:19320 Kernel.MetricFromMuCosts <> v:148 var
-R19341:19361 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
-R19363:19363 Kernel.MetricFromMuCosts <> s:147 var
-R19365:19365 Kernel.MetricFromMuCosts <> v:148 var
-R19419:19438 Kernel.MetricFromMuCosts <> metric_det_at_vertex def
-R19441:19461 Kernel.MetricFromMuCosts <> metric_mat4_at_vertex def
-R19473:19480 Kernel.MatrixAlgebra4 <> mat4_det def
-R19483:19486 Kernel.MatrixAlgebra4 <> det3 def
-R19489:19494 Kernel.MatrixAlgebra4 <> minor3 def
-R19497:19504 Kernel.MatrixAlgebra4 <> skip_idx def
-R19507:19527 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+def 8392:8406 <> angle_defect_4d
+R8413:8419 Kernel.VMState <> VMState rec
+binder 8409:8409 <> s:69
+R8428:8446 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 8423:8424 <> sc:70
+R8454:8456 Coq.Init.Datatypes <> nat ind
+binder 8450:8450 <> v:71
+R8461:8461 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R8540:8545 Coq.Lists.List <> filter def
+R8591:8600 Kernel.FourDSimplicialComplex <> sc4d_faces proj
+R8602:8603 Kernel.MetricFromMuCosts <> sc:70 var
+binder 8552:8552 <> f:72
+R8557:8568 Kernel.VMState <> nat_list_mem def
+R8570:8570 Kernel.MetricFromMuCosts <> v:71 var
+R8573:8584 Kernel.FourDSimplicialComplex <> f2d_vertices proj
+R8586:8586 Kernel.MetricFromMuCosts <> f:72 var
+binder 8522:8535 <> incident_faces:73
+R8628:8636 Coq.Lists.List <> fold_left def
+R8983:8996 Kernel.MetricFromMuCosts <> incident_faces:73 var
+binder 8643:8645 <> acc:74
+binder 8647:8647 <> f:75
+R8662:8673 Kernel.FourDSimplicialComplex <> f2d_vertices proj
+R8675:8675 Kernel.MetricFromMuCosts <> f:75 var
+R8688:8688 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8691:8692 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8695:8696 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8699:8699 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8715:8721 Coq.Arith.PeanoNat Nat eqb def
+R8723:8723 Kernel.MetricFromMuCosts <> v:71 var
+R8786:8792 Coq.Arith.PeanoNat Nat eqb def
+R8794:8794 Kernel.MetricFromMuCosts <> v:71 var
+R8857:8863 Coq.Arith.PeanoNat Nat eqb def
+R8865:8865 Kernel.MetricFromMuCosts <> v:71 var
+R8925:8927 Kernel.MetricFromMuCosts <> acc:74 var
+R8879:8881 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8876:8878 Kernel.MetricFromMuCosts <> acc:74 var
+R8882:8896 Kernel.MetricFromMuCosts <> angle_at_vertex def
+R8898:8898 Kernel.MetricFromMuCosts <> s:69 var
+R8808:8810 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8805:8807 Kernel.MetricFromMuCosts <> acc:74 var
+R8811:8825 Kernel.MetricFromMuCosts <> angle_at_vertex def
+R8827:8827 Kernel.MetricFromMuCosts <> s:69 var
+R8737:8739 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8734:8736 Kernel.MetricFromMuCosts <> acc:74 var
+R8740:8754 Kernel.MetricFromMuCosts <> angle_at_vertex def
+R8756:8756 Kernel.MetricFromMuCosts <> s:69 var
+R8940:8942 Kernel.MetricFromMuCosts <> acc:74 var
+binder 8615:8623 <> angle_sum:76
+R9014:9016 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R9009:9011 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R9012:9013 Coq.Reals.Rtrigo1 <> PI def
+R9017:9025 Kernel.MetricFromMuCosts <> angle_sum:76 var
+def 9078:9097 <> sum_angle_defects_4d
+R9104:9110 Kernel.VMState <> VMState rec
+binder 9100:9100 <> s:77
+R9119:9137 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 9114:9115 <> sc:78
+R9154:9157 Coq.Init.Datatypes <> list ind
+R9159:9161 Coq.Init.Datatypes <> nat ind
+binder 9143:9150 <> vertices:79
+R9166:9166 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R9179:9186 Kernel.MetricFromMuCosts <> vertices:79 var
+R9197:9198 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R9212:9215 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9247:9249 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R9225:9239 Kernel.MetricFromMuCosts <> angle_defect_4d def
+R9241:9241 Kernel.MetricFromMuCosts <> s:77 var
+R9243:9244 Kernel.MetricFromMuCosts <> sc:78 var
+R9250:9269 Kernel.MetricFromMuCosts <> sum_angle_defects_4d:80 def
+R9273:9274 Kernel.MetricFromMuCosts <> sc:78 var
+R9271:9271 Kernel.MetricFromMuCosts <> s:77 var
+def 10911:10926 <> metric_at_vertex
+R10933:10939 Kernel.VMState <> VMState rec
+binder 10929:10929 <> s:82
+R10953:10960 Kernel.VMState <> ModuleID def
+binder 10943:10943 <> v:83
+binder 10945:10946 <> μ:84
+binder 10948:10949 <> ν:85
+R10965:10965 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R10984:10987 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R10978:10982 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R10976:10977 Kernel.MetricFromMuCosts <> μ:84 var
+R10990:10994 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R10988:10989 Kernel.MetricFromMuCosts <> ν:85 var
+R11010:11012 Coq.Reals.Raxioms <> INR def
+R11015:11036 Kernel.MuGravity <> module_structural_mass def
+R11038:11038 Kernel.MetricFromMuCosts <> s:82 var
+R11040:11040 Kernel.MetricFromMuCosts <> v:83 var
+prf 11103:11125 <> metric_at_vertex_nonneg
+binder 11136:11136 <> s:86
+binder 11138:11138 <> v:87
+binder 11140:11141 <> μ:88
+binder 11143:11144 <> ν:89
+R11176:11179 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R11150:11165 Kernel.MetricFromMuCosts <> metric_at_vertex def
+R11167:11167 Kernel.MetricFromMuCosts <> s:86 var
+R11169:11169 Kernel.MetricFromMuCosts <> v:87 var
+R11171:11172 Kernel.MetricFromMuCosts <> μ:88 var
+R11174:11175 Kernel.MetricFromMuCosts <> ν:89 var
+R11222:11237 Kernel.MetricFromMuCosts <> metric_at_vertex def
+R11260:11263 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R11254:11258 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R11266:11270 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R11260:11263 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R11254:11258 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R11266:11270 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R11290:11295 Coq.Reals.RIneq <> Rle_ge thm
+R11290:11295 Coq.Reals.RIneq <> Rle_ge thm
+R11304:11310 Coq.Reals.RIneq <> pos_INR thm
+R11304:11310 Coq.Reals.RIneq <> pos_INR thm
+prf 11380:11403 <> metric_at_vertex_offdiag
+binder 11414:11414 <> s:90
+binder 11416:11416 <> v:91
+binder 11418:11419 <> μ:92
+binder 11421:11422 <> ν:93
+R11462:11467 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11454:11456 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11436:11439 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R11430:11434 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R11428:11429 Kernel.MetricFromMuCosts <> μ:92 var
+R11442:11446 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R11440:11441 Kernel.MetricFromMuCosts <> ν:93 var
+R11457:11461 Coq.Init.Datatypes <> false constr
+R11494:11496 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11468:11483 Kernel.MetricFromMuCosts <> metric_at_vertex def
+R11485:11485 Kernel.MetricFromMuCosts <> s:90 var
+R11487:11487 Kernel.MetricFromMuCosts <> v:91 var
+R11489:11490 Kernel.MetricFromMuCosts <> μ:92 var
+R11492:11493 Kernel.MetricFromMuCosts <> ν:93 var
+R11540:11555 Kernel.MetricFromMuCosts <> metric_at_vertex def
+prf 11647:11667 <> metric_at_vertex_diag
+binder 11678:11678 <> s:94
+binder 11680:11680 <> v:95
+binder 11682:11683 <> μ:96
+R11714:11716 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11688:11703 Kernel.MetricFromMuCosts <> metric_at_vertex def
+R11705:11705 Kernel.MetricFromMuCosts <> s:94 var
+R11707:11707 Kernel.MetricFromMuCosts <> v:95 var
+R11709:11710 Kernel.MetricFromMuCosts <> μ:96 var
+R11712:11713 Kernel.MetricFromMuCosts <> μ:96 var
+R11717:11719 Coq.Reals.Raxioms <> INR def
+R11722:11743 Kernel.MuGravity <> module_structural_mass def
+R11745:11745 Kernel.MetricFromMuCosts <> s:94 var
+R11747:11747 Kernel.MetricFromMuCosts <> v:95 var
+R11784:11799 Kernel.MetricFromMuCosts <> metric_at_vertex def
+R11812:11823 Coq.Arith.PeanoNat Nat eqb_refl thm
+R11812:11823 Coq.Arith.PeanoNat Nat eqb_refl thm
+R11812:11823 Coq.Arith.PeanoNat Nat eqb_refl thm
+prf 12000:12049 <> local_metric_derivative_nonzero_when_masses_differ
+binder 12062:12063 <> m1:97
+binder 12065:12066 <> m2:98
+R12079:12084 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12073:12076 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R12071:12072 Kernel.MetricFromMuCosts <> m1:97 var
+R12077:12078 Kernel.MetricFromMuCosts <> m2:98 var
+R12091:12094 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R12085:12087 Coq.Reals.Raxioms <> INR def
+R12089:12090 Kernel.MetricFromMuCosts <> m1:97 var
+R12095:12097 Coq.Reals.Raxioms <> INR def
+R12099:12100 Kernel.MetricFromMuCosts <> m2:98 var
+R12165:12170 Coq.Reals.RIneq <> INR_eq thm
+R12165:12170 Coq.Reals.RIneq <> INR_eq thm
+prf 12333:12373 <> local_metric_uniform_position_independent
+binder 12384:12384 <> s:99
+binder 12386:12386 <> m:100
+binder 12388:12389 <> μ:101
+binder 12391:12392 <> ν:102
+binder 12394:12394 <> v:103
+binder 12396:12396 <> w:104
+R12401:12401 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12442:12448 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 12409:12409 <> u:105
+R12438:12440 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12412:12433 Kernel.MuGravity <> module_structural_mass def
+R12435:12435 Kernel.MetricFromMuCosts <> s:99 var
+R12437:12437 Kernel.MetricFromMuCosts <> u:105 var
+R12441:12441 Kernel.MetricFromMuCosts <> m:100 var
+R12475:12477 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12449:12464 Kernel.MetricFromMuCosts <> metric_at_vertex def
+R12466:12466 Kernel.MetricFromMuCosts <> s:99 var
+R12468:12468 Kernel.MetricFromMuCosts <> v:103 var
+R12470:12471 Kernel.MetricFromMuCosts <> μ:101 var
+R12473:12474 Kernel.MetricFromMuCosts <> ν:102 var
+R12478:12493 Kernel.MetricFromMuCosts <> metric_at_vertex def
+R12495:12495 Kernel.MetricFromMuCosts <> s:99 var
+R12497:12497 Kernel.MetricFromMuCosts <> w:104 var
+R12499:12500 Kernel.MetricFromMuCosts <> μ:101 var
+R12502:12503 Kernel.MetricFromMuCosts <> ν:102 var
+R12556:12571 Kernel.MetricFromMuCosts <> metric_at_vertex def
+R12594:12597 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R12588:12592 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R12600:12604 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R12594:12597 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R12588:12592 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R12600:12604 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+def 12695:12713 <> metric_deriv_anchor
+R12718:12767 Kernel.MetricFromMuCosts <> local_metric_derivative_nonzero_when_masses_differ thm
+def 13615:13626 <> lorentz_sign
+R13634:13636 Coq.Init.Datatypes <> nat ind
+binder 13629:13630 <> mu:106
+R13641:13641 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R13660:13663 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R13654:13658 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R13652:13653 Kernel.MetricFromMuCosts <> mu:106 var
+prf 13700:13716 <> lorentz_sign_time
+R13738:13740 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13720:13731 Kernel.MetricFromMuCosts <> lorentz_sign def
+prf 13781:13800 <> lorentz_sign_space_1
+R13822:13824 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13804:13815 Kernel.MetricFromMuCosts <> lorentz_sign def
+prf 13862:13881 <> lorentz_sign_space_2
+R13903:13905 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13885:13896 Kernel.MetricFromMuCosts <> lorentz_sign def
+prf 13943:13962 <> lorentz_sign_space_3
+R13984:13986 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13966:13977 Kernel.MetricFromMuCosts <> lorentz_sign def
+def 14122:14145 <> lorentz_metric_at_vertex
+R14152:14158 Kernel.VMState <> VMState rec
+binder 14148:14148 <> s:107
+R14172:14179 Kernel.VMState <> ModuleID def
+binder 14162:14162 <> v:108
+binder 14164:14165 <> μ:109
+binder 14167:14168 <> ν:110
+R14184:14184 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R14203:14206 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R14197:14201 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R14195:14196 Kernel.MetricFromMuCosts <> μ:109 var
+R14209:14213 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R14207:14208 Kernel.MetricFromMuCosts <> ν:110 var
+R14252:14254 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R14229:14240 Kernel.MetricFromMuCosts <> lorentz_sign def
+R14245:14249 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R14243:14244 Kernel.MetricFromMuCosts <> μ:109 var
+R14255:14257 Coq.Reals.Raxioms <> INR def
+R14260:14281 Kernel.MuGravity <> module_structural_mass def
+R14283:14283 Kernel.MetricFromMuCosts <> s:107 var
+R14285:14285 Kernel.MetricFromMuCosts <> v:108 var
+prf 14360:14387 <> lorentz_metric_time_negative
+binder 14398:14398 <> s:111
+binder 14400:14400 <> v:112
+R14441:14446 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14432:14434 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R14406:14427 Kernel.MuGravity <> module_structural_mass def
+R14429:14429 Kernel.MetricFromMuCosts <> s:111 var
+R14431:14431 Kernel.MetricFromMuCosts <> v:112 var
+R14488:14490 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R14448:14471 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
+R14473:14473 Kernel.MetricFromMuCosts <> s:111 var
+R14475:14475 Kernel.MetricFromMuCosts <> v:112 var
+R14530:14553 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
+R14556:14567 Kernel.MetricFromMuCosts <> lorentz_sign def
+R14591:14598 Coq.Reals.RIneq <> lt_0_INR thm
+R14591:14598 Coq.Reals.RIneq <> lt_0_INR thm
+prf 14695:14723 <> lorentz_metric_space_positive
+binder 14734:14734 <> s:113
+binder 14736:14736 <> v:114
+binder 14738:14738 <> k:115
+R14743:14743 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14779:14785 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14753:14756 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R14745:14747 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14744:14744 Kernel.MetricFromMuCosts <> k:115 var
+R14766:14769 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R14758:14760 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14757:14757 Kernel.MetricFromMuCosts <> k:115 var
+R14771:14773 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14770:14770 Kernel.MetricFromMuCosts <> k:115 var
+R14822:14827 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14813:14815 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R14787:14808 Kernel.MuGravity <> module_structural_mass def
+R14810:14810 Kernel.MetricFromMuCosts <> s:113 var
+R14812:14812 Kernel.MetricFromMuCosts <> v:114 var
+R14861:14863 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R14829:14852 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
+R14854:14854 Kernel.MetricFromMuCosts <> s:113 var
+R14856:14856 Kernel.MetricFromMuCosts <> v:114 var
+R14858:14858 Kernel.MetricFromMuCosts <> k:115 var
+R14860:14860 Kernel.MetricFromMuCosts <> k:115 var
+R14908:14931 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
+R14934:14945 Kernel.MetricFromMuCosts <> lorentz_sign def
+R14958:14969 Coq.Arith.PeanoNat Nat eqb_refl thm
+R14958:14969 Coq.Arith.PeanoNat Nat eqb_refl thm
+R14958:14969 Coq.Arith.PeanoNat Nat eqb_refl thm
+R15030:15037 Coq.Reals.RIneq <> lt_0_INR thm
+R15030:15037 Coq.Reals.RIneq <> lt_0_INR thm
+R15030:15037 Coq.Reals.RIneq <> lt_0_INR thm
+R15030:15037 Coq.Reals.RIneq <> lt_0_INR thm
+prf 15105:15126 <> lorentz_metric_offdiag
+binder 15137:15137 <> s:116
+binder 15139:15139 <> v:117
+binder 15141:15142 <> μ:118
+binder 15144:15145 <> ν:119
+R15176:15181 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15159:15162 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R15153:15157 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R15151:15152 Kernel.MetricFromMuCosts <> μ:118 var
+R15165:15169 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R15163:15164 Kernel.MetricFromMuCosts <> ν:119 var
+R15216:15218 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15182:15205 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
+R15207:15207 Kernel.MetricFromMuCosts <> s:116 var
+R15209:15209 Kernel.MetricFromMuCosts <> v:117 var
+R15211:15212 Kernel.MetricFromMuCosts <> μ:118 var
+R15214:15215 Kernel.MetricFromMuCosts <> ν:119 var
+R15262:15285 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
+R15296:15306 Coq.Arith.PeanoNat Nat eqb_neq thm
+R15296:15306 Coq.Arith.PeanoNat Nat eqb_neq thm
+prf 15469:15492 <> lorentz_metric_signature
+binder 15503:15503 <> s:120
+binder 15505:15505 <> v:121
+R15546:15551 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15537:15539 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R15511:15532 Kernel.MuGravity <> module_structural_mass def
+R15534:15534 Kernel.MetricFromMuCosts <> s:120 var
+R15536:15536 Kernel.MetricFromMuCosts <> v:121 var
+R15600:15605 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15593:15595 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R15553:15576 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
+R15578:15578 Kernel.MetricFromMuCosts <> s:120 var
+R15580:15580 Kernel.MetricFromMuCosts <> v:121 var
+R15654:15659 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15647:15649 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R15607:15630 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
+R15632:15632 Kernel.MetricFromMuCosts <> s:120 var
+R15634:15634 Kernel.MetricFromMuCosts <> v:121 var
+R15708:15713 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15701:15703 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R15661:15684 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
+R15686:15686 Kernel.MetricFromMuCosts <> s:120 var
+R15688:15688 Kernel.MetricFromMuCosts <> v:121 var
+R15755:15757 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R15715:15738 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
+R15740:15740 Kernel.MetricFromMuCosts <> s:120 var
+R15742:15742 Kernel.MetricFromMuCosts <> v:121 var
+R15814:15841 Kernel.MetricFromMuCosts <> lorentz_metric_time_negative thm
+R15814:15841 Kernel.MetricFromMuCosts <> lorentz_metric_time_negative thm
+R15864:15892 Kernel.MetricFromMuCosts <> lorentz_metric_space_positive thm
+R15864:15892 Kernel.MetricFromMuCosts <> lorentz_metric_space_positive thm
+R15937:15965 Kernel.MetricFromMuCosts <> lorentz_metric_space_positive thm
+R15937:15965 Kernel.MetricFromMuCosts <> lorentz_metric_space_positive thm
+R16017:16045 Kernel.MetricFromMuCosts <> lorentz_metric_space_positive thm
+R16017:16045 Kernel.MetricFromMuCosts <> lorentz_metric_space_positive thm
+prf 16288:16319 <> lorentz_spatial_agrees_euclidean
+binder 16330:16330 <> s:122
+binder 16332:16332 <> v:123
+binder 16334:16334 <> k:124
+R16339:16339 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16393:16399 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16355:16358 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R16347:16349 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16341:16345 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R16340:16340 Kernel.MetricFromMuCosts <> k:124 var
+R16374:16377 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R16366:16368 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16360:16364 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R16359:16359 Kernel.MetricFromMuCosts <> k:124 var
+R16385:16387 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16379:16383 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R16378:16378 Kernel.MetricFromMuCosts <> k:124 var
+R16432:16434 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16400:16423 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
+R16425:16425 Kernel.MetricFromMuCosts <> s:122 var
+R16427:16427 Kernel.MetricFromMuCosts <> v:123 var
+R16429:16429 Kernel.MetricFromMuCosts <> k:124 var
+R16431:16431 Kernel.MetricFromMuCosts <> k:124 var
+R16435:16450 Kernel.MetricFromMuCosts <> metric_at_vertex def
+R16452:16452 Kernel.MetricFromMuCosts <> s:122 var
+R16454:16454 Kernel.MetricFromMuCosts <> v:123 var
+R16456:16456 Kernel.MetricFromMuCosts <> k:124 var
+R16458:16458 Kernel.MetricFromMuCosts <> k:124 var
+R16496:16519 Kernel.MetricFromMuCosts <> lorentz_metric_at_vertex def
+R16522:16533 Kernel.MetricFromMuCosts <> lorentz_sign def
+R16536:16551 Kernel.MetricFromMuCosts <> metric_at_vertex def
+R16564:16575 Coq.Arith.PeanoNat Nat eqb_refl thm
+R16564:16575 Coq.Arith.PeanoNat Nat eqb_refl thm
+R16564:16575 Coq.Arith.PeanoNat Nat eqb_refl thm
+R17064:17077 Kernel.MatrixAlgebra4 <> <> lib
+def 17175:17195 <> full_metric_at_vertex
+R17202:17208 Kernel.VMState <> VMState rec
+binder 17198:17198 <> s:125
+R17216:17223 Kernel.VMState <> ModuleID def
+binder 17212:17212 <> v:126
+R17235:17237 Coq.Init.Datatypes <> nat ind
+binder 17227:17228 <> μ:127
+binder 17230:17231 <> ν:128
+R17242:17242 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R17249:17251 Coq.Reals.Raxioms <> INR def
+R17254:17272 Kernel.VMState <> module_tensor_entry def
+R17274:17274 Kernel.MetricFromMuCosts <> s:125 var
+R17276:17276 Kernel.MetricFromMuCosts <> v:126 var
+R17281:17285 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R17279:17280 Kernel.MetricFromMuCosts <> μ:127 var
+R17292:17296 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R17290:17291 Kernel.MetricFromMuCosts <> ν:128 var
+def 17384:17404 <> metric_mat4_at_vertex
+R17411:17417 Kernel.VMState <> VMState rec
+binder 17407:17407 <> s:129
+R17425:17432 Kernel.VMState <> ModuleID def
+binder 17421:17421 <> v:130
+R17437:17440 Kernel.MatrixAlgebra4 <> Mat4 def
+binder 17451:17452 <> μ:131
+binder 17454:17455 <> ν:132
+R17460:17480 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R17482:17482 Kernel.MetricFromMuCosts <> s:129 var
+R17484:17484 Kernel.MetricFromMuCosts <> v:130 var
+R17486:17487 Kernel.MetricFromMuCosts <> μ:131 var
+R17489:17490 Kernel.MetricFromMuCosts <> ν:132 var
+def 17575:17598 <> inverse_metric_at_vertex
+R17605:17611 Kernel.VMState <> VMState rec
+binder 17601:17601 <> s:133
+R17619:17626 Kernel.VMState <> ModuleID def
+binder 17615:17615 <> v:134
+R17631:17634 Kernel.MatrixAlgebra4 <> Mat4 def
+R17641:17652 Kernel.MatrixAlgebra4 <> mat4_inverse def
+R17655:17675 Kernel.MetricFromMuCosts <> metric_mat4_at_vertex def
+R17677:17677 Kernel.MetricFromMuCosts <> s:133 var
+R17679:17679 Kernel.MetricFromMuCosts <> v:134 var
+def 17735:17754 <> metric_det_at_vertex
+R17761:17767 Kernel.VMState <> VMState rec
+binder 17757:17757 <> s:135
+R17775:17782 Kernel.VMState <> ModuleID def
+binder 17771:17771 <> v:136
+R17787:17787 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R17794:17801 Kernel.MatrixAlgebra4 <> mat4_det def
+R17804:17824 Kernel.MetricFromMuCosts <> metric_mat4_at_vertex def
+R17826:17826 Kernel.MetricFromMuCosts <> s:135 var
+R17828:17828 Kernel.MetricFromMuCosts <> v:136 var
+prf 17933:17950 <> full_metric_nonneg
+binder 17961:17961 <> s:137
+binder 17963:17963 <> v:138
+binder 17965:17966 <> μ:139
+binder 17968:17969 <> ν:140
+R18006:18009 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R17975:17995 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R17997:17997 Kernel.MetricFromMuCosts <> s:137 var
+R17999:17999 Kernel.MetricFromMuCosts <> v:138 var
+R18001:18002 Kernel.MetricFromMuCosts <> μ:139 var
+R18004:18005 Kernel.MetricFromMuCosts <> ν:140 var
+R18052:18072 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R18083:18088 Coq.Reals.RIneq <> Rle_ge thm
+R18083:18088 Coq.Reals.RIneq <> Rle_ge thm
+R18097:18103 Coq.Reals.RIneq <> pos_INR thm
+R18097:18103 Coq.Reals.RIneq <> pos_INR thm
+prf 18393:18419 <> full_metric_compat_diagonal
+binder 18430:18430 <> s:141
+binder 18432:18432 <> v:142
+binder 18434:18435 <> μ:143
+binder 18437:18438 <> ν:144
+R18455:18458 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18446:18448 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R18444:18445 Kernel.MetricFromMuCosts <> μ:143 var
+R18471:18476 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18462:18464 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R18460:18461 Kernel.MetricFromMuCosts <> ν:144 var
+R18477:18477 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18616:18622 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 18485:18485 <> i:145
+binder 18487:18487 <> j:146
+R18501:18504 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18492:18494 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R18491:18491 Kernel.MetricFromMuCosts <> i:145 var
+R18516:18523 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18507:18509 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R18506:18506 Kernel.MetricFromMuCosts <> j:146 var
+R18551:18557 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18524:18542 Kernel.VMState <> module_tensor_entry def
+R18544:18544 Kernel.MetricFromMuCosts <> s:141 var
+R18546:18546 Kernel.MetricFromMuCosts <> v:142 var
+R18548:18548 Kernel.MetricFromMuCosts <> i:145 var
+R18550:18550 Kernel.MetricFromMuCosts <> j:146 var
+R18563:18566 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R18562:18562 Kernel.MetricFromMuCosts <> i:145 var
+R18567:18567 Kernel.MetricFromMuCosts <> j:146 var
+R18579:18600 Kernel.MuGravity <> module_structural_mass def
+R18602:18602 Kernel.MetricFromMuCosts <> s:141 var
+R18604:18604 Kernel.MetricFromMuCosts <> v:142 var
+R18654:18656 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18623:18643 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R18645:18645 Kernel.MetricFromMuCosts <> s:141 var
+R18647:18647 Kernel.MetricFromMuCosts <> v:142 var
+R18649:18650 Kernel.MetricFromMuCosts <> μ:143 var
+R18652:18653 Kernel.MetricFromMuCosts <> ν:144 var
+R18657:18672 Kernel.MetricFromMuCosts <> metric_at_vertex def
+R18674:18674 Kernel.MetricFromMuCosts <> s:141 var
+R18676:18676 Kernel.MetricFromMuCosts <> v:142 var
+R18678:18679 Kernel.MetricFromMuCosts <> μ:143 var
+R18681:18682 Kernel.MetricFromMuCosts <> ν:144 var
+R18737:18757 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R18760:18775 Kernel.MetricFromMuCosts <> metric_at_vertex def
+R18789:18801 Coq.Arith.PeanoNat Nat mod_small def
+R18789:18801 Coq.Arith.PeanoNat Nat mod_small def
+R18789:18801 Coq.Arith.PeanoNat Nat mod_small def
+R18789:18801 Coq.Arith.PeanoNat Nat mod_small def
+R18789:18801 Coq.Arith.PeanoNat Nat mod_small def
+R18851:18854 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R18851:18854 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+prf 18932:18959 <> metric_det_positive_diagonal
+binder 18970:18970 <> s:147
+binder 18972:18972 <> v:148
+R18977:18977 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19075:19081 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 18985:18985 <> i:149
+binder 18987:18987 <> j:150
+R19001:19004 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18992:18994 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R18991:18991 Kernel.MetricFromMuCosts <> i:149 var
+R19016:19019 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19007:19009 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R19006:19006 Kernel.MetricFromMuCosts <> j:150 var
+R19032:19039 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19022:19025 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R19021:19021 Kernel.MetricFromMuCosts <> i:149 var
+R19026:19026 Kernel.MetricFromMuCosts <> j:150 var
+R19067:19069 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19040:19058 Kernel.VMState <> module_tensor_entry def
+R19060:19060 Kernel.MetricFromMuCosts <> s:147 var
+R19062:19062 Kernel.MetricFromMuCosts <> v:148 var
+R19064:19064 Kernel.MetricFromMuCosts <> i:149 var
+R19066:19066 Kernel.MetricFromMuCosts <> j:150 var
+R19106:19112 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19082:19101 Kernel.MetricFromMuCosts <> metric_det_at_vertex def
+R19103:19103 Kernel.MetricFromMuCosts <> s:147 var
+R19105:19105 Kernel.MetricFromMuCosts <> v:148 var
+R19241:19248 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19196:19203 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19151:19158 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19114:19134 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R19136:19136 Kernel.MetricFromMuCosts <> s:147 var
+R19138:19138 Kernel.MetricFromMuCosts <> v:148 var
+R19159:19179 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R19181:19181 Kernel.MetricFromMuCosts <> s:147 var
+R19183:19183 Kernel.MetricFromMuCosts <> v:148 var
+R19204:19224 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R19226:19226 Kernel.MetricFromMuCosts <> s:147 var
+R19228:19228 Kernel.MetricFromMuCosts <> v:148 var
+R19249:19269 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R19271:19271 Kernel.MetricFromMuCosts <> s:147 var
+R19273:19273 Kernel.MetricFromMuCosts <> v:148 var
+R19327:19346 Kernel.MetricFromMuCosts <> metric_det_at_vertex def
+R19349:19369 Kernel.MetricFromMuCosts <> metric_mat4_at_vertex def
+R19381:19388 Kernel.MatrixAlgebra4 <> mat4_det def
+R19391:19394 Kernel.MatrixAlgebra4 <> det3 def
+R19397:19402 Kernel.MatrixAlgebra4 <> minor3 def
+R19405:19412 Kernel.MatrixAlgebra4 <> skip_idx def
+R19415:19435 Kernel.MetricFromMuCosts <> full_metric_at_vertex def

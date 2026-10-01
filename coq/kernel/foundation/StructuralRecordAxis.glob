@@ -1,280 +1,280 @@
-DIGEST 8049d800f87953663c03b97a60b3e324
+DIGEST f919860ca78884891d5635fff05a33c9
 FKernel.StructuralRecordAxis
-R810:813 Coq.Bool.Bool <> <> lib
-R815:828 Coq.Arith.PeanoNat <> <> lib
-R830:832 Coq.micromega.Lia <> <> lib
-R862:875 Kernel.StructuralCore <> <> lib
-R877:896 Kernel.StructuralCoreRound2 <> <> lib
-R926:945 Kernel.StructuralCoreRound4 <> <> lib
-prf 978:1000 <> uniqueness_round4_holds
-R1004:1020 Kernel.StructuralCoreRound4 <> uniqueness_round4 def
-binder 1087:1087 <> b:1
-R1094:1094 Kernel.StructuralRecordAxis <> b:1 var
-R1096:1100 Coq.Init.Datatypes <> false constr
-binder 1087:1087 <> b:2
-R1094:1094 Kernel.StructuralRecordAxis <> b:2 var
-R1096:1100 Coq.Init.Datatypes <> false constr
-R1122:1131 Kernel.StructuralCoreRound4 <> latch_next def
-R1152:1160 Kernel.StructuralCoreRound4 <> base_step proj
-R1152:1160 Kernel.StructuralCoreRound4 <> base_step proj
-R1152:1160 Kernel.StructuralCoreRound4 <> base_step proj
-R1184:1190 Kernel.StructuralCore <> rc_cert proj
-R1184:1190 Kernel.StructuralCore <> rc_cert proj
-prf 1313:1340 <> uniqueness_round4_pair_holds
-R1344:1365 Kernel.StructuralCoreRound4 <> uniqueness_round4_pair def
-binder 1438:1438 <> b:3
-binder 1440:1441 <> r2:4
-R1446:1448 Coq.Init.Datatypes <> fst def
-R1453:1453 Kernel.StructuralRecordAxis <> b:3 var
-R1455:1459 Coq.Init.Datatypes <> false constr
-R1461:1462 Kernel.StructuralRecordAxis <> r2:4 var
-binder 1472:1472 <> b:5
-binder 1474:1475 <> r1:6
-R1480:1482 Coq.Init.Datatypes <> snd def
-R1487:1487 Kernel.StructuralRecordAxis <> b:5 var
-R1489:1490 Kernel.StructuralRecordAxis <> r1:6 var
-R1492:1496 Coq.Init.Datatypes <> false constr
-binder 1438:1438 <> b:7
-binder 1440:1441 <> r2:8
-R1446:1448 Coq.Init.Datatypes <> fst def
-R1453:1453 Kernel.StructuralRecordAxis <> b:7 var
-R1455:1459 Coq.Init.Datatypes <> false constr
-R1461:1462 Kernel.StructuralRecordAxis <> r2:8 var
-binder 1472:1472 <> b:9
-binder 1474:1475 <> r1:10
-R1480:1482 Coq.Init.Datatypes <> snd def
-R1487:1487 Kernel.StructuralRecordAxis <> b:9 var
-R1489:1490 Kernel.StructuralRecordAxis <> r1:10 var
-R1492:1496 Coq.Init.Datatypes <> false constr
-def 1840:1851 <> counter_base
-R1855:1865 Kernel.StructuralCoreRound4 <> BaseMachine rec
-R1875:1881 Kernel.StructuralCoreRound4 <> b_state proj
-R1875:1881 Kernel.StructuralCoreRound4 <> b_state proj
-R1875:1881 Kernel.StructuralCoreRound4 <> b_state proj
-R1893:1898 Kernel.StructuralCoreRound4 <> b_next proj
-R1893:1898 Kernel.StructuralCoreRound4 <> b_next proj
-R1908:1913 Kernel.StructuralCoreRound4 <> b_init proj
-R1908:1913 Kernel.StructuralCoreRound4 <> b_init proj
-R1935:1942 Kernel.StructuralCoreRound4 <> b_halted proj
-R1935:1942 Kernel.StructuralCoreRound4 <> b_halted proj
-R1886:1888 Coq.Init.Datatypes <> nat ind
-R1903:1903 Coq.Init.Datatypes <> S constr
-R1927:1930 Coq.Init.Logic <> True ind
-R1956:1960 Coq.Init.Logic <> False ind
-def 2020:2029 <> ToggleCore
-R2033:2035 Kernel.StructuralCore <> RCM rec
-R2045:2052 Kernel.StructuralCore <> rc_state proj
-R2045:2052 Kernel.StructuralCore <> rc_state proj
-R2045:2052 Kernel.StructuralCore <> rc_state proj
-R2071:2077 Kernel.StructuralCore <> rc_next proj
-R2071:2077 Kernel.StructuralCore <> rc_next proj
-R2120:2126 Kernel.StructuralCore <> rc_init proj
-R2120:2126 Kernel.StructuralCore <> rc_init proj
-R2148:2154 Kernel.StructuralCore <> rc_cert proj
-R2148:2154 Kernel.StructuralCore <> rc_cert proj
-R2166:2170 Kernel.StructuralCore <> rc_mu proj
-R2166:2170 Kernel.StructuralCore <> rc_mu proj
-R2182:2190 Kernel.StructuralCore <> rc_halted proj
-R2182:2190 Kernel.StructuralCore <> rc_halted proj
-R2060:2062 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R2057:2059 Coq.Init.Datatypes <> nat ind
-R2063:2066 Coq.Init.Datatypes <> bool ind
-binder 2086:2086 <> x:11
-R2091:2091 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2101:2102 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2115:2115 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2092:2092 Coq.Init.Datatypes <> S constr
-R2095:2097 Coq.Init.Datatypes <> fst def
-R2099:2099 Kernel.StructuralRecordAxis <> x:11 var
-R2103:2106 Coq.Init.Datatypes <> negb def
-R2109:2111 Coq.Init.Datatypes <> snd def
-R2113:2113 Kernel.StructuralRecordAxis <> x:11 var
-R2140:2143 Coq.Init.Logic <> True ind
-R2159:2161 Coq.Init.Datatypes <> snd def
-R2175:2177 Coq.Init.Datatypes <> fst def
-R2204:2208 Coq.Init.Logic <> False ind
-def 2226:2237 <> toggle_cover
-R2241:2249 Kernel.StructuralCoreRound4 <> BaseCover rec
-R2251:2260 Kernel.StructuralRecordAxis <> ToggleCore def
-R2262:2273 Kernel.StructuralRecordAxis <> counter_base def
-R2293:2307 Kernel.StructuralCoreRound4 <> Build_BaseCover constr
-R2309:2318 Kernel.StructuralRecordAxis <> ToggleCore def
-R2320:2331 Kernel.StructuralRecordAxis <> counter_base def
-R2333:2335 Coq.Init.Datatypes <> fst def
-R2293:2307 Kernel.StructuralCoreRound4 <> Build_BaseCover constr
-R2309:2318 Kernel.StructuralRecordAxis <> ToggleCore def
-R2320:2331 Kernel.StructuralRecordAxis <> counter_base def
-R2333:2335 Coq.Init.Datatypes <> fst def
-R2365:2365 Coq.Init.Logic <> I constr
-R2365:2365 Coq.Init.Logic <> I constr
-R2391:2391 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2393:2394 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2400:2400 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2395:2399 Coq.Init.Datatypes <> false constr
-R2391:2391 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2393:2394 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2400:2400 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2395:2399 Coq.Init.Datatypes <> false constr
-R2417:2417 Coq.Init.Logic <> I constr
-R2417:2417 Coq.Init.Logic <> I constr
-prf 2508:2532 <> toggle_computation_driven
-R2538:2555 Kernel.StructuralCoreRound4 <> computation_driven def
-R2557:2566 Kernel.StructuralRecordAxis <> ToggleCore def
-R2568:2579 Kernel.StructuralRecordAxis <> counter_base def
-R2581:2592 Kernel.StructuralRecordAxis <> toggle_cover def
-binder 2616:2616 <> r:12
-R2621:2624 Coq.Init.Datatypes <> negb def
-R2626:2626 Kernel.StructuralRecordAxis <> r:12 var
-binder 2616:2616 <> r:13
-R2621:2624 Coq.Init.Datatypes <> negb def
-R2626:2626 Kernel.StructuralRecordAxis <> r:13 var
-prf 2666:2685 <> toggle_not_permanent
-R2689:2690 Coq.Init.Logic <> ::type_scope:'~'_x not
-R2691:2706 Kernel.StructuralCoreRound2 <> record_permanent def
-R2708:2717 Kernel.StructuralRecordAxis <> ToggleCore def
-R2750:2750 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2752:2753 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2758:2758 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2754:2757 Coq.Init.Datatypes <> true constr
-R2760:2766 Coq.Init.Logic <> eq_refl constr
-R2750:2750 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2752:2753 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2758:2758 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2754:2757 Coq.Init.Datatypes <> true constr
-R2760:2766 Coq.Init.Logic <> eq_refl constr
-prf 2798:2813 <> toggle_not_latch
-R2819:2820 Coq.Init.Logic <> ::type_scope:'~'_x not
-R2821:2827 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2829:2830 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2828:2828 <> h:14
-R2831:2849 Kernel.StructuralCoreRound4 <> latch_factorization def
-R2851:2860 Kernel.StructuralRecordAxis <> ToggleCore def
-R2862:2873 Kernel.StructuralRecordAxis <> counter_base def
-R2875:2886 Kernel.StructuralRecordAxis <> toggle_cover def
-R2888:2888 Kernel.StructuralRecordAxis <> h:14 var
-R2930:2930 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2932:2933 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2938:2938 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2934:2937 Coq.Init.Datatypes <> true constr
-R2930:2930 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2932:2933 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2938:2938 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2934:2937 Coq.Init.Datatypes <> true constr
-R2951:2960 Kernel.StructuralCoreRound4 <> latch_next def
-def 3204:3212 <> ClockCore
-R3216:3218 Kernel.StructuralCore <> RCM rec
-R3228:3235 Kernel.StructuralCore <> rc_state proj
-R3228:3235 Kernel.StructuralCore <> rc_state proj
-R3228:3235 Kernel.StructuralCore <> rc_state proj
-R3260:3266 Kernel.StructuralCore <> rc_next proj
-R3260:3266 Kernel.StructuralCore <> rc_next proj
-R3338:3344 Kernel.StructuralCore <> rc_init proj
-R3338:3344 Kernel.StructuralCore <> rc_init proj
-R3366:3372 Kernel.StructuralCore <> rc_cert proj
-R3366:3372 Kernel.StructuralCore <> rc_cert proj
-R3414:3418 Kernel.StructuralCore <> rc_mu proj
-R3414:3418 Kernel.StructuralCore <> rc_mu proj
-R3460:3468 Kernel.StructuralCore <> rc_halted proj
-R3460:3468 Kernel.StructuralCore <> rc_halted proj
-R3249:3251 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R3243:3245 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R3240:3242 Coq.Init.Datatypes <> nat ind
-R3246:3248 Coq.Init.Datatypes <> nat ind
-R3252:3255 Coq.Init.Datatypes <> bool ind
-binder 3275:3275 <> x:15
-R3298:3298 Kernel.StructuralRecordAxis <> x:15 var
-R3285:3285 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3287:3288 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3290:3291 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3293:3293 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3303:3303 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3307:3308 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3312:3313 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3333:3333 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3304:3304 Coq.Init.Datatypes <> S constr
-R3309:3309 Coq.Init.Datatypes <> S constr
-R3314:3316 Coq.Init.Datatypes <> orb def
-R3321:3327 Coq.Arith.PeanoNat Nat eqb def
-R3358:3361 Coq.Init.Logic <> True ind
-binder 3381:3381 <> x:17
-R3404:3404 Kernel.StructuralRecordAxis <> x:17 var
-R3391:3391 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3393:3394 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3396:3397 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3399:3399 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 3427:3427 <> x:19
-R3450:3450 Kernel.StructuralRecordAxis <> x:19 var
-R3437:3437 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3439:3440 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3442:3443 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3445:3445 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3482:3486 Coq.Init.Logic <> False ind
-def 3504:3514 <> clock_cover
-R3518:3526 Kernel.StructuralCoreRound4 <> BaseCover rec
-R3528:3536 Kernel.StructuralRecordAxis <> ClockCore def
-R3538:3549 Kernel.StructuralRecordAxis <> counter_base def
-R3569:3583 Kernel.StructuralCoreRound4 <> Build_BaseCover constr
-R3585:3593 Kernel.StructuralRecordAxis <> ClockCore def
-R3595:3606 Kernel.StructuralRecordAxis <> counter_base def
-binder 3625:3625 <> x:21
-R3648:3648 Kernel.StructuralRecordAxis <> x:21 var
-R3635:3635 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3637:3638 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3640:3641 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3643:3643 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3569:3583 Kernel.StructuralCoreRound4 <> Build_BaseCover constr
-R3585:3593 Kernel.StructuralRecordAxis <> ClockCore def
-R3595:3606 Kernel.StructuralRecordAxis <> counter_base def
-binder 3625:3625 <> x:23
-R3648:3648 Kernel.StructuralRecordAxis <> x:23 var
-R3635:3635 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3637:3638 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3640:3641 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3643:3643 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3684:3684 Coq.Init.Logic <> I constr
-R3684:3684 Coq.Init.Logic <> I constr
-R3710:3710 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3712:3713 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3715:3716 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3722:3722 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3717:3721 Coq.Init.Datatypes <> false constr
-R3710:3710 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3712:3713 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3715:3716 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3722:3722 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3717:3721 Coq.Init.Datatypes <> false constr
-R3739:3739 Coq.Init.Logic <> I constr
-R3739:3739 Coq.Init.Logic <> I constr
-prf 3846:3867 <> clock_record_permanent
-R3871:3886 Kernel.StructuralCoreRound2 <> record_permanent def
-R3888:3896 Kernel.StructuralRecordAxis <> ClockCore def
-prf 3976:3998 <> clock_record_not_driven
-R4004:4005 Coq.Init.Logic <> ::type_scope:'~'_x not
-R4006:4023 Kernel.StructuralCoreRound4 <> computation_driven def
-R4025:4033 Kernel.StructuralRecordAxis <> ClockCore def
-R4035:4046 Kernel.StructuralRecordAxis <> counter_base def
-R4048:4058 Kernel.StructuralRecordAxis <> clock_cover def
-R4102:4102 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4104:4105 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4107:4108 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4114:4114 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4109:4113 Coq.Init.Datatypes <> false constr
-R4102:4102 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4104:4105 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4107:4108 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4114:4114 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4109:4113 Coq.Init.Datatypes <> false constr
-R4141:4141 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4143:4144 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4146:4147 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4153:4153 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4148:4152 Coq.Init.Datatypes <> false constr
-R4141:4141 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4143:4144 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4146:4147 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4153:4153 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4148:4152 Coq.Init.Datatypes <> false constr
-R4241:4263 Kernel.StructuralRecordAxis <> uniqueness_round4_holds thm
-R4284:4311 Kernel.StructuralRecordAxis <> uniqueness_round4_pair_holds thm
-R4332:4347 Kernel.StructuralRecordAxis <> toggle_not_latch thm
-R4368:4390 Kernel.StructuralRecordAxis <> clock_record_not_driven thm
+R817:820 Coq.Bool.Bool <> <> lib
+R822:835 Coq.Arith.PeanoNat <> <> lib
+R837:839 Coq.micromega.Lia <> <> lib
+R869:882 Kernel.StructuralCore <> <> lib
+R884:902 Kernel.StructuralCoreCover <> <> lib
+R932:952 Kernel.StructuralCoreAnyBase <> <> lib
+prf 985:1010 <> record_axis_is_latch_holds
+R1014:1033 Kernel.StructuralCoreAnyBase <> record_axis_is_latch def
+binder 1100:1100 <> b:1
+R1107:1107 Kernel.StructuralRecordAxis <> b:1 var
+R1109:1113 Coq.Init.Datatypes <> false constr
+binder 1100:1100 <> b:2
+R1107:1107 Kernel.StructuralRecordAxis <> b:2 var
+R1109:1113 Coq.Init.Datatypes <> false constr
+R1135:1144 Kernel.StructuralCoreAnyBase <> latch_next def
+R1165:1173 Kernel.StructuralCoreAnyBase <> base_step proj
+R1165:1173 Kernel.StructuralCoreAnyBase <> base_step proj
+R1165:1173 Kernel.StructuralCoreAnyBase <> base_step proj
+R1197:1203 Kernel.StructuralCore <> rc_cert proj
+R1197:1203 Kernel.StructuralCore <> rc_cert proj
+prf 1326:1357 <> record_pair_is_two_latches_holds
+R1361:1386 Kernel.StructuralCoreAnyBase <> record_pair_is_two_latches def
+binder 1459:1459 <> b:3
+binder 1461:1462 <> r2:4
+R1467:1469 Coq.Init.Datatypes <> fst def
+R1474:1474 Kernel.StructuralRecordAxis <> b:3 var
+R1476:1480 Coq.Init.Datatypes <> false constr
+R1482:1483 Kernel.StructuralRecordAxis <> r2:4 var
+binder 1493:1493 <> b:5
+binder 1495:1496 <> r1:6
+R1501:1503 Coq.Init.Datatypes <> snd def
+R1508:1508 Kernel.StructuralRecordAxis <> b:5 var
+R1510:1511 Kernel.StructuralRecordAxis <> r1:6 var
+R1513:1517 Coq.Init.Datatypes <> false constr
+binder 1459:1459 <> b:7
+binder 1461:1462 <> r2:8
+R1467:1469 Coq.Init.Datatypes <> fst def
+R1474:1474 Kernel.StructuralRecordAxis <> b:7 var
+R1476:1480 Coq.Init.Datatypes <> false constr
+R1482:1483 Kernel.StructuralRecordAxis <> r2:8 var
+binder 1493:1493 <> b:9
+binder 1495:1496 <> r1:10
+R1501:1503 Coq.Init.Datatypes <> snd def
+R1508:1508 Kernel.StructuralRecordAxis <> b:9 var
+R1510:1511 Kernel.StructuralRecordAxis <> r1:10 var
+R1513:1517 Coq.Init.Datatypes <> false constr
+def 1861:1872 <> counter_base
+R1876:1886 Kernel.StructuralCoreAnyBase <> BaseMachine rec
+R1896:1902 Kernel.StructuralCoreAnyBase <> b_state proj
+R1896:1902 Kernel.StructuralCoreAnyBase <> b_state proj
+R1896:1902 Kernel.StructuralCoreAnyBase <> b_state proj
+R1914:1919 Kernel.StructuralCoreAnyBase <> b_next proj
+R1914:1919 Kernel.StructuralCoreAnyBase <> b_next proj
+R1929:1934 Kernel.StructuralCoreAnyBase <> b_init proj
+R1929:1934 Kernel.StructuralCoreAnyBase <> b_init proj
+R1956:1963 Kernel.StructuralCoreAnyBase <> b_halted proj
+R1956:1963 Kernel.StructuralCoreAnyBase <> b_halted proj
+R1907:1909 Coq.Init.Datatypes <> nat ind
+R1924:1924 Coq.Init.Datatypes <> S constr
+R1948:1951 Coq.Init.Logic <> True ind
+R1977:1981 Coq.Init.Logic <> False ind
+def 2041:2050 <> ToggleCore
+R2054:2056 Kernel.StructuralCore <> RCM rec
+R2066:2073 Kernel.StructuralCore <> rc_state proj
+R2066:2073 Kernel.StructuralCore <> rc_state proj
+R2066:2073 Kernel.StructuralCore <> rc_state proj
+R2092:2098 Kernel.StructuralCore <> rc_next proj
+R2092:2098 Kernel.StructuralCore <> rc_next proj
+R2141:2147 Kernel.StructuralCore <> rc_init proj
+R2141:2147 Kernel.StructuralCore <> rc_init proj
+R2169:2175 Kernel.StructuralCore <> rc_cert proj
+R2169:2175 Kernel.StructuralCore <> rc_cert proj
+R2187:2191 Kernel.StructuralCore <> rc_mu proj
+R2187:2191 Kernel.StructuralCore <> rc_mu proj
+R2203:2211 Kernel.StructuralCore <> rc_halted proj
+R2203:2211 Kernel.StructuralCore <> rc_halted proj
+R2081:2083 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2078:2080 Coq.Init.Datatypes <> nat ind
+R2084:2087 Coq.Init.Datatypes <> bool ind
+binder 2107:2107 <> x:11
+R2112:2112 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2122:2123 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2136:2136 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2113:2113 Coq.Init.Datatypes <> S constr
+R2116:2118 Coq.Init.Datatypes <> fst def
+R2120:2120 Kernel.StructuralRecordAxis <> x:11 var
+R2124:2127 Coq.Init.Datatypes <> negb def
+R2130:2132 Coq.Init.Datatypes <> snd def
+R2134:2134 Kernel.StructuralRecordAxis <> x:11 var
+R2161:2164 Coq.Init.Logic <> True ind
+R2180:2182 Coq.Init.Datatypes <> snd def
+R2196:2198 Coq.Init.Datatypes <> fst def
+R2225:2229 Coq.Init.Logic <> False ind
+def 2247:2258 <> toggle_cover
+R2262:2270 Kernel.StructuralCoreAnyBase <> BaseCover rec
+R2272:2281 Kernel.StructuralRecordAxis <> ToggleCore def
+R2283:2294 Kernel.StructuralRecordAxis <> counter_base def
+R2314:2328 Kernel.StructuralCoreAnyBase <> Build_BaseCover constr
+R2330:2339 Kernel.StructuralRecordAxis <> ToggleCore def
+R2341:2352 Kernel.StructuralRecordAxis <> counter_base def
+R2354:2356 Coq.Init.Datatypes <> fst def
+R2314:2328 Kernel.StructuralCoreAnyBase <> Build_BaseCover constr
+R2330:2339 Kernel.StructuralRecordAxis <> ToggleCore def
+R2341:2352 Kernel.StructuralRecordAxis <> counter_base def
+R2354:2356 Coq.Init.Datatypes <> fst def
+R2386:2386 Coq.Init.Logic <> I constr
+R2386:2386 Coq.Init.Logic <> I constr
+R2412:2412 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2414:2415 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2421:2421 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2416:2420 Coq.Init.Datatypes <> false constr
+R2412:2412 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2414:2415 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2421:2421 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2416:2420 Coq.Init.Datatypes <> false constr
+R2438:2438 Coq.Init.Logic <> I constr
+R2438:2438 Coq.Init.Logic <> I constr
+prf 2529:2553 <> toggle_computation_driven
+R2559:2576 Kernel.StructuralCoreAnyBase <> computation_driven def
+R2578:2587 Kernel.StructuralRecordAxis <> ToggleCore def
+R2589:2600 Kernel.StructuralRecordAxis <> counter_base def
+R2602:2613 Kernel.StructuralRecordAxis <> toggle_cover def
+binder 2637:2637 <> r:12
+R2642:2645 Coq.Init.Datatypes <> negb def
+R2647:2647 Kernel.StructuralRecordAxis <> r:12 var
+binder 2637:2637 <> r:13
+R2642:2645 Coq.Init.Datatypes <> negb def
+R2647:2647 Kernel.StructuralRecordAxis <> r:13 var
+prf 2687:2706 <> toggle_not_permanent
+R2710:2711 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2712:2727 Kernel.StructuralCoreCover <> record_permanent def
+R2729:2738 Kernel.StructuralRecordAxis <> ToggleCore def
+R2771:2771 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2773:2774 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2779:2779 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2775:2778 Coq.Init.Datatypes <> true constr
+R2781:2787 Coq.Init.Logic <> eq_refl constr
+R2771:2771 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2773:2774 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2779:2779 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2775:2778 Coq.Init.Datatypes <> true constr
+R2781:2787 Coq.Init.Logic <> eq_refl constr
+prf 2819:2834 <> toggle_not_latch
+R2840:2841 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2842:2848 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2850:2851 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2849:2849 <> h:14
+R2852:2870 Kernel.StructuralCoreAnyBase <> latch_factorization def
+R2872:2881 Kernel.StructuralRecordAxis <> ToggleCore def
+R2883:2894 Kernel.StructuralRecordAxis <> counter_base def
+R2896:2907 Kernel.StructuralRecordAxis <> toggle_cover def
+R2909:2909 Kernel.StructuralRecordAxis <> h:14 var
+R2951:2951 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2953:2954 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2959:2959 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2955:2958 Coq.Init.Datatypes <> true constr
+R2951:2951 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2953:2954 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2959:2959 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2955:2958 Coq.Init.Datatypes <> true constr
+R2972:2981 Kernel.StructuralCoreAnyBase <> latch_next def
+def 3225:3233 <> ClockCore
+R3237:3239 Kernel.StructuralCore <> RCM rec
+R3249:3256 Kernel.StructuralCore <> rc_state proj
+R3249:3256 Kernel.StructuralCore <> rc_state proj
+R3249:3256 Kernel.StructuralCore <> rc_state proj
+R3281:3287 Kernel.StructuralCore <> rc_next proj
+R3281:3287 Kernel.StructuralCore <> rc_next proj
+R3359:3365 Kernel.StructuralCore <> rc_init proj
+R3359:3365 Kernel.StructuralCore <> rc_init proj
+R3387:3393 Kernel.StructuralCore <> rc_cert proj
+R3387:3393 Kernel.StructuralCore <> rc_cert proj
+R3435:3439 Kernel.StructuralCore <> rc_mu proj
+R3435:3439 Kernel.StructuralCore <> rc_mu proj
+R3481:3489 Kernel.StructuralCore <> rc_halted proj
+R3481:3489 Kernel.StructuralCore <> rc_halted proj
+R3270:3272 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3264:3266 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3261:3263 Coq.Init.Datatypes <> nat ind
+R3267:3269 Coq.Init.Datatypes <> nat ind
+R3273:3276 Coq.Init.Datatypes <> bool ind
+binder 3296:3296 <> x:15
+R3319:3319 Kernel.StructuralRecordAxis <> x:15 var
+R3306:3306 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3308:3309 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3311:3312 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3314:3314 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3324:3324 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3328:3329 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3333:3334 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3354:3354 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3325:3325 Coq.Init.Datatypes <> S constr
+R3330:3330 Coq.Init.Datatypes <> S constr
+R3335:3337 Coq.Init.Datatypes <> orb def
+R3342:3348 Coq.Arith.PeanoNat Nat eqb def
+R3379:3382 Coq.Init.Logic <> True ind
+binder 3402:3402 <> x:17
+R3425:3425 Kernel.StructuralRecordAxis <> x:17 var
+R3412:3412 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3414:3415 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3417:3418 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3420:3420 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 3448:3448 <> x:19
+R3471:3471 Kernel.StructuralRecordAxis <> x:19 var
+R3458:3458 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3460:3461 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3463:3464 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3466:3466 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3503:3507 Coq.Init.Logic <> False ind
+def 3525:3535 <> clock_cover
+R3539:3547 Kernel.StructuralCoreAnyBase <> BaseCover rec
+R3549:3557 Kernel.StructuralRecordAxis <> ClockCore def
+R3559:3570 Kernel.StructuralRecordAxis <> counter_base def
+R3590:3604 Kernel.StructuralCoreAnyBase <> Build_BaseCover constr
+R3606:3614 Kernel.StructuralRecordAxis <> ClockCore def
+R3616:3627 Kernel.StructuralRecordAxis <> counter_base def
+binder 3646:3646 <> x:21
+R3669:3669 Kernel.StructuralRecordAxis <> x:21 var
+R3656:3656 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3658:3659 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3661:3662 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3664:3664 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3590:3604 Kernel.StructuralCoreAnyBase <> Build_BaseCover constr
+R3606:3614 Kernel.StructuralRecordAxis <> ClockCore def
+R3616:3627 Kernel.StructuralRecordAxis <> counter_base def
+binder 3646:3646 <> x:23
+R3669:3669 Kernel.StructuralRecordAxis <> x:23 var
+R3656:3656 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3658:3659 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3661:3662 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3664:3664 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3705:3705 Coq.Init.Logic <> I constr
+R3705:3705 Coq.Init.Logic <> I constr
+R3731:3731 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3733:3734 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3736:3737 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3743:3743 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3738:3742 Coq.Init.Datatypes <> false constr
+R3731:3731 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3733:3734 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3736:3737 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3743:3743 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3738:3742 Coq.Init.Datatypes <> false constr
+R3760:3760 Coq.Init.Logic <> I constr
+R3760:3760 Coq.Init.Logic <> I constr
+prf 3867:3888 <> clock_record_permanent
+R3892:3907 Kernel.StructuralCoreCover <> record_permanent def
+R3909:3917 Kernel.StructuralRecordAxis <> ClockCore def
+prf 3997:4019 <> clock_record_not_driven
+R4025:4026 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4027:4044 Kernel.StructuralCoreAnyBase <> computation_driven def
+R4046:4054 Kernel.StructuralRecordAxis <> ClockCore def
+R4056:4067 Kernel.StructuralRecordAxis <> counter_base def
+R4069:4079 Kernel.StructuralRecordAxis <> clock_cover def
+R4123:4123 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4125:4126 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4128:4129 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4135:4135 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4130:4134 Coq.Init.Datatypes <> false constr
+R4123:4123 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4125:4126 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4128:4129 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4135:4135 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4130:4134 Coq.Init.Datatypes <> false constr
+R4162:4162 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4164:4165 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4167:4168 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4174:4174 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4169:4173 Coq.Init.Datatypes <> false constr
+R4162:4162 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4164:4165 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4167:4168 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4174:4174 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4169:4173 Coq.Init.Datatypes <> false constr
+R4262:4287 Kernel.StructuralRecordAxis <> record_axis_is_latch_holds thm
+R4308:4339 Kernel.StructuralRecordAxis <> record_pair_is_two_latches_holds thm
+R4360:4375 Kernel.StructuralRecordAxis <> toggle_not_latch thm
+R4396:4418 Kernel.StructuralRecordAxis <> clock_record_not_driven thm

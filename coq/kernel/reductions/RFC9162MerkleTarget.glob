@@ -1,404 +1,404 @@
-DIGEST 003854736c6cb5b946ea32ae6e29fde2
+DIGEST 1a47c532c4f156d3e7aa6266d1c7f17f
 FKernel.RFC9162MerkleTarget
-R435:438 Coq.Lists.List <> <> lib
-R440:443 Coq.Bool.Bool <> <> lib
-R445:458 Coq.Arith.PeanoNat <> <> lib
-R468:480 Coq.Lists.List ListNotations <> mod
-rec 491:503 <> HashAlgorithm
-proj 541:550 <> hash_empty
-proj 564:572 <> hash_leaf
-proj 627:635 <> hash_node
-proj 703:712 <> digest_eqb
-binder 506:510 <> entry:1
-binder 512:517 <> digest:2
-R554:559 Kernel.RFC9162MerkleTarget <> digest:2 var
-R581:584 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R576:580 Kernel.RFC9162MerkleTarget <> entry:1 var
-R585:590 Kernel.RFC9162MerkleTarget <> digest:2 var
-R645:648 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R639:644 Kernel.RFC9162MerkleTarget <> digest:2 var
-R655:658 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R649:654 Kernel.RFC9162MerkleTarget <> digest:2 var
-R659:664 Kernel.RFC9162MerkleTarget <> digest:2 var
-R722:725 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R716:721 Kernel.RFC9162MerkleTarget <> digest:2 var
-R732:735 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R726:731 Kernel.RFC9162MerkleTarget <> digest:2 var
-R736:739 Coq.Init.Datatypes <> bool ind
-R755:764 Kernel.RFC9162MerkleTarget <> hash_empty proj
-R755:764 Kernel.RFC9162MerkleTarget <> hash_empty proj
-R792:800 Kernel.RFC9162MerkleTarget <> hash_leaf proj
-R792:800 Kernel.RFC9162MerkleTarget <> hash_leaf proj
-R828:836 Kernel.RFC9162MerkleTarget <> hash_node proj
-R828:836 Kernel.RFC9162MerkleTarget <> hash_node proj
-R864:873 Kernel.RFC9162MerkleTarget <> digest_eqb proj
-R864:873 Kernel.RFC9162MerkleTarget <> digest_eqb proj
-def 1113:1135 <> shift_until_odd_or_zero
-R1151:1153 Coq.Init.Datatypes <> nat ind
-binder 1138:1141 <> fuel:8
-binder 1143:1144 <> fn:9
-binder 1146:1147 <> sn:10
-R1161:1163 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R1158:1160 Coq.Init.Datatypes <> nat ind
-R1164:1166 Coq.Init.Datatypes <> nat ind
-R1179:1182 Kernel.RFC9162MerkleTarget <> fuel:8 var
-R1198:1198 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1201:1202 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1205:1205 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1199:1200 Kernel.RFC9162MerkleTarget <> fn:9 var
-R1203:1204 Kernel.RFC9162MerkleTarget <> sn:10 var
-R1211:1211 Coq.Init.Datatypes <> S constr
-R1244:1247 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R1232:1238 Coq.Arith.PeanoNat Nat eqb def
-R1240:1241 Kernel.RFC9162MerkleTarget <> fn:9 var
-R1248:1254 Coq.Arith.PeanoNat Nat odd def
-R1256:1257 Kernel.RFC9162MerkleTarget <> fn:9 var
-R1290:1312 Kernel.RFC9162MerkleTarget <> shift_until_odd_or_zero:11 def
-R1335:1342 Coq.Arith.PeanoNat Nat div2 def
-R1344:1345 Kernel.RFC9162MerkleTarget <> sn:10 var
-R1321:1328 Coq.Arith.PeanoNat Nat div2 def
-R1330:1331 Kernel.RFC9162MerkleTarget <> fn:9 var
-R1270:1270 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1273:1274 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1277:1277 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1271:1272 Kernel.RFC9162MerkleTarget <> fn:9 var
-R1275:1276 Kernel.RFC9162MerkleTarget <> sn:10 var
-def 1365:1378 <> inclusion_fold
-binder 1381:1385 <> entry:13
-binder 1387:1392 <> digest:14
-R1411:1423 Kernel.RFC9162MerkleTarget <> HashAlgorithm rec
-R1425:1429 Kernel.RFC9162MerkleTarget <> entry:13 var
-R1431:1436 Kernel.RFC9162MerkleTarget <> digest:14 var
-binder 1407:1407 <> H:15
-R1447:1450 Coq.Init.Datatypes <> list ind
-R1452:1457 Kernel.RFC9162MerkleTarget <> digest:14 var
-binder 1440:1443 <> path:16
-R1473:1475 Coq.Init.Datatypes <> nat ind
-binder 1465:1466 <> fn:17
-binder 1468:1469 <> sn:18
-R1483:1488 Kernel.RFC9162MerkleTarget <> digest:14 var
-binder 1479:1479 <> r:19
-R1493:1498 Coq.Init.Datatypes <> option ind
-R1510:1512 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R1504:1506 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R1501:1503 Coq.Init.Datatypes <> nat ind
-R1507:1509 Coq.Init.Datatypes <> nat ind
-R1513:1518 Kernel.RFC9162MerkleTarget <> digest:14 var
-R1532:1535 Kernel.RFC9162MerkleTarget <> path:16 var
-R1546:1547 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1552:1555 Coq.Init.Datatypes <> Some constr
-R1557:1557 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1560:1561 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1564:1565 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1567:1567 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1558:1559 Kernel.RFC9162MerkleTarget <> fn:17 var
-R1562:1563 Kernel.RFC9162MerkleTarget <> sn:18 var
-R1566:1566 Kernel.RFC9162MerkleTarget <> r:19 var
-R1574:1577 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1596:1602 Coq.Arith.PeanoNat Nat eqb def
-R1604:1605 Kernel.RFC9162MerkleTarget <> sn:18 var
-R1644:1647 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R1634:1640 Coq.Arith.PeanoNat Nat odd def
-R1642:1643 Kernel.RFC9162MerkleTarget <> fn:17 var
-R1648:1654 Coq.Arith.PeanoNat Nat eqb def
-R1656:1657 Kernel.RFC9162MerkleTarget <> fn:17 var
-R1659:1660 Kernel.RFC9162MerkleTarget <> sn:18 var
-R1901:1914 Kernel.RFC9162MerkleTarget <> inclusion_fold:20 def
-R1963:1971 Kernel.RFC9162MerkleTarget <> hash_node proj
-R1975:1975 Kernel.RFC9162MerkleTarget <> r:19 var
-R1973:1973 Kernel.RFC9162MerkleTarget <> H:15 var
-R1939:1946 Coq.Arith.PeanoNat Nat div2 def
-R1948:1949 Kernel.RFC9162MerkleTarget <> sn:18 var
-R1925:1932 Coq.Arith.PeanoNat Nat div2 def
-R1934:1935 Kernel.RFC9162MerkleTarget <> fn:17 var
-R1916:1916 Kernel.RFC9162MerkleTarget <> H:15 var
-R1713:1719 Coq.Arith.PeanoNat Nat odd def
-R1721:1722 Kernel.RFC9162MerkleTarget <> fn:17 var
-R1753:1775 Kernel.RFC9162MerkleTarget <> shift_until_odd_or_zero def
-R1778:1778 Coq.Init.Datatypes <> S constr
-R1780:1781 Kernel.RFC9162MerkleTarget <> fn:17 var
-R1784:1785 Kernel.RFC9162MerkleTarget <> fn:17 var
-R1787:1788 Kernel.RFC9162MerkleTarget <> sn:18 var
-R1729:1729 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1732:1733 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1736:1736 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1730:1731 Kernel.RFC9162MerkleTarget <> fn:17 var
-R1734:1735 Kernel.RFC9162MerkleTarget <> sn:18 var
-R1686:1686 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1690:1691 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1695:1695 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1801:1814 Kernel.RFC9162MerkleTarget <> inclusion_fold:20 def
-R1865:1873 Kernel.RFC9162MerkleTarget <> hash_node proj
-R1879:1879 Kernel.RFC9162MerkleTarget <> r:19 var
-R1875:1875 Kernel.RFC9162MerkleTarget <> H:15 var
-R1840:1847 Coq.Arith.PeanoNat Nat div2 def
-R1825:1832 Coq.Arith.PeanoNat Nat div2 def
-R1816:1816 Kernel.RFC9162MerkleTarget <> H:15 var
-R1614:1617 Coq.Init.Datatypes <> None constr
-def 1999:2014 <> verify_inclusion
-binder 2017:2021 <> entry:22
-binder 2023:2028 <> digest:23
-R2047:2059 Kernel.RFC9162MerkleTarget <> HashAlgorithm rec
-R2061:2065 Kernel.RFC9162MerkleTarget <> entry:22 var
-R2067:2072 Kernel.RFC9162MerkleTarget <> digest:23 var
-binder 2043:2043 <> H:24
-R2099:2101 Coq.Init.Datatypes <> nat ind
-binder 2076:2085 <> leaf_index:25
-binder 2087:2095 <> tree_size:26
-R2131:2136 Kernel.RFC9162MerkleTarget <> digest:23 var
-binder 2109:2117 <> leaf_hash:27
-binder 2119:2127 <> root_hash:28
-R2147:2150 Coq.Init.Datatypes <> list ind
-R2152:2157 Kernel.RFC9162MerkleTarget <> digest:23 var
-binder 2140:2143 <> path:29
-R2162:2165 Coq.Init.Datatypes <> bool ind
-R2175:2181 Coq.Arith.PeanoNat Nat ltb def
-R2183:2192 Kernel.RFC9162MerkleTarget <> leaf_index:25 var
-R2194:2202 Kernel.RFC9162MerkleTarget <> tree_size:26 var
-R2384:2388 Coq.Init.Datatypes <> false constr
-R2219:2232 Kernel.RFC9162MerkleTarget <> inclusion_fold def
-R2268:2276 Kernel.RFC9162MerkleTarget <> leaf_hash:27 var
-R2262:2264 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R2253:2261 Kernel.RFC9162MerkleTarget <> tree_size:26 var
-R2241:2250 Kernel.RFC9162MerkleTarget <> leaf_index:25 var
-R2236:2239 Kernel.RFC9162MerkleTarget <> path:29 var
-R2234:2234 Kernel.RFC9162MerkleTarget <> H:24 var
-R2289:2292 Coq.Init.Datatypes <> Some constr
-R2294:2294 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2296:2297 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2300:2301 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2303:2303 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2320:2323 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R2308:2314 Coq.Arith.PeanoNat Nat eqb def
-R2324:2333 Kernel.RFC9162MerkleTarget <> digest_eqb proj
-R2339:2347 Kernel.RFC9162MerkleTarget <> root_hash:28 var
-R2335:2335 Kernel.RFC9162MerkleTarget <> H:24 var
-R2355:2358 Coq.Init.Datatypes <> None constr
-R2363:2367 Coq.Init.Datatypes <> false constr
-def 2466:2480 <> shift_while_odd
-R2496:2498 Coq.Init.Datatypes <> nat ind
-binder 2483:2486 <> fuel:30
-binder 2488:2489 <> fn:31
-binder 2491:2492 <> sn:32
-R2506:2508 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R2503:2505 Coq.Init.Datatypes <> nat ind
-R2509:2511 Coq.Init.Datatypes <> nat ind
-R2524:2527 Kernel.RFC9162MerkleTarget <> fuel:30 var
-R2543:2543 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2546:2547 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2550:2550 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2544:2545 Kernel.RFC9162MerkleTarget <> fn:31 var
-R2548:2549 Kernel.RFC9162MerkleTarget <> sn:32 var
-R2556:2556 Coq.Init.Datatypes <> S constr
-R2576:2582 Coq.Arith.PeanoNat Nat odd def
-R2584:2585 Kernel.RFC9162MerkleTarget <> fn:31 var
-R2659:2659 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2662:2663 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2666:2666 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2660:2661 Kernel.RFC9162MerkleTarget <> fn:31 var
-R2664:2665 Kernel.RFC9162MerkleTarget <> sn:32 var
-R2598:2612 Kernel.RFC9162MerkleTarget <> shift_while_odd:33 def
-R2635:2642 Coq.Arith.PeanoNat Nat div2 def
-R2644:2645 Kernel.RFC9162MerkleTarget <> sn:32 var
-R2621:2628 Coq.Arith.PeanoNat Nat div2 def
-R2630:2631 Kernel.RFC9162MerkleTarget <> fn:31 var
-def 2687:2704 <> exact_power_of_two
-R2711:2713 Coq.Init.Datatypes <> nat ind
-binder 2707:2707 <> n:35
-R2718:2721 Coq.Init.Datatypes <> bool ind
-R2746:2749 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R2728:2731 Coq.Init.Datatypes <> negb def
-R2734:2740 Coq.Arith.PeanoNat Nat eqb def
-R2742:2742 Kernel.RFC9162MerkleTarget <> n:35 var
-R2750:2756 Coq.Arith.PeanoNat Nat eqb def
-R2759:2765 Coq.Arith.PeanoNat Nat pow def
-R2770:2777 Coq.Arith.PeanoNat Nat log2 def
-R2779:2779 Kernel.RFC9162MerkleTarget <> n:35 var
-R2783:2783 Kernel.RFC9162MerkleTarget <> n:35 var
-def 2796:2811 <> consistency_fold
-binder 2814:2818 <> entry:36
-binder 2820:2825 <> digest:37
-R2844:2856 Kernel.RFC9162MerkleTarget <> HashAlgorithm rec
-R2858:2862 Kernel.RFC9162MerkleTarget <> entry:36 var
-R2864:2869 Kernel.RFC9162MerkleTarget <> digest:37 var
-binder 2840:2840 <> H:38
-R2880:2883 Coq.Init.Datatypes <> list ind
-R2885:2890 Kernel.RFC9162MerkleTarget <> digest:37 var
-binder 2873:2876 <> path:39
-R2906:2908 Coq.Init.Datatypes <> nat ind
-binder 2898:2899 <> fn:40
-binder 2901:2902 <> sn:41
-R2920:2925 Kernel.RFC9162MerkleTarget <> digest:37 var
-binder 2912:2913 <> fr:42
-binder 2915:2916 <> sr:43
-R2934:2939 Coq.Init.Datatypes <> option ind
-R2960:2962 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R2951:2953 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R2945:2947 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R2942:2944 Coq.Init.Datatypes <> nat ind
-R2948:2950 Coq.Init.Datatypes <> nat ind
-R2954:2959 Kernel.RFC9162MerkleTarget <> digest:37 var
-R2963:2968 Kernel.RFC9162MerkleTarget <> digest:37 var
-R2982:2985 Kernel.RFC9162MerkleTarget <> path:39 var
-R2996:2997 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3002:3005 Coq.Init.Datatypes <> Some constr
-R3007:3007 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3010:3011 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3014:3015 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3018:3019 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3022:3022 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3008:3009 Kernel.RFC9162MerkleTarget <> fn:40 var
-R3012:3013 Kernel.RFC9162MerkleTarget <> sn:41 var
-R3016:3017 Kernel.RFC9162MerkleTarget <> fr:42 var
-R3020:3021 Kernel.RFC9162MerkleTarget <> sr:43 var
-R3029:3032 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3051:3057 Coq.Arith.PeanoNat Nat eqb def
-R3059:3060 Kernel.RFC9162MerkleTarget <> sn:41 var
-R3099:3102 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
-R3089:3095 Coq.Arith.PeanoNat Nat odd def
-R3097:3098 Kernel.RFC9162MerkleTarget <> fn:40 var
-R3103:3109 Coq.Arith.PeanoNat Nat eqb def
-R3111:3112 Kernel.RFC9162MerkleTarget <> fn:40 var
-R3114:3115 Kernel.RFC9162MerkleTarget <> sn:41 var
-R3416:3431 Kernel.RFC9162MerkleTarget <> consistency_fold:44 def
-R3483:3491 Kernel.RFC9162MerkleTarget <> hash_node proj
-R3495:3496 Kernel.RFC9162MerkleTarget <> sr:43 var
-R3493:3493 Kernel.RFC9162MerkleTarget <> H:38 var
-R3479:3480 Kernel.RFC9162MerkleTarget <> fr:42 var
-R3456:3463 Coq.Arith.PeanoNat Nat div2 def
-R3465:3466 Kernel.RFC9162MerkleTarget <> sn:41 var
-R3442:3449 Coq.Arith.PeanoNat Nat div2 def
-R3451:3452 Kernel.RFC9162MerkleTarget <> fn:40 var
-R3433:3433 Kernel.RFC9162MerkleTarget <> H:38 var
-R3147:3155 Kernel.RFC9162MerkleTarget <> hash_node proj
-R3161:3162 Kernel.RFC9162MerkleTarget <> fr:42 var
-R3157:3157 Kernel.RFC9162MerkleTarget <> H:38 var
-binder 3140:3142 <> fr':46
-R3186:3194 Kernel.RFC9162MerkleTarget <> hash_node proj
-R3200:3201 Kernel.RFC9162MerkleTarget <> sr:43 var
-R3196:3196 Kernel.RFC9162MerkleTarget <> H:38 var
-binder 3179:3181 <> sr':47
-R3246:3252 Coq.Arith.PeanoNat Nat odd def
-R3254:3255 Kernel.RFC9162MerkleTarget <> fn:40 var
-R3286:3308 Kernel.RFC9162MerkleTarget <> shift_until_odd_or_zero def
-R3311:3311 Coq.Init.Datatypes <> S constr
-R3313:3314 Kernel.RFC9162MerkleTarget <> fn:40 var
-R3317:3318 Kernel.RFC9162MerkleTarget <> fn:40 var
-R3320:3321 Kernel.RFC9162MerkleTarget <> sn:41 var
-R3262:3262 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3265:3266 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3269:3269 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3263:3264 Kernel.RFC9162MerkleTarget <> fn:40 var
-R3267:3268 Kernel.RFC9162MerkleTarget <> sn:41 var
-R3219:3219 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3223:3224 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3228:3228 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3334:3349 Kernel.RFC9162MerkleTarget <> consistency_fold:44 def
-R3393:3395 Kernel.RFC9162MerkleTarget <> sr':47 var
-R3389:3391 Kernel.RFC9162MerkleTarget <> fr':46 var
-R3375:3382 Coq.Arith.PeanoNat Nat div2 def
-R3360:3367 Coq.Arith.PeanoNat Nat div2 def
-R3351:3351 Kernel.RFC9162MerkleTarget <> H:38 var
-R3069:3072 Coq.Init.Datatypes <> None constr
-def 3520:3537 <> verify_consistency
-binder 3540:3544 <> entry:48
-binder 3546:3551 <> digest:49
-R3570:3582 Kernel.RFC9162MerkleTarget <> HashAlgorithm rec
-R3584:3588 Kernel.RFC9162MerkleTarget <> entry:48 var
-R3590:3595 Kernel.RFC9162MerkleTarget <> digest:49 var
-binder 3566:3566 <> H:50
-R3614:3616 Coq.Init.Datatypes <> nat ind
-binder 3599:3603 <> first:51
-binder 3605:3610 <> second:52
-R3649:3654 Kernel.RFC9162MerkleTarget <> digest:49 var
-binder 3624:3633 <> first_hash:53
-binder 3635:3645 <> second_hash:54
-R3666:3669 Coq.Init.Datatypes <> list ind
-R3671:3676 Kernel.RFC9162MerkleTarget <> digest:49 var
-binder 3658:3662 <> proof:55
-R3681:3684 Coq.Init.Datatypes <> bool ind
-R3710:3713 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R3695:3701 Coq.Arith.PeanoNat Nat ltb def
-R3705:3709 Kernel.RFC9162MerkleTarget <> first:51 var
-R3714:3720 Coq.Arith.PeanoNat Nat ltb def
-R3722:3726 Kernel.RFC9162MerkleTarget <> first:51 var
-R3728:3733 Kernel.RFC9162MerkleTarget <> second:52 var
-R4212:4216 Coq.Init.Datatypes <> false constr
-R3765:3782 Kernel.RFC9162MerkleTarget <> exact_power_of_two def
-R3784:3788 Kernel.RFC9162MerkleTarget <> first:51 var
-R3820:3824 Kernel.RFC9162MerkleTarget <> proof:55 var
-R3805:3808 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3795:3804 Kernel.RFC9162MerkleTarget <> first_hash:53 var
-R3809:3813 Kernel.RFC9162MerkleTarget <> proof:55 var
-binder 3754:3757 <> path:56
-R3839:3842 Kernel.RFC9162MerkleTarget <> path:56 var
-R3855:3856 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3861:3865 Coq.Init.Datatypes <> false constr
-R3877:3880 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3916:3930 Kernel.RFC9162MerkleTarget <> shift_while_odd def
-R3932:3936 Kernel.RFC9162MerkleTarget <> first:51 var
-R3944:3946 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R3939:3943 Kernel.RFC9162MerkleTarget <> first:51 var
-R3957:3959 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R3951:3956 Kernel.RFC9162MerkleTarget <> second:52 var
-R3902:3902 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3906:3907 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3911:3911 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3980:3995 Kernel.RFC9162MerkleTarget <> consistency_fold def
-R3997:3997 Kernel.RFC9162MerkleTarget <> H:50 var
-R4037:4040 Coq.Init.Datatypes <> Some constr
-R4042:4042 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4044:4045 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4048:4049 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4052:4053 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4056:4056 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4115:4132 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R4085:4088 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R4073:4079 Coq.Arith.PeanoNat Nat eqb def
-R4089:4098 Kernel.RFC9162MerkleTarget <> digest_eqb proj
-R4105:4114 Kernel.RFC9162MerkleTarget <> first_hash:53 var
-R4100:4100 Kernel.RFC9162MerkleTarget <> H:50 var
-R4133:4142 Kernel.RFC9162MerkleTarget <> digest_eqb proj
-R4149:4159 Kernel.RFC9162MerkleTarget <> second_hash:54 var
-R4144:4144 Kernel.RFC9162MerkleTarget <> H:50 var
-R4171:4174 Coq.Init.Datatypes <> None constr
-R4179:4183 Coq.Init.Datatypes <> false constr
-def 4307:4329 <> inclusion_boundary_safe
-binder 4351:4355 <> entry:58
-binder 4357:4362 <> digest:59
-R4377:4389 Kernel.RFC9162MerkleTarget <> HashAlgorithm rec
-R4391:4395 Kernel.RFC9162MerkleTarget <> entry:58 var
-R4397:4402 Kernel.RFC9162MerkleTarget <> digest:59 var
-binder 4373:4373 <> H:60
-binder 4414:4422 <> tree_size:61
-binder 4424:4432 <> leaf_hash:62
-binder 4434:4442 <> root_hash:63
-binder 4444:4447 <> path:64
-R4517:4519 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4454:4469 Kernel.RFC9162MerkleTarget <> verify_inclusion def
-R4513:4516 Kernel.RFC9162MerkleTarget <> path:64 var
-R4503:4511 Kernel.RFC9162MerkleTarget <> root_hash:63 var
-R4493:4501 Kernel.RFC9162MerkleTarget <> leaf_hash:62 var
-R4483:4491 Kernel.RFC9162MerkleTarget <> tree_size:61 var
-R4473:4481 Kernel.RFC9162MerkleTarget <> tree_size:61 var
-R4471:4471 Kernel.RFC9162MerkleTarget <> H:60 var
-R4520:4524 Coq.Init.Datatypes <> false constr
-def 4539:4563 <> consistency_boundary_safe
-binder 4585:4589 <> entry:65
-binder 4591:4596 <> digest:66
-R4611:4623 Kernel.RFC9162MerkleTarget <> HashAlgorithm rec
-R4625:4629 Kernel.RFC9162MerkleTarget <> entry:65 var
-R4631:4636 Kernel.RFC9162MerkleTarget <> digest:66 var
-binder 4607:4607 <> H:67
-binder 4648:4648 <> n:68
-binder 4650:4653 <> root:69
-binder 4655:4659 <> proof:70
-R4706:4708 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4666:4683 Kernel.RFC9162MerkleTarget <> verify_consistency def
-R4701:4705 Kernel.RFC9162MerkleTarget <> proof:70 var
-R4696:4699 Kernel.RFC9162MerkleTarget <> root:69 var
-R4691:4694 Kernel.RFC9162MerkleTarget <> root:69 var
-R4689:4689 Kernel.RFC9162MerkleTarget <> n:68 var
-R4687:4687 Kernel.RFC9162MerkleTarget <> n:68 var
-R4685:4685 Kernel.RFC9162MerkleTarget <> H:67 var
-R4709:4713 Coq.Init.Datatypes <> false constr
+R434:437 Coq.Lists.List <> <> lib
+R439:442 Coq.Bool.Bool <> <> lib
+R444:457 Coq.Arith.PeanoNat <> <> lib
+R467:479 Coq.Lists.List ListNotations <> mod
+rec 490:502 <> HashAlgorithm
+proj 540:549 <> hash_empty
+proj 563:571 <> hash_leaf
+proj 626:634 <> hash_node
+proj 702:711 <> digest_eqb
+binder 505:509 <> entry:1
+binder 511:516 <> digest:2
+R553:558 Kernel.RFC9162MerkleTarget <> digest:2 var
+R580:583 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R575:579 Kernel.RFC9162MerkleTarget <> entry:1 var
+R584:589 Kernel.RFC9162MerkleTarget <> digest:2 var
+R644:647 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R638:643 Kernel.RFC9162MerkleTarget <> digest:2 var
+R654:657 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R648:653 Kernel.RFC9162MerkleTarget <> digest:2 var
+R658:663 Kernel.RFC9162MerkleTarget <> digest:2 var
+R721:724 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R715:720 Kernel.RFC9162MerkleTarget <> digest:2 var
+R731:734 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R725:730 Kernel.RFC9162MerkleTarget <> digest:2 var
+R735:738 Coq.Init.Datatypes <> bool ind
+R754:763 Kernel.RFC9162MerkleTarget <> hash_empty proj
+R754:763 Kernel.RFC9162MerkleTarget <> hash_empty proj
+R791:799 Kernel.RFC9162MerkleTarget <> hash_leaf proj
+R791:799 Kernel.RFC9162MerkleTarget <> hash_leaf proj
+R827:835 Kernel.RFC9162MerkleTarget <> hash_node proj
+R827:835 Kernel.RFC9162MerkleTarget <> hash_node proj
+R863:872 Kernel.RFC9162MerkleTarget <> digest_eqb proj
+R863:872 Kernel.RFC9162MerkleTarget <> digest_eqb proj
+def 1112:1134 <> shift_until_odd_or_zero
+R1150:1152 Coq.Init.Datatypes <> nat ind
+binder 1137:1140 <> fuel:8
+binder 1142:1143 <> fn:9
+binder 1145:1146 <> sn:10
+R1160:1162 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1157:1159 Coq.Init.Datatypes <> nat ind
+R1163:1165 Coq.Init.Datatypes <> nat ind
+R1178:1181 Kernel.RFC9162MerkleTarget <> fuel:8 var
+R1197:1197 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1200:1201 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1204:1204 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1198:1199 Kernel.RFC9162MerkleTarget <> fn:9 var
+R1202:1203 Kernel.RFC9162MerkleTarget <> sn:10 var
+R1210:1210 Coq.Init.Datatypes <> S constr
+R1243:1246 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R1231:1237 Coq.Arith.PeanoNat Nat eqb def
+R1239:1240 Kernel.RFC9162MerkleTarget <> fn:9 var
+R1247:1253 Coq.Arith.PeanoNat Nat odd def
+R1255:1256 Kernel.RFC9162MerkleTarget <> fn:9 var
+R1289:1311 Kernel.RFC9162MerkleTarget <> shift_until_odd_or_zero:11 def
+R1334:1341 Coq.Arith.PeanoNat Nat div2 def
+R1343:1344 Kernel.RFC9162MerkleTarget <> sn:10 var
+R1320:1327 Coq.Arith.PeanoNat Nat div2 def
+R1329:1330 Kernel.RFC9162MerkleTarget <> fn:9 var
+R1269:1269 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1272:1273 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1276:1276 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1270:1271 Kernel.RFC9162MerkleTarget <> fn:9 var
+R1274:1275 Kernel.RFC9162MerkleTarget <> sn:10 var
+def 1364:1377 <> inclusion_fold
+binder 1380:1384 <> entry:13
+binder 1386:1391 <> digest:14
+R1410:1422 Kernel.RFC9162MerkleTarget <> HashAlgorithm rec
+R1424:1428 Kernel.RFC9162MerkleTarget <> entry:13 var
+R1430:1435 Kernel.RFC9162MerkleTarget <> digest:14 var
+binder 1406:1406 <> H:15
+R1446:1449 Coq.Init.Datatypes <> list ind
+R1451:1456 Kernel.RFC9162MerkleTarget <> digest:14 var
+binder 1439:1442 <> path:16
+R1472:1474 Coq.Init.Datatypes <> nat ind
+binder 1464:1465 <> fn:17
+binder 1467:1468 <> sn:18
+R1482:1487 Kernel.RFC9162MerkleTarget <> digest:14 var
+binder 1478:1478 <> r:19
+R1492:1497 Coq.Init.Datatypes <> option ind
+R1509:1511 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1503:1505 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1500:1502 Coq.Init.Datatypes <> nat ind
+R1506:1508 Coq.Init.Datatypes <> nat ind
+R1512:1517 Kernel.RFC9162MerkleTarget <> digest:14 var
+R1531:1534 Kernel.RFC9162MerkleTarget <> path:16 var
+R1545:1546 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1551:1554 Coq.Init.Datatypes <> Some constr
+R1556:1556 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1559:1560 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1563:1564 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1566:1566 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1557:1558 Kernel.RFC9162MerkleTarget <> fn:17 var
+R1561:1562 Kernel.RFC9162MerkleTarget <> sn:18 var
+R1565:1565 Kernel.RFC9162MerkleTarget <> r:19 var
+R1573:1576 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1595:1601 Coq.Arith.PeanoNat Nat eqb def
+R1603:1604 Kernel.RFC9162MerkleTarget <> sn:18 var
+R1643:1646 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R1633:1639 Coq.Arith.PeanoNat Nat odd def
+R1641:1642 Kernel.RFC9162MerkleTarget <> fn:17 var
+R1647:1653 Coq.Arith.PeanoNat Nat eqb def
+R1655:1656 Kernel.RFC9162MerkleTarget <> fn:17 var
+R1658:1659 Kernel.RFC9162MerkleTarget <> sn:18 var
+R1900:1913 Kernel.RFC9162MerkleTarget <> inclusion_fold:20 def
+R1962:1970 Kernel.RFC9162MerkleTarget <> hash_node proj
+R1974:1974 Kernel.RFC9162MerkleTarget <> r:19 var
+R1972:1972 Kernel.RFC9162MerkleTarget <> H:15 var
+R1938:1945 Coq.Arith.PeanoNat Nat div2 def
+R1947:1948 Kernel.RFC9162MerkleTarget <> sn:18 var
+R1924:1931 Coq.Arith.PeanoNat Nat div2 def
+R1933:1934 Kernel.RFC9162MerkleTarget <> fn:17 var
+R1915:1915 Kernel.RFC9162MerkleTarget <> H:15 var
+R1712:1718 Coq.Arith.PeanoNat Nat odd def
+R1720:1721 Kernel.RFC9162MerkleTarget <> fn:17 var
+R1752:1774 Kernel.RFC9162MerkleTarget <> shift_until_odd_or_zero def
+R1777:1777 Coq.Init.Datatypes <> S constr
+R1779:1780 Kernel.RFC9162MerkleTarget <> fn:17 var
+R1783:1784 Kernel.RFC9162MerkleTarget <> fn:17 var
+R1786:1787 Kernel.RFC9162MerkleTarget <> sn:18 var
+R1728:1728 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1731:1732 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1735:1735 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1729:1730 Kernel.RFC9162MerkleTarget <> fn:17 var
+R1733:1734 Kernel.RFC9162MerkleTarget <> sn:18 var
+R1685:1685 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1689:1690 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1694:1694 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1800:1813 Kernel.RFC9162MerkleTarget <> inclusion_fold:20 def
+R1864:1872 Kernel.RFC9162MerkleTarget <> hash_node proj
+R1878:1878 Kernel.RFC9162MerkleTarget <> r:19 var
+R1874:1874 Kernel.RFC9162MerkleTarget <> H:15 var
+R1839:1846 Coq.Arith.PeanoNat Nat div2 def
+R1824:1831 Coq.Arith.PeanoNat Nat div2 def
+R1815:1815 Kernel.RFC9162MerkleTarget <> H:15 var
+R1613:1616 Coq.Init.Datatypes <> None constr
+def 1998:2013 <> verify_inclusion
+binder 2016:2020 <> entry:22
+binder 2022:2027 <> digest:23
+R2046:2058 Kernel.RFC9162MerkleTarget <> HashAlgorithm rec
+R2060:2064 Kernel.RFC9162MerkleTarget <> entry:22 var
+R2066:2071 Kernel.RFC9162MerkleTarget <> digest:23 var
+binder 2042:2042 <> H:24
+R2098:2100 Coq.Init.Datatypes <> nat ind
+binder 2075:2084 <> leaf_index:25
+binder 2086:2094 <> tree_size:26
+R2130:2135 Kernel.RFC9162MerkleTarget <> digest:23 var
+binder 2108:2116 <> leaf_hash:27
+binder 2118:2126 <> root_hash:28
+R2146:2149 Coq.Init.Datatypes <> list ind
+R2151:2156 Kernel.RFC9162MerkleTarget <> digest:23 var
+binder 2139:2142 <> path:29
+R2161:2164 Coq.Init.Datatypes <> bool ind
+R2174:2180 Coq.Arith.PeanoNat Nat ltb def
+R2182:2191 Kernel.RFC9162MerkleTarget <> leaf_index:25 var
+R2193:2201 Kernel.RFC9162MerkleTarget <> tree_size:26 var
+R2383:2387 Coq.Init.Datatypes <> false constr
+R2218:2231 Kernel.RFC9162MerkleTarget <> inclusion_fold def
+R2267:2275 Kernel.RFC9162MerkleTarget <> leaf_hash:27 var
+R2261:2263 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R2252:2260 Kernel.RFC9162MerkleTarget <> tree_size:26 var
+R2240:2249 Kernel.RFC9162MerkleTarget <> leaf_index:25 var
+R2235:2238 Kernel.RFC9162MerkleTarget <> path:29 var
+R2233:2233 Kernel.RFC9162MerkleTarget <> H:24 var
+R2288:2291 Coq.Init.Datatypes <> Some constr
+R2293:2293 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2295:2296 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2299:2300 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2302:2302 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2319:2322 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R2307:2313 Coq.Arith.PeanoNat Nat eqb def
+R2323:2332 Kernel.RFC9162MerkleTarget <> digest_eqb proj
+R2338:2346 Kernel.RFC9162MerkleTarget <> root_hash:28 var
+R2334:2334 Kernel.RFC9162MerkleTarget <> H:24 var
+R2354:2357 Coq.Init.Datatypes <> None constr
+R2362:2366 Coq.Init.Datatypes <> false constr
+def 2465:2479 <> shift_while_odd
+R2495:2497 Coq.Init.Datatypes <> nat ind
+binder 2482:2485 <> fuel:30
+binder 2487:2488 <> fn:31
+binder 2490:2491 <> sn:32
+R2505:2507 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2502:2504 Coq.Init.Datatypes <> nat ind
+R2508:2510 Coq.Init.Datatypes <> nat ind
+R2523:2526 Kernel.RFC9162MerkleTarget <> fuel:30 var
+R2542:2542 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2545:2546 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2549:2549 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2543:2544 Kernel.RFC9162MerkleTarget <> fn:31 var
+R2547:2548 Kernel.RFC9162MerkleTarget <> sn:32 var
+R2555:2555 Coq.Init.Datatypes <> S constr
+R2575:2581 Coq.Arith.PeanoNat Nat odd def
+R2583:2584 Kernel.RFC9162MerkleTarget <> fn:31 var
+R2658:2658 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2661:2662 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2665:2665 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2659:2660 Kernel.RFC9162MerkleTarget <> fn:31 var
+R2663:2664 Kernel.RFC9162MerkleTarget <> sn:32 var
+R2597:2611 Kernel.RFC9162MerkleTarget <> shift_while_odd:33 def
+R2634:2641 Coq.Arith.PeanoNat Nat div2 def
+R2643:2644 Kernel.RFC9162MerkleTarget <> sn:32 var
+R2620:2627 Coq.Arith.PeanoNat Nat div2 def
+R2629:2630 Kernel.RFC9162MerkleTarget <> fn:31 var
+def 2686:2703 <> exact_power_of_two
+R2710:2712 Coq.Init.Datatypes <> nat ind
+binder 2706:2706 <> n:35
+R2717:2720 Coq.Init.Datatypes <> bool ind
+R2745:2748 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R2727:2730 Coq.Init.Datatypes <> negb def
+R2733:2739 Coq.Arith.PeanoNat Nat eqb def
+R2741:2741 Kernel.RFC9162MerkleTarget <> n:35 var
+R2749:2755 Coq.Arith.PeanoNat Nat eqb def
+R2758:2764 Coq.Arith.PeanoNat Nat pow def
+R2769:2776 Coq.Arith.PeanoNat Nat log2 def
+R2778:2778 Kernel.RFC9162MerkleTarget <> n:35 var
+R2782:2782 Kernel.RFC9162MerkleTarget <> n:35 var
+def 2795:2810 <> consistency_fold
+binder 2813:2817 <> entry:36
+binder 2819:2824 <> digest:37
+R2843:2855 Kernel.RFC9162MerkleTarget <> HashAlgorithm rec
+R2857:2861 Kernel.RFC9162MerkleTarget <> entry:36 var
+R2863:2868 Kernel.RFC9162MerkleTarget <> digest:37 var
+binder 2839:2839 <> H:38
+R2879:2882 Coq.Init.Datatypes <> list ind
+R2884:2889 Kernel.RFC9162MerkleTarget <> digest:37 var
+binder 2872:2875 <> path:39
+R2905:2907 Coq.Init.Datatypes <> nat ind
+binder 2897:2898 <> fn:40
+binder 2900:2901 <> sn:41
+R2919:2924 Kernel.RFC9162MerkleTarget <> digest:37 var
+binder 2911:2912 <> fr:42
+binder 2914:2915 <> sr:43
+R2933:2938 Coq.Init.Datatypes <> option ind
+R2959:2961 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2950:2952 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2944:2946 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R2941:2943 Coq.Init.Datatypes <> nat ind
+R2947:2949 Coq.Init.Datatypes <> nat ind
+R2953:2958 Kernel.RFC9162MerkleTarget <> digest:37 var
+R2962:2967 Kernel.RFC9162MerkleTarget <> digest:37 var
+R2981:2984 Kernel.RFC9162MerkleTarget <> path:39 var
+R2995:2996 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3001:3004 Coq.Init.Datatypes <> Some constr
+R3006:3006 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3009:3010 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3013:3014 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3017:3018 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3021:3021 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3007:3008 Kernel.RFC9162MerkleTarget <> fn:40 var
+R3011:3012 Kernel.RFC9162MerkleTarget <> sn:41 var
+R3015:3016 Kernel.RFC9162MerkleTarget <> fr:42 var
+R3019:3020 Kernel.RFC9162MerkleTarget <> sr:43 var
+R3028:3031 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3050:3056 Coq.Arith.PeanoNat Nat eqb def
+R3058:3059 Kernel.RFC9162MerkleTarget <> sn:41 var
+R3098:3101 Coq.Init.Datatypes <> ::bool_scope:x_'||'_x not
+R3088:3094 Coq.Arith.PeanoNat Nat odd def
+R3096:3097 Kernel.RFC9162MerkleTarget <> fn:40 var
+R3102:3108 Coq.Arith.PeanoNat Nat eqb def
+R3110:3111 Kernel.RFC9162MerkleTarget <> fn:40 var
+R3113:3114 Kernel.RFC9162MerkleTarget <> sn:41 var
+R3415:3430 Kernel.RFC9162MerkleTarget <> consistency_fold:44 def
+R3482:3490 Kernel.RFC9162MerkleTarget <> hash_node proj
+R3494:3495 Kernel.RFC9162MerkleTarget <> sr:43 var
+R3492:3492 Kernel.RFC9162MerkleTarget <> H:38 var
+R3478:3479 Kernel.RFC9162MerkleTarget <> fr:42 var
+R3455:3462 Coq.Arith.PeanoNat Nat div2 def
+R3464:3465 Kernel.RFC9162MerkleTarget <> sn:41 var
+R3441:3448 Coq.Arith.PeanoNat Nat div2 def
+R3450:3451 Kernel.RFC9162MerkleTarget <> fn:40 var
+R3432:3432 Kernel.RFC9162MerkleTarget <> H:38 var
+R3146:3154 Kernel.RFC9162MerkleTarget <> hash_node proj
+R3160:3161 Kernel.RFC9162MerkleTarget <> fr:42 var
+R3156:3156 Kernel.RFC9162MerkleTarget <> H:38 var
+binder 3139:3141 <> fr':46
+R3185:3193 Kernel.RFC9162MerkleTarget <> hash_node proj
+R3199:3200 Kernel.RFC9162MerkleTarget <> sr:43 var
+R3195:3195 Kernel.RFC9162MerkleTarget <> H:38 var
+binder 3178:3180 <> sr':47
+R3245:3251 Coq.Arith.PeanoNat Nat odd def
+R3253:3254 Kernel.RFC9162MerkleTarget <> fn:40 var
+R3285:3307 Kernel.RFC9162MerkleTarget <> shift_until_odd_or_zero def
+R3310:3310 Coq.Init.Datatypes <> S constr
+R3312:3313 Kernel.RFC9162MerkleTarget <> fn:40 var
+R3316:3317 Kernel.RFC9162MerkleTarget <> fn:40 var
+R3319:3320 Kernel.RFC9162MerkleTarget <> sn:41 var
+R3261:3261 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3264:3265 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3268:3268 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3262:3263 Kernel.RFC9162MerkleTarget <> fn:40 var
+R3266:3267 Kernel.RFC9162MerkleTarget <> sn:41 var
+R3218:3218 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3222:3223 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3227:3227 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3333:3348 Kernel.RFC9162MerkleTarget <> consistency_fold:44 def
+R3392:3394 Kernel.RFC9162MerkleTarget <> sr':47 var
+R3388:3390 Kernel.RFC9162MerkleTarget <> fr':46 var
+R3374:3381 Coq.Arith.PeanoNat Nat div2 def
+R3359:3366 Coq.Arith.PeanoNat Nat div2 def
+R3350:3350 Kernel.RFC9162MerkleTarget <> H:38 var
+R3068:3071 Coq.Init.Datatypes <> None constr
+def 3519:3536 <> verify_consistency
+binder 3539:3543 <> entry:48
+binder 3545:3550 <> digest:49
+R3569:3581 Kernel.RFC9162MerkleTarget <> HashAlgorithm rec
+R3583:3587 Kernel.RFC9162MerkleTarget <> entry:48 var
+R3589:3594 Kernel.RFC9162MerkleTarget <> digest:49 var
+binder 3565:3565 <> H:50
+R3613:3615 Coq.Init.Datatypes <> nat ind
+binder 3598:3602 <> first:51
+binder 3604:3609 <> second:52
+R3648:3653 Kernel.RFC9162MerkleTarget <> digest:49 var
+binder 3623:3632 <> first_hash:53
+binder 3634:3644 <> second_hash:54
+R3665:3668 Coq.Init.Datatypes <> list ind
+R3670:3675 Kernel.RFC9162MerkleTarget <> digest:49 var
+binder 3657:3661 <> proof:55
+R3680:3683 Coq.Init.Datatypes <> bool ind
+R3709:3712 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3694:3700 Coq.Arith.PeanoNat Nat ltb def
+R3704:3708 Kernel.RFC9162MerkleTarget <> first:51 var
+R3713:3719 Coq.Arith.PeanoNat Nat ltb def
+R3721:3725 Kernel.RFC9162MerkleTarget <> first:51 var
+R3727:3732 Kernel.RFC9162MerkleTarget <> second:52 var
+R4211:4215 Coq.Init.Datatypes <> false constr
+R3764:3781 Kernel.RFC9162MerkleTarget <> exact_power_of_two def
+R3783:3787 Kernel.RFC9162MerkleTarget <> first:51 var
+R3819:3823 Kernel.RFC9162MerkleTarget <> proof:55 var
+R3804:3807 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3794:3803 Kernel.RFC9162MerkleTarget <> first_hash:53 var
+R3808:3812 Kernel.RFC9162MerkleTarget <> proof:55 var
+binder 3753:3756 <> path:56
+R3838:3841 Kernel.RFC9162MerkleTarget <> path:56 var
+R3854:3855 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3860:3864 Coq.Init.Datatypes <> false constr
+R3876:3879 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3915:3929 Kernel.RFC9162MerkleTarget <> shift_while_odd def
+R3931:3935 Kernel.RFC9162MerkleTarget <> first:51 var
+R3943:3945 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3938:3942 Kernel.RFC9162MerkleTarget <> first:51 var
+R3956:3958 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3950:3955 Kernel.RFC9162MerkleTarget <> second:52 var
+R3901:3901 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3905:3906 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3910:3910 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3979:3994 Kernel.RFC9162MerkleTarget <> consistency_fold def
+R3996:3996 Kernel.RFC9162MerkleTarget <> H:50 var
+R4036:4039 Coq.Init.Datatypes <> Some constr
+R4041:4041 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4043:4044 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4047:4048 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4051:4052 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4055:4055 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4114:4131 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4084:4087 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R4072:4078 Coq.Arith.PeanoNat Nat eqb def
+R4088:4097 Kernel.RFC9162MerkleTarget <> digest_eqb proj
+R4104:4113 Kernel.RFC9162MerkleTarget <> first_hash:53 var
+R4099:4099 Kernel.RFC9162MerkleTarget <> H:50 var
+R4132:4141 Kernel.RFC9162MerkleTarget <> digest_eqb proj
+R4148:4158 Kernel.RFC9162MerkleTarget <> second_hash:54 var
+R4143:4143 Kernel.RFC9162MerkleTarget <> H:50 var
+R4170:4173 Coq.Init.Datatypes <> None constr
+R4178:4182 Coq.Init.Datatypes <> false constr
+def 4283:4305 <> inclusion_boundary_safe
+binder 4327:4331 <> entry:58
+binder 4333:4338 <> digest:59
+R4353:4365 Kernel.RFC9162MerkleTarget <> HashAlgorithm rec
+R4367:4371 Kernel.RFC9162MerkleTarget <> entry:58 var
+R4373:4378 Kernel.RFC9162MerkleTarget <> digest:59 var
+binder 4349:4349 <> H:60
+binder 4390:4398 <> tree_size:61
+binder 4400:4408 <> leaf_hash:62
+binder 4410:4418 <> root_hash:63
+binder 4420:4423 <> path:64
+R4493:4495 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4430:4445 Kernel.RFC9162MerkleTarget <> verify_inclusion def
+R4489:4492 Kernel.RFC9162MerkleTarget <> path:64 var
+R4479:4487 Kernel.RFC9162MerkleTarget <> root_hash:63 var
+R4469:4477 Kernel.RFC9162MerkleTarget <> leaf_hash:62 var
+R4459:4467 Kernel.RFC9162MerkleTarget <> tree_size:61 var
+R4449:4457 Kernel.RFC9162MerkleTarget <> tree_size:61 var
+R4447:4447 Kernel.RFC9162MerkleTarget <> H:60 var
+R4496:4500 Coq.Init.Datatypes <> false constr
+def 4515:4539 <> consistency_boundary_safe
+binder 4561:4565 <> entry:65
+binder 4567:4572 <> digest:66
+R4587:4599 Kernel.RFC9162MerkleTarget <> HashAlgorithm rec
+R4601:4605 Kernel.RFC9162MerkleTarget <> entry:65 var
+R4607:4612 Kernel.RFC9162MerkleTarget <> digest:66 var
+binder 4583:4583 <> H:67
+binder 4624:4624 <> n:68
+binder 4626:4629 <> root:69
+binder 4631:4635 <> proof:70
+R4682:4684 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4642:4659 Kernel.RFC9162MerkleTarget <> verify_consistency def
+R4677:4681 Kernel.RFC9162MerkleTarget <> proof:70 var
+R4672:4675 Kernel.RFC9162MerkleTarget <> root:69 var
+R4667:4670 Kernel.RFC9162MerkleTarget <> root:69 var
+R4665:4665 Kernel.RFC9162MerkleTarget <> n:68 var
+R4663:4663 Kernel.RFC9162MerkleTarget <> n:68 var
+R4661:4661 Kernel.RFC9162MerkleTarget <> H:67 var
+R4685:4689 Coq.Init.Datatypes <> false constr

@@ -1,883 +1,883 @@
-DIGEST 4db4ef5f43fae6e345c8de708d13fd95
+DIGEST 69a50551a920bb01be0dc608cf0b4333
 FKernel.VMUnboundedCM2Interpreter
-R920:924 Coq.Arith.Arith <> <> lib
-R926:928 Coq.micromega.Lia <> <> lib
-R930:933 Coq.Lists.List <> <> lib
-R943:955 Coq.Lists.List ListNotations <> mod
-R985:991 Kernel.VMState <> <> lib
-R993:998 Kernel.VMStep <> <> lib
-R1000:1014 Kernel.VMUnboundedStep <> <> lib
-R1044:1069 Kernel.VMUnboundedInterpreterCode <> <> lib
-rec 1080:1089 <> CM2ConfigU
-proj 1098:1102 <> cc_pc
-proj 1113:1117 <> cc_c0
-proj 1128:1132 <> cc_c1
-R1106:1108 Coq.Init.Datatypes <> nat ind
-R1121:1123 Coq.Init.Datatypes <> nat ind
-R1136:1138 Coq.Init.Datatypes <> nat ind
-ind 1154:1162 <> CM2InstrU
-constr 1169:1176 <> CM2_Halt
-constr 1180:1187 <> CM2_Inc0
-constr 1191:1198 <> CM2_Inc1
-constr 1202:1213 <> CM2_DecJump0
-constr 1232:1243 <> CM2_DecJump1
-R1225:1227 Coq.Init.Datatypes <> nat ind
-binder 1216:1221 <> target:7
-R1255:1257 Coq.Init.Datatypes <> nat ind
-binder 1246:1251 <> target:8
-scheme 1154:1162 <> CM2InstrU_rect
-scheme 1154:1162 <> CM2InstrU_ind
-scheme 1154:1162 <> CM2InstrU_rec
-scheme 1154:1162 <> CM2InstrU_sind
-def 1273:1288 <> encode_cm2_instr
-R1295:1303 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
-binder 1291:1291 <> i:9
-R1308:1310 Coq.Init.Datatypes <> nat ind
-R1323:1323 Kernel.VMUnboundedCM2Interpreter <> i:9 var
-R1334:1341 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
-R1352:1359 Kernel.VMUnboundedCM2Interpreter <> CM2_Inc0 constr
-R1370:1377 Kernel.VMUnboundedCM2Interpreter <> CM2_Inc1 constr
-R1388:1399 Kernel.VMUnboundedCM2Interpreter <> CM2_DecJump0 constr
-R1407:1409 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1411:1413 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R1420:1431 Kernel.VMUnboundedCM2Interpreter <> CM2_DecJump1 constr
-R1439:1441 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1443:1445 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-def 1467:1480 <> cm2_step_instr
-R1487:1495 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
-binder 1483:1483 <> i:11
-R1503:1512 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
-binder 1499:1499 <> c:12
-R1521:1526 Coq.Init.Datatypes <> option ind
-R1528:1537 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
-R1550:1550 Kernel.VMUnboundedCM2Interpreter <> i:11 var
-R1561:1568 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
-R1573:1576 Coq.Init.Datatypes <> None constr
-R1582:1589 Kernel.VMUnboundedCM2Interpreter <> CM2_Inc0 constr
-R1594:1597 Coq.Init.Datatypes <> Some constr
-R1602:1606 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R1602:1606 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R1602:1606 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R1624:1628 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R1624:1628 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R1646:1650 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R1646:1650 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R898:902 Coq.Arith.Arith <> <> lib
+R904:906 Coq.micromega.Lia <> <> lib
+R908:911 Coq.Lists.List <> <> lib
+R921:933 Coq.Lists.List ListNotations <> mod
+R963:969 Kernel.VMState <> <> lib
+R971:976 Kernel.VMStep <> <> lib
+R978:992 Kernel.VMUnboundedStep <> <> lib
+R1022:1047 Kernel.VMUnboundedInterpreterCode <> <> lib
+rec 1058:1067 <> CM2ConfigU
+proj 1076:1080 <> cc_pc
+proj 1091:1095 <> cc_c0
+proj 1106:1110 <> cc_c1
+R1084:1086 Coq.Init.Datatypes <> nat ind
+R1099:1101 Coq.Init.Datatypes <> nat ind
+R1114:1116 Coq.Init.Datatypes <> nat ind
+ind 1132:1140 <> CM2InstrU
+constr 1147:1154 <> CM2_Halt
+constr 1158:1165 <> CM2_Inc0
+constr 1169:1176 <> CM2_Inc1
+constr 1180:1191 <> CM2_DecJump0
+constr 1210:1221 <> CM2_DecJump1
+R1203:1205 Coq.Init.Datatypes <> nat ind
+binder 1194:1199 <> target:7
+R1233:1235 Coq.Init.Datatypes <> nat ind
+binder 1224:1229 <> target:8
+scheme 1132:1140 <> CM2InstrU_rect
+scheme 1132:1140 <> CM2InstrU_ind
+scheme 1132:1140 <> CM2InstrU_rec
+scheme 1132:1140 <> CM2InstrU_sind
+def 1251:1266 <> encode_cm2_instr
+R1273:1281 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 1269:1269 <> i:9
+R1286:1288 Coq.Init.Datatypes <> nat ind
+R1301:1301 Kernel.VMUnboundedCM2Interpreter <> i:9 var
+R1312:1319 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R1330:1337 Kernel.VMUnboundedCM2Interpreter <> CM2_Inc0 constr
+R1348:1355 Kernel.VMUnboundedCM2Interpreter <> CM2_Inc1 constr
+R1366:1377 Kernel.VMUnboundedCM2Interpreter <> CM2_DecJump0 constr
+R1385:1387 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1389:1391 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1398:1409 Kernel.VMUnboundedCM2Interpreter <> CM2_DecJump1 constr
+R1417:1419 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1421:1423 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+def 1445:1458 <> cm2_step_instr
+R1465:1473 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 1461:1461 <> i:11
+R1481:1490 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 1477:1477 <> c:12
+R1499:1504 Coq.Init.Datatypes <> option ind
+R1506:1515 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+R1528:1528 Kernel.VMUnboundedCM2Interpreter <> i:11 var
+R1539:1546 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R1551:1554 Coq.Init.Datatypes <> None constr
+R1560:1567 Kernel.VMUnboundedCM2Interpreter <> CM2_Inc0 constr
+R1572:1575 Coq.Init.Datatypes <> Some constr
+R1580:1584 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1580:1584 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1580:1584 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1602:1606 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R1602:1606 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R1624:1628 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R1624:1628 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R1589:1589 Coq.Init.Datatypes <> S constr
+R1594:1598 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1591:1591 Kernel.VMUnboundedCM2Interpreter <> c:12 var
 R1611:1611 Coq.Init.Datatypes <> S constr
-R1616:1620 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1616:1620 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
 R1613:1613 Kernel.VMUnboundedCM2Interpreter <> c:12 var
-R1633:1633 Coq.Init.Datatypes <> S constr
-R1638:1642 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R1635:1635 Kernel.VMUnboundedCM2Interpreter <> c:12 var
-R1658:1662 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R1655:1655 Kernel.VMUnboundedCM2Interpreter <> c:12 var
-R1672:1679 Kernel.VMUnboundedCM2Interpreter <> CM2_Inc1 constr
-R1684:1687 Coq.Init.Datatypes <> Some constr
-R1692:1696 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R1692:1696 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R1692:1696 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R1714:1718 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R1714:1718 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R1734:1738 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R1734:1738 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R1701:1701 Coq.Init.Datatypes <> S constr
-R1706:1710 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R1703:1703 Kernel.VMUnboundedCM2Interpreter <> c:12 var
-R1726:1730 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R1636:1640 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R1633:1633 Kernel.VMUnboundedCM2Interpreter <> c:12 var
+R1650:1657 Kernel.VMUnboundedCM2Interpreter <> CM2_Inc1 constr
+R1662:1665 Coq.Init.Datatypes <> Some constr
+R1670:1674 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1670:1674 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1670:1674 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1692:1696 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R1692:1696 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R1712:1716 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R1712:1716 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R1679:1679 Coq.Init.Datatypes <> S constr
+R1684:1688 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1681:1681 Kernel.VMUnboundedCM2Interpreter <> c:12 var
+R1704:1708 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R1701:1701 Kernel.VMUnboundedCM2Interpreter <> c:12 var
+R1721:1721 Coq.Init.Datatypes <> S constr
+R1726:1730 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
 R1723:1723 Kernel.VMUnboundedCM2Interpreter <> c:12 var
-R1743:1743 Coq.Init.Datatypes <> S constr
-R1748:1752 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R1745:1745 Kernel.VMUnboundedCM2Interpreter <> c:12 var
-R1762:1773 Kernel.VMUnboundedCM2Interpreter <> CM2_DecJump0 constr
-R1789:1795 Coq.Arith.PeanoNat Nat eqb def
-R1800:1804 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R1797:1797 Kernel.VMUnboundedCM2Interpreter <> c:12 var
-R1895:1898 Coq.Init.Datatypes <> Some constr
-R1903:1907 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R1903:1907 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R1903:1907 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R1915:1919 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R1915:1919 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R1940:1944 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R1940:1944 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R1924:1927 Coq.Init.Peano <> pred abbrev
-R1932:1936 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R1929:1929 Kernel.VMUnboundedCM2Interpreter <> c:12 var
-R1952:1956 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R1949:1949 Kernel.VMUnboundedCM2Interpreter <> c:12 var
-R1820:1823 Coq.Init.Datatypes <> Some constr
-R1828:1832 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R1828:1832 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R1828:1832 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R1850:1854 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R1850:1854 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R1862:1866 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R1862:1866 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R1837:1837 Coq.Init.Datatypes <> S constr
-R1842:1846 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R1839:1839 Kernel.VMUnboundedCM2Interpreter <> c:12 var
-R1874:1878 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R1871:1871 Kernel.VMUnboundedCM2Interpreter <> c:12 var
-R1966:1977 Kernel.VMUnboundedCM2Interpreter <> CM2_DecJump1 constr
-R1993:1999 Coq.Arith.PeanoNat Nat eqb def
-R2004:2008 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R2001:2001 Kernel.VMUnboundedCM2Interpreter <> c:12 var
-R2099:2102 Coq.Init.Datatypes <> Some constr
-R2107:2111 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R2107:2111 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R2107:2111 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R2119:2123 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R2119:2123 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R2139:2143 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R2139:2143 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R2131:2135 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R2128:2128 Kernel.VMUnboundedCM2Interpreter <> c:12 var
-R2148:2151 Coq.Init.Peano <> pred abbrev
-R2156:2160 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R2153:2153 Kernel.VMUnboundedCM2Interpreter <> c:12 var
-R2024:2027 Coq.Init.Datatypes <> Some constr
-R2032:2036 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R2032:2036 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R2032:2036 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R2054:2058 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R2054:2058 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R2074:2078 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R2074:2078 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R2041:2041 Coq.Init.Datatypes <> S constr
-R2046:2050 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R2043:2043 Kernel.VMUnboundedCM2Interpreter <> c:12 var
-R2066:2070 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R2063:2063 Kernel.VMUnboundedCM2Interpreter <> c:12 var
-ind 2184:2190 <> cm2_run
-constr 2253:2264 <> cm2_run_refl
-constr 2294:2305 <> cm2_run_step
-R2197:2200 Coq.Init.Datatypes <> list ind
-R2202:2210 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
-binder 2193:2193 <> p:14
-R2225:2228 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2215:2224 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
-R2239:2242 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2229:2238 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
-binder 2275:2275 <> c:17
-R2278:2284 Kernel.VMUnboundedCM2Interpreter <> cm2_run:15 ind
-R2290:2290 Kernel.VMUnboundedCM2Interpreter <> c:17 var
-R2288:2288 Kernel.VMUnboundedCM2Interpreter <> c:17 var
-R2286:2286 Kernel.VMUnboundedCM2Interpreter <> p:14 var
-binder 2316:2316 <> c:18
-binder 2318:2318 <> i:19
-binder 2320:2321 <> c1:20
-binder 2323:2324 <> c2:21
-R2361:2368 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2352:2354 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2331:2339 Coq.Lists.List <> nth_error def
-R2346:2350 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R2343:2343 Kernel.VMUnboundedCM2Interpreter <> c:18 var
-R2341:2341 Kernel.VMUnboundedCM2Interpreter <> p:14 var
-R2355:2358 Coq.Init.Datatypes <> Some constr
-R2360:2360 Kernel.VMUnboundedCM2Interpreter <> i:19 var
-R2397:2404 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2387:2389 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2369:2382 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
-R2384:2384 Kernel.VMUnboundedCM2Interpreter <> i:19 var
-R2386:2386 Kernel.VMUnboundedCM2Interpreter <> c:18 var
-R2390:2393 Coq.Init.Datatypes <> Some constr
-R2395:2396 Kernel.VMUnboundedCM2Interpreter <> c1:20 var
-R2420:2427 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2405:2411 Kernel.VMUnboundedCM2Interpreter <> cm2_run:15 ind
+R1740:1751 Kernel.VMUnboundedCM2Interpreter <> CM2_DecJump0 constr
+R1767:1773 Coq.Arith.PeanoNat Nat eqb def
+R1778:1782 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R1775:1775 Kernel.VMUnboundedCM2Interpreter <> c:12 var
+R1873:1876 Coq.Init.Datatypes <> Some constr
+R1881:1885 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1881:1885 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1881:1885 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1893:1897 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R1893:1897 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R1918:1922 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R1918:1922 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R1902:1905 Coq.Init.Peano <> pred abbrev
+R1910:1914 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R1907:1907 Kernel.VMUnboundedCM2Interpreter <> c:12 var
+R1930:1934 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R1927:1927 Kernel.VMUnboundedCM2Interpreter <> c:12 var
+R1798:1801 Coq.Init.Datatypes <> Some constr
+R1806:1810 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1806:1810 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1806:1810 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1828:1832 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R1828:1832 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R1840:1844 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R1840:1844 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R1815:1815 Coq.Init.Datatypes <> S constr
+R1820:1824 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R1817:1817 Kernel.VMUnboundedCM2Interpreter <> c:12 var
+R1852:1856 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R1849:1849 Kernel.VMUnboundedCM2Interpreter <> c:12 var
+R1944:1955 Kernel.VMUnboundedCM2Interpreter <> CM2_DecJump1 constr
+R1971:1977 Coq.Arith.PeanoNat Nat eqb def
+R1982:1986 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R1979:1979 Kernel.VMUnboundedCM2Interpreter <> c:12 var
+R2077:2080 Coq.Init.Datatypes <> Some constr
+R2085:2089 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R2085:2089 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R2085:2089 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R2097:2101 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R2097:2101 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R2117:2121 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R2117:2121 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R2109:2113 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R2106:2106 Kernel.VMUnboundedCM2Interpreter <> c:12 var
+R2126:2129 Coq.Init.Peano <> pred abbrev
+R2134:2138 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R2131:2131 Kernel.VMUnboundedCM2Interpreter <> c:12 var
+R2002:2005 Coq.Init.Datatypes <> Some constr
+R2010:2014 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R2010:2014 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R2010:2014 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R2032:2036 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R2032:2036 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R2052:2056 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R2052:2056 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R2019:2019 Coq.Init.Datatypes <> S constr
+R2024:2028 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R2021:2021 Kernel.VMUnboundedCM2Interpreter <> c:12 var
+R2044:2048 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R2041:2041 Kernel.VMUnboundedCM2Interpreter <> c:12 var
+ind 2162:2168 <> cm2_run
+constr 2231:2242 <> cm2_run_refl
+constr 2272:2283 <> cm2_run_step
+R2175:2178 Coq.Init.Datatypes <> list ind
+R2180:2188 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 2171:2171 <> p:14
+R2203:2206 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2193:2202 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+R2217:2220 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2207:2216 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 2253:2253 <> c:17
+R2256:2262 Kernel.VMUnboundedCM2Interpreter <> cm2_run:15 ind
+R2268:2268 Kernel.VMUnboundedCM2Interpreter <> c:17 var
+R2266:2266 Kernel.VMUnboundedCM2Interpreter <> c:17 var
+R2264:2264 Kernel.VMUnboundedCM2Interpreter <> p:14 var
+binder 2294:2294 <> c:18
+binder 2296:2296 <> i:19
+binder 2298:2299 <> c1:20
+binder 2301:2302 <> c2:21
+R2339:2346 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2330:2332 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2309:2317 Coq.Lists.List <> nth_error def
+R2324:2328 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R2321:2321 Kernel.VMUnboundedCM2Interpreter <> c:18 var
+R2319:2319 Kernel.VMUnboundedCM2Interpreter <> p:14 var
+R2333:2336 Coq.Init.Datatypes <> Some constr
+R2338:2338 Kernel.VMUnboundedCM2Interpreter <> i:19 var
+R2375:2382 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2365:2367 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2347:2360 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R2362:2362 Kernel.VMUnboundedCM2Interpreter <> i:19 var
+R2364:2364 Kernel.VMUnboundedCM2Interpreter <> c:18 var
+R2368:2371 Coq.Init.Datatypes <> Some constr
+R2373:2374 Kernel.VMUnboundedCM2Interpreter <> c1:20 var
+R2398:2405 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2383:2389 Kernel.VMUnboundedCM2Interpreter <> cm2_run:15 ind
+R2396:2397 Kernel.VMUnboundedCM2Interpreter <> c2:21 var
+R2393:2394 Kernel.VMUnboundedCM2Interpreter <> c1:20 var
+R2391:2391 Kernel.VMUnboundedCM2Interpreter <> p:14 var
+R2406:2412 Kernel.VMUnboundedCM2Interpreter <> cm2_run:15 ind
 R2418:2419 Kernel.VMUnboundedCM2Interpreter <> c2:21 var
-R2415:2416 Kernel.VMUnboundedCM2Interpreter <> c1:20 var
-R2413:2413 Kernel.VMUnboundedCM2Interpreter <> p:14 var
-R2428:2434 Kernel.VMUnboundedCM2Interpreter <> cm2_run:15 ind
-R2440:2441 Kernel.VMUnboundedCM2Interpreter <> c2:21 var
-R2438:2438 Kernel.VMUnboundedCM2Interpreter <> c:18 var
-R2436:2436 Kernel.VMUnboundedCM2Interpreter <> p:14 var
-scheme 2184:2190 <> cm2_run_ind
-scheme 2184:2190 <> cm2_run_sind
-ind 2455:2463 <> cm2_run_n
-constr 2537:2550 <> cm2_run_n_zero
-constr 2584:2597 <> cm2_run_n_succ
-R2470:2473 Coq.Init.Datatypes <> list ind
-R2475:2483 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
-binder 2466:2466 <> p:22
-R2495:2498 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2492:2494 Coq.Init.Datatypes <> nat ind
-R2509:2512 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2499:2508 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
-R2523:2526 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2513:2522 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
-binder 2561:2561 <> c:25
-R2564:2572 Kernel.VMUnboundedCM2Interpreter <> cm2_run_n:23 ind
-R2580:2580 Kernel.VMUnboundedCM2Interpreter <> c:25 var
-R2578:2578 Kernel.VMUnboundedCM2Interpreter <> c:25 var
-R2574:2574 Kernel.VMUnboundedCM2Interpreter <> p:22 var
-binder 2608:2608 <> n:26
-binder 2610:2610 <> c:27
-binder 2612:2612 <> i:28
-binder 2614:2615 <> c1:29
-binder 2617:2618 <> c2:30
-R2655:2662 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2646:2648 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2625:2633 Coq.Lists.List <> nth_error def
-R2640:2644 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R2637:2637 Kernel.VMUnboundedCM2Interpreter <> c:27 var
-R2635:2635 Kernel.VMUnboundedCM2Interpreter <> p:22 var
-R2649:2652 Coq.Init.Datatypes <> Some constr
-R2654:2654 Kernel.VMUnboundedCM2Interpreter <> i:28 var
-R2691:2698 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2681:2683 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2663:2676 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
-R2678:2678 Kernel.VMUnboundedCM2Interpreter <> i:28 var
-R2680:2680 Kernel.VMUnboundedCM2Interpreter <> c:27 var
-R2684:2687 Coq.Init.Datatypes <> Some constr
-R2689:2690 Kernel.VMUnboundedCM2Interpreter <> c1:29 var
-R2718:2725 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2699:2707 Kernel.VMUnboundedCM2Interpreter <> cm2_run_n:23 ind
-R2716:2717 Kernel.VMUnboundedCM2Interpreter <> c2:30 var
-R2713:2714 Kernel.VMUnboundedCM2Interpreter <> c1:29 var
-R2711:2711 Kernel.VMUnboundedCM2Interpreter <> n:26 var
-R2709:2709 Kernel.VMUnboundedCM2Interpreter <> p:22 var
-R2726:2734 Kernel.VMUnboundedCM2Interpreter <> cm2_run_n:23 ind
-R2746:2747 Kernel.VMUnboundedCM2Interpreter <> c2:30 var
-R2744:2744 Kernel.VMUnboundedCM2Interpreter <> c:27 var
-R2739:2739 Coq.Init.Datatypes <> S constr
-R2741:2741 Kernel.VMUnboundedCM2Interpreter <> n:26 var
-R2736:2736 Kernel.VMUnboundedCM2Interpreter <> p:22 var
-scheme 2455:2463 <> cm2_run_n_ind
-scheme 2455:2463 <> cm2_run_n_sind
-def 2762:2773 <> cm2_diverges
-R2780:2783 Coq.Init.Datatypes <> list ind
-R2785:2793 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
-binder 2776:2776 <> p:31
-R2805:2814 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
-binder 2797:2801 <> start:32
-binder 2836:2836 <> n:33
-R2839:2845 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2847:2848 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2846:2846 <> c:34
-R2849:2857 Kernel.VMUnboundedCM2Interpreter <> cm2_run_n ind
-R2859:2859 Kernel.VMUnboundedCM2Interpreter <> p:31 var
-R2861:2861 Kernel.VMUnboundedCM2Interpreter <> n:33 var
-R2863:2867 Kernel.VMUnboundedCM2Interpreter <> start:32 var
-R2869:2869 Kernel.VMUnboundedCM2Interpreter <> c:34 var
-def 2884:2891 <> cm2_word
-R2910:2912 Coq.Init.Datatypes <> nat ind
-binder 2894:2897 <> code:35
-binder 2899:2903 <> width:36
-binder 2905:2906 <> pc:37
-R2917:2919 Coq.Init.Datatypes <> nat ind
-R2926:2930 Kernel.VMUnboundedStep <> u_and def
-R2933:2937 Kernel.VMUnboundedStep <> u_shr def
-R2939:2942 Kernel.VMUnboundedCM2Interpreter <> code:35 var
-R2947:2949 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R2945:2946 Kernel.VMUnboundedCM2Interpreter <> pc:37 var
-R2950:2954 Kernel.VMUnboundedCM2Interpreter <> width:36 var
-R2959:2963 Kernel.VMUnboundedStep <> u_sub def
-R2966:2970 Kernel.VMUnboundedStep <> u_shl def
-R2974:2978 Kernel.VMUnboundedCM2Interpreter <> width:36 var
-def 2997:3019 <> cm2_interpreter_program
-R3023:3026 Coq.Init.Datatypes <> list ind
-R3028:3041 Kernel.VMStep VMStep vm_instruction ind
-R3048:3049 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3068:3115 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3136:3183 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3204:3244 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3266:3296 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3317:3352 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3373:3410 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3431:3471 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3493:3531 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3552:3586 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3605:3652 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3673:3714 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3730:3782 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3804:3848 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3869:3907 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3926:3955 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3976:4010 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4031:4071 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4086:4139 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4161:4187 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4208:4246 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4265:4294 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4316:4342 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4363:4397 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4418:4458 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4473:4526 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4548:4574 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4595:4633 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4652:4681 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4702:4736 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4755:4784 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4805:4861 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4876:4929 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R4951:4985 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5006:5040 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5059:5112 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5127:5180 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5202:5228 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5249:5287 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5306:5345 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5367:5393 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5414:5448 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5467:5496 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5517:5573 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5588:5641 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5663:5697 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5718:5752 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5771:5824 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5839:5892 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5914:5956 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R5978:5982 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6004:6008 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6030:6034 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6056:6060 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6082:6086 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6108:6112 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6134:6138 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6160:6186 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6201:6248 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6269:6313 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6329:6380 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R3050:3059 Kernel.VMStep VMStep instr_xfer constr
-R3061:3062 Kernel.VMUnboundedInterpreterCode <> R0 def
-R3116:3124 Kernel.VMStep VMStep instr_mul constr
-R3126:3127 Kernel.VMUnboundedInterpreterCode <> R1 def
-R3129:3130 Kernel.VMUnboundedInterpreterCode <> R0 def
-R3184:3192 Kernel.VMStep VMStep instr_shr constr
-R3194:3195 Kernel.VMUnboundedInterpreterCode <> R5 def
-R3200:3201 Kernel.VMUnboundedInterpreterCode <> R1 def
-R3245:3258 Kernel.VMStep VMStep instr_load_imm constr
-R3260:3261 Kernel.VMUnboundedInterpreterCode <> R2 def
-R3297:3305 Kernel.VMStep VMStep instr_shl constr
-R3307:3308 Kernel.VMUnboundedInterpreterCode <> R3 def
-R3310:3311 Kernel.VMUnboundedInterpreterCode <> R2 def
-R3353:3361 Kernel.VMStep VMStep instr_sub constr
-R3363:3364 Kernel.VMUnboundedInterpreterCode <> R3 def
-R3366:3367 Kernel.VMUnboundedInterpreterCode <> R3 def
-R3369:3370 Kernel.VMUnboundedInterpreterCode <> R2 def
-R3411:3419 Kernel.VMStep VMStep instr_and constr
-R3421:3422 Kernel.VMUnboundedInterpreterCode <> R5 def
-R3424:3425 Kernel.VMUnboundedInterpreterCode <> R5 def
-R3427:3428 Kernel.VMUnboundedInterpreterCode <> R3 def
-R3472:3485 Kernel.VMStep VMStep instr_load_imm constr
-R3487:3488 Kernel.VMUnboundedInterpreterCode <> R4 def
-R3532:3540 Kernel.VMStep VMStep instr_and constr
-R3542:3543 Kernel.VMUnboundedInterpreterCode <> R8 def
-R3545:3546 Kernel.VMUnboundedInterpreterCode <> R5 def
-R3548:3549 Kernel.VMUnboundedInterpreterCode <> R4 def
-R3587:3596 Kernel.VMStep VMStep instr_jnez constr
-R3598:3599 Kernel.VMUnboundedInterpreterCode <> R8 def
-R3653:3666 Kernel.VMStep VMStep instr_load_imm constr
-R3715:3724 Kernel.VMStep VMStep instr_jump constr
-R3783:3796 Kernel.VMStep VMStep instr_load_imm constr
-R3798:3799 Kernel.VMUnboundedInterpreterCode <> R6 def
-R3849:3857 Kernel.VMStep VMStep instr_sub constr
-R3859:3860 Kernel.VMUnboundedInterpreterCode <> R7 def
-R3862:3863 Kernel.VMUnboundedInterpreterCode <> R8 def
-R3865:3866 Kernel.VMUnboundedInterpreterCode <> R6 def
-R3908:3917 Kernel.VMStep VMStep instr_jnez constr
-R3919:3920 Kernel.VMUnboundedInterpreterCode <> R7 def
-R3956:3964 Kernel.VMStep VMStep instr_add constr
-R3972:3973 Kernel.VMUnboundedInterpreterCode <> R6 def
-R4011:4019 Kernel.VMStep VMStep instr_add constr
-R4027:4028 Kernel.VMUnboundedInterpreterCode <> R6 def
-R4072:4081 Kernel.VMStep VMStep instr_jump constr
-R4140:4153 Kernel.VMStep VMStep instr_load_imm constr
-R4155:4156 Kernel.VMUnboundedInterpreterCode <> R6 def
-R4188:4196 Kernel.VMStep VMStep instr_sub constr
-R4198:4199 Kernel.VMUnboundedInterpreterCode <> R7 def
-R4201:4202 Kernel.VMUnboundedInterpreterCode <> R8 def
-R4204:4205 Kernel.VMUnboundedInterpreterCode <> R6 def
-R4247:4256 Kernel.VMStep VMStep instr_jnez constr
-R4258:4259 Kernel.VMUnboundedInterpreterCode <> R7 def
-R4295:4308 Kernel.VMStep VMStep instr_load_imm constr
-R4310:4311 Kernel.VMUnboundedInterpreterCode <> R6 def
-R4343:4351 Kernel.VMStep VMStep instr_add constr
-R4359:4360 Kernel.VMUnboundedInterpreterCode <> R6 def
-R4398:4406 Kernel.VMStep VMStep instr_add constr
-R4414:4415 Kernel.VMUnboundedInterpreterCode <> R6 def
-R4459:4468 Kernel.VMStep VMStep instr_jump constr
-R4527:4540 Kernel.VMStep VMStep instr_load_imm constr
-R4542:4543 Kernel.VMUnboundedInterpreterCode <> R6 def
-R4575:4583 Kernel.VMStep VMStep instr_sub constr
-R4585:4586 Kernel.VMUnboundedInterpreterCode <> R7 def
-R4588:4589 Kernel.VMUnboundedInterpreterCode <> R8 def
-R4591:4592 Kernel.VMUnboundedInterpreterCode <> R6 def
-R4634:4643 Kernel.VMStep VMStep instr_jnez constr
-R4645:4646 Kernel.VMUnboundedInterpreterCode <> R7 def
-R4682:4690 Kernel.VMStep VMStep instr_shr constr
-R4692:4693 Kernel.VMUnboundedInterpreterCode <> R7 def
-R4695:4696 Kernel.VMUnboundedInterpreterCode <> R5 def
-R4698:4699 Kernel.VMUnboundedInterpreterCode <> R6 def
-R4737:4746 Kernel.VMStep VMStep instr_jnez constr
-R4785:4793 Kernel.VMStep VMStep instr_add constr
-R4801:4802 Kernel.VMUnboundedInterpreterCode <> R2 def
-R4862:4871 Kernel.VMStep VMStep instr_jump constr
-R4930:4943 Kernel.VMStep VMStep instr_load_imm constr
-R4945:4946 Kernel.VMUnboundedInterpreterCode <> R6 def
-R4986:4994 Kernel.VMStep VMStep instr_sub constr
-R5002:5003 Kernel.VMUnboundedInterpreterCode <> R6 def
-R5041:5050 Kernel.VMStep VMStep instr_xfer constr
-R5055:5056 Kernel.VMUnboundedInterpreterCode <> R7 def
-R5113:5122 Kernel.VMStep VMStep instr_jump constr
-R5181:5194 Kernel.VMStep VMStep instr_load_imm constr
-R5196:5197 Kernel.VMUnboundedInterpreterCode <> R6 def
-R5229:5237 Kernel.VMStep VMStep instr_sub constr
-R5239:5240 Kernel.VMUnboundedInterpreterCode <> R7 def
-R5242:5243 Kernel.VMUnboundedInterpreterCode <> R8 def
-R5245:5246 Kernel.VMUnboundedInterpreterCode <> R6 def
-R5288:5297 Kernel.VMStep VMStep instr_jnez constr
-R5299:5300 Kernel.VMUnboundedInterpreterCode <> R7 def
-R5346:5359 Kernel.VMStep VMStep instr_load_imm constr
-R5361:5362 Kernel.VMUnboundedInterpreterCode <> R6 def
-R5394:5402 Kernel.VMStep VMStep instr_shr constr
-R5404:5405 Kernel.VMUnboundedInterpreterCode <> R7 def
-R5407:5408 Kernel.VMUnboundedInterpreterCode <> R5 def
-R5410:5411 Kernel.VMUnboundedInterpreterCode <> R6 def
-R5449:5458 Kernel.VMStep VMStep instr_jnez constr
-R5497:5505 Kernel.VMStep VMStep instr_add constr
-R5513:5514 Kernel.VMUnboundedInterpreterCode <> R2 def
-R5574:5583 Kernel.VMStep VMStep instr_jump constr
-R5642:5655 Kernel.VMStep VMStep instr_load_imm constr
-R5657:5658 Kernel.VMUnboundedInterpreterCode <> R6 def
-R5698:5706 Kernel.VMStep VMStep instr_sub constr
-R5714:5715 Kernel.VMUnboundedInterpreterCode <> R6 def
-R5753:5762 Kernel.VMStep VMStep instr_xfer constr
-R5767:5768 Kernel.VMUnboundedInterpreterCode <> R7 def
-R5825:5834 Kernel.VMStep VMStep instr_jump constr
-R5893:5906 Kernel.VMStep VMStep instr_load_imm constr
-R5908:5909 Kernel.VMUnboundedInterpreterCode <> R0 def
-R5957:5970 Kernel.VMStep VMStep instr_load_imm constr
-R5972:5973 Kernel.VMUnboundedInterpreterCode <> R1 def
-R5983:5996 Kernel.VMStep VMStep instr_load_imm constr
-R5998:5999 Kernel.VMUnboundedInterpreterCode <> R2 def
-R6009:6022 Kernel.VMStep VMStep instr_load_imm constr
-R6024:6025 Kernel.VMUnboundedInterpreterCode <> R3 def
-R6035:6048 Kernel.VMStep VMStep instr_load_imm constr
-R6050:6051 Kernel.VMUnboundedInterpreterCode <> R4 def
-R6061:6074 Kernel.VMStep VMStep instr_load_imm constr
-R6076:6077 Kernel.VMUnboundedInterpreterCode <> R5 def
-R6087:6100 Kernel.VMStep VMStep instr_load_imm constr
-R6102:6103 Kernel.VMUnboundedInterpreterCode <> R6 def
-R6113:6126 Kernel.VMStep VMStep instr_load_imm constr
-R6128:6129 Kernel.VMUnboundedInterpreterCode <> R7 def
-R6139:6152 Kernel.VMStep VMStep instr_load_imm constr
-R6154:6155 Kernel.VMUnboundedInterpreterCode <> R8 def
-R6187:6196 Kernel.VMStep VMStep instr_jump constr
-R6249:6262 Kernel.VMStep VMStep instr_load_imm constr
-R6314:6323 Kernel.VMStep VMStep instr_jump constr
-prf 6390:6419 <> cm2_interpreter_program_length
-R6453:6455 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6423:6428 Coq.Init.Datatypes <> length def
-R6430:6452 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
-def 6644:6655 <> cm2_boundary
-R6668:6674 Kernel.VMState <> VMState rec
-binder 6658:6664 <> ambient:38
-R6691:6693 Coq.Init.Datatypes <> nat ind
-binder 6678:6681 <> code:39
-binder 6683:6687 <> width:40
-R6705:6714 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
-binder 6701:6701 <> c:41
-R6719:6725 Kernel.VMState <> VMState rec
-R6735:6742 Kernel.VMState <> vm_graph proj
-R6735:6742 Kernel.VMState <> vm_graph proj
-R6735:6742 Kernel.VMState <> vm_graph proj
-R6772:6778 Kernel.VMState <> vm_csrs proj
-R6772:6778 Kernel.VMState <> vm_csrs proj
-R6807:6813 Kernel.VMState <> vm_regs proj
-R6807:6813 Kernel.VMState <> vm_regs proj
-R6912:6917 Kernel.VMState <> vm_mem proj
-R6912:6917 Kernel.VMState <> vm_mem proj
-R6945:6949 Kernel.VMState <> vm_pc proj
-R6945:6949 Kernel.VMState <> vm_pc proj
-R6962:6966 Kernel.VMState <> vm_mu proj
-R6962:6966 Kernel.VMState <> vm_mu proj
-R6993:7004 Kernel.VMState <> vm_mu_tensor proj
-R6993:7004 Kernel.VMState <> vm_mu_tensor proj
-R7038:7043 Kernel.VMState <> vm_err proj
-R7038:7043 Kernel.VMState <> vm_err proj
-R7071:7082 Kernel.VMState <> vm_logic_acc proj
-R7071:7082 Kernel.VMState <> vm_logic_acc proj
-R7116:7125 Kernel.VMState <> vm_mstatus proj
-R7116:7125 Kernel.VMState <> vm_mstatus proj
-R7157:7166 Kernel.VMState <> vm_witness proj
-R7157:7166 Kernel.VMState <> vm_witness proj
-R7198:7209 Kernel.VMState <> vm_certified proj
-R7198:7209 Kernel.VMState <> vm_certified proj
-R6756:6763 Kernel.VMState <> vm_graph proj
-R6747:6753 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
-R6792:6798 Kernel.VMState <> vm_csrs proj
-R6783:6789 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
-R6818:6818 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6820:6820 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6822:6822 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6824:6824 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6826:6826 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6828:6828 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6830:6830 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6832:6832 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6834:6834 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6836:6836 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6838:6839 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6849:6850 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6860:6878 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6888:6889 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6895:6896 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6901:6902 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6904:6904 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R6843:6847 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R6840:6840 Kernel.VMUnboundedCM2Interpreter <> c:41 var
-R6854:6858 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R6851:6851 Kernel.VMUnboundedCM2Interpreter <> c:41 var
-R6882:6886 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R6879:6879 Kernel.VMUnboundedCM2Interpreter <> c:41 var
-R6890:6894 Kernel.VMUnboundedCM2Interpreter <> width:40 var
-R6897:6900 Kernel.VMUnboundedCM2Interpreter <> code:39 var
-R6931:6936 Kernel.VMState <> vm_mem proj
-R6922:6928 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
-R6980:6984 Kernel.VMState <> vm_mu proj
-R6971:6977 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
-R7018:7029 Kernel.VMState <> vm_mu_tensor proj
-R7009:7015 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
-R7057:7062 Kernel.VMState <> vm_err proj
-R7048:7054 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
-R7096:7107 Kernel.VMState <> vm_logic_acc proj
-R7087:7093 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
-R7139:7148 Kernel.VMState <> vm_mstatus proj
-R7130:7136 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
-R7180:7189 Kernel.VMState <> vm_witness proj
-R7171:7177 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
-R7223:7234 Kernel.VMState <> vm_certified proj
-R7214:7220 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
-rec 7249:7258 <> CM2Scratch
-proj 7267:7269 <> ms0
-proj 7278:7280 <> ms1
-proj 7289:7291 <> ms2
-proj 7300:7302 <> ms3
-proj 7311:7313 <> ms4
-proj 7324:7326 <> ms5
-proj 7335:7337 <> ms6
-proj 7346:7348 <> ms7
-proj 7357:7359 <> ms8
-proj 7368:7371 <> ms15
+R2416:2416 Kernel.VMUnboundedCM2Interpreter <> c:18 var
+R2414:2414 Kernel.VMUnboundedCM2Interpreter <> p:14 var
+scheme 2162:2168 <> cm2_run_ind
+scheme 2162:2168 <> cm2_run_sind
+ind 2433:2441 <> cm2_run_n
+constr 2515:2528 <> cm2_run_n_zero
+constr 2562:2575 <> cm2_run_n_succ
+R2448:2451 Coq.Init.Datatypes <> list ind
+R2453:2461 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 2444:2444 <> p:22
+R2473:2476 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2470:2472 Coq.Init.Datatypes <> nat ind
+R2487:2490 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2477:2486 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+R2501:2504 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2491:2500 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 2539:2539 <> c:25
+R2542:2550 Kernel.VMUnboundedCM2Interpreter <> cm2_run_n:23 ind
+R2558:2558 Kernel.VMUnboundedCM2Interpreter <> c:25 var
+R2556:2556 Kernel.VMUnboundedCM2Interpreter <> c:25 var
+R2552:2552 Kernel.VMUnboundedCM2Interpreter <> p:22 var
+binder 2586:2586 <> n:26
+binder 2588:2588 <> c:27
+binder 2590:2590 <> i:28
+binder 2592:2593 <> c1:29
+binder 2595:2596 <> c2:30
+R2633:2640 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2624:2626 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2603:2611 Coq.Lists.List <> nth_error def
+R2618:2622 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R2615:2615 Kernel.VMUnboundedCM2Interpreter <> c:27 var
+R2613:2613 Kernel.VMUnboundedCM2Interpreter <> p:22 var
+R2627:2630 Coq.Init.Datatypes <> Some constr
+R2632:2632 Kernel.VMUnboundedCM2Interpreter <> i:28 var
+R2669:2676 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2659:2661 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2641:2654 Kernel.VMUnboundedCM2Interpreter <> cm2_step_instr def
+R2656:2656 Kernel.VMUnboundedCM2Interpreter <> i:28 var
+R2658:2658 Kernel.VMUnboundedCM2Interpreter <> c:27 var
+R2662:2665 Coq.Init.Datatypes <> Some constr
+R2667:2668 Kernel.VMUnboundedCM2Interpreter <> c1:29 var
+R2696:2703 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2677:2685 Kernel.VMUnboundedCM2Interpreter <> cm2_run_n:23 ind
+R2694:2695 Kernel.VMUnboundedCM2Interpreter <> c2:30 var
+R2691:2692 Kernel.VMUnboundedCM2Interpreter <> c1:29 var
+R2689:2689 Kernel.VMUnboundedCM2Interpreter <> n:26 var
+R2687:2687 Kernel.VMUnboundedCM2Interpreter <> p:22 var
+R2704:2712 Kernel.VMUnboundedCM2Interpreter <> cm2_run_n:23 ind
+R2724:2725 Kernel.VMUnboundedCM2Interpreter <> c2:30 var
+R2722:2722 Kernel.VMUnboundedCM2Interpreter <> c:27 var
+R2717:2717 Coq.Init.Datatypes <> S constr
+R2719:2719 Kernel.VMUnboundedCM2Interpreter <> n:26 var
+R2714:2714 Kernel.VMUnboundedCM2Interpreter <> p:22 var
+scheme 2433:2441 <> cm2_run_n_ind
+scheme 2433:2441 <> cm2_run_n_sind
+def 2740:2751 <> cm2_diverges
+R2758:2761 Coq.Init.Datatypes <> list ind
+R2763:2771 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 2754:2754 <> p:31
+R2783:2792 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 2775:2779 <> start:32
+binder 2814:2814 <> n:33
+R2817:2823 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2825:2826 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2824:2824 <> c:34
+R2827:2835 Kernel.VMUnboundedCM2Interpreter <> cm2_run_n ind
+R2837:2837 Kernel.VMUnboundedCM2Interpreter <> p:31 var
+R2839:2839 Kernel.VMUnboundedCM2Interpreter <> n:33 var
+R2841:2845 Kernel.VMUnboundedCM2Interpreter <> start:32 var
+R2847:2847 Kernel.VMUnboundedCM2Interpreter <> c:34 var
+def 2862:2869 <> cm2_word
+R2888:2890 Coq.Init.Datatypes <> nat ind
+binder 2872:2875 <> code:35
+binder 2877:2881 <> width:36
+binder 2883:2884 <> pc:37
+R2895:2897 Coq.Init.Datatypes <> nat ind
+R2904:2908 Kernel.VMUnboundedStep <> u_and def
+R2911:2915 Kernel.VMUnboundedStep <> u_shr def
+R2917:2920 Kernel.VMUnboundedCM2Interpreter <> code:35 var
+R2925:2927 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2923:2924 Kernel.VMUnboundedCM2Interpreter <> pc:37 var
+R2928:2932 Kernel.VMUnboundedCM2Interpreter <> width:36 var
+R2937:2941 Kernel.VMUnboundedStep <> u_sub def
+R2944:2948 Kernel.VMUnboundedStep <> u_shl def
+R2952:2956 Kernel.VMUnboundedCM2Interpreter <> width:36 var
+def 2975:2997 <> cm2_interpreter_program
+R3001:3004 Coq.Init.Datatypes <> list ind
+R3006:3019 Kernel.VMStep VMStep vm_instruction ind
+R3026:3027 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3046:3093 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3114:3161 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3182:3222 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3244:3274 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3295:3330 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3351:3388 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3409:3449 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3471:3509 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3530:3564 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3583:3630 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3651:3692 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3708:3760 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3782:3826 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3847:3885 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3904:3933 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3954:3988 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4009:4049 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4064:4117 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4139:4165 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4186:4224 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4243:4272 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4294:4320 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4341:4375 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4396:4436 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4451:4504 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4526:4552 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4573:4611 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4630:4659 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4680:4714 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4733:4762 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4783:4839 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4854:4907 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4929:4963 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4984:5018 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5037:5090 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5105:5158 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5180:5206 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5227:5265 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5284:5323 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5345:5371 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5392:5426 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5445:5474 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5495:5551 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5566:5619 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5641:5675 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5696:5730 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5749:5802 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5817:5870 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5892:5934 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5956:5960 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5982:5986 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6008:6012 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6034:6038 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6060:6064 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6086:6090 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6112:6116 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6138:6164 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6179:6226 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6247:6291 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6307:6358 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3028:3037 Kernel.VMStep VMStep instr_xfer constr
+R3039:3040 Kernel.VMUnboundedInterpreterCode <> R0 def
+R3094:3102 Kernel.VMStep VMStep instr_mul constr
+R3104:3105 Kernel.VMUnboundedInterpreterCode <> R1 def
+R3107:3108 Kernel.VMUnboundedInterpreterCode <> R0 def
+R3162:3170 Kernel.VMStep VMStep instr_shr constr
+R3172:3173 Kernel.VMUnboundedInterpreterCode <> R5 def
+R3178:3179 Kernel.VMUnboundedInterpreterCode <> R1 def
+R3223:3236 Kernel.VMStep VMStep instr_load_imm constr
+R3238:3239 Kernel.VMUnboundedInterpreterCode <> R2 def
+R3275:3283 Kernel.VMStep VMStep instr_shl constr
+R3285:3286 Kernel.VMUnboundedInterpreterCode <> R3 def
+R3288:3289 Kernel.VMUnboundedInterpreterCode <> R2 def
+R3331:3339 Kernel.VMStep VMStep instr_sub constr
+R3341:3342 Kernel.VMUnboundedInterpreterCode <> R3 def
+R3344:3345 Kernel.VMUnboundedInterpreterCode <> R3 def
+R3347:3348 Kernel.VMUnboundedInterpreterCode <> R2 def
+R3389:3397 Kernel.VMStep VMStep instr_and constr
+R3399:3400 Kernel.VMUnboundedInterpreterCode <> R5 def
+R3402:3403 Kernel.VMUnboundedInterpreterCode <> R5 def
+R3405:3406 Kernel.VMUnboundedInterpreterCode <> R3 def
+R3450:3463 Kernel.VMStep VMStep instr_load_imm constr
+R3465:3466 Kernel.VMUnboundedInterpreterCode <> R4 def
+R3510:3518 Kernel.VMStep VMStep instr_and constr
+R3520:3521 Kernel.VMUnboundedInterpreterCode <> R8 def
+R3523:3524 Kernel.VMUnboundedInterpreterCode <> R5 def
+R3526:3527 Kernel.VMUnboundedInterpreterCode <> R4 def
+R3565:3574 Kernel.VMStep VMStep instr_jnez constr
+R3576:3577 Kernel.VMUnboundedInterpreterCode <> R8 def
+R3631:3644 Kernel.VMStep VMStep instr_load_imm constr
+R3693:3702 Kernel.VMStep VMStep instr_jump constr
+R3761:3774 Kernel.VMStep VMStep instr_load_imm constr
+R3776:3777 Kernel.VMUnboundedInterpreterCode <> R6 def
+R3827:3835 Kernel.VMStep VMStep instr_sub constr
+R3837:3838 Kernel.VMUnboundedInterpreterCode <> R7 def
+R3840:3841 Kernel.VMUnboundedInterpreterCode <> R8 def
+R3843:3844 Kernel.VMUnboundedInterpreterCode <> R6 def
+R3886:3895 Kernel.VMStep VMStep instr_jnez constr
+R3897:3898 Kernel.VMUnboundedInterpreterCode <> R7 def
+R3934:3942 Kernel.VMStep VMStep instr_add constr
+R3950:3951 Kernel.VMUnboundedInterpreterCode <> R6 def
+R3989:3997 Kernel.VMStep VMStep instr_add constr
+R4005:4006 Kernel.VMUnboundedInterpreterCode <> R6 def
+R4050:4059 Kernel.VMStep VMStep instr_jump constr
+R4118:4131 Kernel.VMStep VMStep instr_load_imm constr
+R4133:4134 Kernel.VMUnboundedInterpreterCode <> R6 def
+R4166:4174 Kernel.VMStep VMStep instr_sub constr
+R4176:4177 Kernel.VMUnboundedInterpreterCode <> R7 def
+R4179:4180 Kernel.VMUnboundedInterpreterCode <> R8 def
+R4182:4183 Kernel.VMUnboundedInterpreterCode <> R6 def
+R4225:4234 Kernel.VMStep VMStep instr_jnez constr
+R4236:4237 Kernel.VMUnboundedInterpreterCode <> R7 def
+R4273:4286 Kernel.VMStep VMStep instr_load_imm constr
+R4288:4289 Kernel.VMUnboundedInterpreterCode <> R6 def
+R4321:4329 Kernel.VMStep VMStep instr_add constr
+R4337:4338 Kernel.VMUnboundedInterpreterCode <> R6 def
+R4376:4384 Kernel.VMStep VMStep instr_add constr
+R4392:4393 Kernel.VMUnboundedInterpreterCode <> R6 def
+R4437:4446 Kernel.VMStep VMStep instr_jump constr
+R4505:4518 Kernel.VMStep VMStep instr_load_imm constr
+R4520:4521 Kernel.VMUnboundedInterpreterCode <> R6 def
+R4553:4561 Kernel.VMStep VMStep instr_sub constr
+R4563:4564 Kernel.VMUnboundedInterpreterCode <> R7 def
+R4566:4567 Kernel.VMUnboundedInterpreterCode <> R8 def
+R4569:4570 Kernel.VMUnboundedInterpreterCode <> R6 def
+R4612:4621 Kernel.VMStep VMStep instr_jnez constr
+R4623:4624 Kernel.VMUnboundedInterpreterCode <> R7 def
+R4660:4668 Kernel.VMStep VMStep instr_shr constr
+R4670:4671 Kernel.VMUnboundedInterpreterCode <> R7 def
+R4673:4674 Kernel.VMUnboundedInterpreterCode <> R5 def
+R4676:4677 Kernel.VMUnboundedInterpreterCode <> R6 def
+R4715:4724 Kernel.VMStep VMStep instr_jnez constr
+R4763:4771 Kernel.VMStep VMStep instr_add constr
+R4779:4780 Kernel.VMUnboundedInterpreterCode <> R2 def
+R4840:4849 Kernel.VMStep VMStep instr_jump constr
+R4908:4921 Kernel.VMStep VMStep instr_load_imm constr
+R4923:4924 Kernel.VMUnboundedInterpreterCode <> R6 def
+R4964:4972 Kernel.VMStep VMStep instr_sub constr
+R4980:4981 Kernel.VMUnboundedInterpreterCode <> R6 def
+R5019:5028 Kernel.VMStep VMStep instr_xfer constr
+R5033:5034 Kernel.VMUnboundedInterpreterCode <> R7 def
+R5091:5100 Kernel.VMStep VMStep instr_jump constr
+R5159:5172 Kernel.VMStep VMStep instr_load_imm constr
+R5174:5175 Kernel.VMUnboundedInterpreterCode <> R6 def
+R5207:5215 Kernel.VMStep VMStep instr_sub constr
+R5217:5218 Kernel.VMUnboundedInterpreterCode <> R7 def
+R5220:5221 Kernel.VMUnboundedInterpreterCode <> R8 def
+R5223:5224 Kernel.VMUnboundedInterpreterCode <> R6 def
+R5266:5275 Kernel.VMStep VMStep instr_jnez constr
+R5277:5278 Kernel.VMUnboundedInterpreterCode <> R7 def
+R5324:5337 Kernel.VMStep VMStep instr_load_imm constr
+R5339:5340 Kernel.VMUnboundedInterpreterCode <> R6 def
+R5372:5380 Kernel.VMStep VMStep instr_shr constr
+R5382:5383 Kernel.VMUnboundedInterpreterCode <> R7 def
+R5385:5386 Kernel.VMUnboundedInterpreterCode <> R5 def
+R5388:5389 Kernel.VMUnboundedInterpreterCode <> R6 def
+R5427:5436 Kernel.VMStep VMStep instr_jnez constr
+R5475:5483 Kernel.VMStep VMStep instr_add constr
+R5491:5492 Kernel.VMUnboundedInterpreterCode <> R2 def
+R5552:5561 Kernel.VMStep VMStep instr_jump constr
+R5620:5633 Kernel.VMStep VMStep instr_load_imm constr
+R5635:5636 Kernel.VMUnboundedInterpreterCode <> R6 def
+R5676:5684 Kernel.VMStep VMStep instr_sub constr
+R5692:5693 Kernel.VMUnboundedInterpreterCode <> R6 def
+R5731:5740 Kernel.VMStep VMStep instr_xfer constr
+R5745:5746 Kernel.VMUnboundedInterpreterCode <> R7 def
+R5803:5812 Kernel.VMStep VMStep instr_jump constr
+R5871:5884 Kernel.VMStep VMStep instr_load_imm constr
+R5886:5887 Kernel.VMUnboundedInterpreterCode <> R0 def
+R5935:5948 Kernel.VMStep VMStep instr_load_imm constr
+R5950:5951 Kernel.VMUnboundedInterpreterCode <> R1 def
+R5961:5974 Kernel.VMStep VMStep instr_load_imm constr
+R5976:5977 Kernel.VMUnboundedInterpreterCode <> R2 def
+R5987:6000 Kernel.VMStep VMStep instr_load_imm constr
+R6002:6003 Kernel.VMUnboundedInterpreterCode <> R3 def
+R6013:6026 Kernel.VMStep VMStep instr_load_imm constr
+R6028:6029 Kernel.VMUnboundedInterpreterCode <> R4 def
+R6039:6052 Kernel.VMStep VMStep instr_load_imm constr
+R6054:6055 Kernel.VMUnboundedInterpreterCode <> R5 def
+R6065:6078 Kernel.VMStep VMStep instr_load_imm constr
+R6080:6081 Kernel.VMUnboundedInterpreterCode <> R6 def
+R6091:6104 Kernel.VMStep VMStep instr_load_imm constr
+R6106:6107 Kernel.VMUnboundedInterpreterCode <> R7 def
+R6117:6130 Kernel.VMStep VMStep instr_load_imm constr
+R6132:6133 Kernel.VMUnboundedInterpreterCode <> R8 def
+R6165:6174 Kernel.VMStep VMStep instr_jump constr
+R6227:6240 Kernel.VMStep VMStep instr_load_imm constr
+R6292:6301 Kernel.VMStep VMStep instr_jump constr
+prf 6368:6397 <> cm2_interpreter_program_length
+R6431:6433 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6401:6406 Coq.Init.Datatypes <> length def
+R6408:6430 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+def 6622:6633 <> cm2_boundary
+R6646:6652 Kernel.VMState <> VMState rec
+binder 6636:6642 <> ambient:38
+R6669:6671 Coq.Init.Datatypes <> nat ind
+binder 6656:6659 <> code:39
+binder 6661:6665 <> width:40
+R6683:6692 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 6679:6679 <> c:41
+R6697:6703 Kernel.VMState <> VMState rec
+R6713:6720 Kernel.VMState <> vm_graph proj
+R6713:6720 Kernel.VMState <> vm_graph proj
+R6713:6720 Kernel.VMState <> vm_graph proj
+R6750:6756 Kernel.VMState <> vm_csrs proj
+R6750:6756 Kernel.VMState <> vm_csrs proj
+R6785:6791 Kernel.VMState <> vm_regs proj
+R6785:6791 Kernel.VMState <> vm_regs proj
+R6890:6895 Kernel.VMState <> vm_mem proj
+R6890:6895 Kernel.VMState <> vm_mem proj
+R6923:6927 Kernel.VMState <> vm_pc proj
+R6923:6927 Kernel.VMState <> vm_pc proj
+R6940:6944 Kernel.VMState <> vm_mu proj
+R6940:6944 Kernel.VMState <> vm_mu proj
+R6971:6982 Kernel.VMState <> vm_mu_tensor proj
+R6971:6982 Kernel.VMState <> vm_mu_tensor proj
+R7016:7021 Kernel.VMState <> vm_err proj
+R7016:7021 Kernel.VMState <> vm_err proj
+R7049:7060 Kernel.VMState <> vm_logic_acc proj
+R7049:7060 Kernel.VMState <> vm_logic_acc proj
+R7094:7103 Kernel.VMState <> vm_mstatus proj
+R7094:7103 Kernel.VMState <> vm_mstatus proj
+R7135:7144 Kernel.VMState <> vm_witness proj
+R7135:7144 Kernel.VMState <> vm_witness proj
+R7176:7187 Kernel.VMState <> vm_certified proj
+R7176:7187 Kernel.VMState <> vm_certified proj
+R6734:6741 Kernel.VMState <> vm_graph proj
+R6725:6731 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
+R6770:6776 Kernel.VMState <> vm_csrs proj
+R6761:6767 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
+R6796:6796 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6798:6798 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6800:6800 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6802:6802 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6804:6804 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6806:6806 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6808:6808 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6810:6810 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6812:6812 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6814:6814 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6816:6817 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6827:6828 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6838:6856 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6866:6867 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6873:6874 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6879:6880 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6882:6882 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6821:6825 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R6818:6818 Kernel.VMUnboundedCM2Interpreter <> c:41 var
+R6832:6836 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R6829:6829 Kernel.VMUnboundedCM2Interpreter <> c:41 var
+R6860:6864 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R6857:6857 Kernel.VMUnboundedCM2Interpreter <> c:41 var
+R6868:6872 Kernel.VMUnboundedCM2Interpreter <> width:40 var
+R6875:6878 Kernel.VMUnboundedCM2Interpreter <> code:39 var
+R6909:6914 Kernel.VMState <> vm_mem proj
+R6900:6906 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
+R6958:6962 Kernel.VMState <> vm_mu proj
+R6949:6955 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
+R6996:7007 Kernel.VMState <> vm_mu_tensor proj
+R6987:6993 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
+R7035:7040 Kernel.VMState <> vm_err proj
+R7026:7032 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
+R7074:7085 Kernel.VMState <> vm_logic_acc proj
+R7065:7071 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
+R7117:7126 Kernel.VMState <> vm_mstatus proj
+R7108:7114 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
+R7158:7167 Kernel.VMState <> vm_witness proj
+R7149:7155 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
+R7201:7212 Kernel.VMState <> vm_certified proj
+R7192:7198 Kernel.VMUnboundedCM2Interpreter <> ambient:38 var
+rec 7227:7236 <> CM2Scratch
+proj 7245:7247 <> ms0
+proj 7256:7258 <> ms1
+proj 7267:7269 <> ms2
+proj 7278:7280 <> ms3
+proj 7289:7291 <> ms4
+proj 7302:7304 <> ms5
+proj 7313:7315 <> ms6
+proj 7324:7326 <> ms7
+proj 7335:7337 <> ms8
+proj 7346:7349 <> ms15
+R7251:7253 Coq.Init.Datatypes <> nat ind
+R7262:7264 Coq.Init.Datatypes <> nat ind
 R7273:7275 Coq.Init.Datatypes <> nat ind
 R7284:7286 Coq.Init.Datatypes <> nat ind
 R7295:7297 Coq.Init.Datatypes <> nat ind
-R7306:7308 Coq.Init.Datatypes <> nat ind
-R7317:7319 Coq.Init.Datatypes <> nat ind
+R7308:7310 Coq.Init.Datatypes <> nat ind
+R7319:7321 Coq.Init.Datatypes <> nat ind
 R7330:7332 Coq.Init.Datatypes <> nat ind
 R7341:7343 Coq.Init.Datatypes <> nat ind
-R7352:7354 Coq.Init.Datatypes <> nat ind
-R7363:7365 Coq.Init.Datatypes <> nat ind
-R7375:7377 Coq.Init.Datatypes <> nat ind
-def 7394:7407 <> cm2_boundary_s
-R7420:7426 Kernel.VMState <> VMState rec
-binder 7410:7416 <> ambient:53
-R7443:7445 Coq.Init.Datatypes <> nat ind
-binder 7430:7433 <> code:54
-binder 7435:7439 <> width:55
-R7457:7466 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
-binder 7453:7453 <> c:56
-R7474:7483 Kernel.VMUnboundedCM2Interpreter <> CM2Scratch rec
-binder 7470:7470 <> z:57
-R7488:7494 Kernel.VMState <> VMState rec
-R7504:7511 Kernel.VMState <> vm_graph proj
-R7504:7511 Kernel.VMState <> vm_graph proj
-R7504:7511 Kernel.VMState <> vm_graph proj
-R7536:7542 Kernel.VMState <> vm_csrs proj
-R7536:7542 Kernel.VMState <> vm_csrs proj
-R7571:7577 Kernel.VMState <> vm_regs proj
-R7571:7577 Kernel.VMState <> vm_regs proj
-R7763:7768 Kernel.VMState <> vm_mem proj
-R7763:7768 Kernel.VMState <> vm_mem proj
-R7791:7795 Kernel.VMState <> vm_pc proj
-R7791:7795 Kernel.VMState <> vm_pc proj
-R7803:7807 Kernel.VMState <> vm_mu proj
-R7803:7807 Kernel.VMState <> vm_mu proj
-R7834:7845 Kernel.VMState <> vm_mu_tensor proj
-R7834:7845 Kernel.VMState <> vm_mu_tensor proj
-R7874:7879 Kernel.VMState <> vm_err proj
-R7874:7879 Kernel.VMState <> vm_err proj
-R7907:7918 Kernel.VMState <> vm_logic_acc proj
-R7907:7918 Kernel.VMState <> vm_logic_acc proj
-R7947:7956 Kernel.VMState <> vm_mstatus proj
-R7947:7956 Kernel.VMState <> vm_mstatus proj
-R7988:7997 Kernel.VMState <> vm_witness proj
-R7988:7997 Kernel.VMState <> vm_witness proj
-R8024:8035 Kernel.VMState <> vm_certified proj
-R8024:8035 Kernel.VMState <> vm_certified proj
-R7525:7532 Kernel.VMState <> vm_graph proj
-R7516:7522 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
-R7556:7562 Kernel.VMState <> vm_csrs proj
-R7547:7553 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
-R7582:7582 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7590:7591 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7599:7600 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7608:7609 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7617:7618 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7626:7644 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7652:7653 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7661:7662 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7670:7671 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7679:7680 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7682:7700 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7353:7355 Coq.Init.Datatypes <> nat ind
+def 7372:7385 <> cm2_boundary_s
+R7398:7404 Kernel.VMState <> VMState rec
+binder 7388:7394 <> ambient:53
+R7421:7423 Coq.Init.Datatypes <> nat ind
+binder 7408:7411 <> code:54
+binder 7413:7417 <> width:55
+R7435:7444 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 7431:7431 <> c:56
+R7452:7461 Kernel.VMUnboundedCM2Interpreter <> CM2Scratch rec
+binder 7448:7448 <> z:57
+R7466:7472 Kernel.VMState <> VMState rec
+R7482:7489 Kernel.VMState <> vm_graph proj
+R7482:7489 Kernel.VMState <> vm_graph proj
+R7482:7489 Kernel.VMState <> vm_graph proj
+R7514:7520 Kernel.VMState <> vm_csrs proj
+R7514:7520 Kernel.VMState <> vm_csrs proj
+R7549:7555 Kernel.VMState <> vm_regs proj
+R7549:7555 Kernel.VMState <> vm_regs proj
+R7741:7746 Kernel.VMState <> vm_mem proj
+R7741:7746 Kernel.VMState <> vm_mem proj
+R7769:7773 Kernel.VMState <> vm_pc proj
+R7769:7773 Kernel.VMState <> vm_pc proj
+R7781:7785 Kernel.VMState <> vm_mu proj
+R7781:7785 Kernel.VMState <> vm_mu proj
+R7812:7823 Kernel.VMState <> vm_mu_tensor proj
+R7812:7823 Kernel.VMState <> vm_mu_tensor proj
+R7852:7857 Kernel.VMState <> vm_err proj
+R7852:7857 Kernel.VMState <> vm_err proj
+R7885:7896 Kernel.VMState <> vm_logic_acc proj
+R7885:7896 Kernel.VMState <> vm_logic_acc proj
+R7925:7934 Kernel.VMState <> vm_mstatus proj
+R7925:7934 Kernel.VMState <> vm_mstatus proj
+R7966:7975 Kernel.VMState <> vm_witness proj
+R7966:7975 Kernel.VMState <> vm_witness proj
+R8002:8013 Kernel.VMState <> vm_certified proj
+R8002:8013 Kernel.VMState <> vm_certified proj
+R7503:7510 Kernel.VMState <> vm_graph proj
+R7494:7500 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
+R7534:7540 Kernel.VMState <> vm_csrs proj
+R7525:7531 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
+R7560:7560 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7568:7569 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7577:7578 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7586:7587 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7595:7596 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7604:7622 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7630:7631 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7639:7640 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7648:7649 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7657:7658 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7660:7678 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7688:7689 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7699:7700 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
 R7710:7711 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7721:7722 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7732:7733 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7739:7740 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7745:7746 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7755:7755 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7586:7588 Kernel.VMUnboundedCM2Interpreter <> ms0 proj
-R7583:7583 Kernel.VMUnboundedCM2Interpreter <> z:57 var
-R7595:7597 Kernel.VMUnboundedCM2Interpreter <> ms1 proj
-R7592:7592 Kernel.VMUnboundedCM2Interpreter <> z:57 var
-R7604:7606 Kernel.VMUnboundedCM2Interpreter <> ms2 proj
-R7601:7601 Kernel.VMUnboundedCM2Interpreter <> z:57 var
-R7613:7615 Kernel.VMUnboundedCM2Interpreter <> ms3 proj
-R7610:7610 Kernel.VMUnboundedCM2Interpreter <> z:57 var
-R7622:7624 Kernel.VMUnboundedCM2Interpreter <> ms4 proj
-R7619:7619 Kernel.VMUnboundedCM2Interpreter <> z:57 var
-R7648:7650 Kernel.VMUnboundedCM2Interpreter <> ms5 proj
-R7645:7645 Kernel.VMUnboundedCM2Interpreter <> z:57 var
-R7657:7659 Kernel.VMUnboundedCM2Interpreter <> ms6 proj
-R7654:7654 Kernel.VMUnboundedCM2Interpreter <> z:57 var
-R7666:7668 Kernel.VMUnboundedCM2Interpreter <> ms7 proj
-R7663:7663 Kernel.VMUnboundedCM2Interpreter <> z:57 var
-R7675:7677 Kernel.VMUnboundedCM2Interpreter <> ms8 proj
-R7672:7672 Kernel.VMUnboundedCM2Interpreter <> z:57 var
-R7704:7708 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R7717:7718 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7723:7724 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7733:7733 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7564:7566 Kernel.VMUnboundedCM2Interpreter <> ms0 proj
+R7561:7561 Kernel.VMUnboundedCM2Interpreter <> z:57 var
+R7573:7575 Kernel.VMUnboundedCM2Interpreter <> ms1 proj
+R7570:7570 Kernel.VMUnboundedCM2Interpreter <> z:57 var
+R7582:7584 Kernel.VMUnboundedCM2Interpreter <> ms2 proj
+R7579:7579 Kernel.VMUnboundedCM2Interpreter <> z:57 var
+R7591:7593 Kernel.VMUnboundedCM2Interpreter <> ms3 proj
+R7588:7588 Kernel.VMUnboundedCM2Interpreter <> z:57 var
+R7600:7602 Kernel.VMUnboundedCM2Interpreter <> ms4 proj
+R7597:7597 Kernel.VMUnboundedCM2Interpreter <> z:57 var
+R7626:7628 Kernel.VMUnboundedCM2Interpreter <> ms5 proj
+R7623:7623 Kernel.VMUnboundedCM2Interpreter <> z:57 var
+R7635:7637 Kernel.VMUnboundedCM2Interpreter <> ms6 proj
+R7632:7632 Kernel.VMUnboundedCM2Interpreter <> z:57 var
+R7644:7646 Kernel.VMUnboundedCM2Interpreter <> ms7 proj
+R7641:7641 Kernel.VMUnboundedCM2Interpreter <> z:57 var
+R7653:7655 Kernel.VMUnboundedCM2Interpreter <> ms8 proj
+R7650:7650 Kernel.VMUnboundedCM2Interpreter <> z:57 var
+R7682:7686 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R7679:7679 Kernel.VMUnboundedCM2Interpreter <> c:56 var
+R7693:7697 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R7690:7690 Kernel.VMUnboundedCM2Interpreter <> c:56 var
+R7704:7708 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
 R7701:7701 Kernel.VMUnboundedCM2Interpreter <> c:56 var
-R7715:7719 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R7712:7712 Kernel.VMUnboundedCM2Interpreter <> c:56 var
-R7726:7730 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R7723:7723 Kernel.VMUnboundedCM2Interpreter <> c:56 var
-R7734:7738 Kernel.VMUnboundedCM2Interpreter <> width:55 var
-R7741:7744 Kernel.VMUnboundedCM2Interpreter <> code:54 var
-R7750:7753 Kernel.VMUnboundedCM2Interpreter <> ms15 proj
-R7747:7747 Kernel.VMUnboundedCM2Interpreter <> z:57 var
-R7782:7787 Kernel.VMState <> vm_mem proj
-R7773:7779 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
-R7821:7825 Kernel.VMState <> vm_mu proj
-R7812:7818 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
-R7859:7870 Kernel.VMState <> vm_mu_tensor proj
-R7850:7856 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
-R7893:7898 Kernel.VMState <> vm_err proj
-R7884:7890 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
-R7932:7943 Kernel.VMState <> vm_logic_acc proj
-R7923:7929 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
-R7970:7979 Kernel.VMState <> vm_mstatus proj
-R7961:7967 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
-R8011:8020 Kernel.VMState <> vm_witness proj
-R8002:8008 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
-R8049:8060 Kernel.VMState <> vm_certified proj
-R8040:8046 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
-def 8079:8085 <> cm2_rep
-R8101:8103 Coq.Init.Datatypes <> nat ind
-binder 8088:8091 <> code:58
-binder 8093:8097 <> width:59
-R8111:8120 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
-binder 8107:8107 <> c:60
-R8128:8134 Kernel.VMState <> VMState rec
-binder 8124:8124 <> s:61
-R8149:8155 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R8165:8166 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 8156:8162 <> ambient:62
-binder 8164:8164 <> z:63
-R8168:8170 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8167:8167 Kernel.VMUnboundedCM2Interpreter <> s:61 var
-R8171:8184 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_s def
-R8186:8192 Kernel.VMUnboundedCM2Interpreter <> ambient:62 var
-R8194:8197 Kernel.VMUnboundedCM2Interpreter <> code:58 var
-R8199:8203 Kernel.VMUnboundedCM2Interpreter <> width:59 var
-R8205:8205 Kernel.VMUnboundedCM2Interpreter <> c:60 var
-R8207:8207 Kernel.VMUnboundedCM2Interpreter <> z:63 var
-def 8222:8235 <> cm2_host_steps
-R8242:8250 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
-binder 8238:8238 <> i:64
-R8258:8267 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
-binder 8254:8254 <> c:65
-R8272:8274 Coq.Init.Datatypes <> nat ind
-R8287:8287 Kernel.VMUnboundedCM2Interpreter <> i:64 var
-R8298:8305 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
-R8317:8324 Kernel.VMUnboundedCM2Interpreter <> CM2_Inc0 constr
-R8336:8343 Kernel.VMUnboundedCM2Interpreter <> CM2_Inc1 constr
-R8355:8366 Kernel.VMUnboundedCM2Interpreter <> CM2_DecJump0 constr
-R8376:8382 Coq.Arith.PeanoNat Nat eqb def
-R8387:8391 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R8384:8384 Kernel.VMUnboundedCM2Interpreter <> c:65 var
-R8416:8427 Kernel.VMUnboundedCM2Interpreter <> CM2_DecJump1 constr
-R8437:8443 Coq.Arith.PeanoNat Nat eqb def
-R8448:8452 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
-R8445:8445 Kernel.VMUnboundedCM2Interpreter <> c:65 var
-def 8492:8507 <> zero_cm2_scratch
-R8511:8520 Kernel.VMUnboundedCM2Interpreter <> CM2Scratch rec
-R8530:8532 Kernel.VMUnboundedCM2Interpreter <> ms0 proj
-R8530:8532 Kernel.VMUnboundedCM2Interpreter <> ms0 proj
-R8530:8532 Kernel.VMUnboundedCM2Interpreter <> ms0 proj
-R8540:8542 Kernel.VMUnboundedCM2Interpreter <> ms1 proj
-R8540:8542 Kernel.VMUnboundedCM2Interpreter <> ms1 proj
-R8550:8552 Kernel.VMUnboundedCM2Interpreter <> ms2 proj
-R8550:8552 Kernel.VMUnboundedCM2Interpreter <> ms2 proj
-R8560:8562 Kernel.VMUnboundedCM2Interpreter <> ms3 proj
-R8560:8562 Kernel.VMUnboundedCM2Interpreter <> ms3 proj
-R8570:8572 Kernel.VMUnboundedCM2Interpreter <> ms4 proj
-R8570:8572 Kernel.VMUnboundedCM2Interpreter <> ms4 proj
-R8585:8587 Kernel.VMUnboundedCM2Interpreter <> ms5 proj
-R8585:8587 Kernel.VMUnboundedCM2Interpreter <> ms5 proj
-R8595:8597 Kernel.VMUnboundedCM2Interpreter <> ms6 proj
-R8595:8597 Kernel.VMUnboundedCM2Interpreter <> ms6 proj
-R8605:8607 Kernel.VMUnboundedCM2Interpreter <> ms7 proj
-R8605:8607 Kernel.VMUnboundedCM2Interpreter <> ms7 proj
-R8615:8617 Kernel.VMUnboundedCM2Interpreter <> ms8 proj
-R8615:8617 Kernel.VMUnboundedCM2Interpreter <> ms8 proj
-R8625:8628 Kernel.VMUnboundedCM2Interpreter <> ms15 proj
-R8625:8628 Kernel.VMUnboundedCM2Interpreter <> ms15 proj
-prf 8646:8664 <> cm2_boundary_is_rep
-binder 8675:8681 <> ambient:67
-binder 8683:8686 <> code:68
-binder 8688:8692 <> width:69
-binder 8694:8694 <> c:70
-R8699:8705 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
-R8707:8710 Kernel.VMUnboundedCM2Interpreter <> code:68 var
-R8712:8716 Kernel.VMUnboundedCM2Interpreter <> width:69 var
-R8718:8718 Kernel.VMUnboundedCM2Interpreter <> c:70 var
-R8721:8732 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary def
-R8734:8740 Kernel.VMUnboundedCM2Interpreter <> ambient:67 var
-R8742:8745 Kernel.VMUnboundedCM2Interpreter <> code:68 var
-R8747:8751 Kernel.VMUnboundedCM2Interpreter <> width:69 var
-R8753:8753 Kernel.VMUnboundedCM2Interpreter <> c:70 var
-R8790:8805 Kernel.VMUnboundedCM2Interpreter <> zero_cm2_scratch def
-R8790:8805 Kernel.VMUnboundedCM2Interpreter <> zero_cm2_scratch def
-R8817:8828 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary def
-R8831:8844 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_s def
-R8847:8862 Kernel.VMUnboundedCM2Interpreter <> zero_cm2_scratch def
-def 8895:8904 <> cm2_halted
-R8911:8917 Kernel.VMState <> VMState rec
-binder 8907:8907 <> s:71
-R8974:8977 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8941:8943 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8935:8939 Kernel.VMState <> vm_pc proj
-R8932:8932 Kernel.VMUnboundedCM2Interpreter <> s:71 var
-R8944:8949 Coq.Init.Datatypes <> length def
-R8951:8973 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
-R8990:8992 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8978:8985 Kernel.VMState <> read_reg def
-R8987:8987 Kernel.VMUnboundedCM2Interpreter <> s:71 var
-def 9008:9020 <> cm2_malformed
-R9027:9033 Kernel.VMState <> VMState rec
-binder 9023:9023 <> s:72
-R9090:9093 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9057:9059 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9051:9055 Kernel.VMState <> vm_pc proj
-R9048:9048 Kernel.VMUnboundedCM2Interpreter <> s:72 var
-R9060:9065 Coq.Init.Datatypes <> length def
-R9067:9089 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
-R9106:9108 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9094:9101 Kernel.VMState <> read_reg def
-R9103:9103 Kernel.VMUnboundedCM2Interpreter <> s:72 var
-def 9124:9135 <> cm2_halt_rep
-R9151:9153 Coq.Init.Datatypes <> nat ind
-binder 9138:9141 <> code:73
-binder 9143:9147 <> width:74
-R9161:9170 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
-binder 9157:9157 <> c:75
-R9178:9184 Kernel.VMState <> VMState rec
-binder 9174:9174 <> s:76
-R9199:9205 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R9215:9220 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 9206:9212 <> ambient:77
-binder 9214:9214 <> z:78
-R9222:9231 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9809:9811 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9221:9221 Kernel.VMUnboundedCM2Interpreter <> s:76 var
-R9232:9239 Kernel.VMState <> vm_graph proj
-R9232:9239 Kernel.VMState <> vm_graph proj
-R9232:9239 Kernel.VMState <> vm_graph proj
-R9264:9270 Kernel.VMState <> vm_csrs proj
-R9264:9270 Kernel.VMState <> vm_csrs proj
-R9301:9307 Kernel.VMState <> vm_regs proj
-R9301:9307 Kernel.VMState <> vm_regs proj
-R9503:9508 Kernel.VMState <> vm_mem proj
-R9503:9508 Kernel.VMState <> vm_mem proj
-R9531:9535 Kernel.VMState <> vm_pc proj
-R9531:9535 Kernel.VMState <> vm_pc proj
-R9544:9548 Kernel.VMState <> vm_mu proj
-R9544:9548 Kernel.VMState <> vm_mu proj
-R9577:9588 Kernel.VMState <> vm_mu_tensor proj
-R9577:9588 Kernel.VMState <> vm_mu_tensor proj
-R9617:9622 Kernel.VMState <> vm_err proj
-R9617:9622 Kernel.VMState <> vm_err proj
-R9652:9663 Kernel.VMState <> vm_logic_acc proj
-R9652:9663 Kernel.VMState <> vm_logic_acc proj
-R9692:9701 Kernel.VMState <> vm_mstatus proj
-R9692:9701 Kernel.VMState <> vm_mstatus proj
-R9735:9744 Kernel.VMState <> vm_witness proj
-R9735:9744 Kernel.VMState <> vm_witness proj
-R9771:9782 Kernel.VMState <> vm_certified proj
-R9771:9782 Kernel.VMState <> vm_certified proj
-R9253:9260 Kernel.VMState <> vm_graph proj
-R9244:9250 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
-R9284:9290 Kernel.VMState <> vm_csrs proj
-R9275:9281 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
-R9312:9312 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9322:9323 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9341:9342 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9344:9364 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9388:9389 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9391:9392 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9394:9395 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9403:9404 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9412:9413 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9415:9416 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9418:9438 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7712:7716 Kernel.VMUnboundedCM2Interpreter <> width:55 var
+R7719:7722 Kernel.VMUnboundedCM2Interpreter <> code:54 var
+R7728:7731 Kernel.VMUnboundedCM2Interpreter <> ms15 proj
+R7725:7725 Kernel.VMUnboundedCM2Interpreter <> z:57 var
+R7760:7765 Kernel.VMState <> vm_mem proj
+R7751:7757 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
+R7799:7803 Kernel.VMState <> vm_mu proj
+R7790:7796 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
+R7837:7848 Kernel.VMState <> vm_mu_tensor proj
+R7828:7834 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
+R7871:7876 Kernel.VMState <> vm_err proj
+R7862:7868 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
+R7910:7921 Kernel.VMState <> vm_logic_acc proj
+R7901:7907 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
+R7948:7957 Kernel.VMState <> vm_mstatus proj
+R7939:7945 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
+R7989:7998 Kernel.VMState <> vm_witness proj
+R7980:7986 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
+R8027:8038 Kernel.VMState <> vm_certified proj
+R8018:8024 Kernel.VMUnboundedCM2Interpreter <> ambient:53 var
+def 8057:8063 <> cm2_rep
+R8079:8081 Coq.Init.Datatypes <> nat ind
+binder 8066:8069 <> code:58
+binder 8071:8075 <> width:59
+R8089:8098 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 8085:8085 <> c:60
+R8106:8112 Kernel.VMState <> VMState rec
+binder 8102:8102 <> s:61
+R8127:8133 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8143:8144 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8134:8140 <> ambient:62
+binder 8142:8142 <> z:63
+R8146:8148 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8145:8145 Kernel.VMUnboundedCM2Interpreter <> s:61 var
+R8149:8162 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_s def
+R8164:8170 Kernel.VMUnboundedCM2Interpreter <> ambient:62 var
+R8172:8175 Kernel.VMUnboundedCM2Interpreter <> code:58 var
+R8177:8181 Kernel.VMUnboundedCM2Interpreter <> width:59 var
+R8183:8183 Kernel.VMUnboundedCM2Interpreter <> c:60 var
+R8185:8185 Kernel.VMUnboundedCM2Interpreter <> z:63 var
+def 8200:8213 <> cm2_host_steps
+R8220:8228 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 8216:8216 <> i:64
+R8236:8245 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 8232:8232 <> c:65
+R8250:8252 Coq.Init.Datatypes <> nat ind
+R8265:8265 Kernel.VMUnboundedCM2Interpreter <> i:64 var
+R8276:8283 Kernel.VMUnboundedCM2Interpreter <> CM2_Halt constr
+R8295:8302 Kernel.VMUnboundedCM2Interpreter <> CM2_Inc0 constr
+R8314:8321 Kernel.VMUnboundedCM2Interpreter <> CM2_Inc1 constr
+R8333:8344 Kernel.VMUnboundedCM2Interpreter <> CM2_DecJump0 constr
+R8354:8360 Coq.Arith.PeanoNat Nat eqb def
+R8365:8369 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R8362:8362 Kernel.VMUnboundedCM2Interpreter <> c:65 var
+R8394:8405 Kernel.VMUnboundedCM2Interpreter <> CM2_DecJump1 constr
+R8415:8421 Coq.Arith.PeanoNat Nat eqb def
+R8426:8430 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R8423:8423 Kernel.VMUnboundedCM2Interpreter <> c:65 var
+def 8470:8485 <> zero_cm2_scratch
+R8489:8498 Kernel.VMUnboundedCM2Interpreter <> CM2Scratch rec
+R8508:8510 Kernel.VMUnboundedCM2Interpreter <> ms0 proj
+R8508:8510 Kernel.VMUnboundedCM2Interpreter <> ms0 proj
+R8508:8510 Kernel.VMUnboundedCM2Interpreter <> ms0 proj
+R8518:8520 Kernel.VMUnboundedCM2Interpreter <> ms1 proj
+R8518:8520 Kernel.VMUnboundedCM2Interpreter <> ms1 proj
+R8528:8530 Kernel.VMUnboundedCM2Interpreter <> ms2 proj
+R8528:8530 Kernel.VMUnboundedCM2Interpreter <> ms2 proj
+R8538:8540 Kernel.VMUnboundedCM2Interpreter <> ms3 proj
+R8538:8540 Kernel.VMUnboundedCM2Interpreter <> ms3 proj
+R8548:8550 Kernel.VMUnboundedCM2Interpreter <> ms4 proj
+R8548:8550 Kernel.VMUnboundedCM2Interpreter <> ms4 proj
+R8563:8565 Kernel.VMUnboundedCM2Interpreter <> ms5 proj
+R8563:8565 Kernel.VMUnboundedCM2Interpreter <> ms5 proj
+R8573:8575 Kernel.VMUnboundedCM2Interpreter <> ms6 proj
+R8573:8575 Kernel.VMUnboundedCM2Interpreter <> ms6 proj
+R8583:8585 Kernel.VMUnboundedCM2Interpreter <> ms7 proj
+R8583:8585 Kernel.VMUnboundedCM2Interpreter <> ms7 proj
+R8593:8595 Kernel.VMUnboundedCM2Interpreter <> ms8 proj
+R8593:8595 Kernel.VMUnboundedCM2Interpreter <> ms8 proj
+R8603:8606 Kernel.VMUnboundedCM2Interpreter <> ms15 proj
+R8603:8606 Kernel.VMUnboundedCM2Interpreter <> ms15 proj
+prf 8624:8642 <> cm2_boundary_is_rep
+binder 8653:8659 <> ambient:67
+binder 8661:8664 <> code:68
+binder 8666:8670 <> width:69
+binder 8672:8672 <> c:70
+R8677:8683 Kernel.VMUnboundedCM2Interpreter <> cm2_rep def
+R8685:8688 Kernel.VMUnboundedCM2Interpreter <> code:68 var
+R8690:8694 Kernel.VMUnboundedCM2Interpreter <> width:69 var
+R8696:8696 Kernel.VMUnboundedCM2Interpreter <> c:70 var
+R8699:8710 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary def
+R8712:8718 Kernel.VMUnboundedCM2Interpreter <> ambient:67 var
+R8720:8723 Kernel.VMUnboundedCM2Interpreter <> code:68 var
+R8725:8729 Kernel.VMUnboundedCM2Interpreter <> width:69 var
+R8731:8731 Kernel.VMUnboundedCM2Interpreter <> c:70 var
+R8768:8783 Kernel.VMUnboundedCM2Interpreter <> zero_cm2_scratch def
+R8768:8783 Kernel.VMUnboundedCM2Interpreter <> zero_cm2_scratch def
+R8795:8806 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary def
+R8809:8822 Kernel.VMUnboundedCM2Interpreter <> cm2_boundary_s def
+R8825:8840 Kernel.VMUnboundedCM2Interpreter <> zero_cm2_scratch def
+def 8873:8882 <> cm2_halted
+R8889:8895 Kernel.VMState <> VMState rec
+binder 8885:8885 <> s:71
+R8952:8955 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8919:8921 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8913:8917 Kernel.VMState <> vm_pc proj
+R8910:8910 Kernel.VMUnboundedCM2Interpreter <> s:71 var
+R8922:8927 Coq.Init.Datatypes <> length def
+R8929:8951 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R8968:8970 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8956:8963 Kernel.VMState <> read_reg def
+R8965:8965 Kernel.VMUnboundedCM2Interpreter <> s:71 var
+def 8986:8998 <> cm2_malformed
+R9005:9011 Kernel.VMState <> VMState rec
+binder 9001:9001 <> s:72
+R9068:9071 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9035:9037 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9029:9033 Kernel.VMState <> vm_pc proj
+R9026:9026 Kernel.VMUnboundedCM2Interpreter <> s:72 var
+R9038:9043 Coq.Init.Datatypes <> length def
+R9045:9067 Kernel.VMUnboundedCM2Interpreter <> cm2_interpreter_program def
+R9084:9086 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9072:9079 Kernel.VMState <> read_reg def
+R9081:9081 Kernel.VMUnboundedCM2Interpreter <> s:72 var
+def 9102:9113 <> cm2_halt_rep
+R9129:9131 Coq.Init.Datatypes <> nat ind
+binder 9116:9119 <> code:73
+binder 9121:9125 <> width:74
+R9139:9148 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 9135:9135 <> c:75
+R9156:9162 Kernel.VMState <> VMState rec
+binder 9152:9152 <> s:76
+R9177:9183 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9193:9198 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9184:9190 <> ambient:77
+binder 9192:9192 <> z:78
+R9200:9209 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9787:9789 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9199:9199 Kernel.VMUnboundedCM2Interpreter <> s:76 var
+R9210:9217 Kernel.VMState <> vm_graph proj
+R9210:9217 Kernel.VMState <> vm_graph proj
+R9210:9217 Kernel.VMState <> vm_graph proj
+R9242:9248 Kernel.VMState <> vm_csrs proj
+R9242:9248 Kernel.VMState <> vm_csrs proj
+R9279:9285 Kernel.VMState <> vm_regs proj
+R9279:9285 Kernel.VMState <> vm_regs proj
+R9481:9486 Kernel.VMState <> vm_mem proj
+R9481:9486 Kernel.VMState <> vm_mem proj
+R9509:9513 Kernel.VMState <> vm_pc proj
+R9509:9513 Kernel.VMState <> vm_pc proj
+R9522:9526 Kernel.VMState <> vm_mu proj
+R9522:9526 Kernel.VMState <> vm_mu proj
+R9555:9566 Kernel.VMState <> vm_mu_tensor proj
+R9555:9566 Kernel.VMState <> vm_mu_tensor proj
+R9595:9600 Kernel.VMState <> vm_err proj
+R9595:9600 Kernel.VMState <> vm_err proj
+R9630:9641 Kernel.VMState <> vm_logic_acc proj
+R9630:9641 Kernel.VMState <> vm_logic_acc proj
+R9670:9679 Kernel.VMState <> vm_mstatus proj
+R9670:9679 Kernel.VMState <> vm_mstatus proj
+R9713:9722 Kernel.VMState <> vm_witness proj
+R9713:9722 Kernel.VMState <> vm_witness proj
+R9749:9760 Kernel.VMState <> vm_certified proj
+R9749:9760 Kernel.VMState <> vm_certified proj
+R9231:9238 Kernel.VMState <> vm_graph proj
+R9222:9228 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
+R9262:9268 Kernel.VMState <> vm_csrs proj
+R9253:9259 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
+R9290:9290 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9300:9301 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9319:9320 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9322:9342 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9366:9367 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9369:9370 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9372:9373 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9381:9382 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9390:9391 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9393:9394 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9396:9416 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9426:9427 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9437:9438 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
 R9448:9449 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9459:9460 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9470:9471 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9477:9478 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9483:9484 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9493:9493 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R9316:9320 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R9313:9313 Kernel.VMUnboundedCM2Interpreter <> c:75 var
-R9333:9335 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R9327:9331 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R9324:9324 Kernel.VMUnboundedCM2Interpreter <> c:75 var
-R9336:9340 Kernel.VMUnboundedCM2Interpreter <> width:74 var
-R9365:9369 Kernel.VMUnboundedStep <> u_sub def
-R9372:9376 Kernel.VMUnboundedStep <> u_shl def
-R9380:9384 Kernel.VMUnboundedCM2Interpreter <> width:74 var
-R9399:9401 Kernel.VMUnboundedCM2Interpreter <> ms6 proj
-R9396:9396 Kernel.VMUnboundedCM2Interpreter <> z:78 var
-R9408:9410 Kernel.VMUnboundedCM2Interpreter <> ms7 proj
-R9405:9405 Kernel.VMUnboundedCM2Interpreter <> z:78 var
-R9442:9446 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R9455:9456 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9461:9462 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9471:9471 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9294:9298 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R9291:9291 Kernel.VMUnboundedCM2Interpreter <> c:75 var
+R9311:9313 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R9305:9309 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
+R9302:9302 Kernel.VMUnboundedCM2Interpreter <> c:75 var
+R9314:9318 Kernel.VMUnboundedCM2Interpreter <> width:74 var
+R9343:9347 Kernel.VMUnboundedStep <> u_sub def
+R9350:9354 Kernel.VMUnboundedStep <> u_shl def
+R9358:9362 Kernel.VMUnboundedCM2Interpreter <> width:74 var
+R9377:9379 Kernel.VMUnboundedCM2Interpreter <> ms6 proj
+R9374:9374 Kernel.VMUnboundedCM2Interpreter <> z:78 var
+R9386:9388 Kernel.VMUnboundedCM2Interpreter <> ms7 proj
+R9383:9383 Kernel.VMUnboundedCM2Interpreter <> z:78 var
+R9420:9424 Kernel.VMUnboundedCM2Interpreter <> cc_c1 proj
+R9417:9417 Kernel.VMUnboundedCM2Interpreter <> c:75 var
+R9431:9435 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
+R9428:9428 Kernel.VMUnboundedCM2Interpreter <> c:75 var
+R9442:9446 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
 R9439:9439 Kernel.VMUnboundedCM2Interpreter <> c:75 var
-R9453:9457 Kernel.VMUnboundedCM2Interpreter <> cc_c0 proj
-R9450:9450 Kernel.VMUnboundedCM2Interpreter <> c:75 var
-R9464:9468 Kernel.VMUnboundedCM2Interpreter <> cc_pc proj
-R9461:9461 Kernel.VMUnboundedCM2Interpreter <> c:75 var
-R9472:9476 Kernel.VMUnboundedCM2Interpreter <> width:74 var
-R9479:9482 Kernel.VMUnboundedCM2Interpreter <> code:73 var
-R9488:9491 Kernel.VMUnboundedCM2Interpreter <> ms15 proj
-R9485:9485 Kernel.VMUnboundedCM2Interpreter <> z:78 var
-R9522:9527 Kernel.VMState <> vm_mem proj
-R9513:9519 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
-R9562:9566 Kernel.VMState <> vm_mu proj
-R9553:9559 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
-R9602:9613 Kernel.VMState <> vm_mu_tensor proj
-R9593:9599 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
-R9636:9641 Kernel.VMState <> vm_err proj
-R9627:9633 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
-R9677:9688 Kernel.VMState <> vm_logic_acc proj
-R9668:9674 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
-R9715:9724 Kernel.VMState <> vm_mstatus proj
-R9706:9712 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
-R9758:9767 Kernel.VMState <> vm_witness proj
-R9749:9755 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
-R9796:9807 Kernel.VMState <> vm_certified proj
-R9787:9793 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
-def 9970:9978 <> cm2_traps
-R9986:9989 Coq.Init.Datatypes <> list ind
-R9991:9999 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
-binder 9981:9982 <> _p:79
-R10008:10017 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
-binder 10003:10004 <> _c:80
-R10030:10034 Coq.Init.Logic <> False ind
+R9450:9454 Kernel.VMUnboundedCM2Interpreter <> width:74 var
+R9457:9460 Kernel.VMUnboundedCM2Interpreter <> code:73 var
+R9466:9469 Kernel.VMUnboundedCM2Interpreter <> ms15 proj
+R9463:9463 Kernel.VMUnboundedCM2Interpreter <> z:78 var
+R9500:9505 Kernel.VMState <> vm_mem proj
+R9491:9497 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
+R9540:9544 Kernel.VMState <> vm_mu proj
+R9531:9537 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
+R9580:9591 Kernel.VMState <> vm_mu_tensor proj
+R9571:9577 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
+R9614:9619 Kernel.VMState <> vm_err proj
+R9605:9611 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
+R9655:9666 Kernel.VMState <> vm_logic_acc proj
+R9646:9652 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
+R9693:9702 Kernel.VMState <> vm_mstatus proj
+R9684:9690 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
+R9736:9745 Kernel.VMState <> vm_witness proj
+R9727:9733 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
+R9774:9785 Kernel.VMState <> vm_certified proj
+R9765:9771 Kernel.VMUnboundedCM2Interpreter <> ambient:77 var
+def 9948:9956 <> cm2_traps
+R9964:9967 Coq.Init.Datatypes <> list ind
+R9969:9977 Kernel.VMUnboundedCM2Interpreter <> CM2InstrU ind
+binder 9959:9960 <> _p:79
+R9986:9995 Kernel.VMUnboundedCM2Interpreter <> CM2ConfigU rec
+binder 9981:9982 <> _c:80
+R10008:10012 Coq.Init.Logic <> False ind

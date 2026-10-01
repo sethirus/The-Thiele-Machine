@@ -1,4 +1,4 @@
-DIGEST 702d93d911a25e5193fe225865bb8f7d
+DIGEST bb45eb22c4a7cb802c181218fc71f42d
 FKernel.RecordAxisDiscrimination
 R1141:1144 Coq.Lists.List <> <> lib
 R1146:1149 Coq.Bool.Bool <> <> lib
@@ -6,19 +6,19 @@ R1151:1164 Coq.Arith.PeanoNat <> <> lib
 R1166:1168 Coq.micromega.Lia <> <> lib
 R1178:1190 Coq.Lists.List ListNotations <> mod
 R1220:1233 Kernel.StructuralCore <> <> lib
-R1235:1254 Kernel.StructuralCoreRound2 <> <> lib
-R1256:1275 Kernel.StructuralCoreRound4 <> <> lib
+R1235:1253 Kernel.StructuralCoreCover <> <> lib
+R1255:1275 Kernel.StructuralCoreAnyBase <> <> lib
 R1305:1326 Kernel.PermanentCertification <> <> lib
 sec 1376:1380 <> Latch
 var 1393:1393 Latch B
-R1397:1407 Kernel.StructuralCoreRound4 <> BaseMachine rec
+R1397:1407 Kernel.StructuralCoreAnyBase <> BaseMachine rec
 var 1419:1419 Latch h
 R1432:1435 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1423:1429 Kernel.StructuralCoreRound4 <> b_state proj
+R1423:1429 Kernel.StructuralCoreAnyBase <> b_state proj
 R1431:1431 Kernel.RecordAxisDiscrimination <> Latch.B var
 R1436:1439 Coq.Init.Datatypes <> bool ind
 def 1454:1462 <> flip_cost
-R1469:1475 Kernel.StructuralCoreRound4 <> b_state proj
+R1469:1475 Kernel.StructuralCoreAnyBase <> b_state proj
 R1477:1477 Kernel.RecordAxisDiscrimination <> Latch.B var
 binder 1465:1465 <> b:3
 R1485:1488 Coq.Init.Datatypes <> bool ind
@@ -44,7 +44,7 @@ R1883:1891 Kernel.StructuralCore <> rc_halted proj
 R1883:1891 Kernel.StructuralCore <> rc_halted proj
 R1605:1607 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
 R1598:1600 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R1589:1595 Kernel.StructuralCoreRound4 <> b_state proj
+R1589:1595 Kernel.StructuralCoreAnyBase <> b_state proj
 R1597:1597 Kernel.RecordAxisDiscrimination <> Latch.B var
 R1601:1604 Coq.Init.Datatypes <> bool ind
 R1608:1610 Coq.Init.Datatypes <> nat ind
@@ -58,7 +58,7 @@ R1662:1662 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1673:1674 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1686:1687 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1705:1705 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1663:1668 Kernel.StructuralCoreRound4 <> b_next proj
+R1663:1668 Kernel.StructuralCoreAnyBase <> b_next proj
 R1670:1670 Kernel.RecordAxisDiscrimination <> Latch.B var
 R1675:1677 Coq.Init.Datatypes <> orb def
 R1682:1682 Kernel.RecordAxisDiscrimination <> Latch.h var
@@ -71,7 +71,7 @@ R1737:1738 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1740:1741 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1743:1743 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1763:1766 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1753:1758 Kernel.StructuralCoreRound4 <> b_init proj
+R1753:1758 Kernel.StructuralCoreAnyBase <> b_init proj
 R1760:1760 Kernel.RecordAxisDiscrimination <> Latch.B var
 R1776:1779 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
 R1768:1770 Coq.Init.Logic <> ::type_scope:x_'='_x not
@@ -95,13 +95,13 @@ R1910:1910 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1912:1913 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1915:1916 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R1918:1918 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1928:1935 Kernel.StructuralCoreRound4 <> b_halted proj
+R1928:1935 Kernel.StructuralCoreAnyBase <> b_halted proj
 R1937:1937 Kernel.RecordAxisDiscrimination <> Latch.B var
 def 1957:1967 <> latch_cover
-R1971:1979 Kernel.StructuralCoreRound4 <> BaseCover rec
+R1971:1979 Kernel.StructuralCoreAnyBase <> BaseCover rec
 R1981:1989 Kernel.RecordAxisDiscrimination <> LatchCore def
 R1991:1991 Kernel.RecordAxisDiscrimination <> Latch.B var
-R2011:2025 Kernel.StructuralCoreRound4 <> Build_BaseCover constr
+R2011:2025 Kernel.StructuralCoreAnyBase <> Build_BaseCover constr
 R2027:2035 Kernel.RecordAxisDiscrimination <> LatchCore def
 R2037:2037 Kernel.RecordAxisDiscrimination <> Latch.B var
 binder 2044:2044 <> x:15
@@ -110,7 +110,7 @@ R2054:2054 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R2056:2057 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R2059:2060 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R2062:2062 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2011:2025 Kernel.StructuralCoreRound4 <> Build_BaseCover constr
+R2011:2025 Kernel.StructuralCoreAnyBase <> Build_BaseCover constr
 R2027:2035 Kernel.RecordAxisDiscrimination <> LatchCore def
 R2037:2037 Kernel.RecordAxisDiscrimination <> Latch.B var
 binder 2044:2044 <> x:17
@@ -137,7 +137,7 @@ R2349:2350 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
 binder 2345:2346 <> b0:19
 binder 2348:2348 <> n:20
 R2362:2370 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2351:2356 Kernel.StructuralCoreRound4 <> b_init proj
+R2351:2356 Kernel.StructuralCoreAnyBase <> b_init proj
 R2358:2358 Kernel.RecordAxisDiscrimination <> Latch.B var
 R2360:2361 Kernel.RecordAxisDiscrimination <> b0:19 var
 R2389:2394 Kernel.StructuralCore <> rc_run def
@@ -159,340 +159,340 @@ R2430:2434 Coq.Init.Datatypes <> false constr
 R2442:2444 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R2439:2439 Kernel.RecordAxisDiscrimination <> Latch.h var
 R2445:2448 Coq.Init.Datatypes <> true constr
-R2456:2471 Kernel.StructuralCoreRound4 <> HonestExtension4 def
-R2473:2481 Kernel.RecordAxisDiscrimination <> LatchCore def
-R2483:2483 Kernel.RecordAxisDiscrimination <> Latch.B var
-R2485:2495 Kernel.RecordAxisDiscrimination <> latch_cover def
-binder 2559:2559 <> b:21
-binder 2561:2561 <> r:22
-R2566:2568 Coq.Init.Datatypes <> orb def
-R2573:2573 Kernel.RecordAxisDiscrimination <> Latch.h var
-R2575:2575 Kernel.RecordAxisDiscrimination <> b:21 var
-R2570:2570 Kernel.RecordAxisDiscrimination <> r:22 var
-binder 2559:2559 <> b:23
-binder 2561:2561 <> r:24
-R2566:2568 Coq.Init.Datatypes <> orb def
-R2573:2573 Kernel.RecordAxisDiscrimination <> Latch.h var
-R2575:2575 Kernel.RecordAxisDiscrimination <> b:23 var
-R2570:2570 Kernel.RecordAxisDiscrimination <> r:24 var
-R2701:2709 Kernel.StructuralCore <> step_cost def
-R2767:2775 Kernel.RecordAxisDiscrimination <> flip_cost def
-R2881:2881 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2884:2885 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2891:2892 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2894:2894 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2886:2890 Coq.Init.Datatypes <> false constr
-R2881:2881 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2884:2885 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2891:2892 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2894:2894 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2886:2890 Coq.Init.Datatypes <> false constr
-R2968:2973 Kernel.StructuralCore <> rc_run def
-R2975:2983 Kernel.RecordAxisDiscrimination <> LatchCore def
-R2987:2987 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2990:2991 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2997:2998 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3000:3000 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2992:2996 Coq.Init.Datatypes <> false constr
-R2968:2973 Kernel.StructuralCore <> rc_run def
-R2975:2983 Kernel.RecordAxisDiscrimination <> LatchCore def
-R2987:2987 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2990:2991 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2997:2998 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3000:3000 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R2992:2996 Coq.Init.Datatypes <> false constr
-R3141:3145 Kernel.RecordAxisDiscrimination Latch <> sec
-sec 3207:3213 <> History
-var 3226:3226 History B
-R3230:3240 Kernel.StructuralCoreRound4 <> BaseMachine rec
-var 3252:3252 History h
-R3265:3268 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3256:3262 Kernel.StructuralCoreRound4 <> b_state proj
-R3264:3264 Kernel.RecordAxisDiscrimination <> History.B var
-R3269:3272 Coq.Init.Datatypes <> bool ind
-def 3341:3352 <> HistoryLatch
-R3356:3358 Kernel.StructuralCore <> RCM rec
-R3368:3375 Kernel.StructuralCore <> rc_state proj
-R3368:3375 Kernel.StructuralCore <> rc_state proj
-R3368:3375 Kernel.StructuralCore <> rc_state proj
-R3418:3424 Kernel.StructuralCore <> rc_next proj
-R3418:3424 Kernel.StructuralCore <> rc_next proj
-R3534:3540 Kernel.StructuralCore <> rc_init proj
-R3534:3540 Kernel.StructuralCore <> rc_init proj
-R3636:3642 Kernel.StructuralCore <> rc_cert proj
-R3636:3642 Kernel.StructuralCore <> rc_cert proj
-R3687:3691 Kernel.StructuralCore <> rc_mu proj
-R3687:3691 Kernel.StructuralCore <> rc_mu proj
-R3736:3744 Kernel.StructuralCore <> rc_halted proj
-R3736:3744 Kernel.StructuralCore <> rc_halted proj
-R3408:3410 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R3396:3398 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R3389:3391 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R3380:3386 Kernel.StructuralCoreRound4 <> b_state proj
-R3388:3388 Kernel.RecordAxisDiscrimination <> History.B var
-R3392:3395 Coq.Init.Datatypes <> bool ind
-R3399:3402 Coq.Init.Datatypes <> list ind
-R3404:3407 Coq.Init.Datatypes <> bool ind
-R3411:3413 Coq.Init.Datatypes <> nat ind
-binder 3433:3433 <> x:27
-R3462:3462 Kernel.RecordAxisDiscrimination <> x:27 var
-R3443:3443 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3445:3446 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2456:2474 Kernel.StructuralCoreAnyBase <> HonestBaseExtension def
+R2476:2484 Kernel.RecordAxisDiscrimination <> LatchCore def
+R2486:2486 Kernel.RecordAxisDiscrimination <> Latch.B var
+R2488:2498 Kernel.RecordAxisDiscrimination <> latch_cover def
+binder 2562:2562 <> b:21
+binder 2564:2564 <> r:22
+R2569:2571 Coq.Init.Datatypes <> orb def
+R2576:2576 Kernel.RecordAxisDiscrimination <> Latch.h var
+R2578:2578 Kernel.RecordAxisDiscrimination <> b:21 var
+R2573:2573 Kernel.RecordAxisDiscrimination <> r:22 var
+binder 2562:2562 <> b:23
+binder 2564:2564 <> r:24
+R2569:2571 Coq.Init.Datatypes <> orb def
+R2576:2576 Kernel.RecordAxisDiscrimination <> Latch.h var
+R2578:2578 Kernel.RecordAxisDiscrimination <> b:23 var
+R2573:2573 Kernel.RecordAxisDiscrimination <> r:24 var
+R2704:2712 Kernel.StructuralCore <> step_cost def
+R2770:2778 Kernel.RecordAxisDiscrimination <> flip_cost def
+R2884:2884 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2887:2888 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2894:2895 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2897:2897 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2889:2893 Coq.Init.Datatypes <> false constr
+R2884:2884 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2887:2888 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2894:2895 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2897:2897 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2889:2893 Coq.Init.Datatypes <> false constr
+R2971:2976 Kernel.StructuralCore <> rc_run def
+R2978:2986 Kernel.RecordAxisDiscrimination <> LatchCore def
+R2990:2990 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2993:2994 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3000:3001 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3003:3003 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2995:2999 Coq.Init.Datatypes <> false constr
+R2971:2976 Kernel.StructuralCore <> rc_run def
+R2978:2986 Kernel.RecordAxisDiscrimination <> LatchCore def
+R2990:2990 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2993:2994 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3000:3001 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3003:3003 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2995:2999 Coq.Init.Datatypes <> false constr
+R3144:3148 Kernel.RecordAxisDiscrimination Latch <> sec
+sec 3210:3216 <> History
+var 3229:3229 History B
+R3233:3243 Kernel.StructuralCoreAnyBase <> BaseMachine rec
+var 3255:3255 History h
+R3268:3271 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3259:3265 Kernel.StructuralCoreAnyBase <> b_state proj
+R3267:3267 Kernel.RecordAxisDiscrimination <> History.B var
+R3272:3275 Coq.Init.Datatypes <> bool ind
+def 3344:3355 <> HistoryLatch
+R3359:3361 Kernel.StructuralCore <> RCM rec
+R3371:3378 Kernel.StructuralCore <> rc_state proj
+R3371:3378 Kernel.StructuralCore <> rc_state proj
+R3371:3378 Kernel.StructuralCore <> rc_state proj
+R3421:3427 Kernel.StructuralCore <> rc_next proj
+R3421:3427 Kernel.StructuralCore <> rc_next proj
+R3537:3543 Kernel.StructuralCore <> rc_init proj
+R3537:3543 Kernel.StructuralCore <> rc_init proj
+R3639:3645 Kernel.StructuralCore <> rc_cert proj
+R3639:3645 Kernel.StructuralCore <> rc_cert proj
+R3690:3694 Kernel.StructuralCore <> rc_mu proj
+R3690:3694 Kernel.StructuralCore <> rc_mu proj
+R3739:3747 Kernel.StructuralCore <> rc_halted proj
+R3739:3747 Kernel.StructuralCore <> rc_halted proj
+R3411:3413 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3399:3401 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3392:3394 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R3383:3389 Kernel.StructuralCoreAnyBase <> b_state proj
+R3391:3391 Kernel.RecordAxisDiscrimination <> History.B var
+R3395:3398 Coq.Init.Datatypes <> bool ind
+R3402:3405 Coq.Init.Datatypes <> list ind
+R3407:3410 Coq.Init.Datatypes <> bool ind
+R3414:3416 Coq.Init.Datatypes <> nat ind
+binder 3436:3436 <> x:27
+R3465:3465 Kernel.RecordAxisDiscrimination <> x:27 var
+R3446:3446 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R3448:3449 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3454:3455 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3457:3457 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3471:3471 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3482:3483 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3495:3496 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3506:3507 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3529:3529 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3472:3477 Kernel.StructuralCoreRound4 <> b_next proj
-R3479:3479 Kernel.RecordAxisDiscrimination <> History.B var
-R3484:3486 Coq.Init.Datatypes <> orb def
-R3491:3491 Kernel.RecordAxisDiscrimination <> History.h var
-R3498:3501 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3509:3511 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3512:3520 Kernel.RecordAxisDiscrimination <> flip_cost def
-R3524:3524 Kernel.RecordAxisDiscrimination <> History.h var
-R3522:3522 Kernel.RecordAxisDiscrimination <> History.B var
-binder 3549:3549 <> x:29
-R3578:3578 Kernel.RecordAxisDiscrimination <> x:29 var
-R3559:3559 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3561:3562 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3451:3452 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3457:3458 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3460:3460 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3474:3474 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3485:3486 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3498:3499 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3509:3510 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3532:3532 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3475:3480 Kernel.StructuralCoreAnyBase <> b_next proj
+R3482:3482 Kernel.RecordAxisDiscrimination <> History.B var
+R3487:3489 Coq.Init.Datatypes <> orb def
+R3494:3494 Kernel.RecordAxisDiscrimination <> History.h var
+R3501:3504 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3512:3514 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3515:3523 Kernel.RecordAxisDiscrimination <> flip_cost def
+R3527:3527 Kernel.RecordAxisDiscrimination <> History.h var
+R3525:3525 Kernel.RecordAxisDiscrimination <> History.B var
+binder 3552:3552 <> x:29
+R3581:3581 Kernel.RecordAxisDiscrimination <> x:29 var
+R3562:3562 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R3564:3565 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3570:3571 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3573:3573 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3597:3600 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3587:3592 Kernel.StructuralCoreRound4 <> b_init proj
-R3594:3594 Kernel.RecordAxisDiscrimination <> History.B var
-R3610:3613 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3602:3604 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3605:3609 Coq.Init.Datatypes <> false constr
-R3623:3626 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3618:3620 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3621:3622 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3628:3630 Coq.Init.Logic <> ::type_scope:x_'='_x not
-binder 3651:3651 <> x:31
-R3677:3677 Kernel.RecordAxisDiscrimination <> x:31 var
-R3661:3661 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3663:3664 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3567:3568 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3573:3574 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3576:3576 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3600:3603 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3590:3595 Kernel.StructuralCoreAnyBase <> b_init proj
+R3597:3597 Kernel.RecordAxisDiscrimination <> History.B var
+R3613:3616 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3605:3607 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3608:3612 Coq.Init.Datatypes <> false constr
+R3626:3629 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3621:3623 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3624:3625 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3631:3633 Coq.Init.Logic <> ::type_scope:x_'='_x not
+binder 3654:3654 <> x:31
+R3680:3680 Kernel.RecordAxisDiscrimination <> x:31 var
+R3664:3664 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R3666:3667 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R3669:3670 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3672:3672 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 3700:3700 <> x:33
-R3726:3726 Kernel.RecordAxisDiscrimination <> x:33 var
-R3710:3710 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3712:3713 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3672:3673 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3675:3675 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 3703:3703 <> x:33
+R3729:3729 Kernel.RecordAxisDiscrimination <> x:33 var
+R3713:3713 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R3715:3716 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R3718:3719 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3721:3721 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 3753:3753 <> x:35
-R3779:3779 Kernel.RecordAxisDiscrimination <> x:35 var
-R3763:3763 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3765:3766 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3721:3722 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3724:3724 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 3756:3756 <> x:35
+R3782:3782 Kernel.RecordAxisDiscrimination <> x:35 var
+R3766:3766 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R3768:3769 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R3771:3772 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3774:3774 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R3784:3791 Kernel.StructuralCoreRound4 <> b_halted proj
-R3793:3793 Kernel.RecordAxisDiscrimination <> History.B var
-prf 3810:3832 <> history_latch_injective
-R3838:3838 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3883:3889 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 3846:3846 <> a:37
-binder 3848:3848 <> b:38
-R3874:3877 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3861:3863 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3851:3856 Kernel.StructuralCoreRound4 <> b_next proj
-R3858:3858 Kernel.RecordAxisDiscrimination <> History.B var
-R3860:3860 Kernel.RecordAxisDiscrimination <> a:37 var
-R3864:3869 Kernel.StructuralCoreRound4 <> b_next proj
-R3871:3871 Kernel.RecordAxisDiscrimination <> History.B var
-R3873:3873 Kernel.RecordAxisDiscrimination <> b:38 var
-R3879:3881 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3878:3878 Kernel.RecordAxisDiscrimination <> a:37 var
-R3882:3882 Kernel.RecordAxisDiscrimination <> b:38 var
-binder 3897:3897 <> x:39
-binder 3899:3899 <> y:40
-R3949:3952 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3924:3926 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3902:3908 Kernel.StructuralCore <> rc_next proj
-R3910:3921 Kernel.RecordAxisDiscrimination <> HistoryLatch def
-R3923:3923 Kernel.RecordAxisDiscrimination <> x:39 var
-R3927:3933 Kernel.StructuralCore <> rc_next proj
-R3935:3946 Kernel.RecordAxisDiscrimination <> HistoryLatch def
-R3948:3948 Kernel.RecordAxisDiscrimination <> y:40 var
-R3954:3956 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3953:3953 Kernel.RecordAxisDiscrimination <> x:39 var
-R3957:3957 Kernel.RecordAxisDiscrimination <> y:40 var
-def 4156:4168 <> history_cover
-R4172:4180 Kernel.StructuralCoreRound4 <> BaseCover rec
-R4182:4193 Kernel.RecordAxisDiscrimination <> HistoryLatch def
-R4195:4195 Kernel.RecordAxisDiscrimination <> History.B var
-R4215:4229 Kernel.StructuralCoreRound4 <> Build_BaseCover constr
-R4231:4242 Kernel.RecordAxisDiscrimination <> HistoryLatch def
-R4244:4244 Kernel.RecordAxisDiscrimination <> History.B var
-binder 4263:4263 <> x:41
-R4289:4289 Kernel.RecordAxisDiscrimination <> x:41 var
-R4273:4273 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4275:4276 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3774:3775 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3777:3777 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3787:3794 Kernel.StructuralCoreAnyBase <> b_halted proj
+R3796:3796 Kernel.RecordAxisDiscrimination <> History.B var
+prf 3813:3835 <> history_latch_injective
+R3841:3841 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3886:3892 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 3849:3849 <> a:37
+binder 3851:3851 <> b:38
+R3877:3880 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3864:3866 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3854:3859 Kernel.StructuralCoreAnyBase <> b_next proj
+R3861:3861 Kernel.RecordAxisDiscrimination <> History.B var
+R3863:3863 Kernel.RecordAxisDiscrimination <> a:37 var
+R3867:3872 Kernel.StructuralCoreAnyBase <> b_next proj
+R3874:3874 Kernel.RecordAxisDiscrimination <> History.B var
+R3876:3876 Kernel.RecordAxisDiscrimination <> b:38 var
+R3882:3884 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3881:3881 Kernel.RecordAxisDiscrimination <> a:37 var
+R3885:3885 Kernel.RecordAxisDiscrimination <> b:38 var
+binder 3900:3900 <> x:39
+binder 3902:3902 <> y:40
+R3952:3955 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3927:3929 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3905:3911 Kernel.StructuralCore <> rc_next proj
+R3913:3924 Kernel.RecordAxisDiscrimination <> HistoryLatch def
+R3926:3926 Kernel.RecordAxisDiscrimination <> x:39 var
+R3930:3936 Kernel.StructuralCore <> rc_next proj
+R3938:3949 Kernel.RecordAxisDiscrimination <> HistoryLatch def
+R3951:3951 Kernel.RecordAxisDiscrimination <> y:40 var
+R3957:3959 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3956:3956 Kernel.RecordAxisDiscrimination <> x:39 var
+R3960:3960 Kernel.RecordAxisDiscrimination <> y:40 var
+def 4159:4171 <> history_cover
+R4175:4183 Kernel.StructuralCoreAnyBase <> BaseCover rec
+R4185:4196 Kernel.RecordAxisDiscrimination <> HistoryLatch def
+R4198:4198 Kernel.RecordAxisDiscrimination <> History.B var
+R4218:4232 Kernel.StructuralCoreAnyBase <> Build_BaseCover constr
+R4234:4245 Kernel.RecordAxisDiscrimination <> HistoryLatch def
+R4247:4247 Kernel.RecordAxisDiscrimination <> History.B var
+binder 4266:4266 <> x:41
+R4292:4292 Kernel.RecordAxisDiscrimination <> x:41 var
+R4276:4276 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R4278:4279 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R4281:4282 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4284:4284 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4215:4229 Kernel.StructuralCoreRound4 <> Build_BaseCover constr
-R4231:4242 Kernel.RecordAxisDiscrimination <> HistoryLatch def
-R4244:4244 Kernel.RecordAxisDiscrimination <> History.B var
-binder 4263:4263 <> x:43
-R4289:4289 Kernel.RecordAxisDiscrimination <> x:43 var
-R4273:4273 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4275:4276 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4284:4285 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4287:4287 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4218:4232 Kernel.StructuralCoreAnyBase <> Build_BaseCover constr
+R4234:4245 Kernel.RecordAxisDiscrimination <> HistoryLatch def
+R4247:4247 Kernel.RecordAxisDiscrimination <> History.B var
+binder 4266:4266 <> x:43
+R4292:4292 Kernel.RecordAxisDiscrimination <> x:43 var
+R4276:4276 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R4278:4279 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R4281:4282 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4284:4284 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4377:4377 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4379:4380 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4386:4387 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4390:4391 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4393:4393 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4381:4385 Coq.Init.Datatypes <> false constr
-R4388:4389 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4377:4377 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4379:4380 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4386:4387 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4390:4391 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4393:4393 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4381:4385 Coq.Init.Datatypes <> false constr
-R4388:4389 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-prf 4589:4608 <> history_latch_honest
-R4614:4614 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4741:4747 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4615:4621 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4626:4627 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 4622:4623 <> b0:45
-binder 4625:4625 <> n:46
-R4639:4647 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4628:4633 Kernel.StructuralCoreRound4 <> b_init proj
-R4635:4635 Kernel.RecordAxisDiscrimination <> History.B var
-R4637:4638 Kernel.RecordAxisDiscrimination <> b0:45 var
-R4669:4674 Kernel.StructuralCore <> rc_run def
-R4676:4687 Kernel.RecordAxisDiscrimination <> HistoryLatch def
-R4689:4689 Kernel.RecordAxisDiscrimination <> n:46 var
-R4691:4691 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4694:4695 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4701:4702 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4705:4706 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4708:4708 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4692:4693 Kernel.RecordAxisDiscrimination <> b0:45 var
-R4696:4700 Coq.Init.Datatypes <> false constr
-R4703:4704 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4653:4653 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4655:4656 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4284:4285 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4287:4287 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4380:4380 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4382:4383 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4389:4390 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4393:4394 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4396:4396 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4384:4388 Coq.Init.Datatypes <> false constr
+R4391:4392 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4380:4380 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4382:4383 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4389:4390 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4393:4394 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4396:4396 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4384:4388 Coq.Init.Datatypes <> false constr
+R4391:4392 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 4592:4611 <> history_latch_honest
+R4617:4617 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4744:4750 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4618:4624 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4629:4630 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4625:4626 <> b0:45
+binder 4628:4628 <> n:46
+R4642:4650 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4631:4636 Kernel.StructuralCoreAnyBase <> b_init proj
+R4638:4638 Kernel.RecordAxisDiscrimination <> History.B var
+R4640:4641 Kernel.RecordAxisDiscrimination <> b0:45 var
+R4672:4677 Kernel.StructuralCore <> rc_run def
+R4679:4690 Kernel.RecordAxisDiscrimination <> HistoryLatch def
+R4692:4692 Kernel.RecordAxisDiscrimination <> n:46 var
+R4694:4694 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4697:4698 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4704:4705 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4708:4709 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4711:4711 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4695:4696 Kernel.RecordAxisDiscrimination <> b0:45 var
+R4699:4703 Coq.Init.Datatypes <> false constr
+R4706:4707 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4656:4656 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R4658:4659 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
 R4661:4662 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4664:4664 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4727:4730 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4719:4721 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4722:4726 Coq.Init.Datatypes <> false constr
-R4734:4736 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4731:4731 Kernel.RecordAxisDiscrimination <> History.h var
-R4737:4740 Coq.Init.Datatypes <> true constr
-R4748:4763 Kernel.StructuralCoreRound4 <> HonestExtension4 def
-R4765:4776 Kernel.RecordAxisDiscrimination <> HistoryLatch def
-R4778:4778 Kernel.RecordAxisDiscrimination <> History.B var
-R4780:4792 Kernel.RecordAxisDiscrimination <> history_cover def
-binder 4856:4856 <> b:47
-binder 4858:4858 <> r:48
-R4863:4865 Coq.Init.Datatypes <> orb def
-R4870:4870 Kernel.RecordAxisDiscrimination <> History.h var
-R4872:4872 Kernel.RecordAxisDiscrimination <> b:47 var
-R4867:4867 Kernel.RecordAxisDiscrimination <> r:48 var
-binder 4856:4856 <> b:49
-binder 4858:4858 <> r:50
-R4863:4865 Coq.Init.Datatypes <> orb def
-R4870:4870 Kernel.RecordAxisDiscrimination <> History.h var
-R4872:4872 Kernel.RecordAxisDiscrimination <> b:49 var
-R4867:4867 Kernel.RecordAxisDiscrimination <> r:50 var
-R5019:5027 Kernel.StructuralCore <> step_cost def
-R5085:5093 Kernel.RecordAxisDiscrimination <> flip_cost def
-R5206:5206 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5209:5210 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5216:5217 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5220:5221 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5223:5223 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5211:5215 Coq.Init.Datatypes <> false constr
-R5218:5219 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R5206:5206 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5209:5210 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5216:5217 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5220:5221 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5223:5223 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5211:5215 Coq.Init.Datatypes <> false constr
-R5218:5219 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R5326:5331 Kernel.StructuralCore <> rc_run def
-R5333:5344 Kernel.RecordAxisDiscrimination <> HistoryLatch def
-R5348:5348 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5351:5352 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5358:5359 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5362:5363 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5365:5365 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5353:5357 Coq.Init.Datatypes <> false constr
-R5360:5361 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R5326:5331 Kernel.StructuralCore <> rc_run def
-R5333:5344 Kernel.RecordAxisDiscrimination <> HistoryLatch def
-R5348:5348 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5351:5352 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5358:5359 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5362:5363 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5365:5365 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5353:5357 Coq.Init.Datatypes <> false constr
-R5360:5361 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R5513:5519 Kernel.RecordAxisDiscrimination History <> sec
-prf 5606:5635 <> finite_reversible_cannot_write
-binder 5649:5649 <> S:51
-R5668:5671 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5667:5667 Kernel.RecordAxisDiscrimination <> S:51 var
-R5676:5679 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5672:5675 Coq.Init.Datatypes <> unit ind
-R5680:5680 Kernel.RecordAxisDiscrimination <> S:51 var
-binder 5660:5663 <> step:52
-R5692:5695 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5691:5691 Kernel.RecordAxisDiscrimination <> S:51 var
-R5696:5699 Coq.Init.Datatypes <> bool ind
-binder 5684:5687 <> cert:53
-R5709:5712 Coq.Init.Datatypes <> list ind
-R5714:5714 Kernel.RecordAxisDiscrimination <> S:51 var
-binder 5703:5705 <> all:54
-binder 5717:5717 <> s:55
-R5741:5748 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5724:5736 Kernel.PermanentCertification <> finite_states def
-R5738:5740 Kernel.RecordAxisDiscrimination <> all:54 var
-R5768:5775 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5749:5757 Kernel.PermanentCertification <> permanent def
-R5764:5767 Kernel.RecordAxisDiscrimination <> cert:53 var
-R5759:5762 Kernel.RecordAxisDiscrimination <> step:52 var
-R5798:5805 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5776:5789 Kernel.PermanentCertification <> step_injective def
-R5796:5797 Coq.Init.Datatypes <> tt constr
-R5791:5794 Kernel.RecordAxisDiscrimination <> step:52 var
-R5806:5808 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5850:5850 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5823:5826 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5815:5817 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5809:5812 Kernel.RecordAxisDiscrimination <> cert:53 var
-R5814:5814 Kernel.RecordAxisDiscrimination <> s:55 var
-R5818:5822 Coq.Init.Datatypes <> false constr
-R5843:5845 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5827:5830 Kernel.RecordAxisDiscrimination <> cert:53 var
-R5833:5836 Kernel.RecordAxisDiscrimination <> step:52 var
-R5840:5841 Coq.Init.Datatypes <> tt constr
-R5838:5838 Kernel.RecordAxisDiscrimination <> s:55 var
-R5846:5849 Coq.Init.Datatypes <> true constr
-R5921:5951 Kernel.PermanentCertification <> permanent_flip_is_not_injective thm
-R5976:5977 Coq.Init.Datatypes <> tt constr
-R5955:5958 Coq.Init.Datatypes <> unit ind
-R5921:5951 Kernel.PermanentCertification <> permanent_flip_is_not_injective thm
-R5976:5977 Coq.Init.Datatypes <> tt constr
-R5955:5958 Coq.Init.Datatypes <> unit ind
-R6027:6043 Kernel.RecordAxisDiscrimination <> latch_core_honest thm
-R6064:6086 Kernel.RecordAxisDiscrimination <> history_latch_injective thm
-R6107:6126 Kernel.RecordAxisDiscrimination <> history_latch_honest thm
-R6147:6176 Kernel.RecordAxisDiscrimination <> finite_reversible_cannot_write thm
+R4664:4665 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4667:4667 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4730:4733 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4722:4724 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4725:4729 Coq.Init.Datatypes <> false constr
+R4737:4739 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4734:4734 Kernel.RecordAxisDiscrimination <> History.h var
+R4740:4743 Coq.Init.Datatypes <> true constr
+R4751:4769 Kernel.StructuralCoreAnyBase <> HonestBaseExtension def
+R4771:4782 Kernel.RecordAxisDiscrimination <> HistoryLatch def
+R4784:4784 Kernel.RecordAxisDiscrimination <> History.B var
+R4786:4798 Kernel.RecordAxisDiscrimination <> history_cover def
+binder 4862:4862 <> b:47
+binder 4864:4864 <> r:48
+R4869:4871 Coq.Init.Datatypes <> orb def
+R4876:4876 Kernel.RecordAxisDiscrimination <> History.h var
+R4878:4878 Kernel.RecordAxisDiscrimination <> b:47 var
+R4873:4873 Kernel.RecordAxisDiscrimination <> r:48 var
+binder 4862:4862 <> b:49
+binder 4864:4864 <> r:50
+R4869:4871 Coq.Init.Datatypes <> orb def
+R4876:4876 Kernel.RecordAxisDiscrimination <> History.h var
+R4878:4878 Kernel.RecordAxisDiscrimination <> b:49 var
+R4873:4873 Kernel.RecordAxisDiscrimination <> r:50 var
+R5025:5033 Kernel.StructuralCore <> step_cost def
+R5091:5099 Kernel.RecordAxisDiscrimination <> flip_cost def
+R5212:5212 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5215:5216 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5222:5223 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5226:5227 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5229:5229 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5217:5221 Coq.Init.Datatypes <> false constr
+R5224:5225 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5212:5212 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5215:5216 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5222:5223 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5226:5227 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5229:5229 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5217:5221 Coq.Init.Datatypes <> false constr
+R5224:5225 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5332:5337 Kernel.StructuralCore <> rc_run def
+R5339:5350 Kernel.RecordAxisDiscrimination <> HistoryLatch def
+R5354:5354 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5357:5358 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5364:5365 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5368:5369 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5371:5371 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5359:5363 Coq.Init.Datatypes <> false constr
+R5366:5367 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5332:5337 Kernel.StructuralCore <> rc_run def
+R5339:5350 Kernel.RecordAxisDiscrimination <> HistoryLatch def
+R5354:5354 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5357:5358 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5364:5365 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5368:5369 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5371:5371 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5359:5363 Coq.Init.Datatypes <> false constr
+R5366:5367 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5519:5525 Kernel.RecordAxisDiscrimination History <> sec
+prf 5612:5641 <> finite_reversible_cannot_write
+binder 5655:5655 <> S:51
+R5674:5677 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5673:5673 Kernel.RecordAxisDiscrimination <> S:51 var
+R5682:5685 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5678:5681 Coq.Init.Datatypes <> unit ind
+R5686:5686 Kernel.RecordAxisDiscrimination <> S:51 var
+binder 5666:5669 <> step:52
+R5698:5701 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5697:5697 Kernel.RecordAxisDiscrimination <> S:51 var
+R5702:5705 Coq.Init.Datatypes <> bool ind
+binder 5690:5693 <> cert:53
+R5715:5718 Coq.Init.Datatypes <> list ind
+R5720:5720 Kernel.RecordAxisDiscrimination <> S:51 var
+binder 5709:5711 <> all:54
+binder 5723:5723 <> s:55
+R5747:5754 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5730:5742 Kernel.PermanentCertification <> finite_states def
+R5744:5746 Kernel.RecordAxisDiscrimination <> all:54 var
+R5774:5781 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5755:5763 Kernel.PermanentCertification <> permanent def
+R5770:5773 Kernel.RecordAxisDiscrimination <> cert:53 var
+R5765:5768 Kernel.RecordAxisDiscrimination <> step:52 var
+R5804:5811 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5782:5795 Kernel.PermanentCertification <> step_injective def
+R5802:5803 Coq.Init.Datatypes <> tt constr
+R5797:5800 Kernel.RecordAxisDiscrimination <> step:52 var
+R5812:5814 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5856:5856 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5829:5832 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5821:5823 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5815:5818 Kernel.RecordAxisDiscrimination <> cert:53 var
+R5820:5820 Kernel.RecordAxisDiscrimination <> s:55 var
+R5824:5828 Coq.Init.Datatypes <> false constr
+R5849:5851 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5833:5836 Kernel.RecordAxisDiscrimination <> cert:53 var
+R5839:5842 Kernel.RecordAxisDiscrimination <> step:52 var
+R5846:5847 Coq.Init.Datatypes <> tt constr
+R5844:5844 Kernel.RecordAxisDiscrimination <> s:55 var
+R5852:5855 Coq.Init.Datatypes <> true constr
+R5927:5957 Kernel.PermanentCertification <> permanent_flip_is_not_injective thm
+R5982:5983 Coq.Init.Datatypes <> tt constr
+R5961:5964 Coq.Init.Datatypes <> unit ind
+R5927:5957 Kernel.PermanentCertification <> permanent_flip_is_not_injective thm
+R5982:5983 Coq.Init.Datatypes <> tt constr
+R5961:5964 Coq.Init.Datatypes <> unit ind
+R6033:6049 Kernel.RecordAxisDiscrimination <> latch_core_honest thm
+R6070:6092 Kernel.RecordAxisDiscrimination <> history_latch_injective thm
+R6113:6132 Kernel.RecordAxisDiscrimination <> history_latch_honest thm
+R6153:6182 Kernel.RecordAxisDiscrimination <> finite_reversible_cannot_write thm

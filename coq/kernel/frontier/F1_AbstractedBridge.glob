@@ -1,98 +1,98 @@
-DIGEST f584ec6859923f3b1c8ea92dbfceda0f
+DIGEST 4b779c545838c6e7ccebbaae85bf0602
 FKernel.F1_AbstractedBridge
-R2193:2196 Coq.Lists.List <> <> lib
-R2198:2211 Coq.Arith.PeanoNat <> <> lib
-R2213:2215 Coq.micromega.Lia <> <> lib
-R2217:2220 Coq.Bool.Bool <> <> lib
-R2251:2257 Kernel.VMState <> <> lib
-R2259:2264 Kernel.VMStep <> <> lib
-R2266:2280 Kernel.SimulationProof <> <> lib
-R2282:2291 Kernel.PrimeAxiom <> <> lib
-R2293:2304 Kernel.AbstractNoFI <> <> lib
-R2334:2350 Kernel.F1_LogicalErasure <> <> lib
-prf 3041:3073 <> F1_factored_through_abstract_cost
-R3113:3116 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3099:3112 Kernel.VMStep VMStep vm_instruction ind
-R3117:3119 Coq.Init.Datatypes <> nat ind
-binder 3087:3095 <> phys_cost:1
-R3132:3134 Coq.Init.Datatypes <> nat ind
-binder 3123:3128 <> mu_bit:2
-R3153:3160 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3148:3151 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3142:3147 Kernel.F1_AbstractedBridge <> mu_bit:2 var
-R3161:3161 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3289:3297 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3174:3192 Kernel.F1_LogicalErasure <> bool_macro_property def
-binder 3170:3170 <> P:3
-R3200:3213 Kernel.VMStep VMStep vm_instruction ind
-binder 3196:3196 <> i:4
-R3256:3267 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3225:3251 Kernel.F1_LogicalErasure <> step_collapses_bool_classes def
-R3253:3253 Kernel.F1_AbstractedBridge <> P:3 var
-R3255:3255 Kernel.F1_AbstractedBridge <> i:4 var
-R3279:3282 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3268:3276 Kernel.F1_AbstractedBridge <> phys_cost:1 var
-R3278:3278 Kernel.F1_AbstractedBridge <> i:4 var
-R3283:3288 Kernel.F1_AbstractedBridge <> mu_bit:2 var
-R3310:3316 Kernel.VMState <> VMState rec
-binder 3306:3306 <> s:5
-R3324:3337 Kernel.VMStep VMStep vm_instruction ind
-binder 3320:3320 <> i:6
-R3369:3378 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3361:3363 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3347:3358 Kernel.VMState <> vm_certified proj
-R3360:3360 Kernel.F1_AbstractedBridge <> s:5 var
-R3364:3368 Coq.Init.Datatypes <> false constr
-R3413:3422 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3406:3408 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3379:3390 Kernel.VMState <> vm_certified proj
-R3393:3400 Kernel.SimulationProof <> vm_apply def
-R3402:3402 Kernel.F1_AbstractedBridge <> s:5 var
-R3404:3404 Kernel.F1_AbstractedBridge <> i:6 var
-R3409:3412 Coq.Init.Datatypes <> true constr
-R3434:3437 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3423:3431 Kernel.F1_AbstractedBridge <> phys_cost:1 var
-R3433:3433 Kernel.F1_AbstractedBridge <> i:6 var
-R3510:3541 Kernel.F1_LogicalErasure <> cert_flip_collapses_cert_classes thm
-R3510:3541 Kernel.F1_LogicalErasure <> cert_flip_collapses_cert_classes thm
-R3592:3603 Kernel.VMState <> vm_certified proj
-R3592:3603 Kernel.VMState <> vm_certified proj
-prf 4518:4558 <> A2_via_abstract_landauer_universal_bridge
-R4564:4564 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4690:4696 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4577:4595 Kernel.F1_LogicalErasure <> bool_macro_property def
-binder 4573:4573 <> P:7
-R4603:4616 Kernel.VMStep VMStep vm_instruction ind
-binder 4599:4599 <> i:8
-R4657:4666 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4626:4652 Kernel.F1_LogicalErasure <> step_collapses_bool_classes def
-R4654:4654 Kernel.F1_AbstractedBridge <> P:7 var
-R4656:4656 Kernel.F1_AbstractedBridge <> i:8 var
-R4685:4688 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4667:4682 Kernel.VMStep VMStep instruction_cost def
-R4684:4684 Kernel.F1_AbstractedBridge <> i:8 var
-R4709:4715 Kernel.VMState <> VMState rec
-binder 4705:4705 <> s:9
-R4723:4736 Kernel.VMStep VMStep vm_instruction ind
-binder 4719:4719 <> i:10
-R4766:4773 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4758:4760 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4744:4755 Kernel.VMState <> vm_certified proj
-R4757:4757 Kernel.F1_AbstractedBridge <> s:9 var
-R4761:4765 Coq.Init.Datatypes <> false constr
-R4808:4815 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4801:4803 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4774:4785 Kernel.VMState <> vm_certified proj
-R4788:4795 Kernel.SimulationProof <> vm_apply def
-R4797:4797 Kernel.F1_AbstractedBridge <> s:9 var
-R4799:4799 Kernel.F1_AbstractedBridge <> i:10 var
-R4804:4807 Coq.Init.Datatypes <> true constr
-R4834:4837 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4816:4831 Kernel.VMStep VMStep instruction_cost def
-R4833:4833 Kernel.F1_AbstractedBridge <> i:10 var
-R4883:4915 Kernel.F1_AbstractedBridge <> F1_factored_through_abstract_cost thm
-R4928:4943 Kernel.VMStep VMStep instruction_cost def
-R4948:4951 Coq.Init.Peano <> le_n constr
-R4883:4915 Kernel.F1_AbstractedBridge <> F1_factored_through_abstract_cost thm
-R4928:4943 Kernel.VMStep VMStep instruction_cost def
-R4948:4951 Coq.Init.Peano <> le_n constr
+R2187:2190 Coq.Lists.List <> <> lib
+R2192:2205 Coq.Arith.PeanoNat <> <> lib
+R2207:2209 Coq.micromega.Lia <> <> lib
+R2211:2214 Coq.Bool.Bool <> <> lib
+R2245:2251 Kernel.VMState <> <> lib
+R2253:2258 Kernel.VMStep <> <> lib
+R2260:2274 Kernel.SimulationProof <> <> lib
+R2276:2285 Kernel.PrimeAxiom <> <> lib
+R2287:2298 Kernel.AbstractNoFI <> <> lib
+R2328:2344 Kernel.F1_LogicalErasure <> <> lib
+prf 3035:3067 <> F1_factored_through_abstract_cost
+R3107:3110 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3093:3106 Kernel.VMStep VMStep vm_instruction ind
+R3111:3113 Coq.Init.Datatypes <> nat ind
+binder 3081:3089 <> phys_cost:1
+R3126:3128 Coq.Init.Datatypes <> nat ind
+binder 3117:3122 <> mu_bit:2
+R3147:3154 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3142:3145 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3136:3141 Kernel.F1_AbstractedBridge <> mu_bit:2 var
+R3155:3155 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3283:3291 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3168:3186 Kernel.F1_LogicalErasure <> bool_macro_property def
+binder 3164:3164 <> P:3
+R3194:3207 Kernel.VMStep VMStep vm_instruction ind
+binder 3190:3190 <> i:4
+R3250:3261 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3219:3245 Kernel.F1_LogicalErasure <> step_collapses_bool_classes def
+R3247:3247 Kernel.F1_AbstractedBridge <> P:3 var
+R3249:3249 Kernel.F1_AbstractedBridge <> i:4 var
+R3273:3276 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3262:3270 Kernel.F1_AbstractedBridge <> phys_cost:1 var
+R3272:3272 Kernel.F1_AbstractedBridge <> i:4 var
+R3277:3282 Kernel.F1_AbstractedBridge <> mu_bit:2 var
+R3304:3310 Kernel.VMState <> VMState rec
+binder 3300:3300 <> s:5
+R3318:3331 Kernel.VMStep VMStep vm_instruction ind
+binder 3314:3314 <> i:6
+R3363:3372 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3355:3357 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3341:3352 Kernel.VMState <> vm_certified proj
+R3354:3354 Kernel.F1_AbstractedBridge <> s:5 var
+R3358:3362 Coq.Init.Datatypes <> false constr
+R3407:3416 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3400:3402 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3373:3384 Kernel.VMState <> vm_certified proj
+R3387:3394 Kernel.SimulationProof <> vm_apply def
+R3396:3396 Kernel.F1_AbstractedBridge <> s:5 var
+R3398:3398 Kernel.F1_AbstractedBridge <> i:6 var
+R3403:3406 Coq.Init.Datatypes <> true constr
+R3428:3431 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3417:3425 Kernel.F1_AbstractedBridge <> phys_cost:1 var
+R3427:3427 Kernel.F1_AbstractedBridge <> i:6 var
+R3504:3535 Kernel.F1_LogicalErasure <> cert_flip_collapses_cert_classes thm
+R3504:3535 Kernel.F1_LogicalErasure <> cert_flip_collapses_cert_classes thm
+R3586:3597 Kernel.VMState <> vm_certified proj
+R3586:3597 Kernel.VMState <> vm_certified proj
+prf 4512:4552 <> A2_via_abstract_landauer_universal_bridge
+R4558:4558 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4684:4690 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4571:4589 Kernel.F1_LogicalErasure <> bool_macro_property def
+binder 4567:4567 <> P:7
+R4597:4610 Kernel.VMStep VMStep vm_instruction ind
+binder 4593:4593 <> i:8
+R4651:4660 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4620:4646 Kernel.F1_LogicalErasure <> step_collapses_bool_classes def
+R4648:4648 Kernel.F1_AbstractedBridge <> P:7 var
+R4650:4650 Kernel.F1_AbstractedBridge <> i:8 var
+R4679:4682 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4661:4676 Kernel.VMStep VMStep instruction_cost def
+R4678:4678 Kernel.F1_AbstractedBridge <> i:8 var
+R4703:4709 Kernel.VMState <> VMState rec
+binder 4699:4699 <> s:9
+R4717:4730 Kernel.VMStep VMStep vm_instruction ind
+binder 4713:4713 <> i:10
+R4760:4767 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4752:4754 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4738:4749 Kernel.VMState <> vm_certified proj
+R4751:4751 Kernel.F1_AbstractedBridge <> s:9 var
+R4755:4759 Coq.Init.Datatypes <> false constr
+R4802:4809 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4795:4797 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4768:4779 Kernel.VMState <> vm_certified proj
+R4782:4789 Kernel.SimulationProof <> vm_apply def
+R4791:4791 Kernel.F1_AbstractedBridge <> s:9 var
+R4793:4793 Kernel.F1_AbstractedBridge <> i:10 var
+R4798:4801 Coq.Init.Datatypes <> true constr
+R4828:4831 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4810:4825 Kernel.VMStep VMStep instruction_cost def
+R4827:4827 Kernel.F1_AbstractedBridge <> i:10 var
+R4877:4909 Kernel.F1_AbstractedBridge <> F1_factored_through_abstract_cost thm
+R4922:4937 Kernel.VMStep VMStep instruction_cost def
+R4942:4945 Coq.Init.Peano <> le_n constr
+R4877:4909 Kernel.F1_AbstractedBridge <> F1_factored_through_abstract_cost thm
+R4922:4937 Kernel.VMStep VMStep instruction_cost def
+R4942:4945 Coq.Init.Peano <> le_n constr

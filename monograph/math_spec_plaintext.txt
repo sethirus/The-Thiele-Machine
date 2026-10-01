@@ -1660,8 +1660,8 @@ non-proliferating in the specified observer map. Neither the label’s cryptogra
 nor the observer map’s faithfulness to a deployed system occurs in the theorem statement; the
 real-system reading is therefore model-dependent.
     The proposed route from distributed agreement to permanence is refuted in EcosystemGame.v.
-The frozen predicate strong_pointer_necessity assumes at least one observer, agreement,
-Boolean soundness and completeness of every view, and a common local update function with no
+The predicate strong_pointer_necessity assumes at least one observer, agreement, Boolean
+soundness and completeness of every view, and a common local update function with no
 observer index or coordinator state. In toggle_game_refutes_strong_pointer_necessity,
 two observers both track the event exactly and both update by negation; consensus
 and authenticity hold while a true event becomes false. If durable views are added,
@@ -2909,13 +2909,14 @@ This contradicts mu_hierarchy_theorem.
 
 • Cross-base equivalence (coq/kernel/foundation/CrossBaseGranularity*.v): Base
   adapters for the Turing machine (tm_base), the VM (vm_base), a Cook–Reckhow unit-cost
-  RAM (ram_base), and L (l_base) exist, and each satisfies round4_property (round4_
-  tm_holds, round4_vm_holds, round4_ram_holds, round4_l_holds); round4_property
-  holds for every base, so these instances do not distinguish the bases. The substantive
-  adapter facts are that the L and RAM bases are faithful (l_step_fun_correct, star_is_
-  l_base_run). The relation weak_base_equiv is reflexive, symmetric, and transitive, and
-  it carries no cost. Cost-respecting simulations between different bases are not constructed,
-  and no weak_base_equiv between two different bases is proved.
+  RAM (ram_base), and L (l_base) exist, and each satisfies record_axis_is_latch_on
+  (record_axis_is_latch_on_tm_holds, record_axis_is_latch_on_vm_holds, record_
+  axis_is_latch_on_ram_holds, record_axis_is_latch_on_l_holds); record_axis_
+  is_latch_on holds for every base, so these instances do not distinguish the bases. The
+  substantive adapter facts are that the L and RAM bases are faithful (l_step_fun_
+  correct, star_is_l_base_run). The relation weak_base_equiv is reflexive, symmetric,
+  and transitive, and it carries no cost. Cost-respecting simulations between different bases
+  are not constructed, and no weak_base_equiv between two different bases is proved.
 
 • Cost-framework comparison: The graded, writer, potential, and counting theorems are
   local correspondences. Full semantics-preserving embeddings of the four cost-framework
@@ -2924,7 +2925,7 @@ This contradicts mu_hierarchy_theorem.
 
 
 
-                                            64
+                                           64
 Appendix A
 
 Proof File Index

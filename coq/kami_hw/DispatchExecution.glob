@@ -1,4 +1,4 @@
-DIGEST 9691c983cf9308924eeca03a9da482bc
+DIGEST fc78c4c7fe4f3746482b3c957e2b8e69
 FKamiHW.DispatchExecution
 R83:91 Kami.Kami <> <> lib
 R93:106 Kami.Semantics <> <> lib
@@ -178,68 +178,87 @@ R2449:2468 KamiHW.DispatchExecution <> dispatch_rule_linear thm
 R2502:2514 KamiHW.DispatchExecution <> eval_dispatch def
 R2572:2576 Kami.Lib.Word <> word0 thm
 R2572:2576 Kami.Lib.Word <> word0 thm
-def 2596:2615 <> dispatch_reset_state
-R2619:2623 Kami.Semantics <> RegsT def
-R2628:2635 Kami.Semantics <> initRegs def
-R2638:2648 Kami.Syntax <> getRegInits def
-R2650:2659 KamiHW.ThieleCPUCore <> thieleCore def
-def 2672:2693 <> dispatch_reset_enabled
-R2699:2699 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2780:2783 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2706:2718 KamiHW.DispatchExecution <> eval_dispatch def
-R2720:2739 KamiHW.DispatchExecution <> dispatch_reset_state def
-R2746:2749 Coq.Init.Datatypes <> Some constr
-R2756:2759 Coq.Init.Datatypes <> true constr
-R2763:2766 Coq.Init.Datatypes <> None constr
-R2771:2775 Coq.Init.Datatypes <> false constr
-R2784:2787 Coq.Init.Datatypes <> true constr
-prf 2836:2856 <> dispatch_disabled_iff
-binder 2867:2869 <> old:12
-R2898:2904 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R2891:2893 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2874:2886 KamiHW.DispatchExecution <> eval_dispatch def
-R2888:2890 KamiHW.DispatchExecution <> old:12 var
-R2894:2897 Coq.Init.Datatypes <> None constr
-binder 2912:2912 <> u:13
-binder 2914:2918 <> calls:14
-binder 2920:2922 <> ret:15
-R2925:2926 Coq.Init.Logic <> ::type_scope:'~'_x not
-R2927:2935 Kami.Semantics <> SemAction ind
-R2979:2981 KamiHW.DispatchExecution <> ret:15 var
-R2973:2977 KamiHW.DispatchExecution <> calls:14 var
-R2971:2971 KamiHW.DispatchExecution <> u:13 var
-R2942:2949 Kami.Lib.Struct <> attrType proj
-R2965:2968 Kami.Syntax <> type def
-R2951:2963 KamiHW.DispatchExecution <> dispatch_rule def
-R2937:2939 KamiHW.DispatchExecution <> old:12 var
-R3055:3083 KamiHW.DispatchExecution <> dispatch_actual_action_unique thm
-R3055:3083 KamiHW.DispatchExecution <> dispatch_actual_action_unique thm
-R3171:3183 KamiHW.DispatchExecution <> eval_dispatch def
-R3171:3183 KamiHW.DispatchExecution <> eval_dispatch def
-R3251:3257 Kami.Lib.FMap M empty def
-R3262:3263 Kami.Lib.Word <> WO constr
-R3251:3257 Kami.Lib.FMap M empty def
-R3262:3263 Kami.Lib.Word <> WO constr
-R3277:3302 KamiHW.DispatchExecution <> dispatch_actual_action_iff thm
-R3277:3302 KamiHW.DispatchExecution <> dispatch_actual_action_iff thm
-prf 3329:3356 <> dispatch_reset_has_execution
-R3360:3366 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3368:3371 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3367:3367 <> u:16
-R3372:3380 Kami.Semantics <> Multistep ind
-R3451:3451 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3478:3478 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3452:3470 KamiHW.NormalizationExecution <> normalization_label def
-R3415:3421 Kami.Lib.FMap M union def
-R3425:3444 KamiHW.DispatchExecution <> dispatch_reset_state def
-R3423:3423 KamiHW.DispatchExecution <> u:16 var
-R3393:3412 KamiHW.DispatchExecution <> dispatch_reset_state def
-R3382:3391 KamiHW.ThieleCPUCore <> thieleCore def
-R3501:3522 KamiHW.DispatchExecution <> dispatch_reset_enabled ex
-R3501:3522 KamiHW.DispatchExecution <> dispatch_reset_enabled ex
-R3542:3554 KamiHW.DispatchExecution <> eval_dispatch def
-R3556:3575 KamiHW.DispatchExecution <> dispatch_reset_state def
-R3542:3554 KamiHW.DispatchExecution <> eval_dispatch def
-R3556:3575 KamiHW.DispatchExecution <> dispatch_reset_state def
-R3629:3653 KamiHW.DispatchExecution <> dispatch_actual_execution thm
-R3629:3653 KamiHW.DispatchExecution <> dispatch_actual_execution thm
+def 2728:2747 <> hardware_reset_state
+R2751:2755 Kami.Semantics <> RegsT def
+R2760:2767 Kami.Semantics <> initRegs def
+R2770:2780 Kami.Syntax <> getRegInits def
+R2782:2791 KamiHW.ThieleCPUCore <> thieleCore def
+def 2972:2991 <> dispatch_reset_state
+R2995:2999 Kami.Semantics <> RegsT def
+R3006:3010 Kami.Lib.FMap M add def
+R3094:3098 Kami.Lib.FMap M add def
+R3165:3184 KamiHW.DispatchExecution <> hardware_reset_state def
+R3110:3115 Coq.Init.Specif <> existT constr
+R3151:3155 Coq.Init.Datatypes <> false constr
+R3134:3143 Kami.Syntax <> SyntaxKind constr
+R3145:3148 Kami.Syntax <> Bool constr
+R3118:3125 Kami.Syntax <> fullType def
+R3127:3130 Kami.Syntax <> type def
+R3018:3023 Coq.Init.Specif <> existT constr
+R3068:3076 Kami.Lib.Word <> natToWord def
+R3078:3083 KamiHW.ThieleTypes <> WordSz def
+R3042:3051 Kami.Syntax <> SyntaxKind constr
+R3054:3056 Kami.Syntax <> Bit constr
+R3058:3063 KamiHW.ThieleTypes <> WordSz def
+R3026:3033 Kami.Syntax <> fullType def
+R3035:3038 Kami.Syntax <> type def
+def 3197:3218 <> dispatch_reset_enabled
+R3224:3224 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3305:3308 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3231:3243 KamiHW.DispatchExecution <> eval_dispatch def
+R3245:3264 KamiHW.DispatchExecution <> dispatch_reset_state def
+R3271:3274 Coq.Init.Datatypes <> Some constr
+R3281:3284 Coq.Init.Datatypes <> true constr
+R3288:3291 Coq.Init.Datatypes <> None constr
+R3296:3300 Coq.Init.Datatypes <> false constr
+R3309:3312 Coq.Init.Datatypes <> true constr
+prf 3361:3381 <> dispatch_disabled_iff
+binder 3392:3394 <> old:12
+R3423:3429 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3416:3418 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3399:3411 KamiHW.DispatchExecution <> eval_dispatch def
+R3413:3415 KamiHW.DispatchExecution <> old:12 var
+R3419:3422 Coq.Init.Datatypes <> None constr
+binder 3437:3437 <> u:13
+binder 3439:3443 <> calls:14
+binder 3445:3447 <> ret:15
+R3450:3451 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3452:3460 Kami.Semantics <> SemAction ind
+R3504:3506 KamiHW.DispatchExecution <> ret:15 var
+R3498:3502 KamiHW.DispatchExecution <> calls:14 var
+R3496:3496 KamiHW.DispatchExecution <> u:13 var
+R3467:3474 Kami.Lib.Struct <> attrType proj
+R3490:3493 Kami.Syntax <> type def
+R3476:3488 KamiHW.DispatchExecution <> dispatch_rule def
+R3462:3464 KamiHW.DispatchExecution <> old:12 var
+R3580:3608 KamiHW.DispatchExecution <> dispatch_actual_action_unique thm
+R3580:3608 KamiHW.DispatchExecution <> dispatch_actual_action_unique thm
+R3696:3708 KamiHW.DispatchExecution <> eval_dispatch def
+R3696:3708 KamiHW.DispatchExecution <> eval_dispatch def
+R3776:3782 Kami.Lib.FMap M empty def
+R3787:3788 Kami.Lib.Word <> WO constr
+R3776:3782 Kami.Lib.FMap M empty def
+R3787:3788 Kami.Lib.Word <> WO constr
+R3802:3827 KamiHW.DispatchExecution <> dispatch_actual_action_iff thm
+R3802:3827 KamiHW.DispatchExecution <> dispatch_actual_action_iff thm
+prf 3854:3881 <> dispatch_reset_has_execution
+R3885:3891 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3893:3896 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3892:3892 <> u:16
+R3897:3905 Kami.Semantics <> Multistep ind
+R3976:3976 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4003:4003 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3977:3995 KamiHW.NormalizationExecution <> normalization_label def
+R3940:3946 Kami.Lib.FMap M union def
+R3950:3969 KamiHW.DispatchExecution <> dispatch_reset_state def
+R3948:3948 KamiHW.DispatchExecution <> u:16 var
+R3918:3937 KamiHW.DispatchExecution <> dispatch_reset_state def
+R3907:3916 KamiHW.ThieleCPUCore <> thieleCore def
+R4026:4047 KamiHW.DispatchExecution <> dispatch_reset_enabled ex
+R4026:4047 KamiHW.DispatchExecution <> dispatch_reset_enabled ex
+R4067:4079 KamiHW.DispatchExecution <> eval_dispatch def
+R4081:4100 KamiHW.DispatchExecution <> dispatch_reset_state def
+R4067:4079 KamiHW.DispatchExecution <> eval_dispatch def
+R4081:4100 KamiHW.DispatchExecution <> dispatch_reset_state def
+R4154:4178 KamiHW.DispatchExecution <> dispatch_actual_execution thm
+R4154:4178 KamiHW.DispatchExecution <> dispatch_actual_execution thm
