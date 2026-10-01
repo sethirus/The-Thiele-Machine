@@ -30,7 +30,7 @@ abstract: >-
   I could pin down. The machine carries structural state, a cost ledger, and
   rules for particular events. Its proofs show exactly what specified
   observations lose. A full encoding can preserve those distinctions; the
-  question is which ones our models should keep. The formal development
+  question is which ones a model should keep. The formal development
   includes accounting laws for systems satisfying A2, pricing adequacy for
   designated events, ledger uniqueness for a fixed schedule, observation
   adequacy, and exact conditions for descent from instruction traces to
@@ -40,9 +40,9 @@ abstract: >-
   closed: a certificate no step revokes can only be switched on by a step
   that merges states, so pricing merges, as Landauer's principle does in
   the worst case over what the machine might hold, yields A2; the heat
-  comes from uncertainty about the state, and a known state owes none. Priced per halving, switching k states on beside m
+  comes from uncertainty about the state, and under Landauer's principle a known state owes none. Priced per halving, switching k states on beside m
   certified ones costs at least log2((m+k)/m), and on finite hardware
-  the events that must be priced are exactly the merges, with every
+  that prices merges the events that must be priced are exactly the merges, with every
   permanent-record write among them. The same bound holds in bits of
   Shannon entropy, and a finite fragment of the VM is such a machine,
   run by the VM at exactly its merge price; in the full VM every certification flip is
