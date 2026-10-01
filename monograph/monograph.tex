@@ -2522,6 +2522,17 @@ The halting problem falls out: no L term decides whether an L program reaches a 
 
 Two limits. L is not the 51-opcode VM, and it is not a \code{Substrate} instance: the interface asks for a total \texttt{run} function, and a model that can really diverge doesn't have one without an axiom. So this is the same diagonal proved again for L, not the substrate theorem applied to L. What it shows is that the diagonal's recursion premise is one a real model of computation meets. The VM theorem takes its own recursion theorem as a premise.
 
+\subsection{The guest machine earns it too}
+\label{sec:guest-recursion}
+
+L shows that a real model of computation meets the premise. The guest fragment of the VM meets it too, inside the machine itself (\code{vm\_guest\_recursion\_theorem\_closed}).
+
+Take any transformer $F$ on guest programs that some guest program $D$ computes on program codes. Then there is a guest program $p$ that behaves exactly like $F(p)$: on every input it halts exactly when $F(p)$ halts, with the same four registers and the same $\mu$.
+
+The hard part is that the guest has to do the work itself. The program $p$ is a prefix that pairs $p$'s own code with the input (\code{g\_pair\_smn}), followed by a fixed program $e$. That program runs an evaluator inside the guest. The evaluator is written once as an ordinary Coq function: it reads a program code bit by bit, runs $D$ on the code of $p$, decodes the answer, and runs that program with fuel (\code{hfun\_sem}). MetaCoq extracts the function to the lambda calculus L with a correctness proof, the vendored library compiles L to a Minsky machine (\code{RD\_MMA}), and the Minsky-to-guest compiler runs that machine on four registers, halting exactly when the machine halts and with its output (\code{g\_pipeline\_beh\_pack}). All of that machinery costs zero $\mu$. A last loop charges exactly the simulated program's $\mu$, one cost-1 instruction per unit, and unpacks the four registers.
+
+The scope is the twelve-instruction guest fragment. The 51-opcode VM theorem above still takes its own recursion theorem as a premise.
+
 \subsection{The exact interpreter targets}
 
 An interpreter is a program that runs other programs, handed to it as data.
@@ -4199,8 +4210,8 @@ $\Delta=2k_BT\ln 2$ makes that heat exactly $k_BT\ln 2$
 Hamiltonian scale, not a derivation of it. The same populations and rates with
 $\Delta=k_BT\ln 2$ give half the Landauer value, and
 \code{master\_equation\_does\_not\_fix\_heat\_scale} exhibits identical
-population dynamics with different heat. The logical side of the correspondence is proved: the protocol's one $\mu$
-event is exactly what \texttt{CERTIFY 0} charges from the clean state
+population dynamics with different heat. The protocol counts one logical $\mu$ event, and that count equals
+what \texttt{CERTIFY 0} charges from the clean state, with no theorem mapping the protocol's register states to VM states
 (\code{vm\_minimal\_certification\_charges\_canonical\_reset\_mu}), and given an
 uncertified state, no VM step switches certification on for less
 (\code{vm\_certification\_charges\_at\_least\_canonical\_reset\_mu}). A device

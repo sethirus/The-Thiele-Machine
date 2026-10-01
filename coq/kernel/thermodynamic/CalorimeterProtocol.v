@@ -76,11 +76,11 @@ Qed.
 Lemma canonical_reset_is_one_mu : canonical_reset_mu = 1%nat.
 Proof. reflexivity. Qed.
 
-(** * The protocol's μ is the VM's
+(** * The protocol's count of one μ against the VM ledger
 
-    The protocol counts one logical μ event. On the VM ledger that is exactly
-    the charge for the cheapest step that switches the certification record
-    on: from the clean state, CERTIFY with no extra payment certifies and
+    The protocol counts one logical μ event. That count equals the charge
+    for the cheapest VM step that switches the certification record on. No
+    theorem here maps the protocol's register states to VM states: from the clean state, CERTIFY with no extra payment certifies and
     raises [vm_mu] by [canonical_reset_mu]. *)
 Theorem vm_minimal_certification_charges_canonical_reset_mu :
   abs_zero.(vm_certified) = false /\

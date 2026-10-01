@@ -18,19 +18,19 @@ but the report explicitly limits a structurally built-in or definitional fact.
 |---|---|---|---|---|---|---|---|
 | 0.1 | PROVED operationally | repository baseline committed | pass | pass | pass | pass | pass |
 | 0.2 | PROVED operationally | gates and isolated rebuild passed | pass | pass | pass | pass | pass |
-| 1.1 | PROVED; four rows BOUNDARY; Mu-Chaitin functor REFUTED for the VM, trace-local form PROVED | 472 identities classified; 45 of 49 event-generic witnesses closed, four keep the physical Landauer premise; trace-local Mu-Chaitin instantiated on a VM run | pass | scope | pass | pass | pass |
-| 1.2 | 19 PROVED, 36 REFUTED | every frozen certification-only generalization has a closed wrapper or counterexample | pass | pass | pass | pass | pass |
+| 1.1 | PROVED; four rows BOUNDARY; Mu-Chaitin functor REFUTED for the VM, trace-local form PROVED | 472 identities classified; 45 of 49 event-generic rows have their premises discharged on the two-state door machine (five of them use Coq's standard real-number axioms); four keep the physical Landauer premise; trace-local Mu-Chaitin instantiated on one VM run | pass | scope | pass | pass | pass |
+| 1.2 | 19 PROVED, 36 REFUTED | every frozen certification-only generalization has a closed wrapper or counterexample | scope | pass | scope | pass | pass |
 | 1.3 | REFUTED | universal event swap fails for zero-cost fixed-width graph allocation; certification sanity bundle proved | pass | pass | pass | pass | pass |
 | 1.4 | PROVED | 8,156-line publication audit and 41 corrections | pass | pass | pass | pass | pass |
 | 1.5 | REFUTED then PROVED | Round 1 found a README overclaim; Round 2 corrected all 40 frozen occurrences | pass | pass | pass | pass | pass |
-| 2.1 | PROVED and REFUTED | threshold decomposition proved; single-latch decomposition refuted | pass | scope | pass | pass | pass |
-| 2.2 | PROVED and REFUTED | actual revocation lies outside permanence; price-transfer claim refuted | pass | pass | pass | pass | pass |
+| 2.1 | PROVED and REFUTED | threshold decomposition proved; single-latch decomposition refuted | fail | scope | pass | pass | pass |
+| 2.2 | PROVED and REFUTED | actual revocation lies outside permanence; price-transfer claim refuted | scope | pass | scope | pass | pass |
 | 2.3 | REFUTED | probabilistic uniqueness up to schedule fails | pass | pass | pass | pass | pass |
-| 2.4 | PROVED | frozen equivalence laws and all four adapters (TM, VM, Cook-Reckhow RAM, L) proved | scope | pass | pass | pass | pass |
+| 2.4 | PROVED | frozen equivalence laws and all four adapters (TM, VM, Cook-Reckhow RAM, L) proved | scope | pass | pass | scope | pass |
 | 3.1 | PROVED; Rice PROVED | vm_guest_recursion_theorem_closed: the evaluator relation is extracted to L, compiled to a Minsky machine, run by guest code through the MMA pipeline; the diagonal program is g_pair_specialize e (guest_program_code e); closed under the global context | pass | pass | pass | pass | pass |
 | 4.1 | PROVED BUT KNOWN | under exact forced-price class, no price is forced beyond merges | pass | scope | pass | pass | pass |
 | 4.2 | PROVED at the logical level; BOUNDARY beyond it | permanent finite write implies logical noninjectivity (permanent_write_has_logical_payment); economic, cryptographic, and heat payment each need a premise about that level | pass | pass | pass | pass | pass |
-| 4.3 | REFUTED intrinsic scale; calibration BOUNDARY | mu has no intrinsic joule value (mu_has_no_intrinsic_joule_value); the protocol's one mu is the VM's minimal certification charge; joule calibration needs thermal and device premises | pass | pass | pass | pass | pass |
+| 4.3 | REFUTED intrinsic scale; calibration BOUNDARY | mu has no intrinsic joule value (mu_has_no_intrinsic_joule_value); the protocol's count of one mu equals the VM's minimal certification charge, with no state map between the two; joule calibration needs thermal and device premises | pass | pass | pass | pass | pass |
 | 4.4 | PROVED BUT KNOWN | conditional finite-state logarithmic heat floor and entropy permutation invariance | pass | pass | pass | pass | pass |
 | 5.1 | PROVED boundary checks; BOUNDARY cryptographic premises | RFC 9162 iterative verifier boundary checks close; collision resistance and STH authenticity are cryptographic premises; the full binding statement formalizes RFC 9162 itself and is not pursued | pass | scope | pass | pass | pass |
 | 5.2 | PROVED BUT KNOWN toy fragment; full PCC not pursued | toy address-policy checker equivalence and typed-certificate implication close; a full SAL/LF/PCC model formalizes another system and is not pursued | pass | scope | pass | pass | pass |

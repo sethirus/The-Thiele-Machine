@@ -284,6 +284,10 @@ An explicitly qualified citation keeps its own module identity.
 - `self_rice_representable`: A guest program deciding such a property would make the complement of single-tape Turing halting enumerable.
 - `g_decides_decidable`: A guest program that decides a property through its register 0 yields a Boolean decider for the property on well-formed programs.
 - `vm_guest_recursion_theorem_closed`: For any transformer `F` on guest programs that sends well-formed guest programs to well-formed guest programs, and any well-formed guest program `D` that represents `F` (on the code of each well-formed program `p`, `D` terminates with register 0 holding the code of `F p`), some well-formed guest program `p` has the same terminating behaviours as `F p`, meaning the same final registers and the same `mu` for every input.
+- `g_pair_smn`: For every guest program `p`, constant `x`, and input `y`, the specialized program `g_pair_specialize p x` run on `y` halts with registers `g` and ledger `mu` exactly when `p` run on the pair `g_pair x y` halts with `g` and `mu`.
+- `hfun_sem`: If the guest program `D` represents the transformer `F` and `e` is well formed, the fuel function returns `m` for some fuel on the pair of `e`'s code and `y` exactly when `m` packs registers `g` and ledger `mu` with which `F` applied to `e` specialized by its own code halts on `y`.
+- `RD_MMA`: For every guest program `D`, the relation "some fuel makes the tuple-form evaluator return `m` on input `z`" is computed by an alternate Minsky machine.
+- `g_pipeline_beh_pack`: If every output of the Minsky program `P` on input `z` packs some registers and ledger, then the guest pipeline for `P` halts on `z` with registers `g` and ledger `mu` exactly when `P` halts on `z` with output `g_out_pack g mu`.
 
 ## Categories
 

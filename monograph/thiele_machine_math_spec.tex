@@ -587,10 +587,10 @@ Building partition structure costs nothing by itself. Certifying structural clai
 
 \chapter{The $\mu$-Chaitin Theorem}
 
-A Chaitin-style incompleteness theorem denominated in $\mu$-currency.
+A Chaitin-style bound denominated in $\mu$-currency. ``Proves $k$ bits'' is an abstract predicate supplied by an instance of the interface; the theorem is not a statement about provability in a fixed formal system.
 
 \begin{theorem}[$\mu$-Chaitin {\normalfont (MuChaitinTheory\_\allowbreak{}TraceLocal.v)}]
-For any formal theory system $T$ satisfying the interface \texttt{MU\_\allowbreak{}CHAITIN\_\allowbreak{}TRACE\_\allowbreak{}SYSTEM}, the number of bits $k$ the theory can certify is bounded by:
+For any instance $T$ of the interface \texttt{MU\_\allowbreak{}CHAITIN\_\allowbreak{}TRACE\_\allowbreak{}SYSTEM}, the number of bits $k$ the theory can certify is bounded by:
 \[ k \le |T| + c \]
 where $|T|$ is the description length of the theory and $c$ is a fixed overhead constant (\texttt{proves\_\allowbreak{}bits\_\allowbreak{}bounded\_\allowbreak{}by\_\allowbreak{}description\_\allowbreak{}trace\_\allowbreak{}local}). The proof chain: $k \le \mathrm{payload} \le \mu\text{-info} \le \mathrm{budget} \le |T| + c$. The description-length budget is an obligation of the interface, not derived. Pricing is required only of the instructions on the theory's own traces (\texttt{priced\_\allowbreak{}on\_\allowbreak{}traces}), and the $\mu$ payment is derived from the kernel's certification theorem.
 \end{theorem}
@@ -1645,8 +1645,8 @@ dynamics fixed while changing the heat.  The protocol is therefore a closed
 calorimeter blueprint, not an unconditional calibration.  Applying a Landauer
 floor requires an additional thermal-admissibility condition such as local
 detailed balance or the second law, plus a measured correspondence between the
-device reset and the VM event. On the VM side the protocol's one logical $\mu$
-event is the minimal certification charge: \texttt{CERTIFY 0} from
+device reset and the VM event. On the VM side the protocol's count of one logical $\mu$
+event equals the minimal certification charge (no theorem maps the protocol's states to VM states): \texttt{CERTIFY 0} from
 \texttt{abs\_\allowbreak{}zero} certifies and raises \texttt{vm\_\allowbreak{}mu} by
 \texttt{canonical\_\allowbreak{}reset\_\allowbreak{}mu}~$=1$
 (\texttt{vm\_\allowbreak{}minimal\_\allowbreak{}certification\_\allowbreak{}charges\_\allowbreak{}canonical\_\allowbreak{}reset\_\allowbreak{}mu}),
@@ -2013,7 +2013,7 @@ Find $k \geq 1$ and a trace from \texttt{init\_\allowbreak{}state} that is \text
 (\texttt{tm\_\allowbreak{}base}), the VM (\texttt{vm\_\allowbreak{}base}), a Cook--Reckhow unit-cost
 RAM (\texttt{ram\_\allowbreak{}base}), and L (\texttt{l\_\allowbreak{}base}) exist, and each satisfies
 \texttt{round4\_\allowbreak{}property} (\texttt{round4\_\allowbreak{}tm\_\allowbreak{}holds}, \texttt{round4\_\allowbreak{}vm\_\allowbreak{}holds},
-\texttt{round4\_\allowbreak{}ram\_\allowbreak{}holds}, \texttt{round4\_\allowbreak{}l\_\allowbreak{}holds}). The relation
+\texttt{round4\_\allowbreak{}ram\_\allowbreak{}holds}, \texttt{round4\_\allowbreak{}l\_\allowbreak{}holds}); \texttt{round4\_\allowbreak{}property} holds for every base, so these instances do not distinguish the bases. The substantive adapter facts are that the L and RAM bases are faithful (\texttt{l\_\allowbreak{}step\_\allowbreak{}fun\_\allowbreak{}correct}, \texttt{star\_\allowbreak{}is\_\allowbreak{}l\_\allowbreak{}base\_\allowbreak{}run}). The relation
 \texttt{weak\_\allowbreak{}base\_\allowbreak{}equiv} is reflexive, symmetric, and transitive, and it carries no
 cost. Cost-respecting simulations between different bases are not constructed,
 and no \texttt{weak\_\allowbreak{}base\_\allowbreak{}equiv} between two different bases is proved.
