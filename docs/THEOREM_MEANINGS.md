@@ -224,6 +224,10 @@ An explicitly qualified citation keeps its own module identity.
 
 ## Diagonal and undecidability
 
+- `g_decode_guest_code_roundtrip`: Encoding a guest-fragment program as a natural number and decoding that number returns the original guest program.
+- `g_eval_is_actual_vm_execution`: For a well-formed guest-fragment program, the fuel-bounded evaluator on its numeric code and input equals the state produced by the actual unbounded-VM runner, for every ambient state and tail.
+- `g_smn`: Prefixing a guest-fragment program with a constant-input load and relocating its body preserves its terminal guest behavior at that fixed input, independently of the specialized program's external input.
+
 - `structural_shortcut_undecidable`: For any substrate with a shortcut predicate, no decider whose diagonal flip is representable in the substrate decides the predicate.
 - `nat_structural_shortcut_undecidable`: For each candidate `d`, the nat substrate built from `d` has no decider with a representable flip for its predicate.
 - `nat_self_undecidable`: Each candidate `d` fails to decide the predicate of the substrate built from it.
@@ -421,6 +425,9 @@ An explicitly qualified citation keeps its own module identity.
 
 ## Replicated-record examples
 
+- `toggle_game_refutes_strong_pointer_necessity`: Consensus, authentic observer views, a positive observer count, and coordinator-free evolution do not imply event permanence, because the two-observer toggle game satisfies those premises and revokes its event.
+- `durable_consensus_implies_permanence`: A positive observer count, authentic observer views, and durable true views imply event permanence; durability is the premise that supplies the conclusion.
+
 - `toy_cert_unique_pointer`: In the chosen replicated-ledger toy, the certificate predicate proliferates and the single designated work predicate does not.
 - `PoS_model_unique_pointer`: In the synthetic PoS-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
 - `Gas_model_unique_pointer`: In the synthetic gas-labelled mirror model, every stipulated observer exposes the selected flag and omits the named rival.
@@ -434,6 +441,10 @@ An explicitly qualified citation keeps its own module identity.
 - `public_log_effort_not_proliferating`: In the same public-log-labelled model, the rival effort predicate does not proliferate, because no observer map reads the effort counter; this shows the control model discriminates between events.
 
 ## Scalar physics and geometry contracts
+
+- `canonical_reset_heat_exact`: In the frozen two-state reset protocol, the bath heat for an energy gap `Delta` is exactly `Delta / 2`.
+- `selected_gap_gives_landauer_heat`: Choosing the two-state energy gap to be `2 * k_B * T * ln 2` makes the frozen reset protocol's bath heat exactly `k_B * T * ln 2`.
+- `master_equation_does_not_fix_heat_scale`: Two distinct energy gaps obey the same frozen population master equation but transfer different heat, so those population dynamics alone do not determine an energy scale.
 
 - `zero_mu_traces_satisfy_preservation_budget`: If each input has a bounded error-free zero-mu trace, every Boolean state predicate satisfies `error_free_preservation_budget` with mu bound zero because its positive-mu antecedent is false.
 - `tsirelson_rational_lower_witness`: Some correlator satisfying the selected rational coherence predicate has CHSH at least 28284/10000.

@@ -23,6 +23,7 @@ INPUTS = [
     "research/rounds/inputs/2026-09-30-v3.4.0-release-notes.md",
 ]
 FREEZE_PARENT = "adfbeac0^"
+RESULT_REF = "3f745351"
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -39,6 +40,13 @@ def frozen_text(document: str) -> str:
         return (ROOT / document).read_text(encoding="utf-8")
     return subprocess.check_output(
         ["git", "show", f"{FREEZE_PARENT}:{document}"], cwd=ROOT, text=True
+    )
+
+
+def result_text(document: str) -> str:
+    """Read the immutable publication produced by the audited Part 1 commit."""
+    return subprocess.check_output(
+        ["git", "show", f"{RESULT_REF}:{document}"], cwd=ROOT, text=True
     )
 
 
@@ -90,8 +98,8 @@ def test_corrections_are_exact_frozen_to_current_replacements() -> None:
             if document.startswith("research/rounds/inputs/")
             else document
         )
-        current_lines = (ROOT / current_document).read_text().splitlines()
-        assert row["replacement"] == current_lines[number - 1]
+        result_lines = result_text(current_document).splitlines()
+        assert row["replacement"] == result_lines[number - 1]
 
 
 def test_result_is_closed() -> None:

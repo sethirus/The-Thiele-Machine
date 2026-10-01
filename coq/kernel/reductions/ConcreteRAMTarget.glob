@@ -1,0 +1,257 @@
+DIGEST 3118704757b771242f3453d87850ea73
+FKernel.ConcreteRAMTarget
+R240:243 Coq.Lists.List <> <> lib
+R245:258 Coq.Arith.PeanoNat <> <> lib
+R268:280 Coq.Lists.List ListNotations <> mod
+def 293:302 <> write_cell
+R321:323 Coq.Init.Datatypes <> nat ind
+binder 305:311 <> address:1
+binder 313:317 <> value:2
+R336:339 Coq.Init.Datatypes <> list ind
+R341:343 Coq.Init.Datatypes <> nat ind
+binder 327:332 <> memory:3
+R348:351 Coq.Init.Datatypes <> list ind
+R353:355 Coq.Init.Datatypes <> nat ind
+R377:382 Kernel.ConcreteRAMTarget <> memory:3 var
+R368:374 Kernel.ConcreteRAMTarget <> address:1 var
+R397:400 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R414:417 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R409:413 Kernel.ConcreteRAMTarget <> value:2 var
+R427:427 Coq.Init.Datatypes <> S constr
+R443:446 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R459:462 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R463:472 Kernel.ConcreteRAMTarget <> write_cell:4 def
+R483:487 Kernel.ConcreteRAMTarget <> value:2 var
+R501:502 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R507:508 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+ind 528:532 <> RAMOp
+constr 539:545 <> RAMLoad
+constr 571:576 <> RAMInc
+constr 596:601 <> RAMDec
+R564:566 Coq.Init.Datatypes <> nat ind
+binder 548:554 <> address:9
+binder 556:560 <> value:10
+R589:591 Coq.Init.Datatypes <> nat ind
+binder 579:585 <> address:11
+R614:616 Coq.Init.Datatypes <> nat ind
+binder 604:610 <> address:12
+scheme 528:532 <> RAMOp_rect
+scheme 528:532 <> RAMOp_ind
+scheme 528:532 <> RAMOp_rec
+scheme 528:532 <> RAMOp_sind
+rec 628:635 <> RAMState
+proj 644:653 <> ram_memory
+proj 669:674 <> ram_pc
+proj 685:694 <> ram_record
+R657:660 Coq.Init.Datatypes <> list ind
+R662:664 Coq.Init.Datatypes <> nat ind
+R678:680 Coq.Init.Datatypes <> nat ind
+R698:701 Coq.Init.Datatypes <> list ind
+R707:709 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R704:706 Coq.Init.Datatypes <> nat ind
+R710:712 Coq.Init.Datatypes <> nat ind
+def 730:736 <> cell_at
+R749:751 Coq.Init.Datatypes <> nat ind
+binder 739:745 <> address:17
+R759:766 Kernel.ConcreteRAMTarget <> RAMState rec
+binder 755:755 <> s:18
+R771:776 Coq.Init.Datatypes <> option ind
+R778:780 Coq.Init.Datatypes <> nat ind
+R787:795 Coq.Lists.List <> nth_error def
+R812:818 Kernel.ConcreteRAMTarget <> address:17 var
+R798:807 Kernel.ConcreteRAMTarget <> ram_memory proj
+R809:809 Kernel.ConcreteRAMTarget <> s:18 var
+def 833:842 <> next_value
+R850:854 Kernel.ConcreteRAMTarget <> RAMOp ind
+binder 845:846 <> op:19
+R864:866 Coq.Init.Datatypes <> nat ind
+binder 858:860 <> old:20
+R871:873 Coq.Init.Datatypes <> nat ind
+R886:887 Kernel.ConcreteRAMTarget <> op:19 var
+R894:900 Kernel.ConcreteRAMTarget <> RAMLoad constr
+R921:926 Kernel.ConcreteRAMTarget <> RAMInc constr
+R933:933 Coq.Init.Datatypes <> S constr
+R935:937 Kernel.ConcreteRAMTarget <> old:20 var
+R941:946 Kernel.ConcreteRAMTarget <> RAMDec constr
+R953:956 Coq.Init.Peano <> pred abbrev
+R958:960 Kernel.ConcreteRAMTarget <> old:20 var
+def 979:988 <> op_address
+R996:1000 Kernel.ConcreteRAMTarget <> RAMOp ind
+binder 991:992 <> op:22
+R1005:1007 Coq.Init.Datatypes <> nat ind
+R1020:1021 Kernel.ConcreteRAMTarget <> op:22 var
+R1028:1034 Kernel.ConcreteRAMTarget <> RAMLoad constr
+R1042:1047 Kernel.ConcreteRAMTarget <> RAMInc constr
+R1053:1058 Kernel.ConcreteRAMTarget <> RAMDec constr
+def 1084:1096 <> ram_base_step
+R1104:1108 Kernel.ConcreteRAMTarget <> RAMOp ind
+binder 1099:1100 <> op:24
+R1116:1123 Kernel.ConcreteRAMTarget <> RAMState rec
+binder 1112:1112 <> s:25
+R1128:1135 Kernel.ConcreteRAMTarget <> RAMState rec
+R1148:1154 Kernel.ConcreteRAMTarget <> cell_at def
+R1157:1166 Kernel.ConcreteRAMTarget <> op_address def
+R1168:1169 Kernel.ConcreteRAMTarget <> op:24 var
+R1172:1172 Kernel.ConcreteRAMTarget <> s:25 var
+R1183:1186 Coq.Init.Datatypes <> None constr
+R1194:1203 Kernel.ConcreteRAMTarget <> ram_memory proj
+R1194:1203 Kernel.ConcreteRAMTarget <> ram_memory proj
+R1194:1203 Kernel.ConcreteRAMTarget <> ram_memory proj
+R1222:1227 Kernel.ConcreteRAMTarget <> ram_pc proj
+R1222:1227 Kernel.ConcreteRAMTarget <> ram_pc proj
+R1261:1270 Kernel.ConcreteRAMTarget <> ram_record proj
+R1261:1270 Kernel.ConcreteRAMTarget <> ram_record proj
+R1208:1217 Kernel.ConcreteRAMTarget <> ram_memory proj
+R1219:1219 Kernel.ConcreteRAMTarget <> s:25 var
+R1232:1232 Coq.Init.Datatypes <> S constr
+R1235:1240 Kernel.ConcreteRAMTarget <> ram_pc proj
+R1242:1242 Kernel.ConcreteRAMTarget <> s:25 var
+R1275:1284 Kernel.ConcreteRAMTarget <> ram_record proj
+R1286:1286 Kernel.ConcreteRAMTarget <> s:25 var
+R1295:1298 Coq.Init.Datatypes <> Some constr
+R1316:1325 Kernel.ConcreteRAMTarget <> ram_memory proj
+R1316:1325 Kernel.ConcreteRAMTarget <> ram_memory proj
+R1316:1325 Kernel.ConcreteRAMTarget <> ram_memory proj
+R1402:1407 Kernel.ConcreteRAMTarget <> ram_pc proj
+R1402:1407 Kernel.ConcreteRAMTarget <> ram_pc proj
+R1426:1435 Kernel.ConcreteRAMTarget <> ram_record proj
+R1426:1435 Kernel.ConcreteRAMTarget <> ram_record proj
+R1330:1339 Kernel.ConcreteRAMTarget <> write_cell def
+R1342:1351 Kernel.ConcreteRAMTarget <> op_address def
+R1353:1354 Kernel.ConcreteRAMTarget <> op:24 var
+R1358:1367 Kernel.ConcreteRAMTarget <> next_value def
+R1369:1370 Kernel.ConcreteRAMTarget <> op:24 var
+R1378:1387 Kernel.ConcreteRAMTarget <> ram_memory proj
+R1389:1389 Kernel.ConcreteRAMTarget <> s:25 var
+R1412:1412 Coq.Init.Datatypes <> S constr
+R1415:1420 Kernel.ConcreteRAMTarget <> ram_pc proj
+R1422:1422 Kernel.ConcreteRAMTarget <> s:25 var
+R1440:1449 Kernel.ConcreteRAMTarget <> ram_record proj
+R1451:1451 Kernel.ConcreteRAMTarget <> s:25 var
+def 1475:1487 <> ram_tied_step
+R1495:1499 Kernel.ConcreteRAMTarget <> RAMOp ind
+binder 1490:1491 <> op:26
+R1507:1514 Kernel.ConcreteRAMTarget <> RAMState rec
+binder 1503:1503 <> s:27
+R1519:1526 Kernel.ConcreteRAMTarget <> RAMState rec
+R1539:1545 Kernel.ConcreteRAMTarget <> cell_at def
+R1548:1557 Kernel.ConcreteRAMTarget <> op_address def
+R1559:1560 Kernel.ConcreteRAMTarget <> op:26 var
+R1563:1563 Kernel.ConcreteRAMTarget <> s:27 var
+R1574:1577 Coq.Init.Datatypes <> None constr
+R1582:1594 Kernel.ConcreteRAMTarget <> ram_base_step def
+R1596:1597 Kernel.ConcreteRAMTarget <> op:26 var
+R1599:1599 Kernel.ConcreteRAMTarget <> s:27 var
+R1605:1608 Coq.Init.Datatypes <> Some constr
+R1635:1647 Kernel.ConcreteRAMTarget <> ram_base_step def
+R1649:1650 Kernel.ConcreteRAMTarget <> op:26 var
+R1652:1652 Kernel.ConcreteRAMTarget <> s:27 var
+binder 1627:1630 <> next:28
+R1666:1675 Kernel.ConcreteRAMTarget <> ram_memory proj
+R1666:1675 Kernel.ConcreteRAMTarget <> ram_memory proj
+R1666:1675 Kernel.ConcreteRAMTarget <> ram_memory proj
+R1697:1702 Kernel.ConcreteRAMTarget <> ram_pc proj
+R1697:1702 Kernel.ConcreteRAMTarget <> ram_pc proj
+R1729:1738 Kernel.ConcreteRAMTarget <> ram_record proj
+R1729:1738 Kernel.ConcreteRAMTarget <> ram_record proj
+R1680:1689 Kernel.ConcreteRAMTarget <> ram_memory proj
+R1691:1694 Kernel.ConcreteRAMTarget <> next:28 var
+R1707:1712 Kernel.ConcreteRAMTarget <> ram_pc proj
+R1714:1717 Kernel.ConcreteRAMTarget <> next:28 var
+R1755:1758 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1743:1752 Kernel.ConcreteRAMTarget <> ram_record proj
+R1754:1754 Kernel.ConcreteRAMTarget <> s:27 var
+R1759:1759 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1780:1780 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1760:1760 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1774:1775 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1779:1779 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1761:1770 Kernel.ConcreteRAMTarget <> op_address def
+R1772:1773 Kernel.ConcreteRAMTarget <> op:26 var
+def 1804:1818 <> ram_untied_step
+R1823:1835 Kernel.ConcreteRAMTarget <> ram_base_step def
+def 1850:1863 <> ram_projection
+R1870:1877 Kernel.ConcreteRAMTarget <> RAMState rec
+binder 1866:1866 <> s:29
+R1890:1892 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1882:1885 Coq.Init.Datatypes <> list ind
+R1887:1889 Coq.Init.Datatypes <> nat ind
+R1893:1895 Coq.Init.Datatypes <> nat ind
+R1902:1902 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1915:1916 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1925:1925 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1903:1912 Kernel.ConcreteRAMTarget <> ram_memory proj
+R1914:1914 Kernel.ConcreteRAMTarget <> s:29 var
+R1917:1922 Kernel.ConcreteRAMTarget <> ram_pc proj
+R1924:1924 Kernel.ConcreteRAMTarget <> s:29 var
+def 1940:1959 <> ram_write_reads_back
+binder 1980:1985 <> memory:30
+binder 1987:1993 <> address:31
+binder 1995:1997 <> old:32
+binder 1999:2003 <> value:33
+R2045:2052 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2034:2036 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2010:2018 Coq.Lists.List <> nth_error def
+R2027:2033 Kernel.ConcreteRAMTarget <> address:31 var
+R2020:2025 Kernel.ConcreteRAMTarget <> memory:30 var
+R2037:2040 Coq.Init.Datatypes <> Some constr
+R2042:2044 Kernel.ConcreteRAMTarget <> old:32 var
+R2104:2106 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2053:2061 Coq.Lists.List <> nth_error def
+R2097:2103 Kernel.ConcreteRAMTarget <> address:31 var
+R2064:2073 Kernel.ConcreteRAMTarget <> write_cell def
+R2075:2081 Kernel.ConcreteRAMTarget <> address:31 var
+R2083:2087 Kernel.ConcreteRAMTarget <> value:33 var
+R2089:2094 Kernel.ConcreteRAMTarget <> memory:30 var
+R2107:2110 Coq.Init.Datatypes <> Some constr
+R2112:2116 Kernel.ConcreteRAMTarget <> value:33 var
+def 2131:2156 <> tied_ram_records_overwrite
+binder 2177:2178 <> op:34
+binder 2180:2180 <> s:35
+binder 2182:2184 <> old:36
+R2227:2234 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2216:2218 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2191:2197 Kernel.ConcreteRAMTarget <> cell_at def
+R2200:2209 Kernel.ConcreteRAMTarget <> op_address def
+R2211:2212 Kernel.ConcreteRAMTarget <> op:34 var
+R2215:2215 Kernel.ConcreteRAMTarget <> s:35 var
+R2219:2222 Coq.Init.Datatypes <> Some constr
+R2224:2226 Kernel.ConcreteRAMTarget <> old:36 var
+R2266:2274 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2235:2244 Kernel.ConcreteRAMTarget <> ram_record proj
+R2247:2259 Kernel.ConcreteRAMTarget <> ram_tied_step def
+R2261:2262 Kernel.ConcreteRAMTarget <> op:34 var
+R2264:2264 Kernel.ConcreteRAMTarget <> s:35 var
+R2287:2290 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2275:2284 Kernel.ConcreteRAMTarget <> ram_record proj
+R2286:2286 Kernel.ConcreteRAMTarget <> s:35 var
+R2291:2291 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2312:2312 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2292:2292 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2306:2307 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2311:2311 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2293:2302 Kernel.ConcreteRAMTarget <> op_address def
+R2304:2305 Kernel.ConcreteRAMTarget <> op:34 var
+R2308:2310 Kernel.ConcreteRAMTarget <> old:36 var
+def 2327:2353 <> untied_ram_record_unchanged
+binder 2374:2375 <> op:37
+binder 2377:2377 <> s:38
+R2413:2415 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2380:2389 Kernel.ConcreteRAMTarget <> ram_record proj
+R2392:2406 Kernel.ConcreteRAMTarget <> ram_untied_step def
+R2408:2409 Kernel.ConcreteRAMTarget <> op:37 var
+R2411:2411 Kernel.ConcreteRAMTarget <> s:38 var
+R2416:2425 Kernel.ConcreteRAMTarget <> ram_record proj
+R2427:2427 Kernel.ConcreteRAMTarget <> s:38 var
+def 2442:2466 <> tied_and_untied_same_base
+binder 2487:2488 <> op:39
+binder 2490:2490 <> s:40
+R2532:2538 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2497:2510 Kernel.ConcreteRAMTarget <> ram_projection def
+R2513:2525 Kernel.ConcreteRAMTarget <> ram_tied_step def
+R2527:2528 Kernel.ConcreteRAMTarget <> op:39 var
+R2530:2530 Kernel.ConcreteRAMTarget <> s:40 var
+R2539:2552 Kernel.ConcreteRAMTarget <> ram_projection def
+R2555:2569 Kernel.ConcreteRAMTarget <> ram_untied_step def
+R2571:2572 Kernel.ConcreteRAMTarget <> op:39 var
+R2574:2574 Kernel.ConcreteRAMTarget <> s:40 var

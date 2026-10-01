@@ -22,33 +22,6 @@ def replace_exact(text: str, pattern: str, replacement: str, count: int) -> str:
     return updated
 
 
-def synchronize_corrections(corrections: Path,
-                            documents: dict[str, Path]) -> None:
-    """Keep Item 1.4's recorded replacement equal to the live audited line."""
-    rows = corrections.read_text(encoding="utf-8").splitlines()
-    if not rows or rows[0] != "document\tline\toriginal\treplacement\treason":
-        raise ValueError(f"unexpected correction-ledger header: {corrections}")
-    current = {
-        name: path.read_text(encoding="utf-8").splitlines()
-        for name, path in documents.items()
-    }
-    updated = [rows[0]]
-    for row in rows[1:]:
-        fields = row.split("\t")
-        if len(fields) != 5:
-            raise ValueError(f"unexpected correction-ledger row: {row}")
-        document, number = fields[0], int(fields[1])
-        if document in current:
-            try:
-                fields[3] = current[document][number - 1]
-            except IndexError as error:
-                raise ValueError(
-                    f"correction line {number} is outside {document}"
-                ) from error
-        updated.append("\t".join(fields))
-    corrections.write_text("\n".join(updated) + "\n", encoding="utf-8")
-
-
 def synchronize(readme: Path, receipt: Path, monograph: Path | None = None,
                 distillation: Path | None = None,
                 citation: Path | None = None,
@@ -64,8 +37,8 @@ def synchronize(readme: Path, receipt: Path, monograph: Path | None = None,
     text = readme.read_text(encoding="utf-8")
     text = replace_exact(
         text,
-        r"committed assumption receipt: [\d,]+ theorems probed",
-        f"committed assumption receipt: {theorem_count} theorems probed",
+        r"[Aa]ssumption receipt: [\d,]+ theorems probed",
+        f"assumption receipt: {theorem_count} theorems probed",
         1,
     )
     text = replace_exact(
@@ -119,10 +92,10 @@ def synchronize(readme: Path, receipt: Path, monograph: Path | None = None,
         text = monograph.read_text(encoding="utf-8")
         text = replace_exact(
             text,
-            r"current full-corpus probe covers [\d,]+ named theorems across [\d,]+ files: "
+            r"full-corpus probe covers [\d,]+ named theorems across [\d,]+ files: "
             r"[\d,]+ close under the global Coq context outright, and [\d,]+ use only "
             r"Coq standard-library assumptions",
-            f"current full-corpus probe covers {theorem_count} named theorems across "
+            f"full-corpus probe covers {theorem_count} named theorems across "
             f"{file_count} files: {closed} close under the global Coq context outright, "
             f"and {dependent} use only Coq standard-library assumptions",
             1,
@@ -139,9 +112,9 @@ def synchronize(readme: Path, receipt: Path, monograph: Path | None = None,
         text = distillation.read_text(encoding="utf-8")
         text = replace_exact(
             text,
-            r"receipt committed with this tree covers [\d,]+ statements across [\d,]+ files: "
+            r"[Aa]ssumption receipt covers [\d,]+ statements across [\d,]+ files: "
             r"[\d,]+ closed and [\d,]+ depending on standard-library assumptions",
-            f"receipt committed with this tree covers {theorem_count} statements across "
+            f"assumption receipt covers {theorem_count} statements across "
             f"{file_count} files: {closed} closed and {dependent} depending on "
             f"standard-library assumptions",
             1,
@@ -160,15 +133,8 @@ def synchronize(readme: Path, receipt: Path, monograph: Path | None = None,
         )
         citation.write_text(text, encoding="utf-8")
 
-    if corrections is not None:
-        documents = {"README.md": readme}
-        if monograph is not None:
-            documents["monograph/monograph.tex"] = monograph
-        if distillation is not None:
-            documents["THIELE_MACHINE.txt"] = distillation
-        if citation is not None:
-            documents["CITATION.cff"] = citation
-        synchronize_corrections(corrections, documents)
+    # Dated audit ledgers are immutable evidence.  Receipt synchronization may
+    # update publications, never a historical round's recorded replacement.
 
 
 def main() -> None:

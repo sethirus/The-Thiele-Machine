@@ -51,7 +51,7 @@
    semantics on purpose: it is compared with the record axis in prose and
    in CasperRecordReading, not built from the VM. *)
 
-From Coq Require Import Arith.PeanoNat Lia Relations Classical.
+From Coq Require Import Arith.PeanoNat Lia Relations.
 
 (** The static setting: validators, hashes, the two quorum classes and their
     intersection property, and the block tree. *)
@@ -225,23 +225,41 @@ Proof.
   - apply (surround_case s q1 q2 h2 v2 h1 v1 h3 v3 c3 Hj Hf); lia.
 Qed.
 
-(** Two justified links into the same epoch reach the same block, unless a
-    quorum_2 set double-voted. *)
-Lemma same_epoch_same_block : forall s q q1 parent1 pre1 h1 v1 parent pre new now,
+(** Distinct targets of two justified links into the same epoch give a
+    quorum_2 set of double voters.  Stating the constructive implication
+    directly avoids deciding equality on the abstract hash type. *)
+Lemma same_epoch_distinct_slashes : forall s q q1 parent1 pre1 h1 v1 parent pre new now,
   justified_link s q parent pre new now ->
   justified_link s q1 parent1 pre1 h1 v1 ->
-  ~ quorum_slashed s ->
   now = v1 ->
-  h1 = new.
+  h1 <> new ->
+  quorum_slashed s.
 Proof.
-  intros s q q1 parent1 pre1 h1 v1 parent pre new now [Hq [Hv _]] [Hq1 [Hv1 _]] Ho ->.
-  destruct (classic (h1 = new)) as [Heq | Hne]; [exact Heq |].
-  exfalso. apply Ho.
+  intros s q q1 parent1 pre1 h1 v1 parent pre new now
+    [Hq [Hv _]] [Hq1 [Hv1 _]] -> Hne.
   destruct (both_votes q q1 _ _ Hq Hq1 Hv Hv1) as [q2 [Hq2 Hboth]].
   exists q2. split; [exact Hq2 |]. intros n Hn. left.
   destruct (Hboth n Hn) as [Ha Hb].
   exists new, h1. split; [intro H; apply Hne; symmetry; exact H |].
   exists v1, pre, pre1. split; assumption.
+Qed.
+
+(** Two distinct justified blocks at one epoch constructively expose a
+    double-voting quorum. *)
+Lemma distinct_justified_same_epoch_slashes : forall s h1 h2 v,
+  justified s h1 v ->
+  justified s h2 v ->
+  h1 <> h2 ->
+  quorum_slashed s.
+Proof.
+  intros s h1 h2 v Hj1 Hj2 Hneq.
+  inversion Hj1 as [s1 | s1 parent1 pre1 q1 new1 now1 Hjp1 Hlink1]; subst;
+    inversion Hj2 as [s2 | s2 parent2 pre2 q2 new2 now2 Hjp2 Hlink2]; subst.
+  - exfalso. apply Hneq. reflexivity.
+  - pose proof (link_epochs _ _ _ _ _ _ Hlink2). lia.
+  - pose proof (link_epochs _ _ _ _ _ _ Hlink1). lia.
+  - exact (same_epoch_distinct_slashes _ _ _ _ _ _ _ _ _ _ _
+      Hlink1 Hlink2 eq_refl (fun Heq => Hneq (eq_sym Heq))).
 Qed.
 
 Lemma distinct_justified_epochs : forall s h1 v1 h2 v2,
@@ -252,12 +270,8 @@ Lemma distinct_justified_epochs : forall s h1 v1 h2 v2,
   v2 <> v1.
 Proof.
   intros s h1 v1 h2 v2 Hj2 Hj1 Hs Hneq Heq. subst v2.
-  inversion Hj2 as [s2 | s2 parent pre q new now Hjp Hlink]; subst;
-    inversion Hj1 as [s1 | s1 parent' pre' q' new' now' Hjp' Hlink']; subst.
-  - apply Hneq. reflexivity.
-  - pose proof (link_epochs _ _ _ _ _ _ Hlink'). lia.
-  - pose proof (link_epochs _ _ _ _ _ _ Hlink). lia.
-  - apply Hneq. exact (same_epoch_same_block _ _ _ _ _ _ _ _ _ _ _ Hlink Hlink' Hs eq_refl).
+  apply Hs. exact (distinct_justified_same_epoch_slashes _ _ _ _ Hj2 Hj1
+    (fun Heq => Hneq (eq_sym Heq))).
 Qed.
 
 Lemma finalized_epoch_distinct : forall s q2 h2 v2 xa parent pre,
@@ -286,14 +300,14 @@ Proof.
   induction k as [k IH] using (well_founded_induction Wf_nat.lt_wf).
   intros v1 h1 Hk Hj Hh Hh' Hv.
   destruct Hj as [s0 | s0 parent pre q new now Hjp Hlink]; [lia |].
-  destruct (classic (quorum_slashed s0)) as [Ho | Ho]; [exact Ho |].
   assert (Hp : ~ hash_ancestor h2 parent)
     by exact (hash_ancestor_other _ _ _ (justified_means_ancestor _ _ _ _ _ _ Hlink) Hh).
   assert (Hpe : parent <> h2) by (intros ->; apply Hp; constructor).
   pose proof (link_epochs _ _ _ _ _ _ Hlink) as Hpre.
   destruct (Nat.lt_trichotomy v2 pre) as [Hlt | [Heq | Hgt]].
   - apply (IH (pre - v2)) with (v1 := pre) (h1 := parent); try assumption; lia.
-  - exfalso. exact (finalized_epoch_distinct _ _ _ _ _ _ _ Hf Ho Hjp Hpe Heq).
+  - subst pre. exact (distinct_justified_same_epoch_slashes _ _ _ _
+      Hjp (proj1 (proj2 Hf)) Hpe).
   - exact (crossing_link_slashes _ _ _ _ _ _ _ _ _ _ Hlink Hf Hv Hh Hgt).
 Qed.
 

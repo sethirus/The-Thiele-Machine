@@ -218,9 +218,8 @@
 \vspace*{\fill}
 \begin{center}
 {\fontsize{34}{40}\selectfont\bfseries The Thiele Machine}\\[2.2em]
-{\Large\itshape A Checked Account with Open Questions}\\[0.9em]
-{\large An abstract model of computation, and an argument\\
-about what an account of computation should preserve}\\[3.5em]
+{\Large\itshape A Computational Model with Explicit Structural Cost}\\[0.9em]
+{\large Structure, records, observation, and cost}\\[3.5em]
 \rule{0.5\linewidth}{0.4pt}\\[1.8em]
 {\large Devon Thiele}\\[0.6em]
 {\normalsize\itshape September 2026 -- v3.3.0}
@@ -301,7 +300,7 @@ An account of computation should carry what was established and what it cost, as
 Not as something a program bolts on afterward.
 Proposed.
 This is the conviction the proofs are there to test.
-Part of it is now proved.
+The proved part is exact.
 If the account is going to charge certification exactly, never less and never more, the charge can't be computed from the window.
 A step that certifies and a step that doesn't can look the same through it, so any charge read off the window either misses the one or bills the other.
 The exact price needs the reading inside what the step carries.
@@ -311,10 +310,10 @@ The same bound holds in bits of Shannon entropy.
 Whether every account has to price merges is physics, not a theorem.
 \item \emph{Which events every account has to price.}
 Certification is the one I pinned down.
-Why that one has an answer now: the events a finite machine must price are the steps that merge states, every step that writes a record nothing takes back is one of them, and a flip escapes the price only when the same step can take the reading back somewhere.
+For finite machines the answer is this: the events an account based on merge pricing must charge are the steps that merge states, every step that writes a record nothing takes back is one of them, and a flip escapes the price only when the same step can take the reading back somewhere.
 Proved, with Landauer's principle as the named premise.
 The stronger guess, that the priced events are exactly the permanent records, is false, and a three-state counterexample shows it.
-What else belongs on the meter is open.
+No theorem selects another universal class of priced events.
 The pointer-observable conjecture is my candidate answer.
 \end{enumerate}
 
@@ -322,7 +321,7 @@ Certification is one point I could pin down.
 It gave me a law I could state, a VM I could build and run, and proofs I could put in front of someone who did not share my intuition.
 It is one witness in a much larger argument about structure and observation.
 It is not the argument.
-I am not done looking.
+The unproved reach is labeled as conjecture.
 
 \textbf{How the book is laid out.}
 Part~I is the argument.
@@ -331,7 +330,7 @@ The build is there so the argument has something you can run and try to break.
 It is a witness.
 It is not the subject.
 Part~III is how to check all of it.
-Part~IV is what is still open.
+Part~IV states the boundary of the proved results.
 The vocabulary I had to learn is at the back, for anyone who wants it.
 
 The shadow is real for the projections I proved it for.
@@ -342,17 +341,17 @@ That is part of the question: which distinctions deserve to survive an account o
 I think there is something foundational here.
 I will be straight about the difference between that conviction and a theorem.
 The results below have statements, premises, and proof terms.
-The larger claim still has work to do.
+The larger claim is a conjecture, not a theorem.
 I built the machine so that work could be done in public, with something firmer than my confidence to argue over.
 
 \begin{abstract}
 The Thiele Machine is an abstract model of computation, and this book is an argument made with it. The argument is about what a computation keeps and what keeping it costs. The usual account of a computation, what it reads and writes, is a shadow of it; the model adds the axis that account leaves out. It carries structure as part of its state, a ledger that only climbs, a rule for which events have to pay, and a window saying what an observer sees. The first result is about that window. Two runs can look identical through it and still differ in what they established and what they paid. No function of the window gets the difference back, and no checker that reads only the window can be both sound and complete about a claim that turns on it. That is a theorem about what the shadow loses. It is not true by definition. Certification is the one event I pinned down all the way. The rule is called A2: any step that flips a designated yes/no reading from false to true costs at least one. A2 is a rule I chose, and the cost theorem built on it sits close to that choice: once the flip is priced, every run that flips has paid. What A2 adds is where it lives. It is part of the step rule. It is not a program running on top of one. And for an exact price it has to be: when a step that certifies and a step that doesn't look the same through the window, no charge computed from the window prices certification exactly, and the VM has such a pair for both windows I name. The cost theorem built on A2 doesn't care what the states or instructions are. Any system that follows A2 is covered.
 
-Three results carry the weight of the structural question. Every deterministic machine can carry the record axis: the machine plus a latch on an event it reaches, charging one unit when the latch sets, is an honest extension of it (\code{latch\_core\_honest}). On the VM the record can't be read back off the shadow: no function of the named windows returns certification or $\mu$ (\code{cert\_not\_function\_of\_forget}, \code{mu\_not\_function\_of\_bare\_observable}). And on finite hardware a step that writes a permanent record merges two states (\code{permanent\_flip\_is\_not\_injective}), so an account that prices merges already prices the write. That a permanent record, driven by the computation, is a latch on one event (\code{uniqueness\_round4\_holds}) is close to definitional; it follows from those two conditions in a few lines. Which event gets latched is the pointer question, and it is open.
+Three results carry the weight of the structural question. Every deterministic machine can carry the record axis: the machine plus a latch on an event it reaches, charging one unit when the latch sets, is an honest extension of it (\code{latch\_core\_honest}). On the VM the record can't be read back off the shadow: no function of the named windows returns certification or $\mu$ (\code{cert\_not\_function\_of\_forget}, \code{mu\_not\_function\_of\_bare\_observable}). And on finite hardware a step that writes a permanent record merges two states (\code{permanent\_flip\_is\_not\_injective}), so an account that prices merges already prices the write. That a permanent record, driven by the computation, is a latch on one event (\code{uniqueness\_round4\_holds}) is close to definitional; it follows from those two conditions in a few lines. The pointer question asks which event gets latched; no theorem here selects one uniquely.
 
 The formal results go further than that one floor. They pin down exact unit pricing relative to how many certification flips happen, show the ledger is unique once the schedule is fixed, exhibit states that a specified window can't tell apart, give a universal property for folding traces, and check some specialized algebraic certificates. The executable VM and the hardware bridges are one build of the model. They realize parts of this, each under its stated conditions. They are witnesses to the argument. They are not its subject. Paying for an event is accounting. Truth needs a checker whose soundness is proved.
 
-Two questions stay open: what the ledger means physically, and which events every account of computation has to price. For the full instruction set, the F1 physical premise pair can't coexist with free jumps, and \code{F1\_physical\_premises\_incompatible} proves it. A narrower pair does hold together. On a machine with finite memory and a certificate that can never be revoked, the step that certifies has to merge two states, so pricing merges, as Landauer's principle does in the worst case over what the machine might hold, yields A2 (\code{a2\_from\_merging\_price\_and\_permanence}). Priced per halving, switching $k$ states on beside $m$ certified ones costs at least $\log_2((m+k)/m)$. In Shannon entropy the same step removes at least that many bits from the uniform distribution on the states in play, and with Landauer's principle as the premise that is at least $k_B T\ln((m+k)/m)$ of heat. Any distribution that leaves every state in play possible forces positive heat; a state known in advance forces none, and both are proved. A four-slot piece of the VM with a certification flag is such a finite machine. The VM runs it step for step, and its ledger rises by exactly what the merges cost. In the full VM every certification flip is a priced merge, and at least one other merge, JUMP 0 0, is free. And on finite hardware the events that must be priced are exactly the merges: every permanent-record write is one, and a flip escapes the price only when the same step can take it back. What stays open on the physical side is the experiment. The observation results don't forbid encodings that keep the information. The trace-fold property doesn't make the VM's state space initial.
+Two questions lie outside the proved core: what the ledger means physically, and which events every account of computation has to price. For the full instruction set, the F1 physical premise pair can't coexist with free jumps, and \code{F1\_physical\_premises\_incompatible} proves it. A narrower pair does hold together. On a machine with finite memory and a certificate that can never be revoked, the step that certifies has to merge two states, so pricing merges, as Landauer's principle does in the worst case over what the machine might hold, yields A2 (\code{a2\_from\_merging\_price\_and\_permanence}). Priced per halving, switching $k$ states on beside $m$ certified ones costs at least $\log_2((m+k)/m)$. In Shannon entropy the same step removes at least that many bits from the uniform distribution on the states in play, and with Landauer's principle as the premise that is at least $k_B T\ln((m+k)/m)$ of heat. Any distribution that leaves every state in play possible forces positive heat; a state known in advance forces none, and both are proved. A four-slot piece of the VM with a certification flag is such a finite machine. The VM runs it step for step, and its ledger rises by exactly what the merges cost. In the full VM every certification flip is a priced merge, and at least one other merge, JUMP 0 0, is free. And on finite hardware the events that must be priced are exactly the merges: every permanent-record write is one, and a flip escapes the price only when the same step can take it back. The physical side requires an experiment. The observation results don't forbid encodings that keep the information. The trace-fold property doesn't make the VM's state space initial.
 
 \end{abstract}
 
@@ -1109,7 +1108,7 @@ The abstract \code{CertificationSystem} carries any state type, any instruction 
 
 A fixed machine can enforce an invariant just by which transitions it allows. A simulator keeps that invariant when its correctness contract ties the two together. One broken simulator doesn't show that every simulator, or every conventional machine, fails to enforce it. And a law protected inside a machine doesn't automatically vouch for a transcript somebody else hands you.
 
-Certification is one instance of all this. Any other family of observables, $\alpha_i:S\to X_i$, needs its own explicit events and cost laws for each guarantee it claims. Piling predicates together doesn't give you a topology, a metric, or independence between them. And the current instruction set lets even partition structure change at zero cost.
+Certification is one instance of all this. Any other family of observables, $\alpha_i:S\to X_i$, needs its own explicit events and cost laws for each guarantee it claims. Piling predicates together doesn't give you a topology, a metric, or independence between them. And the 51-opcode instruction set lets even partition structure change at zero cost.
 
 \subsection{The canonical contrast: the Turing machine}
 
@@ -1374,7 +1373,7 @@ Three structurally distinct ways to clear the impossibility live in the kernel a
 The substrate channel is the option the structural axis makes available; hardness and interaction are the two routes classical cryptography and complexity already used. Here the hardness route appears as an exact commitment-bit contract. All three are witnessed by closed Coq theorems, each with its own trust profile. The commitment theorem itself supplies no hardness reduction. What follows is the shared obstruction they all answer to.
 
 \begin{plainreading}
-Squash a richer transcript down to its classical trace and the same collision comes back. The condition is that the collision has to survive into the richer transcript type: the two bare-indistinguishable states $s_A, s_B$ have to show up as two transcripts $t_A, t_B$ under $\mathsf{explains\_T}$. That isn't free. It's exactly what each of the three interfaces above has to establish about its own transcript type, and each one does it by building $t_A$ and $t_B$ outright. Given that, checking a $\mu$-sensitive claim has to look at structure the classical trace doesn't carry. Any verifier that lives entirely on the classical projection fails on that same pair. The full state, the contract-governed commitment bit, and the interactive response are three built verifiers that do look at that structure. Whether some fourth kind of transcript could expose it another way is left open here. The claim is that these three work, each under its own trust contract. They aren't claimed to be the only possible designs.
+Squash a richer transcript down to its classical trace and the same collision comes back. The condition is that the collision has to survive into the richer transcript type: the two bare-indistinguishable states $s_A, s_B$ have to show up as two transcripts $t_A, t_B$ under $\mathsf{explains\_T}$. That isn't free. It's exactly what each of the three interfaces above has to establish about its own transcript type, and each one does it by building $t_A$ and $t_B$ outright. Given that, checking a $\mu$-sensitive claim has to look at structure the classical trace doesn't carry. Any verifier that lives entirely on the classical projection fails on that same pair. The full state, the contract-governed commitment bit, and the interactive response are three built verifiers that do look at that structure. The theorem does not classify every possible transcript design.
 \end{plainreading}
 
 \begin{theorem}[Factorisation impossibility, \code{V\_does\_not\_factor\_through\_classical}]
@@ -2038,7 +2037,7 @@ Either subcase gives total trace cost $\geq 1$. \qed
 
 This theorem does not know about registers, memory, partitions, morphisms, CHSH trials, or the 51-opcode ISA. It says: once a model has a yes/no certification test and the one-step certification transition is priced, trace-level non-free certification falls out by induction over the trace, no further premises required. If that one-step premise fails, the model permits free certification by definition. If the model has no certification predicate, it cannot talk about structural entitlement internally.
 
-And don't read ``that's the whole argument'' as ``the premise is the whole content.'' The single implication is one line from the pricing rule, yes. It is an accounting law, and I call it one. It isn't a law pulled from nowhere, though. The nearest older rule is Landauer's erasure accounting, and the two meet at an exact place. A trusted erasure-accounting law, the same trust posture, certifies at total cost zero when no erasure is reported (\code{commitment\_cost\_not\_reducible\_to\_erasure\_cost}). Its one step sends both states to certified. That is a merge, and it goes unreported. Report every merge, and on a finite machine with a permanent certificate the erasure law charges the certification flip at least one. Same bill as A2 (Section~\ref{sec:permanent-certification}). So A2 is what Landauer's rule says about the step that certifies, wherever memory is finite, certificates last, and the machine could be in either of the states the step merges. Where Landauer's rule isn't in force, A2 still prices the flip. The VM is that case: its free \texttt{JUMP} merges program counters, and its \texttt{CERTIFY}, itself a merge, still pays (\code{vm\_prices\_certifying\_merge\_leaves\_others\_free}). And if the goal is to price exactly the certification flips, never less and never more, a charge on any other predicate misses that goal (\code{substitution\_test\_rejects\_non\_a2\_exact\_substitute}). That uniqueness is relative to the goal. Whether certification is the event that deserves the price is the open question of Section~\ref{sec:pointer}. A2 is a rule I chose. On finite hardware with certificates that last, it is also the rule Landauer's principle would have chosen for that step.
+And don't read ``that's the whole argument'' as ``the premise is the whole content.'' The single implication is one line from the pricing rule, yes. It is an accounting law, and I call it one. It isn't a law pulled from nowhere, though. The nearest older rule is Landauer's erasure accounting, and the two meet at an exact place. A trusted erasure-accounting law, the same trust posture, certifies at total cost zero when no erasure is reported (\code{commitment\_cost\_not\_reducible\_to\_erasure\_cost}). Its one step sends both states to certified. That is a merge, and it goes unreported. Report every merge, and on a finite machine with a permanent certificate the erasure law charges the certification flip at least one. Same bill as A2 (Section~\ref{sec:permanent-certification}). So A2 is what Landauer's rule says about the step that certifies, wherever memory is finite, certificates last, and the machine could be in either of the states the step merges. Where Landauer's rule isn't in force, A2 still prices the flip. The VM is that case: its free \texttt{JUMP} merges program counters, and its \texttt{CERTIFY}, itself a merge, still pays (\code{vm\_prices\_certifying\_merge\_leaves\_others\_free}). And if the goal is to price exactly the certification flips, never less and never more, a charge on any other predicate misses that goal (\code{substitution\_test\_rejects\_non\_a2\_exact\_substitute}). That uniqueness is relative to the goal. Whether certification is the event that deserves the price is the conjecture of Section~\ref{sec:pointer}. A2 is a rule I chose. On finite hardware with certificates that last, it is also the rule Landauer's principle would have chosen for that step.
 
 \begin{plainreading}
 This is the abstract theorem pointed at the 51-opcode machine. Its two concrete certification channels, \texttt{csr\_cert\_addr} and \texttt{vm\_certified}, both cost something at the step that turns them on. And the predicate-strengthening reading falls out of the structure-addition theorem.
@@ -2488,7 +2487,7 @@ Assume the VM's internal recursion theorem restricted to representable transform
 \end{theorem}
 
 \begin{proof}
-Instantiate the substrate-level theorem at \texttt{vm\_substrate}. The Gödel encoding piece (\texttt{vm\_encode}, \texttt{vm\_decode\_safe}, the round-trip) enters as Section parameters and is then discharged by the kernel's closed round-trip lemma (\texttt{program\_to\_nat}, \texttt{nat\_to\_program}, no Hypothesis) in \code{vm\_structural\_shortcut\_undecidable\_encoded}. The VM's internal-representability predicate \texttt{vm\_representable} and the VM's internal recursion theorem restricted to representable transformers are the Section parameters that stay live; closing the surrounding Coq Section discharges them as explicit \texttt{forall} premises on every consumer, the same Section-parameter discipline the physical bridges use for their named constants, and the theorem above states that recursion-theorem premise directly rather than leaving it implicit in the proof. The VM-side \texttt{AdmitsShortcut} is the extensional predicate ``this VM program's bounded run from \texttt{init\_state} coincides with the bounded run of \code{simple\_morph\_trace}''; \texttt{yes\_program} is \code{simple\_morph\_trace}; \texttt{no\_program} is the empty trace, which produces \texttt{init\_state} and so differs from \code{simple\_morph\_final} (where the supra-cert channel has fired). The substrate-level diagonal applies; \code{vm\_structural\_shortcut\_undecidable} is its specialization, carrying the VM-side parameters as premises. The nat family above is a separate application with different semantics. This VM specialization remains conditional on its stated bounded recurrence premise and representability class.
+Instantiate the substrate-level theorem at \texttt{vm\_substrate}. The Gödel encoding piece (\texttt{vm\_encode}, \texttt{vm\_decode\_safe}, the round-trip) enters as Section parameters and is then discharged by the kernel's closed round-trip lemma (\texttt{program\_to\_nat}, \texttt{nat\_to\_program}, no Hypothesis) in \code{vm\_structural\_shortcut\_undecidable\_encoded}. The VM's internal-representability predicate \texttt{vm\_representable} and the VM's internal recursion theorem restricted to representable transformers are the Section parameters that stay live; closing the surrounding Coq Section discharges them as explicit \texttt{forall} premises on every consumer, the same Section-parameter discipline the physical bridges use for their named constants, and the theorem above states that recursion-theorem premise directly rather than leaving it implicit in the proof. The VM-side \texttt{AdmitsShortcut} is the extensional predicate ``this VM program's bounded run from \texttt{init\_state} coincides with the bounded run of \code{simple\_morph\_trace}''; \texttt{yes\_program} is \code{simple\_morph\_trace}; \texttt{no\_program} is the empty trace, which produces \texttt{init\_state} and so differs from \code{simple\_morph\_final} (where the supra-cert channel has fired). The substrate-level diagonal applies; \code{vm\_structural\_shortcut\_undecidable} is its specialization, carrying the VM-side parameters as premises. The nat family above is a separate application with different semantics. This VM specialization is conditional on its stated bounded recurrence premise and representability class.
 
 \texttt{vm\_run} returns \texttt{Some (run\_vm 1000 p s)} even when fuel expires before halting. Equality of its two finite-data results is decidable externally. Under the recurrence premise, the flip of that correct external decider must therefore lie outside the chosen representability class. The unbounded relation \code{VMUnboundedExec.vm\_halts\_at} instead requires an existential fuel witness and a halted result. Its determinism and saturation proofs do not identify it with bounded-result equality. A separate development supplies a fixed 60-instruction interpreter over the natural-valued sibling \texttt{vm\_apply\_u}, with executable variable-width encodings of two-counter programs. The guest branches on a successful nonzero decrement and falls through on zero. That convention matters. A guest that branches on zero instead is a weaker machine, and it isn't used as a universality witness. \code{VMUnboundedCM2Bridge.mm2\_halting\_host\_iff} proves equivalence between halting in the pinned Coq Undecidability Library's MM2 semantics and raw execution of this fixed host interpreter on the encoded input. Its correctness, malformed-code exclusion, and divergence contracts are proved independently of any supplied interpreter-correctness premise.
 
@@ -2518,14 +2517,14 @@ Let $P$ be a property of L programs that depends only on which values they reach
 
 The halting problem falls out: no L term decides whether an L program reaches a value (\code{L\_halting\_undecidable}). And the diagonal in the exact shape of the substrate theorem is ruled out too: no Boolean decider that returns true exactly when the property holds has a flip the model can compute (\code{L\_structural\_shortcut\_undecidable}). Every one of these closes under the global context. Nothing is assumed, and nothing is true by definition.
 
-Two limits. L is not the 51-opcode VM, and it is not a \code{Substrate} instance: the interface asks for a total \texttt{run} function, and a model that can really diverge doesn't have one without an axiom. So this is the same diagonal proved again for L, not the substrate theorem applied to L. What it shows is that the diagonal's recursion premise is one a real model of computation meets. The VM's own recursion theorem is still a premise.
+Two limits. L is not the 51-opcode VM, and it is not a \code{Substrate} instance: the interface asks for a total \texttt{run} function, and a model that can really diverge doesn't have one without an axiom. So this is the same diagonal proved again for L, not the substrate theorem applied to L. What it shows is that the diagonal's recursion premise is one a real model of computation meets. The VM theorem takes its own recursion theorem as a premise.
 
 \subsection{The exact interpreter targets}
 
 An interpreter is a program that runs other programs, handed to it as data.
 The machine running one is the host; the program being run is the guest.
-The word ``interpreter'' names two different constructions in the current
-kernel, and I am keeping both names because they answer different questions.
+The word ``interpreter'' names two different constructions in the
+kernel. I keep both names because they answer different questions.
 The 60-instruction construction is the fixed host
 \code{cm2\_interpreter\_program}; the selected B3 self-interpreter target is
 the separate 122-instruction host \code{self\_interpreter\_program}. Neither
@@ -2581,6 +2580,17 @@ guest instruction to a nonzero packed word, chooses a width
 well-formed instruction in the finite guest program; an out-of-range fetch is
 the guest's normal no-instruction termination condition.
 
+That number has a checked way back into the guest syntax
+(\code{g\_decode\_guest\_code\_roundtrip}), and running the decoded program
+for a stated amount of fuel agrees with the VM run
+(\code{g\_eval\_is\_actual\_vm\_execution}). A constant first input can also
+be compiled into a relocated program without changing its behavior
+(\code{g\_smn}). This is the s-m-n step. It is a construction in Coq, not a
+guest instruction: the four-register language contains no program that takes
+one of these numbers and performs that dispatch or emits the specialized code.
+That distinction is exactly why these theorems do not imply Kleene's recursion
+theorem for the guest machine.
+
 The host is the literal list \code{self\_interpreter\_program}, whose length
 is 122. At an interpreter boundary, the representation relation
 \code{h\_rep}/\code{hbc} places the guest registers in host registers
@@ -2632,7 +2642,7 @@ library's enumerability formulation. Thus ``undecidable'' here means the
 formal reduction/enumerability contract supplied by the library; it does not
 mean an unrestricted meta-theoretic negation of every possible Coq decision
 procedure. The bounded VM outcome equality, the VM's conditional structural
-diagonal, and the unbounded CM2 bridge remain separate theorems with separate
+diagonal, and the unbounded CM2 bridge are separate theorems with separate
 domains.
 
 \subsection{The proof, in prose}
@@ -2671,15 +2681,15 @@ no Turing decider for halting & no correct decider with a representable flip und
 
 The table lines up the same diagonal on two axes, each under its own model's premises. The nat construction gives a family indexed by the candidate decider, and the VM result is about bounded outcome equality under a restricted recurrence premise. Neither one hands you a second fixed effective undecidable problem, and neither separates Turing degrees. The CSR collision below is a different kind of result: a state that a window can't recover.
 
-\subsection{What this closes}
+\subsection{Consequences and limits}
 
-\paragraph{What the substrate-level theorem closes.} A total witness procedure would yield a decider of the same predicate only under an explicit reduction contract: its input is each program $p$ in the theorem's domain; its success is equivalent to \texttt{AdmitsShortcut p}; and it terminates with either a witness or a definite negative answer on every such input. To apply the diagonal, the Boolean decider obtained by testing that success must also have a flip in the supplied representability class. Under these premises the theorem excludes the procedure. A procedure returning a \code{SoundStructuralShortcut} record is not automatically such a reduction: its witness relation must first be connected to this exact program predicate. Partial synthesis, restricted argument inputs, and externally supplied evidence are not excluded by the total-decider theorem.
+\paragraph{The substrate-level theorem.} A total witness procedure would yield a decider of the same predicate only under an explicit reduction contract: its input is each program $p$ in the theorem's domain; its success is equivalent to \texttt{AdmitsShortcut p}; and it terminates with either a witness or a definite negative answer on every such input. To apply the diagonal, the Boolean decider obtained by testing that success must also have a flip in the supplied representability class. Under these premises the theorem excludes the procedure. A procedure returning a \code{SoundStructuralShortcut} record is not automatically such a reduction: its witness relation must first be connected to this exact program predicate. Partial synthesis, restricted argument inputs, and externally supplied evidence are not excluded by the total-decider theorem.
 
-\paragraph{What the nat-substrate theorem closes.} It constructs a family of instances indexed by the candidate $d$. For each member, $d$ fails on that member's predicate. The generic theorem applies under its representability and fixed-point premises. A fixed-system effective undecidability result requires another instance argument.
+\paragraph{The nat-substrate theorem.} It constructs a family of instances indexed by the candidate $d$. For each member, $d$ fails on that member's predicate. The generic theorem applies under its representability and fixed-point premises. A fixed-system effective undecidability result requires another instance argument.
 
-\paragraph{What the L theorem closes.} It supplies that other argument for one fixed model. In L the recursion theorem is proved, not built in, so the diagonal rules out a real decider for a fixed predicate: Rice's theorem, with halting as a corollary (Section~\ref{sec:L-recursion}). It does not carry over to the 51-opcode VM, whose recursion theorem is still a premise.
+\paragraph{The L theorem.} It supplies that other argument for one fixed model. In L the recursion theorem is proved, not built in, so the diagonal rules out a real decider for a fixed predicate: Rice's theorem, with halting as a corollary (Section~\ref{sec:L-recursion}). It does not carry over to the 51-opcode VM, whose theorem takes recursion as a premise.
 
-\paragraph{What the VM corollary closes.} The 51-opcode VM corollary \code{vm\_structural\_shortcut\_undecidable} is the substrate-level theorem instantiated at \texttt{vm\_substrate}: no representable decider answers \texttt{true} exactly when a VM program admits the extensional shortcut. It carries the VM-side Section parameters as explicit \texttt{forall} premises, in the named-premise style the physical bridges use. The generic theorem does not depend on these particular VM parameters, but its VM application does. The nat family supplies a different instance for each $d$ and cannot replace the VM's bounded recurrence premise. The exclusion applies to deciders whose diagonal flips lie in the supplied representability class.
+\paragraph{The VM corollary.} The 51-opcode VM corollary \code{vm\_structural\_shortcut\_undecidable} is the substrate-level theorem instantiated at \texttt{vm\_substrate}: no representable decider answers \texttt{true} exactly when a VM program admits the extensional shortcut. It carries the VM-side Section parameters as explicit \texttt{forall} premises, in the named-premise style the physical bridges use. The generic theorem does not depend on these particular VM parameters, but its VM application does. The nat family supplies a different instance for each $d$ and cannot replace the VM's bounded recurrence premise. The exclusion applies to deciders whose diagonal flips lie in the supplied representability class.
 
 \paragraph{How to falsify.} Three routes.
 \begin{enumerate}
@@ -2809,7 +2819,7 @@ Why does this exist? Because structural knowledge needs a home. Creating a modul
 
 \medskip
 \noindent\textbf{PSPLIT($m$, $L$, $R$, $\delta$)}: split one module into two.\\
-Splits module $m$ and charges $\delta$ to $\mu$, no more. The constructor still carries left and right region payloads, but the current hardware-aligned step ignores those payloads and calls \texttt{graph\_hw\_psplit}: the left side gets half the module size, and the right side gets the remainder. This is the refinement operation in the finite hardware model. If discovering the split deserves a cost, encode a positive $\delta$; the canonical reversible-accounting policy keeps it at 0.
+Splits module $m$ and charges $\delta$ to $\mu$, no more. The constructor carries left and right region payloads, but the hardware-aligned step ignores those payloads and calls \texttt{graph\_hw\_psplit}: the left side gets half the module size, and the right side gets the remainder. This is the refinement operation in the finite hardware model. If discovering the split deserves a cost, encode a positive $\delta$; the canonical reversible-accounting policy keeps it at 0.
 
 \medskip
 \noindent\textbf{PMERGE($m_1$, $m_2$, $\delta$)}: merge two modules into one.\\
@@ -2834,7 +2844,7 @@ This is the most important logic opcode in the VM. \texttt{LASSERT} is where a c
 
 \medskip
 \noindent\textbf{LJOIN(\textit{c1reg}, \textit{c2reg}, $\delta$)}: reserve certificate-join cost.\\
-Reserves the cost of joining two memory-resident certificates. The addresses of the input certificates are in \textit{c1reg} and \textit{c2reg}. Charges $S(\delta) \geq 1$. In the current hardware-aligned semantics, \texttt{LJOIN} does not compare certificate strings, write a composite certificate, touch CSR state, or mutate the graph. It advances the PC and pays the positive floor. The join proof lives at the abstraction/verifier boundary, not inside this kernel step.
+Reserves the cost of joining two memory-resident certificates. The addresses of the input certificates are in \textit{c1reg} and \textit{c2reg}. Charges $S(\delta) \geq 1$. In the hardware-aligned semantics, \texttt{LJOIN} does not compare certificate strings, write a composite certificate, touch CSR state, or mutate the graph. It advances the PC and pays the positive floor. The join proof lives at the abstraction/verifier boundary, not inside this kernel step.
 
 \medskip
 \noindent\textbf{MDLACC($m$, $\delta$)}: MDL cost accounting.\\
@@ -3339,7 +3349,7 @@ Coq is where the substrate gets pinned down. The kernel defines:
 
 The Coq kernel operates mostly over natural numbers, but \texttt{VMState} is not an unbounded mathematical fantasy. \texttt{REG\_COUNT = 16}. \texttt{MEM\_SIZE = 128}. Both are matched against the synthesised RTL. The accessors wrap indices through those sizes (modular arithmetic, Section~\ref{sec:vocab}). Both constants are parametric in the proofs (Section~\ref{sec:vocab}: same proofs, any value), so nothing in the formal chain depends on the specific numbers. Register and memory writes are truncated through the kernel's 64-bit word helpers to keep the math clean. The $\mu$ counter is a plain natural number with no fixed upper bound. The RTL instantiates a finite 32-bit datapath (the part of the chip that moves and operates on data, not the control logic) and bounded tables.
 
-Arithmetic near a word boundary is where a bridge claim can quietly stop meaning what it says, so state it concretely. \texttt{ADD} on the register values $2^{32}-1$ and $1$: 32-bit modular arithmetic wraps the sum to $0$; the kernel's 64-bit word truncation instead gives $2^{32}$, a different value. This is not a hypothetical; it is exactly the gap between the RTL's 32-bit datapath and the kernel's 64-bit word helpers named in the paragraph above. Values whose sum stays under $2^{32}$ agree on both sides; values whose sum crosses that boundary do not, and the bridge domain has to say which side is authoritative for such a value or exclude it. The $\mu$ counter's own range needs the same treatment rather than an unqualified ``unbounded natural on both sides'' reading: the kernel's $\mu$ is a plain unbounded natural number, but the RTL ledger is a fixed-width register, so a program that accumulates enough $\mu$ to exceed that width is outside what the current hardware correspondence establishes, the same way an oversized \texttt{ADD} is.
+Arithmetic near a word boundary is where a bridge claim can quietly stop meaning what it says, so state it concretely. \texttt{ADD} on the register values $2^{32}-1$ and $1$: 32-bit modular arithmetic wraps the sum to $0$; the kernel's 64-bit word truncation instead gives $2^{32}$, a different value. This is not a hypothetical; it is exactly the gap between the RTL's 32-bit datapath and the kernel's 64-bit word helpers named in the paragraph above. Values whose sum stays under $2^{32}$ agree on both sides; values whose sum crosses that boundary do not, and the bridge domain has to say which side is authoritative for such a value or exclude it. The $\mu$ counter's own range needs the same treatment rather than an unqualified ``unbounded natural on both sides'' reading: the kernel's $\mu$ is a plain unbounded natural number, but the RTL ledger is a fixed-width register, so a program that accumulates enough $\mu$ to exceed that width is outside the proved hardware correspondence, the same way an oversized \texttt{ADD} is.
 
 Zero Admitted means: no step in any theorem proof was asserted without derivation. Coq checked everything. I did not.
 
@@ -3471,7 +3481,7 @@ Proof-carrying & interaction & \code{interactive\_escape\_succeeds}, \code{level
 }
 \end{center}
 
-Each of the five proves what its own record says. Reading any of them as a claim about a deployed system takes evidence from that system. And none of them shows certification is the one event every model has to price. That question is still open.
+Each of the five proves what its own record says. Reading any of them as a claim about a deployed system takes evidence from that system. None shows certification is the one event every model has to price; that selection is a conjecture.
 
 \subsection{Five specifications, read through the record axis}
 \label{sec:spec-records}
@@ -3494,7 +3504,7 @@ Proof-carrying code (Necula) & a checked proof & nothing & none, at any level & 
 
 Ethereum is the one that prices the write. Even there the price holds only for a record that outlives the transaction. Write a slot and clear it before the transaction ends, and the refund gives nearly all of it back. That is the finite-hardware result's shape again: the write that can be revoked is the one that goes free.
 
-Casper prices the other side. Finalizing a block slashes nobody. Reversing it does: two finalized blocks on different branches mean a ``1/3'' set of validators broke a slashing rule. That is accountable safety, ported here from the Casper verification team's Coq proof. It protects what A2 protects, permanence, from the opposite end. It is not an instance of A2, and it is not a counterexample to it. It is a second way to hold a record in place.
+Casper prices the other side. Finalizing a block slashes nobody. Reversing it does: two finalized blocks on different branches mean a ``1/3'' set of validators broke a slashing rule. That is accountable safety, ported from the Casper verification team's Coq model and proved constructively here, without excluded middle. The theorem \code{accountable\_safety} and the record-reading consequence \code{conflicting\_records\_are\_priced} are closed under the global context. Their domain is the abstract Casper setting---quorum intersection, votes, justification, finalization, and slashing---not every deployed Ethereum configuration. It protects what A2 protects, permanence, from the opposite end. It is not an instance of A2, and it is not a counterexample to it. It is a second way to hold a record in place.
 
 TPM and CT price nothing in their specifications. A hash chain or an append-only log stays put because undoing it is infeasible, which is a cryptographic guarantee, not an exact one. A PCR's record lasts until the platform resets it, so its permanence is per boot. There is a physical cost underneath: a register that exactly kept a permanent record on finite hardware would have to merge states (Section~\ref{sec:permanent-certification}). The specifications don't price it.
 
@@ -3515,7 +3525,7 @@ This section is about one build and one bound. The abstract model has no CHSH st
 
 The enforcement doesn't care who built the wall. \texttt{CHSH\_LASSERT} refuses any tally outside one fixed algebraic slice by trapping to \texttt{LASSERT\_TRAP\_PC}, and every super-quantum correlation is outside it (so are some classical ones; the section says which); \texttt{LASSERT} refuses a formula whose dual witness fails to exclude a single valuation by trapping to the same address, the same way. One wall comes from the NPA mathematics, which I did not author and could not have, and it sits inside the Tsirelson bound. The other is a logical constraint I wrote down myself. The step traps the same on both. So $\mu$ isn't pricing contact with external structure as some special case. It prices the certified narrowing as such, and the trap fires the same whether the state it throws out is a PR box or a falsifying assignment I handed it. Insight costs, and the price never asks whether you found the wall or built it.
 
-And the claim is about that step. The chip is something else. Some of these cert-opcodes never reach the synthesised FPGA, because I haven't built their hardware yet. That isn't a hole in the argument. The trap is the cost-on-certification law, and the law lives in the transition, not in the gate count.
+And the claim is about that step. The chip is something else. Some cert-opcodes have no synthesised FPGA implementation. That does not change the transition theorem. The trap is the cost-on-certification law, and the law lives in the transition, not in the gate count.
 
 Everything below earns that. The matrix algebra is the discharge: it shows that everything \texttt{CHSH\_LASSERT} lets through sits inside the Tsirelson bound, a bar I did not set myself. I came at it sideways, stress-testing the machine's priced checks against a known algebraic boundary, the NPA moment matrix conditions for what correlations are achievable under polynomial constraints.
 
@@ -3700,7 +3710,7 @@ Direct contrapositive. If $|S| \leq 2$ for the population-level correlation of e
 \end{plainreading}
 
 \begin{theorem}[Non-locality of an exact CHSH violation]
-An exact correlation $\mathbf{E} = (E_{00}, E_{01}, E_{10}, E_{11})$, with $S = E_{00} + E_{01} + E_{10} - E_{11}$ and $S > 2$, cannot arise as the population-level correlation of any local hidden variable model (the term is built in Section~\ref{sec:vocab}: a classical-physics-style theory where outcomes come from shared randomness $\lambda$ plus local settings). This is a claim about the idealized correlator, the value an unbounded run of trials at each setting converges to. It is not yet a claim about any one finite tally of recorded trials; that distinction is spelled out below.
+An exact correlation $\mathbf{E} = (E_{00}, E_{01}, E_{10}, E_{11})$, with $S = E_{00} + E_{01} + E_{10} - E_{11}$ and $S > 2$, cannot arise as the population-level correlation of any local hidden variable model (the term is built in Section~\ref{sec:vocab}: a classical-physics-style theory where outcomes come from shared randomness $\lambda$ plus local settings). This is a claim about the idealized correlator, the value an unbounded run of trials at each setting converges to. It is not a claim about any one finite tally of recorded trials; that distinction is spelled out below.
 \end{theorem}
 
 \begin{proof}
@@ -3880,7 +3890,7 @@ I_2 - E^T E = \begin{pmatrix} 1 - E_{00}^2 - E_{10}^2 & -(E_{00}E_{01} + E_{10}E
 \]
 where $A = 1 - E_{00}^2 - E_{10}^2$ (the left side of condition 1), $B = E_{00}E_{01} + E_{10}E_{11}$, and $C = 1 - E_{01}^2 - E_{11}^2$ (the left side of condition 2). For this $2 \times 2$ Schur complement to be PSD, two things must hold: the diagonal entries must be non-negative (which are conditions 1 and 2 again) and the determinant must be non-negative, $AC - B^2 \geq 0$. That last inequality is condition 3.
 
-That is where the three conditions come from: two from 3×3 submatrices, one from the Schur complement of the 4×4 block, each one a principal minor forced non-negative by $M$ being PSD. That derivation runs necessity, PSD of $M$ implies the three conditions. It is not yet sufficiency, and checking these particular minors does not by itself certify every principal minor of the full $5\times5$; a direct argument for the other direction follows.
+That is where the three conditions come from: two from 3×3 submatrices, one from the Schur complement of the 4×4 block, each one a principal minor forced non-negative by $M$ being PSD. That derivation runs necessity, PSD of $M$ implies the three conditions. It does not establish sufficiency; checking these particular minors does not by itself certify every principal minor of the full $5\times5$; a direct argument for the other direction follows.
 
 \medskip
 \noindent\textbf{The forward direction, directly.}
@@ -4168,7 +4178,28 @@ The right equality is by definition of \texttt{trace\_total\_cost} (or via the L
 The physical claim has to pass a consistency test first. \code{calibrated\_model\_exists\_iff\_positive\_cost} says exactly when the abstract positive-dissipation premise and the upper-calibration premise can hold together. The explicit yes/no reset model has an instance. But keep the previous state in a history list and every fixed-instruction step becomes injective, while the step you can see stays the same. \code{zero\_cost\_vm\_jump\_has\_injective\_history\_lift} applies that move to the zero-cost F1 counterexample. The PC can collapse to one place while the bigger state keeps its past. I can't spot physical erasure by watching the PC alone.
 
 \medskip
-\noindent\textbf{The physical question is still open.} I want to know whether the formal charge has a defensible physical interpretation. Counting positively charged instructions does not answer that question. Neither does the finite-map Python demonstration: it checks its combinatorial model, not heat released by a device. The F1 counterexample makes the next requirement concrete. Build a physical model whose premises can hold together, account for retained history, and then justify the connection to an experiment. The permanent-certificate theorem (Section~\ref{sec:a2-not-arbitrary}) supplies the first two for the certifying step. Its premises hold together, as the reset model shows, and finite memory accounts for retained history. The entropy version carries it as far as a formula for heat, $k_B T \ln((m+k)/m)$, with Landauer's principle as the named premise. The connection to an experiment is what remains. Until that is done, the VM ledger gives no measured energy price for certification.
+\noindent\textbf{The physical boundary.} Counting positively charged instructions does not give the formal charge a physical interpretation. Neither does the finite-map Python demonstration: it checks its combinatorial model, not heat released by a device. A physical model has to use jointly satisfiable premises, account for retained history, and justify its connection to an experiment. The permanent-certificate theorem (Section~\ref{sec:a2-not-arbitrary}) supplies the first two for the certifying step. Its premises hold together, as the reset model shows, and finite memory accounts for retained history. The entropy version carries it as far as a formula for heat, $k_B T \ln((m+k)/m)$, with Landauer's principle as the named premise. The VM ledger has no measured energy price without the experimental correspondence.
+
+The calorimeter protocol makes that boundary exact. \code{CalorimeterProtocol.v} takes a
+two-state register with energies $0$ and $\Delta$, excited-state population
+$p$, and the discrete master equation
+\[
+p' = p + dt\bigl(k_{01}(1-p)-k_{10}p\bigr).
+\]
+For the canonical reset $p=1/2$, $p'=0$, $dt=1$, $k_{01}=0$, and
+$k_{10}=1$, the equation closes and the fixed-Hamiltonian bath heat is exactly
+$\Delta/2$ (\code{canonical\_reset\_heat\_exact}). Choosing
+$\Delta=2k_BT\ln 2$ makes that heat exactly $k_BT\ln 2$
+(\code{selected\_gap\_gives\_landauer\_heat}). That equality is a selected
+Hamiltonian scale, not a derivation of it. The same populations and rates with
+$\Delta=k_BT\ln 2$ give half the Landauer value, and
+\code{master\_equation\_does\_not\_fix\_heat\_scale} exhibits identical
+population dynamics with different heat. A device test must therefore measure
+the gap, populations, rates, and bath heat independently, and must separately
+establish thermal admissibility, detailed balance, and the correspondence
+between one logical $\mu$ event and that physical reset. The formal protocol is
+an executable experimental specification; it is not a measured device or an
+unconditional conversion of $\mu$ to joules.
 
 \medskip
 \noindent\textbf{What the permanence results add to Landauer, and what they don't.}
@@ -4176,7 +4207,7 @@ I went looking for a prediction the permanent-certificate theorems make that Lan
 
 \subsection{The \texorpdfstring{$\mu$}{mu}-hierarchy}
 
-Borrow the silhouette of the classical time-hierarchy theorem, and then say honestly how much smaller the thing inside it is. The shape is the part everyone knows: more of the resource buys you something you provably could not have had with less. The resource here is $\mu$, and the something is a certification level: traces are classified by an executed \texttt{CERTIFY} whose declared charge is at least $k$. Every level $k \geq 1$ is reachable by a one-instruction witness that pays exactly $k$, and no trace in that level can cost less than $k$. That pairing, reachability on one side and a conservation floor on the other, is the whole content. It is not a statement that one problem class outruns another. Whether more $\mu$ ever buys a genuinely harder problem is a different and much heavier question. It is open, I have it on the list in Section~\ref{sec:unknown}, and I am not going to quietly borrow its weight here while it is still unpaid.
+Borrow the silhouette of the classical time-hierarchy theorem, and then say honestly how much smaller the thing inside it is. The shape is the part everyone knows: more of the resource buys you something you provably could not have had with less. The resource here is $\mu$, and the something is a certification level: traces are classified by an executed \texttt{CERTIFY} whose declared charge is at least $k$. Every level $k \geq 1$ is reachable by a one-instruction witness that pays exactly $k$, and no trace in that level can cost less than $k$. That pairing, reachability on one side and a conservation floor on the other, is the whole content. It is not a statement that one problem class outruns another, and no complexity-class separation is claimed.
 
 \begin{plainreading}
 Two parts. Part (1) is by construction: use the one-instruction trace \texttt{CERTIFY}$(k-1)$. Its charge is $S(k-1)=k$, it ends certified, and there is no padding instruction. Part (2) is the trace-side lower bound: the executed level-$k$ \texttt{CERTIFY} appears in the ledger with cost at least $k$, so the total cost is at least $k$. For the smallest nontrivial example, $k=2$ is exactly \texttt{CERTIFY}$(1)$, which costs $S(1)=2$.
@@ -4336,7 +4367,7 @@ This is what it does NOT mean:
 \item It does not mean the Coq axioms themselves are consistent. Coq sits on a formal foundation called the Calculus of Inductive Constructions. The key idea is the Curry-Howard correspondence: proofs and programs are the same thing. A proof that $P$ is true is literally a program of type $P$. Checking the proof is type-checking the program. The ``inductive'' part means you can define your own recursive types (naturals, lists, trees) inside the system instead of having them as magical primitives handed down from above. That matters. The foundation is explicit. Nothing is smuggled.
 
 Now the honest limitation. The sources I read on Coq's foundation say it is believed to be logically consistent (meaning you cannot derive a contradiction from it), but this has not been proven within Coq itself. The way I understand it, that is not a weakness specific to Coq. The label I dug up is Gödel's incompleteness theorem from 1931: a consistent, effectively axiomatized theory containing sufficient arithmetic cannot prove its own standard arithmetized consistency statement under the usual derivability conditions. And an inconsistent system proves everything, its own consistency included. So Coq's foundation is trusted, not proved-from-within. ``Trusted'' has substance here. The same foundation has verified the CompCert C compiler and the Four Color Theorem (Gonthier 2005, a landmark fully machine-checked proof of a major mathematical theorem, one first settled on paper-plus-computer in 1976), among other artifacts. That prior use is evidence about the foundation's track record in practice. It is not a proof of logical consistency, and a successful large-scale application would not necessarily surface every possible inconsistency; an inconsistent system only breaks visibly if some proof actually exploits the inconsistency, and nothing here rules that out. I am relaying what I read. I have not personally audited CompCert or Gonthier's proof. ``Zero Admitted'' means every theorem follows from those axioms. It does not mean those axioms are themselves in-system guaranteed. It means they are the same axioms a substantial body of verified software has relied on without breaking, which is track record, not a consistency proof.
-\item Hardware correspondence is conditional on its model and representation contract. \texttt{driven\_step\_wf} proves intermediate model equality under \texttt{WFDrivenPrecondition}; executable RTL transfer adds finite-range and retirement obligations and toolchain trust. The four Q\textsubscript{1+AB} instructions remain outside the synthesized inventory.
+\item Hardware correspondence is conditional on its model and representation contract. \texttt{driven\_step\_wf} proves intermediate model equality under \texttt{WFDrivenPrecondition}; executable RTL transfer adds finite-range and retirement obligations and toolchain trust. The four Q\textsubscript{1+AB} instructions are outside the synthesized inventory.
 \item It does not mean the OCaml runner binary is proven inside Coq to be bitwise identical to the Coq semantics. The kernel proves Coq-side observable facts. The parity suite checks the extracted binary empirically. One is a theorem. The other is a test.
 \end{itemize}
 
@@ -4412,7 +4443,7 @@ Run the Inquisitor on the repository and read what it says. It fails on HIGH or 
 
 \medskip
 \noindent\textbf{Falsify the axiom audit.}\\
-If running \texttt{Print Assumptions} (Section~\ref{sec:vocab}: the Coq command that reports global proof dependencies) on any named theorem in the kernel tier shows a project-local \texttt{Axiom} or \texttt{Parameter} in the dependency tree, the audit has degraded. The current full-corpus probe covers 13,359 named theorems across 463 files: 6,001 close under the global Coq context outright, and 7,358 use only Coq standard-library assumptions. The receipt names five such constants: dependent functional extensionality, \texttt{Eqdep.Eq\_rect\_eq.eq\_rect\_eq}, \texttt{ClassicalDedekindReals.sig\_not\_dec}, \texttt{ClassicalDedekindReals.sig\_forall\_dec}, and \texttt{Classical\_Prop.classic}. Zero project-local axioms appear in any of the 13,359 dependency trees. This audits where global dependencies come from. It doesn't prove that a theorem's own Section-generalized premises hold for the instance you care about; those premises stay visible in the theorem types and get checked separately. Any project-local axiom or parameter appearing in a global dependency tree is a bug.
+If running \texttt{Print Assumptions} (Section~\ref{sec:vocab}: the Coq command that reports global proof dependencies) on any named theorem in the kernel tier shows a project-local \texttt{Axiom} or \texttt{Parameter} in the dependency tree, the audit has degraded. The full-corpus probe covers 13,391 named theorems across 477 files: 6,033 close under the global Coq context outright, and 7,358 use only Coq standard-library assumptions. The receipt names five such constants: dependent functional extensionality, \texttt{Eqdep.Eq\_rect\_eq.eq\_rect\_eq}, \texttt{ClassicalDedekindReals.sig\_not\_dec}, \texttt{ClassicalDedekindReals.sig\_forall\_dec}, and \texttt{Classical\_Prop.classic}. Zero project-local axioms appear in any of the 13,391 dependency trees. This audits where global dependencies come from. It doesn't prove that a theorem's own Section-generalized premises hold for the instance you care about; those premises stay visible in the theorem types and get checked separately. Any project-local axiom or parameter appearing in a global dependency tree is a bug.
 
 \medskip
 \noindent\textbf{Falsify the hardware bisimulation.}\\
@@ -4420,7 +4451,7 @@ A counterexample to \texttt{driven\_step\_wf} has to satisfy \texttt{WFDrivenPre
 
 \medskip
 \noindent\textbf{Falsify the convergence answer to parametricity.}\\
-The separation/minimality/uniqueness trio is schema-parametric: any field a step rule carries that classical state does not determine supports all three theorems, word for word, and I concede that in full. What I offer for certification is convergence, and it is weaker than a proof. Three results from vocabularies that owe each other nothing each turn on a priced commitment: the verifier factorisation result (\code{V\_does\_not\_factor\_through\_classical}) is about a claim on the ledger, the clean-room floor demonstration (\path{minimal/nofi_demo.py}) is about narrowing a set of possibilities, and the NPA moment-matrix certificate (\code{chsh\_lassert\_no\_trap\_implies\_npa\_psd}) is a priced check on counters. They do not land on the same state field. The CHSH check never writes the certification flag, and the verifier result is about $\mu$. What they share is the shape: something gets committed, and the commitment is where the cost lands. Exhibit another event with three independent bridges of the same standing, or break one of these, and certification's distinguished seat falls back to an aesthetic choice. Whether certification is the event a model is \emph{forced} to price remains the named open problem either way; Section~\ref{sec:pointer} states the conjectured criterion (redundant record proliferation) that a successor project would have to prove or refute, with its own attack surface listed there.
+The separation/minimality/uniqueness trio is schema-parametric: any field a step rule carries that classical state does not determine supports all three theorems, word for word, and I concede that in full. What I offer for certification is convergence, and it is weaker than a proof. Three results from vocabularies that owe each other nothing each turn on a priced commitment: the verifier factorisation result (\code{V\_does\_not\_factor\_through\_classical}) is about a claim on the ledger, the clean-room floor demonstration (\path{minimal/nofi_demo.py}) is about narrowing a set of possibilities, and the NPA moment-matrix certificate (\code{chsh\_lassert\_no\_trap\_implies\_npa\_psd}) is a priced check on counters. They do not land on the same state field. The CHSH check never writes the certification flag, and the verifier result is about $\mu$. What they share is the shape: something gets committed, and the commitment is where the cost lands. Exhibit another event with three independent bridges of the same standing, or break one of these, and certification's distinguished seat falls back to an aesthetic choice. Certification as the event a model is \emph{forced} to price is conjectural. Section~\ref{sec:pointer} states the redundant-record criterion and its attack surface; the two-observer toggle game refutes the implication from consensus, exact observation, and coordinator-free evolution to permanence.
 
 \medskip
 \noindent\textbf{Falsify the proof-of-stake reduction.}\\
@@ -4479,7 +4510,7 @@ The work comes apart into five layers.
 
 \item[Instances and engineering.] The 51-opcode VM, its cost schedule, the Python and extracted-OCaml runners, the Kami model, the Bluespec and Verilog path, the verification scripts, the finite tests, and the synthesis and FPGA workflow are things I built. How much of each is proved, tested, or trusted is the edge-by-edge account in Section~\ref{sec:hardware} and \texttt{docs/ASSURANCE.md}. A tested edge stays a tested edge. I do not promote it to a theorem.
 
-\item[Open proposals and things I am not claiming.] Whether there is a unique structural core, what the ledger means physically, which priced events are universally necessary, full-ISA hardware equality without conditions, and broad quantum or complexity-theory conclusions are all open or out of scope. Proving a conditional contract does not close any of them.
+\item[Conjectures and excluded claims.] The corpus does not prove a unique structural core, a physical meaning for the ledger, a universal class of priced events beyond the stated merge result, unconditional full-ISA hardware equality, or broad quantum and complexity-class conclusions. A conditional contract does not imply any of them.
 \end{description}
 
 So the claim ledger that follows is a map from formal names to their domains and premises. It is not a list of discoveries.
@@ -4585,7 +4616,7 @@ This is the lookup list: every main claim by its Coq name, each checked under it
 
 Bridge-tier claims (checked in Coq, but resting on named hypotheses or documented trust boundaries):
 \begin{itemize}
-\item \textbf{Hardware correspondence}: \code{driven\_step\_wf} and \code{driven\_trace\_commutes} prove intermediate model equality under \texttt{WFDrivenPrecondition} and \texttt{WFDrivenRun}. Section~\ref{sec:hardware} states the additional finite RTL contract and distinguishes the 47 synthesized instructions from four nonsynthesized checks. Allocation, overflow, and retirement obligations remain part of assessing an executable instance.
+\item \textbf{Hardware correspondence}: \code{driven\_step\_wf} and \code{driven\_trace\_commutes} prove intermediate model equality under \texttt{WFDrivenPrecondition} and \texttt{WFDrivenRun}. Section~\ref{sec:hardware} states the additional finite RTL contract and distinguishes the 47 synthesized instructions from four nonsynthesized checks. Assessing an executable instance also requires allocation, overflow, and retirement obligations.
 \item \textbf{OCaml extraction}: \code{ocaml\_observable\_nofi\_and\_monotone} proves NoFI and $\mu$-monotonicity for the Coq-side extracted observable. The external OCaml binary equivalence is a parity-test trust boundary, not a kernel theorem.
 \item \textbf{Structural advantage}: the kernel proves exact $\mu$ costs and the arithmetic time-tax facts for the factored-search witness; executable tests check the measured VM behavior.
 \item \textbf{LASSERT cost formula}: \code{lassert\_cost\_from\_component\_floors} and \code{lassert\_cost\_is\_its\_formula}. A cost meeting the state-term and description-term premises is at least the formula. That is addition over premises. Merge pricing does not force the state term (\code{observer\_narrowing\_can\_be\_free}), and a physical reading also needs Landauer-Unruh calibration.
@@ -4643,14 +4674,14 @@ Each row identifies the result's domain, conclusion, load-bearing premises, and 
 }
 
 %===========================================================================
-\part{What is still open}
+\part{Boundary of the proved results}
 %===========================================================================
 
 \section{Scope of the claim: what is established, what is not}
 \label{sec:unknown}
 %===========================================================================
 
-This is where I draw the line around what I have proved. The named projections lose distinctions that matter to the richer machine. A2 gives an accounting law, and the cost and initiality results have the contracts stated earlier. The questions below ask how much further that argument goes. They stay open until there is an argument that closes them.
+This is the line around what I have proved. The named projections lose distinctions that matter to the richer machine. A2 gives an accounting law, and the cost and initiality results have the contracts stated earlier. Claims beyond that line are conjectures or outside the formal model.
 
 \textbf{Physical interpretation of $\mu$.} The ledger is unique once the starting value and the schedule are chosen. That doesn't make it entropy, and it doesn't make it energy. A physical bridge needs a model of which states carry information, premises that can all hold at once, and a real argument tying the formal charge to dissipation. The full-ISA F1 premise pair fails the very first test: its universal collapse premise contradicts free jumps. The permanent-certificate theorem (Section~\ref{sec:permanent-certification}) passes the first two. Its premises hold together, and finite memory accounts for retained history. Its entropy version (Section~\ref{sec:permanent-entropy}) states the price in bits, and turns bits into joules only through Landauer's principle as a named premise. Tying those units to measured heat is the part no proof here can do.
 
@@ -4677,14 +4708,15 @@ Those are the edges of the individual results. Every structural, conditional, an
 \item The Thiele build only: the VM's cost schedule and its numbers, the collisions of the VM's own windows, the CHSH gate and its NPA bridge, the Kami hardware correspondence, the 51-opcode instruction set, and the finite VM instance.
 \end{itemize}
 
-\textbf{Further extensions.} Each is its own question, to be fixed before it is tested.
+\textbf{Extensions and their present boundary.}
 \begin{itemize}
-\item A record with many values that only grows. The pair result points at one axis, a set that only grows. The general finite case needs its own proof.
-\item A record that can be revoked at a price, the way Casper's can. That is a second way to hold a record in place, priced from the other side, and it needs its own entry test and its own sameness.
-\item Machines on different bases, compared by simulations that respect cost. That is complexity theory's question. The record axis does not answer it.
-\item Whether permanence is always paid for at some level, economic, cryptographic, or physical (Section~\ref{sec:spec-records}).
-\item A physical calibration of the ledger, with Landauer's principle measured rather than named.
-\item Machines that choose at random, with a distribution over latches in place of one latch.
+\item A finite monotone multi-valued record decomposes into its threshold latches. The stronger claim that it is one Boolean latch is false.
+\item Actual revocation, including revocation priced from the other side as in Casper, lies outside the permanent-record axis. A revocation price alone does not transfer to a price on writing the record.
+\item The cross-base comparison satisfies the elementary equivalence laws, but complete cost-respecting adapters for the Turing machine, RAM, L, and the VM have not been supplied.
+\item Permanence forces logical non-injectivity on finite state spaces. It does not by itself prove that every economic, cryptographic, or physical realization pays one universal kind of cost (Section~\ref{sec:spec-records}).
+\item The two-state calorimeter protocol fixes microscopic populations, a Hamiltonian, a discrete master equation, and exact bath heat. It also proves that the same population dynamics admit different heat when the energy gap changes. Landauer's value follows only after selecting the corresponding gap; calibration to a thermally admissible device requires empirical evidence.
+\item A direct probabilistic analogue of uniqueness up to schedule is false: two machines can agree on their base distribution and disagree on the record distribution.
+\item The guest VM supports the concrete Rice reduction of Section~\ref{sec:substrate-undecidability}, numeric decoding, verified fuel-bounded dispatch, and semantic s-m-n specialization. These statements do not establish an internal recursion theorem because the evaluator and numeric specializer are not programs callable inside the same guest fragment.
 \end{itemize}
 
 %===========================================================================
@@ -4716,6 +4748,28 @@ How to attack it, because a conjecture without a target painted on it is just a 
 
 The five proofs establish the criterion inside those five models. To use them as an argument about deployed systems, I owe the correspondence: why those fragments describe the observers, why those rivals are the relevant rivals, and why their records should govern the price. Five proofs about chosen models do not settle those choices. That is where the conjecture has to earn its reach.
 
+A second survey fixes twelve candidate events across the proof-of-stake, gas,
+attestation, transparency, proof-carrying, MAC, and signature models. The Coq
+bundle checks the twelve declared observer-map classifications and a swapped
+variant in which the criterion selects the newly proliferating event. One
+candidate labelled MAC authenticity is non-proliferating in that map. The
+security relevance of the label and the faithfulness of the observer choice
+are prose premises, so this is a model counterexample, not a theorem about
+every deployed MAC system.
+
+A stronger necessity theorem also fails before any cryptography enters.
+\code{EcosystemGame.v} gives two observers whose views exactly equal the event,
+who always agree, and who update by the same local rule with no observer index
+or coordinator state. The shared rule is Boolean negation. Starting from true,
+both observers and the event become false, so
+\code{toggle\_game\_refutes\_strong\_pointer\_necessity} proves that consensus,
+sound and complete observation, and coordinator-free evolution do not force a
+permanent commit. If durable views are added, permanence follows
+(\code{durable\_consensus\_implies\_permanence}), but persistence is then the
+load-bearing premise. This rules out the proposed route from distributed
+agreement alone to the pointer criterion; it does not rule out a narrower
+theorem with substantive network, adversary, or durability assumptions.
+
 Counterexamples are part of the argument. \code{PointerObservableCounterexamples.v} runs an adversarial search against the strong reading of the criterion, with its protocol written down before its results: deniable authentication, symmetric authentication, and object capabilities. That each design resists forgery and is independently deployed is argued in prose. The Coq half fixes an observer map for each and checks that the event fails to proliferate in it. It does not prove cryptographic security or establish deployment facts. On the argued cases, a rule claiming that forgery resistance alone forces every observer to retain evidence fails.
 
 Being publicly checkable and actually getting copied everywhere are different things. A way to verify something existing doesn't mean every observer keeps a record of it. The abstract verifier examples give three ways to add evidence, each with its own guarantee. They don't show those are the only ways, or that only one of them can involve metering.
@@ -4736,8 +4790,8 @@ Here is where each step of the argument ended up.
 The shadow loses something real: proved, for every window I named, with witness pairs you can print.
 Establishing is not free: proved, for any system that follows A2, whatever its states and instructions. And on finite hardware with certificates that last, A2 itself follows from Landauer's principle: proved, with that principle as the named premise, in counted states and in bits. A finite piece of the VM is such a machine, and the VM runs it at exactly that price. In the full VM, every certification flip is a priced merge and JUMP 0 0 is a free merge, so the VM does not price every merge.
 Leaning on a fact takes a paid history: defined, with the cost floor proved for shortcuts that hand over their receipts.
-The axis belongs in the step: proposed, and still mine to earn. Two parts of it are proved. An account that prices certification exactly can't compute its price from the window, because the VM has a certifying step and a non-certifying one that look the same through it; the exact price needs the reading in the step. And for a finite machine whose account prices merges, that account already charges every step that writes a permanent record, at least the logarithm of the squeeze.
-Which events every account has to price: the merges, on finite hardware, with every permanent-record write among them and revocation as the only escape. Proved, with Landauer's principle as the premise. The guess that the priced events are exactly the permanent records is false. What else belongs on the meter is open, with the pointer-observable conjecture as my candidate.
+The axis belongs in the step: that is the proposal. Two parts are proved. An account that prices certification exactly can't compute its price from the window, because the VM has a certifying step and a non-certifying one that look the same through it; the exact price needs the reading in the step. And for a finite machine whose account prices merges, that account already charges every step that writes a permanent record, at least the logarithm of the squeeze.
+Which events every account has to price: the merges, on finite hardware, with every permanent-record write among them and revocation as the only escape. Proved, with Landauer's principle as the premise. The guess that the priced events are exactly the permanent records is false. The pointer-observable criterion is my conjecture for the event-selection question, and its strong consensus-based necessity form is refuted.
 
 Two results stand out as single pieces, one in the build and one in the model.
 
@@ -4745,7 +4799,7 @@ In the build, the sharpest thing I found is this: an integer-arithmetic check on
 
 In the model, at the substrate level, the diagonal rules out a correct decider whenever its flip can be expressed inside the substrate and the instance supplies the fixed point. The nat construction proves a family result: every candidate $d$ gets its own instance, and $d$ fails on that instance's predicate $P_d$. The VM version keeps its bounded recurrence and representability premises. In L, a Turing-complete lambda calculus, the recursion theorem is proved from the reduction rules, and the same diagonal is Rice's theorem (Section~\ref{sec:L-recursion}). Separately, the reachable-state collision shows the CSR predicate is lost through \texttt{forget}. These are different claims. Sharing a vocabulary, or a clean assumption report, doesn't make them one.
 
-All of this supports looking for a structural account of computation. The A2 theorem covers any system that follows its pricing rule. The irrecoverability theorem is about chosen windows. Neither needs the concrete VM to be the whole subject, and neither says every computation has to adopt this law. Which reading is the foundational one is still part of the argument.
+All of this supports a structural account of computation. The A2 theorem covers any system that follows its pricing rule. The irrecoverability theorem is about chosen windows. Neither needs the concrete VM to be the whole subject, and neither says every computation has to adopt this law. Calling one reading foundational is the conjectural part of the argument.
 
 Each of these results carries an explicit falsification condition, and they are gathered in one place (Section~\ref{sec:falsification}): a zero-$\mu$ trace from uncertified to certified, a column-contractive correlator with a non-PSD NPA matrix, a cost-rule-respecting \code{CertificationSystem} that certifies at total cost zero, a \texttt{nat} function that decides \texttt{nat\_admits} for its own substrate. Any one of them collapses the matching theorem. You can hunt for any of them with a pencil, and the mechanised ones would stop the checker dead on top of that. I hunted. I came up empty.
 
@@ -4946,5 +5000,42 @@ The kernel keeps two parallel axiom-numbering systems because two parallel subst
 A1 through A6, as the consolidated records state them, are independent of any specific instruction set; the AbstractCertMachine variant is the one exception, typing its step over the VM's own instruction type. They are conditions on Coq record types; supplying instances of those record types is the only way to invoke the corresponding theorems. The 51-opcode VM supplies them by construction: the kernel builds two concrete \code{CertificationSystem} values for the VM (one for the \texttt{csr\_cert\_addr} channel, one for the \texttt{vm\_certified} channel), each discharging A2 from the existing \code{no\_free\_certification} kernel theorems. A separate substrate-level abstraction (the \texttt{Substrate} typeclass) carries a related but distinct field \texttt{Substrate.mu\_monotone} stating that the cost ledger never decreases on a step. This is a different, more general property than A2. A2 says the cert transition costs $\geq 1$. Monotonicity only says the ledger never goes down. Neither is stated as implying the other. Both hold on the 51-opcode VM, where every instruction adds non-negative cost and the cert transition adds at least 1. Two locks on the same door, by different keys.
 
 That is the vocabulary. The rest of the document uses these words without rebuilding them.
+
+\section*{Exact scope}
+
+The proved structural result is the record axis: a permanent record driven by
+a base computation is a latch on an event; on finite hardware its write merges
+states; and the VM's named projections do not recover it. Certification is one
+instance, not a theorem selecting the unique event every system must record.
+
+Finite growing records decompose into threshold latches, but not in general
+into one latch. Revocable and probabilistic records do not inherit the same
+uniqueness theorem. The guest VM has a direct Rice reduction, numeric decoding,
+verified dynamic dispatch, and semantic s-m-n specialization, but no internal
+recursion theorem: the evaluator and numeric specializer are not guest-callable.
+The exact two-state calorimeter protocol also proves that population dynamics
+do not determine the Hamiltonian scale. The formal ledger therefore assigns no
+intrinsic joule value to one unit of $\mu$ without thermal and device premises.
+
+The RFC 9162 verifier covers the iterative inclusion and consistency control
+flow and examples, not collision resistance or signed-tree-head authenticity.
+The PCC checker is a small role model; the RAM theorem covers addressed list
+memory; the reversible-machine theorem covers arithmetic update cores; and the
+TPM theorem shows that an unconstrained signature interface does not entail
+quote authenticity. The cost-semantics results are local correspondences, not
+full cost-framework embeddings.
+
+The twelve-event observer-map survey proves only its formal classifications
+and its response to swapping the proliferating event. Its MAC-labelled
+counterexample depends on the observer model when read as a claim about real systems. A
+separate two-observer toggle game refutes the stronger claim that consensus,
+exact observation, and coordinator-free evolution force permanent commits;
+adding durable observation makes permanence immediate from the premise. Five
+narrow external consequences reduce to known indistinguishability or
+durability arguments, and five stronger candidates lack the protocol or
+hardware semantics needed for proof. None yields a new external result that
+both needs the record axis and is ready for use. The pointer criterion is
+a conjecture, and this proposed necessity route to it is closed by the
+counterexample.
 
 \end{document}

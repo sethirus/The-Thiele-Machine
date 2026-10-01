@@ -1,1070 +1,1099 @@
-DIGEST 74d26c516ac77d5bb51f3f49320cd438
+DIGEST 69691a40b1688d86f8935c9668f68e8d
 FKernel.CasperFFG
 R3219:3232 Coq.Arith.PeanoNat <> <> lib
 R3234:3236 Coq.micromega.Lia <> <> lib
 R3238:3246 Coq.Relations.Relations <> <> lib
-R3248:3256 Coq.Logic.Classical <> <> lib
-rec 3394:3406 <> CasperSetting
-proj 3422:3430 <> Validator
-proj 3442:3445 <> Hash
-proj 3519:3526 <> quorum_1
-proj 3623:3630 <> quorum_2
-proj 3665:3684 <> quorums_intersection
-proj 3872:3882 <> hash_parent
-proj 3910:3916 <> genesis
-proj 3928:3950 <> hash_at_most_one_parent
-R3530:3530 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3548:3552 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3540:3543 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3531:3539 Kernel.CasperFFG <> Validator:2 meth
-R3634:3634 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3652:3656 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3644:3647 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3635:3643 Kernel.CasperFFG <> Validator:2 meth
-binder 3695:3696 <> q1:6
-binder 3698:3699 <> q2:7
-R3713:3716 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3702:3709 Kernel.CasperFFG <> quorum_1:4 meth
-R3711:3712 Kernel.CasperFFG <> q1:6 var
-R3728:3735 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3717:3724 Kernel.CasperFFG <> quorum_1:4 meth
-R3726:3727 Kernel.CasperFFG <> q2:7 var
-R3736:3742 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3745:3746 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3743:3744 <> q3:8
-R3758:3761 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3747:3754 Kernel.CasperFFG <> quorum_2:5 meth
-R3756:3757 Kernel.CasperFFG <> q3:8 var
-R3762:3762 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3785:3790 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3813:3813 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 3770:3770 <> n:9
-R3777:3780 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3773:3774 Kernel.CasperFFG <> q3:8 var
-R3776:3776 Kernel.CasperFFG <> n:9 var
-R3781:3782 Kernel.CasperFFG <> q1:6 var
-R3784:3784 Kernel.CasperFFG <> n:9 var
-binder 3798:3798 <> n:10
-R3805:3808 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3801:3802 Kernel.CasperFFG <> q3:8 var
-R3804:3804 Kernel.CasperFFG <> n:10 var
-R3809:3810 Kernel.CasperFFG <> q2:7 var
-R3812:3812 Kernel.CasperFFG <> n:10 var
-R3890:3893 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3886:3889 Kernel.CasperFFG <> Hash:3 meth
-R3898:3901 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3894:3897 Kernel.CasperFFG <> Hash:3 meth
-R3920:3923 Kernel.CasperFFG <> Hash:3 meth
-binder 3961:3962 <> h1:14
-binder 3964:3965 <> h2:15
-binder 3967:3968 <> h3:16
-R3992:3995 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3975:3985 Kernel.CasperFFG <> hash_parent:12 meth
-R3990:3991 Kernel.CasperFFG <> h1:14 var
-R3987:3988 Kernel.CasperFFG <> h2:15 var
-R4013:4016 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3996:4006 Kernel.CasperFFG <> hash_parent:12 meth
-R4011:4012 Kernel.CasperFFG <> h1:14 var
-R4008:4009 Kernel.CasperFFG <> h3:16 var
-R4019:4021 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4017:4018 Kernel.CasperFFG <> h2:15 var
-R4022:4023 Kernel.CasperFFG <> h3:16 var
-sec 4037:4052 <> CasperOneMessage
-var 4065:4065 CasperOneMessage C
-R4069:4081 Kernel.CasperFFG <> CasperSetting rec
-rec 4227:4231 <> State
-proj 4252:4259 <> vote_msg
+rec 3384:3396 <> CasperSetting
+proj 3412:3420 <> Validator
+proj 3432:3435 <> Hash
+proj 3509:3516 <> quorum_1
+proj 3613:3620 <> quorum_2
+proj 3655:3674 <> quorums_intersection
+proj 3862:3872 <> hash_parent
+proj 3900:3906 <> genesis
+proj 3918:3940 <> hash_at_most_one_parent
+R3520:3520 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3538:3542 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3530:3533 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3521:3529 Kernel.CasperFFG <> Validator:2 meth
+R3624:3624 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3642:3646 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3634:3637 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3625:3633 Kernel.CasperFFG <> Validator:2 meth
+binder 3685:3686 <> q1:6
+binder 3688:3689 <> q2:7
+R3703:3706 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3692:3699 Kernel.CasperFFG <> quorum_1:4 meth
+R3701:3702 Kernel.CasperFFG <> q1:6 var
+R3718:3725 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3707:3714 Kernel.CasperFFG <> quorum_1:4 meth
+R3716:3717 Kernel.CasperFFG <> q2:7 var
+R3726:3732 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3735:3736 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3733:3734 <> q3:8
+R3748:3751 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3737:3744 Kernel.CasperFFG <> quorum_2:5 meth
+R3746:3747 Kernel.CasperFFG <> q3:8 var
+R3752:3752 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3775:3780 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3803:3803 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 3760:3760 <> n:9
+R3767:3770 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3763:3764 Kernel.CasperFFG <> q3:8 var
+R3766:3766 Kernel.CasperFFG <> n:9 var
+R3771:3772 Kernel.CasperFFG <> q1:6 var
+R3774:3774 Kernel.CasperFFG <> n:9 var
+binder 3788:3788 <> n:10
+R3795:3798 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3791:3792 Kernel.CasperFFG <> q3:8 var
+R3794:3794 Kernel.CasperFFG <> n:10 var
+R3799:3800 Kernel.CasperFFG <> q2:7 var
+R3802:3802 Kernel.CasperFFG <> n:10 var
+R3880:3883 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3876:3879 Kernel.CasperFFG <> Hash:3 meth
+R3888:3891 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3884:3887 Kernel.CasperFFG <> Hash:3 meth
+R3910:3913 Kernel.CasperFFG <> Hash:3 meth
+binder 3951:3952 <> h1:14
+binder 3954:3955 <> h2:15
+binder 3957:3958 <> h3:16
+R3982:3985 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3965:3975 Kernel.CasperFFG <> hash_parent:12 meth
+R3980:3981 Kernel.CasperFFG <> h1:14 var
+R3977:3978 Kernel.CasperFFG <> h2:15 var
+R4003:4006 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3986:3996 Kernel.CasperFFG <> hash_parent:12 meth
+R4001:4002 Kernel.CasperFFG <> h1:14 var
+R3998:3999 Kernel.CasperFFG <> h3:16 var
+R4009:4011 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4007:4008 Kernel.CasperFFG <> h2:15 var
+R4012:4013 Kernel.CasperFFG <> h3:16 var
+sec 4027:4042 <> CasperOneMessage
+var 4055:4055 CasperOneMessage C
+R4059:4071 Kernel.CasperFFG <> CasperSetting rec
+rec 4217:4221 <> State
+proj 4242:4249 <> vote_msg
+R4264:4267 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4253:4261 Kernel.CasperFFG <> Validator proj
+R4263:4263 Kernel.CasperFFG <> CasperOneMessage.C var
 R4274:4277 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4263:4271 Kernel.CasperFFG <> Validator proj
+R4268:4271 Kernel.CasperFFG <> Hash proj
 R4273:4273 Kernel.CasperFFG <> CasperOneMessage.C var
-R4284:4287 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4278:4281 Kernel.CasperFFG <> Hash proj
-R4283:4283 Kernel.CasperFFG <> CasperOneMessage.C var
-R4291:4294 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4288:4290 Coq.Init.Datatypes <> nat ind
-R4298:4301 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4295:4297 Coq.Init.Datatypes <> nat ind
-R4302:4305 Coq.Init.Datatypes <> bool ind
-def 4322:4334 <> hash_ancestor
-R4345:4348 Kernel.CasperFFG <> Hash proj
-R4350:4350 Kernel.CasperFFG <> CasperOneMessage.C var
-binder 4337:4338 <> h1:21
-binder 4340:4341 <> h2:22
-R4365:4382 Coq.Relations.Relation_Operators <> clos_refl_trans_1n ind
-R4402:4403 Kernel.CasperFFG <> h1:21 var
-R4405:4406 Kernel.CasperFFG <> h2:22 var
-R4387:4397 Kernel.CasperFFG <> hash_parent proj
-R4399:4399 Kernel.CasperFFG <> CasperOneMessage.C var
-prf 4416:4433 <> hash_ancestor_base
-binder 4444:4445 <> h1:23
-binder 4447:4448 <> h2:24
-R4470:4473 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4451:4461 Kernel.CasperFFG <> hash_parent proj
-R4463:4463 Kernel.CasperFFG <> CasperOneMessage.C var
-R4465:4466 Kernel.CasperFFG <> h1:23 var
-R4468:4469 Kernel.CasperFFG <> h2:24 var
-R4474:4486 Kernel.CasperFFG <> hash_ancestor def
-R4488:4489 Kernel.CasperFFG <> h1:23 var
-R4491:4492 Kernel.CasperFFG <> h2:24 var
-prf 4569:4588 <> hash_ancestor_concat
-binder 4599:4600 <> h1:25
-binder 4602:4603 <> h2:26
-binder 4605:4606 <> h3:27
-R4630:4633 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4611:4623 Kernel.CasperFFG <> hash_ancestor def
-R4625:4626 Kernel.CasperFFG <> h2:26 var
-R4628:4629 Kernel.CasperFFG <> h3:27 var
-R4653:4656 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4634:4646 Kernel.CasperFFG <> hash_ancestor def
-R4648:4649 Kernel.CasperFFG <> h1:25 var
-R4651:4652 Kernel.CasperFFG <> h2:26 var
-R4657:4669 Kernel.CasperFFG <> hash_ancestor def
-R4671:4672 Kernel.CasperFFG <> h1:25 var
-R4674:4675 Kernel.CasperFFG <> h3:27 var
-prf 4822:4840 <> hash_ancestor_other
-binder 4851:4852 <> h1:28
-binder 4854:4855 <> h2:29
-binder 4857:4857 <> p:30
-R4881:4884 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4862:4874 Kernel.CasperFFG <> hash_ancestor def
-R4876:4877 Kernel.CasperFFG <> h1:28 var
-R4879:4880 Kernel.CasperFFG <> h2:29 var
-R4905:4908 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4885:4886 Coq.Init.Logic <> ::type_scope:'~'_x not
-R4887:4899 Kernel.CasperFFG <> hash_ancestor def
-R4901:4901 Kernel.CasperFFG <> p:30 var
-R4903:4904 Kernel.CasperFFG <> h2:29 var
-R4909:4910 Coq.Init.Logic <> ::type_scope:'~'_x not
-R4911:4923 Kernel.CasperFFG <> hash_ancestor def
-R4925:4925 Kernel.CasperFFG <> p:30 var
-R4927:4928 Kernel.CasperFFG <> h1:28 var
-R4984:5003 Kernel.CasperFFG <> hash_ancestor_concat thm
-R4984:5003 Kernel.CasperFFG <> hash_ancestor_concat thm
-ind 5115:5126 <> nth_ancestor
-constr 5167:5180 <> nth_ancestor_0
-constr 5218:5233 <> nth_ancestor_nth
+R4281:4284 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4278:4280 Coq.Init.Datatypes <> nat ind
+R4288:4291 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4285:4287 Coq.Init.Datatypes <> nat ind
+R4292:4295 Coq.Init.Datatypes <> bool ind
+def 4312:4324 <> hash_ancestor
+R4335:4338 Kernel.CasperFFG <> Hash proj
+R4340:4340 Kernel.CasperFFG <> CasperOneMessage.C var
+binder 4327:4328 <> h1:21
+binder 4330:4331 <> h2:22
+R4355:4372 Coq.Relations.Relation_Operators <> clos_refl_trans_1n ind
+R4392:4393 Kernel.CasperFFG <> h1:21 var
+R4395:4396 Kernel.CasperFFG <> h2:22 var
+R4377:4387 Kernel.CasperFFG <> hash_parent proj
+R4389:4389 Kernel.CasperFFG <> CasperOneMessage.C var
+prf 4406:4423 <> hash_ancestor_base
+binder 4434:4435 <> h1:23
+binder 4437:4438 <> h2:24
+R4460:4463 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4441:4451 Kernel.CasperFFG <> hash_parent proj
+R4453:4453 Kernel.CasperFFG <> CasperOneMessage.C var
+R4455:4456 Kernel.CasperFFG <> h1:23 var
+R4458:4459 Kernel.CasperFFG <> h2:24 var
+R4464:4476 Kernel.CasperFFG <> hash_ancestor def
+R4478:4479 Kernel.CasperFFG <> h1:23 var
+R4481:4482 Kernel.CasperFFG <> h2:24 var
+prf 4559:4578 <> hash_ancestor_concat
+binder 4589:4590 <> h1:25
+binder 4592:4593 <> h2:26
+binder 4595:4596 <> h3:27
+R4620:4623 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4601:4613 Kernel.CasperFFG <> hash_ancestor def
+R4615:4616 Kernel.CasperFFG <> h2:26 var
+R4618:4619 Kernel.CasperFFG <> h3:27 var
+R4643:4646 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4624:4636 Kernel.CasperFFG <> hash_ancestor def
+R4638:4639 Kernel.CasperFFG <> h1:25 var
+R4641:4642 Kernel.CasperFFG <> h2:26 var
+R4647:4659 Kernel.CasperFFG <> hash_ancestor def
+R4661:4662 Kernel.CasperFFG <> h1:25 var
+R4664:4665 Kernel.CasperFFG <> h3:27 var
+prf 4812:4830 <> hash_ancestor_other
+binder 4841:4842 <> h1:28
+binder 4844:4845 <> h2:29
+binder 4847:4847 <> p:30
+R4871:4874 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4852:4864 Kernel.CasperFFG <> hash_ancestor def
+R4866:4867 Kernel.CasperFFG <> h1:28 var
+R4869:4870 Kernel.CasperFFG <> h2:29 var
+R4895:4898 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4875:4876 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4877:4889 Kernel.CasperFFG <> hash_ancestor def
+R4891:4891 Kernel.CasperFFG <> p:30 var
+R4893:4894 Kernel.CasperFFG <> h2:29 var
+R4899:4900 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4901:4913 Kernel.CasperFFG <> hash_ancestor def
+R4915:4915 Kernel.CasperFFG <> p:30 var
+R4917:4918 Kernel.CasperFFG <> h1:28 var
+R4974:4993 Kernel.CasperFFG <> hash_ancestor_concat thm
+R4974:4993 Kernel.CasperFFG <> hash_ancestor_concat thm
+ind 5105:5116 <> nth_ancestor
+constr 5157:5170 <> nth_ancestor_0
+constr 5208:5223 <> nth_ancestor_nth
+R5123:5126 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5120:5122 Coq.Init.Datatypes <> nat ind
 R5133:5136 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5130:5132 Coq.Init.Datatypes <> nat ind
+R5127:5130 Kernel.CasperFFG <> Hash proj
+R5132:5132 Kernel.CasperFFG <> CasperOneMessage.C var
 R5143:5146 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R5137:5140 Kernel.CasperFFG <> Hash proj
 R5142:5142 Kernel.CasperFFG <> CasperOneMessage.C var
-R5153:5156 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5147:5150 Kernel.CasperFFG <> Hash proj
-R5152:5152 Kernel.CasperFFG <> CasperOneMessage.C var
-binder 5191:5192 <> h1:33
-R5195:5206 Kernel.CasperFFG <> nth_ancestor:31 ind
-R5213:5214 Kernel.CasperFFG <> h1:33 var
-R5210:5211 Kernel.CasperFFG <> h1:33 var
-binder 5244:5244 <> n:34
-binder 5246:5247 <> h1:35
-binder 5249:5250 <> h2:36
-binder 5252:5253 <> h3:37
-R5280:5283 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5260:5271 Kernel.CasperFFG <> nth_ancestor:31 ind
-R5278:5279 Kernel.CasperFFG <> h2:36 var
-R5275:5276 Kernel.CasperFFG <> h1:35 var
-R5273:5273 Kernel.CasperFFG <> n:34 var
-R5303:5306 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5284:5294 Kernel.CasperFFG <> hash_parent proj
-R5296:5296 Kernel.CasperFFG <> CasperOneMessage.C var
-R5298:5299 Kernel.CasperFFG <> h2:36 var
-R5301:5302 Kernel.CasperFFG <> h3:37 var
-R5307:5318 Kernel.CasperFFG <> nth_ancestor:31 ind
-R5329:5330 Kernel.CasperFFG <> h3:37 var
-R5326:5327 Kernel.CasperFFG <> h1:35 var
-R5321:5321 Coq.Init.Datatypes <> S constr
-R5323:5323 Kernel.CasperFFG <> n:34 var
-scheme 5115:5126 <> nth_ancestor_ind
-scheme 5115:5126 <> nth_ancestor_sind
-prf 5340:5360 <> nth_ancestor_ancestor
-binder 5371:5371 <> n:38
-binder 5373:5374 <> h1:39
-binder 5376:5377 <> h2:40
-R5400:5403 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5380:5391 Kernel.CasperFFG <> nth_ancestor ind
-R5393:5393 Kernel.CasperFFG <> n:38 var
-R5395:5396 Kernel.CasperFFG <> h1:39 var
-R5398:5399 Kernel.CasperFFG <> h2:40 var
-R5404:5416 Kernel.CasperFFG <> hash_ancestor def
-R5418:5419 Kernel.CasperFFG <> h1:39 var
-R5421:5422 Kernel.CasperFFG <> h2:40 var
-R5519:5538 Kernel.CasperFFG <> hash_ancestor_concat thm
-R5547:5564 Kernel.CasperFFG <> hash_ancestor_base thm
-R5519:5538 Kernel.CasperFFG <> hash_ancestor_concat thm
-R5547:5564 Kernel.CasperFFG <> hash_ancestor_base thm
-def 5664:5677 <> justified_link
-R5684:5688 Kernel.CasperFFG <> State rec
-binder 5680:5680 <> s:41
-R5707:5710 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5696:5704 Kernel.CasperFFG <> Validator proj
-R5706:5706 Kernel.CasperFFG <> CasperOneMessage.C var
-binder 5692:5692 <> q:42
-R5731:5734 Kernel.CasperFFG <> Hash proj
-R5736:5736 Kernel.CasperFFG <> CasperOneMessage.C var
-binder 5722:5727 <> parent:43
-R5746:5748 Coq.Init.Datatypes <> nat ind
-binder 5740:5742 <> pre:44
-R5758:5761 Kernel.CasperFFG <> Hash proj
-R5763:5763 Kernel.CasperFFG <> CasperOneMessage.C var
-binder 5752:5754 <> new:45
-R5773:5775 Coq.Init.Datatypes <> nat ind
-binder 5767:5769 <> now:46
-R5802:5807 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5790:5797 Kernel.CasperFFG <> quorum_1 proj
-R5799:5799 Kernel.CasperFFG <> CasperOneMessage.C var
-R5801:5801 Kernel.CasperFFG <> q:42 var
-R5808:5808 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5857:5863 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 5816:5816 <> n:47
-R5822:5825 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5819:5819 Kernel.CasperFFG <> q:42 var
-R5821:5821 Kernel.CasperFFG <> n:47 var
-R5850:5852 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5826:5833 Kernel.CasperFFG <> vote_msg proj
-R5835:5835 Kernel.CasperFFG <> s:41 var
-R5837:5837 Kernel.CasperFFG <> n:47 var
-R5839:5841 Kernel.CasperFFG <> new:45 var
-R5843:5845 Kernel.CasperFFG <> now:46 var
-R5847:5849 Kernel.CasperFFG <> pre:44 var
-R5853:5856 Coq.Init.Datatypes <> true constr
-R5899:5904 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5864:5875 Kernel.CasperFFG <> nth_ancestor ind
-R5881:5883 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R5878:5880 Kernel.CasperFFG <> now:46 var
-R5884:5886 Kernel.CasperFFG <> pre:44 var
-R5889:5894 Kernel.CasperFFG <> parent:43 var
-R5896:5898 Kernel.CasperFFG <> new:45 var
-R5908:5910 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R5905:5907 Kernel.CasperFFG <> now:46 var
-R5911:5913 Kernel.CasperFFG <> pre:44 var
-prf 5923:5946 <> justified_means_ancestor
-binder 5957:5957 <> s:48
-binder 5959:5959 <> q:49
-binder 5961:5966 <> parent:50
-binder 5968:5970 <> pre:51
-binder 5972:5974 <> new:52
-binder 5976:5978 <> now:53
-R6020:6023 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5983:5996 Kernel.CasperFFG <> justified_link def
-R5998:5998 Kernel.CasperFFG <> s:48 var
-R6000:6000 Kernel.CasperFFG <> q:49 var
-R6002:6007 Kernel.CasperFFG <> parent:50 var
-R6009:6011 Kernel.CasperFFG <> pre:51 var
-R6013:6015 Kernel.CasperFFG <> new:52 var
-R6017:6019 Kernel.CasperFFG <> now:53 var
-R6024:6036 Kernel.CasperFFG <> hash_ancestor def
-R6038:6043 Kernel.CasperFFG <> parent:50 var
-R6045:6047 Kernel.CasperFFG <> new:52 var
-R6110:6130 Kernel.CasperFFG <> nth_ancestor_ancestor thm
-R6110:6130 Kernel.CasperFFG <> nth_ancestor_ancestor thm
-ind 6258:6266 <> justified
-constr 6306:6309 <> orig
-constr 6351:6356 <> follow
+binder 5181:5182 <> h1:33
+R5185:5196 Kernel.CasperFFG <> nth_ancestor:31 ind
+R5203:5204 Kernel.CasperFFG <> h1:33 var
+R5200:5201 Kernel.CasperFFG <> h1:33 var
+binder 5234:5234 <> n:34
+binder 5236:5237 <> h1:35
+binder 5239:5240 <> h2:36
+binder 5242:5243 <> h3:37
+R5270:5273 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5250:5261 Kernel.CasperFFG <> nth_ancestor:31 ind
+R5268:5269 Kernel.CasperFFG <> h2:36 var
+R5265:5266 Kernel.CasperFFG <> h1:35 var
+R5263:5263 Kernel.CasperFFG <> n:34 var
+R5293:5296 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5274:5284 Kernel.CasperFFG <> hash_parent proj
+R5286:5286 Kernel.CasperFFG <> CasperOneMessage.C var
+R5288:5289 Kernel.CasperFFG <> h2:36 var
+R5291:5292 Kernel.CasperFFG <> h3:37 var
+R5297:5308 Kernel.CasperFFG <> nth_ancestor:31 ind
+R5319:5320 Kernel.CasperFFG <> h3:37 var
+R5316:5317 Kernel.CasperFFG <> h1:35 var
+R5311:5311 Coq.Init.Datatypes <> S constr
+R5313:5313 Kernel.CasperFFG <> n:34 var
+scheme 5105:5116 <> nth_ancestor_ind
+scheme 5105:5116 <> nth_ancestor_sind
+prf 5330:5350 <> nth_ancestor_ancestor
+binder 5361:5361 <> n:38
+binder 5363:5364 <> h1:39
+binder 5366:5367 <> h2:40
+R5390:5393 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5370:5381 Kernel.CasperFFG <> nth_ancestor ind
+R5383:5383 Kernel.CasperFFG <> n:38 var
+R5385:5386 Kernel.CasperFFG <> h1:39 var
+R5388:5389 Kernel.CasperFFG <> h2:40 var
+R5394:5406 Kernel.CasperFFG <> hash_ancestor def
+R5408:5409 Kernel.CasperFFG <> h1:39 var
+R5411:5412 Kernel.CasperFFG <> h2:40 var
+R5509:5528 Kernel.CasperFFG <> hash_ancestor_concat thm
+R5537:5554 Kernel.CasperFFG <> hash_ancestor_base thm
+R5509:5528 Kernel.CasperFFG <> hash_ancestor_concat thm
+R5537:5554 Kernel.CasperFFG <> hash_ancestor_base thm
+def 5654:5667 <> justified_link
+R5674:5678 Kernel.CasperFFG <> State rec
+binder 5670:5670 <> s:41
+R5697:5700 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5686:5694 Kernel.CasperFFG <> Validator proj
+R5696:5696 Kernel.CasperFFG <> CasperOneMessage.C var
+binder 5682:5682 <> q:42
+R5721:5724 Kernel.CasperFFG <> Hash proj
+R5726:5726 Kernel.CasperFFG <> CasperOneMessage.C var
+binder 5712:5717 <> parent:43
+R5736:5738 Coq.Init.Datatypes <> nat ind
+binder 5730:5732 <> pre:44
+R5748:5751 Kernel.CasperFFG <> Hash proj
+R5753:5753 Kernel.CasperFFG <> CasperOneMessage.C var
+binder 5742:5744 <> new:45
+R5763:5765 Coq.Init.Datatypes <> nat ind
+binder 5757:5759 <> now:46
+R5792:5797 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5780:5787 Kernel.CasperFFG <> quorum_1 proj
+R5789:5789 Kernel.CasperFFG <> CasperOneMessage.C var
+R5791:5791 Kernel.CasperFFG <> q:42 var
+R5798:5798 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5847:5853 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 5806:5806 <> n:47
+R5812:5815 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5809:5809 Kernel.CasperFFG <> q:42 var
+R5811:5811 Kernel.CasperFFG <> n:47 var
+R5840:5842 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5816:5823 Kernel.CasperFFG <> vote_msg proj
+R5825:5825 Kernel.CasperFFG <> s:41 var
+R5827:5827 Kernel.CasperFFG <> n:47 var
+R5829:5831 Kernel.CasperFFG <> new:45 var
+R5833:5835 Kernel.CasperFFG <> now:46 var
+R5837:5839 Kernel.CasperFFG <> pre:44 var
+R5843:5846 Coq.Init.Datatypes <> true constr
+R5889:5894 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5854:5865 Kernel.CasperFFG <> nth_ancestor ind
+R5871:5873 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R5868:5870 Kernel.CasperFFG <> now:46 var
+R5874:5876 Kernel.CasperFFG <> pre:44 var
+R5879:5884 Kernel.CasperFFG <> parent:43 var
+R5886:5888 Kernel.CasperFFG <> new:45 var
+R5898:5900 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5895:5897 Kernel.CasperFFG <> now:46 var
+R5901:5903 Kernel.CasperFFG <> pre:44 var
+prf 5913:5936 <> justified_means_ancestor
+binder 5947:5947 <> s:48
+binder 5949:5949 <> q:49
+binder 5951:5956 <> parent:50
+binder 5958:5960 <> pre:51
+binder 5962:5964 <> new:52
+binder 5966:5968 <> now:53
+R6010:6013 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5973:5986 Kernel.CasperFFG <> justified_link def
+R5988:5988 Kernel.CasperFFG <> s:48 var
+R5990:5990 Kernel.CasperFFG <> q:49 var
+R5992:5997 Kernel.CasperFFG <> parent:50 var
+R5999:6001 Kernel.CasperFFG <> pre:51 var
+R6003:6005 Kernel.CasperFFG <> new:52 var
+R6007:6009 Kernel.CasperFFG <> now:53 var
+R6014:6026 Kernel.CasperFFG <> hash_ancestor def
+R6028:6033 Kernel.CasperFFG <> parent:50 var
+R6035:6037 Kernel.CasperFFG <> new:52 var
+R6100:6120 Kernel.CasperFFG <> nth_ancestor_ancestor thm
+R6100:6120 Kernel.CasperFFG <> nth_ancestor_ancestor thm
+ind 6248:6256 <> justified
+constr 6296:6299 <> orig
+constr 6341:6346 <> follow
+R6265:6268 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6260:6264 Kernel.CasperFFG <> State rec
 R6275:6278 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6270:6274 Kernel.CasperFFG <> State rec
-R6285:6288 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6279:6282 Kernel.CasperFFG <> Hash proj
-R6284:6284 Kernel.CasperFFG <> CasperOneMessage.C var
-R6292:6295 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6289:6291 Coq.Init.Datatypes <> nat ind
-binder 6320:6320 <> s:56
-R6323:6331 Kernel.CasperFFG <> justified:54 ind
-R6336:6342 Kernel.CasperFFG <> genesis proj
-R6344:6344 Kernel.CasperFFG <> CasperOneMessage.C var
-R6333:6333 Kernel.CasperFFG <> s:56 var
-binder 6367:6367 <> s:57
-binder 6369:6374 <> parent:58
-binder 6376:6378 <> pre:59
-binder 6380:6380 <> q:60
-binder 6382:6384 <> new:61
-binder 6386:6388 <> now:62
-R6417:6424 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6395:6403 Kernel.CasperFFG <> justified:54 ind
-R6414:6416 Kernel.CasperFFG <> pre:59 var
-R6407:6412 Kernel.CasperFFG <> parent:58 var
-R6405:6405 Kernel.CasperFFG <> s:57 var
-R6462:6469 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6425:6438 Kernel.CasperFFG <> justified_link def
-R6440:6440 Kernel.CasperFFG <> s:57 var
-R6442:6442 Kernel.CasperFFG <> q:60 var
-R6444:6449 Kernel.CasperFFG <> parent:58 var
-R6451:6453 Kernel.CasperFFG <> pre:59 var
-R6455:6457 Kernel.CasperFFG <> new:61 var
-R6459:6461 Kernel.CasperFFG <> now:62 var
-R6470:6478 Kernel.CasperFFG <> justified:54 ind
-R6486:6488 Kernel.CasperFFG <> now:62 var
-R6482:6484 Kernel.CasperFFG <> new:61 var
-R6480:6480 Kernel.CasperFFG <> s:57 var
-scheme 6258:6266 <> justified_ind
-scheme 6258:6266 <> justified_sind
-def 6579:6587 <> finalized
-R6594:6598 Kernel.CasperFFG <> State rec
-binder 6590:6590 <> s:63
-R6617:6620 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6606:6614 Kernel.CasperFFG <> Validator proj
-R6616:6616 Kernel.CasperFFG <> CasperOneMessage.C var
-binder 6602:6602 <> q:64
-R6632:6635 Kernel.CasperFFG <> Hash proj
-R6637:6637 Kernel.CasperFFG <> CasperOneMessage.C var
-binder 6628:6628 <> h:65
-R6645:6647 Coq.Init.Datatypes <> nat ind
-binder 6641:6641 <> v:66
-R6663:6666 Kernel.CasperFFG <> Hash proj
-R6668:6668 Kernel.CasperFFG <> CasperOneMessage.C var
-binder 6655:6659 <> child:67
-R6704:6707 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6683:6693 Kernel.CasperFFG <> hash_parent proj
-R6695:6695 Kernel.CasperFFG <> CasperOneMessage.C var
-R6697:6697 Kernel.CasperFFG <> h:65 var
-R6699:6703 Kernel.CasperFFG <> child:67 var
-R6723:6726 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6708:6716 Kernel.CasperFFG <> justified ind
-R6718:6718 Kernel.CasperFFG <> s:63 var
-R6720:6720 Kernel.CasperFFG <> h:65 var
-R6722:6722 Kernel.CasperFFG <> v:66 var
-R6727:6740 Kernel.CasperFFG <> justified_link def
-R6742:6742 Kernel.CasperFFG <> s:63 var
-R6744:6744 Kernel.CasperFFG <> q:64 var
-R6746:6746 Kernel.CasperFFG <> h:65 var
-R6748:6748 Kernel.CasperFFG <> v:66 var
-R6750:6754 Kernel.CasperFFG <> child:67 var
-R6757:6757 Coq.Init.Datatypes <> S constr
-R6759:6759 Kernel.CasperFFG <> v:66 var
-def 6831:6847 <> finalization_fork
-R6854:6858 Kernel.CasperFFG <> State rec
-binder 6850:6850 <> s:68
-R6873:6879 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6903:6908 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 6880:6881 <> h1:69
-binder 6883:6884 <> h2:70
-binder 6886:6887 <> q1:71
-binder 6889:6890 <> q2:72
-binder 6892:6893 <> v1:73
-binder 6895:6896 <> v2:74
-binder 6898:6899 <> c1:75
-binder 6901:6902 <> c2:76
-R6932:6939 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6909:6917 Kernel.CasperFFG <> finalized def
-R6919:6919 Kernel.CasperFFG <> s:68 var
-R6921:6922 Kernel.CasperFFG <> q1:71 var
-R6924:6925 Kernel.CasperFFG <> h1:69 var
-R6927:6928 Kernel.CasperFFG <> v1:73 var
-R6930:6931 Kernel.CasperFFG <> c1:75 var
-R6963:6970 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6940:6948 Kernel.CasperFFG <> finalized def
-R6950:6950 Kernel.CasperFFG <> s:68 var
-R6952:6953 Kernel.CasperFFG <> q2:72 var
-R6955:6956 Kernel.CasperFFG <> h2:70 var
-R6958:6959 Kernel.CasperFFG <> v2:74 var
-R6961:6962 Kernel.CasperFFG <> c2:76 var
-R6992:6995 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6971:6972 Coq.Init.Logic <> ::type_scope:'~'_x not
-R6973:6985 Kernel.CasperFFG <> hash_ancestor def
-R6987:6988 Kernel.CasperFFG <> h2:70 var
-R6990:6991 Kernel.CasperFFG <> h1:69 var
-R7017:7020 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6996:6997 Coq.Init.Logic <> ::type_scope:'~'_x not
-R6998:7010 Kernel.CasperFFG <> hash_ancestor def
-R7012:7013 Kernel.CasperFFG <> h1:69 var
-R7015:7016 Kernel.CasperFFG <> h2:70 var
-R7023:7026 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R7021:7022 Kernel.CasperFFG <> h1:69 var
-R7027:7028 Kernel.CasperFFG <> h2:70 var
-def 7081:7096 <> slashed_dbl_vote
-R7103:7107 Kernel.CasperFFG <> State rec
-binder 7099:7099 <> s:77
-R7115:7123 Kernel.CasperFFG <> Validator proj
-R7125:7125 Kernel.CasperFFG <> CasperOneMessage.C var
-binder 7111:7111 <> n:78
-R7140:7146 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R7152:7153 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 7147:7148 <> h1:79
-binder 7150:7151 <> h2:80
-R7162:7165 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7156:7159 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R7154:7155 Kernel.CasperFFG <> h1:79 var
-R7160:7161 Kernel.CasperFFG <> h2:80 var
-R7166:7172 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R7180:7185 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 7173:7173 <> v:81
-binder 7175:7176 <> s1:82
-binder 7178:7179 <> s2:83
-R7213:7216 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7206:7208 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7186:7193 Kernel.CasperFFG <> vote_msg proj
-R7195:7195 Kernel.CasperFFG <> s:77 var
-R7197:7197 Kernel.CasperFFG <> n:78 var
-R7199:7200 Kernel.CasperFFG <> h1:79 var
-R7202:7202 Kernel.CasperFFG <> v:81 var
-R7204:7205 Kernel.CasperFFG <> s1:82 var
-R7209:7212 Coq.Init.Datatypes <> true constr
-R7237:7239 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7217:7224 Kernel.CasperFFG <> vote_msg proj
-R7226:7226 Kernel.CasperFFG <> s:77 var
-R7228:7228 Kernel.CasperFFG <> n:78 var
-R7230:7231 Kernel.CasperFFG <> h2:80 var
-R7233:7233 Kernel.CasperFFG <> v:81 var
-R7235:7236 Kernel.CasperFFG <> s2:83 var
-R7240:7243 Coq.Init.Datatypes <> true constr
-def 7258:7273 <> slashed_surround
-R7280:7284 Kernel.CasperFFG <> State rec
-binder 7276:7276 <> s:84
-R7292:7300 Kernel.CasperFFG <> Validator proj
-R7302:7302 Kernel.CasperFFG <> CasperOneMessage.C var
-binder 7288:7288 <> n:85
-R7317:7323 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R7341:7346 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 7324:7325 <> h1:86
-binder 7327:7328 <> h2:87
-binder 7330:7331 <> v1:88
-binder 7333:7334 <> v2:89
-binder 7336:7337 <> s1:90
-binder 7339:7340 <> s2:91
-R7375:7382 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7368:7370 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7347:7354 Kernel.CasperFFG <> vote_msg proj
-R7356:7356 Kernel.CasperFFG <> s:84 var
-R7358:7358 Kernel.CasperFFG <> n:85 var
-R7360:7361 Kernel.CasperFFG <> h1:86 var
-R7363:7364 Kernel.CasperFFG <> v1:88 var
-R7366:7367 Kernel.CasperFFG <> s1:90 var
-R7371:7374 Coq.Init.Datatypes <> true constr
-R7411:7418 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7404:7406 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7383:7390 Kernel.CasperFFG <> vote_msg proj
-R7392:7392 Kernel.CasperFFG <> s:84 var
-R7394:7394 Kernel.CasperFFG <> n:85 var
-R7396:7397 Kernel.CasperFFG <> h2:87 var
-R7399:7400 Kernel.CasperFFG <> v2:89 var
-R7402:7403 Kernel.CasperFFG <> s2:91 var
-R7407:7410 Coq.Init.Datatypes <> true constr
-R7426:7429 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7421:7423 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R7419:7420 Kernel.CasperFFG <> v1:88 var
-R7424:7425 Kernel.CasperFFG <> v2:89 var
-R7432:7434 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R7430:7431 Kernel.CasperFFG <> s2:91 var
-R7435:7436 Kernel.CasperFFG <> s1:90 var
-def 7451:7457 <> slashed
-R7464:7468 Kernel.CasperFFG <> State rec
-binder 7460:7460 <> s:92
-R7476:7484 Kernel.CasperFFG <> Validator proj
-R7486:7486 Kernel.CasperFFG <> CasperOneMessage.C var
-binder 7472:7472 <> n:93
-R7521:7524 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R7501:7516 Kernel.CasperFFG <> slashed_dbl_vote def
-R7518:7518 Kernel.CasperFFG <> s:92 var
-R7520:7520 Kernel.CasperFFG <> n:93 var
-R7525:7540 Kernel.CasperFFG <> slashed_surround def
-R7542:7542 Kernel.CasperFFG <> s:92 var
-R7544:7544 Kernel.CasperFFG <> n:93 var
-def 7607:7620 <> quorum_slashed
-R7627:7631 Kernel.CasperFFG <> State rec
-binder 7623:7623 <> s:94
-R7646:7652 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R7654:7655 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 7653:7653 <> q:95
-R7668:7671 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7656:7663 Kernel.CasperFFG <> quorum_2 proj
-R7665:7665 Kernel.CasperFFG <> CasperOneMessage.C var
-R7667:7667 Kernel.CasperFFG <> q:95 var
-binder 7679:7679 <> n:96
-R7685:7688 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7682:7682 Kernel.CasperFFG <> q:95 var
-R7684:7684 Kernel.CasperFFG <> n:96 var
-R7689:7695 Kernel.CasperFFG <> slashed def
-R7697:7697 Kernel.CasperFFG <> s:94 var
-R7699:7699 Kernel.CasperFFG <> n:96 var
-prf 7726:7736 <> link_epochs
-binder 7747:7747 <> s:97
-binder 7749:7749 <> q:98
-binder 7751:7752 <> h2:99
-binder 7754:7755 <> v2:100
-binder 7757:7758 <> h1:101
-binder 7760:7761 <> v1:102
-R7796:7799 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7766:7779 Kernel.CasperFFG <> justified_link def
-R7781:7781 Kernel.CasperFFG <> s:97 var
-R7783:7783 Kernel.CasperFFG <> q:98 var
-R7785:7786 Kernel.CasperFFG <> h2:99 var
-R7788:7789 Kernel.CasperFFG <> v2:100 var
-R7791:7792 Kernel.CasperFFG <> h1:101 var
-R7794:7795 Kernel.CasperFFG <> v1:102 var
-R7802:7804 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R7800:7801 Kernel.CasperFFG <> v1:102 var
-R7805:7806 Kernel.CasperFFG <> v2:100 var
-prf 7995:8004 <> both_votes
-R8035:8038 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8024:8032 Kernel.CasperFFG <> Validator proj
-R8034:8034 Kernel.CasperFFG <> CasperOneMessage.C var
-binder 8016:8017 <> q1:103
-binder 8019:8020 <> q2:104
-R8065:8068 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8054:8062 Kernel.CasperFFG <> Validator proj
-R8064:8064 Kernel.CasperFFG <> CasperOneMessage.C var
-binder 8046:8047 <> P1:105
-binder 8049:8050 <> P2:106
-R8091:8094 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8078:8085 Kernel.CasperFFG <> quorum_1 proj
-R8087:8087 Kernel.CasperFFG <> CasperOneMessage.C var
-R8089:8090 Kernel.CasperFFG <> q1:103 var
-R8108:8113 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8095:8102 Kernel.CasperFFG <> quorum_1 proj
-R8104:8104 Kernel.CasperFFG <> CasperOneMessage.C var
-R8106:8107 Kernel.CasperFFG <> q2:104 var
-R8114:8114 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8137:8141 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 8122:8122 <> n:107
-R8129:8132 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8125:8126 Kernel.CasperFFG <> q1:103 var
-R8128:8128 Kernel.CasperFFG <> n:107 var
-R8133:8134 Kernel.CasperFFG <> P1:105 var
-R8136:8136 Kernel.CasperFFG <> n:107 var
-R8142:8142 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8165:8171 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 8150:8150 <> n:108
-R8157:8160 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8153:8154 Kernel.CasperFFG <> q2:104 var
-R8156:8156 Kernel.CasperFFG <> n:108 var
-R8161:8162 Kernel.CasperFFG <> P2:106 var
-R8164:8164 Kernel.CasperFFG <> n:108 var
-R8172:8178 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R8180:8181 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 8179:8179 <> q:109
-R8194:8197 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8182:8189 Kernel.CasperFFG <> quorum_2 proj
-R8191:8191 Kernel.CasperFFG <> CasperOneMessage.C var
-R8193:8193 Kernel.CasperFFG <> q:109 var
-binder 8205:8205 <> n:110
-R8211:8214 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8208:8208 Kernel.CasperFFG <> q:109 var
-R8210:8210 Kernel.CasperFFG <> n:110 var
-R8219:8222 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8215:8216 Kernel.CasperFFG <> P1:105 var
-R8218:8218 Kernel.CasperFFG <> n:110 var
-R8223:8224 Kernel.CasperFFG <> P2:106 var
-R8226:8226 Kernel.CasperFFG <> n:110 var
-R8284:8303 Kernel.CasperFFG <> quorums_intersection proj
-R8305:8305 Kernel.CasperFFG <> CasperOneMessage.C var
-R8284:8303 Kernel.CasperFFG <> quorums_intersection proj
-R8305:8305 Kernel.CasperFFG <> CasperOneMessage.C var
-prf 8572:8584 <> dbl_vote_case
-binder 8595:8595 <> s:111
-binder 8597:8598 <> q1:112
-binder 8600:8601 <> q2:113
-binder 8603:8604 <> h2:114
-binder 8606:8607 <> v2:115
-binder 8609:8610 <> h1:116
-binder 8612:8613 <> h3:117
-binder 8615:8616 <> v3:118
-binder 8618:8619 <> c3:119
-R8659:8664 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8624:8637 Kernel.CasperFFG <> justified_link def
-R8639:8639 Kernel.CasperFFG <> s:111 var
-R8641:8642 Kernel.CasperFFG <> q1:112 var
-R8644:8645 Kernel.CasperFFG <> h2:114 var
-R8647:8648 Kernel.CasperFFG <> v2:115 var
-R8650:8651 Kernel.CasperFFG <> h1:116 var
-R8654:8654 Coq.Init.Datatypes <> S constr
-R8656:8657 Kernel.CasperFFG <> v3:118 var
-R8688:8693 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8665:8673 Kernel.CasperFFG <> finalized def
-R8675:8675 Kernel.CasperFFG <> s:111 var
-R8677:8678 Kernel.CasperFFG <> q2:113 var
-R8680:8681 Kernel.CasperFFG <> h3:117 var
-R8683:8684 Kernel.CasperFFG <> v3:118 var
-R8686:8687 Kernel.CasperFFG <> c3:119 var
-R8715:8720 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8694:8695 Coq.Init.Logic <> ::type_scope:'~'_x not
-R8696:8708 Kernel.CasperFFG <> hash_ancestor def
-R8710:8711 Kernel.CasperFFG <> h3:117 var
-R8713:8714 Kernel.CasperFFG <> h1:116 var
-R8721:8734 Kernel.CasperFFG <> quorum_slashed def
-R8736:8736 Kernel.CasperFFG <> s:111 var
-R8834:8843 Kernel.CasperFFG <> both_votes thm
-R8834:8843 Kernel.CasperFFG <> both_votes thm
-R9035:9052 Kernel.CasperFFG <> hash_ancestor_base thm
-R9035:9052 Kernel.CasperFFG <> hash_ancestor_base thm
-R9075:9075 Coq.Init.Datatypes <> S constr
-R9075:9075 Coq.Init.Datatypes <> S constr
-prf 9228:9240 <> surround_case
-binder 9251:9251 <> s:120
-binder 9253:9254 <> q1:121
-binder 9256:9257 <> q2:122
-binder 9259:9260 <> h2:123
-binder 9262:9263 <> v2:124
-binder 9265:9266 <> h1:125
-binder 9268:9269 <> v1:126
-binder 9271:9272 <> h3:127
-binder 9274:9275 <> v3:128
-binder 9277:9278 <> c3:129
-R9314:9319 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9283:9296 Kernel.CasperFFG <> justified_link def
-R9298:9298 Kernel.CasperFFG <> s:120 var
-R9300:9301 Kernel.CasperFFG <> q1:121 var
-R9303:9304 Kernel.CasperFFG <> h2:123 var
-R9306:9307 Kernel.CasperFFG <> v2:124 var
-R9309:9310 Kernel.CasperFFG <> h1:125 var
-R9312:9313 Kernel.CasperFFG <> v1:126 var
-R9343:9348 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9320:9328 Kernel.CasperFFG <> finalized def
-R9330:9330 Kernel.CasperFFG <> s:120 var
-R9332:9333 Kernel.CasperFFG <> q2:122 var
-R9335:9336 Kernel.CasperFFG <> h3:127 var
-R9338:9339 Kernel.CasperFFG <> v3:128 var
-R9341:9342 Kernel.CasperFFG <> c3:129 var
-R9358:9361 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9353:9355 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R9349:9349 Coq.Init.Datatypes <> S constr
-R9351:9352 Kernel.CasperFFG <> v3:128 var
-R9356:9357 Kernel.CasperFFG <> v1:126 var
-R9369:9374 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9364:9366 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R9362:9363 Kernel.CasperFFG <> v2:124 var
-R9367:9368 Kernel.CasperFFG <> v3:128 var
-R9375:9388 Kernel.CasperFFG <> quorum_slashed def
-R9390:9390 Kernel.CasperFFG <> s:120 var
-R9496:9505 Kernel.CasperFFG <> both_votes thm
-R9496:9505 Kernel.CasperFFG <> both_votes thm
-R9664:9664 Coq.Init.Datatypes <> S constr
-R9664:9664 Coq.Init.Datatypes <> S constr
-prf 9717:9737 <> crossing_link_slashes
-binder 9748:9748 <> s:130
-binder 9750:9751 <> q1:131
-binder 9753:9754 <> q2:132
-binder 9756:9757 <> h2:133
-binder 9759:9760 <> v2:134
-binder 9762:9763 <> h1:135
-binder 9765:9766 <> h3:136
-binder 9768:9769 <> v1:137
-binder 9771:9772 <> v3:138
-binder 9774:9775 <> c3:139
-R9811:9816 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9780:9793 Kernel.CasperFFG <> justified_link def
-R9795:9795 Kernel.CasperFFG <> s:130 var
-R9797:9798 Kernel.CasperFFG <> q1:131 var
-R9800:9801 Kernel.CasperFFG <> h2:133 var
-R9803:9804 Kernel.CasperFFG <> v2:134 var
-R9806:9807 Kernel.CasperFFG <> h1:135 var
-R9809:9810 Kernel.CasperFFG <> v1:137 var
-R9840:9845 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9817:9825 Kernel.CasperFFG <> finalized def
-R9827:9827 Kernel.CasperFFG <> s:130 var
-R9829:9830 Kernel.CasperFFG <> q2:132 var
-R9832:9833 Kernel.CasperFFG <> h3:136 var
-R9835:9836 Kernel.CasperFFG <> v3:138 var
-R9838:9839 Kernel.CasperFFG <> c3:139 var
-R9853:9858 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9848:9850 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R9846:9847 Kernel.CasperFFG <> v1:137 var
-R9851:9852 Kernel.CasperFFG <> v3:138 var
-R9880:9885 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9859:9860 Coq.Init.Logic <> ::type_scope:'~'_x not
-R9861:9873 Kernel.CasperFFG <> hash_ancestor def
-R9875:9876 Kernel.CasperFFG <> h3:136 var
-R9878:9879 Kernel.CasperFFG <> h1:135 var
-R9893:9898 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9888:9890 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R9886:9887 Kernel.CasperFFG <> v2:134 var
-R9891:9892 Kernel.CasperFFG <> v3:138 var
-R9899:9912 Kernel.CasperFFG <> quorum_slashed def
-R9914:9914 Kernel.CasperFFG <> s:130 var
-R9991:10000 Coq.Arith.PeanoNat Nat eq_dec thm
-R10006:10006 Coq.Init.Datatypes <> S constr
-R9991:10000 Coq.Arith.PeanoNat Nat eq_dec thm
-R10006:10006 Coq.Init.Datatypes <> S constr
-R10039:10051 Kernel.CasperFFG <> dbl_vote_case thm
-R10039:10051 Kernel.CasperFFG <> dbl_vote_case thm
-R10101:10113 Kernel.CasperFFG <> surround_case thm
-R10101:10113 Kernel.CasperFFG <> surround_case thm
-prf 10278:10298 <> same_epoch_same_block
-binder 10309:10309 <> s:140
-binder 10311:10311 <> q:141
-binder 10313:10314 <> q1:142
-binder 10316:10322 <> parent1:143
-binder 10324:10327 <> pre1:144
-binder 10329:10330 <> h1:145
-binder 10332:10333 <> v1:146
-binder 10335:10340 <> parent:147
-binder 10342:10344 <> pre:148
-binder 10346:10348 <> new:149
-binder 10350:10352 <> now:150
-R10394:10399 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10357:10370 Kernel.CasperFFG <> justified_link def
-R10372:10372 Kernel.CasperFFG <> s:140 var
-R10374:10374 Kernel.CasperFFG <> q:141 var
-R10376:10381 Kernel.CasperFFG <> parent:147 var
-R10383:10385 Kernel.CasperFFG <> pre:148 var
-R10387:10389 Kernel.CasperFFG <> new:149 var
-R10391:10393 Kernel.CasperFFG <> now:150 var
-R10438:10443 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10400:10413 Kernel.CasperFFG <> justified_link def
-R10415:10415 Kernel.CasperFFG <> s:140 var
-R10417:10418 Kernel.CasperFFG <> q1:142 var
-R10420:10426 Kernel.CasperFFG <> parent1:143 var
-R10428:10431 Kernel.CasperFFG <> pre1:144 var
-R10433:10434 Kernel.CasperFFG <> h1:145 var
-R10436:10437 Kernel.CasperFFG <> v1:146 var
-R10462:10467 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10444:10445 Coq.Init.Logic <> ::type_scope:'~'_x not
-R10446:10459 Kernel.CasperFFG <> quorum_slashed def
-R10461:10461 Kernel.CasperFFG <> s:140 var
-R10476:10481 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10471:10473 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10468:10470 Kernel.CasperFFG <> now:150 var
-R10474:10475 Kernel.CasperFFG <> v1:146 var
-R10484:10486 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10482:10483 Kernel.CasperFFG <> h1:145 var
-R10487:10489 Kernel.CasperFFG <> new:149 var
-R10598:10604 Coq.Logic.Classical_Prop <> classic prfax
-R10609:10611 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10598:10604 Coq.Logic.Classical_Prop <> classic prfax
-R10609:10611 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10682:10691 Kernel.CasperFFG <> both_votes thm
-R10682:10691 Kernel.CasperFFG <> both_votes thm
-prf 10951:10975 <> distinct_justified_epochs
-binder 10986:10986 <> s:151
-binder 10988:10989 <> h1:152
-binder 10991:10992 <> v1:153
-binder 10994:10995 <> h2:154
-binder 10997:10998 <> v2:155
-R11020:11025 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11003:11011 Kernel.CasperFFG <> justified ind
-R11013:11013 Kernel.CasperFFG <> s:151 var
-R11015:11016 Kernel.CasperFFG <> h2:154 var
-R11018:11019 Kernel.CasperFFG <> v2:155 var
-R11043:11048 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11026:11034 Kernel.CasperFFG <> justified ind
-R11036:11036 Kernel.CasperFFG <> s:151 var
-R11038:11039 Kernel.CasperFFG <> h1:152 var
-R11041:11042 Kernel.CasperFFG <> v1:153 var
-R11067:11072 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11049:11050 Coq.Init.Logic <> ::type_scope:'~'_x not
-R11051:11064 Kernel.CasperFFG <> quorum_slashed def
-R11066:11066 Kernel.CasperFFG <> s:151 var
-R11081:11086 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11075:11078 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R11073:11074 Kernel.CasperFFG <> h1:152 var
-R11079:11080 Kernel.CasperFFG <> h2:154 var
-R11089:11092 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R11087:11088 Kernel.CasperFFG <> v2:155 var
-R11093:11094 Kernel.CasperFFG <> v1:153 var
-R11348:11358 Kernel.CasperFFG <> link_epochs thm
-R11348:11358 Kernel.CasperFFG <> link_epochs thm
-R11402:11412 Kernel.CasperFFG <> link_epochs thm
-R11402:11412 Kernel.CasperFFG <> link_epochs thm
-R11462:11482 Kernel.CasperFFG <> same_epoch_same_block thm
-R11522:11528 Coq.Init.Logic <> eq_refl constr
-R11462:11482 Kernel.CasperFFG <> same_epoch_same_block thm
-R11522:11528 Coq.Init.Logic <> eq_refl constr
-prf 11544:11567 <> finalized_epoch_distinct
-binder 11578:11578 <> s:156
-binder 11580:11581 <> q2:157
-binder 11583:11584 <> h2:158
-binder 11586:11587 <> v2:159
-binder 11589:11590 <> xa:160
-binder 11592:11597 <> parent:161
-binder 11599:11601 <> pre:162
-R11629:11634 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11606:11614 Kernel.CasperFFG <> finalized def
-R11616:11616 Kernel.CasperFFG <> s:156 var
-R11618:11619 Kernel.CasperFFG <> q2:157 var
-R11621:11622 Kernel.CasperFFG <> h2:158 var
-R11624:11625 Kernel.CasperFFG <> v2:159 var
-R11627:11628 Kernel.CasperFFG <> xa:160 var
-R11653:11658 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11635:11636 Coq.Init.Logic <> ::type_scope:'~'_x not
-R11637:11650 Kernel.CasperFFG <> quorum_slashed def
-R11652:11652 Kernel.CasperFFG <> s:156 var
-R11681:11686 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11659:11667 Kernel.CasperFFG <> justified ind
-R11669:11669 Kernel.CasperFFG <> s:156 var
-R11671:11676 Kernel.CasperFFG <> parent:161 var
-R11678:11680 Kernel.CasperFFG <> pre:162 var
-R11699:11704 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11693:11696 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R11687:11692 Kernel.CasperFFG <> parent:161 var
-R11697:11698 Kernel.CasperFFG <> h2:158 var
-R11707:11710 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R11705:11706 Kernel.CasperFFG <> v2:159 var
-R11711:11713 Kernel.CasperFFG <> pre:162 var
-R11789:11813 Kernel.CasperFFG <> distinct_justified_epochs thm
-R11789:11813 Kernel.CasperFFG <> distinct_justified_epochs thm
-prf 12003:12020 <> non_equal_case_ind
-binder 12031:12031 <> s:163
-binder 12033:12034 <> q2:164
-binder 12036:12037 <> h2:165
-binder 12039:12040 <> v2:166
-binder 12042:12043 <> xa:167
-R12071:12076 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12048:12056 Kernel.CasperFFG <> finalized def
-R12058:12058 Kernel.CasperFFG <> s:163 var
-R12060:12061 Kernel.CasperFFG <> q2:164 var
-R12063:12064 Kernel.CasperFFG <> h2:165 var
-R12066:12067 Kernel.CasperFFG <> v2:166 var
-R12069:12070 Kernel.CasperFFG <> xa:167 var
-binder 12084:12084 <> k:168
-binder 12086:12087 <> v1:169
-binder 12089:12090 <> h1:170
-R12104:12109 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12100:12102 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12095:12097 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R12093:12094 Kernel.CasperFFG <> v1:169 var
-R12098:12099 Kernel.CasperFFG <> v2:166 var
-R12103:12103 Kernel.CasperFFG <> k:168 var
-R12127:12132 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12110:12118 Kernel.CasperFFG <> justified ind
-R12120:12120 Kernel.CasperFFG <> s:163 var
-R12122:12123 Kernel.CasperFFG <> h1:170 var
-R12125:12126 Kernel.CasperFFG <> v1:169 var
-R12154:12159 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12133:12134 Coq.Init.Logic <> ::type_scope:'~'_x not
-R12135:12147 Kernel.CasperFFG <> hash_ancestor def
-R12149:12150 Kernel.CasperFFG <> h2:165 var
-R12152:12153 Kernel.CasperFFG <> h1:170 var
-R12168:12173 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12162:12165 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R12160:12161 Kernel.CasperFFG <> h1:170 var
-R12166:12167 Kernel.CasperFFG <> h2:165 var
-R12181:12186 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12176:12178 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R12174:12175 Kernel.CasperFFG <> v1:169 var
-R12179:12180 Kernel.CasperFFG <> v2:166 var
-R12187:12200 Kernel.CasperFFG <> quorum_slashed def
-R12202:12202 Kernel.CasperFFG <> s:163 var
-R12272:12293 Coq.Init.Wf <> well_founded_induction thm
-R12295:12306 Coq.Arith.Wf_nat <> lt_wf thm
-R12272:12293 Coq.Init.Wf <> well_founded_induction thm
-R12295:12306 Coq.Arith.Wf_nat <> lt_wf thm
-R12422:12428 Coq.Logic.Classical_Prop <> classic prfax
-R12431:12444 Kernel.CasperFFG <> quorum_slashed def
-R12422:12428 Coq.Logic.Classical_Prop <> classic prfax
-R12431:12444 Kernel.CasperFFG <> quorum_slashed def
-R12494:12495 Coq.Init.Logic <> ::type_scope:'~'_x not
-R12496:12508 Kernel.CasperFFG <> hash_ancestor def
-R12535:12553 Kernel.CasperFFG <> hash_ancestor_other thm
-R12562:12585 Kernel.CasperFFG <> justified_means_ancestor thm
-R12494:12495 Coq.Init.Logic <> ::type_scope:'~'_x not
-R12496:12508 Kernel.CasperFFG <> hash_ancestor def
-R12535:12553 Kernel.CasperFFG <> hash_ancestor_other thm
-R12562:12585 Kernel.CasperFFG <> justified_means_ancestor thm
-R12633:12636 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R12633:12636 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R12694:12704 Kernel.CasperFFG <> link_epochs thm
-R12694:12704 Kernel.CasperFFG <> link_epochs thm
-R12746:12762 Coq.Arith.PeanoNat Nat lt_trichotomy thm
-R12746:12762 Coq.Arith.PeanoNat Nat lt_trichotomy thm
-R12814:12816 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R12814:12816 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R12896:12919 Kernel.CasperFFG <> finalized_epoch_distinct thm
-R12896:12919 Kernel.CasperFFG <> finalized_epoch_distinct thm
-R12966:12986 Kernel.CasperFFG <> crossing_link_slashes thm
-R12966:12986 Kernel.CasperFFG <> crossing_link_slashes thm
-prf 13041:13054 <> non_equal_case
-binder 13065:13065 <> s:171
-binder 13067:13068 <> q1:172
-binder 13070:13071 <> q2:173
-binder 13073:13074 <> h1:174
-binder 13076:13077 <> v1:175
-binder 13079:13079 <> x:176
-binder 13081:13082 <> h2:177
-binder 13084:13085 <> v2:178
-binder 13087:13088 <> xa:179
-R13115:13120 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13093:13101 Kernel.CasperFFG <> finalized def
-R13103:13103 Kernel.CasperFFG <> s:171 var
-R13105:13106 Kernel.CasperFFG <> q1:172 var
-R13108:13109 Kernel.CasperFFG <> h1:174 var
-R13111:13112 Kernel.CasperFFG <> v1:175 var
-R13114:13114 Kernel.CasperFFG <> x:176 var
-R13144:13149 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13121:13129 Kernel.CasperFFG <> finalized def
-R13131:13131 Kernel.CasperFFG <> s:171 var
-R13133:13134 Kernel.CasperFFG <> q2:173 var
-R13136:13137 Kernel.CasperFFG <> h2:177 var
-R13139:13140 Kernel.CasperFFG <> v2:178 var
-R13142:13143 Kernel.CasperFFG <> xa:179 var
-R13171:13176 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13150:13151 Coq.Init.Logic <> ::type_scope:'~'_x not
-R13152:13164 Kernel.CasperFFG <> hash_ancestor def
-R13166:13167 Kernel.CasperFFG <> h2:177 var
-R13169:13170 Kernel.CasperFFG <> h1:174 var
-R13185:13190 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13179:13182 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R13177:13178 Kernel.CasperFFG <> h1:174 var
-R13183:13184 Kernel.CasperFFG <> h2:177 var
-R13198:13203 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13193:13195 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R13191:13192 Kernel.CasperFFG <> v1:175 var
-R13196:13197 Kernel.CasperFFG <> v2:178 var
-R13204:13217 Kernel.CasperFFG <> quorum_slashed def
-R13219:13219 Kernel.CasperFFG <> s:171 var
-R13298:13315 Kernel.CasperFFG <> non_equal_case_ind thm
-R13338:13340 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R13351:13357 Coq.Init.Logic <> eq_refl constr
-R13298:13315 Kernel.CasperFFG <> non_equal_case_ind thm
-R13338:13340 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R13351:13357 Coq.Init.Logic <> eq_refl constr
-prf 13386:13395 <> equal_case
-binder 13406:13406 <> s:180
-binder 13408:13409 <> q1:181
-binder 13411:13412 <> h1:182
-binder 13414:13415 <> v1:183
-binder 13417:13417 <> x:184
-binder 13419:13420 <> q2:185
-binder 13422:13423 <> h2:186
-binder 13425:13426 <> xa:187
-R13453:13458 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13431:13439 Kernel.CasperFFG <> finalized def
-R13441:13441 Kernel.CasperFFG <> s:180 var
-R13443:13444 Kernel.CasperFFG <> q1:181 var
-R13446:13447 Kernel.CasperFFG <> h1:182 var
-R13449:13450 Kernel.CasperFFG <> v1:183 var
-R13452:13452 Kernel.CasperFFG <> x:184 var
-R13482:13487 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13459:13467 Kernel.CasperFFG <> finalized def
-R13469:13469 Kernel.CasperFFG <> s:180 var
-R13471:13472 Kernel.CasperFFG <> q2:185 var
-R13474:13475 Kernel.CasperFFG <> h2:186 var
-R13477:13478 Kernel.CasperFFG <> v1:183 var
-R13480:13481 Kernel.CasperFFG <> xa:187 var
-R13496:13501 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13490:13493 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R13488:13489 Kernel.CasperFFG <> h1:182 var
-R13494:13495 Kernel.CasperFFG <> h2:186 var
-R13502:13515 Kernel.CasperFFG <> quorum_slashed def
-R13517:13517 Kernel.CasperFFG <> s:180 var
-R13622:13631 Kernel.CasperFFG <> both_votes thm
-R13622:13631 Kernel.CasperFFG <> both_votes thm
-R13822:13844 Kernel.CasperFFG <> hash_at_most_one_parent proj
-R13846:13846 Kernel.CasperFFG <> CasperOneMessage.C var
-R13822:13844 Kernel.CasperFFG <> hash_at_most_one_parent proj
-R13846:13846 Kernel.CasperFFG <> CasperOneMessage.C var
-R13876:13876 Coq.Init.Datatypes <> S constr
-R13876:13876 Coq.Init.Datatypes <> S constr
-prf 13922:13928 <> safety'
-binder 13939:13939 <> s:188
-binder 13941:13942 <> q1:189
-binder 13944:13945 <> h1:190
-binder 13947:13948 <> v1:191
-binder 13950:13950 <> x:192
-binder 13952:13953 <> q2:193
-binder 13955:13956 <> h2:194
-binder 13958:13959 <> v2:195
-binder 13961:13962 <> xa:196
-R13989:13994 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13967:13975 Kernel.CasperFFG <> finalized def
-R13977:13977 Kernel.CasperFFG <> s:188 var
-R13979:13980 Kernel.CasperFFG <> q1:189 var
-R13982:13983 Kernel.CasperFFG <> h1:190 var
-R13985:13986 Kernel.CasperFFG <> v1:191 var
-R13988:13988 Kernel.CasperFFG <> x:192 var
-R14018:14023 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13995:14003 Kernel.CasperFFG <> finalized def
-R14005:14005 Kernel.CasperFFG <> s:188 var
-R14007:14008 Kernel.CasperFFG <> q2:193 var
-R14010:14011 Kernel.CasperFFG <> h2:194 var
-R14013:14014 Kernel.CasperFFG <> v2:195 var
-R14016:14017 Kernel.CasperFFG <> xa:196 var
-R14045:14050 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14024:14025 Coq.Init.Logic <> ::type_scope:'~'_x not
-R14026:14038 Kernel.CasperFFG <> hash_ancestor def
-R14040:14041 Kernel.CasperFFG <> h2:194 var
-R14043:14044 Kernel.CasperFFG <> h1:190 var
-R14072:14077 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14051:14052 Coq.Init.Logic <> ::type_scope:'~'_x not
-R14053:14065 Kernel.CasperFFG <> hash_ancestor def
-R14067:14068 Kernel.CasperFFG <> h1:190 var
-R14070:14071 Kernel.CasperFFG <> h2:194 var
-R14086:14091 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14080:14083 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R14078:14079 Kernel.CasperFFG <> h1:190 var
-R14084:14085 Kernel.CasperFFG <> h2:194 var
-R14092:14105 Kernel.CasperFFG <> quorum_slashed def
-R14107:14107 Kernel.CasperFFG <> s:188 var
-R14181:14197 Coq.Arith.PeanoNat Nat lt_trichotomy thm
-R14181:14197 Coq.Arith.PeanoNat Nat lt_trichotomy thm
-R14240:14253 Kernel.CasperFFG <> non_equal_case thm
-R14240:14253 Kernel.CasperFFG <> non_equal_case thm
-R14356:14365 Kernel.CasperFFG <> equal_case thm
-R14356:14365 Kernel.CasperFFG <> equal_case thm
-R14412:14425 Kernel.CasperFFG <> non_equal_case thm
-R14412:14425 Kernel.CasperFFG <> non_equal_case thm
-prf 14485:14502 <> accountable_safety
-binder 14513:14513 <> s:197
-R14535:14538 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14516:14532 Kernel.CasperFFG <> finalization_fork def
-R14534:14534 Kernel.CasperFFG <> s:197 var
-R14539:14552 Kernel.CasperFFG <> quorum_slashed def
-R14554:14554 Kernel.CasperFFG <> s:197 var
-R14651:14657 Kernel.CasperFFG <> safety' thm
-R14651:14657 Kernel.CasperFFG <> safety' thm
-R14715:14730 Kernel.CasperFFG CasperOneMessage <> sec
-def 14898:14910 <> chain_setting
-R14914:14926 Kernel.CasperFFG <> CasperSetting rec
-R14936:14944 Kernel.CasperFFG <> Validator proj
-R14936:14944 Kernel.CasperFFG <> Validator proj
-R14936:14944 Kernel.CasperFFG <> Validator proj
-R14957:14960 Kernel.CasperFFG <> Hash proj
-R14957:14960 Kernel.CasperFFG <> Hash proj
-R14972:14979 Kernel.CasperFFG <> quorum_1 proj
-R14972:14979 Kernel.CasperFFG <> quorum_1 proj
-R15001:15008 Kernel.CasperFFG <> quorum_2 proj
-R15001:15008 Kernel.CasperFFG <> quorum_2 proj
-R15030:15049 Kernel.CasperFFG <> quorums_intersection proj
-R15030:15049 Kernel.CasperFFG <> quorums_intersection proj
-R15190:15200 Kernel.CasperFFG <> hash_parent proj
-R15190:15200 Kernel.CasperFFG <> hash_parent proj
-R15231:15237 Kernel.CasperFFG <> genesis proj
-R15231:15237 Kernel.CasperFFG <> genesis proj
-R15247:15269 Kernel.CasperFFG <> hash_at_most_one_parent proj
-R15247:15269 Kernel.CasperFFG <> hash_at_most_one_parent proj
-R14949:14952 Coq.Init.Datatypes <> unit ind
-R14965:14967 Coq.Init.Datatypes <> nat ind
-binder 14988:14988 <> q:198
-R14993:14993 Kernel.CasperFFG <> q:198 var
-R14995:14996 Coq.Init.Datatypes <> tt constr
-binder 15017:15017 <> q:199
-R15022:15022 Kernel.CasperFFG <> q:199 var
-R15024:15025 Coq.Init.Datatypes <> tt constr
-binder 15058:15059 <> q1:200
-binder 15061:15062 <> q2:201
-binder 15064:15065 <> H1:202
-binder 15067:15068 <> H2:203
-R15077:15084 Coq.Init.Logic <> ex_intro constr
-R15119:15122 Coq.Init.Logic <> conj constr
-R15138:15141 Coq.Init.Logic <> conj constr
-binder 15169:15169 <> n:204
-binder 15171:15171 <> H:205
-R15176:15180 Coq.Init.Logic <> proj2 thm
-R15182:15182 Kernel.CasperFFG <> H:205 var
-binder 15148:15148 <> n:206
-binder 15150:15150 <> H:207
-R15155:15159 Coq.Init.Logic <> proj1 thm
-R15161:15161 Kernel.CasperFFG <> H:207 var
-R15125:15128 Coq.Init.Logic <> conj constr
-R15133:15134 Kernel.CasperFFG <> H2:203 var
-R15130:15131 Kernel.CasperFFG <> H1:202 var
-binder 15093:15093 <> n:208
-R15102:15105 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R15098:15099 Kernel.CasperFFG <> q1:200 var
-R15101:15101 Kernel.CasperFFG <> n:208 var
-R15106:15107 Kernel.CasperFFG <> q2:201 var
-R15109:15109 Kernel.CasperFFG <> n:208 var
-binder 15209:15210 <> h1:209
-binder 15212:15213 <> h2:210
-R15220:15222 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15218:15219 Kernel.CasperFFG <> h2:210 var
-R15223:15223 Coq.Init.Datatypes <> S constr
-R15225:15226 Kernel.CasperFFG <> h1:209 var
-binder 15278:15279 <> h1:211
-binder 15281:15282 <> h2:212
-binder 15284:15285 <> h3:213
-binder 15287:15288 <> H2:214
-binder 15290:15291 <> H3:215
-R15300:15307 Coq.Init.Peano <> eq_add_S def
-R15314:15321 Coq.Init.Logic <> eq_trans thm
-R15335:15336 Kernel.CasperFFG <> H3:215 var
-R15324:15329 Coq.Init.Logic <> eq_sym thm
-R15331:15332 Kernel.CasperFFG <> H2:214 var
-R15362:15379 Kernel.CasperFFG <> accountable_safety thm
+R6269:6272 Kernel.CasperFFG <> Hash proj
+R6274:6274 Kernel.CasperFFG <> CasperOneMessage.C var
+R6282:6285 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6279:6281 Coq.Init.Datatypes <> nat ind
+binder 6310:6310 <> s:56
+R6313:6321 Kernel.CasperFFG <> justified:54 ind
+R6326:6332 Kernel.CasperFFG <> genesis proj
+R6334:6334 Kernel.CasperFFG <> CasperOneMessage.C var
+R6323:6323 Kernel.CasperFFG <> s:56 var
+binder 6357:6357 <> s:57
+binder 6359:6364 <> parent:58
+binder 6366:6368 <> pre:59
+binder 6370:6370 <> q:60
+binder 6372:6374 <> new:61
+binder 6376:6378 <> now:62
+R6407:6414 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6385:6393 Kernel.CasperFFG <> justified:54 ind
+R6404:6406 Kernel.CasperFFG <> pre:59 var
+R6397:6402 Kernel.CasperFFG <> parent:58 var
+R6395:6395 Kernel.CasperFFG <> s:57 var
+R6452:6459 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6415:6428 Kernel.CasperFFG <> justified_link def
+R6430:6430 Kernel.CasperFFG <> s:57 var
+R6432:6432 Kernel.CasperFFG <> q:60 var
+R6434:6439 Kernel.CasperFFG <> parent:58 var
+R6441:6443 Kernel.CasperFFG <> pre:59 var
+R6445:6447 Kernel.CasperFFG <> new:61 var
+R6449:6451 Kernel.CasperFFG <> now:62 var
+R6460:6468 Kernel.CasperFFG <> justified:54 ind
+R6476:6478 Kernel.CasperFFG <> now:62 var
+R6472:6474 Kernel.CasperFFG <> new:61 var
+R6470:6470 Kernel.CasperFFG <> s:57 var
+scheme 6248:6256 <> justified_ind
+scheme 6248:6256 <> justified_sind
+def 6569:6577 <> finalized
+R6584:6588 Kernel.CasperFFG <> State rec
+binder 6580:6580 <> s:63
+R6607:6610 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6596:6604 Kernel.CasperFFG <> Validator proj
+R6606:6606 Kernel.CasperFFG <> CasperOneMessage.C var
+binder 6592:6592 <> q:64
+R6622:6625 Kernel.CasperFFG <> Hash proj
+R6627:6627 Kernel.CasperFFG <> CasperOneMessage.C var
+binder 6618:6618 <> h:65
+R6635:6637 Coq.Init.Datatypes <> nat ind
+binder 6631:6631 <> v:66
+R6653:6656 Kernel.CasperFFG <> Hash proj
+R6658:6658 Kernel.CasperFFG <> CasperOneMessage.C var
+binder 6645:6649 <> child:67
+R6694:6697 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6673:6683 Kernel.CasperFFG <> hash_parent proj
+R6685:6685 Kernel.CasperFFG <> CasperOneMessage.C var
+R6687:6687 Kernel.CasperFFG <> h:65 var
+R6689:6693 Kernel.CasperFFG <> child:67 var
+R6713:6716 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6698:6706 Kernel.CasperFFG <> justified ind
+R6708:6708 Kernel.CasperFFG <> s:63 var
+R6710:6710 Kernel.CasperFFG <> h:65 var
+R6712:6712 Kernel.CasperFFG <> v:66 var
+R6717:6730 Kernel.CasperFFG <> justified_link def
+R6732:6732 Kernel.CasperFFG <> s:63 var
+R6734:6734 Kernel.CasperFFG <> q:64 var
+R6736:6736 Kernel.CasperFFG <> h:65 var
+R6738:6738 Kernel.CasperFFG <> v:66 var
+R6740:6744 Kernel.CasperFFG <> child:67 var
+R6747:6747 Coq.Init.Datatypes <> S constr
+R6749:6749 Kernel.CasperFFG <> v:66 var
+def 6821:6837 <> finalization_fork
+R6844:6848 Kernel.CasperFFG <> State rec
+binder 6840:6840 <> s:68
+R6863:6869 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6893:6898 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6870:6871 <> h1:69
+binder 6873:6874 <> h2:70
+binder 6876:6877 <> q1:71
+binder 6879:6880 <> q2:72
+binder 6882:6883 <> v1:73
+binder 6885:6886 <> v2:74
+binder 6888:6889 <> c1:75
+binder 6891:6892 <> c2:76
+R6922:6929 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6899:6907 Kernel.CasperFFG <> finalized def
+R6909:6909 Kernel.CasperFFG <> s:68 var
+R6911:6912 Kernel.CasperFFG <> q1:71 var
+R6914:6915 Kernel.CasperFFG <> h1:69 var
+R6917:6918 Kernel.CasperFFG <> v1:73 var
+R6920:6921 Kernel.CasperFFG <> c1:75 var
+R6953:6960 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6930:6938 Kernel.CasperFFG <> finalized def
+R6940:6940 Kernel.CasperFFG <> s:68 var
+R6942:6943 Kernel.CasperFFG <> q2:72 var
+R6945:6946 Kernel.CasperFFG <> h2:70 var
+R6948:6949 Kernel.CasperFFG <> v2:74 var
+R6951:6952 Kernel.CasperFFG <> c2:76 var
+R6982:6985 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6961:6962 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6963:6975 Kernel.CasperFFG <> hash_ancestor def
+R6977:6978 Kernel.CasperFFG <> h2:70 var
+R6980:6981 Kernel.CasperFFG <> h1:69 var
+R7007:7010 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6986:6987 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6988:7000 Kernel.CasperFFG <> hash_ancestor def
+R7002:7003 Kernel.CasperFFG <> h1:69 var
+R7005:7006 Kernel.CasperFFG <> h2:70 var
+R7013:7016 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7011:7012 Kernel.CasperFFG <> h1:69 var
+R7017:7018 Kernel.CasperFFG <> h2:70 var
+def 7071:7086 <> slashed_dbl_vote
+R7093:7097 Kernel.CasperFFG <> State rec
+binder 7089:7089 <> s:77
+R7105:7113 Kernel.CasperFFG <> Validator proj
+R7115:7115 Kernel.CasperFFG <> CasperOneMessage.C var
+binder 7101:7101 <> n:78
+R7130:7136 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7142:7143 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7137:7138 <> h1:79
+binder 7140:7141 <> h2:80
+R7152:7155 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7146:7149 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7144:7145 Kernel.CasperFFG <> h1:79 var
+R7150:7151 Kernel.CasperFFG <> h2:80 var
+R7156:7162 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7170:7175 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7163:7163 <> v:81
+binder 7165:7166 <> s1:82
+binder 7168:7169 <> s2:83
+R7203:7206 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7196:7198 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7176:7183 Kernel.CasperFFG <> vote_msg proj
+R7185:7185 Kernel.CasperFFG <> s:77 var
+R7187:7187 Kernel.CasperFFG <> n:78 var
+R7189:7190 Kernel.CasperFFG <> h1:79 var
+R7192:7192 Kernel.CasperFFG <> v:81 var
+R7194:7195 Kernel.CasperFFG <> s1:82 var
+R7199:7202 Coq.Init.Datatypes <> true constr
+R7227:7229 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7207:7214 Kernel.CasperFFG <> vote_msg proj
+R7216:7216 Kernel.CasperFFG <> s:77 var
+R7218:7218 Kernel.CasperFFG <> n:78 var
+R7220:7221 Kernel.CasperFFG <> h2:80 var
+R7223:7223 Kernel.CasperFFG <> v:81 var
+R7225:7226 Kernel.CasperFFG <> s2:83 var
+R7230:7233 Coq.Init.Datatypes <> true constr
+def 7248:7263 <> slashed_surround
+R7270:7274 Kernel.CasperFFG <> State rec
+binder 7266:7266 <> s:84
+R7282:7290 Kernel.CasperFFG <> Validator proj
+R7292:7292 Kernel.CasperFFG <> CasperOneMessage.C var
+binder 7278:7278 <> n:85
+R7307:7313 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7331:7336 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7314:7315 <> h1:86
+binder 7317:7318 <> h2:87
+binder 7320:7321 <> v1:88
+binder 7323:7324 <> v2:89
+binder 7326:7327 <> s1:90
+binder 7329:7330 <> s2:91
+R7365:7372 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7358:7360 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7337:7344 Kernel.CasperFFG <> vote_msg proj
+R7346:7346 Kernel.CasperFFG <> s:84 var
+R7348:7348 Kernel.CasperFFG <> n:85 var
+R7350:7351 Kernel.CasperFFG <> h1:86 var
+R7353:7354 Kernel.CasperFFG <> v1:88 var
+R7356:7357 Kernel.CasperFFG <> s1:90 var
+R7361:7364 Coq.Init.Datatypes <> true constr
+R7401:7408 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7394:7396 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7373:7380 Kernel.CasperFFG <> vote_msg proj
+R7382:7382 Kernel.CasperFFG <> s:84 var
+R7384:7384 Kernel.CasperFFG <> n:85 var
+R7386:7387 Kernel.CasperFFG <> h2:87 var
+R7389:7390 Kernel.CasperFFG <> v2:89 var
+R7392:7393 Kernel.CasperFFG <> s2:91 var
+R7397:7400 Coq.Init.Datatypes <> true constr
+R7416:7419 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7411:7413 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7409:7410 Kernel.CasperFFG <> v1:88 var
+R7414:7415 Kernel.CasperFFG <> v2:89 var
+R7422:7424 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7420:7421 Kernel.CasperFFG <> s2:91 var
+R7425:7426 Kernel.CasperFFG <> s1:90 var
+def 7441:7447 <> slashed
+R7454:7458 Kernel.CasperFFG <> State rec
+binder 7450:7450 <> s:92
+R7466:7474 Kernel.CasperFFG <> Validator proj
+R7476:7476 Kernel.CasperFFG <> CasperOneMessage.C var
+binder 7462:7462 <> n:93
+R7511:7514 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R7491:7506 Kernel.CasperFFG <> slashed_dbl_vote def
+R7508:7508 Kernel.CasperFFG <> s:92 var
+R7510:7510 Kernel.CasperFFG <> n:93 var
+R7515:7530 Kernel.CasperFFG <> slashed_surround def
+R7532:7532 Kernel.CasperFFG <> s:92 var
+R7534:7534 Kernel.CasperFFG <> n:93 var
+def 7597:7610 <> quorum_slashed
+R7617:7621 Kernel.CasperFFG <> State rec
+binder 7613:7613 <> s:94
+R7636:7642 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7644:7645 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7643:7643 <> q:95
+R7658:7661 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7646:7653 Kernel.CasperFFG <> quorum_2 proj
+R7655:7655 Kernel.CasperFFG <> CasperOneMessage.C var
+R7657:7657 Kernel.CasperFFG <> q:95 var
+binder 7669:7669 <> n:96
+R7675:7678 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7672:7672 Kernel.CasperFFG <> q:95 var
+R7674:7674 Kernel.CasperFFG <> n:96 var
+R7679:7685 Kernel.CasperFFG <> slashed def
+R7687:7687 Kernel.CasperFFG <> s:94 var
+R7689:7689 Kernel.CasperFFG <> n:96 var
+prf 7716:7726 <> link_epochs
+binder 7737:7737 <> s:97
+binder 7739:7739 <> q:98
+binder 7741:7742 <> h2:99
+binder 7744:7745 <> v2:100
+binder 7747:7748 <> h1:101
+binder 7750:7751 <> v1:102
+R7786:7789 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7756:7769 Kernel.CasperFFG <> justified_link def
+R7771:7771 Kernel.CasperFFG <> s:97 var
+R7773:7773 Kernel.CasperFFG <> q:98 var
+R7775:7776 Kernel.CasperFFG <> h2:99 var
+R7778:7779 Kernel.CasperFFG <> v2:100 var
+R7781:7782 Kernel.CasperFFG <> h1:101 var
+R7784:7785 Kernel.CasperFFG <> v1:102 var
+R7792:7794 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7790:7791 Kernel.CasperFFG <> v1:102 var
+R7795:7796 Kernel.CasperFFG <> v2:100 var
+prf 7985:7994 <> both_votes
+R8025:8028 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8014:8022 Kernel.CasperFFG <> Validator proj
+R8024:8024 Kernel.CasperFFG <> CasperOneMessage.C var
+binder 8006:8007 <> q1:103
+binder 8009:8010 <> q2:104
+R8055:8058 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8044:8052 Kernel.CasperFFG <> Validator proj
+R8054:8054 Kernel.CasperFFG <> CasperOneMessage.C var
+binder 8036:8037 <> P1:105
+binder 8039:8040 <> P2:106
+R8081:8084 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8068:8075 Kernel.CasperFFG <> quorum_1 proj
+R8077:8077 Kernel.CasperFFG <> CasperOneMessage.C var
+R8079:8080 Kernel.CasperFFG <> q1:103 var
+R8098:8103 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8085:8092 Kernel.CasperFFG <> quorum_1 proj
+R8094:8094 Kernel.CasperFFG <> CasperOneMessage.C var
+R8096:8097 Kernel.CasperFFG <> q2:104 var
+R8104:8104 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8127:8131 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8112:8112 <> n:107
+R8119:8122 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8115:8116 Kernel.CasperFFG <> q1:103 var
+R8118:8118 Kernel.CasperFFG <> n:107 var
+R8123:8124 Kernel.CasperFFG <> P1:105 var
+R8126:8126 Kernel.CasperFFG <> n:107 var
+R8132:8132 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8155:8161 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8140:8140 <> n:108
+R8147:8150 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8143:8144 Kernel.CasperFFG <> q2:104 var
+R8146:8146 Kernel.CasperFFG <> n:108 var
+R8151:8152 Kernel.CasperFFG <> P2:106 var
+R8154:8154 Kernel.CasperFFG <> n:108 var
+R8162:8168 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8170:8171 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8169:8169 <> q:109
+R8184:8187 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8172:8179 Kernel.CasperFFG <> quorum_2 proj
+R8181:8181 Kernel.CasperFFG <> CasperOneMessage.C var
+R8183:8183 Kernel.CasperFFG <> q:109 var
+binder 8195:8195 <> n:110
+R8201:8204 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8198:8198 Kernel.CasperFFG <> q:109 var
+R8200:8200 Kernel.CasperFFG <> n:110 var
+R8209:8212 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8205:8206 Kernel.CasperFFG <> P1:105 var
+R8208:8208 Kernel.CasperFFG <> n:110 var
+R8213:8214 Kernel.CasperFFG <> P2:106 var
+R8216:8216 Kernel.CasperFFG <> n:110 var
+R8274:8293 Kernel.CasperFFG <> quorums_intersection proj
+R8295:8295 Kernel.CasperFFG <> CasperOneMessage.C var
+R8274:8293 Kernel.CasperFFG <> quorums_intersection proj
+R8295:8295 Kernel.CasperFFG <> CasperOneMessage.C var
+prf 8562:8574 <> dbl_vote_case
+binder 8585:8585 <> s:111
+binder 8587:8588 <> q1:112
+binder 8590:8591 <> q2:113
+binder 8593:8594 <> h2:114
+binder 8596:8597 <> v2:115
+binder 8599:8600 <> h1:116
+binder 8602:8603 <> h3:117
+binder 8605:8606 <> v3:118
+binder 8608:8609 <> c3:119
+R8649:8654 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8614:8627 Kernel.CasperFFG <> justified_link def
+R8629:8629 Kernel.CasperFFG <> s:111 var
+R8631:8632 Kernel.CasperFFG <> q1:112 var
+R8634:8635 Kernel.CasperFFG <> h2:114 var
+R8637:8638 Kernel.CasperFFG <> v2:115 var
+R8640:8641 Kernel.CasperFFG <> h1:116 var
+R8644:8644 Coq.Init.Datatypes <> S constr
+R8646:8647 Kernel.CasperFFG <> v3:118 var
+R8678:8683 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8655:8663 Kernel.CasperFFG <> finalized def
+R8665:8665 Kernel.CasperFFG <> s:111 var
+R8667:8668 Kernel.CasperFFG <> q2:113 var
+R8670:8671 Kernel.CasperFFG <> h3:117 var
+R8673:8674 Kernel.CasperFFG <> v3:118 var
+R8676:8677 Kernel.CasperFFG <> c3:119 var
+R8705:8710 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8684:8685 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8686:8698 Kernel.CasperFFG <> hash_ancestor def
+R8700:8701 Kernel.CasperFFG <> h3:117 var
+R8703:8704 Kernel.CasperFFG <> h1:116 var
+R8711:8724 Kernel.CasperFFG <> quorum_slashed def
+R8726:8726 Kernel.CasperFFG <> s:111 var
+R8824:8833 Kernel.CasperFFG <> both_votes thm
+R8824:8833 Kernel.CasperFFG <> both_votes thm
+R9025:9042 Kernel.CasperFFG <> hash_ancestor_base thm
+R9025:9042 Kernel.CasperFFG <> hash_ancestor_base thm
+R9065:9065 Coq.Init.Datatypes <> S constr
+R9065:9065 Coq.Init.Datatypes <> S constr
+prf 9218:9230 <> surround_case
+binder 9241:9241 <> s:120
+binder 9243:9244 <> q1:121
+binder 9246:9247 <> q2:122
+binder 9249:9250 <> h2:123
+binder 9252:9253 <> v2:124
+binder 9255:9256 <> h1:125
+binder 9258:9259 <> v1:126
+binder 9261:9262 <> h3:127
+binder 9264:9265 <> v3:128
+binder 9267:9268 <> c3:129
+R9304:9309 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9273:9286 Kernel.CasperFFG <> justified_link def
+R9288:9288 Kernel.CasperFFG <> s:120 var
+R9290:9291 Kernel.CasperFFG <> q1:121 var
+R9293:9294 Kernel.CasperFFG <> h2:123 var
+R9296:9297 Kernel.CasperFFG <> v2:124 var
+R9299:9300 Kernel.CasperFFG <> h1:125 var
+R9302:9303 Kernel.CasperFFG <> v1:126 var
+R9333:9338 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9310:9318 Kernel.CasperFFG <> finalized def
+R9320:9320 Kernel.CasperFFG <> s:120 var
+R9322:9323 Kernel.CasperFFG <> q2:122 var
+R9325:9326 Kernel.CasperFFG <> h3:127 var
+R9328:9329 Kernel.CasperFFG <> v3:128 var
+R9331:9332 Kernel.CasperFFG <> c3:129 var
+R9348:9351 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9343:9345 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R9339:9339 Coq.Init.Datatypes <> S constr
+R9341:9342 Kernel.CasperFFG <> v3:128 var
+R9346:9347 Kernel.CasperFFG <> v1:126 var
+R9359:9364 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9354:9356 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R9352:9353 Kernel.CasperFFG <> v2:124 var
+R9357:9358 Kernel.CasperFFG <> v3:128 var
+R9365:9378 Kernel.CasperFFG <> quorum_slashed def
+R9380:9380 Kernel.CasperFFG <> s:120 var
+R9486:9495 Kernel.CasperFFG <> both_votes thm
+R9486:9495 Kernel.CasperFFG <> both_votes thm
+R9654:9654 Coq.Init.Datatypes <> S constr
+R9654:9654 Coq.Init.Datatypes <> S constr
+prf 9707:9727 <> crossing_link_slashes
+binder 9738:9738 <> s:130
+binder 9740:9741 <> q1:131
+binder 9743:9744 <> q2:132
+binder 9746:9747 <> h2:133
+binder 9749:9750 <> v2:134
+binder 9752:9753 <> h1:135
+binder 9755:9756 <> h3:136
+binder 9758:9759 <> v1:137
+binder 9761:9762 <> v3:138
+binder 9764:9765 <> c3:139
+R9801:9806 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9770:9783 Kernel.CasperFFG <> justified_link def
+R9785:9785 Kernel.CasperFFG <> s:130 var
+R9787:9788 Kernel.CasperFFG <> q1:131 var
+R9790:9791 Kernel.CasperFFG <> h2:133 var
+R9793:9794 Kernel.CasperFFG <> v2:134 var
+R9796:9797 Kernel.CasperFFG <> h1:135 var
+R9799:9800 Kernel.CasperFFG <> v1:137 var
+R9830:9835 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9807:9815 Kernel.CasperFFG <> finalized def
+R9817:9817 Kernel.CasperFFG <> s:130 var
+R9819:9820 Kernel.CasperFFG <> q2:132 var
+R9822:9823 Kernel.CasperFFG <> h3:136 var
+R9825:9826 Kernel.CasperFFG <> v3:138 var
+R9828:9829 Kernel.CasperFFG <> c3:139 var
+R9843:9848 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9838:9840 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R9836:9837 Kernel.CasperFFG <> v1:137 var
+R9841:9842 Kernel.CasperFFG <> v3:138 var
+R9870:9875 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9849:9850 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9851:9863 Kernel.CasperFFG <> hash_ancestor def
+R9865:9866 Kernel.CasperFFG <> h3:136 var
+R9868:9869 Kernel.CasperFFG <> h1:135 var
+R9883:9888 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9878:9880 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R9876:9877 Kernel.CasperFFG <> v2:134 var
+R9881:9882 Kernel.CasperFFG <> v3:138 var
+R9889:9902 Kernel.CasperFFG <> quorum_slashed def
+R9904:9904 Kernel.CasperFFG <> s:130 var
+R9981:9990 Coq.Arith.PeanoNat Nat eq_dec thm
+R9996:9996 Coq.Init.Datatypes <> S constr
+R9981:9990 Coq.Arith.PeanoNat Nat eq_dec thm
+R9996:9996 Coq.Init.Datatypes <> S constr
+R10029:10041 Kernel.CasperFFG <> dbl_vote_case thm
+R10029:10041 Kernel.CasperFFG <> dbl_vote_case thm
+R10091:10103 Kernel.CasperFFG <> surround_case thm
+R10091:10103 Kernel.CasperFFG <> surround_case thm
+prf 10371:10397 <> same_epoch_distinct_slashes
+binder 10408:10408 <> s:140
+binder 10410:10410 <> q:141
+binder 10412:10413 <> q1:142
+binder 10415:10421 <> parent1:143
+binder 10423:10426 <> pre1:144
+binder 10428:10429 <> h1:145
+binder 10431:10432 <> v1:146
+binder 10434:10439 <> parent:147
+binder 10441:10443 <> pre:148
+binder 10445:10447 <> new:149
+binder 10449:10451 <> now:150
+R10493:10498 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10456:10469 Kernel.CasperFFG <> justified_link def
+R10471:10471 Kernel.CasperFFG <> s:140 var
+R10473:10473 Kernel.CasperFFG <> q:141 var
+R10475:10480 Kernel.CasperFFG <> parent:147 var
+R10482:10484 Kernel.CasperFFG <> pre:148 var
+R10486:10488 Kernel.CasperFFG <> new:149 var
+R10490:10492 Kernel.CasperFFG <> now:150 var
+R10537:10542 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10499:10512 Kernel.CasperFFG <> justified_link def
+R10514:10514 Kernel.CasperFFG <> s:140 var
+R10516:10517 Kernel.CasperFFG <> q1:142 var
+R10519:10525 Kernel.CasperFFG <> parent1:143 var
+R10527:10530 Kernel.CasperFFG <> pre1:144 var
+R10532:10533 Kernel.CasperFFG <> h1:145 var
+R10535:10536 Kernel.CasperFFG <> v1:146 var
+R10551:10556 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10546:10548 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10543:10545 Kernel.CasperFFG <> now:150 var
+R10549:10550 Kernel.CasperFFG <> v1:146 var
+R10566:10571 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10559:10562 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10557:10558 Kernel.CasperFFG <> h1:145 var
+R10563:10565 Kernel.CasperFFG <> new:149 var
+R10572:10585 Kernel.CasperFFG <> quorum_slashed def
+R10587:10587 Kernel.CasperFFG <> s:140 var
+R10701:10710 Kernel.CasperFFG <> both_votes thm
+R10701:10710 Kernel.CasperFFG <> both_votes thm
+prf 11070:11106 <> distinct_justified_same_epoch_slashes
+binder 11117:11117 <> s:151
+binder 11119:11120 <> h1:152
+binder 11122:11123 <> h2:153
+binder 11125:11125 <> v:154
+R11146:11151 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11130:11138 Kernel.CasperFFG <> justified ind
+R11140:11140 Kernel.CasperFFG <> s:151 var
+R11142:11143 Kernel.CasperFFG <> h1:152 var
+R11145:11145 Kernel.CasperFFG <> v:154 var
+R11168:11173 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11152:11160 Kernel.CasperFFG <> justified ind
+R11162:11162 Kernel.CasperFFG <> s:151 var
+R11164:11165 Kernel.CasperFFG <> h2:153 var
+R11167:11167 Kernel.CasperFFG <> v:154 var
+R11182:11187 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11176:11179 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R11174:11175 Kernel.CasperFFG <> h1:152 var
+R11180:11181 Kernel.CasperFFG <> h2:153 var
+R11188:11201 Kernel.CasperFFG <> quorum_slashed def
+R11203:11203 Kernel.CasperFFG <> s:151 var
+R11452:11462 Kernel.CasperFFG <> link_epochs thm
+R11452:11462 Kernel.CasperFFG <> link_epochs thm
+R11506:11516 Kernel.CasperFFG <> link_epochs thm
+R11506:11516 Kernel.CasperFFG <> link_epochs thm
+R11555:11581 Kernel.CasperFFG <> same_epoch_distinct_slashes thm
+R11625:11631 Coq.Init.Logic <> eq_refl constr
+binder 11638:11640 <> Heq:155
+R11651:11656 Coq.Init.Logic <> eq_sym thm
+R11658:11660 Kernel.CasperFFG <> Heq:155 var
+R11555:11581 Kernel.CasperFFG <> same_epoch_distinct_slashes thm
+R11625:11631 Coq.Init.Logic <> eq_refl constr
+binder 11638:11640 <> Heq:156
+R11651:11656 Coq.Init.Logic <> eq_sym thm
+R11658:11660 Kernel.CasperFFG <> Heq:156 var
+prf 11678:11702 <> distinct_justified_epochs
+binder 11713:11713 <> s:157
+binder 11715:11716 <> h1:158
+binder 11718:11719 <> v1:159
+binder 11721:11722 <> h2:160
+binder 11724:11725 <> v2:161
+R11747:11752 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11730:11738 Kernel.CasperFFG <> justified ind
+R11740:11740 Kernel.CasperFFG <> s:157 var
+R11742:11743 Kernel.CasperFFG <> h2:160 var
+R11745:11746 Kernel.CasperFFG <> v2:161 var
+R11770:11775 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11753:11761 Kernel.CasperFFG <> justified ind
+R11763:11763 Kernel.CasperFFG <> s:157 var
+R11765:11766 Kernel.CasperFFG <> h1:158 var
+R11768:11769 Kernel.CasperFFG <> v1:159 var
+R11794:11799 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11776:11777 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11778:11791 Kernel.CasperFFG <> quorum_slashed def
+R11793:11793 Kernel.CasperFFG <> s:157 var
+R11808:11813 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11802:11805 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R11800:11801 Kernel.CasperFFG <> h1:158 var
+R11806:11807 Kernel.CasperFFG <> h2:160 var
+R11816:11819 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R11814:11815 Kernel.CasperFFG <> v2:161 var
+R11820:11821 Kernel.CasperFFG <> v1:159 var
+R11904:11940 Kernel.CasperFFG <> distinct_justified_same_epoch_slashes thm
+binder 11967:11969 <> Heq:162
+R11980:11985 Coq.Init.Logic <> eq_sym thm
+R11987:11989 Kernel.CasperFFG <> Heq:162 var
+R11904:11940 Kernel.CasperFFG <> distinct_justified_same_epoch_slashes thm
+binder 11967:11969 <> Heq:163
+R11980:11985 Coq.Init.Logic <> eq_sym thm
+R11987:11989 Kernel.CasperFFG <> Heq:163 var
+prf 12007:12030 <> finalized_epoch_distinct
+binder 12041:12041 <> s:164
+binder 12043:12044 <> q2:165
+binder 12046:12047 <> h2:166
+binder 12049:12050 <> v2:167
+binder 12052:12053 <> xa:168
+binder 12055:12060 <> parent:169
+binder 12062:12064 <> pre:170
+R12092:12097 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12069:12077 Kernel.CasperFFG <> finalized def
+R12079:12079 Kernel.CasperFFG <> s:164 var
+R12081:12082 Kernel.CasperFFG <> q2:165 var
+R12084:12085 Kernel.CasperFFG <> h2:166 var
+R12087:12088 Kernel.CasperFFG <> v2:167 var
+R12090:12091 Kernel.CasperFFG <> xa:168 var
+R12116:12121 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12098:12099 Coq.Init.Logic <> ::type_scope:'~'_x not
+R12100:12113 Kernel.CasperFFG <> quorum_slashed def
+R12115:12115 Kernel.CasperFFG <> s:164 var
+R12144:12149 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12122:12130 Kernel.CasperFFG <> justified ind
+R12132:12132 Kernel.CasperFFG <> s:164 var
+R12134:12139 Kernel.CasperFFG <> parent:169 var
+R12141:12143 Kernel.CasperFFG <> pre:170 var
+R12162:12167 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12156:12159 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R12150:12155 Kernel.CasperFFG <> parent:169 var
+R12160:12161 Kernel.CasperFFG <> h2:166 var
+R12170:12173 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R12168:12169 Kernel.CasperFFG <> v2:167 var
+R12174:12176 Kernel.CasperFFG <> pre:170 var
+R12252:12276 Kernel.CasperFFG <> distinct_justified_epochs thm
+R12252:12276 Kernel.CasperFFG <> distinct_justified_epochs thm
+prf 12466:12483 <> non_equal_case_ind
+binder 12494:12494 <> s:171
+binder 12496:12497 <> q2:172
+binder 12499:12500 <> h2:173
+binder 12502:12503 <> v2:174
+binder 12505:12506 <> xa:175
+R12534:12539 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12511:12519 Kernel.CasperFFG <> finalized def
+R12521:12521 Kernel.CasperFFG <> s:171 var
+R12523:12524 Kernel.CasperFFG <> q2:172 var
+R12526:12527 Kernel.CasperFFG <> h2:173 var
+R12529:12530 Kernel.CasperFFG <> v2:174 var
+R12532:12533 Kernel.CasperFFG <> xa:175 var
+binder 12547:12547 <> k:176
+binder 12549:12550 <> v1:177
+binder 12552:12553 <> h1:178
+R12567:12572 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12563:12565 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12558:12560 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R12556:12557 Kernel.CasperFFG <> v1:177 var
+R12561:12562 Kernel.CasperFFG <> v2:174 var
+R12566:12566 Kernel.CasperFFG <> k:176 var
+R12590:12595 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12573:12581 Kernel.CasperFFG <> justified ind
+R12583:12583 Kernel.CasperFFG <> s:171 var
+R12585:12586 Kernel.CasperFFG <> h1:178 var
+R12588:12589 Kernel.CasperFFG <> v1:177 var
+R12617:12622 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12596:12597 Coq.Init.Logic <> ::type_scope:'~'_x not
+R12598:12610 Kernel.CasperFFG <> hash_ancestor def
+R12612:12613 Kernel.CasperFFG <> h2:173 var
+R12615:12616 Kernel.CasperFFG <> h1:178 var
+R12631:12636 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12625:12628 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R12623:12624 Kernel.CasperFFG <> h1:178 var
+R12629:12630 Kernel.CasperFFG <> h2:173 var
+R12644:12649 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12639:12641 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R12637:12638 Kernel.CasperFFG <> v1:177 var
+R12642:12643 Kernel.CasperFFG <> v2:174 var
+R12650:12663 Kernel.CasperFFG <> quorum_slashed def
+R12665:12665 Kernel.CasperFFG <> s:171 var
+R12735:12756 Coq.Init.Wf <> well_founded_induction thm
+R12758:12769 Coq.Arith.Wf_nat <> lt_wf thm
+R12735:12756 Coq.Init.Wf <> well_founded_induction thm
+R12758:12769 Coq.Arith.Wf_nat <> lt_wf thm
+R12888:12889 Coq.Init.Logic <> ::type_scope:'~'_x not
+R12890:12902 Kernel.CasperFFG <> hash_ancestor def
+R12929:12947 Kernel.CasperFFG <> hash_ancestor_other thm
+R12956:12979 Kernel.CasperFFG <> justified_means_ancestor thm
+R12888:12889 Coq.Init.Logic <> ::type_scope:'~'_x not
+R12890:12902 Kernel.CasperFFG <> hash_ancestor def
+R12929:12947 Kernel.CasperFFG <> hash_ancestor_other thm
+R12956:12979 Kernel.CasperFFG <> justified_means_ancestor thm
+R13027:13030 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R13027:13030 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R13088:13098 Kernel.CasperFFG <> link_epochs thm
+R13088:13098 Kernel.CasperFFG <> link_epochs thm
+R13140:13156 Coq.Arith.PeanoNat Nat lt_trichotomy thm
+R13140:13156 Coq.Arith.PeanoNat Nat lt_trichotomy thm
+R13208:13210 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R13208:13210 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R13292:13328 Kernel.CasperFFG <> distinct_justified_same_epoch_slashes thm
+R13349:13353 Coq.Init.Logic <> proj1 thm
+R13356:13360 Coq.Init.Logic <> proj2 thm
+R13292:13328 Kernel.CasperFFG <> distinct_justified_same_epoch_slashes thm
+R13349:13353 Coq.Init.Logic <> proj1 thm
+R13356:13360 Coq.Init.Logic <> proj2 thm
+R13384:13404 Kernel.CasperFFG <> crossing_link_slashes thm
+R13384:13404 Kernel.CasperFFG <> crossing_link_slashes thm
+prf 13459:13472 <> non_equal_case
+binder 13483:13483 <> s:179
+binder 13485:13486 <> q1:180
+binder 13488:13489 <> q2:181
+binder 13491:13492 <> h1:182
+binder 13494:13495 <> v1:183
+binder 13497:13497 <> x:184
+binder 13499:13500 <> h2:185
+binder 13502:13503 <> v2:186
+binder 13505:13506 <> xa:187
+R13533:13538 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13511:13519 Kernel.CasperFFG <> finalized def
+R13521:13521 Kernel.CasperFFG <> s:179 var
+R13523:13524 Kernel.CasperFFG <> q1:180 var
+R13526:13527 Kernel.CasperFFG <> h1:182 var
+R13529:13530 Kernel.CasperFFG <> v1:183 var
+R13532:13532 Kernel.CasperFFG <> x:184 var
+R13562:13567 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13539:13547 Kernel.CasperFFG <> finalized def
+R13549:13549 Kernel.CasperFFG <> s:179 var
+R13551:13552 Kernel.CasperFFG <> q2:181 var
+R13554:13555 Kernel.CasperFFG <> h2:185 var
+R13557:13558 Kernel.CasperFFG <> v2:186 var
+R13560:13561 Kernel.CasperFFG <> xa:187 var
+R13589:13594 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13568:13569 Coq.Init.Logic <> ::type_scope:'~'_x not
+R13570:13582 Kernel.CasperFFG <> hash_ancestor def
+R13584:13585 Kernel.CasperFFG <> h2:185 var
+R13587:13588 Kernel.CasperFFG <> h1:182 var
+R13603:13608 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13597:13600 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R13595:13596 Kernel.CasperFFG <> h1:182 var
+R13601:13602 Kernel.CasperFFG <> h2:185 var
+R13616:13621 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13611:13613 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R13609:13610 Kernel.CasperFFG <> v1:183 var
+R13614:13615 Kernel.CasperFFG <> v2:186 var
+R13622:13635 Kernel.CasperFFG <> quorum_slashed def
+R13637:13637 Kernel.CasperFFG <> s:179 var
+R13716:13733 Kernel.CasperFFG <> non_equal_case_ind thm
+R13756:13758 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R13769:13775 Coq.Init.Logic <> eq_refl constr
+R13716:13733 Kernel.CasperFFG <> non_equal_case_ind thm
+R13756:13758 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R13769:13775 Coq.Init.Logic <> eq_refl constr
+prf 13804:13813 <> equal_case
+binder 13824:13824 <> s:188
+binder 13826:13827 <> q1:189
+binder 13829:13830 <> h1:190
+binder 13832:13833 <> v1:191
+binder 13835:13835 <> x:192
+binder 13837:13838 <> q2:193
+binder 13840:13841 <> h2:194
+binder 13843:13844 <> xa:195
+R13871:13876 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13849:13857 Kernel.CasperFFG <> finalized def
+R13859:13859 Kernel.CasperFFG <> s:188 var
+R13861:13862 Kernel.CasperFFG <> q1:189 var
+R13864:13865 Kernel.CasperFFG <> h1:190 var
+R13867:13868 Kernel.CasperFFG <> v1:191 var
+R13870:13870 Kernel.CasperFFG <> x:192 var
+R13900:13905 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13877:13885 Kernel.CasperFFG <> finalized def
+R13887:13887 Kernel.CasperFFG <> s:188 var
+R13889:13890 Kernel.CasperFFG <> q2:193 var
+R13892:13893 Kernel.CasperFFG <> h2:194 var
+R13895:13896 Kernel.CasperFFG <> v1:191 var
+R13898:13899 Kernel.CasperFFG <> xa:195 var
+R13914:13919 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13908:13911 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R13906:13907 Kernel.CasperFFG <> h1:190 var
+R13912:13913 Kernel.CasperFFG <> h2:194 var
+R13920:13933 Kernel.CasperFFG <> quorum_slashed def
+R13935:13935 Kernel.CasperFFG <> s:188 var
+R14040:14049 Kernel.CasperFFG <> both_votes thm
+R14040:14049 Kernel.CasperFFG <> both_votes thm
+R14240:14262 Kernel.CasperFFG <> hash_at_most_one_parent proj
+R14264:14264 Kernel.CasperFFG <> CasperOneMessage.C var
+R14240:14262 Kernel.CasperFFG <> hash_at_most_one_parent proj
+R14264:14264 Kernel.CasperFFG <> CasperOneMessage.C var
+R14294:14294 Coq.Init.Datatypes <> S constr
+R14294:14294 Coq.Init.Datatypes <> S constr
+prf 14340:14346 <> safety'
+binder 14357:14357 <> s:196
+binder 14359:14360 <> q1:197
+binder 14362:14363 <> h1:198
+binder 14365:14366 <> v1:199
+binder 14368:14368 <> x:200
+binder 14370:14371 <> q2:201
+binder 14373:14374 <> h2:202
+binder 14376:14377 <> v2:203
+binder 14379:14380 <> xa:204
+R14407:14412 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14385:14393 Kernel.CasperFFG <> finalized def
+R14395:14395 Kernel.CasperFFG <> s:196 var
+R14397:14398 Kernel.CasperFFG <> q1:197 var
+R14400:14401 Kernel.CasperFFG <> h1:198 var
+R14403:14404 Kernel.CasperFFG <> v1:199 var
+R14406:14406 Kernel.CasperFFG <> x:200 var
+R14436:14441 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14413:14421 Kernel.CasperFFG <> finalized def
+R14423:14423 Kernel.CasperFFG <> s:196 var
+R14425:14426 Kernel.CasperFFG <> q2:201 var
+R14428:14429 Kernel.CasperFFG <> h2:202 var
+R14431:14432 Kernel.CasperFFG <> v2:203 var
+R14434:14435 Kernel.CasperFFG <> xa:204 var
+R14463:14468 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14442:14443 Coq.Init.Logic <> ::type_scope:'~'_x not
+R14444:14456 Kernel.CasperFFG <> hash_ancestor def
+R14458:14459 Kernel.CasperFFG <> h2:202 var
+R14461:14462 Kernel.CasperFFG <> h1:198 var
+R14490:14495 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14469:14470 Coq.Init.Logic <> ::type_scope:'~'_x not
+R14471:14483 Kernel.CasperFFG <> hash_ancestor def
+R14485:14486 Kernel.CasperFFG <> h1:198 var
+R14488:14489 Kernel.CasperFFG <> h2:202 var
+R14504:14509 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14498:14501 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R14496:14497 Kernel.CasperFFG <> h1:198 var
+R14502:14503 Kernel.CasperFFG <> h2:202 var
+R14510:14523 Kernel.CasperFFG <> quorum_slashed def
+R14525:14525 Kernel.CasperFFG <> s:196 var
+R14599:14615 Coq.Arith.PeanoNat Nat lt_trichotomy thm
+R14599:14615 Coq.Arith.PeanoNat Nat lt_trichotomy thm
+R14658:14671 Kernel.CasperFFG <> non_equal_case thm
+R14658:14671 Kernel.CasperFFG <> non_equal_case thm
+R14774:14783 Kernel.CasperFFG <> equal_case thm
+R14774:14783 Kernel.CasperFFG <> equal_case thm
+R14830:14843 Kernel.CasperFFG <> non_equal_case thm
+R14830:14843 Kernel.CasperFFG <> non_equal_case thm
+prf 14903:14920 <> accountable_safety
+binder 14931:14931 <> s:205
+R14953:14956 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14934:14950 Kernel.CasperFFG <> finalization_fork def
+R14952:14952 Kernel.CasperFFG <> s:205 var
+R14957:14970 Kernel.CasperFFG <> quorum_slashed def
+R14972:14972 Kernel.CasperFFG <> s:205 var
+R15069:15075 Kernel.CasperFFG <> safety' thm
+R15069:15075 Kernel.CasperFFG <> safety' thm
+R15133:15148 Kernel.CasperFFG CasperOneMessage <> sec
+def 15316:15328 <> chain_setting
+R15332:15344 Kernel.CasperFFG <> CasperSetting rec
+R15354:15362 Kernel.CasperFFG <> Validator proj
+R15354:15362 Kernel.CasperFFG <> Validator proj
+R15354:15362 Kernel.CasperFFG <> Validator proj
+R15375:15378 Kernel.CasperFFG <> Hash proj
+R15375:15378 Kernel.CasperFFG <> Hash proj
+R15390:15397 Kernel.CasperFFG <> quorum_1 proj
+R15390:15397 Kernel.CasperFFG <> quorum_1 proj
+R15419:15426 Kernel.CasperFFG <> quorum_2 proj
+R15419:15426 Kernel.CasperFFG <> quorum_2 proj
+R15448:15467 Kernel.CasperFFG <> quorums_intersection proj
+R15448:15467 Kernel.CasperFFG <> quorums_intersection proj
+R15608:15618 Kernel.CasperFFG <> hash_parent proj
+R15608:15618 Kernel.CasperFFG <> hash_parent proj
+R15649:15655 Kernel.CasperFFG <> genesis proj
+R15649:15655 Kernel.CasperFFG <> genesis proj
+R15665:15687 Kernel.CasperFFG <> hash_at_most_one_parent proj
+R15665:15687 Kernel.CasperFFG <> hash_at_most_one_parent proj
+R15367:15370 Coq.Init.Datatypes <> unit ind
+R15383:15385 Coq.Init.Datatypes <> nat ind
+binder 15406:15406 <> q:206
+R15411:15411 Kernel.CasperFFG <> q:206 var
+R15413:15414 Coq.Init.Datatypes <> tt constr
+binder 15435:15435 <> q:207
+R15440:15440 Kernel.CasperFFG <> q:207 var
+R15442:15443 Coq.Init.Datatypes <> tt constr
+binder 15476:15477 <> q1:208
+binder 15479:15480 <> q2:209
+binder 15482:15483 <> H1:210
+binder 15485:15486 <> H2:211
+R15495:15502 Coq.Init.Logic <> ex_intro constr
+R15537:15540 Coq.Init.Logic <> conj constr
+R15556:15559 Coq.Init.Logic <> conj constr
+binder 15587:15587 <> n:212
+binder 15589:15589 <> H:213
+R15594:15598 Coq.Init.Logic <> proj2 thm
+R15600:15600 Kernel.CasperFFG <> H:213 var
+binder 15566:15566 <> n:214
+binder 15568:15568 <> H:215
+R15573:15577 Coq.Init.Logic <> proj1 thm
+R15579:15579 Kernel.CasperFFG <> H:215 var
+R15543:15546 Coq.Init.Logic <> conj constr
+R15551:15552 Kernel.CasperFFG <> H2:211 var
+R15548:15549 Kernel.CasperFFG <> H1:210 var
+binder 15511:15511 <> n:216
+R15520:15523 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15516:15517 Kernel.CasperFFG <> q1:208 var
+R15519:15519 Kernel.CasperFFG <> n:216 var
+R15524:15525 Kernel.CasperFFG <> q2:209 var
+R15527:15527 Kernel.CasperFFG <> n:216 var
+binder 15627:15628 <> h1:217
+binder 15630:15631 <> h2:218
+R15638:15640 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15636:15637 Kernel.CasperFFG <> h2:218 var
+R15641:15641 Coq.Init.Datatypes <> S constr
+R15643:15644 Kernel.CasperFFG <> h1:217 var
+binder 15696:15697 <> h1:219
+binder 15699:15700 <> h2:220
+binder 15702:15703 <> h3:221
+binder 15705:15706 <> H2:222
+binder 15708:15709 <> H3:223
+R15718:15725 Coq.Init.Peano <> eq_add_S def
+R15732:15739 Coq.Init.Logic <> eq_trans thm
+R15753:15754 Kernel.CasperFFG <> H3:223 var
+R15742:15747 Coq.Init.Logic <> eq_sym thm
+R15749:15750 Kernel.CasperFFG <> H2:222 var
+R15780:15797 Kernel.CasperFFG <> accountable_safety thm

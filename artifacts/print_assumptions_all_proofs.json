@@ -1,23 +1,23 @@
 {
   "schema": "thiele-print-assumptions-full-probe-v3",
-  "generated": "2026-10-01T02:23:07.591429+00:00",
+  "generated": "2026-10-01T03:05:00.360931+00:00",
   "coq_version": "8.18.0",
-  "corpus_digest": "8f2a44c1aa08678a817fb2fab438dca38e7000d5233f19c97b20aacac7e10e8a",
-  "probe_digest": "3bef636c596c7e4a96a27d0a15b9a1c5736b62bd9fe5fcaace37850f27a82cb7",
+  "corpus_digest": "41fdd56290acda92a6186b075312fdb99859d4a0bea086ec240f9c345e461af5",
+  "probe_digest": "fd5a51aeb0ec6b1c224e72eafe51d6c1a291b05287d37bce56af170dbfee9b86",
   "probe_file": "coq/AssumptionsProbeAll.v",
   "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
-  "raw_output_sha256": "c545e6d83b95f88e34986764593bc986c392fd7d6f135d4dad7bd0a00dda976d",
-  "files_probed": 463,
-  "addressable_theorems_probed": 13359,
-  "blocks_parsed": 13359,
+  "raw_output_sha256": "718068a8acc235c23e56151375d0efcd0a790d399763c13e64716e7c6ca2c86e",
+  "files_probed": 477,
+  "addressable_theorems_probed": 13391,
+  "blocks_parsed": 13391,
   "alignment_ok": true,
   "stderr_nonempty": true,
   "stderr_excerpt": "\nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq <",
   "unexpected_lines_in_output": 0,
   "first_unexpected_lines": [],
   "summary": {
-    "theorems_probed": 13359,
-    "closed_under_global_context": 6001,
+    "theorems_probed": 13391,
+    "closed_under_global_context": 6033,
     "depend_on_axioms": 7358,
     "user_or_third_party_axiom_findings": 0,
     "excluded_middle_users": 111,
@@ -218,8 +218,8 @@
       ]
     },
     "Kernel": {
-      "theorems": 3769,
-      "closed": 2785,
+      "theorems": 3801,
+      "closed": 2817,
       "with_axioms": 984,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
@@ -2376,6 +2376,12 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/kernel/frontier/RecordProliferationSurvey.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/frontier/TraceStateDescent.v": {
       "theorems": 10,
       "closed": 10,
@@ -3151,6 +3157,18 @@
         "Classical_Prop.classic"
       ]
     },
+    "coq/kernel/reductions/ConcreteRAM.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/reductions/ConcreteRecordMachines.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/reductions/EVMStorageGas.v": {
       "theorems": 3,
       "closed": 3,
@@ -3160,6 +3178,12 @@
     "coq/kernel/reductions/GasMetering.v": {
       "theorems": 15,
       "closed": 15,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/reductions/NeculaPCC.v": {
+      "theorems": 3,
+      "closed": 3,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -3175,9 +3199,27 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/kernel/reductions/RFC9162Merkle.v": {
+      "theorems": 10,
+      "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/reductions/RealSystemConsequences.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/reductions/TEEAttestation.v": {
       "theorems": 11,
       "closed": 11,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/reductions/TPMQuoteAuthenticity.v": {
+      "theorems": 2,
+      "closed": 2,
       "with_axioms": 0,
       "axiom_set": []
     },

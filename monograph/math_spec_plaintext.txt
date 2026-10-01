@@ -139,7 +139,7 @@ quantum axiom).
    18.1 The CHSH statistic S and its witness counts . . . . . . . . . . . . . . . . . . . .       34
    18.2 The Elliptope Completion and Its Gate . . . . . . . . . . . . . . . . . . . . . . .       35
    18.3 The Pointer-Observable Criterion . . . . . . . . . . . . . . . . . . . . . . . . . . .    36
-        18.3.1 The adversarial search . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   36
+        18.3.1 The adversarial search . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   37
 
 19 Spacetime Analogies: a µ-Pseudometric, Reachability Cones, and Discrete
    Geometry                                                                                        39
@@ -164,13 +164,14 @@ quantum axiom).
                                                  2
 21 Thermodynamic Bridge: Conditional Links and Their Limits                                          49
    21.1 Landauer’s Principle . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     49
-   21.2 A2 from Landauer (Factored Form): a Conditional Whose Premises Fail on the
-        Full ISA . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   49
-   21.3 Permanent Certification Forces a Merge . . . . . . . . . . . . . . . . . . . . . . .         50
-   21.4 Exact Pricing Cannot Be Computed From a Window . . . . . . . . . . . . . . . .               52
-   21.5 Which Narrowing a Merge Price Charges . . . . . . . . . . . . . . . . . . . . . . .          53
-   21.6 A Recursion Theorem for L . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        53
-   21.7 The Dimensional Gap: Why Ledgers Cannot Fix Constants . . . . . . . . . . . .                53
+   21.2 Two-State Calorimeter Protocol . . . . . . . . . . . . . . . . . . . . . . . . . . . .       49
+   21.3 A2 from Landauer (Factored Form): a Conditional Whose Premises Fail on the
+        Full ISA . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   50
+   21.4 Permanent Certification Forces a Merge . . . . . . . . . . . . . . . . . . . . . . .         51
+   21.5 Exact Pricing Cannot Be Computed From a Window . . . . . . . . . . . . . . . .               53
+   21.6 Which Narrowing a Merge Price Charges . . . . . . . . . . . . . . . . . . . . . . .          53
+   21.7 A Recursion Theorem for L . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        53
+   21.8 The Dimensional Gap: Why Ledgers Cannot Fix Constants . . . . . . . . . . . .                54
 
 22 Self-Reference and the Thiele Manifold                                                       55
    22.1 Self-Reference Escalation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 55
@@ -192,7 +193,7 @@ quantum axiom).
    25.2 Falsify the Classical CHSH Bound . . . . . . . . . . . . . . . . . . . . . . . . . .         61
    25.3 Falsify the Biconditional . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    61
    25.4 Falsify the µ-Hierarchy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    61
-   25.5 Open Questions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     61
+   25.5 Boundaries and conjectures . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       61
 
 A Proof File Index                                                                                   63
 
@@ -410,7 +411,7 @@ A2 (certification is priced; the load-bearing one).
 
 Remark 4.1 (A2 is a stipulation, and that is the intended reading). A2 is a condition a substrate
 may or may not satisfy, not a discovered fact about computation. Nothing in this document
-derives it; Section 21.2 derives it conditionally from a Landauer premise plus a named calibration
+derives it; Section 21.3 derives it conditionally from a Landauer premise plus a named calibration
 bridge, which relocates the stipulation rather than removing it. Claims of the form “the machine
 proves certification must cost” should be read as “on any substrate satisfying A2, certification
 costs”. That is what universal_nfi_any_substrate states, over an arbitrary state type and
@@ -1559,6 +1560,27 @@ structure. No protocol semantics, deployment, or security property occurs in the
 Whether the real disciplines have that observer structure is a modeling claim argued in prose; if
 it holds, it is evidence for the pointer-observable conjecture, not a proof of it. The forced-event
 question stays open, and the file header says so.
+    RecordProliferationSurvey.v extends the comparison to twelve named candidate events
+drawn from the proof-of-stake, gas, attestation, transparency, proof-carrying, MAC, and signature
+observer maps. The conjunction twelve_candidate_measurements proves the declared Boolean
+classifications, and swapped_ecosystem_selects_new_pointer proves that changing which
+event proliferates changes the selected event. The MAC-labelled event is non-proliferating in the
+specified observer map. Neither the label’s cryptographic significance nor the observer map’s
+faithfulness to a deployed system occurs in the theorem statement; the real-system reading is
+therefore model-dependent.
+
+
+
+                                                  36
+    The proposed route from distributed agreement to permanence is refuted in EcosystemGame.v.
+The frozen predicate strong_pointer_necessity assumes at least one observer, agreement,
+Boolean soundness and completeness of every view, and a common local update function with no
+observer index or coordinator state. In toggle_game_refutes_strong_pointer_necessity,
+two observers both track the event exactly and both update by negation; consensus
+and authenticity hold while a true event becomes false. If durable views are added,
+durable_consensus_implies_permanence recovers permanence, but the persistence condition
+is then an explicit premise. Thus consensus and coordinator-free observation alone do not make
+permanent commits the only possible proliferating events.
 
 18.3.1    The adversarial search
 Five confirmations settle nothing on their own. A criterion loose enough to accept anything
@@ -1568,10 +1590,9 @@ kernel/frontier/PointerObservableCounterexamples.v is the looking, and it is aim
 the corner where the criterion is most likely to break rather than at systems resembling the five.
     The claim put at risk is the strong reading:
 
-
-                                                  36
-     (PO-STRONG) Every system that must resist forgery of a commitment has a
+     (PO-STRONG) Every system that must resist forgery of a commitment has a
      commitment event that redundantly proliferates.
+
 A counterexample must satisfy three conditions fixed in advance: (C1) it must resist forgery of a
 commitment, in the sense that its designers treat an unearned commitment as the primary failure
 mode; (C2) it must be deployed and independently evolved, owing nothing to this development;
@@ -1583,16 +1604,20 @@ deployment, so the Coq results alone neither refute nor confirm a security claim
     Three candidates argue against (PO-STRONG), using a two-part argument rather
 than an unconditional machine theorem. For each, the non-proliferating observer map is checked
 in Coq and its faithfulness to the design is argued in prose:
+
    • Deniable (designated-verifier) authentication (deniable_authentication_model_
      not_proliferating). The scheme is engineered so a third party cannot be convinced
      even given the whole transcript, because the designated verifier could have produced it.
      Non-transferability is the product requirement.
+
    • Symmetric-key authentication (mac_model_not_proliferating). Existential unforge-
      ability is the defining security notion of a MAC, and verification requires the shared secret,
      so no record reaches anyone else.
+
    • Object capabilities (capability_model_not_proliferating). Unforgeability here is
      unconditional, enforced by memory safety rather than by a cost or a hardness assumption.
      Nothing is paid, nothing is logged, and no observer outside the holder can tell.
+
 A public-log control (public_log_model_proliferating) checks that the search can return
 confirms and is not an instrument that only reports refutations; its rival effort event still fails
 to proliferate (public_log_effort_not_proliferating), so the control discriminates rather
@@ -1600,13 +1625,17 @@ than accepting everything.
     If those prose correspondences are accepted, the boundary they trace is not the one (PO-
 STRONG) guessed at. A MAC and a digital signature both resist forgery; only the signature
 proliferates. Deniable authentication and certificate transparency both resist forgery; deniability
-actively prevents third-party conviction while transparency actively requires it. Object capabili-
+
+                                                37
+actively prevents third-party conviction while transparency actively requires it. Object capabili-
 ties and proof-carrying code both make unearned authority impossible; the capability confines it
 to the holder while the proof travels to every consumer. In each pair the proliferating member is
 the one whose commitment must convince parties who were not present. The surviving candidate
 criterion is therefore:
+
      (PO-PUBLIC) A system whose commitment must convince third parties who did
      not witness its creation will proliferate records of the commitment event.
+
 The signature observer model makes the commitment visible in each observer fragment and
 proves proliferation for that model. Its correspondence to deployed signatures remains a modeling
 judgment. Public availability of a verifier does not imply that every observer retains a record.
@@ -1615,12 +1644,12 @@ premises: a full-state transcript, an exact commitment-bit contract, and a repor
 Neither these examples nor the factorization obstruction proves that only one route can involve
 metering.
    Three statements travel together in loose prose and come apart under these candidates:
+
 (M1) Forgery resistance forces metering. False, on the prose argument. Signatures
     take the hardness route; object capabilities achieve unforgeability unconditionally through
     memory safety, with no cost, no record, and no assumption.
 
-                                                37
-(M2) Forgery resistance forces record proliferation. False, on the same argument. Deni-
+(M2) Forgery resistance forces record proliferation. False, on the same argument. Deni-
     able authentication, symmetric MACs, and capabilities all resist forgery while proliferating
     nothing, and in the first case that is the design goal.
 
@@ -1628,12 +1657,12 @@ metering.
     models satisfy it. Actual record proliferation needs independent evidence; public verifiability
     alone is insufficient.
 
-    What remains of the metering claim, stated so a stranger can attack it: when a claim
-is µ-sensitive, meaning it is not decidable from the classical projection, and the verifier can
-neither recheck it directly nor substitute a hardness assumption, the substrate route is the
-available construction, and that route prices the commitment event. That is V_does_not_
-factor_through_classical, under its supplied colliding transcripts, in different clothes. It is
-narrower than “forgery resistance,” and it is the version this development supports.
+    The metering claim supported here is exact: when a claim is µ-sensitive, meaning it is
+not decidable from the classical projection, and the verifier can neither recheck it directly nor
+substitute a hardness assumption, the substrate route is the available construction, and that
+route prices the commitment event. That is V_does_not_factor_through_classical, under
+its supplied colliding transcripts, in different clothes. It is narrower than “forgery resistance,”
+and it is the version this development supports.
 
 
 
@@ -1899,7 +1928,7 @@ reader to discover:
 
   1. T00 is not an energy density. It is set equal to mass(v), a dimensionless integer attached
      to a vertex. An energy density is energy per unit volume; there is no volume element
-     anywhere in this construction, and no conversion constant. Compare Section 21.7: a
+     anywhere in this construction, and no conversion constant. Compare Section 21.8: a
      dimensionless integer ledger cannot produce a dimensional constant, which is exactly the
      obstruction here.
 
@@ -2122,10 +2151,9 @@ outer vertices v ∈ {0, 2, 3, 4} of the boundary 4-simplex, the affine operator
 The affine factor 8 − 5g00 is specifically tuned to the center vertex geometry; at outer vertices it
 produces a non-trivial off-diagonal Einstein tensor. Zero Admitted.
 
-Remark 19.12 (What Remains Open). The affine operator closes vertex 1 and characterizes
-the outer vertices. The remaining open question is whether the affine factor 8 − 5g00 is the
-correct physical discretization. That requires connecting the discrete operator to a physical
-substrate, not a Coq question, an empirical one.
+Remark 19.12 (Physical scope). The affine operator closes vertex 1 and characterizes the outer
+vertices. The claim that the affine factor 8 − 5g00 is the correct physical discretization requires a
+connection to a physical substrate. It is an empirical claim, not a Coq theorem.
 
 
 
@@ -2159,14 +2187,19 @@ Links and Their Limits
 
 21.1     Landauer’s Principle
 Theorem 21.1 (Landauer-Shaped Erasure Arithmetic (LandauerDerived.v), (C)).
+
   1. erasure_irreversible: Erasing ≥ 1 bit implies fan-in = 2k > 1 (arithmetic: 2k > 1 for
      k ≥ 1).
+
   2. erasure_decreases_entropy: Erasure decreases system entropy (∆S < 0), this is just
      output < input ⇒ output − input < 0.
+
   3. landauer_information_bound: For any physical erasure, environment entropy increase
      ≥ bits erased. Here a physical erasure is a PhysicalErasure record, which carries this
      bound as a field (see the caveat).
+
   4. erasure_additive: Sequential erasures compose additively.
+
     Caveat on item 3: The PhysicalErasure record has second_law_satisfied as a field,
 not a derived property. The theorem landauer_information_bound simply extracts this field,
 making the bound an input assumption rather than a derivation. The physical energy bound
@@ -2175,22 +2208,44 @@ formalized). Also, the mu in this file is a standalone synonym for bits_erased, 
 connection to vm_mu in VMState.v.
 
 
-21.2     A2 from Landauer (Factored Form): a Conditional Whose
-         Premises Fail on the Full ISA
+21.2     Two-State Calorimeter Protocol
+CalorimeterProtocol.v specifies a microscopic register with ground energy 0, excited energy
+∆, excited-state population p, and the discrete master equation
+
+                                p′ = p + dt k01 (1 − p) − k10 p .
+                                                               
+
+
+At fixed Hamiltonian its bath heat is Qbath = ∆(p − p′ ). The canonical reset starts
+at p = 1/2, ends at p′ = 0, and uses dt = 1, k01 = 0, and k10 = 1. The theorems
+canonical_reset_satisfies_master_equation and canonical_reset_heat_exact prove
+the update and Qbath = ∆/2 exactly.
+   Setting ∆ = 2kB T ln 2 yields Qbath = kB T ln 2 (selected_gap_gives_landauer_heat),
+but this equality selects the energy scale rather than deriving it. With identical pop-
+ulations, rates, and one logical µ event, ∆ = kB T ln 2 gives half the Landauer value
+(smaller_gap_refutes_unconditional_landauer_floor); more generally, master_equation_does_not_fix_
+
+                                               49
+holds the dynamics fixed while changing the heat. The protocol is therefore a closed calorimeter
+blueprint, not an unconditional calibration. Applying a Landauer floor requires an additional
+thermal-admissibility condition such as local detailed balance or the second law, plus a measured
+correspondence between the device reset and the VM event.
+
+
+21.3      A2 from Landauer (Factored Form): a Conditional Whose
+          Premises Fail on the Full ISA
 Theorem 21.2 (F1 Strong Form: A2 from Two Landauer-Style Premises (coq/
 kernel/frontier/F1_StrongForm.v), (C)). Given an abstract dissipation function
 ϕ : vm_instruction → N (interpreted as dissipation per step in Landauer quanta), if
-  1. Landauer’s principle holds in dissipation vocabulary, every class-collapsing step on any
-     bool macro-property has ϕ(i) ≥ 1, and
-  2. the named bridge cost_dissipation_calibrated holds, instruction_cost(i) ≥ ϕ(i) for
-     every i,
+   1. Landauer’s principle holds in dissipation vocabulary, every class-collapsing step on any
+      bool macro-property has ϕ(i) ≥ 1, and
+   2. the named bridge cost_dissipation_calibrated holds, instruction_cost(i) ≥ ϕ(i) for
+      every i,
 then on every cert-flip step instruction_cost(i) ≥ 1. The Landauer-style premise mentions only
 class-collapse and dissipation; instruction_cost appears only in the calibration. This is a valid
 conditional implication, but its two premises are incompatible on the current full VM instruction
 set, as the following remark explains.
-
-                                               49
-Remark 21.1 (Applicability failure of the full-ISA physical premises). F1_physical_premises_
+Remark 21.1 (Applicability failure of the full-ISA physical premises). F1_physical_premises_
 incompatible proves that no dissipation function satisfies both hypotheses. The instruction
 JUMP(1,0) has zero cost and sends every state’s program counter to 1. For the Boolean macro-
 property “PC equals 1,” it meets step_collapses_bool_classes: a state with PC 0 enters
@@ -2220,10 +2275,11 @@ particular, the zero-cost VM jump has an injective history lift. These results e
 of an abstract restricted model and failure of macro-collapse as a general erasure test. They do
 not identify the cost units with heat.
 
-
-21.3      Permanent Certification Forces a Merge
+                                                  50
+21.4      Permanent Certification Forces a Merge
 The history lift escapes the merge by keeping unbounded history. On a finite state space with a
 certificate that no step revokes, that escape is closed for the certifying step.
+
 Theorem 21.4 (Permanent flip is not injective (coq/kernel/nfi/PermanentCertification.v),
 (S)). Let S have a duplicate-free enumeration, let step : S → I → S and cert : S → bool be
 arbitrary, and suppose cert(s) = true ⇒ cert(step(s, i)) = true for all s, i. If cert(s) = false and
@@ -2231,6 +2287,7 @@ cert(step(s, i)) = true, then step(·, i) is not injective (permanent_flip_is_no
 k distinct uncertified states are switched on by one instruction, that instruction’s step has at least
 k fewer distinct images than inputs on the certified states together with those k (permanent_
 flips_collapse_at_least).
+
 Theorem 21.5 (A2 from a merging price (PermanentCertification.v), (C)). Under the
 same premises, if every instruction whose step is not injective costs at least 1, then every
 certification flip costs at least 1 (a2_from_merging_price_and_permanence). The system is then
@@ -2240,8 +2297,7 @@ accounting, whose flag reports every merging instruction, gives the same floor (
 accounting_implies_a2); the zero-cost rival of CommitmentVsErasure.v is not honest in this
 sense (commit_without_erasure_system_is_not_honest).
 
-                                                  50
-Remark 21.3 (Scope and necessity of each premise). The merging price is a named premise
+Remark 21.3 (Scope and necessity of each premise). The merging price is a named premise
 standing for Landauer’s principle; it is conditional in the sense of (C). The premises are jointly
 satisfiable (priced_reset_satisfies_premises). Each is needed: an unbounded history keeps
 every step injective while a permanent certificate switches on (unbounded_history_escapes);
@@ -2259,7 +2315,7 @@ principle; the entropy support bound and the monotonicity of entropy under deter
 maps are Shannon’s; the dependence of Landauer’s bound on the input distribution is the
 generalized form of Maroney (2009) and Sagawa (2014). The contribution recorded here is
 the combination about permanent certificates, the merge-or-revoke characterization, and the
-mechanized statements. Shadow pricing (Section 21.4) is fiber constancy (decoding_requires_
+mechanized statements. Shadow pricing (Section 21.5) is fiber constancy (decoding_requires_
 fiber_constancy) applied to prices.
 
 Theorem 21.6 (Cost of a squeeze (coq/kernel/nfi/PermanentRecordPricing.v), (C)). As-
@@ -2273,7 +2329,9 @@ stamp_needs_two, quad_stamp_cost_two_is_priced).
 
 Theorem 21.7 (Forced price and the merge-or-revoke dichotomy (PermanentRecordPricing.v),
 (S)). Call i forced to be priced when every cost assignment satisfying merging_steps_priced
-charges i at least 1. With decidable equality on instructions, i is forced to be priced iff step(·, i) is
+
+                                                 51
+charges i at least 1. With decidable equality on instructions, i is forced to be priced iff step(·, i) is
 not injective (forced_priced_iff_merges). On a finite state space, if i switches a reading on at
 some state, then either step(·, i) is not injective or i switches the reading off at some certified state
 (flip_merges_or_revokes, proved constructively by a finite search). Hence an instruction that
@@ -2282,7 +2340,6 @@ is_forced_priced). The converse fails: a three-state instruction flips, revokes,
 (forced_price_without_permanent_record). The trace-level floor follows through universal_
 nfi_any_substrate (compression_priced_trace_floor). All twelve theorems and corollaries
 in the file are closed under the global context.
-
 Theorem 21.8 (Entropy form (coq/kernel/nfi/PermanentCertificationEntropy.v), (S)
 for the bound, (C) for heat). Let H(p) = − s p(s) log2 p(s) over the enumeration, with 0 log 0 =
                                                P
@@ -2296,12 +2353,10 @@ uniform_entropy_drop). An injective step leaves H unchanged (step_entropy_invari
 if_injective). A whole-unit cost with cost(i) ≥ H(p) − H(f∗ p) for every distribution p satisfies
 A2 (a2_from_entropy_price_and_permanence), with the trace floor through universal_nfi_
 any_substrate (entropy_priced_trace_floor). Under the named premise landauer_heat
-
-                                                   51
-(heat ≥ kB T ln 2·∆H), the uniform flip dissipates at least kB T ln((m+k)/m) (permanent_flip_
-heat_floor), which is positive for T > 0 (permanent_flip_heat_positive).          For any p and
+(heat ≥ kB T ln 2·∆H), the uniform flip dissipates at least kB T ln((m+k)/m) (permanent_flip_
+heat_floor), which is positive for T > 0 (permanent_flip_heat_positive).                For any p and
 any deterministic f , H(p) − H(f∗ p) = p(x)>0 p(x) log2 (f∗ p)(f x) − log2 p(x) (entropy_drop_
-                                         P                                     
+                                          P                                         
 
 as_point_sum), each term is nonnegative (entropy_drop_nonneg), and the sum is positive
 when x ̸= x′ , f x = f x′ , p(x) > 0, p(x′ ) > 0 (entropy_drop_pos_of_support_merge). Hence
@@ -2313,7 +2368,6 @@ flip_forces_no_heat): the forced heat is a worst-case statement over the state d
 in the generalized Landauer bound. The file works over Coq’s real numbers; its results depend on
 the standard-library constants sig_forall_dec, sig_not_dec, functional_extensionality_
 dep, and classic, and on nothing project-local.
-
 Theorem 21.9 (A finite instance run by the VM (coq/kernel/nfi/FiniteCertMachine.v),
 (S)). Let FState = {L0 , L1 , L2 , L3 } × bool and FInstr = {FCertify, FJump a, FNext} with
 FCertify(p, c) = (p + 1, true), FJump a (p, c) = (a, c), FNext(p, c) = (p + 1, c) (slots modulo
@@ -2328,11 +2382,12 @@ FNext 7→ CHECKPOINT "" 0: w(vm_apply(s, ι)) = fstep(w(s), ι) and µ rises by
 finite_trace); a run of the fragment from uncertified to certified raises µ by at least 1 (vm_
 fragment_certification_paid). The JUMP cost of 2 is a program’s choice of mu_delta. All
 twenty-three theorems and lemmas in the file are closed under the global context.
-
 Theorem 21.10 (What the full VM prices (FiniteCertMachine.v), (S)). vm_apply(·, CERTIFY d)
 is not injective: states differing only in vm_certified have the same image (vm_certify_
 merges). Every s, i with vm_certified(s) = false and vm_certified(vm_apply(s, i)) = true
-has vm_apply(·, i) non-injective and instruction_cost(i) ≥ 1 (vm_certifying_step_
+
+                                                   52
+has vm_apply(·, i) non-injective and instruction_cost(i) ≥ 1 (vm_certifying_step_
 is_priced_merge). vm_apply(·, JUMP 0 0) is not injective and costs 0 (vm_jump_is_
 free_merge). Hence ¬ merging_steps_priced(vm_apply, instruction_cost) (vm_prices_
 certifying_merge_leaves_others_free). Thus every certification flip is a priced merge and
@@ -2340,7 +2395,7 @@ at least one other merge is free; the theorem does not classify every non-certif
 holds for the VM independently (no_free_certification_certified).
 
 
-21.4      Exact Pricing Cannot Be Computed From a Window
+21.5      Exact Pricing Cannot Be Computed From a Window
 Theorem 21.11 (No exact shadow price (coq/kernel/nfi/ShadowPricing.v), (S)). Let
 step : S → I → S, cert : S → bool, and obs : S → O be arbitrary. A shadow price is
 c(s, i) = price(obs(s), obs(step(s, i))). Call a collision two pairs (s1 , i1 ), (s2 , i2 ) with equal
@@ -2352,14 +2407,12 @@ exact). If cert = r ◦ obs for some r, an exact shadow price exists (window_sho
 prices_exactly) and no collision exists (window_showing_reading_has_no_collision). On
 the VM, (abs_zero, CERTIFY 0) and (abs_zero, JUMP 1 0) collide for bare_observable, and
 (abs_zero, CERTIFY 0) and (abs_zero, JUMP 1 1) collide for forget (vm_bare_observable_
-
-                                                 52
-collision, vm_forget_collision), so neither window admits an exact price for VM certifica-
+collision, vm_forget_collision), so neither window admits an exact price for VM certifica-
 tion (vm_bare_shadow_cannot_price_exactly, vm_forget_shadow_cannot_price_exactly).
 All nine theorems are closed under the global context.
 
 
-21.5      Which Narrowing a Merge Price Charges
+21.6      Which Narrowing a Merge Price Charges
 Theorem 21.12 (The machine’s spread is priced (coq/kernel/nfi/KnowledgeNarrowing.v),
 (S)). Let step : S → I → S with decidable equality on S, and let cost meet compression_
 priced. For every duplicate-free list D and program t, with D′ the duplicate-free list of states
@@ -2380,11 +2433,14 @@ squeeze-priced cost charges Wipe at least 1 (wipe_costs_at_least_one). On the VM
 narrowing_at_zero_cost). All closed under the global context.
 
 
-21.6      A Recursion Theorem for L
+21.7      A Recursion Theorem for L
 Theorem 21.14 (Kleene and Rice for L (coq/kernel/foundation/LRecursion.v), (S)). L
 is the weak call-by-value lambda calculus with de Bruijn terms and deterministic left-to-right
 reduction; ⌜t⌝ is the Scott encoding. There is a closed Q with Q⌜t⌝ →∗ ⌜⌜t⌝⌝ (Q_spec). For
-every closed value s there is a closed t with t →∗ s⌜t⌝ (second_recursion). Every transformer
+
+
+                                                 53
+every closed value s there is a closed t with t →∗ s⌜t⌝ (second_recursion). Every transformer
 computed on codes by a closed value has an extensional fixed point (L_recursion_theorem). No
 closed term decides, on codes, a property extensional in reached values that holds for one closed
 program and fails for another (L_rice); in particular halting (L_halting_undecidable). All
@@ -2392,23 +2448,22 @@ closed under the global context. L is not a Substrate instance, since the interf
 total run; the diagonal is restated for L.
 
 
-21.7      The Dimensional Gap: Why Ledgers Cannot Fix Constants
+21.8     The Dimensional Gap: Why Ledgers Cannot Fix Constants
 Theorem 21.15 (Dimensional Gap (coq/kernel/thermodynamic/DimensionalGapTheorem.v),
 (S)). Let State be any type, L : State → N any dimensionless integer ledger, ω : State → N any
 microstate-count function, and Scand : State → R any candidate entropy. Suppose for some
 base ≥ 2 and some state s with L(s) ≥ 1:
-                                                ′
-   1. ledger-exponential: ω(s′ ) = baseL(s ) for all s′ ;
+                                               ′
+  1. ledger-exponential: ω(s′ ) = baseL(s ) for all s′ ;
 
-   2. ledger-linear: Scand (s′ ) = α · L(s′ ) for all s′ ;
+  2. ledger-linear: Scand (s′ ) = α · L(s′ ) for all s′ ;
 
-   3. Boltzmann-form: Scand (s′ ) = kB ln ω(s′ ) whenever ω(s′ ) > 0.
+  3. Boltzmann-form: Scand (s′ ) = kB ln ω(s′ ) whenever ω(s′ ) > 0.
 
 Then α is forced:
-                                           α = kB · ln(base).                               (21.1)
+                                          α = kB · ln(base).                                (21.1)
 
-                                                    53
-    This is the sharpest honest statement of the limit on deriving physics from computation in
+    This is the sharpest honest statement of the limit on deriving physics from computation in
 this framework, and it deserves to be read as a no-go, not as a bridge. The theorem quantifies
 over any type, any integer ledger, and any exponential microstate count. It makes no reference
 to the Thiele machine at all. What it says is that a dimensionless integer ledger determines
@@ -2419,13 +2474,13 @@ not prefer any value. There is a one-parameter family of consistent (α, kB ) pa
 among them is precisely the modelling input that the ledger cannot supply.
     Two consequences worth stating explicitly:
 
-  • The kB ln 2 appearing in the Thiele instantiation (SecondLawBoltzmannWall.v, base = 2
-    for binary cert-flips) is not derived from the machine. It is what you get after supplying
-    kB and the base from outside.
+   • The kB ln 2 appearing in the Thiele instantiation (SecondLawBoltzmannWall.v, base = 2
+     for binary cert-flips) is not derived from the machine. It is what you get after supplying
+     kB and the base from outside.
 
-  • Any claim of the form “this computational framework predicts a physical constant” is
-    blocked by Theorem 21.15 unless it also says which two external scalars it assumed. This
-    applies to the present development as much as to any other.
+   • Any claim of the form “this computational framework predicts a physical constant” is
+     blocked by Theorem 21.15 unless it also says which two external scalars it assumed. This
+     applies to the present development as much as to any other.
 
    Read this section before the conditional physics chapters, not after: it is the constraint they
 operate under, and it is what keeps them honest.
@@ -2433,7 +2488,7 @@ operate under, and it is what keeps them honest.
 
 
 
-                                               54
+                                                   54
 Chapter 22
 
 Self-Reference and the Thiele
@@ -2687,21 +2742,24 @@ Find k ≥ 1 and a trace reaching vm_certified = true and vm_mu ≥ k with total
 < k. This contradicts mu_hierarchy_theorem.
 
 
-25.5     Open Questions
-  • Physical interpretation of µ: Whether the µ ledger corresponds to thermodynamic
-    entropy in a physical Thiele Machine is an open empirical question. The formal development
-    is consistent with Landauer’s principle. The calibration hypothesis is named (mu_landauer_
-    unruh_calibrated) and not proved in Coq.
+25.5     Boundaries and conjectures
+  • Physical interpretation of µ: The two-state calorimeter protocol fixes populations, a
+    Hamiltonian, a discrete master equation, and exact heat, but proves that the dynamics alone
+    do not fix the Hamiltonian scale. No theorem identifies the µ ledger with thermodynamic
+    entropy in a physical device. The calibration hypothesis is named (mu_landauer_unruh_
+    calibrated) and not proved in Coq.
 
   • Quantum mechanics connection: The mathematical equivalence between slice coher-
-    ence and zero-marginal NPA realizability is a kernel-tier theorem. Whether a physical
-    Thiele Machine can produce CHSH-violating statistics by exploiting quantum entanglement
-    in hardware is an open empirical question outside the scope of this project.
+    ence and zero-marginal NPA realizability is a kernel-tier theorem. No theorem identifies
+
 
 
                                                61
-• Complexity implications: Whether µP ̸= µNP is an open question. The factored-search
-  witness shows a concrete structural advantage but is not a class separation.
+   the VM with physical entanglement hardware or proves that such hardware produces
+   CHSH-violating statistics.
+
+• Complexity implications: No µP ̸= µNP class-separation theorem is claimed. The
+  factored-search witness proves a concrete structural advantage under its stated model.
 
 • Physical constants: No physical constant is derived from first principles. There is no
   derivation of Planck’s constant h; any relation tying an internal time-scale τµ to h would
@@ -2718,14 +2776,26 @@ Find k ≥ 1 and a trace reaching vm_certified = true and vm_mu ≥ k with total
   identification (Case A, the geometric +1 is A2 in geometric form) would re-frame the
   calibrated regime’s asymptotic-only character as a structural consequence of A2; a positive
   non-identification (Case B) would license replacing S(. . . ) with (. . . ) in the denominator.
-  Either is real categorical content. The kernel was not modified pending closure.
+  Either is real categorical content. The kernel uses the stated denominator; no identification
+  theorem is claimed.
 
-• F3 narrow non-vacuity (related to OP-Plus-One): a constructible finite VMState
-  satisfying ∀m, calibration_residual(s, m) = 0 on a partition graph with at least one
-  actual graph triangle and well_formed_triangulated holding. The symbolic search to
-  N = 7 exhausts negatively. Whether the asymptotic-only character of calibration is a
-  structural consequence of OP-Plus-One’s Case A, or just a search-depth artifact, is itself
-  open.
+• F3 narrow non-vacuity (related to OP-Plus-One): no constructible finite VMState is
+  supplied that satisfies ∀m, calibration_residual(s, m) = 0 on a partition graph with at
+  least one actual graph triangle and well_formed_triangulated. The symbolic search to
+  N = 7 exhausts negatively; it does not prove nonexistence beyond that bound or derive
+  the asymptotic behavior from OP-Plus-One.
+
+• Guest recursion: The guest VM has a direct Rice reduction, numeric decoding, a fuel-
+  bounded evaluator proved equal to actual VM execution, and semantic s-m-n specialization.
+  These statements do not imply an internal recursion theorem: the evaluator and numeric
+  code specializer are not guest-callable programs.
+
+• Cross-base equivalence: Elementary equivalence laws are proved, but complete cost-
+  respecting adapters between the Turing machine, RAM, L, and the VM are not.
+
+• Cost-framework comparison: The graded, writer, potential, and counting theorems are
+  local correspondences. Full semantics-preserving embeddings of the four cost-framework
+  families have not been constructed.
 
 
 
@@ -3031,12 +3101,39 @@ Information Causality             (R)           Circular: equivalence assumed as
 Spacetime Locality                (R)           Data isolation in partition graph
 Born Rule (BornRule.v)            (R)           µ-consistent hypothesis unused
 
-
 Legend: (S) = unconditional theorem about the machine; (C) = valid derivation conditional
 on stated axiom; (R) = internal consistency check.
 
 
-
+Exact scope
+The record-axis theorems have an exact scope: a permanent record driven by the base computation
+is a latch on an event, a finite permanent write is non-injective, and the VM’s named projections
+do not recover its record. Certification is an instance; no theorem derives a unique event choice.
+    Finite monotone multi-valued records admit threshold-latch decompositions, but the corre-
+sponding single-latch, revocable, and probabilistic uniqueness statements are false. The guest
+VM has a direct Rice reduction, numeric decoding, verified fuel-bounded dispatch, and semantic
+s-m-n specialization. These statements do not establish an internal recursion theorem because
+the evaluator and numeric specializer are not guest-callable programs. The two-state calorimeter
+computes exact heat and proves that identical population dynamics do not determine the
+Hamiltonian scale. Converting µ to energy requires thermal and device premises; µ has no
+intrinsic energy unit.
+    The RFC 9162 file checks iterative inclusion and consistency control flow and examples, not
+cryptographic collision resistance or signed-tree-head authenticity. The PCC, addressed-RAM,
+reversible-update, and TPM-interface files prove only their named fragment or countermodel
+propositions. The local cost-semantics correspondences are not full cost-framework embeddings.
+    The twelve-event observer-map bundle and swap theorem are closed. Its MAC-labelled
+model is non-proliferating, but applying that statement to a real system depends on the observer
 
                                                     68
+model. The two-observer toggle game refutes the claim that consensus, exact observation, and
+coordinator-free evolution force permanence; the durability theorem supplies persistence as a
+premise. The external consequence survey contains five narrow statements already known from
+their governing specifications and five stronger statements without enough protocol or hardware
+semantics. No surveyed consequence is simultaneously record-axis dependent, novel, and ready
+for use. The pointer criterion is a conjecture.
+
+
+
+
+                                              69
 

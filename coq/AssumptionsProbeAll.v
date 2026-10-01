@@ -289,6 +289,8 @@ Require Kernel.ObservationPolicy.
 Require Kernel.PointerObservable.
 Require Kernel.PointerObservableCounterexamples.
 Require Kernel.PointerObservableReductions.
+Require Kernel.RecordProliferationSurvey.
+Require Kernel.RecordProliferationSurveyTarget.
 Require Kernel.TraceStateDescent.
 Require Kernel.HardwareBisimulation.
 Require Kernel.OCamlExtractionBridge.
@@ -403,11 +405,23 @@ Require Kernel.Unitarity.
 Require Kernel.ValidCorrelation.
 Require Kernel.CasperFFG.
 Require Kernel.CasperRecordReading.
+Require Kernel.ConcreteRAM.
+Require Kernel.ConcreteRAMTarget.
+Require Kernel.ConcreteRecordMachines.
+Require Kernel.ConcreteRecordMachinesTarget.
 Require Kernel.EVMStorageGas.
 Require Kernel.GasMetering.
+Require Kernel.NeculaPCC.
+Require Kernel.NeculaPCCTarget.
 Require Kernel.PoSFinality.
 Require Kernel.ProofCarryingVerifier.
+Require Kernel.RFC9162Merkle.
+Require Kernel.RFC9162MerkleTarget.
+Require Kernel.RealSystemConsequences.
+Require Kernel.RealSystemConsequencesTarget.
 Require Kernel.TEEAttestation.
+Require Kernel.TPMQuoteAuthenticity.
+Require Kernel.TPMQuoteAuthenticityTarget.
 Require Kernel.TPMQuoteGap.
 Require Kernel.TransparencyLog.
 Require Kernel.AdditionalProbes.
@@ -11975,6 +11989,10 @@ Print Assumptions Kernel.PointerObservableReductions.TEE_model_unique_pointer.
 Print Assumptions Kernel.PointerObservableReductions.CT_model_unique_pointer.
 Print Assumptions Kernel.PointerObservableReductions.PCC_model_unique_pointer.
 Print Assumptions Kernel.PointerObservableReductions.five_labeled_models_have_selected_pointer.
+(* === Kernel.RecordProliferationSurvey : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.RecordProliferationSurvey.twelve_candidate_measurements_checked.
+Print Assumptions Kernel.RecordProliferationSurvey.first_event_not_proliferating.
+Print Assumptions Kernel.RecordProliferationSurvey.swapped_event_is_pointer_checked.
 (* === Kernel.TraceStateDescent : 10 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.TraceStateDescent.trace_descent_unique_value_iff.
 Print Assumptions Kernel.TraceStateDescent.vm_trace_eval_extend.
@@ -13639,6 +13657,17 @@ Print Assumptions Kernel.CasperFFG.accountable_safety.
 (* === Kernel.CasperRecordReading : 2 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.CasperRecordReading.conflicting_records_are_priced.
 Print Assumptions Kernel.CasperRecordReading.finalization_without_slashing.
+(* === Kernel.ConcreteRAM : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.ConcreteRAM.concrete_ram_write_reads_back.
+Print Assumptions Kernel.ConcreteRAM.concrete_tied_ram_records_overwrite.
+Print Assumptions Kernel.ConcreteRAM.concrete_untied_ram_record_unchanged.
+Print Assumptions Kernel.ConcreteRAM.concrete_tied_and_untied_same_base.
+(* === Kernel.ConcreteRecordMachines : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.ConcreteRecordMachines.ram_tied_overwrite_records_old_value.
+Print Assumptions Kernel.ConcreteRecordMachines.ram_untied_overwrite_has_no_record.
+Print Assumptions Kernel.ConcreteRecordMachines.janus_like_unbounded_inverse.
+Print Assumptions Kernel.ConcreteRecordMachines.janus_like_bounded_inverse.
+Print Assumptions Kernel.ConcreteRecordMachines.ram_untied_record_not_determined_by_base.
 (* === Kernel.EVMStorageGas : 3 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.EVMStorageGas.empty_slot_invariant.
 Print Assumptions Kernel.EVMStorageGas.persistent_write_priced.
@@ -13659,6 +13688,10 @@ Print Assumptions Kernel.GasMetering.thiele_charge_is_cert_flip.
 Print Assumptions Kernel.GasMetering.thiele_exact_unit_pricing.
 Print Assumptions Kernel.GasMetering.thiele_vm_commit_pricing_is_exact.
 Print Assumptions Kernel.GasMetering.thiele_unit_price_lower_bounds_mu.
+(* === Kernel.NeculaPCC : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NeculaPCC.pcc_checker_accepts_iff_vc.
+Print Assumptions Kernel.NeculaPCC.pcc_certificate_implies_vc.
+Print Assumptions Kernel.NeculaPCC.pcc_unsafe_program_rejected.
 (* === Kernel.PoSFinality : 5 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.PoSFinality.vote_preserves_finalized.
 Print Assumptions Kernel.PoSFinality.nothing_at_stake_free_finalization.
@@ -13676,6 +13709,23 @@ Print Assumptions Kernel.ProofCarryingVerifier.proof_rounds_escape.
 Print Assumptions Kernel.ProofCarryingVerifier.bare_pcc_impossible.
 Print Assumptions Kernel.ProofCarryingVerifier.level_k_verification_floor.
 Print Assumptions Kernel.ProofCarryingVerifier.level_k_verification_floor_tight.
+(* === Kernel.RFC9162Merkle : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.RFC9162Merkle.rfc9162_inclusion_boundary_safe.
+Print Assumptions Kernel.RFC9162Merkle.rfc9162_consistency_boundary_safe.
+Print Assumptions Kernel.RFC9162Merkle.symbolic_digest_eqb_refl.
+Print Assumptions Kernel.RFC9162Merkle.rfc9162_example_inclusion_d0.
+Print Assumptions Kernel.RFC9162Merkle.rfc9162_example_inclusion_d3.
+Print Assumptions Kernel.RFC9162Merkle.rfc9162_example_inclusion_d4.
+Print Assumptions Kernel.RFC9162Merkle.rfc9162_example_inclusion_d6.
+Print Assumptions Kernel.RFC9162Merkle.rfc9162_example_consistency_4_7.
+Print Assumptions Kernel.RFC9162Merkle.ct_extension_preserves_entries.
+Print Assumptions Kernel.RFC9162Merkle.ct_extension_size_monotone.
+(* === Kernel.RealSystemConsequences : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.RealSystemConsequences.ct_local_view_insufficient.
+Print Assumptions Kernel.RealSystemConsequences.tpm_selection_binding_is_necessary.
+Print Assumptions Kernel.RealSystemConsequences.weak_subjective_suffix_insufficient.
+Print Assumptions Kernel.RealSystemConsequences.wal_ack_requires_durability.
+Print Assumptions Kernel.RealSystemConsequences.audit_local_snapshot_insufficient.
 (* === Kernel.TEEAttestation : 11 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.TEEAttestation.reports_project_equal.
 Print Assumptions Kernel.TEEAttestation.report_A_explains_A.
@@ -13688,6 +13738,9 @@ Print Assumptions Kernel.TEEAttestation.attest_decide_sound.
 Print Assumptions Kernel.TEEAttestation.attest_decide_complete.
 Print Assumptions Kernel.TEEAttestation.measurement_enriched_attestation_succeeds.
 Print Assumptions Kernel.TEEAttestation.working_attestation_verifier_reads_the_register.
+(* === Kernel.TPMQuoteAuthenticity : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TPMQuoteAuthenticity.degenerate_accepts_forgery.
+Print Assumptions Kernel.TPMQuoteAuthenticity.tpm_interface_authenticity_refuted.
 (* === Kernel.TPMQuoteGap : 5 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.TPMQuoteGap.quote_collision.
 Print Assumptions Kernel.TPMQuoteGap.quote_cannot_attest_unmeasured_state.

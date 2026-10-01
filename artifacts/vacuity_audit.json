@@ -2,8 +2,8 @@
   "schema": "vacuity_audit.v1",
   "summary": {
     "error": 0,
-    "ok": 1034,
-    "total": 1034,
+    "ok": 1066,
+    "total": 1066,
     "vacuous_hyp": 0,
     "vacuous_true": 0
   },
@@ -19796,6 +19796,646 @@
         "succeeded": false
       },
       "statement": "item44_landauer_is_required",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/RFC9162Merkle.v",
+      "kind": "Theorem",
+      "line": 11,
+      "name": "rfc9162_inclusion_boundary_safe",
+      "probe_a": {
+        "coq_stderr_tail": "lesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_inclusion_boundary_safe__a.v\", line 3, characters 59-82:\nError: The reference inclusion_boundary_safe was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.249 secs (0.158u,0.091s)\nChars 107 - 190 [Theorem~_vacuity_probe_a_rfc91...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_inclusion_boundary_safe__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_inclusion_boundary_safe__b.v\", line 3, characters 59-82:\nError: The reference inclusion_boundary_safe was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.238 secs (0.151u,0.087s)\nChars 107 - 190 [Theorem~_vacuity_probe_b_rfc91...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_inclusion_boundary_safe__b.v",
+        "succeeded": false
+      },
+      "statement": "inclusion_boundary_safe",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/RFC9162Merkle.v",
+      "kind": "Theorem",
+      "line": 17,
+      "name": "rfc9162_consistency_boundary_safe",
+      "probe_a": {
+        "coq_stderr_tail": "stem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_consistency_boundary_safe__a.v\", line 3, characters 61-86:\nError: The reference consistency_boundary_safe was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.243 secs (0.158u,0.084s)\nChars 107 - 194 [Theorem~_vacuity_probe_a_rfc91...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_consistency_boundary_safe__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_consistency_boundary_safe__b.v\", line 3, characters 61-86:\nError: The reference consistency_boundary_safe was not found in the current\nenvironment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.26 secs (0.162u,0.097s)\nChars 107 - 194 [Theorem~_vacuity_probe_b_rfc91...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_consistency_boundary_safe__b.v",
+        "succeeded": false
+      },
+      "statement": "consistency_boundary_safe",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/RFC9162Merkle.v",
+      "kind": "Lemma",
+      "line": 38,
+      "name": "symbolic_digest_eqb_refl",
+      "probe_a": {
+        "coq_stderr_tail": "| eq_refl => eq_refl\n                        end)\n               end\n           end\n       end) d d\n   then true\n   else false) = true\".\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.242 secs (0.152u,0.09s)\nChars 107 - 200 [Theorem~_vacuity_probe_a_symbo...] 0. secs (0.u,0.s)\nChars 201 - 207 [Proof.] 0. secs (0.u,0.s)\nChars 208 - 230 [(intros;~lazy;~exact~I).] 0.008 secs (0.006u,0.002s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__symbolic_digest_eqb_refl__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "e-Machine/build/vacuity_probes/Kernel__RFC9162Merkle__symbolic_digest_eqb_refl__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.238 secs (0.151u,0.086s)\nChars 107 - 200 [Theorem~_vacuity_probe_b_symbo...] 0. secs (0.u,0.s)\nChars 201 - 207 [Proof.] 0. secs (0.u,0.s)\nChars 208 - 238 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__symbolic_digest_eqb_refl__b.v",
+        "succeeded": false
+      },
+      "statement": "forall d, symbolic_digest_eqb d d = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/RFC9162Merkle.v",
+      "kind": "Theorem",
+      "line": 65,
+      "name": "rfc9162_example_inclusion_d0",
+      "probe_a": {
+        "coq_stderr_tail": "ly\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_inclusion_d0__a.v\", line 3, characters 114-116:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.243 secs (0.155u,0.088s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_inclusion_d0__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "sly\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_inclusion_d0__b.v\", line 3, characters 114-116:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.238 secs (0.148u,0.09s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_inclusion_d0__b.v",
+        "succeeded": false
+      },
+      "statement": "verify_inclusion symbolic_hash 0 7 a rfc9162_example_root [b; h; l] = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/RFC9162Merkle.v",
+      "kind": "Theorem",
+      "line": 69,
+      "name": "rfc9162_example_inclusion_d3",
+      "probe_a": {
+        "coq_stderr_tail": "ly\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_inclusion_d3__a.v\", line 3, characters 114-116:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.247 secs (0.159u,0.088s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_inclusion_d3__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ly\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_inclusion_d3__b.v\", line 3, characters 114-116:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.261 secs (0.176u,0.081s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_inclusion_d3__b.v",
+        "succeeded": false
+      },
+      "statement": "verify_inclusion symbolic_hash 3 7 d rfc9162_example_root [c; g; l] = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/RFC9162Merkle.v",
+      "kind": "Theorem",
+      "line": 73,
+      "name": "rfc9162_example_inclusion_d4",
+      "probe_a": {
+        "coq_stderr_tail": "ly\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_inclusion_d4__a.v\", line 3, characters 114-116:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.237 secs (0.152u,0.084s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_inclusion_d4__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "sly\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_inclusion_d4__b.v\", line 3, characters 114-116:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.252 secs (0.15u,0.101s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_inclusion_d4__b.v",
+        "succeeded": false
+      },
+      "statement": "verify_inclusion symbolic_hash 4 7 e rfc9162_example_root [f; j; k] = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/RFC9162Merkle.v",
+      "kind": "Theorem",
+      "line": 77,
+      "name": "rfc9162_example_inclusion_d6",
+      "probe_a": {
+        "coq_stderr_tail": "ly\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_inclusion_d6__a.v\", line 3, characters 114-116:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.249 secs (0.165u,0.083s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_inclusion_d6__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ly\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_inclusion_d6__b.v\", line 3, characters 114-116:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.251 secs (0.152u,0.098s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_inclusion_d6__b.v",
+        "succeeded": false
+      },
+      "statement": "verify_inclusion symbolic_hash 6 7 j rfc9162_example_root [i; k] = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/RFC9162Merkle.v",
+      "kind": "Theorem",
+      "line": 81,
+      "name": "rfc9162_example_consistency_4_7",
+      "probe_a": {
+        "coq_stderr_tail": "bound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_consistency_4_7__a.v\", line 3, characters 119-121:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.249 secs (0.162u,0.087s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_consistency_4_7__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ly\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_consistency_4_7__b.v\", line 3, characters 119-121:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.241 secs (0.14u,0.1s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__rfc9162_example_consistency_4_7__b.v",
+        "succeeded": false
+      },
+      "statement": "verify_consistency symbolic_hash 4 7 k rfc9162_example_root [l] = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/RFC9162Merkle.v",
+      "kind": "Theorem",
+      "line": 90,
+      "name": "ct_extension_preserves_entries",
+      "probe_a": {
+        "coq_stderr_tail": "-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RFC9162Merkle__ct_extension_preserves_entries__a.v\", line 3, characters 100-102:\nError: The reference In was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.243 secs (0.152u,0.091s)\nChars 107 - 246 [Theorem~_vacuity_probe_a_ct_ex...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__ct_extension_preserves_entries__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "g-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RFC9162Merkle__ct_extension_preserves_entries__b.v\", line 3, characters 100-102:\nError: The reference In was not found in the current environment.\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.248 secs (0.16u,0.087s)\nChars 107 - 246 [Theorem~_vacuity_probe_b_ct_ex...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__ct_extension_preserves_entries__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (A : Type) (old added : list A) x, In x old -> In x (ct_extend old added)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/RFC9162Merkle.v",
+      "kind": "Theorem",
+      "line": 97,
+      "name": "ct_extension_size_monotone",
+      "probe_a": {
+        "coq_stderr_tail": "A) {struct l} : list A :=\n        match l with\n        | nil => m\n        | (a :: l1)%list => (a :: app l1 m)%list\n        end) old added)\".\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.244 secs (0.14u,0.103s)\nChars 107 - 244 [Theorem~_vacuity_probe_a_ct_ex...] 0. secs (0.u,0.s)\nChars 245 - 251 [Proof.] 0. secs (0.u,0.s)\nChars 252 - 274 [(intros;~lazy;~exact~I).] 0.001 secs (0.001u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__ct_extension_size_monotone__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Machine/build/vacuity_probes/Kernel__RFC9162Merkle__ct_extension_size_monotone__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 106 [From~Kernel~Require~Import~RFC...] 0.261 secs (0.167u,0.094s)\nChars 107 - 244 [Theorem~_vacuity_probe_b_ct_ex...] 0. secs (0.u,0.s)\nChars 245 - 251 [Proof.] 0. secs (0.u,0.s)\nChars 252 - 282 [(intros;~lazy~in~*;~assumption).] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RFC9162Merkle__ct_extension_size_monotone__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (A : Type) (old added : list A), length old <= length (ct_extend old added)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/NeculaPCC.v",
+      "kind": "Theorem",
+      "line": 10,
+      "name": "pcc_checker_accepts_iff_vc",
+      "probe_a": {
+        "coq_stderr_tail": "oadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NeculaPCC__pcc_checker_accepts_iff_vc__a.v\", line 3, characters 54-76:\nError: The reference checker_accepts_iff_vc was not found in the current\nenvironment.\n\nChars 65 - 102 [From~Kernel~Require~Import~Nec...] 0.069 secs (0.047u,0.021s)\nChars 103 - 180 [Theorem~_vacuity_probe_a_pcc_c...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__NeculaPCC__pcc_checker_accepts_iff_vc__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NeculaPCC__pcc_checker_accepts_iff_vc__b.v\", line 3, characters 54-76:\nError: The reference checker_accepts_iff_vc was not found in the current\nenvironment.\n\nChars 65 - 102 [From~Kernel~Require~Import~Nec...] 0.07 secs (0.049u,0.02s)\nChars 103 - 180 [Theorem~_vacuity_probe_b_pcc_c...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__NeculaPCC__pcc_checker_accepts_iff_vc__b.v",
+        "succeeded": false
+      },
+      "statement": "checker_accepts_iff_vc",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/NeculaPCC.v",
+      "kind": "Theorem",
+      "line": 19,
+      "name": "pcc_certificate_implies_vc",
+      "probe_a": {
+        "coq_stderr_tail": "oadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NeculaPCC__pcc_certificate_implies_vc__a.v\", line 3, characters 54-76:\nError: The reference certificate_implies_vc was not found in the current\nenvironment.\n\nChars 65 - 102 [From~Kernel~Require~Import~Nec...] 0.074 secs (0.052u,0.022s)\nChars 103 - 180 [Theorem~_vacuity_probe_a_pcc_c...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__NeculaPCC__pcc_certificate_implies_vc__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NeculaPCC__pcc_certificate_implies_vc__b.v\", line 3, characters 54-76:\nError: The reference certificate_implies_vc was not found in the current\nenvironment.\n\nChars 65 - 102 [From~Kernel~Require~Import~Nec...] 0.078 secs (0.057u,0.02s)\nChars 103 - 180 [Theorem~_vacuity_probe_b_pcc_c...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__NeculaPCC__pcc_certificate_implies_vc__b.v",
+        "succeeded": false
+      },
+      "statement": "certificate_implies_vc",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/NeculaPCC.v",
+      "kind": "Theorem",
+      "line": 26,
+      "name": "pcc_unsafe_program_rejected",
+      "probe_a": {
+        "coq_stderr_tail": "dpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NeculaPCC__pcc_unsafe_program_rejected__a.v\", line 3, characters 55-78:\nError: The reference unsafe_program_rejected was not found in the current\nenvironment.\n\nChars 65 - 102 [From~Kernel~Require~Import~Nec...] 0.073 secs (0.051u,0.021s)\nChars 103 - 182 [Theorem~_vacuity_probe_a_pcc_u...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__NeculaPCC__pcc_unsafe_program_rejected__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "dpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NeculaPCC__pcc_unsafe_program_rejected__b.v\", line 3, characters 55-78:\nError: The reference unsafe_program_rejected was not found in the current\nenvironment.\n\nChars 65 - 102 [From~Kernel~Require~Import~Nec...] 0.074 secs (0.049u,0.025s)\nChars 103 - 182 [Theorem~_vacuity_probe_b_pcc_u...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__NeculaPCC__pcc_unsafe_program_rejected__b.v",
+        "succeeded": false
+      },
+      "statement": "unsafe_program_rejected",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/ConcreteRecordMachines.v",
+      "kind": "Theorem",
+      "line": 10,
+      "name": "ram_tied_overwrite_records_old_value",
+      "probe_a": {
+        "coq_stderr_tail": "\"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRecordMachines__ram_tied_overwrite_records_old_value__a.v\", line 3, characters 64-96:\nError: The reference tied_overwrite_records_old_value was not found\nin the current environment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Con...] 0.281 secs (0.196u,0.084s)\nChars 116 - 213 [Theorem~_vacuity_probe_a_ram_t...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRecordMachines__ram_tied_overwrite_records_old_value__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "\"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRecordMachines__ram_tied_overwrite_records_old_value__b.v\", line 3, characters 64-96:\nError: The reference tied_overwrite_records_old_value was not found\nin the current environment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Con...] 0.271 secs (0.193u,0.078s)\nChars 116 - 213 [Theorem~_vacuity_probe_b_ram_t...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRecordMachines__ram_tied_overwrite_records_old_value__b.v",
+        "succeeded": false
+      },
+      "statement": "tied_overwrite_records_old_value",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/ConcreteRecordMachines.v",
+      "kind": "Theorem",
+      "line": 14,
+      "name": "ram_untied_overwrite_has_no_record",
+      "probe_a": {
+        "coq_stderr_tail": "ile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRecordMachines__ram_untied_overwrite_has_no_record__a.v\", line 3, characters 62-92:\nError: The reference untied_overwrite_has_no_record was not found\nin the current environment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Con...] 0.261 secs (0.157u,0.103s)\nChars 116 - 209 [Theorem~_vacuity_probe_a_ram_u...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRecordMachines__ram_untied_overwrite_has_no_record__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRecordMachines__ram_untied_overwrite_has_no_record__b.v\", line 3, characters 62-92:\nError: The reference untied_overwrite_has_no_record was not found\nin the current environment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Con...] 0.263 secs (0.165u,0.098s)\nChars 116 - 209 [Theorem~_vacuity_probe_b_ram_u...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRecordMachines__ram_untied_overwrite_has_no_record__b.v",
+        "succeeded": false
+      },
+      "statement": "untied_overwrite_has_no_record",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/ConcreteRecordMachines.v",
+      "kind": "Theorem",
+      "line": 18,
+      "name": "janus_like_unbounded_inverse",
+      "probe_a": {
+        "coq_stderr_tail": "em,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRecordMachines__janus_like_unbounded_inverse__a.v\", line 3, characters 56-79:\nError: The reference janus_unbounded_inverse was not found in the current\nenvironment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Con...] 0.276 secs (0.173u,0.101s)\nChars 116 - 196 [Theorem~_vacuity_probe_a_janus...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRecordMachines__janus_like_unbounded_inverse__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "em,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRecordMachines__janus_like_unbounded_inverse__b.v\", line 3, characters 56-79:\nError: The reference janus_unbounded_inverse was not found in the current\nenvironment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Con...] 0.277 secs (0.184u,0.092s)\nChars 116 - 196 [Theorem~_vacuity_probe_b_janus...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRecordMachines__janus_like_unbounded_inverse__b.v",
+        "succeeded": false
+      },
+      "statement": "janus_unbounded_inverse",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/ConcreteRecordMachines.v",
+      "kind": "Theorem",
+      "line": 21,
+      "name": "janus_like_bounded_inverse",
+      "probe_a": {
+        "coq_stderr_tail": "esystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRecordMachines__janus_like_bounded_inverse__a.v\", line 3, characters 54-75:\nError: The reference janus_bounded_inverse was not found in the current\nenvironment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Con...] 0.27 secs (0.178u,0.092s)\nChars 116 - 192 [Theorem~_vacuity_probe_a_janus...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRecordMachines__janus_like_bounded_inverse__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "system,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRecordMachines__janus_like_bounded_inverse__b.v\", line 3, characters 54-75:\nError: The reference janus_bounded_inverse was not found in the current\nenvironment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Con...] 0.272 secs (0.185u,0.087s)\nChars 116 - 192 [Theorem~_vacuity_probe_b_janus...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRecordMachines__janus_like_bounded_inverse__b.v",
+        "succeeded": false
+      },
+      "statement": "janus_bounded_inverse",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/ConcreteRecordMachines.v",
+      "kind": "Theorem",
+      "line": 36,
+      "name": "ram_untied_record_not_determined_by_base",
+      "probe_a": {
+        "coq_stderr_tail": "ces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRecordMachines__ram_untied_record_not_determined_by_base__a.v\", line 3, characters 68-104:\nError: The reference untied_record_not_determined_by_base was not found\nin the current environment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Con...] 0.266 secs (0.173u,0.093s)\nChars 116 - 221 [Theorem~_vacuity_probe_a_ram_u...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRecordMachines__ram_untied_record_not_determined_by_base__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRecordMachines__ram_untied_record_not_determined_by_base__b.v\", line 3, characters 68-104:\nError: The reference untied_record_not_determined_by_base was not found\nin the current environment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Con...] 0.269 secs (0.183u,0.085s)\nChars 116 - 221 [Theorem~_vacuity_probe_b_ram_u...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRecordMachines__ram_untied_record_not_determined_by_base__b.v",
+        "succeeded": false
+      },
+      "statement": "untied_record_not_determined_by_base",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/ConcreteRAM.v",
+      "kind": "Theorem",
+      "line": 10,
+      "name": "concrete_ram_write_reads_back",
+      "probe_a": {
+        "coq_stderr_tail": "path,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRAM__concrete_ram_write_reads_back__a.v\", line 3, characters 57-77:\nError: The reference ram_write_reads_back was not found in the current\nenvironment.\n\nChars 65 - 104 [From~Kernel~Require~Import~Con...] 0.075 secs (0.059u,0.015s)\nChars 105 - 183 [Theorem~_vacuity_probe_a_concr...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRAM__concrete_ram_write_reads_back__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "dpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRAM__concrete_ram_write_reads_back__b.v\", line 3, characters 57-77:\nError: The reference ram_write_reads_back was not found in the current\nenvironment.\n\nChars 65 - 104 [From~Kernel~Require~Import~Con...] 0.074 secs (0.05u,0.023s)\nChars 105 - 183 [Theorem~_vacuity_probe_b_concr...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRAM__concrete_ram_write_reads_back__b.v",
+        "succeeded": false
+      },
+      "statement": "ram_write_reads_back",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/ConcreteRAM.v",
+      "kind": "Theorem",
+      "line": 19,
+      "name": "concrete_tied_ram_records_overwrite",
+      "probe_a": {
+        "coq_stderr_tail": "stem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRAM__concrete_tied_ram_records_overwrite__a.v\", line 3, characters 63-89:\nError: The reference tied_ram_records_overwrite was not found in the current\nenvironment.\n\nChars 65 - 104 [From~Kernel~Require~Import~Con...] 0.08 secs (0.056u,0.024s)\nChars 105 - 195 [Theorem~_vacuity_probe_a_concr...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRAM__concrete_tied_ram_records_overwrite__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "stem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRAM__concrete_tied_ram_records_overwrite__b.v\", line 3, characters 63-89:\nError: The reference tied_ram_records_overwrite was not found in the current\nenvironment.\n\nChars 65 - 104 [From~Kernel~Require~Import~Con...] 0.072 secs (0.052u,0.02s)\nChars 105 - 195 [Theorem~_vacuity_probe_b_concr...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRAM__concrete_tied_ram_records_overwrite__b.v",
+        "succeeded": false
+      },
+      "statement": "tied_ram_records_overwrite",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/ConcreteRAM.v",
+      "kind": "Theorem",
+      "line": 24,
+      "name": "concrete_untied_ram_record_unchanged",
+      "probe_a": {
+        "coq_stderr_tail": "m,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRAM__concrete_untied_ram_record_unchanged__a.v\", line 3, characters 64-91:\nError: The reference untied_ram_record_unchanged was not found in the current\nenvironment.\n\nChars 65 - 104 [From~Kernel~Require~Import~Con...] 0.073 secs (0.053u,0.019s)\nChars 105 - 197 [Theorem~_vacuity_probe_a_concr...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRAM__concrete_untied_ram_record_unchanged__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "m,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRAM__concrete_untied_ram_record_unchanged__b.v\", line 3, characters 64-91:\nError: The reference untied_ram_record_unchanged was not found in the current\nenvironment.\n\nChars 65 - 104 [From~Kernel~Require~Import~Con...] 0.074 secs (0.054u,0.019s)\nChars 105 - 197 [Theorem~_vacuity_probe_b_concr...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRAM__concrete_untied_ram_record_unchanged__b.v",
+        "succeeded": false
+      },
+      "statement": "untied_ram_record_unchanged",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/ConcreteRAM.v",
+      "kind": "Theorem",
+      "line": 30,
+      "name": "concrete_tied_and_untied_same_base",
+      "probe_a": {
+        "coq_stderr_tail": "ystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRAM__concrete_tied_and_untied_same_base__a.v\", line 3, characters 62-87:\nError: The reference tied_and_untied_same_base was not found in the current\nenvironment.\n\nChars 65 - 104 [From~Kernel~Require~Import~Con...] 0.071 secs (0.046u,0.025s)\nChars 105 - 193 [Theorem~_vacuity_probe_a_concr...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRAM__concrete_tied_and_untied_same_base__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "system,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ConcreteRAM__concrete_tied_and_untied_same_base__b.v\", line 3, characters 62-87:\nError: The reference tied_and_untied_same_base was not found in the current\nenvironment.\n\nChars 65 - 104 [From~Kernel~Require~Import~Con...] 0.072 secs (0.052u,0.02s)\nChars 105 - 193 [Theorem~_vacuity_probe_b_concr...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__ConcreteRAM__concrete_tied_and_untied_same_base__b.v",
+        "succeeded": false
+      },
+      "statement": "tied_and_untied_same_base",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/TPMQuoteAuthenticity.v",
+      "kind": "Lemma",
+      "line": 17,
+      "name": "degenerate_accepts_forgery",
+      "probe_a": {
+        "coq_stderr_tail": "cal-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__TPMQuoteAuthenticity__degenerate_accepts_forgery__a.v\", line 3, characters 54-60:\nError: The reference verify was not found in the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~TPM...] 0.067 secs (0.046u,0.021s)\nChars 114 - 321 [Theorem~_vacuity_probe_a_degen...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TPMQuoteAuthenticity__degenerate_accepts_forgery__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "cal-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__TPMQuoteAuthenticity__degenerate_accepts_forgery__b.v\", line 3, characters 54-60:\nError: The reference verify was not found in the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~TPM...] 0.078 secs (0.047u,0.031s)\nChars 114 - 321 [Theorem~_vacuity_probe_b_degen...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TPMQuoteAuthenticity__degenerate_accepts_forgery__b.v",
+        "succeeded": false
+      },
+      "statement": "verify degenerate_signature_scheme tt 0 true = true /\\ ~ exists sk : SecretKey degenerate_signature_scheme, true = sign degenerate_signature_scheme sk 0",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/TPMQuoteAuthenticity.v",
+      "kind": "Theorem",
+      "line": 26,
+      "name": "tpm_interface_authenticity_refuted",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__TPMQuoteAuthenticity__tpm_interface_authenticity_refuted__a.v\", line 3, characters 62-92:\nError: The reference interface_authenticity_refuted was not found\nin the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~TPM...] 0.066 secs (0.051u,0.015s)\nChars 114 - 207 [Theorem~_vacuity_probe_a_tpm_i...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__TPMQuoteAuthenticity__tpm_interface_authenticity_refuted__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__TPMQuoteAuthenticity__tpm_interface_authenticity_refuted__b.v\", line 3, characters 62-92:\nError: The reference interface_authenticity_refuted was not found\nin the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~TPM...] 0.07 secs (0.044u,0.026s)\nChars 114 - 207 [Theorem~_vacuity_probe_b_tpm_i...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__TPMQuoteAuthenticity__tpm_interface_authenticity_refuted__b.v",
+        "succeeded": false
+      },
+      "statement": "interface_authenticity_refuted",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/frontier/RecordProliferationSurvey.v",
+      "kind": "Theorem",
+      "line": 12,
+      "name": "twelve_candidate_measurements_checked",
+      "probe_a": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RecordProliferationSurvey__twelve_candidate_measurements_checked__a.v\", line 3, characters 65-94:\nError: The reference twelve_candidate_measurements was not found\nin the current environment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Rec...] 0.239 secs (0.151u,0.088s)\nChars 119 - 214 [Theorem~_vacuity_probe_a_twelv...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RecordProliferationSurvey__twelve_candidate_measurements_checked__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "\"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RecordProliferationSurvey__twelve_candidate_measurements_checked__b.v\", line 3, characters 65-94:\nError: The reference twelve_candidate_measurements was not found\nin the current environment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Rec...] 0.275 secs (0.18u,0.093s)\nChars 119 - 214 [Theorem~_vacuity_probe_b_twelv...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RecordProliferationSurvey__twelve_candidate_measurements_checked__b.v",
+        "succeeded": false
+      },
+      "statement": "twelve_candidate_measurements",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/frontier/RecordProliferationSurvey.v",
+      "kind": "Lemma",
+      "line": 39,
+      "name": "first_event_not_proliferating",
+      "probe_a": {
+        "coq_stderr_tail": "efault]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RecordProliferationSurvey__first_event_not_proliferating__a.v\", line 3, characters 59-84:\nError: The reference redundantly_proliferating was not found in the current\nenvironment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Rec...] 0.256 secs (0.156u,0.1s)\nChars 119 - 231 [Theorem~_vacuity_probe_a_first...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RecordProliferationSurvey__first_event_not_proliferating__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ault]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RecordProliferationSurvey__first_event_not_proliferating__b.v\", line 3, characters 59-84:\nError: The reference redundantly_proliferating was not found in the current\nenvironment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Rec...] 0.254 secs (0.173u,0.081s)\nChars 119 - 231 [Theorem~_vacuity_probe_b_first...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RecordProliferationSurvey__first_event_not_proliferating__b.v",
+        "succeeded": false
+      },
+      "statement": "~ redundantly_proliferating swap_ecosystem first_event",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/frontier/RecordProliferationSurvey.v",
+      "kind": "Theorem",
+      "line": 48,
+      "name": "swapped_event_is_pointer_checked",
+      "probe_a": {
+        "coq_stderr_tail": "ult]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RecordProliferationSurvey__swapped_event_is_pointer_checked__a.v\", line 3, characters 60-84:\nError: The reference swapped_event_is_pointer was not found in the current\nenvironment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Rec...] 0.244 secs (0.154u,0.09s)\nChars 119 - 204 [Theorem~_vacuity_probe_a_swapp...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RecordProliferationSurvey__swapped_event_is_pointer_checked__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lt]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RecordProliferationSurvey__swapped_event_is_pointer_checked__b.v\", line 3, characters 60-84:\nError: The reference swapped_event_is_pointer was not found in the current\nenvironment.\n\nChars 65 - 118 [From~Kernel~Require~Import~Rec...] 0.248 secs (0.168u,0.079s)\nChars 119 - 204 [Theorem~_vacuity_probe_b_swapp...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RecordProliferationSurvey__swapped_event_is_pointer_checked__b.v",
+        "succeeded": false
+      },
+      "statement": "swapped_event_is_pointer",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/RealSystemConsequences.v",
+      "kind": "Theorem",
+      "line": 9,
+      "name": "ct_local_view_insufficient",
+      "probe_a": {
+        "coq_stderr_tail": "kspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RealSystemConsequences__ct_local_view_insufficient__a.v\", line 3, characters 54-100:\nError: The reference ct_local_view_cannot_decide_global_consistency\nwas not found in the current environment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Rea...] 0.072 secs (0.048u,0.023s)\nChars 116 - 217 [Theorem~_vacuity_probe_a_ct_lo...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RealSystemConsequences__ct_local_view_insufficient__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "rkspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RealSystemConsequences__ct_local_view_insufficient__b.v\", line 3, characters 54-100:\nError: The reference ct_local_view_cannot_decide_global_consistency\nwas not found in the current environment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Rea...] 0.067 secs (0.047u,0.02s)\nChars 116 - 217 [Theorem~_vacuity_probe_b_ct_lo...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RealSystemConsequences__ct_local_view_insufficient__b.v",
+        "succeeded": false
+      },
+      "statement": "ct_local_view_cannot_decide_global_consistency",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/RealSystemConsequences.v",
+      "kind": "Theorem",
+      "line": 18,
+      "name": "tpm_selection_binding_is_necessary",
+      "probe_a": {
+        "coq_stderr_tail": "-Thiele-Machine/build/vacuity_probes/Kernel__RealSystemConsequences__tpm_selection_binding_is_necessary__a.v\", line 3, characters 62-111:\nError: The reference incomplete_quote_check_accepts_selection_mismatch\nwas not found in the current environment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Rea...] 0.068 secs (0.046u,0.022s)\nChars 116 - 228 [Theorem~_vacuity_probe_a_tpm_s...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RealSystemConsequences__tpm_selection_binding_is_necessary__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-Thiele-Machine/build/vacuity_probes/Kernel__RealSystemConsequences__tpm_selection_binding_is_necessary__b.v\", line 3, characters 62-111:\nError: The reference incomplete_quote_check_accepts_selection_mismatch\nwas not found in the current environment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Rea...] 0.075 secs (0.055u,0.019s)\nChars 116 - 228 [Theorem~_vacuity_probe_b_tpm_s...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RealSystemConsequences__tpm_selection_binding_is_necessary__b.v",
+        "succeeded": false
+      },
+      "statement": "incomplete_quote_check_accepts_selection_mismatch",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/RealSystemConsequences.v",
+      "kind": "Theorem",
+      "line": 26,
+      "name": "weak_subjective_suffix_insufficient",
+      "probe_a": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RealSystemConsequences__weak_subjective_suffix_insufficient__a.v\", line 3, characters 63-98:\nError: The reference suffix_cannot_decide_trusted_anchor was not found\nin the current environment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Rea...] 0.08 secs (0.046u,0.034s)\nChars 116 - 215 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RealSystemConsequences__weak_subjective_suffix_insufficient__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RealSystemConsequences__weak_subjective_suffix_insufficient__b.v\", line 3, characters 63-98:\nError: The reference suffix_cannot_decide_trusted_anchor was not found\nin the current environment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Rea...] 0.068 secs (0.051u,0.016s)\nChars 116 - 215 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RealSystemConsequences__weak_subjective_suffix_insufficient__b.v",
+        "succeeded": false
+      },
+      "statement": "suffix_cannot_decide_trusted_anchor",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/RealSystemConsequences.v",
+      "kind": "Theorem",
+      "line": 35,
+      "name": "wal_ack_requires_durability",
+      "probe_a": {
+        "coq_stderr_tail": "le \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RealSystemConsequences__wal_ack_requires_durability__a.v\", line 3, characters 55-93:\nError: The reference ack_without_durable_commit_can_be_lost was not found\nin the current environment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Rea...] 0.065 secs (0.046u,0.019s)\nChars 116 - 210 [Theorem~_vacuity_probe_a_wal_a...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RealSystemConsequences__wal_ack_requires_durability__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RealSystemConsequences__wal_ack_requires_durability__b.v\", line 3, characters 55-93:\nError: The reference ack_without_durable_commit_can_be_lost was not found\nin the current environment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Rea...] 0.069 secs (0.05u,0.019s)\nChars 116 - 210 [Theorem~_vacuity_probe_b_wal_a...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RealSystemConsequences__wal_ack_requires_durability__b.v",
+        "succeeded": false
+      },
+      "statement": "ack_without_durable_commit_can_be_lost",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/reductions/RealSystemConsequences.v",
+      "kind": "Theorem",
+      "line": 42,
+      "name": "audit_local_snapshot_insufficient",
+      "probe_a": {
+        "coq_stderr_tail": "kspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RealSystemConsequences__audit_local_snapshot_insufficient__a.v\", line 3, characters 61-100:\nError: The reference current_local_log_cannot_decide_history was not found\nin the current environment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Rea...] 0.065 secs (0.043u,0.021s)\nChars 116 - 217 [Theorem~_vacuity_probe_a_audit...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__RealSystemConsequences__audit_local_snapshot_insufficient__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "rkspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__RealSystemConsequences__audit_local_snapshot_insufficient__b.v\", line 3, characters 61-100:\nError: The reference current_local_log_cannot_decide_history was not found\nin the current environment.\n\nChars 65 - 115 [From~Kernel~Require~Import~Rea...] 0.07 secs (0.051u,0.018s)\nChars 116 - 217 [Theorem~_vacuity_probe_b_audit...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__RealSystemConsequences__audit_local_snapshot_insufficient__b.v",
+        "succeeded": false
+      },
+      "statement": "current_local_log_cannot_decide_history",
       "status": "ok"
     }
   ]

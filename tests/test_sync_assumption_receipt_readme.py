@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_sync_rewrites_every_published_receipt_counter(tmp_path: Path) -> None:
     readme = tmp_path / "README.md"
     readme.write_text(
-        """The committed assumption receipt: 1 theorems probed.\n"
+        """The assumption receipt: 1 theorems probed.\n"
         "1 of those theorems are closed under the global context outright; the remaining 2 use only Coq standard-library assumptions.\n"
         "records 1 addressable theorems probed across 1 files and no findings.\n"
         "reports 1 addressable theorems probed across 1 files and no findings.\n"
@@ -39,14 +39,14 @@ def test_sync_rewrites_every_published_receipt_counter(tmp_path: Path) -> None:
     }}))
     monograph = tmp_path / "monograph.tex"
     monograph.write_text(
-        "The current full-corpus probe covers 1 named theorems across 1 files: "
+        "The full-corpus probe covers 1 named theorems across 1 files: "
         "1 close under the global Coq context outright, and 2 use only Coq "
         "standard-library assumptions. Zero project-local axioms appear in "
         "any of the 1 dependency trees.\n"
     )
     distillation = tmp_path / "THIELE_MACHINE.txt"
     distillation.write_text(
-        "The receipt committed with this tree covers 1 statements across 1 files: "
+        "The assumption receipt covers 1 statements across 1 files: "
         "1 closed and 2 depending on standard-library assumptions.\n"
     )
     citation = tmp_path / "CITATION.cff"
@@ -61,6 +61,8 @@ def test_sync_rewrites_every_published_receipt_counter(tmp_path: Path) -> None:
         "THIELE_MACHINE.txt\t1\tfrozen distillation\tstale distillation\taudit\n"
         "CITATION.cff\t2\tfrozen citation\tstale citation\taudit\n"
     )
+
+    frozen_corrections = corrections.read_bytes()
 
     subprocess.run([
         sys.executable,
@@ -90,7 +92,4 @@ def test_sync_rewrites_every_published_receipt_counter(tmp_path: Path) -> None:
     assert "5,965 closed and 7,353" in distillation.read_text()
     assert "covers 13,318" in citation.read_text()
     assert "statements across 450 files: 5,965" in citation.read_text()
-    correction_lines = corrections.read_text().splitlines()
-    assert correction_lines[1].split("\t")[3] == monograph.read_text().splitlines()[0]
-    assert correction_lines[2].split("\t")[3] == distillation.read_text().splitlines()[0]
-    assert correction_lines[3].split("\t")[3] == citation.read_text().splitlines()[1]
+    assert corrections.read_bytes() == frozen_corrections

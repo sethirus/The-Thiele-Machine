@@ -31,8 +31,8 @@ There is another axis: what the computation established, and what establishing i
 2. **Establishing is not free.** If the step that turns uncertified into certified has to pay, every run from uncertified to certified has paid. Proved, for any system that follows that rule. The rule isn't arbitrary: on a machine with finite memory, a certificate that can never be revoked can only be switched on by a step that merges two states, and merging is what Landauer's principle charges for whenever the machine could be in either state. Proved in [PermanentCertification.v](coq/kernel/nfi/PermanentCertification.v), with Landauer's principle as the named premise. The heat comes from that uncertainty: a machine already known to be in one state loses nothing, and [PermanentCertificationEntropy.v](coq/kernel/nfi/PermanentCertificationEntropy.v) proves both sides. A small finite piece of the VM is such a machine, and the VM runs it paying exactly what its merges cost ([FiniteCertMachine.v](coq/kernel/nfi/FiniteCertMachine.v)). In the full VM, every certification flip is a priced merge, while JUMP 0 0 is a zero-cost merge. Thus the VM does not price every merge; the theorem does not classify all non-certifying merges.
 3. **Leaning on a fact takes a paid history.** A computation is entitled to lean on a structural fact when it holds the evidence and a history that earned it. Defined; the cost floor is proved for shortcuts that hand over their receipts.
 4. **So the axis belongs in the step.** Proposed. This is the conviction the proofs are there to test. Part of it is proved. An account that prices certification exactly, never less and never more, can't compute that price from the window: a step that certifies and a step that doesn't can look the same through it, and the VM has such a pair for both windows I name ([ShadowPricing.v](coq/kernel/nfi/ShadowPricing.v)). The exact price needs the reading in the step. And on a machine with finite memory, an account that prices merging steps the way Landauer's principle does already charges every step that writes a permanent record, at least the logarithm of how many states it squeezes together ([PermanentRecordPricing.v](coq/kernel/nfi/PermanentRecordPricing.v)). The same bound holds in bits of Shannon entropy, and under Landauer's principle as a named premise it is at least k_B T ln((m+k)/m) of heat ([PermanentCertificationEntropy.v](coq/kernel/nfi/PermanentCertificationEntropy.v)). Whether every account has to price merges is physics.
-5. **Which events every account has to price.** Certification is the one I pinned down. On finite hardware the events that must be priced are the merges; every permanent-record write is one, and a flip escapes the price only when the same step can take it back. Proved, with Landauer's principle as the named premise. The guess that the priced events are exactly the permanent records is false; a three-state counterexample is in the same file. What else belongs on the meter is open.
-6. **What carries the weight.** Three results. Every machine can carry the record axis: take a Turing machine, a RAM, the VM, any deterministic machine, and any event it reaches, and the machine plus a latch on that event, charging one unit when the latch sets, is an honest extension of it ([`latch_core_honest`](coq/kernel/foundation/RecordAxisDiscrimination.v)). The record can't be read back off the shadow: on the VM, no function of the named windows returns certification or μ (`cert_not_function_of_forget`, `mu_not_function_of_bare_observable`). And on finite hardware a step that writes a permanent record merges two states (`permanent_flip_is_not_injective`), so an account that prices merges already prices the write (`a2_from_merging_price_and_permanence`). Proved. The shape of the axis is close to definitional: a record that never switches off and is driven by the computation moves as a latch on one event (`uniqueness_round4_holds`), and that follows from those two conditions in a few lines. Which event gets latched is the pointer question. It is open.
+5. **Which events every account has to price.** Certification is the one I pinned down. On finite hardware the events that must be priced are the merges; every permanent-record write is one, and a flip escapes the price only when the same step can take it back. Proved, with Landauer's principle as the named premise. The guess that the priced events are exactly the permanent records is false; a three-state counterexample is in the same file. No theorem selects another universal class of priced events.
+6. **What carries the weight.** Three results. Every machine can carry the record axis: take a Turing machine, a RAM, the VM, any deterministic machine, and any event it reaches, and the machine plus a latch on that event, charging one unit when the latch sets, is an honest extension of it ([`latch_core_honest`](coq/kernel/foundation/RecordAxisDiscrimination.v)). The record can't be read back off the shadow: on the VM, no function of the named windows returns certification or μ (`cert_not_function_of_forget`, `mu_not_function_of_bare_observable`). And on finite hardware a step that writes a permanent record merges two states (`permanent_flip_is_not_injective`), so an account that prices merges already prices the write (`a2_from_merging_price_and_permanence`). Proved. The shape of the axis is close to definitional: a record that never switches off and is driven by the computation moves as a latch on one event (`uniqueness_round4_holds`), and that follows from those two conditions in a few lines. The pointer question asks which event gets latched; no theorem here selects one uniquely.
 
 The 51-opcode VM, the Coq kernel, the hardware, and the CHSH check are one build of the model.
 They are there so the argument has something you can run and try to break.
@@ -61,7 +61,7 @@ The proofs already give you something concrete to challenge: accounting laws, pr
 
 ## Run it. Don't take my word.
 
-I don't trust my own eye to catch a gap in an argument I want to believe, so I made Coq check the formal claims and built tests and audits for the remaining boundaries.
+I don't trust my own eye to catch a gap in an argument I want to believe, so I made Coq check the formal claims and built separate tests and audits for prose, artifacts, and implementation boundaries.
 You shouldn't trust me either.
 Run it.
 
@@ -81,9 +81,9 @@ python3 minimal/nofi_demo.py   # exhaustive sweeps + measured algorithms against
 python3 -c "import json; d=json.load(open('artifacts/print_assumptions_all_proofs.json')); print(d['summary'])"
 ```
 
-The second command prints the committed assumption receipt: 13,359 theorems probed, zero *project-local* axiom findings.
+The second command prints the assumption receipt: 13,391 theorems probed, zero *project-local* axiom findings.
 The badge says project-local, and that is the precise claim: it is not "zero axioms".
-6,001 of those theorems are closed under the global context outright; the remaining 7,358 use only Coq standard-library assumptions: dependent functional extensionality, `Eqdep.Eq_rect_eq.eq_rect_eq`, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
+6,033 of those theorems are closed under the global context outright; the remaining 7,358 use only Coq standard-library assumptions: dependent functional extensionality, `Eqdep.Eq_rect_eq.eq_rect_eq`, `ClassicalDedekindReals.sig_not_dec`, `ClassicalDedekindReals.sig_forall_dec`, and `Classical_Prop.classic`.
 Those library assumptions are disclosed in the receipt; what is zero is axioms this project added.
 Validate the committed receipt quickly with `make assumption-receipt-check`.
 That path reuses the exact theorem/axiom results when the semantic fingerprint is unchanged and performs the full corpus derivation only after proof-relevant inputs drift.
@@ -154,7 +154,7 @@ Generic `CERTIFY` sets a flag and charges for doing so; it checks no proposition
 Payment and semantic truth must be assessed separately.
 
 The mathematical [elliptope completion and gate](coq/kernel/quantum/ElliptopeGate.v) extend beyond the runtime check's fixed orthogonal slice.
-Binding that completion gate into the executable ISA remains open engineering.
+The completion gate is not bound into the executable ISA.
 The Coq hardware model has full-state trace commutation under `WFDrivenRun`, the preconditions of the actual executed run.
 Generated RTL retains its named compiler/backend trust boundary.
 
@@ -265,7 +265,7 @@ Coq closes the contradiction by `congruence`.
 Closed under the global context
 ```
 
-The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 13,359 addressable theorems probed across 463 files and no user/project-local axiom findings in the committed assumption scan.
+The broader audit receipt [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records 13,391 addressable theorems probed across 477 files and no user/project-local axiom findings in the committed assumption scan.
 
 ## Beyond the minimal witness
 
@@ -282,8 +282,9 @@ Put together, they still aren't an independent derivation of A2 from physics.
 
 The pointer-observable models ask why some commitment events get recorded by other parties.
 The models and their counterexamples are part of the research argument.
-They don't show that resisting forgery forces metering, and they don't show that being publicly checkable means every observer actually keeps a record.
-Certification is still one worked example, and which events every account has to price is still open.
+Consensus, exact observation, and a common coordinator-free update rule do not force permanence: two observers can agree while both track a bit that toggles (`toggle_game_refutes_strong_pointer_necessity`).
+Adding durable views recovers permanence (`durable_consensus_implies_permanence`), but then persistence is an explicit premise.
+Certification is one worked example, not an event selected by a necessity theorem.
 
 ## Formal Spine
 
@@ -307,8 +308,8 @@ The fourth column is the artifact that refutes the row, each one constructible i
 | CHSH ↔ NPA-PSD bridge | A successful `CHSH_LASSERT` step entails the witness-derived NPA moment matrix is PSD. | [chsh_lassert_no_trap_implies_npa_psd](coq/kernel/quantum/QuantumPartitionPSD.v), [column_contractive_check_witness_sound](coq/kernel/nfi/MuLedgerQuantumBridge.v) | A successful `CHSH_LASSERT` step whose witness-derived moment matrix is not PSD; `chsh_lassert_no_trap_implies_npa_psd` falls. |
 | Elliptope completion | The completion-based PSD correlator model (physical quantum identification uses external mathematics): every LHV correlator inside (deterministic + n-ary mixtures), Tsirelson `S² ≤ 8` for the whole set, PR box excluded, classical ⊂ elliptope strict. | [ElliptopeCompletion.v](coq/kernel/quantum/ElliptopeCompletion.v) | An elliptope-realizable tuple with `S² > 8` (`elliptope_tsirelson` falls), a sign pattern whose completed Gram form goes negative (`deterministic_strategy_elliptope` falls), or a PSD completion of the PR box (`pr_box_not_elliptope` falls). |
 | Elliptope gate | Decidable Z-arithmetic membership check, two branches (fraction-free Sylvester for strict interior, rational LDL^T certificate reaching singular and boundary completions); passing provably entails elliptope membership; the µ=0 tightness witness, (1,0,1,0), and the on-Tsirelson-curve Pythagorean point (3/5,4/5,4/5,−3/5) accepted by computation; the PR box never accepted. | [ElliptopeGate.v](coq/kernel/quantum/ElliptopeGate.v) | Inputs making `elliptope_check_full` return true with correlators outside the set; `elliptope_check_full_sound` falls. |
-| Pointer-observable criterion | Observer ecosystems, redundant records, and uniqueness relative to rivals, with five minimal model instances. Event and observer choices remain modeling inputs. | [PointerObservable.v](coq/kernel/frontier/PointerObservable.v), [PointerObservableReductions.v](coq/kernel/frontier/PointerObservableReductions.v) | An independently justified ecosystem where the criterion fails would challenge its proposed applicability. |
-| Counterexamples to stronger criteria | The adversarial search refutes implications from forgery resistance to metering or to record proliferation. The refutations rest on prose arguments about the real designs; the Coq models fix only the observer maps behind them. The remaining public-record criterion is a proposal: public verifiability alone does not imply actual storage. | [PointerObservableCounterexamples.v](coq/kernel/frontier/PointerObservableCounterexamples.v) | Show a candidate's observer map is unfaithful to the real design in a way that changes its verdict; that candidate's refutation falls. |
+| Pointer-observable criterion | Observer ecosystems, redundant records, and uniqueness relative to rivals, with five minimal model instances. A two-observer ecosystem proves that consensus, exact observation, and coordinator-free updates do not force the recorded event to be permanent. Event and observer choices are modeling inputs. | [PointerObservable.v](coq/kernel/frontier/PointerObservable.v), [EcosystemGame.v](coq/kernel/frontier/EcosystemGame.v) | Any necessity claim without a durability premise is refuted by `toggle_game_refutes_strong_pointer_necessity`; with durability added, persistence is built into the premise. |
+| Counterexamples to stronger criteria | The adversarial search refutes implications from forgery resistance to metering or to record proliferation. The refutations rest on prose arguments about the real designs; the Coq models fix only the observer maps behind them. The public-record criterion is a proposal: public verifiability alone does not imply actual storage. | [PointerObservableCounterexamples.v](coq/kernel/frontier/PointerObservableCounterexamples.v) | Show a candidate's observer map is unfaithful to the real design in a way that changes its verdict; that candidate's refutation falls. |
 | PoS finality reduction | Free finalization is the kernel's free forgery: a zero-stake-at-finalize gadget admits no A2 field, and any slashing gadget (finalize risks ≥ 1) pays the finality floor: `universal_nfi_any_substrate` instantiated. The gadget is a synthetic Boolean model, not a Casper accountable-safety model. | [PoSFinality.v](coq/kernel/reductions/PoSFinality.v) | A zero-stake-at-finalize gadget that admits an A2 proof, or a slashing gadget with a finalizing trace of total stake-at-risk 0; `nothing_at_stake_is_free_forgery` or `slashing_finality_floor` falls. |
 | Gas-metering reduction | A gas schedule satisfies the commitment floor + no-overcharge iff its charging predicate is the commitment predicate with exact unit pricing; the kernel VM itself inhabits the class. The schedule is an abstract local charging law; no EVM opcode table is modeled. | [GasMetering.v](coq/kernel/reductions/GasMetering.v) | A `GasSchedule` satisfying floor + no-overcharge whose charge predicate differs from cert-flip on some reachable step; `gas_schedule_exactness` falls. |
 | TEE attestation reduction | Sound+complete attestation of a μ-dependent claim cannot factor through the bare transcript; the replay shape is the two-preimage witness; exposing the measurement register restores a sound, complete verifier at the model's unit cost. The report is a transcript plus one number stipulated equal to μ; this is not a TEE security model. | [TEEAttestation.v](coq/kernel/reductions/TEEAttestation.v) | A sound+complete attestation verifier `V : TEEReport -> bool` with a proof of `factors_classical report_projection V`; `attestation_cannot_factor_through_bare_transcript` falls. |
@@ -318,7 +319,7 @@ The fourth column is the artifact that refutes the row, each one constructible i
 The audited claim ledger is [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v). It lists a selected set of established claims.
 Its generated closure receipt is [artifacts/master_summary_open_obligations.json](artifacts/master_summary_open_obligations.json).
 
-## What is established and what remains open
+## Scope
 
 | Result | Scope |
 |---|---|
@@ -328,15 +329,54 @@ Its generated closure receipt is [artifacts/master_summary_open_obligations.json
 | Trace-fold initiality | Unique evaluation of instruction lists; uniqueness of existing compatible state maps is separate. |
 | Irrecoverability and verifier separation | For projections/transcripts that identify witnesses disagreeing on the queried property. |
 | Quantum certificate soundness | Specified slice or completion PSD conditions; not physical entanglement generation. |
-| Hardware trace commutation | The Coq hardware model under `WFDrivenRun`; downstream compiler/RTL trust remains explicit. |
+| Hardware trace commutation | The Coq hardware model under `WFDrivenRun`; downstream compiler/RTL trust is explicit. |
 | Which narrowing is priced | On a finite machine that prices merges, the machine's own spread of possible states can't shrink for free (`run_narrowing_priced_log`). Observer knowledge need not be charged: `observer_narrowing_can_be_free` exhibits one admissible merge-priced cost assigning zero to an injective measurement, while wiping the record costs at least one (`wipe_costs_at_least_one`). Merge pricing is a lower bound and may overcharge injective steps. The insight No Free Insight prices is certified insight. What the run itself teaches, from the first look to the end, is also free (`demon_refutes_incremental`); the smallest machine that teaches for free has three states (`free_incremental_narrowing_with_three`, `no_free_incremental_narrowing_below_three`). |
-| Recursion theorem | Proved for L, a Turing-complete lambda calculus, from its reduction rules (`second_recursion`), with Rice's theorem and halting as corollaries (`L_rice`, `L_halting_undecidable`). The 51-opcode VM's recursion theorem is still a premise. |
+| Recursion theorem | Proved for L, a Turing-complete lambda calculus, from its reduction rules (`second_recursion`), with Rice's theorem and halting as corollaries (`L_rice`, `L_halting_undecidable`). For the 12-instruction guest fragment, numeric decoding, fuel-bounded dispatch, agreement with actual VM execution, and semantic s-m-n specialization are proved (`g_decode_guest_code_roundtrip`, `g_eval_is_actual_vm_execution`, `g_smn`). The evaluator and specialization constructor are host-level functions, not guest programs; an internal VM recursion theorem is outside these statements. |
 | Structural uniqueness | False in the form the words suggest: a Thiele core that bills CPU time is adequate and runs the VM underneath, and it is not the same machine (`uniqueness_round1_refuted`, `uniqueness_round2_refuted`). Up to the price schedule it holds for machines that run the VM and record certification (`uniqueness_round3b_holds`); any state-dependent bill is just a schedule (`surcharged_core_equiv_mod_schedule`). Which permanent reading counts as the record is a second free choice (`uniqueness_round3a_refuted`). Over any base, a record driven by the computation that never switches off is a latch on one event (`uniqueness_round4_holds`); a revocable record is not (`toggle_not_latch`). |
-| Physical interpretation | Open. `F1_physical_premises_incompatible` proves the current full-ISA F1 premise pair has no instance. |
+| Physical interpretation | A closed two-state discrete master-equation protocol computes bath heat as `Delta / 2`. Choosing `Delta = 2 k_B T ln 2` gives the Landauer value, but changing only the gap changes the heat with identical population dynamics (`master_equation_does_not_fix_heat_scale`). The protocol is an exact calorimeter blueprint. Calibration of one μ to joules requires thermal-admissibility and device-correspondence premises. `F1_physical_premises_incompatible` separately proves the full-ISA F1 premise pair has no instance. |
 
 The classical embedding results describe the formal fragments and simulation contracts in their cited files.
 Multiple preimages rule out recovering the original full state from the projection.
 They do not rule out a section that chooses default metadata, or a different encoding that preserves the metadata.
+
+## Exact scope
+
+The central result is the record axis. A permanent record driven by a base
+computation is a latch on an event; on finite hardware, writing it merges
+states; and the VM's named projections do not recover it. Certification is one
+instance of the event, not a uniquely selected one.
+
+A finite monotone record decomposes into threshold latches, but not in general
+into one latch. Revocable and probabilistic records do not inherit the same
+uniqueness theorem. The guest VM has a direct Rice reduction, an external
+verified decoder/evaluator, and semantic s-m-n specialization. Its recursion
+theorem is not established because neither dynamic dispatch nor the numeric
+specializer is callable by a guest program. The two-state calorimeter protocol
+fixes distributions, a Hamiltonian, a discrete master equation, and exact bath
+heat, but also proves that those dynamics do not determine the energy gap.
+The ledger therefore has no intrinsic joule value without thermal and device
+premises.
+
+The RFC 9162 verifier covers the iterative inclusion and consistency control
+flow and executable examples, not collision resistance or signed-tree-head
+authenticity. The PCC checker is a small role model, the RAM result covers
+addressed list memory, the reversible-machine result covers arithmetic update
+cores, and the TPM theorem is a countermodel to authenticity from an
+unconstrained signature interface. None is presented as a complete deployed
+security system. The graded, writer, potential, and linear-resource results
+are comparisons, not full cost-framework embeddings.
+
+The twelve-event observer-map survey proves its formal classifications and
+the expected behavior under an event swap. Its MAC-labelled counterexample is
+a fact about the chosen observer map; its real-system interpretation depends
+on that modeling choice. More generally, a closed two-observer toggle game refutes the
+claim that consensus, exact observation, and coordinator-free evolution force
+permanent commits. Adding durable observation makes permanence immediate, so
+it does not select certification independently. Five narrow real-system consequences reduce to known local
+indistinguishability or durability arguments, while five stronger candidates
+lack the required protocol or hardware semantics. None supplies a novel result
+that both needs the record axis and is ready for external use. The pointer
+criterion is a conjecture; its proposed strong necessity theorem is refuted.
 
 ## Architecture
 
@@ -450,7 +490,7 @@ make coq-gate
 `make verify` and `pytest` alone do not compile the full Coq corpus.
 
 The actual CPU proof surface includes executable semantics for all 12 Kami rules, finite selected execution traces, reset facts, and preservation of register names and kinds (`CoreRules`, `CoreExecution`, `CoreTyping`, `DispatchReset`).
-Full value/resource invariants, abstract retirement correspondence, and compiler semantic preservation remain separate obligations.
+The theorem excludes full value/resource invariants, abstract retirement correspondence, and compiler semantic preservation.
 [Assurance and scope](docs/ASSURANCE.md) identifies each boundary.
 
 The unbounded VM has a checked 122-instruction self-interpreter for twelve arithmetic and control instructions over four guest registers.
@@ -510,8 +550,8 @@ Two independent receipts track proof assumptions.
 - [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json) records Coq `Print Assumptions` over the audited theorem set.
 
 The selected theorem ledger is [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v).
-The current committed assumption receipt reports 13,359 addressable theorems probed across 463 files and no user/project-local axiom findings.
-The split: 6,001 close under the global context outright, and the remaining 7,358 lean only on Coq-stdlib axiom families.
+The generated assumption receipt reports 13,391 addressable theorems probed across 477 files and no user/project-local axiom findings.
+The split: 6,033 close under the global context outright, and the remaining 7,358 lean only on Coq-stdlib axiom families.
 Those families are `functional_extensionality_dep` (7,054), `eq_rect_eq` (3,849), the classical-reals pair `sig_forall_dec` (1,067) and `sig_not_dec` (312), and `classic` (111).
 Those families enter through the real-number and physics layers; the minimal core uses none of them.
 "Zero axioms" here means zero project-local axioms, the same convention the monograph uses.
@@ -533,7 +573,7 @@ make proof-undeniable
 ## ISA Summary
 
 The VM exposes 51 opcodes total.
-47 are synth-realized and implemented in the generated RTL; full physical retirement refinement remains open.
+47 are synth-realized and implemented in the generated RTL; no full physical retirement-refinement theorem is claimed.
 Four are Q_{1+AB} cert-opcodes that live in the Kami HW abstraction with kernel-equivalence proven.
 They aren't in the synthesized Verilog, because their hardware hasn't been built.
 They contribute the OCaml/RTL parity tests' tolerated slack of 4 (the count is 37 + 10 + 0 = 47; `rtl_inventory_arithmetic` records that sum and checks no opcode).
@@ -562,7 +602,7 @@ Single-step semantics live in [coq/kernel/foundation/VMStep.v](coq/kernel/founda
 | Document | Role |
 |---|---|
 | [THIELE_MACHINE.txt](THIELE_MACHINE.txt) | The model and the argument in plain text, no build details. Start here. |
-| [monograph/monograph.pdf](monograph/monograph.pdf) | The monograph. Part I is the argument, Part II is the VM build, Part III is how to check it, Part IV is what is open. |
+| [monograph/monograph.pdf](monograph/monograph.pdf) | The monograph. Part I is the argument, Part II is the VM build, Part III is how to check it, and Part IV states the exact boundary. |
 | [monograph/thiele_machine_math_spec.tex](monograph/thiele_machine_math_spec.tex) | Mathematical specification. |
 | [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v) | Audited ledger of the selected established claim set. |
 | [coq/README.md](coq/README.md) | Map of the active Coq proof tree. |
@@ -595,10 +635,9 @@ The software in this repository is Apache 2.0 licensed, including the license's 
 To confirm, refute, build on, or point out what's wrong: thethielemachine@gmail.com, or open an issue at [github.com/sethirus/The-Thiele-Machine](https://github.com/sethirus/The-Thiele-Machine).
 A submission that names a theorem gets, within 14 days, one of exactly two replies: "correct, fixing it," or the line where the construction fails.
 
-The kernel's machine semantics are feature-frozen at v3.0: no new opcodes, no step-relation changes, and no cost-law changes.
-Accepted changes are refutation fixes, hygiene, toolchain compatibility, and machine-untouched characterization tiers over the frozen semantics.
-The v3.1.0 elliptope gate and the formal pointer-observable definitions and selected model instances are this kind: correlator-level and frontier theorems that leave the step relation and cost law untouched. The general criterion remains a conjecture.
-New machine features belong in new repositories citing this one.
+The kernel's machine semantics are the v3.0 semantics: its opcodes, step relation, and cost law define the machine studied here.
+The elliptope gate, pointer-observable definitions, and selected model instances are characterization tiers over that semantics; they do not alter the step relation or cost law. The general pointer criterion is a conjecture.
+Different machine semantics belong in separate repositories citing this one.
 
 ## License
 

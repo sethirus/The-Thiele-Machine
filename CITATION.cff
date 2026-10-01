@@ -55,15 +55,29 @@ abstract: >-
   the named windows; and on finite hardware a step that writes a permanent
   record merges states, so pricing merges prices the write. A record that never
   switches off and is driven by the base computation is a latch on one event; both premises are essential. Which
-  event is latched, the pointer question, is open.
+  event is latched is the pointer question; no theorem selects one uniquely. Consensus, exact observation,
+  and coordinator-free evolution do not force permanence; the pointer criterion
+  is a conjecture.
+  Finite growing records decompose into threshold latches, although a single-latch
+  decomposition is false. Scoped RFC 9162, PCC, addressed-RAM,
+  reversible-update, and TPM-interface results delimit the real-system claims.
+  The VM guest Rice reduction, numeric decoding, verified dispatch, and semantic
+  s-m-n specialization are proved, but the evaluator and numeric specializer are
+  not guest-callable programs and do not establish an internal VM recursion theorem;
+  the local cost-semantics correspondences are not
+  full cost-framework embeddings. The two-state calorimeter protocol computes
+  exact heat while proving that its population dynamics do not determine the
+  energy scale. Physical calibration requires thermal and device premises. The
+  observer-map counterexample is model-dependent. No surveyed external consequence satisfied
+  all four novelty and applicability criteria.
   Those are mathematical answers with
   explicit premises. The repository contains the Coq kernel, an extracted
   OCaml runner, a Kami/Bluespec/Verilog hardware development, the monograph,
-  and the mathematical specification. The assumption receipt covers 13,359
-  statements across 463 files: 6,001 are closed under the global context, 7,358 depend on
+  and the mathematical specification. The assumption receipt covers 13,391
+  statements across 477 files: 6,033 are closed under the global context, 7,358 depend on
   standard-library axioms, and none depend on project-local or third-party
   axioms. The standard-library dependencies use five named constants. Generic paid certification establishes accounting; semantic truth
   requires a sound checker. Hardware bridges retain their stated
   representation and compiler boundaries. The physical and foundational
-  interpretations remain research questions. The software is licensed
+  interpretations are not claims of the formal corpus. The software is licensed
   Apache-2.0. The monograph and distillation are licensed CC-BY-SA-4.0.
