@@ -84,14 +84,15 @@ CONNECTIVITY_EXEMPT = {
     "ReadFreeObservation", "RichFaultWords", "RichWordDecode", "RuleNext",
     "RuleStep", "StepEval", "StepFields", "StepFieldsMorph", "TensorDispatch",
     "MM2ComplementUndec",
-    # The CPU's start method, the serial program loader, its receiver model,
-    # the CPU-and-loader composition, and its extraction. They are Kami
-    # hardware built on ThieleCPUCore, which is exempt above, and they state
-    # what the circuit does with pins and registers. The VM connection runs
+    # The CPU's start method, the serial program loader, what it does with a
+    # program sent over the pin, the CPU-and-loader composition, and its
+    # extraction. They are Kami hardware built on ThieleCPUCore, which is
+    # exempt above, and they state what the circuit does with pins and
+    # registers. The VM connection runs
     # through dispatch_reset_state, the state start produces:
     # TableInvariantsReachable.fsm_retirement_refinement relates runs from it
     # to the kernel's run of the same instructions.
-    "CPUStart", "ThieleLoader", "LoaderReceiver", "ThieleSystem",
+    "CPUStart", "ThieleLoader", "LoaderSerial", "ThieleSystem",
     "SystemExtraction",
 }
 
