@@ -128,8 +128,8 @@ class TestMorphCreate:
             "INIT_MEM 80 1",  # one serialized pair
             "INIT_MEM 81 0",  # source cell
             "INIT_MEM 82 1",  # target cell
-            "PNEW {0,1} 0",
-            "PNEW {0,1} 0",
+            "PNEW {0} 0",     # module 1 owns cell 0
+            "PNEW {1} 0",     # module 2 owns cell 1
             "MORPH 5 1 2 80 0",
             "HALT 0",
         ])

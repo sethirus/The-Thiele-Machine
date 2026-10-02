@@ -29,6 +29,8 @@ From KamiHW Require Import ThieleTypes ThieleCPUCore HWBoundary RuleNext RuleSte
   StepEval StepWordFacts DispatchLets Abstraction ImplementationContract
   StepFields StepFieldsMorph StepFaults StepRefineCommon LegacyWordDecode RichWordDecode.
 Local Open Scope nat_scope.
+(* The range test zero-extends by concatenation; keep it folded. *)
+Local Arguments Word.combine : simpl never.
 
 Ltac dd_cbn := cbn [evalExpr evalBinBool evalUniBool evalConstT isEq evalBinBitBool evalUniBit evalZeroExtendTrunc].
 Ltac bool_red := cbv beta iota delta [orb andb negb].

@@ -33,6 +33,13 @@ Proof.
   unfold eq_rec_r, eq_rec. rewrite wordToNat_eq_rect. apply wordToNat_zext.
 Qed.
 
+(** A word with zeros concatenated above it keeps its value. *)
+Lemma wordToNat_combine_zero_hi : forall n k (w : word n),
+  wordToNat (combine w (natToWord k 0)) = wordToNat w.
+Proof.
+  intros n k w. rewrite wordToNat_combine, roundTrip_0. lia.
+Qed.
+
 Lemma wordToNat_zext8_ext : forall w : word 8,
   wordToNat (evalZeroExtendTrunc WordSz w) = wordToNat w.
 Proof. intro w. apply evalZeroExtendTrunc_up. unfold WordSz. lia. Qed.
@@ -436,36 +443,36 @@ Definition hwb_addr_in_active_range (b : HWB) (a : nat) : Prop :=
     facts [base <= addr < base + size]. *)
 Lemma bounds_ok_words : forall (addr : word MemAddrSz) (pB pS : word WordSz),
   wordToNat pB <= wordToNat addr -> wordToNat addr < wordToNat pB + wordToNat pS ->
-  (negb (if wlt_dec (evalZeroExtendTrunc (S WordSz) addr) (evalZeroExtendTrunc (S WordSz) pB)
+  (negb (if @wlt_dec (S WordSz) (combine addr (natToWord (S WordSz - MemAddrSz) 0)) (combine pB (natToWord 1 0))
          then true else false) &&
-   (if wlt_dec (evalZeroExtendTrunc (S WordSz) addr)
-         (evalZeroExtendTrunc (S WordSz) pB ^+ evalZeroExtendTrunc (S WordSz) pS)
+   (if @wlt_dec (S WordSz) (combine addr (natToWord (S WordSz - MemAddrSz) 0))
+         (@wplus (S WordSz) (combine pB (natToWord 1 0)) (combine pS (natToWord 1 0)))
     then true else false)) = true.
 Proof.
   intros addr pB pS H1 H2.
-  assert (EA : wordToNat (evalZeroExtendTrunc (S WordSz) addr) = wordToNat addr)
-    by (apply evalZeroExtendTrunc_up; unfold WordSz, MemAddrSz; lia).
-  assert (EB : wordToNat (evalZeroExtendTrunc (S WordSz) pB) = wordToNat pB)
-    by (apply evalZeroExtendTrunc_up; unfold WordSz; lia).
-  assert (ES : wordToNat (evalZeroExtendTrunc (S WordSz) pS) = wordToNat pS)
-    by (apply evalZeroExtendTrunc_up; unfold WordSz; lia).
+  assert (EA : @wordToNat (S WordSz) (combine addr (natToWord (S WordSz - MemAddrSz) 0)) = wordToNat addr)
+    by exact (wordToNat_combine_zero_hi MemAddrSz (S WordSz - MemAddrSz) addr).
+  assert (EB : @wordToNat (S WordSz) (combine pB (natToWord 1 0)) = wordToNat pB)
+    by exact (wordToNat_combine_zero_hi WordSz 1 pB).
+  assert (ES : @wordToNat (S WordSz) (combine pS (natToWord 1 0)) = wordToNat pS)
+    by exact (wordToNat_combine_zero_hi WordSz 1 pS).
   pose proof (wordToNat_bound pB) as BB. pose proof (wordToNat_bound pS) as BS.
   assert (P33 : pow2 (S WordSz) = 2 * pow2 WordSz) by apply pow2_S.
-  assert (ESUM : wordToNat (evalZeroExtendTrunc (S WordSz) pB ^+ evalZeroExtendTrunc (S WordSz) pS)
+  assert (ESUM : @wordToNat (S WordSz) (@wplus (S WordSz) (combine pB (natToWord 1 0)) (combine pS (natToWord 1 0)))
                  = wordToNat pB + wordToNat pS).
   { rewrite wordToNat_wplus_bounded; rewrite EB, ES; [reflexivity|lia]. }
-  destruct (wlt_dec (evalZeroExtendTrunc (S WordSz) addr) (evalZeroExtendTrunc (S WordSz) pB))
+  destruct (@wlt_dec (S WordSz) (combine addr (natToWord (S WordSz - MemAddrSz) 0)) (combine pB (natToWord 1 0)))
     as [L1|NL1].
   - exfalso. apply wlt_lt in L1. rewrite EA, EB in L1. lia.
   - cbn [negb andb].
-    destruct (wlt_dec _ (_ ^+ _)) as [L2|NL2]; [reflexivity|].
+    destruct (@wlt_dec (S WordSz) _ (@wplus (S WordSz) _ _)) as [L2|NL2]; [reflexivity|].
     exfalso. apply NL2. apply lt_wlt. rewrite ESUM, EA. lia.
 Qed.
 
 Lemma region_ok_of_range : forall b (addr : word MemAddrSz),
   hwb_addr_in_active_range b (wordToNat addr) -> hw_region_ok b addr = true.
 Proof.
-  intros b addr [H1 H2]. unfold hw_region_ok, check_bounds, ext33.
+  intros b addr [H1 H2]. unfold hw_region_ok, check_bounds, ext33, addr33.
   cbn [evalExpr evalBinBool evalUniBool evalBinBitBool evalUniBit evalBinBit evalConstT].
   exact (bounds_ok_words addr _ _ H1 H2).
 Qed.
@@ -477,7 +484,8 @@ Ltac close_dd_bounds Hbound :=
     change (dd_active_region_base bd w) with (hw_ptBases bd (hw_active_module bd));
     change (dd_active_region_size bd w) with (hw_ptTable bd (hw_active_module bd))
   end;
-  rewrite (bounds_ok_words _ _ _ Hb1 Hb2); reflexivity.
+  pose proof (bounds_ok_words _ _ _ Hb1 Hb2) as Hok; simpl in Hok;
+  rewrite Hok; reflexivity.
 
 Lemma wordToNat_trunc7_small : forall w : word WordSz,
   wordToNat w < 128 -> wordToNat (split1 7 25 w) = wordToNat w.

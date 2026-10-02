@@ -81,11 +81,19 @@ Section ThieleCPU.
   (** Stack pointer register index (r31) *)
   Definition SP_IDX : word RegIdxSz := WO~1~1~1~1.   (* RegIdxSz=4, SP=15 *)
 
-  (** 33-bit zero extension of a data word. Range ends [base + size] are
-      computed at this width, so they never wrap. *)
+  (** 33-bit zero extension of a data word, built by concatenating a zero
+      bit above it. Range ends [base + size] are computed at this width, so
+      they never wrap. A concatenation has a fixed result width, which the
+      Bluespec compiler needs to type the comparisons below. *)
   Definition ext33 {ty} (e : Expr ty (SyntaxKind (Bit WordSz)))
     : Expr ty (SyntaxKind (Bit (S WordSz))) :=
-    UniBit (ZeroExtendTrunc WordSz (S WordSz)) e.
+    BinBit (Concat 1 WordSz) (Const ty (ConstBit (natToWord 1 0))) e.
+
+  (** The same extension of a memory address. *)
+  Definition addr33 {ty} (addr : Expr ty (SyntaxKind (Bit MemAddrSz)))
+    : Expr ty (SyntaxKind (Bit (S WordSz))) :=
+    BinBit (Concat (S WordSz - MemAddrSz) MemAddrSz)
+           (Const ty (ConstBit (natToWord (S WordSz - MemAddrSz) 0))) addr.
 
   (** Physical locality helper: the address lies in the active module's range,
       base <= addr < base + size. *)
@@ -97,9 +105,8 @@ Section ThieleCPU.
     : Expr ty (SyntaxKind Bool) :=
     BinBool AndB
       (UniBool NegB
-        (BinBitBool (Lt (S WordSz)) (UniBit (ZeroExtendTrunc MemAddrSz (S WordSz)) addr)
-                                     (ext33 active_partition_base)))
-      (BinBitBool (Lt (S WordSz)) (UniBit (ZeroExtendTrunc MemAddrSz (S WordSz)) addr)
+        (BinBitBool (Lt (S WordSz)) (addr33 addr) (ext33 active_partition_base)))
+      (BinBitBool (Lt (S WordSz)) (addr33 addr)
                                    (BinBit (Add (S WordSz)) (ext33 active_partition_base)
                                                             (ext33 active_partition_size))).
 

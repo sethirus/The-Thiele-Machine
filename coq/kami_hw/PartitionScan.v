@@ -93,8 +93,7 @@ Qed.
 Lemma eval_ext33 : forall (w : word WordSz),
   wordToNat (evalExpr (ext33 (Var type (SyntaxKind (Bit WordSz)) w))) = wordToNat w.
 Proof.
-  intro w. unfold ext33. cbn [evalExpr evalUniBit]. apply evalZeroExtendTrunc_up.
-  unfold WordSz. lia.
+  intro w. unfold ext33. cbn [evalExpr evalBinBit evalConstT]. exact (wordToNat_combine_zero_hi WordSz 1 _).
 Qed.
 
 Lemma eval_add33 : forall (x y : word WordSz),
@@ -115,8 +114,7 @@ Qed.
 Lemma ev_ext33 : forall (e : Expr type (SyntaxKind (Bit WordSz))),
   wordToNat (evalExpr (ext33 e)) = wordToNat (evalExpr e).
 Proof.
-  intro e. unfold ext33. cbn [evalExpr evalUniBit]. apply evalZeroExtendTrunc_up.
-  unfold WordSz. lia.
+  intro e. unfold ext33. cbn [evalExpr evalBinBit evalConstT]. exact (wordToNat_combine_zero_hi WordSz 1 _).
 Qed.
 
 Lemma ev_add33 : forall (e1 e2 : Expr type (SyntaxKind (Bit WordSz))),
