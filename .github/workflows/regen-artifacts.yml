@@ -243,7 +243,7 @@ jobs:
           # The extraction stages the RTL manifest hashes are tracked too.
           git add -u -- build/kami_hw
           # So are the extracted VM sources.
-          git add -u -- build/thiele_core.ml build/thiele_core.mli \n            build/thiele_core_complete.ml build/thiele_core_complete.mli
+          git add -u -- build/thiele_core.ml build/thiele_core.mli build/thiele_core_complete.ml build/thiele_core_complete.mli
           python3 scripts/check_hook_worktree.py --stage-generated
 
       - name: Restore the Print Assumptions answer cache
