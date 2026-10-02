@@ -218,6 +218,8 @@ Lemma mchdr_keeps_csr_heap_base : forall c, hw_csr_heap_base (mchdr_next c) = hw
 Proof. reflexivity. Qed.
 Lemma mchdr_keeps_ptTable : forall c, hw_ptTable (mchdr_next c) = hw_ptTable c.
 Proof. reflexivity. Qed.
+Lemma mchdr_keeps_ptBases : forall c, hw_ptBases (mchdr_next c) = hw_ptBases c.
+Proof. reflexivity. Qed.
 Lemma mchdr_keeps_pt_next_id : forall c, hw_pt_next_id (mchdr_next c) = hw_pt_next_id c.
 Proof. reflexivity. Qed.
 Lemma mchdr_keeps_morph_src_table : forall c, hw_morph_src_table (mchdr_next c) = hw_morph_src_table c.
@@ -511,6 +513,8 @@ Lemma mcnstart_keeps_csr_heap_base : forall c, hw_csr_heap_base (mcnstart_next c
 Proof. reflexivity. Qed.
 Lemma mcnstart_keeps_ptTable : forall c, hw_ptTable (mcnstart_next c) = hw_ptTable c.
 Proof. reflexivity. Qed.
+Lemma mcnstart_keeps_ptBases : forall c, hw_ptBases (mcnstart_next c) = hw_ptBases c.
+Proof. reflexivity. Qed.
 Lemma mcnstart_keeps_pt_next_id : forall c, hw_pt_next_id (mcnstart_next c) = hw_pt_next_id c.
 Proof. reflexivity. Qed.
 Lemma mcnstart_keeps_morph_src_table : forall c, hw_morph_src_table (mcnstart_next c) = hw_morph_src_table c.
@@ -795,6 +799,8 @@ Proof. reflexivity. Qed.
 Lemma mccommit_keeps_csr_heap_base : forall c, hw_csr_heap_base (mccommit_next c) = hw_csr_heap_base c.
 Proof. reflexivity. Qed.
 Lemma mccommit_keeps_ptTable : forall c, hw_ptTable (mccommit_next c) = hw_ptTable c.
+Proof. reflexivity. Qed.
+Lemma mccommit_keeps_ptBases : forall c, hw_ptBases (mccommit_next c) = hw_ptBases c.
 Proof. reflexivity. Qed.
 Lemma mccommit_keeps_pt_next_id : forall c, hw_pt_next_id (mccommit_next c) = hw_pt_next_id c.
 Proof. reflexivity. Qed.

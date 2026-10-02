@@ -1,8 +1,11 @@
 (** EmbedStep.v
 
-    Proves the step-commutation theorem for all 46 VM opcodes:
+    Proves the step-commutation theorem for 46 of the 51 VM instructions:
 
         abs_phase1 (kami_step ks i) = vm_apply (abs_phase1 ks) i
+
+    The other five are the CHSH_LASSERT forms, which branch on the witness
+    counters; they are outside this theorem.
 
     - 30 opcodes proved UNCONDITIONALLY via SupportedOpcode + embed_step_compute
     - 3 opcodes added under snapshot/bit preconditions via EmbedStep_WF.v:
@@ -495,7 +498,7 @@ Qed.
         (driven_step_morph_tensor, Qed) under extended_hw_invariant.
 
     This is the correct abstraction boundary: SupportedOpcode is right for
-    abs_phase1 (partition-only). The full 46/46 coverage lives in
+    abs_phase1 (partition-only). The full coverage of the 46 instructions lives in
     GraphReconstructionBridge.v under abs_full_snapshot. *)
 Definition SupportedOpcode (i : vm_instruction) : Prop :=
   match i with
@@ -597,6 +600,7 @@ Lemma abs_phase1_kami_write_reg_advance :
          snap_error_code := snap_error_code ks;
          snap_mu_tensor := snap_mu_tensor ks;
          snap_pt_sizes := snap_pt_sizes ks;
+         snap_pt_bases := snap_pt_bases ks;
          snap_pt_next_id := snap_pt_next_id ks;
          snap_certified := snap_certified ks;
          snap_wc_same_00 := snap_wc_same_00 ks;
@@ -713,6 +717,59 @@ Definition WellFormedPT (ks : KamiSnapshot) : Prop :=
   snap_pt_sizes ks (snap_pt_next_id ks) = 0.
 
 (** --- PNEW --- *)
+(** PNEW of a region names the range [hd 0 r, hd 0 r + length r) of its
+    normalized form r. The hardware scan of the partition table and the
+    kernel's list checks agree on every outcome: an overlap traps, an exact
+    match names the existing module, anything else takes slot
+    [snap_pt_next_id]. *)
+Theorem embed_step_pnew_bounded :
+  forall (ks : KamiSnapshot) (region : list nat) (cost : nat),
+    snap_pt_next_id ks <= PTableSz ->
+    List.length (normalize_region region) > 0 ->
+    abs_phase1 (kami_step ks (instr_pnew region cost)) =
+    vm_apply (abs_phase1 ks) (instr_pnew region cost).
+Proof.
+  intros ks region cost Hle Hrsz.
+  set (id := snap_pt_next_id ks) in *.
+  set (a := hd 0 (normalize_region region)).
+  set (sz := List.length (normalize_region region)) in *.
+  assert (Hpr : pnew_region region = List.seq a sz) by reflexivity.
+  assert (Hg : vm_graph (abs_phase1 ks) =
+               snap_pt_to_graph id (snap_pt_sizes ks) (snap_pt_bases ks)) by reflexivity.
+  unfold vm_apply. rewrite Hpr, Hg.
+  rewrite (snap_pt_region_conflict id (snap_pt_sizes ks) (snap_pt_bases ks) a sz)
+    by (unfold id; lia).
+  unfold kami_step. fold id. fold a. fold sz.
+  destruct (snap_pt_conflict id (snap_pt_sizes ks) (snap_pt_bases ks) a sz) eqn:Hc.
+  - (* overlap: both trap and keep the partition table *)
+    cbn [negb andb].
+    unfold partition_step_state, abs_phase1, csr_set_err, instruction_cost. simpl.
+    reflexivity.
+  - cbn [negb andb].
+    destruct (snap_pt_present id (snap_pt_sizes ks) (snap_pt_bases ks) a sz) eqn:Hp.
+    + (* a module owns exactly this range: the graph is unchanged *)
+      assert (Hf : graph_find_region (snap_pt_to_graph id (snap_pt_sizes ks) (snap_pt_bases ks))
+                     (List.seq a sz) <> None).
+      { intro Hn. apply (snap_pt_find_region id (snap_pt_sizes ks) (snap_pt_bases ks) a sz)
+          in Hn; [congruence | unfold id; lia | lia]. }
+      unfold graph_pnew. rewrite normalize_seq_nodups.
+      destruct (graph_find_region _ (List.seq a sz)) as [existing|] eqn:Ef; [|congruence].
+      cbn [negb andb fst].
+      unfold partition_step_state, abs_phase1, instruction_cost. simpl.
+      reflexivity.
+    + (* a fresh range takes the next free slot *)
+      assert (Hf : graph_find_region (snap_pt_to_graph id (snap_pt_sizes ks) (snap_pt_bases ks))
+                     (List.seq a sz) = None).
+      { apply (snap_pt_find_region id (snap_pt_sizes ks) (snap_pt_bases ks) a sz);
+          [unfold id; lia | lia | exact Hp]. }
+      unfold graph_pnew. rewrite normalize_seq_nodups, Hf.
+      cbn [negb andb fst].
+      rewrite <- (snap_pt_to_graph_pnew_minimal id a sz (snap_pt_sizes ks) (snap_pt_bases ks)
+                    Hrsz).
+      unfold partition_step_state, abs_phase1, instruction_cost. simpl.
+      reflexivity.
+Qed.
+
 Theorem embed_step_pnew :
   forall (ks : KamiSnapshot) (region : list nat) (cost : nat),
     WellFormedPT ks ->
@@ -721,25 +778,7 @@ Theorem embed_step_pnew :
     vm_apply (abs_phase1 ks) (instr_pnew region cost).
 Proof.
   intros ks region cost [Hge [Hlt Hfresh]] Hrsz.
-  set (id := snap_pt_next_id ks).
-  set (sz := List.length (normalize_region region)).
-  unfold vm_apply, kami_step. fold id. fold sz.
-  unfold advance_state, apply_cost, instruction_cost.
-  unfold abs_phase1 at 1.
-  cbn [snap_pc snap_mu snap_err snap_halted snap_regs snap_mem
-       snap_partition_ops snap_mdl_ops snap_info_gain snap_error_code
-       snap_mu_tensor snap_pt_sizes snap_pt_next_id snap_certified
-       snap_wc_same_00 snap_wc_diff_00 snap_wc_same_01 snap_wc_diff_01
-       snap_wc_same_10 snap_wc_diff_10 snap_wc_same_11 snap_wc_diff_11].
-  fold (abs_phase1 ks).
-  (* The only difference is vm_graph:
-     LHS: snap_pt_to_graph (S id) (fun j => if j =? id then sz else snap_pt_sizes ks j)
-     RHS: fst (graph_add_module (vm_graph (abs_phase1 ks)) (seq 0 sz) []) *)
-  f_equal.
-  (* vm_graph field *)
-  change (vm_graph (abs_phase1 ks)) with (snap_pt_to_graph id (snap_pt_sizes ks)).
-  rewrite (snap_pt_to_graph_pnew id sz (snap_pt_sizes ks) Hge Hlt Hrsz Hfresh).
-  reflexivity.
+  apply embed_step_pnew_bounded; [unfold PTableSz in *; lia | exact Hrsz].
 Qed.
 
 (** Helper: abs_phase1 of graph-op hardware post-state equals advance_state
@@ -747,9 +786,9 @@ Qed.
     pt_sizes/pt_next_id matches the kernel's graph'. *)
 Lemma abs_phase1_kami_graph_op_advance :
   forall (ks : KamiSnapshot) (i : vm_instruction) (cost : nat)
-         (sizes' : nat -> nat) (next_id' : nat) (graph' : PartitionGraph),
+         (sizes' bases' : nat -> nat) (next_id' : nat) (graph' : PartitionGraph),
     instruction_cost i = cost ->
-    snap_pt_to_graph next_id' sizes' = graph' ->
+    snap_pt_to_graph next_id' sizes' bases' = graph' ->
     abs_phase1
       {| snap_pc := S (snap_pc ks);
          snap_mu := snap_mu ks + cost;
@@ -763,6 +802,7 @@ Lemma abs_phase1_kami_graph_op_advance :
          snap_error_code := snap_error_code ks;
          snap_mu_tensor := snap_mu_tensor ks;
          snap_pt_sizes := sizes';
+         snap_pt_bases := bases';
          snap_pt_next_id := next_id';
          snap_certified := snap_certified ks;
          snap_wc_same_00 := snap_wc_same_00 ks;
@@ -783,7 +823,7 @@ Lemma abs_phase1_kami_graph_op_advance :
          snap_mstatus := snap_mstatus ks |} =
     advance_state (abs_phase1 ks) i graph' (abs_phase1 ks).(vm_csrs) (abs_phase1 ks).(vm_err).
 Proof.
-  intros ks i cost sizes' next_id' graph' Hcost Hgraph.
+  intros ks i cost sizes' bases' next_id' graph' Hcost Hgraph.
   unfold advance_state, apply_cost, abs_phase1.
   simpl. rewrite Hcost, Hgraph. reflexivity.
 Qed.

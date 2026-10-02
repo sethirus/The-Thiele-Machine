@@ -149,8 +149,7 @@ Ltac neq_from_op Hop :=
 
 Lemma guard_false_of_load : forall bd (isa : word 8) (fid : word FormatIdSz)
     (flags : word 16) (reserved : word 32) (ext0 : word WordSz) (a b c : word 8),
-  wordToNat (dd_mem_addr bd (rich_word isa fid flags reserved ext0 OP_LOAD a b c))
-    < wordToNat (hw_ptTable bd (hw_active_module bd)) ->
+  hwb_addr_in_active_range bd (wordToNat (dd_mem_addr bd (rich_word isa fid flags reserved ext0 OP_LOAD a b c))) ->
   dd_locality_violation bd (rich_word isa fid flags reserved ext0 OP_LOAD a b c) ||
   dd_ptable_overflow_violation bd (rich_word isa fid flags reserved ext0 OP_LOAD a b c) ||
   dd_nfi_violation bd (rich_word isa fid flags reserved ext0 OP_LOAD a b c) = false.
@@ -171,8 +170,7 @@ Qed.
 
 Lemma guard_false_of_heap_load : forall bd (isa : word 8) (fid : word FormatIdSz)
     (flags : word 16) (reserved : word 32) (ext0 : word WordSz) (a b c : word 8),
-  wordToNat (dd_heap_addr bd (rich_word isa fid flags reserved ext0 OP_HEAP_LOAD a b c))
-    < wordToNat (hw_ptTable bd (hw_active_module bd)) ->
+  hwb_addr_in_active_range bd (wordToNat (dd_heap_addr bd (rich_word isa fid flags reserved ext0 OP_HEAP_LOAD a b c))) ->
   dd_locality_violation bd (rich_word isa fid flags reserved ext0 OP_HEAP_LOAD a b c) ||
   dd_ptable_overflow_violation bd (rich_word isa fid flags reserved ext0 OP_HEAP_LOAD a b c) ||
   dd_nfi_violation bd (rich_word isa fid flags reserved ext0 OP_HEAP_LOAD a b c) = false.
@@ -193,8 +191,7 @@ Qed.
 
 Lemma guard_false_of_store : forall bd (isa : word 8) (fid : word FormatIdSz)
     (flags : word 16) (reserved : word 32) (ext0 : word WordSz) (a b c : word 8),
-  wordToNat (dd_mem_addr_a bd (rich_word isa fid flags reserved ext0 OP_STORE a b c))
-    < wordToNat (hw_ptTable bd (hw_active_module bd)) ->
+  hwb_addr_in_active_range bd (wordToNat (dd_mem_addr_a bd (rich_word isa fid flags reserved ext0 OP_STORE a b c))) ->
   dd_locality_violation bd (rich_word isa fid flags reserved ext0 OP_STORE a b c) ||
   dd_ptable_overflow_violation bd (rich_word isa fid flags reserved ext0 OP_STORE a b c) ||
   dd_nfi_violation bd (rich_word isa fid flags reserved ext0 OP_STORE a b c) = false.
@@ -215,8 +212,7 @@ Qed.
 
 Lemma guard_false_of_heap_store : forall bd (isa : word 8) (fid : word FormatIdSz)
     (flags : word 16) (reserved : word 32) (ext0 : word WordSz) (a b c : word 8),
-  wordToNat (dd_heap_addr_a bd (rich_word isa fid flags reserved ext0 OP_HEAP_STORE a b c))
-    < wordToNat (hw_ptTable bd (hw_active_module bd)) ->
+  hwb_addr_in_active_range bd (wordToNat (dd_heap_addr_a bd (rich_word isa fid flags reserved ext0 OP_HEAP_STORE a b c))) ->
   dd_locality_violation bd (rich_word isa fid flags reserved ext0 OP_HEAP_STORE a b c) ||
   dd_ptable_overflow_violation bd (rich_word isa fid flags reserved ext0 OP_HEAP_STORE a b c) ||
   dd_nfi_violation bd (rich_word isa fid flags reserved ext0 OP_HEAP_STORE a b c) = false.
@@ -237,8 +233,7 @@ Qed.
 
 Lemma guard_false_of_call : forall bd (isa : word 8) (fid : word FormatIdSz)
     (flags : word 16) (reserved : word 32) (ext0 : word WordSz) (a b c : word 8),
-  wordToNat (dd_sp_addr bd (rich_word isa fid flags reserved ext0 OP_CALL a b c))
-    < wordToNat (hw_ptTable bd (hw_active_module bd)) ->
+  hwb_addr_in_active_range bd (wordToNat (dd_sp_addr bd (rich_word isa fid flags reserved ext0 OP_CALL a b c))) ->
   dd_locality_violation bd (rich_word isa fid flags reserved ext0 OP_CALL a b c) ||
   dd_ptable_overflow_violation bd (rich_word isa fid flags reserved ext0 OP_CALL a b c) ||
   dd_nfi_violation bd (rich_word isa fid flags reserved ext0 OP_CALL a b c) = false.
@@ -259,8 +254,7 @@ Qed.
 
 Lemma guard_false_of_ret : forall bd (isa : word 8) (fid : word FormatIdSz)
     (flags : word 16) (reserved : word 32) (ext0 : word WordSz) (a b c : word 8),
-  wordToNat (dd_sp_dec_addr bd (rich_word isa fid flags reserved ext0 OP_RET a b c))
-    < wordToNat (hw_ptTable bd (hw_active_module bd)) ->
+  hwb_addr_in_active_range bd (wordToNat (dd_sp_dec_addr bd (rich_word isa fid flags reserved ext0 OP_RET a b c))) ->
   dd_locality_violation bd (rich_word isa fid flags reserved ext0 OP_RET a b c) ||
   dd_ptable_overflow_violation bd (rich_word isa fid flags reserved ext0 OP_RET a b c) ||
   dd_nfi_violation bd (rich_word isa fid flags reserved ext0 OP_RET a b c) = false.

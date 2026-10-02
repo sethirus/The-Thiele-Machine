@@ -46,8 +46,8 @@ def test_logic_gate_removed_and_high_value_ops_ungated() -> None:
 
 def test_stack_operations_are_partition_bounded() -> None:
     txt = CORE.read_text(encoding="utf-8")
-    assert 'LET call_in_bounds <- check_bounds #sp_addr #active_region_size;' in txt
-    assert 'LET ret_in_bounds <- check_bounds #sp_dec_addr #active_region_size;' in txt
+    assert 'LET call_in_bounds <- check_bounds #sp_addr #active_region_base #active_region_size;' in txt
+    assert 'LET ret_in_bounds <- check_bounds #sp_dec_addr #active_region_base #active_region_size;' in txt
     assert 'LET call_locality_bad <- #is_call_op && !#call_in_bounds;' in txt
     assert 'LET ret_locality_bad <- #is_ret_op && !#ret_in_bounds;' in txt
 
@@ -72,6 +72,9 @@ def test_partition_guard_matches_vector_pt_bank() -> None:
     txt = CORE.read_text(encoding='utf-8')
     assert 'Register "ptTable"  : Vector (Bit WordSz) PTableIdxSz <- Default' in txt
     assert 'Write "ptTable"        <- #new_pt_sizes;' in txt
+    # Each slot owns the range [ptBases[id], ptBases[id] + ptTable[id]).
+    assert 'Register "ptBases"  : Vector (Bit WordSz) PTableIdxSz <- Default' in txt
+    assert 'Write "ptBases"        <- #new_pt_bases;' in txt
     assert 'with Register "pt0"' not in txt
     assert 'Write "pt0"' not in txt
     assert 'LET ptable_full <- #pt_next_id_v >= $64;' in txt

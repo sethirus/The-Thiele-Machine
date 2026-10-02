@@ -51,6 +51,7 @@ def written_keys():
 def blacklist():
     projs = ' '.join(f'hw_{n}' for n, _ in fields())
     return ('wplus wminus wmult wand wor wxor wnot wlshift wrshift wordToNat wordToN wlt_dec '
+            'pt_range_conflict pt_range_present morph_cascade '
             f'hwb_bianchi hwb_tensor_total {projs}')
 
 

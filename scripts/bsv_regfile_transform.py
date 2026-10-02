@@ -21,10 +21,10 @@ import sys
 
 # Threshold: vectors with >= this many elements get converted to RegFile.
 # Set to 64 to catch lassert_fbuf/lassert_cbuf (64 entries each) in
-# addition to the larger memories. The `regs` and `ptTable` flat registers
-# are intentionally left in flat form because their write patterns include
-# nested update() expressions (XOR_SWAP for regs, PSPLIT/PMERGE for
-# ptTable) that the regex-based rewriter cannot handle correctly; they
+# addition to the larger memories. The `regs`, `ptTable` and `ptBases` flat
+# registers are intentionally left in flat form because their write patterns
+# include nested update() expressions (XOR_SWAP for regs, PSPLIT/PMERGE for
+# ptTable and ptBases) that the regex-based rewriter cannot handle correctly; they
 # stay as flat broadcasts unless a future per-opcode Kami rule split or
 # AST-level rewriter is added.
 REGFILE_THRESHOLD = 64
@@ -33,7 +33,7 @@ REGFILE_THRESHOLD = 64
 # because their write patterns include nested update() expressions that the
 # transform's regex-based rewriter cannot handle correctly. The two-dimensional
 # module_tensors register is handled by transform_matrix_regs below instead.
-REGFILE_EXCLUDE = {"ptTable", "module_tensors"}
+REGFILE_EXCLUDE = {"ptTable", "ptBases", "module_tensors"}
 
 
 def transform_bsv(bsv: str) -> str:

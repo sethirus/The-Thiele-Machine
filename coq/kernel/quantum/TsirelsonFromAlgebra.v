@@ -243,8 +243,9 @@ Qed.
 
 (**
 
-    The machine hardware uses Q16.16 fixed-point arithmetic.
-    We verify that the rational bound 5657/2000 > 2√2 is valid. *)
+    A rational upper bound for 2√2: sqrt 8 < 5657/2000. The bound is stated
+    over the reals; the machine itself checks CHSH conditions in integer
+    arithmetic and does not use this constant. *)
 
 Lemma rational_tsirelson_bound :
   sqrt 8 < 5657 / 2000.
@@ -275,7 +276,7 @@ Qed.
 
     3. NON-CIRCULARITY: The bound is COMPUTED from algebra, not defined.
 
-    4. HARDWARE LINK: Rational bound 5657/2000 > 2√2 verified for Q16.16.
+    4. RATIONAL BOUND: 5657/2000 > 2√2, proved as rational_tsirelson_bound.
     The Tsirelson bound 2√2 is not a property of quantum mechanics.
     It is a property of constrained quadratic forms in R^4 — pure algebra.
     The NPA moment matrix constraints (from consistency of observations)

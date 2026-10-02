@@ -19,7 +19,7 @@ Theorem old_universal_precondition_impossible :
   ~ (forall ks i, WFDrivenPrecondition ks i).
 Proof.
   intro H. specialize (H review_snapshot (instr_pnew [] 0)).
-  destruct H as [Hlen _]. change (1 <= 0) in Hlen. inversion Hlen.
+  destruct H as [_ [Hlen _]]. change (1 <= 0) in Hlen. inversion Hlen.
 Qed.
 
 Definition valid_program := [instr_pnew [1] 0; instr_certify 0].
@@ -27,7 +27,7 @@ Definition valid_program := [instr_pnew [1] 0; instr_certify 0].
 (* Includes PNEW, a conditional opcode; it is not just an empty run. *)
 Theorem valid_program_meets_run_contract :
   WFDrivenRun 2 valid_program review_snapshot.
-Proof. vm_compute. repeat split; intros; reflexivity. Qed.
+Proof. vm_compute. repeat split; intros; first [reflexivity | lia]. Qed.
 
 Theorem valid_program_full_state_commutes :
   abs_full_snapshot (full_snapshot_of_snapshot
@@ -44,7 +44,7 @@ Proof. vm_compute. split; reflexivity. Qed.
 Theorem visited_invalid_pnew_rejected :
   ~ WFDrivenRun 1 [instr_pnew [] 0] review_snapshot.
 Proof.
-  intros [[Hlen _] _]. change (1 <= 0) in Hlen. inversion Hlen.
+  intros [[_ [Hlen _]] _]. change (1 <= 0) in Hlen. inversion Hlen.
 Qed.
 
 Theorem unvisited_invalid_pnew_allowed :

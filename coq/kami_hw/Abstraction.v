@@ -169,6 +169,7 @@ Record KamiSnapshot := {
   snap_error_code    : nat ;
   snap_mu_tensor     : nat -> nat ;  (* flat index 0..15 -> tensor entry value *)
   snap_pt_sizes      : nat -> nat ;  (* hardware partition table: module_id -> region_size (0 = unallocated) *)
+  snap_pt_bases      : nat -> nat ;  (* hardware partition table: module_id -> first address of its range *)
   snap_pt_next_id    : nat ;         (* next free module ID; initialized to 1 matching empty_graph.pg_next_id *)
   snap_certified     : bool ;        (* state-based certification flag — set by CERTIFY *)
   snap_wc_same_00    : nat ;         (* witness counter: setting (0,0), same outcomes *)
@@ -376,6 +377,7 @@ Definition kami_advance_rich_morph (hs : KamiSnapshot)
      snap_error_code   := snap_error_code hs;
      snap_mu_tensor    := snap_mu_tensor hs;
      snap_pt_sizes     := snap_pt_sizes hs;
+     snap_pt_bases     := snap_pt_bases hs;
      snap_pt_next_id   := snap_pt_next_id hs;
      snap_certified    := snap_certified hs;
      snap_wc_same_00   := snap_wc_same_00 hs;
@@ -410,6 +412,7 @@ Definition kami_advance_rich_noret (hs : KamiSnapshot)
      snap_error_code   := snap_error_code hs;
      snap_mu_tensor    := snap_mu_tensor hs;
      snap_pt_sizes     := snap_pt_sizes hs;
+     snap_pt_bases     := snap_pt_bases hs;
      snap_pt_next_id   := snap_pt_next_id hs;
      snap_certified    := snap_certified hs;
      snap_wc_same_00   := snap_wc_same_00 hs;
@@ -435,10 +438,11 @@ Definition default_csrs : CSRState :=
 
 (** Reconstruct a PartitionGraph from the bounded hardware partition table.
 
-    The hardware stores (module_id -> region_size) for up to PTableSz=64 slots.
-    A size of 0 means the slot is unallocated.  Axioms cannot be stored in
-    fixed-width hardware registers; they are maintained by the software driver.
-    The region for module id with size sz is List.seq 0 sz.
+    The hardware stores (module_id -> base, region_size) for up to PTableSz=64
+    slots. A size of 0 means the slot is unallocated.  Axioms cannot be stored
+    in fixed-width hardware registers; they are maintained by the software
+    driver. The region for module id with base b and size sz is the range
+    List.seq b sz of data-memory addresses.
 
     We iterate over module IDs in DESCENDING order (List.rev) so that the
     oldest module appears LAST in pg_modules, matching the cons-prepend
@@ -460,12 +464,12 @@ Definition default_csrs : CSRState :=
     Note: snap_pt_to_graph produces pg_morphisms := [] by design.
     Morphism state is tracked at the full-snapshot level via snap_full_graph.
     See GraphReconstructionBridge.v for the full-state bridge. *)
-Definition snap_pt_to_graph (next_id : nat) (sizes : nat -> nat) : PartitionGraph :=
+Definition snap_pt_to_graph (next_id : nat) (sizes bases : nat -> nat) : PartitionGraph :=
   let modules :=
     filtermap
       (fun i =>
         if Nat.eqb (sizes i) 0 then None
-        else Some (i, {| module_region := List.seq 0 (sizes i);
+        else Some (i, {| module_region := List.seq (bases i) (sizes i);
                           module_axioms := [];
                           module_mu_tensor := module_mu_tensor_default |}))
       (List.rev (List.seq 0 next_id))
@@ -480,7 +484,7 @@ Definition snap_pt_to_graph (next_id : nat) (sizes : nat -> nat) : PartitionGrap
     bounded morph/coupling state from [snap_rich_state] and per-module tensor
     data from [snap_module_tensors]. *)
 Definition snap_full_graph (s : KamiSnapshot) : PartitionGraph :=
-  let base := snap_pt_to_graph (snap_pt_next_id s) (snap_pt_sizes s) in
+  let base := snap_pt_to_graph (snap_pt_next_id s) (snap_pt_sizes s) (snap_pt_bases s) in
   {| pg_next_id := base.(pg_next_id);
      pg_modules := map (fun '(id, m) =>
        (id, {| module_region := m.(module_region);
@@ -495,7 +499,7 @@ Definition snap_full_graph (s : KamiSnapshot) : PartitionGraph :=
     The partition graph is reconstructed from the hardware partition table.
     Axioms are maintained by the software driver and are not stored in hardware. *)
 Definition abs_phase1 (s : KamiSnapshot) : VMState :=
-  {| vm_graph     := snap_pt_to_graph (snap_pt_next_id s) (snap_pt_sizes s) ;
+  {| vm_graph     := snap_pt_to_graph (snap_pt_next_id s) (snap_pt_sizes s) (snap_pt_bases s) ;
      vm_csrs      := {| csr_cert_addr := snap_csr_cert_addr s;
                         csr_status    := snap_csr_status s;
                         csr_err       := snap_csr_err s;
@@ -549,6 +553,7 @@ Definition kami_advance_default (hs : KamiSnapshot) (cost : nat) : KamiSnapshot 
      snap_error_code   := snap_error_code hs;
      snap_mu_tensor    := snap_mu_tensor hs;
      snap_pt_sizes     := snap_pt_sizes hs;
+     snap_pt_bases     := snap_pt_bases hs;
      snap_pt_next_id   := snap_pt_next_id hs;
      snap_certified    := snap_certified hs;
      snap_wc_same_00   := snap_wc_same_00 hs;
@@ -592,6 +597,7 @@ Definition kami_advance_reg (hs : KamiSnapshot) (r v cost : nat) : KamiSnapshot 
      snap_error_code   := snap_error_code hs;
      snap_mu_tensor    := snap_mu_tensor hs;
      snap_pt_sizes     := snap_pt_sizes hs;
+     snap_pt_bases     := snap_pt_bases hs;
      snap_pt_next_id   := snap_pt_next_id hs;
      snap_certified    := snap_certified hs;
      snap_wc_same_00   := snap_wc_same_00 hs;
@@ -627,6 +633,7 @@ Definition kami_advance_err (hs : KamiSnapshot) (cost : nat) : KamiSnapshot :=
      snap_error_code   := snap_error_code hs;
      snap_mu_tensor    := snap_mu_tensor hs;
      snap_pt_sizes     := snap_pt_sizes hs;
+     snap_pt_bases     := snap_pt_bases hs;
      snap_pt_next_id   := snap_pt_next_id hs;
      snap_certified    := snap_certified hs;
      snap_wc_same_00   := snap_wc_same_00 hs;
@@ -662,6 +669,71 @@ Definition KAMI_ERR_LOGIC : nat := proj1_sig kami_err_logic_witness.
 Definition KAMI_ERR_COUPLING_INVALID : nat := proj1_sig kami_err_coupling_invalid_witness.
 Definition KAMI_ERR_COMPOSE_TYPE : nat := proj1_sig kami_err_compose_type_witness.
 Definition KAMI_ERR_MORPH_NOT_FOUND : nat := proj1_sig kami_err_morph_not_found_witness.
+Lemma kami_err_partition_overlap_witness : { n : nat | n = N.to_nat 3135176734%N }.
+Proof. eexists. reflexivity. Qed.
+Definition KAMI_ERR_PARTITION_OVERLAP : nat := proj1_sig kami_err_partition_overlap_witness.
+
+(** ** Partition-table range checks
+
+    The snapshot-level form of the step rule's checks. Slot [i] holds a
+    module when [i] is below the next free slot and its size is not zero;
+    its range is [bases i, bases i + sizes i). *)
+Definition snap_slot_live (next : nat) (sizes : nat -> nat) (i : nat) : bool :=
+  andb (Nat.ltb i next) (negb (Nat.eqb (sizes i) 0)).
+Definition snap_slot_same (sizes bases : nat -> nat) (a len i : nat) : bool :=
+  andb (Nat.eqb (bases i) a) (Nat.eqb (sizes i) len).
+Definition snap_slot_overlap (sizes bases : nat -> nat) (a len i : nat) : bool :=
+  andb (Nat.ltb a (bases i + sizes i)) (Nat.ltb (bases i) (a + len)).
+
+(** PNEW of [a, a + len) conflicts with a module whose range shares an
+    address with it without being it. *)
+Definition snap_pt_conflict (next : nat) (sizes bases : nat -> nat) (a len : nat) : bool :=
+  existsb (fun i => andb (snap_slot_live next sizes i)
+                         (andb (negb (snap_slot_same sizes bases a len i))
+                               (snap_slot_overlap sizes bases a len i)))
+          (List.seq 0 PTableSz).
+
+(** Some module owns exactly [a, a + len); PNEW then names that module. *)
+Definition snap_pt_present (next : nat) (sizes bases : nat -> nat) (a len : nat) : bool :=
+  existsb (fun i => andb (snap_slot_live next sizes i) (snap_slot_same sizes bases a len i))
+          (List.seq 0 PTableSz).
+
+(** PMERGE's adjacency: one range ends where the other begins, or one of
+    them is empty. *)
+Definition snap_pmerge_adjacent (sizes bases : nat -> nat) (m1 m2 : nat) : bool :=
+  orb (orb (orb (Nat.eqb (sizes m1) 0) (Nat.eqb (sizes m2) 0))
+           (Nat.eqb (bases m1 + sizes m1) (bases m2)))
+      (Nat.eqb (bases m2 + sizes m2) (bases m1)).
+
+(** Base of the range PMERGE builds: the lower of the two bases. *)
+Definition snap_pmerge_base (sizes bases : nat -> nat) (m1 m2 : nat) : nat :=
+  if Nat.eqb (sizes m1) 0 then bases m2
+  else if Nat.eqb (sizes m2) 0 then bases m1
+  else if Nat.eqb (bases m1 + sizes m1) (bases m2) then bases m1 else bases m2.
+
+(** PSPLIT and PMERGE remove modules [m1] and [m2]; every morphism-table
+    entry whose source or target is one of them is cleared. *)
+Definition rich_state_cascade (rs : RichSnapshotState) (m1 m2 : nat) : RichSnapshotState :=
+  {| rich_morph_table := fun i =>
+       match rs.(rich_morph_table) i with
+       | Some e =>
+           if orb (orb (Nat.eqb (morph_entry_source e) m1) (Nat.eqb (morph_entry_target e) m1))
+                  (orb (Nat.eqb (morph_entry_source e) m2) (Nat.eqb (morph_entry_target e) m2))
+           then None else Some e
+       | None => None
+       end;
+     rich_next_morph_id := rs.(rich_next_morph_id);
+     rich_coupling_desc_table := rs.(rich_coupling_desc_table);
+     rich_next_coupling_desc_id := rs.(rich_next_coupling_desc_id);
+     rich_coupling_pair_table := rs.(rich_coupling_pair_table);
+     rich_next_coupling_pair_id := rs.(rich_next_coupling_pair_id);
+     rich_formula_desc_table := rs.(rich_formula_desc_table);
+     rich_next_formula_desc_id := rs.(rich_next_formula_desc_id);
+     rich_cert_desc_table := rs.(rich_cert_desc_table);
+     rich_next_cert_desc_id := rs.(rich_next_cert_desc_id);
+     rich_desc_meta_table := rs.(rich_desc_meta_table);
+     rich_next_desc_meta_id := rs.(rich_next_desc_meta_id);
+     rich_lassert_state := rs.(rich_lassert_state) |}.
 
 (** [kami_advance_err] that also records the CPU diagnostic code. *)
 Definition kami_advance_err_code (hs : KamiSnapshot) (cost code : nat) : KamiSnapshot :=
@@ -677,6 +749,7 @@ Definition kami_advance_err_code (hs : KamiSnapshot) (cost code : nat) : KamiSna
      snap_error_code   := code;
      snap_mu_tensor    := snap_mu_tensor hs;
      snap_pt_sizes     := snap_pt_sizes hs;
+     snap_pt_bases     := snap_pt_bases hs;
      snap_pt_next_id   := snap_pt_next_id hs;
      snap_certified    := snap_certified hs;
      snap_wc_same_00   := snap_wc_same_00 hs;
@@ -710,6 +783,7 @@ Definition kami_advance_info (hs : KamiSnapshot) (cost bits : nat) : KamiSnapsho
      snap_error_code   := snap_error_code hs;
      snap_mu_tensor    := snap_mu_tensor hs;
      snap_pt_sizes     := snap_pt_sizes hs;
+     snap_pt_bases     := snap_pt_bases hs;
      snap_pt_next_id   := snap_pt_next_id hs;
      snap_certified    := snap_certified hs;
      snap_wc_same_00   := snap_wc_same_00 hs;
@@ -745,6 +819,7 @@ Definition kami_advance_err_rich (hs : KamiSnapshot) (cost : nat)
      snap_error_code   := snap_error_code hs;
      snap_mu_tensor    := snap_mu_tensor hs;
      snap_pt_sizes     := snap_pt_sizes hs;
+     snap_pt_bases     := snap_pt_bases hs;
      snap_pt_next_id   := snap_pt_next_id hs;
      snap_certified    := snap_certified hs;
      snap_wc_same_00   := snap_wc_same_00 hs;
@@ -779,6 +854,7 @@ Definition kami_advance_cert_addr (hs : KamiSnapshot) (addr cost : nat) : KamiSn
      snap_error_code   := snap_error_code hs;
      snap_mu_tensor    := snap_mu_tensor hs;
      snap_pt_sizes     := snap_pt_sizes hs;
+     snap_pt_bases     := snap_pt_bases hs;
      snap_pt_next_id   := snap_pt_next_id hs;
      snap_certified    := snap_certified hs;
      snap_wc_same_00   := snap_wc_same_00 hs;
@@ -811,22 +887,35 @@ Definition kami_advance_cert_addr (hs : KamiSnapshot) (addr cost : nat) : KamiSn
 Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
   match i with
   | instr_pnew region cost =>
+      (* PNEW claims [a, a + len): a is the first address of the normalized
+         region (operand A), len its length (operand B). A range that
+         overlaps a module without being its range traps as a failed
+         LASSERT does; a range some module owns names that module; any other
+         range takes the next free slot. *)
+      let r := normalize_region region in
+      let a := hd 0 r in
+      let len := length r in
       let id := snap_pt_next_id hs in
-      let sz := length (normalize_region region) in
-      {| snap_pc    := S (snap_pc hs);
+      let ok := negb (snap_pt_conflict id (snap_pt_sizes hs) (snap_pt_bases hs) a len) in
+      let fresh := andb ok (negb (snap_pt_present id (snap_pt_sizes hs) (snap_pt_bases hs) a len)) in
+      {| snap_pc    := if ok then S (snap_pc hs) else LASSERT_TRAP_PC;
          snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
+         snap_err   := if ok then snap_err hs else true;
          snap_halted := snap_halted hs;
          snap_regs  := snap_regs hs;
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs + 1;
          snap_mdl_ops := snap_mdl_ops hs;
          snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
+         snap_error_code := if ok then snap_error_code hs else KAMI_ERR_PARTITION_OVERLAP;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes :=
-           fun j => if Nat.eqb j id then sz else snap_pt_sizes hs j;
-         snap_pt_next_id := S id;
+           if fresh then (fun j => if Nat.eqb j id then len else snap_pt_sizes hs j)
+           else snap_pt_sizes hs;
+         snap_pt_bases :=
+           if fresh then (fun j => if Nat.eqb j id then a else snap_pt_bases hs j)
+           else snap_pt_bases hs;
+         snap_pt_next_id := if fresh then S id else id;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
          snap_wc_diff_00 := snap_wc_diff_00 hs;
@@ -840,22 +929,28 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
      snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
-         snap_csr_err       := snap_csr_err hs;
+         snap_csr_err       := if ok then snap_csr_err hs else 1;
          snap_csr_heap_base := snap_csr_heap_base hs;
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
   | instr_psplit module left_region right_region cost =>
-      (* PSPLIT: mirrors graph_hw_psplit — half-split module (module mod PTableSz),
-         allocate two new partition table slots, remove original.
-         Always succeeds (matching SimulationProof.vm_apply). *)
+      (* PSPLIT: mirrors graph_hw_psplit. The range of module (module mod
+         PTableSz) is cut at its middle into two new partition table slots:
+         the left half keeps the base, the right half starts where the left
+         one ends. The original slot is removed, with every morphism naming
+         it. Always succeeds (matching SimulationProof.vm_apply). *)
       let mid := module mod PTableSz in
       let orig_sz := snap_pt_sizes hs mid in
+      let orig_base := snap_pt_bases hs mid in
       let left_sz := Nat.div orig_sz 2 in
       let right_sz := orig_sz - left_sz in
       let nid := snap_pt_next_id hs in
       let sizes1 := fun i => if Nat.eqb i mid then 0 else snap_pt_sizes hs i in
       let sizes2 := fun i => if Nat.eqb i nid then left_sz else sizes1 i in
       let sizes3 := fun i => if Nat.eqb i (S nid) then right_sz else sizes2 i in
+      let bases1 := fun i => if Nat.eqb i mid then 0 else snap_pt_bases hs i in
+      let bases2 := fun i => if Nat.eqb i nid then orig_base else bases1 i in
+      let bases3 := fun i => if Nat.eqb i (S nid) then orig_base + left_sz else bases2 i in
       {| snap_pc           := S (snap_pc hs);
          snap_mu           := snap_mu hs + cost;
          snap_err          := snap_err hs;
@@ -868,6 +963,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code   := snap_error_code hs;
          snap_mu_tensor    := snap_mu_tensor hs;
          snap_pt_sizes     := sizes3;
+         snap_pt_bases     := bases3;
          snap_pt_next_id   := S (S nid);
          snap_certified    := snap_certified hs;
          snap_wc_same_00   := snap_wc_same_00 hs;
@@ -879,7 +975,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_same_11   := snap_wc_same_11 hs;
          snap_wc_diff_11   := snap_wc_diff_11 hs;
          snap_module_tensors := snap_module_tensors hs;
-     snap_rich_state    := snap_rich_state hs;
+     snap_rich_state    := rich_state_cascade (snap_rich_state hs) mid mid;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -887,31 +983,38 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
   | instr_pmerge m1 m2 cost =>
-      (* PMERGE: mirrors graph_hw_pmerge — sum sizes of m1 mod PTableSz and m2 mod PTableSz,
-         remove both, allocate one new partition table slot.
-         Always succeeds (matching SimulationProof.vm_apply). *)
+      (* PMERGE: mirrors graph_hw_pmerge. Modules m1 mod PTableSz and
+         m2 mod PTableSz must have ranges that touch; otherwise the step traps
+         as a failed LASSERT does. Both slots are removed, with every
+         morphism naming either, and one new slot takes the joined range. *)
       let mid1 := m1 mod PTableSz in
       let mid2 := m2 mod PTableSz in
       let sz1 := snap_pt_sizes hs mid1 in
       let sz2 := snap_pt_sizes hs mid2 in
       let merged_sz := sz1 + sz2 in
+      let merged_base := snap_pmerge_base (snap_pt_sizes hs) (snap_pt_bases hs) mid1 mid2 in
       let nid := snap_pt_next_id hs in
+      let ok := snap_pmerge_adjacent (snap_pt_sizes hs) (snap_pt_bases hs) mid1 mid2 in
       let sizes1 := fun i => if Nat.eqb i mid1 then 0 else snap_pt_sizes hs i in
       let sizes2 := fun i => if Nat.eqb i mid2 then 0 else sizes1 i in
       let sizes3 := fun i => if Nat.eqb i nid then merged_sz else sizes2 i in
-      {| snap_pc           := S (snap_pc hs);
+      let bases1 := fun i => if Nat.eqb i mid1 then 0 else snap_pt_bases hs i in
+      let bases2 := fun i => if Nat.eqb i mid2 then 0 else bases1 i in
+      let bases3 := fun i => if Nat.eqb i nid then merged_base else bases2 i in
+      {| snap_pc           := if ok then S (snap_pc hs) else LASSERT_TRAP_PC;
          snap_mu           := snap_mu hs + cost;
-         snap_err          := snap_err hs;
+         snap_err          := if ok then snap_err hs else true;
          snap_halted       := snap_halted hs;
          snap_regs         := snap_regs hs;
          snap_mem          := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs + 1;
          snap_mdl_ops      := snap_mdl_ops hs;
          snap_info_gain    := snap_info_gain hs;
-         snap_error_code   := snap_error_code hs;
+         snap_error_code   := if ok then snap_error_code hs else KAMI_ERR_PARTITION_OVERLAP;
          snap_mu_tensor    := snap_mu_tensor hs;
-         snap_pt_sizes     := sizes3;
-         snap_pt_next_id   := S nid;
+         snap_pt_sizes     := if ok then sizes3 else snap_pt_sizes hs;
+         snap_pt_bases     := if ok then bases3 else snap_pt_bases hs;
+         snap_pt_next_id   := if ok then S nid else nid;
          snap_certified    := snap_certified hs;
          snap_wc_same_00   := snap_wc_same_00 hs;
          snap_wc_diff_00   := snap_wc_diff_00 hs;
@@ -922,10 +1025,11 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_same_11   := snap_wc_same_11 hs;
          snap_wc_diff_11   := snap_wc_diff_11 hs;
          snap_module_tensors := snap_module_tensors hs;
-     snap_rich_state    := snap_rich_state hs;
+     snap_rich_state    := if ok then rich_state_cascade (snap_rich_state hs) mid1 mid2
+                           else snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
-         snap_csr_err       := snap_csr_err hs;
+         snap_csr_err       := if ok then snap_csr_err hs else 1;
          snap_csr_heap_base := snap_csr_heap_base hs;
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
@@ -950,6 +1054,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := if check_ok then snap_error_code hs else KAMI_ERR_LOGIC;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -983,6 +1088,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1016,6 +1122,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1047,6 +1154,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1078,6 +1186,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1109,6 +1218,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1141,6 +1251,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1175,6 +1286,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1206,6 +1318,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1238,6 +1351,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1279,6 +1393,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1313,6 +1428,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1347,6 +1463,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
            snap_error_code := snap_error_code hs;
            snap_mu_tensor := snap_mu_tensor hs;
            snap_pt_sizes := snap_pt_sizes hs;
+           snap_pt_bases := snap_pt_bases hs;
            snap_pt_next_id := snap_pt_next_id hs;
            snap_certified := snap_certified hs;
            snap_wc_same_00 := s00; snap_wc_diff_00 := d00;
@@ -1384,6 +1501,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1417,6 +1535,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1453,6 +1572,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1484,6 +1604,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1522,6 +1643,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
            fun j => if Nat.eqb j k then snap_mu_tensor hs j + bits
                     else snap_mu_tensor hs j;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1556,6 +1678,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1589,6 +1712,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1622,6 +1746,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1653,6 +1778,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1686,6 +1812,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := true;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1718,6 +1845,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1750,6 +1878,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1782,6 +1911,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1814,6 +1944,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1846,6 +1977,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1877,6 +2009,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1912,6 +2045,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
            snap_error_code := snap_error_code hs;
            snap_mu_tensor := snap_mu_tensor hs;
            snap_pt_sizes := snap_pt_sizes hs;
+           snap_pt_bases := snap_pt_bases hs;
            snap_pt_next_id := snap_pt_next_id hs;
            snap_certified := snap_certified hs;
            snap_wc_same_00 := snap_wc_same_00 hs;
@@ -1950,6 +2084,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
            snap_error_code := snap_error_code hs;
            snap_mu_tensor := snap_mu_tensor hs;
            snap_pt_sizes := snap_pt_sizes hs;
+           snap_pt_bases := snap_pt_bases hs;
            snap_pt_next_id := snap_pt_next_id hs;
            snap_certified := snap_certified hs;
            snap_wc_same_00 := snap_wc_same_00 hs;
@@ -2084,9 +2219,9 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
       end
   | instr_morph_tensor dst f_id g_id cost =>
       (* MORPH_TENSOR: the kernel's graph_tensor_morphisms on the
-         reconstructed graph. Reconstructed module regions are the prefixes
-         seq 0 size, so no two regions are disjoint and this always records
-         a missing morphism; the CPU faults the same way. *)
+         reconstructed graph. When the table's ranges are pairwise disjoint
+         no module owns the union of two disjoint regions, so this records a
+         missing morphism (MorphTensorGap.v); the CPU always faults that way. *)
       let g := snap_full_graph hs in
       match graph_tensor_morphisms g f_id g_id with
       | Some (graph', morph_id) =>
@@ -2143,6 +2278,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := if check_ok then snap_error_code hs else KAMI_ERR_LOGIC;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -2180,6 +2316,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -2218,6 +2355,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -2256,6 +2394,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -2296,6 +2435,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_error_code := snap_error_code hs;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_bases := snap_pt_bases hs;
          snap_pt_next_id := snap_pt_next_id hs;
          snap_certified := snap_certified hs;
          snap_wc_same_00 := snap_wc_same_00 hs;
@@ -2409,11 +2549,11 @@ Qed.
     hardware partition table as a formal PartitionGraph, and that PNEW/PSPLIT/PMERGE
     hardware operations commute with the abstraction map. *)
 
-(** Helper: normalize_region of seq 0 n = seq 0 n (seq has no duplicates) *)
-Lemma normalize_seq_nodups : forall n,
-    normalize_region (List.seq 0 n) = List.seq 0 n.
+(** Helper: normalize_region of a range is the range (seq has no duplicates) *)
+Lemma normalize_seq_nodups : forall b n,
+    normalize_region (List.seq b n) = List.seq b n.
 Proof.
-  intro n. unfold normalize_region.
+  intros b n. unfold normalize_region.
   apply nodup_fixed_point.
   apply seq_NoDup.
 Qed.
@@ -2438,55 +2578,59 @@ Proof.
   - destruct (f a); simpl; [f_equal | ]; apply IHl1.
 Qed.
 
+(** The module the partition-table reconstruction builds for slot [i]. *)
+Definition pt_module_at (sizes bases : nat -> nat) (i : nat) : option (nat * ModuleState) :=
+  if Nat.eqb (sizes i) 0 then None
+  else Some (i, {| module_region := List.seq (bases i) (sizes i);
+                   module_axioms := [];
+                   module_mu_tensor := module_mu_tensor_default |}).
+
+Lemma snap_pt_to_graph_modules : forall next_id sizes bases,
+    pg_modules (snap_pt_to_graph next_id sizes bases) =
+    filtermap (pt_module_at sizes bases) (List.rev (List.seq 0 next_id)).
+Proof. reflexivity. Qed.
+
+Lemma filtermap_ext_in_early :
+  forall {A B : Type} (f g : A -> option B) (l : list A),
+    (forall x, In x l -> f x = g x) ->
+    filtermap f l = filtermap g l.
+Proof.
+  intros A B f g l Hext.
+  induction l as [|x xs IH]; simpl.
+  - reflexivity.
+  - rewrite (Hext x (or_introl eq_refl)).
+    destruct (g x); [f_equal|]; apply IH;
+    intros y Hy; apply Hext; right; exact Hy.
+Qed.
+
 (** Helper: modifying index next_id doesn't affect filtermap over rev (seq 0 next_id)
     because all indices in seq 0 next_id are strictly less than next_id. *)
 Lemma filter_map_pt_below_unaffected :
-    forall (next_id region_size : nat) (sizes : nat -> nat),
+    forall (next_id region_size region_base : nat) (sizes bases : nat -> nat),
       filtermap
         (fun i => if Nat.eqb (if Nat.eqb i next_id then region_size else sizes i) 0
                   then None
-                  else Some (i, {| module_region := List.seq 0
-                                     (if Nat.eqb i next_id then region_size else sizes i);
+                  else Some (i, {| module_region :=
+                                     List.seq (if Nat.eqb i next_id then region_base else bases i)
+                                              (if Nat.eqb i next_id then region_size else sizes i);
                                    module_axioms := [];
                                    module_mu_tensor := module_mu_tensor_default |}))
         (List.rev (List.seq 0 next_id)) =
       filtermap
         (fun i => if Nat.eqb (sizes i) 0 then None
-                  else Some (i, {| module_region := List.seq 0 (sizes i);
+                  else Some (i, {| module_region := List.seq (bases i) (sizes i);
                                    module_axioms := [];
                                    module_mu_tensor := module_mu_tensor_default |}))
         (List.rev (List.seq 0 next_id)).
 Proof.
-  intros next_id region_size sizes.
-  (* Every index i in rev (seq 0 next_id) satisfies i < next_id, so i ≠ next_id *)
-  assert (Hext : forall i, List.In i (List.rev (List.seq 0 next_id)) ->
-     (fun i => if Nat.eqb (if Nat.eqb i next_id then region_size else sizes i) 0
-               then None
-               else Some (i, {| module_region := List.seq 0
-                                   (if Nat.eqb i next_id then region_size else sizes i);
-                                 module_axioms := [];
-                                 module_mu_tensor := module_mu_tensor_default |})) i =
-     (fun i => if Nat.eqb (sizes i) 0 then None
-               else Some (i, {| module_region := List.seq 0 (sizes i);
-                                 module_axioms := [];
-                                 module_mu_tensor := module_mu_tensor_default |})) i).
-  { intros i Hi.
-    apply in_rev in Hi.
-    apply in_seq in Hi.
-    destruct Hi as [_ Hi].
-    assert (Hneq : Nat.eqb i next_id = false) by (apply Nat.eqb_neq; lia).
-    rewrite Hneq. reflexivity. }
-  induction (List.rev (List.seq 0 next_id)) as [| x xs IHxs].
-  - reflexivity.
-  - simpl.
-    assert (Hx : List.In x (x :: xs)) by (left; reflexivity).
-    rewrite (Hext x Hx).
-    destruct ((fun i => if Nat.eqb (sizes i) 0 then None
-                        else Some (i, {| module_region := List.seq 0 (sizes i);
-                                         module_axioms := [];
-                                         module_mu_tensor := module_mu_tensor_default |})) x) eqn:Hfx.
-    + f_equal. apply IHxs. intros i Hi. apply Hext. right. exact Hi.
-    + apply IHxs. intros i Hi. apply Hext. right. exact Hi.
+  intros next_id region_size region_base sizes bases.
+  apply filtermap_ext_in_early.
+  intros i Hi.
+  apply in_rev in Hi.
+  apply in_seq in Hi.
+  destruct Hi as [_ Hi].
+  assert (Hneq : Nat.eqb i next_id = false) by (apply Nat.eqb_neq; lia).
+  rewrite Hneq. reflexivity.
 Qed.
 
 (** snap_pt_to_graph_wf:
@@ -2496,16 +2640,16 @@ Qed.
 (** Helper: if all i in l satisfy i < bound, then all_ids_below (filtermap f l) bound
     for any f that only emits (i, _) pairs. *)
 Lemma filtermap_all_ids_below :
-    forall (bound : nat) (sizes : nat -> nat) (l : list nat),
+    forall (bound : nat) (sizes bases : nat -> nat) (l : list nat),
       (forall i, List.In i l -> i < bound) ->
       all_ids_below
         (filtermap (fun i => if Nat.eqb (sizes i) 0 then None
-                             else Some (i, {| module_region := List.seq 0 (sizes i);
+                             else Some (i, {| module_region := List.seq (bases i) (sizes i);
                                               module_axioms := [];
                                               module_mu_tensor := module_mu_tensor_default |})) l)
         bound.
 Proof.
-  intros bound sizes l Hlt.
+  intros bound sizes bases l Hlt.
   induction l as [| i rest IH]; simpl.
   - exact I.
   - destruct (Nat.eqb (sizes i) 0) eqn:Hzero.
@@ -2515,10 +2659,10 @@ Proof.
       * apply IH. intros j Hj. apply Hlt. right. exact Hj.
 Qed.
 
-Theorem snap_pt_to_graph_wf : forall (next_id : nat) (sizes : nat -> nat),
-    well_formed_graph (snap_pt_to_graph next_id sizes).
+Theorem snap_pt_to_graph_wf : forall (next_id : nat) (sizes bases : nat -> nat),
+    well_formed_graph (snap_pt_to_graph next_id sizes bases).
 Proof.
-  intros next_id sizes.
+  intros next_id sizes bases.
   unfold snap_pt_to_graph, well_formed_graph. simpl.
   split; [|split; [exact I|exact I]].
   apply filtermap_all_ids_below.
@@ -2528,91 +2672,86 @@ Proof.
   lia.
 Qed.
 
+Lemma snap_pt_to_graph_pnew_minimal_aux :
+    forall (next_id region_base region_size : nat) (sizes bases : nat -> nat),
+      region_size > 0 ->
+      snap_pt_to_graph (S next_id)
+        (fun j => if Nat.eqb j next_id then region_size else sizes j)
+        (fun j => if Nat.eqb j next_id then region_base else bases j) =
+      fst (graph_add_module (snap_pt_to_graph next_id sizes bases)
+                            (List.seq region_base region_size) []).
+Proof.
+  intros next_id region_base region_size sizes bases Hrsz.
+  assert (Hrsz_neq : Nat.eqb region_size 0 = false) by (apply Nat.eqb_neq; lia).
+  assert (Hnorm : normalize_module {| module_region := List.seq region_base region_size;
+                                       module_axioms := [];
+                                       module_mu_tensor := module_mu_tensor_default |} =
+                  {| module_region := List.seq region_base region_size;
+                     module_axioms := [];
+                     module_mu_tensor := module_mu_tensor_default |}).
+  { unfold normalize_module. simpl. rewrite normalize_seq_nodups. reflexivity. }
+  unfold snap_pt_to_graph, graph_add_module, mk_module_state.
+  rewrite Hnorm.
+  rewrite rev_seq_succ.
+  rewrite filter_map_app_dist.
+  cbn [filtermap fst snd pg_next_id pg_modules pg_next_morph_id pg_morphisms List.app].
+  rewrite Nat.eqb_refl, Hrsz_neq.
+  cbn [filtermap List.app].
+  f_equal.
+  f_equal.
+  apply filter_map_pt_below_unaffected.
+Qed.
+
 (** snap_pt_to_graph_pnew:
-    After hardware PNEW allocating slot [next_id] with size [region_size],
-    the reconstructed graph equals the result of graph_add_module applied to
-    the previous graph with region (List.seq 0 region_size) and empty axioms.
+    After hardware PNEW allocating slot [next_id] with base [region_base] and
+    size [region_size], the reconstructed graph equals the result of
+    graph_add_module applied to the previous graph with region
+    (List.seq region_base region_size) and empty axioms.
 
     Preconditions match the hardware invariants:
     - next_id >= 1: matches empty_graph.pg_next_id = 1 starting point
     - region_size > 0: PNEW with zero size is a no-op; meaningful allocation is nonzero
     - sizes next_id = 0: hardware slot must be fresh (unallocated) before PNEW *)
 Theorem snap_pt_to_graph_pnew :
-    forall (next_id region_size : nat) (sizes : nat -> nat),
+    forall (next_id region_base region_size : nat) (sizes bases : nat -> nat),
       next_id >= 1 ->
       next_id < PTableSz ->
       region_size > 0 ->
       sizes next_id = 0 ->
       snap_pt_to_graph (S next_id)
-        (fun j => if Nat.eqb j next_id then region_size else sizes j) =
-      fst (graph_add_module (snap_pt_to_graph next_id sizes)
-                            (List.seq 0 region_size) []).
+        (fun j => if Nat.eqb j next_id then region_size else sizes j)
+        (fun j => if Nat.eqb j next_id then region_base else bases j) =
+      fst (graph_add_module (snap_pt_to_graph next_id sizes bases)
+                            (List.seq region_base region_size) []).
 Proof.
-  intros next_id region_size sizes Hge Hlt Hrsz Hfresh.
-  assert (Hrsz_neq : Nat.eqb region_size 0 = false) by (apply Nat.eqb_neq; lia).
-  (* normalize_module applied to a seq-region is the identity *)
-  assert (Hnorm : normalize_module {| module_region := List.seq 0 region_size;
-                                       module_axioms := [];
-                                       module_mu_tensor := module_mu_tensor_default |} =
-                  {| module_region := List.seq 0 region_size;
-                     module_axioms := [];
-                     module_mu_tensor := module_mu_tensor_default |}).
-  { unfold normalize_module. simpl. rewrite normalize_seq_nodups. reflexivity. }
-  (* Rewrite rev_seq_succ FIRST, before any cbn that could expand seq *)
-  unfold snap_pt_to_graph, graph_add_module, mk_module_state.
-  rewrite Hnorm.
-  rewrite rev_seq_succ.
-  rewrite filter_map_app_dist.
-  (* Reduce filtermap f [next_id], projections and fst pair *)
-  cbn [filtermap fst snd pg_next_id pg_modules pg_next_morph_id pg_morphisms List.app].
-  rewrite Nat.eqb_refl, Hrsz_neq.
-  cbn [filtermap List.app].
-  (* Now we need to show two PartitionGraphs with 4 fields are equal *)
-  f_equal.  (* pg_modules equality suffices since all other fields match *)
-  f_equal.  (* cons equality: head matches, need tail *)
-  apply filter_map_pt_below_unaffected.
+  intros next_id region_base region_size sizes bases _ _ Hrsz _.
+  exact (snap_pt_to_graph_pnew_minimal_aux next_id region_base region_size sizes bases Hrsz).
 Qed.
 
 (** snap_pt_to_graph_pnew_minimal: same as snap_pt_to_graph_pnew but without
     the preconditions next_id >= 1, next_id < PTableSz, and sizes next_id = 0.
     The proof never uses those hypotheses. *)
 Theorem snap_pt_to_graph_pnew_minimal :
-    forall (next_id region_size : nat) (sizes : nat -> nat),
+    forall (next_id region_base region_size : nat) (sizes bases : nat -> nat),
       region_size > 0 ->
       snap_pt_to_graph (S next_id)
-        (fun j => if Nat.eqb j next_id then region_size else sizes j) =
-      fst (graph_add_module (snap_pt_to_graph next_id sizes)
-                            (List.seq 0 region_size) []).
+        (fun j => if Nat.eqb j next_id then region_size else sizes j)
+        (fun j => if Nat.eqb j next_id then region_base else bases j) =
+      fst (graph_add_module (snap_pt_to_graph next_id sizes bases)
+                            (List.seq region_base region_size) []).
 Proof.
-  intros next_id region_size sizes Hrsz.
-  assert (Hrsz_neq : Nat.eqb region_size 0 = false) by (apply Nat.eqb_neq; lia).
-  assert (Hnorm : normalize_module {| module_region := List.seq 0 region_size;
-                                       module_axioms := [];
-                                       module_mu_tensor := module_mu_tensor_default |} =
-                  {| module_region := List.seq 0 region_size;
-                     module_axioms := [];
-                     module_mu_tensor := module_mu_tensor_default |}).
-  { unfold normalize_module. simpl. rewrite normalize_seq_nodups. reflexivity. }
-  unfold snap_pt_to_graph, graph_add_module, mk_module_state.
-  rewrite Hnorm.
-  rewrite rev_seq_succ.
-  rewrite filter_map_app_dist.
-  cbn [filtermap fst snd pg_next_id pg_modules pg_next_morph_id pg_morphisms List.app].
-  rewrite Nat.eqb_refl, Hrsz_neq.
-  cbn [filtermap List.app].
-  f_equal.
-  f_equal.
-  apply filter_map_pt_below_unaffected.
+  exact snap_pt_to_graph_pnew_minimal_aux.
 Qed.
 
 (** snap_pt_to_graph_pnew_pg_next_id:
     After hardware PNEW, pg_next_id advances by 1. *)
 Corollary snap_pt_to_graph_pnew_next_id :
-    forall (next_id region_size : nat) (sizes : nat -> nat),
+    forall (next_id region_base region_size : nat) (sizes bases : nat -> nat),
       next_id >= 1 -> next_id < PTableSz -> region_size > 0 -> sizes next_id = 0 ->
       (snap_pt_to_graph (S next_id)
-         (fun j => if Nat.eqb j next_id then region_size else sizes j)).(pg_next_id) =
-      S (snap_pt_to_graph next_id sizes).(pg_next_id).
+         (fun j => if Nat.eqb j next_id then region_size else sizes j)
+         (fun j => if Nat.eqb j next_id then region_base else bases j)).(pg_next_id) =
+      S (snap_pt_to_graph next_id sizes bases).(pg_next_id).
 Proof.
   intros. unfold snap_pt_to_graph. simpl. reflexivity.
 Qed.
@@ -2872,11 +3011,11 @@ Qed.
 
 (** Zeroing sizes at [mid] in the filtermap = filtering out the (mid, _) entry. *)
 Lemma filtermap_zero_filters_entry :
-  forall (l : list nat) (mid : nat) (sizes : nat -> nat),
+  forall (l : list nat) (mid : nat) (sizes bases : nat -> nat),
     filtermap
       (fun i =>
         if Nat.eqb (if Nat.eqb i mid then 0 else sizes i) 0 then None
-        else Some (i, {| module_region := List.seq 0 (if Nat.eqb i mid then 0 else sizes i);
+        else Some (i, {| module_region := List.seq (bases i) (if Nat.eqb i mid then 0 else sizes i);
                           module_axioms := [];
                           module_mu_tensor := module_mu_tensor_default |}))
       l =
@@ -2885,12 +3024,12 @@ Lemma filtermap_zero_filters_entry :
       (filtermap
         (fun i =>
           if Nat.eqb (sizes i) 0 then None
-          else Some (i, {| module_region := List.seq 0 (sizes i);
+          else Some (i, {| module_region := List.seq (bases i) (sizes i);
                             module_axioms := [];
                             module_mu_tensor := module_mu_tensor_default |}))
         l).
 Proof.
-  intros l mid sizes.
+  intros l mid sizes bases.
   induction l as [|x xs IH]; simpl; auto.
   destruct (Nat.eqb x mid) eqn:Hxm; simpl.
   - destruct (Nat.eqb (sizes x) 0) eqn:Hszx; simpl.
@@ -2903,12 +3042,12 @@ Qed.
 
 (** Zeroing two slots (m1 and m2) equals filtering both entries out. *)
 Lemma filtermap_two_zeros_filter :
-  forall (l : list nat) (m1 m2 : nat) (sizes : nat -> nat),
+  forall (l : list nat) (m1 m2 : nat) (sizes bases : nat -> nat),
     m1 <> m2 ->
     filtermap
       (fun i =>
         if Nat.eqb (if Nat.eqb i m1 then 0 else if Nat.eqb i m2 then 0 else sizes i) 0 then None
-        else Some (i, {| module_region := List.seq 0 (if Nat.eqb i m1 then 0 else if Nat.eqb i m2 then 0 else sizes i);
+        else Some (i, {| module_region := List.seq (bases i) (if Nat.eqb i m1 then 0 else if Nat.eqb i m2 then 0 else sizes i);
                           module_axioms := [];
                           module_mu_tensor := module_mu_tensor_default |}))
       l =
@@ -2917,12 +3056,12 @@ Lemma filtermap_two_zeros_filter :
       (filtermap
         (fun i =>
           if Nat.eqb (sizes i) 0 then None
-          else Some (i, {| module_region := List.seq 0 (sizes i);
+          else Some (i, {| module_region := List.seq (bases i) (sizes i);
                             module_axioms := [];
                             module_mu_tensor := module_mu_tensor_default |}))
         l).
 Proof.
-  intros l m1 m2 sizes Hne.
+  intros l m1 m2 sizes bases Hne.
   induction l as [|x xs IH]; simpl; auto.
   destruct (Nat.eqb x m1) eqn:Hxm1; simpl.
   - destruct (Nat.eqb (sizes x) 0) eqn:Hszx; simpl.
@@ -2935,4 +3074,156 @@ Proof.
     + destruct (Nat.eqb (sizes x) 0) eqn:Hszx; simpl.
       * exact IH.
       * rewrite Hxm1; simpl. rewrite Hxm2; simpl. f_equal. exact IH.
+Qed.
+
+(* ======================================================================
+   §Ranges  PNEW, PSPLIT and PMERGE on ranges of data memory
+   The partition table stores a base and a size per slot; the module of a
+   slot owns [List.seq base size]. These lemmas turn the kernel's list
+   checks on such ranges into the arithmetic the hardware performs.
+   *)
+
+Lemma nat_list_subset_seq : forall b n a l,
+  nat_list_subset (List.seq b n) (List.seq a l) = true <->
+  n = 0 \/ (a <= b /\ b + n <= a + l).
+Proof.
+  intros b n a l. unfold nat_list_subset. rewrite forallb_forall. split.
+  - intro H. destruct n as [|n']; [left; reflexivity|right].
+    assert (Hb : nat_list_mem b (List.seq a l) = true) by (apply H; apply in_seq; lia).
+    assert (He : nat_list_mem (b + n') (List.seq a l) = true) by (apply H; apply in_seq; lia).
+    apply nat_list_mem_In, in_seq in Hb. apply nat_list_mem_In, in_seq in He. lia.
+  - intros [Hn|[H1 H2]] x Hx; [subst n; simpl in Hx; contradiction|].
+    apply nat_list_mem_In. apply in_seq in Hx. apply in_seq. lia.
+Qed.
+
+(** Two nonempty ranges are the same set exactly when they have the same
+    base and size. *)
+Lemma nat_list_eq_seq : forall b n a l, 0 < n -> 0 < l ->
+  nat_list_eq (List.seq b n) (List.seq a l) = andb (Nat.eqb b a) (Nat.eqb n l).
+Proof.
+  intros b n a l Hn Hl. apply Bool.eq_iff_eq_true.
+  unfold nat_list_eq. rewrite !Bool.andb_true_iff, !Nat.eqb_eq, !nat_list_subset_seq.
+  split; intros; lia.
+Qed.
+
+(** Two nonempty ranges share no address exactly when one ends before the
+    other begins. *)
+Lemma nat_list_disjoint_seq : forall b n a l, 0 < n -> 0 < l ->
+  nat_list_disjoint (List.seq b n) (List.seq a l) =
+  negb (andb (Nat.ltb a (b + n)) (Nat.ltb b (a + l))).
+Proof.
+  intros b n a l Hn Hl. apply Bool.eq_iff_eq_true.
+  unfold nat_list_disjoint. rewrite forallb_forall.
+  rewrite Bool.negb_true_iff, Bool.andb_false_iff, !Nat.ltb_ge.
+  split.
+  - intros H. destruct (Compare_dec.le_lt_dec (b + n) a) as [H1|H1]; [left; exact H1|].
+    destruct (Compare_dec.le_lt_dec (a + l) b) as [H2|H2]; [right; exact H2|]. exfalso.
+    destruct (Compare_dec.le_lt_dec a b) as [Hab|Hab].
+    + assert (Hx : In b (List.seq b n)) by (apply in_seq; lia).
+      specialize (H b Hx). apply Bool.negb_true_iff in H.
+      assert (Hm : nat_list_mem b (List.seq a l) = true)
+        by (apply nat_list_mem_In, in_seq; lia).
+      congruence.
+    + assert (Hx : In a (List.seq b n)) by (apply in_seq; lia).
+      specialize (H a Hx). apply Bool.negb_true_iff in H.
+      assert (Hm : nat_list_mem a (List.seq a l) = true)
+        by (apply nat_list_mem_In, in_seq; lia).
+      congruence.
+  - intros Hd x Hx. apply Bool.negb_true_iff. apply in_seq in Hx.
+    destruct (nat_list_mem x (List.seq a l)) eqn:E; [|reflexivity].
+    apply nat_list_mem_In, in_seq in E. lia.
+Qed.
+
+Lemma existsb_filtermap : forall {A B : Type} (f : A -> option B) (P : B -> bool) (l : list A),
+  existsb P (filtermap f l) =
+  existsb (fun x => match f x with Some y => P y | None => false end) l.
+Proof.
+  intros A B f P l. induction l as [|x xs IH]; simpl; [reflexivity|].
+  destruct (f x); simpl; rewrite IH; reflexivity.
+Qed.
+
+Lemma existsb_rev_eq : forall {A : Type} (P : A -> bool) (l : list A),
+  existsb P (List.rev l) = existsb P l.
+Proof.
+  intros A P l. apply Bool.eq_iff_eq_true. rewrite !existsb_exists.
+  split; intros [x [Hx Hp]]; exists x; split; try exact Hp.
+  - exact (proj2 (in_rev l x) Hx).
+  - exact (proj1 (in_rev l x) Hx).
+Qed.
+
+Lemma existsb_ext_in : forall {A : Type} (f g : A -> bool) (l : list A),
+  (forall x, In x l -> f x = g x) -> existsb f l = existsb g l.
+Proof.
+  intros A f g l H. induction l as [|x xs IH]; simpl; [reflexivity|].
+  rewrite (H x (or_introl eq_refl)). f_equal. apply IH.
+  intros y Hy. apply H. right. exact Hy.
+Qed.
+
+(** Slots at or above the next free slot hold no module, so the scan over all
+    [PTableSz] slots is the scan over the slots below [n]. *)
+Lemma existsb_seq_below : forall (P : nat -> bool) n N,
+  n <= N -> (forall i, n <= i -> P i = false) ->
+  existsb P (List.seq 0 N) = existsb P (List.seq 0 n).
+Proof.
+  intros P n N Hle Hz.
+  replace N with (n + (N - n)) by lia.
+  rewrite seq_app, existsb_app. cbn [Nat.add].
+  assert (Hr : existsb P (List.seq n (N - n)) = false).
+  { apply Bool.not_true_iff_false. rewrite existsb_exists.
+    intros [x [Hx Hp]]. apply in_seq in Hx. rewrite Hz in Hp by lia. discriminate. }
+  rewrite Hr, Bool.orb_false_r. reflexivity.
+Qed.
+
+(** The kernel's PNEW conflict test on the reconstructed graph is the
+    hardware's slot scan. *)
+Lemma snap_pt_region_conflict : forall n sizes bases a len,
+  n <= PTableSz -> 0 < len ->
+  region_conflict (snap_pt_to_graph n sizes bases) (List.seq a len) =
+  snap_pt_conflict n sizes bases a len.
+Proof.
+  intros n sizes bases a len Hn Hl.
+  unfold region_conflict, snap_pt_conflict.
+  rewrite snap_pt_to_graph_modules, existsb_filtermap, existsb_rev_eq.
+  rewrite (existsb_seq_below _ n PTableSz Hn).
+  2:{ intros i Hi. unfold snap_slot_live. rewrite (proj2 (Nat.ltb_ge i n) Hi). reflexivity. }
+  apply existsb_ext_in. intros i Hi. apply in_seq in Hi.
+  unfold pt_module_at, snap_slot_live, snap_slot_same, snap_slot_overlap.
+  rewrite (proj2 (Nat.ltb_lt i n)) by lia.
+  destruct (Nat.eqb (sizes i) 0) eqn:Ez; [reflexivity|].
+  apply Nat.eqb_neq in Ez. cbn [snd module_region negb andb].
+  rewrite nat_list_eq_seq by lia. rewrite nat_list_disjoint_seq by lia.
+  rewrite Bool.negb_involutive. reflexivity.
+Qed.
+
+Lemma graph_find_region_modules_None_existsb : forall ms r,
+  graph_find_region_modules ms r = None <->
+  existsb (fun p => nat_list_eq (snd p).(module_region) r) ms = false.
+Proof.
+  intros ms r. induction ms as [|[id m] rest IH]; simpl; [split; reflexivity|].
+  destruct (nat_list_eq (module_region m) r); simpl; [split; discriminate|exact IH].
+Qed.
+
+(** The kernel finds a module owning exactly [a, a + len) in the
+    reconstructed graph when the hardware scan finds a slot with that range. *)
+Lemma snap_pt_find_region : forall n sizes bases a len,
+  n <= PTableSz -> 0 < len ->
+  graph_find_region (snap_pt_to_graph n sizes bases) (List.seq a len) = None <->
+  snap_pt_present n sizes bases a len = false.
+Proof.
+  intros n sizes bases a len Hn Hl.
+  unfold graph_find_region. rewrite normalize_seq_nodups.
+  rewrite graph_find_region_modules_None_existsb.
+  replace (existsb (fun p => nat_list_eq (module_region (snd p)) (List.seq a len))
+             (pg_modules (snap_pt_to_graph n sizes bases)))
+    with (snap_pt_present n sizes bases a len); [reflexivity|].
+  unfold snap_pt_present.
+  rewrite snap_pt_to_graph_modules, existsb_filtermap, existsb_rev_eq.
+  rewrite (existsb_seq_below _ n PTableSz Hn).
+  2:{ intros i Hi. unfold snap_slot_live. rewrite (proj2 (Nat.ltb_ge i n) Hi). reflexivity. }
+  apply existsb_ext_in. intros i Hi. apply in_seq in Hi.
+  unfold pt_module_at, snap_slot_live, snap_slot_same.
+  rewrite (proj2 (Nat.ltb_lt i n)) by lia.
+  destruct (Nat.eqb (sizes i) 0) eqn:Ez; [reflexivity|].
+  apply Nat.eqb_neq in Ez. cbn [snd module_region negb andb].
+  rewrite nat_list_eq_seq by lia. reflexivity.
 Qed.

@@ -711,13 +711,17 @@ Qed.
 
 (** Predicate for sequential instructions (PC advances by 1).
     LASSERT is excluded: on failure, hardware traps to LASSERT_TRAP_PC
-    instead of incrementing. CHSH_LASSERT has the same trap discipline. *)
+    instead of incrementing. CHSH_LASSERT has the same trap discipline, and
+    so do PNEW (a range that overlaps a module) and PMERGE (two ranges that
+    do not touch). *)
 Definition verilog_increments_pc (i : vm_instruction) : bool :=
   match i with
   | instr_jump _ _ => false
   | instr_jnez _ _ _ => false
   | instr_call _ _ => false
   | instr_ret _ => false
+  | instr_pnew _ _ => false
+  | instr_pmerge _ _ _ => false
   | instr_lassert _ _ _ _ _ => false
   | instr_chsh_lassert _ => false
   | instr_chsh_lassert_1ab _ => false

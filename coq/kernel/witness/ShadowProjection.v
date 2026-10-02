@@ -13,13 +13,14 @@
                  vm_witness, vm_mstatus, vm_mu_tensor
 
     THEOREMS:
-      C1: shadow_proj is well-defined (it's a total function)
-      C2: shadow_proj is lossy — different states can have the same shadow
-          (specifically: different morphism graphs map to the same shadow)
-      C3: shadow_proj s1 = shadow_proj s2 but probe distinguishes them
-      C4: the distinguishing probe (MORPH_DELETE) is semantically legitimate
-          — it depends on real retained structure, not metadata
-      C5: shadow_proj is strictly lossy — the image does not capture morphism state
+      C1: shadow_proj is well-defined (it is a total function)
+      C2: shadow_proj is lossy: different morphism graphs can have the
+          same shadow
+      C3: shadow_proj s1 = shadow_proj s2 while the graphs differ, and a
+          graph-preserving probe (ADD) keeps them different
+      C4: the retained difference is real graph structure, not metadata
+      C5: shadow_proj is strictly lossy: the image does not capture morphism
+          state
 
 *)
 
@@ -176,9 +177,11 @@ Qed.
     graph state unchanged. Since separation_A and separation_B differ in
     their morphism graph, the graph difference persists after the probe step.
 
-    In the hardware-aligned kernel model, morphism data is internal graph
-    state — no instruction reads or writes morphisms to classical observables.
-    The separation observable is therefore the graph itself, not vm_err.
+    Morphism instructions do write a register (MORPH and MORPH_ID write the
+    new morphism id to the destination register), and MORPH_GET reads morphism
+    fields into one. The separation observable here is the graph itself:
+    the probe leaves both graphs as they were, so the difference stays in
+    vm_graph.
 *)
 
 (** The probe instruction: ADD with dst=0, rs1=0, rs2=0, cost=0.

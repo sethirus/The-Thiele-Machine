@@ -102,6 +102,13 @@ Qed.
 
 (** * Admission invariants of the morph and coupling tables *)
 
+(** The partition table's ranges are pairwise disjoint: the reconstructed
+    graph satisfies [regions_disjoint]. The step rule's MORPH_TENSOR always
+    faults; the kernel's tensor of two morphisms finds no module for the
+    union of their endpoint regions exactly under this invariant. *)
+Definition hwb_ranges_disjoint (b : HWB) : Prop :=
+  regions_disjoint (snap_full_graph (hwb_snapshot b)).
+
 (** Every valid morph slot lies below [morph_next_id]. *)
 Definition hwb_morph_valid_below_next (b : HWB) : Prop :=
   forall i, hw_morph_valid_table b i = true -> wordToNat i < wordToNat (hw_morph_next_id b).
@@ -378,8 +385,9 @@ REFINE['MORPH_GET_EXT'] = dict(
 
 REFINE['MORPH_TENSOR'] = dict(
     instr='instr_morph_tensor (wordToNat AL) f g (wordToNat C)', vars=['f : nat', 'g : nat'],
-    prem=COST_PREM, cases='idtac.', rich=FRAME, unfold='kami_advance_err_code',
-    kami='rewrite snap_graph_tensor_none; cbv beta iota.', close=FAULT_CLOSE)
+    prem=COST_PREM + [('Hdis', 'hwb_ranges_disjoint b')], cases='idtac.', rich=FRAME,
+    unfold='kami_advance_err_code',
+    kami='rewrite (snap_graph_tensor_none _ f g Hdis); cbv beta iota.', close=FAULT_CLOSE)
 REFINE['MORPH_TENSOR_EXT'] = dict(REFINE['MORPH_TENSOR'], fmt=3)
 
 PROJ_FIELDS = [f for f in FIELDS if f not in (

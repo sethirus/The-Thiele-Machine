@@ -41,7 +41,7 @@ Ltac drop_closed_wlt :=
 Ltac hw_field_rich :=
   intros;
   match goal with H : step_fetched _ = _ |- _ => rewrite (step_next_fetched _ _ H) end;
-  cbn [hwb_after hw_pc hw_mu hw_err hw_halted hw_regs hw_mem hw_imem hw_partition_ops hw_mdl_ops hw_info_gain hw_error_code hw_logic_acc hw_cert_addr hw_active_module hw_mstatus hw_mcycle_lo hw_mcycle_hi hw_minstret_lo hw_minstret_hi hw_trap_vector hw_certified hw_lassert_phase hw_lassert_kind hw_lassert_fbase hw_lassert_cbase hw_lassert_flen hw_lassert_clen hw_lassert_nvars hw_lassert_fptr hw_lassert_cptr hw_lassert_fbuf hw_lassert_cbuf hw_lassert_clause_sat hw_lassert_counter_clause_sat hw_lassert_counter_seen_fail hw_chsh_phase hw_chsh_n00 hw_chsh_n01 hw_chsh_n10 hw_chsh_n11 hw_chsh_d00 hw_chsh_d01 hw_chsh_d10 hw_chsh_d11 hw_chsh_sign00 hw_chsh_sign01 hw_chsh_sign10 hw_chsh_sign11 hw_chsh_n00sq hw_chsh_n01sq hw_chsh_n10sq hw_chsh_n11sq hw_chsh_d00sq hw_chsh_d01sq hw_chsh_d10sq hw_chsh_d11sq hw_chsh_A_pos hw_chsh_A_neg_a hw_chsh_A_neg_b hw_chsh_B_pos hw_chsh_B_neg_a hw_chsh_B_neg_b hw_chsh_d00d01 hw_chsh_n10n11 hw_chsh_d10d11 hw_chsh_n00n01 hw_chsh_abs_C1 hw_chsh_abs_C2 hw_chsh_C_sq hw_chsh_A_times_B hw_chsh_check_result hw_bus_load_instr_addr hw_bus_load_instr_data hw_bus_load_instr_kick hw_mu_tensor hw_module_tensors hw_csr_status hw_csr_heap_base hw_ptTable hw_pt_next_id hw_morph_src_table hw_morph_dst_table hw_morph_coupling_desc_table hw_morph_valid_table hw_morph_identity_table hw_morph_next_id hw_coupling_desc_base_table hw_coupling_desc_count_table hw_coupling_desc_valid_table hw_coupling_desc_label_table hw_coupling_desc_label_len_table hw_coupling_desc_next_id hw_coupling_pair_src_table hw_coupling_pair_dst_table hw_coupling_pair_valid_table hw_coupling_pair_next_id hw_mc_phase hw_mc_op hw_mc_mem_base hw_mc_pair_count hw_mc_read_ptr hw_mc_src1_base hw_mc_src1_count hw_mc_src2_base hw_mc_src2_count hw_mc_i hw_mc_j hw_mc_is_id1 hw_mc_is_id2 hw_mc_write_base hw_mc_write_ptr hw_mc_norm_ptr hw_mc_duplicate hw_mc_dst_reg hw_mc_morph_slot hw_mc_new_src_mod hw_mc_new_dst_mod hw_mc_cost hw_formula_desc_base_table hw_formula_desc_count_table hw_formula_desc_valid_table hw_formula_desc_next_id hw_cert_desc_base_table hw_cert_desc_count_table hw_cert_desc_valid_table hw_cert_desc_next_id hw_desc_meta_subtype_table hw_desc_meta_kind_table hw_desc_meta_inline_len_table hw_desc_meta_aux_table hw_desc_meta_valid_table hw_desc_meta_next_id hw_wc_same_00 hw_wc_diff_00 hw_wc_same_01 hw_wc_diff_01 hw_wc_same_10 hw_wc_diff_10 hw_wc_same_11 hw_wc_diff_11];
+  cbn [hwb_after hw_pc hw_mu hw_err hw_halted hw_regs hw_mem hw_imem hw_partition_ops hw_mdl_ops hw_info_gain hw_error_code hw_logic_acc hw_cert_addr hw_active_module hw_mstatus hw_mcycle_lo hw_mcycle_hi hw_minstret_lo hw_minstret_hi hw_trap_vector hw_certified hw_lassert_phase hw_lassert_kind hw_lassert_fbase hw_lassert_cbase hw_lassert_flen hw_lassert_clen hw_lassert_nvars hw_lassert_fptr hw_lassert_cptr hw_lassert_fbuf hw_lassert_cbuf hw_lassert_clause_sat hw_lassert_counter_clause_sat hw_lassert_counter_seen_fail hw_chsh_phase hw_chsh_n00 hw_chsh_n01 hw_chsh_n10 hw_chsh_n11 hw_chsh_d00 hw_chsh_d01 hw_chsh_d10 hw_chsh_d11 hw_chsh_sign00 hw_chsh_sign01 hw_chsh_sign10 hw_chsh_sign11 hw_chsh_n00sq hw_chsh_n01sq hw_chsh_n10sq hw_chsh_n11sq hw_chsh_d00sq hw_chsh_d01sq hw_chsh_d10sq hw_chsh_d11sq hw_chsh_A_pos hw_chsh_A_neg_a hw_chsh_A_neg_b hw_chsh_B_pos hw_chsh_B_neg_a hw_chsh_B_neg_b hw_chsh_d00d01 hw_chsh_n10n11 hw_chsh_d10d11 hw_chsh_n00n01 hw_chsh_abs_C1 hw_chsh_abs_C2 hw_chsh_C_sq hw_chsh_A_times_B hw_chsh_check_result hw_bus_load_instr_addr hw_bus_load_instr_data hw_bus_load_instr_kick hw_mu_tensor hw_module_tensors hw_csr_status hw_csr_heap_base hw_ptTable hw_ptBases hw_pt_next_id hw_morph_src_table hw_morph_dst_table hw_morph_coupling_desc_table hw_morph_valid_table hw_morph_identity_table hw_morph_next_id hw_coupling_desc_base_table hw_coupling_desc_count_table hw_coupling_desc_valid_table hw_coupling_desc_label_table hw_coupling_desc_label_len_table hw_coupling_desc_next_id hw_coupling_pair_src_table hw_coupling_pair_dst_table hw_coupling_pair_valid_table hw_coupling_pair_next_id hw_mc_phase hw_mc_op hw_mc_mem_base hw_mc_pair_count hw_mc_read_ptr hw_mc_src1_base hw_mc_src1_count hw_mc_src2_base hw_mc_src2_count hw_mc_i hw_mc_j hw_mc_is_id1 hw_mc_is_id2 hw_mc_write_base hw_mc_write_ptr hw_mc_norm_ptr hw_mc_duplicate hw_mc_dst_reg hw_mc_morph_slot hw_mc_new_src_mod hw_mc_new_dst_mod hw_mc_cost hw_formula_desc_base_table hw_formula_desc_count_table hw_formula_desc_valid_table hw_formula_desc_next_id hw_cert_desc_base_table hw_cert_desc_count_table hw_cert_desc_valid_table hw_cert_desc_next_id hw_desc_meta_subtype_table hw_desc_meta_kind_table hw_desc_meta_inline_len_table hw_desc_meta_aux_table hw_desc_meta_valid_table hw_desc_meta_next_id hw_wc_same_00 hw_wc_diff_00 hw_wc_same_01 hw_wc_diff_01 hw_wc_same_10 hw_wc_diff_10 hw_wc_same_11 hw_wc_diff_11];
   unfold hwb_decoded;
   repeat match goal with H : hwb_bianchi _ = _ |- _ => rewrite H end;
   hw_lazy; clear_concrete_word_casts; hw_lazy; drop_closed_wlt; hw_lazy; hw_split_close.
@@ -136,6 +136,10 @@ Proof. hw_field. Qed.
 Lemma step_morph_id_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = morph_id_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_morph_id_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = morph_id_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_morph_id_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = morph_id_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -280,6 +284,10 @@ Lemma step_morph_id_ext_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 
   step_fetched b = morph_id_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field_rich. Qed.
+Lemma step_morph_id_ext_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b,
+  step_fetched b = morph_id_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field_rich. Qed.
 Lemma step_morph_id_ext_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b,
   step_fetched b = morph_id_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -422,6 +430,10 @@ Proof. hw_field. Qed.
 Lemma step_morph_delete_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = morph_delete_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_morph_delete_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = morph_delete_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_morph_delete_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = morph_delete_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -566,6 +578,10 @@ Lemma step_morph_delete_ext_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3
   step_fetched b = morph_delete_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field_rich. Qed.
+Lemma step_morph_delete_ext_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b,
+  step_fetched b = morph_delete_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field_rich. Qed.
 Lemma step_morph_delete_ext_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b,
   step_fetched b = morph_delete_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -708,6 +724,10 @@ Proof. hw_field. Qed.
 Lemma step_morph_assert_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = morph_assert_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_morph_assert_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = morph_assert_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_morph_assert_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = morph_assert_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -852,6 +872,10 @@ Lemma step_morph_assert_ext_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3
   step_fetched b = morph_assert_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field_rich. Qed.
+Lemma step_morph_assert_ext_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b,
+  step_fetched b = morph_assert_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field_rich. Qed.
 Lemma step_morph_assert_ext_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b,
   step_fetched b = morph_assert_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -994,6 +1018,10 @@ Proof. hw_field. Qed.
 Lemma step_morph_get_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = morph_get_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_morph_get_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = morph_get_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_morph_get_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = morph_get_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -1138,6 +1166,10 @@ Lemma step_morph_get_ext_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4
   step_fetched b = morph_get_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field_rich. Qed.
+Lemma step_morph_get_ext_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b,
+  step_fetched b = morph_get_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field_rich. Qed.
 Lemma step_morph_get_ext_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b,
   step_fetched b = morph_get_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -1280,6 +1312,10 @@ Proof. hw_field_rich. Qed.
 Lemma step_morph_ext_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b,
   step_fetched b = morph_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field_rich. Qed.
+Lemma step_morph_ext_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b,
+  step_fetched b = morph_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field_rich. Qed.
 Lemma step_morph_ext_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b,
   step_fetched b = morph_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
@@ -1435,6 +1471,10 @@ Proof. hw_field_rich. Qed.
 Lemma step_compose_ext_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b,
   step_fetched b = compose_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field_rich. Qed.
+Lemma step_compose_ext_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b,
+  step_fetched b = compose_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field_rich. Qed.
 Lemma step_compose_ext_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b,
   step_fetched b = compose_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
@@ -1611,6 +1651,10 @@ Lemma step_morph_tensor_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 
   step_fetched b = morph_tensor_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_morph_tensor_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = morph_tensor_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_morph_tensor_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = morph_tensor_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -1753,6 +1797,10 @@ Proof. hw_field_rich. Qed.
 Lemma step_morph_tensor_ext_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b,
   step_fetched b = morph_tensor_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field_rich. Qed.
+Lemma step_morph_tensor_ext_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b,
+  step_fetched b = morph_tensor_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field_rich. Qed.
 Lemma step_morph_tensor_ext_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b,
   step_fetched b = morph_tensor_ext_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 -> hwb_bianchi b = false ->

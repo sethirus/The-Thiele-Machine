@@ -332,6 +332,8 @@ Lemma chsh_keeps_csr_heap_base : forall b, hw_csr_heap_base (chsh_next b) = hw_c
 Proof. intro b. kernel_refl. Qed.
 Lemma chsh_keeps_ptTable : forall b, hw_ptTable (chsh_next b) = hw_ptTable b.
 Proof. intro b. kernel_refl. Qed.
+Lemma chsh_keeps_ptBases : forall b, hw_ptBases (chsh_next b) = hw_ptBases b.
+Proof. intro b. kernel_refl. Qed.
 Lemma chsh_keeps_pt_next_id : forall b, hw_pt_next_id (chsh_next b) = hw_pt_next_id b.
 Proof. intro b. kernel_refl. Qed.
 Lemma chsh_keeps_morph_src_table : forall b, hw_morph_src_table (chsh_next b) = hw_morph_src_table b.

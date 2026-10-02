@@ -6,7 +6,7 @@
     its own decoded guard predicate ([dd_load_locality_bad], ...). This is
     the first such result: for a legacy LOAD word, [dd_load_locality_bad] is
     false whenever the decoded memory address lies within the active
-    partition's region -- the same premise [StepRefineCommon.region_ok_of_lt]
+    partition's region -- the same premise [StepRefineCommon.region_ok_of_range]
     already names for the bit-variable route [StepRefine.step_load_refines]
     takes. The two routes reach the same guard via different means:
     [StepRefine.v] states its premise directly over eight per-bit variables
@@ -32,8 +32,7 @@ Ltac dd_cbn := cbn [evalExpr evalBinBool evalUniBool evalConstT isEq evalBinBitB
 Ltac bool_red := cbv beta iota delta [orb andb negb].
 
 Lemma dd_load_locality_bad_false : forall bd (a b c : word 8),
-  wordToNat (dd_mem_addr bd (legacy_word OP_LOAD a b c))
-    < wordToNat (hw_ptTable bd (hw_active_module bd)) ->
+  hwb_addr_in_active_range bd (wordToNat (dd_mem_addr bd (legacy_word OP_LOAD a b c))) ->
   dd_load_locality_bad bd (legacy_word OP_LOAD a b c) = false.
 Proof.
   intros bd a b c Hbound.
@@ -43,10 +42,5 @@ Proof.
   destruct (weq OP_LOAD OP_LOAD) as [_|Hne]; [|exfalso; apply Hne; reflexivity].
   destruct (weq OP_LOAD OP_HEAP_LOAD) as [Heq|_]; [discriminate Heq|].
   simpl.
-  unfold dd_active_region_size.
-  destruct (wlt_dec _ _) as [_|Hnlt]; [reflexivity|].
-  exfalso. apply Hnlt.
-  apply lt_wlt.
-  rewrite wordToNat_zext7_ext.
-  exact Hbound.
+  close_dd_bounds Hbound.
 Qed.

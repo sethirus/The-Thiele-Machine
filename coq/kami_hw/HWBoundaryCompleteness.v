@@ -181,6 +181,8 @@ Lemma cpu_kind_csr_heap_base : cpu_register_kind "csr_heap_base" = Some (SyntaxK
 Proof. vm_compute. reflexivity. Qed.
 Lemma cpu_kind_ptTable : cpu_register_kind "ptTable" = Some (SyntaxKind (Vector (Bit WordSz) PTableIdxSz)).
 Proof. vm_compute. reflexivity. Qed.
+Lemma cpu_kind_ptBases : cpu_register_kind "ptBases" = Some (SyntaxKind (Vector (Bit WordSz) PTableIdxSz)).
+Proof. vm_compute. reflexivity. Qed.
 Lemma cpu_kind_pt_next_id : cpu_register_kind "pt_next_id" = Some (SyntaxKind (Bit PTableNextIdSz)).
 Proof. vm_compute. reflexivity. Qed.
 Lemma cpu_kind_morph_src_table : cpu_register_kind "morph_src_table" = Some (SyntaxKind (Vector (Bit PTableIdxSz) MorphTableIdxSz)).
@@ -384,6 +386,7 @@ Definition hwb_of_regs (old : RegsT) (H : registers_match cpu_register_kind old)
      hw_csr_status := typed_register_value old "csr_status" (Bit WordSz);
      hw_csr_heap_base := typed_register_value old "csr_heap_base" (Bit WordSz);
      hw_ptTable := typed_register_value old "ptTable" (Vector (Bit WordSz) PTableIdxSz);
+     hw_ptBases := typed_register_value old "ptBases" (Vector (Bit WordSz) PTableIdxSz);
      hw_pt_next_id := typed_register_value old "pt_next_id" (Bit PTableNextIdSz);
      hw_morph_src_table := typed_register_value old "morph_src_table" (Vector (Bit PTableIdxSz) MorphTableIdxSz);
      hw_morph_dst_table := typed_register_value old "morph_dst_table" (Vector (Bit PTableIdxSz) MorphTableIdxSz);
@@ -446,7 +449,7 @@ Definition hwb_of_regs (old : RegsT) (H : registers_match cpu_register_kind old)
      hw_wc_same_11 := typed_register_value old "wc_same_11" (Bit WordSz);
      hw_wc_diff_11 := typed_register_value old "wc_diff_11" (Bit WordSz) |}.
 
-Lemma cpu_register_names : namesOf (getRegInits thieleCore) = ["pc"; "mu"; "err"; "halted"; "regs"; "mem"; "imem"; "partition_ops"; "mdl_ops"; "info_gain"; "error_code"; "logic_acc"; "cert_addr"; "active_module"; "mstatus"; "mcycle_lo"; "mcycle_hi"; "minstret_lo"; "minstret_hi"; "trap_vector"; "certified"; "lassert_phase"; "lassert_kind"; "lassert_fbase"; "lassert_cbase"; "lassert_flen"; "lassert_clen"; "lassert_nvars"; "lassert_fptr"; "lassert_cptr"; "lassert_fbuf"; "lassert_cbuf"; "lassert_clause_sat"; "lassert_counter_clause_sat"; "lassert_counter_seen_fail"; "chsh_phase"; "chsh_n00"; "chsh_n01"; "chsh_n10"; "chsh_n11"; "chsh_d00"; "chsh_d01"; "chsh_d10"; "chsh_d11"; "chsh_sign00"; "chsh_sign01"; "chsh_sign10"; "chsh_sign11"; "chsh_n00sq"; "chsh_n01sq"; "chsh_n10sq"; "chsh_n11sq"; "chsh_d00sq"; "chsh_d01sq"; "chsh_d10sq"; "chsh_d11sq"; "chsh_A_pos"; "chsh_A_neg_a"; "chsh_A_neg_b"; "chsh_B_pos"; "chsh_B_neg_a"; "chsh_B_neg_b"; "chsh_d00d01"; "chsh_n10n11"; "chsh_d10d11"; "chsh_n00n01"; "chsh_abs_C1"; "chsh_abs_C2"; "chsh_C_sq"; "chsh_A_times_B"; "chsh_check_result"; "bus_load_instr_addr"; "bus_load_instr_data"; "bus_load_instr_kick"; "mu_tensor"; "module_tensors"; "csr_status"; "csr_heap_base"; "ptTable"; "pt_next_id"; "morph_src_table"; "morph_dst_table"; "morph_coupling_desc_table"; "morph_valid_table"; "morph_identity_table"; "morph_next_id"; "coupling_desc_base_table"; "coupling_desc_count_table"; "coupling_desc_valid_table"; "coupling_desc_label_table"; "coupling_desc_label_len_table"; "coupling_desc_next_id"; "coupling_pair_src_table"; "coupling_pair_dst_table"; "coupling_pair_valid_table"; "coupling_pair_next_id"; "mc_phase"; "mc_op"; "mc_mem_base"; "mc_pair_count"; "mc_read_ptr"; "mc_src1_base"; "mc_src1_count"; "mc_src2_base"; "mc_src2_count"; "mc_i"; "mc_j"; "mc_is_id1"; "mc_is_id2"; "mc_write_base"; "mc_write_ptr"; "mc_norm_ptr"; "mc_duplicate"; "mc_dst_reg"; "mc_morph_slot"; "mc_new_src_mod"; "mc_new_dst_mod"; "mc_cost"; "formula_desc_base_table"; "formula_desc_count_table"; "formula_desc_valid_table"; "formula_desc_next_id"; "cert_desc_base_table"; "cert_desc_count_table"; "cert_desc_valid_table"; "cert_desc_next_id"; "desc_meta_subtype_table"; "desc_meta_kind_table"; "desc_meta_inline_len_table"; "desc_meta_aux_table"; "desc_meta_valid_table"; "desc_meta_next_id"; "wc_same_00"; "wc_diff_00"; "wc_same_01"; "wc_diff_01"; "wc_same_10"; "wc_diff_10"; "wc_same_11"; "wc_diff_11"].
+Lemma cpu_register_names : namesOf (getRegInits thieleCore) = ["pc"; "mu"; "err"; "halted"; "regs"; "mem"; "imem"; "partition_ops"; "mdl_ops"; "info_gain"; "error_code"; "logic_acc"; "cert_addr"; "active_module"; "mstatus"; "mcycle_lo"; "mcycle_hi"; "minstret_lo"; "minstret_hi"; "trap_vector"; "certified"; "lassert_phase"; "lassert_kind"; "lassert_fbase"; "lassert_cbase"; "lassert_flen"; "lassert_clen"; "lassert_nvars"; "lassert_fptr"; "lassert_cptr"; "lassert_fbuf"; "lassert_cbuf"; "lassert_clause_sat"; "lassert_counter_clause_sat"; "lassert_counter_seen_fail"; "chsh_phase"; "chsh_n00"; "chsh_n01"; "chsh_n10"; "chsh_n11"; "chsh_d00"; "chsh_d01"; "chsh_d10"; "chsh_d11"; "chsh_sign00"; "chsh_sign01"; "chsh_sign10"; "chsh_sign11"; "chsh_n00sq"; "chsh_n01sq"; "chsh_n10sq"; "chsh_n11sq"; "chsh_d00sq"; "chsh_d01sq"; "chsh_d10sq"; "chsh_d11sq"; "chsh_A_pos"; "chsh_A_neg_a"; "chsh_A_neg_b"; "chsh_B_pos"; "chsh_B_neg_a"; "chsh_B_neg_b"; "chsh_d00d01"; "chsh_n10n11"; "chsh_d10d11"; "chsh_n00n01"; "chsh_abs_C1"; "chsh_abs_C2"; "chsh_C_sq"; "chsh_A_times_B"; "chsh_check_result"; "bus_load_instr_addr"; "bus_load_instr_data"; "bus_load_instr_kick"; "mu_tensor"; "module_tensors"; "csr_status"; "csr_heap_base"; "ptTable"; "ptBases"; "pt_next_id"; "morph_src_table"; "morph_dst_table"; "morph_coupling_desc_table"; "morph_valid_table"; "morph_identity_table"; "morph_next_id"; "coupling_desc_base_table"; "coupling_desc_count_table"; "coupling_desc_valid_table"; "coupling_desc_label_table"; "coupling_desc_label_len_table"; "coupling_desc_next_id"; "coupling_pair_src_table"; "coupling_pair_dst_table"; "coupling_pair_valid_table"; "coupling_pair_next_id"; "mc_phase"; "mc_op"; "mc_mem_base"; "mc_pair_count"; "mc_read_ptr"; "mc_src1_base"; "mc_src1_count"; "mc_src2_base"; "mc_src2_count"; "mc_i"; "mc_j"; "mc_is_id1"; "mc_is_id2"; "mc_write_base"; "mc_write_ptr"; "mc_norm_ptr"; "mc_duplicate"; "mc_dst_reg"; "mc_morph_slot"; "mc_new_src_mod"; "mc_new_dst_mod"; "mc_cost"; "formula_desc_base_table"; "formula_desc_count_table"; "formula_desc_valid_table"; "formula_desc_next_id"; "cert_desc_base_table"; "cert_desc_count_table"; "cert_desc_valid_table"; "cert_desc_next_id"; "desc_meta_subtype_table"; "desc_meta_kind_table"; "desc_meta_inline_len_table"; "desc_meta_aux_table"; "desc_meta_valid_table"; "desc_meta_next_id"; "wc_same_00"; "wc_diff_00"; "wc_same_01"; "wc_diff_01"; "wc_same_10"; "wc_diff_10"; "wc_same_11"; "wc_diff_11"].
 Proof. vm_compute. reflexivity. Qed.
 
 Theorem hwb_of_regs_complete : forall old (H : registers_match cpu_register_kind old),
@@ -770,6 +773,10 @@ Proof.
   { subst name. rewrite M.find_add_1. cbn [hwb_of_regs hw_ptTable].
     apply typed_register_value_find. rewrite H. exact cpu_kind_ptTable. }
   rewrite M.find_add_2 by exact N_ptTable.
+  destruct (string_dec name "ptBases") as [E|N_ptBases].
+  { subst name. rewrite M.find_add_1. cbn [hwb_of_regs hw_ptBases].
+    apply typed_register_value_find. rewrite H. exact cpu_kind_ptBases. }
+  rewrite M.find_add_2 by exact N_ptBases.
   destruct (string_dec name "pt_next_id") as [E|N_pt_next_id].
   { subst name. rewrite M.find_add_1. cbn [hwb_of_regs hw_pt_next_id].
     apply typed_register_value_find. rewrite H. exact cpu_kind_pt_next_id. }
@@ -1104,6 +1111,7 @@ Proof.
         destruct Hin as [Hin|Hin]. { apply N_csr_status. symmetry. exact Hin. }
         destruct Hin as [Hin|Hin]. { apply N_csr_heap_base. symmetry. exact Hin. }
         destruct Hin as [Hin|Hin]. { apply N_ptTable. symmetry. exact Hin. }
+        destruct Hin as [Hin|Hin]. { apply N_ptBases. symmetry. exact Hin. }
         destruct Hin as [Hin|Hin]. { apply N_pt_next_id. symmetry. exact Hin. }
         destruct Hin as [Hin|Hin]. { apply N_morph_src_table. symmetry. exact Hin. }
         destruct Hin as [Hin|Hin]. { apply N_morph_dst_table. symmetry. exact Hin. }

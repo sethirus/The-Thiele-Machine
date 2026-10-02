@@ -25,13 +25,19 @@ Import ListNotations.
 
 From Kernel Require Import VMState VMStep SimulationProof AbstractNoFI.
 
-(** is_classical_opcode: true iff the instruction does not modify vm_graph,
-    csr_cert_addr, vm_certified, or vm_witness. Excluded:
-    - Graph-modifying: pnew, psplit, pmerge, lassert, pdiscover, tensor_set,
-      morph, compose, morph_id, morph_delete, morph_tensor
-    - Cert-channel: lassert, ljoin, emit, reveal, morph_assert
-    - vm_certified: certify
-    - vm_witness: chsh_trial
+(** is_classical_opcode: true for the instructions outside the exclusion list
+    below. The list covers every instruction that changes vm_graph,
+    csr_cert_addr, vm_certified or vm_witness, and it also covers the members
+    of the cert-setter class that change none of them. Excluded:
+    - Graph-modifying: pnew, psplit, pmerge, tensor_set, morph, compose,
+      morph_id, morph_delete, morph_tensor
+    - Writes csr_cert_addr: morph_assert
+    - Writes vm_certified: certify
+    - Writes vm_witness: chsh_trial
+    - In the cert-setter class (they pay the S cost floor) without writing a
+      certification field: lassert, ljoin, emit, reveal, the five chsh_lassert
+      forms
+    - pdiscover, whose step is a pure advance
     Instructions like mdlacc, morph_get, tensor_get, read_port, write_port
     are classical — they don't touch graph/cert/witness.
 *)
@@ -41,11 +47,11 @@ Definition is_classical_opcode (i : vm_instruction) : bool :=
   | instr_pnew _ _             => false  (* modifies graph *)
   | instr_psplit _ _ _ _       => false  (* modifies graph *)
   | instr_pmerge _ _ _         => false  (* modifies graph *)
-  | instr_lassert _ _ _ _ _      => false  (* modifies graph + cert_addr *)
-  | instr_ljoin _ _ _          => false  (* modifies cert_addr *)
-  | instr_emit _ _ _           => false  (* modifies cert_addr *)
-  | instr_reveal _ _ _ _       => false  (* modifies cert_addr *)
-  | instr_pdiscover _ _ _      => false  (* modifies graph *)
+  | instr_lassert _ _ _ _ _      => false  (* cert-setter class member *)
+  | instr_ljoin _ _ _          => false  (* cert-setter class member *)
+  | instr_emit _ _ _           => false  (* cert-setter class member *)
+  | instr_reveal _ _ _ _       => false  (* cert-setter class member *)
+  | instr_pdiscover _ _ _      => false  (* excluded; the step is a pure advance *)
   | instr_chsh_trial _ _ _ _ _ => false  (* modifies vm_witness *)
   | instr_certify _            => false  (* modifies vm_certified *)
   | instr_tensor_set _ _ _ _ _ => false  (* modifies graph (module tensor) *)
@@ -53,7 +59,7 @@ Definition is_classical_opcode (i : vm_instruction) : bool :=
   | instr_compose _ _ _ _      => false  (* modifies graph *)
   | instr_morph_id _ _ _       => false  (* modifies graph *)
   | instr_morph_delete _ _     => false  (* modifies graph *)
-  | instr_morph_assert _ _ _ _ => false  (* modifies cert_addr *)
+  | instr_morph_assert _ _ _ _ => false  (* writes cert_addr *)
   | instr_morph_tensor _ _ _ _ => false  (* modifies graph *)
   | instr_chsh_lassert _       => false  (* cert-setter: column-contractivity check on witness counters *)
   | instr_chsh_lassert_1ab _   => false  (* cert-setter: Q_{1+AB} check on witness counters *)

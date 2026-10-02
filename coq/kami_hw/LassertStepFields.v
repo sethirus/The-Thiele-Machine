@@ -65,6 +65,10 @@ Lemma step_lassert_sat_ptTable : forall a0 a1 a2 a3 a4 a6 a7 b0 b1 b2 b3 b4 b5 b
   step_fetched b = lassert_sat_word a0 a1 a2 a3 a4 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_lassert_sat_ptBases : forall a0 a1 a2 a3 a4 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = lassert_sat_word a0 a1 a2 a3 a4 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_lassert_sat_pt_next_id : forall a0 a1 a2 a3 a4 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = lassert_sat_word a0 a1 a2 a3 a4 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -251,6 +255,10 @@ Proof. hw_field. Qed.
 Lemma step_lassert_unsat_ptTable : forall a0 a1 a2 a3 a4 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = lassert_unsat_word a0 a1 a2 a3 a4 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_lassert_unsat_ptBases : forall a0 a1 a2 a3 a4 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = lassert_unsat_word a0 a1 a2 a3 a4 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_lassert_unsat_pt_next_id : forall a0 a1 a2 a3 a4 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = lassert_unsat_word a0 a1 a2 a3 a4 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->

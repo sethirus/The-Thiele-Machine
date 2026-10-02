@@ -97,12 +97,13 @@ def test_pnew_two_triangles_changes_chi():
     """
     Test: Adding second fresh triangle changes χ again.
 
-    PNEW always creates modules with canonical region [0..n-1] regardless of
-    the input vertex labels. Both PNEW {0,1,2} and PNEW {3,4,5} produce a
-    module with region [0,1,2] (n=3 in both cases).
+    PNEW claims the range of data memory that starts at the first listed
+    address and is as long as the list. PNEW {0,1,2} claims [0,1,2] and
+    PNEW {3,4,5} claims [3,4,5]; the ranges are disjoint, so both modules
+    exist.
 
     - Triangle 1: V=3, E=3, F=1 → χ = 3-3+1 = 1
-    - Triangle 2: V=3, E=3, F=2 → χ = 3-3+2 = 2  (shared canonical region)
+    - Triangle 2: V=6, E=6, F=2 → χ = 6-6+2 = 2
     """
     # Initial: empty
     chi_0 = compute_euler_characteristic(run_vm(["HALT 1"], fuel=10))
@@ -127,35 +128,31 @@ def test_pnew_two_triangles_changes_chi():
     assert chi_2 != chi_1, "Second PNEW should change χ"
     assert chi_2 > chi_1, "Adding a second module increases χ"
     assert compute_topology_counts(state_1) == (3, 3, 1)
-    assert compute_topology_counts(state_2) == (3, 3, 2)
+    assert compute_topology_counts(state_2) == (6, 6, 2)
 
 
-def test_pnew_connected_triangles():
+def test_pnew_overlapping_triangle_traps():
     """
-    Test: Adding two size-3 modules with different label sets.
+    Test: A PNEW whose range overlaps a module traps and adds nothing.
 
-    PNEW uses canonical regions: both PNEW {0,1,2} and PNEW {1,2,3}
-    produce modules with region [0,1,2].  The two modules share the same
-    canonical region, so V=3, E=3, F=2, χ=2.
+    PNEW {0,1,2} claims [0,1,2]. PNEW {1,2,3} claims [1,2,3], which shares
+    addresses with that module without being its range, so the step traps:
+    err is set and the module graph is unchanged.
     """
     state_1 = run_vm([
         "PNEW {0,1,2} 10",
         "HALT 1"
     ], fuel=50)
-    chi_1 = compute_euler_characteristic(state_1)
 
     state_2 = run_vm([
         "PNEW {0,1,2} 10",
         "PNEW {1,2,3} 10",
         "HALT 1"
     ], fuel=100)
-    chi_2 = compute_euler_characteristic(state_2)
 
-    # Both modules use canonical region [0,1,2]; χ increases by +1 per module.
-    assert chi_1 == 1
-    assert chi_2 == 2
-    assert compute_topology_counts(state_1) == (3, 3, 1)
-    assert compute_topology_counts(state_2) == (3, 3, 2)
+    assert not state_1.err
+    assert state_2.err
+    assert compute_topology_counts(state_2) == compute_topology_counts(state_1) == (3, 3, 1)
 
 
 def test_pnew_topology_incremental():
@@ -169,9 +166,9 @@ def test_pnew_topology_incremental():
     instructions_list = [
         [],
         ["PNEW {0,1,2} 10"],
-        ["PNEW {0,1,2} 10", "PNEW {1,2,3} 10"],
-        ["PNEW {0,1,2} 10", "PNEW {1,2,3} 10", "PNEW {2,3,4} 10"],
-        ["PNEW {0,1,2} 10", "PNEW {1,2,3} 10", "PNEW {2,3,4} 10", "PNEW {0,2,4} 10"],
+        ["PNEW {0,1,2} 10", "PNEW {3,4,5} 10"],
+        ["PNEW {0,1,2} 10", "PNEW {3,4,5} 10", "PNEW {6,7,8} 10"],
+        ["PNEW {0,1,2} 10", "PNEW {3,4,5} 10", "PNEW {6,7,8} 10", "PNEW {9,10,11} 10"],
     ]
 
     chi_values = []
@@ -219,20 +216,21 @@ def test_pnew_fresh_increases_F():
 
 def test_pnew_duplicate_region_preserves_F():
     """
-    Test: PNEW always adds a new module, even for the same input region.
+    Test: PNEW of a range some module already owns names that module.
 
-    graph_add_module does not deduplicate; each PNEW call unconditionally
-    appends a new module entry.
+    graph_pnew returns the existing module when its region is exactly the
+    claimed range, so the second PNEW adds nothing and F stays 1.
     """
-    # Add same region twice
+    # Claim the same range twice
     state = run_vm([
         "PNEW {0,1,2} 10",
-        "PNEW {0,1,2} 10",  # Duplicate input — still adds a new module
+        "PNEW {0,1,2} 10",  # Same range: names the existing module
         "HALT 1"
     ], fuel=100)
 
     F = len(state.modules)
-    assert F == 2, "PNEW unconditionally adds a new module (no dedup)"
+    assert F == 1, "PNEW of an owned range adds no module"
+    assert not state.err
 
 
 def test_euler_char_definition():
@@ -241,8 +239,8 @@ def test_euler_char_definition():
     """
     state = run_vm([
         "PNEW {0,1,2} 10",
-        "PNEW {1,2,3} 10",
-        "PNEW {2,3,4} 10",
+        "PNEW {3,4,5} 10",
+        "PNEW {6,7,8} 10",
         "HALT 1"
     ], fuel=150)
 

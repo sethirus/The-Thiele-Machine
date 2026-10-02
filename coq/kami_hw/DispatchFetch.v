@@ -62,6 +62,7 @@ Definition dispatch_fetch_action : Action Void :=
         Read module_tensors_v : Vector (Vector (Bit WordSz) MuTensorIdxSz) ModTensorIdxSz <- "module_tensors";
         Read csr_heap_base_v : Bit WordSz <- "csr_heap_base";
         Read pt_sizes_v : Vector (Bit WordSz) PTableIdxSz <- "ptTable";
+        Read pt_bases_v : Vector (Bit WordSz) PTableIdxSz <- "ptBases";
         Read pt_next_id_v : Bit PTableNextIdSz <- "pt_next_id";
         Read certified_v : Bool <- "certified";
         Read morph_src_table_v : Vector (Bit PTableIdxSz) MorphTableIdxSz <- "morph_src_table";
@@ -119,7 +120,7 @@ Definition dispatch_fetch_action : Action Void :=
 
         LET pc_addr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #pc_v;
         LET instr_v : Bit InstrSz <- #imem_v@[#pc_addr];
-        dispatch_decoded chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v mdl_ops_v info_gain_v error_code_v logic_acc_v cert_addr_v active_module_v mcycle_lo_v mcycle_hi_v minstret_lo_v minstret_hi_v trap_vector_v mu_tensor_v module_tensors_v csr_heap_base_v pt_sizes_v pt_next_id_v certified_v morph_src_table_v morph_dst_table_v morph_valid_table_v morph_coupling_desc_table_v morph_identity_table_v morph_next_id_v coupling_desc_valid_table_v coupling_desc_count_table_v coupling_desc_base_table_v coupling_desc_label_table_v coupling_desc_label_len_table_v coupling_desc_next_id_v coupling_pair_next_id_v formula_desc_valid_table_v formula_desc_next_id_v cert_desc_valid_table_v cert_desc_next_id_v desc_meta_valid_table_v desc_meta_next_id_v wc_same_00_v wc_diff_00_v wc_same_01_v wc_diff_01_v wc_same_10_v wc_diff_10_v wc_same_11_v wc_diff_11_v tensor_total instr_v bianchi_violation)%kami_action.
+        dispatch_decoded chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v mdl_ops_v info_gain_v error_code_v logic_acc_v cert_addr_v active_module_v mcycle_lo_v mcycle_hi_v minstret_lo_v minstret_hi_v trap_vector_v mu_tensor_v module_tensors_v csr_heap_base_v pt_sizes_v pt_bases_v pt_next_id_v certified_v morph_src_table_v morph_dst_table_v morph_valid_table_v morph_coupling_desc_table_v morph_identity_table_v morph_next_id_v coupling_desc_valid_table_v coupling_desc_count_table_v coupling_desc_base_table_v coupling_desc_label_table_v coupling_desc_label_len_table_v coupling_desc_next_id_v coupling_pair_next_id_v formula_desc_valid_table_v formula_desc_next_id_v cert_desc_valid_table_v cert_desc_next_id_v desc_meta_valid_table_v desc_meta_next_id_v wc_same_00_v wc_diff_00_v wc_same_01_v wc_diff_01_v wc_same_10_v wc_diff_10_v wc_same_11_v wc_diff_11_v tensor_total instr_v bianchi_violation)%kami_action.
 
 Local Opaque dispatch_decoded.
 Local Opaque wplus wminus wmult wmultZ wmultZsu wdivN wdivZ wremN wremZ

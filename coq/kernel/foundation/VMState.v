@@ -377,9 +377,9 @@ Definition graph_add_morphism (g : PartitionGraph)
       pg_next_morph_id := S new_id;
       pg_morphisms := (new_id, ms) :: g.(pg_morphisms) |}, new_id).
 
-(** graph_certify_morphism: Record the μ-cost paid to certify a morphism via
-    MORPH_ASSERT. This updates the morph_cert_cost field of the morphism.
-    Called when MORPH_ASSERT succeeds. The cost is S(delta) ≥ 1. *)
+(** graph_certify_morphism: Record a certification cost in the morph_cert_cost
+    field of a morphism, as S(cost) ≥ 1. No step calls it: MORPH_ASSERT charges
+    its cost to the μ ledger and leaves every morph_cert_cost at 0. *)
 Definition graph_certify_morphism (g : PartitionGraph)
     (morph_id : MorphismID) (cert_cost : nat) : PartitionGraph :=
   {| pg_next_id := g.(pg_next_id);
@@ -1716,8 +1716,8 @@ Proof.
 Qed.
 
 (** Architecture constants — must match Kami RTL (ThieleCPUCore.v) and OCaml
-    extraction. The kernel proofs are parametric in REG_COUNT and MEM_SIZE;
-    the values below match the silicon-side bounds of the synthesized RTL. *)
+    extraction. They are fixed numbers, the bounds of the synthesized RTL, and
+    the kernel definitions and proofs read them as constants. *)
 Definition REG_COUNT : nat := 16.
 Definition MEM_SIZE : nat := 128.
 Definition NUM_MODULES : nat := 64.  (* Maximum number of concurrent modules *)
@@ -2218,7 +2218,8 @@ Qed.
     csr_status: General status code. Currently informational.
 
     csr_err: Error code. Non-zero means something bad happened.
-      ERR_LOGIC=0xC43471A1, ERR_LOCALITY=0x0BADC0DE, ERR_CHSH=0x0BADC45C.
+      Every kernel fault writes 1 to csr_err; the hardware error_code register
+      carries the word that tells the faults apart.
       Once set, the error flag latches — vm_err also goes true and stays true.
 
     csr_heap_base: Base address for HEAP_LOAD/HEAP_STORE (pointer arithmetic

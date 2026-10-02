@@ -8,19 +8,21 @@
         shadow_proj (abs_phase1 (kami_step ks i))
       = shadow_proj (vm_apply (abs_phase1 ks) i)
 
-    UNCONDITIONAL shadow embed_step (4 opcodes beyond the 26 full-state ones):
-      PNEW, PDISCOVER, EMIT, REVEAL
+    UNCONDITIONAL shadow embed_step (3 opcodes beyond the 26 full-state ones):
+      PDISCOVER, EMIT, REVEAL
     These diverge only in vm_graph, vm_csrs, or vm_mu_tensor — all dropped
     by shadow_proj.
 
-    CONDITIONAL shadow embed_step (4 opcodes):
+    CONDITIONAL shadow embed_step (5 opcodes):
+      PNEW        (requires a well-formed partition table and a nonempty range;
+                   an overlap traps, so pc and err depend on the table)
       CHSH_TRIAL  (requires chsh_bits_ok = true)
       TENSOR_SET  (requires i < 4, j < 4)
       TENSOR_GET  (requires i < 4, j < 4)
       LJOIN       (requires cert strings match)
 
-    Combined: ShadowSupportedOpcode covers 30 opcodes unconditionally
-    (original 26 + PNEW, PDISCOVER, EMIT, REVEAL).
+    Combined: ShadowSupportedOpcode covers 29 opcodes unconditionally
+    (original 26 + PDISCOVER, EMIT, REVEAL).
 
 *)
 
@@ -33,24 +35,23 @@ From KamiHW  Require Import Abstraction EmbedStep.
 Import VMStep.VMStep.
 
 (* ======================================================================
-   §1  Unconditional shadow embed_step: PNEW, PDISCOVER, EMIT, REVEAL
+   §1  Shadow embed_step: PNEW (conditional), PDISCOVER, EMIT, REVEAL
    *)
 
-(** PNEW: hardware updates partition table (snap_pt_sizes, snap_pt_next_id),
-    kernel updates vm_graph via graph_pnew.  Both are invisible to shadow_proj.
-    Shadow fields (regs, mem, pc, mu, err, certified) agree exactly. *)
+(** PNEW: hardware updates partition table (snap_pt_sizes, snap_pt_bases,
+    snap_pt_next_id), kernel updates vm_graph via graph_pnew. Both are invisible
+    to shadow_proj. A range that overlaps a module traps on both sides, so pc
+    and err agree only when the table is well formed and the range is nonempty,
+    the premises of [embed_step_pnew]. *)
 Lemma shadow_embed_step_pnew :
   forall (ks : KamiSnapshot) (region : list nat) (cost : nat),
+    WellFormedPT ks ->
+    List.length (normalize_region region) > 0 ->
     shadow_proj (abs_phase1 (kami_step ks (instr_pnew region cost))) =
     shadow_proj (vm_apply (abs_phase1 ks) (instr_pnew region cost)).
 Proof.
-  intros ks region cost.
-  unfold vm_apply.
-  destruct (graph_pnew (vm_graph (abs_phase1 ks)) region) as [g' mid_new].
-  unfold shadow_proj, abs_phase1, kami_step, advance_state,
-         apply_cost, instruction_cost.
-  cbn [snap_regs snap_pc snap_mu snap_err snap_mem snap_certified].
-  reflexivity.
+  intros ks region cost Hwf Hsz.
+  rewrite (embed_step_pnew ks region cost Hwf Hsz). reflexivity.
 Qed.
 
 (** PDISCOVER: hardware does kami_advance_default, kernel updates vm_graph via
@@ -97,15 +98,17 @@ Proof.
 Qed.
 
 (* ======================================================================
-   §2  ShadowSupportedOpcode: 30 opcodes with unconditional shadow equality
+   §2  ShadowSupportedOpcode: 29 opcodes with unconditional shadow equality
    *)
 
-(** ShadowSupportedOpcode extends SupportedOpcode with the 4 opcodes above.
+(** ShadowSupportedOpcode extends SupportedOpcode with PDISCOVER, EMIT and
+    REVEAL. PNEW is not in it: an overlapping range traps, so its shadow
+    depends on the partition table.
     Every instruction satisfying this predicate has shadow_proj commutation
     with no preconditions on the hardware state. *)
 Definition ShadowSupportedOpcode (i : vm_instruction) : Prop :=
   match i with
-  | instr_pnew _ _              => True
+  | instr_pnew _ _              => False
   | instr_pdiscover _ _ _       => True
   | instr_emit _ _ _            => True
   | instr_reveal _ _ _ _        => True
@@ -146,7 +149,7 @@ Proof. intros i Hi Hne Hne1 Hne2 Hne345 Hne12345. destruct i; simpl in *; try ta
   - exfalso. eapply Hne345. reflexivity.
   - exfalso. eapply Hne12345. reflexivity. Qed.
 
-(** Main per-step shadow theorem for all 30 opcodes. *)
+(** Main per-step shadow theorem for all 29 opcodes. *)
 Theorem shadow_embed_step_supported :
   forall (ks : KamiSnapshot) (i : vm_instruction),
     ShadowSupportedOpcode i ->
@@ -162,8 +165,6 @@ Proof.
         assert (H : SupportedOpcode instr) by exact I;
         rewrite (embed_step_supported ks _ H); reflexivity
     end.
-  (* Remaining goal: PNEW (only non-SupportedOpcode in ShadowSupportedOpcode) *)
-  - apply shadow_embed_step_pnew.
 Qed.
 
 (* ======================================================================
@@ -216,11 +217,11 @@ Qed.
 (** Helper: any module found by graph_lookup in a snap_pt_to_graph result
     has module_mu_tensor = module_mu_tensor_default. *)
 Lemma graph_lookup_snap_pt_tensor :
-  forall next_id sizes mid ms,
-    graph_lookup (snap_pt_to_graph next_id sizes) mid = Some ms ->
+  forall next_id sizes bases mid ms,
+    graph_lookup (snap_pt_to_graph next_id sizes bases) mid = Some ms ->
     module_mu_tensor ms = module_mu_tensor_default.
 Proof.
-  intros next_id sizes mid ms Hlook.
+  intros next_id sizes bases mid ms Hlook.
   unfold snap_pt_to_graph, graph_lookup in Hlook. simpl in Hlook.
   (* Hlook : graph_lookup_modules (filtermap ... (rev (seq 0 next_id))) mid = Some ms *)
   induction (List.rev (List.seq 0 next_id)) as [|x xs IH].
@@ -248,7 +249,7 @@ Proof.
   destruct (graph_lookup (vm_graph (abs_phase1 ks)) mid) as [ms|] eqn:Hlook.
   - (* Some ms: module found, tensor is module_mu_tensor_default = repeat 0 16 *)
     unfold abs_phase1 in Hlook. simpl in Hlook.
-    rewrite (graph_lookup_snap_pt_tensor _ _ _ _ Hlook).
+    rewrite (graph_lookup_snap_pt_tensor _ _ _ _ _ Hlook).
     unfold module_mu_tensor_default.
     apply nth_repeat.
   - (* None: returns 0 by definition *)
@@ -363,7 +364,7 @@ Lemma shadow_proj_ext :
     shadow_proj X = shadow_proj Y.
 Proof. intros. unfold shadow_proj. f_equal; assumption. Qed.
 
-(** Per-opcode shadow compat for the 4 new opcodes (PNEW, PDISCOVER, EMIT, REVEAL).
+(** Per-opcode shadow compat for the 3 new opcodes (PDISCOVER, EMIT, REVEAL).
     For the original 26, vm_apply_shadow_compat follows from SupportedOpcode
     being a subset of ShadowSupportedOpcode + the full-state embed_step. *)
 
@@ -407,7 +408,7 @@ Proof.
     reflexivity.
 Qed.
 
-(** All 30 ShadowSupportedOpcodes preserve csr_heap_base through vm_apply. *)
+(** All 29 ShadowSupportedOpcodes preserve csr_heap_base through vm_apply. *)
 Lemma vm_apply_preserves_heap_base :
   forall (s : VMState) (i : vm_instruction),
     ShadowSupportedOpcode i ->
@@ -429,7 +430,7 @@ Proof.
 Qed.
 
 (* ======================================================================
-   §6  Shadow trace compositionality: 30-opcode trace theorem
+   §6  Shadow trace compositionality: 29-opcode trace theorem
    *)
 
 (** Trace-level shadow commutation: for any trace of ShadowSupportedOpcodes,

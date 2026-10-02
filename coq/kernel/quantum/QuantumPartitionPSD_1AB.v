@@ -923,7 +923,8 @@ Qed.
     bound |S| ≤ 2: by Cauchy-Schwarz, ||E||² ≤ 1 forces
        |S| = |E_{00} + E_{01} + E_{10} − E_{11}| ≤ 2·||E|| ≤ 2.
     Equality is reached on the unit-ball boundary, not on the classical
-    vertices (e.g. (1,1,1,−1) has ||E||² = 4 > 1 and is excluded).
+    vertices (e.g. (1,1,1,1) has ||E||² = 4 > 1 and is excluded; the PR box
+    (1,1,1,−1) is excluded too).
 
     The diagnostic theorem below makes this concrete: the γ = 0 check
     forces every passing correlator into the unit ball, hence inside the
@@ -997,8 +998,8 @@ Proof.
 Qed.
 
 (** The gamma = 0 check above certifies only the unit-ball sub-cone: it
-    forces sum E_ij^2 <= 1, which rejects some classical vertices such as
-    (1,1,1,-1) along with the PR box. Certifying wider slices of Q_{1+AB}
+    forces sum E_ij^2 <= 1, which rejects classical vertices such as
+    (1,1,1,1) along with the PR box (1,1,1,-1). Certifying wider slices of Q_{1+AB}
     needs caller-supplied gamma values with their own column-contractivity
     argument, which the theorem below accepts as a hypothesis. *)
 (* SCOPE NOTE: alias for caller-facing API surface (renaming of

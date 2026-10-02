@@ -12,15 +12,17 @@
     field, so the class name must not be read as a semantic checker for every member.
 
     Theorems proven here:
-    1. [structural_creation_can_be_free] exhibits zero scheduled cost for selected
-       structural instructions at [mu_delta = 0].
+    1. [pnew_can_be_free], [morph_can_be_free] and [morph_delete_can_be_free] exhibit
+       zero scheduled cost for those structural instructions at [mu_delta = 0].
     2. [certified_insight_nonfree] prices a false-to-true transition on either named
        certification channel at least one unit.
-    3. [morph_assert_is_certified_insight] identifies [MORPH_ASSERT] as a cert-address
-       setter and proves its scheduled cost is at least one.
-    4. [non_cert_ops_are_structurally_neutral_on_cert_channel] records preservation of
-       the certification address by selected non-setter instructions.
-    5. [certified_insight_trace_nonfree] lifts the channel-transition floor to a trace.
+    3. [morph_assert_is_cert_setter], [morph_assert_cost_pos] and [morph_assert_mu_pos]
+       identify [MORPH_ASSERT] as a cert-address setter and prove its scheduled cost
+       and its ledger increase are at least one.
+    4. [pnew_preserves_cert_addr], [morph_preserves_cert_addr] and the [*_not_cert_setter]
+       lemmas record that selected structural instructions leave the certification
+       address alone, and [structural_trace_preserves_cert_addr] lifts this to traces.
+    5. [no_free_certified_insight] lifts the channel-transition floor to a trace.
 *)
 
 From Coq Require Import List Arith.PeanoNat Bool Lia.

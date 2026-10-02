@@ -769,8 +769,12 @@ Lemma compose_join_keeps_pc : forall c1 c2 k c, hw_pc (compose_join_final c1 c2 
 Proof. intros c1 c2 k c. unfold compose_join_final, norm_commit_final. rewrite mccommit_keeps_pc, nouter_iter_keeps_pc, mcnstart_keeps_pc. apply join_iter_keeps_pc. Qed.
 Lemma compose_copy_keeps_ptTable : forall n c, hw_ptTable (compose_copy_final n c) = hw_ptTable c.
 Proof. intros n c. unfold compose_copy_final, norm_commit_final. rewrite mccommit_keeps_ptTable, nouter_iter_keeps_ptTable, mcnstart_keeps_ptTable. apply copy_iter_keeps_ptTable. Qed.
+Lemma compose_copy_keeps_ptBases : forall n c, hw_ptBases (compose_copy_final n c) = hw_ptBases c.
+Proof. intros n c. unfold compose_copy_final, norm_commit_final. rewrite mccommit_keeps_ptBases, nouter_iter_keeps_ptBases, mcnstart_keeps_ptBases. apply copy_iter_keeps_ptBases. Qed.
 Lemma compose_join_keeps_ptTable : forall c1 c2 k c, hw_ptTable (compose_join_final c1 c2 k c) = hw_ptTable c.
 Proof. intros c1 c2 k c. unfold compose_join_final, norm_commit_final. rewrite mccommit_keeps_ptTable, nouter_iter_keeps_ptTable, mcnstart_keeps_ptTable. apply join_iter_keeps_ptTable. Qed.
+Lemma compose_join_keeps_ptBases : forall c1 c2 k c, hw_ptBases (compose_join_final c1 c2 k c) = hw_ptBases c.
+Proof. intros c1 c2 k c. unfold compose_join_final, norm_commit_final. rewrite mccommit_keeps_ptBases, nouter_iter_keeps_ptBases, mcnstart_keeps_ptBases. apply join_iter_keeps_ptBases. Qed.
 Lemma compose_copy_keeps_pt_next_id : forall n c, hw_pt_next_id (compose_copy_final n c) = hw_pt_next_id c.
 Proof. intros n c. unfold compose_copy_final, norm_commit_final. rewrite mccommit_keeps_pt_next_id, nouter_iter_keeps_pt_next_id, mcnstart_keeps_pt_next_id. apply copy_iter_keeps_pt_next_id. Qed.
 Lemma compose_join_keeps_pt_next_id : forall c1 c2 k c, hw_pt_next_id (compose_join_final c1 c2 k c) = hw_pt_next_id c.

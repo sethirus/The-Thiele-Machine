@@ -35,8 +35,7 @@ Ltac bool_red := cbv beta iota delta [orb andb negb].
 
 Lemma dd_load_locality_bad_false_rich : forall bd (isa : word 8) (fid : word FormatIdSz)
     (flags : word 16) (reserved : word 32) (ext0 : word WordSz) (a b c : word 8),
-  wordToNat (dd_mem_addr bd (rich_word isa fid flags reserved ext0 OP_LOAD a b c))
-    < wordToNat (hw_ptTable bd (hw_active_module bd)) ->
+  hwb_addr_in_active_range bd (wordToNat (dd_mem_addr bd (rich_word isa fid flags reserved ext0 OP_LOAD a b c))) ->
   dd_load_locality_bad bd (rich_word isa fid flags reserved ext0 OP_LOAD a b c) = false.
 Proof.
   intros bd isa fid flags reserved ext0 a b c Hbound.
@@ -46,10 +45,5 @@ Proof.
   destruct (weq OP_LOAD OP_LOAD) as [_|Hne]; [|exfalso; apply Hne; reflexivity].
   destruct (weq OP_LOAD OP_HEAP_LOAD) as [Heq|_]; [discriminate Heq|].
   simpl.
-  unfold dd_active_region_size.
-  destruct (wlt_dec _ _) as [_|Hnlt]; [reflexivity|].
-  exfalso. apply Hnlt.
-  apply lt_wlt.
-  rewrite wordToNat_zext7_ext.
-  exact Hbound.
+  close_dd_bounds Hbound.
 Qed.

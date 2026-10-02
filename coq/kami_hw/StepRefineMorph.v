@@ -80,6 +80,13 @@ Qed.
 
 (** * Admission invariants of the morph and coupling tables *)
 
+(** The partition table's ranges are pairwise disjoint: the reconstructed
+    graph satisfies [regions_disjoint]. The step rule's MORPH_TENSOR always
+    faults; the kernel's tensor of two morphisms finds no module for the
+    union of their endpoint regions exactly under this invariant. *)
+Definition hwb_ranges_disjoint (b : HWB) : Prop :=
+  regions_disjoint (snap_full_graph (hwb_snapshot b)).
+
 (** Every valid morph slot lies below [morph_next_id]. *)
 Definition hwb_morph_valid_below_next (b : HWB) : Prop :=
   forall i, hw_morph_valid_table b i = true -> wordToNat i < wordToNat (hw_morph_next_id b).
@@ -297,6 +304,7 @@ Proof.
   pose proof (step_morph_delete_mu_tensor a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_mu_tensor.
   pose proof (step_morph_delete_module_tensors a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_module_tensors.
   pose proof (step_morph_delete_ptTable a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_ptTable.
+  pose proof (step_morph_delete_ptBases a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_ptBases.
   pose proof (step_morph_delete_pt_next_id a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_pt_next_id.
   pose proof (step_morph_delete_certified a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_certified.
   pose proof (step_morph_delete_wc_same_00 a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_wc_same_00.
@@ -318,10 +326,10 @@ Proof.
   pose proof (step_morph_delete_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_lassert_phase.
   pose proof (step_morph_delete_chsh_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_chsh_phase.
   pose proof (step_morph_delete_mc_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_mc_phase.
-  rewrite (morph_live_valid b _ Hinv) in *. destruct (hw_morph_valid_table b (bits4 a0 a1 a2 a3)) eqn:G; cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase.
+  rewrite (morph_live_valid b _ Hinv) in *. destruct (hw_morph_valid_table b (bits4 a0 a1 a2 a3)) eqn:G; cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase.
   all: unfold hwb_snapshot at 1.
   all: first [ rewrite (step_rich_delete b (bits4 a0 a1 a2 a3) F_morph_valid_table F_morph_src_table F_morph_dst_table F_morph_coupling_desc_table F_morph_identity_table F_morph_next_id F_coupling_desc_label_table F_coupling_desc_label_len_table) | rewrite (step_rich_frame b F_morph_valid_table F_morph_src_table F_morph_dst_table F_morph_coupling_desc_table F_morph_identity_table F_morph_next_id F_coupling_desc_label_table F_coupling_desc_label_len_table) ].
-  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
+  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
   all: rewrite step_keeps_csr_status, step_keeps_csr_heap_base, step_keeps_logic_acc, step_keeps_mstatus.
   all: unfold kami_step, kami_advance_rich_noret, kami_advance_err_code.
   all: snap_projections; rewrite ?Herr, ?Hhalt.
@@ -354,6 +362,7 @@ Proof.
   pose proof (step_morph_assert_mu_tensor a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_mu_tensor.
   pose proof (step_morph_assert_module_tensors a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_module_tensors.
   pose proof (step_morph_assert_ptTable a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_ptTable.
+  pose proof (step_morph_assert_ptBases a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_ptBases.
   pose proof (step_morph_assert_pt_next_id a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_pt_next_id.
   pose proof (step_morph_assert_certified a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_certified.
   pose proof (step_morph_assert_wc_same_00 a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_wc_same_00.
@@ -375,10 +384,10 @@ Proof.
   pose proof (step_morph_assert_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_lassert_phase.
   pose proof (step_morph_assert_chsh_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_chsh_phase.
   pose proof (step_morph_assert_mc_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_mc_phase.
-  rewrite (morph_live_valid b _ Hinv) in *. destruct (hw_morph_valid_table b (bits4 a0 a1 a2 a3)) eqn:G; cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase.
+  rewrite (morph_live_valid b _ Hinv) in *. destruct (hw_morph_valid_table b (bits4 a0 a1 a2 a3)) eqn:G; cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase.
   all: unfold hwb_snapshot at 1.
   all: rewrite (step_rich_frame b F_morph_valid_table F_morph_src_table F_morph_dst_table F_morph_coupling_desc_table F_morph_identity_table F_morph_next_id F_coupling_desc_label_table F_coupling_desc_label_len_table).
-  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
+  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
   all: rewrite step_keeps_csr_status, step_keeps_csr_heap_base, step_keeps_logic_acc, step_keeps_mstatus.
   all: unfold kami_step, kami_advance_cert_addr, kami_advance_err_code.
   all: snap_projections; rewrite ?Herr, ?Hhalt.
@@ -410,6 +419,7 @@ Proof.
   pose proof (step_morph_get_mu_tensor a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_mu_tensor.
   pose proof (step_morph_get_module_tensors a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_module_tensors.
   pose proof (step_morph_get_ptTable a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_ptTable.
+  pose proof (step_morph_get_ptBases a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_ptBases.
   pose proof (step_morph_get_pt_next_id a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_pt_next_id.
   pose proof (step_morph_get_certified a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_certified.
   pose proof (step_morph_get_wc_same_00 a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_wc_same_00.
@@ -431,10 +441,10 @@ Proof.
   pose proof (step_morph_get_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_lassert_phase.
   pose proof (step_morph_get_chsh_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_chsh_phase.
   pose proof (step_morph_get_mc_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_mc_phase.
-  rewrite (morph_live_valid b _ Hinv) in *. destruct (hw_morph_valid_table b (bits4 b0 b1 b2 b3)) eqn:G; cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase.
+  rewrite (morph_live_valid b _ Hinv) in *. destruct (hw_morph_valid_table b (bits4 b0 b1 b2 b3)) eqn:G; cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase.
   all: unfold hwb_snapshot at 1.
   all: rewrite (step_rich_frame b F_morph_valid_table F_morph_src_table F_morph_dst_table F_morph_coupling_desc_table F_morph_identity_table F_morph_next_id F_coupling_desc_label_table F_coupling_desc_label_len_table).
-  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
+  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
   all: rewrite step_keeps_csr_status, step_keeps_csr_heap_base, step_keeps_logic_acc, step_keeps_mstatus.
   all: unfold kami_step, kami_advance_reg, kami_write_reg, kami_advance_err_code.
   all: snap_projections; rewrite ?Herr, ?Hhalt.
@@ -466,6 +476,7 @@ Proof.
   pose proof (step_morph_id_mu_tensor a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_mu_tensor.
   pose proof (step_morph_id_module_tensors a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_module_tensors.
   pose proof (step_morph_id_ptTable a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_ptTable.
+  pose proof (step_morph_id_ptBases a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_ptBases.
   pose proof (step_morph_id_pt_next_id a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_pt_next_id.
   pose proof (step_morph_id_certified a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_certified.
   pose proof (step_morph_id_wc_same_00 a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_wc_same_00.
@@ -487,10 +498,10 @@ Proof.
   pose proof (step_morph_id_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_lassert_phase.
   pose proof (step_morph_id_chsh_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_chsh_phase.
   pose proof (step_morph_id_mc_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_mc_phase.
-  rewrite (morph_room_of_lt b Hroom) in *. cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase. rewrite module_present_eqb in *. destruct (Nat.eqb (wordToNat (hw_ptTable b (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7)))) 0) eqn:G; cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase.
+  rewrite (morph_room_of_lt b Hroom) in *. cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase. rewrite module_present_eqb in *. destruct (Nat.eqb (wordToNat (hw_ptTable b (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7)))) 0) eqn:G; cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase.
   all: unfold hwb_snapshot at 1.
   all: try rewrite (step_rich_frame b F_morph_valid_table F_morph_src_table F_morph_dst_table F_morph_coupling_desc_table F_morph_identity_table F_morph_next_id F_coupling_desc_label_table F_coupling_desc_label_len_table).
-  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
+  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
   all: rewrite step_keeps_csr_status, step_keeps_csr_heap_base, step_keeps_logic_acc, step_keeps_mstatus.
   all: unfold kami_step, kami_advance_rich_morph, kami_advance_err_code.
   all: snap_projections; rewrite ?Herr, ?Hhalt.
@@ -522,6 +533,7 @@ Proof.
   pose proof (step_morph_delete_ext_mu_tensor a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_mu_tensor.
   pose proof (step_morph_delete_ext_module_tensors a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_module_tensors.
   pose proof (step_morph_delete_ext_ptTable a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_ptTable.
+  pose proof (step_morph_delete_ext_ptBases a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_ptBases.
   pose proof (step_morph_delete_ext_pt_next_id a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_pt_next_id.
   pose proof (step_morph_delete_ext_certified a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_certified.
   pose proof (step_morph_delete_ext_wc_same_00 a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_wc_same_00.
@@ -543,10 +555,10 @@ Proof.
   pose proof (step_morph_delete_ext_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_lassert_phase.
   pose proof (step_morph_delete_ext_chsh_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_chsh_phase.
   pose proof (step_morph_delete_ext_mc_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_mc_phase.
-  rewrite (morph_live_valid b _ Hinv) in *. destruct (hw_morph_valid_table b (bits4 a0 a1 a2 a3)) eqn:G; cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase.
+  rewrite (morph_live_valid b _ Hinv) in *. destruct (hw_morph_valid_table b (bits4 a0 a1 a2 a3)) eqn:G; cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase.
   all: unfold hwb_snapshot at 1.
   all: first [ rewrite (step_rich_delete b (bits4 a0 a1 a2 a3) F_morph_valid_table F_morph_src_table F_morph_dst_table F_morph_coupling_desc_table F_morph_identity_table F_morph_next_id F_coupling_desc_label_table F_coupling_desc_label_len_table) | rewrite (step_rich_frame b F_morph_valid_table F_morph_src_table F_morph_dst_table F_morph_coupling_desc_table F_morph_identity_table F_morph_next_id F_coupling_desc_label_table F_coupling_desc_label_len_table) ].
-  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
+  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
   all: rewrite step_keeps_csr_status, step_keeps_csr_heap_base, step_keeps_logic_acc, step_keeps_mstatus.
   all: unfold kami_step, kami_advance_rich_noret, kami_advance_err_code.
   all: snap_projections; rewrite ?Herr, ?Hhalt.
@@ -578,6 +590,7 @@ Proof.
   pose proof (step_morph_id_ext_mu_tensor a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_mu_tensor.
   pose proof (step_morph_id_ext_module_tensors a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_module_tensors.
   pose proof (step_morph_id_ext_ptTable a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_ptTable.
+  pose proof (step_morph_id_ext_ptBases a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_ptBases.
   pose proof (step_morph_id_ext_pt_next_id a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_pt_next_id.
   pose proof (step_morph_id_ext_certified a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_certified.
   pose proof (step_morph_id_ext_wc_same_00 a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_wc_same_00.
@@ -599,10 +612,10 @@ Proof.
   pose proof (step_morph_id_ext_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_lassert_phase.
   pose proof (step_morph_id_ext_chsh_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_chsh_phase.
   pose proof (step_morph_id_ext_mc_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_mc_phase.
-  rewrite (morph_room_of_lt b Hroom) in *. cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase. rewrite module_present_eqb in *. destruct (Nat.eqb (wordToNat (hw_ptTable b (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7)))) 0) eqn:G; cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase.
+  rewrite (morph_room_of_lt b Hroom) in *. cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase. rewrite module_present_eqb in *. destruct (Nat.eqb (wordToNat (hw_ptTable b (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7)))) 0) eqn:G; cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase.
   all: unfold hwb_snapshot at 1.
   all: try rewrite (step_rich_frame b F_morph_valid_table F_morph_src_table F_morph_dst_table F_morph_coupling_desc_table F_morph_identity_table F_morph_next_id F_coupling_desc_label_table F_coupling_desc_label_len_table).
-  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
+  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
   all: rewrite step_keeps_csr_status, step_keeps_csr_heap_base, step_keeps_logic_acc, step_keeps_mstatus.
   all: unfold kami_step, kami_advance_rich_morph, kami_advance_err_code.
   all: snap_projections; rewrite ?Herr, ?Hhalt.
@@ -635,6 +648,7 @@ Proof.
   pose proof (step_morph_assert_ext_mu_tensor a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_mu_tensor.
   pose proof (step_morph_assert_ext_module_tensors a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_module_tensors.
   pose proof (step_morph_assert_ext_ptTable a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_ptTable.
+  pose proof (step_morph_assert_ext_ptBases a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_ptBases.
   pose proof (step_morph_assert_ext_pt_next_id a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_pt_next_id.
   pose proof (step_morph_assert_ext_certified a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_certified.
   pose proof (step_morph_assert_ext_wc_same_00 a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_wc_same_00.
@@ -656,10 +670,10 @@ Proof.
   pose proof (step_morph_assert_ext_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_lassert_phase.
   pose proof (step_morph_assert_ext_chsh_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_chsh_phase.
   pose proof (step_morph_assert_ext_mc_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_mc_phase.
-  rewrite (morph_live_valid b _ Hinv) in *. destruct (hw_morph_valid_table b (bits4 a0 a1 a2 a3)) eqn:G; cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase.
+  rewrite (morph_live_valid b _ Hinv) in *. destruct (hw_morph_valid_table b (bits4 a0 a1 a2 a3)) eqn:G; cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase.
   all: unfold hwb_snapshot at 1.
   all: rewrite (step_rich_frame b F_morph_valid_table F_morph_src_table F_morph_dst_table F_morph_coupling_desc_table F_morph_identity_table F_morph_next_id F_coupling_desc_label_table F_coupling_desc_label_len_table).
-  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
+  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
   all: rewrite step_keeps_csr_status, step_keeps_csr_heap_base, step_keeps_logic_acc, step_keeps_mstatus.
   all: unfold kami_step, kami_advance_cert_addr, kami_advance_err_code.
   all: snap_projections; rewrite ?Herr, ?Hhalt.
@@ -693,6 +707,7 @@ Proof.
   pose proof (step_morph_get_ext_mu_tensor a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_mu_tensor.
   pose proof (step_morph_get_ext_module_tensors a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_module_tensors.
   pose proof (step_morph_get_ext_ptTable a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_ptTable.
+  pose proof (step_morph_get_ext_ptBases a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_ptBases.
   pose proof (step_morph_get_ext_pt_next_id a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_pt_next_id.
   pose proof (step_morph_get_ext_certified a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_certified.
   pose proof (step_morph_get_ext_wc_same_00 a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_wc_same_00.
@@ -714,10 +729,10 @@ Proof.
   pose proof (step_morph_get_ext_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_lassert_phase.
   pose proof (step_morph_get_ext_chsh_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_chsh_phase.
   pose proof (step_morph_get_ext_mc_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_mc_phase.
-  rewrite (morph_live_valid b _ Hinv) in *. destruct (hw_morph_valid_table b (bits4 b0 b1 b2 b3)) eqn:G; try rewrite (Hrefs _ G) in *; cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase.
+  rewrite (morph_live_valid b _ Hinv) in *. destruct (hw_morph_valid_table b (bits4 b0 b1 b2 b3)) eqn:G; try rewrite (Hrefs _ G) in *; cbv beta iota delta [negb] in F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11, F_morph_src_table, F_morph_dst_table, F_morph_coupling_desc_table, F_morph_identity_table, F_morph_valid_table, F_morph_next_id, F_coupling_desc_label_table, F_coupling_desc_label_len_table, F_lassert_phase, F_chsh_phase, F_mc_phase.
   all: unfold hwb_snapshot at 1.
   all: rewrite (step_rich_frame b F_morph_valid_table F_morph_src_table F_morph_dst_table F_morph_coupling_desc_table F_morph_identity_table F_morph_next_id F_coupling_desc_label_table F_coupling_desc_label_len_table).
-  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
+  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
   all: rewrite step_keeps_csr_status, step_keeps_csr_heap_base, step_keeps_logic_acc, step_keeps_mstatus.
   all: unfold kami_step, kami_advance_reg, kami_write_reg, kami_advance_err_code.
   all: snap_projections; rewrite ?Herr, ?Hhalt.
@@ -731,9 +746,10 @@ Theorem step_morph_tensor_refines : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b
   hwb_bianchi b = false -> hw_err b = false -> hw_halted b = false ->
   wordToNat (hw_pc b) + 1 < pow2 WordSz ->
   wordToNat (hw_mu b) + wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7) < pow2 WordSz ->
+  hwb_ranges_disjoint b ->
   hwb_snapshot (step_next b) = kami_step (hwb_snapshot b) (instr_morph_tensor (wordToNat (bits4 a0 a1 a2 a3)) f g (wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7))).
 Proof.
-  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b f g Hf Hb Herr Hhalt Hpc Hmu.
+  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b f g Hf Hb Herr Hhalt Hpc Hmu Hdis.
   pose proof (step_morph_tensor_pc a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_pc.
   pose proof (step_morph_tensor_mu a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_mu.
   pose proof (step_morph_tensor_err a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_err.
@@ -748,6 +764,7 @@ Proof.
   pose proof (step_morph_tensor_mu_tensor a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_mu_tensor.
   pose proof (step_morph_tensor_module_tensors a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_module_tensors.
   pose proof (step_morph_tensor_ptTable a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_ptTable.
+  pose proof (step_morph_tensor_ptBases a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_ptBases.
   pose proof (step_morph_tensor_pt_next_id a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_pt_next_id.
   pose proof (step_morph_tensor_certified a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_certified.
   pose proof (step_morph_tensor_wc_same_00 a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb) as F_wc_same_00.
@@ -772,11 +789,11 @@ Proof.
   idtac.
   all: unfold hwb_snapshot at 1.
   all: rewrite (step_rich_frame b F_morph_valid_table F_morph_src_table F_morph_dst_table F_morph_coupling_desc_table F_morph_identity_table F_morph_next_id F_coupling_desc_label_table F_coupling_desc_label_len_table).
-  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
+  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
   all: rewrite step_keeps_csr_status, step_keeps_csr_heap_base, step_keeps_logic_acc, step_keeps_mstatus.
   all: unfold kami_step, kami_advance_err_code.
   all: snap_projections; rewrite ?Herr, ?Hhalt.
-  all: rewrite snap_graph_tensor_none; cbv beta iota.
+  all: rewrite (snap_graph_tensor_none _ f g Hdis); cbv beta iota.
   all: apply kami_snapshot_ext; snap_projections.
   all: first [ syntactic | close_pc | close_mu_cost | exact wordToNat_err_morph_not_found | exact wordToNat_err_coupling_invalid | lazymatch goal with |- rich_state_delete_morph _ _ = rich_state_delete_morph _ _ => reflexivity end ].
 Qed.
@@ -786,9 +803,10 @@ Theorem step_morph_tensor_ext_refines : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 
   hwb_bianchi b = false -> hw_err b = false -> hw_halted b = false ->
   wordToNat (hw_pc b) + 1 < pow2 WordSz ->
   wordToNat (hw_mu b) + wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7) < pow2 WordSz ->
+  hwb_ranges_disjoint b ->
   hwb_snapshot (step_next b) = kami_step (hwb_snapshot b) (instr_morph_tensor (wordToNat (bits4 a0 a1 a2 a3)) f g (wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7))).
 Proof.
-  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b f g Hf Hb Herr Hhalt Hpc Hmu.
+  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b f g Hf Hb Herr Hhalt Hpc Hmu Hdis.
   pose proof (step_morph_tensor_ext_pc a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_pc.
   pose proof (step_morph_tensor_ext_mu a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_mu.
   pose proof (step_morph_tensor_ext_err a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_err.
@@ -803,6 +821,7 @@ Proof.
   pose proof (step_morph_tensor_ext_mu_tensor a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_mu_tensor.
   pose proof (step_morph_tensor_ext_module_tensors a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_module_tensors.
   pose proof (step_morph_tensor_ext_ptTable a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_ptTable.
+  pose proof (step_morph_tensor_ext_ptBases a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_ptBases.
   pose proof (step_morph_tensor_ext_pt_next_id a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_pt_next_id.
   pose proof (step_morph_tensor_ext_certified a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_certified.
   pose proof (step_morph_tensor_ext_wc_same_00 a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_wc_same_00.
@@ -827,11 +846,11 @@ Proof.
   idtac.
   all: unfold hwb_snapshot at 1.
   all: rewrite (step_rich_frame b F_morph_valid_table F_morph_src_table F_morph_dst_table F_morph_coupling_desc_table F_morph_identity_table F_morph_next_id F_coupling_desc_label_table F_coupling_desc_label_len_table).
-  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
+  all: rewrite F_pc, F_mu, F_err, F_halted, F_regs, F_mem, F_error_code, F_cert_addr, F_partition_ops, F_mdl_ops, F_info_gain, F_mu_tensor, F_module_tensors, F_ptTable, F_ptBases, F_pt_next_id, F_certified, F_wc_same_00, F_wc_diff_00, F_wc_same_01, F_wc_diff_01, F_wc_same_10, F_wc_diff_10, F_wc_same_11, F_wc_diff_11.
   all: rewrite step_keeps_csr_status, step_keeps_csr_heap_base, step_keeps_logic_acc, step_keeps_mstatus.
   all: unfold kami_step, kami_advance_err_code.
   all: snap_projections; rewrite ?Herr, ?Hhalt.
-  all: rewrite snap_graph_tensor_none; cbv beta iota.
+  all: rewrite (snap_graph_tensor_none _ f g Hdis); cbv beta iota.
   all: apply kami_snapshot_ext; snap_projections.
   all: first [ syntactic | close_pc | close_mu_cost | exact wordToNat_err_morph_not_found | exact wordToNat_err_coupling_invalid | lazymatch goal with |- rich_state_delete_morph _ _ = rich_state_delete_morph _ _ => reflexivity end ].
 Qed.

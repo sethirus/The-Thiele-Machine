@@ -155,8 +155,11 @@ Proof.
   inversion Hstep; subst; unfold state_info.
   cbn [vm_graph advance_state].
   unfold graph_hw_psplit, graph_add_module.
-  destruct (graph_remove (vm_graph s) _) as [[g1 rm1]|] eqn:Hrem; simpl.
-  - pose proof (graph_remove_length (vm_graph s) _ g1 rm1 Hrem). lia.
+  set (g0 := graph_cascade_delete_morphisms (vm_graph s) (mid mod 64)).
+  assert (Hl0 : List.length (pg_modules g0) = List.length (pg_modules (vm_graph s)))
+    by reflexivity.
+  destruct (graph_remove g0 _) as [[g1 rm1]|] eqn:Hrem; simpl.
+  - pose proof (graph_remove_length g0 _ g1 rm1 Hrem). lia.
   - lia.
 Qed.
 
@@ -168,13 +171,15 @@ Lemma graph_hw_pmerge_length_bound : forall g m1 m2,
 Proof.
   intros g m1 m2.
   unfold graph_hw_pmerge.
-  destruct (graph_remove g m1) as [[g1 rm1]|] eqn:Hrem1;
+  set (g0 := graph_cascade_delete_morphisms (graph_cascade_delete_morphisms g m1) m2).
+  assert (Hl0 : List.length (pg_modules g0) = List.length (pg_modules g)) by reflexivity.
+  destruct (graph_remove g0 m1) as [[g1 rm1]|] eqn:Hrem1;
   [ destruct (graph_remove g1 m2) as [[g2 rm2]|] eqn:Hrem2
-  | destruct (graph_remove g m2) as [[g2 rm2]|] eqn:Hrem2 ];
+  | destruct (graph_remove g0 m2) as [[g2 rm2]|] eqn:Hrem2 ];
   unfold graph_add_module; simpl;
-  try (pose proof (graph_remove_length g m1 g1 rm1 Hrem1));
+  try (pose proof (graph_remove_length g0 m1 g1 rm1 Hrem1));
   try (pose proof (graph_remove_length g1 m2 g2 rm2 Hrem2));
-  try (pose proof (graph_remove_length g m2 g2 rm2 Hrem2));
+  try (pose proof (graph_remove_length g0 m2 g2 rm2 Hrem2));
   lia.
 Qed.
 
@@ -185,13 +190,15 @@ Lemma graph_hw_pmerge_length_upper : forall g m1 m2,
 Proof.
   intros g m1 m2.
   unfold graph_hw_pmerge.
-  destruct (graph_remove g m1) as [[g1 rm1]|] eqn:Hrem1;
+  set (g0 := graph_cascade_delete_morphisms (graph_cascade_delete_morphisms g m1) m2).
+  assert (Hl0 : List.length (pg_modules g0) = List.length (pg_modules g)) by reflexivity.
+  destruct (graph_remove g0 m1) as [[g1 rm1]|] eqn:Hrem1;
   [ destruct (graph_remove g1 m2) as [[g2 rm2]|] eqn:Hrem2
-  | destruct (graph_remove g m2) as [[g2 rm2]|] eqn:Hrem2 ];
+  | destruct (graph_remove g0 m2) as [[g2 rm2]|] eqn:Hrem2 ];
   unfold graph_add_module; simpl;
-  try (pose proof (graph_remove_length g m1 g1 rm1 Hrem1));
+  try (pose proof (graph_remove_length g0 m1 g1 rm1 Hrem1));
   try (pose proof (graph_remove_length g1 m2 g2 rm2 Hrem2));
-  try (pose proof (graph_remove_length g m2 g2 rm2 Hrem2));
+  try (pose proof (graph_remove_length g0 m2 g2 rm2 Hrem2));
   lia.
 Qed.
 

@@ -82,8 +82,6 @@ class TestMorphCreate:
                     "PNEW {20} 1",
                     "PNEW {30} 1",
                     "PNEW {40} 1",
-                    "PNEW {10,20} 1",
-                    "PNEW {30,40} 1",
                     "MORPH 10 1 3 0 2",
                     "MORPH 11 2 4 0 3",
                     "MORPH_TENSOR 12 1 2 4",
@@ -339,51 +337,47 @@ class TestMorphAssert:
 # ---------------------------------------------------------------------------
 
 class TestCascadeDelete:
-    """When a module is removed (PMERGE), all morphisms referencing it are deleted."""
+    """When a module is removed (PSPLIT, PMERGE), all morphisms referencing it are deleted."""
 
-    def test_pmerge_does_not_cascade_delete_morphisms(self):
-        """PMERGE removes modules but does NOT cascade-delete referencing morphisms.
+    def test_pmerge_cascade_deletes_morphisms(self):
+        """PMERGE removes the two modules and every morphism that names one.
 
-        Per graph_hw_pmerge in coq/kernel/foundation/VMStep.v, PMERGE calls graph_remove
-        on the two input modules and graph_add_module for the merged result, but
-        never calls graph_cascade_delete_morphisms. Orphaned morphisms therefore
-        remain in the morphism table after PMERGE, and MORPH_DELETE on them
-        succeeds rather than errors.
+        graph_hw_pmerge in coq/kernel/foundation/VMStep.v calls
+        graph_cascade_delete_morphisms for both input modules before it removes
+        them, as graph_pmerge does. No morphism is left pointing at a missing
+        module, so MORPH_DELETE on the removed morphism errors.
         """
         state = vm.run_vm([
-            "PNEW {1,2} 1",        # module 1: region={1,2}
-            "PNEW {3,4} 1",        # module 2: region={3,4}
-            "PNEW {5,6} 1",        # module 3: region={5,6}
-            "MORPH 10 1 3 0 0",    # morph 1: module-1 → module-3
-            # Merge module-1 and module-2 → destroys mod-1 and mod-2, creates mod-4
-            "PMERGE 1 2 1",        # merge: destroys mod-1 but does NOT cascade-delete morph-1
-            # Morph-1 is still present; MORPH_DELETE should succeed
-            "MORPH_DELETE 1 0",    # succeeds — morph-1 was NOT cascade-deleted
+            "PNEW {1,2} 1",        # module 1: range [1, 2]
+            "PNEW {3,4} 1",        # module 2: range [3, 4]
+            "PNEW {5,6} 1",        # module 3: range [5, 6]
+            "MORPH 10 1 3 0 0",    # morph 1: module-1 -> module-3
+            "PMERGE 1 2 1",        # ranges touch: merge, which deletes morph-1 with module 1
+            "MORPH_DELETE 1 0",    # morph-1 is gone: error
             "HALT 0",
         ])
-        assert not state.err, "Expected success: PMERGE does not cascade-delete morphisms per graph_hw_pmerge in VMStep.v"
+        assert state.err, "Expected error: PMERGE cascade-deleted morph-1"
 
     def test_cascade_delete_compose_fails_after_merge(self):
-        """After PMERGE, orphaned morphisms still exist but COMPOSE can fail on type mismatch.
+        """After PMERGE, COMPOSE of a cascade-deleted morphism fails.
 
-        PMERGE does NOT cascade-delete morphisms (per graph_hw_pmerge in VMStep.v).
-        Morph-1 (module-1 → module-3) survives PMERGE of modules 1 and 2.
-        A new morph-3 (module-5 → module-3) is created. COMPOSE of morph-1 and
-        morph-3 fails because morph-1.target(=3) != morph-3.source(=5).
+        Morph-1 (module-1 -> module-3) is deleted with module 1 when modules 1
+        and 2 merge. A new morph-3 (module-5 -> module-3) is created. COMPOSE of
+        morph-1 and morph-3 fails because morph-1 no longer exists.
         """
         state = vm.run_vm([
-            "PNEW {1,2} 1",        # module 1
-            "PNEW {3,4} 1",        # module 2
-            "PNEW {5,6} 1",        # module 3
-            "MORPH 10 1 3 0 0",    # morph 1: module-1 → module-3
-            "MORPH 11 3 2 0 0",    # morph 2: module-3 → module-2
-            "PMERGE 1 2 1",        # merge mod-1 and mod-2 → cascade-deletes morph-1
-            "PNEW {1,2} 1",        # recreate a module (module 5)
-            "MORPH 12 5 3 0 0",    # morph 3: module-5 → module-3
-            "COMPOSE 13 1 3 0",    # try compose morph-1;morph-3 → morph-1 gone → error
+            "PNEW {1,2} 1",        # module 1: range [1, 2]
+            "PNEW {3,4} 1",        # module 2: range [3, 4]
+            "PNEW {5,6} 1",        # module 3: range [5, 6]
+            "MORPH 10 1 3 0 0",    # morph 1: module-1 -> module-3
+            "MORPH 11 3 2 0 0",    # morph 2: module-3 -> module-2
+            "PMERGE 1 2 1",        # merge mod-1 and mod-2 -> module 4, cascade-deletes morph-1 and morph-2
+            "PNEW {7,8} 1",        # a new module (module 5): range [7, 8]
+            "MORPH 12 5 3 0 0",    # morph 3: module-5 -> module-3
+            "COMPOSE 13 1 3 0",    # morph-1 is gone: error
             "HALT 0",
         ])
-        assert state.err, "Expected error: COMPOSE fails due to type mismatch (morph-1.target != morph-3.source)"
+        assert state.err, "Expected error: COMPOSE of the cascade-deleted morph-1"
 
 
 # ---------------------------------------------------------------------------
@@ -394,21 +388,21 @@ class TestMorphTensor:
     """MORPH_TENSOR creates the parallel (tensor) product of two morphisms."""
 
     def test_morph_tensor_errors_with_overlapping_regions(self):
-        """MORPH_TENSOR errors because PNEW normalizes regions to seq 0 sz,
-        making all single-cell modules share cell 0 (never disjoint)."""
+        """A union module overlaps the modules it joins, so its PNEW traps
+        (a range that overlaps a module without being its range), and no
+        module owns the union for MORPH_TENSOR."""
         state = vm.run_vm([
-            "PNEW {10} 1",         # module 1: region=[0]
-            "PNEW {20} 1",         # module 2: region=[0]
-            "PNEW {30} 1",         # module 3: region=[0]
-            "PNEW {40} 1",         # module 4: region=[0]
-            "PNEW {10,20} 1",      # module 5: region=[0,1]
-            "PNEW {30,40} 1",      # module 6: region=[0,1]
+            "PNEW {10} 1",         # module 1: range [10]
+            "PNEW {20} 1",         # module 2: range [20]
+            "PNEW {30} 1",         # module 3: range [30]
+            "PNEW {40} 1",         # module 4: range [40]
+            "PNEW {10,20} 1",      # range [10, 11] overlaps module 1: trap
             "MORPH 10 1 3 0 0",
             "MORPH 11 2 4 0 0",
             "MORPH_TENSOR 12 1 2 1",
             "HALT 0",
         ])
-        assert state.err, "Expected error: seq 0 sz regions are never disjoint"
+        assert state.err, "Expected error: the union PNEW overlaps module 1"
 
     def test_morph_tensor_fails_without_union_modules(self):
         """MORPH_TENSOR fails if union modules (A∪C, B∪D) don't exist in the graph."""
@@ -549,7 +543,6 @@ class TestCategoricalInvariants:
             (["PNEW {1} 1", "MORPH_ID 5 1 0", "MORPH_ASSERT 1 p c 1", "HALT 0"],
              "MORPH_ASSERT"),
             (["PNEW {10} 1", "PNEW {20} 1", "PNEW {30} 1", "PNEW {40} 1",
-              "PNEW {10,20} 1", "PNEW {30,40} 1",
               "MORPH 10 1 3 0 0", "MORPH 11 2 4 0 0",
               "MORPH_TENSOR 12 1 2 0", "HALT 0"],
              "MORPH_TENSOR"),

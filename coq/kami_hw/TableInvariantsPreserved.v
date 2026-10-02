@@ -43,7 +43,7 @@ From KamiHW Require Import ThieleTypes ThieleCPUCore HWBoundary RuleNext RuleSte
   CouplingMorphRich CouplingMorphKami CouplingMorphRetire
   CouplingComposeRun CouplingComposeKami CouplingComposeRetire CouplingFaults
   BoundaryRun RetireRuns RetireRunsFsm RetireRunsOps RetireMaster
-  DispatchReset StepFaults TableInvariants.
+  DispatchReset StepFaults TableInvariants PartitionScan.
 Local Open Scope nat_scope.
 Local Open Scope list_scope.
 
@@ -1266,8 +1266,9 @@ Proof.
   { destruct HR as [_ [[n Hn] [Hdi _]]].
     exact (proj1 (busy_runs_unique _ _ _ Hn Hdi _ _ (busy_done _) Hidle)). }
   subst d.
-  eapply hwb_table_invariants_frame.
-  - exact (step_psplit_morph_valid_table a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb).
+  eapply (hwb_table_invariants_frame_valid_subset b).
+  - intro i. rewrite (step_psplit_morph_valid_table a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb).
+    destruct (hw_pt_room_two b); [|auto]. rewrite hw_morph_cascade_spec. unfold cascade_keep. intro H. apply andb_true_iff in H. exact (proj1 H).
   - exact (step_psplit_morph_next_id a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb).
   - exact (step_psplit_morph_coupling_desc_table a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb).
   - exact (step_psplit_morph_identity_table a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb).
@@ -1299,8 +1300,9 @@ Proof.
   { destruct HR as [_ [[n Hn] [Hdi _]]].
     exact (proj1 (busy_runs_unique _ _ _ Hn Hdi _ _ (busy_done _) Hidle)). }
   subst d.
-  eapply hwb_table_invariants_frame.
-  - exact (step_pmerge_morph_valid_table a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb).
+  eapply (hwb_table_invariants_frame_valid_subset b).
+  - intro i. rewrite (step_pmerge_morph_valid_table a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb).
+    destruct (hw_pt_room_one b); [|auto]. destruct (negb (hw_pmerge_adjacent b _ _)); [auto|]. rewrite hw_morph_cascade_spec. unfold cascade_keep. intro H. apply andb_true_iff in H. exact (proj1 H).
   - exact (step_pmerge_morph_next_id a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb).
   - exact (step_pmerge_morph_coupling_desc_table a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb).
   - exact (step_pmerge_morph_identity_table a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb).

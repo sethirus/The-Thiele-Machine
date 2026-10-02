@@ -97,7 +97,7 @@ Lemma dispatch_decoded_total : forall
     chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v mdl_ops_v info_gain_v
     error_code_v logic_acc_v cert_addr_v active_module_v mcycle_lo_v mcycle_hi_v
     minstret_lo_v minstret_hi_v trap_vector_v mu_tensor_v module_tensors_v
-    csr_heap_base_v pt_sizes_v pt_next_id_v certified_v morph_src_table_v
+    csr_heap_base_v pt_sizes_v pt_bases_v pt_next_id_v certified_v morph_src_table_v
     morph_dst_table_v morph_valid_table_v morph_coupling_desc_table_v
     morph_identity_table_v morph_next_id_v coupling_desc_valid_table_v
     coupling_desc_count_table_v coupling_desc_base_table_v coupling_desc_label_table_v coupling_desc_label_len_table_v coupling_desc_next_id_v
@@ -109,7 +109,7 @@ Lemma dispatch_decoded_total : forall
   total_from nil (dispatch_decoded (ty := type) chsh_check_result_v pc_v mu_v regs_v mem_v
     partition_ops_v mdl_ops_v info_gain_v error_code_v logic_acc_v cert_addr_v
     active_module_v mcycle_lo_v mcycle_hi_v minstret_lo_v minstret_hi_v trap_vector_v
-    mu_tensor_v module_tensors_v csr_heap_base_v pt_sizes_v pt_next_id_v certified_v
+    mu_tensor_v module_tensors_v csr_heap_base_v pt_sizes_v pt_bases_v pt_next_id_v certified_v
     morph_src_table_v morph_dst_table_v morph_valid_table_v morph_coupling_desc_table_v
     morph_identity_table_v morph_next_id_v coupling_desc_valid_table_v
     coupling_desc_count_table_v coupling_desc_base_table_v coupling_desc_label_table_v coupling_desc_label_len_table_v coupling_desc_next_id_v

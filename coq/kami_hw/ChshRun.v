@@ -115,6 +115,8 @@ Lemma iter_keeps_csr_heap_base : forall n b, hw_csr_heap_base (chsh_iter n b) = 
 Proof. induction n as [|n IH]; intro b; [reflexivity|cbn [chsh_iter]; rewrite chsh_keeps_csr_heap_base; apply IH]. Qed.
 Lemma iter_keeps_ptTable : forall n b, hw_ptTable (chsh_iter n b) = hw_ptTable b.
 Proof. induction n as [|n IH]; intro b; [reflexivity|cbn [chsh_iter]; rewrite chsh_keeps_ptTable; apply IH]. Qed.
+Lemma iter_keeps_ptBases : forall n b, hw_ptBases (chsh_iter n b) = hw_ptBases b.
+Proof. induction n as [|n IH]; intro b; [reflexivity|cbn [chsh_iter]; rewrite chsh_keeps_ptBases; apply IH]. Qed.
 Lemma iter_keeps_pt_next_id : forall n b, hw_pt_next_id (chsh_iter n b) = hw_pt_next_id b.
 Proof. induction n as [|n IH]; intro b; [reflexivity|cbn [chsh_iter]; rewrite chsh_keeps_pt_next_id; apply IH]. Qed.
 Lemma iter_keeps_morph_src_table : forall n b, hw_morph_src_table (chsh_iter n b) = hw_morph_src_table b.

@@ -27,20 +27,11 @@ These tests push the system to its structural limits:
      - id_A ; id_A      has source = target = A (identity collapse)
      We verify by running the programs and reading src/tgt via MORPH_GET.
 
-  3. MONOIDAL INTERCHANGE LAW AS A RUNNING PROGRAM
-     The most demanding test: two independent paths through the diagram
-
-         A ---f---> B ---h---> E
-         ⊗          ⊗          ⊗
-         C ---g---> D ---k---> F
-
-     Path 1:  (f⊗g) ; (h⊗k)     source=A⊗C, target=E⊗F
-     Path 2:  (f;h) ⊗ (g;k)     source=A⊗C, target=E⊗F
-
-     Both paths must agree on source and target — the interchange law.
-     Requires 9 modules (A,B,C,D,E,F plus union modules A⊗C, B⊗D, E⊗F)
-     and 10 morphisms. This is the full monoidal coherence condition
-     proven in CategoryMonoidal.v executing as a real program.
+  3. MONOIDAL INTERCHANGE LAW: WHAT THE MEMORY PARTITION ALLOWS
+     The interchange law needs union modules A⊗C, B⊗D and E⊗F next to the
+     modules they join. Module regions are pairwise disjoint ranges of data
+     memory, so a union module overlaps its parts and its PNEW traps, and
+     MORPH_TENSOR finds no module for a union. The tests run both faults.
 
   4. FULL LIFECYCLE
      MORPH → MORPH_ASSERT (cert-setter) → MORPH_DELETE → recreate.
@@ -235,38 +226,37 @@ class TestMonoidalInterchangeLaw:
     """
     The interchange law: (f⊗g);(h⊗k) = (f;h)⊗(g;k).
 
-    With seq 0 sz region normalization, PNEW always assigns region [0..sz-1].
-    All single-cell modules share cell 0, so MORPH_TENSOR's disjointness check
-    always fails.  These tests verify the expected error path.
+    MORPH_TENSOR needs a module that owns the union of two disjoint regions.
+    A module owns a contiguous range of data memory, and the ranges of
+    different modules are pairwise disjoint. A PNEW whose range overlaps a
+    module without being that module's range traps, so a union module cannot
+    exist next to the modules it joins. These tests check both faults.
     """
 
-    def _build_interchange_state(self):
-        return vm.run_vm([
-            # Objects — all get region [0] due to seq 0 sz normalization
+    def test_union_object_overlapping_its_parts_traps(self):
+        """PNEW {10,30} claims the range [10, 11], which overlaps the module [10]."""
+        state = vm.run_vm([
+            "PNEW {10} 1",            # mod 1: A, range [10]
+            "PNEW {30} 1",            # mod 2: C, range [30]
+            "PNEW {10,30} 1",         # range [10, 11] overlaps A: trap
+            "HALT 0",
+        ])
+        assert state.err, "Expected an overlap trap: [10, 11] overlaps the module [10]"
+        assert state.graph.pg_next_id == 3, "The trapped PNEW must not add a module"
+
+    def test_tensor_finds_no_union_module(self):
+        """MORPH_TENSOR fails: no module owns the union of the source regions."""
+        state = vm.run_vm([
             "PNEW {10} 1",            # mod 1: A
             "PNEW {20} 1",            # mod 2: B
             "PNEW {30} 1",            # mod 3: C
             "PNEW {40} 1",            # mod 4: D
-            "PNEW {50} 1",            # mod 5: E
-            "PNEW {60} 1",            # mod 6: F
-            # Union objects
-            "PNEW {10,30} 1",         # mod 7: A⊗C
-            "PNEW {20,40} 1",         # mod 8: B⊗D
-            "PNEW {50,60} 1",         # mod 9: E⊗F
-            # Base morphisms
             "MORPH 1 1 2 0 0",
             "MORPH 2 3 4 0 0",
-            "MORPH 3 2 5 0 0",
-            "MORPH 4 4 6 0 0",
-            # MORPH_TENSOR will error: regions [0] are not disjoint
             "MORPH_TENSOR 5 1 2 0",
             "HALT 0",
         ])
-
-    def test_interchange_errors_due_to_region_overlap(self):
-        """MORPH_TENSOR fails because seq 0 sz regions share cell 0."""
-        state = self._build_interchange_state()
-        assert state.err, "Expected error: seq 0 sz regions are never disjoint"
+        assert state.err, "Expected error: no module owns the union of the regions"
 
 
 # ---------------------------------------------------------------------------

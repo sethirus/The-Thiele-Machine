@@ -918,6 +918,63 @@ Proof.
   - apply regions_contiguous_no_modules. exact H0.
 Qed.
 
+(** [vm_apply_preserves_well_formed_graph]: the executable step keeps the
+    graph well formed. *)
+Theorem vm_apply_preserves_well_formed_graph : forall s instr,
+  well_formed_graph s.(vm_graph) ->
+  well_formed_graph (vm_apply s instr).(vm_graph).
+Proof.
+  intros s instr Hwf.
+  destruct instr; simpl; try exact Hwf.
+  all: try (destruct (region_conflict _ _) eqn:?; simpl;
+            [exact Hwf | apply graph_pnew_preserves_wf; exact Hwf]).
+  all: try (apply graph_hw_psplit_preserves_wf; exact Hwf).
+  all: try (destruct (pmerge_adjacent _ _ _) eqn:?; simpl;
+            [apply graph_hw_pmerge_preserves_wf; exact Hwf | exact Hwf]).
+  all: try (destruct (VMStep.tensor_indices_ok _ _); simpl; [|exact Hwf];
+            apply graph_update_module_tensor_preserves_wf; exact Hwf).
+  all: try (destruct (graph_compose_morphisms _ _ _) as [[g' id']|] eqn:E; simpl; [|exact Hwf];
+            exact (graph_compose_morphisms_preserves_wf _ _ _ _ _ Hwf E)).
+  all: try (destruct (graph_add_identity _ _) as [[g' id']|] eqn:E; simpl; [|exact Hwf];
+            exact (graph_add_identity_preserves_wf _ _ _ _ Hwf E)).
+  all: try (destruct (graph_delete_morphism _ _) as [g'|] eqn:E; simpl; [|exact Hwf];
+            exact (graph_delete_morphism_preserves_wf _ _ _ Hwf E)).
+  all: try (destruct (graph_tensor_morphisms _ _ _) as [[g' id']|] eqn:E; simpl; [|exact Hwf];
+            exact (graph_tensor_morphisms_preserves_wf _ _ _ _ _ Hwf E)).
+  all: try (match goal with
+            | |- context [match graph_lookup ?g ?a with _ => _ end] =>
+                destruct (graph_lookup g a) as [ms1|] eqn:Hs; simpl; [|exact Hwf]
+            end;
+            match goal with
+            | |- context [match graph_lookup ?g ?b with _ => _ end] =>
+                destruct (graph_lookup g b) as [ms2|] eqn:Hd; simpl; [|exact Hwf]
+            end;
+            match goal with
+            | Hs : graph_lookup (vm_graph ?st) ?a = Some ?m1,
+              Hd : graph_lookup (vm_graph ?st) ?b = Some ?m2,
+              c : nat |- _ =>
+                pose proof (graph_add_morphism_preserves_wf (vm_graph st) a b
+                  (load_coupling_from_mem st (module_region m1) (module_region m2) c) false Hwf)
+                  as Hadd;
+                unfold graph_add_morphism in Hadd; simpl in Hadd;
+                apply Hadd; [rewrite Hs; discriminate | rewrite Hd; discriminate]
+            end).
+  all: try (destruct (graph_lookup_morphism _ _); simpl; exact Hwf).
+  all: try (match goal with
+            | |- context [vm_graph (if ?b then _ else _)] => destruct b; simpl; exact Hwf
+            end).
+Qed.
+
+(** [run_vm_preserves_well_formed_graph]: any run keeps the graph well formed. *)
+Theorem run_vm_preserves_well_formed_graph : forall fuel trace s,
+  well_formed_graph s.(vm_graph) ->
+  well_formed_graph (run_vm fuel trace s).(vm_graph).
+Proof.
+  induction fuel as [|fuel IH]; intros trace s H; simpl; [exact H|].
+  destruct (nth_error trace s.(vm_pc)); [|exact H].
+  apply IH. apply vm_apply_preserves_well_formed_graph. exact H.
+Qed.
+
 (** vm_exec_deterministic: fixed fuel, trace, and start state have one final state. *)
 Lemma vm_exec_deterministic :
   forall fuel trace s s1 s2,

@@ -147,6 +147,12 @@ Proof.
   bool_red. intro H. discriminate H.
 Qed.
 
+Lemma dd_partition_opcode :
+  dd_partition_fault b w = true -> In (dd_opcode b w) [OP_PNEW; OP_PMERGE].
+Proof.
+  unfold dd_partition_fault. dd_cbn. opcode_class.
+Qed.
+
 Lemma dd_morph_opcode :
   dd_morph_runtime_fault b w = true -> In (dd_opcode b w) morph_opcodes.
 Proof.
@@ -182,6 +188,13 @@ Lemma dd_morph_not_guard :
 Proof.
   intro Hm. destruct (_ || _ || _) eqn:Hg; [|reflexivity]. exfalso.
   exact (op_disjoint _ _ _ (dd_morph_opcode Hm) (dd_guard_opcode Hg) eq_refl).
+Qed.
+
+Lemma dd_morph_not_partition :
+  dd_morph_runtime_fault b w = true -> dd_partition_fault b w = false.
+Proof.
+  intro Hm. destruct (dd_partition_fault b w) eqn:Hf; [|reflexivity]. exfalso.
+  exact (op_disjoint _ _ _ (dd_morph_opcode Hm) (dd_partition_opcode Hf) eq_refl).
 Qed.
 
 Lemma dd_locality_not_ptable :
@@ -370,26 +383,28 @@ Proof.
 Qed.
 
 Lemma dd_pt_tables_trap : dd_trap b w = true ->
-  dd_new_pt_sizes b w = hw_ptTable b /\ dd_new_pt_next_id b w = hw_pt_next_id b.
+  dd_new_pt_sizes b w = hw_ptTable b /\ dd_new_pt_bases b w = hw_ptBases b /\
+  dd_new_pt_next_id b w = hw_pt_next_id b.
 Proof.
-  unfold dd_trap, dd_new_pt_sizes, dd_new_pt_next_id. dd_cbn.
+  unfold dd_trap, dd_new_pt_sizes, dd_new_pt_bases, dd_new_pt_next_id. dd_cbn.
   destruct (dd_locality_violation b w) eqn:Hl.
   - intros _. pose proof (dd_locality_opcode b w Hl) as Hin. op_off Hin.
-    bool_red. split; same_branches.
+    bool_red. repeat split; same_branches.
   - destruct (dd_nfi_violation b w) eqn:Hn.
     + intros _. assert (Hin : In (dd_opcode b w) [OP_PDISCOVER])
         by (rewrite (dd_nfi_opcode b w Hn); left; reflexivity).
-      op_off Hin. bool_red. split; same_branches.
+      op_off Hin. bool_red. repeat split; same_branches.
     + destruct (hwb_bianchi b), (dd_ptable_overflow_violation b w), (dd_rich_fault b w);
-        bool_red; intro H; try discriminate H; split; reflexivity.
+        bool_red; intro H; try discriminate H; repeat split; reflexivity.
 Qed.
 
 Lemma dd_pt_tables_morph : dd_morph_runtime_fault b w = true ->
-  dd_new_pt_sizes b w = hw_ptTable b /\ dd_new_pt_next_id b w = hw_pt_next_id b.
+  dd_new_pt_sizes b w = hw_ptTable b /\ dd_new_pt_bases b w = hw_ptBases b /\
+  dd_new_pt_next_id b w = hw_pt_next_id b.
 Proof.
-  intro Hm. unfold dd_new_pt_sizes, dd_new_pt_next_id. dd_cbn. rewrite Hm.
+  intro Hm. unfold dd_new_pt_sizes, dd_new_pt_bases, dd_new_pt_next_id. dd_cbn. rewrite Hm.
   destruct (hwb_bianchi b), (dd_ptable_overflow_violation b w), (dd_rich_fault b w);
-    bool_red; split; reflexivity.
+    bool_red; repeat split; reflexivity.
 Qed.
 
 End Frames.
@@ -402,10 +417,10 @@ Variables (b : HWB) (w : word InstrSz).
 Lemma dd_err_eq : dd_new_err b w =
   dd_locality_violation b w || dd_ptable_overflow_violation b w || dd_nfi_violation b w ||
   dd_rich_fault b w || dd_morph_runtime_fault b w ||
-  (dd_is_lassert b w && negb (dd_lassert_is_sat b w)).
+  (dd_is_lassert b w && negb (dd_lassert_is_sat b w)) || dd_partition_fault b w.
 Proof.
   unfold dd_new_err, dd_lassert_unsat_trap, dd_chsh_lassert_trap. dd_cbn.
-  apply Bool.orb_false_r.
+  rewrite Bool.orb_false_r. reflexivity.
 Qed.
 
 Lemma dd_halted_eq : dd_new_halted b w =
@@ -547,6 +562,7 @@ Proof.
   destruct (dd_trap_false b w Ht) as (Hb & Hl & Hp & Hn & Hr).
   pose proof (dd_morph_opcode b w Hm) as Hin.
   unfold dd_new_pc, dd_chsh_lassert_trap. dd_cbn. rewrite Hb, Hl, Hp, Hn, Hr.
+  rewrite (dd_morph_not_partition b w Hm).
   op_off Hin. bool_red. reflexivity.
 Qed.
 
@@ -637,7 +653,7 @@ Definition snap_fault (s : KamiSnapshot) (pc mu : nat) (err halted : bool)
      snap_regs := snap_regs s; snap_mem := snap_mem s;
      snap_partition_ops := partition_ops; snap_mdl_ops := snap_mdl_ops s;
      snap_info_gain := snap_info_gain s; snap_error_code := code;
-     snap_mu_tensor := snap_mu_tensor s; snap_pt_sizes := snap_pt_sizes s;
+     snap_mu_tensor := snap_mu_tensor s; snap_pt_sizes := snap_pt_sizes s; snap_pt_bases := snap_pt_bases s;
      snap_pt_next_id := snap_pt_next_id s; snap_certified := snap_certified s;
      snap_wc_same_00 := snap_wc_same_00 s; snap_wc_diff_00 := snap_wc_diff_00 s;
      snap_wc_same_01 := snap_wc_same_01 s; snap_wc_diff_01 := snap_wc_diff_01 s;
@@ -653,14 +669,14 @@ Ltac fault_fields :=
   apply kami_snapshot_ext;
   cbn [snap_pc snap_mu snap_err snap_halted snap_regs snap_mem snap_partition_ops
     snap_mdl_ops snap_info_gain snap_error_code snap_mu_tensor snap_pt_sizes
-    snap_pt_next_id snap_certified snap_wc_same_00 snap_wc_diff_00 snap_wc_same_01
+    snap_pt_bases snap_pt_next_id snap_certified snap_wc_same_00 snap_wc_diff_00 snap_wc_same_01
     snap_wc_diff_01 snap_wc_same_10 snap_wc_diff_10 snap_wc_same_11 snap_wc_diff_11
     snap_module_tensors snap_rich_state snap_csr_cert_addr snap_csr_status snap_csr_err
     snap_csr_heap_base snap_logic_acc snap_mstatus];
   rewrite ?step_next_pc, ?step_next_mu, ?step_next_err, ?step_next_halted,
     ?step_next_regs, ?step_next_mem, ?step_next_partition_ops, ?step_next_mdl_ops,
     ?step_next_info_gain, ?step_next_error_code, ?step_next_mu_tensor,
-    ?step_next_ptTable, ?step_next_pt_next_id, ?step_next_certified,
+    ?step_next_ptTable, ?step_next_ptBases, ?step_next_pt_next_id, ?step_next_certified,
     ?step_next_wc_same_00, ?step_next_wc_diff_00, ?step_next_wc_same_01,
     ?step_next_wc_diff_01, ?step_next_wc_same_10, ?step_next_wc_diff_10,
     ?step_next_wc_same_11, ?step_next_wc_diff_11, ?step_next_module_tensors,
@@ -696,13 +712,13 @@ Proof.
   intros b Hd H.
   assert (Hf : dd_freeze b (step_fetched b) = true)
     by (unfold dd_freeze; rewrite H; reflexivity).
-  destruct (dd_pt_tables_trap _ _ H) as [Hpt Hptn].
+  destruct (dd_pt_tables_trap _ _ H) as [Hpt [Hptb Hptn]].
   pose proof (dd_is_chsh_valid_trap _ _ H) as Hc.
   fault_fields;
   rewrite ?(dd_pc_trap _ _ H), ?(dd_regs_freeze _ _ Hf), ?(dd_mem_freeze _ _ Hf),
     ?(dd_certified_freeze _ _ Hf), ?(dd_cert_addr_freeze _ _ Hf),
     ?(dd_info_gain_freeze _ _ Hf), ?(dd_module_tensors_freeze _ _ Hf),
-    ?(dd_mu_tensor_trap _ _ H), ?(dd_mdl_ops_trap _ _ H), ?Hpt, ?Hptn,
+    ?(dd_mu_tensor_trap _ _ H), ?(dd_mdl_ops_trap _ _ H), ?Hpt, ?Hptb, ?Hptn,
     ?(step_rich_freeze b Hd Hf);
   first [reflexivity | wc_frozen Hc].
 Qed.
@@ -817,7 +833,7 @@ Proof.
   intros Ht Hm.
   assert (Hf : dd_freeze b w = true)
     by (unfold dd_freeze; rewrite Hm, Bool.orb_true_r; reflexivity).
-  destruct (dd_pt_tables_morph b w Hm) as [Hpt Hptn].
+  destruct (dd_pt_tables_morph b w Hm) as [Hpt [Hptb Hptn]].
   destruct (dd_err_halted_morph b w Ht Hm) as [He Hh].
   pose proof (dd_is_chsh_valid_morph b w Hm) as Hc.
   fault_fields;
@@ -826,7 +842,7 @@ Proof.
     ?(dd_certified_freeze _ _ Hf), ?(dd_cert_addr_freeze _ _ Hf),
     ?(dd_info_gain_freeze _ _ Hf), ?(dd_module_tensors_freeze _ _ Hf),
     ?(dd_mu_tensor_morph b w Hm), ?(dd_mdl_ops_morph b w Hm),
-    ?(dd_partition_ops_morph b w Hm), ?Hpt, ?Hptn, ?(step_rich_freeze b Hd Hf);
+    ?(dd_partition_ops_morph b w Hm), ?Hpt, ?Hptb, ?Hptn, ?(step_rich_freeze b Hd Hf);
   first [reflexivity | wc_frozen Hc].
 Qed.
 

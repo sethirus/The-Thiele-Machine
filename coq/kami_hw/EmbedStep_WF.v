@@ -356,27 +356,8 @@ Theorem embed_step_pnew :
     abs_phase1 (kami_step ks (instr_pnew region cost)) =
     vm_apply (abs_phase1 ks) (instr_pnew region cost).
 Proof.
-  intros ks region cost [Hge [Hlt Hfresh]] Hsz.
-  set (id := snap_pt_next_id ks).
-  set (sz := length (normalize_region region)).
-  unfold vm_apply, kami_step.
-  fold id. fold sz.
-  unfold advance_state, apply_cost, instruction_cost.
-  unfold abs_phase1 at 1.
-  simpl snap_pc. simpl snap_mu. simpl snap_err.
-  simpl snap_regs. simpl snap_mem.
-  simpl snap_mu_tensor. simpl snap_certified.
-  simpl snap_halted. simpl snap_partition_ops. simpl snap_mdl_ops.
-  simpl snap_info_gain. simpl snap_error_code.
-  simpl snap_wc_same_00. simpl snap_wc_diff_00.
-  simpl snap_wc_same_01. simpl snap_wc_diff_01.
-  simpl snap_wc_same_10. simpl snap_wc_diff_10.
-  simpl snap_wc_same_11. simpl snap_wc_diff_11.
-  simpl snap_pt_sizes. simpl snap_pt_next_id.
-  fold (abs_phase1 ks).
-  fold id. fold sz.
-  rewrite (snap_pt_to_graph_pnew id sz (snap_pt_sizes ks) Hge Hlt Hsz Hfresh).
-  reflexivity.
+  intros ks region cost Hwf Hsz.
+  exact (EmbedStep.embed_step_pnew ks region cost Hwf Hsz).
 Qed.
 
 (* ======================================================================
@@ -404,16 +385,20 @@ Proof.
   set (nid   := snap_pt_next_id ks).
   set (mid   := module0 mod PTableSz).
   set (sizes := snap_pt_sizes ks).
-  (* Prove the graph commutation first. kami_step uses S nid-first ordering;
-     snap_pt_to_graph_psplit (RichStateCommutation.v) uses mid-first ordering.
-     We reorder via extensionality, then use sym_eq. *)
+  set (bases := snap_pt_bases ks).
+  (* kami_step lists the new slots S nid-first; snap_pt_to_graph_psplit
+     (RichStateCommutation.v) lists mid first. Reorder by extensionality. *)
   assert (Hgraph :
     snap_pt_to_graph (S (S nid))
       (fun i => if Nat.eqb i (S nid) then sizes mid - Nat.div (sizes mid) 2
                 else if Nat.eqb i nid then Nat.div (sizes mid) 2
                 else if Nat.eqb i mid then 0
-                else sizes i) =
-    graph_hw_psplit (snap_pt_to_graph nid sizes) mid).
+                else sizes i)
+      (fun i => if Nat.eqb i (S nid) then bases mid + Nat.div (sizes mid) 2
+                else if Nat.eqb i nid then bases mid
+                else if Nat.eqb i mid then 0
+                else bases i) =
+    graph_hw_psplit (snap_pt_to_graph nid sizes bases) mid).
   {
     assert (Hfun_eq :
       (fun i => if Nat.eqb i (S nid) then sizes mid - Nat.div (sizes mid) 2
@@ -429,22 +414,39 @@ Proof.
                (Nat.eqb_spec x nid)  as [Hen|Hen],
                (Nat.eqb_spec x (S nid)) as [HeSn|HeSn];
       subst; try reflexivity; exfalso; unfold nid, mid in *; lia. }
-    rewrite Hfun_eq.
-    exact (eq_sym (snap_pt_to_graph_psplit nid sizes mid Hge Hle Hmid Hsize Hn0 Hsn0)).
+    assert (Hbase_eq :
+      (fun i => if Nat.eqb i (S nid) then bases mid + Nat.div (sizes mid) 2
+                else if Nat.eqb i nid then bases mid
+                else if Nat.eqb i mid then 0
+                else bases i) =
+      (fun j => if Nat.eqb j mid then 0
+                else if Nat.eqb j nid then bases mid
+                else if Nat.eqb j (S nid) then bases mid + Nat.div (sizes mid) 2
+                else bases j)).
+    { extensionality x.
+      destruct (Nat.eqb_spec x mid)  as [Hem|Hem],
+               (Nat.eqb_spec x nid)  as [Hen|Hen],
+               (Nat.eqb_spec x (S nid)) as [HeSn|HeSn];
+      subst; try reflexivity; exfalso; unfold nid, mid in *; lia. }
+    rewrite Hfun_eq, Hbase_eq.
+    exact (eq_sym (snap_pt_to_graph_psplit nid sizes bases mid Hge Hle Hmid Hsize Hn0 Hsn0)).
   }
-  (* Expand LHS abs_phase1, use change to convert graph field by definitional equality,
-     then rewrite using Hgraph — avoids the simpl/cbv/fold lambda-matching issue. *)
   unfold abs_phase1 at 1.
   change (snap_pt_to_graph (snap_pt_next_id (kami_step ks (instr_psplit module0 left_region right_region cost)))
-                           (snap_pt_sizes   (kami_step ks (instr_psplit module0 left_region right_region cost))))
+                           (snap_pt_sizes   (kami_step ks (instr_psplit module0 left_region right_region cost)))
+                           (snap_pt_bases   (kami_step ks (instr_psplit module0 left_region right_region cost))))
     with (snap_pt_to_graph (S (S nid))
       (fun i => if Nat.eqb i (S nid) then sizes mid - Nat.div (sizes mid) 2
                 else if Nat.eqb i nid then Nat.div (sizes mid) 2
                 else if Nat.eqb i mid then 0
-                else sizes i)).
+                else sizes i)
+      (fun i => if Nat.eqb i (S nid) then bases mid + Nat.div (sizes mid) 2
+                else if Nat.eqb i nid then bases mid
+                else if Nat.eqb i mid then 0
+                else bases i)).
   rewrite Hgraph.
   unfold vm_apply, kami_step, advance_state, apply_cost, instruction_cost.
-  fold nid mid sizes.
+  fold nid mid sizes bases.
   simpl snap_pc. simpl snap_mu. simpl snap_err.
   simpl snap_regs. simpl snap_mem.
   simpl snap_mu_tensor. simpl snap_certified.
@@ -486,53 +488,66 @@ Proof.
   set (mid1   := m1 mod PTableSz).
   set (mid2   := m2 mod PTableSz).
   set (sizes  := snap_pt_sizes ks).
-  (* Prove the graph commutation first. kami_step uses nid-first ordering;
-     snap_pt_to_graph_pmerge uses mid1-first ordering. *)
-  assert (Hgraph :
-    snap_pt_to_graph (S nid)
-      (fun i => if Nat.eqb i nid then sizes mid1 + sizes mid2
-                else if Nat.eqb i mid2 then 0
-                else if Nat.eqb i mid1 then 0
-                else sizes i) =
-    graph_hw_pmerge (snap_pt_to_graph nid sizes) mid1 mid2).
-  {
-    assert (Hfun_eq :
-      (fun i => if Nat.eqb i nid then sizes mid1 + sizes mid2
-                else if Nat.eqb i mid2 then 0
-                else if Nat.eqb i mid1 then 0
-                else sizes i) =
-      (fun j => if Nat.eqb j mid1 then 0
-                else if Nat.eqb j mid2 then 0
-                else if Nat.eqb j nid then sizes mid1 + sizes mid2
-                else sizes j)).
-    { extensionality x.
-      destruct (Nat.eqb_spec x mid1) as [He1|He1],
-               (Nat.eqb_spec x mid2) as [He2|He2],
-               (Nat.eqb_spec x nid)  as [Hen|Hen];
-      subst; try reflexivity; exfalso; unfold nid, mid1, mid2 in *; lia. }
-    rewrite Hfun_eq.
-    exact (eq_sym (snap_pt_to_graph_pmerge nid sizes mid1 mid2 Hge Hle Hm1 Hm2 Hne Hs1 Hs2 Hn0)).
-  }
-  unfold abs_phase1 at 1.
-  change (snap_pt_to_graph (snap_pt_next_id (kami_step ks (instr_pmerge m1 m2 cost)))
-                           (snap_pt_sizes   (kami_step ks (instr_pmerge m1 m2 cost))))
-    with (snap_pt_to_graph (S nid)
-      (fun i => if Nat.eqb i nid then sizes mid1 + sizes mid2
-                else if Nat.eqb i mid2 then 0
-                else if Nat.eqb i mid1 then 0
-                else sizes i)).
-  rewrite Hgraph.
-  unfold vm_apply, kami_step, advance_state, apply_cost, instruction_cost.
-  fold nid mid1 mid2 sizes.
-  simpl snap_pc. simpl snap_mu. simpl snap_err.
-  simpl snap_regs. simpl snap_mem.
-  simpl snap_mu_tensor. simpl snap_certified.
-  simpl snap_halted. simpl snap_partition_ops. simpl snap_mdl_ops.
-  simpl snap_info_gain. simpl snap_error_code.
-  simpl snap_wc_same_00. simpl snap_wc_diff_00.
-  simpl snap_wc_same_01. simpl snap_wc_diff_01.
-  simpl snap_wc_same_10. simpl snap_wc_diff_10.
-  simpl snap_wc_same_11. simpl snap_wc_diff_11.
-  fold (abs_phase1 ks).
-  reflexivity.
+  set (bases  := snap_pt_bases ks).
+  assert (Hk : vm_graph (abs_phase1 ks) = snap_pt_to_graph nid sizes bases) by reflexivity.
+  assert (Hadj_eq : pmerge_adjacent (snap_pt_to_graph nid sizes bases) mid1 mid2 =
+                    snap_pmerge_adjacent sizes bases mid1 mid2)
+    by (apply snap_pmerge_adjacent_spec; unfold nid, mid1, mid2, sizes in *; lia).
+  destruct (snap_pmerge_adjacent sizes bases mid1 mid2) eqn:Hadj.
+  - (* the ranges touch: one new slot takes the joined range *)
+    assert (Hgraph :
+      snap_pt_to_graph (S nid)
+        (fun i => if Nat.eqb i nid then sizes mid1 + sizes mid2
+                  else if Nat.eqb i mid2 then 0
+                  else if Nat.eqb i mid1 then 0
+                  else sizes i)
+        (fun i => if Nat.eqb i nid then snap_pmerge_base sizes bases mid1 mid2
+                  else if Nat.eqb i mid2 then 0
+                  else if Nat.eqb i mid1 then 0
+                  else bases i) =
+      graph_hw_pmerge (snap_pt_to_graph nid sizes bases) mid1 mid2).
+    {
+      assert (Hfun_eq :
+        (fun i => if Nat.eqb i nid then sizes mid1 + sizes mid2
+                  else if Nat.eqb i mid2 then 0
+                  else if Nat.eqb i mid1 then 0
+                  else sizes i) =
+        (fun j => if Nat.eqb j mid1 then 0
+                  else if Nat.eqb j mid2 then 0
+                  else if Nat.eqb j nid then sizes mid1 + sizes mid2
+                  else sizes j)).
+      { extensionality x.
+        destruct (Nat.eqb_spec x mid1) as [He1|He1],
+                 (Nat.eqb_spec x mid2) as [He2|He2],
+                 (Nat.eqb_spec x nid)  as [Hen|Hen];
+        subst; try reflexivity; exfalso; unfold nid, mid1, mid2 in *; lia. }
+      assert (Hbase_eq :
+        (fun i => if Nat.eqb i nid then snap_pmerge_base sizes bases mid1 mid2
+                  else if Nat.eqb i mid2 then 0
+                  else if Nat.eqb i mid1 then 0
+                  else bases i) =
+        (fun j => if Nat.eqb j mid1 then 0
+                  else if Nat.eqb j mid2 then 0
+                  else if Nat.eqb j nid then snap_pmerge_base sizes bases mid1 mid2
+                  else bases j)).
+      { extensionality x.
+        destruct (Nat.eqb_spec x mid1) as [He1|He1],
+                 (Nat.eqb_spec x mid2) as [He2|He2],
+                 (Nat.eqb_spec x nid)  as [Hen|Hen];
+        subst; try reflexivity; exfalso; unfold nid, mid1, mid2 in *; lia. }
+      rewrite Hfun_eq, Hbase_eq.
+      exact (eq_sym (snap_pt_to_graph_pmerge nid sizes bases mid1 mid2
+                       Hge Hle Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hadj)).
+    }
+    unfold vm_apply. change (m1 mod 64) with mid1. change (m2 mod 64) with mid2.
+    rewrite Hk, Hadj_eq. rewrite <- Hgraph.
+    unfold kami_step. fold nid mid1 mid2 sizes bases. rewrite Hadj.
+    unfold partition_step_state, abs_phase1, instruction_cost. simpl.
+    reflexivity.
+  - (* the ranges do not touch: both trap and keep the partition table *)
+    unfold vm_apply. change (m1 mod 64) with mid1. change (m2 mod 64) with mid2.
+    rewrite Hk, Hadj_eq.
+    unfold kami_step. fold nid mid1 mid2 sizes bases. rewrite Hadj.
+    unfold partition_step_state, abs_phase1, csr_set_err, instruction_cost. simpl.
+    reflexivity.
 Qed.

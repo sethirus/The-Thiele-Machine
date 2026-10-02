@@ -148,9 +148,9 @@ Record ThieleCanonicalModel := {
       rtl_classical_obs (List.fold_left kami_step trace ks) =
       shadow_proj (List.fold_left vm_apply trace (abs_phase1 ks));
 
-  (** (8) Extended trace-level shadow compatibility (30 opcodes):
-      Extends (7) to ShadowSupportedOpcode: the original 26 plus PNEW,
-      PDISCOVER, EMIT, REVEAL.  These 4 additional opcodes diverge on
+  (** (8) Extended trace-level shadow compatibility (29 opcodes):
+      Extends (7) to ShadowSupportedOpcode: the original 26 plus
+      PDISCOVER, EMIT, REVEAL.  These 3 additional opcodes diverge on
       vm_graph/vm_csrs but agree on all shadow fields.
       Uses shadow compositionality (vm_apply_shadow_compat). *)
   tcm_trace_compat_shadow_extended :

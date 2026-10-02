@@ -382,6 +382,8 @@ Lemma morph_fsm_keeps_csr_heap_base : forall n c, hw_csr_heap_base (morph_fsm_fi
 Proof. intros n c. unfold morph_fsm_final. rewrite mccommit_keeps_csr_heap_base, nouter_iter_keeps_csr_heap_base, mcnstart_keeps_csr_heap_base, mload_iter_keeps_csr_heap_base. apply mchdr_keeps_csr_heap_base. Qed.
 Lemma morph_fsm_keeps_ptTable : forall n c, hw_ptTable (morph_fsm_final n c) = hw_ptTable c.
 Proof. intros n c. unfold morph_fsm_final. rewrite mccommit_keeps_ptTable, nouter_iter_keeps_ptTable, mcnstart_keeps_ptTable, mload_iter_keeps_ptTable. apply mchdr_keeps_ptTable. Qed.
+Lemma morph_fsm_keeps_ptBases : forall n c, hw_ptBases (morph_fsm_final n c) = hw_ptBases c.
+Proof. intros n c. unfold morph_fsm_final. rewrite mccommit_keeps_ptBases, nouter_iter_keeps_ptBases, mcnstart_keeps_ptBases, mload_iter_keeps_ptBases. apply mchdr_keeps_ptBases. Qed.
 Lemma morph_fsm_keeps_pt_next_id : forall n c, hw_pt_next_id (morph_fsm_final n c) = hw_pt_next_id c.
 Proof. intros n c. unfold morph_fsm_final. rewrite mccommit_keeps_pt_next_id, nouter_iter_keeps_pt_next_id, mcnstart_keeps_pt_next_id, mload_iter_keeps_pt_next_id. apply mchdr_keeps_pt_next_id. Qed.
 Lemma morph_fsm_keeps_morph_src_table : forall n c, hw_morph_src_table (morph_fsm_final n c) = hw_morph_src_table c.

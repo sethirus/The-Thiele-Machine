@@ -178,6 +178,8 @@ Lemma mcload_keeps_csr_heap_base : forall c, hw_csr_heap_base (mcload_next c) = 
 Proof. reflexivity. Qed.
 Lemma mcload_keeps_ptTable : forall c, hw_ptTable (mcload_next c) = hw_ptTable c.
 Proof. reflexivity. Qed.
+Lemma mcload_keeps_ptBases : forall c, hw_ptBases (mcload_next c) = hw_ptBases c.
+Proof. reflexivity. Qed.
 Lemma mcload_keeps_pt_next_id : forall c, hw_pt_next_id (mcload_next c) = hw_pt_next_id c.
 Proof. reflexivity. Qed.
 Lemma mcload_keeps_morph_src_table : forall c, hw_morph_src_table (mcload_next c) = hw_morph_src_table c.
@@ -482,6 +484,8 @@ Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [mload_iter]; rewrite I
 Lemma mload_iter_keeps_csr_heap_base : forall n c, hw_csr_heap_base (mload_iter n c) = hw_csr_heap_base c.
 Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [mload_iter]; rewrite IH; reflexivity]. Qed.
 Lemma mload_iter_keeps_ptTable : forall n c, hw_ptTable (mload_iter n c) = hw_ptTable c.
+Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [mload_iter]; rewrite IH; reflexivity]. Qed.
+Lemma mload_iter_keeps_ptBases : forall n c, hw_ptBases (mload_iter n c) = hw_ptBases c.
 Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [mload_iter]; rewrite IH; reflexivity]. Qed.
 Lemma mload_iter_keeps_pt_next_id : forall n c, hw_pt_next_id (mload_iter n c) = hw_pt_next_id c.
 Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [mload_iter]; rewrite IH; reflexivity]. Qed.

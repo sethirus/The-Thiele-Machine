@@ -169,7 +169,7 @@ Qed.
 
 (** Identity laws. *)
 
-(** The identity morphism created by graph_add_identity has diagonal coupling. *)
+(** The morphism graph_add_identity records has its identity flag set. *)
 Lemma graph_add_identity_coupling :
   forall g mid g' morph_id ms_mod,
     graph_lookup g mid = Some ms_mod ->

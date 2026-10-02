@@ -388,6 +388,8 @@ Lemma lscan_iter_keeps_csr_heap_base : forall n c, hw_csr_heap_base (lscan_iter 
 Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [lscan_iter]; rewrite IH; reflexivity]. Qed.
 Lemma lscan_iter_keeps_ptTable : forall n c, hw_ptTable (lscan_iter n c) = hw_ptTable c.
 Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [lscan_iter]; rewrite IH; reflexivity]. Qed.
+Lemma lscan_iter_keeps_ptBases : forall n c, hw_ptBases (lscan_iter n c) = hw_ptBases c.
+Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [lscan_iter]; rewrite IH; reflexivity]. Qed.
 Lemma lscan_iter_keeps_pt_next_id : forall n c, hw_pt_next_id (lscan_iter n c) = hw_pt_next_id c.
 Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [lscan_iter]; rewrite IH; reflexivity]. Qed.
 Lemma lscan_iter_keeps_morph_src_table : forall n c, hw_morph_src_table (lscan_iter n c) = hw_morph_src_table c.

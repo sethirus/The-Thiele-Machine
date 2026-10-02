@@ -80,11 +80,12 @@ Qed.
     - PMERGE: Join two modules whose ranges touch. Traps otherwise.
     - PDISCOVER: Carry evidence payload; current transition is pure advance.
 
-    Logical ops (cert-setters; cost ≥ 1 enforced by S):
+    Logical ops:
     - LASSERT: Check a formula with a SAT certificate and a falsifying witness.
       Cost: flen * 8 + S mu_delta. Success requires both a model and a
-      countermodel, so tautologies do not activate structural certification.
-      UNSAT path always fails. That gap is documented.
+      countermodel, so a tautology fails the check. A successful step advances
+      the pc and changes no certification field; a failed step traps.
+      The UNSAT path always fails.
     - LJOIN: Reserve certificate join cost. Current state transition is pure advance.
     - REVEAL: Reveal bits, record to μ-tensor. Cost: bits + S mu_delta.
     - EMIT: Emit payload bits outside the Coq state. Cost:
@@ -96,7 +97,8 @@ Qed.
     - LOAD: dst = mem[regs[rs_addr]] (register-indirect).
     - STORE: mem[regs[rs_addr]] = src.
     - ADD/SUB: 64-bit modular arithmetic.
-    - JUMP/JNEZ/CALL/RET: control flow. r31 = SP.
+    - JUMP/JNEZ/CALL/RET: control flow. r15 = SP; CALL stores the return
+      address at mem[SP] and increments SP, RET decrements SP and loads the pc.
 
     GF(2) ops (reversible):
     - XOR_LOAD: load from absolute addr (despite name, no XOR involved).
@@ -116,6 +118,10 @@ Qed.
     - TENSOR_SET/GET: Per-module 4×4 metric tensor.
     - MORPH/COMPOSE/MORPH_ID/MORPH_DELETE/MORPH_ASSERT/MORPH_TENSOR/MORPH_GET:
       Categorical morphism operations. MORPH_ASSERT is a cert-setter.
+
+    Cert-setters (cost ≥ 1 enforced by S): REVEAL, EMIT, LJOIN, LASSERT,
+    READ_PORT, CERTIFY, MORPH_ASSERT and the five CHSH_LASSERT forms, twelve in
+    all (see [is_cert_setterb]).
 
     The natural-number cost schedule makes the ledger nondecreasing; the conservation theorem checks that transition property. *)
 Inductive vm_instruction :=
@@ -167,14 +173,14 @@ Inductive vm_instruction :=
 | instr_morph_tensor (dst : nat) (f_id g_id : MorphismID) (mu_delta : nat)
 | instr_morph_get (dst : nat) (morph_id : MorphismID) (selector : nat) (mu_delta : nat)
 (** instr_chsh_lassert: CHSH-aware certification. Reads the WitnessCounts
-    buckets directly, computes the four CHSH correlators, checks the three
-    integer-arithmetic column-contractivity conditions, and only activates
-    the cert channel when all three hold. On failure, traps to
-    LASSERT_TRAP_PC and latches vm_err. μ-cost is S mu_delta (≥ 1)
+    buckets directly, computes the four CHSH correlators, and checks the three
+    integer-arithmetic column-contractivity conditions. When all three hold
+    the step advances the pc and changes no certification field. On failure
+    it traps to LASSERT_TRAP_PC and latches vm_err. μ-cost is S mu_delta (≥ 1)
     regardless of success, matching the cert-setter cost discipline of CERTIFY,
-    LJOIN, and MORPH_ASSERT. This is the kernel-level enforcement that closes
-    the bridge from `vm_certified` channel activation to column-contractivity
-    of the CHSH correlators. *)
+    LJOIN, and MORPH_ASSERT. A run that passes this instruction without a trap
+    has verified column-contractivity of the CHSH correlators; the bridge
+    theorem reads that trap signature. *)
 | instr_chsh_lassert (mu_delta : nat)
 (** instr_chsh_lassert_1ab: Q_{1+AB}-aware certification (NPA level 1+AB).
     Like instr_chsh_lassert but additionally enforces the integer-arithmetic
@@ -330,11 +336,12 @@ Definition nofi_trace_cost_okb (trace : list vm_instruction) : bool :=
   forallb nofi_step_cost_okb trace.
 
 (** cert_setter_cost_pos: cert-setters always cost ≥ 1.
-    This isn't a policy we check. It's a structural fact baked into the ISA.
-    EMIT, REVEAL, LASSERT, LJOIN, READ_PORT, CERTIFY, MORPH_ASSERT all include
-    the S cost floor in instruction_cost. Some also add payload bits. No matter
-    what mu_delta the programmer encodes, the cost is at least 1. You literally
-    cannot write a zero-cost cert-setter. *)
+    This is a structural fact of the ISA, not a policy that is checked.
+    EMIT, REVEAL, LASSERT, LJOIN, READ_PORT, CERTIFY, MORPH_ASSERT and the five
+    CHSH_LASSERT forms, twelve in all, include the S cost floor in
+    instruction_cost. Some also add payload bits. No matter what mu_delta the
+    programmer encodes, the cost is at least 1, so no zero-cost cert-setter
+    can be written. *)
 Lemma cert_setter_cost_pos :
   forall instr,
     is_cert_setterb instr = true ->
@@ -528,7 +535,8 @@ Definition jump_state (s : VMState) (instr : vm_instruction) (target : nat) : VM
      vm_certified := s.(vm_certified) |}.
 
 (** jump_state_rm: Like jump_state but also updates registers and memory.
-    Used by CALL (saves return address to memory, decrements SP register). *)
+    Used by CALL (saves the return address to memory, increments the SP register)
+    and RET (decrements it). *)
 Definition jump_state_rm (s : VMState) (instr : vm_instruction)
   (target : nat) (regs : list nat) (mem : list nat) : VMState :=
   {| vm_graph := s.(vm_graph);
@@ -682,29 +690,33 @@ Lemma partition_step_state_ok : forall s instr graph,
   advance_state s instr graph s.(vm_csrs) s.(vm_err).
 Proof. reflexivity. Qed.
 
-(** graph_hw_psplit: Hardware-aligned PSPLIT. The module is removed and two
-    fresh modules take the two halves of its range: the left one gets the
-    first size/2 addresses, the right one the rest. A module ID that is not
-    in the graph has the empty region, so both halves are empty. Module ID
-    wraps to mod 64 in the step rule to stay within NUM_MODULES. *)
+(** graph_hw_psplit: Hardware-aligned PSPLIT. Every morphism with the module
+    as source or target is deleted, as [graph_psplit] does, the module is
+    removed, and two fresh modules take the two halves of its range: the left
+    one gets the first size/2 addresses, the right one the rest. A module ID
+    that is not in the graph has the empty region, so both halves are empty.
+    Module ID wraps to mod 64 in the step rule to stay within NUM_MODULES. *)
 Definition graph_hw_psplit (g : PartitionGraph) (mid : nat) : PartitionGraph :=
   let orig := normalize_region (graph_module_region g mid) in
-  let g1 := match graph_remove g mid with
+  let g0 := graph_cascade_delete_morphisms g mid in
+  let g1 := match graph_remove g0 mid with
              | Some (g', _) => g'
-             | None => g
+             | None => g0
              end in
   let '(g2, _) := graph_add_module g1 (psplit_left orig) [] in
   let '(g3, _) := graph_add_module g2 (psplit_right orig) [] in
   g3.
 
-(** graph_hw_pmerge: Hardware-aligned PMERGE. Both modules are removed and
-    one fresh module takes the joined range. The step rule runs it only when
-    [pmerge_adjacent] holds. *)
+(** graph_hw_pmerge: Hardware-aligned PMERGE. Every morphism with either
+    module as source or target is deleted, as [graph_pmerge] does, both
+    modules are removed, and one fresh module takes the joined range. The
+    step rule runs it only when [pmerge_adjacent] holds. *)
 Definition graph_hw_pmerge (g : PartitionGraph) (m1 m2 : nat) : PartitionGraph :=
   let merged := pmerge_region (graph_module_region g m1) (graph_module_region g m2) in
-  let g1 := match graph_remove g m1 with
+  let g0 := graph_cascade_delete_morphisms (graph_cascade_delete_morphisms g m1) m2 in
+  let g1 := match graph_remove g0 m1 with
              | Some (g', _) => g'
-             | None => g
+             | None => g0
              end in
   let g2 := match graph_remove g1 m2 with
              | Some (g', _) => g'
@@ -1679,10 +1691,10 @@ Definition q1ab_g12345_full_integer_check_kernel
           (chsh_n_z wc.(wc_same_11) wc.(wc_diff_11))
           Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
 
-(** [CHSH_HONEST_MARKER]: distinguished value written to [csr_cert_addr] when
-    CHSH_LASSERT successfully verifies column-contractivity of the witness
-    counters. Use [ascii_checksum] of a fixed property string for
-    consistency with the [MORPH_ASSERT] cert-address discipline. *)
+(** [CHSH_HONEST_MARKER]: the [ascii_checksum] of the property string
+    "CHSH:column_contractive", in the same form as the [MORPH_ASSERT]
+    cert-address values. No step writes it: CHSH_LASSERT signals success by
+    advancing the pc with [vm_err] unchanged. *)
 Definition CHSH_HONEST_MARKER : nat :=
   ascii_checksum "CHSH:column_contractive".
 
@@ -2497,9 +2509,12 @@ Lemma graph_hw_psplit_lookup_other : forall g victim mid,
   graph_lookup (graph_hw_psplit g victim) mid = graph_lookup g mid.
 Proof.
   intros g victim mid Hlt Hne. unfold graph_hw_psplit.
-  rewrite <- (graph_remove_or_keep_lookup_other g victim mid Hne).
-  pose proof (graph_remove_or_keep_next_id g victim) as Hn.
-  set (g1 := match graph_remove g victim with Some (g', _) => g' | None => g end) in *.
+  rewrite <- (graph_cascade_delete_morphisms_lookup g victim mid).
+  set (g0 := graph_cascade_delete_morphisms g victim) in *.
+  assert (Hn0 : pg_next_id g0 = pg_next_id g) by reflexivity.
+  rewrite <- (graph_remove_or_keep_lookup_other g0 victim mid Hne).
+  pose proof (graph_remove_or_keep_next_id g0 victim) as Hn.
+  set (g1 := match graph_remove g0 victim with Some (g', _) => g' | None => g0 end) in *.
   destruct (graph_add_module g1 _ []) as [g2 id2] eqn:E2.
   destruct (graph_add_module g2 _ []) as [g3 id3] eqn:E3.
   change g3 with (fst (g3, id3)). rewrite <- E3.
@@ -2515,9 +2530,13 @@ Lemma graph_hw_pmerge_lookup_other : forall g m1 m2 mid,
   graph_lookup (graph_hw_pmerge g m1 m2) mid = graph_lookup g mid.
 Proof.
   intros g m1 m2 mid Hlt Hne1 Hne2. unfold graph_hw_pmerge.
-  rewrite <- (graph_remove_or_keep_lookup_other g m1 mid Hne1).
-  pose proof (graph_remove_or_keep_next_id g m1) as Hn1.
-  set (g1 := match graph_remove g m1 with Some (g', _) => g' | None => g end) in *.
+  rewrite <- (graph_cascade_delete_morphisms_lookup g m1 mid).
+  rewrite <- (graph_cascade_delete_morphisms_lookup (graph_cascade_delete_morphisms g m1) m2 mid).
+  set (g0 := graph_cascade_delete_morphisms (graph_cascade_delete_morphisms g m1) m2) in *.
+  assert (Hn0 : pg_next_id g0 = pg_next_id g) by reflexivity.
+  rewrite <- (graph_remove_or_keep_lookup_other g0 m1 mid Hne1).
+  pose proof (graph_remove_or_keep_next_id g0 m1) as Hn1.
+  set (g1 := match graph_remove g0 m1 with Some (g', _) => g' | None => g0 end) in *.
   rewrite <- (graph_remove_or_keep_lookup_other g1 m2 mid Hne2).
   pose proof (graph_remove_or_keep_next_id g1 m2) as Hn2.
   set (g2 := match graph_remove g1 m2 with Some (g', _) => g' | None => g1 end) in *.
@@ -2729,9 +2748,12 @@ Theorem graph_hw_psplit_preserves_regions_disjoint : forall g mid,
   regions_disjoint g -> regions_disjoint (graph_hw_psplit g mid).
 Proof.
   intros g mid Hd. unfold graph_hw_psplit.
-  destruct (graph_remove_or_keep_regions g mid Hd) as [Hd1 [Hf1 _]].
-  set (g1 := match graph_remove g mid with Some (g', _) => g' | None => g end) in *.
-  set (orig := normalize_region (graph_module_region g mid)).
+  set (g0 := graph_cascade_delete_morphisms g mid).
+  assert (Hd0 : regions_disjoint g0) by exact Hd.
+  change (graph_module_region g mid) with (graph_module_region g0 mid).
+  destruct (graph_remove_or_keep_regions g0 mid Hd0) as [Hd1 [Hf1 _]].
+  set (g1 := match graph_remove g0 mid with Some (g', _) => g' | None => g0 end) in *.
+  set (orig := normalize_region (graph_module_region g0 mid)).
   assert (Horig : Forall (fun p => nat_list_disjoint orig (snd p).(module_region) = true)
                     (pg_modules g1)).
   { eapply Forall_impl; [|exact Hf1]. intros p Hp.
@@ -2759,15 +2781,18 @@ Theorem graph_hw_psplit_preserves_regions_contiguous : forall g mid,
   regions_contiguous g -> regions_contiguous (graph_hw_psplit g mid).
 Proof.
   intros g mid Hc. unfold graph_hw_psplit.
-  destruct (graph_remove_or_keep_contiguous g mid Hc) as [Hc1 Hr].
-  set (g1 := match graph_remove g mid with Some (g', _) => g' | None => g end) in *.
+  set (g0 := graph_cascade_delete_morphisms g mid).
+  assert (Hc0 : regions_contiguous g0) by exact Hc.
+  change (graph_module_region g mid) with (graph_module_region g0 mid).
+  destruct (graph_remove_or_keep_contiguous g0 mid Hc0) as [Hc1 Hr].
+  set (g1 := match graph_remove g0 mid with Some (g', _) => g' | None => g0 end) in *.
   rewrite (normalize_region_contiguous _ Hr).
   destruct (psplit_halves_contiguous _ Hr) as [HL HR].
-  destruct (graph_add_module g1 (psplit_left (graph_module_region g mid)) []) as [g2 id2] eqn:E2.
-  destruct (graph_add_module g2 (psplit_right (graph_module_region g mid)) []) as [g3 id3] eqn:E3.
-  assert (Hg2 : g2 = fst (graph_add_module g1 (psplit_left (graph_module_region g mid)) []))
+  destruct (graph_add_module g1 (psplit_left (graph_module_region g0 mid)) []) as [g2 id2] eqn:E2.
+  destruct (graph_add_module g2 (psplit_right (graph_module_region g0 mid)) []) as [g3 id3] eqn:E3.
+  assert (Hg2 : g2 = fst (graph_add_module g1 (psplit_left (graph_module_region g0 mid)) []))
     by (rewrite E2; reflexivity).
-  assert (Hg3 : g3 = fst (graph_add_module g2 (psplit_right (graph_module_region g mid)) []))
+  assert (Hg3 : g3 = fst (graph_add_module g2 (psplit_right (graph_module_region g0 mid)) []))
     by (rewrite E3; reflexivity).
   rewrite Hg3. apply graph_add_module_preserves_regions_contiguous; [|exact HR].
   rewrite Hg2. apply graph_add_module_preserves_regions_contiguous; [exact Hc1 | exact HL].
@@ -2797,12 +2822,16 @@ Theorem graph_hw_pmerge_preserves_regions_disjoint : forall g m1 m2,
   regions_disjoint g -> regions_disjoint (graph_hw_pmerge g m1 m2).
 Proof.
   intros g m1 m2 Hd. unfold graph_hw_pmerge.
-  destruct (graph_remove_or_keep_regions g m1 Hd) as [Hd1 [Hf1 _]].
-  set (g1 := match graph_remove g m1 with Some (g', _) => g' | None => g end) in *.
+  set (g0 := graph_cascade_delete_morphisms (graph_cascade_delete_morphisms g m1) m2).
+  assert (Hd0 : regions_disjoint g0) by exact Hd.
+  change (graph_module_region g m1) with (graph_module_region g0 m1).
+  change (graph_module_region g m2) with (graph_module_region g0 m2).
+  destruct (graph_remove_or_keep_regions g0 m1 Hd0) as [Hd1 [Hf1 _]].
+  set (g1 := match graph_remove g0 m1 with Some (g', _) => g' | None => g0 end) in *.
   destruct (graph_remove_or_keep_regions g1 m2 Hd1) as [Hd2 [Hf2 Hi2]].
   set (g2 := match graph_remove g1 m2 with Some (g', _) => g' | None => g1 end) in *.
-  set (r1 := graph_module_region g m1) in *.
-  set (r2 := graph_module_region g m2).
+  set (r1 := graph_module_region g0 m1) in *.
+  set (r2 := graph_module_region g0 m2).
   assert (H1 : Forall (fun p => nat_list_disjoint r1 (snd p).(module_region) = true)
                  (pg_modules g2)).
   { apply Forall_forall. intros p Hp. rewrite Forall_forall in Hf1. exact (Hf1 p (Hi2 p Hp)). }
@@ -2810,7 +2839,7 @@ Proof.
                  (pg_modules g2)).
   { destruct (Nat.eq_dec m2 m1) as [E|E].
     - subst r2. rewrite E. exact H1.
-    - subst r2. rewrite <- (graph_remove_or_keep_region_other g m1 m2 E). exact Hf2. }
+    - subst r2. rewrite <- (graph_remove_or_keep_region_other g0 m1 m2 E). exact Hf2. }
   destruct (graph_add_module g2 (pmerge_region r1 r2) []) as [g3 id3] eqn:E3.
   assert (Hg3 : g3 = fst (graph_add_module g2 (pmerge_region r1 r2) []))
     by (rewrite E3; reflexivity).
@@ -2827,8 +2856,10 @@ Theorem graph_hw_pmerge_preserves_regions_contiguous : forall g m1 m2,
 Proof.
   intros g m1 m2 Hc Hadj. unfold graph_hw_pmerge.
   pose proof (pmerge_region_contiguous g m1 m2 Hadj) as Hm.
-  destruct (graph_remove_or_keep_contiguous g m1 Hc) as [Hc1 _].
-  set (g1 := match graph_remove g m1 with Some (g', _) => g' | None => g end) in *.
+  set (g0 := graph_cascade_delete_morphisms (graph_cascade_delete_morphisms g m1) m2).
+  assert (Hc0 : regions_contiguous g0) by exact Hc.
+  destruct (graph_remove_or_keep_contiguous g0 m1 Hc0) as [Hc1 _].
+  set (g1 := match graph_remove g0 m1 with Some (g', _) => g' | None => g0 end) in *.
   destruct (graph_remove_or_keep_contiguous g1 m2 Hc1) as [Hc2 _].
   set (g2 := match graph_remove g1 m2 with Some (g', _) => g' | None => g1 end) in *.
   set (merged := pmerge_region (graph_module_region g m1) (graph_module_region g m2)) in *.
@@ -2937,6 +2968,191 @@ Proof.
   apply (vm_reachable_preserves_partition_regions_ok s s' Hr). split.
   - apply regions_disjoint_no_modules. exact H0.
   - apply regions_contiguous_no_modules. exact H0.
+Qed.
+
+(** ** Every step keeps the graph well formed
+
+    PSPLIT and PMERGE delete every morphism that names a module they remove,
+    so no morphism ever points at a missing module. With the other graph
+    operations this gives [well_formed_graph] as a standing invariant of
+    [vm_step]. *)
+
+Lemma all_ids_below_graph_insert_modules :
+  forall modules bound mid m,
+    all_ids_below modules bound ->
+    mid < bound ->
+    all_ids_below (graph_insert_modules modules mid m) bound.
+Proof.
+  induction modules as [|[id ms] rest IH]; intros bound mid m Hall Hlt.
+  - simpl. split; [exact Hlt| exact I].
+  - simpl in Hall. destruct Hall as [Hid Hrest].
+    simpl. destruct (Nat.eqb id mid) eqn:Heq.
+    + split; [exact Hlt| exact Hrest].
+    + split.
+      * exact Hid.
+      * apply IH; assumption.
+Qed.
+
+Lemma graph_update_preserves_wf : forall g mid m,
+  well_formed_graph g ->
+  mid < pg_next_id g ->
+  well_formed_graph (graph_update g mid m).
+Proof.
+  intros g mid m Hwf Hlt.
+  unfold graph_update, well_formed_graph in *. simpl.
+  destruct Hwf as [Hwf_mods [Hwf_morphs Hwf_endpoints]].
+  repeat split.
+  - apply all_ids_below_graph_insert_modules; assumption.
+  - exact Hwf_morphs.
+  - (* Morphism endpoints: graph_update doesn't change module IDs, just state *)
+    clear Hwf_mods Hwf_morphs.
+    induction (pg_morphisms g) as [|[morph_id ms] rest IH]; simpl; auto.
+    destruct Hwf_endpoints as [Hep Hrest]. split.
+    + unfold morph_endpoints_valid in *.
+      destruct Hep as [Hsrc Htgt].
+      split.
+      * apply graph_insert_modules_preserves_in_map. exact Hsrc.
+      * apply graph_insert_modules_preserves_in_map. exact Htgt.
+    + apply IH. exact Hrest.
+Qed.
+
+Lemma graph_pnew_preserves_wf : forall g region,
+  well_formed_graph g ->
+  well_formed_graph (fst (graph_pnew g region)).
+Proof.
+  intros g region Hwf.
+  unfold graph_pnew.
+  destruct (graph_find_region g (normalize_region region)) eqn:Hfind.
+  - simpl. exact Hwf.
+  - simpl. apply graph_add_module_preserves_wf. exact Hwf.
+Qed.
+
+Lemma graph_update_module_tensor_preserves_wf : forall g mid k v,
+  well_formed_graph g ->
+  well_formed_graph (graph_update_module_tensor g mid k v).
+Proof.
+  intros g mid k v Hwf.
+  unfold graph_update_module_tensor.
+  destruct (graph_lookup g mid) eqn:Hlookup.
+  - apply graph_update_preserves_wf; [exact Hwf|].
+    destruct (Nat.lt_ge_cases mid (pg_next_id g)) as [Hlt|Hge]; [exact Hlt|].
+    pose proof (wf_graph_lookup_beyond_next_id g mid Hwf Hge) as Hnone.
+    rewrite Hlookup in Hnone. discriminate.
+  - exact Hwf.
+Qed.
+
+(** No morphism left by [graph_cascade_delete_morphisms g mid] names [mid]. *)
+Lemma graph_cascade_delete_morphisms_no_ref : forall g mid morph_id ms,
+  In (morph_id, ms) (pg_morphisms (graph_cascade_delete_morphisms g mid)) ->
+  morph_source ms <> mid /\ morph_target ms <> mid.
+Proof.
+  intros g mid morph_id ms Hin.
+  unfold graph_cascade_delete_morphisms in Hin. cbn [pg_morphisms] in Hin.
+  apply filter_In in Hin. destruct Hin as [_ Hf].
+  apply andb_true_iff in Hf. destruct Hf as [Hs Ht].
+  apply negb_true_iff, Nat.eqb_neq in Hs.
+  apply negb_true_iff, Nat.eqb_neq in Ht.
+  split; assumption.
+Qed.
+
+(** Removing a module no morphism names keeps the graph well formed, and
+    leaves the morphism list as it was. *)
+Lemma graph_remove_or_keep_no_ref_wf : forall g mid,
+  well_formed_graph g ->
+  (forall morph_id ms, In (morph_id, ms) (pg_morphisms g) ->
+     morph_source ms <> mid /\ morph_target ms <> mid) ->
+  well_formed_graph (match graph_remove g mid with Some (g', _) => g' | None => g end) /\
+  pg_morphisms (match graph_remove g mid with Some (g', _) => g' | None => g end) =
+  pg_morphisms g.
+Proof.
+  intros g mid Hwf Hno.
+  destruct (graph_remove g mid) as [[g' m]|] eqn:E.
+  - split.
+    + exact (graph_remove_no_ref_preserves_wf g mid g' m Hwf Hno E).
+    + unfold graph_remove in E.
+      destruct (graph_remove_modules (pg_modules g) mid) as [[mods r]|]; [|discriminate].
+      injection E as <- _. reflexivity.
+  - split; [exact Hwf | reflexivity].
+Qed.
+
+Theorem graph_hw_psplit_preserves_wf : forall g mid,
+  well_formed_graph g -> well_formed_graph (graph_hw_psplit g mid).
+Proof.
+  intros g mid Hwf. unfold graph_hw_psplit.
+  pose proof (graph_cascade_delete_morphisms_preserves_wf g mid Hwf) as Hwf0.
+  destruct (graph_remove_or_keep_no_ref_wf (graph_cascade_delete_morphisms g mid) mid Hwf0
+              (graph_cascade_delete_morphisms_no_ref g mid)) as [Hwf1 _].
+  set (g1 := match graph_remove (graph_cascade_delete_morphisms g mid) mid with
+             | Some (g', _) => g' | None => graph_cascade_delete_morphisms g mid end) in *.
+  set (orig := normalize_region (graph_module_region g mid)).
+  pose proof (graph_add_module_preserves_wf g1 (psplit_left orig) [] Hwf1) as H2.
+  destruct (graph_add_module g1 (psplit_left orig) []) as [g2 id2] eqn:E2.
+  cbn [fst] in H2.
+  pose proof (graph_add_module_preserves_wf g2 (psplit_right orig) [] H2) as H3.
+  destruct (graph_add_module g2 (psplit_right orig) []) as [g3 id3] eqn:E3.
+  exact H3.
+Qed.
+
+Theorem graph_hw_pmerge_preserves_wf : forall g m1 m2,
+  well_formed_graph g -> well_formed_graph (graph_hw_pmerge g m1 m2).
+Proof.
+  intros g m1 m2 Hwf. unfold graph_hw_pmerge.
+  set (g0 := graph_cascade_delete_morphisms (graph_cascade_delete_morphisms g m1) m2).
+  assert (Hwf0 : well_formed_graph g0).
+  { apply graph_cascade_delete_morphisms_preserves_wf.
+    apply graph_cascade_delete_morphisms_preserves_wf. exact Hwf. }
+  assert (Hno : forall morph_id ms, In (morph_id, ms) (pg_morphisms g0) ->
+            morph_source ms <> m1 /\ morph_target ms <> m1 /\
+            morph_source ms <> m2 /\ morph_target ms <> m2)
+    by (intros morph_id ms Hin; exact (double_cascade_no_ref g m1 m2 morph_id ms Hin)).
+  destruct (graph_remove_or_keep_no_ref_wf g0 m1 Hwf0
+              (fun i ms H => let '(conj a (conj b _)) := Hno i ms H in conj a b)) as [Hwf1 Hm1].
+  set (g1 := match graph_remove g0 m1 with Some (g', _) => g' | None => g0 end) in *.
+  assert (Hno2 : forall morph_id ms, In (morph_id, ms) (pg_morphisms g1) ->
+            morph_source ms <> m2 /\ morph_target ms <> m2).
+  { intros morph_id ms Hin. rewrite Hm1 in Hin.
+    destruct (Hno morph_id ms Hin) as [_ [_ [a b]]]. split; assumption. }
+  destruct (graph_remove_or_keep_no_ref_wf g1 m2 Hwf1 Hno2) as [Hwf2 _].
+  set (g2 := match graph_remove g1 m2 with Some (g', _) => g' | None => g1 end) in *.
+  set (merged := pmerge_region (graph_module_region g m1) (graph_module_region g m2)).
+  pose proof (graph_add_module_preserves_wf g2 merged [] Hwf2) as H3.
+  destruct (graph_add_module g2 merged []) as [g3 id3] eqn:E3.
+  exact H3.
+Qed.
+
+(** [vm_step_preserves_well_formed_graph]: every step keeps module IDs below
+    [pg_next_id], morphism IDs below [pg_next_morph_id], and every morphism's
+    source and target among the modules. *)
+Theorem vm_step_preserves_well_formed_graph : forall s instr s',
+  vm_step s instr s' ->
+  well_formed_graph s.(vm_graph) -> well_formed_graph s'.(vm_graph).
+Proof.
+  intros s instr s' Hstep Hwf.
+  inversion Hstep; subst; simpl; try exact Hwf.
+  all: try (destruct (region_conflict _ _) eqn:?; simpl;
+            [exact Hwf | apply graph_pnew_preserves_wf; exact Hwf]).
+  all: try (apply graph_hw_psplit_preserves_wf; exact Hwf).
+  all: try (destruct (pmerge_adjacent _ _ _) eqn:?; simpl;
+            [apply graph_hw_pmerge_preserves_wf; exact Hwf | exact Hwf]).
+  all: try (apply graph_update_module_tensor_preserves_wf; exact Hwf).
+  all: try (match goal with
+            | H : (?g', ?m) = graph_add_morphism ?g ?src ?dst ?c ?b,
+              Hs : graph_lookup ?g ?src = Some _,
+              Hd : graph_lookup ?g ?dst = Some _ |- well_formed_graph ?g' =>
+                change g' with (fst (g', m)); rewrite H;
+                apply graph_add_morphism_preserves_wf;
+                [exact Hwf | rewrite Hs; discriminate | rewrite Hd; discriminate]
+            end).
+  all: try (match goal with
+            | H : graph_compose_morphisms _ _ _ = Some (?g', _) |- _ =>
+                exact (graph_compose_morphisms_preserves_wf _ _ _ _ _ Hwf H)
+            | H : graph_add_identity _ _ = Some (?g', _) |- _ =>
+                exact (graph_add_identity_preserves_wf _ _ _ _ Hwf H)
+            | H : graph_delete_morphism _ _ = Some ?g' |- _ =>
+                exact (graph_delete_morphism_preserves_wf _ _ _ Hwf H)
+            | H : graph_tensor_morphisms _ _ _ = Some (?g', _) |- _ =>
+                exact (graph_tensor_morphisms_preserves_wf _ _ _ _ _ Hwf H)
+            end).
 Qed.
 
 (** I/O PORT ENVIRONMENT ORACLE

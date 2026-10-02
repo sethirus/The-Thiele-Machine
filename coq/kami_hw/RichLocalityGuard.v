@@ -23,8 +23,7 @@ Ltac bool_red := cbv beta iota delta [orb andb negb].
 
 Lemma dd_store_locality_bad_false_rich : forall bd (isa : word 8) (fid : word FormatIdSz)
     (flags : word 16) (reserved : word 32) (ext0 : word WordSz) (a b c : word 8),
-  wordToNat (dd_mem_addr_a bd (rich_word isa fid flags reserved ext0 OP_STORE a b c))
-    < wordToNat (hw_ptTable bd (hw_active_module bd)) ->
+  hwb_addr_in_active_range bd (wordToNat (dd_mem_addr_a bd (rich_word isa fid flags reserved ext0 OP_STORE a b c))) ->
   dd_store_locality_bad bd (rich_word isa fid flags reserved ext0 OP_STORE a b c) = false.
 Proof.
   intros bd isa fid flags reserved ext0 a b c Hbound.
@@ -34,18 +33,12 @@ Proof.
   destruct (weq OP_STORE OP_STORE) as [_|Hne]; [|exfalso; apply Hne; reflexivity].
   destruct (weq OP_STORE OP_HEAP_STORE) as [Heq|_]; [discriminate Heq|].
   simpl.
-  unfold dd_active_region_size.
-  destruct (wlt_dec _ _) as [_|Hnlt]; [reflexivity|].
-  exfalso. apply Hnlt.
-  apply lt_wlt.
-  rewrite wordToNat_zext7_ext.
-  exact Hbound.
+  close_dd_bounds Hbound.
 Qed.
 
 Lemma dd_call_locality_bad_false_rich : forall bd (isa : word 8) (fid : word FormatIdSz)
     (flags : word 16) (reserved : word 32) (ext0 : word WordSz) (a b c : word 8),
-  wordToNat (dd_sp_addr bd (rich_word isa fid flags reserved ext0 OP_CALL a b c))
-    < wordToNat (hw_ptTable bd (hw_active_module bd)) ->
+  hwb_addr_in_active_range bd (wordToNat (dd_sp_addr bd (rich_word isa fid flags reserved ext0 OP_CALL a b c))) ->
   dd_call_locality_bad bd (rich_word isa fid flags reserved ext0 OP_CALL a b c) = false.
 Proof.
   intros bd isa fid flags reserved ext0 a b c Hbound.
@@ -54,18 +47,12 @@ Proof.
   rewrite rw_op_correct.
   destruct (weq OP_CALL OP_CALL) as [_|Hne]; [|exfalso; apply Hne; reflexivity].
   simpl.
-  unfold dd_active_region_size.
-  destruct (wlt_dec _ _) as [_|Hnlt]; [reflexivity|].
-  exfalso. apply Hnlt.
-  apply lt_wlt.
-  rewrite wordToNat_zext7_ext.
-  exact Hbound.
+  close_dd_bounds Hbound.
 Qed.
 
 Lemma dd_ret_locality_bad_false_rich : forall bd (isa : word 8) (fid : word FormatIdSz)
     (flags : word 16) (reserved : word 32) (ext0 : word WordSz) (a b c : word 8),
-  wordToNat (dd_sp_dec_addr bd (rich_word isa fid flags reserved ext0 OP_RET a b c))
-    < wordToNat (hw_ptTable bd (hw_active_module bd)) ->
+  hwb_addr_in_active_range bd (wordToNat (dd_sp_dec_addr bd (rich_word isa fid flags reserved ext0 OP_RET a b c))) ->
   dd_ret_locality_bad bd (rich_word isa fid flags reserved ext0 OP_RET a b c) = false.
 Proof.
   intros bd isa fid flags reserved ext0 a b c Hbound.
@@ -74,18 +61,12 @@ Proof.
   rewrite rw_op_correct.
   destruct (weq OP_RET OP_RET) as [_|Hne]; [|exfalso; apply Hne; reflexivity].
   simpl.
-  unfold dd_active_region_size.
-  destruct (wlt_dec _ _) as [_|Hnlt]; [reflexivity|].
-  exfalso. apply Hnlt.
-  apply lt_wlt.
-  rewrite wordToNat_zext7_ext.
-  exact Hbound.
+  close_dd_bounds Hbound.
 Qed.
 
 Lemma dd_load_locality_bad_heap_false_rich : forall bd (isa : word 8) (fid : word FormatIdSz)
     (flags : word 16) (reserved : word 32) (ext0 : word WordSz) (a b c : word 8),
-  wordToNat (dd_heap_addr bd (rich_word isa fid flags reserved ext0 OP_HEAP_LOAD a b c))
-    < wordToNat (hw_ptTable bd (hw_active_module bd)) ->
+  hwb_addr_in_active_range bd (wordToNat (dd_heap_addr bd (rich_word isa fid flags reserved ext0 OP_HEAP_LOAD a b c))) ->
   dd_load_locality_bad bd (rich_word isa fid flags reserved ext0 OP_HEAP_LOAD a b c) = false.
 Proof.
   intros bd isa fid flags reserved ext0 a b c Hbound.
@@ -95,18 +76,12 @@ Proof.
   destruct (weq OP_HEAP_LOAD OP_LOAD) as [Heq|_]; [discriminate Heq|].
   destruct (weq OP_HEAP_LOAD OP_HEAP_LOAD) as [_|Hne]; [|exfalso; apply Hne; reflexivity].
   simpl.
-  unfold dd_active_region_size.
-  destruct (wlt_dec _ _) as [_|Hnlt]; [reflexivity|].
-  exfalso. apply Hnlt.
-  apply lt_wlt.
-  rewrite wordToNat_zext7_ext.
-  exact Hbound.
+  close_dd_bounds Hbound.
 Qed.
 
 Lemma dd_store_locality_bad_heap_false_rich : forall bd (isa : word 8) (fid : word FormatIdSz)
     (flags : word 16) (reserved : word 32) (ext0 : word WordSz) (a b c : word 8),
-  wordToNat (dd_heap_addr_a bd (rich_word isa fid flags reserved ext0 OP_HEAP_STORE a b c))
-    < wordToNat (hw_ptTable bd (hw_active_module bd)) ->
+  hwb_addr_in_active_range bd (wordToNat (dd_heap_addr_a bd (rich_word isa fid flags reserved ext0 OP_HEAP_STORE a b c))) ->
   dd_store_locality_bad bd (rich_word isa fid flags reserved ext0 OP_HEAP_STORE a b c) = false.
 Proof.
   intros bd isa fid flags reserved ext0 a b c Hbound.
@@ -116,11 +91,6 @@ Proof.
   destruct (weq OP_HEAP_STORE OP_STORE) as [Heq|_]; [discriminate Heq|].
   destruct (weq OP_HEAP_STORE OP_HEAP_STORE) as [_|Hne]; [|exfalso; apply Hne; reflexivity].
   simpl.
-  unfold dd_active_region_size.
-  destruct (wlt_dec _ _) as [_|Hnlt]; [reflexivity|].
-  exfalso. apply Hnlt.
-  apply lt_wlt.
-  rewrite wordToNat_zext7_ext.
-  exact Hbound.
+  close_dd_bounds Hbound.
 Qed.
 

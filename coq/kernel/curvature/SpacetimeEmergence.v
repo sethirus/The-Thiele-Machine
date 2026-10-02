@@ -69,45 +69,6 @@ Proof.
   eapply observational_no_signaling; eauto.
 Qed.
 
-Lemma all_ids_below_graph_insert_modules :
-  forall modules bound mid m,
-    all_ids_below modules bound ->
-    mid < bound ->
-    all_ids_below (graph_insert_modules modules mid m) bound.
-Proof.
-  induction modules as [|[id ms] rest IH]; intros bound mid m Hall Hlt.
-  - simpl. split; [exact Hlt| exact I].
-  - simpl in Hall. destruct Hall as [Hid Hrest].
-    simpl. destruct (Nat.eqb id mid) eqn:Heq.
-    + split; [exact Hlt| exact Hrest].
-    + split.
-      * exact Hid.
-      * apply IH; assumption.
-Qed.
-
-Lemma graph_update_preserves_wf : forall g mid m,
-  well_formed_graph g ->
-  mid < pg_next_id g ->
-  well_formed_graph (graph_update g mid m).
-Proof.
-  intros g mid m Hwf Hlt.
-  unfold graph_update, well_formed_graph in *. simpl.
-  destruct Hwf as [Hwf_mods [Hwf_morphs Hwf_endpoints]].
-  repeat split.
-  - apply all_ids_below_graph_insert_modules; assumption.
-  - exact Hwf_morphs.
-  - (* Morphism endpoints: graph_update doesn't change module IDs, just state *)
-    clear Hwf_mods Hwf_morphs.
-    induction (pg_morphisms g) as [|[morph_id ms] rest IH]; simpl; auto.
-    destruct Hwf_endpoints as [Hep Hrest]. split.
-    + unfold morph_endpoints_valid in *.
-      destruct Hep as [Hsrc Htgt].
-      split.
-      * apply graph_insert_modules_preserves_in_map. exact Hsrc.
-      * apply graph_insert_modules_preserves_in_map. exact Htgt.
-    + apply IH. exact Hrest.
-Qed.
-
 Lemma graph_add_axiom_preserves_wf : forall g mid ax,
   well_formed_graph g ->
   well_formed_graph (graph_add_axiom g mid ax).
@@ -144,17 +105,6 @@ Proof.
   unfold graph_record_discovery.
   apply graph_add_axioms_preserves_wf.
   exact Hwf.
-Qed.
-
-Lemma graph_pnew_preserves_wf : forall g region,
-  well_formed_graph g ->
-  well_formed_graph (fst (graph_pnew g region)).
-Proof.
-  intros g region Hwf.
-  unfold graph_pnew.
-  destruct (graph_find_region g (normalize_region region)) eqn:Hfind.
-  - simpl. exact Hwf.
-  - simpl. apply graph_add_module_preserves_wf. exact Hwf.
 Qed.
 
 Lemma graph_psplit_preserves_wf : forall g mid left right g' l_id r_id,
@@ -245,25 +195,6 @@ Proof.
     exact Hwf_added_fst.
   }
 Qed.
-
-Lemma graph_update_module_tensor_preserves_wf : forall g mid k v,
-  well_formed_graph g ->
-  well_formed_graph (graph_update_module_tensor g mid k v).
-Proof.
-  intros g mid k v Hwf.
-  unfold graph_update_module_tensor.
-  destruct (graph_lookup g mid) eqn:Hlookup.
-  - apply graph_update_preserves_wf; [exact Hwf|].
-    destruct (Nat.lt_ge_cases mid (pg_next_id g)) as [Hlt|Hge]; [exact Hlt|].
-    pose proof (wf_graph_lookup_beyond_next_id g mid Hwf Hge) as Hnone.
-    rewrite Hlookup in Hnone. discriminate.
-  - exact Hwf.
-Qed.
-
-(* graph_hw_psplit/pmerge do not cascade-delete morphisms, so full
-   well_formed_graph preservation is not provable in the general case. The
-   trace theorem (exec_trace_no_signaling_outside_cone) uses
-   step_no_signaling_light, which only needs mid < pg_next_id. *)
 
 Lemma graph_pnew_next_id_monotone : forall g region,
   pg_next_id g <= pg_next_id (fst (graph_pnew g region)).
@@ -408,17 +339,15 @@ Lemma graph_hw_psplit_next_id_nondec : forall g mid,
   pg_next_id g <= pg_next_id (graph_hw_psplit g mid).
 Proof.
   intros g mid.
-  unfold graph_hw_psplit, graph_module_size.
-  destruct (graph_remove g mid) as [[g1 m_rm]|] eqn:Hrm.
-  - pose proof (graph_remove_next_id_same _ _ _ _ Hrm) as Hnid.
-    destruct (graph_add_module g1 _ _) as [g2 ?] eqn:Hadd1.
-    destruct (graph_add_module g2 _ _) as [g3 ?] eqn:Hadd2. simpl.
-    unfold graph_add_module in Hadd1. inversion Hadd1; subst; simpl.
-    unfold graph_add_module in Hadd2. inversion Hadd2; subst; simpl. lia.
-  - destruct (graph_add_module g _ _) as [g2 ?] eqn:Hadd1.
-    destruct (graph_add_module g2 _ _) as [g3 ?] eqn:Hadd2. simpl.
-    unfold graph_add_module in Hadd1. inversion Hadd1; subst; simpl.
-    unfold graph_add_module in Hadd2. inversion Hadd2; subst; simpl. lia.
+  unfold graph_hw_psplit.
+  pose proof (graph_remove_or_keep_next_id (graph_cascade_delete_morphisms g mid) mid) as Hn.
+  rewrite graph_cascade_delete_morphisms_preserves_next_id in Hn.
+  set (g1 := match graph_remove (graph_cascade_delete_morphisms g mid) mid with
+             | Some (g', _) => g' | None => graph_cascade_delete_morphisms g mid end) in *.
+  destruct (graph_add_module g1 _ _) as [g2 ?] eqn:Hadd1.
+  destruct (graph_add_module g2 _ _) as [g3 ?] eqn:Hadd2. simpl.
+  unfold graph_add_module in Hadd1. inversion Hadd1; subst; simpl.
+  unfold graph_add_module in Hadd2. inversion Hadd2; subst; simpl. lia.
 Qed.
 
 (** [graph_hw_pmerge_next_id_nondec]: pg_next_id is non-decreasing through graph_hw_pmerge. *)
@@ -426,21 +355,15 @@ Lemma graph_hw_pmerge_next_id_nondec : forall g m1 m2,
   pg_next_id g <= pg_next_id (graph_hw_pmerge g m1 m2).
 Proof.
   intros g m1 m2.
-  unfold graph_hw_pmerge, graph_module_size.
-  destruct (graph_remove g m1) as [[g1 m1_rm]|] eqn:Hrm1.
-  - pose proof (graph_remove_next_id_same _ _ _ _ Hrm1) as Hnid1.
-    destruct (graph_remove g1 m2) as [[g2 m2_rm]|] eqn:Hrm2.
-    + pose proof (graph_remove_next_id_same _ _ _ _ Hrm2) as Hnid2.
-      destruct (graph_add_module g2 _ _) as [g3 ?] eqn:Hadd. simpl.
-      unfold graph_add_module in Hadd. inversion Hadd; subst; simpl. lia.
-    + destruct (graph_add_module g1 _ _) as [g3 ?] eqn:Hadd. simpl.
-      unfold graph_add_module in Hadd. inversion Hadd; subst; simpl. lia.
-  - destruct (graph_remove g m2) as [[g2 m2_rm]|] eqn:Hrm2.
-    + pose proof (graph_remove_next_id_same _ _ _ _ Hrm2) as Hnid2.
-      destruct (graph_add_module g2 _ _) as [g3 ?] eqn:Hadd. simpl.
-      unfold graph_add_module in Hadd. inversion Hadd; subst; simpl. lia.
-    + destruct (graph_add_module g _ _) as [g3 ?] eqn:Hadd. simpl.
-      unfold graph_add_module in Hadd. inversion Hadd; subst; simpl. lia.
+  unfold graph_hw_pmerge.
+  set (g0 := graph_cascade_delete_morphisms (graph_cascade_delete_morphisms g m1) m2).
+  assert (Hn0 : pg_next_id g0 = pg_next_id g) by reflexivity.
+  pose proof (graph_remove_or_keep_next_id g0 m1) as Hn1.
+  set (g1 := match graph_remove g0 m1 with Some (g', _) => g' | None => g0 end) in *.
+  pose proof (graph_remove_or_keep_next_id g1 m2) as Hn2.
+  set (g2 := match graph_remove g1 m2 with Some (g', _) => g' | None => g1 end) in *.
+  destruct (graph_add_module g2 _ _) as [g3 ?] eqn:Hadd. simpl.
+  unfold graph_add_module in Hadd. inversion Hadd; subst; simpl. lia.
 Qed.
 
 Lemma vm_step_next_id_monotone : forall s instr s',

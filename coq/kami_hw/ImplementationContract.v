@@ -126,6 +126,7 @@ Definition hwb_snapshot (b : HWB) : KamiSnapshot :=
      snap_error_code := wordToNat (hw_error_code b);
      snap_mu_tensor := hwb_vector_nat (hw_mu_tensor b);
      snap_pt_sizes := hwb_vector_nat (hw_ptTable b);
+     snap_pt_bases := hwb_vector_nat (hw_ptBases b);
      snap_pt_next_id := wordToNat (hw_pt_next_id b);
      snap_certified := hw_certified b;
      snap_wc_same_00 := wordToNat (hw_wc_same_00 b);
@@ -154,14 +155,16 @@ Definition live_boundary (b : HWB) : Prop :=
   retirement_boundary b /\ hw_halted b = false /\ hw_err b = false.
 Definition in_region_address (b : HWB) (address : nat) : Prop :=
   address < MemSize /\
-  address < hwb_vector_nat (hw_ptTable b) (wordToNat (hw_active_module b)).
+  hwb_vector_nat (hw_ptBases b) (wordToNat (hw_active_module b)) <= address /\
+  address < hwb_vector_nat (hw_ptBases b) (wordToNat (hw_active_module b)) +
+            hwb_vector_nat (hw_ptTable b) (wordToNat (hw_active_module b)).
 Definition finite_pc_mu (b : HWB) (next_pc next_mu : nat) : Prop :=
   wordToNat (hw_pc b) < MemSize /\ next_pc < MemSize /\ next_mu < 2 ^ WordSz.
 Definition raw_pair_capacity (b : HWB) (raw_intermediate : nat) : Prop :=
   wordToNat (hw_coupling_pair_next_id b) + raw_intermediate <= CouplingPairSz.
 Definition represented_label (label : string) := exists n mask, 1 <= n /\ label = atom_label n mask.
 Definition represented_region (region : list nat) :=
-  exists size, 0 < size /\ size <= MemSize /\ region = List.seq 0 size.
+  exists base size, 0 < size /\ size <= MemSize /\ region = List.seq base size.
 Definition represented_endpoint (endpoint : nat) := endpoint < MemSize.
 
 (** A schedule lists actual CPU rule firings only; host methods occur before

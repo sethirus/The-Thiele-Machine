@@ -329,10 +329,11 @@ HALT
     def test_morph_tensor_ext_faults_with_morph_not_found(self):
         """MORPH_TENSOR_EXT must latch ERR_MORPH_NOT_FOUND and advance pc.
 
-        Reconstructed module regions are `seq 0 size` with nonzero size, so
-        any two regions share address 0. The kernel's `graph_tensor_morphisms`
-        requires disjoint source and target regions and so never succeeds on a
-        reconstructed graph; `kami_step` always records ERR_MORPH_NOT_FOUND.
+        Reconstructed module regions are pairwise disjoint ranges with nonzero
+        size. The kernel's `graph_tensor_morphisms` needs a module that owns
+        the union of two disjoint endpoint regions, and no such module exists
+        beside the modules it joins, so the tensor never succeeds on a
+        reconstructed graph; `kami_step` records ERR_MORPH_NOT_FOUND.
         The CPU faults the same way
         (C2_DIVERGENCE_LEDGER.md, "MORPH_TENSOR"): MORPH_TENSOR always
         latches err with ERR_MORPH_NOT_FOUND, charges its cost and advances pc.

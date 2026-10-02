@@ -2112,29 +2112,33 @@ Definition psplit_left (r : list nat) : list nat :=
 Definition psplit_right (r : list nat) : list nat :=
   skipn (Nat.div (List.length r) 2) r.
 
-(** graph_hw_psplit: Hardware-aligned PSPLIT. The module is removed and two
-    fresh modules take the two halves of its range: the left one gets the
-    first size/2 addresses, the right one the rest. A module ID that is not
-    in the graph has the empty region, so both halves are empty. Module ID
-    wraps to mod 64 in the step rule to stay within NUM_MODULES. *)
+(** graph_hw_psplit: Hardware-aligned PSPLIT. Every morphism with the module
+    as source or target is deleted, as [graph_psplit] does, the module is
+    removed, and two fresh modules take the two halves of its range: the left
+    one gets the first size/2 addresses, the right one the rest. A module ID
+    that is not in the graph has the empty region, so both halves are empty.
+    Module ID wraps to mod 64 in the step rule to stay within NUM_MODULES. *)
 Definition graph_hw_psplit (g : PartitionGraph) (mid : nat) : PartitionGraph :=
   let orig := normalize_region (graph_module_region g mid) in
-  let g1 := match graph_remove g mid with
+  let g0 := graph_cascade_delete_morphisms g mid in
+  let g1 := match graph_remove g0 mid with
              | Some (g', _) => g'
-             | None => g
+             | None => g0
              end in
   let '(g2, _) := graph_add_module g1 (psplit_left orig) [] in
   let '(g3, _) := graph_add_module g2 (psplit_right orig) [] in
   g3.
 
-(** graph_hw_pmerge: Hardware-aligned PMERGE. Both modules are removed and
-    one fresh module takes the joined range. The step rule runs it only when
-    [pmerge_adjacent] holds. *)
+(** graph_hw_pmerge: Hardware-aligned PMERGE. Every morphism with either
+    module as source or target is deleted, as [graph_pmerge] does, both
+    modules are removed, and one fresh module takes the joined range. The
+    step rule runs it only when [pmerge_adjacent] holds. *)
 Definition graph_hw_pmerge (g : PartitionGraph) (m1 m2 : nat) : PartitionGraph :=
   let merged := pmerge_region (graph_module_region g m1) (graph_module_region g m2) in
-  let g1 := match graph_remove g m1 with
+  let g0 := graph_cascade_delete_morphisms (graph_cascade_delete_morphisms g m1) m2 in
+  let g1 := match graph_remove g0 m1 with
              | Some (g', _) => g'
-             | None => g
+             | None => g0
              end in
   let g2 := match graph_remove g1 m2 with
              | Some (g', _) => g'

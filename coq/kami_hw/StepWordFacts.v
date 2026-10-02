@@ -82,6 +82,7 @@ Lemma kami_snapshot_ext : forall s t,
   snap_error_code s = snap_error_code t ->
   snap_mu_tensor s = snap_mu_tensor t ->
   snap_pt_sizes s = snap_pt_sizes t ->
+  snap_pt_bases s = snap_pt_bases t ->
   snap_pt_next_id s = snap_pt_next_id t ->
   snap_certified s = snap_certified t ->
   snap_wc_same_00 s = snap_wc_same_00 t ->
@@ -102,7 +103,7 @@ Lemma kami_snapshot_ext : forall s t,
   snap_mstatus s = snap_mstatus t ->
   s = t.
 Proof.
-  intros s t H0 H1 H2 H3 H4 H5 H6 H7 H8 H9 H10 H11 H12 H13 H14 H15 H16 H17 H18 H19 H20 H21 H22 H23 H24 H25 H26 H27 H28 H29.
+  intros s t H0 H1 H2 H3 H4 H5 H6 H7 H8 H9 H10 H11 H12 H13 H13b H14 H15 H16 H17 H18 H19 H20 H21 H22 H23 H24 H25 H26 H27 H28 H29.
   destruct s, t.
   cbn in *. subst. reflexivity.
 Qed.

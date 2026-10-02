@@ -166,6 +166,8 @@ Lemma mcjoin_keeps_csr_heap_base : forall c, hw_csr_heap_base (mcjoin_next c) = 
 Proof. reflexivity. Qed.
 Lemma mcjoin_keeps_ptTable : forall c, hw_ptTable (mcjoin_next c) = hw_ptTable c.
 Proof. reflexivity. Qed.
+Lemma mcjoin_keeps_ptBases : forall c, hw_ptBases (mcjoin_next c) = hw_ptBases c.
+Proof. reflexivity. Qed.
 Lemma mcjoin_keeps_pt_next_id : forall c, hw_pt_next_id (mcjoin_next c) = hw_pt_next_id c.
 Proof. reflexivity. Qed.
 Lemma mcjoin_keeps_morph_src_table : forall c, hw_morph_src_table (mcjoin_next c) = hw_morph_src_table c.
@@ -474,6 +476,8 @@ Lemma join_iter_keeps_csr_heap_base : forall n c, hw_csr_heap_base (join_iter n 
 Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [join_iter]; rewrite IH; apply mcjoin_keeps_csr_heap_base]. Qed.
 Lemma join_iter_keeps_ptTable : forall n c, hw_ptTable (join_iter n c) = hw_ptTable c.
 Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [join_iter]; rewrite IH; apply mcjoin_keeps_ptTable]. Qed.
+Lemma join_iter_keeps_ptBases : forall n c, hw_ptBases (join_iter n c) = hw_ptBases c.
+Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [join_iter]; rewrite IH; apply mcjoin_keeps_ptBases]. Qed.
 Lemma join_iter_keeps_pt_next_id : forall n c, hw_pt_next_id (join_iter n c) = hw_pt_next_id c.
 Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [join_iter]; rewrite IH; apply mcjoin_keeps_pt_next_id]. Qed.
 Lemma join_iter_keeps_morph_src_table : forall n c, hw_morph_src_table (join_iter n c) = hw_morph_src_table c.

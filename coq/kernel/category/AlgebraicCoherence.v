@@ -273,8 +273,9 @@ Qed.
 
 (** General bound: |S| <= 4 from correlation bounds.
 
-    This is the strongest general theorem in this file. The symmetric lemmas
-    above are stronger, but they have symmetric hypotheses. *)
+    This bound needs only |E| <= 1 for the four correlators, and it gives 4.
+    The symmetric lemmas above give the smaller bound 5657/2000, but they
+    assume symmetric correlators and the minor conditions. *)
 Theorem chsh_general_bound : forall c : Correlators,
   Qabs (E00 c) <= 1 -> Qabs (E01 c) <= 1 -> 
   Qabs (E10 c) <= 1 -> Qabs (E11 c) <= 1 ->

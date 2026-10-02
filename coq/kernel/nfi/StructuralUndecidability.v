@@ -180,7 +180,8 @@ Section StructuralAxisUndecidability.
         Turing 1936   | the present theorem
 
       What the proof needs from the substrate:
-        - A2 (carried in Substrate.mu_a2 — the substrate-defining axiom)
+        - Nothing about mu: the Substrate class carries [mu_monotone], and
+          this argument does not use it
         - A recursion theorem (Substrate.recursion_theorem field)
         - A non-trivial AdmitsShortcut predicate, witnessed by yes_program
           and no_program

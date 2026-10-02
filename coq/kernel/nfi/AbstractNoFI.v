@@ -616,7 +616,9 @@ Qed.
 
     CHANNEL TAXONOMY:
       csr_cert_addr ≠ 0  ↔  has_supra_cert  ↔  supra_cert in Python
-        Set by: REVEAL, EMIT, LJOIN, LASSERT, MORPH_ASSERT (all use S cost)
+        Written only by MORPH_ASSERT. [cert_addr_setterb] is the wider class
+        REVEAL, EMIT, LJOIN, LASSERT, MORPH_ASSERT, whose members all pay the S
+        cost floor; the other four never change csr_cert_addr.
       vm_certified = true
         Set by: CERTIFY (uses S cost)
       vm_witness counters: NOT a cert channel; set by CHSH_TRIAL without S cost

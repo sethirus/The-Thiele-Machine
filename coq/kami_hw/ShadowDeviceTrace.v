@@ -147,11 +147,11 @@ Proof.
   reflexivity.
 Qed.
 
-(** Extended unconditional trace-level shadow compatibility (30 opcodes)
+(** Extended unconditional trace-level shadow compatibility (29 opcodes)
 
     Extends [rtl_shadow_trace_compat_supported] (26 opcodes) to
-    [ShadowSupportedOpcode] traces (30 opcodes: 26 + PNEW, PDISCOVER,
-    EMIT, REVEAL).  These 4 additional opcodes diverge on vm_graph/vm_csrs
+    [ShadowSupportedOpcode] traces (29 opcodes: 26 + PDISCOVER,
+    EMIT, REVEAL).  These 3 additional opcodes diverge on vm_graph/vm_csrs
     but agree on the 6 shadow fields.
 
     Proof: [hardware_shadow_compat] reduces the LHS to [shadow_proj ∘ abs_phase1];

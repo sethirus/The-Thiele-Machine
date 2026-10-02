@@ -8,10 +8,59 @@ From KamiHW Require Import ThieleTypes ThieleCPUCore HWBoundary RuleNext RuleSte
   BoundaryDecoded ActionObservation DispatchObservation StepEval.
 Open Scope string_scope.
 
-(** Hardware locality guard: zero-extended address below the active module size. *)
+(** Hardware locality guard: the address lies in the active module's range,
+    base <= addr < base + size, as the step rule's [check_bounds] computes it. *)
 Definition hw_region_ok (b : HWB) (addr : word MemAddrSz) : bool :=
-  if wlt_dec (evalZeroExtendTrunc WordSz addr) (hw_ptTable b (hw_active_module b))
-  then true else false.
+  evalExpr (check_bounds (Var type (SyntaxKind (Bit MemAddrSz)) addr)
+    (Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b (hw_active_module b)))
+    (Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b (hw_active_module b)))).
+
+(** PNEW's range checks against the partition table, as in the step rule:
+    [hw_pnew_conflict] (some module's range overlaps [a, a + len) without
+    being it) and [hw_pnew_present] (some module owns exactly that range). *)
+Definition hw_pnew_conflict (b : HWB) (a len : word WordSz) : bool :=
+  evalExpr (pt_range_conflict
+    (Var type (SyntaxKind (Vector (Bit WordSz) PTableIdxSz)) (hw_ptBases b))
+    (Var type (SyntaxKind (Vector (Bit WordSz) PTableIdxSz)) (hw_ptTable b))
+    (Var type (SyntaxKind (Bit PTableNextIdSz)) (hw_pt_next_id b))
+    (Var type (SyntaxKind (Bit WordSz)) a) (Var type (SyntaxKind (Bit WordSz)) len)).
+Definition hw_pnew_present (b : HWB) (a len : word WordSz) : bool :=
+  evalExpr (pt_range_present
+    (Var type (SyntaxKind (Vector (Bit WordSz) PTableIdxSz)) (hw_ptBases b))
+    (Var type (SyntaxKind (Vector (Bit WordSz) PTableIdxSz)) (hw_ptTable b))
+    (Var type (SyntaxKind (Bit PTableNextIdSz)) (hw_pt_next_id b))
+    (Var type (SyntaxKind (Bit WordSz)) a) (Var type (SyntaxKind (Bit WordSz)) len)).
+
+(** PMERGE's adjacency check and the base of the joined range. *)
+Definition hw_pmerge_adjacent (b : HWB) (m1 m2 : word PTableIdxSz) : bool :=
+  evalExpr (((Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b m1)) == $0) ||
+            ((Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b m2)) == $0) ||
+            ((ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m1)) +
+              ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b m1))) ==
+             ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m2))) ||
+            ((ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m2)) +
+              ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b m2))) ==
+             ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m1))))%kami_expr.
+Definition hw_pmerge_base (b : HWB) (m1 m2 : word PTableIdxSz) : word WordSz :=
+  evalExpr (IF ((Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b m1)) == $0)
+            then Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m2)
+            else (IF ((Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b m2)) == $0)
+            then Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m1)
+            else (IF ((ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m1)) +
+                       ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b m1))) ==
+                      ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m2)))
+                  then Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m1)
+                  else Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m2))))%kami_expr.
+
+(** The morphism valid table after PSPLIT or PMERGE removes modules [m1]
+    and [m2]: every entry naming either loses its valid bit. *)
+Definition hw_morph_cascade (b : HWB) (m1 m2 : word PTableIdxSz) : word MorphTableIdxSz -> bool :=
+  evalExpr (morph_cascade
+    (Var type (SyntaxKind (Vector Bool MorphTableIdxSz)) (hw_morph_valid_table b))
+    (Var type (SyntaxKind (Vector (Bit PTableIdxSz) MorphTableIdxSz)) (hw_morph_src_table b))
+    (Var type (SyntaxKind (Vector (Bit PTableIdxSz) MorphTableIdxSz)) (hw_morph_dst_table b))
+    (Var type (SyntaxKind (Bit PTableIdxSz)) m1) (Var type (SyntaxKind (Bit PTableIdxSz)) m2)
+    MorphTableSz).
 
 (** Partition-table capacity guards, as in the step rule. *)
 Definition hw_pt_room_one (b : HWB) : bool :=
@@ -107,6 +156,10 @@ Proof. hw_field. Qed.
 Lemma step_load_imm_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = load_imm_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_load_imm_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = load_imm_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_load_imm_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = load_imm_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -251,6 +304,10 @@ Lemma step_xfer_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7
   step_fetched b = xfer_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_xfer_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = xfer_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_xfer_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = xfer_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -393,6 +450,10 @@ Proof. hw_field. Qed.
 Lemma step_add_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = add_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_add_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = add_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_add_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = add_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -537,6 +598,10 @@ Lemma step_sub_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 
   step_fetched b = sub_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_sub_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = sub_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_sub_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = sub_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -679,6 +744,10 @@ Proof. hw_field. Qed.
 Lemma step_and_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = and_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_and_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = and_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_and_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = and_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -823,6 +892,10 @@ Lemma step_or_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c
   step_fetched b = or_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_or_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = or_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_or_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = or_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -965,6 +1038,10 @@ Proof. hw_field. Qed.
 Lemma step_mul_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = mul_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_mul_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = mul_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_mul_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = mul_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -1109,6 +1186,10 @@ Lemma step_shl_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 
   step_fetched b = shl_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_shl_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = shl_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_shl_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = shl_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -1251,6 +1332,10 @@ Proof. hw_field. Qed.
 Lemma step_shr_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = shr_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_shr_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = shr_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_shr_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = shr_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -1395,6 +1480,10 @@ Lemma step_lui_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 
   step_fetched b = lui_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_lui_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = lui_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_lui_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = lui_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -1537,6 +1626,10 @@ Proof. hw_field. Qed.
 Lemma step_xor_load_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = xor_load_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_xor_load_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = xor_load_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_xor_load_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = xor_load_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -1681,6 +1774,10 @@ Lemma step_xor_add_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6
   step_fetched b = xor_add_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_xor_add_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = xor_add_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_xor_add_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = xor_add_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -1823,6 +1920,10 @@ Proof. hw_field. Qed.
 Lemma step_xor_swap_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = xor_swap_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_xor_swap_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = xor_swap_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_xor_swap_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = xor_swap_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -1967,6 +2068,10 @@ Lemma step_xor_rank_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b
   step_fetched b = xor_rank_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_xor_rank_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = xor_rank_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_xor_rank_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = xor_rank_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -2109,6 +2214,10 @@ Proof. hw_field. Qed.
 Lemma step_jump_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = jump_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_jump_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = jump_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_jump_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = jump_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -2253,6 +2362,10 @@ Lemma step_jnez_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7
   step_fetched b = jnez_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_jnez_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = jnez_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_jnez_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = jnez_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -2395,6 +2508,10 @@ Proof. hw_field. Qed.
 Lemma step_halt_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = halt_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_halt_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = halt_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_halt_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = halt_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -2539,6 +2656,10 @@ Lemma step_mdlacc_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 
   step_fetched b = mdlacc_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_mdlacc_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = mdlacc_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_mdlacc_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = mdlacc_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -2681,6 +2802,10 @@ Proof. hw_field. Qed.
 Lemma step_ljoin_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = ljoin_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_ljoin_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = ljoin_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_ljoin_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = ljoin_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -2825,6 +2950,10 @@ Lemma step_checkpoint_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5
   step_fetched b = checkpoint_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_checkpoint_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = checkpoint_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_checkpoint_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = checkpoint_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -2967,6 +3096,10 @@ Proof. hw_field. Qed.
 Lemma step_write_port_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = write_port_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_write_port_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = write_port_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_write_port_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = write_port_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -3111,6 +3244,10 @@ Lemma step_read_port_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 
   step_fetched b = read_port_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_read_port_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = read_port_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_read_port_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = read_port_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -3253,6 +3390,10 @@ Proof. hw_field. Qed.
 Lemma step_emit_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = emit_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_emit_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = emit_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_emit_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = emit_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -3397,6 +3538,10 @@ Lemma step_reveal_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 
   step_fetched b = reveal_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_reveal_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = reveal_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_reveal_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = reveal_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -3539,6 +3684,10 @@ Proof. hw_field. Qed.
 Lemma step_certify_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = certify_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_certify_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = certify_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_certify_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = certify_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -3683,6 +3832,10 @@ Lemma step_tensor_set_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5
   step_fetched b = tensor_set_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_tensor_set_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = tensor_set_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_tensor_set_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = tensor_set_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -3825,6 +3978,10 @@ Proof. hw_field. Qed.
 Lemma step_tensor_get_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = tensor_get_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_tensor_get_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = tensor_get_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_tensor_get_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = tensor_get_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -3969,6 +4126,10 @@ Lemma step_pdiscover_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 
   step_fetched b = pdiscover_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_pdiscover_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = pdiscover_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_pdiscover_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pdiscover_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -4111,6 +4272,10 @@ Proof. hw_field. Qed.
 Lemma step_load_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = load_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_load_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = load_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_load_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = load_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -4255,6 +4420,10 @@ Lemma step_store_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b
   step_fetched b = store_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_store_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = store_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_store_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = store_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -4397,6 +4566,10 @@ Proof. hw_field. Qed.
 Lemma step_heap_load_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = heap_load_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_heap_load_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = heap_load_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_heap_load_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = heap_load_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -4541,6 +4714,10 @@ Lemma step_heap_store_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5
   step_fetched b = heap_store_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_heap_store_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = heap_store_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_heap_store_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = heap_store_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -4683,6 +4860,10 @@ Proof. hw_field. Qed.
 Lemma step_call_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = call_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_call_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = call_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_call_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = call_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -4827,6 +5008,10 @@ Lemma step_ret_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 
   step_fetched b = ret_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_ret_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = ret_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_ret_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = ret_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = hw_pt_next_id b.
@@ -4916,7 +5101,7 @@ Definition pnew_word (a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c
   legacy_word OP_PNEW (bits8 a0 a1 a2 a3 a4 a5 a6 a7) (bits8 b0 b1 b2 b3 b4 b5 b6 b7) (bits8 c0 c1 c2 c3 c4 c5 c6 c7).
 Lemma step_pnew_pc : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_pc (step_next b) = if hw_pt_room_one b then wplus (hw_pc b) (natToWord WordSz 1) else hw_trap_vector b.
+  hw_pc (step_next b) = if hw_pt_room_one b then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_trap_vector b else wplus (hw_pc b) (natToWord WordSz 1)) else hw_trap_vector b.
 Proof. hw_field. Qed.
 Lemma step_pnew_mu : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -4924,7 +5109,7 @@ Lemma step_pnew_mu : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c
 Proof. hw_field. Qed.
 Lemma step_pnew_err : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_err (step_next b) = if hw_pt_room_one b then false else true.
+  hw_err (step_next b) = if hw_pt_room_one b then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then true else false) else true.
 Proof. hw_field. Qed.
 Lemma step_pnew_halted : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -4940,7 +5125,7 @@ Lemma step_pnew_mem : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 
 Proof. hw_field. Qed.
 Lemma step_pnew_error_code : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_error_code (step_next b) = if hw_pt_room_one b then hw_error_code b else ERR_PARTITION_VAL.
+  hw_error_code (step_next b) = if hw_pt_room_one b then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then ERR_PARTITION_OVERLAP_VAL else hw_error_code b) else ERR_PARTITION_VAL.
 Proof. hw_field. Qed.
 Lemma step_pnew_cert_addr : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -4968,11 +5153,15 @@ Lemma step_pnew_module_tensors : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b
 Proof. hw_field. Qed.
 Lemma step_pnew_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_ptTable (step_next b) = if hw_pt_room_one b then (fun w => if weq w (split1 6 1 (hw_pt_next_id b)) then zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24 else hw_ptTable b w) else hw_ptTable b.
+  hw_ptTable (step_next b) = if hw_pt_room_one b then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_ptTable b else if hw_pnew_present b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_ptTable b else (fun w => if weq w (split1 6 1 (hw_pt_next_id b)) then zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24 else hw_ptTable b w)) else hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_pnew_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = if hw_pt_room_one b then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_ptBases b else if hw_pnew_present b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_ptBases b else (fun w => if weq w (split1 6 1 (hw_pt_next_id b)) then zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24 else hw_ptBases b w)) else hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_pnew_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_pt_next_id (step_next b) = if hw_pt_room_one b then wplus (hw_pt_next_id b) (natToWord PTableNextIdSz 1) else hw_pt_next_id b.
+  hw_pt_next_id (step_next b) = if hw_pt_room_one b then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_pt_next_id b else if hw_pnew_present b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_pt_next_id b else wplus (hw_pt_next_id b) (natToWord PTableNextIdSz 1)) else hw_pt_next_id b.
 Proof. hw_field. Qed.
 Lemma step_pnew_certified : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -5113,6 +5302,10 @@ Lemma step_psplit_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 
   step_fetched b = psplit_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = if hw_pt_room_two b then (fun w => if weq w (split1 6 1 (wplus (hw_pt_next_id b) (natToWord PTableNextIdSz 1))) then wminus (hw_ptTable b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7))) (wrshift (hw_ptTable b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7))) (wordToNat (WO~0~0~0~0~1))) else (fun w => if weq w (split1 6 1 (hw_pt_next_id b)) then wrshift (hw_ptTable b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7))) (wordToNat (WO~0~0~0~0~1)) else (fun w => if weq w (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) then natToWord WordSz 0 else hw_ptTable b w) w) w) else hw_ptTable b.
 Proof. hw_field. Qed.
+Lemma step_psplit_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = psplit_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = if hw_pt_room_two b then (fun w => if weq w (split1 6 1 (wplus (hw_pt_next_id b) (natToWord PTableNextIdSz 1))) then wplus (hw_ptBases b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7))) (wrshift (hw_ptTable b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7))) (wordToNat (WO~0~0~0~0~1))) else (fun w => if weq w (split1 6 1 (hw_pt_next_id b)) then hw_ptBases b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) else (fun w => if weq w (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) then natToWord WordSz 0 else hw_ptBases b w) w) w) else hw_ptBases b.
+Proof. hw_field. Qed.
 Lemma step_psplit_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = psplit_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_pt_next_id (step_next b) = if hw_pt_room_two b then wplus (hw_pt_next_id b) (natToWord PTableNextIdSz 2) else hw_pt_next_id b.
@@ -5171,7 +5364,7 @@ Lemma step_psplit_morph_identity_table : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2
 Proof. hw_field. Qed.
 Lemma step_psplit_morph_valid_table : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = psplit_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_morph_valid_table (step_next b) = hw_morph_valid_table b.
+  hw_morph_valid_table (step_next b) = if hw_pt_room_two b then hw_morph_cascade b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) else hw_morph_valid_table b.
 Proof. hw_field. Qed.
 Lemma step_psplit_morph_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = psplit_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -5202,7 +5395,7 @@ Definition pmerge_word (a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2
   legacy_word OP_PMERGE (bits8 a0 a1 a2 a3 a4 a5 a6 a7) (bits8 b0 b1 b2 b3 b4 b5 b6 b7) (bits8 c0 c1 c2 c3 c4 c5 c6 c7).
 Lemma step_pmerge_pc : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pmerge_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_pc (step_next b) = if hw_pt_room_one b then wplus (hw_pc b) (natToWord WordSz 1) else hw_trap_vector b.
+  hw_pc (step_next b) = if hw_pt_room_one b then (if negb (hw_pmerge_adjacent b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7))) then hw_trap_vector b else wplus (hw_pc b) (natToWord WordSz 1)) else hw_trap_vector b.
 Proof. hw_field. Qed.
 Lemma step_pmerge_mu : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pmerge_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -5210,7 +5403,7 @@ Lemma step_pmerge_mu : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0
 Proof. hw_field. Qed.
 Lemma step_pmerge_err : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pmerge_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_err (step_next b) = if hw_pt_room_one b then false else true.
+  hw_err (step_next b) = if hw_pt_room_one b then (if negb (hw_pmerge_adjacent b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7))) then true else false) else true.
 Proof. hw_field. Qed.
 Lemma step_pmerge_halted : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pmerge_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -5226,7 +5419,7 @@ Lemma step_pmerge_mem : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c
 Proof. hw_field. Qed.
 Lemma step_pmerge_error_code : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pmerge_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_error_code (step_next b) = if hw_pt_room_one b then hw_error_code b else ERR_PARTITION_VAL.
+  hw_error_code (step_next b) = if hw_pt_room_one b then (if negb (hw_pmerge_adjacent b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7))) then ERR_PARTITION_OVERLAP_VAL else hw_error_code b) else ERR_PARTITION_VAL.
 Proof. hw_field. Qed.
 Lemma step_pmerge_cert_addr : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pmerge_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -5254,11 +5447,15 @@ Lemma step_pmerge_module_tensors : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4
 Proof. hw_field. Qed.
 Lemma step_pmerge_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pmerge_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_ptTable (step_next b) = if hw_pt_room_one b then (fun w => if weq w (split1 6 1 (hw_pt_next_id b)) then wplus (hw_ptTable b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7))) (hw_ptTable b (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7))) else (fun w => if weq w (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7)) then natToWord WordSz 0 else (fun w => if weq w (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) then natToWord WordSz 0 else hw_ptTable b w) w) w) else hw_ptTable b.
+  hw_ptTable (step_next b) = if hw_pt_room_one b then (if negb (hw_pmerge_adjacent b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7))) then hw_ptTable b else (fun w => if weq w (split1 6 1 (hw_pt_next_id b)) then wplus (hw_ptTable b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7))) (hw_ptTable b (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7))) else (fun w => if weq w (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7)) then natToWord WordSz 0 else (fun w => if weq w (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) then natToWord WordSz 0 else hw_ptTable b w) w) w)) else hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_pmerge_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = pmerge_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = if hw_pt_room_one b then (if negb (hw_pmerge_adjacent b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7))) then hw_ptBases b else (fun w => if weq w (split1 6 1 (hw_pt_next_id b)) then hw_pmerge_base b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7)) else (fun w => if weq w (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7)) then natToWord WordSz 0 else (fun w => if weq w (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) then natToWord WordSz 0 else hw_ptBases b w) w) w)) else hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_pmerge_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pmerge_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_pt_next_id (step_next b) = if hw_pt_room_one b then wplus (hw_pt_next_id b) (natToWord PTableNextIdSz 1) else hw_pt_next_id b.
+  hw_pt_next_id (step_next b) = if hw_pt_room_one b then (if negb (hw_pmerge_adjacent b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7))) then hw_pt_next_id b else wplus (hw_pt_next_id b) (natToWord PTableNextIdSz 1)) else hw_pt_next_id b.
 Proof. hw_field. Qed.
 Lemma step_pmerge_certified : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pmerge_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -5314,7 +5511,7 @@ Lemma step_pmerge_morph_identity_table : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2
 Proof. hw_field. Qed.
 Lemma step_pmerge_morph_valid_table : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pmerge_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_morph_valid_table (step_next b) = hw_morph_valid_table b.
+  hw_morph_valid_table (step_next b) = if hw_pt_room_one b then (if negb (hw_pmerge_adjacent b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7))) then hw_morph_valid_table b else hw_morph_cascade b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7))) else hw_morph_valid_table b.
 Proof. hw_field. Qed.
 Lemma step_pmerge_morph_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pmerge_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -5398,6 +5595,10 @@ Proof. hw_field. Qed.
 Lemma step_chsh_trial_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = chsh_trial_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
   hw_ptTable (step_next b) = hw_ptTable b.
+Proof. hw_field. Qed.
+Lemma step_chsh_trial_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
+  step_fetched b = chsh_trial_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
+  hw_ptBases (step_next b) = hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_chsh_trial_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = chsh_trial_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->

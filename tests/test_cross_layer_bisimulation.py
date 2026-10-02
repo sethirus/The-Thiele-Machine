@@ -1186,29 +1186,27 @@ class TestMorphOpcodes:
     def test_morph_tensor_creates_product_morphism(self):
         """MORPH_TENSOR combines two morphisms into their tensor product.
 
-        f: A→B (morph_id=1), g: C→D (morph_id=2) → f⊗g: (A⊗C)→(B⊗D) (morph_id=3).
+        f: A→A (morph_id=1), g: C→C (morph_id=2) → f⊗g: (A⊗C)→(A⊗C) (morph_id=3).
         The tensor morph id is stored in the dst register.
 
-        The current executable PNEW abstraction preserves region cardinality,
-        not literal region labels: a region of size n is represented as seq 0 n.
-        This fixture uses one empty-region morphism and one singleton-region
-        morphism so tensor disjointness and the pre-existing union modules are
-        both expressed in that size-only model.
+        Module regions are pairwise disjoint ranges of data memory, and the
+        tensor needs a module that owns the union of the two endpoint regions.
+        The union exists only when one side is empty: A owns the empty range,
+        C owns [0], and A⊗C = [0] is C itself. This fixture runs in the
+        reference VM; the hardware table has no empty module.
         """
         state = self._run([
             "PNEW {} 1",      # module A (id=1), region=[]
-            "PNEW {} 1",      # module B (id=2), region=[]
-            "PNEW {0} 1",     # module C (id=3), region=[0]
-            "PNEW {0} 1",     # module D (id=4), region=[0]
-            "MORPH 10 1 2 0 1",      # f: A→B, morph_id=1 → r10
-            "MORPH 11 3 4 0 1",      # g: C→D, morph_id=2 → r11
-            "MORPH_TENSOR 12 1 2 2", # f⊗g: (A⊗C)→(B⊗D), cost=2, morph_id=3 → r12
+            "PNEW {0} 1",     # module C (id=2), region=[0]
+            "MORPH 10 1 1 0 1",      # f: A→A, morph_id=1 → r10
+            "MORPH 11 2 2 0 1",      # g: C→C, morph_id=2 → r11
+            "MORPH_TENSOR 12 1 2 2", # f⊗g: C→C, cost=2, morph_id=3 → r12
             "HALT 0",
         ])
         assert not state.err, f"MORPH_TENSOR should not error, got err={state.err}"
         assert state.regs[12] == 3, f"tensor morph_id should be 3, got {state.regs[12]}"
-        # mu = 4 PNEWs(1) + 2 MORPHs(1) + TENSOR(2) = 8
-        assert state.mu == 8, f"expected mu=8, got {state.mu}"
+        # mu = 2 PNEWs(1) + 2 MORPHs(1) + TENSOR(2) = 6
+        assert state.mu == 6, f"expected mu=6, got {state.mu}"
 
 
 # ===========================================================================

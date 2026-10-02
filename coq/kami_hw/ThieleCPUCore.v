@@ -81,13 +81,113 @@ Section ThieleCPU.
   (** Stack pointer register index (r31) *)
   Definition SP_IDX : word RegIdxSz := WO~1~1~1~1.   (* RegIdxSz=4, SP=15 *)
 
-  (** Physical locality helper: address must stay within active partition size. *)
+  (** 33-bit zero extension of a data word. Range ends [base + size] are
+      computed at this width, so they never wrap. *)
+  Definition ext33 {ty} (e : Expr ty (SyntaxKind (Bit WordSz)))
+    : Expr ty (SyntaxKind (Bit (S WordSz))) :=
+    UniBit (ZeroExtendTrunc WordSz (S WordSz)) e.
+
+  (** Physical locality helper: the address lies in the active module's range,
+      base <= addr < base + size. *)
   Definition check_bounds
              {ty}
              (addr : Expr ty (SyntaxKind (Bit MemAddrSz)))
+             (active_partition_base : Expr ty (SyntaxKind (Bit WordSz)))
              (active_partition_size : Expr ty (SyntaxKind (Bit WordSz)))
     : Expr ty (SyntaxKind Bool) :=
-    BinBitBool (Lt WordSz) (UniBit (ZeroExtendTrunc _ _) addr) active_partition_size.
+    BinBool AndB
+      (UniBool NegB
+        (BinBitBool (Lt (S WordSz)) (UniBit (ZeroExtendTrunc MemAddrSz (S WordSz)) addr)
+                                     (ext33 active_partition_base)))
+      (BinBitBool (Lt (S WordSz)) (UniBit (ZeroExtendTrunc MemAddrSz (S WordSz)) addr)
+                                   (BinBit (Add (S WordSz)) (ext33 active_partition_base)
+                                                            (ext33 active_partition_size))).
+
+  (** Partition-table slot [i] holds a module: [i] is below the next free
+      slot and its size is not zero. *)
+  Definition pt_slot_live {ty}
+             (sizes : Expr ty (SyntaxKind (Vector (Bit WordSz) PTableIdxSz)))
+             (next : Expr ty (SyntaxKind (Bit PTableNextIdSz))) (i : nat)
+    : Expr ty (SyntaxKind Bool) :=
+    BinBool AndB
+      (BinBitBool (Lt PTableNextIdSz) (Const ty (ConstBit (natToWord PTableNextIdSz i))) next)
+      (UniBool NegB (Eq (ReadIndex (Const ty (ConstBit (natToWord PTableIdxSz i))) sizes)
+                        (Const ty (ConstBit (natToWord WordSz 0))))).
+
+  (** Slot [i] owns exactly the range [a, a + len). *)
+  Definition pt_slot_same {ty}
+             (bases sizes : Expr ty (SyntaxKind (Vector (Bit WordSz) PTableIdxSz)))
+             (a len : Expr ty (SyntaxKind (Bit WordSz))) (i : nat)
+    : Expr ty (SyntaxKind Bool) :=
+    BinBool AndB
+      (Eq (ReadIndex (Const ty (ConstBit (natToWord PTableIdxSz i))) bases) a)
+      (Eq (ReadIndex (Const ty (ConstBit (natToWord PTableIdxSz i))) sizes) len).
+
+  (** The range of slot [i] and [a, a + len) share an address. *)
+  Definition pt_slot_overlap {ty}
+             (bases sizes : Expr ty (SyntaxKind (Vector (Bit WordSz) PTableIdxSz)))
+             (a len : Expr ty (SyntaxKind (Bit WordSz))) (i : nat)
+    : Expr ty (SyntaxKind Bool) :=
+    BinBool AndB
+      (BinBitBool (Lt (S WordSz)) (ext33 a)
+         (BinBit (Add (S WordSz))
+            (ext33 (ReadIndex (Const ty (ConstBit (natToWord PTableIdxSz i))) bases))
+            (ext33 (ReadIndex (Const ty (ConstBit (natToWord PTableIdxSz i))) sizes))))
+      (BinBitBool (Lt (S WordSz))
+         (ext33 (ReadIndex (Const ty (ConstBit (natToWord PTableIdxSz i))) bases))
+         (BinBit (Add (S WordSz)) (ext33 a) (ext33 len))).
+
+  (** OR of [f 0], ..., [f (n-1)]: one comparator per partition slot. *)
+  Fixpoint pt_scan {ty} (f : nat -> Expr ty (SyntaxKind Bool)) (n : nat)
+    : Expr ty (SyntaxKind Bool) :=
+    match n with
+    | O => Const ty (ConstBool false)
+    | S n' => BinBool OrB (pt_scan f n') (f n')
+    end.
+
+  (** PNEW conflict: some module's range shares an address with [a, a + len)
+      without being that range. *)
+  Definition pt_range_conflict {ty}
+             (bases sizes : Expr ty (SyntaxKind (Vector (Bit WordSz) PTableIdxSz)))
+             (next : Expr ty (SyntaxKind (Bit PTableNextIdSz)))
+             (a len : Expr ty (SyntaxKind (Bit WordSz)))
+    : Expr ty (SyntaxKind Bool) :=
+    pt_scan (fun i => BinBool AndB (pt_slot_live sizes next i)
+                        (BinBool AndB (UniBool NegB (pt_slot_same bases sizes a len i))
+                                      (pt_slot_overlap bases sizes a len i))) PTableSz.
+
+  (** PNEW reuse: some module owns exactly [a, a + len). *)
+  Definition pt_range_present {ty}
+             (bases sizes : Expr ty (SyntaxKind (Vector (Bit WordSz) PTableIdxSz)))
+             (next : Expr ty (SyntaxKind (Bit PTableNextIdSz)))
+             (a len : Expr ty (SyntaxKind (Bit WordSz)))
+    : Expr ty (SyntaxKind Bool) :=
+    pt_scan (fun i => BinBool AndB (pt_slot_live sizes next i)
+                                   (pt_slot_same bases sizes a len i)) PTableSz.
+
+  (** Morphism-table entry [j] keeps its valid bit unless its source or target
+      is [m1] or [m2], the modules a PSPLIT or PMERGE removes. Only entries
+      below [n] are examined. *)
+  Fixpoint morph_cascade {ty}
+           (valid : Expr ty (SyntaxKind (Vector Bool MorphTableIdxSz)))
+           (src dst : Expr ty (SyntaxKind (Vector (Bit PTableIdxSz) MorphTableIdxSz)))
+           (m1 m2 : Expr ty (SyntaxKind (Bit PTableIdxSz))) (n : nat)
+    : Expr ty (SyntaxKind (Vector Bool MorphTableIdxSz)) :=
+    match n with
+    | O => valid
+    | S n' =>
+        UpdateVector (morph_cascade valid src dst m1 m2 n')
+          (Const ty (ConstBit (natToWord MorphTableIdxSz n')))
+          (BinBool AndB (ReadIndex (Const ty (ConstBit (natToWord MorphTableIdxSz n'))) valid)
+            (UniBool NegB
+              (BinBool OrB
+                (BinBool OrB
+                  (Eq (ReadIndex (Const ty (ConstBit (natToWord MorphTableIdxSz n'))) src) m1)
+                  (Eq (ReadIndex (Const ty (ConstBit (natToWord MorphTableIdxSz n'))) dst) m1))
+                (BinBool OrB
+                  (Eq (ReadIndex (Const ty (ConstBit (natToWord MorphTableIdxSz n'))) src) m2)
+                  (Eq (ReadIndex (Const ty (ConstBit (natToWord MorphTableIdxSz n'))) dst) m2)))))
+    end.
 
 
   (** Direct vector read: memv[addr].
@@ -133,6 +233,7 @@ Section ThieleCPU.
     (module_tensors_v : ty (Vector (Vector (Bit WordSz) MuTensorIdxSz) ModTensorIdxSz))
     (csr_heap_base_v : ty (Bit WordSz))
     (pt_sizes_v : ty (Vector (Bit WordSz) PTableIdxSz))
+    (pt_bases_v : ty (Vector (Bit WordSz) PTableIdxSz))
     (pt_next_id_v : ty (Bit PTableNextIdSz))
     (certified_v : ty (Bool))
     (morph_src_table_v : ty (Vector (Bit PTableIdxSz) MorphTableIdxSz))
@@ -384,14 +485,16 @@ Section ThieleCPU.
         LET sp_dec : Bit WordSz <- #sp_val - $1;
         LET sp_dec_addr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #sp_dec;
 
-        (* Partition wall enforcement: LOAD/STORE/CALL/RET may only access active module region. *)
+        (* Partition wall enforcement: LOAD/STORE/CALL/RET may only access the
+           active module's range [base, base + size). *)
+        LET active_region_base : Bit WordSz <- #pt_bases_v@[#active_module_v];
         LET active_region_size : Bit WordSz <- #pt_sizes_v@[#active_module_v];
         LET load_in_bounds <-
-          check_bounds (IF (#opcode == $$(OP_HEAP_LOAD)) then #heap_addr else #mem_addr) #active_region_size;
+          check_bounds (IF (#opcode == $$(OP_HEAP_LOAD)) then #heap_addr else #mem_addr) #active_region_base #active_region_size;
         LET store_in_bounds <-
-          check_bounds (IF (#opcode == $$(OP_HEAP_STORE)) then #heap_addr_a else #mem_addr_a) #active_region_size;
-        LET call_in_bounds <- check_bounds #sp_addr #active_region_size;
-        LET ret_in_bounds <- check_bounds #sp_dec_addr #active_region_size;
+          check_bounds (IF (#opcode == $$(OP_HEAP_STORE)) then #heap_addr_a else #mem_addr_a) #active_region_base #active_region_size;
+        LET call_in_bounds <- check_bounds #sp_addr #active_region_base #active_region_size;
+        LET ret_in_bounds <- check_bounds #sp_dec_addr #active_region_base #active_region_size;
         (* XOR_LOAD uses immediate addressing — no locality check, matches Coq step_xor_load *)
         LET is_load_op <- (#opcode == $$(OP_LOAD)) ||
                           (#opcode == $$(OP_HEAP_LOAD));
@@ -414,6 +517,37 @@ Section ThieleCPU.
         LET psplit_overflow <- (#opcode == $$(OP_PSPLIT)) && !#ptable_room_two;
         LET pmerge_overflow <- (#opcode == $$(OP_PMERGE)) && !#ptable_room_one;
         LET ptable_overflow_violation <- #pnew_overflow || #psplit_overflow || #pmerge_overflow;
+
+        (* PNEW claims the range [A, A + B): operand A is the base address,
+           operand B the length. *)
+        LET pnew_base : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_a;
+        LET pnew_region_size : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
+        LET pnew_conflict <-
+          pt_range_conflict #pt_bases_v #pt_sizes_v #pt_next_id_v #pnew_base #pnew_region_size;
+        LET pnew_present <-
+          pt_range_present #pt_bases_v #pt_sizes_v #pt_next_id_v #pnew_base #pnew_region_size;
+
+        (* PMERGE joins modules op_a and op_b when their ranges touch: one
+           range ends where the other begins, or one of them is empty. *)
+        LET pmerge_m1 : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #op_a;
+        LET pmerge_m2 : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #op_b;
+        LET pmerge_m1_sz : Bit WordSz <- #pt_sizes_v@[#pmerge_m1];
+        LET pmerge_m2_sz : Bit WordSz <- #pt_sizes_v@[#pmerge_m2];
+        LET pmerge_m1_base : Bit WordSz <- #pt_bases_v@[#pmerge_m1];
+        LET pmerge_m2_base : Bit WordSz <- #pt_bases_v@[#pmerge_m2];
+        LET pmerge_m1_first <-
+          (ext33 #pmerge_m1_base + ext33 #pmerge_m1_sz) == ext33 #pmerge_m2_base;
+        LET pmerge_m2_first <-
+          (ext33 #pmerge_m2_base + ext33 #pmerge_m2_sz) == ext33 #pmerge_m1_base;
+        LET pmerge_adjacent <-
+          (#pmerge_m1_sz == $0) || (#pmerge_m2_sz == $0) || #pmerge_m1_first || #pmerge_m2_first;
+
+        (* Partition-overlap fault: PNEW names a range that overlaps a module
+           without being its range, or PMERGE names two ranges that do not
+           touch. The step traps; the partition table stays as it was. *)
+        LET partition_fault <-
+          ((#opcode == $$(OP_PNEW)) && #pnew_conflict) ||
+          ((#opcode == $$(OP_PMERGE)) && !#pmerge_adjacent);
 
         (* JNEZ: target address from op_b zero-extended *)
         LET jnez_target : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
@@ -569,9 +703,11 @@ Section ThieleCPU.
           ((#is_morph_get_ext || #is_morph_get_legacy) && !#morph_lookup_valid);
         LET morph_assert_fault <-
           ((#is_morph_assert_ext || #is_morph_assert_legacy) && !#morph_assert_valid);
-        (* MORPH_TENSOR never succeeds: module regions are the prefixes
-           [0, size), so no two regions are disjoint and the kernel's tensor
-           product always reports a missing morphism. *)
+        (* MORPH_TENSOR always reports a missing morphism. The kernel's tensor
+           product needs one module that owns the union of two disjoint
+           regions, and module regions are pairwise disjoint ranges, so no
+           module owns such a union. MorphTensorGap.v proves it for a
+           partition table whose ranges are disjoint. *)
         LET morph_tensor_fault <- #is_morph_tensor;
         LET morph_runtime_fault <-
           #morph_ext_endpoint_fault || #morph_legacy_endpoint_fault ||
@@ -868,7 +1004,7 @@ Section ThieleCPU.
            Determine new PC
            *)
         LET new_pc : Bit WordSz <-
-          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #nfi_violation || #rich_fault)
+          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #nfi_violation || #rich_fault || #partition_fault)
           then #trap_vector_v
           else (IF (#opcode == $$(OP_JUMP))
                       then #jump_target
@@ -964,7 +1100,7 @@ Section ThieleCPU.
         LET new_err <-
           #locality_violation || #ptable_overflow_violation || #nfi_violation ||
           #rich_fault || #morph_runtime_fault ||
-          #lassert_unsat_trap || #chsh_lassert_trap;
+          #lassert_unsat_trap || #chsh_lassert_trap || #partition_fault;
 
         (* Determine error code *)
         LET new_error_code : Bit WordSz <-
@@ -984,7 +1120,9 @@ Section ThieleCPU.
                                   then $$(ERR_LOGIC_VAL)
                                   else (IF #chsh_lassert_trap
                                         then $$(ERR_CHSH_VAL)
-                                        else #error_code_v)))))));
+                                        else (IF #partition_fault
+                                              then $$(ERR_PARTITION_OVERLAP_VAL)
+                                              else #error_code_v))))))));
 
         (* Determine new mu — only charge if not a bianchi violation. *)
         LET rich_fault_mu : Bit WordSz <-
@@ -1036,52 +1174,62 @@ Section ThieleCPU.
 
         (* ============================================================
            Partition table updates (PNEW / PSPLIT / PMERGE)
-           Matches handwritten RTL module_table / region_table semantics.
-           pt_sizes[id] = region_size (0 = unallocated).
-           pt_next_id grows monotonically.
+           Slot id owns the range [pt_bases[id], pt_bases[id] + pt_sizes[id]);
+           size 0 means the slot is unallocated. pt_next_id grows
+           monotonically.
            *)
 
         (* Truncate pt_next_id to PTableIdxSz bits for vector indexing *)
         LET pt_slot : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #pt_next_id_v;
 
-        (* PNEW encoding carries start in op_a and length in op_b.
-           The partition wall stores the local range [0, length). *)
-        LET pnew_region_size : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
+        (* PNEW: a range some module already owns names that module, so the
+           table is unchanged; otherwise the range takes the next free slot. *)
         LET pt_after_pnew : Vector (Bit WordSz) PTableIdxSz <-
-          #pt_sizes_v@[#pt_slot <- #pnew_region_size];
-        LET next_after_pnew : Bit PTableNextIdSz <- #pt_next_id_v + $1;
+          IF #pnew_present then #pt_sizes_v else #pt_sizes_v@[#pt_slot <- #pnew_region_size];
+        LET bases_after_pnew : Vector (Bit WordSz) PTableIdxSz <-
+          IF #pnew_present then #pt_bases_v else #pt_bases_v@[#pt_slot <- #pnew_base];
+        LET next_after_pnew : Bit PTableNextIdSz <-
+          IF #pnew_present then #pt_next_id_v else #pt_next_id_v + $1;
 
         (* PSPLIT: split module op_a into two children at next two free slots.
-           Left child gets old_size >> 1, right child gets the remainder.
-           Original slot is zeroed (deallocated). *)
+           Left child gets old_size >> 1 at the old base, right child gets the
+           remainder at old base + left size. Original slot is zeroed. *)
         LET psplit_id : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #op_a;
         LET psplit_orig_sz : Bit WordSz <- #pt_sizes_v@[#psplit_id];
+        LET psplit_orig_base : Bit WordSz <- #pt_bases_v@[#psplit_id];
         LET psplit_left_sz : Bit WordSz <-
           BinBit (Srl _ _) #psplit_orig_sz ($$(WO~0~0~0~0~1));
         LET psplit_right_sz : Bit WordSz <- #psplit_orig_sz - #psplit_left_sz;
+        LET psplit_right_base : Bit WordSz <- #psplit_orig_base + #psplit_left_sz;
         LET psplit_slot1 : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #pt_next_id_v;
         LET psplit_slot2 : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) (#pt_next_id_v + $1);
         LET pt_after_psplit : Vector (Bit WordSz) PTableIdxSz <-
           ((#pt_sizes_v@[#psplit_id <- $0])@[#psplit_slot1 <- #psplit_left_sz])
             @[#psplit_slot2 <- #psplit_right_sz];
+        LET bases_after_psplit : Vector (Bit WordSz) PTableIdxSz <-
+          ((#pt_bases_v@[#psplit_id <- $0])@[#psplit_slot1 <- #psplit_orig_base])
+            @[#psplit_slot2 <- #psplit_right_base];
         LET next_after_psplit : Bit PTableNextIdSz <- #pt_next_id_v + $2;
 
-        (* PMERGE: merge modules op_a and op_b.
-           Both source slots are zeroed; merged size allocated at pt_next_id. *)
-        LET pmerge_m1 : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #op_a;
-        LET pmerge_m2 : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #op_b;
-        LET pmerge_m1_sz : Bit WordSz <- #pt_sizes_v@[#pmerge_m1];
-        LET pmerge_m2_sz : Bit WordSz <- #pt_sizes_v@[#pmerge_m2];
+        (* PMERGE: both source slots are zeroed; the joined range, starting at
+           the lower base, is allocated at pt_next_id. *)
         LET pmerge_merged_sz : Bit WordSz <- #pmerge_m1_sz + #pmerge_m2_sz;
+        LET pmerge_merged_base : Bit WordSz <-
+          IF (#pmerge_m1_sz == $0) then #pmerge_m2_base
+          else (IF (#pmerge_m2_sz == $0) then #pmerge_m1_base
+          else (IF #pmerge_m1_first then #pmerge_m1_base else #pmerge_m2_base));
         LET pmerge_slot : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #pt_next_id_v;
         LET pt_after_pmerge : Vector (Bit WordSz) PTableIdxSz <-
           ((#pt_sizes_v@[#pmerge_m1 <- $0])@[#pmerge_m2 <- $0])
             @[#pmerge_slot <- #pmerge_merged_sz];
+        LET bases_after_pmerge : Vector (Bit WordSz) PTableIdxSz <-
+          ((#pt_bases_v@[#pmerge_m1 <- $0])@[#pmerge_m2 <- $0])
+            @[#pmerge_slot <- #pmerge_merged_base];
         LET next_after_pmerge : Bit PTableNextIdSz <- #pt_next_id_v + $1;
 
         (* Select partition table update based on opcode *)
         LET new_pt_sizes : Vector (Bit WordSz) PTableIdxSz <-
-          IF (#bianchi_violation || #ptable_overflow_violation || #rich_fault || #morph_runtime_fault)
+          IF (#bianchi_violation || #ptable_overflow_violation || #rich_fault || #morph_runtime_fault || #partition_fault)
           then #pt_sizes_v
           else (IF (#opcode == $$(OP_PNEW))
                 then #pt_after_pnew
@@ -1091,8 +1239,19 @@ Section ThieleCPU.
                             then #pt_after_pmerge
                             else #pt_sizes_v)));
 
+        LET new_pt_bases : Vector (Bit WordSz) PTableIdxSz <-
+          IF (#bianchi_violation || #ptable_overflow_violation || #rich_fault || #morph_runtime_fault || #partition_fault)
+          then #pt_bases_v
+          else (IF (#opcode == $$(OP_PNEW))
+                then #bases_after_pnew
+                else (IF (#opcode == $$(OP_PSPLIT))
+                      then #bases_after_psplit
+                      else (IF (#opcode == $$(OP_PMERGE))
+                            then #bases_after_pmerge
+                            else #pt_bases_v)));
+
         LET new_pt_next_id : Bit PTableNextIdSz <-
-          IF (#bianchi_violation || #ptable_overflow_violation || #rich_fault || #morph_runtime_fault)
+          IF (#bianchi_violation || #ptable_overflow_violation || #rich_fault || #morph_runtime_fault || #partition_fault)
           then #pt_next_id_v
           else (IF (#opcode == $$(OP_PNEW))
                 then #next_after_pnew
@@ -1197,15 +1356,27 @@ Section ThieleCPU.
           else (IF #morph_allocates
                 then #morph_identity_table_v@[#morph_slot <- #morph_alloc_identity]
                 else #morph_identity_table_v);
+        (* PSPLIT and PMERGE remove modules; every morphism whose source or
+           target is a removed module loses its valid bit. *)
+        LET psplit_morph_valid : Vector Bool MorphTableIdxSz <-
+          morph_cascade #morph_valid_table_v #morph_src_table_v #morph_dst_table_v
+                        #psplit_id #psplit_id MorphTableSz;
+        LET pmerge_morph_valid : Vector Bool MorphTableIdxSz <-
+          morph_cascade #morph_valid_table_v #morph_src_table_v #morph_dst_table_v
+                        #pmerge_m1 #pmerge_m2 MorphTableSz;
         LET new_morph_valid_table : Vector Bool MorphTableIdxSz <-
           IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation ||
-              #nfi_violation || #rich_fault || #morph_runtime_fault)
+              #nfi_violation || #rich_fault || #morph_runtime_fault || #partition_fault)
           then #morph_valid_table_v
           else (IF #morph_allocates
                 then #morph_valid_table_v@[#morph_slot <- $$true]
                 else (IF #morph_delete_success
                       then #morph_valid_table_v@[#morph_delete_idx <- $$false]
-                      else #morph_valid_table_v));
+                      else (IF (#opcode == $$(OP_PSPLIT))
+                            then #psplit_morph_valid
+                            else (IF (#opcode == $$(OP_PMERGE))
+                                  then #pmerge_morph_valid
+                                  else #morph_valid_table_v))));
         LET new_morph_next_id : Bit MorphTableNextIdSz <-
           IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation ||
               #nfi_violation || #rich_fault || #morph_runtime_fault)
@@ -1255,6 +1426,7 @@ Section ThieleCPU.
         Write "mu_tensor"      <- #new_mu_tensor;
         Write "module_tensors" <- #new_module_tensors;
         Write "ptTable"        <- #new_pt_sizes;
+        Write "ptBases"        <- #new_pt_bases;
         Write "pt_next_id"     <- #new_pt_next_id;
         Write "morph_src_table" <- #new_morph_src_table;
         Write "morph_dst_table" <- #new_morph_dst_table;
@@ -1797,10 +1969,12 @@ Section ThieleCPU.
       with Register "csr_heap_base" : Bit WordSz <- Default
 
       (* Partition table — bounded to 64 slots by PTableIdxSz=6.
-         pt_sizes[id] = region_size for that module slot (0 = unallocated/invalid).
+         Slot id owns the data-memory range [ptBases[id], ptBases[id] + ptTable[id]);
+         ptTable[id] = 0 means the slot is unallocated.
          pt_next_id is the next free module ID to assign; initialized to 1 to match
          empty_graph.pg_next_id = 1 from VMState.v. *)
       with Register "ptTable"  : Vector (Bit WordSz) PTableIdxSz <- Default
+      with Register "ptBases"  : Vector (Bit WordSz) PTableIdxSz <- Default
       with Register "pt_next_id"    : Bit PTableNextIdSz <- PT_NEXT_ID_INIT
 
       (* Bounded rich-state tables (M3):
@@ -1939,6 +2113,7 @@ Section ThieleCPU.
         Read module_tensors_v : Vector (Vector (Bit WordSz) MuTensorIdxSz) ModTensorIdxSz <- "module_tensors";
         Read csr_heap_base_v : Bit WordSz <- "csr_heap_base";
         Read pt_sizes_v : Vector (Bit WordSz) PTableIdxSz <- "ptTable";
+        Read pt_bases_v : Vector (Bit WordSz) PTableIdxSz <- "ptBases";
         Read pt_next_id_v : Bit PTableNextIdSz <- "pt_next_id";
         Read certified_v : Bool <- "certified";
         Read morph_src_table_v : Vector (Bit PTableIdxSz) MorphTableIdxSz <- "morph_src_table";
@@ -1996,7 +2171,7 @@ Section ThieleCPU.
 
         LET pc_addr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #pc_v;
         LET instr_v : Bit InstrSz <- #imem_v@[#pc_addr];
-        dispatch_decoded chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v mdl_ops_v info_gain_v error_code_v logic_acc_v cert_addr_v active_module_v mcycle_lo_v mcycle_hi_v minstret_lo_v minstret_hi_v trap_vector_v mu_tensor_v module_tensors_v csr_heap_base_v pt_sizes_v pt_next_id_v certified_v morph_src_table_v morph_dst_table_v morph_valid_table_v morph_coupling_desc_table_v morph_identity_table_v morph_next_id_v coupling_desc_valid_table_v coupling_desc_count_table_v coupling_desc_base_table_v coupling_desc_label_table_v coupling_desc_label_len_table_v coupling_desc_next_id_v coupling_pair_next_id_v formula_desc_valid_table_v formula_desc_next_id_v cert_desc_valid_table_v cert_desc_next_id_v desc_meta_valid_table_v desc_meta_next_id_v wc_same_00_v wc_diff_00_v wc_same_01_v wc_diff_01_v wc_same_10_v wc_diff_10_v wc_same_11_v wc_diff_11_v tensor_total instr_v bianchi_violation
+        dispatch_decoded chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v mdl_ops_v info_gain_v error_code_v logic_acc_v cert_addr_v active_module_v mcycle_lo_v mcycle_hi_v minstret_lo_v minstret_hi_v trap_vector_v mu_tensor_v module_tensors_v csr_heap_base_v pt_sizes_v pt_bases_v pt_next_id_v certified_v morph_src_table_v morph_dst_table_v morph_valid_table_v morph_coupling_desc_table_v morph_identity_table_v morph_next_id_v coupling_desc_valid_table_v coupling_desc_count_table_v coupling_desc_base_table_v coupling_desc_label_table_v coupling_desc_label_len_table_v coupling_desc_next_id_v coupling_pair_next_id_v formula_desc_valid_table_v formula_desc_next_id_v cert_desc_valid_table_v cert_desc_next_id_v desc_meta_valid_table_v desc_meta_next_id_v wc_same_00_v wc_diff_00_v wc_same_01_v wc_diff_01_v wc_same_10_v wc_diff_10_v wc_same_11_v wc_diff_11_v tensor_total instr_v bianchi_violation
 
 
       (** LASSERT FSM: multi-cycle on-chip SAT witness checker.
@@ -2181,10 +2356,9 @@ Section ThieleCPU.
 
           Two differences from the software spec
           (ThieleMachineComplete.load_coupling_from_mem): no region-
-          restriction filter (hardware's ptTable tracks only a region size
-          per module, not actual cell membership, so there is no hardware
-          representation to filter pairs against), and no label decoding
-          from memory. MORPH admits only in-region pairs and the empty label;
+          restriction filter (this FSM never reads the partition table, so
+          it does not filter pairs against module ranges), and no label
+          decoding from memory. MORPH admits only in-region pairs and the empty label;
           the label length and mask tables, written by the step rule, record
           composed labels as atom lists.
 

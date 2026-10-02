@@ -28,7 +28,7 @@ RICH = ['cert_desc_base_table', 'cert_desc_count_table', 'cert_desc_next_id', 'c
         'morph_coupling_desc_table', 'morph_dst_table', 'morph_identity_table', 'morph_next_id',
         'morph_src_table', 'morph_valid_table']
 STEP_FIELDS = ['cert_addr', 'certified', 'halted', 'info_gain', 'mdl_ops', 'mem', 'module_tensors',
-               'mu', 'mu_tensor', 'partition_ops', 'ptTable', 'pt_next_id', 'regs',
+               'mu', 'mu_tensor', 'partition_ops', 'ptTable', 'ptBases', 'pt_next_id', 'regs',
                'wc_diff_00', 'wc_diff_01', 'wc_diff_10', 'wc_diff_11',
                'wc_same_00', 'wc_same_01', 'wc_same_10', 'wc_same_11']
 KEEPS = ['csr_heap_base', 'csr_status', 'logic_acc', 'mstatus']

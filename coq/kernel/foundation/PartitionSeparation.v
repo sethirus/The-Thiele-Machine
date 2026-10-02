@@ -117,7 +117,7 @@ Definition tm_encoding_faithful (tm_sys : TMTransitionSystem)
   List.length tm_sys = List.length th_sys.
 
 (** [preserves_partition_labels] is the deliberately strong condition used for the separation witness. At a position where the Thiele transition changes the named partition predicate, it demands a corresponding TM transition and [False]; this encodes the chosen semantic-label boundary rather than a general impossibility of TM data encodings. *)
-(* SAFE: False is intentional — encodes TM impossibility as a Prop; file is a dead leaf not on any import chain *)
+(* SAFE: False is intentional. It makes the condition unsatisfiable when a Thiele transition changes the partition predicate, which the separation witness uses. *)
 Definition preserves_partition_labels (tm_sys : TMTransitionSystem)
                                        (th_sys : ThieleTransitionSystem) : Prop :=
   (* A changed Thiele label triggers the condition below. *)
@@ -308,7 +308,7 @@ Qed.
     CLAIM: A "classical observer" — any function that maps VMState to a
     result and depends ONLY on the computational fields (registers, memory,
     μ, PC, error, certification) — cannot distinguish the two separated
-    states. Yet the morphism-aware MORPH_DELETE instruction can.
+    states. Yet the morphism graphs of the two states differ.
 
     DEFINITION: A function f : VMState → A is "classical" if
     computationally_equivalent s1 s2 → f s1 = f s2.

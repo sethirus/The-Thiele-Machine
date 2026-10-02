@@ -478,6 +478,12 @@ Proof.
   intros. vm_compute. reflexivity.
 Qed.
 
+Lemma hwb_read_ptBases : forall b,
+  action_read (hwb_regs b) "ptBases" (SyntaxKind (Vector (Bit WordSz) PTableIdxSz)) = Some (hw_ptBases b).
+Proof.
+  intros. vm_compute. reflexivity.
+Qed.
+
 Lemma hwb_read_pt_next_id : forall b,
   action_read (hwb_regs b) "pt_next_id" (SyntaxKind (Bit PTableNextIdSz)) = Some (hw_pt_next_id b).
 Proof.

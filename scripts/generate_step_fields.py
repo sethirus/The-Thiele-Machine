@@ -24,10 +24,59 @@ From KamiHW Require Import ThieleTypes ThieleCPUCore HWBoundary RuleNext RuleSte
   BoundaryDecoded ActionObservation DispatchObservation StepEval.
 Open Scope string_scope.
 
-(** Hardware locality guard: zero-extended address below the active module size. *)
+(** Hardware locality guard: the address lies in the active module's range,
+    base <= addr < base + size, as the step rule's [check_bounds] computes it. *)
 Definition hw_region_ok (b : HWB) (addr : word MemAddrSz) : bool :=
-  if wlt_dec (evalZeroExtendTrunc WordSz addr) (hw_ptTable b (hw_active_module b))
-  then true else false.
+  evalExpr (check_bounds (Var type (SyntaxKind (Bit MemAddrSz)) addr)
+    (Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b (hw_active_module b)))
+    (Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b (hw_active_module b)))).
+
+(** PNEW's range checks against the partition table, as in the step rule:
+    [hw_pnew_conflict] (some module's range overlaps [a, a + len) without
+    being it) and [hw_pnew_present] (some module owns exactly that range). *)
+Definition hw_pnew_conflict (b : HWB) (a len : word WordSz) : bool :=
+  evalExpr (pt_range_conflict
+    (Var type (SyntaxKind (Vector (Bit WordSz) PTableIdxSz)) (hw_ptBases b))
+    (Var type (SyntaxKind (Vector (Bit WordSz) PTableIdxSz)) (hw_ptTable b))
+    (Var type (SyntaxKind (Bit PTableNextIdSz)) (hw_pt_next_id b))
+    (Var type (SyntaxKind (Bit WordSz)) a) (Var type (SyntaxKind (Bit WordSz)) len)).
+Definition hw_pnew_present (b : HWB) (a len : word WordSz) : bool :=
+  evalExpr (pt_range_present
+    (Var type (SyntaxKind (Vector (Bit WordSz) PTableIdxSz)) (hw_ptBases b))
+    (Var type (SyntaxKind (Vector (Bit WordSz) PTableIdxSz)) (hw_ptTable b))
+    (Var type (SyntaxKind (Bit PTableNextIdSz)) (hw_pt_next_id b))
+    (Var type (SyntaxKind (Bit WordSz)) a) (Var type (SyntaxKind (Bit WordSz)) len)).
+
+(** PMERGE's adjacency check and the base of the joined range. *)
+Definition hw_pmerge_adjacent (b : HWB) (m1 m2 : word PTableIdxSz) : bool :=
+  evalExpr (((Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b m1)) == $0) ||
+            ((Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b m2)) == $0) ||
+            ((ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m1)) +
+              ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b m1))) ==
+             ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m2))) ||
+            ((ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m2)) +
+              ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b m2))) ==
+             ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m1))))%kami_expr.
+Definition hw_pmerge_base (b : HWB) (m1 m2 : word PTableIdxSz) : word WordSz :=
+  evalExpr (IF ((Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b m1)) == $0)
+            then Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m2)
+            else (IF ((Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b m2)) == $0)
+            then Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m1)
+            else (IF ((ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m1)) +
+                       ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b m1))) ==
+                      ext33 (Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m2)))
+                  then Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m1)
+                  else Var type (SyntaxKind (Bit WordSz)) (hw_ptBases b m2))))%kami_expr.
+
+(** The morphism valid table after PSPLIT or PMERGE removes modules [m1]
+    and [m2]: every entry naming either loses its valid bit. *)
+Definition hw_morph_cascade (b : HWB) (m1 m2 : word PTableIdxSz) : word MorphTableIdxSz -> bool :=
+  evalExpr (morph_cascade
+    (Var type (SyntaxKind (Vector Bool MorphTableIdxSz)) (hw_morph_valid_table b))
+    (Var type (SyntaxKind (Vector (Bit PTableIdxSz) MorphTableIdxSz)) (hw_morph_src_table b))
+    (Var type (SyntaxKind (Vector (Bit PTableIdxSz) MorphTableIdxSz)) (hw_morph_dst_table b))
+    (Var type (SyntaxKind (Bit PTableIdxSz)) m1) (Var type (SyntaxKind (Bit PTableIdxSz)) m2)
+    MorphTableSz).
 
 (** Partition-table capacity guards, as in the step rule. *)
 Definition hw_pt_room_one (b : HWB) : bool :=
@@ -70,7 +119,7 @@ Definition hw_popcount32 (v : word WordSz) : word WordSz :=
 
 FIELDS = ['pc', 'mu', 'err', 'halted', 'regs', 'mem', 'error_code', 'cert_addr',
           'partition_ops', 'mdl_ops', 'info_gain', 'mu_tensor', 'module_tensors',
-          'ptTable', 'pt_next_id', 'certified',
+          'ptTable', 'ptBases', 'pt_next_id', 'certified',
           'wc_same_00', 'wc_diff_00', 'wc_same_01', 'wc_diff_01',
           'wc_same_10', 'wc_diff_10', 'wc_same_11', 'wc_diff_11',
           'morph_src_table', 'morph_dst_table', 'morph_coupling_desc_table',
@@ -125,6 +174,25 @@ def partition(guard, success):
     return out
 
 
+def overlap(guard, success):
+    """Success fields when [guard] (a partition-overlap test) is false; the
+    partition-overlap fault otherwise: trap, err, the fault word, cost charged."""
+    fault = {'pc': 'hw_trap_vector b', 'err': 'true',
+             'error_code': 'ERR_PARTITION_OVERLAP_VAL',
+             'partition_ops': 'wplus (hw_partition_ops b) (natToWord WordSz 1)'}
+    out = {}
+    for f in set(success) | set(fault):
+        s = success.get(f, default(f))
+        x = fault.get(f, default(f))
+        out[f] = s if s == x else f'if {guard} then {x} else {s}'
+    return out
+
+
+def nest(out):
+    """Parenthesize every conditional field so it can sit inside another."""
+    return {f: (f'({v})' if v.startswith('if ') else v) for f, v in out.items()}
+
+
 def chsh_trial():
     same = '(Bool.eqb b0 b1)'
     buckets = {'00': '(andb (negb a1) (negb a0))', '01': '(andb (negb a1) a0)',
@@ -141,6 +209,7 @@ def chsh_trial():
 def psplit():
     pid = 'split1 6 2 A'
     orig = f'hw_ptTable b ({pid})'
+    base = f'hw_ptBases b ({pid})'
     left = f'wrshift ({orig}) (wordToNat (WO~0~0~0~0~1))'
     right = f'wminus ({orig}) ({left})'
     s1 = 'split1 6 1 (hw_pt_next_id b)'
@@ -148,9 +217,14 @@ def psplit():
     t0 = upd('hw_ptTable b', pid, 'natToWord WordSz 0')
     t1 = upd(t0, s1, left)
     t2 = upd(t1, s2, right)
+    u0 = upd('hw_ptBases b', pid, 'natToWord WordSz 0')
+    u1 = upd(u0, s1, base)
+    u2 = upd(u1, s2, f'wplus ({base}) ({left})')
     return partition('hw_pt_room_two b', {
         'ptTable': t2,
+        'ptBases': u2,
         'pt_next_id': 'wplus (hw_pt_next_id b) (natToWord PTableNextIdSz 2)',
+        'morph_valid_table': f'hw_morph_cascade b ({pid}) ({pid})',
         'partition_ops': 'wplus (hw_partition_ops b) (natToWord WordSz 1)'})
 
 
@@ -162,10 +236,29 @@ def pmerge():
     t0 = upd('hw_ptTable b', m1, 'natToWord WordSz 0')
     t1 = upd(t0, m2, 'natToWord WordSz 0')
     t2 = upd(t1, slot, merged)
-    return partition('hw_pt_room_one b', {
+    u0 = upd('hw_ptBases b', m1, 'natToWord WordSz 0')
+    u1 = upd(u0, m2, 'natToWord WordSz 0')
+    u2 = upd(u1, slot, f'hw_pmerge_base b ({m1}) ({m2})')
+    inner = overlap(f'negb (hw_pmerge_adjacent b ({m1}) ({m2}))', {
         'ptTable': t2,
+        'ptBases': u2,
         'pt_next_id': 'wplus (hw_pt_next_id b) (natToWord PTableNextIdSz 1)',
+        'morph_valid_table': f'hw_morph_cascade b ({m1}) ({m2})',
         'partition_ops': 'wplus (hw_partition_ops b) (natToWord WordSz 1)'})
+    return partition('hw_pt_room_one b', nest(inner))
+
+
+def pnew():
+    a, n = 'zext A 24', 'zext Bw 24'
+    present = f'hw_pnew_present b ({a}) ({n})'
+    slot = 'split1 6 1 (hw_pt_next_id b)'
+    inner = overlap(f'hw_pnew_conflict b ({a}) ({n})', {
+        'ptTable': f'if {present} then hw_ptTable b else {upd("hw_ptTable b", slot, n)}',
+        'ptBases': f'if {present} then hw_ptBases b else {upd("hw_ptBases b", slot, a)}',
+        'pt_next_id': (f'if {present} then hw_pt_next_id b else '
+                       'wplus (hw_pt_next_id b) (natToWord PTableNextIdSz 1)'),
+        'partition_ops': 'wplus (hw_partition_ops b) (natToWord WordSz 1)'})
+    return partition('hw_pt_room_one b', nest(inner))
 
 
 def load_addr(base):
@@ -230,10 +323,7 @@ OPS = {
         f'hw_region_ok b ({load_addr(f"wminus ({SP}) (natToWord WordSz 1)")})', {
             'pc': f'hw_mem b ({load_addr(f"wminus ({SP}) (natToWord WordSz 1)")})',
             'regs': regs(f'wminus ({SP}) (natToWord WordSz 1)', 'hw_sp_idx')}),
-    'PNEW': partition('hw_pt_room_one b', {
-        'ptTable': upd('hw_ptTable b', 'split1 6 1 (hw_pt_next_id b)', 'zext Bw 24'),
-        'pt_next_id': 'wplus (hw_pt_next_id b) (natToWord PTableNextIdSz 1)',
-        'partition_ops': 'wplus (hw_partition_ops b) (natToWord WordSz 1)'}),
+    'PNEW': pnew(),
     'PSPLIT': psplit(),
     'PMERGE': pmerge(),
     'CHSH_TRIAL': chsh_trial(),

@@ -7,19 +7,15 @@
     starting configuration.
 
     Concrete witness:
-      s0 = d4_base: module 0 present, no morphisms, pg_next_morph_id = 0.
+      s0 = d4_base: module 0 owns the range {0}, no morphisms.
 
-      Thiele step: instr_morph_id 0 0 0
-        Creates identity morphism 0 for module 0.
-        After one step: pg_morphisms = [(0, identity_morph)].
-
-      Probe: instr_morph_delete 0 0 (morph_delete_probe from ShadowProjection.v)
-        Succeeds on the Thiele result (morphism 0 exists → err = false).
+      Thiele step: instr_pnew [1] 0
+        Claims address 1. The range {1} is disjoint from the range of
+        module 0, so the step adds a module and pg_next_id rises by one.
 
       Classical traces from d4_base:
         By D3 (classical_trace_preserves_graph), vm_graph is unchanged.
-        Therefore pg_morphisms = [] throughout any classical trace.
-        graph_delete_morphism on empty list → None → err = true.
+        Therefore pg_next_id is unchanged along any classical trace.
 
     D5: SAFE WORDING — THIELE STRICTLY EXTENDS CLASSICAL
 
@@ -49,9 +45,8 @@ From Kernel Require Import VMState VMStep SimulationProof AbstractNoFI
 (**
 
     d4_base: the base state for the D4 strictness argument.
-    Module 0 is present (enabling MORPH_ID to succeed by finding module 0).
-    No morphisms are present yet (so the delete-probe fails on classical traces).
-    pg_next_morph_id = 0 (so the first MORPH_ID allocates morphism id 0).
+    Module 0 owns the range {0}, so the PNEW of {1} adds a module.
+    No morphisms are present, and pg_next_morph_id = 0.
 *)
 
 Definition d4_module : ModuleState :=
@@ -93,13 +88,10 @@ Definition d4_base : VMState := {|
 |}.
 
 
-(** The structural step is PNEW (creates a new module). MORPH_ID is
-    hardware-aligned: it writes 0 to the dst register and does not mutate
-    the graph, and d4_base has pg_morphisms = [] and pg_next_morph_id = 0,
-    so MORPH_ID creates no morphism there.
+(** The structural step is PNEW, which creates a new module.
 
     Classical programs preserve vm_graph (D3). Thiele with PNEW changes it.
-    The probe is simply checking pg_next_id. *)
+    The probe is the value of pg_next_id. *)
 
 (** Thiele structural step: PNEW claiming address 1, which module 0 (region
     {0}) does not own. *)

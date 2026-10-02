@@ -195,6 +195,8 @@ Lemma mcnscan_keeps_csr_heap_base : forall c, hw_csr_heap_base (mcnscan_next c) 
 Proof. reflexivity. Qed.
 Lemma mcnscan_keeps_ptTable : forall c, hw_ptTable (mcnscan_next c) = hw_ptTable c.
 Proof. reflexivity. Qed.
+Lemma mcnscan_keeps_ptBases : forall c, hw_ptBases (mcnscan_next c) = hw_ptBases c.
+Proof. reflexivity. Qed.
 Lemma mcnscan_keeps_pt_next_id : forall c, hw_pt_next_id (mcnscan_next c) = hw_pt_next_id c.
 Proof. reflexivity. Qed.
 Lemma mcnscan_keeps_morph_src_table : forall c, hw_morph_src_table (mcnscan_next c) = hw_morph_src_table c.
@@ -481,6 +483,8 @@ Proof. reflexivity. Qed.
 Lemma mcnemit_keeps_csr_heap_base : forall c, hw_csr_heap_base (mcnemit_next c) = hw_csr_heap_base c.
 Proof. reflexivity. Qed.
 Lemma mcnemit_keeps_ptTable : forall c, hw_ptTable (mcnemit_next c) = hw_ptTable c.
+Proof. reflexivity. Qed.
+Lemma mcnemit_keeps_ptBases : forall c, hw_ptBases (mcnemit_next c) = hw_ptBases c.
 Proof. reflexivity. Qed.
 Lemma mcnemit_keeps_pt_next_id : forall c, hw_pt_next_id (mcnemit_next c) = hw_pt_next_id c.
 Proof. reflexivity. Qed.
@@ -782,6 +786,8 @@ Lemma nscan_iter_keeps_csr_heap_base : forall n c, hw_csr_heap_base (nscan_iter 
 Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [nscan_iter]; rewrite IH; apply mcnscan_keeps_csr_heap_base]. Qed.
 Lemma nscan_iter_keeps_ptTable : forall n c, hw_ptTable (nscan_iter n c) = hw_ptTable c.
 Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [nscan_iter]; rewrite IH; apply mcnscan_keeps_ptTable]. Qed.
+Lemma nscan_iter_keeps_ptBases : forall n c, hw_ptBases (nscan_iter n c) = hw_ptBases c.
+Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [nscan_iter]; rewrite IH; apply mcnscan_keeps_ptBases]. Qed.
 Lemma nscan_iter_keeps_pt_next_id : forall n c, hw_pt_next_id (nscan_iter n c) = hw_pt_next_id c.
 Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [nscan_iter]; rewrite IH; apply mcnscan_keeps_pt_next_id]. Qed.
 Lemma nscan_iter_keeps_morph_src_table : forall n c, hw_morph_src_table (nscan_iter n c) = hw_morph_src_table c.
@@ -1165,6 +1171,8 @@ Lemma nouter_step_keeps_csr_heap_base : forall c, hw_csr_heap_base (nouter_step 
 Proof. intro c. unfold nouter_step. rewrite mcnemit_keeps_csr_heap_base. apply nscan_iter_keeps_csr_heap_base. Qed.
 Lemma nouter_step_keeps_ptTable : forall c, hw_ptTable (nouter_step c) = hw_ptTable c.
 Proof. intro c. unfold nouter_step. rewrite mcnemit_keeps_ptTable. apply nscan_iter_keeps_ptTable. Qed.
+Lemma nouter_step_keeps_ptBases : forall c, hw_ptBases (nouter_step c) = hw_ptBases c.
+Proof. intro c. unfold nouter_step. rewrite mcnemit_keeps_ptBases. apply nscan_iter_keeps_ptBases. Qed.
 Lemma nouter_step_keeps_pt_next_id : forall c, hw_pt_next_id (nouter_step c) = hw_pt_next_id c.
 Proof. intro c. unfold nouter_step. rewrite mcnemit_keeps_pt_next_id. apply nscan_iter_keeps_pt_next_id. Qed.
 Lemma nouter_step_keeps_morph_src_table : forall c, hw_morph_src_table (nouter_step c) = hw_morph_src_table c.
@@ -1436,6 +1444,8 @@ Lemma nouter_iter_keeps_csr_heap_base : forall n c, hw_csr_heap_base (nouter_ite
 Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [nouter_iter]; rewrite IH; apply nouter_step_keeps_csr_heap_base]. Qed.
 Lemma nouter_iter_keeps_ptTable : forall n c, hw_ptTable (nouter_iter n c) = hw_ptTable c.
 Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [nouter_iter]; rewrite IH; apply nouter_step_keeps_ptTable]. Qed.
+Lemma nouter_iter_keeps_ptBases : forall n c, hw_ptBases (nouter_iter n c) = hw_ptBases c.
+Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [nouter_iter]; rewrite IH; apply nouter_step_keeps_ptBases]. Qed.
 Lemma nouter_iter_keeps_pt_next_id : forall n c, hw_pt_next_id (nouter_iter n c) = hw_pt_next_id c.
 Proof. induction n as [|n IH]; intro c; [reflexivity|cbn [nouter_iter]; rewrite IH; apply nouter_step_keeps_pt_next_id]. Qed.
 Lemma nouter_iter_keeps_morph_src_table : forall n c, hw_morph_src_table (nouter_iter n c) = hw_morph_src_table c.

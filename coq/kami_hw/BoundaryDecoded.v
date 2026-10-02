@@ -32,6 +32,7 @@ Definition hwb_decoded (b : HWB) (instruction : word InstrSz) : ActionT type Voi
     (hw_module_tensors b)
     (hw_csr_heap_base b)
     (hw_ptTable b)
+    (hw_ptBases b)
     (hw_pt_next_id b)
     (hw_certified b)
     (hw_morph_src_table b)
@@ -108,6 +109,7 @@ Proof.
   | rewrite hwb_read_module_tensors
   | rewrite hwb_read_csr_heap_base
   | rewrite hwb_read_ptTable
+  | rewrite hwb_read_ptBases
   | rewrite hwb_read_pt_next_id
   | rewrite hwb_read_certified
   | rewrite hwb_read_morph_src_table

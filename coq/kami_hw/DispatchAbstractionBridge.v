@@ -44,6 +44,7 @@ Definition dispatch_add_snapshot : KamiSnapshot :=
      snap_error_code := 0;
      snap_mu_tensor := fun _ => 0;
      snap_pt_sizes := fun _ => 0;
+     snap_pt_bases := fun _ => 0;
      snap_pt_next_id := 1;
      snap_certified := false;
      snap_wc_same_00 := 0;

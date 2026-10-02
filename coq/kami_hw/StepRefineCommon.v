@@ -4,7 +4,7 @@
 Require Import Kami.Kami Kami.Lib.NatLib.
 From Coq Require Import Arith Lia NArith FunctionalExtensionality Eqdep_dec.
 From KamiHW Require Import ThieleTypes HWBoundary ImplementationContract Abstraction
-  RuleStep StepEval StepWordFacts StepFields.
+  RuleStep StepEval StepWordFacts StepFields ThieleCPUCore DispatchLets.
 Require Import Kernel.VMState Kernel.VMStep.
 
 (** * Truncations, extensions and concatenation *)
@@ -427,14 +427,57 @@ Proof.
   change (wordToNat (natToWord PTableNextIdSz 64)) with 64 in L. lia.
 Qed.
 
-Lemma region_ok_of_lt : forall b (addr : word MemAddrSz),
-  wordToNat addr < wordToNat (hw_ptTable b (hw_active_module b)) ->
-  hw_region_ok b addr = true.
+(** The address lies in the active module's range [base, base + size). *)
+Definition hwb_addr_in_active_range (b : HWB) (a : nat) : Prop :=
+  wordToNat (hw_ptBases b (hw_active_module b)) <= a /\
+  a < wordToNat (hw_ptBases b (hw_active_module b)) + wordToNat (hw_ptTable b (hw_active_module b)).
+
+(** The 33-bit range test of [check_bounds] on words, from the arithmetic
+    facts [base <= addr < base + size]. *)
+Lemma bounds_ok_words : forall (addr : word MemAddrSz) (pB pS : word WordSz),
+  wordToNat pB <= wordToNat addr -> wordToNat addr < wordToNat pB + wordToNat pS ->
+  (negb (if wlt_dec (evalZeroExtendTrunc (S WordSz) addr) (evalZeroExtendTrunc (S WordSz) pB)
+         then true else false) &&
+   (if wlt_dec (evalZeroExtendTrunc (S WordSz) addr)
+         (evalZeroExtendTrunc (S WordSz) pB ^+ evalZeroExtendTrunc (S WordSz) pS)
+    then true else false)) = true.
 Proof.
-  intros b addr H. unfold hw_region_ok.
-  destruct (wlt_dec _ _) as [_|L]; [reflexivity|].
-  exfalso. apply L. apply lt_wlt. rewrite wordToNat_zext7_ext. exact H.
+  intros addr pB pS H1 H2.
+  assert (EA : wordToNat (evalZeroExtendTrunc (S WordSz) addr) = wordToNat addr)
+    by (apply evalZeroExtendTrunc_up; unfold WordSz, MemAddrSz; lia).
+  assert (EB : wordToNat (evalZeroExtendTrunc (S WordSz) pB) = wordToNat pB)
+    by (apply evalZeroExtendTrunc_up; unfold WordSz; lia).
+  assert (ES : wordToNat (evalZeroExtendTrunc (S WordSz) pS) = wordToNat pS)
+    by (apply evalZeroExtendTrunc_up; unfold WordSz; lia).
+  pose proof (wordToNat_bound pB) as BB. pose proof (wordToNat_bound pS) as BS.
+  assert (P33 : pow2 (S WordSz) = 2 * pow2 WordSz) by apply pow2_S.
+  assert (ESUM : wordToNat (evalZeroExtendTrunc (S WordSz) pB ^+ evalZeroExtendTrunc (S WordSz) pS)
+                 = wordToNat pB + wordToNat pS).
+  { rewrite wordToNat_wplus_bounded; rewrite EB, ES; [reflexivity|lia]. }
+  destruct (wlt_dec (evalZeroExtendTrunc (S WordSz) addr) (evalZeroExtendTrunc (S WordSz) pB))
+    as [L1|NL1].
+  - exfalso. apply wlt_lt in L1. rewrite EA, EB in L1. lia.
+  - cbn [negb andb].
+    destruct (wlt_dec _ (_ ^+ _)) as [L2|NL2]; [reflexivity|].
+    exfalso. apply NL2. apply lt_wlt. rewrite ESUM, EA. lia.
 Qed.
+
+Lemma region_ok_of_range : forall b (addr : word MemAddrSz),
+  hwb_addr_in_active_range b (wordToNat addr) -> hw_region_ok b addr = true.
+Proof.
+  intros b addr [H1 H2]. unfold hw_region_ok, check_bounds, ext33.
+  cbn [evalExpr evalBinBool evalUniBool evalBinBitBool evalUniBit evalBinBit evalConstT].
+  exact (bounds_ok_words addr _ _ H1 H2).
+Qed.
+
+(** Close a locality-guard goal [... = false] from the in-range premise. *)
+Ltac close_dd_bounds Hbound :=
+  destruct Hbound as [Hb1 Hb2];
+  match goal with |- context [dd_active_region_base ?bd ?w] =>
+    change (dd_active_region_base bd w) with (hw_ptBases bd (hw_active_module bd));
+    change (dd_active_region_size bd w) with (hw_ptTable bd (hw_active_module bd))
+  end;
+  rewrite (bounds_ok_words _ _ _ Hb1 Hb2); reflexivity.
 
 Lemma wordToNat_trunc7_small : forall w : word WordSz,
   wordToNat w < 128 -> wordToNat (split1 7 25 w) = wordToNat w.

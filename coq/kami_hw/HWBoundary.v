@@ -89,6 +89,7 @@ Record HWB := {
   hw_csr_status : type (Bit WordSz);
   hw_csr_heap_base : type (Bit WordSz);
   hw_ptTable : type (Vector (Bit WordSz) PTableIdxSz);
+  hw_ptBases : type (Vector (Bit WordSz) PTableIdxSz);
   hw_pt_next_id : type (Bit PTableNextIdSz);
   hw_morph_src_table : type (Vector (Bit PTableIdxSz) MorphTableIdxSz);
   hw_morph_dst_table : type (Vector (Bit PTableIdxSz) MorphTableIdxSz);
@@ -235,6 +236,7 @@ Definition hwb_regs (b : HWB) : RegsT :=
   (M.add "csr_status" (hwb_reg (Bit WordSz) b.(hw_csr_status))
   (M.add "csr_heap_base" (hwb_reg (Bit WordSz) b.(hw_csr_heap_base))
   (M.add "ptTable" (hwb_reg (Vector (Bit WordSz) PTableIdxSz) b.(hw_ptTable))
+  (M.add "ptBases" (hwb_reg (Vector (Bit WordSz) PTableIdxSz) b.(hw_ptBases))
   (M.add "pt_next_id" (hwb_reg (Bit PTableNextIdSz) b.(hw_pt_next_id))
   (M.add "morph_src_table" (hwb_reg (Vector (Bit PTableIdxSz) MorphTableIdxSz) b.(hw_morph_src_table))
   (M.add "morph_dst_table" (hwb_reg (Vector (Bit PTableIdxSz) MorphTableIdxSz) b.(hw_morph_dst_table))
@@ -296,4 +298,4 @@ Definition hwb_regs (b : HWB) : RegsT :=
   (M.add "wc_diff_10" (hwb_reg (Bit WordSz) b.(hw_wc_diff_10))
   (M.add "wc_same_11" (hwb_reg (Bit WordSz) b.(hw_wc_same_11))
   (M.add "wc_diff_11" (hwb_reg (Bit WordSz) b.(hw_wc_diff_11))
-  (M.empty _)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))).
+  (M.empty _))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))).

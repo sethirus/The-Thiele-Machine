@@ -8,13 +8,10 @@ Set Asymmetric Patterns.
 
 (** Register and memory dimensions — must match VMState.v.
 
-    The kernel proofs are parametric in these constants. The values below
-    are the silicon-side bounds of the synthesized RTL for the Kintex-7
-    xc7k325tffg900-2 / Digilent Genesys 2 target through the open-source
-    yosys + openXC7 toolchain, and they match the test/cosim parity
-    checks. The same
-    Coq development scales up linearly when bound to larger values for a
-    different device or for pure simulation. *)
+    These are fixed numbers: the silicon-side bounds of the synthesized RTL
+    for the Kintex-7 xc7k325tffg900-2 / Digilent Genesys 2 target through the
+    open-source yosys + openXC7 toolchain, matched by the test/cosim parity
+    checks. The kernel and the hardware proofs read them as constants. *)
 Definition RegCount := 16.
 Definition MemSize := 128.
 Definition RegIdxSz := 4.    (* log2(RegCount) *)
@@ -112,6 +109,13 @@ Definition ERR_LOCALITY_VAL : word WordSz :=
 (* ERR_PARTITION_VAL = 0xBADF001D *)
 Definition ERR_PARTITION_VAL : word WordSz :=
   WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~1~1~0~0~0~0~0~0~0~0~0~0~0~1~1~1~0~1.
+(* ERR_PARTITION_OVERLAP_VAL = 0xBADF001E, the partition-overlap fault. PNEW names a
+   range that shares an address with a module without being that module's
+   range, or PMERGE names two ranges that do not touch. The step traps as a
+   failed LASSERT does: err and csr_err set, pc to the trap vector, the
+   partition table unchanged. *)
+Definition ERR_PARTITION_OVERLAP_VAL : word WordSz :=
+  WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~1~1~0~0~0~0~0~0~0~0~0~0~0~1~1~1~1~0.
 (* ERR_COUPLING_INVALID = 0xBADC0000 — morphism coupling failed well-formedness check *)
 Definition ERR_COUPLING_INVALID : word WordSz :=
   WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0.
