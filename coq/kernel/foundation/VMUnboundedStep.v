@@ -86,17 +86,17 @@ Definition write_mem_u (s : VMState) (a v : nat) : list nat :=
 Definition vm_apply_u (s : VMState) (instr : vm_instruction) : VMState :=
   match instr with
   | instr_pnew region cost =>
-      let sz := List.length (normalize_region region) in
-      let '(graph', _) := graph_add_module s.(vm_graph) (List.seq 0 sz) [] in
-      advance_state s (instr_pnew region cost) graph' s.(vm_csrs) s.(vm_err)
+      let r := pnew_region region in
+      partition_step_state s (instr_pnew region cost)
+        (negb (region_conflict s.(vm_graph) r)) (fst (graph_pnew s.(vm_graph) r))
   | instr_psplit module left_region right_region cost =>
       let graph' := graph_hw_psplit s.(vm_graph) (module mod 64) in
       advance_state s (instr_psplit module left_region right_region cost)
         graph' s.(vm_csrs) s.(vm_err)
   | instr_pmerge m1 m2 cost =>
-      let graph' := graph_hw_pmerge s.(vm_graph) (m1 mod 64) (m2 mod 64) in
-      advance_state s (instr_pmerge m1 m2 cost)
-        graph' s.(vm_csrs) s.(vm_err)
+      partition_step_state s (instr_pmerge m1 m2 cost)
+        (pmerge_adjacent s.(vm_graph) (m1 mod 64) (m2 mod 64))
+        (graph_hw_pmerge s.(vm_graph) (m1 mod 64) (m2 mod 64))
   | instr_lassert freg creg kind flen cost =>
       let check_ok := lassert_exec_ok s freg creg kind flen in
       let new_pc   := if check_ok then S s.(vm_pc) else LASSERT_TRAP_PC in

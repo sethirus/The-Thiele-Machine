@@ -128,6 +128,19 @@ Proof.
     constructor.
 Qed.
 
+(** [reachable_regions_disjoint]: in every reachable state the module
+    regions are pairwise disjoint, and each one is a range of data memory. *)
+Theorem reachable_regions_disjoint :
+  forall s,
+    reachable s ->
+    regions_disjoint s.(vm_graph) /\ regions_contiguous s.(vm_graph).
+Proof.
+  intros s H. induction H.
+  - split; [apply regions_disjoint_no_modules | apply regions_contiguous_no_modules];
+      reflexivity.
+  - exact (vm_apply_preserves_partition_regions_ok s instr IHreachable).
+Qed.
+
 Fixpoint trace_total_cost (trace : list vm_instruction) : nat :=
   match trace with
   | [] => 0

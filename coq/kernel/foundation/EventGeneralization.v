@@ -28,7 +28,7 @@ Lemma eg_next_id_monotone : forall s i,
   pg_next_id (vm_graph s) <= pg_next_id (vm_graph (vm_apply s i)).
 Proof.
   intros s i.
-  destruct i; cbn [vm_apply];
+  destruct i; cbn [vm_apply]; try unfold partition_step_state;
     repeat match goal with
     | |- context [if ?x then _ else _] => destruct x eqn:?
     | |- context [match ?x with Some _ => _ | None => _ end] => destruct x eqn:?
@@ -39,7 +39,8 @@ Proof.
     try lia.
   all: repeat match goal with H : ?x = (_, _) |- _ => is_var x; subst x end.
   all: first
-    [ apply graph_hw_psplit_next_id_nondec
+    [ apply graph_pnew_next_id_nondec
+    | apply graph_hw_psplit_next_id_nondec
     | apply graph_hw_pmerge_next_id_nondec
     | rewrite graph_update_module_tensor_next_id_same; lia
     | match goal with H : graph_add_module ?g ?r ?a = _ |- _ =>
@@ -302,7 +303,7 @@ Lemma eg_size_permanent : permanent_reading eg_size_reading.
 Proof.
   intros s i H. apply eg_size_reading_spec in H. destruct H as [Hrl Hml].
   apply eg_size_reading_spec.
-  destruct i; cbn [vm_apply];
+  destruct i; cbn [vm_apply]; try unfold partition_step_state;
     repeat match goal with
     | |- context [if ?x then _ else _] => destruct x
     | |- context [match ?x with Some _ => _ | None => _ end] => destruct x

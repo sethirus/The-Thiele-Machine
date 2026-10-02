@@ -101,8 +101,9 @@ Definition d4_base : VMState := {|
     Classical programs preserve vm_graph (D3). Thiele with PNEW changes it.
     The probe is simply checking pg_next_id. *)
 
-(** Thiele structural step: PNEW with region [0] *)
-Definition d4_thiele_step : vm_instruction := instr_pnew [0] 0.
+(** Thiele structural step: PNEW claiming address 1, which module 0 (region
+    {0}) does not own. *)
+Definition d4_thiele_step : vm_instruction := instr_pnew [1] 0.
 
 (** D4_thiele_changes_graph: After PNEW from d4_base, pg_next_id increases. *)
 Lemma D4_thiele_changes_graph :

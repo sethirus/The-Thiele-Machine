@@ -648,7 +648,7 @@ Proof.
   all: try econstructor.
   (* Goal B: z_gauge_shift commutes with cost addition (arithmetic) *)
   all: unfold z_gauge_shift, advance_state, advance_state_reveal, advance_state_rm,
-              jump_state, jump_state_rm, apply_cost; simpl.
+              jump_state, jump_state_rm, partition_step_state, apply_cost; simpl.
   all: try (f_equal; symmetry; apply shift_cost_comm; assumption).
 Qed.
 

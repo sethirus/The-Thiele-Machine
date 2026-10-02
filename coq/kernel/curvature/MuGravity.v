@@ -1362,12 +1362,12 @@ Qed.
 *)
 
 Lemma pnew_fresh_region_active : forall s region cost,
-  graph_find_region (vm_graph s) (normalize_region region) = None ->
+  pnew_adds_module (vm_graph s) region ->
   calibration_active_instruction s (instr_pnew region cost).
 Proof.
   intros s region cost Hfresh.
   unfold calibration_active_instruction.
-  rewrite vm_apply_pnew_graph.
+  rewrite (vm_apply_pnew_graph_adds s region cost Hfresh).
   unfold graph_add_module. simpl.
   intro Heq.
   pose proof (f_equal pg_next_id Heq) as Hnext.
@@ -1385,13 +1385,12 @@ Proof.
 Qed.
 
 (** Region disjointness against all existing modules in a graph.
-    Hardware stores List.seq 0 sz as the region, so disjointness
-    is checked against that canonical representation. *)
+    PNEW stores the range [pnew_region region], so disjointness is checked
+    against that range. *)
 Definition region_disjoint_from_graph (g : PartitionGraph) (region : list nat) : Prop :=
   forall mid ms,
     graph_lookup g mid = Some ms ->
-    nat_list_disjoint (module_region ms)
-      (List.seq 0 (List.length (normalize_region region))) = true.
+    nat_list_disjoint (module_region ms) (pnew_region region) = true.
 
 (** normalize_region is identity on seq (seq has no duplicates). *)
 Lemma normalize_region_seq : forall n,
@@ -1404,11 +1403,12 @@ Proof.
 Qed.
 
 Lemma vm_graph_pnew : forall s region cost,
+  pnew_adds_module (vm_graph s) region ->
   vm_graph (vm_apply s (instr_pnew region cost)) =
-    fst (graph_add_module (vm_graph s) (List.seq 0 (List.length (normalize_region region))) []).
+    fst (graph_add_module (vm_graph s) (pnew_region region) []).
 Proof.
-  intros s region cost.
-  apply vm_apply_pnew_graph.
+  intros s region cost Hadds.
+  apply vm_apply_pnew_graph_adds. exact Hadds.
 Qed.
 
 Lemma graph_lookup_pnew_preserves_existing : forall s region mid,
@@ -1417,8 +1417,7 @@ Lemma graph_lookup_pnew_preserves_existing : forall s region mid,
     graph_lookup (vm_graph s) mid.
 Proof.
   intros s region mid Hlt.
-  rewrite (vm_graph_pnew s region 0).
-  apply graph_add_module_lookup_other.
+  apply vm_apply_pnew_noninterference.
   exact Hlt.
 Qed.
 
@@ -1547,23 +1546,22 @@ Proof.
 Qed.
 
 Lemma modules_adjacent_by_region_pnew_new_disjoint : forall s region m,
-  graph_find_region (vm_graph s) (normalize_region region) = None ->
+  pnew_adds_module (vm_graph s) region ->
   region_disjoint_from_graph (vm_graph s) region ->
   m < pg_next_id (vm_graph s) ->
   modules_adjacent_by_region (vm_apply s (instr_pnew region 0)) m (pg_next_id (vm_graph s)) = false.
 Proof.
-  intros s region m _ Hdisj Hlt.
+  intros s region m Hadds Hdisj Hlt.
   unfold modules_adjacent_by_region.
   rewrite (vm_apply_pnew_noninterference s region 0 m Hlt).
-  rewrite (vm_apply_pnew_graph s region 0).
-  set (sz := List.length (normalize_region region)).
+  rewrite (vm_apply_pnew_graph_adds s region 0 Hadds).
   unfold graph_add_module, graph_lookup at 2. simpl.
   rewrite Nat.eqb_refl.
   remember (graph_lookup (vm_graph s) m) as lookup_old.
   destruct lookup_old as [ms|]; simpl; [|reflexivity].
   unfold normalize_module. simpl.
-  rewrite normalize_region_seq.
-  assert (Hdisj_ms : nat_list_disjoint (module_region ms) (List.seq 0 sz) = true).
+  rewrite pnew_region_normalized.
+  assert (Hdisj_ms : nat_list_disjoint (module_region ms) (pnew_region region) = true).
   {
     unfold region_disjoint_from_graph in Hdisj.
     specialize (Hdisj m ms).
@@ -1578,14 +1576,14 @@ Qed.
 Lemma module_neighbors_pnew_disjoint : forall s region m,
   well_formed_graph (vm_graph s) ->
   region_disjoint_from_graph (vm_graph s) region ->
-  graph_find_region (vm_graph s) (normalize_region region) = None ->
+  pnew_adds_module (vm_graph s) region ->
   m < pg_next_id (vm_graph s) ->
   module_neighbors (vm_apply s (instr_pnew region 0)) m = module_neighbors s m.
 Proof.
   intros s region m Hwf Hdisj Hfresh Hm.
   assert (Hmod_list : map fst (pg_modules (vm_graph (vm_apply s (instr_pnew region 0)))) =
     pg_next_id (vm_graph s) :: map fst (pg_modules (vm_graph s))).
-  { rewrite vm_apply_pnew_graph. unfold graph_add_module. simpl. reflexivity. }
+  { rewrite (vm_apply_pnew_graph_adds s region 0 Hfresh). unfold graph_add_module. simpl. reflexivity. }
   unfold module_neighbors, module_neighbors_physical, module_neighbors_adjacent.
   rewrite Hmod_list.
   set (new_id := pg_next_id (vm_graph s)).
@@ -1638,7 +1636,7 @@ Qed.
 Lemma module_triangles_pnew_disjoint : forall s region m,
   well_formed_graph (vm_graph s) ->
   region_disjoint_from_graph (vm_graph s) region ->
-  graph_find_region (vm_graph s) (normalize_region region) = None ->
+  pnew_adds_module (vm_graph s) region ->
   m < pg_next_id (vm_graph s) ->
   module_triangles (vm_apply s (instr_pnew region 0)) m = module_triangles s m.
 Proof.
@@ -1730,7 +1728,7 @@ Qed.
 Lemma sum_angles_pnew_disjoint : forall s region m,
   well_formed_graph (vm_graph s) ->
   region_disjoint_from_graph (vm_graph s) region ->
-  graph_find_region (vm_graph s) (normalize_region region) = None ->
+  pnew_adds_module (vm_graph s) region ->
   m < pg_next_id (vm_graph s) ->
   sum_angles (vm_apply s (instr_pnew region 0)) m (module_triangles (vm_apply s (instr_pnew region 0)) m) =
     sum_angles s m (module_triangles s m).
@@ -1745,7 +1743,7 @@ Qed.
 Lemma geometric_angle_defect_pnew_disjoint : forall s region m,
   well_formed_graph (vm_graph s) ->
   region_disjoint_from_graph (vm_graph s) region ->
-  graph_find_region (vm_graph s) (normalize_region region) = None ->
+  pnew_adds_module (vm_graph s) region ->
   m < pg_next_id (vm_graph s) ->
   geometric_angle_defect (vm_apply s (instr_pnew region 0)) m = geometric_angle_defect s m.
 Proof.
@@ -1778,7 +1776,7 @@ Qed.
 Lemma mu_laplacian_pnew_disjoint : forall s region m,
   well_formed_graph (vm_graph s) ->
   region_disjoint_from_graph (vm_graph s) region ->
-  graph_find_region (vm_graph s) (normalize_region region) = None ->
+  pnew_adds_module (vm_graph s) region ->
   m < pg_next_id (vm_graph s) ->
   mu_laplacian (vm_apply s (instr_pnew region 0)) m = mu_laplacian s m.
 Proof.
@@ -1793,7 +1791,7 @@ Qed.
 
 Theorem scheduler_prefers_fresh_pnew_zero_cost : forall trace s m region,
   nth_error trace (vm_pc s) = Some (instr_pnew region 0) ->
-  graph_find_region (vm_graph s) (normalize_region region) = None ->
+  pnew_adds_module (vm_graph s) region ->
   scheduler_prefers_active_when_uncalibrated trace s m.
 Proof.
   intros trace s m region Hnth Hfresh Hpos.
@@ -1823,7 +1821,7 @@ Qed.
 
 Theorem fresh_pnew_zero_cost_progress_one_step : forall trace s m region,
   nth_error trace (vm_pc s) = Some (instr_pnew region 0) ->
-  graph_find_region (vm_graph s) (normalize_region region) = None ->
+  pnew_adds_module (vm_graph s) region ->
   strict_descent_at_step s (instr_pnew region 0) m ->
   (calibration_residual (run_vm 1 trace s) m < calibration_residual s m)%R.
 Proof.
@@ -1837,7 +1835,7 @@ Qed.
 
 Lemma pnew_zero_cost_not_universally_contractive :
   exists s m region,
-    graph_find_region (vm_graph s) (normalize_region region) = None /\
+    pnew_adds_module (vm_graph s) region /\
     calibration_residual (vm_apply s (instr_pnew region 0)) m = calibration_residual s m.
 Proof.
   set (s0 := {| vm_graph := empty_graph;
@@ -1854,7 +1852,7 @@ Proof.
                 vm_certified := false |}).
   exists s0, 100%nat, [0%nat].
   split.
-  - reflexivity.
+  - split; reflexivity.
   - unfold s0.
     unfold calibration_residual, vm_apply.
     simpl.
@@ -1863,7 +1861,7 @@ Qed.
 
 Theorem no_unconditional_pnew_zero_cost_strict_descent :
   ~ (forall s m region,
-      graph_find_region (vm_graph s) (normalize_region region) = None ->
+      pnew_adds_module (vm_graph s) region ->
       strict_descent_at_step s (instr_pnew region 0) m).
 Proof.
   intro Hall.
@@ -1884,7 +1882,7 @@ Definition calibration_gap_delta (s : VMState) (i : vm_instruction) (m : ModuleI
 Lemma calibration_gap_pnew_disjoint_preserved : forall s region m,
   well_formed_graph (vm_graph s) ->
   region_disjoint_from_graph (vm_graph s) region ->
-  graph_find_region (vm_graph s) (normalize_region region) = None ->
+  pnew_adds_module (vm_graph s) region ->
   m < pg_next_id (vm_graph s) ->
   calibration_gap (vm_apply s (instr_pnew region 0)) m = calibration_gap s m.
 Proof.
@@ -1898,7 +1896,7 @@ Qed.
 Lemma calibration_residual_pnew_disjoint_preserved : forall s region m,
   well_formed_graph (vm_graph s) ->
   region_disjoint_from_graph (vm_graph s) region ->
-  graph_find_region (vm_graph s) (normalize_region region) = None ->
+  pnew_adds_module (vm_graph s) region ->
   m < pg_next_id (vm_graph s) ->
   calibration_residual (vm_apply s (instr_pnew region 0)) m = calibration_residual s m.
 Proof.
@@ -1924,7 +1922,7 @@ Notation semantic_gap_window_semantics :=
    This theorem requires proving that graph topology changes from PNEW produce
    bounded perturbations in both angle_defect_curvature and mu_laplacian. *)
 Lemma calibration_gap_delta_fresh_pnew : forall s m region,
-  graph_find_region (vm_graph s) (normalize_region region) = None ->
+  pnew_adds_module (vm_graph s) region ->
   (0 < calibration_gap s m)%R ->
   calibration_gap (vm_apply s (instr_pnew region 0)) m = 0%R ->
   calibration_gap_delta s (instr_pnew region 0) m = (- calibration_gap s m)%R.
@@ -1936,7 +1934,7 @@ Proof.
 Qed.
 
 Theorem semantic_gap_window_certificate_fresh_pnew_from_delta : forall s m region,
-  graph_find_region (vm_graph s) (normalize_region region) = None ->
+  pnew_adds_module (vm_graph s) region ->
   (0 < calibration_gap s m)%R ->
   calibration_gap (vm_apply s (instr_pnew region 0)) m = 0%R ->
   (0 < calibration_gap s m)%R /\ (-2 * calibration_gap s m < calibration_gap_delta s (instr_pnew region 0) m < 0)%R.
@@ -1949,7 +1947,7 @@ Proof.
 Qed.
 
 Theorem semantic_gap_window_semantics_fresh_pnew_from_delta : forall s m region,
-  graph_find_region (vm_graph s) (normalize_region region) = None ->
+  pnew_adds_module (vm_graph s) region ->
   (0 < calibration_gap s m)%R ->
   calibration_gap (vm_apply s (instr_pnew region 0)) m = 0%R ->
   (0 < calibration_gap s m)%R /\ (-2 * calibration_gap s m < calibration_gap_delta s (instr_pnew region 0) m < 0)%R.
@@ -2119,7 +2117,7 @@ Proof.
 Qed.
 
 Theorem constructive_trace_prioritizes_active_when_uncalibrated : forall s m region,
-  graph_find_region (vm_graph s) (normalize_region region) = None ->
+  pnew_adds_module (vm_graph s) region ->
   run_vm_prioritizes_active_when_uncalibrated (constructive_trace_for_state s region) s m.
 Proof.
   intros s m region Hfresh Hpos.
@@ -2137,7 +2135,7 @@ Proof.
 Qed.
 
 Theorem constructive_trace_semantic_progress_one_step : forall s m region,
-  graph_find_region (vm_graph s) (normalize_region region) = None ->
+  pnew_adds_module (vm_graph s) region ->
   (0 < calibration_residual s m)%R ->
   (0 < calibration_gap s m)%R ->
   calibration_gap (vm_apply s (instr_pnew region 0)) m = 0%R ->
@@ -2178,7 +2176,7 @@ Definition constructive_prefix_obligation
   (plan : list (list nat)) (s : VMState) (m : ModuleID) (k : nat) : Prop :=
   exists region,
     nth_error plan k = Some region /\
-    graph_find_region (vm_graph (constructive_prefix_state plan s k)) (normalize_region region) = None /\
+    pnew_adds_module (vm_graph (constructive_prefix_state plan s k)) region /\
     (0 < calibration_residual (constructive_prefix_state plan s k) m)%R /\
     (0 < calibration_gap (constructive_prefix_state plan s k) m)%R /\
     calibration_gap (vm_apply (constructive_prefix_state plan s k) (constructive_active_instruction region)) m = 0%R.

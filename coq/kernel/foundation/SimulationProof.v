@@ -262,20 +262,20 @@ Qed.
 Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
   match instr with
   | instr_pnew region cost =>
-      (* Hardware always stores seq 0 sz (canonical sequential numbering). *)
-      let sz := List.length (normalize_region region) in
-      let '(graph', _) := graph_add_module s.(vm_graph) (List.seq 0 sz) [] in
-      advance_state s (instr_pnew region cost) graph' s.(vm_csrs) s.(vm_err)
+      (* PNEW claims the range pnew_region region; an overlap traps. *)
+      let r := pnew_region region in
+      partition_step_state s (instr_pnew region cost)
+        (negb (region_conflict s.(vm_graph) r)) (fst (graph_pnew s.(vm_graph) r))
   | instr_psplit module left_region right_region cost =>
-      (* Hardware: half-split module at module mod 64, no failure path *)
+      (* Hardware: half-split the module's range at module mod 64, no failure path *)
       let graph' := graph_hw_psplit s.(vm_graph) (module mod 64) in
       advance_state s (instr_psplit module left_region right_region cost)
         graph' s.(vm_csrs) s.(vm_err)
   | instr_pmerge m1 m2 cost =>
-      (* Hardware: merge two modules by summing sizes, no failure path *)
-      let graph' := graph_hw_pmerge s.(vm_graph) (m1 mod 64) (m2 mod 64) in
-      advance_state s (instr_pmerge m1 m2 cost)
-        graph' s.(vm_csrs) s.(vm_err)
+      (* Hardware: join two ranges that touch; anything else traps *)
+      partition_step_state s (instr_pmerge m1 m2 cost)
+        (pmerge_adjacent s.(vm_graph) (m1 mod 64) (m2 mod 64))
+        (graph_hw_pmerge s.(vm_graph) (m1 mod 64) (m2 mod 64))
   | instr_lassert freg creg kind flen cost =>
       (* Hardware FSM: binary SAT checker from memory, trap on failure.
         Successful execution additionally requires the declared flen to match
@@ -788,12 +788,14 @@ Qed.
 
 (** vm_step_pc_advance: non-jump, non-lassert instructions advance PC by 1.
     Jump/branch/call/ret set pc to arbitrary target.
-    LASSERT conditionally sets pc to S(pc) or LASSERT_TRAP_PC. *)
+    LASSERT conditionally sets pc to S(pc) or LASSERT_TRAP_PC.
+    PNEW and PMERGE set pc to LASSERT_TRAP_PC on a partition fault. *)
 Lemma vm_step_pc_advance :
   forall s instr s',
     vm_step s instr s' ->
     (match instr with
      | instr_jump _ _ | instr_jnez _ _ _ | instr_call _ _ | instr_ret _
+     | instr_pnew _ _ | instr_pmerge _ _ _
      | instr_lassert _ _ _ _ _ | instr_chsh_lassert _
      | instr_chsh_lassert_1ab _ | instr_chsh_lassert_1ab_g5 _ _ _
      | instr_chsh_lassert_1ab_g345 _ _ _ _ _ _ _
@@ -842,6 +844,78 @@ Proof.
     rewrite H.
     rewrite (vm_step_vm_apply _ _ _ H0).
     apply IHHexec.
+Qed.
+
+(** ** Module regions along an execution
+
+    [vm_apply] keeps module regions disjoint and contiguous, so [run_vm]
+    does too. *)
+
+(** Two graphs with the same module list have the same regions. *)
+Lemma partition_regions_ok_same_modules : forall g g',
+  pg_modules g' = pg_modules g -> partition_regions_ok g -> partition_regions_ok g'.
+Proof.
+  intros g g' E [Hd Hc]. unfold partition_regions_ok, regions_disjoint, regions_contiguous.
+  rewrite E. split; assumption.
+Qed.
+(** [vm_apply_preserves_partition_regions_ok]: the executable step keeps
+    module regions disjoint and contiguous. *)
+Theorem vm_apply_preserves_partition_regions_ok : forall s instr,
+  partition_regions_ok s.(vm_graph) ->
+  partition_regions_ok (vm_apply s instr).(vm_graph).
+Proof.
+  intros s instr H. pose proof H as [Hd Hc].
+  destruct instr; simpl; try exact H.
+  all: try (destruct (region_conflict _ _) eqn:?; simpl;
+            [exact H
+            | split; [apply graph_pnew_preserves_regions_disjoint
+                     | apply graph_pnew_preserves_regions_contiguous]; assumption]).
+  all: try (split; [apply graph_hw_psplit_preserves_regions_disjoint
+                   | apply graph_hw_psplit_preserves_regions_contiguous]; assumption).
+  all: try (destruct (pmerge_adjacent _ _ _) eqn:?; simpl;
+            [split; [apply graph_hw_pmerge_preserves_regions_disjoint
+                    | apply graph_hw_pmerge_preserves_regions_contiguous]; assumption
+            | exact H]).
+  all: try (destruct (VMStep.tensor_indices_ok _ _); simpl; [|exact H];
+            split; [apply graph_update_module_tensor_regions_disjoint
+                   | apply graph_update_module_tensor_regions_contiguous]; assumption).
+  all: try (destruct (graph_compose_morphisms _ _ _) as [[g' id']|] eqn:E; simpl; [|exact H];
+            exact (partition_regions_ok_same_modules _ _ (graph_compose_morphisms_modules _ _ _ _ _ E) H)).
+  all: try (destruct (graph_add_identity _ _) as [[g' id']|] eqn:E; simpl; [|exact H];
+            exact (partition_regions_ok_same_modules _ _ (graph_add_identity_modules _ _ _ _ E) H)).
+  all: try (destruct (graph_delete_morphism _ _) as [g'|] eqn:E; simpl; [|exact H];
+            exact (partition_regions_ok_same_modules _ _ (graph_delete_morphism_modules _ _ _ E) H)).
+  all: try (destruct (graph_tensor_morphisms _ _ _) as [[g' id']|] eqn:E; simpl; [|exact H];
+            exact (partition_regions_ok_same_modules _ _ (graph_tensor_morphisms_modules _ _ _ _ _ E) H)).
+  all: try (destruct (graph_lookup (vm_graph s) _); [destruct (graph_lookup (vm_graph s) _)|]; simpl; exact H).
+  all: try (destruct (graph_lookup_morphism _ _); simpl; exact H).
+  all: try (match goal with
+            | |- context [vm_graph (if ?b then _ else _)] => destruct b; simpl; exact H
+            end).
+Qed.
+
+(** [run_vm_preserves_partition_regions_ok]: any run keeps module regions
+    disjoint and contiguous. *)
+Theorem run_vm_preserves_partition_regions_ok : forall fuel trace s,
+  partition_regions_ok s.(vm_graph) ->
+  partition_regions_ok (run_vm fuel trace s).(vm_graph).
+Proof.
+  induction fuel as [|fuel IH]; intros trace s H; simpl; [exact H|].
+  destruct (nth_error trace s.(vm_pc)); [|exact H].
+  apply IH. apply vm_apply_preserves_partition_regions_ok. exact H.
+Qed.
+
+(** [run_vm_regions_disjoint]: from a state with no modules, every run ends
+    in a state whose module regions are pairwise disjoint ranges
+    ([partition_regions_ok]). *)
+Corollary run_vm_regions_disjoint : forall fuel trace s,
+  s.(vm_graph).(pg_modules) = [] ->
+  partition_regions_ok (run_vm fuel trace s).(vm_graph).
+Proof.
+  intros fuel trace s H0.
+  apply run_vm_preserves_partition_regions_ok. split.
+  - apply regions_disjoint_no_modules. exact H0.
+  - apply regions_contiguous_no_modules. exact H0.
 Qed.
 
 (** vm_exec_deterministic: fixed fuel, trace, and start state have one final state. *)
@@ -1167,27 +1241,69 @@ Qed.
     alongside vm_apply.  Both extraction paths must produce the same
     function. This file is the kernel-layer definition. *)
 
-(** PNEW charges exactly [cost] μ-units. *)
+(** vm_apply on PNEW and PMERGE, written as the partition step state. *)
+Lemma vm_apply_pnew_eq :
+  forall (s : VMState) (region : list nat) (cost : nat),
+    vm_apply s (instr_pnew region cost) =
+    partition_step_state s (instr_pnew region cost)
+      (negb (region_conflict s.(vm_graph) (pnew_region region)))
+      (fst (graph_pnew s.(vm_graph) (pnew_region region))).
+Proof. reflexivity. Qed.
+
+Lemma vm_apply_pmerge_eq :
+  forall (s : VMState) (m1 m2 cost : nat),
+    vm_apply s (instr_pmerge m1 m2 cost) =
+    partition_step_state s (instr_pmerge m1 m2 cost)
+      (pmerge_adjacent s.(vm_graph) (m1 mod 64) (m2 mod 64))
+      (graph_hw_pmerge s.(vm_graph) (m1 mod 64) (m2 mod 64)).
+Proof. reflexivity. Qed.
+
+(** PNEW advances the pc unless the claimed range conflicts. *)
+Lemma vm_apply_pnew_pc :
+  forall (s : VMState) (region : list nat) (cost : nat),
+    region_conflict s.(vm_graph) (pnew_region region) = false ->
+    (vm_apply s (instr_pnew region cost)).(vm_pc) = S s.(vm_pc).
+Proof.
+  intros s region cost H. rewrite vm_apply_pnew_eq.
+  unfold partition_step_state. cbn [vm_pc]. rewrite H. reflexivity.
+Qed.
+
+(** PNEW charges exactly [cost] μ-units, on success and on a trap alike. *)
 Lemma pnew_mu_exact :
   forall (s : VMState) (region : list nat) (cost : nat),
     (vm_apply s (instr_pnew region cost)).(vm_mu) = s.(vm_mu) + cost.
 Proof.
   intros s region cost.
   unfold vm_apply.
-  destruct (graph_add_module s.(vm_graph) (List.seq 0 _) []) as [g' mid_new].
-  unfold advance_state. simpl. reflexivity.
+  destruct (region_conflict s.(vm_graph) (pnew_region region)); reflexivity.
 Qed.
 
-(** The graph component of vm_apply for PNEW uses graph_add_module directly. *)
+(** The graph component of vm_apply for PNEW: unchanged on an overlap trap,
+    [graph_pnew] on the claimed range otherwise. *)
 Lemma vm_apply_pnew_graph :
   forall (s : VMState) (region : list nat) (cost : nat),
     (vm_apply s (instr_pnew region cost)).(vm_graph) =
-    fst (graph_add_module s.(vm_graph) (List.seq 0 (List.length (normalize_region region))) []).
+    if region_conflict s.(vm_graph) (pnew_region region)
+    then s.(vm_graph)
+    else fst (graph_pnew s.(vm_graph) (pnew_region region)).
 Proof.
   intros s region cost.
   unfold vm_apply.
-  destruct (graph_add_module s.(vm_graph) (List.seq 0 _) []) as [g' mid_new].
-  unfold advance_state. simpl. reflexivity.
+  destruct (region_conflict s.(vm_graph) (pnew_region region)); reflexivity.
+Qed.
+
+(** When PNEW adds a module, the new graph is [graph_add_module] on the
+    claimed range. *)
+Lemma vm_apply_pnew_graph_adds :
+  forall (s : VMState) (region : list nat) (cost : nat),
+    pnew_adds_module s.(vm_graph) region ->
+    (vm_apply s (instr_pnew region cost)).(vm_graph) =
+    fst (graph_add_module s.(vm_graph) (pnew_region region) []).
+Proof.
+  intros s region cost [Hfree Hfresh].
+  rewrite vm_apply_pnew_graph, Hfree.
+  unfold graph_pnew. cbv zeta. rewrite pnew_region_normalized, Hfresh.
+  reflexivity.
 Qed.
 
 (** graph_add_module never decreases pg_next_id. *)
@@ -1207,7 +1323,8 @@ Lemma vm_apply_pnew_graph_nondec :
 Proof.
   intros s region cost.
   rewrite vm_apply_pnew_graph.
-  apply graph_add_module_next_id_nondec.
+  destruct (region_conflict s.(vm_graph) (pnew_region region)); [lia|].
+  apply graph_pnew_next_id_nondec.
 Qed.
 
 (** vm_apply for PNEW preserves lookups for pre-existing modules. *)
@@ -1219,7 +1336,8 @@ Lemma vm_apply_pnew_noninterference :
 Proof.
   intros s region cost mid Hlt.
   rewrite vm_apply_pnew_graph.
-  apply graph_add_module_lookup_other. exact Hlt.
+  destruct (region_conflict s.(vm_graph) (pnew_region region)); [reflexivity|].
+  apply graph_pnew_lookup_other. exact Hlt.
 Qed.
 
 (** pnew_chain applies PNEW n times.

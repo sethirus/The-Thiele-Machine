@@ -47,6 +47,8 @@ Import RevelationRequirement.RevelationProof.
        (no backward edges).
     4. LASSERT: on failure, jumps to LASSERT_TRAP_PC = 3840. We require
        the trace is short enough that this also exits bounds: length ≤ LASSERT_TRAP_PC.
+       PNEW and PMERGE trap to the same vector on a partition fault, so they
+       carry the same length condition.
 
     These are static properties of the instruction and its position. They do
     not depend on runtime register values. *)
@@ -57,6 +59,8 @@ Definition is_dag_instr_at (pc trace_len : nat) (instr : vm_instruction) : bool 
   | instr_jnez _ target _   => Nat.ltb pc target
   | instr_call _ _          => false
   | instr_ret _             => false
+  | instr_pnew _ _          => Nat.leb trace_len LASSERT_TRAP_PC
+  | instr_pmerge _ _ _      => Nat.leb trace_len LASSERT_TRAP_PC
   | instr_lassert _ _ _ _ _ => Nat.leb trace_len LASSERT_TRAP_PC
   | instr_chsh_lassert _    => Nat.leb trace_len LASSERT_TRAP_PC
   | instr_chsh_lassert_1ab _ => Nat.leb trace_len LASSERT_TRAP_PC
@@ -189,6 +193,10 @@ Proof.
      (to avoid simpl unfolding lassert_exec_ok and friends). *)
   unfold is_dag_instr_at in Hdag.
   destruct instr; simpl in Hdag;
+    (* PNEW, PMERGE: success advances, a partition trap jumps to LASSERT_TRAP_PC *)
+    try (unfold vm_apply; simpl;
+         first [destruct (negb _) | destruct (pmerge_adjacent _ _ _)]; simpl;
+         [lia | apply Nat.leb_le in Hdag; unfold LASSERT_TRAP_PC in *; lia]);
     try (unfold vm_apply, advance_state; simpl; lia);
     try (unfold vm_apply, advance_state_rm; simpl; lia);
     try (unfold vm_apply, advance_state_reveal; simpl; lia);
@@ -369,13 +377,17 @@ Qed.
     accumulate mu-cost — pass the DAG check unconditionally (or under the
     trivially satisfied condition length ≤ LASSERT_TRAP_PC = 3840). *)
 
-(** PNEW, EMIT, CERTIFY, MORPH, MORPH_ID, MORPH_ASSERT, MORPH_TENSOR,
+(** EMIT, CERTIFY, MORPH, MORPH_ID, MORPH_ASSERT, MORPH_TENSOR,
     MORPH_DELETE, MORPH_GET, COMPOSE: all use advance_state or advance_state_rm,
-    so is_dag_instr_at = true for any pc and trace length. *)
+    so is_dag_instr_at = true for any pc and trace length. PNEW traps to
+    LASSERT_TRAP_PC on an overlapping range, so it carries LASSERT's length
+    condition. *)
 
 Lemma dag_safe_pnew :
-  forall pc n region cost, is_dag_instr_at pc n (instr_pnew region cost) = true.
-Proof. intros. reflexivity. Qed.
+  forall pc n region cost,
+    n <= LASSERT_TRAP_PC ->
+    is_dag_instr_at pc n (instr_pnew region cost) = true.
+Proof. intros pc n region cost Hn. unfold is_dag_instr_at. apply Nat.leb_le. exact Hn. Qed.
 
 Lemma dag_safe_emit :
   forall pc n module payload cost,
@@ -447,8 +459,8 @@ Theorem dag_structural_completeness :
 Proof.
   intro n. intro Hn.
   repeat split; intros; try reflexivity.
-  (* LASSERT: needs n ≤ LASSERT_TRAP_PC *)
-  unfold is_dag_instr_at. apply Nat.leb_le. exact Hn.
+  (* PNEW and LASSERT: need n ≤ LASSERT_TRAP_PC *)
+  all: unfold is_dag_instr_at; apply Nat.leb_le; exact Hn.
 Qed.
 
 (** ** No Free Insight Preservation

@@ -104,7 +104,9 @@ Theorem information_creates_curvature : forall s s' m region cost threshold,
   vm_step s (instr_pnew region cost) s' ->
   In m region ->
   length (normalize_region region) = 3%nat ->
-  graph_find_region (vm_graph s) (normalize_region region) = None ->
+  (* PNEW's range is fresh and overlaps no module *)
+  graph_find_region (vm_graph s) (pnew_region region) = None ->
+  region_conflict (vm_graph s) (pnew_region region) = false ->
   cost > 0 ->
   (* Then: *)
   (* 1. Topology changes *)
@@ -116,7 +118,7 @@ Theorem information_creates_curvature : forall s s' m region cost threshold,
     (total_curvature (vm_graph s') - total_curvature (vm_graph s) =
      einstein_coupling_constant * IZR Δχ)%R.
 Proof.
-  intros s s' m region cost threshold Hwf Hwf' Hhigh Hstep Hin Htriangle Hfresh Hcost.
+  intros s s' m region cost threshold Hwf Hwf' Hhigh Hstep Hin Htriangle Hfresh Hfree Hcost.
 
   split.
 

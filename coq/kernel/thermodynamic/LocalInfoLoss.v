@@ -137,7 +137,10 @@ Proof.
   intros s region cost s' Hstep.
   inversion Hstep; subst.
   unfold state_info.
-  cbn [vm_graph advance_state].
+  cbn [vm_graph partition_step_state].
+  destruct (negb _); [|lia].
+  unfold graph_pnew. cbv zeta.
+  destruct (graph_find_region _ _); [simpl; lia|].
   rewrite graph_add_module_length. lia.
 Qed.
 
@@ -201,7 +204,8 @@ Lemma pmerge_module_count_change :
 Proof.
   intros s m1 m2 cost s' Hstep.
   inversion Hstep; subst; unfold state_info.
-  cbn [vm_graph advance_state].
+  cbn [vm_graph partition_step_state].
+  destruct (pmerge_adjacent _ _ _); [|lia].
   pose proof (graph_hw_pmerge_length_upper (vm_graph s) (m1 mod 64) (m2 mod 64)).
   lia.
 Qed.
@@ -476,7 +480,8 @@ Proof.
   intros s m1 m2 cost s' Hstep.
   unfold info_loss, state_info.
   inversion Hstep; subst.
-  cbn [vm_graph advance_state].
+  cbn [vm_graph partition_step_state].
+  destruct (pmerge_adjacent _ _ _); [|lia].
   pose proof (graph_hw_pmerge_length_bound (vm_graph s) (m1 mod 64) (m2 mod 64)).
   lia.
 Qed.

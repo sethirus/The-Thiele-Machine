@@ -597,6 +597,26 @@ Definition region_conflict (g : PartitionGraph) (r : list nat) : bool :=
                     negb (nat_list_disjoint (snd p).(module_region) r))
           g.(pg_modules).
 
+(** PNEW of the empty region claims nothing, so it never conflicts. *)
+Lemma pnew_region_nil : pnew_region [] = [].
+Proof. reflexivity. Qed.
+
+Lemma region_conflict_nil : forall g, region_conflict g [] = false.
+Proof.
+  intro g. unfold region_conflict.
+  induction (pg_modules g) as [|p rest IH]; [reflexivity|].
+  cbn [existsb]. rewrite IH.
+  assert (Hd : nat_list_disjoint (module_region (snd p)) [] = true).
+  { apply nat_list_disjoint_spec. intros x _ []. }
+  rewrite Hd. rewrite andb_false_r. reflexivity.
+Qed.
+
+(** pnew_adds_module g region: PNEW of [region] adds a fresh module to [g].
+    Its range overlaps no module, and no module owns exactly that range. *)
+Definition pnew_adds_module (g : PartitionGraph) (region : list nat) : Prop :=
+  region_conflict g (pnew_region region) = false /\
+  graph_find_region g (pnew_region region) = None.
+
 (** region_contiguousb: decision procedure for [region_contiguous]. *)
 Definition region_contiguousb (r : list nat) : bool :=
   if list_eq_dec Nat.eq_dec r (List.seq (hd 0 r) (List.length r)) then true else false.
@@ -636,23 +656,31 @@ Definition psplit_right (r : list nat) : list nat :=
     the faults apart. *)
 Definition ERR_PARTITION_OVERLAP : nat := 1.
 
-(** partition_trap_state: PNEW on an overlapping region and PMERGE of two
-    regions that do not touch trap the way a failed LASSERT does. The graph
-    stays as it was, csr_err is set, the error flag latches, the pc jumps to
-    the trap vector, and the cost is charged. *)
-Definition partition_trap_state (s : VMState) (instr : vm_instruction) : VMState :=
-  {| vm_graph := s.(vm_graph);
-     vm_csrs := csr_set_err s.(vm_csrs) ERR_PARTITION_OVERLAP;
+(** partition_step_state s instr ok graph: the state after PNEW or PMERGE.
+    When [ok] holds the step installs [graph] and advances the pc, exactly
+    as [advance_state] does. When [ok] fails the step traps the way a
+    failed LASSERT does: the graph stays as it was, csr_err is set, the
+    error flag latches, and the pc jumps to the trap vector. The cost is
+    charged either way ([vm_mu] is [apply_cost s instr], written out). *)
+Definition partition_step_state (s : VMState) (instr : vm_instruction)
+  (ok : bool) (graph : PartitionGraph) : VMState :=
+  {| vm_graph := if ok then graph else s.(vm_graph);
+     vm_csrs := if ok then s.(vm_csrs) else csr_set_err s.(vm_csrs) ERR_PARTITION_OVERLAP;
      vm_regs := s.(vm_regs);
      vm_mem := s.(vm_mem);
-     vm_pc := LASSERT_TRAP_PC;
-     vm_mu := apply_cost s instr;
+     vm_pc := if ok then S s.(vm_pc) else LASSERT_TRAP_PC;
+     vm_mu := s.(vm_mu) + instruction_cost instr;
      vm_mu_tensor := s.(vm_mu_tensor);
-     vm_err := true;
+     vm_err := if ok then s.(vm_err) else true;
      vm_logic_acc := s.(vm_logic_acc);
      vm_mstatus := s.(vm_mstatus);
      vm_witness := s.(vm_witness);
      vm_certified := s.(vm_certified) |}.
+
+Lemma partition_step_state_ok : forall s instr graph,
+  partition_step_state s instr true graph =
+  advance_state s instr graph s.(vm_csrs) s.(vm_err).
+Proof. reflexivity. Qed.
 
 (** graph_hw_psplit: Hardware-aligned PSPLIT. The module is removed and two
     fresh modules take the two halves of its range: the left one gets the
@@ -1694,14 +1722,13 @@ Definition lassert_exec_ok (s : VMState) (freg creg : nat) (kind : bool) (flen :
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
 (** step_pnew: Claim the range [pnew_region region]. If it overlaps a module's
     region without being equal to it, the step traps (see
-    [partition_trap_state]). Otherwise [graph_pnew] adds a fresh module, or
+    [partition_step_state]). Otherwise [graph_pnew] adds a fresh module, or
     keeps the graph when a module already owns exactly that range. *)
 | step_pnew : forall s region cost graph',
     graph' = fst (graph_pnew s.(vm_graph) (pnew_region region)) ->
     vm_step s (instr_pnew region cost)
-      (if region_conflict s.(vm_graph) (pnew_region region)
-       then partition_trap_state s (instr_pnew region cost)
-       else advance_state s (instr_pnew region cost) graph' s.(vm_csrs) s.(vm_err))
+      (partition_step_state s (instr_pnew region cost)
+        (negb (region_conflict s.(vm_graph) (pnew_region region))) graph')
 (** step_psplit: Split a module's range into two halves with graph_hw_psplit
     (left gets the first size/2 addresses, right gets the rest). The abstract
     left/right parameters are accepted but ignored. The split is always equal
@@ -1718,9 +1745,8 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
 | step_pmerge : forall s m1 m2 cost graph',
     graph' = graph_hw_pmerge s.(vm_graph) (m1 mod 64) (m2 mod 64) ->
     vm_step s (instr_pmerge m1 m2 cost)
-      (if pmerge_adjacent s.(vm_graph) (m1 mod 64) (m2 mod 64)
-       then advance_state s (instr_pmerge m1 m2 cost) graph' s.(vm_csrs) s.(vm_err)
-       else partition_trap_state s (instr_pmerge m1 m2 cost))
+      (partition_step_state s (instr_pmerge m1 m2 cost)
+        (pmerge_adjacent s.(vm_graph) (m1 mod 64) (m2 mod 64)) graph')
 (** step_lassert: Check a formula with a binary SAT certificate.
     freg = register holding formula base address in memory.
     creg = register holding certificate base address in memory.
@@ -2423,6 +2449,83 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
          vm_witness := s.(vm_witness);
          vm_certified := s.(vm_certified) |}.
 
+(** ** What the partition operations leave alone
+
+    PNEW, PSPLIT and PMERGE never change the module a lookup finds for an
+    ID below [pg_next_id] that the instruction does not name. *)
+
+Lemma graph_remove_or_keep_next_id : forall g victim,
+  pg_next_id (match graph_remove g victim with Some (g', _) => g' | None => g end) =
+  pg_next_id g.
+Proof.
+  intros g victim. unfold graph_remove.
+  destruct (graph_remove_modules (pg_modules g) victim) as [[mods' r]|]; reflexivity.
+Qed.
+
+Lemma graph_remove_or_keep_lookup_other : forall g victim mid,
+  mid <> victim ->
+  graph_lookup (match graph_remove g victim with Some (g', _) => g' | None => g end) mid =
+  graph_lookup g mid.
+Proof.
+  intros g victim mid Hne. unfold graph_remove, graph_lookup.
+  destruct (graph_remove_modules (pg_modules g) victim) as [[mods' r]|] eqn:E; [|reflexivity].
+  cbn [pg_modules]. exact (graph_remove_modules_lookup_other _ _ _ _ _ E Hne).
+Qed.
+
+(** graph_pnew never decreases pg_next_id. *)
+Lemma graph_pnew_next_id_nondec :
+  forall (g : PartitionGraph) (region : list nat),
+    g.(pg_next_id) <= (fst (graph_pnew g region)).(pg_next_id).
+Proof.
+  intros g region. unfold graph_pnew.
+  destruct (graph_find_region g (normalize_region region)); simpl; lia.
+Qed.
+
+(** graph_pnew keeps the lookup of every ID below pg_next_id. *)
+Lemma graph_pnew_lookup_other :
+  forall (g : PartitionGraph) (region : list nat) (mid : ModuleID),
+    mid < g.(pg_next_id) ->
+    graph_lookup (fst (graph_pnew g region)) mid = graph_lookup g mid.
+Proof.
+  intros g region mid Hlt. unfold graph_pnew.
+  destruct (graph_find_region g (normalize_region region)); [reflexivity|].
+  apply graph_add_module_lookup_other. exact Hlt.
+Qed.
+
+Lemma graph_hw_psplit_lookup_other : forall g victim mid,
+  mid < pg_next_id g -> mid <> victim ->
+  graph_lookup (graph_hw_psplit g victim) mid = graph_lookup g mid.
+Proof.
+  intros g victim mid Hlt Hne. unfold graph_hw_psplit.
+  rewrite <- (graph_remove_or_keep_lookup_other g victim mid Hne).
+  pose proof (graph_remove_or_keep_next_id g victim) as Hn.
+  set (g1 := match graph_remove g victim with Some (g', _) => g' | None => g end) in *.
+  destruct (graph_add_module g1 _ []) as [g2 id2] eqn:E2.
+  destruct (graph_add_module g2 _ []) as [g3 id3] eqn:E3.
+  change g3 with (fst (g3, id3)). rewrite <- E3.
+  rewrite graph_add_module_lookup_other.
+  - change g2 with (fst (g2, id2)). rewrite <- E2.
+    apply graph_add_module_lookup_other. lia.
+  - pose proof (f_equal (fun p => pg_next_id (fst p)) E2) as Ht.
+    unfold graph_add_module in Ht. simpl in Ht. lia.
+Qed.
+
+Lemma graph_hw_pmerge_lookup_other : forall g m1 m2 mid,
+  mid < pg_next_id g -> mid <> m1 -> mid <> m2 ->
+  graph_lookup (graph_hw_pmerge g m1 m2) mid = graph_lookup g mid.
+Proof.
+  intros g m1 m2 mid Hlt Hne1 Hne2. unfold graph_hw_pmerge.
+  rewrite <- (graph_remove_or_keep_lookup_other g m1 mid Hne1).
+  pose proof (graph_remove_or_keep_next_id g m1) as Hn1.
+  set (g1 := match graph_remove g m1 with Some (g', _) => g' | None => g end) in *.
+  rewrite <- (graph_remove_or_keep_lookup_other g1 m2 mid Hne2).
+  pose proof (graph_remove_or_keep_next_id g1 m2) as Hn2.
+  set (g2 := match graph_remove g1 m2 with Some (g', _) => g' | None => g1 end) in *.
+  destruct (graph_add_module g2 _ []) as [g3 id3] eqn:E3.
+  change g3 with (fst (g3, id3)). rewrite <- E3.
+  apply graph_add_module_lookup_other. lia.
+Qed.
+
 (** ** The partition is a real partition of memory
 
     [regions_disjoint] (no address in two modules) and [regions_contiguous]
@@ -2521,7 +2624,7 @@ Theorem psplit_halves_of_range : forall b n,
   psplit_right (List.seq b n) = List.seq (b + Nat.div n 2) (n - Nat.div n 2).
 Proof.
   intros b n. unfold psplit_left, psplit_right. rewrite seq_length.
-  assert (Hk : Nat.div n 2 <= n) by (apply Nat.div_le_upper_bound; lia).
+  assert (Hk : Nat.div n 2 <= n) by (apply Nat.Div0.div_le_upper_bound; lia).
   split; [apply firstn_seq_range | apply skipn_seq_range]; exact Hk.
 Qed.
 
@@ -2742,6 +2845,7 @@ Theorem vm_step_preserves_regions_disjoint : forall s instr s',
 Proof.
   intros s instr s' Hstep Hd.
   inversion Hstep; subst; simpl; try exact Hd.
+  all: try (destruct (region_conflict _ _) eqn:?; simpl; try exact Hd).
   all: try (match goal with
             | |- context [if ?b then _ else _] => destruct b eqn:?; simpl; try exact Hd
             end).
@@ -2773,6 +2877,7 @@ Theorem vm_step_preserves_regions_contiguous : forall s instr s',
 Proof.
   intros s instr s' Hstep Hc.
   inversion Hstep; subst; simpl; try exact Hc.
+  all: try (destruct (region_conflict _ _) eqn:?; simpl; try exact Hc).
   all: try (match goal with
             | |- context [if ?b then _ else _] => destruct b eqn:?; simpl; try exact Hc
             end).

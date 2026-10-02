@@ -78,7 +78,7 @@ Qed.
 Lemma cert_pc : run_certify.(vm_pc) = run_pnew3.(vm_pc).
 Proof.
   rewrite run_certify_step, run_pnew3_step.
-  rewrite abs_certify_pc, abs_pnew_pc. reflexivity.
+  rewrite abs_certify_pc, abs_pnew_pc by apply region_conflict_nil. reflexivity.
 Qed.
 
 Lemma cert_mu : run_certify.(vm_mu) = run_pnew3.(vm_mu).
@@ -163,17 +163,18 @@ Lemma mdlacc_graph : forall s m c,
   (vm_apply s (instr_mdlacc m c)).(vm_graph) = s.(vm_graph).
 Proof. intros. unfold vm_apply, advance_state. reflexivity. Qed.
 
-(* PNEW conses exactly one module onto the partition graph. *)
+(* PNEW conses exactly one module onto the partition graph when its range
+   overlaps no module and no module owns exactly that range. *)
 Lemma pnew_module_count_succ : forall s r c,
+  region_conflict s.(vm_graph) (pnew_region r) = false ->
+  graph_find_region s.(vm_graph) (pnew_region r) = None ->
   length (pg_modules ((vm_apply s (instr_pnew r c)).(vm_graph)))
   = S (length (pg_modules s.(vm_graph))).
 Proof.
-  intros s r c. unfold vm_apply. cbv zeta.
-  destruct (graph_add_module s.(vm_graph)
-              (List.seq 0 (length (normalize_region r))) []) as [g' mid] eqn:E.
-  unfold advance_state. cbn [vm_graph].
-  unfold graph_add_module in E. injection E as Hg' _.
-  subst g'. cbn [pg_modules]. reflexivity.
+  intros s r c Hfree Hfresh. rewrite vm_apply_pnew_eq.
+  unfold partition_step_state. cbn [vm_graph]. rewrite Hfree. cbn [negb].
+  unfold graph_pnew. cbv zeta. rewrite pnew_region_normalized, Hfresh.
+  reflexivity.
 Qed.
 
 Definition run_pnew0  : VMState := exec_trace_from init_state [instr_pnew [] 0].
@@ -210,7 +211,7 @@ Qed.
 Lemma graph_pair_pc : run_pnew0.(vm_pc) = run_mdlacc.(vm_pc).
 Proof.
   rewrite run_pnew0_step, run_mdlacc_step.
-  rewrite abs_pnew_pc, mdlacc_pc. reflexivity.
+  rewrite abs_pnew_pc, mdlacc_pc by apply region_conflict_nil. reflexivity.
 Qed.
 
 Lemma graph_pair_mu : run_pnew0.(vm_mu) = run_mdlacc.(vm_mu).
@@ -232,7 +233,7 @@ Proof.
   intro H.
   assert (Hp : length (pg_modules run_pnew0.(vm_graph)) = 1).
   { rewrite run_pnew0_step.
-    rewrite pnew_module_count_succ.
+    rewrite pnew_module_count_succ by reflexivity.
     rewrite init_modules_zero. reflexivity. }
   assert (Hm : length (pg_modules run_mdlacc.(vm_graph)) = 0).
   { rewrite run_mdlacc_step.

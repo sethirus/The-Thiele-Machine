@@ -149,48 +149,30 @@ Lemma advance_state_mu_eq :
 Proof. intros. unfold advance_state. simpl. reflexivity. Qed.
 
 (** PNEW field consequences: vm_apply (instr_pnew r c) preserves mem, regs,
-    certified and advances pc by 1.  Proved by destructuring graph_add_module
-    (whose return value does not affect the advance_state mem/regs/pc fields). *)
+    certified, charges c, and advances pc by 1 when its range overlaps no
+    module ([region_conflict] is false; the empty range never conflicts). *)
 
 Lemma vm_apply_pnew_mem_preserved :
   forall s r c, (vm_apply s (instr_pnew r c)).(vm_mem) = s.(vm_mem).
-Proof.
-  intros s r c. unfold vm_apply.
-  destruct (graph_add_module s.(vm_graph) (List.seq 0 _) []) as [g' _].
-  apply advance_state_mem_eq.
-Qed.
+Proof. intros s r c. rewrite vm_apply_pnew_eq. reflexivity. Qed.
 
 Lemma vm_apply_pnew_regs_preserved :
   forall s r c, (vm_apply s (instr_pnew r c)).(vm_regs) = s.(vm_regs).
-Proof.
-  intros s r c. unfold vm_apply.
-  destruct (graph_add_module s.(vm_graph) (List.seq 0 _) []) as [g' _].
-  apply advance_state_regs_eq.
-Qed.
+Proof. intros s r c. rewrite vm_apply_pnew_eq. reflexivity. Qed.
 
 Lemma vm_apply_pnew_pc_advances :
-  forall s r c, (vm_apply s (instr_pnew r c)).(vm_pc) = S s.(vm_pc).
-Proof.
-  intros s r c. unfold vm_apply.
-  destruct (graph_add_module s.(vm_graph) (List.seq 0 _) []) as [g' _].
-  apply advance_state_pc_eq.
-Qed.
+  forall s r c,
+    region_conflict s.(vm_graph) (pnew_region r) = false ->
+    (vm_apply s (instr_pnew r c)).(vm_pc) = S s.(vm_pc).
+Proof. intros s r c H. apply vm_apply_pnew_pc. exact H. Qed.
 
 Lemma vm_apply_pnew_certified_preserved :
   forall s r c, (vm_apply s (instr_pnew r c)).(vm_certified) = s.(vm_certified).
-Proof.
-  intros s r c. unfold vm_apply.
-  destruct (graph_add_module s.(vm_graph) (List.seq 0 _) []) as [g' _].
-  apply advance_state_certified_eq.
-Qed.
+Proof. intros s r c. rewrite vm_apply_pnew_eq. reflexivity. Qed.
 
 Lemma vm_apply_pnew_mu_charged :
   forall s r c, (vm_apply s (instr_pnew r c)).(vm_mu) = s.(vm_mu) + c.
-Proof.
-  intros s r c. unfold vm_apply.
-  destruct (graph_add_module s.(vm_graph) (List.seq 0 _) []) as [g' _].
-  unfold advance_state, apply_cost, instruction_cost. simpl. reflexivity.
-Qed.
+Proof. intros s r c. rewrite vm_apply_pnew_eq. reflexivity. Qed.
 
 (** CERTIFY field consequences: vm_apply (instr_certify d) preserves mem and
     regs, advances pc by 1, and unconditionally sets vm_certified := true.
@@ -234,14 +216,15 @@ Qed.
 
 Lemma vm_apply_pnew_strict_shadow :
   forall s r c,
+    region_conflict s.(vm_graph) (pnew_region r) = false ->
     strict_shadow (vm_apply s (instr_pnew r c)) =
     {| scs_mem := s.(vm_mem); scs_regs := s.(vm_regs); scs_pc := S s.(vm_pc) |}.
 Proof.
-  intros s r c.
+  intros s r c H.
   unfold strict_shadow.
   rewrite vm_apply_pnew_mem_preserved,
           vm_apply_pnew_regs_preserved,
-          vm_apply_pnew_pc_advances.
+          (vm_apply_pnew_pc_advances s r c H).
   reflexivity.
 Qed.
 
@@ -343,7 +326,7 @@ Theorem po1_cond2_final_shadow_equal :
 Proof.
   unfold po1_state_A, po1_state_B, po1_instr_A, po1_instr_B.
   rewrite vm_apply_certify_strict_shadow,
-          vm_apply_pnew_strict_shadow.
+          vm_apply_pnew_strict_shadow by apply region_conflict_nil.
   unfold po1_init. simpl. reflexivity.
 Qed.
 
@@ -695,7 +678,8 @@ Theorem mu_ledger_necessity_universal :
 Proof.
   intro s.
   refine (conj _ (conj _ (conj _ _))).
-  - rewrite vm_apply_certify_strict_shadow, vm_apply_pnew_strict_shadow.
+  - rewrite vm_apply_certify_strict_shadow, vm_apply_pnew_strict_shadow
+      by apply region_conflict_nil.
     reflexivity.
   - rewrite vm_apply_certify_mu_charged. simpl. lia.
   - rewrite vm_apply_pnew_mu_charged. simpl. lia.

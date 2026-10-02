@@ -450,10 +450,12 @@ Proof.
   intros s instr s' Hstep.
   inversion Hstep; subst; simpl;
     try lia.
+  - (* pnew: graph_pnew on success, unchanged graph on a trap *)
+    destruct (negb _); [apply graph_pnew_next_id_nondec | lia].
   - (* psplit *)
     apply graph_hw_psplit_next_id_nondec.
-  - (* pmerge *)
-    apply graph_hw_pmerge_next_id_nondec.
+  - (* pmerge: graph_hw_pmerge on success, unchanged graph on a trap *)
+    destruct (pmerge_adjacent _ _ _); [apply graph_hw_pmerge_next_id_nondec | lia].
   - (* tensor_set_ok *)
     rewrite graph_update_module_tensor_next_id_same.
     lia.
@@ -504,84 +506,23 @@ Proof.
            jump_state, jump_state_rm in *;
     cbn [vm_graph] in *;
     try reflexivity.
-  (* Goal 1: step_pnew *)
-  - rewrite graph_add_module_lookup_other; [reflexivity | exact Hmid_lt].
+  (* Goal 1: step_pnew; a trap leaves the graph unchanged *)
+  - cbn [partition_step_state vm_graph].
+    destruct (negb _); [|reflexivity].
+    rewrite graph_pnew_lookup_other; [reflexivity | exact Hmid_lt].
   (* Goal 2: step_psplit — graph_hw_psplit *)
   - assert (Hneq: mid <> module mod 64).
     { intro Heq. apply Hnotin. unfold instr_targets. left. symmetry. exact Heq. }
-    unfold graph_hw_psplit, graph_module_size.
-    destruct (graph_remove (vm_graph s) (module mod 64)) as [[g1 m_rm]|] eqn:Hrm.
-    + (* graph_remove succeeded *)
-      pose proof (graph_remove_preserves_next_id _ _ _ _ Hrm) as Hnid.
-      destruct (graph_add_module g1 _ _) as [g2 mid2] eqn:Hadd1.
-      destruct (graph_add_module g2 _ _) as [g3 mid3] eqn:Hadd2.
-      simpl.
-      enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
-      transitivity (graph_lookup g2 mid).
-      * change g3 with (fst (g3, mid3)). rewrite <- Hadd2.
-        apply graph_add_module_lookup_other.
-        pose proof (f_equal (fun p => pg_next_id (fst p)) Hadd1) as Htmp.
-        unfold graph_add_module in Htmp. simpl in Htmp. lia.
-      * transitivity (graph_lookup g1 mid).
-        -- change g2 with (fst (g2, mid2)). rewrite <- Hadd1.
-           apply graph_add_module_lookup_other. lia.
-        -- exact (graph_remove_preserves_unrelated _ mid _ _ _ Hneq Hrm).
-    + (* graph_remove failed *)
-      destruct (graph_add_module (vm_graph s) _ _) as [g2 mid2] eqn:Hadd1.
-      destruct (graph_add_module g2 _ _) as [g3 mid3] eqn:Hadd2.
-      simpl.
-      enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
-      transitivity (graph_lookup g2 mid).
-      * change g3 with (fst (g3, mid3)). rewrite <- Hadd2.
-        apply graph_add_module_lookup_other.
-        pose proof (f_equal (fun p => pg_next_id (fst p)) Hadd1) as Htmp.
-        unfold graph_add_module in Htmp. simpl in Htmp. lia.
-      * change g2 with (fst (g2, mid2)). rewrite <- Hadd1.
-        apply graph_add_module_lookup_other. exact Hmid_lt.
-  (* Goal 3: step_pmerge — graph_hw_pmerge *)
+    rewrite graph_hw_psplit_lookup_other; [reflexivity | exact Hmid_lt | exact Hneq].
+  (* Goal 3: step_pmerge, graph_hw_pmerge; a trap leaves the graph unchanged *)
   - assert (Hneq1: mid <> m1 mod 64).
     { intro Heq. apply Hnotin. unfold instr_targets. left. symmetry. exact Heq. }
     assert (Hneq2: mid <> m2 mod 64).
     { intro Heq. apply Hnotin. unfold instr_targets. right. left. symmetry. exact Heq. }
-    unfold graph_hw_pmerge, graph_module_size.
-    destruct (graph_remove (vm_graph s) (m1 mod 64)) as [[g1 m1_rm]|] eqn:Hrm1.
-    + (* first remove succeeded *)
-      pose proof (graph_remove_preserves_next_id _ _ _ _ Hrm1) as Hnid1.
-      pose proof (graph_remove_preserves_unrelated _ mid _ _ _ Hneq1 Hrm1) as Hlu1.
-      destruct (graph_remove g1 (m2 mod 64)) as [[g2 m2_rm]|] eqn:Hrm2.
-      * (* second remove succeeded *)
-        pose proof (graph_remove_preserves_next_id _ _ _ _ Hrm2) as Hnid2.
-        pose proof (graph_remove_preserves_unrelated _ mid _ _ _ Hneq2 Hrm2) as Hlu2.
-        destruct (graph_add_module g2 _ _) as [g3 mid3] eqn:Hadd.
-        simpl.
-        enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
-        change g3 with (fst (g3, mid3)). rewrite <- Hadd.
-        rewrite graph_add_module_lookup_other by lia.
-        rewrite Hlu2. exact Hlu1.
-      * (* second remove failed *)
-        destruct (graph_add_module g1 _ _) as [g3 mid3] eqn:Hadd.
-        simpl.
-        enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
-        change g3 with (fst (g3, mid3)). rewrite <- Hadd.
-        rewrite graph_add_module_lookup_other by lia.
-        exact Hlu1.
-    + (* first remove failed *)
-      destruct (graph_remove (vm_graph s) (m2 mod 64)) as [[g2 m2_rm]|] eqn:Hrm2.
-      * (* second remove succeeded *)
-        pose proof (graph_remove_preserves_next_id _ _ _ _ Hrm2) as Hnid2.
-        pose proof (graph_remove_preserves_unrelated _ mid _ _ _ Hneq2 Hrm2) as Hlu2.
-        destruct (graph_add_module g2 _ _) as [g3 mid3] eqn:Hadd.
-        simpl.
-        enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
-        change g3 with (fst (g3, mid3)). rewrite <- Hadd.
-        rewrite graph_add_module_lookup_other by lia.
-        exact Hlu2.
-      * (* both removes failed *)
-        destruct (graph_add_module (vm_graph s) _ _) as [g3 mid3] eqn:Hadd.
-        simpl.
-        enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
-        change g3 with (fst (g3, mid3)). rewrite <- Hadd.
-        apply graph_add_module_lookup_other. exact Hmid_lt.
+    cbn [partition_step_state vm_graph].
+    destruct (pmerge_adjacent _ _ _); [|reflexivity].
+    rewrite graph_hw_pmerge_lookup_other;
+      [reflexivity | exact Hmid_lt | exact Hneq1 | exact Hneq2].
   (* Goal 4: step_tensor_set_ok — only the target module tensor mutates. *)
   - assert (Hneq : mid <> mid0).
     { intro Heq. apply Hnotin. unfold instr_targets. simpl. left. symmetry. exact Heq. }
