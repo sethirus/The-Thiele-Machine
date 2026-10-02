@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 504,
-  "total_addressable": 14074,
+  "files_probed": 506,
+  "total_addressable": 14330,
   "total_unaddressable": 8,
   "extras_addressable_via_instantiation": [
     {
@@ -512,7 +512,7 @@
     {
       "file": "coq/ThieleMachineComplete.v",
       "qualified_module": "ThieleMachineComplete",
-      "addressable_count": 416,
+      "addressable_count": 420,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -724,6 +724,26 @@
           "local_name": "io_read_cost_positive",
           "kind": "Lemma",
           "full_name": "ThieleMachineComplete.io_read_cost_positive"
+        },
+        {
+          "local_name": "vm_apply_pnew_eq",
+          "kind": "Lemma",
+          "full_name": "ThieleMachineComplete.vm_apply_pnew_eq"
+        },
+        {
+          "local_name": "vm_apply_pnew_pc",
+          "kind": "Lemma",
+          "full_name": "ThieleMachineComplete.vm_apply_pnew_pc"
+        },
+        {
+          "local_name": "nat_list_disjoint_nil_r",
+          "kind": "Lemma",
+          "full_name": "ThieleMachineComplete.nat_list_disjoint_nil_r"
+        },
+        {
+          "local_name": "region_conflict_nil",
+          "kind": "Lemma",
+          "full_name": "ThieleMachineComplete.region_conflict_nil"
         },
         {
           "local_name": "vm_apply_mu",
@@ -2785,7 +2805,7 @@
     {
       "file": "coq/kami_hw/Abstraction.v",
       "qualified_module": "KamiHW.Abstraction",
-      "addressable_count": 38,
+      "addressable_count": 52,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -2807,6 +2827,11 @@
           "local_name": "kami_err_morph_not_found_witness",
           "kind": "Lemma",
           "full_name": "KamiHW.Abstraction.kami_err_morph_not_found_witness"
+        },
+        {
+          "local_name": "kami_err_partition_overlap_witness",
+          "kind": "Lemma",
+          "full_name": "KamiHW.Abstraction.kami_err_partition_overlap_witness"
         },
         {
           "local_name": "kami_step_mu_cost",
@@ -2854,6 +2879,16 @@
           "full_name": "KamiHW.Abstraction.filter_map_app_dist"
         },
         {
+          "local_name": "snap_pt_to_graph_modules",
+          "kind": "Lemma",
+          "full_name": "KamiHW.Abstraction.snap_pt_to_graph_modules"
+        },
+        {
+          "local_name": "filtermap_ext_in_early",
+          "kind": "Lemma",
+          "full_name": "KamiHW.Abstraction.filtermap_ext_in_early"
+        },
+        {
           "local_name": "filter_map_pt_below_unaffected",
           "kind": "Lemma",
           "full_name": "KamiHW.Abstraction.filter_map_pt_below_unaffected"
@@ -2867,6 +2902,11 @@
           "local_name": "snap_pt_to_graph_wf",
           "kind": "Theorem",
           "full_name": "KamiHW.Abstraction.snap_pt_to_graph_wf"
+        },
+        {
+          "local_name": "snap_pt_to_graph_pnew_minimal_aux",
+          "kind": "Lemma",
+          "full_name": "KamiHW.Abstraction.snap_pt_to_graph_pnew_minimal_aux"
         },
         {
           "local_name": "snap_pt_to_graph_pnew",
@@ -2977,6 +3017,56 @@
           "local_name": "filtermap_two_zeros_filter",
           "kind": "Lemma",
           "full_name": "KamiHW.Abstraction.filtermap_two_zeros_filter"
+        },
+        {
+          "local_name": "nat_list_subset_seq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.Abstraction.nat_list_subset_seq"
+        },
+        {
+          "local_name": "nat_list_eq_seq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.Abstraction.nat_list_eq_seq"
+        },
+        {
+          "local_name": "nat_list_disjoint_seq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.Abstraction.nat_list_disjoint_seq"
+        },
+        {
+          "local_name": "existsb_filtermap",
+          "kind": "Lemma",
+          "full_name": "KamiHW.Abstraction.existsb_filtermap"
+        },
+        {
+          "local_name": "existsb_rev_eq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.Abstraction.existsb_rev_eq"
+        },
+        {
+          "local_name": "existsb_ext_in",
+          "kind": "Lemma",
+          "full_name": "KamiHW.Abstraction.existsb_ext_in"
+        },
+        {
+          "local_name": "existsb_seq_below",
+          "kind": "Lemma",
+          "full_name": "KamiHW.Abstraction.existsb_seq_below"
+        },
+        {
+          "local_name": "snap_pt_region_conflict",
+          "kind": "Lemma",
+          "full_name": "KamiHW.Abstraction.snap_pt_region_conflict"
+        },
+        {
+          "local_name": "graph_find_region_modules_None_existsb",
+          "kind": "Lemma",
+          "full_name": "KamiHW.Abstraction.graph_find_region_modules_None_existsb"
+        },
+        {
+          "local_name": "snap_pt_find_region",
+          "kind": "Lemma",
+          "full_name": "KamiHW.Abstraction.snap_pt_find_region"
         }
       ],
       "unaddressable": []
@@ -3456,7 +3546,7 @@
     {
       "file": "coq/kami_hw/ChshFsm.v",
       "qualified_module": "KamiHW.ChshFsm",
-      "addressable_count": 140,
+      "addressable_count": 141,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -3853,6 +3943,11 @@
           "local_name": "chsh_keeps_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshFsm.chsh_keeps_ptTable"
+        },
+        {
+          "local_name": "chsh_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshFsm.chsh_keeps_ptBases"
         },
         {
           "local_name": "chsh_keeps_pt_next_id",
@@ -12348,7 +12443,7 @@
     {
       "file": "coq/kami_hw/ChshRun.v",
       "qualified_module": "KamiHW.ChshRun",
-      "addressable_count": 118,
+      "addressable_count": 119,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -12610,6 +12705,11 @@
           "local_name": "iter_keeps_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshRun.iter_keeps_ptTable"
+        },
+        {
+          "local_name": "iter_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshRun.iter_keeps_ptBases"
         },
         {
           "local_name": "iter_keeps_pt_next_id",
@@ -12947,7 +13047,7 @@
     {
       "file": "coq/kami_hw/ChshStepFields.v",
       "qualified_module": "KamiHW.ChshStepFields",
-      "addressable_count": 47,
+      "addressable_count": 48,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -13019,6 +13119,11 @@
           "local_name": "step_chsh_lassert_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.ChshStepFields.step_chsh_lassert_ptTable"
+        },
+        {
+          "local_name": "step_chsh_lassert_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.ChshStepFields.step_chsh_lassert_ptBases"
         },
         {
           "local_name": "step_chsh_lassert_pt_next_id",
@@ -13380,7 +13485,7 @@
     {
       "file": "coq/kami_hw/CouplingComposeRetire.v",
       "qualified_module": "KamiHW.CouplingComposeRetire",
-      "addressable_count": 131,
+      "addressable_count": 132,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -13959,6 +14064,11 @@
           "full_name": "KamiHW.CouplingComposeRetire.compose_fsm_keeps_ptTable"
         },
         {
+          "local_name": "compose_fsm_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingComposeRetire.compose_fsm_keeps_ptBases"
+        },
+        {
           "local_name": "compose_fsm_keeps_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.CouplingComposeRetire.compose_fsm_keeps_pt_next_id"
@@ -14044,7 +14154,7 @@
     {
       "file": "coq/kami_hw/CouplingComposeRun.v",
       "qualified_module": "KamiHW.CouplingComposeRun",
-      "addressable_count": 252,
+      "addressable_count": 254,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -15193,9 +15303,19 @@
           "full_name": "KamiHW.CouplingComposeRun.compose_copy_keeps_ptTable"
         },
         {
+          "local_name": "compose_copy_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingComposeRun.compose_copy_keeps_ptBases"
+        },
+        {
           "local_name": "compose_join_keeps_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.CouplingComposeRun.compose_join_keeps_ptTable"
+        },
+        {
+          "local_name": "compose_join_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingComposeRun.compose_join_keeps_ptBases"
         },
         {
           "local_name": "compose_copy_keeps_pt_next_id",
@@ -15352,7 +15472,7 @@
     {
       "file": "coq/kami_hw/CouplingFsmCopy.v",
       "qualified_module": "KamiHW.CouplingFsmCopy",
-      "addressable_count": 273,
+      "addressable_count": 275,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -15739,6 +15859,11 @@
           "local_name": "mccopy_keeps_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.CouplingFsmCopy.mccopy_keeps_ptTable"
+        },
+        {
+          "local_name": "mccopy_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingFsmCopy.mccopy_keeps_ptBases"
         },
         {
           "local_name": "mccopy_keeps_pt_next_id",
@@ -16441,6 +16566,11 @@
           "full_name": "KamiHW.CouplingFsmCopy.copy_iter_keeps_ptTable"
         },
         {
+          "local_name": "copy_iter_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingFsmCopy.copy_iter_keeps_ptBases"
+        },
+        {
           "local_name": "copy_iter_keeps_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.CouplingFsmCopy.copy_iter_keeps_pt_next_id"
@@ -16726,7 +16856,7 @@
     {
       "file": "coq/kami_hw/CouplingFsmEnds.v",
       "qualified_module": "KamiHW.CouplingFsmEnds",
-      "addressable_count": 427,
+      "addressable_count": 430,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -17143,6 +17273,11 @@
           "local_name": "mchdr_keeps_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.CouplingFsmEnds.mchdr_keeps_ptTable"
+        },
+        {
+          "local_name": "mchdr_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingFsmEnds.mchdr_keeps_ptBases"
         },
         {
           "local_name": "mchdr_keeps_pt_next_id",
@@ -17860,6 +17995,11 @@
           "full_name": "KamiHW.CouplingFsmEnds.mcnstart_keeps_ptTable"
         },
         {
+          "local_name": "mcnstart_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingFsmEnds.mcnstart_keeps_ptBases"
+        },
+        {
           "local_name": "mcnstart_keeps_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.CouplingFsmEnds.mcnstart_keeps_pt_next_id"
@@ -18560,6 +18700,11 @@
           "full_name": "KamiHW.CouplingFsmEnds.mccommit_keeps_ptTable"
         },
         {
+          "local_name": "mccommit_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingFsmEnds.mccommit_keeps_ptBases"
+        },
+        {
           "local_name": "mccommit_keeps_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.CouplingFsmEnds.mccommit_keeps_pt_next_id"
@@ -18870,7 +19015,7 @@
     {
       "file": "coq/kami_hw/CouplingFsmJoin.v",
       "qualified_module": "KamiHW.CouplingFsmJoin",
-      "addressable_count": 274,
+      "addressable_count": 276,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -19257,6 +19402,11 @@
           "local_name": "mcjoin_keeps_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.CouplingFsmJoin.mcjoin_keeps_ptTable"
+        },
+        {
+          "local_name": "mcjoin_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingFsmJoin.mcjoin_keeps_ptBases"
         },
         {
           "local_name": "mcjoin_keeps_pt_next_id",
@@ -19959,6 +20109,11 @@
           "full_name": "KamiHW.CouplingFsmJoin.join_iter_keeps_ptTable"
         },
         {
+          "local_name": "join_iter_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingFsmJoin.join_iter_keeps_ptBases"
+        },
+        {
           "local_name": "join_iter_keeps_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.CouplingFsmJoin.join_iter_keeps_pt_next_id"
@@ -20249,7 +20404,7 @@
     {
       "file": "coq/kami_hw/CouplingFsmLoad.v",
       "qualified_module": "KamiHW.CouplingFsmLoad",
-      "addressable_count": 277,
+      "addressable_count": 279,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -20651,6 +20806,11 @@
           "local_name": "mcload_keeps_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.CouplingFsmLoad.mcload_keeps_ptTable"
+        },
+        {
+          "local_name": "mcload_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingFsmLoad.mcload_keeps_ptBases"
         },
         {
           "local_name": "mcload_keeps_pt_next_id",
@@ -21353,6 +21513,11 @@
           "full_name": "KamiHW.CouplingFsmLoad.mload_iter_keeps_ptTable"
         },
         {
+          "local_name": "mload_iter_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingFsmLoad.mload_iter_keeps_ptBases"
+        },
+        {
           "local_name": "mload_iter_keeps_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.CouplingFsmLoad.mload_iter_keeps_pt_next_id"
@@ -21643,7 +21808,7 @@
     {
       "file": "coq/kami_hw/CouplingFsmNorm.v",
       "qualified_module": "KamiHW.CouplingFsmNorm",
-      "addressable_count": 689,
+      "addressable_count": 694,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -22060,6 +22225,11 @@
           "local_name": "mcnscan_keeps_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.CouplingFsmNorm.mcnscan_keeps_ptTable"
+        },
+        {
+          "local_name": "mcnscan_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingFsmNorm.mcnscan_keeps_ptBases"
         },
         {
           "local_name": "mcnscan_keeps_pt_next_id",
@@ -22762,6 +22932,11 @@
           "full_name": "KamiHW.CouplingFsmNorm.mcnemit_keeps_ptTable"
         },
         {
+          "local_name": "mcnemit_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingFsmNorm.mcnemit_keeps_ptBases"
+        },
+        {
           "local_name": "mcnemit_keeps_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.CouplingFsmNorm.mcnemit_keeps_pt_next_id"
@@ -23460,6 +23635,11 @@
           "local_name": "nscan_iter_keeps_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.CouplingFsmNorm.nscan_iter_keeps_ptTable"
+        },
+        {
+          "local_name": "nscan_iter_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingFsmNorm.nscan_iter_keeps_ptBases"
         },
         {
           "local_name": "nscan_iter_keeps_pt_next_id",
@@ -24162,6 +24342,11 @@
           "full_name": "KamiHW.CouplingFsmNorm.nouter_step_keeps_ptTable"
         },
         {
+          "local_name": "nouter_step_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingFsmNorm.nouter_step_keeps_ptBases"
+        },
+        {
           "local_name": "nouter_step_keeps_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.CouplingFsmNorm.nouter_step_keeps_pt_next_id"
@@ -24822,6 +25007,11 @@
           "full_name": "KamiHW.CouplingFsmNorm.nouter_iter_keeps_ptTable"
         },
         {
+          "local_name": "nouter_iter_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingFsmNorm.nouter_iter_keeps_ptBases"
+        },
+        {
           "local_name": "nouter_iter_keeps_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.CouplingFsmNorm.nouter_iter_keeps_pt_next_id"
@@ -25097,7 +25287,7 @@
     {
       "file": "coq/kami_hw/CouplingFsmRun.v",
       "qualified_module": "KamiHW.CouplingFsmRun",
-      "addressable_count": 128,
+      "addressable_count": 129,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -25514,6 +25704,11 @@
           "local_name": "morph_fsm_keeps_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.CouplingFsmRun.morph_fsm_keeps_ptTable"
+        },
+        {
+          "local_name": "morph_fsm_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.CouplingFsmRun.morph_fsm_keeps_ptBases"
         },
         {
           "local_name": "morph_fsm_keeps_pt_next_id",
@@ -26221,7 +26416,7 @@
     {
       "file": "coq/kami_hw/DispatchLets.v",
       "qualified_module": "KamiHW.DispatchLets",
-      "addressable_count": 73,
+      "addressable_count": 74,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -26313,6 +26508,11 @@
           "local_name": "step_next_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.DispatchLets.step_next_ptTable"
+        },
+        {
+          "local_name": "step_next_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.DispatchLets.step_next_ptBases"
         },
         {
           "local_name": "step_next_pt_next_id",
@@ -26638,7 +26838,7 @@
     {
       "file": "coq/kami_hw/EmbedStep.v",
       "qualified_module": "KamiHW.EmbedStep",
-      "addressable_count": 31,
+      "addressable_count": 32,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -26760,6 +26960,11 @@
           "local_name": "embed_step_reveal",
           "kind": "Theorem",
           "full_name": "KamiHW.EmbedStep.embed_step_reveal"
+        },
+        {
+          "local_name": "embed_step_pnew_bounded",
+          "kind": "Theorem",
+          "full_name": "KamiHW.EmbedStep.embed_step_pnew_bounded"
         },
         {
           "local_name": "embed_step_pnew",
@@ -27640,7 +27845,7 @@
     {
       "file": "coq/kami_hw/GraphReconstructionBridge.v",
       "qualified_module": "KamiHW.GraphReconstructionBridge",
-      "addressable_count": 109,
+      "addressable_count": 129,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -27652,26 +27857,6 @@
           "local_name": "map_const_zero_repeat",
           "kind": "Lemma",
           "full_name": "KamiHW.GraphReconstructionBridge.map_const_zero_repeat"
-        },
-        {
-          "local_name": "snap_full_graph_pnew",
-          "kind": "Lemma",
-          "full_name": "KamiHW.GraphReconstructionBridge.snap_full_graph_pnew"
-        },
-        {
-          "local_name": "snap_full_graph_pnew_minimal",
-          "kind": "Lemma",
-          "full_name": "KamiHW.GraphReconstructionBridge.snap_full_graph_pnew_minimal"
-        },
-        {
-          "local_name": "driven_step_pnew",
-          "kind": "Theorem",
-          "full_name": "KamiHW.GraphReconstructionBridge.driven_step_pnew"
-        },
-        {
-          "local_name": "driven_step_pnew_full",
-          "kind": "Theorem",
-          "full_name": "KamiHW.GraphReconstructionBridge.driven_step_pnew_full"
         },
         {
           "local_name": "driven_step_call",
@@ -27854,6 +28039,16 @@
           "full_name": "KamiHW.GraphReconstructionBridge.morph_table_wf_preserved_add_with_coupling"
         },
         {
+          "local_name": "morph_table_wf_cascade",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.morph_table_wf_cascade"
+        },
+        {
+          "local_name": "coupling_wf_cascade",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.coupling_wf_cascade"
+        },
+        {
           "local_name": "morph_table_wf_kami_step_preserved",
           "kind": "Theorem",
           "full_name": "KamiHW.GraphReconstructionBridge.morph_table_wf_kami_step_preserved"
@@ -28024,16 +28219,6 @@
           "full_name": "KamiHW.GraphReconstructionBridge.snap_pt_to_graph_ext"
         },
         {
-          "local_name": "graph_hw_psplit_modules_eq",
-          "kind": "Lemma",
-          "full_name": "KamiHW.GraphReconstructionBridge.graph_hw_psplit_modules_eq"
-        },
-        {
-          "local_name": "graph_hw_pmerge_modules_eq",
-          "kind": "Lemma",
-          "full_name": "KamiHW.GraphReconstructionBridge.graph_hw_pmerge_modules_eq"
-        },
-        {
           "local_name": "graph_remove_preserves_morph_fields",
           "kind": "Lemma",
           "full_name": "KamiHW.GraphReconstructionBridge.graph_remove_preserves_morph_fields"
@@ -28042,16 +28227,6 @@
           "local_name": "graph_add_module_preserves_morph_fields",
           "kind": "Lemma",
           "full_name": "KamiHW.GraphReconstructionBridge.graph_add_module_preserves_morph_fields"
-        },
-        {
-          "local_name": "graph_hw_psplit_preserves_morph_fields",
-          "kind": "Lemma",
-          "full_name": "KamiHW.GraphReconstructionBridge.graph_hw_psplit_preserves_morph_fields"
-        },
-        {
-          "local_name": "graph_hw_pmerge_preserves_morph_fields",
-          "kind": "Lemma",
-          "full_name": "KamiHW.GraphReconstructionBridge.graph_hw_pmerge_preserves_morph_fields"
         },
         {
           "local_name": "driven_step_morph_assert",
@@ -28104,9 +28279,124 @@
           "full_name": "KamiHW.GraphReconstructionBridge.graph_module_size_tensor_overlay"
         },
         {
-          "local_name": "graph_hw_psplit_overlay_commute",
+          "local_name": "snap_full_graph_wraps",
           "kind": "Lemma",
-          "full_name": "KamiHW.GraphReconstructionBridge.graph_hw_psplit_overlay_commute"
+          "full_name": "KamiHW.GraphReconstructionBridge.snap_full_graph_wraps"
+        },
+        {
+          "local_name": "graph_lookup_modules_wrap",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.graph_lookup_modules_wrap"
+        },
+        {
+          "local_name": "wraps_region",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.wraps_region"
+        },
+        {
+          "local_name": "find_region_modules_wrap",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.find_region_modules_wrap"
+        },
+        {
+          "local_name": "wraps_find_region",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.wraps_find_region"
+        },
+        {
+          "local_name": "existsb_map_comp",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.existsb_map_comp"
+        },
+        {
+          "local_name": "wraps_region_conflict",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.wraps_region_conflict"
+        },
+        {
+          "local_name": "wraps_pmerge_adjacent",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.wraps_pmerge_adjacent"
+        },
+        {
+          "local_name": "wraps_add",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.wraps_add"
+        },
+        {
+          "local_name": "wraps_pnew",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.wraps_pnew"
+        },
+        {
+          "local_name": "wraps_remove",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.wraps_remove"
+        },
+        {
+          "local_name": "wraps_cascade",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.wraps_cascade"
+        },
+        {
+          "local_name": "rm_or_keep_morph_fields",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.rm_or_keep_morph_fields"
+        },
+        {
+          "local_name": "rm_or_keep_next_id",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.rm_or_keep_next_id"
+        },
+        {
+          "local_name": "graph_hw_psplit_fst",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.graph_hw_psplit_fst"
+        },
+        {
+          "local_name": "graph_hw_pmerge_fst",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.graph_hw_pmerge_fst"
+        },
+        {
+          "local_name": "wraps_hw_psplit",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.wraps_hw_psplit"
+        },
+        {
+          "local_name": "wraps_hw_pmerge",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.wraps_hw_pmerge"
+        },
+        {
+          "local_name": "graph_hw_psplit_morph_fields",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.graph_hw_psplit_morph_fields"
+        },
+        {
+          "local_name": "graph_hw_pmerge_morph_fields",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.graph_hw_pmerge_morph_fields"
+        },
+        {
+          "local_name": "filter_filter_pointwise",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.filter_filter_pointwise"
+        },
+        {
+          "local_name": "cascade_pred_keep1",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.cascade_pred_keep1"
+        },
+        {
+          "local_name": "cascade_pred_keep2",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.cascade_pred_keep2"
+        },
+        {
+          "local_name": "graph_pnew_morph_fields",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.graph_pnew_morph_fields"
         },
         {
           "local_name": "snap_full_graph_psplit",
@@ -28114,9 +28404,19 @@
           "full_name": "KamiHW.GraphReconstructionBridge.snap_full_graph_psplit"
         },
         {
-          "local_name": "driven_step_psplit",
-          "kind": "Theorem",
-          "full_name": "KamiHW.GraphReconstructionBridge.driven_step_psplit"
+          "local_name": "snap_full_graph_pmerge",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.snap_full_graph_pmerge"
+        },
+        {
+          "local_name": "snap_full_graph_pnew",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.snap_full_graph_pnew"
+        },
+        {
+          "local_name": "with_graph_partition_step",
+          "kind": "Lemma",
+          "full_name": "KamiHW.GraphReconstructionBridge.with_graph_partition_step"
         },
         {
           "local_name": "driven_step_psplit_full",
@@ -28124,14 +28424,14 @@
           "full_name": "KamiHW.GraphReconstructionBridge.driven_step_psplit_full"
         },
         {
-          "local_name": "graph_hw_pmerge_overlay_commute",
-          "kind": "Lemma",
-          "full_name": "KamiHW.GraphReconstructionBridge.graph_hw_pmerge_overlay_commute"
+          "local_name": "driven_step_psplit",
+          "kind": "Theorem",
+          "full_name": "KamiHW.GraphReconstructionBridge.driven_step_psplit"
         },
         {
-          "local_name": "snap_full_graph_pmerge",
-          "kind": "Lemma",
-          "full_name": "KamiHW.GraphReconstructionBridge.snap_full_graph_pmerge"
+          "local_name": "driven_step_pmerge_full",
+          "kind": "Theorem",
+          "full_name": "KamiHW.GraphReconstructionBridge.driven_step_pmerge_full"
         },
         {
           "local_name": "driven_step_pmerge",
@@ -28139,9 +28439,14 @@
           "full_name": "KamiHW.GraphReconstructionBridge.driven_step_pmerge"
         },
         {
-          "local_name": "driven_step_pmerge_full",
+          "local_name": "driven_step_pnew_full",
           "kind": "Theorem",
-          "full_name": "KamiHW.GraphReconstructionBridge.driven_step_pmerge_full"
+          "full_name": "KamiHW.GraphReconstructionBridge.driven_step_pnew_full"
+        },
+        {
+          "local_name": "driven_step_pnew",
+          "kind": "Theorem",
+          "full_name": "KamiHW.GraphReconstructionBridge.driven_step_pnew"
         },
         {
           "local_name": "driven_step_morph_id",
@@ -28202,7 +28507,7 @@
     {
       "file": "coq/kami_hw/HWBoundaryCompleteness.v",
       "qualified_module": "KamiHW.HWBoundaryCompleteness",
-      "addressable_count": 145,
+      "addressable_count": 146,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -28606,6 +28911,11 @@
           "full_name": "KamiHW.HWBoundaryCompleteness.cpu_kind_ptTable"
         },
         {
+          "local_name": "cpu_kind_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.HWBoundaryCompleteness.cpu_kind_ptBases"
+        },
+        {
           "local_name": "cpu_kind_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.HWBoundaryCompleteness.cpu_kind_pt_next_id"
@@ -28936,7 +29246,7 @@
     {
       "file": "coq/kami_hw/HWBoundaryReads.v",
       "qualified_module": "KamiHW.HWBoundaryReads",
-      "addressable_count": 140,
+      "addressable_count": 141,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -29333,6 +29643,11 @@
           "local_name": "hwb_read_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.HWBoundaryReads.hwb_read_ptTable"
+        },
+        {
+          "local_name": "hwb_read_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.HWBoundaryReads.hwb_read_ptBases"
         },
         {
           "local_name": "hwb_read_pt_next_id",
@@ -29746,7 +30061,7 @@
     {
       "file": "coq/kami_hw/LassertRetire.v",
       "qualified_module": "KamiHW.LassertRetire",
-      "addressable_count": 158,
+      "addressable_count": 159,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -30170,6 +30485,11 @@
           "full_name": "KamiHW.LassertRetire.lhdr_keeps_ptTable"
         },
         {
+          "local_name": "lhdr_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.LassertRetire.lhdr_keeps_ptBases"
+        },
+        {
           "local_name": "lhdr_keeps_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.LassertRetire.lhdr_keeps_pt_next_id"
@@ -30584,7 +30904,7 @@
     {
       "file": "coq/kami_hw/LassertStepFields.v",
       "qualified_module": "KamiHW.LassertStepFields",
-      "addressable_count": 92,
+      "addressable_count": 94,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -30656,6 +30976,11 @@
           "local_name": "step_lassert_sat_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.LassertStepFields.step_lassert_sat_ptTable"
+        },
+        {
+          "local_name": "step_lassert_sat_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.LassertStepFields.step_lassert_sat_ptBases"
         },
         {
           "local_name": "step_lassert_sat_pt_next_id",
@@ -30888,6 +31213,11 @@
           "full_name": "KamiHW.LassertStepFields.step_lassert_unsat_ptTable"
         },
         {
+          "local_name": "step_lassert_unsat_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.LassertStepFields.step_lassert_unsat_ptBases"
+        },
+        {
           "local_name": "step_lassert_unsat_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.LassertStepFields.step_lassert_unsat_pt_next_id"
@@ -31053,7 +31383,7 @@
     {
       "file": "coq/kami_hw/LassertWord.v",
       "qualified_module": "KamiHW.LassertWord",
-      "addressable_count": 159,
+      "addressable_count": 160,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -31520,6 +31850,11 @@
           "local_name": "lscan_iter_keeps_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.LassertWord.lscan_iter_keeps_ptTable"
+        },
+        {
+          "local_name": "lscan_iter_keeps_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.LassertWord.lscan_iter_keeps_ptBases"
         },
         {
           "local_name": "lscan_iter_keeps_pt_next_id",
@@ -32961,23 +33296,43 @@
     {
       "file": "coq/kami_hw/MorphTensorGap.v",
       "qualified_module": "KamiHW.MorphTensorGap",
-      "addressable_count": 4,
+      "addressable_count": 8,
       "unaddressable_count": 0,
       "addressable": [
         {
-          "local_name": "lookup_modules_prefix",
+          "local_name": "lookup_modules_ranged",
           "kind": "Lemma",
-          "full_name": "KamiHW.MorphTensorGap.lookup_modules_prefix"
+          "full_name": "KamiHW.MorphTensorGap.lookup_modules_ranged"
         },
         {
-          "local_name": "filtermap_prefix",
+          "local_name": "filtermap_ranged",
           "kind": "Lemma",
-          "full_name": "KamiHW.MorphTensorGap.filtermap_prefix"
+          "full_name": "KamiHW.MorphTensorGap.filtermap_ranged"
         },
         {
-          "local_name": "snap_full_graph_prefix",
+          "local_name": "snap_full_graph_ranged",
           "kind": "Lemma",
-          "full_name": "KamiHW.MorphTensorGap.snap_full_graph_prefix"
+          "full_name": "KamiHW.MorphTensorGap.snap_full_graph_ranged"
+        },
+        {
+          "local_name": "graph_lookup_modules_pair",
+          "kind": "Lemma",
+          "full_name": "KamiHW.MorphTensorGap.graph_lookup_modules_pair"
+        },
+        {
+          "local_name": "find_region_modules_pair",
+          "kind": "Lemma",
+          "full_name": "KamiHW.MorphTensorGap.find_region_modules_pair"
+        },
+        {
+          "local_name": "nat_list_eq_incl_r",
+          "kind": "Lemma",
+          "full_name": "KamiHW.MorphTensorGap.nat_list_eq_incl_r"
+        },
+        {
+          "local_name": "find_union_none",
+          "kind": "Lemma",
+          "full_name": "KamiHW.MorphTensorGap.find_union_none"
         },
         {
           "local_name": "snap_graph_tensor_none",
@@ -33972,6 +34327,189 @@
           "local_name": "guard_false_of_pdiscover",
           "kind": "Lemma",
           "full_name": "KamiHW.OutsideDomainMaster.guard_false_of_pdiscover"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kami_hw/PartitionRefine.v",
+      "qualified_module": "KamiHW.PartitionRefine",
+      "addressable_count": 4,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "wordToNat_err_partition_overlap",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionRefine.wordToNat_err_partition_overlap"
+        },
+        {
+          "local_name": "step_pnew_refines",
+          "kind": "Theorem",
+          "full_name": "KamiHW.PartitionRefine.step_pnew_refines"
+        },
+        {
+          "local_name": "step_pmerge_refines",
+          "kind": "Theorem",
+          "full_name": "KamiHW.PartitionRefine.step_pmerge_refines"
+        },
+        {
+          "local_name": "step_psplit_refines",
+          "kind": "Theorem",
+          "full_name": "KamiHW.PartitionRefine.step_psplit_refines"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kami_hw/PartitionScan.v",
+      "qualified_module": "KamiHW.PartitionScan",
+      "addressable_count": 29,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "bool_of_wlt",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.bool_of_wlt"
+        },
+        {
+          "local_name": "ev_Eq",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.ev_Eq"
+        },
+        {
+          "local_name": "ev_Lt",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.ev_Lt"
+        },
+        {
+          "local_name": "ev_andb",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.ev_andb"
+        },
+        {
+          "local_name": "ev_orb",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.ev_orb"
+        },
+        {
+          "local_name": "ev_negb",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.ev_negb"
+        },
+        {
+          "local_name": "ev_read",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.ev_read"
+        },
+        {
+          "local_name": "wordToNat_natToWord_lt",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.wordToNat_natToWord_lt"
+        },
+        {
+          "local_name": "slot_read",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.slot_read"
+        },
+        {
+          "local_name": "slot_live_spec",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.slot_live_spec"
+        },
+        {
+          "local_name": "slot_same_spec",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.slot_same_spec"
+        },
+        {
+          "local_name": "eval_ext33",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.eval_ext33"
+        },
+        {
+          "local_name": "eval_add33",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.eval_add33"
+        },
+        {
+          "local_name": "ev_ext33",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.ev_ext33"
+        },
+        {
+          "local_name": "ev_add33",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.ev_add33"
+        },
+        {
+          "local_name": "ev_ITE",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.ev_ITE"
+        },
+        {
+          "local_name": "slot_overlap_spec",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.slot_overlap_spec"
+        },
+        {
+          "local_name": "eval_pt_scan",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.eval_pt_scan"
+        },
+        {
+          "local_name": "existsb_ext",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.existsb_ext"
+        },
+        {
+          "local_name": "pnew_conflict_spec",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.pnew_conflict_spec"
+        },
+        {
+          "local_name": "pnew_present_spec",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.pnew_present_spec"
+        },
+        {
+          "local_name": "hw_pnew_conflict_nat",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.hw_pnew_conflict_nat"
+        },
+        {
+          "local_name": "hw_pnew_present_nat",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.hw_pnew_present_nat"
+        },
+        {
+          "local_name": "hw_pmerge_adjacent_nat",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.hw_pmerge_adjacent_nat"
+        },
+        {
+          "local_name": "hw_pmerge_base_nat",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.hw_pmerge_base_nat"
+        },
+        {
+          "local_name": "ev_UpdateVector",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.ev_UpdateVector"
+        },
+        {
+          "local_name": "eval_morph_cascade",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.eval_morph_cascade"
+        },
+        {
+          "local_name": "hw_morph_cascade_spec",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.hw_morph_cascade_spec"
+        },
+        {
+          "local_name": "step_rich_cascade",
+          "kind": "Lemma",
+          "full_name": "KamiHW.PartitionScan.step_rich_cascade"
         }
       ],
       "unaddressable": []
@@ -35293,13 +35831,28 @@
     {
       "file": "coq/kami_hw/RichStateCommutation.v",
       "qualified_module": "KamiHW.RichStateCommutation",
-      "addressable_count": 18,
+      "addressable_count": 30,
       "unaddressable_count": 0,
       "addressable": [
         {
           "local_name": "filtermap_ext",
           "kind": "Lemma",
           "full_name": "KamiHW.RichStateCommutation.filtermap_ext"
+        },
+        {
+          "local_name": "filtermap_filter",
+          "kind": "Lemma",
+          "full_name": "KamiHW.RichStateCommutation.filtermap_filter"
+        },
+        {
+          "local_name": "filter_ext_in",
+          "kind": "Lemma",
+          "full_name": "KamiHW.RichStateCommutation.filter_ext_in"
+        },
+        {
+          "local_name": "snapshot_morphisms_cascade",
+          "kind": "Lemma",
+          "full_name": "KamiHW.RichStateCommutation.snapshot_morphisms_cascade"
         },
         {
           "local_name": "graph_lookup_modules_filtermap_not_in",
@@ -35342,9 +35895,19 @@
           "full_name": "KamiHW.RichStateCommutation.normalize_module_pt_module"
         },
         {
+          "local_name": "snap_pt_to_graph_lookup",
+          "kind": "Lemma",
+          "full_name": "KamiHW.RichStateCommutation.snap_pt_to_graph_lookup"
+        },
+        {
           "local_name": "snap_pt_to_graph_module_size",
           "kind": "Lemma",
           "full_name": "KamiHW.RichStateCommutation.snap_pt_to_graph_module_size"
+        },
+        {
+          "local_name": "snap_pt_to_graph_module_region",
+          "kind": "Lemma",
+          "full_name": "KamiHW.RichStateCommutation.snap_pt_to_graph_module_region"
         },
         {
           "local_name": "snap_pt_graph_remove",
@@ -35352,9 +35915,44 @@
           "full_name": "KamiHW.RichStateCommutation.snap_pt_graph_remove"
         },
         {
+          "local_name": "snap_pt_to_graph_eta",
+          "kind": "Lemma",
+          "full_name": "KamiHW.RichStateCommutation.snap_pt_to_graph_eta"
+        },
+        {
+          "local_name": "snap_pt_to_graph_cascade",
+          "kind": "Lemma",
+          "full_name": "KamiHW.RichStateCommutation.snap_pt_to_graph_cascade"
+        },
+        {
+          "local_name": "snap_pt_to_graph_modules_SS",
+          "kind": "Lemma",
+          "full_name": "KamiHW.RichStateCommutation.snap_pt_to_graph_modules_SS"
+        },
+        {
+          "local_name": "snap_pt_to_graph_modules_S",
+          "kind": "Lemma",
+          "full_name": "KamiHW.RichStateCommutation.snap_pt_to_graph_modules_S"
+        },
+        {
           "local_name": "snap_pt_to_graph_psplit",
           "kind": "Theorem",
           "full_name": "KamiHW.RichStateCommutation.snap_pt_to_graph_psplit"
+        },
+        {
+          "local_name": "region_contiguousb_seq_app",
+          "kind": "Lemma",
+          "full_name": "KamiHW.RichStateCommutation.region_contiguousb_seq_app"
+        },
+        {
+          "local_name": "snap_pmerge_adjacent_spec",
+          "kind": "Lemma",
+          "full_name": "KamiHW.RichStateCommutation.snap_pmerge_adjacent_spec"
+        },
+        {
+          "local_name": "pmerge_region_of_ranges",
+          "kind": "Lemma",
+          "full_name": "KamiHW.RichStateCommutation.pmerge_region_of_ranges"
         },
         {
           "local_name": "snap_pt_to_graph_pmerge",
@@ -35685,7 +36283,7 @@
     {
       "file": "coq/kami_hw/RuleNext.v",
       "qualified_module": "KamiHW.RuleNext",
-      "addressable_count": 144,
+      "addressable_count": 145,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -36092,6 +36690,11 @@
           "local_name": "find_hwb_regs_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.RuleNext.find_hwb_regs_ptTable"
+        },
+        {
+          "local_name": "find_hwb_regs_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.RuleNext.find_hwb_regs_ptBases"
         },
         {
           "local_name": "find_hwb_regs_pt_next_id",
@@ -36869,7 +37472,7 @@
     {
       "file": "coq/kami_hw/StepFaults.v",
       "qualified_module": "KamiHW.StepFaults",
-      "addressable_count": 74,
+      "addressable_count": 76,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -36908,6 +37511,11 @@
           "full_name": "KamiHW.StepFaults.dd_nfi_opcode"
         },
         {
+          "local_name": "dd_partition_opcode",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFaults.dd_partition_opcode"
+        },
+        {
           "local_name": "dd_morph_opcode",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFaults.dd_morph_opcode"
@@ -36921,6 +37529,11 @@
           "local_name": "dd_morph_not_guard",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFaults.dd_morph_not_guard"
+        },
+        {
+          "local_name": "dd_morph_not_partition",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFaults.dd_morph_not_partition"
         },
         {
           "local_name": "dd_locality_not_ptable",
@@ -37248,7 +37861,7 @@
     {
       "file": "coq/kami_hw/StepFields.v",
       "qualified_module": "KamiHW.StepFields",
-      "addressable_count": 1330,
+      "addressable_count": 1368,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -37320,6 +37933,11 @@
           "local_name": "step_load_imm_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_load_imm_ptTable"
+        },
+        {
+          "local_name": "step_load_imm_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_load_imm_ptBases"
         },
         {
           "local_name": "step_load_imm_pt_next_id",
@@ -37497,6 +38115,11 @@
           "full_name": "KamiHW.StepFields.step_xfer_ptTable"
         },
         {
+          "local_name": "step_xfer_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_xfer_ptBases"
+        },
+        {
           "local_name": "step_xfer_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_xfer_pt_next_id"
@@ -37670,6 +38293,11 @@
           "local_name": "step_add_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_add_ptTable"
+        },
+        {
+          "local_name": "step_add_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_add_ptBases"
         },
         {
           "local_name": "step_add_pt_next_id",
@@ -37847,6 +38475,11 @@
           "full_name": "KamiHW.StepFields.step_sub_ptTable"
         },
         {
+          "local_name": "step_sub_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_sub_ptBases"
+        },
+        {
           "local_name": "step_sub_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_sub_pt_next_id"
@@ -38020,6 +38653,11 @@
           "local_name": "step_and_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_and_ptTable"
+        },
+        {
+          "local_name": "step_and_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_and_ptBases"
         },
         {
           "local_name": "step_and_pt_next_id",
@@ -38197,6 +38835,11 @@
           "full_name": "KamiHW.StepFields.step_or_ptTable"
         },
         {
+          "local_name": "step_or_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_or_ptBases"
+        },
+        {
           "local_name": "step_or_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_or_pt_next_id"
@@ -38370,6 +39013,11 @@
           "local_name": "step_mul_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_mul_ptTable"
+        },
+        {
+          "local_name": "step_mul_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_mul_ptBases"
         },
         {
           "local_name": "step_mul_pt_next_id",
@@ -38547,6 +39195,11 @@
           "full_name": "KamiHW.StepFields.step_shl_ptTable"
         },
         {
+          "local_name": "step_shl_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_shl_ptBases"
+        },
+        {
           "local_name": "step_shl_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_shl_pt_next_id"
@@ -38720,6 +39373,11 @@
           "local_name": "step_shr_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_shr_ptTable"
+        },
+        {
+          "local_name": "step_shr_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_shr_ptBases"
         },
         {
           "local_name": "step_shr_pt_next_id",
@@ -38897,6 +39555,11 @@
           "full_name": "KamiHW.StepFields.step_lui_ptTable"
         },
         {
+          "local_name": "step_lui_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_lui_ptBases"
+        },
+        {
           "local_name": "step_lui_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_lui_pt_next_id"
@@ -39070,6 +39733,11 @@
           "local_name": "step_xor_load_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_xor_load_ptTable"
+        },
+        {
+          "local_name": "step_xor_load_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_xor_load_ptBases"
         },
         {
           "local_name": "step_xor_load_pt_next_id",
@@ -39247,6 +39915,11 @@
           "full_name": "KamiHW.StepFields.step_xor_add_ptTable"
         },
         {
+          "local_name": "step_xor_add_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_xor_add_ptBases"
+        },
+        {
           "local_name": "step_xor_add_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_xor_add_pt_next_id"
@@ -39420,6 +40093,11 @@
           "local_name": "step_xor_swap_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_xor_swap_ptTable"
+        },
+        {
+          "local_name": "step_xor_swap_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_xor_swap_ptBases"
         },
         {
           "local_name": "step_xor_swap_pt_next_id",
@@ -39597,6 +40275,11 @@
           "full_name": "KamiHW.StepFields.step_xor_rank_ptTable"
         },
         {
+          "local_name": "step_xor_rank_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_xor_rank_ptBases"
+        },
+        {
           "local_name": "step_xor_rank_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_xor_rank_pt_next_id"
@@ -39770,6 +40453,11 @@
           "local_name": "step_jump_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_jump_ptTable"
+        },
+        {
+          "local_name": "step_jump_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_jump_ptBases"
         },
         {
           "local_name": "step_jump_pt_next_id",
@@ -39947,6 +40635,11 @@
           "full_name": "KamiHW.StepFields.step_jnez_ptTable"
         },
         {
+          "local_name": "step_jnez_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_jnez_ptBases"
+        },
+        {
           "local_name": "step_jnez_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_jnez_pt_next_id"
@@ -40120,6 +40813,11 @@
           "local_name": "step_halt_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_halt_ptTable"
+        },
+        {
+          "local_name": "step_halt_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_halt_ptBases"
         },
         {
           "local_name": "step_halt_pt_next_id",
@@ -40297,6 +40995,11 @@
           "full_name": "KamiHW.StepFields.step_mdlacc_ptTable"
         },
         {
+          "local_name": "step_mdlacc_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_mdlacc_ptBases"
+        },
+        {
           "local_name": "step_mdlacc_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_mdlacc_pt_next_id"
@@ -40470,6 +41173,11 @@
           "local_name": "step_ljoin_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_ljoin_ptTable"
+        },
+        {
+          "local_name": "step_ljoin_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_ljoin_ptBases"
         },
         {
           "local_name": "step_ljoin_pt_next_id",
@@ -40647,6 +41355,11 @@
           "full_name": "KamiHW.StepFields.step_checkpoint_ptTable"
         },
         {
+          "local_name": "step_checkpoint_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_checkpoint_ptBases"
+        },
+        {
           "local_name": "step_checkpoint_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_checkpoint_pt_next_id"
@@ -40820,6 +41533,11 @@
           "local_name": "step_write_port_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_write_port_ptTable"
+        },
+        {
+          "local_name": "step_write_port_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_write_port_ptBases"
         },
         {
           "local_name": "step_write_port_pt_next_id",
@@ -40997,6 +41715,11 @@
           "full_name": "KamiHW.StepFields.step_read_port_ptTable"
         },
         {
+          "local_name": "step_read_port_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_read_port_ptBases"
+        },
+        {
           "local_name": "step_read_port_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_read_port_pt_next_id"
@@ -41170,6 +41893,11 @@
           "local_name": "step_emit_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_emit_ptTable"
+        },
+        {
+          "local_name": "step_emit_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_emit_ptBases"
         },
         {
           "local_name": "step_emit_pt_next_id",
@@ -41347,6 +42075,11 @@
           "full_name": "KamiHW.StepFields.step_reveal_ptTable"
         },
         {
+          "local_name": "step_reveal_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_reveal_ptBases"
+        },
+        {
           "local_name": "step_reveal_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_reveal_pt_next_id"
@@ -41520,6 +42253,11 @@
           "local_name": "step_certify_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_certify_ptTable"
+        },
+        {
+          "local_name": "step_certify_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_certify_ptBases"
         },
         {
           "local_name": "step_certify_pt_next_id",
@@ -41697,6 +42435,11 @@
           "full_name": "KamiHW.StepFields.step_tensor_set_ptTable"
         },
         {
+          "local_name": "step_tensor_set_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_tensor_set_ptBases"
+        },
+        {
           "local_name": "step_tensor_set_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_tensor_set_pt_next_id"
@@ -41870,6 +42613,11 @@
           "local_name": "step_tensor_get_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_tensor_get_ptTable"
+        },
+        {
+          "local_name": "step_tensor_get_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_tensor_get_ptBases"
         },
         {
           "local_name": "step_tensor_get_pt_next_id",
@@ -42047,6 +42795,11 @@
           "full_name": "KamiHW.StepFields.step_pdiscover_ptTable"
         },
         {
+          "local_name": "step_pdiscover_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_pdiscover_ptBases"
+        },
+        {
           "local_name": "step_pdiscover_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_pdiscover_pt_next_id"
@@ -42220,6 +42973,11 @@
           "local_name": "step_load_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_load_ptTable"
+        },
+        {
+          "local_name": "step_load_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_load_ptBases"
         },
         {
           "local_name": "step_load_pt_next_id",
@@ -42397,6 +43155,11 @@
           "full_name": "KamiHW.StepFields.step_store_ptTable"
         },
         {
+          "local_name": "step_store_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_store_ptBases"
+        },
+        {
           "local_name": "step_store_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_store_pt_next_id"
@@ -42570,6 +43333,11 @@
           "local_name": "step_heap_load_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_heap_load_ptTable"
+        },
+        {
+          "local_name": "step_heap_load_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_heap_load_ptBases"
         },
         {
           "local_name": "step_heap_load_pt_next_id",
@@ -42747,6 +43515,11 @@
           "full_name": "KamiHW.StepFields.step_heap_store_ptTable"
         },
         {
+          "local_name": "step_heap_store_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_heap_store_ptBases"
+        },
+        {
           "local_name": "step_heap_store_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_heap_store_pt_next_id"
@@ -42920,6 +43693,11 @@
           "local_name": "step_call_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_call_ptTable"
+        },
+        {
+          "local_name": "step_call_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_call_ptBases"
         },
         {
           "local_name": "step_call_pt_next_id",
@@ -43097,6 +43875,11 @@
           "full_name": "KamiHW.StepFields.step_ret_ptTable"
         },
         {
+          "local_name": "step_ret_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_ret_ptBases"
+        },
+        {
           "local_name": "step_ret_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_ret_pt_next_id"
@@ -43270,6 +44053,11 @@
           "local_name": "step_pnew_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_pnew_ptTable"
+        },
+        {
+          "local_name": "step_pnew_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_pnew_ptBases"
         },
         {
           "local_name": "step_pnew_pt_next_id",
@@ -43447,6 +44235,11 @@
           "full_name": "KamiHW.StepFields.step_psplit_ptTable"
         },
         {
+          "local_name": "step_psplit_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_psplit_ptBases"
+        },
+        {
           "local_name": "step_psplit_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_psplit_pt_next_id"
@@ -43620,6 +44413,11 @@
           "local_name": "step_pmerge_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_pmerge_ptTable"
+        },
+        {
+          "local_name": "step_pmerge_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_pmerge_ptBases"
         },
         {
           "local_name": "step_pmerge_pt_next_id",
@@ -43797,6 +44595,11 @@
           "full_name": "KamiHW.StepFields.step_chsh_trial_ptTable"
         },
         {
+          "local_name": "step_chsh_trial_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFields.step_chsh_trial_ptBases"
+        },
+        {
           "local_name": "step_chsh_trial_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFields.step_chsh_trial_pt_next_id"
@@ -43907,7 +44710,7 @@
     {
       "file": "coq/kami_hw/StepFieldsMorph.v",
       "qualified_module": "KamiHW.StepFieldsMorph",
-      "addressable_count": 431,
+      "addressable_count": 443,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -43979,6 +44782,11 @@
           "local_name": "step_morph_id_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFieldsMorph.step_morph_id_ptTable"
+        },
+        {
+          "local_name": "step_morph_id_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFieldsMorph.step_morph_id_ptBases"
         },
         {
           "local_name": "step_morph_id_pt_next_id",
@@ -44156,6 +44964,11 @@
           "full_name": "KamiHW.StepFieldsMorph.step_morph_id_ext_ptTable"
         },
         {
+          "local_name": "step_morph_id_ext_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFieldsMorph.step_morph_id_ext_ptBases"
+        },
+        {
           "local_name": "step_morph_id_ext_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFieldsMorph.step_morph_id_ext_pt_next_id"
@@ -44329,6 +45142,11 @@
           "local_name": "step_morph_delete_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFieldsMorph.step_morph_delete_ptTable"
+        },
+        {
+          "local_name": "step_morph_delete_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFieldsMorph.step_morph_delete_ptBases"
         },
         {
           "local_name": "step_morph_delete_pt_next_id",
@@ -44506,6 +45324,11 @@
           "full_name": "KamiHW.StepFieldsMorph.step_morph_delete_ext_ptTable"
         },
         {
+          "local_name": "step_morph_delete_ext_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFieldsMorph.step_morph_delete_ext_ptBases"
+        },
+        {
           "local_name": "step_morph_delete_ext_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFieldsMorph.step_morph_delete_ext_pt_next_id"
@@ -44679,6 +45502,11 @@
           "local_name": "step_morph_assert_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFieldsMorph.step_morph_assert_ptTable"
+        },
+        {
+          "local_name": "step_morph_assert_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFieldsMorph.step_morph_assert_ptBases"
         },
         {
           "local_name": "step_morph_assert_pt_next_id",
@@ -44856,6 +45684,11 @@
           "full_name": "KamiHW.StepFieldsMorph.step_morph_assert_ext_ptTable"
         },
         {
+          "local_name": "step_morph_assert_ext_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFieldsMorph.step_morph_assert_ext_ptBases"
+        },
+        {
           "local_name": "step_morph_assert_ext_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFieldsMorph.step_morph_assert_ext_pt_next_id"
@@ -45029,6 +45862,11 @@
           "local_name": "step_morph_get_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFieldsMorph.step_morph_get_ptTable"
+        },
+        {
+          "local_name": "step_morph_get_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFieldsMorph.step_morph_get_ptBases"
         },
         {
           "local_name": "step_morph_get_pt_next_id",
@@ -45206,6 +46044,11 @@
           "full_name": "KamiHW.StepFieldsMorph.step_morph_get_ext_ptTable"
         },
         {
+          "local_name": "step_morph_get_ext_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFieldsMorph.step_morph_get_ext_ptBases"
+        },
+        {
           "local_name": "step_morph_get_ext_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFieldsMorph.step_morph_get_ext_pt_next_id"
@@ -45379,6 +46222,11 @@
           "local_name": "step_morph_ext_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFieldsMorph.step_morph_ext_ptTable"
+        },
+        {
+          "local_name": "step_morph_ext_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFieldsMorph.step_morph_ext_ptBases"
         },
         {
           "local_name": "step_morph_ext_pt_next_id",
@@ -45569,6 +46417,11 @@
           "local_name": "step_compose_ext_ptTable",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFieldsMorph.step_compose_ext_ptTable"
+        },
+        {
+          "local_name": "step_compose_ext_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFieldsMorph.step_compose_ext_ptBases"
         },
         {
           "local_name": "step_compose_ext_pt_next_id",
@@ -45786,6 +46639,11 @@
           "full_name": "KamiHW.StepFieldsMorph.step_morph_tensor_ptTable"
         },
         {
+          "local_name": "step_morph_tensor_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFieldsMorph.step_morph_tensor_ptBases"
+        },
+        {
           "local_name": "step_morph_tensor_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFieldsMorph.step_morph_tensor_pt_next_id"
@@ -45961,6 +46819,11 @@
           "full_name": "KamiHW.StepFieldsMorph.step_morph_tensor_ext_ptTable"
         },
         {
+          "local_name": "step_morph_tensor_ext_ptBases",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepFieldsMorph.step_morph_tensor_ext_ptBases"
+        },
+        {
           "local_name": "step_morph_tensor_ext_pt_next_id",
           "kind": "Lemma",
           "full_name": "KamiHW.StepFieldsMorph.step_morph_tensor_ext_pt_next_id"
@@ -46071,7 +46934,7 @@
     {
       "file": "coq/kami_hw/StepRefine.v",
       "qualified_module": "KamiHW.StepRefine",
-      "addressable_count": 38,
+      "addressable_count": 35,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -46225,21 +47088,6 @@
           "full_name": "KamiHW.StepRefine.step_ret_refines"
         },
         {
-          "local_name": "step_pnew_refines",
-          "kind": "Theorem",
-          "full_name": "KamiHW.StepRefine.step_pnew_refines"
-        },
-        {
-          "local_name": "step_psplit_refines",
-          "kind": "Theorem",
-          "full_name": "KamiHW.StepRefine.step_psplit_refines"
-        },
-        {
-          "local_name": "step_pmerge_refines",
-          "kind": "Theorem",
-          "full_name": "KamiHW.StepRefine.step_pmerge_refines"
-        },
-        {
           "local_name": "step_chsh_trial_refines",
           "kind": "Theorem",
           "full_name": "KamiHW.StepRefine.step_chsh_trial_refines"
@@ -46270,7 +47118,7 @@
     {
       "file": "coq/kami_hw/StepRefineCommon.v",
       "qualified_module": "KamiHW.StepRefineCommon",
-      "addressable_count": 59,
+      "addressable_count": 61,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -46297,6 +47145,11 @@
           "local_name": "evalZeroExtendTrunc_up",
           "kind": "Lemma",
           "full_name": "KamiHW.StepRefineCommon.evalZeroExtendTrunc_up"
+        },
+        {
+          "local_name": "wordToNat_combine_zero_hi",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepRefineCommon.wordToNat_combine_zero_hi"
         },
         {
           "local_name": "wordToNat_zext8_ext",
@@ -46539,9 +47392,14 @@
           "full_name": "KamiHW.StepRefineCommon.pt_room_two_of_le"
         },
         {
-          "local_name": "region_ok_of_lt",
+          "local_name": "bounds_ok_words",
           "kind": "Lemma",
-          "full_name": "KamiHW.StepRefineCommon.region_ok_of_lt"
+          "full_name": "KamiHW.StepRefineCommon.bounds_ok_words"
+        },
+        {
+          "local_name": "region_ok_of_range",
+          "kind": "Lemma",
+          "full_name": "KamiHW.StepRefineCommon.region_ok_of_range"
         },
         {
           "local_name": "wordToNat_trunc7_small",
@@ -51414,7 +52272,7 @@
     {
       "file": "coq/kernel/curvature/SpacetimeEmergence.v",
       "qualified_module": "Kernel.SpacetimeEmergence",
-      "addressable_count": 27,
+      "addressable_count": 23,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -51433,16 +52291,6 @@
           "full_name": "Kernel.SpacetimeEmergence.step_rel_no_signaling"
         },
         {
-          "local_name": "all_ids_below_graph_insert_modules",
-          "kind": "Lemma",
-          "full_name": "Kernel.SpacetimeEmergence.all_ids_below_graph_insert_modules"
-        },
-        {
-          "local_name": "graph_update_preserves_wf",
-          "kind": "Lemma",
-          "full_name": "Kernel.SpacetimeEmergence.graph_update_preserves_wf"
-        },
-        {
           "local_name": "graph_add_axiom_preserves_wf",
           "kind": "Lemma",
           "full_name": "Kernel.SpacetimeEmergence.graph_add_axiom_preserves_wf"
@@ -51458,11 +52306,6 @@
           "full_name": "Kernel.SpacetimeEmergence.graph_record_discovery_preserves_wf"
         },
         {
-          "local_name": "graph_pnew_preserves_wf",
-          "kind": "Lemma",
-          "full_name": "Kernel.SpacetimeEmergence.graph_pnew_preserves_wf"
-        },
-        {
           "local_name": "graph_psplit_preserves_wf",
           "kind": "Lemma",
           "full_name": "Kernel.SpacetimeEmergence.graph_psplit_preserves_wf"
@@ -51471,11 +52314,6 @@
           "local_name": "graph_pmerge_preserves_wf",
           "kind": "Lemma",
           "full_name": "Kernel.SpacetimeEmergence.graph_pmerge_preserves_wf"
-        },
-        {
-          "local_name": "graph_update_module_tensor_preserves_wf",
-          "kind": "Lemma",
-          "full_name": "Kernel.SpacetimeEmergence.graph_update_module_tensor_preserves_wf"
         },
         {
           "local_name": "graph_pnew_next_id_monotone",
@@ -54316,7 +55154,7 @@
     {
       "file": "coq/kernel/foundation/SimulationProof.v",
       "qualified_module": "Kernel.SimulationProof",
-      "addressable_count": 35,
+      "addressable_count": 45,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -54400,6 +55238,36 @@
           "full_name": "Kernel.SimulationProof.vm_exec_run_vm"
         },
         {
+          "local_name": "partition_regions_ok_same_modules",
+          "kind": "Lemma",
+          "full_name": "Kernel.SimulationProof.partition_regions_ok_same_modules"
+        },
+        {
+          "local_name": "vm_apply_preserves_partition_regions_ok",
+          "kind": "Theorem",
+          "full_name": "Kernel.SimulationProof.vm_apply_preserves_partition_regions_ok"
+        },
+        {
+          "local_name": "run_vm_preserves_partition_regions_ok",
+          "kind": "Theorem",
+          "full_name": "Kernel.SimulationProof.run_vm_preserves_partition_regions_ok"
+        },
+        {
+          "local_name": "run_vm_regions_disjoint",
+          "kind": "Corollary",
+          "full_name": "Kernel.SimulationProof.run_vm_regions_disjoint"
+        },
+        {
+          "local_name": "vm_apply_preserves_well_formed_graph",
+          "kind": "Theorem",
+          "full_name": "Kernel.SimulationProof.vm_apply_preserves_well_formed_graph"
+        },
+        {
+          "local_name": "run_vm_preserves_well_formed_graph",
+          "kind": "Theorem",
+          "full_name": "Kernel.SimulationProof.run_vm_preserves_well_formed_graph"
+        },
+        {
           "local_name": "vm_exec_deterministic",
           "kind": "Lemma",
           "full_name": "Kernel.SimulationProof.vm_exec_deterministic"
@@ -54455,6 +55323,21 @@
           "full_name": "Kernel.SimulationProof.vm_is_a_correct_refinement_of_kernel"
         },
         {
+          "local_name": "vm_apply_pnew_eq",
+          "kind": "Lemma",
+          "full_name": "Kernel.SimulationProof.vm_apply_pnew_eq"
+        },
+        {
+          "local_name": "vm_apply_pmerge_eq",
+          "kind": "Lemma",
+          "full_name": "Kernel.SimulationProof.vm_apply_pmerge_eq"
+        },
+        {
+          "local_name": "vm_apply_pnew_pc",
+          "kind": "Lemma",
+          "full_name": "Kernel.SimulationProof.vm_apply_pnew_pc"
+        },
+        {
           "local_name": "pnew_mu_exact",
           "kind": "Lemma",
           "full_name": "Kernel.SimulationProof.pnew_mu_exact"
@@ -54463,6 +55346,11 @@
           "local_name": "vm_apply_pnew_graph",
           "kind": "Lemma",
           "full_name": "Kernel.SimulationProof.vm_apply_pnew_graph"
+        },
+        {
+          "local_name": "vm_apply_pnew_graph_adds",
+          "kind": "Lemma",
+          "full_name": "Kernel.SimulationProof.vm_apply_pnew_graph_adds"
         },
         {
           "local_name": "graph_add_module_next_id_nondec",
@@ -57600,7 +58488,7 @@
     {
       "file": "coq/kernel/foundation/VMState.v",
       "qualified_module": "Kernel.VMState",
-      "addressable_count": 92,
+      "addressable_count": 124,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -57909,6 +58797,166 @@
           "full_name": "Kernel.VMState.wf_graph_lookup_beyond_next_id"
         },
         {
+          "local_name": "nat_list_mem_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.nat_list_mem_In"
+        },
+        {
+          "local_name": "nat_list_disjoint_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.nat_list_disjoint_spec"
+        },
+        {
+          "local_name": "nat_list_disjoint_true_sym",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.nat_list_disjoint_true_sym"
+        },
+        {
+          "local_name": "nat_list_disjoint_incl",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.nat_list_disjoint_incl"
+        },
+        {
+          "local_name": "normalize_region_incl",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.normalize_region_incl"
+        },
+        {
+          "local_name": "region_contiguous_seq",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.region_contiguous_seq"
+        },
+        {
+          "local_name": "region_contiguous_NoDup",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.region_contiguous_NoDup"
+        },
+        {
+          "local_name": "normalize_region_contiguous",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.normalize_region_contiguous"
+        },
+        {
+          "local_name": "normalize_region_seq_range",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.normalize_region_seq_range"
+        },
+        {
+          "local_name": "modules_regions_disjoint_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.modules_regions_disjoint_In"
+        },
+        {
+          "local_name": "regions_disjoint_distinct_modules",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMState.regions_disjoint_distinct_modules"
+        },
+        {
+          "local_name": "regions_disjoint_no_modules",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.regions_disjoint_no_modules"
+        },
+        {
+          "local_name": "regions_contiguous_no_modules",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.regions_contiguous_no_modules"
+        },
+        {
+          "local_name": "empty_graph_regions_disjoint",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.empty_graph_regions_disjoint"
+        },
+        {
+          "local_name": "empty_graph_regions_contiguous",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.empty_graph_regions_contiguous"
+        },
+        {
+          "local_name": "graph_add_module_preserves_regions_disjoint",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.graph_add_module_preserves_regions_disjoint"
+        },
+        {
+          "local_name": "graph_add_module_preserves_regions_contiguous",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.graph_add_module_preserves_regions_contiguous"
+        },
+        {
+          "local_name": "graph_lookup_modules_In",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.graph_lookup_modules_In"
+        },
+        {
+          "local_name": "graph_remove_modules_shape",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.graph_remove_modules_shape"
+        },
+        {
+          "local_name": "graph_remove_modules_None",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.graph_remove_modules_None"
+        },
+        {
+          "local_name": "graph_remove_modules_lookup_other",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.graph_remove_modules_lookup_other"
+        },
+        {
+          "local_name": "graph_remove_modules_regions_disjoint",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.graph_remove_modules_regions_disjoint"
+        },
+        {
+          "local_name": "graph_remove_modules_regions_contiguous",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.graph_remove_modules_regions_contiguous"
+        },
+        {
+          "local_name": "graph_insert_modules_regions_disjoint",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.graph_insert_modules_regions_disjoint"
+        },
+        {
+          "local_name": "graph_insert_modules_regions_contiguous",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.graph_insert_modules_regions_contiguous"
+        },
+        {
+          "local_name": "graph_update_module_tensor_regions_disjoint",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.graph_update_module_tensor_regions_disjoint"
+        },
+        {
+          "local_name": "graph_update_module_tensor_regions_contiguous",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.graph_update_module_tensor_regions_contiguous"
+        },
+        {
+          "local_name": "graph_add_morphism_modules",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.graph_add_morphism_modules"
+        },
+        {
+          "local_name": "graph_compose_morphisms_modules",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.graph_compose_morphisms_modules"
+        },
+        {
+          "local_name": "graph_add_identity_modules",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.graph_add_identity_modules"
+        },
+        {
+          "local_name": "graph_delete_morphism_modules",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.graph_delete_morphism_modules"
+        },
+        {
+          "local_name": "graph_tensor_morphisms_modules",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMState.graph_tensor_morphisms_modules"
+        },
+        {
           "local_name": "module_tensor_entry_none",
           "kind": "Lemma",
           "full_name": "Kernel.VMState.module_tensor_entry_none"
@@ -58069,7 +59117,7 @@
     {
       "file": "coq/kernel/foundation/VMStep.v",
       "qualified_module": "Kernel.VMStep",
-      "addressable_count": 8,
+      "addressable_count": 57,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -58096,6 +59144,251 @@
           "local_name": "VMStep.nofi_trace_always_ok",
           "kind": "Lemma",
           "full_name": "Kernel.VMStep.VMStep.nofi_trace_always_ok"
+        },
+        {
+          "local_name": "VMStep.pnew_region_contiguous",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.pnew_region_contiguous"
+        },
+        {
+          "local_name": "VMStep.pnew_region_normalized",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.pnew_region_normalized"
+        },
+        {
+          "local_name": "VMStep.pnew_region_nil",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.pnew_region_nil"
+        },
+        {
+          "local_name": "VMStep.region_conflict_nil",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.region_conflict_nil"
+        },
+        {
+          "local_name": "VMStep.region_contiguousb_spec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.region_contiguousb_spec"
+        },
+        {
+          "local_name": "VMStep.partition_step_state_ok",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.partition_step_state_ok"
+        },
+        {
+          "local_name": "VMStep.graph_remove_or_keep_next_id",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.graph_remove_or_keep_next_id"
+        },
+        {
+          "local_name": "VMStep.graph_remove_or_keep_lookup_other",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.graph_remove_or_keep_lookup_other"
+        },
+        {
+          "local_name": "VMStep.graph_pnew_next_id_nondec",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.graph_pnew_next_id_nondec"
+        },
+        {
+          "local_name": "VMStep.graph_pnew_lookup_other",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.graph_pnew_lookup_other"
+        },
+        {
+          "local_name": "VMStep.graph_hw_psplit_lookup_other",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.graph_hw_psplit_lookup_other"
+        },
+        {
+          "local_name": "VMStep.graph_hw_pmerge_lookup_other",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.graph_hw_pmerge_lookup_other"
+        },
+        {
+          "local_name": "VMStep.nat_list_subset_of_incl",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.nat_list_subset_of_incl"
+        },
+        {
+          "local_name": "VMStep.nat_list_disjoint_app_l",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.nat_list_disjoint_app_l"
+        },
+        {
+          "local_name": "VMStep.NoDup_app_disjoint_nat",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.NoDup_app_disjoint_nat"
+        },
+        {
+          "local_name": "VMStep.psplit_left_incl",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.psplit_left_incl"
+        },
+        {
+          "local_name": "VMStep.psplit_right_incl",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.psplit_right_incl"
+        },
+        {
+          "local_name": "VMStep.psplit_halves_disjoint",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.psplit_halves_disjoint"
+        },
+        {
+          "local_name": "VMStep.graph_hw_psplit_partition_valid",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMStep.VMStep.graph_hw_psplit_partition_valid"
+        },
+        {
+          "local_name": "VMStep.firstn_seq_range",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.firstn_seq_range"
+        },
+        {
+          "local_name": "VMStep.skipn_seq_range",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.skipn_seq_range"
+        },
+        {
+          "local_name": "VMStep.psplit_halves_of_range",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMStep.VMStep.psplit_halves_of_range"
+        },
+        {
+          "local_name": "VMStep.psplit_halves_contiguous",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.psplit_halves_contiguous"
+        },
+        {
+          "local_name": "VMStep.graph_remove_or_keep_regions",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.graph_remove_or_keep_regions"
+        },
+        {
+          "local_name": "VMStep.graph_remove_or_keep_contiguous",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.graph_remove_or_keep_contiguous"
+        },
+        {
+          "local_name": "VMStep.graph_remove_or_keep_region_other",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.graph_remove_or_keep_region_other"
+        },
+        {
+          "local_name": "VMStep.graph_find_region_modules_None",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.graph_find_region_modules_None"
+        },
+        {
+          "local_name": "VMStep.graph_pnew_preserves_regions_disjoint",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMStep.VMStep.graph_pnew_preserves_regions_disjoint"
+        },
+        {
+          "local_name": "VMStep.graph_pnew_preserves_regions_contiguous",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMStep.VMStep.graph_pnew_preserves_regions_contiguous"
+        },
+        {
+          "local_name": "VMStep.graph_hw_psplit_preserves_regions_disjoint",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMStep.VMStep.graph_hw_psplit_preserves_regions_disjoint"
+        },
+        {
+          "local_name": "VMStep.graph_hw_psplit_preserves_regions_contiguous",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMStep.VMStep.graph_hw_psplit_preserves_regions_contiguous"
+        },
+        {
+          "local_name": "VMStep.pmerge_region_incl",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.pmerge_region_incl"
+        },
+        {
+          "local_name": "VMStep.pmerge_region_contiguous",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.pmerge_region_contiguous"
+        },
+        {
+          "local_name": "VMStep.graph_hw_pmerge_preserves_regions_disjoint",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMStep.VMStep.graph_hw_pmerge_preserves_regions_disjoint"
+        },
+        {
+          "local_name": "VMStep.graph_hw_pmerge_preserves_regions_contiguous",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMStep.VMStep.graph_hw_pmerge_preserves_regions_contiguous"
+        },
+        {
+          "local_name": "VMStep.vm_step_preserves_regions_disjoint",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMStep.VMStep.vm_step_preserves_regions_disjoint"
+        },
+        {
+          "local_name": "VMStep.vm_step_preserves_regions_contiguous",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMStep.VMStep.vm_step_preserves_regions_contiguous"
+        },
+        {
+          "local_name": "VMStep.vm_step_preserves_partition_regions_ok",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMStep.VMStep.vm_step_preserves_partition_regions_ok"
+        },
+        {
+          "local_name": "VMStep.vm_reachable_preserves_partition_regions_ok",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMStep.VMStep.vm_reachable_preserves_partition_regions_ok"
+        },
+        {
+          "local_name": "VMStep.vm_reachable_regions_disjoint",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMStep.VMStep.vm_reachable_regions_disjoint"
+        },
+        {
+          "local_name": "VMStep.all_ids_below_graph_insert_modules",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.all_ids_below_graph_insert_modules"
+        },
+        {
+          "local_name": "VMStep.graph_update_preserves_wf",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.graph_update_preserves_wf"
+        },
+        {
+          "local_name": "VMStep.graph_pnew_preserves_wf",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.graph_pnew_preserves_wf"
+        },
+        {
+          "local_name": "VMStep.graph_update_module_tensor_preserves_wf",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.graph_update_module_tensor_preserves_wf"
+        },
+        {
+          "local_name": "VMStep.graph_cascade_delete_morphisms_no_ref",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.graph_cascade_delete_morphisms_no_ref"
+        },
+        {
+          "local_name": "VMStep.graph_remove_or_keep_no_ref_wf",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.graph_remove_or_keep_no_ref_wf"
+        },
+        {
+          "local_name": "VMStep.graph_hw_psplit_preserves_wf",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMStep.VMStep.graph_hw_psplit_preserves_wf"
+        },
+        {
+          "local_name": "VMStep.graph_hw_pmerge_preserves_wf",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMStep.VMStep.graph_hw_pmerge_preserves_wf"
+        },
+        {
+          "local_name": "VMStep.vm_step_preserves_well_formed_graph",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMStep.VMStep.vm_step_preserves_well_formed_graph"
         },
         {
           "local_name": "VMStep.io_env_mu_cost_independent",
@@ -62972,7 +64265,7 @@
     {
       "file": "coq/kernel/mu_calculus/MuInitiality.v",
       "qualified_module": "Kernel.MuInitiality",
-      "addressable_count": 18,
+      "addressable_count": 19,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -63004,6 +64297,11 @@
           "local_name": "reachable_iff_trace",
           "kind": "Lemma",
           "full_name": "Kernel.MuInitiality.reachable_iff_trace"
+        },
+        {
+          "local_name": "reachable_regions_disjoint",
+          "kind": "Theorem",
+          "full_name": "Kernel.MuInitiality.reachable_regions_disjoint"
         },
         {
           "local_name": "mu_accumulates_trace_cost",

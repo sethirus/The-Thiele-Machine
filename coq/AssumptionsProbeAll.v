@@ -100,6 +100,8 @@ Require KamiHW.NormalizationStart.
 Require KamiHW.NormalizationSteps.
 Require KamiHW.OutsideDomain.
 Require KamiHW.OutsideDomainMaster.
+Require KamiHW.PartitionRefine.
+Require KamiHW.PartitionScan.
 Require KamiHW.PopcountSWAR.
 Require KamiHW.RTLCorrectnessInstantiation.
 Require KamiHW.RTLGapRegistry.
@@ -602,7 +604,7 @@ Print Assumptions PhysicsConditionalClosure.master_tsirelson_conditional.
 Print Assumptions PhysicsConditionalClosure.master_supra_quantum_impossible.
 (* === ReceiptTheorem : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions ReceiptTheorem.ReceiptTheorem.
-(* === ThieleMachineComplete : 416 addressable theorems (unaddressable: 0) === *)
+(* === ThieleMachineComplete : 420 addressable theorems (unaddressable: 0) === *)
 Print Assumptions ThieleMachineComplete.normalize_region_nodup.
 Print Assumptions ThieleMachineComplete.normalize_region_idempotent.
 Print Assumptions ThieleMachineComplete.filter_In_iff_tc.
@@ -645,6 +647,10 @@ Print Assumptions ThieleMachineComplete.payload_bit_length_ascii.
 Print Assumptions ThieleMachineComplete.io_env_mu_cost_independent.
 Print Assumptions ThieleMachineComplete.io_env_mu_cost_env_agnostic.
 Print Assumptions ThieleMachineComplete.io_read_cost_positive.
+Print Assumptions ThieleMachineComplete.vm_apply_pnew_eq.
+Print Assumptions ThieleMachineComplete.vm_apply_pnew_pc.
+Print Assumptions ThieleMachineComplete.nat_list_disjoint_nil_r.
+Print Assumptions ThieleMachineComplete.region_conflict_nil.
 Print Assumptions ThieleMachineComplete.vm_apply_mu.
 Print Assumptions ThieleMachineComplete.vm_mu_monotonic_single_step.
 Print Assumptions ThieleMachineComplete.run_vm_mu_monotonic.
@@ -1051,11 +1057,12 @@ Print Assumptions VerifierImpossibility.bare_sound_blocks_honest_acceptance.
 (* === VerifierModel : 2 addressable theorems (unaddressable: 0) === *)
 Print Assumptions VerifierModel.bare_decide_eq_trans.
 Print Assumptions VerifierModel.bare_sound_contrapositive.
-(* === KamiHW.Abstraction : 38 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.Abstraction : 52 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.Abstraction.kami_err_logic_witness.
 Print Assumptions KamiHW.Abstraction.kami_err_coupling_invalid_witness.
 Print Assumptions KamiHW.Abstraction.kami_err_compose_type_witness.
 Print Assumptions KamiHW.Abstraction.kami_err_morph_not_found_witness.
+Print Assumptions KamiHW.Abstraction.kami_err_partition_overlap_witness.
 Print Assumptions KamiHW.Abstraction.kami_step_mu_cost.
 Print Assumptions KamiHW.Abstraction.kami_cost_eq_instruction_cost.
 Print Assumptions KamiHW.Abstraction.kami_cost_ge_instruction_cost.
@@ -1065,9 +1072,12 @@ Print Assumptions KamiHW.Abstraction.snapshot_tensor_to_list_length.
 Print Assumptions KamiHW.Abstraction.normalize_seq_nodups.
 Print Assumptions KamiHW.Abstraction.rev_seq_succ.
 Print Assumptions KamiHW.Abstraction.filter_map_app_dist.
+Print Assumptions KamiHW.Abstraction.snap_pt_to_graph_modules.
+Print Assumptions KamiHW.Abstraction.filtermap_ext_in_early.
 Print Assumptions KamiHW.Abstraction.filter_map_pt_below_unaffected.
 Print Assumptions KamiHW.Abstraction.filtermap_all_ids_below.
 Print Assumptions KamiHW.Abstraction.snap_pt_to_graph_wf.
+Print Assumptions KamiHW.Abstraction.snap_pt_to_graph_pnew_minimal_aux.
 Print Assumptions KamiHW.Abstraction.snap_pt_to_graph_pnew.
 Print Assumptions KamiHW.Abstraction.snap_pt_to_graph_pnew_minimal.
 Print Assumptions KamiHW.Abstraction.snap_pt_to_graph_pnew_next_id.
@@ -1090,6 +1100,16 @@ Print Assumptions KamiHW.Abstraction.kami_register_write_matches_vm.
 Print Assumptions KamiHW.Abstraction.filtermap_ext_in.
 Print Assumptions KamiHW.Abstraction.filtermap_zero_filters_entry.
 Print Assumptions KamiHW.Abstraction.filtermap_two_zeros_filter.
+Print Assumptions KamiHW.Abstraction.nat_list_subset_seq.
+Print Assumptions KamiHW.Abstraction.nat_list_eq_seq.
+Print Assumptions KamiHW.Abstraction.nat_list_disjoint_seq.
+Print Assumptions KamiHW.Abstraction.existsb_filtermap.
+Print Assumptions KamiHW.Abstraction.existsb_rev_eq.
+Print Assumptions KamiHW.Abstraction.existsb_ext_in.
+Print Assumptions KamiHW.Abstraction.existsb_seq_below.
+Print Assumptions KamiHW.Abstraction.snap_pt_region_conflict.
+Print Assumptions KamiHW.Abstraction.graph_find_region_modules_None_existsb.
+Print Assumptions KamiHW.Abstraction.snap_pt_find_region.
 (* === KamiHW.ActionEvaluator : 5 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.ActionEvaluator.action_read_sound.
 Print Assumptions KamiHW.ActionEvaluator.action_read_complete.
@@ -1178,7 +1198,7 @@ Print Assumptions KamiHW.ChshDecoded.chsh_fsm_decoded_total.
 Print Assumptions KamiHW.ChshDecoded.chsh_observer.
 Print Assumptions KamiHW.ChshDecoded.chsh_rule_next.
 Print Assumptions KamiHW.ChshDecoded.chsh_rule_enabled.
-(* === KamiHW.ChshFsm : 140 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.ChshFsm : 141 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.ChshFsm.chsh_next_chsh_n00sq.
 Print Assumptions KamiHW.ChshFsm.chsh_next_chsh_n01sq.
 Print Assumptions KamiHW.ChshFsm.chsh_next_chsh_n10sq.
@@ -1258,6 +1278,7 @@ Print Assumptions KamiHW.ChshFsm.chsh_keeps_module_tensors.
 Print Assumptions KamiHW.ChshFsm.chsh_keeps_csr_status.
 Print Assumptions KamiHW.ChshFsm.chsh_keeps_csr_heap_base.
 Print Assumptions KamiHW.ChshFsm.chsh_keeps_ptTable.
+Print Assumptions KamiHW.ChshFsm.chsh_keeps_ptBases.
 Print Assumptions KamiHW.ChshFsm.chsh_keeps_pt_next_id.
 Print Assumptions KamiHW.ChshFsm.chsh_keeps_morph_src_table.
 Print Assumptions KamiHW.ChshFsm.chsh_keeps_morph_dst_table.
@@ -2954,7 +2975,7 @@ Print Assumptions KamiHW.ChshRetire.chsh_iter_multistep.
 Print Assumptions KamiHW.ChshRetire.natToWord5_succ_ne0.
 Print Assumptions KamiHW.ChshRetire.chsh_lassert_execution.
 Print Assumptions KamiHW.ChshRetire.chsh_only_rule_enabled.
-(* === KamiHW.ChshRun : 118 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.ChshRun : 119 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.ChshRun.iter_keeps_mu.
 Print Assumptions KamiHW.ChshRun.iter_keeps_halted.
 Print Assumptions KamiHW.ChshRun.iter_keeps_regs.
@@ -3007,6 +3028,7 @@ Print Assumptions KamiHW.ChshRun.iter_keeps_module_tensors.
 Print Assumptions KamiHW.ChshRun.iter_keeps_csr_status.
 Print Assumptions KamiHW.ChshRun.iter_keeps_csr_heap_base.
 Print Assumptions KamiHW.ChshRun.iter_keeps_ptTable.
+Print Assumptions KamiHW.ChshRun.iter_keeps_ptBases.
 Print Assumptions KamiHW.ChshRun.iter_keeps_pt_next_id.
 Print Assumptions KamiHW.ChshRun.iter_keeps_morph_src_table.
 Print Assumptions KamiHW.ChshRun.iter_keeps_morph_dst_table.
@@ -3073,7 +3095,7 @@ Print Assumptions KamiHW.ChshRun.chsh_abs_A_form.
 Print Assumptions KamiHW.ChshRun.chsh_abs_B_form.
 Print Assumptions KamiHW.ChshRun.chsh_final_form.
 Print Assumptions KamiHW.ChshRun.chsh_run_result.
-(* === KamiHW.ChshStepFields : 47 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.ChshStepFields : 48 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.ChshStepFields.step_chsh_lassert_pc.
 Print Assumptions KamiHW.ChshStepFields.step_chsh_lassert_mu.
 Print Assumptions KamiHW.ChshStepFields.step_chsh_lassert_err.
@@ -3088,6 +3110,7 @@ Print Assumptions KamiHW.ChshStepFields.step_chsh_lassert_info_gain.
 Print Assumptions KamiHW.ChshStepFields.step_chsh_lassert_mu_tensor.
 Print Assumptions KamiHW.ChshStepFields.step_chsh_lassert_module_tensors.
 Print Assumptions KamiHW.ChshStepFields.step_chsh_lassert_ptTable.
+Print Assumptions KamiHW.ChshStepFields.step_chsh_lassert_ptBases.
 Print Assumptions KamiHW.ChshStepFields.step_chsh_lassert_pt_next_id.
 Print Assumptions KamiHW.ChshStepFields.step_chsh_lassert_certified.
 Print Assumptions KamiHW.ChshStepFields.step_chsh_lassert_wc_same_00.
@@ -3154,7 +3177,7 @@ Print Assumptions KamiHW.CouplingComposeKami.desc_label_hw.
 Print Assumptions KamiHW.CouplingComposeKami.compose_label_hw.
 Print Assumptions KamiHW.CouplingComposeKami.rich_morph_at.
 Print Assumptions KamiHW.CouplingComposeKami.kami_step_compose_hw.
-(* === KamiHW.CouplingComposeRetire : 131 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.CouplingComposeRetire : 132 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.CouplingComposeRetire.phase4_ne7.
 Print Assumptions KamiHW.CouplingComposeRetire.compose_fsm_run.
 Print Assumptions KamiHW.CouplingComposeRetire.compose_fsm_keeps_active_module.
@@ -3270,6 +3293,7 @@ Print Assumptions KamiHW.CouplingComposeRetire.compose_fsm_keeps_mu_tensor.
 Print Assumptions KamiHW.CouplingComposeRetire.compose_fsm_keeps_partition_ops.
 Print Assumptions KamiHW.CouplingComposeRetire.compose_fsm_keeps_pc.
 Print Assumptions KamiHW.CouplingComposeRetire.compose_fsm_keeps_ptTable.
+Print Assumptions KamiHW.CouplingComposeRetire.compose_fsm_keeps_ptBases.
 Print Assumptions KamiHW.CouplingComposeRetire.compose_fsm_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingComposeRetire.compose_fsm_keeps_regs.
 Print Assumptions KamiHW.CouplingComposeRetire.compose_fsm_keeps_trap_vector.
@@ -3286,7 +3310,7 @@ Print Assumptions KamiHW.CouplingComposeRetire.compose_raw_step.
 Print Assumptions KamiHW.CouplingComposeRetire.compose_ext_run.
 Print Assumptions KamiHW.CouplingComposeRetire.compose_ext_retire.
 Print Assumptions KamiHW.CouplingComposeRetire.compose_ext_execution.
-(* === KamiHW.CouplingComposeRun : 252 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.CouplingComposeRun : 254 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.CouplingComposeRun.norm_commit_run.
 Print Assumptions KamiHW.CouplingComposeRun.front_commit.
 Print Assumptions KamiHW.CouplingComposeRun.compose_copy_run.
@@ -3516,7 +3540,9 @@ Print Assumptions KamiHW.CouplingComposeRun.compose_join_keeps_partition_ops.
 Print Assumptions KamiHW.CouplingComposeRun.compose_copy_keeps_pc.
 Print Assumptions KamiHW.CouplingComposeRun.compose_join_keeps_pc.
 Print Assumptions KamiHW.CouplingComposeRun.compose_copy_keeps_ptTable.
+Print Assumptions KamiHW.CouplingComposeRun.compose_copy_keeps_ptBases.
 Print Assumptions KamiHW.CouplingComposeRun.compose_join_keeps_ptTable.
+Print Assumptions KamiHW.CouplingComposeRun.compose_join_keeps_ptBases.
 Print Assumptions KamiHW.CouplingComposeRun.compose_copy_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingComposeRun.compose_join_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingComposeRun.compose_copy_keeps_regs.
@@ -3546,7 +3572,7 @@ Print Assumptions KamiHW.CouplingFaults.step_morph_ext_fault_refines.
 Print Assumptions KamiHW.CouplingFaults.step_morph_ext_fault_idle.
 Print Assumptions KamiHW.CouplingFaults.step_compose_ext_fault_refines.
 Print Assumptions KamiHW.CouplingFaults.step_compose_ext_fault_idle.
-(* === KamiHW.CouplingFsmCopy : 273 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.CouplingFsmCopy : 275 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.CouplingFsmCopy.mccopy_keeps_pc.
 Print Assumptions KamiHW.CouplingFsmCopy.mccopy_keeps_mu.
 Print Assumptions KamiHW.CouplingFsmCopy.mccopy_keeps_halted.
@@ -3624,6 +3650,7 @@ Print Assumptions KamiHW.CouplingFsmCopy.mccopy_keeps_module_tensors.
 Print Assumptions KamiHW.CouplingFsmCopy.mccopy_keeps_csr_status.
 Print Assumptions KamiHW.CouplingFsmCopy.mccopy_keeps_csr_heap_base.
 Print Assumptions KamiHW.CouplingFsmCopy.mccopy_keeps_ptTable.
+Print Assumptions KamiHW.CouplingFsmCopy.mccopy_keeps_ptBases.
 Print Assumptions KamiHW.CouplingFsmCopy.mccopy_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingFsmCopy.mccopy_keeps_morph_src_table.
 Print Assumptions KamiHW.CouplingFsmCopy.mccopy_keeps_morph_dst_table.
@@ -3764,6 +3791,7 @@ Print Assumptions KamiHW.CouplingFsmCopy.copy_iter_keeps_module_tensors.
 Print Assumptions KamiHW.CouplingFsmCopy.copy_iter_keeps_csr_status.
 Print Assumptions KamiHW.CouplingFsmCopy.copy_iter_keeps_csr_heap_base.
 Print Assumptions KamiHW.CouplingFsmCopy.copy_iter_keeps_ptTable.
+Print Assumptions KamiHW.CouplingFsmCopy.copy_iter_keeps_ptBases.
 Print Assumptions KamiHW.CouplingFsmCopy.copy_iter_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingFsmCopy.copy_iter_keeps_morph_src_table.
 Print Assumptions KamiHW.CouplingFsmCopy.copy_iter_keeps_morph_dst_table.
@@ -3820,7 +3848,7 @@ Print Assumptions KamiHW.CouplingFsmCopy.copy_iter_keeps_wc_same_11.
 Print Assumptions KamiHW.CouplingFsmCopy.copy_iter_keeps_wc_diff_11.
 Print Assumptions KamiHW.CouplingFsmCopy.copy_run.
 Print Assumptions KamiHW.CouplingFsmCopy.copy_multistep.
-(* === KamiHW.CouplingFsmEnds : 427 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.CouplingFsmEnds : 430 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.CouplingFsmEnds.ext5_32.
 Print Assumptions KamiHW.CouplingFsmEnds.half_room.
 Print Assumptions KamiHW.CouplingFsmEnds.lt32_pow2_32.
@@ -3904,6 +3932,7 @@ Print Assumptions KamiHW.CouplingFsmEnds.mchdr_keeps_module_tensors.
 Print Assumptions KamiHW.CouplingFsmEnds.mchdr_keeps_csr_status.
 Print Assumptions KamiHW.CouplingFsmEnds.mchdr_keeps_csr_heap_base.
 Print Assumptions KamiHW.CouplingFsmEnds.mchdr_keeps_ptTable.
+Print Assumptions KamiHW.CouplingFsmEnds.mchdr_keeps_ptBases.
 Print Assumptions KamiHW.CouplingFsmEnds.mchdr_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingFsmEnds.mchdr_keeps_morph_src_table.
 Print Assumptions KamiHW.CouplingFsmEnds.mchdr_keeps_morph_dst_table.
@@ -4047,6 +4076,7 @@ Print Assumptions KamiHW.CouplingFsmEnds.mcnstart_keeps_module_tensors.
 Print Assumptions KamiHW.CouplingFsmEnds.mcnstart_keeps_csr_status.
 Print Assumptions KamiHW.CouplingFsmEnds.mcnstart_keeps_csr_heap_base.
 Print Assumptions KamiHW.CouplingFsmEnds.mcnstart_keeps_ptTable.
+Print Assumptions KamiHW.CouplingFsmEnds.mcnstart_keeps_ptBases.
 Print Assumptions KamiHW.CouplingFsmEnds.mcnstart_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingFsmEnds.mcnstart_keeps_morph_src_table.
 Print Assumptions KamiHW.CouplingFsmEnds.mcnstart_keeps_morph_dst_table.
@@ -4187,6 +4217,7 @@ Print Assumptions KamiHW.CouplingFsmEnds.mccommit_keeps_module_tensors.
 Print Assumptions KamiHW.CouplingFsmEnds.mccommit_keeps_csr_status.
 Print Assumptions KamiHW.CouplingFsmEnds.mccommit_keeps_csr_heap_base.
 Print Assumptions KamiHW.CouplingFsmEnds.mccommit_keeps_ptTable.
+Print Assumptions KamiHW.CouplingFsmEnds.mccommit_keeps_ptBases.
 Print Assumptions KamiHW.CouplingFsmEnds.mccommit_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingFsmEnds.mccommit_keeps_morph_src_table.
 Print Assumptions KamiHW.CouplingFsmEnds.mccommit_keeps_morph_dst_table.
@@ -4248,7 +4279,7 @@ Print Assumptions KamiHW.CouplingFsmEnds.mccommit_valid.
 Print Assumptions KamiHW.CouplingFsmEnds.mccommit_desc_next.
 Print Assumptions KamiHW.CouplingFsmEnds.mccommit_pair_next.
 Print Assumptions KamiHW.CouplingFsmEnds.mccommit_phase.
-(* === KamiHW.CouplingFsmJoin : 274 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.CouplingFsmJoin : 276 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.CouplingFsmJoin.mcjoin_keeps_pc.
 Print Assumptions KamiHW.CouplingFsmJoin.mcjoin_keeps_mu.
 Print Assumptions KamiHW.CouplingFsmJoin.mcjoin_keeps_halted.
@@ -4326,6 +4357,7 @@ Print Assumptions KamiHW.CouplingFsmJoin.mcjoin_keeps_module_tensors.
 Print Assumptions KamiHW.CouplingFsmJoin.mcjoin_keeps_csr_status.
 Print Assumptions KamiHW.CouplingFsmJoin.mcjoin_keeps_csr_heap_base.
 Print Assumptions KamiHW.CouplingFsmJoin.mcjoin_keeps_ptTable.
+Print Assumptions KamiHW.CouplingFsmJoin.mcjoin_keeps_ptBases.
 Print Assumptions KamiHW.CouplingFsmJoin.mcjoin_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingFsmJoin.mcjoin_keeps_morph_src_table.
 Print Assumptions KamiHW.CouplingFsmJoin.mcjoin_keeps_morph_dst_table.
@@ -4466,6 +4498,7 @@ Print Assumptions KamiHW.CouplingFsmJoin.join_iter_keeps_module_tensors.
 Print Assumptions KamiHW.CouplingFsmJoin.join_iter_keeps_csr_status.
 Print Assumptions KamiHW.CouplingFsmJoin.join_iter_keeps_csr_heap_base.
 Print Assumptions KamiHW.CouplingFsmJoin.join_iter_keeps_ptTable.
+Print Assumptions KamiHW.CouplingFsmJoin.join_iter_keeps_ptBases.
 Print Assumptions KamiHW.CouplingFsmJoin.join_iter_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingFsmJoin.join_iter_keeps_morph_src_table.
 Print Assumptions KamiHW.CouplingFsmJoin.join_iter_keeps_morph_dst_table.
@@ -4523,7 +4556,7 @@ Print Assumptions KamiHW.CouplingFsmJoin.join_iter_keeps_wc_diff_11.
 Print Assumptions KamiHW.CouplingFsmJoin.join_step_facts.
 Print Assumptions KamiHW.CouplingFsmJoin.join_run.
 Print Assumptions KamiHW.CouplingFsmJoin.join_multistep.
-(* === KamiHW.CouplingFsmLoad : 277 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.CouplingFsmLoad : 279 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.CouplingFsmLoad.rule_in_index.
 Print Assumptions KamiHW.CouplingFsmLoad.mcload_keeps_pc.
 Print Assumptions KamiHW.CouplingFsmLoad.mcload_keeps_mu.
@@ -4604,6 +4637,7 @@ Print Assumptions KamiHW.CouplingFsmLoad.mcload_keeps_module_tensors.
 Print Assumptions KamiHW.CouplingFsmLoad.mcload_keeps_csr_status.
 Print Assumptions KamiHW.CouplingFsmLoad.mcload_keeps_csr_heap_base.
 Print Assumptions KamiHW.CouplingFsmLoad.mcload_keeps_ptTable.
+Print Assumptions KamiHW.CouplingFsmLoad.mcload_keeps_ptBases.
 Print Assumptions KamiHW.CouplingFsmLoad.mcload_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingFsmLoad.mcload_keeps_morph_src_table.
 Print Assumptions KamiHW.CouplingFsmLoad.mcload_keeps_morph_dst_table.
@@ -4744,6 +4778,7 @@ Print Assumptions KamiHW.CouplingFsmLoad.mload_iter_keeps_module_tensors.
 Print Assumptions KamiHW.CouplingFsmLoad.mload_iter_keeps_csr_status.
 Print Assumptions KamiHW.CouplingFsmLoad.mload_iter_keeps_csr_heap_base.
 Print Assumptions KamiHW.CouplingFsmLoad.mload_iter_keeps_ptTable.
+Print Assumptions KamiHW.CouplingFsmLoad.mload_iter_keeps_ptBases.
 Print Assumptions KamiHW.CouplingFsmLoad.mload_iter_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingFsmLoad.mload_iter_keeps_morph_src_table.
 Print Assumptions KamiHW.CouplingFsmLoad.mload_iter_keeps_morph_dst_table.
@@ -4801,7 +4836,7 @@ Print Assumptions KamiHW.CouplingFsmLoad.mload_iter_keeps_wc_diff_11.
 Print Assumptions KamiHW.CouplingFsmLoad.weq_nat5.
 Print Assumptions KamiHW.CouplingFsmLoad.mload_loop.
 Print Assumptions KamiHW.CouplingFsmLoad.mload_multistep.
-(* === KamiHW.CouplingFsmNorm : 689 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.CouplingFsmNorm : 694 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.CouplingFsmNorm.rule_in_index.
 Print Assumptions KamiHW.CouplingFsmNorm.wlt_nat5.
 Print Assumptions KamiHW.CouplingFsmNorm.weq_nat5.
@@ -4885,6 +4920,7 @@ Print Assumptions KamiHW.CouplingFsmNorm.mcnscan_keeps_module_tensors.
 Print Assumptions KamiHW.CouplingFsmNorm.mcnscan_keeps_csr_status.
 Print Assumptions KamiHW.CouplingFsmNorm.mcnscan_keeps_csr_heap_base.
 Print Assumptions KamiHW.CouplingFsmNorm.mcnscan_keeps_ptTable.
+Print Assumptions KamiHW.CouplingFsmNorm.mcnscan_keeps_ptBases.
 Print Assumptions KamiHW.CouplingFsmNorm.mcnscan_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingFsmNorm.mcnscan_keeps_morph_src_table.
 Print Assumptions KamiHW.CouplingFsmNorm.mcnscan_keeps_morph_dst_table.
@@ -5025,6 +5061,7 @@ Print Assumptions KamiHW.CouplingFsmNorm.mcnemit_keeps_module_tensors.
 Print Assumptions KamiHW.CouplingFsmNorm.mcnemit_keeps_csr_status.
 Print Assumptions KamiHW.CouplingFsmNorm.mcnemit_keeps_csr_heap_base.
 Print Assumptions KamiHW.CouplingFsmNorm.mcnemit_keeps_ptTable.
+Print Assumptions KamiHW.CouplingFsmNorm.mcnemit_keeps_ptBases.
 Print Assumptions KamiHW.CouplingFsmNorm.mcnemit_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingFsmNorm.mcnemit_keeps_morph_src_table.
 Print Assumptions KamiHW.CouplingFsmNorm.mcnemit_keeps_morph_dst_table.
@@ -5165,6 +5202,7 @@ Print Assumptions KamiHW.CouplingFsmNorm.nscan_iter_keeps_module_tensors.
 Print Assumptions KamiHW.CouplingFsmNorm.nscan_iter_keeps_csr_status.
 Print Assumptions KamiHW.CouplingFsmNorm.nscan_iter_keeps_csr_heap_base.
 Print Assumptions KamiHW.CouplingFsmNorm.nscan_iter_keeps_ptTable.
+Print Assumptions KamiHW.CouplingFsmNorm.nscan_iter_keeps_ptBases.
 Print Assumptions KamiHW.CouplingFsmNorm.nscan_iter_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingFsmNorm.nscan_iter_keeps_morph_src_table.
 Print Assumptions KamiHW.CouplingFsmNorm.nscan_iter_keeps_morph_dst_table.
@@ -5305,6 +5343,7 @@ Print Assumptions KamiHW.CouplingFsmNorm.nouter_step_keeps_module_tensors.
 Print Assumptions KamiHW.CouplingFsmNorm.nouter_step_keeps_csr_status.
 Print Assumptions KamiHW.CouplingFsmNorm.nouter_step_keeps_csr_heap_base.
 Print Assumptions KamiHW.CouplingFsmNorm.nouter_step_keeps_ptTable.
+Print Assumptions KamiHW.CouplingFsmNorm.nouter_step_keeps_ptBases.
 Print Assumptions KamiHW.CouplingFsmNorm.nouter_step_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingFsmNorm.nouter_step_keeps_morph_src_table.
 Print Assumptions KamiHW.CouplingFsmNorm.nouter_step_keeps_morph_dst_table.
@@ -5437,6 +5476,7 @@ Print Assumptions KamiHW.CouplingFsmNorm.nouter_iter_keeps_module_tensors.
 Print Assumptions KamiHW.CouplingFsmNorm.nouter_iter_keeps_csr_status.
 Print Assumptions KamiHW.CouplingFsmNorm.nouter_iter_keeps_csr_heap_base.
 Print Assumptions KamiHW.CouplingFsmNorm.nouter_iter_keeps_ptTable.
+Print Assumptions KamiHW.CouplingFsmNorm.nouter_iter_keeps_ptBases.
 Print Assumptions KamiHW.CouplingFsmNorm.nouter_iter_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingFsmNorm.nouter_iter_keeps_morph_src_table.
 Print Assumptions KamiHW.CouplingFsmNorm.nouter_iter_keeps_morph_dst_table.
@@ -5491,7 +5531,7 @@ Print Assumptions KamiHW.CouplingFsmNorm.nouter_iter_keeps_wc_diff_10.
 Print Assumptions KamiHW.CouplingFsmNorm.nouter_iter_keeps_wc_same_11.
 Print Assumptions KamiHW.CouplingFsmNorm.nouter_iter_keeps_wc_diff_11.
 Print Assumptions KamiHW.CouplingFsmNorm.nouter_run.
-(* === KamiHW.CouplingFsmRun : 128 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.CouplingFsmRun : 129 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.CouplingFsmRun.split1_5_27_small.
 Print Assumptions KamiHW.CouplingFsmRun.weq_nat32_zero.
 Print Assumptions KamiHW.CouplingFsmRun.nouter_prefix.
@@ -5575,6 +5615,7 @@ Print Assumptions KamiHW.CouplingFsmRun.morph_fsm_keeps_module_tensors.
 Print Assumptions KamiHW.CouplingFsmRun.morph_fsm_keeps_csr_status.
 Print Assumptions KamiHW.CouplingFsmRun.morph_fsm_keeps_csr_heap_base.
 Print Assumptions KamiHW.CouplingFsmRun.morph_fsm_keeps_ptTable.
+Print Assumptions KamiHW.CouplingFsmRun.morph_fsm_keeps_ptBases.
 Print Assumptions KamiHW.CouplingFsmRun.morph_fsm_keeps_pt_next_id.
 Print Assumptions KamiHW.CouplingFsmRun.morph_fsm_keeps_morph_src_table.
 Print Assumptions KamiHW.CouplingFsmRun.morph_fsm_keeps_morph_dst_table.
@@ -5707,7 +5748,7 @@ Print Assumptions KamiHW.DispatchFetch.dispatch_constant_imem_observation.
 Print Assumptions KamiHW.DispatchFetch.dispatch_reads_fetch_eval_frame.
 Print Assumptions KamiHW.DispatchFetch.dispatch_fetch_eval_frame.
 Print Assumptions KamiHW.DispatchFetch.dispatch_fetch_actual_action_frame.
-(* === KamiHW.DispatchLets : 73 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.DispatchLets : 74 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.DispatchLets.step_next_pc.
 Print Assumptions KamiHW.DispatchLets.step_next_mu.
 Print Assumptions KamiHW.DispatchLets.step_next_regs.
@@ -5726,6 +5767,7 @@ Print Assumptions KamiHW.DispatchLets.step_next_info_gain.
 Print Assumptions KamiHW.DispatchLets.step_next_mu_tensor.
 Print Assumptions KamiHW.DispatchLets.step_next_module_tensors.
 Print Assumptions KamiHW.DispatchLets.step_next_ptTable.
+Print Assumptions KamiHW.DispatchLets.step_next_ptBases.
 Print Assumptions KamiHW.DispatchLets.step_next_pt_next_id.
 Print Assumptions KamiHW.DispatchLets.step_next_morph_src_table.
 Print Assumptions KamiHW.DispatchLets.step_next_morph_dst_table.
@@ -5788,7 +5830,7 @@ Print Assumptions KamiHW.DispatchObservation.dispatch_add_actual_post.
 Print Assumptions KamiHW.DispatchObservation.dispatch_add_actual_execution.
 (* === KamiHW.DispatchReset : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.DispatchReset.actual_cpu_reset_contract.
-(* === KamiHW.EmbedStep : 31 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.EmbedStep : 32 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.EmbedStep.word64_idempotent.
 Print Assumptions KamiHW.EmbedStep.map_update_at_seq_gen.
 Print Assumptions KamiHW.EmbedStep.map_update_at_seq.
@@ -5813,6 +5855,7 @@ Print Assumptions KamiHW.EmbedStep.embed_step_ljoin.
 Print Assumptions KamiHW.EmbedStep.embed_step_emit.
 Print Assumptions KamiHW.EmbedStep.embed_step_pdiscover.
 Print Assumptions KamiHW.EmbedStep.embed_step_reveal.
+Print Assumptions KamiHW.EmbedStep.embed_step_pnew_bounded.
 Print Assumptions KamiHW.EmbedStep.embed_step_pnew.
 Print Assumptions KamiHW.EmbedStep.abs_phase1_kami_graph_op_advance.
 Print Assumptions KamiHW.EmbedStep.embed_step_psplit_exists.
@@ -5982,13 +6025,9 @@ Print Assumptions KamiHW.FullEmbedStep.vm_apply_lassert_with_graph_commute.
 Print Assumptions KamiHW.FullStep.kami_step_full_refines.
 Print Assumptions KamiHW.FullStep.kami_run_full_refines.
 Print Assumptions KamiHW.FullStep.initial_full_kami_correspondence.
-(* === KamiHW.GraphReconstructionBridge : 109 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.GraphReconstructionBridge : 129 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_supported.
 Print Assumptions KamiHW.GraphReconstructionBridge.map_const_zero_repeat.
-Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_pnew.
-Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_pnew_minimal.
-Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_pnew.
-Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_pnew_full.
 Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_call.
 Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_ret.
 Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_chsh_trial.
@@ -6025,6 +6064,8 @@ Print Assumptions KamiHW.GraphReconstructionBridge.coupling_count_length.
 Print Assumptions KamiHW.GraphReconstructionBridge.morph_table_wf_preserved_add.
 Print Assumptions KamiHW.GraphReconstructionBridge.morph_table_wf_preserved_delete.
 Print Assumptions KamiHW.GraphReconstructionBridge.morph_table_wf_preserved_add_with_coupling.
+Print Assumptions KamiHW.GraphReconstructionBridge.morph_table_wf_cascade.
+Print Assumptions KamiHW.GraphReconstructionBridge.coupling_wf_cascade.
 Print Assumptions KamiHW.GraphReconstructionBridge.morph_table_wf_kami_step_preserved.
 Print Assumptions KamiHW.GraphReconstructionBridge.add_morph_preserves_next_coupling_desc_id.
 Print Assumptions KamiHW.GraphReconstructionBridge.add_morph_preserves_coupling_desc_table.
@@ -6059,12 +6100,8 @@ Print Assumptions KamiHW.GraphReconstructionBridge.snap_pt_sizes_nonzero_graph_l
 Print Assumptions KamiHW.GraphReconstructionBridge.filtermap_ext_in.
 Print Assumptions KamiHW.GraphReconstructionBridge.partition_graph_eq.
 Print Assumptions KamiHW.GraphReconstructionBridge.snap_pt_to_graph_ext.
-Print Assumptions KamiHW.GraphReconstructionBridge.graph_hw_psplit_modules_eq.
-Print Assumptions KamiHW.GraphReconstructionBridge.graph_hw_pmerge_modules_eq.
 Print Assumptions KamiHW.GraphReconstructionBridge.graph_remove_preserves_morph_fields.
 Print Assumptions KamiHW.GraphReconstructionBridge.graph_add_module_preserves_morph_fields.
-Print Assumptions KamiHW.GraphReconstructionBridge.graph_hw_psplit_preserves_morph_fields.
-Print Assumptions KamiHW.GraphReconstructionBridge.graph_hw_pmerge_preserves_morph_fields.
 Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_morph_assert.
 Print Assumptions KamiHW.GraphReconstructionBridge.morph_entry_fields_agree.
 Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_morph_get.
@@ -6075,14 +6112,40 @@ Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_morph_full.
 Print Assumptions KamiHW.GraphReconstructionBridge.graph_remove_modules_map_commute.
 Print Assumptions KamiHW.GraphReconstructionBridge.tensor_wrap_mod_fresh.
 Print Assumptions KamiHW.GraphReconstructionBridge.graph_module_size_tensor_overlay.
-Print Assumptions KamiHW.GraphReconstructionBridge.graph_hw_psplit_overlay_commute.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_wraps.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_lookup_modules_wrap.
+Print Assumptions KamiHW.GraphReconstructionBridge.wraps_region.
+Print Assumptions KamiHW.GraphReconstructionBridge.find_region_modules_wrap.
+Print Assumptions KamiHW.GraphReconstructionBridge.wraps_find_region.
+Print Assumptions KamiHW.GraphReconstructionBridge.existsb_map_comp.
+Print Assumptions KamiHW.GraphReconstructionBridge.wraps_region_conflict.
+Print Assumptions KamiHW.GraphReconstructionBridge.wraps_pmerge_adjacent.
+Print Assumptions KamiHW.GraphReconstructionBridge.wraps_add.
+Print Assumptions KamiHW.GraphReconstructionBridge.wraps_pnew.
+Print Assumptions KamiHW.GraphReconstructionBridge.wraps_remove.
+Print Assumptions KamiHW.GraphReconstructionBridge.wraps_cascade.
+Print Assumptions KamiHW.GraphReconstructionBridge.rm_or_keep_morph_fields.
+Print Assumptions KamiHW.GraphReconstructionBridge.rm_or_keep_next_id.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_hw_psplit_fst.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_hw_pmerge_fst.
+Print Assumptions KamiHW.GraphReconstructionBridge.wraps_hw_psplit.
+Print Assumptions KamiHW.GraphReconstructionBridge.wraps_hw_pmerge.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_hw_psplit_morph_fields.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_hw_pmerge_morph_fields.
+Print Assumptions KamiHW.GraphReconstructionBridge.filter_filter_pointwise.
+Print Assumptions KamiHW.GraphReconstructionBridge.cascade_pred_keep1.
+Print Assumptions KamiHW.GraphReconstructionBridge.cascade_pred_keep2.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_pnew_morph_fields.
 Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_psplit.
-Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_psplit.
-Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_psplit_full.
-Print Assumptions KamiHW.GraphReconstructionBridge.graph_hw_pmerge_overlay_commute.
 Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_pmerge.
-Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_pmerge.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_pnew.
+Print Assumptions KamiHW.GraphReconstructionBridge.with_graph_partition_step.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_psplit_full.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_psplit.
 Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_pmerge_full.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_pmerge.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_pnew_full.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_pnew.
 Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_morph_id.
 Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_morph_id_full.
 Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_compose_fields.
@@ -6092,7 +6155,7 @@ Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_morph_tensor.
 Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_wf.
 Print Assumptions KamiHW.GraphReconstructionBridge.driven_trace_commutes.
 Print Assumptions KamiHW.GraphReconstructionBridge.kami_step_full_agrees_with_kami_step_supported.
-(* === KamiHW.HWBoundaryCompleteness : 145 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.HWBoundaryCompleteness : 146 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.HWBoundaryCompleteness.typed_register_value_find.
 Print Assumptions KamiHW.HWBoundaryCompleteness.cpu_kind_pc.
 Print Assumptions KamiHW.HWBoundaryCompleteness.cpu_kind_mu.
@@ -6173,6 +6236,7 @@ Print Assumptions KamiHW.HWBoundaryCompleteness.cpu_kind_module_tensors.
 Print Assumptions KamiHW.HWBoundaryCompleteness.cpu_kind_csr_status.
 Print Assumptions KamiHW.HWBoundaryCompleteness.cpu_kind_csr_heap_base.
 Print Assumptions KamiHW.HWBoundaryCompleteness.cpu_kind_ptTable.
+Print Assumptions KamiHW.HWBoundaryCompleteness.cpu_kind_ptBases.
 Print Assumptions KamiHW.HWBoundaryCompleteness.cpu_kind_pt_next_id.
 Print Assumptions KamiHW.HWBoundaryCompleteness.cpu_kind_morph_src_table.
 Print Assumptions KamiHW.HWBoundaryCompleteness.cpu_kind_morph_dst_table.
@@ -6238,7 +6302,7 @@ Print Assumptions KamiHW.HWBoundaryCompleteness.cpu_register_names.
 Print Assumptions KamiHW.HWBoundaryCompleteness.hwb_of_regs_complete.
 Print Assumptions KamiHW.HWBoundaryCompleteness.cpu_register_map_has_boundary.
 Print Assumptions KamiHW.HWBoundaryCompleteness.cpu_reset_run_has_boundary.
-(* === KamiHW.HWBoundaryReads : 140 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.HWBoundaryReads : 141 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.HWBoundaryReads.hwb_read_pc.
 Print Assumptions KamiHW.HWBoundaryReads.hwb_read_mu.
 Print Assumptions KamiHW.HWBoundaryReads.hwb_read_err.
@@ -6318,6 +6382,7 @@ Print Assumptions KamiHW.HWBoundaryReads.hwb_read_module_tensors.
 Print Assumptions KamiHW.HWBoundaryReads.hwb_read_csr_status.
 Print Assumptions KamiHW.HWBoundaryReads.hwb_read_csr_heap_base.
 Print Assumptions KamiHW.HWBoundaryReads.hwb_read_ptTable.
+Print Assumptions KamiHW.HWBoundaryReads.hwb_read_ptBases.
 Print Assumptions KamiHW.HWBoundaryReads.hwb_read_pt_next_id.
 Print Assumptions KamiHW.HWBoundaryReads.hwb_read_morph_src_table.
 Print Assumptions KamiHW.HWBoundaryReads.hwb_read_morph_dst_table.
@@ -6396,7 +6461,7 @@ Print Assumptions KamiHW.ImplementationContract.atom_label_compose.
 Print Assumptions KamiHW.ImplementationContract.hwb_snapshot_module_tensors.
 Print Assumptions KamiHW.ImplementationContract.hwb_snapshot_csrs.
 Print Assumptions KamiHW.ImplementationContract.hwb_pc_mu_word_bounds.
-(* === KamiHW.LassertRetire : 158 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.LassertRetire : 159 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.LassertRetire.read_mem_hw.
 Print Assumptions KamiHW.LassertRetire.read_reg_hw.
 Print Assumptions KamiHW.LassertRetire.map_seq_shift.
@@ -6481,6 +6546,7 @@ Print Assumptions KamiHW.LassertRetire.lhdr_keeps_module_tensors.
 Print Assumptions KamiHW.LassertRetire.lhdr_keeps_csr_status.
 Print Assumptions KamiHW.LassertRetire.lhdr_keeps_csr_heap_base.
 Print Assumptions KamiHW.LassertRetire.lhdr_keeps_ptTable.
+Print Assumptions KamiHW.LassertRetire.lhdr_keeps_ptBases.
 Print Assumptions KamiHW.LassertRetire.lhdr_keeps_pt_next_id.
 Print Assumptions KamiHW.LassertRetire.lhdr_keeps_morph_src_table.
 Print Assumptions KamiHW.LassertRetire.lhdr_keeps_morph_dst_table.
@@ -6562,7 +6628,7 @@ Print Assumptions KamiHW.LassertSpec.lsat_spec_hw.
 Print Assumptions KamiHW.LassertSpec.spec_scan_done.
 Print Assumptions KamiHW.LassertSpec.hw_scan_spec.
 Print Assumptions KamiHW.LassertSpec.hw_scan_certcheck.
-(* === KamiHW.LassertStepFields : 92 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.LassertStepFields : 94 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.LassertStepFields.step_lassert_sat_pc.
 Print Assumptions KamiHW.LassertStepFields.step_lassert_sat_mu.
 Print Assumptions KamiHW.LassertStepFields.step_lassert_sat_err.
@@ -6577,6 +6643,7 @@ Print Assumptions KamiHW.LassertStepFields.step_lassert_sat_info_gain.
 Print Assumptions KamiHW.LassertStepFields.step_lassert_sat_mu_tensor.
 Print Assumptions KamiHW.LassertStepFields.step_lassert_sat_module_tensors.
 Print Assumptions KamiHW.LassertStepFields.step_lassert_sat_ptTable.
+Print Assumptions KamiHW.LassertStepFields.step_lassert_sat_ptBases.
 Print Assumptions KamiHW.LassertStepFields.step_lassert_sat_pt_next_id.
 Print Assumptions KamiHW.LassertStepFields.step_lassert_sat_certified.
 Print Assumptions KamiHW.LassertStepFields.step_lassert_sat_wc_same_00.
@@ -6623,6 +6690,7 @@ Print Assumptions KamiHW.LassertStepFields.step_lassert_unsat_info_gain.
 Print Assumptions KamiHW.LassertStepFields.step_lassert_unsat_mu_tensor.
 Print Assumptions KamiHW.LassertStepFields.step_lassert_unsat_module_tensors.
 Print Assumptions KamiHW.LassertStepFields.step_lassert_unsat_ptTable.
+Print Assumptions KamiHW.LassertStepFields.step_lassert_unsat_ptBases.
 Print Assumptions KamiHW.LassertStepFields.step_lassert_unsat_pt_next_id.
 Print Assumptions KamiHW.LassertStepFields.step_lassert_unsat_certified.
 Print Assumptions KamiHW.LassertStepFields.step_lassert_unsat_wc_same_00.
@@ -6655,7 +6723,7 @@ Print Assumptions KamiHW.LassertStepFields.step_lassert_unsat_lassert_nvars.
 Print Assumptions KamiHW.LassertStepFields.step_lassert_unsat_lassert_clause_sat.
 Print Assumptions KamiHW.LassertStepFields.step_lassert_unsat_lassert_counter_clause_sat.
 Print Assumptions KamiHW.LassertStepFields.step_lassert_unsat_lassert_counter_seen_fail.
-(* === KamiHW.LassertWord : 159 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.LassertWord : 160 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.LassertWord.wordToNat_neg.
 Print Assumptions KamiHW.LassertWord.wordToNat_trunc7_mod.
 Print Assumptions KamiHW.LassertWord.mod_2_32_mod_128.
@@ -6749,6 +6817,7 @@ Print Assumptions KamiHW.LassertWord.lscan_iter_keeps_module_tensors.
 Print Assumptions KamiHW.LassertWord.lscan_iter_keeps_csr_status.
 Print Assumptions KamiHW.LassertWord.lscan_iter_keeps_csr_heap_base.
 Print Assumptions KamiHW.LassertWord.lscan_iter_keeps_ptTable.
+Print Assumptions KamiHW.LassertWord.lscan_iter_keeps_ptBases.
 Print Assumptions KamiHW.LassertWord.lscan_iter_keeps_pt_next_id.
 Print Assumptions KamiHW.LassertWord.lscan_iter_keeps_morph_src_table.
 Print Assumptions KamiHW.LassertWord.lscan_iter_keeps_morph_dst_table.
@@ -7027,10 +7096,14 @@ Print Assumptions KamiHW.MorphRetirement.morph_nonempty_retirement.
 Print Assumptions KamiHW.MorphRetirement.morph_nonempty_retirement_firing_bound.
 Print Assumptions KamiHW.MorphRetirement.morph_retirement.
 Print Assumptions KamiHW.MorphRetirement.morph_retirement_final_frame.
-(* === KamiHW.MorphTensorGap : 4 addressable theorems (unaddressable: 0) === *)
-Print Assumptions KamiHW.MorphTensorGap.lookup_modules_prefix.
-Print Assumptions KamiHW.MorphTensorGap.filtermap_prefix.
-Print Assumptions KamiHW.MorphTensorGap.snap_full_graph_prefix.
+(* === KamiHW.MorphTensorGap : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions KamiHW.MorphTensorGap.lookup_modules_ranged.
+Print Assumptions KamiHW.MorphTensorGap.filtermap_ranged.
+Print Assumptions KamiHW.MorphTensorGap.snap_full_graph_ranged.
+Print Assumptions KamiHW.MorphTensorGap.graph_lookup_modules_pair.
+Print Assumptions KamiHW.MorphTensorGap.find_region_modules_pair.
+Print Assumptions KamiHW.MorphTensorGap.nat_list_eq_incl_r.
+Print Assumptions KamiHW.MorphTensorGap.find_union_none.
 Print Assumptions KamiHW.MorphTensorGap.snap_graph_tensor_none.
 (* === KamiHW.NormalizationExclusivity : 7 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.NormalizationExclusivity.normalization_start_requires_phase.
@@ -7221,6 +7294,41 @@ Print Assumptions KamiHW.OutsideDomainMaster.guard_false_of_pnew.
 Print Assumptions KamiHW.OutsideDomainMaster.guard_false_of_psplit.
 Print Assumptions KamiHW.OutsideDomainMaster.guard_false_of_pmerge.
 Print Assumptions KamiHW.OutsideDomainMaster.guard_false_of_pdiscover.
+(* === KamiHW.PartitionRefine : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions KamiHW.PartitionRefine.wordToNat_err_partition_overlap.
+Print Assumptions KamiHW.PartitionRefine.step_pnew_refines.
+Print Assumptions KamiHW.PartitionRefine.step_pmerge_refines.
+Print Assumptions KamiHW.PartitionRefine.step_psplit_refines.
+(* === KamiHW.PartitionScan : 29 addressable theorems (unaddressable: 0) === *)
+Print Assumptions KamiHW.PartitionScan.bool_of_wlt.
+Print Assumptions KamiHW.PartitionScan.ev_Eq.
+Print Assumptions KamiHW.PartitionScan.ev_Lt.
+Print Assumptions KamiHW.PartitionScan.ev_andb.
+Print Assumptions KamiHW.PartitionScan.ev_orb.
+Print Assumptions KamiHW.PartitionScan.ev_negb.
+Print Assumptions KamiHW.PartitionScan.ev_read.
+Print Assumptions KamiHW.PartitionScan.wordToNat_natToWord_lt.
+Print Assumptions KamiHW.PartitionScan.slot_read.
+Print Assumptions KamiHW.PartitionScan.slot_live_spec.
+Print Assumptions KamiHW.PartitionScan.slot_same_spec.
+Print Assumptions KamiHW.PartitionScan.eval_ext33.
+Print Assumptions KamiHW.PartitionScan.eval_add33.
+Print Assumptions KamiHW.PartitionScan.ev_ext33.
+Print Assumptions KamiHW.PartitionScan.ev_add33.
+Print Assumptions KamiHW.PartitionScan.ev_ITE.
+Print Assumptions KamiHW.PartitionScan.slot_overlap_spec.
+Print Assumptions KamiHW.PartitionScan.eval_pt_scan.
+Print Assumptions KamiHW.PartitionScan.existsb_ext.
+Print Assumptions KamiHW.PartitionScan.pnew_conflict_spec.
+Print Assumptions KamiHW.PartitionScan.pnew_present_spec.
+Print Assumptions KamiHW.PartitionScan.hw_pnew_conflict_nat.
+Print Assumptions KamiHW.PartitionScan.hw_pnew_present_nat.
+Print Assumptions KamiHW.PartitionScan.hw_pmerge_adjacent_nat.
+Print Assumptions KamiHW.PartitionScan.hw_pmerge_base_nat.
+Print Assumptions KamiHW.PartitionScan.ev_UpdateVector.
+Print Assumptions KamiHW.PartitionScan.eval_morph_cascade.
+Print Assumptions KamiHW.PartitionScan.hw_morph_cascade_spec.
+Print Assumptions KamiHW.PartitionScan.step_rich_cascade.
 (* === KamiHW.PopcountSWAR : 30 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.PopcountSWAR.pow2_ne0.
 Print Assumptions KamiHW.PopcountSWAR.fld_testbit.
@@ -7471,8 +7579,11 @@ Print Assumptions KamiHW.RichNfiGuard.dd_nfi_violation_false_rich.
 Print Assumptions KamiHW.RichPartitionGuard.dd_pnew_overflow_false_rich.
 Print Assumptions KamiHW.RichPartitionGuard.dd_psplit_overflow_false_rich.
 Print Assumptions KamiHW.RichPartitionGuard.dd_pmerge_overflow_false_rich.
-(* === KamiHW.RichStateCommutation : 18 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.RichStateCommutation : 30 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.RichStateCommutation.filtermap_ext.
+Print Assumptions KamiHW.RichStateCommutation.filtermap_filter.
+Print Assumptions KamiHW.RichStateCommutation.filter_ext_in.
+Print Assumptions KamiHW.RichStateCommutation.snapshot_morphisms_cascade.
 Print Assumptions KamiHW.RichStateCommutation.graph_lookup_modules_filtermap_not_in.
 Print Assumptions KamiHW.RichStateCommutation.graph_lookup_modules_filtermap_in.
 Print Assumptions KamiHW.RichStateCommutation.filtermap_cons_eq.
@@ -7481,9 +7592,18 @@ Print Assumptions KamiHW.RichStateCommutation.graph_remove_modules_filtermap.
 Print Assumptions KamiHW.RichStateCommutation.snap_pt_filtermap_compat.
 Print Assumptions KamiHW.RichStateCommutation.snap_pt_modules_generic.
 Print Assumptions KamiHW.RichStateCommutation.normalize_module_pt_module.
+Print Assumptions KamiHW.RichStateCommutation.snap_pt_to_graph_lookup.
 Print Assumptions KamiHW.RichStateCommutation.snap_pt_to_graph_module_size.
+Print Assumptions KamiHW.RichStateCommutation.snap_pt_to_graph_module_region.
 Print Assumptions KamiHW.RichStateCommutation.snap_pt_graph_remove.
+Print Assumptions KamiHW.RichStateCommutation.snap_pt_to_graph_eta.
+Print Assumptions KamiHW.RichStateCommutation.snap_pt_to_graph_cascade.
+Print Assumptions KamiHW.RichStateCommutation.snap_pt_to_graph_modules_SS.
+Print Assumptions KamiHW.RichStateCommutation.snap_pt_to_graph_modules_S.
 Print Assumptions KamiHW.RichStateCommutation.snap_pt_to_graph_psplit.
+Print Assumptions KamiHW.RichStateCommutation.region_contiguousb_seq_app.
+Print Assumptions KamiHW.RichStateCommutation.snap_pmerge_adjacent_spec.
+Print Assumptions KamiHW.RichStateCommutation.pmerge_region_of_ranges.
 Print Assumptions KamiHW.RichStateCommutation.snap_pt_to_graph_pmerge.
 Print Assumptions KamiHW.RichStateCommutation.morph_add_commutation.
 Print Assumptions KamiHW.RichStateCommutation.morph_delete_commutation.
@@ -7547,7 +7667,7 @@ Print Assumptions KamiHW.RuleEnabled.live_selects_step.
 Print Assumptions KamiHW.RuleEnabled.live_only_step_enabled.
 Print Assumptions KamiHW.RuleEnabled.live_boundary_hw_live.
 Print Assumptions KamiHW.RuleEnabled.live_step_multistep.
-(* === KamiHW.RuleNext : 144 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.RuleNext : 145 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.RuleNext.hwb_after_ext.
 Print Assumptions KamiHW.RuleNext.cpu_register_kind_other.
 Print Assumptions KamiHW.RuleNext.find_hwb_regs_pc.
@@ -7629,6 +7749,7 @@ Print Assumptions KamiHW.RuleNext.find_hwb_regs_module_tensors.
 Print Assumptions KamiHW.RuleNext.find_hwb_regs_csr_status.
 Print Assumptions KamiHW.RuleNext.find_hwb_regs_csr_heap_base.
 Print Assumptions KamiHW.RuleNext.find_hwb_regs_ptTable.
+Print Assumptions KamiHW.RuleNext.find_hwb_regs_ptBases.
 Print Assumptions KamiHW.RuleNext.find_hwb_regs_pt_next_id.
 Print Assumptions KamiHW.RuleNext.find_hwb_regs_morph_src_table.
 Print Assumptions KamiHW.RuleNext.find_hwb_regs_morph_dst_table.
@@ -7779,7 +7900,7 @@ Print Assumptions KamiHW.StepEval.step_keeps_desc_meta_inline_len_table.
 Print Assumptions KamiHW.StepEval.step_keeps_desc_meta_aux_table.
 Print Assumptions KamiHW.StepEval.step_keeps_desc_meta_valid_table.
 Print Assumptions KamiHW.StepEval.step_keeps_desc_meta_next_id.
-(* === KamiHW.StepFaults : 74 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.StepFaults : 76 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.StepFaults.op_test_outside.
 Print Assumptions KamiHW.StepFaults.op_in_member_false.
 Print Assumptions KamiHW.StepFaults.op_disjoint.
@@ -7787,9 +7908,11 @@ Print Assumptions KamiHW.StepFaults.split1_4_1_small.
 Print Assumptions KamiHW.StepFaults.dd_locality_opcode.
 Print Assumptions KamiHW.StepFaults.dd_ptable_opcode.
 Print Assumptions KamiHW.StepFaults.dd_nfi_opcode.
+Print Assumptions KamiHW.StepFaults.dd_partition_opcode.
 Print Assumptions KamiHW.StepFaults.dd_morph_opcode.
 Print Assumptions KamiHW.StepFaults.dd_guard_opcode.
 Print Assumptions KamiHW.StepFaults.dd_morph_not_guard.
+Print Assumptions KamiHW.StepFaults.dd_morph_not_partition.
 Print Assumptions KamiHW.StepFaults.dd_locality_not_ptable.
 Print Assumptions KamiHW.StepFaults.dd_locality_not_nfi.
 Print Assumptions KamiHW.StepFaults.dd_ptable_not_nfi.
@@ -7854,7 +7977,7 @@ Print Assumptions KamiHW.StepFaults.step_ptable_snapshot.
 Print Assumptions KamiHW.StepFaults.step_nfi_snapshot.
 Print Assumptions KamiHW.StepFaults.step_rich_snapshot.
 Print Assumptions KamiHW.StepFaults.step_morph_fault_snapshot.
-(* === KamiHW.StepFields : 1330 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.StepFields : 1368 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.StepFields.step_load_imm_pc.
 Print Assumptions KamiHW.StepFields.step_load_imm_mu.
 Print Assumptions KamiHW.StepFields.step_load_imm_err.
@@ -7869,6 +7992,7 @@ Print Assumptions KamiHW.StepFields.step_load_imm_info_gain.
 Print Assumptions KamiHW.StepFields.step_load_imm_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_load_imm_module_tensors.
 Print Assumptions KamiHW.StepFields.step_load_imm_ptTable.
+Print Assumptions KamiHW.StepFields.step_load_imm_ptBases.
 Print Assumptions KamiHW.StepFields.step_load_imm_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_load_imm_certified.
 Print Assumptions KamiHW.StepFields.step_load_imm_wc_same_00.
@@ -7904,6 +8028,7 @@ Print Assumptions KamiHW.StepFields.step_xfer_info_gain.
 Print Assumptions KamiHW.StepFields.step_xfer_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_xfer_module_tensors.
 Print Assumptions KamiHW.StepFields.step_xfer_ptTable.
+Print Assumptions KamiHW.StepFields.step_xfer_ptBases.
 Print Assumptions KamiHW.StepFields.step_xfer_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_xfer_certified.
 Print Assumptions KamiHW.StepFields.step_xfer_wc_same_00.
@@ -7939,6 +8064,7 @@ Print Assumptions KamiHW.StepFields.step_add_info_gain.
 Print Assumptions KamiHW.StepFields.step_add_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_add_module_tensors.
 Print Assumptions KamiHW.StepFields.step_add_ptTable.
+Print Assumptions KamiHW.StepFields.step_add_ptBases.
 Print Assumptions KamiHW.StepFields.step_add_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_add_certified.
 Print Assumptions KamiHW.StepFields.step_add_wc_same_00.
@@ -7974,6 +8100,7 @@ Print Assumptions KamiHW.StepFields.step_sub_info_gain.
 Print Assumptions KamiHW.StepFields.step_sub_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_sub_module_tensors.
 Print Assumptions KamiHW.StepFields.step_sub_ptTable.
+Print Assumptions KamiHW.StepFields.step_sub_ptBases.
 Print Assumptions KamiHW.StepFields.step_sub_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_sub_certified.
 Print Assumptions KamiHW.StepFields.step_sub_wc_same_00.
@@ -8009,6 +8136,7 @@ Print Assumptions KamiHW.StepFields.step_and_info_gain.
 Print Assumptions KamiHW.StepFields.step_and_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_and_module_tensors.
 Print Assumptions KamiHW.StepFields.step_and_ptTable.
+Print Assumptions KamiHW.StepFields.step_and_ptBases.
 Print Assumptions KamiHW.StepFields.step_and_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_and_certified.
 Print Assumptions KamiHW.StepFields.step_and_wc_same_00.
@@ -8044,6 +8172,7 @@ Print Assumptions KamiHW.StepFields.step_or_info_gain.
 Print Assumptions KamiHW.StepFields.step_or_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_or_module_tensors.
 Print Assumptions KamiHW.StepFields.step_or_ptTable.
+Print Assumptions KamiHW.StepFields.step_or_ptBases.
 Print Assumptions KamiHW.StepFields.step_or_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_or_certified.
 Print Assumptions KamiHW.StepFields.step_or_wc_same_00.
@@ -8079,6 +8208,7 @@ Print Assumptions KamiHW.StepFields.step_mul_info_gain.
 Print Assumptions KamiHW.StepFields.step_mul_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_mul_module_tensors.
 Print Assumptions KamiHW.StepFields.step_mul_ptTable.
+Print Assumptions KamiHW.StepFields.step_mul_ptBases.
 Print Assumptions KamiHW.StepFields.step_mul_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_mul_certified.
 Print Assumptions KamiHW.StepFields.step_mul_wc_same_00.
@@ -8114,6 +8244,7 @@ Print Assumptions KamiHW.StepFields.step_shl_info_gain.
 Print Assumptions KamiHW.StepFields.step_shl_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_shl_module_tensors.
 Print Assumptions KamiHW.StepFields.step_shl_ptTable.
+Print Assumptions KamiHW.StepFields.step_shl_ptBases.
 Print Assumptions KamiHW.StepFields.step_shl_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_shl_certified.
 Print Assumptions KamiHW.StepFields.step_shl_wc_same_00.
@@ -8149,6 +8280,7 @@ Print Assumptions KamiHW.StepFields.step_shr_info_gain.
 Print Assumptions KamiHW.StepFields.step_shr_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_shr_module_tensors.
 Print Assumptions KamiHW.StepFields.step_shr_ptTable.
+Print Assumptions KamiHW.StepFields.step_shr_ptBases.
 Print Assumptions KamiHW.StepFields.step_shr_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_shr_certified.
 Print Assumptions KamiHW.StepFields.step_shr_wc_same_00.
@@ -8184,6 +8316,7 @@ Print Assumptions KamiHW.StepFields.step_lui_info_gain.
 Print Assumptions KamiHW.StepFields.step_lui_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_lui_module_tensors.
 Print Assumptions KamiHW.StepFields.step_lui_ptTable.
+Print Assumptions KamiHW.StepFields.step_lui_ptBases.
 Print Assumptions KamiHW.StepFields.step_lui_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_lui_certified.
 Print Assumptions KamiHW.StepFields.step_lui_wc_same_00.
@@ -8219,6 +8352,7 @@ Print Assumptions KamiHW.StepFields.step_xor_load_info_gain.
 Print Assumptions KamiHW.StepFields.step_xor_load_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_xor_load_module_tensors.
 Print Assumptions KamiHW.StepFields.step_xor_load_ptTable.
+Print Assumptions KamiHW.StepFields.step_xor_load_ptBases.
 Print Assumptions KamiHW.StepFields.step_xor_load_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_xor_load_certified.
 Print Assumptions KamiHW.StepFields.step_xor_load_wc_same_00.
@@ -8254,6 +8388,7 @@ Print Assumptions KamiHW.StepFields.step_xor_add_info_gain.
 Print Assumptions KamiHW.StepFields.step_xor_add_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_xor_add_module_tensors.
 Print Assumptions KamiHW.StepFields.step_xor_add_ptTable.
+Print Assumptions KamiHW.StepFields.step_xor_add_ptBases.
 Print Assumptions KamiHW.StepFields.step_xor_add_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_xor_add_certified.
 Print Assumptions KamiHW.StepFields.step_xor_add_wc_same_00.
@@ -8289,6 +8424,7 @@ Print Assumptions KamiHW.StepFields.step_xor_swap_info_gain.
 Print Assumptions KamiHW.StepFields.step_xor_swap_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_xor_swap_module_tensors.
 Print Assumptions KamiHW.StepFields.step_xor_swap_ptTable.
+Print Assumptions KamiHW.StepFields.step_xor_swap_ptBases.
 Print Assumptions KamiHW.StepFields.step_xor_swap_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_xor_swap_certified.
 Print Assumptions KamiHW.StepFields.step_xor_swap_wc_same_00.
@@ -8324,6 +8460,7 @@ Print Assumptions KamiHW.StepFields.step_xor_rank_info_gain.
 Print Assumptions KamiHW.StepFields.step_xor_rank_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_xor_rank_module_tensors.
 Print Assumptions KamiHW.StepFields.step_xor_rank_ptTable.
+Print Assumptions KamiHW.StepFields.step_xor_rank_ptBases.
 Print Assumptions KamiHW.StepFields.step_xor_rank_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_xor_rank_certified.
 Print Assumptions KamiHW.StepFields.step_xor_rank_wc_same_00.
@@ -8359,6 +8496,7 @@ Print Assumptions KamiHW.StepFields.step_jump_info_gain.
 Print Assumptions KamiHW.StepFields.step_jump_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_jump_module_tensors.
 Print Assumptions KamiHW.StepFields.step_jump_ptTable.
+Print Assumptions KamiHW.StepFields.step_jump_ptBases.
 Print Assumptions KamiHW.StepFields.step_jump_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_jump_certified.
 Print Assumptions KamiHW.StepFields.step_jump_wc_same_00.
@@ -8394,6 +8532,7 @@ Print Assumptions KamiHW.StepFields.step_jnez_info_gain.
 Print Assumptions KamiHW.StepFields.step_jnez_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_jnez_module_tensors.
 Print Assumptions KamiHW.StepFields.step_jnez_ptTable.
+Print Assumptions KamiHW.StepFields.step_jnez_ptBases.
 Print Assumptions KamiHW.StepFields.step_jnez_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_jnez_certified.
 Print Assumptions KamiHW.StepFields.step_jnez_wc_same_00.
@@ -8429,6 +8568,7 @@ Print Assumptions KamiHW.StepFields.step_halt_info_gain.
 Print Assumptions KamiHW.StepFields.step_halt_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_halt_module_tensors.
 Print Assumptions KamiHW.StepFields.step_halt_ptTable.
+Print Assumptions KamiHW.StepFields.step_halt_ptBases.
 Print Assumptions KamiHW.StepFields.step_halt_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_halt_certified.
 Print Assumptions KamiHW.StepFields.step_halt_wc_same_00.
@@ -8464,6 +8604,7 @@ Print Assumptions KamiHW.StepFields.step_mdlacc_info_gain.
 Print Assumptions KamiHW.StepFields.step_mdlacc_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_mdlacc_module_tensors.
 Print Assumptions KamiHW.StepFields.step_mdlacc_ptTable.
+Print Assumptions KamiHW.StepFields.step_mdlacc_ptBases.
 Print Assumptions KamiHW.StepFields.step_mdlacc_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_mdlacc_certified.
 Print Assumptions KamiHW.StepFields.step_mdlacc_wc_same_00.
@@ -8499,6 +8640,7 @@ Print Assumptions KamiHW.StepFields.step_ljoin_info_gain.
 Print Assumptions KamiHW.StepFields.step_ljoin_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_ljoin_module_tensors.
 Print Assumptions KamiHW.StepFields.step_ljoin_ptTable.
+Print Assumptions KamiHW.StepFields.step_ljoin_ptBases.
 Print Assumptions KamiHW.StepFields.step_ljoin_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_ljoin_certified.
 Print Assumptions KamiHW.StepFields.step_ljoin_wc_same_00.
@@ -8534,6 +8676,7 @@ Print Assumptions KamiHW.StepFields.step_checkpoint_info_gain.
 Print Assumptions KamiHW.StepFields.step_checkpoint_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_checkpoint_module_tensors.
 Print Assumptions KamiHW.StepFields.step_checkpoint_ptTable.
+Print Assumptions KamiHW.StepFields.step_checkpoint_ptBases.
 Print Assumptions KamiHW.StepFields.step_checkpoint_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_checkpoint_certified.
 Print Assumptions KamiHW.StepFields.step_checkpoint_wc_same_00.
@@ -8569,6 +8712,7 @@ Print Assumptions KamiHW.StepFields.step_write_port_info_gain.
 Print Assumptions KamiHW.StepFields.step_write_port_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_write_port_module_tensors.
 Print Assumptions KamiHW.StepFields.step_write_port_ptTable.
+Print Assumptions KamiHW.StepFields.step_write_port_ptBases.
 Print Assumptions KamiHW.StepFields.step_write_port_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_write_port_certified.
 Print Assumptions KamiHW.StepFields.step_write_port_wc_same_00.
@@ -8604,6 +8748,7 @@ Print Assumptions KamiHW.StepFields.step_read_port_info_gain.
 Print Assumptions KamiHW.StepFields.step_read_port_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_read_port_module_tensors.
 Print Assumptions KamiHW.StepFields.step_read_port_ptTable.
+Print Assumptions KamiHW.StepFields.step_read_port_ptBases.
 Print Assumptions KamiHW.StepFields.step_read_port_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_read_port_certified.
 Print Assumptions KamiHW.StepFields.step_read_port_wc_same_00.
@@ -8639,6 +8784,7 @@ Print Assumptions KamiHW.StepFields.step_emit_info_gain.
 Print Assumptions KamiHW.StepFields.step_emit_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_emit_module_tensors.
 Print Assumptions KamiHW.StepFields.step_emit_ptTable.
+Print Assumptions KamiHW.StepFields.step_emit_ptBases.
 Print Assumptions KamiHW.StepFields.step_emit_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_emit_certified.
 Print Assumptions KamiHW.StepFields.step_emit_wc_same_00.
@@ -8674,6 +8820,7 @@ Print Assumptions KamiHW.StepFields.step_reveal_info_gain.
 Print Assumptions KamiHW.StepFields.step_reveal_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_reveal_module_tensors.
 Print Assumptions KamiHW.StepFields.step_reveal_ptTable.
+Print Assumptions KamiHW.StepFields.step_reveal_ptBases.
 Print Assumptions KamiHW.StepFields.step_reveal_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_reveal_certified.
 Print Assumptions KamiHW.StepFields.step_reveal_wc_same_00.
@@ -8709,6 +8856,7 @@ Print Assumptions KamiHW.StepFields.step_certify_info_gain.
 Print Assumptions KamiHW.StepFields.step_certify_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_certify_module_tensors.
 Print Assumptions KamiHW.StepFields.step_certify_ptTable.
+Print Assumptions KamiHW.StepFields.step_certify_ptBases.
 Print Assumptions KamiHW.StepFields.step_certify_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_certify_certified.
 Print Assumptions KamiHW.StepFields.step_certify_wc_same_00.
@@ -8744,6 +8892,7 @@ Print Assumptions KamiHW.StepFields.step_tensor_set_info_gain.
 Print Assumptions KamiHW.StepFields.step_tensor_set_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_tensor_set_module_tensors.
 Print Assumptions KamiHW.StepFields.step_tensor_set_ptTable.
+Print Assumptions KamiHW.StepFields.step_tensor_set_ptBases.
 Print Assumptions KamiHW.StepFields.step_tensor_set_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_tensor_set_certified.
 Print Assumptions KamiHW.StepFields.step_tensor_set_wc_same_00.
@@ -8779,6 +8928,7 @@ Print Assumptions KamiHW.StepFields.step_tensor_get_info_gain.
 Print Assumptions KamiHW.StepFields.step_tensor_get_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_tensor_get_module_tensors.
 Print Assumptions KamiHW.StepFields.step_tensor_get_ptTable.
+Print Assumptions KamiHW.StepFields.step_tensor_get_ptBases.
 Print Assumptions KamiHW.StepFields.step_tensor_get_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_tensor_get_certified.
 Print Assumptions KamiHW.StepFields.step_tensor_get_wc_same_00.
@@ -8814,6 +8964,7 @@ Print Assumptions KamiHW.StepFields.step_pdiscover_info_gain.
 Print Assumptions KamiHW.StepFields.step_pdiscover_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_pdiscover_module_tensors.
 Print Assumptions KamiHW.StepFields.step_pdiscover_ptTable.
+Print Assumptions KamiHW.StepFields.step_pdiscover_ptBases.
 Print Assumptions KamiHW.StepFields.step_pdiscover_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_pdiscover_certified.
 Print Assumptions KamiHW.StepFields.step_pdiscover_wc_same_00.
@@ -8849,6 +9000,7 @@ Print Assumptions KamiHW.StepFields.step_load_info_gain.
 Print Assumptions KamiHW.StepFields.step_load_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_load_module_tensors.
 Print Assumptions KamiHW.StepFields.step_load_ptTable.
+Print Assumptions KamiHW.StepFields.step_load_ptBases.
 Print Assumptions KamiHW.StepFields.step_load_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_load_certified.
 Print Assumptions KamiHW.StepFields.step_load_wc_same_00.
@@ -8884,6 +9036,7 @@ Print Assumptions KamiHW.StepFields.step_store_info_gain.
 Print Assumptions KamiHW.StepFields.step_store_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_store_module_tensors.
 Print Assumptions KamiHW.StepFields.step_store_ptTable.
+Print Assumptions KamiHW.StepFields.step_store_ptBases.
 Print Assumptions KamiHW.StepFields.step_store_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_store_certified.
 Print Assumptions KamiHW.StepFields.step_store_wc_same_00.
@@ -8919,6 +9072,7 @@ Print Assumptions KamiHW.StepFields.step_heap_load_info_gain.
 Print Assumptions KamiHW.StepFields.step_heap_load_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_heap_load_module_tensors.
 Print Assumptions KamiHW.StepFields.step_heap_load_ptTable.
+Print Assumptions KamiHW.StepFields.step_heap_load_ptBases.
 Print Assumptions KamiHW.StepFields.step_heap_load_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_heap_load_certified.
 Print Assumptions KamiHW.StepFields.step_heap_load_wc_same_00.
@@ -8954,6 +9108,7 @@ Print Assumptions KamiHW.StepFields.step_heap_store_info_gain.
 Print Assumptions KamiHW.StepFields.step_heap_store_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_heap_store_module_tensors.
 Print Assumptions KamiHW.StepFields.step_heap_store_ptTable.
+Print Assumptions KamiHW.StepFields.step_heap_store_ptBases.
 Print Assumptions KamiHW.StepFields.step_heap_store_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_heap_store_certified.
 Print Assumptions KamiHW.StepFields.step_heap_store_wc_same_00.
@@ -8989,6 +9144,7 @@ Print Assumptions KamiHW.StepFields.step_call_info_gain.
 Print Assumptions KamiHW.StepFields.step_call_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_call_module_tensors.
 Print Assumptions KamiHW.StepFields.step_call_ptTable.
+Print Assumptions KamiHW.StepFields.step_call_ptBases.
 Print Assumptions KamiHW.StepFields.step_call_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_call_certified.
 Print Assumptions KamiHW.StepFields.step_call_wc_same_00.
@@ -9024,6 +9180,7 @@ Print Assumptions KamiHW.StepFields.step_ret_info_gain.
 Print Assumptions KamiHW.StepFields.step_ret_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_ret_module_tensors.
 Print Assumptions KamiHW.StepFields.step_ret_ptTable.
+Print Assumptions KamiHW.StepFields.step_ret_ptBases.
 Print Assumptions KamiHW.StepFields.step_ret_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_ret_certified.
 Print Assumptions KamiHW.StepFields.step_ret_wc_same_00.
@@ -9059,6 +9216,7 @@ Print Assumptions KamiHW.StepFields.step_pnew_info_gain.
 Print Assumptions KamiHW.StepFields.step_pnew_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_pnew_module_tensors.
 Print Assumptions KamiHW.StepFields.step_pnew_ptTable.
+Print Assumptions KamiHW.StepFields.step_pnew_ptBases.
 Print Assumptions KamiHW.StepFields.step_pnew_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_pnew_certified.
 Print Assumptions KamiHW.StepFields.step_pnew_wc_same_00.
@@ -9094,6 +9252,7 @@ Print Assumptions KamiHW.StepFields.step_psplit_info_gain.
 Print Assumptions KamiHW.StepFields.step_psplit_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_psplit_module_tensors.
 Print Assumptions KamiHW.StepFields.step_psplit_ptTable.
+Print Assumptions KamiHW.StepFields.step_psplit_ptBases.
 Print Assumptions KamiHW.StepFields.step_psplit_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_psplit_certified.
 Print Assumptions KamiHW.StepFields.step_psplit_wc_same_00.
@@ -9129,6 +9288,7 @@ Print Assumptions KamiHW.StepFields.step_pmerge_info_gain.
 Print Assumptions KamiHW.StepFields.step_pmerge_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_pmerge_module_tensors.
 Print Assumptions KamiHW.StepFields.step_pmerge_ptTable.
+Print Assumptions KamiHW.StepFields.step_pmerge_ptBases.
 Print Assumptions KamiHW.StepFields.step_pmerge_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_pmerge_certified.
 Print Assumptions KamiHW.StepFields.step_pmerge_wc_same_00.
@@ -9164,6 +9324,7 @@ Print Assumptions KamiHW.StepFields.step_chsh_trial_info_gain.
 Print Assumptions KamiHW.StepFields.step_chsh_trial_mu_tensor.
 Print Assumptions KamiHW.StepFields.step_chsh_trial_module_tensors.
 Print Assumptions KamiHW.StepFields.step_chsh_trial_ptTable.
+Print Assumptions KamiHW.StepFields.step_chsh_trial_ptBases.
 Print Assumptions KamiHW.StepFields.step_chsh_trial_pt_next_id.
 Print Assumptions KamiHW.StepFields.step_chsh_trial_certified.
 Print Assumptions KamiHW.StepFields.step_chsh_trial_wc_same_00.
@@ -9185,7 +9346,7 @@ Print Assumptions KamiHW.StepFields.step_chsh_trial_coupling_desc_label_len_tabl
 Print Assumptions KamiHW.StepFields.step_chsh_trial_lassert_phase.
 Print Assumptions KamiHW.StepFields.step_chsh_trial_chsh_phase.
 Print Assumptions KamiHW.StepFields.step_chsh_trial_mc_phase.
-(* === KamiHW.StepFieldsMorph : 431 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.StepFieldsMorph : 443 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_pc.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_mu.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_err.
@@ -9200,6 +9361,7 @@ Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_info_gain.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_mu_tensor.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_module_tensors.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_ptTable.
+Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_ptBases.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_pt_next_id.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_certified.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_wc_same_00.
@@ -9235,6 +9397,7 @@ Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_ext_info_gain.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_ext_mu_tensor.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_ext_module_tensors.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_ext_ptTable.
+Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_ext_ptBases.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_ext_pt_next_id.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_ext_certified.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_id_ext_wc_same_00.
@@ -9270,6 +9433,7 @@ Print Assumptions KamiHW.StepFieldsMorph.step_morph_delete_info_gain.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_delete_mu_tensor.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_delete_module_tensors.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_delete_ptTable.
+Print Assumptions KamiHW.StepFieldsMorph.step_morph_delete_ptBases.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_delete_pt_next_id.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_delete_certified.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_delete_wc_same_00.
@@ -9305,6 +9469,7 @@ Print Assumptions KamiHW.StepFieldsMorph.step_morph_delete_ext_info_gain.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_delete_ext_mu_tensor.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_delete_ext_module_tensors.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_delete_ext_ptTable.
+Print Assumptions KamiHW.StepFieldsMorph.step_morph_delete_ext_ptBases.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_delete_ext_pt_next_id.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_delete_ext_certified.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_delete_ext_wc_same_00.
@@ -9340,6 +9505,7 @@ Print Assumptions KamiHW.StepFieldsMorph.step_morph_assert_info_gain.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_assert_mu_tensor.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_assert_module_tensors.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_assert_ptTable.
+Print Assumptions KamiHW.StepFieldsMorph.step_morph_assert_ptBases.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_assert_pt_next_id.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_assert_certified.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_assert_wc_same_00.
@@ -9375,6 +9541,7 @@ Print Assumptions KamiHW.StepFieldsMorph.step_morph_assert_ext_info_gain.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_assert_ext_mu_tensor.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_assert_ext_module_tensors.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_assert_ext_ptTable.
+Print Assumptions KamiHW.StepFieldsMorph.step_morph_assert_ext_ptBases.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_assert_ext_pt_next_id.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_assert_ext_certified.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_assert_ext_wc_same_00.
@@ -9410,6 +9577,7 @@ Print Assumptions KamiHW.StepFieldsMorph.step_morph_get_info_gain.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_get_mu_tensor.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_get_module_tensors.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_get_ptTable.
+Print Assumptions KamiHW.StepFieldsMorph.step_morph_get_ptBases.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_get_pt_next_id.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_get_certified.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_get_wc_same_00.
@@ -9445,6 +9613,7 @@ Print Assumptions KamiHW.StepFieldsMorph.step_morph_get_ext_info_gain.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_get_ext_mu_tensor.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_get_ext_module_tensors.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_get_ext_ptTable.
+Print Assumptions KamiHW.StepFieldsMorph.step_morph_get_ext_ptBases.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_get_ext_pt_next_id.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_get_ext_certified.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_get_ext_wc_same_00.
@@ -9480,6 +9649,7 @@ Print Assumptions KamiHW.StepFieldsMorph.step_morph_ext_info_gain.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_ext_mu_tensor.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_ext_module_tensors.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_ext_ptTable.
+Print Assumptions KamiHW.StepFieldsMorph.step_morph_ext_ptBases.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_ext_pt_next_id.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_ext_certified.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_ext_wc_same_00.
@@ -9518,6 +9688,7 @@ Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_info_gain.
 Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_mu_tensor.
 Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_module_tensors.
 Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_ptTable.
+Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_ptBases.
 Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_pt_next_id.
 Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_certified.
 Print Assumptions KamiHW.StepFieldsMorph.step_compose_ext_wc_same_00.
@@ -9561,6 +9732,7 @@ Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_info_gain.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_mu_tensor.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_module_tensors.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_ptTable.
+Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_ptBases.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_pt_next_id.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_certified.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_wc_same_00.
@@ -9596,6 +9768,7 @@ Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_ext_info_gain.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_ext_mu_tensor.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_ext_module_tensors.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_ext_ptTable.
+Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_ext_ptBases.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_ext_pt_next_id.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_ext_certified.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_ext_wc_same_00.
@@ -9617,7 +9790,7 @@ Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_ext_coupling_desc_lab
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_ext_lassert_phase.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_ext_chsh_phase.
 Print Assumptions KamiHW.StepFieldsMorph.step_morph_tensor_ext_mc_phase.
-(* === KamiHW.StepRefine : 38 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.StepRefine : 35 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.StepRefine.step_add_refines.
 Print Assumptions KamiHW.StepRefine.step_sub_refines.
 Print Assumptions KamiHW.StepRefine.step_and_refines.
@@ -9648,20 +9821,18 @@ Print Assumptions KamiHW.StepRefine.step_heap_load_refines.
 Print Assumptions KamiHW.StepRefine.step_heap_store_refines.
 Print Assumptions KamiHW.StepRefine.step_call_refines.
 Print Assumptions KamiHW.StepRefine.step_ret_refines.
-Print Assumptions KamiHW.StepRefine.step_pnew_refines.
-Print Assumptions KamiHW.StepRefine.step_psplit_refines.
-Print Assumptions KamiHW.StepRefine.step_pmerge_refines.
 Print Assumptions KamiHW.StepRefine.step_chsh_trial_refines.
 Print Assumptions KamiHW.StepRefine.step_xor_rank_refines.
 Print Assumptions KamiHW.StepRefine.step_halt_refines.
 Print Assumptions KamiHW.StepRefine.step_checkpoint_refines.
 Print Assumptions KamiHW.StepRefine.step_write_port_refines.
-(* === KamiHW.StepRefineCommon : 59 addressable theorems (unaddressable: 0) === *)
+(* === KamiHW.StepRefineCommon : 61 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.StepRefineCommon.wordToNat_trunc7.
 Print Assumptions KamiHW.StepRefineCommon.wordToNat_trunc7_8.
 Print Assumptions KamiHW.StepRefineCommon.wordToNat_trunc6_7.
 Print Assumptions KamiHW.StepRefineCommon.wordToNat_trunc6_8.
 Print Assumptions KamiHW.StepRefineCommon.evalZeroExtendTrunc_up.
+Print Assumptions KamiHW.StepRefineCommon.wordToNat_combine_zero_hi.
 Print Assumptions KamiHW.StepRefineCommon.wordToNat_zext8_ext.
 Print Assumptions KamiHW.StepRefineCommon.wordToNat_zext16_ext.
 Print Assumptions KamiHW.StepRefineCommon.wordToNat_zext7_ext.
@@ -9710,7 +9881,8 @@ Print Assumptions KamiHW.StepRefineCommon.pt_room_one_lt.
 Print Assumptions KamiHW.StepRefineCommon.pt_room_one_of_lt.
 Print Assumptions KamiHW.StepRefineCommon.wordToNat_wplus_7.
 Print Assumptions KamiHW.StepRefineCommon.pt_room_two_of_le.
-Print Assumptions KamiHW.StepRefineCommon.region_ok_of_lt.
+Print Assumptions KamiHW.StepRefineCommon.bounds_ok_words.
+Print Assumptions KamiHW.StepRefineCommon.region_ok_of_range.
 Print Assumptions KamiHW.StepRefineCommon.wordToNat_trunc7_small.
 Print Assumptions KamiHW.StepRefineCommon.wordToNat_trunc6_small.
 Print Assumptions KamiHW.StepRefineCommon.wordToNat_one5.
@@ -10636,19 +10808,15 @@ Print Assumptions Kernel.RaychaudhuriFluxBridge.raychaudhuri_delta_flux_implies_
 (* === Kernel.RiemannTensor4D : 2 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.RiemannTensor4D.diagonal_inverse_metric_off_diag.
 Print Assumptions Kernel.RiemannTensor4D.diagonal_inverse_metric_correct.
-(* === Kernel.SpacetimeEmergence : 27 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.SpacetimeEmergence : 23 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.SpacetimeEmergence.reaches_one.
 Print Assumptions Kernel.SpacetimeEmergence.reaches_trans.
 Print Assumptions Kernel.SpacetimeEmergence.step_rel_no_signaling.
-Print Assumptions Kernel.SpacetimeEmergence.all_ids_below_graph_insert_modules.
-Print Assumptions Kernel.SpacetimeEmergence.graph_update_preserves_wf.
 Print Assumptions Kernel.SpacetimeEmergence.graph_add_axiom_preserves_wf.
 Print Assumptions Kernel.SpacetimeEmergence.graph_add_axioms_preserves_wf.
 Print Assumptions Kernel.SpacetimeEmergence.graph_record_discovery_preserves_wf.
-Print Assumptions Kernel.SpacetimeEmergence.graph_pnew_preserves_wf.
 Print Assumptions Kernel.SpacetimeEmergence.graph_psplit_preserves_wf.
 Print Assumptions Kernel.SpacetimeEmergence.graph_pmerge_preserves_wf.
-Print Assumptions Kernel.SpacetimeEmergence.graph_update_module_tensor_preserves_wf.
 Print Assumptions Kernel.SpacetimeEmergence.graph_pnew_next_id_monotone.
 Print Assumptions Kernel.SpacetimeEmergence.graph_update_next_id_same.
 Print Assumptions Kernel.SpacetimeEmergence.graph_update_module_tensor_next_id_same.
@@ -11178,7 +11346,7 @@ Print Assumptions Kernel.RecordAxisDiscrimination.latch_core_honest.
 Print Assumptions Kernel.RecordAxisDiscrimination.history_latch_injective.
 Print Assumptions Kernel.RecordAxisDiscrimination.history_latch_honest.
 Print Assumptions Kernel.RecordAxisDiscrimination.finite_reversible_cannot_write.
-(* === Kernel.SimulationProof : 35 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.SimulationProof : 45 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.SimulationProof.encoding_implies_states_related.
 Print Assumptions Kernel.SimulationProof.firstn_succ_nth_error_Some.
 Print Assumptions Kernel.SimulationProof.firstn_succ_nth_error_None.
@@ -11195,6 +11363,12 @@ Print Assumptions Kernel.SimulationProof.vm_step_pc_advance.
 Print Assumptions Kernel.SimulationProof.vm_step_mu_ge.
 Print Assumptions Kernel.SimulationProof.vm_step_mu.
 Print Assumptions Kernel.SimulationProof.vm_exec_run_vm.
+Print Assumptions Kernel.SimulationProof.partition_regions_ok_same_modules.
+Print Assumptions Kernel.SimulationProof.vm_apply_preserves_partition_regions_ok.
+Print Assumptions Kernel.SimulationProof.run_vm_preserves_partition_regions_ok.
+Print Assumptions Kernel.SimulationProof.run_vm_regions_disjoint.
+Print Assumptions Kernel.SimulationProof.vm_apply_preserves_well_formed_graph.
+Print Assumptions Kernel.SimulationProof.run_vm_preserves_well_formed_graph.
 Print Assumptions Kernel.SimulationProof.vm_exec_deterministic.
 Print Assumptions Kernel.SimulationProof.step_thiele_hclaim_tm_state.
 Print Assumptions Kernel.SimulationProof.step_thiele_hclaim_mu.
@@ -11206,8 +11380,12 @@ Print Assumptions Kernel.SimulationProof.compile_update_err_correct.
 Print Assumptions Kernel.SimulationProof.vm_step_kernel_simulation.
 Print Assumptions Kernel.SimulationProof.vm_exec_simulation.
 Print Assumptions Kernel.SimulationProof.vm_is_a_correct_refinement_of_kernel.
+Print Assumptions Kernel.SimulationProof.vm_apply_pnew_eq.
+Print Assumptions Kernel.SimulationProof.vm_apply_pmerge_eq.
+Print Assumptions Kernel.SimulationProof.vm_apply_pnew_pc.
 Print Assumptions Kernel.SimulationProof.pnew_mu_exact.
 Print Assumptions Kernel.SimulationProof.vm_apply_pnew_graph.
+Print Assumptions Kernel.SimulationProof.vm_apply_pnew_graph_adds.
 Print Assumptions Kernel.SimulationProof.graph_add_module_next_id_nondec.
 Print Assumptions Kernel.SimulationProof.vm_apply_pnew_graph_nondec.
 Print Assumptions Kernel.SimulationProof.vm_apply_pnew_noninterference.
@@ -11798,7 +11976,7 @@ Print Assumptions Kernel.VMSelfUniversal.cm2_nonhalt_steps.
 Print Assumptions Kernel.VMSelfUniversal.cm2_halts_prepend.
 Print Assumptions Kernel.VMSelfUniversal.cm2_compile_complete.
 Print Assumptions Kernel.VMSelfUniversal.cm2_compile_sound.
-(* === Kernel.VMState : 92 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.VMState : 124 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.VMState.normalize_region_nodup.
 Print Assumptions Kernel.VMState.normalize_region_idempotent.
 Print Assumptions Kernel.VMState.empty_graph_well_formed.
@@ -11860,6 +12038,38 @@ Print Assumptions Kernel.VMState.all_ids_below_implies_lookup_none.
 Print Assumptions Kernel.VMState.graph_remove_preserves_next_id.
 Print Assumptions Kernel.VMState.graph_remove_preserves_unrelated.
 Print Assumptions Kernel.VMState.wf_graph_lookup_beyond_next_id.
+Print Assumptions Kernel.VMState.nat_list_mem_In.
+Print Assumptions Kernel.VMState.nat_list_disjoint_spec.
+Print Assumptions Kernel.VMState.nat_list_disjoint_true_sym.
+Print Assumptions Kernel.VMState.nat_list_disjoint_incl.
+Print Assumptions Kernel.VMState.normalize_region_incl.
+Print Assumptions Kernel.VMState.region_contiguous_seq.
+Print Assumptions Kernel.VMState.region_contiguous_NoDup.
+Print Assumptions Kernel.VMState.normalize_region_contiguous.
+Print Assumptions Kernel.VMState.normalize_region_seq_range.
+Print Assumptions Kernel.VMState.modules_regions_disjoint_In.
+Print Assumptions Kernel.VMState.regions_disjoint_distinct_modules.
+Print Assumptions Kernel.VMState.regions_disjoint_no_modules.
+Print Assumptions Kernel.VMState.regions_contiguous_no_modules.
+Print Assumptions Kernel.VMState.empty_graph_regions_disjoint.
+Print Assumptions Kernel.VMState.empty_graph_regions_contiguous.
+Print Assumptions Kernel.VMState.graph_add_module_preserves_regions_disjoint.
+Print Assumptions Kernel.VMState.graph_add_module_preserves_regions_contiguous.
+Print Assumptions Kernel.VMState.graph_lookup_modules_In.
+Print Assumptions Kernel.VMState.graph_remove_modules_shape.
+Print Assumptions Kernel.VMState.graph_remove_modules_None.
+Print Assumptions Kernel.VMState.graph_remove_modules_lookup_other.
+Print Assumptions Kernel.VMState.graph_remove_modules_regions_disjoint.
+Print Assumptions Kernel.VMState.graph_remove_modules_regions_contiguous.
+Print Assumptions Kernel.VMState.graph_insert_modules_regions_disjoint.
+Print Assumptions Kernel.VMState.graph_insert_modules_regions_contiguous.
+Print Assumptions Kernel.VMState.graph_update_module_tensor_regions_disjoint.
+Print Assumptions Kernel.VMState.graph_update_module_tensor_regions_contiguous.
+Print Assumptions Kernel.VMState.graph_add_morphism_modules.
+Print Assumptions Kernel.VMState.graph_compose_morphisms_modules.
+Print Assumptions Kernel.VMState.graph_add_identity_modules.
+Print Assumptions Kernel.VMState.graph_delete_morphism_modules.
+Print Assumptions Kernel.VMState.graph_tensor_morphisms_modules.
 Print Assumptions Kernel.VMState.module_tensor_entry_none.
 Print Assumptions Kernel.VMState.module_tensor_entry_some.
 Print Assumptions Kernel.VMState.list_update_at_nth_same.
@@ -11891,12 +12101,61 @@ Print Assumptions Kernel.VMState.bytes_to_words_length.
 Print Assumptions Kernel.VMState.map_seq_nth.
 Print Assumptions Kernel.VMState.String_length_eq_list_length.
 Print Assumptions Kernel.VMState.mem_to_string_roundtrip.
-(* === Kernel.VMStep : 8 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.VMStep : 57 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.VMStep.VMStep.ascii_payload_bits_length.
 Print Assumptions Kernel.VMStep.VMStep.payload_bit_length_ascii.
 Print Assumptions Kernel.VMStep.VMStep.cert_setter_cost_pos.
 Print Assumptions Kernel.VMStep.VMStep.nofi_step_always_ok.
 Print Assumptions Kernel.VMStep.VMStep.nofi_trace_always_ok.
+Print Assumptions Kernel.VMStep.VMStep.pnew_region_contiguous.
+Print Assumptions Kernel.VMStep.VMStep.pnew_region_normalized.
+Print Assumptions Kernel.VMStep.VMStep.pnew_region_nil.
+Print Assumptions Kernel.VMStep.VMStep.region_conflict_nil.
+Print Assumptions Kernel.VMStep.VMStep.region_contiguousb_spec.
+Print Assumptions Kernel.VMStep.VMStep.partition_step_state_ok.
+Print Assumptions Kernel.VMStep.VMStep.graph_remove_or_keep_next_id.
+Print Assumptions Kernel.VMStep.VMStep.graph_remove_or_keep_lookup_other.
+Print Assumptions Kernel.VMStep.VMStep.graph_pnew_next_id_nondec.
+Print Assumptions Kernel.VMStep.VMStep.graph_pnew_lookup_other.
+Print Assumptions Kernel.VMStep.VMStep.graph_hw_psplit_lookup_other.
+Print Assumptions Kernel.VMStep.VMStep.graph_hw_pmerge_lookup_other.
+Print Assumptions Kernel.VMStep.VMStep.nat_list_subset_of_incl.
+Print Assumptions Kernel.VMStep.VMStep.nat_list_disjoint_app_l.
+Print Assumptions Kernel.VMStep.VMStep.NoDup_app_disjoint_nat.
+Print Assumptions Kernel.VMStep.VMStep.psplit_left_incl.
+Print Assumptions Kernel.VMStep.VMStep.psplit_right_incl.
+Print Assumptions Kernel.VMStep.VMStep.psplit_halves_disjoint.
+Print Assumptions Kernel.VMStep.VMStep.graph_hw_psplit_partition_valid.
+Print Assumptions Kernel.VMStep.VMStep.firstn_seq_range.
+Print Assumptions Kernel.VMStep.VMStep.skipn_seq_range.
+Print Assumptions Kernel.VMStep.VMStep.psplit_halves_of_range.
+Print Assumptions Kernel.VMStep.VMStep.psplit_halves_contiguous.
+Print Assumptions Kernel.VMStep.VMStep.graph_remove_or_keep_regions.
+Print Assumptions Kernel.VMStep.VMStep.graph_remove_or_keep_contiguous.
+Print Assumptions Kernel.VMStep.VMStep.graph_remove_or_keep_region_other.
+Print Assumptions Kernel.VMStep.VMStep.graph_find_region_modules_None.
+Print Assumptions Kernel.VMStep.VMStep.graph_pnew_preserves_regions_disjoint.
+Print Assumptions Kernel.VMStep.VMStep.graph_pnew_preserves_regions_contiguous.
+Print Assumptions Kernel.VMStep.VMStep.graph_hw_psplit_preserves_regions_disjoint.
+Print Assumptions Kernel.VMStep.VMStep.graph_hw_psplit_preserves_regions_contiguous.
+Print Assumptions Kernel.VMStep.VMStep.pmerge_region_incl.
+Print Assumptions Kernel.VMStep.VMStep.pmerge_region_contiguous.
+Print Assumptions Kernel.VMStep.VMStep.graph_hw_pmerge_preserves_regions_disjoint.
+Print Assumptions Kernel.VMStep.VMStep.graph_hw_pmerge_preserves_regions_contiguous.
+Print Assumptions Kernel.VMStep.VMStep.vm_step_preserves_regions_disjoint.
+Print Assumptions Kernel.VMStep.VMStep.vm_step_preserves_regions_contiguous.
+Print Assumptions Kernel.VMStep.VMStep.vm_step_preserves_partition_regions_ok.
+Print Assumptions Kernel.VMStep.VMStep.vm_reachable_preserves_partition_regions_ok.
+Print Assumptions Kernel.VMStep.VMStep.vm_reachable_regions_disjoint.
+Print Assumptions Kernel.VMStep.VMStep.all_ids_below_graph_insert_modules.
+Print Assumptions Kernel.VMStep.VMStep.graph_update_preserves_wf.
+Print Assumptions Kernel.VMStep.VMStep.graph_pnew_preserves_wf.
+Print Assumptions Kernel.VMStep.VMStep.graph_update_module_tensor_preserves_wf.
+Print Assumptions Kernel.VMStep.VMStep.graph_cascade_delete_morphisms_no_ref.
+Print Assumptions Kernel.VMStep.VMStep.graph_remove_or_keep_no_ref_wf.
+Print Assumptions Kernel.VMStep.VMStep.graph_hw_psplit_preserves_wf.
+Print Assumptions Kernel.VMStep.VMStep.graph_hw_pmerge_preserves_wf.
+Print Assumptions Kernel.VMStep.VMStep.vm_step_preserves_well_formed_graph.
 Print Assumptions Kernel.VMStep.VMStep.io_env_mu_cost_independent.
 Print Assumptions Kernel.VMStep.VMStep.io_env_mu_cost_env_agnostic.
 Print Assumptions Kernel.VMStep.VMStep.io_read_cost_positive.
@@ -12818,13 +13077,14 @@ Print Assumptions Kernel.MuInformation.run_vm_mu_total_decomposes.
 Print Assumptions Kernel.MuInformation.mu_info_z_run_vm_is_ledger_sum.
 Print Assumptions Kernel.MuInformation.mu_info_z_run_vm_nonneg.
 Print Assumptions Kernel.MuInformation.run_vm_mu_total_monotone.
-(* === Kernel.MuInitiality : 18 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.MuInitiality : 19 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.MuInitiality.init_state_mu_zero.
 Print Assumptions Kernel.MuInitiality.exec_trace_correct.
 Print Assumptions Kernel.MuInitiality.trace_reaches_exec.
 Print Assumptions Kernel.MuInitiality.reachable_from_trace_gen.
 Print Assumptions Kernel.MuInitiality.reachable_from_trace.
 Print Assumptions Kernel.MuInitiality.reachable_iff_trace.
+Print Assumptions Kernel.MuInitiality.reachable_regions_disjoint.
 Print Assumptions Kernel.MuInitiality.mu_accumulates_trace_cost.
 Print Assumptions Kernel.MuInitiality.mu_equals_trace_cost.
 Print Assumptions Kernel.MuInitiality.instruction_consistent_monotone.

@@ -16,6 +16,8 @@ val pred : int -> int
 
 val add : int -> int -> int
 
+val sub : int -> int -> int
+
 val eqb : bool -> bool -> bool
 
 module Nat :
@@ -262,6 +264,8 @@ val fMT_CERT_INLINE : word
 
 val pTableIdxSz : int
 
+val pTableSz : int
+
 val pTableNextIdSz : int
 
 val descIdxSz : int
@@ -269,6 +273,8 @@ val descIdxSz : int
 val descTableNextIdSz : int
 
 val morphTableIdxSz : int
+
+val morphTableSz : int
 
 val morphTableNextIdSz : int
 
@@ -301,6 +307,8 @@ val eRR_LOGIC_VAL : word
 val eRR_LOCALITY_VAL : word
 
 val eRR_PARTITION_VAL : word
+
+val eRR_PARTITION_OVERLAP_VAL : word
 
 val eRR_COUPLING_INVALID : word
 
@@ -507,7 +515,30 @@ val cOUPLING_DESC_NEXT_ID_INIT : word
 
 val sP_IDX : word
 
-val check_bounds : 'a1 expr -> 'a1 expr -> 'a1 expr
+val ext33 : 'a1 expr -> 'a1 expr
+
+val addr33 : 'a1 expr -> 'a1 expr
+
+val check_bounds : 'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr
+
+val pt_slot_live : 'a1 expr -> 'a1 expr -> int -> 'a1 expr
+
+val pt_slot_same :
+  'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr -> int -> 'a1 expr
+
+val pt_slot_overlap :
+  'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr -> int -> 'a1 expr
+
+val pt_scan : (int -> 'a1 expr) -> int -> 'a1 expr
+
+val pt_range_conflict :
+  'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr
+
+val pt_range_present :
+  'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr
+
+val morph_cascade :
+  'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr -> int -> 'a1 expr
 
 val read_mem : 'a1 expr -> 'a1 expr -> 'a1 expr
 
@@ -519,7 +550,7 @@ val dispatch_decoded :
   'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1
   -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 ->
   'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1
-  -> 'a1 actionT
+  -> 'a1 -> 'a1 actionT
 
 val chsh_fsm_decoded :
   'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1

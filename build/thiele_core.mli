@@ -14,8 +14,6 @@ type comparison =
 | Lt
 | Gt
 
-val sub : int -> int -> int
-
 val eqb : int -> int -> bool
 
 module Nat :
@@ -35,9 +33,13 @@ module Nat :
   val modulo : int -> int -> int
  end
 
+val hd : 'a1 -> 'a1 list -> 'a1
+
 val in_dec : ('a1 -> 'a1 -> bool) -> 'a1 -> 'a1 list -> bool
 
 val nth : int -> 'a1 list -> 'a1 -> 'a1
+
+val list_eq_dec : ('a1 -> 'a1 -> bool) -> 'a1 list -> 'a1 list -> bool
 
 val map : ('a1 -> 'a2) -> 'a1 list -> 'a2 list
 
@@ -272,6 +274,9 @@ val graph_add_identity :
 val graph_delete_morphism :
   partitionGraph -> morphismID -> partitionGraph option
 
+val graph_cascade_delete_morphisms :
+  partitionGraph -> moduleID -> partitionGraph
+
 val relational_compose : (int*int) list -> (int*int) list -> (int*int) list
 
 val graph_compose_morphisms :
@@ -285,6 +290,8 @@ val graph_tensor_morphisms :
 val rEG_COUNT : int
 
 val mEM_SIZE : int
+
+val graph_pnew : partitionGraph -> int list -> partitionGraph*moduleID
 
 type cSRState = { csr_cert_addr : int; csr_status : int; csr_err : int;
                   csr_heap_base : int }
@@ -486,7 +493,26 @@ module VMStep :
 
   val coq_LASSERT_TRAP_PC : int
 
-  val graph_module_size : partitionGraph -> moduleID -> int
+  val graph_module_region : partitionGraph -> moduleID -> int list
+
+  val pnew_region : int list -> int list
+
+  val region_conflict : partitionGraph -> int list -> bool
+
+  val region_contiguousb : int list -> bool
+
+  val pmerge_adjacent : partitionGraph -> moduleID -> moduleID -> bool
+
+  val pmerge_region : int list -> int list -> int list
+
+  val psplit_left : int list -> int list
+
+  val psplit_right : int list -> int list
+
+  val coq_ERR_PARTITION_OVERLAP : int
+
+  val partition_step_state :
+    vMState -> vm_instruction -> bool -> partitionGraph -> vMState
 
   val graph_hw_psplit : partitionGraph -> int -> partitionGraph
 
@@ -910,7 +936,8 @@ type kamiSnapshot = { snap_pc : int; snap_mu : int; snap_err : bool;
                       snap_mem : (int -> int); snap_partition_ops : int;
                       snap_mdl_ops : int; snap_info_gain : int;
                       snap_error_code : int; snap_mu_tensor : (int -> int);
-                      snap_pt_sizes : (int -> int); snap_pt_next_id : 
+                      snap_pt_sizes : (int -> int);
+                      snap_pt_bases : (int -> int); snap_pt_next_id : 
                       int; snap_certified : bool; snap_wc_same_00 : int;
                       snap_wc_diff_00 : int; snap_wc_same_01 : int;
                       snap_wc_diff_01 : int; snap_wc_same_10 : int;

@@ -33,10 +33,6 @@ type comparison =
 | Lt
 | Gt
 
-(** val sub : int -> int -> int **)
-
-let rec sub = fun n m -> Stdlib.max 0 (n-m)
-
 (** val eqb : int -> int -> bool **)
 
 let rec eqb n0 m =
@@ -92,6 +88,12 @@ module Nat =
   let modulo = fun x y -> if y = 0 then 0 else x mod y
  end
 
+(** val hd : 'a1 -> 'a1 list -> 'a1 **)
+
+let hd default = function
+| [] -> default
+| x::_ -> x
+
 (** val in_dec : ('a1 -> 'a1 -> bool) -> 'a1 -> 'a1 list -> bool **)
 
 let rec in_dec h a = function
@@ -109,6 +111,18 @@ let rec nth n0 l default =
               | [] -> default
               | _::t -> nth m t default)
     n0
+
+(** val list_eq_dec : ('a1 -> 'a1 -> bool) -> 'a1 list -> 'a1 list -> bool **)
+
+let rec list_eq_dec eq_dec l l' =
+  match l with
+  | [] -> (match l' with
+           | [] -> true
+           | _::_ -> false)
+  | y::l0 ->
+    (match l' with
+     | [] -> false
+     | a::l1 -> if eq_dec y a then list_eq_dec eq_dec l0 l1 else false)
 
 (** val map : ('a1 -> 'a2) -> 'a1 list -> 'a2 list **)
 
@@ -955,6 +969,17 @@ let graph_delete_morphism g morph_id =
            g.pg_morphisms) }
   else None
 
+(** val graph_cascade_delete_morphisms :
+    partitionGraph -> moduleID -> partitionGraph **)
+
+let graph_cascade_delete_morphisms g mid =
+  { pg_next_id = g.pg_next_id; pg_modules = g.pg_modules; pg_next_morph_id =
+    g.pg_next_morph_id; pg_morphisms =
+    (filter (fun pat ->
+      let _,ms = pat in
+      (&&) (negb (Nat.eqb ms.morph_source mid))
+        (negb (Nat.eqb ms.morph_target mid))) g.pg_morphisms) }
+
 (** val relational_compose :
     (int*int) list -> (int*int) list -> (int*int) list **)
 
@@ -1091,6 +1116,14 @@ let mEM_SIZE =
     ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
     ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
     0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+
+(** val graph_pnew : partitionGraph -> int list -> partitionGraph*moduleID **)
+
+let graph_pnew g region =
+  let normalized = normalize_region region in
+  (match graph_find_region g normalized with
+   | Some existing -> g,existing
+   | None -> graph_add_module g normalized [])
 
 type cSRState = { csr_cert_addr : int; csr_status : int; csr_err : int;
                   csr_heap_base : int }
@@ -2704,44 +2737,105 @@ module VMStep =
       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
       0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
-  (** val graph_module_size : partitionGraph -> moduleID -> int **)
+  (** val graph_module_region : partitionGraph -> moduleID -> int list **)
 
-  let graph_module_size g mid =
+  let graph_module_region g mid =
     match graph_lookup g mid with
-    | Some m -> length m.module_region
-    | None -> 0
+    | Some m -> m.module_region
+    | None -> []
+
+  (** val pnew_region : int list -> int list **)
+
+  let pnew_region region =
+    let r = normalize_region region in seq (hd 0 r) (length r)
+
+  (** val region_conflict : partitionGraph -> int list -> bool **)
+
+  let region_conflict g r =
+    existsb (fun p ->
+      (&&) (negb (nat_list_eq (snd p).module_region r))
+        (negb (nat_list_disjoint (snd p).module_region r))) g.pg_modules
+
+  (** val region_contiguousb : int list -> bool **)
+
+  let region_contiguousb r =
+    if list_eq_dec (=) r (seq (hd 0 r) (length r)) then true else false
+
+  (** val pmerge_adjacent : partitionGraph -> moduleID -> moduleID -> bool **)
+
+  let pmerge_adjacent g m1 m2 =
+    let r1 = graph_module_region g m1 in
+    let r2 = graph_module_region g m2 in
+    (||) (region_contiguousb (app r1 r2)) (region_contiguousb (app r2 r1))
+
+  (** val pmerge_region : int list -> int list -> int list **)
+
+  let pmerge_region r1 r2 =
+    if region_contiguousb (app r1 r2) then app r1 r2 else app r2 r1
+
+  (** val psplit_left : int list -> int list **)
+
+  let psplit_left r =
+    firstn (Nat.div (length r) ((fun x -> x + 1) ((fun x -> x + 1) 0))) r
+
+  (** val psplit_right : int list -> int list **)
+
+  let psplit_right r =
+    skipn (Nat.div (length r) ((fun x -> x + 1) ((fun x -> x + 1) 0))) r
+
+  (** val coq_ERR_PARTITION_OVERLAP : int **)
+
+  let coq_ERR_PARTITION_OVERLAP =
+    (fun x -> x + 1) 0
+
+  (** val partition_step_state :
+      vMState -> vm_instruction -> bool -> partitionGraph -> vMState **)
+
+  let partition_step_state s instr ok graph =
+    { vm_graph = (if ok then graph else s.vm_graph); vm_csrs =
+      (if ok
+       then s.vm_csrs
+       else csr_set_err s.vm_csrs coq_ERR_PARTITION_OVERLAP); vm_regs =
+      s.vm_regs; vm_mem = s.vm_mem; vm_pc =
+      (if ok then (fun x -> x + 1) s.vm_pc else coq_LASSERT_TRAP_PC); vm_mu =
+      ((+) s.vm_mu (instruction_cost instr)); vm_mu_tensor = s.vm_mu_tensor;
+      vm_err = (if ok then s.vm_err else true); vm_logic_acc =
+      s.vm_logic_acc; vm_mstatus = s.vm_mstatus; vm_witness = s.vm_witness;
+      vm_certified = s.vm_certified }
 
   (** val graph_hw_psplit : partitionGraph -> int -> partitionGraph **)
 
   let graph_hw_psplit g mid =
-    let orig_sz = graph_module_size g mid in
-    let left_sz = Nat.div orig_sz ((fun x -> x + 1) ((fun x -> x + 1) 0)) in
-    let right_sz = sub orig_sz left_sz in
+    let orig = normalize_region (graph_module_region g mid) in
+    let g0 = graph_cascade_delete_morphisms g mid in
     let g1 =
-      match graph_remove g mid with
+      match graph_remove g0 mid with
       | Some p -> let g',_ = p in g'
-      | None -> g
+      | None -> g0
     in
-    let g2,_ = graph_add_module g1 (seq 0 left_sz) [] in
-    let g3,_ = graph_add_module g2 (seq 0 right_sz) [] in g3
+    let g2,_ = graph_add_module g1 (psplit_left orig) [] in
+    let g3,_ = graph_add_module g2 (psplit_right orig) [] in g3
 
   (** val graph_hw_pmerge : partitionGraph -> int -> int -> partitionGraph **)
 
   let graph_hw_pmerge g m1 m2 =
-    let sz1 = graph_module_size g m1 in
-    let sz2 = graph_module_size g m2 in
-    let merged_sz = (+) sz1 sz2 in
+    let merged =
+      pmerge_region (graph_module_region g m1) (graph_module_region g m2)
+    in
+    let g0 =
+      graph_cascade_delete_morphisms (graph_cascade_delete_morphisms g m1) m2
+    in
     let g1 =
-      match graph_remove g m1 with
+      match graph_remove g0 m1 with
       | Some p -> let g',_ = p in g'
-      | None -> g
+      | None -> g0
     in
     let g2 =
       match graph_remove g1 m2 with
       | Some p -> let g',_ = p in g'
       | None -> g1
     in
-    let g3,_ = graph_add_module g2 (seq 0 merged_sz) [] in g3
+    let g3,_ = graph_add_module g2 merged [] in g3
 
   (** val chsh_d_z : int -> int -> int **)
 
@@ -4450,7 +4544,8 @@ type kamiSnapshot = { snap_pc : int; snap_mu : int; snap_err : bool;
                       snap_mem : (int -> int); snap_partition_ops : int;
                       snap_mdl_ops : int; snap_info_gain : int;
                       snap_error_code : int; snap_mu_tensor : (int -> int);
-                      snap_pt_sizes : (int -> int); snap_pt_next_id : 
+                      snap_pt_sizes : (int -> int);
+                      snap_pt_bases : (int -> int); snap_pt_next_id : 
                       int; snap_certified : bool; snap_wc_same_00 : int;
                       snap_wc_diff_00 : int; snap_wc_same_01 : int;
                       snap_wc_diff_01 : int; snap_wc_same_10 : int;
@@ -5416,10 +5511,10 @@ let bus_step st = function
 
 let vm_apply s = function
 | VMStep.Coq_instr_pnew (region, cost) ->
-  let sz = length (normalize_region region) in
-  let graph',_ = graph_add_module s.vm_graph (seq 0 sz) [] in
-  VMStep.advance_state s (VMStep.Coq_instr_pnew (region, cost)) graph'
-    s.vm_csrs s.vm_err
+  let r = VMStep.pnew_region region in
+  VMStep.partition_step_state s (VMStep.Coq_instr_pnew (region, cost))
+    (negb (VMStep.region_conflict s.vm_graph r))
+    (fst (graph_pnew s.vm_graph r))
 | VMStep.Coq_instr_psplit (module0, left_region, right_region, cost) ->
   let graph' =
     VMStep.graph_hw_psplit s.vm_graph
@@ -5450,8 +5545,8 @@ let vm_apply s = function
   VMStep.advance_state s (VMStep.Coq_instr_psplit (module0, left_region,
     right_region, cost)) graph' s.vm_csrs s.vm_err
 | VMStep.Coq_instr_pmerge (m1, m2, cost) ->
-  let graph' =
-    VMStep.graph_hw_pmerge s.vm_graph
+  VMStep.partition_step_state s (VMStep.Coq_instr_pmerge (m1, m2, cost))
+    (VMStep.pmerge_adjacent s.vm_graph
       (Nat.modulo m1 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
         ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
         ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
@@ -5497,10 +5592,54 @@ let vm_apply s = function
         ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
         ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
         ((fun x -> x + 1)
+        0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+    (VMStep.graph_hw_pmerge s.vm_graph
+      (Nat.modulo m1 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1)
         0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-  in
-  VMStep.advance_state s (VMStep.Coq_instr_pmerge (m1, m2, cost)) graph'
-    s.vm_csrs s.vm_err
+      (Nat.modulo m2 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1)
+        0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 | VMStep.Coq_instr_lassert (freg, creg, kind, flen, cost) ->
   let check_ok = VMStep.lassert_exec_ok s freg creg kind flen in
   let new_pc =

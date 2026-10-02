@@ -35,6 +35,10 @@ let pred = fun n -> Stdlib.max 0 (n-1)
 
 let rec add = (+)
 
+(** val sub : int -> int -> int **)
+
+let rec sub = fun n m -> Stdlib.max 0 (n-m)
+
 (** val eqb : bool -> bool -> bool **)
 
 let eqb b1 b2 =
@@ -608,6 +612,27 @@ let pTableIdxSz =
   Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ 0)))))
 
+(** val pTableSz : int **)
+
+let pTableSz =
+  Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+
 (** val pTableNextIdSz : int **)
 
 let pTableNextIdSz =
@@ -629,6 +654,15 @@ let descTableNextIdSz =
 
 let morphTableIdxSz =
   Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))
+
+(** val morphTableSz : int **)
+
+let morphTableSz =
+  Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))
 
 (** val morphTableNextIdSz : int **)
 
@@ -1297,6 +1331,151 @@ let eRR_PARTITION_VAL =
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     0))))))))))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))))))))))))))))))))))))), (WS (true,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))))))))))))))))))))))))))), (WS (true,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))))))))))))))), (WS (true, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))))))))))))))))))))), (WS
+    (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))))))))))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))))))))))))),
+    (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))),
+    (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))))))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))))))))))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))))))))))))))), (WS (true, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))))))))), (WS (true, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))), (WS (true,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))))), (WS
+    (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))), (WS
+    (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))), (WS (true, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))))), (WS (true,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))), (WS (false, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0))), (WS (true, (Stdlib.Int.succ (Stdlib.Int.succ 0)),
+    (WS (false, (Stdlib.Int.succ 0), (WS (true, 0,
+    WO)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+
+(** val eRR_PARTITION_OVERLAP_VAL : word **)
+
+let eRR_PARTITION_OVERLAP_VAL =
+  WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0))))))))))))))))))))))))))))))), (WS (true, (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
@@ -3989,11 +4168,125 @@ let sP_IDX =
     (true, (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (true, (Stdlib.Int.succ
     0), (WS (true, 0, WO)))))))
 
-(** val check_bounds : 'a1 expr -> 'a1 expr -> 'a1 expr **)
+(** val ext33 : 'a1 expr -> 'a1 expr **)
 
-let check_bounds addr active_partition_size =
-  BinBitBool (wordSz, wordSz, (Lt wordSz), (UniBit (memAddrSz, wordSz,
-    (ZeroExtendTrunc (memAddrSz, wordSz)), addr)), active_partition_size)
+let ext33 e =
+  BinBit ((Stdlib.Int.succ 0), wordSz, (add wordSz (Stdlib.Int.succ 0)),
+    (Concat ((Stdlib.Int.succ 0), wordSz)), (Const ((Bit (Stdlib.Int.succ
+    0)), (ConstBit ((Stdlib.Int.succ 0),
+    (natToWord (Stdlib.Int.succ 0) 0))))), e)
+
+(** val addr33 : 'a1 expr -> 'a1 expr **)
+
+let addr33 addr =
+  BinBit ((sub (Stdlib.Int.succ wordSz) memAddrSz), memAddrSz,
+    (add memAddrSz (sub (Stdlib.Int.succ wordSz) memAddrSz)), (Concat
+    ((sub (Stdlib.Int.succ wordSz) memAddrSz), memAddrSz)), (Const ((Bit
+    (sub (Stdlib.Int.succ wordSz) memAddrSz)), (ConstBit
+    ((sub (Stdlib.Int.succ wordSz) memAddrSz),
+    (natToWord (sub (Stdlib.Int.succ wordSz) memAddrSz) 0))))), addr)
+
+(** val check_bounds : 'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr **)
+
+let check_bounds addr active_partition_base active_partition_size =
+  BinBool (AndB, (UniBool (NegB, (BinBitBool ((Stdlib.Int.succ wordSz),
+    (Stdlib.Int.succ wordSz), (Lt (Stdlib.Int.succ wordSz)), (addr33 addr),
+    (ext33 active_partition_base))))), (BinBitBool ((Stdlib.Int.succ wordSz),
+    (Stdlib.Int.succ wordSz), (Lt (Stdlib.Int.succ wordSz)), (addr33 addr),
+    (BinBit ((Stdlib.Int.succ wordSz), (Stdlib.Int.succ wordSz),
+    (Stdlib.Int.succ wordSz), (Add (Stdlib.Int.succ wordSz)),
+    (ext33 active_partition_base), (ext33 active_partition_size))))))
+
+(** val pt_slot_live : 'a1 expr -> 'a1 expr -> int -> 'a1 expr **)
+
+let pt_slot_live sizes next i =
+  BinBool (AndB, (BinBitBool (pTableNextIdSz, pTableNextIdSz, (Lt
+    pTableNextIdSz), (Const ((Bit pTableNextIdSz), (ConstBit (pTableNextIdSz,
+    (natToWord pTableNextIdSz i))))), next)), (UniBool (NegB, (Eq ((Bit
+    wordSz), (ReadIndex (pTableIdxSz, (Bit wordSz), (Const ((Bit
+    pTableIdxSz), (ConstBit (pTableIdxSz, (natToWord pTableIdxSz i))))),
+    sizes)), (Const ((Bit wordSz), (ConstBit (wordSz,
+    (natToWord wordSz 0))))))))))
+
+(** val pt_slot_same :
+    'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr -> int -> 'a1 expr **)
+
+let pt_slot_same bases sizes a len i =
+  BinBool (AndB, (Eq ((Bit wordSz), (ReadIndex (pTableIdxSz, (Bit wordSz),
+    (Const ((Bit pTableIdxSz), (ConstBit (pTableIdxSz,
+    (natToWord pTableIdxSz i))))), bases)), a)), (Eq ((Bit wordSz),
+    (ReadIndex (pTableIdxSz, (Bit wordSz), (Const ((Bit pTableIdxSz),
+    (ConstBit (pTableIdxSz, (natToWord pTableIdxSz i))))), sizes)), len)))
+
+(** val pt_slot_overlap :
+    'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr -> int -> 'a1 expr **)
+
+let pt_slot_overlap bases sizes a len i =
+  BinBool (AndB, (BinBitBool ((Stdlib.Int.succ wordSz), (Stdlib.Int.succ
+    wordSz), (Lt (Stdlib.Int.succ wordSz)), (ext33 a), (BinBit
+    ((Stdlib.Int.succ wordSz), (Stdlib.Int.succ wordSz), (Stdlib.Int.succ
+    wordSz), (Add (Stdlib.Int.succ wordSz)),
+    (ext33 (ReadIndex (pTableIdxSz, (Bit wordSz), (Const ((Bit pTableIdxSz),
+      (ConstBit (pTableIdxSz, (natToWord pTableIdxSz i))))), bases))),
+    (ext33 (ReadIndex (pTableIdxSz, (Bit wordSz), (Const ((Bit pTableIdxSz),
+      (ConstBit (pTableIdxSz, (natToWord pTableIdxSz i))))), sizes))))))),
+    (BinBitBool ((Stdlib.Int.succ wordSz), (Stdlib.Int.succ wordSz), (Lt
+    (Stdlib.Int.succ wordSz)),
+    (ext33 (ReadIndex (pTableIdxSz, (Bit wordSz), (Const ((Bit pTableIdxSz),
+      (ConstBit (pTableIdxSz, (natToWord pTableIdxSz i))))), bases))),
+    (BinBit ((Stdlib.Int.succ wordSz), (Stdlib.Int.succ wordSz),
+    (Stdlib.Int.succ wordSz), (Add (Stdlib.Int.succ wordSz)), (ext33 a),
+    (ext33 len))))))
+
+(** val pt_scan : (int -> 'a1 expr) -> int -> 'a1 expr **)
+
+let rec pt_scan f n =
+  (fun fO fS n -> if n=0 then fO () else fS (n-1))
+    (fun _ -> Const (Bool, (ConstBool false)))
+    (fun n' -> BinBool (OrB, (pt_scan f n'), (f n')))
+    n
+
+(** val pt_range_conflict :
+    'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr **)
+
+let pt_range_conflict bases sizes next a len =
+  pt_scan (fun i -> BinBool (AndB, (pt_slot_live sizes next i), (BinBool
+    (AndB, (UniBool (NegB, (pt_slot_same bases sizes a len i))),
+    (pt_slot_overlap bases sizes a len i))))) pTableSz
+
+(** val pt_range_present :
+    'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr **)
+
+let pt_range_present bases sizes next a len =
+  pt_scan (fun i -> BinBool (AndB, (pt_slot_live sizes next i),
+    (pt_slot_same bases sizes a len i))) pTableSz
+
+(** val morph_cascade :
+    'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr -> int -> 'a1
+    expr **)
+
+let rec morph_cascade valid src dst m1 m2 n =
+  (fun fO fS n -> if n=0 then fO () else fS (n-1))
+    (fun _ -> valid)
+    (fun n' -> UpdateVector (morphTableIdxSz, Bool,
+    (morph_cascade valid src dst m1 m2 n'), (Const ((Bit morphTableIdxSz),
+    (ConstBit (morphTableIdxSz, (natToWord morphTableIdxSz n'))))), (BinBool
+    (AndB, (ReadIndex (morphTableIdxSz, Bool, (Const ((Bit morphTableIdxSz),
+    (ConstBit (morphTableIdxSz, (natToWord morphTableIdxSz n'))))), valid)),
+    (UniBool (NegB, (BinBool (OrB, (BinBool (OrB, (Eq ((Bit pTableIdxSz),
+    (ReadIndex (morphTableIdxSz, (Bit pTableIdxSz), (Const ((Bit
+    morphTableIdxSz), (ConstBit (morphTableIdxSz,
+    (natToWord morphTableIdxSz n'))))), src)), m1)), (Eq ((Bit pTableIdxSz),
+    (ReadIndex (morphTableIdxSz, (Bit pTableIdxSz), (Const ((Bit
+    morphTableIdxSz), (ConstBit (morphTableIdxSz,
+    (natToWord morphTableIdxSz n'))))), dst)), m1)))), (BinBool (OrB, (Eq
+    ((Bit pTableIdxSz), (ReadIndex (morphTableIdxSz, (Bit pTableIdxSz),
+    (Const ((Bit morphTableIdxSz), (ConstBit (morphTableIdxSz,
+    (natToWord morphTableIdxSz n'))))), src)), m2)), (Eq ((Bit pTableIdxSz),
+    (ReadIndex (morphTableIdxSz, (Bit pTableIdxSz), (Const ((Bit
+    morphTableIdxSz), (ConstBit (morphTableIdxSz,
+    (natToWord morphTableIdxSz n'))))), dst)), m2))))))))))))
+    n
 
 (** val read_mem : 'a1 expr -> 'a1 expr -> 'a1 expr **)
 
@@ -4011,9 +4304,9 @@ let write_mem addr val0 memv =
     'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1
     -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 ->
     'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1
-    -> 'a1 actionT **)
+    -> 'a1 -> 'a1 actionT **)
 
-let dispatch_decoded chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v mdl_ops_v info_gain_v error_code_v _ cert_addr_v active_module_v mcycle_lo_v mcycle_hi_v minstret_lo_v minstret_hi_v trap_vector_v mu_tensor_v module_tensors_v csr_heap_base_v pt_sizes_v pt_next_id_v certified_v morph_src_table_v morph_dst_table_v morph_valid_table_v morph_coupling_desc_table_v morph_identity_table_v morph_next_id_v coupling_desc_valid_table_v coupling_desc_count_table_v coupling_desc_base_table_v coupling_desc_label_table_v coupling_desc_label_len_table_v coupling_desc_next_id_v coupling_pair_next_id_v formula_desc_valid_table_v formula_desc_next_id_v cert_desc_valid_table_v cert_desc_next_id_v desc_meta_valid_table_v desc_meta_next_id_v wc_same_00_v wc_diff_00_v wc_same_01_v wc_diff_01_v wc_same_10_v wc_diff_10_v wc_same_11_v wc_diff_11_v _ instr_v bianchi_violation =
+let dispatch_decoded chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v mdl_ops_v info_gain_v error_code_v _ cert_addr_v active_module_v mcycle_lo_v mcycle_hi_v minstret_lo_v minstret_hi_v trap_vector_v mu_tensor_v module_tensors_v csr_heap_base_v pt_sizes_v pt_bases_v pt_next_id_v certified_v morph_src_table_v morph_dst_table_v morph_valid_table_v morph_coupling_desc_table_v morph_identity_table_v morph_next_id_v coupling_desc_valid_table_v coupling_desc_count_table_v coupling_desc_base_table_v coupling_desc_label_table_v coupling_desc_label_len_table_v coupling_desc_next_id_v coupling_pair_next_id_v formula_desc_valid_table_v formula_desc_next_id_v cert_desc_valid_table_v cert_desc_next_id_v desc_meta_valid_table_v desc_meta_next_id_v wc_same_00_v wc_diff_00_v wc_same_01_v wc_diff_01_v wc_same_10_v wc_diff_10_v wc_same_11_v wc_diff_11_v _ instr_v bianchi_violation =
   Let_ ((SyntaxKind (Bit wordSz)), (UniBit ((add wordSz instrUpperSz),
     wordSz, (Trunc (wordSz, instrUpperSz)), (Var ((SyntaxKind (Bit
     (add wordSz instrUpperSz))), (Obj.magic instr_v))))),
@@ -5320,44 +5613,52 @@ let dispatch_decoded chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v 
     sp_dec)))), (fun sp_dec_addr -> Let_ ((SyntaxKind (Bit wordSz)),
     (ReadIndex (pTableIdxSz, (Bit wordSz), (Var ((SyntaxKind (Bit
     pTableIdxSz)), (Obj.magic active_module_v))), (Var ((SyntaxKind (Vector
-    ((Bit wordSz), pTableIdxSz))), (Obj.magic pt_sizes_v))))),
-    (fun active_region_size -> Let_ ((SyntaxKind Bool),
+    ((Bit wordSz), pTableIdxSz))), (Obj.magic pt_bases_v))))),
+    (fun active_region_base -> Let_ ((SyntaxKind (Bit wordSz)), (ReadIndex
+    (pTableIdxSz, (Bit wordSz), (Var ((SyntaxKind (Bit pTableIdxSz)),
+    (Obj.magic active_module_v))), (Var ((SyntaxKind (Vector ((Bit wordSz),
+    pTableIdxSz))), (Obj.magic pt_sizes_v))))), (fun active_region_size ->
+    Let_ ((SyntaxKind Bool),
     (check_bounds (ITE ((SyntaxKind (Bit memAddrSz)), (Eq ((Bit opcodeSz),
       (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz),
       (ConstBit (opcodeSz, oP_HEAP_LOAD)))))), (Var ((SyntaxKind (Bit
       memAddrSz)), heap_addr)), (Var ((SyntaxKind (Bit memAddrSz)),
-      mem_addr)))) (Var ((SyntaxKind (Bit wordSz)), active_region_size))),
+      mem_addr)))) (Var ((SyntaxKind (Bit wordSz)), active_region_base)) (Var
+      ((SyntaxKind (Bit wordSz)), active_region_size))),
     (fun load_in_bounds -> Let_ ((SyntaxKind Bool),
     (check_bounds (ITE ((SyntaxKind (Bit memAddrSz)), (Eq ((Bit opcodeSz),
       (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz),
       (ConstBit (opcodeSz, oP_HEAP_STORE)))))), (Var ((SyntaxKind (Bit
       memAddrSz)), heap_addr_a)), (Var ((SyntaxKind (Bit memAddrSz)),
-      mem_addr_a)))) (Var ((SyntaxKind (Bit wordSz)), active_region_size))),
+      mem_addr_a)))) (Var ((SyntaxKind (Bit wordSz)), active_region_base))
+      (Var ((SyntaxKind (Bit wordSz)), active_region_size))),
     (fun store_in_bounds -> Let_ ((SyntaxKind Bool),
     (check_bounds (Var ((SyntaxKind (Bit memAddrSz)), sp_addr)) (Var
-      ((SyntaxKind (Bit wordSz)), active_region_size))),
-    (fun call_in_bounds -> Let_ ((SyntaxKind Bool),
+      ((SyntaxKind (Bit wordSz)), active_region_base)) (Var ((SyntaxKind (Bit
+      wordSz)), active_region_size))), (fun call_in_bounds -> Let_
+    ((SyntaxKind Bool),
     (check_bounds (Var ((SyntaxKind (Bit memAddrSz)), sp_dec_addr)) (Var
-      ((SyntaxKind (Bit wordSz)), active_region_size))),
-    (fun ret_in_bounds -> Let_ ((SyntaxKind Bool), (BinBool (OrB, (Eq ((Bit
-    opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit
-    opcodeSz), (ConstBit (opcodeSz, oP_LOAD)))))), (Eq ((Bit opcodeSz), (Var
-    ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit
-    (opcodeSz, oP_HEAP_LOAD)))))))), (fun is_load_op -> Let_ ((SyntaxKind
-    Bool), (BinBool (OrB, (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit
-    opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
-    oP_STORE)))))), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
+      ((SyntaxKind (Bit wordSz)), active_region_base)) (Var ((SyntaxKind (Bit
+      wordSz)), active_region_size))), (fun ret_in_bounds -> Let_
+    ((SyntaxKind Bool), (BinBool (OrB, (Eq ((Bit opcodeSz), (Var ((SyntaxKind
+    (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
+    oP_LOAD)))))), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
     opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
-    oP_HEAP_STORE)))))))), (fun is_store_op -> Let_ ((SyntaxKind Bool), (Eq
+    oP_HEAP_LOAD)))))))), (fun is_load_op -> Let_ ((SyntaxKind Bool),
+    (BinBool (OrB, (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
+    opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_STORE)))))),
+    (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const
+    ((Bit opcodeSz), (ConstBit (opcodeSz, oP_HEAP_STORE)))))))),
+    (fun is_store_op -> Let_ ((SyntaxKind Bool), (Eq ((Bit opcodeSz), (Var
+    ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit
+    (opcodeSz, oP_CALL)))))), (fun is_call_op -> Let_ ((SyntaxKind Bool), (Eq
     ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const
-    ((Bit opcodeSz), (ConstBit (opcodeSz, oP_CALL)))))), (fun is_call_op ->
-    Let_ ((SyntaxKind Bool), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit
-    opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
-    oP_RET)))))), (fun is_ret_op -> Let_ ((SyntaxKind Bool), (BinBool (AndB,
-    (Var ((SyntaxKind Bool), is_load_op)), (UniBool (NegB, (Var ((SyntaxKind
-    Bool), load_in_bounds)))))), (fun load_locality_bad -> Let_ ((SyntaxKind
-    Bool), (BinBool (AndB, (Var ((SyntaxKind Bool), is_store_op)), (UniBool
-    (NegB, (Var ((SyntaxKind Bool), store_in_bounds)))))),
+    ((Bit opcodeSz), (ConstBit (opcodeSz, oP_RET)))))), (fun is_ret_op ->
+    Let_ ((SyntaxKind Bool), (BinBool (AndB, (Var ((SyntaxKind Bool),
+    is_load_op)), (UniBool (NegB, (Var ((SyntaxKind Bool),
+    load_in_bounds)))))), (fun load_locality_bad -> Let_ ((SyntaxKind Bool),
+    (BinBool (AndB, (Var ((SyntaxKind Bool), is_store_op)), (UniBool (NegB,
+    (Var ((SyntaxKind Bool), store_in_bounds)))))),
     (fun store_locality_bad -> Let_ ((SyntaxKind Bool), (BinBool (AndB, (Var
     ((SyntaxKind Bool), is_call_op)), (UniBool (NegB, (Var ((SyntaxKind
     Bool), call_in_bounds)))))), (fun call_locality_bad -> Let_ ((SyntaxKind
@@ -5439,17 +5740,98 @@ let dispatch_decoded chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v 
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))), wordSz)),
     (Var ((SyntaxKind (Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)))))))))), op_b)))), (fun jnez_target -> Let_
+    (Stdlib.Int.succ 0)))))))))), op_a)))), (fun pnew_base -> Let_
+    ((SyntaxKind (Bit wordSz)), (UniBit ((Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))), wordSz, (ZeroExtendTrunc
+    ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))), wordSz)), (Var ((SyntaxKind (Bit (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))), op_b)))),
+    (fun pnew_region_size -> Let_ ((SyntaxKind Bool),
+    (pt_range_conflict (Var ((SyntaxKind (Vector ((Bit wordSz),
+      pTableIdxSz))), (Obj.magic pt_bases_v))) (Var ((SyntaxKind (Vector
+      ((Bit wordSz), pTableIdxSz))), (Obj.magic pt_sizes_v))) (Var
+      ((SyntaxKind (Bit pTableNextIdSz)), (Obj.magic pt_next_id_v))) (Var
+      ((SyntaxKind (Bit wordSz)), pnew_base)) (Var ((SyntaxKind (Bit
+      wordSz)), pnew_region_size))), (fun pnew_conflict -> Let_ ((SyntaxKind
+    Bool),
+    (pt_range_present (Var ((SyntaxKind (Vector ((Bit wordSz),
+      pTableIdxSz))), (Obj.magic pt_bases_v))) (Var ((SyntaxKind (Vector
+      ((Bit wordSz), pTableIdxSz))), (Obj.magic pt_sizes_v))) (Var
+      ((SyntaxKind (Bit pTableNextIdSz)), (Obj.magic pt_next_id_v))) (Var
+      ((SyntaxKind (Bit wordSz)), pnew_base)) (Var ((SyntaxKind (Bit
+      wordSz)), pnew_region_size))), (fun pnew_present -> Let_ ((SyntaxKind
+    (Bit pTableIdxSz)), (UniBit
+    ((add pTableIdxSz (Stdlib.Int.succ (Stdlib.Int.succ 0))), pTableIdxSz,
+    (Trunc (pTableIdxSz, (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Var
     ((SyntaxKind (Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))))), op_a)))), (fun pmerge_m1 -> Let_
+    ((SyntaxKind (Bit pTableIdxSz)), (UniBit
+    ((add pTableIdxSz (Stdlib.Int.succ (Stdlib.Int.succ 0))), pTableIdxSz,
+    (Trunc (pTableIdxSz, (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Var
+    ((SyntaxKind (Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))))), op_b)))), (fun pmerge_m2 -> Let_
+    ((SyntaxKind (Bit wordSz)), (ReadIndex (pTableIdxSz, (Bit wordSz), (Var
+    ((SyntaxKind (Bit pTableIdxSz)), pmerge_m1)), (Var ((SyntaxKind (Vector
+    ((Bit wordSz), pTableIdxSz))), (Obj.magic pt_sizes_v))))),
+    (fun pmerge_m1_sz -> Let_ ((SyntaxKind (Bit wordSz)), (ReadIndex
+    (pTableIdxSz, (Bit wordSz), (Var ((SyntaxKind (Bit pTableIdxSz)),
+    pmerge_m2)), (Var ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))),
+    (Obj.magic pt_sizes_v))))), (fun pmerge_m2_sz -> Let_ ((SyntaxKind (Bit
+    wordSz)), (ReadIndex (pTableIdxSz, (Bit wordSz), (Var ((SyntaxKind (Bit
+    pTableIdxSz)), pmerge_m1)), (Var ((SyntaxKind (Vector ((Bit wordSz),
+    pTableIdxSz))), (Obj.magic pt_bases_v))))), (fun pmerge_m1_base -> Let_
+    ((SyntaxKind (Bit wordSz)), (ReadIndex (pTableIdxSz, (Bit wordSz), (Var
+    ((SyntaxKind (Bit pTableIdxSz)), pmerge_m2)), (Var ((SyntaxKind (Vector
+    ((Bit wordSz), pTableIdxSz))), (Obj.magic pt_bases_v))))),
+    (fun pmerge_m2_base -> Let_ ((SyntaxKind Bool), (Eq ((Bit
+    (Stdlib.Int.succ wordSz)), (BinBit ((Stdlib.Int.succ wordSz),
+    (Stdlib.Int.succ wordSz), (Stdlib.Int.succ wordSz), (Add (Stdlib.Int.succ
+    wordSz)), (ext33 (Var ((SyntaxKind (Bit wordSz)), pmerge_m1_base))),
+    (ext33 (Var ((SyntaxKind (Bit wordSz)), pmerge_m1_sz))))),
+    (ext33 (Var ((SyntaxKind (Bit wordSz)), pmerge_m2_base))))),
+    (fun pmerge_m1_first -> Let_ ((SyntaxKind Bool), (Eq ((Bit
+    (Stdlib.Int.succ wordSz)), (BinBit ((Stdlib.Int.succ wordSz),
+    (Stdlib.Int.succ wordSz), (Stdlib.Int.succ wordSz), (Add (Stdlib.Int.succ
+    wordSz)), (ext33 (Var ((SyntaxKind (Bit wordSz)), pmerge_m2_base))),
+    (ext33 (Var ((SyntaxKind (Bit wordSz)), pmerge_m2_sz))))),
+    (ext33 (Var ((SyntaxKind (Bit wordSz)), pmerge_m1_base))))),
+    (fun pmerge_m2_first -> Let_ ((SyntaxKind Bool), (BinBool (OrB, (BinBool
+    (OrB, (BinBool (OrB, (Eq ((Bit wordSz), (Var ((SyntaxKind (Bit wordSz)),
+    pmerge_m1_sz)), (Const ((Bit wordSz), (ConstBit (wordSz,
+    (natToWord wordSz 0))))))), (Eq ((Bit wordSz), (Var ((SyntaxKind (Bit
+    wordSz)), pmerge_m2_sz)), (Const ((Bit wordSz), (ConstBit (wordSz,
+    (natToWord wordSz 0))))))))), (Var ((SyntaxKind Bool),
+    pmerge_m1_first)))), (Var ((SyntaxKind Bool), pmerge_m2_first)))),
+    (fun pmerge_adjacent -> Let_ ((SyntaxKind Bool), (BinBool (OrB, (BinBool
+    (AndB, (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)),
+    (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_PNEW)))))), (Var
+    ((SyntaxKind Bool), pnew_conflict)))), (BinBool (AndB, (Eq ((Bit
+    opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit
+    opcodeSz), (ConstBit (opcodeSz, oP_PMERGE)))))), (UniBool (NegB, (Var
+    ((SyntaxKind Bool), pmerge_adjacent)))))))), (fun partition_fault -> Let_
+    ((SyntaxKind (Bit wordSz)), (UniBit ((Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))), wordSz, (ZeroExtendTrunc
+    ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    0)))))))), wordSz)), (Var ((SyntaxKind (Bit (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))), op_b)))),
+    (fun jnez_target -> Let_ ((SyntaxKind (Bit (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)))))))))))))))))), (BinBit ((Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))),
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))))))))))))),
+    (BinBit ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ 0)))))))), (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0)))))))),
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))),
     (add (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
       (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
       0)))))))) (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
@@ -9954,54 +10336,54 @@ let dispatch_decoded chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v 
     muTensorIdxSz)), tget_idx)), (Var ((SyntaxKind (Vector ((Bit wordSz),
     muTensorIdxSz))), tget_row)))), (fun tget_val -> Let_ ((SyntaxKind (Bit
     wordSz)), (ITE ((SyntaxKind (Bit wordSz)), (BinBool (OrB, (BinBool (OrB,
-    (BinBool (OrB, (BinBool (OrB, (Var ((SyntaxKind Bool),
+    (BinBool (OrB, (BinBool (OrB, (BinBool (OrB, (Var ((SyntaxKind Bool),
     (Obj.magic bianchi_violation))), (Var ((SyntaxKind Bool),
     locality_violation)))), (Var ((SyntaxKind Bool),
     ptable_overflow_violation)))), (Var ((SyntaxKind Bool),
     nfi_violation)))), (Var ((SyntaxKind Bool), rich_fault)))), (Var
-    ((SyntaxKind (Bit wordSz)), (Obj.magic trap_vector_v))), (ITE
-    ((SyntaxKind (Bit wordSz)), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit
-    opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
-    oP_JUMP)))))), (Var ((SyntaxKind (Bit wordSz)), jump_target)), (ITE
-    ((SyntaxKind (Bit wordSz)), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit
-    opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
-    oP_CALL)))))), (Var ((SyntaxKind (Bit wordSz)), jump_target)), (ITE
-    ((SyntaxKind (Bit wordSz)), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit
-    opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
-    oP_RET)))))), (Var ((SyntaxKind (Bit wordSz)), ret_pc)), (ITE
-    ((SyntaxKind (Bit wordSz)), (BinBool (AndB, (Eq ((Bit opcodeSz), (Var
-    ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit
-    (opcodeSz, oP_JNEZ)))))), (Var ((SyntaxKind Bool), jnez_taken)))), (Var
-    ((SyntaxKind (Bit wordSz)), jnez_target)), (ITE ((SyntaxKind (Bit
-    wordSz)), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
-    opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_LASSERT)))))),
-    (ITE ((SyntaxKind (Bit wordSz)), (Var ((SyntaxKind Bool),
-    lassert_is_sat)), (Var ((SyntaxKind (Bit wordSz)), (Obj.magic pc_v))),
-    (Var ((SyntaxKind (Bit wordSz)), (Obj.magic trap_vector_v))))), (ITE
-    ((SyntaxKind (Bit wordSz)), (Var ((SyntaxKind Bool), chsh_lassert_trap)),
-    (Var ((SyntaxKind (Bit wordSz)), (Obj.magic trap_vector_v))), (Var
-    ((SyntaxKind (Bit wordSz)), pc_plus_1)))))))))))))))), (fun new_pc ->
-    Let_ ((SyntaxKind (Vector ((Bit wordSz), regIdxSz))), (UpdateVector
-    (regIdxSz, (Bit wordSz), (UpdateVector (regIdxSz, (Bit wordSz), (Var
-    ((SyntaxKind (Vector ((Bit wordSz), regIdxSz))), (Obj.magic regs_v))),
-    (Var ((SyntaxKind (Bit regIdxSz)), dst_idx)), (Var ((SyntaxKind (Bit
-    wordSz)), src_val)))), (Var ((SyntaxKind (Bit regIdxSz)), src_idx)), (Var
-    ((SyntaxKind (Bit wordSz)), dst_val)))), (fun swap_regs -> Let_
-    ((SyntaxKind (Vector ((Bit wordSz), regIdxSz))), (ITE ((SyntaxKind
+    ((SyntaxKind Bool), partition_fault)))), (Var ((SyntaxKind (Bit wordSz)),
+    (Obj.magic trap_vector_v))), (ITE ((SyntaxKind (Bit wordSz)), (Eq ((Bit
+    opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit
+    opcodeSz), (ConstBit (opcodeSz, oP_JUMP)))))), (Var ((SyntaxKind (Bit
+    wordSz)), jump_target)), (ITE ((SyntaxKind (Bit wordSz)), (Eq ((Bit
+    opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit
+    opcodeSz), (ConstBit (opcodeSz, oP_CALL)))))), (Var ((SyntaxKind (Bit
+    wordSz)), jump_target)), (ITE ((SyntaxKind (Bit wordSz)), (Eq ((Bit
+    opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit
+    opcodeSz), (ConstBit (opcodeSz, oP_RET)))))), (Var ((SyntaxKind (Bit
+    wordSz)), ret_pc)), (ITE ((SyntaxKind (Bit wordSz)), (BinBool (AndB, (Eq
+    ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const
+    ((Bit opcodeSz), (ConstBit (opcodeSz, oP_JNEZ)))))), (Var ((SyntaxKind
+    Bool), jnez_taken)))), (Var ((SyntaxKind (Bit wordSz)), jnez_target)),
+    (ITE ((SyntaxKind (Bit wordSz)), (Eq ((Bit opcodeSz), (Var ((SyntaxKind
+    (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
+    oP_LASSERT)))))), (ITE ((SyntaxKind (Bit wordSz)), (Var ((SyntaxKind
+    Bool), lassert_is_sat)), (Var ((SyntaxKind (Bit wordSz)),
+    (Obj.magic pc_v))), (Var ((SyntaxKind (Bit wordSz)),
+    (Obj.magic trap_vector_v))))), (ITE ((SyntaxKind (Bit wordSz)), (Var
+    ((SyntaxKind Bool), chsh_lassert_trap)), (Var ((SyntaxKind (Bit wordSz)),
+    (Obj.magic trap_vector_v))), (Var ((SyntaxKind (Bit wordSz)),
+    pc_plus_1)))))))))))))))), (fun new_pc -> Let_ ((SyntaxKind (Vector ((Bit
+    wordSz), regIdxSz))), (UpdateVector (regIdxSz, (Bit wordSz),
+    (UpdateVector (regIdxSz, (Bit wordSz), (Var ((SyntaxKind (Vector ((Bit
+    wordSz), regIdxSz))), (Obj.magic regs_v))), (Var ((SyntaxKind (Bit
+    regIdxSz)), dst_idx)), (Var ((SyntaxKind (Bit wordSz)), src_val)))), (Var
+    ((SyntaxKind (Bit regIdxSz)), src_idx)), (Var ((SyntaxKind (Bit wordSz)),
+    dst_val)))), (fun swap_regs -> Let_ ((SyntaxKind (Vector ((Bit wordSz),
+    regIdxSz))), (ITE ((SyntaxKind (Vector ((Bit wordSz), regIdxSz))), (Var
+    ((SyntaxKind Bool), morph_allocates)), (UpdateVector (regIdxSz, (Bit
+    wordSz), (Var ((SyntaxKind (Vector ((Bit wordSz), regIdxSz))),
+    (Obj.magic regs_v))), (Var ((SyntaxKind (Bit regIdxSz)), dst_idx)), (Var
+    ((SyntaxKind (Bit wordSz)), morph_slot_word)))), (ITE ((SyntaxKind
     (Vector ((Bit wordSz), regIdxSz))), (Var ((SyntaxKind Bool),
-    morph_allocates)), (UpdateVector (regIdxSz, (Bit wordSz), (Var
+    morph_get_success)), (UpdateVector (regIdxSz, (Bit wordSz), (Var
     ((SyntaxKind (Vector ((Bit wordSz), regIdxSz))), (Obj.magic regs_v))),
     (Var ((SyntaxKind (Bit regIdxSz)), dst_idx)), (Var ((SyntaxKind (Bit
-    wordSz)), morph_slot_word)))), (ITE ((SyntaxKind (Vector ((Bit wordSz),
-    regIdxSz))), (Var ((SyntaxKind Bool), morph_get_success)), (UpdateVector
-    (regIdxSz, (Bit wordSz), (Var ((SyntaxKind (Vector ((Bit wordSz),
-    regIdxSz))), (Obj.magic regs_v))), (Var ((SyntaxKind (Bit regIdxSz)),
-    dst_idx)), (Var ((SyntaxKind (Bit wordSz)), morph_get_value)))), (Var
-    ((SyntaxKind (Vector ((Bit wordSz), regIdxSz))),
-    (Obj.magic regs_v))))))), (fun morph_result_regs -> Let_ ((SyntaxKind
-    (Vector ((Bit wordSz), regIdxSz))), (ITE ((SyntaxKind (Vector ((Bit
-    wordSz), regIdxSz))), (BinBool (OrB, (BinBool (OrB, (BinBool (OrB,
-    (BinBool (OrB, (BinBool (OrB, (Var ((SyntaxKind Bool),
+    wordSz)), morph_get_value)))), (Var ((SyntaxKind (Vector ((Bit wordSz),
+    regIdxSz))), (Obj.magic regs_v))))))), (fun morph_result_regs -> Let_
+    ((SyntaxKind (Vector ((Bit wordSz), regIdxSz))), (ITE ((SyntaxKind
+    (Vector ((Bit wordSz), regIdxSz))), (BinBool (OrB, (BinBool (OrB,
+    (BinBool (OrB, (BinBool (OrB, (BinBool (OrB, (Var ((SyntaxKind Bool),
     (Obj.magic bianchi_violation))), (Var ((SyntaxKind Bool),
     locality_violation)))), (Var ((SyntaxKind Bool),
     ptable_overflow_violation)))), (Var ((SyntaxKind Bool),
@@ -10157,38 +10539,42 @@ let dispatch_decoded chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v 
     opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
     oP_HALT)))))))), (fun new_halted -> Let_ ((SyntaxKind Bool), (BinBool
     (OrB, (BinBool (OrB, (BinBool (OrB, (BinBool (OrB, (BinBool (OrB,
-    (BinBool (OrB, (Var ((SyntaxKind Bool), locality_violation)), (Var
-    ((SyntaxKind Bool), ptable_overflow_violation)))), (Var ((SyntaxKind
-    Bool), nfi_violation)))), (Var ((SyntaxKind Bool), rich_fault)))), (Var
+    (BinBool (OrB, (BinBool (OrB, (Var ((SyntaxKind Bool),
+    locality_violation)), (Var ((SyntaxKind Bool),
+    ptable_overflow_violation)))), (Var ((SyntaxKind Bool),
+    nfi_violation)))), (Var ((SyntaxKind Bool), rich_fault)))), (Var
     ((SyntaxKind Bool), morph_runtime_fault)))), (Var ((SyntaxKind Bool),
     lassert_unsat_trap)))), (Var ((SyntaxKind Bool), chsh_lassert_trap)))),
-    (fun new_err -> Let_ ((SyntaxKind (Bit wordSz)), (ITE ((SyntaxKind (Bit
-    wordSz)), (Var ((SyntaxKind Bool), (Obj.magic bianchi_violation))),
-    (Const ((Bit wordSz), (ConstBit (wordSz, eRR_BIANCHI_VAL)))), (ITE
-    ((SyntaxKind (Bit wordSz)), (Var ((SyntaxKind Bool),
-    locality_violation)), (Const ((Bit wordSz), (ConstBit (wordSz,
-    eRR_LOCALITY_VAL)))), (ITE ((SyntaxKind (Bit wordSz)), (Var ((SyntaxKind
-    Bool), ptable_overflow_violation)), (Const ((Bit wordSz), (ConstBit
-    (wordSz, eRR_PARTITION_VAL)))), (ITE ((SyntaxKind (Bit wordSz)), (Var
-    ((SyntaxKind Bool), nfi_violation)), (Const ((Bit wordSz), (ConstBit
-    (wordSz, eRR_LOGIC_VAL)))), (ITE ((SyntaxKind (Bit wordSz)), (Var
-    ((SyntaxKind Bool), rich_fault)), (Var ((SyntaxKind (Bit wordSz)),
-    rich_fault_error_code)), (ITE ((SyntaxKind (Bit wordSz)), (Var
-    ((SyntaxKind Bool), morph_runtime_fault)), (Var ((SyntaxKind (Bit
-    wordSz)), morph_runtime_error_code)), (ITE ((SyntaxKind (Bit wordSz)),
-    (Var ((SyntaxKind Bool), lassert_unsat_trap)), (Const ((Bit wordSz),
-    (ConstBit (wordSz, eRR_LOGIC_VAL)))), (ITE ((SyntaxKind (Bit wordSz)),
-    (Var ((SyntaxKind Bool), chsh_lassert_trap)), (Const ((Bit wordSz),
-    (ConstBit (wordSz, eRR_CHSH_VAL)))), (Var ((SyntaxKind (Bit wordSz)),
-    (Obj.magic error_code_v))))))))))))))))))), (fun new_error_code -> Let_
-    ((SyntaxKind (Bit wordSz)), (ITE ((SyntaxKind (Bit wordSz)), (Eq ((Bit
-    opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit
-    opcodeSz), (ConstBit (opcodeSz, oP_CERTIFY)))))), (BinBit (wordSz,
-    wordSz, wordSz, (Add wordSz), (BinBit (wordSz, wordSz, wordSz, (Add
-    wordSz), (Var ((SyntaxKind (Bit wordSz)), (Obj.magic mu_v))), (Var
-    ((SyntaxKind (Bit wordSz)), cost32)))), (Const ((Bit wordSz), (ConstBit
-    (wordSz, (natToWord wordSz (Stdlib.Int.succ 0)))))))), (ITE ((SyntaxKind
+    (Var ((SyntaxKind Bool), partition_fault)))), (fun new_err -> Let_
+    ((SyntaxKind (Bit wordSz)), (ITE ((SyntaxKind (Bit wordSz)), (Var
+    ((SyntaxKind Bool), (Obj.magic bianchi_violation))), (Const ((Bit
+    wordSz), (ConstBit (wordSz, eRR_BIANCHI_VAL)))), (ITE ((SyntaxKind (Bit
+    wordSz)), (Var ((SyntaxKind Bool), locality_violation)), (Const ((Bit
+    wordSz), (ConstBit (wordSz, eRR_LOCALITY_VAL)))), (ITE ((SyntaxKind (Bit
+    wordSz)), (Var ((SyntaxKind Bool), ptable_overflow_violation)), (Const
+    ((Bit wordSz), (ConstBit (wordSz, eRR_PARTITION_VAL)))), (ITE
+    ((SyntaxKind (Bit wordSz)), (Var ((SyntaxKind Bool), nfi_violation)),
+    (Const ((Bit wordSz), (ConstBit (wordSz, eRR_LOGIC_VAL)))), (ITE
+    ((SyntaxKind (Bit wordSz)), (Var ((SyntaxKind Bool), rich_fault)), (Var
+    ((SyntaxKind (Bit wordSz)), rich_fault_error_code)), (ITE ((SyntaxKind
+    (Bit wordSz)), (Var ((SyntaxKind Bool), morph_runtime_fault)), (Var
+    ((SyntaxKind (Bit wordSz)), morph_runtime_error_code)), (ITE ((SyntaxKind
+    (Bit wordSz)), (Var ((SyntaxKind Bool), lassert_unsat_trap)), (Const
+    ((Bit wordSz), (ConstBit (wordSz, eRR_LOGIC_VAL)))), (ITE ((SyntaxKind
+    (Bit wordSz)), (Var ((SyntaxKind Bool), chsh_lassert_trap)), (Const ((Bit
+    wordSz), (ConstBit (wordSz, eRR_CHSH_VAL)))), (ITE ((SyntaxKind (Bit
+    wordSz)), (Var ((SyntaxKind Bool), partition_fault)), (Const ((Bit
+    wordSz), (ConstBit (wordSz, eRR_PARTITION_OVERLAP_VAL)))), (Var
+    ((SyntaxKind (Bit wordSz)), (Obj.magic error_code_v))))))))))))))))))))),
+    (fun new_error_code -> Let_ ((SyntaxKind (Bit wordSz)), (ITE ((SyntaxKind
     (Bit wordSz)), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
+    opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_CERTIFY)))))),
+    (BinBit (wordSz, wordSz, wordSz, (Add wordSz), (BinBit (wordSz, wordSz,
+    wordSz, (Add wordSz), (Var ((SyntaxKind (Bit wordSz)),
+    (Obj.magic mu_v))), (Var ((SyntaxKind (Bit wordSz)), cost32)))), (Const
+    ((Bit wordSz), (ConstBit (wordSz,
+    (natToWord wordSz (Stdlib.Int.succ 0)))))))), (ITE ((SyntaxKind (Bit
+    wordSz)), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
     opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
     oP_MORPH_ASSERT)))))), (BinBit (wordSz, wordSz, wordSz, (Add wordSz),
     (BinBit (wordSz, wordSz, wordSz, (Add wordSz), (Var ((SyntaxKind (Bit
@@ -10282,24 +10668,29 @@ let dispatch_decoded chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v 
     ((add pTableIdxSz (Stdlib.Int.succ 0)), pTableIdxSz, (Trunc (pTableIdxSz,
     (Stdlib.Int.succ 0))), (Var ((SyntaxKind (Bit
     (add pTableIdxSz (Stdlib.Int.succ 0)))), (Obj.magic pt_next_id_v))))),
-    (fun pt_slot -> Let_ ((SyntaxKind (Bit wordSz)), (UniBit
-    ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0)))))))), wordSz, (ZeroExtendTrunc ((Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ 0)))))))), wordSz)), (Var ((SyntaxKind
-    (Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0)))))))))), op_b)))), (fun pnew_region_size -> Let_ ((SyntaxKind (Vector
-    ((Bit wordSz), pTableIdxSz))), (UpdateVector (pTableIdxSz, (Bit wordSz),
-    (Var ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))),
-    (Obj.magic pt_sizes_v))), (Var ((SyntaxKind (Bit pTableIdxSz)),
-    pt_slot)), (Var ((SyntaxKind (Bit wordSz)), pnew_region_size)))),
-    (fun pt_after_pnew -> Let_ ((SyntaxKind (Bit pTableNextIdSz)), (BinBit
-    (pTableNextIdSz, pTableNextIdSz, pTableNextIdSz, (Add pTableNextIdSz),
-    (Var ((SyntaxKind (Bit pTableNextIdSz)), (Obj.magic pt_next_id_v))),
-    (Const ((Bit pTableNextIdSz), (ConstBit (pTableNextIdSz,
-    (natToWord pTableNextIdSz (Stdlib.Int.succ 0)))))))),
+    (fun pt_slot -> Let_ ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))),
+    (ITE ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))), (Var
+    ((SyntaxKind Bool), pnew_present)), (Var ((SyntaxKind (Vector ((Bit
+    wordSz), pTableIdxSz))), (Obj.magic pt_sizes_v))), (UpdateVector
+    (pTableIdxSz, (Bit wordSz), (Var ((SyntaxKind (Vector ((Bit wordSz),
+    pTableIdxSz))), (Obj.magic pt_sizes_v))), (Var ((SyntaxKind (Bit
+    pTableIdxSz)), pt_slot)), (Var ((SyntaxKind (Bit wordSz)),
+    pnew_region_size)))))), (fun pt_after_pnew -> Let_ ((SyntaxKind (Vector
+    ((Bit wordSz), pTableIdxSz))), (ITE ((SyntaxKind (Vector ((Bit wordSz),
+    pTableIdxSz))), (Var ((SyntaxKind Bool), pnew_present)), (Var
+    ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))),
+    (Obj.magic pt_bases_v))), (UpdateVector (pTableIdxSz, (Bit wordSz), (Var
+    ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))),
+    (Obj.magic pt_bases_v))), (Var ((SyntaxKind (Bit pTableIdxSz)),
+    pt_slot)), (Var ((SyntaxKind (Bit wordSz)), pnew_base)))))),
+    (fun bases_after_pnew -> Let_ ((SyntaxKind (Bit pTableNextIdSz)), (ITE
+    ((SyntaxKind (Bit pTableNextIdSz)), (Var ((SyntaxKind Bool),
+    pnew_present)), (Var ((SyntaxKind (Bit pTableNextIdSz)),
+    (Obj.magic pt_next_id_v))), (BinBit (pTableNextIdSz, pTableNextIdSz,
+    pTableNextIdSz, (Add pTableNextIdSz), (Var ((SyntaxKind (Bit
+    pTableNextIdSz)), (Obj.magic pt_next_id_v))), (Const ((Bit
+    pTableNextIdSz), (ConstBit (pTableNextIdSz,
+    (natToWord pTableNextIdSz (Stdlib.Int.succ 0)))))))))),
     (fun next_after_pnew -> Let_ ((SyntaxKind (Bit pTableIdxSz)), (UniBit
     ((add pTableIdxSz (Stdlib.Int.succ (Stdlib.Int.succ 0))), pTableIdxSz,
     (Trunc (pTableIdxSz, (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Var
@@ -10309,22 +10700,29 @@ let dispatch_decoded chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v 
     ((SyntaxKind (Bit wordSz)), (ReadIndex (pTableIdxSz, (Bit wordSz), (Var
     ((SyntaxKind (Bit pTableIdxSz)), psplit_id)), (Var ((SyntaxKind (Vector
     ((Bit wordSz), pTableIdxSz))), (Obj.magic pt_sizes_v))))),
-    (fun psplit_orig_sz -> Let_ ((SyntaxKind (Bit wordSz)), (BinBit (wordSz,
+    (fun psplit_orig_sz -> Let_ ((SyntaxKind (Bit wordSz)), (ReadIndex
+    (pTableIdxSz, (Bit wordSz), (Var ((SyntaxKind (Bit pTableIdxSz)),
+    psplit_id)), (Var ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))),
+    (Obj.magic pt_bases_v))))), (fun psplit_orig_base -> Let_ ((SyntaxKind
+    (Bit wordSz)), (BinBit (wordSz, (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))), wordSz, (Srl
+    (wordSz, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))))))), (Var ((SyntaxKind (Bit
+    wordSz)), psplit_orig_sz)), (Const ((Bit (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0))))), wordSz, (Srl (wordSz, (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0))))))), (Var ((SyntaxKind (Bit wordSz)), psplit_orig_sz)), (Const ((Bit
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))), (WS (true,
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0)))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    0))), (WS (false, (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (false,
-    (Stdlib.Int.succ 0), (WS (false, 0, WO)))))))))))))))),
-    (fun psplit_left_sz -> Let_ ((SyntaxKind (Bit wordSz)), (BinBit (wordSz,
-    wordSz, wordSz, (Sub wordSz), (Var ((SyntaxKind (Bit wordSz)),
-    psplit_orig_sz)), (Var ((SyntaxKind (Bit wordSz)), psplit_left_sz)))),
-    (fun psplit_right_sz -> Let_ ((SyntaxKind (Bit pTableIdxSz)), (UniBit
+    0)))))), (ConstBit ((Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ 0))))), (WS (true, (Stdlib.Int.succ
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (false,
+    (Stdlib.Int.succ (Stdlib.Int.succ 0)), (WS (false, (Stdlib.Int.succ 0),
+    (WS (false, 0, WO)))))))))))))))), (fun psplit_left_sz -> Let_
+    ((SyntaxKind (Bit wordSz)), (BinBit (wordSz, wordSz, wordSz, (Sub
+    wordSz), (Var ((SyntaxKind (Bit wordSz)), psplit_orig_sz)), (Var
+    ((SyntaxKind (Bit wordSz)), psplit_left_sz)))), (fun psplit_right_sz ->
+    Let_ ((SyntaxKind (Bit wordSz)), (BinBit (wordSz, wordSz, wordSz, (Add
+    wordSz), (Var ((SyntaxKind (Bit wordSz)), psplit_orig_base)), (Var
+    ((SyntaxKind (Bit wordSz)), psplit_left_sz)))), (fun psplit_right_base ->
+    Let_ ((SyntaxKind (Bit pTableIdxSz)), (UniBit
     ((add pTableIdxSz (Stdlib.Int.succ 0)), pTableIdxSz, (Trunc (pTableIdxSz,
     (Stdlib.Int.succ 0))), (Var ((SyntaxKind (Bit
     (add pTableIdxSz (Stdlib.Int.succ 0)))), (Obj.magic pt_next_id_v))))),
@@ -10348,34 +10746,35 @@ let dispatch_decoded chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v 
     psplit_slot1)), (Var ((SyntaxKind (Bit wordSz)), psplit_left_sz)))), (Var
     ((SyntaxKind (Bit pTableIdxSz)), psplit_slot2)), (Var ((SyntaxKind (Bit
     wordSz)), psplit_right_sz)))), (fun pt_after_psplit -> Let_ ((SyntaxKind
-    (Bit pTableNextIdSz)), (BinBit (pTableNextIdSz, pTableNextIdSz,
-    pTableNextIdSz, (Add pTableNextIdSz), (Var ((SyntaxKind (Bit
-    pTableNextIdSz)), (Obj.magic pt_next_id_v))), (Const ((Bit
+    (Vector ((Bit wordSz), pTableIdxSz))), (UpdateVector (pTableIdxSz, (Bit
+    wordSz), (UpdateVector (pTableIdxSz, (Bit wordSz), (UpdateVector
+    (pTableIdxSz, (Bit wordSz), (Var ((SyntaxKind (Vector ((Bit wordSz),
+    pTableIdxSz))), (Obj.magic pt_bases_v))), (Var ((SyntaxKind (Bit
+    pTableIdxSz)), psplit_id)), (Const ((Bit wordSz), (ConstBit (wordSz,
+    (natToWord wordSz 0))))))), (Var ((SyntaxKind (Bit pTableIdxSz)),
+    psplit_slot1)), (Var ((SyntaxKind (Bit wordSz)), psplit_orig_base)))),
+    (Var ((SyntaxKind (Bit pTableIdxSz)), psplit_slot2)), (Var ((SyntaxKind
+    (Bit wordSz)), psplit_right_base)))), (fun bases_after_psplit -> Let_
+    ((SyntaxKind (Bit pTableNextIdSz)), (BinBit (pTableNextIdSz,
+    pTableNextIdSz, pTableNextIdSz, (Add pTableNextIdSz), (Var ((SyntaxKind
+    (Bit pTableNextIdSz)), (Obj.magic pt_next_id_v))), (Const ((Bit
     pTableNextIdSz), (ConstBit (pTableNextIdSz,
     (natToWord pTableNextIdSz (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))),
-    (fun next_after_psplit -> Let_ ((SyntaxKind (Bit pTableIdxSz)), (UniBit
-    ((add pTableIdxSz (Stdlib.Int.succ (Stdlib.Int.succ 0))), pTableIdxSz,
-    (Trunc (pTableIdxSz, (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Var
-    ((SyntaxKind (Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)))))))))), op_a)))), (fun pmerge_m1 -> Let_
-    ((SyntaxKind (Bit pTableIdxSz)), (UniBit
-    ((add pTableIdxSz (Stdlib.Int.succ (Stdlib.Int.succ 0))), pTableIdxSz,
-    (Trunc (pTableIdxSz, (Stdlib.Int.succ (Stdlib.Int.succ 0)))), (Var
-    ((SyntaxKind (Bit (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
-    (Stdlib.Int.succ 0)))))))))), op_b)))), (fun pmerge_m2 -> Let_
-    ((SyntaxKind (Bit wordSz)), (ReadIndex (pTableIdxSz, (Bit wordSz), (Var
-    ((SyntaxKind (Bit pTableIdxSz)), pmerge_m1)), (Var ((SyntaxKind (Vector
-    ((Bit wordSz), pTableIdxSz))), (Obj.magic pt_sizes_v))))),
-    (fun pmerge_m1_sz -> Let_ ((SyntaxKind (Bit wordSz)), (ReadIndex
-    (pTableIdxSz, (Bit wordSz), (Var ((SyntaxKind (Bit pTableIdxSz)),
-    pmerge_m2)), (Var ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))),
-    (Obj.magic pt_sizes_v))))), (fun pmerge_m2_sz -> Let_ ((SyntaxKind (Bit
-    wordSz)), (BinBit (wordSz, wordSz, wordSz, (Add wordSz), (Var
-    ((SyntaxKind (Bit wordSz)), pmerge_m1_sz)), (Var ((SyntaxKind (Bit
-    wordSz)), pmerge_m2_sz)))), (fun pmerge_merged_sz -> Let_ ((SyntaxKind
-    (Bit pTableIdxSz)), (UniBit ((add pTableIdxSz (Stdlib.Int.succ 0)),
+    (fun next_after_psplit -> Let_ ((SyntaxKind (Bit wordSz)), (BinBit
+    (wordSz, wordSz, wordSz, (Add wordSz), (Var ((SyntaxKind (Bit wordSz)),
+    pmerge_m1_sz)), (Var ((SyntaxKind (Bit wordSz)), pmerge_m2_sz)))),
+    (fun pmerge_merged_sz -> Let_ ((SyntaxKind (Bit wordSz)), (ITE
+    ((SyntaxKind (Bit wordSz)), (Eq ((Bit wordSz), (Var ((SyntaxKind (Bit
+    wordSz)), pmerge_m1_sz)), (Const ((Bit wordSz), (ConstBit (wordSz,
+    (natToWord wordSz 0))))))), (Var ((SyntaxKind (Bit wordSz)),
+    pmerge_m2_base)), (ITE ((SyntaxKind (Bit wordSz)), (Eq ((Bit wordSz),
+    (Var ((SyntaxKind (Bit wordSz)), pmerge_m2_sz)), (Const ((Bit wordSz),
+    (ConstBit (wordSz, (natToWord wordSz 0))))))), (Var ((SyntaxKind (Bit
+    wordSz)), pmerge_m1_base)), (ITE ((SyntaxKind (Bit wordSz)), (Var
+    ((SyntaxKind Bool), pmerge_m1_first)), (Var ((SyntaxKind (Bit wordSz)),
+    pmerge_m1_base)), (Var ((SyntaxKind (Bit wordSz)),
+    pmerge_m2_base)))))))), (fun pmerge_merged_base -> Let_ ((SyntaxKind (Bit
+    pTableIdxSz)), (UniBit ((add pTableIdxSz (Stdlib.Int.succ 0)),
     pTableIdxSz, (Trunc (pTableIdxSz, (Stdlib.Int.succ 0))), (Var
     ((SyntaxKind (Bit (add pTableIdxSz (Stdlib.Int.succ 0)))),
     (Obj.magic pt_next_id_v))))), (fun pmerge_slot -> Let_ ((SyntaxKind
@@ -10388,48 +10787,81 @@ let dispatch_decoded chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v 
     pmerge_m2)), (Const ((Bit wordSz), (ConstBit (wordSz,
     (natToWord wordSz 0))))))), (Var ((SyntaxKind (Bit pTableIdxSz)),
     pmerge_slot)), (Var ((SyntaxKind (Bit wordSz)), pmerge_merged_sz)))),
-    (fun pt_after_pmerge -> Let_ ((SyntaxKind (Bit pTableNextIdSz)), (BinBit
-    (pTableNextIdSz, pTableNextIdSz, pTableNextIdSz, (Add pTableNextIdSz),
-    (Var ((SyntaxKind (Bit pTableNextIdSz)), (Obj.magic pt_next_id_v))),
-    (Const ((Bit pTableNextIdSz), (ConstBit (pTableNextIdSz,
-    (natToWord pTableNextIdSz (Stdlib.Int.succ 0)))))))),
+    (fun pt_after_pmerge -> Let_ ((SyntaxKind (Vector ((Bit wordSz),
+    pTableIdxSz))), (UpdateVector (pTableIdxSz, (Bit wordSz), (UpdateVector
+    (pTableIdxSz, (Bit wordSz), (UpdateVector (pTableIdxSz, (Bit wordSz),
+    (Var ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))),
+    (Obj.magic pt_bases_v))), (Var ((SyntaxKind (Bit pTableIdxSz)),
+    pmerge_m1)), (Const ((Bit wordSz), (ConstBit (wordSz,
+    (natToWord wordSz 0))))))), (Var ((SyntaxKind (Bit pTableIdxSz)),
+    pmerge_m2)), (Const ((Bit wordSz), (ConstBit (wordSz,
+    (natToWord wordSz 0))))))), (Var ((SyntaxKind (Bit pTableIdxSz)),
+    pmerge_slot)), (Var ((SyntaxKind (Bit wordSz)), pmerge_merged_base)))),
+    (fun bases_after_pmerge -> Let_ ((SyntaxKind (Bit pTableNextIdSz)),
+    (BinBit (pTableNextIdSz, pTableNextIdSz, pTableNextIdSz, (Add
+    pTableNextIdSz), (Var ((SyntaxKind (Bit pTableNextIdSz)),
+    (Obj.magic pt_next_id_v))), (Const ((Bit pTableNextIdSz), (ConstBit
+    (pTableNextIdSz, (natToWord pTableNextIdSz (Stdlib.Int.succ 0)))))))),
     (fun next_after_pmerge -> Let_ ((SyntaxKind (Vector ((Bit wordSz),
     pTableIdxSz))), (ITE ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))),
-    (BinBool (OrB, (BinBool (OrB, (BinBool (OrB, (Var ((SyntaxKind Bool),
-    (Obj.magic bianchi_violation))), (Var ((SyntaxKind Bool),
-    ptable_overflow_violation)))), (Var ((SyntaxKind Bool), rich_fault)))),
-    (Var ((SyntaxKind Bool), morph_runtime_fault)))), (Var ((SyntaxKind
-    (Vector ((Bit wordSz), pTableIdxSz))), (Obj.magic pt_sizes_v))), (ITE
-    ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))), (Eq ((Bit opcodeSz),
-    (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz),
-    (ConstBit (opcodeSz, oP_PNEW)))))), (Var ((SyntaxKind (Vector ((Bit
-    wordSz), pTableIdxSz))), pt_after_pnew)), (ITE ((SyntaxKind (Vector ((Bit
-    wordSz), pTableIdxSz))), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit
-    opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
-    oP_PSPLIT)))))), (Var ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))),
+    (BinBool (OrB, (BinBool (OrB, (BinBool (OrB, (BinBool (OrB, (Var
+    ((SyntaxKind Bool), (Obj.magic bianchi_violation))), (Var ((SyntaxKind
+    Bool), ptable_overflow_violation)))), (Var ((SyntaxKind Bool),
+    rich_fault)))), (Var ((SyntaxKind Bool), morph_runtime_fault)))), (Var
+    ((SyntaxKind Bool), partition_fault)))), (Var ((SyntaxKind (Vector ((Bit
+    wordSz), pTableIdxSz))), (Obj.magic pt_sizes_v))), (ITE ((SyntaxKind
+    (Vector ((Bit wordSz), pTableIdxSz))), (Eq ((Bit opcodeSz), (Var
+    ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit
+    (opcodeSz, oP_PNEW)))))), (Var ((SyntaxKind (Vector ((Bit wordSz),
+    pTableIdxSz))), pt_after_pnew)), (ITE ((SyntaxKind (Vector ((Bit wordSz),
+    pTableIdxSz))), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
+    opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_PSPLIT)))))),
+    (Var ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))),
     pt_after_psplit)), (ITE ((SyntaxKind (Vector ((Bit wordSz),
     pTableIdxSz))), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
     opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_PMERGE)))))),
     (Var ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))),
     pt_after_pmerge)), (Var ((SyntaxKind (Vector ((Bit wordSz),
     pTableIdxSz))), (Obj.magic pt_sizes_v))))))))))), (fun new_pt_sizes ->
+    Let_ ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))), (ITE
+    ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))), (BinBool (OrB,
+    (BinBool (OrB, (BinBool (OrB, (BinBool (OrB, (Var ((SyntaxKind Bool),
+    (Obj.magic bianchi_violation))), (Var ((SyntaxKind Bool),
+    ptable_overflow_violation)))), (Var ((SyntaxKind Bool), rich_fault)))),
+    (Var ((SyntaxKind Bool), morph_runtime_fault)))), (Var ((SyntaxKind
+    Bool), partition_fault)))), (Var ((SyntaxKind (Vector ((Bit wordSz),
+    pTableIdxSz))), (Obj.magic pt_bases_v))), (ITE ((SyntaxKind (Vector ((Bit
+    wordSz), pTableIdxSz))), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit
+    opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz,
+    oP_PNEW)))))), (Var ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))),
+    bases_after_pnew)), (ITE ((SyntaxKind (Vector ((Bit wordSz),
+    pTableIdxSz))), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
+    opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_PSPLIT)))))),
+    (Var ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))),
+    bases_after_psplit)), (ITE ((SyntaxKind (Vector ((Bit wordSz),
+    pTableIdxSz))), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
+    opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_PMERGE)))))),
+    (Var ((SyntaxKind (Vector ((Bit wordSz), pTableIdxSz))),
+    bases_after_pmerge)), (Var ((SyntaxKind (Vector ((Bit wordSz),
+    pTableIdxSz))), (Obj.magic pt_bases_v))))))))))), (fun new_pt_bases ->
     Let_ ((SyntaxKind (Bit pTableNextIdSz)), (ITE ((SyntaxKind (Bit
-    pTableNextIdSz)), (BinBool (OrB, (BinBool (OrB, (BinBool (OrB, (Var
-    ((SyntaxKind Bool), (Obj.magic bianchi_violation))), (Var ((SyntaxKind
-    Bool), ptable_overflow_violation)))), (Var ((SyntaxKind Bool),
-    rich_fault)))), (Var ((SyntaxKind Bool), morph_runtime_fault)))), (Var
-    ((SyntaxKind (Bit pTableNextIdSz)), (Obj.magic pt_next_id_v))), (ITE
+    pTableNextIdSz)), (BinBool (OrB, (BinBool (OrB, (BinBool (OrB, (BinBool
+    (OrB, (Var ((SyntaxKind Bool), (Obj.magic bianchi_violation))), (Var
+    ((SyntaxKind Bool), ptable_overflow_violation)))), (Var ((SyntaxKind
+    Bool), rich_fault)))), (Var ((SyntaxKind Bool), morph_runtime_fault)))),
+    (Var ((SyntaxKind Bool), partition_fault)))), (Var ((SyntaxKind (Bit
+    pTableNextIdSz)), (Obj.magic pt_next_id_v))), (ITE ((SyntaxKind (Bit
+    pTableNextIdSz)), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
+    opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_PNEW)))))),
+    (Var ((SyntaxKind (Bit pTableNextIdSz)), next_after_pnew)), (ITE
     ((SyntaxKind (Bit pTableNextIdSz)), (Eq ((Bit opcodeSz), (Var
     ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit
-    (opcodeSz, oP_PNEW)))))), (Var ((SyntaxKind (Bit pTableNextIdSz)),
-    next_after_pnew)), (ITE ((SyntaxKind (Bit pTableNextIdSz)), (Eq ((Bit
+    (opcodeSz, oP_PSPLIT)))))), (Var ((SyntaxKind (Bit pTableNextIdSz)),
+    next_after_psplit)), (ITE ((SyntaxKind (Bit pTableNextIdSz)), (Eq ((Bit
     opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit
-    opcodeSz), (ConstBit (opcodeSz, oP_PSPLIT)))))), (Var ((SyntaxKind (Bit
-    pTableNextIdSz)), next_after_psplit)), (ITE ((SyntaxKind (Bit
-    pTableNextIdSz)), (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)),
-    opcode)), (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_PMERGE)))))),
-    (Var ((SyntaxKind (Bit pTableNextIdSz)), next_after_pmerge)), (Var
-    ((SyntaxKind (Bit pTableNextIdSz)), (Obj.magic pt_next_id_v))))))))))),
+    opcodeSz), (ConstBit (opcodeSz, oP_PMERGE)))))), (Var ((SyntaxKind (Bit
+    pTableNextIdSz)), next_after_pmerge)), (Var ((SyntaxKind (Bit
+    pTableNextIdSz)), (Obj.magic pt_next_id_v))))))))))),
     (fun new_pt_next_id -> Let_ ((SyntaxKind Bool), (BinBool (OrB, (BinBool
     (OrB, (Eq ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)),
     (Const ((Bit opcodeSz), (ConstBit (opcodeSz, oP_PNEW)))))), (Eq ((Bit
@@ -10631,31 +11063,55 @@ let dispatch_decoded chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v 
     morph_alloc_identity)))), (Var ((SyntaxKind (Vector (Bool,
     morphTableIdxSz))), (Obj.magic morph_identity_table_v))))))),
     (fun new_morph_identity_table -> Let_ ((SyntaxKind (Vector (Bool,
-    morphTableIdxSz))), (ITE ((SyntaxKind (Vector (Bool, morphTableIdxSz))),
-    (BinBool (OrB, (BinBool (OrB, (BinBool (OrB, (BinBool (OrB, (BinBool
-    (OrB, (Var ((SyntaxKind Bool), (Obj.magic bianchi_violation))), (Var
-    ((SyntaxKind Bool), locality_violation)))), (Var ((SyntaxKind Bool),
+    morphTableIdxSz))),
+    (morph_cascade (Var ((SyntaxKind (Vector (Bool, morphTableIdxSz))),
+      (Obj.magic morph_valid_table_v))) (Var ((SyntaxKind (Vector ((Bit
+      pTableIdxSz), morphTableIdxSz))), (Obj.magic morph_src_table_v))) (Var
+      ((SyntaxKind (Vector ((Bit pTableIdxSz), morphTableIdxSz))),
+      (Obj.magic morph_dst_table_v))) (Var ((SyntaxKind (Bit pTableIdxSz)),
+      psplit_id)) (Var ((SyntaxKind (Bit pTableIdxSz)), psplit_id))
+      morphTableSz), (fun psplit_morph_valid -> Let_ ((SyntaxKind (Vector
+    (Bool, morphTableIdxSz))),
+    (morph_cascade (Var ((SyntaxKind (Vector (Bool, morphTableIdxSz))),
+      (Obj.magic morph_valid_table_v))) (Var ((SyntaxKind (Vector ((Bit
+      pTableIdxSz), morphTableIdxSz))), (Obj.magic morph_src_table_v))) (Var
+      ((SyntaxKind (Vector ((Bit pTableIdxSz), morphTableIdxSz))),
+      (Obj.magic morph_dst_table_v))) (Var ((SyntaxKind (Bit pTableIdxSz)),
+      pmerge_m1)) (Var ((SyntaxKind (Bit pTableIdxSz)), pmerge_m2))
+      morphTableSz), (fun pmerge_morph_valid -> Let_ ((SyntaxKind (Vector
+    (Bool, morphTableIdxSz))), (ITE ((SyntaxKind (Vector (Bool,
+    morphTableIdxSz))), (BinBool (OrB, (BinBool (OrB, (BinBool (OrB, (BinBool
+    (OrB, (BinBool (OrB, (BinBool (OrB, (Var ((SyntaxKind Bool),
+    (Obj.magic bianchi_violation))), (Var ((SyntaxKind Bool),
+    locality_violation)))), (Var ((SyntaxKind Bool),
     ptable_overflow_violation)))), (Var ((SyntaxKind Bool),
     nfi_violation)))), (Var ((SyntaxKind Bool), rich_fault)))), (Var
-    ((SyntaxKind Bool), morph_runtime_fault)))), (Var ((SyntaxKind (Vector
-    (Bool, morphTableIdxSz))), (Obj.magic morph_valid_table_v))), (ITE
-    ((SyntaxKind (Vector (Bool, morphTableIdxSz))), (Var ((SyntaxKind Bool),
-    morph_allocates)), (UpdateVector (morphTableIdxSz, Bool, (Var
-    ((SyntaxKind (Vector (Bool, morphTableIdxSz))),
-    (Obj.magic morph_valid_table_v))), (Var ((SyntaxKind (Bit
-    morphTableIdxSz)), morph_slot)), (Const (Bool, (ConstBool true))))), (ITE
-    ((SyntaxKind (Vector (Bool, morphTableIdxSz))), (Var ((SyntaxKind Bool),
-    morph_delete_success)), (UpdateVector (morphTableIdxSz, Bool, (Var
+    ((SyntaxKind Bool), morph_runtime_fault)))), (Var ((SyntaxKind Bool),
+    partition_fault)))), (Var ((SyntaxKind (Vector (Bool, morphTableIdxSz))),
+    (Obj.magic morph_valid_table_v))), (ITE ((SyntaxKind (Vector (Bool,
+    morphTableIdxSz))), (Var ((SyntaxKind Bool), morph_allocates)),
+    (UpdateVector (morphTableIdxSz, Bool, (Var ((SyntaxKind (Vector (Bool,
+    morphTableIdxSz))), (Obj.magic morph_valid_table_v))), (Var ((SyntaxKind
+    (Bit morphTableIdxSz)), morph_slot)), (Const (Bool, (ConstBool true))))),
+    (ITE ((SyntaxKind (Vector (Bool, morphTableIdxSz))), (Var ((SyntaxKind
+    Bool), morph_delete_success)), (UpdateVector (morphTableIdxSz, Bool, (Var
     ((SyntaxKind (Vector (Bool, morphTableIdxSz))),
     (Obj.magic morph_valid_table_v))), (Var ((SyntaxKind (Bit
     morphTableIdxSz)), morph_delete_idx)), (Const (Bool, (ConstBool
-    false))))), (Var ((SyntaxKind (Vector (Bool, morphTableIdxSz))),
-    (Obj.magic morph_valid_table_v))))))))), (fun new_morph_valid_table ->
-    Let_ ((SyntaxKind (Bit morphTableNextIdSz)), (ITE ((SyntaxKind (Bit
-    morphTableNextIdSz)), (BinBool (OrB, (BinBool (OrB, (BinBool (OrB,
-    (BinBool (OrB, (BinBool (OrB, (Var ((SyntaxKind Bool),
-    (Obj.magic bianchi_violation))), (Var ((SyntaxKind Bool),
-    locality_violation)))), (Var ((SyntaxKind Bool),
+    false))))), (ITE ((SyntaxKind (Vector (Bool, morphTableIdxSz))), (Eq
+    ((Bit opcodeSz), (Var ((SyntaxKind (Bit opcodeSz)), opcode)), (Const
+    ((Bit opcodeSz), (ConstBit (opcodeSz, oP_PSPLIT)))))), (Var ((SyntaxKind
+    (Vector (Bool, morphTableIdxSz))), psplit_morph_valid)), (ITE
+    ((SyntaxKind (Vector (Bool, morphTableIdxSz))), (Eq ((Bit opcodeSz), (Var
+    ((SyntaxKind (Bit opcodeSz)), opcode)), (Const ((Bit opcodeSz), (ConstBit
+    (opcodeSz, oP_PMERGE)))))), (Var ((SyntaxKind (Vector (Bool,
+    morphTableIdxSz))), pmerge_morph_valid)), (Var ((SyntaxKind (Vector
+    (Bool, morphTableIdxSz))), (Obj.magic morph_valid_table_v))))))))))))),
+    (fun new_morph_valid_table -> Let_ ((SyntaxKind (Bit
+    morphTableNextIdSz)), (ITE ((SyntaxKind (Bit morphTableNextIdSz)),
+    (BinBool (OrB, (BinBool (OrB, (BinBool (OrB, (BinBool (OrB, (BinBool
+    (OrB, (Var ((SyntaxKind Bool), (Obj.magic bianchi_violation))), (Var
+    ((SyntaxKind Bool), locality_violation)))), (Var ((SyntaxKind Bool),
     ptable_overflow_violation)))), (Var ((SyntaxKind Bool),
     nfi_violation)))), (Var ((SyntaxKind Bool), rich_fault)))), (Var
     ((SyntaxKind Bool), morph_runtime_fault)))), (Var ((SyntaxKind (Bit
@@ -10765,6 +11221,9 @@ let dispatch_decoded chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v 
     (('p'::('t'::('T'::('a'::('b'::('l'::('e'::[]))))))), (SyntaxKind (Vector
     ((Bit wordSz), pTableIdxSz))), (Var ((SyntaxKind (Vector ((Bit wordSz),
     pTableIdxSz))), new_pt_sizes)), (WriteReg
+    (('p'::('t'::('B'::('a'::('s'::('e'::('s'::[]))))))), (SyntaxKind (Vector
+    ((Bit wordSz), pTableIdxSz))), (Var ((SyntaxKind (Vector ((Bit wordSz),
+    pTableIdxSz))), new_pt_bases)), (WriteReg
     (('p'::('t'::('_'::('n'::('e'::('x'::('t'::('_'::('i'::('d'::[])))))))))),
     (SyntaxKind (Bit pTableNextIdSz)), (Var ((SyntaxKind (Bit
     pTableNextIdSz)), new_pt_next_id)), (WriteReg
@@ -11290,7 +11749,7 @@ let dispatch_decoded chsh_check_result_v pc_v mu_v regs_v mem_v partition_ops_v 
     (('m'::('c'::('_'::('r'::('e'::('a'::('d'::('_'::('p'::('t'::('r'::[]))))))))))),
     (SyntaxKind (Bit wordSz)), (Var ((SyntaxKind (Bit wordSz)),
     mc_zero_word)), (Return (Const (void,
-    (getDefaultConst void)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+    (getDefaultConst void)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
 (** val chsh_fsm_decoded :
     'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1 -> 'a1
@@ -27695,6 +28154,9 @@ let thieleCore =
     ('p'::('t'::('T'::('a'::('b'::('l'::('e'::[]))))))); attrType =
     (RegInitDefault (SyntaxKind (Vector ((Bit wordSz), pTableIdxSz)))) }),
     (ConsInModule ((MERegister { attrName =
+    ('p'::('t'::('B'::('a'::('s'::('e'::('s'::[]))))))); attrType =
+    (RegInitDefault (SyntaxKind (Vector ((Bit wordSz), pTableIdxSz)))) }),
+    (ConsInModule ((MERegister { attrName =
     ('p'::('t'::('_'::('n'::('e'::('x'::('t'::('_'::('i'::('d'::[]))))))))));
     attrType = (RegInitCustom (ExistT ((SyntaxKind (Bit pTableNextIdSz)),
     (makeConst (Bit pTableNextIdSz) (ConstBit (pTableNextIdSz,
@@ -27969,6 +28431,8 @@ let thieleCore =
     (SyntaxKind (Bit wordSz)), (fun csr_heap_base_v -> ReadReg
     (('p'::('t'::('T'::('a'::('b'::('l'::('e'::[]))))))), (SyntaxKind (Vector
     ((Bit wordSz), pTableIdxSz))), (fun pt_sizes_v -> ReadReg
+    (('p'::('t'::('B'::('a'::('s'::('e'::('s'::[]))))))), (SyntaxKind (Vector
+    ((Bit wordSz), pTableIdxSz))), (fun pt_bases_v -> ReadReg
     (('p'::('t'::('_'::('n'::('e'::('x'::('t'::('_'::('i'::('d'::[])))))))))),
     (SyntaxKind (Bit pTableNextIdSz)), (fun pt_next_id_v -> ReadReg
     (('c'::('e'::('r'::('t'::('i'::('f'::('i'::('e'::('d'::[]))))))))),
@@ -28226,17 +28690,17 @@ let thieleCore =
       partition_ops_v mdl_ops_v info_gain_v error_code_v logic_acc_v
       cert_addr_v active_module_v mcycle_lo_v mcycle_hi_v minstret_lo_v
       minstret_hi_v trap_vector_v mu_tensor_v module_tensors_v
-      csr_heap_base_v pt_sizes_v pt_next_id_v certified_v morph_src_table_v
-      morph_dst_table_v morph_valid_table_v morph_coupling_desc_table_v
-      morph_identity_table_v morph_next_id_v coupling_desc_valid_table_v
-      coupling_desc_count_table_v coupling_desc_base_table_v
-      coupling_desc_label_table_v coupling_desc_label_len_table_v
-      coupling_desc_next_id_v coupling_pair_next_id_v
-      formula_desc_valid_table_v formula_desc_next_id_v
-      cert_desc_valid_table_v cert_desc_next_id_v desc_meta_valid_table_v
-      desc_meta_next_id_v wc_same_00_v wc_diff_00_v wc_same_01_v wc_diff_01_v
-      wc_same_10_v wc_diff_10_v wc_same_11_v wc_diff_11_v tensor_total
-      instr_v bianchi_violation))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }),
+      csr_heap_base_v pt_sizes_v pt_bases_v pt_next_id_v certified_v
+      morph_src_table_v morph_dst_table_v morph_valid_table_v
+      morph_coupling_desc_table_v morph_identity_table_v morph_next_id_v
+      coupling_desc_valid_table_v coupling_desc_count_table_v
+      coupling_desc_base_table_v coupling_desc_label_table_v
+      coupling_desc_label_len_table_v coupling_desc_next_id_v
+      coupling_pair_next_id_v formula_desc_valid_table_v
+      formula_desc_next_id_v cert_desc_valid_table_v cert_desc_next_id_v
+      desc_meta_valid_table_v desc_meta_next_id_v wc_same_00_v wc_diff_00_v
+      wc_same_01_v wc_diff_01_v wc_same_10_v wc_diff_10_v wc_same_11_v
+      wc_diff_11_v tensor_total instr_v bianchi_violation))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }),
     (ConsInModule ((MERule { attrName =
     ('l'::('a'::('s'::('s'::('e'::('r'::('t'::('_'::('f'::('s'::('m'::('_'::('h'::('e'::('a'::('d'::('e'::('r'::[]))))))))))))))))));
     attrType = (fun _ -> ReadReg
@@ -32596,7 +33060,7 @@ let thieleCore =
     (Vector ((Bit wordSz), (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ
     (Stdlib.Int.succ (Stdlib.Int.succ (Stdlib.Int.succ 0))))))))),
     tbl))))))))) }),
-    NilInModule))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+    NilInModule))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
 (** val thieleCoreS : modulesS **)
 

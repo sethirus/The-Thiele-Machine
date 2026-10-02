@@ -1,4 +1,4 @@
-DIGEST cea429325488114fa1fc077e2b034a2c
+DIGEST 9fa3acbd5c762b30196aac8fbf26962f
 FKernel.PNEWTopologyChange
 R694:704 Kernel.MuCostModel <> <> lib
 R732:735 Coq.Lists.List <> <> lib
@@ -267,60 +267,75 @@ R6164:6165 Coq.Lists.List ListNotations ::list_scope:'['_']' not
 R6244:6271 Kernel.PNEWTopologyChange <> graph_add_module_increases_F thm
 R6244:6271 Kernel.PNEWTopologyChange <> graph_add_module_increases_F thm
 R6244:6271 Kernel.PNEWTopologyChange <> graph_add_module_increases_F thm
-prf 6607:6635 <> vm_pnew_step_changes_topology
-binder 6646:6646 <> s:19
-binder 6648:6653 <> region:20
-binder 6655:6658 <> cost:21
-binder 6660:6661 <> s':22
-R6729:6734 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6722:6724 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6666:6682 Kernel.VMState <> graph_find_region def
-R6685:6692 Kernel.VMState <> vm_graph proj
-R6694:6694 Kernel.PNEWTopologyChange <> s:19 var
-R6698:6713 Kernel.VMState <> normalize_region def
-R6715:6720 Kernel.PNEWTopologyChange <> region:20 var
-R6725:6728 Coq.Init.Datatypes <> None constr
-R6771:6776 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6767:6769 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6735:6740 Coq.Init.Datatypes <> length def
-R6743:6758 Kernel.VMState <> normalize_region def
-R6760:6765 Kernel.PNEWTopologyChange <> region:20 var
-R6814:6819 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6777:6783 Kernel.VMStep VMStep vm_step ind
-R6785:6785 Kernel.PNEWTopologyChange <> s:19 var
-R6788:6797 Kernel.VMStep VMStep instr_pnew constr
-R6799:6804 Kernel.PNEWTopologyChange <> region:20 var
-R6806:6809 Kernel.PNEWTopologyChange <> cost:21 var
-R6812:6813 Kernel.PNEWTopologyChange <> s':22 var
-R6871:6876 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R6820:6820 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6836:6837 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6853:6854 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6870:6870 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6821:6821 Kernel.DiscreteTopology <> V def
-R6824:6831 Kernel.VMState <> vm_graph proj
-R6833:6834 Kernel.PNEWTopologyChange <> s':22 var
-R6838:6838 Kernel.DiscreteTopology <> E def
-R6841:6848 Kernel.VMState <> vm_graph proj
-R6850:6851 Kernel.PNEWTopologyChange <> s':22 var
-R6855:6855 Kernel.DiscreteTopology <> F def
-R6858:6865 Kernel.VMState <> vm_graph proj
-R6867:6868 Kernel.PNEWTopologyChange <> s':22 var
-R6877:6877 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6892:6893 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6908:6909 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6924:6924 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6878:6878 Kernel.DiscreteTopology <> V def
-R6881:6888 Kernel.VMState <> vm_graph proj
-R6890:6890 Kernel.PNEWTopologyChange <> s:19 var
-R6894:6894 Kernel.DiscreteTopology <> E def
-R6897:6904 Kernel.VMState <> vm_graph proj
-R6906:6906 Kernel.PNEWTopologyChange <> s:19 var
-R6910:6910 Kernel.DiscreteTopology <> F def
-R6913:6920 Kernel.VMState <> vm_graph proj
-R6922:6922 Kernel.PNEWTopologyChange <> s:19 var
-R7112:7118 Coq.Init.Logic <> f_equal thm
-R7120:7122 Coq.Init.Datatypes <> snd def
-R7112:7118 Coq.Init.Logic <> f_equal thm
-R7120:7122 Coq.Init.Datatypes <> snd def
-R7162:7162 Kernel.DiscreteTopology <> F def
+prf 6760:6788 <> vm_pnew_step_changes_topology
+binder 6799:6799 <> s:19
+binder 6801:6806 <> region:20
+binder 6808:6811 <> cost:21
+binder 6813:6814 <> s':22
+R6877:6882 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6870:6872 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6819:6835 Kernel.VMState <> graph_find_region def
+R6838:6845 Kernel.VMState <> vm_graph proj
+R6847:6847 Kernel.PNEWTopologyChange <> s:19 var
+R6851:6861 Kernel.VMStep VMStep pnew_region def
+R6863:6868 Kernel.PNEWTopologyChange <> region:20 var
+R6873:6876 Coq.Init.Datatypes <> None constr
+R6940:6945 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6932:6934 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6883:6897 Kernel.VMStep VMStep region_conflict def
+R6900:6907 Kernel.VMState <> vm_graph proj
+R6909:6909 Kernel.PNEWTopologyChange <> s:19 var
+R6913:6923 Kernel.VMStep VMStep pnew_region def
+R6925:6930 Kernel.PNEWTopologyChange <> region:20 var
+R6935:6939 Coq.Init.Datatypes <> false constr
+R6982:6987 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6978:6980 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6946:6951 Coq.Init.Datatypes <> length def
+R6954:6969 Kernel.VMState <> normalize_region def
+R6971:6976 Kernel.PNEWTopologyChange <> region:20 var
+R7025:7030 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6988:6994 Kernel.VMStep VMStep vm_step ind
+R6996:6996 Kernel.PNEWTopologyChange <> s:19 var
+R6999:7008 Kernel.VMStep VMStep instr_pnew constr
+R7010:7015 Kernel.PNEWTopologyChange <> region:20 var
+R7017:7020 Kernel.PNEWTopologyChange <> cost:21 var
+R7023:7024 Kernel.PNEWTopologyChange <> s':22 var
+R7082:7087 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R7031:7031 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7047:7048 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7064:7065 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7081:7081 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7032:7032 Kernel.DiscreteTopology <> V def
+R7035:7042 Kernel.VMState <> vm_graph proj
+R7044:7045 Kernel.PNEWTopologyChange <> s':22 var
+R7049:7049 Kernel.DiscreteTopology <> E def
+R7052:7059 Kernel.VMState <> vm_graph proj
+R7061:7062 Kernel.PNEWTopologyChange <> s':22 var
+R7066:7066 Kernel.DiscreteTopology <> F def
+R7069:7076 Kernel.VMState <> vm_graph proj
+R7078:7079 Kernel.PNEWTopologyChange <> s':22 var
+R7088:7088 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7103:7104 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7119:7120 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7135:7135 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7089:7089 Kernel.DiscreteTopology <> V def
+R7092:7099 Kernel.VMState <> vm_graph proj
+R7101:7101 Kernel.PNEWTopologyChange <> s:19 var
+R7105:7105 Kernel.DiscreteTopology <> E def
+R7108:7115 Kernel.VMState <> vm_graph proj
+R7117:7117 Kernel.PNEWTopologyChange <> s:19 var
+R7121:7121 Kernel.DiscreteTopology <> F def
+R7124:7131 Kernel.VMState <> vm_graph proj
+R7133:7133 Kernel.PNEWTopologyChange <> s:19 var
+R7234:7253 Kernel.VMStep VMStep partition_step_state def
+R7255:7262 Kernel.VMState <> vm_graph proj
+R7286:7289 Coq.Init.Datatypes <> negb def
+R7302:7311 Kernel.VMState <> graph_pnew def
+R7332:7353 Kernel.VMStep VMStep pnew_region_normalized thm
+R7332:7353 Kernel.VMStep VMStep pnew_region_normalized thm
+R7332:7353 Kernel.VMStep VMStep pnew_region_normalized thm
+R7386:7392 Coq.Init.Logic <> f_equal thm
+R7394:7396 Coq.Init.Datatypes <> snd def
+R7386:7392 Coq.Init.Logic <> f_equal thm
+R7394:7396 Coq.Init.Datatypes <> snd def
+R7432:7432 Kernel.DiscreteTopology <> F def

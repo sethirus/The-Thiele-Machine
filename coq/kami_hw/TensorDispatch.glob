@@ -1,4 +1,4 @@
-DIGEST bc367417f86c6bf15cd78b3ea16cd269
+DIGEST 77b54c0076f915d3c13935fc914f4fb8
 FKamiHW.TensorDispatch
 R101:109 Kami.Kami <> <> lib
 R111:124 Kami.Semantics <> <> lib
@@ -133,1519 +133,1533 @@ R1374:1384 KamiHW.ThieleTypes <> PTableIdxSz def
 R1362:1364 Kami.Syntax <> Bit constr
 R1366:1371 KamiHW.ThieleTypes <> WordSz def
 binder 1335:1344 <> pt_sizes_v:45
-R1408:1411 Kami.Syntax <> type def
-R1414:1416 Kami.Syntax <> Bit constr
-R1418:1431 KamiHW.ThieleTypes <> PTableNextIdSz def
-binder 1393:1404 <> pt_next_id_v:46
-R1454:1457 Kami.Syntax <> type def
-R1460:1463 Kami.Syntax <> Bool constr
-binder 1440:1450 <> certified_v:47
-R1492:1495 Kami.Syntax <> type def
-R1498:1503 Kami.Syntax <> Vector constr
-R1523:1537 KamiHW.ThieleTypes <> MorphTableIdxSz def
-R1506:1508 Kami.Syntax <> Bit constr
-R1510:1520 KamiHW.ThieleTypes <> PTableIdxSz def
-binder 1472:1488 <> morph_src_table_v:48
-R1566:1569 Kami.Syntax <> type def
-R1572:1577 Kami.Syntax <> Vector constr
-R1597:1611 KamiHW.ThieleTypes <> MorphTableIdxSz def
-R1580:1582 Kami.Syntax <> Bit constr
-R1584:1594 KamiHW.ThieleTypes <> PTableIdxSz def
-binder 1546:1562 <> morph_dst_table_v:49
-R1642:1645 Kami.Syntax <> type def
-R1648:1653 Kami.Syntax <> Vector constr
-R1660:1674 KamiHW.ThieleTypes <> MorphTableIdxSz def
-R1655:1658 Kami.Syntax <> Bool constr
-binder 1620:1638 <> morph_valid_table_v:50
-R1713:1716 Kami.Syntax <> type def
-R1719:1724 Kami.Syntax <> Vector constr
-R1742:1756 KamiHW.ThieleTypes <> MorphTableIdxSz def
-R1727:1729 Kami.Syntax <> Bit constr
-R1731:1739 KamiHW.ThieleTypes <> DescIdxSz def
-binder 1683:1709 <> morph_coupling_desc_table_v:51
-R1790:1793 Kami.Syntax <> type def
-R1796:1801 Kami.Syntax <> Vector constr
-R1808:1822 KamiHW.ThieleTypes <> MorphTableIdxSz def
-R1803:1806 Kami.Syntax <> Bool constr
-binder 1765:1786 <> morph_identity_table_v:52
-R1849:1852 Kami.Syntax <> type def
-R1855:1857 Kami.Syntax <> Bit constr
-R1859:1876 KamiHW.ThieleTypes <> MorphTableNextIdSz def
-binder 1831:1845 <> morph_next_id_v:53
-R1915:1918 Kami.Syntax <> type def
-R1921:1926 Kami.Syntax <> Vector constr
-R1933:1949 KamiHW.ThieleTypes <> CouplingDescIdxSz def
-R1928:1931 Kami.Syntax <> Bool constr
-binder 1885:1911 <> coupling_desc_valid_table_v:54
-R1988:1991 Kami.Syntax <> type def
-R1994:1999 Kami.Syntax <> Vector constr
-R2027:2043 KamiHW.ThieleTypes <> CouplingDescIdxSz def
-R2002:2004 Kami.Syntax <> Bit constr
-R2006:2024 KamiHW.ThieleTypes <> CouplingPairCountSz def
-binder 1958:1984 <> coupling_desc_count_table_v:55
-R2081:2084 Kami.Syntax <> type def
-R2087:2092 Kami.Syntax <> Vector constr
-R2118:2134 KamiHW.ThieleTypes <> CouplingDescIdxSz def
-R2095:2097 Kami.Syntax <> Bit constr
-R2099:2115 KamiHW.ThieleTypes <> CouplingPairIdxSz def
-binder 2052:2077 <> coupling_desc_base_table_v:56
-R2173:2176 Kami.Syntax <> type def
-R2179:2184 Kami.Syntax <> Vector constr
-R2199:2215 KamiHW.ThieleTypes <> CouplingDescIdxSz def
-R2187:2189 Kami.Syntax <> Bit constr
-R2191:2196 KamiHW.ThieleTypes <> WordSz def
-binder 2143:2169 <> coupling_desc_label_table_v:57
-R2258:2261 Kami.Syntax <> type def
-R2264:2269 Kami.Syntax <> Vector constr
-R2279:2295 KamiHW.ThieleTypes <> CouplingDescIdxSz def
-R2272:2274 Kami.Syntax <> Bit constr
-binder 2224:2254 <> coupling_desc_label_len_table_v:58
-R2330:2333 Kami.Syntax <> type def
-R2336:2338 Kami.Syntax <> Bit constr
-R2340:2356 KamiHW.ThieleTypes <> DescTableNextIdSz def
-binder 2304:2326 <> coupling_desc_next_id_v:59
-R2391:2394 Kami.Syntax <> type def
-R2397:2399 Kami.Syntax <> Bit constr
-R2401:2417 KamiHW.ThieleTypes <> DescTableNextIdSz def
-binder 2365:2387 <> coupling_pair_next_id_v:60
-R2455:2458 Kami.Syntax <> type def
-R2461:2466 Kami.Syntax <> Vector constr
-R2473:2488 KamiHW.ThieleTypes <> FormulaDescIdxSz def
-R2468:2471 Kami.Syntax <> Bool constr
-binder 2426:2451 <> formula_desc_valid_table_v:61
-R2522:2525 Kami.Syntax <> type def
-R2528:2530 Kami.Syntax <> Bit constr
-R2532:2548 KamiHW.ThieleTypes <> DescTableNextIdSz def
-binder 2497:2518 <> formula_desc_next_id_v:62
-R2583:2586 Kami.Syntax <> type def
-R2589:2594 Kami.Syntax <> Vector constr
-R2601:2613 KamiHW.ThieleTypes <> CertDescIdxSz def
-R2596:2599 Kami.Syntax <> Bool constr
-binder 2557:2579 <> cert_desc_valid_table_v:63
-R2644:2647 Kami.Syntax <> type def
-R2650:2652 Kami.Syntax <> Bit constr
-R2654:2670 KamiHW.ThieleTypes <> DescTableNextIdSz def
-binder 2622:2640 <> cert_desc_next_id_v:64
-R2705:2708 Kami.Syntax <> type def
-R2711:2716 Kami.Syntax <> Vector constr
-R2723:2735 KamiHW.ThieleTypes <> DescMetaIdxSz def
-R2718:2721 Kami.Syntax <> Bool constr
-binder 2679:2701 <> desc_meta_valid_table_v:65
-R2766:2769 Kami.Syntax <> type def
-R2772:2774 Kami.Syntax <> Bit constr
-R2776:2792 KamiHW.ThieleTypes <> DescTableNextIdSz def
-binder 2744:2762 <> desc_meta_next_id_v:66
-R2816:2819 Kami.Syntax <> type def
-R2822:2824 Kami.Syntax <> Bit constr
-R2826:2831 KamiHW.ThieleTypes <> WordSz def
-binder 2801:2812 <> wc_same_00_v:67
-R2855:2858 Kami.Syntax <> type def
-R2861:2863 Kami.Syntax <> Bit constr
-R2865:2870 KamiHW.ThieleTypes <> WordSz def
-binder 2840:2851 <> wc_diff_00_v:68
-R2894:2897 Kami.Syntax <> type def
-R2900:2902 Kami.Syntax <> Bit constr
-R2904:2909 KamiHW.ThieleTypes <> WordSz def
-binder 2879:2890 <> wc_same_01_v:69
-R2933:2936 Kami.Syntax <> type def
-R2939:2941 Kami.Syntax <> Bit constr
-R2943:2948 KamiHW.ThieleTypes <> WordSz def
-binder 2918:2929 <> wc_diff_01_v:70
-R2972:2975 Kami.Syntax <> type def
-R2978:2980 Kami.Syntax <> Bit constr
-R2982:2987 KamiHW.ThieleTypes <> WordSz def
-binder 2957:2968 <> wc_same_10_v:71
-R3011:3014 Kami.Syntax <> type def
-R3017:3019 Kami.Syntax <> Bit constr
-R3021:3026 KamiHW.ThieleTypes <> WordSz def
-binder 2996:3007 <> wc_diff_10_v:72
-R3050:3053 Kami.Syntax <> type def
-R3056:3058 Kami.Syntax <> Bit constr
-R3060:3065 KamiHW.ThieleTypes <> WordSz def
-binder 3035:3046 <> wc_same_11_v:73
-R3089:3092 Kami.Syntax <> type def
-R3095:3097 Kami.Syntax <> Bit constr
-R3099:3104 KamiHW.ThieleTypes <> WordSz def
-binder 3074:3085 <> wc_diff_11_v:74
-R3128:3131 Kami.Syntax <> type def
-R3134:3136 Kami.Syntax <> Bit constr
-R3138:3143 KamiHW.ThieleTypes <> WordSz def
-binder 3113:3124 <> tensor_total:75
-R3172:3175 Kami.Syntax <> type def
-R3178:3181 Kami.Syntax <> Bool constr
-binder 3152:3168 <> bianchi_violation:76
-R4420:4423 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3188:3207 KamiHW.ActionObservation <> observe_action_write def
-R3242:3257 KamiHW.ThieleCPUCore <> dispatch_decoded def
-R4402:4418 KamiHW.TensorDispatch <> bianchi_violation:76 var
-R4110:4116 Kami.Lib.Word <> combine def
-R4188:4194 Kami.Lib.Word <> combine def
-R4266:4272 Kami.Lib.Word <> combine def
-R4344:4350 Kami.Lib.Word <> combine def
-R4370:4376 Kami.Lib.Word <> NToWord def
-R4382:4389 Coq.NArith.BinNat N shiftl def
-R4353:4361 Kami.Lib.Word <> natToWord def
-R4276:4277 Kami.Lib.Word <> WS constr
-R4283:4284 Kami.Lib.Word <> WS constr
-R4290:4291 Kami.Lib.Word <> WS constr
-R4297:4298 Kami.Lib.Word <> WS constr
-R4304:4305 Kami.Lib.Word <> WS constr
-R4311:4312 Kami.Lib.Word <> WS constr
-R4318:4319 Kami.Lib.Word <> WS constr
-R4325:4326 Kami.Lib.Word <> WS constr
-R4331:4332 Kami.Lib.Word <> WO constr
-R4328:4329 KamiHW.TensorDispatch <> a7:8 var
-R4321:4322 KamiHW.TensorDispatch <> a6:7 var
-R4314:4315 KamiHW.TensorDispatch <> a5:6 var
-R4307:4308 KamiHW.TensorDispatch <> a4:5 var
-R4300:4301 KamiHW.TensorDispatch <> a3:4 var
-R4293:4294 KamiHW.TensorDispatch <> a2:3 var
-R4286:4287 KamiHW.TensorDispatch <> a1:2 var
-R4279:4280 KamiHW.TensorDispatch <> a0:1 var
-R4198:4199 Kami.Lib.Word <> WS constr
-R4205:4206 Kami.Lib.Word <> WS constr
-R4212:4213 Kami.Lib.Word <> WS constr
-R4219:4220 Kami.Lib.Word <> WS constr
-R4226:4227 Kami.Lib.Word <> WS constr
-R4233:4234 Kami.Lib.Word <> WS constr
-R4240:4241 Kami.Lib.Word <> WS constr
-R4247:4248 Kami.Lib.Word <> WS constr
-R4253:4254 Kami.Lib.Word <> WO constr
-R4250:4251 KamiHW.TensorDispatch <> b7:16 var
-R4243:4244 KamiHW.TensorDispatch <> b6:15 var
-R4236:4237 KamiHW.TensorDispatch <> b5:14 var
-R4229:4230 KamiHW.TensorDispatch <> b4:13 var
-R4222:4223 KamiHW.TensorDispatch <> b3:12 var
-R4215:4216 KamiHW.TensorDispatch <> b2:11 var
-R4208:4209 KamiHW.TensorDispatch <> b1:10 var
-R4201:4202 KamiHW.TensorDispatch <> b0:9 var
-R4120:4121 Kami.Lib.Word <> WS constr
-R4127:4128 Kami.Lib.Word <> WS constr
-R4134:4135 Kami.Lib.Word <> WS constr
-R4141:4142 Kami.Lib.Word <> WS constr
-R4148:4149 Kami.Lib.Word <> WS constr
-R4155:4156 Kami.Lib.Word <> WS constr
-R4162:4163 Kami.Lib.Word <> WS constr
-R4169:4170 Kami.Lib.Word <> WS constr
-R4175:4176 Kami.Lib.Word <> WO constr
-R4172:4173 KamiHW.TensorDispatch <> c7:24 var
-R4165:4166 KamiHW.TensorDispatch <> c6:23 var
-R4158:4159 KamiHW.TensorDispatch <> c5:22 var
-R4151:4152 KamiHW.TensorDispatch <> c4:21 var
-R4144:4145 KamiHW.TensorDispatch <> c3:20 var
-R4137:4138 KamiHW.TensorDispatch <> c2:19 var
-R4130:4131 KamiHW.TensorDispatch <> c1:18 var
-R4123:4124 KamiHW.TensorDispatch <> c0:17 var
-R4096:4107 KamiHW.TensorDispatch <> tensor_total:75 var
-R4083:4094 KamiHW.TensorDispatch <> wc_diff_11_v:74 var
-R4070:4081 KamiHW.TensorDispatch <> wc_same_11_v:73 var
-R4057:4068 KamiHW.TensorDispatch <> wc_diff_10_v:72 var
-R4044:4055 KamiHW.TensorDispatch <> wc_same_10_v:71 var
-R4031:4042 KamiHW.TensorDispatch <> wc_diff_01_v:70 var
-R4018:4029 KamiHW.TensorDispatch <> wc_same_01_v:69 var
-R4005:4016 KamiHW.TensorDispatch <> wc_diff_00_v:68 var
-R3992:4003 KamiHW.TensorDispatch <> wc_same_00_v:67 var
-R3972:3990 KamiHW.TensorDispatch <> desc_meta_next_id_v:66 var
-R3948:3970 KamiHW.TensorDispatch <> desc_meta_valid_table_v:65 var
-R3928:3946 KamiHW.TensorDispatch <> cert_desc_next_id_v:64 var
-R3904:3926 KamiHW.TensorDispatch <> cert_desc_valid_table_v:63 var
-R3881:3902 KamiHW.TensorDispatch <> formula_desc_next_id_v:62 var
-R3854:3879 KamiHW.TensorDispatch <> formula_desc_valid_table_v:61 var
-R3830:3852 KamiHW.TensorDispatch <> coupling_pair_next_id_v:60 var
-R3806:3828 KamiHW.TensorDispatch <> coupling_desc_next_id_v:59 var
-R3774:3804 KamiHW.TensorDispatch <> coupling_desc_label_len_table_v:58 var
-R3746:3772 KamiHW.TensorDispatch <> coupling_desc_label_table_v:57 var
-R3719:3744 KamiHW.TensorDispatch <> coupling_desc_base_table_v:56 var
-R3691:3717 KamiHW.TensorDispatch <> coupling_desc_count_table_v:55 var
-R3663:3689 KamiHW.TensorDispatch <> coupling_desc_valid_table_v:54 var
-R3647:3661 KamiHW.TensorDispatch <> morph_next_id_v:53 var
-R3624:3645 KamiHW.TensorDispatch <> morph_identity_table_v:52 var
-R3596:3622 KamiHW.TensorDispatch <> morph_coupling_desc_table_v:51 var
-R3576:3594 KamiHW.TensorDispatch <> morph_valid_table_v:50 var
-R3558:3574 KamiHW.TensorDispatch <> morph_dst_table_v:49 var
-R3540:3556 KamiHW.TensorDispatch <> morph_src_table_v:48 var
-R3528:3538 KamiHW.TensorDispatch <> certified_v:47 var
-R3515:3526 KamiHW.TensorDispatch <> pt_next_id_v:46 var
-R3504:3513 KamiHW.TensorDispatch <> pt_sizes_v:45 var
-R3488:3502 KamiHW.TensorDispatch <> csr_heap_base_v:44 var
-R3471:3486 KamiHW.TensorDispatch <> module_tensors_v:43 var
-R3459:3469 KamiHW.TensorDispatch <> mu_tensor_v:42 var
-R3445:3457 KamiHW.TensorDispatch <> trap_vector_v:41 var
-R3431:3443 KamiHW.TensorDispatch <> minstret_hi_v:40 var
-R3417:3429 KamiHW.TensorDispatch <> minstret_lo_v:39 var
-R3405:3415 KamiHW.TensorDispatch <> mcycle_hi_v:38 var
-R3393:3403 KamiHW.TensorDispatch <> mcycle_lo_v:37 var
-R3377:3391 KamiHW.TensorDispatch <> active_module_v:36 var
-R3365:3375 KamiHW.TensorDispatch <> cert_addr_v:35 var
-R3353:3363 KamiHW.TensorDispatch <> logic_acc_v:34 var
-R3340:3351 KamiHW.TensorDispatch <> error_code_v:33 var
-R3328:3338 KamiHW.TensorDispatch <> info_gain_v:32 var
-R3318:3326 KamiHW.TensorDispatch <> mdl_ops_v:31 var
-R3302:3316 KamiHW.TensorDispatch <> partition_ops_v:30 var
-R3296:3300 KamiHW.TensorDispatch <> mem_v:29 var
-R3289:3294 KamiHW.TensorDispatch <> regs_v:28 var
-R3284:3287 KamiHW.TensorDispatch <> mu_v:27 var
-R3279:3282 KamiHW.TensorDispatch <> pc_v:26 var
-R3259:3277 KamiHW.TensorDispatch <> chsh_check_result_v:25 var
-R3210:3216 Kami.Lib.FMap M empty def
-R4424:4427 Coq.Init.Datatypes <> Some constr
-R4430:4435 Coq.Init.Specif <> existT constr
-R4536:4552 KamiHW.TensorDispatch <> bianchi_violation:76 var
-binder 4590:4590 <> m:77
-R4598:4600 Kami.Lib.Word <> weq def
-R4606:4607 Kami.Lib.Word <> WS constr
-R4613:4614 Kami.Lib.Word <> WS constr
-R4620:4621 Kami.Lib.Word <> WS constr
-R4627:4628 Kami.Lib.Word <> WS constr
-R4633:4634 Kami.Lib.Word <> WO constr
-R4630:4631 KamiHW.TensorDispatch <> a7:8 var
-R4623:4624 KamiHW.TensorDispatch <> a6:7 var
-R4616:4617 KamiHW.TensorDispatch <> a5:6 var
-R4609:4610 KamiHW.TensorDispatch <> a4:5 var
-R4602:4602 KamiHW.TensorDispatch <> m:77 var
+R1406:1409 Kami.Syntax <> type def
+R1412:1417 Kami.Syntax <> Vector constr
+R1432:1442 KamiHW.ThieleTypes <> PTableIdxSz def
+R1420:1422 Kami.Syntax <> Bit constr
+R1424:1429 KamiHW.ThieleTypes <> WordSz def
+binder 1393:1402 <> pt_bases_v:46
+R1466:1469 Kami.Syntax <> type def
+R1472:1474 Kami.Syntax <> Bit constr
+R1476:1489 KamiHW.ThieleTypes <> PTableNextIdSz def
+binder 1451:1462 <> pt_next_id_v:47
+R1512:1515 Kami.Syntax <> type def
+R1518:1521 Kami.Syntax <> Bool constr
+binder 1498:1508 <> certified_v:48
+R1550:1553 Kami.Syntax <> type def
+R1556:1561 Kami.Syntax <> Vector constr
+R1581:1595 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R1564:1566 Kami.Syntax <> Bit constr
+R1568:1578 KamiHW.ThieleTypes <> PTableIdxSz def
+binder 1530:1546 <> morph_src_table_v:49
+R1624:1627 Kami.Syntax <> type def
+R1630:1635 Kami.Syntax <> Vector constr
+R1655:1669 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R1638:1640 Kami.Syntax <> Bit constr
+R1642:1652 KamiHW.ThieleTypes <> PTableIdxSz def
+binder 1604:1620 <> morph_dst_table_v:50
+R1700:1703 Kami.Syntax <> type def
+R1706:1711 Kami.Syntax <> Vector constr
+R1718:1732 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R1713:1716 Kami.Syntax <> Bool constr
+binder 1678:1696 <> morph_valid_table_v:51
+R1771:1774 Kami.Syntax <> type def
+R1777:1782 Kami.Syntax <> Vector constr
+R1800:1814 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R1785:1787 Kami.Syntax <> Bit constr
+R1789:1797 KamiHW.ThieleTypes <> DescIdxSz def
+binder 1741:1767 <> morph_coupling_desc_table_v:52
+R1848:1851 Kami.Syntax <> type def
+R1854:1859 Kami.Syntax <> Vector constr
+R1866:1880 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R1861:1864 Kami.Syntax <> Bool constr
+binder 1823:1844 <> morph_identity_table_v:53
+R1907:1910 Kami.Syntax <> type def
+R1913:1915 Kami.Syntax <> Bit constr
+R1917:1934 KamiHW.ThieleTypes <> MorphTableNextIdSz def
+binder 1889:1903 <> morph_next_id_v:54
+R1973:1976 Kami.Syntax <> type def
+R1979:1984 Kami.Syntax <> Vector constr
+R1991:2007 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R1986:1989 Kami.Syntax <> Bool constr
+binder 1943:1969 <> coupling_desc_valid_table_v:55
+R2046:2049 Kami.Syntax <> type def
+R2052:2057 Kami.Syntax <> Vector constr
+R2085:2101 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R2060:2062 Kami.Syntax <> Bit constr
+R2064:2082 KamiHW.ThieleTypes <> CouplingPairCountSz def
+binder 2016:2042 <> coupling_desc_count_table_v:56
+R2139:2142 Kami.Syntax <> type def
+R2145:2150 Kami.Syntax <> Vector constr
+R2176:2192 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R2153:2155 Kami.Syntax <> Bit constr
+R2157:2173 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+binder 2110:2135 <> coupling_desc_base_table_v:57
+R2231:2234 Kami.Syntax <> type def
+R2237:2242 Kami.Syntax <> Vector constr
+R2257:2273 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R2245:2247 Kami.Syntax <> Bit constr
+R2249:2254 KamiHW.ThieleTypes <> WordSz def
+binder 2201:2227 <> coupling_desc_label_table_v:58
+R2316:2319 Kami.Syntax <> type def
+R2322:2327 Kami.Syntax <> Vector constr
+R2337:2353 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R2330:2332 Kami.Syntax <> Bit constr
+binder 2282:2312 <> coupling_desc_label_len_table_v:59
+R2388:2391 Kami.Syntax <> type def
+R2394:2396 Kami.Syntax <> Bit constr
+R2398:2414 KamiHW.ThieleTypes <> DescTableNextIdSz def
+binder 2362:2384 <> coupling_desc_next_id_v:60
+R2449:2452 Kami.Syntax <> type def
+R2455:2457 Kami.Syntax <> Bit constr
+R2459:2475 KamiHW.ThieleTypes <> DescTableNextIdSz def
+binder 2423:2445 <> coupling_pair_next_id_v:61
+R2513:2516 Kami.Syntax <> type def
+R2519:2524 Kami.Syntax <> Vector constr
+R2531:2546 KamiHW.ThieleTypes <> FormulaDescIdxSz def
+R2526:2529 Kami.Syntax <> Bool constr
+binder 2484:2509 <> formula_desc_valid_table_v:62
+R2580:2583 Kami.Syntax <> type def
+R2586:2588 Kami.Syntax <> Bit constr
+R2590:2606 KamiHW.ThieleTypes <> DescTableNextIdSz def
+binder 2555:2576 <> formula_desc_next_id_v:63
+R2641:2644 Kami.Syntax <> type def
+R2647:2652 Kami.Syntax <> Vector constr
+R2659:2671 KamiHW.ThieleTypes <> CertDescIdxSz def
+R2654:2657 Kami.Syntax <> Bool constr
+binder 2615:2637 <> cert_desc_valid_table_v:64
+R2702:2705 Kami.Syntax <> type def
+R2708:2710 Kami.Syntax <> Bit constr
+R2712:2728 KamiHW.ThieleTypes <> DescTableNextIdSz def
+binder 2680:2698 <> cert_desc_next_id_v:65
+R2763:2766 Kami.Syntax <> type def
+R2769:2774 Kami.Syntax <> Vector constr
+R2781:2793 KamiHW.ThieleTypes <> DescMetaIdxSz def
+R2776:2779 Kami.Syntax <> Bool constr
+binder 2737:2759 <> desc_meta_valid_table_v:66
+R2824:2827 Kami.Syntax <> type def
+R2830:2832 Kami.Syntax <> Bit constr
+R2834:2850 KamiHW.ThieleTypes <> DescTableNextIdSz def
+binder 2802:2820 <> desc_meta_next_id_v:67
+R2874:2877 Kami.Syntax <> type def
+R2880:2882 Kami.Syntax <> Bit constr
+R2884:2889 KamiHW.ThieleTypes <> WordSz def
+binder 2859:2870 <> wc_same_00_v:68
+R2913:2916 Kami.Syntax <> type def
+R2919:2921 Kami.Syntax <> Bit constr
+R2923:2928 KamiHW.ThieleTypes <> WordSz def
+binder 2898:2909 <> wc_diff_00_v:69
+R2952:2955 Kami.Syntax <> type def
+R2958:2960 Kami.Syntax <> Bit constr
+R2962:2967 KamiHW.ThieleTypes <> WordSz def
+binder 2937:2948 <> wc_same_01_v:70
+R2991:2994 Kami.Syntax <> type def
+R2997:2999 Kami.Syntax <> Bit constr
+R3001:3006 KamiHW.ThieleTypes <> WordSz def
+binder 2976:2987 <> wc_diff_01_v:71
+R3030:3033 Kami.Syntax <> type def
+R3036:3038 Kami.Syntax <> Bit constr
+R3040:3045 KamiHW.ThieleTypes <> WordSz def
+binder 3015:3026 <> wc_same_10_v:72
+R3069:3072 Kami.Syntax <> type def
+R3075:3077 Kami.Syntax <> Bit constr
+R3079:3084 KamiHW.ThieleTypes <> WordSz def
+binder 3054:3065 <> wc_diff_10_v:73
+R3108:3111 Kami.Syntax <> type def
+R3114:3116 Kami.Syntax <> Bit constr
+R3118:3123 KamiHW.ThieleTypes <> WordSz def
+binder 3093:3104 <> wc_same_11_v:74
+R3147:3150 Kami.Syntax <> type def
+R3153:3155 Kami.Syntax <> Bit constr
+R3157:3162 KamiHW.ThieleTypes <> WordSz def
+binder 3132:3143 <> wc_diff_11_v:75
+R3186:3189 Kami.Syntax <> type def
+R3192:3194 Kami.Syntax <> Bit constr
+R3196:3201 KamiHW.ThieleTypes <> WordSz def
+binder 3171:3182 <> tensor_total:76
+R3230:3233 Kami.Syntax <> type def
+R3236:3239 Kami.Syntax <> Bool constr
+binder 3210:3226 <> bianchi_violation:77
+R4489:4492 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3246:3265 KamiHW.ActionObservation <> observe_action_write def
+R3300:3315 KamiHW.ThieleCPUCore <> dispatch_decoded def
+R4471:4487 KamiHW.TensorDispatch <> bianchi_violation:77 var
+R4179:4185 Kami.Lib.Word <> combine def
+R4257:4263 Kami.Lib.Word <> combine def
+R4335:4341 Kami.Lib.Word <> combine def
+R4413:4419 Kami.Lib.Word <> combine def
+R4439:4445 Kami.Lib.Word <> NToWord def
+R4451:4458 Coq.NArith.BinNat N shiftl def
+R4422:4430 Kami.Lib.Word <> natToWord def
+R4345:4346 Kami.Lib.Word <> WS constr
+R4352:4353 Kami.Lib.Word <> WS constr
+R4359:4360 Kami.Lib.Word <> WS constr
+R4366:4367 Kami.Lib.Word <> WS constr
+R4373:4374 Kami.Lib.Word <> WS constr
+R4380:4381 Kami.Lib.Word <> WS constr
+R4387:4388 Kami.Lib.Word <> WS constr
+R4394:4395 Kami.Lib.Word <> WS constr
+R4400:4401 Kami.Lib.Word <> WO constr
+R4397:4398 KamiHW.TensorDispatch <> a7:8 var
+R4390:4391 KamiHW.TensorDispatch <> a6:7 var
+R4383:4384 KamiHW.TensorDispatch <> a5:6 var
+R4376:4377 KamiHW.TensorDispatch <> a4:5 var
+R4369:4370 KamiHW.TensorDispatch <> a3:4 var
+R4362:4363 KamiHW.TensorDispatch <> a2:3 var
+R4355:4356 KamiHW.TensorDispatch <> a1:2 var
+R4348:4349 KamiHW.TensorDispatch <> a0:1 var
+R4267:4268 Kami.Lib.Word <> WS constr
+R4274:4275 Kami.Lib.Word <> WS constr
+R4281:4282 Kami.Lib.Word <> WS constr
+R4288:4289 Kami.Lib.Word <> WS constr
+R4295:4296 Kami.Lib.Word <> WS constr
+R4302:4303 Kami.Lib.Word <> WS constr
+R4309:4310 Kami.Lib.Word <> WS constr
+R4316:4317 Kami.Lib.Word <> WS constr
+R4322:4323 Kami.Lib.Word <> WO constr
+R4319:4320 KamiHW.TensorDispatch <> b7:16 var
+R4312:4313 KamiHW.TensorDispatch <> b6:15 var
+R4305:4306 KamiHW.TensorDispatch <> b5:14 var
+R4298:4299 KamiHW.TensorDispatch <> b4:13 var
+R4291:4292 KamiHW.TensorDispatch <> b3:12 var
+R4284:4285 KamiHW.TensorDispatch <> b2:11 var
+R4277:4278 KamiHW.TensorDispatch <> b1:10 var
+R4270:4271 KamiHW.TensorDispatch <> b0:9 var
+R4189:4190 Kami.Lib.Word <> WS constr
+R4196:4197 Kami.Lib.Word <> WS constr
+R4203:4204 Kami.Lib.Word <> WS constr
+R4210:4211 Kami.Lib.Word <> WS constr
+R4217:4218 Kami.Lib.Word <> WS constr
+R4224:4225 Kami.Lib.Word <> WS constr
+R4231:4232 Kami.Lib.Word <> WS constr
+R4238:4239 Kami.Lib.Word <> WS constr
+R4244:4245 Kami.Lib.Word <> WO constr
+R4241:4242 KamiHW.TensorDispatch <> c7:24 var
+R4234:4235 KamiHW.TensorDispatch <> c6:23 var
+R4227:4228 KamiHW.TensorDispatch <> c5:22 var
+R4220:4221 KamiHW.TensorDispatch <> c4:21 var
+R4213:4214 KamiHW.TensorDispatch <> c3:20 var
+R4206:4207 KamiHW.TensorDispatch <> c2:19 var
+R4199:4200 KamiHW.TensorDispatch <> c1:18 var
+R4192:4193 KamiHW.TensorDispatch <> c0:17 var
+R4165:4176 KamiHW.TensorDispatch <> tensor_total:76 var
+R4152:4163 KamiHW.TensorDispatch <> wc_diff_11_v:75 var
+R4139:4150 KamiHW.TensorDispatch <> wc_same_11_v:74 var
+R4126:4137 KamiHW.TensorDispatch <> wc_diff_10_v:73 var
+R4113:4124 KamiHW.TensorDispatch <> wc_same_10_v:72 var
+R4100:4111 KamiHW.TensorDispatch <> wc_diff_01_v:71 var
+R4087:4098 KamiHW.TensorDispatch <> wc_same_01_v:70 var
+R4074:4085 KamiHW.TensorDispatch <> wc_diff_00_v:69 var
+R4061:4072 KamiHW.TensorDispatch <> wc_same_00_v:68 var
+R4041:4059 KamiHW.TensorDispatch <> desc_meta_next_id_v:67 var
+R4017:4039 KamiHW.TensorDispatch <> desc_meta_valid_table_v:66 var
+R3997:4015 KamiHW.TensorDispatch <> cert_desc_next_id_v:65 var
+R3973:3995 KamiHW.TensorDispatch <> cert_desc_valid_table_v:64 var
+R3950:3971 KamiHW.TensorDispatch <> formula_desc_next_id_v:63 var
+R3923:3948 KamiHW.TensorDispatch <> formula_desc_valid_table_v:62 var
+R3899:3921 KamiHW.TensorDispatch <> coupling_pair_next_id_v:61 var
+R3875:3897 KamiHW.TensorDispatch <> coupling_desc_next_id_v:60 var
+R3843:3873 KamiHW.TensorDispatch <> coupling_desc_label_len_table_v:59 var
+R3815:3841 KamiHW.TensorDispatch <> coupling_desc_label_table_v:58 var
+R3788:3813 KamiHW.TensorDispatch <> coupling_desc_base_table_v:57 var
+R3760:3786 KamiHW.TensorDispatch <> coupling_desc_count_table_v:56 var
+R3732:3758 KamiHW.TensorDispatch <> coupling_desc_valid_table_v:55 var
+R3716:3730 KamiHW.TensorDispatch <> morph_next_id_v:54 var
+R3693:3714 KamiHW.TensorDispatch <> morph_identity_table_v:53 var
+R3665:3691 KamiHW.TensorDispatch <> morph_coupling_desc_table_v:52 var
+R3645:3663 KamiHW.TensorDispatch <> morph_valid_table_v:51 var
+R3627:3643 KamiHW.TensorDispatch <> morph_dst_table_v:50 var
+R3609:3625 KamiHW.TensorDispatch <> morph_src_table_v:49 var
+R3597:3607 KamiHW.TensorDispatch <> certified_v:48 var
+R3584:3595 KamiHW.TensorDispatch <> pt_next_id_v:47 var
+R3573:3582 KamiHW.TensorDispatch <> pt_bases_v:46 var
+R3562:3571 KamiHW.TensorDispatch <> pt_sizes_v:45 var
+R3546:3560 KamiHW.TensorDispatch <> csr_heap_base_v:44 var
+R3529:3544 KamiHW.TensorDispatch <> module_tensors_v:43 var
+R3517:3527 KamiHW.TensorDispatch <> mu_tensor_v:42 var
+R3503:3515 KamiHW.TensorDispatch <> trap_vector_v:41 var
+R3489:3501 KamiHW.TensorDispatch <> minstret_hi_v:40 var
+R3475:3487 KamiHW.TensorDispatch <> minstret_lo_v:39 var
+R3463:3473 KamiHW.TensorDispatch <> mcycle_hi_v:38 var
+R3451:3461 KamiHW.TensorDispatch <> mcycle_lo_v:37 var
+R3435:3449 KamiHW.TensorDispatch <> active_module_v:36 var
+R3423:3433 KamiHW.TensorDispatch <> cert_addr_v:35 var
+R3411:3421 KamiHW.TensorDispatch <> logic_acc_v:34 var
+R3398:3409 KamiHW.TensorDispatch <> error_code_v:33 var
+R3386:3396 KamiHW.TensorDispatch <> info_gain_v:32 var
+R3376:3384 KamiHW.TensorDispatch <> mdl_ops_v:31 var
+R3360:3374 KamiHW.TensorDispatch <> partition_ops_v:30 var
+R3354:3358 KamiHW.TensorDispatch <> mem_v:29 var
+R3347:3352 KamiHW.TensorDispatch <> regs_v:28 var
+R3342:3345 KamiHW.TensorDispatch <> mu_v:27 var
+R3337:3340 KamiHW.TensorDispatch <> pc_v:26 var
+R3317:3335 KamiHW.TensorDispatch <> chsh_check_result_v:25 var
+R3268:3274 Kami.Lib.FMap M empty def
+R4493:4496 Coq.Init.Datatypes <> Some constr
+R4499:4504 Coq.Init.Specif <> existT constr
+R4605:4621 KamiHW.TensorDispatch <> bianchi_violation:77 var
+binder 4659:4659 <> m:78
+R4667:4669 Kami.Lib.Word <> weq def
+R4675:4676 Kami.Lib.Word <> WS constr
+R4682:4683 Kami.Lib.Word <> WS constr
+R4689:4690 Kami.Lib.Word <> WS constr
+R4696:4697 Kami.Lib.Word <> WS constr
+R4702:4703 Kami.Lib.Word <> WO constr
+R4699:4700 KamiHW.TensorDispatch <> a7:8 var
+R4692:4693 KamiHW.TensorDispatch <> a6:7 var
+R4685:4686 KamiHW.TensorDispatch <> a5:6 var
+R4678:4679 KamiHW.TensorDispatch <> a4:5 var
+R4671:4671 KamiHW.TensorDispatch <> m:78 var
+R4960:4975 KamiHW.TensorDispatch <> module_tensors_v:43 var
+R4977:4977 KamiHW.TensorDispatch <> m:78 var
+binder 4727:4727 <> i:79
+R4735:4737 Kami.Lib.Word <> weq def
+R4743:4744 Kami.Lib.Word <> WS constr
+R4750:4751 Kami.Lib.Word <> WS constr
+R4757:4758 Kami.Lib.Word <> WS constr
+R4764:4765 Kami.Lib.Word <> WS constr
+R4770:4771 Kami.Lib.Word <> WO constr
+R4767:4768 KamiHW.TensorDispatch <> a3:4 var
+R4760:4761 KamiHW.TensorDispatch <> a2:3 var
+R4753:4754 KamiHW.TensorDispatch <> a1:2 var
+R4746:4747 KamiHW.TensorDispatch <> a0:1 var
+R4739:4739 KamiHW.TensorDispatch <> i:79 var
 R4891:4906 KamiHW.TensorDispatch <> module_tensors_v:43 var
-R4908:4908 KamiHW.TensorDispatch <> m:77 var
-binder 4658:4658 <> i:78
-R4666:4668 Kami.Lib.Word <> weq def
-R4674:4675 Kami.Lib.Word <> WS constr
-R4681:4682 Kami.Lib.Word <> WS constr
-R4688:4689 Kami.Lib.Word <> WS constr
-R4695:4696 Kami.Lib.Word <> WS constr
-R4701:4702 Kami.Lib.Word <> WO constr
-R4698:4699 KamiHW.TensorDispatch <> a3:4 var
-R4691:4692 KamiHW.TensorDispatch <> a2:3 var
-R4684:4685 KamiHW.TensorDispatch <> a1:2 var
-R4677:4678 KamiHW.TensorDispatch <> a0:1 var
-R4670:4670 KamiHW.TensorDispatch <> i:78 var
-R4822:4837 KamiHW.TensorDispatch <> module_tensors_v:43 var
-R4841:4842 Kami.Lib.Word <> WS constr
-R4848:4849 Kami.Lib.Word <> WS constr
-R4855:4856 Kami.Lib.Word <> WS constr
-R4862:4863 Kami.Lib.Word <> WS constr
-R4868:4869 Kami.Lib.Word <> WO constr
-R4865:4866 KamiHW.TensorDispatch <> a7:8 var
-R4858:4859 KamiHW.TensorDispatch <> a6:7 var
-R4851:4852 KamiHW.TensorDispatch <> a5:6 var
-R4844:4845 KamiHW.TensorDispatch <> a4:5 var
-R4876:4876 KamiHW.TensorDispatch <> i:78 var
-R4714:4720 Kami.Lib.Word <> combine def
-R4792:4800 Kami.Lib.Word <> natToWord def
-R4724:4725 Kami.Lib.Word <> WS constr
-R4731:4732 Kami.Lib.Word <> WS constr
-R4738:4739 Kami.Lib.Word <> WS constr
-R4745:4746 Kami.Lib.Word <> WS constr
-R4752:4753 Kami.Lib.Word <> WS constr
-R4759:4760 Kami.Lib.Word <> WS constr
-R4766:4767 Kami.Lib.Word <> WS constr
-R4773:4774 Kami.Lib.Word <> WS constr
-R4779:4780 Kami.Lib.Word <> WO constr
-R4776:4777 KamiHW.TensorDispatch <> b7:16 var
-R4769:4770 KamiHW.TensorDispatch <> b6:15 var
-R4762:4763 KamiHW.TensorDispatch <> b5:14 var
-R4755:4756 KamiHW.TensorDispatch <> b4:13 var
-R4748:4749 KamiHW.TensorDispatch <> b3:12 var
-R4741:4742 KamiHW.TensorDispatch <> b2:11 var
-R4734:4735 KamiHW.TensorDispatch <> b1:10 var
-R4727:4728 KamiHW.TensorDispatch <> b0:9 var
-R4559:4574 KamiHW.TensorDispatch <> module_tensors_v:43 var
-R4457:4466 Kami.Syntax <> SyntaxKind constr
-R4469:4474 Kami.Syntax <> Vector constr
-R4512:4525 KamiHW.ThieleTypes <> ModTensorIdxSz def
-R4477:4482 Kami.Syntax <> Vector constr
-R4497:4509 KamiHW.ThieleTypes <> MuTensorIdxSz def
-R4485:4487 Kami.Syntax <> Bit constr
-R4489:4494 KamiHW.ThieleTypes <> WordSz def
-R4438:4445 Kami.Syntax <> fullType def
-R4447:4450 Kami.Syntax <> type def
-prf 5018:5035 <> tensor_get_decoded
-R5121:5124 Coq.Init.Datatypes <> bool ind
-binder 5047:5048 <> a0:79
-binder 5050:5051 <> a1:80
-binder 5053:5054 <> a2:81
-binder 5056:5057 <> a3:82
-binder 5059:5060 <> a4:83
-binder 5062:5063 <> a5:84
-binder 5065:5066 <> a6:85
-binder 5068:5069 <> a7:86
-binder 5071:5072 <> b0:87
-binder 5074:5075 <> b1:88
-binder 5077:5078 <> b2:89
-binder 5080:5081 <> b3:90
-binder 5083:5084 <> b4:91
-binder 5086:5087 <> b5:92
-binder 5089:5090 <> b6:93
-binder 5092:5093 <> b7:94
-binder 5095:5096 <> c0:95
-binder 5098:5099 <> c1:96
-binder 5101:5102 <> c2:97
-binder 5104:5105 <> c3:98
-binder 5107:5108 <> c4:99
-binder 5110:5111 <> c5:100
-binder 5113:5114 <> c6:101
-binder 5116:5117 <> c7:102
-R5154:5157 Kami.Syntax <> type def
-R5160:5163 Kami.Syntax <> Bool constr
-binder 5132:5150 <> chsh_check_result_v:103
-R5179:5182 Kami.Syntax <> type def
-R5185:5187 Kami.Syntax <> Bit constr
-R5189:5194 KamiHW.ThieleTypes <> WordSz def
-binder 5172:5175 <> pc_v:104
-R5210:5213 Kami.Syntax <> type def
-R5216:5218 Kami.Syntax <> Bit constr
-R5220:5225 KamiHW.ThieleTypes <> WordSz def
-binder 5203:5206 <> mu_v:105
-R5243:5246 Kami.Syntax <> type def
-R5249:5254 Kami.Syntax <> Vector constr
-R5269:5276 KamiHW.ThieleTypes <> RegIdxSz def
-R5257:5259 Kami.Syntax <> Bit constr
-R5261:5266 KamiHW.ThieleTypes <> WordSz def
-binder 5234:5239 <> regs_v:106
-R5293:5296 Kami.Syntax <> type def
-R5299:5304 Kami.Syntax <> Vector constr
-R5319:5327 KamiHW.ThieleTypes <> MemAddrSz def
-R5307:5309 Kami.Syntax <> Bit constr
-R5311:5316 KamiHW.ThieleTypes <> WordSz def
-binder 5285:5289 <> mem_v:107
-R5354:5357 Kami.Syntax <> type def
-R5360:5362 Kami.Syntax <> Bit constr
-R5364:5369 KamiHW.ThieleTypes <> WordSz def
-binder 5336:5350 <> partition_ops_v:108
-R5390:5393 Kami.Syntax <> type def
-R5396:5398 Kami.Syntax <> Bit constr
-R5400:5405 KamiHW.ThieleTypes <> WordSz def
-binder 5378:5386 <> mdl_ops_v:109
-R5428:5431 Kami.Syntax <> type def
-R5434:5436 Kami.Syntax <> Bit constr
-R5438:5443 KamiHW.ThieleTypes <> WordSz def
-binder 5414:5424 <> info_gain_v:110
-R5467:5470 Kami.Syntax <> type def
-R5473:5475 Kami.Syntax <> Bit constr
-R5477:5482 KamiHW.ThieleTypes <> WordSz def
-binder 5452:5463 <> error_code_v:111
-R5505:5508 Kami.Syntax <> type def
-R5511:5513 Kami.Syntax <> Bit constr
-R5515:5520 KamiHW.ThieleTypes <> WordSz def
-binder 5491:5501 <> logic_acc_v:112
-R5543:5546 Kami.Syntax <> type def
-R5549:5551 Kami.Syntax <> Bit constr
-R5553:5558 KamiHW.ThieleTypes <> WordSz def
-binder 5529:5539 <> cert_addr_v:113
-R5585:5588 Kami.Syntax <> type def
-R5591:5593 Kami.Syntax <> Bit constr
-R5595:5605 KamiHW.ThieleTypes <> PTableIdxSz def
-binder 5567:5581 <> active_module_v:114
-R5628:5631 Kami.Syntax <> type def
-R5634:5636 Kami.Syntax <> Bit constr
-R5638:5643 KamiHW.ThieleTypes <> WordSz def
-binder 5614:5624 <> mcycle_lo_v:115
-R5666:5669 Kami.Syntax <> type def
-R5672:5674 Kami.Syntax <> Bit constr
-R5676:5681 KamiHW.ThieleTypes <> WordSz def
-binder 5652:5662 <> mcycle_hi_v:116
-R5706:5709 Kami.Syntax <> type def
-R5712:5714 Kami.Syntax <> Bit constr
-R5716:5721 KamiHW.ThieleTypes <> WordSz def
-binder 5690:5702 <> minstret_lo_v:117
-R5746:5749 Kami.Syntax <> type def
-R5752:5754 Kami.Syntax <> Bit constr
-R5756:5761 KamiHW.ThieleTypes <> WordSz def
-binder 5730:5742 <> minstret_hi_v:118
-R5786:5789 Kami.Syntax <> type def
-R5792:5794 Kami.Syntax <> Bit constr
-R5796:5801 KamiHW.ThieleTypes <> WordSz def
-binder 5770:5782 <> trap_vector_v:119
-R5824:5827 Kami.Syntax <> type def
-R5830:5835 Kami.Syntax <> Vector constr
-R5850:5862 KamiHW.ThieleTypes <> MuTensorIdxSz def
-R5838:5840 Kami.Syntax <> Bit constr
-R5842:5847 KamiHW.ThieleTypes <> WordSz def
-binder 5810:5820 <> mu_tensor_v:120
-R5890:5893 Kami.Syntax <> type def
-R5896:5901 Kami.Syntax <> Vector constr
-R5939:5952 KamiHW.ThieleTypes <> ModTensorIdxSz def
-R5904:5909 Kami.Syntax <> Vector constr
-R5924:5936 KamiHW.ThieleTypes <> MuTensorIdxSz def
-R5912:5914 Kami.Syntax <> Bit constr
-R5916:5921 KamiHW.ThieleTypes <> WordSz def
-binder 5871:5886 <> module_tensors_v:121
-R5979:5982 Kami.Syntax <> type def
-R5985:5987 Kami.Syntax <> Bit constr
-R5989:5994 KamiHW.ThieleTypes <> WordSz def
-binder 5961:5975 <> csr_heap_base_v:122
-R6016:6019 Kami.Syntax <> type def
-R6022:6027 Kami.Syntax <> Vector constr
-R6042:6052 KamiHW.ThieleTypes <> PTableIdxSz def
-R6030:6032 Kami.Syntax <> Bit constr
-R6034:6039 KamiHW.ThieleTypes <> WordSz def
-binder 6003:6012 <> pt_sizes_v:123
-R6076:6079 Kami.Syntax <> type def
-R6082:6084 Kami.Syntax <> Bit constr
-R6086:6099 KamiHW.ThieleTypes <> PTableNextIdSz def
-binder 6061:6072 <> pt_next_id_v:124
-R6122:6125 Kami.Syntax <> type def
-R6128:6131 Kami.Syntax <> Bool constr
-binder 6108:6118 <> certified_v:125
-R6160:6163 Kami.Syntax <> type def
-R6166:6171 Kami.Syntax <> Vector constr
-R6191:6205 KamiHW.ThieleTypes <> MorphTableIdxSz def
-R6174:6176 Kami.Syntax <> Bit constr
-R6178:6188 KamiHW.ThieleTypes <> PTableIdxSz def
-binder 6140:6156 <> morph_src_table_v:126
-R6234:6237 Kami.Syntax <> type def
-R6240:6245 Kami.Syntax <> Vector constr
-R6265:6279 KamiHW.ThieleTypes <> MorphTableIdxSz def
-R6248:6250 Kami.Syntax <> Bit constr
-R6252:6262 KamiHW.ThieleTypes <> PTableIdxSz def
-binder 6214:6230 <> morph_dst_table_v:127
-R6310:6313 Kami.Syntax <> type def
-R6316:6321 Kami.Syntax <> Vector constr
-R6328:6342 KamiHW.ThieleTypes <> MorphTableIdxSz def
-R6323:6326 Kami.Syntax <> Bool constr
-binder 6288:6306 <> morph_valid_table_v:128
-R6381:6384 Kami.Syntax <> type def
-R6387:6392 Kami.Syntax <> Vector constr
-R6410:6424 KamiHW.ThieleTypes <> MorphTableIdxSz def
-R6395:6397 Kami.Syntax <> Bit constr
-R6399:6407 KamiHW.ThieleTypes <> DescIdxSz def
-binder 6351:6377 <> morph_coupling_desc_table_v:129
-R6458:6461 Kami.Syntax <> type def
-R6464:6469 Kami.Syntax <> Vector constr
-R6476:6490 KamiHW.ThieleTypes <> MorphTableIdxSz def
-R6471:6474 Kami.Syntax <> Bool constr
-binder 6433:6454 <> morph_identity_table_v:130
-R6517:6520 Kami.Syntax <> type def
-R6523:6525 Kami.Syntax <> Bit constr
-R6527:6544 KamiHW.ThieleTypes <> MorphTableNextIdSz def
-binder 6499:6513 <> morph_next_id_v:131
-R6583:6586 Kami.Syntax <> type def
-R6589:6594 Kami.Syntax <> Vector constr
-R6601:6617 KamiHW.ThieleTypes <> CouplingDescIdxSz def
-R6596:6599 Kami.Syntax <> Bool constr
-binder 6553:6579 <> coupling_desc_valid_table_v:132
-R6656:6659 Kami.Syntax <> type def
-R6662:6667 Kami.Syntax <> Vector constr
-R6695:6711 KamiHW.ThieleTypes <> CouplingDescIdxSz def
-R6670:6672 Kami.Syntax <> Bit constr
-R6674:6692 KamiHW.ThieleTypes <> CouplingPairCountSz def
-binder 6626:6652 <> coupling_desc_count_table_v:133
-R6749:6752 Kami.Syntax <> type def
-R6755:6760 Kami.Syntax <> Vector constr
-R6786:6802 KamiHW.ThieleTypes <> CouplingDescIdxSz def
-R6763:6765 Kami.Syntax <> Bit constr
-R6767:6783 KamiHW.ThieleTypes <> CouplingPairIdxSz def
-binder 6720:6745 <> coupling_desc_base_table_v:134
-R6841:6844 Kami.Syntax <> type def
-R6847:6852 Kami.Syntax <> Vector constr
-R6867:6883 KamiHW.ThieleTypes <> CouplingDescIdxSz def
-R6855:6857 Kami.Syntax <> Bit constr
-R6859:6864 KamiHW.ThieleTypes <> WordSz def
-binder 6811:6837 <> coupling_desc_label_table_v:135
-R6926:6929 Kami.Syntax <> type def
-R6932:6937 Kami.Syntax <> Vector constr
-R6947:6963 KamiHW.ThieleTypes <> CouplingDescIdxSz def
-R6940:6942 Kami.Syntax <> Bit constr
-binder 6892:6922 <> coupling_desc_label_len_table_v:136
-R6998:7001 Kami.Syntax <> type def
-R7004:7006 Kami.Syntax <> Bit constr
-R7008:7024 KamiHW.ThieleTypes <> DescTableNextIdSz def
-binder 6972:6994 <> coupling_desc_next_id_v:137
-R7059:7062 Kami.Syntax <> type def
-R7065:7067 Kami.Syntax <> Bit constr
-R7069:7085 KamiHW.ThieleTypes <> DescTableNextIdSz def
-binder 7033:7055 <> coupling_pair_next_id_v:138
-R7123:7126 Kami.Syntax <> type def
-R7129:7134 Kami.Syntax <> Vector constr
-R7141:7156 KamiHW.ThieleTypes <> FormulaDescIdxSz def
-R7136:7139 Kami.Syntax <> Bool constr
-binder 7094:7119 <> formula_desc_valid_table_v:139
-R7190:7193 Kami.Syntax <> type def
-R7196:7198 Kami.Syntax <> Bit constr
-R7200:7216 KamiHW.ThieleTypes <> DescTableNextIdSz def
-binder 7165:7186 <> formula_desc_next_id_v:140
-R7251:7254 Kami.Syntax <> type def
-R7257:7262 Kami.Syntax <> Vector constr
-R7269:7281 KamiHW.ThieleTypes <> CertDescIdxSz def
-R7264:7267 Kami.Syntax <> Bool constr
-binder 7225:7247 <> cert_desc_valid_table_v:141
-R7312:7315 Kami.Syntax <> type def
-R7318:7320 Kami.Syntax <> Bit constr
-R7322:7338 KamiHW.ThieleTypes <> DescTableNextIdSz def
-binder 7290:7308 <> cert_desc_next_id_v:142
-R7373:7376 Kami.Syntax <> type def
-R7379:7384 Kami.Syntax <> Vector constr
-R7391:7403 KamiHW.ThieleTypes <> DescMetaIdxSz def
-R7386:7389 Kami.Syntax <> Bool constr
-binder 7347:7369 <> desc_meta_valid_table_v:143
-R7434:7437 Kami.Syntax <> type def
-R7440:7442 Kami.Syntax <> Bit constr
-R7444:7460 KamiHW.ThieleTypes <> DescTableNextIdSz def
-binder 7412:7430 <> desc_meta_next_id_v:144
-R7484:7487 Kami.Syntax <> type def
-R7490:7492 Kami.Syntax <> Bit constr
-R7494:7499 KamiHW.ThieleTypes <> WordSz def
-binder 7469:7480 <> wc_same_00_v:145
-R7523:7526 Kami.Syntax <> type def
-R7529:7531 Kami.Syntax <> Bit constr
-R7533:7538 KamiHW.ThieleTypes <> WordSz def
-binder 7508:7519 <> wc_diff_00_v:146
-R7562:7565 Kami.Syntax <> type def
-R7568:7570 Kami.Syntax <> Bit constr
-R7572:7577 KamiHW.ThieleTypes <> WordSz def
-binder 7547:7558 <> wc_same_01_v:147
-R7601:7604 Kami.Syntax <> type def
-R7607:7609 Kami.Syntax <> Bit constr
-R7611:7616 KamiHW.ThieleTypes <> WordSz def
-binder 7586:7597 <> wc_diff_01_v:148
-R7640:7643 Kami.Syntax <> type def
-R7646:7648 Kami.Syntax <> Bit constr
-R7650:7655 KamiHW.ThieleTypes <> WordSz def
-binder 7625:7636 <> wc_same_10_v:149
-R7679:7682 Kami.Syntax <> type def
-R7685:7687 Kami.Syntax <> Bit constr
-R7689:7694 KamiHW.ThieleTypes <> WordSz def
-binder 7664:7675 <> wc_diff_10_v:150
-R7718:7721 Kami.Syntax <> type def
-R7724:7726 Kami.Syntax <> Bit constr
-R7728:7733 KamiHW.ThieleTypes <> WordSz def
-binder 7703:7714 <> wc_same_11_v:151
-R7757:7760 Kami.Syntax <> type def
-R7763:7765 Kami.Syntax <> Bit constr
-R7767:7772 KamiHW.ThieleTypes <> WordSz def
-binder 7742:7753 <> wc_diff_11_v:152
-R7796:7799 Kami.Syntax <> type def
-R7802:7804 Kami.Syntax <> Bit constr
-R7806:7811 KamiHW.ThieleTypes <> WordSz def
-binder 7781:7792 <> tensor_total:153
-R7840:7843 Kami.Syntax <> type def
-R7846:7849 Kami.Syntax <> Bool constr
-binder 7820:7836 <> bianchi_violation:154
-R9078:9081 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7856:7875 KamiHW.ActionObservation <> observe_action_write def
-R7900:7915 KamiHW.ThieleCPUCore <> dispatch_decoded def
-R9060:9076 KamiHW.TensorDispatch <> bianchi_violation:154 var
-R8768:8774 Kami.Lib.Word <> combine def
-R8846:8852 Kami.Lib.Word <> combine def
-R8924:8930 Kami.Lib.Word <> combine def
-R9002:9008 Kami.Lib.Word <> combine def
-R9028:9034 Kami.Lib.Word <> NToWord def
-R9040:9047 Coq.NArith.BinNat N shiftl def
-R9011:9019 Kami.Lib.Word <> natToWord def
-R8934:8935 Kami.Lib.Word <> WS constr
-R8941:8942 Kami.Lib.Word <> WS constr
-R8948:8949 Kami.Lib.Word <> WS constr
-R8955:8956 Kami.Lib.Word <> WS constr
-R8962:8963 Kami.Lib.Word <> WS constr
-R8969:8970 Kami.Lib.Word <> WS constr
-R8976:8977 Kami.Lib.Word <> WS constr
-R8983:8984 Kami.Lib.Word <> WS constr
-R8989:8990 Kami.Lib.Word <> WO constr
-R8986:8987 KamiHW.TensorDispatch <> a7:86 var
-R8979:8980 KamiHW.TensorDispatch <> a6:85 var
-R8972:8973 KamiHW.TensorDispatch <> a5:84 var
-R8965:8966 KamiHW.TensorDispatch <> a4:83 var
-R8958:8959 KamiHW.TensorDispatch <> a3:82 var
-R8951:8952 KamiHW.TensorDispatch <> a2:81 var
-R8944:8945 KamiHW.TensorDispatch <> a1:80 var
-R8937:8938 KamiHW.TensorDispatch <> a0:79 var
-R8856:8857 Kami.Lib.Word <> WS constr
-R8863:8864 Kami.Lib.Word <> WS constr
-R8870:8871 Kami.Lib.Word <> WS constr
-R8877:8878 Kami.Lib.Word <> WS constr
-R8884:8885 Kami.Lib.Word <> WS constr
-R8891:8892 Kami.Lib.Word <> WS constr
-R8898:8899 Kami.Lib.Word <> WS constr
-R8905:8906 Kami.Lib.Word <> WS constr
-R8911:8912 Kami.Lib.Word <> WO constr
-R8908:8909 KamiHW.TensorDispatch <> b7:94 var
-R8901:8902 KamiHW.TensorDispatch <> b6:93 var
-R8894:8895 KamiHW.TensorDispatch <> b5:92 var
-R8887:8888 KamiHW.TensorDispatch <> b4:91 var
-R8880:8881 KamiHW.TensorDispatch <> b3:90 var
-R8873:8874 KamiHW.TensorDispatch <> b2:89 var
-R8866:8867 KamiHW.TensorDispatch <> b1:88 var
-R8859:8860 KamiHW.TensorDispatch <> b0:87 var
-R8778:8779 Kami.Lib.Word <> WS constr
-R8785:8786 Kami.Lib.Word <> WS constr
-R8792:8793 Kami.Lib.Word <> WS constr
-R8799:8800 Kami.Lib.Word <> WS constr
-R8806:8807 Kami.Lib.Word <> WS constr
-R8813:8814 Kami.Lib.Word <> WS constr
-R8820:8821 Kami.Lib.Word <> WS constr
-R8827:8828 Kami.Lib.Word <> WS constr
-R8833:8834 Kami.Lib.Word <> WO constr
-R8830:8831 KamiHW.TensorDispatch <> c7:102 var
-R8823:8824 KamiHW.TensorDispatch <> c6:101 var
-R8816:8817 KamiHW.TensorDispatch <> c5:100 var
-R8809:8810 KamiHW.TensorDispatch <> c4:99 var
-R8802:8803 KamiHW.TensorDispatch <> c3:98 var
-R8795:8796 KamiHW.TensorDispatch <> c2:97 var
-R8788:8789 KamiHW.TensorDispatch <> c1:96 var
-R8781:8782 KamiHW.TensorDispatch <> c0:95 var
-R8754:8765 KamiHW.TensorDispatch <> tensor_total:153 var
-R8741:8752 KamiHW.TensorDispatch <> wc_diff_11_v:152 var
-R8728:8739 KamiHW.TensorDispatch <> wc_same_11_v:151 var
-R8715:8726 KamiHW.TensorDispatch <> wc_diff_10_v:150 var
-R8702:8713 KamiHW.TensorDispatch <> wc_same_10_v:149 var
-R8689:8700 KamiHW.TensorDispatch <> wc_diff_01_v:148 var
-R8676:8687 KamiHW.TensorDispatch <> wc_same_01_v:147 var
-R8663:8674 KamiHW.TensorDispatch <> wc_diff_00_v:146 var
-R8650:8661 KamiHW.TensorDispatch <> wc_same_00_v:145 var
-R8630:8648 KamiHW.TensorDispatch <> desc_meta_next_id_v:144 var
-R8606:8628 KamiHW.TensorDispatch <> desc_meta_valid_table_v:143 var
-R8586:8604 KamiHW.TensorDispatch <> cert_desc_next_id_v:142 var
-R8562:8584 KamiHW.TensorDispatch <> cert_desc_valid_table_v:141 var
-R8539:8560 KamiHW.TensorDispatch <> formula_desc_next_id_v:140 var
-R8512:8537 KamiHW.TensorDispatch <> formula_desc_valid_table_v:139 var
-R8488:8510 KamiHW.TensorDispatch <> coupling_pair_next_id_v:138 var
-R8464:8486 KamiHW.TensorDispatch <> coupling_desc_next_id_v:137 var
-R8432:8462 KamiHW.TensorDispatch <> coupling_desc_label_len_table_v:136 var
-R8404:8430 KamiHW.TensorDispatch <> coupling_desc_label_table_v:135 var
-R8377:8402 KamiHW.TensorDispatch <> coupling_desc_base_table_v:134 var
-R8349:8375 KamiHW.TensorDispatch <> coupling_desc_count_table_v:133 var
-R8321:8347 KamiHW.TensorDispatch <> coupling_desc_valid_table_v:132 var
-R8305:8319 KamiHW.TensorDispatch <> morph_next_id_v:131 var
-R8282:8303 KamiHW.TensorDispatch <> morph_identity_table_v:130 var
-R8254:8280 KamiHW.TensorDispatch <> morph_coupling_desc_table_v:129 var
-R8234:8252 KamiHW.TensorDispatch <> morph_valid_table_v:128 var
-R8216:8232 KamiHW.TensorDispatch <> morph_dst_table_v:127 var
-R8198:8214 KamiHW.TensorDispatch <> morph_src_table_v:126 var
-R8186:8196 KamiHW.TensorDispatch <> certified_v:125 var
-R8173:8184 KamiHW.TensorDispatch <> pt_next_id_v:124 var
-R8162:8171 KamiHW.TensorDispatch <> pt_sizes_v:123 var
-R8146:8160 KamiHW.TensorDispatch <> csr_heap_base_v:122 var
-R8129:8144 KamiHW.TensorDispatch <> module_tensors_v:121 var
-R8117:8127 KamiHW.TensorDispatch <> mu_tensor_v:120 var
-R8103:8115 KamiHW.TensorDispatch <> trap_vector_v:119 var
-R8089:8101 KamiHW.TensorDispatch <> minstret_hi_v:118 var
-R8075:8087 KamiHW.TensorDispatch <> minstret_lo_v:117 var
-R8063:8073 KamiHW.TensorDispatch <> mcycle_hi_v:116 var
-R8051:8061 KamiHW.TensorDispatch <> mcycle_lo_v:115 var
-R8035:8049 KamiHW.TensorDispatch <> active_module_v:114 var
-R8023:8033 KamiHW.TensorDispatch <> cert_addr_v:113 var
-R8011:8021 KamiHW.TensorDispatch <> logic_acc_v:112 var
-R7998:8009 KamiHW.TensorDispatch <> error_code_v:111 var
-R7986:7996 KamiHW.TensorDispatch <> info_gain_v:110 var
-R7976:7984 KamiHW.TensorDispatch <> mdl_ops_v:109 var
-R7960:7974 KamiHW.TensorDispatch <> partition_ops_v:108 var
-R7954:7958 KamiHW.TensorDispatch <> mem_v:107 var
-R7947:7952 KamiHW.TensorDispatch <> regs_v:106 var
-R7942:7945 KamiHW.TensorDispatch <> mu_v:105 var
-R7937:7940 KamiHW.TensorDispatch <> pc_v:104 var
-R7917:7935 KamiHW.TensorDispatch <> chsh_check_result_v:103 var
-R7878:7884 Kami.Lib.FMap M empty def
-R9082:9085 Coq.Init.Datatypes <> Some constr
-R9088:9093 Coq.Init.Specif <> existT constr
-R9162:9178 KamiHW.TensorDispatch <> bianchi_violation:154 var
-binder 9206:9206 <> r:155
-R9214:9216 Kami.Lib.Word <> weq def
-R9221:9222 Kami.Lib.Word <> WS constr
-R9228:9229 Kami.Lib.Word <> WS constr
-R9235:9236 Kami.Lib.Word <> WS constr
-R9242:9243 Kami.Lib.Word <> WS constr
-R9248:9249 Kami.Lib.Word <> WO constr
-R9245:9246 KamiHW.TensorDispatch <> a3:82 var
-R9238:9239 KamiHW.TensorDispatch <> a2:81 var
-R9231:9232 KamiHW.TensorDispatch <> a1:80 var
-R9224:9225 KamiHW.TensorDispatch <> a0:79 var
-R9218:9218 KamiHW.TensorDispatch <> r:155 var
-R9364:9369 KamiHW.TensorDispatch <> regs_v:106 var
-R9371:9371 KamiHW.TensorDispatch <> r:155 var
-R9267:9282 KamiHW.TensorDispatch <> module_tensors_v:121 var
-R9285:9286 Kami.Lib.Word <> WS constr
-R9292:9293 Kami.Lib.Word <> WS constr
-R9299:9300 Kami.Lib.Word <> WS constr
-R9306:9307 Kami.Lib.Word <> WS constr
-R9312:9313 Kami.Lib.Word <> WO constr
-R9309:9310 KamiHW.TensorDispatch <> b7:94 var
-R9302:9303 KamiHW.TensorDispatch <> b6:93 var
-R9295:9296 KamiHW.TensorDispatch <> b5:92 var
-R9288:9289 KamiHW.TensorDispatch <> b4:91 var
-R9320:9321 Kami.Lib.Word <> WS constr
-R9327:9328 Kami.Lib.Word <> WS constr
-R9334:9335 Kami.Lib.Word <> WS constr
-R9341:9342 Kami.Lib.Word <> WS constr
-R9347:9348 Kami.Lib.Word <> WO constr
-R9344:9345 KamiHW.TensorDispatch <> b3:90 var
-R9337:9338 KamiHW.TensorDispatch <> b2:89 var
-R9330:9331 KamiHW.TensorDispatch <> b1:88 var
-R9323:9324 KamiHW.TensorDispatch <> b0:87 var
-R9185:9190 KamiHW.TensorDispatch <> regs_v:106 var
-R9112:9121 Kami.Syntax <> SyntaxKind constr
-R9124:9129 Kami.Syntax <> Vector constr
-R9144:9151 KamiHW.ThieleTypes <> RegIdxSz def
-R9132:9134 Kami.Syntax <> Bit constr
-R9136:9141 KamiHW.ThieleTypes <> WordSz def
-R9096:9103 Kami.Syntax <> fullType def
-R9105:9108 Kami.Syntax <> type def
-prf 9483:9513 <> tensor_set_dispatch_observation
-R9599:9602 Coq.Init.Datatypes <> bool ind
-binder 9525:9526 <> a0:156
-binder 9528:9529 <> a1:157
-binder 9531:9532 <> a2:158
-binder 9534:9535 <> a3:159
-binder 9537:9538 <> a4:160
-binder 9540:9541 <> a5:161
-binder 9543:9544 <> a6:162
-binder 9546:9547 <> a7:163
-binder 9549:9550 <> b0:164
-binder 9552:9553 <> b1:165
-binder 9555:9556 <> b2:166
-binder 9558:9559 <> b3:167
-binder 9561:9562 <> b4:168
-binder 9564:9565 <> b5:169
-binder 9567:9568 <> b6:170
-binder 9570:9571 <> b7:171
-binder 9573:9574 <> c0:172
-binder 9576:9577 <> c1:173
-binder 9579:9580 <> c2:174
-binder 9582:9583 <> c3:175
-binder 9585:9586 <> c4:176
-binder 9588:9589 <> c5:177
-binder 9591:9592 <> c6:178
-binder 9594:9595 <> c7:179
-binder 9605:9605 <> b:180
-binder 9607:9610 <> imem:181
-R9941:9946 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9646:9649 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9940:9940 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9615:9618 KamiHW.TensorDispatch <> imem:181 var
-R9621:9642 KamiHW.DispatchFetch <> dispatch_fetch_address def
-R9644:9644 KamiHW.TensorDispatch <> b:180 var
-R9650:9656 Kami.Lib.Word <> combine def
-R9728:9734 Kami.Lib.Word <> combine def
-R9806:9812 Kami.Lib.Word <> combine def
-R9884:9890 Kami.Lib.Word <> combine def
-R9910:9916 Kami.Lib.Word <> NToWord def
-R9922:9929 Coq.NArith.BinNat N shiftl def
-R9893:9901 Kami.Lib.Word <> natToWord def
-R9816:9817 Kami.Lib.Word <> WS constr
-R9823:9824 Kami.Lib.Word <> WS constr
-R9830:9831 Kami.Lib.Word <> WS constr
-R9837:9838 Kami.Lib.Word <> WS constr
-R9844:9845 Kami.Lib.Word <> WS constr
-R9851:9852 Kami.Lib.Word <> WS constr
-R9858:9859 Kami.Lib.Word <> WS constr
-R9865:9866 Kami.Lib.Word <> WS constr
-R9871:9872 Kami.Lib.Word <> WO constr
-R9868:9869 KamiHW.TensorDispatch <> a7:163 var
-R9861:9862 KamiHW.TensorDispatch <> a6:162 var
-R9854:9855 KamiHW.TensorDispatch <> a5:161 var
-R9847:9848 KamiHW.TensorDispatch <> a4:160 var
-R9840:9841 KamiHW.TensorDispatch <> a3:159 var
-R9833:9834 KamiHW.TensorDispatch <> a2:158 var
-R9826:9827 KamiHW.TensorDispatch <> a1:157 var
-R9819:9820 KamiHW.TensorDispatch <> a0:156 var
-R9738:9739 Kami.Lib.Word <> WS constr
-R9745:9746 Kami.Lib.Word <> WS constr
-R9752:9753 Kami.Lib.Word <> WS constr
-R9759:9760 Kami.Lib.Word <> WS constr
-R9766:9767 Kami.Lib.Word <> WS constr
-R9773:9774 Kami.Lib.Word <> WS constr
-R9780:9781 Kami.Lib.Word <> WS constr
-R9787:9788 Kami.Lib.Word <> WS constr
-R9793:9794 Kami.Lib.Word <> WO constr
-R9790:9791 KamiHW.TensorDispatch <> b7:171 var
-R9783:9784 KamiHW.TensorDispatch <> b6:170 var
-R9776:9777 KamiHW.TensorDispatch <> b5:169 var
-R9769:9770 KamiHW.TensorDispatch <> b4:168 var
-R9762:9763 KamiHW.TensorDispatch <> b3:167 var
-R9755:9756 KamiHW.TensorDispatch <> b2:166 var
-R9748:9749 KamiHW.TensorDispatch <> b1:165 var
-R9741:9742 KamiHW.TensorDispatch <> b0:164 var
-R9660:9661 Kami.Lib.Word <> WS constr
-R9667:9668 Kami.Lib.Word <> WS constr
-R9674:9675 Kami.Lib.Word <> WS constr
-R9681:9682 Kami.Lib.Word <> WS constr
-R9688:9689 Kami.Lib.Word <> WS constr
-R9695:9696 Kami.Lib.Word <> WS constr
-R9702:9703 Kami.Lib.Word <> WS constr
-R9709:9710 Kami.Lib.Word <> WS constr
-R9715:9716 Kami.Lib.Word <> WO constr
-R9712:9713 KamiHW.TensorDispatch <> c7:179 var
-R9705:9706 KamiHW.TensorDispatch <> c6:178 var
-R9698:9699 KamiHW.TensorDispatch <> c5:177 var
-R9691:9692 KamiHW.TensorDispatch <> c4:176 var
-R9684:9685 KamiHW.TensorDispatch <> c3:175 var
-R9677:9678 KamiHW.TensorDispatch <> c2:174 var
-R9670:9671 KamiHW.TensorDispatch <> c1:173 var
-R9663:9664 KamiHW.TensorDispatch <> c0:172 var
-R10014:10017 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9947:9968 KamiHW.DispatchObservation <> observe_dispatch_write def
-R9971:9988 KamiHW.DispatchFetch <> dispatch_with_imem def
-R9990:9990 KamiHW.TensorDispatch <> b:180 var
-R9992:9995 KamiHW.TensorDispatch <> imem:181 var
-R10018:10021 Coq.Init.Datatypes <> Some constr
-R10024:10029 Coq.Init.Specif <> existT constr
-R10130:10140 KamiHW.BoundaryDecoded <> hwb_bianchi def
-R10142:10142 KamiHW.TensorDispatch <> b:180 var
-binder 10185:10185 <> m:182
-R10193:10195 Kami.Lib.Word <> weq def
-R10201:10202 Kami.Lib.Word <> WS constr
-R10208:10209 Kami.Lib.Word <> WS constr
-R10215:10216 Kami.Lib.Word <> WS constr
-R10222:10223 Kami.Lib.Word <> WS constr
-R10228:10229 Kami.Lib.Word <> WO constr
-R10225:10226 KamiHW.TensorDispatch <> a7:163 var
-R10218:10219 KamiHW.TensorDispatch <> a6:162 var
-R10211:10212 KamiHW.TensorDispatch <> a5:161 var
-R10204:10205 KamiHW.TensorDispatch <> a4:160 var
-R10197:10197 KamiHW.TensorDispatch <> m:182 var
-R10492:10508 KamiHW.HWBoundary <> hw_module_tensors proj
-R10510:10510 KamiHW.TensorDispatch <> b:180 var
-R10513:10513 KamiHW.TensorDispatch <> m:182 var
-binder 10253:10253 <> i:183
-R10261:10263 Kami.Lib.Word <> weq def
-R10269:10270 Kami.Lib.Word <> WS constr
-R10276:10277 Kami.Lib.Word <> WS constr
-R10283:10284 Kami.Lib.Word <> WS constr
-R10290:10291 Kami.Lib.Word <> WS constr
-R10296:10297 Kami.Lib.Word <> WO constr
-R10293:10294 KamiHW.TensorDispatch <> a3:159 var
-R10286:10287 KamiHW.TensorDispatch <> a2:158 var
-R10279:10280 KamiHW.TensorDispatch <> a1:157 var
-R10272:10273 KamiHW.TensorDispatch <> a0:156 var
-R10265:10265 KamiHW.TensorDispatch <> i:183 var
-R10418:10434 KamiHW.HWBoundary <> hw_module_tensors proj
-R10436:10436 KamiHW.TensorDispatch <> b:180 var
-R10441:10442 Kami.Lib.Word <> WS constr
-R10448:10449 Kami.Lib.Word <> WS constr
-R10455:10456 Kami.Lib.Word <> WS constr
-R10462:10463 Kami.Lib.Word <> WS constr
-R10468:10469 Kami.Lib.Word <> WO constr
-R10465:10466 KamiHW.TensorDispatch <> a7:163 var
-R10458:10459 KamiHW.TensorDispatch <> a6:162 var
-R10451:10452 KamiHW.TensorDispatch <> a5:161 var
-R10444:10445 KamiHW.TensorDispatch <> a4:160 var
-R10476:10476 KamiHW.TensorDispatch <> i:183 var
-R10309:10315 Kami.Lib.Word <> combine def
-R10387:10395 Kami.Lib.Word <> natToWord def
-R10319:10320 Kami.Lib.Word <> WS constr
-R10326:10327 Kami.Lib.Word <> WS constr
-R10333:10334 Kami.Lib.Word <> WS constr
-R10340:10341 Kami.Lib.Word <> WS constr
-R10347:10348 Kami.Lib.Word <> WS constr
-R10354:10355 Kami.Lib.Word <> WS constr
-R10361:10362 Kami.Lib.Word <> WS constr
-R10368:10369 Kami.Lib.Word <> WS constr
-R10374:10375 Kami.Lib.Word <> WO constr
-R10371:10372 KamiHW.TensorDispatch <> b7:171 var
-R10364:10365 KamiHW.TensorDispatch <> b6:170 var
-R10357:10358 KamiHW.TensorDispatch <> b5:169 var
-R10350:10351 KamiHW.TensorDispatch <> b4:168 var
-R10343:10344 KamiHW.TensorDispatch <> b3:167 var
-R10336:10337 KamiHW.TensorDispatch <> b2:166 var
-R10329:10330 KamiHW.TensorDispatch <> b1:165 var
-R10322:10323 KamiHW.TensorDispatch <> b0:164 var
-R10150:10166 KamiHW.HWBoundary <> hw_module_tensors proj
-R10168:10168 KamiHW.TensorDispatch <> b:180 var
-R10051:10060 Kami.Syntax <> SyntaxKind constr
-R10063:10068 Kami.Syntax <> Vector constr
-R10106:10119 KamiHW.ThieleTypes <> ModTensorIdxSz def
-R10071:10076 Kami.Syntax <> Vector constr
-R10091:10103 KamiHW.ThieleTypes <> MuTensorIdxSz def
-R10079:10081 Kami.Syntax <> Bit constr
-R10083:10088 KamiHW.ThieleTypes <> WordSz def
-R10032:10039 Kami.Syntax <> fullType def
-R10041:10044 Kami.Syntax <> type def
-R10543:10576 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
-R10543:10576 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
-R10543:10576 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
-R10599:10609 KamiHW.BoundaryDecoded <> hwb_decoded def
-R10618:10635 KamiHW.TensorDispatch <> tensor_set_decoded thm
-R10618:10635 KamiHW.TensorDispatch <> tensor_set_decoded thm
-prf 10654:10676 <> tensor_set_actual_write
-R10762:10765 Coq.Init.Datatypes <> bool ind
-binder 10688:10689 <> a0:184
-binder 10691:10692 <> a1:185
-binder 10694:10695 <> a2:186
-binder 10697:10698 <> a3:187
-binder 10700:10701 <> a4:188
-binder 10703:10704 <> a5:189
-binder 10706:10707 <> a6:190
-binder 10709:10710 <> a7:191
-binder 10712:10713 <> b0:192
-binder 10715:10716 <> b1:193
-binder 10718:10719 <> b2:194
-binder 10721:10722 <> b3:195
-binder 10724:10725 <> b4:196
-binder 10727:10728 <> b5:197
-binder 10730:10731 <> b6:198
-binder 10733:10734 <> b7:199
-binder 10736:10737 <> c0:200
-binder 10739:10740 <> c1:201
-binder 10742:10743 <> c2:202
-binder 10745:10746 <> c3:203
-binder 10748:10749 <> c4:204
-binder 10751:10752 <> c5:205
-binder 10754:10755 <> c6:206
-binder 10757:10758 <> c7:207
-binder 10768:10768 <> b:208
-binder 10770:10773 <> imem:209
-binder 10775:10775 <> u:210
-R11106:11111 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10811:10814 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11105:11105 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10780:10783 KamiHW.TensorDispatch <> imem:209 var
-R10786:10807 KamiHW.DispatchFetch <> dispatch_fetch_address def
-R10809:10809 KamiHW.TensorDispatch <> b:208 var
-R10815:10821 Kami.Lib.Word <> combine def
-R10893:10899 Kami.Lib.Word <> combine def
-R10971:10977 Kami.Lib.Word <> combine def
-R11049:11055 Kami.Lib.Word <> combine def
-R11075:11081 Kami.Lib.Word <> NToWord def
-R11087:11094 Coq.NArith.BinNat N shiftl def
-R11058:11066 Kami.Lib.Word <> natToWord def
-R10981:10982 Kami.Lib.Word <> WS constr
-R10988:10989 Kami.Lib.Word <> WS constr
-R10995:10996 Kami.Lib.Word <> WS constr
-R11002:11003 Kami.Lib.Word <> WS constr
-R11009:11010 Kami.Lib.Word <> WS constr
-R11016:11017 Kami.Lib.Word <> WS constr
-R11023:11024 Kami.Lib.Word <> WS constr
-R11030:11031 Kami.Lib.Word <> WS constr
-R11036:11037 Kami.Lib.Word <> WO constr
-R11033:11034 KamiHW.TensorDispatch <> a7:191 var
-R11026:11027 KamiHW.TensorDispatch <> a6:190 var
-R11019:11020 KamiHW.TensorDispatch <> a5:189 var
-R11012:11013 KamiHW.TensorDispatch <> a4:188 var
-R11005:11006 KamiHW.TensorDispatch <> a3:187 var
-R10998:10999 KamiHW.TensorDispatch <> a2:186 var
-R10991:10992 KamiHW.TensorDispatch <> a1:185 var
-R10984:10985 KamiHW.TensorDispatch <> a0:184 var
-R10903:10904 Kami.Lib.Word <> WS constr
-R10910:10911 Kami.Lib.Word <> WS constr
-R10917:10918 Kami.Lib.Word <> WS constr
-R10924:10925 Kami.Lib.Word <> WS constr
-R10931:10932 Kami.Lib.Word <> WS constr
-R10938:10939 Kami.Lib.Word <> WS constr
-R10945:10946 Kami.Lib.Word <> WS constr
-R10952:10953 Kami.Lib.Word <> WS constr
-R10958:10959 Kami.Lib.Word <> WO constr
-R10955:10956 KamiHW.TensorDispatch <> b7:199 var
-R10948:10949 KamiHW.TensorDispatch <> b6:198 var
-R10941:10942 KamiHW.TensorDispatch <> b5:197 var
-R10934:10935 KamiHW.TensorDispatch <> b4:196 var
-R10927:10928 KamiHW.TensorDispatch <> b3:195 var
-R10920:10921 KamiHW.TensorDispatch <> b2:194 var
-R10913:10914 KamiHW.TensorDispatch <> b1:193 var
-R10906:10907 KamiHW.TensorDispatch <> b0:192 var
-R10825:10826 Kami.Lib.Word <> WS constr
-R10832:10833 Kami.Lib.Word <> WS constr
-R10839:10840 Kami.Lib.Word <> WS constr
-R10846:10847 Kami.Lib.Word <> WS constr
-R10853:10854 Kami.Lib.Word <> WS constr
-R10860:10861 Kami.Lib.Word <> WS constr
-R10867:10868 Kami.Lib.Word <> WS constr
-R10874:10875 Kami.Lib.Word <> WS constr
-R10880:10881 Kami.Lib.Word <> WO constr
-R10877:10878 KamiHW.TensorDispatch <> c7:207 var
-R10870:10871 KamiHW.TensorDispatch <> c6:206 var
-R10863:10864 KamiHW.TensorDispatch <> c5:205 var
-R10856:10857 KamiHW.TensorDispatch <> c4:204 var
-R10849:10850 KamiHW.TensorDispatch <> c3:203 var
-R10842:10843 KamiHW.TensorDispatch <> c2:202 var
-R10835:10836 KamiHW.TensorDispatch <> c1:201 var
-R10828:10829 KamiHW.TensorDispatch <> c0:200 var
-R11162:11167 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11153:11155 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11112:11124 KamiHW.DispatchExecution <> eval_dispatch def
-R11127:11144 KamiHW.DispatchFetch <> dispatch_with_imem def
-R11146:11146 KamiHW.TensorDispatch <> b:208 var
-R11148:11151 KamiHW.TensorDispatch <> imem:209 var
-R11156:11159 Coq.Init.Datatypes <> Some constr
-R11161:11161 KamiHW.TensorDispatch <> u:210 var
-R11231:11234 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11168:11173 Kami.Lib.FMap M find def
-R11193:11199 Kami.Lib.FMap M union def
-R11204:11221 KamiHW.DispatchFetch <> dispatch_with_imem def
-R11223:11223 KamiHW.TensorDispatch <> b:208 var
-R11225:11228 KamiHW.TensorDispatch <> imem:209 var
-R11201:11201 KamiHW.TensorDispatch <> u:210 var
-R11235:11238 Coq.Init.Datatypes <> Some constr
-R11241:11246 Coq.Init.Specif <> existT constr
-R11347:11357 KamiHW.BoundaryDecoded <> hwb_bianchi def
-R11359:11359 KamiHW.TensorDispatch <> b:208 var
-binder 11402:11402 <> m:211
-R11410:11412 Kami.Lib.Word <> weq def
-R11418:11419 Kami.Lib.Word <> WS constr
-R11425:11426 Kami.Lib.Word <> WS constr
-R11432:11433 Kami.Lib.Word <> WS constr
-R11439:11440 Kami.Lib.Word <> WS constr
-R11445:11446 Kami.Lib.Word <> WO constr
-R11442:11443 KamiHW.TensorDispatch <> a7:191 var
-R11435:11436 KamiHW.TensorDispatch <> a6:190 var
-R11428:11429 KamiHW.TensorDispatch <> a5:189 var
-R11421:11422 KamiHW.TensorDispatch <> a4:188 var
-R11414:11414 KamiHW.TensorDispatch <> m:211 var
-R11709:11725 KamiHW.HWBoundary <> hw_module_tensors proj
-R11727:11727 KamiHW.TensorDispatch <> b:208 var
-R11730:11730 KamiHW.TensorDispatch <> m:211 var
-binder 11470:11470 <> i:212
-R11478:11480 Kami.Lib.Word <> weq def
-R11486:11487 Kami.Lib.Word <> WS constr
-R11493:11494 Kami.Lib.Word <> WS constr
-R11500:11501 Kami.Lib.Word <> WS constr
-R11507:11508 Kami.Lib.Word <> WS constr
-R11513:11514 Kami.Lib.Word <> WO constr
-R11510:11511 KamiHW.TensorDispatch <> a3:187 var
-R11503:11504 KamiHW.TensorDispatch <> a2:186 var
-R11496:11497 KamiHW.TensorDispatch <> a1:185 var
-R11489:11490 KamiHW.TensorDispatch <> a0:184 var
-R11482:11482 KamiHW.TensorDispatch <> i:212 var
-R11635:11651 KamiHW.HWBoundary <> hw_module_tensors proj
-R11653:11653 KamiHW.TensorDispatch <> b:208 var
-R11658:11659 Kami.Lib.Word <> WS constr
-R11665:11666 Kami.Lib.Word <> WS constr
-R11672:11673 Kami.Lib.Word <> WS constr
-R11679:11680 Kami.Lib.Word <> WS constr
-R11685:11686 Kami.Lib.Word <> WO constr
-R11682:11683 KamiHW.TensorDispatch <> a7:191 var
-R11675:11676 KamiHW.TensorDispatch <> a6:190 var
-R11668:11669 KamiHW.TensorDispatch <> a5:189 var
-R11661:11662 KamiHW.TensorDispatch <> a4:188 var
-R11693:11693 KamiHW.TensorDispatch <> i:212 var
-R11526:11532 Kami.Lib.Word <> combine def
-R11604:11612 Kami.Lib.Word <> natToWord def
-R11536:11537 Kami.Lib.Word <> WS constr
-R11543:11544 Kami.Lib.Word <> WS constr
-R11550:11551 Kami.Lib.Word <> WS constr
-R11557:11558 Kami.Lib.Word <> WS constr
-R11564:11565 Kami.Lib.Word <> WS constr
-R11571:11572 Kami.Lib.Word <> WS constr
-R11578:11579 Kami.Lib.Word <> WS constr
-R11585:11586 Kami.Lib.Word <> WS constr
-R11591:11592 Kami.Lib.Word <> WO constr
-R11588:11589 KamiHW.TensorDispatch <> b7:199 var
-R11581:11582 KamiHW.TensorDispatch <> b6:198 var
-R11574:11575 KamiHW.TensorDispatch <> b5:197 var
-R11567:11568 KamiHW.TensorDispatch <> b4:196 var
-R11560:11561 KamiHW.TensorDispatch <> b3:195 var
-R11553:11554 KamiHW.TensorDispatch <> b2:194 var
-R11546:11547 KamiHW.TensorDispatch <> b1:193 var
-R11539:11540 KamiHW.TensorDispatch <> b0:192 var
-R11367:11383 KamiHW.HWBoundary <> hw_module_tensors proj
-R11385:11385 KamiHW.TensorDispatch <> b:208 var
-R11268:11277 Kami.Syntax <> SyntaxKind constr
-R11280:11285 Kami.Syntax <> Vector constr
-R11323:11336 KamiHW.ThieleTypes <> ModTensorIdxSz def
-R11288:11293 Kami.Syntax <> Vector constr
-R11308:11320 KamiHW.ThieleTypes <> MuTensorIdxSz def
-R11296:11298 Kami.Syntax <> Bit constr
-R11300:11305 KamiHW.ThieleTypes <> WordSz def
-R11249:11256 Kami.Syntax <> fullType def
-R11258:11261 Kami.Syntax <> type def
-R11760:11771 Kami.Lib.FMap M find_union thm
-R11760:11771 Kami.Lib.FMap M find_union thm
-R11760:11771 Kami.Lib.FMap M find_union thm
-R11788:11817 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
-R11788:11817 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
-R11788:11817 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
-R11841:11871 KamiHW.TensorDispatch <> tensor_set_dispatch_observation thm
-R11841:11871 KamiHW.TensorDispatch <> tensor_set_dispatch_observation thm
-R11841:11871 KamiHW.TensorDispatch <> tensor_set_dispatch_observation thm
-prf 11985:12015 <> tensor_get_dispatch_observation
-R12101:12104 Coq.Init.Datatypes <> bool ind
-binder 12027:12028 <> a0:213
-binder 12030:12031 <> a1:214
-binder 12033:12034 <> a2:215
-binder 12036:12037 <> a3:216
-binder 12039:12040 <> a4:217
-binder 12042:12043 <> a5:218
-binder 12045:12046 <> a6:219
-binder 12048:12049 <> a7:220
-binder 12051:12052 <> b0:221
-binder 12054:12055 <> b1:222
-binder 12057:12058 <> b2:223
-binder 12060:12061 <> b3:224
-binder 12063:12064 <> b4:225
-binder 12066:12067 <> b5:226
-binder 12069:12070 <> b6:227
-binder 12072:12073 <> b7:228
-binder 12075:12076 <> c0:229
-binder 12078:12079 <> c1:230
-binder 12081:12082 <> c2:231
-binder 12084:12085 <> c3:232
-binder 12087:12088 <> c4:233
-binder 12090:12091 <> c5:234
-binder 12093:12094 <> c6:235
-binder 12096:12097 <> c7:236
-binder 12107:12107 <> b:237
-binder 12109:12112 <> imem:238
-R12443:12448 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12148:12151 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12442:12442 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12117:12120 KamiHW.TensorDispatch <> imem:238 var
-R12123:12144 KamiHW.DispatchFetch <> dispatch_fetch_address def
-R12146:12146 KamiHW.TensorDispatch <> b:237 var
-R12152:12158 Kami.Lib.Word <> combine def
-R12230:12236 Kami.Lib.Word <> combine def
-R12308:12314 Kami.Lib.Word <> combine def
-R12386:12392 Kami.Lib.Word <> combine def
-R12412:12418 Kami.Lib.Word <> NToWord def
-R12424:12431 Coq.NArith.BinNat N shiftl def
-R12395:12403 Kami.Lib.Word <> natToWord def
-R12318:12319 Kami.Lib.Word <> WS constr
-R12325:12326 Kami.Lib.Word <> WS constr
-R12332:12333 Kami.Lib.Word <> WS constr
-R12339:12340 Kami.Lib.Word <> WS constr
-R12346:12347 Kami.Lib.Word <> WS constr
-R12353:12354 Kami.Lib.Word <> WS constr
-R12360:12361 Kami.Lib.Word <> WS constr
-R12367:12368 Kami.Lib.Word <> WS constr
-R12373:12374 Kami.Lib.Word <> WO constr
-R12370:12371 KamiHW.TensorDispatch <> a7:220 var
-R12363:12364 KamiHW.TensorDispatch <> a6:219 var
-R12356:12357 KamiHW.TensorDispatch <> a5:218 var
-R12349:12350 KamiHW.TensorDispatch <> a4:217 var
-R12342:12343 KamiHW.TensorDispatch <> a3:216 var
-R12335:12336 KamiHW.TensorDispatch <> a2:215 var
-R12328:12329 KamiHW.TensorDispatch <> a1:214 var
-R12321:12322 KamiHW.TensorDispatch <> a0:213 var
-R12240:12241 Kami.Lib.Word <> WS constr
-R12247:12248 Kami.Lib.Word <> WS constr
-R12254:12255 Kami.Lib.Word <> WS constr
-R12261:12262 Kami.Lib.Word <> WS constr
-R12268:12269 Kami.Lib.Word <> WS constr
-R12275:12276 Kami.Lib.Word <> WS constr
-R12282:12283 Kami.Lib.Word <> WS constr
-R12289:12290 Kami.Lib.Word <> WS constr
-R12295:12296 Kami.Lib.Word <> WO constr
-R12292:12293 KamiHW.TensorDispatch <> b7:228 var
-R12285:12286 KamiHW.TensorDispatch <> b6:227 var
-R12278:12279 KamiHW.TensorDispatch <> b5:226 var
-R12271:12272 KamiHW.TensorDispatch <> b4:225 var
-R12264:12265 KamiHW.TensorDispatch <> b3:224 var
-R12257:12258 KamiHW.TensorDispatch <> b2:223 var
-R12250:12251 KamiHW.TensorDispatch <> b1:222 var
-R12243:12244 KamiHW.TensorDispatch <> b0:221 var
-R12162:12163 Kami.Lib.Word <> WS constr
-R12169:12170 Kami.Lib.Word <> WS constr
-R12176:12177 Kami.Lib.Word <> WS constr
-R12183:12184 Kami.Lib.Word <> WS constr
-R12190:12191 Kami.Lib.Word <> WS constr
-R12197:12198 Kami.Lib.Word <> WS constr
-R12204:12205 Kami.Lib.Word <> WS constr
-R12211:12212 Kami.Lib.Word <> WS constr
-R12217:12218 Kami.Lib.Word <> WO constr
-R12214:12215 KamiHW.TensorDispatch <> c7:236 var
-R12207:12208 KamiHW.TensorDispatch <> c6:235 var
-R12200:12201 KamiHW.TensorDispatch <> c5:234 var
-R12193:12194 KamiHW.TensorDispatch <> c4:233 var
-R12186:12187 KamiHW.TensorDispatch <> c3:232 var
-R12179:12180 KamiHW.TensorDispatch <> c2:231 var
-R12172:12173 KamiHW.TensorDispatch <> c1:230 var
-R12165:12166 KamiHW.TensorDispatch <> c0:229 var
-R12506:12509 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12449:12470 KamiHW.DispatchObservation <> observe_dispatch_write def
-R12473:12490 KamiHW.DispatchFetch <> dispatch_with_imem def
-R12492:12492 KamiHW.TensorDispatch <> b:237 var
-R12494:12497 KamiHW.TensorDispatch <> imem:238 var
-R12510:12513 Coq.Init.Datatypes <> Some constr
-R12516:12521 Coq.Init.Specif <> existT constr
-R12590:12600 KamiHW.BoundaryDecoded <> hwb_bianchi def
-R12602:12602 KamiHW.TensorDispatch <> b:237 var
-binder 12635:12635 <> r:239
-R12643:12645 Kami.Lib.Word <> weq def
-R12650:12651 Kami.Lib.Word <> WS constr
-R12657:12658 Kami.Lib.Word <> WS constr
-R12664:12665 Kami.Lib.Word <> WS constr
-R12671:12672 Kami.Lib.Word <> WS constr
-R12677:12678 Kami.Lib.Word <> WO constr
-R12674:12675 KamiHW.TensorDispatch <> a3:216 var
-R12667:12668 KamiHW.TensorDispatch <> a2:215 var
-R12660:12661 KamiHW.TensorDispatch <> a1:214 var
-R12653:12654 KamiHW.TensorDispatch <> a0:213 var
-R12647:12647 KamiHW.TensorDispatch <> r:239 var
-R12799:12805 KamiHW.HWBoundary <> hw_regs proj
-R12807:12807 KamiHW.TensorDispatch <> b:237 var
-R12810:12810 KamiHW.TensorDispatch <> r:239 var
-R12697:12713 KamiHW.HWBoundary <> hw_module_tensors proj
-R12715:12715 KamiHW.TensorDispatch <> b:237 var
-R12719:12720 Kami.Lib.Word <> WS constr
-R12726:12727 Kami.Lib.Word <> WS constr
-R12733:12734 Kami.Lib.Word <> WS constr
-R12740:12741 Kami.Lib.Word <> WS constr
-R12746:12747 Kami.Lib.Word <> WO constr
-R12743:12744 KamiHW.TensorDispatch <> b7:228 var
-R12736:12737 KamiHW.TensorDispatch <> b6:227 var
-R12729:12730 KamiHW.TensorDispatch <> b5:226 var
-R12722:12723 KamiHW.TensorDispatch <> b4:225 var
-R12754:12755 Kami.Lib.Word <> WS constr
-R12761:12762 Kami.Lib.Word <> WS constr
-R12768:12769 Kami.Lib.Word <> WS constr
-R12775:12776 Kami.Lib.Word <> WS constr
-R12781:12782 Kami.Lib.Word <> WO constr
-R12778:12779 KamiHW.TensorDispatch <> b3:224 var
-R12771:12772 KamiHW.TensorDispatch <> b2:223 var
-R12764:12765 KamiHW.TensorDispatch <> b1:222 var
-R12757:12758 KamiHW.TensorDispatch <> b0:221 var
-R12610:12616 KamiHW.HWBoundary <> hw_regs proj
-R12618:12618 KamiHW.TensorDispatch <> b:237 var
-R12540:12549 Kami.Syntax <> SyntaxKind constr
-R12552:12557 Kami.Syntax <> Vector constr
-R12572:12579 KamiHW.ThieleTypes <> RegIdxSz def
-R12560:12562 Kami.Syntax <> Bit constr
-R12564:12569 KamiHW.ThieleTypes <> WordSz def
-R12524:12531 Kami.Syntax <> fullType def
-R12533:12536 Kami.Syntax <> type def
-R12840:12873 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
-R12840:12873 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
-R12840:12873 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
-R12896:12906 KamiHW.BoundaryDecoded <> hwb_decoded def
-R12915:12932 KamiHW.TensorDispatch <> tensor_get_decoded thm
-R12915:12932 KamiHW.TensorDispatch <> tensor_get_decoded thm
-prf 12951:12973 <> tensor_get_actual_write
-R13059:13062 Coq.Init.Datatypes <> bool ind
-binder 12985:12986 <> a0:240
-binder 12988:12989 <> a1:241
-binder 12991:12992 <> a2:242
-binder 12994:12995 <> a3:243
-binder 12997:12998 <> a4:244
-binder 13000:13001 <> a5:245
-binder 13003:13004 <> a6:246
-binder 13006:13007 <> a7:247
-binder 13009:13010 <> b0:248
-binder 13012:13013 <> b1:249
-binder 13015:13016 <> b2:250
-binder 13018:13019 <> b3:251
-binder 13021:13022 <> b4:252
-binder 13024:13025 <> b5:253
-binder 13027:13028 <> b6:254
-binder 13030:13031 <> b7:255
-binder 13033:13034 <> c0:256
-binder 13036:13037 <> c1:257
-binder 13039:13040 <> c2:258
-binder 13042:13043 <> c3:259
-binder 13045:13046 <> c4:260
-binder 13048:13049 <> c5:261
-binder 13051:13052 <> c6:262
-binder 13054:13055 <> c7:263
-binder 13065:13065 <> b:264
-binder 13067:13070 <> imem:265
-binder 13072:13072 <> u:266
-R13403:13408 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13108:13111 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13402:13402 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13077:13080 KamiHW.TensorDispatch <> imem:265 var
-R13083:13104 KamiHW.DispatchFetch <> dispatch_fetch_address def
-R13106:13106 KamiHW.TensorDispatch <> b:264 var
-R13112:13118 Kami.Lib.Word <> combine def
-R13190:13196 Kami.Lib.Word <> combine def
-R13268:13274 Kami.Lib.Word <> combine def
-R13346:13352 Kami.Lib.Word <> combine def
-R13372:13378 Kami.Lib.Word <> NToWord def
-R13384:13391 Coq.NArith.BinNat N shiftl def
-R13355:13363 Kami.Lib.Word <> natToWord def
-R13278:13279 Kami.Lib.Word <> WS constr
-R13285:13286 Kami.Lib.Word <> WS constr
-R13292:13293 Kami.Lib.Word <> WS constr
-R13299:13300 Kami.Lib.Word <> WS constr
-R13306:13307 Kami.Lib.Word <> WS constr
-R13313:13314 Kami.Lib.Word <> WS constr
-R13320:13321 Kami.Lib.Word <> WS constr
-R13327:13328 Kami.Lib.Word <> WS constr
-R13333:13334 Kami.Lib.Word <> WO constr
-R13330:13331 KamiHW.TensorDispatch <> a7:247 var
-R13323:13324 KamiHW.TensorDispatch <> a6:246 var
-R13316:13317 KamiHW.TensorDispatch <> a5:245 var
-R13309:13310 KamiHW.TensorDispatch <> a4:244 var
-R13302:13303 KamiHW.TensorDispatch <> a3:243 var
-R13295:13296 KamiHW.TensorDispatch <> a2:242 var
-R13288:13289 KamiHW.TensorDispatch <> a1:241 var
-R13281:13282 KamiHW.TensorDispatch <> a0:240 var
-R13200:13201 Kami.Lib.Word <> WS constr
-R13207:13208 Kami.Lib.Word <> WS constr
-R13214:13215 Kami.Lib.Word <> WS constr
-R13221:13222 Kami.Lib.Word <> WS constr
-R13228:13229 Kami.Lib.Word <> WS constr
-R13235:13236 Kami.Lib.Word <> WS constr
-R13242:13243 Kami.Lib.Word <> WS constr
-R13249:13250 Kami.Lib.Word <> WS constr
-R13255:13256 Kami.Lib.Word <> WO constr
-R13252:13253 KamiHW.TensorDispatch <> b7:255 var
-R13245:13246 KamiHW.TensorDispatch <> b6:254 var
-R13238:13239 KamiHW.TensorDispatch <> b5:253 var
-R13231:13232 KamiHW.TensorDispatch <> b4:252 var
-R13224:13225 KamiHW.TensorDispatch <> b3:251 var
-R13217:13218 KamiHW.TensorDispatch <> b2:250 var
-R13210:13211 KamiHW.TensorDispatch <> b1:249 var
-R13203:13204 KamiHW.TensorDispatch <> b0:248 var
-R13122:13123 Kami.Lib.Word <> WS constr
-R13129:13130 Kami.Lib.Word <> WS constr
-R13136:13137 Kami.Lib.Word <> WS constr
-R13143:13144 Kami.Lib.Word <> WS constr
-R13150:13151 Kami.Lib.Word <> WS constr
-R13157:13158 Kami.Lib.Word <> WS constr
-R13164:13165 Kami.Lib.Word <> WS constr
-R13171:13172 Kami.Lib.Word <> WS constr
-R13177:13178 Kami.Lib.Word <> WO constr
-R13174:13175 KamiHW.TensorDispatch <> c7:263 var
-R13167:13168 KamiHW.TensorDispatch <> c6:262 var
-R13160:13161 KamiHW.TensorDispatch <> c5:261 var
-R13153:13154 KamiHW.TensorDispatch <> c4:260 var
-R13146:13147 KamiHW.TensorDispatch <> c3:259 var
-R13139:13140 KamiHW.TensorDispatch <> c2:258 var
-R13132:13133 KamiHW.TensorDispatch <> c1:257 var
-R13125:13126 KamiHW.TensorDispatch <> c0:256 var
-R13459:13464 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13450:13452 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13409:13421 KamiHW.DispatchExecution <> eval_dispatch def
-R13424:13441 KamiHW.DispatchFetch <> dispatch_with_imem def
-R13443:13443 KamiHW.TensorDispatch <> b:264 var
-R13445:13448 KamiHW.TensorDispatch <> imem:265 var
-R13453:13456 Coq.Init.Datatypes <> Some constr
-R13458:13458 KamiHW.TensorDispatch <> u:266 var
-R13518:13521 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13465:13470 Kami.Lib.FMap M find def
-R13480:13486 Kami.Lib.FMap M union def
-R13491:13508 KamiHW.DispatchFetch <> dispatch_with_imem def
-R13510:13510 KamiHW.TensorDispatch <> b:264 var
-R13512:13515 KamiHW.TensorDispatch <> imem:265 var
-R13488:13488 KamiHW.TensorDispatch <> u:266 var
-R13522:13525 Coq.Init.Datatypes <> Some constr
-R13528:13533 Coq.Init.Specif <> existT constr
-R13602:13612 KamiHW.BoundaryDecoded <> hwb_bianchi def
-R13614:13614 KamiHW.TensorDispatch <> b:264 var
-binder 13647:13647 <> r:267
-R13655:13657 Kami.Lib.Word <> weq def
-R13662:13663 Kami.Lib.Word <> WS constr
-R13669:13670 Kami.Lib.Word <> WS constr
-R13676:13677 Kami.Lib.Word <> WS constr
-R13683:13684 Kami.Lib.Word <> WS constr
-R13689:13690 Kami.Lib.Word <> WO constr
-R13686:13687 KamiHW.TensorDispatch <> a3:243 var
-R13679:13680 KamiHW.TensorDispatch <> a2:242 var
-R13672:13673 KamiHW.TensorDispatch <> a1:241 var
-R13665:13666 KamiHW.TensorDispatch <> a0:240 var
-R13659:13659 KamiHW.TensorDispatch <> r:267 var
-R13811:13817 KamiHW.HWBoundary <> hw_regs proj
-R13819:13819 KamiHW.TensorDispatch <> b:264 var
-R13822:13822 KamiHW.TensorDispatch <> r:267 var
-R13709:13725 KamiHW.HWBoundary <> hw_module_tensors proj
-R13727:13727 KamiHW.TensorDispatch <> b:264 var
-R13731:13732 Kami.Lib.Word <> WS constr
-R13738:13739 Kami.Lib.Word <> WS constr
-R13745:13746 Kami.Lib.Word <> WS constr
-R13752:13753 Kami.Lib.Word <> WS constr
-R13758:13759 Kami.Lib.Word <> WO constr
-R13755:13756 KamiHW.TensorDispatch <> b7:255 var
-R13748:13749 KamiHW.TensorDispatch <> b6:254 var
-R13741:13742 KamiHW.TensorDispatch <> b5:253 var
-R13734:13735 KamiHW.TensorDispatch <> b4:252 var
-R13766:13767 Kami.Lib.Word <> WS constr
-R13773:13774 Kami.Lib.Word <> WS constr
-R13780:13781 Kami.Lib.Word <> WS constr
-R13787:13788 Kami.Lib.Word <> WS constr
-R13793:13794 Kami.Lib.Word <> WO constr
-R13790:13791 KamiHW.TensorDispatch <> b3:251 var
-R13783:13784 KamiHW.TensorDispatch <> b2:250 var
-R13776:13777 KamiHW.TensorDispatch <> b1:249 var
-R13769:13770 KamiHW.TensorDispatch <> b0:248 var
-R13622:13628 KamiHW.HWBoundary <> hw_regs proj
-R13630:13630 KamiHW.TensorDispatch <> b:264 var
-R13552:13561 Kami.Syntax <> SyntaxKind constr
-R13564:13569 Kami.Syntax <> Vector constr
-R13584:13591 KamiHW.ThieleTypes <> RegIdxSz def
-R13572:13574 Kami.Syntax <> Bit constr
-R13576:13581 KamiHW.ThieleTypes <> WordSz def
-R13536:13543 Kami.Syntax <> fullType def
-R13545:13548 Kami.Syntax <> type def
-R13852:13863 Kami.Lib.FMap M find_union thm
-R13852:13863 Kami.Lib.FMap M find_union thm
-R13852:13863 Kami.Lib.FMap M find_union thm
-R13880:13909 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
-R13880:13909 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
-R13880:13909 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
-R13933:13963 KamiHW.TensorDispatch <> tensor_get_dispatch_observation thm
-R13933:13963 KamiHW.TensorDispatch <> tensor_get_dispatch_observation thm
-R13933:13963 KamiHW.TensorDispatch <> tensor_get_dispatch_observation thm
-prf 14075:14105 <> dispatch_csr_status_not_written
-binder 14116:14116 <> b:268
-binder 14118:14121 <> imem:269
-R14189:14191 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14126:14147 KamiHW.DispatchObservation <> observe_dispatch_write def
-R14150:14167 KamiHW.DispatchFetch <> dispatch_with_imem def
-R14169:14169 KamiHW.TensorDispatch <> b:268 var
-R14171:14174 KamiHW.TensorDispatch <> imem:269 var
-R14192:14195 Coq.Init.Datatypes <> None constr
-R14223:14256 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
-R14223:14256 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
-R14223:14256 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
-R14268:14278 KamiHW.BoundaryDecoded <> hwb_decoded def
-prf 14316:14344 <> dispatch_csr_status_preserved
-binder 14355:14355 <> b:270
-binder 14357:14360 <> imem:271
-binder 14362:14362 <> u:272
-R14417:14422 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14408:14410 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14367:14379 KamiHW.DispatchExecution <> eval_dispatch def
-R14382:14399 KamiHW.DispatchFetch <> dispatch_with_imem def
-R14401:14401 KamiHW.TensorDispatch <> b:270 var
-R14403:14406 KamiHW.TensorDispatch <> imem:271 var
-R14411:14414 Coq.Init.Datatypes <> Some constr
-R14416:14416 KamiHW.TensorDispatch <> u:272 var
-R14482:14486 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14423:14428 Kami.Lib.FMap M find def
-R14444:14450 Kami.Lib.FMap M union def
-R14455:14472 KamiHW.DispatchFetch <> dispatch_with_imem def
-R14474:14474 KamiHW.TensorDispatch <> b:270 var
-R14476:14479 KamiHW.TensorDispatch <> imem:271 var
-R14452:14452 KamiHW.TensorDispatch <> u:272 var
-R14487:14492 Kami.Lib.FMap M find def
-R14508:14525 KamiHW.DispatchFetch <> dispatch_with_imem def
-R14527:14527 KamiHW.TensorDispatch <> b:270 var
-R14529:14532 KamiHW.TensorDispatch <> imem:271 var
-R14561:14572 Kami.Lib.FMap M find_union thm
-R14561:14572 Kami.Lib.FMap M find_union thm
-R14561:14572 Kami.Lib.FMap M find_union thm
-R14589:14618 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
-R14589:14618 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
-R14589:14618 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
-R14640:14670 KamiHW.TensorDispatch <> dispatch_csr_status_not_written thm
-R14640:14670 KamiHW.TensorDispatch <> dispatch_csr_status_not_written thm
-R14640:14670 KamiHW.TensorDispatch <> dispatch_csr_status_not_written thm
-prf 14698:14731 <> dispatch_csr_heap_base_not_written
-binder 14742:14742 <> b:273
-binder 14744:14747 <> imem:274
-R14818:14820 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14752:14773 KamiHW.DispatchObservation <> observe_dispatch_write def
-R14776:14793 KamiHW.DispatchFetch <> dispatch_with_imem def
-R14795:14795 KamiHW.TensorDispatch <> b:273 var
-R14797:14800 KamiHW.TensorDispatch <> imem:274 var
-R14821:14824 Coq.Init.Datatypes <> None constr
-R14852:14885 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
-R14852:14885 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
-R14852:14885 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
-R14897:14907 KamiHW.BoundaryDecoded <> hwb_decoded def
-prf 14945:14976 <> dispatch_csr_heap_base_preserved
-binder 14987:14987 <> b:275
-binder 14989:14992 <> imem:276
-binder 14994:14994 <> u:277
-R15049:15054 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15040:15042 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14999:15011 KamiHW.DispatchExecution <> eval_dispatch def
-R15014:15031 KamiHW.DispatchFetch <> dispatch_with_imem def
-R15033:15033 KamiHW.TensorDispatch <> b:275 var
-R15035:15038 KamiHW.TensorDispatch <> imem:276 var
-R15043:15046 Coq.Init.Datatypes <> Some constr
-R15048:15048 KamiHW.TensorDispatch <> u:277 var
-R15117:15121 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15055:15060 Kami.Lib.FMap M find def
-R15079:15085 Kami.Lib.FMap M union def
-R15090:15107 KamiHW.DispatchFetch <> dispatch_with_imem def
-R15109:15109 KamiHW.TensorDispatch <> b:275 var
-R15111:15114 KamiHW.TensorDispatch <> imem:276 var
-R15087:15087 KamiHW.TensorDispatch <> u:277 var
-R15122:15127 Kami.Lib.FMap M find def
-R15146:15163 KamiHW.DispatchFetch <> dispatch_with_imem def
-R15165:15165 KamiHW.TensorDispatch <> b:275 var
-R15167:15170 KamiHW.TensorDispatch <> imem:276 var
-R15199:15210 Kami.Lib.FMap M find_union thm
-R15199:15210 Kami.Lib.FMap M find_union thm
-R15199:15210 Kami.Lib.FMap M find_union thm
-R15227:15256 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
-R15227:15256 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
-R15227:15256 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
-R15278:15311 KamiHW.TensorDispatch <> dispatch_csr_heap_base_not_written thm
-R15278:15311 KamiHW.TensorDispatch <> dispatch_csr_heap_base_not_written thm
-R15278:15311 KamiHW.TensorDispatch <> dispatch_csr_heap_base_not_written thm
+R4910:4911 Kami.Lib.Word <> WS constr
+R4917:4918 Kami.Lib.Word <> WS constr
+R4924:4925 Kami.Lib.Word <> WS constr
+R4931:4932 Kami.Lib.Word <> WS constr
+R4937:4938 Kami.Lib.Word <> WO constr
+R4934:4935 KamiHW.TensorDispatch <> a7:8 var
+R4927:4928 KamiHW.TensorDispatch <> a6:7 var
+R4920:4921 KamiHW.TensorDispatch <> a5:6 var
+R4913:4914 KamiHW.TensorDispatch <> a4:5 var
+R4945:4945 KamiHW.TensorDispatch <> i:79 var
+R4783:4789 Kami.Lib.Word <> combine def
+R4861:4869 Kami.Lib.Word <> natToWord def
+R4793:4794 Kami.Lib.Word <> WS constr
+R4800:4801 Kami.Lib.Word <> WS constr
+R4807:4808 Kami.Lib.Word <> WS constr
+R4814:4815 Kami.Lib.Word <> WS constr
+R4821:4822 Kami.Lib.Word <> WS constr
+R4828:4829 Kami.Lib.Word <> WS constr
+R4835:4836 Kami.Lib.Word <> WS constr
+R4842:4843 Kami.Lib.Word <> WS constr
+R4848:4849 Kami.Lib.Word <> WO constr
+R4845:4846 KamiHW.TensorDispatch <> b7:16 var
+R4838:4839 KamiHW.TensorDispatch <> b6:15 var
+R4831:4832 KamiHW.TensorDispatch <> b5:14 var
+R4824:4825 KamiHW.TensorDispatch <> b4:13 var
+R4817:4818 KamiHW.TensorDispatch <> b3:12 var
+R4810:4811 KamiHW.TensorDispatch <> b2:11 var
+R4803:4804 KamiHW.TensorDispatch <> b1:10 var
+R4796:4797 KamiHW.TensorDispatch <> b0:9 var
+R4628:4643 KamiHW.TensorDispatch <> module_tensors_v:43 var
+R4526:4535 Kami.Syntax <> SyntaxKind constr
+R4538:4543 Kami.Syntax <> Vector constr
+R4581:4594 KamiHW.ThieleTypes <> ModTensorIdxSz def
+R4546:4551 Kami.Syntax <> Vector constr
+R4566:4578 KamiHW.ThieleTypes <> MuTensorIdxSz def
+R4554:4556 Kami.Syntax <> Bit constr
+R4558:4563 KamiHW.ThieleTypes <> WordSz def
+R4507:4514 Kami.Syntax <> fullType def
+R4516:4519 Kami.Syntax <> type def
+prf 5087:5104 <> tensor_get_decoded
+R5190:5193 Coq.Init.Datatypes <> bool ind
+binder 5116:5117 <> a0:80
+binder 5119:5120 <> a1:81
+binder 5122:5123 <> a2:82
+binder 5125:5126 <> a3:83
+binder 5128:5129 <> a4:84
+binder 5131:5132 <> a5:85
+binder 5134:5135 <> a6:86
+binder 5137:5138 <> a7:87
+binder 5140:5141 <> b0:88
+binder 5143:5144 <> b1:89
+binder 5146:5147 <> b2:90
+binder 5149:5150 <> b3:91
+binder 5152:5153 <> b4:92
+binder 5155:5156 <> b5:93
+binder 5158:5159 <> b6:94
+binder 5161:5162 <> b7:95
+binder 5164:5165 <> c0:96
+binder 5167:5168 <> c1:97
+binder 5170:5171 <> c2:98
+binder 5173:5174 <> c3:99
+binder 5176:5177 <> c4:100
+binder 5179:5180 <> c5:101
+binder 5182:5183 <> c6:102
+binder 5185:5186 <> c7:103
+R5223:5226 Kami.Syntax <> type def
+R5229:5232 Kami.Syntax <> Bool constr
+binder 5201:5219 <> chsh_check_result_v:104
+R5248:5251 Kami.Syntax <> type def
+R5254:5256 Kami.Syntax <> Bit constr
+R5258:5263 KamiHW.ThieleTypes <> WordSz def
+binder 5241:5244 <> pc_v:105
+R5279:5282 Kami.Syntax <> type def
+R5285:5287 Kami.Syntax <> Bit constr
+R5289:5294 KamiHW.ThieleTypes <> WordSz def
+binder 5272:5275 <> mu_v:106
+R5312:5315 Kami.Syntax <> type def
+R5318:5323 Kami.Syntax <> Vector constr
+R5338:5345 KamiHW.ThieleTypes <> RegIdxSz def
+R5326:5328 Kami.Syntax <> Bit constr
+R5330:5335 KamiHW.ThieleTypes <> WordSz def
+binder 5303:5308 <> regs_v:107
+R5362:5365 Kami.Syntax <> type def
+R5368:5373 Kami.Syntax <> Vector constr
+R5388:5396 KamiHW.ThieleTypes <> MemAddrSz def
+R5376:5378 Kami.Syntax <> Bit constr
+R5380:5385 KamiHW.ThieleTypes <> WordSz def
+binder 5354:5358 <> mem_v:108
+R5423:5426 Kami.Syntax <> type def
+R5429:5431 Kami.Syntax <> Bit constr
+R5433:5438 KamiHW.ThieleTypes <> WordSz def
+binder 5405:5419 <> partition_ops_v:109
+R5459:5462 Kami.Syntax <> type def
+R5465:5467 Kami.Syntax <> Bit constr
+R5469:5474 KamiHW.ThieleTypes <> WordSz def
+binder 5447:5455 <> mdl_ops_v:110
+R5497:5500 Kami.Syntax <> type def
+R5503:5505 Kami.Syntax <> Bit constr
+R5507:5512 KamiHW.ThieleTypes <> WordSz def
+binder 5483:5493 <> info_gain_v:111
+R5536:5539 Kami.Syntax <> type def
+R5542:5544 Kami.Syntax <> Bit constr
+R5546:5551 KamiHW.ThieleTypes <> WordSz def
+binder 5521:5532 <> error_code_v:112
+R5574:5577 Kami.Syntax <> type def
+R5580:5582 Kami.Syntax <> Bit constr
+R5584:5589 KamiHW.ThieleTypes <> WordSz def
+binder 5560:5570 <> logic_acc_v:113
+R5612:5615 Kami.Syntax <> type def
+R5618:5620 Kami.Syntax <> Bit constr
+R5622:5627 KamiHW.ThieleTypes <> WordSz def
+binder 5598:5608 <> cert_addr_v:114
+R5654:5657 Kami.Syntax <> type def
+R5660:5662 Kami.Syntax <> Bit constr
+R5664:5674 KamiHW.ThieleTypes <> PTableIdxSz def
+binder 5636:5650 <> active_module_v:115
+R5697:5700 Kami.Syntax <> type def
+R5703:5705 Kami.Syntax <> Bit constr
+R5707:5712 KamiHW.ThieleTypes <> WordSz def
+binder 5683:5693 <> mcycle_lo_v:116
+R5735:5738 Kami.Syntax <> type def
+R5741:5743 Kami.Syntax <> Bit constr
+R5745:5750 KamiHW.ThieleTypes <> WordSz def
+binder 5721:5731 <> mcycle_hi_v:117
+R5775:5778 Kami.Syntax <> type def
+R5781:5783 Kami.Syntax <> Bit constr
+R5785:5790 KamiHW.ThieleTypes <> WordSz def
+binder 5759:5771 <> minstret_lo_v:118
+R5815:5818 Kami.Syntax <> type def
+R5821:5823 Kami.Syntax <> Bit constr
+R5825:5830 KamiHW.ThieleTypes <> WordSz def
+binder 5799:5811 <> minstret_hi_v:119
+R5855:5858 Kami.Syntax <> type def
+R5861:5863 Kami.Syntax <> Bit constr
+R5865:5870 KamiHW.ThieleTypes <> WordSz def
+binder 5839:5851 <> trap_vector_v:120
+R5893:5896 Kami.Syntax <> type def
+R5899:5904 Kami.Syntax <> Vector constr
+R5919:5931 KamiHW.ThieleTypes <> MuTensorIdxSz def
+R5907:5909 Kami.Syntax <> Bit constr
+R5911:5916 KamiHW.ThieleTypes <> WordSz def
+binder 5879:5889 <> mu_tensor_v:121
+R5959:5962 Kami.Syntax <> type def
+R5965:5970 Kami.Syntax <> Vector constr
+R6008:6021 KamiHW.ThieleTypes <> ModTensorIdxSz def
+R5973:5978 Kami.Syntax <> Vector constr
+R5993:6005 KamiHW.ThieleTypes <> MuTensorIdxSz def
+R5981:5983 Kami.Syntax <> Bit constr
+R5985:5990 KamiHW.ThieleTypes <> WordSz def
+binder 5940:5955 <> module_tensors_v:122
+R6048:6051 Kami.Syntax <> type def
+R6054:6056 Kami.Syntax <> Bit constr
+R6058:6063 KamiHW.ThieleTypes <> WordSz def
+binder 6030:6044 <> csr_heap_base_v:123
+R6085:6088 Kami.Syntax <> type def
+R6091:6096 Kami.Syntax <> Vector constr
+R6111:6121 KamiHW.ThieleTypes <> PTableIdxSz def
+R6099:6101 Kami.Syntax <> Bit constr
+R6103:6108 KamiHW.ThieleTypes <> WordSz def
+binder 6072:6081 <> pt_sizes_v:124
+R6143:6146 Kami.Syntax <> type def
+R6149:6154 Kami.Syntax <> Vector constr
+R6169:6179 KamiHW.ThieleTypes <> PTableIdxSz def
+R6157:6159 Kami.Syntax <> Bit constr
+R6161:6166 KamiHW.ThieleTypes <> WordSz def
+binder 6130:6139 <> pt_bases_v:125
+R6203:6206 Kami.Syntax <> type def
+R6209:6211 Kami.Syntax <> Bit constr
+R6213:6226 KamiHW.ThieleTypes <> PTableNextIdSz def
+binder 6188:6199 <> pt_next_id_v:126
+R6249:6252 Kami.Syntax <> type def
+R6255:6258 Kami.Syntax <> Bool constr
+binder 6235:6245 <> certified_v:127
+R6287:6290 Kami.Syntax <> type def
+R6293:6298 Kami.Syntax <> Vector constr
+R6318:6332 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R6301:6303 Kami.Syntax <> Bit constr
+R6305:6315 KamiHW.ThieleTypes <> PTableIdxSz def
+binder 6267:6283 <> morph_src_table_v:128
+R6361:6364 Kami.Syntax <> type def
+R6367:6372 Kami.Syntax <> Vector constr
+R6392:6406 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R6375:6377 Kami.Syntax <> Bit constr
+R6379:6389 KamiHW.ThieleTypes <> PTableIdxSz def
+binder 6341:6357 <> morph_dst_table_v:129
+R6437:6440 Kami.Syntax <> type def
+R6443:6448 Kami.Syntax <> Vector constr
+R6455:6469 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R6450:6453 Kami.Syntax <> Bool constr
+binder 6415:6433 <> morph_valid_table_v:130
+R6508:6511 Kami.Syntax <> type def
+R6514:6519 Kami.Syntax <> Vector constr
+R6537:6551 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R6522:6524 Kami.Syntax <> Bit constr
+R6526:6534 KamiHW.ThieleTypes <> DescIdxSz def
+binder 6478:6504 <> morph_coupling_desc_table_v:131
+R6585:6588 Kami.Syntax <> type def
+R6591:6596 Kami.Syntax <> Vector constr
+R6603:6617 KamiHW.ThieleTypes <> MorphTableIdxSz def
+R6598:6601 Kami.Syntax <> Bool constr
+binder 6560:6581 <> morph_identity_table_v:132
+R6644:6647 Kami.Syntax <> type def
+R6650:6652 Kami.Syntax <> Bit constr
+R6654:6671 KamiHW.ThieleTypes <> MorphTableNextIdSz def
+binder 6626:6640 <> morph_next_id_v:133
+R6710:6713 Kami.Syntax <> type def
+R6716:6721 Kami.Syntax <> Vector constr
+R6728:6744 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R6723:6726 Kami.Syntax <> Bool constr
+binder 6680:6706 <> coupling_desc_valid_table_v:134
+R6783:6786 Kami.Syntax <> type def
+R6789:6794 Kami.Syntax <> Vector constr
+R6822:6838 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R6797:6799 Kami.Syntax <> Bit constr
+R6801:6819 KamiHW.ThieleTypes <> CouplingPairCountSz def
+binder 6753:6779 <> coupling_desc_count_table_v:135
+R6876:6879 Kami.Syntax <> type def
+R6882:6887 Kami.Syntax <> Vector constr
+R6913:6929 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R6890:6892 Kami.Syntax <> Bit constr
+R6894:6910 KamiHW.ThieleTypes <> CouplingPairIdxSz def
+binder 6847:6872 <> coupling_desc_base_table_v:136
+R6968:6971 Kami.Syntax <> type def
+R6974:6979 Kami.Syntax <> Vector constr
+R6994:7010 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R6982:6984 Kami.Syntax <> Bit constr
+R6986:6991 KamiHW.ThieleTypes <> WordSz def
+binder 6938:6964 <> coupling_desc_label_table_v:137
+R7053:7056 Kami.Syntax <> type def
+R7059:7064 Kami.Syntax <> Vector constr
+R7074:7090 KamiHW.ThieleTypes <> CouplingDescIdxSz def
+R7067:7069 Kami.Syntax <> Bit constr
+binder 7019:7049 <> coupling_desc_label_len_table_v:138
+R7125:7128 Kami.Syntax <> type def
+R7131:7133 Kami.Syntax <> Bit constr
+R7135:7151 KamiHW.ThieleTypes <> DescTableNextIdSz def
+binder 7099:7121 <> coupling_desc_next_id_v:139
+R7186:7189 Kami.Syntax <> type def
+R7192:7194 Kami.Syntax <> Bit constr
+R7196:7212 KamiHW.ThieleTypes <> DescTableNextIdSz def
+binder 7160:7182 <> coupling_pair_next_id_v:140
+R7250:7253 Kami.Syntax <> type def
+R7256:7261 Kami.Syntax <> Vector constr
+R7268:7283 KamiHW.ThieleTypes <> FormulaDescIdxSz def
+R7263:7266 Kami.Syntax <> Bool constr
+binder 7221:7246 <> formula_desc_valid_table_v:141
+R7317:7320 Kami.Syntax <> type def
+R7323:7325 Kami.Syntax <> Bit constr
+R7327:7343 KamiHW.ThieleTypes <> DescTableNextIdSz def
+binder 7292:7313 <> formula_desc_next_id_v:142
+R7378:7381 Kami.Syntax <> type def
+R7384:7389 Kami.Syntax <> Vector constr
+R7396:7408 KamiHW.ThieleTypes <> CertDescIdxSz def
+R7391:7394 Kami.Syntax <> Bool constr
+binder 7352:7374 <> cert_desc_valid_table_v:143
+R7439:7442 Kami.Syntax <> type def
+R7445:7447 Kami.Syntax <> Bit constr
+R7449:7465 KamiHW.ThieleTypes <> DescTableNextIdSz def
+binder 7417:7435 <> cert_desc_next_id_v:144
+R7500:7503 Kami.Syntax <> type def
+R7506:7511 Kami.Syntax <> Vector constr
+R7518:7530 KamiHW.ThieleTypes <> DescMetaIdxSz def
+R7513:7516 Kami.Syntax <> Bool constr
+binder 7474:7496 <> desc_meta_valid_table_v:145
+R7561:7564 Kami.Syntax <> type def
+R7567:7569 Kami.Syntax <> Bit constr
+R7571:7587 KamiHW.ThieleTypes <> DescTableNextIdSz def
+binder 7539:7557 <> desc_meta_next_id_v:146
+R7611:7614 Kami.Syntax <> type def
+R7617:7619 Kami.Syntax <> Bit constr
+R7621:7626 KamiHW.ThieleTypes <> WordSz def
+binder 7596:7607 <> wc_same_00_v:147
+R7650:7653 Kami.Syntax <> type def
+R7656:7658 Kami.Syntax <> Bit constr
+R7660:7665 KamiHW.ThieleTypes <> WordSz def
+binder 7635:7646 <> wc_diff_00_v:148
+R7689:7692 Kami.Syntax <> type def
+R7695:7697 Kami.Syntax <> Bit constr
+R7699:7704 KamiHW.ThieleTypes <> WordSz def
+binder 7674:7685 <> wc_same_01_v:149
+R7728:7731 Kami.Syntax <> type def
+R7734:7736 Kami.Syntax <> Bit constr
+R7738:7743 KamiHW.ThieleTypes <> WordSz def
+binder 7713:7724 <> wc_diff_01_v:150
+R7767:7770 Kami.Syntax <> type def
+R7773:7775 Kami.Syntax <> Bit constr
+R7777:7782 KamiHW.ThieleTypes <> WordSz def
+binder 7752:7763 <> wc_same_10_v:151
+R7806:7809 Kami.Syntax <> type def
+R7812:7814 Kami.Syntax <> Bit constr
+R7816:7821 KamiHW.ThieleTypes <> WordSz def
+binder 7791:7802 <> wc_diff_10_v:152
+R7845:7848 Kami.Syntax <> type def
+R7851:7853 Kami.Syntax <> Bit constr
+R7855:7860 KamiHW.ThieleTypes <> WordSz def
+binder 7830:7841 <> wc_same_11_v:153
+R7884:7887 Kami.Syntax <> type def
+R7890:7892 Kami.Syntax <> Bit constr
+R7894:7899 KamiHW.ThieleTypes <> WordSz def
+binder 7869:7880 <> wc_diff_11_v:154
+R7923:7926 Kami.Syntax <> type def
+R7929:7931 Kami.Syntax <> Bit constr
+R7933:7938 KamiHW.ThieleTypes <> WordSz def
+binder 7908:7919 <> tensor_total:155
+R7967:7970 Kami.Syntax <> type def
+R7973:7976 Kami.Syntax <> Bool constr
+binder 7947:7963 <> bianchi_violation:156
+R9216:9219 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7983:8002 KamiHW.ActionObservation <> observe_action_write def
+R8027:8042 KamiHW.ThieleCPUCore <> dispatch_decoded def
+R9198:9214 KamiHW.TensorDispatch <> bianchi_violation:156 var
+R8906:8912 Kami.Lib.Word <> combine def
+R8984:8990 Kami.Lib.Word <> combine def
+R9062:9068 Kami.Lib.Word <> combine def
+R9140:9146 Kami.Lib.Word <> combine def
+R9166:9172 Kami.Lib.Word <> NToWord def
+R9178:9185 Coq.NArith.BinNat N shiftl def
+R9149:9157 Kami.Lib.Word <> natToWord def
+R9072:9073 Kami.Lib.Word <> WS constr
+R9079:9080 Kami.Lib.Word <> WS constr
+R9086:9087 Kami.Lib.Word <> WS constr
+R9093:9094 Kami.Lib.Word <> WS constr
+R9100:9101 Kami.Lib.Word <> WS constr
+R9107:9108 Kami.Lib.Word <> WS constr
+R9114:9115 Kami.Lib.Word <> WS constr
+R9121:9122 Kami.Lib.Word <> WS constr
+R9127:9128 Kami.Lib.Word <> WO constr
+R9124:9125 KamiHW.TensorDispatch <> a7:87 var
+R9117:9118 KamiHW.TensorDispatch <> a6:86 var
+R9110:9111 KamiHW.TensorDispatch <> a5:85 var
+R9103:9104 KamiHW.TensorDispatch <> a4:84 var
+R9096:9097 KamiHW.TensorDispatch <> a3:83 var
+R9089:9090 KamiHW.TensorDispatch <> a2:82 var
+R9082:9083 KamiHW.TensorDispatch <> a1:81 var
+R9075:9076 KamiHW.TensorDispatch <> a0:80 var
+R8994:8995 Kami.Lib.Word <> WS constr
+R9001:9002 Kami.Lib.Word <> WS constr
+R9008:9009 Kami.Lib.Word <> WS constr
+R9015:9016 Kami.Lib.Word <> WS constr
+R9022:9023 Kami.Lib.Word <> WS constr
+R9029:9030 Kami.Lib.Word <> WS constr
+R9036:9037 Kami.Lib.Word <> WS constr
+R9043:9044 Kami.Lib.Word <> WS constr
+R9049:9050 Kami.Lib.Word <> WO constr
+R9046:9047 KamiHW.TensorDispatch <> b7:95 var
+R9039:9040 KamiHW.TensorDispatch <> b6:94 var
+R9032:9033 KamiHW.TensorDispatch <> b5:93 var
+R9025:9026 KamiHW.TensorDispatch <> b4:92 var
+R9018:9019 KamiHW.TensorDispatch <> b3:91 var
+R9011:9012 KamiHW.TensorDispatch <> b2:90 var
+R9004:9005 KamiHW.TensorDispatch <> b1:89 var
+R8997:8998 KamiHW.TensorDispatch <> b0:88 var
+R8916:8917 Kami.Lib.Word <> WS constr
+R8923:8924 Kami.Lib.Word <> WS constr
+R8930:8931 Kami.Lib.Word <> WS constr
+R8937:8938 Kami.Lib.Word <> WS constr
+R8944:8945 Kami.Lib.Word <> WS constr
+R8951:8952 Kami.Lib.Word <> WS constr
+R8958:8959 Kami.Lib.Word <> WS constr
+R8965:8966 Kami.Lib.Word <> WS constr
+R8971:8972 Kami.Lib.Word <> WO constr
+R8968:8969 KamiHW.TensorDispatch <> c7:103 var
+R8961:8962 KamiHW.TensorDispatch <> c6:102 var
+R8954:8955 KamiHW.TensorDispatch <> c5:101 var
+R8947:8948 KamiHW.TensorDispatch <> c4:100 var
+R8940:8941 KamiHW.TensorDispatch <> c3:99 var
+R8933:8934 KamiHW.TensorDispatch <> c2:98 var
+R8926:8927 KamiHW.TensorDispatch <> c1:97 var
+R8919:8920 KamiHW.TensorDispatch <> c0:96 var
+R8892:8903 KamiHW.TensorDispatch <> tensor_total:155 var
+R8879:8890 KamiHW.TensorDispatch <> wc_diff_11_v:154 var
+R8866:8877 KamiHW.TensorDispatch <> wc_same_11_v:153 var
+R8853:8864 KamiHW.TensorDispatch <> wc_diff_10_v:152 var
+R8840:8851 KamiHW.TensorDispatch <> wc_same_10_v:151 var
+R8827:8838 KamiHW.TensorDispatch <> wc_diff_01_v:150 var
+R8814:8825 KamiHW.TensorDispatch <> wc_same_01_v:149 var
+R8801:8812 KamiHW.TensorDispatch <> wc_diff_00_v:148 var
+R8788:8799 KamiHW.TensorDispatch <> wc_same_00_v:147 var
+R8768:8786 KamiHW.TensorDispatch <> desc_meta_next_id_v:146 var
+R8744:8766 KamiHW.TensorDispatch <> desc_meta_valid_table_v:145 var
+R8724:8742 KamiHW.TensorDispatch <> cert_desc_next_id_v:144 var
+R8700:8722 KamiHW.TensorDispatch <> cert_desc_valid_table_v:143 var
+R8677:8698 KamiHW.TensorDispatch <> formula_desc_next_id_v:142 var
+R8650:8675 KamiHW.TensorDispatch <> formula_desc_valid_table_v:141 var
+R8626:8648 KamiHW.TensorDispatch <> coupling_pair_next_id_v:140 var
+R8602:8624 KamiHW.TensorDispatch <> coupling_desc_next_id_v:139 var
+R8570:8600 KamiHW.TensorDispatch <> coupling_desc_label_len_table_v:138 var
+R8542:8568 KamiHW.TensorDispatch <> coupling_desc_label_table_v:137 var
+R8515:8540 KamiHW.TensorDispatch <> coupling_desc_base_table_v:136 var
+R8487:8513 KamiHW.TensorDispatch <> coupling_desc_count_table_v:135 var
+R8459:8485 KamiHW.TensorDispatch <> coupling_desc_valid_table_v:134 var
+R8443:8457 KamiHW.TensorDispatch <> morph_next_id_v:133 var
+R8420:8441 KamiHW.TensorDispatch <> morph_identity_table_v:132 var
+R8392:8418 KamiHW.TensorDispatch <> morph_coupling_desc_table_v:131 var
+R8372:8390 KamiHW.TensorDispatch <> morph_valid_table_v:130 var
+R8354:8370 KamiHW.TensorDispatch <> morph_dst_table_v:129 var
+R8336:8352 KamiHW.TensorDispatch <> morph_src_table_v:128 var
+R8324:8334 KamiHW.TensorDispatch <> certified_v:127 var
+R8311:8322 KamiHW.TensorDispatch <> pt_next_id_v:126 var
+R8300:8309 KamiHW.TensorDispatch <> pt_bases_v:125 var
+R8289:8298 KamiHW.TensorDispatch <> pt_sizes_v:124 var
+R8273:8287 KamiHW.TensorDispatch <> csr_heap_base_v:123 var
+R8256:8271 KamiHW.TensorDispatch <> module_tensors_v:122 var
+R8244:8254 KamiHW.TensorDispatch <> mu_tensor_v:121 var
+R8230:8242 KamiHW.TensorDispatch <> trap_vector_v:120 var
+R8216:8228 KamiHW.TensorDispatch <> minstret_hi_v:119 var
+R8202:8214 KamiHW.TensorDispatch <> minstret_lo_v:118 var
+R8190:8200 KamiHW.TensorDispatch <> mcycle_hi_v:117 var
+R8178:8188 KamiHW.TensorDispatch <> mcycle_lo_v:116 var
+R8162:8176 KamiHW.TensorDispatch <> active_module_v:115 var
+R8150:8160 KamiHW.TensorDispatch <> cert_addr_v:114 var
+R8138:8148 KamiHW.TensorDispatch <> logic_acc_v:113 var
+R8125:8136 KamiHW.TensorDispatch <> error_code_v:112 var
+R8113:8123 KamiHW.TensorDispatch <> info_gain_v:111 var
+R8103:8111 KamiHW.TensorDispatch <> mdl_ops_v:110 var
+R8087:8101 KamiHW.TensorDispatch <> partition_ops_v:109 var
+R8081:8085 KamiHW.TensorDispatch <> mem_v:108 var
+R8074:8079 KamiHW.TensorDispatch <> regs_v:107 var
+R8069:8072 KamiHW.TensorDispatch <> mu_v:106 var
+R8064:8067 KamiHW.TensorDispatch <> pc_v:105 var
+R8044:8062 KamiHW.TensorDispatch <> chsh_check_result_v:104 var
+R8005:8011 Kami.Lib.FMap M empty def
+R9220:9223 Coq.Init.Datatypes <> Some constr
+R9226:9231 Coq.Init.Specif <> existT constr
+R9300:9316 KamiHW.TensorDispatch <> bianchi_violation:156 var
+binder 9344:9344 <> r:157
+R9352:9354 Kami.Lib.Word <> weq def
+R9359:9360 Kami.Lib.Word <> WS constr
+R9366:9367 Kami.Lib.Word <> WS constr
+R9373:9374 Kami.Lib.Word <> WS constr
+R9380:9381 Kami.Lib.Word <> WS constr
+R9386:9387 Kami.Lib.Word <> WO constr
+R9383:9384 KamiHW.TensorDispatch <> a3:83 var
+R9376:9377 KamiHW.TensorDispatch <> a2:82 var
+R9369:9370 KamiHW.TensorDispatch <> a1:81 var
+R9362:9363 KamiHW.TensorDispatch <> a0:80 var
+R9356:9356 KamiHW.TensorDispatch <> r:157 var
+R9502:9507 KamiHW.TensorDispatch <> regs_v:107 var
+R9509:9509 KamiHW.TensorDispatch <> r:157 var
+R9405:9420 KamiHW.TensorDispatch <> module_tensors_v:122 var
+R9423:9424 Kami.Lib.Word <> WS constr
+R9430:9431 Kami.Lib.Word <> WS constr
+R9437:9438 Kami.Lib.Word <> WS constr
+R9444:9445 Kami.Lib.Word <> WS constr
+R9450:9451 Kami.Lib.Word <> WO constr
+R9447:9448 KamiHW.TensorDispatch <> b7:95 var
+R9440:9441 KamiHW.TensorDispatch <> b6:94 var
+R9433:9434 KamiHW.TensorDispatch <> b5:93 var
+R9426:9427 KamiHW.TensorDispatch <> b4:92 var
+R9458:9459 Kami.Lib.Word <> WS constr
+R9465:9466 Kami.Lib.Word <> WS constr
+R9472:9473 Kami.Lib.Word <> WS constr
+R9479:9480 Kami.Lib.Word <> WS constr
+R9485:9486 Kami.Lib.Word <> WO constr
+R9482:9483 KamiHW.TensorDispatch <> b3:91 var
+R9475:9476 KamiHW.TensorDispatch <> b2:90 var
+R9468:9469 KamiHW.TensorDispatch <> b1:89 var
+R9461:9462 KamiHW.TensorDispatch <> b0:88 var
+R9323:9328 KamiHW.TensorDispatch <> regs_v:107 var
+R9250:9259 Kami.Syntax <> SyntaxKind constr
+R9262:9267 Kami.Syntax <> Vector constr
+R9282:9289 KamiHW.ThieleTypes <> RegIdxSz def
+R9270:9272 Kami.Syntax <> Bit constr
+R9274:9279 KamiHW.ThieleTypes <> WordSz def
+R9234:9241 Kami.Syntax <> fullType def
+R9243:9246 Kami.Syntax <> type def
+prf 9621:9651 <> tensor_set_dispatch_observation
+R9737:9740 Coq.Init.Datatypes <> bool ind
+binder 9663:9664 <> a0:158
+binder 9666:9667 <> a1:159
+binder 9669:9670 <> a2:160
+binder 9672:9673 <> a3:161
+binder 9675:9676 <> a4:162
+binder 9678:9679 <> a5:163
+binder 9681:9682 <> a6:164
+binder 9684:9685 <> a7:165
+binder 9687:9688 <> b0:166
+binder 9690:9691 <> b1:167
+binder 9693:9694 <> b2:168
+binder 9696:9697 <> b3:169
+binder 9699:9700 <> b4:170
+binder 9702:9703 <> b5:171
+binder 9705:9706 <> b6:172
+binder 9708:9709 <> b7:173
+binder 9711:9712 <> c0:174
+binder 9714:9715 <> c1:175
+binder 9717:9718 <> c2:176
+binder 9720:9721 <> c3:177
+binder 9723:9724 <> c4:178
+binder 9726:9727 <> c5:179
+binder 9729:9730 <> c6:180
+binder 9732:9733 <> c7:181
+binder 9743:9743 <> b:182
+binder 9745:9748 <> imem:183
+R10079:10084 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9784:9787 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10078:10078 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9753:9756 KamiHW.TensorDispatch <> imem:183 var
+R9759:9780 KamiHW.DispatchFetch <> dispatch_fetch_address def
+R9782:9782 KamiHW.TensorDispatch <> b:182 var
+R9788:9794 Kami.Lib.Word <> combine def
+R9866:9872 Kami.Lib.Word <> combine def
+R9944:9950 Kami.Lib.Word <> combine def
+R10022:10028 Kami.Lib.Word <> combine def
+R10048:10054 Kami.Lib.Word <> NToWord def
+R10060:10067 Coq.NArith.BinNat N shiftl def
+R10031:10039 Kami.Lib.Word <> natToWord def
+R9954:9955 Kami.Lib.Word <> WS constr
+R9961:9962 Kami.Lib.Word <> WS constr
+R9968:9969 Kami.Lib.Word <> WS constr
+R9975:9976 Kami.Lib.Word <> WS constr
+R9982:9983 Kami.Lib.Word <> WS constr
+R9989:9990 Kami.Lib.Word <> WS constr
+R9996:9997 Kami.Lib.Word <> WS constr
+R10003:10004 Kami.Lib.Word <> WS constr
+R10009:10010 Kami.Lib.Word <> WO constr
+R10006:10007 KamiHW.TensorDispatch <> a7:165 var
+R9999:10000 KamiHW.TensorDispatch <> a6:164 var
+R9992:9993 KamiHW.TensorDispatch <> a5:163 var
+R9985:9986 KamiHW.TensorDispatch <> a4:162 var
+R9978:9979 KamiHW.TensorDispatch <> a3:161 var
+R9971:9972 KamiHW.TensorDispatch <> a2:160 var
+R9964:9965 KamiHW.TensorDispatch <> a1:159 var
+R9957:9958 KamiHW.TensorDispatch <> a0:158 var
+R9876:9877 Kami.Lib.Word <> WS constr
+R9883:9884 Kami.Lib.Word <> WS constr
+R9890:9891 Kami.Lib.Word <> WS constr
+R9897:9898 Kami.Lib.Word <> WS constr
+R9904:9905 Kami.Lib.Word <> WS constr
+R9911:9912 Kami.Lib.Word <> WS constr
+R9918:9919 Kami.Lib.Word <> WS constr
+R9925:9926 Kami.Lib.Word <> WS constr
+R9931:9932 Kami.Lib.Word <> WO constr
+R9928:9929 KamiHW.TensorDispatch <> b7:173 var
+R9921:9922 KamiHW.TensorDispatch <> b6:172 var
+R9914:9915 KamiHW.TensorDispatch <> b5:171 var
+R9907:9908 KamiHW.TensorDispatch <> b4:170 var
+R9900:9901 KamiHW.TensorDispatch <> b3:169 var
+R9893:9894 KamiHW.TensorDispatch <> b2:168 var
+R9886:9887 KamiHW.TensorDispatch <> b1:167 var
+R9879:9880 KamiHW.TensorDispatch <> b0:166 var
+R9798:9799 Kami.Lib.Word <> WS constr
+R9805:9806 Kami.Lib.Word <> WS constr
+R9812:9813 Kami.Lib.Word <> WS constr
+R9819:9820 Kami.Lib.Word <> WS constr
+R9826:9827 Kami.Lib.Word <> WS constr
+R9833:9834 Kami.Lib.Word <> WS constr
+R9840:9841 Kami.Lib.Word <> WS constr
+R9847:9848 Kami.Lib.Word <> WS constr
+R9853:9854 Kami.Lib.Word <> WO constr
+R9850:9851 KamiHW.TensorDispatch <> c7:181 var
+R9843:9844 KamiHW.TensorDispatch <> c6:180 var
+R9836:9837 KamiHW.TensorDispatch <> c5:179 var
+R9829:9830 KamiHW.TensorDispatch <> c4:178 var
+R9822:9823 KamiHW.TensorDispatch <> c3:177 var
+R9815:9816 KamiHW.TensorDispatch <> c2:176 var
+R9808:9809 KamiHW.TensorDispatch <> c1:175 var
+R9801:9802 KamiHW.TensorDispatch <> c0:174 var
+R10152:10155 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10085:10106 KamiHW.DispatchObservation <> observe_dispatch_write def
+R10109:10126 KamiHW.DispatchFetch <> dispatch_with_imem def
+R10128:10128 KamiHW.TensorDispatch <> b:182 var
+R10130:10133 KamiHW.TensorDispatch <> imem:183 var
+R10156:10159 Coq.Init.Datatypes <> Some constr
+R10162:10167 Coq.Init.Specif <> existT constr
+R10268:10278 KamiHW.BoundaryDecoded <> hwb_bianchi def
+R10280:10280 KamiHW.TensorDispatch <> b:182 var
+binder 10323:10323 <> m:184
+R10331:10333 Kami.Lib.Word <> weq def
+R10339:10340 Kami.Lib.Word <> WS constr
+R10346:10347 Kami.Lib.Word <> WS constr
+R10353:10354 Kami.Lib.Word <> WS constr
+R10360:10361 Kami.Lib.Word <> WS constr
+R10366:10367 Kami.Lib.Word <> WO constr
+R10363:10364 KamiHW.TensorDispatch <> a7:165 var
+R10356:10357 KamiHW.TensorDispatch <> a6:164 var
+R10349:10350 KamiHW.TensorDispatch <> a5:163 var
+R10342:10343 KamiHW.TensorDispatch <> a4:162 var
+R10335:10335 KamiHW.TensorDispatch <> m:184 var
+R10630:10646 KamiHW.HWBoundary <> hw_module_tensors proj
+R10648:10648 KamiHW.TensorDispatch <> b:182 var
+R10651:10651 KamiHW.TensorDispatch <> m:184 var
+binder 10391:10391 <> i:185
+R10399:10401 Kami.Lib.Word <> weq def
+R10407:10408 Kami.Lib.Word <> WS constr
+R10414:10415 Kami.Lib.Word <> WS constr
+R10421:10422 Kami.Lib.Word <> WS constr
+R10428:10429 Kami.Lib.Word <> WS constr
+R10434:10435 Kami.Lib.Word <> WO constr
+R10431:10432 KamiHW.TensorDispatch <> a3:161 var
+R10424:10425 KamiHW.TensorDispatch <> a2:160 var
+R10417:10418 KamiHW.TensorDispatch <> a1:159 var
+R10410:10411 KamiHW.TensorDispatch <> a0:158 var
+R10403:10403 KamiHW.TensorDispatch <> i:185 var
+R10556:10572 KamiHW.HWBoundary <> hw_module_tensors proj
+R10574:10574 KamiHW.TensorDispatch <> b:182 var
+R10579:10580 Kami.Lib.Word <> WS constr
+R10586:10587 Kami.Lib.Word <> WS constr
+R10593:10594 Kami.Lib.Word <> WS constr
+R10600:10601 Kami.Lib.Word <> WS constr
+R10606:10607 Kami.Lib.Word <> WO constr
+R10603:10604 KamiHW.TensorDispatch <> a7:165 var
+R10596:10597 KamiHW.TensorDispatch <> a6:164 var
+R10589:10590 KamiHW.TensorDispatch <> a5:163 var
+R10582:10583 KamiHW.TensorDispatch <> a4:162 var
+R10614:10614 KamiHW.TensorDispatch <> i:185 var
+R10447:10453 Kami.Lib.Word <> combine def
+R10525:10533 Kami.Lib.Word <> natToWord def
+R10457:10458 Kami.Lib.Word <> WS constr
+R10464:10465 Kami.Lib.Word <> WS constr
+R10471:10472 Kami.Lib.Word <> WS constr
+R10478:10479 Kami.Lib.Word <> WS constr
+R10485:10486 Kami.Lib.Word <> WS constr
+R10492:10493 Kami.Lib.Word <> WS constr
+R10499:10500 Kami.Lib.Word <> WS constr
+R10506:10507 Kami.Lib.Word <> WS constr
+R10512:10513 Kami.Lib.Word <> WO constr
+R10509:10510 KamiHW.TensorDispatch <> b7:173 var
+R10502:10503 KamiHW.TensorDispatch <> b6:172 var
+R10495:10496 KamiHW.TensorDispatch <> b5:171 var
+R10488:10489 KamiHW.TensorDispatch <> b4:170 var
+R10481:10482 KamiHW.TensorDispatch <> b3:169 var
+R10474:10475 KamiHW.TensorDispatch <> b2:168 var
+R10467:10468 KamiHW.TensorDispatch <> b1:167 var
+R10460:10461 KamiHW.TensorDispatch <> b0:166 var
+R10288:10304 KamiHW.HWBoundary <> hw_module_tensors proj
+R10306:10306 KamiHW.TensorDispatch <> b:182 var
+R10189:10198 Kami.Syntax <> SyntaxKind constr
+R10201:10206 Kami.Syntax <> Vector constr
+R10244:10257 KamiHW.ThieleTypes <> ModTensorIdxSz def
+R10209:10214 Kami.Syntax <> Vector constr
+R10229:10241 KamiHW.ThieleTypes <> MuTensorIdxSz def
+R10217:10219 Kami.Syntax <> Bit constr
+R10221:10226 KamiHW.ThieleTypes <> WordSz def
+R10170:10177 Kami.Syntax <> fullType def
+R10179:10182 Kami.Syntax <> type def
+R10681:10714 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
+R10681:10714 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
+R10681:10714 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
+R10737:10747 KamiHW.BoundaryDecoded <> hwb_decoded def
+R10756:10773 KamiHW.TensorDispatch <> tensor_set_decoded thm
+R10756:10773 KamiHW.TensorDispatch <> tensor_set_decoded thm
+prf 10792:10814 <> tensor_set_actual_write
+R10900:10903 Coq.Init.Datatypes <> bool ind
+binder 10826:10827 <> a0:186
+binder 10829:10830 <> a1:187
+binder 10832:10833 <> a2:188
+binder 10835:10836 <> a3:189
+binder 10838:10839 <> a4:190
+binder 10841:10842 <> a5:191
+binder 10844:10845 <> a6:192
+binder 10847:10848 <> a7:193
+binder 10850:10851 <> b0:194
+binder 10853:10854 <> b1:195
+binder 10856:10857 <> b2:196
+binder 10859:10860 <> b3:197
+binder 10862:10863 <> b4:198
+binder 10865:10866 <> b5:199
+binder 10868:10869 <> b6:200
+binder 10871:10872 <> b7:201
+binder 10874:10875 <> c0:202
+binder 10877:10878 <> c1:203
+binder 10880:10881 <> c2:204
+binder 10883:10884 <> c3:205
+binder 10886:10887 <> c4:206
+binder 10889:10890 <> c5:207
+binder 10892:10893 <> c6:208
+binder 10895:10896 <> c7:209
+binder 10906:10906 <> b:210
+binder 10908:10911 <> imem:211
+binder 10913:10913 <> u:212
+R11244:11249 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10949:10952 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11243:11243 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10918:10921 KamiHW.TensorDispatch <> imem:211 var
+R10924:10945 KamiHW.DispatchFetch <> dispatch_fetch_address def
+R10947:10947 KamiHW.TensorDispatch <> b:210 var
+R10953:10959 Kami.Lib.Word <> combine def
+R11031:11037 Kami.Lib.Word <> combine def
+R11109:11115 Kami.Lib.Word <> combine def
+R11187:11193 Kami.Lib.Word <> combine def
+R11213:11219 Kami.Lib.Word <> NToWord def
+R11225:11232 Coq.NArith.BinNat N shiftl def
+R11196:11204 Kami.Lib.Word <> natToWord def
+R11119:11120 Kami.Lib.Word <> WS constr
+R11126:11127 Kami.Lib.Word <> WS constr
+R11133:11134 Kami.Lib.Word <> WS constr
+R11140:11141 Kami.Lib.Word <> WS constr
+R11147:11148 Kami.Lib.Word <> WS constr
+R11154:11155 Kami.Lib.Word <> WS constr
+R11161:11162 Kami.Lib.Word <> WS constr
+R11168:11169 Kami.Lib.Word <> WS constr
+R11174:11175 Kami.Lib.Word <> WO constr
+R11171:11172 KamiHW.TensorDispatch <> a7:193 var
+R11164:11165 KamiHW.TensorDispatch <> a6:192 var
+R11157:11158 KamiHW.TensorDispatch <> a5:191 var
+R11150:11151 KamiHW.TensorDispatch <> a4:190 var
+R11143:11144 KamiHW.TensorDispatch <> a3:189 var
+R11136:11137 KamiHW.TensorDispatch <> a2:188 var
+R11129:11130 KamiHW.TensorDispatch <> a1:187 var
+R11122:11123 KamiHW.TensorDispatch <> a0:186 var
+R11041:11042 Kami.Lib.Word <> WS constr
+R11048:11049 Kami.Lib.Word <> WS constr
+R11055:11056 Kami.Lib.Word <> WS constr
+R11062:11063 Kami.Lib.Word <> WS constr
+R11069:11070 Kami.Lib.Word <> WS constr
+R11076:11077 Kami.Lib.Word <> WS constr
+R11083:11084 Kami.Lib.Word <> WS constr
+R11090:11091 Kami.Lib.Word <> WS constr
+R11096:11097 Kami.Lib.Word <> WO constr
+R11093:11094 KamiHW.TensorDispatch <> b7:201 var
+R11086:11087 KamiHW.TensorDispatch <> b6:200 var
+R11079:11080 KamiHW.TensorDispatch <> b5:199 var
+R11072:11073 KamiHW.TensorDispatch <> b4:198 var
+R11065:11066 KamiHW.TensorDispatch <> b3:197 var
+R11058:11059 KamiHW.TensorDispatch <> b2:196 var
+R11051:11052 KamiHW.TensorDispatch <> b1:195 var
+R11044:11045 KamiHW.TensorDispatch <> b0:194 var
+R10963:10964 Kami.Lib.Word <> WS constr
+R10970:10971 Kami.Lib.Word <> WS constr
+R10977:10978 Kami.Lib.Word <> WS constr
+R10984:10985 Kami.Lib.Word <> WS constr
+R10991:10992 Kami.Lib.Word <> WS constr
+R10998:10999 Kami.Lib.Word <> WS constr
+R11005:11006 Kami.Lib.Word <> WS constr
+R11012:11013 Kami.Lib.Word <> WS constr
+R11018:11019 Kami.Lib.Word <> WO constr
+R11015:11016 KamiHW.TensorDispatch <> c7:209 var
+R11008:11009 KamiHW.TensorDispatch <> c6:208 var
+R11001:11002 KamiHW.TensorDispatch <> c5:207 var
+R10994:10995 KamiHW.TensorDispatch <> c4:206 var
+R10987:10988 KamiHW.TensorDispatch <> c3:205 var
+R10980:10981 KamiHW.TensorDispatch <> c2:204 var
+R10973:10974 KamiHW.TensorDispatch <> c1:203 var
+R10966:10967 KamiHW.TensorDispatch <> c0:202 var
+R11300:11305 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11291:11293 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11250:11262 KamiHW.DispatchExecution <> eval_dispatch def
+R11265:11282 KamiHW.DispatchFetch <> dispatch_with_imem def
+R11284:11284 KamiHW.TensorDispatch <> b:210 var
+R11286:11289 KamiHW.TensorDispatch <> imem:211 var
+R11294:11297 Coq.Init.Datatypes <> Some constr
+R11299:11299 KamiHW.TensorDispatch <> u:212 var
+R11369:11372 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11306:11311 Kami.Lib.FMap M find def
+R11331:11337 Kami.Lib.FMap M union def
+R11342:11359 KamiHW.DispatchFetch <> dispatch_with_imem def
+R11361:11361 KamiHW.TensorDispatch <> b:210 var
+R11363:11366 KamiHW.TensorDispatch <> imem:211 var
+R11339:11339 KamiHW.TensorDispatch <> u:212 var
+R11373:11376 Coq.Init.Datatypes <> Some constr
+R11379:11384 Coq.Init.Specif <> existT constr
+R11485:11495 KamiHW.BoundaryDecoded <> hwb_bianchi def
+R11497:11497 KamiHW.TensorDispatch <> b:210 var
+binder 11540:11540 <> m:213
+R11548:11550 Kami.Lib.Word <> weq def
+R11556:11557 Kami.Lib.Word <> WS constr
+R11563:11564 Kami.Lib.Word <> WS constr
+R11570:11571 Kami.Lib.Word <> WS constr
+R11577:11578 Kami.Lib.Word <> WS constr
+R11583:11584 Kami.Lib.Word <> WO constr
+R11580:11581 KamiHW.TensorDispatch <> a7:193 var
+R11573:11574 KamiHW.TensorDispatch <> a6:192 var
+R11566:11567 KamiHW.TensorDispatch <> a5:191 var
+R11559:11560 KamiHW.TensorDispatch <> a4:190 var
+R11552:11552 KamiHW.TensorDispatch <> m:213 var
+R11847:11863 KamiHW.HWBoundary <> hw_module_tensors proj
+R11865:11865 KamiHW.TensorDispatch <> b:210 var
+R11868:11868 KamiHW.TensorDispatch <> m:213 var
+binder 11608:11608 <> i:214
+R11616:11618 Kami.Lib.Word <> weq def
+R11624:11625 Kami.Lib.Word <> WS constr
+R11631:11632 Kami.Lib.Word <> WS constr
+R11638:11639 Kami.Lib.Word <> WS constr
+R11645:11646 Kami.Lib.Word <> WS constr
+R11651:11652 Kami.Lib.Word <> WO constr
+R11648:11649 KamiHW.TensorDispatch <> a3:189 var
+R11641:11642 KamiHW.TensorDispatch <> a2:188 var
+R11634:11635 KamiHW.TensorDispatch <> a1:187 var
+R11627:11628 KamiHW.TensorDispatch <> a0:186 var
+R11620:11620 KamiHW.TensorDispatch <> i:214 var
+R11773:11789 KamiHW.HWBoundary <> hw_module_tensors proj
+R11791:11791 KamiHW.TensorDispatch <> b:210 var
+R11796:11797 Kami.Lib.Word <> WS constr
+R11803:11804 Kami.Lib.Word <> WS constr
+R11810:11811 Kami.Lib.Word <> WS constr
+R11817:11818 Kami.Lib.Word <> WS constr
+R11823:11824 Kami.Lib.Word <> WO constr
+R11820:11821 KamiHW.TensorDispatch <> a7:193 var
+R11813:11814 KamiHW.TensorDispatch <> a6:192 var
+R11806:11807 KamiHW.TensorDispatch <> a5:191 var
+R11799:11800 KamiHW.TensorDispatch <> a4:190 var
+R11831:11831 KamiHW.TensorDispatch <> i:214 var
+R11664:11670 Kami.Lib.Word <> combine def
+R11742:11750 Kami.Lib.Word <> natToWord def
+R11674:11675 Kami.Lib.Word <> WS constr
+R11681:11682 Kami.Lib.Word <> WS constr
+R11688:11689 Kami.Lib.Word <> WS constr
+R11695:11696 Kami.Lib.Word <> WS constr
+R11702:11703 Kami.Lib.Word <> WS constr
+R11709:11710 Kami.Lib.Word <> WS constr
+R11716:11717 Kami.Lib.Word <> WS constr
+R11723:11724 Kami.Lib.Word <> WS constr
+R11729:11730 Kami.Lib.Word <> WO constr
+R11726:11727 KamiHW.TensorDispatch <> b7:201 var
+R11719:11720 KamiHW.TensorDispatch <> b6:200 var
+R11712:11713 KamiHW.TensorDispatch <> b5:199 var
+R11705:11706 KamiHW.TensorDispatch <> b4:198 var
+R11698:11699 KamiHW.TensorDispatch <> b3:197 var
+R11691:11692 KamiHW.TensorDispatch <> b2:196 var
+R11684:11685 KamiHW.TensorDispatch <> b1:195 var
+R11677:11678 KamiHW.TensorDispatch <> b0:194 var
+R11505:11521 KamiHW.HWBoundary <> hw_module_tensors proj
+R11523:11523 KamiHW.TensorDispatch <> b:210 var
+R11406:11415 Kami.Syntax <> SyntaxKind constr
+R11418:11423 Kami.Syntax <> Vector constr
+R11461:11474 KamiHW.ThieleTypes <> ModTensorIdxSz def
+R11426:11431 Kami.Syntax <> Vector constr
+R11446:11458 KamiHW.ThieleTypes <> MuTensorIdxSz def
+R11434:11436 Kami.Syntax <> Bit constr
+R11438:11443 KamiHW.ThieleTypes <> WordSz def
+R11387:11394 Kami.Syntax <> fullType def
+R11396:11399 Kami.Syntax <> type def
+R11898:11909 Kami.Lib.FMap M find_union thm
+R11898:11909 Kami.Lib.FMap M find_union thm
+R11898:11909 Kami.Lib.FMap M find_union thm
+R11926:11955 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R11926:11955 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R11926:11955 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R11979:12009 KamiHW.TensorDispatch <> tensor_set_dispatch_observation thm
+R11979:12009 KamiHW.TensorDispatch <> tensor_set_dispatch_observation thm
+R11979:12009 KamiHW.TensorDispatch <> tensor_set_dispatch_observation thm
+prf 12123:12153 <> tensor_get_dispatch_observation
+R12239:12242 Coq.Init.Datatypes <> bool ind
+binder 12165:12166 <> a0:215
+binder 12168:12169 <> a1:216
+binder 12171:12172 <> a2:217
+binder 12174:12175 <> a3:218
+binder 12177:12178 <> a4:219
+binder 12180:12181 <> a5:220
+binder 12183:12184 <> a6:221
+binder 12186:12187 <> a7:222
+binder 12189:12190 <> b0:223
+binder 12192:12193 <> b1:224
+binder 12195:12196 <> b2:225
+binder 12198:12199 <> b3:226
+binder 12201:12202 <> b4:227
+binder 12204:12205 <> b5:228
+binder 12207:12208 <> b6:229
+binder 12210:12211 <> b7:230
+binder 12213:12214 <> c0:231
+binder 12216:12217 <> c1:232
+binder 12219:12220 <> c2:233
+binder 12222:12223 <> c3:234
+binder 12225:12226 <> c4:235
+binder 12228:12229 <> c5:236
+binder 12231:12232 <> c6:237
+binder 12234:12235 <> c7:238
+binder 12245:12245 <> b:239
+binder 12247:12250 <> imem:240
+R12581:12586 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12286:12289 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12580:12580 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12255:12258 KamiHW.TensorDispatch <> imem:240 var
+R12261:12282 KamiHW.DispatchFetch <> dispatch_fetch_address def
+R12284:12284 KamiHW.TensorDispatch <> b:239 var
+R12290:12296 Kami.Lib.Word <> combine def
+R12368:12374 Kami.Lib.Word <> combine def
+R12446:12452 Kami.Lib.Word <> combine def
+R12524:12530 Kami.Lib.Word <> combine def
+R12550:12556 Kami.Lib.Word <> NToWord def
+R12562:12569 Coq.NArith.BinNat N shiftl def
+R12533:12541 Kami.Lib.Word <> natToWord def
+R12456:12457 Kami.Lib.Word <> WS constr
+R12463:12464 Kami.Lib.Word <> WS constr
+R12470:12471 Kami.Lib.Word <> WS constr
+R12477:12478 Kami.Lib.Word <> WS constr
+R12484:12485 Kami.Lib.Word <> WS constr
+R12491:12492 Kami.Lib.Word <> WS constr
+R12498:12499 Kami.Lib.Word <> WS constr
+R12505:12506 Kami.Lib.Word <> WS constr
+R12511:12512 Kami.Lib.Word <> WO constr
+R12508:12509 KamiHW.TensorDispatch <> a7:222 var
+R12501:12502 KamiHW.TensorDispatch <> a6:221 var
+R12494:12495 KamiHW.TensorDispatch <> a5:220 var
+R12487:12488 KamiHW.TensorDispatch <> a4:219 var
+R12480:12481 KamiHW.TensorDispatch <> a3:218 var
+R12473:12474 KamiHW.TensorDispatch <> a2:217 var
+R12466:12467 KamiHW.TensorDispatch <> a1:216 var
+R12459:12460 KamiHW.TensorDispatch <> a0:215 var
+R12378:12379 Kami.Lib.Word <> WS constr
+R12385:12386 Kami.Lib.Word <> WS constr
+R12392:12393 Kami.Lib.Word <> WS constr
+R12399:12400 Kami.Lib.Word <> WS constr
+R12406:12407 Kami.Lib.Word <> WS constr
+R12413:12414 Kami.Lib.Word <> WS constr
+R12420:12421 Kami.Lib.Word <> WS constr
+R12427:12428 Kami.Lib.Word <> WS constr
+R12433:12434 Kami.Lib.Word <> WO constr
+R12430:12431 KamiHW.TensorDispatch <> b7:230 var
+R12423:12424 KamiHW.TensorDispatch <> b6:229 var
+R12416:12417 KamiHW.TensorDispatch <> b5:228 var
+R12409:12410 KamiHW.TensorDispatch <> b4:227 var
+R12402:12403 KamiHW.TensorDispatch <> b3:226 var
+R12395:12396 KamiHW.TensorDispatch <> b2:225 var
+R12388:12389 KamiHW.TensorDispatch <> b1:224 var
+R12381:12382 KamiHW.TensorDispatch <> b0:223 var
+R12300:12301 Kami.Lib.Word <> WS constr
+R12307:12308 Kami.Lib.Word <> WS constr
+R12314:12315 Kami.Lib.Word <> WS constr
+R12321:12322 Kami.Lib.Word <> WS constr
+R12328:12329 Kami.Lib.Word <> WS constr
+R12335:12336 Kami.Lib.Word <> WS constr
+R12342:12343 Kami.Lib.Word <> WS constr
+R12349:12350 Kami.Lib.Word <> WS constr
+R12355:12356 Kami.Lib.Word <> WO constr
+R12352:12353 KamiHW.TensorDispatch <> c7:238 var
+R12345:12346 KamiHW.TensorDispatch <> c6:237 var
+R12338:12339 KamiHW.TensorDispatch <> c5:236 var
+R12331:12332 KamiHW.TensorDispatch <> c4:235 var
+R12324:12325 KamiHW.TensorDispatch <> c3:234 var
+R12317:12318 KamiHW.TensorDispatch <> c2:233 var
+R12310:12311 KamiHW.TensorDispatch <> c1:232 var
+R12303:12304 KamiHW.TensorDispatch <> c0:231 var
+R12644:12647 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12587:12608 KamiHW.DispatchObservation <> observe_dispatch_write def
+R12611:12628 KamiHW.DispatchFetch <> dispatch_with_imem def
+R12630:12630 KamiHW.TensorDispatch <> b:239 var
+R12632:12635 KamiHW.TensorDispatch <> imem:240 var
+R12648:12651 Coq.Init.Datatypes <> Some constr
+R12654:12659 Coq.Init.Specif <> existT constr
+R12728:12738 KamiHW.BoundaryDecoded <> hwb_bianchi def
+R12740:12740 KamiHW.TensorDispatch <> b:239 var
+binder 12773:12773 <> r:241
+R12781:12783 Kami.Lib.Word <> weq def
+R12788:12789 Kami.Lib.Word <> WS constr
+R12795:12796 Kami.Lib.Word <> WS constr
+R12802:12803 Kami.Lib.Word <> WS constr
+R12809:12810 Kami.Lib.Word <> WS constr
+R12815:12816 Kami.Lib.Word <> WO constr
+R12812:12813 KamiHW.TensorDispatch <> a3:218 var
+R12805:12806 KamiHW.TensorDispatch <> a2:217 var
+R12798:12799 KamiHW.TensorDispatch <> a1:216 var
+R12791:12792 KamiHW.TensorDispatch <> a0:215 var
+R12785:12785 KamiHW.TensorDispatch <> r:241 var
+R12937:12943 KamiHW.HWBoundary <> hw_regs proj
+R12945:12945 KamiHW.TensorDispatch <> b:239 var
+R12948:12948 KamiHW.TensorDispatch <> r:241 var
+R12835:12851 KamiHW.HWBoundary <> hw_module_tensors proj
+R12853:12853 KamiHW.TensorDispatch <> b:239 var
+R12857:12858 Kami.Lib.Word <> WS constr
+R12864:12865 Kami.Lib.Word <> WS constr
+R12871:12872 Kami.Lib.Word <> WS constr
+R12878:12879 Kami.Lib.Word <> WS constr
+R12884:12885 Kami.Lib.Word <> WO constr
+R12881:12882 KamiHW.TensorDispatch <> b7:230 var
+R12874:12875 KamiHW.TensorDispatch <> b6:229 var
+R12867:12868 KamiHW.TensorDispatch <> b5:228 var
+R12860:12861 KamiHW.TensorDispatch <> b4:227 var
+R12892:12893 Kami.Lib.Word <> WS constr
+R12899:12900 Kami.Lib.Word <> WS constr
+R12906:12907 Kami.Lib.Word <> WS constr
+R12913:12914 Kami.Lib.Word <> WS constr
+R12919:12920 Kami.Lib.Word <> WO constr
+R12916:12917 KamiHW.TensorDispatch <> b3:226 var
+R12909:12910 KamiHW.TensorDispatch <> b2:225 var
+R12902:12903 KamiHW.TensorDispatch <> b1:224 var
+R12895:12896 KamiHW.TensorDispatch <> b0:223 var
+R12748:12754 KamiHW.HWBoundary <> hw_regs proj
+R12756:12756 KamiHW.TensorDispatch <> b:239 var
+R12678:12687 Kami.Syntax <> SyntaxKind constr
+R12690:12695 Kami.Syntax <> Vector constr
+R12710:12717 KamiHW.ThieleTypes <> RegIdxSz def
+R12698:12700 Kami.Syntax <> Bit constr
+R12702:12707 KamiHW.ThieleTypes <> WordSz def
+R12662:12669 Kami.Syntax <> fullType def
+R12671:12674 Kami.Syntax <> type def
+R12978:13011 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
+R12978:13011 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
+R12978:13011 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
+R13034:13044 KamiHW.BoundaryDecoded <> hwb_decoded def
+R13053:13070 KamiHW.TensorDispatch <> tensor_get_decoded thm
+R13053:13070 KamiHW.TensorDispatch <> tensor_get_decoded thm
+prf 13089:13111 <> tensor_get_actual_write
+R13197:13200 Coq.Init.Datatypes <> bool ind
+binder 13123:13124 <> a0:242
+binder 13126:13127 <> a1:243
+binder 13129:13130 <> a2:244
+binder 13132:13133 <> a3:245
+binder 13135:13136 <> a4:246
+binder 13138:13139 <> a5:247
+binder 13141:13142 <> a6:248
+binder 13144:13145 <> a7:249
+binder 13147:13148 <> b0:250
+binder 13150:13151 <> b1:251
+binder 13153:13154 <> b2:252
+binder 13156:13157 <> b3:253
+binder 13159:13160 <> b4:254
+binder 13162:13163 <> b5:255
+binder 13165:13166 <> b6:256
+binder 13168:13169 <> b7:257
+binder 13171:13172 <> c0:258
+binder 13174:13175 <> c1:259
+binder 13177:13178 <> c2:260
+binder 13180:13181 <> c3:261
+binder 13183:13184 <> c4:262
+binder 13186:13187 <> c5:263
+binder 13189:13190 <> c6:264
+binder 13192:13193 <> c7:265
+binder 13203:13203 <> b:266
+binder 13205:13208 <> imem:267
+binder 13210:13210 <> u:268
+R13541:13546 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13246:13249 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13540:13540 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13215:13218 KamiHW.TensorDispatch <> imem:267 var
+R13221:13242 KamiHW.DispatchFetch <> dispatch_fetch_address def
+R13244:13244 KamiHW.TensorDispatch <> b:266 var
+R13250:13256 Kami.Lib.Word <> combine def
+R13328:13334 Kami.Lib.Word <> combine def
+R13406:13412 Kami.Lib.Word <> combine def
+R13484:13490 Kami.Lib.Word <> combine def
+R13510:13516 Kami.Lib.Word <> NToWord def
+R13522:13529 Coq.NArith.BinNat N shiftl def
+R13493:13501 Kami.Lib.Word <> natToWord def
+R13416:13417 Kami.Lib.Word <> WS constr
+R13423:13424 Kami.Lib.Word <> WS constr
+R13430:13431 Kami.Lib.Word <> WS constr
+R13437:13438 Kami.Lib.Word <> WS constr
+R13444:13445 Kami.Lib.Word <> WS constr
+R13451:13452 Kami.Lib.Word <> WS constr
+R13458:13459 Kami.Lib.Word <> WS constr
+R13465:13466 Kami.Lib.Word <> WS constr
+R13471:13472 Kami.Lib.Word <> WO constr
+R13468:13469 KamiHW.TensorDispatch <> a7:249 var
+R13461:13462 KamiHW.TensorDispatch <> a6:248 var
+R13454:13455 KamiHW.TensorDispatch <> a5:247 var
+R13447:13448 KamiHW.TensorDispatch <> a4:246 var
+R13440:13441 KamiHW.TensorDispatch <> a3:245 var
+R13433:13434 KamiHW.TensorDispatch <> a2:244 var
+R13426:13427 KamiHW.TensorDispatch <> a1:243 var
+R13419:13420 KamiHW.TensorDispatch <> a0:242 var
+R13338:13339 Kami.Lib.Word <> WS constr
+R13345:13346 Kami.Lib.Word <> WS constr
+R13352:13353 Kami.Lib.Word <> WS constr
+R13359:13360 Kami.Lib.Word <> WS constr
+R13366:13367 Kami.Lib.Word <> WS constr
+R13373:13374 Kami.Lib.Word <> WS constr
+R13380:13381 Kami.Lib.Word <> WS constr
+R13387:13388 Kami.Lib.Word <> WS constr
+R13393:13394 Kami.Lib.Word <> WO constr
+R13390:13391 KamiHW.TensorDispatch <> b7:257 var
+R13383:13384 KamiHW.TensorDispatch <> b6:256 var
+R13376:13377 KamiHW.TensorDispatch <> b5:255 var
+R13369:13370 KamiHW.TensorDispatch <> b4:254 var
+R13362:13363 KamiHW.TensorDispatch <> b3:253 var
+R13355:13356 KamiHW.TensorDispatch <> b2:252 var
+R13348:13349 KamiHW.TensorDispatch <> b1:251 var
+R13341:13342 KamiHW.TensorDispatch <> b0:250 var
+R13260:13261 Kami.Lib.Word <> WS constr
+R13267:13268 Kami.Lib.Word <> WS constr
+R13274:13275 Kami.Lib.Word <> WS constr
+R13281:13282 Kami.Lib.Word <> WS constr
+R13288:13289 Kami.Lib.Word <> WS constr
+R13295:13296 Kami.Lib.Word <> WS constr
+R13302:13303 Kami.Lib.Word <> WS constr
+R13309:13310 Kami.Lib.Word <> WS constr
+R13315:13316 Kami.Lib.Word <> WO constr
+R13312:13313 KamiHW.TensorDispatch <> c7:265 var
+R13305:13306 KamiHW.TensorDispatch <> c6:264 var
+R13298:13299 KamiHW.TensorDispatch <> c5:263 var
+R13291:13292 KamiHW.TensorDispatch <> c4:262 var
+R13284:13285 KamiHW.TensorDispatch <> c3:261 var
+R13277:13278 KamiHW.TensorDispatch <> c2:260 var
+R13270:13271 KamiHW.TensorDispatch <> c1:259 var
+R13263:13264 KamiHW.TensorDispatch <> c0:258 var
+R13597:13602 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13588:13590 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13547:13559 KamiHW.DispatchExecution <> eval_dispatch def
+R13562:13579 KamiHW.DispatchFetch <> dispatch_with_imem def
+R13581:13581 KamiHW.TensorDispatch <> b:266 var
+R13583:13586 KamiHW.TensorDispatch <> imem:267 var
+R13591:13594 Coq.Init.Datatypes <> Some constr
+R13596:13596 KamiHW.TensorDispatch <> u:268 var
+R13656:13659 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13603:13608 Kami.Lib.FMap M find def
+R13618:13624 Kami.Lib.FMap M union def
+R13629:13646 KamiHW.DispatchFetch <> dispatch_with_imem def
+R13648:13648 KamiHW.TensorDispatch <> b:266 var
+R13650:13653 KamiHW.TensorDispatch <> imem:267 var
+R13626:13626 KamiHW.TensorDispatch <> u:268 var
+R13660:13663 Coq.Init.Datatypes <> Some constr
+R13666:13671 Coq.Init.Specif <> existT constr
+R13740:13750 KamiHW.BoundaryDecoded <> hwb_bianchi def
+R13752:13752 KamiHW.TensorDispatch <> b:266 var
+binder 13785:13785 <> r:269
+R13793:13795 Kami.Lib.Word <> weq def
+R13800:13801 Kami.Lib.Word <> WS constr
+R13807:13808 Kami.Lib.Word <> WS constr
+R13814:13815 Kami.Lib.Word <> WS constr
+R13821:13822 Kami.Lib.Word <> WS constr
+R13827:13828 Kami.Lib.Word <> WO constr
+R13824:13825 KamiHW.TensorDispatch <> a3:245 var
+R13817:13818 KamiHW.TensorDispatch <> a2:244 var
+R13810:13811 KamiHW.TensorDispatch <> a1:243 var
+R13803:13804 KamiHW.TensorDispatch <> a0:242 var
+R13797:13797 KamiHW.TensorDispatch <> r:269 var
+R13949:13955 KamiHW.HWBoundary <> hw_regs proj
+R13957:13957 KamiHW.TensorDispatch <> b:266 var
+R13960:13960 KamiHW.TensorDispatch <> r:269 var
+R13847:13863 KamiHW.HWBoundary <> hw_module_tensors proj
+R13865:13865 KamiHW.TensorDispatch <> b:266 var
+R13869:13870 Kami.Lib.Word <> WS constr
+R13876:13877 Kami.Lib.Word <> WS constr
+R13883:13884 Kami.Lib.Word <> WS constr
+R13890:13891 Kami.Lib.Word <> WS constr
+R13896:13897 Kami.Lib.Word <> WO constr
+R13893:13894 KamiHW.TensorDispatch <> b7:257 var
+R13886:13887 KamiHW.TensorDispatch <> b6:256 var
+R13879:13880 KamiHW.TensorDispatch <> b5:255 var
+R13872:13873 KamiHW.TensorDispatch <> b4:254 var
+R13904:13905 Kami.Lib.Word <> WS constr
+R13911:13912 Kami.Lib.Word <> WS constr
+R13918:13919 Kami.Lib.Word <> WS constr
+R13925:13926 Kami.Lib.Word <> WS constr
+R13931:13932 Kami.Lib.Word <> WO constr
+R13928:13929 KamiHW.TensorDispatch <> b3:253 var
+R13921:13922 KamiHW.TensorDispatch <> b2:252 var
+R13914:13915 KamiHW.TensorDispatch <> b1:251 var
+R13907:13908 KamiHW.TensorDispatch <> b0:250 var
+R13760:13766 KamiHW.HWBoundary <> hw_regs proj
+R13768:13768 KamiHW.TensorDispatch <> b:266 var
+R13690:13699 Kami.Syntax <> SyntaxKind constr
+R13702:13707 Kami.Syntax <> Vector constr
+R13722:13729 KamiHW.ThieleTypes <> RegIdxSz def
+R13710:13712 Kami.Syntax <> Bit constr
+R13714:13719 KamiHW.ThieleTypes <> WordSz def
+R13674:13681 Kami.Syntax <> fullType def
+R13683:13686 Kami.Syntax <> type def
+R13990:14001 Kami.Lib.FMap M find_union thm
+R13990:14001 Kami.Lib.FMap M find_union thm
+R13990:14001 Kami.Lib.FMap M find_union thm
+R14018:14047 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R14018:14047 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R14018:14047 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R14071:14101 KamiHW.TensorDispatch <> tensor_get_dispatch_observation thm
+R14071:14101 KamiHW.TensorDispatch <> tensor_get_dispatch_observation thm
+R14071:14101 KamiHW.TensorDispatch <> tensor_get_dispatch_observation thm
+prf 14213:14243 <> dispatch_csr_status_not_written
+binder 14254:14254 <> b:270
+binder 14256:14259 <> imem:271
+R14327:14329 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14264:14285 KamiHW.DispatchObservation <> observe_dispatch_write def
+R14288:14305 KamiHW.DispatchFetch <> dispatch_with_imem def
+R14307:14307 KamiHW.TensorDispatch <> b:270 var
+R14309:14312 KamiHW.TensorDispatch <> imem:271 var
+R14330:14333 Coq.Init.Datatypes <> None constr
+R14361:14394 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
+R14361:14394 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
+R14361:14394 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
+R14406:14416 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 14454:14482 <> dispatch_csr_status_preserved
+binder 14493:14493 <> b:272
+binder 14495:14498 <> imem:273
+binder 14500:14500 <> u:274
+R14555:14560 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14546:14548 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14505:14517 KamiHW.DispatchExecution <> eval_dispatch def
+R14520:14537 KamiHW.DispatchFetch <> dispatch_with_imem def
+R14539:14539 KamiHW.TensorDispatch <> b:272 var
+R14541:14544 KamiHW.TensorDispatch <> imem:273 var
+R14549:14552 Coq.Init.Datatypes <> Some constr
+R14554:14554 KamiHW.TensorDispatch <> u:274 var
+R14620:14624 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14561:14566 Kami.Lib.FMap M find def
+R14582:14588 Kami.Lib.FMap M union def
+R14593:14610 KamiHW.DispatchFetch <> dispatch_with_imem def
+R14612:14612 KamiHW.TensorDispatch <> b:272 var
+R14614:14617 KamiHW.TensorDispatch <> imem:273 var
+R14590:14590 KamiHW.TensorDispatch <> u:274 var
+R14625:14630 Kami.Lib.FMap M find def
+R14646:14663 KamiHW.DispatchFetch <> dispatch_with_imem def
+R14665:14665 KamiHW.TensorDispatch <> b:272 var
+R14667:14670 KamiHW.TensorDispatch <> imem:273 var
+R14699:14710 Kami.Lib.FMap M find_union thm
+R14699:14710 Kami.Lib.FMap M find_union thm
+R14699:14710 Kami.Lib.FMap M find_union thm
+R14727:14756 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R14727:14756 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R14727:14756 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R14778:14808 KamiHW.TensorDispatch <> dispatch_csr_status_not_written thm
+R14778:14808 KamiHW.TensorDispatch <> dispatch_csr_status_not_written thm
+R14778:14808 KamiHW.TensorDispatch <> dispatch_csr_status_not_written thm
+prf 14836:14869 <> dispatch_csr_heap_base_not_written
+binder 14880:14880 <> b:275
+binder 14882:14885 <> imem:276
+R14956:14958 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14890:14911 KamiHW.DispatchObservation <> observe_dispatch_write def
+R14914:14931 KamiHW.DispatchFetch <> dispatch_with_imem def
+R14933:14933 KamiHW.TensorDispatch <> b:275 var
+R14935:14938 KamiHW.TensorDispatch <> imem:276 var
+R14959:14962 Coq.Init.Datatypes <> None constr
+R14990:15023 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
+R14990:15023 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
+R14990:15023 KamiHW.BoundaryDecoded <> dispatch_boundary_decoded_observer thm
+R15035:15045 KamiHW.BoundaryDecoded <> hwb_decoded def
+prf 15083:15114 <> dispatch_csr_heap_base_preserved
+binder 15125:15125 <> b:277
+binder 15127:15130 <> imem:278
+binder 15132:15132 <> u:279
+R15187:15192 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15178:15180 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15137:15149 KamiHW.DispatchExecution <> eval_dispatch def
+R15152:15169 KamiHW.DispatchFetch <> dispatch_with_imem def
+R15171:15171 KamiHW.TensorDispatch <> b:277 var
+R15173:15176 KamiHW.TensorDispatch <> imem:278 var
+R15181:15184 Coq.Init.Datatypes <> Some constr
+R15186:15186 KamiHW.TensorDispatch <> u:279 var
+R15255:15259 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15193:15198 Kami.Lib.FMap M find def
+R15217:15223 Kami.Lib.FMap M union def
+R15228:15245 KamiHW.DispatchFetch <> dispatch_with_imem def
+R15247:15247 KamiHW.TensorDispatch <> b:277 var
+R15249:15252 KamiHW.TensorDispatch <> imem:278 var
+R15225:15225 KamiHW.TensorDispatch <> u:279 var
+R15260:15265 Kami.Lib.FMap M find def
+R15284:15301 KamiHW.DispatchFetch <> dispatch_with_imem def
+R15303:15303 KamiHW.TensorDispatch <> b:277 var
+R15305:15308 KamiHW.TensorDispatch <> imem:278 var
+R15337:15348 Kami.Lib.FMap M find_union thm
+R15337:15348 Kami.Lib.FMap M find_union thm
+R15337:15348 Kami.Lib.FMap M find_union thm
+R15365:15394 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R15365:15394 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R15365:15394 KamiHW.DispatchObservation <> observe_dispatch_write_correct thm
+R15416:15449 KamiHW.TensorDispatch <> dispatch_csr_heap_base_not_written thm
+R15416:15449 KamiHW.TensorDispatch <> dispatch_csr_heap_base_not_written thm
+R15416:15449 KamiHW.TensorDispatch <> dispatch_csr_heap_base_not_written thm
