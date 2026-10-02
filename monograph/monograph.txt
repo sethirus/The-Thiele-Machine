@@ -6227,17 +6227,17 @@ le_hands_off and LoaderSerial.load_instr_writes say the rule that takes
 
 
                                           124
-The Thiele Machine                                          Devon Thiele • September 2026
+The Thiele Machine                                         Devon Thiele • September 2026
 
 
 a held word calls loadInstr with exactly that word and address, and loadInstr
 writes it into instruction memory.
 
 One link isn’t proved. Kami’s semantics say a rule may fire whenever its guard holds.
-They don’t say when it fires. So Coq doesn’t prove that the load rule takes each word
-before the next word replaces it. Each word stays held for at least fifteen more frames,
-and the simulation tests (scripts/system_sim.py, on the extracted Verilog and
-on a gate netlist) check that whole programs land and run.
+They don’t say when it fires. So Coq doesn’t prove that the loader’s load rule takes
+each word before the next word replaces it. Each word stays held for at least fifteen
+more frames, and the simulation tests (scripts/system_sim.py, on the extracted
+Verilog and on a gate netlist) check that whole programs land and run.
 
 The kernel fixes REG_COUNT and MEM_SIZE at these values, and no theorem is stated
 for other ones. Hardware realises one choice of constants. The size constants (16
@@ -6276,7 +6276,7 @@ separate from physical clock transitions in ThieleCPUCore.v.
      existence. MORPH_ASSERT and MORPH_DELETE require morph-table well-
 
 
-                                          125
+                                         125
 The Thiele Machine                                          Devon Thiele • September 2026
 
 
