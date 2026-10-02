@@ -309,8 +309,8 @@ II    Building it                                                               
       16.3 Layer 3: The Kami RTL hardware . . . . . . . . . . . . . . . . . . . . . . 123
 
 17 Five minimal models inspired by other disciplines                                        127
-   17.1 Proof-of-stake finality . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   127
-   17.2 Gas metering . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    127
+   17.1 Proof-of-stake finality . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   128
+   17.2 Gas metering . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    128
    17.3 Trusted-execution attestation . . . . . . . . . . . . . . . . . . . . . . . .       128
    17.4 Certificate transparency . . . . . . . . . . . . . . . . . . . . . . . . . . .      129
    17.5 Proof-carrying verification . . . . . . . . . . . . . . . . . . . . . . . . . .     129
@@ -6206,6 +6206,39 @@ with it. Compiling the Coq proofs doesn’t measure changed RTL. Any physical cl
 about the current design needs freshly regenerated pipeline artifacts tied to the source
 identity in Section 21.1.
 
+The CPU comes out of reset halted. Nothing runs until a program is in. The program
+comes over the board’s USB serial line, and the loader that takes it in is written in
+Kami too, so it comes out of the same extraction as the CPU. Nobody hand-writes
+it in Verilog. ThieleLoader reads the pin through two synchronizing registers,
+assembles sixteen bytes into each instruction word, hands each word to the CPU’s
+loadInstr method, and calls start after the last one. When the CPU halts or faults,
+the loader sends back fifteen bytes: the status, the program counter, the µ ledger, and
+the error code.
+
+Coq checks that chain one link at a time. CPUStart.start_from_reset says one
+start call from reset gives exactly the state every dispatch theorem starts from. Loa
+derSerial.one_frame runs the receiver cycle by cycle as the Kami method itself
+and says one frame of any byte comes out as exactly that byte, once. LoaderSeria
+l.serial_program_load says that for any program of 1 to 128 instructions, after
+the frames of the count and of instructions 0 through k, the loader holds instruction
+k at address k, and after the last one it asks for the start. LoaderSerial.load_ru
+le_hands_off and LoaderSerial.load_instr_writes say the rule that takes
+
+
+
+                                          124
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
+a held word calls loadInstr with exactly that word and address, and loadInstr
+writes it into instruction memory.
+
+One link isn’t proved. Kami’s semantics say a rule may fire whenever its guard holds.
+They don’t say when it fires. So Coq doesn’t prove that the load rule takes each word
+before the next word replaces it. Each word stays held for at least fifteen more frames,
+and the simulation tests (scripts/system_sim.py, on the extracted Verilog and
+on a gate netlist) check that whole programs land and run.
+
 The kernel fixes REG_COUNT and MEM_SIZE at these values, and no theorem is stated
 for other ones. Hardware realises one choice of constants. The size constants (16
 registers, 128 data words, 128 instruction words) were chosen small enough to fit on a
@@ -6223,13 +6256,7 @@ opcode-set parity test tolerates exactly these four. Which opcodes are in hardwa
 isn’t the real question. The real question is which opcodes have a completed formal
 bisimulation proof.
 
-The     theorem      KamiHW.GraphReconstructionBridge.driv
-
-
-                                          124
-The Thiele Machine                                          Devon Thiele • September 2026
-
-
+The    theorem     KamiHW.GraphReconstructionBridge.driv
 en_step_wf           compares      the     Gallina     function    kami_step     with
 Kernel.SimulationProof.vm_apply                   through       abs_full_snapshot.
 Its premise is WFDrivenPrecondition ks i.                        The trace theorem
@@ -6247,7 +6274,13 @@ separate from physical clock transitions in ThieleCPUCore.v.
      modules. COMPOSE, MORPH_TENSOR, and MORPH_GET require the ex-
      tended invariant. MORPH_ID uses the empty-descriptor invariant and module
      existence. MORPH_ASSERT and MORPH_DELETE require morph-table well-
-     formedness.
+
+
+                                          125
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
+      formedness.
    • PNEW requires a nonempty normalized region and fresh tensor state. PSPLIT
      and PMERGE carry the partition, capacity, freshness, and arithmetic conditions
      in their source branches. These per-operation conditions must be established
@@ -6273,11 +6306,6 @@ for the FSM’s in-between states.
 
 The coupling FSM reads serialized MORPH pairs and implements pair copying and
 relational joins for the other two operations. Descriptor zero remains reserved for
-
-                                          125
-The Thiele Machine                                           Devon Thiele • September 2026
-
-
 empty/identity couplings. The finite pair table holds 16 entries; insufficient space
 raises an error, and empty results need no pair entries. The RTL regression tests
 inspect the backing pair tables through the testbench. They do not establish full-state
@@ -6296,6 +6324,12 @@ into unrestricted RTL equality.
 And the four Q1+AB check opcodes are not stranded by sitting outside that partition:
 their kernel-equivalence proof makes them sound at the substrate level (see §18), and
 they run in the OCaml runner and Python harness. What they lack is a synthesized-
+
+
+                                          126
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
 Verilog counterpart to bisimulate against, which is why they sit outside the 47 instead
 of inside it as a gap. That’s honest proof accounting. Nothing is papered over.
 
@@ -6323,13 +6357,6 @@ predicate. Exact unit pricing is a stronger condition, relative to how many cert
 flips happen. A2 itself allows larger charges. And neither one vouches for a receipt
 from outside without some evidence to back it.
 
-
-
-                                           126
-The Thiele Machine                                          Devon Thiele • September 2026
-
-
-
 17 Five minimal models inspired by other disciplines
 Five other fields need a commitment to stick. The abstract records leave the kind of
 state and instruction open, so you can drop in something that looks nothing like this
@@ -6347,6 +6374,11 @@ in place by pricing reversal or by building them so they can’t be undone. The 
 this book is about the account of computation: it should carry the record and its price,
 so the next field doesn’t have to build them again. It does not say every field already
 prices the write, and it does not say a machine can’t carry one.
+
+
+                                           127
+The Thiele Machine                                          Devon Thiele • September 2026
+
 
 17.1 Proof-of-stake finality
 Stake it or it doesn’t count. The model has a yes/no finalized flag, and finalizing
@@ -6375,11 +6407,6 @@ exact pricing gives you those two conditions back. A real gas schedule also char
 for things like computation and storage. Its full fee isn’t this counter, and no EVM
 opcode table is modeled here.
 
-
-                                          127
-The Thiele Machine                                          Devon Thiele • September 2026
-
-
 The model keeps two failures apart: leaving out a mandatory charge, and charging
 more than the reference counter. undercharged_opcode_admits_free_comm
 itment concerns a committing step charged zero. overcharge_breaks_exact
@@ -6398,6 +6425,11 @@ surement field to the report. Under its coverage and evidence assumptions, atte
 station_cannot_factor_through_bare_transcript rules out a sound and
 complete verifier that only reads the bare transcript. replay_is_a_two_preima
 ge_witness supplies the model’s collision: two runs, one bare transcript. That is
+
+                                          128
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
 the shape of a replay, not a replay attack; no signed report or freshness rule is in the
 model. measurement_enriched_attestation_succeeds gives a verifier that
 works on the enriched reports. The point is that some distinguishing evidence has
@@ -6423,13 +6455,6 @@ fields in a classical transcript, with no information lost (quote_projection_fai
 ful). The two VM witness states label the two truth values of the runtime claim. This
 transport makes no assertion that TPM cost or energy equals µ.
 
-
-
-
-                                          128
-The Thiele Machine                                          Devon Thiele • September 2026
-
-
 17.4 Certificate transparency
 Keep a log, or live with the split view. The transparency model adds an inclusion-
 verdict bit, governed by the same exact disclosure contract as the commitment route.
@@ -6450,6 +6475,12 @@ Calling the field rounds doesn’t make a one-shot certificate interactive. The 
 is one number the contract says equals µ; no code, safety policy, or proof checker is
 modeled. Separately, level_k_verification_floor, which is just another name
 for level_k_certification_cost_floor, says a run from the clean start that
+
+
+                                          129
+The Thiele Machine                                             Devon Thiele • September 2026
+
+
 ends certified after executing one CERTIFY charged at least k costs at least k, and l
 evel_k_verification_floor_tight shows it can be exactly k. That count is
 a different thing from the per-instruction charge levels in Section 19. Neither one
@@ -6457,13 +6488,6 @@ measures prover time, circuit size, or proof length.
 
 Falsifier: a level-k certified trace with total µ below k, or a sound and complete zero-
 round bare verifier.
-
-
-
-
-                                          129
-The Thiele Machine                                             Devon Thiele • September 2026
-
 
 17.6 The same table, five ways
   System         Escape used   Kernel result         Model conse-         What refutes it
@@ -8639,13 +8663,13 @@ Falsify the axiom audit.
 If running Print Assumptions (Section A: the Coq command that reports global
 proof dependencies) on any named theorem in the kernel tier shows a project-local
 Axiom or Parameter in the dependency tree, the audit has degraded. The full-
-corpus probe covers 14,031 named theorems across 503 files: 6,577 close under
-the global Coq context outright, and 7,454 use only Coq standard-library assump-
+corpus probe covers 14,075 named theorems across 504 files: 6,609 close under
+the global Coq context outright, and 7,466 use only Coq standard-library assump-
 tions. The receipt names five such constants: dependent functional extensionality,
 Eqdep.Eq_rect_eq.eq_rect_eq, ClassicalDedekindReals.sig_not_dec,
 ClassicalDedekindReals.sig_forall_dec,                                            and
 Classical_Prop.classic. Zero project-local axioms appear in any of the
-14,031 dependency trees. This audits where global dependencies come from. It
+14,075 dependency trees. This audits where global dependencies come from. It
 doesn’t prove that a theorem’s own Section-generalized premises hold for the instance
 you care about; those premises stay visible in the theorem types and get checked
 separately. Any project-local axiom or parameter appearing in a global dependency

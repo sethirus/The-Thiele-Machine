@@ -2,8 +2,8 @@
   "schema": "vacuity_audit.v1",
   "summary": {
     "error": 0,
-    "ok": 1097,
-    "total": 1097,
+    "ok": 1141,
+    "total": 1141,
     "vacuous_hyp": 0,
     "vacuous_true": 0
   },
@@ -21056,6 +21056,886 @@
         "succeeded": false
       },
       "statement": "exists prog s n, rc_init (TiedRAM prog) s /\\ rc_init (UntiedRAM prog) s /\\ (forall k, ram_projection (rc_run (TiedRAM prog) k s) = ram_projection (rc_run (UntiedRAM prog) k s)) /\\ ram_record (rc_run (TiedRAM prog) n s) <> ram_record (rc_run (UntiedRAM prog) n s)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 49,
+      "name": "rx_sample_method_name",
+      "probe_a": {
+        "coq_stderr_tail": "ilesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__rx_sample_method_name__a.v\", line 3, characters 49-57:\nError: The reference attrName was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.258 secs (0.225u,0.033s)\nChars 106 - 194 [Theorem~_vacuity_probe_a_rx_sa...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__rx_sample_method_name__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ilesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__rx_sample_method_name__b.v\", line 3, characters 49-57:\nError: The reference attrName was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.259 secs (0.221u,0.037s)\nChars 106 - 194 [Theorem~_vacuity_probe_b_rx_sa...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__rx_sample_method_name__b.v",
+        "succeeded": false
+      },
+      "statement": "attrName rx_sample_method = \"rxSample\"",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 52,
+      "name": "rx_sample_method_in",
+      "probe_a": {
+        "coq_stderr_tail": "oadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__rx_sample_method_in__a.v\", line 3, characters 47-49:\nError: The reference In was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.254 secs (0.214u,0.04s)\nChars 106 - 202 [Theorem~_vacuity_probe_a_rx_sa...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__rx_sample_method_in__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "adpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__rx_sample_method_in__b.v\", line 3, characters 47-49:\nError: The reference In was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.254 secs (0.219u,0.034s)\nChars 106 - 202 [Theorem~_vacuity_probe_b_rx_sa...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__rx_sample_method_in__b.v",
+        "succeeded": false
+      },
+      "statement": "In rx_sample_method (getDefsBodies thieleLoader)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 58,
+      "name": "rx_sample_action_linear",
+      "probe_a": {
+        "coq_stderr_tail": "em,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__rx_sample_action_linear__a.v\", line 3, characters 63-76:\nError: The reference linear_action was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.259 secs (0.219u,0.039s)\nChars 106 - 206 [Theorem~_vacuity_probe_a_rx_sa...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__rx_sample_action_linear__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "tem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__rx_sample_action_linear__b.v\", line 3, characters 63-76:\nError: The reference linear_action was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.26 secs (0.215u,0.044s)\nChars 106 - 206 [Theorem~_vacuity_probe_b_rx_sa...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__rx_sample_action_linear__b.v",
+        "succeeded": false
+      },
+      "statement": "forall pin, linear_action (rx_sample_action pin)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 128,
+      "name": "rx_sample_eval_some",
+      "probe_a": {
+        "coq_stderr_tail": "m,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__rx_sample_eval_some__a.v\", line 3, characters 73-91:\nError: The reference eval_linear_action was not found in the current\nenvironment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.254 secs (0.215u,0.038s)\nChars 106 - 247 [Theorem~_vacuity_probe_a_rx_sa...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__rx_sample_eval_some__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "m,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__rx_sample_eval_some__b.v\", line 3, characters 73-91:\nError: The reference eval_linear_action was not found in the current\nenvironment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.255 secs (0.213u,0.042s)\nChars 106 - 247 [Theorem~_vacuity_probe_b_rx_sa...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__rx_sample_eval_some__b.v",
+        "succeeded": false
+      },
+      "statement": "forall r p pin, exists u, eval_linear_action (regs r p) (rx_sample_action pin) = Some (u, WO)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Theorem",
+      "line": 140,
+      "name": "step_is_rxSample",
+      "probe_a": {
+        "coq_stderr_tail": "th,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__step_is_rxSample__a.v\", line 3, characters 70-79:\nError: The reference SemAction was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.266 secs (0.223u,0.043s)\nChars 106 - 270 [Theorem~_vacuity_probe_a_step_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__step_is_rxSample__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__step_is_rxSample__b.v\", line 3, characters 70-79:\nError: The reference SemAction was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.259 secs (0.219u,0.04s)\nChars 106 - 270 [Theorem~_vacuity_probe_b_step_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__step_is_rxSample__b.v",
+        "succeeded": false
+      },
+      "statement": "forall r p pin, exists u, SemAction (regs r p) (rx_sample_action pin) u (M.empty _) WO /\\ step (r, p) pin = after u r p",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 155,
+      "name": "step_fast_eq",
+      "probe_a": {
+        "coq_stderr_tail": "then false\n        else true\n       else match p with\n            | {| start_req := start_req |} => start_req\n            end\n   |})\".\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.263 secs (0.217u,0.045s)\nChars 106 - 198 [Theorem~_vacuity_probe_a_step_...] 0. secs (0.u,0.s)\nChars 199 - 205 [Proof.] 0. secs (0.u,0.s)\nChars 206 - 228 [(intros;~lazy;~exact~I).] 5.769 secs (5.711u,0.056s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__step_fast_eq__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__step_fast_eq__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.261 secs (0.227u,0.034s)\nChars 106 - 198 [Theorem~_vacuity_probe_b_step_...] 0. secs (0.u,0.s)\nChars 199 - 205 [Proof.] 0. secs (0.u,0.s)\nChars 206 - 236 [(intros;~lazy~in~*;~assumption).] 0.738 secs (0.73u,0.007s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__step_fast_eq__b.v",
+        "succeeded": false
+      },
+      "statement": "forall r p pin, step (r, p) pin = step_fast r p pin",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 203,
+      "name": "step_rx",
+      "probe_a": {
+        "coq_stderr_tail": "else Word.WS false Word.WO)))))))\n      else match r with\n           | {| rx_shift := rx_shift |} => rx_shift\n           end\n  |}\".\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.271 secs (0.231u,0.04s)\nChars 106 - 197 [Theorem~_vacuity_probe_a_step_...] 0. secs (0.u,0.s)\nChars 198 - 204 [Proof.] 0. secs (0.u,0.s)\nChars 205 - 227 [(intros;~lazy;~exact~I).] 0.15 secs (0.146u,0.003s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__step_rx__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ne/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__step_rx__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.262 secs (0.225u,0.037s)\nChars 106 - 197 [Theorem~_vacuity_probe_b_step_...] 0. secs (0.u,0.s)\nChars 198 - 204 [Proof.] 0. secs (0.u,0.s)\nChars 205 - 235 [(intros;~lazy~in~*;~assumption).] 0.001 secs (0.001u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__step_rx__b.v",
+        "succeeded": false
+      },
+      "statement": "forall r p pin, fst (step_fast r p pin) = rx_step r pin",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 215,
+      "name": "step_prog",
+      "probe_a": {
+        "coq_stderr_tail": "else true\n        else match p with\n             | {| start_req := start_req |} => start_req\n             end\n    |}\n   else p)\".\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.272 secs (0.237u,0.034s)\nChars 106 - 235 [Theorem~_vacuity_probe_a_step_...] 0. secs (0.u,0.s)\nChars 236 - 242 [Proof.] 0. secs (0.u,0.s)\nChars 243 - 265 [(intros;~lazy;~exact~I).] 5.367 secs (5.332u,0.033s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__step_prog__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "e-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__step_prog__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.265 secs (0.233u,0.031s)\nChars 106 - 235 [Theorem~_vacuity_probe_b_step_...] 0. secs (0.u,0.s)\nChars 236 - 242 [Proof.] 0. secs (0.u,0.s)\nChars 243 - 273 [(intros;~lazy~in~*;~assumption).] 0.104 secs (0.096u,0.008s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__step_prog__b.v",
+        "succeeded": false
+      },
+      "statement": "forall r p pin, snd (step_fast r p pin) = if rx_done r then byte_step p (rx_shift r) else p",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 250,
+      "name": "step_split",
+      "probe_a": {
+        "coq_stderr_tail": "else true\n        else match p with\n             | {| start_req := start_req |} => start_req\n             end\n    |}\n   else p)\".\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.269 secs (0.228u,0.04s)\nChars 106 - 245 [Theorem~_vacuity_probe_a_step_...] 0. secs (0.u,0.s)\nChars 246 - 252 [Proof.] 0. secs (0.u,0.s)\nChars 253 - 275 [(intros;~lazy;~exact~I).] 5.791 secs (5.744u,0.046s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__step_split__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__step_split__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.274 secs (0.225u,0.048s)\nChars 106 - 245 [Theorem~_vacuity_probe_b_step_...] 0. secs (0.u,0.s)\nChars 246 - 252 [Proof.] 0. secs (0.u,0.s)\nChars 253 - 283 [(intros;~lazy~in~*;~assumption).] 0.749 secs (0.741u,0.008s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__step_split__b.v",
+        "succeeded": false
+      },
+      "statement": "forall r p pin, step (r, p) pin = (rx_step r pin, if rx_done r then byte_step p (rx_shift r) else p)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Theorem",
+      "line": 260,
+      "name": "run_split",
+      "probe_a": {
+        "coq_stderr_tail": "-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__run_split__a.v\", line 3, characters 97-106:\nError: The reference fold_left was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.276 secs (0.24u,0.036s)\nChars 106 - 247 [Theorem~_vacuity_probe_a_run_s...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__run_split__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__run_split__b.v\", line 3, characters 97-106:\nError: The reference fold_left was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.276 secs (0.234u,0.042s)\nChars 106 - 247 [Theorem~_vacuity_probe_b_run_s...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__run_split__b.v",
+        "succeeded": false
+      },
+      "statement": "forall samples r p, run (r, p) samples = (rx_run r samples, fold_left byte_step (rx_bytes r samples) p)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 273,
+      "name": "frame_rx_state",
+      "probe_a": {
+        "coq_stderr_tail": "-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__frame_rx_state__a.v\", line 3, characters 55-59:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.276 secs (0.232u,0.043s)\nChars 106 - 210 [Theorem~_vacuity_probe_a_frame...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__frame_rx_state__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__frame_rx_state__b.v\", line 3, characters 55-59:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.268 secs (0.229u,0.037s)\nChars 106 - 210 [Theorem~_vacuity_probe_b_frame...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__frame_rx_state__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s v : word 8, rx_run (rx_idle s) (frame v) = rx_idle v",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 285,
+      "name": "frame_rx_bytes",
+      "probe_a": {
+        "coq_stderr_tail": "l-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__frame_rx_bytes__a.v\", line 3, characters 55-59:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.28 secs (0.242u,0.037s)\nChars 106 - 211 [Theorem~_vacuity_probe_a_frame...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__frame_rx_bytes__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__frame_rx_bytes__b.v\", line 3, characters 55-59:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.279 secs (0.244u,0.035s)\nChars 106 - 211 [Theorem~_vacuity_probe_b_frame...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__frame_rx_bytes__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s v : word 8, rx_bytes (rx_idle s) (frame v) = v :: nil",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Theorem",
+      "line": 297,
+      "name": "one_frame",
+      "probe_a": {
+        "coq_stderr_tail": "ogical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__one_frame__a.v\", line 3, characters 51-55:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.275 secs (0.24u,0.035s)\nChars 106 - 235 [Theorem~_vacuity_probe_a_one_f...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__one_frame__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "gical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__one_frame__b.v\", line 3, characters 51-55:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.276 secs (0.242u,0.034s)\nChars 106 - 235 [Theorem~_vacuity_probe_b_one_f...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__one_frame__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (s v : word 8) (p : Prog), run (rx_idle s, p) (frame v) = (rx_idle v, byte_step p v)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 312,
+      "name": "zext_8_16",
+      "probe_a": {
+        "coq_stderr_tail": "gical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__zext_8_16__a.v\", line 3, characters 48-52:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.266 secs (0.228u,0.038s)\nChars 106 - 220 [Theorem~_vacuity_probe_a_zext_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__zext_8_16__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "gical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__zext_8_16__b.v\", line 3, characters 48-52:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.274 secs (0.232u,0.041s)\nChars 106 - 220 [Theorem~_vacuity_probe_b_zext_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__zext_8_16__b.v",
+        "succeeded": false
+      },
+      "statement": "forall w : word 8, evalZeroExtendTrunc 16 w = Word.combine w (natToWord 8 0)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 340,
+      "name": "word_bytes_raw",
+      "probe_a": {
+        "coq_stderr_tail": "o test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__word_bytes_raw__a.v\", line 3, characters 193-194:\nError: Syntax error: [term level 30] expected after '^' (in [term]).\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.276 secs (0.238u,0.038s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__word_bytes_raw__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__word_bytes_raw__b.v\", line 3, characters 193-194:\nError: Syntax error: [term level 30] expected after '^' (in [term]).\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.27 secs (0.228u,0.042s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__word_bytes_raw__b.v",
+        "succeeded": false
+      },
+      "statement": "forall lo idx b a d (w : word InstrSz), fold_left byte_step (bytes_of w) (prog_word lo idx b a d) = let last := word_eqb (evalZeroExtendTrunc 16 (idx ^+ natToWord 8 1)) (Word.combine lo (natToWord 8 0)) in {| ld_phase := if last then natToWord 2 3 else natToWord 2 2; ld_count_lo := lo; ld_count_hi := natToWord 8 0; ld_index := idx ^+ natToWord 8 1; ld_byte := natToWord 4 0; ld_accum := natToWord InstrSz 0; load_req := negb b; load_addr := split2 0 MemAddrSz (split1 (0 + MemAddrSz) 1 idx); load_data := w; start_req := if (last || false)%bool then true else false |}",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Theorem",
+      "line": 358,
+      "name": "word_bytes",
+      "probe_a": {
+        "coq_stderr_tail": "nd to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__word_bytes__a.v\", line 3, characters 119-120:\nError: Syntax error: [term level 30] expected after '^' (in [term]).\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.273 secs (0.227u,0.046s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__word_bytes__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "und to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__word_bytes__b.v\", line 3, characters 119-120:\nError: Syntax error: [term level 30] expected after '^' (in [term]).\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.27 secs (0.232u,0.037s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__word_bytes__b.v",
+        "succeeded": false
+      },
+      "statement": "forall lo idx b a d (w : word InstrSz), let last := word_eqb (Word.combine (idx ^+ natToWord 8 1) (natToWord 8 0)) (Word.combine lo (natToWord 8 0)) in fold_left byte_step (bytes_of w) (prog_word lo idx b a d) = {| ld_phase := if last then natToWord 2 3 else natToWord 2 2; ld_count_lo := lo; ld_count_hi := natToWord 8 0; ld_index := idx ^+ natToWord 8 1; ld_byte := natToWord 4 0; ld_accum := natToWord InstrSz 0; load_req := negb b; load_addr := split2 0 MemAddrSz (split1 (0 + MemAddrSz) 1 idx); load_data := w; start_req := last |}",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 375,
+      "name": "count_bytes_raw",
+      "probe_a": {
+        "coq_stderr_tail": "loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__count_bytes_raw__a.v\", line 3, characters 58-62:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.276 secs (0.243u,0.033s)\nChars 106 - 627 [Theorem~_vacuity_probe_a_count...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__count_bytes_raw__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__count_bytes_raw__b.v\", line 3, characters 58-62:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.277 secs (0.241u,0.036s)\nChars 106 - 627 [Theorem~_vacuity_probe_b_count...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__count_bytes_raw__b.v",
+        "succeeded": false
+      },
+      "statement": "forall lo hi : word 8, fold_left byte_step (lo :: hi :: nil) prog_reset = {| ld_phase := if word_eqb (Word.combine lo hi) (natToWord 16 0) then natToWord 2 3 else natToWord 2 2; ld_count_lo := lo; ld_count_hi := hi; ld_index := natToWord 8 0; ld_byte := natToWord 4 0; ld_accum := natToWord InstrSz 0; load_req := false; load_addr := natToWord MemAddrSz 0; load_data := natToWord InstrSz 0; start_req := if word_eqb (Word.combine lo hi) (natToWord 16 0) then true else false |}",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 387,
+      "name": "word_eqb_true",
+      "probe_a": {
+        "coq_stderr_tail": "al-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__word_eqb_true__a.v\", line 3, characters 57-61:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.27 secs (0.235u,0.034s)\nChars 106 - 201 [Theorem~_vacuity_probe_a_word_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__word_eqb_true__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "al-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__word_eqb_true__b.v\", line 3, characters 57-61:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.26 secs (0.227u,0.032s)\nChars 106 - 201 [Theorem~_vacuity_probe_b_word_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__word_eqb_true__b.v",
+        "succeeded": false
+      },
+      "statement": "forall n (a b : word n), word_eqb a b = true -> a = b",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 390,
+      "name": "word_eqb_refl",
+      "probe_a": {
+        "coq_stderr_tail": "l-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__word_eqb_refl__a.v\", line 3, characters 55-59:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.264 secs (0.228u,0.035s)\nChars 106 - 190 [Theorem~_vacuity_probe_a_word_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__word_eqb_refl__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "l-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__word_eqb_refl__b.v\", line 3, characters 55-59:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.263 secs (0.221u,0.041s)\nChars 106 - 190 [Theorem~_vacuity_probe_b_word_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__word_eqb_refl__b.v",
+        "succeeded": false
+      },
+      "statement": "forall n (a : word n), word_eqb a a = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 395,
+      "name": "next_index_table",
+      "probe_a": {
+        "coq_stderr_tail": "to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__next_index_table__a.v\", line 3, characters 87-88:\nError: Syntax error: [term level 30] expected after '^' (in [term]).\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.26 secs (0.221u,0.038s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__next_index_table__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "o test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__next_index_table__b.v\", line 3, characters 87-88:\nError: Syntax error: [term level 30] expected after '^' (in [term]).\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.259 secs (0.222u,0.036s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__next_index_table__b.v",
+        "succeeded": false
+      },
+      "statement": "forallb (fun i => word_eqb (natToWord 8 i ^+ natToWord 8 1) (natToWord 8 (S i))) (seq 0 128) = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 400,
+      "name": "addr_table",
+      "probe_a": {
+        "coq_stderr_tail": "al-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__addr_table__a.v\", line 3, characters 38-45:\nError: The reference forallb was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.262 secs (0.222u,0.04s)\nChars 106 - 279 [Theorem~_vacuity_probe_a_addr_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__addr_table__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "al-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__addr_table__b.v\", line 3, characters 38-45:\nError: The reference forallb was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.272 secs (0.231u,0.04s)\nChars 106 - 279 [Theorem~_vacuity_probe_b_addr_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__addr_table__b.v",
+        "succeeded": false
+      },
+      "statement": "forallb (fun i => word_eqb (split2 0 MemAddrSz (split1 (0 + MemAddrSz) 1 (natToWord 8 i))) (natToWord MemAddrSz i)) (seq 0 128) = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 406,
+      "name": "last_table",
+      "probe_a": {
+        "coq_stderr_tail": "nd to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__last_table__a.v\", line 3, characters 123-124:\nError: Syntax error: [term level 30] expected after '^' (in [term]).\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.277 secs (0.239u,0.038s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__last_table__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "nd to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__last_table__b.v\", line 3, characters 123-124:\nError: Syntax error: [term level 30] expected after '^' (in [term]).\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.267 secs (0.233u,0.034s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__last_table__b.v",
+        "succeeded": false
+      },
+      "statement": "forallb (fun n => forallb (fun i => Bool.eqb (word_eqb (Word.combine (natToWord 8 i ^+ natToWord 8 1) (natToWord 8 0)) (Word.combine (natToWord 8 n) (natToWord 8 0))) (Nat.eqb (S i) n)) (seq 0 128)) (seq 1 128) = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 415,
+      "name": "count_table",
+      "probe_a": {
+        "coq_stderr_tail": "-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__count_table__a.v\", line 3, characters 39-46:\nError: The reference forallb was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.266 secs (0.221u,0.045s)\nChars 106 - 263 [Theorem~_vacuity_probe_a_count...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__count_table__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__count_table__b.v\", line 3, characters 39-46:\nError: The reference forallb was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.271 secs (0.233u,0.038s)\nChars 106 - 263 [Theorem~_vacuity_probe_b_count...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__count_table__b.v",
+        "succeeded": false
+      },
+      "statement": "forallb (fun n => negb (word_eqb (Word.combine (natToWord 8 n) (natToWord 8 0)) (natToWord 16 0))) (seq 1 128) = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 421,
+      "name": "in_range",
+      "probe_a": {
+        "coq_stderr_tail": "g-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__in_range__a.v\", line 3, characters 75-77:\nError: The reference In was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.27 secs (0.233u,0.036s)\nChars 106 - 199 [Theorem~_vacuity_probe_a_in_ra...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__in_range__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__in_range__b.v\", line 3, characters 75-77:\nError: The reference In was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.276 secs (0.245u,0.031s)\nChars 106 - 199 [Theorem~_vacuity_probe_b_in_ra...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__in_range__b.v",
+        "succeeded": false
+      },
+      "statement": "forall i lo len, lo <= i < lo + len -> In i (seq lo len)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 424,
+      "name": "next_index",
+      "probe_a": {
+        "coq_stderr_tail": "ound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__next_index__a.v\", line 3, characters 74-75:\nError: Syntax error: [term level 30] expected after '^' (in [term]).\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.285 secs (0.237u,0.048s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__next_index__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "bound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__next_index__b.v\", line 3, characters 74-75:\nError: Syntax error: [term level 30] expected after '^' (in [term]).\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.28 secs (0.243u,0.036s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__next_index__b.v",
+        "succeeded": false
+      },
+      "statement": "forall i, i < 128 -> natToWord 8 i ^+ natToWord 8 1 = natToWord 8 (S i)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 432,
+      "name": "addr_of",
+      "probe_a": {
+        "coq_stderr_tail": "gical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__addr_of__a.v\", line 3, characters 56-62:\nError: The reference split2 was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.265 secs (0.219u,0.045s)\nChars 106 - 248 [Theorem~_vacuity_probe_a_addr_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__addr_of__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "gical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__addr_of__b.v\", line 3, characters 56-62:\nError: The reference split2 was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.269 secs (0.223u,0.045s)\nChars 106 - 248 [Theorem~_vacuity_probe_b_addr_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__addr_of__b.v",
+        "succeeded": false
+      },
+      "statement": "forall i, i < 128 -> split2 0 MemAddrSz (split1 (0 + MemAddrSz) 1 (natToWord 8 i)) = natToWord MemAddrSz i",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 440,
+      "name": "last_of",
+      "probe_a": {
+        "coq_stderr_tail": "y bound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__last_of__a.v\", line 3, characters 114-115:\nError: Syntax error: [term level 30] expected after '^' (in [term]).\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.27 secs (0.23u,0.039s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__last_of__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "bound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__last_of__b.v\", line 3, characters 114-115:\nError: Syntax error: [term level 30] expected after '^' (in [term]).\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.277 secs (0.235u,0.042s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__last_of__b.v",
+        "succeeded": false
+      },
+      "statement": "forall n i, 1 <= n <= 128 -> i < 128 -> word_eqb (Word.combine (natToWord 8 i ^+ natToWord 8 1) (natToWord 8 0)) (Word.combine (natToWord 8 n) (natToWord 8 0)) = Nat.eqb (S i) n",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 451,
+      "name": "count_of",
+      "probe_a": {
+        "coq_stderr_tail": "-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__count_of__a.v\", line 3, characters 120-129:\nError: The reference natToWord was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.277 secs (0.236u,0.04s)\nChars 106 - 250 [Theorem~_vacuity_probe_a_count...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__count_of__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__count_of__b.v\", line 3, characters 120-129:\nError: The reference natToWord was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.274 secs (0.229u,0.045s)\nChars 106 - 250 [Theorem~_vacuity_probe_b_count...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__count_of__b.v",
+        "succeeded": false
+      },
+      "statement": "forall n, 1 <= n <= 128 -> word_eqb (Word.combine (natToWord 8 n) (natToWord 8 0)) (natToWord 16 0) = false",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 468,
+      "name": "load_states_spec",
+      "probe_a": {
+        "coq_stderr_tail": "system,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__load_states_spec__a.v\", line 3, characters 120-129:\nError: The reference nth_error was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.272 secs (0.242u,0.03s)\nChars 106 - 586 [Theorem~_vacuity_probe_a_load_...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__load_states_spec__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__load_states_spec__b.v\", line 3, characters 120-129:\nError: The reference nth_error was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.268 secs (0.229u,0.038s)\nChars 106 - 586 [Theorem~_vacuity_probe_b_load_...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__load_states_spec__b.v",
+        "succeeded": false
+      },
+      "statement": "forall n ws i b a d, 1 <= n <= 128 -> i + List.length ws = n -> forall k w, nth_error ws k = Some w -> exists p, nth_error (load_states (prog_word (natToWord 8 n) (natToWord 8 i) b a d) ws) k = Some p /\\ load_addr p = natToWord MemAddrSz (i + k) /\\ load_data p = w /\\ load_req p = (if Nat.even k then negb b else b) /\\ start_req p = Nat.eqb (S (i + k)) n /\\ ld_phase p = (if Nat.eqb (S (i + k)) n then natToWord 2 3 else natToWord 2 2)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 516,
+      "name": "count_bytes",
+      "probe_a": {
+        "coq_stderr_tail": "oadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__count_bytes__a.v\", line 3, characters 66-75:\nError: The reference fold_left was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.259 secs (0.223u,0.035s)\nChars 106 - 260 [Theorem~_vacuity_probe_a_count...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__count_bytes__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "oadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__count_bytes__b.v\", line 3, characters 66-75:\nError: The reference fold_left was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.256 secs (0.214u,0.042s)\nChars 106 - 260 [Theorem~_vacuity_probe_b_count...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__count_bytes__b.v",
+        "succeeded": false
+      },
+      "statement": "forall n, 1 <= n <= 128 -> fold_left byte_step (natToWord 8 n :: natToWord 8 0 :: nil) prog_reset = prog_counted n",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 522,
+      "name": "load_states_prefix",
+      "probe_a": {
+        "coq_stderr_tail": "h,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__load_states_prefix__a.v\", line 3, characters 63-72:\nError: The reference nth_error was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.26 secs (0.223u,0.037s)\nChars 106 - 296 [Theorem~_vacuity_probe_a_load_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__load_states_prefix__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "h,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__load_states_prefix__b.v\", line 3, characters 63-72:\nError: The reference nth_error was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.26 secs (0.229u,0.031s)\nChars 106 - 296 [Theorem~_vacuity_probe_b_load_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__load_states_prefix__b.v",
+        "succeeded": false
+      },
+      "statement": "forall ws p k w, nth_error ws k = Some w -> nth_error (load_states p ws) k = Some (fold_left byte_step (flat_map bytes_of (firstn (S k) ws)) p)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 534,
+      "name": "fold_left_cons2",
+      "probe_a": {
+        "coq_stderr_tail": "-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__fold_left_cons2__a.v\", line 3, characters 63-67:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.257 secs (0.22u,0.036s)\nChars 106 - 270 [Theorem~_vacuity_probe_a_fold_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__fold_left_cons2__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__fold_left_cons2__b.v\", line 3, characters 63-67:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.261 secs (0.227u,0.033s)\nChars 106 - 270 [Theorem~_vacuity_probe_b_fold_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__fold_left_cons2__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (f : Prog -> word 8 -> Prog) a b l x, fold_left f (a :: b :: l) x = fold_left f l (fold_left f (a :: b :: nil) x)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Theorem",
+      "line": 542,
+      "name": "program_load",
+      "probe_a": {
+        "coq_stderr_tail": ",filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__program_load__a.v\", line 3, characters 85-94:\nError: The reference nth_error was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.258 secs (0.217u,0.041s)\nChars 106 - 568 [Theorem~_vacuity_probe_a_progr...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__program_load__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__program_load__b.v\", line 3, characters 85-94:\nError: The reference nth_error was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.257 secs (0.227u,0.029s)\nChars 106 - 568 [Theorem~_vacuity_probe_b_progr...] 0.001 secs (0.001u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__program_load__b.v",
+        "succeeded": false
+      },
+      "statement": "forall ws k w, 1 <= List.length ws <= 128 -> nth_error ws k = Some w -> let p := fold_left byte_step (natToWord 8 (List.length ws) :: natToWord 8 0 :: flat_map bytes_of (firstn (S k) ws)) prog_reset in load_addr p = natToWord MemAddrSz k /\\ load_data p = w /\\ load_req p = Nat.even k /\\ start_req p = Nat.eqb (S k) (List.length ws) /\\ ld_phase p = (if Nat.eqb (S k) (List.length ws) then natToWord 2 3 else natToWord 2 2)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Theorem",
+      "line": 568,
+      "name": "empty_program_starts",
+      "probe_a": {
+        "coq_stderr_tail": "ilesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__empty_program_starts__a.v\", line 3, characters 59-68:\nError: The reference fold_left was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.257 secs (0.223u,0.034s)\nChars 106 - 307 [Theorem~_vacuity_probe_a_empty...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__empty_program_starts__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ilesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__empty_program_starts__b.v\", line 3, characters 59-68:\nError: The reference fold_left was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.258 secs (0.213u,0.044s)\nChars 106 - 307 [Theorem~_vacuity_probe_b_empty...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__empty_program_starts__b.v",
+        "succeeded": false
+      },
+      "statement": "start_req (fold_left byte_step (program_stream nil) prog_reset) = true /\\ ld_phase (fold_left byte_step (program_stream nil) prog_reset) = natToWord 2 3",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 575,
+      "name": "run_app",
+      "probe_a": {
+        "coq_stderr_tail": "let (_, _, _, _, _, _, _, _, _, start_req) := p in\n                     start_req\n                |})) xs\n        end) s xs) ys\".\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.267 secs (0.235u,0.032s)\nChars 106 - 194 [Theorem~_vacuity_probe_a_run_a...] 0. secs (0.u,0.s)\nChars 195 - 201 [Proof.] 0. secs (0.u,0.s)\nChars 202 - 224 [(intros;~lazy;~exact~I).] 10.167 secs (10.107u,0.056s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__run_app__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__run_app__b.v\", line 4, characters 26-36:\nError: No such assumption.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.264 secs (0.222u,0.041s)\nChars 106 - 194 [Theorem~_vacuity_probe_b_run_a...] 0. secs (0.u,0.s)\nChars 195 - 201 [Proof.] 0. secs (0.u,0.s)\nChars 202 - 232 [(intros;~lazy~in~*;~assumption).] 1.884 secs (1.872u,0.011s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__run_app__b.v",
+        "succeeded": false
+      },
+      "statement": "forall xs ys s, run s (xs ++ ys) = run (run s xs) ys",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 578,
+      "name": "last_cons_default",
+      "probe_a": {
+        "coq_stderr_tail": "adpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__last_cons_default__a.v\", line 3, characters 64-68:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.263 secs (0.228u,0.034s)\nChars 106 - 213 [Theorem~_vacuity_probe_a_last_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__last_cons_default__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "oadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__last_cons_default__b.v\", line 3, characters 64-68:\nError: The reference word was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.263 secs (0.212u,0.05s)\nChars 106 - 213 [Theorem~_vacuity_probe_b_last_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__last_cons_default__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (bs : list (word 8)) b s, last (b :: bs) s = last bs b",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Theorem",
+      "line": 587,
+      "name": "frames",
+      "probe_a": {
+        "coq_stderr_tail": "ical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__frames__a.v\", line 3, characters 69-77:\nError: The reference flat_map was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.269 secs (0.226u,0.042s)\nChars 106 - 244 [Theorem~_vacuity_probe_a_frame...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__frames__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__frames__b.v\", line 3, characters 69-77:\nError: The reference flat_map was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.265 secs (0.221u,0.044s)\nChars 106 - 244 [Theorem~_vacuity_probe_b_frame...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__frames__b.v",
+        "succeeded": false
+      },
+      "statement": "forall bs s p, run (rx_idle s, p) (flat_map frame bs) = (rx_idle (last bs s), fold_left byte_step bs p)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 601,
+      "name": "loader_reset_registers",
+      "probe_a": {
+        "coq_stderr_tail": "_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__loader_reset_registers__a.v\", line 3, characters 65-76:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.266 secs (0.228u,0.037s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__loader_reset_registers__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__loader_reset_registers__b.v\", line 3, characters 65-76:\nError: Syntax error: '.' expected after [gallina] (in [vernac_aux]).\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.263 secs (0.219u,0.043s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__loader_reset_registers__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k, In k [\"rx_sync1\"; \"rx_sync2\"; \"rx_state\"; \"rx_clk\"; \"rx_bit\"; \"rx_shift\"; \"ld_phase\"; \"ld_count_lo\"; \"ld_count_hi\"; \"ld_index\"; \"ld_byte\"; \"ld_accum\"; \"load_req\"; \"load_addr\"; \"load_data\"; \"start_req\"] -> M.find k loader_reset_state = M.find k (regs rx_reset prog_reset)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Theorem",
+      "line": 617,
+      "name": "serial_program_load",
+      "probe_a": {
+        "coq_stderr_tail": "ilesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__serial_program_load__a.v\", line 3, characters 92-101:\nError: The reference nth_error was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.263 secs (0.217u,0.046s)\nChars 106 - 504 [Theorem~_vacuity_probe_a_seria...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__serial_program_load__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__serial_program_load__b.v\", line 3, characters 92-101:\nError: The reference nth_error was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.265 secs (0.224u,0.04s)\nChars 106 - 504 [Theorem~_vacuity_probe_b_seria...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__serial_program_load__b.v",
+        "succeeded": false
+      },
+      "statement": "forall ws k w, 1 <= List.length ws <= 128 -> nth_error ws k = Some w -> let p := snd (run (rx_reset, prog_reset) (flat_map frame (natToWord 8 (List.length ws) :: natToWord 8 0 :: flat_map bytes_of (firstn (S k) ws)))) in load_addr p = natToWord MemAddrSz k /\\ load_data p = w /\\ load_req p = Nat.even k /\\ start_req p = Nat.eqb (S k) (List.length ws)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 637,
+      "name": "load_rule_name",
+      "probe_a": {
+        "coq_stderr_tail": "dpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__load_rule_name__a.v\", line 3, characters 42-50:\nError: The reference attrName was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.264 secs (0.219u,0.045s)\nChars 106 - 176 [Theorem~_vacuity_probe_a_load_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__load_rule_name__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "dpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__load_rule_name__b.v\", line 3, characters 42-50:\nError: The reference attrName was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.271 secs (0.227u,0.042s)\nChars 106 - 176 [Theorem~_vacuity_probe_b_load_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__load_rule_name__b.v",
+        "succeeded": false
+      },
+      "statement": "attrName load_rule = \"load\"",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 649,
+      "name": "find_same",
+      "probe_a": {
+        "coq_stderr_tail": "ical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__find_same__a.v\", line 3, characters 49-54:\nError: The reference RegsT was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.266 secs (0.229u,0.037s)\nChars 106 - 254 [Theorem~_vacuity_probe_a_find_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__find_same__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__find_same__b.v\", line 3, characters 49-54:\nError: The reference RegsT was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.264 secs (0.225u,0.039s)\nChars 106 - 254 [Theorem~_vacuity_probe_b_find_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__find_same__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (m : RegsT) r k (v1 v2 : type k), M.find r m = Some (SK k v1) -> M.find r m = Some (SK k v2) -> v1 = v2",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Theorem",
+      "line": 659,
+      "name": "load_rule_hands_off",
+      "probe_a": {
+        "coq_stderr_tail": "th,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__load_rule_hands_off__a.v\", line 3, characters 78-84:\nError: The reference M.find was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.271 secs (0.223u,0.047s)\nChars 106 - 580 [Theorem~_vacuity_probe_a_load_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__load_rule_hands_off__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "th,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__load_rule_hands_off__b.v\", line 3, characters 78-84:\nError: The reference M.find was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.339 secs (0.275u,0.063s)\nChars 106 - 580 [Theorem~_vacuity_probe_b_load_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__load_rule_hands_off__b.v",
+        "succeeded": false
+      },
+      "statement": "forall old u cs ret lr la a d, M.find \"load_req\" old = Some (SK Bool lr) -> M.find \"load_ack\" old = Some (SK Bool la) -> M.find \"load_addr\" old = Some (SK (Bit MemAddrSz) a) -> M.find \"load_data\" old = Some (SK (Bit InstrSz) d) -> SemAction old load_action u cs ret -> lr <> la /\\ (exists mret, cs = M.add \"loadInstr\" (existT _ loadInstrSigT (load_port a d, mret)) (M.empty _)) /\\ u = M.add \"load_ack\" (SK Bool lr) (M.empty _)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Lemma",
+      "line": 687,
+      "name": "load_instr_method_name",
+      "probe_a": {
+        "coq_stderr_tail": "lesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__load_instr_method_name__a.v\", line 3, characters 50-58:\nError: The reference attrName was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.279 secs (0.231u,0.047s)\nChars 106 - 197 [Theorem~_vacuity_probe_a_load_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__load_instr_method_name__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__load_instr_method_name__b.v\", line 3, characters 50-58:\nError: The reference attrName was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.276 secs (0.243u,0.032s)\nChars 106 - 197 [Theorem~_vacuity_probe_b_load_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__load_instr_method_name__b.v",
+        "succeeded": false
+      },
+      "statement": "attrName load_instr_method = \"loadInstr\"",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kami_hw/LoaderSerial.v",
+      "kind": "Theorem",
+      "line": 695,
+      "name": "load_instr_writes",
+      "probe_a": {
+        "coq_stderr_tail": "dpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__load_instr_writes__a.v\", line 3, characters 75-81:\nError: The reference M.find was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.279 secs (0.239u,0.04s)\nChars 106 - 440 [Theorem~_vacuity_probe_a_load_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__load_instr_writes__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "path,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/KamiHW__LoaderSerial__load_instr_writes__b.v\", line 3, characters 75-81:\nError: The reference M.find was not found in the current environment.\n\nChars 65 - 105 [From~KamiHW~Require~Import~Loa...] 0.278 secs (0.231u,0.047s)\nChars 106 - 440 [Theorem~_vacuity_probe_b_load_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/KamiHW__LoaderSerial__load_instr_writes__b.v",
+        "succeeded": false
+      },
+      "statement": "forall old imem a d u cs ret, M.find \"imem\" old = Some (SK (Vector (Bit InstrSz) MemAddrSz) imem) -> SemAction old (load_instr_action (load_port a d)) u cs ret -> cs = M.empty _ /\\ u = M.add \"imem\" (SK (Vector (Bit InstrSz) MemAddrSz) (fun i => if weq i a then d else imem i)) (M.empty _)",
       "status": "ok"
     }
   ]

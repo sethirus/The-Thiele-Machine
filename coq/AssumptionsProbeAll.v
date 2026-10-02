@@ -82,6 +82,7 @@ Require KamiHW.LegacyLocalityGuard.
 Require KamiHW.LegacyNfiGuard.
 Require KamiHW.LegacyPartitionGuard.
 Require KamiHW.LegacyWordDecode.
+Require KamiHW.LoaderSerial.
 Require KamiHW.LogicEngineEquivalence.
 Require KamiHW.MorphCopy.
 Require KamiHW.MorphJoin.
@@ -6871,6 +6872,51 @@ Print Assumptions KamiHW.LegacyWordDecode.H121_112.
 Print Assumptions KamiHW.LegacyWordDecode.dd_isa_version_correct.
 Print Assumptions KamiHW.LegacyWordDecode.dd_format_id_correct.
 Print Assumptions KamiHW.LegacyWordDecode.dd_flags_correct.
+(* === KamiHW.LoaderSerial : 44 addressable theorems (unaddressable: 0) === *)
+Print Assumptions KamiHW.LoaderSerial.rx_sample_method_name.
+Print Assumptions KamiHW.LoaderSerial.rx_sample_method_in.
+Print Assumptions KamiHW.LoaderSerial.rx_sample_action_linear.
+Print Assumptions KamiHW.LoaderSerial.rx_sample_eval_some.
+Print Assumptions KamiHW.LoaderSerial.step_is_rxSample.
+Print Assumptions KamiHW.LoaderSerial.step_fast_eq.
+Print Assumptions KamiHW.LoaderSerial.step_rx.
+Print Assumptions KamiHW.LoaderSerial.step_prog.
+Print Assumptions KamiHW.LoaderSerial.step_split.
+Print Assumptions KamiHW.LoaderSerial.run_split.
+Print Assumptions KamiHW.LoaderSerial.frame_rx_state.
+Print Assumptions KamiHW.LoaderSerial.frame_rx_bytes.
+Print Assumptions KamiHW.LoaderSerial.one_frame.
+Print Assumptions KamiHW.LoaderSerial.zext_8_16.
+Print Assumptions KamiHW.LoaderSerial.word_bytes_raw.
+Print Assumptions KamiHW.LoaderSerial.word_bytes.
+Print Assumptions KamiHW.LoaderSerial.count_bytes_raw.
+Print Assumptions KamiHW.LoaderSerial.word_eqb_true.
+Print Assumptions KamiHW.LoaderSerial.word_eqb_refl.
+Print Assumptions KamiHW.LoaderSerial.next_index_table.
+Print Assumptions KamiHW.LoaderSerial.addr_table.
+Print Assumptions KamiHW.LoaderSerial.last_table.
+Print Assumptions KamiHW.LoaderSerial.count_table.
+Print Assumptions KamiHW.LoaderSerial.in_range.
+Print Assumptions KamiHW.LoaderSerial.next_index.
+Print Assumptions KamiHW.LoaderSerial.addr_of.
+Print Assumptions KamiHW.LoaderSerial.last_of.
+Print Assumptions KamiHW.LoaderSerial.count_of.
+Print Assumptions KamiHW.LoaderSerial.load_states_spec.
+Print Assumptions KamiHW.LoaderSerial.count_bytes.
+Print Assumptions KamiHW.LoaderSerial.load_states_prefix.
+Print Assumptions KamiHW.LoaderSerial.fold_left_cons2.
+Print Assumptions KamiHW.LoaderSerial.program_load.
+Print Assumptions KamiHW.LoaderSerial.empty_program_starts.
+Print Assumptions KamiHW.LoaderSerial.run_app.
+Print Assumptions KamiHW.LoaderSerial.last_cons_default.
+Print Assumptions KamiHW.LoaderSerial.frames.
+Print Assumptions KamiHW.LoaderSerial.loader_reset_registers.
+Print Assumptions KamiHW.LoaderSerial.serial_program_load.
+Print Assumptions KamiHW.LoaderSerial.load_rule_name.
+Print Assumptions KamiHW.LoaderSerial.find_same.
+Print Assumptions KamiHW.LoaderSerial.load_rule_hands_off.
+Print Assumptions KamiHW.LoaderSerial.load_instr_method_name.
+Print Assumptions KamiHW.LoaderSerial.load_instr_writes.
 (* === KamiHW.LogicEngineEquivalence : 14 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.LogicEngineEquivalence.lassert_kami_step_pc_mu.
 Print Assumptions KamiHW.LogicEngineEquivalence.ljoin_kami_step_pc_mu.

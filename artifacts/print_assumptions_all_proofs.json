@@ -1,31 +1,31 @@
 {
   "schema": "thiele-print-assumptions-full-probe-v3",
-  "generated": "2026-10-01T21:57:05.331511+00:00",
+  "generated": "2026-10-02T01:19:31.550342+00:00",
   "coq_version": "8.18.0",
-  "corpus_digest": "cdd8a5ac88ad1a6017bdf77ed112e9ec824f47f8798c7f32f3122575fc3edb53",
-  "probe_digest": "394ad7d5cec1dd7247db18eb754ff33b2c84b1b4c971c4e0977df38df5ac6bc2",
+  "corpus_digest": "256cc334d4ab117cdce434837a73cde5116ee665f9f5b5b5272b18aca9f09311",
+  "probe_digest": "9affa91259e4e4122a238348ad2fcb360c34d65c0f393ef986fe3b1f6dd5c945",
   "probe_file": "coq/AssumptionsProbeAll.v",
   "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
-  "raw_output_sha256": "bf882aaf5efbe6b79899a1b1c3a00ff389762d340fd2cd3498a3b6fcf7b27ba6",
-  "files_probed": 503,
-  "addressable_theorems_probed": 14031,
-  "blocks_parsed": 14031,
+  "raw_output_sha256": "0cbc46e928cd11f5077156f192047b0fc29b1b7cda96bf0757f33cdad1951c9a",
+  "files_probed": 504,
+  "addressable_theorems_probed": 14075,
+  "blocks_parsed": 14075,
   "alignment_ok": true,
   "stderr_nonempty": true,
   "stderr_excerpt": "\nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq <",
   "unexpected_lines_in_output": 0,
   "first_unexpected_lines": [],
   "summary": {
-    "theorems_probed": 14031,
-    "closed_under_global_context": 6577,
-    "depend_on_axioms": 7454,
+    "theorems_probed": 14075,
+    "closed_under_global_context": 6609,
+    "depend_on_axioms": 7466,
     "user_or_third_party_axiom_findings": 0,
     "excluded_middle_users": 114,
-    "functional_extensionality_users": 7149,
+    "functional_extensionality_users": 7160,
     "real_completeness_axiom_users": 1170,
     "unique_axioms_used": {
-      "FunctionalExtensionality.functional_extensionality_dep": 7149,
-      "Eqdep.Eq_rect_eq.eq_rect_eq": 3850,
+      "FunctionalExtensionality.functional_extensionality_dep": 7160,
+      "Eqdep.Eq_rect_eq.eq_rect_eq": 3862,
       "ClassicalDedekindReals.sig_forall_dec": 1170,
       "ClassicalDedekindReals.sig_not_dec": 353,
       "Classical_Prop.classic": 114
@@ -216,9 +216,9 @@
       "axiom_set": []
     },
     "KamiHW": {
-      "theorems": 8725,
-      "closed": 2441,
-      "with_axioms": 6284,
+      "theorems": 8769,
+      "closed": 2473,
+      "with_axioms": 6296,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
@@ -990,6 +990,15 @@
     "coq/kami_hw/LegacyWordDecode.v": {
       "theorems": 42,
       "closed": 30,
+      "with_axioms": 12,
+      "axiom_set": [
+        "Eqdep.Eq_rect_eq.eq_rect_eq",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kami_hw/LoaderSerial.v": {
+      "theorems": 44,
+      "closed": 32,
       "with_axioms": 12,
       "axiom_set": [
         "Eqdep.Eq_rect_eq.eq_rect_eq",
