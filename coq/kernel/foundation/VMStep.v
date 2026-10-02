@@ -74,9 +74,10 @@ Qed.
     The quick reference:
 
     Partition ops (modify graph):
-    - PNEW: Create a fresh hardware-shaped module at pg_next_id.
-    - PSPLIT: Split module into two halves (hardware: equal halves).
-    - PMERGE: Hardware merge by size. No abstract overlap check here.
+    - PNEW: Claim a range of data memory as a fresh module at pg_next_id.
+      Traps if the range overlaps another module's range.
+    - PSPLIT: Split a module's range into two halves (hardware: equal halves).
+    - PMERGE: Join two modules whose ranges touch. Traps otherwise.
     - PDISCOVER: Carry evidence payload; current transition is pure advance.
 
     Logical ops (cert-setters; cost ≥ 1 enforced by S):
@@ -556,28 +557,123 @@ Definition graph_module_size (g : PartitionGraph) (mid : ModuleID) : nat :=
   | None => 0
   end.
 
-(** graph_hw_psplit: Hardware-aligned PSPLIT. Split module mid into two halves.
-    The original module is removed, left gets size/2 cells, right gets the rest.
-    This is a simplification vs. the abstract graph_psplit which allows arbitrary
-    partition geometry. The hardware uses sequential region numbering (seq 0 n).
-    Module ID wraps to mod 64 to stay within NUM_MODULES. *)
+(** ** Partition operations on real memory ranges
+
+    A module owns a range of data-memory addresses, [List.seq base len].
+    PNEW claims a range, PSPLIT cuts a module's range in two at its middle,
+    PMERGE joins two ranges that touch. No address ever belongs to two
+    modules: PNEW and PMERGE trap instead of building an overlap or a
+    region with a hole, and the theorems at the end of this file prove that
+    every step keeps the regions disjoint and contiguous. *)
+
+(** Region of module [mid], or the empty region when [mid] is not in the graph. *)
+Definition graph_module_region (g : PartitionGraph) (mid : ModuleID) : list nat :=
+  match graph_lookup g mid with
+  | Some m => m.(module_region)
+  | None => []
+  end.
+
+(** pnew_region: the range PNEW claims. The hardware PNEW word carries a base
+    address (operand A) and a length (operand B). The kernel instruction
+    carries a region list and reads it the same way: base is the first
+    address of the normalized list, len is the number of distinct addresses. *)
+Definition pnew_region (region : list nat) : list nat :=
+  let r := normalize_region region in
+  List.seq (hd 0 r) (List.length r).
+
+Lemma pnew_region_contiguous : forall region, region_contiguous (pnew_region region).
+Proof. intro region. unfold pnew_region. apply region_contiguous_seq. Qed.
+
+Lemma pnew_region_normalized : forall region,
+  normalize_region (pnew_region region) = pnew_region region.
+Proof. intro region. unfold pnew_region. apply normalize_region_seq_range. Qed.
+
+(** region_conflict g r: some module's region shares an address with [r]
+    without being the same set of addresses. PNEW traps on a conflict. A
+    region equal to an existing module's region is not a conflict: PNEW then
+    returns that module, as [graph_pnew] does. *)
+Definition region_conflict (g : PartitionGraph) (r : list nat) : bool :=
+  existsb (fun p => negb (nat_list_eq (snd p).(module_region) r) &&
+                    negb (nat_list_disjoint (snd p).(module_region) r))
+          g.(pg_modules).
+
+(** region_contiguousb: decision procedure for [region_contiguous]. *)
+Definition region_contiguousb (r : list nat) : bool :=
+  if list_eq_dec Nat.eq_dec r (List.seq (hd 0 r) (List.length r)) then true else false.
+
+Lemma region_contiguousb_spec : forall r,
+  region_contiguousb r = true -> region_contiguous r.
+Proof.
+  intros r H. unfold region_contiguousb in H.
+  destruct (list_eq_dec Nat.eq_dec r (List.seq (hd 0 r) (List.length r))) as [E|E].
+  - exact E.
+  - discriminate.
+Qed.
+
+(** pmerge_adjacent g m1 m2: the two regions laid end to end, in one order or
+    the other, form one range. A range has no repeated address, so two
+    adjacent regions are disjoint. PMERGE traps when this fails. *)
+Definition pmerge_adjacent (g : PartitionGraph) (m1 m2 : ModuleID) : bool :=
+  let r1 := graph_module_region g m1 in
+  let r2 := graph_module_region g m2 in
+  region_contiguousb (r1 ++ r2) || region_contiguousb (r2 ++ r1).
+
+(** pmerge_region r1 r2: the joined range, starting at the lower base. *)
+Definition pmerge_region (r1 r2 : list nat) : list nat :=
+  if region_contiguousb (r1 ++ r2) then r1 ++ r2 else r2 ++ r1.
+
+(** psplit_left / psplit_right: the first half (rounded down) of a region
+    and the rest. On a range [List.seq b n] they are [List.seq b (n/2)] and
+    [List.seq (b + n/2) (n - n/2)]. *)
+Definition psplit_left (r : list nat) : list nat :=
+  firstn (Nat.div (List.length r) 2) r.
+
+Definition psplit_right (r : list nat) : list nat :=
+  skipn (Nat.div (List.length r) 2) r.
+
+(** csr_err value of a partition fault. Every kernel fault writes 1 to
+    csr_err; the hardware error_code register carries the word that tells
+    the faults apart. *)
+Definition ERR_PARTITION_OVERLAP : nat := 1.
+
+(** partition_trap_state: PNEW on an overlapping region and PMERGE of two
+    regions that do not touch trap the way a failed LASSERT does. The graph
+    stays as it was, csr_err is set, the error flag latches, the pc jumps to
+    the trap vector, and the cost is charged. *)
+Definition partition_trap_state (s : VMState) (instr : vm_instruction) : VMState :=
+  {| vm_graph := s.(vm_graph);
+     vm_csrs := csr_set_err s.(vm_csrs) ERR_PARTITION_OVERLAP;
+     vm_regs := s.(vm_regs);
+     vm_mem := s.(vm_mem);
+     vm_pc := LASSERT_TRAP_PC;
+     vm_mu := apply_cost s instr;
+     vm_mu_tensor := s.(vm_mu_tensor);
+     vm_err := true;
+     vm_logic_acc := s.(vm_logic_acc);
+     vm_mstatus := s.(vm_mstatus);
+     vm_witness := s.(vm_witness);
+     vm_certified := s.(vm_certified) |}.
+
+(** graph_hw_psplit: Hardware-aligned PSPLIT. The module is removed and two
+    fresh modules take the two halves of its range: the left one gets the
+    first size/2 addresses, the right one the rest. A module ID that is not
+    in the graph has the empty region, so both halves are empty. Module ID
+    wraps to mod 64 in the step rule to stay within NUM_MODULES. *)
 Definition graph_hw_psplit (g : PartitionGraph) (mid : nat) : PartitionGraph :=
-  let orig_sz := graph_module_size g mid in
-  let left_sz := Nat.div orig_sz 2 in
-  let right_sz := orig_sz - left_sz in
+  let orig := normalize_region (graph_module_region g mid) in
   let g1 := match graph_remove g mid with
              | Some (g', _) => g'
              | None => g
              end in
-  let '(g2, _) := graph_add_module g1 (List.seq 0 left_sz) [] in
-  let '(g3, _) := graph_add_module g2 (List.seq 0 right_sz) [] in
+  let '(g2, _) := graph_add_module g1 (psplit_left orig) [] in
+  let '(g3, _) := graph_add_module g2 (psplit_right orig) [] in
   g3.
 
-(** Hardware-style PMERGE: merge [m1] and [m2] by summing sizes. *)
+(** graph_hw_pmerge: Hardware-aligned PMERGE. Both modules are removed and
+    one fresh module takes the joined range. The step rule runs it only when
+    [pmerge_adjacent] holds. *)
 Definition graph_hw_pmerge (g : PartitionGraph) (m1 m2 : nat) : PartitionGraph :=
-  let sz1 := graph_module_size g m1 in
-  let sz2 := graph_module_size g m2 in
-  let merged_sz := sz1 + sz2 in
+  let merged := pmerge_region (graph_module_region g m1) (graph_module_region g m2) in
   let g1 := match graph_remove g m1 with
              | Some (g', _) => g'
              | None => g
@@ -586,7 +682,7 @@ Definition graph_hw_pmerge (g : PartitionGraph) (m1 m2 : nat) : PartitionGraph :
              | Some (g', _) => g'
              | None => g1
              end in
-  let '(g3, _) := graph_add_module g2 (List.seq 0 merged_sz) [] in
+  let '(g3, _) := graph_add_module g2 merged [] in
   g3.
 
 (** Helper for LASSERT: compute whether the binary SAT check passes. *)
@@ -1596,29 +1692,35 @@ Definition lassert_exec_ok (s : VMState) (freg creg : nat) (kind : bool) (flen :
 
 (** [vm_step] is the inductive transition relation. Its constructors cover normal and failure paths, and the accompanying proofs establish the intended total, deterministic behavior and ledger update. *)
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
-(** step_pnew: Create a fresh module. Uses hardware-style sequential numbering
-    (seq 0 sz) rather than arbitrary region geometry. Module ID wraps mod 64. *)
+(** step_pnew: Claim the range [pnew_region region]. If it overlaps a module's
+    region without being equal to it, the step traps (see
+    [partition_trap_state]). Otherwise [graph_pnew] adds a fresh module, or
+    keeps the graph when a module already owns exactly that range. *)
 | step_pnew : forall s region cost graph',
-    let sz := List.length (normalize_region region) in
-    graph' = fst (graph_add_module s.(vm_graph) (List.seq 0 sz) []) ->
+    graph' = fst (graph_pnew s.(vm_graph) (pnew_region region)) ->
     vm_step s (instr_pnew region cost)
-      (advance_state s (instr_pnew region cost) graph' s.(vm_csrs) s.(vm_err))
-(** step_psplit: Split module into two halves. Uses graph_hw_psplit (left gets
-    size/2 cells, right gets the rest). The abstract left/right parameters are
-    accepted but ignored. The split is always equal halves at the RTL level. *)
+      (if region_conflict s.(vm_graph) (pnew_region region)
+       then partition_trap_state s (instr_pnew region cost)
+       else advance_state s (instr_pnew region cost) graph' s.(vm_csrs) s.(vm_err))
+(** step_psplit: Split a module's range into two halves with graph_hw_psplit
+    (left gets the first size/2 addresses, right gets the rest). The abstract
+    left/right parameters are accepted but ignored. The split is always equal
+    halves at the RTL level. *)
 | step_psplit : forall s module left right cost graph',
     graph' = graph_hw_psplit s.(vm_graph) (module mod 64) ->
     vm_step s (instr_psplit module left right cost)
       (advance_state s (instr_psplit module left right cost)
         graph' s.(vm_csrs) s.(vm_err))
-(** step_pmerge: Hardware merge by concatenating module sizes.
-    graph_hw_pmerge removes both and creates one with sz1+sz2 cells.
-    Module IDs wrap mod 64. There is no abstract overlap or m1=m2 failure check here. *)
+(** step_pmerge: Join two modules whose ranges touch. graph_hw_pmerge removes
+    both and creates one module with the joined range. If the two ranges do
+    not form one range ([pmerge_adjacent] fails), the step traps. Module IDs
+    wrap mod 64. *)
 | step_pmerge : forall s m1 m2 cost graph',
     graph' = graph_hw_pmerge s.(vm_graph) (m1 mod 64) (m2 mod 64) ->
     vm_step s (instr_pmerge m1 m2 cost)
-      (advance_state s (instr_pmerge m1 m2 cost)
-        graph' s.(vm_csrs) s.(vm_err))
+      (if pmerge_adjacent s.(vm_graph) (m1 mod 64) (m2 mod 64)
+       then advance_state s (instr_pmerge m1 m2 cost) graph' s.(vm_csrs) s.(vm_err)
+       else partition_trap_state s (instr_pmerge m1 m2 cost))
 (** step_lassert: Check a formula with a binary SAT certificate.
     freg = register holding formula base address in memory.
     creg = register holding certificate base address in memory.
@@ -2320,6 +2422,417 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
          vm_mstatus := s.(vm_mstatus);
          vm_witness := s.(vm_witness);
          vm_certified := s.(vm_certified) |}.
+
+(** ** The partition is a real partition of memory
+
+    [regions_disjoint] (no address in two modules) and [regions_contiguous]
+    (every region is a range) hold for a graph with no modules, and every
+    [vm_step] keeps both. So every state reachable from a state with no
+    modules has disjoint, contiguous module regions. *)
+
+Definition partition_regions_ok (g : PartitionGraph) : Prop :=
+  regions_disjoint g /\ regions_contiguous g.
+
+Lemma nat_list_subset_of_incl : forall xs ys,
+  incl xs ys -> nat_list_subset xs ys = true.
+Proof.
+  intros xs ys H. unfold nat_list_subset. apply forallb_forall.
+  intros x Hx. apply nat_list_mem_In. exact (H x Hx).
+Qed.
+
+Lemma nat_list_disjoint_app_l : forall xs ys zs,
+  nat_list_disjoint xs zs = true -> nat_list_disjoint ys zs = true ->
+  nat_list_disjoint (xs ++ ys) zs = true.
+Proof.
+  intros xs ys zs H1 H2. unfold nat_list_disjoint in *.
+  rewrite forallb_app, H1, H2. reflexivity.
+Qed.
+
+Lemma NoDup_app_disjoint_nat : forall (l1 l2 : list nat) x,
+  NoDup (l1 ++ l2) -> In x l1 -> In x l2 -> False.
+Proof.
+  induction l1 as [|a l1 IH]; intros l2 x Hnd H1 H2; simpl in *.
+  - contradiction.
+  - inversion Hnd as [|? ? Hnotin Hnd']; subst.
+    destruct H1 as [<-|H1].
+    + apply Hnotin. apply in_or_app. right. exact H2.
+    + exact (IH l2 x Hnd' H1 H2).
+Qed.
+
+Lemma psplit_left_incl : forall r, incl (psplit_left r) r.
+Proof.
+  intros r x Hx. unfold psplit_left in Hx.
+  rewrite <- (firstn_skipn (Nat.div (List.length r) 2) r).
+  apply in_or_app. left. exact Hx.
+Qed.
+
+Lemma psplit_right_incl : forall r, incl (psplit_right r) r.
+Proof.
+  intros r x Hx. unfold psplit_right in Hx.
+  rewrite <- (firstn_skipn (Nat.div (List.length r) 2) r).
+  apply in_or_app. right. exact Hx.
+Qed.
+
+Lemma psplit_halves_disjoint : forall r, NoDup r ->
+  nat_list_disjoint (psplit_left r) (psplit_right r) = true.
+Proof.
+  intros r Hnd. apply nat_list_disjoint_spec. intros x H1 H2.
+  unfold psplit_left, psplit_right in *.
+  rewrite <- (firstn_skipn (Nat.div (List.length r) 2) r) in Hnd.
+  exact (NoDup_app_disjoint_nat _ _ x Hnd H1 H2).
+Qed.
+
+(** [graph_hw_psplit_partition_valid]: the two halves PSPLIT builds form a
+    valid partition of the module's (normalized) region in the sense of the
+    abstract [partition_valid] check. *)
+Theorem graph_hw_psplit_partition_valid : forall r,
+  NoDup r -> partition_valid r (psplit_left r) (psplit_right r) = true.
+Proof.
+  intros r Hnd. unfold partition_valid.
+  rewrite (nat_list_subset_of_incl _ _ (psplit_left_incl r)).
+  rewrite (nat_list_subset_of_incl _ _ (psplit_right_incl r)).
+  rewrite (psplit_halves_disjoint r Hnd).
+  rewrite nat_list_subset_of_incl; [reflexivity|].
+  intros x Hx. unfold nat_list_union, psplit_left, psplit_right.
+  rewrite firstn_skipn. unfold normalize_region. apply nodup_In. exact Hx.
+Qed.
+
+Lemma firstn_seq_range : forall k b n, k <= n ->
+  firstn k (List.seq b n) = List.seq b k.
+Proof.
+  induction k as [|k IH]; intros b n Hk; [reflexivity|].
+  destruct n as [|n]; [lia|]. simpl. rewrite IH by lia. reflexivity.
+Qed.
+
+Lemma skipn_seq_range : forall k b n, k <= n ->
+  skipn k (List.seq b n) = List.seq (b + k) (n - k).
+Proof.
+  induction k as [|k IH]; intros b n Hk.
+  - simpl. rewrite Nat.add_0_r, Nat.sub_0_r. reflexivity.
+  - destruct n as [|n]; [lia|]. simpl. rewrite IH by lia.
+    replace (S b + k) with (b + S k) by lia. reflexivity.
+Qed.
+
+(** [psplit_halves_of_range]: on a range [List.seq b n] the halves are the
+    ranges [List.seq b (n/2)] and [List.seq (b + n/2) (n - n/2)], the base
+    and size pairs the hardware partition table stores. *)
+Theorem psplit_halves_of_range : forall b n,
+  psplit_left (List.seq b n) = List.seq b (Nat.div n 2) /\
+  psplit_right (List.seq b n) = List.seq (b + Nat.div n 2) (n - Nat.div n 2).
+Proof.
+  intros b n. unfold psplit_left, psplit_right. rewrite seq_length.
+  assert (Hk : Nat.div n 2 <= n) by (apply Nat.div_le_upper_bound; lia).
+  split; [apply firstn_seq_range | apply skipn_seq_range]; exact Hk.
+Qed.
+
+Lemma psplit_halves_contiguous : forall r, region_contiguous r ->
+  region_contiguous (psplit_left r) /\ region_contiguous (psplit_right r).
+Proof.
+  intros r Hr. rewrite Hr.
+  destruct (psplit_halves_of_range (hd 0 r) (List.length r)) as [HL HR].
+  rewrite HL, HR. split; apply region_contiguous_seq.
+Qed.
+
+(** Removing a module, or keeping the graph when the ID is absent, keeps the
+    regions disjoint; every remaining region misses the region of the
+    removed ID, and the remaining entries are entries of the old graph. *)
+Lemma graph_remove_or_keep_regions : forall g mid,
+  regions_disjoint g ->
+  regions_disjoint (match graph_remove g mid with Some (g', _) => g' | None => g end) /\
+  Forall (fun p => nat_list_disjoint (graph_module_region g mid) (snd p).(module_region) = true)
+    (match graph_remove g mid with Some (g', _) => g' | None => g end).(pg_modules) /\
+  incl (match graph_remove g mid with Some (g', _) => g' | None => g end).(pg_modules)
+    g.(pg_modules).
+Proof.
+  intros g mid Hd. unfold graph_remove, graph_module_region, graph_lookup.
+  destruct (graph_remove_modules (pg_modules g) mid) as [[mods' removed]|] eqn:E.
+  - destruct (graph_remove_modules_shape _ _ _ _ E) as [Hi Hl]. rewrite Hl.
+    destruct (graph_remove_modules_regions_disjoint _ _ _ _ Hd E) as [H1 H2].
+    split; [exact H1 | split; [exact H2 | exact Hi]].
+  - rewrite (graph_remove_modules_None _ _ E).
+    split; [exact Hd | split; [|apply incl_refl]].
+    apply Forall_forall. intros p _. reflexivity.
+Qed.
+
+Lemma graph_remove_or_keep_contiguous : forall g mid,
+  regions_contiguous g ->
+  regions_contiguous (match graph_remove g mid with Some (g', _) => g' | None => g end) /\
+  region_contiguous (graph_module_region g mid).
+Proof.
+  intros g mid Hc. unfold graph_remove, graph_module_region, graph_lookup.
+  destruct (graph_remove_modules (pg_modules g) mid) as [[mods' removed]|] eqn:E.
+  - destruct (graph_remove_modules_shape _ _ _ _ E) as [_ Hl]. rewrite Hl.
+    exact (graph_remove_modules_regions_contiguous _ _ _ _ Hc E).
+  - rewrite (graph_remove_modules_None _ _ E). split; [exact Hc | reflexivity].
+Qed.
+
+Lemma graph_remove_or_keep_region_other : forall g mid other,
+  other <> mid ->
+  graph_module_region (match graph_remove g mid with Some (g', _) => g' | None => g end) other =
+  graph_module_region g other.
+Proof.
+  intros g mid other Hne. unfold graph_remove, graph_module_region, graph_lookup.
+  destruct (graph_remove_modules (pg_modules g) mid) as [[mods' removed]|] eqn:E; [|reflexivity].
+  cbn [pg_modules]. rewrite (graph_remove_modules_lookup_other _ _ _ _ _ E Hne). reflexivity.
+Qed.
+
+Lemma graph_find_region_modules_None : forall modules r,
+  graph_find_region_modules modules r = None ->
+  Forall (fun p => nat_list_eq (snd p).(module_region) r = false) modules.
+Proof.
+  induction modules as [|[id m] rest IH]; intros r H; simpl in H.
+  - constructor.
+  - destruct (nat_list_eq (module_region m) r) eqn:E; [discriminate|].
+    constructor; [exact E | exact (IH r H)].
+Qed.
+
+Theorem graph_pnew_preserves_regions_disjoint : forall g region,
+  regions_disjoint g ->
+  region_conflict g (pnew_region region) = false ->
+  regions_disjoint (fst (graph_pnew g (pnew_region region))).
+Proof.
+  intros g region Hd Hc. unfold graph_pnew, graph_find_region. cbv zeta.
+  rewrite !pnew_region_normalized.
+  destruct (graph_find_region_modules (pg_modules g) (pnew_region region)) eqn:Hf;
+    [exact Hd|].
+  apply graph_add_module_preserves_regions_disjoint; [exact Hd|].
+  apply graph_find_region_modules_None in Hf.
+  unfold region_conflict in Hc.
+  rewrite Forall_forall in Hf |- *. intros p Hp.
+  destruct (nat_list_disjoint (module_region (snd p)) (pnew_region region)) eqn:Hdis.
+  - apply nat_list_disjoint_true_sym. exact Hdis.
+  - exfalso.
+    assert (Hex : existsb (fun p => negb (nat_list_eq (snd p).(module_region) (pnew_region region)) &&
+                    negb (nat_list_disjoint (snd p).(module_region) (pnew_region region)))
+                    (pg_modules g) = true).
+    { apply existsb_exists. exists p. split; [exact Hp|].
+      rewrite (Hf p Hp), Hdis. reflexivity. }
+    rewrite Hc in Hex. discriminate.
+Qed.
+
+Theorem graph_pnew_preserves_regions_contiguous : forall g region,
+  regions_contiguous g ->
+  regions_contiguous (fst (graph_pnew g (pnew_region region))).
+Proof.
+  intros g region Hc. unfold graph_pnew, graph_find_region. cbv zeta.
+  rewrite !pnew_region_normalized.
+  destruct (graph_find_region_modules (pg_modules g) (pnew_region region));
+    [exact Hc|].
+  apply graph_add_module_preserves_regions_contiguous; [exact Hc|].
+  apply pnew_region_contiguous.
+Qed.
+
+Theorem graph_hw_psplit_preserves_regions_disjoint : forall g mid,
+  regions_disjoint g -> regions_disjoint (graph_hw_psplit g mid).
+Proof.
+  intros g mid Hd. unfold graph_hw_psplit.
+  destruct (graph_remove_or_keep_regions g mid Hd) as [Hd1 [Hf1 _]].
+  set (g1 := match graph_remove g mid with Some (g', _) => g' | None => g end) in *.
+  set (orig := normalize_region (graph_module_region g mid)).
+  assert (Horig : Forall (fun p => nat_list_disjoint orig (snd p).(module_region) = true)
+                    (pg_modules g1)).
+  { eapply Forall_impl; [|exact Hf1]. intros p Hp.
+    exact (nat_list_disjoint_incl _ _ _ _ (normalize_region_incl _) (incl_refl _) Hp). }
+  assert (Hnd : NoDup orig) by apply normalize_region_nodup.
+  destruct (graph_add_module g1 (psplit_left orig) []) as [g2 id2] eqn:E2.
+  destruct (graph_add_module g2 (psplit_right orig) []) as [g3 id3] eqn:E3.
+  assert (Hg2 : g2 = fst (graph_add_module g1 (psplit_left orig) [])) by (rewrite E2; reflexivity).
+  assert (Hg3 : g3 = fst (graph_add_module g2 (psplit_right orig) [])) by (rewrite E3; reflexivity).
+  rewrite Hg3. apply graph_add_module_preserves_regions_disjoint.
+  - rewrite Hg2. apply graph_add_module_preserves_regions_disjoint; [exact Hd1|].
+    eapply Forall_impl; [|exact Horig]. intros p Hp.
+    exact (nat_list_disjoint_incl _ _ _ _ (psplit_left_incl orig) (incl_refl _) Hp).
+  - rewrite Hg2. unfold graph_add_module. cbn [fst pg_modules].
+    constructor.
+    + cbn [snd normalize_module mk_module_state module_region].
+      apply (nat_list_disjoint_incl (psplit_right orig) _ (psplit_left orig) _
+               (incl_refl _) (normalize_region_incl _)).
+      apply nat_list_disjoint_true_sym. apply psplit_halves_disjoint. exact Hnd.
+    + eapply Forall_impl; [|exact Horig]. intros p Hp.
+      exact (nat_list_disjoint_incl _ _ _ _ (psplit_right_incl orig) (incl_refl _) Hp).
+Qed.
+
+Theorem graph_hw_psplit_preserves_regions_contiguous : forall g mid,
+  regions_contiguous g -> regions_contiguous (graph_hw_psplit g mid).
+Proof.
+  intros g mid Hc. unfold graph_hw_psplit.
+  destruct (graph_remove_or_keep_contiguous g mid Hc) as [Hc1 Hr].
+  set (g1 := match graph_remove g mid with Some (g', _) => g' | None => g end) in *.
+  rewrite (normalize_region_contiguous _ Hr).
+  destruct (psplit_halves_contiguous _ Hr) as [HL HR].
+  destruct (graph_add_module g1 (psplit_left (graph_module_region g mid)) []) as [g2 id2] eqn:E2.
+  destruct (graph_add_module g2 (psplit_right (graph_module_region g mid)) []) as [g3 id3] eqn:E3.
+  assert (Hg2 : g2 = fst (graph_add_module g1 (psplit_left (graph_module_region g mid)) []))
+    by (rewrite E2; reflexivity).
+  assert (Hg3 : g3 = fst (graph_add_module g2 (psplit_right (graph_module_region g mid)) []))
+    by (rewrite E3; reflexivity).
+  rewrite Hg3. apply graph_add_module_preserves_regions_contiguous; [|exact HR].
+  rewrite Hg2. apply graph_add_module_preserves_regions_contiguous; [exact Hc1 | exact HL].
+Qed.
+
+Lemma pmerge_region_incl : forall r1 r2, incl (pmerge_region r1 r2) (r1 ++ r2).
+Proof.
+  intros r1 r2 x Hx. unfold pmerge_region in Hx.
+  destruct (region_contiguousb (r1 ++ r2)); [exact Hx|].
+  apply in_app_or in Hx. apply in_or_app. tauto.
+Qed.
+
+Lemma pmerge_region_contiguous : forall g m1 m2,
+  pmerge_adjacent g m1 m2 = true ->
+  region_contiguous (pmerge_region (graph_module_region g m1) (graph_module_region g m2)).
+Proof.
+  intros g m1 m2 H. unfold pmerge_adjacent in H. unfold pmerge_region.
+  destruct (region_contiguousb (graph_module_region g m1 ++ graph_module_region g m2)) eqn:E.
+  - apply region_contiguousb_spec. exact E.
+  - simpl in H. apply region_contiguousb_spec. exact H.
+Qed.
+
+(** PMERGE keeps the regions disjoint whether or not the two ranges touch:
+    the joined region lies inside the two removed regions. Adjacency is what
+    keeps the joined region a range. *)
+Theorem graph_hw_pmerge_preserves_regions_disjoint : forall g m1 m2,
+  regions_disjoint g -> regions_disjoint (graph_hw_pmerge g m1 m2).
+Proof.
+  intros g m1 m2 Hd. unfold graph_hw_pmerge.
+  destruct (graph_remove_or_keep_regions g m1 Hd) as [Hd1 [Hf1 _]].
+  set (g1 := match graph_remove g m1 with Some (g', _) => g' | None => g end) in *.
+  destruct (graph_remove_or_keep_regions g1 m2 Hd1) as [Hd2 [Hf2 Hi2]].
+  set (g2 := match graph_remove g1 m2 with Some (g', _) => g' | None => g1 end) in *.
+  set (r1 := graph_module_region g m1) in *.
+  set (r2 := graph_module_region g m2).
+  assert (H1 : Forall (fun p => nat_list_disjoint r1 (snd p).(module_region) = true)
+                 (pg_modules g2)).
+  { apply Forall_forall. intros p Hp. rewrite Forall_forall in Hf1. exact (Hf1 p (Hi2 p Hp)). }
+  assert (H2 : Forall (fun p => nat_list_disjoint r2 (snd p).(module_region) = true)
+                 (pg_modules g2)).
+  { destruct (Nat.eq_dec m2 m1) as [E|E].
+    - subst r2. rewrite E. exact H1.
+    - subst r2. rewrite <- (graph_remove_or_keep_region_other g m1 m2 E). exact Hf2. }
+  destruct (graph_add_module g2 (pmerge_region r1 r2) []) as [g3 id3] eqn:E3.
+  assert (Hg3 : g3 = fst (graph_add_module g2 (pmerge_region r1 r2) []))
+    by (rewrite E3; reflexivity).
+  rewrite Hg3. apply graph_add_module_preserves_regions_disjoint; [exact Hd2|].
+  rewrite Forall_forall in H1, H2 |- *. intros p Hp.
+  apply (nat_list_disjoint_incl (r1 ++ r2) _ (module_region (snd p)) _
+           (pmerge_region_incl r1 r2) (incl_refl _)).
+  apply nat_list_disjoint_app_l; [exact (H1 p Hp) | exact (H2 p Hp)].
+Qed.
+
+Theorem graph_hw_pmerge_preserves_regions_contiguous : forall g m1 m2,
+  regions_contiguous g -> pmerge_adjacent g m1 m2 = true ->
+  regions_contiguous (graph_hw_pmerge g m1 m2).
+Proof.
+  intros g m1 m2 Hc Hadj. unfold graph_hw_pmerge.
+  pose proof (pmerge_region_contiguous g m1 m2 Hadj) as Hm.
+  destruct (graph_remove_or_keep_contiguous g m1 Hc) as [Hc1 _].
+  set (g1 := match graph_remove g m1 with Some (g', _) => g' | None => g end) in *.
+  destruct (graph_remove_or_keep_contiguous g1 m2 Hc1) as [Hc2 _].
+  set (g2 := match graph_remove g1 m2 with Some (g', _) => g' | None => g1 end) in *.
+  set (merged := pmerge_region (graph_module_region g m1) (graph_module_region g m2)) in *.
+  destruct (graph_add_module g2 merged []) as [g3 id3] eqn:E3.
+  assert (Hg3 : g3 = fst (graph_add_module g2 merged [])) by (rewrite E3; reflexivity).
+  rewrite Hg3. apply graph_add_module_preserves_regions_contiguous; [exact Hc2 | exact Hm].
+Qed.
+
+(** [vm_step_preserves_regions_disjoint]: no step puts an address into two
+    modules. *)
+Theorem vm_step_preserves_regions_disjoint : forall s instr s',
+  vm_step s instr s' ->
+  regions_disjoint s.(vm_graph) -> regions_disjoint s'.(vm_graph).
+Proof.
+  intros s instr s' Hstep Hd.
+  inversion Hstep; subst; simpl; try exact Hd.
+  all: try (match goal with
+            | |- context [if ?b then _ else _] => destruct b eqn:?; simpl; try exact Hd
+            end).
+  all: try (apply graph_pnew_preserves_regions_disjoint; assumption).
+  all: try (apply graph_hw_psplit_preserves_regions_disjoint; exact Hd).
+  all: try (apply graph_hw_pmerge_preserves_regions_disjoint; exact Hd).
+  all: try (apply graph_update_module_tensor_regions_disjoint; exact Hd).
+  all: try (match goal with
+            | H : (?g', _) = graph_add_morphism _ _ _ _ _ |- regions_disjoint ?g' =>
+                unfold graph_add_morphism in H; inversion H; subst; exact Hd
+            end).
+  all: try (match goal with
+            | H : graph_compose_morphisms _ _ _ = Some (?g', _) |- _ =>
+                unfold regions_disjoint; rewrite (graph_compose_morphisms_modules _ _ _ _ _ H); exact Hd
+            | H : graph_add_identity _ _ = Some (?g', _) |- _ =>
+                unfold regions_disjoint; rewrite (graph_add_identity_modules _ _ _ _ H); exact Hd
+            | H : graph_delete_morphism _ _ = Some ?g' |- _ =>
+                unfold regions_disjoint; rewrite (graph_delete_morphism_modules _ _ _ H); exact Hd
+            | H : graph_tensor_morphisms _ _ _ = Some (?g', _) |- _ =>
+                unfold regions_disjoint; rewrite (graph_tensor_morphisms_modules _ _ _ _ _ H); exact Hd
+            end).
+Qed.
+
+(** [vm_step_preserves_regions_contiguous]: every step keeps every module
+    region a range. *)
+Theorem vm_step_preserves_regions_contiguous : forall s instr s',
+  vm_step s instr s' ->
+  regions_contiguous s.(vm_graph) -> regions_contiguous s'.(vm_graph).
+Proof.
+  intros s instr s' Hstep Hc.
+  inversion Hstep; subst; simpl; try exact Hc.
+  all: try (match goal with
+            | |- context [if ?b then _ else _] => destruct b eqn:?; simpl; try exact Hc
+            end).
+  all: try (apply graph_pnew_preserves_regions_contiguous; assumption).
+  all: try (apply graph_hw_psplit_preserves_regions_contiguous; exact Hc).
+  all: try (apply graph_hw_pmerge_preserves_regions_contiguous; assumption).
+  all: try (apply graph_update_module_tensor_regions_contiguous; exact Hc).
+  all: try (match goal with
+            | H : (?g', _) = graph_add_morphism _ _ _ _ _ |- regions_contiguous ?g' =>
+                unfold graph_add_morphism in H; inversion H; subst; exact Hc
+            end).
+  all: try (match goal with
+            | H : graph_compose_morphisms _ _ _ = Some (?g', _) |- _ =>
+                unfold regions_contiguous; rewrite (graph_compose_morphisms_modules _ _ _ _ _ H); exact Hc
+            | H : graph_add_identity _ _ = Some (?g', _) |- _ =>
+                unfold regions_contiguous; rewrite (graph_add_identity_modules _ _ _ _ H); exact Hc
+            | H : graph_delete_morphism _ _ = Some ?g' |- _ =>
+                unfold regions_contiguous; rewrite (graph_delete_morphism_modules _ _ _ H); exact Hc
+            | H : graph_tensor_morphisms _ _ _ = Some (?g', _) |- _ =>
+                unfold regions_contiguous; rewrite (graph_tensor_morphisms_modules _ _ _ _ _ H); exact Hc
+            end).
+Qed.
+
+Theorem vm_step_preserves_partition_regions_ok : forall s instr s',
+  vm_step s instr s' ->
+  partition_regions_ok s.(vm_graph) -> partition_regions_ok s'.(vm_graph).
+Proof.
+  intros s instr s' Hstep [Hd Hc]. split.
+  - exact (vm_step_preserves_regions_disjoint s instr s' Hstep Hd).
+  - exact (vm_step_preserves_regions_contiguous s instr s' Hstep Hc).
+Qed.
+
+(** vm_reachable s s': [s'] is reached from [s] by zero or more steps. *)
+Inductive vm_reachable : VMState -> VMState -> Prop :=
+| vm_reachable_refl : forall s, vm_reachable s s
+| vm_reachable_step : forall s instr s' s'',
+    vm_step s instr s' -> vm_reachable s' s'' -> vm_reachable s s''.
+
+Theorem vm_reachable_preserves_partition_regions_ok : forall s s',
+  vm_reachable s s' ->
+  partition_regions_ok s.(vm_graph) -> partition_regions_ok s'.(vm_graph).
+Proof.
+  intros s s' Hr. induction Hr as [s|s instr s' s'' Hstep Hr IH]; intro H.
+  - exact H.
+  - apply IH. exact (vm_step_preserves_partition_regions_ok s instr s' Hstep H).
+Qed.
+
+(** [vm_reachable_regions_disjoint]: from a state with no modules (the
+    initial state), every reachable state has pairwise-disjoint module
+    regions, and each region is a range of data memory. *)
+Theorem vm_reachable_regions_disjoint : forall s s',
+  s.(vm_graph).(pg_modules) = [] ->
+  vm_reachable s s' ->
+  regions_disjoint s'.(vm_graph) /\ regions_contiguous s'.(vm_graph).
+Proof.
+  intros s s' H0 Hr.
+  apply (vm_reachable_preserves_partition_regions_ok s s' Hr). split.
+  - apply regions_disjoint_no_modules. exact H0.
+  - apply regions_contiguous_no_modules. exact H0.
+Qed.
 
 (** I/O PORT ENVIRONMENT ORACLE
 

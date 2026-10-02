@@ -1829,6 +1829,380 @@ Definition graph_pmerge (g : PartitionGraph) (m1 m2 : ModuleID)
       end
   end.
 
+(** ** Disjoint module regions
+
+    A module region is a list of data-memory addresses. The partition is a real
+    partition of memory when no address belongs to two modules.
+    [regions_disjoint] states that for every pair of entries in [pg_modules].
+    [regions_contiguous] states that every region is a range
+    [List.seq base len], the shape the hardware partition table stores as a
+    base and a size. Both hold for the empty graph, and VMStep.v proves that
+    every step keeps them. *)
+
+(** [nat_list_mem_In] connects the boolean membership test to [In]. *)
+Lemma nat_list_mem_In : forall x xs, nat_list_mem x xs = true <-> In x xs.
+Proof.
+  intros x xs. induction xs as [|y ys IH]; simpl.
+  - split; [discriminate | contradiction].
+  - destruct (Nat.eqb x y) eqn:E.
+    + apply Nat.eqb_eq in E. subst y. split; [intros _; left; reflexivity | reflexivity].
+    + apply Nat.eqb_neq in E. rewrite IH. split; [intros H; right; exact H |].
+      intros [H|H]; [congruence | exact H].
+Qed.
+
+(** [nat_list_disjoint_spec]: the boolean disjointness test holds exactly when
+    no address is in both lists. *)
+Lemma nat_list_disjoint_spec : forall xs ys,
+  nat_list_disjoint xs ys = true <-> (forall x, In x xs -> ~ In x ys).
+Proof.
+  intros xs ys. unfold nat_list_disjoint. rewrite forallb_forall. split.
+  - intros H x Hx Hy. specialize (H x Hx).
+    apply negb_true_iff in H. apply (proj2 (nat_list_mem_In x ys)) in Hy. congruence.
+  - intros H x Hx. apply negb_true_iff.
+    destruct (nat_list_mem x ys) eqn:E; [|reflexivity].
+    apply nat_list_mem_In in E. exfalso. exact (H x Hx E).
+Qed.
+
+Lemma nat_list_disjoint_true_sym : forall xs ys,
+  nat_list_disjoint xs ys = true -> nat_list_disjoint ys xs = true.
+Proof.
+  intros xs ys H. apply nat_list_disjoint_spec. intros x Hy Hx.
+  exact (proj1 (nat_list_disjoint_spec xs ys) H x Hx Hy).
+Qed.
+
+(** Shrinking either side keeps two lists disjoint. *)
+Lemma nat_list_disjoint_incl : forall xs xs' ys ys',
+  incl xs' xs -> incl ys' ys ->
+  nat_list_disjoint xs ys = true -> nat_list_disjoint xs' ys' = true.
+Proof.
+  intros xs xs' ys ys' Hx Hy H. apply nat_list_disjoint_spec.
+  intros x H1 H2. exact (proj1 (nat_list_disjoint_spec xs ys) H x (Hx x H1) (Hy x H2)).
+Qed.
+
+Lemma normalize_region_incl : forall r, incl (normalize_region r) r.
+Proof.
+  intros r x Hx. unfold normalize_region in Hx. apply nodup_In in Hx. exact Hx.
+Qed.
+
+(** [modules_regions_disjoint]: each entry's region is disjoint from the
+    region of every later entry. Since disjointness is symmetric, this covers
+    every pair of entries. *)
+Fixpoint modules_regions_disjoint (modules : list (ModuleID * ModuleState)) : Prop :=
+  match modules with
+  | [] => True
+  | (_, m) :: rest =>
+      Forall (fun p => nat_list_disjoint m.(module_region) (snd p).(module_region) = true) rest /\
+      modules_regions_disjoint rest
+  end.
+
+Definition regions_disjoint (g : PartitionGraph) : Prop :=
+  modules_regions_disjoint g.(pg_modules).
+
+(** [region_contiguous r]: [r] is the range of [length r] addresses starting
+    at its first address. The empty region is contiguous. *)
+Definition region_contiguous (r : list nat) : Prop :=
+  r = List.seq (hd 0 r) (List.length r).
+
+Definition regions_contiguous (g : PartitionGraph) : Prop :=
+  Forall (fun p => region_contiguous (snd p).(module_region)) g.(pg_modules).
+
+Lemma region_contiguous_seq : forall b n, region_contiguous (List.seq b n).
+Proof.
+  intros b n. unfold region_contiguous. rewrite seq_length. destruct n; reflexivity.
+Qed.
+
+Lemma region_contiguous_NoDup : forall r, region_contiguous r -> NoDup r.
+Proof. intros r H. rewrite H. apply seq_NoDup. Qed.
+
+Lemma normalize_region_contiguous : forall r,
+  region_contiguous r -> normalize_region r = r.
+Proof.
+  intros r H. unfold normalize_region. apply nodup_fixed_point.
+  apply region_contiguous_NoDup. exact H.
+Qed.
+
+Lemma normalize_region_seq_range : forall b n,
+  normalize_region (List.seq b n) = List.seq b n.
+Proof. intros b n. apply normalize_region_contiguous. apply region_contiguous_seq. Qed.
+
+(** Any two entries at different positions have disjoint regions. *)
+Lemma modules_regions_disjoint_In : forall modules a b,
+  modules_regions_disjoint modules -> In a modules -> In b modules -> a <> b ->
+  nat_list_disjoint (snd a).(module_region) (snd b).(module_region) = true.
+Proof.
+  induction modules as [|[id m] rest IH]; intros a b Hd Ha Hb Hne; simpl in *.
+  - contradiction.
+  - destruct Hd as [Hhead Hrest]. rewrite Forall_forall in Hhead.
+    destruct Ha as [Ha|Ha]; destruct Hb as [Hb|Hb].
+    + subst a b. exfalso. apply Hne. reflexivity.
+    + subst a. exact (Hhead b Hb).
+    + subst b. apply nat_list_disjoint_true_sym. exact (Hhead a Ha).
+    + exact (IH a b Hrest Ha Hb Hne).
+Qed.
+
+(** [regions_disjoint_distinct_modules]: under [regions_disjoint], two
+    modules with different IDs share no address. *)
+Theorem regions_disjoint_distinct_modules : forall g id1 m1 id2 m2,
+  regions_disjoint g ->
+  In (id1, m1) g.(pg_modules) -> In (id2, m2) g.(pg_modules) -> id1 <> id2 ->
+  nat_list_disjoint m1.(module_region) m2.(module_region) = true.
+Proof.
+  intros g id1 m1 id2 m2 Hd H1 H2 Hne.
+  exact (modules_regions_disjoint_In _ (id1, m1) (id2, m2) Hd H1 H2
+           (fun E => Hne (f_equal fst E))).
+Qed.
+
+Lemma regions_disjoint_no_modules : forall g,
+  g.(pg_modules) = [] -> regions_disjoint g.
+Proof. intros g H. unfold regions_disjoint. rewrite H. exact I. Qed.
+
+Lemma regions_contiguous_no_modules : forall g,
+  g.(pg_modules) = [] -> regions_contiguous g.
+Proof. intros g H. unfold regions_contiguous. rewrite H. constructor. Qed.
+
+Lemma empty_graph_regions_disjoint : regions_disjoint empty_graph.
+Proof. apply regions_disjoint_no_modules. reflexivity. Qed.
+
+Lemma empty_graph_regions_contiguous : regions_contiguous empty_graph.
+Proof. apply regions_contiguous_no_modules. reflexivity. Qed.
+
+(** Adding a module whose region misses every existing region keeps the
+    regions disjoint. *)
+Lemma graph_add_module_preserves_regions_disjoint : forall g region axioms,
+  regions_disjoint g ->
+  Forall (fun p => nat_list_disjoint region (snd p).(module_region) = true) g.(pg_modules) ->
+  regions_disjoint (fst (graph_add_module g region axioms)).
+Proof.
+  intros g region axioms Hd Hnew.
+  unfold regions_disjoint, graph_add_module. cbn [fst pg_modules modules_regions_disjoint].
+  split; [|exact Hd].
+  eapply Forall_impl; [|exact Hnew].
+  intros p Hp. cbn [normalize_module mk_module_state module_region].
+  exact (nat_list_disjoint_incl _ _ _ _ (normalize_region_incl region) (incl_refl _) Hp).
+Qed.
+
+Lemma graph_add_module_preserves_regions_contiguous : forall g region axioms,
+  regions_contiguous g -> region_contiguous region ->
+  regions_contiguous (fst (graph_add_module g region axioms)).
+Proof.
+  intros g region axioms Hc Hr.
+  unfold regions_contiguous, graph_add_module. cbn [fst pg_modules].
+  constructor; [|exact Hc].
+  cbn [snd normalize_module mk_module_state module_region].
+  rewrite normalize_region_contiguous by exact Hr. exact Hr.
+Qed.
+
+Lemma graph_lookup_modules_In : forall modules mid m,
+  graph_lookup_modules modules mid = Some m -> In (mid, m) modules.
+Proof.
+  induction modules as [|[id m0] rest IH]; intros mid m H; simpl in H.
+  - discriminate.
+  - destruct (Nat.eqb id mid) eqn:E.
+    + apply Nat.eqb_eq in E. subst id. injection H as <-. left. reflexivity.
+    + right. exact (IH mid m H).
+Qed.
+
+(** [graph_remove_modules] returns a sublist and the removed entry, which is
+    the entry [graph_lookup_modules] finds. *)
+Lemma graph_remove_modules_shape : forall modules mid modules' m,
+  graph_remove_modules modules mid = Some (modules', m) ->
+  incl modules' modules /\ graph_lookup_modules modules mid = Some m.
+Proof.
+  induction modules as [|[id m0] rest IH]; intros mid modules' m Hrem; simpl in Hrem.
+  - discriminate.
+  - simpl. destruct (Nat.eqb id mid) eqn:E.
+    + injection Hrem as <- <-. split; [|reflexivity].
+      intros x Hx. right. exact Hx.
+    + destruct (graph_remove_modules rest mid) as [[rest' removed]|] eqn:Hr; [|discriminate].
+      injection Hrem as <- <-.
+      destruct (IH mid rest' removed Hr) as [Hi Hl]. split; [|exact Hl].
+      intros x [Hx|Hx]; [left; exact Hx | right; apply Hi; exact Hx].
+Qed.
+
+Lemma graph_remove_modules_None : forall modules mid,
+  graph_remove_modules modules mid = None -> graph_lookup_modules modules mid = None.
+Proof.
+  induction modules as [|[id m0] rest IH]; intros mid H; simpl in *.
+  - reflexivity.
+  - destruct (Nat.eqb id mid); [discriminate|].
+    destruct (graph_remove_modules rest mid) as [[rest' removed]|] eqn:Hr; [discriminate|].
+    exact (IH mid Hr).
+Qed.
+
+Lemma graph_remove_modules_lookup_other : forall modules mid modules' m other,
+  graph_remove_modules modules mid = Some (modules', m) -> other <> mid ->
+  graph_lookup_modules modules' other = graph_lookup_modules modules other.
+Proof.
+  induction modules as [|[id m0] rest IH]; intros mid modules' m other Hrem Hne;
+    simpl in Hrem.
+  - discriminate.
+  - destruct (Nat.eqb id mid) eqn:E.
+    + apply Nat.eqb_eq in E. subst id. injection Hrem as <- <-. simpl.
+      destruct (Nat.eqb mid other) eqn:E2; [|reflexivity].
+      apply Nat.eqb_eq in E2. congruence.
+    + destruct (graph_remove_modules rest mid) as [[rest' removed]|] eqn:Hr; [|discriminate].
+      injection Hrem as <- <-. simpl.
+      destruct (Nat.eqb id other); [reflexivity|].
+      exact (IH mid rest' removed other Hr Hne).
+Qed.
+
+(** Removing an entry keeps the remaining regions disjoint, and every
+    remaining region is disjoint from the removed one. *)
+Lemma graph_remove_modules_regions_disjoint : forall modules mid modules' m,
+  modules_regions_disjoint modules ->
+  graph_remove_modules modules mid = Some (modules', m) ->
+  modules_regions_disjoint modules' /\
+  Forall (fun p => nat_list_disjoint m.(module_region) (snd p).(module_region) = true) modules'.
+Proof.
+  induction modules as [|[id m0] rest IH]; intros mid modules' m Hd Hrem; simpl in *.
+  - discriminate.
+  - destruct Hd as [Hhead Hrest].
+    destruct (Nat.eqb id mid).
+    + injection Hrem as <- <-. split; assumption.
+    + destruct (graph_remove_modules rest mid) as [[rest' removed]|] eqn:Hr; [|discriminate].
+      injection Hrem as <- <-.
+      destruct (IH mid rest' removed Hrest Hr) as [Hd' Hf'].
+      destruct (graph_remove_modules_shape rest mid rest' removed Hr) as [Hi Hl].
+      apply graph_lookup_modules_In in Hl.
+      rewrite Forall_forall in Hhead.
+      simpl. split; [split|].
+      * apply Forall_forall. intros p Hp. exact (Hhead p (Hi p Hp)).
+      * exact Hd'.
+      * constructor; [|exact Hf'].
+        apply nat_list_disjoint_true_sym. exact (Hhead (mid, removed) Hl).
+Qed.
+
+Lemma graph_remove_modules_regions_contiguous : forall modules mid modules' m,
+  Forall (fun p => region_contiguous (snd p).(module_region)) modules ->
+  graph_remove_modules modules mid = Some (modules', m) ->
+  Forall (fun p => region_contiguous (snd p).(module_region)) modules' /\
+  region_contiguous m.(module_region).
+Proof.
+  intros modules mid modules' m Hc Hrem.
+  destruct (graph_remove_modules_shape modules mid modules' m Hrem) as [Hi Hl].
+  apply graph_lookup_modules_In in Hl.
+  rewrite Forall_forall in Hc. split.
+  - apply Forall_forall. intros p Hp. exact (Hc p (Hi p Hp)).
+  - exact (Hc (mid, m) Hl).
+Qed.
+
+(** Replacing a module by one whose region is a subset of the old region
+    keeps the regions disjoint. *)
+Lemma graph_insert_modules_regions_disjoint : forall modules mid m0 m,
+  modules_regions_disjoint modules ->
+  graph_lookup_modules modules mid = Some m0 ->
+  incl m.(module_region) m0.(module_region) ->
+  modules_regions_disjoint (graph_insert_modules modules mid m).
+Proof.
+  induction modules as [|[id e] rest IH]; intros mid m0 m Hd Hl Hi; simpl in *.
+  - discriminate.
+  - destruct Hd as [Hhead Hrest].
+    destruct (Nat.eqb id mid) eqn:E.
+    + injection Hl as <-. simpl. split; [|exact Hrest].
+      eapply Forall_impl; [|exact Hhead]. intros p Hp.
+      exact (nat_list_disjoint_incl _ _ _ _ Hi (incl_refl _) Hp).
+    + simpl. split; [|exact (IH mid m0 m Hrest Hl Hi)].
+      rewrite Forall_forall in Hhead |- *.
+      intros p Hp.
+      assert (Hin : In p rest \/ p = (mid, m)).
+      { clear -Hp. induction rest as [|[id' e'] rest' IHr]; simpl in Hp.
+        - destruct Hp as [Hp|[]]. right. symmetry. exact Hp.
+        - destruct (Nat.eqb id' mid).
+          + destruct Hp as [Hp|Hp]; [right; symmetry; exact Hp | left; right; exact Hp].
+          + destruct Hp as [Hp|Hp]; [left; left; exact Hp|].
+            destruct (IHr Hp) as [H|H]; [left; right; exact H | right; exact H]. }
+      destruct Hin as [Hin|Hin].
+      * exact (Hhead p Hin).
+      * subst p. simpl.
+        apply graph_lookup_modules_In in Hl.
+        exact (nat_list_disjoint_incl _ _ _ _ (incl_refl _) Hi (Hhead (mid, m0) Hl)).
+Qed.
+
+Lemma graph_insert_modules_regions_contiguous : forall modules mid m,
+  Forall (fun p => region_contiguous (snd p).(module_region)) modules ->
+  region_contiguous m.(module_region) ->
+  Forall (fun p => region_contiguous (snd p).(module_region)) (graph_insert_modules modules mid m).
+Proof.
+  induction modules as [|[id e] rest IH]; intros mid m Hc Hm; simpl.
+  - constructor; [exact Hm | constructor].
+  - inversion Hc as [|? ? He Hrest]; subst.
+    destruct (Nat.eqb id mid).
+    + constructor; [exact Hm | exact Hrest].
+    + constructor; [exact He | exact (IH mid m Hrest Hm)].
+Qed.
+
+(** TENSOR_SET rewrites one module in place and leaves its region alone. *)
+Lemma graph_update_module_tensor_regions_disjoint : forall g mid k v,
+  regions_disjoint g -> regions_disjoint (graph_update_module_tensor g mid k v).
+Proof.
+  intros g mid k v Hd. unfold graph_update_module_tensor.
+  destruct (graph_lookup g mid) as [m0|] eqn:Hl; [|exact Hd].
+  unfold regions_disjoint, graph_update. cbn [pg_modules].
+  apply (graph_insert_modules_regions_disjoint _ mid m0); [exact Hd | exact Hl |].
+  cbn [normalize_module module_region]. apply normalize_region_incl.
+Qed.
+
+Lemma graph_update_module_tensor_regions_contiguous : forall g mid k v,
+  regions_contiguous g -> regions_contiguous (graph_update_module_tensor g mid k v).
+Proof.
+  intros g mid k v Hc. unfold graph_update_module_tensor.
+  destruct (graph_lookup g mid) as [m0|] eqn:Hl; [|exact Hc].
+  unfold regions_contiguous, graph_update. cbn [pg_modules].
+  apply graph_insert_modules_regions_contiguous; [exact Hc |].
+  cbn [normalize_module module_region].
+  apply graph_lookup_modules_In in Hl.
+  unfold regions_contiguous in Hc. rewrite Forall_forall in Hc.
+  pose proof (Hc (mid, m0) Hl) as Hm0. simpl in Hm0.
+  rewrite normalize_region_contiguous by exact Hm0. exact Hm0.
+Qed.
+
+(** The morphism operations leave [pg_modules] unchanged. *)
+Lemma graph_add_morphism_modules : forall g src dst c is_id,
+  pg_modules (fst (graph_add_morphism g src dst c is_id)) = pg_modules g.
+Proof. reflexivity. Qed.
+
+Lemma graph_compose_morphisms_modules : forall g m1 m2 g' new_id,
+  graph_compose_morphisms g m1 m2 = Some (g', new_id) -> pg_modules g' = pg_modules g.
+Proof.
+  intros g m1 m2 g' new_id H. unfold graph_compose_morphisms in H.
+  destruct (graph_lookup_morphism g m1); try discriminate.
+  destruct (graph_lookup_morphism g m2); try discriminate.
+  destruct (Nat.eqb _ _); try discriminate.
+  injection H as Hg' _. subst g'. reflexivity.
+Qed.
+
+Lemma graph_add_identity_modules : forall g module g' morph_id,
+  graph_add_identity g module = Some (g', morph_id) -> pg_modules g' = pg_modules g.
+Proof.
+  intros g module g' morph_id H. unfold graph_add_identity in H.
+  destruct (graph_lookup g module); try discriminate.
+  injection H as Hg' _. subst g'. reflexivity.
+Qed.
+
+Lemma graph_delete_morphism_modules : forall g morph_id g',
+  graph_delete_morphism g morph_id = Some g' -> pg_modules g' = pg_modules g.
+Proof.
+  intros g morph_id g' H. unfold graph_delete_morphism in H.
+  destruct (existsb _ _); try discriminate.
+  injection H as Hg'. subst g'. reflexivity.
+Qed.
+
+Lemma graph_tensor_morphisms_modules : forall g f_id g_id g' new_id,
+  graph_tensor_morphisms g f_id g_id = Some (g', new_id) -> pg_modules g' = pg_modules g.
+Proof.
+  intros g f_id g_id g' new_id H. unfold graph_tensor_morphisms in H.
+  destruct (graph_lookup_morphism g f_id); try discriminate.
+  destruct (graph_lookup_morphism g g_id); try discriminate.
+  destruct (graph_lookup g (morph_source m)); try discriminate.
+  destruct (graph_lookup g (morph_target m)); try discriminate.
+  destruct (graph_lookup g (morph_source m0)); try discriminate.
+  destruct (graph_lookup g (morph_target m0)); try discriminate.
+  destruct (nat_list_disjoint _ _ && nat_list_disjoint _ _); try discriminate.
+  destruct (graph_find_region g _); try discriminate.
+  destruct (graph_find_region g _); try discriminate.
+  injection H as Hg' _. subst g'. reflexivity.
+Qed.
+
 (** CSRState: Control/Status Register state — four values the hardware
     uses for certification bookkeeping and error reporting.
 
