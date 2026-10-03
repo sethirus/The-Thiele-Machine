@@ -514,17 +514,6 @@ Definition identity_arrows_canonical (g : PartitionGraph) : Prop :=
     morph_is_identity ms = true ->
     morph_source ms = morph_target ms /\ coupling_pairs (morph_coupling ms) = [].
 
-Lemma identity_arrows_canonical_lookup :
-  forall g mid ms,
-    identity_arrows_canonical g ->
-    graph_lookup_morphism g mid = Some ms ->
-    morph_is_identity ms = true ->
-    morph_source ms = morph_target ms /\ coupling_pairs (morph_coupling ms) = [].
-Proof.
-  intros g mid ms Hc Hl Hid. apply (Hc mid ms); [|exact Hid].
-  apply graph_lookup_morphism_list_In. exact Hl.
-Qed.
-
 Lemma identity_arrows_canonical_sub :
   forall g g',
     (forall p, In p (pg_morphisms g') -> In p (pg_morphisms g)) ->
@@ -569,8 +558,10 @@ Proof.
   intro Hboth. apply andb_true_iff in Hboth. destruct Hboth as [If Ih].
   rewrite If, Ih. simpl. split; [|reflexivity].
   apply Nat.eqb_eq in Ht.
-  destruct (identity_arrows_canonical_lookup g m1 f Hc Hf If) as [Ef _].
-  destruct (identity_arrows_canonical_lookup g m2 h Hc Hh Ih) as [Eh _].
+  destruct (Hc m1 f (graph_lookup_morphism_list_In (pg_morphisms g) m1 f Hf) If)
+    as [Ef _].
+  destruct (Hc m2 h (graph_lookup_morphism_list_In (pg_morphisms g) m2 h Hh) Ih)
+    as [Eh _].
   congruence.
 Qed.
 
