@@ -268,6 +268,8 @@ An explicitly qualified citation keeps its own module identity.
 - `star_value_confluent`: In the calculus L of `LRecursion.v`, if `s` reduces to `t` and to `v` in zero or more steps and `v` is a value (a lambda), then `t` reduces to `v` in zero or more steps.
 - `vm_bounded_shortcut_decide_correct`: A computable Boolean function decides the bounded shortcut predicate.
 - `vm_bounded_decider_flip_not_representable`: That decider's flip lies outside every class that satisfies the bounded fixed-point premise.
+- `vm_full_recursion_premise_refuted`: It is not the case that every map `f` from programs to programs has a program `q` whose 1000-step `vm_run` from every state equals that of `f q`.
+- `vm_correct_flip_has_no_fixed_point`: For every Boolean function `d` that is true exactly on the programs satisfying `vm_admits_shortcut_extensional`, no program `q` has the same 1000-step `vm_run` from every state as the empty program when `d q` holds and `simple_morph_trace` otherwise.
 - `nat_to_program_program_to_nat`: Decoding the natural-number code of an instruction list returns the list.
 - `vm_apply_logic_acc_commutes`: Every VM step commutes with replacing `vm_logic_acc`.
 - `run_vm_logic_acc_commutes`: Every fuel-bounded VM run commutes with replacing `vm_logic_acc`.

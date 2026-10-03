@@ -3,7 +3,8 @@
     This predicate compares full outcomes after 1000 steps. Both outcomes
     are finite records, so their equality is decidable. The recurrence
     premise restricts representable transformers; it cannot include the
-    flip of the decider below. Unbounded halting uses a separate relation
+    flip of the decider below, so the premise for every transformer is
+    false ([vm_full_recursion_premise_refuted]). Unbounded halting uses a separate relation
     in VMUnboundedExec and needs a separate interpreter theorem. *)
 
 From Coq Require Import List Bool.
@@ -46,4 +47,38 @@ Proof.
   exists vm_bounded_shortcut_decide. split.
   - exact Hflip.
   - exact vm_bounded_shortcut_decide_correct.
+Qed.
+
+(** The recursion premise for every transformer is false. If every map from
+    programs to programs had a program [q] whose 1000-step runs equal those
+    of its image, the flip of [vm_bounded_shortcut_decide] would have one,
+    and [vm_bounded_decider_flip_not_representable] excludes that. *)
+Theorem vm_full_recursion_premise_refuted :
+  ~ (forall f : list vm_instruction -> list vm_instruction,
+       exists q, forall s, vm_run q s = vm_run (f q) s).
+Proof.
+  intro H.
+  apply (vm_bounded_decider_flip_not_representable (fun _ => True)).
+  - intros f _. apply H.
+  - exact I.
+Qed.
+
+(** What [vm_structural_shortcut_undecidable_encoded] says with its class
+    taken to be the one flip: for every correct decider [d] of the bounded
+    shortcut predicate, the map sending [p] to the empty program when
+    [d p] holds and to [simple_morph_trace] otherwise has no program whose
+    1000-step runs equal those of its image. *)
+Theorem vm_correct_flip_has_no_fixed_point :
+  forall d : list vm_instruction -> bool,
+    (forall p, d p = true <-> vm_admits_shortcut_extensional p) ->
+    ~ exists q, forall s,
+        vm_run q s = vm_run (if d q then @nil vm_instruction
+                             else SimpleMorphShortcut.simple_morph_trace) s.
+Proof.
+  intros d Hd [q Hq].
+  apply (vm_structural_shortcut_undecidable_encoded
+           (fun f => f = (fun p => if d p then @nil vm_instruction
+                                   else SimpleMorphShortcut.simple_morph_trace))).
+  - intros f ->. exists q. exact Hq.
+  - exists d. split; [reflexivity | exact Hd].
 Qed.
