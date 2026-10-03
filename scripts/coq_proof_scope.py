@@ -40,6 +40,7 @@ presence of stray .vo files on disk.
 
 from __future__ import annotations
 
+import posixpath
 from pathlib import Path
 from typing import FrozenSet, Iterable
 
@@ -107,8 +108,9 @@ def coqproject_v_files(project_path: Path = COQ_PROJECT) -> FrozenSet[str]:
             continue
         if not line.endswith(".v"):
             continue
-        # _CoqProject entries are relative to coq/.
-        out.add(f"coq/{line}")
+        # _CoqProject entries are relative to coq/; an entry such as
+        # ../minimal/EarnedCore.v names a file outside coq/.
+        out.add(posixpath.normpath(f"coq/{line}"))
     return frozenset(out)
 
 
@@ -174,7 +176,7 @@ def validate_alignment() -> list[str]:
         )
 
     # INV-3b: every _CoqProject entry exists on disk.
-    phantom = sorted(project - disk)
+    phantom = sorted(p for p in project - disk if not (REPO_ROOT / p).is_file())
     if phantom:
         problems.append(
             "_CoqProject lists files not present on disk (remove or restore):\n"

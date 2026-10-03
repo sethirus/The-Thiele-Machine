@@ -18,8 +18,10 @@ import pytest
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 MUCORE = REPO_ROOT / "minimal" / "MuCore.v"
+EARNED = REPO_ROOT / "minimal" / "EarnedCore.v"
 DEMO = REPO_ROOT / "minimal" / "nofi_demo.py"
 EXPECTED_CLOSED = 10
+EARNED_EXPECTED_CLOSED = 29
 
 
 def test_nofi_demo_self_checks():
@@ -57,6 +59,31 @@ def test_minimal_core_compiles_axiom_free(tmp_path):
     closed = proc.stdout.count("Closed under the global context")
     assert closed == EXPECTED_CLOSED, (
         f"expected {EXPECTED_CLOSED} closed-assumption receipts, saw {closed}\n"
+        + proc.stdout
+    )
+    assert "Axioms:" not in proc.stdout
+
+
+@pytest.mark.coq
+def test_earned_core_compiles_axiom_free(tmp_path):
+    """minimal/EarnedCore.v, the smallest machine that earns its commitments,
+    compiles with plain coqc against the standard library alone, and every
+    theorem it prints assumptions for is closed."""
+    if shutil.which("coqc") is None:
+        pytest.skip("coqc not available")
+    work = tmp_path / "EarnedCore.v"
+    work.write_text(EARNED.read_text())
+    proc = subprocess.run(
+        ["coqc", str(work)],
+        cwd=str(tmp_path),
+        capture_output=True,
+        text=True,
+        timeout=600,
+    )
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+    closed = proc.stdout.count("Closed under the global context")
+    assert closed == EARNED_EXPECTED_CLOSED, (
+        f"expected {EARNED_EXPECTED_CLOSED} closed-assumption receipts, saw {closed}\n"
         + proc.stdout
     )
     assert "Axioms:" not in proc.stdout
