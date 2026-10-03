@@ -107,7 +107,7 @@ class TestOpcodeAlignment:
         program = [
             "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
-            "PNEW {0,256} 1",
+            "PNEW {128,129} 1",
             "LOAD_IMM 1 10 0",
             "LOAD_IMM 2 5 0",
             "ADD 0 1 2 0",
@@ -126,7 +126,7 @@ class TestOpcodeAlignment:
         program = [
             "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
-            "PNEW {0,256} 1",
+            "PNEW {128,129} 1",
             "LOAD_IMM 1 42 0",
             "STORE 10 1 0",
             "LOAD 2 10 0",
@@ -142,7 +142,7 @@ class TestOpcodeAlignment:
         program = [
             "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
-            "PNEW {0,256} 1",
+            "PNEW {128,129} 1",
             "LOAD_IMM 1 255 0",
             "XFER 0 1 0",
             "XOR_ADD 0 1 0",
@@ -482,7 +482,7 @@ class TestCrossLayerBisim:
         program = [
             "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
-            "PNEW {0,256} 1",
+            "PNEW {128,129} 1",
             "LOAD_IMM 1 99 0",
             "STORE 5 1 0",
             "LOAD 2 5 0",

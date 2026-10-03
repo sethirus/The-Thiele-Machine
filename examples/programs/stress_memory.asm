@@ -10,7 +10,7 @@ FUEL 10000
 # Partition setup (portable: works on both OCaml runner and RTL cosim)
 INIT_PT 0 128                 # RTL: set ptTable[0] = 128 (mem region size)
 INIT_ACTIVE_MODULE 0          # RTL: set active_module = 0
-PNEW {0,128} 1               # Coq/OCaml: create partition covering mem[0..127]
+PNEW {128,129} 1             # a module above the active module's range
 
 # Setup
 LOAD_IMM r1 0 1              # accumulator

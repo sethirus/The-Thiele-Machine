@@ -13,8 +13,8 @@ INIT_PT 0 64
 INIT_PT 1 64
 INIT_ACTIVE_MODULE 0
 
-PNEW {0,64} 1                # creates module 1 (covers mem[0..63])
-PNEW {64,128} 1              # creates module 2 (covers mem[64..127])
+PNEW {128,129} 1              # creates module 1
+PNEW {130,131} 1              # creates module 2
 
 TENSOR_SET 1 0 0 10 1        # Module 1: tensor[0][0] = 10
 TENSOR_SET 2 0 0 20 1        # Module 2: tensor[0][0] = 20

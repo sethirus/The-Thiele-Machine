@@ -26,7 +26,7 @@ INIT_ACTIVE_MODULE 0          # RTL: set active_module = 0
 INIT_LOGIC_ACC 0xCAFEEACE     # RTL: enable PDISCOVER/CHSH_TRIAL/REVEAL guard
 
 # ---- Partition setup (Coq/OCaml side) ----
-PNEW {0,128} 1                # partition 0: covers mem[0..127]
+PNEW {128,129} 1              # a module above the active module's range
 
 # ---- Core compute opcodes ----
 LOAD_IMM r1 42 1              # r1 = 42
@@ -89,7 +89,7 @@ READ_PORT  r0 0 0 8 1         # read port 0, returning an 8-bit value into r0
 WRITE_PORT 0 0 1              # write port (NOP in hardware)
 
 # ---- Partition opcodes (require logic_acc = 0xCAFEEACE) ----
-PNEW {0,10} 2                 # create another partition
+PNEW {130,131} 2              # create another partition
 PDISCOVER 0 0 1               # discover partition (needs logic-acc guard)
 
 # ---- CHSH trial (requires logic_acc = 0xCAFEEACE) ----

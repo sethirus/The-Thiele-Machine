@@ -116,7 +116,7 @@ def st_partition_instr(draw):
     """
     # Only PNEW has cross-layer compatible format, semantics, and no preconditions
     n_elems = draw(st.integers(min_value=1, max_value=4))
-    elems = [draw(st.integers(min_value=0, max_value=255)) for _ in range(n_elems)]
+    elems = [draw(st.integers(min_value=128, max_value=255)) for _ in range(n_elems)]  # above module 0 (INIT_PT 0 128)
     region = ",".join(str(e) for e in elems)
     return f"PNEW {{{region}}} {draw(st_cost)}"
 

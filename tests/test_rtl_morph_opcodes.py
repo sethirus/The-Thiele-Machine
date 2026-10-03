@@ -349,17 +349,26 @@ class TestMorphRTLCouplingData:
 
 class TestPnewRTLRegionLength:
     @pytest.mark.parametrize("start", [0, 20])
-    @pytest.mark.parametrize("address, expected_error", [(2, False), (3, True)])
-    def test_partition_wall_uses_encoded_length(self, start, address, expected_error):
-        """The hardware stores a local range of length three, regardless of start."""
+    @pytest.mark.parametrize("offset, expected_error", [(2, False), (3, True)])
+    def test_partition_wall_uses_encoded_length(self, start, offset, expected_error):
+        """The hardware stores a base and a length: the range is [start, start + 3)."""
         region = ",".join(str(start + i) for i in range(3))
+        address = start + offset
         state = _run_cosim(
-            f"INIT_ACTIVE_MODULE 1\nINIT_MEM 2 42\n"
+            f"INIT_ACTIVE_MODULE 1\nINIT_MEM {address} 42\n"
             f"PNEW {{{region}}} 0\nLOAD_IMM 1 {address} 0\nLOAD 2 1 0\nHALT"
         )
         assert bool(state["err"]) == expected_error
         if not expected_error:
             assert state["regs"][2] == 42
+
+    def test_partition_wall_rejects_addresses_below_the_base(self):
+        """An address under the module's base is outside its range."""
+        state = _run_cosim(
+            "INIT_ACTIVE_MODULE 1\nINIT_MEM 5 42\n"
+            "PNEW {20,21,22} 0\nLOAD_IMM 1 5 0\nLOAD 2 1 0\nHALT"
+        )
+        assert state["err"]
 
 
 class TestRTLCouplingNormalization:
