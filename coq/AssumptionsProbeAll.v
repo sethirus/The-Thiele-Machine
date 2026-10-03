@@ -307,6 +307,7 @@ Require Kernel.F3_CrossLink.
 Require Kernel.F3_MuLaplacianSum.
 Require Kernel.F3_PartitionTopologyCrossLink.
 Require Kernel.F3_PlusOneStructural.
+Require Kernel.F3_ReachableGeometry.
 Require Kernel.F3_TripleCrossLink.
 Require Kernel.ObservationPolicy.
 Require Kernel.PointerObservable.
@@ -12946,6 +12947,29 @@ Print Assumptions Kernel.F3_PartitionTopologyCrossLink.pi_times_unit_is_nonzero.
 Print Assumptions Kernel.F3_PlusOneStructural.F3_plus_one_renaming_unification.
 Print Assumptions Kernel.F3_PlusOneStructural.F3_plus_one_substantive_unification_attempt.
 Print Assumptions Kernel.F3_PlusOneStructural.triangle_angle_plus_one_correction_decays.
+(* === Kernel.F3_ReachableGeometry : 22 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.F3_ReachableGeometry.vm_reachable_regions_separate.
+Print Assumptions Kernel.F3_ReachableGeometry.init_reachable_regions_separate.
+Print Assumptions Kernel.F3_ReachableGeometry.separate_entries_disjoint.
+Print Assumptions Kernel.F3_ReachableGeometry.separate_not_adjacent.
+Print Assumptions Kernel.F3_ReachableGeometry.filter_all_false.
+Print Assumptions Kernel.F3_ReachableGeometry.separate_no_neighbors.
+Print Assumptions Kernel.F3_ReachableGeometry.separate_no_module_triangles.
+Print Assumptions Kernel.F3_ReachableGeometry.separate_face_tri_false.
+Print Assumptions Kernel.F3_ReachableGeometry.nsum_zero.
+Print Assumptions Kernel.F3_ReachableGeometry.separate_face_triangle_count.
+Print Assumptions Kernel.F3_ReachableGeometry.reachable_no_adjacent_modules.
+Print Assumptions Kernel.F3_ReachableGeometry.separate_flat_reading.
+Print Assumptions Kernel.F3_ReachableGeometry.reachable_flat_reading.
+Print Assumptions Kernel.F3_ReachableGeometry.reachable_calibrated_iff_no_modules.
+Print Assumptions Kernel.F3_ReachableGeometry.edge_in_region_edges.
+Print Assumptions Kernel.F3_ReachableGeometry.count_edge_absent.
+Print Assumptions Kernel.F3_ReachableGeometry.disjoint_count_le_1.
+Print Assumptions Kernel.F3_ReachableGeometry.count_interior_edges_zero.
+Print Assumptions Kernel.F3_ReachableGeometry.separate_triangulated_isolated.
+Print Assumptions Kernel.F3_ReachableGeometry.reachable_triangulated_isolated.
+Print Assumptions Kernel.F3_ReachableGeometry.one_triangle_graph.
+Print Assumptions Kernel.F3_ReachableGeometry.reachable_triangulated_exists.
 (* === Kernel.F3_TripleCrossLink : 6 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_cross_link.
 Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_specialises_to_F3_R1.
