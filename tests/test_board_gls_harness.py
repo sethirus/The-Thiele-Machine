@@ -141,6 +141,81 @@ def test_block_ram_rejects_unsupported_write_contract(tmp_path, change):
     assert net.ram_write_port("imem", 7) is None
 
 
+def test_failed_simulator_output_is_visible(capsys):
+    with pytest.raises(subprocess.CalledProcessError):
+        board_gls.run([sys.executable, "-c", "import sys; print('simulator cause'); sys.exit(2)"])
+    assert "simulator cause" in capsys.readouterr().err
+
+
+def test_gate_cell_library_replaces_the_empty_bram_declaration(tmp_path, monkeypatch):
+    datdir = tmp_path / "share"
+    (datdir / "xilinx").mkdir(parents=True)
+    (datdir / "xilinx" / "cells_sim.v").write_text(
+        "module LUT1(); endmodule\nmodule RAMB36E1 ();\nendmodule\n")
+    monkeypatch.setattr(board_gls, "yosys_datdir", lambda: datdir)
+    sources = board_gls.gate_cell_sources(tmp_path)
+    assert "module RAMB36E1" not in sources[1].read_text()
+    assert "module LUT1" in sources[1].read_text()
+    assert sources[2].name == "RAMB36E1.v"
+    assert sources[3].name == "glbl.v"
+
+
+@pytest.mark.strict_rtl
+@pytest.mark.parametrize("sim", ["iverilog", "verilator"])
+def test_vendor_block_ram_stores_and_reads_the_synthesized_sdp72_mode(tmp_path, sim):
+    if shutil.which(sim) is None:
+        pytest.skip(f"{sim} not installed")
+    tb = tmp_path / "bram_tb.v"
+    tb.write_text(r"""
+`timescale 1ns/1ps
+module bram_tb;
+  glbl glbl();
+  reg clk = 0;
+  always #5 clk = ~clk;
+  reg [7:0] we = 0;
+  reg [63:0] din = 0;
+  reg [7:0] parity = 0;
+  wire [63:0] dout;
+  wire [7:0] pout;
+  RAMB36E1 #(.RAM_MODE("SDP"), .READ_WIDTH_A(72), .READ_WIDTH_B(0),
+    .WRITE_WIDTH_A(0), .WRITE_WIDTH_B(72), .DOA_REG(0), .DOB_REG(0),
+    .WRITE_MODE_A("WRITE_FIRST"), .WRITE_MODE_B("WRITE_FIRST")) ram (
+    .CLKARDCLK(clk), .CLKBWRCLK(clk), .ENARDEN(1'b1), .ENBWREN(1'b1),
+    .ADDRARDADDR(16'd320), .ADDRBWRADDR(16'd320), .WEA(4'b0), .WEBWE(we),
+    .DIADI(din[31:0]), .DIBDI(din[63:32]), .DIPADIP(parity[3:0]), .DIPBDIP(parity[7:4]),
+    .DOADO(dout[31:0]), .DOBDO(dout[63:32]), .DOPADOP(pout[3:0]), .DOPBDOP(pout[7:4]),
+    .REGCEAREGCE(1'b0), .REGCEB(1'b0), .RSTRAMARSTRAM(1'b0), .RSTRAMB(1'b0),
+    .RSTREGARSTREG(1'b0), .RSTREGB(1'b0), .CASCADEINA(1'b0), .CASCADEINB(1'b0),
+    .INJECTDBITERR(1'b0), .INJECTSBITERR(1'b0));
+  initial begin
+    #200;
+    @(negedge clk); din = 64'hfedcba9876543210; parity = 8'h5a; we = 8'hff;
+    @(negedge clk); we = 0;
+    repeat (2) @(negedge clk);
+    if (dout !== din || pout !== parity) $fatal(1, "SDP72 readback mismatch %h %h", dout, pout);
+    $display("BRAM_PASS"); $finish;
+  end
+  initial begin #1000; $fatal(1, "BRAM timeout"); end
+endmodule
+""")
+    sources = [str(tb), str(board_gls.XILINX_MODELS / "RAMB36E1.v"),
+               str(board_gls.XILINX_MODELS / "glbl.v")]
+    if sim == "iverilog":
+        exe = tmp_path / "bram.vvp"
+        cmd = ["iverilog", "-g2012", "-s", "bram_tb", "-o", str(exe), *sources]
+        binary = ["vvp", str(exe)]
+    else:
+        obj = tmp_path / "obj"
+        cmd = ["verilator", "--binary", "--timing", "-Wno-fatal", "-j", "2",
+               "--top-module", "bram_tb", "--Mdir", str(obj), *sources]
+        binary = [str(obj / "Vbram_tb")]
+    proc = subprocess.run(cmd, capture_output=True, text=True, timeout=180)
+    assert proc.returncode == 0, proc.stdout[-3000:] + proc.stderr[-6000:]
+    proc = subprocess.run(binary, capture_output=True, text=True, timeout=30)
+    assert proc.returncode == 0, proc.stdout + proc.stderr
+    assert "BRAM_PASS" in proc.stdout
+
+
 def test_cpu_view_decodes_slots_and_morphisms():
     st = {"pc": 5, "mu": 0, "err": 0, "certified": 0, "regs": 3, "mem": [0] * 128,
           "ptTable": 1 << 32, "ptBases": 1 << 32, "pt_next_id": 2,

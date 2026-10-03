@@ -28,6 +28,10 @@
 `timescale 1ns/1ps
 
 module genesys2_top_tb;
+`ifdef GLS_XILINX_BRAM
+  // Official UNISIM startup/reset global for the gate-level block RAM model.
+  glbl glbl();
+`endif
   localparam CPB = 174;  // ClksPerBit in coq/kami_hw/ThieleLoader.v
 
   reg clk_p = 1'b0;

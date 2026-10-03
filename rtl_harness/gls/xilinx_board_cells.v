@@ -2,7 +2,8 @@
 // Genesys 2 board wrapper (thielecpu/hardware/rtl/thiele_cpu_top_genesys2.v)
 // instantiates and that yosys's techlibs/xilinx/cells_sim.v does not model:
 // IBUFDS, MMCME2_BASE and BUFGCE. Every other cell in the synthesized
-// netlist is simulated with yosys's own cells_sim.v.
+// netlist uses yosys's cells_sim.v, except RAMB36E1: the gate harness supplies
+// the pinned Xilinx UNISIM model because the Yosys declaration is empty.
 //
 // These are behavioural models, not Xilinx's UNISIM library. They model
 // only what the board-top simulation depends on:

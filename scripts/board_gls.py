@@ -19,7 +19,8 @@ button and the UART receive line. The program goes in as serial frames, the
 fifteen-byte status report comes back on the UART transmit pin, and then the
 testbench reads the architectural state. IBUFDS, MMCME2_BASE and BUFGCE are
 behavioural models (rtl_harness/gls/xilinx_board_cells.v); every other cell
-is yosys's cells_sim.v model.
+is yosys's cells_sim.v model, except block RAM, which uses the pinned
+Xilinx UNISIM RAMB36E1 model (the Yosys declaration has no behavior).
 
 What is compared:
 - gates against rtl: the report bytes, the LEDs, and every probed state
@@ -41,7 +42,7 @@ What is compared:
 What is not covered: timing (zero-delay simulation of the pre-place-and-
 route netlist; the routed design is not simulated, and nextpnr's timing
 report is not sign-off), the real behaviour of the three modelled Xilinx
-cells, and anything about a physical board. No board has run this design.
+cells, analogue/timing behavior of the UNISIM RAM model, and anything about a physical board. No board has run this design.
 
 Usage:
   python3 scripts/board_gls.py --netlist-json build/thiele_xc7k325t.json
@@ -72,6 +73,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RTL = ROOT / "thielecpu" / "hardware" / "rtl"
 TB = ROOT / "rtl_harness" / "testbench" / "genesys2_top_tb.v"
 BOARD_CELLS = ROOT / "rtl_harness" / "gls" / "xilinx_board_cells.v"
+XILINX_MODELS = BOARD_CELLS.parent / "xilinx"
 FORMAL_DIR = ROOT / "formal"
 WRAPPER = RTL / "thiele_cpu_top_genesys2.v"
 RTL_SOURCES = [RTL / "RegFile.v", RTL / "thiele_cpu_kami.v", RTL / "thiele_system.v", WRAPPER]
@@ -192,7 +194,13 @@ BOARD_CELL_TYPES = {"IBUFDS", "MMCME2_BASE", "BUFGCE"}
 
 
 def run(cmd: list[str], **kw) -> subprocess.CompletedProcess:
-    return subprocess.run(cmd, check=True, capture_output=True, text=True, **kw)
+    try:
+        return subprocess.run(cmd, check=True, capture_output=True, text=True, **kw)
+    except subprocess.CalledProcessError as exc:
+        # A simulator abort otherwise hides the actual convergence/model error.
+        sys.stderr.write((exc.stdout or "")[-12000:])
+        sys.stderr.write((exc.stderr or "")[-12000:])
+        raise
 
 
 def yosys_datdir() -> Path:
@@ -208,6 +216,19 @@ def yosys_datdir() -> Path:
 def cells_sim_modules(cells_sim: Path) -> set[str]:
     text = cells_sim.read_text(encoding="utf-8", errors="replace")
     return {m.lstrip("\\") for m in re.findall(r"^\s*module\s+(\\?\S+?)\s*[#(]", text, re.M)}
+
+
+def gate_cell_sources(work: Path) -> list[Path]:
+    """Use UNISIM for block RAM: Yosys's declaration has no behavior."""
+    original = yosys_datdir() / "xilinx" / "cells_sim.v"
+    text = original.read_text(encoding="utf-8")
+    text, count = re.subn(r"(?ms)^module RAMB36E1\b.*?^endmodule\b",
+                          "// RAMB36E1 is supplied by the pinned Xilinx UNISIM model.", text)
+    if count != 1:
+        raise RuntimeError("expected exactly one Yosys RAMB36E1 declaration")
+    filtered = work / "xilinx_cells_sim.v"
+    filtered.write_text(text, encoding="utf-8")
+    return [BOARD_CELLS, filtered, XILINX_MODELS / "RAMB36E1.v", XILINX_MODELS / "glbl.v"]
 
 
 # ---------------------------------------------------------------------------
@@ -717,8 +738,8 @@ def main() -> int:
                 raise SystemExit(f"required fields not observable in the netlist: {req}")
             (work / "gates").mkdir()
             (work / "gates" / "gls_probes.vh").write_text(probes_include(probes), encoding="utf-8")
-            cells_sim = yosys_datdir() / "xilinx" / "cells_sim.v"
-            gate_bin = build_sim("gates", [BOARD_CELLS, cells_sim, gv], defines, work, args.sim)
+            gate_defines = {**defines, "GLS_XILINX_BRAM": 1}
+            gate_bin = build_sim("gates", [*gate_cell_sources(work), gv], gate_defines, work, args.sim)
 
         for name in names:
             prog = PROGRAMS[name]
