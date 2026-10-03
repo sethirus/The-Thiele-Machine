@@ -16,7 +16,13 @@
   been recovered in this file.
 
   To break it, produce VM traces where topology changes and the total
-  curvature jump fails to follow 5PI * delta-chi. *)
+  curvature jump fails to follow 5PI * delta-chi.
+
+  The theorems hold for every pair of well-formed triangulated graphs. The
+  graphs the machine reaches from init_state have pairwise-disjoint module
+  regions, so a well-formed triangulated one is a set of separate triangles
+  with chi = F (F3_ReachableGeometry.v). On those graphs delta-chi is the
+  change in the number of modules, and the identity counts modules. *)
 
 From Coq Require Import Reals List Lia ZArith Lra.
 Import ListNotations.
@@ -282,10 +288,9 @@ Proof.
   field.
 Qed.
 
-(** To verify empirically: create states s, s' with Δχ = 1 and check
-    ΔK = 5π ± ε; execute PNEW with fresh triangle and verify Δχ ≠ 0;
-    compare PNEW frequencies under high vs low stress; measure ΔK after
-    PNEW on a high-stress module and verify ΔK ∝ stress_energy(m). *)
+(** Falsifier: two well-formed triangulated graphs whose χ differ by one and
+    whose total curvatures do not differ by 5π. Nothing here relates how
+    often PNEW runs to stress-energy. *)
 
 (** Information density, routed through executed PNEW steps, creates curvature
     changes governed by the discrete Gauss-Bonnet identity:

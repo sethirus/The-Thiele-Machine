@@ -72,6 +72,15 @@
     establish their independence on VM states.
 
     The theorem uses no project-local axioms.
+
+    *** On reachable states.
+
+    The calibration premise holds on a state the machine reaches from
+    init_state only when the state has no modules: there every module's
+    calibration residual is 2π (F3_ReachableGeometry.v,
+    reachable_calibrated_iff_no_modules). On reachable states with modules
+    the theorem's premise fails; it is a theorem about partition graphs in
+    general.
 *)
 
 From Coq Require Import List Reals Lra ZArith Lia Arith.PeanoNat.

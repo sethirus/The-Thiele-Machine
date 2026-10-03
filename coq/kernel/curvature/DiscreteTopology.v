@@ -17,9 +17,14 @@
     right move is to exhibit a graph that claims to satisfy that contract while
     still violating the identity.
 
-    Later files use chi as the topology-change hook: PNEW can change chi, chi
-    forces total curvature, and that is how the discrete gravity chain gets off
-    the ground. *)
+    Later files use chi as the topology-change hook: PNEW can change chi, and
+    on a well-formed triangulated graph chi fixes the total curvature.
+
+    Everything here is about partition graphs in general. A graph the machine
+    reaches from init_state has pairwise-disjoint module regions, so no two
+    triangles share a vertex. When such a graph is well-formed triangulated it
+    is a set of separate triangles: no interior edge, V = E = B = 3F, and
+    chi = F (F3_ReachableGeometry.v, reachable_triangulated_isolated). *)
 
 (* SCOPE NOTE: foundation connectivity: bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.

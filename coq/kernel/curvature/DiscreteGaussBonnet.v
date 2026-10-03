@@ -362,14 +362,17 @@ Qed.
 
 (** Why this matters for the gravity story
 
-    Gauss-Bonnet tells us: χ CONSTRAINS total curvature.
+    Gauss-Bonnet says χ fixes total curvature on every well-formed
+    triangulated graph.
 
-    PNEWTopologyChange.v shows when PNEW changes χ.
-    Therefore: PNEW changes total curvature.
-    Therefore: PNEW changes graph topology, which changes total angle defect
-    via the Gauss-Bonnet identity. This is an analogy to how stress-energy
-    curves spacetime in GR, but here it is a 2D topological identity on a
-    discrete graph.
+    PNEWTopologyChange.v shows when PNEW changes χ. So when the graphs before
+    and after a PNEW are both well-formed triangulated, a PNEW that changes χ
+    changes the total angle defect by 5π times the change. This is an analogy
+    to how stress-energy curves spacetime in GR. Here it is a 2D topological
+    identity on a discrete graph.
+
+    On graphs the machine reaches from init_state, the triangles are separate
+    (F3_ReachableGeometry.v): χ = F, and the identity counts modules.
     *)
 
 (* Continued in PNEWTopologyChange.v *)

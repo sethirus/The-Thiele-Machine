@@ -15,6 +15,13 @@
    calibration premises such as angle_defect = π·Laplacian and
    Laplacian = 16πG·T; those premises are not derived unconditionally from
    the definitions in this file.
+
+   REACHABLE STATES. The definitions here apply to every VM state. On a state
+   the machine reaches from init_state, module regions are pairwise disjoint,
+   so no two modules are adjacent by region: every module has no neighbors,
+   mu-Laplacian 0, angle defect 2π and calibration residual 2π.
+   F3_ReachableGeometry.v proves this; there a state is calibrated only when
+   it has no modules.
 *)
 
 From Coq Require Import List Arith.PeanoNat Lia Reals Lra String.

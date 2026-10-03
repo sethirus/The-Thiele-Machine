@@ -571,4 +571,10 @@ An explicitly qualified citation keeps its own module identity.
 - `F3_calibration_obstruction_min_degree4`: A well-formed triangulated partition graph with distinct module identifiers in which every vertex lies in at least four faces cannot be calibrated at every module.
 - `F3_calibration_obstruction`: No VM state whose partition graph is well-formed triangulated, has connected vertex links, and has distinct module identifiers is calibrated at every module.
 - `F3_obstruction_hypotheses_satisfiable`: A concrete VM state (an octahedron next to a zigzag 9-gon) satisfies every hypothesis of `F3_calibration_obstruction`.
+- `vm_reachable_regions_separate`: From a state with no modules, a well-formed graph and at most 64 module numbers issued, every reachable state has pairwise-disjoint module regions and distinct module numbers.
+- `reachable_no_adjacent_modules`: On every state reachable from `init_state`, two different module numbers are never adjacent by region, every module number has no neighbors and lies in no `module_triangles` entry, and `face_triangle_count` is 0.
+- `reachable_flat_reading`: On every state reachable from `init_state`, every module number has mu-Laplacian 0, angle-defect curvature 2*PI, and calibration residual 2*PI.
+- `reachable_calibrated_iff_no_modules`: A state reachable from `init_state` is calibrated at every module exactly when it has no modules.
+- `reachable_triangulated_isolated`: A state reachable from `init_state` whose graph is well-formed triangulated has no interior edge, `B = E = V = 3F`, and Euler characteristic `F`.
+- `reachable_triangulated_exists`: The state one PNEW of addresses 0, 1, 2 reaches from `init_state` is reachable, well-formed triangulated, has one face, and has Euler characteristic 1.
 - `euler_component`: For a partition graph with distinct module identifiers, triangular regions, and every edge in one or two faces, whose modules are exactly those reachable from one module through shared edges, `V + F <= E + 2`, and `V + F <= E + 1` when some edge is on the boundary.

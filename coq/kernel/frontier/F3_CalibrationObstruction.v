@@ -95,6 +95,13 @@
        every hypothesis of item 10 (om_links_connected checks its links),
        so the theorem is not vacuous.
 
+    These theorems are about every VM state with a well-formed triangulated
+    graph. A state the machine reaches from init_state has pairwise-disjoint
+    regions, so its calibration residual is 2π at every module and it is
+    calibrated only when it has no modules (F3_ReachableGeometry.v). The
+    configurations above, with faces sharing edges, are partition graphs the
+    machine does not reach.
+
     Items 1 to 4 do not use distinct module IDs. No axioms are added; the
     Reals-based statements depend only on the standard axioms of Coq's
     real numbers (see the Print Assumptions block at the end). *)

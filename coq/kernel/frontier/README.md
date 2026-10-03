@@ -37,6 +37,8 @@ Single-conclusion Coq inequalities that compose multiple chain constants.
 | `F3_MuLaplacianSum.v` | Sum-zero lemma for the discrete μ-Laplacian |
 | `F3_PartitionTopologyCrossLink.v` | Partition-topology cross-link |
 | `F3_PlusOneStructural.v` | Whether the +1 in `triangle_angle` is the +1 of the A2 cost floor |
+| `F3_CalibrationObstruction.v` | What calibration at every module forces on a well-formed triangulated state, and the closed obstruction (`F3_calibration_obstruction`) for connected vertex links and distinct module numbers |
+| `F3_ReachableGeometry.v` | The geometry on states reachable from `init_state`: no two modules adjacent, no face-graph triangle, calibration residual 2π at every module (`reachable_calibrated_iff_no_modules`), and a well-formed triangulated reachable graph is a set of separate triangles (`reachable_triangulated_isolated`); one reachable example (`reachable_triangulated_exists`) |
 
 ## Pointer observables and ecosystems
 
