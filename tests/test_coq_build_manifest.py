@@ -140,3 +140,19 @@ def test_schema_one_manifest_from_other_libraries_asks_for_a_full_build(tree):
     manifest.parent.mkdir(parents=True, exist_ok=True)
     manifest.write_text(json.dumps({"schema": 1, "config": "other", "sources": {}}))
     assert MODULE.apply(manifest) == 2
+
+
+def test_minimal_proof_is_cached_and_invalidated_with_its_source(tree):
+    source = tree / "minimal/EarnedCore.v"
+    source.parent.mkdir()
+    source.write_text("Definition earned := 0.\n")
+    output = source.with_suffix(".vo")
+    output.write_bytes(b"compiled minimal proof")
+    manifest = tree / "build/manifest.json"
+    MODULE.write(manifest)
+    assert output in MODULE.outputs()
+    assert MODULE.apply(manifest) == 0
+    assert source.stat().st_mtime < output.stat().st_mtime
+    source.write_text("Definition earned := 1.\n")
+    assert MODULE.apply(manifest) == 0
+    assert source.stat().st_mtime > output.stat().st_mtime

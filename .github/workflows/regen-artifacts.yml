@@ -99,12 +99,16 @@ jobs:
             coq/**/*.vok
             coq/**/*.vos
             coq/**/*.glob
+            minimal/**/*.vo
+            minimal/**/*.vok
+            minimal/**/*.vos
+            minimal/**/*.glob
             vendor/coq-undecidability/theories/**/*.vo
             vendor/coq-undecidability/theories/**/*.glob
             build/coq-build-manifest.json
-          key: coq-inc-v1-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('scripts/install_metacoq.sh') }}-${{ github.run_id }}-${{ github.run_attempt }}
+          key: coq-inc-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('scripts/install_metacoq.sh') }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
-            coq-inc-v1-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('scripts/install_metacoq.sh') }}-
+            coq-inc-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('scripts/install_metacoq.sh') }}-
 
       - name: Mark exactly the changed Coq sources stale
         # Content digests, not checkout times, decide what make rebuilds: a
@@ -152,10 +156,14 @@ jobs:
             coq/**/*.vok
             coq/**/*.vos
             coq/**/*.glob
+            minimal/**/*.vo
+            minimal/**/*.vok
+            minimal/**/*.vos
+            minimal/**/*.glob
             vendor/coq-undecidability/theories/**/*.vo
             vendor/coq-undecidability/theories/**/*.glob
             build/coq-build-manifest.json
-          key: coq-inc-v1-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('scripts/install_metacoq.sh') }}-${{ github.run_id }}-${{ github.run_attempt }}
+          key: coq-inc-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('scripts/install_metacoq.sh') }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Generate Kami BSV inputs for the RTL manifests
         shell: bash

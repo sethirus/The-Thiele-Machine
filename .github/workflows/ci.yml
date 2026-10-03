@@ -114,15 +114,19 @@ jobs:
             coq/**/*.vok
             coq/**/*.vos
             coq/**/*.glob
+            minimal/**/*.vo
+            minimal/**/*.vok
+            minimal/**/*.vos
+            minimal/**/*.glob
             coq/Makefile
             coq/Makefile.conf
             coq/.Makefile.d
             build/coq-build-manifest.json
-          key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          key: coq-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
           # An earlier build of any source tree is a starting point; the
           # build step rebuilds what changed (scripts/coq_build_manifest.py).
           restore-keys: |
-            coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
+            coq-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
 
       - name: Build Coq proof tree
         if: steps.cache-coq.outputs.cache-hit != 'true'
@@ -193,11 +197,15 @@ jobs:
             coq/**/*.vok
             coq/**/*.vos
             coq/**/*.glob
+            minimal/**/*.vo
+            minimal/**/*.vok
+            minimal/**/*.vos
+            minimal/**/*.glob
             coq/Makefile
             coq/Makefile.conf
             coq/.Makefile.d
             build/coq-build-manifest.json
-          key: coq-v2-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          key: coq-v3-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
 
       - name: Refresh Coq artefact mtimes
         # actions/cache restores .vo files with their original build-time
@@ -212,10 +220,10 @@ jobs:
           # leave them older than their sources, which would rebuild the library
           # and everything above it. Refresh them first, then the coq/ outputs.
           find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
-          find coq -name '*.vo' -exec touch {} +
-          find coq -name '*.vok' -exec touch {} + 2>/dev/null || true
-          find coq -name '*.vos' -exec touch {} + 2>/dev/null || true
-          find coq -name '*.glob' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.vo' -exec touch {} +
+          find coq minimal -name '*.vok' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.vos' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.glob' -exec touch {} + 2>/dev/null || true
 
       - name: Build Coq targets the cache did not cover
         # Inquisitor compiles with make -j1 under a 30-minute stage limit.
@@ -380,11 +388,15 @@ jobs:
             coq/**/*.vok
             coq/**/*.vos
             coq/**/*.glob
+            minimal/**/*.vo
+            minimal/**/*.vok
+            minimal/**/*.vos
+            minimal/**/*.glob
             coq/Makefile
             coq/Makefile.conf
             coq/.Makefile.d
             build/coq-build-manifest.json
-          key: coq-v2-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          key: coq-v3-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
 
       - name: Refresh Coq artefact mtimes
         # Same fix as in proof-check: actions/cache restores .vo files with
@@ -397,10 +409,10 @@ jobs:
           # leave them older than their sources, which would rebuild the library
           # and everything above it. Refresh them first, then the coq/ outputs.
           find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
-          find coq -name '*.vo' -exec touch {} +
-          find coq -name '*.vok' -exec touch {} + 2>/dev/null || true
-          find coq -name '*.vos' -exec touch {} + 2>/dev/null || true
-          find coq -name '*.glob' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.vo' -exec touch {} +
+          find coq minimal -name '*.vok' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.vos' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.glob' -exec touch {} + 2>/dev/null || true
 
       - name: Verify fresh Coq extraction
         run: python3 scripts/check_extraction.py --reference HEAD
@@ -515,15 +527,19 @@ jobs:
             coq/**/*.vok
             coq/**/*.vos
             coq/**/*.glob
+            minimal/**/*.vo
+            minimal/**/*.vok
+            minimal/**/*.vos
+            minimal/**/*.glob
             coq/Makefile
             coq/Makefile.conf
             coq/.Makefile.d
             build/coq-build-manifest.json
-          key: coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
+          key: coq-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('minimal/**/*.v', 'coq/**/*.v', 'coq/_CoqProject', 'vendor/coq-undecidability/theories/**/*.v', 'vendor/coq-undecidability/theories/_CoqProject') }}
           # An earlier build of any source tree is a starting point; the
           # build step rebuilds what changed (scripts/coq_build_manifest.py).
           restore-keys: |
-            coq-v2-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
+            coq-v3-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-
 
       - name: Refresh Coq artefact mtimes
         # The cache key pins source, toolchain, and vendor build digests.
@@ -532,10 +548,10 @@ jobs:
           # leave them older than their sources, which would rebuild the library
           # and everything above it. Refresh them first, then the coq/ outputs.
           find vendor/coq-undecidability/theories -name '*.vo' -exec touch {} +
-          find coq -name '*.vo' -exec touch {} +
-          find coq -name '*.vok' -exec touch {} + 2>/dev/null || true
-          find coq -name '*.vos' -exec touch {} + 2>/dev/null || true
-          find coq -name '*.glob' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.vo' -exec touch {} +
+          find coq minimal -name '*.vok' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.vos' -exec touch {} + 2>/dev/null || true
+          find coq minimal -name '*.glob' -exec touch {} + 2>/dev/null || true
 
       - name: Build Coq proof tree
         if: steps.cache-coq.outputs.cache-hit != 'true'

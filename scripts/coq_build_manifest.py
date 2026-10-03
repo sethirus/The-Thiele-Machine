@@ -10,7 +10,7 @@ output, and every source whose digest differs from the record is newer. Make
 then rebuilds the changed files and, through coqdep, everything that depends
 on them. A compiled file whose source is absent is deleted, so a
 module without a source can never satisfy a Require. Sources are grouped in two
-scopes, coq/ and the vendored undecidability library. If a scope's project
+scopes, coq/, minimal/ and the vendored undecidability library. If a scope's project
 files or the compiled libraries below it differ from the recorded build,
 every source in that scope counts as changed.
 """
@@ -36,6 +36,11 @@ SCOPES = {
         "root": "coq",
         "config": ("coq/_CoqProject", "coq/Makefile.local"),
         "libraries": ("vendor/bbv", "vendor/kami", "vendor/coq-undecidability/theories"),
+    },
+    "minimal": {
+        "root": "minimal",
+        "config": ("coq/_CoqProject", "coq/Makefile.local"),
+        "libraries": (),
     },
     "vendor": {
         "root": "vendor/coq-undecidability/theories",
