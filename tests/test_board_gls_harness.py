@@ -89,6 +89,58 @@ def test_gate_probes_from_a_flattened_netlist(tmp_path):
     assert probes["mem"]["we"] == "dut.gls_mem_we"
 
 
+def mapped_memory_netlist(tmp_path, cells):
+    path = tmp_path / "mapped.json"
+    path.write_text(json.dumps({"modules": {board_gls.TOP: {
+        "netnames": {"cpu_clk": {"bits": [2], "hide_name": 0}}, "cells": cells}}}))
+    return board_gls.Netlist(path)
+
+
+def test_banked_lut_ram_observes_each_bank_enable(tmp_path):
+    cells = {f"system.m1.mem.arr.{bank}.0": {
+        "type": "RAM64M", "hide_name": 0,
+        "connections": {"WE": [10 + bank], "WCLK": [2]}}
+        for bank in range(2)}
+    # An unrelated RAM with the same data must not contribute its write enable.
+    cells["system.m1.imem.arr.0.0"] = {
+        "type": "RAM64M", "hide_name": 0,
+        "connections": {"WE": [99], "WCLK": [2]}}
+    port = mapped_memory_netlist(tmp_path, cells).ram_write_port("mem", 7)
+    assert port["WE"] == r"(\system.m1.mem.arr.0.0 .WE | \system.m1.mem.arr.1.0 .WE)"
+    assert port["ADDR"] is None  # use the retained logical address
+
+
+def block_ram_cell():
+    return {"type": "RAMB36E1", "hide_name": 0,
+            "parameters": {"RAM_MODE": "SDP", "WRITE_WIDTH_A": "0", "WRITE_WIDTH_B": "1001000"},
+            "connections": {"CLKBWRCLK": [2], "ENBWREN": ["1"],
+                            "WEBWE": [20] * 7 + ["0"],
+                            "ADDRBWRADDR": ["0"] * 6 + list(range(30, 37)) + ["0"] * 3}}
+
+
+def test_block_ram_recovers_removed_write_address_and_enable(tmp_path):
+    cell = block_ram_cell()
+    net = mapped_memory_netlist(tmp_path, {"system.m1.imem.arr.0.0": cell})
+    port = net.ram_write_port("imem", 7)
+    assert port["WE"] == r"((|\system.m1.imem.arr.0.0 .WEBWE))"
+    assert port["ADDR"] == r"\system.m1.imem.arr.0.0 .ADDRBWRADDR[12:6]"
+
+
+@pytest.mark.parametrize("change", ["partial_write", "different_clock", "high_address", "unsupported_mode"])
+def test_block_ram_rejects_unsupported_write_contract(tmp_path, change):
+    cell = block_ram_cell()
+    if change == "partial_write":
+        cell["connections"]["WEBWE"][1] = 21
+    elif change == "different_clock":
+        cell["connections"]["CLKBWRCLK"] = [3]
+    elif change == "high_address":
+        cell["connections"]["ADDRBWRADDR"][13] = 40
+    else:
+        cell["parameters"]["RAM_MODE"] = "TDP"
+    net = mapped_memory_netlist(tmp_path, {"system.m1.imem.arr.0.0": cell})
+    assert net.ram_write_port("imem", 7) is None
+
+
 def test_cpu_view_decodes_slots_and_morphisms():
     st = {"pc": 5, "mu": 0, "err": 0, "certified": 0, "regs": 3, "mem": [0] * 128,
           "ptTable": 1 << 32, "ptBases": 1 << 32, "pt_next_id": 2,

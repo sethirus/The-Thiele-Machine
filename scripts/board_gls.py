@@ -188,7 +188,6 @@ REACHABLE_COVERS = {"C1_pnew_allocates", "C2_psplit_allocates_two", "C3_pmerge_a
 LONG_COVERS = {"C11_partition_table_full"}
 WITNESS_ORDER = ["wc_same_00", "wc_diff_00", "wc_same_01", "wc_diff_01",
                  "wc_same_10", "wc_diff_10", "wc_same_11", "wc_diff_11"]
-RAM_DATA_PINS = ("D", "DIA", "DIB", "DIC", "DID")
 BOARD_CELL_TYPES = {"IBUFDS", "MMCME2_BASE", "BUFGCE"}
 
 
@@ -314,18 +313,53 @@ class Netlist:
             parts.append(ref if width == 1 else f"{ref}[{i + off}]")
         return "{" + ", ".join(parts) + "}"
 
-    def ram_write_port(self, d_in_name: str) -> dict | None:
-        """The WE net shared by every RAM cell whose data pins read d_in_name."""
-        d_bits = set(b for b in self.nets[d_in_name]["bits"] if isinstance(b, int))
-        we = set()
-        for c in self.top["cells"].values():
-            if not c["type"].startswith("RAM"):
-                continue
-            conn = c["connections"]
-            data = [b for p in RAM_DATA_PINS for b in conn.get(p, [])]
-            if any(b in d_bits for b in data) and "WE" in conn:
-                we.add(tuple(conn["WE"]))
-        return {"WE": list(we.pop())} if len(we) == 1 else None
+    def ram_write_port(self, memory: str, abits: int) -> dict | None:
+        """Observe the physical write pins of this memory's mapped banks.
+
+        Synthesis can remove the logical WE/address names, split a LUT RAM
+        into independently enabled banks, or map instruction RAM to block
+        RAM. Read the primitive inputs directly; do not infer a shared WE
+        from data bits that may be shared with another memory.
+        """
+        cells = [(name, cell) for name, cell in self.top["cells"].items()
+                 if name.startswith(CPU + memory + ".arr.")]
+        if not cells or any(c.get("hide_name", 0) for _, c in cells):
+            return None
+        enables, addresses = {}, {}
+        cpu_clock = self.nets["cpu_clk"]["bits"]
+        for name, cell in cells:
+            conn = cell["connections"]
+            ref = esc(name)
+            if cell["type"] == "RAM64M":
+                if conn.get("WCLK") != cpu_clock or len(conn.get("WE", [])) != 1:
+                    return None
+                enables.setdefault(tuple(conn["WE"]), f"{ref}.WE")
+            elif cell["type"] == "RAMB36E1":
+                params = cell["parameters"]
+                if (params.get("RAM_MODE") != "SDP"
+                        or int(params.get("WRITE_WIDTH_B", "0"), 2) != 72
+                        or int(params.get("WRITE_WIDTH_A", "0"), 2) != 0
+                        or conn.get("CLKBWRCLK") != cpu_clock
+                        or conn.get("ENBWREN") != ["1"]):
+                    return None
+                # SDP72 uses address bits 6..14. Unused high address bits
+                # must be zero; all active byte enables must agree.
+                addr = conn.get("ADDRBWRADDR", [])
+                we = conn.get("WEBWE", [])
+                active = set(we) - {"0"}
+                if (len(addr) != 16 or abits > 9
+                        or any(b != "0" for b in addr[:6] + addr[6 + abits:])
+                        or len(active) != 1 or "x" in active or "z" in active):
+                    return None
+                enables.setdefault(tuple(sorted(active, key=str)), f"(|{ref}.WEBWE)")
+                addresses.setdefault(tuple(addr[6:6 + abits]),
+                                     f"{ref}.ADDRBWRADDR[{5 + abits}:6]")
+            else:
+                return None
+        if len(addresses) > 1:
+            return None
+        return {"WE": "(" + " | ".join(enables.values()) + ")",
+                "ADDR": next(iter(addresses.values()), None)}
 
 
 def esc(name: str) -> str:
@@ -353,18 +387,17 @@ def gate_probes(net: Netlist) -> tuple[list[str], dict, list[str]]:
         addr = net.find(f"{CPU}{mem}$ADDR_IN", f"{CPU}{mem}.ADDR_IN")
         din = net.find(f"{CPU}{mem}$D_IN", f"{CPU}{mem}.D_IN")
         we_expr = esc(we) if we else None
-        if we is None and din is not None:
-            port = net.ram_write_port(din)
+        addr_expr = esc(addr) if addr else None
+        if we is None or addr is None:
+            port = net.ram_write_port(mem, abits)
             if port is not None:
-                try:
-                    we_expr = net.bits_expr(port["WE"])
-                except KeyError:
-                    we_expr = None
-        if we_expr is None or addr is None or din is None:
+                we_expr = we_expr or port["WE"]
+                addr_expr = addr_expr or port["ADDR"]
+        if we_expr is None or addr_expr is None or din is None:
             missing.append(f"{mem} write port" + (" (required)" if required else ""))
             continue
         wires.append(f"wire gls_{mem}_we = {we_expr};")
-        wires.append(f"wire [{abits - 1}:0] gls_{mem}_addr = {esc(addr)};")
+        wires.append(f"wire [{abits - 1}:0] gls_{mem}_addr = {addr_expr};")
         wires.append(f"wire [{dbits - 1}:0] gls_{mem}_din = {esc(din)};")
         probes[mem] = {"we": f"dut.gls_{mem}_we", "addr": f"dut.gls_{mem}_addr",
                        "din": f"dut.gls_{mem}_din", "depth": depth, "dbits": dbits}
