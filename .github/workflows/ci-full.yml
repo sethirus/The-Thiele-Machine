@@ -538,6 +538,19 @@ jobs:
           sudo make -C /tmp/sby install PREFIX=/usr/local
           sby --help > /dev/null
 
+      - name: Install pinned coverage solver
+        if: endsWith(matrix.task, '_cover')
+        # CVC5 handles this memory-mapped bitvector model without Z3's
+        # excessive expansion. Pin both the release and downloaded bytes.
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/cvc5/cvc5/releases/download/cvc5-1.4.1/cvc5-Linux-x86_64-static.zip \
+            --output "$RUNNER_TEMP/cvc5.zip"
+          echo "2f8efe58fe27ba7bccbb504533f690b9312d69da14192712460e4a19231f02a1  $RUNNER_TEMP/cvc5.zip" | sha256sum -c -
+          unzip -q "$RUNNER_TEMP/cvc5.zip" -d "$RUNNER_TEMP/cvc5"
+          echo "$RUNNER_TEMP/cvc5/cvc5-Linux-x86_64-static/bin" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/cvc5/cvc5-Linux-x86_64-static/bin/cvc5" --version
+
       - name: Run ${{ matrix.task }}
         run: python3 scripts/formal_prepare.py --run ${{ matrix.task }}
 

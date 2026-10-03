@@ -45,11 +45,13 @@ cpu_bmc_reset: mode bmc
 cpu_bmc_reset: depth 300
 
 [engines]
+# Expand SMT functions per frame for the memory-mapped coverage model.
+# The depth, assumptions and coverage goals are unchanged.
 cpu_prove_pt: abc pdr
 cpu_prove_ctrl: abc pdr
 sys_prove: abc pdr
-cpu_cover: smtbmc z3
-sys_cover: smtbmc z3
+cpu_cover: smtbmc --unroll cvc5
+sys_cover: smtbmc --unroll cvc5
 cpu_bmc_reset: smtbmc z3
 
 [script]
@@ -70,9 +72,10 @@ cpu_cover: prep -flatten -top mkModule1
 cpu_bmc_reset: prep -flatten -top mkModule1
 sys_prove: prep -flatten -top mkThieleSystem
 sys_cover: prep -flatten -top mkThieleSystem
-cpu_prove_pt: memory_map
-cpu_prove_ctrl: memory_map
-sys_prove: memory_map
+# Lower RAMs for every backend. The SMT array representation otherwise
+# sees a cell-level loop when an asynchronous read feeds the same RAM write.
+# This is the same state-preserving lowering already used by the prove tasks.
+memory_map
 
 [files]
 ../build/formal/RegFile.v
