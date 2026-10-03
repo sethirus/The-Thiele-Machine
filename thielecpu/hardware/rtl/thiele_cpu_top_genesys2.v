@@ -9,6 +9,13 @@
 //   MMCME2_BASE  divides it to the 20 MHz CPU clock (200 * 5 / 50).
 //   BUFGCE       passes that clock on only once the MMCM reports lock.
 //
+// It also holds the power-on reset. Configuration leaves every flip-flop at
+// 0, which is not the system's reset state (the CPU halted, the table ids at
+// 1, the trap vector at 0xF00). A five-bit counter, starting at 0 from
+// configuration, counts the first sixteen CPU clock cycles; until it is done,
+// and whenever the CPU_RESETN button is pressed, the system is held in reset.
+// The combined reset is registered, so one flip-flop drives the reset net.
+//
 // The loader's bit time (ClksPerBit = 174 in ThieleLoader.v) is set for this
 // 20 MHz clock: 115200 baud on the board's USB-UART bridge.
 module thiele_cpu_top_genesys2 (
@@ -50,6 +57,13 @@ module thiele_cpu_top_genesys2 (
     );
     BUFGCE bufg_cpu (.I(clk_20_unbuf), .CE(mmcm_locked), .O(cpu_clk));
 
+    reg [4:0] por_count = 5'd0;
+    reg       rst_n     = 1'b0;
+    always @(posedge cpu_clk) begin
+        if (!por_count[4]) por_count <= por_count + 5'd1;
+        rst_n <= cpu_reset_n & por_count[4];
+    end
+
     wire [3:0] leds;
     assign LED_HALTED  = leds[0];
     assign LED_ERR     = leds[1];
@@ -58,7 +72,7 @@ module thiele_cpu_top_genesys2 (
 
     mkThieleSystem system (
         .CLK          (cpu_clk),
-        .RST_N        (cpu_reset_n),
+        .RST_N        (rst_n),
         .rxSample_x_0 (uart_rx),
         .EN_rxSample  (1'b1),
         .RDY_rxSample (),

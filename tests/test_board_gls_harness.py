@@ -1,0 +1,134 @@
+"""The board-top simulation harness and the formal property copies.
+
+The pure-Python parts of scripts/board_gls.py and scripts/formal_prepare.py
+are checked without any simulator. test_board_top_rtl_matches_vm runs the
+board top's RTL (wrapper, loader, status report and CPU) under iverilog on
+every short program and compares it with the extracted VM field by field;
+the gate netlist runs only in CI (Full), after the bitstream job.
+"""
+from __future__ import annotations
+
+import json
+import random
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+import pytest
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+import board_gls  # noqa: E402
+import formal_prepare  # noqa: E402
+
+
+def test_wrapper_mmcm_divides_the_board_clock_by_ten():
+    assert board_gls.mmcm_ratio(board_gls.wrapper_mmcm_params()) == 10
+
+
+@pytest.mark.parametrize("params", [
+    {"CLKFBOUT_MULT_F": "5.000", "DIVCLK_DIVIDE": 1, "CLKOUT0_DIVIDE_F": "50.000"},
+    {"CLKFBOUT_MULT_F": 5.0, "DIVCLK_DIVIDE": "00000000000000000000000000000001",
+     "CLKOUT0_DIVIDE_F": 50.0},
+])
+def test_mmcm_ratio_reads_netlist_parameter_forms(params):
+    assert board_gls.mmcm_ratio(params) == 10
+
+
+def test_mmcm_ratio_rejects_a_ratio_the_model_cannot_produce():
+    with pytest.raises(SystemExit):
+        board_gls.mmcm_ratio({"CLKFBOUT_MULT_F": "5", "DIVCLK_DIVIDE": 1, "CLKOUT0_DIVIDE_F": "7.5"})
+
+
+@pytest.mark.parametrize("name", sorted(board_gls.PROGRAMS))
+def test_every_program_is_serially_loadable(name):
+    prog = board_gls.PROGRAMS[name]["cpu"]
+    stream = board_gls.program_stream(prog)
+    assert stream[0] + 256 * stream[1] == len(prog)
+    assert len(stream) == 2 + 16 * len(prog)
+
+
+def test_random_programs_are_reproducible_and_loadable():
+    a = [board_gls.random_program(random.Random(7)) for _ in range(3)]
+    b = [board_gls.random_program(random.Random(7)) for _ in range(3)]
+    assert a == b
+    for prog in a:
+        assert prog[-1] == "HALT 0"
+        board_gls.program_stream(prog)
+
+
+def test_probe_include_names_every_required_field():
+    text = board_gls.probes_include(board_gls.rtl_probes())
+    for field, (_w, required) in board_gls.REG_FIELDS.items():
+        if required:
+            assert f"dut.system.m1.{field}" in text
+    for mem in board_gls.MEMORIES:
+        assert f"dut.system.m1.{mem}$WE" in text
+        assert f"dut.system.m1.{mem}.arr" in text
+
+
+def test_gate_probes_from_a_flattened_netlist(tmp_path):
+    def net(bits):
+        return {"hide_name": 0, "bits": bits}
+    netnames = {"cpu_clk": net([2])}
+    nxt = 10
+    for field, (width, _r) in board_gls.REG_FIELDS.items():
+        netnames["system.m1." + field] = net(list(range(nxt, nxt + width)))
+        nxt += width
+    for mem, (abits, dbits, _d, _r) in board_gls.MEMORIES.items():
+        for port, w in (("$WE", 1), ("$ADDR_IN", abits), ("$D_IN", dbits)):
+            netnames[f"system.m1.{mem}{port}"] = net(list(range(nxt, nxt + w)))
+            nxt += w
+    tmp = tmp_path / "netlist.json"
+    tmp.write_text(json.dumps({"modules": {board_gls.TOP: {"netnames": netnames, "cells": {}}}}))
+    wires, probes, missing = board_gls.gate_probes(board_gls.Netlist(tmp))
+    assert missing == []
+    assert "wire [31:0] gls_pc = \\system.m1.pc ;" in wires
+    assert probes["mem"]["we"] == "dut.gls_mem_we"
+
+
+def test_cpu_view_decodes_slots_and_morphisms():
+    st = {"pc": 5, "mu": 0, "err": 0, "certified": 0, "regs": 3, "mem": [0] * 128,
+          "ptTable": 1 << 32, "ptBases": 1 << 32, "pt_next_id": 2,
+          "morph_valid_table": 0b1110, "morph_src_table": (1 << 6) | (1 << 12) | (1 << 18),
+          "morph_dst_table": (1 << 6) | (1 << 12) | (1 << 18),
+          "morph_identity_table": 0b1110, "morph_next_id": 4}
+    view = board_gls.cpu_view(st)
+    assert view["modules"] == {1: [1]}
+    assert view["morphisms"] == {1: (1, 1, True), 2: (1, 1, True), 3: (1, 1, True)}
+    assert view["regs"][0] == 3
+
+
+@pytest.mark.parametrize("src,module,include", [
+    ("thiele_cpu_kami.v", "mkModule1", "cpu_props.vh"),
+    ("thiele_system.v", "mkThieleSystem", "system_props.vh"),
+])
+def test_formal_copy_adds_only_the_include(src, module, include):
+    path = ROOT / "thielecpu" / "hardware" / "rtl" / src
+    original = path.read_text(encoding="utf-8").splitlines()
+    copy = formal_prepare.with_include(path, module, include).splitlines()
+    assert len(copy) == len(original) + 1
+    assert [ln for ln in copy if ln not in set(original)] == [f'`include "{include}"']
+
+
+def test_formal_tasks_in_ci_exist_in_the_sby_file():
+    text = (ROOT / "formal" / "thiele.sby").read_text(encoding="utf-8")
+    tasks = text.split("[tasks]")[1].split("[")[0].split()
+    assert set(formal_prepare.CI_TASKS) <= set(tasks)
+
+
+@pytest.mark.strict_rtl
+@pytest.mark.skipif(shutil.which("iverilog") is None, reason="iverilog not installed")
+def test_board_top_rtl_matches_vm(tmp_path):
+    """The board top's RTL, loaded over its UART pin, ends in the VM's state."""
+    report = tmp_path / "gls.json"
+    proc = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "board_gls.py"), "--no-gates", "--sim", "iverilog",
+         "--report", str(report)],
+        capture_output=True, text=True, timeout=1800)
+    assert proc.returncode == 0, proc.stdout[-4000:] + proc.stderr[-4000:]
+    data = json.loads(report.read_text())
+    assert set(data["programs"]) == {n for n, p in board_gls.PROGRAMS.items() if not p.get("long")}
+    assert all(p["ok"] for p in data["programs"].values())
