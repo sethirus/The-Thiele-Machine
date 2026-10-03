@@ -4479,266 +4479,6 @@
       "status": "ok"
     },
     {
-      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
-      "kind": "Lemma",
-      "line": 44,
-      "name": "run_vm_stuck_local",
-      "probe_a": {
-        "coq_stderr_tail": "system,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__run_vm_stuck_local__a.v\", line 3, characters 66-73:\nError: The reference VMState was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.222 secs (0.177u,0.045s)\nChars 113 - 246 [Theorem~_vacuity_probe_a_run_v...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__run_vm_stuck_local__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "system,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__run_vm_stuck_local__b.v\", line 3, characters 66-73:\nError: The reference VMState was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.221 secs (0.176u,0.044s)\nChars 113 - 246 [Theorem~_vacuity_probe_b_run_v...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__run_vm_stuck_local__b.v",
-        "succeeded": false
-      },
-      "statement": "forall n trace (s : VMState), nth_error trace s.(vm_pc) = None -> run_vm n trace s = s",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
-      "kind": "Lemma",
-      "line": 54,
-      "name": "run_vm_column_contractive_invariant_at_stuck",
-      "probe_a": {
-        "coq_stderr_tail": "/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__run_vm_column_contractive_invariant_at_stuck__a.v\", line 3, characters 95-102:\nError: The reference VMState was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.226 secs (0.186u,0.039s)\nChars 113 - 352 [Theorem~_vacuity_probe_a_run_v...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__run_vm_column_contractive_invariant_at_stuck__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__run_vm_column_contractive_invariant_at_stuck__b.v\", line 3, characters 95-102:\nError: The reference VMState was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.226 secs (0.177u,0.048s)\nChars 113 - 352 [Theorem~_vacuity_probe_b_run_v...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__run_vm_column_contractive_invariant_at_stuck__b.v",
-        "succeeded": false
-      },
-      "statement": "forall fuel trace (s : VMState), nth_error trace s.(vm_pc) = None -> trace_column_contractive fuel trace s = trace_column_contractive fuel trace (run_vm fuel trace s)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
-      "kind": "Lemma",
-      "line": 69,
-      "name": "npa_quad5_test_col0",
-      "probe_a": {
-        "coq_stderr_tail": ",filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_col0__a.v\", line 3, characters 72-73:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.223 secs (0.179u,0.043s)\nChars 113 - 431 [Theorem~_vacuity_probe_a_npa_q...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_col0__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": ",filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_col0__b.v\", line 3, characters 72-73:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.222 secs (0.183u,0.038s)\nChars 113 - 431 [Theorem~_vacuity_probe_b_npa_q...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_col0__b.v",
-        "succeeded": false
-      },
-      "statement": "forall e00 e01 e10 e11 : R, let M := nat_matrix_to_fin5 (npa_to_matrix (zero_marginal_npa e00 e01 e10 e11)) in let v : Vec5 := fun i => match proj1_sig (Fin.to_nat i) with | 1%nat => -e00 | 2%nat => -e10 | 3%nat => 1 | _ => 0 end in quad5 M v = 1 - e00 * e00 - e10 * e10",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
-      "kind": "Lemma",
-      "line": 89,
-      "name": "npa_quad5_test_col1",
-      "probe_a": {
-        "coq_stderr_tail": ",filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_col1__a.v\", line 3, characters 72-73:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.221 secs (0.179u,0.041s)\nChars 113 - 431 [Theorem~_vacuity_probe_a_npa_q...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_col1__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": ",filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_col1__b.v\", line 3, characters 72-73:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.224 secs (0.179u,0.045s)\nChars 113 - 431 [Theorem~_vacuity_probe_b_npa_q...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_col1__b.v",
-        "succeeded": false
-      },
-      "statement": "forall e00 e01 e10 e11 : R, let M := nat_matrix_to_fin5 (npa_to_matrix (zero_marginal_npa e00 e01 e10 e11)) in let v : Vec5 := fun i => match proj1_sig (Fin.to_nat i) with | 1%nat => -e01 | 2%nat => -e11 | 4%nat => 1 | _ => 0 end in quad5 M v = 1 - e01 * e01 - e11 * e11",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
-      "kind": "Lemma",
-      "line": 110,
-      "name": "npa_quad5_test_schur",
-      "probe_a": {
-        "coq_stderr_tail": "h,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_schur__a.v\", line 3, characters 75-76:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.231 secs (0.18u,0.05s)\nChars 113 - 533 [Theorem~_vacuity_probe_a_npa_q...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_schur__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_schur__b.v\", line 3, characters 75-76:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.227 secs (0.181u,0.045s)\nChars 113 - 533 [Theorem~_vacuity_probe_b_npa_q...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_schur__b.v",
-        "succeeded": false
-      },
-      "statement": "forall e00 e01 e10 e11 t : R, let M := nat_matrix_to_fin5 (npa_to_matrix (zero_marginal_npa e00 e01 e10 e11)) in let v : Vec5 := fun i => match proj1_sig (Fin.to_nat i) with | 1%nat => -(e00 * t + e01) | 2%nat => -(e10 * t + e11) | 3%nat => t | 4%nat => 1 | _ => 0 end in quad5 M v = (1 - e00*e00 - e10*e10) * t * t - 2 * (e00*e01 + e10*e11) * t + (1 - e01*e01 - e11*e11)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
-      "kind": "Theorem",
-      "line": 134,
-      "name": "npa_psd_implies_column_contractive",
-      "probe_a": {
-        "coq_stderr_tail": "fault]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_psd_implies_column_contractive__a.v\", line 3, characters 87-88:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.227 secs (0.176u,0.05s)\nChars 113 - 333 [Theorem~_vacuity_probe_a_npa_p...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_psd_implies_column_contractive__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "fault]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_psd_implies_column_contractive__b.v\", line 3, characters 87-88:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.225 secs (0.17u,0.054s)\nChars 113 - 333 [Theorem~_vacuity_probe_b_npa_p...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_psd_implies_column_contractive__b.v",
-        "succeeded": false
-      },
-      "statement": "forall e00 e01 e10 e11 : R, PSD5 (nat_matrix_to_fin5 (npa_to_matrix (zero_marginal_npa e00 e01 e10 e11))) -> zero_marginal_column_contractive e00 e01 e10 e11",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
-      "kind": "Theorem",
-      "line": 215,
-      "name": "npa_psd_iff_column_contractive",
-      "probe_a": {
-        "coq_stderr_tail": "m,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_psd_iff_column_contractive__a.v\", line 3, characters 83-84:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.227 secs (0.18u,0.046s)\nChars 113 - 330 [Theorem~_vacuity_probe_a_npa_p...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_psd_iff_column_contractive__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": ",default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_psd_iff_column_contractive__b.v\", line 3, characters 83-84:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.228 secs (0.182u,0.045s)\nChars 113 - 330 [Theorem~_vacuity_probe_b_npa_p...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_psd_iff_column_contractive__b.v",
-        "succeeded": false
-      },
-      "statement": "forall e00 e01 e10 e11 : R, PSD5 (nat_matrix_to_fin5 (npa_to_matrix (zero_marginal_npa e00 e01 e10 e11))) <-> zero_marginal_column_contractive e00 e01 e10 e11",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
-      "kind": "Corollary",
-      "line": 257,
-      "name": "column_contractive_iff_npa_psd",
-      "probe_a": {
-        "coq_stderr_tail": "m,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__column_contractive_iff_npa_psd__a.v\", line 3, characters 83-84:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.23 secs (0.182u,0.048s)\nChars 113 - 296 [Theorem~_vacuity_probe_a_colum...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__column_contractive_iff_npa_psd__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": ",default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__column_contractive_iff_npa_psd__b.v\", line 3, characters 83-84:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.232 secs (0.185u,0.046s)\nChars 113 - 296 [Theorem~_vacuity_probe_b_colum...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__column_contractive_iff_npa_psd__b.v",
-        "succeeded": false
-      },
-      "statement": "forall e00 e01 e10 e11 : R, zero_marginal_column_contractive e00 e01 e10 e11 <-> npa_psd (zero_marginal_npa e00 e01 e10 e11)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
-      "kind": "Theorem",
-      "line": 281,
-      "name": "trace_column_contractive_iff_trace_npa_model",
-      "probe_a": {
-        "coq_stderr_tail": "-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_column_contractive_iff_trace_npa_model__a.v\", line 3, characters 98-122:\nError: The reference trace_column_contractive was not found in the current\nenvironment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.225 secs (0.18u,0.045s)\nChars 113 - 310 [Theorem~_vacuity_probe_a_trace...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_column_contractive_iff_trace_npa_model__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_column_contractive_iff_trace_npa_model__b.v\", line 3, characters 98-122:\nError: The reference trace_column_contractive was not found in the current\nenvironment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.225 secs (0.182u,0.043s)\nChars 113 - 310 [Theorem~_vacuity_probe_b_trace...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_column_contractive_iff_trace_npa_model__b.v",
-        "succeeded": false
-      },
-      "statement": "forall fuel trace s_init, trace_column_contractive fuel trace s_init <-> npa_psd (trace_zero_marginal_npa fuel trace s_init)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
-      "kind": "Theorem",
-      "line": 313,
-      "name": "trace_npa_matrix_psd_implies_column_contractive",
-      "probe_a": {
-        "coq_stderr_tail": "-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_npa_matrix_psd_implies_column_contractive__a.v\", line 3, characters 101-121:\nError: The reference trace_npa_matrix_psd was not found in the current\nenvironment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.23 secs (0.185u,0.045s)\nChars 113 - 299 [Theorem~_vacuity_probe_a_trace...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_npa_matrix_psd_implies_column_contractive__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_npa_matrix_psd_implies_column_contractive__b.v\", line 3, characters 101-121:\nError: The reference trace_npa_matrix_psd was not found in the current\nenvironment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.225 secs (0.178u,0.047s)\nChars 113 - 299 [Theorem~_vacuity_probe_b_trace...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_npa_matrix_psd_implies_column_contractive__b.v",
-        "succeeded": false
-      },
-      "statement": "forall fuel trace s_init, trace_npa_matrix_psd fuel trace s_init -> trace_column_contractive fuel trace s_init",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
-      "kind": "Corollary",
-      "line": 326,
-      "name": "trace_npa_matrix_psd_implies_tsirelson",
-      "probe_a": {
-        "coq_stderr_tail": "_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_npa_matrix_psd_implies_tsirelson__a.v\", line 3, characters 260-262:\nError: Syntax Error: Lexer: Undefined token\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.226 secs (0.174u,0.052s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_npa_matrix_psd_implies_tsirelson__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "t_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_npa_matrix_psd_implies_tsirelson__b.v\", line 3, characters 260-262:\nError: Syntax Error: Lexer: Undefined token\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.227 secs (0.18u,0.046s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_npa_matrix_psd_implies_tsirelson__b.v",
-        "succeeded": false
-      },
-      "statement": "forall fuel trace s_init, trace_npa_matrix_psd fuel trace s_init -> (CHSH (trace_e00 fuel trace s_init) (trace_e01 fuel trace s_init) (trace_e10 fuel trace s_init) (trace_e11 fuel trace s_init))\u00b2 <= 8",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
-      "kind": "Theorem",
-      "line": 352,
-      "name": "chsh_lassert_check_implies_npa_psd",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__chsh_lassert_check_implies_npa_psd__a.v\", line 3, characters 74-81:\nError: The reference VMState was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.226 secs (0.182u,0.044s)\nChars 113 - 291 [Theorem~_vacuity_probe_a_chsh_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__chsh_lassert_check_implies_npa_psd__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__chsh_lassert_check_implies_npa_psd__b.v\", line 3, characters 74-81:\nError: The reference VMState was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.229 secs (0.179u,0.049s)\nChars 113 - 291 [Theorem~_vacuity_probe_b_chsh_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__chsh_lassert_check_implies_npa_psd__b.v",
-        "succeeded": false
-      },
-      "statement": "forall (s : VMState), column_contractive_check_witness s.(vm_witness) = true -> npa_psd (state_zero_marginal_npa s)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
-      "kind": "Theorem",
-      "line": 369,
-      "name": "chsh_lassert_no_trap_implies_npa_psd",
-      "probe_a": {
-        "coq_stderr_tail": "\"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__chsh_lassert_no_trap_implies_npa_psd__a.v\", line 3, characters 93-101:\nError: The reference vm_apply was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.229 secs (0.177u,0.051s)\nChars 113 - 364 [Theorem~_vacuity_probe_a_chsh_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__chsh_lassert_no_trap_implies_npa_psd__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "e \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__chsh_lassert_no_trap_implies_npa_psd__b.v\", line 3, characters 93-101:\nError: The reference vm_apply was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.228 secs (0.18u,0.048s)\nChars 113 - 364 [Theorem~_vacuity_probe_b_chsh_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__chsh_lassert_no_trap_implies_npa_psd__b.v",
-        "succeeded": false
-      },
-      "statement": "forall s mu_delta, let s' := vm_apply s (instr_chsh_lassert mu_delta) in s'.(vm_pc) = S s.(vm_pc) -> s'.(vm_err) = s.(vm_err) -> s.(vm_err) = false -> npa_psd (state_zero_marginal_npa s)",
-      "status": "ok"
-    },
-    {
       "file": "coq/kernel/curvature/PhysicsClosure.v",
       "kind": "Theorem",
       "line": 29,
@@ -9846,126 +9586,6 @@
         "succeeded": false
       },
       "statement": "forall (npa : NPAMomentMatrix), symmetric5 (nat_matrix_to_fin5 (npa_to_matrix npa))",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/curvature/NoFIToEinstein.v",
-      "kind": "Theorem",
-      "line": 70,
-      "name": "nfi_to_discrete_einstein",
-      "probe_a": {
-        "coq_stderr_tail": ",filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein__a.v\", line 3, characters 95-96:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.231 secs (0.176u,0.054s)\nChars 108 - 975 [Theorem~_vacuity_probe_a_nfi_t...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "th,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein__b.v\", line 3, characters 95-96:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.23 secs (0.179u,0.05s)\nChars 108 - 975 [Theorem~_vacuity_probe_b_nfi_t...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein__b.v",
-        "succeeded": false
-      },
-      "statement": "forall (hbar c_light k_B entropy_per_bit : R) (s_pre s_post : VMState) (P : LocalMorphismSemantics.SplitMorphism) (support_pre support_post : LocalMorphismSemantics.joint_support), (0 < hbar)%R -> (0 < c_light)%R -> (0 < k_B)%R -> LocalMorphismSemantics.is_nearest_neighbor P -> In support_pre (LocalMorphismSemantics.morphism_support_semantics P) -> In support_post (LocalMorphismSemantics.morphism_support_semantics P) -> mu_landauer_unruh_calibrated hbar c_light k_B entropy_per_bit s_pre s_post P support_pre support_post -> well_formed_triangulated (vm_graph s_pre) -> well_formed_triangulated (vm_graph s_post) -> (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R = (einstein_coupling_constant * IZR (euler_characteristic (vm_graph s_post) - euler_characteristic (vm_graph s_pre))%Z)%R",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/curvature/NoFIToEinstein.v",
-      "kind": "Theorem",
-      "line": 98,
-      "name": "nfi_to_discrete_einstein_from_bekenstein_calibration",
-      "probe_a": {
-        "coq_stderr_tail": "me/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_bekenstein_calibration__a.v\", line 3, characters 107-108:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.23 secs (0.187u,0.042s)\nChars 108 - 1038 [Theorem~_vacuity_probe_a_nfi_t...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_bekenstein_calibration__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "e/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_bekenstein_calibration__b.v\", line 3, characters 107-108:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.232 secs (0.188u,0.043s)\nChars 108 - 1038 [Theorem~_vacuity_probe_b_nfi_t...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_bekenstein_calibration__b.v",
-        "succeeded": false
-      },
-      "statement": "forall (hbar c_light k_B : R) (s_pre s_post : VMState) (P : LocalMorphismSemantics.SplitMorphism) (support_pre support_post : LocalMorphismSemantics.joint_support), (0 < hbar)%R -> (0 < c_light)%R -> (0 < k_B)%R -> LocalMorphismSemantics.is_nearest_neighbor P -> In support_pre (LocalMorphismSemantics.morphism_support_semantics P) -> In support_post (LocalMorphismSemantics.morphism_support_semantics P) -> BekensteinCalibration.landauer_unruh_constant_calibration hbar c_light -> BekensteinCalibration.mu_bit_calibration support_pre support_post s_pre s_post -> well_formed_triangulated (vm_graph s_pre) -> well_formed_triangulated (vm_graph s_post) -> (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R = (einstein_coupling_constant * IZR (euler_characteristic (vm_graph s_post) - euler_characteristic (vm_graph s_pre))%Z)%R",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/curvature/NoFIToEinstein.v",
-      "kind": "Theorem",
-      "line": 131,
-      "name": "nfi_to_discrete_einstein_from_psplit_bekenstein_calibration",
-      "probe_a": {
-        "coq_stderr_tail": "nner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_psplit_bekenstein_calibration__a.v\", line 3, characters 114-115:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.23 secs (0.179u,0.05s)\nChars 108 - 958 [Theorem~~~_vacuity_probe_a_nfi...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_psplit_bekenstein_calibration__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "er/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_psplit_bekenstein_calibration__b.v\", line 3, characters 114-115:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.236 secs (0.184u,0.052s)\nChars 108 - 958 [Theorem~~~_vacuity_probe_b_nfi...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_psplit_bekenstein_calibration__b.v",
-        "succeeded": false
-      },
-      "statement": "forall (hbar c_light k_B : R) (s_pre s_post : VMState) (module : ModuleID) (left right : list nat) (cost : nat), (0 < hbar)%R -> (0 < c_light)%R -> (0 < k_B)%R -> vm_step s_pre (instr_psplit module left right cost) s_post -> LocalMorphismSemantics.is_nearest_neighbor (LocalMorphismSemantics.psplit_transition_morphism left right) -> BekensteinCalibration.landauer_unruh_constant_calibration hbar c_light -> BekensteinCalibration.psplit_cost_matches_entropy left right cost -> well_formed_triangulated (vm_graph s_pre) -> well_formed_triangulated (vm_graph s_post) -> (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R = (einstein_coupling_constant * IZR (euler_characteristic (vm_graph s_post) - euler_characteristic (vm_graph s_pre))%Z)%R",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/curvature/NoFIToEinstein.v",
-      "kind": "Theorem",
-      "line": 168,
-      "name": "nfi_to_discrete_einstein_from_pnew_bekenstein_calibration",
-      "probe_a": {
-        "coq_stderr_tail": "nner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_pnew_bekenstein_calibration__a.v\", line 3, characters 112-113:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.236 secs (0.191u,0.045s)\nChars 108 - 905 [Theorem~~~_vacuity_probe_a_nfi...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_pnew_bekenstein_calibration__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "nner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_pnew_bekenstein_calibration__b.v\", line 3, characters 112-113:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.235 secs (0.191u,0.044s)\nChars 108 - 905 [Theorem~~~_vacuity_probe_b_nfi...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_pnew_bekenstein_calibration__b.v",
-        "succeeded": false
-      },
-      "statement": "forall (hbar c_light k_B : R) (s_pre s_post : VMState) (region : list nat) (cost : nat), (0 < hbar)%R -> (0 < c_light)%R -> (0 < k_B)%R -> vm_step s_pre (instr_pnew region cost) s_post -> LocalMorphismSemantics.is_nearest_neighbor (LocalMorphismSemantics.pnew_creation_morphism region) -> BekensteinCalibration.landauer_unruh_constant_calibration hbar c_light -> BekensteinCalibration.pnew_cost_matches_entropy region cost -> well_formed_triangulated (vm_graph s_pre) -> well_formed_triangulated (vm_graph s_post) -> (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R = (einstein_coupling_constant * IZR (euler_characteristic (vm_graph s_post) - euler_characteristic (vm_graph s_pre))%Z)%R",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/curvature/NoFIToEinstein.v",
-      "kind": "Theorem",
-      "line": 214,
-      "name": "certified_implies_positive_mu",
-      "probe_a": {
-        "coq_stderr_tail": ",default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__certified_implies_positive_mu__a.v\", line 3, characters 83-90:\nError: The reference VMState was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.234 secs (0.186u,0.048s)\nChars 108 - 347 [Theorem~_vacuity_probe_a_certi...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__certified_implies_positive_mu__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": ",default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__certified_implies_positive_mu__b.v\", line 3, characters 83-90:\nError: The reference VMState was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.232 secs (0.182u,0.049s)\nChars 108 - 347 [Theorem~_vacuity_probe_b_certi...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__certified_implies_positive_mu__b.v",
-        "succeeded": false
-      },
-      "statement": "forall fuel program (s0 : VMState), s0.(vm_certified) = false -> (s0.(vm_mu) = 0)%nat -> (run_vm fuel program s0).(vm_certified) = true -> (0 < (run_vm fuel program s0).(vm_mu))%nat",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/curvature/NoFIToEinstein.v",
-      "kind": "Theorem",
-      "line": 234,
-      "name": "nfi_cost_nonzero_implies_nontrivial_calibration",
-      "probe_a": {
-        "coq_stderr_tail": "\"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_cost_nonzero_implies_nontrivial_calibration__a.v\", line 3, characters 118-119:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.231 secs (0.188u,0.043s)\nChars 108 - 834 [Theorem~_vacuity_probe_a_nfi_c...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_cost_nonzero_implies_nontrivial_calibration__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "e \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_cost_nonzero_implies_nontrivial_calibration__b.v\", line 3, characters 118-119:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.23 secs (0.183u,0.047s)\nChars 108 - 834 [Theorem~_vacuity_probe_b_nfi_c...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_cost_nonzero_implies_nontrivial_calibration__b.v",
-        "succeeded": false
-      },
-      "statement": "forall (hbar c_light k_B entropy_per_bit : R) (s_pre s_post : VMState) (P : LocalMorphismSemantics.SplitMorphism) (support_pre support_post : LocalMorphismSemantics.joint_support), (0 < hbar)%R -> (0 < c_light)%R -> (0 < k_B)%R -> (0 <= entropy_per_bit)%R -> (INR s_pre.(vm_mu) < INR s_post.(vm_mu))%R -> mu_landauer_unruh_calibrated hbar c_light k_B entropy_per_bit s_pre s_post P support_pre support_post -> (0 < RaychaudhuriFluxBridge.null_energy_flux_delta RaychaudhuriFluxBridge.calibrated_null_congruence s_pre s_post P)%R \\/ (RaychaudhuriFluxBridge.null_energy_flux_delta RaychaudhuriFluxBridge.calibrated_null_congruence s_pre s_post P < 0)%R",
       "status": "ok"
     },
     {
@@ -19796,166 +19416,6 @@
         "succeeded": false
       },
       "statement": "probability_preserving_equivalence_reflexive",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
-      "kind": "Theorem",
-      "line": 7,
-      "name": "weak_base_equiv_refl_holds",
-      "probe_a": {
-        "coq_stderr_tail": "/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_refl_holds__a.v\", line 3, characters 54-74:\nError: The reference weak_base_equiv_refl was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.226 secs (0.176u,0.049s)\nChars 114 - 189 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_refl_holds__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_refl_holds__b.v\", line 3, characters 54-74:\nError: The reference weak_base_equiv_refl was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.269 secs (0.214u,0.055s)\nChars 114 - 189 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_refl_holds__b.v",
-        "succeeded": false
-      },
-      "statement": "weak_base_equiv_refl",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
-      "kind": "Theorem",
-      "line": 18,
-      "name": "weak_base_equiv_sym_holds",
-      "probe_a": {
-        "coq_stderr_tail": "\"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_sym_holds__a.v\", line 3, characters 53-72:\nError: The reference weak_base_equiv_sym was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.229 secs (0.178u,0.051s)\nChars 114 - 187 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_sym_holds__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "\"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_sym_holds__b.v\", line 3, characters 53-72:\nError: The reference weak_base_equiv_sym was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.231 secs (0.184u,0.046s)\nChars 114 - 187 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_sym_holds__b.v",
-        "succeeded": false
-      },
-      "statement": "weak_base_equiv_sym",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
-      "kind": "Lemma",
-      "line": 30,
-      "name": "weak_match_left_runs",
-      "probe_a": {
-        "coq_stderr_tail": "default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_left_runs__a.v\", line 3, characters 64-75:\nError: The reference BaseMachine was not found in the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.227 secs (0.184u,0.042s)\nChars 114 - 374 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_left_runs__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": ",default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_left_runs__b.v\", line 3, characters 64-75:\nError: The reference BaseMachine was not found in the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.229 secs (0.18u,0.049s)\nChars 114 - 374 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_left_runs__b.v",
-        "succeeded": false
-      },
-      "statement": "forall (B1 B2 : BaseMachine) (R : b_state B1 -> b_state B2 -> Prop), (forall x y, R x y -> (exists n, R (b_next B1 x) (base_run B2 n y))) -> forall k x y, R x y -> exists n, R (base_run B1 k x) (base_run B2 n y)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
-      "kind": "Lemma",
-      "line": 45,
-      "name": "weak_match_right_runs",
-      "probe_a": {
-        "coq_stderr_tail": ",default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_right_runs__a.v\", line 3, characters 65-76:\nError: The reference BaseMachine was not found in the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.23 secs (0.19u,0.039s)\nChars 114 - 375 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_right_runs__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_right_runs__b.v\", line 3, characters 65-76:\nError: The reference BaseMachine was not found in the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.228 secs (0.177u,0.05s)\nChars 114 - 375 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_right_runs__b.v",
-        "succeeded": false
-      },
-      "statement": "forall (B1 B2 : BaseMachine) (R : b_state B1 -> b_state B2 -> Prop), (forall x y, R x y -> (exists n, R (base_run B1 n x) (b_next B2 y))) -> forall k x y, R x y -> exists n, R (base_run B1 n x) (base_run B2 k y)",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
-      "kind": "Theorem",
-      "line": 60,
-      "name": "weak_base_equiv_trans_holds",
-      "probe_a": {
-        "coq_stderr_tail": "ome/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_trans_holds__a.v\", line 3, characters 55-76:\nError: The reference weak_base_equiv_trans was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.231 secs (0.175u,0.055s)\nChars 114 - 191 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_trans_holds__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "ome/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_trans_holds__b.v\", line 3, characters 55-76:\nError: The reference weak_base_equiv_trans was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.229 secs (0.188u,0.041s)\nChars 114 - 191 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_trans_holds__b.v",
-        "succeeded": false
-      },
-      "statement": "weak_base_equiv_trans",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
-      "kind": "Theorem",
-      "line": 94,
-      "name": "weak_equiv_preserves_record_latch_holds",
-      "probe_a": {
-        "coq_stderr_tail": "e-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_equiv_preserves_record_latch_holds__a.v\", line 3, characters 67-100:\nError: The reference weak_equiv_preserves_record_latch was not found\nin the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.227 secs (0.185u,0.041s)\nChars 114 - 215 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_equiv_preserves_record_latch_holds__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "e-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_equiv_preserves_record_latch_holds__b.v\", line 3, characters 67-100:\nError: The reference weak_equiv_preserves_record_latch was not found\nin the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.228 secs (0.183u,0.045s)\nChars 114 - 215 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_equiv_preserves_record_latch_holds__b.v",
-        "succeeded": false
-      },
-      "statement": "weak_equiv_preserves_record_latch",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
-      "kind": "Theorem",
-      "line": 100,
-      "name": "record_axis_is_latch_on_tm_holds",
-      "probe_a": {
-        "coq_stderr_tail": "/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__record_axis_is_latch_on_tm_holds__a.v\", line 3, characters 60-86:\nError: The reference record_axis_is_latch_on_tm was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.229 secs (0.171u,0.057s)\nChars 114 - 201 [Theorem~_vacuity_probe_a_recor...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__record_axis_is_latch_on_tm_holds__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__record_axis_is_latch_on_tm_holds__b.v\", line 3, characters 60-86:\nError: The reference record_axis_is_latch_on_tm was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.231 secs (0.191u,0.039s)\nChars 114 - 201 [Theorem~_vacuity_probe_b_recor...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__record_axis_is_latch_on_tm_holds__b.v",
-        "succeeded": false
-      },
-      "statement": "record_axis_is_latch_on_tm",
-      "status": "ok"
-    },
-    {
-      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
-      "kind": "Theorem",
-      "line": 106,
-      "name": "record_axis_is_latch_on_vm_holds",
-      "probe_a": {
-        "coq_stderr_tail": "/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__record_axis_is_latch_on_vm_holds__a.v\", line 3, characters 60-86:\nError: The reference record_axis_is_latch_on_vm was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.227 secs (0.174u,0.053s)\nChars 114 - 201 [Theorem~_vacuity_probe_a_recor...] 0. secs (0.u,0.s)",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__record_axis_is_latch_on_vm_holds__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "er/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__record_axis_is_latch_on_vm_holds__b.v\", line 3, characters 60-86:\nError: The reference record_axis_is_latch_on_vm was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.231 secs (0.18u,0.05s)\nChars 114 - 201 [Theorem~_vacuity_probe_b_recor...] 0. secs (0.u,0.s)",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__record_axis_is_latch_on_vm_holds__b.v",
-        "succeeded": false
-      },
-      "statement": "record_axis_is_latch_on_vm",
       "status": "ok"
     },
     {
@@ -32276,6 +31736,546 @@
         "succeeded": false
       },
       "statement": "well_formed_triangulated (vm_graph om_state) /\\ links_connected om_state /\\ NoDup (map fst (pg_modules (vm_graph om_state))) /\\ ~ calibrated om_state",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
+      "kind": "Lemma",
+      "line": 44,
+      "name": "run_vm_stuck_local",
+      "probe_a": {
+        "coq_stderr_tail": "system,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__run_vm_stuck_local__a.v\", line 3, characters 66-73:\nError: The reference VMState was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.222 secs (0.183u,0.039s)\nChars 113 - 246 [Theorem~_vacuity_probe_a_run_v...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__run_vm_stuck_local__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "esystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__run_vm_stuck_local__b.v\", line 3, characters 66-73:\nError: The reference VMState was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.22 secs (0.188u,0.032s)\nChars 113 - 246 [Theorem~_vacuity_probe_b_run_v...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__run_vm_stuck_local__b.v",
+        "succeeded": false
+      },
+      "statement": "forall n trace (s : VMState), nth_error trace s.(vm_pc) = None -> run_vm n trace s = s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
+      "kind": "Lemma",
+      "line": 54,
+      "name": "run_vm_column_contractive_invariant_at_stuck",
+      "probe_a": {
+        "coq_stderr_tail": "/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__run_vm_column_contractive_invariant_at_stuck__a.v\", line 3, characters 95-102:\nError: The reference VMState was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.218 secs (0.178u,0.039s)\nChars 113 - 352 [Theorem~_vacuity_probe_a_run_v...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__run_vm_column_contractive_invariant_at_stuck__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__run_vm_column_contractive_invariant_at_stuck__b.v\", line 3, characters 95-102:\nError: The reference VMState was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.218 secs (0.182u,0.035s)\nChars 113 - 352 [Theorem~_vacuity_probe_b_run_v...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__run_vm_column_contractive_invariant_at_stuck__b.v",
+        "succeeded": false
+      },
+      "statement": "forall fuel trace (s : VMState), nth_error trace s.(vm_pc) = None -> trace_column_contractive fuel trace s = trace_column_contractive fuel trace (run_vm fuel trace s)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
+      "kind": "Lemma",
+      "line": 69,
+      "name": "npa_quad5_test_col0",
+      "probe_a": {
+        "coq_stderr_tail": "h,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_col0__a.v\", line 3, characters 72-73:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.219 secs (0.178u,0.04s)\nChars 113 - 431 [Theorem~_vacuity_probe_a_npa_q...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_col0__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_col0__b.v\", line 3, characters 72-73:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.223 secs (0.187u,0.035s)\nChars 113 - 431 [Theorem~_vacuity_probe_b_npa_q...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_col0__b.v",
+        "succeeded": false
+      },
+      "statement": "forall e00 e01 e10 e11 : R, let M := nat_matrix_to_fin5 (npa_to_matrix (zero_marginal_npa e00 e01 e10 e11)) in let v : Vec5 := fun i => match proj1_sig (Fin.to_nat i) with | 1%nat => -e00 | 2%nat => -e10 | 3%nat => 1 | _ => 0 end in quad5 M v = 1 - e00 * e00 - e10 * e10",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
+      "kind": "Lemma",
+      "line": 89,
+      "name": "npa_quad5_test_col1",
+      "probe_a": {
+        "coq_stderr_tail": ",filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_col1__a.v\", line 3, characters 72-73:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.218 secs (0.182u,0.036s)\nChars 113 - 431 [Theorem~_vacuity_probe_a_npa_q...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_col1__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_col1__b.v\", line 3, characters 72-73:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.227 secs (0.185u,0.042s)\nChars 113 - 431 [Theorem~_vacuity_probe_b_npa_q...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_col1__b.v",
+        "succeeded": false
+      },
+      "statement": "forall e00 e01 e10 e11 : R, let M := nat_matrix_to_fin5 (npa_to_matrix (zero_marginal_npa e00 e01 e10 e11)) in let v : Vec5 := fun i => match proj1_sig (Fin.to_nat i) with | 1%nat => -e01 | 2%nat => -e11 | 4%nat => 1 | _ => 0 end in quad5 M v = 1 - e01 * e01 - e11 * e11",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
+      "kind": "Lemma",
+      "line": 110,
+      "name": "npa_quad5_test_schur",
+      "probe_a": {
+        "coq_stderr_tail": "filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_schur__a.v\", line 3, characters 75-76:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.223 secs (0.184u,0.039s)\nChars 113 - 533 [Theorem~_vacuity_probe_a_npa_q...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_schur__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_schur__b.v\", line 3, characters 75-76:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.223 secs (0.186u,0.037s)\nChars 113 - 533 [Theorem~_vacuity_probe_b_npa_q...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_quad5_test_schur__b.v",
+        "succeeded": false
+      },
+      "statement": "forall e00 e01 e10 e11 t : R, let M := nat_matrix_to_fin5 (npa_to_matrix (zero_marginal_npa e00 e01 e10 e11)) in let v : Vec5 := fun i => match proj1_sig (Fin.to_nat i) with | 1%nat => -(e00 * t + e01) | 2%nat => -(e10 * t + e11) | 3%nat => t | 4%nat => 1 | _ => 0 end in quad5 M v = (1 - e00*e00 - e10*e10) * t * t - 2 * (e00*e01 + e10*e11) * t + (1 - e01*e01 - e11*e11)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
+      "kind": "Theorem",
+      "line": 134,
+      "name": "npa_psd_implies_column_contractive",
+      "probe_a": {
+        "coq_stderr_tail": "ault]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_psd_implies_column_contractive__a.v\", line 3, characters 87-88:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.222 secs (0.189u,0.032s)\nChars 113 - 333 [Theorem~_vacuity_probe_a_npa_p...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_psd_implies_column_contractive__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ault]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_psd_implies_column_contractive__b.v\", line 3, characters 87-88:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.222 secs (0.181u,0.041s)\nChars 113 - 333 [Theorem~_vacuity_probe_b_npa_p...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_psd_implies_column_contractive__b.v",
+        "succeeded": false
+      },
+      "statement": "forall e00 e01 e10 e11 : R, PSD5 (nat_matrix_to_fin5 (npa_to_matrix (zero_marginal_npa e00 e01 e10 e11))) -> zero_marginal_column_contractive e00 e01 e10 e11",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
+      "kind": "Theorem",
+      "line": 215,
+      "name": "npa_psd_iff_column_contractive",
+      "probe_a": {
+        "coq_stderr_tail": "em,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_psd_iff_column_contractive__a.v\", line 3, characters 83-84:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.22 secs (0.18u,0.039s)\nChars 113 - 330 [Theorem~_vacuity_probe_a_npa_p...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_psd_iff_column_contractive__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "m,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_psd_iff_column_contractive__b.v\", line 3, characters 83-84:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.253 secs (0.213u,0.04s)\nChars 113 - 330 [Theorem~_vacuity_probe_b_npa_p...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__npa_psd_iff_column_contractive__b.v",
+        "succeeded": false
+      },
+      "statement": "forall e00 e01 e10 e11 : R, PSD5 (nat_matrix_to_fin5 (npa_to_matrix (zero_marginal_npa e00 e01 e10 e11))) <-> zero_marginal_column_contractive e00 e01 e10 e11",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
+      "kind": "Corollary",
+      "line": 257,
+      "name": "column_contractive_iff_npa_psd",
+      "probe_a": {
+        "coq_stderr_tail": ",default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__column_contractive_iff_npa_psd__a.v\", line 3, characters 83-84:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.233 secs (0.197u,0.035s)\nChars 113 - 296 [Theorem~_vacuity_probe_a_colum...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__column_contractive_iff_npa_psd__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__column_contractive_iff_npa_psd__b.v\", line 3, characters 83-84:\nError: The reference R was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.223 secs (0.182u,0.041s)\nChars 113 - 296 [Theorem~_vacuity_probe_b_colum...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__column_contractive_iff_npa_psd__b.v",
+        "succeeded": false
+      },
+      "statement": "forall e00 e01 e10 e11 : R, zero_marginal_column_contractive e00 e01 e10 e11 <-> npa_psd (zero_marginal_npa e00 e01 e10 e11)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
+      "kind": "Theorem",
+      "line": 281,
+      "name": "trace_column_contractive_iff_trace_npa_model",
+      "probe_a": {
+        "coq_stderr_tail": "-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_column_contractive_iff_trace_npa_model__a.v\", line 3, characters 98-122:\nError: The reference trace_column_contractive was not found in the current\nenvironment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.25 secs (0.213u,0.036s)\nChars 113 - 310 [Theorem~_vacuity_probe_a_trace...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_column_contractive_iff_trace_npa_model__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_column_contractive_iff_trace_npa_model__b.v\", line 3, characters 98-122:\nError: The reference trace_column_contractive was not found in the current\nenvironment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.232 secs (0.202u,0.029s)\nChars 113 - 310 [Theorem~_vacuity_probe_b_trace...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_column_contractive_iff_trace_npa_model__b.v",
+        "succeeded": false
+      },
+      "statement": "forall fuel trace s_init, trace_column_contractive fuel trace s_init <-> npa_psd (trace_zero_marginal_npa fuel trace s_init)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
+      "kind": "Theorem",
+      "line": 313,
+      "name": "trace_npa_matrix_psd_implies_column_contractive",
+      "probe_a": {
+        "coq_stderr_tail": "Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_npa_matrix_psd_implies_column_contractive__a.v\", line 3, characters 101-121:\nError: The reference trace_npa_matrix_psd was not found in the current\nenvironment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.228 secs (0.187u,0.041s)\nChars 113 - 299 [Theorem~_vacuity_probe_a_trace...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_npa_matrix_psd_implies_column_contractive__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "e-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_npa_matrix_psd_implies_column_contractive__b.v\", line 3, characters 101-121:\nError: The reference trace_npa_matrix_psd was not found in the current\nenvironment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.22 secs (0.18u,0.039s)\nChars 113 - 299 [Theorem~_vacuity_probe_b_trace...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_npa_matrix_psd_implies_column_contractive__b.v",
+        "succeeded": false
+      },
+      "statement": "forall fuel trace s_init, trace_npa_matrix_psd fuel trace s_init -> trace_column_contractive fuel trace s_init",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
+      "kind": "Corollary",
+      "line": 326,
+      "name": "trace_npa_matrix_psd_implies_tsirelson",
+      "probe_a": {
+        "coq_stderr_tail": "_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_npa_matrix_psd_implies_tsirelson__a.v\", line 3, characters 260-262:\nError: Syntax Error: Lexer: Undefined token\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.221 secs (0.183u,0.038s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_npa_matrix_psd_implies_tsirelson__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_npa_matrix_psd_implies_tsirelson__b.v\", line 3, characters 260-262:\nError: Syntax Error: Lexer: Undefined token\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.219 secs (0.187u,0.031s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__trace_npa_matrix_psd_implies_tsirelson__b.v",
+        "succeeded": false
+      },
+      "statement": "forall fuel trace s_init, trace_npa_matrix_psd fuel trace s_init -> (CHSH (trace_e00 fuel trace s_init) (trace_e01 fuel trace s_init) (trace_e10 fuel trace s_init) (trace_e11 fuel trace s_init))\u00b2 <= 8",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
+      "kind": "Theorem",
+      "line": 352,
+      "name": "chsh_lassert_check_implies_npa_psd",
+      "probe_a": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__chsh_lassert_check_implies_npa_psd__a.v\", line 3, characters 74-81:\nError: The reference VMState was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.217 secs (0.18u,0.037s)\nChars 113 - 291 [Theorem~_vacuity_probe_a_chsh_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__chsh_lassert_check_implies_npa_psd__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "File \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__chsh_lassert_check_implies_npa_psd__b.v\", line 3, characters 74-81:\nError: The reference VMState was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.218 secs (0.173u,0.045s)\nChars 113 - 291 [Theorem~_vacuity_probe_b_chsh_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__chsh_lassert_check_implies_npa_psd__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (s : VMState), column_contractive_check_witness s.(vm_witness) = true -> npa_psd (state_zero_marginal_npa s)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/quantum/QuantumPartitionPSD.v",
+      "kind": "Theorem",
+      "line": 371,
+      "name": "chsh_lassert_no_trap_implies_npa_psd",
+      "probe_a": {
+        "coq_stderr_tail": "e \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__chsh_lassert_no_trap_implies_npa_psd__a.v\", line 3, characters 93-101:\nError: The reference vm_apply was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.217 secs (0.18u,0.037s)\nChars 113 - 336 [Theorem~_vacuity_probe_a_chsh_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__chsh_lassert_no_trap_implies_npa_psd__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "\"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__QuantumPartitionPSD__chsh_lassert_no_trap_implies_npa_psd__b.v\", line 3, characters 93-101:\nError: The reference vm_apply was not found in the current environment.\n\nChars 65 - 112 [From~Kernel~Require~Import~Qua...] 0.219 secs (0.183u,0.035s)\nChars 113 - 336 [Theorem~_vacuity_probe_b_chsh_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__QuantumPartitionPSD__chsh_lassert_no_trap_implies_npa_psd__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s mu_delta, let s' := vm_apply s (instr_chsh_lassert mu_delta) in s'.(vm_err) = s.(vm_err) -> s.(vm_err) = false -> npa_psd (state_zero_marginal_npa s)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/curvature/NoFIToEinstein.v",
+      "kind": "Theorem",
+      "line": 77,
+      "name": "nfi_to_discrete_einstein",
+      "probe_a": {
+        "coq_stderr_tail": ",filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein__a.v\", line 3, characters 95-96:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.226 secs (0.194u,0.031s)\nChars 108 - 975 [Theorem~_vacuity_probe_a_nfi_t...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",filesystem,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein__b.v\", line 3, characters 95-96:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.228 secs (0.195u,0.033s)\nChars 108 - 975 [Theorem~_vacuity_probe_b_nfi_t...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (hbar c_light k_B entropy_per_bit : R) (s_pre s_post : VMState) (P : LocalMorphismSemantics.SplitMorphism) (support_pre support_post : LocalMorphismSemantics.joint_support), (0 < hbar)%R -> (0 < c_light)%R -> (0 < k_B)%R -> LocalMorphismSemantics.is_nearest_neighbor P -> In support_pre (LocalMorphismSemantics.morphism_support_semantics P) -> In support_post (LocalMorphismSemantics.morphism_support_semantics P) -> mu_landauer_unruh_calibrated hbar c_light k_B entropy_per_bit s_pre s_post P support_pre support_post -> well_formed_triangulated (vm_graph s_pre) -> well_formed_triangulated (vm_graph s_post) -> (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R = (einstein_coupling_constant * IZR (euler_characteristic (vm_graph s_post) - euler_characteristic (vm_graph s_pre))%Z)%R",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/curvature/NoFIToEinstein.v",
+      "kind": "Theorem",
+      "line": 105,
+      "name": "nfi_to_discrete_einstein_from_bekenstein_calibration",
+      "probe_a": {
+        "coq_stderr_tail": "e/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_bekenstein_calibration__a.v\", line 3, characters 107-108:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.228 secs (0.195u,0.033s)\nChars 108 - 1038 [Theorem~_vacuity_probe_a_nfi_t...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_bekenstein_calibration__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "me/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_bekenstein_calibration__b.v\", line 3, characters 107-108:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.226 secs (0.18u,0.045s)\nChars 108 - 1038 [Theorem~_vacuity_probe_b_nfi_t...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_bekenstein_calibration__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (hbar c_light k_B : R) (s_pre s_post : VMState) (P : LocalMorphismSemantics.SplitMorphism) (support_pre support_post : LocalMorphismSemantics.joint_support), (0 < hbar)%R -> (0 < c_light)%R -> (0 < k_B)%R -> LocalMorphismSemantics.is_nearest_neighbor P -> In support_pre (LocalMorphismSemantics.morphism_support_semantics P) -> In support_post (LocalMorphismSemantics.morphism_support_semantics P) -> BekensteinCalibration.landauer_unruh_constant_calibration hbar c_light -> BekensteinCalibration.mu_bit_calibration support_pre support_post s_pre s_post -> well_formed_triangulated (vm_graph s_pre) -> well_formed_triangulated (vm_graph s_post) -> (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R = (einstein_coupling_constant * IZR (euler_characteristic (vm_graph s_post) - euler_characteristic (vm_graph s_pre))%Z)%R",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/curvature/NoFIToEinstein.v",
+      "kind": "Theorem",
+      "line": 138,
+      "name": "nfi_to_discrete_einstein_from_psplit_bekenstein_calibration",
+      "probe_a": {
+        "coq_stderr_tail": "er/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_psplit_bekenstein_calibration__a.v\", line 3, characters 114-115:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.238 secs (0.193u,0.044s)\nChars 108 - 958 [Theorem~~~_vacuity_probe_a_nfi...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_psplit_bekenstein_calibration__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_psplit_bekenstein_calibration__b.v\", line 3, characters 114-115:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.23 secs (0.196u,0.033s)\nChars 108 - 958 [Theorem~~~_vacuity_probe_b_nfi...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_psplit_bekenstein_calibration__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (hbar c_light k_B : R) (s_pre s_post : VMState) (module : ModuleID) (left right : list nat) (cost : nat), (0 < hbar)%R -> (0 < c_light)%R -> (0 < k_B)%R -> vm_step s_pre (instr_psplit module left right cost) s_post -> LocalMorphismSemantics.is_nearest_neighbor (LocalMorphismSemantics.psplit_transition_morphism left right) -> BekensteinCalibration.landauer_unruh_constant_calibration hbar c_light -> BekensteinCalibration.psplit_cost_matches_entropy left right cost -> well_formed_triangulated (vm_graph s_pre) -> well_formed_triangulated (vm_graph s_post) -> (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R = (einstein_coupling_constant * IZR (euler_characteristic (vm_graph s_post) - euler_characteristic (vm_graph s_pre))%Z)%R",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/curvature/NoFIToEinstein.v",
+      "kind": "Theorem",
+      "line": 177,
+      "name": "nfi_to_discrete_einstein_from_pnew_bekenstein_calibration",
+      "probe_a": {
+        "coq_stderr_tail": "nner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_pnew_bekenstein_calibration__a.v\", line 3, characters 112-113:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.228 secs (0.184u,0.043s)\nChars 108 - 905 [Theorem~~~_vacuity_probe_a_nfi...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_pnew_bekenstein_calibration__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "nner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_pnew_bekenstein_calibration__b.v\", line 3, characters 112-113:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.226 secs (0.191u,0.034s)\nChars 108 - 905 [Theorem~~~_vacuity_probe_b_nfi...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_to_discrete_einstein_from_pnew_bekenstein_calibration__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (hbar c_light k_B : R) (s_pre s_post : VMState) (region : list nat) (cost : nat), (0 < hbar)%R -> (0 < c_light)%R -> (0 < k_B)%R -> vm_step s_pre (instr_pnew region cost) s_post -> LocalMorphismSemantics.is_nearest_neighbor (LocalMorphismSemantics.pnew_creation_morphism region) -> BekensteinCalibration.landauer_unruh_constant_calibration hbar c_light -> BekensteinCalibration.pnew_cost_matches_entropy region cost -> well_formed_triangulated (vm_graph s_pre) -> well_formed_triangulated (vm_graph s_post) -> (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R = (einstein_coupling_constant * IZR (euler_characteristic (vm_graph s_post) - euler_characteristic (vm_graph s_pre))%Z)%R",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/curvature/NoFIToEinstein.v",
+      "kind": "Theorem",
+      "line": 223,
+      "name": "certified_implies_positive_mu",
+      "probe_a": {
+        "coq_stderr_tail": ",default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__certified_implies_positive_mu__a.v\", line 3, characters 83-90:\nError: The reference VMState was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.225 secs (0.194u,0.031s)\nChars 108 - 347 [Theorem~_vacuity_probe_a_certi...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__certified_implies_positive_mu__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "m,default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__certified_implies_positive_mu__b.v\", line 3, characters 83-90:\nError: The reference VMState was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.229 secs (0.189u,0.04s)\nChars 108 - 347 [Theorem~_vacuity_probe_b_certi...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__certified_implies_positive_mu__b.v",
+        "succeeded": false
+      },
+      "statement": "forall fuel program (s0 : VMState), s0.(vm_certified) = false -> (s0.(vm_mu) = 0)%nat -> (run_vm fuel program s0).(vm_certified) = true -> (0 < (run_vm fuel program s0).(vm_mu))%nat",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/curvature/NoFIToEinstein.v",
+      "kind": "Theorem",
+      "line": 243,
+      "name": "nfi_cost_nonzero_implies_nontrivial_calibration",
+      "probe_a": {
+        "coq_stderr_tail": "\"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_cost_nonzero_implies_nontrivial_calibration__a.v\", line 3, characters 118-119:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.226 secs (0.189u,0.037s)\nChars 108 - 834 [Theorem~_vacuity_probe_a_nfi_c...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_cost_nonzero_implies_nontrivial_calibration__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "\"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__NoFIToEinstein__nfi_cost_nonzero_implies_nontrivial_calibration__b.v\", line 3, characters 118-119:\nError: The reference R was not found in the current environment.\n\nChars 65 - 107 [From~Kernel~Require~Import~NoF...] 0.227 secs (0.178u,0.049s)\nChars 108 - 834 [Theorem~_vacuity_probe_b_nfi_c...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__NoFIToEinstein__nfi_cost_nonzero_implies_nontrivial_calibration__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (hbar c_light k_B entropy_per_bit : R) (s_pre s_post : VMState) (P : LocalMorphismSemantics.SplitMorphism) (support_pre support_post : LocalMorphismSemantics.joint_support), (0 < hbar)%R -> (0 < c_light)%R -> (0 < k_B)%R -> (0 <= entropy_per_bit)%R -> (INR s_pre.(vm_mu) < INR s_post.(vm_mu))%R -> mu_landauer_unruh_calibrated hbar c_light k_B entropy_per_bit s_pre s_post P support_pre support_post -> (0 < RaychaudhuriFluxBridge.null_energy_flux_delta RaychaudhuriFluxBridge.calibrated_null_congruence s_pre s_post P)%R \\/ (RaychaudhuriFluxBridge.null_energy_flux_delta RaychaudhuriFluxBridge.calibrated_null_congruence s_pre s_post P < 0)%R",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
+      "kind": "Theorem",
+      "line": 7,
+      "name": "weak_base_equiv_refl_holds",
+      "probe_a": {
+        "coq_stderr_tail": "/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_refl_holds__a.v\", line 3, characters 54-74:\nError: The reference weak_base_equiv_refl was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.224 secs (0.196u,0.028s)\nChars 114 - 189 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_refl_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_refl_holds__b.v\", line 3, characters 54-74:\nError: The reference weak_base_equiv_refl was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.224 secs (0.177u,0.047s)\nChars 114 - 189 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_refl_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "weak_base_equiv_refl",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
+      "kind": "Theorem",
+      "line": 18,
+      "name": "weak_base_equiv_sym_holds",
+      "probe_a": {
+        "coq_stderr_tail": "\"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_sym_holds__a.v\", line 3, characters 53-72:\nError: The reference weak_base_equiv_sym was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.223 secs (0.188u,0.034s)\nChars 114 - 187 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_sym_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "\"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_sym_holds__b.v\", line 3, characters 53-72:\nError: The reference weak_base_equiv_sym was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.225 secs (0.179u,0.045s)\nChars 114 - 187 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_sym_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "weak_base_equiv_sym",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
+      "kind": "Lemma",
+      "line": 30,
+      "name": "weak_match_left_runs",
+      "probe_a": {
+        "coq_stderr_tail": "default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_left_runs__a.v\", line 3, characters 64-75:\nError: The reference BaseMachine was not found in the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.223 secs (0.186u,0.037s)\nChars 114 - 374 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_left_runs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "default]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_left_runs__b.v\", line 3, characters 64-75:\nError: The reference BaseMachine was not found in the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.225 secs (0.186u,0.039s)\nChars 114 - 374 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_left_runs__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (B1 B2 : BaseMachine) (R : b_state B1 -> b_state B2 -> Prop), (forall x y, R x y -> (exists n, R (b_next B1 x) (base_run B2 n y))) -> forall k x y, R x y -> exists n, R (base_run B1 k x) (base_run B2 n y)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
+      "kind": "Lemma",
+      "line": 45,
+      "name": "weak_match_right_runs",
+      "probe_a": {
+        "coq_stderr_tail": "efault]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_right_runs__a.v\", line 3, characters 65-76:\nError: The reference BaseMachine was not found in the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.223 secs (0.187u,0.035s)\nChars 114 - 375 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_right_runs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "efault]\nFile \"/home/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_right_runs__b.v\", line 3, characters 65-76:\nError: The reference BaseMachine was not found in the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.226 secs (0.192u,0.034s)\nChars 114 - 375 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_match_right_runs__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (B1 B2 : BaseMachine) (R : b_state B1 -> b_state B2 -> Prop), (forall x y, R x y -> (exists n, R (base_run B1 n x) (b_next B2 y))) -> forall k x y, R x y -> exists n, R (base_run B1 n x) (base_run B2 k y)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
+      "kind": "Theorem",
+      "line": 60,
+      "name": "weak_base_equiv_trans_holds",
+      "probe_a": {
+        "coq_stderr_tail": "ome/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_trans_holds__a.v\", line 3, characters 55-76:\nError: The reference weak_base_equiv_trans was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.227 secs (0.193u,0.033s)\nChars 114 - 191 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_trans_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ome/runner/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_trans_holds__b.v\", line 3, characters 55-76:\nError: The reference weak_base_equiv_trans was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.225 secs (0.192u,0.032s)\nChars 114 - 191 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_base_equiv_trans_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "weak_base_equiv_trans",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
+      "kind": "Theorem",
+      "line": 99,
+      "name": "weak_equiv_preserves_record_latch_holds",
+      "probe_a": {
+        "coq_stderr_tail": "e-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_equiv_preserves_record_latch_holds__a.v\", line 3, characters 67-100:\nError: The reference weak_equiv_preserves_record_latch was not found\nin the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.228 secs (0.184u,0.043s)\nChars 114 - 215 [Theorem~_vacuity_probe_a_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_equiv_preserves_record_latch_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "e-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__weak_equiv_preserves_record_latch_holds__b.v\", line 3, characters 67-100:\nError: The reference weak_equiv_preserves_record_latch was not found\nin the current environment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.226 secs (0.182u,0.043s)\nChars 114 - 215 [Theorem~_vacuity_probe_b_weak_...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__weak_equiv_preserves_record_latch_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "weak_equiv_preserves_record_latch",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
+      "kind": "Theorem",
+      "line": 105,
+      "name": "record_axis_is_latch_on_tm_holds",
+      "probe_a": {
+        "coq_stderr_tail": "/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__record_axis_is_latch_on_tm_holds__a.v\", line 3, characters 60-86:\nError: The reference record_axis_is_latch_on_tm was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.226 secs (0.188u,0.037s)\nChars 114 - 201 [Theorem~_vacuity_probe_a_recor...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__record_axis_is_latch_on_tm_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__record_axis_is_latch_on_tm_holds__b.v\", line 3, characters 60-86:\nError: The reference record_axis_is_latch_on_tm was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.226 secs (0.197u,0.028s)\nChars 114 - 201 [Theorem~_vacuity_probe_b_recor...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__record_axis_is_latch_on_tm_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "record_axis_is_latch_on_tm",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/foundation/CrossBaseGranularity.v",
+      "kind": "Theorem",
+      "line": 111,
+      "name": "record_axis_is_latch_on_vm_holds",
+      "probe_a": {
+        "coq_stderr_tail": "/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__record_axis_is_latch_on_vm_holds__a.v\", line 3, characters 60-86:\nError: The reference record_axis_is_latch_on_vm was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.228 secs (0.191u,0.036s)\nChars 114 - 201 [Theorem~_vacuity_probe_a_recor...] 0. secs (0.u,0.s)",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__record_axis_is_latch_on_vm_holds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "/work/The-Thiele-Machine/The-Thiele-Machine/build/vacuity_probes/Kernel__CrossBaseGranularity__record_axis_is_latch_on_vm_holds__b.v\", line 3, characters 60-86:\nError: The reference record_axis_is_latch_on_vm was not found in the current\nenvironment.\n\nChars 65 - 113 [From~Kernel~Require~Import~Cro...] 0.226 secs (0.188u,0.037s)\nChars 114 - 201 [Theorem~_vacuity_probe_b_recor...] 0. secs (0.u,0.s)",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__CrossBaseGranularity__record_axis_is_latch_on_vm_holds__b.v",
+        "succeeded": false
+      },
+      "statement": "record_axis_is_latch_on_vm",
       "status": "ok"
     }
   ]

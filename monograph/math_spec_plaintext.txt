@@ -946,31 +946,40 @@ propositions has positive µ-cost.
 8.3     µ-budget predicates
 Definition 8.1 (µ-budget predicates (kernel/MuComplexity.v)). Let pfuel , pµ : N → N be
 numeric bounds and size : VMState → N a size function. Polynomiality is not required.
+
    • error_free_preservation_budget means that every input has an error-free trace within
      the length and µ bounds, and that f has equal values on the initial and final states
      whenever µ increases.
+
    • positive_input_certification_budget means that every input satisfying f has a trace
      within those bounds ending with vm_certified = true.
+
 Theorem 8.3 (Zero-µ traces satisfy the preservation budget (kernel/MuComplexity.v), (S)).
 zero_mu_traces_satisfy_preservation_budget: if every input has a bounded, error-free,
 zero-µ trace, the preservation budget holds with µ-bound zero for every Boolean state predicate.
 Its positive-µ antecedent never holds.
+
 Remark 8.1. These predicates supply neither a uniform solver with a correct output nor a sound
 verifier rejecting negative inputs. They do not define decision or verification complexity classes.
 The implication between them is named as a premise, not proved. The factored-search witness
 in StructuralAdvantage.v gives a concrete program-level µ-cost comparison: a program whose
 instruction costs sum to 18 (sighted_program_total_cost_is_eighteen) and whose iteration
 count is 2N , against N 2 for the blind program. The VM runs are proved for every N by loop
-invariants: from init_state the blind program on the last of N 2 cells stops with N 2 passes and
-µ = 0, and the sighted program stops with 2N passes and µ = 18 (time_tax_theorem). That is
-not a class separation.
+invariants: from init_state the blind program on the last of N 2 cells stops with N 2 passes
+and µ = 0, and the sighted program stops with 2N passes and µ = 18; at a price of λ passes per
+unit of µ the sighted run is cheaper exactly when 2N + 18λ < N 2 (time_tax_theorem). That
+is not a class separation.
+
 Theorem 8.4 (µ-Cost Hierarchy (kernel/MuHierarchyTheorem.v), (S)). For every k ≥ 1, the
 µ-dimension admits a strict hierarchy:
+
    1. Achievability: there exists a trace from init_state with µ-cost exactly k that is level-k
       certified, the run executes a CERTIFY δ instruction with S(δ) ≥ k and ends with vm_
       certified = true.
+
    2. Lower bound: any level-k certified trace from init_state must have spent at least k
       units of µ-cost.
+
 Formally (mu_hierarchy_theorem): for every k ≥ 1, the witness trace [instr_certify(k−1)]
 (cost = S(k−1) = k) executes a level-k CERTIFY from init_state; conversely, the trace-side
 predicate level_k_certified forces trace_mu_cost ≥ k via level_k_certification_cost_
@@ -978,6 +987,7 @@ floor, since the CERTIFY’s declared cost appears in the executed-instruction l
 sum equals the trace cost (run_vm_mu_conservation).
     Corollary (mu_hierarchy_no_upper_bound): no fixed µ-budget suffices for all levels. The
 µ-dimension is unbounded and non-collapsible. Zero Admitted.
+
 Remark 8.2 (µ-Hierarchy as a P-vs-NP analogue, not a P-vs-NP result). Theorem 8.4 is the
 µ-analogue of the classical time hierarchy theorem in shape. Its content is lighter. The level of
 a certificate is defined by the operand δ of the CERTIFY that issued it, and the cost schedule
@@ -987,12 +997,14 @@ not touch. In the certified-structure setting it makes one thing precise: issuin
 at level k costs µ ≥ k, because the schedule charges δ + 1 for the CERTIFY that sets the level.
 It says nothing about how hard the certified thing was to find. The hierarchy is strict and
 unbounded, with zero Admitted, no oracle, and no diagonalization. The lower-bound proof is
-trace-side: a level-k certified run executed a specific CERTIFY δ with S(δ) ≥ k, and executed_
+
+                                                23
+trace-side: a level-k certified run executed a specific CERTIFY δ with S(δ) ≥ k, and executed_
 instruction_cost_recorded plus ledger_sum_contains_lower_bound place that cost in the
 ledger sum, which run_vm_mu_conservation equates with the trace’s µ-cost.
 
-                                                23
-8.4     Intrinsic level hierarchy
+
+8.4     Intrinsic level hierarchy
 Definition 8.2 (Intrinsic level (coq/IntrinsicLevelHierarchy.v)). A final state s is intrinsically
 certifiable at level ≥ k, written level_intrinsic_at_least(k, s), iff every run_vm trace from
 init_state that ends at s with vm_certified = true executes at least k cert-setter instruc-
@@ -1042,13 +1054,13 @@ bv_cost : BareTranscript → N.
 Definition 8.4 (Soundness, completeness, cheapness (coq/VerifierModel.v)). For a problem P
 and verifier V :
 
-   • bare_sound(P, V ) := ∀t. V (t) = true ⇒ ∀s. bare_explains(P, s, t) ⇒ bare_honest_claim(P, s).
+                                                24
+   • bare_sound(P, V ) := ∀t. V (t) = true ⇒ ∀s. bare_explains(P, s, t) ⇒ bare_honest_claim(P, s).
 
    • bare_complete(P, V ) := ∀s t. bare_honest_claim(P, s) ⇒ bare_explains(P, s, t) ⇒
      V (t) = true.
 
-                                                24
-   • bare_cheap(P, V ) := ∀t. bv_cost(V, t) ≤ bare_cheap_budget(P ).
+   • bare_cheap(P, V ) := ∀t. bv_cost(V, t) ≤ bare_cheap_budget(P ).
 
 The soundness condition is strong: the claim must hold for every state explaining the transcript,
 not merely for some.

@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
   "files_probed": 505,
-  "total_addressable": 14455,
+  "total_addressable": 14457,
   "total_unaddressable": 8,
   "extras_addressable_via_instantiation": [
     {
@@ -59274,7 +59274,7 @@
     {
       "file": "coq/kernel/foundation/VMStep.v",
       "qualified_module": "Kernel.VMStep",
-      "addressable_count": 98,
+      "addressable_count": 100,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -59291,6 +59291,16 @@
           "local_name": "VMStep.cert_setter_cost_pos",
           "kind": "Lemma",
           "full_name": "Kernel.VMStep.VMStep.cert_setter_cost_pos"
+        },
+        {
+          "local_name": "VMStep.non_cert_setter_cost_is_declared",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.non_cert_setter_cost_is_declared"
+        },
+        {
+          "local_name": "VMStep.cert_setter_cost_above_declared",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMStep.VMStep.cert_setter_cost_above_declared"
         },
         {
           "local_name": "VMStep.nofi_step_always_ok",
@@ -65103,9 +65113,9 @@
           "full_name": "Kernel.MuShannonBridge.exists_covering_tree"
         },
         {
-          "local_name": "info_priced_reduction_no_tree_hypothesis",
+          "local_name": "complete_tree_realization_bound",
           "kind": "Theorem",
-          "full_name": "Kernel.MuShannonBridge.info_priced_reduction_no_tree_hypothesis"
+          "full_name": "Kernel.MuShannonBridge.complete_tree_realization_bound"
         }
       ],
       "unaddressable": []

@@ -12133,10 +12133,12 @@ Print Assumptions Kernel.VMState.bytes_to_words_length.
 Print Assumptions Kernel.VMState.map_seq_nth.
 Print Assumptions Kernel.VMState.String_length_eq_list_length.
 Print Assumptions Kernel.VMState.mem_to_string_roundtrip.
-(* === Kernel.VMStep : 98 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.VMStep : 100 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.VMStep.VMStep.ascii_payload_bits_length.
 Print Assumptions Kernel.VMStep.VMStep.payload_bit_length_ascii.
 Print Assumptions Kernel.VMStep.VMStep.cert_setter_cost_pos.
+Print Assumptions Kernel.VMStep.VMStep.non_cert_setter_cost_is_declared.
+Print Assumptions Kernel.VMStep.VMStep.cert_setter_cost_above_declared.
 Print Assumptions Kernel.VMStep.VMStep.nofi_step_always_ok.
 Print Assumptions Kernel.VMStep.VMStep.nofi_trace_always_ok.
 Print Assumptions Kernel.VMStep.VMStep.pnew_region_contiguous.
@@ -13243,7 +13245,7 @@ Print Assumptions Kernel.MuShannonBridge.run_vm_map_length.
 Print Assumptions Kernel.MuShannonBridge.complete_tree_leaf_count.
 Print Assumptions Kernel.MuShannonBridge.complete_tree_covers_reduction.
 Print Assumptions Kernel.MuShannonBridge.exists_covering_tree.
-Print Assumptions Kernel.MuShannonBridge.info_priced_reduction_no_tree_hypothesis.
+Print Assumptions Kernel.MuShannonBridge.complete_tree_realization_bound.
 (* === Kernel.MuShannonQuantitative : 23 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.MuShannonQuantitative.cert_addr_range_length.
 Print Assumptions Kernel.MuShannonQuantitative.cert_addr_value_in_range.
