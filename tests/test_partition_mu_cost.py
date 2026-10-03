@@ -130,7 +130,7 @@ class TestPartitionStructureWithLjoin:
         """PNEW × 2, LJOIN with same cert on both → success."""
         prog = [
             {"op": "pnew",  "region": [0, 128],  "cost": 1},  # partition 1
-            {"op": "pnew",  "region": [128, 256], "cost": 1},  # partition 2
+            {"op": "pnew",  "region": [2, 3],    "cost": 1},  # partition 2
             {"op": "ljoin", "cert1": "shared_cert", "cert2": "shared_cert", "cost": 1},
             {"op": "halt",  "cost": 0},
         ]
@@ -150,7 +150,7 @@ class TestPartitionStructureWithLjoin:
         # Partition: 2 PNEW + 1 LJOIN (same declared cert cost)
         partition = [
             {"op": "pnew",  "region": [0, 128],  "cost": 1},
-            {"op": "pnew",  "region": [128, 256], "cost": 1},
+            {"op": "pnew",  "region": [2, 3],    "cost": 1},
             {"op": "ljoin", "cert1": "c", "cert2": "c", "cost": 5},
             {"op": "halt",  "cost": 0},
         ]
@@ -191,7 +191,7 @@ class TestPartitionStructureWithLjoin:
         # Partition: certify P2 once (expensive), update only P1 (cheap)
         partition = [
             {"op": "pnew",  "region": [0, 128],  "cost": 1},   # P1 partition
-            {"op": "pnew",  "region": [128, 256], "cost": 1},   # P2 partition
+            {"op": "pnew",  "region": [2, 3],    "cost": 1},   # P2 partition
             # Initial: join with P2's expensive cert
             {"op": "ljoin", "cert1": "initial_cert", "cert2": "initial_cert",
              "cost": P2_CERT_COST + 1},

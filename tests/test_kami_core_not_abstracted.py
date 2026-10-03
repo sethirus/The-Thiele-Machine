@@ -100,11 +100,15 @@ def test_ptable_index_width_is_6_bits() -> None:
 def test_rtl_partition_guards_match_physical_capacity() -> None:
     rtl = (CORE.parents[2] / 'thielecpu' / 'hardware' / 'rtl' / 'thiele_cpu_kami.v').read_text(encoding='utf-8')
     # The bsc compiler generates implementation-specific signal names that encode
-    # the semantic guard: pt_next_id < 64 (PNEW/PMERGE need one free slot).
-    # The exact signal name depends on the bsc version; match the semantic pattern.
-    assert "pt_next_id < 7'h40" in rtl or "pt_next_id < 32'h00000040" in rtl
-    # PSPLIT guard: pt_next_id + 2 <= 64 (needs two free slots).
-    assert "<= 7'h40" in rtl or "< 32'h00000040" in rtl
+    # the semantic guard: pt_next_id < 64 (PNEW/PMERGE need one free slot), or
+    # its negation pt_next_id >= 64. The exact form depends on the bsc version;
+    # match the semantic pattern.
+    assert any(g in rtl for g in ("pt_next_id < 7'h40", "pt_next_id >= 7'h40",
+                                  "pt_next_id < 32'h00000040", "pt_next_id >= 32'h00000040"))
+    # PSPLIT guard: pt_next_id + 2 <= 64 (needs two free slots), or its negation.
+    assert any(g in rtl for g in ("<= 7'h40", "> 7'h40", "< 32'h00000040", "> 32'h00000040"))
+    # PNEW memory guard: a nonempty range ends at or below 128, or its negation.
+    assert "> 32'h00000080" in rtl or "<= 32'h00000080" in rtl
 
 
 def test_pt_next_id_register_is_narrow_and_zero_extended_on_output() -> None:
