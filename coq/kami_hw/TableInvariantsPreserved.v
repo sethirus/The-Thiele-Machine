@@ -91,7 +91,7 @@ Lemma hwb_table_invariants_frame : forall b d,
   hwb_table_invariants b -> hwb_table_invariants d.
 Proof.
   intros b d Emv Emn Emc Emi Ecv Ecn Ecb Ecc Epn Epv Elt Ell Hinv.
-  destruct Hinv as [H1 [H2 [H3 [H4 [H5 [H6 [H7 [H8 [H9 H10]]]]]]]]].
+  destruct Hinv as [H1 [H2 [H3 [H4 [H5 [H6 [H7 [H9 H10]]]]]]]].
   unfold hwb_table_invariants.
   split.
   { unfold hwb_morph_valid_below_next.
@@ -113,9 +113,6 @@ Proof.
     intros k Hk. rewrite Epn in Hk. rewrite Epv. exact (H6 k Hk). }
   split.
   { unfold hwb_desc_zero_empty. rewrite Ecb, Ecc. exact H7. }
-  split.
-  { unfold hwb_identity_desc_zero.
-    intros m Hv Hi. rewrite Emv in Hv. rewrite Emi in Hi. rewrite Emc. exact (H8 m Hv Hi). }
   split.
   { unfold hwb_labels_represented.
     intros k Hk. rewrite Ecv in Hk. rewrite Ell, Elt. exact (H9 k Hk). }
@@ -141,7 +138,7 @@ Lemma hwb_table_invariants_frame_valid_subset : forall b d,
   hwb_table_invariants b -> hwb_table_invariants d.
 Proof.
   intros b d Hsub Emn Emc Emi Ecv Ecn Ecb Ecc Epn Epv Elt Ell Hinv.
-  destruct Hinv as [H1 [H2 [H3 [H4 [H5 [H6 [H7 [H8 [H9 H10]]]]]]]]].
+  destruct Hinv as [H1 [H2 [H3 [H4 [H5 [H6 [H7 [H9 H10]]]]]]]].
   unfold hwb_table_invariants.
   split.
   { unfold hwb_morph_valid_below_next. intros i Hi. rewrite Emn. exact (H1 i (Hsub i Hi)). }
@@ -158,8 +155,6 @@ Proof.
   { unfold hwb_pairs_valid_below_next. intros k Hk. rewrite Epn in Hk. rewrite Epv. exact (H6 k Hk). }
   split.
   { unfold hwb_desc_zero_empty. rewrite Ecb, Ecc. exact H7. }
-  split.
-  { unfold hwb_identity_desc_zero. intros m Hv Hi. rewrite Emi in Hi. rewrite Emc. exact (H8 m (Hsub m Hv) Hi). }
   split.
   { unfold hwb_labels_represented. intros k Hk. rewrite Ecv in Hk. rewrite Ell, Elt. exact (H9 k Hk). }
   { unfold hwb_coupling_desc_next_id_ge1. rewrite Ecn. exact H10. }
@@ -188,7 +183,7 @@ Lemma hwb_table_invariants_alloc_morph : forall b d (s : word MorphTableIdxSz),
   hwb_table_invariants b -> hwb_table_invariants d.
 Proof.
   intros b d s Hs Hlt Hmv Hmc Hmi Emn Ecv Ecn Ecb Ecc Epn Epv Elt Ell Hinv.
-  destruct Hinv as [H1 [H2 [H3 [H4 [H5 [H6 [H7 [H8 [H9 H10]]]]]]]]].
+  destruct Hinv as [H1 [H2 [H3 [H4 [H5 [H6 [H7 [H9 H10]]]]]]]].
   assert (Hnd : wordToNat (hw_morph_next_id d) = wordToNat (hw_morph_next_id b) + 1).
   { rewrite Emn. apply wordToNat_wplus_bounded. cbn. lia. }
   assert (Hzero : hw_coupling_ref_ok d (natToWord DescIdxSz 0) = true).
@@ -216,11 +211,6 @@ Proof.
   { unfold hwb_pairs_valid_below_next. intros k Hk. rewrite Epn in Hk. rewrite Epv. exact (H6 k Hk). }
   split.
   { unfold hwb_desc_zero_empty. rewrite Ecb, Ecc. exact H7. }
-  split.
-  { unfold hwb_identity_desc_zero. intros m Hv Hi. rewrite Hmv in Hv. rewrite Hmi in Hi. rewrite Hmc.
-    destruct (weq m s) as [E|N].
-    - reflexivity.
-    - exact (H8 m Hv Hi). }
   split.
   { unfold hwb_labels_represented. intros k Hk. rewrite Ecv in Hk. rewrite Ell, Elt. exact (H9 k Hk). }
   { unfold hwb_coupling_desc_next_id_ge1. rewrite Ecn. exact H10. }
@@ -2051,7 +2041,7 @@ Proof.
     destruct HR as [_ [[n Hn] [Hdi _]]].
     exact (proj1 (busy_runs_unique _ _ _ Hn Hdi _ _ Rk Hidle)). }
   subst d.
-  destruct Hinv as [H1 [H2 [H3 [H4 [H5 [H6 [H7 [H8 [H9 H10]]]]]]]]].
+  destruct Hinv as [H1 [H2 [H3 [H4 [H5 [H6 [H7 [H9 H10]]]]]]]].
   assert (Hsn : wordToNat s = wordToNat (hw_morph_next_id b)) by (apply wordToNat_trunc4_5_small; exact Hroom).
   assert (Hcdn : wordToNat cd = wordToNat (hw_coupling_desc_next_id b)) by (apply wordToNat_trunc4_5_small; exact Hdesc).
   clearbody s cd.
@@ -2160,14 +2150,6 @@ Proof.
     - rewrite RdC. unfold put_vector. destruct (@weq 4 (natToWord CouplingDescIdxSz 0) cd) as [E|_].
       + exfalso. apply Hcdneq0. symmetry. exact E.
       + exact (proj2 H7). }
-  split.
-  { unfold hwb_identity_desc_zero. intros m Hv Hi.
-    rewrite morph_fsm_keeps_morph_valid_table, F_morph_valid_table in Hv.
-    rewrite morph_fsm_keeps_morph_identity_table, F_morph_identity_table in Hi.
-    rewrite morph_fsm_keeps_morph_coupling_desc_table, F_morph_coupling_desc_table.
-    destruct (weq m s) as [E|N].
-    - subst m. discriminate Hi.
-    - exact (H8 m Hv Hi). }
   split.
   { unfold hwb_labels_represented. intros d0 Hd0.
     rewrite RdV in Hd0. unfold put_vector in Hd0.
@@ -2341,7 +2323,7 @@ Lemma preserved_compose_ext : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b
   wordToNat (hw_coupling_pair_next_id b) < 16 ->
   hwb_morph_valid_below_next b -> hwb_morph_coupling_refs_ok b -> hwb_coupling_desc_zero_invalid b ->
   hwb_desc_zero_empty b -> hwb_desc_pairs_below_next b -> hwb_pairs_valid_below_next b ->
-  hwb_identity_desc_zero b -> hwb_labels_represented b ->
+  hwb_labels_represented b ->
   hw_morph_valid_table b (bits4 b0 b1 b2 b3) = true ->
   hw_morph_valid_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)) = true ->
   hw_morph_dst_table b (bits4 b0 b1 b2 b3) = hw_morph_src_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)) ->
@@ -2352,8 +2334,8 @@ Lemma preserved_compose_ext : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b
   hwb_table_invariants d.
 Proof.
   intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b d
-    Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 I1 I2 I3 I7 I5 I6 I8 I9 V1 V2 Hmatch Hlab Hcap Hinv HR.
-  destruct Hinv as [H1 [H2 [H3 [H4 [H5 [H6 [H7 [H8 [H9 H10]]]]]]]]].
+    Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 I1 I2 I3 I7 I5 I6 I9 V1 V2 Hmatch Hlab Hcap Hinv HR.
+  destruct Hinv as [H1 [H2 [H3 [H4 [H5 [H6 [H7 [H9 H10]]]]]]]].
   pose proof (step_compose_ext_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_lp.
   pose proof (step_compose_ext_chsh_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_cp.
   pose proof (step_compose_ext_mc_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_mp.
@@ -2400,7 +2382,7 @@ Proof.
   assert (Hc2 : wordToNat (hw_mc_src2_count (step_next b)) <= 16).
   { rewrite F_c2. destruct (hw_morph_identity_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31))); cbn; lia. }
   assert (Raw : compose_raw (step_next b) = compose_pairs b (bits4 b0 b1 b2 b3) (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)))
-    by exact (compose_raw_step b (step_next b) (bits4 b0 b1 b2 b3) (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)) H8 H7 V2
+    by exact (compose_raw_step b (step_next b) (bits4 b0 b1 b2 b3) (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31))
       (step_keeps_coupling_pair_src_table b) (step_keeps_coupling_pair_dst_table b)
       F_mp F_c1 F_c2 F_b1 F_b2).
   destruct (compose_fsm_run (step_next b) P
@@ -2423,7 +2405,7 @@ Proof.
     - rewrite compose_fsm_keeps_chsh_phase. exact F_cp.
     - exact Rph. }
   assert (Hd : d = compose_fsm_final (step_next b)).
-  { destruct (compose_ext_runs a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 H1 H2 H3 H7 H5 H6 H8 H9 V1 V2 Hmatch Hlab Hcap) as [k Rk].
+  { destruct (compose_ext_runs a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 H1 H2 H3 H7 H5 H6 H9 V1 V2 Hmatch Hlab Hcap) as [k Rk].
     destruct HR as [_ [[n Hn] [Hdi _]]].
     exact (proj1 (busy_runs_unique _ _ _ Hn Hdi _ _ Rk Hidle)). }
   subst d.
@@ -2537,21 +2519,15 @@ Proof.
       + exfalso. apply Hcdneq0. symmetry. exact E.
       + exact (proj2 H7). }
   split.
-  { unfold hwb_identity_desc_zero. intros m Hv Hi.
-    rewrite compose_fsm_keeps_morph_valid_table, F_mv in Hv.
-    rewrite compose_fsm_keeps_morph_identity_table, F_mi in Hi.
-    rewrite compose_fsm_keeps_morph_coupling_desc_table, F_mc.
-    destruct (weq m s) as [E|N].
-    - subst m. discriminate Hi.
-    - exact (H8 m Hv Hi). }
-  split.
   { unfold hwb_labels_represented. intros d0 Hd0.
     rewrite RdV in Hd0. unfold put_vector in Hd0.
     rewrite compose_fsm_keeps_coupling_desc_label_table, compose_fsm_keeps_coupling_desc_label_len_table,
       F_lt, F_ll. cbn beta.
     destruct (@weq 4 d0 cd) as [E|N].
     - destruct (@weq CouplingDescIdxSz d0 cd) as [E2|N2]; [|exfalso; apply N2; exact E].
-      exact (compose_label_represented b D1 D2 H9 Hlab).
+      destruct (hw_morph_identity_table b (bits4 b0 b1 b2 b3)), (hw_morph_identity_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)));
+        try exact (compose_label_represented b D1 D2 H9 Hlab).
+      change (wordToNat (natToWord 6 1)) with 1. rewrite wordToNat_word1_32. cbn. lia.
     - destruct (@weq CouplingDescIdxSz d0 cd) as [E2|N2]; [exfalso; apply N; exact E2|].
       exact (H9 d0 Hd0). }
   { unfold hwb_coupling_desc_next_id_ge1. rewrite Hdnd. lia. }
@@ -2574,7 +2550,7 @@ Proof.
   intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b d
     Hf Hb Hroom Hfail Hinv HR.
   pose proof Hinv as Hinv0.
-  destruct Hinv as [H1 [H2 [H3 [H4 [H5 [H6 [H7 [H8 [H9 H10]]]]]]]]].
+  destruct Hinv as [H1 [H2 [H3 [H4 [H5 [H6 [H7 [H9 H10]]]]]]]].
   pose proof (morph_room_of_lt b Hroom) as Hroom'.
   pose proof (step_compose_ext_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_lp.
   pose proof (step_compose_ext_chsh_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_cp.

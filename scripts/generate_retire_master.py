@@ -204,7 +204,7 @@ def generate():
                     f'  - exact (morph_ext_retire {bb} b count Hf Hb Hlive Hpc Hmu Hroom Hdesc Hsrc Hdst Hcount Hfit HP16 Hbase Hlab128 Hlabel Hreg).\nQed.\n')
         elif t['name'] == 'compose_ext_retire':
             bb = bnames_bits(bnames)
-            names = 'Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Iid Ilab V1 V2 Hmatch Hlab Hcap'
+            names = 'Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Ilab V1 V2 Hmatch Hlab Hcap'
             lem = lem.replace(f'intros {bnames} {pnames}.', f'intros {bnames} {names}.')
             lem += ('  exists (compose_fsm_final (step_next b)). split; [exact Hlive|].\n'
                     f'  split; [destruct (compose_ext_runs {bb} b {names}) as [k Hk]; exists k; exact Hk|].\n'

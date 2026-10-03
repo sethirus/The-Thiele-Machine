@@ -71,7 +71,7 @@ Definition rich_rest_same (F b : HWB) : Prop :=
   hw_desc_meta_next_id F = hw_desc_meta_next_id b.
 
 Theorem rich_after_morph_commit : forall b F (srcm dstm : word PTableIdxSz) P out (pairs : list (nat * nat))
-    (lw : word WordSz) (ln : word 6) (lab : string),
+    (lw : word WordSz) (ln : word 6) (lab : string) (idb : bool),
   wordToNat (hw_morph_next_id b) < 16 -> wordToNat (hw_coupling_desc_next_id b) < 16 ->
   hw_coupling_pair_next_id b = natToWord 5 P -> P < 16 -> P <= out -> out <= 16 ->
   hw_morph_valid_table F = (fun w => if weq w (split1 4 1 (hw_morph_next_id b)) then true else hw_morph_valid_table b w) ->
@@ -79,7 +79,7 @@ Theorem rich_after_morph_commit : forall b F (srcm dstm : word PTableIdxSz) P ou
   hw_morph_dst_table F = (fun w => if weq w (split1 4 1 (hw_morph_next_id b)) then dstm else hw_morph_dst_table b w) ->
   hw_morph_coupling_desc_table F = (fun w => if weq w (split1 4 1 (hw_morph_next_id b))
                                      then split1 4 1 (hw_coupling_desc_next_id b) else hw_morph_coupling_desc_table b w) ->
-  hw_morph_identity_table F = (fun w => if weq w (split1 4 1 (hw_morph_next_id b)) then false else hw_morph_identity_table b w) ->
+  hw_morph_identity_table F = (fun w => if weq w (split1 4 1 (hw_morph_next_id b)) then idb else hw_morph_identity_table b w) ->
   hw_morph_next_id F = wplus (hw_morph_next_id b) (natToWord MorphTableNextIdSz 1) ->
   hw_coupling_desc_valid_table F = (fun w => if weq w (split1 4 1 (hw_coupling_desc_next_id b)) then true else hw_coupling_desc_valid_table b w) ->
   hw_coupling_desc_base_table F = (fun w => if weq w (split1 4 1 (hw_coupling_desc_next_id b))
@@ -101,10 +101,10 @@ Theorem rich_after_morph_commit : forall b F (srcm dstm : word PTableIdxSz) P ou
      nth (k - P) pairs (0, 0)) ->
   List.length pairs = out - P ->
   rich_rest_same F b ->
-  rich_state_add_morph_with_coupling (hwb_rich b) (wordToNat srcm) (wordToNat dstm) pairs lab false =
+  rich_state_add_morph_with_coupling (hwb_rich b) (wordToNat srcm) (wordToNat dstm) pairs lab idb =
     (hwb_rich F, wordToNat (hw_morph_next_id b)).
 Proof.
-  intros b F srcm dstm P out pairs lw ln lab Hm Hd HP HP16 Ho Ho16 MV MS MD MC MI MN DV DB DC DL DLn HL DN PN PV PL PH Hlen
+  intros b F srcm dstm P out pairs lw ln lab idb Hm Hd HP HP16 Ho Ho16 MV MS MD MC MI MN DV DB DC DL DLn HL DN PN PV PL PH Hlen
     [R1 [R2 [R3 [R4 [R5 [R6 [R7 [R8 [R9 [R10 [R11 [R12 [R13 R14]]]]]]]]]]]]].
   unfold rich_state_add_morph_with_coupling, rich_state_add_coupling_data, rich_state_add_morph.
   cbv beta iota zeta.

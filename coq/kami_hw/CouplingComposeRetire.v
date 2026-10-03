@@ -365,8 +365,6 @@ Proof.
 Qed.
 
 Lemma compose_raw_step : forall b s (M1 M2 : word MorphTableIdxSz),
-  hwb_identity_desc_zero b -> hwb_desc_zero_empty b ->
-  hw_morph_valid_table b M2 = true ->
   hw_coupling_pair_src_table s = hw_coupling_pair_src_table b ->
   hw_coupling_pair_dst_table s = hw_coupling_pair_dst_table b ->
   hw_mc_phase s = (if hw_morph_identity_table b M1 then natToWord 4 4
@@ -379,14 +377,12 @@ Lemma compose_raw_step : forall b s (M1 M2 : word MorphTableIdxSz),
   hw_mc_src2_base s = hw_coupling_desc_base_table b (hw_morph_coupling_desc_table b M2) ->
   compose_raw s = compose_pairs b M1 M2.
 Proof.
-  intros b s M1 M2 Hid [Hz0 Hc0] V2 Hs Hd Hph H1 H2 B1 B2.
+  intros b s M1 M2 Hs Hd Hph H1 H2 B1 B2.
   unfold compose_raw, compose_pairs, hw_desc_slice. cbv zeta.
   rewrite Hs, Hd, Hph, H1, H2, B1, B2.
   change (wordToNat (natToWord CouplingPairCountSz 0)) with 0.
   destruct (hw_morph_identity_table b M1) eqn:I1; destruct (hw_morph_identity_table b M2) eqn:I2.
-  - destruct (weq (natToWord 4 4) (natToWord 4 4)) as [_|NE]; [|contradiction].
-    rewrite (Hid M2 V2 I2). change (natToWord DescIdxSz 0) with (natToWord CouplingDescIdxSz 0).
-    rewrite Hc0. reflexivity.
+  - destruct (weq (natToWord 4 4) (natToWord 4 4)) as [_|NE]; [reflexivity|contradiction].
   - destruct (weq (natToWord 4 4) (natToWord 4 4)) as [_|NE]; [reflexivity|contradiction].
   - destruct (weq (natToWord 4 4) (natToWord 4 4)) as [_|NE]; [|contradiction].
     apply app_nil_r.
@@ -403,14 +399,14 @@ Theorem compose_ext_run : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7
   wordToNat (hw_coupling_pair_next_id b) < 16 ->
   hwb_morph_valid_below_next b -> hwb_morph_coupling_refs_ok b -> hwb_coupling_desc_zero_invalid b ->
   hwb_desc_zero_empty b -> hwb_desc_pairs_below_next b -> hwb_pairs_valid_below_next b ->
-  hwb_identity_desc_zero b -> hwb_labels_represented b ->
+  hwb_labels_represented b ->
   hw_morph_valid_table b (bits4 b0 b1 b2 b3) = true -> hw_morph_valid_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)) = true ->
   hw_morph_dst_table b (bits4 b0 b1 b2 b3) = hw_morph_src_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)) ->
   wordToNat (hw_label_len b (hw_morph_coupling_desc_table b (bits4 b0 b1 b2 b3))) + wordToNat (hw_label_len b (hw_morph_coupling_desc_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)))) <= 32 ->
   wordToNat (hw_coupling_pair_next_id b) + List.length (compose_pairs b (bits4 b0 b1 b2 b3) (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31))) <= 16 ->
   exists labels, Multistep thieleCore (hwb_regs b) (hwb_regs (compose_fsm_final (step_next b))) labels.
 Proof.
-  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Iid Ilab V1 V2 Hmatch Hlab Hcap.
+  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Ilab V1 V2 Hmatch Hlab Hcap.
   pose proof Hlive as [Hh [He _]].
   pose proof (step_compose_ext_pc a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_pc.
   pose proof (step_compose_ext_mu a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_mu.
@@ -465,7 +461,7 @@ Proof.
   pose proof (desc_fits b (bits4 b0 b1 b2 b3) Iref Iz0 Idp V1) as Fit1. pose proof (desc_fits b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)) Iref Iz0 Idp V2) as Fit2.
   fold P in Fit1, Fit2.
   assert (Raw : compose_raw (step_next b) = compose_pairs b (bits4 b0 b1 b2 b3) (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)))
-    by exact (compose_raw_step b (step_next b) (bits4 b0 b1 b2 b3) (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)) Iid Iz0 V2
+    by exact (compose_raw_step b (step_next b) (bits4 b0 b1 b2 b3) (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31))
       (step_keeps_coupling_pair_src_table b) (step_keeps_coupling_pair_dst_table b)
       F_mc_phase F_mc_src1_count F_mc_src2_count F_mc_src1_base F_mc_src2_base).
   assert (W0 : wordToNat (natToWord CouplingPairCountSz 0) = 0) by reflexivity.
@@ -490,14 +486,14 @@ Theorem compose_ext_retire : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6
   wordToNat (hw_coupling_pair_next_id b) < 16 ->
   hwb_morph_valid_below_next b -> hwb_morph_coupling_refs_ok b -> hwb_coupling_desc_zero_invalid b ->
   hwb_desc_zero_empty b -> hwb_desc_pairs_below_next b -> hwb_pairs_valid_below_next b ->
-  hwb_identity_desc_zero b -> hwb_labels_represented b ->
+  hwb_labels_represented b ->
   hw_morph_valid_table b (bits4 b0 b1 b2 b3) = true -> hw_morph_valid_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)) = true ->
   hw_morph_dst_table b (bits4 b0 b1 b2 b3) = hw_morph_src_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)) ->
   wordToNat (hw_label_len b (hw_morph_coupling_desc_table b (bits4 b0 b1 b2 b3))) + wordToNat (hw_label_len b (hw_morph_coupling_desc_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)))) <= 32 ->
   wordToNat (hw_coupling_pair_next_id b) + List.length (compose_pairs b (bits4 b0 b1 b2 b3) (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31))) <= 16 ->
   hwb_snapshot (compose_fsm_final (step_next b)) = kami_step (hwb_snapshot b) (instr_compose (wordToNat (bits4 a0 a1 a2 a3)) (wordToNat (bits4 b0 b1 b2 b3)) (wordToNat (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31))) (wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7))).
 Proof.
-  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Iid Ilab V1 V2 Hmatch Hlab Hcap.
+  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Ilab V1 V2 Hmatch Hlab Hcap.
   pose proof Hlive as [Hh [He _]].
   pose proof (step_compose_ext_pc a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_pc.
   pose proof (step_compose_ext_mu a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb) as F_mu.
@@ -552,7 +548,7 @@ Proof.
   pose proof (desc_fits b (bits4 b0 b1 b2 b3) Iref Iz0 Idp V1) as Fit1. pose proof (desc_fits b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)) Iref Iz0 Idp V2) as Fit2.
   fold P in Fit1, Fit2.
   assert (Raw : compose_raw (step_next b) = compose_pairs b (bits4 b0 b1 b2 b3) (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)))
-    by exact (compose_raw_step b (step_next b) (bits4 b0 b1 b2 b3) (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)) Iid Iz0 V2
+    by exact (compose_raw_step b (step_next b) (bits4 b0 b1 b2 b3) (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31))
       (step_keeps_coupling_pair_src_table b) (step_keeps_coupling_pair_dst_table b)
       F_mc_phase F_mc_src1_count F_mc_src2_count F_mc_src1_base F_mc_src2_base).
   assert (W0 : wordToNat (natToWord CouplingPairCountSz 0) = 0) by reflexivity.
@@ -579,12 +575,13 @@ Proof.
   assert (Rich : rich_state_add_morph_with_coupling (hwb_rich b) (wordToNat (hw_morph_src_table b (bits4 b0 b1 b2 b3)))
       (wordToNat (hw_morph_dst_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31))))
       (map natpair (table_slice src' dst' P (out - P)))
-      (atom_label (wordToNat (wplus (hw_label_len b (hw_morph_coupling_desc_table b (bits4 b0 b1 b2 b3))) (hw_label_len b (hw_morph_coupling_desc_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31))))))
+      (if andb (hw_morph_identity_table b (bits4 b0 b1 b2 b3)) (hw_morph_identity_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31))) then coupling_label empty_coupling_data
+       else atom_label (wordToNat (wplus (hw_label_len b (hw_morph_coupling_desc_table b (bits4 b0 b1 b2 b3))) (hw_label_len b (hw_morph_coupling_desc_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31))))))
          (wordToNat (wplus (hw_label_word b (hw_morph_coupling_desc_table b (bits4 b0 b1 b2 b3))) (wlshift (hw_label_word b (hw_morph_coupling_desc_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)))) (wordToNat (hw_label_len b (hw_morph_coupling_desc_table b (bits4 b0 b1 b2 b3))))))))
-      false = (hwb_rich Fin, wordToNat (hw_morph_next_id b))).
+      (andb (hw_morph_identity_table b (bits4 b0 b1 b2 b3)) (hw_morph_identity_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)))) = (hwb_rich Fin, wordToNat (hw_morph_next_id b))).
   { apply (rich_after_morph_commit b Fin _ _ P out _
-      (wplus (hw_label_word b (hw_morph_coupling_desc_table b (bits4 b0 b1 b2 b3))) (wlshift (hw_label_word b (hw_morph_coupling_desc_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)))) (wordToNat (hw_label_len b (hw_morph_coupling_desc_table b (bits4 b0 b1 b2 b3))))))
-      (wplus (hw_label_len b (hw_morph_coupling_desc_table b (bits4 b0 b1 b2 b3))) (hw_label_len b (hw_morph_coupling_desc_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)))))); try lia.
+      (if hw_morph_identity_table b (bits4 b0 b1 b2 b3) then (if hw_morph_identity_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)) then natToWord WordSz 1 else wplus (hw_label_word b (hw_morph_coupling_desc_table b (bits4 b0 b1 b2 b3))) (wlshift (hw_label_word b (hw_morph_coupling_desc_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)))) (wordToNat (hw_label_len b (hw_morph_coupling_desc_table b (bits4 b0 b1 b2 b3)))))) else wplus (hw_label_word b (hw_morph_coupling_desc_table b (bits4 b0 b1 b2 b3))) (wlshift (hw_label_word b (hw_morph_coupling_desc_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)))) (wordToNat (hw_label_len b (hw_morph_coupling_desc_table b (bits4 b0 b1 b2 b3))))))
+      (if hw_morph_identity_table b (bits4 b0 b1 b2 b3) then (if hw_morph_identity_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)) then natToWord 6 1 else wplus (hw_label_len b (hw_morph_coupling_desc_table b (bits4 b0 b1 b2 b3))) (hw_label_len b (hw_morph_coupling_desc_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31))))) else wplus (hw_label_len b (hw_morph_coupling_desc_table b (bits4 b0 b1 b2 b3))) (hw_label_len b (hw_morph_coupling_desc_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)))))); try lia.
     - exact HPb.
     - unfold Fin; rewrite compose_fsm_keeps_morph_valid_table; exact F_morph_valid_table.
     - unfold Fin; rewrite compose_fsm_keeps_morph_src_table; exact F_morph_src_table.
@@ -597,7 +594,7 @@ Proof.
     - exact RdC.
     - unfold Fin; rewrite compose_fsm_keeps_coupling_desc_label_table; exact F_coupling_desc_label_table.
     - unfold Fin; rewrite compose_fsm_keeps_coupling_desc_label_len_table; exact F_coupling_desc_label_len_table.
-    - reflexivity.
+    - destruct (hw_morph_identity_table b (bits4 b0 b1 b2 b3)), (hw_morph_identity_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31))); reflexivity.
     - exact RdN.
     - exact Rn.
     - intros k Hk. rewrite Rv. unfold hwb_valid. rewrite (proj2 (Nat.ltb_lt k (2 ^ CouplingPairIdxSz))) by (cbn; lia).
@@ -638,7 +635,7 @@ Corollary compose_ext_execution : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 
   wordToNat (hw_coupling_pair_next_id b) < 16 ->
   hwb_morph_valid_below_next b -> hwb_morph_coupling_refs_ok b -> hwb_coupling_desc_zero_invalid b ->
   hwb_desc_zero_empty b -> hwb_desc_pairs_below_next b -> hwb_pairs_valid_below_next b ->
-  hwb_identity_desc_zero b -> hwb_labels_represented b ->
+  hwb_labels_represented b ->
   hw_morph_valid_table b (bits4 b0 b1 b2 b3) = true -> hw_morph_valid_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)) = true ->
   hw_morph_dst_table b (bits4 b0 b1 b2 b3) = hw_morph_src_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)) ->
   wordToNat (hw_label_len b (hw_morph_coupling_desc_table b (bits4 b0 b1 b2 b3))) + wordToNat (hw_label_len b (hw_morph_coupling_desc_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)))) <= 32 ->
@@ -647,8 +644,8 @@ Corollary compose_ext_execution : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 
     Multistep thieleCore (hwb_regs b) (hwb_regs (compose_fsm_final (step_next b))) labels /\
     hwb_snapshot (compose_fsm_final (step_next b)) = kami_step (hwb_snapshot b) (instr_compose (wordToNat (bits4 a0 a1 a2 a3)) (wordToNat (bits4 b0 b1 b2 b3)) (wordToNat (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31))) (wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7))).
 Proof.
-  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Iid Ilab V1 V2 Hmatch Hlab Hcap.
-  destruct (compose_ext_run a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Iid Ilab V1 V2 Hmatch Hlab Hcap) as [l Hl].
+  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Ilab V1 V2 Hmatch Hlab Hcap.
+  destruct (compose_ext_run a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Ilab V1 V2 Hmatch Hlab Hcap) as [l Hl].
   exists l. split; [exact Hl|].
-  exact (compose_ext_retire a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Iid Ilab V1 V2 Hmatch Hlab Hcap).
+  exact (compose_ext_retire a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Ilab V1 V2 Hmatch Hlab Hcap).
 Qed.

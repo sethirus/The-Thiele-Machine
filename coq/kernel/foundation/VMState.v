@@ -114,7 +114,8 @@ Definition normalize_module (m : ModuleState) : ModuleState :=
     empty (not the diagonal); graph_compose_morphisms honors this flag so the
     morphism acts as the categorical identity under composition (id;f = f and
     f;id = f), since an empty coupling would otherwise annihilate under
-    relational composition.
+    relational composition. The composite of two identities is again an
+    identity, stored exactly as MORPH_ID stores one.
 
     Why add this? The partition graph is a category — modules are
     objects, morphisms are the structure-preserving arrows. The
@@ -529,20 +530,22 @@ Definition relational_compose (r1 r2 : list (nat * nat)) : list (nat * nat) :=
     map (fun '(b', c) => (a, c)) (filter (fun '(b', _) => Nat.eqb b b') r2)
   ) r1.
 
-(** graph_compose_morphisms: Compose two morphisms f;h when f.target = h.source *)
+(** graph_compose_morphisms: Compose two morphisms f;h when f.target = h.source.
+    An identity-flagged morphism acts as the categorical identity. Its stored
+    coupling is empty (a flag-backed representation in the bounded model), so
+    plain relational composition would annihilate it; the flag is what
+    realises id;f = f and f;id = f. When both operands are flagged
+    identities the composite is the identity arrow of their shared object:
+    the same record MORPH_ID stores (flag set, empty_coupling_data). When
+    neither is flagged, the coupling is the relational composition and the
+    label joins the two labels with ";". *)
 Definition graph_compose_morphisms (g : PartitionGraph) (m1 m2 : MorphismID)
   : option (PartitionGraph * MorphismID) :=
   match graph_lookup_morphism g m1, graph_lookup_morphism g m2 with
   | Some f, Some h =>
       if Nat.eqb f.(morph_target) h.(morph_source)
       then
-        (* Identity short-circuit: an is_identity-flagged morphism acts as the
-           categorical identity under composition.  Its stored coupling is empty
-           (a flag-backed representation in the bounded model), so plain
-           relational composition would annihilate it; the flag is what
-           realises id;f = f
-           and f;id = f at the coupling level.  When neither operand is flagged
-           identity, this is ordinary relational composition. *)
+        let both_id := f.(morph_is_identity) && h.(morph_is_identity) in
         let composed_pairs :=
           if f.(morph_is_identity)
           then h.(morph_coupling).(coupling_pairs)
@@ -551,11 +554,12 @@ Definition graph_compose_morphisms (g : PartitionGraph) (m1 m2 : MorphismID)
                else relational_compose
                       f.(morph_coupling).(coupling_pairs)
                       h.(morph_coupling).(coupling_pairs) in
-        let c := {| coupling_pairs := composed_pairs;
-                    coupling_label := f.(morph_coupling).(coupling_label) ++ ";" ++
-                                      h.(morph_coupling).(coupling_label) |} in
-        Some (graph_add_morphism g f.(morph_source) h.(morph_target) c false)
-      else None (* Type mismatch: f.target ≠ h.source *)
+        let c := if both_id then empty_coupling_data
+                 else {| coupling_pairs := composed_pairs;
+                         coupling_label := f.(morph_coupling).(coupling_label) ++ ";" ++
+                                           h.(morph_coupling).(coupling_label) |} in
+        Some (graph_add_morphism g f.(morph_source) h.(morph_target) c both_id)
+      else None (* Type mismatch: f.target <> h.source *)
   | _, _ => None (* Morphism not found *)
   end.
 

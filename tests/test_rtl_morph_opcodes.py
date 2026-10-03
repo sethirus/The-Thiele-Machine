@@ -301,6 +301,14 @@ class TestMorphRTLCouplingData:
         assert not state["err"]
         assert _pairs(state, 3) == [[1, 2]]
 
+    def test_compose_two_identities_is_identity(self):
+        state = _run_cosim("PNEW {1} 0\nMORPH_ID 0 1 0\nMORPH_ID 0 1 0\nCOMPOSE_EXT 0 1 2 0\nHALT")
+        assert not state["err"]
+        composite = next(m for m in state["graph"]["morphisms"] if m["id"] == 3)
+        assert composite["source"] == 1 and composite["target"] == 1
+        assert composite["is_identity"] == 1
+        assert composite["coupling"] == {"label": "empty", "pairs": []}
+
     def test_tensor_fault_preserves_both_pair_ranges(self):
         program = _coupling_memory(80, [(1, 2)]) + _coupling_memory(90, [(3, 4)])
         state = _run_cosim(program + "PNEW {1} 0\nPNEW {2} 0\nPNEW {3} 0\nPNEW {4} 0\nMORPH_EXT 0 1 2 80 0\nMORPH_EXT 0 3 4 90 0\nMORPH_TENSOR_EXT 0 1 2 0\nHALT")

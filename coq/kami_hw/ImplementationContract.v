@@ -42,7 +42,9 @@ Definition hwb_valid {n} (v : type (Vector Bool n)) (i : nat) : bool :=
 (** A coupling label is stored as a list of atoms joined by ";": [n] atoms,
     atom [k] being the kernel's "empty" label when bit [k] of [mask] is set and
     the empty string otherwise. MORPH commits one "" atom; a morphism without a
-    descriptor carries the single "empty" atom; COMPOSE appends the lists. *)
+    descriptor carries the single "empty" atom; COMPOSE appends the lists,
+    except that the composite of two identities carries the single "empty"
+    atom. *)
 Definition label_atom (mask : nat) : string :=
   if Nat.odd mask then "empty"%string else ""%string.
 

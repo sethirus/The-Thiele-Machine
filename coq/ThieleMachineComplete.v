@@ -960,7 +960,8 @@ Definition normalize_module (m : ModuleState) : ModuleState :=
    MorphismState bundles everything the machine knows about one morphism:
    - morph_source / morph_target: which modules it goes between
    - morph_coupling: the relational data (pairs + label)
-   - morph_is_identity: true iff this was created by MORPH_ID
+   - morph_is_identity: true iff MORPH_ID created it or COMPOSE joined two
+     identities
 
    MORPH_TENSOR computes f⊗g: source = A∪C, target = B∪D, coupling =
    f.coupling ++ g.coupling. The union modules must already exist in the
@@ -1490,13 +1491,7 @@ Definition graph_compose_morphisms (g : PartitionGraph) (m1 m2 : MorphismID)
   | Some f, Some h =>
       if Nat.eqb f.(morph_target) h.(morph_source)
       then
-        (* Identity short-circuit: an is_identity-flagged morphism acts as the
-           categorical identity under composition.  Its stored coupling is empty
-           (a flag-backed representation in the bounded model), so plain
-           relational composition would annihilate it; the flag is what
-           realises id;f = f
-           and f;id = f at the coupling level.  When neither operand is flagged
-           identity, this is ordinary relational composition. *)
+        let both_id := f.(morph_is_identity) && h.(morph_is_identity) in
         let composed_pairs :=
           if f.(morph_is_identity)
           then h.(morph_coupling).(coupling_pairs)
@@ -1505,11 +1500,12 @@ Definition graph_compose_morphisms (g : PartitionGraph) (m1 m2 : MorphismID)
                else relational_compose
                       f.(morph_coupling).(coupling_pairs)
                       h.(morph_coupling).(coupling_pairs) in
-        let c := {| coupling_pairs := composed_pairs;
-                    coupling_label := f.(morph_coupling).(coupling_label) ++ ";" ++
-                                      h.(morph_coupling).(coupling_label) |} in
-        Some (graph_add_morphism g f.(morph_source) h.(morph_target) c false)
-      else None (* Type mismatch: f.target ≠ h.source *)
+        let c := if both_id then empty_coupling_data
+                 else {| coupling_pairs := composed_pairs;
+                         coupling_label := f.(morph_coupling).(coupling_label) ++ ";" ++
+                                           h.(morph_coupling).(coupling_label) |} in
+        Some (graph_add_morphism g f.(morph_source) h.(morph_target) c both_id)
+      else None (* Type mismatch: f.target <> h.source *)
   | _, _ => None (* Morphism not found *)
   end.
 

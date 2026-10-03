@@ -3255,38 +3255,36 @@ Proof.
       fold (morph_coupling_label rs e1).
       fold (morph_coupling_label rs e2).
       cbn [coupling_label].
-      (* Let pairs1/pairs2/labels be the actual values — no assumption of [] *)
+      (* Let pairs1/pairs2/labels be the actual values; no assumption of [] *)
       set (pairs1 := snapshot_coupling_pairs_from_desc rs (morph_entry_coupling_desc e1)).
       set (pairs2 := snapshot_coupling_pairs_from_desc rs (morph_entry_coupling_desc e2)).
       set (label1 := morph_coupling_label rs e1).
       set (label2 := morph_coupling_label rs e2).
-      set (composed_label := (label1 ++ ";" ++ label2)%string).
+      set (both := andb (morph_entry_is_identity e1) (morph_entry_is_identity e2)).
+      set (one_pairs := if morph_entry_is_identity e1
+                        then pairs2
+                        else if morph_entry_is_identity e2
+                             then pairs1
+                             else relational_compose pairs1 pairs2).
+      set (kc := if both then empty_coupling_data
+                 else {| coupling_pairs := one_pairs;
+                         coupling_label := (label1 ++ ";" ++ label2)%string |}).
+      set (composed_label := if both then coupling_label empty_coupling_data
+                             else (label1 ++ ";" ++ label2)%string).
       set (composed_pairs :=
-        (normalize_coupling {| coupling_pairs :=
-             (if morph_entry_is_identity e1
-              then pairs2
-              else if morph_entry_is_identity e2
-                   then pairs1
-                   else relational_compose pairs1 pairs2);
+        (normalize_coupling {| coupling_pairs := (if both then [] else one_pairs);
                                 coupling_label := composed_label |}).(coupling_pairs)).
       destruct (Nat.eqb (morph_entry_target e1) (morph_entry_source e2)) eqn:Hep.
-      * (* Endpoint match — success on both sides *)
+      * (* Endpoint match: success on both sides *)
         (* Hardware: rich_state_add_morph_with_coupling with composed_pairs *)
         remember (rich_state_add_morph_with_coupling rs
                     (morph_entry_source e1) (morph_entry_target e2)
-                    composed_pairs composed_label false) as addm eqn:Eaddm.
+                    composed_pairs composed_label both) as addm eqn:Eaddm.
         destruct addm as [rs' new_id].
-        (* Kernel: graph_add_morphism normalizes relational_compose internally *)
+        (* Kernel: graph_add_morphism normalizes the coupling internally *)
         destruct (graph_add_morphism (snap_full_graph ks)
-                    (morph_entry_source e1) (morph_entry_target e2)
-                    {| coupling_pairs :=
-                         (if morph_entry_is_identity e1
-                          then pairs2
-                          else if morph_entry_is_identity e2
-                               then pairs1
-                               else relational_compose pairs1 pairs2);
-                       coupling_label := composed_label |}
-                    false) as [graph' morph_id] eqn:Egam.
+                    (morph_entry_source e1) (morph_entry_target e2) kc both)
+          as [graph' morph_id] eqn:Egam.
         (* new_id = morph_id: both equal rich_next_morph_id rs *)
         assert (Hid : new_id = morph_id).
         { unfold rich_state_add_morph_with_coupling in Eaddm.
@@ -3304,7 +3302,7 @@ Proof.
         { (* Use morph_add_with_coupling_commutation_gen: coupling_wf suffices *)
           pose proof (morph_add_with_coupling_commutation_gen rs
                         (morph_entry_source e1) (morph_entry_target e2)
-                        composed_pairs composed_label false Hwcf Hcze Hsafe) as Hmc.
+                        composed_pairs composed_label both Hwcf Hcze Hsafe) as Hmc.
           rewrite <- Eaddm in Hmc. simpl in Hmc.
           assert (Hnext : rich_next_morph_id rs' = S (rich_next_morph_id rs)).
           { unfold rich_state_add_morph_with_coupling in Eaddm.
@@ -3322,9 +3320,9 @@ Proof.
           - rewrite Hnext. reflexivity.
           - unfold snap_full_graph. simpl.
             rewrite Hmc. rewrite H1. fold rs.
-            (* normalize_coupling applied to {composed_pairs; ...} is idempotent *)
-            unfold composed_pairs, normalize_coupling. simpl.
-            reflexivity. }
+            (* the hardware stores the normalized pairs and label the kernel stores *)
+            unfold composed_pairs, composed_label, kc, normalize_coupling. simpl.
+            clearbody both. destruct both; reflexivity. }
         assert (Hnewid : new_id = rich_next_morph_id (snap_rich_state ks)).
         { unfold rich_state_add_morph_with_coupling in Eaddm.
           destruct (rich_state_add_coupling_data rs composed_pairs composed_label)

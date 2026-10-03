@@ -516,7 +516,6 @@ Inductive admitted : HWB -> vm_instruction -> Prop :=
     hwb_desc_zero_empty b ->
     hwb_desc_pairs_below_next b ->
     hwb_pairs_valid_below_next b ->
-    hwb_identity_desc_zero b ->
     hwb_labels_represented b ->
     hw_morph_valid_table b (bits4 b0 b1 b2 b3) = true ->
     hw_morph_valid_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)) = true ->
@@ -1428,7 +1427,6 @@ Lemma retire_compose_ext : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b
   hwb_desc_zero_empty b ->
   hwb_desc_pairs_below_next b ->
   hwb_pairs_valid_below_next b ->
-  hwb_identity_desc_zero b ->
   hwb_labels_represented b ->
   hw_morph_valid_table b (bits4 b0 b1 b2 b3) = true ->
   hw_morph_valid_table b (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31)) = true ->
@@ -1437,15 +1435,15 @@ Lemma retire_compose_ext : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b
   wordToNat (hw_coupling_pair_next_id b) + List.length (compose_pairs b (bits4 b0 b1 b2 b3) (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31))) <= 16 ->
   exists d, Retire b (instr_compose (wordToNat (bits4 a0 a1 a2 a3)) (wordToNat (bits4 b0 b1 b2 b3)) (wordToNat (split1 4 28 (bits32 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31))) (wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7))) d.
 Proof.
-  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Iid Ilab V1 V2 Hmatch Hlab Hcap.
+  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Ilab V1 V2 Hmatch Hlab Hcap.
   pose proof Hlive as [Hh [He _]].
   exists (compose_fsm_final (step_next b)). split; [exact Hlive|].
-  split; [destruct (compose_ext_runs a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Iid Ilab V1 V2 Hmatch Hlab Hcap) as [k Hk]; exists k; exact Hk|].
+  split; [destruct (compose_ext_runs a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Ilab V1 V2 Hmatch Hlab Hcap) as [k Hk]; exists k; exact Hk|].
   split; [split; [|split]|].
   - rewrite compose_fsm_keeps_lassert_phase. exact (step_compose_ext_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb).
   - rewrite compose_fsm_keeps_chsh_phase. exact (step_compose_ext_chsh_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb).
   - unfold compose_fsm_final. cbv zeta. destruct (weq _ _); apply mccommit_phase.
-  - exact (compose_ext_retire a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Iid Ilab V1 V2 Hmatch Hlab Hcap).
+  - exact (compose_ext_retire a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26 e27 e28 e29 e30 e31 b Hf Hb Hlive Hpc Hmu Hroom Hdesc HP16 Imv Iref Iz Iz0 Idp Ipv Ilab V1 V2 Hmatch Hlab Hcap).
 Qed.
 
 Lemma retire_lassert_sat : forall a0 a1 a2 a3 a4 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 (b : HWB) flen,

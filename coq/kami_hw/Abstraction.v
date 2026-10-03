@@ -2158,23 +2158,28 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
   | instr_compose dst m1_id m2_id cost =>
       (* COMPOSE: hardware computes relational composition of coupling data,
          with the same identity-flag short-circuit as the kernel's
-         graph_compose_morphisms: composed pairs = h.pairs if f is a flagged
-         identity (id;f = f), f.pairs if h is a flagged identity (f;id = f),
-         relational_compose(f.pairs, h.pairs) otherwise.
-         Label = f.label ++ ";" ++ h.label.
+         graph_compose_morphisms: when both are flagged identities the
+         composite is a flagged identity with no pairs and the label "empty";
+         composed pairs = h.pairs if only f is a flagged identity (id;f = f),
+         f.pairs if only h is (f;id = f), relational_compose(f.pairs, h.pairs)
+         otherwise, and label = f.label ++ ";" ++ h.label.
          Matches graph_compose_morphisms in kernel. *)
       let rs := snap_rich_state hs in
       match rs.(rich_morph_table) m1_id, rs.(rich_morph_table) m2_id with
       | Some e1, Some e2 =>
           if Nat.eqb (morph_entry_target e1) (morph_entry_source e2)
           then
+            let both_id := andb (morph_entry_is_identity e1) (morph_entry_is_identity e2) in
             let pairs1 := snapshot_coupling_pairs_from_desc rs (morph_entry_coupling_desc e1) in
             let pairs2 := snapshot_coupling_pairs_from_desc rs (morph_entry_coupling_desc e2) in
             let label1 := morph_coupling_label rs e1 in
             let label2 := morph_coupling_label rs e2 in
-            let composed_label := (label1 ++ ";" ++ label2)%string in
+            let composed_label :=
+              if both_id then coupling_label empty_coupling_data
+              else (label1 ++ ";" ++ label2)%string in
             let raw_pairs :=
-              if morph_entry_is_identity e1
+              if both_id then []
+              else if morph_entry_is_identity e1
               then pairs2
               else if morph_entry_is_identity e2
                    then pairs1
@@ -2184,10 +2189,10 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
             let '(rs', new_id) :=
               rich_state_add_morph_with_coupling rs
                 (morph_entry_source e1) (morph_entry_target e2)
-                composed_pairs composed_label false in
+                composed_pairs composed_label both_id in
             kami_advance_rich_morph hs dst new_id cost rs'
-          else kami_advance_err_code hs cost KAMI_ERR_COMPOSE_TYPE  (* endpoint mismatch → error *)
-      | _, _ => kami_advance_err_code hs cost KAMI_ERR_MORPH_NOT_FOUND  (* morph not found → error *)
+          else kami_advance_err_code hs cost KAMI_ERR_COMPOSE_TYPE  (* endpoint mismatch: error *)
+      | _, _ => kami_advance_err_code hs cost KAMI_ERR_MORPH_NOT_FOUND  (* morph not found: error *)
       end
   | instr_morph_id dst module cost =>
       (* MORPH_ID: identity morphism with coupling_desc=0 (empty_coupling_data).

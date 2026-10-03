@@ -460,8 +460,6 @@ Definition dd_mc_enters_fsm (b : HWB) (w : word InstrSz) : type (Bool) :=
   evalExpr ((Var type (SyntaxKind (Bool)) (dd_morph_alloc_success b w)) || (Var type (SyntaxKind (Bool)) (dd_compose_success b w)) || (Var type (SyntaxKind (Bool)) (dd_legacy_compose_success b w)))%kami_expr.
 Definition dd_morph_alloc_coupling (b : HWB) (w : word InstrSz) : type (Bit DescIdxSz) :=
   evalExpr (IF (Var type (SyntaxKind (Bool)) (dd_mc_enters_fsm b w)) then UniBit (Trunc DescIdxSz _) (Var type (SyntaxKind (Bit DescTableNextIdSz)) (hw_coupling_desc_next_id b)) else $0)%kami_expr.
-Definition dd_morph_alloc_identity (b : HWB) (w : word InstrSz) : type (Bool) :=
-  evalExpr ((Var type (SyntaxKind (Bool)) (dd_morph_id_success b w)) || (Var type (SyntaxKind (Bool)) (dd_morph_id_legacy_success b w)))%kami_expr.
 Definition dd_mc_compose_active (b : HWB) (w : word InstrSz) : type (Bool) :=
   evalExpr ((Var type (SyntaxKind (Bool)) (dd_compose_success b w)) || (Var type (SyntaxKind (Bool)) (dd_legacy_compose_success b w)))%kami_expr.
 Definition dd_mc_m1_id (b : HWB) (w : word InstrSz) : type (Bit MorphTableIdxSz) :=
@@ -472,6 +470,10 @@ Definition dd_mc_compose_is_id1 (b : HWB) (w : word InstrSz) : type (Bool) :=
   evalExpr ((Var type (SyntaxKind (Vector Bool MorphTableIdxSz)) (hw_morph_identity_table b))@[(Var type (SyntaxKind (Bit MorphTableIdxSz)) (dd_mc_m1_id b w))])%kami_expr.
 Definition dd_mc_compose_is_id2 (b : HWB) (w : word InstrSz) : type (Bool) :=
   evalExpr ((Var type (SyntaxKind (Vector Bool MorphTableIdxSz)) (hw_morph_identity_table b))@[(Var type (SyntaxKind (Bit MorphTableIdxSz)) (dd_mc_m2_id b w))])%kami_expr.
+Definition dd_mc_compose_both_id (b : HWB) (w : word InstrSz) : type (Bool) :=
+  evalExpr ((Var type (SyntaxKind (Bool)) (dd_mc_compose_active b w)) && (Var type (SyntaxKind (Bool)) (dd_mc_compose_is_id1 b w)) && (Var type (SyntaxKind (Bool)) (dd_mc_compose_is_id2 b w)))%kami_expr.
+Definition dd_morph_alloc_identity (b : HWB) (w : word InstrSz) : type (Bool) :=
+  evalExpr ((Var type (SyntaxKind (Bool)) (dd_morph_id_success b w)) || (Var type (SyntaxKind (Bool)) (dd_morph_id_legacy_success b w)) || (Var type (SyntaxKind (Bool)) (dd_mc_compose_both_id b w)))%kami_expr.
 Definition dd_mc_needs_join (b : HWB) (w : word InstrSz) : type (Bool) :=
   evalExpr ((Var type (SyntaxKind (Bool)) (dd_mc_compose_active b w)) && !(Var type (SyntaxKind (Bool)) (dd_mc_compose_is_id1 b w)) && !(Var type (SyntaxKind (Bool)) (dd_mc_compose_is_id2 b w)))%kami_expr.
 Definition dd_mc_needs_copy (b : HWB) (w : word InstrSz) : type (Bool) :=
@@ -501,9 +503,9 @@ Definition dd_mc_mask1 (b : HWB) (w : word InstrSz) : type (Bit WordSz) :=
 Definition dd_mc_mask2 (b : HWB) (w : word InstrSz) : type (Bit WordSz) :=
   evalExpr (IF (Var type (SyntaxKind (Bool)) (dd_mc_label2_valid b w)) then (Var type (SyntaxKind (Vector (Bit WordSz) CouplingDescIdxSz)) (hw_coupling_desc_label_table b))@[(Var type (SyntaxKind (Bit DescIdxSz)) (dd_mc_src2_desc b w))] else $1)%kami_expr.
 Definition dd_mc_new_len (b : HWB) (w : word InstrSz) : type (Bit 6) :=
-  evalExpr (IF (Var type (SyntaxKind (Bool)) (dd_mc_compose_active b w)) then ((Var type (SyntaxKind (Bit 6)) (dd_mc_len1 b w)) + (Var type (SyntaxKind (Bit 6)) (dd_mc_len2 b w))) else $1)%kami_expr.
+  evalExpr (IF (Var type (SyntaxKind (Bool)) (dd_mc_compose_both_id b w)) then $1 else (IF (Var type (SyntaxKind (Bool)) (dd_mc_compose_active b w)) then ((Var type (SyntaxKind (Bit 6)) (dd_mc_len1 b w)) + (Var type (SyntaxKind (Bit 6)) (dd_mc_len2 b w))) else $1))%kami_expr.
 Definition dd_mc_new_label (b : HWB) (w : word InstrSz) : type (Bit WordSz) :=
-  evalExpr (IF (Var type (SyntaxKind (Bool)) (dd_mc_compose_active b w)) then ((Var type (SyntaxKind (Bit WordSz)) (dd_mc_mask1 b w)) + BinBit (Sll WordSz 6) (Var type (SyntaxKind (Bit WordSz)) (dd_mc_mask2 b w)) (Var type (SyntaxKind (Bit 6)) (dd_mc_len1 b w))) else $0)%kami_expr.
+  evalExpr (IF (Var type (SyntaxKind (Bool)) (dd_mc_compose_both_id b w)) then $1 else (IF (Var type (SyntaxKind (Bool)) (dd_mc_compose_active b w)) then ((Var type (SyntaxKind (Bit WordSz)) (dd_mc_mask1 b w)) + BinBit (Sll WordSz 6) (Var type (SyntaxKind (Bit WordSz)) (dd_mc_mask2 b w)) (Var type (SyntaxKind (Bit 6)) (dd_mc_len1 b w))) else $0))%kami_expr.
 Definition dd_mc_new_phase (b : HWB) (w : word InstrSz) : type (Bit 4) :=
   evalExpr (IF (Var type (SyntaxKind (Bool)) (dd_morph_alloc_success b w)) then $$(WO~0~0~0~1) else (IF (Var type (SyntaxKind (Bool)) (dd_mc_needs_copy b w)) then $$(WO~0~1~0~0) else (IF (Var type (SyntaxKind (Bool)) (dd_mc_needs_join b w)) then $$(WO~0~1~1~1) else $$(WO~0~0~0~0))))%kami_expr.
 Definition dd_mc_write_base_d (b : HWB) (w : word InstrSz) : type (Bit DescTableNextIdSz) :=

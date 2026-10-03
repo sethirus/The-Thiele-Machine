@@ -2,7 +2,7 @@
     tables, needed as premises by [StepRefineMorph], [StepFaults] and
     [CouplingComposeKami]/[CouplingComposeRetire].
 
-    [hwb_table_invariants] bundles the nine table predicates already named
+    [hwb_table_invariants] bundles the eight table predicates already named
     in those files. [hwb_table_invariants_reset]: they all hold at the reset
     boundary (the two valid-tables reset to all-false and the two
     pair/descriptor pointers reset to 0/1, so every implication is vacuous
@@ -36,7 +36,7 @@
     base/count/valid/next_id updates at exactly the current allocation
     pointer, which is what each invariant needs; [adm_morph_ext_fault] and
     [adm_compose_ext_fault] are frame ([CouplingFaults.v]: tables unchanged).
-    A tenth invariant, "1 <= coupling_desc_next_id", is needed alongside
+    A ninth invariant, "1 <= coupling_desc_next_id", is needed alongside
     [hwb_coupling_desc_zero_invalid] to know a fresh allocation index is
     never 0; DispatchReset.v's value 1 plus the single "+1" write site
     (mc_commit) gives it directly. *)
@@ -66,7 +66,6 @@ Definition hwb_table_invariants (b : HWB) : Prop :=
   hwb_desc_pairs_below_next b /\
   hwb_pairs_valid_below_next b /\
   hwb_desc_zero_empty b /\
-  hwb_identity_desc_zero b /\
   hwb_labels_represented b /\
   hwb_coupling_desc_next_id_ge1 b.
 
@@ -118,7 +117,6 @@ Proof.
   split. { intros d H. rewrite Ecv in H. discriminate H. }
   split. { intros k H. exfalso. rewrite Epn in H. cbn in H. lia. }
   split. { unfold hwb_desc_zero_empty. split. { rewrite Ecb. reflexivity. } { rewrite Ecc. reflexivity. } }
-  split. { intros m H. rewrite Emv in H. discriminate H. }
   split. { intros d H. rewrite Ecv in H. discriminate H. }
   { unfold hwb_coupling_desc_next_id_ge1. rewrite Edn. cbn. lia. }
 Qed.

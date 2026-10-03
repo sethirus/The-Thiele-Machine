@@ -179,12 +179,12 @@ DESC = 'split1 4 1 (hw_coupling_desc_next_id b)'
 PAIR_NEXT = 'hw_coupling_pair_next_id b'
 
 
-def alloc_rows(src, dst, desc, label, phase, length='natToWord 6 1'):
+def alloc_rows(src, dst, desc, label, phase, length='natToWord 6 1', identity='false'):
     return {'regs': upd('hw_regs b', 'AL', f'zext ({SLOT}) 28'),
             'morph_src_table': upd('hw_morph_src_table b', SLOT, src),
             'morph_dst_table': upd('hw_morph_dst_table b', SLOT, dst),
             'morph_coupling_desc_table': upd('hw_morph_coupling_desc_table b', SLOT, desc),
-            'morph_identity_table': upd('hw_morph_identity_table b', SLOT, 'false'),
+            'morph_identity_table': upd('hw_morph_identity_table b', SLOT, identity),
             'morph_valid_table': upd('hw_morph_valid_table b', SLOT, 'true'),
             'morph_next_id': 'wplus (hw_morph_next_id b) (natToWord MorphTableNextIdSz 1)',
             'coupling_desc_label_table': upd('hw_coupling_desc_label_table b', DESC, label),
@@ -221,10 +221,16 @@ def compose_ext():
 
     def count(d):
         return f'hw_coupling_desc_count_table b ({d})'
+    # The composite of two identities is an identity whose descriptor holds
+    # the single "empty" label atom (count 1, mask 1).
+    def unless_both(one, other):
+        return f'if {id1} then (if {id2} then {one} else {other}) else {other}'
     rows = alloc_rows(f'hw_morph_src_table b {m1}', f'hw_morph_dst_table b ({m2})', DESC,
-                      f'wplus {mask(d1)} (wlshift {mask(d2)} (wordToNat {length(d1)}))',
+                      unless_both('natToWord WordSz 1',
+                                  f'wplus {mask(d1)} (wlshift {mask(d2)} (wordToNat {length(d1)}))'),
                       f'if {id1} then natToWord 4 4 else if {id2} then natToWord 4 4 else natToWord 4 7',
-                      f'wplus {length(d1)} {length(d2)}')
+                      unless_both('natToWord 6 1', f'wplus {length(d1)} {length(d2)}'),
+                      f'if {id1} then {id2} else false')
     zero = 'natToWord CouplingPairCountSz 0'
     rows['mc_src1_count'] = f'if {id1} then {zero} else {count(d1)}'
     rows['mc_src2_count'] = f'if {id2} then {zero} else {count(d2)}'

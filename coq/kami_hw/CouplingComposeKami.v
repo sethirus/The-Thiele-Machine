@@ -4,7 +4,9 @@
     naturals, relational composition over naturals is the hardware join over
     words, a descriptor's label is the atom list its count and mask encode
     ("empty" for a morphism without a valid descriptor), and composing two
-    labels is the hardware's count addition and shifted mask addition. *)
+    labels is the hardware's count addition and shifted mask addition. The
+    composite of two identities is an identity with no pairs and the single
+    "empty" atom, as the kernel stores MORPH_ID's arrow. *)
 Require Import Kami.Kami Kami.Semantics Kami.Lib.NatLib.
 From Coq Require Import String List Arith Lia Bool FunctionalExtensionality.
 Import ListNotations.
@@ -33,11 +35,6 @@ Definition hwb_pairs_valid_below_next (b : HWB) : Prop :=
 Definition hwb_desc_zero_empty (b : HWB) : Prop :=
   hw_coupling_desc_base_table b (natToWord CouplingDescIdxSz 0) = natToWord CouplingPairIdxSz 0 /\
   hw_coupling_desc_count_table b (natToWord CouplingDescIdxSz 0) = natToWord CouplingPairCountSz 0.
-
-(** A valid morphism flagged identity refers to descriptor 0. *)
-Definition hwb_identity_desc_zero (b : HWB) : Prop :=
-  forall m, hw_morph_valid_table b m = true -> hw_morph_identity_table b m = true ->
-  hw_morph_coupling_desc_table b m = natToWord DescIdxSz 0.
 
 (** A valid descriptor stores between 1 and 32 atoms and a mask within its
     atom count. *)
@@ -227,12 +224,14 @@ Proof.
   rewrite !hwb_vector_nat_at. reflexivity.
 Qed.
 
-(** The kernel's raw composed pairs over the hardware tables: the other side's
-    pairs when one side is an identity, their relational join otherwise. *)
+(** The kernel's raw composed pairs over the hardware tables: none when both
+    sides are identities, the other side's pairs when one side is an identity,
+    their relational join otherwise. *)
 Definition compose_pairs (b : HWB) (M1 M2 : word MorphTableIdxSz) : list coupling_pair :=
   let d1 := hw_morph_coupling_desc_table b M1 in
   let d2 := hw_morph_coupling_desc_table b M2 in
-  if hw_morph_identity_table b M1 then hw_desc_slice b d2
+  if andb (hw_morph_identity_table b M1) (hw_morph_identity_table b M2) then nil
+  else if hw_morph_identity_table b M1 then hw_desc_slice b d2
   else if hw_morph_identity_table b M2 then hw_desc_slice b d1
   else relational_word_join (hw_desc_slice b d1) (hw_desc_slice b d2).
 
@@ -244,18 +243,20 @@ Theorem kami_step_compose_hw : forall b dst (M1 M2 : word MorphTableIdxSz) cost,
   hw_morph_dst_table b M1 = hw_morph_src_table b M2 ->
   let d1 := hw_morph_coupling_desc_table b M1 in
   let d2 := hw_morph_coupling_desc_table b M2 in
+  let both := andb (hw_morph_identity_table b M1) (hw_morph_identity_table b M2) in
   let raw := compose_pairs b M1 M2 in
-  let lab := (atom_label (wordToNat (hw_label_len b d1)) (wordToNat (hw_label_word b d1)) ++ ";" ++
-              atom_label (wordToNat (hw_label_len b d2)) (wordToNat (hw_label_word b d2)))%string in
+  let lab := if both then coupling_label empty_coupling_data
+             else (atom_label (wordToNat (hw_label_len b d1)) (wordToNat (hw_label_word b d1)) ++ ";" ++
+                   atom_label (wordToNat (hw_label_len b d2)) (wordToNat (hw_label_word b d2)))%string in
   kami_step (hwb_snapshot b) (instr_compose dst (wordToNat M1) (wordToNat M2) cost) =
   kami_advance_rich_morph (hwb_snapshot b) dst
     (snd (rich_state_add_morph_with_coupling (hwb_rich b) (wordToNat (hw_morph_src_table b M1))
-       (wordToNat (hw_morph_dst_table b M2)) (map natpair (nodup coupling_pair_eq_dec raw)) lab false))
+       (wordToNat (hw_morph_dst_table b M2)) (map natpair (nodup coupling_pair_eq_dec raw)) lab both))
     cost
     (fst (rich_state_add_morph_with_coupling (hwb_rich b) (wordToNat (hw_morph_src_table b M1))
-       (wordToNat (hw_morph_dst_table b M2)) (map natpair (nodup coupling_pair_eq_dec raw)) lab false)).
+       (wordToNat (hw_morph_dst_table b M2)) (map natpair (nodup coupling_pair_eq_dec raw)) lab both)).
 Proof.
-  intros b dst M1 M2 cost Hr Hz Hz0 Hd Hv H16 V1 V2 Hmatch d1 d2 raw lab.
+  intros b dst M1 M2 cost Hr Hz Hz0 Hd Hv H16 V1 V2 Hmatch d1 d2 both raw lab.
   unfold kami_step. change (snap_rich_state (hwb_snapshot b)) with (hwb_rich b).
   rewrite (rich_morph_at b M1 V1), (rich_morph_at b M2 V2).
   cbv beta iota zeta.
@@ -265,13 +266,15 @@ Proof.
   unfold morph_coupling_label. cbn [morph_entry_coupling_desc].
   rewrite !desc_label_hw.
   unfold normalize_coupling. cbn [coupling_pairs].
-  fold d1 d2. fold lab.
-  assert (Raw : (if hw_morph_identity_table b M1 then map natpair (hw_desc_slice b d2)
+  fold d1 d2. fold both. fold lab.
+  assert (Raw : (if both then nil
+                 else if hw_morph_identity_table b M1 then map natpair (hw_desc_slice b d2)
                  else if hw_morph_identity_table b M2 then map natpair (hw_desc_slice b d1)
                  else relational_compose (map natpair (hw_desc_slice b d1)) (map natpair (hw_desc_slice b d2))) =
                 map natpair raw).
-  { unfold raw, compose_pairs. fold d1 d2. destruct (hw_morph_identity_table b M1); [reflexivity|].
-    destruct (hw_morph_identity_table b M2); [reflexivity|]. apply relational_compose_natpair. }
+  { unfold raw, compose_pairs, both. fold d1 d2.
+    destruct (hw_morph_identity_table b M1), (hw_morph_identity_table b M2); try reflexivity.
+    apply relational_compose_natpair. }
   rewrite Raw, nodup_map_natpair.
   destruct (rich_state_add_morph_with_coupling _ _ _ _ _ _). reflexivity.
 Qed.

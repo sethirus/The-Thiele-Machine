@@ -225,6 +225,26 @@ class TestMorphCompose:
         # mu: PNEW×3 (3) + MORPH×2 (2) + COMPOSE (1) = 6
         assert state.mu == 6
 
+    def test_compose_of_two_identities_is_an_identity(self):
+        """id;id is stored as the identity of its object, as MORPH_ID stores one."""
+        state = vm.run_vm([
+            "PNEW {5,6} 1",       # module 1
+            "MORPH_ID 3 1 0",     # identity on module 1, ID=1
+            "MORPH_ID 4 1 0",     # identity on module 1, ID=2
+            "COMPOSE 7 1 2 0",    # id;id, ID=3
+            "MORPH_GET 8 3 3 0",  # selector=3 (is_identity flag) of morph 3
+            "HALT 0",
+        ])
+        assert not state.err
+        assert state.regs[7] == 3
+        assert state.regs[8] == 1
+        composite = dict(state.graph.pg_morphisms)[3]
+        identity = dict(state.graph.pg_morphisms)[1]
+        assert composite.morph_is_identity
+        assert composite.morph_source == 1 and composite.morph_target == 1
+        assert composite.morph_coupling.coupling_pairs == []
+        assert composite.morph_coupling.coupling_label == identity.morph_coupling.coupling_label
+
     def test_compose_type_mismatch_errors(self):
         """COMPOSE fails when m1.target != m2.source."""
         state = vm.run_vm([

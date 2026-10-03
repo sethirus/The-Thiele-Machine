@@ -780,16 +780,14 @@ Section ThieleCPU.
           IF #mc_enters_fsm
           then UniBit (Trunc DescIdxSz _) #coupling_desc_next_id_v
           else $0;
-        LET morph_alloc_identity <- #morph_id_success || #morph_id_legacy_success;
 
         (* Morphism-coupling FSM (M5): which existing descriptors COMPOSE
            reads from. m1 always comes from morph_lookup_idx; m2 comes from
            ext_compose_m2 (extended COMPOSE) or morph_zero_idx (legacy
-           COMPOSE, m2 is always slot 0). Identity morphisms always carry empty
-           coupling by construction (MORPH_ID always allocates coupling_desc
-           0), so COMPOSE's identity shortcut is realized by zeroing that
-           side's pair count rather than by a separate code path: the shared
-           copy loop then naturally copies only the non-identity side. *)
+           COMPOSE, m2 is always slot 0). COMPOSE's identity shortcut is
+           realized by zeroing an identity side's pair count rather than by a
+           separate code path: the shared copy loop then copies only the
+           non-identity side, and nothing when both sides are identities. *)
         LET mc_compose_active <- #compose_success || #legacy_compose_success;
         LET mc_m1_id : Bit MorphTableIdxSz <- #morph_lookup_idx;
         LET mc_m2_id : Bit MorphTableIdxSz <-
@@ -797,6 +795,13 @@ Section ThieleCPU.
 
         LET mc_compose_is_id1 <- #morph_identity_table_v@[#mc_m1_id];
         LET mc_compose_is_id2 <- #morph_identity_table_v@[#mc_m2_id];
+        (* The composite of two identities is an identity: its slot gets the
+           identity bit, its descriptor holds no pairs and the single "empty"
+           label atom, as the kernel stores MORPH_ID's arrow. *)
+        LET mc_compose_both_id <-
+          #mc_compose_active && #mc_compose_is_id1 && #mc_compose_is_id2;
+        LET morph_alloc_identity <-
+          #morph_id_success || #morph_id_legacy_success || #mc_compose_both_id;
         LET mc_needs_join <-
           #mc_compose_active && !#mc_compose_is_id1 && !#mc_compose_is_id2;
         LET mc_needs_copy <-
@@ -831,9 +836,11 @@ Section ThieleCPU.
         LET mc_mask2 : Bit WordSz <-
           IF #mc_label2_valid then #coupling_desc_label_table_v@[#mc_src2_desc] else $1;
         LET mc_new_len : Bit 6 <-
-          IF #mc_compose_active then (#mc_len1 + #mc_len2) else $1;
+          IF #mc_compose_both_id then $1
+          else (IF #mc_compose_active then (#mc_len1 + #mc_len2) else $1);
         LET mc_new_label : Bit WordSz <-
-          IF #mc_compose_active then (#mc_mask1 + BinBit (Sll WordSz 6) #mc_mask2 #mc_len1) else $0;
+          IF #mc_compose_both_id then $1
+          else (IF #mc_compose_active then (#mc_mask1 + BinBit (Sll WordSz 6) #mc_mask2 #mc_len1) else $0);
 
         LET mc_new_phase : Bit 4 <-
           IF #morph_alloc_success then $$(WO~0~0~0~1)
