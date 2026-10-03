@@ -275,19 +275,6 @@ Proof.
   nia.
 Qed.
 
-(** PROVEN: Sighted wins on combined cost for any λ less than the crossover.
-    Crossover λ is where 2*N + 2*λ = N*N, i.e., λ = (N*N - 2*N) / 2.
-    Reformulated without nat subtraction: if 2*N + 2*λ + 1 <= N*N, sighted wins. *)
-Theorem sighted_wins_combined_cost :
-  forall N lambda : nat,
-    N >= 2 ->
-    2 * N + 2 * lambda < N * N ->  (* reformulated without nat sub *)
-    2 * N + 2 * lambda < N * N + 0 * lambda.
-Proof.
-  intros N lambda HN Hlt.
-  lia.
-Qed.
-
 (** PROVEN: The crossover lambda (at which sighted wins) grows at least
     linearly with N. For N ≥ 3, the crossover exceeds N itself.
 
@@ -301,14 +288,6 @@ Theorem crossover_lambda_grows_with_n :
 Proof.
   intros N HN. nia.
 Qed.
-(** PROVEN: μ-cost is O(1) in N (constant 18). *)
-Theorem sighted_mu_cost_is_constant :
-  forall N : nat,
-    18 = 18.  (* trivially *)
-Proof.
-  reflexivity.
-Qed.
-
 (** STRONGER: The savings grow as Ω(N²) while cost is O(1).
     Reformulated: N*N > 2*N + 18 for all N ≥ 6.
     (For N=6: 36 > 12+18=30 ✓; exact threshold since N(N-2)>18 requires N≥6.) *)
@@ -318,87 +297,6 @@ Theorem iteration_savings_dwarfs_mu_cost :
     N * N > 2 * N + 18.
 Proof.
   intros N HN. nia.
-Qed.
-
-(**
-
-    The theorems below state what the Python tests empirically measure
-    but require loop-invariant arguments to establish operationally in
-    Coq. They are stated as conditional theorems — the iteration counts
-    are taken as hypotheses (e.g.
-    [exists sf_blind, nth 15 sf_blind.(vm_regs) 0 = N * N]) — and the
-    consequences (μ-arithmetic, combined-cost crossover, savings) are
-    discharged by [lia]/[nia].
-
-    The discharge of those iteration-count hypotheses themselves — i.e.
-    proving via loop-invariant induction that [blind_program] really
-    iterates [N²] times on N×N inputs and [sighted_program] really
-    iterates [2N] times — is NOT carried out in this file. Anyone using
-    [time_tax_theorem_conditional] downstream must supply the iteration
-    witnesses externally (e.g., from the Python harness or from a
-    future loop-invariant proof). The arithmetic side is closed; the
-    operational-semantics side stays a hypothesis. *)
-
-(** Termination predicate: program terminates at state sf with PC out of bounds.
-
-    In bounded_run, programs terminate when nth_error trace vm_pc = None.
-    The last state in the list has vm_pc >= length(trace).
-    blind_program has length 10, so termination_pc = 10.
-    sighted_program has length 20, so termination_pc = 20. *)
-Definition terminates_at (fuel : nat)
-                          (trace : list vm_instruction)
-                          (s0 sf : VMState) : Prop :=
-  exists steps : nat,
-    nth_error (bounded_run fuel trace s0) steps = Some sf /\
-    List.length trace <= sf.(vm_pc).  (* PC out of bounds = program done *)
-
-(** Loop termination facts for blind_program and sighted_program.
-
-    These are operationally validated by tests/test_structural_advantage.py
-    (OCaml VM measures exact r15=N², vm_mu=0 for blind; r15=2N, vm_mu=18 for
-    sighted, for N∈{4,8,16,32}). Formal Coq proofs via loop invariant
-    induction are given below.
-
-    The time_tax_theorem_conditional below is stated conditionally on these
-    facts, making the dependency structure explicit. *)
-
-(**
-
-    Given the proof obligations above (operationally verified on the VM),
-    the following corollary follows by pure arithmetic.
-    *)
-
-(** time_tax_theorem: For N×N factored search,
-    the sighted program pays constant μ-cost while saving Θ(N²) iterations.
-
-    This is the TIME TAX made precise: certified structural knowledge costs
-    exactly 18 μ-units and saves N² - 2N compute steps.
-
-    For large N, the saving dominates:
-    - For any fixed λ ≥ 0: sighted wins combined cost when N > 2(λ+1).
-    - The advantage grows without bound.
-
-    COROLLARY OF: blind_halts_in_n_squared + sighted_halts_in_two_n +
-                  the arithmetic theorems above.
-*)
-Theorem time_tax_theorem_conditional :
-  forall (N lambda : nat),
-    N >= 2 ->
-    (* Given: blind program measures N² iterations *)
-    (exists sf_blind,
-      List.nth 15 sf_blind.(vm_regs) 0 = N * N /\
-      sf_blind.(vm_mu) = 0) ->
-    (* Given: sighted program measures 2N iterations and 18 μ *)
-    (exists sf_sighted,
-      List.nth 15 sf_sighted.(vm_regs) 0 = 2 * N /\
-      sf_sighted.(vm_mu) = 18) ->
-    (* For 2*N + 2*λ < N*N, sighted wins on combined cost *)
-    2 * N + 2 * lambda < N * N ->
-    2 * N + 2 * lambda < N * N + 0 * lambda.
-Proof.
-  intros N lambda HN [sf_blind [Hblind_iters Hblind_mu]]
-         [sf_sighted [Hsighted_iters Hsighted_mu]] Hlt.
-  lia.
 Qed.
 
 (** COROLLARY: The savings (blind - sighted iterations) grow super-linearly.
@@ -980,14 +878,12 @@ Qed.
 (**
 
     For N=1 (1×1 grid), blind_program(0) and sighted_program(0,0) are
-    fully evaluated by Coq's vm_compute kernel.  This grounds the algebraic
-    predictions in concrete machine execution.
+    fully evaluated by Coq's vm_compute kernel.
 
-    N≥2 cases involve word64_sub on unequal arguments, which produces
-    two's-complement results near 2^64 — unary nat representation makes
-    that infeasible for kernel reduction.  The general case is validated
-    on the OCaml VM by tests/test_structural_advantage.py and covered
-    by time_tax_theorem_conditional above.
+    For N >= 2 the SUB of unequal values is a two's-complement word near
+    2^64, too large to compute in unary. The runs for every target are
+    proved below by loop invariants instead (blind_program_run,
+    sighted_program_run), and time_tax_theorem states the N by N case.
     *)
 
 (** blind_halts_in_n_squared: For N=1, blind_program(0) terminates
@@ -1007,6 +903,660 @@ Theorem sighted_halts_in_two_n :
   s.(vm_mu) = 18 /\
   s.(vm_pc) >= List.length (sighted_program 0 0).
 Proof. vm_compute. split; [reflexivity | split; [reflexivity | lia]]. Qed.
+
+(** * Loop proofs for every target *)
+
+(** * Word arithmetic below 2^64 *)
+
+Lemma nat_lt_pow64_N : forall a, a < 2 ^ 64 -> (N.of_nat a < 2 ^ 64)%N.
+Proof.
+  intros a Ha.
+  change 2%N with (N.of_nat 2). change 64%N with (N.of_nat 64).
+  rewrite <- Nnat.Nat2N.inj_pow.
+  rewrite <- N.compare_lt_iff, <- Nnat.Nat2N.inj_compare, Nat.compare_lt_iff.
+  exact Ha.
+Qed.
+
+Lemma word64_sub_word64 : forall a b, word64 (word64_sub a b) = word64_sub a b.
+Proof.
+  intros a b. unfold word64, word64_sub.
+  rewrite Nnat.N2Nat.id. f_equal.
+  rewrite <- N.land_assoc, N.land_diag. reflexivity.
+Qed.
+
+Lemma word64_sub_zero_iff : forall a b,
+  a < 2 ^ 64 -> b < 2 ^ 64 -> (word64_sub a b = 0 <-> a = b).
+Proof.
+  intros a b Ha Hb.
+  pose proof (nat_lt_pow64_N a Ha) as HA.
+  pose proof (nat_lt_pow64_N b Hb) as HB.
+  unfold word64_sub. rewrite (word64_sa_small a Ha), (word64_sa_small b Hb).
+  assert (Hnot : N.lxor (N.of_nat b) word64_mask = (N.ones 64 - N.of_nat b)%N).
+  { unfold word64_mask. change (N.lxor (N.of_nat b) (N.ones 64)) with (N.lnot (N.of_nat b) 64).
+    apply N.lnot_sub_low.
+    destruct (N.eq_dec (N.of_nat b) 0) as [Hz|Hnz].
+    - rewrite Hz. reflexivity.
+    - apply N.log2_lt_pow2; [lia|exact HB]. }
+  rewrite Hnot. unfold word64_mask. rewrite N.land_ones, N.ones_equiv.
+  set (P := (2 ^ 64)%N) in *.
+  assert (HP : (0 < P)%N) by (unfold P; lia).
+  set (A := N.of_nat a) in *. set (B := N.of_nat b) in *.
+  replace (A + (N.pred P - B + 1))%N with (A + P - B)%N by lia.
+  split.
+  - intro H0.
+    assert (Hm : ((A + P - B) mod P = 0)%N).
+    { apply (f_equal N.of_nat) in H0. rewrite Nnat.N2Nat.id in H0. exact H0. }
+    pose proof (N.div_mod (A + P - B) P ltac:(lia)) as Hdm.
+    rewrite Hm in Hdm.
+    assert (Hq : ((A + P - B) / P < 2)%N).
+    { apply N.Div0.div_lt_upper_bound; lia. }
+    assert (Hq1 : ((A + P - B) / P <> 0)%N).
+    { intro Hq0. rewrite Hq0 in Hdm. lia. }
+    assert (HAB : A = B) by nia.
+    apply Nnat.Nat2N.inj. exact HAB.
+  - intro Hab. subst b. fold A in B. unfold B.
+    replace (A + P - A)%N with P by lia.
+    rewrite N.Div0.mod_same. reflexivity.
+Qed.
+
+Lemma two_lt_pow64 : 2 < 2 ^ 64.
+Proof. change 2 with (2 ^ 1) at 1. apply Nat.pow_lt_mono_r; lia. Qed.
+
+Lemma word64_add_small : forall a b, a + b < 2 ^ 64 -> word64_add a b = a + b.
+Proof. intros a b H. unfold word64_add. apply word64_sa_small. exact H. Qed.
+
+(** * One counting-loop iteration *)
+
+(** A program state at the head [h] of a counting loop: counter register [c]
+    holds [i], target register [tg] holds [t], r10 holds 1, r15 holds [n]. *)
+Definition loop_at (h c tg i t n : nat) (s : VMState) : Prop :=
+  vm_pc s = h /\ List.length (vm_regs s) = REG_COUNT /\
+  read_reg s c = i /\ read_reg s tg = t /\ read_reg s 10 = 1 /\ read_reg s 15 = n.
+
+Lemma reg_lt : forall r s,
+  List.length (vm_regs s) = REG_COUNT -> r < REG_COUNT -> r < List.length (vm_regs s).
+Proof. intros r s H Hr. rewrite H. exact Hr. Qed.
+
+Ltac regs_bound := unfold REG_COUNT in *; lia.
+
+Lemma read_add_same : forall s d a b cost,
+  List.length (vm_regs s) = REG_COUNT -> d < REG_COUNT ->
+  read_reg s a + read_reg s b < 2 ^ 64 ->
+  read_reg (vm_apply s (instr_add d a b cost)) d = read_reg s a + read_reg s b.
+Proof.
+  intros s d a b cost Hl Hd Hlt.
+  rewrite vm_apply_add_reg by (try apply reg_lt; assumption).
+  rewrite word64_add_small by exact Hlt. apply word64_sa_small. exact Hlt.
+Qed.
+
+Lemma mu_add : forall s d a b, vm_mu (vm_apply s (instr_add d a b 0)) = vm_mu s.
+Proof. intros. unfold vm_apply, advance_state_rm, apply_cost. simpl. lia. Qed.
+Lemma mu_sub : forall s d a b, vm_mu (vm_apply s (instr_sub d a b 0)) = vm_mu s.
+Proof. intros. unfold vm_apply, advance_state_rm, apply_cost. simpl. lia. Qed.
+Lemma mu_load_imm : forall s d v, vm_mu (vm_apply s (instr_load_imm d v 0)) = vm_mu s.
+Proof. intros. unfold vm_apply, advance_state_rm, apply_cost. simpl. lia. Qed.
+Lemma mu_jump : forall s tg, vm_mu (vm_apply s (instr_jump tg 0)) = vm_mu s.
+Proof. intros. unfold vm_apply, jump_state, apply_cost. simpl. lia. Qed.
+Lemma mu_jnez : forall s r tg, vm_mu (vm_apply s (instr_jnez r tg 0)) = vm_mu s.
+Proof.
+  intros. rewrite vm_apply_jnez.
+  destruct (read_reg s r =? 0); unfold advance_state, jump_state, apply_cost; simpl; lia.
+Qed.
+
+Section CountingLoop.
+  Variables (prog : list vm_instruction) (h j c tg : nat).
+  Hypothesis H_h0 : nth_error prog h = Some (instr_add 15 15 10 0).
+  Hypothesis H_h1 : nth_error prog (S h) = Some (instr_sub 8 c tg 0).
+  Hypothesis H_h2 : nth_error prog (S (S h)) = Some (instr_jnez 8 j 0).
+  Hypothesis H_j0 : nth_error prog j = Some (instr_add c c 10 0).
+  Hypothesis H_j1 : nth_error prog (S j) = Some (instr_jump h 0).
+  Hypothesis H_c : c < REG_COUNT.
+  Hypothesis H_tg : tg < REG_COUNT.
+  Hypothesis H_c8 : c <> 8.
+  Hypothesis H_c10 : c <> 10.
+  Hypothesis H_c15 : c <> 15.
+  Hypothesis H_tg8 : tg <> 8.
+  Hypothesis H_tgc : tg <> c.
+  Hypothesis H_tg15 : tg <> 15.
+
+  (** One pass through the loop body when the counter is below the target. *)
+  Lemma loop_iteration : forall i t n s,
+    loop_at h c tg i t n s -> i < t -> t < 2 ^ 64 -> n + 1 < 2 ^ 64 ->
+    loop_at h c tg (S i) t (S n) (run_vm 5 prog s) /\
+    vm_mu (run_vm 5 prog s) = vm_mu s /\
+    (forall r, r < REG_COUNT -> r <> 8 -> r <> c -> r <> 15 ->
+       read_reg (run_vm 5 prog s) r = read_reg s r).
+  Proof.
+    intros i t n s [Hpc [Hl [Hi [Ht [H10 H15]]]]] Hit Ht64 Hn64.
+    set (s1 := vm_apply s (instr_add 15 15 10 0)).
+    set (s2 := vm_apply s1 (instr_sub 8 c tg 0)).
+    set (s3 := vm_apply s2 (instr_jnez 8 j 0)).
+    set (s4 := vm_apply s3 (instr_add c c 10 0)).
+    set (s5 := vm_apply s4 (instr_jump h 0)).
+    assert (Hl1 : List.length (vm_regs s1) = REG_COUNT).
+    { unfold s1. rewrite vm_apply_preserves_reg_length_add;
+        [exact Hl | apply reg_lt; [exact Hl | regs_bound] | regs_bound]. }
+    assert (Hl2 : List.length (vm_regs s2) = REG_COUNT).
+    { unfold s2. rewrite vm_apply_preserves_reg_length_sub;
+        [exact Hl1 | apply reg_lt; [exact Hl1 | regs_bound] | regs_bound]. }
+    assert (Hl3 : List.length (vm_regs s3) = REG_COUNT).
+    { unfold s3. rewrite vm_apply_preserves_reg_length_jnez. exact Hl2. }
+    assert (Hl4 : List.length (vm_regs s4) = REG_COUNT).
+    { unfold s4. rewrite vm_apply_preserves_reg_length_add;
+        [exact Hl3 | apply reg_lt; [exact Hl3 | exact H_c] | exact H_c]. }
+    assert (Hl5 : List.length (vm_regs s5) = REG_COUNT).
+    { unfold s5. rewrite vm_apply_preserves_reg_length_jump. exact Hl4. }
+    assert (R1 : forall r, r < REG_COUNT -> r <> 15 -> read_reg s1 r = read_reg s r).
+    { intros r Hr Hr15. unfold s1.
+      apply vm_apply_add_other;
+        [apply reg_lt; [exact Hl | regs_bound] | apply reg_lt; [exact Hl | exact Hr]
+        | regs_bound | exact Hr | lia]. }
+    assert (R1_15 : read_reg s1 15 = S n).
+    { unfold s1. rewrite read_add_same; [lia | exact Hl | regs_bound | lia]. }
+    assert (R2 : forall r, r < REG_COUNT -> r <> 8 -> read_reg s2 r = read_reg s1 r).
+    { intros r Hr Hr8. unfold s2.
+      apply vm_apply_sub_other;
+        [apply reg_lt; [exact Hl1 | regs_bound] | apply reg_lt; [exact Hl1 | exact Hr]
+        | regs_bound | exact Hr | lia]. }
+    assert (R2_8 : read_reg s2 8 <> 0).
+    { unfold s2. rewrite vm_apply_sub_reg by (try (apply reg_lt; [exact Hl1|]); regs_bound).
+      rewrite word64_sub_word64.
+      rewrite (R1 c H_c H_c15), (R1 tg H_tg H_tg15), Hi, Ht.
+      rewrite word64_sub_zero_iff by lia. lia. }
+    assert (Hpc1 : vm_pc s1 = S h) by (unfold s1; rewrite vm_apply_add_pc; lia).
+    assert (Hpc2 : vm_pc s2 = S (S h)) by (unfold s2; rewrite vm_apply_sub_pc; lia).
+    assert (Hpc3 : vm_pc s3 = j)
+      by (unfold s3; apply vm_apply_jnez_nonzero_pc; exact R2_8).
+    assert (R3 : forall r, read_reg s3 r = read_reg s2 r)
+      by (intro r; unfold s3; apply vm_apply_jnez_regs).
+    assert (Hpc4 : vm_pc s4 = S j) by (unfold s4; rewrite vm_apply_add_pc; lia).
+    assert (R4 : forall r, r < REG_COUNT -> r <> c -> read_reg s4 r = read_reg s3 r).
+    { intros r Hr Hrc. unfold s4.
+      apply vm_apply_add_other;
+        [apply reg_lt; [exact Hl3 | exact H_c] | apply reg_lt; [exact Hl3 | exact Hr]
+        | exact H_c | exact Hr | auto]. }
+    assert (Hc3 : read_reg s3 c = i).
+    { rewrite R3, (R2 c H_c H_c8), (R1 c H_c H_c15). exact Hi. }
+    assert (H103 : read_reg s3 10 = 1).
+    { rewrite R3, (R2 10) by regs_bound. rewrite (R1 10) by regs_bound. exact H10. }
+    assert (R4_c : read_reg s4 c = S i).
+    { unfold s4. rewrite read_add_same; [ | exact Hl3 | exact H_c | ];
+        rewrite Hc3, H103; lia. }
+    assert (Hpc5 : vm_pc s5 = h) by (unfold s5; apply vm_apply_jump_pc).
+    assert (R5 : forall r, read_reg s5 r = read_reg s4 r)
+      by (intro r; unfold s5; apply vm_apply_jump_regs).
+    assert (Hrun : run_vm 5 prog s = s5).
+    { rewrite (run_vm_step_instr 4 prog s (instr_add 15 15 10 0))
+        by (rewrite Hpc; exact H_h0).
+      fold s1.
+      rewrite (run_vm_step_instr 3 prog s1 (instr_sub 8 c tg 0))
+        by (rewrite Hpc1; exact H_h1).
+      fold s2.
+      rewrite (run_vm_step_instr 2 prog s2 (instr_jnez 8 j 0))
+        by (rewrite Hpc2; exact H_h2).
+      fold s3.
+      rewrite (run_vm_step_instr 1 prog s3 (instr_add c c 10 0))
+        by (rewrite Hpc3; exact H_j0).
+      fold s4.
+      rewrite (run_vm_step_instr 0 prog s4 (instr_jump h 0))
+        by (rewrite Hpc4; exact H_j1).
+      reflexivity. }
+    rewrite Hrun.
+    split; [|split].
+    - unfold loop_at. split; [exact Hpc5|]. split; [exact Hl5|].
+      rewrite !R5. split; [exact R4_c|].
+      rewrite (R4 tg H_tg H_tgc), (R4 10 ltac:(regs_bound) (not_eq_sym H_c10)),
+        (R4 15 ltac:(regs_bound) (not_eq_sym H_c15)).
+      rewrite !R3.
+      rewrite (R2 tg H_tg H_tg8), (R2 10 ltac:(regs_bound) ltac:(lia)),
+        (R2 15 ltac:(regs_bound) ltac:(lia)).
+      rewrite (R1 tg H_tg H_tg15), (R1 10 ltac:(regs_bound) ltac:(lia)).
+      split; [exact Ht|]. split; [exact H10|]. exact R1_15.
+    - unfold s5, s4, s3, s2, s1.
+      rewrite mu_jump, mu_add, mu_jnez, mu_sub, mu_add. reflexivity.
+    - intros r Hr Hr8 Hrc Hr15.
+      rewrite R5, (R4 r Hr Hrc), R3, (R2 r Hr Hr8), (R1 r Hr Hr15). reflexivity.
+  Qed.
+
+  (** k passes, as long as the counter stays at or below the target. *)
+  Lemma loop_iterations : forall k i t n s,
+    loop_at h c tg i t n s -> i + k <= t -> t < 2 ^ 64 -> n + k < 2 ^ 64 ->
+    loop_at h c tg (i + k) t (n + k) (run_vm (5 * k) prog s) /\
+    vm_mu (run_vm (5 * k) prog s) = vm_mu s /\
+    (forall r, r < REG_COUNT -> r <> 8 -> r <> c -> r <> 15 ->
+       read_reg (run_vm (5 * k) prog s) r = read_reg s r).
+  Proof.
+    induction k as [|k IH]; intros i t n s Hat Hk Ht Hn.
+    - rewrite !Nat.add_0_r. simpl. auto.
+    - destruct (loop_iteration i t n s Hat ltac:(lia) Ht ltac:(lia)) as [Hat1 [Hmu1 Hr1]].
+      destruct (IH (S i) t (S n) (run_vm 5 prog s) Hat1 ltac:(lia) Ht ltac:(lia))
+        as [Hat2 [Hmu2 Hr2]].
+      replace (5 * S k) with (5 + 5 * k) by lia.
+      rewrite run_vm_compose.
+      replace (i + S k) with (S i + k) by lia. replace (n + S k) with (S n + k) by lia.
+      split; [exact Hat2|]. split; [rewrite Hmu2; exact Hmu1|].
+      intros r Hr Hr8 Hrc Hr15. rewrite Hr2, Hr1 by assumption. reflexivity.
+  Qed.
+End CountingLoop.
+
+(** * Step facts for the instructions the two programs use *)
+
+Lemma load_imm_facts : forall s d v,
+  List.length (vm_regs s) = REG_COUNT -> d < REG_COUNT -> v < 2 ^ 64 ->
+  vm_pc (vm_apply s (instr_load_imm d v 0)) = S (vm_pc s) /\
+  List.length (vm_regs (vm_apply s (instr_load_imm d v 0))) = REG_COUNT /\
+  read_reg (vm_apply s (instr_load_imm d v 0)) d = v /\
+  (forall r, r < REG_COUNT -> r <> d ->
+     read_reg (vm_apply s (instr_load_imm d v 0)) r = read_reg s r) /\
+  vm_mu (vm_apply s (instr_load_imm d v 0)) = vm_mu s.
+Proof.
+  intros s d v Hl Hd Hv.
+  split; [apply vm_apply_load_imm_pc|].
+  split; [rewrite vm_apply_preserves_reg_length_load_imm;
+          [exact Hl | apply reg_lt; [exact Hl | exact Hd] | exact Hd]|].
+  split; [rewrite vm_apply_load_imm_reg by (try apply reg_lt; assumption);
+          apply word64_sa_small; exact Hv|].
+  split; [|apply mu_load_imm].
+  intros r Hr Hrd. apply vm_apply_load_imm_other;
+    [apply reg_lt; [exact Hl | exact Hd] | apply reg_lt; [exact Hl | exact Hr]
+    | exact Hd | exact Hr | auto].
+Qed.
+
+Lemma add_facts : forall s d a b,
+  List.length (vm_regs s) = REG_COUNT -> d < REG_COUNT ->
+  read_reg s a + read_reg s b < 2 ^ 64 ->
+  vm_pc (vm_apply s (instr_add d a b 0)) = S (vm_pc s) /\
+  List.length (vm_regs (vm_apply s (instr_add d a b 0))) = REG_COUNT /\
+  read_reg (vm_apply s (instr_add d a b 0)) d = read_reg s a + read_reg s b /\
+  (forall r, r < REG_COUNT -> r <> d ->
+     read_reg (vm_apply s (instr_add d a b 0)) r = read_reg s r) /\
+  vm_mu (vm_apply s (instr_add d a b 0)) = vm_mu s.
+Proof.
+  intros s d a b Hl Hd Hab.
+  split; [apply vm_apply_add_pc|].
+  split; [rewrite vm_apply_preserves_reg_length_add;
+          [exact Hl | apply reg_lt; [exact Hl | exact Hd] | exact Hd]|].
+  split; [apply read_add_same; assumption|].
+  split; [|apply mu_add].
+  intros r Hr Hrd. apply vm_apply_add_other;
+    [apply reg_lt; [exact Hl | exact Hd] | apply reg_lt; [exact Hl | exact Hr]
+    | exact Hd | exact Hr | auto].
+Qed.
+
+(** SUB of two equal values below 2^64 writes 0. *)
+Lemma sub_equal_facts : forall s d a b,
+  List.length (vm_regs s) = REG_COUNT -> d < REG_COUNT ->
+  read_reg s a = read_reg s b -> read_reg s a < 2 ^ 64 ->
+  vm_pc (vm_apply s (instr_sub d a b 0)) = S (vm_pc s) /\
+  List.length (vm_regs (vm_apply s (instr_sub d a b 0))) = REG_COUNT /\
+  read_reg (vm_apply s (instr_sub d a b 0)) d = 0 /\
+  (forall r, r < REG_COUNT -> r <> d ->
+     read_reg (vm_apply s (instr_sub d a b 0)) r = read_reg s r) /\
+  vm_mu (vm_apply s (instr_sub d a b 0)) = vm_mu s.
+Proof.
+  intros s d a b Hl Hd Hab Ha.
+  split; [apply vm_apply_sub_pc|].
+  split; [rewrite vm_apply_preserves_reg_length_sub;
+          [exact Hl | apply reg_lt; [exact Hl | exact Hd] | exact Hd]|].
+  split; [rewrite vm_apply_sub_reg by (try apply reg_lt; assumption);
+          rewrite word64_sub_word64; apply word64_sub_zero_iff; lia|].
+  split; [|apply mu_sub].
+  intros r Hr Hrd. apply vm_apply_sub_other;
+    [apply reg_lt; [exact Hl | exact Hd] | apply reg_lt; [exact Hl | exact Hr]
+    | exact Hd | exact Hr | auto].
+Qed.
+
+Lemma jnez_zero_facts : forall s r0 tg,
+  read_reg s r0 = 0 ->
+  vm_pc (vm_apply s (instr_jnez r0 tg 0)) = S (vm_pc s) /\
+  List.length (vm_regs (vm_apply s (instr_jnez r0 tg 0))) = List.length (vm_regs s) /\
+  (forall r, read_reg (vm_apply s (instr_jnez r0 tg 0)) r = read_reg s r) /\
+  vm_mu (vm_apply s (instr_jnez r0 tg 0)) = vm_mu s.
+Proof.
+  intros s r0 tg H0.
+  split; [apply vm_apply_jnez_zero_pc; exact H0|].
+  split; [apply vm_apply_preserves_reg_length_jnez|].
+  split; [intro r; apply vm_apply_jnez_regs|apply mu_jnez].
+Qed.
+
+Lemma jump_facts : forall s tg,
+  vm_pc (vm_apply s (instr_jump tg 0)) = tg /\
+  List.length (vm_regs (vm_apply s (instr_jump tg 0))) = List.length (vm_regs s) /\
+  (forall r, read_reg (vm_apply s (instr_jump tg 0)) r = read_reg s r) /\
+  vm_mu (vm_apply s (instr_jump tg 0)) = vm_mu s.
+Proof.
+  intros s tg.
+  split; [apply vm_apply_jump_pc|].
+  split; [apply vm_apply_preserves_reg_length_jump|].
+  split; [intro r; apply vm_apply_jump_regs|apply mu_jump].
+Qed.
+
+(** EMIT of the one-byte payload "." with declared cost 0 costs 8 + 1 = 9. *)
+Lemma emit_dot_facts : forall s m,
+  vm_pc (vm_apply s (instr_emit m "."%string 0)) = S (vm_pc s) /\
+  vm_regs (vm_apply s (instr_emit m "."%string 0)) = vm_regs s /\
+  vm_mu (vm_apply s (instr_emit m "."%string 0)) = vm_mu s + 9.
+Proof.
+  intros s m. unfold vm_apply, advance_state, apply_cost.
+  split; [reflexivity|]. split; [reflexivity|]. reflexivity.
+Qed.
+
+Lemma run_vm_S : forall n prog s i,
+  nth_error prog (vm_pc s) = Some i ->
+  run_vm (S n) prog s = run_vm n prog (vm_apply s i).
+Proof. intros n prog s i H. apply run_vm_step_instr. exact H. Qed.
+
+Lemma init_regs_length : List.length (vm_regs init_state) = REG_COUNT.
+Proof. reflexivity. Qed.
+
+(** * The blind program *)
+
+Lemma blind_start : forall t, t < 2 ^ 64 ->
+  loop_at 4 1 2 0 t 0 (run_vm 4 (blind_program t) init_state) /\
+  vm_mu (run_vm 4 (blind_program t) init_state) = 0.
+Proof.
+  intros t Ht.
+  set (s1 := vm_apply init_state (instr_load_imm 1 0 0)).
+  set (s2 := vm_apply s1 (instr_load_imm 2 t 0)).
+  set (s3 := vm_apply s2 (instr_load_imm 10 1 0)).
+  set (s4 := vm_apply s3 (instr_load_imm 15 0 0)).
+  destruct (load_imm_facts init_state 1 0 init_regs_length ltac:(regs_bound) ltac:(pose proof two_lt_pow64; lia))
+    as [P1 [L1 [V1 [O1 M1]]]]. fold s1 in P1, L1, V1, O1, M1.
+  destruct (load_imm_facts s1 2 t L1 ltac:(regs_bound) Ht)
+    as [P2 [L2 [V2 [O2 M2]]]]. fold s2 in P2, L2, V2, O2, M2.
+  destruct (load_imm_facts s2 10 1 L2 ltac:(regs_bound) ltac:(pose proof two_lt_pow64; lia))
+    as [P3 [L3 [V3 [O3 M3]]]]. fold s3 in P3, L3, V3, O3, M3.
+  destruct (load_imm_facts s3 15 0 L3 ltac:(regs_bound) ltac:(pose proof two_lt_pow64; lia))
+    as [P4 [L4 [V4 [O4 M4]]]]. fold s4 in P4, L4, V4, O4, M4.
+  assert (Hrun : run_vm 4 (blind_program t) init_state = s4).
+  { rewrite (run_vm_S 3 _ init_state (instr_load_imm 1 0 0)) by reflexivity. fold s1.
+    rewrite (run_vm_S 2 _ s1 (instr_load_imm 2 t 0)) by (rewrite P1; reflexivity). fold s2.
+    rewrite (run_vm_S 1 _ s2 (instr_load_imm 10 1 0))
+      by (rewrite P2, P1; reflexivity). fold s3.
+    rewrite (run_vm_S 0 _ s3 (instr_load_imm 15 0 0))
+      by (rewrite P3, P2, P1; reflexivity). fold s4.
+    reflexivity. }
+  rewrite Hrun. split.
+  - unfold loop_at. split; [rewrite P4, P3, P2, P1; reflexivity|].
+    split; [exact L4|].
+    split; [rewrite (O4 1), (O3 1), (O2 1) by (regs_bound); exact V1|].
+    split; [rewrite (O4 2), (O3 2) by (regs_bound); exact V2|].
+    split; [rewrite (O4 10) by (regs_bound); exact V3|].
+    exact V4.
+  - rewrite M4, M3, M2, M1. reflexivity.
+Qed.
+
+(** At the head with the counter equal to the target, the loop exits. *)
+Lemma blind_exit : forall t n s,
+  loop_at 4 1 2 t t n s -> t < 2 ^ 64 -> n + 1 < 2 ^ 64 ->
+  vm_pc (run_vm 4 (blind_program t) s) = 10 /\
+  read_reg (run_vm 4 (blind_program t) s) 15 = S n /\
+  vm_mu (run_vm 4 (blind_program t) s) = vm_mu s.
+Proof.
+  intros t n s [Hpc [Hl [Hi [Ht [H10 H15]]]]] Ht64 Hn.
+  set (s1 := vm_apply s (instr_add 15 15 10 0)).
+  set (s2 := vm_apply s1 (instr_sub 8 1 2 0)).
+  set (s3 := vm_apply s2 (instr_jnez 8 8 0)).
+  set (s4 := vm_apply s3 (instr_jump 10 0)).
+  destruct (add_facts s 15 15 10 Hl ltac:(regs_bound) ltac:(rewrite H15, H10; lia))
+    as [P1 [L1 [V1 [O1 M1]]]]. fold s1 in P1, L1, V1, O1, M1.
+  destruct (sub_equal_facts s1 8 1 2 L1 ltac:(regs_bound)
+              ltac:(rewrite (O1 1), (O1 2) by regs_bound; congruence)
+              ltac:(rewrite (O1 1) by regs_bound; lia))
+    as [P2 [L2 [V2 [O2 M2]]]]. fold s2 in P2, L2, V2, O2, M2.
+  destruct (jnez_zero_facts s2 8 8 V2) as [P3 [L3 [O3 M3]]]. fold s3 in P3, L3, O3, M3.
+  destruct (jump_facts s3 10) as [P4 [L4 [O4 M4]]]. fold s4 in P4, L4, O4, M4.
+  assert (Hrun : run_vm 4 (blind_program t) s = s4).
+  { rewrite (run_vm_S 3 _ s (instr_add 15 15 10 0)) by (rewrite Hpc; reflexivity). fold s1.
+    rewrite (run_vm_S 2 _ s1 (instr_sub 8 1 2 0)) by (rewrite P1, Hpc; reflexivity). fold s2.
+    rewrite (run_vm_S 1 _ s2 (instr_jnez 8 8 0))
+      by (rewrite P2, P1, Hpc; reflexivity). fold s3.
+    rewrite (run_vm_S 0 _ s3 (instr_jump 10 0))
+      by (rewrite P3, P2, P1, Hpc; reflexivity). fold s4.
+    reflexivity. }
+  rewrite Hrun. split; [exact P4|]. split.
+  - rewrite O4, O3, (O2 15) by regs_bound. rewrite V1, H15, H10. lia.
+  - rewrite M4, M3, M2, M1. reflexivity.
+Qed.
+
+(** blind_program_run. Started from [init_state], [blind_program t] stops
+    after 5 t + 8 steps at program counter 10, past its last instruction,
+    with register 15 equal to t + 1 (the number of passes through the loop)
+    and the ledger at 0. Extra fuel changes nothing. *)
+Theorem blind_program_run : forall t fuel,
+  t + 1 < 2 ^ 64 -> 5 * t + 8 <= fuel ->
+  List.nth 15 (vm_regs (run_vm fuel (blind_program t) init_state)) 0 = t + 1 /\
+  vm_mu (run_vm fuel (blind_program t) init_state) = 0 /\
+  vm_pc (run_vm fuel (blind_program t) init_state) = 10.
+Proof.
+  intros t fuel Ht Hfuel.
+  destruct (blind_start t ltac:(lia)) as [Hat0 Hmu0].
+  destruct (loop_iterations (blind_program t) 4 8 1 2 eq_refl eq_refl eq_refl eq_refl eq_refl
+              ltac:(regs_bound) ltac:(regs_bound) ltac:(lia) ltac:(lia) ltac:(lia)
+              ltac:(lia) ltac:(lia) ltac:(lia)
+              t 0 t 0 _ Hat0 ltac:(lia) ltac:(lia) ltac:(lia)) as [Hat1 [Hmu1 _]].
+  rewrite !Nat.add_0_l in Hat1.
+  destruct (blind_exit t t _ Hat1 ltac:(lia) ltac:(lia)) as [Hpc2 [H15 Hmu2]].
+  replace fuel with (4 + 5 * t + 4 + (fuel - (5 * t + 8))) by lia.
+  rewrite !run_vm_compose.
+  rewrite (run_vm_stuck _ _ _) by (rewrite Hpc2; reflexivity).
+  split; [|split].
+  - change (List.nth 15 _ 0) with (read_reg (run_vm 4 (blind_program t)
+      (run_vm (5 * t) (blind_program t) (run_vm 4 (blind_program t) init_state))) 15).
+    rewrite H15. lia.
+  - rewrite Hmu2, Hmu1. exact Hmu0.
+  - exact Hpc2.
+Qed.
+
+(** * The sighted program *)
+
+Lemma sighted_start : forall l r, l < 2 ^ 64 -> r < 2 ^ 64 ->
+  loop_at 6 1 2 0 l 0 (run_vm 6 (sighted_program l r) init_state) /\
+  read_reg (run_vm 6 (sighted_program l r) init_state) 3 = 0 /\
+  read_reg (run_vm 6 (sighted_program l r) init_state) 4 = r /\
+  vm_mu (run_vm 6 (sighted_program l r) init_state) = 0.
+Proof.
+  intros l r Hl64 Hr64. pose proof two_lt_pow64 as Hbig.
+  set (s1 := vm_apply init_state (instr_load_imm 1 0 0)).
+  set (s2 := vm_apply s1 (instr_load_imm 2 l 0)).
+  set (s3 := vm_apply s2 (instr_load_imm 3 0 0)).
+  set (s4 := vm_apply s3 (instr_load_imm 4 r 0)).
+  set (s5 := vm_apply s4 (instr_load_imm 10 1 0)).
+  set (s6 := vm_apply s5 (instr_load_imm 15 0 0)).
+  destruct (load_imm_facts init_state 1 0 init_regs_length ltac:(regs_bound) ltac:(lia))
+    as [P1 [L1 [V1 [O1 M1]]]]. fold s1 in P1, L1, V1, O1, M1.
+  destruct (load_imm_facts s1 2 l L1 ltac:(regs_bound) Hl64)
+    as [P2 [L2 [V2 [O2 M2]]]]. fold s2 in P2, L2, V2, O2, M2.
+  destruct (load_imm_facts s2 3 0 L2 ltac:(regs_bound) ltac:(lia))
+    as [P3 [L3 [V3 [O3 M3]]]]. fold s3 in P3, L3, V3, O3, M3.
+  destruct (load_imm_facts s3 4 r L3 ltac:(regs_bound) Hr64)
+    as [P4 [L4 [V4 [O4 M4]]]]. fold s4 in P4, L4, V4, O4, M4.
+  destruct (load_imm_facts s4 10 1 L4 ltac:(regs_bound) ltac:(lia))
+    as [P5 [L5 [V5 [O5 M5]]]]. fold s5 in P5, L5, V5, O5, M5.
+  destruct (load_imm_facts s5 15 0 L5 ltac:(regs_bound) ltac:(lia))
+    as [P6 [L6 [V6 [O6 M6]]]]. fold s6 in P6, L6, V6, O6, M6.
+  assert (Hrun : run_vm 6 (sighted_program l r) init_state = s6).
+  { rewrite (run_vm_S 5 _ init_state (instr_load_imm 1 0 0)) by reflexivity. fold s1.
+    rewrite (run_vm_S 4 _ s1 (instr_load_imm 2 l 0)) by (rewrite P1; reflexivity). fold s2.
+    rewrite (run_vm_S 3 _ s2 (instr_load_imm 3 0 0))
+      by (rewrite P2, P1; reflexivity). fold s3.
+    rewrite (run_vm_S 2 _ s3 (instr_load_imm 4 r 0))
+      by (rewrite P3, P2, P1; reflexivity). fold s4.
+    rewrite (run_vm_S 1 _ s4 (instr_load_imm 10 1 0))
+      by (rewrite P4, P3, P2, P1; reflexivity). fold s5.
+    rewrite (run_vm_S 0 _ s5 (instr_load_imm 15 0 0))
+      by (rewrite P5, P4, P3, P2, P1; reflexivity). fold s6.
+    reflexivity. }
+  rewrite Hrun. split; [|split; [|split]].
+  - unfold loop_at. split; [rewrite P6, P5, P4, P3, P2, P1; reflexivity|].
+    split; [exact L6|].
+    split; [rewrite (O6 1), (O5 1), (O4 1), (O3 1), (O2 1) by regs_bound; exact V1|].
+    split; [rewrite (O6 2), (O5 2), (O4 2), (O3 2) by regs_bound; exact V2|].
+    split; [rewrite (O6 10) by regs_bound; exact V5|].
+    exact V6.
+  - rewrite (O6 3), (O5 3), (O4 3) by regs_bound. exact V3.
+  - rewrite (O6 4), (O5 4) by regs_bound. exact V4.
+  - rewrite M6, M5, M4, M3, M2, M1. reflexivity.
+Qed.
+
+(** A loop of the sighted program at head [h], with counter [c] equal to its
+    target [tg], exits through EMIT "." (9 units) and a jump to [e]. *)
+Lemma emit_exit : forall prog h c tg m e t n s,
+  nth_error prog h = Some (instr_add 15 15 10 0) ->
+  nth_error prog (S h) = Some (instr_sub 8 c tg 0) ->
+  nth_error prog (S (S h)) = Some (instr_jnez 8 (h + 5) 0) ->
+  nth_error prog (S (S (S h))) = Some (instr_emit m "."%string 0) ->
+  nth_error prog (S (S (S (S h)))) = Some (instr_jump e 0) ->
+  c < REG_COUNT -> tg < REG_COUNT -> c <> 8 -> c <> 15 -> tg <> 8 -> tg <> 15 ->
+  loop_at h c tg t t n s -> t < 2 ^ 64 -> n + 1 < 2 ^ 64 ->
+  vm_pc (run_vm 5 prog s) = e /\
+  List.length (vm_regs (run_vm 5 prog s)) = REG_COUNT /\
+  read_reg (run_vm 5 prog s) 15 = S n /\
+  (forall r, r < REG_COUNT -> r <> 8 -> r <> 15 ->
+     read_reg (run_vm 5 prog s) r = read_reg s r) /\
+  vm_mu (run_vm 5 prog s) = vm_mu s + 9.
+Proof.
+  intros prog h c tg m e t n s E0 E1 E2 E3 E4 Hc Htg Hc8 Hc15 Htg8 Htg15
+    [Hpc [Hl [Hi [Ht [H10 H15]]]]] Ht64 Hn.
+  set (s1 := vm_apply s (instr_add 15 15 10 0)).
+  set (s2 := vm_apply s1 (instr_sub 8 c tg 0)).
+  set (s3 := vm_apply s2 (instr_jnez 8 (h + 5) 0)).
+  set (s4 := vm_apply s3 (instr_emit m "."%string 0)).
+  set (s5 := vm_apply s4 (instr_jump e 0)).
+  destruct (add_facts s 15 15 10 Hl ltac:(regs_bound) ltac:(rewrite H15, H10; lia))
+    as [P1 [L1 [V1 [O1 M1]]]]. fold s1 in P1, L1, V1, O1, M1.
+  destruct (sub_equal_facts s1 8 c tg L1 ltac:(regs_bound)
+              ltac:(rewrite (O1 c), (O1 tg) by assumption; congruence)
+              ltac:(rewrite (O1 c) by assumption; lia))
+    as [P2 [L2 [V2 [O2 M2]]]]. fold s2 in P2, L2, V2, O2, M2.
+  destruct (jnez_zero_facts s2 8 (h + 5) V2) as [P3 [L3 [O3 M3]]].
+  fold s3 in P3, L3, O3, M3.
+  destruct (emit_dot_facts s3 m) as [P4 [R4 M4]]. fold s4 in P4, R4, M4.
+  destruct (jump_facts s4 e) as [P5 [L5 [O5 M5]]]. fold s5 in P5, L5, O5, M5.
+  assert (Hrun : run_vm 5 prog s = s5).
+  { rewrite (run_vm_S 4 _ s (instr_add 15 15 10 0)) by (rewrite Hpc; exact E0). fold s1.
+    rewrite (run_vm_S 3 _ s1 (instr_sub 8 c tg 0)) by (rewrite P1, Hpc; exact E1). fold s2.
+    rewrite (run_vm_S 2 _ s2 (instr_jnez 8 (h + 5) 0))
+      by (rewrite P2, P1, Hpc; exact E2). fold s3.
+    rewrite (run_vm_S 1 _ s3 (instr_emit m "."%string 0))
+      by (rewrite P3, P2, P1, Hpc; exact E3). fold s4.
+    rewrite (run_vm_S 0 _ s4 (instr_jump e 0))
+      by (rewrite P4, P3, P2, P1, Hpc; exact E4). fold s5.
+    reflexivity. }
+  assert (R45 : forall r, read_reg s5 r = read_reg s3 r).
+  { intro r. rewrite O5. unfold read_reg. rewrite R4. reflexivity. }
+  rewrite Hrun. split; [exact P5|]. split.
+  - rewrite L5, R4, L3. exact L2.
+  - split; [rewrite R45, O3, (O2 15) by regs_bound; rewrite V1, H15, H10; lia|].
+    split.
+    + intros r Hr Hr8 Hr15. rewrite R45, O3, (O2 r Hr Hr8), (O1 r Hr Hr15). reflexivity.
+    + rewrite M5, M4, M3, M2, M1. reflexivity.
+Qed.
+
+(** sighted_program_run. Started from [init_state], [sighted_program l r]
+    stops after 5 (l + r) + 16 steps at program counter 20, past its last
+    instruction, with register 15 equal to (l + 1) + (r + 1) (the passes
+    through the two loops) and the ledger at 18, the two EMIT steps of 9
+    each. Extra fuel changes nothing. *)
+Theorem sighted_program_run : forall l r fuel,
+  l + r + 2 < 2 ^ 64 -> 5 * (l + r) + 16 <= fuel ->
+  List.nth 15 (vm_regs (run_vm fuel (sighted_program l r) init_state)) 0 =
+    (l + 1) + (r + 1) /\
+  vm_mu (run_vm fuel (sighted_program l r) init_state) = 18 /\
+  vm_pc (run_vm fuel (sighted_program l r) init_state) = 20.
+Proof.
+  intros l r fuel Hb Hfuel.
+  set (prog := sighted_program l r).
+  destruct (sighted_start l r ltac:(lia) ltac:(lia)) as [Hat0 [H3 [H4 Hmu0]]].
+  fold prog in Hat0, H3, H4, Hmu0.
+  set (a0 := run_vm 6 prog init_state) in *.
+  destruct (loop_iterations prog 6 11 1 2 eq_refl eq_refl eq_refl eq_refl eq_refl
+              ltac:(regs_bound) ltac:(regs_bound) ltac:(lia) ltac:(lia) ltac:(lia)
+              ltac:(lia) ltac:(lia) ltac:(lia)
+              l 0 l 0 a0 Hat0 ltac:(lia) ltac:(lia) ltac:(lia)) as [Hat1 [Hmu1 Hr1]].
+  rewrite !Nat.add_0_l in Hat1.
+  set (a1 := run_vm (5 * l) prog a0) in *.
+  destruct (emit_exit prog 6 1 2 0 13 l l a1 eq_refl eq_refl eq_refl eq_refl eq_refl
+              ltac:(regs_bound) ltac:(regs_bound) ltac:(lia) ltac:(lia) ltac:(lia) ltac:(lia)
+              Hat1 ltac:(lia) ltac:(lia)) as [Hpc2 [Hl2 [H15b [Hr2 Hmu2]]]].
+  set (a2 := run_vm 5 prog a1) in *.
+  assert (Hat2 : loop_at 13 3 4 0 r (S l) a2).
+  { destruct Hat1 as [_ [_ [_ [_ [H10 _]]]]].
+    unfold loop_at. split; [exact Hpc2|]. split; [exact Hl2|].
+    split; [rewrite (Hr2 3), (Hr1 3) by regs_bound; exact H3|].
+    split; [rewrite (Hr2 4), (Hr1 4) by regs_bound; exact H4|].
+    split; [rewrite (Hr2 10) by regs_bound; exact H10|].
+    exact H15b. }
+  destruct (loop_iterations prog 13 18 3 4 eq_refl eq_refl eq_refl eq_refl eq_refl
+              ltac:(regs_bound) ltac:(regs_bound) ltac:(lia) ltac:(lia) ltac:(lia)
+              ltac:(lia) ltac:(lia) ltac:(lia)
+              r 0 r (S l) a2 Hat2 ltac:(lia) ltac:(lia) ltac:(lia)) as [Hat3 [Hmu3 _]].
+  rewrite Nat.add_0_l in Hat3.
+  set (a3 := run_vm (5 * r) prog a2) in *.
+  destruct (emit_exit prog 13 3 4 1 20 r (S l + r) a3 eq_refl eq_refl eq_refl eq_refl
+              eq_refl ltac:(regs_bound) ltac:(regs_bound) ltac:(lia) ltac:(lia) ltac:(lia)
+              ltac:(lia) Hat3 ltac:(lia) ltac:(lia)) as [Hpc4 [_ [H15d [_ Hmu4]]]].
+  replace fuel with (6 + 5 * l + 5 + 5 * r + 5 + (fuel - (5 * (l + r) + 16))) by lia.
+  rewrite !run_vm_compose. fold a0 a1 a2 a3.
+  rewrite (run_vm_stuck _ _ (run_vm 5 prog a3)) by (rewrite Hpc4; reflexivity).
+  split; [|split].
+  - change (List.nth 15 _ 0) with (read_reg (run_vm 5 prog a3) 15).
+    rewrite H15d. lia.
+  - rewrite Hmu4, Hmu3, Hmu2, Hmu1, Hmu0. reflexivity.
+  - exact Hpc4.
+Qed.
+
+(** * The time tax on the N by N search *)
+
+(** time_tax_theorem. On the N by N grid with the target in the last cell,
+    the blind program searches the N^2 cells in order: it stops with
+    register 15 = N^2 and pays 0. The sighted program searches each
+    coordinate: it stops with register 15 = 2N and pays 18. Price a unit of
+    the ledger at [lambda] iterations: the sighted run costs less in
+    iterations plus [lambda] times the ledger exactly when 2N + 18 lambda is
+    below N^2. *)
+Theorem time_tax_theorem : forall N lambda fuel_b fuel_s,
+  1 <= N -> N * N < 2 ^ 64 ->
+  5 * (N * N) + 3 <= fuel_b -> 10 * N + 6 <= fuel_s ->
+  let sb := run_vm fuel_b (blind_program (N * N - 1)) init_state in
+  let ss := run_vm fuel_s (sighted_program (N - 1) (N - 1)) init_state in
+  List.nth 15 (vm_regs sb) 0 = N * N /\ vm_mu sb = 0 /\
+  List.nth 15 (vm_regs ss) 0 = 2 * N /\ vm_mu ss = 18 /\
+  (List.nth 15 (vm_regs ss) 0 + lambda * vm_mu ss <
+     List.nth 15 (vm_regs sb) 0 + lambda * vm_mu sb <->
+   2 * N + 18 * lambda < N * N).
+Proof.
+  intros N lambda fuel_b fuel_s HN HNN Hb Hs sb ss.
+  assert (HNsq : 1 <= N * N) by nia.
+  destruct (blind_program_run (N * N - 1) fuel_b ltac:(lia) ltac:(lia))
+    as [Hb15 [Hbmu _]].
+  assert (H2N : 2 * N <= N * N \/ N = 1) by nia.
+  pose proof two_lt_pow64 as Hbig.
+  destruct (sighted_program_run (N - 1) (N - 1) fuel_s ltac:(lia) ltac:(lia))
+    as [Hs15 [Hsmu _]].
+  fold sb in Hb15, Hbmu. fold ss in Hs15, Hsmu.
+  rewrite Hb15, Hbmu, Hs15, Hsmu.
+  split; [lia|]. split; [reflexivity|]. split; [lia|]. split; [reflexivity|].
+  replace (N * N - 1 + 1) with (N * N) by lia.
+  replace (N - 1 + 1 + (N - 1 + 1)) with (2 * N) by lia.
+  lia.
+Qed.
+
+(** For every price [lambda], every N at least 18 lambda + 3 makes the
+    sighted run cheaper. *)
+Corollary time_tax_sighted_wins : forall N lambda fuel_b fuel_s,
+  18 * lambda + 3 <= N -> N * N < 2 ^ 64 ->
+  5 * (N * N) + 3 <= fuel_b -> 10 * N + 6 <= fuel_s ->
+  let sb := run_vm fuel_b (blind_program (N * N - 1)) init_state in
+  let ss := run_vm fuel_s (sighted_program (N - 1) (N - 1)) init_state in
+  List.nth 15 (vm_regs ss) 0 + lambda * vm_mu ss <
+    List.nth 15 (vm_regs sb) 0 + lambda * vm_mu sb.
+Proof.
+  intros N lambda fuel_b fuel_s HN HNN Hb Hs sb ss.
+  destruct (time_tax_theorem N lambda fuel_b fuel_s ltac:(lia) HNN Hb Hs)
+    as [_ [_ [_ [_ Hiff]]]].
+  apply Hiff. nia.
+Qed.
 
 (**
 
