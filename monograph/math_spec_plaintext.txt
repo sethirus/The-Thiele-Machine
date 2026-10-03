@@ -960,9 +960,10 @@ verifier rejecting negative inputs. They do not define decision or verification 
 The implication between them is named as a premise, not proved. The factored-search witness
 in StructuralAdvantage.v gives a concrete program-level µ-cost comparison: a program whose
 instruction costs sum to 18 (sighted_program_total_cost_is_eighteen) and whose iteration
-count is 2N , against N 2 for the blind program. The VM run is proved for N = 1 (sighted_
-halts_in_two_n); for general N the iteration counts are hypotheses of time_tax_theorem_
-conditional. That is not a class separation.
+count is 2N , against N 2 for the blind program. The VM runs are proved for every N by loop
+invariants: from init_state the blind program on the last of N 2 cells stops with N 2 passes and
+µ = 0, and the sighted program stops with 2N passes and µ = 18 (time_tax_theorem). That is
+not a class separation.
 Theorem 8.4 (µ-Cost Hierarchy (kernel/MuHierarchyTheorem.v), (S)). For every k ≥ 1, the
 µ-dimension admits a strict hierarchy:
    1. Achievability: there exists a trace from init_state with µ-cost exactly k that is level-k

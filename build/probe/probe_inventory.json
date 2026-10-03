@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
   "files_probed": 505,
-  "total_addressable": 14428,
+  "total_addressable": 14455,
   "total_unaddressable": 8,
   "extras_addressable_via_instantiation": [
     {
@@ -68886,7 +68886,7 @@
     {
       "file": "coq/kernel/nfi/StructuralAdvantage.v",
       "qualified_module": "Kernel.StructuralAdvantage",
-      "addressable_count": 49,
+      "addressable_count": 76,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -68950,29 +68950,14 @@
           "full_name": "Kernel.StructuralAdvantage.advantage_ratio_strictly_increasing"
         },
         {
-          "local_name": "sighted_wins_combined_cost",
-          "kind": "Theorem",
-          "full_name": "Kernel.StructuralAdvantage.sighted_wins_combined_cost"
-        },
-        {
           "local_name": "crossover_lambda_grows_with_n",
           "kind": "Theorem",
           "full_name": "Kernel.StructuralAdvantage.crossover_lambda_grows_with_n"
         },
         {
-          "local_name": "sighted_mu_cost_is_constant",
-          "kind": "Theorem",
-          "full_name": "Kernel.StructuralAdvantage.sighted_mu_cost_is_constant"
-        },
-        {
           "local_name": "iteration_savings_dwarfs_mu_cost",
           "kind": "Theorem",
           "full_name": "Kernel.StructuralAdvantage.iteration_savings_dwarfs_mu_cost"
-        },
-        {
-          "local_name": "time_tax_theorem_conditional",
-          "kind": "Theorem",
-          "full_name": "Kernel.StructuralAdvantage.time_tax_theorem_conditional"
         },
         {
           "local_name": "savings_grow_super_linearly",
@@ -69128,6 +69113,156 @@
           "local_name": "sighted_halts_in_two_n",
           "kind": "Theorem",
           "full_name": "Kernel.StructuralAdvantage.sighted_halts_in_two_n"
+        },
+        {
+          "local_name": "nat_lt_pow64_N",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.nat_lt_pow64_N"
+        },
+        {
+          "local_name": "word64_sub_word64",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.word64_sub_word64"
+        },
+        {
+          "local_name": "word64_sub_zero_iff",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.word64_sub_zero_iff"
+        },
+        {
+          "local_name": "two_lt_pow64",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.two_lt_pow64"
+        },
+        {
+          "local_name": "word64_add_small",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.word64_add_small"
+        },
+        {
+          "local_name": "reg_lt",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.reg_lt"
+        },
+        {
+          "local_name": "read_add_same",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.read_add_same"
+        },
+        {
+          "local_name": "mu_add",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.mu_add"
+        },
+        {
+          "local_name": "mu_sub",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.mu_sub"
+        },
+        {
+          "local_name": "mu_load_imm",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.mu_load_imm"
+        },
+        {
+          "local_name": "mu_jump",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.mu_jump"
+        },
+        {
+          "local_name": "mu_jnez",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.mu_jnez"
+        },
+        {
+          "local_name": "loop_iteration",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.loop_iteration"
+        },
+        {
+          "local_name": "loop_iterations",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.loop_iterations"
+        },
+        {
+          "local_name": "load_imm_facts",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.load_imm_facts"
+        },
+        {
+          "local_name": "add_facts",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.add_facts"
+        },
+        {
+          "local_name": "sub_equal_facts",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.sub_equal_facts"
+        },
+        {
+          "local_name": "jnez_zero_facts",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.jnez_zero_facts"
+        },
+        {
+          "local_name": "jump_facts",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.jump_facts"
+        },
+        {
+          "local_name": "emit_dot_facts",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.emit_dot_facts"
+        },
+        {
+          "local_name": "run_vm_S",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.run_vm_S"
+        },
+        {
+          "local_name": "init_regs_length",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.init_regs_length"
+        },
+        {
+          "local_name": "blind_start",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.blind_start"
+        },
+        {
+          "local_name": "blind_exit",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.blind_exit"
+        },
+        {
+          "local_name": "blind_program_run",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralAdvantage.blind_program_run"
+        },
+        {
+          "local_name": "sighted_start",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.sighted_start"
+        },
+        {
+          "local_name": "emit_exit",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAdvantage.emit_exit"
+        },
+        {
+          "local_name": "sighted_program_run",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralAdvantage.sighted_program_run"
+        },
+        {
+          "local_name": "time_tax_theorem",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralAdvantage.time_tax_theorem"
+        },
+        {
+          "local_name": "time_tax_sighted_wins",
+          "kind": "Corollary",
+          "full_name": "Kernel.StructuralAdvantage.time_tax_sighted_wins"
         },
         {
           "local_name": "advantage_ratio_unbounded",

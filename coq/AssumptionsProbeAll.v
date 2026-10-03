@@ -13958,7 +13958,7 @@ Print Assumptions Kernel.SimpleMorphShortcut.simple_morph_tree_realized.
 Print Assumptions Kernel.SimpleMorphShortcut.simple_morph_posterior_nonempty.
 Print Assumptions Kernel.SimpleMorphShortcut.simple_morph_representatives.
 Print Assumptions Kernel.SimpleMorphShortcut.simple_morph_shortcut_lands_in_representation.
-(* === Kernel.StructuralAdvantage : 49 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.StructuralAdvantage : 76 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.StructuralAdvantage.blind_program_length.
 Print Assumptions Kernel.StructuralAdvantage.sighted_program_length.
 Print Assumptions Kernel.StructuralAdvantage.blind_program_total_cost_is_zero.
@@ -13971,11 +13971,8 @@ Print Assumptions Kernel.StructuralAdvantage.sighted_iters_worst_case.
 Print Assumptions Kernel.StructuralAdvantage.advantage_ratio_grows_with_n.
 Print Assumptions Kernel.StructuralAdvantage.advantage_factor_unbounded.
 Print Assumptions Kernel.StructuralAdvantage.advantage_ratio_strictly_increasing.
-Print Assumptions Kernel.StructuralAdvantage.sighted_wins_combined_cost.
 Print Assumptions Kernel.StructuralAdvantage.crossover_lambda_grows_with_n.
-Print Assumptions Kernel.StructuralAdvantage.sighted_mu_cost_is_constant.
 Print Assumptions Kernel.StructuralAdvantage.iteration_savings_dwarfs_mu_cost.
-Print Assumptions Kernel.StructuralAdvantage.time_tax_theorem_conditional.
 Print Assumptions Kernel.StructuralAdvantage.savings_grow_super_linearly.
 Print Assumptions Kernel.StructuralAdvantage.k_factor_blind_iters_formula.
 Print Assumptions Kernel.StructuralAdvantage.k_factor_advantage_ratio.
@@ -14007,6 +14004,36 @@ Print Assumptions Kernel.StructuralAdvantage.run_vm_compose.
 Print Assumptions Kernel.StructuralAdvantage.word64_sa_small.
 Print Assumptions Kernel.StructuralAdvantage.blind_halts_in_n_squared.
 Print Assumptions Kernel.StructuralAdvantage.sighted_halts_in_two_n.
+Print Assumptions Kernel.StructuralAdvantage.nat_lt_pow64_N.
+Print Assumptions Kernel.StructuralAdvantage.word64_sub_word64.
+Print Assumptions Kernel.StructuralAdvantage.word64_sub_zero_iff.
+Print Assumptions Kernel.StructuralAdvantage.two_lt_pow64.
+Print Assumptions Kernel.StructuralAdvantage.word64_add_small.
+Print Assumptions Kernel.StructuralAdvantage.reg_lt.
+Print Assumptions Kernel.StructuralAdvantage.read_add_same.
+Print Assumptions Kernel.StructuralAdvantage.mu_add.
+Print Assumptions Kernel.StructuralAdvantage.mu_sub.
+Print Assumptions Kernel.StructuralAdvantage.mu_load_imm.
+Print Assumptions Kernel.StructuralAdvantage.mu_jump.
+Print Assumptions Kernel.StructuralAdvantage.mu_jnez.
+Print Assumptions Kernel.StructuralAdvantage.loop_iteration.
+Print Assumptions Kernel.StructuralAdvantage.loop_iterations.
+Print Assumptions Kernel.StructuralAdvantage.load_imm_facts.
+Print Assumptions Kernel.StructuralAdvantage.add_facts.
+Print Assumptions Kernel.StructuralAdvantage.sub_equal_facts.
+Print Assumptions Kernel.StructuralAdvantage.jnez_zero_facts.
+Print Assumptions Kernel.StructuralAdvantage.jump_facts.
+Print Assumptions Kernel.StructuralAdvantage.emit_dot_facts.
+Print Assumptions Kernel.StructuralAdvantage.run_vm_S.
+Print Assumptions Kernel.StructuralAdvantage.init_regs_length.
+Print Assumptions Kernel.StructuralAdvantage.blind_start.
+Print Assumptions Kernel.StructuralAdvantage.blind_exit.
+Print Assumptions Kernel.StructuralAdvantage.blind_program_run.
+Print Assumptions Kernel.StructuralAdvantage.sighted_start.
+Print Assumptions Kernel.StructuralAdvantage.emit_exit.
+Print Assumptions Kernel.StructuralAdvantage.sighted_program_run.
+Print Assumptions Kernel.StructuralAdvantage.time_tax_theorem.
+Print Assumptions Kernel.StructuralAdvantage.time_tax_sighted_wins.
 Print Assumptions Kernel.StructuralAdvantage.advantage_ratio_unbounded.
 (* === Kernel.StructuralAdvantageCertifiedShortcut : 19 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.StructuralAdvantageCertifiedShortcut.sighted_n1_supra_final_mu.

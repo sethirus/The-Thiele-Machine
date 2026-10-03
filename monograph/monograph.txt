@@ -2731,10 +2731,11 @@ two factors and search them apart. That 18 is the whole tab. The kernel proves t
 two cost totals, 0 and 18, and it proves the arithmetic that makes the trade lopsided:
 for N ≥ 6, N 2 > 2N + 18 (iteration_savings_dwarfs_mu_cost), and the ratio
 of N 2 to 2N grows without bound (advantage_factor_unbounded), so the price
-you paid up front stops mattering almost immediately. The iteration counts N 2 and
-2N are hypotheses of time_tax_theorem_conditional, not theorems about the
-runs. The executable tests run the actual VM at representative sizes and measure them.
-The receipt costs 18 once. The exponent saves you forever.
+you paid up front stops mattering almost immediately. The kernel proves the runs too:
+from init_state the blind program stops after N 2 passes paying 0 and the sighted
+one after 2N passes paying 18, for every N (time_tax_theorem). The executable
+tests run the same programs on the extracted VM. The receipt costs 18 once. The
+exponent saves you forever.
 
 The point of this example is not the N 2 versus 2N speedup. Divide-and-conquer is
 not the new claim. Nobody is selling that. The point is the auditable trace. The receipt-
@@ -2744,13 +2745,13 @@ by the programmer who happens to feel good about it. Admissible is all it is. Th
 receipt does not prove the factorization is right. It does not authenticate a referee, and
 it does not tie the property label to a factorization checker. The 18 µ is the cost of the
 receipt-only trace; the extended trace costs 19 µ after the three-instruction certification
-suffix. The receipt is the evidence of what the trace paid for. Whether the math inside
 
 
                                             55
 The Thiele Machine                                            Devon Thiele • September 2026
 
 
+suffix. The receipt is the evidence of what the trace paid for. Whether the math inside
 it is right is a separate question, and it needs its own proof.
 
 There are two nearby claims here and it matters to keep them separate, because
@@ -2793,12 +2794,12 @@ place is filled.
    3. Strict narrowing. |Ω′ | = 1 < 2 = |Ω| by direct inspection of the lists.
    4. Distinguishing observation. sighted_n1_supra_obs_fn. Returns sight
       ed_n1_supra_trace when vm_mu = 19, else []. The post-MORPH_ASSERT
-      state has vm_mu = 19. The initial state has vm_mu = 0. The observation sepa-
 
                                             56
 The Thiele Machine                                           Devon Thiele • September 2026
 
 
+      state has vm_mu = 19. The initial state has vm_mu = 0. The observation sepa-
       rates them.
    5. Decision tree. sighted_n1_tree := dt_branch dt_leaf dt_leaf. A
       two-leaf branching tree, one branch per factor.
@@ -2839,13 +2840,13 @@ and not a definition admiring itself in a mirror.
 5.3 The boundary
 The hard internal theorem for the explicit class is proven, and so is the boundary in
 both directions on a concrete witness. An EMIT-only factorized-search trace closes
-only the observation layer. The posterior predicate is certified observationally. But the
 
 
                                            57
 The Thiele Machine                                             Devon Thiele • September 2026
 
 
+only the observation layer. The posterior predicate is certified observationally. But the
 trace does not reach has_supra_cert and does not realize semantic structure addi-
 tion. A trace with the factorized search unchanged and a post-search suffix PNEW ;
 MORPH_ID ; MORPH_ASSERT closes the whole chain: stronger predicate, structure
@@ -2888,13 +2889,13 @@ The kernel proves each tier lands where it lands, by what the substrate makes it
 so the split is the substrate’s verdict and not my filing system. Cheapest first.
 
 Tier 0: Raw observation (free at δ = 0). A raw observation takes something in, writes
-it down, and stops there. It does not say what the data means, does not lean on it, and
 
 
                                              58
 The Thiele Machine                                            Devon Thiele • September 2026
 
 
+it down, and stops there. It does not say what the data means, does not lean on it, and
 does not let any later step lean on it either. The cleanest case in the realisation is a
 CHSH trial, one round of the two-player game Section 18 builds from scratch: you run
 the round, a counter ticks up by one, and the certification channels stay cold. Nothing
@@ -2938,13 +2939,13 @@ csr_cert_addr to the ASCII checksum of "validated_constraint", which is
 nonzero because the property string carries non-NUL bytes. The supra-cert channel is
 now active.
 
-Total cost across the two steps: 34 µ.        LASSERT paid for the validation work.
 
 
                                             59
 The Thiele Machine                                            Devon Thiele • September 2026
 
 
+Total cost across the two steps: 34 µ. LASSERT paid for the validation work.
 MORPH_ASSERT paid for the channel flip. The cert channel only crossed from 0 to
 nonzero on the second step, not the first. The two costs are not redundant. One is the
 cost of checking the constraint package against its dual witness. The other is the cost
@@ -2988,13 +2989,13 @@ a game violation costs at least one to come by, on a trace of any length you car
 The proof:
 
 Suppose a trace starts in an uncertified state and ends in a certified state. Some-
-where in that trace, a specific opcode fired that flipped one of the certification registers
 
 
                                             60
 The Thiele Machine                                            Devon Thiele • September 2026
 
 
+where in that trace, a specific opcode fired that flipped one of the certification registers
 from off to on. The two concrete cert-channel instructions writing vm_certified
 or csr_cert_addr are: CERTIFY (which sets vm_certified = true) and
 MORPH_ASSERT when the morphism exists (which sets csr_cert_addr to the ASCII
@@ -3037,13 +3038,13 @@ by every state. Not the whole substrate. The part that keeps receipts.
 being a non-negative integer, 0, 1, 2, . . .; the notation cheat sheet is in Section A). It
 starts at 0 and it never goes down, and that second half is the whole character of the
 thing. A counter that can fall is an accountant you can lean on to revise the books. A
-counter that only ever climbs is a fact about history: it says how much has been spent,
 
 
                                             61
 The Thiele Machine                                              Devon Thiele • September 2026
 
 
+counter that only ever climbs is a fact about history: it says how much has been spent,
 and it cannot be talked into saying less. µ is the second kind.
 
 In the 51-opcode realisation, every instruction carries a cost parameter (δ) in its encod-
@@ -3090,12 +3091,12 @@ For everything outside that positive-cost class, including ADD, LOAD, STORE, JUM
 PNEW, PSPLIT, PMERGE, MORPH, COMPOSE, and the rest, the VM charges exactly δ,
 which can be 0. Here is why these are allowed to be free.
 
-The schedule lets module operations run at δ = 0. That’s a design choice. It isn’t
 
                                              62
 The Thiele Machine                                           Devon Thiele • September 2026
 
 
+The schedule lets module operations run at δ = 0. That’s a design choice. It isn’t
 derived from thermodynamics. A zero-cost PNEW can change the graph, so “every
 observable structural change costs something” would be false for this VM.
 
@@ -3141,8 +3142,6 @@ The proof that µ is always exactly µbefore + instruction_cost for each step:
    returns. That includes the error paths. Failing an instruction costs the same as
    succeeding at it, because the cost is on the attempt. The outcome doesn’t change
    it. No opcode escapes this. Every one of the 51 lands in the same equation.
-
-
 
                                            63
 The Thiele Machine                                           Devon Thiele • September 2026
@@ -8663,13 +8662,13 @@ Falsify the axiom audit.
 If running Print Assumptions (Section A: the Coq command that reports global
 proof dependencies) on any named theorem in the kernel tier shows a project-local
 Axiom or Parameter in the dependency tree, the audit has degraded. The full-
-corpus probe covers 14,429 named theorems across 505 files: 6,879 close under
+corpus probe covers 14,456 named theorems across 505 files: 6,906 close under
 the global Coq context outright, and 7,550 use only Coq standard-library assump-
 tions. The receipt names five such constants: dependent functional extensionality,
 Eqdep.Eq_rect_eq.eq_rect_eq, ClassicalDedekindReals.sig_not_dec,
 ClassicalDedekindReals.sig_forall_dec,                                            and
 Classical_Prop.classic. Zero project-local axioms appear in any of the
-14,429 dependency trees. This audits where global dependencies come from. It
+14,456 dependency trees. This audits where global dependencies come from. It
 doesn’t prove that a theorem’s own Section-generalized premises hold for the instance
 you care about; those premises stay visible in the theorem types and get checked
 separately. Any project-local axiom or parameter appearing in a global dependency
@@ -9189,9 +9188,9 @@ trust boundaries):
    • OCaml extraction: ocaml_observable_nofi_and_monotone proves NoFI
      and µ-monotonicity for the Coq-side extracted observable. The external OCaml
      binary equivalence is a parity-test trust boundary, not a kernel theorem.
-   • Structural advantage: the kernel proves exact µ costs and the arithmetic time-tax
-     facts for the factored-search witness; executable tests check the measured VM
-     behavior.
+   • Structural advantage: the kernel proves the factored-search runs for every N:
+     the blind search stops after N 2 passes paying 0, the sighted search after 2N
+     passes paying 18; executable tests check the same runs on the extracted VM.
    • LASSERT cost formula: lassert_cost_from_component_floors and
      lassert_cost_is_its_formula. A cost meeting the state-term and
      description-term premises is at least the formula. That is addition over premises.
