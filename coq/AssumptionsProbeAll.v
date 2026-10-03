@@ -10917,7 +10917,7 @@ Print Assumptions Kernel.TopologyCurvatureBridge.local_curvature_changes_sum_to_
 Print Assumptions Kernel.ClassicalBound.classical_program_mu_zero.
 Print Assumptions Kernel.ClassicalBound.classical_trace_tally.
 Print Assumptions Kernel.ClassicalBound.classical_bound_achieved.
-(* === Kernel.ClassicalConservativity : 9 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.ClassicalConservativity : 12 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.ClassicalConservativity.classical_opcode_preserves_graph.
 Print Assumptions Kernel.ClassicalConservativity.classical_opcode_is_not_cert_setter.
 Print Assumptions Kernel.ClassicalConservativity.classical_opcode_preserves_cert_addr.
@@ -10927,6 +10927,9 @@ Print Assumptions Kernel.ClassicalConservativity.classical_trace_preserves_cert_
 Print Assumptions Kernel.ClassicalConservativity.classical_trace_preserves_certified.
 Print Assumptions Kernel.ClassicalConservativity.D3_conservativity.
 Print Assumptions Kernel.ClassicalConservativity.classical_trace_cannot_certify.
+Print Assumptions Kernel.ClassicalConservativity.D3_conservativity_pc.
+Print Assumptions Kernel.ClassicalConservativity.classical_reachable_vm_reachable.
+Print Assumptions Kernel.ClassicalConservativity.classical_reachable_preserves_structure.
 (* === Kernel.CrossBaseGranularity : 8 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.CrossBaseGranularity.weak_base_equiv_refl_holds.
 Print Assumptions Kernel.CrossBaseGranularity.weak_base_equiv_sym_holds.
@@ -11542,9 +11545,11 @@ Print Assumptions Kernel.TuringCompletenessISA.vm_apply_preserves_reg_length_jum
 Print Assumptions Kernel.TuringCompletenessISA.inc_via_vm_apply.
 Print Assumptions Kernel.TuringCompletenessISA.jzdec_zero_via_vm_apply.
 Print Assumptions Kernel.TuringCompletenessISA.jzdec_nonzero_via_vm_apply.
-(* === Kernel.TuringStrictness : 4 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.TuringStrictness.D4_thiele_changes_graph.
+(* === Kernel.TuringStrictness : 6 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.TuringStrictness.D4_classical_preserves_next_id.
+Print Assumptions Kernel.TuringStrictness.d4_reachable_step_state.
+Print Assumptions Kernel.TuringStrictness.D4_strictness_reachable.
+Print Assumptions Kernel.TuringStrictness.D4_strictness_from_init.
 Print Assumptions Kernel.TuringStrictness.D4_strictness.
 Print Assumptions Kernel.TuringStrictness.D5_thiele_strictly_extends_classical.
 (* === Kernel.VMAlternativeCounterAccess : 7 addressable theorems (unaddressable: 0) === *)

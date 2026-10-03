@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
   "files_probed": 504,
-  "total_addressable": 14401,
+  "total_addressable": 14406,
   "total_unaddressable": 8,
   "extras_addressable_via_instantiation": [
     {
@@ -52839,7 +52839,7 @@
     {
       "file": "coq/kernel/foundation/ClassicalConservativity.v",
       "qualified_module": "Kernel.ClassicalConservativity",
-      "addressable_count": 9,
+      "addressable_count": 12,
       "unaddressable_count": 0,
       "addressable": [
         {
@@ -52886,6 +52886,21 @@
           "local_name": "classical_trace_cannot_certify",
           "kind": "Corollary",
           "full_name": "Kernel.ClassicalConservativity.classical_trace_cannot_certify"
+        },
+        {
+          "local_name": "D3_conservativity_pc",
+          "kind": "Theorem",
+          "full_name": "Kernel.ClassicalConservativity.D3_conservativity_pc"
+        },
+        {
+          "local_name": "classical_reachable_vm_reachable",
+          "kind": "Lemma",
+          "full_name": "Kernel.ClassicalConservativity.classical_reachable_vm_reachable"
+        },
+        {
+          "local_name": "classical_reachable_preserves_structure",
+          "kind": "Theorem",
+          "full_name": "Kernel.ClassicalConservativity.classical_reachable_preserves_structure"
         }
       ],
       "unaddressable": []
@@ -56200,18 +56215,28 @@
     {
       "file": "coq/kernel/foundation/TuringStrictness.v",
       "qualified_module": "Kernel.TuringStrictness",
-      "addressable_count": 4,
+      "addressable_count": 6,
       "unaddressable_count": 0,
       "addressable": [
-        {
-          "local_name": "D4_thiele_changes_graph",
-          "kind": "Lemma",
-          "full_name": "Kernel.TuringStrictness.D4_thiele_changes_graph"
-        },
         {
           "local_name": "D4_classical_preserves_next_id",
           "kind": "Lemma",
           "full_name": "Kernel.TuringStrictness.D4_classical_preserves_next_id"
+        },
+        {
+          "local_name": "d4_reachable_step_state",
+          "kind": "Lemma",
+          "full_name": "Kernel.TuringStrictness.d4_reachable_step_state"
+        },
+        {
+          "local_name": "D4_strictness_reachable",
+          "kind": "Theorem",
+          "full_name": "Kernel.TuringStrictness.D4_strictness_reachable"
+        },
+        {
+          "local_name": "D4_strictness_from_init",
+          "kind": "Corollary",
+          "full_name": "Kernel.TuringStrictness.D4_strictness_from_init"
         },
         {
           "local_name": "D4_strictness",
