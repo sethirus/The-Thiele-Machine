@@ -63,9 +63,11 @@ def run_task(task: str) -> bool:
     workdir = OUT / task
     if workdir.exists():
         shutil.rmtree(workdir)
+    # The [files] entries in thiele.sby are relative to formal/, not the caller.
     proc = subprocess.run(["sby", "-d", str(workdir), str(FORMAL / "thiele.sby"), task],
-                          capture_output=True, text=True)
+                          cwd=FORMAL, capture_output=True, text=True)
     sys.stdout.write(proc.stdout[-6000:])
+    sys.stderr.write(proc.stderr[-6000:])
     status = (workdir / "status").read_text().strip() if (workdir / "status").exists() else ""
     print(f"[formal] {task}: {status or 'no status'} (sby exit {proc.returncode})")
     return proc.returncode == 0 and status.startswith("PASS")
