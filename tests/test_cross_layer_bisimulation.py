@@ -73,7 +73,7 @@ class TestCrossLayerBisimulationAllOpcodes:
     def test_pmerge_bisim(self):
         program = [
             "PNEW {0,128} 2",
-            "PNEW {128,256} 2",
+            "PNEW {2,3} 2",
             "PMERGE 0 1 3",
             "HALT 0",
         ]
@@ -128,7 +128,7 @@ class TestCrossLayerBisimulationAllOpcodes:
         program = [
             "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
-            "PNEW {128,129} 1",
+            "PNEW {} 1",
             "LOAD_IMM 1 77 0",
             "STORE 5 1 0",
             "LOAD 2 5 0",
@@ -143,7 +143,7 @@ class TestCrossLayerBisimulationAllOpcodes:
         program = [
             "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
-            "PNEW {128,129} 1",
+            "PNEW {} 1",
             "INIT_MEM 10 42",
             "XOR_LOAD 1 10 0",
             "HALT 0",
@@ -239,7 +239,7 @@ class TestCrossLayerBisimulationAllOpcodes:
         rtl = run_verilog([
             "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
-            "PNEW {128,129} 1",
+            "PNEW {} 1",
             "LOAD_IMM 31 200 0",
             "CALL 5 0",
             "HALT 0",
@@ -750,7 +750,7 @@ class TestHeapOpcodeRTL:
         result = run_verilog([
             "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
-            "PNEW {128,129} 1",
+            "PNEW {} 1",
             "LOAD_IMM 1 99 0",
             "HEAP_STORE 0 1 1",
             "HEAP_LOAD 2 0 1",
@@ -763,7 +763,7 @@ class TestHeapOpcodeRTL:
         program = [
             "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
-            "PNEW {128,129} 1",
+            "PNEW {} 1",
             "LOAD_IMM 1 77 0",
             "HEAP_STORE 0 1 1",
             "HEAP_LOAD 2 0 1",
@@ -879,7 +879,7 @@ class TestStackOverflow:
         program = [
             "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
-            "PNEW {128,129} 1",
+            "PNEW {} 1",
             "LOAD_IMM 31 200 0",  # SP = 200
         ]
         # 20 sequential CALLs that chain-jump forward

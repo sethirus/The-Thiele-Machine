@@ -37,7 +37,7 @@ FUEL 30000
 # ── Partition / state setup ──────────────────────────────────────────────────
 INIT_PT 0 128
 INIT_ACTIVE_MODULE 0
-PNEW {128,129} 1
+PNEW {} 1
 
 # ── Global constants ─────────────────────────────────────────────────────────
 LOAD_IMM r5   1    0        # constant 1

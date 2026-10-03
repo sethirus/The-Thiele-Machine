@@ -594,13 +594,16 @@ Proof.
     cbn [vm_graph] in *;
     try reflexivity.
   (* PNEW adds or reuses a module without changing an existing region lookup;
-     on an overlap trap the graph is unchanged. *)
+     on a trap the graph is unchanged. *)
   - cbn [partition_step_state vm_graph].
-    destruct (negb _); [|reflexivity].
+    destruct (pnew_ok _ _); [|reflexivity].
     rewrite graph_pnew_lookup_other; [reflexivity | exact Hmid_lt].
-  (* PSPLIT removes one module and adds fresh modules outside the unrelated lookup. *)
+  (* PSPLIT removes one module and adds fresh modules outside the unrelated
+     lookup; a trap leaves the graph unchanged. *)
   - assert (Hneq: mid <> module mod 64).
     { intro Heq. apply Hnotin. unfold instr_targets. left. symmetry. exact Heq. }
+    cbn [partition_step_state vm_graph].
+    destruct (module_room _ _); [|reflexivity].
     rewrite graph_hw_psplit_lookup_other; [reflexivity | exact Hmid_lt | exact Hneq].
   (* PMERGE changes only the two source regions and adds the joined one;
      a trap leaves the graph unchanged. *)
@@ -609,7 +612,7 @@ Proof.
     assert (Hneq2: mid <> m2 mod 64).
     { intro Heq. apply Hnotin. unfold instr_targets. right. left. symmetry. exact Heq. }
     cbn [partition_step_state vm_graph].
-    destruct (pmerge_adjacent _ _ _); [|reflexivity].
+    destruct (pmerge_ok _ _ _); [|reflexivity].
     rewrite graph_hw_pmerge_lookup_other;
       [reflexivity | exact Hmid_lt | exact Hneq1 | exact Hneq2].
   (* Goal 4: step_tensor_set_ok — only the target module tensor mutates. *)

@@ -1,16 +1,19 @@
 (** Fault outcomes of the actual step rule for an arbitrary fetched word.
 
-    The step rule computes six guards: [bianchi_violation],
-    [locality_violation], [ptable_overflow_violation], [nfi_violation],
-    [rich_fault] and [morph_runtime_fault]. Every result here is stated for
-    an arbitrary boundary and an arbitrary 128-bit fetched word, with the
-    guards named by their [DispatchLets] definitions, which are the CPU's own
-    LET expressions. No opcode, format or operand is fixed.
+    The step rule computes five guards: [bianchi_violation],
+    [locality_violation], [nfi_violation], [rich_fault] and
+    [morph_runtime_fault]. Every result here is stated for an arbitrary
+    boundary and an arbitrary 128-bit fetched word, with the guards named by
+    their [DispatchLets] definitions, which are the CPU's own LET expressions.
+    No opcode, format or operand is fixed.
 
-    The first five guards form the trap class: the PC takes the trap vector.
+    The first four guards form the trap class: the PC takes the trap vector.
     [kami_step] has none of these guards, so their outcomes are the specified
     outside-domain behaviour of C1. [morph_runtime_fault] advances the PC and
-    is the hardware side of the morph failure cases of [kami_step].
+    is the hardware side of the morph failure cases of [kami_step]. A
+    partition step without a free table slot, or a PNEW range past data
+    memory, is not among them: it is a partition fault, which [kami_step]
+    and the kernel trap on in the same way ([PartitionRefine]).
 
     One premise is used throughout: every valid coupling descriptor lies below
     [coupling_desc_next_id]. A trapped MORPH or COMPOSE word still writes its
@@ -32,8 +35,7 @@ Definition hwb_coupling_desc_valid_below_next (b : HWB) : Prop :=
   wordToNat i < wordToNat (hw_coupling_desc_next_id b).
 
 Definition guard_opcodes : list (word OpcodeSz) :=
-  [OP_LOAD; OP_HEAP_LOAD; OP_STORE; OP_HEAP_STORE; OP_CALL; OP_RET;
-   OP_PNEW; OP_PSPLIT; OP_PMERGE; OP_PDISCOVER].
+  [OP_LOAD; OP_HEAP_LOAD; OP_STORE; OP_HEAP_STORE; OP_CALL; OP_RET; OP_PDISCOVER].
 Definition locality_opcodes : list (word OpcodeSz) :=
   [OP_LOAD; OP_HEAP_LOAD; OP_STORE; OP_HEAP_STORE; OP_CALL; OP_RET].
 Definition partition_opcodes : list (word OpcodeSz) := [OP_PNEW; OP_PSPLIT; OP_PMERGE].
@@ -106,7 +108,7 @@ Section Guards.
 Variables (b : HWB) (w : word InstrSz).
 
 Definition dd_trap : bool :=
-  hwb_bianchi b || dd_locality_violation b w || dd_ptable_overflow_violation b w ||
+  hwb_bianchi b || dd_locality_violation b w ||
   dd_nfi_violation b w || dd_rich_fault b w.
 Definition dd_freeze : bool := dd_trap || dd_morph_runtime_fault b w.
 
@@ -132,14 +134,6 @@ Proof.
   dd_cbn. opcode_class.
 Qed.
 
-Lemma dd_ptable_opcode :
-  dd_ptable_overflow_violation b w = true -> In (dd_opcode b w) partition_opcodes.
-Proof.
-  unfold dd_ptable_overflow_violation, dd_pnew_overflow, dd_psplit_overflow,
-    dd_pmerge_overflow, partition_opcodes.
-  dd_cbn. opcode_class.
-Qed.
-
 Lemma dd_nfi_opcode : dd_nfi_violation b w = true -> dd_opcode b w = OP_PDISCOVER.
 Proof.
   unfold dd_nfi_violation, dd_is_declared_bound_op. dd_cbn.
@@ -148,9 +142,11 @@ Proof.
 Qed.
 
 Lemma dd_partition_opcode :
-  dd_partition_fault b w = true -> In (dd_opcode b w) [OP_PNEW; OP_PMERGE].
+  dd_partition_fault b w = true -> In (dd_opcode b w) partition_opcodes.
 Proof.
-  unfold dd_partition_fault. dd_cbn. opcode_class.
+  unfold dd_partition_fault, dd_partition_capacity_fault, dd_pnew_overflow,
+    dd_psplit_overflow, dd_pmerge_overflow, dd_pnew_out_of_memory, partition_opcodes.
+  dd_cbn. opcode_class.
 Qed.
 
 Lemma dd_morph_opcode :
@@ -168,25 +164,21 @@ Proof.
 Qed.
 
 Lemma dd_guard_opcode :
-  dd_locality_violation b w || dd_ptable_overflow_violation b w ||
-  dd_nfi_violation b w = true -> In (dd_opcode b w) guard_opcodes.
+  dd_locality_violation b w || dd_nfi_violation b w = true ->
+  In (dd_opcode b w) guard_opcodes.
 Proof.
   intro H. unfold guard_opcodes.
   destruct (dd_locality_violation b w) eqn:Hl.
   - pose proof (dd_locality_opcode Hl) as Hi. unfold locality_opcodes in Hi.
     cbn [In] in Hi |- *. tauto.
-  - destruct (dd_ptable_overflow_violation b w) eqn:Hp.
-    + pose proof (dd_ptable_opcode Hp) as Hi. unfold partition_opcodes in Hi.
-      cbn [In] in Hi |- *. tauto.
-    + cbn [orb] in H. rewrite (dd_nfi_opcode H). cbn [In]. tauto.
+  - cbn [orb] in H. rewrite (dd_nfi_opcode H). cbn [In]. tauto.
 Qed.
 
 Lemma dd_morph_not_guard :
   dd_morph_runtime_fault b w = true ->
-  dd_locality_violation b w || dd_ptable_overflow_violation b w ||
-  dd_nfi_violation b w = false.
+  dd_locality_violation b w || dd_nfi_violation b w = false.
 Proof.
-  intro Hm. destruct (_ || _ || _) eqn:Hg; [|reflexivity]. exfalso.
+  intro Hm. destruct (_ || _) eqn:Hg; [|reflexivity]. exfalso.
   exact (op_disjoint _ _ _ (dd_morph_opcode Hm) (dd_guard_opcode Hg) eq_refl).
 Qed.
 
@@ -197,34 +189,12 @@ Proof.
   exact (op_disjoint _ _ _ (dd_morph_opcode Hm) (dd_partition_opcode Hf) eq_refl).
 Qed.
 
-Lemma dd_locality_not_ptable :
-  dd_locality_violation b w = true -> dd_ptable_overflow_violation b w = false.
-Proof.
-  intro Hl. destruct (dd_ptable_overflow_violation b w) eqn:Hp; [|reflexivity]. exfalso.
-  exact (op_disjoint _ _ _ (dd_locality_opcode Hl) (dd_ptable_opcode Hp) eq_refl).
-Qed.
-
 Lemma dd_locality_not_nfi :
   dd_locality_violation b w = true -> dd_nfi_violation b w = false.
 Proof.
   intro Hl. destruct (dd_nfi_violation b w) eqn:Hn; [|reflexivity]. exfalso.
   apply (op_disjoint _ _ [OP_PDISCOVER] (dd_locality_opcode Hl)); [|reflexivity].
   rewrite (dd_nfi_opcode Hn). left. reflexivity.
-Qed.
-
-Lemma dd_ptable_not_nfi :
-  dd_ptable_overflow_violation b w = true -> dd_nfi_violation b w = false.
-Proof.
-  intro Hp. destruct (dd_nfi_violation b w) eqn:Hn; [|reflexivity]. exfalso.
-  apply (op_disjoint _ _ [OP_PDISCOVER] (dd_ptable_opcode Hp)); [|reflexivity].
-  rewrite (dd_nfi_opcode Hn). left. reflexivity.
-Qed.
-
-Lemma dd_ptable_not_locality :
-  dd_ptable_overflow_violation b w = true -> dd_locality_violation b w = false.
-Proof.
-  intro Hp. destruct (dd_locality_violation b w) eqn:Hl; [|reflexivity].
-  rewrite (dd_locality_not_ptable Hl) in Hp. discriminate Hp.
 Qed.
 
 Lemma dd_nfi_not_locality :
@@ -234,16 +204,9 @@ Proof.
   rewrite (dd_locality_not_nfi Hl) in Hn. discriminate Hn.
 Qed.
 
-Lemma dd_nfi_not_ptable :
-  dd_nfi_violation b w = true -> dd_ptable_overflow_violation b w = false.
-Proof.
-  intro Hn. destruct (dd_ptable_overflow_violation b w) eqn:Hp; [|reflexivity].
-  rewrite (dd_ptable_not_nfi Hp) in Hn. discriminate Hn.
-Qed.
-
 Lemma dd_guard_not_morph :
-  dd_locality_violation b w || dd_ptable_overflow_violation b w ||
-  dd_nfi_violation b w = true -> dd_morph_runtime_fault b w = false.
+  dd_locality_violation b w || dd_nfi_violation b w = true ->
+  dd_morph_runtime_fault b w = false.
 Proof.
   intro Hg. destruct (dd_morph_runtime_fault b w) eqn:Hm; [|reflexivity].
   rewrite (dd_morph_not_guard Hm) in Hg. discriminate Hg.
@@ -251,11 +214,10 @@ Qed.
 
 Lemma dd_trap_false : dd_trap = false ->
   hwb_bianchi b = false /\ dd_locality_violation b w = false /\
-  dd_ptable_overflow_violation b w = false /\ dd_nfi_violation b w = false /\
-  dd_rich_fault b w = false.
+  dd_nfi_violation b w = false /\ dd_rich_fault b w = false.
 Proof.
   unfold dd_trap. destruct (hwb_bianchi b), (dd_locality_violation b w),
-    (dd_ptable_overflow_violation b w), (dd_nfi_violation b w), (dd_rich_fault b w);
+    (dd_nfi_violation b w), (dd_rich_fault b w);
     cbn [orb]; intro H; try discriminate H; auto.
 Qed.
 
@@ -303,7 +265,7 @@ Lemma dd_info_gain_freeze : dd_freeze b w = true -> dd_new_info_gain b w = hw_in
 Proof.
   unfold dd_freeze, dd_trap, dd_new_info_gain. dd_cbn.
   destruct (dd_is_info_gain_op b w), (hwb_bianchi b), (dd_locality_violation b w),
-    (dd_ptable_overflow_violation b w), (dd_nfi_violation b w), (dd_rich_fault b w),
+    (dd_nfi_violation b w), (dd_rich_fault b w),
     (dd_morph_runtime_fault b w); bool_red; intro H; try discriminate H; reflexivity.
 Qed.
 
@@ -325,7 +287,7 @@ Lemma dd_is_chsh_valid_trap : dd_trap b w = true -> dd_is_chsh_valid b w = false
 Proof.
   unfold dd_trap, dd_is_chsh_valid. dd_cbn.
   destruct (weq (dd_opcode b w) OP_CHSH_TRIAL), (hwb_bianchi b), (dd_locality_violation b w),
-    (dd_ptable_overflow_violation b w), (dd_nfi_violation b w), (dd_rich_fault b w);
+    (dd_nfi_violation b w), (dd_rich_fault b w);
     bool_red; intro H; try discriminate H; reflexivity.
 Qed.
 
@@ -338,11 +300,10 @@ Qed.
 Lemma dd_mu_tensor_trap : dd_trap b w = true -> dd_new_mu_tensor b w = hw_mu_tensor b.
 Proof.
   unfold dd_trap, dd_new_mu_tensor. dd_cbn.
-  destruct (dd_locality_violation b w || dd_ptable_overflow_violation b w ||
-    dd_nfi_violation b w) eqn:Hg.
+  destruct (dd_locality_violation b w || dd_nfi_violation b w) eqn:Hg.
   - intros _. pose proof (dd_guard_opcode b w Hg) as Hin. op_off Hin. reflexivity.
   - revert Hg. destruct (weq (dd_opcode b w) OP_REVEAL), (hwb_bianchi b),
-      (dd_locality_violation b w), (dd_ptable_overflow_violation b w),
+      (dd_locality_violation b w),
       (dd_nfi_violation b w), (dd_rich_fault b w), (dd_morph_runtime_fault b w);
       bool_red; intros Hg H; try discriminate H; try discriminate Hg; reflexivity.
 Qed.
@@ -358,11 +319,10 @@ Qed.
 Lemma dd_mdl_ops_trap : dd_trap b w = true -> dd_new_mdl_ops b w = hw_mdl_ops b.
 Proof.
   unfold dd_trap, dd_new_mdl_ops. dd_cbn.
-  destruct (dd_locality_violation b w || dd_ptable_overflow_violation b w ||
-    dd_nfi_violation b w) eqn:Hg.
+  destruct (dd_locality_violation b w || dd_nfi_violation b w) eqn:Hg.
   - intros _. pose proof (dd_guard_opcode b w Hg) as Hin. op_off Hin. reflexivity.
   - revert Hg. destruct (weq (dd_opcode b w) OP_MDLACC), (hwb_bianchi b),
-      (dd_locality_violation b w), (dd_ptable_overflow_violation b w),
+      (dd_locality_violation b w),
       (dd_nfi_violation b w), (dd_rich_fault b w), (dd_morph_runtime_fault b w);
       bool_red; intros Hg H; try discriminate H; try discriminate Hg; reflexivity.
 Qed.
@@ -394,7 +354,7 @@ Proof.
     + intros _. assert (Hin : In (dd_opcode b w) [OP_PDISCOVER])
         by (rewrite (dd_nfi_opcode b w Hn); left; reflexivity).
       op_off Hin. bool_red. repeat split; same_branches.
-    + destruct (hwb_bianchi b), (dd_ptable_overflow_violation b w), (dd_rich_fault b w);
+    + destruct (hwb_bianchi b), (dd_rich_fault b w);
         bool_red; intro H; try discriminate H; repeat split; reflexivity.
 Qed.
 
@@ -403,7 +363,7 @@ Lemma dd_pt_tables_morph : dd_morph_runtime_fault b w = true ->
   dd_new_pt_next_id b w = hw_pt_next_id b.
 Proof.
   intro Hm. unfold dd_new_pt_sizes, dd_new_pt_bases, dd_new_pt_next_id. dd_cbn. rewrite Hm.
-  destruct (hwb_bianchi b), (dd_ptable_overflow_violation b w), (dd_rich_fault b w);
+  destruct (hwb_bianchi b), (dd_rich_fault b w);
     bool_red; repeat split; reflexivity.
 Qed.
 
@@ -415,7 +375,7 @@ Section Values.
 Variables (b : HWB) (w : word InstrSz).
 
 Lemma dd_err_eq : dd_new_err b w =
-  dd_locality_violation b w || dd_ptable_overflow_violation b w || dd_nfi_violation b w ||
+  dd_locality_violation b w || dd_nfi_violation b w ||
   dd_rich_fault b w || dd_morph_runtime_fault b w ||
   (dd_is_lassert b w && negb (dd_lassert_is_sat b w)) || dd_partition_fault b w.
 Proof.
@@ -424,7 +384,7 @@ Proof.
 Qed.
 
 Lemma dd_halted_eq : dd_new_halted b w =
-  dd_locality_violation b w || dd_ptable_overflow_violation b w || dd_nfi_violation b w ||
+  dd_locality_violation b w || dd_nfi_violation b w ||
   op_test (dd_opcode b w) OP_HALT.
 Proof. unfold dd_new_halted. dd_cbn. reflexivity. Qed.
 
@@ -456,7 +416,7 @@ Lemma dd_mu_locality : hwb_bianchi b = false -> dd_locality_violation b w = true
 Proof.
   intros Hb Hl. pose proof (dd_locality_opcode b w Hl) as Hin.
   unfold dd_final_mu, dd_rich_fault_mu, dd_normal_step_mu. dd_cbn.
-  rewrite Hb, (dd_locality_not_ptable b w Hl), (dd_locality_not_nfi b w Hl).
+  rewrite Hb, (dd_locality_not_nfi b w Hl).
   op_off Hin. bool_red. same_branches.
 Qed.
 
@@ -471,47 +431,20 @@ Proof.
   unfold dd_new_partition_ops, dd_is_partition_op. dd_cbn. op_off Hin. bool_red. reflexivity.
 Qed.
 
-(** ** Partition-table overflow *)
-
-Lemma dd_mu_ptable : hwb_bianchi b = false -> dd_ptable_overflow_violation b w = true ->
-  dd_final_mu b w = hw_mu b.
-Proof. intros Hb Hp. unfold dd_final_mu. dd_cbn. rewrite Hb, Hp. reflexivity. Qed.
-
-Lemma dd_error_code_ptable : hwb_bianchi b = false -> dd_ptable_overflow_violation b w = true ->
-  dd_new_error_code b w = ERR_PARTITION_VAL.
-Proof.
-  intros Hb Hp. unfold dd_new_error_code. dd_cbn.
-  rewrite Hb, (dd_ptable_not_locality b w Hp), Hp. reflexivity.
-Qed.
-
-Lemma dd_partition_ops_ptable : hwb_bianchi b = false -> dd_ptable_overflow_violation b w = true ->
-  dd_new_partition_ops b w =
-  if dd_rich_fault b w then hw_partition_ops b
-  else wplus (hw_partition_ops b) (natToWord WordSz 1).
-Proof.
-  intros Hb Hp. pose proof (dd_ptable_opcode b w Hp) as Hin.
-  assert (Hm : dd_morph_runtime_fault b w = false).
-  { apply (dd_guard_not_morph b w). rewrite Hp, Bool.orb_true_r. reflexivity. }
-  unfold dd_new_partition_ops, dd_is_partition_op. dd_cbn. rewrite Hb, Hm.
-  unfold partition_opcodes in Hin. cbn [In] in Hin.
-  destruct Hin as [E|[E|[E|F]]]; try destruct F; rewrite <- E; close_weq; bool_red;
-    destruct (dd_rich_fault b w); reflexivity.
-Qed.
-
 (** ** No-Free-Insight *)
 
 Lemma dd_mu_nfi : hwb_bianchi b = false -> dd_nfi_violation b w = true ->
   dd_final_mu b w = hw_mu b.
 Proof.
   intros Hb Hn. unfold dd_final_mu. dd_cbn.
-  rewrite Hb, (dd_nfi_not_ptable b w Hn), Hn. reflexivity.
+  rewrite Hb, Hn. reflexivity.
 Qed.
 
 Lemma dd_error_code_nfi : hwb_bianchi b = false -> dd_nfi_violation b w = true ->
   dd_new_error_code b w = ERR_LOGIC_VAL.
 Proof.
   intros Hb Hn. unfold dd_new_error_code. dd_cbn.
-  rewrite Hb, (dd_nfi_not_locality b w Hn), (dd_nfi_not_ptable b w Hn), Hn. reflexivity.
+  rewrite Hb, (dd_nfi_not_locality b w Hn), Hn. reflexivity.
 Qed.
 
 Lemma dd_partition_ops_nfi : dd_nfi_violation b w = true ->
@@ -522,8 +455,8 @@ Proof.
   unfold dd_new_partition_ops, dd_is_partition_op. dd_cbn. op_off Hin. bool_red. reflexivity.
 Qed.
 
-Lemma dd_err_guard : dd_locality_violation b w || dd_ptable_overflow_violation b w ||
-  dd_nfi_violation b w = true -> dd_new_err b w = true /\ dd_new_halted b w = true.
+Lemma dd_err_guard : dd_locality_violation b w || dd_nfi_violation b w = true ->
+  dd_new_err b w = true /\ dd_new_halted b w = true.
 Proof.
   rewrite dd_err_eq, dd_halted_eq. intro H. rewrite H. split; reflexivity.
 Qed.
@@ -532,18 +465,17 @@ Qed.
 
 Section Rich.
 Hypotheses (Hb : hwb_bianchi b = false) (Hl : dd_locality_violation b w = false)
-  (Hp : dd_ptable_overflow_violation b w = false) (Hn : dd_nfi_violation b w = false)
-  (Hr : dd_rich_fault b w = true).
+  (Hn : dd_nfi_violation b w = false) (Hr : dd_rich_fault b w = true).
 
 Lemma dd_mu_rich : dd_final_mu b w = dd_rich_fault_mu b w.
-Proof. unfold dd_final_mu. dd_cbn. rewrite Hb, Hp, Hn, Hr. reflexivity. Qed.
+Proof. unfold dd_final_mu. dd_cbn. rewrite Hb, Hn, Hr. reflexivity. Qed.
 
 Lemma dd_error_code_rich : dd_new_error_code b w = dd_rich_fault_error_code b w.
-Proof. unfold dd_new_error_code. dd_cbn. rewrite Hb, Hl, Hp, Hn, Hr. reflexivity. Qed.
+Proof. unfold dd_new_error_code. dd_cbn. rewrite Hb, Hl, Hn, Hr. reflexivity. Qed.
 
 Lemma dd_err_halted_rich :
   dd_new_err b w = true /\ dd_new_halted b w = op_test (dd_opcode b w) OP_HALT.
-Proof. rewrite dd_err_eq, dd_halted_eq, Hl, Hp, Hn, Hr. split; reflexivity. Qed.
+Proof. rewrite dd_err_eq, dd_halted_eq, Hl, Hn, Hr. split; reflexivity. Qed.
 
 Lemma dd_partition_ops_rich : dd_new_partition_ops b w = hw_partition_ops b.
 Proof.
@@ -559,30 +491,30 @@ Hypotheses (Ht : dd_trap b w = false) (Hm : dd_morph_runtime_fault b w = true).
 
 Lemma dd_pc_morph : dd_new_pc b w = dd_pc_plus_1 b w.
 Proof.
-  destruct (dd_trap_false b w Ht) as (Hb & Hl & Hp & Hn & Hr).
+  destruct (dd_trap_false b w Ht) as (Hb & Hl & Hn & Hr).
   pose proof (dd_morph_opcode b w Hm) as Hin.
-  unfold dd_new_pc, dd_chsh_lassert_trap. dd_cbn. rewrite Hb, Hl, Hp, Hn, Hr.
+  unfold dd_new_pc, dd_chsh_lassert_trap. dd_cbn. rewrite Hb, Hl, Hn, Hr.
   rewrite (dd_morph_not_partition b w Hm).
   op_off Hin. bool_red. reflexivity.
 Qed.
 
 Lemma dd_mu_morph : dd_final_mu b w = dd_normal_step_mu b w.
 Proof.
-  destruct (dd_trap_false b w Ht) as (Hb & Hl & Hp & Hn & Hr).
-  unfold dd_final_mu. dd_cbn. rewrite Hb, Hp, Hn, Hr. reflexivity.
+  destruct (dd_trap_false b w Ht) as (Hb & Hl & Hn & Hr).
+  unfold dd_final_mu. dd_cbn. rewrite Hb, Hn, Hr. reflexivity.
 Qed.
 
 Lemma dd_error_code_morph : dd_new_error_code b w = dd_morph_runtime_error_code b w.
 Proof.
-  destruct (dd_trap_false b w Ht) as (Hb & Hl & Hp & Hn & Hr).
-  unfold dd_new_error_code. dd_cbn. rewrite Hb, Hl, Hp, Hn, Hr, Hm. reflexivity.
+  destruct (dd_trap_false b w Ht) as (Hb & Hl & Hn & Hr).
+  unfold dd_new_error_code. dd_cbn. rewrite Hb, Hl, Hn, Hr, Hm. reflexivity.
 Qed.
 
 Lemma dd_err_halted_morph : dd_new_err b w = true /\ dd_new_halted b w = false.
 Proof.
-  destruct (dd_trap_false b w Ht) as (Hb & Hl & Hp & Hn & Hr).
+  destruct (dd_trap_false b w Ht) as (Hb & Hl & Hn & Hr).
   pose proof (dd_morph_opcode b w Hm) as Hin.
-  rewrite dd_err_eq, dd_halted_eq, Hl, Hp, Hn, Hr, Hm. split; [reflexivity|].
+  rewrite dd_err_eq, dd_halted_eq, Hl, Hn, Hr, Hm. split; [reflexivity|].
   unfold op_test. op_off Hin. reflexivity.
 Qed.
 End Morph.
@@ -771,22 +703,6 @@ Proof.
   reflexivity.
 Qed.
 
-Theorem step_ptable_snapshot :
-  hwb_bianchi b = false -> dd_ptable_overflow_violation b w = true ->
-  hwb_snapshot (step_next b) =
-  snap_fault (hwb_snapshot b) (wordToNat (hw_trap_vector b)) (wordToNat (hw_mu b)) true true
-    (wordToNat ERR_PARTITION_VAL)
-    (wordToNat (if dd_rich_fault b w then hw_partition_ops b
-                else wplus (hw_partition_ops b) (natToWord WordSz 1))).
-Proof.
-  intros Hb Hp. rewrite step_trap_snapshot
-    by (exact Hd || (unfold dd_trap; rewrite Hp, !Bool.orb_true_r; reflexivity)).
-  destruct (dd_err_guard b w) as [He Hh]; [rewrite Hp, Bool.orb_true_r; reflexivity|].
-  rewrite He, Hh, (dd_mu_ptable b w Hb Hp), (dd_error_code_ptable b w Hb Hp),
-    (dd_partition_ops_ptable b w Hb Hp).
-  reflexivity.
-Qed.
-
 Theorem step_nfi_snapshot :
   hwb_bianchi b = false -> dd_nfi_violation b w = true ->
   hwb_snapshot (step_next b) =
@@ -805,17 +721,16 @@ Qed.
     only for a HALT opcode, the format charge and the rich error code. *)
 Theorem step_rich_snapshot :
   hwb_bianchi b = false -> dd_locality_violation b w = false ->
-  dd_ptable_overflow_violation b w = false -> dd_nfi_violation b w = false ->
-  dd_rich_fault b w = true ->
+  dd_nfi_violation b w = false -> dd_rich_fault b w = true ->
   hwb_snapshot (step_next b) =
   snap_fault (hwb_snapshot b) (wordToNat (hw_trap_vector b))
     (wordToNat (dd_rich_fault_mu b w)) true (op_test (dd_opcode b w) OP_HALT)
     (wordToNat (dd_rich_fault_error_code b w)) (wordToNat (hw_partition_ops b)).
 Proof.
-  intros Hb Hl Hp Hn Hr. rewrite step_trap_snapshot
+  intros Hb Hl Hn Hr. rewrite step_trap_snapshot
     by (exact Hd || (unfold dd_trap; rewrite Hr, !Bool.orb_true_r; reflexivity)).
-  destruct (dd_err_halted_rich b w Hl Hp Hn Hr) as [He Hh].
-  rewrite He, Hh, (dd_mu_rich b w Hb Hp Hn Hr), (dd_error_code_rich b w Hb Hl Hp Hn Hr),
+  destruct (dd_err_halted_rich b w Hl Hn Hr) as [He Hh].
+  rewrite He, Hh, (dd_mu_rich b w Hb Hn Hr), (dd_error_code_rich b w Hb Hl Hn Hr),
     (dd_partition_ops_rich b w Hb Hr).
   reflexivity.
 Qed.

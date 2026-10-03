@@ -672,6 +672,11 @@ Definition KAMI_ERR_MORPH_NOT_FOUND : nat := proj1_sig kami_err_morph_not_found_
 Lemma kami_err_partition_overlap_witness : { n : nat | n = N.to_nat 3135176734%N }.
 Proof. eexists. reflexivity. Qed.
 Definition KAMI_ERR_PARTITION_OVERLAP : nat := proj1_sig kami_err_partition_overlap_witness.
+Lemma kami_err_partition_witness : { n : nat | n = N.to_nat 3135176733%N }.
+Proof. eexists. reflexivity. Qed.
+(** The CPU's code for a partition step that would issue a module number
+    past the 64-slot table or claim a range past data memory. *)
+Definition KAMI_ERR_PARTITION : nat := proj1_sig kami_err_partition_witness.
 
 (** ** Partition-table range checks
 
@@ -692,6 +697,11 @@ Definition snap_pt_conflict (next : nat) (sizes bases : nat -> nat) (a len : nat
                          (andb (negb (snap_slot_same sizes bases a len i))
                                (snap_slot_overlap sizes bases a len i)))
           (List.seq 0 PTableSz).
+
+(** PNEW's capacity check: a slot is free and [a, a + len) lies inside data
+    memory (an empty range claims no address). *)
+Definition snap_pnew_capacity (next a len : nat) : bool :=
+  andb (Nat.ltb next PTableSz) (orb (Nat.eqb len 0) (Nat.leb (a + len) MEM_SIZE)).
 
 (** Some module owns exactly [a, a + len); PNEW then names that module. *)
 Definition snap_pt_present (next : nat) (sizes bases : nat -> nat) (a len : nat) : bool :=
@@ -888,15 +898,17 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
   match i with
   | instr_pnew region cost =>
       (* PNEW claims [a, a + len): a is the first address of the normalized
-         region (operand A), len its length (operand B). A range that
-         overlaps a module without being its range traps as a failed
-         LASSERT does; a range some module owns names that module; any other
-         range takes the next free slot. *)
+         region (operand A), len its length (operand B). When no slot is
+         free, or the range runs past data memory, or the range overlaps a
+         module without being its range, the step traps as a failed LASSERT
+         does; a range some module owns names that module; any other range
+         takes the next free slot. *)
       let r := normalize_region region in
       let a := hd 0 r in
       let len := length r in
       let id := snap_pt_next_id hs in
-      let ok := negb (snap_pt_conflict id (snap_pt_sizes hs) (snap_pt_bases hs) a len) in
+      let cap := snap_pnew_capacity id a len in
+      let ok := andb cap (negb (snap_pt_conflict id (snap_pt_sizes hs) (snap_pt_bases hs) a len)) in
       let fresh := andb ok (negb (snap_pt_present id (snap_pt_sizes hs) (snap_pt_bases hs) a len)) in
       {| snap_pc    := if ok then S (snap_pc hs) else LASSERT_TRAP_PC;
          snap_mu    := snap_mu hs + cost;
@@ -907,7 +919,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_partition_ops := snap_partition_ops hs + 1;
          snap_mdl_ops := snap_mdl_ops hs;
          snap_info_gain := snap_info_gain hs;
-         snap_error_code := if ok then snap_error_code hs else KAMI_ERR_PARTITION_OVERLAP;
+         snap_error_code := if ok then snap_error_code hs
+                            else if cap then KAMI_ERR_PARTITION_OVERLAP else KAMI_ERR_PARTITION;
          snap_mu_tensor := snap_mu_tensor hs;
          snap_pt_sizes :=
            if fresh then (fun j => if Nat.eqb j id then len else snap_pt_sizes hs j)
@@ -938,7 +951,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          PTableSz) is cut at its middle into two new partition table slots:
          the left half keeps the base, the right half starts where the left
          one ends. The original slot is removed, with every morphism naming
-         it. Always succeeds (matching SimulationProof.vm_apply). *)
+         it. When fewer than two slots are free the step traps as a failed
+         LASSERT does (matching SimulationProof.vm_apply). *)
       let mid := module mod PTableSz in
       let orig_sz := snap_pt_sizes hs mid in
       let orig_base := snap_pt_bases hs mid in
@@ -951,20 +965,21 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
       let bases1 := fun i => if Nat.eqb i mid then 0 else snap_pt_bases hs i in
       let bases2 := fun i => if Nat.eqb i nid then orig_base else bases1 i in
       let bases3 := fun i => if Nat.eqb i (S nid) then orig_base + left_sz else bases2 i in
-      {| snap_pc           := S (snap_pc hs);
+      let ok := Nat.leb (S (S nid)) PTableSz in
+      {| snap_pc           := if ok then S (snap_pc hs) else LASSERT_TRAP_PC;
          snap_mu           := snap_mu hs + cost;
-         snap_err          := snap_err hs;
+         snap_err          := if ok then snap_err hs else true;
          snap_halted       := snap_halted hs;
          snap_regs         := snap_regs hs;
          snap_mem          := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs + 1;
          snap_mdl_ops      := snap_mdl_ops hs;
          snap_info_gain    := snap_info_gain hs;
-         snap_error_code   := snap_error_code hs;
+         snap_error_code   := if ok then snap_error_code hs else KAMI_ERR_PARTITION;
          snap_mu_tensor    := snap_mu_tensor hs;
-         snap_pt_sizes     := sizes3;
-         snap_pt_bases     := bases3;
-         snap_pt_next_id   := S (S nid);
+         snap_pt_sizes     := if ok then sizes3 else snap_pt_sizes hs;
+         snap_pt_bases     := if ok then bases3 else snap_pt_bases hs;
+         snap_pt_next_id   := if ok then S (S nid) else nid;
          snap_certified    := snap_certified hs;
          snap_wc_same_00   := snap_wc_same_00 hs;
          snap_wc_diff_00   := snap_wc_diff_00 hs;
@@ -975,18 +990,20 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_same_11   := snap_wc_same_11 hs;
          snap_wc_diff_11   := snap_wc_diff_11 hs;
          snap_module_tensors := snap_module_tensors hs;
-     snap_rich_state    := rich_state_cascade (snap_rich_state hs) mid mid;
+     snap_rich_state    := if ok then rich_state_cascade (snap_rich_state hs) mid mid
+                           else snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
-         snap_csr_err       := snap_csr_err hs;
+         snap_csr_err       := if ok then snap_csr_err hs else 1;
          snap_csr_heap_base := snap_csr_heap_base hs;
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
   | instr_pmerge m1 m2 cost =>
       (* PMERGE: mirrors graph_hw_pmerge. Modules m1 mod PTableSz and
-         m2 mod PTableSz must have ranges that touch; otherwise the step traps
-         as a failed LASSERT does. Both slots are removed, with every
-         morphism naming either, and one new slot takes the joined range. *)
+         m2 mod PTableSz must have ranges that touch, and a slot must be
+         free; otherwise the step traps as a failed LASSERT does. Both slots
+         are removed, with every morphism naming either, and one new slot
+         takes the joined range. *)
       let mid1 := m1 mod PTableSz in
       let mid2 := m2 mod PTableSz in
       let sz1 := snap_pt_sizes hs mid1 in
@@ -994,7 +1011,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
       let merged_sz := sz1 + sz2 in
       let merged_base := snap_pmerge_base (snap_pt_sizes hs) (snap_pt_bases hs) mid1 mid2 in
       let nid := snap_pt_next_id hs in
-      let ok := snap_pmerge_adjacent (snap_pt_sizes hs) (snap_pt_bases hs) mid1 mid2 in
+      let room := Nat.ltb nid PTableSz in
+      let ok := andb room (snap_pmerge_adjacent (snap_pt_sizes hs) (snap_pt_bases hs) mid1 mid2) in
       let sizes1 := fun i => if Nat.eqb i mid1 then 0 else snap_pt_sizes hs i in
       let sizes2 := fun i => if Nat.eqb i mid2 then 0 else sizes1 i in
       let sizes3 := fun i => if Nat.eqb i nid then merged_sz else sizes2 i in
@@ -1010,7 +1028,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_partition_ops := snap_partition_ops hs + 1;
          snap_mdl_ops      := snap_mdl_ops hs;
          snap_info_gain    := snap_info_gain hs;
-         snap_error_code   := if ok then snap_error_code hs else KAMI_ERR_PARTITION_OVERLAP;
+         snap_error_code   := if ok then snap_error_code hs
+                              else if room then KAMI_ERR_PARTITION_OVERLAP else KAMI_ERR_PARTITION;
          snap_mu_tensor    := snap_mu_tensor hs;
          snap_pt_sizes     := if ok then sizes3 else snap_pt_sizes hs;
          snap_pt_bases     := if ok then bases3 else snap_pt_bases hs;
@@ -2525,8 +2544,7 @@ Definition cpu_preconditions (s : KamiSnapshot) : Prop :=
   snap_pc         s < MEM_SIZE /\
   snap_mu         s < 2^31   /\
   snap_err        s = false  /\
-  snap_halted     s = false  /\
-  snap_pt_next_id s < PTableSz.    (* partition table not full: room for at least one more allocation *)
+  snap_halted     s = false.
 
 (** Length invariants *)
 

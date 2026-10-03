@@ -149,8 +149,8 @@ Lemma advance_state_mu_eq :
 Proof. intros. unfold advance_state. simpl. reflexivity. Qed.
 
 (** PNEW field consequences: vm_apply (instr_pnew r c) preserves mem, regs,
-    certified, charges c, and advances pc by 1 when its range overlaps no
-    module ([region_conflict] is false; the empty range never conflicts). *)
+    certified, charges c, and advances pc by 1 when it succeeds ([pnew_ok];
+    the empty range succeeds exactly when a module number is free). *)
 
 Lemma vm_apply_pnew_mem_preserved :
   forall s r c, (vm_apply s (instr_pnew r c)).(vm_mem) = s.(vm_mem).
@@ -162,7 +162,7 @@ Proof. intros s r c. rewrite vm_apply_pnew_eq. reflexivity. Qed.
 
 Lemma vm_apply_pnew_pc_advances :
   forall s r c,
-    region_conflict s.(vm_graph) (pnew_region r) = false ->
+    pnew_ok s.(vm_graph) (pnew_region r) = true ->
     (vm_apply s (instr_pnew r c)).(vm_pc) = S s.(vm_pc).
 Proof. intros s r c H. apply vm_apply_pnew_pc. exact H. Qed.
 
@@ -216,7 +216,7 @@ Qed.
 
 Lemma vm_apply_pnew_strict_shadow :
   forall s r c,
-    region_conflict s.(vm_graph) (pnew_region r) = false ->
+    pnew_ok s.(vm_graph) (pnew_region r) = true ->
     strict_shadow (vm_apply s (instr_pnew r c)) =
     {| scs_mem := s.(vm_mem); scs_regs := s.(vm_regs); scs_pc := S s.(vm_pc) |}.
 Proof.
@@ -326,7 +326,7 @@ Theorem po1_cond2_final_shadow_equal :
 Proof.
   unfold po1_state_A, po1_state_B, po1_instr_A, po1_instr_B.
   rewrite vm_apply_certify_strict_shadow,
-          vm_apply_pnew_strict_shadow by apply region_conflict_nil.
+          vm_apply_pnew_strict_shadow by reflexivity.
   unfold po1_init. simpl. reflexivity.
 Qed.
 
@@ -662,45 +662,50 @@ Lemma run_instrs_single :
     run_instrs s [i] = vm_apply s i.
 Proof. intros s i. unfold run_instrs. reflexivity. Qed.
 
-(** §6A — UNIVERSALITY: From any state, CERTIFY 0 and PNEW [] 0 produce
-    the same strict shadow but different μ-ledger and certification status.
+(** §6A UNIVERSALITY: From any state with a free module number, CERTIFY 0
+    and PNEW [] 0 produce the same strict shadow but different μ-ledger and
+    certification status. With the 64 module numbers used up, PNEW [] 0
+    traps and the two shadows differ in the pc.
 
     CERTIFY 0 charges S(0) = 1 and sets vm_certified := true.
     PNEW [] 0 charges 0 and preserves vm_certified from the source state.
     Both advance pc by 1 and leave mem and regs unchanged: same strict shadow. *)
 Theorem mu_ledger_necessity_universal :
   forall (s : VMState),
+    module_room s.(vm_graph) 1 = true ->
     strict_shadow (vm_apply s (instr_certify 0)) =
     strict_shadow (vm_apply s (instr_pnew [] 0)) /\
     (vm_apply s (instr_certify 0)).(vm_mu) = s.(vm_mu) + 1 /\
     (vm_apply s (instr_pnew [] 0)).(vm_mu) = s.(vm_mu) /\
     (vm_apply s (instr_certify 0)).(vm_certified) = true.
 Proof.
-  intro s.
+  intros s Hroom.
   refine (conj _ (conj _ (conj _ _))).
   - rewrite vm_apply_certify_strict_shadow, vm_apply_pnew_strict_shadow
-      by apply region_conflict_nil.
+      by (rewrite pnew_region_nil, pnew_ok_nil; exact Hroom).
     reflexivity.
   - rewrite vm_apply_certify_mu_charged. simpl. lia.
   - rewrite vm_apply_pnew_mu_charged. simpl. lia.
   - apply vm_apply_certify_certified.
 Qed.
 
-(** §6B — TRACE-LEVEL: For any common prefix program, the two extensions
-    (CERTIFY 0 vs. PNEW [] 0) reach the same strict shadow but different μ.
+(** §6B TRACE-LEVEL: For any common prefix program that leaves a module
+    number free, the two extensions (CERTIFY 0 vs. PNEW [] 0) reach the same
+    strict shadow but different μ.
 
     This means: no amount of classical computation before the diverging step
     can make the μ-ledger recoverable from the strict classical shadow. *)
 Theorem po1_trace_necessity :
   forall (prefix : list vm_instruction),
+    module_room (run_instrs po1_init prefix).(vm_graph) 1 = true ->
     strict_shadow (run_instrs po1_init (prefix ++ [instr_certify 0])) =
     strict_shadow (run_instrs po1_init (prefix ++ [instr_pnew [] 0])) /\
     (run_instrs po1_init (prefix ++ [instr_certify 0])).(vm_mu) >
     (run_instrs po1_init (prefix ++ [instr_pnew [] 0])).(vm_mu).
 Proof.
-  intro prefix.
+  intros prefix Hroom.
   rewrite !run_instrs_append, !run_instrs_single.
-  pose proof (mu_ledger_necessity_universal (run_instrs po1_init prefix))
+  pose proof (mu_ledger_necessity_universal (run_instrs po1_init prefix) Hroom)
     as [Hsh [Hmu1 [Hmu0 _]]].
   split.
   - exact Hsh.
@@ -708,17 +713,19 @@ Proof.
 Qed.
 
 (** Corollary: the base case (empty prefix) recovers the single-step result,
-    and for any prefix of length n, programs of length n+1 maintain the
-    separation.  No extension of classical computation closes the gap. *)
+    and for any prefix of length n that leaves a module number free,
+    programs of length n+1 maintain the separation.  No extension of
+    classical computation closes the gap. *)
 Corollary po1_trace_necessity_any_length :
   forall (n : nat) (prefix : list vm_instruction),
     length prefix = n ->
+    module_room (run_instrs po1_init prefix).(vm_graph) 1 = true ->
     strict_shadow (run_instrs po1_init (prefix ++ [instr_certify 0])) =
     strict_shadow (run_instrs po1_init (prefix ++ [instr_pnew [] 0])) /\
     (run_instrs po1_init (prefix ++ [instr_certify 0])).(vm_mu) >
     (run_instrs po1_init (prefix ++ [instr_pnew [] 0])).(vm_mu).
 Proof.
-  intros n prefix _. exact (po1_trace_necessity prefix).
+  intros n prefix _ Hroom. exact (po1_trace_necessity prefix Hroom).
 Qed.
 
 

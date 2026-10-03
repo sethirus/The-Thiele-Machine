@@ -187,11 +187,11 @@ Qed.
     Link the graph-level theorems to the VM step relation.
     *)
 
-(** PNEW claims the range [pnew_region region]. When that range overlaps no
-    module and no module owns exactly that range, the step adds a module. *)
+(** PNEW claims the range [pnew_region region]. When PNEW succeeds on that
+    range and no module owns exactly that range, the step adds a module. *)
 Theorem vm_pnew_step_changes_topology : forall s region cost s',
   graph_find_region (vm_graph s) (pnew_region region) = None ->
-  region_conflict (vm_graph s) (pnew_region region) = false ->
+  pnew_ok (vm_graph s) (pnew_region region) = true ->
   length (normalize_region region) = 3 ->
   vm_step s (instr_pnew region cost) s' ->
   (V (vm_graph s'), E (vm_graph s'), F (vm_graph s')) <>
@@ -199,7 +199,7 @@ Theorem vm_pnew_step_changes_topology : forall s region cost s',
 Proof.
   intros s region cost s' Hfresh Hfree Htriangle Hstep.
   inversion Hstep; subst.
-  cbn [partition_step_state vm_graph]. rewrite Hfree. cbn [negb].
+  cbn [partition_step_state vm_graph]. rewrite Hfree. cbv iota.
   unfold graph_pnew. cbv zeta. rewrite pnew_region_normalized, Hfresh.
   intro Heq.
   apply (f_equal snd) in Heq.

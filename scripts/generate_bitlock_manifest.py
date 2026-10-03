@@ -104,7 +104,7 @@ def fixed_programs() -> List[List[str]]:
         [
             "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
-            "PNEW {128,129} 1",
+            "PNEW {} 1",
             "LOAD_IMM 1 77 0",
             "STORE 5 1 0",
             "LOAD 2 5 0",
@@ -132,7 +132,7 @@ def seeded_program(seed: int) -> List[str]:
     prog: List[str] = [
         "INIT_PT 0 128",
         "INIT_ACTIVE_MODULE 0",
-        "PNEW {128,129} 1",
+        "PNEW {} 1",
         f"LOAD_IMM 15 {rng.randint(0, 63)} 0",
     ]
 

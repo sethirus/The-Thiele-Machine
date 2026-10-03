@@ -100,7 +100,7 @@ class TestPartitionOpcodesParity:
         assert_mu_at_least(r, 5, "PSPLIT")
 
     def test_pmerge_charges_cost(self):
-        r = run(["PNEW {0,128} 1", "PNEW {128,256} 1", "PMERGE 0 1 7", "HALT 0"])
+        r = run(["PNEW {0,128} 1", "PNEW {2,3} 1", "PMERGE 0 1 7", "HALT 0"])
         assert_mu_at_least(r, 9, "PMERGE")
 
     def test_lassert_charges_cost(self):

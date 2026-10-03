@@ -75,9 +75,12 @@ Qed.
 
     Partition ops (modify graph):
     - PNEW: Claim a range of data memory as a fresh module at pg_next_id.
-      Traps if the range overlaps another module's range.
+      Traps if the range overlaps another module's range, runs past data
+      memory, or the 64 module numbers are used up.
     - PSPLIT: Split a module's range into two halves (hardware: equal halves).
-    - PMERGE: Join two modules whose ranges touch. Traps otherwise.
+      Traps if fewer than two module numbers are left.
+    - PMERGE: Join two modules whose ranges touch. Traps otherwise, and when
+      the module numbers are used up.
     - PDISCOVER: Carry evidence payload; current transition is pure advance.
 
     Logical ops:
@@ -619,10 +622,68 @@ Proof.
   rewrite Hd. rewrite andb_false_r. reflexivity.
 Qed.
 
+(** module_room g k: issuing [k] more module numbers keeps every number
+    below [NUM_MODULES], the 64 slots of the hardware partition table.
+    PNEW, PSPLIT and PMERGE take their module numbers from [pg_next_id] and
+    never reuse one, so [pg_next_id] counts every number ever issued. *)
+Definition module_room (g : PartitionGraph) (k : nat) : bool :=
+  Nat.leb (g.(pg_next_id) + k) NUM_MODULES.
+
+(** region_in_memory r: every address of [r] is a data-memory address. *)
+Definition region_in_memory (r : list nat) : bool :=
+  forallb (fun a => Nat.ltb a MEM_SIZE) r.
+
+(** pnew_ok g r: PNEW of the range [r] succeeds. A module number is free,
+    the range lies inside data memory, and the range overlaps no module
+    except one whose range it is. PNEW traps otherwise. *)
+Definition pnew_ok (g : PartitionGraph) (r : list nat) : bool :=
+  module_room g 1 && region_in_memory r && negb (region_conflict g r).
+
+Lemma pnew_ok_spec : forall g r, pnew_ok g r = true ->
+  module_room g 1 = true /\ region_in_memory r = true /\ region_conflict g r = false.
+Proof.
+  intros g r H. unfold pnew_ok in H.
+  apply andb_true_iff in H as [H H3]. apply andb_true_iff in H as [H1 H2].
+  apply negb_true_iff in H3. auto.
+Qed.
+
+Lemma module_room_spec : forall g k,
+  module_room g k = true <-> g.(pg_next_id) + k <= NUM_MODULES.
+Proof. intros g k. unfold module_room. apply Nat.leb_le. Qed.
+
+Lemma region_in_memory_spec : forall r,
+  region_in_memory r = true <-> (forall a, In a r -> a < MEM_SIZE).
+Proof.
+  intro r. unfold region_in_memory. rewrite forallb_forall.
+  split; intros H a Ha; [apply Nat.ltb_lt; exact (H a Ha) | apply Nat.ltb_lt; exact (H a Ha)].
+Qed.
+
+(** On a range the memory check is the hardware's base + length test. *)
+Lemma region_in_memory_seq : forall b n,
+  region_in_memory (List.seq b n) = true <-> n = 0 \/ b + n <= MEM_SIZE.
+Proof.
+  intros b n. rewrite region_in_memory_spec. split.
+  - intros H. destruct n as [|n]; [left; reflexivity|right].
+    assert (Hl : In (b + n) (List.seq b (S n))) by (apply in_seq; lia).
+    specialize (H _ Hl). lia.
+  - intros [->|Hle] a Ha; [destruct Ha|]. apply in_seq in Ha. lia.
+Qed.
+
+Arguments module_room : simpl never.
+Arguments pnew_ok : simpl never.
+
+(** PNEW of the empty region claims no address, so it succeeds exactly when
+    a module number is free. *)
+Lemma pnew_ok_nil : forall g, pnew_ok g [] = module_room g 1.
+Proof.
+  intro g. unfold pnew_ok. rewrite region_conflict_nil.
+  cbn [region_in_memory forallb negb]. rewrite andb_true_r, andb_true_r. reflexivity.
+Qed.
+
 (** pnew_adds_module g region: PNEW of [region] adds a fresh module to [g].
-    Its range overlaps no module, and no module owns exactly that range. *)
+    PNEW succeeds, and no module owns exactly that range. *)
 Definition pnew_adds_module (g : PartitionGraph) (region : list nat) : Prop :=
-  region_conflict g (pnew_region region) = false /\
+  pnew_ok g (pnew_region region) = true /\
   graph_find_region g (pnew_region region) = None.
 
 (** region_contiguousb: decision procedure for [region_contiguous]. *)
@@ -646,6 +707,17 @@ Definition pmerge_adjacent (g : PartitionGraph) (m1 m2 : ModuleID) : bool :=
   let r2 := graph_module_region g m2 in
   region_contiguousb (r1 ++ r2) || region_contiguousb (r2 ++ r1).
 
+(** pmerge_ok g m1 m2: PMERGE succeeds. A module number is free and the two
+    ranges touch. PMERGE traps otherwise. *)
+Definition pmerge_ok (g : PartitionGraph) (m1 m2 : ModuleID) : bool :=
+  module_room g 1 && pmerge_adjacent g m1 m2.
+
+Arguments pmerge_ok : simpl never.
+
+Lemma pmerge_ok_spec : forall g m1 m2, pmerge_ok g m1 m2 = true ->
+  module_room g 1 = true /\ pmerge_adjacent g m1 m2 = true.
+Proof. intros g m1 m2 H. unfold pmerge_ok in H. apply andb_true_iff in H. exact H. Qed.
+
 (** pmerge_region r1 r2: the joined range, starting at the lower base. *)
 Definition pmerge_region (r1 r2 : list nat) : list nat :=
   if region_contiguousb (r1 ++ r2) then r1 ++ r2 else r2 ++ r1.
@@ -664,7 +736,8 @@ Definition psplit_right (r : list nat) : list nat :=
     the faults apart. *)
 Definition ERR_PARTITION_OVERLAP : nat := 1.
 
-(** partition_step_state s instr ok graph: the state after PNEW or PMERGE.
+(** partition_step_state s instr ok graph: the state after PNEW, PSPLIT or
+    PMERGE.
     When [ok] holds the step installs [graph] and advances the pc, exactly
     as [advance_state] does. When [ok] fails the step traps the way a
     failed LASSERT does: the graph stays as it was, csr_err is set, the
@@ -685,6 +758,10 @@ Definition partition_step_state (s : VMState) (instr : vm_instruction)
      vm_witness := s.(vm_witness);
      vm_certified := s.(vm_certified) |}.
 
+Lemma partition_step_state_graph : forall s instr ok graph,
+  vm_graph (partition_step_state s instr ok graph) = if ok then graph else vm_graph s.
+Proof. reflexivity. Qed.
+
 Lemma partition_step_state_ok : forall s instr graph,
   partition_step_state s instr true graph =
   advance_state s instr graph s.(vm_csrs) s.(vm_err).
@@ -695,7 +772,10 @@ Proof. reflexivity. Qed.
     removed, and two fresh modules take the two halves of its range: the left
     one gets the first size/2 addresses, the right one the rest. A module ID
     that is not in the graph has the empty region, so both halves are empty.
-    Module ID wraps to mod 64 in the step rule to stay within NUM_MODULES. *)
+    The step rule reads the module ID modulo 64, the width of the hardware
+    operand. Every module ID of a reachable state is below 64
+    ([vm_reachable_partition_in_bounds]), so the reading names every live
+    module and no two live modules alias. *)
 Definition graph_hw_psplit (g : PartitionGraph) (mid : nat) : PartitionGraph :=
   let orig := normalize_region (graph_module_region g mid) in
   let g0 := graph_cascade_delete_morphisms g mid in
@@ -1732,33 +1812,35 @@ Definition lassert_exec_ok (s : VMState) (freg creg : nat) (kind : bool) (flen :
 
 (** [vm_step] is the inductive transition relation. Its constructors cover normal and failure paths, and the accompanying proofs establish the intended total, deterministic behavior and ledger update. *)
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
-(** step_pnew: Claim the range [pnew_region region]. If it overlaps a module's
-    region without being equal to it, the step traps (see
+(** step_pnew: Claim the range [pnew_region region]. If no module number is
+    left, if the range runs past data memory, or if it overlaps a module's
+    region without being equal to it, the step traps (see [pnew_ok] and
     [partition_step_state]). Otherwise [graph_pnew] adds a fresh module, or
     keeps the graph when a module already owns exactly that range. *)
 | step_pnew : forall s region cost graph',
     graph' = fst (graph_pnew s.(vm_graph) (pnew_region region)) ->
     vm_step s (instr_pnew region cost)
       (partition_step_state s (instr_pnew region cost)
-        (negb (region_conflict s.(vm_graph) (pnew_region region))) graph')
+        (pnew_ok s.(vm_graph) (pnew_region region)) graph')
 (** step_psplit: Split a module's range into two halves with graph_hw_psplit
     (left gets the first size/2 addresses, right gets the rest). The abstract
     left/right parameters are accepted but ignored. The split is always equal
-    halves at the RTL level. *)
+    halves at the RTL level. The two halves take two fresh module numbers;
+    when fewer than two are left the step traps. *)
 | step_psplit : forall s module left right cost graph',
     graph' = graph_hw_psplit s.(vm_graph) (module mod 64) ->
     vm_step s (instr_psplit module left right cost)
-      (advance_state s (instr_psplit module left right cost)
-        graph' s.(vm_csrs) s.(vm_err))
+      (partition_step_state s (instr_psplit module left right cost)
+        (module_room s.(vm_graph) 2) graph')
 (** step_pmerge: Join two modules whose ranges touch. graph_hw_pmerge removes
     both and creates one module with the joined range. If the two ranges do
-    not form one range ([pmerge_adjacent] fails), the step traps. Module IDs
-    wrap mod 64. *)
+    not form one range ([pmerge_adjacent] fails), or no module number is
+    left, the step traps. Module IDs are read modulo 64. *)
 | step_pmerge : forall s m1 m2 cost graph',
     graph' = graph_hw_pmerge s.(vm_graph) (m1 mod 64) (m2 mod 64) ->
     vm_step s (instr_pmerge m1 m2 cost)
       (partition_step_state s (instr_pmerge m1 m2 cost)
-        (pmerge_adjacent s.(vm_graph) (m1 mod 64) (m2 mod 64)) graph')
+        (pmerge_ok s.(vm_graph) (m1 mod 64) (m2 mod 64)) graph')
 (** step_lassert: Check a formula with a binary SAT certificate.
     freg = register holding formula base address in memory.
     creg = register holding certificate base address in memory.
@@ -2876,9 +2958,11 @@ Theorem vm_step_preserves_regions_disjoint : forall s instr s',
 Proof.
   intros s instr s' Hstep Hd.
   inversion Hstep; subst; simpl; try exact Hd.
-  all: try (destruct (region_conflict _ _) eqn:?; simpl; try exact Hd).
   all: try (match goal with
             | |- context [if ?b then _ else _] => destruct b eqn:?; simpl; try exact Hd
+            end).
+  all: try (match goal with
+            | H : pnew_ok _ _ = true |- _ => destruct (pnew_ok_spec _ _ H) as [? [? ?]]
             end).
   all: try (apply graph_pnew_preserves_regions_disjoint; assumption).
   all: try (apply graph_hw_psplit_preserves_regions_disjoint; exact Hd).
@@ -2908,9 +2992,11 @@ Theorem vm_step_preserves_regions_contiguous : forall s instr s',
 Proof.
   intros s instr s' Hstep Hc.
   inversion Hstep; subst; simpl; try exact Hc.
-  all: try (destruct (region_conflict _ _) eqn:?; simpl; try exact Hc).
   all: try (match goal with
             | |- context [if ?b then _ else _] => destruct b eqn:?; simpl; try exact Hc
+            end).
+  all: try (match goal with
+            | H : pmerge_ok _ _ _ = true |- _ => destruct (pmerge_ok_spec _ _ _ H) as [? ?]
             end).
   all: try (apply graph_pnew_preserves_regions_contiguous; assumption).
   all: try (apply graph_hw_psplit_preserves_regions_contiguous; exact Hc).
@@ -2958,7 +3044,9 @@ Qed.
 
 (** [vm_reachable_regions_disjoint]: from a state with no modules (the
     initial state), every reachable state has pairwise-disjoint module
-    regions, and each region is a range of data memory. *)
+    regions, and each region is a range of addresses.
+    [vm_reachable_partition_in_bounds] below adds that every address lies in
+    data memory and every module number fits the 64-slot table. *)
 Theorem vm_reachable_regions_disjoint : forall s s',
   s.(vm_graph).(pg_modules) = [] ->
   vm_reachable s s' ->
@@ -3129,10 +3217,11 @@ Theorem vm_step_preserves_well_formed_graph : forall s instr s',
 Proof.
   intros s instr s' Hstep Hwf.
   inversion Hstep; subst; simpl; try exact Hwf.
-  all: try (destruct (region_conflict _ _) eqn:?; simpl;
-            [exact Hwf | apply graph_pnew_preserves_wf; exact Hwf]).
-  all: try (apply graph_hw_psplit_preserves_wf; exact Hwf).
-  all: try (destruct (pmerge_adjacent _ _ _) eqn:?; simpl;
+  all: try (destruct (pnew_ok _ _) eqn:?; simpl;
+            [apply graph_pnew_preserves_wf; exact Hwf | exact Hwf]).
+  all: try (destruct (module_room _ _) eqn:?; simpl;
+            [apply graph_hw_psplit_preserves_wf; exact Hwf | exact Hwf]).
+  all: try (destruct (pmerge_ok _ _ _) eqn:?; simpl;
             [apply graph_hw_pmerge_preserves_wf; exact Hwf | exact Hwf]).
   all: try (apply graph_update_module_tensor_preserves_wf; exact Hwf).
   all: try (match goal with
@@ -3153,6 +3242,520 @@ Proof.
             | H : graph_tensor_morphisms _ _ _ = Some (?g', _) |- _ =>
                 exact (graph_tensor_morphisms_preserves_wf _ _ _ _ _ Hwf H)
             end).
+Qed.
+
+(** ** Every region lies inside data memory; every module number fits the table
+
+    PNEW checks its range against data memory and the module numbers left;
+    PSPLIT and PMERGE build their ranges from ranges already in the graph
+    and check the module numbers left. So from a graph with no modules every
+    reachable state keeps each region inside data memory, keeps
+    [pg_next_id] at most [NUM_MODULES], holds each module number once, and
+    therefore holds at most [NUM_MODULES] modules, each numbered below 64. *)
+
+Definition regions_in_memory (g : PartitionGraph) : Prop :=
+  Forall (fun p => region_in_memory (snd p).(module_region) = true) g.(pg_modules).
+
+Lemma regions_in_memory_no_modules : forall g,
+  g.(pg_modules) = [] -> regions_in_memory g.
+Proof. intros g H. unfold regions_in_memory. rewrite H. constructor. Qed.
+
+Lemma regions_in_memory_incl : forall g g',
+  incl g'.(pg_modules) g.(pg_modules) -> regions_in_memory g -> regions_in_memory g'.
+Proof.
+  intros g g' Hi H. unfold regions_in_memory in *. rewrite Forall_forall in *.
+  intros p Hp. exact (H p (Hi p Hp)).
+Qed.
+
+Lemma regions_in_memory_same : forall g g',
+  g'.(pg_modules) = g.(pg_modules) -> regions_in_memory g -> regions_in_memory g'.
+Proof.
+  intros g g' E. apply regions_in_memory_incl. rewrite E. apply incl_refl.
+Qed.
+
+Lemma region_in_memory_incl : forall r r',
+  incl r' r -> region_in_memory r = true -> region_in_memory r' = true.
+Proof.
+  intros r r' Hi H. rewrite region_in_memory_spec in *.
+  intros a Ha. exact (H a (Hi a Ha)).
+Qed.
+
+Lemma graph_module_region_in_memory : forall g mid,
+  regions_in_memory g -> region_in_memory (graph_module_region g mid) = true.
+Proof.
+  intros g mid H. unfold graph_module_region, graph_lookup.
+  destruct (graph_lookup_modules (pg_modules g) mid) as [m|] eqn:E; [|reflexivity].
+  apply graph_lookup_modules_In in E.
+  unfold regions_in_memory in H. rewrite Forall_forall in H. exact (H _ E).
+Qed.
+
+Lemma graph_add_module_preserves_regions_in_memory : forall g region axioms,
+  regions_in_memory g -> region_in_memory region = true ->
+  regions_in_memory (fst (graph_add_module g region axioms)).
+Proof.
+  intros g region axioms H Hr.
+  unfold regions_in_memory, graph_add_module. cbn [fst pg_modules].
+  constructor; [|exact H].
+  cbn [snd normalize_module mk_module_state module_region].
+  exact (region_in_memory_incl _ _ (normalize_region_incl region) Hr).
+Qed.
+
+Lemma graph_remove_or_keep_incl : forall g mid,
+  incl (match graph_remove g mid with Some (g', _) => g' | None => g end).(pg_modules)
+       g.(pg_modules).
+Proof.
+  intros g mid. unfold graph_remove.
+  destruct (graph_remove_modules (pg_modules g) mid) as [[mods' r]|] eqn:E.
+  - exact (proj1 (graph_remove_modules_shape _ _ _ _ E)).
+  - apply incl_refl.
+Qed.
+
+Theorem graph_pnew_preserves_regions_in_memory : forall g region,
+  regions_in_memory g -> region_in_memory (pnew_region region) = true ->
+  regions_in_memory (fst (graph_pnew g (pnew_region region))).
+Proof.
+  intros g region H Hr. unfold graph_pnew.
+  destruct (graph_find_region g (normalize_region (pnew_region region))); [exact H|].
+  apply graph_add_module_preserves_regions_in_memory; [exact H|].
+  rewrite pnew_region_normalized. exact Hr.
+Qed.
+
+Theorem graph_hw_psplit_preserves_regions_in_memory : forall g mid,
+  regions_in_memory g -> regions_in_memory (graph_hw_psplit g mid).
+Proof.
+  intros g mid H. unfold graph_hw_psplit.
+  set (g0 := graph_cascade_delete_morphisms g mid).
+  assert (H0 : regions_in_memory g0) by exact H.
+  assert (Horig : region_in_memory (normalize_region (graph_module_region g mid)) = true)
+    by exact (region_in_memory_incl _ _ (normalize_region_incl _)
+                (graph_module_region_in_memory g mid H)).
+  set (orig := normalize_region (graph_module_region g mid)) in *.
+  pose proof (regions_in_memory_incl _ _ (graph_remove_or_keep_incl g0 mid) H0) as H1.
+  set (g1 := match graph_remove g0 mid with Some (g', _) => g' | None => g0 end) in *.
+  pose proof (graph_add_module_preserves_regions_in_memory g1 (psplit_left orig) [] H1
+                (region_in_memory_incl _ _ (psplit_left_incl orig) Horig)) as H2.
+  destruct (graph_add_module g1 (psplit_left orig) []) as [g2 id2] eqn:E2.
+  cbn [fst] in H2.
+  pose proof (graph_add_module_preserves_regions_in_memory g2 (psplit_right orig) [] H2
+                (region_in_memory_incl _ _ (psplit_right_incl orig) Horig)) as H3.
+  destruct (graph_add_module g2 (psplit_right orig) []) as [g3 id3] eqn:E3.
+  exact H3.
+Qed.
+
+Theorem graph_hw_pmerge_preserves_regions_in_memory : forall g m1 m2,
+  regions_in_memory g -> regions_in_memory (graph_hw_pmerge g m1 m2).
+Proof.
+  intros g m1 m2 H. unfold graph_hw_pmerge.
+  assert (Hm : region_in_memory
+                 (pmerge_region (graph_module_region g m1) (graph_module_region g m2)) = true).
+  { apply (region_in_memory_incl _ _ (pmerge_region_incl _ _)).
+    apply region_in_memory_spec. intros a Ha. apply in_app_or in Ha.
+    destruct Ha as [Ha|Ha];
+      [exact (proj1 (region_in_memory_spec _) (graph_module_region_in_memory g m1 H) a Ha)
+      |exact (proj1 (region_in_memory_spec _) (graph_module_region_in_memory g m2 H) a Ha)]. }
+  set (merged := pmerge_region (graph_module_region g m1) (graph_module_region g m2)) in *.
+  set (g0 := graph_cascade_delete_morphisms (graph_cascade_delete_morphisms g m1) m2).
+  assert (H0 : regions_in_memory g0) by exact H.
+  pose proof (regions_in_memory_incl _ _ (graph_remove_or_keep_incl g0 m1) H0) as H1.
+  set (g1 := match graph_remove g0 m1 with Some (g', _) => g' | None => g0 end) in *.
+  pose proof (regions_in_memory_incl _ _ (graph_remove_or_keep_incl g1 m2) H1) as H2.
+  set (g2 := match graph_remove g1 m2 with Some (g', _) => g' | None => g1 end) in *.
+  pose proof (graph_add_module_preserves_regions_in_memory g2 merged [] H2 Hm) as H3.
+  destruct (graph_add_module g2 merged []) as [g3 id3] eqn:E3.
+  exact H3.
+Qed.
+
+Lemma graph_insert_modules_incl_or_new : forall modules mid m p,
+  In p (graph_insert_modules modules mid m) -> In p modules \/ p = (mid, m).
+Proof.
+  induction modules as [|[id e] rest IH]; intros mid m p Hp; simpl in Hp.
+  - destruct Hp as [Hp|[]]. right. symmetry. exact Hp.
+  - destruct (Nat.eqb id mid).
+    + destruct Hp as [Hp|Hp]; [right; symmetry; exact Hp | left; right; exact Hp].
+    + destruct Hp as [Hp|Hp]; [left; left; exact Hp|].
+      destruct (IH mid m p Hp) as [Hq|Hq]; [left; right; exact Hq | right; exact Hq].
+Qed.
+
+Lemma graph_update_module_tensor_regions_in_memory : forall g mid k v,
+  regions_in_memory g -> regions_in_memory (graph_update_module_tensor g mid k v).
+Proof.
+  intros g mid k v H. unfold graph_update_module_tensor.
+  destruct (graph_lookup g mid) as [m0|] eqn:Hl; [|exact H].
+  unfold regions_in_memory, graph_update. cbn [pg_modules].
+  apply Forall_forall. intros p Hp.
+  destruct (graph_insert_modules_incl_or_new _ _ _ _ Hp) as [Hq|Hq].
+  - unfold regions_in_memory in H. rewrite Forall_forall in H. exact (H p Hq).
+  - subst p. cbn [snd normalize_module module_region].
+    apply (region_in_memory_incl _ _ (normalize_region_incl _)).
+    apply graph_lookup_modules_In in Hl.
+    unfold regions_in_memory in H. rewrite Forall_forall in H. exact (H _ Hl).
+Qed.
+
+(** [vm_step_preserves_regions_in_memory]: no step puts an address outside
+    data memory into a module's region. *)
+Theorem vm_step_preserves_regions_in_memory : forall s instr s',
+  vm_step s instr s' ->
+  regions_in_memory s.(vm_graph) -> regions_in_memory s'.(vm_graph).
+Proof.
+  intros s instr s' Hstep H.
+  inversion Hstep; subst; simpl; try exact H.
+  all: try (match goal with
+            | |- context [if ?b then _ else _] => destruct b eqn:?; simpl; try exact H
+            end).
+  all: try (match goal with
+            | Hk : pnew_ok _ _ = true |- _ => destruct (pnew_ok_spec _ _ Hk) as [? [? ?]]
+            end).
+  all: try (apply graph_pnew_preserves_regions_in_memory; assumption).
+  all: try (apply graph_hw_psplit_preserves_regions_in_memory; exact H).
+  all: try (apply graph_hw_pmerge_preserves_regions_in_memory; exact H).
+  all: try (apply graph_update_module_tensor_regions_in_memory; exact H).
+  all: try (match goal with
+            | Ha : (?g', _) = graph_add_morphism _ _ _ _ _ |- regions_in_memory ?g' =>
+                unfold graph_add_morphism in Ha; inversion Ha; subst; exact H
+            end).
+  all: try (match goal with
+            | Hc : graph_compose_morphisms _ _ _ = Some (?g', _) |- _ =>
+                exact (regions_in_memory_same _ _ (graph_compose_morphisms_modules _ _ _ _ _ Hc) H)
+            | Hc : graph_add_identity _ _ = Some (?g', _) |- _ =>
+                exact (regions_in_memory_same _ _ (graph_add_identity_modules _ _ _ _ Hc) H)
+            | Hc : graph_delete_morphism _ _ = Some ?g' |- _ =>
+                exact (regions_in_memory_same _ _ (graph_delete_morphism_modules _ _ _ Hc) H)
+            | Hc : graph_tensor_morphisms _ _ _ = Some (?g', _) |- _ =>
+                exact (regions_in_memory_same _ _ (graph_tensor_morphisms_modules _ _ _ _ _ Hc) H)
+            end).
+Qed.
+
+(** *** Module numbers *)
+
+Lemma graph_pnew_next_id_le : forall g region,
+  (fst (graph_pnew g region)).(pg_next_id) <= S g.(pg_next_id).
+Proof.
+  intros g region. unfold graph_pnew.
+  destruct (graph_find_region g (normalize_region region)); simpl; lia.
+Qed.
+
+Lemma graph_hw_psplit_next_id : forall g mid,
+  (graph_hw_psplit g mid).(pg_next_id) = S (S g.(pg_next_id)).
+Proof.
+  intros g mid. unfold graph_hw_psplit.
+  pose proof (graph_remove_or_keep_next_id (graph_cascade_delete_morphisms g mid) mid) as Hn.
+  set (g1 := match graph_remove (graph_cascade_delete_morphisms g mid) mid with
+             | Some (g', _) => g' | None => graph_cascade_delete_morphisms g mid end) in *.
+  destruct (graph_add_module g1 _ []) as [g2 id2] eqn:E2.
+  destruct (graph_add_module g2 _ []) as [g3 id3] eqn:E3.
+  unfold graph_add_module in E2, E3. injection E2 as <- _. injection E3 as <- _.
+  cbn [pg_next_id]. rewrite Hn. reflexivity.
+Qed.
+
+Lemma graph_hw_pmerge_next_id : forall g m1 m2,
+  (graph_hw_pmerge g m1 m2).(pg_next_id) = S g.(pg_next_id).
+Proof.
+  intros g m1 m2. unfold graph_hw_pmerge.
+  set (g0 := graph_cascade_delete_morphisms (graph_cascade_delete_morphisms g m1) m2).
+  pose proof (graph_remove_or_keep_next_id g0 m1) as Hn1.
+  set (g1 := match graph_remove g0 m1 with Some (g', _) => g' | None => g0 end) in *.
+  pose proof (graph_remove_or_keep_next_id g1 m2) as Hn2.
+  set (g2 := match graph_remove g1 m2 with Some (g', _) => g' | None => g1 end) in *.
+  destruct (graph_add_module g2 _ []) as [g3 id3] eqn:E3.
+  unfold graph_add_module in E3. injection E3 as <- _.
+  cbn [pg_next_id]. rewrite Hn2, Hn1. reflexivity.
+Qed.
+
+Lemma graph_update_module_tensor_next_id : forall g mid k v,
+  (graph_update_module_tensor g mid k v).(pg_next_id) = g.(pg_next_id).
+Proof.
+  intros g mid k v. unfold graph_update_module_tensor.
+  destruct (graph_lookup g mid); reflexivity.
+Qed.
+
+(** [vm_step_preserves_modules_bounded]: no step issues a module number at or
+    above [NUM_MODULES]. *)
+Theorem vm_step_preserves_modules_bounded : forall s instr s',
+  vm_step s instr s' ->
+  s.(vm_graph).(pg_next_id) <= NUM_MODULES ->
+  s'.(vm_graph).(pg_next_id) <= NUM_MODULES.
+Proof.
+  intros s instr s' Hstep H.
+  inversion Hstep; subst; try (rewrite partition_step_state_graph).
+  all: try (match goal with
+            | |- context [if pnew_ok ?g ?r then _ else _] =>
+                destruct (pnew_ok g r) eqn:Hk; [|exact H];
+                destruct (pnew_ok_spec _ _ Hk) as [Hroom _];
+                apply module_room_spec in Hroom;
+                pose proof (graph_pnew_next_id_le g r); lia
+            end).
+  all: try (match goal with
+            | |- context [if module_room ?g 2 then _ else _] =>
+                destruct (module_room g 2) eqn:Hk; [|exact H];
+                apply module_room_spec in Hk; rewrite graph_hw_psplit_next_id; lia
+            end).
+  all: try (match goal with
+            | |- context [if pmerge_ok ?g ?x ?y then _ else _] =>
+                destruct (pmerge_ok g x y) eqn:Hk; [|exact H];
+                destruct (pmerge_ok_spec _ _ _ Hk) as [Hroom _];
+                apply module_room_spec in Hroom; rewrite graph_hw_pmerge_next_id; lia
+            end).
+  all: simpl; try exact H.
+  all: try (match goal with
+            | |- context [if ?b then _ else _] => destruct b eqn:?; simpl; try exact H
+            end).
+  all: try (rewrite graph_update_module_tensor_next_id; exact H).
+  all: try (match goal with
+            | Ha : (?g', _) = graph_add_morphism _ _ _ _ _ |- context [pg_next_id ?g'] =>
+                unfold graph_add_morphism in Ha; inversion Ha; subst; exact H
+            end).
+  all: try (match goal with
+            | Hc : graph_compose_morphisms _ _ _ = Some (?g', _) |- _ =>
+                rewrite (graph_compose_morphisms_next_id_same _ _ _ _ _ Hc); exact H
+            | Hc : graph_add_identity _ _ = Some (?g', _) |- _ =>
+                rewrite (graph_add_identity_next_id_same _ _ _ _ Hc); exact H
+            | Hc : graph_delete_morphism _ _ = Some ?g' |- _ =>
+                rewrite (graph_delete_morphism_next_id_same _ _ _ Hc); exact H
+            | Hc : graph_tensor_morphisms _ _ _ = Some (?g', _) |- _ =>
+                rewrite (graph_tensor_morphisms_next_id_same _ _ _ _ _ Hc); exact H
+            end).
+Qed.
+
+(** *** Each module number appears once *)
+
+Definition module_ids_distinct (g : PartitionGraph) : Prop :=
+  NoDup (List.map fst g.(pg_modules)).
+
+Lemma all_ids_below_In : forall modules bound mid,
+  all_ids_below modules bound -> In mid (List.map fst modules) -> mid < bound.
+Proof.
+  induction modules as [|[id m] rest IH]; intros bound mid Hb Hin; simpl in *.
+  - contradiction.
+  - destruct Hb as [Hid Hrest]. destruct Hin as [<-|Hin]; [exact Hid | exact (IH _ _ Hrest Hin)].
+Qed.
+
+Lemma graph_add_module_preserves_ids_distinct : forall g region axioms,
+  well_formed_graph g -> module_ids_distinct g ->
+  module_ids_distinct (fst (graph_add_module g region axioms)).
+Proof.
+  intros g region axioms [Hb _] Hd. unfold module_ids_distinct, graph_add_module.
+  cbn [fst pg_modules List.map fst]. constructor; [|exact Hd].
+  intro Hin. pose proof (all_ids_below_In _ _ _ Hb Hin). lia.
+Qed.
+
+Lemma graph_remove_modules_ids_distinct : forall modules mid modules' m,
+  graph_remove_modules modules mid = Some (modules', m) ->
+  NoDup (List.map fst modules) -> NoDup (List.map fst modules').
+Proof.
+  induction modules as [|[id e] rest IH]; intros mid modules' m Hrem Hd; simpl in Hrem.
+  - discriminate.
+  - simpl in Hd. inversion Hd as [|? ? Hnot Hrest]; subst.
+    destruct (Nat.eqb id mid).
+    + injection Hrem as <- _. exact Hrest.
+    + destruct (graph_remove_modules rest mid) as [[rest' r]|] eqn:E; [|discriminate].
+      injection Hrem as <- _. simpl. constructor.
+      * intro Hin. apply Hnot.
+        destruct (graph_remove_modules_shape _ _ _ _ E) as [Hi _].
+        apply in_map_iff in Hin. destruct Hin as [[x y] [Hx Hxin]]. simpl in Hx. subst x.
+        apply in_map_iff. exists (id, y). split; [reflexivity | exact (Hi _ Hxin)].
+      * exact (IH _ _ _ E Hrest).
+Qed.
+
+Lemma graph_remove_or_keep_ids_distinct : forall g mid,
+  module_ids_distinct g ->
+  module_ids_distinct (match graph_remove g mid with Some (g', _) => g' | None => g end).
+Proof.
+  intros g mid Hd. unfold graph_remove.
+  destruct (graph_remove_modules (pg_modules g) mid) as [[mods' r]|] eqn:E; [|exact Hd].
+  exact (graph_remove_modules_ids_distinct _ _ _ _ E Hd).
+Qed.
+
+Lemma graph_insert_modules_ids : forall modules mid m,
+  NoDup (List.map fst modules) -> NoDup (List.map fst (graph_insert_modules modules mid m)).
+Proof.
+  induction modules as [|[id e] rest IH]; intros mid m Hd; simpl.
+  - constructor; [intros []|constructor].
+  - simpl in Hd. inversion Hd as [|? ? Hnot Hrest]; subst.
+    destruct (Nat.eqb id mid) eqn:E.
+    + apply Nat.eqb_eq in E. subst. simpl. constructor; assumption.
+    + simpl. constructor; [|exact (IH mid m Hrest)].
+      intro Hin. apply in_map_iff in Hin. destruct Hin as [[x y] [Hx Hxin]]. simpl in Hx. subst x.
+      destruct (graph_insert_modules_incl_or_new _ _ _ _ Hxin) as [Hq|Hq].
+      * apply Hnot. apply in_map_iff. exists (id, y). split; [reflexivity | exact Hq].
+      * injection Hq as Hq _. apply Nat.eqb_neq in E. contradiction.
+Qed.
+
+Lemma graph_update_module_tensor_ids_distinct : forall g mid k v,
+  module_ids_distinct g -> module_ids_distinct (graph_update_module_tensor g mid k v).
+Proof.
+  intros g mid k v Hd. unfold graph_update_module_tensor.
+  destruct (graph_lookup g mid); [|exact Hd].
+  unfold module_ids_distinct, graph_update. cbn [pg_modules].
+  apply graph_insert_modules_ids. exact Hd.
+Qed.
+
+Lemma module_ids_distinct_same : forall g g',
+  g'.(pg_modules) = g.(pg_modules) -> module_ids_distinct g -> module_ids_distinct g'.
+Proof. intros g g' E H. unfold module_ids_distinct. rewrite E. exact H. Qed.
+
+Theorem graph_pnew_preserves_ids_distinct : forall g region,
+  well_formed_graph g -> module_ids_distinct g ->
+  module_ids_distinct (fst (graph_pnew g region)).
+Proof.
+  intros g region Hwf Hd. unfold graph_pnew.
+  destruct (graph_find_region g (normalize_region region)); [exact Hd|].
+  apply graph_add_module_preserves_ids_distinct; assumption.
+Qed.
+
+Theorem graph_hw_psplit_preserves_ids_distinct : forall g mid,
+  well_formed_graph g -> module_ids_distinct g ->
+  module_ids_distinct (graph_hw_psplit g mid).
+Proof.
+  intros g mid Hwf Hd. unfold graph_hw_psplit.
+  pose proof (graph_cascade_delete_morphisms_preserves_wf g mid Hwf) as Hwf0.
+  destruct (graph_remove_or_keep_no_ref_wf (graph_cascade_delete_morphisms g mid) mid Hwf0
+              (graph_cascade_delete_morphisms_no_ref g mid)) as [Hwf1 _].
+  pose proof (graph_remove_or_keep_ids_distinct (graph_cascade_delete_morphisms g mid) mid Hd) as Hd1.
+  set (g1 := match graph_remove (graph_cascade_delete_morphisms g mid) mid with
+             | Some (g', _) => g' | None => graph_cascade_delete_morphisms g mid end) in *.
+  set (orig := normalize_region (graph_module_region g mid)).
+  pose proof (graph_add_module_preserves_wf g1 (psplit_left orig) [] Hwf1) as W2.
+  pose proof (graph_add_module_preserves_ids_distinct g1 (psplit_left orig) [] Hwf1 Hd1) as D2.
+  destruct (graph_add_module g1 (psplit_left orig) []) as [g2 id2] eqn:E2.
+  cbn [fst] in W2, D2.
+  pose proof (graph_add_module_preserves_ids_distinct g2 (psplit_right orig) [] W2 D2) as D3.
+  destruct (graph_add_module g2 (psplit_right orig) []) as [g3 id3] eqn:E3.
+  exact D3.
+Qed.
+
+Lemma in_map_fst_incl : forall (l l' : list (ModuleID * ModuleState)) x,
+  incl l' l -> In x (List.map fst l') -> In x (List.map fst l).
+Proof.
+  intros l l' x Hi Hx. apply in_map_iff in Hx. destruct Hx as [p [Hp Hin]].
+  apply in_map_iff. exists p. split; [exact Hp | exact (Hi p Hin)].
+Qed.
+
+Theorem graph_hw_pmerge_preserves_ids_distinct : forall g m1 m2,
+  well_formed_graph g -> module_ids_distinct g ->
+  module_ids_distinct (graph_hw_pmerge g m1 m2).
+Proof.
+  intros g m1 m2 [Hb _] Hd. unfold graph_hw_pmerge.
+  set (g0 := graph_cascade_delete_morphisms (graph_cascade_delete_morphisms g m1) m2).
+  assert (Hd0 : module_ids_distinct g0) by exact Hd.
+  pose proof (graph_remove_or_keep_ids_distinct g0 m1 Hd0) as D1.
+  pose proof (graph_remove_or_keep_incl g0 m1) as I1.
+  pose proof (graph_remove_or_keep_next_id g0 m1) as N1.
+  set (g1 := match graph_remove g0 m1 with Some (g', _) => g' | None => g0 end) in *.
+  pose proof (graph_remove_or_keep_ids_distinct g1 m2 D1) as D2.
+  pose proof (graph_remove_or_keep_incl g1 m2) as I2.
+  pose proof (graph_remove_or_keep_next_id g1 m2) as N2.
+  set (g2 := match graph_remove g1 m2 with Some (g', _) => g' | None => g1 end) in *.
+  set (merged := pmerge_region (graph_module_region g m1) (graph_module_region g m2)).
+  destruct (graph_add_module g2 merged []) as [g3 id3] eqn:E3.
+  unfold graph_add_module in E3. injection E3 as <- _.
+  unfold module_ids_distinct. cbn [pg_modules List.map fst]. constructor; [|exact D2].
+  intro Hin.
+  assert (Hin0 : In (pg_next_id g2) (List.map fst (pg_modules g))).
+  { apply (in_map_fst_incl (pg_modules g0) (pg_modules g2)); [|exact Hin].
+    eapply incl_tran; [exact I2 | exact I1]. }
+  pose proof (all_ids_below_In _ _ _ Hb Hin0).
+  rewrite N2, N1 in *. unfold g0 in *. cbn [pg_next_id graph_cascade_delete_morphisms] in *. lia.
+Qed.
+
+(** [vm_step_preserves_module_ids_distinct]: in a well-formed graph no step
+    gives two modules the same number. *)
+Theorem vm_step_preserves_module_ids_distinct : forall s instr s',
+  vm_step s instr s' ->
+  well_formed_graph s.(vm_graph) ->
+  module_ids_distinct s.(vm_graph) -> module_ids_distinct s'.(vm_graph).
+Proof.
+  intros s instr s' Hstep Hwf H.
+  inversion Hstep; subst; simpl; try exact H.
+  all: try (match goal with
+            | |- context [if ?b then _ else _] => destruct b eqn:?; simpl; try exact H
+            end).
+  all: try (apply graph_pnew_preserves_ids_distinct; assumption).
+  all: try (apply graph_hw_psplit_preserves_ids_distinct; assumption).
+  all: try (apply graph_hw_pmerge_preserves_ids_distinct; assumption).
+  all: try (apply graph_update_module_tensor_ids_distinct; exact H).
+  all: try (match goal with
+            | Ha : (?g', _) = graph_add_morphism _ _ _ _ _ |- module_ids_distinct ?g' =>
+                unfold graph_add_morphism in Ha; inversion Ha; subst; exact H
+            end).
+  all: try (match goal with
+            | Hc : graph_compose_morphisms _ _ _ = Some (?g', _) |- _ =>
+                exact (module_ids_distinct_same _ _ (graph_compose_morphisms_modules _ _ _ _ _ Hc) H)
+            | Hc : graph_add_identity _ _ = Some (?g', _) |- _ =>
+                exact (module_ids_distinct_same _ _ (graph_add_identity_modules _ _ _ _ Hc) H)
+            | Hc : graph_delete_morphism _ _ = Some ?g' |- _ =>
+                exact (module_ids_distinct_same _ _ (graph_delete_morphism_modules _ _ _ Hc) H)
+            | Hc : graph_tensor_morphisms _ _ _ = Some (?g', _) |- _ =>
+                exact (module_ids_distinct_same _ _ (graph_tensor_morphisms_modules _ _ _ _ _ Hc) H)
+            end).
+Qed.
+
+(** A well-formed graph whose module numbers are distinct and below
+    [NUM_MODULES] holds at most [NUM_MODULES] modules. *)
+Lemma modules_count_bounded : forall g,
+  well_formed_graph g -> module_ids_distinct g -> g.(pg_next_id) <= NUM_MODULES ->
+  List.length g.(pg_modules) <= NUM_MODULES.
+Proof.
+  intros g [Hb _] Hd Hn.
+  rewrite <- (List.map_length fst).
+  rewrite <- (List.seq_length NUM_MODULES 0).
+  apply NoDup_incl_length; [exact Hd|].
+  intros mid Hin. apply in_seq. pose proof (all_ids_below_In _ _ _ Hb Hin). lia.
+Qed.
+
+(** Reading a live module number modulo 64, as PSPLIT and PMERGE do, gives
+    the number back. *)
+Lemma module_id_mod_64 : forall g mid,
+  well_formed_graph g -> g.(pg_next_id) <= NUM_MODULES ->
+  In mid (List.map fst g.(pg_modules)) -> mid mod 64 = mid.
+Proof.
+  intros g mid [Hb _] Hn Hin. apply Nat.mod_small.
+  pose proof (all_ids_below_In _ _ _ Hb Hin). unfold NUM_MODULES in Hn. lia.
+Qed.
+
+Definition partition_in_bounds (g : PartitionGraph) : Prop :=
+  well_formed_graph g /\ regions_in_memory g /\ g.(pg_next_id) <= NUM_MODULES /\
+  module_ids_distinct g.
+
+Theorem vm_step_preserves_partition_in_bounds : forall s instr s',
+  vm_step s instr s' ->
+  partition_in_bounds s.(vm_graph) -> partition_in_bounds s'.(vm_graph).
+Proof.
+  intros s instr s' Hstep [Hwf [Hm [Hn Hd]]].
+  split; [exact (vm_step_preserves_well_formed_graph s instr s' Hstep Hwf)|].
+  split; [exact (vm_step_preserves_regions_in_memory s instr s' Hstep Hm)|].
+  split; [exact (vm_step_preserves_modules_bounded s instr s' Hstep Hn)|].
+  exact (vm_step_preserves_module_ids_distinct s instr s' Hstep Hwf Hd).
+Qed.
+
+(** [vm_reachable_partition_in_bounds]: from a well-formed state with no
+    modules and [pg_next_id] at most [NUM_MODULES] (the initial state),
+    every reachable state has pairwise-disjoint module regions, each a range
+    of data memory, at most [NUM_MODULES] modules, and every module number
+    below 64, so reading a module number modulo 64 names that module. *)
+Theorem vm_reachable_partition_in_bounds : forall s s',
+  well_formed_graph s.(vm_graph) ->
+  s.(vm_graph).(pg_modules) = [] ->
+  s.(vm_graph).(pg_next_id) <= NUM_MODULES ->
+  vm_reachable s s' ->
+  regions_disjoint s'.(vm_graph) /\ regions_contiguous s'.(vm_graph) /\
+  regions_in_memory s'.(vm_graph) /\
+  s'.(vm_graph).(pg_next_id) <= NUM_MODULES /\
+  List.length s'.(vm_graph).(pg_modules) <= NUM_MODULES /\
+  (forall mid, In mid (List.map fst s'.(vm_graph).(pg_modules)) -> mid mod 64 = mid).
+Proof.
+  intros s s' Hwf H0 Hn Hr.
+  destruct (vm_reachable_regions_disjoint s s' H0 Hr) as [Hd Hc].
+  assert (Hb : partition_in_bounds s'.(vm_graph)).
+  { clear Hd Hc. assert (Hb0 : partition_in_bounds s.(vm_graph)).
+    { split; [exact Hwf|]. split; [apply regions_in_memory_no_modules; exact H0|].
+      split; [exact Hn|]. unfold module_ids_distinct. rewrite H0. constructor. }
+    clear H0 Hwf Hn.
+    induction Hr as [s|s instr s1 s2 Hstep Hr IH]; [exact Hb0|].
+    apply IH. exact (vm_step_preserves_partition_in_bounds s instr s1 Hstep Hb0). }
+  destruct Hb as [Hwf' [Hm [Hn' Hdist]]].
+  split; [exact Hd|]. split; [exact Hc|]. split; [exact Hm|]. split; [exact Hn'|].
+  split; [exact (modules_count_bounded _ Hwf' Hdist Hn')|].
+  intros mid Hin. exact (module_id_mod_64 _ mid Hwf' Hn' Hin).
 Qed.
 
 (** I/O PORT ENVIRONMENT ORACLE

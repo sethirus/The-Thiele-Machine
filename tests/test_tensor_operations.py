@@ -100,7 +100,7 @@ class TestTensorMultiModule:
         """Two modules should have independent tensor data."""
         final = _run([
             "PNEW {0,128} 1",
-            "PNEW {128,256} 1",
+            "PNEW {2,3} 1",
             "TENSOR_SET 1 0 0 10 1",
             "TENSOR_SET 2 0 0 20 1",
             "TENSOR_GET 1 1 0 0 1",

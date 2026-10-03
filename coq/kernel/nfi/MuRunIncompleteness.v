@@ -78,7 +78,7 @@ Qed.
 Lemma cert_pc : run_certify.(vm_pc) = run_pnew3.(vm_pc).
 Proof.
   rewrite run_certify_step, run_pnew3_step.
-  rewrite abs_certify_pc, abs_pnew_pc by apply region_conflict_nil. reflexivity.
+  rewrite abs_certify_pc, abs_pnew_pc by reflexivity. reflexivity.
 Qed.
 
 Lemma cert_mu : run_certify.(vm_mu) = run_pnew3.(vm_mu).
@@ -163,16 +163,16 @@ Lemma mdlacc_graph : forall s m c,
   (vm_apply s (instr_mdlacc m c)).(vm_graph) = s.(vm_graph).
 Proof. intros. unfold vm_apply, advance_state. reflexivity. Qed.
 
-(* PNEW conses exactly one module onto the partition graph when its range
-   overlaps no module and no module owns exactly that range. *)
+(* PNEW conses exactly one module onto the partition graph when it succeeds
+   and no module owns exactly its range. *)
 Lemma pnew_module_count_succ : forall s r c,
-  region_conflict s.(vm_graph) (pnew_region r) = false ->
+  pnew_ok s.(vm_graph) (pnew_region r) = true ->
   graph_find_region s.(vm_graph) (pnew_region r) = None ->
   length (pg_modules ((vm_apply s (instr_pnew r c)).(vm_graph)))
   = S (length (pg_modules s.(vm_graph))).
 Proof.
   intros s r c Hfree Hfresh. rewrite vm_apply_pnew_eq.
-  unfold partition_step_state. cbn [vm_graph]. rewrite Hfree. cbn [negb].
+  unfold partition_step_state. cbn [vm_graph]. rewrite Hfree. cbv iota.
   unfold graph_pnew. cbv zeta. rewrite pnew_region_normalized, Hfresh.
   reflexivity.
 Qed.
@@ -211,7 +211,7 @@ Qed.
 Lemma graph_pair_pc : run_pnew0.(vm_pc) = run_mdlacc.(vm_pc).
 Proof.
   rewrite run_pnew0_step, run_mdlacc_step.
-  rewrite abs_pnew_pc, mdlacc_pc by apply region_conflict_nil. reflexivity.
+  rewrite abs_pnew_pc, mdlacc_pc by reflexivity. reflexivity.
 Qed.
 
 Lemma graph_pair_mu : run_pnew0.(vm_mu) = run_mdlacc.(vm_mu).

@@ -374,11 +374,11 @@ Proof.
   inversion Hstep; subst; simpl;
     try lia.
   - (* pnew: graph_pnew on success, unchanged graph on a trap *)
-    destruct (negb _); [apply graph_pnew_next_id_nondec | lia].
-  - (* psplit *)
-    apply graph_hw_psplit_next_id_nondec.
+    destruct (pnew_ok _ _); [apply graph_pnew_next_id_nondec | lia].
+  - (* psplit: graph_hw_psplit on success, unchanged graph on a trap *)
+    destruct (module_room _ _); [apply graph_hw_psplit_next_id_nondec | lia].
   - (* pmerge: graph_hw_pmerge on success, unchanged graph on a trap *)
-    destruct (pmerge_adjacent _ _ _); [apply graph_hw_pmerge_next_id_nondec | lia].
+    destruct (pmerge_ok _ _ _); [apply graph_hw_pmerge_next_id_nondec | lia].
   - (* tensor_set_ok *)
     rewrite graph_update_module_tensor_next_id_same.
     lia.
@@ -431,11 +431,13 @@ Proof.
     try reflexivity.
   (* Goal 1: step_pnew; a trap leaves the graph unchanged *)
   - cbn [partition_step_state vm_graph].
-    destruct (negb _); [|reflexivity].
+    destruct (pnew_ok _ _); [|reflexivity].
     rewrite graph_pnew_lookup_other; [reflexivity | exact Hmid_lt].
-  (* Goal 2: step_psplit — graph_hw_psplit *)
+  (* Goal 2: step_psplit, graph_hw_psplit; a trap leaves the graph unchanged *)
   - assert (Hneq: mid <> module mod 64).
     { intro Heq. apply Hnotin. unfold instr_targets. left. symmetry. exact Heq. }
+    cbn [partition_step_state vm_graph].
+    destruct (module_room _ _); [|reflexivity].
     rewrite graph_hw_psplit_lookup_other; [reflexivity | exact Hmid_lt | exact Hneq].
   (* Goal 3: step_pmerge, graph_hw_pmerge; a trap leaves the graph unchanged *)
   - assert (Hneq1: mid <> m1 mod 64).
@@ -443,7 +445,7 @@ Proof.
     assert (Hneq2: mid <> m2 mod 64).
     { intro Heq. apply Hnotin. unfold instr_targets. right. left. symmetry. exact Heq. }
     cbn [partition_step_state vm_graph].
-    destruct (pmerge_adjacent _ _ _); [|reflexivity].
+    destruct (pmerge_ok _ _ _); [|reflexivity].
     rewrite graph_hw_pmerge_lookup_other;
       [reflexivity | exact Hmid_lt | exact Hneq1 | exact Hneq2].
   (* Goal 4: step_tensor_set_ok — only the target module tensor mutates. *)

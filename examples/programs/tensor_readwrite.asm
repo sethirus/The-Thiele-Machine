@@ -9,7 +9,7 @@ FUEL 100
 INIT_PT 0 128
 INIT_ACTIVE_MODULE 0
 
-PNEW {128,129} 1               # creates module 1
+PNEW {} 1                     # creates module 1
 
 TENSOR_SET 1 0 0 42 1        # Set module 1 tensor[0][0] = 42, cost 1
 TENSOR_GET r1 1 0 0 1         # Read module 1 tensor[0][0] into r1, cost 1

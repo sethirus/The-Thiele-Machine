@@ -38,9 +38,12 @@ From KamiHW Require Import ThieleTypes.
    §1  Representation Invariant
    *)
 
+(** The partition table holds at least the reserved slot and never more
+    than [PTableSz] slots. It may be full: every partition step that needs a
+    free slot then traps. *)
 Definition pt_well_formed (ks : KamiSnapshot) : Prop :=
   snap_pt_next_id ks >= 1 /\
-  snap_pt_next_id ks < PTableSz.
+  snap_pt_next_id ks <= PTableSz.
 
 Definition hw_repr_invariant (ks : KamiSnapshot) : Prop :=
   pt_well_formed ks.
@@ -668,19 +671,20 @@ Proof.
   unfold kami_step; simpl snap_pt_next_id; split; lia.
 Qed.
 
-(* DEFINITIONAL HELPER *)
-(** PNEW preserves the invariant when the result stays in range. *)
+(** PNEW preserves the invariant: it takes a slot only when one is free. *)
 Theorem hw_repr_invariant_pnew :
   forall ks region cost,
     hw_repr_invariant ks ->
-    S (snap_pt_next_id ks) < PTableSz ->
     hw_repr_invariant (kami_step ks (instr_pnew region cost)).
 Proof.
-  intros ks region cost [Hge Hlt] Hroom.
-  unfold hw_repr_invariant, pt_well_formed, kami_step.
-  simpl snap_pt_next_id.
-  destruct (negb (snap_pt_conflict _ _ _ _ _) &&
-            negb (snap_pt_present _ _ _ _ _)); split; lia.
+  intros ks region cost [Hge Hle].
+  unfold hw_repr_invariant, pt_well_formed, kami_step. cbv zeta.
+  cbn [snap_pt_next_id].
+  destruct (snap_pnew_capacity _ _ _) eqn:Hcap; cbn [andb]; [|split; lia].
+  assert (Hlt : snap_pt_next_id ks < PTableSz).
+  { unfold snap_pnew_capacity in Hcap. apply andb_true_iff in Hcap.
+    apply Nat.ltb_lt. exact (proj1 Hcap). }
+  destruct (negb _ && negb _); split; lia.
 Qed.
 
 (* ======================================================================
@@ -1005,9 +1009,9 @@ Proof.
           kami_advance_default, kami_advance_reg, kami_advance_err,
           kami_advance_cert_addr, kami_advance_err_rich;
        simpl snap_rich_state; exact Hwf)
-    | (unfold kami_step; simpl snap_rich_state;
+    | (unfold kami_step; cbv zeta; simpl snap_rich_state;
        first [ (apply morph_table_wf_cascade; exact Hwf)
-             | (destruct (snap_pmerge_adjacent _ _ _ _);
+             | (match goal with |- morph_table_wf (if ?c then _ else _) => destruct c end;
                 [apply morph_table_wf_cascade; exact Hwf | exact Hwf]) ])
     | idtac ].
   (* Remaining: instr_chsh_trial, instr_tensor_set, instr_tensor_get,
@@ -1246,8 +1250,10 @@ Proof.
           kami_advance_default, kami_advance_reg, kami_advance_err,
           kami_advance_cert_addr, kami_advance_err_rich;
        simpl snap_rich_state; simpl rich_next_coupling_desc_id; exact Hsafe)
-    | (unfold kami_step; simpl snap_rich_state;
-       first [ exact Hsafe | (destruct (snap_pmerge_adjacent _ _ _ _); exact Hsafe) ])
+    | (unfold kami_step; cbv zeta; cbn [snap_rich_state];
+       match goal with |- context [if ?c then rich_state_cascade _ _ _ else _] => destruct c end;
+       exact Hsafe)
+    | (unfold kami_step; simpl snap_rich_state; exact Hsafe)
     | idtac ].
   (* instr_chsh_trial *)
   - unfold kami_step.
@@ -1351,8 +1357,10 @@ Proof.
           kami_advance_default, kami_advance_reg, kami_advance_err,
           kami_advance_cert_addr, kami_advance_err_rich;
        simpl snap_rich_state; exact Hcze)
-    | (unfold kami_step; simpl snap_rich_state;
-       first [ exact Hcze | (destruct (snap_pmerge_adjacent _ _ _ _); exact Hcze) ])
+    | (unfold kami_step; cbv zeta; cbn [snap_rich_state];
+       match goal with |- context [if ?c then rich_state_cascade _ _ _ else _] => destruct c end;
+       exact Hcze)
+    | (unfold kami_step; simpl snap_rich_state; exact Hcze)
     | idtac ].
   (* instr_chsh_trial *)
   - unfold kami_step.
@@ -1590,7 +1598,7 @@ Proof.
        simpl snap_rich_state; exact Hwcf)
     | (unfold kami_step; simpl snap_rich_state;
        first [ (apply coupling_wf_cascade; exact Hwcf)
-             | (destruct (snap_pmerge_adjacent _ _ _ _);
+             | (match goal with |- coupling_wf (if ?c then _ else _) => destruct c end;
                 [apply coupling_wf_cascade; exact Hwcf | exact Hwcf]) ])
     | idtac ].
   (* instr_chsh_trial *)
@@ -2686,7 +2694,30 @@ Proof.
   unfold graph_add_module. cbn [fst pg_next_morph_id pg_morphisms]. split; reflexivity.
 Qed.
 
-(** PSPLIT on the full graph. *)
+(** The step guards read only the module numbers and the regions, so the
+    module-only and the full reconstruction agree on them. *)
+Lemma wraps_module_room : forall tensors h' h k,
+  wraps tensors h' h -> module_room h k = module_room h' k.
+Proof. intros tensors h' h k [Hn _]. unfold module_room. rewrite Hn. reflexivity. Qed.
+
+Lemma wraps_pnew_ok : forall tensors h' h r,
+  wraps tensors h' h -> pnew_ok h r = pnew_ok h' r.
+Proof.
+  intros tensors h' h r Hw. unfold pnew_ok.
+  rewrite (wraps_module_room tensors h' h 1 Hw), (wraps_region_conflict tensors h' h r Hw).
+  reflexivity.
+Qed.
+
+Lemma wraps_pmerge_ok : forall tensors h' h m1 m2,
+  wraps tensors h' h -> pmerge_ok h m1 m2 = pmerge_ok h' m1 m2.
+Proof.
+  intros tensors h' h m1 m2 Hw. unfold pmerge_ok.
+  rewrite (wraps_module_room tensors h' h 1 Hw), (wraps_pmerge_adjacent tensors h' h m1 m2 Hw).
+  reflexivity.
+Qed.
+
+(** PSPLIT on the full graph: the two halves when two slots are free, the
+    unchanged graph otherwise. *)
 Lemma snap_full_graph_psplit :
   forall ks module left_region right_region cost,
     pt_well_formed ks ->
@@ -2694,21 +2725,37 @@ Lemma snap_full_graph_psplit :
     snap_pt_sizes ks (module mod PTableSz) >= 2 ->
     snap_pt_sizes ks (snap_pt_next_id ks) = 0 ->
     snap_pt_sizes ks (S (snap_pt_next_id ks)) = 0 ->
-    S (S (snap_pt_next_id ks)) <= PTableSz ->
     (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0) ->
     (forall n, snap_module_tensors ks (S (snap_pt_next_id ks)) n = 0) ->
     snap_full_graph (kami_step ks (instr_psplit module left_region right_region cost)) =
-    graph_hw_psplit (snap_full_graph ks) (module mod PTableSz).
+    if module_room (snap_full_graph ks) 2
+    then graph_hw_psplit (snap_full_graph ks) (module mod PTableSz)
+    else snap_full_graph ks.
 Proof.
-  intros ks module l r cost [Hge Hlt] Hmid Hsize Hn0 Hsn0 Hroom Hf1 Hf2.
+  intros ks module l r cost [Hge Hle] Hmid Hsize Hn0 Hsn0 Hf1 Hf2.
   pose proof (embed_step_psplit ks module l r cost
-    (conj Hge (conj Hroom (conj Hmid (conj Hsize (conj Hn0 Hsn0)))))) as Hph.
+    (conj Hge (conj Hmid (conj Hsize (conj Hn0 Hsn0))))) as Hph.
+  rewrite (wraps_module_room (snap_module_tensors ks) _ _ 2 (snap_full_graph_wraps ks)).
+  rewrite module_room_two_snap.
+  destruct (Nat.leb (S (S (snap_pt_next_id ks))) PTableSz) eqn:Hroom.
+  2: { unfold snap_full_graph, kami_step. cbv zeta.
+       cbn [snap_pt_next_id snap_pt_sizes snap_pt_bases snap_module_tensors snap_rich_state].
+       repeat match goal with |- context [if ?c then _ else _] => let E := fresh in assert (E : c = false) by exact Hroom; rewrite E; clear E end; cbv iota. reflexivity. }
   assert (Hg1 : snap_pt_to_graph
       (snap_pt_next_id (kami_step ks (instr_psplit module l r cost)))
       (snap_pt_sizes (kami_step ks (instr_psplit module l r cost)))
       (snap_pt_bases (kami_step ks (instr_psplit module l r cost))) =
     graph_hw_psplit (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
-      (module mod PTableSz)) by exact (f_equal vm_graph Hph).
+      (module mod PTableSz)).
+  { transitivity (vm_graph (vm_apply (abs_phase1 ks) (instr_psplit module l r cost))).
+    { exact (f_equal vm_graph Hph). }
+    rewrite vm_apply_psplit_eq, partition_step_state_graph.
+    change (vm_graph (abs_phase1 ks))
+      with (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks)).
+    rewrite module_room_two_snap, Hroom. reflexivity. }
+  assert (Hrich : snap_rich_state (kami_step ks (instr_psplit module l r cost)) =
+                  rich_state_cascade (snap_rich_state ks) (module mod PTableSz) (module mod PTableSz)).
+  { unfold kami_step. cbv zeta. cbn [snap_rich_state]. repeat match goal with |- context [if ?c then _ else _] => let E := fresh in assert (E : c = true) by exact Hroom; rewrite E; clear E end; cbv iota. reflexivity. }
   assert (Hw' := snap_full_graph_wraps (kami_step ks (instr_psplit module l r cost))).
   assert (Hwp : wraps (snap_module_tensors ks)
       (graph_hw_psplit (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
@@ -2724,16 +2771,13 @@ Proof.
   apply partition_graph_eq.
   - rewrite Hn', Hnp. reflexivity.
   - rewrite Hm', Hmp. reflexivity.
-  - rewrite Hmf. reflexivity.
-  - rewrite Hmo.
-    change (snapshot_morphisms_of_rich_state
-              (rich_state_cascade (snap_rich_state ks) (module mod PTableSz) (module mod PTableSz))
-            = filter (cascade_pred (module mod PTableSz)) (snapshot_morphisms_of_rich_state (snap_rich_state ks))).
+  - rewrite Hmf. unfold snap_full_graph at 1. cbn [pg_next_morph_id]. rewrite Hrich. reflexivity.
+  - rewrite Hmo. unfold snap_full_graph at 1. cbn [pg_morphisms]. rewrite Hrich.
     rewrite snapshot_morphisms_cascade. apply filter_ext_in. intros x _. symmetry. apply cascade_pred_keep1.
 Qed.
 
 (** PMERGE on the full graph: the joined module, or the unchanged graph when
-    the two ranges do not touch. *)
+    the two ranges do not touch or no slot is free. *)
 Lemma snap_full_graph_pmerge :
   forall ks m1 m2 cost,
     pt_well_formed ks ->
@@ -2743,78 +2787,76 @@ Lemma snap_full_graph_pmerge :
     snap_pt_sizes ks (m1 mod PTableSz) > 0 ->
     snap_pt_sizes ks (m2 mod PTableSz) > 0 ->
     snap_pt_sizes ks (snap_pt_next_id ks) = 0 ->
-    S (snap_pt_next_id ks) <= PTableSz ->
     (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0) ->
     snap_full_graph (kami_step ks (instr_pmerge m1 m2 cost)) =
-    if pmerge_adjacent (snap_full_graph ks) (m1 mod PTableSz) (m2 mod PTableSz)
+    if pmerge_ok (snap_full_graph ks) (m1 mod PTableSz) (m2 mod PTableSz)
     then graph_hw_pmerge (snap_full_graph ks) (m1 mod PTableSz) (m2 mod PTableSz)
     else snap_full_graph ks.
 Proof.
-  intros ks m1 m2 cost [Hge Hlt] Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hroom Hf1.
+  intros ks m1 m2 cost [Hge Hle] Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hf1.
   pose proof (embed_step_pmerge ks m1 m2 cost
-    (conj Hge (conj Hroom (conj Hm1 (conj Hm2 (conj Hne (conj Hs1 (conj Hs2 Hn0)))))))) as Hph.
+    (conj Hge (conj Hm1 (conj Hm2 (conj Hne (conj Hs1 (conj Hs2 Hn0))))))) as Hph.
+  rewrite (wraps_pmerge_ok (snap_module_tensors ks) _ _ _ _ (snap_full_graph_wraps ks)).
+  assert (Hok : pmerge_ok (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
+                  (m1 mod PTableSz) (m2 mod PTableSz) =
+                andb (Nat.ltb (snap_pt_next_id ks) PTableSz)
+                  (snap_pmerge_adjacent (snap_pt_sizes ks) (snap_pt_bases ks)
+                     (m1 mod PTableSz) (m2 mod PTableSz))).
+  { unfold pmerge_ok. rewrite module_room_one_snap. f_equal. all: try reflexivity.
+    apply snap_pmerge_adjacent_spec; lia. }
+  rewrite Hok.
+  destruct (andb (Nat.ltb (snap_pt_next_id ks) PTableSz)
+              (snap_pmerge_adjacent (snap_pt_sizes ks) (snap_pt_bases ks)
+                 (m1 mod PTableSz) (m2 mod PTableSz))) eqn:Hgo.
+  2: { unfold snap_full_graph, kami_step. cbv zeta.
+       cbn [snap_pt_next_id snap_pt_sizes snap_pt_bases snap_module_tensors snap_rich_state].
+       repeat match goal with |- context [if ?c then _ else _] => let E := fresh in assert (E : c = false) by exact Hgo; rewrite E; clear E end; cbv iota. reflexivity. }
   assert (Hg1 : snap_pt_to_graph
       (snap_pt_next_id (kami_step ks (instr_pmerge m1 m2 cost)))
       (snap_pt_sizes (kami_step ks (instr_pmerge m1 m2 cost)))
       (snap_pt_bases (kami_step ks (instr_pmerge m1 m2 cost))) =
-    if pmerge_adjacent (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
-         (m1 mod PTableSz) (m2 mod PTableSz)
-    then graph_hw_pmerge (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
-           (m1 mod PTableSz) (m2 mod PTableSz)
-    else snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
-    by exact (f_equal vm_graph Hph).
-  rewrite (wraps_pmerge_adjacent (snap_module_tensors ks) _ _ _ _ (snap_full_graph_wraps ks)).
-  assert (Hok : snap_pmerge_adjacent (snap_pt_sizes ks) (snap_pt_bases ks)
-                  (m1 mod PTableSz) (m2 mod PTableSz) =
-                pmerge_adjacent (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
-                  (m1 mod PTableSz) (m2 mod PTableSz)).
-  { symmetry. apply snap_pmerge_adjacent_spec; lia. }
-  destruct (pmerge_adjacent (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
-              (m1 mod PTableSz) (m2 mod PTableSz)) eqn:Hadj.
-  - assert (Hw' := snap_full_graph_wraps (kami_step ks (instr_pmerge m1 m2 cost))).
-    assert (Hwp : wraps (snap_module_tensors ks)
-        (graph_hw_pmerge (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
-           (m1 mod PTableSz) (m2 mod PTableSz))
-        (graph_hw_pmerge (snap_full_graph ks) (m1 mod PTableSz) (m2 mod PTableSz)))
-      by exact (wraps_hw_pmerge (snap_module_tensors ks) _ _ _ _ (snap_full_graph_wraps ks) Hf1).
-    change (snap_module_tensors (kami_step ks (instr_pmerge m1 m2 cost)))
-      with (snap_module_tensors ks) in Hw'.
-    rewrite Hg1 in Hw'.
-    destruct Hw' as [Hn' Hm']. destruct Hwp as [Hnp Hmp].
-    destruct (graph_hw_pmerge_morph_fields (snap_full_graph ks) (m1 mod PTableSz) (m2 mod PTableSz))
-      as [Hmf Hmo].
-    apply partition_graph_eq.
-    + rewrite Hn', Hnp. reflexivity.
-    + rewrite Hm', Hmp. reflexivity.
-    + rewrite Hmf.
-      change (rich_next_morph_id (if snap_pmerge_adjacent (snap_pt_sizes ks) (snap_pt_bases ks)
-                                    (m1 mod PTableSz) (m2 mod PTableSz)
-                                  then rich_state_cascade (snap_rich_state ks) (m1 mod PTableSz) (m2 mod PTableSz)
-                                  else snap_rich_state ks) = rich_next_morph_id (snap_rich_state ks)).
-      rewrite Hok. reflexivity.
-    + rewrite Hmo.
-      change (snapshot_morphisms_of_rich_state
-                (if snap_pmerge_adjacent (snap_pt_sizes ks) (snap_pt_bases ks)
-                      (m1 mod PTableSz) (m2 mod PTableSz)
-                 then rich_state_cascade (snap_rich_state ks) (m1 mod PTableSz) (m2 mod PTableSz)
-                 else snap_rich_state ks)
-              = filter (cascade_pred (m2 mod PTableSz))
-                  (filter (cascade_pred (m1 mod PTableSz)) (snapshot_morphisms_of_rich_state (snap_rich_state ks)))).
-      rewrite Hok. rewrite snapshot_morphisms_cascade.
-      symmetry. apply filter_filter_pointwise. intro x. apply cascade_pred_keep2.
-  - unfold snap_full_graph, kami_step. cbn [snap_pt_next_id snap_pt_sizes snap_pt_bases snap_module_tensors snap_rich_state].
-    rewrite Hok. cbn iota. reflexivity.
+    graph_hw_pmerge (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
+      (m1 mod PTableSz) (m2 mod PTableSz)).
+  { transitivity (vm_graph (vm_apply (abs_phase1 ks) (instr_pmerge m1 m2 cost))).
+    { exact (f_equal vm_graph Hph). }
+    rewrite vm_apply_pmerge_eq, partition_step_state_graph.
+    change (vm_graph (abs_phase1 ks))
+      with (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks)).
+    change (m1 mod 64) with (m1 mod PTableSz). change (m2 mod 64) with (m2 mod PTableSz).
+    rewrite Hok. reflexivity. }
+  assert (Hrich : snap_rich_state (kami_step ks (instr_pmerge m1 m2 cost)) =
+                  rich_state_cascade (snap_rich_state ks) (m1 mod PTableSz) (m2 mod PTableSz)).
+  { unfold kami_step. cbv zeta. cbn [snap_rich_state]. repeat match goal with |- context [if ?c then _ else _] => let E := fresh in assert (E : c = true) by exact Hgo; rewrite E; clear E end; cbv iota. reflexivity. }
+  assert (Hw' := snap_full_graph_wraps (kami_step ks (instr_pmerge m1 m2 cost))).
+  assert (Hwp : wraps (snap_module_tensors ks)
+      (graph_hw_pmerge (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
+         (m1 mod PTableSz) (m2 mod PTableSz))
+      (graph_hw_pmerge (snap_full_graph ks) (m1 mod PTableSz) (m2 mod PTableSz)))
+    by exact (wraps_hw_pmerge (snap_module_tensors ks) _ _ _ _ (snap_full_graph_wraps ks) Hf1).
+  change (snap_module_tensors (kami_step ks (instr_pmerge m1 m2 cost)))
+    with (snap_module_tensors ks) in Hw'.
+  rewrite Hg1 in Hw'.
+  destruct Hw' as [Hn' Hm']. destruct Hwp as [Hnp Hmp].
+  destruct (graph_hw_pmerge_morph_fields (snap_full_graph ks) (m1 mod PTableSz) (m2 mod PTableSz))
+    as [Hmf Hmo].
+  apply partition_graph_eq.
+  - rewrite Hn', Hnp. reflexivity.
+  - rewrite Hm', Hmp. reflexivity.
+  - rewrite Hmf. unfold snap_full_graph at 1. cbn [pg_next_morph_id]. rewrite Hrich. reflexivity.
+  - rewrite Hmo. unfold snap_full_graph at 1. cbn [pg_morphisms]. rewrite Hrich.
+    rewrite snapshot_morphisms_cascade.
+    symmetry. apply filter_filter_pointwise. intro x. apply cascade_pred_keep2.
 Qed.
 
 (** PNEW on the full graph: the new module, the existing module the range
-    names, or the unchanged graph when the range overlaps a module. *)
+    names, or the unchanged graph when PNEW traps. *)
 Lemma snap_full_graph_pnew :
   forall ks region cost,
     snap_pt_next_id ks <= PTableSz ->
     List.length (normalize_region region) > 0 ->
     (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0) ->
     snap_full_graph (kami_step ks (instr_pnew region cost)) =
-    if negb (region_conflict (snap_full_graph ks) (pnew_region region))
+    if pnew_ok (snap_full_graph ks) (pnew_region region)
     then fst (graph_pnew (snap_full_graph ks) (pnew_region region))
     else snap_full_graph ks.
 Proof.
@@ -2824,20 +2866,24 @@ Proof.
       (snap_pt_next_id (kami_step ks (instr_pnew region cost)))
       (snap_pt_sizes (kami_step ks (instr_pnew region cost)))
       (snap_pt_bases (kami_step ks (instr_pnew region cost))) =
-    if negb (region_conflict (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
-               (pnew_region region))
+    if pnew_ok (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
+               (pnew_region region)
     then fst (graph_pnew (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
                 (pnew_region region))
     else snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
     by exact (f_equal vm_graph Hph).
-  rewrite (wraps_region_conflict (snap_module_tensors ks) _ _ _ (snap_full_graph_wraps ks)).
-  assert (Hconf : region_conflict (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
-                    (pnew_region region) =
-                  snap_pt_conflict (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks)
-                    (hd 0 (normalize_region region)) (List.length (normalize_region region))).
-  { exact (snap_pt_region_conflict _ _ _ _ _ Hle Hlen). }
-  destruct (negb (region_conflict (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
-               (pnew_region region))) eqn:Hok.
+  rewrite (wraps_pnew_ok (snap_module_tensors ks) _ _ _ (snap_full_graph_wraps ks)).
+  assert (Hok : pnew_ok (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
+                  (pnew_region region) =
+                andb (snap_pnew_capacity (snap_pt_next_id ks) (hd 0 (normalize_region region))
+                        (List.length (normalize_region region)))
+                     (negb (snap_pt_conflict (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks)
+                              (hd 0 (normalize_region region)) (List.length (normalize_region region))))).
+  { change (pnew_region region)
+      with (List.seq (hd 0 (normalize_region region)) (List.length (normalize_region region))).
+    exact (pnew_ok_snap _ _ _ _ _ Hle Hlen). }
+  destruct (pnew_ok (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
+              (pnew_region region)) eqn:Hgo.
   - assert (Hw' := snap_full_graph_wraps (kami_step ks (instr_pnew region cost))).
     assert (Hwp : wraps (snap_module_tensors ks)
         (fst (graph_pnew (snap_pt_to_graph (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks))
@@ -2853,11 +2899,7 @@ Proof.
     + rewrite Hm', Hmp. reflexivity.
     + rewrite Hmf. reflexivity.
     + rewrite Hmo. reflexivity.
-  - assert (Hc : snap_pt_conflict (snap_pt_next_id ks) (snap_pt_sizes ks) (snap_pt_bases ks)
-                   (hd 0 (normalize_region region)) (List.length (normalize_region region)) = true).
-    { rewrite <- Hconf. apply Bool.negb_false_iff in Hok. exact Hok. }
-    unfold snap_full_graph, kami_step. cbn [snap_pt_next_id snap_pt_sizes snap_pt_bases snap_module_tensors snap_rich_state].
-    rewrite Hc. cbn [negb andb]. reflexivity.
+  - cbv iota in Hg1. unfold snap_full_graph at 1. rewrite Hg1. reflexivity.
 Qed.
 
 Lemma with_graph_partition_step : forall (s : VMState) (G : PartitionGraph) (instr : vm_instruction)
@@ -2877,7 +2919,6 @@ Theorem driven_step_psplit_full :
     snap_pt_sizes ks (module mod PTableSz) >= 2 ->
     snap_pt_sizes ks (snap_pt_next_id ks) = 0 ->
     snap_pt_sizes ks (S (snap_pt_next_id ks)) = 0 ->
-    S (S (snap_pt_next_id ks)) <= PTableSz ->
     (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0) ->
     (forall n, snap_module_tensors ks (S (snap_pt_next_id ks)) n = 0) ->
     abs_full_snapshot (full_snapshot_of_snapshot
@@ -2885,12 +2926,15 @@ Theorem driven_step_psplit_full :
     vm_apply (abs_full_snapshot (full_snapshot_of_snapshot ks))
       (instr_psplit module left_region right_region cost).
 Proof.
-  intros ks module l r cost [Hge Hlt] Hmid Hsize Hn0 Hsn0 Hroom Hf1 Hf2.
+  intros ks module l r cost [Hge Hle] Hmid Hsize Hn0 Hsn0 Hf1 Hf2.
   rewrite !full_abs_as_with_graph.
   rewrite (embed_step_psplit ks module l r cost
-    (conj Hge (conj Hroom (conj Hmid (conj Hsize (conj Hn0 Hsn0)))))).
-  rewrite (snap_full_graph_psplit ks module l r cost (conj Hge Hlt) Hmid Hsize Hn0 Hsn0 Hroom Hf1 Hf2).
-  unfold vm_apply, with_graph, advance_state, apply_cost, instruction_cost. reflexivity.
+    (conj Hge (conj Hmid (conj Hsize (conj Hn0 Hsn0))))).
+  rewrite (snap_full_graph_psplit ks module l r cost (conj Hge Hle) Hmid Hsize Hn0 Hsn0 Hf1 Hf2).
+  rewrite !vm_apply_psplit_eq. apply with_graph_partition_step.
+  - cbn [vm_graph with_graph]. symmetry.
+    exact (wraps_module_room (snap_module_tensors ks) _ _ 2 (snap_full_graph_wraps ks)).
+  - cbn [vm_graph with_graph]. reflexivity.
 Qed.
 
 Theorem driven_step_psplit :
@@ -2901,7 +2945,6 @@ Theorem driven_step_psplit :
     snap_pt_sizes ks (module mod PTableSz) >= 2 ->
     snap_pt_sizes ks (snap_pt_next_id ks) = 0 ->
     snap_pt_sizes ks (S (snap_pt_next_id ks)) = 0 ->
-    S (S (snap_pt_next_id ks)) <= PTableSz ->
     (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0) ->
     (forall n, snap_module_tensors ks (S (snap_pt_next_id ks)) n = 0) ->
     abs_full_snapshot (full_snapshot_of_snapshot
@@ -2909,8 +2952,8 @@ Theorem driven_step_psplit :
     vm_apply (abs_full_snapshot (full_snapshot_of_snapshot ks))
       (instr_psplit module left_region right_region cost).
 Proof.
-  intros ks module l r cost Hpt _ Hmid Hsize Hn0 Hsn0 Hroom Hf1 Hf2.
-  exact (driven_step_psplit_full ks module l r cost Hpt Hmid Hsize Hn0 Hsn0 Hroom Hf1 Hf2).
+  intros ks module l r cost Hpt _ Hmid Hsize Hn0 Hsn0 Hf1 Hf2.
+  exact (driven_step_psplit_full ks module l r cost Hpt Hmid Hsize Hn0 Hsn0 Hf1 Hf2).
 Qed.
 
 Theorem driven_step_pmerge_full :
@@ -2922,22 +2965,20 @@ Theorem driven_step_pmerge_full :
     snap_pt_sizes ks (m1 mod PTableSz) > 0 ->
     snap_pt_sizes ks (m2 mod PTableSz) > 0 ->
     snap_pt_sizes ks (snap_pt_next_id ks) = 0 ->
-    S (snap_pt_next_id ks) <= PTableSz ->
     (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0) ->
     abs_full_snapshot (full_snapshot_of_snapshot
       (kami_step ks (instr_pmerge m1 m2 cost))) =
     vm_apply (abs_full_snapshot (full_snapshot_of_snapshot ks))
       (instr_pmerge m1 m2 cost).
 Proof.
-  intros ks m1 m2 cost [Hge Hlt] Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hroom Hf1.
+  intros ks m1 m2 cost [Hge Hle] Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hf1.
   rewrite !full_abs_as_with_graph.
   rewrite (embed_step_pmerge ks m1 m2 cost
-    (conj Hge (conj Hroom (conj Hm1 (conj Hm2 (conj Hne (conj Hs1 (conj Hs2 Hn0)))))))).
-  rewrite (snap_full_graph_pmerge ks m1 m2 cost (conj Hge Hlt) Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hroom Hf1).
-  assert (Hadj := wraps_pmerge_adjacent (snap_module_tensors ks) _ _ (m1 mod PTableSz) (m2 mod PTableSz)
-                    (snap_full_graph_wraps ks)).
-  cbn [vm_apply]. apply with_graph_partition_step.
-  - cbn [vm_graph with_graph]. symmetry. exact Hadj.
+    (conj Hge (conj Hm1 (conj Hm2 (conj Hne (conj Hs1 (conj Hs2 Hn0))))))).
+  rewrite (snap_full_graph_pmerge ks m1 m2 cost (conj Hge Hle) Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hf1).
+  rewrite !vm_apply_pmerge_eq. apply with_graph_partition_step.
+  - cbn [vm_graph with_graph]. symmetry.
+    exact (wraps_pmerge_ok (snap_module_tensors ks) _ _ _ _ (snap_full_graph_wraps ks)).
   - cbn [vm_graph with_graph]. reflexivity.
 Qed.
 
@@ -2951,15 +2992,14 @@ Theorem driven_step_pmerge :
     snap_pt_sizes ks (m1 mod PTableSz) > 0 ->
     snap_pt_sizes ks (m2 mod PTableSz) > 0 ->
     snap_pt_sizes ks (snap_pt_next_id ks) = 0 ->
-    S (snap_pt_next_id ks) <= PTableSz ->
     (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0) ->
     abs_full_snapshot (full_snapshot_of_snapshot
       (kami_step ks (instr_pmerge m1 m2 cost))) =
     vm_apply (abs_full_snapshot (full_snapshot_of_snapshot ks))
       (instr_pmerge m1 m2 cost).
 Proof.
-  intros ks m1 m2 cost Hpt _ Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hroom Hf1.
-  exact (driven_step_pmerge_full ks m1 m2 cost Hpt Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hroom Hf1).
+  intros ks m1 m2 cost Hpt _ Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hf1.
+  exact (driven_step_pmerge_full ks m1 m2 cost Hpt Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hf1).
 Qed.
 
 Theorem driven_step_pnew_full :
@@ -2974,10 +3014,9 @@ Proof.
   rewrite !full_abs_as_with_graph.
   rewrite (embed_step_pnew_bounded ks region cost Hle Hlen).
   rewrite (snap_full_graph_pnew ks region cost Hle Hlen Hf).
-  assert (Hrc := wraps_region_conflict (snap_module_tensors ks) _ _ (pnew_region region)
-                   (snap_full_graph_wraps ks)).
-  cbn [vm_apply]. apply with_graph_partition_step.
-  - cbn [vm_graph with_graph]. f_equal. symmetry. exact Hrc.
+  rewrite !vm_apply_pnew_eq. apply with_graph_partition_step.
+  - cbn [vm_graph with_graph]. symmetry.
+    exact (wraps_pnew_ok (snap_module_tensors ks) _ _ _ (snap_full_graph_wraps ks)).
   - cbn [vm_graph with_graph]. reflexivity.
 Qed.
 
@@ -2990,8 +3029,8 @@ Theorem driven_step_pnew :
     abs_full_snapshot (full_snapshot_of_snapshot (kami_step ks (instr_pnew region cost))) =
     vm_apply (abs_full_snapshot (full_snapshot_of_snapshot ks)) (instr_pnew region cost).
 Proof.
-  intros ks region cost [Hge Hlt] _ Hlen Htens.
-  exact (driven_step_pnew_full ks region cost (Nat.lt_le_incl _ _ Hlt) Hlen Htens).
+  intros ks region cost [Hge Hle] _ Hlen Htens.
+  exact (driven_step_pnew_full ks region cost Hle Hlen Htens).
 Qed.
 
 (* ======================================================================
@@ -3673,7 +3712,6 @@ Definition WFDrivenPrecondition (ks : KamiSnapshot) (i : vm_instruction) : Prop 
       snap_pt_sizes ks (module mod PTableSz) >= 2 /\
       snap_pt_sizes ks (snap_pt_next_id ks) = 0 /\
       snap_pt_sizes ks (S (snap_pt_next_id ks)) = 0 /\
-      S (S (snap_pt_next_id ks)) <= PTableSz /\
       (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0) /\
       (forall n, snap_module_tensors ks (S (snap_pt_next_id ks)) n = 0)
   | instr_pmerge m1 m2 _ =>
@@ -3684,7 +3722,6 @@ Definition WFDrivenPrecondition (ks : KamiSnapshot) (i : vm_instruction) : Prop 
       snap_pt_sizes ks (m1 mod PTableSz) > 0 /\
       snap_pt_sizes ks (m2 mod PTableSz) > 0 /\
       snap_pt_sizes ks (snap_pt_next_id ks) = 0 /\
-      S (snap_pt_next_id ks) <= PTableSz /\
       (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0)
   | instr_morph _ src_mod dst_mod _ _ =>
       extended_hw_invariant ks /\
@@ -3730,11 +3767,11 @@ Proof.
   - destruct Hpre as [Hle [Hlen Htens]].
     exact (driven_step_pnew_full ks _ _ Hle Hlen Htens).
   (* instr_psplit *)
-  - destruct Hpre as [Hpt [Hmid [Hsize [Hn0 [Hsn0 [Hroom [Hf1 Hf2]]]]]]].
-    exact (driven_step_psplit_full ks _ _ _ _ Hpt Hmid Hsize Hn0 Hsn0 Hroom Hf1 Hf2).
+  - destruct Hpre as [Hpt [Hmid [Hsize [Hn0 [Hsn0 [Hf1 Hf2]]]]]].
+    exact (driven_step_psplit_full ks _ _ _ _ Hpt Hmid Hsize Hn0 Hsn0 Hf1 Hf2).
   (* instr_pmerge *)
-  - destruct Hpre as [Hpt [Hm1 [Hm2 [Hne [Hs1 [Hs2 [Hn0 [Hroom Hf1]]]]]]]].
-    exact (driven_step_pmerge_full ks _ _ _ Hpt Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hroom Hf1).
+  - destruct Hpre as [Hpt [Hm1 [Hm2 [Hne [Hs1 [Hs2 [Hn0 Hf1]]]]]]].
+    exact (driven_step_pmerge_full ks _ _ _ Hpt Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hf1).
   (* instr_lassert *)
   - exact (driven_step_lassert ks _ _ _ _ _ Hpre).
   (* instr_call *)
@@ -3839,7 +3876,8 @@ Qed.
       - MORPH: [driven_step_morph_full] requires extended_hw_invariant + modules exist.  Qed.
       - MORPH_ID: [driven_step_morph_id_full] — requires coupling_zero_empty + module exists.  Qed.
         (MORPH_ID uses empty coupling; MORPH decodes coupling from memory.)
-      - PSPLIT: [driven_step_psplit] — requires pt_well_formed + space.  Qed.
+      - PSPLIT: [driven_step_psplit] requires pt_well_formed and empty new
+        slots; without two free slots both sides trap.  Qed.
       - PMERGE: [driven_step_pmerge] — requires pt_well_formed + modules exist.  Qed.
 
     Field-by-field helpers (vm_graph/vm_regs omitted in the helper lemma):

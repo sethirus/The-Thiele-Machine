@@ -167,11 +167,11 @@ Proof.
   intros s i Hrev Hemit Hljoin Hlassert Hcertify Hmorph_assert.
   destruct i; unfold vm_apply, vm_apply_unsafe.
   - (* pnew: success and overlap trap both keep cert_addr *)
-    simpl. destruct (negb _); reflexivity.
-  - (* psplit *)
-    unfold advance_state. simpl. reflexivity.
+    simpl. destruct (pnew_ok _ _); reflexivity.
+  - (* psplit: success and trap both keep cert_addr *)
+    simpl. destruct (module_room _ _); reflexivity.
   - (* pmerge: success and trap both keep cert_addr *)
-    simpl. destruct (pmerge_adjacent _ _ _); reflexivity.
+    simpl. destruct (pmerge_ok _ _ _); reflexivity.
   - (* lassert *) exfalso. eapply Hlassert. reflexivity.
   - (* ljoin *) exfalso. eapply Hljoin. reflexivity.
   - (* mdlacc *) unfold advance_state. simpl. reflexivity.
@@ -305,11 +305,11 @@ Proof.
   destruct i; simpl in Hnon;
     unfold vm_apply, vm_apply_unsafe.
   - (* pnew: success and overlap trap both keep cert_addr *)
-    simpl. destruct (negb _); reflexivity.
-  - (* psplit *)
-    unfold advance_state. simpl. reflexivity.
+    simpl. destruct (pnew_ok _ _); reflexivity.
+  - (* psplit: success and trap both keep cert_addr *)
+    simpl. destruct (module_room _ _); reflexivity.
   - (* pmerge: success and trap both keep cert_addr *)
-    simpl. destruct (pmerge_adjacent _ _ _); reflexivity.
+    simpl. destruct (pmerge_ok _ _ _); reflexivity.
   - (* lassert: a failing check sets only the CSR error flag *)
     simpl. destruct (lassert_exec_ok _ _ _ _ _); reflexivity.
   - (* ljoin *)
@@ -618,17 +618,17 @@ Proof.
       * (* pnew *)
         apply IH in Hrun.
         -- exact Hrun.
-        -- simpl. destruct (negb _); exact Hinit.
+        -- simpl. destruct (pnew_ok _ _); exact Hinit.
         -- exact Hfinal.
       * (* psplit *)
         apply IH in Hrun.
         -- exact Hrun.
-        -- unfold advance_state; simpl. exact Hinit.
+        -- simpl. destruct (module_room _ _); exact Hinit.
         -- exact Hfinal.
       * (* pmerge *)
         apply IH in Hrun.
         -- exact Hrun.
-        -- simpl. destruct (pmerge_adjacent _ _ _); exact Hinit.
+        -- simpl. destruct (pmerge_ok _ _ _); exact Hinit.
         -- exact Hfinal.
       * (* lassert *) right. right. right. left. eexists _, _, _, _, _, _. exact Hnth.
       * (* ljoin *) right. right. left. eexists _, _, _, _. exact Hnth.

@@ -323,3 +323,48 @@ Proof.
            (Nat.eqb (wordToNat (hw_morph_dst_table b (natToWord MorphTableIdxSz i))) (wordToNat m2));
     reflexivity.
 Qed.
+
+(** * Capacity checks
+
+    PNEW and PMERGE need one free partition-table slot, PSPLIT two, and a
+    nonempty PNEW range must end inside data memory. The step rule's
+    word-level tests against [kami_step]'s natural-number tests. *)
+
+Lemma pt_room_one_ltb : forall b,
+  hw_pt_room_one b = Nat.ltb (wordToNat (hw_pt_next_id b)) 64.
+Proof.
+  intro b. unfold hw_pt_room_one. rewrite bool_of_wlt. reflexivity.
+Qed.
+
+Lemma pt_room_two_leb : forall b, wordToNat (hw_pt_next_id b) <= 64 ->
+  hw_pt_room_two b = Nat.leb (S (S (wordToNat (hw_pt_next_id b)))) 64.
+Proof.
+  intros b H. unfold hw_pt_room_two.
+  destruct (wlt_dec _ _) as [L|L].
+  - apply wlt_lt in L. rewrite wordToNat_wplus_7 in L by lia.
+    change (wordToNat (natToWord PTableNextIdSz 64)) with 64 in L.
+    symmetry. apply Nat.leb_gt. lia.
+  - symmetry. apply Nat.leb_le.
+    destruct (Nat.le_gt_cases (S (S (wordToNat (hw_pt_next_id b)))) 64) as [Hle|Hgt]; [exact Hle|].
+    exfalso. apply L. apply lt_wlt. rewrite wordToNat_wplus_7 by lia.
+    change (wordToNat (natToWord PTableNextIdSz 64)) with 64. lia.
+Qed.
+
+Lemma hw_pnew_in_memory_nat : forall (a n : word 8),
+  hw_pnew_in_memory (zext a 24) (zext n 24) =
+  orb (Nat.eqb (wordToNat n) 0) (Nat.leb (wordToNat a + wordToNat n) 128).
+Proof.
+  intros a n. unfold hw_pnew_in_memory. ev_simp2.
+  cbn [evalExpr evalConstT evalBinBit].
+  pose proof (wordToNat_bound a) as Ba. pose proof (wordToNat_bound n) as Bn.
+  change (pow2 8) with 256 in Ba, Bn.
+  assert (H32 : 512 <= pow2 WordSz)
+    by (change 512 with (pow2 9); apply Nat.lt_le_incl, pow2_inc; unfold WordSz; lia).
+  rewrite wordToNat_wplus_bounded by (rewrite !wordToNat_zext8_32; lia).
+  rewrite !wordToNat_zext8_32, wordToNat_word0_32.
+  change (wordToNat (natToWord WordSz 128)) with 128.
+  destruct (Nat.eqb_spec (wordToNat n) 0),
+           (Nat.ltb_spec 128 (wordToNat a + wordToNat n)),
+           (Nat.leb_spec (wordToNat a + wordToNat n) 128);
+    cbn [negb andb orb]; try reflexivity; lia.
+Qed.

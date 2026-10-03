@@ -199,10 +199,10 @@ Lemma abs_pnew_regs :
   forall s r c, (vm_apply s (instr_pnew r c)).(vm_regs) = s.(vm_regs).
 Proof. intros s r c. rewrite vm_apply_pnew_eq. reflexivity. Qed.
 
-(** PNEW advances the pc when its range overlaps no module; an overlap traps. *)
+(** PNEW advances the pc when it succeeds; a failed PNEW traps. *)
 Lemma abs_pnew_pc :
   forall s r c,
-    region_conflict s.(vm_graph) (pnew_region r) = false ->
+    pnew_ok s.(vm_graph) (pnew_region r) = true ->
     (vm_apply s (instr_pnew r c)).(vm_pc) = S s.(vm_pc).
 Proof. intros s r c H. apply vm_apply_pnew_pc. exact H. Qed.
 
@@ -252,7 +252,7 @@ Lemma abs_strict_shadow_equal :
 Proof.
   unfold P_strict, abs_A_strict, abs_B_strict.
   rewrite abs_certify_mem, abs_certify_regs, abs_certify_pc.
-  rewrite abs_pnew_mem, abs_pnew_regs, abs_pnew_pc by apply region_conflict_nil.
+  rewrite abs_pnew_mem, abs_pnew_regs, abs_pnew_pc by reflexivity.
   unfold abs_zero. simpl. reflexivity.
 Qed.
 
@@ -358,7 +358,7 @@ Lemma abs_cost_shadow_equal :
 Proof.
   unfold P_cost, abs_A_cost, abs_B_cost.
   rewrite abs_certify_mem, abs_certify_regs, abs_certify_pc.
-  rewrite abs_pnew_mem, abs_pnew_regs, abs_pnew_pc by apply region_conflict_nil.
+  rewrite abs_pnew_mem, abs_pnew_regs, abs_pnew_pc by reflexivity.
   rewrite abs_certify_mu, abs_pnew_mu.
   unfold abs_zero. simpl. reflexivity.
 Qed.

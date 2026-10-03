@@ -14,7 +14,8 @@
     - WellFormedSnapshot: sp < MEM_SIZE, word64_sub sp 1 < MEM_SIZE
     - snap_pc ks < MEM_SIZE (for CALL only — ensures S(pc) fits in word64)
     - chsh_bits_ok x y a b = true (for CHSH_TRIAL — all four values are bits)
-    - WellFormedPartitionTable: next_id >= 1 /\ next_id < PTableSz /\ fresh slot
+    - WellFormedPartitionTable: next_id >= 1 /\ next_id <= PTableSz /\ fresh slot
+      (the table may be full; a partition step without room traps on both sides)
     - LASSERT: check_ok = true /\ flen = hw_flen (success-path match)
     - PSPLIT/PMERGE: partition table well-formedness
 
@@ -343,10 +344,10 @@ Qed.
    §7  PNEW: embed_step under well-formed partition table
    *)
 
-(** Partition table well-formedness for PNEW. *)
+(** Partition table well-formedness for PNEW. The table may be full. *)
 Definition WellFormedPT_PNEW (ks : KamiSnapshot) : Prop :=
   snap_pt_next_id ks >= 1 /\
-  snap_pt_next_id ks < PTableSz /\
+  snap_pt_next_id ks <= PTableSz /\
   snap_pt_sizes ks (snap_pt_next_id ks) = 0.
 
 Theorem embed_step_pnew :
@@ -364,11 +365,11 @@ Qed.
    §8  PSPLIT: embed_step under well-formed partition table
    *)
 
-(** Partition table well-formedness for PSPLIT.
-    Mirrors the 6 preconditions of snap_pt_to_graph_psplit (RichStateCommutation.v). *)
+(** Partition table well-formedness for PSPLIT: the preconditions of
+    snap_pt_to_graph_psplit (RichStateCommutation.v) other than the two free
+    slots. Without two free slots both sides trap. *)
 Definition WellFormedPT_PSPLIT (ks : KamiSnapshot) (module : nat) : Prop :=
   snap_pt_next_id ks >= 1 /\
-  S (S (snap_pt_next_id ks)) <= PTableSz /\
   module mod PTableSz < snap_pt_next_id ks /\
   snap_pt_sizes ks (module mod PTableSz) >= 2 /\
   snap_pt_sizes ks (snap_pt_next_id ks) = 0 /\
@@ -381,11 +382,20 @@ Theorem embed_step_psplit :
     vm_apply (abs_phase1 ks) (instr_psplit module left_region right_region cost).
 Proof.
   intros ks module0 left_region right_region cost
-         [Hge [Hle [Hmid [Hsize [Hn0 Hsn0]]]]].
+         [Hge [Hmid [Hsize [Hn0 Hsn0]]]].
   set (nid   := snap_pt_next_id ks).
   set (mid   := module0 mod PTableSz).
   set (sizes := snap_pt_sizes ks).
   set (bases := snap_pt_bases ks).
+  rewrite vm_apply_psplit_eq.
+  change (vm_graph (abs_phase1 ks)) with (snap_pt_to_graph nid sizes bases).
+  rewrite module_room_two_snap. change (module0 mod 64) with mid.
+  unfold kami_step. fold nid mid sizes bases. cbv zeta.
+  destruct (Nat.leb (S (S nid)) PTableSz) eqn:Hroom.
+  2: { (* fewer than two free slots: both trap and keep the partition table *)
+       unfold partition_step_state, abs_phase1, csr_set_err, instruction_cost. simpl.
+       reflexivity. }
+  apply Nat.leb_le in Hroom. rename Hroom into Hle.
   (* kami_step lists the new slots S nid-first; snap_pt_to_graph_psplit
      (RichStateCommutation.v) lists mid first. Reorder by extensionality. *)
   assert (Hgraph :
@@ -431,44 +441,27 @@ Proof.
     rewrite Hfun_eq, Hbase_eq.
     exact (eq_sym (snap_pt_to_graph_psplit nid sizes bases mid Hge Hle Hmid Hsize Hn0 Hsn0)).
   }
-  unfold abs_phase1 at 1.
-  change (snap_pt_to_graph (snap_pt_next_id (kami_step ks (instr_psplit module0 left_region right_region cost)))
-                           (snap_pt_sizes   (kami_step ks (instr_psplit module0 left_region right_region cost)))
-                           (snap_pt_bases   (kami_step ks (instr_psplit module0 left_region right_region cost))))
-    with (snap_pt_to_graph (S (S nid))
-      (fun i => if Nat.eqb i (S nid) then sizes mid - Nat.div (sizes mid) 2
-                else if Nat.eqb i nid then Nat.div (sizes mid) 2
-                else if Nat.eqb i mid then 0
-                else sizes i)
-      (fun i => if Nat.eqb i (S nid) then bases mid + Nat.div (sizes mid) 2
-                else if Nat.eqb i nid then bases mid
-                else if Nat.eqb i mid then 0
-                else bases i)).
-  rewrite Hgraph.
-  unfold vm_apply, kami_step, advance_state, apply_cost, instruction_cost.
-  fold nid mid sizes bases.
-  simpl snap_pc. simpl snap_mu. simpl snap_err.
-  simpl snap_regs. simpl snap_mem.
-  simpl snap_mu_tensor. simpl snap_certified.
-  simpl snap_halted. simpl snap_partition_ops. simpl snap_mdl_ops.
-  simpl snap_info_gain. simpl snap_error_code.
-  simpl snap_wc_same_00. simpl snap_wc_diff_00.
-  simpl snap_wc_same_01. simpl snap_wc_diff_01.
-  simpl snap_wc_same_10. simpl snap_wc_diff_10.
-  simpl snap_wc_same_11. simpl snap_wc_diff_11.
-  fold (abs_phase1 ks).
-  reflexivity.
+  unfold partition_step_state, abs_phase1, apply_cost, instruction_cost.
+  cbn [snap_pc snap_mu snap_err snap_regs snap_mem snap_mu_tensor snap_certified
+       snap_halted snap_partition_ops snap_mdl_ops snap_info_gain snap_error_code
+       snap_pt_next_id snap_pt_sizes snap_pt_bases snap_csr_cert_addr snap_csr_status
+       snap_csr_err snap_csr_heap_base snap_logic_acc snap_mstatus
+       snap_wc_same_00 snap_wc_diff_00 snap_wc_same_01 snap_wc_diff_01
+       snap_wc_same_10 snap_wc_diff_10 snap_wc_same_11 snap_wc_diff_11
+       vm_graph vm_csrs vm_regs vm_mem vm_pc vm_mu vm_mu_tensor vm_err
+       vm_logic_acc vm_mstatus vm_witness vm_certified].
+  f_equal. exact Hgraph.
 Qed.
 
 (* ======================================================================
    §9  PMERGE: embed_step under well-formed partition table
    *)
 
-(** Partition table well-formedness for PMERGE.
-    Mirrors the 8 preconditions of snap_pt_to_graph_pmerge (RichStateCommutation.v). *)
+(** Partition table well-formedness for PMERGE: the preconditions of
+    snap_pt_to_graph_pmerge (RichStateCommutation.v) other than the free
+    slot. Without a free slot both sides trap. *)
 Definition WellFormedPT_PMERGE (ks : KamiSnapshot) (m1 m2 : nat) : Prop :=
   snap_pt_next_id ks >= 1 /\
-  S (snap_pt_next_id ks) <= PTableSz /\
   m1 mod PTableSz < snap_pt_next_id ks /\
   m2 mod PTableSz < snap_pt_next_id ks /\
   m1 mod PTableSz <> m2 mod PTableSz /\
@@ -483,7 +476,7 @@ Theorem embed_step_pmerge :
     vm_apply (abs_phase1 ks) (instr_pmerge m1 m2 cost).
 Proof.
   intros ks m1 m2 cost
-         [Hge [Hle [Hm1 [Hm2 [Hne [Hs1 [Hs2 Hn0]]]]]]].
+         [Hge [Hm1 [Hm2 [Hne [Hs1 [Hs2 Hn0]]]]]].
   set (nid    := snap_pt_next_id ks).
   set (mid1   := m1 mod PTableSz).
   set (mid2   := m2 mod PTableSz).
@@ -493,6 +486,19 @@ Proof.
   assert (Hadj_eq : pmerge_adjacent (snap_pt_to_graph nid sizes bases) mid1 mid2 =
                     snap_pmerge_adjacent sizes bases mid1 mid2)
     by (apply snap_pmerge_adjacent_spec; unfold nid, mid1, mid2, sizes in *; lia).
+  assert (Hok_eq : pmerge_ok (snap_pt_to_graph nid sizes bases) mid1 mid2 =
+                   andb (Nat.ltb nid PTableSz) (snap_pmerge_adjacent sizes bases mid1 mid2))
+    by (unfold pmerge_ok; rewrite module_room_one_snap, Hadj_eq; reflexivity).
+  unfold vm_apply. change (m1 mod 64) with mid1. change (m2 mod 64) with mid2.
+  rewrite Hk, Hok_eq.
+  unfold kami_step. fold nid mid1 mid2 sizes bases.
+  destruct (Nat.ltb nid PTableSz) eqn:Hroom.
+  2: { (* no free slot: both trap and keep the partition table *)
+       cbn [andb].
+       unfold partition_step_state, abs_phase1, csr_set_err, instruction_cost. simpl.
+       reflexivity. }
+  apply Nat.ltb_lt in Hroom. assert (Hle : S nid <= PTableSz) by lia.
+  cbn [andb].
   destruct (snap_pmerge_adjacent sizes bases mid1 mid2) eqn:Hadj.
   - (* the ranges touch: one new slot takes the joined range *)
     assert (Hgraph :
@@ -539,15 +545,10 @@ Proof.
       exact (eq_sym (snap_pt_to_graph_pmerge nid sizes bases mid1 mid2
                        Hge Hle Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hadj)).
     }
-    unfold vm_apply. change (m1 mod 64) with mid1. change (m2 mod 64) with mid2.
-    rewrite Hk, Hadj_eq. rewrite <- Hgraph.
-    unfold kami_step. fold nid mid1 mid2 sizes bases. rewrite Hadj.
+    rewrite <- Hgraph.
     unfold partition_step_state, abs_phase1, instruction_cost. simpl.
     reflexivity.
   - (* the ranges do not touch: both trap and keep the partition table *)
-    unfold vm_apply. change (m1 mod 64) with mid1. change (m2 mod 64) with mid2.
-    rewrite Hk, Hadj_eq.
-    unfold kami_step. fold nid mid1 mid2 sizes bases. rewrite Hadj.
     unfold partition_step_state, abs_phase1, csr_set_err, instruction_cost. simpl.
     reflexivity.
 Qed.

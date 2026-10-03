@@ -31,6 +31,13 @@ Definition hw_pnew_present (b : HWB) (a len : word WordSz) : bool :=
     (Var type (SyntaxKind (Bit PTableNextIdSz)) (hw_pt_next_id b))
     (Var type (SyntaxKind (Bit WordSz)) a) (Var type (SyntaxKind (Bit WordSz)) len)).
 
+(** PNEW's memory check, as in the step rule: a nonempty range [a, a + len)
+    must end inside data memory (128 words). *)
+Definition hw_pnew_in_memory (a len : word WordSz) : bool :=
+  evalExpr (!(((Var type (SyntaxKind (Bit WordSz)) len) != $0) &&
+              ($$(natToWord WordSz 128) <
+               ((Var type (SyntaxKind (Bit WordSz)) a) + (Var type (SyntaxKind (Bit WordSz)) len)))))%kami_expr.
+
 (** PMERGE's adjacency check and the base of the joined range. *)
 Definition hw_pmerge_adjacent (b : HWB) (m1 m2 : word PTableIdxSz) : bool :=
   evalExpr (((Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b m1)) == $0) ||
@@ -5101,19 +5108,19 @@ Definition pnew_word (a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c
   legacy_word OP_PNEW (bits8 a0 a1 a2 a3 a4 a5 a6 a7) (bits8 b0 b1 b2 b3 b4 b5 b6 b7) (bits8 c0 c1 c2 c3 c4 c5 c6 c7).
 Lemma step_pnew_pc : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_pc (step_next b) = if hw_pt_room_one b then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_trap_vector b else wplus (hw_pc b) (natToWord WordSz 1)) else hw_trap_vector b.
+  hw_pc (step_next b) = if hw_pt_room_one b then (if hw_pnew_in_memory (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_trap_vector b else wplus (hw_pc b) (natToWord WordSz 1)) else hw_trap_vector b) else hw_trap_vector b.
 Proof. hw_field. Qed.
 Lemma step_pnew_mu : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_mu (step_next b) = if hw_pt_room_one b then wplus (hw_mu b) (zext (bits8 c0 c1 c2 c3 c4 c5 c6 c7) 24) else hw_mu b.
+  hw_mu (step_next b) = wplus (hw_mu b) (zext (bits8 c0 c1 c2 c3 c4 c5 c6 c7) 24).
 Proof. hw_field. Qed.
 Lemma step_pnew_err : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_err (step_next b) = if hw_pt_room_one b then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then true else false) else true.
+  hw_err (step_next b) = if hw_pt_room_one b then (if hw_pnew_in_memory (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then true else false) else true) else true.
 Proof. hw_field. Qed.
 Lemma step_pnew_halted : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_halted (step_next b) = if hw_pt_room_one b then false else true.
+  hw_halted (step_next b) = false.
 Proof. hw_field. Qed.
 Lemma step_pnew_regs : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -5125,7 +5132,7 @@ Lemma step_pnew_mem : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 
 Proof. hw_field. Qed.
 Lemma step_pnew_error_code : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_error_code (step_next b) = if hw_pt_room_one b then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then ERR_PARTITION_OVERLAP_VAL else hw_error_code b) else ERR_PARTITION_VAL.
+  hw_error_code (step_next b) = if hw_pt_room_one b then (if hw_pnew_in_memory (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then ERR_PARTITION_OVERLAP_VAL else hw_error_code b) else ERR_PARTITION_VAL) else ERR_PARTITION_VAL.
 Proof. hw_field. Qed.
 Lemma step_pnew_cert_addr : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -5153,15 +5160,15 @@ Lemma step_pnew_module_tensors : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b
 Proof. hw_field. Qed.
 Lemma step_pnew_ptTable : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_ptTable (step_next b) = if hw_pt_room_one b then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_ptTable b else if hw_pnew_present b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_ptTable b else (fun w => if weq w (split1 6 1 (hw_pt_next_id b)) then zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24 else hw_ptTable b w)) else hw_ptTable b.
+  hw_ptTable (step_next b) = if hw_pt_room_one b then (if hw_pnew_in_memory (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_ptTable b else if hw_pnew_present b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_ptTable b else (fun w => if weq w (split1 6 1 (hw_pt_next_id b)) then zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24 else hw_ptTable b w)) else hw_ptTable b) else hw_ptTable b.
 Proof. hw_field. Qed.
 Lemma step_pnew_ptBases : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_ptBases (step_next b) = if hw_pt_room_one b then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_ptBases b else if hw_pnew_present b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_ptBases b else (fun w => if weq w (split1 6 1 (hw_pt_next_id b)) then zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24 else hw_ptBases b w)) else hw_ptBases b.
+  hw_ptBases (step_next b) = if hw_pt_room_one b then (if hw_pnew_in_memory (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_ptBases b else if hw_pnew_present b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_ptBases b else (fun w => if weq w (split1 6 1 (hw_pt_next_id b)) then zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24 else hw_ptBases b w)) else hw_ptBases b) else hw_ptBases b.
 Proof. hw_field. Qed.
 Lemma step_pnew_pt_next_id : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_pt_next_id (step_next b) = if hw_pt_room_one b then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_pt_next_id b else if hw_pnew_present b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_pt_next_id b else wplus (hw_pt_next_id b) (natToWord PTableNextIdSz 1)) else hw_pt_next_id b.
+  hw_pt_next_id (step_next b) = if hw_pt_room_one b then (if hw_pnew_in_memory (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then (if hw_pnew_conflict b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_pt_next_id b else if hw_pnew_present b (zext (bits8 a0 a1 a2 a3 a4 a5 a6 a7) 24) (zext (bits8 b0 b1 b2 b3 b4 b5 b6 b7) 24) then hw_pt_next_id b else wplus (hw_pt_next_id b) (natToWord PTableNextIdSz 1)) else hw_pt_next_id b) else hw_pt_next_id b.
 Proof. hw_field. Qed.
 Lemma step_pnew_certified : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pnew_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -5252,7 +5259,7 @@ Lemma step_psplit_pc : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0
 Proof. hw_field. Qed.
 Lemma step_psplit_mu : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = psplit_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_mu (step_next b) = if hw_pt_room_two b then wplus (hw_mu b) (zext (bits8 c0 c1 c2 c3 c4 c5 c6 c7) 24) else hw_mu b.
+  hw_mu (step_next b) = wplus (hw_mu b) (zext (bits8 c0 c1 c2 c3 c4 c5 c6 c7) 24).
 Proof. hw_field. Qed.
 Lemma step_psplit_err : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = psplit_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -5260,7 +5267,7 @@ Lemma step_psplit_err : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c
 Proof. hw_field. Qed.
 Lemma step_psplit_halted : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = psplit_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_halted (step_next b) = if hw_pt_room_two b then false else true.
+  hw_halted (step_next b) = false.
 Proof. hw_field. Qed.
 Lemma step_psplit_regs : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = psplit_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -5399,7 +5406,7 @@ Lemma step_pmerge_pc : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0
 Proof. hw_field. Qed.
 Lemma step_pmerge_mu : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pmerge_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_mu (step_next b) = if hw_pt_room_one b then wplus (hw_mu b) (zext (bits8 c0 c1 c2 c3 c4 c5 c6 c7) 24) else hw_mu b.
+  hw_mu (step_next b) = wplus (hw_mu b) (zext (bits8 c0 c1 c2 c3 c4 c5 c6 c7) 24).
 Proof. hw_field. Qed.
 Lemma step_pmerge_err : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pmerge_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
@@ -5407,7 +5414,7 @@ Lemma step_pmerge_err : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c
 Proof. hw_field. Qed.
 Lemma step_pmerge_halted : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pmerge_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->
-  hw_halted (step_next b) = if hw_pt_room_one b then false else true.
+  hw_halted (step_next b) = false.
 Proof. hw_field. Qed.
 Lemma step_pmerge_regs : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b,
   step_fetched b = pmerge_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 -> hwb_bianchi b = false ->

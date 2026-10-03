@@ -10,7 +10,7 @@ FUEL 500
 # Partition setup (portable: works on both OCaml runner and RTL cosim)
 INIT_PT 0 128                 # RTL: set ptTable[0] = 128 (mem region size)
 INIT_ACTIVE_MODULE 0          # RTL: set active_module = 0
-PNEW {128,129} 1             # a module above the active module's range
+PNEW {} 1                     # an empty module, which overlaps no range
 LOAD_IMM r1 10 1              # N = 10 iterations
 LOAD_IMM r2 0 1           # a = fib(0) = 0
 LOAD_IMM r3 1 1           # b = fib(1) = 1

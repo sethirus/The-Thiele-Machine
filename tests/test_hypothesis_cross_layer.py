@@ -114,9 +114,12 @@ def st_partition_instr(draw):
     PSPLIT excluded: brace-list region args lose data in RTL encoding (b=0 stub).
     PMERGE excluded: requires both module IDs to exist; preamble only creates module 0.
     """
-    # Only PNEW has cross-layer compatible format, semantics, and no preconditions
-    n_elems = draw(st.integers(min_value=1, max_value=4))
-    elems = [draw(st.integers(min_value=128, max_value=255)) for _ in range(n_elems)]  # above module 0 (INIT_PT 0 128)
+    # Only PNEW has cross-layer compatible format, semantics, and no preconditions.
+    # Module 0 (INIT_PT 0 128) covers all of data memory, so the empty range is
+    # the one PNEW that succeeds on both layers; a range starting at 128 or
+    # above runs past memory and traps on both layers.
+    n_elems = draw(st.integers(min_value=0, max_value=4))
+    elems = [draw(st.integers(min_value=128, max_value=255)) for _ in range(n_elems)]
     region = ",".join(str(e) for e in elems)
     return f"PNEW {{{region}}} {draw(st_cost)}"
 

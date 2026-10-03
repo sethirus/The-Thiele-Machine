@@ -432,9 +432,9 @@ An explicitly qualified citation keeps its own module identity.
 - `vm_mu_not_classically_determined` (`NecessityOfMuLedger.vm_mu_not_classically_determined`): No function of the strict memory-register-PC projection recovers mu on every VM state.
 - `vm_certified_not_classically_determined` (`NecessityOfMuLedger.vm_certified_not_classically_determined`): No function of the strict memory-register-PC projection recovers certification on every VM state.
 - `vm_apply_certify_strict_shadow` (`NecessityOfMuLedger.vm_apply_certify_strict_shadow`): CERTIFY preserves memory and registers and increments PC in the strict projection.
-- `vm_apply_pnew_strict_shadow` (`NecessityOfMuLedger.vm_apply_pnew_strict_shadow`): PNEW preserves memory and registers and increments PC in the strict projection.
-- `mu_ledger_necessity_universal`: From every VM state, CERTIFY 0 and PNEW [] 0 produce the same strict projection, while CERTIFY adds one to mu and sets certification and PNEW preserves mu.
-- `po1_trace_necessity`: Appending CERTIFY 0 or PNEW [] 0 to any instruction-list prefix from `po1_init` gives equal strict projections and strictly greater mu in the CERTIFY case.
+- `vm_apply_pnew_strict_shadow` (`NecessityOfMuLedger.vm_apply_pnew_strict_shadow`): A PNEW that succeeds (`pnew_ok`) preserves memory and registers and increments PC in the strict projection.
+- `mu_ledger_necessity_universal`: From every VM state with a free module number (`module_room s.(vm_graph) 1`), CERTIFY 0 and PNEW [] 0 produce the same strict projection, while CERTIFY adds one to mu and sets certification and PNEW preserves mu.
+- `po1_trace_necessity`: Appending CERTIFY 0 or PNEW [] 0 to any instruction-list prefix from `po1_init` that leaves a free module number gives equal strict projections and strictly greater mu in the CERTIFY case.
 - `shadow_mu_is_computation_intrinsic`: For a fixed instruction list, final mu equals initial mu plus the list's summed instruction cost.
 - `shadow_mu_delta_universal`: Running the same instruction list from any two states produces equal mu increments.
 - `shadow_mu_unique_accounting`: Any measure with the canonical per-instruction increments and value zero at the supplied start equals the summed instruction cost after that list run.

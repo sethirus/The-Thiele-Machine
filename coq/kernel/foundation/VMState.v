@@ -1724,7 +1724,9 @@ Qed.
     the kernel definitions and proofs read them as constants. *)
 Definition REG_COUNT : nat := 16.
 Definition MEM_SIZE : nat := 128.
-Definition NUM_MODULES : nat := 64.  (* Maximum number of concurrent modules *)
+(* Module numbers the partition table holds. PNEW, PSPLIT and PMERGE trap
+   rather than issue a module number at or above it. *)
+Definition NUM_MODULES : nat := 64.
 Definition REGION_SIZE : nat := 16.  (* Maximum region size (YOSYS_LITE synthesis config) *)
 
 (** Opcode constants for instruction encoding. *)

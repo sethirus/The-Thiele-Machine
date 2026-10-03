@@ -88,14 +88,14 @@ Definition vm_apply_u (s : VMState) (instr : vm_instruction) : VMState :=
   | instr_pnew region cost =>
       let r := pnew_region region in
       partition_step_state s (instr_pnew region cost)
-        (negb (region_conflict s.(vm_graph) r)) (fst (graph_pnew s.(vm_graph) r))
+        (pnew_ok s.(vm_graph) r) (fst (graph_pnew s.(vm_graph) r))
   | instr_psplit module left_region right_region cost =>
-      let graph' := graph_hw_psplit s.(vm_graph) (module mod 64) in
-      advance_state s (instr_psplit module left_region right_region cost)
-        graph' s.(vm_csrs) s.(vm_err)
+      partition_step_state s (instr_psplit module left_region right_region cost)
+        (module_room s.(vm_graph) 2)
+        (graph_hw_psplit s.(vm_graph) (module mod 64))
   | instr_pmerge m1 m2 cost =>
       partition_step_state s (instr_pmerge m1 m2 cost)
-        (pmerge_adjacent s.(vm_graph) (m1 mod 64) (m2 mod 64))
+        (pmerge_ok s.(vm_graph) (m1 mod 64) (m2 mod 64))
         (graph_hw_pmerge s.(vm_graph) (m1 mod 64) (m2 mod 64))
   | instr_lassert freg creg kind flen cost =>
       let check_ok := lassert_exec_ok s freg creg kind flen in

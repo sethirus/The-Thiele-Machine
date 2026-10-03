@@ -516,19 +516,27 @@ Section ThieleCPU.
           #load_locality_bad || #store_locality_bad || #call_locality_bad || #ret_locality_bad;
 
 
-        (* Capacity guards: never wrap partition table indices. *)
+        (* Capacity guards: PNEW and PMERGE take one free partition-table
+           slot, PSPLIT two. Slot numbers are never reused, so without room
+           the step would wrap a table index; it traps instead. *)
         LET ptable_full <- #pt_next_id_v >= $64;
         LET ptable_room_one <- !#ptable_full;
         LET ptable_room_two <- (#pt_next_id_v + $2) <= $64;
         LET pnew_overflow <- (#opcode == $$(OP_PNEW)) && !#ptable_room_one;
         LET psplit_overflow <- (#opcode == $$(OP_PSPLIT)) && !#ptable_room_two;
         LET pmerge_overflow <- (#opcode == $$(OP_PMERGE)) && !#ptable_room_one;
-        LET ptable_overflow_violation <- #pnew_overflow || #psplit_overflow || #pmerge_overflow;
 
         (* PNEW claims the range [A, A + B): operand A is the base address,
            operand B the length. *)
         LET pnew_base : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_a;
         LET pnew_region_size : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
+        (* A nonempty range must end inside data memory (128 words). Both
+           operands are bytes, so the sum does not wrap. *)
+        LET pnew_out_of_memory <-
+          (#opcode == $$(OP_PNEW)) && (#pnew_region_size != $0) &&
+          ($$(natToWord WordSz 128) < (#pnew_base + #pnew_region_size));
+        LET partition_capacity_fault <-
+          #pnew_overflow || #psplit_overflow || #pmerge_overflow || #pnew_out_of_memory;
         LET pnew_conflict <-
           pt_range_conflict #pt_bases_v #pt_sizes_v #pt_next_id_v #pnew_base #pnew_region_size;
         LET pnew_present <-
@@ -549,10 +557,12 @@ Section ThieleCPU.
         LET pmerge_adjacent <-
           (#pmerge_m1_sz == $0) || (#pmerge_m2_sz == $0) || #pmerge_m1_first || #pmerge_m2_first;
 
-        (* Partition-overlap fault: PNEW names a range that overlaps a module
-           without being its range, or PMERGE names two ranges that do not
-           touch. The step traps; the partition table stays as it was. *)
+        (* Partition fault: a capacity fault, or PNEW names a range that
+           overlaps a module without being its range, or PMERGE names two
+           ranges that do not touch. The step traps as a failed LASSERT does,
+           with the cost charged; the partition table stays as it was. *)
         LET partition_fault <-
+          #partition_capacity_fault ||
           ((#opcode == $$(OP_PNEW)) && #pnew_conflict) ||
           ((#opcode == $$(OP_PMERGE)) && !#pmerge_adjacent);
 
@@ -914,7 +924,7 @@ Section ThieleCPU.
 
         (* CHSH_TRIAL is valid only when opcode matches and no violations *)
         LET is_chsh_valid <- (#opcode == $$(OP_CHSH_TRIAL)) &&
-          !#bianchi_violation && !#locality_violation && !#ptable_overflow_violation &&
+          !#bianchi_violation && !#locality_violation &&
           !#nfi_violation && !#rich_fault;
 
         (* ============================================================
@@ -1018,7 +1028,7 @@ Section ThieleCPU.
            Determine new PC
            *)
         LET new_pc : Bit WordSz <-
-          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #nfi_violation || #rich_fault || #partition_fault)
+          IF (#bianchi_violation || #locality_violation || #nfi_violation || #rich_fault || #partition_fault)
           then #trap_vector_v
           else (IF (#opcode == $$(OP_JUMP))
                       then #jump_target
@@ -1049,7 +1059,7 @@ Section ThieleCPU.
            Determine new register file
            *)
         LET new_regs : Vector (Bit WordSz) RegIdxSz <-
-          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #nfi_violation || #rich_fault || #morph_runtime_fault)
+          IF (#bianchi_violation || #locality_violation || #nfi_violation || #rich_fault || #morph_runtime_fault)
           then #regs_v
           else (IF (#opcode == $$(OP_LOAD_IMM))
           then #regs_v@[#dst_idx <- #imm32]
@@ -1096,7 +1106,7 @@ Section ThieleCPU.
            Determine new memory
            *)
         LET new_mem : Vector (Bit WordSz) MemAddrSz <-
-          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #nfi_violation || #rich_fault || #morph_runtime_fault)
+          IF (#bianchi_violation || #locality_violation || #nfi_violation || #rich_fault || #morph_runtime_fault)
           then #mem_v
           else (IF (#opcode == $$(OP_STORE))
           then write_mem #mem_addr_a #src_val #mem_v
@@ -1108,11 +1118,11 @@ Section ThieleCPU.
 
         (* Determine halted state *)
         LET new_halted <-
-          #locality_violation || #ptable_overflow_violation || #nfi_violation || (#opcode == $$(OP_HALT));
+          #locality_violation || #nfi_violation || (#opcode == $$(OP_HALT));
 
         (* Determine error state: protocol violations set err. *)
         LET new_err <-
-          #locality_violation || #ptable_overflow_violation || #nfi_violation ||
+          #locality_violation || #nfi_violation ||
           #rich_fault || #morph_runtime_fault ||
           #lassert_unsat_trap || #chsh_lassert_trap || #partition_fault;
 
@@ -1122,21 +1132,21 @@ Section ThieleCPU.
           then $$(ERR_BIANCHI_VAL)
           else (IF #locality_violation
                 then $$(ERR_LOCALITY_VAL)
-                else (IF #ptable_overflow_violation
-                      then $$(ERR_PARTITION_VAL)
-                      else (IF #nfi_violation
+                else (IF #nfi_violation
+                      then $$(ERR_LOGIC_VAL)
+                      else (IF #rich_fault
+                            then #rich_fault_error_code
+                      else (IF #morph_runtime_fault
+                            then #morph_runtime_error_code
+                      else (IF #lassert_unsat_trap
                             then $$(ERR_LOGIC_VAL)
-                            else (IF #rich_fault
-                                  then #rich_fault_error_code
-                            else (IF #morph_runtime_fault
-                                  then #morph_runtime_error_code
-                            else (IF #lassert_unsat_trap
-                                  then $$(ERR_LOGIC_VAL)
-                                  else (IF #chsh_lassert_trap
-                                        then $$(ERR_CHSH_VAL)
-                                        else (IF #partition_fault
-                                              then $$(ERR_PARTITION_OVERLAP_VAL)
-                                              else #error_code_v))))))));
+                            else (IF #chsh_lassert_trap
+                                  then $$(ERR_CHSH_VAL)
+                                  else (IF #partition_fault
+                                        then (IF #partition_capacity_fault
+                                              then $$(ERR_PARTITION_VAL)
+                                              else $$(ERR_PARTITION_OVERLAP_VAL))
+                                        else #error_code_v)))))));
 
         (* Determine new mu — only charge if not a bianchi violation. *)
         LET rich_fault_mu : Bit WordSz <-
@@ -1172,7 +1182,7 @@ Section ThieleCPU.
                                   then #new_mu + $1
                                   else #new_mu)))));
         LET final_mu : Bit WordSz <-
-          IF (#bianchi_violation || #ptable_overflow_violation || #nfi_violation)
+          IF (#bianchi_violation || #nfi_violation)
           then #mu_v
           else (IF #rich_fault then #rich_fault_mu else #normal_step_mu);
 
@@ -1180,7 +1190,7 @@ Section ThieleCPU.
            CERTIFY flag update — set by CERTIFY opcode only
            *)
         LET new_certified : Bool <-
-          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #nfi_violation || #rich_fault || #morph_runtime_fault)
+          IF (#bianchi_violation || #locality_violation || #nfi_violation || #rich_fault || #morph_runtime_fault)
           then #certified_v
           else (IF (#opcode == $$(OP_CERTIFY))
                 then $$true
@@ -1243,7 +1253,7 @@ Section ThieleCPU.
 
         (* Select partition table update based on opcode *)
         LET new_pt_sizes : Vector (Bit WordSz) PTableIdxSz <-
-          IF (#bianchi_violation || #ptable_overflow_violation || #rich_fault || #morph_runtime_fault || #partition_fault)
+          IF (#bianchi_violation || #rich_fault || #morph_runtime_fault || #partition_fault)
           then #pt_sizes_v
           else (IF (#opcode == $$(OP_PNEW))
                 then #pt_after_pnew
@@ -1254,7 +1264,7 @@ Section ThieleCPU.
                             else #pt_sizes_v)));
 
         LET new_pt_bases : Vector (Bit WordSz) PTableIdxSz <-
-          IF (#bianchi_violation || #ptable_overflow_violation || #rich_fault || #morph_runtime_fault || #partition_fault)
+          IF (#bianchi_violation || #rich_fault || #morph_runtime_fault || #partition_fault)
           then #pt_bases_v
           else (IF (#opcode == $$(OP_PNEW))
                 then #bases_after_pnew
@@ -1265,7 +1275,7 @@ Section ThieleCPU.
                             else #pt_bases_v)));
 
         LET new_pt_next_id : Bit PTableNextIdSz <-
-          IF (#bianchi_violation || #ptable_overflow_violation || #rich_fault || #morph_runtime_fault || #partition_fault)
+          IF (#bianchi_violation || #rich_fault || #morph_runtime_fault || #partition_fault)
           then #pt_next_id_v
           else (IF (#opcode == $$(OP_PNEW))
                 then #next_after_pnew
@@ -1293,7 +1303,7 @@ Section ThieleCPU.
         (* info_gain increments only when No-Free-Insight bound is satisfied. *)
         LET new_info_gain : Bit WordSz <-
           IF (#is_info_gain_op && !#bianchi_violation && !#locality_violation &&
-              !#ptable_overflow_violation && !#nfi_violation &&
+              !#nfi_violation &&
               !#rich_fault && !#morph_runtime_fault)
           then #info_gain_v + #op_b_32
           else #info_gain_v;
@@ -1337,34 +1347,34 @@ Section ThieleCPU.
 
         LET new_module_tensors : Vector (Vector (Bit WordSz) MuTensorIdxSz) ModTensorIdxSz <-
           IF ((#opcode == $$(OP_TENSOR_SET)) &&
-              !(#bianchi_violation || #locality_violation || #ptable_overflow_violation ||
+              !(#bianchi_violation || #locality_violation ||
                 #nfi_violation || #rich_fault || #morph_runtime_fault))
           then #module_tensors_v@[#tset_mod <- #tset_row@[#tset_idx <- #op_b_32]]
           else #module_tensors_v;
 
         LET new_morph_src_table : Vector (Bit PTableIdxSz) MorphTableIdxSz <-
-          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation ||
+          IF (#bianchi_violation || #locality_violation ||
               #nfi_violation || #rich_fault || #morph_runtime_fault)
           then #morph_src_table_v
           else (IF #morph_allocates
                 then #morph_src_table_v@[#morph_slot <- #morph_alloc_src]
                 else #morph_src_table_v);
         LET new_morph_dst_table : Vector (Bit PTableIdxSz) MorphTableIdxSz <-
-          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation ||
+          IF (#bianchi_violation || #locality_violation ||
               #nfi_violation || #rich_fault || #morph_runtime_fault)
           then #morph_dst_table_v
           else (IF #morph_allocates
                 then #morph_dst_table_v@[#morph_slot <- #morph_alloc_dst]
                 else #morph_dst_table_v);
         LET new_morph_coupling_desc_table : Vector (Bit DescIdxSz) MorphTableIdxSz <-
-          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation ||
+          IF (#bianchi_violation || #locality_violation ||
               #nfi_violation || #rich_fault || #morph_runtime_fault)
           then #morph_coupling_desc_table_v
           else (IF #morph_allocates
                 then #morph_coupling_desc_table_v@[#morph_slot <- #morph_alloc_coupling]
                 else #morph_coupling_desc_table_v);
         LET new_morph_identity_table : Vector Bool MorphTableIdxSz <-
-          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation ||
+          IF (#bianchi_violation || #locality_violation ||
               #nfi_violation || #rich_fault || #morph_runtime_fault)
           then #morph_identity_table_v
           else (IF #morph_allocates
@@ -1379,7 +1389,7 @@ Section ThieleCPU.
           morph_cascade #morph_valid_table_v #morph_src_table_v #morph_dst_table_v
                         #pmerge_m1 #pmerge_m2 MorphTableSz;
         LET new_morph_valid_table : Vector Bool MorphTableIdxSz <-
-          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation ||
+          IF (#bianchi_violation || #locality_violation ||
               #nfi_violation || #rich_fault || #morph_runtime_fault || #partition_fault)
           then #morph_valid_table_v
           else (IF #morph_allocates
@@ -1392,13 +1402,13 @@ Section ThieleCPU.
                                   then #pmerge_morph_valid
                                   else #morph_valid_table_v))));
         LET new_morph_next_id : Bit MorphTableNextIdSz <-
-          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation ||
+          IF (#bianchi_violation || #locality_violation ||
               #nfi_violation || #rich_fault || #morph_runtime_fault)
           then #morph_next_id_v
           else (IF #morph_allocates then #morph_next_id_v + $1 else #morph_next_id_v);
 
         LET new_cert_addr : Bit WordSz <-
-          IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation ||
+          IF (#bianchi_violation || #locality_violation ||
               #nfi_violation || #rich_fault || #morph_runtime_fault)
           then #cert_addr_v
           else (IF #is_morph_assert_ext && #morph_assert_success
@@ -1414,7 +1424,7 @@ Section ThieleCPU.
         LET mcycle_hi_next : Bit WordSz <- IF #mcycle_lo_wrap then #mcycle_hi_v + $1 else #mcycle_hi_v;
 
         LET retire_this_step <-
-          !#locality_violation && !#ptable_overflow_violation &&
+          !#locality_violation &&
           !#nfi_violation && !#rich_fault && !#morph_runtime_fault;
         LET minstret_lo_inc : Bit WordSz <- IF #retire_this_step then #minstret_lo_v + $1 else #minstret_lo_v;
         LET minstret_lo_wrap <- #retire_this_step && (#minstret_lo_inc == $0);
@@ -1467,7 +1477,7 @@ Section ThieleCPU.
         (* Rejected dispatch cannot start a background assertion engine:
            later FSM commits must not overwrite the rejection's PC/error. *)
         LET assertion_dispatch_allowed <-
-          !(#bianchi_violation || #locality_violation || #ptable_overflow_violation ||
+          !(#bianchi_violation || #locality_violation ||
             #nfi_violation || #rich_fault || #morph_runtime_fault);
         LET lassert_zero : Bit WordSz <- $$(natToWord WordSz 0);
         Write "lassert_phase"      <- IF (#is_lassert && #lassert_is_sat && #assertion_dispatch_allowed) then $$(WO~0~0~1) else $$(WO~0~0~0);
@@ -1520,7 +1530,7 @@ Section ThieleCPU.
         LET mc_zero_cnt : Bit CouplingPairCountSz <- $0;
         LET mc_zero_word : Bit WordSz <- $0;
         Write "mc_phase"      <- IF (#bianchi_violation || #locality_violation ||
-          #ptable_overflow_violation || #nfi_violation ||
+          #nfi_violation ||
           #rich_fault || #morph_runtime_fault) then $0 else #mc_new_phase;
         Write "mc_mem_base"   <- IF #morph_alloc_success
                                   then UniBit (ZeroExtendTrunc MemAddrSz WordSz) #ext_coupling_base

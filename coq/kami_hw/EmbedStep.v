@@ -710,18 +710,57 @@ Qed.
    These require well-formedness preconditions on the partition table.
    *)
 
-(** WellFormedPT: the partition table is in a valid state for graph ops. *)
+(** WellFormedPT: the partition table is in a valid state for graph ops.
+    The table may be full; a partition step that needs a slot then traps. *)
 Definition WellFormedPT (ks : KamiSnapshot) : Prop :=
   snap_pt_next_id ks >= 1 /\
-  snap_pt_next_id ks < PTableSz /\
+  snap_pt_next_id ks <= PTableSz /\
   snap_pt_sizes ks (snap_pt_next_id ks) = 0.
 
 (** --- PNEW --- *)
+
+(** On a range the kernel's memory check is the hardware's base + length
+    test. *)
+Lemma region_in_memory_seq_b : forall b n,
+  region_in_memory (List.seq b n) = orb (Nat.eqb n 0) (Nat.leb (b + n) MEM_SIZE).
+Proof.
+  intros b n. apply Bool.eq_iff_eq_true. rewrite region_in_memory_seq.
+  rewrite Bool.orb_true_iff, Nat.eqb_eq, Nat.leb_le. reflexivity.
+Qed.
+
+(** One free module number in the reconstructed graph is one free slot in
+    the hardware table. *)
+Lemma module_room_one_snap : forall id sizes bases,
+  module_room (snap_pt_to_graph id sizes bases) 1 = Nat.ltb id PTableSz.
+Proof.
+  intros id sizes bases. unfold module_room, snap_pt_to_graph. cbn [pg_next_id].
+  rewrite Nat.add_1_r. reflexivity.
+Qed.
+
+Lemma module_room_two_snap : forall id sizes bases,
+  module_room (snap_pt_to_graph id sizes bases) 2 = Nat.leb (S (S id)) PTableSz.
+Proof.
+  intros id sizes bases. unfold module_room, snap_pt_to_graph. cbn [pg_next_id].
+  replace (id + 2) with (S (S id)) by lia. reflexivity.
+Qed.
+
+(** The kernel's PNEW check on the reconstructed graph is the hardware's
+    capacity check and table scan. *)
+Lemma pnew_ok_snap : forall id sizes bases a sz,
+  id <= PTableSz -> 0 < sz ->
+  pnew_ok (snap_pt_to_graph id sizes bases) (List.seq a sz) =
+  andb (snap_pnew_capacity id a sz) (negb (snap_pt_conflict id sizes bases a sz)).
+Proof.
+  intros id sizes bases a sz Hle Hsz. unfold pnew_ok, snap_pnew_capacity.
+  rewrite module_room_one_snap, region_in_memory_seq_b.
+  rewrite (snap_pt_region_conflict id sizes bases a sz Hle Hsz). reflexivity.
+Qed.
+
 (** PNEW of a region names the range [hd 0 r, hd 0 r + length r) of its
-    normalized form r. The hardware scan of the partition table and the
-    kernel's list checks agree on every outcome: an overlap traps, an exact
-    match names the existing module, anything else takes slot
-    [snap_pt_next_id]. *)
+    normalized form r. The hardware checks and the kernel's list checks
+    agree on every outcome: no free slot or a range past data memory traps,
+    an overlap traps, an exact match names the existing module, anything
+    else takes slot [snap_pt_next_id]. *)
 Theorem embed_step_pnew_bounded :
   forall (ks : KamiSnapshot) (region : list nat) (cost : nat),
     snap_pt_next_id ks <= PTableSz ->
@@ -737,9 +776,13 @@ Proof.
   assert (Hg : vm_graph (abs_phase1 ks) =
                snap_pt_to_graph id (snap_pt_sizes ks) (snap_pt_bases ks)) by reflexivity.
   unfold vm_apply. rewrite Hpr, Hg.
-  rewrite (snap_pt_region_conflict id (snap_pt_sizes ks) (snap_pt_bases ks) a sz)
-    by (unfold id; lia).
+  rewrite (pnew_ok_snap id (snap_pt_sizes ks) (snap_pt_bases ks) a sz) by (unfold id; lia).
   unfold kami_step. fold id. fold a. fold sz.
+  destruct (snap_pnew_capacity id a sz) eqn:Hcap.
+  2: { (* no free slot, or a range past data memory: both trap *)
+       cbn [negb andb].
+       unfold partition_step_state, abs_phase1, csr_set_err, instruction_cost. simpl.
+       reflexivity. }
   destruct (snap_pt_conflict id (snap_pt_sizes ks) (snap_pt_bases ks) a sz) eqn:Hc.
   - (* overlap: both trap and keep the partition table *)
     cbn [negb andb].
@@ -777,8 +820,8 @@ Theorem embed_step_pnew :
     abs_phase1 (kami_step ks (instr_pnew region cost)) =
     vm_apply (abs_phase1 ks) (instr_pnew region cost).
 Proof.
-  intros ks region cost [Hge [Hlt Hfresh]] Hrsz.
-  apply embed_step_pnew_bounded; [unfold PTableSz in *; lia | exact Hrsz].
+  intros ks region cost [Hge [Hle Hfresh]] Hrsz.
+  apply embed_step_pnew_bounded; [exact Hle | exact Hrsz].
 Qed.
 
 (** Helper: abs_phase1 of graph-op hardware post-state equals advance_state

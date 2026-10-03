@@ -169,11 +169,13 @@ Proof.
   intros s i. unfold vm_apply, cert_addr_value_of.
   (* After destruct, cbv zeta reduces let-bindings without touching advance_state *)
   destruct i;
-  (* pnew, pmerge: success and partition trap both keep cert_addr *)
+  (* pnew, psplit, pmerge: success and partition trap all keep cert_addr *)
   try (left; cbv zeta; unfold partition_step_state;
-       destruct (negb (region_conflict _ _)); reflexivity);
+       destruct (pnew_ok _ _); reflexivity);
   try (left; cbv zeta; unfold partition_step_state;
-       destruct (pmerge_adjacent _ _ _); reflexivity);
+       destruct (module_room _ _); reflexivity);
+  try (left; cbv zeta; unfold partition_step_state;
+       destruct (pmerge_ok _ _ _); reflexivity);
   (* pnew: destruct the graph pair to expose advance_state *)
   try (left; destruct (graph_pnew _ _) as [g' mid];
        rewrite advance_state_cert_addr; reflexivity);

@@ -107,7 +107,7 @@ class TestOpcodeAlignment:
         program = [
             "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
-            "PNEW {128,129} 1",
+            "PNEW {} 1",
             "LOAD_IMM 1 10 0",
             "LOAD_IMM 2 5 0",
             "ADD 0 1 2 0",
@@ -126,7 +126,7 @@ class TestOpcodeAlignment:
         program = [
             "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
-            "PNEW {128,129} 1",
+            "PNEW {} 1",
             "LOAD_IMM 1 42 0",
             "STORE 10 1 0",
             "LOAD 2 10 0",
@@ -142,7 +142,7 @@ class TestOpcodeAlignment:
         program = [
             "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
-            "PNEW {128,129} 1",
+            "PNEW {} 1",
             "LOAD_IMM 1 255 0",
             "XFER 0 1 0",
             "XOR_ADD 0 1 0",
@@ -403,16 +403,22 @@ class TestPartitionSemantics:
         assert result["mu"] == 7
 
     def test_partition_table_bounded(self):
-        """RTL rejects PNEW beyond partition table capacity (64 entries)."""
+        """The partition table has 64 slots and module numbers start at 1, so
+        63 PNEWs fit; a PNEW on the full table traps with the partition error
+        code, and so does a PNEW whose range runs past data memory."""
         from thielecpu.hardware.cosim import run_verilog
-        # The RTL partition table holds a maximum of 64 entries.
-        # Generate 20 PNEWs — all should fit in the 64-slot table.
-        instructions = [f"PNEW {{{i*10},{i*10+10}}} 1" for i in range(20)]
-        instructions.append("HALT 0")
-        result = run_verilog(instructions)
-        assert result is not None
-        # All 20 entries should fit within the 64-slot partition table
-        assert len(result["modules"]) <= 64
+        fill = [f"PNEW {{{i}}} 1" for i in range(63)]
+        full = run_verilog(fill + ["HALT 0"])
+        assert full is not None
+        assert not full["err"]
+        over = run_verilog(fill + ["PNEW {63} 1", "HALT 0"])
+        assert over is not None
+        assert over["err"]
+        assert over["error_code"] == 0xBADF001D
+        past = run_verilog(["PNEW {127,128} 1", "HALT 0"])
+        assert past is not None
+        assert past["err"]
+        assert past["error_code"] == 0xBADF001D
 
 
 # ===========================================================================
@@ -482,7 +488,7 @@ class TestCrossLayerBisim:
         program = [
             "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
-            "PNEW {128,129} 1",
+            "PNEW {} 1",
             "LOAD_IMM 1 99 0",
             "STORE 5 1 0",
             "LOAD 2 5 0",

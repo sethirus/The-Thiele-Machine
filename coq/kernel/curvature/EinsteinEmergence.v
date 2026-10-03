@@ -104,9 +104,9 @@ Theorem information_creates_curvature : forall s s' m region cost threshold,
   vm_step s (instr_pnew region cost) s' ->
   In m region ->
   length (normalize_region region) = 3%nat ->
-  (* PNEW's range is fresh and overlaps no module *)
+  (* PNEW succeeds on its range, and no module owns that range *)
   graph_find_region (vm_graph s) (pnew_region region) = None ->
-  region_conflict (vm_graph s) (pnew_region region) = false ->
+  pnew_ok (vm_graph s) (pnew_region region) = true ->
   cost > 0 ->
   (* Then: *)
   (* 1. Topology changes *)

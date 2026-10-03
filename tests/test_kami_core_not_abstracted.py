@@ -52,12 +52,15 @@ def test_stack_operations_are_partition_bounded() -> None:
     assert 'LET ret_locality_bad <- #is_ret_op && !#ret_in_bounds;' in txt
 
 
-def test_partition_table_wraparound_is_explicitly_guarded() -> None:
+def test_partition_table_capacity_and_memory_bound_trap() -> None:
     txt = CORE.read_text(encoding="utf-8")
     assert 'LET ptable_full <- #pt_next_id_v >= $64;' in txt
     assert 'LET ptable_room_one <- !#ptable_full;' in txt
     assert 'LET ptable_room_two <- (#pt_next_id_v + $2) <= $64;' in txt
-    assert 'LET ptable_overflow_violation <- #pnew_overflow || #psplit_overflow || #pmerge_overflow;' in txt
+    assert '($$(natToWord WordSz 128) < (#pnew_base + #pnew_region_size))' in txt
+    assert '#pnew_overflow || #psplit_overflow || #pmerge_overflow || #pnew_out_of_memory;' in txt
+    assert '#partition_capacity_fault ||' in txt
+    assert 'ptable_overflow_violation' not in txt
     assert 'ERR_PARTITION_VAL' in txt
 
 

@@ -138,7 +138,7 @@ Proof.
   inversion Hstep; subst.
   unfold state_info.
   cbn [vm_graph partition_step_state].
-  destruct (negb _); [|lia].
+  destruct (pnew_ok _ _); [|lia].
   unfold graph_pnew. cbv zeta.
   destruct (graph_find_region _ _); [simpl; lia|].
   rewrite graph_add_module_length. lia.
@@ -153,7 +153,8 @@ Lemma psplit_module_count_change :
 Proof.
   intros s mid left right cost s' Hstep.
   inversion Hstep; subst; unfold state_info.
-  cbn [vm_graph advance_state].
+  cbn [vm_graph partition_step_state].
+  destruct (module_room _ _); [|lia].
   unfold graph_hw_psplit, graph_add_module.
   set (g0 := graph_cascade_delete_morphisms (vm_graph s) (mid mod 64)).
   assert (Hl0 : List.length (pg_modules g0) = List.length (pg_modules (vm_graph s)))
@@ -212,7 +213,7 @@ Proof.
   intros s m1 m2 cost s' Hstep.
   inversion Hstep; subst; unfold state_info.
   cbn [vm_graph partition_step_state].
-  destruct (pmerge_adjacent _ _ _); [|lia].
+  destruct (pmerge_ok _ _ _); [|lia].
   pose proof (graph_hw_pmerge_length_upper (vm_graph s) (m1 mod 64) (m2 mod 64)).
   lia.
 Qed.
@@ -488,7 +489,7 @@ Proof.
   unfold info_loss, state_info.
   inversion Hstep; subst.
   cbn [vm_graph partition_step_state].
-  destruct (pmerge_adjacent _ _ _); [|lia].
+  destruct (pmerge_ok _ _ _); [|lia].
   pose proof (graph_hw_pmerge_length_bound (vm_graph s) (m1 mod 64) (m2 mod 64)).
   lia.
 Qed.

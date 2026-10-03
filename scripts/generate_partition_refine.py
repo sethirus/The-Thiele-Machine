@@ -6,8 +6,10 @@ Each theorem has the shape of the [StepRefine] theorems: at a boundary whose
 fetched word is the canonical encoding, with the Bianchi guard false, err and
 halted clear and the listed admission premises, the actual step rule's next
 boundary observes exactly [kami_step (hwb_snapshot b) i]. The step rule's
-range checks are rewritten to [kami_step]'s natural-number checks with the
-lemmas of PartitionScan.v.
+range and capacity checks are rewritten to [kami_step]'s natural-number
+checks with the lemmas of PartitionScan.v, so the theorems cover the
+success branch and every trap: a full partition table, a PNEW range past
+data memory, an overlapping range, and ranges that do not touch.
 """
 import argparse
 from pathlib import Path
@@ -38,6 +40,13 @@ Proof.
   cbn [proj1_sig]. subst n. rewrite <- N_to_nat_wordToN. f_equal; vm_compute; reflexivity.
 Qed.
 
+Lemma wordToNat_err_partition :
+  wordToNat ERR_PARTITION_VAL = KAMI_ERR_PARTITION.
+Proof.
+  unfold KAMI_ERR_PARTITION. destruct kami_err_partition_witness as [n E].
+  cbn [proj1_sig]. subst n. rewrite <- N_to_nat_wordToN. f_equal; vm_compute; reflexivity.
+Qed.
+
 '''
 
 REFINE = {
@@ -45,15 +54,21 @@ REFINE = {
         instr='instr_pnew region (wordToNat C)', vars=['region : list nat'],
         prem=COST_PREM + [('Hreg', 'List.length (normalize_region region) = wordToNat Bw'),
                           ('Hbase', 'hd 0 (normalize_region region) = wordToNat A'),
-                          ('Hnext', 'wordToNat (hw_pt_next_id b) < 64'),
                           ('Hpo', 'wordToNat (hw_partition_ops b) + 1 < pow2 WordSz'),
                           ('Htrap', 'wordToNat (hw_trap_vector b) = LASSERT_TRAP_PC')],
-        pre='rewrite (pt_room_one_of_lt b Hnext). '
-            'rewrite !hw_pnew_conflict_nat, !hw_pnew_present_nat, !wordToNat_zext8_32.',
-        post='rewrite <- Hreg, <- Hbase. '
-             'destruct (snap_pt_conflict _ _ _ _ _) eqn:Hc; '
-             'cbn [negb andb]; try destruct (snap_pt_present _ _ _ _ _) eqn:Hp; cbn [negb andb].',
-        close=['exact Htrap', 'exact wordToNat_err_partition_overlap',
+        pre='rewrite (pt_room_one_ltb b). '
+            'rewrite !hw_pnew_in_memory_nat, !hw_pnew_conflict_nat, !hw_pnew_present_nat, '
+            '!wordToNat_zext8_32.',
+        post='rewrite <- Hreg, <- Hbase. unfold snap_pnew_capacity. '
+             'change PTableSz with 64. change MEM_SIZE with 128. '
+             'destruct (Nat.ltb (wordToNat (hw_pt_next_id b)) 64) eqn:Hnext; cbn [andb]; '
+             '[apply Nat.ltb_lt in Hnext|]. '
+             'all: try (destruct (orb (Nat.eqb (List.length (normalize_region region)) 0) '
+             '(Nat.leb (hd 0 (normalize_region region) + List.length (normalize_region region)) 128)) '
+             'eqn:Hmem; cbn [andb]). '
+             'all: try (destruct (snap_pt_conflict _ _ _ _ _) eqn:Hc; '
+             'cbn [negb andb]; try destruct (snap_pt_present _ _ _ _ _) eqn:Hp; cbn [negb andb]).',
+        close=['exact Htrap', 'exact wordToNat_err_partition_overlap', 'exact wordToNat_err_partition',
                'lazymatch goal with |- hwb_vector_nat _ = _ => '
                'refine (eq_trans (hwb_vector_nat_update _ _ _ _ _) _); unfold PTableIdxSz; '
                'rewrite wordToNat_trunc6_small by exact Hnext; rewrite wordToNat_zext8_32; '
@@ -69,35 +84,45 @@ M2 = '(split1 6 2 Bw)'
 
 REFINE['PMERGE'] = dict(
     instr='instr_pmerge (wordToNat A) (wordToNat Bw) (wordToNat C)',
-    prem=COST_PREM + [('Hnext', 'wordToNat (hw_pt_next_id b) < 64'),
-                      ('Hpo', 'wordToNat (hw_partition_ops b) + 1 < pow2 WordSz'),
+    prem=COST_PREM + [('Hpo', 'wordToNat (hw_partition_ops b) + 1 < pow2 WordSz'),
                       ('Hsum', 'wordToNat (hw_ptTable b (split1 6 2 A)) + wordToNat (hw_ptTable b (split1 6 2 Bw)) < pow2 WordSz'),
                       ('Htrap', 'wordToNat (hw_trap_vector b) = LASSERT_TRAP_PC')],
     rich_tac=(
         'assert (Hrich : hwb_rich (step_next b) = '
-        f'if hw_pmerge_adjacent b {M1} {M2} then rich_state_cascade (hwb_rich b) (wordToNat {M1}) (wordToNat {M2}) '
+        f'if andb (hw_pt_room_one b) (hw_pmerge_adjacent b {M1} {M2}) '
+        f'then rich_state_cascade (hwb_rich b) (wordToNat {M1}) (wordToNat {M2}) '
         'else hwb_rich b). '
-        '{ destruct (hw_pmerge_adjacent b ' + M1 + ' ' + M2 + ') eqn:Hadj. '
+        '{ destruct (hw_pt_room_one b) eqn:Hroom; '
+        '[destruct (hw_pmerge_adjacent b ' + M1 + ' ' + M2 + ') eqn:Hadj|]; cbn [andb]. '
         '- apply step_rich_cascade; [ rewrite (step_{low}_morph_valid_table {args} b Hf Hb), '
-        '(pt_room_one_of_lt b Hnext), Hadj; reflexivity '
+        'Hroom, Hadj; reflexivity '
         '| exact (step_{low}_morph_src_table {args} b Hf Hb) | exact (step_{low}_morph_dst_table {args} b Hf Hb) '
         '| exact (step_{low}_morph_coupling_desc_table {args} b Hf Hb) '
         '| exact (step_{low}_morph_identity_table {args} b Hf Hb) | exact (step_{low}_morph_next_id {args} b Hf Hb) '
         '| exact (step_{low}_coupling_desc_label_table {args} b Hf Hb) '
         '| exact (step_{low}_coupling_desc_label_len_table {args} b Hf Hb) ]. '
         '- apply step_rich_frame; '
-        '[ rewrite (step_{low}_morph_valid_table {args} b Hf Hb), (pt_room_one_of_lt b Hnext), Hadj; reflexivity '
+        '[ rewrite (step_{low}_morph_valid_table {args} b Hf Hb), Hroom, Hadj; reflexivity '
+        '| exact (step_{low}_morph_src_table {args} b Hf Hb) | exact (step_{low}_morph_dst_table {args} b Hf Hb) '
+        '| exact (step_{low}_morph_coupling_desc_table {args} b Hf Hb) '
+        '| exact (step_{low}_morph_identity_table {args} b Hf Hb) | exact (step_{low}_morph_next_id {args} b Hf Hb) '
+        '| exact (step_{low}_coupling_desc_label_table {args} b Hf Hb) '
+        '| exact (step_{low}_coupling_desc_label_len_table {args} b Hf Hb) ]. '
+        '- apply step_rich_frame; '
+        '[ rewrite (step_{low}_morph_valid_table {args} b Hf Hb), Hroom; reflexivity '
         '| exact (step_{low}_morph_src_table {args} b Hf Hb) | exact (step_{low}_morph_dst_table {args} b Hf Hb) '
         '| exact (step_{low}_morph_coupling_desc_table {args} b Hf Hb) '
         '| exact (step_{low}_morph_identity_table {args} b Hf Hb) | exact (step_{low}_morph_next_id {args} b Hf Hb) '
         '| exact (step_{low}_coupling_desc_label_table {args} b Hf Hb) '
         '| exact (step_{low}_coupling_desc_label_len_table {args} b Hf Hb) ]. } '
         'rewrite Hrich.'),
-    pre='rewrite (pt_room_one_of_lt b Hnext). '
+    pre='rewrite (pt_room_one_ltb b). '
         'rewrite !hw_pmerge_adjacent_nat, ?wordToNat_trunc6_8.',
     post='change PTableSz with 64. '
-         'destruct (snap_pmerge_adjacent _ _ _ _) eqn:Hadj; cbn [negb andb].',
-    close=['exact Htrap', 'exact wordToNat_err_partition_overlap',
+         'destruct (Nat.ltb (wordToNat (hw_pt_next_id b)) 64) eqn:Hnext; cbn [andb]; '
+         '[apply Nat.ltb_lt in Hnext|]. '
+         'all: try (destruct (snap_pmerge_adjacent _ _ _ _) eqn:Hadj; cbn [negb andb]).',
+    close=['exact Htrap', 'exact wordToNat_err_partition_overlap', 'exact wordToNat_err_partition',
            'lazymatch goal with |- hwb_vector_nat _ = _ => '
            'unfold PTableIdxSz; rewrite <- (wordToNat_trunc6_8 A), <- (wordToNat_trunc6_8 Bw); rewrite ?hwb_vector_nat_at; '
            'refine (eq_trans (hwb_vector_nat_update _ _ _ _ _) _); '
@@ -118,16 +143,31 @@ FRAME_ARGS = ' '.join(f'(step_{{low}}_{f} {{args}} b Hf Hb)' for f in [
 
 REFINE['PSPLIT'] = dict(
     instr='instr_psplit (wordToNat A) left right (wordToNat C)', vars=['left : list nat', 'right : list nat'],
-    prem=COST_PREM + [('Hnext', 'wordToNat (hw_pt_next_id b) + 2 <= 64'),
+    prem=COST_PREM + [('Hle', 'wordToNat (hw_pt_next_id b) <= 64'),
                       ('Hpo', 'wordToNat (hw_partition_ops b) + 1 < pow2 WordSz'),
-                      ('Hend', 'wordToNat (hw_ptBases b (split1 6 2 A)) + wordToNat (hw_ptTable b (split1 6 2 A)) < pow2 WordSz')],
+                      ('Hend', 'wordToNat (hw_ptBases b (split1 6 2 A)) + wordToNat (hw_ptTable b (split1 6 2 A)) < pow2 WordSz'),
+                      ('Htrap', 'wordToNat (hw_trap_vector b) = LASSERT_TRAP_PC')],
     rich_tac=(
-        f'rewrite (step_rich_cascade b {P1} {P1} '
-        'ltac:(rewrite (step_{low}_morph_valid_table {args} b Hf Hb), (pt_room_two_of_le b Hnext); reflexivity) '
-        + FRAME_ARGS + ').'),
-    pre='rewrite (pt_room_two_of_le b Hnext). rewrite ?wordToNat_trunc6_8.',
-    post='change PTableSz with 64.',
-    close=['lazymatch goal with |- hwb_vector_nat _ = _ => '
+        'assert (Hrich : hwb_rich (step_next b) = '
+        f'if hw_pt_room_two b then rich_state_cascade (hwb_rich b) (wordToNat {P1}) (wordToNat {P1}) '
+        'else hwb_rich b). '
+        '{ destruct (hw_pt_room_two b) eqn:Hroom. '
+        f'- exact (step_rich_cascade b {P1} {P1} '
+        'ltac:(rewrite (step_{low}_morph_valid_table {args} b Hf Hb), Hroom; reflexivity) '
+        + FRAME_ARGS + '). '
+        '- apply step_rich_frame; '
+        '[ rewrite (step_{low}_morph_valid_table {args} b Hf Hb), Hroom; reflexivity '
+        '| exact (step_{low}_morph_src_table {args} b Hf Hb) | exact (step_{low}_morph_dst_table {args} b Hf Hb) '
+        '| exact (step_{low}_morph_coupling_desc_table {args} b Hf Hb) '
+        '| exact (step_{low}_morph_identity_table {args} b Hf Hb) | exact (step_{low}_morph_next_id {args} b Hf Hb) '
+        '| exact (step_{low}_coupling_desc_label_table {args} b Hf Hb) '
+        '| exact (step_{low}_coupling_desc_label_len_table {args} b Hf Hb) ]. } '
+        'rewrite Hrich.'),
+    pre='rewrite (pt_room_two_leb b Hle). rewrite ?wordToNat_trunc6_8.',
+    post='change PTableSz with 64. '
+         'destruct (Nat.leb (S (S (wordToNat (hw_pt_next_id b)))) 64) eqn:Hnext; '
+         '[apply Nat.leb_le in Hnext|].',
+    close=['exact Htrap', 'exact wordToNat_err_partition','lazymatch goal with |- hwb_vector_nat _ = _ => '
            'change PTableSz with 64; unfold PTableIdxSz; rewrite <- (wordToNat_trunc6_8 A); '
            'rewrite ?hwb_vector_nat_at; '
            'refine (eq_trans (hwb_vector_nat_update _ _ _ _ _) _); '

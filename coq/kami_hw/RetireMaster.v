@@ -295,7 +295,6 @@ Inductive admitted : HWB -> vm_instruction -> Prop :=
     wordToNat (hw_mu b) + wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7) < pow2 WordSz ->
     List.length (normalize_region region) = wordToNat (bits8 b0 b1 b2 b3 b4 b5 b6 b7) ->
     hd 0 (normalize_region region) = wordToNat (bits8 a0 a1 a2 a3 a4 a5 a6 a7) ->
-    wordToNat (hw_pt_next_id b) < 64 ->
     wordToNat (hw_partition_ops b) + 1 < pow2 WordSz ->
     wordToNat (hw_trap_vector b) = LASSERT_TRAP_PC ->
     admitted b (instr_pnew region (wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7)))
@@ -305,9 +304,10 @@ Inductive admitted : HWB -> vm_instruction -> Prop :=
     hw_live b ->
     wordToNat (hw_pc b) + 1 < pow2 WordSz ->
     wordToNat (hw_mu b) + wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7) < pow2 WordSz ->
-    wordToNat (hw_pt_next_id b) + 2 <= 64 ->
+    wordToNat (hw_pt_next_id b) <= 64 ->
     wordToNat (hw_partition_ops b) + 1 < pow2 WordSz ->
     wordToNat (hw_ptBases b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7))) + wordToNat (hw_ptTable b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7))) < pow2 WordSz ->
+    wordToNat (hw_trap_vector b) = LASSERT_TRAP_PC ->
     admitted b (instr_psplit (wordToNat (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) left right (wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7)))
 | adm_pmerge : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 (b : HWB),
     step_fetched b = pmerge_word a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 ->
@@ -315,7 +315,6 @@ Inductive admitted : HWB -> vm_instruction -> Prop :=
     hw_live b ->
     wordToNat (hw_pc b) + 1 < pow2 WordSz ->
     wordToNat (hw_mu b) + wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7) < pow2 WordSz ->
-    wordToNat (hw_pt_next_id b) < 64 ->
     wordToNat (hw_partition_ops b) + 1 < pow2 WordSz ->
     wordToNat (hw_ptTable b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7))) + wordToNat (hw_ptTable b (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7))) < pow2 WordSz ->
     wordToNat (hw_trap_vector b) = LASSERT_TRAP_PC ->
@@ -1016,16 +1015,15 @@ Lemma retire_pnew : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1
   wordToNat (hw_mu b) + wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7) < pow2 WordSz ->
   List.length (normalize_region region) = wordToNat (bits8 b0 b1 b2 b3 b4 b5 b6 b7) ->
   hd 0 (normalize_region region) = wordToNat (bits8 a0 a1 a2 a3 a4 a5 a6 a7) ->
-  wordToNat (hw_pt_next_id b) < 64 ->
   wordToNat (hw_partition_ops b) + 1 < pow2 WordSz ->
   wordToNat (hw_trap_vector b) = LASSERT_TRAP_PC ->
   exists d, Retire b (instr_pnew region (wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7))) d.
 Proof.
-  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b region Hf Hb Hlive P0 P1 P2 P3 P4 P5 P6.
+  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b region Hf Hb Hlive P0 P1 P2 P3 P4 P5.
   pose proof Hlive as [Hh [He _]].
   exists (step_next b). split; [exact Hlive|]. split; [exists 0; apply busy_done|].
   split; [apply step_idle; [exact (step_pnew_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)|exact (step_pnew_chsh_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)|exact (step_pnew_mc_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)]|].
-  exact (step_pnew_refines a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b region Hf Hb He Hh P0 P1 P2 P3 P4 P5 P6).
+  exact (step_pnew_refines a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b region Hf Hb He Hh P0 P1 P2 P3 P4 P5).
 Qed.
 
 Lemma retire_psplit : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 (b : HWB) (left : list nat) (right : list nat),
@@ -1034,16 +1032,17 @@ Lemma retire_psplit : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 
   hw_live b ->
   wordToNat (hw_pc b) + 1 < pow2 WordSz ->
   wordToNat (hw_mu b) + wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7) < pow2 WordSz ->
-  wordToNat (hw_pt_next_id b) + 2 <= 64 ->
+  wordToNat (hw_pt_next_id b) <= 64 ->
   wordToNat (hw_partition_ops b) + 1 < pow2 WordSz ->
   wordToNat (hw_ptBases b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7))) + wordToNat (hw_ptTable b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7))) < pow2 WordSz ->
+  wordToNat (hw_trap_vector b) = LASSERT_TRAP_PC ->
   exists d, Retire b (instr_psplit (wordToNat (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) left right (wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7))) d.
 Proof.
-  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b left right Hf Hb Hlive P0 P1 P2 P3 P4.
+  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b left right Hf Hb Hlive P0 P1 P2 P3 P4 P5.
   pose proof Hlive as [Hh [He _]].
   exists (step_next b). split; [exact Hlive|]. split; [exists 0; apply busy_done|].
   split; [apply step_idle; [exact (step_psplit_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)|exact (step_psplit_chsh_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)|exact (step_psplit_mc_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)]|].
-  exact (step_psplit_refines a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b left right Hf Hb He Hh P0 P1 P2 P3 P4).
+  exact (step_psplit_refines a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b left right Hf Hb He Hh P0 P1 P2 P3 P4 P5).
 Qed.
 
 Lemma retire_pmerge : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 (b : HWB),
@@ -1052,17 +1051,16 @@ Lemma retire_pmerge : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 
   hw_live b ->
   wordToNat (hw_pc b) + 1 < pow2 WordSz ->
   wordToNat (hw_mu b) + wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7) < pow2 WordSz ->
-  wordToNat (hw_pt_next_id b) < 64 ->
   wordToNat (hw_partition_ops b) + 1 < pow2 WordSz ->
   wordToNat (hw_ptTable b (split1 6 2 (bits8 a0 a1 a2 a3 a4 a5 a6 a7))) + wordToNat (hw_ptTable b (split1 6 2 (bits8 b0 b1 b2 b3 b4 b5 b6 b7))) < pow2 WordSz ->
   wordToNat (hw_trap_vector b) = LASSERT_TRAP_PC ->
   exists d, Retire b (instr_pmerge (wordToNat (bits8 a0 a1 a2 a3 a4 a5 a6 a7)) (wordToNat (bits8 b0 b1 b2 b3 b4 b5 b6 b7)) (wordToNat (bits8 c0 c1 c2 c3 c4 c5 c6 c7))) d.
 Proof.
-  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb Hlive P0 P1 P2 P3 P4 P5.
+  intros a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb Hlive P0 P1 P2 P3 P4.
   pose proof Hlive as [Hh [He _]].
   exists (step_next b). split; [exact Hlive|]. split; [exists 0; apply busy_done|].
   split; [apply step_idle; [exact (step_pmerge_lassert_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)|exact (step_pmerge_chsh_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)|exact (step_pmerge_mc_phase a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb)]|].
-  exact (step_pmerge_refines a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb He Hh P0 P1 P2 P3 P4 P5).
+  exact (step_pmerge_refines a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 b Hf Hb He Hh P0 P1 P2 P3 P4).
 Qed.
 
 Lemma retire_chsh_trial : forall a0 a1 a2 a3 a4 a5 a6 a7 b0 b1 b2 b3 b4 b5 b6 b7 c0 c1 c2 c3 c4 c5 c6 c7 (b : HWB),

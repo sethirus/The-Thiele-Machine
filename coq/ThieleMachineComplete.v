@@ -1640,6 +1640,10 @@ Definition word64_mul (a b : nat) : nat := word64 (a * b).
 Definition REG_COUNT : nat := 16.
 Definition MEM_SIZE : nat := 128.
 
+(* Module numbers the partition table holds. PNEW, PSPLIT and PMERGE trap
+   rather than issue a module number at or above it. *)
+Definition NUM_MODULES : nat := 64.
+
 Definition reg_index (r : nat) : nat := r mod REG_COUNT.
 Definition mem_index (a : nat) : nat := a mod MEM_SIZE.
 
@@ -2077,10 +2081,60 @@ Definition region_conflict (g : PartitionGraph) (r : list nat) : bool :=
 
 (** PNEW of the empty region claims nothing, so it never conflicts. *)
 
+(** module_room g k: issuing [k] more module numbers keeps every number
+    below [NUM_MODULES], the 64 slots of the hardware partition table.
+    PNEW, PSPLIT and PMERGE take their module numbers from [pg_next_id] and
+    never reuse one, so [pg_next_id] counts every number ever issued. *)
+Definition module_room (g : PartitionGraph) (k : nat) : bool :=
+  Nat.leb (g.(pg_next_id) + k) NUM_MODULES.
+
+(** region_in_memory r: every address of [r] is a data-memory address. *)
+Definition region_in_memory (r : list nat) : bool :=
+  forallb (fun a => Nat.ltb a MEM_SIZE) r.
+
+(** pnew_ok g r: PNEW of the range [r] succeeds. A module number is free,
+    the range lies inside data memory, and the range overlaps no module
+    except one whose range it is. PNEW traps otherwise. *)
+Definition pnew_ok (g : PartitionGraph) (r : list nat) : bool :=
+  module_room g 1 && region_in_memory r && negb (region_conflict g r).
+
+Lemma pnew_ok_spec : forall g r, pnew_ok g r = true ->
+  module_room g 1 = true /\ region_in_memory r = true /\ region_conflict g r = false.
+Proof.
+  intros g r H. unfold pnew_ok in H.
+  apply andb_true_iff in H as [H H3]. apply andb_true_iff in H as [H1 H2].
+  apply negb_true_iff in H3. auto.
+Qed.
+
+Lemma module_room_spec : forall g k,
+  module_room g k = true <-> g.(pg_next_id) + k <= NUM_MODULES.
+Proof. intros g k. unfold module_room. apply Nat.leb_le. Qed.
+
+Lemma region_in_memory_spec : forall r,
+  region_in_memory r = true <-> (forall a, In a r -> a < MEM_SIZE).
+Proof.
+  intro r. unfold region_in_memory. rewrite forallb_forall.
+  split; intros H a Ha; [apply Nat.ltb_lt; exact (H a Ha) | apply Nat.ltb_lt; exact (H a Ha)].
+Qed.
+
+(** On a range the memory check is the hardware's base + length test. *)
+Lemma region_in_memory_seq : forall b n,
+  region_in_memory (List.seq b n) = true <-> n = 0 \/ b + n <= MEM_SIZE.
+Proof.
+  intros b n. rewrite region_in_memory_spec. split.
+  - intros H. destruct n as [|n]; [left; reflexivity|right].
+    assert (Hl : In (b + n) (List.seq b (S n))) by (apply in_seq; lia).
+    specialize (H _ Hl). lia.
+  - intros [->|Hle] a Ha; [destruct Ha|]. apply in_seq in Ha. lia.
+Qed.
+
+Arguments module_room : simpl never.
+Arguments pnew_ok : simpl never.
+
 (** pnew_adds_module g region: PNEW of [region] adds a fresh module to [g].
-    Its range overlaps no module, and no module owns exactly that range. *)
+    PNEW succeeds, and no module owns exactly that range. *)
 Definition pnew_adds_module (g : PartitionGraph) (region : list nat) : Prop :=
-  region_conflict g (pnew_region region) = false /\
+  pnew_ok g (pnew_region region) = true /\
   graph_find_region g (pnew_region region) = None.
 
 (** region_contiguousb: decision procedure for [region_contiguous]. *)
@@ -2094,6 +2148,17 @@ Definition pmerge_adjacent (g : PartitionGraph) (m1 m2 : ModuleID) : bool :=
   let r1 := graph_module_region g m1 in
   let r2 := graph_module_region g m2 in
   region_contiguousb (r1 ++ r2) || region_contiguousb (r2 ++ r1).
+
+(** pmerge_ok g m1 m2: PMERGE succeeds. A module number is free and the two
+    ranges touch. PMERGE traps otherwise. *)
+Definition pmerge_ok (g : PartitionGraph) (m1 m2 : ModuleID) : bool :=
+  module_room g 1 && pmerge_adjacent g m1 m2.
+
+Arguments pmerge_ok : simpl never.
+
+Lemma pmerge_ok_spec : forall g m1 m2, pmerge_ok g m1 m2 = true ->
+  module_room g 1 = true /\ pmerge_adjacent g m1 m2 = true.
+Proof. intros g m1 m2 H. unfold pmerge_ok in H. apply andb_true_iff in H. exact H. Qed.
 
 (** pmerge_region r1 r2: the joined range, starting at the lower base. *)
 Definition pmerge_region (r1 r2 : list nat) : list nat :=
@@ -3616,19 +3681,22 @@ Definition partition_step_state (s : VMState) (instr : vm_instruction)
 Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
   match instr with
   | instr_pnew region cost =>
-      (* PNEW claims the range pnew_region region; an overlap traps. *)
+      (* PNEW claims the range pnew_region region; a full module table, a
+         range past data memory, or an overlap traps. *)
       let r := pnew_region region in
       partition_step_state s (instr_pnew region cost)
-        (negb (region_conflict s.(vm_graph) r)) (fst (graph_pnew s.(vm_graph) r))
+        (pnew_ok s.(vm_graph) r) (fst (graph_pnew s.(vm_graph) r))
   | instr_psplit module left_region right_region cost =>
-      (* Hardware: half-split the module's range at module mod 64, no failure path *)
-      let graph' := graph_hw_psplit s.(vm_graph) (module mod 64) in
-      advance_state s (instr_psplit module left_region right_region cost)
-        graph' s.(vm_csrs) s.(vm_err)
+      (* Hardware: half-split the module's range at module mod 64; traps
+         when fewer than two module numbers are left *)
+      partition_step_state s (instr_psplit module left_region right_region cost)
+        (module_room s.(vm_graph) 2)
+        (graph_hw_psplit s.(vm_graph) (module mod 64))
   | instr_pmerge m1 m2 cost =>
-      (* Hardware: join two ranges that touch; anything else traps *)
+      (* Hardware: join two ranges that touch; anything else traps, and so
+         does a full module table *)
       partition_step_state s (instr_pmerge m1 m2 cost)
-        (pmerge_adjacent s.(vm_graph) (m1 mod 64) (m2 mod 64))
+        (pmerge_ok s.(vm_graph) (m1 mod 64) (m2 mod 64))
         (graph_hw_pmerge s.(vm_graph) (m1 mod 64) (m2 mod 64))
   | instr_lassert freg creg kind flen cost =>
       (* Hardware FSM: binary SAT checker from memory, trap on failure.
@@ -4075,20 +4143,20 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
            vm_certified := s.(vm_certified) |}
   end.
 
-(** PNEW and PMERGE in vm_apply, written as the partition step state. The
-    empty range never conflicts, so PNEW of the empty region always
-    advances. *)
+(** PNEW in vm_apply, written as the partition step state. The empty range
+    never conflicts and lies inside memory, so PNEW of the empty region
+    advances whenever a module number is free. *)
 Lemma vm_apply_pnew_eq :
   forall (s : VMState) (region : list nat) (cost : nat),
     vm_apply s (instr_pnew region cost) =
     partition_step_state s (instr_pnew region cost)
-      (negb (region_conflict s.(vm_graph) (pnew_region region)))
+      (pnew_ok s.(vm_graph) (pnew_region region))
       (fst (graph_pnew s.(vm_graph) (pnew_region region))).
 Proof. reflexivity. Qed.
 
 Lemma vm_apply_pnew_pc :
   forall (s : VMState) (region : list nat) (cost : nat),
-    region_conflict s.(vm_graph) (pnew_region region) = false ->
+    pnew_ok s.(vm_graph) (pnew_region region) = true ->
     (vm_apply s (instr_pnew region cost)).(vm_pc) = S s.(vm_pc).
 Proof.
   intros s region cost H. rewrite vm_apply_pnew_eq.
@@ -4409,7 +4477,7 @@ Proof. intros s r c. rewrite vm_apply_pnew_eq. reflexivity. Qed.
 
 Lemma vm_apply_pnew_pc_advances :
   forall s r c,
-    region_conflict s.(vm_graph) (pnew_region r) = false ->
+    pnew_ok s.(vm_graph) (pnew_region r) = true ->
     (vm_apply s (instr_pnew r c)).(vm_pc) = S s.(vm_pc).
 Proof. intros s r c H. apply vm_apply_pnew_pc. exact H. Qed.
 
@@ -4456,7 +4524,7 @@ Qed.
 
 Lemma vm_apply_pnew_strict_shadow :
   forall s r c,
-    region_conflict s.(vm_graph) (pnew_region r) = false ->
+    pnew_ok s.(vm_graph) (pnew_region r) = true ->
     strict_shadow (vm_apply s (instr_pnew r c)) =
     {| scs_mem := s.(vm_mem); scs_regs := s.(vm_regs); scs_pc := S s.(vm_pc) |}.
 Proof.
@@ -4514,7 +4582,7 @@ Theorem po1_cond2_final_shadow_equal :
 Proof.
   unfold po1_state_A, po1_state_B, po1_instr_A, po1_instr_B.
   rewrite vm_apply_certify_strict_shadow, vm_apply_pnew_strict_shadow
-    by apply region_conflict_nil.
+    by reflexivity.
   unfold po1_init. simpl. reflexivity.
 Qed.
 
@@ -4803,7 +4871,7 @@ Proof.
   rewrite vm_apply_certify_mem_preserved, vm_apply_certify_regs_preserved,
           vm_apply_certify_pc_advances.
   rewrite vm_apply_pnew_mem_preserved, vm_apply_pnew_regs_preserved,
-          vm_apply_pnew_pc_advances by apply region_conflict_nil.
+          vm_apply_pnew_pc_advances by reflexivity.
   unfold po1_init. simpl. reflexivity.
 Qed.
 
@@ -4880,7 +4948,7 @@ Proof.
   rewrite vm_apply_certify_mem_preserved, vm_apply_certify_regs_preserved,
           vm_apply_certify_pc_advances, vm_apply_certify_mu_charged.
   rewrite vm_apply_pnew_mem_preserved, vm_apply_pnew_regs_preserved,
-          vm_apply_pnew_pc_advances, vm_apply_pnew_mu_charged by apply region_conflict_nil.
+          vm_apply_pnew_pc_advances, vm_apply_pnew_mu_charged by reflexivity.
   unfold po1_init. simpl. reflexivity.
 Qed.
 
@@ -5343,12 +5411,12 @@ Lemma non_cert_setter_preserves_cert :
 Proof.
   intros s i Hrev Hemit Hljoin Hlassert Hcertify Hmorphassert.
   destruct i; unfold vm_apply.
-  - (* PNEW: success and overlap trap both keep cert_addr *)
-    simpl. destruct (negb _); reflexivity.
-  - (* PSPLIT: graph_hw_psplit is total, no Option *)
-    unfold advance_state. simpl. reflexivity.
+  - (* PNEW: success and partition trap both keep cert_addr *)
+    simpl. destruct (pnew_ok _ _); reflexivity.
+  - (* PSPLIT: success and capacity trap both keep cert_addr *)
+    simpl. destruct (module_room _ _); reflexivity.
   - (* PMERGE: success and trap both keep cert_addr *)
-    simpl. destruct (pmerge_adjacent _ _ _); reflexivity.
+    simpl. destruct (pmerge_ok _ _ _); reflexivity.
   - exfalso. eapply Hlassert. reflexivity.
   - exfalso. eapply Hljoin. reflexivity.
   - unfold advance_state. simpl. reflexivity.
@@ -7023,9 +7091,10 @@ Proof.
   (* Most cases: cert_addr is preserved (left disjunct).
      Kernel conversion handles all non-Option cases directly. *)
   try (left; reflexivity);
-  (* pnew, pmerge: success and partition trap both keep cert_addr *)
-  try (left; simpl; destruct (negb (region_conflict _ _)); reflexivity);
-  try (left; simpl; destruct (pmerge_adjacent _ _ _); reflexivity);
+  (* pnew, psplit, pmerge: success and partition trap both keep cert_addr *)
+  try (left; simpl; destruct (pnew_ok _ _); reflexivity);
+  try (left; simpl; destruct (module_room _ _); reflexivity);
+  try (left; simpl; destruct (pmerge_ok _ _ _); reflexivity);
   (* Option-matching cases need explicit destruct before reflexivity. *)
   (* lassert: branches on kind then check_model/check_lrat *)
   try (left; simpl; destruct kind;
@@ -12499,18 +12568,18 @@ Proof.
   rewrite (vm_apply_mu s (instr_pnew region cost)). reflexivity.
 Qed.
 
-(** The graph component of vm_apply for PNEW: unchanged on an overlap trap,
-    [graph_pnew] on the claimed range otherwise. *)
+(** The graph component of vm_apply for PNEW: [graph_pnew] on the claimed
+    range when PNEW succeeds, unchanged on a partition trap. *)
 Lemma vm_apply_pnew_graph :
   forall (s : VMState) (region : list nat) (cost : nat),
     (vm_apply s (instr_pnew region cost)).(vm_graph) =
-    if region_conflict s.(vm_graph) (pnew_region region)
-    then s.(vm_graph)
-    else fst (graph_pnew s.(vm_graph) (pnew_region region)).
+    if pnew_ok s.(vm_graph) (pnew_region region)
+    then fst (graph_pnew s.(vm_graph) (pnew_region region))
+    else s.(vm_graph).
 Proof.
   intros s region cost.
   unfold vm_apply.
-  destruct (region_conflict s.(vm_graph) (pnew_region region)); reflexivity.
+  destruct (pnew_ok s.(vm_graph) (pnew_region region)); reflexivity.
 Qed.
 
 (** vm_apply for PNEW does not decrease pg_next_id. *)
@@ -12521,7 +12590,7 @@ Lemma vm_apply_pnew_graph_nondec :
 Proof.
   intros s region cost.
   rewrite vm_apply_pnew_graph.
-  destruct (region_conflict s.(vm_graph) (pnew_region region)); [lia|].
+  destruct (pnew_ok s.(vm_graph) (pnew_region region)); [|lia].
   apply pnew_next_id_nondecreasing.
 Qed.
 
@@ -12534,7 +12603,7 @@ Theorem vm_apply_pnew_noninterference :
 Proof.
   intros s region cost mid Hlt.
   rewrite vm_apply_pnew_graph.
-  destruct (region_conflict s.(vm_graph) (pnew_region region)); [reflexivity|].
+  destruct (pnew_ok s.(vm_graph) (pnew_region region)); [|reflexivity].
   apply pnew_noninterference. exact Hlt.
 Qed.
 

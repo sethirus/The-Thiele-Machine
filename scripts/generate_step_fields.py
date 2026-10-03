@@ -47,6 +47,13 @@ Definition hw_pnew_present (b : HWB) (a len : word WordSz) : bool :=
     (Var type (SyntaxKind (Bit PTableNextIdSz)) (hw_pt_next_id b))
     (Var type (SyntaxKind (Bit WordSz)) a) (Var type (SyntaxKind (Bit WordSz)) len)).
 
+(** PNEW's memory check, as in the step rule: a nonempty range [a, a + len)
+    must end inside data memory (128 words). *)
+Definition hw_pnew_in_memory (a len : word WordSz) : bool :=
+  evalExpr (!(((Var type (SyntaxKind (Bit WordSz)) len) != $0) &&
+              ($$(natToWord WordSz 128) <
+               ((Var type (SyntaxKind (Bit WordSz)) a) + (Var type (SyntaxKind (Bit WordSz)) len)))))%kami_expr.
+
 (** PMERGE's adjacency check and the base of the joined range. *)
 Definition hw_pmerge_adjacent (b : HWB) (m1 m2 : word PTableIdxSz) : bool :=
   evalExpr (((Var type (SyntaxKind (Bit WordSz)) (hw_ptTable b m1)) == $0) ||
@@ -163,8 +170,10 @@ def locality(guard, success):
 
 
 def partition(guard, success):
-    fault = {'pc': 'hw_trap_vector b', 'halted': 'true', 'err': 'true',
-             'error_code': 'ERR_PARTITION_VAL', 'mu': 'hw_mu b',
+    """Success fields when [guard] (a capacity test) holds; the partition
+    capacity fault otherwise: trap, err, the fault word, cost charged."""
+    fault = {'pc': 'hw_trap_vector b', 'err': 'true',
+             'error_code': 'ERR_PARTITION_VAL',
              'partition_ops': 'wplus (hw_partition_ops b) (natToWord WordSz 1)'}
     out = {}
     for f in set(success) | set(fault):
@@ -258,7 +267,8 @@ def pnew():
         'pt_next_id': (f'if {present} then hw_pt_next_id b else '
                        'wplus (hw_pt_next_id b) (natToWord PTableNextIdSz 1)'),
         'partition_ops': 'wplus (hw_partition_ops b) (natToWord WordSz 1)'})
-    return partition('hw_pt_room_one b', nest(inner))
+    in_memory = partition(f'hw_pnew_in_memory ({a}) ({n})', nest(inner))
+    return partition('hw_pt_room_one b', nest(in_memory))
 
 
 def load_addr(base):

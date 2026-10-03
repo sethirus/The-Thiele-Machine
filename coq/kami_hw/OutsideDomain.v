@@ -1,16 +1,16 @@
 (** OutsideDomain.v: the trap-class guards are false for an admitted
     instruction's own opcode.
 
-    [StepFaults.dd_guard_opcode] says the locality, partition-overflow and NFI
-    guards can only fire on an opcode in [guard_opcodes]. [not_guard_of_opcode]
+    [StepFaults.dd_guard_opcode] says the locality and NFI guards can only
+    fire on an opcode in [guard_opcodes]. [not_guard_of_opcode]
     turns that into a decision procedure: an opcode outside that list takes the
     disjunction to [false], for an arbitrary boundary and fetched word. The
     per-opcode [op_off_*] facts below name the opcodes the admitted
     constructors use and discharge the membership test by computation, so each
     admitted instruction's trap-class guards are false without re-deriving any
     decode reasoning. The admitted constructors that do lie in the guard class
-    (the locality opcodes, the partition opcodes and PDISCOVER) carry the bound
-    premise that makes their own guard false.
+    (the locality opcodes and PDISCOVER) carry the bound premise that makes
+    their own guard false.
 
     Not covered here: the rich-format guard, which inspects operand and format
     fields and so needs a per-encoding argument, and the morph-runtime guard,
@@ -23,16 +23,14 @@ From KamiHW Require Import ThieleTypes ThieleCPUCore HWBoundary RuleNext RuleSte
 Local Open Scope nat_scope.
 Local Open Scope list_scope.
 
-(** An opcode outside [guard_opcodes] never raises the locality, partition or
-    NFI guard, whatever the operands and boundary. *)
+(** An opcode outside [guard_opcodes] never raises the locality or NFI
+    guard, whatever the operands and boundary. *)
 Lemma not_guard_of_opcode : forall (b : HWB) (w : word InstrSz) (c : word OpcodeSz),
   dd_opcode b w = c -> op_member c guard_opcodes = false ->
-  dd_locality_violation b w || dd_ptable_overflow_violation b w ||
-  dd_nfi_violation b w = false.
+  dd_locality_violation b w || dd_nfi_violation b w = false.
 Proof.
   intros b w c Ho Hm.
-  destruct (dd_locality_violation b w || dd_ptable_overflow_violation b w ||
-            dd_nfi_violation b w) eqn:H; [|reflexivity].
+  destruct (dd_locality_violation b w || dd_nfi_violation b w) eqn:H; [|reflexivity].
   exfalso. pose proof (dd_guard_opcode b w H) as Hin. rewrite Ho in Hin.
   exact (op_in_member_false c c guard_opcodes Hin Hm eq_refl).
 Qed.
@@ -111,28 +109,30 @@ Lemma op_off_lassert : op_member OP_LASSERT guard_opcodes = false.
 Proof. vm_compute. reflexivity. Qed.
 Lemma op_off_chsh_lassert : op_member OP_CHSH_LASSERT guard_opcodes = false.
 Proof. vm_compute. reflexivity. Qed.
+Lemma op_off_pnew : op_member OP_PNEW guard_opcodes = false.
+Proof. vm_compute. reflexivity. Qed.
+Lemma op_off_psplit : op_member OP_PSPLIT guard_opcodes = false.
+Proof. vm_compute. reflexivity. Qed.
+Lemma op_off_pmerge : op_member OP_PMERGE guard_opcodes = false.
+Proof. vm_compute. reflexivity. Qed.
 
-(** The guard class is exactly the six locality opcodes, the three partition
-    opcodes and PDISCOVER. *)
+(** The guard class is exactly the six locality opcodes and PDISCOVER. *)
 Lemma guard_opcodes_exact :
   guard_opcodes = OP_LOAD :: OP_HEAP_LOAD :: OP_STORE :: OP_HEAP_STORE ::
-    OP_CALL :: OP_RET :: OP_PNEW :: OP_PSPLIT :: OP_PMERGE :: OP_PDISCOVER :: nil.
+    OP_CALL :: OP_RET :: OP_PDISCOVER :: nil.
 Proof. reflexivity. Qed.
 
 Lemma locality_opcodes_sub_guard : forall c, In c locality_opcodes -> In c guard_opcodes.
 Proof. intros c H. unfold locality_opcodes, guard_opcodes in *. simpl in *. tauto. Qed.
 
-Lemma partition_opcodes_sub_guard : forall c, In c partition_opcodes -> In c guard_opcodes.
-Proof. intros c H. unfold partition_opcodes, guard_opcodes in *. simpl in *. tauto. Qed.
-
 (** * From an admitted instruction to its guard facts
 
     Each admitted constructor carries the fetched word, so the opcode lane is
     determined and [not_guard_of_opcode] applies for every opcode outside
-    [guard_opcodes]. The six memory opcodes, the three partition opcodes and
-    PDISCOVER are inside [guard_opcodes]; their constructors instead carry the
-    bound premise, so the corresponding guard is false by that premise rather
-    than by opcode membership. This file records the opcode-membership half;
+    [guard_opcodes]. The six memory opcodes and PDISCOVER are inside
+    [guard_opcodes]; their constructors instead carry the bound premise, so
+    the corresponding guard is false by that premise rather than by opcode
+    membership. This file records the opcode-membership half;
     the premise half is the constructors' own bounds, already present. *)
 
 Lemma op_member_guard_of_in : forall c, In c guard_opcodes -> op_member c guard_opcodes = true.

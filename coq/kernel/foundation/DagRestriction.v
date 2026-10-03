@@ -47,7 +47,7 @@ Import RevelationRequirement.RevelationProof.
        (no backward edges).
     4. LASSERT: on failure, jumps to LASSERT_TRAP_PC = 3840. We require
        the trace is short enough that this also exits bounds: length ≤ LASSERT_TRAP_PC.
-       PNEW and PMERGE trap to the same vector on a partition fault, so they
+       PNEW, PSPLIT and PMERGE trap to the same vector on a partition fault, so they
        carry the same length condition.
 
     These are static properties of the instruction and its position. They do
@@ -60,6 +60,7 @@ Definition is_dag_instr_at (pc trace_len : nat) (instr : vm_instruction) : bool 
   | instr_call _ _          => false
   | instr_ret _             => false
   | instr_pnew _ _          => Nat.leb trace_len LASSERT_TRAP_PC
+  | instr_psplit _ _ _ _    => Nat.leb trace_len LASSERT_TRAP_PC
   | instr_pmerge _ _ _      => Nat.leb trace_len LASSERT_TRAP_PC
   | instr_lassert _ _ _ _ _ => Nat.leb trace_len LASSERT_TRAP_PC
   | instr_chsh_lassert _    => Nat.leb trace_len LASSERT_TRAP_PC
@@ -193,9 +194,11 @@ Proof.
      (to avoid simpl unfolding lassert_exec_ok and friends). *)
   unfold is_dag_instr_at in Hdag.
   destruct instr; simpl in Hdag;
-    (* PNEW, PMERGE: success advances, a partition trap jumps to LASSERT_TRAP_PC *)
+    (* PNEW, PSPLIT, PMERGE: success advances, a partition trap jumps to
+       LASSERT_TRAP_PC *)
     try (unfold vm_apply; simpl;
-         first [destruct (negb _) | destruct (pmerge_adjacent _ _ _)]; simpl;
+         first [destruct (pnew_ok _ _) | destruct (module_room _ _)
+               | destruct (pmerge_ok _ _ _)]; simpl;
          [lia | apply Nat.leb_le in Hdag; unfold LASSERT_TRAP_PC in *; lia]);
     try (unfold vm_apply, advance_state; simpl; lia);
     try (unfold vm_apply, advance_state_rm; simpl; lia);

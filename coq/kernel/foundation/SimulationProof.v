@@ -262,19 +262,22 @@ Qed.
 Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
   match instr with
   | instr_pnew region cost =>
-      (* PNEW claims the range pnew_region region; an overlap traps. *)
+      (* PNEW claims the range pnew_region region; a full module table, a
+         range past data memory, or an overlap traps. *)
       let r := pnew_region region in
       partition_step_state s (instr_pnew region cost)
-        (negb (region_conflict s.(vm_graph) r)) (fst (graph_pnew s.(vm_graph) r))
+        (pnew_ok s.(vm_graph) r) (fst (graph_pnew s.(vm_graph) r))
   | instr_psplit module left_region right_region cost =>
-      (* Hardware: half-split the module's range at module mod 64, no failure path *)
-      let graph' := graph_hw_psplit s.(vm_graph) (module mod 64) in
-      advance_state s (instr_psplit module left_region right_region cost)
-        graph' s.(vm_csrs) s.(vm_err)
+      (* Hardware: half-split the module's range at module mod 64; traps
+         when fewer than two module numbers are left *)
+      partition_step_state s (instr_psplit module left_region right_region cost)
+        (module_room s.(vm_graph) 2)
+        (graph_hw_psplit s.(vm_graph) (module mod 64))
   | instr_pmerge m1 m2 cost =>
-      (* Hardware: join two ranges that touch; anything else traps *)
+      (* Hardware: join two ranges that touch; anything else traps, and so
+         does a full module table *)
       partition_step_state s (instr_pmerge m1 m2 cost)
-        (pmerge_adjacent s.(vm_graph) (m1 mod 64) (m2 mod 64))
+        (pmerge_ok s.(vm_graph) (m1 mod 64) (m2 mod 64))
         (graph_hw_pmerge s.(vm_graph) (m1 mod 64) (m2 mod 64))
   | instr_lassert freg creg kind flen cost =>
       (* Hardware FSM: binary SAT checker from memory, trap on failure.
@@ -789,13 +792,13 @@ Qed.
 (** vm_step_pc_advance: non-jump, non-lassert instructions advance PC by 1.
     Jump/branch/call/ret set pc to arbitrary target.
     LASSERT conditionally sets pc to S(pc) or LASSERT_TRAP_PC.
-    PNEW and PMERGE set pc to LASSERT_TRAP_PC on a partition fault. *)
+    PNEW, PSPLIT and PMERGE set pc to LASSERT_TRAP_PC on a partition fault. *)
 Lemma vm_step_pc_advance :
   forall s instr s',
     vm_step s instr s' ->
     (match instr with
      | instr_jump _ _ | instr_jnez _ _ _ | instr_call _ _ | instr_ret _
-     | instr_pnew _ _ | instr_pmerge _ _ _
+     | instr_pnew _ _ | instr_psplit _ _ _ _ | instr_pmerge _ _ _
      | instr_lassert _ _ _ _ _ | instr_chsh_lassert _
      | instr_chsh_lassert_1ab _ | instr_chsh_lassert_1ab_g5 _ _ _
      | instr_chsh_lassert_1ab_g345 _ _ _ _ _ _ _
@@ -866,14 +869,18 @@ Theorem vm_apply_preserves_partition_regions_ok : forall s instr,
 Proof.
   intros s instr H. pose proof H as [Hd Hc].
   destruct instr; simpl; try exact H.
-  all: try (destruct (region_conflict _ _) eqn:?; simpl;
-            [exact H
-            | split; [apply graph_pnew_preserves_regions_disjoint
-                     | apply graph_pnew_preserves_regions_contiguous]; assumption]).
-  all: try (split; [apply graph_hw_psplit_preserves_regions_disjoint
-                   | apply graph_hw_psplit_preserves_regions_contiguous]; assumption).
-  all: try (destruct (pmerge_adjacent _ _ _) eqn:?; simpl;
-            [split; [apply graph_hw_pmerge_preserves_regions_disjoint
+  all: try (destruct (pnew_ok _ _) eqn:Hk; simpl;
+            [destruct (pnew_ok_spec _ _ Hk) as [_ [_ Hc0]];
+             split; [apply graph_pnew_preserves_regions_disjoint
+                    | apply graph_pnew_preserves_regions_contiguous]; assumption
+            | exact H]).
+  all: try (destruct (module_room _ _) eqn:?; simpl;
+            [split; [apply graph_hw_psplit_preserves_regions_disjoint
+                    | apply graph_hw_psplit_preserves_regions_contiguous]; assumption
+            | exact H]).
+  all: try (destruct (pmerge_ok _ _ _) eqn:Hk; simpl;
+            [destruct (pmerge_ok_spec _ _ _ Hk) as [_ Hadj];
+             split; [apply graph_hw_pmerge_preserves_regions_disjoint
                     | apply graph_hw_pmerge_preserves_regions_contiguous]; assumption
             | exact H]).
   all: try (destruct (VMStep.tensor_indices_ok _ _); simpl; [|exact H];
@@ -926,10 +933,11 @@ Theorem vm_apply_preserves_well_formed_graph : forall s instr,
 Proof.
   intros s instr Hwf.
   destruct instr; simpl; try exact Hwf.
-  all: try (destruct (region_conflict _ _) eqn:?; simpl;
-            [exact Hwf | apply graph_pnew_preserves_wf; exact Hwf]).
-  all: try (apply graph_hw_psplit_preserves_wf; exact Hwf).
-  all: try (destruct (pmerge_adjacent _ _ _) eqn:?; simpl;
+  all: try (destruct (pnew_ok _ _) eqn:?; simpl;
+            [apply graph_pnew_preserves_wf; exact Hwf | exact Hwf]).
+  all: try (destruct (module_room _ _) eqn:?; simpl;
+            [apply graph_hw_psplit_preserves_wf; exact Hwf | exact Hwf]).
+  all: try (destruct (pmerge_ok _ _ _) eqn:?; simpl;
             [apply graph_hw_pmerge_preserves_wf; exact Hwf | exact Hwf]).
   all: try (destruct (VMStep.tensor_indices_ok _ _); simpl; [|exact Hwf];
             apply graph_update_module_tensor_preserves_wf; exact Hwf).
@@ -1298,27 +1306,35 @@ Qed.
     alongside vm_apply.  Both extraction paths must produce the same
     function. This file is the kernel-layer definition. *)
 
-(** vm_apply on PNEW and PMERGE, written as the partition step state. *)
+(** vm_apply on PNEW, PSPLIT and PMERGE, written as the partition step state. *)
 Lemma vm_apply_pnew_eq :
   forall (s : VMState) (region : list nat) (cost : nat),
     vm_apply s (instr_pnew region cost) =
     partition_step_state s (instr_pnew region cost)
-      (negb (region_conflict s.(vm_graph) (pnew_region region)))
+      (pnew_ok s.(vm_graph) (pnew_region region))
       (fst (graph_pnew s.(vm_graph) (pnew_region region))).
+Proof. reflexivity. Qed.
+
+Lemma vm_apply_psplit_eq :
+  forall (s : VMState) (module : nat) (left right : list nat) (cost : nat),
+    vm_apply s (instr_psplit module left right cost) =
+    partition_step_state s (instr_psplit module left right cost)
+      (module_room s.(vm_graph) 2)
+      (graph_hw_psplit s.(vm_graph) (module mod 64)).
 Proof. reflexivity. Qed.
 
 Lemma vm_apply_pmerge_eq :
   forall (s : VMState) (m1 m2 cost : nat),
     vm_apply s (instr_pmerge m1 m2 cost) =
     partition_step_state s (instr_pmerge m1 m2 cost)
-      (pmerge_adjacent s.(vm_graph) (m1 mod 64) (m2 mod 64))
+      (pmerge_ok s.(vm_graph) (m1 mod 64) (m2 mod 64))
       (graph_hw_pmerge s.(vm_graph) (m1 mod 64) (m2 mod 64)).
 Proof. reflexivity. Qed.
 
-(** PNEW advances the pc unless the claimed range conflicts. *)
+(** PNEW advances the pc when it succeeds. *)
 Lemma vm_apply_pnew_pc :
   forall (s : VMState) (region : list nat) (cost : nat),
-    region_conflict s.(vm_graph) (pnew_region region) = false ->
+    pnew_ok s.(vm_graph) (pnew_region region) = true ->
     (vm_apply s (instr_pnew region cost)).(vm_pc) = S s.(vm_pc).
 Proof.
   intros s region cost H. rewrite vm_apply_pnew_eq.
@@ -1330,23 +1346,19 @@ Lemma pnew_mu_exact :
   forall (s : VMState) (region : list nat) (cost : nat),
     (vm_apply s (instr_pnew region cost)).(vm_mu) = s.(vm_mu) + cost.
 Proof.
-  intros s region cost.
-  unfold vm_apply.
-  destruct (region_conflict s.(vm_graph) (pnew_region region)); reflexivity.
+  intros s region cost. reflexivity.
 Qed.
 
-(** The graph component of vm_apply for PNEW: unchanged on an overlap trap,
+(** The graph component of vm_apply for PNEW: unchanged on a trap,
     [graph_pnew] on the claimed range otherwise. *)
 Lemma vm_apply_pnew_graph :
   forall (s : VMState) (region : list nat) (cost : nat),
     (vm_apply s (instr_pnew region cost)).(vm_graph) =
-    if region_conflict s.(vm_graph) (pnew_region region)
-    then s.(vm_graph)
-    else fst (graph_pnew s.(vm_graph) (pnew_region region)).
+    if pnew_ok s.(vm_graph) (pnew_region region)
+    then fst (graph_pnew s.(vm_graph) (pnew_region region))
+    else s.(vm_graph).
 Proof.
-  intros s region cost.
-  unfold vm_apply.
-  destruct (region_conflict s.(vm_graph) (pnew_region region)); reflexivity.
+  intros s region cost. reflexivity.
 Qed.
 
 (** When PNEW adds a module, the new graph is [graph_add_module] on the
@@ -1357,8 +1369,8 @@ Lemma vm_apply_pnew_graph_adds :
     (vm_apply s (instr_pnew region cost)).(vm_graph) =
     fst (graph_add_module s.(vm_graph) (pnew_region region) []).
 Proof.
-  intros s region cost [Hfree Hfresh].
-  rewrite vm_apply_pnew_graph, Hfree.
+  intros s region cost [Hok Hfresh].
+  rewrite vm_apply_pnew_graph, Hok.
   unfold graph_pnew. cbv zeta. rewrite pnew_region_normalized, Hfresh.
   reflexivity.
 Qed.
@@ -1380,7 +1392,7 @@ Lemma vm_apply_pnew_graph_nondec :
 Proof.
   intros s region cost.
   rewrite vm_apply_pnew_graph.
-  destruct (region_conflict s.(vm_graph) (pnew_region region)); [lia|].
+  destruct (pnew_ok s.(vm_graph) (pnew_region region)); [|lia].
   apply graph_pnew_next_id_nondec.
 Qed.
 
@@ -1393,8 +1405,143 @@ Lemma vm_apply_pnew_noninterference :
 Proof.
   intros s region cost mid Hlt.
   rewrite vm_apply_pnew_graph.
-  destruct (region_conflict s.(vm_graph) (pnew_region region)); [reflexivity|].
+  destruct (pnew_ok s.(vm_graph) (pnew_region region)); [|reflexivity].
   apply graph_pnew_lookup_other. exact Hlt.
+Qed.
+
+(** [vm_apply_preserves_partition_in_bounds]: the executable step keeps every
+    region inside data memory, every module number below [NUM_MODULES], and
+    every module number held once. *)
+Theorem vm_apply_preserves_regions_in_memory : forall s instr,
+  regions_in_memory s.(vm_graph) -> regions_in_memory (vm_apply s instr).(vm_graph).
+Proof.
+  intros s instr H.
+  destruct instr; simpl; try exact H.
+  all: try (destruct (pnew_ok _ _) eqn:Hk; simpl;
+            [destruct (pnew_ok_spec _ _ Hk) as [_ [Hm _]];
+             apply graph_pnew_preserves_regions_in_memory; assumption
+            | exact H]).
+  all: try (destruct (module_room _ _) eqn:?; simpl;
+            [apply graph_hw_psplit_preserves_regions_in_memory; exact H | exact H]).
+  all: try (destruct (pmerge_ok _ _ _) eqn:?; simpl;
+            [apply graph_hw_pmerge_preserves_regions_in_memory; exact H | exact H]).
+  all: try (destruct (VMStep.tensor_indices_ok _ _); simpl; [|exact H];
+            apply graph_update_module_tensor_regions_in_memory; exact H).
+  all: try (destruct (graph_compose_morphisms _ _ _) as [[g' id']|] eqn:E; simpl; [|exact H];
+            exact (regions_in_memory_same _ _ (graph_compose_morphisms_modules _ _ _ _ _ E) H)).
+  all: try (destruct (graph_add_identity _ _) as [[g' id']|] eqn:E; simpl; [|exact H];
+            exact (regions_in_memory_same _ _ (graph_add_identity_modules _ _ _ _ E) H)).
+  all: try (destruct (graph_delete_morphism _ _) as [g'|] eqn:E; simpl; [|exact H];
+            exact (regions_in_memory_same _ _ (graph_delete_morphism_modules _ _ _ E) H)).
+  all: try (destruct (graph_tensor_morphisms _ _ _) as [[g' id']|] eqn:E; simpl; [|exact H];
+            exact (regions_in_memory_same _ _ (graph_tensor_morphisms_modules _ _ _ _ _ E) H)).
+  all: try (destruct (graph_lookup (vm_graph s) _); [destruct (graph_lookup (vm_graph s) _)|]; simpl; exact H).
+  all: try (destruct (graph_lookup_morphism _ _); simpl; exact H).
+  all: try (match goal with
+            | |- context [vm_graph (if ?b then _ else _)] => destruct b; simpl; exact H
+            end).
+Qed.
+
+Theorem vm_apply_preserves_modules_bounded : forall s instr,
+  s.(vm_graph).(pg_next_id) <= NUM_MODULES ->
+  (vm_apply s instr).(vm_graph).(pg_next_id) <= NUM_MODULES.
+Proof.
+  intros s instr H.
+  destruct instr.
+  all: try (rewrite vm_apply_pnew_eq, partition_step_state_graph;
+            destruct (pnew_ok _ _) eqn:Hk; [|exact H];
+            destruct (pnew_ok_spec _ _ Hk) as [Hr _]; apply module_room_spec in Hr;
+            match goal with
+            | |- context [graph_pnew ?g ?r] => pose proof (graph_pnew_next_id_le g r)
+            end; lia).
+  all: try (rewrite vm_apply_psplit_eq, partition_step_state_graph;
+            destruct (module_room _ _) eqn:Hk; [|exact H];
+            apply module_room_spec in Hk; rewrite graph_hw_psplit_next_id; lia).
+  all: try (rewrite vm_apply_pmerge_eq, partition_step_state_graph;
+            destruct (pmerge_ok _ _ _) eqn:Hk; [|exact H];
+            destruct (pmerge_ok_spec _ _ _ Hk) as [Hr _]; apply module_room_spec in Hr;
+            rewrite graph_hw_pmerge_next_id; lia).
+  all: simpl; try exact H.
+  all: try (destruct (VMStep.tensor_indices_ok _ _); simpl; [|exact H];
+            rewrite graph_update_module_tensor_next_id; exact H).
+  all: try (destruct (graph_compose_morphisms _ _ _) as [[g' id']|] eqn:E; simpl; [|exact H];
+            rewrite (graph_compose_morphisms_next_id_same _ _ _ _ _ E); exact H).
+  all: try (destruct (graph_add_identity _ _) as [[g' id']|] eqn:E; simpl; [|exact H];
+            rewrite (graph_add_identity_next_id_same _ _ _ _ E); exact H).
+  all: try (destruct (graph_delete_morphism _ _) as [g'|] eqn:E; simpl; [|exact H];
+            rewrite (graph_delete_morphism_next_id_same _ _ _ E); exact H).
+  all: try (destruct (graph_tensor_morphisms _ _ _) as [[g' id']|] eqn:E; simpl; [|exact H];
+            rewrite (graph_tensor_morphisms_next_id_same _ _ _ _ _ E); exact H).
+  all: try (destruct (graph_lookup (vm_graph s) _); [destruct (graph_lookup (vm_graph s) _)|]; simpl; exact H).
+  all: try (destruct (graph_lookup_morphism _ _); simpl; exact H).
+  all: try (match goal with
+            | |- context [vm_graph (if ?b then _ else _)] => destruct b; simpl; exact H
+            end).
+Qed.
+
+Theorem vm_apply_preserves_module_ids_distinct : forall s instr,
+  well_formed_graph s.(vm_graph) ->
+  module_ids_distinct s.(vm_graph) -> module_ids_distinct (vm_apply s instr).(vm_graph).
+Proof.
+  intros s instr Hwf H.
+  destruct instr; simpl; try exact H.
+  all: try (destruct (pnew_ok _ _) eqn:?; simpl;
+            [apply graph_pnew_preserves_ids_distinct; assumption | exact H]).
+  all: try (destruct (module_room _ _) eqn:?; simpl;
+            [apply graph_hw_psplit_preserves_ids_distinct; assumption | exact H]).
+  all: try (destruct (pmerge_ok _ _ _) eqn:?; simpl;
+            [apply graph_hw_pmerge_preserves_ids_distinct; assumption | exact H]).
+  all: try (destruct (VMStep.tensor_indices_ok _ _); simpl; [|exact H];
+            apply graph_update_module_tensor_ids_distinct; exact H).
+  all: try (destruct (graph_compose_morphisms _ _ _) as [[g' id']|] eqn:E; simpl; [|exact H];
+            exact (module_ids_distinct_same _ _ (graph_compose_morphisms_modules _ _ _ _ _ E) H)).
+  all: try (destruct (graph_add_identity _ _) as [[g' id']|] eqn:E; simpl; [|exact H];
+            exact (module_ids_distinct_same _ _ (graph_add_identity_modules _ _ _ _ E) H)).
+  all: try (destruct (graph_delete_morphism _ _) as [g'|] eqn:E; simpl; [|exact H];
+            exact (module_ids_distinct_same _ _ (graph_delete_morphism_modules _ _ _ E) H)).
+  all: try (destruct (graph_tensor_morphisms _ _ _) as [[g' id']|] eqn:E; simpl; [|exact H];
+            exact (module_ids_distinct_same _ _ (graph_tensor_morphisms_modules _ _ _ _ _ E) H)).
+  all: try (destruct (graph_lookup (vm_graph s) _); [destruct (graph_lookup (vm_graph s) _)|]; simpl; exact H).
+  all: try (destruct (graph_lookup_morphism _ _); simpl; exact H).
+  all: try (match goal with
+            | |- context [vm_graph (if ?b then _ else _)] => destruct b; simpl; exact H
+            end).
+Qed.
+
+Theorem vm_apply_preserves_partition_in_bounds : forall s instr,
+  partition_in_bounds s.(vm_graph) -> partition_in_bounds (vm_apply s instr).(vm_graph).
+Proof.
+  intros s instr [Hwf [Hm [Hn Hd]]].
+  split; [exact (vm_apply_preserves_well_formed_graph s instr Hwf)|].
+  split; [exact (vm_apply_preserves_regions_in_memory s instr Hm)|].
+  split; [exact (vm_apply_preserves_modules_bounded s instr Hn)|].
+  exact (vm_apply_preserves_module_ids_distinct s instr Hwf Hd).
+Qed.
+
+(** [run_vm_partition_in_bounds]: from a well-formed state with no modules and
+    [pg_next_id] at most [NUM_MODULES], every run ends in a state whose module
+    regions are pairwise disjoint ranges of data memory, with at most
+    [NUM_MODULES] modules, each numbered below 64. *)
+Corollary run_vm_partition_in_bounds : forall fuel trace s,
+  well_formed_graph s.(vm_graph) ->
+  s.(vm_graph).(pg_modules) = [] ->
+  s.(vm_graph).(pg_next_id) <= NUM_MODULES ->
+  partition_regions_ok (run_vm fuel trace s).(vm_graph) /\
+  partition_in_bounds (run_vm fuel trace s).(vm_graph) /\
+  List.length (run_vm fuel trace s).(vm_graph).(pg_modules) <= NUM_MODULES.
+Proof.
+  intros fuel trace s Hwf H0 Hn.
+  assert (Hb : partition_in_bounds (run_vm fuel trace s).(vm_graph)).
+  { assert (Hb0 : partition_in_bounds s.(vm_graph)).
+    { split; [exact Hwf|]. split; [apply regions_in_memory_no_modules; exact H0|].
+      split; [exact Hn|]. unfold module_ids_distinct. rewrite H0. constructor. }
+    clear Hwf H0 Hn. revert trace s Hb0.
+    induction fuel as [|fuel IH]; intros trace s Hb0; simpl; [exact Hb0|].
+    destruct (nth_error trace s.(vm_pc)); [|exact Hb0].
+    apply IH. apply vm_apply_preserves_partition_in_bounds. exact Hb0. }
+  split; [exact (run_vm_regions_disjoint fuel trace s H0)|].
+  split; [exact Hb|].
+  destruct Hb as [Hwf' [_ [Hn' Hd']]]. exact (modules_count_bounded _ Hwf' Hd' Hn').
 Qed.
 
 (** pnew_chain applies PNEW n times.

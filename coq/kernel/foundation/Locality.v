@@ -348,15 +348,16 @@ Proof.
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
     cbn [partition_step_state vm_graph].
-    destruct (negb _); [|reflexivity].
+    destruct (pnew_ok _ _); [|reflexivity].
     apply region_obs_lookup_eq.
     symmetry.
     apply graph_pnew_lookup_other.
     apply (module_exists_implies_below s mid Hwf Hexists).
-  - (* psplit - restructures graph via graph_hw_psplit *)
+  - (* psplit - restructures graph via graph_hw_psplit; a trap keeps the graph *)
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
-    rewrite advance_state_graph.
+    cbn [partition_step_state vm_graph].
+    destruct (module_room _ _); [|reflexivity].
     apply region_obs_lookup_eq. symmetry.
     pose proof (not_in_singleton mid _ Hnot_target) as Hneq.
     apply graph_hw_psplit_lookup_other;
@@ -365,7 +366,7 @@ Proof.
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
     cbn [partition_step_state vm_graph].
-    destruct (pmerge_adjacent _ _ _); [|reflexivity].
+    destruct (pmerge_ok _ _ _); [|reflexivity].
     apply region_obs_lookup_eq. symmetry.
     destruct (not_in_pair mid _ _ Hnot_target) as [Hneq1 Hneq2].
     apply graph_hw_pmerge_lookup_other;
